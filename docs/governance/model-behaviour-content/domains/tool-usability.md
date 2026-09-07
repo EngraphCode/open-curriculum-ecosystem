@@ -20,7 +20,7 @@ This view holds **304 items** — too many to read in one sitting, so it is divi
 
 | Section | Items | Ours to change | Owned elsewhere | Retired |
 | --- | ---: | ---: | ---: | ---: |
-| [tool-param-description](./tool-usability--tool-param-description.md) | 101 | 51 | 50 | 0 |
+| [tool-param-description](./tool-usability--tool-param-description.md) | 101 | 50 | 50 | 1 |
 | [tool-guidance](./tool-usability--tool-guidance.md) | 70 | 49 | 0 | 21 |
 | [tool-description](./tool-usability--tool-description.md) | 46 | 14 | 29 | 3 |
 | [tool-title](./tool-usability--tool-title.md) | 42 | 13 | 27 | 2 |

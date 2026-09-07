@@ -385,14 +385,7 @@ export function summariseThread(subgraph: ThreadMisconceptionsSubgraph): string 
 **What it says now:**
 
 ```text
-function summariseSubgraph(subgraph: PriorKnowledgeSubgraph): string {
-  const anchorCount = subgraph.resolvedAnchors.length;
-  const base = `Prior-knowledge subgraph for ${String(anchorCount)} anchor unit${anchorCount === 1 ? '' : 's'} at depth ${String(subgraph.depth)}: ${String(subgraph.nodes.length)} units, ${String(subgraph.edges.length)} prerequisiteFor edges.`;
-  if (subgraph.unknownAnchors.length === 0) {
-    return base;
-  }
-  return `${base} ${String(subgraph.unknownAnchors.length)} unknown anchor slug${subgraph.unknownAnchors.length === 1 ? '' : 's'} reported in unknownAnchors.`;
-}
+const base = `Stated prior knowledge for ${String(anchorCount)} anchor unit
 ```
 
 **What it is for:** Information-only framing: node/edge counts at depth plus unknown-anchor honesty.
@@ -401,7 +394,7 @@ function summariseSubgraph(subgraph: PriorKnowledgeSubgraph): string {
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** response-format-template · **Impact tier:** high-impact
 
 ### C258 — summariseProgression

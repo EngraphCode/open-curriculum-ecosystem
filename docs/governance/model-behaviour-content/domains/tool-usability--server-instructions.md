@@ -84,7 +84,7 @@ Call these tools first to reduce errors when using search, fetch, and browsing t
 **What it says now:**
 
 ```text
-Oak's curriculum is fully sequenced: year-ordered progressions, prior-knowledge, misconception, and keyword graphs are served by the anchored graph tools (get-thread-progressions, get-prior-knowledge-graph, get-misconception-graph, get-keyword-graph), so lesson and curriculum plans can build on what a class has already covered.
+Oak's curriculum is fully sequenced: year-ordered progressions, misconception and keyword graphs, and each unit's stated prior knowledge are served by the anchored tools (get-thread-progressions, get-misconception-graph, get-keyword-graph, get-prior-knowledge-graph), so lesson and curriculum plans can build on what a class has already covered.
 ```
 
 **What it is for:** Asserts Oak's curriculum is fully sequenced and names the anchored graph tools (get-thread-progressions, get-prior-knowledge-graph, get-misconception-graph, get-keyword-graph) so plans build on prior coverage.
@@ -92,7 +92,7 @@ Oak's curriculum is fully sequenced: year-ordered progressions, prior-knowledge,
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** server-instructions · **Impact tier:** high-impact
 
 ### C055 — generateServerInstructions() 'under-the-hood' paragraph
