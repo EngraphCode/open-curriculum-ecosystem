@@ -90,6 +90,14 @@ barrier:
   presence checks through the script's own `fail()`; a
   "behaviour-identical" claim must include the instrumentation's
   behaviour, not only the control flow.
+- **A permission-gated call never rides in the same batch as its gate**: a
+  code search against a private repository ran in the same parallel tool
+  batch as the `gh repo view --json visibility` check that gated it, so the
+  check's answer (PRIVATE) arrived after the read had returned six paths
+  (2026-09-05; read-only, nothing written). Batch only calls whose
+  permission does not depend on another call's result — the shared-cwd trap
+  above in another costume: parallel calls share state, and ordering by
+  hope is no ordering.
 
 ## See also (homed elsewhere, not duplicated)
 

@@ -14,7 +14,7 @@ merge_class: index-narrative-tables
 
 Implement the submission-blocking PostHog product-analytics capability defined
 by
-[`mcp-63-posthog-product-analytics.plan.md`](../../../plans/delivery/mcp-63-posthog-product-analytics.plan.md).
+[`mcp-63-posthog-product-analytics.plan.md`](../../../../plans/delivery/mcp-63-posthog-product-analytics.plan.md).
 The implementation must provide:
 
 1. a provider-neutral product-analytics port and working PostHog sink for the
@@ -24,7 +24,7 @@ The implementation must provide:
 PostHog is selected and required. The implementation blocks the initial
 submission. The privacy, access, retention, deletion, and accountable
 enablement evidence in
-[`mcp-173-posthog-privacy-governance.plan.md`](../../../plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
+[`mcp-173-posthog-privacy-governance.plan.md`](../../../../plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
 gates the October public beta.
 
 The focused replacement-stack outcome, exact protected heads, remaining slice
@@ -32,7 +32,7 @@ inventory, loss scan, and successor instructions are absorbed in the 27 July
 permanent handoff record at
 `.agent/reports/mcp-63-focused-successor-handoff-2026-07-27.md`.
 The earlier
-[26 July dated record](../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+[26 July dated record](../../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
 preserves the succession and monitoring chronology. This live thread remains
 temporary operational state.
 
@@ -69,9 +69,9 @@ temporary operational state.
 
 1. The owner's current direction and milestone language.
 2. The two ratified repository plan nodes.
-3. [ADR-218](../../../../docs/architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md).
+3. [ADR-218](../../../../../docs/architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md).
 4. The
-   [26 July probe report](../../../research/telemetry-and-understanding/2026-07-26-posthog-mcp-pre-execution-probes.md)
+   [26 July probe report](../../../../research/telemetry-and-understanding/2026-07-26-posthog-mcp-pre-execution-probes.md)
    for dated vendor behaviour evidence.
 5. Linear for delivery state and Notion for consultation state.
 
