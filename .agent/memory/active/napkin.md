@@ -2025,7 +2025,10 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   owner's NOW word ended the retry; the diff is reproduced on the handoff record. The
   successor commits, syncs (41 behind), pushes once, replies signed, and lands at green with
   signed dispositions only (the Director's step-back steer at 17:22Z). Tally 7 → 2 → 1 → 1.
-- **The writer's final containment shape** (the class-kill that ended the sampler's family):
+- **The writer's containment shape at round four** [SUPERSEDED — this was not final: the 19:3xZ–21:0xZ
+  block below records round five (a hard-linked target, reproduced and cured as 699b31489) and round six
+  (an ancestor directory-swap race, OPEN at the cold pause); read that block before reusing this recipe]
+  (the class-kill that ended the sampler's family, as it read at the time):
   lexical `startsWith(base + sep)` on the resolved `--out`; `realpath` of the nearest EXISTING
   ancestor checked before any `mkdir` (a recursive mkdir follows a symlinked component and
   creates outside first); `realpath` again once it exists; each target opened
@@ -2107,8 +2110,10 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   (b) a `pre_commit` entry whose recorded process is gone counts as stale. Falsifier for (a): a real
   collision class between disjoint worktrees that FIFO prevents today (the shared coordination-substrate
   files every ceremony writes?) — if one exists, the scoping must include it. Home: Juno's frictions list
-  already carries the bare-`index/head` collision (F-132 spelling); the permanent home is the
-  commit-queue-local-ephemera plan node (Juno's area) — routed by pointer, not edited from this seat.
+  already carries the bare-`index/head` collision (F-132 spelling); the operational work home is the
+  commit-queue-local-ephemera plan node (Juno's area; a plan is a temporary surface) — routed by pointer, not
+  edited from this seat; the permanent destinations if the finding outlives the plan are the commit skill's
+  §Claim scope is per working tree and the frictions register's F-132 row.
 - **Loop-class lesson (metacognition, retrospective):** rounds two, three and four were one contract being
   specified a case at a time (link target, FIFO target, inert flag) — each finding correct, each cure a
   tightening of the writer's threat model. The recur-proof cure is to write the CLOSED threat-model sentence
