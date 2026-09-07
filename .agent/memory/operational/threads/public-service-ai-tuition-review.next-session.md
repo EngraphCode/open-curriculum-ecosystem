@@ -3,13 +3,14 @@
 **Purpose**: One review lane over PR 66, the ADR-226 import of the 17-file public-service AI
 tuition research collection: import fidelity the PR's own validation surface cannot see, an audit
 of the published author-lineage review, and the owner's decisions returned as one packet with
-factors. Single-PR thread; retires with a banner when the lane PR merges.
+factors; then (second pass) the collection's substance. Single-PR thread whose records live on PR
+66's branch; retires with a banner when PR 66 merges.
 
 ## Participating agent identities (PDR-027)
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| Jackal wakes Nocturne | claude-code | claude-fable-5-1 | 3484b6 | implementer — the whole lane: plan (fleet-design-reviewed, owner-approved in-session), seat-side mechanical legs, frame gate and audit fleet, report, one typed review on PR 66, node and this record; claim `60d6d916` | 2026-09-06 | 2026-09-07 |
+| Jackal wakes Nocturne | claude-code | claude-fable-5-1 | 3484b6 | implementer — the whole lane: plan (fleet-design-reviewed, owner-approved in-session), seat-side mechanical legs, frame gate and audit fleet, report, two typed review comments on PR 66 (5126608127, 5126692305), node and this record; claim `60d6d916` | 2026-09-06 | 2026-09-07 |
 | Cricket weaves Burrow | claude-code | claude-fable-5-1 | f8f302 | implementer — the substance review of the collection from Jackal's brief: two typed reviews on PR 66, the report's "Second pass", `AUTHORITY.md` pointers, this record's RESUME 4; claim `f08ac8d9` | 2026-09-07 | 2026-09-07 |
 
 ## Current Continuation

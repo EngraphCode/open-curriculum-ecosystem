@@ -366,9 +366,24 @@ collection's substance under the returned rulings.
   history; any values of those shapes reproduce the controls) (both reported inside the file and
   at another path); the directory-mode caveat from `gitleaks detect --no-git --source .` inside the
   same tree.
-- **Workbook**: `unzip -tq`; `unzip -oq` then the `grep` counts above over `xl/worksheets/`.
-- **Runner**: `node --check`; `git cat-file -e <pin>:<path>` for the ten loaded paths and the
-  corpus.
+- **Workbook**: `git show 2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa:.agent/research/public-service-ai-tuition/assets/research-landscape.xlsx > research-landscape.xlsx`,
+  then `unzip -tq research-landscape.xlsx` (clean) and `unzip -oq research-landscape.xlsx -d xlsx`,
+  then the `grep` counts above over `xlsx/xl/worksheets/`.
+- **Runner**: `git show 2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa:.agent/research/public-service-ai-tuition/assets/oce-core-graphs-atoms-probes-2026-09-06.mjs > runner.mjs`
+  then `node --check runner.mjs` (the executable existed at that revision; at the landed head its
+  text is the fenced listing `assets/oce-core-graphs-atoms-probes-2026-09-06.md`); presence of the
+  loaded inputs at the probe pin by `git cat-file -e 31e76a7237ee7aecb8adfca96e73b2d83b25be39:<path>`
+  for each of `packages/core/result/src/index.ts`, `packages/core/type-helpers/src/index.ts`,
+  `packages/core/graph-core/src/term/index.ts`, `packages/core/graph-core/src/dataset/index.ts`,
+  `packages/libs/graph-ingest/src/source-path/index.ts`,
+  `packages/core/graph-core/src/graph-view/create-graph-view.ts`,
+  `agent-tools/src/typescript-estate/canonical-json.ts`,
+  `agent-tools/src/typescript-estate/length-framing.ts`,
+  `packages/sdks/oak-curriculum-sdk/src/client/middleware/retry.ts`,
+  `packages/sdks/oak-curriculum-sdk/src/config/retry-config.ts`,
+  `packages/libs/graph-project/src/projection/to-property-graph.ts`,
+  `packages/libs/graph-project/src/projection/from-property-graph.ts` and the corpus
+  `packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/data.json`.
 - **Tip checks**: single `grep -rn` searches over the lane worktree at SHA:341477368, paths as
   cited in the table.
 

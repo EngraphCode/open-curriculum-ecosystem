@@ -2,7 +2,7 @@
 id: public-service-ai-tuition-review
 node_type: delivery
 name: Independent review of the public-service AI tuition import (PR 66)
-overview: One review lane over PR 66 — import fidelity against ADR-226, an audit of the published author-lineage review, and the findings neither surface could make — landing a report, one typed review on the PR, and the forward obligations the owner decides.
+overview: One review lane over PR 66 in two passes — import fidelity against ADR-226 with an audit of the published author-lineage review, then the collection's substance — landing a report with both passes, four typed reviews on the PR, an OCE-side authority file beside the collection, and the forward obligations the owner decides; records live on PR 66's branch.
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -107,12 +107,14 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 
 ## Todos
 
-- One single-story PR, archival/record class (PDR-132 §3: exempt from the size warnings, bound by
-  the two-round budget): PR 68 — this node, the thread record and its continuity row, the report,
-  and one pointing row in `.agent/reports/README.md`. Lands after #58 in the slot the Director
-  holds (owner word 2026-09-07: "Director lands #58, Jackal finishes #68").
-- The two reviews on PR 66 (5126608127, 5126692305) are posted from the seat's bot identity and
-  are not part of this PR's diff.
+- Historical, completed 2026-09-07 12:39Z: the lane's records first travelled as PR 68 (this
+  node, the thread record and its continuity row, the report, one pointing row in
+  `.agent/reports/README.md`), routed to an `engraph` landing slot after #58. The owner
+  retargeted #68 onto PR 66's branch (08:15Z) and overturned the shape ("I never wanted the review
+  in a separate PR"); #68 merged into PR 66's branch and is closed. No lane PR remains; nothing
+  here lands anywhere but PR 66, whose landing is the owner's.
+- The four reviews on PR 66 (first pass 5126608127 and 5126692305; second pass 5132463698 and
+  5132534231) are posted under the bot identity and are not part of PR 66's diff.
 - Applied in PR 66 (2026-09-07 12:5xZ): the standing policy on the historical runner (owner word
   "Apply the standing policy"; ADR-226 clause 4; the TypeScript-only rule; no research-record
   exemption class), as reduction to data: the runner's exact text preserved as a fenced listing
@@ -141,8 +143,10 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 
 ## Review dispositions
 
-This section carries only findings on this lane's own PR (68). PR 66's findings live on PR 66 and
-in the report. Codex round one on PR 68 (2026-09-07 08:24Z, five threads):
+This section carries only findings on the lane's former record PR (#68, merged into PR 66's branch
+2026-09-07 12:39Z and closed). PR 66's findings live on PR 66 and in the report; the review rounds
+on the lane's files after they joined PR 66 are answered on PR 66 by signed reply. Codex round one
+on PR 68 (2026-09-07 08:24Z, five threads):
 
 | Thread | Disposition |
 | --- | --- |
