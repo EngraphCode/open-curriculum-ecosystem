@@ -2282,3 +2282,43 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   gates; the advisory pre-screen saw it first but could not bind — a certain rule could bind earlier. Discarded
   visibly: "the dark seat generated more doctrine than the live one"; "each round names one more case".
 - **12:3xZ RETIRED at the owner's word:** every remaining item handed to the Director by directed event (worktree prune; runbook records PR; substrate skill node; the liveness frame and play seeds above); no claim, no process, nothing unpushed. This seat does not resume.
+
+## 2026-09-07 ~12:4xZ (Jackal wakes Nocturne, 3484b6…) — the record goes INTO PR 66 at the owner's word; the separate record PR was the wrong shape
+
+- **Owner word (verbatim, 12:4xZ):** "I changed it because I never wanted the review in a separate
+  PR, that is of very little use, you should have added your work to 66 in the first place."
+  Preceded by the owner's own base change of #68 onto PR 66's branch (08:15:10Z) and the
+  in-session pointer "PR 68, which targets the PR 66 branch, also contains relevant work", which
+  this seat and the Director had both read through the engraph-slot lens (the Director's 12:25Z
+  routing said "sync onto engraph"; corrected on the stream at 12:33Z).
+- **Generator:** a reviewer-etiquette reflex ("never push to the author's branch") written into
+  the seat's own plan as an owner-overturnable assumption, then carried as a standing constraint
+  through two handoffs. The precedent that should have overturned it was visible the same day:
+  the Codex review file was published INTO PR 66 at the owner's instruction. Doctrine by analogy
+  from human PR review; the owner's model is that the reviewed PR is the record's home on the
+  owner's fork.
+- **Cure applied:** merge PR 66's branch (one conflict, the reports index row, both rows kept)
+  and the current `engraph` (post-#58) into the lane; push the head onto
+  `docs/public-service-ai-tuition-2026-09-06` as the bot (SHA:a36471a7d); GitHub marked #68
+  MERGED at 12:39:35Z; PR 66 is MERGEABLE (25 files, blocked only on its running checks). Cure
+  candidate for the practice: a review lane's records land on the reviewed PR's branch by default
+  when that PR is the owner's own on this fork; a separate record PR only at the owner's word.
+  Falsifier: an owner-held PR whose branch belongs to a third-party author, where a separate PR
+  is right and the rule needs the "owner's branch" qualifier.
+- **Cricket, honestly:** four panes launched at ~21:5xZ on the 6th returned nothing before the
+  host suspension (~22:0xZ to 12:24Z); "started 14h ago" on the agent list is a spawn label, not
+  evidence of work; no transcript on disk; UNDELIVERED × 4, stopped 12:2xZ, no substitute run.
+  Lesson: a missing return is marked UNDELIVERED at one cadence, never carried as "still running".
+- **Open:** the settled-direction word (packet item 3); the runner cure (standing policy) into
+  PR 66 or a follow-on, this lane's; the ultrareview fixture (pr66-ultra, SHA:580879aeb)
+  untriggered; the thread record's RESUME 2 line "push; settle; bot merge after #58" is stale by
+  this window and is re-trued at the next push (the runner cure), never by a records-only push
+  onto the owner's PR.
+
+## 2026-09-07 12:3xZ–12:5xZ (Flounder turns Estuary, c5cc2c, Director) — #58 landed; a seat retired; the review-record shape
+
+- **#58 landed by the Director** at the owner's word (merge SHA:6e9d67216, 12:35:44Z): round six dispositioned by signed reply as a race class outside the writer's closed contract; the settle script (required checks by name, ten-minute quiet window, zero threads, CLEAN, bot merge at the pinned head) ran unchanged from the fold; the lane worktree and branch pruned after the merge proof (`merge-base --is-ancestor` against the fetched engraph, not against a SHA the local repo had not yet fetched — the first proof attempt read "NO" only because the object was absent).
+- **Finch retired with a full handoff** (owner word in their session). The Director's disposition of a full handoff: execute what is the Director's (the prune), and turn everything else into pointers with the source record named — the runbook records PR, the substrate skill node, the TURN-STAMP liveness frame (twin of my own cure candidate) — never into Director work.
+- **The review-record shape, corrected by the owner:** a review OF a PR lands on that PR's branch, never as a separate PR into the base; I had routed Jackal's record as a landing-slot occupant (#68) and the owner re-based it by hand and said so. The generator on my side: treating "a PR per lane" as the universal landing shape; the artefact's relation to an existing PR decides where it lands. Memory `review-records-land-on-the-reviewed-pr`.
+- **Slot map after the morning:** the engraph slot is Juno's for #67 (sync once, merge-only push, settle, docs-only bot merge); #66 carries the record (owner's landing); #70 and #71 are drafts (inventory). Juno's criticals lane rides its own worktree off engraph.
+- **Sync discipline that held:** the successor branch was re-synced at a quiet window right after #58 landed (clause 5 of the 24h rule), sweeping Finch's retirement addendum first so the merge commit carried no unrelated content; local == remote at 78b29ba27, 0 behind engraph.
