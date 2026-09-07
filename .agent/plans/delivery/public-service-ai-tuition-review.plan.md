@@ -97,12 +97,14 @@ the OCE record that owns it, disposition-as-intended with the control that prove
   holds (owner word 2026-09-07: "Director lands #58, Jackal finishes #68").
 - The two reviews on PR 66 (5126608127, 5126692305) are posted from the seat's bot identity and
   are not part of this PR's diff.
-- After PR 66 lands: a follow-on PR from this lane applying the standing policy to the historical
-  runner (reduce the hand-authored `.mjs` to data or rewrite it in TypeScript per ADR-226 clause 4
-  and the TypeScript-only rule; owner word 2026-09-07, "Apply the standing policy"; no
-  research-record exemption class). The owner's word of 2026-09-07 12:4xZ ("I never wanted the
-  review in a separate PR … you should have added your work to 66 in the first place") puts this
-  lane's records into PR 66 itself; the runner cure follows the same route when it is ready.
+- Applied in PR 66 (2026-09-07 12:5xZ): the standing policy on the historical runner (owner word
+  "Apply the standing policy"; ADR-226 clause 4; the TypeScript-only rule; no research-record
+  exemption class), as reduction to data: the runner's exact text preserved as a fenced listing
+  whose text hashes to the imported blob, the two links retargeted, and `AUTHORITY.md` beside the
+  collection stating what placement confers, the rulings and the deltas from the imported bytes.
+  The owner's word of 2026-09-07 12:4xZ ("I never wanted the review in a separate PR … you should
+  have added your work to 66 in the first place") is why this lane's records and this cure live in
+  PR 66 itself.
 
 ## Out of scope
 

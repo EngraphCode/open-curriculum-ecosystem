@@ -38,7 +38,7 @@ idea-to-evidence path, and exercised-reuse discipline. Strategy authority remain
 
 | Document | Purpose | Key insights |
 | --- | --- | --- |
-| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with source and evidence boundaries preserved |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection; [AUTHORITY.md](public-service-ai-tuition/AUTHORITY.md) states what placement confers, the owner's rulings and the deltas from the imported bytes; qualified by two dated reviews, the [author-lineage review](../reports/public-service-ai-tuition/pr-66-review-2026-09-06.md) (R1 to R7) and the [independent review](../reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md) (F1 to F9) | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with source and evidence boundaries preserved |
 
 ### 🔍 Semantic Search & Elasticsearch
 

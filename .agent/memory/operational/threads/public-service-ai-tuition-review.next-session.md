@@ -184,5 +184,28 @@ Read after COMPACTION BOUNDARY 1; everything there stays true except where trued
 - **The ultrareview fixture** (`pr66-ultra`, SHA:580879aeb, 907 lines) still exists, untriggered;
   the owner triggers it from a session resident in that worktree, or it is removed at the lane's
   wrap without a trigger.
-- **Next safe step**: land #68 (settle; `merge-bot merge --pr 68` with the expected reviewer set;
-  after #58); then the runner follow-on when PR 66 lands; then retire this record with its banner.
+- **Next safe step at RESUME 2** (superseded by RESUME 3): land #68 after #58; the runner
+  follow-on; retire this record.
+
+## RESUME 3 — 2026-09-07 12:4xZ–13:xxZ (owner words: the record belongs in PR 66; questions go to the Director after the lenses, never in prose)
+
+- **The record is in PR 66.** The owner had retargeted #68 onto PR 66's branch (08:15Z) and said
+  "I never wanted the review in a separate PR … you should have added your work to 66 in the
+  first place". The lane merged PR 66's branch (one conflict, the reports index row, both rows
+  kept) and the post-#58 `engraph`, and pushed the head onto
+  `docs/public-service-ai-tuition-2026-09-06` as the bot (SHA:a36471a7d); GitHub marked #68
+  MERGED at 12:39:35Z; the five Codex threads on #68 are answered by signed reply.
+- **Questions route to the Director after the decision lenses, and never sit in prose** (owner
+  words 13:0xZ). Two asks this seat had left in prose were resolved at the seat under the
+  lenses: the ultrareview fixture (worktree and branch removed; the subset was already reviewed
+  three times over and the prose cannot be split) and the runner cure's route (into PR 66).
+- **Runner cure applied in PR 66** (reduction to data): the listing
+  `assets/oce-core-graphs-atoms-probes-2026-09-06.md` whose fenced text hashes to the imported
+  blob `795808186a…`; the executable removed; README assets row and chapter 08 §7 link
+  retargeted; `AUTHORITY.md` beside the collection (what placement confers; the three rulings;
+  the deltas table); the research index row links `AUTHORITY.md` and both dated reviews, which
+  answers Copilot's and Codex's index-row comments on PR 66.
+- **Cricket**: UNDELIVERED × 4 at the PR-open boundary (recorded on the node); no substitute.
+- **Next safe step**: PR 66's landing is the owner's; this seat answers review rounds on its own
+  files in PR 66 (Copilot 3945259039 and Codex 3945282446 replied with the index-row cure), then
+  retires this record with its banner when PR 66 merges.

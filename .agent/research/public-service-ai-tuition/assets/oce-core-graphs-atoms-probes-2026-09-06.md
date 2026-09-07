@@ -1,3 +1,31 @@
+# `oce-core-graphs-atoms-probes-2026-09-06.mjs`, preserved as a listing
+
+**What this file is.** The historical probe runner that produced
+[`oce-core-graphs-atoms-probe-results-2026-09-06.json`](oce-core-graphs-atoms-probe-results-2026-09-06.json),
+preserved as data: the listing below is the runner's exact text as imported on PR 66 (git blob
+`795808186a4c215909aee2fa7994803d63302612`), fenced as a code block. It is not an executable file
+in this tree.
+
+**Why a listing.** ADR-226 clause 4 holds a record's executable content to this repository's
+gates, and the TypeScript-only rule admits hand-authored JavaScript only in the pre-install tier
+(ADR-168 §4), which a source-level probe runner cannot meet. The owner ruled on 2026-09-07 that
+the standing policy applies with no research-record exemption class. Under the decision lenses
+the cure is reduction to data rather than a wired TypeScript rewrite: the runner is a one-shot
+witness pinned to OCE commit `31e76a7237ee7aecb8adfca96e73b2d83b25be39`, and a maintained script
+would rot on the next source move while proving nothing new. The two links that pointed at the
+executable (the collection README's assets table and chapter 08 §7) now point here;
+[`AUTHORITY.md`](../AUTHORITY.md) beside the collection records every delta from the imported
+bytes.
+
+**To re-run it.** Save the fenced text below as `oce-core-graphs-atoms-probes-2026-09-06.mjs`
+outside this repository, check out OCE at the pinned commit above in a separate directory, and
+run it as chapter 08 §7 describes (Node 24.19.0, no third-party dependencies):
+`node oce-core-graphs-atoms-probes-2026-09-06.mjs /absolute/path/to/pinned-oce-checkout`. The
+runner refuses any other HEAD; compare its recorded source hashes with the saved results.
+
+## Listing
+
+```js
 /** Reproducible source-level inquiry probes. Not a production package or package smoke test.
  * Usage: node oce-core-graphs-atoms-probes-2026-09-06.mjs /absolute/path/to/oce
  * Node 24.19.0; no third-party dependencies. Source modules are loaded unchanged apart
@@ -184,3 +212,4 @@ assert.equal(starResult.value.nodes.length,1001);
 out.probes.P11 = {cycleResult, disconnected:shapeView.subgraph({rootIds:['z'],depth:20}), missing:shapeView.subgraph({rootIds:['missing'],depth:1}), highDegreeDepth:1, highDegreeReturnedNodes:starResult.value.nodes.length, interpretation:'Depth bounds hops; it does not independently bound breadth, bytes or CPU work.'};
 out.sourceHashes = sourceHashes;
 console.log(JSON.stringify(out, (key, value) => typeof value === 'number' && !Number.isFinite(value) ? {nonFiniteNumber: String(value)} : value, 2));
+```

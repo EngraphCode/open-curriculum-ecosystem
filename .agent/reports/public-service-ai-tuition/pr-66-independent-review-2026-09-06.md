@@ -104,9 +104,14 @@ exercised on this surface before. The eleven hand-authored `.sh` and `.py` files
 `node:` modules, and loads ten product source files plus the 25 MB generated corpus dynamically
 (all present at the pin). Correctness: non-conforming. Alignment: ruled (owner, 2026-09-07 ~12:24Z, "Apply the standing
 policy"): the runner is reduced to data or rewritten in TypeScript per ADR-226 clause 4 and the
-TypeScript-only rule, in PR 66 or a follow-on; no research-record exemption class exists; this
-lane carries the follow-on after PR 66 lands. The options the first review had listed for the
-owner were —
+TypeScript-only rule, in PR 66 or a follow-on; no research-record exemption class exists. Applied
+in PR 66 on 2026-09-07 as reduction to data: the runner's exact text is preserved as the fenced
+listing `assets/oce-core-graphs-atoms-probes-2026-09-06.md` (the fenced text hashes to the
+imported blob `795808186a4c215909aee2fa7994803d63302612`), the two links that pointed at the
+executable (README assets table, chapter 08 §7) are retargeted, and `AUTHORITY.md` beside the
+collection records every delta from the imported bytes. The lenses chose data over a wired
+TypeScript rewrite: a one-shot witness pinned to a past commit would rot as a maintained script
+while proving nothing new. The options the first review had listed for the owner were —
 convert per the precedent and lose the byte witness; keep only the results JSON and cite the
 runner's source archive; or rule that a research record's executable bytes are data, which also
 settles the eleven existing files.
@@ -153,13 +158,16 @@ owner's). The authoring session left no continuity footprint in the estate (no c
 record or comms event; the identity "Swallow stirs Altitude" appears nowhere in the tree). Both are
 Practice observations for the import procedure.
 
-### F8 — Where an OCE-side authority statement can live (factor)
+### F8 — Where an OCE-side authority statement lives (applied 2026-09-07)
 
 The innovation-kit precedent carries an "Authority and status" section in the collection's own
 README (`.agent/research/innovation-kit/README.md` lines 23–33); here that file is byte-faithful.
-An OCE-authored sibling inside the collection directory — an `AUTHORITY.md`, or the dated errata
-record the published review proposes for its R1–R7 — pointed at from the research index row,
-would state what the location does and does not confer. Both reviews converge on this shape.
+Both reviews and both bot reviewers converged on an OCE-authored sibling inside the collection
+directory, pointed at from the research index row. Applied in PR 66:
+`.agent/research/public-service-ai-tuition/AUTHORITY.md` states what placement confers, points
+at both dated reviews and the R4 successor, records the F9 reading route, carries the owner's
+three rulings (one still open), and tables every delta from the imported bytes with the imported
+blob ids; the research index row links it and both reviews.
 
 ## Reproduced from the PR body and the published review
 
@@ -281,8 +289,8 @@ independent assurance.
 ## Decisions named for the owner, with factors (one packet, raised by the Director)
 
 1. **The runner's cure and the class ruling** (F3). Ruled 2026-09-07 ~12:24Z, "Apply the standing
-   policy": reduce to data or rewrite in TypeScript, in PR 66 or a follow-on; no exemption class;
-   the follow-on is this lane's. The factors that were carried: the byte witness versus
+   policy": reduce to data or rewrite in TypeScript, in PR 66 or a follow-on; no exemption class.
+   Applied in PR 66 the same day as reduction to data; `AUTHORITY.md` records the deltas. The factors that were carried: the byte witness versus
    conformance; the precedent converted; eleven existing hand-authored files under the surface.
 2. **The nine repositories' visibility** (F1). Ruled 2026-09-07: nine read-only reads permitted,
    run once by the Director; all nine PUBLIC (PR 66 comment 5570600664); the permalinks stay live.
