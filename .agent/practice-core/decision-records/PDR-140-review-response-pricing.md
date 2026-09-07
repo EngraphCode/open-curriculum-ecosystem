@@ -263,8 +263,9 @@ genuine falsehood under clause 2's merge-verification sentence,
 therefore as a mandatory cure, so every budget exhaustion rebudgeted
 under clause 4 and the next push drew the next sample from the
 reviewer's pool. The loop ended when the owner invoked
-`proportionality` and `pr-lifecycle` out of band, with no words —
-clause 8's anti-pattern recurring, filed here as the defect it
+`proportionality` and `pr-lifecycle` out of band, with no words;
+this seat read the invocation as the clause-8 correction and ended
+the loop — the anti-pattern recurring, filed here as the defect it
 names. A sixth PR was opened to carry two of the five PRs'
 step-back residue and cost two rounds, seven cures and a CI cycle
 of its own.

@@ -598,8 +598,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    today is NOT over-bar per se (PDR-140 §Amendment Log 2026-09-07: five
    records-class PRs ran seventeen rounds and fifty-three cures by reading
    every such statement as a mandatory cure and rebudgeting at every
-   exhaustion, until the owner corrected the loop out of band — clause 8's
-   anti-pattern recurring). Under that amendment, on a RECORDS-CLASS PR
+   exhaustion, until the owner invoked `proportionality` and `pr-lifecycle`
+   out of band with no words and the seat read the invocation as the
+   clause-8 correction — the anti-pattern recurring). Under that amendment, on a RECORDS-CLASS PR
    (verification point merge; born-sketch plans and other prose classes
    keep clause 4 unchanged) the rebudget is granted ONCE, its push carries
    over-bar cures only, and a later over-bar finding still cures in a push
