@@ -144,8 +144,8 @@ the CLOSED contract before the first push — what a target may be, what a flag 
 be — so reviewers read a contract rather than discover it a case per round: on
 2026-09-06 rounds two to four of a containment-writer review were one contract
 specified case by case. A review OF a pull request lands its records on that
-PR's branch when the PR is the owner's own on this fork, never as a separate PR
-into the base; a separate record PR only at the owner's word (owner, 2026-09-07,
+PR's branch, never as a separate PR into the base; a separate record PR only at
+the owner's word (owner, 2026-09-07,
 verbatim: "I never wanted the review in a separate PR, that is of very little
 use, you should have added your work to 66 in the first place").
 
