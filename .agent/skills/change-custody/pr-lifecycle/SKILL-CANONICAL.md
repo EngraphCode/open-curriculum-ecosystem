@@ -139,13 +139,17 @@ artefact for reviewers**, never a file list: what changed, why it matters,
 what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
-For a code-class changeset the description, or the writer's own docblock, states
-the CLOSED contract before the first push — what a target may be, what a flag may
-be — so reviewers read a contract rather than discover it a case per round: on
+For a code-class changeset the writer's docblock states the CLOSED contract
+before the first push (a worktree lane's draft PR is created by that push, so the
+description cannot precede it) and the description copies it at PR-open — what a
+target may be, what a flag may be — so reviewers read a contract rather than
+discover it a case per round: on
 2026-09-06 rounds two to four of a containment-writer review were one contract
 specified case by case. A review OF a pull request lands its records on that
-PR's branch, never as a separate PR into the base; a separate record PR only at
-the owner's word (owner, 2026-09-07,
+PR's branch, never as a separate PR into the base (on this fork every PR branch
+is the bot's to push; for a PR whose head the reviewing seat cannot push, the
+review lands as review comments and a signed premises comment on that PR); a
+separate record PR only at the owner's word (owner, 2026-09-07,
 verbatim: "I never wanted the review in a separate PR, that is of very little
 use, you should have added your work to 66 in the first place").
 

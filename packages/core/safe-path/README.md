@@ -22,18 +22,13 @@ Single source of truth: consumed by `@oaknational/agent-tools` and the
 
 ## Known extension points
 
-A safe file write within a base needs more than path containment (the containment writer
-of 2026-09-06, `scripts/write-contained.ts`): open the target `O_WRONLY|O_CREAT|O_NOFOLLOW|
-O_NONBLOCK` with no `O_TRUNC`, confirm the `O_NOFOLLOW` constant is present AND nonzero (some
-platforms expose it inert as 0), `fstat` the descriptor to confirm a regular file with ONE link (`st_nlink === 1`: a hard
-link to an outside file passes every other check and would be truncated through it), then
-`ftruncate` and write through the descriptor — a FIFO refuses `ENXIO` instead of hanging, a
-directory `EISDIR`, a symlink at the final component `ELOOP`, all in the same operation as
-the open. `O_NOFOLLOW` guards the LAST path component only: a process that swaps an
-ancestor directory for a symlink between canonicalisation and `open` is still followed,
-so the descriptor can name a regular file outside the base and pass `fstat`. The writer
-closes the check-then-use race at the leaf and narrows, never closes, the ancestor window
-(a directory descriptor walked with `openat` per component is the full cure); the
-helper's contract states that boundary and claims no race-freedom. That writer is the third consumer to want "write a file safely
-inside a base"; per `consolidate-at-second-consumer`, an `openRegularFileWithin(base,
-relative)` helper is the extraction once a second real consumer needs it, not before.
+A safe file write within a base needs more than path containment; the containment writer
+of 2026-09-06 (`packages/sdks/graph-corpus-sdk/scripts/write-contained.ts`) is the
+reference implementation, and its docblock and code carry the mechanics (the open flags,
+the one-link and regular-file checks on the descriptor, the write through it). Its known
+boundary, stated here because the writer's text does not: `O_NOFOLLOW` guards the last
+path component only, so a concurrent swap of an ancestor directory for a symlink stays
+open (a directory descriptor walked with `openat` per component is the full cure). That
+writer is the third consumer to want "write a file safely inside a base"; per
+`consolidate-at-second-consumer`, an `openRegularFileWithin(base, relative)` helper is
+the extraction once a second real consumer needs it, not before.

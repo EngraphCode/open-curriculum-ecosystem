@@ -180,7 +180,8 @@ in the rule estate. A napkin corpus measures recurrence and cannot measure extin
 cured class leaves no entry when it stops firing — so the rate is a floor. These
 measurements select no mechanism (§Scope); they price the empty quadrant.
 
-The shortest measured interval: the PR-open intake declaration and tally, on main in
+The shortest measured interval: the PR-open intake declaration and tally, on the default
+branch in
 `review-feedback-defaults-to-triage` §Trigger since 2026-08-31, went unbuilt at the next
 shepherded PR carrying prose (a fold PR of 2026-09-02; the host repository's
 doctrine-traction plan names it); the loop was cured at round three by seat

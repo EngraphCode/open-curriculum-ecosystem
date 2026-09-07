@@ -110,6 +110,13 @@ tool retires them.
   continuation line begins with `+` (e.g. "…inputs X\n+ the report…")
   turns it into an unordered-list item in the wrong style. Reword to
   "and"/"plus" or rewrap.
+- **Prettier pads a markdown table to its widest cell, so editing the widest
+  cell realigns every row** (2026-09-07, the rules index: a one-cell edit
+  became a 254-line diff twice). Fit the new text to the column's current
+  width — prettier's own count, one wider than a naive character count
+  where the cell holds an em dash — then `prettier --write` restores the
+  single-line diff; recovering the file from the index is hook-refused, so
+  measure first.
 
 ## Git hooks
 
