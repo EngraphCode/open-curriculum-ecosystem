@@ -708,12 +708,17 @@ the raw user agent and vendor header are unbounded client-controlled strings.
   amendment's evidence-backed-token constraint, accepted because every member
   is a fixed string re-emitted from the list and never a forwarded byte.
 
-**How PostHog labels it.** The labelling rule is open source:
-`products/mcp_analytics/backend/mcp_harness.py` in PostHog/posthog (read at
-commit `b6c6a333`, 2026-09-02), with input-to-label examples in
-`tests/test_harness_breakdown.py` beside it. For a user-agent-only event it
-takes the product token before the first `/` plus the first bracketed segment
-and buckets the pair: `claude-code/2 (cli)` labels "Claude Code",
+**How PostHog labels it.** The labelling rule is open source, in
+PostHog/posthog at commit `b6c6a333` (2026-09-02):
+[`products/mcp_analytics/backend/mcp_harness.py`](https://github.com/PostHog/posthog/blob/b6c6a333056473cc7f20513256b62daeb5c05669/products/mcp_analytics/backend/mcp_harness.py),
+with input-to-label examples in
+[`tests/test_harness_breakdown.py`](https://github.com/PostHog/posthog/blob/b6c6a333056473cc7f20513256b62daeb5c05669/products/mcp_analytics/backend/tests/test_harness_breakdown.py)
+beside it. Its precedence is the vendor header, then a user agent whose
+product is `claude-code` or starts `grok`, then the client name, then any
+other user agent; Oak emits neither a vendor header nor a client name, so
+for Oak's events the user agent resolves. For such an event it takes the
+product token before the first `/` plus the first bracketed segment and
+buckets the pair: `claude-code/2 (cli)` labels "Claude Code",
 `(sdk-ts)` "Claude Agent SDK", `(claude-vscode)` "Claude Code (VS Code)",
 `(claude-desktop)` "Claude Desktop", `Claude-User` "Claude.ai", and
 `codex-mcp-client/0` "OpenAI Codex". The rebuilt shapes above were chosen

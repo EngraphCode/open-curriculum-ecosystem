@@ -2,10 +2,14 @@
  * The one client string Oak emits: a `$mcp_client_user_agent` rebuilt from
  * closed pieces so PostHog's built-in harness column resolves (MCP-687).
  *
- * @remarks PostHog resolves that column at query time from
- * `$mcp_vendor_client`, then `$mcp_client_user_agent`, then `$mcp_client_name`.
- * The rule is open source — `products/mcp_analytics/backend/mcp_harness.py`
- * in PostHog/posthog — and reads the user agent as the product token before
+ * @remarks PostHog resolves that column at query time, in this precedence: the
+ * `$mcp_vendor_client` header; then a `$mcp_client_user_agent` whose product is
+ * `claude-code`, or one starting `grok`; then `$mcp_client_name`; then any other
+ * `$mcp_client_user_agent`. Oak never emits a vendor header or a client name, so
+ * for Oak's events the user agent is what resolves. The rule is open source:
+ * https://github.com/PostHog/posthog/blob/b6c6a333056473cc7f20513256b62daeb5c05669/products/mcp_analytics/backend/mcp_harness.py
+ * (its `_RAW_TOKEN` chain and `_label_multi_if`), with input-to-label examples
+ * in the test beside it. It reads the user agent as the product token before
  * the first `/` plus the first bracketed segment, so `claude-code/2 (cli)`
  * labels as "Claude Code", `(sdk-ts)` as "Claude Agent SDK", `(claude-vscode)`
  * and `(claude-desktop)` as their own labels, `Claude-User` as "Claude.ai" and
@@ -28,7 +32,6 @@ import {
   asciiLower,
   CLIENT_PRODUCT_TOKEN_RULES,
   hasLeadingProductToken,
-  isNonEmptyString,
 } from './client-categories.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
@@ -38,11 +41,12 @@ import type { ClientIdentityHeaders } from './event-policy-contract.js';
 // member is a fixed string re-emitted from this list and never a forwarded byte.
 const CLIENT_BUILD_SURFACE_TOKENS = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
 type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
-// Bounds the surface scan so its cost is independent of an attacker-controlled
-// header length; the product token is anchored at index 0 regardless. The
-// product axis scans a shorter window (the longest token plus one) because it
-// needs only the leading token; the two derivations still agree on which header
-// value wins, because both anchor at index 0 with the same table.
+// Bounds every read of the value, trimming included, so the cost is independent
+// of an attacker-controlled header length; the product token is anchored at
+// index 0 regardless. The product axis scans a shorter window (the longest
+// token plus one) because it needs only the leading token; the two derivations
+// still agree on which header value wins, because both anchor at index 0 with
+// the same table.
 const MAX_CLIENT_USER_AGENT_SCAN_LENGTH = 256;
 // At most two digits with no leading zero, and the run must END there, so the
 // slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
@@ -68,7 +72,9 @@ function readClientBuildSurface(normalised: string): ClientBuildSurface | undefi
 }
 
 function readClientUserAgent(value: string): string | undefined {
-  const normalised = asciiLower(value.trim().slice(0, MAX_CLIENT_USER_AGENT_SCAN_LENGTH));
+  // Slice BEFORE trimming: a trim over the whole value would scale with the
+  // raw header length and make the bound above a claim rather than a fact.
+  const normalised = asciiLower(value.slice(0, MAX_CLIENT_USER_AGENT_SCAN_LENGTH).trim());
   const rule = CLIENT_PRODUCT_TOKEN_RULES.find(([token]) =>
     hasLeadingProductToken(normalised, token),
   );
@@ -101,7 +107,9 @@ export function normaliseOakClientUserAgent(headers: ClientIdentityHeaders): str
     return undefined;
   }
   for (const value of headers.values) {
-    if (!isNonEmptyString(value)) {
+    // A type check only: an emptiness test would trim the whole untrusted value
+    // and defeat the scan bound, and an all-space value parses to nothing anyway.
+    if (typeof value !== 'string') {
       continue;
     }
     const userAgent = readClientUserAgent(value);

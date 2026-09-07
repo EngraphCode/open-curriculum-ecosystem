@@ -139,6 +139,11 @@ describe('normaliseOakClientUserAgent', () => {
     ['a non-string value', 42],
     ['an undefined value', undefined],
     ['an empty string', ''],
+    ['an all-whitespace value', '   '],
+    [
+      'a product pushed past the scan window by padding, since no read exceeds it',
+      `${' '.repeat(300)}claude-code/2 (cli)`,
+    ],
   ])('omits the property for %s', (_label, header) => {
     expect(normaliseOakClientUserAgent(readable(header))).toBeUndefined();
   });

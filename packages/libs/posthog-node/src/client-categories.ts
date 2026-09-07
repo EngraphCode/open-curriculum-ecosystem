@@ -158,19 +158,15 @@ export function hasLeadingProductToken(value: string, token: string): boolean {
 function readClientProductToken(value: string): OakClientProduct | undefined {
   // `asciiLower` folds only [A-Z], so it is length-preserving and the index
   // arithmetic below cannot be shifted by a case-expanding character. Slicing to
-  // the longest token is behaviour-preserving under leading-token anchoring.
-  const normalised = asciiLower(value.trim().slice(0, LONGEST_PRODUCT_TOKEN + 1));
+  // the longest token is behaviour-preserving under leading-token anchoring, and
+  // it happens BEFORE the trim so no read scales with the raw header length.
+  const normalised = asciiLower(value.slice(0, LONGEST_PRODUCT_TOKEN + 1).trim());
   for (const [token, product] of CLIENT_PRODUCT_TOKEN_RULES) {
     if (hasLeadingProductToken(normalised, token)) {
       return product;
     }
   }
   return undefined;
-}
-
-/** Shared with `client-user-agent.ts`, which rebuilds the emitted user agent from these rules. */
-export function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim() !== '';
 }
 
 /**
@@ -206,7 +202,9 @@ export function normaliseOakClientProduct(headers: ClientIdentityHeaders): OakCl
     return 'unavailable';
   }
   for (const value of headers.values) {
-    if (!isNonEmptyString(value)) {
+    // A type check only: an emptiness test would trim the whole untrusted value
+    // and defeat the scan bound, and an all-space value names no product anyway.
+    if (typeof value !== 'string') {
       continue;
     }
     const product = readClientProductToken(value);
