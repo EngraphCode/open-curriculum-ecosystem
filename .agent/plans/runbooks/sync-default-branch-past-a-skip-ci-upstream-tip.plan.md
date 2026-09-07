@@ -48,8 +48,11 @@ and no seat re-derives the recipe at the wall.
    the human, the repository's standing action map) whose message names the situation
    WITHOUT spelling the skip token: the host scans the whole head commit message, and a first
    attempt that quoted the token was skipped exactly like the release commit (2026-09-02).
-   Verification: the commit is empty and its message carries no bracketed marker.
-3. `agent` — open the pull request to the default branch. Verification: every workflow
+   Verification: the commit is empty and its message carries no bracketed marker. Then
+   push the branch through `merge-bot push` (the bot path; never through the PR
+   creator's own push prompt, which would use the ambient human credential).
+   Verification: the remote branch tip equals the local head.
+3. `agent` — open the pull request to the default branch from the pushed branch. Verification: every workflow
    runs on the empty head.
 4. `agent` — triage every reviewer thread under the normal review-round discipline; a
    finding about upstream code is never cured on the sync (a cure would diverge the tree

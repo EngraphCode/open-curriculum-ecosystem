@@ -99,9 +99,12 @@ request header on the user-scope server entry, already below the tree.
   two commands in the PR body.
 - **This checkout binds to its own projects.** The IDE's connected-mode suggestion offers
   the organisation and project named in the untracked binding, and the studio sync tool
-  reads the project id from the untracked config. Proof: `owner-held`, two confirmations
-  recorded on the PR: the IDE's bind prompt or bound status on this checkout, and one
-  studio sync invocation whose output names the configured project id.
+  reads the project id from the untracked config. Proof, on a configured checkout:
+  `owner-held`, two confirmations recorded on the PR — the IDE's bind prompt or bound
+  status on this checkout, and one studio sync invocation whose output names the
+  configured project id. On a checkout that leaves the sync config absent (a valid
+  state, above): `repo-safe` — the full gate suite passes with no studio binding and no
+  gate or script requires the config; the studio confirmations are not owed.
 - **A cold clone is told what to copy.** The ignore comments beside both entries name the
   example each file is copied from and where its values come from, and the merge-bot
   engineering doc's per-checkout section lists both files with the same instructions; the
