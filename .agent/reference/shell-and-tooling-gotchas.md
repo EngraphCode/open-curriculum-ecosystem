@@ -396,13 +396,16 @@ tool retires them.
   eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
   disposition and the semantic hash for each affected file, wired into the aggregator, then
   `refresh-mcp-content-current-source-anchors`.
-- **The rules-index classification test requires a core row's trigger cell to be the
-  bare em dash, and the pre-push gate does not run it** (2026-09-07): an explaining cell
-  on a new core row passed prettier, markdownlint and every validator locally, then failed
-  CI's `rules-index-classification.unit.test.ts` — one CI cycle and one extra push on a
-  terminal PR. A registry file with a dedicated test directory is verified by running that
-  directory before the push (`pnpm exec vitest run tests/rules/` from `agent-tools/`, about
-  100 ms).
+- **The pre-push turbo step can replay a cached agent-tools test pass when only a root
+  file changed** (2026-09-07): `tests/rules/rules-index-classification.unit.test.ts` reads
+  `RULES_INDEX.md`, but the root `test` task declares only package-local inputs
+  (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`), so an edit to the index does not
+  invalidate the cache — the pre-push log read `agent-tools:test: cache hit, replaying
+  logs` while CI, running cold, failed the new core row's explaining trigger cell (the test
+  requires the bare em dash): one CI cycle and one extra push on a terminal PR. Run the
+  dedicated directory before the push (`pnpm exec vitest run tests/rules/` from
+  `agent-tools/`, about 100 ms); the structural cure is declaring the root file among the
+  task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json` already uses).
 - **The skill-adapter projection check refuses a push whose skill reference changed
   without regenerated projections** (2026-09-07): an edit under a skill's `references/`
   needs `pnpm skills:generate` first, and the regenerated `.claude/skills/` and

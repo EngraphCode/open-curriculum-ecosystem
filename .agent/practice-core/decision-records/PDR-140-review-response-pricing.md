@@ -281,15 +281,21 @@ merge:
    acts on is below the bar and dispositions by rejection with
    rationale or by a register row.
 2. Clause 4's rebudget is granted once per PR, never once per
-   exhaustion. A second exhaustion names the final head and routes
-   every remaining cure-worthy finding to a register row.
+   exhaustion, and a rebudgeted push carries over-bar cures only.
+   After it, every below-bar finding is dispositioned without a diff
+   and the final head is named. The cure obligation survives every
+   exhaustion exactly as clause 4 says: an over-bar finding arriving
+   later still cures, in a push that carries nothing else. That path
+   terminates on merit — once item 1 is applied, the supply of
+   statements that would mislead a reader is finite, which the
+   bent-vocabulary class never was.
 3. A routed residue's named home is an existing surface — a
    register row (the pending-graduations register, the gotchas
    reference, a plan's `## Review dispositions` section) or a PR
    already open for its own story — never a PR opened to carry
    residue. Where a residue PR nonetheless exists it is terminal:
-   budget one push, and its own step-back findings disposition by
-   rejection with rationale or by register row.
+   one settlement push, its below-bar findings dispositioned without
+   a diff, and no further residue PR opened from it.
 
 **Falsifier**: a records-class statement dispositioned below the bar
 under item 1 that misleads a reader acting on it before the next
