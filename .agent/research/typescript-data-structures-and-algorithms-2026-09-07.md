@@ -15,15 +15,33 @@ packages, but I am happy for those to defer the very low level primitives to
 external packages". That motivates the research; this note does not settle
 package boundaries, public APIs or dependency choices.
 
-Graph research is being handled separately by the owner in **Typescript
-Graphs**. The owner will update this draft when appropriate. Graph candidates,
-comparisons and design proposals are outside this note's scope.
+The companion **Typescript Graphs** research is available in
+[PR 72](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/72).
+Its graph-specific comparisons complement this survey of general foundations.
 
 The primary documentation below was checked on 2026-09-07. These are
 observations of published documentation, not conformance tests of pinned
 releases. No package was installed or benchmarked for this survey. Source
 licences are recorded below; release-specific compatibility, maintenance,
 security, dependency footprint and performance have not been assessed.
+
+## Related graph research
+
+This survey contributes to the broader inquiry into useful atoms, foundational
+building blocks, algorithms and data structures across graph and non-graph
+consumers. The [graph foundations research pack](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/ac420418179815821d562a4b7cb388eb453f5a23/.agent/research/typescript-graph-foundations-2026-09-07/README.md)
+provides one consumer's detailed contracts and executed evidence.
+
+Its [non-graph handoff in section 12](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/ac420418179815821d562a4b7cb388eb453f5a23/.agent/research/typescript-graph-foundations-2026-09-07/typescript-graph-foundations-report-2026-09-07.md#12-precise-non-graph-handoff-reconciled-with-pr-70)
+maps questions about equality and interning, multi-index structures, queues,
+priority queues, ordering, persistence, bitsets, union-find, caching, streams
+and incremental relations to graph requirements. These are inputs for further
+general-foundations research, not conformance findings for this survey's
+untested candidates. Findings here can in turn inform graph implementation
+and dependency choices. Package boundaries and adoption decisions remain open.
+
+The document links preserve the linked graph-research snapshot; PR 72 carries
+subsequent updates and the link back to this research.
 
 ## Native facilities
 
