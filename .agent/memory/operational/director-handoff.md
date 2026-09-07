@@ -262,6 +262,29 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **§FOLD LANDED, 2026-09-07 01:32Z (Flounder turns Estuary, `c5cc2c`, Director, in warm
+> pause) — THIS SUPERSEDES THE 2026-09-02 BANNER BELOW.** `coordination/2026-09-06-f1a142`
+> folded to `engraph` via bot PR **#69** at full condition (run-quality-gates and CodeQL green
+> by name, zero unresolved threads, mergeStateStatus CLEAN, ten-minute quiet window) as merge
+> commit `dfe924927`; four Codex rounds on the record class — three cure pushes (in-place
+> supersession markers, the letter kept formation-only, a cadence attributed to the owner's
+> word), round four dispositioned under the PDR-140 step-back. The day-stamped successor
+> **`coordination/2026-09-07-dfe924`** was cut tree-preservingly from post-fold `engraph` and
+> published; the held `.claude/settings.json` rides it uncommitted and is never folded
+> (harness rewrite, contract unverified). Product-gravity line: _moved for teachers:_ nothing in
+> the fold's own commits — the EEF corpus markdown projection (#58) sits at its last cure with
+> its author, cold-paused. _moved for the Practice:_ seven consolidation PRs (#59–#65), the
+> code-scanning plan (#56), four seats' 2026-09-06 continuity blocks and the Director's
+> formation letter, the overnight operating contract and landing-slot routing (comms
+> `62f1103f`, `6bd4fe0d`), the commit-queue guard ruling (owner-gated; on the Director's
+> record). Board at the fold: open #58 (Finch, cold; holds the paused landing slot), #66 (the
+> owner's, ready for review; Jackal's review `5126608127` posted), #67 (Juno, cold), #68
+> (Jackal, draft). A DIRECTOR IS SEATED: claim `8109015d`, warm pause at owner word; THE
+> PICKUP MAP is the Director's handoff record `2778f573-flounder-turns-estuary-compaction-2026-09-03.md`
+> §OVERNIGHT and §FOLD (machine-local). The 2026-09-02 banner below is the prior state.
+
+---
+
 > **§FOLD LANDED, 2026-09-02 ~13:xxZ (Finch calls Pinnacle, `c91bd4`, implementer at the
 > #915 landing seat) — THIS SUPERSEDES THE WEEK-SLEEP BANNER BELOW.** The 2026-08-19 fold
 > (`coordination/2026-08-19-1651ad`, PR #915) LANDED on main as `777e9131c` (the PR's merge
