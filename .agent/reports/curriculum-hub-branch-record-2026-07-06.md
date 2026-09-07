@@ -2,7 +2,7 @@
 
 Authored 2026-07-06 by Director #10 (Nettle tracks Acorn) from a verified synthesis over the
 branch (74 commits at draft time, 2026-06-30 → 2026-07-06, PR #295), the thread record
-(`.agent/memory/operational/threads/paused/curriculum-hub-demo.next-session.md`), the active plan
+(`.agent/memory/operational/threads/curriculum-hub-demo.next-session.md`), the active plan
 (`.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`), the ten director
 handoff records under `.agent/state/collaboration/handoffs/`, and
 `docs/engineering/claude-design-conversion-playbook.md`. Every SHA cited was verified against
@@ -250,3 +250,7 @@ merge run-in, and fidelity mechanism all landed single-seat.
   exist on the branch; first-hand verification shows it does (the triple-implementer-closeout
   continuity commit, 2026-07-02). The claim was a subagent tooling error, caught by the
   critically-assess-all-subagent-results discipline before it could falsify this record.
+
+_Record locations, 2026-09-06: the thread records named above by their paths of the time moved
+under `.agent/memory/operational/threads/paused/` at the 2026-09-06 consolidation (the threads
+README's lifecycle layout); the paths here are the historical ones._

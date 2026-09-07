@@ -348,7 +348,7 @@ INDEXING.md pointer discipline may suffice).
 ## Related records
 
 - Tickets: MCP-152, MCP-153 (contracts quoted in the session plan).
-- Thread: `.agent/memory/operational/threads/paused/upstream-api-alignment.next-session.md`
+- Thread: `.agent/memory/operational/threads/upstream-api-alignment.next-session.md`
   (correction entry dated 2026-07-26 points here).
 - Runbook: `docs/engineering/upstream-api-alignment-runbook.md` (amendments proposed
   above, not yet applied).
@@ -356,3 +356,7 @@ INDEXING.md pointer discipline may suffice).
   `semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md`
   (now known to describe a schema that was never true of the payload — period piece);
   ADR-093; ADR-067 (derivation claim does not hold); ADR-109; ADR-130; PDR-126.
+
+_Record locations, 2026-09-06: the thread records named above by their paths of the time moved
+under `.agent/memory/operational/threads/paused/` at the 2026-09-06 consolidation (the threads
+README's lifecycle layout); the paths here are the historical ones._

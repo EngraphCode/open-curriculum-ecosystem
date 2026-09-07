@@ -205,8 +205,8 @@ The primary coordination worktree contained peer-owned tracked changes in:
 - `.agent/collaboration/rapid-comms/2026-07-27-mcp-227-228-delivery-squall-wakes-apex-peony-spins-tendril.md`
 - `.agent/memory/active/napkin.md`
 - `.agent/memory/operational/threads/design-system-integration.next-session.md`
-- `.agent/memory/operational/threads/paused/mcp-agent-facing-content.next-session.md`
-- `.agent/memory/operational/threads/paused/upstream-api-alignment.next-session.md`
+- `.agent/memory/operational/threads/mcp-agent-facing-content.next-session.md`
+- `.agent/memory/operational/threads/upstream-api-alignment.next-session.md`
 
 and a peer-owned untracked experience letter. These are not MCP-63 source
 work. Preserve them; never stage, reset, or overwrite them as part of this
@@ -275,3 +275,7 @@ closed without merging, MCP63's acceptance evidence is current, and the final
 built application proves the ratified privacy and lifecycle contract. A useful
 partial slice is not completion.
 
+
+_Record locations, 2026-09-06: the thread records named above by their paths of the time moved
+under `.agent/memory/operational/threads/paused/` at the 2026-09-06 consolidation (the threads
+README's lifecycle layout); the paths here are the historical ones._
