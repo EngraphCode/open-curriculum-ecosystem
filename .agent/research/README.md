@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 30 August 2026
+**Last Updated**: 6 September 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -33,6 +33,12 @@ idea-to-evidence path, and exercised-reuse discipline. Strategy authority remain
 | Document | Purpose | Key insights |
 | --- | --- | --- |
 | [innovation-kit/README.md](innovation-kit/README.md) | Local entry point for the proposed definition, dated evidence, worked scenarios, bounded investigations and historical deconstruction | The Kit as the governed, portable part of a complete product-creation system; fast and good through governed compression, explicit obligations, truthful operation and stewardship |
+
+### Public-service AI tuition
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection; [AUTHORITY.md](public-service-ai-tuition/AUTHORITY.md) states what placement confers, the owner's rulings and the deltas from the imported bytes; qualified by two dated reviews, the [author-lineage review](../reports/public-service-ai-tuition/pr-66-review-2026-09-06.md) (R1 to R7) and the [independent review](../reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md) (F1 to F9) | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with source and evidence boundaries preserved |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -170,6 +176,12 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-09-06)
+
+| Document | Summary |
+| --- | --- |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Faithful import of the completed 6 September 2026 reconstruction: README, 13 substantive chapters and three assets. Historical probe files retain their pinned reproduction context; this import does not refresh their runtime findings or ratify the proposed work programme. |
 
 ## Recent Additions (2026-08-30)
 
