@@ -146,7 +146,7 @@ Research on code quality, testing, and architecture.
 | **[error_handling/](error_handling/)** | Error handling patterns | |
 | [deep-reflection-schema-first-and-findings.md](deep-reflection-schema-first-and-findings.md) | Schema-first insights | Cardinal rule learnings |
 | [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Provider-independent capabilities and storage options | Semantic capability contracts, explicit omission, provider bindings, and behaviour/state portability |
-| [low-level-packages-and-external-primitives-2026-09-07.md](low-level-packages-and-external-primitives-2026-09-07.md) | Low-level package ownership and external primitives | Bounded ecosystem evidence supporting ADR-228; graph direction remains under investigation |
+| [typescript-data-structures-and-algorithms-2026-09-07.md](typescript-data-structures-and-algorithms-2026-09-07.md) | Non-graph TypeScript data structures and algorithms | Native facilities, ecosystem candidates and open research questions; no dependency selection |
 | [vi-mock-audit-report.md](vi-mock-audit-report.md) | Vitest mock audit | |
 | [zod3-zod4-openapi-implementation-plan.md](zod3-zod4-openapi-implementation-plan.md) | Zod migration | |
 
@@ -174,9 +174,9 @@ Research on API structure and data analysis.
 
 ## Recent Additions (2026-09-07)
 
-- [Low-level packages and external primitives](low-level-packages-and-external-primitives-2026-09-07.md):
-  candidate capabilities, contract risks, open graph questions and the adoption
-  evidence needed under ADR-228.
+- [TypeScript data structures and algorithms](typescript-data-structures-and-algorithms-2026-09-07.md):
+  draft research on non-graph primitives; graph research remains with the owner
+  in Typescript Graphs.
 
 ## Recent Additions (2026-08-30)
 

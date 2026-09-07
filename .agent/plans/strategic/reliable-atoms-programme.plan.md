@@ -13,7 +13,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-07
+last_updated: 2026-08-17
 ---
 
 # Reliable atoms programme
@@ -34,23 +34,6 @@ the estate's fundamental building blocks; every registered atom meets
 the excellence bar below, provable by a conformance instrument, and
 every candidate not yet at the bar is a named register row with a
 disposition — never an unrecorded aspiration.
-
-## Owner direction incorporated, 2026-09-07
-
-[ADR-228](../../../docs/architecture/architectural-decisions/228-low-level-package-ownership-and-external-primitives.md)
-settles the ownership/adoption policy: OCE retains useful low-level packages and
-may delegate their underlying primitives to external implementations. This
-amendment aligns the dependency budget and candidate assessment with that
-decision. The programme remains a sketch; no register, conformance instrument,
-extraction tranche or graph dependency is ratified by this amendment.
-
-## User groups and value
-
-The affected users are package authors and maintainers, and the developers and
-agents consuming the resulting APIs. Their benefit is a dependable contract
-with less repeated implementation and assurance work. Graph choices remain
-subject to the ongoing Typescript Graphs research and a repository-held
-selection case; there is no Graphology default.
 
 ## The bet
 
@@ -122,13 +105,11 @@ there). The extensions, each with its enforcing instrument:
    shared-runner noise makes cross-run fences fire falsely and die
    under no-warning-toleration); O(1) wrapper atoms carry none.
    Bench code lives outside the source read path.
-7. **Justified runtime-dependency budgets.** Each register row declares
-   its runtime-dependency budget and links the adoption rationale under
-   ADR-228, including a zero-dependency choice when appropriate. The
-   conformance instrument fails on an undeclared runtime dependency;
-   adoption is a visible register diff, never a silent manifest edit.
-   The budget records cost and semantic fit, rather than assuming that
-   fewer dependencies means less total ownership work.
+7. **Zero runtime dependencies by default.** Each register row
+   declares its runtime-dependency budget (default: none); the
+   conformance instrument fails on any undeclared runtime dependency
+   — a new dependency at the atom tier is a visible register diff,
+   never a silent manifest edit.
 8. **Structural fences on the core itself**: a grab-bag fence (export
    count and responsibility-phrase checks against the lodash failure
    mode), a recomputed consumer count per atom with automatic
@@ -164,11 +145,6 @@ there). The extensions, each with its enforcing instrument:
   gate conflicts route to the owner at a card — the standing direction
   is read as raising priority and the excellence bar, never as
   deleting the gates. The owner may override per batch.
-- **Separate contract from machinery**: each candidate assessment names
-  the OCE-owned contract, the native or external implementation options,
-  any necessary adaptation and its proof. Apply ADR-228 before proposing
-  bespoke primitives, wrappers or new workspaces. Existing atom admission
-  gates and the provider-neutral dependency direction still apply.
 - **Conformance instrument at tranche one**: a validator that
   RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
   presence, export-surface strictness, packed smoke — so atom status
