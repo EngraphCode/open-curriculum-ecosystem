@@ -359,3 +359,123 @@ independent assurance.
   corpus.
 - **Tip checks**: single `grep -rn` searches over the lane worktree at SHA:341477368, paths as
   cited in the table.
+
+## Second pass — the collection's substance (2026-09-07)
+
+**Reviewed:** 7 September 2026, 13:1xZ–13:4xZ, by Cricket weaves Burrow (Claude Code,
+`claude-fable-5-1`, session prefix f8f302), a fresh seat opened at the owner's word on the brief
+the first seat left (`.agent/state/collaboration/handoffs/3484b6-jackal-wakes-nocturne-pr66-substance-review-brief-2026-09-07.md`).
+**Object:** the fourteen markdown files and three assets at PR head SHA:82bf00121, read from the
+branch by `git show`; every claim about this repository tested at ONE pinned `engraph` tip,
+SHA:6e9d67216 (the post-#58 tip), by `git grep`, `git diff` and `git show` against that ref.
+**Governing frame:** the owner's ruling of 13:2xZ (PR 66 comment 5571197335): the collection's
+"settled" directions are proposals; every direction is tested against ratified structure.
+**Posted:** [review 5132463698](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66#pullrequestreview-5132463698)
+(13:23Z, findings S1–S6) and
+[review 5132534231](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66#pullrequestreview-5132534231)
+(13:31Z, S7–S10). The reviews are the deliverable; this section is the record.
+
+### Scope covered and verdicts
+
+| Brief item | Covered | Verdict |
+| --- | --- | --- |
+| 1. Chapter 08 engineering claims (the open defect statements, Appendix A, G1–G7, C01–C24, BC1–BC7, I1–I9, Appendix J, appendices C–I as they claim OCE facts) | all read; fourteen further claims checked at the tip beyond the first pass's eight; P0.1–P0.9 at the 20 August pin; Appendix A consumer claims sampled | hold at SHA:6e9d67216 (zero drift on runner-loaded paths from SHA:31e76a72; product drift pin→tip is only #58's `eef-strands`); one wording slip (J1); one perishable statement superseded by #58 (S4); Appendix F's Oak-surface claims unverifiable by construction, three tree-carried ones hold |
+| 2. Chapter 07 bridges | all 24 bridges, BP-01–BP-10, PS-01–PS-34 read | honestly bounded as proposals (07:5, 07:53, 07:86); assumed absences hold (no tuition runtime, no participant journey, no transactional store, no published package) |
+| 3. Chapter 13 against ratified structure | landing, five destinations, plan-schema conditions, `/visitors` route, the seven opportunities and responsibilities, the one ask (13:130) | hold; 13:136 already ruled and applied; registry-publication rows overtaken by ADR-227 (pointer) |
+| 4. Chapter 12 authority | §1 rows, §14 grading; the eleven "settled/governing/commit now" sites across README, 01, 03, 04, 07, 09, 12, 13 | proposals at the owner's word (S1); cure-at-source relabel; `AUTHORITY.md` ruling bullet re-trued |
+| 5. Education and evidence chapters (02–06, 09–11) | standing and limits sections of every chapter; R2 and R6 classes re-derived; chapter 09 §9 and §11; chapter 10's OCE claims; twenty external citations probed; the workbook sampled | evidence boundaries honest; R2 partial and R6 partial confirmed; 13 citations resolve, 7 refuse a scripted client (unverified by probe, not dead); workbook 102 records, sample consistent |
+| 6. Cross-cutting | identifier census (all families), imperative census (83 `MUST`, all in appendix C/H spans), load-bearing links | one unresolved identifier class (R3's); one unqualified imperative (12:31, closed by S1); no dead load-bearing link found |
+
+### Findings (two verdicts each; one action type)
+
+- **S1 — settled rows are proposals.** Correctness: the flat wording is false of this estate;
+  chapter 12 §14's grade was right. Alignment: cure-at-source (relabel) and cure-at-named-home
+  (`AUTHORITY.md`, done on this branch). Sites: README:24; 01:15–16; 03:194; 04:363; 07:326,
+  07:354; 09:3; 12:29–35; 13:3.
+- **S2 — chapter 13 fits ratified structure.** Landing, destinations (`.agent/reports/…`,
+  `.agent/plans/{delivery,strategic,runbooks}/`, the ADR directory) and conditions hold at the tip;
+  the `/visitors` route matches the ratified runbook, `.gitignore:364`, the CLI's
+  `PRACTICE_COORDINATION_HOME` and the vocabulary walker's `.git` exclusion. 13:136 (keep the
+  `.mjs`) was ruled and applied; 13:27 and 12:31 (publication conditional) are overtaken by
+  ADR-227 — cure-at-named-home. 08:94–111's ten `tuition-*` workspaces inside OCE against 08:126's
+  "separate product repository" — an internal tension the collection leaves open; the choice is
+  the owner's at planning time (the node's remaining gate).
+- **S3 — chapter 08 tip table extension.** 33 workspaces (10/8/4/6/2/2 + agent-tools); 728/676/52
+  content items; `oak-design-react` exports one module; identities tier holds only a README;
+  `prerequisiteFor` from consecutive year-ordered pairs with a stated-arbitrary tie-break
+  (`graph-corpus-edges.ts:6–7, 69–76`), tool live, removal plan `status: sketch`;
+  `get-eef-evidence` and `eef://interpretation` dormant; four graph packages private;
+  `serialiseCanonicalJson`/`publishRawExtraction` with no non-test product caller;
+  `parseWithSchema` a bare `safeParse`; no single-flight in `sdk-cache/cache-wrapper.ts`; the
+  lease loop returns the ok execution result on renewal failure (`lifecycle-lease.ts:104–105`);
+  bulk reader whole-file (`reader.ts:77–78`), downloader no drain wait (`download-bulk.ts:84`);
+  the TypeScript-estate review's evidence/manifest/proposals family absent; pin→92d4854 exactly
+  eight documentary files; 61 `SKILL-CANONICAL.md`; plugin 3 skills + 2 agents; 92d4854→f1a1428
+  two nodes + four `.gitignore` lines (one `/visitors/`). Served surface at the tip: 40 universal
+  tools (37 live, 3 dormant), 1 app-local, 10 resources (6 live, 4 dormant) — confirms 08:168 and
+  08:3093 exactly. Correctness: true. Alignment: disposition-as-intended; J1 wording is a
+  cure-at-source nit.
+- **S4 — perishable: the EEF renderers exist at the tip** (#58, SHA:6e9d67216); 13:155, 08:126,
+  J1 true at SHA:f1a14284. Cure-at-named-home (`AUTHORITY.md` pointer, done).
+- **S5 — chapter 07 honest**; disposition-as-intended.
+- **S6 — 08:168's fork-standing reading** versus `docs/strategy/README.md:40–45` and ADR-227 at
+  the tip. Cure-at-source; pointer in `AUTHORITY.md` (done).
+- **S7 — appendices C–J.** P0.1–P0.9 stand at the tip (graph packages unchanged from
+  SHA:1173c1adf; P0.1 `jsonld-compatible/index.ts:98`, P0.2 `term/index.ts:7`, P0.7
+  `canonicalize.ts:9,71`); ADR-221's "no triplestore service" holds; Appendix G's counts hold;
+  demos-terminal boundary holds (`boundary.ts:323`); the only MCP client in product code is the
+  registration-proof harness; H1/H4 are dated external studies scoped as such; F's tree-carried
+  claims (six workflows, tag `v1.178.4`, CONTRIBUTING's no-external-contributions) hold, its
+  Oak-surface claims are unverifiable by construction. Disposition-as-intended.
+- **S8 — censuses.** Exactly-once alias tokens are self-defining catalogue rows; `OSR-C27` is
+  chapter 09's family; R3's class remains the only unresolved identifiers; 83 `MUST` all inside
+  appendix C/H spans whose standing lines scope them; one unqualified imperative (12:31).
+- **S9 — evidence chapters.** Standing and limits honest in every chapter; R2 partial (10:189 vs
+  10:106/10:887) and R6 partial (03:570: 43.1% never-joined; 7.5% withdrew after joining)
+  confirmed; 09 §9's four maturity levels hold (PDR-024:338–342) and "the fifth is a synthesis"
+  is correct; 10:132 and 10:136 hold; the cognition pin SHA:2714f61 resolves locally with twelve
+  skills; citations: 13 × 200, 7 × 403 to a scripted client (unverified, not dead); workbook 102
+  records, every-ninth sample consistent, P012 correction present.
+- **S10 — ADR-226 clause 3 holds**; the one ask of OCE (13:130) is done; nothing needs an edit to
+  the imported bytes.
+
+### Epistemic profile per chapter class
+
+- **Engineering claims about OCE (08, 07's assumed absences, 13 §4–5):** empirical, first-hand at
+  one pinned tip; high; moved only by a new `engraph` tip. Coverage: every statement the brief
+  listed plus Appendix A sampled (three consumer claims); the full per-row Appendix A ledger
+  remains the separately priced follow-up the first pass named.
+- **Authority (README, 01, 03, 04, 07, 09, 12, 13 settled rows):** ruled by the owner; closed.
+- **Structural fit (13):** verified against the tree and ADR-226/ADR-227; high.
+- **Evidence-boundary honesty (02–06, 09–11):** sampled, not exhaustive: standing lines read in
+  full, two reviewer-class findings re-derived, twenty citations probed, the workbook sampled at
+  one in nine. Medium; a full citation-by-citation probe and a research-merits review remain
+  outside the standard, as the first pass declared.
+- **External surfaces:** Oak National surfaces unread by construction; seven citations refused a
+  scripted client.
+
+### Spend (measured)
+
+Seat-inline only: no fleet, no subagent, no workflow. About 0.62M tokens from session open to the
+second review's post (13:31Z), read off the session budget counter; the branch writes that follow
+add to it and the final figure is on the thread record's RESUME 4 block.
+
+### Reproduction (second pass)
+
+- **Tip pin:** `git rev-parse origin/engraph` = SHA:6e9d67216 after `git fetch origin` at 13:1xZ.
+- **Runner-path drift:** `git diff --stat 31e76a72 origin/engraph -- <the ten loaded paths and
+  the corpus>` (empty); product drift `git diff --stat 31e76a72 origin/engraph -- packages apps
+  demos agent-tools/src` (23 `eef-strands` files only).
+- **Served surface:** `git show origin/engraph:apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts`,
+  count the `'live'` and `'dormant'` entries per map.
+- **Workspace census:** `git ls-tree -r --name-only origin/engraph | grep -E '^(packages|apps|demos|agent-tools)/[^/]+(/[^/]+)?/package\.json$'`.
+- **Identifier census:** `grep -oE` over the concatenated fourteen files for the alias families
+  named in S8, `sort | uniq -c`, then inspect the count-1 rows.
+- **Imperative census:** `grep -c '\bMUST\b'` over the concatenation (83) and the line numbers'
+  membership in appendix C/H spans.
+- **Citations:** `curl -sIL -A 'Mozilla/5.0 (review probe)' --max-time 20 -o /dev/null -w '%{http_code}' <url>`
+  over the twenty URLs listed in review 5132534231; no Oak National host.
+- **Workbook:** `unzip -oq research-landscape.xlsx`; records by `grep -o '<x:v>P[0-9]\{3\}</x:v>' xl/worksheets/sheet2.xml | wc -l`
+  (102); cells are inline `t="str"` values (`sharedStrings.xml` is empty); every ninth `P###`
+  paired with its column-B name, then `grep -c -F` of a short name key over the chapters; P012's
+  second source from `xl/worksheets/sheet5.xml`.

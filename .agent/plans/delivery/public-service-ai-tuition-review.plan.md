@@ -15,9 +15,10 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      The owner states whether the collection's "settled" service, POC and managed-platform
-      directions are settled at their word and where that word lives, and whether the chapter-13
-      work programme receives a plan node of its own and under which strategic parent.
+      The owner states whether the chapter-13 work programme receives a plan node of its own and
+      under which strategic parent. (The first half of this gate — whether the collection's
+      "settled" directions are settled at the owner's word — cleared 2026-09-07 ~13:2xZ: "No,
+      they are proposals", PR 66 comment 5571197335.)
     expires: 2026-09-27
 last_updated: 2026-09-07
 ---
@@ -180,3 +181,13 @@ in the report. Codex round one on PR 68 (2026-09-07 08:24Z, five threads):
   gate stands. The Cricket panel launched at the PR-open boundary (four roles, normal stance)
   returned nothing before the seat's host was suspended overnight: recorded as UNDELIVERED × 4,
   the seats stopped on resume, no substitute run; the boundary passed on the owner's word.
+- **2026-09-07 13:1xZ–13:4xZ, the substance review (Cricket weaves Burrow, f8f302).** The owner
+  ended the first seat with "Your one job was to review PR 66, have you done that?" (import and
+  warrant yes; substance no) and opened a fresh seat on its brief. The second seat read the
+  fourteen files from the branch, tested every claim about this repository at one pinned tip
+  (SHA:6e9d67216) and posted two typed reviews on PR 66 (5132463698 at 13:23Z, S1–S6; 5132534231
+  at 13:31Z, S7–S10): every brief item has a verdict or a declared "unverifiable"; no imported
+  byte changed; `AUTHORITY.md` carries the owner's ruling and four pointers; the report carries
+  the "Second pass" section with the epistemic profile and measured spend. The owner's ruling of
+  13:2xZ ("No, they are proposals") cleared the first half of the gate above; the second half
+  (a node and parent for the chapter-13 programme) stands. Seat-inline throughout, no fleet.

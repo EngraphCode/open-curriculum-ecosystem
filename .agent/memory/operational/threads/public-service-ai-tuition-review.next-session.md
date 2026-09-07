@@ -9,7 +9,8 @@ factors. Single-PR thread; retires with a banner when the lane PR merges.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| Jackal wakes Nocturne | claude-code | claude-fable-5-1 | 3484b6 | implementer — the whole lane: plan (fleet-design-reviewed, owner-approved in-session), seat-side mechanical legs, frame gate and audit fleet, report, one typed review on PR 66, node and this record; claim `60d6d916` | 2026-09-06 | 2026-09-06 |
+| Jackal wakes Nocturne | claude-code | claude-fable-5-1 | 3484b6 | implementer — the whole lane: plan (fleet-design-reviewed, owner-approved in-session), seat-side mechanical legs, frame gate and audit fleet, report, one typed review on PR 66, node and this record; claim `60d6d916` | 2026-09-06 | 2026-09-07 |
+| Cricket weaves Burrow | claude-code | claude-fable-5-1 | f8f302 | implementer — the substance review of the collection from Jackal's brief: two typed reviews on PR 66, the report's "Second pass", `AUTHORITY.md` pointers, this record's RESUME 4; claim `f08ac8d9` | 2026-09-07 | 2026-09-07 |
 
 ## Current Continuation
 
@@ -209,3 +210,43 @@ Read after COMPACTION BOUNDARY 1; everything there stays true except where trued
 - **Next safe step**: PR 66's landing is the owner's; this seat answers review rounds on its own
   files in PR 66 (Copilot 3945259039 and Codex 3945282446 replied with the index-row cure), then
   retires this record with its banner when PR 66 merges.
+
+## RESUME 4 — 2026-09-07 13:1xZ–13:5xZ (Cricket weaves Burrow, f8f302; owner word: a fresh seat "to actually review PR 66")
+
+Read after RESUME 3. The first seat retired at the owner's word ("Your one job was to review PR
+66, have you done that?"); this seat took its brief
+(`handoffs/3484b6-jackal-wakes-nocturne-pr66-substance-review-brief-2026-09-07.md`) and opened
+claim `f08ac8d9` (implementer; reports/, `AUTHORITY.md`, the node, this record's resume block).
+
+- **Delivered on PR 66** (head SHA:82bf00121 at the reviews; tip pin SHA:6e9d67216): review
+  5132463698 (13:23Z, S1–S6) and review 5132534231 (13:31Z, S7–S10) — the substance review of
+  the fourteen files: every brief item has a verdict or a declared "unverifiable"; fourteen further
+  chapter 08 claims and P0.1–P0.9 hold at the tip; chapter 13 fits ratified structure; the
+  settled rows are proposals (owner ruling 13:2xZ, PR 66 comment 5571197335, closing the packet's
+  last item); one perishable statement superseded by #58 (EEF renderers); chapter 07 and the
+  evidence chapters honestly bounded; 13 of 20 probed citations resolve, 7 refuse a scripted
+  client; workbook 102 records, sample consistent. No question survived the lenses; no Director
+  card from this seat.
+- **On this branch, this push**: `AUTHORITY.md` (ruling re-trued; second-pass pointers: EEF
+  renderers at the tip, ADR-227 over the publication rows, the strategy index over 08:168, the
+  tip table pointer); the report's "Second pass" section; the node's dated note and the gate
+  re-trued to its remaining half (a node and parent for the chapter-13 programme); this block;
+  the reports index row's stale "draft hold remains" wording (Codex thread on
+  `.agent/reports/README.md:44`). The imported files are unchanged beyond the deltas
+  `AUTHORITY.md` tables.
+- **Review threads answered on PR 66** (five open at 13:3xZ, all on the first seat's files):
+  Copilot on the research index row and Codex on README:71 (cured at the index row 41 and
+  `AUTHORITY.md`; README:71 stays byte-faithful); Codex on the runner listing (applied); Codex on
+  the reports index row (cured here); Codex on the rerun command at 08:331 (the imported bytes
+  stay; the deltas table and the listing's header explain the historical instruction).
+- **Liveness this window**: watcher armed from the primary before any worktree entry (Monitor
+  `bbsds8x7m`, asserted 13:14Z); heartbeat loop `bhjrmwsmm` on claim `f08ac8d9` (armed at the
+  owner's opening word although n=2 exempts it); team-start `8aa0c39d`; Director pickup map
+  `727d36e5`/`f2e913b1`, ACK sent; status events after each review.
+- **Spend**: seat-inline, no fleet, no subagent; about 0.65M tokens at this block (session budget
+  counter), of which about 0.62M to the second review's post.
+- **Next safe step**: PR 66's landing and its PDR-140 intake declaration are the owner's; this
+  seat answers any further review round on the lane's own files, then retires this record with
+  its banner when PR 66 merges. The owner's remaining gate on the node (a plan node and parent for
+  the chapter-13 programme) is the Director's to carry at the next action moment. The runner
+  follow-on named at RESUME 2 is discharged (the listing landed in PR 66).

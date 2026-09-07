@@ -41,7 +41,7 @@ declared contract; stylistic preference alone is not a contract failure.
 
 - [public-service-ai-tuition/pr-66-review-2026-09-06.md](./public-service-ai-tuition/pr-66-review-2026-09-06.md)
   — dated review of PR 66: faithful transfer, source authority, integration,
-  evidence qualifications and seven bounded findings; the draft hold remains
+  evidence qualifications and seven bounded findings; the PR's landing is the owner's
 - [public-service-ai-tuition/pr-66-independent-review-2026-09-06.md](./public-service-ai-tuition/pr-66-independent-review-2026-09-06.md)
   — independent review of PR 66 (the ADR-226 tuition import) from a second model
   lineage: external-link census, conformance of tracked executable content,

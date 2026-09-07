@@ -35,9 +35,42 @@ and chapters are the author's record and keep their source bytes except as liste
 - The nine `oaknational` repositories the collection permalinks into are all public (read once at
   the owner's permission; `oak-dspy-mcq-eval` is archived), so every permalink stays live under
   ADR-226 clause 2; the 26 unpinned links remain a pinning concern for the source.
-- Whether the directions the README calls settled are settled at the owner's word is not yet
-  answered; until it is, chapter 12 §14's own grading (relayed continuity excerpts) is the
-  standing reading.
+- The directions the README calls settled are proposals, not ratified (owner ruling 2026-09-07
+  ~13:2xZ on the Director's card, verbatim option "No, they are proposals"; posted on PR 66 as
+  comment 5571197335). Nothing in the collection is ratified by its own README; every direction,
+  including those labelled settled, is tested against this estate's ratified structure
+  (principles, ADRs, PDRs, rules). Chapter 12 §14's own grading (relayed continuity excerpts) was
+  the correct reading of the sources. The sites that carry the flat wording, for the author's
+  source: README:24; 01:15–16; 03:194; 04:363; 07:326 and 07:354; 09:3; 12:29–35; 13:3.
+
+## Second-pass pointers (substance review, 2026-09-07)
+
+The substance review (Cricket weaves Burrow, f8f302) is posted on PR 66 as reviews 5132463698
+and 5132534231 and recorded in the independent review's "Second pass" section. Its claims about
+this repository were tested at the `engraph` tip SHA:6e9d67216. Pointers a reader needs beside the
+chapters:
+
+- Supersession (chapter 13 §5, 08:126 and Appendix J1, the EEF renderers): true at the
+  collection's later pin SHA:f1a14284; superseded at SHA:6e9d67216 by PR #58, which lands the two
+  pure renderers and the file-set function under
+  `packages/sdks/graph-corpus-sdk/src/eef-strands/` (`eef-strand-markdown.ts`,
+  `eef-corpus-reference-markdown.ts`, `eef-markdown-files.ts` and their tests). EEF registration
+  in the HTTP app stays dormant.
+- Supersession (13:27 and 12:31, registry publication as a "distribution choice, conditional on
+  consumer need"): overtaken on this line by
+  [ADR-227](../../../docs/architecture/architectural-decisions/227-oak-product-in-its-own-repository.md)
+  (accepted 2026-09-03), which makes publishing on the `@oaknational` scope an obligation of the
+  extraction lane; `.releaserc.mjs` still reads `npmPublish: false`, as chapter 07's B21 states.
+- Standing (08:168, 08:124 and Appendix B, "Oak application extraction is top priority in the Oak
+  fork, not necessarily Engraph"): the strategy index at the tip
+  ([`docs/strategy/README.md`](../../../docs/strategy/README.md)) states extraction as this
+  repository's current first structural priority at the owner's 2026-09-03 word, recorded in
+  ADR-227; the collection's reading is a relayed owner-context excerpt.
+- Chapter 08's engineering claims: every one re-checked at the tip holds (the P1–P11 probe
+  statements by zero drift on the runner-loaded paths from SHA:31e76a72; the audit's counts,
+  boundaries and register claims by direct reads); one wording slip in Appendix J1 (four
+  `.gitignore` lines were added, of which one contains `/visitors/`). The full table is in the
+  report.
 
 ## Deltas from the imported bytes
 
