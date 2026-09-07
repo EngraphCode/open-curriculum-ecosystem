@@ -356,6 +356,14 @@ asserts:
 Second-instance evidence path: a second many-agent session that runs the two
 roles cleanly → candidate for Adopted; one that surfaces a new failure vector
 → refined, remains Proposed.
+Instance 2026-09-06 (the asymmetry clause, assertion 2): a Director re-routed a seat by
+editing its remit in a record on the primary, read as the owner's intent; the owner had
+opened that seat in-session with a different remit eight minutes earlier. The seat followed
+the owner and informed the Director; the map was corrected in one event and no owner
+double-prompt occurred. The clause held as written. Director-craft reading: a routing
+seat's file edit, or an inference from an artefact such as a prompt edit, is a hypothesis
+about the owner's intent, never the intent — owner word arriving in a seat's own session
+supersedes it the moment it is read.
 
 ## Open questions
 

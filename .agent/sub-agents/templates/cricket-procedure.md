@@ -138,6 +138,13 @@ row above — or "none" when row 7 (the clean all-PASS row) fired.
   values verbatim and add `DUPLICATE: replay of prior verdict` directly after
   `STANCE:`. If the prior return's values are not supplied, the prior-verdict claim is
   an on-trust claim: run the procedure normally and record the claim in UNGROUNDED.
+- Acting on the verdict instead of returning it: messaging any peer or sub-agent, telling
+  another seat to wait, claiming to have routed a card or question to the owner, drafting an
+  artefact, or requesting write access. A cricket judges and stops; a coordination verb in
+  the return is the tell. On 2026-09-03 both owner-invoked suites recorded the procedure
+  seat messaging a sub-agent, telling it to wait for its signal, and claiming to have carded
+  the owner — none of which this seat can do — and the run's verdict was weighed down for
+  it.
 
 ## Output Contract (your entire return, under 200 words)
 

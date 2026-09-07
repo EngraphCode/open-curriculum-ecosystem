@@ -6,12 +6,12 @@
   reflection work — reports + plan edits ride coordination windows; no
   feature worktree until a post-gate workstream needs one).
 - Controlling plan:
-  [`skills-estate-organisation.plan.md`](../../../plans/delivery/skills-estate-organisation.plan.md)
+  [`skills-estate-organisation.plan.md`](../../../../plans/delivery/skills-estate-organisation.plan.md)
   (born-sketch lane brief; WS0 runs on the owner's recorded
   commissioning word 2026-08-02; ratification stamp expected AT the
   WS0 gate ruling — gate expires 2026-08-23).
 - Execution surface:
-  [the WS0 working record](../../../reports/agentic-engineering/skills-estate-organisation-ws0-working-record.md)
+  [the WS0 working record](../../../../reports/agentic-engineering/skills-estate-organisation-ws0-working-record.md)
   — movement structure, per-movement exit criteria, sitting map,
   movement log. Resume from its log's last entry.
 - Lane scope beyond the plan: the owner named the standing lane

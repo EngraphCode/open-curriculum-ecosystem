@@ -350,8 +350,9 @@ first-hand as of 2026-06-25.
 > priority lane — seated 2026-08-17 late evening at owner word and resumed
 > 2026-08-18, claim opened with `--role director`.
 >
-> Read `threads/mcp-submission-drive.next-session.md` for that lane's live state;
-> `repo-continuity.md` §Active Threads now carries its index row. Live team at this
+> Read `threads/paused/mcp-submission-drive.next-session.md` for that lane's state (the
+> record moved under `paused/` 2026-09-06: no Oak-surface access on this line);
+> `repo-continuity.md` §Paused Threads carries its index row. Live team at this
 > write: Director `a54547`, owner-liaison Raven turns Nocturne (`0aad1a`), PR Review
 > Warden Sloop spins Spray (`c42e7e`, boundary closed after five reviews).
 >

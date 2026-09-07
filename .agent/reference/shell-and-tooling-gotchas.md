@@ -126,8 +126,9 @@ tool retires them.
   instance — the row is now owed): `for c in $CLAIMS` iterates ONCE with
   the whole string; four GraphQL ids went as one malformed argument.
   Iterate literal values or `printf '%s\n' … | while read`. Sibling:
-  `${PIPESTATUS[0]}` is a bashism that expands EMPTY in zsh — the piped-
-  exit trap in a fourth costume.
+  `${PIPESTATUS[0]}` is a bashism that expands EMPTY in zsh (whose array is
+  the lowercase, 1-based `pipestatus`) — the piped-exit trap in a fourth
+  costume.
 - **pnpm re-appends the literal `--` at EACH forwarding layer**: a root
   alias forwarding through a workspace script delivers `['--', …]` to the
   leaf bin, and an arg scanner reading leading `--` as its terminator sees
@@ -272,8 +273,9 @@ tool retires them.
 - **The harness re-injects a nested checkout's rule pointers on every read
   under it.** One 2026-08 transcript holds 1,056 nested-memory attachments
   across eight worktrees under the repository's own platform worktree
-  directory, 121 rule names each — the measured mechanism behind "the
-  rules load twice" (2026-09-05).
+  directory, naming 121 distinct rule files (separate counts; the per-worktree
+  split was not retained) — the measured mechanism behind "the rules load
+  twice" (2026-09-05).
 - **The bot merge token expires hourly**; a 401 mid-batch is the tell —
   mint, then repeat the batch (2026-09-05).
 - **`ls -1` hides dotfiles**, so it reports a just-copied dotfile as absent.
@@ -302,3 +304,88 @@ tool retires them.
   rebuilt dist appeared and BEFORE the planned by-hand archive copy, so no
   pre-migration copy of that day's file exists. Take the archive copy
   before ANY CLI call after a rebuild — a comms send included.
+
+## 2026-09-07 consolidation batch (2026-09-02→07 instances, each measured first-hand by the seat named in the napkin and verified at the drain)
+
+- **The Actions runs listing returns at most 1,000 results per query and
+  raises no error at the cap** (2026-09-02): a day with 1,325 runs produced
+  a 1,000-line file and a clean exit, found only against the endpoint's own
+  `total_count`. Count each window with `per_page=1`, split any day over the
+  cap into sub-day `created` windows, and record per-day coverage.
+- **A bot installation token is a second 5,000-requests-per-hour core bucket
+  for read-only Actions pulls** (2026-09-02): two shards, one under the `gh`
+  login and one under a minted installation token, ran side by side over a
+  17,467-run export; the token lasts an hour, so the pull ran under a
+  re-mint-and-resume wrapper on each timeout exit (124).
+- **The Actions performance-metrics page under Insights has no REST
+  endpoint** (2026-09-02): its per-workflow and per-job counts, run and
+  queue times and failure rates are derivable from `actions/runs` and
+  `actions/runs/{id}/jobs?filter=all` (queue time = job `started_at −
+  created_at`; run time = `completed_at − started_at`; every attempt under
+  `run_attempt`); the page's CSV is a manual download.
+- **A format or lint run over an unquoted space-joined variable silently
+  widens** (2026-09-03, the no-word-split family): `prettier --write $FILES`
+  exited 2 on one nonexistent path; `markdownlint` over the same string
+  linted the whole tree, so its verdict said nothing about the named files.
+  Literal paths, one variable per file.
+- **`validate-markdown-links` reads a link from a tracked source to an
+  untracked new file as broken** and labels it
+  `tracked-source-to-untracked-target` (2026-09-03): a new ADR plus its
+  index row was red in the working tree and green once the new file was
+  staged. Stage the new file first, or read the reason label.
+- **A workflow fan-out stalled at N−1 of N is a held approval, not a slow
+  agent** (2026-09-03): the journal's `started` versus `result` counts name
+  the missing agent; its newest transcript ends on a Bash tool use with no
+  result; no process is running. A hook-held command inside a background
+  agent has no approver — stop the run, name the held command class in the
+  prompt, resume from the run id (the cached agents return instantly).
+- **`gh repo view` takes the repository as a positional argument and has no
+  `--repo` flag** (2026-09-06).
+- **`comms send --body` caps at 1,500 characters** (`MAX_COMMS_BODY_LENGTH`,
+  2026-09-06); `--body-file` beyond it.
+- **`gh api --jq` has no `--arg`**: interpolate values in the shell before
+  the jq expression (2026-09-06).
+- **A GitHub CheckRun still in progress carries no `conclusion`**
+  (2026-09-06): read `(.conclusion // .state // "") == ""` as pending, never
+  as absent or failed, or a green-by-name check read lies.
+- **`merge-bot push` runs the full pre-push chain and takes minutes; three
+  chains in parallel put the host at load 17** (2026-09-06) — the
+  measurement behind the owner's host bound of two, at most three,
+  simultaneous full local gates (2026-09-07).
+- **`gitleaks detect --no-git` did not report a synthetic credential that
+  git-mode scanning caught**, inside a file named by an AND-conditioned
+  allowlist (gitleaks 8.30.1, 2026-09-06): a scanner-mode difference to
+  verify per invocation, not a defect to route upstream unreproduced.
+- **A zero from a probe is a probe failure until a known positive is in the
+  set** (2026-09-06, the second instance that week): an xlsx written with
+  the `x:` namespace prefix hid `<x:f>` formula tags from a bare `<f` grep,
+  and a URL extractor's quoting matched nothing against real content.
+- **`/code-review ultra` (`/ultrareview`) refuses 21 files / 16,235 lines
+  and is owner-triggered only** (2026-09-06): run the link-closure census
+  before any fixture branch, not after two abandoned attempts.
+- **Prettier's `resolveConfig` returns null from a path outside the
+  repository** (2026-09-06): a self-check resolving from its own output
+  directory validated nothing until it resolved from the script's own
+  location.
+- **A `;`-joined chain runs every step regardless of the previous exit**
+  (2026-09-06): a commit refused by the commit-msg hook (a 101-character
+  header) did not stop the chain; the push moved nothing and a reply script
+  posted, on three threads, a cure SHA the head did not carry. Gate every
+  dependent step on the prior exit, and measure the header before the
+  ceremony.
+- **Some publishers answer 403 to a scripted fetch or HEAD** (2026-09-05,
+  the evidence publisher's terms page to the harness fetcher; 2026-09-07,
+  seven of twenty load-bearing citations to a scripted HEAD): a 403 to a bot
+  is not a dead link and the honest verdict is "unverified by probe"; a page
+  a seat cannot read first-hand has its terms carried in the artefact's
+  metadata instead.
+- **The reference-direction validator refuses a directive that links into
+  `.agent/memory/**`** (patterns included; the #59 cure commit's hook,
+  2026-09-06): doctrine names a pattern in backticks, never as a link.
+- **A lane touching a `DELTA_SCOPE_PATHS` entry of the MCP current-source ledger runs
+  `validate-mcp-content-current-source` as a lane gate before the ceremony** (2026-09-06):
+  package gates never invoke it, so the pre-commit hook was the first place it fired and it
+  refused the projection's first commit outright ("Reviewed semantic-delta files differ",
+  eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
+  disposition and the semantic hash for each affected file, wired into the aggregator, then
+  `refresh-mcp-content-current-source-anchors`.

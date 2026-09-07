@@ -1,6 +1,6 @@
 ---
 thread: curriculum-hub-demo
-status: active
+status: paused
 ---
 
 # Thread: curriculum-hub-demo

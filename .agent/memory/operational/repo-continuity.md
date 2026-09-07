@@ -34,6 +34,17 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **This line's direction — owner words 2026-09-05, verbatim.** (1) "I want to explore
+  creating a set of skills around not what to teach but how to teach, pedagogy skills,
+  and the EEF work seemed like a good place to start." (2) "For now this is specific to
+  the Engraph fork." (3) "Splitting out the Oak apps is the top priority in the Oak
+  fork, not necessarily in this fork." The shape that landed 2026-09-06: the pedagogy
+  product lives in its own repository (`EngraphCode/pedagogy-library`, the first
+  ecosystem visitor, checked out under a gitignored `visitors/` directory — runbook
+  [`ecosystem-visitor-checkout`](../../plans/runbooks/ecosystem-visitor-checkout.plan.md));
+  this tree gains only the org-neutral EEF corpus markdown projection (delivery node
+  [`eef-corpus-markdown-projection`](../../plans/delivery/eef-corpus-markdown-projection.plan.md),
+  #58 merged 2026-09-07). The extraction's priority is the Oak line's, not this line's.
 - **2026-09-02 ~13:xxZ — the 19 August fold LANDED (Finch calls Pinnacle, c91bd4).**
   `coordination/2026-08-19-1651ad` (PR #915) merged into main by merge commit: the
   `toolkit-re-architecture` strategic node is on main (ratified 2026-08-19),
@@ -107,34 +118,20 @@ forward-asks remain.
   substitution; dependent-PR tail risk); not well-bounded for a drive seat's
   closeout, left for a dedicated consolidation pass.
 
-- **TYPESCRIPT ESTATE CONSOLIDATION REVIEW — active, incomplete local
-  measurement-foundation tranche (2026-08-02→).** The ratified review includes
-  every tracked `.ts`/`.tsx` file, generated carriers, and the curriculum SDK,
-  but no census, candidate, top-ten result, or proposal exists. Revision 2.6's
-  validated configuration/classification fragment is the strongest approved
-  boundary; secure identity is at a known red integration/type boundary,
-  atomic publication is not re-proved after its split, and auxiliary Git reads
-  are only a pure decision/transition. All implementation and review docs are
-  uncommitted in the dedicated `typescript-estate-review-019fc3` worktree by
-  owner direction. Read the [thread record](threads/typescript-estate-consolidation-review.next-session.md)
-  before touching it. Deep consolidation status: not due — the plan remains
-  active, its architectural framing already has permanent homes, and this
-  handoff captured the session-scoped execution state.
-
-- **RESTATEMENT REMEDIATION — gated lane; the settling gate for plan-corpus
-  refounding.** Guiding plan (owner-approved):
-  [`restatement-remediation.plan.md`](../../plans-backlog-2026-07/product-development-governance/active/restatement-remediation.plan.md)
-  — pr-lifecycle hardening, the restatement-audit module + T3+U fleet,
-  prevention validators; #390/#391 MERGED. Resume states and halts: the
-  [thread record](threads/strategy-and-plan-estate-holistic-review.next-session.md).
-
-- **PLAN-CORPUS / STRATEGY ESTATE — reshaped 2026-07-21/22.** The corpus reset
-  executed and was owner-ruled an UNRATIFIED SKETCH (executed ≠ ratified);
-  ADR-216 plan-node estate is the doctrine home (decisions register D23,
-  2026-07-22). The refounding-era machinery (r1/S0/S1, freeze-recut gate) is
-  superseded-pending-adjudication at the
-  [thread record](threads/strategy-and-plan-estate-holistic-review.next-session.md)
-  — read it and the decisions register FIRST; this row is a pointer.
+- **TYPESCRIPT ESTATE CONSOLIDATION REVIEW — PAUSED 2026-09-06 (no fork lane).** Design
+  ratified 2026-08-19 on the Oak line; the measurement-foundation tranche's state
+  (Revision 2.6, the `typescript-estate-review-019fc3` worktree, the known red
+  boundaries) lives in the
+  [thread record](threads/paused/typescript-estate-consolidation-review.next-session.md);
+  reactivation is owner-directed.
+- **RESTATEMENT REMEDIATION and the PLAN-CORPUS / STRATEGY ESTATE — PAUSED 2026-09-06
+  (no fork lane).** The gated lane and its plan
+  ([`restatement-remediation.plan.md`](../../plans-backlog-2026-07/product-development-governance/active/restatement-remediation.plan.md)),
+  the 2026-07-21/22 corpus reshaping (owner-ruled an unratified sketch; ADR-216 the
+  doctrine home; decisions register D23) and the superseded-pending-adjudication
+  machinery live in the
+  [thread record](threads/paused/strategy-and-plan-estate-holistic-review.next-session.md)
+  and the decisions register; read them first, this row is a pointer.
 - **CRICKET CONSCIENCE-CHECK SUBSTRATE — live, owner-mandated, platform panels.**
   Every active agent invokes its platform panel twice at real cycle boundaries:
   STANCE normal and adversarial. Between owner interactions the cadence is
@@ -153,10 +150,9 @@ forward-asks remain.
   (counts are not limits) + the mutation dry-run contract; reports:
   [architectural fitness](../../reports/architectural-fitness-functions-concept-exploration-2026-07-15.md),
   [mutation testing](../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md).
-- **MCP agent-facing content** — 716-item registry merged (#337/#338; MCP-103
-  delta-refresh #476, 2026-07-22); research EXECUTION and the content-workspace
-  build stay owner-gated — do not auto-start. Thread:
-  [`mcp-agent-facing-content`](threads/mcp-agent-facing-content.next-session.md).
+- **MCP agent-facing content — PAUSED 2026-09-06 (fork ruling).** The 716-item registry
+  (#337/#338; MCP-103 delta-refresh #476) and the owner-gated research execution live
+  in the [thread record](threads/paused/mcp-agent-facing-content.next-session.md).
 - **Inter-Practice exchange — live next: the WS0+WS4 authoring session**
   (portable protocol PDR in both estates + join-ceremony skill; opener
   written) — the
@@ -168,20 +164,13 @@ forward-asks remain.
   `reference/`, the outbound bundle held (castr-bound items forward at the
   next window; the four design-shape offers queue for the cross-estate
   integration session, owner-scoped).
-- **Curriculum Hub — live remainder only** (merged 2026-07-06; detail in the
-  [thread record](threads/curriculum-hub-demo.next-session.md)): §J
-  owner-hosted deploy → fidelity-register judgments (14 findings) →
-  follow-ups → retained-claims sweep → owner branch deletions. One system
-  defect to graduate: `@oaknational/eslint-plugin-standards`
-  configs.react/next crash under ESLint 10.
-- **Upstream API alignment — live next** (detail in the
-  [thread record](threads/upstream-api-alignment.next-session.md)): stale
-  RED-gate note correction; the `bulk-types-schema-derivation` future plan;
-  the MCP pagination-header P1 (ADR-shaped). NOTE 2026-07-23: MCP-130 landed
-  the cached-schema pin (no build regenerates from the live API), but the
-  committed generated types remain drifted against the live schema — the
-  deliberate `pnpm sdk-codegen:refresh` against current upstream is
-  regenerate-AND-fix work this lane owns at its next touch.
+- **Curriculum Hub — PAUSED 2026-09-06 (no fork lane).** Merged 2026-07-06; the remainder
+  (§J deploy, the fidelity-register judgments, follow-ups, the ESLint 10 defect) lives
+  in the [thread record](threads/paused/curriculum-hub-demo.next-session.md).
+- **Upstream API alignment — PAUSED 2026-09-06 (fork ruling).** The RED-gate note, the
+  `bulk-types-schema-derivation` future plan, the MCP pagination-header P1 and the
+  MCP-130 cached-schema state live in the
+  [thread record](threads/paused/upstream-api-alignment.next-session.md).
 - **Team-tooling — live next: the SYNTHESIS PHASE** (worktree-per-agent /
   PDR-117 verdict; do-first the F-44 freshness≠liveness defect in
   `active-agents.ts`). Plan:
@@ -296,26 +285,11 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `public-service-ai-tuition-review` | Single-PR review lane over PR 66 (the ADR-226 tuition import): import fidelity and warrant (first pass, F1–F9 and the R1–R7 mapping), then the collection's substance (second pass, S1–S10); records live on PR 66's branch at the owner's word; retires with a banner when PR 66 merges — see the record's RESUME 4 | [record](threads/public-service-ai-tuition-review.next-session.md) | claude-code / claude-fable-5-1 / Cricket weaves Burrow (f8f302) / implementer — substance reviews 5132463698 and 5132534231 posted on PR 66 2026-09-07 13:2xZ; records pushed onto PR 66's branch as the bot; all owner facts ruled; only PR 66's landing (the owner's) and the node's remaining gate (a plan node and parent for the chapter-13 programme) stand / 2026-09-07 ← claude-code / claude-fable-5-1 / Jackal wakes Nocturne (3484b6) / implementer — first pass, reviews 5126608127 and 5126692305; retired at the owner's word 2026-09-07 13:1xZ |
-| `mcp-submission-drive` | **The estate's live priority thread.** Oak's MCP app to public beta, publicised 2026-09-06; the connector was submitted to Anthropic 2026-08-07 and the acceptance bar is a verified tag from them. Landing target **MCP-597** (re-point + enable production uptime monitor 1593267, prove checks ran). MCP-614's provider COMPARISON is answered — Pingdom takes AC1 at £0, do not re-run it — but MCP-614 itself is still `In Progress` and its blockedBy edge on MCP-597 is TRUE, pending the owner's Pingdom-interval and Sentry-plan answers. Owner availability is the governing constraint: MG away ~22-31 Aug, so anything needing him routes SAME-DAY, never batched | [record](threads/mcp-submission-drive.next-session.md) | claude / claude-opus-5[1m] / Dormouse turns Footfall (a54547) / director — seated 2026-08-17 LATE evening at owner word, after Skunk stirs Cavern (db8b9b) stood down 17:42Z; resumed 2026-08-18; PR #903/#902 CHANGES_REQUESTED blockers under cure / 2026-08-18 (seat chain: thread record) |
 | `estate-coordination` | The Director lane's thread record (founded 2026-08-13 by the director-continuity-surface-redesign plan): journal, board, seat chain; director-handoff.md keeps only the role brief + live snapshot. FOLD LANDED 2026-09-02 (#915 to main); MCP-661 landed 2026-09-02 (#954, the split delivery plan); MCP-673 CLOSED 2026-09-03 — the strategy and intent corpus trued around the extraction plan, ADR-227 accepted, six expired owner gates discharged at card words, #962 / #959 / #961 on main (b3c9742f8, ec7cb3fa8, c616a354c) with a docs-only wrap PR after at the owner's card word — pickup map §2026-09-03 MCP-673 CLOSED and §WRAP PR after the close. Deep consolidation status: due — the truing node archived as completed; the napkin near 1,000 lines against its rotation threshold; eight graduation candidates registered 2026-09-03; this row was stale for a day; not well-bounded for this closeout (the owner's zero-PR word), routed to a dedicated consolidation pass. SECOND BOUNDARY 2026-09-03 ~19:3xZ: the checkout is the Engraph fork (`engraph`); lead/support split at owner word — the lead holds PR #51 (the `organisational-identity-below-the-tree` strategic node sketch and its first slice, presenting six owner decisions) and PR #52 (this landing); the support seat closed PR #50 (the skill-usage census report, merged 81ca79913); the seven pre-estate PRs #38–#44 are under first-hand evaluation with verdicts carded to the owner; standing owner goal: the open-PR count to zero (ten at the boundary). | [record](threads/estate-coordination.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
-| `workspace-config-isolation` | Config-boundary cure lane: @oaknational/workspace-config package, depcruise boundary rules under the three owner rulings, de-hatch arc, census todos. #836/#865 merged; Bucket-1 successor work handed onward; de-hatch + census todos remain the lane's pickup | [record](threads/workspace-config-isolation.next-session.md) | claude-code / claude-fable-5 / Wren calls Downdraft (6b29b5) / implementer — #865 closed out, seat closed at owner word / 2026-08-13 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
-| `typescript-estate-consolidation-review` | Repo-architecture lane, design COMPLETE and RATIFIED: strategic node `toolkit-re-architecture` (owner stamp 2026-08-19) governs execution — five-change set on the Toolkit Atlas, seam centrepiece; `workspace-reorganisation-programme` superseded by it; next work = seam-migration delivery plan authored at pickup by its implementer | [record](threads/typescript-estate-consolidation-review.next-session.md) | claude-code / claude-fable-5 / Poppy lifts Bark (d427b6) / repo-architecture lane — change set + strategic node ratified at owner cards 2026-08-19; claim closed at wrap, fresh pickup next / 2026-08-19 |
-| `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / active implementation custody ← Kite seeks Crosswind / handoff complete and retired / 2026-07-26 |
-| `first-class-copilot-cli-practice` | Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |
-| `mcp-agent-facing-content` | Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/mcp-agent-facing-content.next-session.md) | codex / GPT-5 / Smelter rides Temper (019f9f) / implementer — MCP-103 phases (b)/(c), PR #582 shepherd / 2026-07-27 (chain: thread record) |
-| `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude-code / claude-fable-5 / Birch holds Seedling (e48fe2) / implementer — the 2026-08-03 upstream update lane (MCP-462/463/464) / 2026-08-03 (chain: thread record) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, four-theme contrast gate, hub migration (§6 slices), studio sync-back batch. Live lane state, owner rulings, and the fidelity register live in the thread record and the drive's handoff records. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread. Lane history lives in the thread record's sections and identity table; this row is the index pointer only (latest lane: the 2026-08-07/08 longitudinal step-6a archive synthesis, Nettle weaves Root 5cfa11 — COMPLETE and owner-approved; report + processed marker 2026-08-07 at `research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-08-07.md`; plan archived; MCP-531 Done). | [record][agentic] | claude-code / fable-5 / Nettle weaves Root (5cfa11) / implementer — longitudinal step-6a synthesis / 2026-08-08 (prior lanes: thread record) |
-| `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude / claude-fable-5 / Magma mends Sulphur / curator — record hygiene at the 2026-07-23 consolidation / 2026-07-23 ← Wyvern seeks Clinker / footer-PR-badge diagnostic / 2026-07-06 (earlier identities: thread record) |
-| `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude-code / claude-fable-5 / Moss calls Loam (79b433) / identity-lane implementer — MCP-457 + the MCP-145 visual-disambiguator slices all MERGED, both plans archived, LANE COMPLETE / 2026-08-02 (prior identities: thread record) |
-| `agent-operability` | Agents operable in their own worktrees: launch-in-worktree as the derived `(identity→worktree→branch)` binding, worktree lifecycle (create/build/draft-PR/cleanup), seat-in-the-brief. Member of the agent-team-operations cluster. **Controlling plan ready to build (owner-approved 2026-06-28); thread record stood up + branch/ground reconciled to post-merge reality (enablers committed on `docs/consolidations`) 2026-07-01.** Ground on `docs/consolidations`; next: cwd-confirmation smoke-test → Phase 1A. | [record][agent-operability] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / thread-record orphan-fix + branch reconcile (no build) / 2026-07-01 |
-| `strategy-and-plan-estate-holistic-review` | Planning-estate rewrite on a living idea-graph (ADR-200/201) with the owner-directed plan-corpus REFOUNDING inserted first; currently gated on the restatement-remediation effort (see §Current State). The full r1/S0/S1 arc, Director chain, rulings, and pickup state live in the thread record — read it FIRST; this row is the index pointer only (compacted 2026-07-20, dedicated consolidation: the arc narrative formerly in this cell is conserved in the thread record's dated sections and the napkin archive). | [record](threads/strategy-and-plan-estate-holistic-review.next-session.md) | claude-code / claude-fable-5 / Petrel calls Aether (d4f4b7) / AIP-126 implementer — full closeout / 2026-07-18 (full seat chain: thread record identity table) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 parallel-safe first; WS9+ consumes owner-provisioned resources). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + thread record | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
-| `orientation-skills-family` | Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-under-the-hood`) across the PDR-112 portability seam | [record][orientation] | claude-code / claude-fable-5 / Juniper holds Tendril (3dfd3b) / implementer — dev-facing guide arc, PRs #603 + #604 owner-merged / 2026-07-28 ← claude-code / Opus 4.8 (1M) / Clover mends Hedgerow / **reframe `/oak-explain`→`/oak-under-the-hood` + MCP pointer projection MERGED via PR #243 (`a0a85f60c`, 2026-06-27); ADR-202 + ADR-205. `oak-under-the-hood.plan.md` DONE→archive; MCP-surfaced discoverability follow-on owned by `current/mcp-tool-taxonomy-and-orientation.plan.md` (decision-incomplete, WS0 not started)** / 2026-06-28 (prior: Zenith lifts Firmament — unification `ca40d98ce`; Swordfish/Seal — reframe build; Skipper tracks Reef, Orbit rides Horizon, Bora lifts Downdraft) |
-| `main-sonar-ai-profile-to-zero` | Drive `main`'s Sonar AI quality-profile backlog to **zero** under the owner-ratified disposition bar (fix at source is the default; ACCEPT only on a grounded site-specific tension; FP for true tool errors). Phases 1–3 + 5A MERGED (#242/#246/#249/#254/#255/#257); **Phase 5B on PR #308 (open, shepherding to owner merge)** — idiom residuals fixed, six ADR-153 guard sites rejected-as-incorrect with the ADR citation. Next batches doctrine-first: S7763/S7785/S6594/S7786 then Phase 4 design-MAJORs | [record][main-sonar-zero] | claude-code / claude-fable-5 / Katydid seeks Moonbeam / implementer — Phase 5B + the ADR-153 guard arc; PR #308 at the code-owner gate / 2026-07-06; Zenith wakes Perigee (8897eb) / curator — drift-guard follow-on noted in the record / 2026-07-06 (prior: Alder tracks Topsoil #242, Gull tracks Eyrie #246/#249, Junk tracks Moorings #223, Thyme lifts Compost, Aspen tracks Root) |
-| `curriculum-hub-demo` | Reproduce the Oak Curriculum Hub from the Claude Design canonical export (all pages/components, visual-matched, two-search, DoD §A–J). Build complete, MERGED 2026-07-06; live remainder in §Current State + the thread record's Next safe step | [record](threads/curriculum-hub-demo.next-session.md) | claude-code / claude-fable-5 / Thyme weaves Hedgerow (762020) / MCP-372 hub-conformance carrier / 2026-07-30 (lane state on the design-system-integration record; prior cast: thread record) |
-| `skills-estate-organisation` | The standing "agentic skills and related agentic mechanisms and levers" lane; first briefed work is the skills-estate plan (WS0 reflection ruled R1-adopted, rules reclassification ratified and landed). Movement structure and log live in the WS0 working record — resume from its last entry | [record](threads/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair pending / 2026-08-03 |
 | `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived). Thread quiescent — no queued next step; buffer lifecycle continues under `per-user-memory-is-a-buffer`; descendants belong to the strategy-and-plan-estate lane | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5 / Gull lifts Nimbus / consolidator — dedicated consolidation complete / 2026-08-07 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE same day: plan ratified, all five legs executed, all six proposals owner-adopted ("agreed to all") and P1–P5 landed (tenure status message, Slack-via-Watcher comms lane + mirroring clause, PDR-133 substrate declaration, stand-up echo-back, trued cursor adapter); plan archived at `.agent/plans/archive/slack-watcher-estate-review.plan.md`; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. CLOSED OUT 2026-08-24: P6 done by the owner account-side; castr pointers DELIVERED as castr PR #53; the whole arc is OCE PR #17 (base `engraph`). Shepherding COMPLETE 2026-08-25: OCE PR #17 merged (`c40a4287`) and castr PR #53 merged (`e62891ee`) under the owner-commissioned PR drive. Remaining: the NOTIFY observed-wake probe at the next Watcher stand-up, plus two recorded deferrals from #17's final review round (correspondent no-mantle-post branch; §6 REGISTRY reclassification — rationale on the resolved threads and in the 2026-08-25 napkin entry). Deep consolidation status: due — the napkin (~1,45x lines) is over its ~400-line rotation threshold; rotation deferred to a dedicated consolidation pass, not well-bounded for this closeout. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
 
@@ -342,8 +316,32 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Cross-scale budgets; proposed report-only directory-concentration validator direction awaits owner ratification | [record][budget] | codex / GPT-5 / Spark seeks Pumice / concept exploration and handoff / 2026-07-15 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
+| `mcp-submission-drive` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. **Formerly the estate's live priority thread (the Oak line).** Oak's MCP app to public beta, publicised 2026-09-06; the connector was submitted to Anthropic 2026-08-07 and the acceptance bar is a verified tag from them. Landing target **MCP-597** (re-point + enable production uptime monitor 1593267, prove checks ran). MCP-614's provider COMPARISON is answered — Pingdom takes AC1 at £0, do not re-run it — but MCP-614 itself is still `In Progress` and its blockedBy edge on MCP-597 is TRUE, pending the owner's Pingdom-interval and Sentry-plan answers. Owner availability is the governing constraint: MG away ~22-31 Aug, so anything needing him routes SAME-DAY, never batched | [record](threads/paused/mcp-submission-drive.next-session.md) | claude / claude-opus-5[1m] / Dormouse turns Footfall (a54547) / director — seated 2026-08-17 LATE evening at owner word, after Skunk stirs Cavern (db8b9b) stood down 17:42Z; resumed 2026-08-18; PR #903/#902 CHANGES_REQUESTED blockers under cure / 2026-08-18 (seat chain: thread record) |
+| `workspace-config-isolation` | PAUSED 2026-09-06 — no fork lane; identity row stale. Config-boundary cure lane: @oaknational/workspace-config package, depcruise boundary rules under the three owner rulings, de-hatch arc, census todos. #836/#865 merged; Bucket-1 successor work handed onward; de-hatch + census todos remain the lane's pickup | [record](threads/paused/workspace-config-isolation.next-session.md) | claude-code / claude-fable-5 / Wren calls Downdraft (6b29b5) / implementer — #865 closed out, seat closed at owner word / 2026-08-13 |
+| `typescript-estate-consolidation-review` | PAUSED 2026-09-06 — no fork lane; identity row stale. Repo-architecture lane whose design was ratified 2026-08-19 on the Oak line (strategic node `toolkit-re-architecture`; five-change set on the Toolkit Atlas, seam centrepiece; `workspace-reorganisation-programme` superseded by it); execution is not a lane on this line | [record](threads/paused/typescript-estate-consolidation-review.next-session.md) | claude-code / claude-fable-5 / Poppy lifts Bark (d427b6) / repo-architecture lane — change set + strategic node ratified at owner cards 2026-08-19; claim closed at wrap, fresh pickup next / 2026-08-19 |
+| `mcp-product-analytics` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / active implementation custody ← Kite seeks Crosswind / handoff complete and retired / 2026-07-26 |
+| `first-class-copilot-cli-practice` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/paused/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |
+| `mcp-agent-facing-content` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/paused/mcp-agent-facing-content.next-session.md) | codex / GPT-5 / Smelter rides Temper (019f9f) / implementer — MCP-103 phases (b)/(c), PR #582 shepherd / 2026-07-27 (chain: thread record) |
+| `upstream-api-alignment` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/paused/upstream-api-alignment.next-session.md) | claude-code / claude-fable-5 / Birch holds Seedling (e48fe2) / implementer — the 2026-08-03 upstream update lane (MCP-462/463/464) / 2026-08-03 (chain: thread record) |
+| `statusline-enhancements` | PAUSED 2026-09-06 — no fork lane; identity row stale. Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude / claude-fable-5 / Magma mends Sulphur / curator — record hygiene at the 2026-07-23 consolidation / 2026-07-23 ← Wyvern seeks Clinker / footer-PR-badge diagnostic / 2026-07-06 (earlier identities: thread record) |
+| `agent-naming` | PAUSED 2026-09-06 — no fork lane; identity row stale. PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude-code / claude-fable-5 / Moss calls Loam (79b433) / identity-lane implementer — MCP-457 + the MCP-145 visual-disambiguator slices all MERGED, both plans archived, LANE COMPLETE / 2026-08-02 (prior identities: thread record) |
+| `agent-operability` | PAUSED 2026-09-06 — no fork lane; identity row stale. Agents operable in their own worktrees: launch-in-worktree as the derived `(identity→worktree→branch)` binding, worktree lifecycle (create/build/draft-PR/cleanup), seat-in-the-brief. Member of the agent-team-operations cluster. **Controlling plan ready to build (owner-approved 2026-06-28); thread record stood up + branch/ground reconciled to post-merge reality (enablers committed on `docs/consolidations`) 2026-07-01.** Ground on `docs/consolidations`; next: cwd-confirmation smoke-test → Phase 1A. | [record][agent-operability] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / thread-record orphan-fix + branch reconcile (no build) / 2026-07-01 |
+| `strategy-and-plan-estate-holistic-review` | PAUSED 2026-09-06 — no fork lane; identity row stale. Planning-estate rewrite on a living idea-graph (ADR-200/201) with the owner-directed plan-corpus REFOUNDING inserted first; currently gated on the restatement-remediation effort (see §Current State). The full r1/S0/S1 arc, Director chain, rulings, and pickup state live in the thread record — read it FIRST; this row is the index pointer only (compacted 2026-07-20, dedicated consolidation: the arc narrative formerly in this cell is conserved in the thread record's dated sections and the napkin archive). | [record](threads/paused/strategy-and-plan-estate-holistic-review.next-session.md) | claude-code / claude-fable-5 / Petrel calls Aether (d4f4b7) / AIP-126 implementer — full closeout / 2026-07-18 (full seat chain: thread record identity table) |
+| `orientation-skills-family` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-under-the-hood`) across the PDR-112 portability seam | [record][orientation] | claude-code / claude-fable-5 / Juniper holds Tendril (3dfd3b) / implementer — dev-facing guide arc, PRs #603 + #604 owner-merged / 2026-07-28 ← claude-code / Opus 4.8 (1M) / Clover mends Hedgerow / **reframe `/oak-explain`→`/oak-under-the-hood` + MCP pointer projection MERGED via PR #243 (`a0a85f60c`, 2026-06-27); ADR-202 + ADR-205. `oak-under-the-hood.plan.md` DONE→archive; MCP-surfaced discoverability follow-on owned by `current/mcp-tool-taxonomy-and-orientation.plan.md` (decision-incomplete, WS0 not started)** / 2026-06-28 (prior: Zenith lifts Firmament — unification `ca40d98ce`; Swordfish/Seal — reframe build; Skipper tracks Reef, Orbit rides Horizon, Bora lifts Downdraft) |
+| `main-sonar-ai-profile-to-zero` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Drive `main`'s Sonar AI quality-profile backlog to **zero** under the owner-ratified disposition bar (fix at source is the default; ACCEPT only on a grounded site-specific tension; FP for true tool errors). Phases 1–3 + 5A MERGED (#242/#246/#249/#254/#255/#257); **Phase 5B on PR #308 (open, shepherding to owner merge)** — idiom residuals fixed, six ADR-153 guard sites rejected-as-incorrect with the ADR citation. Next batches doctrine-first: S7763/S7785/S6594/S7786 then Phase 4 design-MAJORs | [record][main-sonar-zero] | claude-code / claude-fable-5 / Katydid seeks Moonbeam / implementer — Phase 5B + the ADR-153 guard arc; PR #308 at the code-owner gate / 2026-07-06; Zenith wakes Perigee (8897eb) / curator — drift-guard follow-on noted in the record / 2026-07-06 (prior: Alder tracks Topsoil #242, Gull tracks Eyrie #246/#249, Junk tracks Moorings #223, Thyme lifts Compost, Aspen tracks Root) |
+| `curriculum-hub-demo` | PAUSED 2026-09-06 — no fork lane; identity row stale. Reproduce the Oak Curriculum Hub from the Claude Design canonical export (all pages/components, visual-matched, two-search, DoD §A–J). Build complete, MERGED 2026-07-06; live remainder in §Current State + the thread record's Next safe step | [record](threads/paused/curriculum-hub-demo.next-session.md) | claude-code / claude-fable-5 / Thyme weaves Hedgerow (762020) / MCP-372 hub-conformance carrier / 2026-07-30 (lane state on the design-system-integration record; prior cast: thread record) |
+| `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. The standing "agentic skills and related agentic mechanisms and levers" lane; first briefed work is the skills-estate plan (WS0 reflection ruled R1-adopted, rules reclassification ratified and landed). Movement structure and log live in the WS0 working record — resume from its last entry | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair pending / 2026-08-03 |
 
 ## Next Safe Steps
+
+### Plans estate — superseded-node placement to re-true (2026-09-06)
+
+A 2026-09-06 review round moved a superseded delivery node from `delivery/` into
+`delivery/archive/` (commit `0058c2654`); the plans index (`.agent/plans/README.md`
+§Layout, amended in `7e7dce9fa`) states the opposite placement — a superseded node keeps
+its place and names its successor — and the node schema keeps `superseded` and
+`archived` as distinct transitions. One of the two surfaces is re-trued at the next
+plans-estate pass; until then the index is the stated authority.
 
 ### The 2026-09-02 fold landed — next at owner word (2026-09-02)
 
@@ -570,6 +568,14 @@ F-41 CLI tail).
    candidates; a further PDR-117 host-indirection tightening landed
    2026-07-23 (the literal path removed from the portable body).
 
+0d. **`~/.claude/plans` (machine-local, per-user) was triaged in full on 2026-08-14**:
+   all 26 files then present were read and classified — 18 landed or superseded (homes
+   verified at file:line), 7 foreign-estate (left in place; deletion is an owner call),
+   1 valuable-unlanded whose two residues landed at `35d9bca74`. The per-file verdicts
+   are conserved at the 2026-08-14 ~07:3xZ entry of
+   `.agent/memory/active/archive/napkin-2026-09-02.md`. A later pass reads only files
+   dated after 2026-08-14.
+
 ### Connecting-Oak / PR History
 
 Before resuming paused graph-substrate work, re-check current PR, CI, Sonar,
@@ -642,6 +648,15 @@ authority.
 - No compatibility layers; replace, do not bridge.
 - Distinct architectural layers live in distinct workspaces.
 - TDD at all levels; tests prove product behaviour, not file presence.
+- Owner word 2026-09-03, in force until 2026-10-06: internal Oak systems are not accessed
+  from this checkout ("we should not access any INTERNAL Oak systems, we will still access
+  public services such as the curriculum api/downloads etc"). Private Oak GitHub
+  repositories are internal systems under that word — a read of `oaknational/oak-skills`
+  on 2026-09-05 was recorded as a mistake. The public upstream repository was the one
+  permitted Oak repository read under that word until the owner's 2026-09-06 ruling
+  (verbatim in `pr-target-is-engraph`: "do not access the Oak repo without permission"),
+  under which a read of the public upstream also needs owner permission first; the
+  2026-09-06 ruling governs. The disconnection mechanics stay checkout-local.
 - Strict validation happens only at boundaries.
 - No `process.env` read/write in test files or setup files.
 - `--no-verify` requires fresh per-invocation owner authorisation.
@@ -656,8 +671,8 @@ authority.
   write-hook (shapes: `docs/governance/safety-and-security.md`
   §Machine-local paths).
 
-[main-sonar-zero]: threads/main-sonar-ai-profile-to-zero.next-session.md
-[mcp-analytics]: threads/mcp-product-analytics.next-session.md
+[main-sonar-zero]: threads/paused/main-sonar-ai-profile-to-zero.next-session.md
+[mcp-analytics]: threads/paused/mcp-product-analytics.next-session.md
 [observability]: threads/paused/observability-sentry-otel.next-session.md
 [agentic]: threads/agentic-engineering-enhancements.next-session.md
 [connecting]: threads/paused/connecting-oak-resources.next-session.md
@@ -671,7 +686,7 @@ authority.
 [semantic-search]: threads/paused/semantic-search.next-session.md
 [agentic-mechanisms-discovery]: threads/agentic-mechanisms-discovery.next-session.md
 [branch-fitness]: threads/paused/branch-fitness-and-push-cadence.next-session.md
-[statusline]: threads/statusline-enhancements.next-session.md
-[agent-naming]: threads/agent-naming.next-session.md
-[agent-operability]: threads/agent-operability.next-session.md
-[orientation]: threads/orientation-skills-family.next-session.md
+[statusline]: threads/paused/statusline-enhancements.next-session.md
+[agent-naming]: threads/paused/agent-naming.next-session.md
+[agent-operability]: threads/paused/agent-operability.next-session.md
+[orientation]: threads/paused/orientation-skills-family.next-session.md

@@ -65,7 +65,14 @@ answer.
 
 ## Commit-window claims
 
-Before staging or committing, repeat the consultation step for the shared git
+This section governs the SHARED PRIMARY checkout only (owner ruling 2026-09-07,
+verbatim: "The commit queue was created to stop git operations colliding, that is
+not necessary for work in separate worktrees"). A lane in its own linked worktree
+commits by plain pathspec with an audit line in the message and opens neither a
+queue intent nor a `git:index/head` claim; the commit skill's scope paragraph
+carries the mechanics.
+
+Before staging or committing on the shared primary, repeat the consultation step for the shared git
 transaction surface and the advisory commit queue
 (`pnpm agent-tools:commit-queue -- list`). If a fresh queue entry is
 ahead of yours, coordinate rather than racing the index. If no fresh

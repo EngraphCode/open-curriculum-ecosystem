@@ -6,7 +6,7 @@ lane: shared vitest/tsup/e2e config bases as a declared-dependency package
 de-hatching arc. Born from the `mutation-testing-core-canary` lane (the
 Stryker sandbox's duplicate-config workaround exposed the violation class).
 Controlling plan:
-[`workspace-config-isolation.plan.md`](../../../plans/delivery/workspace-config-isolation.plan.md)
+[`workspace-config-isolation.plan.md`](../../../../plans/delivery/workspace-config-isolation.plan.md)
 (ratified 2026-08-11 with the same-day re-scope amendment in its frontmatter stamp; known-issues ledger inside). The canary plan is
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
