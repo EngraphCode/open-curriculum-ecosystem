@@ -1,4 +1,3 @@
-import assert from 'node:assert/strict';
 /**
  * E2E (G2 c3): `tools/call` on the anchored get-misconception-graph.
  *
@@ -8,6 +7,7 @@ import assert from 'node:assert/strict';
  * corpus so the test describes behaviour over any valid corpus.
  */
 
+import assert from 'node:assert/strict';
 import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 import { request, type Response } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect } from 'vitest';

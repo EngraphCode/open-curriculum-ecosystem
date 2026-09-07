@@ -19,10 +19,13 @@ const ONTOLOGY_DATA = `${SDK_MCP}/ontology-data.ts`;
 export const CURRENT_THREAD_PROGRESSIONS_ITEM_ANCHOR_OVERRIDES = {
   // The tool description, the detail-anchor field description, and the
   // progression summary state per-subject runs in curriculum order.
+  // The Complements sentence carries the stated-statements correction to
+  // the prior-knowledge pointer (MCP-671) on the same description.
   C253: {
     [THREAD_PROGRESSIONS]: [
       "- threadSlug: the detail anchor; returns that ONE thread's full unit progression as one run per subject the thread spans — never the whole thread estate.",
       "Ordering semantics: each run is Oak's curriculum order for that subject — years ascending (earliest → latest), and within a year the authored unit order of the subject's sequence;",
+      "Complements get-prior-knowledge-graph (each unit's stated prior knowledge) and get-misconception-graph (per-lesson misconceptions along a thread).",
     ],
   },
   C254: {
@@ -36,16 +39,20 @@ export const CURRENT_THREAD_PROGRESSIONS_ITEM_ANCHOR_OVERRIDES = {
       'each in curriculum order.',
     ],
   },
-  // The server instructions' sequenced-curriculum paragraph.
+  // The server instructions' sequenced-curriculum paragraph: curriculum-
+  // ordered progressions (MCP-681) and each unit's stated prior knowledge
+  // in place of a prior-knowledge graph (MCP-671).
   C054: {
     [AGENT_SUPPORT_METADATA]: [
-      "Oak's curriculum is fully sequenced: curriculum-ordered thread progressions, prior-knowledge, misconception, and keyword graphs are served by the anchored graph tools",
+      "Oak's curriculum is fully sequenced: curriculum-ordered thread progressions, misconception and keyword graphs, and each unit's stated prior knowledge are served by the anchored tools",
     ],
   },
-  // The progression category's whenToUse.
+  // The progression category's whenToUse: the curriculum-ordered pointer
+  // and the stated-prior-knowledge pointer (MCP-671) share the sentence.
   C020: {
     [TOOL_GUIDANCE_DATA]: [
       "Use get-thread-progressions anchored by a threadSlug for one thread's curriculum-ordered progression (one run per subject), or by subject + keyStage to discover which of the ${String(threadProgressionStats.threadCount)} threads to anchor.",
+      "Use get-prior-knowledge-graph with anchor unit slugs for each unit's stated prior knowledge — the statements Oak records about what pupils are assumed to know before it.",
     ],
   },
   // C023's baseline anchor spanned the whole toolCategories block, which
@@ -61,11 +68,14 @@ export const CURRENT_THREAD_PROGRESSIONS_ITEM_ANCHOR_OVERRIDES = {
       "tools: ['get-curriculum-model'],",
     ],
   },
-  // The track-progression workflow's step 2.
+  // The track-progression workflow's step 2 (curriculum order) and step 3
+  // (stated prior knowledge, MCP-671).
   C045: {
     [TOOL_GUIDANCE_WORKFLOWS]: [
       "action: 'Get the curriculum-ordered progression for the thread found in step 1',",
       "'That thread’s unit progression, one run per subject in Oak’s curriculum order (years ascending, the subject sequence’s unit order within a year)',",
+      "'Get the stated prior knowledge for the thread units found in steps 1-2, anchored by their slugs'",
+      'returns: "Each anchor unit\'s stated prior-knowledge statements"',
     ],
   },
   // The ontology's thread characteristics.

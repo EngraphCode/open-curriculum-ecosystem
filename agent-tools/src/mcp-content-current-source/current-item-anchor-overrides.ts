@@ -13,6 +13,7 @@ import { CURRENT_REGISTRATION_ITEM_ANCHOR_OVERRIDES } from './current-registrati
 import { CURRENT_SPEC_REFRESH_ITEM_ANCHOR_OVERRIDES } from './current-spec-refresh-item-anchor-overrides.js';
 import { CURRENT_MISCONCEPTION_ORDER_ITEM_ANCHOR_OVERRIDES } from './current-misconception-order-item-anchor-overrides.js';
 import { CURRENT_THREAD_PROGRESSIONS_ITEM_ANCHOR_OVERRIDES } from './current-thread-progressions-item-anchor-overrides.js';
+import { CURRENT_PRIOR_KNOWLEDGE_ITEM_ANCHOR_OVERRIDES } from './current-prior-knowledge-item-anchor-overrides.js';
 
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
 const FIND = `${GUIDANCE_ROOT}/find-lessons.ts`;
@@ -27,6 +28,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   ...CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
   ...CURRENT_GENERATED_DESCRIPTION_ANCHOR_OVERRIDES,
   ...CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES,
+  ...CURRENT_PRIOR_KNOWLEDGE_ITEM_ANCHOR_OVERRIDES,
   C178: {
     [FIND]: [
       'find curriculum lessons on a topic the teacher names, across all subjects and key stages',

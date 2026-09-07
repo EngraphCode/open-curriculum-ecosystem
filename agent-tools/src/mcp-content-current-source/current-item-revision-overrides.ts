@@ -23,4 +23,6 @@ export const CURRENT_ITEM_REVISION_OVERRIDES = {
   C479: 'modified',
   ...CURRENT_THREAD_PROGRESSIONS_ITEM_REVISION_OVERRIDES,
   ...CURRENT_MISCONCEPTION_ORDER_ITEM_REVISION_OVERRIDES,
+  // relatedResources prior-knowledge pointer rewritten for stated statements (MCP-671).
+  C290: 'modified',
 } as const;

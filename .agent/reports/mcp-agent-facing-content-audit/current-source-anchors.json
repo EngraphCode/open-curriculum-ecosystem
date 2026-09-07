@@ -301,6 +301,12 @@
                 "tokenSha256": "36d896c6d61919ec87baa7d3720857872fb7d7bd597b36ff0dd8b578c608ccd4",
                 "indexToken": "threadCount",
                 "indexOffset": 42
+              },
+              {
+                "tokenCount": 35,
+                "tokenSha256": "16c45c620be13478076c657545d16bbc06abeea7bbff161aa654b0254e95c0cc",
+                "indexToken": "statements",
+                "indexOffset": 22
               }
             ]
           }
@@ -812,6 +818,18 @@
                 "tokenSha256": "9365db845309b32e690550dd38a74fe4cae827cfe75f55be5e528597c2a96505",
                 "indexToken": "ascending",
                 "indexOffset": 20
+              },
+              {
+                "tokenCount": 22,
+                "tokenSha256": "737ff504ce3fabdad9957ff71faf81ab9318fe2f78cc740f39c6e6c7fb49e871",
+                "indexToken": "anchored",
+                "indexOffset": 17
+              },
+              {
+                "tokenCount": 14,
+                "tokenSha256": "a8ef1580fa4760acfe304e27177b380f171d207e4389619e8cf98ec13f143f60",
+                "indexToken": "statements",
+                "indexOffset": 12
               }
             ]
           }
@@ -979,8 +997,8 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
             "anchors": [
               {
-                "tokenCount": 30,
-                "tokenSha256": "287018c06d7b7589fdc76b3ce0216e2fa07f4fa2f333b5d083358010b5261b25",
+                "tokenCount": 33,
+                "tokenSha256": "4c8c5035119cdc699b33071bdfe8deb319d86d551a3b6b9597a4e1b0cebd202f",
                 "indexToken": "sequenced",
                 "indexOffset": 6
               }
@@ -5036,14 +5054,14 @@
     {
       "auditId": "C246",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
             "anchors": [
               {
-                "tokenCount": 11,
-                "tokenSha256": "c6938377ad4737d274c8454641d6ee3b477ecc7eba8e5859ed4f8fcbbfbdc92b",
+                "tokenCount": 10,
+                "tokenSha256": "f407f32449fcb8a74c70e9e5721308dffe1e8af4c9a0fec291062b7e32567d9d",
                 "indexToken": "Curriculum",
                 "indexOffset": 5
               }
@@ -5055,16 +5073,22 @@
     {
       "auditId": "C247",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
             "anchors": [
               {
-                "tokenCount": 300,
-                "tokenSha256": "0ca25b6b71419cefc334c0ac7f9f9191671c943b34c7c2e4f433ad4e17ac6e88",
-                "indexToken": "relationships",
-                "indexOffset": 50
+                "tokenCount": 12,
+                "tokenSha256": "fca309f3d86222eae80c7e5c38777053ba40112025ecc83342b79c8e83b7b065",
+                "indexToken": "Returns",
+                "indexOffset": 0
+              },
+              {
+                "tokenCount": 24,
+                "tokenSha256": "e10183a2532cf5d6d91e52ac4ec19c71ef5a422d2c093f74bc1d4a2e6862aa12",
+                "indexToken": "Statements",
+                "indexOffset": 0
               }
             ]
           }
@@ -5080,8 +5104,8 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
             "anchors": [
               {
-                "tokenCount": 23,
-                "tokenSha256": "bee6dc591175b162a723b66252ace0980b500de8c414545f6fe0ac22a97875f0",
+                "tokenCount": 30,
+                "tokenSha256": "714ba7b0d3d222cce443eeb82c6ba23a439fd468fc67e1a5fe2439864e83d88d",
                 "indexToken": "Anchor",
                 "indexOffset": 0
               }
@@ -5091,37 +5115,18 @@
       }
     },
     {
-      "auditId": "C249",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
-            "anchors": [
-              {
-                "tokenCount": 61,
-                "tokenSha256": "2d0bd40d81209d818fb9af27001b3591991b77f4a4f18d0970a4a3796bbd026a",
-                "indexToken": "Prerequisite",
-                "indexOffset": 29
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C250",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
             "anchors": [
               {
-                "tokenCount": 156,
-                "tokenSha256": "37d8088c39ae7f02be8a45be5f5c85251e6e96b3c1955e348a942656ef0188d8",
-                "indexToken": "PriorKnowledgeSubgraph",
-                "indexOffset": 5
+                "tokenCount": 17,
+                "tokenSha256": "6d9914d6157291169e05c5b52160c7edfb5f60c48d0b11b4f3f63edd4dcf827d",
+                "indexToken": "Stated",
+                "indexOffset": 4
               }
             ]
           }
@@ -5131,7 +5136,7 @@
     {
       "auditId": "C251",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts",
@@ -5141,12 +5146,6 @@
                 "tokenSha256": "d8f39a2d3482dbe0336ead38217f98bd99310aa0f11b6bb1e6237e8cc04cea68",
                 "indexToken": "Invalid",
                 "indexOffset": 4
-              },
-              {
-                "tokenCount": 78,
-                "tokenSha256": "e4b27a8b14162c8dfe95cfd2e5346e4f1210170ad31fe6fd7426446d26e76af8",
-                "indexToken": "SubgraphDepthExceeded",
-                "indexOffset": 10
               }
             ]
           }
@@ -5191,6 +5190,12 @@
                 "tokenSha256": "522caf94f4658e2ec8e47abedc1e678d2bb831570a560d9e1c067bb618e10a96",
                 "indexToken": "earliest",
                 "indexOffset": 18
+              },
+              {
+                "tokenCount": 33,
+                "tokenSha256": "ad0058afd2cc73ff6afc7d0559180c7c132aff8780a5f2c9a8f05ff593f8fe1a",
+                "indexToken": "misconceptions",
+                "indexOffset": 27
               }
             ]
           }
@@ -5914,16 +5919,22 @@
     {
       "auditId": "C290",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts",
             "anchors": [
               {
-                "tokenCount": 61,
-                "tokenSha256": "77c12291331966a2d151ae1e1f1a9226c948cbf0cf4c68a38bb71be5cdb4947d",
-                "indexToken": "priorKnowledgeGraph",
-                "indexOffset": 25
+                "tokenCount": 17,
+                "tokenSha256": "5615434400f849c1a98c2e3c6c6a6edf68a1ec38bab7d14ca4c257c23e07d855",
+                "indexToken": "instance",
+                "indexOffset": 14
+              },
+              {
+                "tokenCount": 32,
+                "tokenSha256": "5739d830da3eb92638030af9ff6901fc427f5cfaf66a367ba3c1f7d14c8286fc",
+                "indexToken": "statements",
+                "indexOffset": 21
               }
             ]
           }

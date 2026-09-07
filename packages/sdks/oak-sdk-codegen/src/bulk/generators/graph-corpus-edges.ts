@@ -82,6 +82,13 @@ export function buildLessonAnchoredEdges(
  * the curriculum-order change. It is not cured here because these edges are
  * being retired (MCP-671); sharing the deduplicated placement list is the
  * fix if they ever stay.
+ *
+ * The RELATION is synthesised too, not only its tie-break: adjacency along a
+ * thread's year axis is not a recorded prerequisite. MCP-671 (2026-09-03)
+ * stopped serving these edges for that reason — `get-prior-knowledge-graph`
+ * serves each unit's stated prior knowledge instead. The edges are still
+ * emitted and nothing consumes them; do not read them as curricular
+ * dependency. See ADR-195's MCP-671 amendment.
  */
 function threadOrderingPairs(
   threads: readonly ExtractedThread[],
