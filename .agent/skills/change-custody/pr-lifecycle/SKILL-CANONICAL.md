@@ -607,8 +607,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    finding still cures in a push carrying nothing beyond that cure and any
    queued ledger writes — the cure obligation survives every exhaustion;
    post-final-head route writes land together in at most one ledger push,
-   and a later route's write lands on the lane's next records PR, named in
-   the reply;
+   and a later route's write goes to the seat's napkin (or a records PR of
+   the lane already open), named in the reply — the reviewed PR never
+   reopens for it;
    a routed residue's named home is an existing surface — a register row
    or a PR already open for its own story — never a PR opened to carry
    residue, and a residue PR that exists anyway is terminal: a settlement

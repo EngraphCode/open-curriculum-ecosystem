@@ -18,7 +18,9 @@ Practice Core package.
   ledger writes; a routed finding's durable write rides the next push that
   lands or lands alone as the final settlement push; post-final-head
   route writes land together in at most one ledger push, a later route's
-  write on the lane's next records PR. A routed residue's
+  write on the seat's napkin or a records PR already open, never by
+  reopening the reviewed PR; each control carries its own falsifier. A
+  routed residue's
   named home is an existing
   register row or a PR already open for its own story, never a PR opened
   to carry residue; a residue PR that exists anyway has a settlement

@@ -229,9 +229,12 @@ scope widens by dated amendment, never by improvisation.
    - (c) Post-final-head route writes are bounded: queued writes land
      together in at most ONE ledger push (clause 4's final settlement
      push, which may also carry a late cure). A route arriving after
-     that push is recorded in the thread reply and its write lands on
-     the lane's next records PR, named in the reply; the thread
-     carries it only across that bounded interval.
+     that push writes its row to the seat's napkin — the tracked
+     capture surface every consolidation pass consumes, landing with
+     the seat's own capture commits, never by reopening the reviewed
+     PR — or to a records PR of the lane that is already open; the
+     reply names the carrier. The thread is never the sole carrier,
+     and the reviewed PR merges with no write queued on it.
    - (d) A routed residue's named home is an existing surface — a
      register row (the pending-graduations register, the gotchas
      reference, a plan's `## Review dispositions` section) or a PR
@@ -319,7 +322,14 @@ post-final-head ledger pushes (9c), and residue homes on existing
 surfaces (9d). Clauses 2 and 4 carry one-line pointers to clause 9
 where their unqualified text would otherwise contradict it.
 
-**Falsifier**: a records-class statement dispositioned below the bar
-under clause 9(a) that misleads a reader acting on it before the next
-records pass over that file. One verified instance reverts 9(a) by
-dated amendment; the measurement is the clause-7 disposition sample.
+**Falsifiers**, one axis per control, measured by the trailing-month
+PR read of PDR-132's methodology and the clause-7 disposition sample;
+one verified instance amends the failing sub-clause by dated
+amendment: 9(a) — a records-class statement dispositioned below the
+bar that misleads a reader acting on it before the next records pass
+over that file; 9(b) — a records-class PR whose working notes record
+a second rebudget, or a below-bar cure landing on a post-budget push;
+9(c) — more than one post-final-head ledger push on a records-class
+PR, or a routed write found in no napkin, register or PR by the
+seat's session close; 9(d) — a PR whose body carries another PR's
+review residue as its story.
