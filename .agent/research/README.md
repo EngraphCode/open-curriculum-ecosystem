@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 30 August 2026
+**Last Updated**: 7 September 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -23,6 +23,12 @@
 ---
 
 ## Research by Topic
+
+### Graph foundations and algorithms
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [TypeScript graph foundations research](typescript-graph-foundations-2026-09-07/README.md) | Dated comparison of models, TypeScript libraries, capabilities and proposed OCE outcomes, with reproducible probes and recorded evidence | Select foundations by semantics, assurance and lifecycle value; current OCE choices carry no preservation requirement. Recommendations remain research proposals. |
 
 ### ✨ Oak Innovation Kit & demonstrations
 
