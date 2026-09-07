@@ -396,3 +396,18 @@ tool retires them.
   eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
   disposition and the semantic hash for each affected file, wired into the aggregator, then
   `refresh-mcp-content-current-source-anchors`.
+- **The rules-index classification test requires a core row's trigger cell to be the
+  bare em dash, and the pre-push gate does not run it** (2026-09-07): an explaining cell
+  on a new core row passed prettier, markdownlint and every validator locally, then failed
+  CI's `rules-index-classification.unit.test.ts` — one CI cycle and one extra push on a
+  terminal PR. A registry file with a dedicated test directory is verified by running that
+  directory before the push (`pnpm exec vitest run tests/rules/` from `agent-tools/`, about
+  100 ms).
+- **The skill-adapter projection check refuses a push whose skill reference changed
+  without regenerated projections** (2026-09-07): an edit under a skill's `references/`
+  needs `pnpm skills:generate` first, and the regenerated `.claude/skills/` and
+  `.agents/skills/` copies travel in the same push.
+- **The reference-direction validator also refuses a permanent doc that links to a plan
+  node** (PDR-105; the second class after the `.agent/memory/**` one above, 2026-09-07):
+  an ADR linking its delivery plan was refused at pre-commit. Doctrine states its own
+  contract self-contained; a plan is named in prose at most, never linked.

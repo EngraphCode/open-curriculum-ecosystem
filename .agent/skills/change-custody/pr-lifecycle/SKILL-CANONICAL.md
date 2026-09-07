@@ -592,9 +592,18 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    binds: a finding earns a cure only over PDR-140's two-prong worthiness
    bar — it would mislead a consumer of the artefact before its next
    verification point, or it changes what gets built — evaluated on the
-   surface where the defect lives; a statement wrong today, a broken link
-   and a validator failure are the common instances, never the whole
-   test. Everything below the bar is dispositioned without a diff (the
+   surface where the defect lives; a broken link, a validator failure and
+   a statement a reader acting on the artefact would be misled by are the
+   common instances, never the whole test. A statement wrong under a rule
+   today is NOT over-bar per se (PDR-140 §Amendment Log 2026-09-07: five
+   records-class PRs ran seventeen rounds and fifty-three cures by reading
+   every such statement as a mandatory cure and rebudgeting at every
+   exhaustion, until the owner corrected the loop out of band — clause 8's
+   anti-pattern recurring). Under that amendment the rebudget is granted
+   ONCE per PR, and a routed residue's named home is an existing surface —
+   a register row or a PR already open for its own story — never a PR
+   opened to carry residue; a residue PR that exists anyway is terminal at
+   one push. Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
    2026-09-03). A code-class finding is outside this pricing altogether: a

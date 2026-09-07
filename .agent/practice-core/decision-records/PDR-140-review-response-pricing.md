@@ -246,3 +246,52 @@ is evidence the bar or the ledger, not the reviewer, was the weak link.
 - Named follow-up: a per-finding retro-triage of the founding arc's
   full finding corpus against the declared bar, published as the
   calibration corpus for the judgement call — the bar's case law.
+
+## Amendment Log
+
+### 2026-09-07 — the records-class reading of prong one; one rebudget per PR; where residue is homed
+
+**Context** (measured first-hand on a fork's consolidation lane,
+2026-09-07). Five records-class PRs — continuity records, rules,
+skills and reference pages whose verification point is merge —
+each declared a two-push settlement budget at open and together ran
+seventeen settled rounds and fifty-three cures. Every finding was
+real at its anchor. Almost every cure answered a statement "wrong
+under a rule today": a sentence bending a rule's vocabulary, an
+unqualified claim, a missing dated qualifier. Each was read as a
+genuine falsehood under clause 2's merge-verification sentence,
+therefore as a mandatory cure, so every budget exhaustion rebudgeted
+under clause 4 and the next push drew the next sample from the
+reviewer's pool. The loop ended when the owner invoked
+`proportionality` and `pr-lifecycle` out of band, with no words —
+clause 8's anti-pattern recurring, filed here as the defect it
+names. A sixth PR was opened to carry two of the five PRs'
+step-back residue and cost two rounds, seven cures and a CI cycle
+of its own.
+
+**Decision** — binds records-class artefacts (served docs, records,
+doctrine already ratified) whose declared verification point is
+merge:
+
+1. Clause 2's merge-verification sentence reads through prong one
+   as written: a falsehood clears the bar when a reader acting on
+   the artefact would be misled by it. A statement wrong under a
+   rule today is not over-bar per se; an imprecision, a bent
+   vocabulary, a missing qualifier or a stale aside that no reader
+   acts on is below the bar and dispositions by rejection with
+   rationale or by a register row.
+2. Clause 4's rebudget is granted once per PR, never once per
+   exhaustion. A second exhaustion names the final head and routes
+   every remaining cure-worthy finding to a register row.
+3. A routed residue's named home is an existing surface — a
+   register row (the pending-graduations register, the gotchas
+   reference, a plan's `## Review dispositions` section) or a PR
+   already open for its own story — never a PR opened to carry
+   residue. Where a residue PR nonetheless exists it is terminal:
+   budget one push, and its own step-back findings disposition by
+   rejection with rationale or by register row.
+
+**Falsifier**: a records-class statement dispositioned below the bar
+under item 1 that misleads a reader acting on it before the next
+records pass over that file. One verified instance reverts item 1 by
+dated amendment; the measurement is the clause-7 disposition sample.
