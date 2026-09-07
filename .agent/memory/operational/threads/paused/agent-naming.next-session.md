@@ -68,7 +68,8 @@ substrate ADR:
 
 ## Session shape and grounding order for this thread
 
-1. [`repo-continuity.md`](../../repo-continuity.md) §Active Threads, §Current
+1. [`repo-continuity.md`](../../repo-continuity.md) §Paused Threads (this record was paused at the 2026-09-06 consolidation; it reactivates at
+   the owner's word, never by a successor's pickup), §Current
    State (AGENT NAMING entry), §Next Safe Steps.
 2. This record.
 3. The controlling plan (above) — authoritative for scope, cycles, acceptance.

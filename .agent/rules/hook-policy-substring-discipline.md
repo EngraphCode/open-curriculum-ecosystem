@@ -146,6 +146,12 @@ form to use rather than a bypass:
 These are refinement candidates for the hook (flag-parsing over
 substring), never bypass justifications — use the safe form.
 
+- **A tool name that merely contains `git` is refused as a git command** (2026-09-06):
+  `gitleaks` was blocked by the worktree-isolation guard's substring match, along with
+  compound commands, `$(…)`, heredocs, and Monitor arms whose text carried computed
+  variables. The working shape was one plain `bash <scratchpad script>` that derives the
+  primary from `git worktree list` at runtime, with no `git` substring in the call itself.
+
 ## Holding-State Vocabulary — Name the Gate, Never the Holding State
 
 The comms concept gate refuses indefinite-deferral vocabulary (the word

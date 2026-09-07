@@ -136,6 +136,13 @@ cross_plane: true   # optional; see Cross-Plane Span Tag below
 ---
 ```
 
+Concept-node keys are not part of this schema. ADR-221 §6 makes a pattern file its own
+concept node; the concept front-matter keys are never minted by hand — they arrive with the
+SDK increment that owns the concept-node schema, whose own checks settle whether the index
+regeneration tolerates added keys. A pattern's lifecycle stage (PDR-134's candidate and
+working classes) is stated in its prose; the promotion trigger is a key for it appearing in
+the schema block above, and the 2026-09-02 rotation graduated five pattern files in the
+prose form.
 The `use_this_when` field is the primary discovery mechanism. It describes the moment an engineer should think "I have seen this before." For anti-patterns, the trigger is the moment the failure mode is about to fire — the diagnostic moment.
 
 ### Cross-Plane Span Tag (optional)

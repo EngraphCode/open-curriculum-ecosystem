@@ -134,3 +134,10 @@ held here as a working name, not doctrine.
 - The bot's push tool resolves the visitor's own bot configuration when run from inside the
   visitor (probed 2026-09-06 on the first visitor); the host's commit-queue tooling has not
   been run against a visitor's index.
+
+- Why a visitor and not a fork-only directory in the host tree: a landing that deletes such a
+  directory puts the deletion into shared ancestry, and the next upstream sync deletes every
+  untouched fork-only file with no conflict — only edited files surface as modify/delete
+  (reproduced 2026-09-06 in a throwaway repository; three of four independent reviewers found
+  it). A fork-added top-level tier is either upstream-admitted (ADR-041's registrations) or
+  excluded from the landing diff; a visitor needs neither.

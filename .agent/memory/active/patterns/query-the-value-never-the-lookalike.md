@@ -88,6 +88,13 @@ resolved, and the verdict was retracted on the PR. A "dead link" verdict needs
 one request against the URL (or the API's redirect-following read); a name
 mismatch alone is an observation.
 
+**11. A compaction summary standing in for the read.** A curator read four archived napkins
+into its context, compacted, and afterwards held them only as a paragraph of "emerging arcs"
+— right-typed, plausible, unverifiable (2026-09-02); the owner named the reads compromised,
+and the synthesis report discarded them as evidence and cited the engine's committed
+checkpoints instead. Post-compaction recollection of a source is a lookalike of having read
+it; re-derive from the artefact at the moment of use.
+
 ## The cure
 
 > **Derive the value from the thing that OWNS it, at the moment of use.**

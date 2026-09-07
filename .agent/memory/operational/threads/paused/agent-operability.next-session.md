@@ -84,7 +84,8 @@ research-names-the-rationalisation; the owner decides the shape.
 
 ## Session shape and grounding order for this thread
 
-1. [`repo-continuity.md`](../../repo-continuity.md) §Active Threads.
+1. [`repo-continuity.md`](../../repo-continuity.md) §Paused Threads (this record was paused at the 2026-09-06 consolidation; it reactivates at
+   the owner's word, never by a successor's pickup).
 2. This record.
 3. The controlling plan (above) — whole, including Pitfalls — authoritative.
 4. The memories named in the plan's Pitfalls

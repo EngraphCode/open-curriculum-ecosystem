@@ -569,6 +569,11 @@ load-bearing fact; an unlabelled or mis-zoned one is a verification failure.
 - **Never infer a timeline from a truncated log view** (`tail` / `head` / capped grep) —
   query the full window first (a `tail`-truncated `pmset` read once reported `00:51Z`
   when the full log gave `00:06Z`).
+- **A time label is read from the clock at the moment of writing, never estimated
+  afterwards.** Labels written from memory ran 25–55 minutes early (2026-09-03, compared
+  against the transcript and GitHub clocks, which agree) and an hour late (2026-09-07, a
+  pause recorded as 14:0xZ when the clock read 12:5xZ, corrected in eight files). A record's
+  sequence rests on SHAs and the host's timestamps; `date -u` in the same turn as the label.
 
 Composes with the `director-handoff.md` liveness rule (let the tool compute age
 UTC-to-UTC; never a local clock).

@@ -114,8 +114,11 @@ request header on the user-scope server entry, already below the tree.
 ## Todos
 
 One single-story PR within the default round budget: the seven mechanism steps above, with
-the PR body carrying the two `git` proofs, the two JSON-parse proofs and the owner's two
-confirmations.
+the PR body carrying the two `git` proofs and the two JSON-parse proofs. On a configured
+checkout the PR also carries the owner's two confirmations (the IDE's bind prompt or bound
+status; one studio sync invocation naming the configured project id); on a checkout that
+leaves the sync config absent, the repo-safe gate proof stands in and the confirmations
+are not owed, as the acceptance criterion above branches.
 
 ## Out of scope
 
