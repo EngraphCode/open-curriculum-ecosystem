@@ -40,7 +40,9 @@ Second instance, one level up from the base branch (2026-09-06): `gh pr list` wi
 read-only mirror, resolved to the remote named `upstream` and read the Oak repository's PR
 list — the read the ruling above forbids without permission. Cure applied: `gh repo
 set-default EngraphCode/open-curriculum-ecosystem`, which is machine-local and protects one
-machine only, and `--repo` on every `gh` call, which travels with the practice.
+machine only, and an explicit fork target on every `gh` call — the flag where the command
+takes it, the endpoint or `GH_REPO` for `gh api`, the positional for `gh repo view` — which
+travels with the practice.
 
 ## Related Surfaces
 

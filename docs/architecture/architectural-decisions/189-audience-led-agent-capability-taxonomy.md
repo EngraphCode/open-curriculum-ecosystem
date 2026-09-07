@@ -90,9 +90,10 @@ recorded independently.
   own product decision and licence position; the canonical organisation's product gates do
   not carry across by analogy — a report on the EngraphCode line had carried the canonical
   connector-listing gate onto the fork, and the owner corrected it. For a distributable
-  capability the surface that matters in this tree is the public plugin directory
-  (`plugins/`: the marketplace manifest and its plugin); a sibling skills library's privacy
-  is incidental to that question.
+  capability the surfaces that matter in this tree are the marketplace listing manifest
+  (`.claude-plugin/marketplace.json`, which lists the plugin) and the plugin directory it
+  points at (`plugins/`); an installed plugin and a listed one differ exactly there. A
+  sibling skills library's privacy is incidental to that question.
 
 ## Validation
 

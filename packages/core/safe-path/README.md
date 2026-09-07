@@ -25,7 +25,8 @@ Single source of truth: consumed by `@oaknational/agent-tools` and the
 A safe file write within a base needs more than path containment (the containment writer
 of 2026-09-06, `scripts/write-contained.ts`): open the target `O_WRONLY|O_CREAT|O_NOFOLLOW|
 O_NONBLOCK` with no `O_TRUNC`, confirm the `O_NOFOLLOW` constant is present AND nonzero (some
-platforms expose it inert as 0), `fstat` the descriptor to confirm a regular file, then
+platforms expose it inert as 0), `fstat` the descriptor to confirm a regular file with ONE link (`st_nlink === 1`: a hard
+link to an outside file passes every other check and would be truncated through it), then
 `ftruncate` and write through the descriptor — a FIFO refuses `ENXIO` instead of hanging, a
 directory `EISDIR`, a symlink at the final component `ELOOP`, all in the same operation as
 the open. `O_NOFOLLOW` guards the LAST path component only: a process that swaps an

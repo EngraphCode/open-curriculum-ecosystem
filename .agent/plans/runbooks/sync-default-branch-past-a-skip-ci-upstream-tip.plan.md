@@ -66,8 +66,14 @@ and no seat re-derives the recipe at the wall.
    branch shape) is cured here. The ruleset requires resolution. Verification: zero
    unresolved threads, each with a route or a verified rejection with its rationale in
    its reply.
-5. `agent` — merge by MERGE COMMIT with the head pinned; squash or rebase would diverge the
-   history from upstream. Verification: the merge commit's second parent is the sync tip.
+5. `agent` — merge by MERGE COMMIT with the head pinned, through the bot's merge path and
+   never `gh pr merge` under the step-3 token: the merge-bot front door (`pnpm agent-tools
+   merge-bot merge --pr <n> --expect <reviewer>`) where a reviewer verdict is expected, or
+   the sanctioned REST merge of the docs-only bot-PR class (pr-lifecycle's landing item:
+   the `pull-request-merge` scope minted for the call, head pinned, merge-commit method)
+   where the front door's verdict is the class's silent-wait shape. Squash or rebase would
+   diverge the history from upstream. Verification: the merge commit's second parent is the
+   sync tip.
 6. `agent` — delete the sync branch after the merge is proven an ancestor of the default
    branch.
 
@@ -75,8 +81,9 @@ Amendment (2026-09-03): once one sync has landed, the default branch carries tha
 empty and merge commits, which upstream never sees, so the NEXT sync branch cut at the
 upstream tip reads BEHIND under the up-to-date requirement and cannot merge. The cure runs
 AFTER step 3, because the host's update-branch acts on an open pull request: open the pull
-request, update its branch server-side as the bot (`gh pr update-branch` under the step-3
-token: a merge of the default branch into the sync branch), fetch and fast-forward the
+request, update its branch server-side as the bot (`gh pr update-branch --repo
+EngraphCode/open-curriculum-ecosystem` under the step-3 token — the flag, because a
+multi-remote checkout resolves the default repository to `upstream`: a merge of the default branch into the sync branch), fetch and fast-forward the
 local branch onto that server-side merge commit before any cure push (a push from the
 stale local head is refused as non-fast-forward; the sequence run on 2026-09-07),
 re-verify that every workflow runs on the new head, then steps 4 to 6 as written.

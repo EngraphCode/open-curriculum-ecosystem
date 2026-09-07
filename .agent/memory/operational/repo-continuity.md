@@ -652,8 +652,11 @@ authority.
   from this checkout ("we should not access any INTERNAL Oak systems, we will still access
   public services such as the curriculum api/downloads etc"). Private Oak GitHub
   repositories are internal systems under that word — a read of `oaknational/oak-skills`
-  on 2026-09-05 was recorded as a mistake; the public upstream repository is the one
-  permitted Oak repository read. The disconnection mechanics stay checkout-local.
+  on 2026-09-05 was recorded as a mistake. The public upstream repository was the one
+  permitted Oak repository read under that word until the owner's 2026-09-06 ruling
+  (verbatim in `pr-target-is-engraph`: "do not access the Oak repo without permission"),
+  under which a read of the public upstream also needs owner permission first; the
+  2026-09-06 ruling governs. The disconnection mechanics stay checkout-local.
 - Strict validation happens only at boundaries.
 - No `process.env` read/write in test files or setup files.
 - `--no-verify` requires fresh per-invocation owner authorisation.
