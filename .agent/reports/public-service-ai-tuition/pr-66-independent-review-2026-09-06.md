@@ -5,10 +5,11 @@ session prefix 3484b6), agent-authored on behalf of the owner under the estate's
 **Target:** [PR 66](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66),
 `docs/public-service-ai-tuition-2026-09-06`, head SHA:2db74f5bb, base `engraph` at
 SHA:6019dd44f; the 17 imported files are unchanged from SHA:5f04e4d0f; the diff since then is the
-author-lineage review and its index row. **Disposition: qualified.** Two of the owner's three
+author-lineage review and its index row. **Disposition: qualified.** All three of the owner's
 facts were ruled on 2026-09-07 (the runner: apply the standing policy; the nine repositories: all
-public); the settled-direction word is the open ask; one class of defect is curable only at the
-author's source. The review posted on the PR is
+public; the "settled" directions: proposals, not ratified — PR 66 comment 5571197335, ~13:2xZ);
+one class of defect is curable only at the author's source. The substance of the collection is
+reviewed in the "Second pass" section below and on the PR. The review posted on the PR is
 [review 5126608127](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66#pullrequestreview-5126608127)
 (COMMENT state, 21:03Z) with its second comment,
 [review 5126692305](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66#pullrequestreview-5126692305)
@@ -77,7 +78,7 @@ in chapter 08 (from line 3230) and once bare in chapter 12 (line 521). The first
 repos/EngraphCode/oak-open-curriculum-ecosystem` returns `full_name:
 EngraphCode/open-curriculum-ecosystem`, so the fork was renamed and GitHub redirects the former
 name; every one of the links resolves. The same former name occurs about sixty times on `engraph`
-at the tip (`git grep -n 'EngraphCode/oak-open-curriculum-ecosystem' origin/engraph`: two thread
+at the tip (`git grep -n 'EngraphCode/oak-open-curriculum-ecosystem' 34147736855493b8f9a528870e0541e3ae948c40`: two thread
 records, the v0/Claude Code practice report, four innovation-kit reports and their provenance
 files, and `.agent/rules/pr-target-is-engraph.md:10`), so this is rename residue across the
 estate, not a collection defect. Correctness: withdrawn as a defect; true as an observation.
@@ -326,16 +327,18 @@ independent assurance.
 
 ## Reproduction
 
-- **Census**: `git ls-tree -r -l origin/docs/public-service-ai-tuition-2026-09-06 -- .agent/research/public-service-ai-tuition`;
-  URLs from `git show <ref>:<file> | grep -oE 'https?://[^[:space:]<>)"]+'` over the 14 markdown
+- **Census** (at the immutable revision the counts were taken from, so the recipe survives the
+  branch's deletion): `git ls-tree -r -l 2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa -- .agent/research/public-service-ai-tuition`;
+  URLs from `git show 2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa:<file> | grep -oE 'https?://[^[:space:]<>)"]+'` over the 14 markdown
   files, trailing punctuation stripped, grouped by host and by `org/repo`; permalinks are paths
   matching `/(blob|tree)/`; pinned ones match `/(blob|tree)/[0-9a-f]{40}/`.
 - **Former repository name (F2)**: `grep -n 'EngraphCode/oak-open-curriculum-ecosystem'` over the
   same blobs (31); liveness by `gh api repos/EngraphCode/oak-open-curriculum-ecosystem --jq
   .full_name` (returns the current name: a redirect); the estate-side count by
-  `git grep -n 'EngraphCode/oak-open-curriculum-ecosystem' origin/engraph`.
+  `git grep -n 'EngraphCode/oak-open-curriculum-ecosystem' 34147736855493b8f9a528870e0541e3ae948c40`
+  (the `engraph` tip the first pass pinned, SHA:341477368).
 - **Link census (F9, atomicity)**: `git grep -o -E '\]\(([0-9]{2}-[a-z-]+\.md|README\.md|assets/[^)#]+)'
-  origin/docs/public-service-ai-tuition-2026-09-06 -- .agent/research/public-service-ai-tuition | sort | uniq -c`
+  2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa -- .agent/research/public-service-ai-tuition | sort | uniq -c`
   (every chapter links into 01 or 13; 13 links 01, 02, 03, 04, 07, 08, 09, 11, 12; the README
   links all fourteen and the three assets).
 - **Gate measurement**: in a worktree from the `engraph` tip holding a subset of the collection
@@ -462,13 +465,15 @@ add to it and the final figure is on the thread record's RESUME 4 block.
 
 ### Reproduction (second pass)
 
-- **Tip pin:** `git rev-parse origin/engraph` = SHA:6e9d67216 after `git fetch origin` at 13:1xZ.
-- **Runner-path drift:** `git diff --stat 31e76a72 origin/engraph -- <the ten loaded paths and
-  the corpus>` (empty); product drift `git diff --stat 31e76a72 origin/engraph -- packages apps
-  demos agent-tools/src` (23 `eef-strands` files only).
-- **Served surface:** `git show origin/engraph:apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts`,
+- **Tip pin:** `origin/engraph` resolved to `6e9d67216bb8bb34c6558aca8977c37c8fa4d3c6` after
+  `git fetch origin` at 13:1xZ; every command below names that immutable object, never the
+  moving ref.
+- **Runner-path drift:** `git diff --stat 31e76a7237ee7aecb8adfca96e73b2d83b25be39 6e9d67216bb8bb34c6558aca8977c37c8fa4d3c6 -- <the ten loaded paths and
+  the corpus>` (empty); product drift with `-- packages apps demos agent-tools/src` (23
+  `eef-strands` files only).
+- **Served surface:** `git show 6e9d67216bb8bb34c6558aca8977c37c8fa4d3c6:apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts`,
   count the `'live'` and `'dormant'` entries per map.
-- **Workspace census:** `git ls-tree -r --name-only origin/engraph | grep -E '^(packages|apps|demos|agent-tools)/[^/]+(/[^/]+)?/package\.json$'`.
+- **Workspace census:** `git ls-tree -r --name-only 6e9d67216bb8bb34c6558aca8977c37c8fa4d3c6 | grep -E '^(packages|apps|demos|agent-tools)/[^/]+(/[^/]+)?/package\.json$'`.
 - **Identifier census:** `grep -oE` over the concatenated fourteen files for the alias families
   named in S8, `sort | uniq -c`, then inspect the count-1 rows.
 - **Imperative census:** `grep -c '\bMUST\b'` over the concatenation (83) and the line numbers'

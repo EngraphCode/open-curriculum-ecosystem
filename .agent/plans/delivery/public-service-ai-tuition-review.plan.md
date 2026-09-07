@@ -83,9 +83,15 @@ the OCE record that owns it, disposition-as-intended with the control that prove
    settled-direction question travel to the owner as one packet raised by the Director, with this
    lane's factors attached. Proof `owner-held`: the Director's record names the packet; the owner's
    answer lands as the two gates above clearing.
-4. **Nothing in the 17 imported files changed** — the lane PR's diff touches no path under
-   `.agent/research/public-service-ai-tuition/`. Proof `repo-safe`: `git diff --stat` of the lane
-   PR against `origin/engraph` lists only this lane's own paths.
+4. **The imported files are unchanged beyond the deltas `AUTHORITY.md` tables** — under
+   `.agent/research/public-service-ai-tuition/` the only differences from the imported revision
+   SHA:2db74f5bb are the three rows in `AUTHORITY.md`'s deltas table (the runner reduced to a
+   listing under the owner's "apply the standing policy" ruling and the two links that pointed at
+   it) plus `AUTHORITY.md` itself, which is OCE-authored. Proof `repo-safe`: `git diff --stat
+   2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa <landed head> -- .agent/research/public-service-ai-tuition`
+   lists exactly those four paths, and the listing's fenced text hashes to the imported blob.
+   (Re-trued 2026-09-07: the original criterion, "no path under the subtree changes", predated
+   the owner's runner ruling and the record's move into PR 66.)
 5. **The removed fleet stages are recorded, not silently dropped** — the dated proportionality
    note below stands on this node and the spend actuals stand on the report beside the estimate.
    Proof `repo-safe`: both sections present in the landed files.
