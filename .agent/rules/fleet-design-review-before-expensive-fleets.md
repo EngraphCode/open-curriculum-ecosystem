@@ -118,9 +118,10 @@ leg on a cheaper tier with a twelve-call cap):
    bounds calls, not results. Estimate a leg as (unit tokens + rules) × turns +
    Σ tool-result tokens × turns remaining; size units by tokens (`wc -c` ÷ 4),
    about 8k each.
-2. **Pilot before fan-out.** One leg, measured from its run record, times N, in
-   the launch record beside the estimate; abort when pilot × N crosses the
-   budget. A resume by run id is a launch: the pilot and yield are re-decided.
+2. **Pilot before fan-out.** One representative leg per distinct phase (map,
+   reduce, verify, synthesis), measured from its run record, times that phase's
+   fan-out, summed across phases in the launch record beside the estimate; abort
+   when the sum crosses the budget (a single-phase fleet reduces to pilot × N). A resume by run id is a launch: the pilot and yield are re-decided.
 3. **Sample the yield by hand first.** Three to five units read at the seat show
    what fraction would move — four fifths of the 2026-09-07 napkin was already
    homed or pure state, a fact a twenty-minute sample would have set before an
@@ -131,8 +132,10 @@ leg on a cheaper tier with a twelve-call cap):
    application makes the phase pure spend.
 5. **No open-ended repository search per item.** Legs read the unit and return
    items with a proposed home class; the seat verifies homes with targeted reads
-   (a script checks citations mechanically). Where search is allowed, bound it:
-   `grep -l` only, one read of at most sixty lines per item, a result-size cap.
+   (a script checks citations mechanically). Where search is allowed, bound it
+   by a search command, a per-item read cap and a result-size cap derived in the
+   launch record from the measured pilot (the 2026-09-07 instance: `grep -l`
+   only, one read of at most sixty lines per item).
 6. **Name the tier per phase and enforce a budget in the script** (the workflow
    API's `budget`): the top tier only where judgement is the product; `log()`
    dropped coverage; a stop condition that is not the owner noticing.

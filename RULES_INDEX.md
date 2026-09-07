@@ -133,7 +133,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/eef-corpus-grounding.md`                                     | situational    | surface:eef-corpus — Authoring/editing a claim about the EEF corpus or EEF-thread work             |
 | `.agent/rules/executive-memory-drift-capture.md`                           | core           | —                                                                                                  |
 | `.agent/rules/exit-codes-in-band-never-piped.md`                           | core           | —                                                                                                  |
-| `.agent/rules/fleet-design-review-before-expensive-fleets.md`              | situational    | task:fleet-design — Designing, pricing or launching ANY fleet (review above default size or ~500k) |
+| `.agent/rules/fleet-design-review-before-expensive-fleets.md`              | situational    | tool:Workflow — Every fleet or fanout launch, whatever its size (design review above ~500k tokens) |
 | `.agent/rules/follow-agent-collaboration-practice.md`                      | core           | —                                                                                                  |
 | `.agent/rules/follow-collaboration-practice.md`                            | core           | —                                                                                                  |
 | `.agent/rules/follow-the-practice.md`                                      | core           | —                                                                                                  |
