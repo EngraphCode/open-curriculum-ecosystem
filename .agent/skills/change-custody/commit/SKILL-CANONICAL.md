@@ -207,8 +207,11 @@ to peers.
 git operations colliding, that is not necessary for work in separate worktrees").**
 The queue and the bare `git:index/head` window serialise the SHARED PRIMARY
 checkout only. A lane in its own worktree (PDR-117) commits by plain pathspec —
-`git add -- <paths>` then `git commit -F <message> -- <paths>`, hooks running, the
-owner as author and the bot as committer — with an audit line in the message
+`git add -- <paths>` then `git commit --author="<owner name> <owner noreply email>"
+-F <message> -- <paths>` — the `--author` flag on every commit, as the bot-identity
+rule requires: the worktree's `user.*` is the bot, so an omitted flag yields a
+bot-authored commit — hooks running, the owner as author and the bot as
+committer, with an audit line in the message
 naming the worktree and that the queue was not used; it opens no queue intent and
 no window claim (F-132, F-139 and F-169 are superseded by scope). Two mechanics of
 the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare

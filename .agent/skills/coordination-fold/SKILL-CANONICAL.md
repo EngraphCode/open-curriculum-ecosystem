@@ -43,8 +43,13 @@ resides on the coordination branch).
    files against main) before pushing.
    The napkin resolves as a union of both sides' blocks in time order — unless
    the target branch's napkin was ROTATED since the snapshot, in which case keep
-   the rotated file and append only the blocks written after the rotation's
-   named watermark (agreed 2026-09-07). Two instrument defects caught at the
+   the rotated file and run the semantic-merge skill's archive-coverage check
+   (its step 10): diff every incoming block heading against the rotated napkin
+   AND the rotation archive, content-grep before declaring a gap, and carry every
+   genuinely absent block under a dated union note. Never filter by timestamp
+   alone: the rotation's watermark commit is where to start looking, not the
+   test, since a block authored on a third branch before the watermark and
+   merged after it would be lost (2026-09-07). Two instrument defects caught at the
    2026-09-07 fold: a time key that failed on a heading written "16:xxZ" and
    sorted that block last (a tolerant key cures it), and a dropped blank line at
    one block joint that the markdownlint hook refused (MD032/MD022) — read the
