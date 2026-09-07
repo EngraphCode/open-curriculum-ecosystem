@@ -3900,13 +3900,20 @@ commit SHA and the closing plan reference.
   landing arc). `commit-queue guard` refuses a fresh intent ahead of yours
   even when its files are disjoint and it was enqueued from another
   worktree, so parallel lanes commit in sequence and publish in parallel.
-- **Expected**: sequence commits, publish in parallel — the guard's rejection of
-  any fresh entry ahead (`guard.ts`, the fresh-entries-ahead check) and the
-  commit skill's sequential commit windows are one intentional invariant, so
-  any change to the ordering contract is a commit-skill amendment first, never
-  a guard patch.
-- **Route**: cost of the contract; no backlog item (re-trued at the 2026-09-06
-  consolidation against the guard source and the skill text).
+- **Expected**: the guard scopes contention to the invoking tree (F-132's
+  same-tree reading) or to overlapping files; the commit skill states the
+  same-tree reading as the design intent on the queued and merge paths.
+- **Route**: SUPERSEDED by scope, 2026-09-07 — the owner's ruling (~12:24Z,
+  relayed by the Director in 4c19ff3c and 1fd65378): the queue exists to stop
+  git operations colliding in the shared primary and is not used for work in
+  separate worktrees, which commit by plain pathspec with an audit line; the
+  cross-worktree ordering this row observed is therefore never exercised. The
+  guard's estate-wide freshness key remains the shared primary's contract; the
+  Director's decision-matrix finding on it (2026-09-06, 81234225: coarser than
+  the per-tree invariant; cure a claim-scope-keyed guard, owner-gated on the
+  2026-08-17 'legacy-use' word) stands there. The separate host bound (two, at
+  most three, simultaneous full local gates, engineered as a semaphore) is its
+  own lane. The commit skill true-up carries F-132/F-139/F-169 as superseded.
 
 ### F-170 — the liveness heartbeat loop has no consumer-absence exit
 

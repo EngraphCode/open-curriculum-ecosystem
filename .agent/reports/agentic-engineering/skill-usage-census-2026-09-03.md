@@ -342,10 +342,13 @@ data says about it. None is decided here.
   registers, trailing names only when the model invokes them. The table above counts
   registrations, so it under-reads the lenses by that factor.
 - **The real "loads twice".** Transcripts record rule injections as nested-memory
-  attachments: one 2026-08 session (prefix b10c37fe) carries 1,056 rule re-injections
-  across eight worktrees under the repository's own platform worktree directory, 121 rule
-  names each — reading a file under a nested checkout re-injects that checkout's whole
-  rules directory. The cure direction, worktrees in the sibling directory rather than
-  under the repository root, is the shape the worktree-residency rule already requires.
+  attachments: one 2026-08 session (prefix b10c37fe) carries 1,056 rule re-injection
+  attachments across eight worktrees under the repository's own platform worktree
+  directory, naming 121 distinct rule files — reading a file under a nested checkout
+  re-injects that checkout's whole rules directory. The two figures are separate counts
+  (attachment records; distinct names) and the per-worktree split was not retained in the
+  machine-local data, so the total is not eight times the name count. The cure direction,
+  worktrees in the sibling directory rather than under the repository root, is the shape
+  the worktree-residency rule already requires.
 
 Data files for this census are machine-local and not tracked; this report is the record.

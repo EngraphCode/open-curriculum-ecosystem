@@ -78,6 +78,9 @@ untouched.
 
 ## Rollback
 
-Steps 1 to 4 change no shared state beyond a branch and a pull request, both deletable.
+Steps 1 to 3 change no shared state beyond a branch and a pull request, both deletable.
+Step 4's routed review findings are durable by design (an upstream report, a follow-up lane
+node, or a frictions-register row written before the merge, as the review-triage rule
+requires) and a rollback keeps them; only the branch and the pull request are deleted.
 Step 5 has no rollback beyond a forward-going revert merge, which would itself diverge from
 upstream; the owner accepted that shape when the recipe was first used (2026-09-02).
