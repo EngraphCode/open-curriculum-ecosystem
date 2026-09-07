@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: reference
 authority: cost-of-change-gradient-software-projection
 status: active
-last_reviewed: 2026-08-02
+last_reviewed: 2026-09-07
 ---
 
 # Foundations first: the software projection of the cost-of-change gradient
@@ -68,6 +68,12 @@ orthogonal: generated repetition is normally cured at its input or generator,
 not by making generated carriers depend on one another.
 
 ## When duplication should become a foundation
+
+Ownership of a low-level contract does not require implementing every primitive
+underneath it. [ADR-228](./architectural-decisions/228-low-level-package-ownership-and-external-primitives.md)
+governs native and external adoption, the value of an OCE package boundary and
+the evidence needed for an implementation choice. The extraction gates below
+continue to govern promotion of duplicated responsibility.
 
 Repetition is important evidence because it reveals potential change
 amplification. Extraction is warranted only when it is also evidence of one

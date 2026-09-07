@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: index
 authority: adr-navigation
 status: active
-last_reviewed: 2026-08-30
+last_reviewed: 2026-09-07
 ---
 
 # Architectural Decision Records
@@ -487,6 +487,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
   workspaces; a junior-developer product repository; one version per repository for now; the
   extraction before the estate-wide seam migration)
+
+- [ADR-228: Own low-level contracts and adopt external primitives where they fit](228-low-level-package-ownership-and-external-primitives.md)
+  (Accepted 2026-09-07; OCE package ownership, justified primitive adoption and
+  contract assurance; graph implementation selection remains open)
 
 ## Key Architectural Decisions
 
