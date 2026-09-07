@@ -89,3 +89,19 @@ and the homes are the record. -->
   STOP/RELEASE reversal within two minutes on #58): the STOP acknowledgement handed the
   uncommitted cure over verbatim so the takeover met no surprise. Promotion target:
   start-right-team §Closeout Contract, the pickup notification.
+
+- **Records land in the past tense of what has landed, after it lands** (2026-09-07, four
+  Codex rounds on a review lane's records): every round found a record line written in the
+  present tense of a state that had not yet landed — acceptance criteria authored before the
+  landing, a live todo for a merged PR, recipes without operands, continuity pointers at the
+  previous seat's step. Cure class, steered at the step-back: status lines in the past tense
+  after the landing; a pre-merge push to narrate ahead of a landing costs a check cycle and
+  a review round. Promotion target: `no-moving-targets-in-permanent-docs` or
+  `records-are-technical-not-emotional`.
+- **A classification treated as a fact, answered by what the thing is FOR** (the Director's
+  metacognition over 2026-09-06/07: seven owner corrections in a day sharing one shape —
+  the rate-limiting cure, the wrapper loop, "park it", the merge queue, the public-fork
+  inference, the review-record shape, the "owner's landing"). Each correction was cheaper
+  than the ceremony that preceded it. Seed, not doctrine: before approving spend or
+  apparatus on any lane, write the owner's end in one sentence and re-ask whether the lane
+  is still denominated in it. Promotion target: `re-apply-first-question-at-elaboration-boundaries`.
