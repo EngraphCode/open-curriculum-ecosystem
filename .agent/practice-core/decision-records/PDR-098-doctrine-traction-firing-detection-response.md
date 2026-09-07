@@ -182,7 +182,8 @@ measurements select no mechanism (§Scope); they price the empty quadrant.
 
 The shortest measured interval: the PR-open intake declaration and tally, on main in
 `review-feedback-defaults-to-triage` §Trigger since 2026-08-31, went unbuilt at the next
-shepherded PR carrying prose (#915, 2026-09-02); the loop was cured at round three by seat
+shepherded PR carrying prose (a fold PR of 2026-09-02; the host repository's
+doctrine-traction plan names it); the loop was cured at round three by seat
 judgement and the owner invoked pr-lifecycle and proportionality mid-loop — the defect
 PDR-140 clause 8 names. The rule text was intact and read; the cure landed 2026-09-06 as a
 PR-open step in the delivery-plan template, a shape-entry binding installed where the PR is

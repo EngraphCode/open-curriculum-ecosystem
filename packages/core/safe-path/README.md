@@ -27,7 +27,12 @@ of 2026-09-06, `scripts/write-contained.ts`): open the target `O_WRONLY|O_CREAT|
 O_NONBLOCK` with no `O_TRUNC`, confirm the `O_NOFOLLOW` constant is present AND nonzero (some
 platforms expose it inert as 0), `fstat` the descriptor to confirm a regular file, then
 `ftruncate` and write through the descriptor — a FIFO refuses `ENXIO` instead of hanging, a
-directory `EISDIR`, a symlink `ELOOP`, all in the same operation as the open, so no
-check-then-use race exists. That writer is the third consumer to want "write a file safely
+directory `EISDIR`, a symlink at the final component `ELOOP`, all in the same operation as
+the open. `O_NOFOLLOW` guards the LAST path component only: a process that swaps an
+ancestor directory for a symlink between canonicalisation and `open` is still followed,
+so the descriptor can name a regular file outside the base and pass `fstat`. The writer
+closes the check-then-use race at the leaf and narrows, never closes, the ancestor window
+(a directory descriptor walked with `openat` per component is the full cure); the
+helper's contract states that boundary and claims no race-freedom. That writer is the third consumer to want "write a file safely
 inside a base"; per `consolidate-at-second-consumer`, an `openRegularFileWithin(base,
 relative)` helper is the extraction once a second real consumer needs it, not before.

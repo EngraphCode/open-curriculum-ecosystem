@@ -30,9 +30,13 @@ wrap — is preserved verbatim in `archive/napkin-2026-09-07.md`: the union of t
 coordination branch's napkin at `SHA:cc4a61790` (`coordination/2026-09-07-dfe924`, 2,376
 lines, the fold's blocks in time order with their in-place supersession markers) and this
 seat's two blocks (2026-09-06 21:0xZ; 2026-09-07 16:2xZ), `cmp`-proven byte-identical at the
-move. Every block written on the successor branch after `SHA:cc4a61790` belongs to the next
-window: the fold at the 2026-09-08 rollover appends those blocks below this one and never
-re-imports the archived ones.
+move. Every block on the successor branch that is absent from this file and from the archive
+belongs to the next window: the fold at the 2026-09-08 rollover runs the semantic-merge
+skill's archive-coverage check (each incoming heading diffed against both, content-grep
+before declaring a gap), appends the genuinely absent blocks below this one under a dated
+union note, and never re-imports the archived ones — `SHA:cc4a61790` is where to start
+looking, never the test, since a block authored elsewhere before it and merged after it
+would otherwise be lost.
 
 Processing before the archive, by hand: forty-three dated blocks of the 2026-09-02→09-07
 window mapped item by item (708 items; the map and its spend are the subject of the 2026-09-07
@@ -65,6 +69,6 @@ found the un-homed class on lane-closed and owner-word events (consolidate-docs 
 says so); the archive move waits for the next curation pass under the three gates.
 
 The rotation shape held: distil to the homes first, archive the processed source, start
-fresh; a peer's block landing between the snapshot and the fold is the next window's, never
-this archive's loss. Author entries below per the header; the next rotation reads this block
+fresh; a peer's block absent from the archive at the fold is the next window's, never this
+archive's loss. Author entries below per the header; the next rotation reads this block
 as its marker.

@@ -21,7 +21,11 @@ The fork's reach stops at its own surfaces. Owner ruling (verbatim, 2026-09-06):
 the Engraph fork, do not access the Oak repo without permission and NEVER write to the Oak
 repo, to Linear, or any other Oak surface". A read of the `oaknational` repository needs
 owner permission first; a write to it, to Linear, or to any other Oak surface is forbidden
-without exception. Every `gh` call names the fork with `--repo`.
+without exception. Every `gh` call names the fork explicitly: `--repo
+EngraphCode/open-curriculum-ecosystem` on the commands that take the flag (`pr`, `issue`,
+`run`, `release`); for `gh api`, which has no `--repo` flag, the full
+`repos/EngraphCode/open-curriculum-ecosystem/...` endpoint or `GH_REPO` in the
+environment (read from `gh api --help`, 2026-09-07).
 
 ## Failure Mode Prevented
 

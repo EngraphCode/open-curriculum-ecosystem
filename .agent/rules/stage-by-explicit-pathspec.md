@@ -57,7 +57,7 @@ tree:
    origin).
 
 Two further instances landed on 2026-08-19 with this section already in the rule: a lane
-seat's commit (5916d7069) carried a peer's staged renames, and a Director commit swept the
+seat's commit carried a peer's staged renames, and a Director commit swept the
 shared index the same day, independently. Both seats held the cure text in context and the
 mechanism did not fire at either action moment — recurrence despite a verified home
 (PDR-098), the traction gap that PDR's design lane exists to close.
