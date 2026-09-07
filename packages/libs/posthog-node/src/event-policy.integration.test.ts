@@ -329,10 +329,10 @@ describe('finalOakEventPolicy integration', () => {
     const base = { $mcp_tool_name: 'search', $mcp_duration_ms: 13, $mcp_is_error: false };
 
     const rebuilt = policies.finalOakEventPolicy(
-      nodeEvent('$mcp_tool_call', { ...base, $mcp_client_user_agent: 'claude-code/2.1.226 (cli)' }),
+      nodeEvent('$mcp_tool_call', { ...base, $mcp_client_user_agent: 'claude-code/2 (cli)' }),
     );
     expect(rebuilt).toStrictEqual(
-      nodeEvent('$mcp_tool_call', { $mcp_client_user_agent: 'claude-code/2.1.226 (cli)', ...base }),
+      nodeEvent('$mcp_tool_call', { $mcp_client_user_agent: 'claude-code/2 (cli)', ...base }),
     );
 
     const raw = policies.finalOakEventPolicy(

@@ -4,15 +4,21 @@
  *
  * @remarks PostHog resolves that column at query time from
  * `$mcp_vendor_client`, then `$mcp_client_user_agent`, then `$mcp_client_name`
- * (PostHog MCP analytics events reference, read 2026-09-07). Oak emits none of
- * the vendor's raw values, which ADR-218 §3 excludes as client-controlled
- * strings. Instead it emits the user-agent property REBUILT from: the product
- * spelling observed in live traffic, a version of digits and dots only, and a
- * bracketed build surface from a closed list, which the reference names as what
- * distinguishes Claude Code's `(cli)` from `(sdk-ts)`, `(claude-vscode)` and
- * `(claude-desktop)`. A header that does not parse omits the property, so the
- * column resolves to "other" exactly as it did before MCP-687. The raw header
- * value still never leaves this process (ADR-218, 2026-09-07 amendment).
+ * (PostHog MCP analytics events reference,
+ * https://posthog.com/docs/mcp-analytics/events, read 2026-09-07). Oak emits
+ * none of the vendor's raw values, which ADR-218 §3 excludes as
+ * client-controlled strings. Instead it emits the user-agent property REBUILT
+ * from: the product spelling observed in live traffic, an optional major
+ * version of at most two digits, and an optional build surface from the
+ * vendor-documented closed list below. A header that names no product omits
+ * the property, so the column resolves to "other" exactly as it did before
+ * MCP-687. The raw header value never leaves this process (ADR-218,
+ * 2026-09-07 amendment).
+ *
+ * The version is the only place client-supplied bytes reach the value, and it
+ * is bounded to at most a hundred distinct values by construction: a longer
+ * digit run (a numeric installation id, say) omits the version rather than
+ * truncating it, so the slot cannot carry a stable per-installation identifier.
  */
 
 import {
@@ -23,25 +29,36 @@ import {
 } from './client-categories.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
+// The vendor's documented vocabulary for the property, not a set observed in
+// Oak's traffic (only `cli` has been): a stated exception to the
+// evidence-backed-token constraint, acceptable because every member is a fixed
+// string re-emitted from this list and never a forwarded byte.
 const CLIENT_BUILD_SURFACE_TOKENS = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
-const MAX_CLIENT_VERSION_LENGTH = 16;
-const MAX_CLIENT_USER_AGENT_LENGTH = 64;
+type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
 // Bounds the surface scan so its cost is independent of an attacker-controlled
-// header length; the product token is anchored at index 0 regardless.
+// header length; the product token is anchored at index 0 regardless. The
+// product axis scans a shorter window (the longest token plus one) because it
+// needs only the leading token; the two derivations still agree on which header
+// value wins, because both anchor at index 0 with the same table.
 const MAX_CLIENT_USER_AGENT_SCAN_LENGTH = 256;
-const CLIENT_VERSION_PATTERN = /^[0-9]+(?:\.[0-9]+)*/u;
-// The complete closed grammar of an emitted value. The final event policy
-// re-checks every outbound value against it, so a property that somehow carried
-// anything else is dropped at the barrier rather than shipped.
-const CLIENT_USER_AGENT_PATTERN =
-  /^(?:Claude-User|claude-code|codex-mcp-client)(?:\/[0-9]+(?:\.[0-9]+)*)?(?: \((?:cli|sdk-ts|claude-vscode|claude-desktop)\))?$/u;
+// At most two digits, and the run must END there: `/2.1.226` yields `2`,
+// `/8123456789012345` yields nothing.
+const CLIENT_MAJOR_VERSION_PATTERN = /^[0-9]{1,2}(?![0-9])/u;
+// The FIRST bracketed segment decides the surface, so list order carries no
+// meaning and a header cannot reach a later bracket by prepending one.
+const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^)]*)\)/u;
 
-function readClientVersion(value: string): string | undefined {
-  const match = CLIENT_VERSION_PATTERN.exec(value);
-  if (match === null || match[0].length > MAX_CLIENT_VERSION_LENGTH) {
+function readClientMajorVersion(afterToken: string): string | undefined {
+  if (!afterToken.startsWith('/')) {
     return undefined;
   }
-  return match[0];
+  const match = CLIENT_MAJOR_VERSION_PATTERN.exec(afterToken.slice(1));
+  return match === null ? undefined : match[0];
+}
+
+function readClientBuildSurface(normalised: string): ClientBuildSurface | undefined {
+  const segment = FIRST_BRACKETED_SEGMENT_PATTERN.exec(normalised)?.[1];
+  return CLIENT_BUILD_SURFACE_TOKENS.find((candidate) => candidate === segment);
 }
 
 function readClientUserAgent(value: string): string | undefined {
@@ -53,14 +70,11 @@ function readClientUserAgent(value: string): string | undefined {
     return undefined;
   }
   const [token, , spelling] = rule;
-  const afterToken = normalised.slice(token.length);
-  const version = afterToken.startsWith('/') ? readClientVersion(afterToken.slice(1)) : undefined;
-  const surface = CLIENT_BUILD_SURFACE_TOKENS.find((candidate) =>
-    normalised.includes(`(${candidate})`),
-  );
-  return `${spelling}${version === undefined ? '' : `/${version}`}${
-    surface === undefined ? '' : ` (${surface})`
-  }`;
+  const version = readClientMajorVersion(normalised.slice(token.length));
+  const surface = readClientBuildSurface(normalised);
+  const versionPart = version === undefined ? '' : `/${version}`;
+  const surfacePart = surface === undefined ? '' : ` (${surface})`;
+  return `${spelling}${versionPart}${surfacePart}`;
 }
 
 /**
@@ -88,11 +102,12 @@ export function normaliseOakClientUserAgent(headers: ClientIdentityHeaders): str
   return undefined;
 }
 
-/** Whether a value is one the rebuilt grammar can produce. */
+/**
+ * Whether a value is one the rebuild can produce: it is admitted iff
+ * re-parsing it reproduces it byte for byte. The validator therefore IS the
+ * derivation, so the grammar has one home and a new table row cannot drift
+ * from the barrier the way a hand-copied regex would.
+ */
 export function isOakClientUserAgent(value: unknown): value is string {
-  return (
-    typeof value === 'string' &&
-    value.length <= MAX_CLIENT_USER_AGENT_LENGTH &&
-    CLIENT_USER_AGENT_PATTERN.test(value)
-  );
+  return typeof value === 'string' && readClientUserAgent(value) === value;
 }

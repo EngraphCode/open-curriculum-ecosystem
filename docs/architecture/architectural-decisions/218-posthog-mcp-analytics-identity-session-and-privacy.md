@@ -185,6 +185,10 @@ The closed event envelope may contain:
   `oak_client_family` (vendor, from the `initialize` handshake only),
   `oak_client_surface` (form factor) and `oak_client_product` (vendor
   product, derived per request — see the 2026-08-13 Amendment);
+- a rebuilt `$mcp_client_user_agent`: the product spelling from that closed
+  table, an optional major version of at most two digits, and an optional
+  build surface from a closed list, admitted only when re-parsing it
+  reproduces it byte for byte (see the 2026-09-07 Amendment);
 - the PostHog-scoped actor pseudonym; and
 - a trusted protocol-session projection, only after the future proof
   described above exists.
@@ -669,33 +673,54 @@ surface obligation is MCP-364's.
 ## Amendment: a rebuilt `$mcp_client_user_agent` so PostHog's harness column resolves (2026-09-07)
 
 The 2026-08-13 amendment recorded that PostHog's built-in `harness` column
-"stays empty by decision". This amendment supersedes that sentence, and only
-that sentence. The reasoning behind it stands: the raw values PostHog resolves
-the column from — `$mcp_vendor_client`, `$mcp_client_user_agent`,
-`$mcp_client_name` — remain excluded under §3, because live `clientInfo.name`
-values carry per-installation identifiers and the other two are unbounded
-client-controlled strings.
+"stays empty by decision", and that emitting the three raw properties it
+resolves from was rejected. This amendment reverses that outcome for ONE of
+the three, `$mcp_client_user_agent`, and only in a rebuilt form; §3's
+"may contain" list gains the matching bullet, which is the allowlist entry
+this section records. The raw values stay excluded for the same reasons as
+before: live `clientInfo.name` values carry per-installation identifiers, and
+the raw user agent and vendor header are unbounded client-controlled strings.
 
 **What changes.** The three automatic events may now carry a
-`$mcp_client_user_agent` that is **rebuilt from closed pieces**, never the
-forwarded header:
+`$mcp_client_user_agent` rebuilt from three pieces:
 
-- the product token, in the spelling observed in live traffic, from the same
-  evidence-backed table that derives `oak_client_product` (`Claude-User`,
-  `claude-code`, `codex-mcp-client`);
-- an optional version of digits and dots only, length-bounded;
-- an optional bracketed build surface from a closed list (`cli`, `sdk-ts`,
-  `claude-vscode`, `claude-desktop`), which is what the PostHog events
-  reference names as the part of the user agent its column reads.
+- the product token, re-emitted in the spelling observed in live traffic
+  from the same evidence-backed table that derives `oak_client_product`
+  (`Claude-User`, `claude-code`, `codex-mcp-client`). A header naming no
+  product omits the whole property, so the column resolves to "other"
+  exactly as before;
+- an optional major version: the leading run of at most two ASCII digits
+  after the product token's `/`, copied from the header. This is the one
+  place client-supplied bytes reach the value, and it is bounded to at most a
+  hundred distinct values by construction. A longer digit run — a 16-digit
+  installation id, say — omits the version rather than truncating it, so the
+  slot cannot carry a stable per-installation identifier. The pre-review
+  shape of this amendment allowed a digits-and-dots version of up to sixteen
+  characters, which the same day's security review identified as exactly
+  that channel; the bound is the cure;
+- an optional build surface: the first bracketed segment of the header, when
+  it is one of `cli`, `sdk-ts`, `claude-vscode`, `claude-desktop`. This list
+  is the vendor's documented vocabulary for the property (PostHog MCP
+  analytics events reference,
+  <https://posthog.com/docs/mcp-analytics/events>, read 2026-09-07), not a
+  set observed first-hand in Oak's traffic — only `(cli)` has been — which
+  is a stated exception to the 2026-08-13 amendment's evidence-backed-token
+  constraint, accepted because every member is a fixed string re-emitted
+  from the list and never a forwarded byte.
 
-A header that names no product omits the property, so the column resolves to
-"other" exactly as before. The final event policy re-validates every outbound
-value against the complete grammar and drops the property, not the event, on
-any mismatch. The rebuilt value therefore adds one low-cardinality fact to the
-envelope — the client software's version — beyond what `oak_client_product`
-already carried, and forwards no client-controlled byte. It is a property of the
-calling software, never of the teacher, and remains an unverified
-self-declaration under the 2026-08-13 amendment's standing constraints.
+The validator at the final event policy is the derivation itself: a value is
+admitted iff re-parsing it reproduces it byte for byte, so the grammar has one
+home and a new table row cannot drift from the barrier. A mismatch drops the
+property, not the event.
+
+**What this adds to the envelope.** Two facts beyond `oak_client_product`:
+the client software's major version, and a build surface finer than
+`oak_client_surface` (which folds `claude-desktop` and `sdk-ts` into `cli`).
+Both are properties of the calling software, never of the teacher; both are
+unverified self-declarations under the 2026-08-13 amendment's standing
+constraints and must never gate anything. The guarantee given up is "no
+header version byte ships": the wire test that pinned the full version absent
+now pins the major version present and the full version absent.
 
 **Why.** MCP-574 reads error rates off PostHog's built-in MCP dashboard, whose
 harness breakdown does not read `oak_client_product`. Every call therefore
@@ -704,12 +729,16 @@ drew a recommendation to run the vendor's auto-instrumentation wizard — which
 would have shipped the very content §3 excludes. Populating the column from a
 closed reconstruction answers the dashboard without reopening §3.
 
-**What did NOT change.** `$mcp_client_name`, `$mcp_client_version` and
-`$mcp_vendor_client` stay excluded. `$mcp_resource_read` still carries no
-client attribution. Intent, arguments, responses, error text, and every other §3
+**What did NOT change.** The raw `$mcp_client_name`, `$mcp_client_version` and
+`$mcp_vendor_client` properties stay excluded: the version FACT ships only as
+the bounded major inside the rebuilt user agent, never the raw
+`clientInfo.version`. `$mcp_resource_read` still carries no client
+attribution. Intent, arguments, responses, error text, and every other §3
 exclusion are untouched.
 
-Directed by Luke Arnold, 2026-09-07 (MCP-687); agent-authored. The PostHog
-resolution order is from the events reference read that day, and the column's
-exact label mapping is undocumented by the vendor, so the acceptance check is an
-observed breakdown in the live project after deploy.
+Directed by Luke Arnold, 2026-09-07 (MCP-687); agent-authored; the version
+bound and the recompute validator follow the same day's pre-PR security and
+code reviews. The PostHog resolution order is from the events reference cited
+above, and the column's exact label mapping is undocumented by the vendor, so
+the acceptance check is an observed breakdown in the live project after
+deploy.
