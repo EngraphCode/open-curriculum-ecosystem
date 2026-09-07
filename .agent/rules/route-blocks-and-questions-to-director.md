@@ -42,6 +42,9 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
 4. The GATE TEST precedes all of this: no citable forcing fact = no gate =
    act now. This rule governs REAL blocks only; it is not a licence to
    manufacture escalations.
+A permission prompt is a block of this class (owner word 2026-09-06, verbatim: "refer
+permissions requests to the Director"): the seat sends the exact invocation to the Director
+by directed event and waits; it never routes the request to the owner's prompt.
 
 ## Failure Mode Prevented
 

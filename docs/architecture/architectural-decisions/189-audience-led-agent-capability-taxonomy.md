@@ -85,6 +85,14 @@ recorded independently.
   as separate columns; "repo-internal", "distributable", and "both"
   are all legitimate values, and dual-homed versions of one
   capability do not force a category change on either side.
+- **Amendment 2026-09-05 (owner corrections on a fork line).** On a line run as another
+  organisation's fork, whether a distributable capability is listed or served is that line's
+  own product decision and licence position; the canonical organisation's product gates do
+  not carry across by analogy — a report on the EngraphCode line had carried the canonical
+  connector-listing gate onto the fork, and the owner corrected it. For a distributable
+  capability the surface that matters in this tree is the public plugin directory
+  (`plugins/`: the marketplace manifest and its plugin); a sibling skills library's privacy
+  is incidental to that question.
 
 ## Validation
 

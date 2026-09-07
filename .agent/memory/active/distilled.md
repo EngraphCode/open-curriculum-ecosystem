@@ -59,3 +59,33 @@ the `pr-lifecycle` skill Phase 7. Homes verified live at drain. The commits
 and the homes are the record. -->
 
 <!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
+
+## 2026-09-07 rotation entries (Juno seeks Apogee, a693fb — promote at the next pass)
+
+- **Acts that pass a correctness check and fail a standing check** (2026-09-03, three in
+  one day: a lead's removal of a peer's local branch, refused by the owner; two Cricket seats
+  stepping from judging into doing; builds stricter than the ask). Each act's own check
+  (clean tree, sound verdict, green gate) never asked which standing ruling governed it.
+  Promotion target: the act-time question "which standing ruling governs this act?" beside
+  the correctness check in the rule or skill that owns each act class.
+- **A gate mistaken for a goal** (2026-09-03). Zero unresolved threads gates a merge, a green
+  hook gates a commit, a clean index gates a fast-forward; read as goals, every satisfying
+  move looks like progress and the loop cannot see itself diverge. Before the fourth
+  repetition of any gate-satisfying move, name the goal the gate serves and ask whether the
+  move advanced it; the pr-lifecycle tally's counter belongs on hook re-runs and monitor
+  re-arms too. Promotion target: concept-exploration §Loop Dynamics (owner-ratified section;
+  a proposal there, not an edit).
+- **"Correct under both orders, harmless if the flow changes" is a tell, not a virtue**
+  (2026-09-06, a frame challenger's reading of the seat's own design): a shape whose chief
+  argument is graceful degradation under alternative futures was chosen for survivability;
+  re-examine whether it is right for the actual decision. Promotion target: the
+  fleet-design rule's brief discipline or the assumptions-expert lens.
+- **A rule clause naming repositories and credentials is checked against the workflow file
+  before it is written** (2026-09-06): "re-home any fork head", generalised from one
+  instance, would have handed an external contributor's head the shared repository's
+  secrets; the workflow runs a cross-repository head without secrets by design, visible from
+  one read. Promotion target: verify-dont-trust §Name the Instrument.
+- **A seat that wakes into a takeover reports its worktree state first** (2026-09-06, a
+  STOP/RELEASE reversal within two minutes on #58): the STOP acknowledgement handed the
+  uncommitted cure over verbatim so the takeover met no surprise. Promotion target:
+  start-right-team §Closeout Contract, the pickup notification.

@@ -648,6 +648,12 @@ authority.
 - No compatibility layers; replace, do not bridge.
 - Distinct architectural layers live in distinct workspaces.
 - TDD at all levels; tests prove product behaviour, not file presence.
+- Owner word 2026-09-03, in force until 2026-10-06: internal Oak systems are not accessed
+  from this checkout ("we should not access any INTERNAL Oak systems, we will still access
+  public services such as the curriculum api/downloads etc"). Private Oak GitHub
+  repositories are internal systems under that word — a read of `oaknational/oak-skills`
+  on 2026-09-05 was recorded as a mistake; the public upstream repository is the one
+  permitted Oak repository read. The disconnection mechanics stay checkout-local.
 - Strict validation happens only at boundaries.
 - No `process.env` read/write in test files or setup files.
 - `--no-verify` requires fresh per-invocation owner authorisation.

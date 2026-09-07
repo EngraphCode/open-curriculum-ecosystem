@@ -179,3 +179,11 @@ as by other means" (2026-08-18), against `visual-verdicts-require-rendered-proof
 in the rule estate. A napkin corpus measures recurrence and cannot measure extinction — a
 cured class leaves no entry when it stops firing — so the rate is a floor. These
 measurements select no mechanism (§Scope); they price the empty quadrant.
+
+The shortest measured interval: the PR-open intake declaration and tally, on main in
+`review-feedback-defaults-to-triage` §Trigger since 2026-08-31, went unbuilt at the next
+shepherded PR carrying prose (#915, 2026-09-02); the loop was cured at round three by seat
+judgement and the owner invoked pr-lifecycle and proportionality mid-loop — the defect
+PDR-140 clause 8 names. The rule text was intact and read; the cure landed 2026-09-06 as a
+PR-open step in the delivery-plan template, a shape-entry binding installed where the PR is
+authored rather than a further sentence in the rule.
