@@ -16,7 +16,7 @@ How an agent discovers and uses the tools — titles, descriptions, parameter de
 
 This page holds only the **tool-param-description** items of that view, so it can be reviewed in one sitting.
 
-**101 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 0 no longer exist in the codebase. 101 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**101 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 1 no longer exists in the codebase. 100 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the tool-usability view](./tool-usability.md) · [Back to the workspace index](../README.md)
 
@@ -33,7 +33,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (51)
+## Words owned in this repository (50)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -850,7 +850,7 @@ unitLimit: z
 **What it says now:**
 
 ```text
-Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is the bounded
+Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is each anchor unit's stated prior knowledge.
 ```
 
 **What it is for:** States the anchor is corpus-key unit slugs with unknown-slug reporting.
@@ -859,30 +859,6 @@ Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is t
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** The wording has changed since the audit baseline.
-- **Kind of surface:** tool-param-description · **Impact tier:** high-impact
-
-### C249 — PRIOR\_KNOWLEDGE\_INPUT.depth
-
-**What it says now:**
-
-```text
-depth: z
-    .number()
-    .int()
-    .min(0)
-    .max(MAX_PREREQUISITE_DEPTH)
-    .optional()
-    .describe(
-      `Prerequisite-traversal depth: how many predecessor levels to include. Default ${String(DEFAULT_PREREQUISITE_DEPTH)}, maximum ${String(MAX_PREREQUISITE_DEPTH)}.`,
-```
-
-**What it is for:** Explains predecessor traversal depth with default and max.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** tool-param-description · **Impact tier:** high-impact
 
 ### C254 — THREAD\_PROGRESSIONS\_INPUT.threadSlug
@@ -1964,4 +1940,25 @@ return async (name: ToolName, args: unknown): Promise<ToolExecutionResult> => {
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/stub-tool-executor.ts`
 - **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
 - **Since the audit baseline:** Unchanged since the audit baseline.
+- **Kind of surface:** tool-param-description · **Impact tier:** high-impact
+
+## Retired (1)
+
+These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
+
+### C249 — PRIOR\_KNOWLEDGE\_INPUT.depth
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Prerequisite-traversal depth: how many predecessor levels to include. Default ${...}, maximum ${...}.
+```
+
+**What it is for:** Explains predecessor traversal depth with default and max.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** tool-param-description · **Impact tier:** high-impact

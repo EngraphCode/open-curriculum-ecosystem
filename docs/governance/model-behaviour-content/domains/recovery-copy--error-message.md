@@ -885,12 +885,6 @@ return formatError(`Invalid get-misconception-graph input: ${parsed.error.messag
 
 ```text
 return formatError(`Invalid get-prior-knowledge-graph input: ${parsed.error.message}`);
-
-return formatError(
-      error.kind === 'SubgraphDepthExceeded'
-        ? `get-prior-knowledge-graph failed: ${error.kind} — requested depth ${String(error.depth)} exceeds the view limit ${String(error.limit)}.`
-        : `get-prior-knowledge-graph failed: ${error.kind}.`,
-    );
 ```
 
 **What it is for:** Reports invalid input and a defensive depth-exceeded/kind failure so the agent corrects.
@@ -898,7 +892,7 @@ return formatError(
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** error-message · **Impact tier:** high-impact
 
 ### C257 — THREAD\_PROGRESSIONS\_INPUT\_VALIDATED superRefine messages
