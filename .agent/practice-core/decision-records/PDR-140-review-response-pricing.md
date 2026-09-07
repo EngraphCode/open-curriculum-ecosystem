@@ -294,9 +294,10 @@ merge:
    register row (the pending-graduations register, the gotchas
    reference, a plan's `## Review dispositions` section) or a PR
    already open for its own story — never a PR opened to carry
-   residue. Where a residue PR nonetheless exists it is terminal:
-   one settlement push, its below-bar findings dispositioned without
-   a diff, and no further residue PR opened from it.
+   residue. Where a residue PR nonetheless exists it is terminal: a
+   settlement budget of one push, no rebudget, item 2's late-cure
+   path unchanged, its below-bar findings dispositioned without a
+   diff, and no further residue PR opened from it.
 
 **Falsifier**: a records-class statement dispositioned below the bar
 under item 1 that misleads a reader acting on it before the next

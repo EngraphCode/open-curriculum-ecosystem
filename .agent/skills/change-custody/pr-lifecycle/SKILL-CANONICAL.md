@@ -607,8 +607,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    carrying nothing else — the cure obligation survives every exhaustion;
    a routed residue's named home is an existing surface — a register row
    or a PR already open for its own story — never a PR opened to carry
-   residue, and a residue PR that exists anyway is terminal: one
-   settlement push, no further residue PR. Everything below the bar is dispositioned without a diff (the
+   residue, and a residue PR that exists anyway is terminal: a settlement
+   budget of one push, no rebudget, the late-cure path unchanged, no
+   further residue PR. Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
    2026-09-03). A code-class finding is outside this pricing altogether: a
