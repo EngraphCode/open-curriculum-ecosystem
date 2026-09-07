@@ -603,8 +603,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    clause-8 correction — the anti-pattern recurring). Under that amendment, on a RECORDS-CLASS PR
    (verification point merge; born-sketch plans and other prose classes
    keep clause 4 unchanged) the rebudget is granted ONCE, its push carries
-   over-bar cures only, and a later over-bar finding still cures in a push
-   carrying nothing else — the cure obligation survives every exhaustion;
+   over-bar cures and queued ledger writes only, and a later over-bar
+   finding still cures in a push carrying nothing beyond that cure and any
+   queued ledger writes — the cure obligation survives every exhaustion,
+   and a routed finding's durable write rides the next push that lands or
+   lands alone as clause 4's final settlement push;
    a routed residue's named home is an existing surface — a register row
    or a PR already open for its own story — never a PR opened to carry
    residue, and a residue PR that exists anyway is terminal: a settlement

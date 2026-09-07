@@ -12,8 +12,11 @@ Practice Core package.
   falsehood clears the bar when a reader acting on the artefact would be
   misled by it; a statement wrong under a rule today is not over-bar per
   se. Clause 4's rebudget is granted once per PR and its push carries
-  over-bar cures only; a later over-bar finding still cures, in a push
-  carrying nothing else. A routed residue's named home is an existing
+  over-bar cures and queued ledger writes only; a later over-bar finding
+  still cures, in a push carrying nothing beyond that cure and any queued
+  ledger writes; a routed finding's durable write rides the next push that
+  lands or lands alone as the final settlement push. A routed residue's
+  named home is an existing
   register row or a PR already open for its own story, never a PR opened
   to carry residue; a residue PR that exists anyway has a settlement
   budget of one push. Measured on five records-class PRs (seventeen
