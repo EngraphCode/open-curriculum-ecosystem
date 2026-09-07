@@ -6,7 +6,7 @@ branch)` binding, the worktree lifecycle (create → build → draft-PR → clea
 and the seat (`{worktree, branch, role, task, Director}`) carried in the brief.
 Distinct from `agent-naming` (display-name derivation) and from the broader
 agent-team-operations cluster this is a member of. Governing decision:
-[PDR-118](../../../practice-core/decision-records/PDR-118-agent-work-state-model.md)
+[PDR-118](../../../../practice-core/decision-records/PDR-118-agent-work-state-model.md)
 (work-state binding; OQ2 — supersession-by-launch-in-worktree); frictions
 F-98 / F-87 / F-90 / F-91.
 
@@ -26,7 +26,7 @@ F-98 / F-87 / F-90 / F-91.
   how-to-start says `main`; that becomes literal once `docs/consolidations` merges.)
 - **Invocation pointer**: continue `agent-operability` from this record.
 - **Controlling plan**:
-  [`agent-spawn-flow-tool.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/agent-spawn-flow-tool.plan.md)
+  [`agent-spawn-flow-tool.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/agent-spawn-flow-tool.plan.md)
   (`current/`, **active**, owner-approved 2026-06-28 — ready to build).
   Authoritative for scope, phases, and acceptance. **Read it whole, including the
   Pitfalls section** (it is the point of the handoff — the originating session hit
@@ -84,7 +84,7 @@ research-names-the-rationalisation; the owner decides the shape.
 
 ## Session shape and grounding order for this thread
 
-1. [`repo-continuity.md`](../repo-continuity.md) §Active Threads.
+1. [`repo-continuity.md`](../../repo-continuity.md) §Active Threads.
 2. This record.
 3. The controlling plan (above) — whole, including Pitfalls — authoritative.
 4. The memories named in the plan's Pitfalls
@@ -92,12 +92,12 @@ research-names-the-rationalisation; the owner decides the shape.
    `feedback_run_the_thing_dont_flag_the_gap`, `feedback_cowpath_anti_pattern`,
    `feedback_no_responsibility_passback`, and the worktree-hygiene /
    liveness-heartbeat-cron rules).
-5. [`knowledge-distribution-substrate.plan.md`](../../../plans-backlog-2026-07/agent-tooling/future/knowledge-distribution-substrate.plan.md)
+5. [`knowledge-distribution-substrate.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/future/knowledge-distribution-substrate.plan.md)
    — **context only**, do not build (spawn-flow is its first proving instance later).
 
 ## Participating Agent Identities
 
-Additive per [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md);
+Additive per [PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md);
 joining adds a row, never replaces.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |

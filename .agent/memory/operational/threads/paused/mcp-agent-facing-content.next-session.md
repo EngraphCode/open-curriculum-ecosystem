@@ -147,7 +147,7 @@ execution knowledge is conserved here rather than promoted into cross-session do
 
 **The owner-commissioned concept exploration is complete as an exploration artefact, not as an
 architecture decision or implementation plan:**
-[`2026-07-13-mcp-agent-influence-content-organisation-exploration.md`](../../../../docs/explorations/2026-07-13-mcp-agent-influence-content-organisation-exploration.md)
+[`2026-07-13-mcp-agent-influence-content-organisation-exploration.md`](../../../../../docs/explorations/2026-07-13-mcp-agent-influence-content-organisation-exploration.md)
 records the leading hypothesis of a canonical content estate plus typed concern-assurance areas.
 Human review and automated evaluation share concern scope, stable identities, and coverage, while
 remaining distinct products; pedagogy-like stewardship domains may earn primary boundaries,
@@ -254,7 +254,7 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 ## Lane State
 
 - **Owning plan(s):** the eval/assessment-methodology research is owned by
-  [`mcp-content-assessment-methodology-research.plan.md`](../../../plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  [`mcp-content-assessment-methodology-research.plan.md`](../../../../plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
   (new `effectiveness-and-impact` area, owner-named 2026-07-09; plan authored + landed 2026-07-09,
   status 🟡 PLANNING — readiness reviewers assumptions-expert/mcp-expert/test-expert PENDING, owner
   directed copy-only landing). The content-workspace build plan would be authored when owner-scheduled.

@@ -2138,6 +2138,43 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - **Warm pause configuration** (owner word 21:0xZ): watcher with `--exclude-tag heartbeat` paired with a diff-only peer-liveness poll seeded at arm time — the watcher rule's standby configuration (§Sanctioned tag exclusion) says about every 10 minutes; this seat ran 20 minutes at the owner's word (21:0xZ, verbatim: "change the poll to 20 mintues"), an owner-directed deviation for this pause and not the rule's figure; awareness and queue monitors stopped; Cricket cadence suspended (no cycle boundaries in a pause); wrap and fold wakes stand; heartbeat stopped when the last peer paused. Falsifier: a directed event to the Director that the pause configuration does not surface.
 - **Open at this wrap.** #58 (Finch, cold) holds the paused slot at SHA:3d61777a3 with round six open (a TOCTOU directory-swap finding outside the closed contract); #67 (Juno, cold) at SHA:420d4b3f6 with one unpushed settlement commit on the lane; #66 ready-for-review under the owner's hold with Jackal's review 5126608127 and mapping comment; #68 (Jackal, draft) is the review record. Jackal's watcher stale since ~22:20Z with the claim heartbeat fresh (pinged 22:47Z). Fold DUE at 00:00Z (cron ff44a86d at 00:02Z).
 
+## 2026-09-06 ~21:0xZ (Juno seeks Apogee, a693fb, consolidation seat) — the owner's check-in, the criticals word, the cold pause
+
+- The owner asked how a consolidation session fails to finish in six hours. The ledger, from the harvest's
+  timestamps: about 1.5 h reading the raw sources first-hand; about 1 h authoring seven PRs and the audits;
+  about 3 h in the landing loop; about 0.5 h on the owner's Cricket suite, ceremony failures and watcher re-arms.
+  The loop was long because the seat's own clauses carried about twenty-five reviewer-caught errors of one
+  generator (mechanisms stated from memory; single instances written as universals), each costing a round; the
+  loop was displaced verification, paid at the reviewer's price instead of at write time. Seven PRs landed; the
+  napkin was larger at the pause than at the opener and twelve graduations sat undecided until the last hour.
+- Three owner corrections in one hour named one proportion failure: a check-in became a re-dispatched panel
+  ("there is no contradiction here"); a lens instruction became a design-review ceremony ("less ceremony, more
+  consolidate-docs"); a status question became more instruments. The estate's rituals conserve knowledge; when
+  they become the output they have inverted. The corrective the owner supplied was the fitness table itself: the
+  drainable buffers, read as routing evidence, were the work all along.
+- The fitness function's two drainable criticals at the pause: the napkin (1,966 lines against a 300 limit) and
+  twelve undecided graduations, the oldest 23 days. The twelve were decided in the last hour: every one was
+  already carried by its target home (the pr-lifecycle ratchet, the plan skill's gate clause, the wrap skill's
+  non-terminal form, and so on), verified by reading the home — a register of items whose homes had landed
+  without the register being drained is the producer outrunning the consumer that PDR-067 names.
+- Round two on the four-pointer records PR found the generator three more times in one commit: fifteen threads
+  marked paused in the register while their records stayed in the active directory (the threads README's
+  lifecycle layout files paused records under `paused/`); six identity rows projected from narrative with
+  `unrecorded` models and invented dates while the record's own passages named the models and the corpus
+  discovery report named the dates; and continuity surfaces bundled into a records commit against the
+  orphan-commit rule. Each was a passage one read away. The cure lifted the continuity edits into their own
+  chore(continuity) change, where the moves and the rebuilt rows land together.
+- This seat was absorption-dark 20:13Z–20:39Z with a fresh heartbeat: the harness ran no turn between
+  notifications, the watcher's hour expired unseen, and a Director ping to another seat and an owner word passed
+  unread. The same class as the other seat's two gaps; the detector is progress silence with emission green.
+- A second Cricket suite (eight legs, one corrected frame) caught one tree-level defect in the seat's own cure by
+  reading the diff and counting (the validators step is the ninth, not the seventh); the leg that read the same
+  diff and transcribed the number missed it. Offered evidence produced reads in seven of eight legs against none
+  in the afternoon suite, and one independent verification. A wave dispatched on a stale premise two minutes
+  before the premise was refuted is recorded as spend.
+- Cold pause at the owner's word with two mapping fleets mid-run (the napkin drain map, the continuity-surface
+  disposition); the resume map is machine-local and named on the handoff record.
+
 ## 2026-09-06 ~21:1xZ (Jackal wakes Nocturne, 3484b6, implementer — PR 66 review lane) — COMPACTION FREEZE at owner word; lens harvest and loss scan
 
 - OWNER WORDS to this seat, verbatim: "refer permissions requests to the Director" (~20:5xZ);

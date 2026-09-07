@@ -164,7 +164,7 @@ indices/line counts/whole-object pins) after owner correction of over-coupled te
   config, "notifications share the row", the `// empty` absence idiom) and bump its
   verified-against version.
 - **Statusline trace log (observability follow-on)** — **moved** to the live
-  [`statusline-enhancements`](../../../memory/operational/threads/statusline-enhancements.next-session.md)
+  [`statusline-enhancements`](../../../memory/operational/threads/paused/statusline-enhancements.next-session.md)
   thread record (§"Future enhancement lanes"), 2026-06-30, so it is not orphaned when this plan
   archives. Summary: NOT a recalc fix (the recompute is correct — the staleness is upstream in
   Claude Code's snapshot cadence); an env-gated disk trace log for this soft surface; deprioritized
