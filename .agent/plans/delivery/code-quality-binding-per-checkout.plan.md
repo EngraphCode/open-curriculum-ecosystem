@@ -27,7 +27,12 @@ design-studio sync config (an account-bound project id). After this lands, both 
 untracked per-checkout files behind tracked `.example` twins, this checkout's copies name
 its own projects, the IDE's workspace settings no longer carry a duplicate binding, and the
 one rule that spelled a project key points at the binding file. This is the owner-named
-first slice of the strategic node and the shape every later slice reuses.
+first slice of the strategic node and the shape every later slice reuses. A link to the
+design studio is optional tooling for a checkout, never a design-system expectation — the
+owner's word (2026-09-05, on this slice's "design-studio project id"): nothing in this
+project is linked to Claude Design; it can be, but that is not part of the design system,
+it is not an expectation — so the sync config this slice untracks is a per-checkout choice
+and its absence is a valid state.
 
 ## User groups and value
 
@@ -94,9 +99,12 @@ request header on the user-scope server entry, already below the tree.
   two commands in the PR body.
 - **This checkout binds to its own projects.** The IDE's connected-mode suggestion offers
   the organisation and project named in the untracked binding, and the studio sync tool
-  reads the project id from the untracked config. Proof: `owner-held`, two confirmations
-  recorded on the PR: the IDE's bind prompt or bound status on this checkout, and one
-  studio sync invocation whose output names the configured project id.
+  reads the project id from the untracked config. Proof, on a configured checkout:
+  `owner-held`, two confirmations recorded on the PR — the IDE's bind prompt or bound
+  status on this checkout, and one studio sync invocation whose output names the
+  configured project id. On a checkout that leaves the sync config absent (a valid
+  state, above): `repo-safe` — the full gate suite passes with no studio binding and no
+  gate or script requires the config; the studio confirmations are not owed.
 - **A cold clone is told what to copy.** The ignore comments beside both entries name the
   example each file is copied from and where its values come from, and the merge-bot
   engineering doc's per-checkout section lists both files with the same instructions; the
