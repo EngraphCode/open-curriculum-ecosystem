@@ -205,8 +205,8 @@ The primary coordination worktree contained peer-owned tracked changes in:
 - `.agent/collaboration/rapid-comms/2026-07-27-mcp-227-228-delivery-squall-wakes-apex-peony-spins-tendril.md`
 - `.agent/memory/active/napkin.md`
 - `.agent/memory/operational/threads/design-system-integration.next-session.md`
-- `.agent/memory/operational/threads/mcp-agent-facing-content.next-session.md`
-- `.agent/memory/operational/threads/upstream-api-alignment.next-session.md`
+- `.agent/memory/operational/threads/paused/mcp-agent-facing-content.next-session.md`
+- `.agent/memory/operational/threads/paused/upstream-api-alignment.next-session.md`
 
 and a peer-owned untracked experience letter. These are not MCP-63 source
 work. Preserve them; never stage, reset, or overwrite them as part of this

@@ -165,7 +165,24 @@ not-yet-minted concepts.**
 | Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |
 | Blame-referent calibration (retrospective 2026-07-26, PDR-094 arc): agents calibrate to the most salient blame signal (accreted caution, or the last correction), not the standing policy, whenever the policy exists only in the owner's head; a WRITTEN owner-ratified policy line converts reversal-grade corrections on that axis into calibration-grade refinements. Provenance: `.agent/reports/agentic-engineering/2026-07-26-pdr-094-retention-arc-retrospective.md` §Meta root (v1–v2 hoard, v3 over-delete, v4 co-authored referent, all one arc) | By review: NO reversal-grade owner correction on the retention axis (the axis now carries its written line, PDR-094 v4); any retention correction observed is a refinement, not a reversal | A reversal-grade retention correction lands despite the written line — the written-referent cure is insufficient and the mechanism needs an action-time instrument (kill this row into that finding) | 2026-10-26 |
 
-<!-- Drained at the 2026-09-06 dedicated consolidation (twelve entries decided: every one already
+- **Codex review leg as a standing member of significant-PR review rounds**
+  `[captured: 2026-08-14 | source: owner rating 2026-08-09 (high-value; "route through the
+  rules process, not assumed") | target: rule — review-round composition (pr-lifecycle
+  Phase 4 round membership or a dedicated rule per new-rule-vs-pdr-clause) | trigger: the
+  skills follow-on PR of the 2026-09-07 consolidation graduates it as a pr-lifecycle
+  reviewer-set clause (the connector reviews every push by repository configuration and is
+  declared in every PDR-140 intake since 2026-09-06; the owner reviews the clause on that PR)
+  | size: S | status: due]`
+- **Plan template decision log: rows are captures, the durable home is an ADR or PDR**
+  `[captured: 2026-09-03 | source: the extraction plan's "this log is the durable home"
+  sentence re-pointed at ADR-227 (#961); PDR-098 recurrence despite its home | target:
+  plans/templates decision-log guidance, one sentence (absent at 2026-09-07: the template
+  carries no decision-log guidance) | trigger: the skills follow-on PR of the 2026-09-07
+  consolidation writes the sentence and files the recurrence on the doctrine-traction lane
+  before this row leaves | size: S | status: due]`
+
+<!-- Drained at the 2026-09-06 dedicated consolidation: ten entries decided, every one already
 carried by its target home — pr-lifecycle, the plan skill, start-right-team, the wrap skill, the
-cricket skill, the no-moving-targets rule — verified by reading the home); the commits and the homes
-are the record. -->
+cricket skill, the no-moving-targets rule — verified by reading the home; two entries restored
+2026-09-07 at review (their targets were not yet carried) with their triggers re-pointed at the
+skills follow-on PR. The commits and the homes are the record. -->

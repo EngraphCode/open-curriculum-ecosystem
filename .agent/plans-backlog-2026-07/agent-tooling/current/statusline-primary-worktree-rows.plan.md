@@ -18,7 +18,7 @@ lineage:
   serves_thread: statusline-enhancements
   serves_stream: agent-tooling / agent-experience (glanceable session-location surface)
   derives_from:
-    - ".agent/memory/operational/threads/statusline-enhancements.next-session.md (the live lane; logo work is paused — this is a distinct presentation member)"
+    - ".agent/memory/operational/threads/paused/statusline-enhancements.next-session.md (the live lane; logo work is paused — this is a distinct presentation member)"
     - ".agent/research/statusline-inputs-research.md (the stdin contract; terminal theme is NOT knowable — colour only with the theme's own contract: default-fg / DIM)"
 todos:
   - id: ws1-location-rows-pure

@@ -7,7 +7,7 @@ created_by: Cedar lifts Canopy (claude-code / claude-opus-4-8[1m] / 435d30)
 thread: agent-operability-plan-consolidation
 related:
   - .agent/rules/worktree-hygiene.md
-  - .agent/memory/operational/threads/statusline-enhancements.next-session.md
+  - .agent/memory/operational/threads/paused/statusline-enhancements.next-session.md
   - .agent/plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md
 ---
 

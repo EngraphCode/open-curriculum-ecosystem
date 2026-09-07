@@ -2,7 +2,7 @@
 
 Authored 2026-07-06 by Director #10 (Nettle tracks Acorn) from a verified synthesis over the
 branch (74 commits at draft time, 2026-06-30 → 2026-07-06, PR #295), the thread record
-(`.agent/memory/operational/threads/curriculum-hub-demo.next-session.md`), the active plan
+(`.agent/memory/operational/threads/paused/curriculum-hub-demo.next-session.md`), the active plan
 (`.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`), the ten director
 handoff records under `.agent/state/collaboration/handoffs/`, and
 `docs/engineering/claude-design-conversion-playbook.md`. Every SHA cited was verified against

@@ -113,7 +113,7 @@ lands through their PR cycle.
   report is a bot comment on the PR; round 1 of the PDR-132 budget
   used).
 - Thread record:
-  `.agent/memory/operational/threads/skills-estate-organisation.next-session.md`.
+  `.agent/memory/operational/threads/paused/skills-estate-organisation.next-session.md`.
 - Resume order: fresh claim → cure the #731 blockers red-first
   (file-by-file map in the thread record) → re-review → merge at full
   condition → R4, the 37-skill description backfill, the evals-pilot
@@ -150,7 +150,7 @@ lands through their PR cycle.
   DRAFT PR #734 (jimbot-prefixed). Gates red on the WIP state by
   design — do not merge, do not fix forward without adopting the lane.
 - Thread record:
-  `.agent/memory/operational/threads/typescript-estate-consolidation-review.next-session.md`.
+  `.agent/memory/operational/threads/paused/typescript-estate-consolidation-review.next-session.md`.
 - Resume route: the green-up (3 lint errors + type/build/test) is the
   foundations review lane's first act — any capable seat, not
   necessarily a Codex one; the corpus PR is the pickup surface.

@@ -348,7 +348,7 @@ INDEXING.md pointer discipline may suffice).
 ## Related records
 
 - Tickets: MCP-152, MCP-153 (contracts quoted in the session plan).
-- Thread: `.agent/memory/operational/threads/upstream-api-alignment.next-session.md`
+- Thread: `.agent/memory/operational/threads/paused/upstream-api-alignment.next-session.md`
   (correction entry dated 2026-07-26 points here).
 - Runbook: `docs/engineering/upstream-api-alignment-runbook.md` (amendments proposed
   above, not yet applied).
