@@ -699,14 +699,32 @@ the raw user agent and vendor header are unbounded client-controlled strings.
   characters, which the same day's security review identified as exactly
   that channel; the bound is the cure;
 - an optional build surface: the first bracketed segment of the header, when
-  it is one of `cli`, `sdk-ts`, `claude-vscode`, `claude-desktop`, and only
-  when a version is present (PostHog reads the product as everything before
-  the first `/`, so without one the bracket would be swallowed into the
-  product token). This list is the vendor's own vocabulary, taken from its
-  labelling rule (below), not a set observed first-hand in Oak's traffic —
-  only `(cli)` has been — which is a stated exception to the 2026-08-13
-  amendment's evidence-backed-token constraint, accepted because every member
-  is a fixed string re-emitted from the list and never a forwarded byte.
+  it is in the closed list for THAT product — `cli`, `sdk-ts`,
+  `claude-vscode`, `claude-desktop` for `claude-code`; `chatgpt`, `codex`,
+  `agent builder`, `responses api` for `openai-mcp`; none for any other
+  product, whose PostHog label is an exact token match that a surface would
+  break — and only when a version is present (PostHog reads the product as
+  everything before the first `/`, so without one the bracket would be
+  swallowed into the product token). These lists are the vendor's own
+  vocabulary, taken from its labelling rule (below), not sets observed
+  first-hand in Oak's traffic — only `(cli)` has been — which is a stated
+  exception to the 2026-08-13 amendment's evidence-backed-token constraint,
+  accepted because every member is a fixed string re-emitted from the list
+  and never a forwarded byte.
+
+**The OpenAI row, added ahead of launch.** Oak launches on OpenAI's platform
+in the week of 2026-09-07, and at Luke Arnold's direction the product table
+gains an `openai-mcp` row before the first live OpenAI header has been seen.
+That is a second stated exception to the evidence-backed-token constraint,
+grounded in PostHog's published resolver and its fixtures, which record the
+OpenAI client's shape from PostHog's own traffic: `openai-mcp/<version>` with
+a `(ChatGPT)`, `(Codex)`, `(Agent Builder)` or `(Responses API)` surface. The
+closed product vocabulary gains `chatgpt` and `openai` accordingly: an
+`openai-mcp` header with the `chatgpt` surface is `chatgpt`, with `codex` it
+is `codex` (the same client that also reports as `codex-mcp-client`), and
+otherwise `openai`. The check on this row is the first live OpenAI user agent
+Oak observes after launch, which confirms it or corrects it; the row and its
+surfaces are expected to need adjustment as that telemetry arrives.
 
 **How PostHog labels it.** The labelling rule is open source, in
 PostHog/posthog at commit `b6c6a333` (2026-09-02):

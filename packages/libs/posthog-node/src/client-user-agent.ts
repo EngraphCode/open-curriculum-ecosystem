@@ -36,26 +36,27 @@
 import {
   findLeadingProductRule,
   normaliseClientHeaderValue,
+  readFirstBracketedSegment,
   selectLeadingProduct,
   type ClientProductRule,
 } from './client-product-selection.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
-// The vendor's own vocabulary for the surface, taken from the labelling rule
-// above rather than observed in Oak's traffic (only `cli` has been): a stated
-// exception to the evidence-backed-token constraint, acceptable because every
-// member is a fixed string re-emitted from this list and never a forwarded byte.
-const CLIENT_BUILD_SURFACE_TOKENS = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
-type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
+// The vendor's own surface vocabulary, PER PRODUCT, taken from the labelling
+// rule above rather than observed in Oak's traffic (only `(cli)` has been): a
+// stated exception to the evidence-backed-token constraint, acceptable because
+// every member is a fixed string re-emitted from this list and never a
+// forwarded byte. Products absent here get no surface at all: PostHog labels
+// them by an exact token match, so `Claude-User/1 (cli)` would fall to "Other"
+// where `Claude-User/1` labels "Claude.ai".
+const CLIENT_BUILD_SURFACES: Readonly<Record<string, readonly string[]>> = {
+  'claude-code': ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'],
+  'openai-mcp': ['chatgpt', 'codex', 'agent builder', 'responses api'],
+};
 // At most two digits with no leading zero, and the run must END there, so the
 // slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
 // `/01.2` and `/8123456789012345` yield nothing.
 const CLIENT_MAJOR_VERSION_PATTERN = /^(?:0|[1-9][0-9]?)(?![0-9])/u;
-// The FIRST bracketed segment decides the surface, so list order carries no
-// meaning and a header cannot reach a later bracket by prepending one. The
-// segment ends at the first comma or close bracket, as PostHog's own extractor
-// reads it: `(sdk-ts, agent-sdk/0.3)` yields `sdk-ts`.
-const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^,)]*)[,)]/u;
 
 function readClientMajorVersion(afterToken: string): string | undefined {
   if (!afterToken.startsWith('/')) {
@@ -65,9 +66,9 @@ function readClientMajorVersion(afterToken: string): string | undefined {
   return match === null ? undefined : match[0];
 }
 
-function readClientBuildSurface(normalised: string): ClientBuildSurface | undefined {
-  const segment = FIRST_BRACKETED_SEGMENT_PATTERN.exec(normalised)?.[1];
-  return CLIENT_BUILD_SURFACE_TOKENS.find((candidate) => candidate === segment);
+function readClientBuildSurface(token: string, normalised: string): string | undefined {
+  const segment = readFirstBracketedSegment(normalised);
+  return CLIENT_BUILD_SURFACES[token]?.find((candidate) => candidate === segment);
 }
 
 /** Rebuilds the value from the selected rule and the normalised header it matched. */
@@ -78,7 +79,7 @@ function rebuildClientUserAgent(rule: ClientProductRule, normalised: string): st
   // version a bracketed surface would be swallowed into the product token and
   // the surface-specific labels could never resolve. A value without a version
   // therefore carries no surface either; it still labels by product prefix.
-  const surface = version === undefined ? undefined : readClientBuildSurface(normalised);
+  const surface = version === undefined ? undefined : readClientBuildSurface(token, normalised);
   const versionPart = version === undefined ? '' : `/${version}`;
   const surfacePart = surface === undefined ? '' : ` (${surface})`;
   return `${spelling}${versionPart}${surfacePart}`;

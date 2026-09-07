@@ -31,6 +31,11 @@ const POSTHOG_HARNESS_RULES: readonly (readonly [(token: string) => boolean, str
   [(token) => token.startsWith('claude-code sdk'), 'Claude Agent SDK'],
   [(token) => token.startsWith('claude-code'), 'Claude Code'],
   [(token) => ['claude-ai', 'anthropic/claudeai', 'claude-user'].includes(token), 'Claude.ai'],
+  [(token) => token === 'openai-mcp chatgpt', 'ChatGPT'],
+  [(token) => token === 'openai-mcp agent builder', 'OpenAI Agent Builder'],
+  [(token) => token === 'openai-mcp responses api', 'OpenAI Responses API'],
+  [(token) => token === 'openai-mcp codex', 'OpenAI Codex'],
+  [(token) => token.startsWith('openai-mcp'), 'OpenAI'],
   [(token) => token.startsWith('codex'), 'OpenAI Codex'],
 ];
 
@@ -206,12 +211,47 @@ describe('the rebuilt value under PostHog harness labelling', () => {
     ],
     ['Claude Desktop', 'claude-code/2.1.0 (claude-desktop, agent-sdk/0.3)', 'Claude Desktop'],
     ['Claude Code with an unparseable version', 'claude-code/next (cli)', 'Claude Code'],
+    [
+      'ChatGPT via the OpenAI client (PostHog fixture shape)',
+      'openai-mcp/1.0.0 (ChatGPT)',
+      'ChatGPT',
+    ],
+    [
+      'Codex via the OpenAI client (PostHog fixture shape)',
+      'openai-mcp/1.0.0 (Codex)',
+      'OpenAI Codex',
+    ],
+    ['the OpenAI client with no surface (PostHog fixture)', 'openai-mcp/1.0.0', 'OpenAI'],
+    [
+      'the OpenAI Agent Builder surface',
+      'openai-mcp/1.0.0 (Agent Builder)',
+      'OpenAI Agent Builder',
+    ],
   ])('labels %s the same as the raw header would', (_label, header, expectedLabel) => {
     const rebuilt = normaliseOakClientUserAgent(readable(header));
 
     expect(rebuilt).toBeDefined();
     expect(postHogHarnessLabel(rebuilt ?? '')).toBe(expectedLabel);
     expect(postHogHarnessLabel(header)).toBe(expectedLabel);
+  });
+
+  // A surface is emitted only for products whose PostHog rule reads one. For
+  // the rest the label is an exact token match, so a surface would demote a
+  // known client to "Other"; the rebuild labels at least as well as the raw
+  // header, and here better than it.
+  it.each([
+    ['the Claude connector with a surface', 'Claude-User/1.0 (cli)', 'Claude-User/1', 'Claude.ai'],
+    [
+      'Codex with a surface',
+      'codex-mcp-client/0.147.0 (cli)',
+      'codex-mcp-client/0',
+      'OpenAI Codex',
+    ],
+  ])('drops the surface for %s so PostHog still labels it', (_label, header, expected, label) => {
+    const rebuilt = normaliseOakClientUserAgent(readable(header));
+
+    expect(rebuilt).toBe(expected);
+    expect(postHogHarnessLabel(rebuilt ?? '')).toBe(label);
   });
 });
 
@@ -246,6 +286,8 @@ describe('isOakClientUserAgent', () => {
     ['a zero-padded major', 'claude-code/01'],
     ['a doubled-zero major', 'claude-code/00'],
     ['a surface without a version', 'claude-code (claude-desktop)'],
+    ['a surface on a product whose rule reads none', 'Claude-User/1 (cli)'],
+    ["a surface from another product's list", 'claude-code/2 (chatgpt)'],
     ['a raw user agent with trailing text', 'claude-code/2 (cli) raw-host'],
     ['a client-cased product token', 'Claude-Code/2 (cli)'],
     ['an unlisted build surface', 'claude-code/2 (raw)'],

@@ -64,7 +64,8 @@ export type OakClientSurface = 'cli' | 'sdk' | 'vscode' | 'web' | 'other';
  * `user-agent: claude-code/…`. It is sound for analytics aggregates and must
  * never gate access, quota, rate limiting, or entitlement.
  */
-export type OakClientProduct = 'claude_ai' | 'claude_code' | 'codex' | 'other' | 'unavailable';
+export type OakClientProduct =
+  'claude_ai' | 'claude_code' | 'codex' | 'chatgpt' | 'openai' | 'other' | 'unavailable';
 export type UnknownProperties = NonNullable<McpCaptureCommon['properties']>;
 
 /**

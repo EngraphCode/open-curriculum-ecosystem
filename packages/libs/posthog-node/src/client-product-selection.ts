@@ -4,10 +4,16 @@
  * `$mcp_client_user_agent` derive from its single selection, so the two
  * properties describe the same header value by construction (MCP-687).
  *
- * @remarks Product tokens must stay evidence-backed, and every row in the
- * table was verified first-hand in Oak's own inbound traffic over the 7 days
- * to 2026-08-13: `Claude-User` (10,045 requests), `claude-code/2.1.x (cli)`
- * (~3,100) and `codex-mcp-client/0.14x (…)` (~230). The correction path for a
+ * @remarks Product tokens must stay evidence-backed. Three rows were verified
+ * first-hand in Oak's own inbound traffic over the 7 days to 2026-08-13:
+ * `Claude-User` (10,045 requests), `claude-code/2.1.x (cli)` (~3,100) and
+ * `codex-mcp-client/0.14x (…)` (~230). The `openai-mcp` row is the one stated
+ * exception: it was added ahead of Oak's OpenAI launch (week of 2026-09-07,
+ * Luke Arnold's direction) from PostHog's published resolver and its fixtures
+ * (`openai-mcp/1.0.0`, with `(ChatGPT)`, `(Codex)`, `(Agent Builder)` and
+ * `(Responses API)` surfaces), which record that client's shape from PostHog's
+ * own traffic. Its check is the first live OpenAI user agent Oak observes
+ * after launch, which confirms or corrects the row. The correction path for a
  * new client is a token row plus its derivation-table test row — never a
  * widening of the match rule, and never forwarding the raw header value.
  *
@@ -37,7 +43,21 @@ export const CLIENT_PRODUCT_TOKEN_RULES: readonly ClientProductRule[] = [
   ['claude-user', 'claude_ai', 'Claude-User'],
   ['claude-code', 'claude_code', 'claude-code'],
   ['codex-mcp-client', 'codex', 'codex-mcp-client'],
+  // The category here is the vendor-level fallback; `normaliseOakClientProduct`
+  // refines it to `chatgpt` or `codex` from the bracketed surface.
+  ['openai-mcp', 'openai', 'openai-mcp'],
 ];
+
+// The FIRST bracketed segment, ending at the first comma or close bracket, as
+// PostHog's own extractor reads it: `(sdk-ts, agent-sdk/0.3)` yields `sdk-ts`.
+// First-only means list order carries no meaning anywhere a segment is matched,
+// and a header cannot reach a later bracket by prepending one.
+const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^,)]*)[,)]/u;
+
+/** The first bracketed segment of a normalised value, if any. */
+export function readFirstBracketedSegment(normalised: string): string | undefined {
+  return FIRST_BRACKETED_SEGMENT_PATTERN.exec(normalised)?.[1];
+}
 
 /**
  * Matches a product token only as the header's *leading* token.

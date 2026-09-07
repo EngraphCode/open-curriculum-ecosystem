@@ -10,7 +10,11 @@
  * raw client strings from the event envelope.
  */
 
-import { asciiLower, selectLeadingProduct } from './client-product-selection.js';
+import {
+  asciiLower,
+  readFirstBracketedSegment,
+  selectLeadingProduct,
+} from './client-product-selection.js';
 import type {
   ClientIdentityHeaders,
   OakClientFamily,
@@ -132,7 +136,23 @@ export function normaliseOakClientProduct(headers: ClientIdentityHeaders): OakCl
   if (!headers.readable) {
     return 'unavailable';
   }
-  return selectLeadingProduct(headers)?.rule[1] ?? 'other';
+  const selected = selectLeadingProduct(headers);
+  if (selected === undefined) {
+    return 'other';
+  }
+  // OpenAI's one client token serves several products and tells them apart in
+  // its bracketed surface, exactly as PostHog's own rule splits them; any other
+  // token names its product outright.
+  if (selected.rule[0] === 'openai-mcp') {
+    const surface = readFirstBracketedSegment(selected.normalised);
+    if (surface === 'chatgpt') {
+      return 'chatgpt';
+    }
+    if (surface === 'codex') {
+      return 'codex';
+    }
+  }
+  return selected.rule[1];
 }
 
 export function isOakClientFamily(value: unknown): value is OakClientFamily {
@@ -141,6 +161,8 @@ export function isOakClientFamily(value: unknown): value is OakClientFamily {
 
 export function isOakClientProduct(value: unknown): value is OakClientProduct {
   return (
+    value === 'chatgpt' ||
+    value === 'openai' ||
     value === 'claude_ai' ||
     value === 'claude_code' ||
     value === 'codex' ||
