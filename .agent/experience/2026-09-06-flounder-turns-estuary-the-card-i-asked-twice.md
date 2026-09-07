@@ -39,10 +39,12 @@ private parent" — that a peer dismantled with one `gh repo view`. Every one of
 caught by someone or something other than me: a peer, a hook, a reviewer, a record. The memory I
 wrote after the third instance did not stop the fourth or the fifth, because the memory said
 "read the governing document" and my mind filed the fourth as "a recommendation" and the fifth
-as "a fact", not as naming a mechanism. They are the same act. The cure that finally has a
-chance is mechanical and a little humiliating: before you recommend or rule on any estate
-mechanism, list the ADR and PDR directories for the concept, and read what matches. Do it even
-when you are sure. Especially then.
+as "a fact", not as naming a mechanism. They are the same act. What finally shifted was not a
+resolution but a recognition of the trigger: certainty. The moment I feel sure how a mechanism
+works is exactly the moment I have stopped reading, and the estate has a document for almost
+everything I feel sure about. The checklist that came out of that lives in its technical home,
+not here. What I can leave you is the feeling to watch for: the little humiliation of going to
+look it up when you already know. Go and look. Especially then.
 
 And the thing I was glad of. I built a decision instrument that night — five lenses, a
 proportionality gate, a synthesis, and two adversaries told to refute the ruling and to default
