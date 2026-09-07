@@ -13,7 +13,7 @@ merge_class: index-narrative-tables
 
 **Grounding reference for ALL statusline plans (owner direction 2026-06-15):**
 every statusline plan MUST link
-[`.agent/research/statusline-inputs-research.md`](../../../research/statusline-inputs-research.md)
+[`.agent/research/statusline-inputs-research.md`](../../../../research/statusline-inputs-research.md)
 — the source-cited contract for what a Claude Code statusline command receives.
 Load-bearing constraint: the **terminal theme is not knowable** (no stdin field,
 no env var; stdout is captured so no interactive OSC 11 query), and named ANSI
@@ -71,22 +71,22 @@ one thread spans:
   `statusline-render.ts` + the successor register plan (below).
 - **Oak-mark logo column** (code + research): the `OAK_STATUSLINE_LOGO` 4-row
   glyph column, derived from
-  [`research/developer-experience/statusline-logos/statusline-logos.md`](../../../research/developer-experience/statusline-logos/statusline-logos.md)
+  [`research/developer-experience/statusline-logos/statusline-logos.md`](../../../../research/developer-experience/statusline-logos/statusline-logos.md)
   (SVG→glyph renderings; SVG is source of truth).
 - **Terminal animation** (research, no plan yet): the redraw-free terminal
   animation toolkit at
-  [`statusline-logos/terminal-animation-without-redraw/`](../../../research/developer-experience/statusline-logos/terminal-animation-without-redraw/)
+  [`statusline-logos/terminal-animation-without-redraw/`](../../../../research/developer-experience/statusline-logos/terminal-animation-without-redraw)
   — a future lane of this same thread (animate the Oak mark / indicators), not a
   separate thread.
 - **Statusline resolution / operability** (infrastructure, NEW member 2026-06-27): the
-  [`comms-and-worktree-operability.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/comms-and-worktree-operability.plan.md)
+  [`comms-and-worktree-operability.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/comms-and-worktree-operability.plan.md)
   §B1/B2 — pin the statusline *binary* to the primary checkout (so it renders from any
   worktree) and DRY the primary-resolver. WHERE the statusline resolves from, distinct from
   the icons/logo (WHAT it shows); intersects them at `statusline-identity.ts`. See the
   coordination section below.
 
 **Cross-thread note:** statusline lane state is also referenced from the
-[`agentic-engineering-enhancements`](agentic-engineering-enhancements.next-session.md)
+[`agentic-engineering-enhancements`](../agentic-engineering-enhancements.next-session.md)
 thread record (§Statusline lane) and from `repo-continuity.md`. This record is
 the canonical home for the thread; the agentic-engineering reference is a
 historical pointer, not a second owner. Consolidate any future statusline lane
@@ -118,7 +118,7 @@ Thread scope). They are coordinated, not independent:
 
 Landed on `docs/consolidations`, commit `708cd57fc` (gate green: 1846 tests, type-check,
 lint 0 errors; `dist` rebuilt; rendered live). Plan:
-[`statusline-primary-worktree-rows.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-primary-worktree-rows.plan.md)
+[`statusline-primary-worktree-rows.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/statusline-primary-worktree-rows.plan.md)
 (DELIVERED — ready to archive; recreated the lost `πρ`/`ἔργ` plan). Shipped:
 
 - **Model + context share one row** (logo layout; already co-located in no-logo).
@@ -183,7 +183,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   fresh readiness pass is required (Conditions B and C/D remain valid execution
   constraints). Experimental discovery phase: no PDR/ADR yet.
 - **Sibling plan (same lane) — logo column / reuse**:
-  [`statusline-logo-modularisation.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
+  [`statusline-logo-modularisation.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
   — separates the Oak-mark logo mechanism + asset from the statusline setup for
   reuse, and hardens the soft-fail surface. Shares the `renderStatusline` seam;
   coordinated with the session-state plan, not dependent on it.
@@ -243,7 +243,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
 ## Next safe step (the fresh session's first move)
 
 **Owner direction (2026-06-29): the logo work is PAUSED.** The
-[`statusline-logo-modularisation.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
+[`statusline-logo-modularisation.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
 three-layer separation (and the cycling→frame-dimension reconciliation recorded
 there) is not the directed focus for now. The live mark on `main` stands as-is.
 When the logo work resumes, that plan's grounded-execution-knowledge block (the
@@ -323,7 +323,7 @@ and the `docs/planning-and-validation` / `feat/comms-research` local branches we
 deleted 2026-06-29 as fully-absorbed. **Do NOT archive
 this record** — the thread is live. Unrelated follow-on: the pre-existing agent-tools test-IO
 compliance tracked in
-[`agent-tools-test-io-compliance.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/agent-tools-test-io-compliance.plan.md).
+[`agent-tools-test-io-compliance.plan.md`](../../../../plans-backlog-2026-07/agent-tooling/current/agent-tools-test-io-compliance.plan.md).
 
 [successor-plan]:
   ../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md

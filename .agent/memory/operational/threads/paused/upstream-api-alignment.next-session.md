@@ -178,8 +178,8 @@ section (2026-07-01).
 
 ## Lane state
 
-- **Owning plan**: [`active/upstream-api-alignment.plan.md`](../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/upstream-api-alignment.plan.md);
-  living notes [`reports/upstream-api-alignment-notes-2026-06-30.md`](../../../reports/upstream-api-alignment-notes-2026-06-30.md).
+- **Owning plan**: [`active/upstream-api-alignment.plan.md`](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/upstream-api-alignment.plan.md);
+  living notes [`reports/upstream-api-alignment-notes-2026-06-30.md`](../../../../reports/upstream-api-alignment-notes-2026-06-30.md).
 - **Current objective**: adapt the repo to the changed upstream API spec (programmes family)
   and graduate the repeatable process. **PR #291 MERGED 2026-07-01T10:25Z** — the
   post-merge next-safe-steps below are live.
@@ -193,7 +193,7 @@ section (2026-07-01).
   - Review triage — 6 bot findings fixed (`757720329`) + codegen refresh-hint env-var form
     (`0dc71a9f7`).
   - WS6 runbook graduation (`5dec179ce`) → permanent
-    [`docs/engineering/upstream-api-alignment-runbook.md`](../../../../docs/engineering/upstream-api-alignment-runbook.md),
+    [`docs/engineering/upstream-api-alignment-runbook.md`](../../../../../docs/engineering/upstream-api-alignment-runbook.md),
     registered in the Runbook Index; report de-duped to the worked instance.
   - **WS3 (bulk types schema-derivation) MOVED OUT** to its own future plan. **WS5 (committed
     live smoke lane) DEFERRED** (owner-confirmed 2026-07-01).
@@ -287,7 +287,7 @@ container oak-search-redis left running; ES MCP access arrives at next session r
 ## 2026-08-03 — the upstream update lane (Birch holds Seedling, e48fe2): LIVE at a compaction boundary
 
 THE CONTROLLING RESUME MAP is the delivery plan node
-[`upstream-update-lane-completion`](../../../plans/delivery/upstream-update-lane-completion.plan.md)
+[`upstream-update-lane-completion`](../../../../plans/delivery/upstream-update-lane-completion.plan.md)
 — read it FIRST at any pickup; this entry is the thread-level index.
 
 State frozen at the boundary (~10:55Z, gates re-trued ~11:00Z): MCP-462

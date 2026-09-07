@@ -21,7 +21,7 @@ co-equal in **importance**; they differ in **work-volume** (the estate restructu
 ~80% of the work) and **dependency-direction** — never collapse those axes into
 "priority". Re-org is **value-preserving**: express the value encoded in plans more
 clearly; never delete ideas. **Scope authority is the controlling plan**
-[`vision-strategy-and-plan-estate.plan.md`](../../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md),
+[`vision-strategy-and-plan-estate.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
 ## Where We Are (2026-07-16, Mussel rides Coral 6f8857 sitting Director — RESTATEMENT-REMEDIATION GATE ACTIVE; refounding lanes resume at the cures-landed + freeze-recut-check gate)
@@ -409,7 +409,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the
@@ -417,13 +417,13 @@ and must not wait.
   amendment + the V0.1 proof-typed-todos sign-off); corrected economics (40–60M tokens /
   25–45 seat-sessions, pre-pilot bands re-priced at SP3).
 - The design record
-  [`plan-estate-refounding-design-2026-07-06.md`](../../../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md)
+  [`plan-estate-refounding-design-2026-07-06.md`](../../../../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md)
   — 6-facet design panel + 4-lens adversarial critique (22 critical findings, every one
   dispositioned) + the donor-seat cross-estate review (sound-with-revisions, zero
   overturns; B1 planted-loss challenge canaries and B2 the WS6 substrate statement both
   absorbed) + the resonance mechanism adopt/adapt/reject/invert table.
 - The dated additive amendment to
-  [`planning-estate-rewrite.plan.md`](../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
+  [`planning-estate-rewrite.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
   — `ws-r-corpus-refounding` gates ws6; WS6's substrate = refounded corpus + frozen
   archive via binding-clause provenance edges; ADR-200's text stands UNEDITED until the
   G-ADR gate (honesty boundary).
@@ -449,7 +449,7 @@ in parallel, unchanged, per the section below.
 
 **Successor (owner-named, 2026-07-06): Stoat rides Gloaming.** The pasteable R0 session
 opener is
-[`prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md`](../../../prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md)
+[`prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md`](../../../../prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md)
 — grounding order, the R0 work breakdown, the G1-packet deliverable, and the operational
 craft (background commits per F-131; the F-130 merge-ready discipline; the built
 worktree). The conserved design-panel corpus (full script contracts) is at
@@ -459,12 +459,12 @@ worktree). The conserved design-panel corpus (full script contracts) is at
 
 The architecture has **converged and is committed**; progression is **GO** for the substrate build.
 Read, in order:
-[`ADR-200`](../../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
+[`ADR-200`](../../../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
 (the living idea-graph architecture — **Accepted**, owner-ratified),
-[`ADR-201`](../../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
+[`ADR-201`](../../../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 (external-evidence integration — **Proposed**; the *full-value* path, gated on the substrate landing;
 the substrate value stands without it), the executable
-[`planning-estate-rewrite.plan.md`](../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md),
+[`planning-estate-rewrite.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md),
 and this section.
 
 **State (re-derived first-hand, 2026-06-22):**
@@ -517,7 +517,7 @@ edit to `statement`.
 **Cross-link — the large-corpus-analysis method applies to this estate review (2026-06-29, Wren stirs Rainbow).**
 The proving run of the corpus-analysis method (over the napkin timeseries) generalises to
 this non-timeseries estate — see "Generalisation beyond the timeseries" in
-[`large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md).
+[`large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md).
 The transfer: parameterise the **partition axis** (subgraph/neighbourhood, weighted by
 leverage/connectivity, not recency) and the **negative-space source** (here **relational
 absence** — orphan plans, unserved goals, undeclared dependencies — which the ADR-200

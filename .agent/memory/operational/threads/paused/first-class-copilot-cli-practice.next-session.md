@@ -22,23 +22,23 @@ participant in the repository's canonical Practice and agentic tools.
 - Owner re-ratification (2026-07-25, MCP-150): the replacement
   single-activation/single-dispatcher policy architecture carries its own fresh
   owner ratification at an owner card; the
-  [`first-class-copilot-cli-policy-enforcement`](../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
+  [`first-class-copilot-cli-policy-enforcement`](../../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
   plan records `ratified_by: "Jim Cresswell"`, `ratified_date: 2026-07-25`
 - Superseded record: PR #522 was closed with a naming comment; its branch's
   evidence is extracted (the report's Finding 1 dated addendum, 2026-08-02,
   carries the version-pinned environment signals); preservation PR #708
   closes at that addendum's landing — commits stay reachable via the PR ref
 - Controlling plan:
-  [`agent-platform-citizenship`](../../../plans/strategic/agent-platform-citizenship.plan.md)
+  [`agent-platform-citizenship`](../../../../plans/strategic/agent-platform-citizenship.plan.md)
   (formerly `first-class-copilot-cli-practice-citizenship`)
 - Delivery plans:
-  - [`first-class-copilot-cli-policy-enforcement`](../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
+  - [`first-class-copilot-cli-policy-enforcement`](../../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
     — MCP-150
-  - [`copilot-cli-identity-and-practice-join`](../../../plans/delivery/copilot-cli-identity-and-practice-join.plan.md)
+  - [`copilot-cli-identity-and-practice-join`](../../../../plans/delivery/copilot-cli-identity-and-practice-join.plan.md)
     — MCP-154
-  - [`copilot-cli-practice-projections`](../../../plans/delivery/copilot-cli-practice-projections.plan.md)
+  - [`copilot-cli-practice-projections`](../../../../plans/delivery/copilot-cli-practice-projections.plan.md)
     — MCP-155
-  - [`copilot-cli-local-comms-and-lifecycle`](../../../plans/delivery/copilot-cli-local-comms-and-lifecycle.plan.md)
+  - [`copilot-cli-local-comms-and-lifecycle`](../../../../plans/delivery/copilot-cli-local-comms-and-lifecycle.plan.md)
     — MCP-156
 - Current boundary: replacement documentation/ADR/matrix/plan landing only.
   Runtime work remains gated behind its merge.
@@ -126,11 +126,11 @@ participant in the repository's canonical Practice and agentic tools.
 ## Evidence and handoff
 
 - Ratified evidence report:
-  [`first-class-copilot-cli-practice-support-2026-07-24.md`](../../../reports/agentic-engineering/first-class-copilot-cli-practice-support-2026-07-24.md)
+  [`first-class-copilot-cli-practice-support-2026-07-24.md`](../../../../reports/agentic-engineering/first-class-copilot-cli-practice-support-2026-07-24.md)
 - Architectural authority:
-  [ADR-125](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+  [ADR-125](../../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 - Live target-versus-wired truth:
-  [`cross-platform-agent-surface-matrix.md`](../../executive/cross-platform-agent-surface-matrix.md)
+  [`cross-platform-agent-surface-matrix.md`](../../../executive/cross-platform-agent-surface-matrix.md)
 - The repository plan estate is authoritative for target and mechanism.
   MCP-150/MCP-154/MCP-155/MCP-156 are supplementary Linear projections for
   execution state, sensitive details, and evidence that cannot be versioned

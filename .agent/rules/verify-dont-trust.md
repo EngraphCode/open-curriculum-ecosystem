@@ -417,7 +417,8 @@ plan-state refusal read green through `| head`, `check-commit | tail`,
 `git push | tail`, `comms | grep -c`. The discipline is categorical:
 
 - Run every gate, push, and verification probe BARE, and read `$?` off the
-  bare command itself (or `PIPESTATUS[0]` / `set -o pipefail` when a pipe is
+  bare command itself (or bash's `PIPESTATUS[0]`, zsh's lowercase
+  `pipestatus[1]`, or `set -o pipefail` when a pipe is
   genuinely required; or append the code INSIDE the artefact:
   `; echo "EXIT: $?" >> log`).
 - A success echo chained after a pipe (`… | tail && echo OK`) is unproven —

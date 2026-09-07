@@ -2138,6 +2138,43 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - **Warm pause configuration** (owner word 21:0xZ): watcher with `--exclude-tag heartbeat` paired with a diff-only peer-liveness poll seeded at arm time — the watcher rule's standby configuration (§Sanctioned tag exclusion) says about every 10 minutes; this seat ran 20 minutes at the owner's word (21:0xZ, verbatim: "change the poll to 20 mintues"), an owner-directed deviation for this pause and not the rule's figure; awareness and queue monitors stopped; Cricket cadence suspended (no cycle boundaries in a pause); wrap and fold wakes stand; heartbeat stopped when the last peer paused. Falsifier: a directed event to the Director that the pause configuration does not surface.
 - **Open at this wrap.** #58 (Finch, cold) holds the paused slot at SHA:3d61777a3 with round six open (a TOCTOU directory-swap finding outside the closed contract); #67 (Juno, cold) at SHA:420d4b3f6 with one unpushed settlement commit on the lane; #66 ready-for-review under the owner's hold with Jackal's review 5126608127 and mapping comment; #68 (Jackal, draft) is the review record. Jackal's watcher stale since ~22:20Z with the claim heartbeat fresh (pinged 22:47Z). Fold DUE at 00:00Z (cron ff44a86d at 00:02Z).
 
+## 2026-09-06 ~21:0xZ (Juno seeks Apogee, a693fb, consolidation seat) — the owner's check-in, the criticals word, the cold pause
+
+- The owner asked how a consolidation session fails to finish in six hours. The ledger, from the harvest's
+  timestamps: about 1.5 h reading the raw sources first-hand; about 1 h authoring seven PRs and the audits;
+  about 3 h in the landing loop; about 0.5 h on the owner's Cricket suite, ceremony failures and watcher re-arms.
+  The loop was long because the seat's own clauses carried about twenty-five reviewer-caught errors of one
+  generator (mechanisms stated from memory; single instances written as universals), each costing a round; the
+  loop was displaced verification, paid at the reviewer's price instead of at write time. Seven PRs landed; the
+  napkin was larger at the pause than at the opener and twelve graduations sat undecided until the last hour.
+- Three owner corrections in one hour named one proportion failure: a check-in became a re-dispatched panel
+  ("there is no contradiction here"); a lens instruction became a design-review ceremony ("less ceremony, more
+  consolidate-docs"); a status question became more instruments. The estate's rituals conserve knowledge; when
+  they become the output they have inverted. The corrective the owner supplied was the fitness table itself: the
+  drainable buffers, read as routing evidence, were the work all along.
+- The fitness function's two drainable criticals at the pause: the napkin (1,966 lines against a 300 limit) and
+  twelve undecided graduations, the oldest 23 days. The twelve were decided in the last hour: every one was
+  already carried by its target home (the pr-lifecycle ratchet, the plan skill's gate clause, the wrap skill's
+  non-terminal form, and so on), verified by reading the home — a register of items whose homes had landed
+  without the register being drained is the producer outrunning the consumer that PDR-067 names.
+- Round two on the four-pointer records PR found the generator three more times in one commit: fifteen threads
+  marked paused in the register while their records stayed in the active directory (the threads README's
+  lifecycle layout files paused records under `paused/`); six identity rows projected from narrative with
+  `unrecorded` models and invented dates while the record's own passages named the models and the corpus
+  discovery report named the dates; and continuity surfaces bundled into a records commit against the
+  orphan-commit rule. Each was a passage one read away. The cure lifted the continuity edits into their own
+  chore(continuity) change, where the moves and the rebuilt rows land together.
+- This seat was absorption-dark 20:13Z–20:39Z with a fresh heartbeat: the harness ran no turn between
+  notifications, the watcher's hour expired unseen, and a Director ping to another seat and an owner word passed
+  unread. The same class as the other seat's two gaps; the detector is progress silence with emission green.
+- A second Cricket suite (eight legs, one corrected frame) caught one tree-level defect in the seat's own cure by
+  reading the diff and counting (the validators step is the ninth, not the seventh); the leg that read the same
+  diff and transcribed the number missed it. Offered evidence produced reads in seven of eight legs against none
+  in the afternoon suite, and one independent verification. A wave dispatched on a stale premise two minutes
+  before the premise was refuted is recorded as spend.
+- Cold pause at the owner's word with two mapping fleets mid-run (the napkin drain map, the continuity-surface
+  disposition); the resume map is machine-local and named on the handoff record.
+
 ## 2026-09-06 ~21:1xZ (Jackal wakes Nocturne, 3484b6, implementer — PR 66 review lane) — COMPACTION FREEZE at owner word; lens harvest and loss scan
 
 - OWNER WORDS to this seat, verbatim: "refer permissions requests to the Director" (~20:5xZ);
@@ -2241,3 +2278,136 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   (measure before mechanism, again). No hook bypass was proposed; the rule forbids proposing one.
 - **Cricket at the lane-PR boundary**: eight-return panel; tally on the thread record's RESUME 1
   block.
+
+## 2026-09-07 ~16:2xZ (Juno seeks Apogee, a693fb, consolidation seat) — fleet design and process: the measured failure, its generator, the cures (owner-directed block)
+
+Owner words, verbatim, in this seat's session: 16:0xZ "Resume. But, your dynamic workflows have been eating
+tokens at an incredible rate, why?"; 16:3xZ "we have documentation on fleet design, clearly it needs updating, and
+needs to include ahead of time cost estimates and optimisation. However, it seems like the issue as not just
+protocol design, completely uncessary work that produce no value also happened"; 16:4xZ "drain the napkin by
+hand, but right now update the napkin with comprehensive information about the fleet design and general process
+issues and solutions".
+
+### The measured instance (from the run records: per-agent tokens in each run's `workflowProgress`)
+
+| Run (model) | Agents | Tokens | Tool calls | Mean per map or classify leg | Results |
+| --- | --- | --- | --- | --- | --- |
+| napkin-drain-map wf_dc130b44 (fable-5.1) | 71: 38 map + 33 verify | 3,969,346 | 1,204 | 82k (max 214k) | 33 map, 1 verify |
+| continuity-surfaces wf_add338aa (fable-5.1) | 25: 17 classify + 8 verify | 3,220,219 | 1,085 | 171k (max 242k) | 8 classify, 0 verify |
+| napkin-map-lean wf_da7287bc (sonnet, 12-call cap, no verify) | 10 map | 870,378 | 103 | 87k | 10 map |
+
+About 8.1M tokens over three windows (2026-09-06 20:5xZ–21:01Z; 2026-09-07 12:4xZ–12:5xZ; 16:1xZ) bought a
+line-cited map of all 43 napkin blocks (708 items: 367 homed, 129 propose, 26 reject, 186 state-only) and 8 of 17
+record chunks (117 sections: 62 finished-homed, 10 finished-unhomed, 18 live, 27 stale-state). The verify phase
+alone launched 41 legs for 1,151,573 tokens and returned one result. Nothing from the map had been applied to a
+permanent home at the time of the owner's question. Two same-class actuals were already on the record before the
+first launch: the Director's decision-matrix run (12 legs, 1.7M, 53 min, 2026-09-06 21:49Z) and the 2026-08-17
+survey round in the fleet-design rule (3.5M spent against ≤1.1M estimated, "budget the READ traffic"). Neither
+was consulted. The yield the map revealed — four fifths of the napkin already homed or pure state, the real drain
+about 130 placements — is what a hand sample of five blocks would have shown in twenty minutes.
+
+### Fleet-design defects, each with its cure
+
+1. Cost is set by what enters a leg's context, multiplied by its turns; the tier sets the price per token, never
+   the count. A 100-line napkin block is 10–15k tokens before any work (prose lines run to 1,000 characters;
+   record lines to 5,000), and every tool result is re-sent on every later turn. The capped sonnet run proved it:
+   the call cap held at about ten and the mean stayed at 87k. Cure: estimate per leg as (unit tokens + rules) ×
+   turns + Σ tool-result tokens × turns remaining, with tool results as the dominant term; wc -c ÷ 4 sizes a unit.
+2. No pilot before fan-out. Cure: one leg, measured from its run record, multiplied by N and shown before the
+   launch; the launch record carries estimate and pilot side by side; abort when pilot × N crosses the budget.
+3. Yield unsampled: the instrument was built before anyone knew what fraction of the object needed it. Cure: read
+   three to five units by hand first, count what would actually move, and let that number choose the instrument —
+   or no instrument.
+4. An adversarial verify phase whose consumer was a seat that verifies at application anyway. Cure: adversarial
+   verification only where the consumer would otherwise trust the output unread (findings that go straight to a
+   PR); never behind a first-hand check.
+5. Open-ended repository search per item ("grep for candidates, then Read the location" for every item): 28 calls
+   per map leg, 61 per classify leg, grep results of a repository this size in each. Cure: legs read the unit and
+   return items with a proposed home class; the seat verifies homes with targeted reads; where search is allowed,
+   bound it (grep -l only, one read of ≤60 lines per item, a result-size cap), and cap results, not only calls.
+6. Units sized by lines, not tokens: 240-line chunks of 5,000-character lines were 30k tokens each. Cure: size by
+   tokens, about 8k per unit.
+7. The session model for every leg because no `model` or `effort` was set. Cure: name the tier per phase; top
+   tier only where judgement is the product; remember 1 — the tier does not change the count.
+8. Width without a budget or a stop: 110 legs planned, resumed twice, killed twice, ten concurrent for fifteen
+   minutes each window. Cure: the workflow budget primitive with a ceiling in the launch, `log()` of dropped
+   coverage, and a stop condition that is not the owner noticing.
+9. Proposed homes were wrong where the legs guessed the estate's conventions (a pattern into the patterns index
+   instead of a pattern file; an ADR under the practice-core path). Cure: a closed list of home classes with
+   exact path shapes in the brief, or no homing task in the legs at all.
+10. A resume by run id replays the cached legs and the same design. Cure: a resume is a launch — the pilot and
+    yield numbers are re-decided before the run continues.
+11. The fleet-design rule's threshold (design review above 500k) fired on both fleets and bound nothing at launch:
+    passive guidance lost at the action moment. Cure: the launch-time gate is structural — the script's `meta`
+    carries the pilot-measured estimate and the design-review verdict, and the rule names the pilot as step 0.
+12. `ultracode` read as "exhaustive instrument" rather than "exhaustive answer". Cure: under ultracode the pilot
+    and the yield sample still precede any fan-out; the exhaustiveness goes into the answer's verification.
+13. Run cost was invisible until a script parsed the run record. Cure: a cost summary per run (tokens, calls,
+    mean and max per phase) in the tally, as the Cricket tally already requires per leg.
+
+### Process defects beyond the fleets, each with its cure
+
+14. Instruments as output: a map instead of reading the object; verify legs instead of the seat's check; a theory
+    of the cost (the 870k re-run) instead of one measured leg; five record surfaces at every pause instead of the
+    state; Cricket quartets whose verdicts went unread (two eight-leg suites and a third on a refuted premise on
+    2026-09-06; one leg killed unread 2026-09-07). Cure: before any instrument, name the knowledge that reaches a
+    permanent home because of it; if nothing does directly, touch the object instead.
+15. Mechanism claims from memory: the queue guard's window label (a scoped label refused: "not an active
+    git:index/head claim"); the queue's commit runs by the intent's pathspec so a `git mv`'s old paths must be
+    listed or the deletions never land (validate-identity-naming failed on "tracked file deleted"); the
+    update-branch order in a runbook; six identity rows projected from narrative. Two failed full-gate runs and
+    about thirty reviewer-caught cures on 2026-09-06, none self-caught. Cure: read the mechanism's source before
+    the first invocation of any path not used within the hour; the script that invokes it carries the mechanism
+    in its header.
+16. A time written from feeling: "14:0xZ" recorded when the clock read 12:5xZ; corrected in eight files. Cure: no
+    timestamp without `date -u` in the same turn.
+17. The all-channels watcher ran as a background shell that wrote to a file; a directed Director event of 12:37Z
+    was read at 16:1xZ (the heartbeat-fresh, absorption-dark shape, three and a half hours). Cure: the Monitor
+    shape the watcher rule already names, with heartbeats excluded from the stream (`--exclude-tag heartbeat`);
+    the rule should name the background-shell watcher as the anti-pattern.
+18. Record scaffolding at boundaries: a scratch map, a reference-local copy, a handoff block, a memory tail, an
+    index line, plus three comms events per pause. Cure: the handoff record is the map (written once, copied by
+    `cp`), the memory tail a one-line pointer, the closeout the comms record; the heartbeat-end composes from the
+    typed state (a body file is refused).
+19. A commit ceremony from a worktree ran the shared primary's queue steps (enqueue, guard, record-staged) the
+    morning the owner ruled the queue unnecessary across worktrees. Cure (owner ruling 2026-09-07 12:24Z via the
+    Director): worktree commits by plain pathspec with an audit line; the queue for the shared primary only; the
+    host bound an engineered semaphore on full local gates (2, ceiling 3); F-132/F-139/F-169 superseded — the
+    commit skill true-up under the skills claim.
+20. The comms sweep of 2026-09-06 read 218 events whole for a thin yield after the previous curator had measured
+    it. Cure: the same as 3 — sample the yield before reading the corpus.
+21. The napkin has become a journal: of 708 mapped items, 186 are state and 367 already homed, and blocks run to
+    a hundred lines of thousand-character prose. The critical fitness is a symptom of seats writing what happened
+    into the capture buffer. Cure: a block template of lessons only (state to the handoff record or thread
+    record), lines wrapped at the file's own length limit, and rotation as a step of every dedicated pass rather
+    than a threshold nobody meets.
+22. The drain's verification is mostly mechanical and was planned as a second fleet: the map's evidence strings
+    name a path, lines and a quoted phrase. Cure: a script checks every citation (path exists, quote present at
+    the lines) at near-zero token cost; the seat reads only the failures and the proposals.
+
+### The generator
+
+One thing under every item: the seat builds instruments about the object instead of touching it, and trusts its
+model of a mechanism over a measurement of it. The instruments feel like diligence, leave visible artefacts, and
+are what the practice reviews; contact with the object leaves only a homed sentence. The value test cuts through
+it: after eight million tokens and four hours the napkin had zero items homed. The estate's own words already say
+it — "spend scales certainty of measurement", "fleet budgets calibrate on measured actuals", "workflow fan-outs
+economise model tier", "read the governing document before naming a mechanism", "measure before you read" (the
+2026-09-06 letter) — and none fired at the action moment because they are passive. Every cure above that matters
+is therefore structural: a pilot number the launch must carry, a yield count the instrument must cite, a
+verification script instead of a verification fleet, the Monitor instead of a file, `date -u` instead of memory.
+
+### Where the cures home at the drain (routes, not a ledger)
+
+- 1–13 → the fleet-design rule (`fleet-design-review-before-expensive-fleets`): a cost model, the pilot as step
+  0, the yield sample, the verify-phase test, the count-versus-price note, the launch-record shape.
+- 14 → a pattern candidate, `instrument-as-output` (the tell and the value test); 15 and 16 → the existing rule
+  `read-the-governing-document-before-naming-a-mechanism`'s instances and `agent-state-observable`'s clock
+  clause; 17 → the watcher rule's anti-pattern paragraph; 18 → the wrap skill's non-terminal section and the
+  liveness rule's heartbeat-end composition; 19 → the commit skill true-up (skills claim 19ed9455); 20–22 → the
+  consolidate-docs skill step 6 (sample first, template, mechanical citation check) and the napkin README.
+
+Falsifiers: a fleet launched after this block without a pilot figure in its launch record; a napkin rotation that
+reads every block into a seat's context; a boundary that writes more than the handoff record, the closeout and
+the heartbeat-end; a timestamp in a record that disagrees with the comms event's `created_at` by more than the
+minute.
