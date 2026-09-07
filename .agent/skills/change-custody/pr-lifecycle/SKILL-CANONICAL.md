@@ -139,6 +139,15 @@ artefact for reviewers**, never a file list: what changed, why it matters,
 what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
+For a code-class changeset the description, or the writer's own docblock, states
+the CLOSED contract before the first push — what a target may be, what a flag may
+be — so reviewers read a contract rather than discover it a case per round: on
+2026-09-06 rounds two to four of a containment-writer review were one contract
+specified case by case. A review OF a pull request lands its records on that
+PR's branch when the PR is the owner's own on this fork, never as a separate PR
+into the base; a separate record PR only at the owner's word (owner, 2026-09-07,
+verbatim: "I never wanted the review in a separate PR, that is of very little
+use, you should have added your work to 66 in the first place").
 
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
@@ -695,9 +704,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    through the rules process, not assumed"): Phase 1 reads the set from
    the repository's live automatic-review configuration at each PR-open,
    and a dated example is not an input to the state machine — Copilot on
-   push, and on one line a review connector that reviewed every push by
-   its own configuration (2026-09-06), were the configured set the day
-   this was written; PDR-140's loop discipline governs each leg's rounds
+   push, and on one line the Codex connector (`chatgpt-codex-connector`),
+   which reviewed every push by its own configuration and was declared
+   in every PDR-140 intake since 2026-09-06 (owner rating 2026-08-09;
+   graduated through the rules process 2026-09-07), were the configured
+   set the day this was written; PDR-140's loop discipline governs each leg's rounds
    like any other's. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
@@ -884,6 +895,14 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   checks are re-harvested immediately after it — "zero current threads"
   before readiness proves nothing about the reviewer set (a late review
   arrived after a ready-marking on a sibling repository, 2026-08-09).
+- **Every push dismisses a standing approval** where the base ruleset carries
+  `dismiss_stale_reviews_on_push: true` (read first-hand on 2026-09-02, PR #950: a
+  doc-only push dismissed an approval given minutes earlier and the PR went back
+  to waiting on that leg with no thread to show why). Where a surface reserves an
+  approval to the owner, land the complete batch — disposition edits and
+  description true-ups included — before asking for it; an approval that vanished
+  after a push is this setting firing, never a reviewer's change of mind. Read the
+  live ruleset for the current value; the observation is dated.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
@@ -1087,6 +1106,14 @@ posted, then fired within the minute — fully auditable). Then:
   "I think the bot is on the bypass list") — a rule's worked instance is
   never the current configuration (`query-the-value-never-the-lookalike`),
   and the ruleset's own title carried the fact.
+- **Green, clean and sensible are the three landing requirements** (owner word
+  2026-09-07, verbatim: "no prs are blocked on me, green and clean and sensible,
+  those are the requirements"): green is the required checks by name; clean is
+  zero unresolved threads and CLEAN; sensible is the landing seat's own
+  first-hand read that the change is what it says, safe where it touches
+  configuration, and belongs where it lands — one signed paragraph on the landing
+  premises comment, never a gate for the owner (first instance PR 66, landed by
+  the Director as the bot the same day).
 - **A green and clean PR merges without waiting on the owner** (owner
   ruling 2026-09-03, verbatim: "green and clean PRs get merged, they don't
   wait on me unless I explicitly say so" — the 2026-07-26/29 standing

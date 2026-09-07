@@ -21,6 +21,11 @@ and a read-only explorer that returns a conclusion rather than the corpus —
 with the plan visible before the first mutation (owner correction 2026-09-01,
 verbatim: "Use the proper tools for finding content, and generally sort out
 the discipline here, this is serious work. What is the plan?").
+A second instance, 2026-09-06 (owner verbatim: "stick to using standard tools
+rather than complex bash scripts which confuse the permissions agent"): the
+file-editing instruments are the platform's Edit and Write per file and one
+plain command per shell call; the compound heredoc that rewrote two files was the
+instrument the owner refused, though the work inside it was right.
 
 ### 1. Durable directives
 
