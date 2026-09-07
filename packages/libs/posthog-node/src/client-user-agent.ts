@@ -49,7 +49,9 @@ import type { ClientIdentityHeaders } from './event-policy-contract.js';
 // forwarded byte. Products absent here get no surface at all: PostHog labels
 // them by an exact token match, so `Claude-User/1 (cli)` would fall to "Other"
 // where `Claude-User/1` labels "Claude.ai".
-const CLIENT_BUILD_SURFACES: Readonly<Record<string, readonly string[]>> = {
+const SURFACE_BEARING_PRODUCTS = ['claude-code', 'openai-mcp'] as const;
+type SurfaceBearingProduct = (typeof SURFACE_BEARING_PRODUCTS)[number];
+const CLIENT_BUILD_SURFACES: Readonly<Record<SurfaceBearingProduct, readonly string[]>> = {
   'claude-code': ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'],
   'openai-mcp': ['chatgpt', 'codex', 'agent builder', 'responses api'],
 };
@@ -67,8 +69,12 @@ function readClientMajorVersion(afterToken: string): string | undefined {
 }
 
 function readClientBuildSurface(token: string, normalised: string): string | undefined {
+  const product = SURFACE_BEARING_PRODUCTS.find((candidate) => candidate === token);
+  if (product === undefined) {
+    return undefined;
+  }
   const segment = readFirstBracketedSegment(normalised);
-  return CLIENT_BUILD_SURFACES[token]?.find((candidate) => candidate === segment);
+  return CLIENT_BUILD_SURFACES[product].find((candidate) => candidate === segment);
 }
 
 /** Rebuilds the value from the selected rule and the normalised header it matched. */

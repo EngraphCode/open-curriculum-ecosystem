@@ -48,11 +48,13 @@ export const CLIENT_PRODUCT_TOKEN_RULES: readonly ClientProductRule[] = [
   ['openai-mcp', 'openai', 'openai-mcp'],
 ];
 
-// The FIRST bracketed segment, ending at the first comma or close bracket, as
-// PostHog's own extractor reads it: `(sdk-ts, agent-sdk/0.3)` yields `sdk-ts`.
-// First-only means list order carries no meaning anywhere a segment is matched,
-// and a header cannot reach a later bracket by prepending one.
-const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^,)]*)[,)]/u;
+// The FIRST bracketed segment, running to the first comma, close bracket or
+// the end of the value, exactly as PostHog's own extractor (`[(]([^,)]+)`)
+// reads it: `(sdk-ts, agent-sdk/0.3)` yields `sdk-ts`, and so does a truncated
+// `(sdk-ts` with no close bracket. First-only means list order carries no
+// meaning anywhere a segment is matched, and a header cannot reach a later
+// bracket by prepending one.
+const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^,)]+)/u;
 
 /** The first bracketed segment of a normalised value, if any. */
 export function readFirstBracketedSegment(normalised: string): string | undefined {

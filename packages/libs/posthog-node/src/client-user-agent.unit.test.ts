@@ -80,6 +80,16 @@ describe('normaliseOakClientUserAgent', () => {
       'claude-code/2.1.0 (sdk-ts, agent-sdk/0.3)',
       'claude-code/2 (sdk-ts)',
     ],
+    [
+      'a truncated bracket read to the end of the value, as PostHog reads it',
+      'claude-code/2.1.0 (sdk-ts',
+      'claude-code/2 (sdk-ts)',
+    ],
+    [
+      'the OpenAI Responses API surface (PostHog fixture shape)',
+      'openai-mcp/1.0.0 (Responses API)',
+      'openai-mcp/1 (responses api)',
+    ],
     ['a full semver reduced to its major', 'claude-code/2.1.226', 'claude-code/2'],
     ['a two-digit major kept whole', 'claude-code/12.0.1 (cli)', 'claude-code/12 (cli)'],
     ['client casing folded to the observed spelling', 'CLAUDE-USER/1.0', 'Claude-User/1'],
@@ -227,6 +237,12 @@ describe('the rebuilt value under PostHog harness labelling', () => {
       'openai-mcp/1.0.0 (Agent Builder)',
       'OpenAI Agent Builder',
     ],
+    [
+      'the OpenAI Responses API surface',
+      'openai-mcp/1.0.0 (Responses API)',
+      'OpenAI Responses API',
+    ],
+    ['a truncated Claude Agent SDK bracket', 'claude-code/2.1.0 (sdk-ts', 'Claude Agent SDK'],
   ])('labels %s the same as the raw header would', (_label, header, expectedLabel) => {
     const rebuilt = normaliseOakClientUserAgent(readable(header));
 

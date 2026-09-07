@@ -689,12 +689,13 @@ the raw user agent and vendor header are unbounded client-controlled strings.
   (`Claude-User`, `claude-code`, `codex-mcp-client`). A header naming no
   product omits the whole property, so the column resolves to "other"
   exactly as before;
-- an optional major version: the leading run of at most two ASCII digits
-  after the product token's `/`, copied from the header. This is the one
-  place client-supplied bytes reach the value, and it is bounded to at most a
-  hundred distinct values by construction. A longer digit run — a 16-digit
-  installation id, say — omits the version rather than truncating it, so the
-  slot cannot carry a stable per-installation identifier. The pre-review
+- an optional major version: `0`, or `1` to `99` with no leading zero, read
+  from the ASCII digits after the product token's `/` and copied from the
+  header. This is the one place client-supplied bytes reach the value, and it
+  is bounded to exactly a hundred distinct values by construction. A longer,
+  zero-padded or non-ASCII digit run — a 16-digit installation id, say —
+  omits the version rather than truncating it, so the slot cannot carry a
+  stable per-installation identifier. The pre-review
   shape of this amendment allowed a digits-and-dots version of up to sixteen
   characters, which the same day's security review identified as exactly
   that channel; the bound is the cure;
