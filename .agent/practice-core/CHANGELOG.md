@@ -6,7 +6,8 @@ Practice Core package.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
 
-- PDR-140 amended (§Amendment Log, 2026-09-07): on a records-class
+- PDR-140 amended — new Decision clause 9, with the Amendment Log entry
+  of 2026-09-07 as the revision record: on a records-class
   artefact whose verification point is merge, clause 2's
   merge-verification sentence reads through prong one as written — a
   falsehood clears the bar when a reader acting on the artefact would be
@@ -15,7 +16,9 @@ Practice Core package.
   over-bar cures and queued ledger writes only; a later over-bar finding
   still cures, in a push carrying nothing beyond that cure and any queued
   ledger writes; a routed finding's durable write rides the next push that
-  lands or lands alone as the final settlement push. A routed residue's
+  lands or lands alone as the final settlement push; post-final-head
+  route writes land together in at most one ledger push, a later route's
+  write on the lane's next records PR. A routed residue's
   named home is an existing
   register row or a PR already open for its own story, never a PR opened
   to carry residue; a residue PR that exists anyway has a settlement

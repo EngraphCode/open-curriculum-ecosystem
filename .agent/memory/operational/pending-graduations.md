@@ -122,7 +122,7 @@ debt register, 2026-07-08).
   within the declared budget, while PDR-140 clause 4 and its 2026-09-07 amendment give the
   transition at exhaustion (rebudget once; a later over-bar finding cures in a push carrying
   nothing else); the rule is pointer form and the transition lives in the record, so the
-  finding was rejected as below the bar on #77 and the write queued here | target:
+  finding was ROUTED as below the bar on #77 (no cure there) and the write queued here | target:
   .agent/rules/review-feedback-defaults-to-triage.md §Action step 4 (one clause naming the
   exhaustion path) | trigger: the next records pass over the rule | size: one clause |
   status: pending]`

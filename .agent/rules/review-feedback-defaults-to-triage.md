@@ -42,7 +42,7 @@ makes any pickup-class home a real verifier.
    matters. On a records-class artefact whose verification point is
    merge, a statement wrong under a rule today is not over-bar per se:
    the test is whether a reader acting on the artefact would be misled
-   (PDR-140 §Amendment Log 2026-09-07).
+   (PDR-140 clause 9, amended 2026-09-07).
 3. **Below the bar**: reply with the disposition — a route to a named
    home, or a rejection with rationale — and resolve the thread. A
    ROUTE additionally queues the durable write the home's consuming
