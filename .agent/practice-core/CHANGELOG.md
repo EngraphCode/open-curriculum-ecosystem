@@ -4,6 +4,32 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
+
+- PDR-140 amended — new Decision clause 9, with the Amendment Log entry
+  of 2026-09-07 as the revision record: on a records-class
+  artefact whose verification point is merge, clause 2's
+  merge-verification sentence reads through prong one as written — a
+  falsehood clears the bar when a reader acting on the artefact would be
+  misled by it; a statement wrong under a rule today is not over-bar per
+  se. Clause 4's rebudget is granted once per PR and its push carries
+  over-bar cures and queued ledger writes only; a later over-bar finding
+  still cures, in a push carrying nothing beyond that cure and any queued
+  ledger writes; a routed finding's durable write rides the next push that
+  lands or lands alone as the final settlement push; post-final-head
+  route writes land together in at most one ledger push, a later route's
+  write on the seat's napkin or a records PR already open, never by
+  reopening the reviewed PR; each control carries its own falsifier. A
+  routed residue's
+  named home is an existing
+  register row or a PR already open for its own story, never a PR opened
+  to carry residue; a residue PR that exists anyway has a settlement
+  budget of one push. Measured on five records-class PRs (seventeen
+  rounds, fifty-three cures) ended by the owner's wordless out-of-band
+  skill invocation — clause 8's anti-pattern recurring. Falsifier: one
+  below-bar disposition that misleads a reader before the next records
+  pass reverts the reading by dated amendment.
+
 ## [oak-open-curriculum-ecosystem] 2026-08-13 — provider-independent capability composition
 
 - New PDR-139, status Proposed: separates provider-independent semantic

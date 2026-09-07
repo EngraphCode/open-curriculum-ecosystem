@@ -39,7 +39,10 @@ makes any pickup-class home a real verifier.
    the defect lives — a finding revealing a defect on an already-served
    surface takes that surface's fast lane regardless of this PR's
    class. The bar decides WHERE the cure lands, never WHETHER truth
-   matters.
+   matters. On a records-class artefact whose verification point is
+   merge, a statement wrong under a rule today is not over-bar per se:
+   the test is whether a reader acting on the artefact would be misled
+   (PDR-140 clause 9, amended 2026-09-07).
 3. **Below the bar**: reply with the disposition — a route to a named
    home, or a rejection with rationale — and resolve the thread. A
    ROUTE additionally queues the durable write the home's consuming
