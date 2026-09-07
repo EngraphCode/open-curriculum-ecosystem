@@ -2261,3 +2261,24 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - **What the decision matrix got right and wrong, judged against the owner's word.** Right: the guard's estate-wide key protects nothing across worktrees; the refuters' "no stored intent field" (store cutover) was correct engineering; naming the decision owner-gated was correct. Wrong: it framed the choice inside the queue ("keep the ceremony vs. read the word literally") and never asked which resource was actually scarce — the owner answered a question the instrument did not pose (host gate capacity). Lens 4 ("would it be simpler if the system changed") was applied to the guard, not to the queue's existence. Lesson for the instrument: the Form phase should ask "what resource does this mechanism serialise, and is that the scarce one?" before the lenses run.
 - **#58 landed by the Director at the owner's word:** round six (a check-then-open race on a swapped ancestor directory; `node:fs` has no `openat`) dispositioned by signed reply as a race class outside the writer's closed contract (tally 7 → 2 → 1 → 1 → 1 → 1; six rounds, five cure pushes), residue homed on the projection node's out-of-scope bullet; settle + bot merge at the head the owner synced (1bcf8bdf4). Finch's worktree removal and claim re-scope are theirs at resume.
 - **Board at this wrap:** #58 landing; #66 (owner's, BEHIND, Jackal's review + mapping + the visibility table on it); #67 (Juno, cold, BEHIND); #68 (Jackal, live again 12:24Z, DIRTY — sync after the fold, five threads, then the slot); #70 (owner's draft research, hold). Jackal's watcher live; Finch and Juno cold with retained claims.
+
+## 2026-09-07 12:3xZ — Finch binds Sundog (47f9d2), compaction boundary 4 (after the 21:0xZ cold pause)
+
+- **#58 passed to the Director by owner ruling** (morning card, event 4c19ff3c): the owner merged engraph into it
+  at 08:16Z (1bcf8bdf4), the Director dispositioned round six (the directory-swap race → the safe-path helper's
+  next case) and lands it. Claim 6d3f2a9c closed; the lane worktree is clean and contained in the remote head.
+- **Owner ruling supersedes the queue exploration in the block above:** "the commit queue … is not necessary for
+  work in separate worktrees … two, max three simultaneous full local gates … it is ALL about engineering." The
+  cross-worktree FIFO frame is closed; the host-wide gate semaphore is the Director's routed lane. No re-exploration.
+- **Liveness frame (routed, not built):** a seat cannot attest its own ABSORB class; twice today EMIT-green,
+  absorption-dark seats became takeover cards. Candidate: the heartbeat loop carries a TURN STAMP written by the
+  turn itself, so "EMIT fresh, stamp old" reads on the stream within one cadence. Falsifier: a stamp written by the
+  loop proves nothing. Home: the liveness rule's PROGRESS stall diagnostic; Juno's frictions list.
+- **Retrospective lesson:** at the overnight-contract ACK the seat described the detector but did not propose the
+  routing (a seat with unproven liveness should not hold the only landing slot overnight). Surface-then-route.
+- **Play seeds (associations, not findings):** "nlink = 1 at three levels" — the hard-link refusal, the bare
+  index/head window and the landing slot look shaped alike (a singleton-holder invariant at inode, index and lane
+  grain). A deterministic commit-header check bound only at git's commit-msg stage after two minutes of pre-commit
+  gates; the advisory pre-screen saw it first but could not bind — a certain rule could bind earlier. Discarded
+  visibly: "the dark seat generated more doctrine than the live one"; "each round names one more case".
+- **12:3xZ RETIRED at the owner's word:** every remaining item handed to the Director by directed event (worktree prune; runbook records PR; substrate skill node; the liveness frame and play seeds above); no claim, no process, nothing unpushed. This seat does not resume.
