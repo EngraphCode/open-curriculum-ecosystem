@@ -133,33 +133,41 @@ tools: [
         'get-subjects',
         'get-key-stages',
       ],
-      description:
-        'Find curriculum content using semantic search, topic exploration, or structured listing. ' +
-        'search provides semantic search across lessons, units, threads, and sequences via a scope parameter. ' +
-        'explore-topic searches all scopes in parallel for broad discovery. ' +
-        'browse-curriculum returns structured facets without a search query.',
-      whenToUse:
-        'When you need to find content on a topic, explore what is available, or browse the curriculum structure. ' +
-        'Use search with a specific scope for targeted results, explore-topic for broad discovery, ' +
-        'or browse-curriculum to see what subjects and key stages exist.',
-    } satisfies ToolCategory,
 
-    browsing: {
-      tools: [
+tools: [
         'get-key-stages-subject-units',
         'get-key-stages-subject-lessons',
         'get-sequences',
         'get-subjects-years',
       ],
-      description:
-        'Explore curriculum structure systematically by navigating through subjects, units, and lessons via the REST API.',
-      whenToUse:
-        'When you want to navigate the curriculum hierarchy step by step (subject then units then lessons). ' +
-        'For a quicker overview, use browse-curriculum or explore-topic instead.',
-    } satisfies ToolCategory,
-```
 
-*Shown in part only — read the full text in the source file below.*
+tools: [
+        'fetch',
+        'get-lessons-summary',
+        'get-lessons-transcript',
+        'get-lessons-quiz',
+        'get-lessons-assets',
+        'get-units-summary',
+        'download-asset',
+      ],
+
+tools: [
+        'get-threads',
+        'get-threads-units',
+        'get-thread-progressions',
+        'get-prior-knowledge-graph',
+      ],
+
+tools: [
+        'get-subjects-programmes',
+        'get-programmes',
+        'get-programmes-units',
+        'get-programmes-questions',
+        'get-programmes-assets',
+      ],
+
+tools: ['get-curriculum-model'],
+```
 
 **What it is for:** Enumerates which tool names belong to each category (discovery, browsing, fetching, progression, programmes, agentSupport), shaping the agent's mental map of available tools.
 

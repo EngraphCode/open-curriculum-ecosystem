@@ -186,7 +186,7 @@ const MISCONCEPTION_TOOL_TITLE = 'Oak Curriculum Misconception Subgraph';
 **What it says now:**
 
 ```text
-const PRIOR_KNOWLEDGE_TOOL_TITLE = 'Oak Curriculum Prior Knowledge Subgraph';
+const PRIOR_KNOWLEDGE_TOOL_TITLE = 'Oak Curriculum Prior Knowledge';
 ```
 
 **What it is for:** Names the prior-knowledge subgraph tool.
@@ -194,7 +194,7 @@ const PRIOR_KNOWLEDGE_TOOL_TITLE = 'Oak Curriculum Prior Knowledge Subgraph';
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-title · **Impact tier:** high-impact
 
 ### C252 — THREAD\_PROGRESSIONS\_TOOL\_TITLE
