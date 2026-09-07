@@ -1,3 +1,14 @@
+## [1.178.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.4...v1.178.5) (2026-09-07)
+
+
+### Bug Fixes
+
+* **mcp:** close Copilot review findings; delete the dead prerequisite view (MCP-671) ([03b0ce5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/03b0ce5cb343381edb93940d4819f7fba61aa65c))
+* **mcp:** close remaining review comments — moving-target counts, stale report (MCP-671) ([063a79b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/063a79ba35fedee1d5748a033327c1f664e11cbf))
+* **mcp:** collapse duplicate statements; drop redundant C066 override (MCP-671) ([fb32eb8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fb32eb819423bbfb21ae67bfa2b85e7328184c16))
+* **mcp:** describe the prior-knowledge response by its actual wire keys (MCP-671) ([bff004f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bff004f70e5fb625f6b9fd1d80959aae8f6c9125))
+* **mcp:** stamp the revised guidance resources' lastModified (MCP-671) ([93a732d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/93a732d63ea4862021a96dfd10e051967dcc8d34))
+
 ## [1.178.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.3...v1.178.4) (2026-09-03)
 
 ## [1.178.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.2...v1.178.3) (2026-09-03)

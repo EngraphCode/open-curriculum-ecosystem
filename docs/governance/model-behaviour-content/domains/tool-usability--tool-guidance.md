@@ -139,7 +139,7 @@ description: 'Explore how concepts develop across years through curriculum threa
 **What it says now:**
 
 ```text
-whenToUse: `When you want to understand how a concept builds from early years to GCSE, or find prerequisite/follow-up content. Use get-thread-progressions anchored by a threadSlug for one thread's year-ordered progression, or by subject + keyStage to discover which of the ${String(threadProgressionStats.threadCount)} threads to anchor. Use get-prior-knowledge-graph with anchor unit slugs for the bounded prior-knowledge (prerequisite) subgraph of those units.`,
+Use get-prior-knowledge-graph with anchor unit slugs for each unit's stated prior knowledge — the statements Oak records about what pupils are assumed to know before it.
 ```
 
 **What it is for:** Directs anchoring get-thread-progressions by threadSlug or subject+keyStage, and get-prior-knowledge-graph by anchor unit slugs; cites a thread count.
@@ -148,7 +148,7 @@ whenToUse: `When you want to understand how a concept builds from early years to
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-guidance · **Impact tier:** high-impact
 
 ### C021 — toolCategories.programmes.description + whenToUse
@@ -669,36 +669,9 @@ browseSubject: {
 **What it says now:**
 
 ```text
-trackProgression: {
-    title: 'Track concept progression across years',
-    description: 'See how a concept develops from early years to GCSE.',
-    steps: [
-      {
-        step: 1,
-        action: 'Search for learning progression threads on the concept',
-        tool: 'search',
-        example: 'search({ query: "algebra", scope: "threads", subject: "maths" })',
-        returns: 'Matching threads with relevance ranking',
-      },
-      {
-        step: 2,
-        action: 'Get the year-ordered progression for the thread found in step 1',
-        tool: 'get-thread-progressions',
-        example: 'get-thread-progressions({ threadSlug: "<thread-slug-from-step-1>" })',
-        returns:
-          'That thread’s unit progression ordered by teaching year (within one year the order is not curricular)',
-      },
-      {
-        step: 3,
-        action:
-          'Get the bounded prior-knowledge subgraph for the thread units found in steps 1-2, anchored by their slugs',
-        tool: 'get-prior-knowledge-graph',
-        example: 'get-prior-knowledge-graph({ unitSlugs: ["<unit-slug-from-step-2>"] })',
-        returns:
-          'Bounded prior-knowledge subgraph for the anchor units (dependencies and prior knowledge requirements)',
-      },
-    ],
-  } satisfies Workflow,
+'Get the stated prior knowledge for the thread units found in steps 1-2, anchored by their slugs'
+
+returns: "Each anchor unit's stated prior-knowledge statements"
 ```
 
 **What it is for:** 3-step progression recipe: search(scope:threads) -\> get-thread-progressions(threadSlug) -\> get-prior-knowledge-graph(unitSlugs); caveats that within a year the order is not curricular and the subgraph is bounded.
@@ -706,7 +679,7 @@ trackProgression: {
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-guidance · **Impact tier:** high-impact
 
 ### C046 — workflow: exploreTopic
