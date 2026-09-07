@@ -72,17 +72,26 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 1. **The report exists and is reproducible** —
    `.agent/reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md` carries a
    review contract, a review-mapping table over the published review's seven findings, the seat's
-   own findings, and a command for every count. Proof `repo-safe`: the lane PR's CI (markdownlint,
+   own findings, and a command for every count. Proof `repo-safe`: PR 66's CI (markdownlint,
    prettier, `pnpm check:docs`) is green and every command in the report re-runs from a clean
-   checkout of the PR branch.
-2. **One typed review is posted on PR 66** — every finding carries two verdicts (correctness,
+   checkout at the immutable revisions the report names (the records landed on PR 66's branch, not
+   a lane PR, at the owner's word of 2026-09-07).
+2. **Typed reviews are posted on PR 66** — every finding carries two verdicts (correctness,
    alignment), an evidence class, and one of the five action types; the reviewer opens no tally
-   and declares no intake budget. Proof `repo-safe`: the PR's review list shows exactly one review
-   by this seat's bot identity with the findings enumerated.
+   and declares no intake budget. Proof `repo-safe`: the PR's review list shows the lane's
+   reviews under the bot identity with the findings enumerated — the first pass as two
+   (5126608127, the findings; 5126692305, the R1–R7 mapping and one retraction) and the second
+   pass as two (5132463698, S1–S6; 5132534231, S7–S10). (Re-trued 2026-09-07 from "exactly one
+   review": the mapping was promised as a second comment, and the substance review was a second
+   seat's pass.)
 3. **The owner packet is one card** — the runner's cure, the nine repositories' visibility and the
    settled-direction question travel to the owner as one packet raised by the Director, with this
-   lane's factors attached. Proof `owner-held`: the Director's record names the packet; the owner's
-   answer lands as the two gates above clearing.
+   lane's factors attached. Proof `owner-held`, met 2026-09-07: the three rulings are recorded in
+   `.agent/research/public-service-ai-tuition/AUTHORITY.md` §Owner rulings (the runner: apply the
+   standing policy, ~12:24Z; the nine repositories: all public, PR 66 comment 5570600664; the
+   settled directions: proposals, PR 66 comment 5571197335, ~13:2xZ), each applied on PR 66's
+   branch. The one gate still in this node's front matter is a separate owner decision (a plan
+   node and parent for the chapter-13 programme), not part of the packet.
 4. **The imported files are unchanged beyond the deltas `AUTHORITY.md` tables** — under
    `.agent/research/public-service-ai-tuition/` the only differences from the imported revision
    SHA:2db74f5bb are the three rows in `AUTHORITY.md`'s deltas table (the runner reduced to a
