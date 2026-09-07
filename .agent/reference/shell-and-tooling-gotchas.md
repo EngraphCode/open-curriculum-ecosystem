@@ -382,3 +382,10 @@ tool retires them.
 - **The reference-direction validator refuses a directive that links into
   `.agent/memory/**`** (patterns included; the #59 cure commit's hook,
   2026-09-06): doctrine names a pattern in backticks, never as a link.
+- **A lane touching a `DELTA_SCOPE_PATHS` entry of the MCP current-source ledger runs
+  `validate-mcp-content-current-source` as a lane gate before the ceremony** (2026-09-06):
+  package gates never invoke it, so the pre-commit hook was the first place it fired and it
+  refused the projection's first commit outright ("Reviewed semantic-delta files differ",
+  eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
+  disposition and the semantic hash for each affected file, wired into the aggregator, then
+  `refresh-mcp-content-current-source-anchors`.

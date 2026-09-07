@@ -161,8 +161,10 @@ this file's git history at `45866d61a`.
 ## Prior continuation — typescript-estate review execution (2026-08-03; conserved — still-live context for the MCP-603 frozen corpus)
 
 The 2026-08-03 Lichen guards Phloem session is closed by owner direction. The
-thread remains active and transfers through this record; no implementation
-authority or live evidence should be inferred from the retired seat.
+thread was paused at the 2026-09-06 consolidation (the paused index in
+`repo-continuity.md`; it reactivates at the owner's word) and transfers through
+this record; no implementation authority or live evidence should be inferred
+from the retired seat.
 
 - Branch: `jimcresswell/typescript-estate-consolidation-review` in the dedicated
   worktree whose basename is `typescript-estate-review-019fc3`; resolve its
@@ -171,7 +173,8 @@ authority or live evidence should be inferred from the retired seat.
   the documentation-only closeout.
 - Invocation pointer: `$oak-start-right-team continue
   typescript-estate-consolidation-review from
-  .agent/memory/operational/threads/typescript-estate-consolidation-review.next-session.md`.
+  .agent/memory/operational/threads/paused/typescript-estate-consolidation-review.next-session.md`
+  (at the owner's word only; the record is paused).
 - Controlling plan: read
   `.agent/plans/delivery/typescript-estate-consolidation-review.plan.md` in the
   dedicated worktree.

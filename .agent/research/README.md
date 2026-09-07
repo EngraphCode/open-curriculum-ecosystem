@@ -21,6 +21,13 @@
 **Key principle**: When a plan discovers something valuable, that discovery should be recorded in research. Plans can be archived; research persists.
 
 ---
+An ADR-226-class multi-file markdown import forms one link-closed component under
+`validate-markdown-links` (broken-link class `tracked-source-to-untracked-target`): no subset
+of its prose is committable alone, locally or as stacked PRs. Only members carrying no
+outbound relative links — assets, scanner config, an index row, a review using absolute
+permalinks — stand independently (907 of 16,235 lines on the 2026-09-06 import). Such an
+import is atomic under the estate's gates — "split it into smaller PRs" is not available —
+and only its link-free members are a valid partial-review surface for size-capped tools.
 
 ## Research by Topic
 

@@ -56,6 +56,12 @@ tree:
    (2026-08-02 instance: a contract violation rode two commits on
    origin).
 
+Two further instances landed on 2026-08-19 with this section already in the rule: a lane
+seat's commit carried a peer's staged renames, and a Director commit swept the
+shared index the same day, independently. Both seats held the cure text in context and the
+mechanism did not fire at either action moment — recurrence despite a verified home
+(PDR-098), the traction gap that PDR's design lane exists to close.
+
 ## The Index Is What Ships — Verify It, and Re-stage After Every Cure
 
 The pre-commit gate reads the WORKING TREE; the commit captures the

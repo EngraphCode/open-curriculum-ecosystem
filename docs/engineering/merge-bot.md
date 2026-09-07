@@ -105,7 +105,9 @@ permissions problem.
 
 **Tokens can expire mid-chain.** A minted token can expire between the mint
 and the final write of a long pre-push gate chain — the signature is a bare
-`403` on the WRITE while reads still succeed. Mint, auth-probe, and push in
+`403` on the WRITE while reads still succeed; on the REST API the same expiry is a
+`401` mid-batch (2026-09-05: merges, thread resolutions and comment writes past the
+hour, reads still succeeding) — mint again and repeat the batch from the failed call. Mint, auth-probe, and push in
 ONE shell; take proof of push from the transfer line plus a fresh
 `ls-remote`, never the exit code; and the cure is re-mint-and-retry, not a
 permissions investigation.
@@ -173,6 +175,11 @@ copy on the next fast-forward, and the ignore rule then hides its absence, so
 the very next `merge-bot` command exits 2 with the config-not-readable
 message. Recreate the file at the primary checkout from the template, naming
 the app that clone used, before the next merge or push.
+The app holds no Actions permission, so no bot token can re-run a failed workflow job.
+When a required check failed on the runner side rather than in the change (2026-09-06), the
+only bot-shaped cure was a new push, and that push re-opened the review round. Re-running a
+job needs `actions: write`; whether any bot scope should carry it travels with the MCP-391
+scope split.
 
 ## Setting up a bot (requires org-admin rights)
 

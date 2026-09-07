@@ -236,6 +236,13 @@ rounds; the cure is stated so the next round does not re-derive it.
   family is its own scroll container", taken in the owner's visual-feedback
   round: the scroll container and its table are gone, and each family's
   rows flow in the page's own columns instead.
+- **The creature hero's 320 px measurement is font-dependent**: the identity's display face
+  (`Baloo 2`) loads from Google Fonts at browser time (`brand-a.css` `@import`), so where
+  that fetch fails — observed 2026-09-02 in a restricted runner whose TLS interception broke
+  the browser's direct fetch — the fallback face is what gets measured, and the hero word
+  overflowed its bound (346 px against 288 px; one `test:a11y` cell red, 67/68 green) with
+  no change to any showcase file. Candidate cure: a font-hermetic measurement (a self-hosted
+  face) or a cell gated on `document.fonts.ready` with the loaded face asserted.
 
 ## Fidelity review
 
