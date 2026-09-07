@@ -15,21 +15,11 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      The owner releases or refuses PR 66's draft hold with the report's split in hand: the
-      historical runner's cure (convert to TypeScript per the earlier import's precedent, keep only
-      the results JSON and cite the runner's source archive, or rule that a research record's
-      executable bytes are data — a ruling that also settles the eleven hand-authored shell and
-      Python files already under the research surface), and the visibility of the nine oaknational
-      repositories the collection permalinks into (ADR-226 clause 2; unverified by construction
-      because this line reads no Oak surface without the owner's word).
-    expires: 2026-09-27
-  - awaiting: owner-decision
-    clears_when: >-
       The owner states whether the collection's "settled" service, POC and managed-platform
       directions are settled at their word and where that word lives, and whether the chapter-13
       work programme receives a plan node of its own and under which strategic parent.
     expires: 2026-09-27
-last_updated: 2026-09-06
+last_updated: 2026-09-07
 ---
 
 # Independent review of the public-service AI tuition import (PR 66)
@@ -102,11 +92,17 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 ## Todos
 
 - One single-story PR, archival/record class (PDR-132 §3: exempt from the size warnings, bound by
-  the two-round budget): this node, the thread record and its continuity row, the report with its
-  three Parallax assets, and one pointing row in `.agent/reports/README.md`. Lands in the slot
-  order the Director holds (#58, #67, then this lane).
-- The review on PR 66 is posted from the seat's bot identity after the full Cricket panel at the
-  report-draft boundary; it is not part of the lane PR's diff.
+  the two-round budget): PR 68 — this node, the thread record and its continuity row, the report,
+  and one pointing row in `.agent/reports/README.md`. Lands after #58 in the slot the Director
+  holds (owner word 2026-09-07: "Director lands #58, Jackal finishes #68").
+- The two reviews on PR 66 (5126608127, 5126692305) are posted from the seat's bot identity and
+  are not part of this PR's diff.
+- After PR 66 lands: a follow-on PR from this lane applying the standing policy to the historical
+  runner (reduce the hand-authored `.mjs` to data or rewrite it in TypeScript per ADR-226 clause 4
+  and the TypeScript-only rule; owner word 2026-09-07, "Apply the standing policy"; no
+  research-record exemption class). The owner's word of 2026-09-07 12:4xZ ("I never wanted the
+  review in a separate PR … you should have added your work to 66 in the first place") puts this
+  lane's records into PR 66 itself; the runner cure follows the same route when it is ready.
 
 ## Out of scope
 
@@ -127,8 +123,16 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 
 ## Review dispositions
 
-No rows: this section carries only findings routed off this lane's own PR. PR 66's findings live
-on PR 66 and in the report.
+This section carries only findings on this lane's own PR (68). PR 66's findings live on PR 66 and
+in the report. Codex round one on PR 68 (2026-09-07 08:24Z, five threads):
+
+| Thread | Disposition |
+| --- | --- |
+| P1, node line 22: apply the executable policy instead of asking for a ruling | absorbed: the gate is removed; the owner's ruling of 2026-09-07 applies the policy; the cure rides this lane's follow-on after PR 66 lands |
+| P2, node line 107: split unrelated files out of the five-file story | not a defect of this bundle: the owner retargeted PR 68 onto PR 66's branch (08:15Z), so the compare shows `engraph`'s history since PR 66's base beside this lane's five paths; those files are `engraph`'s, and merging PR 68 into PR 66's branch carries them as PR 66's own sync with `engraph` |
+| P2, report line 331: make the scanner command executable | absorbed: immutable refs and concrete config paths |
+| P2, thread record line 156: the "deleted" fixture | absorbed: the tense is corrected; the fixture exists and is untriggered; the next step is re-trued |
+| P2, `commit-queue-local-ephemera.plan.md` line 187: reconcile the rulings ledger | routed away: not this lane's file; it entered the compare only through the pre-fold base; the consolidation seat's lane owns that plan and the ledger |
 
 ## Dated notes
 
@@ -164,3 +168,13 @@ on PR 66 and in the report.
   integration files (about 900 lines) as a local fixture branch, and the rest only whole. The
   R1–R7 mapping is posted (five accept, two partial, none refuted); the report's frame set,
   epistemic profile and conflict ledger are filled; status provisional pending the owner packet.
+- **2026-09-07, the owner's morning rulings (answered ~12:24Z; relayed by the Director, stream
+  event 4c19ff3c and directed event e067247a).** "Director lands #58, Jackal finishes #68": PR 68
+  syncs once onto the post-fold `engraph`, answers its five Codex threads on its own record and
+  lands after #58. The runner: "Apply the standing policy" — the first gate on this node is
+  cleared and removed; the cure (reduce to data or rewrite in TypeScript) is this lane's follow-on
+  after PR 66 lands. Visibility: nine read-only reads permitted and run once by the Director; all
+  nine repositories public; F1 resolved. The settled-direction word: no answer yet; the second
+  gate stands. The Cricket panel launched at the PR-open boundary (four roles, normal stance)
+  returned nothing before the seat's host was suspended overnight: recorded as UNDELIVERED × 4,
+  the seats stopped on resume, no substitute run; the boundary passed on the owner's word.

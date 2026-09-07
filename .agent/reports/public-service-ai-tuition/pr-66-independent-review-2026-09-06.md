@@ -5,8 +5,9 @@ session prefix 3484b6), agent-authored on behalf of the owner under the estate's
 **Target:** [PR 66](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66),
 `docs/public-service-ai-tuition-2026-09-06`, head SHA:2db74f5bb, base `engraph` at
 SHA:6019dd44f; the 17 imported files are unchanged from SHA:5f04e4d0f; the diff since then is the
-author-lineage review and its index row. **Disposition: qualified.** Two decisions that are the
-owner's precede any release of the draft hold; one class of defect is curable only at the
+author-lineage review and its index row. **Disposition: qualified.** Two of the owner's three
+facts were ruled on 2026-09-07 (the runner: apply the standing policy; the nine repositories: all
+public); the settled-direction word is the open ask; one class of defect is curable only at the
 author's source. The review posted on the PR is
 [review 5126608127](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/66#pullrequestreview-5126608127)
 (COMMENT state, 21:03Z) with its second comment,
@@ -46,7 +47,7 @@ declared correlated, never independent. Every count below names the command that
 
 ## Findings (two verdicts each: correctness, alignment; one action type)
 
-### F1 — 157 distinct permalinks into nine `oaknational` repositories, visibility unverified
+### F1 — 157 distinct permalinks into nine `oaknational` repositories, all public (resolved 2026-09-07)
 
 The PR body's "403 internal file/anchor links resolve" is true (reproduced: 403, of which 78 are
 pure anchors) and internal-only. A census of every `http(s)` URL in the 14 markdown files finds
@@ -58,12 +59,15 @@ Oak-Web-Application 10, oak-resource-adapter 6, oak-curriculum-ontology 4, oak-d
 oak-components-sandbox 2, oak-ai-autoeval-tools 1 — 26 of them unpinned (`main`, `research`).
 ADR-226 clause 2 keeps permalinks into public repositories live and requires permalinks into
 private ones to be reduced to plain-text citations resolved by an index in the private source.
-This line reads no Oak surface without the owner's word (the Director ruled the read not
-grantable overnight), so visibility is unverified by construction. The fork's own record reads
-`isFork: true, parent: null`, which GitHub returns both for an unlisted and for an inaccessible
-parent; the Director's initial by-construction inference (a public fork implies a public parent)
-was withdrawn on that fact. Correctness: true. Alignment: owner decision. If any repository is
-private, clause 2 changes the bytes and the PR returns to the author.
+This line reads no Oak surface without the owner's word, so at the first review visibility was
+unverified by construction (the fork's own record reads `isFork: true, parent: null`, which
+GitHub returns both for an unlisted and for an inaccessible parent). Resolved 2026-09-07: the
+owner permitted nine read-only `gh repo view` calls, the Director ran them once as the bot and
+posted the table on PR 66 (comment 5570600664, 12:25Z): all nine repositories are PUBLIC
+(oak-dspy-mcq-eval archived, its links live but frozen). Under clause 2 every one of the 157
+permalinks may stay live; no reduction to citations is required. Correctness: true. Alignment:
+disposition-as-intended on visibility; the 26 unpinned links (`main`, `research`) remain a
+pinning nit for the author's source.
 
 ### F2 — Thirty-one references use the fork's former repository name (withdrawn as a defect)
 
@@ -98,7 +102,11 @@ exercised on this surface before. The eleven hand-authored `.sh` and `.py` files
 `.agent/research/developer-experience/` are precedent, not approval. The runner itself passes
 `node --check`, reads its checkout root from `argv[2]`, asserts the pinned HEAD, imports only
 `node:` modules, and loads ten product source files plus the 25 MB generated corpus dynamically
-(all present at the pin). Correctness: non-conforming. Alignment: owner decision on the cure —
+(all present at the pin). Correctness: non-conforming. Alignment: ruled (owner, 2026-09-07 ~12:24Z, "Apply the standing
+policy"): the runner is reduced to data or rewritten in TypeScript per ADR-226 clause 4 and the
+TypeScript-only rule, in PR 66 or a follow-on; no research-record exemption class exists; this
+lane carries the follow-on after PR 66 lands. The options the first review had listed for the
+owner were —
 convert per the precedent and lose the byte witness; keep only the results JSON and cite the
 runner's source archive; or rule that a research record's executable bytes are data, which also
 settles the eleven existing files.
@@ -272,12 +280,12 @@ independent assurance.
 
 ## Decisions named for the owner, with factors (one packet, raised by the Director)
 
-1. **The runner's cure and the class ruling** (F3). Factors: the byte witness versus conformance;
-   the precedent converted; eleven existing hand-authored files under the surface; no gate reaches
-   any of them today.
-2. **The nine repositories' visibility** (F1). Factors: 157 permalinks on a public fork; ADR-226
-   clause 2; the fork record's null parent; one permission for nine read-only calls, or the
-   visibilities stated.
+1. **The runner's cure and the class ruling** (F3). Ruled 2026-09-07 ~12:24Z, "Apply the standing
+   policy": reduce to data or rewrite in TypeScript, in PR 66 or a follow-on; no exemption class;
+   the follow-on is this lane's. The factors that were carried: the byte witness versus
+   conformance; the precedent converted; eleven existing hand-authored files under the surface.
+2. **The nine repositories' visibility** (F1). Ruled 2026-09-07: nine read-only reads permitted,
+   run once by the Director; all nine PUBLIC (PR 66 comment 5570600664); the permalinks stay live.
 3. **The settled-direction word** (F5). Factors: four flat assertions; chapter 12's own grade; the
    two verbatim owner quotations the collection does carry (RC-01, RC-02).
 4. **Whether chapter 13's programme receives a plan node, and under which parent** (the second
@@ -326,9 +334,12 @@ independent assurance.
   staged, `pnpm --filter @oaknational/agent-tools validate-markdown-links` reports every link
   from a tracked source to an untracked target as broken (93 for the eight-file subset; 2 for a
   six-file subset that still carried the research index on disk; 0 for the link-free members).
-- **Scanner**: `gitleaks detect --redact=100 --source . --config <branch .gitleaks.toml>
-  --log-opts="6019dd44f..origin/docs/public-service-ai-tuition-2026-09-06"` (0 findings); the same
-  with the base config (1 finding, 08:3157); controls in a scratch git repository holding the
+- **Scanner** (immutable refs, run from the repository root, gitleaks 8.30.1):
+  `git show 2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa:.gitleaks.toml > pr66-gitleaks.toml`, then
+  `gitleaks detect --redact=100 --source . --config pr66-gitleaks.toml --log-opts="6019dd44f188d70334b3ebdc6ebbed81bc4920d2..2db74f5bbc9b3b3c1afe2bf95a7c556cad6295fa"`
+  (0 findings); `git show 6019dd44f188d70334b3ebdc6ebbed81bc4920d2:.gitleaks.toml > base-gitleaks.toml`
+  and the same `detect` with `--config base-gitleaks.toml` (1 finding, 08:3157); controls in a
+  scratch git repository holding the
   chapter at its relative path with two synthetic credentials appended: an `api_key =` assignment
   carrying a forty-character hexadecimal value with entropy, and an `OAK_API_KEY=` line carrying a
   UUID-shaped value (the literals are kept out of this report so the scanner never learns them as

@@ -109,7 +109,11 @@ last event this record names; PR 66's live head (re-fetch before any statement a
 - The 17 imported files are never edited by this lane; findings route to the author's source.
 - No Oak-surface read without the owner's word; the nine repositories' visibility is an owner
   fact and stays unverified by construction until then.
-- The seat does not push to PR 66's branch and does not shepherd it; the draft hold and the
+- Superseded 2026-09-07 12:4xZ by the owner's word ("I never wanted the review in a separate PR …
+  you should have added your work to 66 in the first place"): this lane's records land on PR 66's
+  branch, pushed by this seat as the bot. Until then the rule was: the seat does not push to PR
+  66's branch and does not shepherd it; the intake declaration and the merge of PR 66 remain the
+  owner's. Original wording of the rest of this line kept for the record: the draft hold and the
   PDR-140 intake declaration are the owner's.
 - Authority-class findings never enter a refute vote; they travel verbatim on the owner packet.
 - Every SHA on this record and the node carries the `SHA:` prefix; the blocked hook literals are
@@ -141,8 +145,9 @@ Read after COMPACTION BOUNDARY 1; everything there stays true except where trued
   or requested (the rule forbids an agent from doing either). The only link-closed subset apart
   from the whole is the three assets plus `.gitleaks.toml`, the reports index row and the
   published review (about 900 lines): branch `review/pr66-ultra-assets-and-integration`, intent
-  `d046763d`, committed under the queue ceremony from the fixtures worktree; never pushed;
-  deleted after harvest. The prose chapters cannot be reviewed apart by any size-capped tool.
+  `5daadd2f`, committed under the queue ceremony from the fixtures worktree as SHA:580879aeb;
+  never pushed; to be deleted only after harvest (at this block it exists and is untriggered).
+  The prose chapters cannot be reviewed apart by any size-capped tool.
 - **Report**: the PENDING sections are filled (mapping, frame set with adjudication of the four
   cards, epistemic profile and conflict ledger, spend rows: 1.04M measured for `wf_b8818d51-f17`,
   stopped with six of seven legs returned, R1 seat-inline, no resume). F2 re-trued as withdrawn;
@@ -151,7 +156,33 @@ Read after COMPACTION BOUNDARY 1; everything there stays true except where trued
 - **Liveness**: watcher re-armed from the primary (Monitor `bu8preeda`, asserted 21:2xZ) before
   any worktree entry; heartbeat loop `bgc0e5jt9`; claim `60d6d916` retained; window claim
   `59388d83` (git index/head) open for the fixture commits, TTL 3600 s from 21:30Z.
-- **Next safe step**: enter the fixtures worktree and hand the owner the trigger; harvest whatever
-  `/code-review ultra` returns onto PR 66 as a third bot comment and into the report; Cricket at
-  the lane-PR boundary; commit the five lane files under the ceremony from the lane worktree;
-  bot push with a 600 s timeout; draft PR; the Director's routing gives this lane the slot.
+- **Next safe step at RESUME 1** (superseded by RESUME 2 below): hand the owner the fixture
+  trigger; harvest any `/code-review ultra` return onto PR 66; commit the five lane files; bot
+  push; draft PR.
+
+## RESUME 2 — 2026-09-07 12:2xZ (owner word: "Director lands #58, Jackal finishes #68")
+
+- **Overnight**: the lane PR opened as #68 (draft, 21:5xZ on the 6th, SHA:820c69030) and the seat's
+  host was suspended from ~22:0xZ to 12:24Z; the watcher hit its hourly backstop at ~22:2xZ and was
+  re-armed on resume (Monitor `bs3x0q39h`, asserted); the Director's ping of 22:47Z (event
+  `52c3a92e`) is acked at this boundary. The estate rotated at 01:31Z: `coordination/2026-09-06-f1a142`
+  folded to `engraph` as SHA:dfe924927 (PR #69; this seat's napkin blocks rode the fold), successor
+  `coordination/2026-09-07-dfe924`.
+- **Cricket at the PR-open boundary**: four roles launched with one frame (normal stance) at
+  ~21:5xZ; no return before the suspension and no transcript on disk; recorded UNDELIVERED × 4,
+  the seats stopped at 12:2xZ; no substitute run (the owner's word finishes #68).
+- **Owner rulings** (~12:24Z, relayed by the Director: stream `4c19ff3c`, directed `e067247a`):
+  #68 is this seat's to finish (sync onto engraph, five Codex threads, land after #58); the runner
+  follows the standing policy (this lane's follow-on after PR 66 lands; no exemption class); all
+  nine `oaknational` repositories are PUBLIC (Director's table, PR 66 comment 5570600664); the
+  settled-direction word is still unanswered. The freeze block's loss scan is re-labelled
+  recoverable-operational at the primary (Director residue from #69 round four).
+- **This window**: sync merge of `origin/engraph` into the lane (clean, no conflicts; the diff is
+  the five paths again); F1 and F3 re-trued to the rulings; the first node gate removed; the five
+  Codex threads dispositioned on the node's review-dispositions table and answered on the PR;
+  push; settle; bot merge after #58.
+- **The ultrareview fixture** (`pr66-ultra`, SHA:580879aeb, 907 lines) still exists, untriggered;
+  the owner triggers it from a session resident in that worktree, or it is removed at the lane's
+  wrap without a trigger.
+- **Next safe step**: land #68 (settle; `merge-bot merge --pr 68` with the expected reviewer set;
+  after #58); then the runner follow-on when PR 66 lands; then retire this record with its banner.
