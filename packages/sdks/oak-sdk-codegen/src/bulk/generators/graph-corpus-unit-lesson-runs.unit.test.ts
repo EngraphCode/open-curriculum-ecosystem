@@ -1,5 +1,5 @@
 /**
- * Unit tests for the graph-corpus unit→lesson run emission (MCP-682).
+ * Unit tests for the graph-corpus unit→lesson run emission (MCP-681).
  *
  * @remarks
  * TDD: these tests describe the unit→lesson ordering data the corpus emits.
