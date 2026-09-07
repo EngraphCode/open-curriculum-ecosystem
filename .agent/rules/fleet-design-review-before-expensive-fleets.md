@@ -5,7 +5,13 @@ fleet — as a working line, one that would exceed the session's default
 workflow size guideline, or whose estimated spend crosses ~500k tokens —
 has its DESIGN reviewed by a smaller fleet before the owner prices it,
 and the design review's verdicts travel with the plan to the
-ratification ask.
+ratification ask. Before ANY fleet launches (owner word 2026-09-07): an
+ahead-of-time cost estimate from one measured pilot leg times the fan-out,
+a hand sample of the yield first, no adversarial verify phase where the seat
+verifies at application, bounded per-item search, a named tier per phase
+with the budget enforced in the script, and those numbers in the launch
+record — the section "Ahead-of-time cost estimate, pilot and yield" below
+carries each requirement and the measurement behind it.
 
 ## Why (the measured instance)
 

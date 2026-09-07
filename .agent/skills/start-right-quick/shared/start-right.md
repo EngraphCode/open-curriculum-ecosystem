@@ -23,9 +23,10 @@ verbatim: "Use the proper tools for finding content, and generally sort out
 the discipline here, this is serious work. What is the plan?").
 A second instance, 2026-09-06 (owner verbatim: "stick to using standard tools
 rather than complex bash scripts which confuse the permissions agent"): the
-file-editing instruments are the platform's Edit and Write per file and one
-plain command per shell call; the compound heredoc that rewrote two files was the
-instrument the owner refused, though the work inside it was right.
+file-editing instruments are the platform's native per-file editing operation
+(each platform adapter names its own) and one plain command per shell call; the
+compound heredoc that rewrote two files was the instrument the owner refused,
+though the work inside it was right.
 
 ### 1. Durable directives
 
@@ -179,10 +180,13 @@ or collaboration state as `Codex` / `unknown`; use the derived `agent_name` and
 `session_id_prefix`. Codex `SessionStart` hooks may inject the same block as
 developer context, but the preflight command remains the correctness check.
 
-Before staging or committing, use the always-active commit skill. It
-checks for fresh commit-queue intents and `git:index/head` commit-window
-claims, enqueues your intended bundle before staging, verifies the staged
-bundle exactly before `git commit`, and clears the queue entry after success.
+Before staging or committing, use the always-active commit skill. On the
+shared primary checkout it checks for fresh commit-queue intents and
+`git:index/head` commit-window claims, enqueues your intended bundle before
+staging, verifies the staged bundle exactly before `git commit`, and clears
+the queue entry after success; in a linked worktree it commits by plain
+pathspec with an audit line and no queue or window claim (owner ruling
+2026-09-07; the skill's scope paragraph).
 
 ### 5. Active plans
 

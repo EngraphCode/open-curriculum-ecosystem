@@ -16,12 +16,9 @@ Copy the skeleton from inside the template's fenced block, fill it,
 delete the guidance. Every plan is born `status: sketch` and governs no
 work until its ratification stamp is complete.
 
-A plan may keep a decision log, and the log is a capture surface only: a
-ruling captured there is authored into an ADR (host architecture) or a
-PDR (practice governance) before the plan cites it, and the log names
-that record — the log is never a ruling's durable home (2026-09-03: an
-extraction plan's log declared itself "the durable home" of thirteen
-owner rulings; the cure was ADR-227, with the plans citing it).
+A plan may keep a decision log; its rows are captures, never a ruling's
+durable home — the plan skill's Readiness section ("Ledger and
+decision-log rows are captures") carries the clause.
 
 The pre-D23 authoring templates are dispositioned and conserved in
 [`.agent/plans-v0-sketch-2026-07-21/templates/`](../../plans-v0-sketch-2026-07-21/DISPOSITIONS.md);

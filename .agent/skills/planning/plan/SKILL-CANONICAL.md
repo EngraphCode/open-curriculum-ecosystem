@@ -198,16 +198,6 @@ permanent page to name a delivery node by id is a moving target at
 authoring time — a truing node's own AC did exactly that on 2026-09-03
 and the owner refused the push that carried it.
 
-A plan's decision log is a capture surface, never the durable home of a ruling: a
-ruling captured there is authored into an ADR (host architecture) or a PDR
-(practice governance) before the plan cites it, and the log names that record.
-Worked instance 2026-09-03: an extraction plan's decision log declared itself
-"the durable home of the rulings" for thirteen owner rulings while no ADR named
-the extraction; the owner re-raised "plans are ephemeral" (a rule already homed
-twice), and the cure was ADR-227 carrying the rulings self-contained, with the
-plans citing it — recurrence despite the home, filed on the doctrine-traction
-lane.
-
 A plan node authored ahead of an owner ruling is stale against it the moment the
 ruling lands. On 2026-09-03 a truing node was authored before the morning's card
 rulings, and a second seat's read found the node contradicting them while
@@ -305,9 +295,11 @@ execution cycle:
   re-derive at execution time and let substance preservation outrank
   stale arithmetic.
 - **Ledger and decision-log rows are captures.** The durable home of a
-  decision is an ADR or PDR, never the row (the extraction plan's "this
-  log is the durable home" sentence re-pointed at ADR-227, #961,
-  2026-09-03).
+  decision is an ADR or PDR, never the row; a ruling captured in a log is
+  authored into its record before the plan cites it, and the log names the
+  record (the extraction plan's "this log is the durable home" sentence
+  re-pointed at ADR-227, #961, 2026-09-03 — a recurrence despite the home,
+  filed on the doctrine-traction lane).
 
 ## Readiness and Review
 
