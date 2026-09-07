@@ -22,6 +22,11 @@
  * MCP-687. The raw header value never leaves this process (ADR-218,
  * 2026-09-07 amendment).
  *
+ * The product is chosen by the same bounded selection that derives
+ * `oak_client_product`, so the two properties describe the same header value
+ * by construction; version and surface are then read from that selected
+ * value only.
+ *
  * The version is the only place client-supplied bytes reach the value, and it
  * is bounded to at most a hundred distinct values by construction: a longer
  * digit run (a numeric installation id, say) omits the version rather than
@@ -29,10 +34,11 @@
  */
 
 import {
-  asciiLower,
-  CLIENT_PRODUCT_TOKEN_RULES,
-  hasLeadingProductToken,
-} from './client-categories.js';
+  findLeadingProductRule,
+  normaliseClientHeaderValue,
+  selectLeadingProduct,
+  type ClientProductRule,
+} from './client-product-selection.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
 // The vendor's own vocabulary for the surface, taken from the labelling rule
@@ -41,13 +47,6 @@ import type { ClientIdentityHeaders } from './event-policy-contract.js';
 // member is a fixed string re-emitted from this list and never a forwarded byte.
 const CLIENT_BUILD_SURFACE_TOKENS = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
 type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
-// Bounds every read of the value, trimming included, so the cost is independent
-// of an attacker-controlled header length; the product token is anchored at
-// index 0 regardless. The product axis scans a shorter window (the longest
-// token plus one) because it needs only the leading token; the two derivations
-// still agree on which header value wins, because both anchor at index 0 with
-// the same table.
-const MAX_CLIENT_USER_AGENT_SCAN_LENGTH = 256;
 // At most two digits with no leading zero, and the run must END there, so the
 // slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
 // `/01.2` and `/8123456789012345` yield nothing.
@@ -71,16 +70,8 @@ function readClientBuildSurface(normalised: string): ClientBuildSurface | undefi
   return CLIENT_BUILD_SURFACE_TOKENS.find((candidate) => candidate === segment);
 }
 
-function readClientUserAgent(value: string): string | undefined {
-  // Slice BEFORE trimming: a trim over the whole value would scale with the
-  // raw header length and make the bound above a claim rather than a fact.
-  const normalised = asciiLower(value.slice(0, MAX_CLIENT_USER_AGENT_SCAN_LENGTH).trim());
-  const rule = CLIENT_PRODUCT_TOKEN_RULES.find(([token]) =>
-    hasLeadingProductToken(normalised, token),
-  );
-  if (rule === undefined) {
-    return undefined;
-  }
+/** Rebuilds the value from the selected rule and the normalised header it matched. */
+function rebuildClientUserAgent(rule: ClientProductRule, normalised: string): string {
   const [token, , spelling] = rule;
   const version = readClientMajorVersion(normalised.slice(token.length));
   // PostHog reads the product as everything before the first `/`, so without a
@@ -93,31 +84,25 @@ function readClientUserAgent(value: string): string | undefined {
   return `${spelling}${versionPart}${surfacePart}`;
 }
 
+function readClientUserAgent(value: string): string | undefined {
+  const normalised = normaliseClientHeaderValue(value);
+  const rule = findLeadingProductRule(normalised);
+  return rule === undefined ? undefined : rebuildClientUserAgent(rule, normalised);
+}
+
 /**
  * Rebuilds the user-agent value PostHog's harness column reads, from closed
- * pieces only. The first header value that names a known product decides it, the
- * same rule `normaliseOakClientProduct` applies, so the two properties always
- * describe the same header.
+ * pieces only, out of the same header value `normaliseOakClientProduct`
+ * selects.
  *
  * @returns The rebuilt value, or `undefined` when no value names a known
  * product, in which case the property is omitted and the column reads "other".
  */
 export function normaliseOakClientUserAgent(headers: ClientIdentityHeaders): string | undefined {
-  if (!headers.readable) {
-    return undefined;
-  }
-  for (const value of headers.values) {
-    // A type check only: an emptiness test would trim the whole untrusted value
-    // and defeat the scan bound, and an all-space value parses to nothing anyway.
-    if (typeof value !== 'string') {
-      continue;
-    }
-    const userAgent = readClientUserAgent(value);
-    if (userAgent !== undefined) {
-      return userAgent;
-    }
-  }
-  return undefined;
+  const selected = selectLeadingProduct(headers);
+  return selected === undefined
+    ? undefined
+    : rebuildClientUserAgent(selected.rule, selected.normalised);
 }
 
 /**

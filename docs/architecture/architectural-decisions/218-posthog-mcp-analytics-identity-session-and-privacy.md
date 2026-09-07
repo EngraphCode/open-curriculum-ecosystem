@@ -734,7 +734,8 @@ property, not the event.
 
 **What this adds to the envelope.** Two facts beyond `oak_client_product`:
 the client software's major version, and a build surface finer than
-`oak_client_surface` (which folds `claude-desktop` and `sdk-ts` into `cli`).
+`oak_client_surface` (which reads `claude-desktop` as `cli` and `sdk-ts` as
+`sdk`, and cannot tell the VS Code extension from any other `vscode` token).
 Both are properties of the calling software, never of the teacher; both are
 unverified self-declarations under the 2026-08-13 amendment's standing
 constraints and must never gate anything. The guarantee given up is "no

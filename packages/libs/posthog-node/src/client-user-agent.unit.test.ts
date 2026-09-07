@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { CLIENT_PRODUCT_TOKEN_RULES, normaliseOakClientProduct } from './client-categories.js';
+import { normaliseOakClientProduct } from './client-categories.js';
+import { CLIENT_PRODUCT_TOKEN_RULES } from './client-product-selection.js';
 import { isOakClientUserAgent, normaliseOakClientUserAgent } from './client-user-agent.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
@@ -157,6 +158,29 @@ describe('normaliseOakClientUserAgent', () => {
 
     expect(normaliseOakClientUserAgent(headers)).toBe('claude-code/2 (cli)');
     expect(normaliseOakClientProduct(headers)).toBe('claude_code');
+  });
+
+  // Both properties derive from ONE bounded selection, so they cannot disagree
+  // about which header value, or which product, an event carries — whatever the
+  // padding, and whichever value a second product hides behind.
+  it.each([
+    [
+      'padding inside the scan window',
+      `${' '.repeat(40)}claude-code/2.1.226 (cli)`,
+      'claude_code',
+      'claude-code/2 (cli)',
+    ],
+    [
+      'padding beyond the scan window, so the next value wins for both',
+      `${' '.repeat(300)}claude-code/2.1.226 (cli)`,
+      'codex',
+      'codex-mcp-client/0',
+    ],
+  ])('agrees with the product axis on %s', (_label, header, expectedProduct, expectedUserAgent) => {
+    const headers = readable(header, 'codex-mcp-client/0.147.0');
+
+    expect(normaliseOakClientProduct(headers)).toBe(expectedProduct);
+    expect(normaliseOakClientUserAgent(headers)).toBe(expectedUserAgent);
   });
 
   it('never carries more bytes than the closed grammar allows', () => {
