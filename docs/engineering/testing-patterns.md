@@ -91,9 +91,12 @@ Compliant tests to use as templates:
 
 ## Untestable Code Is a Product-Code DI Defect
 
-When adding tests to existing green code would make them audit-shaped, or a
-test seems to need real IO, the untestability is itself the defect — in both
-shapes the product code lacks a dependency-injection seam (ADR-078):
+When adding tests to existing green code would make them audit-shaped, check
+whether the untestability is itself the defect: a test that is merely
+audit-shaped is deleted or rewritten (`tdd-as-design` §Describe vs. Audit),
+while a seam testable only through prohibited mechanisms, or a test that seems
+to need real IO, IS the defect. In both of those shapes the product code lacks
+a dependency-injection seam (ADR-078):
 
 - **A seam testable only through prohibited mechanisms** (ambient env import,
   a module-level singleton reachable only via `vi.mock`, a non-injectable
