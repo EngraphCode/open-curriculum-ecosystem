@@ -10,9 +10,9 @@ import { SDK_CODEGEN_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-co
 import { SDK_GUIDANCE_RESOURCES_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-guidance-resources.js';
 import { SDK_GENERATED_REGISTRY_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-registry.js';
 import { SDK_GENERATED_RUNTIME_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-runtime.js';
+import { SDK_TOOL_GUIDANCE_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-tool-guidance.js';
 import { SDK_GENERATED_STUBS_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-stubs.js';
 import { SDK_GENERATED_TOOLS_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-tools.js';
-import { SDK_TOOL_GUIDANCE_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-tool-guidance.js';
 import type { CurrentSourceDeltaReview } from './current-source-delta-review-helpers.js';
 
 export type { CurrentSourceDeltaReview } from './current-source-delta-review-helpers.js';

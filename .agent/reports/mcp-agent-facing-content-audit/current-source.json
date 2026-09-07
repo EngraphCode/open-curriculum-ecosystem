@@ -25,11 +25,11 @@
     "itemCount": 728,
     "baselineItemCount": 717,
     "additionCount": 11,
-    "availableCount": 676,
-    "retiredCount": 52,
-    "unchangedCount": 479,
+    "availableCount": 675,
+    "retiredCount": 53,
+    "unchangedCount": 473,
     "expandedCount": 0,
-    "modifiedCount": 117,
+    "modifiedCount": 122,
     "relocatedCount": 68,
     "addedCount": 12,
     "workspaceScopeInCount": 612,
@@ -506,7 +506,7 @@
         "evidence": {
           "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -1031,7 +1031,7 @@
         "evidence": {
           "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 2
+          "anchorCount": 4
         }
       },
       "lineage": {
@@ -5905,7 +5905,7 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -5926,9 +5926,9 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -5963,18 +5963,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
       },
       "registrations": []
@@ -5989,7 +5982,7 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -6010,9 +6003,9 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 2
+          "anchorCount": 1
         }
       },
       "lineage": {
@@ -6054,7 +6047,7 @@
         "evidence": {
           "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 2
+          "anchorCount": 3
         }
       },
       "lineage": {
@@ -6829,9 +6822,9 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
