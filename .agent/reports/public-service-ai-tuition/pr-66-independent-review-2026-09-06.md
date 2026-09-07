@@ -167,8 +167,9 @@ Both reviews and both bot reviewers converged on an OCE-authored sibling inside 
 directory, pointed at from the research index row. Applied in PR 66:
 `.agent/research/public-service-ai-tuition/AUTHORITY.md` states what placement confers, points
 at both dated reviews and the R4 successor, records the F9 reading route, carries the owner's
-three rulings (one still open), and tables every delta from the imported bytes with the imported
-blob ids; the research index row links it and both reviews.
+three rulings (all ruled by 2026-09-07 13:2xZ; the second pass added four pointers), and tables
+every delta from the imported bytes with the imported blob ids; the research index row links it
+and both reviews.
 
 ## Reproduced from the PR body and the published review
 
@@ -260,15 +261,17 @@ Profile by frame (support type, then the seat's confidence and what would move i
   accept, two partial, none refuted) and seven defect statements checked at the tip. The seat's
   own posted findings carry one withdrawal in eight (the former-name links), which is the measured
   error rate of this review and the reason every liveness claim now needs a probe.
-- **F3 authority**: interpretive. The four "settled" assertions and the architecture's status are
-  owner facts and stay pending until the packet returns.
+- **F3 authority**: interpretive at the first pass; ruled 2026-09-07 ~13:2xZ — the "settled"
+  assertions are proposals, not ratified (PR 66 comment 5571197335), and the architecture's
+  status follows (R1: the source's recommended design). Closed.
 - **F4 strategic fit**: not measured beyond chapter 13's stated authority conditions; the
   programme is returned as decisions with factors, by the owner-approved altitude.
 - **F5 reader**: mechanism-level, corroborated from outside. Two reviewers of a different lineage
   (Copilot, Codex) independently flagged the index row's missing pointer, the one convergence in
   this review that does not share the seat's model family.
-- **F6 harm and publication**: unverified by construction. The nine repositories' visibility is an
-  owner fact; the fork's own record (`parent: null`) settles nothing.
+- **F6 harm and publication**: unverified by construction at the first pass; ruled 2026-09-07
+  ~12:24Z — all nine repositories public (PR 66 comment 5570600664), every permalink stays live.
+  Closed.
 
 Conflict ledger (each row names the resolution and the surface it lives on):
 
@@ -282,10 +285,12 @@ Conflict ledger (each row names the resolution and the surface it lives on):
 | The two scale-type cards' re-check-owner ask vs the frozen witness | the cure lives outside the bytes (an OCE-side record with an owner and a trigger), or it is not proposed |
 | The seat's F3 (executable content meets gates) vs eleven existing `.sh` and `.py` files under the surface | precedent is not approval; the class ruling is the owner's (packet item 1) |
 
-Status (Parallax §5): **provisional**. The fidelity findings are validated; the authority and
-publication findings wait on three owner facts; the mapping is complete; the audit of this draft
-is same-context self-review (`execution_context.mode: emulated-reduced`) and does not count as
-independent assurance.
+Status (Parallax §5): **validated for its declared scope** as of 2026-09-07 13:2xZ. The fidelity
+findings are validated; the three owner facts are ruled (runner, visibility, settled directions)
+and applied; the mapping is complete; the audit of this draft was same-context self-review
+(`execution_context.mode: emulated-reduced`) and does not count as independent assurance. The
+first pass was provisional until the packet returned; the second pass below reviews the
+collection's substance under the returned rulings.
 
 ## Decisions named for the owner, with factors (one packet, raised by the Director)
 
@@ -295,8 +300,12 @@ independent assurance.
    conformance; the precedent converted; eleven existing hand-authored files under the surface.
 2. **The nine repositories' visibility** (F1). Ruled 2026-09-07: nine read-only reads permitted,
    run once by the Director; all nine PUBLIC (PR 66 comment 5570600664); the permalinks stay live.
-3. **The settled-direction word** (F5). Factors: four flat assertions; chapter 12's own grade; the
-   two verbatim owner quotations the collection does carry (RC-01, RC-02).
+3. **The settled-direction word** (F5). Ruled 2026-09-07 ~13:2xZ on the Director's card: "No,
+   they are proposals" (PR 66 comment 5571197335) — nothing in the collection is ratified by its
+   own README; every direction is tested against the estate's ratified structure. The factors
+   that were carried: four flat assertions; chapter 12's own grade; the two verbatim owner
+   quotations the collection does carry (RC-01, RC-02). Applied in the second pass (S1) and in
+   `AUTHORITY.md`.
 4. **Whether chapter 13's programme receives a plan node, and under which parent** (the second
    gate on the lane node). Factors: the collection refuses a parent by placement; no pedagogy or
    tuition node exists in this tree; the Engraph product direction lives in its own repository.

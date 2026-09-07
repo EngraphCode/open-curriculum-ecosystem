@@ -14,9 +14,21 @@ factors. Single-PR thread; retires with a banner when the lane PR merges.
 
 ## Current Continuation
 
+**Current state (2026-09-07 ~14:0xZ; the authoritative block is RESUME 4 at the foot of this
+record — read it before anything below):** the lane's records live on PR 66's branch
+(`docs/public-service-ai-tuition-2026-09-06`, the owner's PR), pushed as the bot. Both passes are
+done: the import-and-warrant review (Jackal, reviews 5126608127 and 5126692305) and the substance
+review (Cricket, reviews 5132463698 and 5132534231). All three owner facts are ruled and applied.
+What remains: PR 66's landing and its PDR-140 intake declaration (the owner's); the node's
+remaining gate (a plan node and parent for the chapter-13 programme, the Director's to carry);
+answering any further review round on the lane's own files; the retirement banner when PR 66
+merges. No audit, report drafting, review posting or lane PR is outstanding — the bullets below
+are the first seat's pickup state at 2026-09-06, kept for history.
+
 - **Branch**: `review/pr66-tuition-collection`, cut from `origin/engraph` at SHA:341477368 in the
   sibling worktree `oak-open-curriculum-ecosystem-worktrees/review-pr66` (bot identity inherited,
-  no worktree-scoped override; installed and built).
+  no worktree-scoped override; installed and built). Since RESUME 3 the branch tracks PR 66's
+  head; the worktree stays for the successor.
 - **Invocation pointer**: the owner's verbatim ask in the seat's own session (2026-09-06 ~19:3xZ):
   "please carry out a deep review of PR 66 /oak-parallax use all relevant cognitive and planning
   skills ultrathink /oak-plan"; later owner words to this seat: "refer permissions requests to the
@@ -28,11 +40,9 @@ factors. Single-PR thread; retires with a banner when the lane PR merges.
   [`public-service-ai-tuition-review.plan.md`](../../../plans/delivery/public-service-ai-tuition-review.plan.md)
   (born sketch, authored at pickup). The machine-local session plan (revision 2, fleet-design
   review verdicts attached) is the seat's working copy; the node is its repo twin.
-- **Next safe step**: absorb the frame gate and the R1–R7 audit (workflow `wf_b8818d51`), run the
-  seat-inline tip checks, draft the report under
-  `.agent/reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06*`, run the audit
-  leg and critic, run the full Cricket panel, post the one typed review on PR 66, open the lane
-  PR as draft, then non-terminal wrap.
+- **Next safe step (superseded — see RESUME 4)**: at pickup this read "absorb the frame gate and
+  the R1–R7 audit, run the tip checks, draft the report, post the review, open the lane PR"; every
+  item is done and the lane PR shape was overturned by the owner (records on PR 66's branch).
 - **Completed prerequisites**: foundation complete; team-start broadcast (event `f827086f`);
   claim `60d6d916` open with role implementer; watcher and two-leg heartbeat live from the
   primary; Director ACK with no redirect (event `a3e500e2`); permission ask ruled (Oak reads not
