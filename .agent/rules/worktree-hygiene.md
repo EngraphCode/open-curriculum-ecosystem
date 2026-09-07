@@ -212,7 +212,13 @@ is governed by [`worktree-residency`](worktree-residency.md) (owner directive
 statusline both come from the build). From a worktree, collaboration-state commands need
 the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claims
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
-lands worktree-local.
+lands worktree-local. Switching branches with dirty doctrine files carries a broken
+validator state into the next branch's hook run (two failed ceremonies of about eight
+minutes each, 2026-09-06): commit or leave a dirty file before switching, never carry it;
+an untracked file parks in the session scratchpad and the index is regenerated. Per-seat
+stderr sinks and scratch output live in the session scratchpad, never under
+`.agent/state/collaboration/` (the coordination home holds durable cross-agent
+artefacts only; 2026-09-06).
 
 Repurposing an idle provisioned worktree beats re-provisioning: a merged-PR
 worktree switches to a new branch in seconds at zero install cost. Two
