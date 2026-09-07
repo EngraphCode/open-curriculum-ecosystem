@@ -2519,6 +2519,12 @@ below is a cross-reference index, not a second source of truth.
   exactly `index/head`; a claim opened with `--area-pattern "git:index/head"` (the label the
   commit skill's prose uses throughout) fails with "is not an active git:index/head claim" —
   the error repeats the very label that caused the mismatch.
+- **Second facet (2026-08-03 on the primary; 2026-09-07 in a worktree)**: the guard also
+  refuses an intent enqueued under a files/lane claim, or under a window claim scoped
+  `index/head@<worktree>`, with the same message, because it requires an ACTIVE claim on
+  the bare `git:index/head` label OWNED by the enqueuer; on the shared primary the working
+  flow is request the window, `claims adopt` at the grant, then enqueue. Under the owner's
+  2026-09-07 ruling worktree lanes do not use the queue at all (F-169).
 - **Expected**: either the guard accepts the composed `git:index/head` spelling, or
   `claims open` normalises it, or the error names the cure ("open the claim with
   --area-kind git --area-pattern index/head").
@@ -3962,3 +3968,107 @@ commit SHA and the closing plan reference.
   declared resume horizon, or until the seat closes it.
 - **Route**: agent-tools backlog (collaboration-state: claims + peer-liveness),
   beside F-170.
+
+### F-174 — `assert-watcher-live` keys on the display name alone
+
+- **Observed**: 2026-09-02 (Kiln holds Slag, 1447f4; verified in
+  `cli-comms-assert-watcher-live.ts`: `codename = self.agent_name`, platform
+  and model never compared). A watcher armed as `claude / claude-fable-5`
+  against a registry row of `claude-code / claude-fable-5-1` asserted green;
+  the first `comms send` under the shorter tuple was refused. The F-95 gate
+  accepted a lookalike key.
+- **Expected**: the move-1 assert checks the full identity tuple against the
+  registry row; an arm whose platform/model has no row is refused.
+- **Route**: agent-tooling backlog (collaboration-state), beside F-95; the
+  watcher rule's arm template derives arm and assert from one
+  `identity preflight` read.
+
+### F-175 — content-audit review modules can pin one path twice; the last spread wins silently
+
+- **Observed**: 2026-09-02 ~18:4xZ (the pagination-echo lane's second
+  catch-up merge). After the merge two review modules pinned
+  `mcp-tools/runtime/execute.ts` with different hashes;
+  `CURRENT_SOURCE_DELTA_REVIEWS` spreads the modules in order, so the later
+  pin won, the earlier was dead code and the validator stayed green. Cured
+  by one owner per path (the generated-runtime module).
+- **Expected**: the aggregator refuses a path pinned in more than one
+  module, as the truth-set builder's `requireNoDuplicates` refuses
+  duplicate ids.
+- **Route**: agent-tooling backlog (content-audit); until then a merge that
+  touches two review modules greps the pinned paths for duplicates before
+  trusting a green validator.
+
+### F-176 — workflow fan-outs launch without a per-stage budget or a pilot measurement
+
+- **Observed**: 2026-09-03 (the wrap workflow's dedupe barrier over 160 raw
+  learnings was still generating after fourteen minutes and would have fed
+  about 300 verification agents; the lead stopped the run and synthesised by
+  hand, so the verify and synthesis stages never ran). 2026-09-06/07 (Juno
+  seeks Apogee, a693fb): two mapping fleets of 110 planned legs spent about
+  8.1M tokens at 82k–171k per leg, with a verify phase of 41 legs returning
+  one result; the fleet-design rule's design-review threshold bound nothing
+  at launch.
+- **Expected**: a launch carries a pilot-measured per-leg cost times N and a
+  stage budget the script enforces (the workflow API's `budget`); a stage
+  whose fan-out depends on an earlier stage's output caps that output
+  before it fans out.
+- **Route**: the fleet-design rule (cost model, pilot as step 0, yield
+  sample; the 2026-09-07 napkin block carries the full defect list); the
+  wrap skill's workflow template carries a stage budget.
+
+### F-177 — pr-lifecycle's in-loop step-back did not fire on a prose-class PR; corrected out of band
+
+- **Observed**: 2026-09-03 (PR #50, a prose-class report): eleven review
+  rounds, 28 findings each cured in its own push with a fresh monitor; the
+  shepherd's own round-four step-back comment did not stop the curing; the
+  owner's manual invocation of the pr-lifecycle, proportionality and
+  metacognition skills did. Filed under PDR-140 clause 8: an out-of-band
+  cognitive-skill invocation correcting a running PR loop is a defect
+  against pr-lifecycle.
+- **Expected**: the tally built at PR-open reads step-back-mandatory at the
+  fourth settled round and the settlement budget refuses a fifth cure push.
+- **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
+  4), under the skills claim.
+
+### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
+
+- **Observed**: 2026-09-06 (Flounder turns Estuary, c5cc2c; the standing
+  prune under worktree-hygiene §6). Seventy-eight merged local branches
+  deleted with plain `-d`; two merged into HEAD refused —
+  `sync/upstream-2026-09-02` on its upstream (git's `-d` test is merge into
+  the configured upstream, HEAD only when none is set) and `heads/pr834head`
+  on its name (message unrecorded).
+- **Expected**: the rule's proof (ancestor of the freshly fetched base)
+  deletes the branch.
+- **Route**: worktree-hygiene §6 prune paragraph — after the ancestry
+  proof, `git branch --unset-upstream <branch>` then `-d`; the name case
+  recorded verbatim at the next prune; never `-D`.
+
+### F-179 — sub-agent reports truncate in transit when the return payload is large
+
+- **Observed**: 2026-09-06 ~13:4xZ (Juno seeks Apogee, a693fb; three Sonnet
+  extractors over ~58k-byte comms windows): one report arrived whole, two
+  arrived cut in the tool result with no marker separating a short report
+  from a truncated one.
+- **Expected**: a report arrives whole or fails loudly.
+- **Route**: dispatch briefs name a scratchpad file as the deliverable and
+  return its path; the dispatcher reads the file and spot-reads every kept
+  leaf against the source (the owner's method word, 2026-09-06: write
+  intermediate findings to disk).
+
+### F-180 — the heartbeat cannot tell "alive and turning" from "alive but stalled": absorption-dark seats read green
+
+- **Observed**: 2026-09-06 (Finch binds Sundog 17:25–19:23Z and
+  19:53–20:40Z; Juno seeks Apogee 20:13–20:39Z) and 2026-09-07 (Juno: a
+  Director directed event of 12:37Z read at 16:1xZ). Heartbeat fresh, cycle
+  label unchanged, no event: the seat's background-shell watcher wrote the
+  events to a file and no harness turn ran. The Director's detector
+  (heartbeat-fresh, cycle-unchanged, no-event) found each case by hand.
+- **Expected**: the heartbeat carries the seat's last TURN time, written by
+  the turn and not by the loop, so "emit fresh, turn old" reads on the
+  stream within one cadence; the watcher runs in the Monitor shape that
+  wakes the seat per event (the use-monitor rule), never as a background
+  shell.
+- **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
+  F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
+  watcher rule names the background-shell watcher as the anti-pattern.

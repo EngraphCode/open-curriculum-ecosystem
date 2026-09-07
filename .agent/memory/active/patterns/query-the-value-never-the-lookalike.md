@@ -81,6 +81,13 @@ on arrives fluently as *the* contract.
 **9. A grep hit standing in for a consumer.** A text match proves presence, never
 participation; the engaged code path has to be settled separately.
 
+**10. A liveness verdict from a name mismatch.** Thirty-one links to a fork's
+former repository name were typed "dead by construction" without a request
+(2026-09-06, the PR 66 review); GitHub redirects the former name, so every one
+resolved, and the verdict was retracted on the PR. A "dead link" verdict needs
+one request against the URL (or the API's redirect-following read); a name
+mismatch alone is an observation.
+
 ## The cure
 
 > **Derive the value from the thing that OWNS it, at the moment of use.**
