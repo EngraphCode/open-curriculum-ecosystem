@@ -34,7 +34,7 @@ recompute live state from claims/comms/git at pickup.
 | Sycamore herds Xylem | claude-code | claude-fable-5 | `028dc4` | design-showcase lane by deliberate succession from Thyme (~06:20Z); lane paused at a durable point 09:55Z | 2026-07-30 | 2026-07-30 |
 | Saffron guards Hedgerow | claude-code | claude-fable-5 | `8a4280` | design-lane seat before Civet: merged post-#782 main into the #729 branch; froze the lane to handoff record `645b9e0b` at the succession | 2026-08-05 | 2026-08-07 |
 | Swordfish wakes Trench | claude | Opus 5 | `d0274e` | design-lane successor to Civet: plan outline, σ-calibration slice design, S2b, W1 fleet, cure arc; owner-called close 2026-08-13 | 2026-08-10 | 2026-08-13 |
-| Skua binds Leeward | unrecorded | unrecorded | `e2b222` | compaction and wind-down seat; merge drive live mid-freeze; claim `645b9e0b` retained stopped-seat-held | 2026-08-13 | 2026-08-13 |
+| Skua binds Leeward | unrecorded | unrecorded | `e2b222` | compaction and wind-down seat; merge drive live mid-freeze; claim `645b9e0b` retained stopped-seat-held | 2026-08-13 | 2026-08-14 |
 
 _Re-shaped to the PDR-027 columns at the 2026-09-07 consolidation (Director ruling 1920a22f). For the
 original rows, first_session is the row's own date (Thyme's is the 2026-07-29 adoption the row names) and
@@ -44,8 +44,8 @@ from the standby registration under §COMPACTION FREEZE 7 (2026-08-10T06:55Z) an
 Altair's and Sycamore's from claim `ebb3efe2`'s registry history (opened 2026-07-29T14:41Z, adopted by Thyme
 that evening and by Sycamore on 2026-07-30) and Sycamore's closed claims of 2026-07-30; Saffron's from the
 closed claim of 2026-08-05T15:03Z and the 2026-08-07 succession record `645b9e0b-design-lane-saffron-to-civet`;
-Skua's from §COMPACTION FREEZE + WIND-DOWN STATE (2026-08-13) and the wind-down record `645b9e0b-design-lane-
-winddown-2026-08-13`. `unrecorded` marks a value no source names._
+Skua's from §COMPACTION FREEZE + WIND-DOWN STATE (2026-08-13), the 2026-08-14 landing and wrap-addenda
+subsections that close the seat, and the wind-down record `645b9e0b-design-lane-winddown-2026-08-13`. `unrecorded` marks a value no source names._
 
 ## Board state at writing (recompute, do not trust)
 

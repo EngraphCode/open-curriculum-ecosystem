@@ -3083,7 +3083,11 @@ commit SHA and the closing plan reference.
   CLI-ergonomics plan (`agent-tools-cli-ergonomics.plan.md`) — this friction is that
   plan's highest-priority item by owner direction.
 - **Target surface**: `agent-tools/src/collaboration-state/` (inbox command).
-- **Status**: open — OWNER PRIORITY.
+- **Status**: open — OWNER PRIORITY. Second instance 2026-09-03 (Buzzard lifts
+  Eyrie, 326bcb, relayed at a boundary): the post-arm gap sweep had to read the
+  whole inbox or rely on the seen-file cursor; the ask now includes
+  `comms list --since` parity (folded here from a duplicate entry at the
+  2026-09-06 consolidation).
 - **Owner direction status**: owner-directed 2026-07-08.
 
 ### F-136 — practice-core CONTENT has no portability scanner (`portability:check` covers adapters only)
@@ -3903,8 +3907,19 @@ commit SHA and the closing plan reference.
   even when its files are disjoint and it was enqueued from another
   worktree, so parallel lanes commit in sequence and publish in parallel.
 - **Expected**: the guard scopes contention to the invoking tree (F-132's
-  same-tree reading) or to overlapping files.
-- **Route**: agent-tooling backlog (commit-queue), beside F-132.
+  same-tree reading) or to overlapping files; the commit skill states the
+  same-tree reading as the design intent on the queued and merge paths.
+- **Route**: SUPERSEDED by scope, 2026-09-07 — the owner's ruling (~12:24Z,
+  relayed by the Director in 4c19ff3c and 1fd65378): the queue exists to stop
+  git operations colliding in the shared primary and is not used for work in
+  separate worktrees, which commit by plain pathspec with an audit line; the
+  cross-worktree ordering this row observed is therefore never exercised. The
+  guard's estate-wide freshness key remains the shared primary's contract; the
+  Director's decision-matrix finding on it (2026-09-06, 81234225: coarser than
+  the per-tree invariant; cure a claim-scope-keyed guard, owner-gated on the
+  2026-08-17 'legacy-use' word) stands there. The separate host bound (two, at
+  most three, simultaneous full local gates, engineered as a semaphore) is its
+  own lane. The commit skill true-up carries F-132/F-139/F-169 as superseded.
 
 ### F-170 — the liveness heartbeat loop has no consumer-absence exit
 
@@ -3925,16 +3940,6 @@ commit SHA and the closing plan reference.
   exemption's own text.
 - **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
   exemption already names the condition.
-
-### F-171 — `comms inbox` has no `--since` flag
-
-- **Observed**: 2026-09-03 (Buzzard lifts Eyrie, 326bcb), relayed at the
-  boundary. The post-arm foreground gap sweep has to read the whole inbox or
-  rely on the seen-file cursor; a `--since <iso>` would make the sweep from
-  a freeze timestamp one call.
-- **Expected**: `comms inbox --since <iso>` (and `comms list --since`
-  parity).
-- **Route**: agent-tooling backlog (comms CLI).
 
 ### F-172 — a failed pre-commit step leaves a fresh intent that blocks the next enqueue
 

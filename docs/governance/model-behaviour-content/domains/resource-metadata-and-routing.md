@@ -98,7 +98,7 @@ mimeType: 'text/markdown'
 
 annotations: { priority: 0.4, audience: ['assistant'] }
 
-lastModified: '2026-07-23T00:00:00Z'
+lastModified: '2026-09-02T00:00:00Z'
 ```
 
 **What it is for:** Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads.
@@ -123,7 +123,7 @@ mimeType: 'text/markdown'
 
 annotations: { priority: 0.4, audience: ['assistant'] }
 
-lastModified: '2026-07-23T00:00:00Z'
+lastModified: '2026-09-02T00:00:00Z'
 
 provenance:
       'Derived from the oak-curriculum-mapper skill (oaknational/oak-skills); keep the two in step.'
@@ -151,7 +151,7 @@ mimeType: 'text/markdown'
 
 annotations: { priority: 0.4, audience: ['assistant'] }
 
-lastModified: '2026-07-23T00:00:00Z'
+lastModified: '2026-09-02T00:00:00Z'
 ```
 
 **What it is for:** Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads.
