@@ -54,7 +54,7 @@ project is being chosen.
   identically on the control preview and was already MCP-626/630/653,
   two weeks old (2026-09-02).
 - **The Engraph fork never uses Linear** (owner ruling 2026-09-06, verbatim: "The Engraph
-  fork does NOT use Linear, ever"). Every clause above governs the Oak line's `oaknational`
+  fork does NOT use Linear, ever, is that clear?"). Every clause above governs the Oak line's `oaknational`
   workspace. On the `EngraphCode` fork no ticket is minted, moved or pointed at; a lane's
   record is the repository alone — its plan node, its pull request and the thread record —
   and the ticket-first lane opening does not apply there. A connector's presence, or the

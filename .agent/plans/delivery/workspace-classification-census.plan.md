@@ -213,6 +213,12 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-09-07 — admission mechanics of a top-level tier homed here from ADR-041 (measured
+  2026-09-06 on a refuted fork-only tier).** Admission requires upstream-owned edits: the census root constant, two dependency-cruiser
+  regexes, the workspace list and a row in ADR-041. A two-level workspace glob is invisible to
+  the single-level isolation validator; the census vocabulary has no class for a fork-owned
+  subject; `depcruise <root>` fails loudly, not silently, on a missing root. Means, not decision: the ADR keeps
+  one consequence sentence pointing here (the Director's read of PR #74).
 - **2026-08-30 — retired runnable research workspace reflected; subject set 45→43.** Owner
   direction moved the web-app-deconstruction's retained analysis/examples into the canonical
   `.agent/research/` tier and retired its accidental top-level runnable harness. The mechanical
