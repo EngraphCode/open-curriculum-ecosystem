@@ -511,7 +511,7 @@ Sources: [ADR-173](https://github.com/EngraphCode/open-curriculum-ecosystem/blob
 
 ## 12. Precise non-graph handoff, reconciled with PR 70
 
-PR 70 is an initial research coordination point, not a graph decision. Its current note surveys native facilities and candidate specialised collections; those leads remain untested adoption proposals. Graph findings should enter later as explicit requirements/evidence or a separate graph research artefact, without changing the narrowed PR’s purpose. No PR changes or messages were made.
+[PR 70](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/70) carries the [companion research into general data structures and algorithms](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/c5972c61d96f0c2687db5af024936ac83e7b680c/.agent/research/typescript-data-structures-and-algorithms-2026-09-07.md). It investigates useful atoms and foundational building blocks for graph and non-graph consumers. The handoff below contributes graph-specific contracts and investigation questions to that broader inquiry; findings about general foundations in turn inform graph design and dependency choices. PR 70's survey leads remain untested adoption proposals. The research efforts inform each other while package boundaries and implementation choices remain open. The document link preserves the inspected survey snapshot; the PR carries subsequent updates.
 
 | Adjacent primitive | Graph contract it must support | Native baseline and dedicated investigation question |
 |---|---|---|

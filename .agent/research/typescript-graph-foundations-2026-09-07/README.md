@@ -13,6 +13,22 @@ migration-convenience preference.
 | [Probe source bundle](typescript-graph-foundations-probes-2026-09-07.json) | Eighteen UTF-8 source files with SHA-256 hashes, including pinned manifests and lockfiles. |
 | [Recorded evidence](typescript-graph-foundations-evidence-2026-09-07.json) | Raw observations, timings, compiler diagnostics, source hashes and method limitations. |
 
+## Related general foundations
+
+[PR 70](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/70) carries
+the [general data-structure and algorithm survey](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/c5972c61d96f0c2687db5af024936ac83e7b680c/.agent/research/typescript-data-structures-and-algorithms-2026-09-07.md):
+research into useful atoms and foundational building blocks for graph and
+non-graph consumers, including native collections, sorting, search, selection,
+queues, heaps, ordered containers, caches, disjoint sets and persistence.
+
+The [report's non-graph handoff](typescript-graph-foundations-report-2026-09-07.md#12-precise-non-graph-handoff-reconciled-with-pr-70)
+contributes graph-specific requirements for those general foundations, including
+equality, ordering, ownership, snapshots and resource bounds. General-foundation
+findings in turn inform graph design and dependency choices. The two research
+efforts inform each other; package boundaries and adoption decisions remain open.
+The document link preserves the inspected survey snapshot; PR 70 carries its
+subsequent updates and the link back to this research.
+
 ## Status and provenance
 
 Repository inclusion does not approve implementation, dependency, policy or ADR
@@ -37,6 +53,7 @@ has two editorial clarifications for repository inclusion: its authority line
 and the wording identifying RDF conformance as a recommendation. One evidence-table
 phrase uses "interfaces" in place of "APIs" to avoid a false positive in the
 repository's secret scanner; its meaning is unchanged.
+Section 12 now provides navigation to the companion research in PR 70.
 
 ## Reproduction
 
