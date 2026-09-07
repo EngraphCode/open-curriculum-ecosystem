@@ -665,3 +665,51 @@ breakdown is not comparable to a tool-call one.
 Decided by the Director seat under the five Decision Lenses (two independent
 converging runs), 2026-08-13, on the MCP-594 investigation. The event-contract
 surface obligation is MCP-364's.
+
+## Amendment: a rebuilt `$mcp_client_user_agent` so PostHog's harness column resolves (2026-09-07)
+
+The 2026-08-13 amendment recorded that PostHog's built-in `harness` column
+"stays empty by decision". This amendment supersedes that sentence, and only
+that sentence. The reasoning behind it stands: the raw values PostHog resolves
+the column from — `$mcp_vendor_client`, `$mcp_client_user_agent`,
+`$mcp_client_name` — remain excluded under §3, because live `clientInfo.name`
+values carry per-installation identifiers and the other two are unbounded
+client-controlled strings.
+
+**What changes.** The three automatic events may now carry a
+`$mcp_client_user_agent` that is **rebuilt from closed pieces**, never the
+forwarded header:
+
+- the product token, in the spelling observed in live traffic, from the same
+  evidence-backed table that derives `oak_client_product` (`Claude-User`,
+  `claude-code`, `codex-mcp-client`);
+- an optional version of digits and dots only, length-bounded;
+- an optional bracketed build surface from a closed list (`cli`, `sdk-ts`,
+  `claude-vscode`, `claude-desktop`), which is what the PostHog events
+  reference names as the part of the user agent its column reads.
+
+A header that names no product omits the property, so the column resolves to
+"other" exactly as before. The final event policy re-validates every outbound
+value against the complete grammar and drops the property, not the event, on
+any mismatch. The rebuilt value therefore adds one low-cardinality fact to the
+envelope — the client software's version — beyond what `oak_client_product`
+already carried, and forwards no client-controlled byte. It is a property of the
+calling software, never of the teacher, and remains an unverified
+self-declaration under the 2026-08-13 amendment's standing constraints.
+
+**Why.** MCP-574 reads error rates off PostHog's built-in MCP dashboard, whose
+harness breakdown does not read `oak_client_product`. Every call therefore
+showed as "other" there, which was mistaken for an instrumentation defect and
+drew a recommendation to run the vendor's auto-instrumentation wizard — which
+would have shipped the very content §3 excludes. Populating the column from a
+closed reconstruction answers the dashboard without reopening §3.
+
+**What did NOT change.** `$mcp_client_name`, `$mcp_client_version` and
+`$mcp_vendor_client` stay excluded. `$mcp_resource_read` still carries no
+client attribution. Intent, arguments, responses, error text, and every other §3
+exclusion are untouched.
+
+Directed by Luke Arnold, 2026-09-07 (MCP-687); agent-authored. The PostHog
+resolution order is from the events reference read that day, and the column's
+exact label mapping is undocumented by the vendor, so the acceptance check is an
+observed breakdown in the live project after deploy.

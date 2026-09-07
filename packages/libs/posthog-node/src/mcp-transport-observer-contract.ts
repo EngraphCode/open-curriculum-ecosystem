@@ -7,6 +7,7 @@ import type {
 } from './event-policy-contract.js';
 
 interface PostHogMcpCaptureProperties extends UnknownProperties {
+  readonly $mcp_client_user_agent?: string;
   readonly $mcp_is_error?: false;
   readonly $mcp_listed_tool_names?: readonly string[];
   readonly $mcp_server_name: string;
@@ -44,9 +45,11 @@ interface PostHogMcpToolCallCapture extends PostHogMcpCommonCapture {
  * Narrow official-manual PostHog MCP capture surface used by the observer.
  *
  * @remarks The capture records intentionally omit session identifiers, request
- * parameters, response bodies, errors, client versions, person properties, and
- * groups. `PostHogMCP` satisfies this surface without exposing the vendor
- * client through the Oak runtime.
+ * parameters, response bodies, errors, raw client strings, person properties,
+ * and groups. The only client detail carried is the rebuilt
+ * `$mcp_client_user_agent` (MCP-687): a closed product spelling, a
+ * digits-and-dots version, and a closed build surface. `PostHogMCP` satisfies
+ * this surface without exposing the vendor client through the Oak runtime.
  */
 export interface PostHogMcpCaptureClient {
   captureInitialize(data: PostHogMcpInitializeCapture): void;

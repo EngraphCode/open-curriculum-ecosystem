@@ -90,6 +90,43 @@ describe('normaliseAutomaticProperties', () => {
   );
 
   it.each(AUTOMATIC_EVENT_SHAPES)(
+    'carries the rebuilt $mcp_client_user_agent on %s (MCP-687)',
+    (_label, event, base) => {
+      const normalised = normaliseAutomaticProperties(
+        event,
+        {
+          ...base,
+          oak_client_product: 'claude_code',
+          oak_client_surface: 'cli',
+          $mcp_client_user_agent: 'claude-code/2.1.226 (cli)',
+        },
+        SNAPSHOT,
+      );
+
+      expect(normalised).toHaveProperty('$mcp_client_user_agent', 'claude-code/2.1.226 (cli)');
+    },
+  );
+
+  it.each(AUTOMATIC_EVENT_SHAPES)(
+    'drops a $mcp_client_user_agent outside the rebuilt grammar from %s but keeps the event',
+    (_label, event, base) => {
+      const normalised = normaliseAutomaticProperties(
+        event,
+        {
+          ...base,
+          oak_client_product: 'claude_code',
+          oak_client_surface: 'cli',
+          $mcp_client_user_agent: 'claude-code/2.1.226 (cli) raw-host',
+        },
+        SNAPSHOT,
+      );
+
+      expect(normalised, 'the event survives; only the property is dropped').not.toBeNull();
+      expect(normalised).not.toHaveProperty('$mcp_client_user_agent');
+    },
+  );
+
+  it.each(AUTOMATIC_EVENT_SHAPES)(
     'carries the declared oak_client_surface category on %s',
     (_label, event, base) => {
       const normalised = normaliseAutomaticProperties(

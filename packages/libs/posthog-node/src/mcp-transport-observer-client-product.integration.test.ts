@@ -41,6 +41,8 @@ const OBSERVED_USER_AGENTS = {
   codex: 'codex-mcp-client/0.147.0-alpha.6.5',
   unidentifiable: 'python-httpx/0.28.1',
 } as const;
+/** Bytes a client may append that must never reach a capture record. */
+const RAW_UA_SUFFIX = 'raw-host-SENTINEL-9f31';
 
 const AUTH_EXTRA: MessageExtraInfo = {
   authInfo: {
@@ -267,18 +269,83 @@ describe('createPostHogMcpTransportObserver client product', () => {
     expect(unreadable.toolCallCaptures[0]?.properties.oak_client_product).toBe('unavailable');
   });
 
-  it('never ships the raw client header value alongside the category', () => {
+  // MCP-687: the rebuilt user agent carries the product spelling, a
+  // digits-and-dots version and a closed build surface, and nothing else from the
+  // header. The raw value, with whatever a client appended, never reaches a
+  // capture record or the wire.
+  it('ships the rebuilt user agent, never the raw client header value', () => {
     const subject = createSubject();
 
-    emitToolCall(subject, extraWithUserAgent(OBSERVED_USER_AGENTS.claudeCode));
+    emitToolCall(
+      subject,
+      extraWithUserAgent(`${OBSERVED_USER_AGENTS.claudeCode} ${RAW_UA_SUFFIX}`),
+    );
 
     const capture = subject.toolCallCaptures[0];
     expect(capture?.properties.oak_client_product).toBe('claude_code');
+    expect(capture?.properties.$mcp_client_user_agent).toBe(OBSERVED_USER_AGENTS.claudeCode);
     expect(
       JSON.stringify(capture),
       'the raw client-controlled header value must never reach a capture record',
-    ).not.toContain('2.1.226');
-    expect(JSON.stringify(throughFinalPolicy({ ...capture?.properties }))).not.toContain('2.1.226');
+    ).not.toContain(RAW_UA_SUFFIX);
+    const final = throughFinalPolicy({ ...capture?.properties });
+    expect(final?.properties).toEqual(
+      expect.objectContaining({ $mcp_client_user_agent: OBSERVED_USER_AGENTS.claudeCode }),
+    );
+    expect(JSON.stringify(final)).not.toContain(RAW_UA_SUFFIX);
+  });
+
+  it.each([
+    ['Claude.ai', OBSERVED_USER_AGENTS.claudeAi, 'Claude-User'],
+    ['Claude Code', OBSERVED_USER_AGENTS.claudeCode, 'claude-code/2.1.226 (cli)'],
+    ['Codex', OBSERVED_USER_AGENTS.codex, 'codex-mcp-client/0.147.0'],
+  ])(
+    'carries a rebuilt user agent for %s onto every capture kind',
+    (_label, userAgent, expected) => {
+      const subject = createSubject();
+      const extra = extraWithUserAgent(userAgent);
+
+      subject.delegate.emit(
+        {
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'initialize',
+          params: {
+            protocolVersion: PROTOCOL_VERSION,
+            capabilities: {},
+            clientInfo: { name: 'x', version: '1' },
+          },
+        },
+        extra,
+      );
+      void subject.transport.send({
+        jsonrpc: '2.0',
+        id: 1,
+        result: { protocolVersion: PROTOCOL_VERSION },
+      });
+      subject.delegate.emit({ jsonrpc: '2.0', id: 2, method: 'tools/list' }, extra);
+      void subject.transport.send({
+        jsonrpc: '2.0',
+        id: 2,
+        result: { tools: [{ name: 'get-lessons-summary' }] },
+      });
+      emitToolCall(subject, extra);
+
+      expect(subject.initializeCaptures[0]?.properties.$mcp_client_user_agent).toBe(expected);
+      expect(subject.toolsListCaptures[0]?.properties.$mcp_client_user_agent).toBe(expected);
+      expect(subject.toolCallCaptures[0]?.properties.$mcp_client_user_agent).toBe(expected);
+    },
+  );
+
+  it('omits the user agent, rather than defaulting it, for an unidentifiable client', () => {
+    const subject = createSubject();
+
+    emitToolCall(subject, extraWithUserAgent(OBSERVED_USER_AGENTS.unidentifiable));
+
+    const capture = subject.toolCallCaptures[0];
+    expect(capture?.properties.oak_client_product).toBe('other');
+    expect(capture?.properties).not.toHaveProperty('$mcp_client_user_agent');
+    expect(JSON.stringify(capture)).not.toContain('python-httpx');
   });
 
   it('drops an event whose product category is absent, rather than defaulting it to other', () => {

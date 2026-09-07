@@ -17,7 +17,8 @@ import type {
   OakClientSurface,
 } from './event-policy-contract.js';
 
-function asciiLower(value: string): string {
+/** Shared with `client-user-agent.ts`; folds only [A-Z], so it is length-preserving. */
+export function asciiLower(value: string): string {
   return value.replaceAll(/[A-Z]/gu, (character) => character.toLowerCase());
 }
 
@@ -119,11 +120,15 @@ export function isOakClientSurface(value: unknown): value is OakClientSurface {
 // index 0, so no more of the value can affect the outcome; slicing keeps the
 // cost independent of an attacker-controlled header length.
 const LONGEST_PRODUCT_TOKEN = 32;
-const CLIENT_PRODUCT_TOKEN_RULES: readonly (readonly [string, OakClientProduct])[] = [
-  ['claude-user', 'claude_ai'],
-  ['claude-code', 'claude_code'],
-  ['codex-mcp-client', 'codex'],
-];
+// The third column is the product token's spelling as observed in live traffic.
+// It is the only spelling the rebuilt user agent (`client-user-agent.ts`) ever
+// emits, so a client's own casing never reaches the wire.
+export const CLIENT_PRODUCT_TOKEN_RULES: readonly (readonly [string, OakClientProduct, string])[] =
+  [
+    ['claude-user', 'claude_ai', 'Claude-User'],
+    ['claude-code', 'claude_code', 'claude-code'],
+    ['codex-mcp-client', 'codex', 'codex-mcp-client'],
+  ];
 
 /**
  * Matches a product token only as the header's *leading* token.
@@ -141,7 +146,7 @@ const CLIENT_PRODUCT_TOKEN_RULES: readonly (readonly [string, OakClientProduct])
  * `claude-user-agent/1.0`, whereas at family granularity `claude` legitimately
  * claims both. `/` and ` ` are the only real delimiters after a UA product token.
  */
-function hasLeadingProductToken(value: string, token: string): boolean {
+export function hasLeadingProductToken(value: string, token: string): boolean {
   if (!value.startsWith(token)) {
     return false;
   }
@@ -163,7 +168,8 @@ function readClientProductToken(value: string): OakClientProduct | undefined {
   return undefined;
 }
 
-function isNonEmptyString(value: unknown): value is string {
+/** Shared with `client-user-agent.ts`, which rebuilds the emitted user agent from these rules. */
+export function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim() !== '';
 }
 
