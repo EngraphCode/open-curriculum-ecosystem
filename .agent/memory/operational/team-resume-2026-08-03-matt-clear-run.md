@@ -206,6 +206,8 @@ has become pertinent flows to a tracked surface like this one.
   delivered upstream and needs re-adjudication, and rendered-wholes.md
   lacks a frozen-at date.
 
-_Record locations, 2026-09-06: the thread records named above by their paths of the time moved
-under `.agent/memory/operational/threads/paused/` at the 2026-09-06 consolidation (the threads
-README's lifecycle layout); the paths here are the historical ones._
+_Record locations, 2026-09-06: of the thread records named above by their paths of the
+time, those the 2026-09-06 consolidation paused moved under
+`.agent/memory/operational/threads/paused/` (the threads README's lifecycle layout; the
+paused index in `repo-continuity.md` names each); a record still active keeps its root path
+under `.agent/memory/operational/threads/`; the paths here are the historical ones._
