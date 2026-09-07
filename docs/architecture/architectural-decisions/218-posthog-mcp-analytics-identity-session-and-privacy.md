@@ -699,14 +699,28 @@ the raw user agent and vendor header are unbounded client-controlled strings.
   characters, which the same day's security review identified as exactly
   that channel; the bound is the cure;
 - an optional build surface: the first bracketed segment of the header, when
-  it is one of `cli`, `sdk-ts`, `claude-vscode`, `claude-desktop`. This list
-  is the vendor's documented vocabulary for the property (PostHog MCP
-  analytics events reference,
-  <https://posthog.com/docs/mcp-analytics/events>, read 2026-09-07), not a
-  set observed first-hand in Oak's traffic — only `(cli)` has been — which
-  is a stated exception to the 2026-08-13 amendment's evidence-backed-token
-  constraint, accepted because every member is a fixed string re-emitted
-  from the list and never a forwarded byte.
+  it is one of `cli`, `sdk-ts`, `claude-vscode`, `claude-desktop`, and only
+  when a version is present (PostHog reads the product as everything before
+  the first `/`, so without one the bracket would be swallowed into the
+  product token). This list is the vendor's own vocabulary, taken from its
+  labelling rule (below), not a set observed first-hand in Oak's traffic —
+  only `(cli)` has been — which is a stated exception to the 2026-08-13
+  amendment's evidence-backed-token constraint, accepted because every member
+  is a fixed string re-emitted from the list and never a forwarded byte.
+
+**How PostHog labels it.** The labelling rule is open source:
+`products/mcp_analytics/backend/mcp_harness.py` in PostHog/posthog (read at
+commit `b6c6a333`, 2026-09-02), with input-to-label examples in
+`tests/test_harness_breakdown.py` beside it. For a user-agent-only event it
+takes the product token before the first `/` plus the first bracketed segment
+and buckets the pair: `claude-code/2 (cli)` labels "Claude Code",
+`(sdk-ts)` "Claude Agent SDK", `(claude-vscode)` "Claude Code (VS Code)",
+`(claude-desktop)` "Claude Desktop", `Claude-User` "Claude.ai", and
+`codex-mcp-client/0` "OpenAI Codex". The rebuilt shapes above were chosen
+against that rule, and a unit test in the adapter carries a transcription of
+it so a change to the shape is judged against the label it will receive. It
+is Oak's copy of the vendor's rule, not the rule; a vendor change is caught
+by the post-deploy check.
 
 The validator at the final event policy is the derivation itself: a value is
 admitted iff re-parsing it reproduces it byte for byte, so the grammar has one
@@ -738,7 +752,6 @@ exclusion are untouched.
 
 Directed by Luke Arnold, 2026-09-07 (MCP-687); agent-authored; the version
 bound and the recompute validator follow the same day's pre-PR security and
-code reviews. The PostHog resolution order is from the events reference cited
-above, and the column's exact label mapping is undocumented by the vendor, so
-the acceptance check is an observed breakdown in the live project after
-deploy.
+code reviews. The acceptance check is an observed breakdown in the live
+project after deploy, which is also the only detector of a later change to
+the vendor's rule.

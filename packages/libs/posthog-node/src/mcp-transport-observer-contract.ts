@@ -46,10 +46,12 @@ interface PostHogMcpToolCallCapture extends PostHogMcpCommonCapture {
  *
  * @remarks The capture records intentionally omit session identifiers, request
  * parameters, response bodies, errors, raw client strings, person properties,
- * and groups. The only client detail carried is the rebuilt
- * `$mcp_client_user_agent` (MCP-687): a closed product spelling, a
- * digits-and-dots version, and a closed build surface. `PostHogMCP` satisfies
- * this surface without exposing the vendor client through the Oak runtime.
+ * and groups. Client identity travels as the three closed Oak categories
+ * (`oak_client_family`, `oak_client_product`, `oak_client_surface`) plus one
+ * client STRING, the rebuilt `$mcp_client_user_agent` (MCP-687): a closed
+ * product spelling, an optional one- or two-digit major version, and an
+ * optional closed build surface. `PostHogMCP` satisfies this surface without
+ * exposing the vendor client through the Oak runtime.
  */
 export interface PostHogMcpCaptureClient {
   captureInitialize(data: PostHogMcpInitializeCapture): void;

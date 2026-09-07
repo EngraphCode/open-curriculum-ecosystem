@@ -3,15 +3,18 @@
  * closed pieces so PostHog's built-in harness column resolves (MCP-687).
  *
  * @remarks PostHog resolves that column at query time from
- * `$mcp_vendor_client`, then `$mcp_client_user_agent`, then `$mcp_client_name`
- * (PostHog MCP analytics events reference,
- * https://posthog.com/docs/mcp-analytics/events, read 2026-09-07). Oak emits
- * none of the vendor's raw values, which ADR-218 §3 excludes as
- * client-controlled strings. Instead it emits the user-agent property REBUILT
- * from: the product spelling observed in live traffic, an optional major
- * version of at most two digits, and an optional build surface from the
- * vendor-documented closed list below. A header that names no product omits
- * the property, so the column resolves to "other" exactly as it did before
+ * `$mcp_vendor_client`, then `$mcp_client_user_agent`, then `$mcp_client_name`.
+ * The rule is open source — `products/mcp_analytics/backend/mcp_harness.py`
+ * in PostHog/posthog — and reads the user agent as the product token before
+ * the first `/` plus the first bracketed segment, so `claude-code/2 (cli)`
+ * labels as "Claude Code", `(sdk-ts)` as "Claude Agent SDK", `(claude-vscode)`
+ * and `(claude-desktop)` as their own labels, `Claude-User` as "Claude.ai" and
+ * `codex-mcp-client/0` as "OpenAI Codex". Oak emits none of the vendor's raw
+ * values, which ADR-218 §3 excludes as client-controlled strings; it emits the
+ * property REBUILT from the product spelling observed in live traffic, an
+ * optional major version of at most two digits, and an optional build surface
+ * from the vendor's closed list. A header that names no product omits the
+ * property, so the column resolves to "other" exactly as it did before
  * MCP-687. The raw header value never leaves this process (ADR-218,
  * 2026-09-07 amendment).
  *
@@ -29,10 +32,10 @@ import {
 } from './client-categories.js';
 import type { ClientIdentityHeaders } from './event-policy-contract.js';
 
-// The vendor's documented vocabulary for the property, not a set observed in
-// Oak's traffic (only `cli` has been): a stated exception to the
-// evidence-backed-token constraint, acceptable because every member is a fixed
-// string re-emitted from this list and never a forwarded byte.
+// The vendor's own vocabulary for the surface, taken from the labelling rule
+// above rather than observed in Oak's traffic (only `cli` has been): a stated
+// exception to the evidence-backed-token constraint, acceptable because every
+// member is a fixed string re-emitted from this list and never a forwarded byte.
 const CLIENT_BUILD_SURFACE_TOKENS = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
 type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
 // Bounds the surface scan so its cost is independent of an attacker-controlled
@@ -41,12 +44,15 @@ type ClientBuildSurface = (typeof CLIENT_BUILD_SURFACE_TOKENS)[number];
 // needs only the leading token; the two derivations still agree on which header
 // value wins, because both anchor at index 0 with the same table.
 const MAX_CLIENT_USER_AGENT_SCAN_LENGTH = 256;
-// At most two digits, and the run must END there: `/2.1.226` yields `2`,
-// `/8123456789012345` yields nothing.
-const CLIENT_MAJOR_VERSION_PATTERN = /^[0-9]{1,2}(?![0-9])/u;
+// At most two digits with no leading zero, and the run must END there, so the
+// slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
+// `/01.2` and `/8123456789012345` yield nothing.
+const CLIENT_MAJOR_VERSION_PATTERN = /^(?:0|[1-9][0-9]?)(?![0-9])/u;
 // The FIRST bracketed segment decides the surface, so list order carries no
-// meaning and a header cannot reach a later bracket by prepending one.
-const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^)]*)\)/u;
+// meaning and a header cannot reach a later bracket by prepending one. The
+// segment ends at the first comma or close bracket, as PostHog's own extractor
+// reads it: `(sdk-ts, agent-sdk/0.3)` yields `sdk-ts`.
+const FIRST_BRACKETED_SEGMENT_PATTERN = /\(([^,)]*)[,)]/u;
 
 function readClientMajorVersion(afterToken: string): string | undefined {
   if (!afterToken.startsWith('/')) {
@@ -71,7 +77,11 @@ function readClientUserAgent(value: string): string | undefined {
   }
   const [token, , spelling] = rule;
   const version = readClientMajorVersion(normalised.slice(token.length));
-  const surface = readClientBuildSurface(normalised);
+  // PostHog reads the product as everything before the first `/`, so without a
+  // version a bracketed surface would be swallowed into the product token and
+  // the surface-specific labels could never resolve. A value without a version
+  // therefore carries no surface either; it still labels by product prefix.
+  const surface = version === undefined ? undefined : readClientBuildSurface(normalised);
   const versionPart = version === undefined ? '' : `/${version}`;
   const surfacePart = surface === undefined ? '' : ` (${surface})`;
   return `${spelling}${versionPart}${surfacePart}`;
