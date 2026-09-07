@@ -36,8 +36,23 @@ This makes the report's intent inspectable rather than asking a reviewer to
 infer it from the prose. It does not pre-decide the review verdict or replace
 the report's evidence. A substantive review grounds its findings against the
 declared contract; stylistic preference alone is not a contract failure.
+A census report's reproduction block carries what a re-run needs: the cohort list (each
+directory enumerated by hand), the window and how membership is decided, the depth limit,
+the prefix-to-canonical mapping, and the aggregation that turns rows into the table's
+numbers, with every path written so the shell expands it. The 2026-09-03 skill-usage census
+learned each of these in review — a tilde inside quotes did not expand, and a pattern
+matching one nesting depth missed two deeper directories and changed twelve rows.
 
 ## Current Structure
+
+- [public-service-ai-tuition/pr-66-review-2026-09-06.md](./public-service-ai-tuition/pr-66-review-2026-09-06.md)
+  — dated review of PR 66: faithful transfer, source authority, integration,
+  evidence qualifications and seven bounded findings; the PR's landing is the owner's
+- [public-service-ai-tuition/pr-66-independent-review-2026-09-06.md](./public-service-ai-tuition/pr-66-independent-review-2026-09-06.md)
+  — independent review of PR 66 (the ADR-226 tuition import) from a second model
+  lineage: external-link census, conformance of tracked executable content,
+  scanner controls, authority sourcing, a mapping of the published review's
+  findings, and the owner's decisions with factors; every count names its command
 
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it

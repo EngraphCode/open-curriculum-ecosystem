@@ -279,22 +279,9 @@ Use this to answer questions like:
 **What it says now:**
 
 ```text
-description: `Returns the bounded prior-knowledge subgraph for the anchor units you name.
+Returns the stated prior knowledge for the anchor units you name.
 
-"Prior knowledge of unit X" means X's predecessors: the units that are (transitively, up to the requested depth) prerequisites of X. Edges are prerequisiteFor relationships (prerequisite → dependent), derived from curriculum thread ordering.
-
-The query is anchored, never whole-corpus:
-- unitSlugs: the anchor units. Slugs are corpus keys — resolve them first with search, fetch, or browse-curriculum. Unknown slugs are reported in the result's unknownAnchors, not errored.
-- depth (optional): predecessor levels to include. Default ${String(DEFAULT_PREREQUISITE_DEPTH)}, maximum ${String(MAX_PREREQUISITE_DEPTH)}. Typical result sizes per anchor: depth 1 ≈ 2 units (median, max 8); depth 2 ≈ 4 units (median, max 21); depth 3 ≈ 8 units (median, max 42).
-
-The result reports nodes (unit metadata: slug, title, subject, key stage, year, prior-knowledge statements, thread memberships), edges, resolvedAnchors, unknownAnchors, and the depth used.
-
-Use this to answer questions like:
-- "What should students know before this unit?" (anchor: that unit's slug)
-- "Which prerequisite gaps could explain difficulty with this lesson's unit?"
-- "What earlier units does this scheme of work build on?"
-
-Complements get-thread-progressions (full thread learning paths) with anchored prior-knowledge detail.`,
+Statements name knowledge, not the units that teach it; judging whether earlier units satisfy them is the caller's reasoning.
 ```
 
 **What it is for:** Defines 'prior knowledge = predecessors', explains prerequisiteFor edges derived from thread ordering, gives empirical result-size table per depth, and example questions.
@@ -303,7 +290,7 @@ Complements get-thread-progressions (full thread learning paths) with anchored p
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
 
 ### C253 — GET\_THREAD\_PROGRESSIONS\_TOOL\_DEF.description
@@ -311,23 +298,8 @@ Complements get-thread-progressions (full thread learning paths) with anchored p
 **What it says now:**
 
 ```text
-description: `Returns how an Oak curriculum thread progresses across year groups, for the anchor you name.
-
-Threads connect units into conceptual progressions across years (${String(threadProgressionStats.threadCount)} threads across ${String(threadProgressionStats.subjectsCovered.length)} subjects). Every call is anchored — exactly ONE of:
-- threadSlug: the detail anchor; returns that ONE thread's full unit progression ordered by teaching year (earliest → latest; "All years" units last) — never the whole thread estate.
-- subject + keyStage (both together): the discovery anchor; returns bounded thread descriptors (slug, title, year span, unit count — no sequences) so you can pick a threadSlug to anchor next.
-
-Ordering semantics, stated honestly: the progression axis is the teaching year. Within one year the order is not curricular (the curriculum data defines no within-year unit sequence); treat same-year units as a group, not a chain.
-
-Slugs are corpus keys — resolve them first with search (scope "threads"), fetch, or browse-curriculum. An unknown threadSlug is reported in the result's unknownAnchors, not errored; an unmatched subject+keyStage returns a well-formed empty result.
-
-Use this to answer questions like:
-- "What's the learning path for fractions?" (discover with subject+keyStage, then anchor the thread)
-- "How does this thread build from early years to GCSE?" (threadSlug)
-- "Which threads cover algebra at KS3?" (subject + keyStage)
+Complements get-prior-knowledge-graph (each unit's stated prior knowledge) and get-misconception-graph (per-lesson misconceptions along a thread).
 ```
-
-*Shown in part only — read the full text in the source file below.*
 
 **What it is for:** Explains detail vs discovery anchors and, critically, the ORDERING-HONESTY caveat: axis is teaching year, within-year order is NOT curricular — treat same-year units as a group not a chain.
 
@@ -335,7 +307,7 @@ Use this to answer questions like:
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
 
 ### C373 — OAK\_UNDER\_THE\_HOOD\_TOOL\_DESCRIPTION

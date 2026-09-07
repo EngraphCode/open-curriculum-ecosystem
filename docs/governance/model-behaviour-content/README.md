@@ -16,7 +16,7 @@ This is every piece of writing this repository puts in front of an AI agent, in 
 
 ## What is in here
 
-**728 items** of content, every one of them listed. 676 are shown with the wording the system uses today, read straight from the code. 52 have been retired since the audit and are listed with their last known wording so nothing vanishes silently. Anything this pass could not render from current source is named in [unrendered items](./unrendered.md) — the list is never quietly shortened.
+**728 items** of content, every one of them listed. 675 are shown with the wording the system uses today, read straight from the code. 53 have been retired since the audit and are listed with their last known wording so nothing vanishes silently. Anything this pass could not render from current source is named in [unrendered items](./unrendered.md) — the list is never quietly shortened.
 
 Whether an agent can actually see an item is derived, not declared: see [what an agent sees today](./served-surface.md).
 
@@ -38,7 +38,7 @@ You do not need to read any code to do this. If an item makes no sense without i
 | [pedagogy-external](./domains/pedagogy-external.md) | 8 | 0 | 8 | 0 | External EEF Teaching and Learning Toolkit material carrying Oak editorial framing. The corpus is cited, not rewritten; the framing around it is ours to review. |
 | [legal-licensing](./domains/legal-licensing.md) | 20 | 16 | 3 | 1 | Attribution, Open Government Licence v3.0 notices, trademark, and EEF citation obligations. |
 | [ux-accessibility](./domains/ux-accessibility.md) | 16 | 15 | 0 | 1 | Human-facing surfaces — the landing page, the widget, and authorisation and consent copy. WCAG 2.2 AA applies. |
-| [tool-usability](./domains/tool-usability.md) | 304 | 165 | 106 | 33 | How an agent discovers and uses the tools — titles, descriptions, parameter descriptions, and the orientation directives that steer a first call. |
+| [tool-usability](./domains/tool-usability.md) | 304 | 164 | 106 | 34 | How an agent discovers and uses the tools — titles, descriptions, parameter descriptions, and the orientation directives that steer a first call. |
 | [recovery-copy](./domains/recovery-copy.md) | 151 | 145 | 0 | 6 | What an agent receives when something fails or returns nothing — validation, empty-state, and degradation messages. This copy shapes whether an agent recovers or fabricates. |
 | [engineering-structural](./domains/engineering-structural.md) | 93 | 83 | 4 | 6 | Annotations, schemas, authorisation scopes, and discovery or branding metadata. |
 | [other](./domains/other.md) | 2 | 2 | 0 | 0 | Items whose review domain is mixed or uncategorised. |

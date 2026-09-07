@@ -123,6 +123,12 @@ the seat chooses the instrument, never when the owner names wrap.
      external observer. State the bound and conserve the error signature
      (where outside eyes caught what the scan missed) so a successor
      knows where to point external scrutiny.
+   - **Fence sweep**: every owner word held off the repository at his word —
+     grep every tracked line this seat and its peers wrote for the fenced
+     wording before the wrap PR lands. The 2026-09-03 wrap found the morning's
+     fenced wording on three tracked lines (a formation letter, the seat's own
+     napkin capture, a dialogue-channel file) and cut each to "the owner's
+     local-only wording"; the seat's own capture was one of the leaks.
    - **Exit — the fixed point**: the recursion closes when a further pass
      would only re-find already-named losses, and the wrap SAYS SO
      explicitly ("a third pass would only re-find X; the recursion closes
