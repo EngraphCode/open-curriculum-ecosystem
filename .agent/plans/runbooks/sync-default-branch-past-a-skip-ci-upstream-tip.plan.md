@@ -52,15 +52,20 @@ and no seat re-derives the recipe at the wall.
    push the branch through `merge-bot push` (the bot path; never through the PR
    creator's own push prompt, which would use the ambient human credential).
    Verification: the remote branch tip equals the local head.
-3. `agent` — open the pull request to the default branch from the pushed branch. Verification: every workflow
-   runs on the empty head.
+3. `agent` — mint the bot's pull-request token and export it (`merge-bot mint-token
+   --scope pull-request-work`, then `GH_TOKEN`) before every later `gh` write: `GH_TOKEN`
+   takes precedence over stored credentials, and its absence selects the ambient human
+   credential for the PR and its later server-side merge. Then open the pull request to
+   the default branch from the pushed branch. Verification: the pull request's author is
+   the bot; every workflow runs on the empty head.
 4. `agent` — triage every reviewer thread under the normal review-round discipline; a
    finding about upstream code is never cured on the sync (a cure would diverge the tree
    from upstream), so its disposition is a signed reply naming the route — an upstream
    report, or a follow-up lane on this repository — and the thread is resolved on that
    route, never on a canned line; a finding about the sync itself (the empty commit, the
    branch shape) is cured here. The ruleset requires resolution. Verification: zero
-   unresolved threads, each with a route in its reply.
+   unresolved threads, each with a route or a verified rejection with its rationale in
+   its reply.
 5. `agent` — merge by MERGE COMMIT with the head pinned; squash or rebase would diverge the
    history from upstream. Verification: the merge commit's second parent is the sync tip.
 6. `agent` — delete the sync branch after the merge is proven an ancestor of the default
@@ -70,8 +75,11 @@ Amendment (2026-09-03): once one sync has landed, the default branch carries tha
 empty and merge commits, which upstream never sees, so the NEXT sync branch cut at the
 upstream tip reads BEHIND under the up-to-date requirement and cannot merge. The cure runs
 AFTER step 3, because the host's update-branch acts on an open pull request: open the pull
-request, update its branch server-side (a merge of the default branch into the sync
-branch), re-verify that every workflow runs on the new head, then steps 4 to 6 as written.
+request, update its branch server-side as the bot (`gh pr update-branch` under the step-3
+token: a merge of the default branch into the sync branch), fetch and fast-forward the
+local branch onto that server-side merge commit before any cure push (a push from the
+stale local head is refused as non-fast-forward; the sequence run on 2026-09-07),
+re-verify that every workflow runs on the new head, then steps 4 to 6 as written.
 
 ## Verification
 
