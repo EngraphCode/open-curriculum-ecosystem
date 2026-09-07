@@ -90,8 +90,8 @@ served pages.
 - `docs/wrapped-widget-a11y-checklist.md`, `docs/console-tui-tones.md`,
   `docs/integration-oak-curriculum-hub.md` (the live consumer's migration
   plan), `docs/nextjs-theme-switcher.tsx.txt`.
-- `docs/one-html-many-css-compositions.md` — the white-label composition
-  doctrine.
+- `docs/one-html-many-css-compositions.md` — a pointer to the canonical white-label
+  composition doctrine at `docs/governance/one-html-many-css-compositions.md`.
 
 ## Generated and integration surfaces
 
