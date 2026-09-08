@@ -89,9 +89,14 @@ skill.
   PDR-140 prong met) and a disposition (a cure commit, or a named home); the count reads
   the bar marker, never the disposition type, because a below-bar finding and a
   build-changing one can both be routed to a home — and the seat's own signed replies and
-  comments are excluded from the raised count. The invariant: the command derives no
-  count from prose; every count reads a recorded field, and a finding without the marker
-  is surfaced as "manual tally required" like an unmarked body.
+  comments are excluded from the raised count AND from the newer-review test that anchors
+  the quiet window (under the shared credential a disposition reply registers as a review
+  on the head; the canonical state machine excludes signed self-replies from anchoring, so
+  a reply landing before the next push never unsettles the head). The invariant: the
+  command derives no count from prose; every count reads a recorded field, and a finding
+  without the marker is surfaced as "manual tally required" like an unmarked body. The
+  marker is not yet in the intake contract — the practice half (todo 3) carries it there,
+  so that ordinary rounds produce counts, not "manual" verdicts.
 - **The verdict**: the exact predicate from the skill — `c[n] >= c[n-1] AND c[n-1] >= c[n-2]`
   across three settled cure-worthy counts, or four settled rounds in the epoch, either arm
   firing only while the latest settled count is non-zero; the epoch resets at a push the seat
@@ -129,8 +134,10 @@ skill.
    and one through the checks-green timeout (both rows present), and a first tip with a
    configured reviewer still OWED (no settled row, never terminal success), a reviewer
    enabled after open (historical rows unchanged), a timeout-settled round on a superseded
-   head (row present, recomputed from harvested history), and a signed disposition
-   without a bar marker (surfaced as manual, not counted); the rows and the verdict match.
+   head (row present, recomputed from harvested history), a signed disposition without a
+   bar marker (surfaced as manual, not counted), and a seat's signed disposition reply
+   landing after the bot review and before the next push (the head's row present, the
+   window unmoved); the rows and the verdict match.
    The mechanism above states the invariants; a case these rounds did not name is a
    fixture the implementer adds at pickup, never a mechanism edit. Proof: `repo-safe` —
    unit tests over the tally builder and the classifier, no IO.
@@ -140,15 +147,21 @@ skill.
 1. **The tally builder and the verdict, with fixtures** — criteria 1 and 2; one PR, default
    round budget.
 2. **The command and the validation script** — criterion 3 and the `--json` shape; one PR.
-3. **The practice half** — the skill step (criterion 4); one small records PR.
+3. **The practice half** — the skill step (criterion 4) and the disposition format: the bar
+   marker and the disposition named in the pr-lifecycle intake contract (PDR-140's
+   disposition shape) and its projections, with an end-to-end fixture produced by that
+   workflow and consumed by criterion 5; one small records PR, landed before or with todo 1
+   so that the first live round reads counts rather than "manual tally required".
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
 command once it lands), and the PDR-140 intake contract where the changeset carries prose.
 
 ## Out of scope
 
-- Changing the predicate, the tally semantics or the intake contract: those are the
-  pr-lifecycle skill's and PDR-140's; this node builds the instrument that runs them.
+- Changing the predicate or the tally semantics: those are the pr-lifecycle skill's and
+  PDR-140's; this node builds the instrument that runs them. The one intake-contract change
+  this node makes is the disposition format in todo 3, which adds a recorded field and
+  changes no semantics.
 - Consuming disposition state in the merge-bot verdict: the named PDR-140 follow-up, served
   by this command's `--json` output and landed on its own node.
 - Reading review state from `latestReviews`: the skill forbids it for the tally (rows vanish
