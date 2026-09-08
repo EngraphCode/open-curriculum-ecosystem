@@ -223,7 +223,7 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
   coordination/2026-09-08-68d53d at d0c24f51a; one claim in the registry (the Director's);
   processes stopped at the owner's word ("prepare for compaction … then stop all processes").
   The next fold is due at the 2026-09-09 rollover and its wake must be re-armed on resume.
-- **Metacognition over the second day (2026-09-07 16:0xZ → 2026-09-08 06:4xZ).** The owner's
+- **Metacognition over the second day (2026-09-07 16:0xZ → 2026-09-08 06:3xZ).** The owner's
   corrections came in the first day; the second day's corrections came from reviewers and were
   each cured within the hour, and the two that were mine (a plan pointer from an ADR; a record
   closed in prose without the directory's lifecycle convention) share the tenure's one
@@ -251,3 +251,11 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
   queue empty; only the held settings file dirty; the tracked journal, the seated block, the
   napkin and the per-user memory current; the machine-local record carries the finer grain.
   Bounds unchanged. A third pass re-finds only the standing bounds; the recursion closes here.
+
+## 2026-09-08 06:4xZ — Altair spins Umbra (05a180), Implementer — resurfaced after a nine-hour held seat: #72 landed by this seat, #70 by the Director's default, the directives item declined at the gate
+
+- **Landed by this seat:** #72 at ff86b3d8b (2026-09-07 21:06Z, bot merge, head d01b101b5 pinned; premises 5575632184; one Codex P2 on the reproduction guide verified accurate at the bundle and dispositioned by signed reply: the guide defines success as the reader's comparison against the recorded evidence and the README preserves the bundle byte-for-byte, so no assertion is added to archived probes). The landing seat's own read on top of the Director's: 18 hashes recomputed, evidence parses, two code claims re-checked at the pin, the deletion sweep one replaced line.
+- **The stall (observation, cause inferred):** at ~21:13Z, with the engraph merge for #70 stopped on the index conflict, a batch of two tool calls — the platform's EnterWorktree with a sibling-directory path (residency before the first lane edit) and a read-only sed — returned only at 06:28Z, both against a worktree already removed. Nothing in the session ran between. The heartbeat Monitor kept emitting (comms leg failing from 00:43Z when the claim was re-adopted, claims leg from 01:36Z when it closed): EMIT and REGISTRY green, ABSORB absent for nine hours. The Director's ping, deadline and default ran by structure and landed #70 at 0df02f548 with nothing of mine discarded. The worktree-residency rule's "re-open only if a lane observes a prompt in practice" clause is re-opened by this instance; the seat-side cure is to send the exact EnterWorktree invocation to the Director before issuing it.
+- **The directives item:** declined at the PDR-052 gate — the transcript's own usage record put the last turn at about 384k input tokens; the item stays with Juno's handoff 257f3ddb and the Director's bounds broadcast for a fresh seat.
+- **Measured facts:** the required checks on the engraph ruleset are run-quality-gates and CodeQL by name (read from the rules API); a thread reply through GraphQL creates a review record, so the quiet-window anchor moves to the seat's own reply time; `comms reply` refuses an unknown antecedent id, so the id is read from the store, never typed from memory (one refusal at this seat).
+- **Processes at this pause:** watcher bkz84hjyf live (re-armed after the hourly exit that ran unanswered during the stall); no heartbeat and no claim (consumer-absent standby); the Director paused at 06:34Z, so this seat waits for a routing or the owner's word.
