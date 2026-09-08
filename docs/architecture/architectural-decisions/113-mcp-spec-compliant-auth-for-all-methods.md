@@ -143,12 +143,14 @@ Server-side logs will show nothing wrong. The flow appears to stop after the ini
 
 ### Resolution
 
-Two changes prevent compliant clients from requesting the `openid` scope:
+Three changes prevent clients from requesting the `openid` scope:
 
 1. **Source of truth**: `openid` removed from `DEFAULT_AUTH_SCHEME.scopes` in `mcp-security-policy.ts`. Cascaded via `pnpm sdk-codegen` to all generated tool security metadata.
 2. **PRM**: `scopes_supported` no longer advertises `openid`, so compliant clients (RFC 9728) do not request it.
 
-The OAuth proxy is fully transparent -- it forwards all parameters (including `scope`) and all upstream AS metadata fields (including `scopes_supported`) unchanged. No filtering is applied at the proxy layer. If a non-compliant client reads `openid` from Clerk's AS metadata and requests it, Clerk will reject it with `error=invalid_scope`.
+3. **AS metadata** (added 2026-09-08, MCP-345): the served `/.well-known/oauth-authorization-server` document states `scopes_supported` as the same set the PRM advertises, instead of passing Clerk's full list through. Until then a client that chose its scopes from the AS metadata rather than the PRM read `openid` there and requested it — ChatGPT's plugin portal does exactly this ("If your provider advertises OIDC scopes … in `scopes_supported` of its `.well-known/oauth-authorization-server` … ChatGPT requests those scopes by default", OpenAI plugin auth docs) — and Clerk refused it with the `invalid_scope` error above, measured on the portal's test connection on 2026-09-08.
+
+The OAuth proxy forwards all request and response parameters (including `scope`) unchanged; it applies no filtering to forwarded messages. The AS metadata document is not a forwarded message: it is the proxy's own self-description, already rewritten field by field (`issuer` and the three endpoints), and resolution 3 makes its advertised scopes true in the same way. Both discovery documents now come from one constant, `SCOPES_SUPPORTED`, so they cannot disagree.
 
 ### Broader Lesson
 

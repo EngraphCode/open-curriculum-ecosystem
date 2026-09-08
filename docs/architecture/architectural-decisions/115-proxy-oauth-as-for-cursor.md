@@ -53,7 +53,7 @@ Act as a **proxy OAuth Authorisation Server** by serving three proxy endpoints t
 ### Metadata Rewriting
 
 - **PRM** (`/.well-known/oauth-protected-resource` and path-qualified `/mcp` variant per RFC 9728 Section 3.1): `authorization_servers` names the upstream authorisation server's `issuer` (amended 2026-09-01, MCP-655; it pointed to self-origin from 2026-02-21 until then). The value is the fetched upstream document's `issuer`, which the fetch requires to equal the base URL it was fetched from (RFC 8414 §3.3) or bootstrap fails. Two facts conserved from the MCP-655 final-diff review (2026-09-01), decision-relevant and not defects: the plain PRM route's `resource` value is not RFC 9728 §3.3-identical to the plain resource identifier — the 401 challenge advertises the path-qualified route, which is the one clients follow — so any future plain-route back-compat decision starts from that asymmetry; and RFC 8707 audience validation is a no-op on the upstream's opaque tokens, recorded in the TSDoc at the point it is applied.
-- **AS Metadata** (`/.well-known/oauth-authorization-server`): Fetched from Clerk at startup, cached for process lifetime. `issuer`, `authorization_endpoint`, `token_endpoint`, `registration_endpoint` rewritten to self-origin per-request. All capability fields (`scopes_supported`, `grant_types_supported`, etc.) pass through unchanged.
+- **AS Metadata** (`/.well-known/oauth-authorization-server`): Fetched from Clerk at startup, cached for process lifetime. `issuer`, `authorization_endpoint`, `token_endpoint`, `registration_endpoint` rewritten to self-origin per-request; `scopes_supported` states the PRM's advertised set (`SCOPES_SUPPORTED`) rather than the upstream list (amended 2026-09-08, MCP-345 — see ADR-113 resolution 3). All other capability fields (`grant_types_supported`, etc.) pass through unchanged.
 
 ### Architecture
 
@@ -167,7 +167,10 @@ What this exception still forbids:
 - Filtering, dropping, normalising, defaulting or reordering any field of a
   forwarded message. ADR-113's `openid` scope disposition stands unchanged —
   there the upstream _does_ discharge the rule, and the intervention on offer
-  was mutation rather than refusal.
+  was mutation rather than refusal. The served AS metadata document is outside
+  this clause: it is the proxy's self-description, rewritten field by field,
+  not a forwarded message, and since 2026-09-08 (MCP-345, ADR-113 resolution 3) its `scopes_supported` states the PRM's advertised set rather than the
+  upstream list.
 - Partial acceptance: rejecting one `redirect_uris` entry and forwarding the
   rest. All-or-nothing per message; anything else is filtering in a
   validator's coat.

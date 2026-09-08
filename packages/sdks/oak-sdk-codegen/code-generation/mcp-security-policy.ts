@@ -46,8 +46,10 @@ export const PUBLIC_TOOLS: readonly string[] = [
  * token, so `openid` is not required.
  *
  * Because `openid` is not in our PRM `scopes_supported`, compliant clients
- * (RFC 9728) will not request it. The proxy forwards all scopes transparently
- * without filtering.
+ * (RFC 9728) will not request it. Since MCP-345 the served authorization-server
+ * metadata advertises this same set, so clients that choose scopes from that
+ * document (ChatGPT's plugin portal, measured 2026-09-08) do not request it
+ * either. The proxy still forwards the `scope` a client sends unchanged.
  *
  * @see ADR-113 Troubleshooting section (docs/architecture/architectural-decisions/113-mcp-spec-compliant-auth-for-all-methods.md)
  */

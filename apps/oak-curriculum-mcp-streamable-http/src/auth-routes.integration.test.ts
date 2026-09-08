@@ -178,7 +178,7 @@ describe('OAuth Protected Resource Metadata (Integration)', () => {
       );
     });
 
-    it('passes through scopes_supported unchanged from upstream (transparent proxy)', async () => {
+    it('advertises the PRM scopes, not the upstream list, so both discovery documents agree (MCP-345)', async () => {
       const app = await createTestApp();
 
       const res = await request(app)
@@ -187,7 +187,8 @@ describe('OAuth Protected Resource Metadata (Integration)', () => {
 
       expect(res.status).toBe(200);
 
-      expect(res.body).toHaveProperty('scopes_supported', TEST_UPSTREAM_METADATA.scopes_supported);
+      expect(res.body).toHaveProperty('scopes_supported', [...SCOPES_SUPPORTED]);
+      expect(res.body.scopes_supported).not.toContain('openid');
     });
   });
 

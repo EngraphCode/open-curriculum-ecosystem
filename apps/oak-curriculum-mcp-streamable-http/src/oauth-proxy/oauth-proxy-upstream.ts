@@ -120,20 +120,34 @@ export function formatProxyErrorResponse(
 }
 
 /**
- * Rewrites upstream AS metadata endpoint URLs to point to the local proxy.
+ * Rewrites upstream AS metadata into this resource's own self-description.
  *
  * Replaces `issuer`, `authorization_endpoint`, `token_endpoint`, and
- * `registration_endpoint` with proxy URLs on the local origin. All
- * capability fields including `scopes_supported` are passed through
- * unchanged from the upstream AS.
+ * `registration_endpoint` with proxy URLs on the local origin, and states
+ * `scopes_supported` as the scopes this resource advertises — the same set
+ * the protected-resource metadata publishes — rather than the upstream AS's
+ * full list. Every other capability field passes through unchanged.
+ *
+ * @remarks
+ * MCP-345. Clerk's own list names `openid`, which Oak's dynamically registered
+ * clients are not granted (ADR-113, Troubleshooting). Clients that choose
+ * scopes from this document rather than the PRM — ChatGPT's plugin portal
+ * measured 2026-09-08 — request every OIDC scope it advertises, so an
+ * advertised `openid` becomes a Clerk `invalid_scope` refusal at sign-in.
+ * This document is the proxy's self-description, already rewritten field by
+ * field; it is not a forwarded OAuth message, so ADR-115's transparent
+ * passthrough rule does not reach it.
  *
  * @param upstreamMetadata - The original AS metadata from Clerk
  * @param localOrigin - The proxy's origin, e.g. `http://localhost:3333`
- * @returns Rewritten metadata with proxy endpoint URLs
+ * @param advertisedScopes - The scopes this resource advertises; the PRM's
+ *   `scopes_supported`, so the two discovery documents cannot disagree
+ * @returns Rewritten metadata with proxy endpoint URLs and advertised scopes
  */
 export function rewriteAuthServerMetadata(
   upstreamMetadata: UpstreamAuthServerMetadata,
   localOrigin: string,
+  advertisedScopes: readonly string[],
 ): UpstreamAuthServerMetadata {
   return {
     ...upstreamMetadata,
@@ -141,5 +155,6 @@ export function rewriteAuthServerMetadata(
     authorization_endpoint: `${localOrigin}/oauth/authorize`,
     token_endpoint: `${localOrigin}/oauth/token`,
     registration_endpoint: `${localOrigin}/oauth/register`,
+    scopes_supported: [...advertisedScopes],
   };
 }

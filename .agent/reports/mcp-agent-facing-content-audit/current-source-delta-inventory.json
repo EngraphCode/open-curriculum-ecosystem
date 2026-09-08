@@ -126,7 +126,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts",
-      "semanticSha256": "ace7a9c10712382d219d986b24696ab94f11ef1717df1654e39244ae8838efad",
+      "semanticSha256": "346a0daefde383606984aac0c74532752bf47fe9cc05af7fc1af6555203b3a07",
       "itemIds": [
         "C705",
         "C706",
@@ -477,6 +477,13 @@
       "semanticSha256": "ebd0f673547d88cc57a006a125628c4653f2df74c58007d5789b66345103cef4",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts",
+      "semanticSha256": "fcefa57b4a0e31be024c3182e8141be0c1c77aabe144e2e196d9515b44ebc40a",
+      "itemIds": [
+        "C408"
+      ]
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/observe-resource-reads.ts",

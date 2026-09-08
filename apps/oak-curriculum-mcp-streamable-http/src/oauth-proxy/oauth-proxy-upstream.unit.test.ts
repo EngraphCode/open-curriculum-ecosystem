@@ -28,6 +28,9 @@ const TEST_UPSTREAM_METADATA: UpstreamAuthServerMetadata = {
   code_challenge_methods_supported: ['S256'],
 };
 
+/** What this resource advertises — the PRM's set, deliberately narrower than upstream's. */
+const ADVERTISED_SCOPES: readonly string[] = ['email'];
+
 describe('deriveUpstreamOAuthBaseUrl', () => {
   it('derives correct FAPI base URL from a valid publishable key', () => {
     const result = deriveUpstreamOAuthBaseUrl(TEST_PUBLISHABLE_KEY);
@@ -101,27 +104,47 @@ describe('formatProxyErrorResponse', () => {
 
 describe('rewriteAuthServerMetadata', () => {
   it('rewrites issuer to local origin', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.issuer).toBe('http://localhost:3333');
   });
 
   it('rewrites authorization_endpoint to local origin', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.authorization_endpoint).toBe('http://localhost:3333/oauth/authorize');
   });
 
   it('rewrites token_endpoint to local origin', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.token_endpoint).toBe('http://localhost:3333/oauth/token');
   });
 
   it('rewrites registration_endpoint to local origin', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.registration_endpoint).toBe('http://localhost:3333/oauth/register');
   });
 
   it('preserves non-scope capability fields unchanged', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.token_endpoint_auth_methods_supported).toStrictEqual([
       'client_secret_basic',
       'none',
@@ -132,15 +155,39 @@ describe('rewriteAuthServerMetadata', () => {
     expect(result.code_challenge_methods_supported).toStrictEqual(['S256']);
   });
 
-  it('passes through scopes_supported unchanged from upstream', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
-    expect(result.scopes_supported).toStrictEqual(TEST_UPSTREAM_METADATA.scopes_supported);
+  it('advertises only the scopes this resource grants, never the upstream list', () => {
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
+    expect(result.scopes_supported).toStrictEqual(['email']);
+  });
+
+  it('omits openid even though the upstream AS offers it', () => {
+    expect(TEST_UPSTREAM_METADATA.scopes_supported).toContain('openid');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
+    expect(result.scopes_supported).not.toContain('openid');
+  });
+
+  it('returns a copy of the advertised scopes, not the caller array', () => {
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
+    expect(result.scopes_supported).not.toBe(ADVERTISED_SCOPES);
   });
 
   it('works with a production HTTPS origin', () => {
     const result = rewriteAuthServerMetadata(
       TEST_UPSTREAM_METADATA,
       'https://mcp.thenational.academy',
+      ADVERTISED_SCOPES,
     );
     expect(result.issuer).toBe('https://mcp.thenational.academy');
     expect(result.authorization_endpoint).toBe('https://mcp.thenational.academy/oauth/authorize');
@@ -156,7 +203,11 @@ describe('rewriteAuthServerMetadata', () => {
       userinfo_endpoint: `${TEST_FAPI_BASE_URL}/oauth/userinfo`,
       jwks_uri: `${TEST_FAPI_BASE_URL}/.well-known/jwks.json`,
     };
-    const result = rewriteAuthServerMetadata(metadataWithExtras, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      metadataWithExtras,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.revocation_endpoint).toBe(`${TEST_FAPI_BASE_URL}/oauth/token/revoke`);
     expect(result.introspection_endpoint).toBe(`${TEST_FAPI_BASE_URL}/oauth/token_info`);
     expect(result.userinfo_endpoint).toBe(`${TEST_FAPI_BASE_URL}/oauth/userinfo`);
@@ -164,7 +215,11 @@ describe('rewriteAuthServerMetadata', () => {
   });
 
   it('omits non-proxied endpoints when not present in upstream', () => {
-    const result = rewriteAuthServerMetadata(TEST_UPSTREAM_METADATA, 'http://localhost:3333');
+    const result = rewriteAuthServerMetadata(
+      TEST_UPSTREAM_METADATA,
+      'http://localhost:3333',
+      ADVERTISED_SCOPES,
+    );
     expect(result.revocation_endpoint).toBeUndefined();
     expect(result.introspection_endpoint).toBeUndefined();
     expect(result.userinfo_endpoint).toBeUndefined();
