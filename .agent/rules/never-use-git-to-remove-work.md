@@ -130,9 +130,31 @@ never a self-served exception. This coheres with the no-escape-hatches
 principle (`principles.md` §First Principle): the impulse to construct a
 sanctioned bypass is itself the signal to examine.
 
+**Standing grant for proven paths (owner-ruled 2026-09-08, card answer
+verbatim: "Standing grant for proven paths").** A path whose content is
+PROVEN on the freshly fetched `origin/<base>` — identical there; landed
+there and since revised; or conserved in a tracked home — with the proof
+recorded per path in a surfaced table, MAY be cleared by the seat by a
+forward-going write: a modified tracked file is overwritten with its HEAD
+content (the platform's file tool, or the show-from-HEAD redirect
+`git show HEAD:<path> > <path>`); a tracked symlink is recreated as HEAD
+holds it (`ln -sfn`), never written through; a staged addition is removed
+from the index with `git rm --cached <path>` and the file moved out; an
+untracked path is MOVED to the session scratchpad, never deleted in
+place. The proof is the licence and it is per path: one unproven path
+keeps the whole worktree outside the grant, and the blocked command forms
+(`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay blocked
+with the hook policy unchanged — the grant is a write of proven content,
+never a git-side discard. The grant exists so that a worktree whose every
+dirty path is already conserved can be retired by the seat under
+`worktree-hygiene` §6 without a per-instance ask; anything short of a
+recorded per-path proof falls back to the absolute clause above.
+
 ## Exceptions
 
-There are none for working-tree edits. Once a change is committed, the
+One, ruled above: the standing grant for proven paths, which licenses a
+forward write of proven content and nothing in the blocked class. Beyond
+it there are none for working-tree edits. Once a change is committed, the
 normal git tools (revert, reset on a private branch you own) become
 available as forward-going operations because they create new commits
 that record the change. Those are not in scope of this rule.

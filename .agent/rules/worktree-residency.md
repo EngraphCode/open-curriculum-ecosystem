@@ -210,7 +210,9 @@ configure away.
    moment of use as `downstream-checkout-never-writes-upstream-surfaces`
    specifies — the remote HEAD refreshed with `git remote set-head
    origin --auto`, then read with `git symbolic-ref --short` and
-   stripped of its `origin/` prefix — never a literal; a check against
+   stripped of its `origin/` prefix — never a literal; for a build-ahead
+   lane, the parent branch it was cut from until the parent lands, so the
+   listing is the child's own commits and nothing else; a check against
    a stale or wrong base lists every commit since the mirror point as
    contamination). Anything else is a contaminated base —
    re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story

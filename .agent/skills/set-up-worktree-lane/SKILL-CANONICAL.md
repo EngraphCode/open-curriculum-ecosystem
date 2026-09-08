@@ -57,7 +57,8 @@ with the repository named — derived at the moment of use, never a literal;
 verifies both reads), because the default branch is identity held below the tree.
 For a build-ahead lane it is the parent branch the worktree is cut from
 ([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
-parent's changes; the PR opens against the default branch once the parent has landed.
+parent's changes; its draft PR opens against the default branch at first push, the diff
+carrying the parent's commits until the parent lands, and is never based on the parent.
 The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
 branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
 in any settings layer, bases the branch on the **principal's checked-out HEAD** — a

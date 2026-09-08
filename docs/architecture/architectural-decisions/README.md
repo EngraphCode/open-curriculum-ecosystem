@@ -487,6 +487,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
   workspaces; a junior-developer product repository; one version per repository for now; the
   extraction before the estate-wide seam migration)
+- [ADR-228: Organisational identity is held below the tree](228-organisational-identity-below-the-tree.md)
+  (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
+  tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
+  branch derived, never a literal)
 
 ## Key Architectural Decisions
 
