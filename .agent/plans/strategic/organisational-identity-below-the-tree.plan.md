@@ -3,10 +3,10 @@ id: organisational-identity-below-the-tree
 node_type: strategic
 name: "Organisational identity below the tree — any organisation is configuration"
 overview: "The repository is general mechanism that any organisation runs as its own; who is running it — repository owner, bot, code-quality and error-reporting accounts, chat and ticketing homes, default branch, adapter prefix — is configuration held below the tree, never a literal in mechanism, with a validator that holds the count at zero."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify all six'"
 serves: FRAME-2
 impact_areas:
   - practice-and-estate
@@ -15,7 +15,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-09-03
+last_updated: 2026-09-08
 ---
 
 # Organisational identity below the tree — any organisation is configuration

@@ -7,10 +7,10 @@ overview: >-
   with versions that mean something: internal-only change stops minting
   releases, publishing is fully automatic, and version lockstep follows
   lifecycle-clock groupings once the estate splits along them.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify all six'"
 serves: TOOLS-2
 impact_areas:
   - packaging-and-distribution
@@ -19,7 +19,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-09-03
+last_updated: 2026-09-08
 ---
 
 # Public packages — clock-aligned versioning and automatic publishing

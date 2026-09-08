@@ -3,7 +3,10 @@ id: reliable-atoms-programme
 node_type: strategic
 name: "Reliable atoms — the estate's fundamental building blocks at engineering excellence"
 overview: "Factor the estate's fundamental code, data structures, algorithms, and patterns into small single-responsibility core modules with strict public APIs, extensive TSDoc carrying positive and negative examples, behavioural and performance test suites — utterly reliable atoms, brought to true engineering and developer-experience excellence."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-09-08
+ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in its own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
 serves: TOOLS-2
 impact_areas:
   - practice-and-estate
@@ -13,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-08-17
+last_updated: 2026-09-08
 ---
 
 # Reliable atoms programme
