@@ -23,7 +23,7 @@
 |---|---|---|---|
 | Oak OCE | Upstream `1.178.6` carries authored unit and lesson order in explicit graph-corpus sections; `get-thread-progressions` serves subject-specific curriculum runs | Released upstream | Engraph remains at `1.178.5`; `get-misconception-graph` correction is still open |
 | OCE graph corpus | Ordered `sequences` and `unitLessonRuns`; same-year sequencing audit; corpus schema `1.5.0` | Present in upstream release | KS4 board/tier variants are merged; prior bulk snapshot was not retained; synthetic prerequisite-labelled edges remain |
-| Oak Curriculum API | `0.11.1` centralises subject validation and admits `combined-science` | Released in the separate API repository | Affected volume and complete live-deployment timing are not public |
+| Oak Curriculum API | `0.11.1` centralises subject validation and admits `combined-science` | Released in the separate API repository | Affected volume and complete live-deployment timing are not stated in the cited release or fix commit |
 
 ## 1. OCE 1.178.6 restores authored order at one served boundary
 
@@ -80,8 +80,7 @@ They do **not** change the public-service tuition collection’s bottom-line mat
 - no national tutoring service or pupil benefit is established;
 - no Sovereign Education Benchmark tasks, method or results are published;
 - no official DfE architecture or OCE role is established;
-- no independent OCE adoption or educational-effect evidence appears; and
-- the corrected final tutoring cohort remains eight contracts, with PA Consulting, Anthropic and Developing Experts replacing Google.
+- no independent OCE adoption or educational-effect evidence appears.
 
 ## 5. Reopening triggers
 
