@@ -104,19 +104,21 @@ configure away.
    route for a coordinated lane: the canonical watcher must arm while
    principal-resident (`comms-all-channels-watcher`, and clause 4: a
    resident arm may be refused, a worktree-rooted arm is unverified),
-   so a launch-resident team lane arms by the watcher rule's own
-   sequence — `ExitWorktree`, arm at the principal, re-enter with the
-   owner at the prompt, who is present at a launch — before it claims;
-   a lane that needs no watcher of its own launches resident without
-   that step. `claude --worktree
+   so the route is prompt-free only for a lane that needs no watcher of
+   its own. A coordinated lane launched resident arms by the watcher
+   rule's own sequence — `ExitWorktree`, arm at the principal, re-enter
+   — and that re-entry prompts, so it is done with the owner at the
+   keyboard; an unattended coordinated lane is launched at the
+   principal and enters under clause 1, or runs non-resident, never
+   launch-resident. `claude --worktree
    <name>` also launches resident but creates under
    `.claude/worktrees/` on the `worktree.baseRef` base unless a
    `WorktreeCreate` hook replaces creation (the hook receives the
    `name` and must print the created directory; it may place the
    worktree anywhere that is not reached through a symlink inside the
-   repository) — this estate ships no such hook today, so `--worktree`
-   without one is the nested, setting-based shape §Platform mechanics
-   rejects.
+   repository); without such a hook, `--worktree` is the nested,
+   setting-based shape §Platform mechanics rejects, so check for the
+   hook in the settings before choosing the flag.
 3. **`Shell cwd was reset` is a residency-violation signal, never
    noise.** Bash cwd persists only inside the project directory and
    additional working directories; a `cd` into a sibling-directory
