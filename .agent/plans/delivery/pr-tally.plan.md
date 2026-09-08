@@ -43,16 +43,30 @@ skill.
 ## Mechanism
 
 - **The reads**: the GraphQL review-thread harvest the pr-lifecycle skill's Phase 3 specifies
-  — each thread's first comment carries its originating review's commit binding — and the
-  paged reviews connection with each review's commit and body; both paginated to exhaustion.
-  The repository is named explicitly on every call (the downstream-checkout rule).
-- **The tally**: one row per commit that reviews bind to, in commit order on the branch,
-  never arrival order; the raised count is every finding in threads and review bodies bound
-  to that commit, one logical finding counted once (a body finding restating an inline
-  thread of the same review is deduplicated by anchor); the cure-worthy count is read from
-  the disposition state the seat records — a reply signed by the seat's identity tuple that
-  names a cure commit counts as cured, a reply that names a home counts as routed — and the
-  seat's own signed replies are excluded from the raised count.
+  — each thread's first comment carries its originating review's commit binding — the paged
+  reviews connection with each review's commit and body, AND the paged issue-comment
+  connection, because a finding that exists only in a review body has its disposition
+  recorded as an ordinary PR comment (PDR-140) and the seat's settle marks live there too;
+  all three paginated to exhaustion. The repository is named explicitly on every call (the
+  downstream-checkout rule).
+- **Findings from bodies**: a review body becomes findings only through the reviewer's own
+  structured markers — one item per badge-and-heading block for Codex, the
+  suppressed-comments block for Copilot; body prose without markers is never counted and
+  is surfaced as "manual tally required", the boundary the existing pr-watch settlement
+  code already draws.
+- **The tally**: one row per SETTLED round, in commit order on the branch, never arrival
+  order. A head's round is settled when the seat's signed settle mark for that head exists
+  (the tally comment naming it, or a reply naming the round settled) or when every expected
+  reviewer leg has bound to the head and no newer review arrived within the quiet window;
+  a head superseded before either is listed as unsettled and never counted toward the
+  step-back. The raised count is every finding in threads and marked body items bound to
+  that head, one logical finding counted once, matched on anchor AND substance (a body item
+  restating an inline thread of the same review at the same anchor with the same substance
+  is one finding; two distinct defects at one anchor are two); the cure-worthy count is
+  read from the disposition state the seat records — a reply or comment signed by the
+  seat's identity tuple that names a cure commit counts as cured, one that names a home
+  counts as routed — and the seat's own signed replies and comments are excluded from the
+  raised count.
 - **The verdict**: the exact predicate from the skill — `c[n] >= c[n-1] AND c[n-1] >= c[n-2]`
   across three settled cure-worthy counts, or four settled rounds in the epoch, either arm
   firing only while the latest settled count is non-zero; the epoch resets at a push the seat
@@ -83,6 +97,10 @@ skill.
 4. The lane-cut skill carries the pre-push cross-surface read step and its projections are
    regenerated. Proof: `repo-safe` — the skill's projection check and the markdown-links
    validator on the landing PR.
+5. The fixtures cover a head superseded mid-review (no row), a body-only finding with its
+   PR-comment disposition, two distinct findings at one anchor (two), and a body without
+   markers (surfaced as manual, not counted); the rows and the verdict match. Proof:
+   `repo-safe` — unit tests over the tally builder and the classifier, no IO.
 
 ## Todos
 

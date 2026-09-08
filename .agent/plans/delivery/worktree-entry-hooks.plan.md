@@ -54,22 +54,33 @@ hook prompts for nothing, so the prompt-free shape is launch-time residency, whi
 hooks make mechanical.
 
 - **`WorktreeCreate`** (a tracked script under `.claude/hooks/`, registered in the tracked
-  settings): read the JSON input; refresh and derive the default branch
-  (`git remote set-head origin --auto`; `git symbolic-ref --short refs/remotes/origin/HEAD`
-  stripped of `origin/`); `git fetch origin`; `git worktree add
-  ../<repository-directory>-worktrees/<name> -b <name> origin/<default>`; verify the
-  inherited commit identity resolves and no worktree-scoped `user.*` override shadows it
-  (never re-set it); copy the principal's `.env.local` when one exists; run
-  `pnpm --dir <path> install` and `pnpm --dir <path> build`; print the created path last.
+  settings): read the JSON input; derive the default branch from the remote itself — read
+  the remote's HEAD symref (`git ls-remote --symref origin HEAD`), fetch that branch
+  explicitly, then `git remote set-head origin --auto` and the local read
+  (`git symbolic-ref --short refs/remotes/origin/HEAD` stripped of `origin/`) — because a
+  single-branch clone whose remote default moved outside its fetch refspec fails the bare
+  `set-head --auto` and a plain fetch never obtains the new branch; then `git worktree add
+  ../<repository-directory>-worktrees/<name> -b <name> origin/<default>`, or, when a
+  worktree with that path and branch already exists from a setup that failed part-way,
+  RESUME it rather than re-add it (the hook is idempotent: it checks `git worktree list`
+  first and runs only the remaining steps); verify the inherited commit identity resolves
+  and no worktree-scoped `user.*` override shadows it (never re-set it); copy the
+  principal's `.env.local` when one exists; run `pnpm --dir <path> install` and
+  `pnpm --dir <path> build` — a failure here leaves the worktree and branch in place and
+  exits non-zero naming the failed step, so the same launch retries from where it stopped;
+  print the created path last.
   The install and build run inside the hook, before the session opens, because a worktree
   built after its session opens has no statusline (residency clause 2; the lane-cut skill's
   own order): the launch waits the minutes the build takes, once per lane, rather than open
   a session whose gates cannot be trusted.
-- **`WorktreeRemove`**: refuse with the proof table when the worktree is dirty or its HEAD
-  is not an ancestor of the freshly fetched default branch (never `--force`; the
-  dirty-but-proven path stays the seat's under `worktree-hygiene` §6 and the standing
-  grant); otherwise `git worktree remove` and `git branch -d` (merged only), printing what
-  was removed.
+- **`WorktreeRemove`**: apply `worktree-hygiene` §6's proof whole — the porcelain listing
+  WITH `--ignored`, because this very hook creates ignored state (the copied `.env.local`,
+  the install, the build) that plain porcelain omits and `git worktree remove` deletes with
+  exit 0 — and refuse with the proof table when any tracked path is dirty, any ignored
+  entry lacks a disposition, or HEAD is not an ancestor of the freshly fetched default
+  branch (never `--force`; the dirty-but-proven clearing stays the seat's under §6 and the
+  standing grant); porcelain-clean without the ignored inventory is not proven. Otherwise
+  `git worktree remove` and `git branch -d` (merged only), printing what was removed.
 - **`worktree.baseRef: head`** in any settings layer is neutralised, because the hook cuts
   the base explicitly; the setting is left as the user has it.
 - Each hook is a thin shell over a pure planner: given the input and the facts read from the
@@ -86,12 +97,15 @@ hooks make mechanical.
    falsifier from the exploration that designed this node: the launch prompts or refuses the
    sibling path.
 2. The planner for each hook returns the exact command sequence for the documented input
-   shapes, including the refusal cases (dirty worktree; HEAD not an ancestor; a
-   worktree-scoped identity override present). Proof: `repo-safe` — unit tests over the
-   planners with recorded inputs, no IO.
-3. The hook scripts, piped the documented JSON against a temporary repository, create and
-   remove a worktree as specified and refuse as specified. Proof: `repo-safe` — one
-   integration check in the agent-tools end-to-end suite.
+   shapes, including the resume case (a matching worktree left by a failed setup) and the
+   refusal cases (a dirty tracked path; an ignored entry without a disposition; HEAD not an
+   ancestor; a worktree-scoped identity override present; a remote default branch outside
+   the clone's fetch refspec). Proof: `repo-safe` — unit tests over the planners with
+   recorded inputs, no IO.
+3. The hook scripts, piped the documented JSON against a temporary repository, create a
+   worktree, resume one after a failed install, and remove one as specified, refusing as
+   specified. Proof: `repo-safe` — one integration check in the agent-tools end-to-end
+   suite.
 4. The hooks name no organisation and no branch literal: the default branch and the sibling
    directory are derived. Proof: `repo-safe` — the identity-naming validator family runs
    over the hook scripts; a grep for a branch literal in them finds none.
