@@ -132,7 +132,8 @@ configure away.
    `cd <repo-root> || exit 1`). A worktree-resident session arms the
    same watcher as the fully literal two-line block the watcher rule
    carries under "Worktree residency changes the arm's shape" — its
-   `cd` rooted at the WORKTREE, the `timeout` binary named directly,
+   `cd` rooted at the WORKTREE, the timeout binary named by the name it
+   resolves to (`timeout` or `gtimeout`, read first as a plain command),
    the supervisor pid passed as a literal — VERIFIED 2026-09-08 on
    Claude Code 2.1.263: the arm ran, drained the canonical primary
    stream, and `assert-watcher-live` run from the worktree was green.

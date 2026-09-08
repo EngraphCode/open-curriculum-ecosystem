@@ -176,12 +176,22 @@ cleared per file, never read as the end of the analysis. For each path
 `git status --porcelain` lists, prove its content on the freshly-fetched
 `origin/<base>` — identical there, landed there and since revised, or
 conserved in a tracked home (an archive page, a landed record) — and record
-the proof per file; then `git restore -- <files>` to HEAD, confirm (a) and
-(b) afresh, and `git worktree remove` without `--force`. One file failing
-its proof keeps the whole worktree outside the class. Worked instance
+the proof per file. Then clear each proven path by a FORWARD-GOING
+filesystem step, never by the risk-of-loss class
+(`never-use-git-to-remove-work` §A Safety Proof Never Licenses the Class
+holds unchanged; the hook policy blocks `git restore`, `git checkout --`
+and kin, and its own reappraisal names the forward path): a modified
+tracked file (porcelain `M` in the second column) is overwritten with its HEAD content
+(`git show HEAD:<path> > <path>`, or the platform's file-writing tool);
+a staged change (`M` in the first column) is overwritten the same way and then `git add
+<path>` re-stages the HEAD content so the index matches; an untracked
+path (`??`) is MOVED out of the tree to the session scratchpad, never
+deleted in place. Confirm (a) and (b) afresh, then `git worktree remove`
+without `--force`. One file failing its proof keeps the whole worktree
+outside the class. Worked instance
 2026-09-08: a consolidation worktree with three dirty files (an experience
 page identical on the base; a napkin block conserved in the tracked archive;
-a register comment landed and since revised on the base) restored, proven
+a register comment landed and since revised on the base) cleared, proven
 clean and ancestor, removed without force, zero losses.
 
 Destructive removal OUTSIDE the proven class (`git worktree remove` of

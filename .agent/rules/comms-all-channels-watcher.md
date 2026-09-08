@@ -195,17 +195,20 @@ canonical block's `TIMEOUT_BIN="$(command -v …)"`, `set --` and
 `exec "$@"` scaffolding passes inside a worktree is unverified. A
 worktree-resident session therefore arms the SAME watcher as a fully
 literal block, not as an edit of the canonical one — the `cd` rooted at
-the worktree, the `timeout` binary named directly, and the supervisor
-pid written as a literal, read first as a plain command from the
-harness's session file (`~/.claude/sessions/<pid>.json`, matched on
-`sessionId`):
+the worktree, the timeout binary named by the name it resolves to, and
+the supervisor pid written as a literal. Both literals are read first,
+each as a plain command: the pid from the harness's session file
+(`~/.claude/sessions/<pid>.json`, matched on `sessionId`); the binary
+from `command -v timeout || command -v gtimeout` (`timeout` on Linux,
+`gtimeout` from Homebrew coreutils on macOS; when neither resolves, omit
+the prefix and the watcher runs un-guarded, as the README states):
 
 ```bash
 cd <worktree-path> || exit 1
-timeout 3600 pnpm agent-tools:collaboration-state -- comms watch --platform <platform> --model <model-id> --supervisor-pid <literal-pid> --step-timeout-ms 120000 --max-events-per-drain 100
+<timeout|gtimeout> 3600 pnpm agent-tools:collaboration-state -- comms watch --platform <platform> --model <model-id> --supervisor-pid <literal-pid> --step-timeout-ms 120000 --max-events-per-drain 100
 ```
 
-That block is the one verified 2026-09-08 on 2.1.263: the arm ran, the
+That block, with `timeout` resolved, is the one verified 2026-09-08 on 2.1.263: the arm ran, the
 omit-path default resolved the PRIMARY comms directory (the heartbeat's
 `watched_comms_dir`), events drained, and `assert-watcher-live` from the
 worktree was green. A session launched at the principal arms there before
