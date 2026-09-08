@@ -1,0 +1,121 @@
+---
+id: worktree-entry-hooks
+node_type: delivery
+name: "Worktree entry hooks — lanes launched resident with no prompt, on the right base"
+overview: "A tracked WorktreeCreate/WorktreeRemove hook pair that places a lane worktree in the sibling directory, cuts its branch from the derived default branch, checks the inherited identity and carries the environment file, so `claude --worktree <name>` launches a lane resident with no approval prompt and subagent worktrees inherit the right base; removal refuses anything unproven."
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "The owner's direct word of 2026-09-08 (12:1xZ, via the Director), verbatim: \"create a plan for the worktreecreat/remove hook pair and ratify it\"; quoted in the body of the pull request that landed this node"
+serves: coordination-substrate
+impact_areas:
+  - practice-and-estate
+tickets: []
+depends_on: []
+owner_gates: []
+last_updated: 2026-09-08
+---
+
+# Worktree entry hooks — lanes launched resident with no prompt, on the right base
+
+## Goal
+
+A seat that needs its own checkout gets one by a single launch — `claude --worktree <name>`
+— that opens resident inside a worktree cut from the repository's default branch, placed
+beside the repository, with the bot identity inherited and checked and the environment
+file carried, and no approval prompt anywhere in the sequence. A subagent's isolated
+worktree inherits the same base. Removal of a finished worktree refuses anything not proven
+on the fetched default branch. Today every one of those steps is a hand-run recipe in the
+lane-cut skill, and the platform's own creation path bases a worktree on the principal's
+checked-out HEAD, a coordination-branch tip on this estate.
+
+## User groups and value
+
+- **Implementer seats** (agents launched for a lane): residency without the mid-session
+  `EnterWorktree` prompt that held one seat for nine hours on 2026-09-07/08; the base is
+  right by construction, so no lane PR ships coordination commits under its story.
+- **The Director**: launches lanes resident with one command and stops routing around a
+  prompt the seat cannot see; subagent fleets isolate on the right base.
+- **The owner**: one fewer approval prompt to be present for; the platform's documented
+  creation path made to obey the estate's conventions rather than its settings default.
+- **Any organisation running this tree as its own**: the hooks derive the default branch
+  and the sibling directory from the checkout, naming no organisation (ADR-228).
+
+## Mechanism
+
+The platform (Claude Code, verified on 2.1.263 against the worktrees documentation and the
+hooks reference) fires a `WorktreeCreate` hook for `claude --worktree <name>`, subagent
+isolation and background sessions — never for the `EnterWorktree` tool — with `name` and
+`cwd` on its input and the created path expected on its output; the hook may place the
+worktree anywhere not reached through a symlink inside the repository. A `WorktreeRemove`
+hook fires on the matching removal. Entering a path outside `.claude/worktrees/` mid-session
+always prompts and no permission rule suppresses it (since 2.1.206); creation through the
+hook prompts for nothing, so the prompt-free shape is launch-time residency, which these
+hooks make mechanical.
+
+- **`WorktreeCreate`** (a tracked script under `.claude/hooks/`, registered in the tracked
+  settings): read the JSON input; refresh and derive the default branch
+  (`git remote set-head origin --auto`; `git symbolic-ref --short refs/remotes/origin/HEAD`
+  stripped of `origin/`); `git fetch origin`; `git worktree add
+  ../<repository-directory>-worktrees/<name> -b <name> origin/<default>`; verify the
+  inherited commit identity resolves and no worktree-scoped `user.*` override shadows it
+  (never re-set it); copy the principal's `.env.local` when one exists; print the created
+  path. Install and build stay the seat's first move (the skill's step 3) — the hook returns
+  in seconds, and a build inside it would hold the launch for minutes; a later setting may
+  opt into it.
+- **`WorktreeRemove`**: refuse with the proof table when the worktree is dirty or its HEAD
+  is not an ancestor of the freshly fetched default branch (never `--force`; the
+  dirty-but-proven path stays the seat's under `worktree-hygiene` §6 and the standing
+  grant); otherwise `git worktree remove` and `git branch -d` (merged only), printing what
+  was removed.
+- **`worktree.baseRef: head`** in any settings layer is neutralised, because the hook cuts
+  the base explicitly; the setting is left as the user has it.
+- Each hook is a thin shell over a pure planner: given the input and the facts read from the
+  checkout, the planner returns the commands to run, so the decision is unit-tested without
+  IO and the shell is the only part that touches git.
+
+## Acceptance criteria (each with a proof)
+
+1. `claude --worktree <name>` from the principal opens a session resident in
+   `../<repository-directory>-worktrees/<name>` on a branch whose merge-base with the
+   fetched default branch is that branch's tip, with no approval prompt in the sequence.
+   Proof: `owner-held` — one launch by the owner, recorded on the lane's closing event; the
+   falsifier from the exploration that designed this node: the launch prompts or refuses the
+   sibling path.
+2. The planner for each hook returns the exact command sequence for the documented input
+   shapes, including the refusal cases (dirty worktree; HEAD not an ancestor; a
+   worktree-scoped identity override present). Proof: `repo-safe` — unit tests over the
+   planners with recorded inputs, no IO.
+3. The hook scripts, piped the documented JSON against a temporary repository, create and
+   remove a worktree as specified and refuse as specified. Proof: `repo-safe` — one
+   integration check in the agent-tools end-to-end suite.
+4. The hooks name no organisation and no branch literal: the default branch and the sibling
+   directory are derived. Proof: `repo-safe` — the identity-naming validator family runs
+   over the hook scripts; a grep for a branch literal in them finds none.
+5. The lane-cut skill's steps 1, 2 and 4 read as the hook's contract, and residency clause 2
+   names `claude --worktree <name>` as the prompt-free shape without the "check for the
+   hook" caveat. Proof: `repo-safe` — the markdown-links validator and the docs reviewers
+   on the landing PR.
+
+## Todos
+
+1. **The planners and their tests** — the two pure planners with the recorded-input tests
+   (criterion 2); one PR, default round budget.
+2. **The scripts and the registration** — the two shell hooks over the planners, the
+   tracked settings entry, the end-to-end check (criteria 3 and 4); one PR.
+3. **The doctrine truing** — the lane-cut skill and residency clause 2 (criterion 5), landed
+   after the owner's launch verifies the wiring (criterion 1); one small records PR.
+
+Each PR opens with the pr-lifecycle instruments declared at open: the round tally, and the
+PDR-140 intake contract where the changeset carries prose.
+
+## Out of scope
+
+- Suppressing the mid-session `EnterWorktree` prompt: the platform asks by design and no
+  setting changes it; the cure is launch-time residency, which this node makes mechanical.
+- Install and build inside the hook: a minutes-long launch hold; the seat's first move per
+  the lane-cut skill, and a later opt-in setting if wanted.
+- A per-fork re-identification tool or any hard-coded branch or directory name: ADR-228
+  forbids both; everything here is derived.
+- The dirty-but-proven clearing of a worktree: the seat's, under `worktree-hygiene` §6 and
+  the standing grant for proven paths; the remove hook only refuses what is unproven.
