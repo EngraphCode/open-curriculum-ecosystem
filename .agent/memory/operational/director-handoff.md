@@ -333,4 +333,6 @@ first-hand as of 2026-06-25.
 > (continuity-practice §Disposition of Continuity Surfaces, disposition 2: the work they describe
 > is finished and landed; the insight they carried is homed; git retains the literal record).
 > Losslessness was proven at the move by a byte comparison of the moved range against the archive
-> body. A Director's next block goes ABOVE this one, under the fold block's own convention.
+> body. The next Director REPLACES this snapshot in place — one live snapshot, per this file's
+> refresh contract above — and journals in the estate-coordination thread record; a fold block
+> supersedes the one above it the same way. Nothing accumulates here again.
