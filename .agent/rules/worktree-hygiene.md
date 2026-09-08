@@ -169,9 +169,35 @@ theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
 removals + 5 stale prunes), zero losses.
 
+**A dirty worktree joins the proven class once each dirty file is proven**
+(owner word 2026-09-08: "proven safe deletions are fine"). A failing
+precondition is a question, not a verdict: "dirty" is established or
+cleared per file, never read as the end of the analysis. For each path
+`git status --porcelain` lists, prove its content on the freshly-fetched
+`origin/<base>` — identical there, landed there and since revised, or
+conserved in a tracked home (an archive page, a landed record) — and record
+the proof per file. Then STOP: clearing a dirty path is the risk-of-loss
+class whatever the command — `git restore`, `git checkout --`, and the
+wholesale forward-writing of `git show HEAD:<path>` content are all
+named by `never-use-git-to-remove-work` (§A Safety Proof Never Licenses
+the Class; §A Block Is a Question, Never a Detour), and no proof and no
+general grant licenses a seat to run any of them. Surface the proof
+table with the exact clearing step per path (which paths, what each
+holds, where each is proven), and proceed only on the owner's express
+per-instance word — or the owner runs the commands. On that word,
+confirm (a) and (b) afresh, then `git worktree remove` without
+`--force`. One file failing its proof keeps the whole worktree outside
+the class, and the seat never invents a clearing step for a path shape
+the surfaced table did not name. Worked instance 2026-09-08: a
+consolidation worktree with three dirty files (an experience page
+identical on the base; a napkin block conserved in the tracked archive;
+a register comment landed and since revised on the base) surfaced with
+its proofs, cleared at the owner's word, proven clean and ancestor,
+removed without force, zero losses.
+
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
-anything dirty or unmerged, deletion of any branch not ancestor- or
-content-proven) remains owner-authorisation-gated and never removes
+anything unmerged or carrying an unproven dirty file, deletion of any branch
+not ancestor- or content-proven) remains owner-authorisation-gated and never removes
 information not first confirmed in `main` or consciously released
 (`never-use-git-to-remove-work`).
 

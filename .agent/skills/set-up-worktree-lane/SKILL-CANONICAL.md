@@ -49,8 +49,11 @@ git fetch origin
 git worktree add <path> -b <branch> origin/<base>
 ```
 
-`<base>` is the branch the lane's PR targets: `engraph` on the Engraph fork per
-[`pr-target-is-engraph`](../../rules/pr-target-is-engraph.md), `main` on the Oak line.
+`<base>` is the branch the lane's PR targets. By default that is `engraph` on the
+Engraph fork per [`pr-target-is-engraph`](../../rules/pr-target-is-engraph.md) and
+`main` on the Oak line; for a build-ahead lane it is the parent branch the lane stacks
+on ([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries
+the parent's changes and the PR compares against them.
 The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
 branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
 in any settings layer, bases the branch on the **principal's checked-out HEAD** — a
@@ -133,10 +136,11 @@ vintage stays honest.
 The platform asks the human for approval on every `EnterWorktree` to a path outside
 `.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
 ([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
-since v2.1.206). So the session-level switch is an owner-present step: first say on the
-comms stream, as a directed event to the Director, the exact invocation you are about
-to issue; then issue `EnterWorktree` with the path only when the owner is known to be
-at the keyboard. A prompt nobody answers holds the seat until someone does, while its
+since v2.1.206). So the session-level switch is an owner-present step: first say the
+exact invocation you are about to issue — as a directed event to the Director where a
+Director is live; in a solo session, in the reply the owner is reading, immediately
+before the call — then issue `EnterWorktree` with the path only when the owner is known
+to be at the keyboard. A prompt nobody answers holds the seat until someone does, while its
 heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
 away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
 for git, the platform's file-editing tool on absolute paths for edits, one plain command
