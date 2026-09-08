@@ -216,3 +216,38 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
   before this sweep; the queue empty; only the held settings file dirty. Promises: none new;
   the fold wake for the 2026-09-09 rollover stands. Bounds unchanged. A third pass re-finds
   only the standing bounds; the recursion closes here.
+
+## 2026-09-08 ~06:3xZ (Flounder turns Estuary, c5cc2c, Director) — compaction boundary 7: what the tenure's second day taught
+
+- **The board at the boundary:** no PR open on the fork; engraph 3864af225; the primary on
+  coordination/2026-09-08-68d53d at d0c24f51a; one claim in the registry (the Director's);
+  processes stopped at the owner's word ("prepare for compaction … then stop all processes").
+  The next fold is due at the 2026-09-09 rollover and its wake must be re-armed on resume.
+- **Metacognition over the second day (2026-09-07 16:0xZ → 2026-09-08 06:4xZ).** The owner's
+  corrections came in the first day; the second day's corrections came from reviewers and were
+  each cured within the hour, and the two that were mine (a plan pointer from an ADR; a record
+  closed in prose without the directory's lifecycle convention) share the tenure's one
+  generator: a convention that existed in a document I had not read at the moment of the act.
+  The mechanical cure is now three-tiered — rules and decision records, then skills, then the
+  directory's own README — and the day's evidence says it fires when I run it and fails when
+  I remember instead. The other pattern that held all day: every gate I ruled needed an exit
+  condition stated in the same sentence, and the one time I omitted it the gate serialised a
+  peer's loop twice.
+- **Concept check on the Director's job.** Its ends were three: every PR to merged under the
+  three requirements, every seat routed and never chased, and knowledge safe on disk at each
+  boundary. Sixteen landings, two folds, three seats retired with full handoffs and two by
+  silence or closeout, and fourteen wrap blocks say the ends were met; the costs were the
+  reviewer rounds on records-class PRs (now bounded by PDR-140 clause 9) and about four hours
+  of a held peer seat whose default ran by structure. What compresses next time: a declared
+  deadline and default on any lane the moment it goes progress-dark, not two hours in.
+- **Free-play harvest, honest.** Kept: the held REPL and the truncated watcher rendering are
+  the same shape — a message that reached a surface and not a mind; both cures were
+  structural (a wake with a default; read the file when the subject names a routing). Kept:
+  a seat's formation letter and a seat's napkin block are the two surfaces the review gates
+  treat differently on purpose, and today's reviewers tested that boundary from both sides.
+  Discarded, visibly: that the twelve landings' order encodes anything; that the fold's four
+  gate refusals were a single defect (they were four correct gates).
+- **Work safety and bounds at the boundary:** d0c24f51a equals origin before this sweep; the
+  queue empty; only the held settings file dirty; the tracked journal, the seated block, the
+  napkin and the per-user memory current; the machine-local record carries the finer grain.
+  Bounds unchanged. A third pass re-finds only the standing bounds; the recursion closes here.
