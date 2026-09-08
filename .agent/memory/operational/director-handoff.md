@@ -324,8 +324,8 @@ first-hand as of 2026-06-25.
 > reviews and disposition threads but does not sync or merge until the slot-holder's merge-landed
 > event; slot order is the Director's call, the slot going to whichever PR is green and clean
 > first rather than held empty; the fold takes the slot at the UTC rollover — homed in the
-> `pr-target-is-engraph` rule §The landing slot (moved there 2026-09-08; this snapshot is
-> replaceable). (3) _Settled directions are proposals_ (owner, comms `18109484`, 2026-09-07 13:2xZ:
+> pr-lifecycle skill §Phase 7, the landing-slot clause (moved there 2026-09-08 from the retired
+> pr-target-is-engraph rule; this snapshot is replaceable). (3) _Settled directions are proposals_ (owner, comms `18109484`, 2026-09-07 13:2xZ:
 > "No, they are proposals"): nothing in the tuition collection is ratified by its own README; the
 > review tests every direction, including those labelled settled, against the estate's ratified
 > structure — homed in that collection's `AUTHORITY.md` §Owner rulings.

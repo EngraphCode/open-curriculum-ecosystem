@@ -125,6 +125,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/design-values-come-from-the-system.md`                       | situational    | surface:design — Authoring or reviewing a design value on a consumer surface                      |
 | `.agent/rules/design-work-for-small-prs.md`                                | core           | —                                                                                                 |
 | `.agent/rules/design-from-impact-not-the-cowpath.md`                       | core           | —                                                                                                 |
+| `.agent/rules/downstream-checkout-never-writes-upstream-surfaces.md`       | core           | —                                                                                                 |
 | `.agent/rules/render-the-reference-before-reproducing.md`                  | situational    | surface:design — Beginning or reviewing work whose acceptance is likeness to a reference artefact |
 | `.agent/rules/directed-routing-requires-absorption-ack.md`                 | situational    | session:team — Team session active; a directed event carrying routing or an ask sent or absorbed  |
 | `.agent/rules/directive-file-context-budget.md`                            | situational    | surface:directive-files ∪ ceremony:consolidation                                                  |
@@ -181,7 +182,6 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/oak-chrome-session-is-metered.md`                            | situational    | tool:chrome-browser                                                                               |
 | `.agent/rules/owner-attention-at-action-moments.md`                        | core           | —                                                                                                 |
 | `.agent/rules/pr-comments-resolve-and-recheck.md`                          | situational    | ceremony:pr-lifecycle                                                                             |
-| `.agent/rules/pr-target-is-engraph.md`                                     | core           | —                                                                                                 |
 | `.agent/rules/per-user-memory-is-a-buffer.md`                              | core           | —                                                                                                 |
 | `.agent/rules/permanent-doc-is-the-consolidation-record.md`                | core           | —                                                                                                 |
 | `.agent/rules/ping-before-escalate.md`                                     | situational    | session:team                                                                                      |

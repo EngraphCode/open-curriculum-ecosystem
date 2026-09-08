@@ -9,7 +9,7 @@ description: >-
   missing env, hook failures. Do not use to switch branches in place (never on the
   principal), for the session-level residency switch alone (that is EnterWorktree),
   or to dispose of a finished worktree. Right looks like: branch cut explicitly from
-  origin/main, the inherited bot identity verified with no worktree-scoped override
+  origin/<base>, the inherited bot identity verified with no worktree-scoped override
   shadowing it, deps installed, .env.local carried, draft PR at first push. Wrong
   looks like: EnterWorktree fresh mode basing the branch on the principal's
   coordination HEAD so the lane PR ships foreign commits; or the bot commit email
@@ -37,7 +37,7 @@ defect below was found in a worktree that satisfied each rule read separately.
 - Auditing an inherited worktree before trusting it.
 
 Not for: switching branches in place; the session-level residency switch on its own
-(`EnterWorktree` — step 3 here); disposing of a finished worktree (that is
+(`EnterWorktree` — step 4 here); disposing of a finished worktree (that is
 `worktree-hygiene` §6).
 
 ## The procedure
@@ -46,14 +46,28 @@ Not for: switching branches in place; the session-level residency switch on its 
 
 ```bash
 git fetch origin
-git worktree add <path> -b <branch> origin/main
+git worktree add <path> -b <branch> origin/<base>
 ```
 
-The explicit `origin/main` is load-bearing. `EnterWorktree`'s fresh mode documents
-branching from `origin/main` but has been observed basing the branch on the
-**principal's checked-out HEAD** — a coordination-branch tip on this estate — so the
-lane PR ships coordination commits riding under the story. That cost a
-close-and-recreate cycle once already (PR #673 → #674).
+`<base>` is the repository's default branch (refreshed with `git remote set-head origin --auto`, then
+read with `git symbolic-ref --short refs/remotes/origin/HEAD` and the `origin/` prefix
+stripped, or `gh repo view <owner>/<name> --json defaultBranchRef --jq .defaultBranchRef.name`
+with the repository named — derived at the moment of use, never a literal;
+[`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)
+verifies both reads), because the default branch is identity held below the tree.
+For a build-ahead lane it is the parent branch the worktree is cut from
+([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
+parent's changes; its draft PR opens against the default branch at first push, the diff
+carrying the parent's commits until the parent lands, and is never based on the parent;
+once the parent has landed, bring the child onto the default branch before any check against
+it — by a merge when the parent landed by merge commit, by a re-cut with the child's own
+commits cherry-picked across when it landed by squash (its commits are not ancestors then).
+The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
+branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
+in any settings layer, bases the branch on the **principal's checked-out HEAD** — a
+coordination-branch tip on this estate — so the lane PR ships coordination commits
+riding under the story. That cost a close-and-recreate cycle once already
+(PR #673 → #674).
 
 ### 2. Verify the commit identity — inherited, never re-set here
 
@@ -107,22 +121,47 @@ work carries, passed per commit —
 The default is deliberately fail-safe: forget the flag and you get a bot-authored
 commit, never a commit that silently credits the owner with agent work.
 
-### 3. Establish residency
-
-`EnterWorktree` with the path — the session-level switch. A bare `cd` is not
-residency and does not survive; a `Shell cwd was reset` line means it did not take.
-Arm background tasks only after this, since they capture their directory for life.
-
-### 4. Make the worktree buildable
+### 3. Make the worktree buildable
 
 ```bash
-pnpm install
+pnpm --dir <path> install
+pnpm --dir <path> build
 ```
 
-A fresh worktree has **no `.env.local`** — copy it from a worktree that has one when
-the lane runs anything env-dependent (codegen, ingest, a local server). Data
-directories that are gitignored (bulk downloads) do not travel either; fetch them per
-the owning workflow rather than copying, so their manifest vintage stays honest.
+Both scoped to the worktree with `--dir`, because this step runs before entry, from the
+principal: an unscoped `pnpm install` there rebuilds the principal and leaves the new
+worktree without its dependencies or `dist/`. Both, before any gate, work or entry:
+`type-check` and `vitest` pass on install alone,
+but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
+with `No exports main defined`. A fresh worktree has **no `.env.local`** — copy it from
+a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
+local server). Data directories that are gitignored (bulk downloads) do not travel
+either; fetch them per the owning workflow rather than copying, so their manifest
+vintage stays honest.
+
+### 4. Establish residency — or decide not to enter
+
+The platform asks the human for approval on every `EnterWorktree` to a path outside
+`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
+([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
+since v2.1.206). So the session-level switch is an owner-present step: first say the
+exact invocation you are about to issue — as a directed event to the Director where a
+Director is live; in a solo session, in the reply the owner is reading, immediately
+before the call — then issue `EnterWorktree` with the path only when the owner is known
+to be at the keyboard. A prompt nobody answers holds the seat until someone does, while its
+heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
+away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
+for git, the platform's file-editing tool on absolute paths for edits, one plain command
+per call — not residency, and named as such in the lane broadcast), or have the session
+launched inside the worktree (`cd <path> && claude`), which prompts for nothing
+([`worktree-residency`](../../rules/worktree-residency.md) clause 2). A bare `cd` is not
+residency and does not survive; a `Shell cwd was reset` line means it did not take. Arm
+monitors where you reside: at the principal before an entry, or inside the worktree once
+resident — the resident arm roots its `cd` at the worktree and passes the supervisor pid
+as a literal, because the isolation guard refuses runtime-computed values such as
+`$PPID`; verify each monitor after any switch and re-arm what died from where you are.
+The arm shapes and the guard's checks are in
+[`worktree-residency`](../../rules/worktree-residency.md) clause 4.
 
 ### 5. Verify before trusting it
 
@@ -130,7 +169,7 @@ the owning workflow rather than copying, so their manifest vintage stays honest.
 | --- | --- | --- |
 | Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
 | Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
-| Base is clean | `git -C <path> log --oneline origin/main..HEAD` | only this story's commits |
+| Base is clean | `git -C <path> log --oneline origin/<base>..HEAD` | only this story's commits |
 | Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author human, committer bot |
 
 The second row is not optional, and a green first row cannot stand in for it. A

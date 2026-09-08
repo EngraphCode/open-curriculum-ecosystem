@@ -3,10 +3,10 @@ id: innovation-kit
 node_type: strategic
 name: 'Oak Innovation Kit'
 overview: 'Oak can move a concept from idea to an excellent production-ready working experience and explicit evidence state quickly, with a bounded path to live-product obligations that preserves its unchanged semantic core.'
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify all six'"
 serves: KIT-2
 impact_areas:
   - innovation-kit
@@ -14,7 +14,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-08-30
+last_updated: 2026-09-08
 ---
 
 # Oak Innovation Kit

@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 7 September 2026
+**Last Updated**: 8 September 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -51,7 +51,7 @@ idea-to-evidence path, and exercised-reuse discipline. Strategy authority remain
 
 | Document | Purpose | Key insights |
 | --- | --- | --- |
-| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection; [AUTHORITY.md](public-service-ai-tuition/AUTHORITY.md) states what placement confers, the owner's rulings and the deltas from the imported bytes; qualified by two dated reviews, the [author-lineage review](../reports/public-service-ai-tuition/pr-66-review-2026-09-06.md) (R1 to R7) and the [independent review](../reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md) (F1 to F9) | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with source and evidence boundaries preserved |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection; [AUTHORITY.md](public-service-ai-tuition/AUTHORITY.md) states what placement confers, the owner's rulings and the deltas from the imported bytes; qualified by two dated reviews, the [author-lineage review](../reports/public-service-ai-tuition/pr-66-review-2026-09-06.md) (R1 to R7) and the [independent review](../reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md) (F1 to F9), and by the [8 September Oak curriculum-infrastructure delta](../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md) | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with historical source bytes and current-state boundaries preserved |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -190,6 +190,13 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-09-08)
+
+- [Oak curriculum infrastructure delta](../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md):
+  dated current-state supplement for upstream OCE `1.178.6`, Engraph's continuing
+  `1.178.5` boundary and Curriculum API `0.11.1`; preserves open consumer,
+  reproducibility, deployment and impact gaps without rewriting the imported collection.
 
 ## Recent Additions (2026-09-07)
 

@@ -8,8 +8,14 @@ is a straight error that blocks the whole team (owner word, 2026-07-27,
 after a seat's product edits sat uncommitted on the shared tree: whole-tree
 gates held hostage, pathspec commits hazarded for every seat). The primary
 checkout is shared fleet surface — coordination docs and fleet state only;
-a fresh worktree off `origin/main` is where every implementation lane
-starts, before its first edit, not after.
+a fresh worktree off `origin/<base>` (the repository's default branch,
+derived at the moment of use as `downstream-checkout-never-writes-upstream-surfaces`
+specifies — the remote HEAD refreshed with `git remote set-head origin
+--auto`, then read and stripped of its `origin/` prefix — never a literal;
+or, for a build-ahead lane, the parent branch it builds on, §1)
+is where every implementation lane starts, before its first edit, not
+after. Throughout this rule, `main` reads as that default branch: every
+draft PR, update and merge below targets it, never a mirror branch.
 
 In the one-developer-many-agents / many-worktree model, linked git worktrees
 proliferate. A worktree is a transient workspace, not a home. Left undisciplined it
@@ -58,9 +64,15 @@ dropped.
 2026-08-03: "generally, I want branches to have at least draft PRs"), and the firing
 moment includes the FIRST PUSH, not only creation and first commit. The coordination
 branch opens its fold PR as a draft at the cut and rides it to the fold; a build-ahead
-lane stacks its draft on the branch it builds on and retargets at that branch's merge
-(push an empty commit after the retarget — required checks do not re-run on a base
-retarget alone); a probe branch gets its draft at push and closes with the probe.
+lane is cut from the parent branch it builds on — a WORKTREE shape only — and opens its
+draft against the DEFAULT branch at first push, its diff carrying the parent's commits
+until the parent lands (then one merge of the default branch when the parent landed by
+merge commit, or a re-cut with the child's own commits cherry-picked across when it landed
+by squash, shrinks it to the child's own story), or the dependency is deserialised by cherry-picking the parent's
+fix across; a PR is never based on, or retargeted onto, a parent branch (Director ruling
+2026-09-08 on the owner's standing rulings: stacks block the bot merge; dependent PRs
+deserialise by cherry-pick; no parallel long-lived branches); a probe branch gets its
+draft at push and closes with the probe.
 History-only preservation still uses `preserve/` tags (§6), never a parked PR. Worked
 instance, 2026-08-03: two branches (a build-ahead lane and the fresh coordination
 branch) sat pushed and PR-less for an hour with this rule loaded — the owner noticed
@@ -76,9 +88,12 @@ that owns a lane in its own worktree, see PDR-117.)
 
 ### 3. A worktree is a temporary means, not a home — the lifecycle
 
-create → enter (session-level residency per
-[`worktree-residency`](worktree-residency.md)) → build (`pnpm install && pnpm build`,
-before any gate or work) → open draft PR
+create → build (`pnpm --dir <path> install && pnpm --dir <path> build`, scoped to the
+worktree because this runs from the principal, before any gate, work or entry) → reside
+(session-level residency per [`worktree-residency`](worktree-residency.md): launched
+inside the worktree, or entered mid-session only with the owner at the platform's
+approval prompt and the entry announced first; otherwise operated non-resident from the
+principal) → open draft PR
 → do the bounded work → update onto `main` → mark the PR ready → merge → **remove the
 worktree AND delete the branch.** A worktree that outlives its PR's merge, or never
 opens a PR, is a hygiene violation to resolve.
@@ -124,9 +139,9 @@ additive, but the snapshot was premature).
 
 ### 6. Retirement requires a CONTENT check, not a commit check
 
-Squash-merges make commit counts (`origin/main..HEAD`) meaningless — a branch's content
+Squash-merges make commit counts (`origin/<base>..HEAD`) meaningless — a branch's content
 can be fully in `main` while showing many "unmerged" commits. Compare **files**, not
-commit graphs (`git diff origin/main <branch> -- <file>`). Then, for each branch being
+commit graphs (`git diff origin/<base> <branch> -- <file>`). Then, for each branch being
 retired:
 
 - useful information already in `main` (or a live lane heading there) → the branch is
@@ -150,7 +165,7 @@ deleted, and in fact should be deleted as a standing protocol, to keep the
 local environment tidy, no redundant branches, no redundant worktrees").
 Provably safe = BOTH, proven per item: (a) `git status --porcelain` empty
 in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
-`origin/main` (`git merge-base --is-ancestor`). Items passing both prune
+`origin/<base>` (`git merge-base --is-ancestor`). Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
 registrations, and plain branch deletion for proven local branches. A
@@ -163,9 +178,44 @@ theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
 removals + 5 stale prunes), zero losses.
 
+**A dirty worktree joins the proven class once each dirty file is proven**
+(owner word 2026-09-08: "proven safe deletions are fine"). A failing
+precondition is a question, not a verdict: "dirty" is established or
+cleared per file, never read as the end of the analysis. For each path
+`git status --porcelain` lists, prove its content on the freshly-fetched
+`origin/<base>` — identical there, landed there and since revised, or
+conserved in a tracked home (an archive page, a landed record) — and record
+the proof per path in a surfaced table, and inventory the IGNORED paths
+too (`git status --porcelain --ignored`, which collapses an ignored
+directory to one `!! <dir>/` entry): an ignored path is data the porcelain
+proof cannot see and `git worktree remove` deletes it with exit 0, so each
+entry is named with its disposition — a copied `.env.local` confirmed as a
+copy of the primary's; fetched data re-fetchable per its owning workflow;
+build output by directory name (`node_modules/`, `dist/`, `.turbo/`) — and
+any ignored directory that is not build output by name is listed
+recursively, links included (`find <dir> -type f -o -type l`), and
+dispositioned entry by entry before the removal. Then clear each proven path as the
+standing grant for proven paths specifies (`never-use-git-to-remove-work`,
+owner-ruled 2026-09-08): the working tree and index for the path brought to
+what HEAD records — content, type and mode — by forward writes only, the
+clearing proven by `git status --porcelain -- <path>` reading empty, and any
+path the writes do not bring to empty surfaced with its proof, never
+improvised; the recipe lives in the grant and is not restated here. The
+blocked command forms stay blocked; the grant is a write of proven content.
+Confirm (a) and (b) afresh, then
+`git worktree remove` without `--force`. One path failing its proof keeps
+the whole worktree outside the class, and a path shape the table did not
+name is surfaced, never improvised. Worked instance 2026-09-08: a
+consolidation worktree with three dirty files (an experience page
+identical on the base; a napkin block conserved in the tracked archive; a
+register comment landed and since revised on the base) proven per path,
+cleared by forward write, proven clean and ancestor, removed without
+force, zero losses — the instance whose per-instance word became the
+standing grant.
+
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
-anything dirty or unmerged, deletion of any branch not ancestor- or
-content-proven) remains owner-authorisation-gated and never removes
+anything unmerged or carrying an unproven dirty file, deletion of any branch
+not ancestor- or content-proven) remains owner-authorisation-gated and never removes
 information not first confirmed in `main` or consciously released
 (`never-use-git-to-remove-work`).
 
@@ -208,8 +258,9 @@ the map is the only surface on which a forgotten worktree becomes visible.
 Working-directory residency — the lane agent's session cwd IS the worktree,
 established by a session-level mechanism and stable until the agent changes it —
 is governed by [`worktree-residency`](worktree-residency.md) (owner directive
-2026-07-31). Build before work (`pnpm install && pnpm build` — the eslint plugin dist and the
-statusline both come from the build). From a worktree, collaboration-state commands need
+2026-07-31). Build before work (`pnpm --dir <path> install && pnpm --dir <path> build`,
+scoped to the worktree — the eslint plugin dist and the statusline both come from the
+build). From a worktree, collaboration-state commands need
 the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claims
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
 lands worktree-local. Switching branches with dirty doctrine files carries a broken
