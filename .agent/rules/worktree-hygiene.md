@@ -66,8 +66,9 @@ moment includes the FIRST PUSH, not only creation and first commit. The coordina
 branch opens its fold PR as a draft at the cut and rides it to the fold; a build-ahead
 lane is cut from the parent branch it builds on — a WORKTREE shape only — and opens its
 draft against the DEFAULT branch at first push, its diff carrying the parent's commits
-until the parent lands (then one merge of the default branch, or a re-cut, shrinks it to
-the child's own story), or the dependency is deserialised by cherry-picking the parent's
+until the parent lands (then one merge of the default branch when the parent landed by
+merge commit, or a re-cut with the child's own commits cherry-picked across when it landed
+by squash, shrinks it to the child's own story), or the dependency is deserialised by cherry-picking the parent's
 fix across; a PR is never based on, or retargeted onto, a parent branch (Director ruling
 2026-09-08 on the owner's standing rulings: stacks block the bot merge; dependent PRs
 deserialise by cherry-pick; no parallel long-lived branches); a probe branch gets its
@@ -197,8 +198,10 @@ the removal. Then clear each proven path under the
 standing grant for proven paths (`never-use-git-to-remove-work`,
 owner-ruled 2026-09-08): a modified tracked file overwritten with its
 HEAD content; a tracked symlink recreated as HEAD holds it, never written
-through; a staged addition dropped from the index with
-`git rm --cached <path>` and moved out; an untracked path MOVED to the
+through; a staged modification or deletion overwritten or recreated with
+its HEAD content and re-staged with `git add <path>` so the index matches;
+a staged addition dropped from the index with `git rm --cached <path>` and
+moved out; an untracked path MOVED to the
 session scratchpad. The blocked command forms stay blocked; the grant is
 a write of proven content. Confirm (a) and (b) afresh, then
 `git worktree remove` without `--force`. One path failing its proof keeps

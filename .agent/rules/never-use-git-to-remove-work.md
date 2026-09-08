@@ -144,10 +144,12 @@ recorded per path in a surfaced table, MAY be cleared by the seat by a
 forward-going write: a modified tracked file is overwritten with its HEAD
 content (the platform's file tool, or the show-from-HEAD redirect
 `git show HEAD:<path> > <path>`); a tracked symlink is recreated as HEAD
-holds it (`ln -sfn`), never written through; a staged addition is removed
-from the index with `git rm --cached <path>` and the file moved out; an
-untracked path is MOVED to the session scratchpad, never deleted in
-place. The proof is the licence and it is per path: one unproven path
+holds it (`ln -sfn`), never written through; a staged modification or
+deletion is overwritten or recreated with its HEAD content and then
+`git add <path>` re-stages that content so the index matches HEAD; a
+staged addition is removed from the index with `git rm --cached <path>`
+and the file moved out; an untracked path is MOVED to the session
+scratchpad, never deleted in place. The proof is the licence and it is per path: one unproven path
 keeps the whole worktree outside the grant, and the blocked command forms
 (`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay blocked
 with the hook policy unchanged — the grant is a write of proven content,

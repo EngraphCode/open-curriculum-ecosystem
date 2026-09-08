@@ -213,10 +213,12 @@ configure away.
    stripped of its `origin/` prefix — never a literal; for a build-ahead
    lane, the parent branch it was cut from until the parent lands, so the
    listing is the child's own commits and nothing else — and once the
-   parent has landed, first merge the default branch into the child or
-   re-cut it, then check against the default branch (a squash-landed
-   parent leaves its original commits non-ancestors, so the switch
-   without that step lists them as contamination); a check against
+   parent has landed, bring the child onto the default branch by the
+   shape the parent landed in — a merge-commit landing: merge the default
+   branch into the child; a squash landing: re-cut the child onto the
+   default branch and cherry-pick its own commits across, because the
+   parent's original commits are not ancestors of a squash and a merge
+   leaves them in this listing — then check against the default branch; a check against
    a stale or wrong base lists every commit since the mirror point as
    contamination). Anything else is a contaminated base —
    re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story

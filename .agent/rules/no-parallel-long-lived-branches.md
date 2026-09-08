@@ -12,7 +12,8 @@ day or any second coordination-shaped branch.
 ## Action
 
 - **Every work branch is short-lived and single-ticket**: created from current
-  `main`, carrying one Linear-ticketed atomic change (small diff, few commits),
+  `main` — or, for a build-ahead lane only, from the parent lane branch it
+  builds on, the one start point this rule admits (below) — carrying one Linear-ticketed atomic change (small diff, few commits),
   PR'd to `main`, merged or closed within hours — never days. If work outgrows
   the ticket, STOP and split; never let the branch absorb a second story.
 - **`main` is the target of every PR.** No branch targets another branch; no
