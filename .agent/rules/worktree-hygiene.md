@@ -193,15 +193,17 @@ entry is named with its disposition — a copied `.env.local` confirmed as a
 copy of the primary's; fetched data re-fetchable per its owning workflow;
 build output by directory name (`node_modules/`, `dist/`, `.turbo/`) — and
 any ignored directory that is not build output by name is listed
-recursively (`find <dir> -type f`) and dispositioned file by file before
-the removal. Then clear each proven path under the
+recursively, links included (`find <dir> -type f -o -type l`), and
+dispositioned entry by entry before the removal. Then clear each proven path under the
 standing grant for proven paths (`never-use-git-to-remove-work`,
 owner-ruled 2026-09-08): a modified tracked file overwritten with its
 HEAD content; a tracked symlink recreated as HEAD holds it, never written
 through; a staged modification or deletion overwritten or recreated with
 its HEAD content and re-staged with `git add <path>` so the index matches;
 a staged addition dropped from the index with `git rm --cached <path>` and
-moved out; an untracked path MOVED to the
+moved out; a type-changed path (porcelain `T`) surfaced, never written
+(the grant excludes it: a redirect into a live symlink writes wherever it
+points); an untracked path MOVED to the
 session scratchpad. The blocked command forms stay blocked; the grant is
 a write of proven content. Confirm (a) and (b) afresh, then
 `git worktree remove` without `--force`. One path failing its proof keeps

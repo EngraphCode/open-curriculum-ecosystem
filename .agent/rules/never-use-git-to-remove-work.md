@@ -149,7 +149,12 @@ deletion is overwritten or recreated with its HEAD content and then
 `git add <path>` re-stages that content so the index matches HEAD; a
 staged addition is removed from the index with `git rm --cached <path>`
 and the file moved out; an untracked path is MOVED to the session
-scratchpad, never deleted in place. The proof is the licence and it is per path: one unproven path
+scratchpad, never deleted in place. A type-changed path (porcelain `T`:
+a tracked regular file now a symlink, or the reverse) is OUTSIDE the
+grant — a redirect into a live symlink follows it and writes wherever it
+points — so the seat reads each path's live type before any write
+(`test -L <path>`) and surfaces a type-changed path with its proof
+instead of writing it. The proof is the licence and it is per path: one unproven path
 keeps the whole worktree outside the grant, and the blocked command forms
 (`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay blocked
 with the hook policy unchanged — the grant is a write of proven content,

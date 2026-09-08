@@ -206,7 +206,8 @@ configure away.
    parallel-dispatch anti-pattern).
 8. **Pre-PR contamination check.** Before opening any lane PR:
    `git log --oneline origin/<base>..HEAD` must list exactly the
-   story's own commits (`<base>` is the repository's default branch, derived at the
+   story's own commits (its own merges of the default branch included:
+   an integration merge of the base is the lane's, never foreign) (`<base>` is the repository's default branch, derived at the
    moment of use as `downstream-checkout-never-writes-upstream-surfaces`
    specifies — the remote HEAD refreshed with `git remote set-head
    origin --auto`, then read with `git symbolic-ref --short` and
