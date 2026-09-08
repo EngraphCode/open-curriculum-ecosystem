@@ -125,7 +125,9 @@ export function formatProxyErrorResponse(
 }
 
 /**
- * Rewrites upstream AS metadata into this resource's own self-description.
+ * Rewrites upstream AS metadata into the proxy authorization server's own
+ * self-description (RFC 8414); the protected resource's self-description is
+ * the PRM, served separately.
  *
  * Replaces `issuer`, `authorization_endpoint`, `token_endpoint`, and
  * `registration_endpoint` with proxy URLs on the local origin, and states

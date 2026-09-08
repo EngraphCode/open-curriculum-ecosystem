@@ -25,8 +25,8 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     IMPLEMENTATION_ONLY,
   ),
   // MCP-345: the generated scopes constant's banner comment now names both
-  // discovery documents that serve it (PRM and AS metadata). The template
-  // string changed; the emitted constant and every served value are unchanged.
+  // discovery documents that serve it (PRM and AS metadata). Only the template
+  // string changed; the emitted constant's value is unchanged.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-scopes-supported-file.ts':
     excluded(
       '6a341d827b2ea19c5b2273fa3d59fb5b6e51a53c67eda58bb5837f72607f6cc0',
