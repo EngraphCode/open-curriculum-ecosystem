@@ -140,28 +140,31 @@ verbatim: "Standing grant for proven paths") — a scoping of the class,
 never an exception to it (`rules-have-no-exceptions`).** A path whose content is
 PROVEN on the freshly fetched `origin/<base>` — identical there; landed
 there and since revised; or conserved in a tracked home — with the proof
-recorded per path in a surfaced table, MAY be cleared by the seat by a
-forward-going write: a modified tracked file is overwritten with its HEAD
-content (the platform's file tool, or the show-from-HEAD redirect
-`git show HEAD:<path> > <path>`); a tracked symlink is recreated as HEAD
-holds it (`ln -sfn`), never written through; a staged modification or
-deletion is overwritten or recreated with its HEAD content and then
-`git add <path>` re-stages that content so the index matches HEAD; a
-staged addition is removed from the index with `git rm --cached <path>`
-and the file moved out; an untracked path is MOVED to the session
-scratchpad, never deleted in place. A type-changed path (porcelain `T`:
-a tracked regular file now a symlink, or the reverse) is OUTSIDE the
-grant — a redirect into a live symlink follows it and writes wherever it
-points — so the seat reads each path's live type before any write
-(`test -L <path>`) and surfaces a type-changed path with its proof
-instead of writing it. The proof is the licence and it is per path: one unproven path
-keeps the whole worktree outside the grant, and the blocked command forms
-(`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay blocked
-with the hook policy unchanged — the grant is a write of proven content,
-never a git-side discard. The grant exists so that a worktree whose every
-dirty path is already conserved can be retired by the seat under
-`worktree-hygiene` §6 without a per-instance ask; anything short of a
-recorded per-path proof falls back to the absolute clause above.
+recorded per path in a surfaced table, MAY be cleared by the seat. The
+grant is one invariant, not a list of cases: **the working tree and the
+index for that path are brought to what HEAD records — content, type
+and mode — by forward writes only, and the clearing is proven by
+`git status --porcelain -- <path>` reading empty afterwards.** The
+forward writes are: content from `git show HEAD:<path>` (the platform's
+file tool, or the redirect into a path first read as a regular file with
+`test -L`); type and mode from `git ls-tree HEAD -- <path>` (a symlink
+recreated with `ln -sfn` to HEAD's target, never written through; the
+executable bit set or cleared with `chmod` to the recorded `100755` or
+`100644`); the index brought to match with `git add <path>` (the single-path
+form; `-A`, `--all` and `.` stay blocked); a path HEAD does not hold — a
+staged addition or an untracked file — dropped from the index with
+`git rm --cached <path>` where staged and MOVED to the session scratchpad,
+never deleted in place. Any path the forward writes do not bring to an
+empty status — a type change the seat would have to write through, a
+state this paragraph does not name — is SURFACED with its proof, never
+improvised. The proof is the licence and it is per path: one unproven
+path keeps the whole worktree outside the grant, and the blocked command
+forms (`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay
+blocked with the hook policy unchanged — the grant is a write of proven
+content, never a git-side discard. The grant exists so that a worktree
+whose every dirty path is already conserved can be retired by the seat
+under `worktree-hygiene` §6 without a per-instance ask; anything short of
+a recorded per-path proof falls back to the absolute clause above.
 
 ## Exceptions
 
