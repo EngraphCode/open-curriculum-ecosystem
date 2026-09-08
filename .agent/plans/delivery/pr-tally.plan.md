@@ -48,12 +48,14 @@ skill.
   connection, because a finding that exists only in a review body has its disposition
   recorded as an ordinary PR comment (PDR-140) and the seat's settle marks live there too;
   all three paginated to exhaustion — and, as the fourth read, the EXPECTED reviewer set
-  from the repository's live automatic-review configuration (the ruleset and review-app
-  configuration that fires bot reviews on push), the source the pr-lifecycle skill's Phase
-  1 names; it is an input to the state machine, never inferred from the three harvested
-  surfaces, which are empty on a first tip before any bot has posted and cannot tell "no
-  reviewer expected" from "configured reviewer still OWED". The repository is named
-  explicitly on every call (the downstream-checkout rule).
+  as the PR's own Phase 1 declaration: the tally-at-open comment names it, the command
+  writes that comment at open from the repository's live automatic-review configuration
+  (the ruleset and review-app configuration that fires bot reviews on push), and every
+  later round reads the declaration, never the live configuration, so a reviewer enabled
+  or removed mid-PR changes no historical row; it is an input to the state machine, never
+  inferred from the three harvested surfaces, which are empty on a first tip before any
+  bot has posted and cannot tell "no reviewer expected" from "configured reviewer still
+  OWED". The repository is named explicitly on every call (the downstream-checkout rule).
 - **Findings from bodies**: a review body becomes findings only through the reviewer's own
   structured markers — one item per badge-and-heading block for Codex, and one item per
   finding inside Copilot's suppressed-comments block (one block carries several distinct
@@ -67,17 +69,25 @@ skill.
   reviewer leg reads SATISFIED or SKIPPED for the head under the skill's reviewer-leg
   states — SATISFIED by a review bound to the head, SKIPPED by a tip-scoped skip marker or
   by the checks-green timeout, OWED otherwise — and no newer review arrived within the
-  quiet window (anchored on the checks-green window when every leg settled via SKIPPED);
-  a round settled through a SKIPPED leg is a row like any other, so a timed-out reviewer
-  never suppresses a row or delays the four-round arm; a head superseded before either is
-  listed as unsettled and never counted toward the step-back. The raised count is every finding in threads and marked body items bound to
+  quiet window (anchored on the checks-green window when every leg settled via SKIPPED —
+  the command harvests each head's check-run completion times and the next push time, so
+  a timeout settlement on a superseded head is recomputed from persisted history, never
+  guessed); a round settled through a SKIPPED leg is a row like any other, so a timed-out
+  reviewer never suppresses a row or delays the four-round arm; a head superseded before
+  either is listed as unsettled and never counted toward the step-back. The invariant:
+  every row rests on a persisted proof — a signed settle mark or a recomputable timeout —
+  and a head with neither is unsettled. The raised count is every finding in threads and marked body items bound to
   that head, one logical finding counted once, matched on anchor AND substance (a body item
   restating an inline thread of the same review at the same anchor with the same substance
   is one finding; two distinct defects at one anchor are two); the cure-worthy count is
   read from the disposition state the seat records — a reply or comment signed by the
-  seat's identity tuple that names a cure commit counts as cured, one that names a home
-  counts as routed — and the seat's own signed replies and comments are excluded from the
-  raised count.
+  seat's identity tuple carries a machine-readable bar marker (over-bar or below-bar, the
+  PDR-140 prong met) and a disposition (a cure commit, or a named home); the count reads
+  the bar marker, never the disposition type, because a below-bar finding and a
+  build-changing one can both be routed to a home — and the seat's own signed replies and
+  comments are excluded from the raised count. The invariant: the command derives no
+  count from prose; every count reads a recorded field, and a finding without the marker
+  is surfaced as "manual tally required" like an unmarked body.
 - **The verdict**: the exact predicate from the skill — `c[n] >= c[n-1] AND c[n-1] >= c[n-2]`
   across three settled cure-worthy counts, or four settled rounds in the epoch, either arm
   firing only while the latest settled count is non-zero; the epoch resets at a push the seat
@@ -113,9 +123,13 @@ skill.
    markers (surfaced as manual, not counted), a suppressed Copilot block carrying several
    findings (each counted), a round settled by a SKIPPED leg through a tip-scoped marker
    and one through the checks-green timeout (both rows present), and a first tip with a
-   configured reviewer still OWED (no settled row, never terminal success); the rows and
-   the verdict match. Proof:
-   `repo-safe` — unit tests over the tally builder and the classifier, no IO.
+   configured reviewer still OWED (no settled row, never terminal success), a reviewer
+   enabled after open (historical rows unchanged), a timeout-settled round on a superseded
+   head (row present, recomputed from harvested history), and a signed disposition
+   without a bar marker (surfaced as manual, not counted); the rows and the verdict match.
+   The mechanism above states the invariants; a case these rounds did not name is a
+   fixture the implementer adds at pickup, never a mechanism edit. Proof: `repo-safe` —
+   unit tests over the tally builder and the classifier, no IO.
 
 ## Todos
 

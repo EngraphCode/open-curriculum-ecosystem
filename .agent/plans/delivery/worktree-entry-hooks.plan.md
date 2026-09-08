@@ -56,8 +56,10 @@ hooks make mechanical.
 - **`WorktreeCreate`** (a tracked script under `.claude/hooks/`, registered in the tracked
   settings): read the JSON input; derive the default branch from the remote itself — read
   the remote's HEAD symref (`git ls-remote --symref origin HEAD`), fetch that branch into
-  its remote-tracking ref with an explicit refspec
-  (`git fetch origin <default>:refs/remotes/origin/<default>`), then
+  its remote-tracking ref with an explicit, forced refspec
+  (`git fetch origin +refs/heads/<default>:refs/remotes/origin/<default>` — the leading `+`
+  because a rewritten remote default is otherwise refused as non-fast-forward and every
+  later launch fails), then
   `git remote set-head origin --auto` and the local read
   (`git symbolic-ref --short refs/remotes/origin/HEAD` stripped of `origin/`) — because a
   single-branch clone whose remote default moved outside its fetch refspec fails the bare
@@ -109,8 +111,12 @@ hooks make mechanical.
 3. The hook scripts, piped the documented JSON against a temporary repository, create a
    worktree, resume one after a failed install, and remove one as specified, refusing as
    specified; the temporary repository includes a single-branch clone whose remote default
-   moved outside its fetch refspec, and the create hook derives the new default from it.
-   Proof: `repo-safe` — one integration check in the agent-tools end-to-end suite.
+   moved outside its fetch refspec and a remote whose default was rewritten, and the create
+   hook derives the new default from each. The invariant every fixture serves: the hook
+   reaches the remote's current default from any clone shape without a human step, so a
+   case the rounds did not name is a fixture the implementer adds at pickup, never a
+   mechanism edit here. Proof: `repo-safe` — one integration check in the agent-tools
+   end-to-end suite.
 4. The hooks name no organisation and no branch literal: the default branch and the sibling
    directory are derived. Proof: `repo-safe` — the identity-naming validator family runs
    over the hook scripts; a grep for a branch literal in them finds none.
