@@ -14,12 +14,15 @@ import { defineConfig } from 'vitest/config';
  * by default, so a test that appends a link with any href fires an
  * unawaited fetch to the window's default origin (localhost port 3000)
  * whose refusal lands as an unhandled error at random. Stylesheet file
- * loading is therefore disabled for every test this config runs. With it
- * disabled, an href-bearing link still makes happy-dom log a
- * `NotSupportedError` to the console and dispatch an `error` event on the
- * link, so tests append links without an href; the product's own
+ * loading is therefore disabled for every test this config runs, and a
+ * disabled load is handled as success: an href-bearing link receives a
+ * synthetic `load` event and no report, instead of a `NotSupportedError`
+ * on the window's virtual console and an `error` event. Tests that exercise
+ * load observers append links without an href so no synthetic event can
+ * stand in for the one they dispatch themselves; the product's own
  * href-bearing links (the identity switchboard specimen, the tokens page)
- * are guarded by this setting when a component test renders them.
+ * load cleanly and offline when a component test renders them. The guard
+ * that proves this setting bites is `tools/unit-suite-no-stylesheet-loading.unit.test.ts`.
  */
 export default defineConfig({
   test: {
@@ -28,6 +31,7 @@ export default defineConfig({
       happyDOM: {
         settings: {
           disableCSSFileLoading: true,
+          handleDisabledFileLoadingAsSuccess: true,
         },
       },
     },
