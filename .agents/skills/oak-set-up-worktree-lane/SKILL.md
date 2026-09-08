@@ -1,6 +1,6 @@
 ---
 name: oak-set-up-worktree-lane
-description: "Create and verify a lane worktree. Classify the host first: standard profiles verify inherited bot identity and buildability; detected ChatGPT Work cloud performs static branch/base checks only and routes execution to draft-PR CI. Use for a new lane or a misbehaving worktree. Do not use it to switch branches in place, solely to change session residency, or to dispose of a worktree."
+description: "Create and verify a lane worktree: the branch cut explicitly from origin/<base>, the inherited bot identity verified with no worktree-scoped override, deps installed, .env.local carried, a draft PR at first push; in a detected ChatGPT Work cloud host, static branch/base checks only with execution routed to draft-PR CI. Use for a new lane or a misbehaving worktree (commits attributed to nobody, missing env, hook failures). Not for switching branches in place, changing session residency alone, or disposing of a worktree. Wrong looks like: EnterWorktree fresh mode basing the branch on the principal's coordination HEAD so the lane PR ships foreign commits; the bot commit email carrying the app id instead of the bot user id, which resolves to no GitHub user."
 ---
 
 # Set Up Worktree Lane (Cross-tool)

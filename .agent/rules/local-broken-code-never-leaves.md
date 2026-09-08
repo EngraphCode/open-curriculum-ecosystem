@@ -89,8 +89,13 @@ the clear downstream-proof path is: inspect the complete change and outgoing
 diff; run only already-available non-executing static checks; inspect for
 credentials before transfer; open an immediate draft PR; and require GitHub's
 `run-quality-gates` check to conclude successfully on the current head. Keep
-the PR draft while that verdict is pending or failing. If the check is absent,
-cancelled or cannot run, stop: the proof path does not exist.
+the PR draft while that verdict is pending or failing; a failing verdict
+permits no second push without a named, diff-level cause read from the check's
+own output, and without one the seat stops and surfaces the blocker. If the
+check is absent, cancelled or cannot run, stop: the proof path does not exist.
+Nothing local is observed in this host, so the "everything else must be
+working" clause above is discharged by the same downstream verdict, never
+claimed from static reading.
 
 This is downstream execution evidence, not local proof and not hook
 equivalence. Report exactly which static checks ran and which CI check supplied
@@ -118,11 +123,12 @@ There are none. Common rationalisations and their refusals:
 - *"But it's just a typo fix"* → still build it and observe it
   rendering / running.
 - *"But it's just a doc change"* → markdown lint + render check is
-  the local proof; it's cheap, run it.
+  the local proof; it's cheap, run it (in a detected ChatGPT Work cloud
+  host it cannot run, and the downstream-proof section above is the
+  whole path).
 - *"But it's just a comment"* → no proof required if truly only
   comments; verify the diff is comment-only.
-- *"But CI will catch it"* → outside the detected ChatGPT Work cloud route,
-  CI is a backstop, not a proof. Pushing
+- *"But CI will catch it"* → CI is a backstop, not a proof. Pushing
   with the expectation that CI will tell you whether your change
   works is making the team's compute pay for your local check.
 - *"But the previous commit was clean"* → the current change is the

@@ -39,11 +39,14 @@ When the tri-state classifier in
 [`cloud-environment-routing.md`](../directives/cloud-environment-routing.md)
 selects ChatGPT Work, task-scoped commits, non-force story-branch pushes and
 the draft-PR creation/edit/comment writes needed to deliver the task use the
-configured default credential. Do not inspect, mint, install, rewrite or repair
-a bot identity in this non-execution profile. If shell git has no configured
-transport credential, use the already-authenticated GitHub connector. The
-displayed operator identity is the accepted consequence of the owner's
-8 September 2026 ruling. This row is evaluated before the general map, but it
+configured default credential — the host's own GitHub credential, which
+displays as the owner's identity. Read it first (`git config user.email`, or
+the connector's authenticated account) so the name the surface will display is
+known before the write; do not mint, install, rewrite or repair a bot identity
+in this non-execution profile. If shell git has no configured transport
+credential, use the already-authenticated GitHub connector. The displayed
+operator identity is the accepted consequence of the owner's 8 September 2026
+ruling. This row is evaluated before the general map, but it
 does not authorise reviews, merges, default-branch writes, protection bypasses,
 destructive/admin writes or work beyond the user's task. Content written under
 a displayed human credential still identifies itself as agent-authored under
@@ -234,7 +237,7 @@ noun.
 
 | Action | Credential | Why this row |
 | --- | --- | --- |
-| Task-scoped story-branch and draft-PR delivery writes in detected ChatGPT Work cloud | configured default | first-priority non-execution route; excludes reviews, merges, bypasses and destructive/admin writes |
+| Task-scoped story-branch and draft-PR delivery writes in detected ChatGPT Work cloud | configured default (the host's own GitHub credential, displayed as the owner's identity; read before the write) | first-priority non-execution route; excludes reviews, merges, bypasses and destructive/admin writes |
 | Review submitted as `APPROVE` | operator | only a human review supplies the approval a code-owner ruleset waits on |
 | Review submitted as `REQUEST_CHANGES` | operator | same endpoint, same gate: a bot's changes-requested neither discharges the human review request nor registers with the ruleset |
 | Review submitted as `COMMENT` state | operator | same endpoint; it discharges the review request assigned to the human |

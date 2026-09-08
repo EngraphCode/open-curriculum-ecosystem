@@ -2,11 +2,17 @@
 name: set-up-worktree-lane
 classification: active
 description: >-
-  Create and verify a lane worktree. Classify the host first: standard profiles
-  verify inherited bot identity and buildability; detected ChatGPT Work cloud
-  performs static branch/base checks only and routes execution to draft-PR CI.
-  Use for a new lane or a misbehaving worktree. Do not use it to switch branches
-  in place, solely to change session residency, or to dispose of a worktree.
+  Create and verify a lane worktree: the branch cut explicitly from origin/<base>,
+  the inherited bot identity verified with no worktree-scoped override, deps
+  installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
+  Work cloud host, static branch/base checks only with execution routed to
+  draft-PR CI. Use for a new lane or a misbehaving worktree (commits attributed
+  to nobody, missing env, hook failures). Not for switching branches in place,
+  changing session residency alone, or disposing of a worktree. Wrong looks
+  like: EnterWorktree fresh mode basing the branch on the principal's
+  coordination HEAD so the lane PR ships foreign commits; the bot commit email
+  carrying the app id instead of the bot user id, which resolves to no GitHub
+  user.
 ---
 
 # Set Up a Worktree Lane
@@ -39,9 +45,10 @@ Not for: switching branches in place; the session-level residency switch on its 
 Use the tri-state classification in
 [`cloud-environment-routing.md`](../../directives/cloud-environment-routing.md).
 If it selects ChatGPT Work, keep that profile for the whole session. It replaces
-the identity and buildability work in steps 2 and 3: do not inspect, mint or
-rewrite bot credentials; do not install or run pnpm, Corepack, builds, tests or
-local gates. Use the configured default credential and the
+the identity and buildability work in steps 2 and 3: read the configured
+identity so the displayed name is known, but do not mint or rewrite bot
+credentials; do not install or run pnpm, Corepack, builds, tests or local
+gates. Use the configured default credential and the
 `HUSKY=0`/draft-PR/CI route in step 6. Detector error is a stop; a genuine
 not-Work result does not by itself identify Claude cloud.
 

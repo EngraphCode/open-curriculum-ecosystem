@@ -213,14 +213,16 @@ Run these steps **before** formulating the commit message.
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
    pre-draft `check-commit-message` script is an optional convenience to catch a
    format slip ~30s earlier, not a gate. **Exception — sessions committing
-   under a standing owner hook-policy ruling (e.g. `HUSKY=0` cloud agent
-   sessions per the ruling recorded in
-   `no-verify-requires-fresh-authorisation`):** there the hooks do not run, so
-   the ruling's operational surface (this repo: the cloud-environment doc's
-   "blocking in-session substitute set") is the gate — every check it
-   enumerates is BLOCKING per commit, with exit codes read in-band (never
-   through a pipe). That enumeration is the single source of truth for what
-   substitutes for the hooks; do not work from a remembered subset of it. **Never run a per-commit negative
+   under a standing owner hook-policy ruling:** for Claude cloud sessions (the
+   `HUSKY=0` ruling recorded in `no-verify-requires-fresh-authorisation`) the
+   hooks do not run, so the ruling's operational surface (this repo: the
+   cloud-environment doc's "blocking in-session substitute set") is the gate —
+   every check it enumerates is BLOCKING per commit, with exit codes read
+   in-band (never through a pipe). That enumeration is the single source of
+   truth for what substitutes for the hooks; do not work from a remembered
+   subset of it. For a detected ChatGPT Work cloud session none of that
+   substitute set can run: the Fast Path above is the whole gate, and the
+   enumeration in this section is applied by hand. **Never run a per-commit negative
    control** (a deliberately-bad message to "prove the checker is live") — that
    tests the tool, not your message, and has no bridge to landing a conforming
    commit. If you run the checker, trust its exit code; if a given invocation

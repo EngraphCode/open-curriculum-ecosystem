@@ -53,11 +53,17 @@ Owner ruling, 8 September 2026: a detected ChatGPT Work cloud host is a
    is the execution and tree-state verdict. Keep the PR draft and make no green
    claim until that check genuinely concludes; cancelled or absent is not green.
    After the first push, do not push another head while that required check is
-   running. A cancelled or superseded head supplies no verdict.
-7. The CI secret scan occurs after transfer in this profile. Inspect the outgoing
-   diff for credentials before the write and never place credentials in the
-   worktree. This is the explicit residual trade-off of the owner-routed profile,
-   not equivalence to a pre-transfer scan.
+   running. A cancelled or superseded head supplies no verdict. A failing
+   verdict permits no second push without a named, diff-level cause read from
+   the check's own output; when no such cause can be named, stop and surface
+   the blocker — a red gate is never probed by pushing again.
+7. Run the `gitleaks` binary over the outgoing commits when the host already
+   carries it (`gitleaks detect` needs no package manager); only when it does
+   not is the CI secret scan the first scan, after transfer. Either way,
+   inspect the outgoing diff for credentials before the write and never place
+   credentials in the worktree. The post-transfer case is the explicit
+   residual trade-off of the owner-routed profile, not equivalence to a
+   pre-transfer scan; it retires when the host carries the binary.
 
 If the pull request cannot trigger the required CI, stop after local/static work
 and surface the blocker. If CI coverage narrows relative to the repository's
