@@ -61,6 +61,24 @@ export function readFirstBracketedSegment(normalised: string): string | undefine
   return FIRST_BRACKETED_SEGMENT_PATTERN.exec(normalised)?.[1];
 }
 
+// At most two ASCII digits with no leading zero, and the run must END there, so
+// the slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
+// `/01.2` and `/8123456789012345` yield nothing.
+const CLIENT_MAJOR_VERSION_PATTERN = /^(?:0|[1-9]\d?)(?!\d)/u;
+
+/**
+ * The major version following the product token, from the normalised value's
+ * remainder after that token. Shared by the rebuilt user agent and the
+ * category refinement so both gate on the same parse.
+ */
+export function readClientMajorVersion(afterToken: string): string | undefined {
+  if (!afterToken.startsWith('/')) {
+    return undefined;
+  }
+  const match = CLIENT_MAJOR_VERSION_PATTERN.exec(afterToken.slice(1));
+  return match === null ? undefined : match[0];
+}
+
 /**
  * Matches a product token only as the header's *leading* token.
  *

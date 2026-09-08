@@ -104,6 +104,11 @@ describe('normaliseOakClientProduct', () => {
     ['Codex via the OpenAI client (PostHog fixture shape)', ['openai-mcp/1.0.0 (Codex)'], 'codex'],
     ['the OpenAI client with no surface (PostHog fixture)', ['openai-mcp/1.0.0'], 'openai'],
     ['the OpenAI client on another surface', ['openai-mcp/1.0.0 (Agent Builder)'], 'openai'],
+    // The split is gated on the same version parse the rebuilt user agent uses,
+    // so a malformed version leaves the vendor-level product, matching the label.
+    ['the OpenAI client with a three-digit major', ['openai-mcp/100 (ChatGPT)'], 'openai'],
+    ['the OpenAI client with no version', ['openai-mcp (ChatGPT)'], 'openai'],
+    ['the OpenAI client with a zero-padded major', ['openai-mcp/01 (Codex)'], 'openai'],
   ])('attributes %s to its product', (_label, headerValues, expected) => {
     expect(normaliseOakClientProduct(readable(...headerValues))).toBe(expected);
   });

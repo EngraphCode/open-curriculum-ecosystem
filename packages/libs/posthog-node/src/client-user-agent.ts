@@ -36,6 +36,7 @@
 import {
   findLeadingProductRule,
   normaliseClientHeaderValue,
+  readClientMajorVersion,
   readFirstBracketedSegment,
   selectLeadingProduct,
   type ClientProductRule,
@@ -55,19 +56,6 @@ const CLIENT_BUILD_SURFACES: Readonly<Record<SurfaceBearingProduct, readonly str
   'claude-code': ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'],
   'openai-mcp': ['chatgpt', 'codex', 'agent builder', 'responses api'],
 };
-// At most two digits with no leading zero, and the run must END there, so the
-// slot holds exactly the hundred values 0–99: `/2.1.226` yields `2`,
-// `/01.2` and `/8123456789012345` yield nothing.
-const CLIENT_MAJOR_VERSION_PATTERN = /^(?:0|[1-9][0-9]?)(?![0-9])/u;
-
-function readClientMajorVersion(afterToken: string): string | undefined {
-  if (!afterToken.startsWith('/')) {
-    return undefined;
-  }
-  const match = CLIENT_MAJOR_VERSION_PATTERN.exec(afterToken.slice(1));
-  return match === null ? undefined : match[0];
-}
-
 function readClientBuildSurface(token: string, normalised: string): string | undefined {
   const product = SURFACE_BEARING_PRODUCTS.find((candidate) => candidate === token);
   if (product === undefined) {
@@ -99,17 +87,37 @@ function readClientUserAgent(value: string): string | undefined {
 
 /**
  * Rebuilds the user-agent value PostHog's harness column reads, from closed
- * pieces only, out of the same header value `normaliseOakClientProduct`
- * selects.
+ * pieces only, for the same product `normaliseOakClientProduct` selects.
+ *
+ * @remarks The vendor header can name the product bare, as in
+ * `x-anthropic-client: claude-code`, while the User-Agent carries the version
+ * and surface. Among
+ * the header values naming the SELECTED product, the first that carries a
+ * version is the one rebuilt from, so the surface survives; the product itself
+ * never changes, so the category and this string still describe the same
+ * client.
  *
  * @returns The rebuilt value, or `undefined` when no value names a known
  * product, in which case the property is omitted and the column reads "other".
  */
 export function normaliseOakClientUserAgent(headers: ClientIdentityHeaders): string | undefined {
+  if (!headers.readable) {
+    return undefined;
+  }
   const selected = selectLeadingProduct(headers);
-  return selected === undefined
-    ? undefined
-    : rebuildClientUserAgent(selected.rule, selected.normalised);
+  if (selected === undefined) {
+    return undefined;
+  }
+  const [token] = selected.rule;
+  const versioned = headers.values
+    .filter((value): value is string => typeof value === 'string')
+    .map((value) => normaliseClientHeaderValue(value))
+    .find(
+      (normalised) =>
+        findLeadingProductRule(normalised)?.[0] === token &&
+        readClientMajorVersion(normalised.slice(token.length)) !== undefined,
+    );
+  return rebuildClientUserAgent(selected.rule, versioned ?? selected.normalised);
 }
 
 /**

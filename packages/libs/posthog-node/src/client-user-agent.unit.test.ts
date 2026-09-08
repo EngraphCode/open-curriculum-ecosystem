@@ -198,6 +198,53 @@ describe('normaliseOakClientUserAgent', () => {
     expect(normaliseOakClientUserAgent(headers)).toBe(expectedUserAgent);
   });
 
+  // Anthropic clients also send a bare vendor header (`x-anthropic-client:
+  // claude-code`, per PostHog's resolver notes), which is read before the
+  // User-Agent. The product comes from it, but the version and surface come
+  // from whichever value naming that product carries a version, so the surface
+  // is not lost and the two properties still describe the same client.
+  it.each([
+    [
+      'a bare vendor header ahead of a surfaced user agent',
+      ['claude-code', 'claude-code/2.1.226 (claude-vscode)'],
+      'claude_code',
+      'claude-code/2 (claude-vscode)',
+    ],
+    [
+      'a bare vendor header ahead of a user agent naming a different product',
+      ['claude-code', 'codex-mcp-client/0.147.0'],
+      'claude_code',
+      'claude-code',
+    ],
+    [
+      'a versioned vendor header, which wins outright',
+      ['claude-code/2.0 (cli)', 'claude-code/2.1.226 (claude-vscode)'],
+      'claude_code',
+      'claude-code/2 (cli)',
+    ],
+  ])(
+    'rebuilds from the versioned value naming the selected product for %s',
+    (_label, values, expectedProduct, expectedUserAgent) => {
+      const headers = readable(...values);
+
+      expect(normaliseOakClientProduct(headers)).toBe(expectedProduct);
+      expect(normaliseOakClientUserAgent(headers)).toBe(expectedUserAgent);
+    },
+  );
+
+  it.each([
+    ['a three-digit major', 'openai-mcp/100 (ChatGPT)'],
+    ['no version', 'openai-mcp (ChatGPT)'],
+    ['a zero-padded major', 'openai-mcp/01 (ChatGPT)'],
+    ['a non-numeric version', 'openai-mcp/next (ChatGPT)'],
+  ])('keeps the category and the label in step for an OpenAI header with %s', (_label, header) => {
+    const headers = readable(header);
+
+    expect(normaliseOakClientProduct(headers)).toBe('openai');
+    expect(normaliseOakClientUserAgent(headers)).toBe('openai-mcp');
+    expect(postHogHarnessLabel('openai-mcp')).toBe('OpenAI');
+  });
+
   it('never carries more bytes than the closed grammar allows', () => {
     const rebuilt = normaliseOakClientUserAgent(
       readable(`claude-code/2.1.226 (cli) ${'x'.repeat(4096)}`),

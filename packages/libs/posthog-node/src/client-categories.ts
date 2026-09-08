@@ -12,6 +12,7 @@
 
 import {
   asciiLower,
+  readClientMajorVersion,
   readFirstBracketedSegment,
   selectLeadingProduct,
 } from './client-product-selection.js';
@@ -142,8 +143,14 @@ export function normaliseOakClientProduct(headers: ClientIdentityHeaders): OakCl
   }
   // OpenAI's one client token serves several products and tells them apart in
   // its bracketed surface, exactly as PostHog's own rule splits them; any other
-  // token names its product outright.
-  if (selected.rule[0] === 'openai-mcp') {
+  // token names its product outright. The split is gated on the same version
+  // parse the rebuilt user agent uses, so a value whose surface the user agent
+  // would drop is not refined here either and the two never disagree.
+  const [token] = selected.rule;
+  if (
+    token === 'openai-mcp' &&
+    readClientMajorVersion(selected.normalised.slice(token.length)) !== undefined
+  ) {
     const surface = readFirstBracketedSegment(selected.normalised);
     if (surface === 'chatgpt') {
       return 'chatgpt';
