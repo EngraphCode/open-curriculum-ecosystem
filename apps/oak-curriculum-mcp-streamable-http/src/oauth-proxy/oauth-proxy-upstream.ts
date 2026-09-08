@@ -16,8 +16,9 @@ import { z } from 'zod';
  *
  * Used at the system boundary when fetching metadata from upstream Clerk.
  * The four endpoint fields are rewritten by {@link rewriteAuthServerMetadata}
- * to point to the local proxy origin. Capability fields are passed through
- * unchanged from the upstream AS.
+ * to point to the local proxy origin, and `scopes_supported` is replaced by
+ * the scopes this resource advertises (MCP-345). Every other capability field
+ * is passed through unchanged from the upstream AS.
  */
 const upstreamAuthServerMetadataSchema = z.object({
   issuer: z.string(),
@@ -129,19 +130,19 @@ export function formatProxyErrorResponse(
  * full list. Every other capability field passes through unchanged.
  *
  * @remarks
- * MCP-345. Clerk's own list names `openid`, which Oak's dynamically registered
+ * Clerk's own list names `openid` (MCP-345), which Oak's dynamically registered
  * clients are not granted (ADR-113, Troubleshooting). Clients that choose
  * scopes from this document rather than the PRM — ChatGPT's plugin portal
- * measured 2026-09-08 — request every OIDC scope it advertises, so an
- * advertised `openid` becomes a Clerk `invalid_scope` refusal at sign-in.
+ * measured 2026-09-08 — request every OIDC scope this document advertises, so
+ * an advertised `openid` becomes a Clerk `invalid_scope` refusal at sign-in.
  * This document is the proxy's self-description, already rewritten field by
  * field; it is not a forwarded OAuth message, so ADR-115's transparent
  * passthrough rule does not reach it.
  *
  * @param upstreamMetadata - The original AS metadata from Clerk
  * @param localOrigin - The proxy's origin, e.g. `http://localhost:3333`
- * @param advertisedScopes - The scopes this resource advertises; the PRM's
- *   `scopes_supported`, so the two discovery documents cannot disagree
+ * @param advertisedScopes - The scopes to advertise as `scopes_supported`; the
+ *   route passes the PRM's set
  * @returns Rewritten metadata with proxy endpoint URLs and advertised scopes
  */
 export function rewriteAuthServerMetadata(

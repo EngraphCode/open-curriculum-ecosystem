@@ -57,6 +57,9 @@ Known live-session evidence as of 2026-04-16:
      `openid`.
    - AS metadata `scopes_supported` is passed through from upstream Clerk and
      includes `openid`.
+   - 2026-09-08: the H1+H2 mitigation below (align AS metadata
+     `scopes_supported` with the PRM) landed via MCP-345 — see ADR-113
+     resolution 3. The split no longer exists.
 6. The OAuth proxy forwards `/oauth/authorize` query parameters transparently,
    including `scope`, so a client-requested `openid` reaches Clerk unchanged.
 

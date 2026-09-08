@@ -28,7 +28,7 @@ const TEST_UPSTREAM_METADATA: UpstreamAuthServerMetadata = {
   code_challenge_methods_supported: ['S256'],
 };
 
-/** What this resource advertises — the PRM's set, deliberately narrower than upstream's. */
+/** A narrower set than the upstream fixture offers, so leakage of the upstream list is visible. */
 const ADVERTISED_SCOPES: readonly string[] = ['email'];
 
 describe('deriveUpstreamOAuthBaseUrl', () => {
@@ -155,33 +155,21 @@ describe('rewriteAuthServerMetadata', () => {
     expect(result.code_challenge_methods_supported).toStrictEqual(['S256']);
   });
 
-  it('advertises only the scopes this resource grants, never the upstream list', () => {
-    const result = rewriteAuthServerMetadata(
-      TEST_UPSTREAM_METADATA,
-      'http://localhost:3333',
-      ADVERTISED_SCOPES,
-    );
-    expect(result.scopes_supported).toStrictEqual(['email']);
-  });
-
-  it('omits openid even though the upstream AS offers it', () => {
-    expect(TEST_UPSTREAM_METADATA.scopes_supported).toContain('openid');
-    const result = rewriteAuthServerMetadata(
-      TEST_UPSTREAM_METADATA,
-      'http://localhost:3333',
-      ADVERTISED_SCOPES,
-    );
-    expect(result.scopes_supported).not.toContain('openid');
-  });
-
-  it('returns a copy of the advertised scopes, not the caller array', () => {
-    const result = rewriteAuthServerMetadata(
-      TEST_UPSTREAM_METADATA,
-      'http://localhost:3333',
-      ADVERTISED_SCOPES,
-    );
-    expect(result.scopes_supported).not.toBe(ADVERTISED_SCOPES);
-  });
+  it.each([[['email']], [['email', 'profile']]])(
+    'advertises exactly the scopes it is given, replacing the upstream list: %j',
+    (advertised: readonly string[]) => {
+      expect(
+        TEST_UPSTREAM_METADATA.scopes_supported,
+        'fixture must offer a scope the resource does not advertise',
+      ).toContain('openid');
+      const result = rewriteAuthServerMetadata(
+        TEST_UPSTREAM_METADATA,
+        'http://localhost:3333',
+        advertised,
+      );
+      expect(result.scopes_supported).toStrictEqual(advertised);
+    },
+  );
 
   it('works with a production HTTPS origin', () => {
     const result = rewriteAuthServerMetadata(

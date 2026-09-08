@@ -82,7 +82,9 @@ export function toolRequiresAuth(toolName: string): boolean {
  *
  * @remarks
  * Used to generate RFC 9728 protected resource metadata at
- * `/.well-known/oauth-protected-resource`.
+ * `/.well-known/oauth-protected-resource`, and served as the `scopes_supported`
+ * of the RFC 8414 authorization-server metadata at
+ * `/.well-known/oauth-authorization-server` (MCP-345).
  *
  * **Current approach**: All protected tools share the same scopes.
  * If you need per-tool scope variation (e.g., different scopes for read vs write),

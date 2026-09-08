@@ -178,7 +178,7 @@ describe('OAuth Protected Resource Metadata (Integration)', () => {
       );
     });
 
-    it('advertises the PRM scopes, not the upstream list, so both discovery documents agree (MCP-345)', async () => {
+    it('advertises the scopes this resource requires rather than the upstream AS list (MCP-345)', async () => {
       const app = await createTestApp();
 
       const res = await request(app)
@@ -188,7 +188,22 @@ describe('OAuth Protected Resource Metadata (Integration)', () => {
       expect(res.status).toBe(200);
 
       expect(res.body).toHaveProperty('scopes_supported', [...SCOPES_SUPPORTED]);
-      expect(res.body.scopes_supported).not.toContain('openid');
+      expect(res.body.scopes_supported).not.toStrictEqual(TEST_UPSTREAM_METADATA.scopes_supported);
+    });
+
+    it('the PRM and the AS metadata advertise the same scopes, so both discovery routes agree (MCP-345)', async () => {
+      const app = await createTestApp();
+
+      const prm = await request(app)
+        .get('/.well-known/oauth-protected-resource')
+        .set('Host', 'localhost:3333');
+      const as = await request(app)
+        .get('/.well-known/oauth-authorization-server')
+        .set('Host', 'localhost:3333');
+
+      expect(prm.status).toBe(200);
+      expect(as.status).toBe(200);
+      expect(as.body.scopes_supported).toStrictEqual(prm.body.scopes_supported);
     });
   });
 

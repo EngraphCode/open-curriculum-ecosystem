@@ -1,6 +1,6 @@
 # ADR-113: MCP Spec-Compliant Auth for All Methods
 
-**Status**: Accepted
+**Status**: Accepted. Amended 2026-02-20 (AS metadata endpoint restored), 2026-02-21 (`openid` troubleshooting), 2026-09-08 (MCP-345, Troubleshooting resolution 3: the served AS metadata advertises the PRM's scopes).
 **Date**: 2026-02-19
 **Supersedes**: [ADR-056 (Conditional Clerk Middleware for Discovery)](056-conditional-clerk-middleware-for-discovery.md)
 **Related**: [ADR-052 (OAuth 2.1)](052-oauth-2.1-for-mcp-http-authentication.md), [ADR-053 (Clerk)](053-clerk-as-identity-provider.md), [ADR-054 (Tool-Level Auth)](054-tool-level-auth-error-interception.md), [ADR-057 (Selective Auth for Public Resources)](057-selective-auth-public-resources.md)
@@ -107,7 +107,7 @@ After implementing ADR-113, the Cursor OAuth flow was observed to fail: Cursor o
 
 **Fix**: `/.well-known/oauth-authorization-server` was restored in `registerPublicOAuthMetadataEndpoints()`. The endpoint derives AS metadata locally from the Clerk publishable key (same approach as the PRM endpoint) -- no runtime network call to Clerk. This serves standard OAuth fields (`authorization_endpoint`, `token_endpoint`, `registration_endpoint`, etc.) that backward-compatible clients need to complete the token exchange.
 
-This endpoint is harmless -- spec-compliant clients that fetch AS metadata directly from Clerk will simply not use it. It is only served when auth is enabled (not registered in `DANGEROUSLY_DISABLE_AUTH` mode).
+This endpoint is harmless -- spec-compliant clients that fetch AS metadata directly from Clerk will simply not use it. It is only served when auth is enabled (not registered in `DANGEROUSLY_DISABLE_AUTH` mode). Since ADR-115 the document is fetched from Clerk at startup and rewritten per request.
 
 ## Troubleshooting: Clerk Rejects `openid` Scope for Dynamic Clients (2026-02-21)
 
@@ -147,10 +147,9 @@ Three changes prevent clients from requesting the `openid` scope:
 
 1. **Source of truth**: `openid` removed from `DEFAULT_AUTH_SCHEME.scopes` in `mcp-security-policy.ts`. Cascaded via `pnpm sdk-codegen` to all generated tool security metadata.
 2. **PRM**: `scopes_supported` no longer advertises `openid`, so compliant clients (RFC 9728) do not request it.
+3. **AS metadata** (added 2026-09-08, MCP-345): the served `/.well-known/oauth-authorization-server` document states `scopes_supported` as the same set the PRM advertises, instead of passing Clerk's full list through. Until then a client that chose its scopes from the AS metadata rather than the PRM read `openid` there and requested it — ChatGPT's plugin portal does exactly this ("If your provider advertises OIDC scopes … in `scopes_supported` of its `.well-known/oauth-authorization-server` … ChatGPT requests those scopes by default", [OpenAI plugin auth docs, OIDC scopes](https://developers.openai.com/plugins/build/auth), fetched 2026-09-08) — and Clerk refused it with the `invalid_scope` error above, measured on the portal's test connection on 2026-09-08. Advertising a subset of what the upstream grants is within RFC 8414 §2, which says of `scopes_supported` that "servers MAY choose not to advertise some supported scope values even when this parameter is used"; a client that requests an unadvertised scope the upstream does grant still receives it, because the proxy forwards the requested `scope` unchanged (measured 2026-09-08: a ChatGPT connector's authorisation request carried `scope=email offline_access` while the PRM advertised only `email`, and Clerk accepted the client and redirect). The OpenAI page's other remedy — enabling every advertised scope on the client — is the door Root Cause above closes for `openid`: the DCR clients OpenAI registers are not granted it, and Oak's policy (`DEFAULT_AUTH_SCHEME`) keeps it out, so the honest fix is to stop advertising it. This resource server checks token validity and audience, never scope content, so a token granted more than the advertised set is accepted identically to a minimal one; the advertised set governs what clients ask for, not what the server enforces.
 
-3. **AS metadata** (added 2026-09-08, MCP-345): the served `/.well-known/oauth-authorization-server` document states `scopes_supported` as the same set the PRM advertises, instead of passing Clerk's full list through. Until then a client that chose its scopes from the AS metadata rather than the PRM read `openid` there and requested it — ChatGPT's plugin portal does exactly this ("If your provider advertises OIDC scopes … in `scopes_supported` of its `.well-known/oauth-authorization-server` … ChatGPT requests those scopes by default", OpenAI plugin auth docs) — and Clerk refused it with the `invalid_scope` error above, measured on the portal's test connection on 2026-09-08.
-
-The OAuth proxy forwards all request and response parameters (including `scope`) unchanged; it applies no filtering to forwarded messages. The AS metadata document is not a forwarded message: it is the proxy's own self-description, already rewritten field by field (`issuer` and the three endpoints), and resolution 3 makes its advertised scopes true in the same way. Both discovery documents now come from one constant, `SCOPES_SUPPORTED`, so they cannot disagree.
+The OAuth proxy forwards all request and response parameters (including `scope`) unchanged; it applies no filtering to forwarded messages. The AS metadata document is not a forwarded message: it is the proxy's own self-description, already rewritten field by field (`issuer` and the three endpoints), and resolution 3 makes its advertised scopes accurate for this resource in the same way. Both discovery documents now come from one constant, `SCOPES_SUPPORTED`, so they cannot disagree.
 
 ### Broader Lesson
 
@@ -160,12 +159,14 @@ OAuth authorisation errors routed via redirect are invisible to the resource ser
 
 - **MCP Specification (2025-11-25)**: [Authorization](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)
 - **OpenAI Apps Auth**: [Authentication](https://developers.openai.com/apps-sdk/build/auth)
+- **OpenAI plugin auth, OIDC scopes**: [developers.openai.com/plugins/build/auth](https://developers.openai.com/plugins/build/auth) (fetched 2026-09-08; the "ChatGPT requests those scopes by default" clause quoted in resolution 3)
+- **RFC 8414 §2** (`scopes_supported`: "Servers MAY choose not to advertise some supported scope values"): [datatracker.ietf.org/doc/html/rfc8414#section-2](https://datatracker.ietf.org/doc/html/rfc8414#section-2)
 - **Implementation**:
   - `apps/oak-curriculum-mcp-streamable-http/src/mcp-router.ts`
   - `apps/oak-curriculum-mcp-streamable-http/src/conditional-clerk-middleware.ts`
-  - `packages/sdks/oak-curriculum-sdk/code-generation/mcp-security-policy.ts` (scope source of truth)
-  - `apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts` (transparent proxy passthrough)
-  - `apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts` (PRM endpoint)
+  - `packages/sdks/oak-sdk-codegen/code-generation/mcp-security-policy.ts` (scope source of truth)
+  - `apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts` (proxy passthrough helpers; AS metadata self-description rewrite)
+  - `apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts` (PRM and AS metadata endpoints)
 
 ## Related ADRs
 

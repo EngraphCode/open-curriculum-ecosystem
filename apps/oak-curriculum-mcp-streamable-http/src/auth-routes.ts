@@ -81,7 +81,8 @@ function registerUnauthenticatedRoutes(
  * @param upstreamMetadata - Upstream AS metadata, fetched from Clerk and
  *   injected by the caller. The PRM names its `issuer` as the authorization
  *   server; the AS metadata served at this origin has its endpoint URLs
- *   rewritten per-request to this server's origin, with capability fields
+ *   rewritten per-request to this server's origin and its `scopes_supported`
+ *   set to `SCOPES_SUPPORTED` (MCP-345), with every other capability field
  *   passed through.
  */
 export function registerPublicOAuthMetadataEndpoints(
@@ -133,7 +134,7 @@ export function registerPublicOAuthMetadataEndpoints(
     }
     // The AS metadata advertises the same scopes as the PRM above, so a client
     // that discovers scopes from either document requests only what this
-    // resource grants (MCP-345).
+    // resource requires (MCP-345).
     res.json(rewriteAuthServerMetadata(upstreamMetadata, originResult.value, SCOPES_SUPPORTED));
   });
 
