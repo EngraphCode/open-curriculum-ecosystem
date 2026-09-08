@@ -22,8 +22,8 @@ owner_gates:
     clears_when: >-
       The owner reviews this plan shape and the Stage-0 composition declaration (proposition,
       claim boundary, activated and omitted capabilities, decision-budget seed) and says build.
-    expires: 2026-09-21
-last_updated: 2026-08-31
+    expires: 2026-10-10
+last_updated: 2026-09-08
 ---
 
 # Semantic-search showcase
@@ -334,3 +334,8 @@ Slices at pickup, each a single-story PR within the default round budget (PDR-13
   contain is known first-hand. The demo never surfaces those edges.
 - Search-relevance retuning or provider changes; findings about search quality route to the
   search-owning stream.
+
+## Amendment (2026-09-08, owner-ruled)
+
+The owner gate is renewed to 2026-10-10 at the owner's card answer of 2026-09-08 (renew). The
+definition node it once paired with was ratified the same day; this review stands alone.

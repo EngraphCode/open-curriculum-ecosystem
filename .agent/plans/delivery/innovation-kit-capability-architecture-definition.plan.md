@@ -5,26 +5,17 @@ name: Innovation Kit product-creation-system definition
 overview: >-
   Make the full intellectual lineage and proposed product-creation system durable, navigable and
   reviewable before any implementation proof or provider selection narrows the concept.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #95 (2026-09-08), whose body quotes the owner's card answer verbatim: 'ratify it, we can always iterate later if we need to'"
 serves: innovation-kit
 impact_areas:
   - innovation-kit
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner reviews the proposed definition corpus and records acceptance or amendment of its
-      foundational thesis, authority boundary, product-creation-system model and documentation
-      responsibilities. This gate does not require selecting an implementation proof or provider.
-      Owner word 2026-08-31: this review runs jointly with the semantic-search-showcase Stage-0
-      review — one owner moment covers the definition and the first concrete instantiation of its
-      record interfaces.
-    expires: 2026-09-20
-last_updated: 2026-08-31
+owner_gates: []
+last_updated: 2026-09-08
 ---
 
 # Innovation Kit product-creation-system definition
@@ -144,3 +135,10 @@ by accident.
 - Ratifying the Innovation Kit strategy, strategic node, ADR or PDR through this plan.
 - Preserving the deconstruction as runnable code; its retained value is analysis, examples,
   methods, difficult cases and evidence limits.
+
+## Amendment (2026-09-08, owner-ruled)
+
+Ratified at the owner's card answer of 2026-09-08, verbatim: "ratify it, we can always iterate
+later if we need to". The owner-gate row is removed as discharged. The 2026-08-31 note that this
+review runs jointly with the semantic-search-showcase Stage-0 review is superseded: the showcase
+review is renewed separately on its own node.

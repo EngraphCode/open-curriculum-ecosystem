@@ -3,8 +3,11 @@
 The repository's home for **intent and mechanism**: why each piece of
 work exists, how it is done, what proves it done, and who ratified it.
 Everything that moves with the schedule lives in Linear and is pointed
-at, never mirrored — the full contract is the
-[plan-node schema](plan-node-schema.md).
+at, never mirrored; the state of any instance of the code — a deployment,
+a dashboard, a console — is that system's own record, never this corpus's,
+which records the desired outcome and its owner-held proof (the
+repository attests completion only up to its own boundary) — the full
+contract is the [plan-node schema](plan-node-schema.md).
 
 Three plan types: **strategic** (the outcome and the bet — long-lived,
 few), **delivery** (one step of a lane — short-lived, archived at

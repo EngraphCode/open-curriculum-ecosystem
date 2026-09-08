@@ -84,7 +84,11 @@ its file never moves while live:
 
 Milestones are **not** a plan type: they are named observable states of
 the product, held in Linear with tickets mapped. Delivery state is a
-Linear projection, never a repo field — the sorting test: if it moves
+Linear projection, never a repo field, and more generally the state of
+any instance of the code (a deployment, a dashboard, a console) is the
+external system's own record, never the corpus's; a plan records the
+desired external outcome and its `owner-held` proof (plan-node schema,
+amendment 2026-09-08) — the sorting test: if it moves
 when the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repo.
 

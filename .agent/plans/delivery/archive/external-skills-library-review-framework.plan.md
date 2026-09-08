@@ -3,7 +3,7 @@ id: external-skills-library-review-framework
 node_type: delivery
 name: "External skills-library review framework — repeatable instrument + methods inventory"
 overview: "Distill the estate's three worked external-library studies into a repeatable review framework (intake → security gate → breadth survey → tiered deep scan → fit-gate → disposition), inventory the multi-agent analysis methods and topologies the framework draws on, and stand up the roster and candidate register — so the owner-held all-libraries review runs on a proven instrument when he fires it."
-status: sketch
+status: archived
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -12,18 +12,8 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      TWO owner moments, separately gated. First, the framework itself
-      ratifies propose-and-agree: the owner reads the distilled
-      framework document and agrees its stages before it governs any
-      review. Second, THE LARGER REVIEW NEVER STARTS WITHOUT HIS
-      EXPRESS WORD (owner verbatim, 2026-08-02: "Do not start the
-      larger review without my say so") — the roster is priced by him
-      per library; no stage of this plan fires a review on its own.
-    expires: 2026-09-06
-last_updated: 2026-08-02
+owner_gates: []
+last_updated: 2026-09-08
 ---
 
 # External skills-library review framework
@@ -155,3 +145,11 @@ entry carrying its failure mode, natural home, and proof signal.
   signals.
 - A dry-run pricing of one roster library (stages, legs, cost shape)
   reads cleanly enough for the owner to say go or no-go from it alone.
+
+## Amendment (2026-09-08, owner-ruled)
+
+Archived at the owner's numbered card answer of 2026-09-08, verbatim: "Archive" — the
+framework distillation is not pursued now. The standing instruction is unchanged and outlives
+this node's archival: no library review starts without the owner's express word (2026-08-02:
+"Do not start the larger review without my say so"). The node returns from the archive on that
+word; its gate rows are removed as discharged by the archival, not as resolved.

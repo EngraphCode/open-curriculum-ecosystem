@@ -48,7 +48,10 @@ repositories. Calls with no repository target (a `users/...` endpoint, a
   from the remote (a plain `git fetch` does not, so a clone made before a
   default-branch change would otherwise keep the old name), then
   `git symbolic-ref --short refs/remotes/origin/HEAD` prints
-  `origin/<branch>`, and the bare name is the part after `origin/`; or
+  `origin/<branch>`, and the bare name is the part after `origin/` (a
+  single-branch clone has no remote-tracking ref for the default branch
+  to point at, so it fetches `<default>:refs/remotes/origin/<default>`
+  first, then runs `set-head --auto`); or
   `gh repo view <owner>/<name> --json defaultBranchRef --jq
   .defaultBranchRef.name` with the repository named — never the bare
   `gh repo view`, which infers the repository from the directory and on
