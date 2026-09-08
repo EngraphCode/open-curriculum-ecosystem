@@ -110,7 +110,21 @@ export function subjectRuns(thread: ExtractedThread): readonly SubjectRun[] {
     .map(([subject, units]) => ({ subject, units: [...units].sort(compareSequencePositions) }));
 }
 
-/** Builds one run's placements, collapsing exact (unitId, year) duplicates. */
+/**
+ * Builds one run's placements, collapsing exact (unitId, year) duplicates.
+ *
+ * @remarks
+ * The duplicates are a unit's programme variants — at key stage 4, its
+ * exam-board and tier editions — which the corpus merges into one unit node.
+ * Keeping the FIRST occurrence after the position sort keeps the MINIMUM
+ * authored index across those variants, so a KS4 run is a bias towards the
+ * earliest position any board gives a unit, not any one board's order: where
+ * boards disagree, the earliest wins, and sibling variants of one topic can
+ * land side by side. This is the unit-level twin of the lesson-run sort key
+ * (`graph-corpus-unit-lesson-runs.ts`) and is disclosed at the served boundary
+ * in the same terms. A per-programme order needs a programme dimension the
+ * unit node does not carry (ADR-086, MCP-681).
+ */
 function buildPlacements(run: SubjectRun): {
   readonly placements: readonly GraphCorpusSequencePlacement[];
   readonly collapsed: number;

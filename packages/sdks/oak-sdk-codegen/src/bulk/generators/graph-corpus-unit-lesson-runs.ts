@@ -76,9 +76,6 @@ function buildAuthoredPositions(
     const unitId = unitNodeId(unit.unitSlug);
     const forUnit = positions.get(unitId) ?? new Map<GraphCorpusLessonNodeId, number>();
     for (const lesson of unit.lessons) {
-      if (lesson.lessonOrder === null) {
-        continue;
-      }
       const lessonId = lessonNodeId(lesson.lessonSlug);
       const existing = forUnit.get(lessonId);
       if (existing === undefined || lesson.lessonOrder < existing) {

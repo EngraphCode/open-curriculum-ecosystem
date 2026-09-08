@@ -49,7 +49,7 @@ function lessonRecord(lessonSlug: string, unitSlug: string): ExtractedLesson {
 /** One programme variant's lesson listing — the ordering source. */
 function variant(
   unitSlug: string,
-  lessons: readonly (readonly [slug: string, order: number | null])[],
+  lessons: readonly (readonly [slug: string, order: number])[],
 ): ExtractedUnitLessons {
   return {
     unitSlug,
@@ -159,26 +159,6 @@ describe('generateGraphCorpusData — unitLessonRuns (authored lesson order)', (
     );
 
     expect(runFor(corpus, 'unit-d')).toEqual(['lesson:zzz-ordered-first', 'lesson:aaa-unordered']);
-  });
-
-  // Contract test only: `extractUnitLessons` backfills a null `lessonOrder`
-  // to its array index, so null never reaches this builder through the real
-  // pipeline. In production the unordered case arises the other way — a
-  // lesson absent from every variant listing (the test above).
-  it('treats a null lessonOrder as unordered rather than as position zero', () => {
-    const corpus = generateGraphCorpusData(
-      makeInput({
-        lessons: [lessonRecord('aaa-null-order', 'unit-e'), lessonRecord('zzz-ordered', 'unit-e')],
-        unitLessons: [
-          variant('unit-e', [
-            ['aaa-null-order', null],
-            ['zzz-ordered', 1],
-          ]),
-        ],
-      }),
-    );
-
-    expect(runFor(corpus, 'unit-e')).toEqual(['lesson:zzz-ordered', 'lesson:aaa-null-order']);
   });
 
   it('takes membership from the edge set, never from the variant listings', () => {

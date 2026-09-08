@@ -134,8 +134,14 @@ describe('progressionForThread (detail anchor)', () => {
       }
     }
 
-    expect(alphabeticalGroups.length + disagreeingGroups.length).toBeGreaterThan(0);
-    expect(disagreeingGroups.length).toBeGreaterThan(0);
+    // A floor, not a pin: 625 of 857 groups (73%) disagreed with the alphabet
+    // on the 2026-09-03 snapshot. Alphabetical order would put this near 0%;
+    // a regression that re-sorted most groups fails here, while ordinary
+    // content drift does not. Re-adjudicate the floor only if Oak's authored
+    // order genuinely converges on the alphabet.
+    const groups = alphabeticalGroups.length + disagreeingGroups.length;
+    expect(groups).toBeGreaterThan(0);
+    expect(disagreeingGroups.length / groups).toBeGreaterThan(0.5);
   });
 
   it('keeps every run within its own subject', () => {

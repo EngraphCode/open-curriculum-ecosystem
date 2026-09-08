@@ -33,7 +33,9 @@ export interface GraphCorpusSequencePlacement {
  * `sequence` array's order, the API's `unitOrder`), "All years" units last.
  * A thread is a tag; a thread spanning several subjects emits one sequence
  * per subject, never an interleaved chain — Oak authors no order across
- * subjects.
+ * subjects. At key stage 4 a unit node merges its exam-board and tier
+ * variants, so a KS4 run keeps each unit's earliest authored position across
+ * those variants: a bias, not any one board's order.
  */
 export interface GraphCorpusSequence {
   readonly threadId: GraphCorpusThreadNodeId;

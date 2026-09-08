@@ -90,7 +90,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // (C253), the detail-anchor field (C254), and the summary (C258) state
   // per-subject runs in Oak's curriculum order.
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
-    '0cef9521647efce766df6d15b8c4a61f307e6f0562d9816235aa041ddf36eadf',
+    'd15d7c6fd2ceaf7c090587673efc6cbdc68286fd32763c22b4be6d48d56991fe',
     ['C252', 'C253', 'C254', 'C255', 'C256', 'C257', 'C258', 'C259', 'C260'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-user-search/tool-definition.ts': reviewed(

@@ -64,7 +64,7 @@ export const SDK_TOOL_GUIDANCE_DELTA_REVIEWS: Readonly<Record<string, CurrentSou
     ['C040', 'C041', 'C042', 'C043', 'C044', 'C045', 'C046', 'C047'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts': reviewed(
-    '47f7aae7eff5d3b29caea9afec26f7fe19eb050be8f5640379bfc53ae409f995',
+    '6e9c01298eff9a631a086eb266d0588f3ff20da24d7a510047d4bb2189fa0983',
     [
       'C286',
       'C287',

@@ -81,7 +81,7 @@ export const CURRENT_THREAD_PROGRESSIONS_ITEM_ANCHOR_OVERRIDES = {
   // The ontology's thread characteristics.
   C292: {
     [ONTOLOGY_DATA]: [
-      "'Curriculum-ordered: A thread’s units follow Oak’s authored curriculum order within each subject — years ascending, and within a year the subject sequence’s unit order; a thread spanning subjects runs separately per subject',",
+      "'Curriculum-ordered: A thread’s units follow Oak’s authored curriculum order within each subject — years ascending, and within a year the subject sequence’s unit order; a thread spanning subjects runs separately per subject; at key stage 4 a unit merges its exam-board and tier variants, so a KS4 run is a bias towards the earliest authored position, not any one board’s order',",
     ],
   },
 } as const;
