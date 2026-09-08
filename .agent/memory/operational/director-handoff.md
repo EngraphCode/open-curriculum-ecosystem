@@ -306,7 +306,9 @@ first-hand as of 2026-06-25.
 > `e4572ddc1` pinned; two review rounds, two over-bar cures on one settlement push, four
 > below-bar dispositions by signed reply; remote branch deleted). The successor
 > **`coordination/2026-09-08-68d53d`** was cut tree-preservingly by the coordination tool and
-> PUBLISHED; the primary resides on it; the held `.claude/settings.json` rides it uncommitted.
+> PUBLISHED; the primary resides on it; the held `.claude/settings.json` rode it uncommitted at
+> this snapshot — superseded later on 2026-09-08: committed on the owner's word ("I am fine with
+> the simplification of the settings files") and folded in PR #84, the fold of this branch.
 > Board post-fold: open #70 (the owner's non-graph survey) landing under the Director's executed
 > default — claim `8e7e00d1` re-adopted at 00:40Z, the lane's in-progress merge kept and committed
 > as `956c03ec0`, one post-fold push then settle and merge; the bot PR count is otherwise zero
