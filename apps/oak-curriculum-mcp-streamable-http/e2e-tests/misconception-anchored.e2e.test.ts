@@ -71,8 +71,9 @@ assert.ok(
 );
 // The thread fixture: a thread spanning subjects, small enough that one page
 // holds every unit, with a subject run whose curriculum order differs from id
-// order — so one served page proves the join between subject runs, the
-// revisited-unit dedup, and the order, all over the real transport.
+// order — so one served page proves the join between subject runs and the
+// order, over the real transport. Revisited-unit dedup is NOT proved here (no
+// such thread fits one page); the view's integration test owns that proof.
 const THREAD_PAGE_LIMIT = 25;
 const isReordered = (ids: readonly string[]): boolean =>
   ids.length > 2 && ids.join() !== idSorted(ids).join();
@@ -95,7 +96,7 @@ assert.ok(
   'corpus has no multi-subject thread that fits one page with a reordered run',
 );
 const [multiSubjectThreadId, multiSubjectSequences] = multiSubjectThread;
-// Each subject run in corpus order, joined; a revisited unit kept at its first placement.
+// Each subject run in corpus order, joined (the Set mirrors the view's first-placement rule; it is a no-op on this fixture).
 const expectedThreadPage = [
   ...new Set(multiSubjectSequences.flatMap((sequence) => sequence.placements.map((p) => p.unitId))),
 ];
@@ -176,8 +177,8 @@ describe('get-misconception-graph anchored tools/call', () => {
     const thread = structured.threads[0];
     const served = thread?.units.map((entry) => entry.unit.id) ?? [];
     // One page holds the whole thread, so the served page must be every subject
-    // run joined in corpus order with revisited units once — never interleaved,
-    // never re-sorted between the view and the wire.
+    // run joined in corpus order — never interleaved, never re-sorted between
+    // the view and the wire.
     expect(served).toStrictEqual(expectedThreadPage);
     expect(thread?.totalUnits).toBe(expectedThreadPage.length);
     expect(thread?.hasMore).toBe(false);

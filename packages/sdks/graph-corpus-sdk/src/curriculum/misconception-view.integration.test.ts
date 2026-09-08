@@ -269,20 +269,33 @@ describe('misconception view — bounded anchored chain retrieval', () => {
         }),
         'corpus has no sequence that places a unit at two years',
       );
-      const placements = revisited.placements.map((placement) => placement.unitId);
+      // Derive the expectation the way the view builds it: every subject run of
+      // the thread, joined in corpus order — not just the sequence that carries
+      // the repeat — and page the WHOLE thread, so a future corpus that makes
+      // this thread multi-subject or longer than one page cannot fail it.
+      const placements = graphCorpus.sequences
+        .filter((sequence) => sequence.threadId === revisited.threadId)
+        .flatMap((sequence) => sequence.placements.map((placement) => placement.unitId));
       const twice = required(
         placements.find((id, index) => placements.indexOf(id) !== index),
-        'sequence has no repeated unit',
+        'thread has no repeated unit',
       );
+      const distinct = [...new Set(placements)];
 
-      const result = unwrapOk(
-        misconceptionsForThread(bareSlug(revisited.threadId), { unitLimit: MAX_THREAD_UNIT_LIMIT }),
-      );
-      const served = (result.threads[0]?.units ?? []).map((u) => u.unit.id);
+      const served: string[] = [];
+      for (let offset = 0; offset < distinct.length; offset += MAX_THREAD_UNIT_LIMIT) {
+        const page = unwrapOk(
+          misconceptionsForThread(bareSlug(revisited.threadId), {
+            unitOffset: offset,
+            unitLimit: MAX_THREAD_UNIT_LIMIT,
+          }),
+        );
+        expect(page.threads[0]?.totalUnits).toBe(distinct.length);
+        served.push(...(page.threads[0]?.units ?? []).map((u) => u.unit.id));
+      }
 
       expect(served.filter((id) => id === twice)).toHaveLength(1);
-      expect(result.threads[0]?.totalUnits).toBe(new Set(placements).size);
-      expect(served.indexOf(twice)).toBe(placements.indexOf(twice));
+      expect(served.indexOf(twice)).toBe(distinct.indexOf(twice));
     });
 
     it('serves a thread window in an order the alphabet could not produce', () => {
