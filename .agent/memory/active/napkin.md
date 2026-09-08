@@ -865,3 +865,60 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   before. External bound: nothing external has yet tested the Director's own round-taking; the
   reviewer's next round on #89 is the first such test. A third pass re-finds only these; the
   recursion closes here.
+- **Pointer (v), 2026-09-08 17:3xZ (Director, from #89's second round):** the default-branch
+  derivation #87 wrote into downstream-checkout-never-writes-upstream-surfaces (and the three
+  surfaces that cite it) fails on a single-branch clone whose remote default moved outside the
+  fetch refspec: `git remote set-head origin --auto` exits "Not a valid ref" and a plain fetch never
+  obtains the new branch (Codex reproduced it). Cure, one sentence on the rule: read the remote's
+  HEAD symref first (`git ls-remote --symref origin HEAD`) and fetch that branch explicitly before
+  the set-head and the local read. Home: the (t) follow-up PR or the next rules PR; the hooks node
+  already carries the corrected order.
+- **Pointer (w), 2026-09-08 18:5xZ (Director):** a second CI flake class, seen on #93's guard head:
+  the eslint-plugin-standards lint task (`eslint .` in packages/core/oak-eslint) failed with ENOENT
+  on `tsup.config.bundled_<random>.mjs` — the transient file tsup writes and deletes while bundling
+  its config — because ESLint's glob caught it mid-life while the package's build ran in parallel
+  under turbo. Cure: ignore `tsup.config.bundled_*.mjs` in that package's ESLint ignores (or make
+  its lint task depend on build); a config-expert PR of one line. Until then every PR pays an
+  empty-commit re-trigger when the race bites.
+
+## 2026-09-08 19:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 22: two flakes, one guard that bites, and the upstream at the door
+
+- **The window (17:1xZ → 19:1xZ).** #89's second round (seven Codex findings, all case-list gaps
+  in the two plan nodes) cured as invariants in one push; its settle stopped twice on the showcase
+  suite's fake-stylesheet fetch. The owner asked for a slow, deep analysis of #90, their Codex
+  task's draft integrating upstream main 3f1e88ca (sixteen commits, MCP-681, the 1.178.6 release);
+  delivered: GitHub's DIRTY is a rename it cannot see through and git merges clean; no CI has run on
+  the combined tree because the head is a skip-ci release commit; the fork's generated
+  model-behaviour pages go stale on eight anchors; integrate on this machine as one two-parent
+  merge plus regeneration, never cure upstream-authored lines in the PR, custody on the owner's
+  word. Then the flake: fixed at the package level in #93 (happy-dom stylesheet loading disabled),
+  the cause proven by a control run; the test expert found the residue (a fake href the observer
+  never needed) and a comment that overstated what happy-dom does; Codex asked for a guard that
+  bites and got one — proven green under the config and red under a control without it, after my
+  own control run exposed a vacuous fetch spy (happy-dom's loader bypasses the window's fetch).
+  A second CI flake class (w) then bit #93: ESLint's glob in the eslint-plugin-standards package
+  reading tsup's transient config bundle mid-life. Altair's claim closed at freshness expiry with
+  both its lanes landed; the Director holds the train's live files. The owner's own PRs: #91
+  undrafted (the 8 September curriculum delta), #92 (own-built foundations, ADR-229), #94 new.
+- **Metacognition (retrospective).** Kept: prove the guard bites before claiming it does — the
+  control run is what turned a vacuous assertion into a real one, and the reviewers were right
+  twice (the residue; the guard). Kept: a fix for a flake attracts its own review tail, and that
+  tail was worth paying. Corrected: I read a fresh watcher heartbeat as a live seat (wrap 21) and
+  this window read "the fix holds" from three local runs before CI had spoken — CI agreed, but the
+  order was wrong; the bar is the CI run, the local runs are the diagnosis. Cost of the day's
+  structure: three empty-commit re-triggers across two PRs because the bot cannot re-run a job;
+  the App's Actions permission is the owner's call and the pointer is on the record.
+- **Consolidation gate.** Pointers (u) the showcase IO test (cured by #93), (v) the derivation gap
+  on single-branch clones, (w) the tsup transient-config lint race — all on this napkin; the #90
+  analysis on the record; no new memory (the flake facts are repo facts and pointers).
+- **Work safety at the boundary:** the primary at ca7908b82 == origin (0/0) before this block; the
+  queue empty; dirty: the napkin only (pointers (v), (w); this block). Registry: the Director's
+  two claims. Processes: watcher (re-armed hourly), peer poll, claim loop, wrap cron, fold wake
+  3d614df0 against #84 (BEHIND until the step-2 merge); the #93 settle at 4cd75e0fb.
+- **Metaloss.** Pass one: the record's #93 lines carry every head, both reviews, both flakes and
+  the re-triggers; nothing narrated ahead of the landed state (#93 and #89 OPEN). Pass two:
+  promises — #93's settle; #89 after it; #91's read and slot; #90 on custody; the (t) follow-up;
+  A, B, C; pointers (u) (v) (w); the Actions permission surfaced; nothing unhomed. Observed, not
+  inferred: the owner undrafted #91 and opened #94 this window. Bounds as before; Altair's state
+  unknown. External bound: CI's verdict on 4cd75e0fb is the next outside test. The recursion
+  closes here.
