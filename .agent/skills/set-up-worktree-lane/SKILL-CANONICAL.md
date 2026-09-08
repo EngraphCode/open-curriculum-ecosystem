@@ -141,7 +141,10 @@ heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner
 away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
 for git, the platform's file-editing tool on absolute paths for edits, one plain command
 per call — not residency, and named as such in the lane broadcast), or have the session
-launched inside the worktree (`cd <path> && claude`), which prompts for nothing. A bare `cd` is not residency and does not survive; a `Shell cwd
+launched inside the worktree (`cd <path> && claude`), which prompts for nothing — a route
+for a lane that needs no watcher of its own; an unattended coordinated lane never launches
+resident, because its watcher arm would need the re-entry prompt answered
+([`worktree-residency`](../../rules/worktree-residency.md) clause 2). A bare `cd` is not residency and does not survive; a `Shell cwd
 was reset` line means it did not take. Arm the canonical watcher and any other monitor
 at the principal BEFORE entering, then verify each one after the switch and re-arm what
 died — a resident arm may be refused under isolation; the ordering and the guard's
