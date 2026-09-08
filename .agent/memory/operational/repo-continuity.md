@@ -513,23 +513,25 @@ F-41 CLI tail).
 0a. **Deep-consolidation carried work (the only part a next curator needs).** The
    ordinary triggers govern when the next pass fires; there is no inherited debt
    beyond these named items:
-   - **Comms-event rotation (`consolidate-docs` step 3a) has not been run since
-     2026-07-31.** Extraction is complete through the 2026-08-06 pass, so the
-     outstanding act is the class-tiered archive-move itself, which must run with
-     the watermark and provenance gates fresh — never blind. Events younger than
-     their class window are the live coordination stream and are never moved. The
-     curator-disposition input-channel tooling gap rides the
+   - **Comms-event rotation (`consolidate-docs` step 3a)** ran on the primary
+     checkout on 2026-09-07 under the recorded 2026-08-14T06:16:28Z watermark
+     and the provenance gate (heartbeats past 48 h by the harness; substantive
+     events at or before the watermark by hand). Moves are facts about the
+     checkout that ran them (PDR-094): recompute the live and archive counts
+     before trusting them elsewhere. The 2026-08-14 → 2026-09-07 window's
+     absorption sweep is not yet declared, so no newer watermark exists. Events
+     younger than their class window are the live coordination stream and are
+     never moved. The curator-disposition input-channel tooling gap rides the
      comms-watch-storage-redesign lane.
-   - **`director-handoff.md` curation is outstanding and is its own bounded
-     sitting** (not a slice of a napkin pass). The file is ~1,430 lines and far
-     past critical on every axis, which is a routing signal and never a licence to
-     trim it. The work has a specific shape: its durable role doctrine has already
-     graduated to PDR-117, so what remains is a stack of superseded `CURRENT
-     HANDOFF STATE` blocks whose lane and roster state is explicitly historical but
-     which carry ~42 numbered owner rulings marked binding. Each ruling needs a
-     homed-or-not check before its block can drain — draining first would lose
-     binding owner words, which is why fitness pressure must not drive it. A
-     successor can size the work by checking rulings 1–42 against their homes.
+   - **`director-handoff.md` live-file curation LANDED 2026-09-08** (the
+     Director's 2026-09-07 ruling): the live file keeps the Brief, the fold block
+     and a live snapshot; every prior `CURRENT HANDOFF STATE` block is verbatim in
+     `.agent/memory/operational/archive/director-handoff-current-handoff-state-2026-09-08.md`,
+     so no binding owner word was drained. What remains is a bounded sitting over
+     THAT archive: the ~42 numbered owner rulings its blocks mark binding each need
+     a homed-or-not check (ruling by ruling against the rule, PDR or skill that
+     should carry it); a successor sizes it by checking rulings 1–42 against their
+     homes, and the archive stays as the literal record either way.
    - **The tiered-sight / multi-machine PDR candidate** (machine-local vs
      repo-bound state classes; the nothing-load-bearing-on-one-machine invariant;
      the standing pipeline replacing one-off rescue) is a doctrine seed on the

@@ -294,7 +294,8 @@ first-hand as of 2026-06-25.
 
 > **§LIVE SNAPSHOT, 2026-09-08 01:2xZ (Juno seeks Apogee, `a693fb`, the disposition PR the
 > Director ruled on 2026-09-07 18:01Z) — THE POST-FOLD FACTS; the fold block above is the
-> Director's and stands verbatim.** Fold PR **#79 MERGED as `68d53d778`** (01:00:25Z, head
+> Director's and stands verbatim, so where it says the 2026-09-07 banner is "below", read: in
+> the archive file named at the end of this block.** Fold PR **#79 MERGED as `68d53d778`** (01:00:25Z, head
 > `e4572ddc1` pinned; two review rounds, two over-bar cures on one settlement push, four
 > below-bar dispositions by signed reply; remote branch deleted). The successor
 > **`coordination/2026-09-08-68d53d`** was cut tree-preservingly by the coordination tool and
