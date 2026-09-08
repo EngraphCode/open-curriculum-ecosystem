@@ -181,25 +181,32 @@ whatever tree it lands in, and the "watcher" watches nothing (worked
 instance 2026-07-20: a re-arm from a scratchpad clone auto-installed the
 clone and observed zero events).
 
-### Worktree residency blocks the arm — arm from the primary, before EnterWorktree
+### Worktree residency changes the arm's shape — root it where you reside
 
-Platform worktree isolation (Claude Code `EnterWorktree`) makes the PRIMARY
-coordination home non-writable from a worktree-resident session and refuses
-compound arm commands it cannot prove stay inside the worktree ("This
-session is isolated in the worktree …" — the refusal recorded in-repo
-2026-08-06 in the mutation-evidence mechanics report; three seats hit it
-independently 2026-08-13 and first read it as a fleet regression). The
-watcher, the F-75 poll, and the heartbeat loop therefore arm while the
-session is PRIMARY-resident — at session open, before any `EnterWorktree`
-— and persist across later residency switches (armed monitors keep
-running; a full worktree lane phase can run under a primary-armed
-watcher). A session already worktree-resident that needs an arm exits to
-the primary first (`ExitWorktree` action keep), arms, and re-enters.
-Worktree-resident sessions route primary-surface WRITES (comms sends, ARC
-channel entries, shared memory files) through the commit-warden's intent
-surface or a cross-session send — the same isolation refuses those writes
-directly, by design, and the refusal is the platform's, not this repo's
-hook policy.
+Platform worktree isolation (Claude Code `EnterWorktree`) refuses an arm
+command it cannot prove stays inside the worktree ("This session is
+isolated in the worktree …" — the refusal recorded in-repo 2026-08-06 in
+the mutation-evidence mechanics report; three seats hit it independently
+2026-08-13 and first read it as a fleet regression). What it refuses is
+the canonical block's two principal-shaped parts: the opening
+`cd <repo-root>` (the principal's working directory) and `"$PPID"` (a
+runtime-computed value — the 2026-09-08 refusal named "the variable
+PPID" and nothing else). A worktree-resident session therefore arms the
+SAME watcher with its `cd` rooted at the worktree and the supervisor pid
+written as a literal, read first as a plain command from the harness's
+session file (`~/.claude/sessions/<pid>.json`, matched on `sessionId`);
+verified 2026-09-08 on 2.1.263: the arm ran, the omit-path default
+resolved the PRIMARY comms directory (the heartbeat's
+`watched_comms_dir`), events drained, and `assert-watcher-live` from the
+worktree was green. A session launched at the principal arms there before
+any `EnterWorktree`; a session that finds a monitor dead after a switch
+re-arms from where it now resides — never by exiting and re-entering,
+since the re-entry prompts (`worktree-residency` clause 1). The primary
+coordination home stays writable through this CLI from a resident session
+(`comms send`, `comms reply`, `claims heartbeat` all wrote events from a
+worktree on 2026-09-08): the isolation guard blocks the platform's
+`Edit`/`Write` tools on main-checkout paths and git redirected into the
+main checkout, not a Node process writing files.
 
 **After arming the watcher, run ONE foreground comms sweep covering the
 window from BEFORE session open.** An event landing between session-open
