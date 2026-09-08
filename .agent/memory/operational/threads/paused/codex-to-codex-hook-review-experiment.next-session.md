@@ -347,9 +347,3 @@ metaloss live in the napkin. The reduced bundle remains uncommitted, the new hoo
 its reviewer currently fails, the canonical gate is not green, and nothing was pushed. Verdict:
 **pending** for the feature and activation; **session-completion consolidation captured** for this
 paused session.
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-**PAUSED, PENDING.** Fresh-process lane RED on configured latency; disposable two-case PreToolUse mechanics correct; reviewed reduction partly staged but uncommitted. A later project-local hook attempt is unreviewed and not working (nested reviewer exits 1 behind fail-open allow); no current-session attachment, qualification, or activation; the working-tree state was subsequently preserved at `SHA:c4fae0b83` on draft PR #403 (2026-07-16 ~21:52Z preservation pass)

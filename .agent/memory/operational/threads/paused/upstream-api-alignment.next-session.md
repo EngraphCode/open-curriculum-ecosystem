@@ -406,9 +406,3 @@ green); the probe script `apps/oak-search-cli/scripts/probe-lesson-availability.
 demonstrates the three availability classes in one run. Both lane claims
 released at close; no work in flight; next actions are all owner-decision-
 gated and enumerated in the report's routing section.
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook

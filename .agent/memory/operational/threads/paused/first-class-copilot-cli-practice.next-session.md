@@ -135,9 +135,3 @@ participant in the repository's canonical Practice and agentic tools.
   MCP-150/MCP-154/MCP-155/MCP-156 are supplementary Linear projections for
   execution state, sensitive details, and evidence that cannot be versioned
   safely; do not copy transient ticket state into this thread.
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing.

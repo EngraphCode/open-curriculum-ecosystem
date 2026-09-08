@@ -620,9 +620,3 @@ below is the frozen cure record.
 | platform | model | agent_name | role | last_session |
 |---|---|---|---|---|
 | claude-code | claude-fable-5 | Wren calls Downdraft | implementer | 2026-08-12 |
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-PAUSED 2026-09-06 — no fork lane; identity row stale. Config-boundary cure lane: @oaknational/workspace-config package, depcruise boundary rules under the three owner rulings, de-hatch arc, census todos. #836/#865 merged; Bucket-1 successor work handed onward; de-hatch + census todos remain the lane's pickup

@@ -327,9 +327,3 @@ compliance tracked in
 
 [successor-plan]:
   ../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-PAUSED 2026-09-06 — no fork lane; identity row stale. Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record

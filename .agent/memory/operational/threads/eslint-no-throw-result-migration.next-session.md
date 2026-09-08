@@ -177,9 +177,3 @@ PDR-105 is now COMPLETE (Drake lifts Obsidian, `563487f79` — validator now blo
 with whoever next holds that lane. **Shared-branch lesson:** a peer's transient mid-edit window can
 red the full-tree gate for your commit — diagnose first-hand, surface to the lane owner, never touch
 their dirty work; the window self-resolves (worked instance this session, ~15:12–15:17Z).
-
-## Purpose cell moved from repo-continuity.md (2026-09-08)
-
-The index row's former Purpose cell, verbatim (the row now carries a pointer):
-
-Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. RESHAPED (survey-first WS0→WS4, 4 conversions landed) and paused for the strategy thread per §Current State; the 382-warning agent-tools residue observed at #654's gate belongs here (moved from Active 2026-07-30 dedicated pass: no identity touch since 2026-06-19)
