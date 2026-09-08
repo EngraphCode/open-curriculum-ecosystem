@@ -64,7 +64,7 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // states them as scopes_supported instead of passing the upstream list
   // through; every other field of the served AS metadata is unchanged. The
   // JSDoc records why (a client choosing scopes from this document requested
-  // an advertised openid that Clerk does not grant DCR clients).
+  // an advertised openid that its registered grant, Oak's default, omits).
   'apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts': reviewed(
     'fcefa57b4a0e31be024c3182e8141be0c1c77aabe144e2e196d9515b44ebc40a',
     ['C408'],

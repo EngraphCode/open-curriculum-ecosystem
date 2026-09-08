@@ -132,9 +132,9 @@ export function registerPublicOAuthMetadataEndpoints(
       res.status(403).json({ error: 'forbidden', error_description: msg });
       return;
     }
-    // The AS metadata advertises the same scopes as the PRM above, so a client
-    // that discovers scopes from either document requests only what this
-    // resource requires (MCP-345).
+    // The AS metadata advertises the same scopes as the PRM above, so both
+    // discovery documents name the set this resource requires; a client may
+    // still add scopes of its own, and the proxy forwards them (MCP-345).
     res.json(rewriteAuthServerMetadata(upstreamMetadata, originResult.value, SCOPES_SUPPORTED));
   });
 
