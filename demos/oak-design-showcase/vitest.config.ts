@@ -14,8 +14,12 @@ import { defineConfig } from 'vitest/config';
  * by default, so a test that appends a link with any href fires an
  * unawaited fetch to the window's default origin (localhost port 3000)
  * whose refusal lands as an unhandled error at random. Stylesheet file
- * loading is therefore disabled for the whole unit suite; a link element
- * here is a DOM node and nothing more.
+ * loading is therefore disabled for every test this config runs. With it
+ * disabled, an href-bearing link still makes happy-dom log a
+ * `NotSupportedError` to the console and dispatch an `error` event on the
+ * link, so tests append links without an href; the product's own
+ * href-bearing links (the identity switchboard specimen, the tokens page)
+ * are guarded by this setting when a component test renders them.
  */
 export default defineConfig({
   test: {
