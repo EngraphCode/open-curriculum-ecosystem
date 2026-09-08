@@ -156,3 +156,30 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
   post-fold push. Bounds: a held REPL is invisible from the stream except as absence; the
   fold's own commit is the only surface this block could not ride. A third pass re-finds only
   the unpushed commit and the held-REPL bound; the recursion closes here.
+
+## 2026-09-08 01:0xZ–02:4xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: the successor's first hour
+
+- **Landed this window:** the fold's tail on the successor (the seated block filled with the
+  merge SHA and the branch name, the fold-window napkin block, commit eda9dfc4b); #70 (the
+  owner's non-graph survey) as 0df02f548 under the executed default — the lane's stalled merge
+  kept and completed, one post-fold push, Appendix B as the premises; #81 (repo-continuity's
+  Purpose cells → pointers) by Juno at 3fdf51d0c. #80, the disposition of the Director's own
+  surface, read whole and passed: the Brief and the fold block byte-identical (diff), the
+  archive containing the moved range verbatim (a containment check, not the author's claim),
+  the snapshot's facts and the three conserved rulings verified against the record.
+- **The event is the fact.** The snapshot dated the landing-slot event 6bd4fe0d at 20:04Z on
+  the 6th; my memory had it later, after the overnight contract. The event file said 20:04:40Z.
+  A verifier who reads the artefact is corrected by it; a verifier who trusts memory writes a
+  finding that is itself wrong. The same class as the day's timestamp lessons, from the other
+  side: the seat checked before objecting, and the check settled it in one command.
+- **Shape of the tenure so far, in one line.** From 2026-09-06 12:5xZ to now the owner's
+  corrections all came in the first half; the second half's corrections came from reviewers,
+  were smaller, and each landed as a fact on disk within the hour. The structure that held:
+  declared deadlines and defaults with wakes, one settlement push per records PR, questions as
+  their own events with the question in the subject.
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at eda9dfc4b equals origin
+  before this sweep; the queue empty; only the held settings file dirty. Promises: none new;
+  the next fold wake is armed for the 2026-09-09 rollover; Altair's directives item waits on
+  their resurfacing under the 21:11Z bounds. Bounds unchanged (a held REPL is absence on the
+  stream; the watcher's truncated rendering; the machine-local handoffs directory). A third
+  pass re-finds only those; the recursion closes here.
