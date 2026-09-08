@@ -107,11 +107,23 @@ work carries, passed per commit —
 The default is deliberately fail-safe: forget the flag and you get a bot-authored
 commit, never a commit that silently credits the owner with agent work.
 
-### 3. Establish residency
+### 3. Establish residency — or decide not to enter
 
-`EnterWorktree` with the path — the session-level switch. A bare `cd` is not
-residency and does not survive; a `Shell cwd was reset` line means it did not take.
-Arm background tasks only after this, since they capture their directory for life.
+The platform asks the human for approval on every `EnterWorktree` to a path outside
+`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
+(Claude Code worktrees documentation, since v2.1.206). So the session-level switch is
+an owner-present step: first say on the comms stream, as a directed event to the
+Director, the exact invocation you are about to issue; then issue `EnterWorktree` with
+the path only when the owner is known to be at the keyboard. A prompt nobody answers
+holds the seat until someone does, while its heartbeat loop keeps reading fresh (nine
+hours on 2026-09-07/08). When the owner may be away, do not enter: operate the
+worktree from the principal (`git -C <path>` for git, the platform's file-editing tool
+on absolute paths for edits, one plain command per call), or have the session launched
+inside the worktree (`cd <path> && claude`), which prompts for nothing. A bare `cd` is
+not residency and does not survive; a `Shell cwd was reset` line means it did not
+take. Arm background tasks only after residency, since they capture their directory
+for life; the ordering and the isolation guard's checks are in
+[`worktree-residency`](../../rules/worktree-residency.md) clause 4.
 
 ### 4. Make the worktree buildable
 

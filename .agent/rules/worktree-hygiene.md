@@ -76,8 +76,10 @@ that owns a lane in its own worktree, see PDR-117.)
 
 ### 3. A worktree is a temporary means, not a home — the lifecycle
 
-create → enter (session-level residency per
-[`worktree-residency`](worktree-residency.md)) → build (`pnpm install && pnpm build`,
+create → reside (session-level residency per
+[`worktree-residency`](worktree-residency.md): launched inside the worktree, or entered
+mid-session only with the owner at the platform's approval prompt and the entry announced
+first; otherwise operated from the principal) → build (`pnpm install && pnpm build`,
 before any gate or work) → open draft PR
 → do the bounded work → update onto `main` → mark the PR ready → merge → **remove the
 worktree AND delete the branch.** A worktree that outlives its PR's merge, or never
