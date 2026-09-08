@@ -161,8 +161,9 @@ the gate turns "zero" from a snapshot into an invariant.
    and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
 3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state except the four missing-rate-limiting findings, whose dismissal is explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments; `owner-held` for the dismissed state itself — the alerts query's dismissal-reason field for exactly those four, read at closing and recorded as a dated observation.
 4. A pull request introducing one new instance of each class is blocked by a required check.
-   Proof: `repo-safe` — one probe pull request per analyser, closed unmerged, cited by number
-   on the lane's closing event.
+   Proof: `owner-held` — whether the hosting service blocked a probe pull request is that
+   service's state: one probe per analyser, closed unmerged, its blocked check result read by
+   the landing seat and recorded, dated and by number, on the lane's closing event.
 
 ## Out of scope
 
