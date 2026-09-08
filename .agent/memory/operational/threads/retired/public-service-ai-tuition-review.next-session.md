@@ -1,3 +1,8 @@
+> **RETIRED — thread completed 2026-09-07.** PR #66 (the ADR-226 tuition import) merged at
+> 16:21Z as `SHA:204ed71ef` with the lane's records on its branch; the second seat retired at
+> 15:43Z; the LANDED block at the foot of this record closes the lane. Retained as continuity
+> history; not a live lane. Not listed in `repo-continuity.md` Active or Paused threads.
+
 # Thread: public-service-ai-tuition-review
 
 **Purpose**: One review lane over PR 66, the ADR-226 import of the 17-file public-service AI
@@ -38,7 +43,7 @@ history.
   Director (event 20:51:38Z): questions to the Director; Cricket panel at boundaries and hourly;
   non-terminal wrap after landings and every two hours; slots #58, #67, this lane, the fold.
 - **Controlling plan**:
-  [`public-service-ai-tuition-review.plan.md`](../../../plans/delivery/public-service-ai-tuition-review.plan.md)
+  [`public-service-ai-tuition-review.plan.md`](../../../../plans/delivery/public-service-ai-tuition-review.plan.md)
   (born sketch, authored at pickup). The machine-local session plan (revision 2, fleet-design
   review verdicts attached) is the seat's working copy; the node is its repo twin.
 - **Next safe step (superseded — see RESUME 4)**: at pickup this read "absorb the frame gate and
