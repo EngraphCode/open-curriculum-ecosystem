@@ -1187,6 +1187,24 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   update lands and checks re-run, the merge remains the explicit command
   at the state machine's merge boundary (item 5), issued by hand at a
   freshly recomputed gate.
+- **The landing slot under a require-up-to-date ruleset** (Director routing
+  2026-09-06, refined 2026-09-07; moved here from a retired rule 2026-09-08).
+  When the default branch's ruleset requires branches to be up to date, every
+  merge knocks every other open PR to BEHIND; each knocked PR must sync and
+  push again, and every push opens a fresh review round (ADR-204 makes the
+  re-sync one push). So ONE non-draft PR holds the landing slot at a time:
+  the slot-holder syncs ONCE, pushes, settles and merges; every other seat
+  may open its PR, gather reviews and disposition threads, but does NOT sync
+  or merge until the slot-holder's merge-landed event, then takes the slot,
+  syncs once and lands. Slot order is the Director's call — the default is
+  the oldest non-draft PR, and the slot goes to whichever PR is green and
+  clean first rather than being held empty. The fold takes the slot at the
+  UTC rollover. Any auto-sync babysitter — a watcher running
+  `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
+  slot-holder only; a waiting PR is never auto-synced, because each sync is
+  a push and each push is a review round. Worked instance (2026-09-06): one
+  PR was knocked BEHIND twice in one evening by other seats' merges, and its
+  round five came from a sync push, not a cure.
 - **CI runs the test-merge with CURRENT main.** A mid-round main landing
   that moves a mirrored asset (a kit file vs a tracked copy under
   `public/`, or any tracked parity copy) can red a parity test on your

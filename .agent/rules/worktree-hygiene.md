@@ -8,10 +8,12 @@ is a straight error that blocks the whole team (owner word, 2026-07-27,
 after a seat's product edits sat uncommitted on the shared tree: whole-tree
 gates held hostage, pathspec commits hazarded for every seat). The primary
 checkout is shared fleet surface — coordination docs and fleet state only;
-a fresh worktree off `origin/<base>` (the branch the lane's PR targets:
-`engraph` on the Engraph fork per `pr-target-is-engraph`, `main` on the
-Oak line) is where every implementation lane starts, before its first
-edit, not after. Throughout this rule, `main` reads as that base: every
+a fresh worktree off `origin/<base>` (the repository's default branch,
+derived at the moment of use as `downstream-checkout-never-writes-upstream-surfaces`
+specifies — the remote HEAD refreshed with `git remote set-head origin
+--auto`, then read and stripped of its `origin/` prefix — never a literal)
+is where every implementation lane starts, before its first edit, not
+after. Throughout this rule, `main` reads as that default branch: every
 draft PR, update and merge below targets it, never a mirror branch.
 
 In the one-developer-many-agents / many-worktree model, linked git worktrees
