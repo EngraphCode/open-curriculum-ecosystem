@@ -222,13 +222,15 @@ this repo that PDR-117 does not carry.
   `--exclude-tag heartbeat` work) is load-bearing economics, not a nicety; standby
   burn shortens the Director tenure the bench exists to extend.
 - **The auto-update-branch babysitter** (reusable release-churn cure): a Monitor
-  that `gh pr update-branch`es the LANDING-SLOT HOLDER when it reads OPEN+BEHIND and
-  emits only on a conflict — never a waiter, whose sync the landing-slot contract
-  forbids (the pr-lifecycle skill §Phase 7, where PR #87 re-homed the landing slot on
-  2026-09-08 when it retired `pr-target-is-engraph`). Safe
-  because `--auto` enforces every merge gate server-side, so it only lets a
-  genuinely-ready PR win the release-churn race — removing per-round babysitting
-  from the Director's context.
+  that `gh pr update-branch`es the LANDING-SLOT HOLDER when it reads OPEN, BEHIND
+  and auto-merge ENABLED (the eligibility the pr-lifecycle skill's babysitter clause
+  sets; `gh pr update-branch` only updates the branch — auto-merge is set once on the
+  holder with `gh pr merge --auto`) and emits only on a conflict — never a waiter,
+  whose sync the landing-slot contract forbids (the pr-lifecycle skill §Phase 7, where
+  PR #87 re-homed the landing slot on 2026-09-08 when it retired
+  `pr-target-is-engraph`). Safe because auto-merge enforces every merge gate
+  server-side, so it only lets a genuinely-ready PR win the release-churn race —
+  removing per-round babysitting from the Director's context.
 
 The experiential source for the last several lessons is the Trawler-tenure how-to
 brief ([`director-howto-and-pdr117-gaps-2026-06-29.md`](../../reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md)).
