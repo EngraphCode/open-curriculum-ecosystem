@@ -17,7 +17,7 @@ reason: >-
 
 # Director Handoff — Current Handoff State archive (2026-09-08 post-fold disposition)
 
-The body below is the moved range, unedited. Read it as history: every claim, board and
+The body below is the moved range, unedited except that its one relative Markdown link is re-resolved from this directory (the target is unchanged). Read it as history: every claim, board and
 branch it names was true when its block was written and is superseded by the live file.
 
 ---
@@ -583,7 +583,7 @@ Fold correction (2026-08-11 ~14:3xZ): #852 had already merged at 13:10:40Z (`52b
 > live" — an admission the content cannot be trusted, bolted onto content that
 > keeps growing. That structure is the drift mechanism the owner keeps catching.
 > I did NOT trim it tonight, deliberately:
-> [`knowledge-preservation-over-fitness-warnings`](../../rules/knowledge-preservation-over-fitness-warnings.md)
+> [`knowledge-preservation-over-fitness-warnings`](../../../rules/knowledge-preservation-over-fitness-warnings.md)
 > forbids shrinking a memory surface to satisfy a line count, and forbids
 > archiving unprocessed content — every block needs a disposition first. **The
 > rotation is a real curation pass for a successor with budget**: read each
