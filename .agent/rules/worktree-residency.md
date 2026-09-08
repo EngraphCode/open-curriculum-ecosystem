@@ -95,7 +95,15 @@ configure away.
    platform's own recipe for a worktree outside `.claude/worktrees/`
    is `git worktree add <path> -b <branch> origin/<base>`, then
    `cd <path> && claude`. No entry happens, so nothing prompts, and
-   isolation enforcement is on from the first turn. `claude --worktree
+   isolation enforcement is on from the first turn — which bounds the
+   route for a coordinated lane: the canonical watcher must arm while
+   principal-resident (`comms-all-channels-watcher`, and clause 4: a
+   resident arm may be refused, a worktree-rooted arm is unverified),
+   so a launch-resident team lane arms by the watcher rule's own
+   sequence — `ExitWorktree`, arm at the principal, re-enter with the
+   owner at the prompt, who is present at a launch — before it claims;
+   a lane that needs no watcher of its own launches resident without
+   that step. `claude --worktree
    <name>` also launches resident but creates under
    `.claude/worktrees/` on the `worktree.baseRef` base unless a
    `WorktreeCreate` hook replaces creation (the hook receives the
