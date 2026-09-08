@@ -8,8 +8,10 @@ is a straight error that blocks the whole team (owner word, 2026-07-27,
 after a seat's product edits sat uncommitted on the shared tree: whole-tree
 gates held hostage, pathspec commits hazarded for every seat). The primary
 checkout is shared fleet surface — coordination docs and fleet state only;
-a fresh worktree off `origin/main` is where every implementation lane
-starts, before its first edit, not after.
+a fresh worktree off `origin/<base>` (the branch the lane's PR targets:
+`engraph` on the Engraph fork per `pr-target-is-engraph`, `main` on the
+Oak line) is where every implementation lane starts, before its first
+edit, not after.
 
 In the one-developer-many-agents / many-worktree model, linked git worktrees
 proliferate. A worktree is a transient workspace, not a home. Left undisciplined it
@@ -76,11 +78,11 @@ that owns a lane in its own worktree, see PDR-117.)
 
 ### 3. A worktree is a temporary means, not a home — the lifecycle
 
-create → reside (session-level residency per
-[`worktree-residency`](worktree-residency.md): launched inside the worktree, or entered
-mid-session only with the owner at the platform's approval prompt and the entry announced
-first; otherwise operated from the principal) → build (`pnpm install && pnpm build`,
-before any gate or work) → open draft PR
+create → build (`pnpm install && pnpm build`, before any gate, work or entry) → reside
+(session-level residency per [`worktree-residency`](worktree-residency.md): launched
+inside the worktree, or entered mid-session only with the owner at the platform's
+approval prompt and the entry announced first; otherwise operated from the principal)
+→ open draft PR
 → do the bounded work → update onto `main` → mark the PR ready → merge → **remove the
 worktree AND delete the branch.** A worktree that outlives its PR's merge, or never
 opens a PR, is a hygiene violation to resolve.
@@ -126,9 +128,9 @@ additive, but the snapshot was premature).
 
 ### 6. Retirement requires a CONTENT check, not a commit check
 
-Squash-merges make commit counts (`origin/main..HEAD`) meaningless — a branch's content
+Squash-merges make commit counts (`origin/<base>..HEAD`) meaningless — a branch's content
 can be fully in `main` while showing many "unmerged" commits. Compare **files**, not
-commit graphs (`git diff origin/main <branch> -- <file>`). Then, for each branch being
+commit graphs (`git diff origin/<base> <branch> -- <file>`). Then, for each branch being
 retired:
 
 - useful information already in `main` (or a live lane heading there) → the branch is
@@ -152,7 +154,7 @@ deleted, and in fact should be deleted as a standing protocol, to keep the
 local environment tidy, no redundant branches, no redundant worktrees").
 Provably safe = BOTH, proven per item: (a) `git status --porcelain` empty
 in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
-`origin/main` (`git merge-base --is-ancestor`). Items passing both prune
+`origin/<base>` (`git merge-base --is-ancestor`). Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
 registrations, and plain branch deletion for proven local branches. A

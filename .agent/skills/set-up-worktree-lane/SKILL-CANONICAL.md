@@ -9,7 +9,7 @@ description: >-
   missing env, hook failures. Do not use to switch branches in place (never on the
   principal), for the session-level residency switch alone (that is EnterWorktree),
   or to dispose of a finished worktree. Right looks like: branch cut explicitly from
-  origin/main, the inherited bot identity verified with no worktree-scoped override
+  origin/<base>, the inherited bot identity verified with no worktree-scoped override
   shadowing it, deps installed, .env.local carried, draft PR at first push. Wrong
   looks like: EnterWorktree fresh mode basing the branch on the principal's
   coordination HEAD so the lane PR ships foreign commits; or the bot commit email
@@ -37,7 +37,7 @@ defect below was found in a worktree that satisfied each rule read separately.
 - Auditing an inherited worktree before trusting it.
 
 Not for: switching branches in place; the session-level residency switch on its own
-(`EnterWorktree` — step 3 here); disposing of a finished worktree (that is
+(`EnterWorktree` — step 4 here); disposing of a finished worktree (that is
 `worktree-hygiene` §6).
 
 ## The procedure
@@ -46,14 +46,17 @@ Not for: switching branches in place; the session-level residency switch on its 
 
 ```bash
 git fetch origin
-git worktree add <path> -b <branch> origin/main
+git worktree add <path> -b <branch> origin/<base>
 ```
 
-The explicit `origin/main` is load-bearing. `EnterWorktree`'s fresh mode documents
-branching from `origin/main` but has been observed basing the branch on the
-**principal's checked-out HEAD** — a coordination-branch tip on this estate — so the
-lane PR ships coordination commits riding under the story. That cost a
-close-and-recreate cycle once already (PR #673 → #674).
+`<base>` is the branch the lane's PR targets: `engraph` on the Engraph fork per
+[`pr-target-is-engraph`](../../rules/pr-target-is-engraph.md), `main` on the Oak line.
+The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
+branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
+in any settings layer, bases the branch on the **principal's checked-out HEAD** — a
+coordination-branch tip on this estate — so the lane PR ships coordination commits
+riding under the story. That cost a close-and-recreate cycle once already
+(PR #673 → #674).
 
 ### 2. Verify the commit identity — inherited, never re-set here
 
@@ -107,34 +110,39 @@ work carries, passed per commit —
 The default is deliberately fail-safe: forget the flag and you get a bot-authored
 commit, never a commit that silently credits the owner with agent work.
 
-### 3. Establish residency — or decide not to enter
-
-The platform asks the human for approval on every `EnterWorktree` to a path outside
-`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
-(Claude Code worktrees documentation, since v2.1.206). So the session-level switch is
-an owner-present step: first say on the comms stream, as a directed event to the
-Director, the exact invocation you are about to issue; then issue `EnterWorktree` with
-the path only when the owner is known to be at the keyboard. A prompt nobody answers
-holds the seat until someone does, while its heartbeat loop keeps reading fresh (nine
-hours on 2026-09-07/08). When the owner may be away, do not enter: operate the
-worktree from the principal (`git -C <path>` for git, the platform's file-editing tool
-on absolute paths for edits, one plain command per call), or have the session launched
-inside the worktree (`cd <path> && claude`), which prompts for nothing. A bare `cd` is
-not residency and does not survive; a `Shell cwd was reset` line means it did not
-take. Arm background tasks only after residency, since they capture their directory
-for life; the ordering and the isolation guard's checks are in
-[`worktree-residency`](../../rules/worktree-residency.md) clause 4.
-
-### 4. Make the worktree buildable
+### 3. Make the worktree buildable
 
 ```bash
 pnpm install
+pnpm build
 ```
 
-A fresh worktree has **no `.env.local`** — copy it from a worktree that has one when
-the lane runs anything env-dependent (codegen, ingest, a local server). Data
-directories that are gitignored (bulk downloads) do not travel either; fetch them per
-the owning workflow rather than copying, so their manifest vintage stays honest.
+Both, before any gate, work or entry: `type-check` and `vitest` pass on install alone,
+but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
+with `No exports main defined`. A fresh worktree has **no `.env.local`** — copy it from
+a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
+local server). Data directories that are gitignored (bulk downloads) do not travel
+either; fetch them per the owning workflow rather than copying, so their manifest
+vintage stays honest.
+
+### 4. Establish residency — or decide not to enter
+
+The platform asks the human for approval on every `EnterWorktree` to a path outside
+`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
+([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
+since v2.1.206). So the session-level switch is an owner-present step: first say on the
+comms stream, as a directed event to the Director, the exact invocation you are about
+to issue; then issue `EnterWorktree` with the path only when the owner is known to be
+at the keyboard. A prompt nobody answers holds the seat until someone does, while its
+heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
+away, do not enter: operate the worktree from the principal (`git -C <path>` for git,
+the platform's file-editing tool on absolute paths for edits, one plain command per
+call), or have the session launched inside the worktree (`cd <path> && claude`), which
+prompts for nothing. A bare `cd` is not residency and does not survive; a `Shell cwd
+was reset` line means it did not take. Arm the canonical watcher and any other monitor
+at the principal BEFORE entering, then verify each one after the switch and re-arm what
+died — a resident arm may be refused under isolation; the ordering and the guard's
+checks are in [`worktree-residency`](../../rules/worktree-residency.md) clause 4.
 
 ### 5. Verify before trusting it
 
@@ -142,7 +150,7 @@ the owning workflow rather than copying, so their manifest vintage stays honest.
 | --- | --- | --- |
 | Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
 | Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
-| Base is clean | `git -C <path> log --oneline origin/main..HEAD` | only this story's commits |
+| Base is clean | `git -C <path> log --oneline origin/<base>..HEAD` | only this story's commits |
 | Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author human, committer bot |
 
 The second row is not optional, and a green first row cannot stand in for it. A

@@ -23,12 +23,15 @@ re-arming background tasks from a lane session.
 use** (the `EnterWorktree` tool acts on explicit instruction from the
 user or from project instructions — this rule is that instruction): an
 agent taking up a worktree lane establishes residency before its first
-lane action, by one of the two mechanisms below, and never by shell
-`cd`.
+lane action by one of the two mechanisms below — or, when neither
+applies (the owner may be away and the session was not launched
+resident), takes the lane from the principal with residency declared,
+as clause 1 describes — and never by shell `cd`.
 
-**The platform fact every clause below rests on (Claude Code
-worktrees and tools-reference documentation, read 2026-09-08 against
-2.1.263):** entering a path outside the repository's
+**The platform fact every clause below rests on** (the
+[Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
+section "Ask Claude to create a worktree", read 2026-09-08 against
+2.1.263)**:** entering a path outside the repository's
 `.claude/worktrees/` directory asks the human for approval first,
 "because the move takes the session's working directory, write access,
 and project configuration such as `CLAUDE.md` and settings to that
@@ -103,11 +106,17 @@ configure away.
    behaviour; reproduced first-hand 2026-07-31 on Claude Code 2.1.220).
    On seeing the line, stop and establish residency properly rather
    than routing around it with repeated `cd` or `-C` improvisation.
-4. **Arm background tasks only after residency is established.**
-   Background tasks and monitors capture their working directory at
-   arm time and keep it for life (documented). Keep the explicit
-   `cd <repo-root> || exit 1` first line on every arm as
-   belt-and-braces (the watcher rule's existing discipline).
+4. **Arm monitors where the guard lets them run, and verify every one
+   after any residency switch.** Background tasks and monitors capture
+   their working directory at arm time (documented), so the arm-time
+   directory decides what they watch — but the sequence is not "enter,
+   then arm": under isolation-affected versions a resident arm may be
+   refused, and a residency switch has killed a principal-armed monitor
+   once (both below), so the standing order is arm the canonical
+   watcher at the principal BEFORE entering, verify its heartbeat after
+   the switch, and re-arm what died (from the principal if the resident
+   arm is refused). Keep the explicit `cd <repo-root> || exit 1` first
+   line on every principal arm (the watcher rule's existing discipline).
 
    **Platform-isolation refinement (owner-worded fleet cure,
    2026-08-06):** Claude Code v2.1.223 landed worktree isolation
@@ -158,9 +167,12 @@ configure away.
    choice; verify a spawned worktree's HEAD before trusting it (the
    parallel-dispatch anti-pattern).
 8. **Pre-PR contamination check.** Before opening any lane PR:
-   `git log --oneline origin/main..HEAD` must list exactly the
-   story's own commits. Anything else is a contaminated base — re-cut
-   (`git switch -c <branch>-v2 origin/main`, cherry-pick the story
+   `git log --oneline origin/<base>..HEAD` must list exactly the
+   story's own commits (`<base>` is the branch the lane's PR targets —
+   `engraph` on the Engraph fork per `pr-target-is-engraph`, `main` on
+   the Oak line; a check against the wrong base lists every fork
+   commit as contamination). Anything else is a contaminated base —
+   re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story
    commits across; history rewrite is hook-blocked on this estate),
    close the contaminated PR with a pointer, and open its successor.
 
