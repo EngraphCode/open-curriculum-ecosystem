@@ -203,6 +203,25 @@ auditability** — not a mechanical lock. Default discipline is still one
 commit owner at a time; the queue and claim make that ownership observable
 to peers.
 
+**Scope (owner ruling 2026-09-07, verbatim: "The commit queue was created to stop
+git operations colliding, that is not necessary for work in separate worktrees").**
+The queue and the bare `git:index/head` window serialise the SHARED PRIMARY
+checkout only. A lane in its own worktree (PDR-117) commits by plain pathspec —
+`git add -- <paths>` then `git commit --author="<owner name> <owner noreply email>"
+-F <message> -- <paths>` — the `--author` flag on every commit, as the bot-identity
+rule requires: the worktree's `user.*` is the bot, so an omitted flag yields a
+bot-authored commit — hooks running, the owner as author and the bot as
+committer, with an audit line in the message
+naming the worktree and that the queue was not used; it opens no queue intent and
+no window claim (F-132, F-139 and F-169 are superseded by scope). Two mechanics of
+the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
+`index/head` label (a scoped `index/head@<worktree>` is refused), and a pathspec
+commit records a deletion only for a path it names — after a `git mv`, list the
+old path as well as the new one or the move never lands. The separate host bound
+— two, at most three, simultaneous full local gates — is engineered as a
+semaphore, not declared; until it lands, a seat runs one full gate at a time and
+starts no second while a peer's runs.
+
 ### Intent-Scoped End-to-End (2026-05-22 cure)
 
 As of the commit-queue-intent-scope-discipline arc, every dep boundary that
@@ -502,6 +521,9 @@ topology for memory-file reconciliation):
    so there a worktree seat opens `git:index/head` with its intent text
    naming the worktree until the guard learns the scoped label; the
    same-tree reading above stays the design intent on both paths.
+   (Superseded for worktree lanes by the 2026-09-07 scope ruling above: a
+   worktree merge commits plainly with no queue and no window claim; the bare
+   label and the queue belong to the shared primary.)
 2. **Verify the staged set first-hand**: mid-merge, the index IS the merge
    resolution — read `git status` and `git diff --cached --stat` and confirm
    every path belongs to the merge (conflict resolutions plus the merge's own

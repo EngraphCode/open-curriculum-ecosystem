@@ -199,6 +199,12 @@ failure instance from the 2026-06-11 team window:
   stop the loop FIRST, then emit the final heartbeat-end event. A loop
   that outlives the end event can emit a stale "active" heartbeat after
   peers have already read the stand-down.
+- **The stand-down order is the mirror of the resume order, and the watcher stops LAST.**
+  Every recorded stand-down (2026-07-31, 2026-08-05, 2026-08-09, 2026-09-02, 2026-09-03)
+  held one order: the heartbeat loop first, then the heartbeat-end or freeze broadcast, then
+  the PR watch and any dialogue-channel tail and idle sub-agents, and the all-channels
+  watcher last — after the broadcast — so the seat was still reading its stream when the
+  broadcast landed and saw any immediate peer reply before going dark.
 - **One timestamp per tick.** Derive a single timestamp per tick and pass
   it to every consumer in the tick (the `--now` option on both `comms send`
   and `claims heartbeat`); two `$(date)` calls can race a second boundary

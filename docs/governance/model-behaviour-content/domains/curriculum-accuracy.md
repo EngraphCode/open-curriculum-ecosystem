@@ -230,12 +230,9 @@ notice:
 **What it says now:**
 
 ```text
-relatedResources: {
-    threadProgressions:
-      'Call get-thread-progressions for ordered unit sequences within curriculum threads (instance data)',
-    priorKnowledgeGraph:
-      'Call get-prior-knowledge-graph with anchor unit slugs for the bounded prior-knowledge subgraph of those units (dependencies and prior knowledge requirements)',
-  },
+Call get-thread-progressions for ordered unit sequences within curriculum threads (instance data)
+
+Call get-prior-knowledge-graph with anchor unit slugs for each unit's stated prior-knowledge statements (what pupils are assumed to know before it)
 ```
 
 **What it is for:** Cross-references the get-thread-progressions and get-prior-knowledge-graph tools for instance data.
@@ -243,7 +240,7 @@ relatedResources: {
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-guidance · **Impact tier:** high-impact
 
 ### C291 — subject + key-stage display metadata

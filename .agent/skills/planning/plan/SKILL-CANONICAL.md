@@ -198,6 +198,14 @@ permanent page to name a delivery node by id is a moving target at
 authoring time — a truing node's own AC did exactly that on 2026-09-03
 and the owner refused the push that carried it.
 
+A plan node authored ahead of an owner ruling is stale against it the moment the
+ruling lands. On 2026-09-03 a truing node was authored before the morning's card
+rulings, and a second seat's read found the node contradicting them while
+PR #959, the PR carrying those rulings, was still open; the node was trued on that
+same PR, so no merged state held a plan contradicting the owner's word. Principles
+§Owner Direction Beats Plan says "update the plan at the next safe checkpoint":
+when a PR carries the ruling, that PR is the checkpoint, never a follow-up.
+
 A plan that a FRESH session must implement is a self-contained repo
 artefact, never a chat artefact (owner ruling 2026-09-01, verbatim: "it
 must be copied to the repo, so a fresh session can implement it, that
@@ -287,9 +295,11 @@ execution cycle:
   re-derive at execution time and let substance preservation outrank
   stale arithmetic.
 - **Ledger and decision-log rows are captures.** The durable home of a
-  decision is an ADR or PDR, never the row (the extraction plan's "this
-  log is the durable home" sentence re-pointed at ADR-227, #961,
-  2026-09-03).
+  decision is an ADR or PDR, never the row; a ruling captured in a log is
+  authored into its record before the plan cites it, and the log names the
+  record (the extraction plan's "this log is the durable home" sentence
+  re-pointed at ADR-227, #961, 2026-09-03 — a recurrence despite the home,
+  filed on the doctrine-traction lane).
 
 ## Readiness and Review
 

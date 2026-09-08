@@ -165,79 +165,10 @@ not-yet-minted concepts.**
 | Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |
 | Blame-referent calibration (retrospective 2026-07-26, PDR-094 arc): agents calibrate to the most salient blame signal (accreted caution, or the last correction), not the standing policy, whenever the policy exists only in the owner's head; a WRITTEN owner-ratified policy line converts reversal-grade corrections on that axis into calibration-grade refinements. Provenance: `.agent/reports/agentic-engineering/2026-07-26-pdr-094-retention-arc-retrospective.md` §Meta root (v1–v2 hoard, v3 over-delete, v4 co-authored referent, all one arc) | By review: NO reversal-grade owner correction on the retention axis (the axis now carries its written line, PDR-094 v4); any retention correction observed is a refinement, not a reversal | A reversal-grade retention correction lands despite the written line — the written-referent cure is insufficient and the mechanism needs an action-time instrument (kill this row into that finding) | 2026-10-26 |
 
-- **Codex review leg as a standing member of significant-PR review rounds**
-  `[captured: 2026-08-14 | source: owner rating 2026-08-09 (high-value; "route through the
-  rules process, not assumed") | target: rule — review-round composition (pr-lifecycle
-  Phase 4 round membership or a dedicated rule per new-rule-vs-pdr-clause) | trigger: run
-  the rules process with the owner; until then the leg is selective, never assumed |
-  size: S | status: pending]`
-
-- **Gate-authoring precondition: a gate names the ruling that would resolve it, or it is
-  an enforcement gap, not a gate**
-  `[captured: 2026-09-03 | source: the design plan's item-14 gate (expired 2026-08-21,
-  carded, found to be a missing enforcement of DECISIONS.md 2026-07-26; concept
-  exploration at the MCP-673 wrap, P1 + P4) | target: plan skill owner_gates bullet +
-  the "stated default on expiry" idiom retired (no schema field authorises it) | trigger:
-  next plan-skill or Practice lane; base rate from the six same-day discharges: one of six
-  was enforcement-shaped, so the awaiting enum is not the generator | size: S | status:
-  pending]`
-- **Last-carrier merge check: a PR the owner has named as the last carrier holds until
-  every in-flight remote-bound output has ridden or been released by name**
-  `[captured: 2026-09-03 | source: owner correction at the MCP-673 wrap (#961 merged at
-  green while the wrap workflow was running; a fourth PR authorised) | target:
-  pr-lifecycle §5 merge boundary or wrap step 2, one sentence | trigger: next Practice
-  lane | size: S | status: pending]`
-- **Plan archival sweeps inbound links (the markdown-links validator refuses archive
-  targets)**
-  `[captured: 2026-09-03 | source: #959 static-checks red on the research index's link to
-  the archived skills-scan plan | target: plan skill "Completion and Archival", one
-  sentence | trigger: next plan-skill lane | size: S | status: pending]`
-- **Work-shape trigger for start-right-team §6's self-dissolution test (when the
-  remaining work serialises onto one seat, the other proposes its own dissolution)**
-  `[captured: 2026-09-03 | source: the owner dissolved the second seat by word ("the
-  overhead of coordinating two agents is greater than the benefit") before either seat
-  proposed it | target: start-right-team §6 | trigger: next collaboration-doctrine lane |
-  size: S | status: pending]`
-- **Plan template decision log: rows are captures, the durable home is an ADR or PDR**
-  `[captured: 2026-09-03 | source: the extraction plan's "this log is the durable home"
-  sentence re-pointed at ADR-227 (#961); PDR-098 recurrence despite its home | target:
-  plans/templates decision-log guidance, one sentence | trigger: next plan-skill lane |
-  size: S | status: pending]`
-- **validate-reference-direction scope: delivery-plan ids on permanent pages**
-  `[captured: 2026-09-03 | source: the owner refused #959's first push over plan-id
-  citations on permanent pages; the strategy index's pre-existing innovation-kit citation
-  remains | target: the validator's policed-doctrine set, or a PDR-105 clause naming the
-  check | trigger: next validators lane, after the innovation-kit true-up | size: M |
-  status: pending]`
-- **Cricket procedure seat (haiku, xhigh) stays inside the read-only lens: no messaging peers,
-  no drafting, no write-access requests**
-  `[captured: 2026-09-03 | source: both owner-invoked Cricket suites of the MCP-673 day recorded
-  the procedure seat stepping from judging into doing (messaged the PR B subagent; drafted the
-  ADR and asked for write access) — a recurring instrument defect | target: cricket skill (the
-  procedure seat's prompt and the tally's behaviour-note column) | trigger: next Cricket lane;
-  the execution tally (T2) also lacks per-leg tokens and runtime against the 2026-08-01 ruling —
-  recoverable from session 661556's subagent transcripts | size: S | status: pending]`
-- **Over-budget review round ratchet: past PDR-132's round budget only a claim false today, a
-  broken link or a validator failure is cured; everything else is dispositioned without a diff**
-  `[captured: 2026-09-03 | source: the lead's ratchet ruling for #961's round 4 and the owner's
-  word on the wrap PR ("ignore bot comments … less than a P1 or equivalent") | target:
-  pr-lifecycle Phase 4 (the review-round state machine) | trigger: next Practice lane | size:
-  S | status: pending]`
-- **One owner word over a numbered list: an owner gate spanning many items is presented as one
-  numbered list taking one word, declines by item number**
-  `[captured: 2026-09-03 | source: PR 959's body ("Ratify all thirteen"); the estate's earlier
-  one-word precedent over an enumerated scope | target: plan skill (ratification) or
-  pr-lifecycle (owner-gated PR bodies), one paragraph | trigger: next plan-skill lane | size:
-  S | status: pending]`
-- **The n=2 lead is accountable for the second seat's judgement, not only for the split of
-  work**
-  `[captured: 2026-09-03 | source: owner word to the lead ("You are the lead, you are
-  responsible for stopping Vesta from being dumb") | target: start-right-team n=2 overlay,
-  one sentence | trigger: next collaboration-doctrine lane | size: S | status: pending]`
-- **Wrap invoked non-terminally at owner word: the seat runs the programme and stays live**
-  `[captured: 2026-09-03 | source: owner word "begin your wrap, this is not the end of your
-  session" against the wrap skill's routing of non-terminal boundaries to
-  knowledge-safety-sweep | target: wrap skill §Use When, one sentence | trigger: next Practice
-  lane | size: S | status: pending]`
-
-<!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
+<!-- Drained at the 2026-09-06 dedicated consolidation: ten entries decided, every one already
+carried by its target home — pr-lifecycle, the plan skill, start-right-team, the wrap skill, the
+cricket skill, the no-moving-targets rule — verified by reading the home; two entries restored
+2026-09-07 at review (their targets were not yet carried) and drained again the same day once
+PR #75 carried them (pr-lifecycle's reviewer-set clause names the Codex connector; the plan skill
+and the plan-templates README carry the decision-log sentence). The commits and the homes are
+the record. -->
