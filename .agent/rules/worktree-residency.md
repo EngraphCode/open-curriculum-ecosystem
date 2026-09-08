@@ -99,18 +99,13 @@ configure away.
    the launch: a worktree built after its session opens shows no
    statusline for that session) — then `cd <path> && claude`; the skill
    owns that ordering, this clause does not restate it. No entry
-   happens, so nothing prompts, and
-   isolation enforcement is on from the first turn — which bounds the
-   route for a coordinated lane: the canonical watcher must arm while
-   principal-resident (`comms-all-channels-watcher`, and clause 4: a
-   resident arm may be refused, a worktree-rooted arm is unverified),
-   so the route is prompt-free only for a lane that needs no watcher of
-   its own. A coordinated lane launched resident arms by the watcher
-   rule's own sequence — `ExitWorktree`, arm at the principal, re-enter
-   — and that re-entry prompts, so it is done with the owner at the
-   keyboard; an unattended coordinated lane is launched at the
-   principal and enters under clause 1, or runs non-resident, never
-   launch-resident. `claude --worktree
+   happens, so nothing prompts, and isolation enforcement is on from
+   the first turn. A coordinated lane launched resident arms its
+   canonical watcher INSIDE the worktree by the resident arm clause 4
+   verifies (the `cd` rooted at the worktree, the supervisor pid passed
+   as a literal), so the route is prompt-free for coordinated and
+   uncoordinated lanes alike; nothing in it exits to the principal or
+   re-enters. `claude --worktree
    <name>` also launches resident but creates under
    `.claude/worktrees/` on the `worktree.baseRef` base unless a
    `WorktreeCreate` hook replaces creation (the hook receives the
@@ -126,22 +121,32 @@ configure away.
    behaviour; reproduced first-hand 2026-07-31 on Claude Code 2.1.220).
    On seeing the line, stop and establish residency properly rather
    than routing around it with repeated `cd` or `-C` improvisation.
-4. **Arm monitors where the guard lets them run, and verify every one
-   after any residency switch.** Background tasks and monitors capture
-   their working directory at arm time (documented), so the arm-time
-   directory decides what they watch — but the sequence is not "enter,
-   then arm": under isolation-affected versions a resident arm may be
-   refused, and a residency switch has killed a principal-armed monitor
-   once (both below), so the standing order is arm the canonical
-   watcher at the principal BEFORE entering, verify its heartbeat after
-   the switch, and if it died recover by the one executable path:
-   `ExitWorktree`, re-arm at the principal, then re-enter only with the
-   owner at the prompt — or continue the lane non-resident from the
-   principal (clause 1). A resident session cannot re-arm a
-   principal-rooted monitor itself (the guard blocks principal-cwd
-   commands, below), and a worktree-rooted arm is unverified. Keep the
-   explicit `cd <repo-root> || exit 1` first line on every principal
-   arm (the watcher rule's existing discipline).
+4. **Arm monitors where you reside, and verify every one after any
+   residency switch.** Background tasks and monitors capture their
+   working directory at arm time (documented), so the arm-time
+   directory decides what they watch. A principal-resident session arms
+   with the watcher rule's canonical block (its first line
+   `cd <repo-root> || exit 1`). A worktree-resident session arms the
+   same watcher with its `cd` rooted at the WORKTREE and the supervisor
+   pid passed as a literal — VERIFIED 2026-09-08 on Claude Code 2.1.263:
+   the arm ran, drained the canonical primary stream, and
+   `assert-watcher-live` run from the worktree was green. The one shape
+   the guard refuses is a runtime-computed value in the arm: the
+   canonical `--supervisor-pid "$PPID"` was refused verbatim as "runs
+   pnpm with a value computed at runtime (the variable PPID) inside a
+   construct too complex to verify", naming the expansion, not the
+   `cd`. So a resident seat reads its own pid first, as a plain
+   command, from the harness's session file (`~/.claude/sessions/<pid>.json`
+   carries `sessionId`; match it to the session identifier the identity
+   hook exported), and writes the number into the arm. The primary
+   comms home stays writable through the CLI from a resident session —
+   `comms send`, `comms reply`, `claims heartbeat` all wrote from the
+   worktree that day — because the guard blocks the `Edit`/`Write`
+   TOOLS on main-checkout paths and git redirects, not a Node process
+   writing files. After ANY residency switch, verify each monitor
+   first-hand (heartbeat mtime, pid, the exit notification) and re-arm
+   what died from where you now reside; never exit and re-enter to
+   re-arm, since the re-entry prompts (clause 1).
 
    **Platform-isolation refinement (owner-worded fleet cure,
    2026-08-06):** Claude Code v2.1.223 landed worktree isolation
@@ -153,29 +158,28 @@ configure away.
    main-checkout path, a Bash or Monitor command whose working
    directory resolves to the main checkout, any git redirected into
    the main checkout (`git -C`, `--git-dir`, `GIT_DIR`, a `cd` before
-   git), and any command shape the guard cannot parse. The canonical
-   watcher arm opens with `cd <repo-root> || exit 1`, which from a
-   resident session is exactly the working directory the second check
-   blocks; whether an arm whose `cd` is rooted at the worktree passes
-   is unverified as of 2026-09-08. Until it is verified, the fleet
-   order under isolation-affected versions stands: **launch at the
-   principal, arm monitors THERE, then enter lanes** — a monitor a
-   lane needs armed from inside the worktree may be refused outright.
-   The CLI is the front door; recurring watches belong in agent-tools
-   (the watch-commands backlog).
+   git), and any command shape the guard cannot parse. The 2026-08-06
+   refusals were of arms that opened with `cd <repo-root>` — the
+   principal's working directory, which the second check blocks — and
+   carried `$PPID`, the runtime value the fourth check refuses; the
+   worktree-rooted, literal-pid arm above passes both. The CLI is the
+   front door; recurring watches belong in agent-tools (the
+   watch-commands backlog).
 
    **A residency switch can kill a primary-armed monitor (observed
    2026-09-01, Claude Code 2.1.25x):** `EnterWorktree` killed a comms
    watcher Monitor armed at the primary — the re-armed watcher exited
    124 within ~30 s of the switch while the first had lived its full
    3600 s backstop — so the arm-time-capture sentence above did not
-   hold that day. After ANY residency switch, verify each monitor
-   first-hand (heartbeat mtime, the exit notification) and recover what
-   died by the exit, re-arm, re-enter sequence in this clause's
-   opening; an n=1 seat covers the gap with `comms list --since <boundary>`
-   sweeps at boundaries. A session RESTORE is the harsher sibling: it
-   resets cwd to the primary and removes every background task (watcher,
-   pr-watch alike), so re-arm before reading the stream (2026-09-02).
+   hold that day. The 2026-09-08 entry could not re-test it: the
+   primary watcher had already died on its hourly backstop while the
+   entry prompt waited, so the switch met a dead watcher. After ANY
+   residency switch, verify each monitor first-hand and re-arm inside
+   the worktree by the resident arm above; an n=1 seat covers the gap
+   with `comms list --since <boundary>` sweeps at boundaries. A session
+   RESTORE is the harsher sibling: it resets cwd to the primary and
+   removes every background task (watcher, pr-watch alike), so re-arm
+   before reading the stream (2026-09-02).
 5. **Residency never re-homes coordination surfaces.** Comms, claims,
    and the commit queue stay resolved to the PRIMARY coordination home
    with explicit absolute paths, per `worktree-hygiene` clause 8 and
@@ -245,11 +249,15 @@ configuration-shaped cure the documentation supports for launch-time
 creation; it does not change the entry prompt, which belongs to the
 `EnterWorktree` tool.
 
-The worktree-isolation guard (Claude Code 2.1.25x, observed 2026-09-01
-and 2026-09-02) refuses compound commands, `$(…)`, heredocs carrying
-runtime values, `env VAR=… cmd`, `--dir`, and multi-line arms as "too
-complex", and refuses primary-path Write/Edit from a worktree-resident
-session. A second fingerprint (two instances, 2026-09-05 and 2026-09-06)
+The worktree-isolation guard (Claude Code 2.1.25x, observed 2026-09-01,
+2026-09-02 and 2026-09-08) refuses a command it cannot prove stays
+inside the worktree: runtime-computed values (`$(…)`, a variable such
+as `$PPID`, heredocs carrying them), `env VAR=… cmd`, `--dir`, and a
+`cd` into the principal; a two-line arm of `cd <worktree> || exit 1`
+followed by one command with literal arguments passes (2026-09-08),
+so "multi-line" and "compound" were never the trigger — the
+unprovable value was. It also refuses primary-path Write/Edit from a
+worktree-resident session. A second fingerprint (two instances, 2026-09-05 and 2026-09-06)
 fires on the CONTENT of a script written to the scratchpad when it spells
 a machine-local absolute path: derive paths at runtime (`git worktree
 list`, `git rev-parse`, `mktemp -d`) and pass them as arguments. The working shapes: one plain command per call; a scratch shell
