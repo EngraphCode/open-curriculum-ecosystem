@@ -299,26 +299,30 @@ first-hand as of 2026-06-25.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-08 01:2xZ (Juno seeks Apogee, `a693fb`, the disposition PR the
-> Director ruled on 2026-09-07 18:01Z) — THE POST-FOLD FACTS; the fold block above is the
-> Director's and stands verbatim, so where it says the 2026-09-07 banner is "below", read: in
-> the archive file named at the end of this block.** Fold PR **#79 MERGED as `68d53d778`** (01:00:25Z, head
-> `e4572ddc1` pinned; two review rounds, two over-bar cures on one settlement push, four
-> below-bar dispositions by signed reply; remote branch deleted). The successor
-> **`coordination/2026-09-08-68d53d`** was cut tree-preservingly by the coordination tool and
-> PUBLISHED; the primary resides on it; the held `.claude/settings.json` rode it uncommitted at
-> this snapshot — superseded later on 2026-09-08: committed on the owner's word ("I am fine with
-> the simplification of the settings files") and folded in PR #84, the fold of this branch.
-> Board post-fold: open #70 (the owner's non-graph survey) landing under the Director's executed
-> default — claim `8e7e00d1` re-adopted at 00:40Z, the lane's in-progress merge kept and committed
-> as `956c03ec0`, one post-fold push then settle and merge; the bot PR count is otherwise zero
-> (#77 landed `d295fcc11` at 22:52Z; #78 landed `f4ccea4fc` at 22:05Z). Seats: A DIRECTOR IS
-> SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks Apogee under `0b696465` (this
-> disposition, then repo-continuity's Purpose cells and the two thread-record criticals); Altair
-> spins Umbra progress-dark since 21:07Z with heartbeats live to 00:39Z, the directives item
-> theirs after #70 under the Director's BOUNDS of 21:11Z. The next fold is DUE at the 2026-09-09
-> UTC rollover. THE PICKUP MAP stays the Director's handoff record (machine-local), as the fold
-> block says.
+> **§LIVE SNAPSHOT, 2026-09-08 23:2xZ (Flounder turns Estuary, `c5cc2c`, Director, at the fold
+> of `coordination/2026-09-08-68d53d`) — THE STATE AT THIS FOLD; the fold block above is the
+> Director's and stands verbatim; this snapshot replaces the 01:2xZ one in place, per this file's
+> refresh contract (git retains it).** Fold PR **#84** carries the day's continuity sweeps (wraps
+> 18 to 24, the owner-cards block, the compaction-boundary block, the lane seat's captures and
+> its wrap for compaction), the `.claude/settings.json` simplification landed on the owner's word
+> of 2026-09-08 ("I am fine with the simplification of the settings files"), the merge of
+> `engraph` at `30bac21da`, and three cure rounds (8, 4, 1) on its own pickup surfaces. Landed on
+> `engraph` this day, by the bot at green, clean and sensible unless stated: #83, #85, #86 (the
+> reliable-atoms ratification; merged by the owner), #87, #88, #93, #91, #89 (`30bac21da`, the
+> two ratified delivery nodes after seven review rounds). In flight at this snapshot, in the
+> landing slot's order after #84: #94 (the owner's Work-cloud routing practice, terminal at
+> `0670d43cf` after five rounds, one held cure riding the merge of `engraph`), then #95
+> (Altair's twelve-rulings records PR, terminal after seven rounds; the slot word is the
+> Director's). The owner's tomorrow, by their word: #92 (open, unmerged; four over-bar items
+> pre-cured; two clauses of the owner's own authoring — the reliable-atoms node's gate bullet and
+> the principles.md acquisition criterion — deferred: "we will discuss this tomorrow"), #90 (the
+> upstream integration, a draft, never merged without them), and the #94 read's structural notes
+> on that PR. Seats: A DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Altair
+> spins Umbra (`05a180`, claim `a3d107dd`) on #95. Standing words of the night: "other than 90,
+> can we get to zero? If so, do it"; "stop doing things that need approval, I am not here". The
+> successor coordination branch is cut from post-fold `engraph` by the coordination tool once
+> #84 lands, and the wrap-24 napkin block sweeps there. THE PICKUP MAP stays the Director's
+> handoff record (machine-local), as the fold block says.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the
