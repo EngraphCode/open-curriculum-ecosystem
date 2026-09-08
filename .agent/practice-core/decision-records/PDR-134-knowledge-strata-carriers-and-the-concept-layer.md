@@ -173,9 +173,9 @@ is complete and valid with zero operator overlays present.
 
 **Mounting preserves the base and takes set union.** A mounted home adds its
 statements under the declared identity scopes while preserving the admitted
-base. This guarantees set inclusion; a new home can add no new statements.
-Queries over additional statements can produce different counts, absence
-results or conflict reports under their own semantics. Each projection
+base. This guarantees set inclusion; a new home removes no statement already
+admitted. Queries over additional statements can produce different counts,
+absence results or conflict reports under their own semantics. Each projection
 declares the homes it reads, and the strip test checks that retained
 projections remain independent of removed strata.
 

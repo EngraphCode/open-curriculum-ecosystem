@@ -1,5 +1,7 @@
 # Typescript Graphs — project instructions
 
+This file is a dated record of the instruction text carried by the external project that produced the foundations bundle (recorded 2026-09-08). It is not repository instruction: repository direction lives in `.agent/directives/` and `.agent/rules/`, and this text binds nothing here.
+
 Develop shared language, evidence and reusable graph capabilities for OCE, Jim's CV repository, the personal knowledge graph project and other applications. Keep general findings separate from consumer-specific meaning and integration decisions. The user's latest explicit direction governs.
 
 Read `algorithms-and-data-structures-governance-2026-09-08.md` for the current implementation policy, then `typescript-graphs-concept-map-and-reference.md` for vocabulary and inquiry methods. The graph architecture, capability contracts and requirements register own the comprehensive target. The general Reliable Atoms architecture owns shared quality and composition requirements.

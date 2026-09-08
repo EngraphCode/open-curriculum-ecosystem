@@ -96,4 +96,4 @@ Delivery proceeds through small coherent increments, with the complete capabilit
 
 This bundle defines policy, architecture, capability contracts, candidate designs, worked expectations and a source review. It does not contain a qualified new queue or graph implementation. Research evidence remains tied to the source revisions and executions that produced it. The [source review](foundations-source-review-2026-09-08.md) distinguishes those observations from the decisions and inferences made for this bundle.
 
-The governing direction is owner-established. Repository integration is proposed through a draft PR into `engraph`; merge and implementation qualification are separate events. Subsequent implementations re-ground the current OCE directives and applicable gates at delivery time.
+The governing direction is owner-established. Repository integration is a documentation change on the default branch; implementation qualification is a separate event. Subsequent implementations re-ground the current OCE directives and applicable gates at delivery time.

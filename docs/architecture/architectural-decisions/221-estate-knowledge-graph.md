@@ -223,11 +223,12 @@ poset machinery already carries it.
 
 **Union semantics and constraint scope.** Mounting preserves each admitted
 home's statements and takes their set union under declared graph-name and
-blank-node identity scopes. This guarantees set inclusion. An added home can
-contribute no new quads, and queries over an enlarged dataset can change their
-results: counts, absence tests, selected values and contradiction reports each
-follow their query contract. Public projections select the public graph set
-explicitly; the clone test checks their independence from private overlays.
+blank-node identity scopes. This guarantees set inclusion. An added home
+removes no quad already admitted, and queries over the enlarged dataset can
+change their results: counts, absence tests, selected values and contradiction
+reports each follow their query contract. Public projections select the public
+graph set explicitly; the clone test checks their independence from private
+overlays.
 
 Every constraint declares a scope: **home-local** (checked at that home's
 rebuild) or **union-scoped** (checked at mount). Validation includes the declared
