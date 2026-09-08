@@ -800,3 +800,68 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   arm fires a round later; the declaration errs on the early side deliberately. Bounds as before.
   External bound: the owner's silent invocation caught #82; nothing external has yet tested this
   seat's own step-back timing. A third pass re-finds only these; the recursion closes here.
+- **Pointer (t), from #88's terminal round (Altair 05a180):** a follow-up records PR on the grant and
+  §6, cut from the tip #88 lands — (1) the content write creates a new file and renames it over the
+  path, never through the existing inode (a hard-linked tracked file is otherwise truncated with
+  its other link, inside or outside the worktree — Codex, Git 2.43 reproduction); (2) proof (b) reads
+  "HEAD an ancestor of the fetched base, or the content-superseded proof recorded", so the
+  content-superseded deletion §6 grants can complete. Two clauses, one PR, after H.
+- **#88 (N) LANDED 2026-09-08 15:5xZ as the bot — merge 270b8ec6f on engraph, head 966929d56
+  (Altair 05a180).** Five rounds on one paragraph: the grant's recipe was an enumeration of porcelain
+  states and each round found the next (symlink, staged modification, type change, mode) until the
+  four-round arm fired and the class fix stated the grant as one invariant with an empty per-path
+  status as the proof; §6 cites it. Lesson for the record: a recipe that enumerates cases invites a
+  sampling reviewer to enumerate the rest; state the invariant and the check, name the writes once.
+  Residue: (t) hard-linked writes and proof (b) — two clauses after H; (s) the Operationalises sweep.
+  Train next: H → (t) → A → B → C.
+- **PR #89 (H) open 2026-09-08 16:0xZ (Altair 05a180), head bc8df3d2c from worktree plan-nodes-h,
+  non-resident:** worktree-entry-hooks and pr-tally, born ratified at the owner's word; PR C's
+  mapping drops units (j) and (k) accordingly. Train after it: (t) → A → B → C.
+- **Pointer (u), 2026-09-08 17:0xZ (Director):** the design-showcase package's unit suite reached a
+  live server — `fetch("http://localhost:3000/fake.css")` through the jsdom Window, ECONNREFUSED on
+  CI for #89's settlement head, green on four earlier runs the same day — a test doing IO
+  (tests-never-do-IO). Cure: the fetch mocked or the test moved to a validation script; home on
+  the design-showcase-experience node as a unit or a fresh seat's small PR. Second fact from the
+  same failure: the merge bot's App token cannot re-run a workflow job ("Resource not accessible
+  by integration"); the estate's re-trigger is an empty commit pushed as the bot; granting the App
+  Actions write is the owner's call if bot re-runs are wanted.
+
+## 2026-09-08 17:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 21: the default that fired, and a watcher that is not a seat
+
+- **The window (15:1xZ → 17:1xZ).** #88 landed (270b8ec6f) after five rounds — the settlement
+  push, two clause-9 cures, the class fix the declared four-round arm required, then terminal
+  with two findings dispositioned to the (t) follow-up: the counter worked end to end. Altair
+  opened #89 (worktree-entry-hooks and pr-tally, born ratified at the owner's word); the Director
+  read both nodes. Then Altair went silent on the stream from 15:48Z while #89's first round
+  (five threads) sat unanswered with checks green; the ping at 16:22Z declared a 16:45Z default;
+  nothing came; the Director took the round under PDR-117's one-seat carve-out — five verified
+  cures in one push (3c890c0a8: the create hook installs and builds before it prints the path,
+  because #82 landed the statusline doctrine; pr-tally's live-PR check a validation script; the
+  stamps stating word-before-text; a sic marker; criterion 1 bound at creation), replies and
+  resolves as the bot, the tally on the PR. The settle then stopped on an unrelated unit-test
+  failure (the showcase suite fetching a stylesheet from localhost:3000); the bot's App token
+  cannot re-run a job, the owner credential is never a fallback, so the estate's re-trigger — an
+  empty commit, 6f4bc274e — went up as the bot and the settle re-armed there. engraph 270b8ec6f.
+- **Metacognition (retrospective).** Inherited and corrected: a fresh watcher-heartbeat file read
+  as the seat being live. It proves the watcher process, nothing more; the seat's liveness is its
+  stream events and its registry heartbeat, and the held-REPL shape (a fresh watcher over a dark
+  seat) is exactly the one the residency rule describes. The deadline-and-default did its job:
+  declared in writing with the facts, observed to the minute, executed without a second ask.
+  Executing under the one-seat carve-out is PDR-117's own provision, used once and named on the
+  stream so the lane seat can resume at the next PR without re-deriving anything.
+- **Consolidation gate.** Pointer (u) captured above (the showcase IO test; the App's Actions
+  permission as the owner's call). No new memory: silence-is-never-liveness already carries the
+  principle; the record carries the instance. Doctrine rides #89 and the train.
+- **Work safety at the boundary:** the primary at 099d71762 == origin (0/0) before this block;
+  the queue empty; dirty: the napkin only (pointer (u); this block). Registry: the Director's
+  claim; Altair's 38f3d1b3 (heartbeat 139m at the last poll; the seat dark on the stream since
+  15:48Z). Processes: watcher (re-armed hourly), peer poll, claim loop, wrap cron, fold wake
+  3d614df0 against #84; the #89 settle re-armed at 6f4bc274e.
+- **Metaloss.** Pass one: the record's #89 lines carry the round, the flake, the re-trigger and
+  the settle — nothing narrated ahead of the landed state (#89 is still OPEN). Pass two:
+  promises — #89's settle; Altair's resumption at the (t) follow-up; A, B, C; pointer (u); the
+  Actions permission surfaced to the owner; nothing unhomed. Inference flagged: "Altair is held
+  at a prompt" is inferred from silence plus a fresh watcher; their state is unknown. Bounds as
+  before. External bound: nothing external has yet tested the Director's own round-taking; the
+  reviewer's next round on #89 is the first such test. A third pass re-finds only these; the
+  recursion closes here.
