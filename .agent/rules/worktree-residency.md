@@ -25,8 +25,8 @@ user or from project instructions — this rule is that instruction): an
 agent taking up a worktree lane establishes residency before its first
 lane action by one of the two mechanisms below — or, when neither
 applies (the owner may be away and the session was not launched
-resident), takes the lane from the principal with residency declared,
-as clause 1 describes — and never by shell `cd`.
+resident), operates the lane NON-RESIDENT from the principal within
+the bounds clause 1 sets — and never by shell `cd`.
 
 **The platform fact every clause below rests on** (the
 [Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
@@ -60,12 +60,17 @@ configure away.
    with the owner away; the batch returned at 06:31Z the next morning,
    nine hours later, against a worktree the Director had by then
    removed after landing the lane by a declared default. When the
-   owner may be away, do not issue the entry: take the lane from the
-   principal instead (Director ruling 2026-09-08 — `git -C <worktree>`
-   for git, the platform's file-editing tool on absolute paths for
-   edits, one plain command per call; reads and edits may roam,
-   residency is declared) or have the lane launched resident (clause
-   2). The 2026-07-31 probe on 2.1.220 recorded "no approval friction"
+   owner may be away, do not issue the entry: operate the lane
+   NON-RESIDENT from the principal instead (Director ruling
+   2026-09-08 — every git command carries `-C <worktree>`, every edit
+   an absolute worktree path, one plain command per call), or have the
+   lane launched resident (clause 2). Non-resident operation is not
+   residency: the session's cwd and doctrine load stay the
+   principal's, and the residency-dependent guarantees (arm-time
+   context at the worktree, isolation enforcement) do not apply — so
+   it is the bounded owner-away alternative to a held prompt, named as
+   such in the lane's team-start broadcast, never the lane's default
+   shape. The 2026-07-31 probe on 2.1.220 recorded "no approval friction"
    for the same entry because the owner was present and answered it;
    the seat recorded the absence of a prompt it could not see.
    Fresh-cut-from-the-base matters doubly under residency: the
@@ -114,9 +119,14 @@ configure away.
    refused, and a residency switch has killed a principal-armed monitor
    once (both below), so the standing order is arm the canonical
    watcher at the principal BEFORE entering, verify its heartbeat after
-   the switch, and re-arm what died (from the principal if the resident
-   arm is refused). Keep the explicit `cd <repo-root> || exit 1` first
-   line on every principal arm (the watcher rule's existing discipline).
+   the switch, and if it died recover by the one executable path:
+   `ExitWorktree`, re-arm at the principal, then re-enter only with the
+   owner at the prompt — or continue the lane non-resident from the
+   principal (clause 1). A resident session cannot re-arm a
+   principal-rooted monitor itself (the guard blocks principal-cwd
+   commands, below), and a worktree-rooted arm is unverified. Keep the
+   explicit `cd <repo-root> || exit 1` first line on every principal
+   arm (the watcher rule's existing discipline).
 
    **Platform-isolation refinement (owner-worded fleet cure,
    2026-08-06):** Claude Code v2.1.223 landed worktree isolation
@@ -145,8 +155,9 @@ configure away.
    124 within ~30 s of the switch while the first had lived its full
    3600 s backstop — so the arm-time-capture sentence above did not
    hold that day. After ANY residency switch, verify each monitor
-   first-hand (heartbeat mtime, the exit notification) and re-arm what
-   died; an n=1 seat covers the gap with `comms list --since <boundary>`
+   first-hand (heartbeat mtime, the exit notification) and recover what
+   died by the exit, re-arm, re-enter sequence in this clause's
+   opening; an n=1 seat covers the gap with `comms list --since <boundary>`
    sweeps at boundaries. A session RESTORE is the harsher sibling: it
    resets cwd to the primary and removes every background task (watcher,
    pr-watch alike), so re-arm before reading the stream (2026-09-02).

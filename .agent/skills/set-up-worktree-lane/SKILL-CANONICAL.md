@@ -113,11 +113,14 @@ commit, never a commit that silently credits the owner with agent work.
 ### 3. Make the worktree buildable
 
 ```bash
-pnpm install
-pnpm build
+pnpm --dir <path> install
+pnpm --dir <path> build
 ```
 
-Both, before any gate, work or entry: `type-check` and `vitest` pass on install alone,
+Both scoped to the worktree with `--dir`, because this step runs before entry, from the
+principal: an unscoped `pnpm install` there rebuilds the principal and leaves the new
+worktree without its dependencies or `dist/`. Both, before any gate, work or entry:
+`type-check` and `vitest` pass on install alone,
 but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
 with `No exports main defined`. A fresh worktree has **no `.env.local`** — copy it from
 a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
@@ -135,10 +138,10 @@ comms stream, as a directed event to the Director, the exact invocation you are 
 to issue; then issue `EnterWorktree` with the path only when the owner is known to be
 at the keyboard. A prompt nobody answers holds the seat until someone does, while its
 heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
-away, do not enter: operate the worktree from the principal (`git -C <path>` for git,
-the platform's file-editing tool on absolute paths for edits, one plain command per
-call), or have the session launched inside the worktree (`cd <path> && claude`), which
-prompts for nothing. A bare `cd` is not residency and does not survive; a `Shell cwd
+away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
+for git, the platform's file-editing tool on absolute paths for edits, one plain command
+per call — not residency, and named as such in the lane broadcast), or have the session
+launched inside the worktree (`cd <path> && claude`), which prompts for nothing. A bare `cd` is not residency and does not survive; a `Shell cwd
 was reset` line means it did not take. Arm the canonical watcher and any other monitor
 at the principal BEFORE entering, then verify each one after the switch and re-arm what
 died — a resident arm may be refused under isolation; the ordering and the guard's

@@ -11,7 +11,8 @@ checkout is shared fleet surface — coordination docs and fleet state only;
 a fresh worktree off `origin/<base>` (the branch the lane's PR targets:
 `engraph` on the Engraph fork per `pr-target-is-engraph`, `main` on the
 Oak line) is where every implementation lane starts, before its first
-edit, not after.
+edit, not after. Throughout this rule, `main` reads as that base: every
+draft PR, update and merge below targets it, never a mirror branch.
 
 In the one-developer-many-agents / many-worktree model, linked git worktrees
 proliferate. A worktree is a transient workspace, not a home. Left undisciplined it
@@ -81,8 +82,8 @@ that owns a lane in its own worktree, see PDR-117.)
 create → build (`pnpm install && pnpm build`, before any gate, work or entry) → reside
 (session-level residency per [`worktree-residency`](worktree-residency.md): launched
 inside the worktree, or entered mid-session only with the owner at the platform's
-approval prompt and the entry announced first; otherwise operated from the principal)
-→ open draft PR
+approval prompt and the entry announced first; otherwise operated non-resident from the
+principal) → open draft PR
 → do the bounded work → update onto `main` → mark the PR ready → merge → **remove the
 worktree AND delete the branch.** A worktree that outlives its PR's merge, or never
 opens a PR, is a hygiene violation to resolve.
