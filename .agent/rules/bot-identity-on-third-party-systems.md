@@ -40,9 +40,12 @@ When the tri-state classifier in
 selects ChatGPT Work, task-scoped commits, non-force story-branch pushes and
 the draft-PR creation/edit/comment writes needed to deliver the task use the
 configured default credential — the host's own GitHub credential, which
-displays as the owner's identity. Read it first (`git config user.email`, or
-the connector's authenticated account) so the name the surface will display is
-known before the write; do not mint, install, rewrite or repair a bot identity
+displays as the owner's identity. Read it first — the TRANSPORT credential, which
+is what the remote write displays (`gh auth status` for `gh`; the credential
+helper or SSH key for `git push`; the connector's authenticated account for the
+connector), never `git config user.email`, which names only the commit author —
+so the name the surface will display is known before the write; do not mint,
+install, rewrite or repair a bot identity
 in this non-execution profile. If shell git has no configured transport
 credential, use the already-authenticated GitHub connector. The displayed
 operator identity is the accepted consequence of the owner's 8 September 2026

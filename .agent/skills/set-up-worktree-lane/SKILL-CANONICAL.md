@@ -45,9 +45,10 @@ Not for: switching branches in place; the session-level residency switch on its 
 Use the tri-state classification in
 [`cloud-environment-routing.md`](../../directives/cloud-environment-routing.md).
 If it selects ChatGPT Work, keep that profile for the whole session. It replaces
-the identity and buildability work in steps 2 and 3: read the configured
-identity so the displayed name is known, but do not mint or rewrite bot
-credentials; do not install or run pnpm, Corepack, builds, tests or local
+the identity and buildability work in steps 2 and 3: read the transport
+credential (`gh auth status`; the credential helper or SSH key for `git push`)
+so the name a remote write will display is known — not `git config user.email`,
+which names only the author — but do not mint or rewrite bot credentials; do not install or run pnpm, Corepack, builds, tests or local
 gates. Use the configured default credential and the
 `HUSKY=0`/draft-PR/CI route in step 6. Detector error is a stop; a genuine
 not-Work result does not by itself identify Claude cloud.
