@@ -6,12 +6,15 @@ workflow size guideline, or whose estimated spend crosses ~500k tokens —
 has its DESIGN reviewed by a smaller fleet before the owner prices it,
 and the design review's verdicts travel with the plan to the
 ratification ask. Before ANY fleet launches (owner word 2026-09-07): an
-ahead-of-time cost estimate from one measured pilot leg times the fan-out,
+ahead-of-time cost estimate from one measured pilot leg per phase, each times
+its phase's fan-out and summed across the phases,
 a hand sample of the yield first, no adversarial verify phase where the seat
 verifies at application, bounded per-item search, a named tier per phase
 with the budget enforced in the script, and those numbers in the launch
 record — the section "Ahead-of-time cost estimate, pilot and yield" below
-carries each requirement and the measurement behind it.
+carries each requirement and the measurement behind it. This rule is CORE
+(since 2026-09-07): fleets launch from any seat on any platform through
+primitives no loader recognises, so the controls load in every session.
 
 ## Why (the measured instance)
 
@@ -118,9 +121,10 @@ leg on a cheaper tier with a twelve-call cap):
    bounds calls, not results. Estimate a leg as (unit tokens + rules) × turns +
    Σ tool-result tokens × turns remaining; size units by tokens (`wc -c` ÷ 4),
    about 8k each.
-2. **Pilot before fan-out.** One leg, measured from its run record, times N, in
-   the launch record beside the estimate; abort when pilot × N crosses the
-   budget. A resume by run id is a launch: the pilot and yield are re-decided.
+2. **Pilot before fan-out.** One representative leg per distinct phase (map,
+   reduce, verify, synthesis), measured from its run record, times that phase's
+   fan-out, summed across phases in the launch record beside the estimate; abort
+   when the sum crosses the budget (a single-phase fleet reduces to pilot × N). A resume by run id is a launch: the pilot and yield are re-decided.
 3. **Sample the yield by hand first.** Three to five units read at the seat show
    what fraction would move — four fifths of the 2026-09-07 napkin was already
    homed or pure state, a fact a twenty-minute sample would have set before an
@@ -131,8 +135,10 @@ leg on a cheaper tier with a twelve-call cap):
    application makes the phase pure spend.
 5. **No open-ended repository search per item.** Legs read the unit and return
    items with a proposed home class; the seat verifies homes with targeted reads
-   (a script checks citations mechanically). Where search is allowed, bound it:
-   `grep -l` only, one read of at most sixty lines per item, a result-size cap.
+   (a script checks citations mechanically). Where search is allowed, bound it
+   by a search command, a per-item read cap and a result-size cap derived in the
+   launch record from the measured pilot (the 2026-09-07 instance: `grep -l`
+   only, one read of at most sixty lines per item).
 6. **Name the tier per phase and enforce a budget in the script** (the workflow
    API's `budget`): the top tier only where judgement is the product; `log()`
    dropped coverage; a stop condition that is not the owner noticing.

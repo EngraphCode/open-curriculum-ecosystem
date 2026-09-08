@@ -216,11 +216,11 @@ tier, its name settled at this landing per ADR-213 §3. Edges:
   is deliberately excluded from the tuple and carries its own structural
   leg; see the directory row above.)_
 
-**Adding a top-level tier (measured 2026-09-06 on a refuted fork-only tier).** Admission
-requires upstream-owned edits: the census root constant, two dependency-cruiser regexes, the
-workspace list and a row in this ADR. A two-level workspace glob is invisible to the
-single-level isolation validator; the census vocabulary has no class for a fork-owned
-subject; `depcruise <root>` fails loudly, not silently, on a missing root.
+**Adding a top-level tier** is an upstream-owned admission: the census root constant, the
+two dependency-cruiser regexes, the workspace list and a row in this ADR — and the
+single-level isolation validator does not see a two-level workspace glob (measured
+2026-09-06 on a refuted fork-only tier; the dated narrative lives with that
+measurement's plan record, which cites this ADR).
 
 ## Links
 
