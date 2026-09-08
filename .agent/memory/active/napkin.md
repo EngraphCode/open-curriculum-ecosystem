@@ -191,3 +191,28 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
 - **Lesson 2 — a verbatim copy appended to a record is the provenance shape `permanent-doc-is-the-consolidation-record` forbids** (#81 round one, Codex P1): "moved from X" sections are accounting that a move happened, appended as stale snapshots at the records' tails. The rule's own test held: verify the substance is live in the home first (the token-share census, the two lowest re-read), then the commit and the home are the record. The director-handoff archive is the exception by the Director's explicit ruling for their own surface, not the pattern.
 - **Lesson 3 — the runbook's "live or finished, per entry" is the whole cost of a continuity-surface pass**, and it does not compress: the two thread-record criticals (agentic-engineering-enhancements 114 KB, thirteen EXECUTED lane blocks plus a 61 KB continuation log; paused/mcp-submission-drive 780 lines with a self-declared historical 170-line block) are left MEASURED for a fresh seat (censuses in reference-local post-fold-analysis-2026-09-07.md) rather than judged at the end of a long window — PDR-052's rounding-off hazard, applied by choice.
 - **Routes under PDR-140 clause 9(c), carrier this napkin:** repo-continuity.md still reads 64,741 chars against 52,500 critical after the pointer pass — the excess is §Current State and §Next Safe Steps (finished Oak-line narrative), the next continuity pass's story under the runbook; the director-handoff archive's ~42 numbered owner rulings need the homed-or-not check ruling by ruling (queued in repo-continuity §Next Safe Steps); the turbo.json `$TURBO_ROOT$/RULES_INDEX.md` input is a one-line config PR for the Director's board; the Director's pickup map has no tracked mirror for a successor on another machine and the Brief's `gh pr update-branch` lines (224–228) contradict the slot rule — both the Director's text, routed to them by directed event 03:2xZ (#80 round seven) and CLOSED by them at 3d53fdf2c on the coordination branch 03:23Z — a dated tenure journal entry in the tracked estate-coordination record (the pickup path for any checkout; the machine-local record is finer grain, not required) and the Brief's lines 224–230 bound to the slot-holder; no route remains from that round.
+
+## 2026-09-08 02:5xZ–04:4xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: the board at zero, the journal that had stopped
+
+- **Landed this window:** #80 (the disposition of the Director's own surface) at 3864af225 on
+  the standing read; the quiet-window sync 5468b9b75; Juno's closeout after nine landings across
+  two days, their closing block swept as 24be56c89. No PR open on the fork. Altair's seat
+  retired by silence at 00:39Z (evidence on the retirement-detection event); the directives
+  item returned to the Director's routing as a pointer for the next fresh seat.
+- **The journal that had stopped.** A reviewer on #80 read the pickup map as unreachable from
+  another checkout: the fold block and the snapshot point at a handoff record the handoffs
+  directory keeps machine-local by design, and the Director's tracked journal
+  (`threads/estate-coordination.next-session.md`) had ended on 2026-09-03 while two days of
+  fine grain went to that record. The cure landed as 3d53fdf2c — a tenure entry any checkout
+  rehydrates from — but the generator is worth its own line: the machine-local record is a
+  convenience for the seat that wrote it; the tracked journal is the pickup, and the Director
+  writes its entry at every fold, not when a reviewer asks. The Brief's babysitter lines were
+  bound to the slot-holder in the same commit.
+- **n=1 economics.** With no consuming peer the comms heartbeat stood down under the
+  consumer-absent exemption and a silent registry-only loop keeps the Director's claim fresh
+  for a joining seat's read; the watcher and the peer poll stay up because a new seat is what
+  they would announce. A wrap in a quiet window says what changed and stops.
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at 24be56c89 equals origin
+  before this sweep; the queue empty; only the held settings file dirty. Promises: none new;
+  the fold wake for the 2026-09-09 rollover stands. Bounds unchanged. A third pass re-finds
+  only the standing bounds; the recursion closes here.
