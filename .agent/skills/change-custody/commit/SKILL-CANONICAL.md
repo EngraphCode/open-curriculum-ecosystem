@@ -54,16 +54,24 @@ exact standing `HUSKY=0` ruling recorded in
    complete outgoing diff and `git diff --cached --check` where a local index
    exists. Inspect that diff for credentials before transfer.
 3. Use the configured default identity and credential without minting,
-   rewriting or repairing a bot identity. Commit with `HUSKY=0` when invoking
-   local git — and do not push yet. If shell transport lacks a configured
-   credential, use the already-authenticated GitHub connector; connector-created
-   commits have no local hook process and are covered by the same owner ruling.
-   Between the commit and the push, run the `gitleaks` binary over the outgoing
-   range (`origin/<branch>..HEAD`, the same range the estate's pre-push scan
-   reads) whenever the host already carries it (`gitleaks detect` needs no
-   package manager); a scan of the index before the commit exists reads none of
-   the new content. Only when the binary is absent is the CI secret scan the
-   first scan, after transfer. Then push.
+   rewriting or repairing a bot identity. The invariant for every transport:
+   when the host carries the `gitleaks` binary (`gitleaks detect` needs no
+   package manager), no content leaves the host that the binary has not read,
+   and the scan target is exactly what the transport will carry. Local git:
+   commit with `HUSKY=0` and do not push yet; between the commit and the push
+   scan the outgoing commits — `origin/<branch>..HEAD` when the remote branch
+   exists, and on a lane's first push, where it does not, `HEAD --not
+   --remotes=origin` (the shape the estate's pre-push scan uses for a new
+   remote ref) — then push; a scan of the index before the commit exists reads
+   none of the new content. The GitHub connector, used only when shell
+   transport lacks a configured credential: the connector writes the content
+   straight to GitHub and its commit need not exist at local `HEAD`, so scan
+   the worktree content BEFORE the connector write (`gitleaks detect --no-git
+   --source <path>`), and where the binary is absent the manual inspection in
+   step 2 is the only pre-transfer check and the residual in the directive's
+   step 7 stands. Connector-created commits have no local hook process and are
+   covered by the same owner ruling. Only when the binary is absent is the CI
+   secret scan the first scan, after transfer.
 4. Open a draft PR immediately. Keep it draft until GitHub's
    `run-quality-gates` check concludes successfully on the current head. If the
    check is absent, cancelled or cannot run, stop and surface that blocker. A
