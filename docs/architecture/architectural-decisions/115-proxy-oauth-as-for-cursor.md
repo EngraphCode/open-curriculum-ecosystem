@@ -16,8 +16,9 @@ authorisation response carries; the app-origin proxy remains for
 origin-discovering clients — see §Context and Negative consequence 8. Amended
 2026-09-08 (MCP-345): the served AS metadata's `scopes_supported` states the
 PRM's advertised set rather than the upstream list, because a client that
-chooses scopes from that document requested an advertised `openid` the upstream
-does not grant — see §Metadata Rewriting and ADR-113 resolution 3.
+chooses scopes from that document requested an advertised `openid` that its
+registered grant, Oak's default, omits — see §Metadata Rewriting and ADR-113
+resolution 3.
 
 **Related**: [ADR-052 (OAuth 2.1)](052-oauth-2.1-for-mcp-http-authentication.md), [ADR-053 (Clerk)](053-clerk-as-identity-provider.md), [ADR-113 (Spec-Compliant Auth)](113-mcp-spec-compliant-auth-for-all-methods.md)
 

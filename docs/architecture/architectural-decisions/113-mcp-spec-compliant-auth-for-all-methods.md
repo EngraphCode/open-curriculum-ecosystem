@@ -117,7 +117,7 @@ The Cursor OAuth flow silently fails. Server logs show a perfect discovery and a
 
 ### Root Cause
 
-Clerk's `/oauth/authorize` returns `error=invalid_scope` when a dynamically registered client (created via RFC 7591 DCR) requests the `openid` scope:
+Clerk's `/oauth/authorize` returns `error=invalid_scope` when a client requests a scope outside the grant its registration carries. A dynamically registered client (RFC 7591 DCR) holds exactly the scopes named in its registration, or the instance default grant when it names none, and Oak's default grant carries no `openid`. Cursor registered without naming scopes and then requested `openid`, so Clerk refused it:
 
 ```text
 error=invalid_scope
@@ -125,7 +125,7 @@ error_description=The requested scope is invalid, unknown, or malformed.
   The OAuth 2.0 Client is not allowed to request scope 'openid'.
 ```
 
-Clerk accepts `openid` during client registration but rejects it during authorisation. The error is returned as query parameters on the `cursor://` callback redirect -- it never reaches the MCP server.
+The error is returned as query parameters on the `cursor://` callback redirect -- it never reaches the MCP server. (Corrected 2026-09-08, MCP-345: this section previously described the refusal as a Clerk platform rule for every dynamically registered client — "accepts `openid` at registration, rejects it at authorisation". The measured mechanism, first recorded on PR #922, is the client-specific grant above; a client that registers naming `openid` is granted it. Every observation in this section still holds; only the reason changed.)
 
 ### Why It Is Silent
 
@@ -143,7 +143,7 @@ Server-side logs will show nothing wrong. The flow appears to stop after the ini
 
 ### Resolution
 
-Three changes prevent clients from requesting the `openid` scope:
+Three changes stop a client deriving an `openid` request from Oak's discovery documents (a client may still ask for it on its own, and the proxy forwards that request unchanged):
 
 1. **Source of truth**: `openid` removed from `DEFAULT_AUTH_SCHEME.scopes` in `mcp-security-policy.ts`. Cascaded via `pnpm sdk-codegen` to all generated tool security metadata.
 2. **PRM**: `scopes_supported` no longer advertises `openid`, so compliant clients (RFC 9728) do not request it.

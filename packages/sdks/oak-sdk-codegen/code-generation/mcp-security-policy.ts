@@ -37,13 +37,16 @@ export const PUBLIC_TOOLS: readonly string[] = [
  * Applied to all tools NOT in PUBLIC_TOOLS list.
  *
  * @remarks
- * **Why `openid` is excluded**: Clerk rejects the `openid` (OIDC) scope for
- * dynamically registered clients (RFC 7591 DCR). Clerk accepts `openid` during
- * client registration but returns `error=invalid_scope` during authorisation.
- * This error is routed via redirect to the client's callback URL (per RFC 6749
- * Section 4.1.2.1), bypassing the server entirely and causing a silent failure
- * in clients like Cursor. MCP only needs an OAuth access token, not an OIDC ID
- * token, so `openid` is not required.
+ * **Why `openid` is excluded**: Oak's policy choice, not a Clerk ceiling. This
+ * is an OAuth 2.1 resource server: it authorises from an access token and reads
+ * no OIDC identity claims, so an ID token buys it nothing. Clerk grants a
+ * dynamically registered client (RFC 7591 DCR) exactly the scopes named in its
+ * registration, or the instance default grant when it names none, and Oak's
+ * default grant carries no `openid`; a client that requests it anyway receives
+ * `error=invalid_scope`, routed via redirect to the client's callback URL (RFC
+ * 6749 Section 4.1.2.1), bypassing the server and failing silently in clients
+ * like Cursor. (Mechanism corrected 2026-09-08, MCP-345, per the measurement
+ * recorded on PR #922; the earlier wording called it a platform rule.)
  *
  * Because `openid` is not in our PRM `scopes_supported`, compliant clients
  * (RFC 9728) will not request it. Since MCP-345 the served authorization-server
