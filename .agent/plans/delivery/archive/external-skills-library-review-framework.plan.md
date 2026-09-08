@@ -151,5 +151,6 @@ entry carrying its failure mode, natural home, and proof signal.
 Archived at the owner's numbered card answer of 2026-09-08, verbatim: "Archive" — the
 framework distillation is not pursued now. The standing instruction is unchanged and outlives
 this node's archival: no library review starts without the owner's express word (2026-08-02:
-"Do not start the larger review without my say so"). The node returns from the archive on that
-word; its gate rows are removed as discharged by the archival, not as resolved.
+"Do not start the larger review without my say so"). Archival is terminal: on that word a new
+sketch is authored, citing this node as history, and this node stays archived; its gate rows are
+removed as discharged by the archival, not as resolved.

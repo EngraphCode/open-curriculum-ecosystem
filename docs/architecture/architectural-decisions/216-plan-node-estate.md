@@ -109,7 +109,9 @@ already superseded.
 
 The repository attests completion with certainty up to its own boundary —
 a merged commit, a proven `repo-safe` acceptance criterion, an archived
-node. The state of any instance of the repository's code (a deployment, a
+node's recorded disposition (criteria proven, or a sketch abandoned with
+its note; archival is terminal, not by itself proof of completion). The
+state of any instance of the repository's code (a deployment, a
 dashboard, a console, a schedule system) is one-to-many with the tree and
 is never recorded or inferred in the planning corpus: a plan records the
 desired external outcome and its `owner-held` proof, and the external

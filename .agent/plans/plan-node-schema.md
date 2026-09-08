@@ -19,7 +19,9 @@ product moves, it lives in the repository.**
 **Amendment (2026-09-08, owner-ruled) — the boundary of certainty.** The
 repository attests completion with certainty up to its own boundary: a
 merged commit, a proven `repo-safe` acceptance criterion, an archived
-node. The state of any INSTANCE of the repository's code — a deployment,
+node's recorded disposition (criteria proven, or a sketch abandoned with
+its note — archival is terminal, not by itself proof of completion). The
+state of any INSTANCE of the repository's code — a deployment,
 a dashboard, a console, a schedule system — is one-to-many with the tree
 and is never recorded or inferred in this corpus; a plan records the
 DESIRED external outcome and its `owner-held` proof (who verifies, and
