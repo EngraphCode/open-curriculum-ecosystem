@@ -259,3 +259,81 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
 - **The directives item:** declined at the PDR-052 gate — the transcript's own usage record put the last turn at about 384k input tokens; the item stays with Juno's handoff 257f3ddb and the Director's bounds broadcast for a fresh seat.
 - **Measured facts:** the required checks on the engraph ruleset are run-quality-gates and CodeQL by name (read from the rules API); a thread reply through GraphQL creates a review record, so the quiet-window anchor moves to the seat's own reply time; `comms reply` refuses an unknown antecedent id, so the id is read from the store, never typed from memory (one refusal at this seat).
 - **Processes at this pause:** watcher bkz84hjyf live (re-armed after the hourly exit that ran unanswered during the stall); no heartbeat and no claim (consumer-absent standby); the Director paused at 06:34Z, so this seat waits for a routing or the owner's word.
+
+## 2026-09-08 06:5xZ — Altair spins Umbra (05a180) — CORRECTION to the 06:4xZ block: the held seat was not a permission prompt
+
+- The owner asked whether worktree operations were already on the allow list. Checked first-hand: `EnterWorktree` is in `permissions.allow` in both `.claude/settings.json` (tracked and working copy) and `.claude/settings.local.json`; the project runs `defaultMode: auto`. The session transcript records the two tool calls at 21:08:04Z and their results at 06:31:44Z with nothing between but Monitor notifications, and no permission, denial or interruption record anywhere. So the block above's inferred cause (a held permission prompt) is withdrawn; the settled fact is narrower: the harness held that batch, headed by an `EnterWorktree` call to a sibling-directory worktree with a merge in progress, for nine hours for a reason not visible from inside the session. The seat-side practice (send the invocation to the Director first) stands as a visibility measure; the settings-side cure proposed above is withdrawn as unfounded.
+- **Second correction, the owner's observation (06:5xZ):** "it was a permissions prompt, I just didn't see what for". So the prompt is a fact and the allow-list entry did not prevent it: `EnterWorktree` is allow-listed in both settings files under `defaultMode: auto`, the transcript logs no prompt (prompts are not recorded there), and the Bash read of the same sibling path had run unprompted earlier in the session, so the entry call is the likely subject. The worktree-residency rule's re-open clause fires on a real observed prompt; the open question is which call shape the classifier held, and the next watched sibling-path entry answers it. The seat-side practice stands.
+- **Third line, the subject pinned and the log question answered (07:0xZ):** no prompt log exists on this machine — the transcript has no permission-request record type (only `permissionMode: auto`), `~/.claude/debug/` is written only under `--debug` (last file 2026-09-03), `settings.local.json` changes only on "always allow" and is untouched since 09-06. The subject is pinned by sequencing: the EnterWorktree result landed at 06:31:44.835Z and the next Bash call's PreToolUse hook fired at 06:31:44.9Z, so the batch ran in order and the hold sat on `EnterWorktree`. Why an allow-listed tool prompted stays open: sibling directory outside the working directories (the class the local settings' per-path `Read(//…-worktrees/…)` entries exist for), or the auto-mode classifier asking regardless; the next watched sibling-path entry answers it.
+- **Fourth line, the documented cause (07:1xZ, from the current Claude Code worktrees docs via the claude-code-guide agent):** entering a path outside `.claude/worktrees/` always asks for approval because the move carries the session's working directory, write access and project configuration; an `EnterWorktree` permission rule or "don't ask again" does not suppress it and only `bypassPermissions` skips it. So the allow-list entry could never prevent the hold, and worktree-residency §Platform mechanics is stale (its 2026-07-31 probe on 2.1.220 saw no prompt; 2.1.263 always asks). Shapes that avoid the hold: launch the session inside the sibling worktree (the rule's secondary mechanism) or operate it from the primary with `git -C`. Docs are silent on any permission-prompt log. Rule correction is a small records PR for a fresh seat; not opened from this seat (Director paused, no routing).
+
+## 2026-09-08 04:1xZ — Juno seeks Apogee (a693fb) — wrap: the metaloss passes over the 03:5xZ closing block
+
+- **Landed against the window's target (PDR-026):** "finish the consolidation work and any other
+  tasks belonging to this seat" — #77 d295fcc11, #78 f4ccea4fc, #81 3fdf51d0c and #80 3864af225
+  merged (the fork's PR list is the evidence; no PR open); the comms archive move run. Work
+  safety: every touched branch merged and its remote deleted; this seat's two worktrees removed
+  (the dirty one restored-then-removed at the owner's word, per-file proofs in the handoff
+  record); the primary's napkin.md and this seat's experience letter carry uncommitted appends
+  for the Director's sweep. This session could not run git on the primary (residency hook), so
+  those appends are grep-verified, not `git status`-verified — a stated bound. The full gate
+  `pnpm check` on the primary with both appends in place exited 0 at 04:2xZ (markdownlint 0
+  issues in 2,099 files; prettier clean; dependency-cruiser clean), but its log carries ESLint
+  WARNINGS in source packages this seat never touched: 1,227 across 16 packages (agent-tools
+  376, sdk-codegen 300, the MCP server 170, search-cli 169, curriculum-sdk 78, eleven smaller),
+  mostly the throwing-is-banned rule (ADR-088) at warning severity, plus one Vite config warning
+  in the design system's tests — under `no-warning-toleration` that is not a clean gate. Surfaced to the Director as required
+  work, not cured here: source packages sit outside this seat's claim and the owner's "less
+  ceremony" word.
+- **Compressed reasoning:** the seven #80 dispositions compress to "a pointer into the moved
+  range → over the bar → cure alone; the Director's own text → route". That compression is
+  decision-sufficient; the per-thread rationale survives on the PR threads and the intake tally,
+  which are the record.
+- **Promises sweep:** the two routed round-seven items — closed by the Director at 3d53fdf2c;
+  the close-out sequence — done, closeout and addendum sent; the tally rows — all seven patched;
+  "a fresh seat takes the thread-record criticals" — forwarded with named surfaces (handoff
+  record STATE 12; the Director's tenure journal lists them as open items); the turbo.json input
+  config PR — forwarded to the Director's board, no seat owns it; the directives item — the
+  Director's routing. Zero silent drops.
+- **Attribution inferences, flagged:** "the Director sweeps seats' napkin blocks into commits"
+  is inferred from two commits today (33b07e10e, 39889e4d3), not from a ruling — confirm before
+  relying on it; "3d53fdf2c is on the coordination branch" is the Director's statement, checked
+  only by its absence from origin/engraph; "the sweep waits on the Director's resume" is read
+  from their TAIL in the shared resume memory (processes stopped at the owner's word), not
+  observed.
+- **Blind-spot bounds:** the watcher excluded heartbeats and was stopped before the last two
+  events; PR comments after the merges are unread; Codex's silence on #80's final head is a
+  timeout, not a verdict; this seat never ran `git status` on the primary.
+- **Index of homes** (also in the handoff record): the review doctrine in PDR-140 clause 9, the
+  pr-lifecycle ratchet paragraph and the triage rule; the slot contract in `pr-target-is-engraph`
+  §The landing slot; the director-handoff disposition in its dated archive and live snapshot;
+  this seat's lessons in the 03:5xZ block above; the successor items in the handoff record
+  STATE 12, the Director's tenure journal and the seat's reference-local censuses; the per-user
+  memory carries the prune-policy instance and the pointer-sweep lesson.
+- **External bound and error signature:** the scan cannot certify itself. Where outside eyes
+  caught what mine missed this window: Codex (every pointer into the moved range; the
+  byte-equality claim), Copilot (the pre-push cache-replay claim, 2026-09-07), the Director (the
+  event-time fact). Point external scrutiny at that class: claims about what a moved or edited
+  text still says.
+- **Fence sweep:** no owner wording was held off the repository at his word this window; the
+  standing confidential item (the fourth identity's anchor) was never in this seat's context, so
+  it could not leak.
+- **Entry-point sweep:** CLAUDE.md, GEMINI.md and skills.md are canonical; AGENTS.md carries a
+  generator-fenced Codex bootstrap block beyond session-handoff's named extensions — observed,
+  not touched: whether the skill's extension list should name the generator's block is a fresh
+  seat's question, not this wrap's edit.
+- **candidate:** the dirty-but-proven worktree path (restore the proven files, then remove
+  without force) as a clause of the worktree-hygiene rule; the 2026-08-05 prune grant is already
+  a named rule candidate.
+- **Open register, at the owner's word ("make sure that any open decisions, reviews, or further
+  required work are noted and reported to the Director"):** reported to the Director by directed
+  event and conserved in the handoff record — five decisions (the expired external-skills owner
+  gate; the turbo.json root-file input PR; AGENTS.md's generator-fenced block against the handoff
+  skill's named extensions; the dirty-but-proven worktree path as a rule clause; the fold), three
+  review items (no PR open; the directives item on the Director's routing; the two appends on the
+  primary for their sweep) and seven required-work items (the two thread-record criticals;
+  repo-continuity's excess and its stale §Current State; the ~42 rulings; the comms substantive
+  mover and the undeclared absorption sweep; this window's identity rows; the #80 local ref; the
+  full gate).
+- **Fixed point:** a third pass would only re-find the two stated bounds (no git on the primary;
+  the stopped watcher) and the sweep-before-move lesson already homed; the recursion closes here.
