@@ -609,3 +609,135 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   standing bounds (the watcher's truncation; Altair's transcript unread); the recursion closes
   here. External bound: the owner caught what the pass could not — the class to point outside
   scrutiny at is any verdict of mine that names an "absence" in a system I have just read.
+
+## 2026-09-08 11:3xZ (Flounder turns Estuary, c5cc2c, Director) — three more owner cards: the strategic six, ADR-219, the Oak-line sketches
+
+- **Cards (owner via the Director):** (13) RATIFY ALL SIX strategic sketches (reliable-atoms-programme,
+  v0-claude-practice-composition, innovation-kit, honest-curriculum-structure,
+  organisational-identity-below-the-tree, public-packages-release) — stamps land in PR A; a strategic
+  sketch had meant its whole subtree governed no work, and none of the six had been carded. (14) ADR-219
+  AMENDED in the cure PR: edge primary, an in-process limiter permitted as defence in depth on the routes
+  the analyser names — the scanning node's unit 6 loses its open design question. (15) Oak-line delivery
+  sketches LEFT AS THEY ARE (no note, no archive, no enum) until the October re-integration with the
+  upstream; the owner sees the 25 remaining delivery sketches by card and ratifies any relevant to
+  current goals. Owner fact: upstream re-integration is planned for October 2026.
+- **Routed:** the three rulings to Altair for PRs A and C; the card verdicts on the 25 follow as
+  numbers.
+- **The 25 delivery sketches by card (four numbered cards, decline by number):** RATIFIED —
+  consolidation-induction, consolidation-ledger, consolidation-signal (the owner held
+  agent-estate-alignment); director-continuity-surface-redesign, commit-queue-local-ephemera,
+  code-quality-binding-per-checkout (held agent-registry-resurrection, cross-platform-research).
+  HELD until October, all nineteen others, including the Codex idle wake the Director had
+  recommended: the owner's current goals read from the pattern — knowledge-consolidation flow,
+  the Director's continuity surfaces, the commit queue's ephemera, org-portability — and exclude
+  Oak release, production, curriculum-data and Codex-wake tooling until the re-integration. PR A
+  carries twelve stamps (six strategic, six delivery); Altair may split them into a PR A0.
+
+## 2026-09-08 11:5xZ (Flounder turns Estuary, c5cc2c, Director) — five owner directives; the one dismissal; two plans ratified by word
+
+- **Rate limiting PAUSED (owner verbatim):** "leave comments in the code that recognise that additional
+  in-process rate limiting would provide defence in depth, but that we regard the two sets of edge WAFs
+  to be sufficient for safety for now. And in this ONE case we can dismiss the findings in Sonar, and
+  preferably find a way to keep them dismissed instead of revisiting this same issue every few weeks."
+  The ADR-219 pre-ruling of 11:3xZ is superseded (ADR-219 stands); the fix-never-dismiss ruling keeps
+  ONE named exception, kept dismissed by tracked analyser configuration (Sonar issue-ignore keyed on
+  rule and path; the CodeQL query filter for the same files) so the tree explains the state and no UI
+  act repeats. Edits 6 and 7 re-routed to Altair accordingly.
+- **Two plans ratified in advance by word:** the WorktreeCreate/WorktreeRemove hook pair ("create a
+  plan … and ratify it") and pr-tally ("pr-tally, ratified") — both delivery nodes born with the stamp,
+  one PR (H) after the grant PR (N), before the stamps PR (A0).
+- **October re-integration:** no plan ("I have some thoughts, but we do not need a plan yet, and we
+  should not let the intention overly influence the decisions we make now") — pointer D withdrawn.
+- **Upstream fetch permitted** — the divergence figure now measured, not stale (the record carries it).
+- **The standing grant for clearing proven paths** (card 11:4xZ) → PR N amends
+  never-use-git-to-remove-work; hygiene §6 re-trued in the same PR; #83 lands as is at 429c7b863.
+- **#83 third round on the final head 429c7b863 (Codex, 11:5xZ), dispositioned, no push (Altair
+  05a180):** (o) ignored state (`.env.local`, fetched bulk data) is invisible to the porcelain proof
+  and `git worktree remove` deletes it with exit 0 — PR N's §6 re-truing inventories ignored paths
+  (`git status --porcelain --ignored`) and names each one's disposition before removal (pre-existing
+  gap since the 2026-07-21 grant). (p) `pr-target-is-engraph`'s letter ("every PR's base is engraph")
+  contradicts hygiene §1's temporary build-ahead stack; the rule's substance is main-versus-engraph;
+  reconcile by one scoping clause (final base engraph, never main; a build-ahead draft may stack on
+  its fork parent) or retire stacking under no-parallel-long-lived-branches — a rules-process
+  decision for the Director's board, in PR N's cross-surface read.
+- **12:0xZ, owner:** "delete the rule, it was a hacky fix to targeting the engraph branch in PRs when
+  main was still the default, the default is `engraph` now." Verified (gh: defaultBranchRef =
+  engraph). pr-target-is-engraph and its adapters go (PR R, before N); every citation becomes "the
+  repository's default branch", derived from origin/HEAD and never a literal — the ratified
+  organisational-identity-below-the-tree node already says so — and the "engraph on the fork, main
+  on the Oak line" vocabulary #82 introduced retires with it. The (p) ruling stands on the owner's
+  stack and cherry-pick rulings: a build-ahead worktree may be cut from a parent; its PR opens
+  against the default branch once the parent lands; no stacked PR. Eight serial PRs now queue on one
+  seat (#83 → R → N → H → A0 → A → B → C) — a throughput fact for the owner.
+- **#83 LANDED 2026-09-08 12:07Z as the bot — merge 7081ee9c0 on engraph, final head 429c7b863
+  (Altair 05a180).** Three rounds: Copilot 3 (settlement push 850a2230d); Codex 4 + 3 sharing one
+  generator, the seat-run clearing recipe the removal rule forbids in every form, cured by the class
+  fix 429c7b863 (stop after the per-path proof; surface for the owner's per-instance word); Codex 2
+  on the final head dispositioned to PR N ((o) ignored-path inventory; (p) the PR base is always the
+  default branch, the build-ahead stack is a worktree-cut shape only — the Director's ruling). The
+  owner's standing grant for proven paths (11:4xZ) re-trues §6 in PR N; the rule deletion
+  (pr-target-is-engraph, 'the default is engraph now') is PR R first. Train at this seat: R → N → H
+  → A0 → A → B → C, one seat by the owner's word; #84 is the Director's fold draft.
+- **PR #85 (A0) open 2026-09-08 12:1xZ (Altair 05a180): eleven ratification stamps at the owner's
+  cards (five strategic; the consolidation trio; director-continuity-surface-redesign,
+  commit-queue-local-ephemera, code-quality-binding-per-checkout), f782a06cb from worktree
+  stamps-a0, non-resident; reliable-atoms-programme landed separately by the Director at the owner's
+  word.** Train after it: R (rule deletion — the base fix goes, the fork-reach ruling re-homes as a
+  general rule, the landing slot moves to pr-lifecycle §Phase 7), N, H, A, B, C.
+- **#85 (A0) LANDED 2026-09-08 12:4xZ as the bot — merge b306eb9e8 on engraph, head 22afab9e0
+  (Altair 05a180).** Eleven stamps; the reliable-atoms stamp landed as #86 by the Director at the
+  owner's word. Round 1 (Codex, two body-coherence observations) dispositioned below A0's bar and
+  homed in PR A as dated notes: (q) innovation-kit's "remains a sketch" sentences; (r) the identity
+  node's five owner decisions become owner_gates rows on the delivery nodes at pickup. Train next:
+  R (#87, committed at eb842eb78, awaiting one merge of the landed tip) → N → H → A → B → C.
+
+## 2026-09-08 13:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 19: the merge train on one seat, and what a stamp taught about quotation
+
+- **The window since wrap 18 (11:2xZ → 13:1xZ).** Three more owner cards (the strategic six
+  ratified; ADR-219 pre-ruled then superseded; Oak-line sketches left as they are until the
+  October re-integration) and four numbered cards over the 25 delivery sketches (six ratified,
+  nineteen held); five owner directives (the standing read-only upstream fetch; rate limiting
+  PAUSED with code comments and the ONE durable dismissal; the hook-pair plan and pr-tally
+  ratified by word; no October plan); the pr-target-is-engraph rule DELETED at the owner's word
+  (the default branch is engraph, verified); the owner's "one seat handles the merge train".
+  Landed: #86 (the reliable-atoms stamp, the Director's own PR at the owner's "now", merged by
+  the owner by hand a minute after open), #85 (the other eleven stamps, Altair as the bot);
+  #87 (the rule retirement, the general rule downstream-checkout-never-writes-upstream-surfaces,
+  the landing slot into pr-lifecycle §Phase 7) at its final head fb320bfae after one settlement
+  push. The train ahead on Altair's seat: N (the clearing grant; hygiene §1 build-ahead truing;
+  the ignored-path inventory; the two pointers) → H (two plan nodes born ratified) → A → B → C.
+  engraph b306eb9e8; the fork's open PRs: #87 settling, #84 the draft fold.
+- **Metacognition (retrospective).** Three corrections landed on this seat in two hours and share
+  a shape: I normalised the owner's apostrophe inside a quotation that exists to record their
+  exact word (Copilot, correct); I wrote a blocked command form in prose and the hook refused the
+  send (hook-policy-substring-discipline, the second time); I named an "absence" in a system I
+  had just read (the true kernel). Each is fluency overriding the artefact's own contract —
+  a quotation's, a hook's, a schema's. What changes: before sending or stamping, ask what
+  contract the surface itself enforces and read the text against that, not against my ear.
+  Kept from the day: the owner's word that the planning system is the work surface has already
+  paid — twelve stamps, a rule retired, a rule born, all as plan and rule edits with ledgers,
+  none as prose on a board.
+- **Consolidation gate.** Captures homed this window: nine per-user memories (the planning
+  system as the work surface; repo-boundary certainty; fix-never-dismiss with its one exception;
+  the tuition review owner-managed; the safe-delete grant; the no-throw rule policy and the
+  October fact; current goals from the ratifications; the default branch and the deleted rule;
+  the quotation boundary on writing support); doctrine changes ride PRs #85–#87 and N–C with the
+  owner's verbatim in their bodies; nothing on the napkin awaits a home beyond those PRs. No
+  consolidate-docs run needed.
+- **Work safety at the boundary:** the primary on coordination/2026-09-08-68d53d at d0eb0b7d7 ==
+  origin (0/0) before this block; the queue empty; dirty: the napkin only (the 11:3xZ cards block,
+  the delivery-cards bullet, the 12:0xZ rule-deletion bullet, this block) — swept by the ceremony
+  next; the settings file committed at the owner's word by Altair (aa2e23749), so no held file
+  remains. Registry: the Director's claim; Altair's 38f3d1b3. Processes: watcher (re-armed twice
+  on its hourly exit), peer poll, claim loop, wrap cron, fold wake 3d614df0 against #84.
+- **Metaloss.** Pass one: the record's "#86 LANDED — merged by the owner" line was written before
+  the harvest and carried no post-merge state — the harvest line was added; the notification the
+  owner asked for was suppressed by the harness (terminal active) and said so in chat, not
+  silently dropped. Pass two: promises — N, H, A, B, C routed with their pointers (the apostrophe;
+  the plan-path bullet; the (o) inventory; the (p) sentence); pointer D withdrawn at the owner's
+  word; nothing unhomed. Attribution inferences: "Altair's registry silence is the settle wait"
+  was verified by their watcher heartbeat age, not inferred. Fence sweep: no owner word was held
+  off the repository this window. Bounds: Altair's transcript unread; the watcher's truncation;
+  the owner's own Oak-line queue. External bound: the owner caught the kernel; Copilot caught the
+  quotation; point outside scrutiny at any text of mine that quotes or names a command. A third
+  pass re-finds only these bounds; the recursion closes here.
