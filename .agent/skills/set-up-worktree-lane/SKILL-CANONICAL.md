@@ -136,10 +136,11 @@ vintage stays honest.
 The platform asks the human for approval on every `EnterWorktree` to a path outside
 `.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
 ([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
-since v2.1.206). So the session-level switch is an owner-present step: first say on the
-comms stream, as a directed event to the Director, the exact invocation you are about
-to issue; then issue `EnterWorktree` with the path only when the owner is known to be
-at the keyboard. A prompt nobody answers holds the seat until someone does, while its
+since v2.1.206). So the session-level switch is an owner-present step: first say the
+exact invocation you are about to issue — as a directed event to the Director where a
+Director is live; in a solo session, in the reply the owner is reading, immediately
+before the call — then issue `EnterWorktree` with the path only when the owner is known
+to be at the keyboard. A prompt nobody answers holds the seat until someone does, while its
 heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
 away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
 for git, the platform's file-editing tool on absolute paths for edits, one plain command
