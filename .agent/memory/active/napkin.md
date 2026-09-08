@@ -741,3 +741,62 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   the owner's own Oak-line queue. External bound: the owner caught the kernel; Copilot caught the
   quotation; point outside scrutiny at any text of mine that quotes or names a command. A third
   pass re-finds only these bounds; the recursion closes here.
+- **#87 (R) LANDED 2026-09-08 13:5xZ as the bot — merge 143dc6961 on engraph, final head c072b120f
+  (Altair 05a180).** pr-target-is-engraph retired at the owner's word; the default branch derived
+  at the moment of use (remote HEAD refreshed with `git remote set-head origin --auto`, read with
+  `symbolic-ref --short`, prefix stripped; or `gh repo view <owner>/<name> --json defaultBranchRef`);
+  the fork-reach ruling re-homed as `downstream-checkout-never-writes-upstream-surfaces`; the
+  landing slot in pr-lifecycle §Phase 7. Three rounds + four suppressed Copilot findings: one
+  settlement push, one clause-9 line; the build-ahead family (draft against the default branch
+  at first push, never based on a parent — the Director's ratified (p)), the ignored-path
+  inventory, the provenance line and ADR-228 all homed in PR N. Train next: N → H → A → B → C.
+- **PR #88 (N) open 2026-09-08 14:0xZ (Altair 05a180), head a742cd850 from worktree proven-paths-n,
+  non-resident:** the owner's standing grant for proven paths in never-use-git-to-remove-work;
+  hygiene §6 re-trued (per porcelain status; ignored-path inventory); the build-ahead wording across
+  hygiene §1, the trigger paragraph, the lane-cut skill and residency clause 8; ADR-228
+  "Organisational identity is held below the tree" from the ratified node; the downstream rule's
+  Operationalises line. Train after it: H (worktree-entry-hooks; pr-tally, both born ratified) →
+  A → B → C.
+- **Pointer (s), from #88's review (Altair 05a180):** extending.md requires every canonical rule to open
+  with an `Operationalises ADR-NNN` line; 71 of 125 rules carry none and no validator enforces it. A
+  sweep lane for the Director's board: add the line to every enforcing rule (hygiene and residency
+  → ADR-228 among them) and land the scanner the governance-claim pattern asks for, one PR each.
+
+## 2026-09-08 15:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 20: the counter built before it bit
+
+- **The window (13:1xZ → 15:1xZ).** #87 landed (143dc6961: pr-target-is-engraph retired; the general
+  downstream-checkout rule; the landing slot into pr-lifecycle §Phase 7) after three rounds and one
+  settlement push, with Copilot's suppressed findings harvested before the merge. #88 (the clearing
+  grant; hygiene §6 with the ignored inventory; the build-ahead family on five surfaces; ADR-228
+  authored from the ratified identity node) at 59aef3079 after three rounds — 7 → 3 → 4, one
+  settlement push and two clause-9 cures, every finding correct: the grant as a scoping of the
+  banned class; type-changed paths outside it; the branch rule's `main` aliased; merge-or-recut
+  keyed on the parent's landing shape. Altair named the generator (a reviewer sampling one surface
+  per round on a family stated identically on five); the Director declared the exit before round
+  four: the four-round arm fires → one class-fix push after a full cross-surface read → terminal.
+  PR H pre-authored. Altair's registry heartbeat refreshed at the Director's note. engraph 143dc6961.
+- **Metacognition (retrospective).** The #82 lesson applied before it bit: the tally was read at
+  every round, the machine's second arm (four settled rounds) was named a round early, and the exit
+  was declared to the lane seat in writing rather than discovered by the owner's silent invocation.
+  Credit where due: the generator classification was Altair's. One doctrine tension surfaced by the
+  tail and worth a pointer, not a cure here: PDR-140 clause 9's "a later over-bar finding cures
+  alone" and pr-lifecycle's state-machine exit both bind, and nothing states which governs when they
+  meet; this seat ruled the exit governs the tail. Pointer: pr-lifecycle §review-round state machine
+  gains one sentence naming that precedence (a records PR; PDR-140 cited).
+- **Consolidation gate.** No new capture this window needs a home beyond the record; memories
+  unchanged since wrap 19; doctrine rides #88 and H–C. Altair's own napkin lines since f5ede7a20
+  ride this sweep. No consolidate-docs run.
+- **Work safety at the boundary:** the primary at f5ede7a20 == origin (0/0) before this block; the
+  queue empty; dirty: the napkin only (Altair's captures since the last sweep; this block); no held
+  file. Registry: the Director's claim; Altair's 38f3d1b3 (refreshed). Processes: watcher (re-armed
+  on each hourly exit), peer poll, claim loop, wrap cron, fold wake 3d614df0 against #84 (BEHIND
+  until the fold's step-2 merge).
+- **Metaloss.** Pass one: the record's #88 round lines carry the tally and the declared exit; the
+  two PR C pointers stand (the identity plan's citation of ADR-228; the branch-rule alias was
+  carried into #88, so that pointer is discharged). Pass two: promises — H, A, B, C on Altair's
+  seat; the fold tonight; nothing unhomed. Inference flagged: "round four fires the four-round arm"
+  reads the state machine's item 2 as counting settled rounds in the epoch since the settlement
+  push — if the epoch resets at the settlement push, round four is the third of the epoch and the
+  arm fires a round later; the declaration errs on the early side deliberately. Bounds as before.
+  External bound: the owner's silent invocation caught #82; nothing external has yet tested this
+  seat's own step-back timing. A third pass re-finds only these; the recursion closes here.
