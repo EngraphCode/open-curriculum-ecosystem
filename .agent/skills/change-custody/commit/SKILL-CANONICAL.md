@@ -2,11 +2,10 @@
 name: commit
 classification: passive
 description: >-
-  Create a well-formed commit for current changes with conventional message
-  format. Always active, every commit, every session, no trigger required.
-  Enumerates live commitlint constraints inline at draft time, validates the
-  drafted message via `pnpm agent-tools:check-commit-message` BEFORE invoking
-  git commit, and coordinates the short-lived git index/head commit window.
+  Create a well-formed conventional commit. Always active. Classify the host
+  first: standard profiles use repo tooling and hook coordination; detected
+  ChatGPT Work cloud uses manual static/message checks, HUSKY=0, the configured
+  default credential and draft-PR CI without local execution.
 ---
 
 # Commit Current Work
@@ -27,6 +26,39 @@ applied to commit authoring. Prior prose guidance said "lines under 99 chars"
 without surfacing the preset's actual rules; every session hit rework
 (subject-case violations, header-length overruns, missing footers). This skill
 closes that exposure window.
+
+## ChatGPT Work Cloud Fast Path
+
+Before package-manager, queue, hook, identity or gate work, use the tri-state
+classification in
+[`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md).
+When it selects ChatGPT Work, use this section instead of Tooling, Before You
+Draft package-manager checks, Commit Queue and Window Protocol, Process
+execution and local-gate instructions below. The Safety Rules still bind except
+for the exact standing `HUSKY=0` ruling recorded in
+[`no-verify-requires-fresh-authorisation`](../../../rules/no-verify-requires-fresh-authorisation.md).
+
+1. Read `commitlint.config.*`, `.husky/commit-msg` and any version-bearing
+   changes as text. Manually check the proposed message against the live
+   conventional-commit type, case, length, footer and accidental-major-version
+   constraints. CI does not supply this check.
+2. Confirm the current branch is neither the repository default branch nor a
+   protected branch. Inspect the exact staged or connector content set, the
+   complete outgoing diff and `git diff --cached --check` where a local index
+   exists. Inspect that diff for credentials before transfer; the CI secret
+   scan is necessarily post-transfer in this profile.
+3. Use the configured default identity and credential without minting,
+   rewriting or repairing a bot identity. Commit and push with `HUSKY=0` when
+   invoking local git. If shell transport lacks a configured credential, use
+   the already-authenticated GitHub connector; connector-created commits have
+   no local hook process and are covered by the same owner ruling.
+4. Open a draft PR immediately. Keep it draft until GitHub's
+   `run-quality-gates` check concludes successfully on the current head. If the
+   check is absent, cancelled or cannot run, stop and surface that blocker.
+
+Never describe the static checks above as local execution or hook-equivalent
+proof. `HUSKY=0` is the only authorised hook-skip mechanism in this profile;
+`--no-verify` and every other spelling remain prohibited.
 
 ## Tooling
 
@@ -90,10 +122,13 @@ push); push once per boundary. Small commits stay small — the cure is
 cadence, never squashed scope — and adjacent small parcels batch into one
 cycle. The stop-hook's uncommitted-changes nag is not a commit trigger; a
 review round is not a safety boundary; freezes and handoffs are never left
-unpushed. Under relocated gates (`HUSKY=0` cloud sessions) the same ruling
-covers PUSHES: the minimum spacing is a genuine required-check conclusion
-on the previous head, and a rollup on a superseded head is never reported
-(`cloud-environment.md` §Push cadence).
+unpushed. Under relocated gates the same ruling covers PUSHES: the minimum
+spacing is a genuine required-check conclusion on the previous head, and a
+rollup on a superseded head is never reported. See the
+[ChatGPT Work route](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
+or the
+[Claude cloud route](../../../claude-harness-integrations/cloud-environment.md#git-hook-policy-for-claude-cloud-sessions-husky0),
+whichever the environment classification selected.
 
 ## Before You Draft — Load the Live Constraints
 

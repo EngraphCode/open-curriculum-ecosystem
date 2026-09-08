@@ -1,7 +1,10 @@
 ---
 name: start-right-thorough
 classification: active
-description: Apply the repository start-right-thorough grounding workflow to the active session. Use for high-risk, cross-workspace, architectural, or planning-heavy work where full one-gate-at-a-time discipline is required from the start.
+description: >-
+  Apply thorough grounding after classifying the host; detected ChatGPT Work
+  retains reading/static checks but skips local execution. Use for high-risk,
+  cross-workspace, architectural, or planning-heavy work.
 ---
 
 # Start Right (Thorough)

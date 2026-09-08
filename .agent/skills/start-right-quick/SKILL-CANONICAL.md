@@ -1,7 +1,10 @@
 ---
 name: start-right-quick
 classification: active
-description: Apply the repository start-right quick grounding workflow to the active session. Use when the user asks to start right, re-ground work, or explicitly apply the shared start-right-quick skill guidance and linked directives before or during task execution.
+description: >-
+  Apply repository quick grounding after classifying the host; detected ChatGPT
+  Work retains reading/static checks but skips local execution. Use to start
+  right or re-ground work.
 ---
 
 # Start Right (Quick)

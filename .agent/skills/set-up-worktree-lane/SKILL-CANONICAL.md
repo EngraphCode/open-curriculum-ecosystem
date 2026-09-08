@@ -2,19 +2,11 @@
 name: set-up-worktree-lane
 classification: active
 description: >-
-  Create a git worktree for a lane and configure it so every downstream surface is
-  true: an inherited bot commit identity checked rather than re-set, dependencies,
-  environment files, and a draft PR at first push. Use when taking up a lane needing
-  its own checkout, or when a worktree misbehaves — commits attributed to nobody,
-  missing env, hook failures. Do not use to switch branches in place (never on the
-  principal), for the session-level residency switch alone (that is EnterWorktree),
-  or to dispose of a finished worktree. Right looks like: branch cut explicitly from
-  origin/<base>, the inherited bot identity verified with no worktree-scoped override
-  shadowing it, deps installed, .env.local carried, draft PR at first push. Wrong
-  looks like: EnterWorktree fresh mode basing the branch on the principal's
-  coordination HEAD so the lane PR ships foreign commits; or the bot commit email
-  carrying the app id instead of the bot user id, which resolves to no GitHub user
-  and silently breaks deployment attribution.
+  Create and verify a lane worktree. Classify the host first: standard profiles
+  verify inherited bot identity and buildability; detected ChatGPT Work cloud
+  performs static branch/base checks only and routes execution to draft-PR CI.
+  Use for a new lane or a misbehaving worktree. Do not use it to switch branches
+  in place, solely to change session residency, or to dispose of a worktree.
 ---
 
 # Set Up a Worktree Lane
@@ -41,6 +33,17 @@ Not for: switching branches in place; the session-level residency switch on its 
 `worktree-hygiene` §6).
 
 ## The procedure
+
+### 0. Classify the host before setup
+
+Use the tri-state classification in
+[`cloud-environment-routing.md`](../../directives/cloud-environment-routing.md).
+If it selects ChatGPT Work, keep that profile for the whole session. It replaces
+the identity and buildability work in steps 2 and 3: do not inspect, mint or
+rewrite bot credentials; do not install or run pnpm, Corepack, builds, tests or
+local gates. Use the configured default credential and the
+`HUSKY=0`/draft-PR/CI route in step 6. Detector error is a stop; a genuine
+not-Work result does not by itself identify Claude cloud.
 
 ### 1. Cut the branch with an explicit start point
 
@@ -70,6 +73,9 @@ riding under the story. That cost a close-and-recreate cycle once already
 (PR #673 → #674).
 
 ### 2. Verify the commit identity — inherited, never re-set here
+
+This step applies to standard and separately provisioned profiles only. In a
+detected ChatGPT Work cloud session, step 0 replaces it completely.
 
 The identity lives once in the clone's shared local config and every worktree
 inherits it (owner ruling 2026-08-04; doctrine in
@@ -123,6 +129,10 @@ commit, never a commit that silently credits the owner with agent work.
 
 ### 3. Make the worktree buildable
 
+This step applies to execution-capable profiles only. In a detected ChatGPT
+Work cloud session, step 0 forbids it; missing dependencies or build output do
+not trigger provisioning.
+
 ```bash
 pnpm --dir <path> install
 pnpm --dir <path> build
@@ -140,6 +150,9 @@ either; fetch them per the owning workflow rather than copying, so their manifes
 vintage stays honest.
 
 ### 4. Establish residency — or decide not to enter
+
+In detected ChatGPT Work cloud, operate through the tool's explicit `workdir`
+or absolute paths. Do not invoke Claude's `EnterWorktree`; continue at step 5.
 
 The platform asks the human for approval on every `EnterWorktree` to a path outside
 `.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
@@ -165,6 +178,11 @@ The arm shapes and the guard's checks are in
 
 ### 5. Verify before trusting it
 
+In the ChatGPT Work cloud profile, verify only the branch, explicit base,
+story-only diff, exact changed-file set and static file/link invariants. The
+identity and attribution rows below belong to the standard profile, and no
+local runtime or full-gate claim is made.
+
 | Check | Command | Expected |
 | --- | --- | --- |
 | Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
@@ -184,6 +202,13 @@ Every pushed branch carries at least a draft PR from its first push
 hooks gate the whole tree, so one seat's dirty file blocks every seat — and give the
 push a **600s timeout**, because the 120s default kills the hook suite mid-run and
 leaves an ambiguous write.
+
+In a detected ChatGPT Work cloud session, use `HUSKY=0` for any local git
+commit or push and the configured default credential; when shell transport has
+no configured credential, use the already-authenticated GitHub connector. Open
+the draft PR immediately and treat only a concluded `run-quality-gates` check
+on that head as execution evidence. Static inspection is reported separately,
+never as a local-gate result.
 
 ## Failure shapes this procedure exists to prevent
 

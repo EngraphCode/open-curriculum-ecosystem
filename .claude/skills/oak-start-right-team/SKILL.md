@@ -1,6 +1,6 @@
 ---
 name: oak-start-right-team
-description: Apply repository start-right grounding plus team bootstrapping for multi-agent sessions. Use when a coordinated team is starting, re-grounding, or choosing temporary collaboration responsibilities.
+description: Apply repository grounding plus team bootstrapping after host classification; detected ChatGPT Work keeps non-execution routing. Use for coordinated team starts or re-grounding.
 ---
 
 # Start Right Team (Claude Code)

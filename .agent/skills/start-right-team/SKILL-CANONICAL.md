@@ -1,10 +1,23 @@
 ---
 name: start-right-team
 classification: active
-description: Apply repository start-right grounding plus team bootstrapping for multi-agent sessions. Use when a coordinated team is starting, re-grounding, or choosing temporary collaboration responsibilities.
+description: >-
+  Apply repository grounding plus team bootstrapping after host classification;
+  detected ChatGPT Work keeps non-execution routing. Use for coordinated team
+  starts or re-grounding.
 ---
 
 # Start Right (Team)
+
+## Environment Classification
+
+Before Mode Selection or any team command, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+retain the information, ownership and communication duties below through static
+reads and platform-native coordination, but do not run repo-owned identity,
+watcher, heartbeat, claim or commit-queue CLIs. Every “run” or “execute” below
+is conditional on the selected profile permitting that command. Detector error
+is a stop, not a fall-through.
 
 ## Mode Selection
 
@@ -44,6 +57,10 @@ accountable for the second seat's judgement, not only for the split of work
 (owner to the lead, 2026-09-03: "You are the lead, you are responsible for
 stopping Vesta from being dumb").
 
+In detected ChatGPT Work, “retain” means preserve those awareness and
+coordination outcomes through static state reads and platform-native team
+channels; it does not re-enable the repo-owned CLIs named above.
+
 ## Goal
 
 Run the same shared repository foundation as `start-right-quick`, then add the team protocols needed for a coordinated multi-agent session.
@@ -56,9 +73,11 @@ It layers team bootstrapping on top of the shared start-right requirements.
 1. Read `.agent/skills/start-right-quick/shared/start-right.md` end to end.
 2. Follow that workflow's referenced reading order. Do not replace it with a
    smaller subset for team sessions.
-3. Run the live collaboration checks named by the shared workflow: identity
-   preflight, active claims, shared comms, active commit queue, active plans,
-   and git status/log.
+3. Complete the live collaboration checks named by the shared workflow:
+   identity preflight, active claims, shared comms, active commit queue, active
+   plans, and git status/log. In detected ChatGPT Work, inspect their durable
+   state statically where available and use platform-native coordination; do
+   not execute their repo-owned CLIs.
 4. If the task is architectural, high-risk, planning-heavy, cross-workspace, or
    explicitly asks for thorough grounding, apply `start-right-thorough` after
    the shared quick foundation and before team routing.
@@ -365,6 +384,30 @@ claims. Because only one agent runs but the team must know the
 outcome, coordination and communication are the structural
 precondition for work-start. There is no path where multiple agents
 independently start source work on a non-verified inherited tree.
+
+#### Detected ChatGPT Work cloud branch
+
+When the environment classifier selects ChatGPT Work, this branch replaces
+gate-runner election, local gate execution and the cannot-complete hand-off
+below. Do not elect or hand off an impossible local gate run.
+
+1. One coordinator posts a static custody report naming the branch, base and
+   current head; every dirty path and its attributed owner; the exact diff; and
+   the non-executing checks performed. Unknown ownership is a stop to surface,
+   not permission to package another contributor's work.
+2. Read an already-concluded successful `run-quality-gates` result for the
+   inherited committed head. If none exists and the dirty state is a known,
+   task-scoped verification parcel, the coordinator alone may commit it through
+   the Work-cloud commit route and open an immediate draft PR so that CI can
+   produce the report. Everyone else continues to wait.
+3. Dirty content is never called green from static inspection. Source work
+   begins only after `run-quality-gates` concludes on the exact transferred
+   head and the coordinator posts that downstream gate-state report. A missing,
+   cancelled or failing check, an unattributable diff, or inability to open the
+   draft PR stops the route and is surfaced.
+
+This is the named downstream-proof path for the non-execution profile, not an
+exception to inherited-tree verification and not a local-gate claim.
 
 #### Electing the gate-runner
 

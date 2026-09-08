@@ -3,13 +3,22 @@ prompt_id: start-right-quick
 title: 'Start Right (Quick)'
 type: workflow
 status: active
-last_updated: 2026-07-29
+last_updated: 2026-09-08
 ---
 
 # Start Right (Quick)
 
 Ground yourself before beginning work. Read in the order below; each
 step leads to the surfaces the next step assumes.
+
+## Environment Classification
+
+Before any command in this workflow, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+that non-execution profile governs every command-bearing step below: retain all
+reading and static inspection, but skip package, build, test, hook, identity and
+repo-owned collaboration-CLI execution. Platform-native coordination remains
+available. Detector error is a stop, not a fall-through.
 
 ## Ground First (reading order)
 
