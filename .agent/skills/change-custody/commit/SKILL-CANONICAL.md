@@ -52,8 +52,10 @@ exact standing `HUSKY=0` ruling recorded in
 2. Confirm the current branch is neither the repository default branch nor a
    protected branch. Inspect the exact staged or connector content set, the
    complete outgoing diff and `git diff --cached --check` where a local index
-   exists. Inspect that diff for credentials before transfer; the CI secret
-   scan is necessarily post-transfer in this profile.
+   exists. Inspect that diff for credentials before transfer, and run the
+   `gitleaks` binary over the outgoing commits whenever the host already
+   carries it (`gitleaks detect` needs no package manager); only when it does
+   not is the CI secret scan the first scan, after transfer.
 3. Use the configured default identity and credential without minting,
    rewriting or repairing a bot identity. Commit and push with `HUSKY=0` when
    invoking local git. If shell transport lacks a configured credential, use
@@ -61,7 +63,11 @@ exact standing `HUSKY=0` ruling recorded in
    no local hook process and are covered by the same owner ruling.
 4. Open a draft PR immediately. Keep it draft until GitHub's
    `run-quality-gates` check concludes successfully on the current head. If the
-   check is absent, cancelled or cannot run, stop and surface that blocker.
+   check is absent, cancelled or cannot run, stop and surface that blocker. A
+   failing verdict permits no second push without a named, diff-level cause
+   read from the check's own output; without one, stop and surface the blocker
+   — a red gate is never probed by pushing again, and the push-cadence rule's
+   "genuine conclusion" is a floor on spacing, never a licence to retry.
 
 Never describe the static checks above as local execution or hook-equivalent
 proof. `HUSKY=0` is the only authorised hook-skip mechanism in this profile;

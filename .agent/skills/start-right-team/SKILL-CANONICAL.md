@@ -13,11 +13,20 @@ description: >-
 
 Before Mode Selection or any team command, use the tri-state classification in
 `.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
-retain the information, ownership and communication duties below through static
-reads and platform-native coordination, but do not run repo-owned identity,
-watcher, heartbeat, claim or commit-queue CLIs. Every “run” or “execute” below
-is conditional on the selected profile permitting that command. Detector error
-is a stop, not a fall-through.
+the team route's visibility preconditions cannot be met from that host: the
+canonical watcher, the heartbeat, the claims registry and the commit queue are
+the estate's own built tooling, there is no way to run them without the package
+manager, and platform-native messages reach the active turn only — they never
+consume the canonical comms stream. A detected Work seat therefore takes no
+team role. It works its task-scoped lane solo under the Work profile, declares
+in its first message that it holds no canonical visibility, and reads the
+durable state it needs (claims, comms, plans) statically; a coordinator who
+hears it treats it as a seat without canonical visibility and routes nothing to
+it that needs those surfaces
+([`agent-state-observable`](../../rules/agent-state-observable.md),
+[`silence-is-never-liveness`](../../rules/silence-is-never-liveness.md)). Every
+“run” or “execute” below is conditional on the selected profile permitting that
+command. Detector error is a stop, not a fall-through.
 
 ## Mode Selection
 
@@ -57,9 +66,9 @@ accountable for the second seat's judgement, not only for the split of work
 (owner to the lead, 2026-09-03: "You are the lead, you are responsible for
 stopping Vesta from being dumb").
 
-In detected ChatGPT Work, “retain” means preserve those awareness and
-coordination outcomes through static state reads and platform-native team
-channels; it does not re-enable the repo-owned CLIs named above.
+A detected ChatGPT Work seat is never one of the two participants: it holds no
+canonical visibility (§Environment Classification), so it cannot supply the
+retain-set above, and the n=2 mode is not available to it.
 
 ## Goal
 
@@ -387,27 +396,30 @@ independently start source work on a non-verified inherited tree.
 
 #### Detected ChatGPT Work cloud branch
 
-When the environment classifier selects ChatGPT Work, this branch replaces
-gate-runner election, local gate execution and the cannot-complete hand-off
-below. Do not elect or hand off an impossible local gate run.
+A detected ChatGPT Work seat takes no team role (§Environment Classification),
+so it is never elected gate-runner and never hands the role off; this branch is
+that seat's own surfacing shape when it finds a non-clean inherited tree on
+its task-scoped lane.
 
-1. One coordinator posts a static custody report naming the branch, base and
-   current head; every dirty path and its attributed owner; the exact diff; and
-   the non-executing checks performed. Unknown ownership is a stop to surface,
-   not permission to package another contributor's work.
-2. Read an already-concluded successful `run-quality-gates` result for the
-   inherited committed head. If none exists and the dirty state is a known,
-   task-scoped verification parcel, the coordinator alone may commit it through
+1. The seat posts, through the platform's channel, a static custody report
+   naming the branch, base and current head; every dirty path and its
+   attributed owner; the exact diff; and the non-executing checks performed.
+   Unknown ownership is a stop to surface, not permission to package another
+   contributor's work.
+2. It reads an already-concluded successful `run-quality-gates` result for
+   the inherited committed head. If none exists and the dirty state is a known,
+   task-scoped verification parcel of its own lane, it may commit it through
    the Work-cloud commit route and open an immediate draft PR so that CI can
-   produce the report. Everyone else continues to wait.
-3. Dirty content is never called green from static inspection. Source work
-   begins only after `run-quality-gates` concludes on the exact transferred
-   head and the coordinator posts that downstream gate-state report. A missing,
-   cancelled or failing check, an unattributable diff, or inability to open the
-   draft PR stops the route and is surfaced.
+   produce the verdict. Another seat's dirty work is surfaced, never packaged.
+3. Dirty content is never called green from static inspection. The seat's own
+   source work begins only after `run-quality-gates` concludes on the exact
+   transferred head. A missing, cancelled or failing check, an unattributable
+   diff, or inability to open the draft PR stops the route and is surfaced.
 
 This is the named downstream-proof path for the non-execution profile, not an
-exception to inherited-tree verification and not a local-gate claim.
+exception to inherited-tree verification, not a local-gate claim, and not a
+gate-state report for a team: a coordinator who receives it reads it as one
+seat's observation of one lane.
 
 #### Electing the gate-runner
 
