@@ -22,7 +22,8 @@ import { defineConfig } from 'vitest/config';
  * stand in for the one they dispatch themselves; the product's own
  * href-bearing links (the identity switchboard specimen, the tokens page)
  * load cleanly and offline when a component test renders them. The guard
- * that proves this setting bites is `tools/unit-suite-no-stylesheet-loading.unit.test.ts`.
+ * that proves these settings bite is
+ * `tools/unit-suite-no-stylesheet-loading.integration.test.ts`.
  */
 export default defineConfig({
   test: {
