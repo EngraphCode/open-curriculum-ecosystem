@@ -23,9 +23,11 @@
  * 2026-09-07 amendment).
  *
  * The product is chosen by the same bounded selection that derives
- * `oak_client_product`, so the two properties describe the same header value
- * by construction; version and surface are then read from that selected
- * value only.
+ * `oak_client_product`, so the two properties describe the same client by
+ * construction. Version and surface are then read from the first header value
+ * naming that product which carries a version (the User-Agent, when a bare
+ * vendor header was the one that named the product), or from the selected
+ * value itself when none does.
  *
  * The version is the only place client-supplied bytes reach the value, and it
  * is bounded to at most a hundred distinct values by construction: a longer
