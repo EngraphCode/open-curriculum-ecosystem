@@ -17,12 +17,15 @@ the team route's visibility preconditions cannot be met from that host: the
 canonical watcher, the heartbeat, the claims registry and the commit queue are
 the estate's own built tooling, there is no way to run them without the package
 manager, and platform-native messages reach the active turn only — they never
-consume the canonical comms stream. A detected Work seat therefore takes no
-team role. It works its task-scoped lane solo under the Work profile, declares
-in its first message that it holds no canonical visibility, and reads the
-durable state it needs (claims, comms, plans) statically; a coordinator who
-hears it treats it as a seat without canonical visibility and routes nothing to
-it that needs those surfaces
+consume the canonical comms stream. A detected Work seat therefore runs no
+team session: when its task names a team, a peer, a coordinator or any
+coordinated route, it STOPS and surfaces the unsupported host — it never edits
+outside coordination, because neither it nor its peers could observe an
+ownership change and overlapping source work would follow. It proceeds only on
+a task-scoped lane assigned to it alone, solo under the Work profile, and its
+first message declares that it holds no canonical visibility; a coordinator who
+hears such a seat treats it as one without canonical visibility and routes
+nothing to it
 ([`agent-state-observable`](../../rules/agent-state-observable.md),
 [`silence-is-never-liveness`](../../rules/silence-is-never-liveness.md)). Every
 “run” or “execute” below is conditional on the selected profile permitting that

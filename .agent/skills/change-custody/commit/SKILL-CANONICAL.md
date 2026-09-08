@@ -52,15 +52,18 @@ exact standing `HUSKY=0` ruling recorded in
 2. Confirm the current branch is neither the repository default branch nor a
    protected branch. Inspect the exact staged or connector content set, the
    complete outgoing diff and `git diff --cached --check` where a local index
-   exists. Inspect that diff for credentials before transfer, and run the
-   `gitleaks` binary over the outgoing commits whenever the host already
-   carries it (`gitleaks detect` needs no package manager); only when it does
-   not is the CI secret scan the first scan, after transfer.
+   exists. Inspect that diff for credentials before transfer.
 3. Use the configured default identity and credential without minting,
-   rewriting or repairing a bot identity. Commit and push with `HUSKY=0` when
-   invoking local git. If shell transport lacks a configured credential, use
-   the already-authenticated GitHub connector; connector-created commits have
-   no local hook process and are covered by the same owner ruling.
+   rewriting or repairing a bot identity. Commit with `HUSKY=0` when invoking
+   local git — and do not push yet. If shell transport lacks a configured
+   credential, use the already-authenticated GitHub connector; connector-created
+   commits have no local hook process and are covered by the same owner ruling.
+   Between the commit and the push, run the `gitleaks` binary over the outgoing
+   range (`origin/<branch>..HEAD`, the same range the estate's pre-push scan
+   reads) whenever the host already carries it (`gitleaks detect` needs no
+   package manager); a scan of the index before the commit exists reads none of
+   the new content. Only when the binary is absent is the CI secret scan the
+   first scan, after transfer. Then push.
 4. Open a draft PR immediately. Keep it draft until GitHub's
    `run-quality-gates` check concludes successfully on the current head. If the
    check is absent, cancelled or cannot run, stop and surface that blocker. A
