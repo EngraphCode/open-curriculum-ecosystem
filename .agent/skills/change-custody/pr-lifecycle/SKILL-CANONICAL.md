@@ -592,9 +592,29 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    binds: a finding earns a cure only over PDR-140's two-prong worthiness
    bar — it would mislead a consumer of the artefact before its next
    verification point, or it changes what gets built — evaluated on the
-   surface where the defect lives; a statement wrong today, a broken link
-   and a validator failure are the common instances, never the whole
-   test. Everything below the bar is dispositioned without a diff (the
+   surface where the defect lives; a broken link, a validator failure and
+   a statement that would mislead a reader acting on the artefact are the
+   common instances, never the whole test. A statement wrong under a rule
+   today is NOT over-bar per se (PDR-140 clause 9, amended 2026-09-07: five
+   records-class PRs ran seventeen rounds and fifty-three cures by reading
+   every such statement as a mandatory cure and rebudgeting at every
+   exhaustion, until the owner invoked `proportionality` and `pr-lifecycle`
+   out of band with no words and the seat read the invocation as the
+   clause-8 correction — the anti-pattern recurring). Under clause 9, on a RECORDS-CLASS PR
+   (verification point merge; born-sketch plans and other prose classes
+   keep clause 4 unchanged) the rebudget is granted ONCE, its push carries
+   over-bar cures and queued ledger writes only, and a later over-bar
+   finding still cures in a push carrying nothing beyond that cure and any
+   queued ledger writes — the cure obligation survives every exhaustion;
+   post-final-head route writes land together in at most one ledger push,
+   and a later route's write goes to the seat's napkin (or a records PR of
+   the lane already open), named in the reply — the reviewed PR never
+   reopens for it;
+   a routed residue's named home is an existing surface — a register row
+   or a PR already open for its own story — never a PR opened to carry
+   residue, and a residue PR that exists anyway is terminal: a settlement
+   budget of one push, no rebudget, the late-cure path unchanged, no
+   further residue PR. Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
    2026-09-03). A code-class finding is outside this pricing altogether: a

@@ -116,6 +116,17 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
+- **Triage rule step 4 names the exhaustion and late-cure transitions**
+  `[captured: 2026-09-07 | source: PR #77 round two, Codex P2 on
+  review-feedback-defaults-to-triage.md step 4 — the rule says every over-bar cure lands
+  within the declared budget, while PDR-140 clause 4 and its 2026-09-07 amendment give the
+  transition at exhaustion (rebudget once; a later over-bar finding cures in a push carrying
+  nothing else); the rule is pointer form and the transition lives in the record, so the
+  finding was ROUTED as below the bar on #77 (no cure there) and the write queued here | target:
+  .agent/rules/review-feedback-defaults-to-triage.md §Action step 4 (one clause naming the
+  exhaustion path) | trigger: the next records pass over the rule | size: one clause |
+  status: pending]`
+
 <!-- Register drained to empty at the 2026-08-14 dedicated consolidation (Quasar
 wakes Nadir, the fresh directive-headroom seat all five rows were gated on):
 ends-before-means graduated to principles.md §Ends Before Means, Front of Chain

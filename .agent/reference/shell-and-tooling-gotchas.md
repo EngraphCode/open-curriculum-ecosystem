@@ -396,3 +396,21 @@ tool retires them.
   eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
   disposition and the semantic hash for each affected file, wired into the aggregator, then
   `refresh-mcp-content-current-source-anchors`.
+- **The pre-push turbo step can replay a cached agent-tools test pass when only a root
+  file changed** (2026-09-07): `tests/rules/rules-index-classification.unit.test.ts` reads
+  `RULES_INDEX.md`, but the root `test` task declares only package-local inputs
+  (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`), so an edit to the index does not
+  invalidate the cache — the pre-push log read `agent-tools:test: cache hit, replaying
+  logs` while CI, running cold, failed the new core row's explaining trigger cell (the test
+  requires the bare em dash): one CI cycle and one extra push on a terminal PR. Run the
+  dedicated directory before the push (`pnpm exec vitest run tests/rules/` from
+  `agent-tools/`, about 100 ms); the structural cure is declaring the root file among the
+  task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json` already uses).
+- **The skill-adapter projection check refuses a push whose skill reference changed
+  without regenerated projections** (2026-09-07): an edit under a skill's `references/`
+  needs `pnpm skills:generate` first, and the regenerated `.claude/skills/` and
+  `.agents/skills/` copies travel in the same push.
+- **The reference-direction validator also refuses a permanent doc that links to a plan
+  node** (PDR-105; the second class after the `.agent/memory/**` one above, 2026-09-07):
+  an ADR linking its delivery plan was refused at pre-commit. Doctrine states its own
+  contract self-contained; a plan is named in prose at most, never linked.

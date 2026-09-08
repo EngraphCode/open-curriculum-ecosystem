@@ -1,3 +1,8 @@
+> **RETIRED — thread completed 2026-09-07.** PR #66 (the ADR-226 tuition import) merged at
+> 16:21Z as `SHA:204ed71ef` with the lane's records on its branch; the second seat retired at
+> 15:43Z; the LANDED block at the foot of this record closes the lane. Retained as continuity
+> history; not a live lane. Not listed in `repo-continuity.md` Active or Paused threads.
+
 # Thread: public-service-ai-tuition-review
 
 **Purpose**: One review lane over PR 66, the ADR-226 import of the 17-file public-service AI
@@ -15,16 +20,16 @@ factors; then (second pass) the collection's substance. Single-PR thread whose r
 
 ## Current Continuation
 
-**Current state (2026-09-07 ~14:0xZ; the authoritative block is RESUME 4 at the foot of this
-record — read it before anything below):** the lane's records live on PR 66's branch
-(`docs/public-service-ai-tuition-2026-09-06`, the owner's PR), pushed as the bot. Both passes are
-done: the import-and-warrant review (Jackal, reviews 5126608127 and 5126692305) and the substance
-review (Cricket, reviews 5132463698 and 5132534231). All three owner facts are ruled and applied.
-What remains: PR 66's landing and its PDR-140 intake declaration (the owner's); the node's
-remaining gate (a plan node and parent for the chapter-13 programme, the Director's to carry);
-answering any further review round on the lane's own files; the retirement banner when PR 66
-merges. No audit, report drafting, review posting or lane PR is outstanding — the bullets below
-are the first seat's pickup state at 2026-09-06, kept for history.
+**Current state (2026-09-07 16:2xZ; the authoritative block is LANDED at the foot of this
+record — read it before anything below):** PR 66 merged at 16:21Z as SHA:204ed71ef; the lane is
+closed. Its records landed on PR 66's branch (`docs/public-service-ai-tuition-2026-09-06`, the
+owner's PR), pushed as the bot. Both passes were done before the merge: the import-and-warrant
+review (Jackal, reviews 5126608127 and 5126692305) and the substance review (Cricket, reviews
+5132463698 and 5132534231). All three owner facts were ruled and applied. What remained at
+14:0xZ — the landing, the node's remaining gate, further review rounds, the retirement banner —
+is dispositioned in the LANDED block. No audit, report drafting, review posting or lane PR is
+outstanding — the bullets below are the first seat's pickup state at 2026-09-06, kept for
+history.
 
 - **Branch**: `review/pr66-tuition-collection`, cut from `origin/engraph` at SHA:341477368 in the
   sibling worktree `oak-open-curriculum-ecosystem-worktrees/review-pr66` (bot identity inherited,
@@ -38,7 +43,7 @@ are the first seat's pickup state at 2026-09-06, kept for history.
   Director (event 20:51:38Z): questions to the Director; Cricket panel at boundaries and hourly;
   non-terminal wrap after landings and every two hours; slots #58, #67, this lane, the fold.
 - **Controlling plan**:
-  [`public-service-ai-tuition-review.plan.md`](../../../plans/delivery/public-service-ai-tuition-review.plan.md)
+  [`public-service-ai-tuition-review.plan.md`](../../../../plans/delivery/public-service-ai-tuition-review.plan.md)
   (born sketch, authored at pickup). The machine-local session plan (revision 2, fleet-design
   review verdicts attached) is the seat's working copy; the node is its repo twin.
 - **Next safe step (superseded — see RESUME 4)**: at pickup this read "absorb the frame gate and
@@ -261,3 +266,34 @@ claim `f08ac8d9` (implementer; reports/, `AUTHORITY.md`, the node, this record's
   its banner when PR 66 merges. The owner's remaining gate on the node (a plan node and parent for
   the chapter-13 programme) is the Director's to carry at the next action moment. The runner
   follow-on named at RESUME 2 is discharged (the listing landed in PR 66).
+
+## LANDED — 2026-09-07 16:21Z (PR 66 merged as SHA:204ed71ef; the lane is closed)
+
+Read after RESUME 4. Written by the Director (Flounder turns Estuary, c5cc2c) on the coordination
+branch after the engraph sync, in the past tense of what landed.
+
+- **PR 66 merged** at 16:21:32Z by the Director as the bot: merge commit SHA:204ed71ef, head
+  SHA:0fd7d0e19 pinned; premises comment 5573354111 (green by name, CLEAN with seventeen threads
+  none open, and the Director's signed first-hand "sensible" read) under the owner's requirement
+  of 2026-09-07 ("no prs are blocked on me, green and clean and sensible, those are the
+  requirements"); the PR body opens with the hold-release note (ready for review by the owner at
+  2026-09-06T21:10Z). Remote branch deleted; the worktree `review-pr66` and its local branch were
+  pruned after the ancestry proof against `origin/engraph`.
+- **Superseded on 2026-09-07 (round five)**: the three "Standing decisions carried forward"
+  bullets that read as live imperatives — the 17 files are never edited (superseded by the
+  owner's runner ruling: two links retargeted and the runner reduced to a listing, tabled in
+  `AUTHORITY.md`); the nine repositories' visibility unverified (ruled public 12:24Z); the
+  no-push rule (already marked superseded there) — and the node's Out of scope line "Editing any
+  of the 17 imported files" reads with the same qualification. (The second seat's queued write,
+  landed here in place of a pre-merge push.)
+- **The second seat retired** at the owner's word at 15:43Z (closeout 69e1db9e, heartbeat-end
+  9a6bc24f, full handoff 3b3ee187 to the Director; record
+  `handoffs/f8f302-cricket-weaves-burrow-pr66-substance-review-full-handoff-2026-09-07.md`); its
+  six passed responsibilities sit on the Director's record 2778f573 §COMPACTION BOUNDARY 6.
+- **Still open, with owners**: the report's §Reproduction (second pass) citations line reads
+  `<url>` where the twenty operands belong — the list is on the second seat's record §Decisions
+  deferred item 1, for the next records PR; the node's remaining owner gate (a plan node and
+  parent for the chapter-13 programme, expires 2026-09-27) fires as a Director card at an action
+  moment; the retrospective offer on the five-round records tail is routed to the owner.
+- **Next safe step**: none for this lane; the record is closed. A later revision of the source
+  collection enters as a new import (`AUTHORITY.md` §Deltas from the imported bytes).
