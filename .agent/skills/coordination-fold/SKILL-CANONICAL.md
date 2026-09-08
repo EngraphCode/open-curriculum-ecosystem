@@ -60,15 +60,10 @@ resides on the coordination branch).
    `cmp`; a DIFFERS line before the fast-forward is the tell), so the closing seat
    commits the continuity records LAST and mirrors any later edit by hand — two
    folds converged that way on 2026-09-06. A settings file the harness rewrites is
-   held out of the sweep until its contract is verified or the owner rules on it:
-   the 2026-09-06 rewrite (enabledPlugins and skillOverrides moved from tracked
-   project settings to user level) was held for two folds and then landed by the
-   owner's word of 2026-09-08 ("I am fine with the simplification of the settings
-   files") in the fold of `coordination/2026-09-08-68d53d` — the tracked project
-   settings activate no plugin from that fold on, and each contributor installs the
-   sanctioned plugins they use (the contributors' MCP document names them). A later
-   harness rewrite of the settings file is a new hold, never a continuation of this
-   one.
+   held out of the sweep until its contract is verified or the owner rules on it;
+   each hold is its own — a later harness rewrite is a new hold, never a
+   continuation of an earlier one — and the hold's outcome (verified, or ruled and
+   landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).

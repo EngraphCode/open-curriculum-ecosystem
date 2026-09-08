@@ -1514,7 +1514,12 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
 
 Written because this journal ended at 2026-09-03 while the Director's fine-grained map lived on a
 machine-local handoff record (the handoffs directory is untracked by design). A successor on
-another checkout rehydrates from the tree alone with this entry plus the surfaces it names.
+another checkout rehydrates from the tree alone with this entry plus the surfaces it names —
+this entry as the tenure JOURNAL (dated 03:2xZ; its board is the state at that hour and is not
+refreshed) and, for the CURRENT board, the live snapshot in `director-handoff.md` under
+"Current handoff state", replaced in place at each fold (at the 2026-09-08 23:2xZ fold: Altair
+spins Umbra live on #95, the day's landings through #89, #94 and #95 in flight). Where the two
+disagree, the live snapshot is current and this entry is history.
 
 - **Seat and chain.** Flounder turns Estuary (c5cc2c) took the Director seat 2026-09-06 12:5xZ
   (claim `8109015d`, retained across six compaction boundaries). Seats in the window: Finch binds
