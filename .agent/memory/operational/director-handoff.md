@@ -224,7 +224,8 @@ this repo that PDR-117 does not carry.
 - **The auto-update-branch babysitter** (reusable release-churn cure): a Monitor
   that `gh pr update-branch`es the LANDING-SLOT HOLDER when it reads OPEN+BEHIND and
   emits only on a conflict — never a waiter, whose sync the landing-slot contract
-  forbids (`pr-target-is-engraph` §The landing slot; reconciled 2026-09-08). Safe
+  forbids (the pr-lifecycle skill §Phase 7, where PR #87 re-homed the landing slot on
+  2026-09-08 when it retired `pr-target-is-engraph`). Safe
   because `--auto` enforces every merge gate server-side, so it only lets a
   genuinely-ready PR win the release-churn race — removing per-round babysitting
   from the Director's context.
@@ -273,8 +274,10 @@ first-hand as of 2026-06-25.
 > coordination-home commits over four files (the napkin, this seated block, the tuition thread
 > record's LANDED block, one experience letter). The day-stamped successor
 > **`coordination/2026-09-08-68d53d`** was cut tree-preservingly from post-fold `engraph` by
-> the coordination tool and published; the held `.claude/settings.json` rides it uncommitted
-> and is never folded (harness rewrite, contract unverified). Product-gravity line: _moved for
+> the coordination tool and published; the held `.claude/settings.json` rode it uncommitted at
+> the cut (harness rewrite, contract then unverified) — superseded the same day: the owner
+> confirmed the simplification ("I am fine with the simplification of the settings files"), the
+> lane seat committed it on this branch, and it folds with PR #84. Product-gravity line: _moved for
 > teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
 > directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements served by the MCP
 > response). _moved for the Practice:_ the tuition collection (#66) with its review records and

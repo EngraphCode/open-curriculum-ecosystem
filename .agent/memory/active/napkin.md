@@ -979,6 +979,8 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   had to go inside the table, not at the file's end — pre-authored scripts are re-read against the
   landed file before they run, never trusted from the dry run.
 
+<!-- fitness exceeded by 729 lines; needs consolidation -->
+
 - **NON-TERMINAL WRAP 23 — Flounder turns Estuary (c5cc2c), Director, 2026-09-08 21:2xZ** (the
   20:41Z cron fired into a held seat; this is its catch-up). Landed since wrap 22: #93 (c06ea6c59,
   19:44Z, the showcase stylesheet-loading guard) and #91 (00deceedd, 20:13Z, the owner's delta

@@ -1510,7 +1510,7 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   The merge mechanics every lane uses are the pr-lifecycle skill's and the merge-bot doc's;
   the lead's machine-local handoff record adds nothing a pickup needs beyond this bullet.
 
-## 2026-09-08 ~03:2xZ — DIRECTOR TENURE JOURNAL, 2026-09-06 12:5xZ → 2026-09-08 (Flounder turns Estuary, c5cc2c, Director): two folds, twelve landings, the tracked pickup for a successor on any checkout
+## 2026-09-08 ~03:2xZ — DIRECTOR TENURE JOURNAL, 2026-09-06 12:5xZ → 2026-09-08 (Flounder turns Estuary, c5cc2c, Director): two folds, sixteen landings, the tracked pickup for a successor on any checkout
 
 Written because this journal ended at 2026-09-03 while the Director's fine-grained map lived on a
 machine-local handoff record (the handoffs directory is untracked by design). A successor on
@@ -1541,12 +1541,15 @@ another checkout rehydrates from the tree alone with this entry plus the surface
   commit queue serialises the shared primary only; the host bound is two, at most three,
   simultaneous full local gates (owner 2026-09-07 12:24Z) — the commit skill. The landing-slot
   contract (one non-draft PR syncs and merges at a time; the slot to whichever is green first;
-  the fold takes it at the rollover) — `pr-target-is-engraph` §The landing slot. Settled
+  the fold takes it at the rollover) — the pr-lifecycle skill §Phase 7 (re-homed there by
+  PR #87 on 2026-09-08, which retired `pr-target-is-engraph`). Settled
   directions are proposals (owner 2026-09-07 13:2xZ) — the tuition collection's `AUTHORITY.md`.
   Questions route to the Director as their own event with the question in the subject, never
   in prose (owner 2026-09-07). The Engraph fork never reads the Oak repository without
   permission and never writes to it, Linear or any Oak surface (owner 2026-09-06) —
-  `pr-target-is-engraph`. A PDR amendment gets the Director's first-hand read before merge; a
+  `downstream-checkout-never-writes-upstream-surfaces` (the general rule PR #87 landed on
+  2026-09-08 in place of `pr-target-is-engraph`). A PDR amendment gets the Director's
+  first-hand read before merge; a
   cure that changes no clause's meaning lands without a re-read.
 - **Guiding plans.** The estate's current structural commitment is the MCP app's extraction on
   the Oak line (ADR-227; the plan estate's index is the entry point). On this fork the live
