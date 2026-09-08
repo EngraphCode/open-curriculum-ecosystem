@@ -139,4 +139,6 @@ owner's express word ("Do not start the larger review without my say
 so"). The framework node that would have governed one is archived
 (`external-skills-library-review-framework`, in `archive/`, at the
 owner's word "Archive"); any such review begins as a new sketch under
-this node, born with the owner's word as its ratification.
+this node, authored at that word and ratified separately by the owner
+after reading it — the authorising word starts the authoring, never
+the governing.
