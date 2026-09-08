@@ -13,7 +13,15 @@ function readable(...values: readonly unknown[]): ClientIdentityHeaders {
 /** A container the reader could not see into at all. */
 const UNREADABLE: ClientIdentityHeaders = { readable: false };
 
-const BUILD_SURFACES = ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'] as const;
+/**
+ * The per-product surface lists the rebuild admits, mirrored from
+ * `client-user-agent.ts` so the matrix below drives every one of them; a
+ * product absent here gets no surface, and the matrix proves that too.
+ */
+const BUILD_SURFACES: Readonly<Record<string, readonly string[]>> = {
+  'claude-code': ['cli', 'sdk-ts', 'claude-vscode', 'claude-desktop'],
+  'openai-mcp': ['chatgpt', 'codex', 'agent builder', 'responses api'],
+};
 
 /**
  * PostHog's harness labelling for a user-agent-only event, transcribed from
@@ -324,7 +332,8 @@ describe('isOakClientUserAgent', () => {
   // table row therefore cannot silently vanish at the barrier.
   it('admits every value the table, a major version and a build surface can produce', () => {
     for (const [token, , spelling] of CLIENT_PRODUCT_TOKEN_RULES) {
-      for (const surface of BUILD_SURFACES) {
+      const surfaces = BUILD_SURFACES[token];
+      for (const surface of surfaces ?? ['cli']) {
         for (const header of [
           `${token}/7.3.1 (${surface})`,
           `${token}/42 (${surface})`,
@@ -339,6 +348,11 @@ describe('isOakClientUserAgent', () => {
           expect(isOakClientUserAgent(rebuilt)).toBe(true);
           expect(normaliseOakClientUserAgent(readable(rebuilt))).toBe(rebuilt);
         }
+        // A versioned header keeps its surface for a surface-bearing product
+        // and loses it for any other, so a regression in either list shows here.
+        expect(normaliseOakClientUserAgent(readable(`${token}/7.3.1 (${surface})`))).toBe(
+          surfaces === undefined ? `${spelling}/7` : `${spelling}/7 (${surface})`,
+        );
       }
     }
   });
