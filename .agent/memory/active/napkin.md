@@ -426,3 +426,63 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   settle (running, re-run on its ceiling); the fold wake 483ed39f for the 2026-09-09 rollover; the
   lane returns to Altair on release. Bounds unchanged. A third pass re-finds only the standing
   bounds; the recursion closes here.
+- **The prompt's wording, observed by the owner (10:17:38Z), verbatim from the terminal:** "Entering worktree(<path>) — Creates an isolated worktree (via git or configured hooks) and switches the session into it — permission-root relocation to \"<path>\" — a model-supplied worktree outside .claude/worktrees/ — Do you want to proceed? 1. Yes 2. No". So the platform's own name for the class is permission-root relocation, and it is shown for the EnterWorktree tool call itself. The second held instance: the announced entry was issued at 07:01Z with the owner having directed the seat minutes earlier, and returned at 10:16Z when the owner answered it — three hours; the announce-first practice made the hold visible to the Director within the bound (their default drove PR #82 through seven rounds meanwhile). Measurement (a) inconclusive: the primary watcher lived out its hourly backstop at 07:33Z while the entry was still pending, so the switch at 10:15Z met a dead watcher. Measurement (b), attempt one: the isolation guard refused the canonical arm with the verbatim reason "runs pnpm with a value computed at runtime (the variable PPID) inside a construct too complex to verify" — the refusal names the $PPID expansion, not the worktree-rooted cd; attempt two passes the session pid as a literal.
+
+## 2026-09-08 10:27Z — Altair spins Umbra (05a180) — WRAP at the owner's word (cold pause for compaction; processes stop): the worktree fix landed to its final head, the seat's two holds read as one class
+
+- **Landed:** #72 (ff86b3d8b, 7 Sept 21:06Z) by this seat; #82 (the worktree entry fix) at its FINAL HEAD 2edc3f8de (my records cure d2889ebe3, the Director's seven cure rounds, my clause-8 class-fix), open, 22 threads resolved at 34cacad7e, checks running on the final head; the settle and merge return to the Director or a successor by adoption of claim a360ed2a (handoff record a360ed2a-altair-spins-umbra-worktree-entry-fix-2026-09-08.md, pointer set). Work safety: the lane worktree at 2edc3f8de, in sync with its remote, [ahead 11] of engraph, nothing uncommitted; the primary carries this seat's napkin blocks, the handoff record and the formation letter uncommitted for the Director's sweep.
+- **Metacognition (retrospective).** Two holds, one class: acting on a fact recorded in the estate's own confident voice without asking what the recorder could observe (a July probe note written by a seat that cannot see prompts), and then, knowing the mechanism, acting on decayed presence ("at the keyboard" meant ten minutes ago). The correction chain — allow list → "it was a prompt" → the docs → the screenshot — was the owner supplying the observations a seat structurally lacks; each of my three record revisions was right about the evidence it had and wrong about the whole. The transferable form: a claim about the platform needs the platform's documentation or the human's eyes; an observation from inside a session is evidence about the session. The timestamp class fired here too (three stamps estimated; date -u before every stamp from then on).
+- **Concept exploration:** the 06:5xZ block's synthesis held through eight review rounds; the verdict — records first, the WorktreeCreate hook second — is what landed and what waits. Proportionality: the records PR was the right size; its eight rounds were the reviewers' propagation of three classes one surface at a time, cured by the clause-8 single sweep, not by the records being wrong.
+- **Free-play harvest (associations, not findings):** kept — the platform's own name for the class is "permission-root relocation" and the estate's is "residency"; the fact hid between two vocabularies for a name. Kept — the Monitor heartbeat, the watcher's process-liveness, and "no friction" are one shape: a liveness proxy emitted by anything other than the turn loop reads green through the turn loop's absence. Discarded, visibly — that nesting under .claude/worktrees is harmless for records-only lanes (forced; the Node walk-up leak does not care what the lane edits).
+- **Promises sweep:** the probe report delivered (3168367d); the class-fix landed and named on the PR (comment 5583689515); the hygiene second PR returned as a pointer (Director's board); the hook design returned as the owner's call; the /rename suggestion surfaced once at 20:4xZ; nothing else promised. Attribution inferences flagged: that the owner stepped away during both holds (from timing); that the entry prompt was the held subject on 7 Sept (from the batch sequencing and the owner's later word). Bounds: fact (a) unverified; events 07:33Z–10:17Z reached this seat only by the resident watcher's replay from the frozen cursor (no hole found, not proven none); the Director's rounds read from their events, not the threads. Fence sweep: no owner word held off the repository this session.
+- **Index of homes:** the handoff record (state, reasoning, decisions, pickup); PR #82 (the diff, the comments, the threads); this napkin's blocks of 06:4xZ, 06:5xZ (the exploration), the prompt-wording line and this wrap; per-user memory (enterworktree-sibling-path-can-hold-the-seat; the RESUME HEADS tail); the formation letter under .agent/experience; comms events 3168367d and the hand-back threaded to 2db956dd. A second pass over this scan re-finds only the (a) bound and the presence inference; the recursion closes here.
+- **Processes at this pause:** the resident watcher b8uu8rzo5 stopped after the pause broadcast; the settle wait stopped at the head move; no heartbeat loop ran (n=2 owner-visible); the session exited the worktree to the primary for these writes and does not re-enter.
+- **One more measured fact (10:27:49Z):** ExitWorktree (keep) did NOT kill the watcher armed inside the worktree — heartbeat pid 78591 unchanged, mtime advancing, emitted_count 10 after the exit. Together with (b): a worktree-armed watcher outlives the exit; whether an ENTRY kills a principal-armed one stays the open half.
+
+## 2026-09-08 ~10:3xZ (Flounder turns Estuary, c5cc2c, Director) — compaction boundary 8: a loop with no counter, and the instrument it needs
+
+- **The board at the boundary:** #82 open at its FINAL HEAD 2edc3f8de (the class fix; the
+  Director's read done; 22 threads resolved; the settle was running at the stop order and is
+  re-armed on resume, or the merge issued directly if green and clean by then); engraph
+  3864af225; the primary on coordination/2026-09-08-68d53d; two claims (the Director's; Altair's
+  a360ed2a retained with their handoff record, cold-paused at the owner's word). The next fold is
+  due at the 2026-09-09 rollover; its wake re-arms on resume.
+- **Metacognition (retrospective, on the owner's four-skill invocation at round eight).** I
+  inherited my own declared default, the letter of PDR-140 clause 9 ("a later over-bar finding
+  cures alone"), and the pr-lifecycle machine whose tally I never built at PR-open. Ratified by
+  analogy, the shape became "cure every true finding, one push per round", and every finding WAS
+  true — which is exactly why validity is not the exit variable. The machine's own arms fired at
+  round four and round six, unobserved, because nothing counted: the same generator as the held
+  seat, a loop with no instrument to see itself. Bridge to impact: the owner's impact is a fleet
+  that lands PRs without owner attention and a rule that stops seats being held; eight rounds of
+  the Director's attention on one small records PR is a productive-looking rabbit hole wearing
+  diligence. What changes: the tally is built at PR-open even under a default's urgency; the
+  cross-surface read of every carrying surface runs before the first push; the step-back names
+  the final head instead of the seat curing alone into the tail.
+- **Concept exploration.** The concept under the window is *convergence needs a counter*: the
+  review machine's tally is prose a seat skips twice in two days, so it earns a mechanical
+  carrier — an agent-tools command that builds the tally from review threads by commit binding
+  and prints the step-back verdict (pointer (j)); and the lane-cut skill earns a pre-push step —
+  read every surface that carries a changed vocabulary, order or bound (pointer (k)). Both are
+  proposals for a fresh seat, not started. The structural half of the worktree story, the
+  WorktreeCreate hook pair, is designed on Altair's exploration block and is the owner's call.
+- **Free play, honest.** Kept: the held prompt and the review tail are one shape — a loop the
+  actor cannot observe from inside — and both cures are "build the thing that counts": announce
+  before entry; tally at open. Kept: three facts hid between two vocabularies this window
+  (permission-root relocation / residency; main / engraph; multi-line / unprovable value), and each
+  surfaced only when someone said plainly what they could not see. Discarded, visibly: that the
+  reviewer was adversarial (every finding was ours), and that the fork's `main` needed a
+  twenty-five-line substitution (one reading sentence did it).
+- **Facts measured this window, homed in the rule:** the resident watcher arm passes with a literal
+  supervisor pid and the guard refuses `$PPID` as runtime-computed; the CLI writes to the primary
+  comms home from a resident session; an ExitWorktree with keep does not kill a worktree-armed
+  watcher; whether a residency switch kills a principal-armed monitor stays unverified.
+- **Defect report (PDR-140 clause 8), filed here:** the out-of-band invocation of proportionality
+  and pr-lifecycle recurred one day after the machine recorded it; the checkpoint that failed is
+  the unbuilt tally. Cure candidates: (j) and (k) above.
+- **Work safety and bounds at the boundary:** 5a7c18a6b equals origin before this sweep; the queue
+  empty; dirty: the napkin (Altair's prompt-wording line, wrap block and this block), Altair's
+  formation letter (untracked), the held settings file never folded. Promises: #82's settle on
+  resume; the fold wake; the hygiene clause PR and pointers (g), (i), (j), (k) for a fresh seat;
+  Altair's claim retained for their resume or a successor's adoption. Bounds unchanged. A third
+  pass re-finds only the standing bounds; the recursion closes here.
