@@ -655,7 +655,9 @@ authority.
   repositories are internal systems under that word — a read of `oaknational/oak-skills`
   on 2026-09-05 was recorded as a mistake. The public upstream repository was the one
   permitted Oak repository read under that word until the owner's 2026-09-06 ruling
-  (verbatim in `pr-target-is-engraph`: "do not access the Oak repo without permission"),
+  (verbatim in `downstream-checkout-never-writes-upstream-surfaces`, which replaced the
+  retired pr-target-is-engraph rule on 2026-09-08: "do not access the Oak repo without
+  permission"),
   under which a read of the public upstream also needs owner permission first; the
   2026-09-06 ruling governs. The disconnection mechanics stay checkout-local.
 - Strict validation happens only at boundaries.

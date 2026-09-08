@@ -206,10 +206,10 @@ configure away.
    parallel-dispatch anti-pattern).
 8. **Pre-PR contamination check.** Before opening any lane PR:
    `git log --oneline origin/<base>..HEAD` must list exactly the
-   story's own commits (`<base>` is the branch the lane's PR targets —
-   `engraph` on the Engraph fork per `pr-target-is-engraph`, `main` on
-   the Oak line; a check against the wrong base lists every fork
-   commit as contamination). Anything else is a contaminated base —
+   story's own commits (`<base>` is the repository's default branch, derived from
+   `git symbolic-ref refs/remotes/origin/HEAD`, never a literal; a
+   check against the wrong base lists every commit since the mirror
+   point as contamination). Anything else is a contaminated base —
    re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story
    commits across; history rewrite is hook-blocked on this estate),
    close the contaminated PR with a pointer, and open its successor.

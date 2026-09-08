@@ -49,11 +49,13 @@ git fetch origin
 git worktree add <path> -b <branch> origin/<base>
 ```
 
-`<base>` is the branch the lane's PR targets. By default that is `engraph` on the
-Engraph fork per [`pr-target-is-engraph`](../../rules/pr-target-is-engraph.md) and
-`main` on the Oak line; for a build-ahead lane it is the parent branch the lane stacks
-on ([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries
-the parent's changes and the PR compares against them.
+`<base>` is the repository's default branch, read from
+`git symbolic-ref refs/remotes/origin/HEAD` (or `gh repo view --json defaultBranchRef`) —
+derived, never a literal, because the default branch is identity held below the tree
+([`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)).
+For a build-ahead lane it is the parent branch the worktree is cut from
+([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
+parent's changes; the PR opens against the default branch once the parent has landed.
 The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
 branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
 in any settings layer, bases the branch on the **principal's checked-out HEAD** — a

@@ -1,0 +1,6 @@
+---
+description: A seat on a downstream checkout (fork, mirror, an organisation running the tree as its own) never reads the upstream repository's surfaces without the owner's permission and never writes to them; every call names the checkout's own repository explicitly; the PR base is the repository's default branch, derived, never a literal.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/downstream-checkout-never-writes-upstream-surfaces.md`.
