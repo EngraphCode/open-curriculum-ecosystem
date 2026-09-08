@@ -5,12 +5,12 @@ upstream Oak API + bulk export, and establish a repeatable, observable alignment
 Trigger instance (2026-06-30/07-01): upstream added a `programmes` resource family (5 GET
 endpoints + 5 schemas).
 
-## THREAD SEQUENCES IN CURRICULUM ORDER — lane open, gates green, awaiting the owner's word to push (Bora binds Feather 4a2292, 2026-09-03)
+## THREAD SEQUENCES IN CURRICULUM ORDER — pushed as PR #965 (MCP-681), in review, awaiting the owner's word to merge (Bora binds Feather 4a2292, 2026-09-03; updated 2026-09-07)
 
 Owner-found defect, owner-directed cure. Branch
 `fix/thread-progressions-curriculum-order` in worktree `thread-sequence-order`,
 cut from `origin/main` `83611f5db`. Claim `8f0ef420` (this thread); lane-open
-comms event `c0b23c22`. **No push, no PR, no ticket yet — the owner gates those.**
+comms event `c0b23c22`. Pushed at the owner's word on 2026-09-04 as PR #965 under ticket MCP-681 (In Review); #966 (MCP-682) stacks on it; #958 (MCP-671) merged first and main is merged in. **The owner gates the merge.**
 
 **The defect.** The graph corpus sorted each thread's placements by
 `(year, unitId)`, so within a year the served progression was alphabetical by

@@ -64,8 +64,27 @@ describe('committed graph corpus (G2 + G4b real-corpus count guards)', () => {
     expect(graphCorpus.version).toBe('1.5.0');
   });
 
-  it('emits one unit-lesson run per unit that places lessons (pinned snapshot)', () => {
-    expect(graphCorpus.unitLessonRuns).toHaveLength(1722);
+  it('emits exactly one unit-lesson run per unit that places lessons — no more, no fewer', () => {
+    const unitsPlacingLessons = new Set(
+      graphCorpus.edges.filter((e) => e.type === 'containsLesson').map((e) => e.source),
+    );
+    const runUnits = graphCorpus.unitLessonRuns.map((run) => run.unitId);
+    expect(new Set(runUnits).size).toBe(runUnits.length);
+    expect(new Set(runUnits)).toEqual(unitsPlacingLessons);
+  });
+
+  it('places in sequences exactly the (thread, unit) pairs the containsUnit edges place — membership is the edge set', () => {
+    const edgePairs = new Set(
+      graphCorpus.edges
+        .filter((e) => e.type === 'containsUnit')
+        .map((e) => `${e.source}→${e.target}`),
+    );
+    const placedPairs = new Set(
+      graphCorpus.sequences.flatMap((sequence) =>
+        sequence.placements.map((p) => `${sequence.threadId}→${p.unitId}`),
+      ),
+    );
+    expect(placedPairs).toEqual(edgePairs);
   });
 
   it('places in runs exactly the lessons the containsLesson edges place — membership is the edge set', () => {
@@ -96,7 +115,13 @@ describe('committed graph corpus (G2 + G4b real-corpus count guards)', () => {
     }
   });
 
-  it('reports zero units whose run fell back to id order on the pinned snapshot', () => {
+  it('reports zero units whose run fell back to id order — a non-zero value is a decision, not drift', () => {
+    // Not a snapshot pin: every unit that places lessons had an authored
+    // position for at least one of them on every snapshot so far. If this
+    // fails, a unit's run is being served alphabetically. Adjudicate it —
+    // upstream dropped the unit from its programme listings, or the listing
+    // names none of the unit's emitted lessons — and record the outcome
+    // before changing the expectation.
     expect(graphCorpus.stats.unitsWithoutAuthoredLessonOrder).toBe(0);
   });
 

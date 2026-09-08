@@ -17,18 +17,10 @@
  *   lesson's two misconceptions have no sequence, so none is claimed or
  *   served.
  *
- * This overturns the module's original stance, that "thread-sequence order is
- * G3's re-projection of the ordering authority and intentionally not consumed
- * here" and that a unit's lessons are a set. That stance mistook the corpus's
- * `edges` array for an ordering authority it never was: the array is sorted by
- * (type, source, target) for a deterministic artefact, so reading order off it
- * served the ALPHABET as though it were curriculum. Measured on the 2026-09-03
- * snapshot, that cost all 160 threads their progression — units ordered by
- * slug rather than by year and authored position — and additionally made the
- * 21 threads that span subjects interleave those subjects within a page. On
- * the lesson axis it put 46% of all within-programme lesson pairs in the wrong
- * relative order. The chain edges remain in the corpus for the property-graph
- * model; they are simply not where order lives.
+ * The two ordered hops read the corpus's ordered sections rather than the
+ * `edges` array, which is sorted by (type, source, target) and so cannot
+ * carry order. The ADR-196 G2 correction records why this changed and the
+ * measured cost of the id-sorted stance it replaced.
  */
 
 import {

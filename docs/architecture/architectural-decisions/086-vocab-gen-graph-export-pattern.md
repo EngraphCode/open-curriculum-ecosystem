@@ -63,14 +63,13 @@
 >   different programmes. `max`, `mean` and `first-seen` were measured too
 >   and land within 0.06 percentage points of `min`; `min` was chosen on
 >   explicability (an authored integer, not an invented average) and
->   `first-seen` rejected as dependent on file enumeration order. One caveat
->   on that rejection: `extractUnitLessons` already backfills a missing
->   `lessonOrder` with the bulk array index, so a lesson lacking an authored
->   position would receive a file-order one before the sort key ever sees it.
->   That path is inert on this snapshot (0 of 16,741 rows lack an order) and
->   is left as-is rather than changed under an ordering ticket; the new
->   `stats.unitsWithoutAuthoredLessonOrder` counter (0 here) makes the related
->   whole-unit case visible rather than silent.
+>   `first-seen` rejected as dependent on file enumeration order. A caveat
+>   recorded here on 2026-09-04 — that `extractUnitLessons` backfilled a
+>   missing `lessonOrder` with the bulk array index — was withdrawn in review
+>   on 2026-09-08: the strict bulk schema requires `lessonOrder`, so the
+>   backfill could never run, and it and the `number | null` widening it
+>   forced are removed. The `stats.unitsWithoutAuthoredLessonOrder` counter
+>   (0 here) remains, making the whole-unit case visible rather than silent.
 > - **The alternative shape considered and rejected** was a discriminated
 >   `GraphCorpusEdge` union carrying `order` on the `containsLesson` variant
 >   alone. It satisfies the closed-shape rule equally, but forces every
@@ -81,9 +80,8 @@
 >   placements, the same trade the `sequences` section already makes.
 > - **The consumers land separately.** `get-thread-progressions` reads the
 >   corrected `sequences` here. `get-misconception-graph` reads BOTH ordered
->   sections, but that change is MCP-682: until it lands, that tool still
->   windows and lists from the id-sorted edge set, and this amendment claims
->   nothing about its served order.
+>   sections; that consumer is MCP-682, and this amendment claimed nothing
+>   about its served order.
 >   **Follow-on (2026-09-04, MCP-682 landed):** `get-misconception-graph` now
 >   windows a thread's units from `sequences` (deduplicated to first placement,
 >   so its `totalUnits` counts distinct units where the progression views

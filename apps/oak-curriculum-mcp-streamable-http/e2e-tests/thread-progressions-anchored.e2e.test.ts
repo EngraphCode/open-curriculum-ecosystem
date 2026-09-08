@@ -7,6 +7,8 @@
  * corpus so the test describes behaviour over any valid corpus.
  */
 
+import assert from 'node:assert/strict';
+
 import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 import { request, type Response } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect } from 'vitest';
@@ -59,9 +61,7 @@ const DISCOVERY_ENVELOPE = z.object({
 
 /** A thread slug with at least one placement, chosen deterministically (first emitted sequence). */
 const firstSequence = graphCorpus.sequences.find((sequence) => sequence.placements.length > 0);
-if (firstSequence === undefined) {
-  throw new Error('corpus has no non-empty sequence to anchor the e2e test');
-}
+assert.ok(firstSequence !== undefined, 'corpus has no non-empty sequence to anchor the e2e test');
 const knownThreadSlug: string = firstSequence.threadId.slice(
   firstSequence.threadId.indexOf(':') + 1,
 );
@@ -75,9 +75,10 @@ const placedUnitIds = new Set(
 const sequencedUnit = graphCorpus.nodes.find(
   (node) => node.kind === 'unit' && placedUnitIds.has(node.id),
 );
-if (sequencedUnit === undefined || sequencedUnit.kind !== 'unit') {
-  throw new Error('corpus has no sequenced unit to derive a subject+keyStage anchor');
-}
+assert.ok(
+  sequencedUnit !== undefined && sequencedUnit.kind === 'unit',
+  'corpus has no sequenced unit to derive a subject+keyStage anchor',
+);
 const knownSubjectKeyStage = {
   subject: sequencedUnit.subject,
   keyStage: sequencedUnit.keyStage,
@@ -135,9 +136,10 @@ describe('get-thread-progressions anchored tools/call', () => {
       const idSorted = [...ids].sort((a, b) => a.localeCompare(b));
       return ids.length > 2 && ids.join() !== idSorted.join();
     });
-    if (disagreeing === undefined) {
-      throw new Error('corpus has no sequence whose curriculum order differs from id order');
-    }
+    assert.ok(
+      disagreeing !== undefined,
+      'corpus has no sequence whose curriculum order differs from id order',
+    );
     const slug = disagreeing.threadId.slice(disagreeing.threadId.indexOf(':') + 1);
 
     const response = await callThreadProgressions({ threadSlug: slug });

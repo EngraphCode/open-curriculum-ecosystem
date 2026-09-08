@@ -882,7 +882,7 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts",
-      "semanticSha256": "a24054fade803c583ec49151d1e8de84adb28fbe89079870d285d8a4b4c8736d",
+      "semanticSha256": "c560fe9f7f3de1fca96b182ee0229371b18006e8345e87ea4e634c5aa94c3dd8",
       "itemIds": [
         "C233",
         "C234",
@@ -940,7 +940,7 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts",
-      "semanticSha256": "0cef9521647efce766df6d15b8c4a61f307e6f0562d9816235aa041ddf36eadf",
+      "semanticSha256": "d15d7c6fd2ceaf7c090587673efc6cbdc68286fd32763c22b4be6d48d56991fe",
       "itemIds": [
         "C252",
         "C253",
@@ -1108,7 +1108,7 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts",
-      "semanticSha256": "47f7aae7eff5d3b29caea9afec26f7fe19eb050be8f5640379bfc53ae409f995",
+      "semanticSha256": "6e9c01298eff9a631a086eb266d0588f3ff20da24d7a510047d4bb2189fa0983",
       "itemIds": [
         "C286",
         "C287",

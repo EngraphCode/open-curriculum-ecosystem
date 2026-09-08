@@ -5188,8 +5188,8 @@
               {
                 "tokenCount": 38,
                 "tokenSha256": "522caf94f4658e2ec8e47abedc1e678d2bb831570a560d9e1c067bb618e10a96",
-                "indexToken": "earliest",
-                "indexOffset": 18
+                "indexToken": "latest",
+                "indexOffset": 20
               },
               {
                 "tokenCount": 33,
@@ -5251,8 +5251,8 @@
               {
                 "tokenCount": 25,
                 "tokenSha256": "bad8142dcd93febdf0c59ed3ed2e240294fe98150eaaaa53251b7240c283be55",
-                "indexToken": "stage",
-                "indexOffset": 10
+                "indexToken": "Discovery",
+                "indexOffset": 0
               }
             ]
           }
@@ -5969,8 +5969,8 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts",
             "anchors": [
               {
-                "tokenCount": 46,
-                "tokenSha256": "c97ebe2411ae1047b8dabbb074adf90b8edc59f50643fb47ecb03b6bd5f6c7d7",
+                "tokenCount": 82,
+                "tokenSha256": "f1d907d50b7c333c5bbc2181fa09d36a1a764434185acbe236089744b6f61cda",
                 "indexToken": "separately",
                 "indexOffset": 41
               }

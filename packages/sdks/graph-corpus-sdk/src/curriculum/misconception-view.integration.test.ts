@@ -293,11 +293,17 @@ describe('misconception view — bounded anchored chain retrieval', () => {
         graphCorpus.sequences
           .map((sequence) => sequence.threadId)
           .find((threadId) => {
-            const units = curriculumUnitsByThread.get(threadId) ?? [];
-            const idSorted = [...units].sort((a, b) => a.localeCompare(b));
-            return units.length > 2 && idSorted.join() !== units.join();
+            // Select on the WINDOW the test reads, not the whole thread: a
+            // thread whose first page ascends by id would pass selection yet
+            // prove nothing, and a future snapshot could pick exactly that.
+            const window = (curriculumUnitsByThread.get(threadId) ?? []).slice(
+              0,
+              MAX_THREAD_UNIT_LIMIT,
+            );
+            const idSorted = [...window].sort((a, b) => a.localeCompare(b));
+            return window.length > 2 && idSorted.join() !== window.join();
           }),
-        'corpus has no thread whose curriculum order differs from id order',
+        'corpus has no thread whose first-page window differs from id order',
       );
 
       const result = unwrapOk(

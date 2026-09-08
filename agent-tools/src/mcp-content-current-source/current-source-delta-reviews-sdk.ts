@@ -83,7 +83,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // units and lessons come in Oak's authored curriculum order, replacing the
   // id-sorted edge adjacency both axes had read.
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts': reviewed(
-    'a24054fade803c583ec49151d1e8de84adb28fbe89079870d285d8a4b4c8736d',
+    'c560fe9f7f3de1fca96b182ee0229371b18006e8345e87ea4e634c5aa94c3dd8',
     ['C233', 'C234', 'C235', 'C236', 'C237', 'C238', 'C239', 'C240', 'C241'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
@@ -94,7 +94,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // (C253), the detail-anchor field (C254), and the summary (C258) state
   // per-subject runs in Oak's curriculum order.
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
-    '0cef9521647efce766df6d15b8c4a61f307e6f0562d9816235aa041ddf36eadf',
+    'd15d7c6fd2ceaf7c090587673efc6cbdc68286fd32763c22b4be6d48d56991fe',
     ['C252', 'C253', 'C254', 'C255', 'C256', 'C257', 'C258', 'C259', 'C260'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-user-search/tool-definition.ts': reviewed(
