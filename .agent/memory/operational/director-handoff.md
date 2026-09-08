@@ -262,6 +262,59 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **§FOLD, 2026-09-08 00:1xZ (Flounder turns Estuary, `c5cc2c`, Director) — THIS SUPERSEDES
+> THE 2026-09-07 01:32Z BANNER BELOW.** `coordination/2026-09-07-dfe924` folds to `engraph`
+> via bot PR **#79** (opened 00:13Z at `cf884b251`, a clean merge of `engraph` `d295fcc11`),
+> landing at full condition (run-quality-gates and CodeQL green by name, zero unresolved
+> threads, mergeStateStatus CLEAN, ten-minute quiet window); the merge SHA is appended to this
+> block on the successor at the cut; the fold carried fifteen coordination-home commits over
+> four files (the napkin, this seated block, the tuition thread record's LANDED block, one
+> experience letter). The day-stamped successor is cut tree-preservingly from post-fold
+> `engraph` by the coordination tool (`agent-tools coordination successor-name`) and
+> published, its name appended here at the cut; the held `.claude/settings.json` rides it
+> uncommitted and is never folded (harness rewrite, contract unverified). Product-gravity
+> line: _moved for teachers:_ nothing in the fold's own commits — the day's product movement
+> rode `engraph` directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements
+> served by the MCP response). _moved for the Practice:_ the tuition collection (#66) with its
+> review records and authority file; the consolidation drain (#67, #71, #74, #75, #76, #78)
+> and the review doctrine (#77, PDR-140 Decision clause 9); the graph foundations research
+> pack (#72); the compaction sweeps, and the napkin met the rotation by the archive-coverage
+> check. Board at the fold: open #70 (the owner's non-graph survey, under Altair spins Umbra's
+> lane, claim `8e7e00d1`); landed 2026-09-07: #66, #73, #67, #71, #75, #74, #76, #72, #78,
+> #77. Seats: A DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks
+> Apogee live under claim `0b696465` (post-fold continuity PRs: repo-continuity Purpose cells,
+> this file's disposition, two thread-record criticals); Altair spins Umbra on the #70 lane,
+> then the directives item under the 30-percent gate. THE PICKUP MAP is the Director's handoff
+> record `2778f573-flounder-turns-estuary-compaction-2026-09-03.md` §COMPACTION BOUNDARY 6 and
+> its RESUMED lines (machine-local); the lane record for #70 is
+> `c5cc2c-flounder-turns-estuary-lane-handoff-to-altair-2026-09-07.md`. The 2026-09-07 banner
+> below is the prior state.
+
+---
+
+> **§FOLD LANDED, 2026-09-07 01:32Z (Flounder turns Estuary, `c5cc2c`, Director, in warm
+> pause) — THIS SUPERSEDES THE 2026-09-02 BANNER BELOW.** `coordination/2026-09-06-f1a142`
+> folded to `engraph` via bot PR **#69** at full condition (run-quality-gates and CodeQL green
+> by name, zero unresolved threads, mergeStateStatus CLEAN, ten-minute quiet window) as merge
+> commit `dfe924927`; four Codex rounds on the record class — three cure pushes (in-place
+> supersession markers, the letter kept formation-only, a cadence attributed to the owner's
+> word), round four dispositioned under the PDR-140 step-back. The day-stamped successor
+> **`coordination/2026-09-07-dfe924`** was cut tree-preservingly from post-fold `engraph` and
+> published; the held `.claude/settings.json` rides it uncommitted and is never folded
+> (harness rewrite, contract unverified). Product-gravity line: _moved for teachers:_ nothing in
+> the fold's own commits — the EEF corpus markdown projection (#58) sits at its last cure with
+> its author, cold-paused. _moved for the Practice:_ seven consolidation PRs (#59–#65), the
+> code-scanning plan (#56), four seats' 2026-09-06 continuity blocks and the Director's
+> formation letter, the overnight operating contract and landing-slot routing (comms
+> `62f1103f`, `6bd4fe0d`), the commit-queue guard ruling (owner-gated; on the Director's
+> record). Board at the fold: open #58 (Finch, cold; holds the paused landing slot), #66 (the
+> owner's, ready for review; Jackal's review `5126608127` posted), #67 (Juno, cold), #68
+> (Jackal, draft). A DIRECTOR IS SEATED: claim `8109015d`, warm pause at owner word; THE
+> PICKUP MAP is the Director's handoff record `2778f573-flounder-turns-estuary-compaction-2026-09-03.md`
+> §OVERNIGHT and §FOLD (machine-local). The 2026-09-02 banner below is the prior state.
+
+---
+
 > **§FOLD LANDED, 2026-09-02 ~13:xxZ (Finch calls Pinnacle, `c91bd4`, implementer at the
 > #915 landing seat) — THIS SUPERSEDES THE WEEK-SLEEP BANNER BELOW.** The 2026-08-19 fold
 > (`coordination/2026-08-19-1651ad`, PR #915) LANDED on main as `777e9131c` (the PR's merge
