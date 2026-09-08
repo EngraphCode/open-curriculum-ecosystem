@@ -47,19 +47,30 @@ skill.
   reviews connection with each review's commit and body, AND the paged issue-comment
   connection, because a finding that exists only in a review body has its disposition
   recorded as an ordinary PR comment (PDR-140) and the seat's settle marks live there too;
-  all three paginated to exhaustion. The repository is named explicitly on every call (the
-  downstream-checkout rule).
+  all three paginated to exhaustion — and, as the fourth read, the EXPECTED reviewer set
+  from the repository's live automatic-review configuration (the ruleset and review-app
+  configuration that fires bot reviews on push), the source the pr-lifecycle skill's Phase
+  1 names; it is an input to the state machine, never inferred from the three harvested
+  surfaces, which are empty on a first tip before any bot has posted and cannot tell "no
+  reviewer expected" from "configured reviewer still OWED". The repository is named
+  explicitly on every call (the downstream-checkout rule).
 - **Findings from bodies**: a review body becomes findings only through the reviewer's own
-  structured markers — one item per badge-and-heading block for Codex, the
-  suppressed-comments block for Copilot; body prose without markers is never counted and
-  is surfaced as "manual tally required", the boundary the existing pr-watch settlement
-  code already draws.
+  structured markers — one item per badge-and-heading block for Codex, and one item per
+  finding inside Copilot's suppressed-comments block (one block carries several distinct
+  findings — this repository's rounds record four, six and ten in one body — so the block
+  is parsed and each finding counted, never the block as one item); body prose without
+  markers is never counted and is surfaced as "manual tally required", the boundary the
+  existing pr-watch settlement code already draws.
 - **The tally**: one row per SETTLED round, in commit order on the branch, never arrival
   order. A head's round is settled when the seat's signed settle mark for that head exists
   (the tally comment naming it, or a reply naming the round settled) or when every expected
-  reviewer leg has bound to the head and no newer review arrived within the quiet window;
-  a head superseded before either is listed as unsettled and never counted toward the
-  step-back. The raised count is every finding in threads and marked body items bound to
+  reviewer leg reads SATISFIED or SKIPPED for the head under the skill's reviewer-leg
+  states — SATISFIED by a review bound to the head, SKIPPED by a tip-scoped skip marker or
+  by the checks-green timeout, OWED otherwise — and no newer review arrived within the
+  quiet window (anchored on the checks-green window when every leg settled via SKIPPED);
+  a round settled through a SKIPPED leg is a row like any other, so a timed-out reviewer
+  never suppresses a row or delays the four-round arm; a head superseded before either is
+  listed as unsettled and never counted toward the step-back. The raised count is every finding in threads and marked body items bound to
   that head, one logical finding counted once, matched on anchor AND substance (a body item
   restating an inline thread of the same review at the same anchor with the same substance
   is one finding; two distinct defects at one anchor are two); the cure-worthy count is
@@ -98,8 +109,12 @@ skill.
    regenerated. Proof: `repo-safe` — the skill's projection check and the markdown-links
    validator on the landing PR.
 5. The fixtures cover a head superseded mid-review (no row), a body-only finding with its
-   PR-comment disposition, two distinct findings at one anchor (two), and a body without
-   markers (surfaced as manual, not counted); the rows and the verdict match. Proof:
+   PR-comment disposition, two distinct findings at one anchor (two), a body without
+   markers (surfaced as manual, not counted), a suppressed Copilot block carrying several
+   findings (each counted), a round settled by a SKIPPED leg through a tip-scoped marker
+   and one through the checks-green timeout (both rows present), and a first tip with a
+   configured reviewer still OWED (no settled row, never terminal success); the rows and
+   the verdict match. Proof:
    `repo-safe` — unit tests over the tally builder and the classifier, no IO.
 
 ## Todos

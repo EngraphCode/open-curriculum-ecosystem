@@ -55,11 +55,15 @@ hooks make mechanical.
 
 - **`WorktreeCreate`** (a tracked script under `.claude/hooks/`, registered in the tracked
   settings): read the JSON input; derive the default branch from the remote itself — read
-  the remote's HEAD symref (`git ls-remote --symref origin HEAD`), fetch that branch
-  explicitly, then `git remote set-head origin --auto` and the local read
+  the remote's HEAD symref (`git ls-remote --symref origin HEAD`), fetch that branch into
+  its remote-tracking ref with an explicit refspec
+  (`git fetch origin <default>:refs/remotes/origin/<default>`), then
+  `git remote set-head origin --auto` and the local read
   (`git symbolic-ref --short refs/remotes/origin/HEAD` stripped of `origin/`) — because a
   single-branch clone whose remote default moved outside its fetch refspec fails the bare
-  `set-head --auto` and a plain fetch never obtains the new branch; then `git worktree add
+  `set-head --auto`, and a fetch that names the branch without a destination
+  (`git fetch origin <default>`) writes only `FETCH_HEAD` when the branch sits outside
+  `remote.origin.fetch`, so `set-head --auto` still fails after it; then `git worktree add
   ../<repository-directory>-worktrees/<name> -b <name> origin/<default>`, or, when a
   worktree with that path and branch already exists from a setup that failed part-way,
   RESUME it rather than re-add it (the hook is idempotent: it checks `git worktree list`
@@ -104,8 +108,9 @@ hooks make mechanical.
    recorded inputs, no IO.
 3. The hook scripts, piped the documented JSON against a temporary repository, create a
    worktree, resume one after a failed install, and remove one as specified, refusing as
-   specified. Proof: `repo-safe` — one integration check in the agent-tools end-to-end
-   suite.
+   specified; the temporary repository includes a single-branch clone whose remote default
+   moved outside its fetch refspec, and the create hook derives the new default from it.
+   Proof: `repo-safe` — one integration check in the agent-tools end-to-end suite.
 4. The hooks name no organisation and no branch literal: the default branch and the sibling
    directory are derived. Proof: `repo-safe` — the identity-naming validator family runs
    over the hook scripts; a grep for a branch literal in them finds none.
