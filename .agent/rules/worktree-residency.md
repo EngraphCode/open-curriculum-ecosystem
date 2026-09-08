@@ -52,8 +52,11 @@ configure away.
    cut from the base branch, sibling `-worktrees/` directory), install
    and build it, then — and only when the owner is known to be at the
    keyboard — issue `EnterWorktree` with `path`. **Before issuing it,
-   say so on the comms stream** (a directed event to the Director
-   naming the exact invocation): a seat cannot see its own prompt,
+   say so** — a directed event to the Director naming the exact
+   invocation where a Director is live; in a solo session, the same
+   sentence in the reply the owner is reading, immediately before the
+   call — because the announcement is for whoever can see the prompt,
+   and the seat cannot: a seat cannot see its own prompt,
    and a prompt nobody answers holds the seat indefinitely while its
    heartbeat loop, a separate process, keeps reading fresh. Worked
    instance 2026-09-07/08: an Implementer issued the entry at 21:08Z
@@ -127,15 +130,19 @@ configure away.
    directory decides what they watch. A principal-resident session arms
    with the watcher rule's canonical block (its first line
    `cd <repo-root> || exit 1`). A worktree-resident session arms the
-   same watcher with its `cd` rooted at the WORKTREE and the supervisor
-   pid passed as a literal — VERIFIED 2026-09-08 on Claude Code 2.1.263:
-   the arm ran, drained the canonical primary stream, and
-   `assert-watcher-live` run from the worktree was green. The one shape
-   the guard refuses is a runtime-computed value in the arm: the
-   canonical `--supervisor-pid "$PPID"` was refused verbatim as "runs
-   pnpm with a value computed at runtime (the variable PPID) inside a
-   construct too complex to verify", naming the expansion, not the
-   `cd`. So a resident seat reads its own pid first, as a plain
+   same watcher as the fully literal two-line block the watcher rule
+   carries under "Worktree residency changes the arm's shape" — its
+   `cd` rooted at the WORKTREE, the `timeout` binary named directly,
+   the supervisor pid passed as a literal — VERIFIED 2026-09-08 on
+   Claude Code 2.1.263: the arm ran, drained the canonical primary
+   stream, and `assert-watcher-live` run from the worktree was green.
+   The guard refuses runtime-computed values in the arm: the canonical
+   `--supervisor-pid "$PPID"` was refused verbatim as "runs pnpm with a
+   value computed at runtime (the variable PPID) inside a construct too
+   complex to verify", naming the expansion, not the `cd`; whether the
+   canonical block's `$(command -v …)` and `"$@"` scaffolding passes is
+   unverified, which is why the resident block is literal throughout.
+   So a resident seat reads its own pid first, as a plain
    command, from the harness's session file (`~/.claude/sessions/<pid>.json`
    carries `sessionId`; match it to the session identifier the identity
    hook exported), and writes the number into the arm. The primary

@@ -169,9 +169,24 @@ theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
 removals + 5 stale prunes), zero losses.
 
+**A dirty worktree joins the proven class once each dirty file is proven**
+(owner word 2026-09-08: "proven safe deletions are fine"). A failing
+precondition is a question, not a verdict: "dirty" is established or
+cleared per file, never read as the end of the analysis. For each path
+`git status --porcelain` lists, prove its content on the freshly-fetched
+`origin/<base>` — identical there, landed there and since revised, or
+conserved in a tracked home (an archive page, a landed record) — and record
+the proof per file; then `git restore -- <files>` to HEAD, confirm (a) and
+(b) afresh, and `git worktree remove` without `--force`. One file failing
+its proof keeps the whole worktree outside the class. Worked instance
+2026-09-08: a consolidation worktree with three dirty files (an experience
+page identical on the base; a napkin block conserved in the tracked archive;
+a register comment landed and since revised on the base) restored, proven
+clean and ancestor, removed without force, zero losses.
+
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
-anything dirty or unmerged, deletion of any branch not ancestor- or
-content-proven) remains owner-authorisation-gated and never removes
+anything unmerged or carrying an unproven dirty file, deletion of any branch
+not ancestor- or content-proven) remains owner-authorisation-gated and never removes
 information not first confirmed in `main` or consciously released
 (`never-use-git-to-remove-work`).
 
