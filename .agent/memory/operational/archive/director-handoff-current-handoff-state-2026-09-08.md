@@ -12,7 +12,10 @@ reason: >-
   standing rulings these blocks carried). Ruled by the Director 2026-09-07
   18:01Z; losslessness proven at the move by a byte comparison of the moved
   range (director-handoff.md lines 293–1778 at engraph 68d53d778) against the
-  body below. Git retains the literal record at that SHA.
+  body as first written. The body since carries ONE deliberate edit — the
+  relative link on its line 586 re-resolved from this directory — so a re-run
+  of that comparison differs on that line only. Git retains the literal record
+  at that SHA.
 ---
 
 # Director Handoff — Current Handoff State archive (2026-09-08 post-fold disposition)

@@ -54,8 +54,11 @@ seat may open its PR, gather reviews and disposition threads, but does NOT sync 
 until the slot-holder's merge-landed event, then takes the slot, syncs once and lands. Slot
 order is the Director's call — the default is the oldest non-draft PR, and the slot goes to
 whichever PR is green and clean first rather than being held empty. The fold takes the slot
-at the UTC rollover. Worked instance (2026-09-06): #58 was knocked BEHIND twice in one evening
-by other seats' merges, and its round five came from a sync push, not a cure.
+at the UTC rollover. Any auto-sync babysitter — a watcher running `gh pr update-branch` on
+OPEN and BEHIND auto-merge PRs — runs for the slot-holder only; a waiting PR is never
+auto-synced, because each sync is a push and each push is a review round. Worked instance
+(2026-09-06): #58 was knocked BEHIND twice in one evening by other seats' merges, and its
+round five came from a sync push, not a cure.
 
 ## Related Surfaces
 
