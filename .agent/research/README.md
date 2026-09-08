@@ -165,6 +165,7 @@ Research on code quality, testing, and architecture.
 | **[error_handling/](error_handling/)** | Error handling patterns | |
 | [deep-reflection-schema-first-and-findings.md](deep-reflection-schema-first-and-findings.md) | Schema-first insights | Cardinal rule learnings |
 | [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Provider-independent capabilities and storage options | Semantic capability contracts, explicit omission, provider bindings, and behaviour/state portability |
+| [typescript-data-structures-and-algorithms-2026-09-07.md](typescript-data-structures-and-algorithms-2026-09-07.md) | Non-graph TypeScript data structures and algorithms | Native facilities, ecosystem candidates and open research questions; no dependency selection |
 | [vi-mock-audit-report.md](vi-mock-audit-report.md) | Vitest mock audit | |
 | [zod3-zod4-openapi-implementation-plan.md](zod3-zod4-openapi-implementation-plan.md) | Zod migration | |
 
@@ -189,6 +190,14 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-09-07)
+
+- [TypeScript data structures and algorithms](typescript-data-structures-and-algorithms-2026-09-07.md):
+  research on the non-graph primitives available to TypeScript — the general tier of the
+  foundations inquiry; its graph tier landed as the
+  [TypeScript graph foundations research](typescript-graph-foundations-2026-09-07/README.md)
+  (PR 72), whose section 12 hands this survey eleven graph-specific contracts.
 
 ## Recent Additions (2026-09-06)
 
