@@ -44,6 +44,19 @@ machine only, and an explicit fork target on every `gh` call — the flag where 
 takes it, the endpoint or `GH_REPO` for `gh api`, the positional for `gh repo view` — which
 travels with the practice.
 
+## The landing slot (Director routing 2026-09-06; refined 2026-09-07)
+
+`engraph`'s ruleset requires branches to be up to date, so every merge knocks every other
+open PR to BEHIND; each knocked PR must sync and push again, and every push opens a fresh
+review round (ADR-204 makes the re-sync one push). So one non-draft PR holds the `engraph`
+landing slot at a time: the slot-holder syncs ONCE, pushes, settles and merges; every other
+seat may open its PR, gather reviews and disposition threads, but does NOT sync or merge
+until the slot-holder's merge-landed event, then takes the slot, syncs once and lands. Slot
+order is the Director's call — the default is the oldest non-draft PR, and the slot goes to
+whichever PR is green and clean first rather than being held empty. The fold takes the slot
+at the UTC rollover. Worked instance (2026-09-06): #58 was knocked BEHIND twice in one evening
+by other seats' merges, and its round five came from a sync push, not a cure.
+
 ## Related Surfaces
 
 - [`never-commit-to-main`](never-commit-to-main.md) — local commits to
