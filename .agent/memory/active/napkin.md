@@ -486,3 +486,22 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   resume; the fold wake; the hygiene clause PR and pointers (g), (i), (j), (k) for a fresh seat;
   Altair's claim retained for their resume or a successor's adoption. Bounds unchanged. A third
   pass re-finds only the standing bounds; the recursion closes here.
+- **Altair spins Umbra (05a180) resumed after compaction, 2026-09-08 10:34Z; #82 settle is the
+  Director's (armed at 2edc3f8de, event ce4a207c).** One Codex P2 on the final head (lane skill
+  step 1: the `engraph`/`main` list after "the branch the lane's PR targets" reads exhaustive
+  against a build-ahead lane) dispositioned, replied and resolved, no push under clause 8. The
+  finding's "appears to revert the parent" mechanism is wrong (three-dot compare from the
+  merge-base); the real cost is the lane lacking the parent's changes, self-revealing at first
+  build and at the "Base is clean" row. Pointer (l): qualify step 1's list as the default and name
+  the build-ahead parent as `<base>` per hygiene §1 — one line, folded into the hygiene clause PR
+  (Juno's A4) rather than a PR of its own.
+- **Second Codex round on 2edc3f8de (10:33Z), two threads, dispositioned under clause 8 (Altair 05a180):**
+  (m) P1, correct — the watcher rule's residency section describes the resident arm by reference to
+  the canonical block and names only two refused parts, while the verified 2026-09-08 arm was fully
+  literal (`cd <worktree> || exit 1` then `timeout 3600 pnpm agent-tools:collaboration-state --
+  comms watch … --supervisor-pid <literal>`) with no `$(command -v …)`, `set --` or `"$@"`; whether
+  those pass inside a worktree is unverified (the refusal names one offender). Cure: carry the
+  literal block in the section. (n) P2, correct in kind — residency clause 1's "directed event to
+  the Director" has no recipient in a solo session; cure: "to the Director where one is live; in a
+  solo session, in the reply to the owner". Both fold into the follow-up records PR with (l) and
+  the hygiene proven-removal clause, tally declared at open.
