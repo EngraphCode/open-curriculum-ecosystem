@@ -550,3 +550,62 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
 - **Memory homes written:** fix-issues-never-dismiss-them; tuition-review-owner-managed-2026-09-08;
   git-branch-d-merged-refs-standing-grant; planning-system-is-the-work-surface;
   no-throw-rule-off-until-upstream-merge.
+
+## 2026-09-08 11:2xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 18: the repo boundary is the certainty boundary
+
+- **The correction (owner, verbatim, 11:1xZ):** "We can know with absolute certainty whether or not
+  we have completed a piece of work up to the boundary of the repo, what we cannot and should not
+  do in the planning corpus is keep or infer state about *deployments* of the repo code, simply
+  because that is a one to many relationship, the repo is not a deployment. So, the planning estate
+  can know everything about the code, and the Practice, and the plans, but external system state
+  is not something to record, we can record a desired external system state outcome, but we cannot
+  function as a reliable record of that state, only the external system can." My "true kernel"
+  (execution state as a designed absence on the fork because it is a Linear projection) was wrong.
+- **Metacognition (retrospective).** Inherited: Juno's frame ("discoverable only as prose") and the
+  schema's Linear-specific phrasing ("delivery state is a Linear projection, never a repo field").
+  Ratified by analogy: Linear absent → the state is absent. The fluent answer arrived smoothly and
+  I called it the honest kernel; fluency was the warning I did not read. The generator: reading an
+  external projection as the HOME of a fact rather than a VIEW of one — the mirror of
+  records-narrate-ahead-of-the-landed-state (there a record asserts state the tree does not hold;
+  here I denied the tree state it holds with certainty). What it cost: a wrong claim delivered to
+  the owner as candour; had it stood, seats would have built a projection for state the repo
+  already has. What changes: when the question is "can the repo know X?", ask first whether X is a
+  property of the TREE or of an INSTANCE of the tree.
+- **Concept exploration.** Frame: the certainty boundary. Properties of the tree — a merged commit,
+  a proven acceptance criterion, an archived node, a claim on a path — are attestable by the repo
+  and its validator; properties of instances of the tree — deployments, dashboards, schedules,
+  consoles — are many per tree and observed only by the systems that hold them. Load-bearing
+  observations: the owner's words; the schema already TYPES the boundary (`repo-safe` proofs cite
+  the instrument; `owner-held` proofs name who verifies where — desired outcome, never state);
+  ADR-216 retired folder location as delivery state for exactly this error one level down.
+  Assumption changed: "execution state" was never one thing — completion is repo-certain,
+  deployment is not. Proposals: (1) a dated amendment to the schema's governing principle and
+  ADR-216 in the owner's words, replacing the Linear-specific sorting test's phrasing with the
+  tree/instance boundary — warrant: today's misreading by a Director who had read the schema;
+  falsifier: the owner reads the proof-typing paragraph as already unmistakable and declines;
+  (2) nothing to build on the fork — no projection, no register; (3) a one-off census of plan
+  bodies asserting external state as fact ("is deployed", "is live", "ticket closed") — each
+  re-pointed at the desired outcome and its owner-held proof; warrant: the class exists wherever
+  a seat wrote what a console showed; falsifier: the census finds none. Unresolved: none material.
+- **Free play, harvest.** Kept: the estate's recurring failure class is a record asserting an
+  instance's state it cannot observe (a claim for liveness; a record for the landed state; a plan
+  for a deployment), and every cure installs an observer (the heartbeat, the settle watch, the
+  external system) — a report of an association, not a finding. Kept as a play seed: the
+  certainty boundary and the sensitivity boundary (ADR-216 "mechanism only; anything internal
+  rides the ticket") look shaped alike — one line, two functions; unexplored. Discarded, visibly:
+  "Linear is a deployment of the plan estate" — forced; Linear is a view, and the one-to-many
+  is about code instances, not views.
+- **Work safety at the boundary:** the primary on coordination/2026-09-08-68d53d at 9e52fc872 ==
+  origin (0/0) before this block, tree clean (Altair's two commits: the napkin and the settings
+  simplification the owner confirmed; my owner-cards block); this block swept by the ceremony next.
+  Open: #83 (Altair; first round three Copilot findings over-bar, one settlement push), #84 draft
+  (the coordination fold PR, BEHIND until the step-2 merge; the fold wake 3d614df0 runs against
+  it). Registry: the Director's claim; Altair's 1c5a180b. Promises: the rulings PR (routed, with
+  the board→plans mapping and, next, edit 8 — the schema amendment); the census of the 30 sketch
+  nodes; the ESLint config PR and the hook pair after it (nodes first). Metaloss: pass one found
+  the record's 11:1xZ line carrying the wrong kernel as a verdict — trued in place before this
+  block; pass two found no unhomed promise; the inference "Juno's A6 rested on the same
+  misreading" is flagged as mine, not Juno's stated reasoning; a third pass re-finds only the
+  standing bounds (the watcher's truncation; Altair's transcript unread); the recursion closes
+  here. External bound: the owner caught what the pass could not — the class to point outside
+  scrutiny at is any verdict of mine that names an "absence" in a system I have just read.
