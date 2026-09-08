@@ -517,3 +517,36 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   default with the build-ahead parent; solo-lane announcement in clause 1).** Worktree
   records-residue cut from engraph f61245e94, operated non-resident from the principal; tally
   declared at open; the Director's read requested.
+
+## 2026-09-08 11:0xZ (Flounder turns Estuary, c5cc2c, Director) — twelve owner cards: the planning system is the work surface
+
+- **The cards (10:5xZ–11:0xZ, the owner via the Director; applied by one records PR, Altair's
+  lane after #83):** (1) the external-skills review framework plan ARCHIVED; (2) scanning units
+  5 and 6 — "We don't dismiss issues, we fix them" — the Sonar disposition policy's non-fix
+  outcomes withdrawn, unit 6 opening with a design step against ADR-219's in-process-limiter
+  prohibition; (3) the tuition review is owner-managed — its gate resolved, never surfaced again
+  unless told; (4) the extraction gates renewed to 2026-10-10 ("may well be addressed separately
+  by people working on the upstream fork"); (5) the innovation-kit definition RATIFIED ("we can
+  always iterate later"); (6) the showcase Stage-0 review renewed to 2026-10-10; (7) the
+  WorktreeCreate/WorktreeRemove hook pair YES, after the hygiene clause PR (#83); (8) a standing
+  grant: `git branch -d` on refs proven merged into the fetched base — applied at once to ten
+  July–September refs; the ref the card named was already gone (a stale card: re-derive the
+  object before presenting it); (9) the fork's work surface — "we have an entire, sophisticated,
+  in-repo planning system with multiple layers of discoverability!" — a question answerable from
+  the repo: the board's lane pointers (a)–(k) become plan nodes or units, and no seat proposes a
+  queue surface again; (10) the throwing-is-banned rule OFF where the 1,227 warnings live until
+  the Engraph fork merges back upstream, ERROR in every warning-free and every new workspace (a
+  config PR; the migration waits for the merge-back); (11) remit 2 stays paused; (12) no PR-66
+  retrospective.
+- **Corrections to this seat's map:** the record's "#82 landed by Altair" trued — the owner
+  merged it by hand at 10:50:28Z inside Altair's settle quiet window; the count "thirteen" was
+  twelve. Three local refs kept unmerged after the grant's sweep (docs/copilot-cli-practice-
+  citizenship, docs/first-class-copilot-agent-support, fix/claude-hook-hardening: July
+  preservation branches ahead of engraph and absent from upstream/main) → a disposition under
+  branch-without-PR-is-not-safe: content-proof against tracked homes, then delete under the grant
+  or a PR; home candidate open-surface-zero.plan.md.
+- **Owner facts learned:** the Engraph fork is expected to merge back into the Oak upstream; the
+  tuition review is scheduled and coordinated by the owner directly.
+- **Memory homes written:** fix-issues-never-dismiss-them; tuition-review-owner-managed-2026-09-08;
+  git-branch-d-merged-refs-standing-grant; planning-system-is-the-work-surface;
+  no-throw-rule-off-until-upstream-merge.
