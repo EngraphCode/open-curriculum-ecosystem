@@ -93,11 +93,13 @@ configure away.
 2. **Residency at launch — the prompt-free shape.** When the lane is
    known before the session starts, launch inside the worktree: the
    platform's own recipe for a worktree outside `.claude/worktrees/`
-   is `git worktree add <path> -b <branch> origin/<base>`, then
-   `pnpm --dir <path> install` and `pnpm --dir <path> build` (the
-   lifecycle's build step, BEFORE the launch: a worktree built after
-   its session opens shows no statusline for that session), then
-   `cd <path> && claude`. No entry happens, so nothing prompts, and
+   is the lane-cut skill's steps 1 to 3 in order — `git fetch origin`,
+   the cut from `origin/<base>`, the identity check, then
+   `pnpm --dir <path> install` and `pnpm --dir <path> build` (BEFORE
+   the launch: a worktree built after its session opens shows no
+   statusline for that session) — then `cd <path> && claude`; the skill
+   owns that ordering, this clause does not restate it. No entry
+   happens, so nothing prompts, and
    isolation enforcement is on from the first turn — which bounds the
    route for a coordinated lane: the canonical watcher must arm while
    principal-resident (`comms-all-channels-watcher`, and clause 4: a
