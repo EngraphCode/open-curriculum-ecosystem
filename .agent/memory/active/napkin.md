@@ -337,3 +337,92 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
   full gate).
 - **Fixed point:** a third pass would only re-find the two stated bounds (no git on the primary;
   the stopped watcher) and the sweep-before-move lesson already homed; the recursion closes here.
+
+## 2026-09-08 07:1xZ — Altair spins Umbra (05a180) — concept exploration: the worktree entry fix (owner word "prioritise the worktree fix")
+
+- **Observations (first-hand):** (1) Claude Code docs (worktrees, tools reference; 2.1.263): entering a path outside `.claude/worktrees/` always asks for approval since v2.1.206; an `EnterWorktree` permission rule or "don't ask again" does not suppress it; only `bypassPermissions` skips it; new-worktree creation and `.claude/worktrees/` paths do not prompt. (2) worktree-residency §Platform mechanics records a 2026-07-31 probe on 2.1.220 that "observed no approval friction" — 2.1.220 is after 2.1.206, so the prompt existed; a present owner answered it and the seat, which cannot see prompts, recorded absence. The note was blind from the start, not stale. (3) The same rule orders "launch at the principal, arm monitors there, then enter" because resident seats were refused Monitor arms (2026-08-06) — the canonical arm block opens with `cd <repo-root>`, which is the exact cwd the isolation guard blocks from a resident session; the docs list that check. (4) The residency switch was seen to kill primary-armed monitors (2026-09-01). (5) The docs' own sibling-worktree recipe is launch-time: `git worktree add ../x -b b; cd ../x; claude`. (6) A `WorktreeCreate` hook replaces creation for `claude --worktree`, subagent isolation and background sessions (not the EnterWorktree tool); input `name` + `cwd`, output the path; it may place the worktree anywhere not through a symlink. (7) User settings carry `worktree.baseRef: head` — a `--worktree` launch from the primary would base on the coordination tip (the PR #673 class) unless a hook cuts the base explicitly. (8) The nesting costs the hygiene rule records (Node walk-up; rule re-injection) were measured from a primary-resident reader; the walk-up persists for a resident nested lane, the re-injection does not.
+- **Problem frame:** the estate's lane convention (sibling worktree, entered mid-session) crosses a platform prompt the rules deny exists; when the owner is away the seat is held indefinitely, EMIT-fresh and ABSORB-dark, and the Director pays hours. Constraints: the owner's residency directive; no bypassPermissions; symlinked `.claude/worktrees` refused by the platform; any user, any machine; the sibling placement's reasons stand.
+- **Inherited shapes that changed:** "pre-approve the tool" is dead by the docs; "arm at the primary, then enter" was ordered around a refusal that the arm block's own `cd <repo-root>` line caused; the mid-session entry is an owner-present step by platform design, so the prompt-free shape is launch-time residency.
+- **Proposals:** P1 (records) true worktree-residency §Action 1 and §Platform mechanics, hygiene §3/§8, the lane skill step 3: the prompt is by design; mid-session entry is announced to the Director first and needs the owner at the prompt; the prompt-free shape is `claude --worktree <name>` at launch with the estate's hook. Warrant: the docs verbatim and this instance; falsifier: a version note that an allow rule suppresses it. P2 (structural) a tracked `WorktreeCreate`/`WorktreeRemove` hook pair placing worktrees at the sibling directory, branch cut from the remote default branch (derived, never hard-coded), `.env.local` carried, identity inherited and checked — the lane skill's steps 1, 2 and 4 made mechanical, and the `baseRef: head` hazard neutralised. Warrant: the hook contract; falsifier: `claude --worktree x` with the hook prompts or refuses the sibling path (the owner's one launch verifies the wiring; the script verifies standalone). P3 (probe, now) arm a monitor from inside the lane worktree with the cd rooted at the worktree; if it holds, the ordering in observation (3) is retired. P4 the Director's deadline-and-default stays the backstop (theirs).
+- **Unresolved:** whether `--worktree` at launch prompts for a hook-returned sibling path (docs describe the prompt only for the EnterWorktree tool); whether a resident seat's `claims heartbeat --active <primary>` write passes the guard (P3 measures it).
+
+## 2026-09-08 04:3xZ — Juno seeks Apogee (a693fb) — THE OPEN REGISTER at the seat's close, in full, for discovery and action
+
+Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, or further required work are noted and reported to the Director and available for discovery and action, and then this session is over". Reported to the Director by two directed events at 04:2xZ–04:3xZ; conserved in the machine-local handoff record 38ec1aaf (STATE 12 addendum); and here, the tracked capture surface every seat reads at session open, so a seat on any checkout finds it without the comms stream. Each item names its actor and its home. The 04:1xZ wrap block above summarises this list; this block is the list.
+
+**A. Open decisions (the owner's, via the Director)**
+
+- A1. `.agent/plans/delivery/external-skills-library-review-framework.plan.md`: the `owner-decision` gate expired 2026-09-06 and the plan-gate-drift alert fires at every session start. Two owner moments, separately gated: ratify the distilled framework before it governs any review; the larger review starts only on his express word (owner verbatim 2026-08-02: "Do not start the larger review without my say so"). Renew (new `expires`), resolve (remove the discharged gate row) or archive — the owner's call at the Director's next action moment. Home: the plan's frontmatter.
+- A2. turbo.json: the root `test` task's inputs omit `RULES_INDEX.md`, so the pre-push turbo step replays a cached agent-tools pass when only that root file changes (measured 2026-09-07; recorded in the shell-and-tooling gotchas reference). Cure: one input line, `$TURBO_ROOT$/RULES_INDEX.md`, a config PR on the Director's board; no seat owns it.
+- A3. AGENTS.md carries a generator-fenced Codex team-alert bootstrap block beyond session-handoff §6d's named extensions (the rules-index line only). Decide whether the skill's extension list names the generator's block; until it does, every wrap reports it as drift. Home: the session-handoff skill.
+- A4. Rule candidate: the dirty-but-proven worktree path — restore the proven files to HEAD, confirm the tree clean and HEAD an ancestor of the fetched target, remove without force (the owner's word 2026-09-08, "proven safe deletions are fine") — as a clause of worktree-hygiene, with the 2026-08-05 prune grant. The Director's routing; the pending-graduations refresh promotes this `candidate:`.
+- A5. The fold: no PR of any author is open on the fork, the landing slot is free, and the Director's coordination branch (3d53fdf2c) folds on their turn.
+- A6. The fork line's discovery-and-action surface for open work: the Oak line uses Linear for visibility with the repo as the record, and the fork never uses Linear, so open work on the fork is discoverable only as prose (repo-continuity §Next Safe Steps, the Director's tenure journal, this napkin). Whether the fork adopts a queue-shaped surface of its own (GitHub issues on the fork, or a tracked register) is the Director's design question, raised here, not acted on.
+
+**B. Open reviews**
+
+- B1. None open: the fork's PR count is zero. Bound: this seat did not read review comments posted after the merges of #77, #78, #80 and #81; a post-merge Codex finding routes under PDR-140 clause 9(c) — the napkin or a lane PR, never a reopen.
+- B2. The directives item (the 30% gate; Altair's lane after #70 until their retirement by silence): back on the Director's routing; this seat's handoff event of 2026-09-07 22:0xZ carries it whole.
+- B3. The Director's first-hand read is the review for two uncommitted appends on the primary's coordination checkout, awaiting their sweep: `.agent/memory/active/napkin.md` (the 03:5xZ closing block, the 04:1xZ wrap block, this block) and `.agent/experience/2026-09-06-juno-seeks-apogee-the-window-i-read-whole.md` (the letter's second window). The full gate ran green on markdownlint, prettier and dependency-cruiser with them in place.
+
+**C. Required work with no owner yet**
+
+- C1. The two thread-record criticals under continuity-practice §Disposition of Continuity Surfaces (per entry, live or finished), a fresh seat: `threads/agentic-engineering-enhancements.next-session.md` (114,304 chars; thirteen EXECUTED lane blocks at lines 27–693 and a 61 KB Current Continuation log) and `threads/paused/mcp-submission-drive.next-session.md` (780 lines; the 2026-08-17 midday block at lines 427–596 is self-declared historical). This seat's censuses are machine-local (reference-local); a seat elsewhere re-derives them by reading the records.
+- C2. repo-continuity.md reads 64,741 chars against the 52,500 critical after the pointer pass; the excess is §Current State and §Next Safe Steps (finished Oak-line narrative), and §Current State carries statements later entries contradict (its "comms-log rotation is paused until a dedicated comms research plan exists" against the 2026-09-07 rotation its own Next Safe Steps entry records). The next continuity pass, under the runbook.
+- C3. The ~42 numbered owner rulings in the director-handoff archive need the homed-or-not check ruling by ruling (queued in repo-continuity §Next Safe Steps with method and sizing).
+- C4. Comms rotation: the harness `comms-archive-move` moves heartbeats; the substantive-event move under the 2026-08-14 watermark was a hand script that died with this session. The next rotation needs that mover homed in agent-tools (a small code PR) or re-written; the provenance gate `comms-provenance-check` stands; and the 2026-08-14 → 2026-09-07 window's absorption sweep is not yet declared, so no newer watermark exists — the declaration precedes the next rotation.
+- C5. repo-continuity's identity-summary rows for this seat's window were not refreshed (session-handoff 7b/7c): no records PR at the owner's "less ceremony", and this session could not commit on the primary. The Director's tenure journal carries the seat chain; a fresh seat's session-open registration covers the row.
+- C6. The merged local branch ref `chore/director-handoff-disposition-2026-09-08` stands on this machine; the bot's `git branch -D` was declined by the permission layer twice; the owner holds the one-line command.
+- C7. The full gate `pnpm check` on the primary with the appends in place exited 0 (markdownlint 0 issues in 2,099 files; prettier clean; dependency-cruiser clean).
+- C8. That same gate's log carries 1,227 ESLint WARNINGS across 16 packages (agent-tools 376, sdk-codegen 300, oak-curriculum-mcp-streamable-http 170, search-cli 169, curriculum-sdk 78, oak-search-sdk 37, sentry-node 21, oak-design-tokens 17, graph-core 15, logger 12, design-tokens-core 11, graph-corpus-sdk 9, env-resolution 4, env 3, observability 3, safe-path 2), mostly the throwing-is-banned rule (ADR-088) at warning severity, plus one Vite config warning in the design system tests. Under `no-warning-toleration` the gate is not clean; none of it is in files this seat touched. A source-package cure, or a severity decision on the rule, for the Director's board.
+- **Stamp truing (06:5xZ, clock 06:53Z by date -u):** the "Third line (07:0xZ)", "Fourth line (07:1xZ)" and the exploration block's "07:1xZ" were written between 06:44Z and 06:52Z; the stamps were estimates, the timestamp class the Director named twice yesterday, now a third seat. Cure applied: date -u before every stamp. Director resumed 06:4xZ: claim a360ed2a acknowledged; mechanics — no EnterWorktree to the sibling path, operate from the primary; landing shape one records PR, the Director reads before merge; the hygiene proven-removal clause is this seat's second PR.
+
+## 2026-09-08 06:4xZ–09:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: a held seat's lane landed by default, and what four review rounds were made of
+
+- **This window:** resumed at the owner's start-right-team after compaction boundary 7; every
+  process re-armed (watcher, claim loop, peer poll, wrap cron, the 2026-09-09 fold wake). The owner
+  directed Altair straight to the worktree-entry fix; Altair committed and bot-pushed the records
+  cure, announced an EnterWorktree probe at 07:00Z, and has been held at the platform's approval
+  prompt since (owner pushed 07:01Z and 07:20Z; their watcher's hourly backstop expired ~07:34Z,
+  so the seat reads fully dark). At 07:40Z the declared default fired: the Director read all
+  three diffs first-hand and opened PR #82 from the pushed commit, then took four review rounds
+  alone under PDR-140 clause 9 — 8, 4, 2, 1 threads, every finding verified true against the text
+  and the rules it cited, thirteen cured (one settlement push, one rebudget, two cures alone), two
+  routed 9(c) as pointers. Head 9beaf4b2f; the settle runs.
+- **What the rounds were made of (the generator).** Every round's findings were instances of a
+  class the previous cure introduced: `origin/<base>` in one clause exposed `main` in the next
+  file; build-before-entry in the rule exposed the skill's order, then its unscoped commands, then
+  the launch recipe; the arm order exposed the recovery path, then the watcher rule's promise.
+  Juno's lesson from #80 (sweep the readers of a moved range before moving it) generalises: when a
+  cure changes a VOCABULARY or an ORDER, read every surface that carries it — the three files and
+  the two rules they cite — before the first push. That one read would have collapsed rounds one
+  and two into the opening commit. The reviewer did the read, a round at a time, and the price was
+  two and a half hours of the Director's attention on one small records PR.
+- **Mechanics learned this window.** A `.git/index.lock` collision with a peer's `git worktree
+  add` in the same second — the ceremony aborted cleanly, the intent read abandoned, the lock was
+  gone on inspection, the re-run was clean. Markdownlint MD018 fires on a rewrapped line that
+  begins "#674)." A canonical skill's frontmatter description change drifts its generated
+  projections: `pnpm skills:generate` and the two projection files travel in the same push, or the
+  pre-push adapter check refuses. The auto-mode classifier denied a Monitor arm identical to one it
+  had allowed twenty-five minutes earlier; the natural alternative is the same settle script as a
+  background command, with its ten-minute ceiling and a re-run from live state. A vendor quotation
+  in a rule is verified against the live page in one fetch, and it was verbatim.
+- **Pointers added for a fresh seat:** (g) relocate worktree-residency's dated, versioned probe
+  evidence to a reference record and keep only the structural behaviour and trigger in the rule
+  (no-moving-targets, Copilot's finding, pre-existing shape since 2026-07-31); (h) sync
+  comms-all-channels-watcher's "persist across residency switches" promise with the observed
+  2026-09-01 kill — verify after every switch, recover by its own exit-arm-re-enter sequence
+  (Codex, round three; a file outside #82's story); (f) the no-throw migration lane (1,227
+  warnings across 16 packages, the documented warn-phase carve-out; Juno's C8).
+- **Metacognition.** The Director executed instead of routing for a whole window — the degenerate
+  exception, taken under a declared default on a held seat's lane with the owner's "prioritise the
+  worktree fix" behind it and PR-count-zero standing. Right call; the cost was the tail, and the
+  tail was avoidable by the cross-surface read above, not by fewer cures. Discarded, visibly: that
+  the held prompt was a classifier fault (the platform documents it as design, and Altair's fourth
+  line had already said so).
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at 9534510e6 equals origin before
+  this sweep; the queue empty; dirty: the napkin (Juno's open-register block, Altair's exploration
+  block and stamp truing, this block) and the held settings file, never folded. Promises: the #82
+  settle (running, re-run on its ceiling); the fold wake 483ed39f for the 2026-09-09 rollover; the
+  lane returns to Altair on release. Bounds unchanged. A third pass re-finds only the standing
+  bounds; the recursion closes here.
