@@ -3,12 +3,12 @@ boundary: B2-Architecture
 doc_role: index
 authority: architecture-navigation
 status: active
-last_reviewed: 2026-08-02
+last_reviewed: 2026-09-08
 ---
 
 # Architecture
 
-**Last Updated**: 2026-08-02
+**Last Updated**: 2026-09-08
 **Status**: Active architectural index
 
 ## Start Here
@@ -36,6 +36,12 @@ block in the ADR index:
 
 ### Core Architecture (Current)
 
+- Algorithm and data-structure foundations: [ADR-229](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+  records the owner-established direction to author SMALL Reliable Atoms and
+  meaningful compositions, informed by openly licensed references. The
+  [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+  owns scope, research and qualification; the [bundle index](./foundations/foundations-bundle-index-2026-09-08.md)
+  locates the graph and non-graph contracts, requirements and worked examples.
 - Foundations-first architecture: the
   [software projection of the cost-of-change gradient](./foundations-first.md)
   — how core building blocks, foundational systems, libraries, and products
@@ -78,6 +84,7 @@ block in the ADR index:
 - [ADR-040: Transition to Neutral Architecture and Allowlist Identity Check](./architectural-decisions/040-neutral-architecture-and-identity-allowlist.md)
 - [ADR-041: Workspace Structure Option A Adopted](./architectural-decisions/041-workspace-structure-option-a.md)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](./architectural-decisions/174-dependency-vulnerability-scanning-quality-gate.md)
+- [ADR-229: Own-built Algorithm and Data-structure Foundations](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
 - [All ADRs](./architectural-decisions/) - Complete decision record (historical ADRs preserved)
 
 ## Related Agent Guidance

@@ -251,13 +251,17 @@ serve unchanged) is a falsifier against generality-by-assertion, not an
 exception to accommodate.
 
 The gradient runs below the repo boundary (owner-directed 2026-08-19):
-the lowest general layer may be the ecosystem itself. Where a finished
-canonical form already exists — an industry contract, a mature library —
-adopt it behind a thin conformance check rather than re-derive it
-in-estate; own only concepts with no external canonical form, or small
-enough that a finished owned module costs less than curating a
-dependency. Both directions stay falsifiable by measured cost. A thin
-highest-specificity layer is also a detachable one (owner-directed
+the lowest general layer may be the ecosystem itself. Algorithm and
+data-structure foundations follow
+[ADR-229](../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+(owner-directed 2026-09-08): author SMALL Reliable Atoms and meaningful
+compositions, informed by openly licensed references and independently
+qualified against their contracts. The governing policy linked there owns
+the responsibility-based scope. Other ecosystem capabilities follow their
+applicable acquisition decisions; a finished industry contract or mature
+library can supply those responsibilities behind a conformance boundary.
+Evaluate full-lifecycle cost against the promised capability and quality.
+A thin highest-specificity layer is also a detachable one (owner-directed
 2026-08-19): an Oak product surface built as configuration, styling, and
 experience tuning on general machinery can be handed off to a product
 squad — extracted to its own home — without dragging the lever machinery
