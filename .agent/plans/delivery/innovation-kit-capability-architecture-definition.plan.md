@@ -42,9 +42,9 @@ same date. The definition's value is offered, not need-proven (the innovation cl
   reviewed definition of what the Kit is, what it provides, and where authority boundaries
   sit — composition without archaeology, and gaps routed to their legitimate owners
   instead of absorbed locally.
-- **The owner**: a durable, reviewable statement of the product-creation system to accept
-  or amend at the joint gate — governance grip on the Kit's shape before implementation
-  narrows it.
+- **The owner**: a durable, reviewable statement of the product-creation system, accepted
+  at the 2026-09-08 ratification and amended by its own review from here — governance grip
+  on the Kit's shape before implementation narrows it.
 - **Future Kit stewards**: the conserved lineage — why the Kit exists and which claims
   would falsify its model — so later curation amends deliberately rather than rediscovers.
 
@@ -111,15 +111,16 @@ by accident.
 8. **The current lane selects no implementation.** The plan and corpus do not select a framework,
    package topology, provider, first proof or horizontal platform. Proof: **repo-safe** for the
    explicit boundaries and absence of a selected implementation; **owner-held** for any later
-   decision to ratify the definition or authorise a separate proposition-led implementation plan.
+   decision to authorise a separate proposition-led implementation plan (the definition itself
+   was ratified on 2026-09-08).
 
 ## Todos
 
 1. Reconcile substantive owner or competent-authority amendments into the single-responsibility
    definition homes, keeping evidence and examples separate from rules.
-2. When the definition is accepted or amended, promote any genuinely ratified architecture or
-   Practice decisions to their legitimate canonical surfaces; leave this research corpus as the
-   evidence and conceptual source.
+2. The definition being ratified (2026-09-08), promote any genuinely ratified architecture or
+   Practice decisions to their legitimate canonical surfaces as they are picked up; leave this
+   research corpus as the evidence and conceptual source.
 3. Author a separate born-sketch delivery plan only if the owner later selects a proposition-led
    implementation or discriminating proof. That plan must consume the definition and derive its
    capabilities from the proposition rather than from the current gap list.
