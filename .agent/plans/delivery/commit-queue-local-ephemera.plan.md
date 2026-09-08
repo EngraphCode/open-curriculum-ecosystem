@@ -7,7 +7,10 @@ overview: >-
   local-machine ephemera that never enters version control; it leaves the
   flat active-claims.json for per-intent event files (the comms-store shape)
   with a 1-hour TTL, and list/status become views over the directory.
-status: sketch
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify 22, 23 and 25; hold 21 and 24'"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
@@ -15,7 +18,7 @@ tickets:
   - MCP-612
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-06
+last_updated: 2026-09-08
 ---
 
 # Commit queue as machine-local ephemera

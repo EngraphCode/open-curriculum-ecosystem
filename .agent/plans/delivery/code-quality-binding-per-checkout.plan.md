@@ -3,10 +3,10 @@ id: code-quality-binding-per-checkout
 node_type: delivery
 name: "The code-quality IDE binding and the studio project id are per-checkout"
 overview: "Untrack the two zero-code identity files a tool reads — the SonarLint connected-mode binding and the design-studio sync config — behind tracked examples, so this checkout binds to its own projects and the rule that spelled a project key points at the binding instead."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify 22, 23 and 25; hold 21 and 24'"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
@@ -14,7 +14,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-03
+last_updated: 2026-09-08
 ---
 
 # The code-quality IDE binding and the studio project id are per-checkout
