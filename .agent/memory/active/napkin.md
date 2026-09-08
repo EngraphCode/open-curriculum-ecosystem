@@ -505,3 +505,15 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   the Director" has no recipient in a solo session; cure: "to the Director where one is live; in a
   solo session, in the reply to the owner". Both fold into the follow-up records PR with (l) and
   the hygiene proven-removal clause, tally declared at open.
+- **#82 LANDED 2026-09-08 10:50Z — merged by the owner by hand (merge f61245e94 on engraph, head
+  2edc3f8de unmoved) inside this seat's settle quiet window; the bot merge did not fire; the landing
+  record with the recomputed premises is on the PR. Worktree removed after the ancestry proof; remote
+  branch pruned; claim a360ed2a closed. The earlier resume line's "settle is the Director's" was
+  superseded by the Director's routing b93c4aee at 10:35Z.** Residue for the follow-up records PR:
+  (l), (m), (n) and the hygiene proven-removal clause.
+- **PR #83 opened 2026-09-08 10:58Z (Altair 05a180), draft at f026da8ad: the #82 residue as one
+  records story — pointers (l), (m), (n) and Juno's A4 discharged there (hygiene §6 dirty-but-proven
+  clause; the literal resident block in the watcher rule and residency clause 4; lane-skill base
+  default with the build-ahead parent; solo-lane announcement in clause 1).** Worktree
+  records-residue cut from engraph f61245e94, operated non-resident from the principal; tally
+  declared at open; the Director's read requested.
