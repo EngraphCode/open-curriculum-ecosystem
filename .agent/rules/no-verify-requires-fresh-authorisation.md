@@ -36,6 +36,9 @@ requirement stands unchanged.
 **Standing owner ruling — ChatGPT Work cloud, 8 September 2026.** When and only
 when `bash .agent/setup/is-chatgpt-work-cloud.sh` exits zero, `HUSKY=0` is
 authorised for local commits and pushes throughout that detected session. The
+detector is tri-state: exit 1 means only "not this profile"; any other non-zero
+exit, a missing script or the wrong working directory is a detector error and a
+blocker, never a standard-profile result and never this authorisation. The
 host is non-execution infrastructure; the required substitute route is the
 one recorded in
 [`cloud-environment-routing.md`](../directives/cloud-environment-routing.md):

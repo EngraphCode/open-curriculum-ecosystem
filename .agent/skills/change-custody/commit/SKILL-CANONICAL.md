@@ -32,16 +32,23 @@ closes that exposure window.
 Before package-manager, queue, hook, identity or gate work, use the tri-state
 classification in
 [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md).
-When it selects ChatGPT Work, use this section instead of Tooling, Before You
-Draft package-manager checks, Commit Queue and Window Protocol, Process
-execution and local-gate instructions below. The Safety Rules still bind except
-for the exact standing `HUSKY=0` ruling recorded in
+When it selects ChatGPT Work, use this section instead of Tooling, the
+package-manager invocations in Before You Draft (its constraint enumeration
+still applies, as text), Commit Queue and Window Protocol, Process execution
+and local-gate instructions below. The Safety Rules still bind except for the
+exact standing `HUSKY=0` ruling recorded in
 [`no-verify-requires-fresh-authorisation`](../../../rules/no-verify-requires-fresh-authorisation.md).
 
-1. Read `commitlint.config.*`, `.husky/commit-msg` and any version-bearing
-   changes as text. Manually check the proposed message against the live
-   conventional-commit type, case, length, footer and accidental-major-version
-   constraints. CI does not supply this check.
+1. Check the proposed message by hand against the constraints enumerated in
+   Before You Draft below: its step 4 table of the preset's rules (the type
+   list, the 100-character header and body-line limits, the subject and footer
+   rules and the two `footer-leading-blank` traps) and its step 5
+   accidental-major-version indicator for version-bearing changes. Read
+   `commitlint.config.*` and `.husky/commit-msg` as text only to confirm which
+   preset and which extra hooks are live; `commitlint.config.mjs` shows only an
+   `extends` entry and the hook file only names commands that cannot run here,
+   so the enumeration is the check, and none of that section's `pnpm`
+   invocations runs in this profile. CI does not supply this check.
 2. Confirm the current branch is neither the repository default branch nor a
    protected branch. Inspect the exact staged or connector content set, the
    complete outgoing diff and `git diff --cached --check` where a local index
