@@ -117,7 +117,12 @@ is the thing that removes the check, so the check is unconditional.
 
 No local proof of safety — a byte-identical duplicate elsewhere, a clean
 `diff`, a verified ancestor relationship — licenses a risk-of-loss
-operation (`stash`, `checkout`, `reset`, or kin). The owner ruled this
+operation (`stash`, `checkout`, `reset`, or kin): a git-side discard of
+working-tree content. The class this section bans is the discard, whatever
+its proof. A forward write of content proven present elsewhere is a
+different act — it removes nothing that is not already conserved — and the
+standing grant below scopes exactly that act; it licenses no member of the
+banned class. The owner ruled this
 against a PROVEN-duplicate `git stash push` proposal (2026-07-15):
 *"no operations that might risk a loss of work; relaxing that discipline
 is what caused these problems in the first place."* The doctrine point is
@@ -131,7 +136,8 @@ principle (`principles.md` §First Principle): the impulse to construct a
 sanctioned bypass is itself the signal to examine.
 
 **Standing grant for proven paths (owner-ruled 2026-09-08, card answer
-verbatim: "Standing grant for proven paths").** A path whose content is
+verbatim: "Standing grant for proven paths") — a scoping of the class,
+never an exception to it (`rules-have-no-exceptions`).** A path whose content is
 PROVEN on the freshly fetched `origin/<base>` — identical there; landed
 there and since revised; or conserved in a tracked home — with the proof
 recorded per path in a surfaced table, MAY be cleared by the seat by a
@@ -152,9 +158,10 @@ recorded per-path proof falls back to the absolute clause above.
 
 ## Exceptions
 
-One, ruled above: the standing grant for proven paths, which licenses a
-forward write of proven content and nothing in the blocked class. Beyond
-it there are none for working-tree edits. Once a change is committed, the
+There are none for working-tree edits: the standing grant for proven paths
+above is a scoping of the banned class (a discard), not an exception to it —
+a forward write of proven content is outside the class by construction.
+Once a change is committed, the
 normal git tools (revert, reset on a private branch you own) become
 available as forward-going operations because they create new commits
 that record the change. Those are not in scope of this rule.

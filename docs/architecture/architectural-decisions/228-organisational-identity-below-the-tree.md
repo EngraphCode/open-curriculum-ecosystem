@@ -1,10 +1,10 @@
 # ADR-228: Organisational identity is held below the tree
 
-- **Status:** Accepted (2026-09-08, the owner's card answer "Ratify all six"
-  over the strategic plan nodes, item `organisational-identity-below-the-tree`,
-  recorded on the node's ratification stamp and in the pull request that landed
-  it). This record homes the decision that ratified node carries, so that
-  permanent doctrine can cite a record rather than a plan.
+- **Status:** Accepted (2026-09-08, the owner's numbered card answer "Ratify
+  all six" over the strategic plans, recorded on the ratified plan's stamp
+  and in the pull request that landed it). This record homes the decision so
+  that permanent doctrine can cite a record rather than a plan; the plan that
+  carries the outcome, the bet and the delivery sequencing cites this record.
 - **Date:** 2026-09-08
 - **Related:** [ADR-227](227-oak-product-in-its-own-repository.md) — the
   product band leaves with the product; this decision applies its line one
@@ -38,8 +38,9 @@ the code-quality organisation and project, the error-reporting organisation,
 chat channels, the ticketing workspace, the default branch, the adapter prefix
 — is held below the tree: derived from a source already present, read from a
 per-checkout file behind a tracked example, taken from the environment, or
-bound on the service side. General mechanism reads it through one resolver at
-the clone's primary checkout and carries no default naming any organisation.
+bound on the service side. General mechanism reads it, per rung, through one
+reader at the clone's primary checkout and carries no default naming any
+organisation.
 The tree's declared identity homes — the canonical organisation's identity
 pack, the corpus and curriculum types, the product band per ADR-227, package
 provenance and the publishing scope, generated adapter carriers, dated-record
@@ -79,13 +80,18 @@ Three consequences bind doctrine directly:
   because no tracked mechanism file carries their name or the canonical one.
 - Validation maturity: at the date of this record the decision is ratified
   and its first instances are landed (the per-checkout merge-bot
-  configuration; the derived default branch); the census and validator the
-  ratified node names are not yet built.
+  configuration; the default branch derived by the rules and skill that read
+  it). Deferred, explicitly: the one shared reader per rung — today each
+  reader derives its value inline; the census of identity literals still
+  standing in mechanism layers; and the validator that refuses their growth
+  or substitution. Until those land, "one reader" is the decided shape, not
+  a satisfied invariant.
 
 ## The owner's word
 
-The strategic node `organisational-identity-below-the-tree` was ratified on
-2026-09-08 by the owner's numbered card answer, verbatim: "Ratify all six".
-The node's kernel quotes the owner's words of 2026-09-03 above; this record
-carries the decision, the node carries the outcome, the bet and the delivery
-sequencing, and a later amendment to either names the other.
+The strategic plan on organisational identity below the tree was ratified on
+2026-09-08 by the owner's numbered card answer, verbatim: "Ratify all six";
+its kernel quotes the owner's words of 2026-09-03 given above. This record
+carries the decision; the plan carries the outcome, the bet and the delivery
+sequencing and cites this record; a later amendment to this record names its
+date and its owner word here.

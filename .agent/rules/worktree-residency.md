@@ -212,7 +212,11 @@ configure away.
    origin --auto`, then read with `git symbolic-ref --short` and
    stripped of its `origin/` prefix — never a literal; for a build-ahead
    lane, the parent branch it was cut from until the parent lands, so the
-   listing is the child's own commits and nothing else; a check against
+   listing is the child's own commits and nothing else — and once the
+   parent has landed, first merge the default branch into the child or
+   re-cut it, then check against the default branch (a squash-landed
+   parent leaves its original commits non-ancestors, so the switch
+   without that step lists them as contamination); a check against
    a stale or wrong base lists every commit since the mirror point as
    contamination). Anything else is a contaminated base —
    re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story

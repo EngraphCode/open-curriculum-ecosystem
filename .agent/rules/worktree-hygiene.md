@@ -185,11 +185,15 @@ cleared per file, never read as the end of the analysis. For each path
 `origin/<base>` — identical there, landed there and since revised, or
 conserved in a tracked home (an archive page, a landed record) — and record
 the proof per path in a surfaced table, and inventory the IGNORED paths
-too (`git status --porcelain --ignored`): an ignored path is data the
-porcelain proof cannot see and `git worktree remove` deletes it with exit
-0, so each one is named with its disposition — a copied `.env.local`
-confirmed as a copy of the primary's; fetched data re-fetchable per its
-owning workflow; build output. Then clear each proven path under the
+too (`git status --porcelain --ignored`, which collapses an ignored
+directory to one `!! <dir>/` entry): an ignored path is data the porcelain
+proof cannot see and `git worktree remove` deletes it with exit 0, so each
+entry is named with its disposition — a copied `.env.local` confirmed as a
+copy of the primary's; fetched data re-fetchable per its owning workflow;
+build output by directory name (`node_modules/`, `dist/`, `.turbo/`) — and
+any ignored directory that is not build output by name is listed
+recursively (`find <dir> -type f`) and dispositioned file by file before
+the removal. Then clear each proven path under the
 standing grant for proven paths (`never-use-git-to-remove-work`,
 owner-ruled 2026-09-08): a modified tracked file overwritten with its
 HEAD content; a tracked symlink recreated as HEAD holds it, never written

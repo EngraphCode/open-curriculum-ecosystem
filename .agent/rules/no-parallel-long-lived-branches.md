@@ -16,7 +16,12 @@ day or any second coordination-shaped branch.
   PR'd to `main`, merged or closed within hours — never days. If work outgrows
   the ticket, STOP and split; never let the branch absorb a second story.
 - **`main` is the target of every PR.** No branch targets another branch; no
-  stacked long-lived chains.
+  stacked long-lived chains. A build-ahead worktree cut from a parent lane
+  branch (`worktree-hygiene` §1) is inside this rule, not outside it: its PR
+  targets `main` from its first push, its base advances to `main` by one merge
+  or a re-cut when the parent lands, and it lives no longer than the parent's
+  landing plus its own — a short-lived single-story branch whose start point
+  happens to be a sibling's tip, never a chain.
 - **Exactly ONE sanctioned rolling branch exists**: the current coordination
   branch (`coordination/<name>`), which carries the live coordination-surface
   estate (session records, continuity documents, reports) to `main` through
