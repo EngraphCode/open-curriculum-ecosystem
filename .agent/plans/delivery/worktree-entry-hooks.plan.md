@@ -71,10 +71,15 @@ hooks make mechanical.
   RESUME it rather than re-add it (the hook is idempotent: it checks `git worktree list`
   first and runs only the remaining steps); verify the inherited commit identity resolves
   and no worktree-scoped `user.*` override shadows it (never re-set it); copy the
-  principal's `.env.local` when one exists; run `pnpm --dir <path> install` and
-  `pnpm --dir <path> build` — a failure here leaves the worktree and branch in place and
-  exits non-zero naming the failed step, so the same launch retries from where it stopped;
-  print the created path last.
+  principal's `.env.local` when one exists; run `pnpm --dir <path> install`,
+  `pnpm --dir <path> build` and the Playwright browser installation Start Right names for
+  a fresh worktree (`pnpm --dir <path> exec playwright install`, so the first browser suite
+  runs on a cold machine or a lockfile-selected revision absent from the shared cache) — a
+  failure here leaves the worktree and branch in place and exits non-zero naming the failed
+  step, so the same launch retries from where it stopped. Every diagnostic line from those
+  steps goes to stderr (or a captured log): the harness consumes the hook's stdout as the
+  created path, so a successful run writes exactly one absolute path to stdout and nothing
+  else.
   The install and build run inside the hook, before the session opens, because a worktree
   built after its session opens has no statusline (residency clause 2; the lane-cut skill's
   own order): the launch waits the minutes the build takes, once per lane, rather than open

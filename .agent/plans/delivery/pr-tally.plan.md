@@ -64,8 +64,7 @@ skill.
   markers is never counted and is surfaced as "manual tally required", the boundary the
   existing pr-watch settlement code already draws.
 - **The tally**: one row per SETTLED round, in commit order on the branch, never arrival
-  order. A head's round is settled when the seat's signed settle mark for that head exists
-  (the tally comment naming it, or a reply naming the round settled) or when every expected
+  order. A head's round is settled when every expected
   reviewer leg reads SATISFIED or SKIPPED for the head under the skill's reviewer-leg
   states — SATISFIED by a review bound to the head, SKIPPED by a tip-scoped skip marker or
   by the checks-green timeout, OWED otherwise — and no newer review arrived within the
@@ -75,8 +74,13 @@ skill.
   guessed); a round settled through a SKIPPED leg is a row like any other, so a timed-out
   reviewer never suppresses a row or delays the four-round arm; a head superseded before
   either is listed as unsettled and never counted toward the step-back. The invariant:
-  every row rests on a persisted proof — a signed settle mark or a recomputable timeout —
-  and a head with neither is unsettled. The raised count is every finding in threads and marked body items bound to
+  every row rests on a recomputed proof — the reviewer-leg predicate over the harvested
+  reviews, or a recomputable timeout — and a head with neither is unsettled; the seat's
+  signed settle mark (the tally comment naming the head, or a reply naming the round
+  settled) is persisted evidence the command records and cross-checks against that
+  recomputation, never a settlement by itself, and the only supersession of the predicate
+  is an owner settled-word or an owner-executed merge (pr-lifecycle §review-round item 4).
+  The raised count is every finding in threads and marked body items bound to
   that head, one logical finding counted once, matched on anchor AND substance (a body item
   restating an inline thread of the same review at the same anchor with the same substance
   is one finding; two distinct defects at one anchor are two); the cure-worthy count is
