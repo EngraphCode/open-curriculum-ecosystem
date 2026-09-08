@@ -262,31 +262,31 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD, 2026-09-08 00:1xZ (Flounder turns Estuary, `c5cc2c`, Director) — THIS SUPERSEDES
-> THE 2026-09-07 01:32Z BANNER BELOW.** `coordination/2026-09-07-dfe924` folds to `engraph`
-> via bot PR **#79** (opened 00:13Z at `cf884b251`, a clean merge of `engraph` `d295fcc11`),
-> landing at full condition (run-quality-gates and CodeQL green by name, zero unresolved
-> threads, mergeStateStatus CLEAN, ten-minute quiet window); the merge SHA is appended to this
-> block on the successor at the cut; the fold carried fifteen coordination-home commits over
-> four files (the napkin, this seated block, the tuition thread record's LANDED block, one
-> experience letter). The day-stamped successor is cut tree-preservingly from post-fold
-> `engraph` by the coordination tool (`agent-tools coordination successor-name`) and
-> published, its name appended here at the cut; the held `.claude/settings.json` rides it
-> uncommitted and is never folded (harness rewrite, contract unverified). Product-gravity
-> line: _moved for teachers:_ nothing in the fold's own commits — the day's product movement
-> rode `engraph` directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements
-> served by the MCP response). _moved for the Practice:_ the tuition collection (#66) with its
-> review records and authority file; the consolidation drain (#67, #71, #74, #75, #76, #78)
-> and the review doctrine (#77, PDR-140 Decision clause 9); the graph foundations research
-> pack (#72); the compaction sweeps, and the napkin met the rotation by the archive-coverage
-> check. Board at the fold: open #70 (the owner's non-graph survey, under Altair spins Umbra's
-> lane, claim `8e7e00d1`); landed 2026-09-07: #66, #73, #67, #71, #75, #74, #76, #72, #78,
-> #77. Seats: A DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks
-> Apogee live under claim `0b696465` (post-fold continuity PRs: repo-continuity Purpose cells,
-> this file's disposition, two thread-record criticals); Altair spins Umbra on the #70 lane,
-> then the directives item under the 30-percent gate. THE PICKUP MAP is the Director's handoff
-> record `2778f573-flounder-turns-estuary-compaction-2026-09-03.md` §COMPACTION BOUNDARY 6 and
-> its RESUMED lines (machine-local); the lane record for #70 is
+> **§FOLD LANDED, 2026-09-08 01:00Z (Flounder turns Estuary, `c5cc2c`, Director) — THIS
+> SUPERSEDES THE 2026-09-07 01:32Z BANNER BELOW.** `coordination/2026-09-07-dfe924` folded to
+> `engraph` via bot PR **#79** (opened 00:13Z at `cf884b251`, a clean merge of `engraph`
+> `d295fcc11`; two review rounds, two over-bar cures on one settlement push) at full condition
+> (run-quality-gates and CodeQL green by name, zero unresolved threads, mergeStateStatus CLEAN,
+> ten-minute quiet window) as merge commit `68d53d778` at 01:00Z; the fold carried fifteen
+> coordination-home commits over four files (the napkin, this seated block, the tuition thread
+> record's LANDED block, one experience letter). The day-stamped successor
+> **`coordination/2026-09-08-68d53d`** was cut tree-preservingly from post-fold `engraph` by
+> the coordination tool and published; the held `.claude/settings.json` rides it uncommitted
+> and is never folded (harness rewrite, contract unverified). Product-gravity line: _moved for
+> teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
+> directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements served by the MCP
+> response). _moved for the Practice:_ the tuition collection (#66) with its review records and
+> authority file; the consolidation drain (#67, #71, #74, #75, #76, #78) and the review
+> doctrine (#77, PDR-140 Decision clause 9); the graph foundations research pack (#72); the
+> compaction sweeps, and the napkin met the rotation by the archive-coverage check. Board at
+> the fold: open #70 (the owner's non-graph survey, under Altair spins Umbra's lane, claim
+> `8e7e00d1`); landed 2026-09-07: #66, #73, #67, #71, #75, #74, #76, #72, #78, #77. Seats: A
+> DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks Apogee live under
+> claim `0b696465` (post-fold continuity PRs: repo-continuity Purpose cells, this file's
+> disposition, two thread-record criticals); Altair spins Umbra on the #70 lane, then the
+> directives item under the 30-percent gate. THE PICKUP MAP is the Director's handoff record
+> `2778f573-flounder-turns-estuary-compaction-2026-09-03.md` §COMPACTION BOUNDARY 6 and its
+> RESUMED lines (machine-local); the lane record for #70 is
 > `c5cc2c-flounder-turns-estuary-lane-handoff-to-altair-2026-09-07.md`. The 2026-09-07 banner
 > below is the prior state.
 

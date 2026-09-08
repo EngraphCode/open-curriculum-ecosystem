@@ -118,3 +118,41 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
 - **Liveness read correctly, once, and questioned once.** Altair's watcher read "gone" on the poll at 21:47Z; the ping-before-escalate evidence (heartbeats every four minutes, a fresh claim heartbeat, the worktree mid-merge) said live and working, and no ping went. Two hours later, with #70's remote still untouched and no progress report since 21:07Z, a status ping went as a directed event with the fold's consequence stated (unmerged by ~23:45Z re-syncs after the fold). Heartbeats are liveness; progress is a separate signal, and the team cadence names both.
 - **Question discipline held on the stream:** Juno's two #77 read requests arrived as their own directed events with the question in the subject; each was answered in kind within minutes. The 17:44Z truncation class did not recur.
 - **Work safety and bounds:** coordination/2026-09-07-dfe924 at 33b07e10e, 0 ahead / 0 behind before this sweep, which carries Juno's #77 addendum and this block; only the held settings file stays dirty after it, so the 00:07Z fold meets a clean primary. Promises: the fold (the Director's, one-shot wake armed); #70 (Altair, pinged); the directives item (Altair after #70, bounded); the post-fold continuity PRs (Juno, under 0b696465); the retrospective offer stands. Attribution flagged: "Altair is working on #70" rests on the 21:4xZ worktree state and live heartbeats, not on a report. Bounds: the watcher's truncated rendering; heartbeat-first resumes; the machine-local handoffs directory. A third pass re-finds only the unreported lane and the standing bounds; the recursion closes here.
+
+## 2026-09-08 00:0xZ–01:0xZ (Flounder turns Estuary, c5cc2c, Director) — the sixth fold: four gate refusals, one record I closed in prose, a default that ran by structure
+
+- **The fold.** `coordination/2026-09-07-dfe924` met the rollover with a clean primary and a
+  clean merge of engraph (d295fcc11, twenty-six files from #72, #78 and #77); fold PR #79
+  opened as the bot with the product-gravity line and a PDR-140 intake; round one brought
+  five threads (Copilot three, Codex two), round two one. Two over-bar cures on the one
+  settlement push, three below-bar dispositions by signed reply, one duplicate. The napkin
+  block for this window is written on the successor, not onto the fold PR's head: a sweep
+  there would have restarted the checks and the quiet window minutes before the merge.
+- **The record I closed in prose.** At 16:2xZ I wrote the tuition thread record's LANDED
+  block and left the file at the active root with its index row saying the landing was
+  outstanding. The threads README had the lifecycle convention all along (retired records
+  move under `retired/`, carry a leading retirement banner, and leave both index tables);
+  Copilot and Codex both caught it. The generator is the day's: a convention that existed in
+  the directory's own README, not read before the closing act. The mechanical cure extends
+  to a directory's README when the act is a lifecycle move.
+- **Four gate refusals on one push, each a fact now on disk.** `git add` on a renamed-away
+  path fails, so the ceremony script skips absent paths at the add step while keeping them in
+  the intent; a pathspec commit that omits the old path leaves it tracked-but-missing for the
+  identity validator (the napkin's git-mv fact, met first-hand); consecutive blockquotes in
+  `director-handoff.md` are separated by blank, `---`, blank or MD028 fires; a moved record's
+  relative links change depth (the links validator names the fix). Twenty minutes, no owner
+  attention, every refusal a correct gate.
+- **The seated block, written before the merge without narrating ahead.** Codex's P1 asked
+  for the 8 September board in the fold itself; the block now states the board, seats, claims
+  and pickup map in the present, and says the merge SHA and the successor name are appended
+  on the successor at the cut. Truth at commit time, completed at the cut.
+- **A default that ran by structure.** Altair's #70 lane went progress-dark for three and a
+  half hours with heartbeats live and a merge stalled at three conflict markers; a ping, then
+  a declared deadline and default with a one-shot wake, then the default executed: the lane
+  re-adopted, the stalled merge kept and completed (never aborted), one push held for after
+  the fold. No owner attention at 00:4xZ, and nothing of the seat's discarded.
+- **Work safety at this wrap:** the coordination branch at e4572ddc1 equals origin; the
+  worktree land-pr72 holds one deliberate unpushed commit (956c03ec0, #70's sync) for a single
+  post-fold push. Bounds: a held REPL is invisible from the stream except as absence; the
+  fold's own commit is the only surface this block could not ride. A third pass re-finds only
+  the unpushed commit and the held-REPL bound; the recursion closes here.
