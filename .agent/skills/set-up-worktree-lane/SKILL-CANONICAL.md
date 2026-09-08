@@ -49,10 +49,12 @@ git fetch origin
 git worktree add <path> -b <branch> origin/<base>
 ```
 
-`<base>` is the repository's default branch, read from
-`git symbolic-ref refs/remotes/origin/HEAD` (or `gh repo view --json defaultBranchRef`) —
-derived, never a literal, because the default branch is identity held below the tree
-([`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)).
+`<base>` is the repository's default branch (refreshed with `git remote set-head origin --auto`, then
+read with `git symbolic-ref --short refs/remotes/origin/HEAD` and the `origin/` prefix
+stripped, or `gh repo view <owner>/<name> --json defaultBranchRef --jq .defaultBranchRef.name`
+with the repository named — derived at the moment of use, never a literal;
+[`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)
+verifies both reads), because the default branch is identity held below the tree.
 For a build-ahead lane it is the parent branch the worktree is cut from
 ([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
 parent's changes; the PR opens against the default branch once the parent has landed.

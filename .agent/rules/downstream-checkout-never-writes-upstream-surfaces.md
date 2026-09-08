@@ -10,10 +10,12 @@ owner's permission and never writes to them at all.
 
 ## Trigger
 
-Any `gh` call, any tracker or chat write, any API call whose target
-repository, organisation or project is inferred rather than named; any
-read of the upstream repository (its pull requests, issues, branches,
-files) or of an upstream organisation's private repositories.
+Any repository-scoped `gh` call, any tracker or chat write, any API
+call whose target repository, organisation or project is inferred rather
+than named; any read of the upstream repository (its pull requests,
+issues, branches, files) or of an upstream organisation's private
+repositories. Calls with no repository target (a `users/...` endpoint, a
+`gh auth` command) are outside this rule.
 
 ## Action
 
@@ -25,16 +27,27 @@ files) or of an upstream organisation's private repositories.
 - **Writes to the upstream's surfaces are forbidden without exception**:
   no pull request, comment, review, issue, label, tracker ticket or chat
   message on the upstream's repository, tracker or chat.
-- **Every call names the checkout's own repository explicitly.** `gh`
-  takes `--repo <owner>/<name>` where the command has the flag (`pr`,
-  `issue`, `run`, `release`); `gh api` has no flag, so the full
+- **Every repository-scoped call names its repository explicitly** —
+  the checkout's own by default; the upstream's only under an
+  owner-permitted read, and named explicitly then too. `gh` takes
+  `--repo <owner>/<name>` where the command has the flag (`pr`, `issue`,
+  `run`, `release`); `gh api` has no flag, so the full
   `repos/<owner>/<name>/...` endpoint or `GH_REPO` in the environment
   names it; `gh repo view` takes the positional. `gh repo set-default`
   is machine-local and protects one machine only; the explicit target
-  travels with the practice. The base branch of a pull request is the
-  repository's default branch, read from
-  `git symbolic-ref refs/remotes/origin/HEAD` or
-  `gh repo view --json defaultBranchRef` — derived, never a literal.
+  travels with the practice.
+- **The base branch of a pull request is the repository's default
+  branch, derived at the moment of use, never a literal.** Two reads
+  agree and either serves; both are verified here (2026-09-08):
+  `git remote set-head origin --auto` refreshes the cached remote HEAD
+  from the remote (a plain `git fetch` does not, so a clone made before a
+  default-branch change would otherwise keep the old name), then
+  `git symbolic-ref --short refs/remotes/origin/HEAD` prints
+  `origin/<branch>`, and the bare name is the part after `origin/`; or
+  `gh repo view <owner>/<name> --json defaultBranchRef --jq
+  .defaultBranchRef.name` with the repository named — never the bare
+  `gh repo view`, which infers the repository from the directory and on
+  a checkout with an `upstream` remote can answer for the wrong one.
 
 ## Failure Mode Prevented
 
