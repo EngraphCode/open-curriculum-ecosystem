@@ -6,7 +6,7 @@ overview: "A tracked WorktreeCreate/WorktreeRemove hook pair that places a lane 
 status: ratified
 ratified_by: Jim Cresswell (owner)
 ratified_date: 2026-09-08
-ratified_where: "The owner's direct word of 2026-09-08 (12:1xZ, via the Director), verbatim: \"create a plan for the worktreecreat/remove hook pair and ratify it\"; quoted in the body of the pull request that landed this node"
+ratified_where: "Ratified in advance of authoring by the owner's direct word of 2026-09-08 (12:1xZ, via the Director), verbatim: \"create a plan for the worktreecreat (sic)/remove hook pair and ratify it\"; the text was authored after the word and read first-hand by the Director on the landing pull request, whose body quotes the word; the owner's own read of the text is that pull request"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
@@ -59,10 +59,12 @@ hooks make mechanical.
   stripped of `origin/`); `git fetch origin`; `git worktree add
   ../<repository-directory>-worktrees/<name> -b <name> origin/<default>`; verify the
   inherited commit identity resolves and no worktree-scoped `user.*` override shadows it
-  (never re-set it); copy the principal's `.env.local` when one exists; print the created
-  path. Install and build stay the seat's first move (the skill's step 3) — the hook returns
-  in seconds, and a build inside it would hold the launch for minutes; a later setting may
-  opt into it.
+  (never re-set it); copy the principal's `.env.local` when one exists; run
+  `pnpm --dir <path> install` and `pnpm --dir <path> build`; print the created path last.
+  The install and build run inside the hook, before the session opens, because a worktree
+  built after its session opens has no statusline (residency clause 2; the lane-cut skill's
+  own order): the launch waits the minutes the build takes, once per lane, rather than open
+  a session whose gates cannot be trusted.
 - **`WorktreeRemove`**: refuse with the proof table when the worktree is dirty or its HEAD
   is not an ancestor of the freshly fetched default branch (never `--force`; the
   dirty-but-proven path stays the seat's under `worktree-hygiene` §6 and the standing
@@ -77,8 +79,9 @@ hooks make mechanical.
 ## Acceptance criteria (each with a proof)
 
 1. `claude --worktree <name>` from the principal opens a session resident in
-   `../<repository-directory>-worktrees/<name>` on a branch whose merge-base with the
-   fetched default branch is that branch's tip, with no approval prompt in the sequence.
+   `../<repository-directory>-worktrees/<name>`, installed and built, on a branch whose
+   merge-base with the default branch as fetched at creation is that fetched tip (the proof
+   binds at creation, never to the moving tip), with no approval prompt in the sequence.
    Proof: `owner-held` — one launch by the owner, recorded on the lane's closing event; the
    falsifier from the exploration that designed this node: the launch prompts or refuses the
    sibling path.
@@ -101,8 +104,9 @@ hooks make mechanical.
 
 1. **The planners and their tests** — the two pure planners with the recorded-input tests
    (criterion 2); one PR, default round budget.
-2. **The scripts and the registration** — the two shell hooks over the planners, the
-   tracked settings entry, the end-to-end check (criteria 3 and 4); one PR.
+2. **The scripts and the registration** — the two shell hooks over the planners, the install
+   and build inside the create hook, the tracked settings entry, the end-to-end check
+   (criteria 3 and 4); one PR.
 3. **The doctrine truing** — the lane-cut skill and residency clause 2 (criterion 5), landed
    after the owner's launch verifies the wiring (criterion 1); one small records PR.
 
@@ -113,8 +117,8 @@ PDR-140 intake contract where the changeset carries prose.
 
 - Suppressing the mid-session `EnterWorktree` prompt: the platform asks by design and no
   setting changes it; the cure is launch-time residency, which this node makes mechanical.
-- Install and build inside the hook: a minutes-long launch hold; the seat's first move per
-  the lane-cut skill, and a later opt-in setting if wanted.
+- A setting to skip the install and build at launch: not offered — a worktree built after
+  its session opens has no statusline, and that requirement outranks launch speed.
 - A per-fork re-identification tool or any hard-coded branch or directory name: ADR-228
   forbids both; everything here is derived.
 - The dirty-but-proven clearing of a worktree: the seat's, under `worktree-hygiene` §6 and

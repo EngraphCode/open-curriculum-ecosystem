@@ -6,7 +6,7 @@ overview: "An agent-tools command that builds the pr-lifecycle review-round tall
 status: ratified
 ratified_by: Jim Cresswell (owner)
 ratified_date: 2026-09-08
-ratified_where: "The owner's direct word of 2026-09-08 (11:5xZ, via the Director), verbatim: \"pr-tally, ratified\"; quoted in the body of the pull request that landed this node"
+ratified_where: "Ratified in advance of authoring by the owner's direct word of 2026-09-08 (11:5xZ, via the Director), verbatim: \"pr-tally, ratified\"; the text was authored after the word and read first-hand by the Director on the landing pull request, whose body quotes the word; the owner's own read of the text is that pull request"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
@@ -24,9 +24,9 @@ A seat shepherding a pull request reads its review-round tally from one command 
 of building it by hand, and the step-back trigger the pr-lifecycle skill defines fires
 from a printed verdict rather than from a seat's memory of it. Every tally the estate has
 needed was built late or not at all: eight rounds on one PR ran unnoticed as
-non-convergence in July because nothing counted; a seven-round tail on 2026-09-08 fired its
-step-back at round four with nobody watching, and the owner invoked two cognitive skills by
-hand to stop it — the out-of-band correction PDR-140 clause 8 names as a defect against the
+non-convergence in July because nothing counted; an eight-round tail on 2026-09-08 fired its
+step-back at round four with nobody watching, and the owner invoked four skills by hand to
+stop it — the out-of-band correction PDR-140 clause 8 names as a defect against the
 skill.
 
 ## User groups and value
@@ -76,8 +76,10 @@ skill.
    neither, including the terminal-success precedence and the epoch reset. Proof:
    `repo-safe` — unit tests over the verdict function.
 3. Against a live PR of this repository, the command's rows equal the tally the shepherd
-   recorded on that PR's working-notes comment. Proof: `repo-safe` — one end-to-end check
-   in the agent-tools suite, run against a closed PR named in the test.
+   recorded on that PR's working-notes comment. Proof: `repo-safe` — one standalone
+   validation script under agent-tools, run by hand or by a credentialled CI job against a
+   closed PR named in the script, never by the test suite (tests never do IO; the testing
+   strategy files external-resource checks as validation scripts).
 4. The lane-cut skill carries the pre-push cross-surface read step and its projections are
    regenerated. Proof: `repo-safe` — the skill's projection check and the markdown-links
    validator on the landing PR.
@@ -86,7 +88,7 @@ skill.
 
 1. **The tally builder and the verdict, with fixtures** — criteria 1 and 2; one PR, default
    round budget.
-2. **The command and the end-to-end check** — criterion 3 and the `--json` shape; one PR.
+2. **The command and the validation script** — criterion 3 and the `--json` shape; one PR.
 3. **The practice half** — the skill step (criterion 4); one small records PR.
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
