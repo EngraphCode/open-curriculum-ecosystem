@@ -134,14 +134,13 @@ export function formatProxyErrorResponse(
  * full list. Every other capability field passes through unchanged.
  *
  * @remarks
- * Clerk's own list names `openid` (MCP-345). Clerk grants a dynamically
- * registered client exactly the scopes in its registration, or the instance
- * default grant when it names none, and Oak's default grant carries no
- * `openid` (ADR-113, Troubleshooting; PR #922). Clients that choose scopes
- * from this document rather than the PRM — ChatGPT's plugin portal, measured
- * 2026-09-08 — request every OIDC scope this document advertises, so an
- * advertised `openid` becomes a Clerk `invalid_scope` refusal at sign-in for
- * any client whose grant omits it.
+ * The invariant this keeps (MCP-345): the two discovery documents this
+ * resource serves advertise the same scopes, so a client that derives its
+ * request from either asks only for what the resource requires. Clerk's own
+ * list names scopes Oak's default client grant does not carry, `openid` among
+ * them, and a client that requests one of those is refused at sign-in; which
+ * clients derive scopes from this document, and the measurement behind it,
+ * are recorded in ADR-113 (Troubleshooting, resolution 3), not here.
  * This document is the proxy's self-description, already rewritten field by
  * field; it is not a forwarded OAuth message, so ADR-115's transparent
  * passthrough rule does not reach it.
