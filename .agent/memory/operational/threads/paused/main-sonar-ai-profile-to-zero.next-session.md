@@ -217,3 +217,9 @@ autofix) per the plan's triage table.
 
 `oak-sdk-codegen` generated/schema files showed as modified mid-session
 (parallel process; not this session's edits). Do not stage them in this lane.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Drive `main`'s Sonar AI quality-profile backlog to **zero** under the owner-ratified disposition bar (fix at source is the default; ACCEPT only on a grounded site-specific tension; FP for true tool errors). Phases 1–3 + 5A MERGED (#242/#246/#249/#254/#255/#257); **Phase 5B on PR #308 (open, shepherding to owner merge)** — idiom residuals fixed, six ADR-153 guard sites rejected-as-incorrect with the ADR citation. Next batches doctrine-first: S7763/S7785/S6594/S7786 then Phase 4 design-MAJORs

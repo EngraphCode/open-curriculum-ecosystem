@@ -771,3 +771,9 @@ forgotten.
 | Dormouse turns Footfall | claude | claude-opus-5[1m] | a54547 | director | 2026-08-17 | 2026-08-18 |
 | Sloop spins Spray | copilot | GPT-5.6 Sol | c42e7e | pr-review-warden | 2026-08-18 | 2026-08-18 |
 | Raven turns Nocturne | claude | Opus-5 | 0aad1a | liaison | 2026-08-18 | 2026-08-18 |
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. **Formerly the estate's live priority thread (the Oak line).** Oak's MCP app to public beta, publicised 2026-09-06; the connector was submitted to Anthropic 2026-08-07 and the acceptance bar is a verified tag from them. Landing target **MCP-597** (re-point + enable production uptime monitor 1593267, prove checks ran). MCP-614's provider COMPARISON is answered — Pingdom takes AC1 at £0, do not re-run it — but MCP-614 itself is still `In Progress` and its blockedBy edge on MCP-597 is TRUE, pending the owner's Pingdom-interval and Sentry-plan answers. Owner availability is the governing constraint: MG away ~22-31 Aug, so anything needing him routes SAME-DAY, never batched

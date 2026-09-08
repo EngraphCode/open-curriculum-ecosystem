@@ -354,3 +354,9 @@ their phase-specific ports with real-adapter smokes and specialist review.
 Do **not** include an estate census in the same landing target. The census has a
 separate trigger: every required contract slice closed and the complete built
 entrypoint proved.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+PAUSED 2026-09-06 — no fork lane; identity row stale. Repo-architecture lane whose design was ratified 2026-08-19 on the Oak line (strategic node `toolkit-re-architecture`; five-change set on the Toolkit Atlas, seam centrepiece; `workspace-reorganisation-programme` superseded by it); execution is not a lane on this line

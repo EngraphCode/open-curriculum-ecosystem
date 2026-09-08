@@ -96,3 +96,9 @@ P1–P5 landed the same session.
 | --- | --- | --- | --- | --- |
 | claude-code (cloud) | claude-fable-5 | Buzzard weaves Airstream (01e90b) | plan author (review not yet started) | 2026-08-24 |
 | claude-code (cloud) | claude-fable-5 | Raven stirs Murmur (c4031b) | reviewing + executing seat (plan ratified; all five legs executed; P1–P5 landed; arc closed) | 2026-08-24 |
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE same day: plan ratified, all five legs executed, all six proposals owner-adopted ("agreed to all") and P1–P5 landed (tenure status message, Slack-via-Watcher comms lane + mirroring clause, PDR-133 substrate declaration, stand-up echo-back, trued cursor adapter); plan archived at `.agent/plans/archive/slack-watcher-estate-review.plan.md`; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. CLOSED OUT 2026-08-24: P6 done by the owner account-side; castr pointers DELIVERED as castr PR #53; the whole arc is OCE PR #17 (base `engraph`). Shepherding COMPLETE 2026-08-25: OCE PR #17 merged (`c40a4287`) and castr PR #53 merged (`e62891ee`) under the owner-commissioned PR drive. Remaining: the NOTIFY observed-wake probe at the next Watcher stand-up, plus two recorded deferrals from #17's final review round (correspondent no-mantle-post branch; §6 REGISTRY reclassification — rationale on the resolved threads and in the 2026-08-25 napkin entry). Deep consolidation status: due — the napkin (~1,45x lines) is over its ~400-line rotation threshold; rotation deferred to a dedicated consolidation pass, not well-bounded for this closeout.

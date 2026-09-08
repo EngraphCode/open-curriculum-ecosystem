@@ -68,3 +68,9 @@ serving surface.
 Open PR #401 (the current preservation vehicle; #319 is closed), read the spike README + NOTES end to end (they are the handoff), then run the
 NOTES §Integration checklist as the plan for a fresh branch or this one, at the owner's
 direction. Do not merge before the TypeScript promotion decision.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+The Inclusive Teaching Framework (Ambition Institute 2026) processed into a knowledge graph in the graph-corpus design grammar — candidate data source. Spike COMPLETE, preserved on draft [PR #401](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/401) (HOLD: owner TS-promotion integration-pass gate — the sanctioned `.mjs` preservation scripts never merge as official code); knowledge surfaces conserved on main 2026-07-17

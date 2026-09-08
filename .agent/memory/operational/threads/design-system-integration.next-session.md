@@ -3880,3 +3880,9 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   colour-contrast rule under forced colours, so that regression class is caught only by a
   rendered read (2026-08-18); a known limit for the accessibility practice's rendered-proof
   step.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, four-theme contrast gate, hub migration (§6 slices), studio sync-back batch. Live lane state, owner rulings, and the fidelity register live in the thread record and the drive's handoff records.

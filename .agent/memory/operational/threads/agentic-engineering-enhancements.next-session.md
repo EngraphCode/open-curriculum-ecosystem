@@ -988,3 +988,9 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 - **Curation ledgers**: [`curator-passes/`](../curator-passes/) (per-pass disposition evidence).
 - **Repo state**: [`repo-continuity.md`](../repo-continuity.md) § Current State (authoritative
   live state across threads).
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread. Lane history lives in the thread record's sections and identity table; this row is the index pointer only (latest lane: the 2026-08-07/08 longitudinal step-6a archive synthesis, Nettle weaves Root 5cfa11 — COMPLETE and owner-approved; report + processed marker 2026-08-07 at `research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-08-07.md`; plan archived; MCP-531 Done).

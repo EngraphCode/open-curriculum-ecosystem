@@ -158,3 +158,9 @@ surface was Copilot + Bugbot + Sonar only.
 | claude-code / claude-fable-5 | Salamander weaves Warmth (`4960fe`) | deep review — full-claim verification + decision-complete rework (claim `11266ea3`) | 2026-07-08 |
 
 Next session picks up from the **Next safe step** above.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 parallel-safe first; WS9+ consumes owner-provisioned resources). Detail: [logging design record](../../../research/outreach/slack-assistant-logging-observability-design.md) + thread record

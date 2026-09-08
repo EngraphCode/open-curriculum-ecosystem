@@ -164,3 +164,9 @@ the owner's word (the skills-SSOT-with-evals ruling §Overlap and
 de-duplication strengthens it). Standing constraints unchanged:
 Linear embargo to 2026-08-10 incl. reads; owner's untracked Parallax
 working copies never edited; deliberate pace.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. The standing "agentic skills and related agentic mechanisms and levers" lane; first briefed work is the skills-estate plan (WS0 reflection ruled R1-adopted, rules reclassification ratified and landed). Movement structure and log live in the WS0 working record — resume from its last entry

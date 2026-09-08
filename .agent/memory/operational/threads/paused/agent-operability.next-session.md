@@ -104,3 +104,9 @@ joining adds a row, never replaces.
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | `Tuna stirs Fathom` | `claude` | `Opus 4.8 (1M)` | `9767ba` | created this thread record (orphan-fix); reconciled the branch/ground instruction to the post-merge git reality (enablers committed on `docs/consolidations`); no spawn-flow build | 2026-06-30 | 2026-07-01 |
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+PAUSED 2026-09-06 — no fork lane; identity row stale. Agents operable in their own worktrees: launch-in-worktree as the derived `(identity→worktree→branch)` binding, worktree lifecycle (create/build/draft-PR/cleanup), seat-in-the-brief. Member of the agent-team-operations cluster. **Controlling plan ready to build (owner-approved 2026-06-28); thread record stood up + branch/ground reconciled to post-merge reality (enablers committed on `docs/consolidations`) 2026-07-01.** Ground on `docs/consolidations`; next: cwd-confirmation smoke-test → Phase 1A.

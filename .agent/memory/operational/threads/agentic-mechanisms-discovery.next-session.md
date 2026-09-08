@@ -290,3 +290,9 @@ For the next session:
    implementation claims.
 5. Keep the plan lifecycle boundary: `current/` is queued executable work;
    `future/` is strategic only.
+
+## Purpose cell moved from repo-continuity.md (2026-09-08)
+
+The index row's former Purpose cell, verbatim (the row now carries a pointer):
+
+Web-based agent discovery mechanisms for Oak data and tools (moved from Active 2026-07-30 dedicated pass: no identity touch since 2026-06-08 across three consolidation flags; reactivation is owner-directed via §Next Safe Steps "Agentic Mechanisms Discovery")
