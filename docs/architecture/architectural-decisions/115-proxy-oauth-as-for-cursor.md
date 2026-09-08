@@ -256,7 +256,7 @@ A community member published a [working solution using this exact pattern with M
 ### Positive
 
 1. **Cursor works**: Full OAuth flow completes (DCR → authorize → sign-in → token exchange → authenticated MCP calls). Since the 2026-09-01 PRM amendment (MCP-655) Cursor's initial discovery reaches the upstream directly and the proxy serves its post-redirect re-discovery; the flow is re-proved on that change's preview before merge (Negative 8).
-2. **Other clients unaffected**: MCP Inspector, programmatic clients follow the same path transparently.
+2. **Other clients' routing unaffected**: MCP Inspector and programmatic clients follow the same proxied path transparently. The one served field that is not passed through, `scopes_supported`, can change what a client that derives its scopes from this document asks for — see Negative 9.
 3. **Simple**: ~200 lines of pure functions + ~100 lines of route handlers. No state, no sessions, no token storage.
 4. **Resilient**: Object-spread metadata rewriting automatically picks up new Clerk capability fields — except `scopes_supported`, which is stated from `SCOPES_SUPPORTED` (MCP-345), so a Clerk scope Oak wants advertised is added to `DEFAULT_AUTH_SCHEME.scopes`, not inherited.
 5. **Removable, with one precondition**: If Cursor fixes the `resource_metadata` persistence bug, the proxy can be removed. It adds no coupling — but since 2026-07-26 it is the only party enforcing the loopback restriction on registered `redirect_uris`, so removal must first move that control to Clerk configuration or re-verify that upstream now enforces it. Since 2026-09-01 that restriction covers origin-discovering registrations only: PRM-following clients register at the upstream's DCR directly (Negative 8).

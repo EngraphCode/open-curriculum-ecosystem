@@ -48,8 +48,9 @@ export const PUBLIC_TOOLS: readonly string[] = [
  * like Cursor. (Mechanism corrected 2026-09-08, MCP-345, per the measurement
  * recorded on PR #922; the earlier wording called it a platform rule.)
  *
- * Because `openid` is not in our PRM `scopes_supported`, compliant clients
- * (RFC 9728) will not request it. Since MCP-345 the served authorization-server
+ * Because `openid` is not in our PRM `scopes_supported`, clients that choose
+ * their scopes from the PRM (RFC 9728) will not request it; a client may still
+ * ask for scopes of its own. Since MCP-345 the served authorization-server
  * metadata advertises this same set, so clients that choose scopes from that
  * document (ChatGPT's plugin portal, measured 2026-09-08) do not request it
  * either. The proxy still forwards the `scope` a client sends unchanged.

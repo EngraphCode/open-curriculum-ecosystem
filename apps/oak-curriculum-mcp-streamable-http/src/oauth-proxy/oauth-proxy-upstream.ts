@@ -2,8 +2,12 @@
  * Pure functions supporting the OAuth proxy passthrough layer.
  *
  * These functions handle URL derivation, metadata rewriting, and error
- * formatting. None perform I/O. They exist to support the transparent
- * proxy — not to add validation or security logic of their own.
+ * formatting. None perform I/O. For forwarded OAuth messages (register,
+ * authorize, token) they support a transparent proxy and add no validation or
+ * security logic of their own. The served AS metadata document is different:
+ * it is the proxy's own self-description, and {@link rewriteAuthServerMetadata}
+ * deliberately states Oak's advertised scopes in it (MCP-345) rather than
+ * passing the upstream list through.
  *
  * @see docs/architecture/architectural-decisions/115-proxy-oauth-as-for-cursor.md
  */
