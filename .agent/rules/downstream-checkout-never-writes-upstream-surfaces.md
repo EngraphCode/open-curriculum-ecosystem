@@ -1,5 +1,10 @@
 # Downstream Checkout Never Writes Upstream Surfaces
 
+Operationalises
+[ADR-228](../../docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md)
+(organisational identity is held below the tree: mechanism names no
+organisation; the default branch is derived, never a literal).
+
 A checkout that runs this repository downstream of another (a fork, a
 mirror, an organisation running the tree as its own) has exactly one set
 of surfaces of its own: its repository, its tracker, its chat, its
@@ -70,8 +75,7 @@ written down.
 
 ## Related Surfaces
 
-- The organisational-identity-below-the-tree strategic node
-  (`.agent/plans/strategic/organisational-identity-below-the-tree.plan.md`)
+- [ADR-228](../../docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md)
   — the identity this rule protects is configuration below the tree; the
   mechanism above names no organisation.
 - [`bot-identity-on-third-party-systems`](bot-identity-on-third-party-systems.md)

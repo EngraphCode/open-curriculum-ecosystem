@@ -11,7 +11,8 @@ checkout is shared fleet surface — coordination docs and fleet state only;
 a fresh worktree off `origin/<base>` (the repository's default branch,
 derived at the moment of use as `downstream-checkout-never-writes-upstream-surfaces`
 specifies — the remote HEAD refreshed with `git remote set-head origin
---auto`, then read and stripped of its `origin/` prefix — never a literal)
+--auto`, then read and stripped of its `origin/` prefix — never a literal;
+or, for a build-ahead lane, the parent branch it builds on, §1)
 is where every implementation lane starts, before its first edit, not
 after. Throughout this rule, `main` reads as that default branch: every
 draft PR, update and merge below targets it, never a mirror branch.
@@ -63,9 +64,15 @@ dropped.
 2026-08-03: "generally, I want branches to have at least draft PRs"), and the firing
 moment includes the FIRST PUSH, not only creation and first commit. The coordination
 branch opens its fold PR as a draft at the cut and rides it to the fold; a build-ahead
-lane stacks its draft on the branch it builds on and retargets at that branch's merge
-(push an empty commit after the retarget — required checks do not re-run on a base
-retarget alone); a probe branch gets its draft at push and closes with the probe.
+lane is cut from the parent branch it builds on — a WORKTREE shape only — and opens its
+draft against the DEFAULT branch at first push, its diff carrying the parent's commits
+until the parent lands (then one merge of the default branch when the parent landed by
+merge commit, or a re-cut with the child's own commits cherry-picked across when it landed
+by squash, shrinks it to the child's own story), or the dependency is deserialised by cherry-picking the parent's
+fix across; a PR is never based on, or retargeted onto, a parent branch (Director ruling
+2026-09-08 on the owner's standing rulings: stacks block the bot merge; dependent PRs
+deserialise by cherry-pick; no parallel long-lived branches); a probe branch gets its
+draft at push and closes with the probe.
 History-only preservation still uses `preserve/` tags (§6), never a parked PR. Worked
 instance, 2026-08-03: two branches (a build-ahead lane and the fresh coordination
 branch) sat pushed and PR-less for an hour with this rule loaded — the owner noticed
@@ -178,24 +185,33 @@ cleared per file, never read as the end of the analysis. For each path
 `git status --porcelain` lists, prove its content on the freshly-fetched
 `origin/<base>` — identical there, landed there and since revised, or
 conserved in a tracked home (an archive page, a landed record) — and record
-the proof per file. Then STOP: clearing a dirty path is the risk-of-loss
-class whatever the command — `git restore`, `git checkout --`, and the
-wholesale forward-writing of `git show HEAD:<path>` content are all
-named by `never-use-git-to-remove-work` (§A Safety Proof Never Licenses
-the Class; §A Block Is a Question, Never a Detour), and no proof and no
-general grant licenses a seat to run any of them. Surface the proof
-table with the exact clearing step per path (which paths, what each
-holds, where each is proven), and proceed only on the owner's express
-per-instance word — or the owner runs the commands. On that word,
-confirm (a) and (b) afresh, then `git worktree remove` without
-`--force`. One file failing its proof keeps the whole worktree outside
-the class, and the seat never invents a clearing step for a path shape
-the surfaced table did not name. Worked instance 2026-09-08: a
+the proof per path in a surfaced table, and inventory the IGNORED paths
+too (`git status --porcelain --ignored`, which collapses an ignored
+directory to one `!! <dir>/` entry): an ignored path is data the porcelain
+proof cannot see and `git worktree remove` deletes it with exit 0, so each
+entry is named with its disposition — a copied `.env.local` confirmed as a
+copy of the primary's; fetched data re-fetchable per its owning workflow;
+build output by directory name (`node_modules/`, `dist/`, `.turbo/`) — and
+any ignored directory that is not build output by name is listed
+recursively, links included (`find <dir> -type f -o -type l`), and
+dispositioned entry by entry before the removal. Then clear each proven path as the
+standing grant for proven paths specifies (`never-use-git-to-remove-work`,
+owner-ruled 2026-09-08): the working tree and index for the path brought to
+what HEAD records — content, type and mode — by forward writes only, the
+clearing proven by `git status --porcelain -- <path>` reading empty, and any
+path the writes do not bring to empty surfaced with its proof, never
+improvised; the recipe lives in the grant and is not restated here. The
+blocked command forms stay blocked; the grant is a write of proven content.
+Confirm (a) and (b) afresh, then
+`git worktree remove` without `--force`. One path failing its proof keeps
+the whole worktree outside the class, and a path shape the table did not
+name is surfaced, never improvised. Worked instance 2026-09-08: a
 consolidation worktree with three dirty files (an experience page
-identical on the base; a napkin block conserved in the tracked archive;
-a register comment landed and since revised on the base) surfaced with
-its proofs, cleared at the owner's word, proven clean and ancestor,
-removed without force, zero losses.
+identical on the base; a napkin block conserved in the tracked archive; a
+register comment landed and since revised on the base) proven per path,
+cleared by forward write, proven clean and ancestor, removed without
+force, zero losses — the instance whose per-instance word became the
+standing grant.
 
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
 anything unmerged or carrying an unproven dirty file, deletion of any branch

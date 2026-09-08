@@ -206,11 +206,20 @@ configure away.
    parallel-dispatch anti-pattern).
 8. **Pre-PR contamination check.** Before opening any lane PR:
    `git log --oneline origin/<base>..HEAD` must list exactly the
-   story's own commits (`<base>` is the repository's default branch, derived at the
+   story's own commits (its own merges of the default branch included:
+   an integration merge of the base is the lane's, never foreign) (`<base>` is the repository's default branch, derived at the
    moment of use as `downstream-checkout-never-writes-upstream-surfaces`
    specifies — the remote HEAD refreshed with `git remote set-head
    origin --auto`, then read with `git symbolic-ref --short` and
-   stripped of its `origin/` prefix — never a literal; a check against
+   stripped of its `origin/` prefix — never a literal; for a build-ahead
+   lane, the parent branch it was cut from until the parent lands, so the
+   listing is the child's own commits and nothing else — and once the
+   parent has landed, bring the child onto the default branch by the
+   shape the parent landed in — a merge-commit landing: merge the default
+   branch into the child; a squash landing: re-cut the child onto the
+   default branch and cherry-pick its own commits across, because the
+   parent's original commits are not ancestors of a squash and a merge
+   leaves them in this listing — then check against the default branch; a check against
    a stale or wrong base lists every commit since the mirror point as
    contamination). Anything else is a contaminated base —
    re-cut (`git switch -c <branch>-v2 origin/<base>`, cherry-pick the story
