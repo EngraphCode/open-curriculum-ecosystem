@@ -53,6 +53,10 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   lineage: external-link census, conformance of tracked executable content,
   scanner controls, authority sourcing, a mapping of the published review's
   findings, and the owner's decisions with factors; every count names its command
+- [public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md](./public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md)
+  — dated current-state report for upstream OCE `1.178.6`, Engraph's continuing
+  `1.178.5` boundary and Curriculum API `0.11.1`, with semantic, reproducibility,
+  deployment and impact limits kept explicit
 
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it
