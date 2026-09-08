@@ -94,6 +94,9 @@ configure away.
    known before the session starts, launch inside the worktree: the
    platform's own recipe for a worktree outside `.claude/worktrees/`
    is `git worktree add <path> -b <branch> origin/<base>`, then
+   `pnpm --dir <path> install` and `pnpm --dir <path> build` (the
+   lifecycle's build step, BEFORE the launch: a worktree built after
+   its session opens shows no statusline for that session), then
    `cd <path> && claude`. No entry happens, so nothing prompts, and
    isolation enforcement is on from the first turn — which bounds the
    route for a coordinated lane: the canonical watcher must arm while
