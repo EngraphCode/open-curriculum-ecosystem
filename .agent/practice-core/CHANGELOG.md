@@ -4,6 +4,30 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-027 open question: which model name wins when four disagree
+
+- PDR-027 §Notes gains a dated open question, re-homed from the host's
+  open-questions register at the 2026-09-09 dedicated consolidation: the
+  identity tuple's `model` field can be declared, reported, observed and
+  configured to four different values (a July 2026 Codex config named a
+  model the CLI silently overrode), and no clause names which wins. The
+  question carries its resolution path (the field's consumers — the naming
+  registry, the Cricket tally, the identity preflight — are read first) and
+  a candidate precedence for that lane to test, not a decision.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-131 amendment: the landing slot under a strict-currency ruleset
+
+- PDR-131 gains an Amendment Log entry: where the owner keeps the
+  strict-currency ruleset policy (decision 5), the `pr-lifecycle` skill's
+  Phase 7 landing slot — one PR syncs at the slot word, the rest gather
+  reviews and wait — is that policy's cost made orderly, not a return of
+  the one-at-a-time grants decision 3 retired; the Director still grants
+  eligibility, never position, and the slot lapses the day the policy is
+  dropped. Measured 2026-09-08/09 on the fork's default branch (eleven,
+  then seven serial landings under `strict_required_status_checks_policy`).
+  Written when a reviewer read the skill's slot clause and decision 3 as a
+  contradiction.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
 
 - PDR-140 amended — new Decision clause 9, with the Amendment Log entry

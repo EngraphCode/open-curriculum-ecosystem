@@ -426,11 +426,15 @@ event-driven watcher, so it is kept a separate thin consumer).
   silence it is environmental — no retirement broadcasts, re-arm and move on.
   The host power-management posture (caffeinate/pmset during fleet windows) is
   an owner-level decision, not agent-side retry logic.
-- **Process restart is a distinct event class from compaction**: monitors
-  SURVIVE compaction but NOT a platform process restart. The restart signature
-  is vanished tasks ("no completion record") plus MCP servers reconnecting —
-  on it, re-arm all monitors and run the foreground gap sweep; do not trust
-  any monitor's apparent continuity.
+- **A compaction ends every session-scoped process, as a platform process
+  restart does** (measured 2026-09-09 at two seats: a Director resumed from
+  `/compact` to an empty cron list and no watcher, poll or loop in the process
+  table; a second seat with a watcher, four monitors and a cron armed found
+  none alive — the 2026-07-30 reading that monitors survive compaction did
+  not hold). The restart signature is vanished tasks ("no completion record")
+  plus MCP servers reconnecting; on either boundary verify by id (the task
+  list, the cron list, the process table), re-arm only what is absent, and
+  run the foreground gap sweep; never trust a monitor's apparent continuity.
 - **Never diff lines that contain their own clocks**: a delta poll comparing
   raw output whose age field changes every pass never converges (two measured
   noise classes: the moving age field, then its residual column padding) —
