@@ -1773,6 +1773,49 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   than one consolidation pass). Measured the same evening: a commit subject written to the
   limit and checked AFTER writing overshot four times in one session — `wc -c` on the
   subject line BEFORE the check is the habit, not the check itself.
+- **Routes under 9(c) from #105's post-budget round (21:2xZ), for the cross-fork skill's next
+  amendment (Altair's #99-notes PR from the landed head):** the default-branch fetches in
+  steps 1, 2 and 9 take the explicit destination refspec
+  (`<fork-default>:refs/remotes/origin/<fork-default>`) the carrier fetch already carries,
+  and the carrier fetch moves to step 1 ahead of the merge-tree recompute that consumes the
+  carrier head (step 3 keeps a freshness re-fetch) — both single-branch-clone qualifiers,
+  correct in kind, below the bar for a reader in an ordinary clone.
+- **A merge commit landed locally WITH conflict markers (21:4xZ, #106's sync).** `merge-tree`
+  had previewed the pair clean; the real merge conflicted on the Core changelog (two lanes
+  each adding a top entry at the same position — the tree-level preview does not see a
+  same-hunk insertion as the three-way merge does). The three resolution edits failed on a
+  stale read, and the chained `add && commit` ran anyway because nothing in the chain gated
+  on the resolution: prettier and markdownlint both pass a file carrying `<<<<<<<` lines. The
+  marker count (`grep -c '^<<<<<<<\|^=======\|^>>>>>>>'`) read 3 AFTER the commit; caught
+  before the push; cured by a correcting commit on top (history append-only). The check that
+  belongs before every conflict-resolution commit is that count reading zero — a gate the
+  commit skill and the semantic-merge skill could name; and the chain shape (edit outcome
+  unverified, then commit) is the same generator as the unrun recipe: a step whose success was
+  assumed from its issuance.
+- **Routes under 9(c) from #106's post-budget round (21:5xZ):** (1) the Q-014 drain comment
+  in open-questions is a tombstone under that register's own contract (removed, no ledger) —
+  the buffers drain PR deletes it; (2) verify-dont-trust's default-tip clause gains the
+  qualifier that it governs claims about LANDED state, while a card about proposed state on
+  an open PR reads that PR's head — the rule's next records pass.
+- **Corrected by a peer's fact (Altair, 21:59Z): the sanctioned bot-merge path is the front
+  door `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>...`** (pr-lifecycle's
+  merge boundary; docs/engineering/merge-bot.md) — it recomputes the settlement verdict and
+  pins the verdicted sha itself. #107 and #105 were merged from this seat through the
+  Director's session script (a REST PUT with the head pinned after a hand recompute of OPEN,
+  CLEAN, zero unresolved): the same outcome, not the sanctioned instrument, and the
+  merge-base deletion sweep the front door names was not run on either. From #106 on: the
+  sweep first, then the front door with the expected reviewer set declared. Read the tool's
+  own help before adopting a peer's script — the script was the Director's instrument for
+  their lanes, and I inherited it as the path.
+- **The front door's expected set is the reviewers the configuration fires on THIS tip
+  (measured 22:1xZ on #106):** with `--expect copilot-pull-request-reviewer` the verdict was
+  SETTLED-NO-REVIEW (typed refusal, exit 3) because Copilot reviews the first push only and
+  never binds a sync tip — declare the every-push reviewer (the Codex connector) alone on a
+  synced head. Two tool facts from the same run: (a) the command's review-run liveness read
+  fails schema validation (`pullRequestNumber` / `pullRequestUrl` received null) and is
+  reported as "liveness unavailable" — a defect in the check-run reader, a friction to file;
+  (b) `pnpm --silent … | tail` swallows the exit code — the pipe's tail read 0 while the
+  command exited 3 (my own recorded gotcha, exit-codes-in-band, breached once tonight).
 
 ## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 2 (2026-09-09 20:5xZ)
 
@@ -1817,3 +1860,53 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   act; (b) the App cannot re-run workflow jobs (Actions write); (c) the classifier refused the
   one-shot fold-wake cron; (d) the external-skills-library gate alert repeats after "Archive
   stands"; (e) NEW — the #100 settings edit (two blanket deny lines) refused to this seat.
+
+### Front-door liveness defect, verified at source (e1dced, 22:3xZ)
+
+- **Surface**: `agent-tools:merge-bot merge` (the review-run liveness leg, `pr-watch/review-runs.ts` → `agent-task-fields.ts`)
+- **Signal**: friction (a defect in the landed slice 1 of agent-tools-watch-commands)
+- **Observation**: `agentTaskViewSchema` types `pullRequestNumber`/`pullRequestUrl` as `.optional()`; `gh agent-task view` returns explicit `null` for a run with no pull request (run `aa61c92c`, 2026-09-06, reproduced by hand); `.optional()` rejects `null`, the ZodError escapes `mapRunsToPr`, and `readReviewRunsLeg` degrades the whole leg to "liveness unavailable" — one PR-less run in the window blinds the read for every PR. Also: `gh agent-task list` is USER-scoped across repositories (four `castr` runs sat ahead of this repository's in the window); the URL guard excludes them but they consume the list limit.
+- **Behaviour change / candidate follow-up**: `.nullish()` → `undefined` on both fields (the file's `completedAt` already takes that shape) with a null-view fixture; a per-run parse failure skips the run, never voids the leg; the cross-repo window is a second finding for the slice owner. Row drafted for the node's §Review dispositions (rides the drain PR); routed to the Director for the fix lane.
+- **Source plane**: active
+- Fix-lane review residue (e1dced, 22:3xZ; PDR-140 9c): test-expert on the liveness fix notes `state-gh.unit.test.ts` is an integration-tier shape (an argv-branching fake executor that throws) wearing a `.unit.test.ts` name — pre-existing across all eleven original tests, not folded into the hotfix; a rename is its own cycle for the Director to dispose. code-expert: no README/merge-bot.md text described the old degradation, so no doc change beyond the two in-code doc comments; pr-lifecycle §agent-task surfaces could add "PR fields are explicit null for PR-less runs (verified 2026-09-09)" — optional, left for the drain.
+- Gotcha (e1dced, 22:3xZ): zsh does not word-split an unquoted `$VAR` holding a space-separated file list — `eslint $F` received ONE argument and exited 2 (both eslint and prettier), read as a gate failure until the files were listed explicitly. Use `${=F}`, an array, or list the paths.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 3 (2026-09-09 22:5xZ)
+
+- **Landed this window (four):** #99 SHA:ead92d875 (20:30Z, Altair), #107 SHA:1e445112d (21:14Z,
+  Vanilla), #105 SHA:57e1248f0 (21:42Z, Vanilla), #106 SHA:c085015ae (22:15Z, Vanilla via the
+  merge-bot front door). Tip SHA:c085015ae. Seven open: #102 in the slot at SHA:26bf3063e
+  (Altair; rounds 5, 3, 2, converging; checks running); #101 next (Altair, citing #100 by number
+  with no landing claim); #103 (the Director's read done — the ZIP carries five private-origin
+  exports under `evidence/private/`; the import README records the owner's request as the
+  authority for the transfer; lands on that record with the flag on the premises; tally and
+  premises files ready); #104 the fold (in its slot after #103 or at the 00:00Z rollover);
+  #108 (Altair; step-back fired after five rounds while BEHIND — cures held unpushed, replies
+  only, one push at its word); #109 (Vanilla's fix of the front door's liveness leg — the block
+  above; source PR, gates green, two threads open); #100 (BEHIND; the settings edit still
+  refused to this seat — owner item (e), four hours now); then Vanilla's drain PR after #104.
+- **New practice facts:** the sanctioned bot merge is `merge-bot merge --pr <n> --expect
+  <reviewer>` (recomputes the settlement verdict, pins the sha; the observed reviewer set is
+  copilot-pull-request-reviewer and chatgpt-codex-connector) — the scratchpad `merge-as-bot.sh`
+  is the REST path and is retired for landings from here. The yielding rule ran twice more (a
+  slot-holder that cannot land inside the quiet window yields to the next PR ready at the tip)
+  and is in #105's landed pr-lifecycle text and Altair's #108.
+- **Retrospective:** the train moved four landings in three hours with three seats and one
+  Director word per slot; the one stall is #100, blocked on a settings edit the auto-mode
+  classifier refuses to this seat three times over — an unattended seat's own no-prompts fix
+  cannot be landed by an unattended seat, the fix's thesis proved on itself. The round storm
+  on freshly-undrafted records PRs (ten, nine, eight, thirteen threads inside an hour)
+  converged in one push each once the curator held cures for the slot word; #108's five
+  rounds while BEHIND were the counter-example (each cure push drew the next sample) and the
+  hold-until-the-word rule is on the stream for it.
+- **Processes by id:** watcher b9s5wusst (hourly re-arm inside its loop, asserted live at each
+  exit), PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry peer poll bldjp1rii, two-leg
+  heartbeat bptjzogt9, wrap cron 4aa37635. Fold: #104 at its slot or the rollover; the wrap
+  cadence carries the check.
+- **Owner items held:** (a) the upstream report — three routed threads on #99; (b) the App
+  cannot re-run workflow jobs; (c) the fold-wake cron refused by the classifier; (d) the
+  external-skills-library gate alert; (e) the #100 settings edit (two blanket deny lines);
+  (f) NEW — #103 publishes private-origin exports on a public repository on the recorded
+  authority of the owner's import request; if the reading is wrong the cure is a follow-up
+  removing them from the archive; (g) the `state-gh.unit.test.ts` rename (an integration-tier
+  shape under a unit name, pre-existing) — a disposal for the Director's next records pass.
