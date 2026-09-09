@@ -1,6 +1,6 @@
 # ADR-113: MCP Spec-Compliant Auth for All Methods
 
-**Status**: Accepted. Amended 2026-02-20 (AS metadata endpoint restored), 2026-02-21 (`openid` troubleshooting), 2026-09-08 (MCP-345, Troubleshooting resolution 3: the served AS metadata advertises the PRM's scopes).
+**Status**: Accepted. Amended 2026-02-20 (AS metadata endpoint restored), 2026-02-21 (`openid` troubleshooting), 2026-09-08 (MCP-345, Troubleshooting resolution 3: the served AS metadata advertises the PRM's scopes), 2026-09-09 (MCP-345, Root Cause restated from the 2026-08-19 grant probe, imported as the Evidence subsection).
 **Date**: 2026-02-19
 **Supersedes**: [ADR-056 (Conditional Clerk Middleware for Discovery)](056-conditional-clerk-middleware-for-discovery.md)
 **Related**: [ADR-052 (OAuth 2.1)](052-oauth-2.1-for-mcp-http-authentication.md), [ADR-053 (Clerk)](053-clerk-as-identity-provider.md), [ADR-054 (Tool-Level Auth)](054-tool-level-auth-error-interception.md), [ADR-057 (Selective Auth for Public Resources)](057-selective-auth-public-resources.md)
@@ -117,7 +117,7 @@ The Cursor OAuth flow silently fails. Server logs show a perfect discovery and a
 
 ### Root Cause
 
-Clerk's `/oauth/authorize` returns `error=invalid_scope` when a client requests a scope outside the grant its registration carries. A dynamically registered client (RFC 7591 DCR) holds exactly the scopes named in its registration, or the instance default grant when it names none, and Oak's default grant carries no `openid`. Cursor registered without naming scopes and then requested `openid`, so Clerk refused it:
+Clerk's `/oauth/authorize` returns `error=invalid_scope` when a client requests a scope outside the grant its registration carries. A dynamically registered client (RFC 7591 DCR) is granted the scopes named in its registration plus `offline_access`, or the instance default grant when it names none; a registration that omits `openid` is not granted it. Measured 2026-08-19: a registration naming `openid email` was granted `email offline_access openid`, and a registration naming no scopes was granted Oak's default, `email offline_access profile` ([Evidence: the DCR grant probe](#evidence-the-dcr-grant-probe-2026-08-19) below). Oak's default grant carries no `openid`. Cursor registered without naming scopes and then requested `openid`, so Clerk refused it:
 
 ```text
 error=invalid_scope
@@ -125,7 +125,35 @@ error_description=The requested scope is invalid, unknown, or malformed.
   The OAuth 2.0 Client is not allowed to request scope 'openid'.
 ```
 
-The error is returned as query parameters on the `cursor://` callback redirect -- it never reaches the MCP server. (Corrected 2026-09-08, MCP-345: this section previously described the refusal as a Clerk platform rule for every dynamically registered client — "accepts `openid` at registration, rejects it at authorisation". The measured mechanism, first recorded on PR #922, is the client-specific grant above; a client that registers naming `openid` is granted it. Every observation in this section still holds; only the reason changed.)
+The error is returned as query parameters on the `cursor://` callback redirect -- it never reaches the MCP server.
+
+### Evidence: the DCR grant probe (2026-08-19)
+
+The Root Cause above rests on one measurement, imported here so this ADR carries its own evidence. It was made on 2026-08-19 by the Implementer seat on `mcp-submission-drive` for the MCP-636 submission gap report (probe run against repo HEAD `05cca303f`), and carried into this ADR on 2026-09-09 (MCP-345).
+
+**Method.** Three throwaway OAuth clients were registered through Oak's own public RFC 7591 DCR endpoint (`POST /oauth/register` on the proxy; client names `Oak MCP-636 readiness probe`, `… probe B`, `… probe C`; redirect URI `http://localhost:8765/callback`), each with a different `scope` field, and each was then sent to Clerk's authorisation endpoint requesting `openid`. No sign-in was completed and no authorisation code or token was issued. The literal requests were not preserved; the report records the method, the registration responses and the authorisation outcomes. The three client records remain in the production Clerk instance until deleted from its dashboard.
+
+| Client | Registered with                       | Granted (registration response `scope`) | `openid` at authorisation |
+| ------ | ------------------------------------- | --------------------------------------- | ------------------------- |
+| A      | `openid email`                        | `email offline_access openid`           | accepted                  |
+| B      | `openid email profile offline_access` | all four                                | accepted                  |
+| C      | _(no `scope` field)_                  | `email offline_access profile`          | refused                   |
+
+**Reading the table.** The `Granted` column is the `scope` value in each registration's response body, which states what the client holds; registration returns HTTP 201 whatever the grant, and reading the status rather than the body is how the earlier "accepts `openid` at registration" wording arose. Client A carries the mechanism: it received `offline_access` without naming it, and was refused `profile`, `public_metadata`, `private_metadata` and `user:org:read`, every other advertised scope it had not named. Client C received Oak's instance default grant, which carries no `openid`, so its `openid` request fell outside its grant.
+
+**Control.** Clerk's `/oauth/authorize` forwards even an impossible scope onward unchanged, so acceptance there measures nothing; the refusal is emitted one hop later, at `/oauth/authorize/continue`. A deliberately fake scope produced the same error string recorded in Root Cause, on demand:
+
+```text
+error=invalid_scope
+error_description=The requested scope is invalid, unknown, or malformed.
+  The OAuth 2.0 Client is not allowed to request scope 'definitely_not_a_real_scope_636'.
+```
+
+`openid` did not fire it for clients A and B. The control validates the instrument (the probe can detect a refusal), not the inference.
+
+**Limits.** The `offline_access` addition rests on client A alone (B named it; C's default contains it), so read a registration response rather than assuming the shape. Nothing here is a claim about token contents. The 2026-02-21 sections place the refusal on the `/oauth/authorize` 302 while the probe found it at `/oauth/authorize/continue`; which hop produced the February redirect was not re-measured.
+
+**Corroboration.** Clerk's 2026-07-22 changelog, which introduced the instance-level `default_scopes` setting, describes this failure as clients omitting `scope` at registration, and [anthropics/claude-code#67714](https://github.com/anthropics/claude-code/issues/67714) reproduces it independently against Clerk (a scope-less registration granted `email offline_access profile`, a registration naming `openid` authorised). Neither says anything about the `offline_access` addition.
 
 ### Why It Is Silent
 
@@ -147,7 +175,7 @@ Three changes stop a client deriving an `openid` request from Oak's discovery do
 
 1. **Source of truth**: `openid` removed from `DEFAULT_AUTH_SCHEME.scopes` in `mcp-security-policy.ts`. Cascaded via `pnpm sdk-codegen` to all generated tool security metadata.
 2. **PRM**: `scopes_supported` no longer advertises `openid`, so clients that derive their request from the PRM (RFC 9728) do not request it.
-3. **AS metadata** (added 2026-09-08, MCP-345): the served `/.well-known/oauth-authorization-server` document states `scopes_supported` as the same set the PRM advertises, instead of passing Clerk's full list through. Until then a client that chose its scopes from the AS metadata rather than the PRM read `openid` there and requested it — ChatGPT's plugin portal does exactly this ("If your provider advertises OIDC scopes … in `scopes_supported` of its `.well-known/oauth-authorization-server` … ChatGPT requests those scopes by default", [OpenAI plugin auth docs, OIDC scopes](https://developers.openai.com/plugins/build/auth), fetched 2026-09-08) — and Clerk refused it with the `invalid_scope` error above, measured on the portal's test connection on 2026-09-08. Advertising a subset of what the upstream grants is within RFC 8414 §2, which says of `scopes_supported` that "servers MAY choose not to advertise some supported scope values even when this parameter is used"; a client that requests an unadvertised scope the upstream does grant still receives it, because the proxy forwards the requested `scope` unchanged (measured 2026-09-08: a ChatGPT connector's authorisation request carried `scope=email offline_access` while the PRM advertised only `email`, and Clerk accepted the client and redirect). The OpenAI page's other remedy — enabling every advertised scope on the client — would mean granting `openid` to the clients OpenAI registers. Clerk grants a dynamically registered client exactly the scopes in its registration, or the instance default grant when it names none (the measured mechanism recorded on PR #922, which corrects the Root Cause wording above); OpenAI's clients register without naming scopes, Oak's default grant carries no `openid`, and Oak's policy (`DEFAULT_AUTH_SCHEME`) keeps it out by decision, so the honest fix is to stop advertising it. This resource server checks token validity and audience, never scope content, so a token granted more than the advertised set is accepted identically to a minimal one; the advertised set governs what clients ask for, not what the server enforces.
+3. **AS metadata** (added 2026-09-08, MCP-345): the served `/.well-known/oauth-authorization-server` document states `scopes_supported` as the same set the PRM advertises, instead of passing Clerk's full list through. Until then a client that chose its scopes from the AS metadata rather than the PRM read `openid` there and requested it — ChatGPT's plugin portal does exactly this ("If your provider advertises OIDC scopes … in `scopes_supported` of its `.well-known/oauth-authorization-server` … ChatGPT requests those scopes by default", [OpenAI plugin auth docs, OIDC scopes](https://developers.openai.com/plugins/build/auth), fetched 2026-09-08) — and Clerk refused it with the `invalid_scope` error above, measured on the portal's test connection on 2026-09-08. Advertising a subset of what the upstream grants is within RFC 8414 §2, which says of `scopes_supported` that "servers MAY choose not to advertise some supported scope values even when this parameter is used"; a client that requests an unadvertised scope the upstream does grant still receives it, because the proxy forwards the requested `scope` unchanged (measured 2026-09-08: a ChatGPT connector's authorisation request carried `scope=email offline_access` while the PRM advertised only `email`, and Clerk accepted the client and redirect). The OpenAI page's other remedy — enabling every advertised scope on the client — would mean granting `openid` to the clients OpenAI registers. Clerk grants a dynamically registered client the scopes in its registration plus `offline_access`, or the instance default grant when it names none (Root Cause above; [Evidence: the DCR grant probe](#evidence-the-dcr-grant-probe-2026-08-19)); OpenAI's clients register without naming scopes, Oak's default grant carries no `openid`, and Oak's policy (`DEFAULT_AUTH_SCHEME`) keeps it out by decision, so the honest fix is to stop advertising it. This resource server checks token validity and audience, never scope content, so a token granted more than the advertised set is accepted identically to a minimal one; the advertised set governs what clients ask for, not what the server enforces.
 
 The OAuth proxy forwards all request and response parameters (including `scope`) unchanged; it applies no filtering to forwarded messages. The AS metadata document is not a forwarded message: it is the proxy's own self-description, already rewritten field by field (`issuer` and the three endpoints), and resolution 3 makes its advertised scopes accurate for this resource in the same way. Both discovery documents now come from one constant, `SCOPES_SUPPORTED`, so they cannot disagree.
 

@@ -82,10 +82,11 @@ MCP-345 landed the H1+H2 mitigation (ADR-113 resolution 3), which changes the
    advertise the same `scopes_supported` (`SCOPES_SUPPORTED`); the
    integration and e2e suites assert it on the same app.
 2. **Clerk scope enforcement confirmed, mechanism refined**: Clerk grants a
-   DCR client exactly its registered scopes, or the instance default grant
-   when it names none; Oak's default carries no `openid`. A client that asks
-   for it outside its grant is refused (`invalid_scope`), measured again on
-   2026-09-08 with OpenAI's plugin portal.
+   DCR client its registered scopes plus `offline_access`, or the instance
+   default grant when it names none; Oak's default carries no `openid`
+   (ADR-113, Evidence: the DCR grant probe, measured 2026-08-19). A client
+   that asks for it outside its grant is refused (`invalid_scope`), measured
+   again on 2026-09-08 with OpenAI's plugin portal.
 3. **Proxy transparency unchanged for messages, not for self-description**:
    the proxy still forwards client scope input unchanged; the served AS
    metadata is the proxy's own document and states the advertised set.

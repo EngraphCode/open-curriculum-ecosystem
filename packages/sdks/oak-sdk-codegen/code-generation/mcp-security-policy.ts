@@ -40,13 +40,16 @@ export const PUBLIC_TOOLS: readonly string[] = [
  * **Why `openid` is excluded**: Oak's policy choice, not a Clerk ceiling. This
  * is an OAuth 2.1 resource server: it authorises from an access token and reads
  * no OIDC identity claims, so an ID token buys it nothing. Clerk grants a
- * dynamically registered client (RFC 7591 DCR) exactly the scopes named in its
- * registration, or the instance default grant when it names none, and Oak's
- * default grant carries no `openid`; a client that requests it anyway receives
+ * dynamically registered client (RFC 7591 DCR) the scopes named in its
+ * registration plus `offline_access`, or the instance default grant when it
+ * names none; a registration that omits `openid` is not granted it (measured
+ * 2026-08-19: `openid email` registered, `email offline_access openid`
+ * granted; ADR-113, Evidence: the DCR grant probe). Oak's default grant
+ * carries no `openid`; a client that requests it outside its grant receives
  * `error=invalid_scope`, routed via redirect to the client's callback URL (RFC
  * 6749 Section 4.1.2.1), bypassing the server and failing silently in clients
- * like Cursor. (Mechanism corrected 2026-09-08, MCP-345, per the measurement
- * recorded on PR #922; the earlier wording called it a platform rule.)
+ * like Cursor. (Mechanism corrected 2026-09-08, MCP-345; the earlier wording
+ * called it a platform rule.)
  *
  * Because `openid` is not in our PRM `scopes_supported`, clients that choose
  * their scopes from the PRM (RFC 9728) will not request it; a client may still
