@@ -217,8 +217,22 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
         name: 'Review',
         completedAt: null,
         pullRequestNumber: 461,
+        pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
       }),
-    ).toEqual({ id: 'run-1', completedAt: null, pullRequestNumber: 461 });
+    ).toEqual({
+      id: 'run-1',
+      completedAt: null,
+      pullRequestNumber: 461,
+      pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+    });
+  });
+
+  it('rejects a partial pair (a number without its URL) as an unknown shape', () => {
+    // The vendor pairs the two fields; a half-mapped view must not read as
+    // "an observed run for some other PR".
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestNumber: 461 }),
+    ).toThrow();
   });
 
   it('parses a PR-less view (explicit null PR fields — verified live 2026-09-09) as no mapping', () => {

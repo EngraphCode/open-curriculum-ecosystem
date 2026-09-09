@@ -39,9 +39,12 @@ function describeError(error: unknown): string {
     // A ZodError's message is the pretty-printed issue array; the evidence
     // line wants the first issue and where it bit.
     const [issue] = error.issues;
-    return issue === undefined
-      ? error.message
-      : `${issue.message} at ${issue.path.map(String).join('.')}`;
+    if (issue === undefined) {
+      return error.message;
+    }
+    // A root-level issue has an empty path: no location to name.
+    const location = issue.path.map(String).join('.');
+    return location === '' ? issue.message : `${issue.message} at ${location}`;
   }
   return error instanceof Error ? error.message : String(error);
 }

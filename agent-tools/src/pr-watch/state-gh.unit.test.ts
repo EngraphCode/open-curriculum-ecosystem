@@ -133,7 +133,12 @@ describe('readPrStateReading', () => {
               pullRequestNumber: 461,
               pullRequestUrl: PR_URL,
             }),
-            'done-1': JSON.stringify({ id: 'done-1', completedAt: 't2', pullRequestNumber: 999 }),
+            'done-1': JSON.stringify({
+              id: 'done-1',
+              completedAt: 't2',
+              pullRequestNumber: 999,
+              pullRequestUrl: PR_URL.replace('/pull/461', '/pull/999'),
+            }),
           },
         },
         calls,
@@ -284,6 +289,34 @@ describe('readPrStateReading', () => {
       ],
       truncated: true,
       note: 'agent-task view unreadable for gone — those runs unobserved (first: unexpected agent-task view gone)',
+    });
+  });
+
+  it('a LIVE run with a partial mapping (number, no URL) withholds deadness, never reads unrelated', () => {
+    // The vendor pairs the fields; a half-mapped live view is an unknown
+    // shape, so the run is unobserved (truncated) rather than counted as an
+    // observed run for another PR — the latter would let an outstanding
+    // request read run-dead.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'half', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            half: JSON.stringify({ id: 'half', completedAt: null, pullRequestNumber: 461 }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [],
+      truncated: true,
+      note: 'agent-task view unreadable for half — those runs unobserved (first: pullRequestNumber and pullRequestUrl must be both present or both absent at pullRequestUrl)',
     });
   });
 

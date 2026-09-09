@@ -45,8 +45,11 @@ export function parseAgentTaskList(raw: unknown): ReviewRun[] {
 // `gh agent-task view <id> --json id,completedAt,pullRequestNumber,pullRequestUrl`
 // — verified live 2026-09-09: a run that opened no pull request carries
 // EXPLICIT nulls (`pullRequestNumber: null, pullRequestUrl: null`), not absent
-// keys. Both read as "no mapping"; a bare `.optional()` rejected the null and
-// one PR-less run anywhere in the window voided the leg for every PR.
+// keys, and the two fields are PAIRED (both set, or both null). Both null
+// reads as "no mapping"; a bare `.optional()` rejected the null and one
+// PR-less run anywhere in the window voided the leg for every PR. A partial
+// pair is an unknown shape and fails the parse — the caller then treats the
+// run as unobserved rather than as an observed, unrelated run.
 const agentTaskViewSchema = z
   .object({
     id: z.string(),
@@ -63,7 +66,14 @@ const agentTaskViewSchema = z
       .nullish()
       .transform((value) => value ?? undefined),
   })
-  .loose();
+  .loose()
+  .refine(
+    (view) => (view.pullRequestNumber === undefined) === (view.pullRequestUrl === undefined),
+    {
+      message: 'pullRequestNumber and pullRequestUrl must be both present or both absent',
+      path: ['pullRequestUrl'],
+    },
+  );
 
 /** One `gh agent-task view <id>` result — the surface carrying the run→PR map. */
 export interface AgentTaskView {
