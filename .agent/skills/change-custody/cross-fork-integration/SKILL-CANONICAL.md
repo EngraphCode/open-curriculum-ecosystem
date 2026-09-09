@@ -78,9 +78,12 @@ no conception of meaning."
 ### 2. Recompute the merge against the live tip, not the PR's cached base
 
 `git merge-tree --write-tree --name-only <default-tip> <carrier-head>` is the
-truth. GitHub's `mergeable` reads the pull request's cached base and does not
-recognise renames the fork made (a file moved into a `paused/` folder that
-upstream appended to reports as modify/delete there and merges cleanly here).
+truth. GitHub's `mergeable` reads the pull request's cached base, and its
+verdict can disagree with git's: on the founding sync it reported the pair
+dirty at a file the fork had moved into a `paused/` folder and upstream had
+appended to, while git with rename detection merged cleanly, and turning
+rename detection off reproduced the conflict locally — a diagnostic that
+explains the disagreement without establishing what GitHub's merge does.
 Record both readings; act on the local one; say why they differ in the PR.
 
 ### 3. Carry the snapshot on one two-parent merge with an ordinary message

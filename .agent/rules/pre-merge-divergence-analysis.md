@@ -36,10 +36,13 @@ Always run `pnpm type-check` immediately after resolving text conflicts —
 this catches the silent breaks that Git cannot detect. Type-check proves
 code; the generators' own checks prove generated surfaces; nothing proves
 prose. Documents and plans are kept true by semantic analysis at every
-integration: derive the sweep terms from the incoming change's claims and
-read the surfaces the other branch could not have edited (the
+integration, and this obligation does NOT wait for the thresholds above:
+a merge of any size that changes a fact some document states as a premise
+owes the sweep. Derive the sweep terms from the incoming change's claims
+and read the surfaces the other branch could not have edited (the
 [cross-fork integration skill](../skills/change-custody/cross-fork-integration/SKILL-CANONICAL.md)
-§6 for a lineage sync; the guide's §4i for any diverged merge).
+§6 for a lineage sync, which loads for every sync regardless of size; the
+guide's §4i for any other merge that alters a stated premise).
 
 ## Derive Merge Risk From Content, Not From Raw Name-Status
 
