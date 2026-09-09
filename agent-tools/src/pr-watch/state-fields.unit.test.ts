@@ -221,6 +221,22 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
     ).toEqual({ id: 'run-1', completedAt: null, pullRequestNumber: 461 });
   });
 
+  it('parses a PR-less view (explicit null PR fields — verified live 2026-09-09) as no mapping', () => {
+    // `gh agent-task view` on a run that opened no pull request returns
+    // `pullRequestNumber: null, pullRequestUrl: null`, not absent keys.
+    expect(
+      parseAgentTaskView({
+        completedAt: '2026-09-06T20:37:00.148299674Z',
+        id: 'aa61c92c-d7ad-4362-b5d5-a4cbdd941ff8',
+        pullRequestNumber: null,
+        pullRequestUrl: null,
+      }),
+    ).toEqual({
+      id: 'aa61c92c-d7ad-4362-b5d5-a4cbdd941ff8',
+      completedAt: '2026-09-06T20:37:00.148299674Z',
+    });
+  });
+
   it('fails loud on misshapen agent-task output', () => {
     expect(() => parseAgentTaskList({ not: 'an array' })).toThrow();
   });

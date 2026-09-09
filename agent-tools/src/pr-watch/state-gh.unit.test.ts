@@ -176,6 +176,178 @@ describe('readPrStateReading', () => {
     expect(reading.reviewRuns).toEqual({ kind: 'read', runs: [] });
   });
 
+  it('a PR-less run (null PR fields, the live shape) in the window never voids the leg', () => {
+    // 2026-09-09: one run with no pull request anywhere in the window blinded
+    // the liveness read for EVERY PR — the view schema rejected the explicit
+    // nulls and the whole leg degraded to unavailable.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'no-pr', name: 'Task from @x', createdAt: 't0', completedAt: 't1' },
+            { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            'no-pr': JSON.stringify({
+              id: 'no-pr',
+              completedAt: 't1',
+              pullRequestNumber: null,
+              pullRequestUrl: null,
+            }),
+            'live-1': JSON.stringify({
+              id: 'live-1',
+              completedAt: null,
+              pullRequestNumber: 461,
+              pullRequestUrl: PR_URL,
+            }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [
+        { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+      ],
+    });
+  });
+
+  it('a run whose view cannot be read is skipped, marked unobserved, and never voids the leg', () => {
+    // A single misshapen or failing view is that run's problem: the other
+    // runs still map, and the leg reports the gap as truncation (absence
+    // conclusions unsupported) rather than as a whole-surface failure.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'broken', name: 'Task from @x', createdAt: 't0', completedAt: null },
+            { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            broken: JSON.stringify({ id: 'broken', completedAt: null, pullRequestNumber: 'x' }),
+            'live-1': JSON.stringify({
+              id: 'live-1',
+              completedAt: null,
+              pullRequestNumber: 461,
+              pullRequestUrl: PR_URL,
+            }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [
+        { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+      ],
+      truncated: true,
+      note: 'agent-task view unreadable for broken — those runs unobserved (first: Invalid input: expected number, received string at pullRequestNumber)',
+    });
+  });
+
+  it("a view whose read itself fails (gh error) is that run's gap, with the cause on the note", () => {
+    // The executor throwing on ONE view (a token expiring mid-read, a vendor
+    // 5xx) is the same gap class as a misshapen view: the run is unobserved,
+    // the others still map, and the leg keeps the cause where the whole-leg
+    // `unavailable` reason used to carry it.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'gone', name: 'Task from @x', createdAt: 't0', completedAt: null },
+            { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            'live-1': JSON.stringify({
+              id: 'live-1',
+              completedAt: null,
+              pullRequestNumber: 461,
+              pullRequestUrl: PR_URL,
+            }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [
+        { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+      ],
+      truncated: true,
+      note: 'agent-task view unreadable for gone — those runs unobserved (first: unexpected agent-task view gone)',
+    });
+  });
+
+  it('an unreadable COMPLETED run is named on the note but never withholds deadness', () => {
+    // The list already says the run finished, so its view gap cannot hide a
+    // live run: no `truncated`, the note still names the gap and its cause.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'old', name: 'Task from @x', createdAt: 't0', completedAt: 't1' },
+          ]),
+          agentTaskViews: {},
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [],
+      note: 'agent-task view unreadable for old — those runs unobserved (first: unexpected agent-task view old)',
+    });
+  });
+
+  it('a full list window AND an unreadable view report both gaps on one note', () => {
+    // Two gap classes at once: the list filled its window (older runs
+    // unobserved) and one of the five mapped completed runs has no readable
+    // view. The evidence line must name both, in this order.
+    const listed = Array.from({ length: 100 }, (_, index) => ({
+      id: `done-${index}`,
+      name: 'Review from @jimCresswell',
+      createdAt: `2026-09-09T00:${String(99 - index).padStart(2, '0')}:00Z`,
+      completedAt: 'done',
+    }));
+    const views = Object.fromEntries(
+      listed.slice(0, 5).map((run) => [
+        run.id,
+        JSON.stringify({
+          id: run.id,
+          completedAt: 'done',
+          pullRequestNumber: 461,
+          pullRequestUrl: PR_URL,
+        }),
+      ]),
+    );
+    delete views['done-2'];
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        { agentTaskList: JSON.stringify(listed), agentTaskViews: views },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [0, 1, 3, 4].map((index) => ({ ...listed[index], completedAt: 'done' })),
+      truncated: true,
+      note: 'agent-task list truncated at 100 — older runs unobserved; agent-task view unreadable for done-2 — those runs unobserved (first: unexpected agent-task view done-2)',
+    });
+  });
+
   it('uses the fresher view completedAt: a run finishing between list and view is not live', () => {
     const reading = readPrStateReading({
       target: { number: 461 },

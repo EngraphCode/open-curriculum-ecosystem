@@ -42,6 +42,11 @@ export function parseAgentTaskList(raw: unknown): ReviewRun[] {
   }));
 }
 
+// `gh agent-task view <id> --json id,completedAt,pullRequestNumber,pullRequestUrl`
+// — verified live 2026-09-09: a run that opened no pull request carries
+// EXPLICIT nulls (`pullRequestNumber: null, pullRequestUrl: null`), not absent
+// keys. Both read as "no mapping"; a bare `.optional()` rejected the null and
+// one PR-less run anywhere in the window voided the leg for every PR.
 const agentTaskViewSchema = z
   .object({
     id: z.string(),
@@ -49,8 +54,14 @@ const agentTaskViewSchema = z
       .string()
       .nullish()
       .transform((value) => value ?? null),
-    pullRequestNumber: z.number().optional(),
-    pullRequestUrl: z.string().optional(),
+    pullRequestNumber: z
+      .number()
+      .nullish()
+      .transform((value) => value ?? undefined),
+    pullRequestUrl: z
+      .string()
+      .nullish()
+      .transform((value) => value ?? undefined),
   })
   .loose();
 
