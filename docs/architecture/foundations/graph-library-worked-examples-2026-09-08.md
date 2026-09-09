@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: graph-library-worked-composition-examples
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Graph library: worked composition examples
 
 8 September 2026 · revision 2 · design examples · status: provisional

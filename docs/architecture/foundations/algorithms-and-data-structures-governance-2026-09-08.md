@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: policy
+authority: own-built-foundations-development-policy
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Algorithms and data structures: governing development policy
 
 8 September 2026 · revision 1 · owner-established working policy

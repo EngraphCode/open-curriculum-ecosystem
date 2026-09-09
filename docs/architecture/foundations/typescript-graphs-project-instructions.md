@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: typescript-graphs-external-project-instructions-record
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Typescript Graphs — project instructions
 
 This file is a dated record of the instruction text carried by the external project that produced the foundations bundle (recorded 2026-09-08). It is not repository instruction: repository direction lives in `.agent/directives/` and `.agent/rules/`, and this text binds nothing here.

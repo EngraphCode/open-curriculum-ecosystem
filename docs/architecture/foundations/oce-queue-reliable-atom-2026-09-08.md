@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: oce-queue-reliable-atom-specification
+status: active
+last_reviewed: 2026-09-09
+---
+
 # OCE queue Reliable Atom
 
 8 September 2026 · revision 3 · working design and acceptance specification

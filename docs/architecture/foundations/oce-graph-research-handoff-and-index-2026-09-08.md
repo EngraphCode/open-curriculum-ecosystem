@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: index
+authority: oce-graph-foundations-research-navigation
+status: active
+last_reviewed: 2026-09-09
+---
+
 # OCE graph foundations: receiving guide and research index
 
 8 September 2026 · Revision 2 · Current graph-specific guide to the foundations bundle

@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: index
+authority: own-built-foundations-bundle-navigation
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Own-built foundations: bundle index
 
 8 September 2026 · revision 1

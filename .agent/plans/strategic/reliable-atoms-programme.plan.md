@@ -16,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-08
+last_updated: 2026-09-09
 ---
 
 # Reliable atoms programme
@@ -174,6 +174,18 @@ there). The extensions, each with its enforcing instrument:
   decision while the candidate's authorised design and qualification work
   proceed. Placement follows the repository's dependency and workspace
   rules; the register distinguishes these facts.
+- **Gates hold; the directive sets ambition**: the frame's ten-gate
+  promotion test still filters what becomes core. Where a would-be
+  atom fails a gate today (typically the multiple-real-consumers
+  gate), it is registered as a candidate-in-waiting — the
+  package-promotion blocker recorded above is that row, naming the
+  gate it fails — and the batch's gate conflicts route to the owner at
+  a card at the batch's promotion moment; the standing direction is
+  read as raising priority and the excellence bar, never as deleting
+  the gates. The owner may override per batch. The three decisions
+  above and this bullet are different things and both hold: the first
+  says which decision each fact belongs to, this one governs the
+  promotion decision (owner's reading, 2026-09-09).
 - **Conformance instrument at tranche one**: a validator that
   RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
   presence, export-surface strictness, packed smoke — so atom status

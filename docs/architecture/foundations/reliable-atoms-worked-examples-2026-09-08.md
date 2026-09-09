@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: reliable-atoms-worked-examples
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Reliable Atoms: worked examples and composition boundaries
 
 8 September 2026 · revision 2 · worked expectations against design contracts

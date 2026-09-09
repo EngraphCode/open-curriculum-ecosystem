@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: comprehensive-graph-library-capability-architecture
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Comprehensive graph library: working definition and architecture
 
 8 September 2026 · Working definition 1.2 · Inquiry `graph-library-envelope-2026-09-08`, revision 5

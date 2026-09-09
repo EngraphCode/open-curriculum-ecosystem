@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: reliable-atoms-and-composition-architecture
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Reliable Atoms and composition architecture
 
 8 September 2026 · Working definition 1.2 · Domain-independent architecture and qualification requirements

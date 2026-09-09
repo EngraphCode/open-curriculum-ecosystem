@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: graph-library-review-and-delivery-record
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Graph library: challenge, decisions and delivery record
 
 8 September 2026 · Inquiry `graph-library-envelope-2026-09-08`, revision 5 · Working definition 1.1

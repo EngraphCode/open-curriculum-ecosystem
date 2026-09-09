@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: typescript-graphs-concept-map
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Typescript Graphs: concept map and shared reference
 
 **Version:** 1.6 · **Date:** 8 September 2026

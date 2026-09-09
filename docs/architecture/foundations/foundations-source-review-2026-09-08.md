@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: own-built-foundations-source-review
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Foundations source review and dispositions
 
 8 September 2026 · revision 1

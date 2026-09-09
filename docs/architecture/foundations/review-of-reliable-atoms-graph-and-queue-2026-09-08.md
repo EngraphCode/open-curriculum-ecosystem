@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: reliable-atoms-graph-and-queue-review-record
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Review of Reliable Atoms, graph architecture and queue specification
 
 8 September 2026 · review record revision 2 · initial findings and current design dispositions

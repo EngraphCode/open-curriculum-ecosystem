@@ -25,9 +25,15 @@ which evidence transfers into a new composition.
 
 On 8 September 2026, the owner decided to build our own algorithms and data
 structures through Reliable Atoms and layers of composition, using the best
-openly licensed examples as inspiration. The owner then requested a governing
-document, reconciliation of the relevant documents and a draft PR. This record
-homes that decision in the repository. The companion [governing policy](../foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+openly licensed examples as inspiration, and requested a governing document,
+reconciliation of the relevant documents and a draft PR. The owner's word,
+verbatim, given on 9 September 2026 when this record was reconciled: "The
+general decision here is to select the best, permissively licenced libraries,
+and use their code as inspiration to create Reliable Atoms and composition
+layers tailored to our needs and created to our deliberately very high quality
+standards." On licences, the same day: "We don't need to cite licences when we
+just exploring options, it is useful to have the licence data recorded and
+available." This record homes that decision in the repository. The companion [governing policy](../foundations/algorithms-and-data-structures-governance-2026-09-08.md)
 owns its operational detail, including scope, reference investigations,
 authorship, qualification and effort assessment.
 

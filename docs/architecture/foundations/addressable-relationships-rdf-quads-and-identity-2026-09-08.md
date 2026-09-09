@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: reference
+authority: addressable-relationships-rdf-quads-and-identity
+status: active
+last_reviewed: 2026-09-09
+---
+
 # Addressable relationships, RDF quads and identity
 
 **Date:** 8 September 2026

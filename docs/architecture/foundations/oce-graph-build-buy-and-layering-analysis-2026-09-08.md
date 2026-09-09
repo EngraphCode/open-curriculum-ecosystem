@@ -1,3 +1,11 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: oce-graph-construction-and-composition-analysis
+status: active
+last_reviewed: 2026-09-09
+---
+
 # OCE graph capability: reference-informed construction and composition
 
 8 September 2026 · revision 5 · design analysis under the owner-established development policy
