@@ -454,8 +454,8 @@ Give the teacher the adapted lesson as evidence-calibrated options and
 **What it says now:**
 
 ```text
-the unit that follows the
-   class's confirmed position is the candidate next step
+the unit that follows the class's
+   confirmed position is the candidate next step
 
 its assumed prior knowledge is exactly what the class should now have
    secured
