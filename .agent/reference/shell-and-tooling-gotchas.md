@@ -9,8 +9,9 @@ tool retires them.
 
 - **Unquoted leading-`=` words abort compound commands** (3 instances,
   2026-07-20; recurred 2026-09-09 at a seat running five chained reads —
-  the cure that holds is one plain command per call, which is now the
-  unattended-seats rule, not this note). `echo ===X===` in a chained command errors and kills the
+  the cure that holds is one plain command per call, the
+  `worktree-residency` rule's working shape, which PR #100's pending
+  unattended-seats rule restates for every seat). `echo ===X===` in a chained command errors and kills the
   REMAINING chained commands invisibly: zsh's default `EQUALS` option
   performs command-path expansion on an unquoted word beginning with
   `=` (the `=cmd` form). Quote the separator or emit it with `printf`.

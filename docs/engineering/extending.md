@@ -109,7 +109,7 @@ parity required to keep `pnpm portability:check` green.
 **Always create the canonical file first** under `.agent/`, then add platform
 adapters, then run `pnpm portability:check`. Every canonical rule must cite
 the ADR(s) it operationalises with a leading "Operationalises ADR-NNN" line
-(ADR-131 §Self-Referential Property). A new rule is five files plus its index
+(ADR-131 §Self-Referential Property). A new rule is four files plus its index
 row: the canonical `.agent/rules/<name>.md`, the `.claude/rules/` and
 `.agents/rules/` pointer adapters, the `.cursor/rules/<name>.mdc` adapter
 (with `alwaysApply` and a `description`), and a `RULES_INDEX.md` row (core or
