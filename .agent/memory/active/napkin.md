@@ -1410,3 +1410,86 @@ the fork-diff manifest and the instruments' home (pointers) — nothing unhomed.
 Bounds: the poll's UNKNOWN minute after each landing is GitHub's, read twice today. A third pass
 re-finds only the standing bounds; the recursion closes. External bound: any verdict I give on a
 recipe or a mechanism — walk its predicates first.
+
+- **RETURN after a dark window — Altair spins Umbra (05a180), lane (t) / PR #98, 2026-09-09
+  14:2xZ** (continues this seat's cross-fork notes above, swept by the Director at 2e6d13c62).
+  - 10:44Z–14:23Z the seat was dark. The call that held it is pinned by shape, not by any log:
+    a scratchpad dry-run of the recipe that ran `git init`, a pathspec add and a commit in a
+    throwaway directory — the EXACT shape of the 2026-09-08 second held-seat instance, against
+    which this seat's own memory already said "never run git operations outside the estate's
+    checkouts; dry-run by file copy, no git". The lesson was recorded and not applied; that is
+    the defect, not the platform. Third instance of the class. The Director's
+    deadline-and-default carried the lane exactly as designed: the round-one cure 0d248c9d5 at
+    11:45Z (author the owner, committer the bot, from a fresh worktree on the primary's side),
+    the thread replied and resolved, #98 landed 123d2e3e9 at 12:14Z under the standing rule;
+    on return the local branch fast-forwarded, ancestry proved, the worktree and branch went
+    under the grant, the claim closed. Bears on the cross-fork skill's §8 as the general form:
+    an in-flight lane's landing must not depend on its seat being awake — the Director's
+    deadline-and-default is the mechanism, and it worked.
+  - The recipe cure (0d248c9d5) was the lane's one over-bar finding, and mine to prevent: the
+    pre-authored (t) text was re-read against the landed files but never RUN — `test -L`
+    returns 0 for a symlink, so "after `test -L` has read the path as a regular file" inverted
+    the guard, and a fixed sibling name truncates whatever already sits there. Lesson, a
+    sibling of "scripts are notes, not the applier": a shell recipe in rule text is executed
+    once before it is pushed — by file copy in a scratch directory with NO git (the two
+    lessons compose: the proof run that catches the recipe is the same run that must not
+    hold the seat). Re-reading is not running.
+
+## Flounder turns Estuary (c5cc2c) — Director, COMPACTION BOUNDARY 10 WRAP (2026-09-09 14:39Z; owner word: "I want to drive the number of open PRs to zero. Before that, please prepare for compaction")
+
+**Metacognition — the day's shape.** Two landings (#90 on the owner's word, #98 by the lane's
+recorded default), eight owner rulings by card, one skill drafted, one harness fix built, and
+five corrections of my own, four of them one shape: acting on a state not recomputed against
+its source (an estimated stamp; a card from a stale checkout; a recipe read for its story; a
+rule read as a nuisance). The fifth was the inverse — a card raised as a binary when the
+principles directive says an either/or is a false frame, and the owner's answer ("are they in
+fact different things and we should keep both?") was the directive's own test turned on me. The
+generator under all five: fluency outrunning verification at the moment of the act. The cure
+is not vigilance (the estate's own principle: structure over vigilance) — it is the check that
+costs nothing placed before the act: `date -u`; `git show origin/engraph:<path>`; a predicate
+walked with one input; the rule's text; the lens over the card.
+
+**Concept exploration — a seat that cannot see its own hold.** The held-seat class resolved
+today into two halves that are different things and both hold. (1) A block point is a design
+defect, not an operator error: an `ask` rule is a prompt by construction, and a prompt with no
+one at the terminal is a hold that the seat cannot observe (from inside, the call has not
+returned). The structural cure removes the block points — asks become denies, and a deny is an
+error the seat can route (the routing rule already exists). (2) Whatever block points remain,
+a second party with a clock supplies the missing observation: the Director reads silence
+against the seat's cadence and declares a deadline and a default on the stream, applies the
+default without touching the seat's worktree, branch or claim, and the seat's return finds
+nothing to undo. Today the second half landed a cure and a PR while the first half was being
+built; Altair's observability node (a PreToolUse marker the peer poll reads) is the
+instrument that makes the hold visible when it recurs. Falsifier for the pair: a seat held
+again after the fix lands at a shape neither the deny list nor the guard names — the class
+then wants a marker, not another pattern.
+
+**Concept exploration — integration as a semantic event.** The skill's four-layer table
+survived the day: code proven by the gates, generated surfaces by their generators, memory
+files by concept, prose by a premise sweep whose terms come from the change's claims. The
+day added two clauses: a re-truing narrows to the claim refuted, never wider (the #92
+acquisition paragraph was the over-reach shape); and the skill's landing proof is a count
+until a fork-diff manifest exists (a lane pointer). #99 (upstream 1.179.0) is the second
+instance and the first test of the skill as written.
+
+**Free play.** Fours: a rule has four forms (canonical and three adapters) and an index row;
+an integration has four validators; the review-round arm fires at four. The estate keeps
+counting to four and then writing a generator — the skills adapters are generated, the rule
+adapters are not (a seed: a rules-adapter generator on the skills generator's pattern, so a
+rule is one file and the portability validator becomes a check that nothing is hand-carried).
+"Ask" and "card" are the same shape at two altitudes: both spend a human's attention at a
+moment nobody chose; the estate's answer to both is the same — a default with a deadline,
+recorded. And the merge commit authored by the platform as the bot, beside commits authored by
+the owner: two conventions meeting at one edge, each right in its own frame — the kind of seam
+the premise sweep exists to name.
+
+**Loss scan at the boundary.** Compaction kills every process (memory written today): the
+re-arm recipe is in the record's boundary block, including the fold wake's exact prompt.
+In-flight at the boundary: the no-prompts push (landed; its draft PR opened before the
+boundary), the settle watch on #97 (stops at settled; the merge on the ruling "land on the
+Director's read"; a first Codex round of two threads arrived at 14:40Z, harvested for the
+record), the pending merge of engraph into #92 (after #97), and #99 new on the board. Nothing unhomed: the six
+rulings are on the record; the two seats' notes are on this napkin; the instruments are
+scratchpad scripts named in the record; the memories are written. The recursion closes at the
+standing bounds (reviewer transcripts unread beyond their reports; "Altair held at a prompt"
+was inferred until the owner's screenshot observed it).
