@@ -322,8 +322,10 @@ first-hand as of 2026-06-25.
 > spins Umbra (`05a180`, claim `a3d107dd`) on #95. Standing words of the night: "other than 90,
 > can we get to zero? If so, do it"; "stop doing things that need approval, I am not here". The
 > successor coordination branch is cut from post-fold `engraph` by the coordination tool once
-> #84 lands, and the wrap-24 napkin block sweeps there. THE PICKUP MAP stays the Director's
-> handoff record (machine-local), as the fold block says.
+> #84 lands, and the wrap-24 napkin block sweeps there. THE PICKUP MAP is this snapshot,
+> tracked, with the tenure journal in the estate-coordination thread record; the Director's
+> machine-local handoff record (untracked by design) adds finer detail on this machine only
+> and is never required by a successor on another checkout.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the
