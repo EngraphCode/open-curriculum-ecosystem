@@ -162,8 +162,13 @@ author option (the first attempt on 2026-09-09 failed on one, exit 129): the
 owner-as-author identity is set in the call's environment and the committer
 comes from the checkout's inherited bot configuration —
 `GIT_AUTHOR_NAME="<owner name>" GIT_AUTHOR_EMAIL="<owner address>" git merge
---no-ff -F <message-file> <fork-default-tip>` — and the pair is read back off
-the commit (`git log -1 --format='%an <%ae> / %cn <%ce>'`) before the push.
+--no-ff -F <message-file> <fork-default-tip>`. The environment must also be
+set on the command that completes a conflicted merge (`git merge --continue`
+or `git commit` after step 2's genuine-conflict route), because `git merge`
+commits automatically only when the merge succeeds and a later completion
+otherwise takes the checkout's bot identity as author. In every case the pair
+is read back off the commit (`git log -1 --format='%an <%ae> / %cn <%ce>'`)
+before the push.
 The CI-skip token matters because the host scans
 the whole head message, and a head that is upstream's release commit runs no
 workflow at all. The head that lands must be a commit whose checks ran; when
@@ -299,8 +304,12 @@ cure-worthy count stays zero unless a finding is about the sync itself
 owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window). Merge by MERGE COMMIT as the bot through the one sanctioned front
-door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
-(pr-lifecycle §merge boundary; `docs/engineering/merge-bot.md`): it recomputes
+door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
+[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer in the
+repository's automatic-review configuration, the complete set, because a
+reviewer left undeclared is invisible to the tool's recomputation and its
+owed leg would not hold the merge (pr-lifecycle §merge boundary;
+`docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the
 verdicted tip's sha in its own call, so the landing merge's second parent IS
 the head the verdict was read on and a head moved between verdict and merge
