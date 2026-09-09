@@ -84,7 +84,11 @@ its file never moves while live:
 
 Milestones are **not** a plan type: they are named observable states of
 the product, held in Linear with tickets mapped. Delivery state is a
-Linear projection, never a repo field — the sorting test: if it moves
+Linear projection, never a repo field, and more generally the state of
+any instance of the code (a deployment, a dashboard, a console) is the
+external system's own record, never the corpus's; a plan records the
+desired external outcome and its `owner-held` proof (plan-node schema,
+amendment 2026-09-08) — the sorting test: if it moves
 when the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repo.
 
@@ -157,7 +161,11 @@ Every non-trivial plan MUST define:
 3. **Mechanism** — why the named means produce that outcome.
 4. **Acceptance criteria, each with a proof** — outcome-measuring, not
    activity-measuring, and each proof typed (`repo-safe` for
-   test/CI-provable, `owner-held` for the owner's confirming act).
+   test/CI-provable, citing the instrument; `owner-held` for a state
+   the repository cannot attest — an external console, dashboard or
+   service — naming who verifies it, the owner or a seat reading that
+   system at the owner's word, and where the dated observation is
+   recorded; the schema's definition governs).
 5. **Out of scope** — what the plan explicitly will not do (YAGNI).
 6. **Todos** — sliced at pickup by the implementer, each slice a
    single-story PR within its round budget

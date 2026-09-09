@@ -402,21 +402,9 @@ const base = `Stated prior knowledge for ${String(anchorCount)} anchor unit
 **What it says now:**
 
 ```text
-function summariseProgression(subgraph: ThreadProgressionSubgraph): string {
-  if (subgraph.threads.length === 0) {
-    const unknown = subgraph.unknownAnchors.join(', ');
-    return `No thread matched the anchor (unknown: ${unknown}).`;
-  }
-  const progression = subgraph.threads[0];
-  if (progression === undefined) {
-    return 'No thread matched the anchor.';
-  }
-  const span =
-    progression.thread.firstYear !== undefined && progression.thread.lastYear !== undefined
-      ? ` spanning Year ${String(progression.thread.firstYear)}–${String(progression.thread.lastYear)}`
-      : '';
-  return `Thread "${progression.thread.title}": ${String(progression.totalUnits)} unit placements${span}, ordered by teaching year.`;
-}
+unit placements${span} in ${String(runs)} subject run
+
+each in curriculum order.
 ```
 
 **What it is for:** Frames one thread's progression (title, unit count, year span, ordered-by-year) or a no-match case.
@@ -425,7 +413,7 @@ function summariseProgression(subgraph: ThreadProgressionSubgraph): string {
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** response-format-template · **Impact tier:** high-impact
 
 ### C259 — summariseDiscovery

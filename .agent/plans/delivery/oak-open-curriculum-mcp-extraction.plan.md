@@ -43,7 +43,7 @@ owner_gates:
       form and the dip threshold the move step must meet — together with the
       delivery nodes D0a authors for the lane's later steps — or amends it on
       the ticket.
-    expires: 2026-09-23
+    expires: 2026-10-10
   - awaiting: owner-decision
     clears_when: >-
       At ratification the owner names who creates the public repository
@@ -51,8 +51,8 @@ owner_gates:
       error-reporting project of the same name (ADR-159, ADR-163) is renamed
       or shared; the scaffold step asserts the repository exists at its
       start, and the cut-over step's own node carries the deploy-target gate.
-    expires: 2026-09-23
-last_updated: 2026-09-03
+    expires: 2026-10-10
+last_updated: 2026-09-08
 ---
 
 # Design the extraction of the MCP app product into oak-open-curriculum-mcp
@@ -1036,3 +1036,9 @@ record named under §Evidence; the rows below are the ones routed onward.
   (`.agent/reports/repo-architecture/oak-toolkit-atlas.html`, Change 3).
 - Readiness reviews (dispositioned by ID) and the Atlas render record:
   `.agent/reports/repo-architecture/oak-open-curriculum-mcp-extraction-readiness-reviews-2026-09-02.md`.
+
+## Amendment (2026-09-08, owner-ruled)
+
+Both owner gates renewed to 2026-10-10 at the owner's card answer of 2026-09-08, verbatim:
+"Renew both, and they may well be addressed separately by people working on the upstream fork
+anyway."

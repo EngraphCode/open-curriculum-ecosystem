@@ -24,8 +24,10 @@ last_updated: 2026-09-08
 The owner declared `innovation-kit` a first-class strategic node and the Oak Innovation Kit
 the fourth value stream on 2026-08-30. That establishes this node's identity and strategic
 altitude. The outcome, `KIT-2` edge, and success shape below are the repository's initial
-articulation of that direction and remain a sketch until the owner reviews and ratifies this
-plan shape.
+articulation of that direction and remained a sketch until the owner reviewed and ratified this
+plan shape — which the owner did on 2026-09-08 by the numbered card answer "Ratify all six"
+(the frontmatter stamp is the record); the sentences below that speak of a shape not yet
+ratified are history from before that word.
 
 ## Outcome
 
@@ -138,8 +140,10 @@ The
 [Eve + MCP agentic-chat investigation](../../research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)
 is one bounded research input to the portfolio model, claim ladder, and possible composition
 architecture. The owner declaration establishes this first-class node and settles the
-fourth-stream decision; it does not ratify this drafted plan shape, every recommendation in
-that report, or its unimplemented chat specimen as evidence that the outcome has been reached.
+fourth-stream decision; it did not by itself ratify this drafted plan shape, every recommendation
+in that report, or its unimplemented chat specimen as evidence that the outcome has been reached
+— the plan shape was ratified separately on 2026-09-08 ("Ratify all six"); the report and the
+specimen remain research inputs, not evidence of the outcome.
 
 The
 [dynamic, interactive graph-experience landscape](../../research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md)

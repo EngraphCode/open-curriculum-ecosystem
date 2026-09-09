@@ -3,12 +3,21 @@ prompt_id: start-right-thorough
 title: "Start Right (Thorough)"
 type: workflow
 status: active
-last_updated: 2026-04-26
+last_updated: 2026-09-08
 ---
 
 # Start Right (Thorough)
 
 Ground yourself rigorously before beginning significant work.
+
+## Environment Classification
+
+Before any command in this workflow, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+that non-execution profile governs every command-bearing step below: retain all
+reading and static inspection, but skip package, build, test, hook, identity and
+repo-owned collaboration-CLI execution. Platform-native coordination remains
+available. Detector error is a stop, not a fall-through.
 
 ## Foundation Documents
 

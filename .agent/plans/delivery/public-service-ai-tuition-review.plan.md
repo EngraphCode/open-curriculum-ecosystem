@@ -12,15 +12,8 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner states whether the chapter-13 work programme receives a plan node of its own and
-      under which strategic parent. (The first half of this gate — whether the collection's
-      "settled" directions are settled at the owner's word — cleared 2026-09-07 ~13:2xZ: "No,
-      they are proposals", PR 66 comment 5571197335.)
-    expires: 2026-09-27
-last_updated: 2026-09-07
+owner_gates: []
+last_updated: 2026-09-08
 ---
 
 # Independent review of the public-service AI tuition import (PR 66)
@@ -90,8 +83,9 @@ the OCE record that owns it, disposition-as-intended with the control that prove
    `.agent/research/public-service-ai-tuition/AUTHORITY.md` §Owner rulings (the runner: apply the
    standing policy, ~12:24Z; the nine repositories: all public, PR 66 comment 5570600664; the
    settled directions: proposals, PR 66 comment 5571197335, ~13:2xZ), each applied on PR 66's
-   branch. The one gate still in this node's front matter is a separate owner decision (a plan
-   node and parent for the chapter-13 programme), not part of the packet.
+   branch. The separate owner decision this node once gated (a plan node and parent for the
+   chapter-13 programme) was not part of the packet; the owner resolved it on 2026-09-08 (the
+   amendment below) and the gate row is gone.
 4. **The imported files are unchanged beyond the deltas `AUTHORITY.md` tables** — under
    `.agent/research/public-service-ai-tuition/` the only differences from the imported revision
    SHA:2db74f5bb are the three rows in `AUTHORITY.md`'s deltas table (the runner reduced to a
@@ -129,8 +123,8 @@ the OCE record that owns it, disposition-as-intended with the control that prove
 - Editing any of the 17 imported files (ADR-226 clause 2 keeps their bytes; findings route to the
   author's source).
 - Planning or ratifying the chapter-13 work programme, designing the POC, or verifying the
-  education literature and the experiment design on their merits (a research programme, named as a
-  factor for the second gate).
+  education literature and the experiment design on their merits (a research programme the owner
+  manages directly since 2026-09-08; no gate on this node names it).
 - Re-running the historical probe: the published review re-executed it at the pin with all eleven
   probes passing and matching hashes; this lane records that result and checks the figures against
   the results JSON rather than spending a second run.
@@ -209,4 +203,13 @@ on PR 68 (2026-09-07 08:24Z, five threads):
   byte changed; `AUTHORITY.md` carries the owner's ruling and four pointers; the report carries
   the "Second pass" section with the epistemic profile and measured spend. The owner's ruling of
   13:2xZ ("No, they are proposals") cleared the first half of the gate above; the second half
-  (a node and parent for the chapter-13 programme) stands. Seat-inline throughout, no fleet.
+  (a node and parent for the chapter-13 programme) stood until the owner resolved it on
+  2026-09-08 (the amendment below). Seat-inline throughout, no fleet.
+
+## Amendment (2026-09-08, owner-ruled)
+
+The owner-gate row (the chapter-13 plan-node question) is removed as RESOLVED at the owner's
+word of 2026-09-08, verbatim: "The tuition review work is ongoing, but managed by me, I will
+take care of the scheduling and coordination for now, unless I explicitly tell you otherwise,
+this matter is resolved." No seat surfaces this plan's gates, schedule or coordination again
+unless told.

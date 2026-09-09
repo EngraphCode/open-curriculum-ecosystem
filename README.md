@@ -205,7 +205,7 @@ full licence terms.
 
 The MCP servers expose curriculum data through the three [MCP primitive types](https://modelcontextprotocol.io/docs/learn/server-concepts):
 
-- **Tools** (model-controlled): 37 curriculum tools (24 generated from the OpenAPI schema plus 13 aggregated compositions) covering search/browse/fetch flows, orientation via `get-curriculum-model`, the curriculum graph tools (`get-thread-progressions` for year-ordered sequences, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`), EEF evidence, `download-asset`, and the user-search pair. The AI decides when to use them. See [`apps/oak-curriculum-mcp-streamable-http/README.md`](apps/oak-curriculum-mcp-streamable-http/README.md) as the canonical count.
+- **Tools** (model-controlled): 37 curriculum tools (24 generated from the OpenAPI schema plus 13 aggregated compositions) covering search/browse/fetch flows, orientation via `get-curriculum-model`, the curriculum graph tools (`get-thread-progressions` for curriculum-ordered sequences, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`), EEF evidence, `download-asset`, and the user-search pair. The AI decides when to use them. See [`apps/oak-curriculum-mcp-streamable-http/README.md`](apps/oak-curriculum-mcp-streamable-http/README.md) as the canonical count.
 - **Resources** (application-controlled): The curriculum model, a getting-started guide, and the EEF evidence-interpretation guide as pre-loadable context for MCP clients that support resource injection. The curriculum graphs are deliberately tool-only — served anchored and bounded by the graph tools rather than as whole-corpus dumps.
 - **Prompts** (user-controlled): Seven workflow templates (`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `curriculum-mapping`, `adapt-lesson`, `continue-progression`) that guide users through common curriculum tasks — including the position-anchored entry point: state what your class just covered and plan the next step from Oak's sequence, building on what came before.
 
@@ -233,11 +233,14 @@ and
   and Sentry Seer) — install only when you need local Sentry operator tooling;
   see [Sentry CLI usage](docs/operations/sentry-cli-usage.md) for the
   `sentry-cli` vs dev-`sentry` split and workspace invocation details.
-- **Linear plugin** (Claude Code users) — issue tracking through Linear's
-  hosted MCP server. The tracked [`.claude/settings.json`](.claude/settings.json)
-  enables `linear@claude-plugins-official`, so Claude Code offers to install it
-  on first launch in this repository — accept the prompt, then authenticate with
-  `/mcp`. The full sanctioned MCP set is listed in
+- **Linear plugin** (Claude Code users, upstream line only) — issue tracking
+  through Linear's hosted MCP server. The upstream repository's tracked
+  `.claude/settings.json` enables `linear@claude-plugins-official`, so Claude
+  Code offers to install it on first launch there — accept the prompt, then
+  authenticate with `/mcp`. This fork does not use Linear (owner ruling,
+  2026-09-06), and its tracked [`.claude/settings.json`](.claude/settings.json)
+  activates no plugin; contributors here skip this entry. The full sanctioned
+  MCP set is listed in
   [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md).
 - **MCPJam** (optional, for MCP server development and validation only) —
   inspects, runs conformance checks, and authors/runs evals against the MCP

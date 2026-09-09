@@ -6,7 +6,7 @@ overview: "Factor the estate's fundamental code, data structures, algorithms, an
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-08
-ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in its own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
+ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in it's own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
 serves: TOOLS-2
 impact_areas:
   - practice-and-estate
