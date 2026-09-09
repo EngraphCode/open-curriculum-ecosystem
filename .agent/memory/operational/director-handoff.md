@@ -179,16 +179,33 @@ background-process tool; the two scheduled prompts run under the platform's sche
 platform names its own). Instrument scripts that restate these as one-liners are session
 conveniences, never the only home.
 
-1. **The all-channels comms watcher**, persistent, re-armed on its hourly exit:
+1. **The all-channels comms watcher**, persistent, re-armed on its hourly exit — on the
+   PRINCIPAL checkout:
    `timeout 3600 pnpm --silent agent-tools:collaboration-state -- comms watch --platform <platform> --model <model> --supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-drain 100 --exclude-tag heartbeat`,
-   then `pnpm --silent agent-tools:collaboration-state -- comms assert-watcher-live --platform <platform> --model <model>`
-   (the `comms-all-channels-watcher` rule is canonical).
-2. **The claim heartbeat**, once now and then hourly in a persistent loop
-   (`while true; do sleep 3600; …; done`; the `liveness-heartbeat-cron` rule is canonical):
-   `date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id <claim-id> --now {}`.
-3. **The peer-liveness poll**, every 20 minutes over `.agent/state/collaboration/active-claims.json`
-   with jq's `now` builtin (no clock substitution), emitting only on a change in the peer set or
-   a peer quiet past 90 minutes; the registry's own freshness window is the stale verdict.
+   then `pnpm --silent agent-tools:collaboration-state -- comms assert-watcher-live --platform <platform> --model <model>`.
+   A seat RESIDENT IN A LINKED WORKTREE cannot pass `$PPID` (the platform's worktree isolation
+   refuses the runtime expression): it arms the fully literal form in the
+   `comms-all-channels-watcher` rule's worktree-isolation section — the `cd` rooted at the
+   worktree, the timeout binary by its resolved name, the supervisor pid written as a literal.
+   That rule is canonical for both forms.
+2. **The liveness heartbeat**, a persistent loop every 240 seconds bumping BOTH surfaces each
+   tick, per the `liveness-heartbeat-cron` rule's canonical invocation: the comms heartbeat
+   event (`comms send --tag heartbeat` with `--title` and the four typed state arguments
+   `--claim-id`, `--intent-id`, `--branch`, `--current-cycle-label`) and the registry heartbeat
+   `date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id <claim-id> --now {}`,
+   each leg with its own `|| echo` so a half-dead heartbeat reports itself; read `heartbeat_at`
+   back off the claim row after arming. The registry-only hourly loop (the second leg alone,
+   `sleep 3600`) is NOT this heartbeat: it is the PDR-078 §4 consumer-absent form — n=2
+   owner-visible per PDR-082, or a claimless standby — and a seat running it declares that
+   exemption on the stream and re-arms the full loop the moment a consuming peer appears.
+3. **The peer-liveness poll**: the `comms peer-liveness` delta poll against the PRIMARY
+   coordination home's comms directory, per the heartbeat rule's F-75 recipe (`active` under
+   four minutes, `offline` to ten, `retired` past ten — input to verify, never a verdict). The
+   watcher's heartbeat exclusion REQUIRES this pairing. A 20-minute read of
+   `.agent/state/collaboration/active-claims.json` with jq's `now` builtin (emitting on a change
+   in the peer set or a peer quiet past 90 minutes) is only the coarse fallback while every peer
+   runs under the exemption above and emits no heartbeat; claim freshness cannot see a silent
+   retirement.
 4. **The PR poll**, every two minutes over the open set — number, draft flag, `mergeStateStatus`,
    head, unresolved review threads, check rollup (the pr-lifecycle state machine's item-1
    selection) — emitting only lines that changed.
