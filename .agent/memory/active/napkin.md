@@ -1133,3 +1133,53 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   every disposition is on its PR with its bar marker; the fold ceremony is complete with its
   wake armed. Promises open: the owner's morning items; the (t)/B/C lanes; the #94 read's
   structural notes on the PR. Nothing narrated ahead of the landed state. Recursion closes here.
+
+- **COMPACTION BOUNDARY 9 WRAP — Flounder turns Estuary (c5cc2c), Director, 2026-09-09 09:19Z**
+  (owner word, verbatim: "That is great news, well done and thank you. Please prepare for
+  compaction ultrathink /oak-metacognition /oak-free-play /oak-concept-exploration /oak-wrap" —
+  no stop order this time: the seat continues, its processes run on). Board at the boundary:
+  engraph 84f05775c; open #96 (this branch's draft, c5bd7a372), #92 (the owner's, 4ba9a4e7e,
+  four items pre-cured, two clauses and the below-bar list for their word), #90 (the owner's
+  draft, 3f1e88cab, custody). Primary clean, zero ahead; the queue empty; the Director claim
+  8109015d the only row; the lane seat holding at low burn, its claim closed.
+- **Metacognition (retrospective, the 2026-09-08 window).** What worked: the landing-slot order
+  declared once and kept; the class fix as the only ending to a case-list review tail (four PRs);
+  the node's own rule ("a case the rounds did not name is a fixture at pickup") closing a round
+  at zero by disposition; reading every owner PR first-hand with a lens agent as the second
+  pair of eyes; one settlement push per round, dispositions signed with the bar marker. What
+  cost: the seat held an hour at a nested substitution (the third held-seat instance in two
+  days, all three on tool calls the seat could not see); one commit failed the header limit
+  for a skipped thirty-second pre-check; three posts failed on hourly token expiry before I
+  minted at use; clock stamps estimated early until `date -u` became the habit; an owner card
+  raised at bedtime that belonged on the record. Each has its home in memory now; the shape
+  under all five is the same — a cheap check skipped because the flow felt fast.
+- **Concept exploration (the landing slot as the day's real limiter).** Observations: eleven
+  landings took a day because each merge needs its own up-to-date CI run and every push draws
+  a reviewer round; the reviews, not the CI, set the pace (seven rounds on a records fold).
+  Problem: prose PRs attract a per-sentence reviewer whose findings are correct one at a time
+  and unbounded in aggregate. Solutions re-opened: the four-round arm (fires; ends the epoch);
+  the class fix (states the invariant, demotes cases to fixtures); the terminal declaration
+  (dispositions only, clause 9 the narrow door); the tally instrument (pr-tally landed tonight
+  as a node, carrying that rule about itself). Proposal for the next authoring, not a new
+  mechanism: write the invariant first and the cases as fixtures on the FIRST push — the
+  review tail is the estate's own authoring-time check arriving late. Falsifier: a prose PR
+  authored that way that still draws four rounds.
+- **Free play.** Nineteen hand-written tally comments tonight (#89 seven, #94 five, #84 seven)
+  are the fixtures the pr-tally builder wants; the settle script and the reply scripts in the
+  scratchpad are its proto-instrument — session-local, rewritten per PR, and exactly the
+  repeated shape a command should absorb. A mint-at-use token helper would have saved three
+  failed posts; a `date -u` stamp in every record line is a habit, not a tool. The owner's two
+  words of the night — "can we get to zero?" and "stop doing things that need approval" — are
+  one lesson from two sides: throughput comes from not stopping, and stopping comes from calls
+  the seat cannot see.
+- **Loss scan (the wrap's own).** Promises: the owner's morning (#92's clauses, #90, the #94
+  read's structural notes); the (t) follow-up, PR B, PR C as the next lanes, (t) to the lane
+  seat on the Director's word; the code-scanning node's execution after B; pointer (w) (the
+  tsup lint race) open; the linked-worktree destination derivation recorded for the hooks
+  node's pickup. Attribution: "the owner undrafted #95, #94, #92 and #84" is the lane seat's
+  timeline read plus GitHub's ready_for_review actor, not my observation. Blind spots: the
+  watcher's truncated events; the owner's screen. Fence sweep: no fenced owner wording exists
+  from this window; every owner word recorded is a chat word quoted as such. Index of homes:
+  the record's boundary-9 block; the tracked live snapshot in the handoff; the tenure journal;
+  this napkin; the per-user tail. A further pass would re-find only the standing bounds; the
+  recursion closes here.
