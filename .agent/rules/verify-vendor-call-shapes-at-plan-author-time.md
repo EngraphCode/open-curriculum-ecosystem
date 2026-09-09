@@ -78,6 +78,10 @@ function signature.
   have cost a release cycle to learn what one fetch taught. Read the
   MUST/SHOULD text of the clause the cure relies on before the cure is
   built.
+- **A by-construction claim is verified on every package it names.** On 2026-09-06 an
+  "enforced by construction" claim about export shape was checked against one package's
+  exports map while the second package the design relied on published wildcard subpaths,
+  which falsified the claim at review.
 
 ## Related Surfaces
 

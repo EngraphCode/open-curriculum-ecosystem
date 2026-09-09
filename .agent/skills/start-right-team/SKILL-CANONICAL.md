@@ -1,10 +1,41 @@
 ---
 name: start-right-team
 classification: active
-description: Apply repository start-right grounding plus team bootstrapping for multi-agent sessions. Use when a coordinated team is starting, re-grounding, or choosing temporary collaboration responsibilities.
+description: >-
+  Apply the repository's grounding plus the team bootstrap for a coordinated
+  multi-agent session after classifying the host (a detected ChatGPT Work host
+  runs no team session and stops to surface that). Use when a team is starting,
+  re-grounding, or choosing temporary responsibilities. Not for a solo session
+  (that is start-right-quick or start-right-thorough). Right looks like: the
+  watcher and heartbeat armed, the team-start report posted, the claim opened
+  only after coordination resolves. Wrong looks like: a source claim opened
+  before the team-start reports surface, or a seat read as live from a
+  heartbeat alone.
 ---
 
 # Start Right (Team)
+
+## Environment Classification
+
+Before Mode Selection or any team command, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+the team route's visibility preconditions cannot be met from that host: the
+canonical watcher, the heartbeat, the claims registry and the commit queue are
+the estate's own built tooling, there is no way to run them without the package
+manager, and platform-native messages reach the active turn only — they never
+consume the canonical comms stream. A detected Work seat therefore runs no
+team session: when its task names a team, a peer, a coordinator or any
+coordinated route, it STOPS and surfaces the unsupported host — it never edits
+outside coordination, because neither it nor its peers could observe an
+ownership change and overlapping source work would follow. It proceeds only on
+a task-scoped lane assigned to it alone, solo under the Work profile, and its
+first message declares that it holds no canonical visibility; a coordinator who
+hears such a seat treats it as one without canonical visibility and routes
+nothing to it
+([`agent-state-observable`](../../rules/agent-state-observable.md),
+[`silence-is-never-liveness`](../../rules/silence-is-never-liveness.md)). Every
+“run” or “execute” below is conditional on the selected profile permitting that
+command. Detector error is a stop, not a fall-through.
 
 ## Mode Selection
 
@@ -39,7 +70,14 @@ all-channels comms watcher, claims on substantive source/doctrine edits,
 commit-queue intents, the substantive cross-agent broadcasts (tree-green,
 push-landed, gate-state, merge-ready, blocker), mid-cycle retirement, and
 closeout broadcasts. A third agent joining re-activates the full protocol
-atomically; declare the mode in your team-start broadcast.
+atomically; declare the mode in your team-start broadcast. The n=2 lead is
+accountable for the second seat's judgement, not only for the split of work
+(owner to the lead, 2026-09-03: "You are the lead, you are responsible for
+stopping Vesta from being dumb").
+
+A detected ChatGPT Work seat is never one of the two participants: it holds no
+canonical visibility (§Environment Classification), so it cannot supply the
+retain-set above, and the n=2 mode is not available to it.
 
 ## Goal
 
@@ -53,9 +91,11 @@ It layers team bootstrapping on top of the shared start-right requirements.
 1. Read `.agent/skills/start-right-quick/shared/start-right.md` end to end.
 2. Follow that workflow's referenced reading order. Do not replace it with a
    smaller subset for team sessions.
-3. Run the live collaboration checks named by the shared workflow: identity
-   preflight, active claims, shared comms, active commit queue, active plans,
-   and git status/log.
+3. Complete the live collaboration checks named by the shared workflow:
+   identity preflight, active claims, shared comms, active commit queue, active
+   plans, and git status/log. In detected ChatGPT Work, inspect their durable
+   state statically where available and use platform-native coordination; do
+   not execute their repo-owned CLIs.
 4. If the task is architectural, high-risk, planning-heavy, cross-workspace, or
    explicitly asks for thorough grounding, apply `start-right-thorough` after
    the shared quick foundation and before team routing.
@@ -186,7 +226,13 @@ the special case. Run both unless that exemption applies.
    <id> --platform <p> --model <m>` — it rewrites the claim's `agent_id` to
    your identity in place (never a duplicate row, never a hand-edit); the
    retiring agent records the pointer with `claims set-handoff --active
-   <active-claims-path> --claim-id <id> --path <record>`.
+   <active-claims-path> --claim-id <id> --path <record>`. Worked
+   instance (2026-09-03): the owner's word alone started a succession with
+   no budget signal in play; the outgoing seat wrote the record
+   (`01e418de-vesta-rides-solstice-to-chinook-seeks-cloud-2026-09-03.md`)
+   and the successor adopted the claim against it — the PDR-063
+   §Deliberate succession path, landing through exactly this pickup
+   contract.
    **An adopted claim gets its PREMISE recomputed at adoption, not just its
    ownership**: verify first-hand that the work the claim names is still
    live and undone before continuing it (worked instance 2026-08-13: a
@@ -356,6 +402,33 @@ claims. Because only one agent runs but the team must know the
 outcome, coordination and communication are the structural
 precondition for work-start. There is no path where multiple agents
 independently start source work on a non-verified inherited tree.
+
+#### Detected ChatGPT Work cloud branch
+
+A detected ChatGPT Work seat takes no team role (§Environment Classification),
+so it is never elected gate-runner and never hands the role off; this branch is
+that seat's own surfacing shape when it finds a non-clean inherited tree on
+its task-scoped lane.
+
+1. The seat posts, through the platform's channel, a static custody report
+   naming the branch, base and current head; every dirty path and its
+   attributed owner; the exact diff; and the non-executing checks performed.
+   Unknown ownership is a stop to surface, not permission to package another
+   contributor's work.
+2. It reads an already-concluded successful `run-quality-gates` result for
+   the inherited committed head. If none exists and the dirty state is a known,
+   task-scoped verification parcel of its own lane, it may commit it through
+   the Work-cloud commit route and open an immediate draft PR so that CI can
+   produce the verdict. Another seat's dirty work is surfaced, never packaged.
+3. Dirty content is never called green from static inspection. The seat's own
+   source work begins only after `run-quality-gates` concludes on the exact
+   transferred head. A missing, cancelled or failing check, an unattributable
+   diff, or inability to open the draft PR stops the route and is surfaced.
+
+This is the named downstream-proof path for the non-execution profile, not an
+exception to inherited-tree verification, not a local-gate claim, and not a
+gate-state report for a team: a coordinator who receives it reads it as one
+seat's observation of one lane.
 
 #### Electing the gate-runner
 
@@ -701,7 +774,11 @@ coordinator seat at n=2 owner-visible is default-absent (per
 [PDR-082](../../practice-core/decision-records/PDR-082-n2-collaboration-mode.md)'s
 n=2 owner-visible mode, explicit owner opt-in aside), and the right move is
 to propose dissolving it yourself rather than waiting for the owner to make
-the call.
+the call. The trigger is the WORK SHAPE, not the calendar: when the
+remaining work serialises onto one seat, the other proposes its own
+dissolution before the owner has to (2026-09-03: the owner dissolved the
+second seat by word — "the overhead of coordinating two agents is greater
+than the benefit" — before either seat proposed it).
 
 If multiple viable routes remain, use a bounded proposal:
 

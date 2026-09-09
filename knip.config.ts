@@ -121,6 +121,10 @@ const config: KnipConfig = {
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
         'src/mcp-content-current-source/validate-current-source.ts',
+        // MCP-103 content-workspace generator: invoked via the
+        // `build-mcp-content-workspace` / `validate-mcp-content-workspace`
+        // package scripts (`pnpm exec tsx`), not imported.
+        'src/mcp-content-workspace/build-content-workspace.ts',
         // PDR-131 throughput register CLI: invoked via the
         // `agent-tools:pr-throughput` package script (`pnpm exec tsx`), not
         // imported.
@@ -327,8 +331,14 @@ const config: KnipConfig = {
       // Source entries behind the dist-pointing exports map, one per subpath
       // (see oak-eslint note on the removed `development` condition — the
       // former exports-map auto-detection resolved that condition to src).
-      entry: ['src/index.ts', 'src/eef-strands/index.ts', 'src/curriculum/index.ts'],
-      project: ['src/**/*.ts'],
+      entry: [
+        'src/index.ts',
+        'src/eef-strands/index.ts',
+        'src/curriculum/index.ts',
+        // The markdown-projection writer, run via `pnpm render:eef-markdown`.
+        'scripts/**/*.ts',
+      ],
+      project: ['src/**/*.ts', 'scripts/**/*.ts'],
     },
     'packages/sdks/oak-curriculum-sdk': {
       // Knip cannot resolve entries through createSdkConfig() factory.

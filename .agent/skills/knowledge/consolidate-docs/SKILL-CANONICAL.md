@@ -275,6 +275,12 @@ it is there. That in-context verification is the knowledge-preservation screen;
 do not create a ledger to record it. Do not frame the action as making a fitness
 check pass; the action is conserving and homing knowledge.
 
+In a chain of pull requests, a drain rides the PR that carries its home or lands after that
+PR merges, never before: on 2026-09-06 two distilled entries and a register row were drained
+on a buffers PR ahead of their homes on a skills PR, and a reviewer caught the window in
+which no landed state held them; on 2026-09-07 two register entries were drained whose
+target homes had not yet been written, and were restored at review.
+
 **Checklist failure / anti-example**: archiving a buffer or source file before
 reading, extracting, routing, and verifying the home is not curation. An
 archive-only "drain" leaves the buffer live for completion purposes, even if
@@ -457,6 +463,19 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       drain-health-derived bounds (Invariant 4). Nothing in-window moves,
       absorbed or not — the live stream is the working coordination surface.
 
+    A pass record's moves and watermarks are facts about the checkout that ran them: the
+    instance tier is untracked by design (ADR-199), so a tracked record declaring 4,420
+    moves and a 2026-08-14 watermark (the 2026-09-02 pass) read true on its own checkout
+    while a second checkout still held the 537 substantive and 2,034 heartbeat events
+    unmoved (2026-09-06) — stale-capture-wins one layer down. Before trusting a declared
+    watermark on the reading checkout, recompute the live and archive counts there and run
+    the moves under the three gates again; the record proves homing, never another disk.
+    Sample composition, from measured yield: the 2026-09-02 full body-read of 496
+    post-watermark events found zero un-homed signals; the 2026-09-06 full read of 218
+    (about 120k tokens) found eight, all on lane-closed events (follow-up pointers with no
+    tracked home) and owner-word events. The body-read sample therefore always includes
+    every lane-closed and owner-word event beside every over-length body, and the prior
+    pass's yield sizes the next pass's depth; this shapes the sample and lowers no bar.
     Broadcast a one-line rotation notice before each batch (live watchers
     see benign ENOENT on mid-batch files; the notice classifies it). The
     archive is NOT a buffer: it appears in no drain inventory and is never
@@ -516,7 +535,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    a. **Extract** — read every "Patterns to Remember", "Mistakes Made", "Key Insight", and "Lessons" section from the outgoing napkin. Collect all entries that would change behaviour if read next session.
    b. **Merge** — compare extracted entries against existing `distilled.md`. For each entry: new insight → add it to the appropriate section; duplicate → skip; refinement of existing rule → update with the sharper formulation; contradiction → investigate (the more recent finding usually wins, but verify before overwriting).
    c. **Prune** — remove entries from `distilled.md` that have already been captured in permanent documentation. No duplication across tiers. (Graduation of settled content happens in step 7.)
-   d. **Archive** — move the processed outgoing napkin to `.agent/memory/active/archive/napkin-YYYY-MM-DD.md` using the current date.
+   d. **Archive** — move the processed outgoing napkin to `.agent/memory/active/archive/napkin-YYYY-MM-DD.md` using the current date. Prove the move: `cmp` the archive against the pre-move napkin (or its committed blob) before the fresh napkin starts, and name the proof in the rotation record (the 2026-08-14 and 2026-09-02 rotations both did).
    e. **Start fresh** — create a new `.agent/memory/active/napkin.md` with a session heading documenting the distillation.
 
    Target: `distilled.md` should stay under 200 lines of high-signal content.
@@ -538,12 +557,23 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     Read the selected current + archived napkins as one historical corpus after
     their ordinary per-napkin processing has happened. Ask: "What does the
     archive know now that no individual rotation could have known then?"
+    Know the corpus's limit: a napkin corpus measures recurrence and cannot
+    measure extinction — a cured class leaves no entry when it stops firing —
+    so "did the cure work" needs a designed surface-signature census per
+    window, never an absence read (2026-09-02).
 
     Keep the pass bounded. Before reading, name the corpus window: either all
     napkins since the last historical-synthesis marker, the last N archived
     napkins, or the napkins matching a specific thread / theme. Do not reread
     the whole archive by default unless the consolidation is explicitly a
-    historical pass.
+    historical pass. Even then, an archive-scale corpus is never read into
+    the seat's own context: an engine (the corpus-analysis workflow's map
+    stage, or dispatched extractors writing their reports to disk) maps
+    the windows, and the seat verifies each kept leaf first-hand at the
+    point of use (owner correction 2026-09-02: a curator read about
+    16,400 lines of six archived napkins into its context for this step,
+    compacted mid-corpus, and kept four of the six only as a summary
+    paragraph).
 
     Write a synthesis report before mutating doctrine. Default home:
     `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/`
@@ -690,14 +720,19 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       in place of `claimed_at` if present and more recent. Report
       `[active] <claim_id> <thread> <agent_name>: fresh|stale; areas=<n>`.
       If any area is `git:index/head`, mark it as a commit-window claim.
-   2. **Intent-to-commit snapshot**: read the root `commit_queue` array. For
-      every entry, compare `expires_at` with now and report
-      `[intent] <intent_id> <claim_id> <phase> fresh|stale; files=<n>`.
-      If a fresh entry is in `queued`, `staging`, or `pre_commit`, mark it as
-      an active advisory commit-turn signal; array order is FIFO. Stale or
-      `abandoned` entries are cleanup signals, not blockers. Do not auto-clear
-      them unless this consolidation deliberately records the cleanup and
-      cites evidence.
+   2. **Intent-to-commit snapshot**: read the per-intent commit-queue store
+      beside the claims file (`commit-queue/` under the coordination home,
+      one machine-local file per intent since registry schema 1.4.0;
+      `pnpm agent-tools commit-queue list` is the view). Every entry the
+      view shows is live: a TTL-expired intent is read as absent and swept
+      by the next queue write (ephemera by the QUEUE-LOCAL owner ruling), so
+      the snapshot never meets one and reports no stale leg. For every entry
+      report `[intent] <intent_id> <claim_id> <phase> live; files=<n>;
+      expires_at=<iso>`. If an entry is in `queued`, `staging`, or
+      `pre_commit`, mark it as an active advisory commit-turn signal;
+      `queued_seq` carries the FIFO order. `abandoned` entries are cleanup
+      signals, not blockers. Do not clear them unless this consolidation
+      deliberately records the cleanup and cites evidence.
    3. **Stale entries**: any claim where `staleness_threshold < now()`.
       Move each stale entry to
       `closed-claims.archive.json`,

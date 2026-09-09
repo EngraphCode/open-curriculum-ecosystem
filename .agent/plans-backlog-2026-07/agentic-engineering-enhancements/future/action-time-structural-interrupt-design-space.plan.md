@@ -846,3 +846,16 @@ its next anecdote:
   rule's five-instance section already existed — and corrected their own draft that
   had proposed the clause as new. Independent of this session's corpus run, the same
   shape: the home exists, the mechanism did not fire at the action moment.
+
+## Worked Instance — 2026-09-03 a plan's decision log declared itself the durable home (recurrence despite the home)
+
+- **The class.** "Plans are ephemeral; decisions live in ADRs and PDRs" is homed twice (the
+  plan skill; `no-moving-targets-in-permanent-docs` §Citation directionality). On
+  2026-09-03 an extraction plan's decision log declared itself "the durable home of the
+  rulings" for thirteen owner rulings while no ADR named the extraction or its topology;
+  the owner re-raised "plans are ephemeral", and the cure was ADR-227 carrying the rulings
+  self-contained with the plans citing it. Filed here at the 2026-09-07 consolidation as
+  the drainable-buffer protocol's recurrence check requires: the home existed and did not
+  fire at the authoring moment; the plan skill now states the capture-surface reading
+  beside the permanent-page clause, and the traction question — what fires at the moment
+  a plan author writes "this log is the durable home" — stays this lane's.
