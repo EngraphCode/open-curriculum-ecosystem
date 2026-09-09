@@ -3,23 +3,28 @@ boundary: B1-Governance
 doc_role: policy
 authority: sonar-disposition
 status: active
-last_reviewed: 2026-05-06
+last_reviewed: 2026-09-09
 ---
 
 # Sonar Disposition Policy
 
 ## Purpose
 
-This document codifies class-level dispositions for SonarCloud security
-hotspots and security-class issues (severity HIGH and MAJOR). It exists so that the same disposition reasoning is
-not re-derived per site by every reviewer. Future hotspots in known classes
-apply this policy by reference; only sites that fall outside a documented
-class require fresh per-site judgement.
+This document codifies how findings from the code-quality analyser and the
+code-scanning analyser — security hotspots, security-class issues and
+quality issues alike — are resolved, so that the same reasoning is not
+re-derived per site by every reviewer. Since the owner's ruling of
+2026-09-08 (§[One-Outcome Rule](#one-outcome-rule-owner-ruled-2026-09-08))
+that resolution is a fix in the tree, with one named exception; the
+documented classes below carry what each rule sees and which change clears
+it, so a finding in a known class is cured by reference and only a site
+outside every documented class needs fresh judgement.
 
-The policy composes with the per-site evidence trail in SonarCloud (each
-hotspot still carries a site-specific `SAFE` rationale citing the policy
-class). Together they give an auditable record: _what the pattern is_, _why
-it is safe_, and _which sites instantiate it_.
+The policy composes with the analysers' own records: a cured finding closes
+on the next analysis of the corrected code, and the one excepted class
+carries its per-site record there, explained by comments in the tree.
+Together they give an auditable record: _what the pattern is_, _what
+clears it_, and _which sites instantiate it_.
 
 ## Authority and Doctrine
 
@@ -34,40 +39,55 @@ it is safe_, and _which sites instantiate it_.
 [safety]: ./safety-and-security.md
 [no-disable]: ../../.agent/rules/never-disable-checks.md
 
-## Two-Outcome Rule
+## One-Outcome Rule (owner-ruled 2026-09-08)
 
-Every Sonar finding resolves to **exactly one of two outcomes**. The
-`ACCEPTED` (issue) and `ACKNOWLEDGED` (hotspot) dispositions are excluded —
-they accept residual risk without a corrective and so are not architectural
-positions. They are permitted only with explicit owner authorisation
-recording the residual-risk acceptance.
+Owner ruling, 2026-09-08, verbatim: **"We don't dismiss issues, we fix
+them."** Every finding from either analyser resolves to **one outcome**:
+`FIXED` — a change in the tree after which the finding no longer fires,
+closed by the next analysis. `FALSE_POSITIVE`, `SAFE`, `ACCEPTED` and
+`ACKNOWLEDGED` are analyser-side states this policy does not grant: a
+finding that is genuinely wrong about a site is still cured by a change
+that stops it firing (a literal removed, a shape restructured, a value
+sourced differently), never by an act in the analyser's console. Precedent
+in the analyser (a site marked before the ruling) licenses nothing at the
+next site.
 
-| Finding type | Permitted outcomes                                                                                                                             |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Issue**    | `FIXED` (code change resolves the defect) **or** `FALSE_POSITIVE` (the defect described is genuinely not present at this site)                 |
-| **Hotspot**  | `FIXED` (code change removes the security-sensitive use) **or** `SAFE` (the use is verified safe in this context with site-specific rationale) |
-
-Per-site rationales must name a concrete reason — never a generic
-"reviewed and considered safe". When a class-level reason applies, the
-rationale cites this policy and adds the site path + line.
+**The one exception, owner-ruled the same day, verbatim:** "in regard to
+the rate limiting work, we are going to pause that for now, and leave
+comments in the code that recognise that additional in-process rate
+limiting would provide defence in depth, but that we regard the two sets of
+edge WAFs to be sufficient for safety for now. And in this ONE case we can
+dismiss the findings in Sonar, and preferably find a way to keep them
+dismissed instead of revisiting this same issue every few weeks." The class
+is **missing rate limiting on the MCP server's route handlers** and nothing
+else: ADR-219 (rate limiting at the edge, no in-process limiter) stands
+unchanged; each route the analyser names carries a comment in the tree
+recognising the defence-in-depth option and the edge controls relied on;
+each finding takes one dismissal in the analyser's own record, once,
+explained by that comment and citing the ADR — never a path exclusion, a
+query filter or a rule-ignore, which would silence the rule beyond those
+sites. Automatic analysis reads no file-based rule ignore
+(§[File-Based Configuration](#file-based-configuration-sonarcloudproperties)),
+so the record is per site, and the comment is what keeps it from being
+re-litigated.
 
 ## Disposition Workflow
 
 1. **Match the rule key** to a documented class below.
-2. **Match the site shape** against the class's decision criteria.
-3. If both match, follow the **class's stated outcome** under the
-   Two-Outcome Rule. `SAFE` (hotspot classes) and `FALSE_POSITIVE`
-   (issue classes whose criteria establish the defect is not present)
-   are server-side dispositions, set with a comment of the form
-   `<OUTCOME> per Sonar Disposition Policy §<rule>: <file>:<line> — <one-line site note>`.
-   FIX-only classes have **no server-side action**: `FIXED` is assigned
-   by analysis once the corrected code lands — make the code change and
-   let the next analysis close the finding.
-4. If the rule is documented but the site shape does not match: do per-site
-   review, document the rationale fully, and consider whether the class needs
-   a sub-clause amendment.
-5. If the rule is not yet documented: do per-site review and add the class
-   to this document at the next consolidation pass.
+2. **Match the site shape** against the class's shape criteria; they say
+   what the analyser is seeing, which is what tells you the cure.
+3. Apply the class's **cure**: make the change and let the next analysis
+   close the finding. There is no server-side action; a `FIXED` state is
+   assigned by analysis, never by hand.
+4. If the site is the excepted class (missing rate limiting on the MCP
+   server's routes), apply the exception as the One-Outcome Rule states:
+   the comment at the route, one dismissal in the analyser's record citing
+   ADR-219, recorded once.
+5. If the rule is documented but the site shape does not match: do per-site
+   review, cure it, and consider whether the class needs a sub-clause
+   amendment recording the new shape and its cure.
+6. If the rule is not yet documented: cure the site and add the class to
+   this document at the next consolidation pass.
 
 ## General Disposition Principles
 
@@ -77,30 +97,32 @@ These govern _how_ a finding is dispositioned, beneath the per-class catalogue:
   _this_ site a false-positive — verify the defect's presence or absence
   first-hand at each site. (A 12×-dismissed `incomplete-sanitization` rule still
   flagged a real backslash-escaping bug; the fix was genuine.)
-- **A lens-resolvable disposition is not an owner decision.** When the
-  [decision lenses][principles] (LTAE first) decisively resolve fix-vs-dismiss,
-  decide it — framing a lens-resolved call as an owner-fork is analysis-passback.
-  Escalate only when all lenses genuinely fail or the scope is product/feature.
-  (The outward _act_ of marking a `SAFE` / `FALSE_POSITIVE` in the UI still needs owner
-  authorisation — the disposition _determination_ does not.)
+- **A lens-resolvable cure is not an owner decision.** When the
+  [decision lenses][principles] (LTAE first) decisively resolve which change
+  cures a site, decide it — framing a lens-resolved call as an owner-fork is
+  analysis-passback. Escalate only when all lenses genuinely fail or the
+  scope is product/feature. (The one analyser-side act this policy still
+  admits, the excepted class's dismissal, is the owner's; the cure
+  _determination_ never is.)
 - **A deliberately-adopted profile's findings are a worklist, not noise.** When
-  the owner activates an analyser profile on purpose, the target is zero
-  (fix-or-genuine-FP). Do NOT frame the resulting backlog as an activation-wave
+  the owner activates an analyser profile on purpose, the target is zero,
+  by cure. Do NOT frame the resulting backlog as an activation-wave
   to "wait out" via push-and-reanalyse — that lesson is for STALE / zombie
   analysis against a moving target, never a fresh deliberate profile.
-- **CodeQL posture is fix-first with zero dismissals** (owner reversal,
-  2026-07-29 — _"why should I dismiss issues detected by CodeQL?"_). CodeQL
-  dismissals are per-instance and do not survive refactors (alerts #83–86
-  recurred as #226–229 after the code moved), so a dismissal buys silence,
-  not absence: cure structurally in the code instead. The posture was
-  vindicated when a flagged pattern proved to be a real
-  super-linear-backtracking ReDoS vector. Agents never dismiss CodeQL
-  alerts on their own PRs; where a genuine false positive needs a
-  server-side dismissal, that act is the owner's.
+- **The posture is fix-first with zero dismissals, for both analysers.**
+  It began as the CodeQL posture (owner reversal, 2026-07-29 — _"why should
+  I dismiss issues detected by CodeQL?"_) and became the rule for every
+  finding on 2026-09-08. Dismissals are per-instance and do not survive
+  refactors (alerts #83–86 recurred as #226–229 after the code moved), so a
+  dismissal buys silence, not absence: cure structurally in the code
+  instead. The posture was vindicated when a flagged pattern proved to be a
+  real super-linear-backtracking ReDoS vector. Agents never dismiss alerts
+  on their own PRs; the one dismissal the One-Outcome Rule excepts is the
+  owner's act.
 - **Triage by cause-class, but a class splits by disposition-route.** A rule
   class (e.g. a regex backlog) does not resolve uniformly: generated output →
   fix at the generator; generator source → fix in place + regen; hand-written →
-  consolidate to the rule's home; vendored/standard → refactor-to-import or FP;
+  consolidate to the rule's home; vendored/standard → refactor-to-import;
   runtime-only → fix in place. An owner's "do X to all of them" applies cleanly
   only to the class it actually fits.
 
@@ -121,6 +143,21 @@ reconciled against the main/project source before they become implementation
 work.
 
 ## Documented Classes
+
+Each class below records what the analyser sees, the shape criteria that
+identify the class at a site, and the cure. The criteria were written, before
+the 2026-09-08 ruling, as the conditions under which a site could be marked
+`SAFE` or `FALSE_POSITIVE` in the analyser, and the canonical rationales
+were the comments those marks carried; under the
+[One-Outcome Rule](#one-outcome-rule-owner-ruled-2026-09-08) they identify
+the class and license no mark. A site that meets a class's criteria is
+cured by the class's FIX path, or, where a class records none because its
+sites were once marked rather than changed, by the change that makes the
+pattern absent (the code-scanning lane's plan node,
+`code-scanning-alerts-to-zero`, carries those cures site by site). Sites
+marked before the ruling keep their record; the ruling binds every finding
+from its date, and any re-disposition of the earlier marks is the owner's
+call (§[Maintenance](#maintenance)).
 
 ### S5443 — Publicly writable directories
 
@@ -220,7 +257,7 @@ from a fixed allowlist of well-known directories, resolved without consulting
 directories) does **not** clear S4036 — the analyser flags the by-name call
 regardless — so a SAFE disposition would document a non-fix as acceptable. The
 genuine fix is cheap and available, so per `never-disable-checks` and the
-Two-Outcome Rule above, S4036 resolves to FIXED. A prior allowance for this
+One-Outcome Rule above, S4036 resolves to FIXED. A prior allowance for this
 class is reviewed and migrated, never extended.
 
 ### S2245 — Pseudorandom number generator (`Math.random()`)
@@ -521,13 +558,12 @@ reason must be substantive — "the gate is failing" is not a reason. See
 ## Issue Classes
 
 Issue-class policies are added as they are codified. The same shape
-applies: per-rule decision criteria, canonical rationale, FIX path. The
-default is `FIXED` via code change; `FALSE_POSITIVE` is the alternative
-when the defect described is genuinely not present at the site — either a
-zombie finding against stale main-branch analysis where the code has
-already been fixed (the durable cure is to push so SonarCloud re-analyses),
-or a rule that mis-fires on a shape that cannot exhibit the defect it
-describes.
+applies: per-rule shape criteria, the rationale the class once carried, and
+the FIX path. The outcome is `FIXED` via code change. A zombie finding
+against stale main-branch analysis where the code has already been fixed is
+cured by pushing so the analyser re-analyses; a rule that mis-fires on a
+shape that cannot exhibit the defect it describes is cured by changing the
+shape so the rule no longer fires, never by marking the finding.
 
 ### S8786 — Super-linear regular expressions
 
@@ -602,15 +638,15 @@ suppresses a rule across every current and future matching file, blind to
 per-site context. A dead copy of such a block once lived in the unread
 `sonar-project.properties` and never took effect; it has been removed.
 
-**Every per-issue and per-hotspot disposition is therefore made per-site,
-server-side in SonarCloud** — `FALSE_POSITIVE` for issues, `SAFE` for hotspots —
-citing the relevant policy class per [§Disposition Workflow](#disposition-workflow).
-This is the single disposition path for **all** documented classes, including
-S5443 / S5332 / S1313 in test fixtures (previously, and ineffectively, expressed
-as a glob-ignore block): a reviewer applies the class's decision criteria to the
-individual finding and dispositions it in the UI with a comment citing this
-policy. The class definitions above are the shared decision criteria for those
-per-site calls.
+**Every finding is therefore resolved in the tree**, per
+[§Disposition Workflow](#disposition-workflow): the class definitions above
+say what the analyser sees and which change clears it, and the next analysis
+closes the finding. The absence of a file-based ignore is not a gap to be
+filled by a server-side mark — since the 2026-09-08 ruling there is no mark
+to make, for S5443 / S5332 / S1313 in test fixtures as for every other
+class. The one per-site record the policy admits, the excepted rate-limiting
+class, lives in the analyser's own record exactly because no file can carry
+it without silencing the rule beyond its sites.
 
 ### Expansion discipline (`.sonarcloud.properties`)
 
@@ -631,7 +667,11 @@ discipline as any [`never-disable-checks`][no-disable]-adjacent decision.
   is reclassified.
 - Amendments must include a worked example and a clear delta-from-prior
   rationale. Removing a permitted shape requires re-disposition of any
-  sites previously SAFE-d under the removed shape.
+  sites previously SAFE-d under the removed shape. The 2026-09-08 ruling
+  removed every permitted mark at once; whether the sites marked before it
+  are re-opened and cured, and in what order, is the owner's decision,
+  carried on the code-scanning lane's plan node when given — this policy
+  binds forward from the ruling and does not re-open them by itself.
 - The policy is a living document. Reviewers should challenge stale
   rationales at consolidation time.
 
@@ -656,9 +696,40 @@ Implementation:
   library, print layer, `brand.css` (it is on the package export surface, so
   it is product code and back in scope), `oak-icons.css`, `oak-theme.js`,
   `dtcg/`, `assets/`, docs — under the standard gate including the
-  duplication metric. Their findings resolve per-site under the two-outcome
-  rule (e.g. `brand.css`'s commented-template findings are per-site
-  FALSE_POSITIVE adjudications, never a scope carve-out).
+  duplication metric. Their findings resolve per-site in the tree (at this
+  amendment's date `brand.css`'s commented-template findings were per-site
+  FALSE_POSITIVE adjudications; since 2026-09-08 such a site is changed so
+  the finding no longer fires), never a scope carve-out.
+
+## 2026-09-08 amendment: one outcome, one exception, owner-ruled
+
+Owner ruling (2026-09-08, verbatim): "We don't dismiss issues, we fix
+them." Given on the code-scanning lane's two owner-reserved acts as then
+planned — `SAFE` marks for localhost literals in test helpers, and four
+false-positive dismissals of missing-rate-limiting alerts citing ADR-219 —
+and binding on every finding from either analyser from that date.
+
+The same day, the one exception (verbatim in
+§[One-Outcome Rule](#one-outcome-rule-owner-ruled-2026-09-08)): the
+rate-limiting work is paused; the routes carry comments recognising the
+defence-in-depth option and the edge controls relied on; and in this ONE
+case the findings are dismissed, kept dismissed rather than revisited. An
+earlier pre-ruling the same morning ("amend ADR-219: edge primary,
+in-process permitted") is superseded by it: ADR-219 stands unchanged.
+
+Delta from prior: the Two-Outcome Rule (fix, or a class-criteria mark in
+the analyser) becomes the One-Outcome Rule (fix), and the class catalogue's
+criteria change role from licence to identification. Worked example: a
+clear-text `http://localhost` literal in a test helper met S5332's
+criteria and would have taken a `SAFE` mark; under this amendment the
+helper is changed so no clear-text literal is present (the code-scanning
+lane's unit for the class), and the finding closes on the next analysis.
+Worked example of the exception: a route handler the analyser flags for
+missing rate limiting takes a comment naming the edge control and the
+defence-in-depth option, and its one finding is dismissed once in the
+analyser's record citing ADR-219 — never a path exclusion or a query
+filter, which would silence the rule for every route to come.
+
 - **Movement rule**: if any studio-source file becomes consumed by product
   code, it moves out of `studio-source/` and under the full gate in the same
   change. Expansion of the studio-source scope follows the §Duplications
