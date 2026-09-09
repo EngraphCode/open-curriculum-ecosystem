@@ -218,6 +218,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/tdd-for-refactoring.md`                                      | core           | —                                                                                                 |
 | `.agent/rules/test-immediate-fails.md`                                     | core           | —                                                                                                 |
 | `.agent/rules/third-party-skills-require-security-review.md`               | situational    | ceremony:skill-vendoring                                                                          |
+| `.agent/rules/unattended-seats-never-prompt.md`                            | core           | —                                                                                                 |
 | `.agent/rules/use-agent-comms-log.md`                                      | situational    | session:team                                                                                      |
 | `.agent/rules/use-built-agent-tools-cli.md`                                | situational    | tool:agent-tools-cli                                                                              |
 | `.agent/rules/use-monitor-for-event-driven-wake.md`                        | situational    | tool:background-task-arm                                                                          |
