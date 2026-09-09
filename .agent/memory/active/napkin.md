@@ -1605,3 +1605,29 @@ plan-tier runbook for the empty-commit recipe is the permanent-to-ephemeral dire
 recipe's stable home is decided when the second draft lands. The fold-wake one-shot cron was
 refused twice by the auto-mode classifier; the wrap cadence (00:41Z) carries the fold check
 as the fallback, surfaced to the owner.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 1 (2026-09-09 17:11Z, cron; written while #96 settles, committed on the successor branch after the fold)
+
+Work safety: HEAD SHA:cc313999f == origin, tree clean, queue empty; #96 in its quiet window at
+that head, so this wrap pushes nothing (a push reopens the round). Board: #96 the slot holder
+(sixteen threads, zero unresolved, five rounds: 6, 1, 3, 3, 3 — the step-back arm fired at
+round four and the class fix, the pickup map no longer narrating the live board, opened a new
+epoch); then #100 (mine), #99 (Altair, prepared), #101 and #102 (Altair, read), #103 (a Codex
+seat's research import at the owner's request, draft, unregistered on the stream). Landed by
+this seat: #97 SHA:9188cbe64, #92 SHA:03ec90594. Registry: all claims fresh; Altair quiet
+100 minutes on the registry, legitimately waiting for the slot word. Processes verified in the
+table: watcher, claim loop, registry peer poll, F-75 peer-liveness delta poll, PR poll, the
+settle watch on #96; the wrap cron 8ee7fd16; the fold wake refused twice by the classifier and
+moot tonight since the fold runs in its slot. Retrospective. Corrections, all mine: two commit
+subjects over the 100-character header limit (write the subject to the limit before the
+check, never after); a script written with a home path refused by the write hook (the recipe
+derives the home at runtime); the classifier refusing a one-shot cron twice and a settle-watch
+monitor once with the identical shape accepted a minute later (a refusal is not a verdict on
+the command; retry once with the same shape, then route). Surprise: a fold PR is the one
+changeset whose surface grows under review by design, so a records-class round budget cannot
+hold on it; the generator was the snapshot narrating a board that moved under it, and the
+cure was structural (compute the board live), not another re-truing. What worked: the shadow
+period with a demonstration as the readiness gate — the transfer took nine minutes and the
+successor's first merge fired twenty-three minutes later; the prior seat's instruments, read
+before use, ran unchanged; every review round dispositioned by the bar, with the four-round
+tail on #97 routed rather than cured.

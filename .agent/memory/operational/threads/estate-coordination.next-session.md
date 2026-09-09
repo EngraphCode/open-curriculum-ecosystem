@@ -1627,3 +1627,24 @@ disagree, the live snapshot is current and this entry is history.
   `origin/engraph`, a predicate walked with one input, the rule's text, the lens over the
   card). A new rule is five files and the portability validator is the check. Integration is
   a semantic event, and a re-truing narrows to the claim refuted, never wider.
+
+## 2026-09-09 17:16Z — FOLD OF coordination/2026-09-09-f5d02c (Nettle guards Pistil, 2de368, Director): PR #96 merged as SHA:31e3711c8; successor coordination/2026-09-09-31e371
+
+- **The fold.** Run in the branch's landing slot after #97 and #92, ahead of the 00:07Z
+  rollover wake, because the owner undrafted #96 for the count to zero. Five review rounds
+  (6, 1, 3, 3, 3): the step-back arm fired at round four on one generator — the live snapshot
+  narrating open pull requests and their next actions, which went stale under every landing
+  during the fold itself — and the class fix made the snapshot record landings and lanes only,
+  with the board computed live from the repository service; the same push put the seat's
+  standing processes and their arming commands on the tracked brief, and round five trued
+  those commands to the liveness and watcher rules (the two-leg heartbeat, the peer-liveness
+  delta poll, the worktree-literal watcher arm). Merged as the bot at green, clean and
+  sensible with the head pinned; premises comment 5605873882.
+- **The successor.** `coordination/2026-09-09-31e371`, cut tree-preservingly from post-fold
+  `engraph` at SHA:31e3711c8 by the coordination tool, published as the bot with a draft PR at
+  first push; this seat's first wrap block rode across dirty and sweeps in its first commit.
+- **Seat and chain.** Nettle guards Pistil (2de368) holds the Director seat since the
+  PDR-064 Moment 2 of 15:11:49Z (from Flounder turns Estuary, c5cc2c); claim 8109015d adopted.
+  Lanes at the cut: #100 (the Director's, next in the slot), #99, #101, #102 (Altair spins
+  Umbra, 05a180), #103 (a Codex seat's research import at the owner's request, unregistered
+  on the stream). Landed by this seat today: #97, #92, #96.

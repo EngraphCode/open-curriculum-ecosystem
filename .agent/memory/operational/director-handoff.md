@@ -324,33 +324,32 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD LANDED, 2026-09-09 00:52Z (Flounder turns Estuary, `c5cc2c`, Director) — THIS
-> SUPERSEDES THE 2026-09-08 01:00Z FOLD BLOCK (git retains it).** `coordination/2026-09-08-68d53d`
-> folded to `engraph` via PR **#84** (opened as a draft by Altair spins Umbra at the owner's word
-> of 11:07Z on 2026-09-08, undrafted by the owner at 21:13Z under "other than 90, can we get to
-> zero? If so, do it"; the merge of `engraph` at `30bac21da` as `beace4968`; seven review rounds,
-> 8, 4, 1, 1, 2, 2, 1 — nineteen cured, two routed — with the four-round arm firing at round four
-> and the class fix replacing this file's live snapshot in place) at full condition
-> (run-quality-gates and CodeQL green by name, zero unresolved threads, mergeStateStatus CLEAN,
-> ten-minute quiet window) as merge commit `f5d02c38a` at 00:52Z; the fold carried the day's
-> coordination-home commits (the napkin's wraps 18 to 23 and the lane seat's captures, this
-> seated block, the tenure journal, the settings simplification, two onboarding surfaces trued,
-> the coordination-fold skill's hold rule). The day-stamped successor
-> **`coordination/2026-09-09-f5d02c`** was cut tree-preservingly from post-fold `engraph` by the
-> coordination tool and published; the wrap-24 napkin block rode it dirty and sweeps in its
-> first commit. Product-gravity line: _moved for teachers:_ nothing in the fold's own commits —
-> the day's product movement rode `engraph` directly (PR #93, the showcase unit suite no longer
-> reaching the network; PR #91, the owner's dated report on upstream OCE 1.178.6 and Curriculum
-> API 0.11.1). _moved for the Practice:_ the twelve owner rulings of 2026-09-08 applied to the
-> planning estate (#85 stamps, #95 edits), ADR-228 and the downstream-checkout rule (#87, #88),
-> the two delivery nodes born ratified — worktree-entry-hooks and pr-tally (#89), the Work-cloud
-> routing practice (#94, in flight at the fold), the compaction sweeps. Board at the fold: #94
-> and #95 in flight in that order; #92 open and unmerged for the owner's discussion of its two
-> clauses; #90 a draft on the owner's custody. Seats: A DIRECTOR IS SEATED — Flounder turns
-> Estuary, claim `8109015d`; Altair spins Umbra (`05a180`, claim `a3d107dd`) on #95. THE
-> PICKUP MAP is the live snapshot below (tracked) with the tenure journal in the
-> estate-coordination thread record; the Director's machine-local handoff record adds finer
-> detail on this machine only.
+> **§FOLD LANDED, 2026-09-09 17:16Z (Nettle guards Pistil, `2de368`, Director) — THIS
+> SUPERSEDES THE 2026-09-09 00:52Z FOLD BLOCK (git retains it).** `coordination/2026-09-09-f5d02c`
+> folded to `engraph` via PR **#96** (opened as a draft by the prior Director at the 00:52Z
+> cut, undrafted by the owner on 2026-09-09 under "I want to drive the number of open PRs to
+> zero", run in its landing slot after #97 and #92 rather than at the rollover wake; the merge
+> of `engraph` at `03ec90594` as `44ed15102`; five review rounds, 6, 1, 3, 3, 3 — the
+> step-back arm firing at round four on one generator, the live snapshot narrating a board that
+> moved under it, and the class fix making this file's snapshot record landings and lanes only
+> with the board computed live) at full condition (run-quality-gates and CodeQL green by name,
+> zero unresolved threads, mergeStateStatus CLEAN, ten-minute quiet window) as merge commit
+> `31e3711c8` at 17:16Z; the fold carried the day's coordination-home commits (the prior
+> Director's wraps and terminal wrap, both seats' cross-fork notes, the lane seat's letter and
+> notes, the Director succession on the snapshot and the journal, the seat's standing processes
+> with their arming commands on this brief, the SHA prefixes). The day-stamped successor
+> **`coordination/2026-09-09-31e371`** was cut tree-preservingly from post-fold `engraph` by
+> the coordination tool and published; this seat's first wrap block rode it dirty and sweeps in
+> its first commit. Product-gravity line: _moved for teachers:_ nothing in the fold's own
+> commits — the day's product movement rode `engraph` directly (#90, upstream 1.178.6). _moved
+> for the Practice:_ the cross-fork-integration skill's first draft (#97), the owner's
+> foundations bundle with ADR-229 (#92), the Director succession recorded on tracked surfaces,
+> the pickup map's class fix. Seats at the fold: A DIRECTOR IS SEATED — Nettle guards Pistil,
+> claim `8109015d` (adopted at PDR-064 Moment 2, 15:11:49Z); Altair spins Umbra (`05a180`) on
+> the upstream 1.179.0 carrier, the held-seat-observability node and the Sonar policy
+> amendment. THE PICKUP MAP is the live snapshot below (tracked) with the tenure journal in the
+> estate-coordination thread record; the board is computed live from the repository service,
+> never read from either.
 
 ---
 
