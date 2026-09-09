@@ -27,9 +27,19 @@ Standard text-level conflict resolution misses:
   cleanly
 - **Numbering collisions** — both branches create an ADR or plan with the
   same number but different content and different filenames
+- **Premise cascades in prose** — the other branch changes a fact (a served
+  shape, a published field, a version) that documents and plans on your
+  branch state as a premise; their text merges untouched and their meaning
+  is now false
 
 Always run `pnpm type-check` immediately after resolving text conflicts —
-this catches the silent breaks that Git cannot detect.
+this catches the silent breaks that Git cannot detect. Type-check proves
+code; the generators' own checks prove generated surfaces; nothing proves
+prose. Documents and plans are kept true by semantic analysis at every
+integration: derive the sweep terms from the incoming change's claims and
+read the surfaces the other branch could not have edited (the
+[cross-fork integration skill](../skills/change-custody/cross-fork-integration/SKILL-CANONICAL.md)
+§6 for a lineage sync; the guide's §4i for any diverged merge).
 
 ## Derive Merge Risk From Content, Not From Raw Name-Status
 
