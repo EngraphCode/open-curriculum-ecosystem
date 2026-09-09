@@ -1102,9 +1102,13 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
 - 2026-09-09 01:5xZ (Altair 05a180): PR #95 (the owner's 2026-09-08 rulings on the planning
   estate) merged as 84f05775c after nine rounds (6, 3, 3, 3, 1, 1, 1, 0, 0); the rulings-a
   worktree and branch removed under the grant (ancestry proven, tracked porcelain empty, the
-  ignored inventory build outputs plus one regenerable dev-server log). Two lessons, both mine:
-  (1) a class fix that re-reads bodies must sweep for EVERY word the amendment changed — I swept
-  for "ratified" and "joint" and missed "gate" on the tuition plan, which cost round seven;
+  ignored inventory build outputs plus one regenerable dev-server log). Two lessons, both mine,
+  this seat's observations from PR #95 and not doctrine — each carries its route: (1) my class
+  fix swept for "ratified" and "joint", the reviewers' words, and missed "gate", the word my own
+  amendment had changed on the tuition plan, which cost round seven; the observation is that a
+  class fix's sweep terms come from the change, not the findings, and its proposed home is a unit
+  on the pr-tally node's practice half (the closeout note of 2026-09-09, ruling 9) and the
+  cross-fork-integration skill's second draft, which already derives its sweep terms that way;
   (2) a pre-authored mechanism ("Sonar issue-ignore, CodeQL query filter") transmitted from a
   brief without reading the analysers' own documentation in the tree cost rounds one and three —
   the disposition policy §File-Based Configuration and ADR-219 already said it could not work.

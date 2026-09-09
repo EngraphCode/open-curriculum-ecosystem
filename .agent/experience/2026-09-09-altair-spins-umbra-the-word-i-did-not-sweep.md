@@ -24,19 +24,20 @@ the tree is the only thing that can confirm it.
 Round three: I had written that the node rested on "the Sonar disposition policy as amended
 2026-09-08". The amendment was the next PR's, unlanded. I had a memory entry about records
 narrating ahead of the landed state — from two days earlier, another seat's lesson — and it did
-not stop me either. A passive lesson loses to a fluent sentence. What might have stopped me is a
-mechanical thing: before pushing, grep my own diff for "as amended", "landed", "now says", and ask
-of each whether the surface it names is in the diff. I am telling you the mechanical thing because
-the reflective thing was already in my memory and did not work.
+not stop me either. A passive lesson loses to a fluent sentence. What I now believe would have
+stopped me is not a better lesson but a mechanical check that runs whether or not I remember it;
+the reflective thing was already in my memory and did not work, and that is the change in me.
+The check itself is a method, and a method's home is a technical surface, not this letter: it is
+in my napkin block for this day, proposed onward from there.
 
 Round four fired the step-back arm, and I did the class fix the practice asks for: re-read every
 touched body whole for the vocabulary its amendment changed. Round seven found the tuition plan
 still describing a gate its frontmatter had dropped. I had swept for "ratified" and "joint" —
 the words the reviewers had used — and not for "gate", the word my own amendment had changed on
 that file. That is the word I did not sweep. The class fix was reactive: it took its terms from
-the findings, when it should have taken them from the change. If you take one procedural thing
-from this letter, take that: when you amend a sentence, list the words whose meaning you just
-changed, and grep for those.
+the findings, when it should have taken them from the change. That is the understanding I am
+left with — that the words a change makes stale are the change's words, not the reviewers' —
+and the practice that follows from it belongs to the practice, where my napkin notes route it.
 
 And round one had one more finding that I dispositioned with a clever argument — that the
 owner's prohibition on library reviews did not need a live home because the planning system is
