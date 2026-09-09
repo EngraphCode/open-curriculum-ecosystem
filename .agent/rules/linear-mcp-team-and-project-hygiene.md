@@ -53,6 +53,13 @@ project is being chosen.
   first: a changelog 404 that looked like a fresh regression failed
   identically on the control preview and was already MCP-626/630/653,
   two weeks old (2026-09-02).
+- **The Engraph fork never uses Linear** (owner ruling 2026-09-06, verbatim: "The Engraph
+  fork does NOT use Linear, ever, is that clear?"). Every clause above governs the Oak line's `oaknational`
+  workspace. On the `EngraphCode` fork no ticket is minted, moved or pointed at; a lane's
+  record is the repository alone — its plan node, its pull request and the thread record —
+  and the ticket-first lane opening does not apply there. A connector's presence, or the
+  habit carried over from the Oak line, is no reason to write; a seat that finds itself
+  drafting a fork ticket stops and records in the plan node instead.
 
 ## Worked Instances
 
@@ -67,7 +74,7 @@ project is being chosen.
 ## Why a Rule, Not a Memory
 
 The ruling lived only in per-user vendor memory, while
-[`ticket-management`](../skills/ticket-management/SKILL-CANONICAL.md)
+[`ticket-management`](../skills/planning/ticket-management/SKILL-CANONICAL.md)
 already cited this rule by name — a dangling doctrine pointer, found by
 the 2026-08-05 vendor-memory graduation audit. Per-user memory is
 platform-scoped and rotates; a ruling every seat must obey at every
@@ -76,7 +83,7 @@ already pointing at.
 
 ## Related Surfaces
 
-- [`ticket-management` SKILL](../skills/ticket-management/SKILL-CANONICAL.md)
+- [`ticket-management` SKILL](../skills/planning/ticket-management/SKILL-CANONICAL.md)
   — the authoring discipline that cites this rule for team and project
   hygiene.
 - [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)

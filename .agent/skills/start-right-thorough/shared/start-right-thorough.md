@@ -3,12 +3,21 @@ prompt_id: start-right-thorough
 title: "Start Right (Thorough)"
 type: workflow
 status: active
-last_updated: 2026-04-26
+last_updated: 2026-09-08
 ---
 
 # Start Right (Thorough)
 
 Ground yourself rigorously before beginning significant work.
+
+## Environment Classification
+
+Before any command in this workflow, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+that non-execution profile governs every command-bearing step below: retain all
+reading and static inspection, but skip package, build, test, hook, identity and
+repo-owned collaboration-CLI execution. Platform-native coordination remains
+available. Detector error is a stop, not a fall-through.
 
 ## Foundation Documents
 
@@ -59,10 +68,10 @@ decision, open or close an escalation, or ask the owner). Then register
 your own claim covering the areas you intend to touch, using the
 collaboration-state helper when available.
 
-When reading `active-claims.json`, surface any fresh root `commit_queue`
-entries as advisory commit-ordering signals: `intent_id`, `agent_id`, files,
-subject, phase, and expiry. Queue entries are discovery and ordering signals,
-not mechanical refusals.
+Alongside the claims read, surface any fresh advisory commit-queue intents
+(`pnpm agent-tools:commit-queue -- list`) as commit-ordering signals:
+`intent_id`, `agent_id`, files, subject, phase, and expiry. Queue entries
+are discovery and ordering signals, not mechanical refusals.
 
 When writing the thread identity row, prefer an existing owner-assigned
 `agent_name` if it matches this identity. For Codex, derive the full PDR-027
@@ -84,7 +93,7 @@ Codex sessions with `CODEX_THREAD_ID` available must use the derived
 preflight command remains the correctness check.
 
 Before staging or committing, use the always-active commit skill. It
-checks for fresh `commit_queue` entries and `git:index/head` commit-window
+checks for fresh commit-queue intents and `git:index/head` commit-window
 claims, enqueues your intended bundle before staging, verifies the staged
 bundle exactly before `git commit`, and clears the queue entry after success.
 

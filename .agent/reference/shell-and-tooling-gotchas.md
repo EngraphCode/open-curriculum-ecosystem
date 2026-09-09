@@ -110,6 +110,13 @@ tool retires them.
   continuation line begins with `+` (e.g. "…inputs X\n+ the report…")
   turns it into an unordered-list item in the wrong style. Reword to
   "and"/"plus" or rewrap.
+- **Prettier pads a markdown table to its widest cell, so editing the widest
+  cell realigns every row** (2026-09-07, the rules index: a one-cell edit
+  became a 254-line diff twice). Fit the new text to the column's current
+  width — prettier's own count, one wider than a naive character count
+  where the cell holds an em dash — then `prettier --write` restores the
+  single-line diff; recovering the file from the index is hook-refused, so
+  measure first.
 
 ## Git hooks
 
@@ -126,8 +133,9 @@ tool retires them.
   instance — the row is now owed): `for c in $CLAIMS` iterates ONCE with
   the whole string; four GraphQL ids went as one malformed argument.
   Iterate literal values or `printf '%s\n' … | while read`. Sibling:
-  `${PIPESTATUS[0]}` is a bashism that expands EMPTY in zsh — the piped-
-  exit trap in a fourth costume.
+  `${PIPESTATUS[0]}` is a bashism that expands EMPTY in zsh (whose array is
+  the lowercase, 1-based `pipestatus`) — the piped-exit trap in a fourth
+  costume.
 - **pnpm re-appends the literal `--` at EACH forwarding layer**: a root
   alias forwarding through a workspace script delivers `['--', …]` to the
   leaf bin, and an arg scanner reading leading `--` as its terminator sees
@@ -238,3 +246,171 @@ tool retires them.
   finding built on "string props render literally" was premise-false.
   Verify transform-level claims AT the transform, not from the JSX
   mental model.
+
+## 2026-09-06 consolidation batch (2026-09-02→06 instances, each measured first-hand by the seat named in the napkin)
+
+- **pnpm forwards a literal `--` to some scripts as an unknown flag.**
+  `pnpm agent-tools:check-commit-message -- -F <file>` exits 2; feed the
+  message on stdin (`< "$MSGFILE"`) or pass `-F` without the `--`
+  (2026-09-03).
+- **A rename through the version-control CLI stages both endpoints.** A
+  later staging call naming the deleted path refuses ("did not match any
+  files") and aborts the WHOLE pathspec add; after a move, stage the live
+  paths only (2026-09-03).
+- **A stale commit-queue intent blocks the next guard.** An intent that was
+  enqueued and never committed (a failed guard, an abandoned ceremony)
+  makes every later guard on overlapping files refuse with "multiple fresh
+  matching commit-queue intents" until `phase --intent-id … --phase
+  abandoned` (2026-09-03; 2026-09-06, frictions F-172).
+- **commitlint `subject-case` rejects an uppercase token right after the
+  type**: a subject beginning "ADR-227 …" fails; lead with a lowercase word
+  (2026-09-03).
+- **A markdown line opening with `#959's` is an ATX heading** to
+  markdownlint (MD018); write `PR #959's` (2026-09-03).
+- **zsh globs an unquoted `--include=*.md`** before grep sees it and fails
+  with "no matches found"; quote the pattern (2026-09-05).
+- **`claude mcp logout <name>` cannot see a server disabled in settings or
+  whose plugin is off**: it answers "No MCP server named" for every disabled
+  server. Order a disconnect clear-tokens-then-disable (2026-09-03, Claude
+  Code 2.1.25x).
+- **`vercel whoami` after `vercel logout` blocks on an interactive login
+  prompt**: a batched logout chain timed out on it and the later commands
+  never ran. CLI logouts run one per call, stdin closed, under `timeout`
+  (2026-09-03).
+- **The harness re-injects a nested checkout's rule pointers on every read
+  under it.** One 2026-08 transcript holds 1,056 nested-memory attachments
+  across eight worktrees under the repository's own platform worktree
+  directory, naming 121 distinct rule files (separate counts; the per-worktree
+  split was not retained) — the measured mechanism behind "the rules load
+  twice" (2026-09-05).
+- **The bot merge token expires hourly**; a 401 mid-batch is the tell —
+  mint, then repeat the batch (2026-09-05).
+- **`ls -1` hides dotfiles**, so it reports a just-copied dotfile as absent.
+  **The ignore-check verb prints the matching pattern for a NEGATED path
+  too**, so its output cannot say whether a file is ignored — ask the
+  status command what the tree actually sees. **A background task's "exit
+  code 0" is the wrapper's status**, not the command's. **A validator's
+  file flag was `-F`, not `--file`** — read the tool's help before guessing
+  the flag (experience letter, the MCP submission drive, 2026-08).
+- **`cd` inside one Bash call persists into the next call.** The identity
+  preflight and the bot token mint both resolve the repository from the
+  working directory and fail outside the worktree ("not a git repository"
+  → IDENTITY PREFLIGHT FAILED / TOKEN MINT FAILED); use absolute paths and
+  never change directory (2026-09-04, relative paths reading "file
+  missing" after one directory change; 2026-09-06, twice in one window).
+- **A lowercase `path` variable clobbers PATH in zsh.** zsh ties the
+  lowercase `path` array to `PATH` (likewise `cdpath`, `fpath`, `manpath`),
+  so `path=…` in a loop silently empties PATH and every later binary reports
+  "command not found" until a fresh call; name scratch variables anything
+  else (2026-09-04).
+- **A comms append is a transactional touch on the claims registry.** The
+  `collaboration-state comms append` path reads the active-claims file
+  through the migrating reader, so the first CLI use after a rebuild runs
+  any pending one-time registry migration: on 2026-09-04 the 1.3.0 → 1.4.0
+  queue split ran under a merge-landed broadcast, seconds after the
+  rebuilt dist appeared and BEFORE the planned by-hand archive copy, so no
+  pre-migration copy of that day's file exists. Take the archive copy
+  before ANY CLI call after a rebuild — a comms send included.
+
+## 2026-09-07 consolidation batch (2026-09-02→07 instances, each measured first-hand by the seat named in the napkin and verified at the drain)
+
+- **The Actions runs listing returns at most 1,000 results per query and
+  raises no error at the cap** (2026-09-02): a day with 1,325 runs produced
+  a 1,000-line file and a clean exit, found only against the endpoint's own
+  `total_count`. Count each window with `per_page=1`, split any day over the
+  cap into sub-day `created` windows, and record per-day coverage.
+- **A bot installation token is a second 5,000-requests-per-hour core bucket
+  for read-only Actions pulls** (2026-09-02): two shards, one under the `gh`
+  login and one under a minted installation token, ran side by side over a
+  17,467-run export; the token lasts an hour, so the pull ran under a
+  re-mint-and-resume wrapper on each timeout exit (124).
+- **The Actions performance-metrics page under Insights has no REST
+  endpoint** (2026-09-02): its per-workflow and per-job counts, run and
+  queue times and failure rates are derivable from `actions/runs` and
+  `actions/runs/{id}/jobs?filter=all` (queue time = job `started_at −
+  created_at`; run time = `completed_at − started_at`; every attempt under
+  `run_attempt`); the page's CSV is a manual download.
+- **A format or lint run over an unquoted space-joined variable silently
+  widens** (2026-09-03, the no-word-split family): `prettier --write $FILES`
+  exited 2 on one nonexistent path; `markdownlint` over the same string
+  linted the whole tree, so its verdict said nothing about the named files.
+  Literal paths, one variable per file.
+- **`validate-markdown-links` reads a link from a tracked source to an
+  untracked new file as broken** and labels it
+  `tracked-source-to-untracked-target` (2026-09-03): a new ADR plus its
+  index row was red in the working tree and green once the new file was
+  staged. Stage the new file first, or read the reason label.
+- **A workflow fan-out stalled at N−1 of N is a held approval, not a slow
+  agent** (2026-09-03): the journal's `started` versus `result` counts name
+  the missing agent; its newest transcript ends on a Bash tool use with no
+  result; no process is running. A hook-held command inside a background
+  agent has no approver — stop the run, name the held command class in the
+  prompt, resume from the run id (the cached agents return instantly).
+- **`gh repo view` takes the repository as a positional argument and has no
+  `--repo` flag** (2026-09-06).
+- **`comms send --body` caps at 1,500 characters** (`MAX_COMMS_BODY_LENGTH`,
+  2026-09-06); `--body-file` beyond it.
+- **`gh api --jq` has no `--arg`**: interpolate values in the shell before
+  the jq expression (2026-09-06).
+- **A GitHub CheckRun still in progress carries no `conclusion`**
+  (2026-09-06): read `(.conclusion // .state // "") == ""` as pending, never
+  as absent or failed, or a green-by-name check read lies.
+- **`merge-bot push` runs the full pre-push chain and takes minutes; three
+  chains in parallel put the host at load 17** (2026-09-06) — the
+  measurement behind the owner's host bound of two, at most three,
+  simultaneous full local gates (2026-09-07).
+- **`gitleaks detect --no-git` did not report a synthetic credential that
+  git-mode scanning caught**, inside a file named by an AND-conditioned
+  allowlist (gitleaks 8.30.1, 2026-09-06): a scanner-mode difference to
+  verify per invocation, not a defect to route upstream unreproduced.
+- **A zero from a probe is a probe failure until a known positive is in the
+  set** (2026-09-06, the second instance that week): an xlsx written with
+  the `x:` namespace prefix hid `<x:f>` formula tags from a bare `<f` grep,
+  and a URL extractor's quoting matched nothing against real content.
+- **`/code-review ultra` (`/ultrareview`) refuses 21 files / 16,235 lines
+  and is owner-triggered only** (2026-09-06): run the link-closure census
+  before any fixture branch, not after two abandoned attempts.
+- **Prettier's `resolveConfig` returns null from a path outside the
+  repository** (2026-09-06): a self-check resolving from its own output
+  directory validated nothing until it resolved from the script's own
+  location.
+- **A `;`-joined chain runs every step regardless of the previous exit**
+  (2026-09-06): a commit refused by the commit-msg hook (a 101-character
+  header) did not stop the chain; the push moved nothing and a reply script
+  posted, on three threads, a cure SHA the head did not carry. Gate every
+  dependent step on the prior exit, and measure the header before the
+  ceremony.
+- **Some publishers answer 403 to a scripted fetch or HEAD** (2026-09-05,
+  the evidence publisher's terms page to the harness fetcher; 2026-09-07,
+  seven of twenty load-bearing citations to a scripted HEAD): a 403 to a bot
+  is not a dead link and the honest verdict is "unverified by probe"; a page
+  a seat cannot read first-hand has its terms carried in the artefact's
+  metadata instead.
+- **The reference-direction validator refuses a directive that links into
+  `.agent/memory/**`** (patterns included; the #59 cure commit's hook,
+  2026-09-06): doctrine names a pattern in backticks, never as a link.
+- **A lane touching a `DELTA_SCOPE_PATHS` entry of the MCP current-source ledger runs
+  `validate-mcp-content-current-source` as a lane gate before the ceremony** (2026-09-06):
+  package gates never invoke it, so the pre-commit hook was the first place it fired and it
+  refused the projection's first commit outright ("Reviewed semantic-delta files differ",
+  eleven files). Cure shape: one review-ledger file per concern with an `excluded(...)`
+  disposition and the semantic hash for each affected file, wired into the aggregator, then
+  `refresh-mcp-content-current-source-anchors`.
+- **The pre-push turbo step can replay a cached agent-tools test pass when only a root
+  file changed** (2026-09-07): `tests/rules/rules-index-classification.unit.test.ts` reads
+  `RULES_INDEX.md`, but the root `test` task declares only package-local inputs
+  (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`), so an edit to the index does not
+  invalidate the cache — the pre-push log read `agent-tools:test: cache hit, replaying
+  logs` while CI, running cold, failed the new core row's explaining trigger cell (the test
+  requires the bare em dash): one CI cycle and one extra push on a terminal PR. Run the
+  dedicated directory before the push (`pnpm exec vitest run tests/rules/` from
+  `agent-tools/`, about 100 ms); the structural cure is declaring the root file among the
+  task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json` already uses).
+- **The skill-adapter projection check refuses a push whose skill reference changed
+  without regenerated projections** (2026-09-07): an edit under a skill's `references/`
+  needs `pnpm skills:generate` first, and the regenerated `.claude/skills/` and
+  `.agents/skills/` copies travel in the same push.
+- **The reference-direction validator also refuses a permanent doc that links to a plan
+  node** (PDR-105; the second class after the `.agent/memory/**` one above, 2026-09-07):
+  an ADR linking its delivery plan was refused at pre-commit. Doctrine states its own
+  contract self-contained; a plan is named in prose at most, never linked.

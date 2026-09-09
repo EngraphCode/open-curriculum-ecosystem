@@ -41,6 +41,29 @@ resides on the coordination branch).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
    files against main) before pushing.
+   The napkin resolves as a union of both sides' blocks in time order — unless
+   the target branch's napkin was ROTATED since the snapshot, in which case keep
+   the rotated file and run the semantic-merge skill's archive-coverage check
+   (its step 10): diff every incoming block heading against the rotated napkin
+   AND the rotation archive, content-grep before declaring a gap, and carry every
+   genuinely absent block under a dated union note. Never filter by timestamp
+   alone: the rotation's watermark commit is where to start looking, not the
+   test, since a block authored on a third branch before the watermark and
+   merged after it would be lost (2026-09-07). Two instrument defects caught at the
+   2026-09-07 fold: a time key that failed on a heading written "16:xxZ" and
+   sorted that block last (a tolerant key cures it), and a dropped blank line at
+   one block joint that the markdownlint hook refused (MD032/MD022) — read the
+   printed order before committing. Continuity records are edited on the primary
+   by every seat while the fold snapshots them: each later edit re-dirties the
+   primary, and the post-merge fast-forward of the primary succeeds only when its
+   record files are byte-identical to the branch's blobs (`git cat-file` plus
+   `cmp`; a DIFFERS line before the fast-forward is the tell), so the closing seat
+   commits the continuity records LAST and mirrors any later edit by hand — two
+   folds converged that way on 2026-09-06. A settings file the harness rewrites is
+   held out of the sweep until its contract is verified or the owner rules on it;
+   each hold is its own — a later harness rewrite is a new hold, never a
+   continuation of an earlier one — and the hold's outcome (verified, or ruled and
+   landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).

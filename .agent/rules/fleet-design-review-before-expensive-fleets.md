@@ -5,7 +5,16 @@ fleet — as a working line, one that would exceed the session's default
 workflow size guideline, or whose estimated spend crosses ~500k tokens —
 has its DESIGN reviewed by a smaller fleet before the owner prices it,
 and the design review's verdicts travel with the plan to the
-ratification ask.
+ratification ask. Before ANY fleet launches (owner word 2026-09-07): an
+ahead-of-time cost estimate from one measured pilot leg per phase, each times
+its phase's fan-out and summed across the phases,
+a hand sample of the yield first, no adversarial verify phase where the seat
+verifies at application, bounded per-item search, a named tier per phase
+with the budget enforced in the script, and those numbers in the launch
+record — the section "Ahead-of-time cost estimate, pilot and yield" below
+carries each requirement and the measurement behind it. This rule is CORE
+(since 2026-09-07): fleets launch from any seat on any platform through
+primitives no loader recognises, so the controls load in every session.
 
 ## Why (the measured instance)
 
@@ -76,3 +85,65 @@ Budget the READ traffic. Repo-direct walker legs are dominated by
 tool-read tokens, not output: the 2026-08-17 survey round missed its
 estimate threefold (3.5M spent against ≤1.1M estimated) because reads
 were unpriced. A fleet estimate names its read model per leg.
+
+## A killed builder's seam is re-verified at the next gate tier
+
+Fleet design includes the hand from a builder to its finisher. A builder
+killed by quota hands its seam to the NEXT gate tier's re-verify, not only
+the tier it died inside: a finisher's "green" omitted the pre-push-only
+smoke chain, and the stale fixture literal sat exactly at the original
+builder's death seam (2026-08-18). Brief the finisher to re-run every gate
+tier above the death point before it reports green.
+
+## Research prompts name the held command classes
+
+A background agent cannot answer a hook's approval prompt: a refuter that
+ran a recursive delete inside its own scratch trial held a fifteen-agent
+workflow at 14/15 for fifteen minutes (2026-09-03). A research prompt names
+the held command classes — recursive deletes, network writes, anything the
+hook policy approves interactively — not only "do not modify files"; the
+resume from the run id returned the cached agents instantly.
+
+## Ahead-of-time cost estimate, pilot and yield (owner word 2026-09-07)
+
+The owner, on the 2026-09-06/07 mapping fleets: "your dynamic workflows have been
+eating tokens at an incredible rate"; the fleet-design documentation "needs to
+include ahead of time cost estimates and optimisation". Measured from those runs'
+records (about 8.1M tokens for 43 map blocks and 8 record chunks; a verify phase
+of 41 legs returning one result; 82k–171k per leg on the session model, 87k per
+leg on a cheaper tier with a twelve-call cap):
+
+1. **Cost is set by what enters a leg's context, times its turns.** The unit
+   itself (a napkin block of thousand-character lines is 10–15k tokens; a
+   record chunk of five-thousand-character lines 30k), the rules, and every tool
+   result — each re-sent on every later turn, so tool results dominate. A
+   cheaper tier lowers the price per token and never the count; a call cap
+   bounds calls, not results. Estimate a leg as (unit tokens + rules) × turns +
+   Σ tool-result tokens × turns remaining; size units by tokens (`wc -c` ÷ 4),
+   about 8k each.
+2. **Pilot before fan-out.** One representative leg per distinct phase (map,
+   reduce, verify, synthesis), measured from its run record, times that phase's
+   fan-out, summed across phases in the launch record beside the estimate; abort
+   when the sum crosses the budget (a single-phase fleet reduces to pilot × N). A resume by run id is a launch: the pilot and yield are re-decided.
+3. **Sample the yield by hand first.** Three to five units read at the seat show
+   what fraction would move — four fifths of the 2026-09-07 napkin was already
+   homed or pure state, a fact a twenty-minute sample would have set before an
+   instrument was built. The count chooses the instrument, or no instrument.
+4. **No adversarial verify phase behind a first-hand check.** Adversarial
+   verification belongs where the consumer would otherwise trust the output
+   unread (findings that go straight to a PR); a seat that verifies at
+   application makes the phase pure spend.
+5. **No open-ended repository search per item.** Legs read the unit and return
+   items with a proposed home class; the seat verifies homes with targeted reads
+   (a script checks citations mechanically). Where search is allowed, bound it
+   by a search command, a per-item read cap and a result-size cap derived in the
+   launch record from the measured pilot (the 2026-09-07 instance: `grep -l`
+   only, one read of at most sixty lines per item).
+6. **Name the tier per phase and enforce a budget in the script** (the workflow
+   API's `budget`): the top tier only where judgement is the product; `log()`
+   dropped coverage; a stop condition that is not the owner noticing.
+7. **The launch record carries the numbers**: estimate, pilot, yield sample,
+   tier per phase, budget — and, above the ~500k threshold, this rule's design
+   review with its verdict. Runs report tokens, calls, mean and max per phase
+   from the run record when they end (a tally row, as the Cricket tally does per
+   leg).
