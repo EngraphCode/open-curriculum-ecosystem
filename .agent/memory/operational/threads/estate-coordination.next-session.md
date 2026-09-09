@@ -1580,10 +1580,10 @@ disagree, the live snapshot is current and this entry is history.
   Director's machine-local handoff record (`2778f573-…`) holds the finer grain and is not
   required for pickup.
 
-## 2026-09-09 00:52Z — FOLD OF coordination/2026-09-08-68d53d (Flounder turns Estuary, c5cc2c, Director): PR #84 merged as f5d02c38a; successor coordination/2026-09-09-f5d02c
+## 2026-09-09 00:52Z — FOLD OF coordination/2026-09-08-68d53d (Flounder turns Estuary, c5cc2c, Director): PR #84 merged as SHA:f5d02c38a; successor coordination/2026-09-09-f5d02c
 
 - **The fold.** PR #84, opened as a draft by the lane seat at the owner's word of 2026-09-08
-  11:07Z and undrafted by the owner at 21:13Z, merged as `f5d02c38a` after seven review rounds
+  11:07Z and undrafted by the owner at 21:13Z, merged as `SHA:f5d02c38a` after seven review rounds
   (8, 4, 1, 1, 2, 2, 1 findings; nineteen cured, two routed): the retired rule's citations
   repointed in the two pickup surfaces, the settings-file sentences and the tenure count trued,
   the napkin's fitness marker added, the two onboarding surfaces told that this fork's settings

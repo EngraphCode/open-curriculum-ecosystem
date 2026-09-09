@@ -1499,7 +1499,7 @@ standing bounds (reviewer transcripts unread beyond their reports; "Altair held 
 was inferred until the owner's screenshot observed it).
 
 - **CROSS-FORK NOTES, second instance — Altair spins Umbra (05a180), PR #99 (Oak 1.179.0,
-  MCP-687), 2026-09-09 15:0xZ–15:2xZ**, under the draft skill at #97's head 1f235fbe6; each
+  MCP-687), 2026-09-09 15:0xZ–15:2xZ**, under the draft skill at #97's head SHA:1f235fbe6; each
   note names the step it bears on.
   - §1: the skill says the upstream remote's push URL is disabled; on this checkout
     `git remote -v` shows the real URL for both fetch and push. The rule
@@ -1508,15 +1508,15 @@ was inferred until the owner's screenshot observed it).
   - §1: "exactly one open sync pull request" — `gh pr list --search` with a head-name query
     returned nothing silently; the check needed a client-side filter over the full open list
     (`--json headRefName` and a name test). Worth stating the command.
-  - §2: `merge-tree` against the live tip exited 0 with tree b67921055 — the same tree the
+  - §2: `merge-tree` against the live tip exited 0 with tree SHA:b67921055 — the same tree the
     carrier body recorded against the same tip, and the same tree the real merge produced
-    (36bb08928). The recompute is a one-second read that turns the body's claim into a fact
+    (SHA:36bb08928). The recompute is a one-second read that turns the body's claim into a fact
     the seat holds; it is the right step even when it changes nothing.
   - §3: the skill's "dependencies installed" hides its reason: a fresh worktree has no
     `.husky/_` until install runs, so a merge commit made before install creates its commit
     with NO commit-msg or pre-commit hook and reads as if the gate passed. Install first is a
     hook-integrity requirement, not a convenience; say so.
-  - §3: the merge of engraph 123d2e3e9 into the carrier was clean; author the owner, committer
+  - §3: the merge of engraph SHA:123d2e3e9 into the carrier was clean; author the owner, committer
     the bot, `--no-ff`, an ordinary message; the head that will land is this merge, not the
     release commit whose checks never ran.
   - §4: `validate-mcp-content-workspace` OK (25 pages in sync), `skills:check` OK (61
@@ -1589,3 +1589,19 @@ cadence is declared on the stream. This seat's monitors and crons are stopped; t
 stops after the closeout broadcast. Attribution: the successor's demonstration was read in
 full; "the seven PRs will land in the slot's order" is the plan, not a claim. Bounds as
 before. The recursion closes at the standing bounds. The seat closes here.
+
+## Nettle guards Pistil (2de368) — Director, seated 15:11:49Z; #97 round four routed to the skill's second draft (2026-09-09 15:2xZ)
+
+Seated at PDR-064 Moment 2 (ack event c3e76199, in response to Moment 1 67c04dd2 and the GO
+b9877590); claim 8109015d adopted in place. Four round-four Codex findings on the cross-fork
+skill at SHA:9939a936b, all correct observations, none contradicting a landed record, each
+dispositioned [routed] with a falsifier under the terminal tail (rounds 2, 4, 4, 4) and homed
+here for the second draft: (1) step 3 needs a checkout of the EXISTING carrier head, which the
+worktree-lane skill's step 1 (a new branch from base) does not give; (2) on the conflict route
+the complex-merge handler's Phase 6 IS the step-3 merge, so the procedure resumes at step 4
+with step 3's attributes on that commit; (3) step 2's "live tip" wants a named fetch of
+origin/<fork-default>, not only the upstream fetch step 1 names; (4) the link to the
+plan-tier runbook for the empty-commit recipe is the permanent-to-ephemeral direction; the
+recipe's stable home is decided when the second draft lands. The fold-wake one-shot cron was
+refused twice by the auto-mode classifier; the wrap cadence (00:41Z) carries the fold check
+as the fallback, surfaced to the owner.
