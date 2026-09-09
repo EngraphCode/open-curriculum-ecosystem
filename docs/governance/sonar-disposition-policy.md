@@ -377,11 +377,13 @@ runtime by `<test path:line>`; downstream middleware (helmet
 `hidePoweredBy` or equivalent) strips the header globally; test acts as
 regression guard".
 
-**FIX path** (when no test exists or the test fails): add
-`app.disable('x-powered-by')` (Express) or equivalent, AND add a test
-that asserts the header's absence. The test is mandatory; the disable
-call alone is insufficient because future config changes can silently
-re-enable the disclosure.
+**FIX path and cure** (every site, including one whose runtime test
+already passes): add `app.disable('x-powered-by')` (Express) or helmet's
+`hidePoweredBy` AT THE INSTANTIATION SITE ITSELF, where static analysis
+can see it — downstream middleware in another module leaves the site
+firing — AND keep the test that asserts the header's absence. The test is
+mandatory; the disable call alone is insufficient because future config
+changes can silently re-enable the disclosure.
 
 ### S6505 — Dependency installation lifecycle scripts
 
@@ -428,11 +430,14 @@ pnpm ≥ 10 executes dependency lifecycle scripts only for the reviewed
 `pnpm-workspace.yaml`); arbitrary dependencies cannot execute install
 scripts at the flagged site".
 
-**FIX path** — for a pnpm ≥ 10 site the finding describes a shape that
-cannot exhibit the defect, and the cure is the site change that makes the
-rule stop firing, proven per site by the code-scanning lane's plan node
-(`code-scanning-alerts-to-zero`), never a mark. For all non-pnpm installers,
-and any pnpm < 10, the flag is installer-specific: `--ignore-scripts` for npm and Yarn Classic (1.x);
+**FIX path and cure** — for a pnpm ≥ 10 site the finding describes a
+shape that cannot exhibit the defect, and the analyser-clearing change is
+the flag it reads plus pnpm's documented complement: `pnpm install
+--frozen-lockfile --ignore-scripts` followed by `pnpm rebuild --pending`
+(which builds the packages that were not built during an `--ignore-scripts`
+install — `pnpm rebuild --help`, pnpm 11.20.0 — and the reviewed allowlist
+still governs which of them execute scripts). Never a mark. For all
+non-pnpm installers, and any pnpm < 10, the flag is installer-specific: `--ignore-scripts` for npm and Yarn Classic (1.x);
 `--mode=skip-build` for Yarn Berry (2–4, whose `install` rejects
 `--ignore-scripts`); `--ignore-scripts` for pnpm < 10. npm and yarn
 execute dependency lifecycle scripts by default at every major version,

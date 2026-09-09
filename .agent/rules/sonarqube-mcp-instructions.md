@@ -34,7 +34,7 @@ At any measures-vs-index divergence (the quality gate scores findings the issue 
 
 The cardinal anti-pattern with Sonar is the rule-level disable (a `sonar.issue.ignore.multicriteria` block — a sonar-scanner-CLI feature this repo does not use, and which SonarCloud automatic analysis ignores). Each rule fires at distinct sites with distinct contexts; the disposition right for one site can be wrong for another. Per `principles.md` §Code Quality "NEVER disable any quality gates", per-rule disables are forbidden in this repo; dispositions are made per-site, server-side. This repo has no `sonar-project.properties`.
 
-Per-issue dismissals via `change_sonar_issue_status` (status `accept` / `falsepositive`) are acceptable when each disposition is grounded in a specific architectural tension at that site, not a labelled category. The full discipline is documented in [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) §Per-finding investigation discipline.
+**Since the owner's 2026-09-08 ruling ("We don't dismiss issues, we fix them") every finding is fixed at source** — the one-outcome rule in [`docs/governance/sonar-disposition-policy.md`](../../docs/governance/sonar-disposition-policy.md), which carries the single exception (the MCP server's rate-limiting findings, dismissed once with the route comment citing ADR-219). `change_sonar_issue_status` (`accept` / `falsepositive`) is therefore not a disposition route for any other finding; the per-site reading discipline stays — read the code at the site and choose the cure the policy's class records. The operational detail is in [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) §Per-finding investigation discipline, whose dismissal mechanics are documented for history and for the one exception.
 
 Quality-gate severity arithmetic on PRs: a SINGLE new MINOR vulnerability can alone fail the `new_vulnerabilities_severity` condition (severity score over threshold), so a PR's gate can read ERROR after every other finding is fixed at source until that one finding's disposition lands. Surface the residual at its action moment; never read the residual ERROR as unfixed work.
 
@@ -46,7 +46,7 @@ Operationalises [PDR-018 §Disposition drift at phase boundaries](../practice-co
 
 ## Hotspot review
 
-For Security Hotspots, the QG condition `new_security_hotspots_reviewed = 100%` requires each hotspot to move from `TO_REVIEW` to `REVIEWED` with a resolution (`FIXED` / `SAFE` / `ACKNOWLEDGED`). Use `change_security_hotspot_status` with an explicit comment carrying the rationale at each hotspot. Without rationale comments, the audit trail is too thin for future readers.
+For Security Hotspots, the QG condition `new_security_hotspots_reviewed = 100%` requires each hotspot to move from `TO_REVIEW` to `REVIEWED`. Since 2026-09-08 the resolution is `FIXED`, assigned by the next analysis after the class's cure lands in the tree (the one-outcome policy); `SAFE` and `ACKNOWLEDGED` are not used, and `change_security_hotspot_status` is reserved for the policy's single exception, with an explicit comment carrying the rationale. Without rationale comments, the audit trail is too thin for future readers.
 
 After changing a hotspot status, do not use `show_security_hotspot.comments` as
 the audit-trail verification surface. That MCP read model can return an empty

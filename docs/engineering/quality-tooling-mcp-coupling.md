@@ -61,15 +61,15 @@ The QG status for a PR returns _only_ the conditions that apply to new code. The
 
 ### Mapping QG conditions to action
 
-| QG condition                           | What it measures                            | How to address                                                            |
-| -------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------- |
-| `new_violations > 0`                   | Raw OPEN issue count on new code            | Per-issue fix OR per-issue dismissal (`accept` / `falsepositive`)         |
-| `new_security_rating > 1`              | Security rating worse than A on new code    | Resolve any new SECURITY-impact OPEN issue or unreviewed hotspot          |
-| `new_reliability_rating > 1`           | Reliability rating worse than A on new code | Resolve any new RELIABILITY-impact OPEN issue (CRITICAL bugs especially)  |
-| `new_maintainability_rating > 1`       | Maintainability rating worse than A         | Reduce technical-debt-cost on new code                                    |
-| `new_coverage < 80`                    | Test coverage on new code below threshold   | Write tests for uncovered new lines                                       |
-| `new_duplicated_lines_density > 3`     | Duplication density above 3%                | Consolidate copy-pasted code into shared modules                          |
-| `new_security_hotspots_reviewed < 100` | Security hotspots not 100% reviewed         | Mark each hotspot REVIEWED via Sonar MCP with FIXED / SAFE / ACKNOWLEDGED |
+| QG condition                           | What it measures                            | How to address                                                               |
+| -------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------- |
+| `new_violations > 0`                   | Raw OPEN issue count on new code            | Per-issue fix at source (the one-outcome policy; its single exception aside) |
+| `new_security_rating > 1`              | Security rating worse than A on new code    | Resolve any new SECURITY-impact OPEN issue or unreviewed hotspot             |
+| `new_reliability_rating > 1`           | Reliability rating worse than A on new code | Resolve any new RELIABILITY-impact OPEN issue (CRITICAL bugs especially)     |
+| `new_maintainability_rating > 1`       | Maintainability rating worse than A         | Reduce technical-debt-cost on new code                                       |
+| `new_coverage < 80`                    | Test coverage on new code below threshold   | Write tests for uncovered new lines                                          |
+| `new_duplicated_lines_density > 3`     | Duplication density above 3%                | Consolidate copy-pasted code into shared modules                             |
+| `new_security_hotspots_reviewed < 100` | Security hotspots not 100% reviewed         | Cure each hotspot at source; the next analysis marks it REVIEWED / FIXED     |
 
 ### Per-finding investigation discipline
 
@@ -82,6 +82,16 @@ The cardinal anti-pattern is the **rule-level disable** (the `sonar.issue.ignore
 **Discipline**: at each finding, read the code at the site, write an independent disposition rooted in `principles.md` (not in any pre-existing disposition table), then check the master plan or other heuristics for sanity. Commit before moving to the next finding, so per-site reasoning is observable in the commit message.
 
 ### Disposition mechanics — Sonar MCP write operations
+
+**Governing rule since 2026-09-08** (owner-ruled, "We don't dismiss issues,
+we fix them"; the one-outcome policy in
+[`sonar-disposition-policy.md`](../governance/sonar-disposition-policy.md)):
+every finding from either analyser is fixed at source and closed by the
+next analysis. The write operations below are documented for reading
+history and for the policy's single exception (the MCP server's
+rate-limiting findings, dismissed once with the route comment citing
+ADR-219); an `accept`, `falsepositive`, `SAFE` or `ACKNOWLEDGED` write on
+any other finding is the act the policy forbids.
 
 The Sonar MCP exposes two state-change operations:
 
@@ -136,7 +146,7 @@ mcp__sonarqube__analyze_code_snippet({ snippet, language })
 
 ### Common rules + dispositions in Oak code
 
-| Rule                                     | Mechanical fix                                                              | Common per-site investigation                                                                     | Common dismissal                                        |
+| Rule                                     | Mechanical fix                                                              | Common per-site investigation                                                                     | Dismissal a site once took (history, not a route)       |
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `typescript:S6653` `Object.hasOwn`       | `Object.hasOwn(Object(obj), key)` over `.call(obj, key)`                    | None; always mechanical                                                                           | n/a                                                     |
 | `typescript:S7786` `new TypeError`       | TypeError for type-check throws (`typeof` / `Array.isArray` / `instanceof`) | Distinguish type-check throws from value/state throws                                             | n/a                                                     |
