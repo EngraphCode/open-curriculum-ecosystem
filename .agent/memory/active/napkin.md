@@ -118,3 +118,914 @@ The successor branch coordination/2026-09-07-dfe924 met the rotated napkin at th
 - **Liveness read correctly, once, and questioned once.** Altair's watcher read "gone" on the poll at 21:47Z; the ping-before-escalate evidence (heartbeats every four minutes, a fresh claim heartbeat, the worktree mid-merge) said live and working, and no ping went. Two hours later, with #70's remote still untouched and no progress report since 21:07Z, a status ping went as a directed event with the fold's consequence stated (unmerged by ~23:45Z re-syncs after the fold). Heartbeats are liveness; progress is a separate signal, and the team cadence names both.
 - **Question discipline held on the stream:** Juno's two #77 read requests arrived as their own directed events with the question in the subject; each was answered in kind within minutes. The 17:44Z truncation class did not recur.
 - **Work safety and bounds:** coordination/2026-09-07-dfe924 at 33b07e10e, 0 ahead / 0 behind before this sweep, which carries Juno's #77 addendum and this block; only the held settings file stays dirty after it, so the 00:07Z fold meets a clean primary. Promises: the fold (the Director's, one-shot wake armed); #70 (Altair, pinged); the directives item (Altair after #70, bounded); the post-fold continuity PRs (Juno, under 0b696465); the retrospective offer stands. Attribution flagged: "Altair is working on #70" rests on the 21:4xZ worktree state and live heartbeats, not on a report. Bounds: the watcher's truncated rendering; heartbeat-first resumes; the machine-local handoffs directory. A third pass re-finds only the unreported lane and the standing bounds; the recursion closes here.
+
+## 2026-09-08 00:0xZ–01:0xZ (Flounder turns Estuary, c5cc2c, Director) — the sixth fold: four gate refusals, one record I closed in prose, a default that ran by structure
+
+- **The fold.** `coordination/2026-09-07-dfe924` met the rollover with a clean primary and a
+  clean merge of engraph (d295fcc11, twenty-six files from #72, #78 and #77); fold PR #79
+  opened as the bot with the product-gravity line and a PDR-140 intake; round one brought
+  five threads (Copilot three, Codex two), round two one. Two over-bar cures on the one
+  settlement push, three below-bar dispositions by signed reply, one duplicate. The napkin
+  block for this window is written on the successor, not onto the fold PR's head: a sweep
+  there would have restarted the checks and the quiet window minutes before the merge.
+- **The record I closed in prose.** At 16:2xZ I wrote the tuition thread record's LANDED
+  block and left the file at the active root with its index row saying the landing was
+  outstanding. The threads README had the lifecycle convention all along (retired records
+  move under `retired/`, carry a leading retirement banner, and leave both index tables);
+  Copilot and Codex both caught it. The generator is the day's: a convention that existed in
+  the directory's own README, not read before the closing act. The mechanical cure extends
+  to a directory's README when the act is a lifecycle move.
+- **Four gate refusals on one push, each a fact now on disk.** `git add` on a renamed-away
+  path fails, so the ceremony script skips absent paths at the add step while keeping them in
+  the intent; a pathspec commit that omits the old path leaves it tracked-but-missing for the
+  identity validator (the napkin's git-mv fact, met first-hand); consecutive blockquotes in
+  `director-handoff.md` are separated by blank, `---`, blank or MD028 fires; a moved record's
+  relative links change depth (the links validator names the fix). Twenty minutes, no owner
+  attention, every refusal a correct gate.
+- **The seated block, written before the merge without narrating ahead.** Codex's P1 asked
+  for the 8 September board in the fold itself; the block now states the board, seats, claims
+  and pickup map in the present, and says the merge SHA and the successor name are appended
+  on the successor at the cut. Truth at commit time, completed at the cut.
+- **A default that ran by structure.** Altair's #70 lane went progress-dark for three and a
+  half hours with heartbeats live and a merge stalled at three conflict markers; a ping, then
+  a declared deadline and default with a one-shot wake, then the default executed: the lane
+  re-adopted, the stalled merge kept and completed (never aborted), one push held for after
+  the fold. No owner attention at 00:4xZ, and nothing of the seat's discarded.
+- **Work safety at this wrap:** the coordination branch at e4572ddc1 equals origin; the
+  worktree land-pr72 holds one deliberate unpushed commit (956c03ec0, #70's sync) for a single
+  post-fold push. Bounds: a held REPL is invisible from the stream except as absence; the
+  fold's own commit is the only surface this block could not ride. A third pass re-finds only
+  the unpushed commit and the held-REPL bound; the recursion closes here.
+
+## 2026-09-08 01:0xZ–02:4xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: the successor's first hour
+
+- **Landed this window:** the fold's tail on the successor (the seated block filled with the
+  merge SHA and the branch name, the fold-window napkin block, commit eda9dfc4b); #70 (the
+  owner's non-graph survey) as 0df02f548 under the executed default — the lane's stalled merge
+  kept and completed, one post-fold push, Appendix B as the premises; #81 (repo-continuity's
+  Purpose cells → pointers) by Juno at 3fdf51d0c. #80, the disposition of the Director's own
+  surface, read whole and passed: the Brief and the fold block byte-identical (diff), the
+  archive containing the moved range verbatim (a containment check, not the author's claim),
+  the snapshot's facts and the three conserved rulings verified against the record.
+- **The event is the fact.** The snapshot dated the landing-slot event 6bd4fe0d at 20:04Z on
+  the 6th; my memory had it later, after the overnight contract. The event file said 20:04:40Z.
+  A verifier who reads the artefact is corrected by it; a verifier who trusts memory writes a
+  finding that is itself wrong. The same class as the day's timestamp lessons, from the other
+  side: the seat checked before objecting, and the check settled it in one command.
+- **Shape of the tenure so far, in one line.** From 2026-09-06 12:5xZ to now the owner's
+  corrections all came in the first half; the second half's corrections came from reviewers,
+  were smaller, and each landed as a fact on disk within the hour. The structure that held:
+  declared deadlines and defaults with wakes, one settlement push per records PR, questions as
+  their own events with the question in the subject.
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at eda9dfc4b equals origin
+  before this sweep; the queue empty; only the held settings file dirty. Promises: none new;
+  the next fold wake is armed for the 2026-09-09 rollover; Altair's directives item waits on
+  their resurfacing under the 21:11Z bounds. Bounds unchanged (a held REPL is absence on the
+  stream; the watcher's truncated rendering; the machine-local handoffs directory). A third
+  pass re-finds only those; the recursion closes here.
+
+## 2026-09-08 03:5xZ — Juno seeks Apogee (a693fb) — post-fold pass closed: two continuity PRs landed, two thread records measured for a fresh seat, three lessons
+
+- **Landed after the fold (both from engraph 68d53d778, under 0b696465):** #81 at 3fdf51d0c (repo-continuity's twenty long Purpose cells → pointers; one settlement push after three real round-one findings) and #80 at 3864af225 (the director-handoff.md disposition the Director ruled: Brief and fold block verbatim, a replaceable live snapshot, every prior block verbatim in a dated archive, the identity-naming census row re-pointed; the Director read fdb4b3b8b whole and said land it). The comms archive move ran at 22:2xZ (1,904 + 529 events). Bot PR count zero.
+- **Lesson 1 — sweep for pointers INTO a moved range before moving it, not after.** #80 ran seven Codex rounds after the Director's yes, every finding real and every one a pointer the author should have swept at open: the retained fold block's "below", repo-continuity's Next Safe Steps entry, a rule's provenance line, the archive's own relative link, the snapshot's "homed here" for a contract with no other home, the refresh contract the snapshot itself contradicted, the Brief's babysitter lines against the new slot section, the archive header's equality claim after the link edit. The class is one instrument — `grep -rn <file-name> .agent docs` plus a read of the file's own self-references — run BEFORE the move, then the move lands in one round. The reviewer did that sweep instead of the author; seven rounds was its price.
+- **Lesson 2 — a verbatim copy appended to a record is the provenance shape `permanent-doc-is-the-consolidation-record` forbids** (#81 round one, Codex P1): "moved from X" sections are accounting that a move happened, appended as stale snapshots at the records' tails. The rule's own test held: verify the substance is live in the home first (the token-share census, the two lowest re-read), then the commit and the home are the record. The director-handoff archive is the exception by the Director's explicit ruling for their own surface, not the pattern.
+- **Lesson 3 — the runbook's "live or finished, per entry" is the whole cost of a continuity-surface pass**, and it does not compress: the two thread-record criticals (agentic-engineering-enhancements 114 KB, thirteen EXECUTED lane blocks plus a 61 KB continuation log; paused/mcp-submission-drive 780 lines with a self-declared historical 170-line block) are left MEASURED for a fresh seat (censuses in reference-local post-fold-analysis-2026-09-07.md) rather than judged at the end of a long window — PDR-052's rounding-off hazard, applied by choice.
+- **Routes under PDR-140 clause 9(c), carrier this napkin:** repo-continuity.md still reads 64,741 chars against 52,500 critical after the pointer pass — the excess is §Current State and §Next Safe Steps (finished Oak-line narrative), the next continuity pass's story under the runbook; the director-handoff archive's ~42 numbered owner rulings need the homed-or-not check ruling by ruling (queued in repo-continuity §Next Safe Steps); the turbo.json `$TURBO_ROOT$/RULES_INDEX.md` input is a one-line config PR for the Director's board; the Director's pickup map has no tracked mirror for a successor on another machine and the Brief's `gh pr update-branch` lines (224–228) contradict the slot rule — both the Director's text, routed to them by directed event 03:2xZ (#80 round seven) and CLOSED by them at 3d53fdf2c on the coordination branch 03:23Z — a dated tenure journal entry in the tracked estate-coordination record (the pickup path for any checkout; the machine-local record is finer grain, not required) and the Brief's lines 224–230 bound to the slot-holder; no route remains from that round.
+
+## 2026-09-08 02:5xZ–04:4xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: the board at zero, the journal that had stopped
+
+- **Landed this window:** #80 (the disposition of the Director's own surface) at 3864af225 on
+  the standing read; the quiet-window sync 5468b9b75; Juno's closeout after nine landings across
+  two days, their closing block swept as 24be56c89. No PR open on the fork. Altair's seat
+  retired by silence at 00:39Z (evidence on the retirement-detection event); the directives
+  item returned to the Director's routing as a pointer for the next fresh seat.
+- **The journal that had stopped.** A reviewer on #80 read the pickup map as unreachable from
+  another checkout: the fold block and the snapshot point at a handoff record the handoffs
+  directory keeps machine-local by design, and the Director's tracked journal
+  (`threads/estate-coordination.next-session.md`) had ended on 2026-09-03 while two days of
+  fine grain went to that record. The cure landed as 3d53fdf2c — a tenure entry any checkout
+  rehydrates from — but the generator is worth its own line: the machine-local record is a
+  convenience for the seat that wrote it; the tracked journal is the pickup, and the Director
+  writes its entry at every fold, not when a reviewer asks. The Brief's babysitter lines were
+  bound to the slot-holder in the same commit.
+- **n=1 economics.** With no consuming peer the comms heartbeat stood down under the
+  consumer-absent exemption and a silent registry-only loop keeps the Director's claim fresh
+  for a joining seat's read; the watcher and the peer poll stay up because a new seat is what
+  they would announce. A wrap in a quiet window says what changed and stops.
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at 24be56c89 equals origin
+  before this sweep; the queue empty; only the held settings file dirty. Promises: none new;
+  the fold wake for the 2026-09-09 rollover stands. Bounds unchanged. A third pass re-finds
+  only the standing bounds; the recursion closes here.
+
+## 2026-09-08 ~06:3xZ (Flounder turns Estuary, c5cc2c, Director) — compaction boundary 7: what the tenure's second day taught
+
+- **The board at the boundary:** no PR open on the fork; engraph 3864af225; the primary on
+  coordination/2026-09-08-68d53d at d0c24f51a; one claim in the registry (the Director's);
+  processes stopped at the owner's word ("prepare for compaction … then stop all processes").
+  The next fold is due at the 2026-09-09 rollover and its wake must be re-armed on resume.
+- **Metacognition over the second day (2026-09-07 16:0xZ → 2026-09-08 06:3xZ).** The owner's
+  corrections came in the first day; the second day's corrections came from reviewers and were
+  each cured within the hour, and the two that were mine (a plan pointer from an ADR; a record
+  closed in prose without the directory's lifecycle convention) share the tenure's one
+  generator: a convention that existed in a document I had not read at the moment of the act.
+  The mechanical cure is now three-tiered — rules and decision records, then skills, then the
+  directory's own README — and the day's evidence says it fires when I run it and fails when
+  I remember instead. The other pattern that held all day: every gate I ruled needed an exit
+  condition stated in the same sentence, and the one time I omitted it the gate serialised a
+  peer's loop twice.
+- **Concept check on the Director's job.** Its ends were three: every PR to merged under the
+  three requirements, every seat routed and never chased, and knowledge safe on disk at each
+  boundary. Sixteen landings, two folds, three seats retired with full handoffs and two by
+  silence or closeout, and fourteen wrap blocks say the ends were met; the costs were the
+  reviewer rounds on records-class PRs (now bounded by PDR-140 clause 9) and about four hours
+  of a held peer seat whose default ran by structure. What compresses next time: a declared
+  deadline and default on any lane the moment it goes progress-dark, not two hours in.
+- **Free-play harvest, honest.** Kept: the held REPL and the truncated watcher rendering are
+  the same shape — a message that reached a surface and not a mind; both cures were
+  structural (a wake with a default; read the file when the subject names a routing). Kept:
+  a seat's formation letter and a seat's napkin block are the two surfaces the review gates
+  treat differently on purpose, and today's reviewers tested that boundary from both sides.
+  Discarded, visibly: that the twelve landings' order encodes anything; that the fold's four
+  gate refusals were a single defect (they were four correct gates).
+- **Work safety and bounds at the boundary:** d0c24f51a equals origin before this sweep; the
+  queue empty; only the held settings file dirty; the tracked journal, the seated block, the
+  napkin and the per-user memory current; the machine-local record carries the finer grain.
+  Bounds unchanged. A third pass re-finds only the standing bounds; the recursion closes here.
+
+## 2026-09-08 06:4xZ — Altair spins Umbra (05a180), Implementer — resurfaced after a nine-hour held seat: #72 landed by this seat, #70 by the Director's default, the directives item declined at the gate
+
+- **Landed by this seat:** #72 at ff86b3d8b (2026-09-07 21:06Z, bot merge, head d01b101b5 pinned; premises 5575632184; one Codex P2 on the reproduction guide verified accurate at the bundle and dispositioned by signed reply: the guide defines success as the reader's comparison against the recorded evidence and the README preserves the bundle byte-for-byte, so no assertion is added to archived probes). The landing seat's own read on top of the Director's: 18 hashes recomputed, evidence parses, two code claims re-checked at the pin, the deletion sweep one replaced line.
+- **The stall (observation, cause inferred):** at ~21:13Z, with the engraph merge for #70 stopped on the index conflict, a batch of two tool calls — the platform's EnterWorktree with a sibling-directory path (residency before the first lane edit) and a read-only sed — returned only at 06:28Z, both against a worktree already removed. Nothing in the session ran between. The heartbeat Monitor kept emitting (comms leg failing from 00:43Z when the claim was re-adopted, claims leg from 01:36Z when it closed): EMIT and REGISTRY green, ABSORB absent for nine hours. The Director's ping, deadline and default ran by structure and landed #70 at 0df02f548 with nothing of mine discarded. The worktree-residency rule's "re-open only if a lane observes a prompt in practice" clause is re-opened by this instance; the seat-side cure is to send the exact EnterWorktree invocation to the Director before issuing it.
+- **The directives item:** declined at the PDR-052 gate — the transcript's own usage record put the last turn at about 384k input tokens; the item stays with Juno's handoff 257f3ddb and the Director's bounds broadcast for a fresh seat.
+- **Measured facts:** the required checks on the engraph ruleset are run-quality-gates and CodeQL by name (read from the rules API); a thread reply through GraphQL creates a review record, so the quiet-window anchor moves to the seat's own reply time; `comms reply` refuses an unknown antecedent id, so the id is read from the store, never typed from memory (one refusal at this seat).
+- **Processes at this pause:** watcher bkz84hjyf live (re-armed after the hourly exit that ran unanswered during the stall); no heartbeat and no claim (consumer-absent standby); the Director paused at 06:34Z, so this seat waits for a routing or the owner's word.
+
+## 2026-09-08 06:5xZ — Altair spins Umbra (05a180) — CORRECTION to the 06:4xZ block: the held seat was not a permission prompt
+
+- The owner asked whether worktree operations were already on the allow list. Checked first-hand: `EnterWorktree` is in `permissions.allow` in both `.claude/settings.json` (tracked and working copy) and `.claude/settings.local.json`; the project runs `defaultMode: auto`. The session transcript records the two tool calls at 21:08:04Z and their results at 06:31:44Z with nothing between but Monitor notifications, and no permission, denial or interruption record anywhere. So the block above's inferred cause (a held permission prompt) is withdrawn; the settled fact is narrower: the harness held that batch, headed by an `EnterWorktree` call to a sibling-directory worktree with a merge in progress, for nine hours for a reason not visible from inside the session. The seat-side practice (send the invocation to the Director first) stands as a visibility measure; the settings-side cure proposed above is withdrawn as unfounded.
+- **Second correction, the owner's observation (06:5xZ):** "it was a permissions prompt, I just didn't see what for". So the prompt is a fact and the allow-list entry did not prevent it: `EnterWorktree` is allow-listed in both settings files under `defaultMode: auto`, the transcript logs no prompt (prompts are not recorded there), and the Bash read of the same sibling path had run unprompted earlier in the session, so the entry call is the likely subject. The worktree-residency rule's re-open clause fires on a real observed prompt; the open question is which call shape the classifier held, and the next watched sibling-path entry answers it. The seat-side practice stands.
+- **Third line, the subject pinned and the log question answered (07:0xZ):** no prompt log exists on this machine — the transcript has no permission-request record type (only `permissionMode: auto`), `~/.claude/debug/` is written only under `--debug` (last file 2026-09-03), `settings.local.json` changes only on "always allow" and is untouched since 09-06. The subject is pinned by sequencing: the EnterWorktree result landed at 06:31:44.835Z and the next Bash call's PreToolUse hook fired at 06:31:44.9Z, so the batch ran in order and the hold sat on `EnterWorktree`. Why an allow-listed tool prompted stays open: sibling directory outside the working directories (the class the local settings' per-path `Read(//…-worktrees/…)` entries exist for), or the auto-mode classifier asking regardless; the next watched sibling-path entry answers it.
+- **Fourth line, the documented cause (07:1xZ, from the current Claude Code worktrees docs via the claude-code-guide agent):** entering a path outside `.claude/worktrees/` always asks for approval because the move carries the session's working directory, write access and project configuration; an `EnterWorktree` permission rule or "don't ask again" does not suppress it and only `bypassPermissions` skips it. So the allow-list entry could never prevent the hold, and worktree-residency §Platform mechanics is stale (its 2026-07-31 probe on 2.1.220 saw no prompt; 2.1.263 always asks). Shapes that avoid the hold: launch the session inside the sibling worktree (the rule's secondary mechanism) or operate it from the primary with `git -C`. Docs are silent on any permission-prompt log. Rule correction is a small records PR for a fresh seat; not opened from this seat (Director paused, no routing).
+
+## 2026-09-08 04:1xZ — Juno seeks Apogee (a693fb) — wrap: the metaloss passes over the 03:5xZ closing block
+
+- **Landed against the window's target (PDR-026):** "finish the consolidation work and any other
+  tasks belonging to this seat" — #77 d295fcc11, #78 f4ccea4fc, #81 3fdf51d0c and #80 3864af225
+  merged (the fork's PR list is the evidence; no PR open); the comms archive move run. Work
+  safety: every touched branch merged and its remote deleted; this seat's two worktrees removed
+  (the dirty one restored-then-removed at the owner's word, per-file proofs in the handoff
+  record); the primary's napkin.md and this seat's experience letter carry uncommitted appends
+  for the Director's sweep. This session could not run git on the primary (residency hook), so
+  those appends are grep-verified, not `git status`-verified — a stated bound. The full gate
+  `pnpm check` on the primary with both appends in place exited 0 at 04:2xZ (markdownlint 0
+  issues in 2,099 files; prettier clean; dependency-cruiser clean), but its log carries ESLint
+  WARNINGS in source packages this seat never touched: 1,227 across 16 packages (agent-tools
+  376, sdk-codegen 300, the MCP server 170, search-cli 169, curriculum-sdk 78, eleven smaller),
+  mostly the throwing-is-banned rule (ADR-088) at warning severity, plus one Vite config warning
+  in the design system's tests — under `no-warning-toleration` that is not a clean gate. Surfaced to the Director as required
+  work, not cured here: source packages sit outside this seat's claim and the owner's "less
+  ceremony" word.
+- **Compressed reasoning:** the seven #80 dispositions compress to "a pointer into the moved
+  range → over the bar → cure alone; the Director's own text → route". That compression is
+  decision-sufficient; the per-thread rationale survives on the PR threads and the intake tally,
+  which are the record.
+- **Promises sweep:** the two routed round-seven items — closed by the Director at 3d53fdf2c;
+  the close-out sequence — done, closeout and addendum sent; the tally rows — all seven patched;
+  "a fresh seat takes the thread-record criticals" — forwarded with named surfaces (handoff
+  record STATE 12; the Director's tenure journal lists them as open items); the turbo.json input
+  config PR — forwarded to the Director's board, no seat owns it; the directives item — the
+  Director's routing. Zero silent drops.
+- **Attribution inferences, flagged:** "the Director sweeps seats' napkin blocks into commits"
+  is inferred from two commits today (33b07e10e, 39889e4d3), not from a ruling — confirm before
+  relying on it; "3d53fdf2c is on the coordination branch" is the Director's statement, checked
+  only by its absence from origin/engraph; "the sweep waits on the Director's resume" is read
+  from their TAIL in the shared resume memory (processes stopped at the owner's word), not
+  observed.
+- **Blind-spot bounds:** the watcher excluded heartbeats and was stopped before the last two
+  events; PR comments after the merges are unread; Codex's silence on #80's final head is a
+  timeout, not a verdict; this seat never ran `git status` on the primary.
+- **Index of homes** (also in the handoff record): the review doctrine in PDR-140 clause 9, the
+  pr-lifecycle ratchet paragraph and the triage rule; the slot contract in `pr-target-is-engraph`
+  §The landing slot; the director-handoff disposition in its dated archive and live snapshot;
+  this seat's lessons in the 03:5xZ block above; the successor items in the handoff record
+  STATE 12, the Director's tenure journal and the seat's reference-local censuses; the per-user
+  memory carries the prune-policy instance and the pointer-sweep lesson.
+- **External bound and error signature:** the scan cannot certify itself. Where outside eyes
+  caught what mine missed this window: Codex (every pointer into the moved range; the
+  byte-equality claim), Copilot (the pre-push cache-replay claim, 2026-09-07), the Director (the
+  event-time fact). Point external scrutiny at that class: claims about what a moved or edited
+  text still says.
+- **Fence sweep:** no owner wording was held off the repository at his word this window; the
+  standing confidential item (the fourth identity's anchor) was never in this seat's context, so
+  it could not leak.
+- **Entry-point sweep:** CLAUDE.md, GEMINI.md and skills.md are canonical; AGENTS.md carries a
+  generator-fenced Codex bootstrap block beyond session-handoff's named extensions — observed,
+  not touched: whether the skill's extension list should name the generator's block is a fresh
+  seat's question, not this wrap's edit.
+- **candidate:** the dirty-but-proven worktree path (restore the proven files, then remove
+  without force) as a clause of the worktree-hygiene rule; the 2026-08-05 prune grant is already
+  a named rule candidate.
+- **Open register, at the owner's word ("make sure that any open decisions, reviews, or further
+  required work are noted and reported to the Director"):** reported to the Director by directed
+  event and conserved in the handoff record — five decisions (the expired external-skills owner
+  gate; the turbo.json root-file input PR; AGENTS.md's generator-fenced block against the handoff
+  skill's named extensions; the dirty-but-proven worktree path as a rule clause; the fold), three
+  review items (no PR open; the directives item on the Director's routing; the two appends on the
+  primary for their sweep) and seven required-work items (the two thread-record criticals;
+  repo-continuity's excess and its stale §Current State; the ~42 rulings; the comms substantive
+  mover and the undeclared absorption sweep; this window's identity rows; the #80 local ref; the
+  full gate).
+- **Fixed point:** a third pass would only re-find the two stated bounds (no git on the primary;
+  the stopped watcher) and the sweep-before-move lesson already homed; the recursion closes here.
+
+## 2026-09-08 07:1xZ — Altair spins Umbra (05a180) — concept exploration: the worktree entry fix (owner word "prioritise the worktree fix")
+
+- **Observations (first-hand):** (1) Claude Code docs (worktrees, tools reference; 2.1.263): entering a path outside `.claude/worktrees/` always asks for approval since v2.1.206; an `EnterWorktree` permission rule or "don't ask again" does not suppress it; only `bypassPermissions` skips it; new-worktree creation and `.claude/worktrees/` paths do not prompt. (2) worktree-residency §Platform mechanics records a 2026-07-31 probe on 2.1.220 that "observed no approval friction" — 2.1.220 is after 2.1.206, so the prompt existed; a present owner answered it and the seat, which cannot see prompts, recorded absence. The note was blind from the start, not stale. (3) The same rule orders "launch at the principal, arm monitors there, then enter" because resident seats were refused Monitor arms (2026-08-06) — the canonical arm block opens with `cd <repo-root>`, which is the exact cwd the isolation guard blocks from a resident session; the docs list that check. (4) The residency switch was seen to kill primary-armed monitors (2026-09-01). (5) The docs' own sibling-worktree recipe is launch-time: `git worktree add ../x -b b; cd ../x; claude`. (6) A `WorktreeCreate` hook replaces creation for `claude --worktree`, subagent isolation and background sessions (not the EnterWorktree tool); input `name` + `cwd`, output the path; it may place the worktree anywhere not through a symlink. (7) User settings carry `worktree.baseRef: head` — a `--worktree` launch from the primary would base on the coordination tip (the PR #673 class) unless a hook cuts the base explicitly. (8) The nesting costs the hygiene rule records (Node walk-up; rule re-injection) were measured from a primary-resident reader; the walk-up persists for a resident nested lane, the re-injection does not.
+- **Problem frame:** the estate's lane convention (sibling worktree, entered mid-session) crosses a platform prompt the rules deny exists; when the owner is away the seat is held indefinitely, EMIT-fresh and ABSORB-dark, and the Director pays hours. Constraints: the owner's residency directive; no bypassPermissions; symlinked `.claude/worktrees` refused by the platform; any user, any machine; the sibling placement's reasons stand.
+- **Inherited shapes that changed:** "pre-approve the tool" is dead by the docs; "arm at the primary, then enter" was ordered around a refusal that the arm block's own `cd <repo-root>` line caused; the mid-session entry is an owner-present step by platform design, so the prompt-free shape is launch-time residency.
+- **Proposals:** P1 (records) true worktree-residency §Action 1 and §Platform mechanics, hygiene §3/§8, the lane skill step 3: the prompt is by design; mid-session entry is announced to the Director first and needs the owner at the prompt; the prompt-free shape is `claude --worktree <name>` at launch with the estate's hook. Warrant: the docs verbatim and this instance; falsifier: a version note that an allow rule suppresses it. P2 (structural) a tracked `WorktreeCreate`/`WorktreeRemove` hook pair placing worktrees at the sibling directory, branch cut from the remote default branch (derived, never hard-coded), `.env.local` carried, identity inherited and checked — the lane skill's steps 1, 2 and 4 made mechanical, and the `baseRef: head` hazard neutralised. Warrant: the hook contract; falsifier: `claude --worktree x` with the hook prompts or refuses the sibling path (the owner's one launch verifies the wiring; the script verifies standalone). P3 (probe, now) arm a monitor from inside the lane worktree with the cd rooted at the worktree; if it holds, the ordering in observation (3) is retired. P4 the Director's deadline-and-default stays the backstop (theirs).
+- **Unresolved:** whether `--worktree` at launch prompts for a hook-returned sibling path (docs describe the prompt only for the EnterWorktree tool); whether a resident seat's `claims heartbeat --active <primary>` write passes the guard (P3 measures it).
+
+## 2026-09-08 04:3xZ — Juno seeks Apogee (a693fb) — THE OPEN REGISTER at the seat's close, in full, for discovery and action
+
+Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, or further required work are noted and reported to the Director and available for discovery and action, and then this session is over". Reported to the Director by two directed events at 04:2xZ–04:3xZ; conserved in the machine-local handoff record 38ec1aaf (STATE 12 addendum); and here, the tracked capture surface every seat reads at session open, so a seat on any checkout finds it without the comms stream. Each item names its actor and its home. The 04:1xZ wrap block above summarises this list; this block is the list.
+
+**A. Open decisions (the owner's, via the Director)**
+
+- A1. `.agent/plans/delivery/external-skills-library-review-framework.plan.md`: the `owner-decision` gate expired 2026-09-06 and the plan-gate-drift alert fires at every session start. Two owner moments, separately gated: ratify the distilled framework before it governs any review; the larger review starts only on his express word (owner verbatim 2026-08-02: "Do not start the larger review without my say so"). Renew (new `expires`), resolve (remove the discharged gate row) or archive — the owner's call at the Director's next action moment. Home: the plan's frontmatter.
+- A2. turbo.json: the root `test` task's inputs omit `RULES_INDEX.md`, so the pre-push turbo step replays a cached agent-tools pass when only that root file changes (measured 2026-09-07; recorded in the shell-and-tooling gotchas reference). Cure: one input line, `$TURBO_ROOT$/RULES_INDEX.md`, a config PR on the Director's board; no seat owns it.
+- A3. AGENTS.md carries a generator-fenced Codex team-alert bootstrap block beyond session-handoff §6d's named extensions (the rules-index line only). Decide whether the skill's extension list names the generator's block; until it does, every wrap reports it as drift. Home: the session-handoff skill.
+- A4. Rule candidate: the dirty-but-proven worktree path — restore the proven files to HEAD, confirm the tree clean and HEAD an ancestor of the fetched target, remove without force (the owner's word 2026-09-08, "proven safe deletions are fine") — as a clause of worktree-hygiene, with the 2026-08-05 prune grant. The Director's routing; the pending-graduations refresh promotes this `candidate:`.
+- A5. The fold: no PR of any author is open on the fork, the landing slot is free, and the Director's coordination branch (3d53fdf2c) folds on their turn.
+- A6. The fork line's discovery-and-action surface for open work: the Oak line uses Linear for visibility with the repo as the record, and the fork never uses Linear, so open work on the fork is discoverable only as prose (repo-continuity §Next Safe Steps, the Director's tenure journal, this napkin). Whether the fork adopts a queue-shaped surface of its own (GitHub issues on the fork, or a tracked register) is the Director's design question, raised here, not acted on.
+
+**B. Open reviews**
+
+- B1. None open: the fork's PR count is zero. Bound: this seat did not read review comments posted after the merges of #77, #78, #80 and #81; a post-merge Codex finding routes under PDR-140 clause 9(c) — the napkin or a lane PR, never a reopen.
+- B2. The directives item (the 30% gate; Altair's lane after #70 until their retirement by silence): back on the Director's routing; this seat's handoff event of 2026-09-07 22:0xZ carries it whole.
+- B3. The Director's first-hand read is the review for two uncommitted appends on the primary's coordination checkout, awaiting their sweep: `.agent/memory/active/napkin.md` (the 03:5xZ closing block, the 04:1xZ wrap block, this block) and `.agent/experience/2026-09-06-juno-seeks-apogee-the-window-i-read-whole.md` (the letter's second window). The full gate ran green on markdownlint, prettier and dependency-cruiser with them in place.
+
+**C. Required work with no owner yet**
+
+- C1. The two thread-record criticals under continuity-practice §Disposition of Continuity Surfaces (per entry, live or finished), a fresh seat: `threads/agentic-engineering-enhancements.next-session.md` (114,304 chars; thirteen EXECUTED lane blocks at lines 27–693 and a 61 KB Current Continuation log) and `threads/paused/mcp-submission-drive.next-session.md` (780 lines; the 2026-08-17 midday block at lines 427–596 is self-declared historical). This seat's censuses are machine-local (reference-local); a seat elsewhere re-derives them by reading the records.
+- C2. repo-continuity.md reads 64,741 chars against the 52,500 critical after the pointer pass; the excess is §Current State and §Next Safe Steps (finished Oak-line narrative), and §Current State carries statements later entries contradict (its "comms-log rotation is paused until a dedicated comms research plan exists" against the 2026-09-07 rotation its own Next Safe Steps entry records). The next continuity pass, under the runbook.
+- C3. The ~42 numbered owner rulings in the director-handoff archive need the homed-or-not check ruling by ruling (queued in repo-continuity §Next Safe Steps with method and sizing).
+- C4. Comms rotation: the harness `comms-archive-move` moves heartbeats; the substantive-event move under the 2026-08-14 watermark was a hand script that died with this session. The next rotation needs that mover homed in agent-tools (a small code PR) or re-written; the provenance gate `comms-provenance-check` stands; and the 2026-08-14 → 2026-09-07 window's absorption sweep is not yet declared, so no newer watermark exists — the declaration precedes the next rotation.
+- C5. repo-continuity's identity-summary rows for this seat's window were not refreshed (session-handoff 7b/7c): no records PR at the owner's "less ceremony", and this session could not commit on the primary. The Director's tenure journal carries the seat chain; a fresh seat's session-open registration covers the row.
+- C6. The merged local branch ref `chore/director-handoff-disposition-2026-09-08` stands on this machine; the bot's `git branch -D` was declined by the permission layer twice; the owner holds the one-line command.
+- C7. The full gate `pnpm check` on the primary with the appends in place exited 0 (markdownlint 0 issues in 2,099 files; prettier clean; dependency-cruiser clean).
+- C8. That same gate's log carries 1,227 ESLint WARNINGS across 16 packages (agent-tools 376, sdk-codegen 300, oak-curriculum-mcp-streamable-http 170, search-cli 169, curriculum-sdk 78, oak-search-sdk 37, sentry-node 21, oak-design-tokens 17, graph-core 15, logger 12, design-tokens-core 11, graph-corpus-sdk 9, env-resolution 4, env 3, observability 3, safe-path 2), mostly the throwing-is-banned rule (ADR-088) at warning severity, plus one Vite config warning in the design system tests. Under `no-warning-toleration` the gate is not clean; none of it is in files this seat touched. A source-package cure, or a severity decision on the rule, for the Director's board.
+- **Stamp truing (06:5xZ, clock 06:53Z by date -u):** the "Third line (07:0xZ)", "Fourth line (07:1xZ)" and the exploration block's "07:1xZ" were written between 06:44Z and 06:52Z; the stamps were estimates, the timestamp class the Director named twice yesterday, now a third seat. Cure applied: date -u before every stamp. Director resumed 06:4xZ: claim a360ed2a acknowledged; mechanics — no EnterWorktree to the sibling path, operate from the primary; landing shape one records PR, the Director reads before merge; the hygiene proven-removal clause is this seat's second PR.
+
+## 2026-09-08 06:4xZ–09:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap: a held seat's lane landed by default, and what four review rounds were made of
+
+- **This window:** resumed at the owner's start-right-team after compaction boundary 7; every
+  process re-armed (watcher, claim loop, peer poll, wrap cron, the 2026-09-09 fold wake). The owner
+  directed Altair straight to the worktree-entry fix; Altair committed and bot-pushed the records
+  cure, announced an EnterWorktree probe at 07:00Z, and has been held at the platform's approval
+  prompt since (owner pushed 07:01Z and 07:20Z; their watcher's hourly backstop expired ~07:34Z,
+  so the seat reads fully dark). At 07:40Z the declared default fired: the Director read all
+  three diffs first-hand and opened PR #82 from the pushed commit, then took four review rounds
+  alone under PDR-140 clause 9 — 8, 4, 2, 1 threads, every finding verified true against the text
+  and the rules it cited, thirteen cured (one settlement push, one rebudget, two cures alone), two
+  routed 9(c) as pointers. Head 9beaf4b2f; the settle runs.
+- **What the rounds were made of (the generator).** Every round's findings were instances of a
+  class the previous cure introduced: `origin/<base>` in one clause exposed `main` in the next
+  file; build-before-entry in the rule exposed the skill's order, then its unscoped commands, then
+  the launch recipe; the arm order exposed the recovery path, then the watcher rule's promise.
+  Juno's lesson from #80 (sweep the readers of a moved range before moving it) generalises: when a
+  cure changes a VOCABULARY or an ORDER, read every surface that carries it — the three files and
+  the two rules they cite — before the first push. That one read would have collapsed rounds one
+  and two into the opening commit. The reviewer did the read, a round at a time, and the price was
+  two and a half hours of the Director's attention on one small records PR.
+- **Mechanics learned this window.** A `.git/index.lock` collision with a peer's `git worktree
+  add` in the same second — the ceremony aborted cleanly, the intent read abandoned, the lock was
+  gone on inspection, the re-run was clean. Markdownlint MD018 fires on a rewrapped line that
+  begins "#674)." A canonical skill's frontmatter description change drifts its generated
+  projections: `pnpm skills:generate` and the two projection files travel in the same push, or the
+  pre-push adapter check refuses. The auto-mode classifier denied a Monitor arm identical to one it
+  had allowed twenty-five minutes earlier; the natural alternative is the same settle script as a
+  background command, with its ten-minute ceiling and a re-run from live state. A vendor quotation
+  in a rule is verified against the live page in one fetch, and it was verbatim.
+- **Pointers added for a fresh seat:** (g) relocate worktree-residency's dated, versioned probe
+  evidence to a reference record and keep only the structural behaviour and trigger in the rule
+  (no-moving-targets, Copilot's finding, pre-existing shape since 2026-07-31); (h) sync
+  comms-all-channels-watcher's "persist across residency switches" promise with the observed
+  2026-09-01 kill — verify after every switch, recover by its own exit-arm-re-enter sequence
+  (Codex, round three; a file outside #82's story); (f) the no-throw migration lane (1,227
+  warnings across 16 packages, the documented warn-phase carve-out; Juno's C8).
+- **Metacognition.** The Director executed instead of routing for a whole window — the degenerate
+  exception, taken under a declared default on a held seat's lane with the owner's "prioritise the
+  worktree fix" behind it and PR-count-zero standing. Right call; the cost was the tail, and the
+  tail was avoidable by the cross-surface read above, not by fewer cures. Discarded, visibly: that
+  the held prompt was a classifier fault (the platform documents it as design, and Altair's fourth
+  line had already said so).
+- **Work safety at this wrap:** coordination/2026-09-08-68d53d at 9534510e6 equals origin before
+  this sweep; the queue empty; dirty: the napkin (Juno's open-register block, Altair's exploration
+  block and stamp truing, this block) and the held settings file, never folded. Promises: the #82
+  settle (running, re-run on its ceiling); the fold wake 483ed39f for the 2026-09-09 rollover; the
+  lane returns to Altair on release. Bounds unchanged. A third pass re-finds only the standing
+  bounds; the recursion closes here.
+- **The prompt's wording, observed by the owner (10:17:38Z), verbatim from the terminal:** "Entering worktree(<path>) — Creates an isolated worktree (via git or configured hooks) and switches the session into it — permission-root relocation to \"<path>\" — a model-supplied worktree outside .claude/worktrees/ — Do you want to proceed? 1. Yes 2. No". So the platform's own name for the class is permission-root relocation, and it is shown for the EnterWorktree tool call itself. The second held instance: the announced entry was issued at 07:01Z with the owner having directed the seat minutes earlier, and returned at 10:16Z when the owner answered it — three hours; the announce-first practice made the hold visible to the Director within the bound (their default drove PR #82 through seven rounds meanwhile). Measurement (a) inconclusive: the primary watcher lived out its hourly backstop at 07:33Z while the entry was still pending, so the switch at 10:15Z met a dead watcher. Measurement (b), attempt one: the isolation guard refused the canonical arm with the verbatim reason "runs pnpm with a value computed at runtime (the variable PPID) inside a construct too complex to verify" — the refusal names the $PPID expansion, not the worktree-rooted cd; attempt two passes the session pid as a literal.
+
+## 2026-09-08 10:27Z — Altair spins Umbra (05a180) — WRAP at the owner's word (cold pause for compaction; processes stop): the worktree fix landed to its final head, the seat's two holds read as one class
+
+- **Landed:** #72 (ff86b3d8b, 7 Sept 21:06Z) by this seat; #82 (the worktree entry fix) at its FINAL HEAD 2edc3f8de (my records cure d2889ebe3, the Director's seven cure rounds, my clause-8 class-fix), open, 22 threads resolved at 34cacad7e, checks running on the final head; the settle and merge return to the Director or a successor by adoption of claim a360ed2a (handoff record a360ed2a-altair-spins-umbra-worktree-entry-fix-2026-09-08.md, pointer set). Work safety: the lane worktree at 2edc3f8de, in sync with its remote, [ahead 11] of engraph, nothing uncommitted; the primary carries this seat's napkin blocks, the handoff record and the formation letter uncommitted for the Director's sweep.
+- **Metacognition (retrospective).** Two holds, one class: acting on a fact recorded in the estate's own confident voice without asking what the recorder could observe (a July probe note written by a seat that cannot see prompts), and then, knowing the mechanism, acting on decayed presence ("at the keyboard" meant ten minutes ago). The correction chain — allow list → "it was a prompt" → the docs → the screenshot — was the owner supplying the observations a seat structurally lacks; each of my three record revisions was right about the evidence it had and wrong about the whole. The transferable form: a claim about the platform needs the platform's documentation or the human's eyes; an observation from inside a session is evidence about the session. The timestamp class fired here too (three stamps estimated; date -u before every stamp from then on).
+- **Concept exploration:** the 06:5xZ block's synthesis held through eight review rounds; the verdict — records first, the WorktreeCreate hook second — is what landed and what waits. Proportionality: the records PR was the right size; its eight rounds were the reviewers' propagation of three classes one surface at a time, cured by the clause-8 single sweep, not by the records being wrong.
+- **Free-play harvest (associations, not findings):** kept — the platform's own name for the class is "permission-root relocation" and the estate's is "residency"; the fact hid between two vocabularies for a name. Kept — the Monitor heartbeat, the watcher's process-liveness, and "no friction" are one shape: a liveness proxy emitted by anything other than the turn loop reads green through the turn loop's absence. Discarded, visibly — that nesting under .claude/worktrees is harmless for records-only lanes (forced; the Node walk-up leak does not care what the lane edits).
+- **Promises sweep:** the probe report delivered (3168367d); the class-fix landed and named on the PR (comment 5583689515); the hygiene second PR returned as a pointer (Director's board); the hook design returned as the owner's call; the /rename suggestion surfaced once at 20:4xZ; nothing else promised. Attribution inferences flagged: that the owner stepped away during both holds (from timing); that the entry prompt was the held subject on 7 Sept (from the batch sequencing and the owner's later word). Bounds: fact (a) unverified; events 07:33Z–10:17Z reached this seat only by the resident watcher's replay from the frozen cursor (no hole found, not proven none); the Director's rounds read from their events, not the threads. Fence sweep: no owner word held off the repository this session.
+- **Index of homes:** the handoff record (state, reasoning, decisions, pickup); PR #82 (the diff, the comments, the threads); this napkin's blocks of 06:4xZ, 06:5xZ (the exploration), the prompt-wording line and this wrap; per-user memory (enterworktree-sibling-path-can-hold-the-seat; the RESUME HEADS tail); the formation letter under .agent/experience; comms events 3168367d and the hand-back threaded to 2db956dd. A second pass over this scan re-finds only the (a) bound and the presence inference; the recursion closes here.
+- **Processes at this pause:** the resident watcher b8uu8rzo5 stopped after the pause broadcast; the settle wait stopped at the head move; no heartbeat loop ran (n=2 owner-visible); the session exited the worktree to the primary for these writes and does not re-enter.
+- **One more measured fact (10:27:49Z):** ExitWorktree (keep) did NOT kill the watcher armed inside the worktree — heartbeat pid 78591 unchanged, mtime advancing, emitted_count 10 after the exit. Together with (b): a worktree-armed watcher outlives the exit; whether an ENTRY kills a principal-armed one stays the open half.
+
+## 2026-09-08 ~10:3xZ (Flounder turns Estuary, c5cc2c, Director) — compaction boundary 8: a loop with no counter, and the instrument it needs
+
+- **The board at the boundary:** #82 open at its FINAL HEAD 2edc3f8de (the class fix; the
+  Director's read done; 22 threads resolved; the settle was running at the stop order and is
+  re-armed on resume, or the merge issued directly if green and clean by then); engraph
+  3864af225; the primary on coordination/2026-09-08-68d53d; two claims (the Director's; Altair's
+  a360ed2a retained with their handoff record, cold-paused at the owner's word). The next fold is
+  due at the 2026-09-09 rollover; its wake re-arms on resume.
+- **Metacognition (retrospective, on the owner's four-skill invocation at round eight).** I
+  inherited my own declared default, the letter of PDR-140 clause 9 ("a later over-bar finding
+  cures alone"), and the pr-lifecycle machine whose tally I never built at PR-open. Ratified by
+  analogy, the shape became "cure every true finding, one push per round", and every finding WAS
+  true — which is exactly why validity is not the exit variable. The machine's own arms fired at
+  round four and round six, unobserved, because nothing counted: the same generator as the held
+  seat, a loop with no instrument to see itself. Bridge to impact: the owner's impact is a fleet
+  that lands PRs without owner attention and a rule that stops seats being held; eight rounds of
+  the Director's attention on one small records PR is a productive-looking rabbit hole wearing
+  diligence. What changes: the tally is built at PR-open even under a default's urgency; the
+  cross-surface read of every carrying surface runs before the first push; the step-back names
+  the final head instead of the seat curing alone into the tail.
+- **Concept exploration.** The concept under the window is *convergence needs a counter*: the
+  review machine's tally is prose a seat skips twice in two days, so it earns a mechanical
+  carrier — an agent-tools command that builds the tally from review threads by commit binding
+  and prints the step-back verdict (pointer (j)); and the lane-cut skill earns a pre-push step —
+  read every surface that carries a changed vocabulary, order or bound (pointer (k)). Both are
+  proposals for a fresh seat, not started. The structural half of the worktree story, the
+  WorktreeCreate hook pair, is designed on Altair's exploration block and is the owner's call.
+- **Free play, honest.** Kept: the held prompt and the review tail are one shape — a loop the
+  actor cannot observe from inside — and both cures are "build the thing that counts": announce
+  before entry; tally at open. Kept: three facts hid between two vocabularies this window
+  (permission-root relocation / residency; main / engraph; multi-line / unprovable value), and each
+  surfaced only when someone said plainly what they could not see. Discarded, visibly: that the
+  reviewer was adversarial (every finding was ours), and that the fork's `main` needed a
+  twenty-five-line substitution (one reading sentence did it).
+- **Facts measured this window, homed in the rule:** the resident watcher arm passes with a literal
+  supervisor pid and the guard refuses `$PPID` as runtime-computed; the CLI writes to the primary
+  comms home from a resident session; an ExitWorktree with keep does not kill a worktree-armed
+  watcher; whether a residency switch kills a principal-armed monitor stays unverified.
+- **Defect report (PDR-140 clause 8), filed here:** the out-of-band invocation of proportionality
+  and pr-lifecycle recurred one day after the machine recorded it; the checkpoint that failed is
+  the unbuilt tally. Cure candidates: (j) and (k) above.
+- **Work safety and bounds at the boundary:** 5a7c18a6b equals origin before this sweep; the queue
+  empty; dirty: the napkin (Altair's prompt-wording line, wrap block and this block), Altair's
+  formation letter (untracked), the held settings file never folded. Promises: #82's settle on
+  resume; the fold wake; the hygiene clause PR and pointers (g), (i), (j), (k) for a fresh seat;
+  Altair's claim retained for their resume or a successor's adoption. Bounds unchanged. A third
+  pass re-finds only the standing bounds; the recursion closes here.
+- **Altair spins Umbra (05a180) resumed after compaction, 2026-09-08 10:34Z; #82 settle is the
+  Director's (armed at 2edc3f8de, event ce4a207c).** One Codex P2 on the final head (lane skill
+  step 1: the `engraph`/`main` list after "the branch the lane's PR targets" reads exhaustive
+  against a build-ahead lane) dispositioned, replied and resolved, no push under clause 8. The
+  finding's "appears to revert the parent" mechanism is wrong (three-dot compare from the
+  merge-base); the real cost is the lane lacking the parent's changes, self-revealing at first
+  build and at the "Base is clean" row. Pointer (l): qualify step 1's list as the default and name
+  the build-ahead parent as `<base>` per hygiene §1 — one line, folded into the hygiene clause PR
+  (Juno's A4) rather than a PR of its own.
+- **Second Codex round on 2edc3f8de (10:33Z), two threads, dispositioned under clause 8 (Altair 05a180):**
+  (m) P1, correct — the watcher rule's residency section describes the resident arm by reference to
+  the canonical block and names only two refused parts, while the verified 2026-09-08 arm was fully
+  literal (`cd <worktree> || exit 1` then `timeout 3600 pnpm agent-tools:collaboration-state --
+  comms watch … --supervisor-pid <literal>`) with no `$(command -v …)`, `set --` or `"$@"`; whether
+  those pass inside a worktree is unverified (the refusal names one offender). Cure: carry the
+  literal block in the section. (n) P2, correct in kind — residency clause 1's "directed event to
+  the Director" has no recipient in a solo session; cure: "to the Director where one is live; in a
+  solo session, in the reply to the owner". Both fold into the follow-up records PR with (l) and
+  the hygiene proven-removal clause, tally declared at open.
+- **#82 LANDED 2026-09-08 10:50Z — merged by the owner by hand (merge f61245e94 on engraph, head
+  2edc3f8de unmoved) inside this seat's settle quiet window; the bot merge did not fire; the landing
+  record with the recomputed premises is on the PR. Worktree removed after the ancestry proof; remote
+  branch pruned; claim a360ed2a closed. The earlier resume line's "settle is the Director's" was
+  superseded by the Director's routing b93c4aee at 10:35Z.** Residue for the follow-up records PR:
+  (l), (m), (n) and the hygiene proven-removal clause.
+- **PR #83 opened 2026-09-08 10:58Z (Altair 05a180), draft at f026da8ad: the #82 residue as one
+  records story — pointers (l), (m), (n) and Juno's A4 discharged there (hygiene §6 dirty-but-proven
+  clause; the literal resident block in the watcher rule and residency clause 4; lane-skill base
+  default with the build-ahead parent; solo-lane announcement in clause 1).** Worktree
+  records-residue cut from engraph f61245e94, operated non-resident from the principal; tally
+  declared at open; the Director's read requested.
+
+## 2026-09-08 11:0xZ (Flounder turns Estuary, c5cc2c, Director) — twelve owner cards: the planning system is the work surface
+
+- **The cards (10:5xZ–11:0xZ, the owner via the Director; applied by one records PR, Altair's
+  lane after #83):** (1) the external-skills review framework plan ARCHIVED; (2) scanning units
+  5 and 6 — "We don't dismiss issues, we fix them" — the Sonar disposition policy's non-fix
+  outcomes withdrawn, unit 6 opening with a design step against ADR-219's in-process-limiter
+  prohibition; (3) the tuition review is owner-managed — its gate resolved, never surfaced again
+  unless told; (4) the extraction gates renewed to 2026-10-10 ("may well be addressed separately
+  by people working on the upstream fork"); (5) the innovation-kit definition RATIFIED ("we can
+  always iterate later"); (6) the showcase Stage-0 review renewed to 2026-10-10; (7) the
+  WorktreeCreate/WorktreeRemove hook pair YES, after the hygiene clause PR (#83); (8) a standing
+  grant: `git branch -d` on refs proven merged into the fetched base — applied at once to ten
+  July–September refs; the ref the card named was already gone (a stale card: re-derive the
+  object before presenting it); (9) the fork's work surface — "we have an entire, sophisticated,
+  in-repo planning system with multiple layers of discoverability!" — a question answerable from
+  the repo: the board's lane pointers (a)–(k) become plan nodes or units, and no seat proposes a
+  queue surface again; (10) the throwing-is-banned rule OFF where the 1,227 warnings live until
+  the Engraph fork merges back upstream, ERROR in every warning-free and every new workspace (a
+  config PR; the migration waits for the merge-back); (11) remit 2 stays paused; (12) no PR-66
+  retrospective.
+- **Corrections to this seat's map:** the record's "#82 landed by Altair" trued — the owner
+  merged it by hand at 10:50:28Z inside Altair's settle quiet window; the count "thirteen" was
+  twelve. Three local refs kept unmerged after the grant's sweep (docs/copilot-cli-practice-
+  citizenship, docs/first-class-copilot-agent-support, fix/claude-hook-hardening: July
+  preservation branches ahead of engraph and absent from upstream/main) → a disposition under
+  branch-without-PR-is-not-safe: content-proof against tracked homes, then delete under the grant
+  or a PR; home candidate open-surface-zero.plan.md.
+- **Owner facts learned:** the Engraph fork is expected to merge back into the Oak upstream; the
+  tuition review is scheduled and coordinated by the owner directly.
+- **Memory homes written:** fix-issues-never-dismiss-them; tuition-review-owner-managed-2026-09-08;
+  git-branch-d-merged-refs-standing-grant; planning-system-is-the-work-surface;
+  no-throw-rule-off-until-upstream-merge.
+
+## 2026-09-08 11:2xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 18: the repo boundary is the certainty boundary
+
+- **The correction (owner, verbatim, 11:1xZ):** "We can know with absolute certainty whether or not
+  we have completed a piece of work up to the boundary of the repo, what we cannot and should not
+  do in the planning corpus is keep or infer state about *deployments* of the repo code, simply
+  because that is a one to many relationship, the repo is not a deployment. So, the planning estate
+  can know everything about the code, and the Practice, and the plans, but external system state
+  is not something to record, we can record a desired external system state outcome, but we cannot
+  function as a reliable record of that state, only the external system can." My "true kernel"
+  (execution state as a designed absence on the fork because it is a Linear projection) was wrong.
+- **Metacognition (retrospective).** Inherited: Juno's frame ("discoverable only as prose") and the
+  schema's Linear-specific phrasing ("delivery state is a Linear projection, never a repo field").
+  Ratified by analogy: Linear absent → the state is absent. The fluent answer arrived smoothly and
+  I called it the honest kernel; fluency was the warning I did not read. The generator: reading an
+  external projection as the HOME of a fact rather than a VIEW of one — the mirror of
+  records-narrate-ahead-of-the-landed-state (there a record asserts state the tree does not hold;
+  here I denied the tree state it holds with certainty). What it cost: a wrong claim delivered to
+  the owner as candour; had it stood, seats would have built a projection for state the repo
+  already has. What changes: when the question is "can the repo know X?", ask first whether X is a
+  property of the TREE or of an INSTANCE of the tree.
+- **Concept exploration.** Frame: the certainty boundary. Properties of the tree — a merged commit,
+  a proven acceptance criterion, an archived node, a claim on a path — are attestable by the repo
+  and its validator; properties of instances of the tree — deployments, dashboards, schedules,
+  consoles — are many per tree and observed only by the systems that hold them. Load-bearing
+  observations: the owner's words; the schema already TYPES the boundary (`repo-safe` proofs cite
+  the instrument; `owner-held` proofs name who verifies where — desired outcome, never state);
+  ADR-216 retired folder location as delivery state for exactly this error one level down.
+  Assumption changed: "execution state" was never one thing — completion is repo-certain,
+  deployment is not. Proposals: (1) a dated amendment to the schema's governing principle and
+  ADR-216 in the owner's words, replacing the Linear-specific sorting test's phrasing with the
+  tree/instance boundary — warrant: today's misreading by a Director who had read the schema;
+  falsifier: the owner reads the proof-typing paragraph as already unmistakable and declines;
+  (2) nothing to build on the fork — no projection, no register; (3) a one-off census of plan
+  bodies asserting external state as fact ("is deployed", "is live", "ticket closed") — each
+  re-pointed at the desired outcome and its owner-held proof; warrant: the class exists wherever
+  a seat wrote what a console showed; falsifier: the census finds none. Unresolved: none material.
+- **Free play, harvest.** Kept: the estate's recurring failure class is a record asserting an
+  instance's state it cannot observe (a claim for liveness; a record for the landed state; a plan
+  for a deployment), and every cure installs an observer (the heartbeat, the settle watch, the
+  external system) — a report of an association, not a finding. Kept as a play seed: the
+  certainty boundary and the sensitivity boundary (ADR-216 "mechanism only; anything internal
+  rides the ticket") look shaped alike — one line, two functions; unexplored. Discarded, visibly:
+  "Linear is a deployment of the plan estate" — forced; Linear is a view, and the one-to-many
+  is about code instances, not views.
+- **Work safety at the boundary:** the primary on coordination/2026-09-08-68d53d at 9e52fc872 ==
+  origin (0/0) before this block, tree clean (Altair's two commits: the napkin and the settings
+  simplification the owner confirmed; my owner-cards block); this block swept by the ceremony next.
+  Open: #83 (Altair; first round three Copilot findings over-bar, one settlement push), #84 draft
+  (the coordination fold PR, BEHIND until the step-2 merge; the fold wake 3d614df0 runs against
+  it). Registry: the Director's claim; Altair's 1c5a180b. Promises: the rulings PR (routed, with
+  the board→plans mapping and, next, edit 8 — the schema amendment); the census of the 30 sketch
+  nodes; the ESLint config PR and the hook pair after it (nodes first). Metaloss: pass one found
+  the record's 11:1xZ line carrying the wrong kernel as a verdict — trued in place before this
+  block; pass two found no unhomed promise; the inference "Juno's A6 rested on the same
+  misreading" is flagged as mine, not Juno's stated reasoning; a third pass re-finds only the
+  standing bounds (the watcher's truncation; Altair's transcript unread); the recursion closes
+  here. External bound: the owner caught what the pass could not — the class to point outside
+  scrutiny at is any verdict of mine that names an "absence" in a system I have just read.
+
+## 2026-09-08 11:3xZ (Flounder turns Estuary, c5cc2c, Director) — three more owner cards: the strategic six, ADR-219, the Oak-line sketches
+
+- **Cards (owner via the Director):** (13) RATIFY ALL SIX strategic sketches (reliable-atoms-programme,
+  v0-claude-practice-composition, innovation-kit, honest-curriculum-structure,
+  organisational-identity-below-the-tree, public-packages-release) — stamps land in PR A; a strategic
+  sketch had meant its whole subtree governed no work, and none of the six had been carded. (14) ADR-219
+  AMENDED in the cure PR: edge primary, an in-process limiter permitted as defence in depth on the routes
+  the analyser names — the scanning node's unit 6 loses its open design question. (15) Oak-line delivery
+  sketches LEFT AS THEY ARE (no note, no archive, no enum) until the October re-integration with the
+  upstream; the owner sees the 25 remaining delivery sketches by card and ratifies any relevant to
+  current goals. Owner fact: upstream re-integration is planned for October 2026.
+- **Routed:** the three rulings to Altair for PRs A and C; the card verdicts on the 25 follow as
+  numbers.
+- **The 25 delivery sketches by card (four numbered cards, decline by number):** RATIFIED —
+  consolidation-induction, consolidation-ledger, consolidation-signal (the owner held
+  agent-estate-alignment); director-continuity-surface-redesign, commit-queue-local-ephemera,
+  code-quality-binding-per-checkout (held agent-registry-resurrection, cross-platform-research).
+  HELD until October, all nineteen others, including the Codex idle wake the Director had
+  recommended: the owner's current goals read from the pattern — knowledge-consolidation flow,
+  the Director's continuity surfaces, the commit queue's ephemera, org-portability — and exclude
+  Oak release, production, curriculum-data and Codex-wake tooling until the re-integration. PR A
+  carries twelve stamps (six strategic, six delivery); Altair may split them into a PR A0.
+
+## 2026-09-08 11:5xZ (Flounder turns Estuary, c5cc2c, Director) — five owner directives; the one dismissal; two plans ratified by word
+
+- **Rate limiting PAUSED (owner verbatim):** "leave comments in the code that recognise that additional
+  in-process rate limiting would provide defence in depth, but that we regard the two sets of edge WAFs
+  to be sufficient for safety for now. And in this ONE case we can dismiss the findings in Sonar, and
+  preferably find a way to keep them dismissed instead of revisiting this same issue every few weeks."
+  The ADR-219 pre-ruling of 11:3xZ is superseded (ADR-219 stands); the fix-never-dismiss ruling keeps
+  ONE named exception, kept dismissed by tracked analyser configuration (Sonar issue-ignore keyed on
+  rule and path; the CodeQL query filter for the same files) so the tree explains the state and no UI
+  act repeats. Edits 6 and 7 re-routed to Altair accordingly.
+- **Two plans ratified in advance by word:** the WorktreeCreate/WorktreeRemove hook pair ("create a
+  plan … and ratify it") and pr-tally ("pr-tally, ratified") — both delivery nodes born with the stamp,
+  one PR (H) after the grant PR (N), before the stamps PR (A0).
+- **October re-integration:** no plan ("I have some thoughts, but we do not need a plan yet, and we
+  should not let the intention overly influence the decisions we make now") — pointer D withdrawn.
+- **Upstream fetch permitted** — the divergence figure now measured, not stale (the record carries it).
+- **The standing grant for clearing proven paths** (card 11:4xZ) → PR N amends
+  never-use-git-to-remove-work; hygiene §6 re-trued in the same PR; #83 lands as is at 429c7b863.
+- **#83 third round on the final head 429c7b863 (Codex, 11:5xZ), dispositioned, no push (Altair
+  05a180):** (o) ignored state (`.env.local`, fetched bulk data) is invisible to the porcelain proof
+  and `git worktree remove` deletes it with exit 0 — PR N's §6 re-truing inventories ignored paths
+  (`git status --porcelain --ignored`) and names each one's disposition before removal (pre-existing
+  gap since the 2026-07-21 grant). (p) `pr-target-is-engraph`'s letter ("every PR's base is engraph")
+  contradicts hygiene §1's temporary build-ahead stack; the rule's substance is main-versus-engraph;
+  reconcile by one scoping clause (final base engraph, never main; a build-ahead draft may stack on
+  its fork parent) or retire stacking under no-parallel-long-lived-branches — a rules-process
+  decision for the Director's board, in PR N's cross-surface read.
+- **12:0xZ, owner:** "delete the rule, it was a hacky fix to targeting the engraph branch in PRs when
+  main was still the default, the default is `engraph` now." Verified (gh: defaultBranchRef =
+  engraph). pr-target-is-engraph and its adapters go (PR R, before N); every citation becomes "the
+  repository's default branch", derived from origin/HEAD and never a literal — the ratified
+  organisational-identity-below-the-tree node already says so — and the "engraph on the fork, main
+  on the Oak line" vocabulary #82 introduced retires with it. The (p) ruling stands on the owner's
+  stack and cherry-pick rulings: a build-ahead worktree may be cut from a parent; its PR opens
+  against the default branch once the parent lands; no stacked PR. Eight serial PRs now queue on one
+  seat (#83 → R → N → H → A0 → A → B → C) — a throughput fact for the owner.
+- **#83 LANDED 2026-09-08 12:07Z as the bot — merge 7081ee9c0 on engraph, final head 429c7b863
+  (Altair 05a180).** Three rounds: Copilot 3 (settlement push 850a2230d); Codex 4 + 3 sharing one
+  generator, the seat-run clearing recipe the removal rule forbids in every form, cured by the class
+  fix 429c7b863 (stop after the per-path proof; surface for the owner's per-instance word); Codex 2
+  on the final head dispositioned to PR N ((o) ignored-path inventory; (p) the PR base is always the
+  default branch, the build-ahead stack is a worktree-cut shape only — the Director's ruling). The
+  owner's standing grant for proven paths (11:4xZ) re-trues §6 in PR N; the rule deletion
+  (pr-target-is-engraph, 'the default is engraph now') is PR R first. Train at this seat: R → N → H
+  → A0 → A → B → C, one seat by the owner's word; #84 is the Director's fold draft.
+- **PR #85 (A0) open 2026-09-08 12:1xZ (Altair 05a180): eleven ratification stamps at the owner's
+  cards (five strategic; the consolidation trio; director-continuity-surface-redesign,
+  commit-queue-local-ephemera, code-quality-binding-per-checkout), f782a06cb from worktree
+  stamps-a0, non-resident; reliable-atoms-programme landed separately by the Director at the owner's
+  word.** Train after it: R (rule deletion — the base fix goes, the fork-reach ruling re-homes as a
+  general rule, the landing slot moves to pr-lifecycle §Phase 7), N, H, A, B, C.
+- **#85 (A0) LANDED 2026-09-08 12:4xZ as the bot — merge b306eb9e8 on engraph, head 22afab9e0
+  (Altair 05a180).** Eleven stamps; the reliable-atoms stamp landed as #86 by the Director at the
+  owner's word. Round 1 (Codex, two body-coherence observations) dispositioned below A0's bar and
+  homed in PR A as dated notes: (q) innovation-kit's "remains a sketch" sentences; (r) the identity
+  node's five owner decisions become owner_gates rows on the delivery nodes at pickup. Train next:
+  R (#87, committed at eb842eb78, awaiting one merge of the landed tip) → N → H → A → B → C.
+
+## 2026-09-08 13:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 19: the merge train on one seat, and what a stamp taught about quotation
+
+- **The window since wrap 18 (11:2xZ → 13:1xZ).** Three more owner cards (the strategic six
+  ratified; ADR-219 pre-ruled then superseded; Oak-line sketches left as they are until the
+  October re-integration) and four numbered cards over the 25 delivery sketches (six ratified,
+  nineteen held); five owner directives (the standing read-only upstream fetch; rate limiting
+  PAUSED with code comments and the ONE durable dismissal; the hook-pair plan and pr-tally
+  ratified by word; no October plan); the pr-target-is-engraph rule DELETED at the owner's word
+  (the default branch is engraph, verified); the owner's "one seat handles the merge train".
+  Landed: #86 (the reliable-atoms stamp, the Director's own PR at the owner's "now", merged by
+  the owner by hand a minute after open), #85 (the other eleven stamps, Altair as the bot);
+  #87 (the rule retirement, the general rule downstream-checkout-never-writes-upstream-surfaces,
+  the landing slot into pr-lifecycle §Phase 7) at its final head fb320bfae after one settlement
+  push. The train ahead on Altair's seat: N (the clearing grant; hygiene §1 build-ahead truing;
+  the ignored-path inventory; the two pointers) → H (two plan nodes born ratified) → A → B → C.
+  engraph b306eb9e8; the fork's open PRs: #87 settling, #84 the draft fold.
+- **Metacognition (retrospective).** Three corrections landed on this seat in two hours and share
+  a shape: I normalised the owner's apostrophe inside a quotation that exists to record their
+  exact word (Copilot, correct); I wrote a blocked command form in prose and the hook refused the
+  send (hook-policy-substring-discipline, the second time); I named an "absence" in a system I
+  had just read (the true kernel). Each is fluency overriding the artefact's own contract —
+  a quotation's, a hook's, a schema's. What changes: before sending or stamping, ask what
+  contract the surface itself enforces and read the text against that, not against my ear.
+  Kept from the day: the owner's word that the planning system is the work surface has already
+  paid — twelve stamps, a rule retired, a rule born, all as plan and rule edits with ledgers,
+  none as prose on a board.
+- **Consolidation gate.** Captures homed this window: nine per-user memories (the planning
+  system as the work surface; repo-boundary certainty; fix-never-dismiss with its one exception;
+  the tuition review owner-managed; the safe-delete grant; the no-throw rule policy and the
+  October fact; current goals from the ratifications; the default branch and the deleted rule;
+  the quotation boundary on writing support); doctrine changes ride PRs #85–#87 and N–C with the
+  owner's verbatim in their bodies; nothing on the napkin awaits a home beyond those PRs. No
+  consolidate-docs run needed.
+- **Work safety at the boundary:** the primary on coordination/2026-09-08-68d53d at d0eb0b7d7 ==
+  origin (0/0) before this block; the queue empty; dirty: the napkin only (the 11:3xZ cards block,
+  the delivery-cards bullet, the 12:0xZ rule-deletion bullet, this block) — swept by the ceremony
+  next; the settings file committed at the owner's word by Altair (aa2e23749), so no held file
+  remains. Registry: the Director's claim; Altair's 38f3d1b3. Processes: watcher (re-armed twice
+  on its hourly exit), peer poll, claim loop, wrap cron, fold wake 3d614df0 against #84.
+- **Metaloss.** Pass one: the record's "#86 LANDED — merged by the owner" line was written before
+  the harvest and carried no post-merge state — the harvest line was added; the notification the
+  owner asked for was suppressed by the harness (terminal active) and said so in chat, not
+  silently dropped. Pass two: promises — N, H, A, B, C routed with their pointers (the apostrophe;
+  the plan-path bullet; the (o) inventory; the (p) sentence); pointer D withdrawn at the owner's
+  word; nothing unhomed. Attribution inferences: "Altair's registry silence is the settle wait"
+  was verified by their watcher heartbeat age, not inferred. Fence sweep: no owner word was held
+  off the repository this window. Bounds: Altair's transcript unread; the watcher's truncation;
+  the owner's own Oak-line queue. External bound: the owner caught the kernel; Copilot caught the
+  quotation; point outside scrutiny at any text of mine that quotes or names a command. A third
+  pass re-finds only these bounds; the recursion closes here.
+- **#87 (R) LANDED 2026-09-08 13:5xZ as the bot — merge 143dc6961 on engraph, final head c072b120f
+  (Altair 05a180).** pr-target-is-engraph retired at the owner's word; the default branch derived
+  at the moment of use (remote HEAD refreshed with `git remote set-head origin --auto`, read with
+  `symbolic-ref --short`, prefix stripped; or `gh repo view <owner>/<name> --json defaultBranchRef`);
+  the fork-reach ruling re-homed as `downstream-checkout-never-writes-upstream-surfaces`; the
+  landing slot in pr-lifecycle §Phase 7. Three rounds + four suppressed Copilot findings: one
+  settlement push, one clause-9 line; the build-ahead family (draft against the default branch
+  at first push, never based on a parent — the Director's ratified (p)), the ignored-path
+  inventory, the provenance line and ADR-228 all homed in PR N. Train next: N → H → A → B → C.
+- **PR #88 (N) open 2026-09-08 14:0xZ (Altair 05a180), head a742cd850 from worktree proven-paths-n,
+  non-resident:** the owner's standing grant for proven paths in never-use-git-to-remove-work;
+  hygiene §6 re-trued (per porcelain status; ignored-path inventory); the build-ahead wording across
+  hygiene §1, the trigger paragraph, the lane-cut skill and residency clause 8; ADR-228
+  "Organisational identity is held below the tree" from the ratified node; the downstream rule's
+  Operationalises line. Train after it: H (worktree-entry-hooks; pr-tally, both born ratified) →
+  A → B → C.
+- **Pointer (s), from #88's review (Altair 05a180):** extending.md requires every canonical rule to open
+  with an `Operationalises ADR-NNN` line; 71 of 125 rules carry none and no validator enforces it. A
+  sweep lane for the Director's board: add the line to every enforcing rule (hygiene and residency
+  → ADR-228 among them) and land the scanner the governance-claim pattern asks for, one PR each.
+
+## 2026-09-08 15:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 20: the counter built before it bit
+
+- **The window (13:1xZ → 15:1xZ).** #87 landed (143dc6961: pr-target-is-engraph retired; the general
+  downstream-checkout rule; the landing slot into pr-lifecycle §Phase 7) after three rounds and one
+  settlement push, with Copilot's suppressed findings harvested before the merge. #88 (the clearing
+  grant; hygiene §6 with the ignored inventory; the build-ahead family on five surfaces; ADR-228
+  authored from the ratified identity node) at 59aef3079 after three rounds — 7 → 3 → 4, one
+  settlement push and two clause-9 cures, every finding correct: the grant as a scoping of the
+  banned class; type-changed paths outside it; the branch rule's `main` aliased; merge-or-recut
+  keyed on the parent's landing shape. Altair named the generator (a reviewer sampling one surface
+  per round on a family stated identically on five); the Director declared the exit before round
+  four: the four-round arm fires → one class-fix push after a full cross-surface read → terminal.
+  PR H pre-authored. Altair's registry heartbeat refreshed at the Director's note. engraph 143dc6961.
+- **Metacognition (retrospective).** The #82 lesson applied before it bit: the tally was read at
+  every round, the machine's second arm (four settled rounds) was named a round early, and the exit
+  was declared to the lane seat in writing rather than discovered by the owner's silent invocation.
+  Credit where due: the generator classification was Altair's. One doctrine tension surfaced by the
+  tail and worth a pointer, not a cure here: PDR-140 clause 9's "a later over-bar finding cures
+  alone" and pr-lifecycle's state-machine exit both bind, and nothing states which governs when they
+  meet; this seat ruled the exit governs the tail. Pointer: pr-lifecycle §review-round state machine
+  gains one sentence naming that precedence (a records PR; PDR-140 cited).
+- **Consolidation gate.** No new capture this window needs a home beyond the record; memories
+  unchanged since wrap 19; doctrine rides #88 and H–C. Altair's own napkin lines since f5ede7a20
+  ride this sweep. No consolidate-docs run.
+- **Work safety at the boundary:** the primary at f5ede7a20 == origin (0/0) before this block; the
+  queue empty; dirty: the napkin only (Altair's captures since the last sweep; this block); no held
+  file. Registry: the Director's claim; Altair's 38f3d1b3 (refreshed). Processes: watcher (re-armed
+  on each hourly exit), peer poll, claim loop, wrap cron, fold wake 3d614df0 against #84 (BEHIND
+  until the fold's step-2 merge).
+- **Metaloss.** Pass one: the record's #88 round lines carry the tally and the declared exit; the
+  two PR C pointers stand (the identity plan's citation of ADR-228; the branch-rule alias was
+  carried into #88, so that pointer is discharged). Pass two: promises — H, A, B, C on Altair's
+  seat; the fold tonight; nothing unhomed. Inference flagged: "round four fires the four-round arm"
+  reads the state machine's item 2 as counting settled rounds in the epoch since the settlement
+  push — if the epoch resets at the settlement push, round four is the third of the epoch and the
+  arm fires a round later; the declaration errs on the early side deliberately. Bounds as before.
+  External bound: the owner's silent invocation caught #82; nothing external has yet tested this
+  seat's own step-back timing. A third pass re-finds only these; the recursion closes here.
+- **Pointer (t), from #88's terminal round (Altair 05a180):** a follow-up records PR on the grant and
+  §6, cut from the tip #88 lands — (1) the content write creates a new file and renames it over the
+  path, never through the existing inode (a hard-linked tracked file is otherwise truncated with
+  its other link, inside or outside the worktree — Codex, Git 2.43 reproduction); (2) proof (b) reads
+  "HEAD an ancestor of the fetched base, or the content-superseded proof recorded", so the
+  content-superseded deletion §6 grants can complete. Two clauses, one PR, after H.
+- **#88 (N) LANDED 2026-09-08 15:5xZ as the bot — merge 270b8ec6f on engraph, head 966929d56
+  (Altair 05a180).** Five rounds on one paragraph: the grant's recipe was an enumeration of porcelain
+  states and each round found the next (symlink, staged modification, type change, mode) until the
+  four-round arm fired and the class fix stated the grant as one invariant with an empty per-path
+  status as the proof; §6 cites it. Lesson for the record: a recipe that enumerates cases invites a
+  sampling reviewer to enumerate the rest; state the invariant and the check, name the writes once.
+  Residue: (t) hard-linked writes and proof (b) — two clauses after H; (s) the Operationalises sweep.
+  Train next: H → (t) → A → B → C.
+- **PR #89 (H) open 2026-09-08 16:0xZ (Altair 05a180), head bc8df3d2c from worktree plan-nodes-h,
+  non-resident:** worktree-entry-hooks and pr-tally, born ratified at the owner's word; PR C's
+  mapping drops units (j) and (k) accordingly. Train after it: (t) → A → B → C.
+- **Pointer (u), 2026-09-08 17:0xZ (Director):** the design-showcase package's unit suite reached a
+  live server — `fetch("http://localhost:3000/fake.css")` through the jsdom Window, ECONNREFUSED on
+  CI for #89's settlement head, green on four earlier runs the same day — a test doing IO
+  (tests-never-do-IO). Cure: the fetch mocked or the test moved to a validation script; home on
+  the design-showcase-experience node as a unit or a fresh seat's small PR. Second fact from the
+  same failure: the merge bot's App token cannot re-run a workflow job ("Resource not accessible
+  by integration"); the estate's re-trigger is an empty commit pushed as the bot; granting the App
+  Actions write is the owner's call if bot re-runs are wanted.
+
+## 2026-09-08 17:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 21: the default that fired, and a watcher that is not a seat
+
+- **The window (15:1xZ → 17:1xZ).** #88 landed (270b8ec6f) after five rounds — the settlement
+  push, two clause-9 cures, the class fix the declared four-round arm required, then terminal
+  with two findings dispositioned to the (t) follow-up: the counter worked end to end. Altair
+  opened #89 (worktree-entry-hooks and pr-tally, born ratified at the owner's word); the Director
+  read both nodes. Then Altair went silent on the stream from 15:48Z while #89's first round
+  (five threads) sat unanswered with checks green; the ping at 16:22Z declared a 16:45Z default;
+  nothing came; the Director took the round under PDR-117's one-seat carve-out — five verified
+  cures in one push (3c890c0a8: the create hook installs and builds before it prints the path,
+  because #82 landed the statusline doctrine; pr-tally's live-PR check a validation script; the
+  stamps stating word-before-text; a sic marker; criterion 1 bound at creation), replies and
+  resolves as the bot, the tally on the PR. The settle then stopped on an unrelated unit-test
+  failure (the showcase suite fetching a stylesheet from localhost:3000); the bot's App token
+  cannot re-run a job, the owner credential is never a fallback, so the estate's re-trigger — an
+  empty commit, 6f4bc274e — went up as the bot and the settle re-armed there. engraph 270b8ec6f.
+- **Metacognition (retrospective).** Inherited and corrected: a fresh watcher-heartbeat file read
+  as the seat being live. It proves the watcher process, nothing more; the seat's liveness is its
+  stream events and its registry heartbeat, and the held-REPL shape (a fresh watcher over a dark
+  seat) is exactly the one the residency rule describes. The deadline-and-default did its job:
+  declared in writing with the facts, observed to the minute, executed without a second ask.
+  Executing under the one-seat carve-out is PDR-117's own provision, used once and named on the
+  stream so the lane seat can resume at the next PR without re-deriving anything.
+- **Consolidation gate.** Pointer (u) captured above (the showcase IO test; the App's Actions
+  permission as the owner's call). No new memory: silence-is-never-liveness already carries the
+  principle; the record carries the instance. Doctrine rides #89 and the train.
+- **Work safety at the boundary:** the primary at 099d71762 == origin (0/0) before this block;
+  the queue empty; dirty: the napkin only (pointer (u); this block). Registry: the Director's
+  claim; Altair's 38f3d1b3 (heartbeat 139m at the last poll; the seat dark on the stream since
+  15:48Z). Processes: watcher (re-armed hourly), peer poll, claim loop, wrap cron, fold wake
+  3d614df0 against #84; the #89 settle re-armed at 6f4bc274e.
+- **Metaloss.** Pass one: the record's #89 lines carry the round, the flake, the re-trigger and
+  the settle — nothing narrated ahead of the landed state (#89 is still OPEN). Pass two:
+  promises — #89's settle; Altair's resumption at the (t) follow-up; A, B, C; pointer (u); the
+  Actions permission surfaced to the owner; nothing unhomed. Inference flagged: "Altair is held
+  at a prompt" is inferred from silence plus a fresh watcher; their state is unknown. Bounds as
+  before. External bound: nothing external has yet tested the Director's own round-taking; the
+  reviewer's next round on #89 is the first such test. A third pass re-finds only these; the
+  recursion closes here.
+- **Pointer (v), 2026-09-08 17:3xZ (Director, from #89's second round):** the default-branch
+  derivation #87 wrote into downstream-checkout-never-writes-upstream-surfaces (and the three
+  surfaces that cite it) fails on a single-branch clone whose remote default moved outside the
+  fetch refspec: `git remote set-head origin --auto` exits "Not a valid ref" and a plain fetch never
+  obtains the new branch (Codex reproduced it). Cure, one sentence on the rule: read the remote's
+  HEAD symref first (`git ls-remote --symref origin HEAD`) and fetch that branch explicitly before
+  the set-head and the local read. Home: the (t) follow-up PR or the next rules PR; the hooks node
+  already carries the corrected order.
+- **Pointer (w), 2026-09-08 18:5xZ (Director):** a second CI flake class, seen on #93's guard head:
+  the eslint-plugin-standards lint task (`eslint .` in packages/core/oak-eslint) failed with ENOENT
+  on `tsup.config.bundled_<random>.mjs` — the transient file tsup writes and deletes while bundling
+  its config — because ESLint's glob caught it mid-life while the package's build ran in parallel
+  under turbo. Cure: ignore `tsup.config.bundled_*.mjs` in that package's ESLint ignores (or make
+  its lint task depend on build); a config-expert PR of one line. Until then every PR pays an
+  empty-commit re-trigger when the race bites.
+
+## 2026-09-08 19:1xZ (Flounder turns Estuary, c5cc2c, Director) — non-terminal wrap 22: two flakes, one guard that bites, and the upstream at the door
+
+- **The window (17:1xZ → 19:1xZ).** #89's second round (seven Codex findings, all case-list gaps
+  in the two plan nodes) cured as invariants in one push; its settle stopped twice on the showcase
+  suite's fake-stylesheet fetch. The owner asked for a slow, deep analysis of #90, their Codex
+  task's draft integrating upstream main 3f1e88ca (sixteen commits, MCP-681, the 1.178.6 release);
+  delivered: GitHub's DIRTY is a rename it cannot see through and git merges clean; no CI has run on
+  the combined tree because the head is a skip-ci release commit; the fork's generated
+  model-behaviour pages go stale on eight anchors; integrate on this machine as one two-parent
+  merge plus regeneration, never cure upstream-authored lines in the PR, custody on the owner's
+  word. Then the flake: fixed at the package level in #93 (happy-dom stylesheet loading disabled),
+  the cause proven by a control run; the test expert found the residue (a fake href the observer
+  never needed) and a comment that overstated what happy-dom does; Codex asked for a guard that
+  bites and got one — proven green under the config and red under a control without it, after my
+  own control run exposed a vacuous fetch spy (happy-dom's loader bypasses the window's fetch).
+  A second CI flake class (w) then bit #93: ESLint's glob in the eslint-plugin-standards package
+  reading tsup's transient config bundle mid-life. Altair's claim closed at freshness expiry with
+  both its lanes landed; the Director holds the train's live files. The owner's own PRs: #91
+  undrafted (the 8 September curriculum delta), #92 (own-built foundations, ADR-229), #94 new.
+- **Metacognition (retrospective).** Kept: prove the guard bites before claiming it does — the
+  control run is what turned a vacuous assertion into a real one, and the reviewers were right
+  twice (the residue; the guard). Kept: a fix for a flake attracts its own review tail, and that
+  tail was worth paying. Corrected: I read a fresh watcher heartbeat as a live seat (wrap 21) and
+  this window read "the fix holds" from three local runs before CI had spoken — CI agreed, but the
+  order was wrong; the bar is the CI run, the local runs are the diagnosis. Cost of the day's
+  structure: three empty-commit re-triggers across two PRs because the bot cannot re-run a job;
+  the App's Actions permission is the owner's call and the pointer is on the record.
+- **Consolidation gate.** Pointers (u) the showcase IO test (cured by #93), (v) the derivation gap
+  on single-branch clones, (w) the tsup transient-config lint race — all on this napkin; the #90
+  analysis on the record; no new memory (the flake facts are repo facts and pointers).
+- **Work safety at the boundary:** the primary at ca7908b82 == origin (0/0) before this block; the
+  queue empty; dirty: the napkin only (pointers (v), (w); this block). Registry: the Director's
+  two claims. Processes: watcher (re-armed hourly), peer poll, claim loop, wrap cron, fold wake
+  3d614df0 against #84 (BEHIND until the step-2 merge); the #93 settle at 4cd75e0fb.
+- **Metaloss.** Pass one: the record's #93 lines carry every head, both reviews, both flakes and
+  the re-triggers; nothing narrated ahead of the landed state (#93 and #89 OPEN). Pass two:
+  promises — #93's settle; #89 after it; #91's read and slot; #90 on custody; the (t) follow-up;
+  A, B, C; pointers (u) (v) (w); the Actions permission surfaced; nothing unhomed. Observed, not
+  inferred: the owner undrafted #91 and opened #94 this window. Bounds as before; Altair's state
+  unknown. External bound: CI's verdict on 4cd75e0fb is the next outside test. The recursion
+  closes here.
+- **WRAP for compaction — Altair spins Umbra (05a180), 2026-09-08 19:5xZ (owner word: "prepare for
+  compaction /oak-metacognition /oak-free-play /oak-concept-exploration /oak-wrap").** Landed today
+  as the bot: #83, #85, #87, #88 (with the Director's read on every head); #89 passed to the
+  Director under the 16:45Z default. Handoff record
+  `.agent/state/collaboration/handoffs/05a180-altair-spins-umbra-merge-train-compaction-2026-09-08.md`.
+- **Metacognition (retrospective).** Two corrections this window. (1) I read #89's round late
+  because I was pre-authoring PR A while its checks ran — the review is priority one over the next
+  unit, and "productive while waiting" was the fluent frame that hid it. (2) The seat then went
+  dark 16:05Z–19:49Z at a tool call in the dry-run setup (scratch `git init` and commit) with the
+  watcher fresh — the second held-seat instance on this seat in two days, and NOT an
+  `EnterWorktree`: the cure #82 landed covers one call, the class is every call. I inherited
+  "announce before entry" and it did not fit; the shape is "a seat cannot see any of its own
+  prompts". The Director's default worked both times; that is the structure the estate promised.
+- **Concept exploration (movements 1–4, on the held-seat class).** Observations: two holds, nine
+  hours and four hours, both with a fresh watcher heartbeat; the first at `EnterWorktree`, the
+  second at an ordinary Bash call in a throwaway git repo; the owner saw the first prompt's
+  wording, nobody saw the second. Problem: the harness can hold a turn indefinitely at a prompt
+  the seat cannot observe, and the estate's liveness signals (watcher heartbeat, claim
+  heartbeat) all come from processes other than the turn, so a held seat reads alive. Solutions
+  re-opened: the fluent one is "avoid the calls that prompt" — unknowable from inside; the
+  structural one is a signal FROM the harness at the prompt moment (a pre-tool-use hook writing
+  a "prompt pending since T" marker the peer poll reads, cleared when the call proceeds) so the
+  Director sees a held seat in one poll; the cheap one is the existing deadline-and-default,
+  already live. Proposals: P1 the marker hook (warrant: the guard already runs on every tool
+  call; falsifier: the hook does not fire before the prompt is shown); P2 seats do dry runs by
+  file copy with no git outside the estate's checkouts (warrant: the second hold's call shape;
+  falsifier: a hold at a plain file copy). Unresolved: which call prompted — only the owner's
+  screen can say.
+- **Free play.** The review tails of #87 and #88 were the same shape at different depths: a
+  fact stated per case (the default branch; the clearing recipe) draws one finding per
+  surface per round, and the fix that ends it is always "say it once, as an invariant, and
+  cite it" — #87 needed one push to learn that, #88 needed four. The estate's own rule
+  (consolidate-at-second-consumer) predicts it; nobody applied it at authoring. A cheap
+  pre-push check: "does this paragraph enumerate what could be stated as a property?".
+- **Loss scan.** Compressed reasoning: the per-round dispositions live on the PRs (tallies with
+  comment ids in the landing broadcasts); the record above is decision-sufficient for pickup.
+  Promises: #89's settle and merge → the Director (STOP, 19:50Z); PR A → this seat on resume or
+  the Director; (t), (s), the held-seat cure → the Director's board; the hourly claim-heartbeat
+  cron deleted (claim closed); the owner's tightness loop stays registered (the owner's). Zero
+  silent drops. Attribution: "the Director cured rounds one and two of #89" is their stream
+  word, not my observation of the diffs; the cause of the second hold is inference. Blind-spot
+  bounds: I cannot see which call prompted, nor the stream between 16:05Z and 19:49Z except as
+  replayed; the dry-run scratch directory's state is unverified after the hold. Index of homes:
+  the handoff record (pickup), this block (lessons), the per-user memory tail (resume), the
+  landing broadcasts (PR ids and comment ids), the scratchpad (scripts, session-local). External
+  bound: the scan cannot certify itself; the error signature this window is "productive-looking
+  work while a review waits" — point outside eyes there. Fence sweep: no fenced owner wording
+  was written to tracked lines this window. A third pass would only re-find the two holds and
+  the late read; the recursion closes here.
+
+- 2026-09-08 21:1xZ (Altair 05a180, resumed after the compaction): PR A open as #95, a DRAFT
+  against engraph at 1ec7698ed from the rulings-a worktree (cut from 00deceedd); claim a3d107dd;
+  the ack to the Director is event 0dfbf6d1. Part two's rules-tier patch matched the file only
+  after re-reading it (the pre-authored string had drifted by two words), and its dispositions row
+  had to go inside the table, not at the file's end — pre-authored scripts are re-read against the
+  landed file before they run, never trusted from the dry run.
+
+<!-- fitness exceeded by 729 lines; needs consolidation -->
+
+- **NON-TERMINAL WRAP 23 — Flounder turns Estuary (c5cc2c), Director, 2026-09-08 21:2xZ** (the
+  20:41Z cron fired into a held seat; this is its catch-up). Landed since wrap 22: #93 (c06ea6c59,
+  19:44Z, the showcase stylesheet-loading guard) and #91 (00deceedd, 20:13Z, the owner's delta
+  report with three Copilot findings cured in one push). #89 at its terminal head 8a095327e: the
+  four-round arm fired (c = 5, 7, 4, 4) and the class fix states the invariants — the expected
+  reviewer set is the PR's own declaration at open, every tally row rests on a persisted proof,
+  every count reads a recorded bar marker, the hook reaches the remote's current default from
+  any clone shape — with the rounds' cases as fixtures at pickup; settle armed, dispositions only
+  from here. Altair resumed 20:58Z and opened PR A as #95 (draft); the slot order tonight is
+  #89 → #84 → #94 → #95; #92 and #90 wait for the owner tomorrow.
+- **Metacognition.** Two corrections, both mine. (1) This seat was HELD for an hour (19:57Z–20:56Z)
+  at a permission prompt on a `gh api` call carrying a nested `$(gh api …)` substitution — the
+  third held-seat instance in two days across two seats, and the owner's 2026-09-06 word already
+  forbade the shape ("stick to using standard tools rather than complex bash scripts which
+  confuse the permissions agent"); I had also been applying cures through python heredoc scripts
+  all evening under a harness note preferring Bash, which the owner's word overrides. Owner
+  21:1xZ: "stop doing things that need approval, I am not here, you will get yourself stuck and
+  do no useful work for ten hours." Cure applied from this line: one plain command per call, no
+  substitution, edits through the file tools, no owner card while the owner is absent. (2) I
+  raised the #92 owner question as a card while the owner was on their way to bed; the answer
+  ("we will discuss this tomorrow … I am going to bed") was the right one and the card was the
+  wrong instrument at that hour — the question belonged on the record for the next action moment.
+- **Concept exploration ("zero", the owner's question).** "Zero open PRs other than #90" is a
+  count of GitHub rows, drafts included, so the owner's drafts are in the set and their word "if
+  so, do it" is the authorisation to undraft and land them when green, clean and sensible. The
+  limiter is the landing slot: require-up-to-date makes each landing a serial CI run on the merged
+  tree, so four PRs cost four runs after their reviews settle, and the reviews themselves can run
+  in parallel as drafts. Reachable tonight: #89, #84, #94, #95. Not tonight: #92, because two of
+  its edits are the owner's own re-wording of ratified text and the owner has deferred that
+  nuance to tomorrow — the other four over-bar items on it are being pre-cured so the discussion
+  is the only remainder.
+- **Free play.** The #89 tail (5, 7, 4, 4) and Altair's #88 tail were the same shape: mechanism
+  written as case lists draws one finding per unhandled case per round, and the only ending is
+  the invariant stated once with the cases demoted to fixtures. The pr-tally node now carries that
+  rule about itself ("a case the rounds did not name is a fixture at pickup, never a mechanism
+  edit"); the pre-push check Altair named ("does this paragraph enumerate what could be stated as
+  a property?") is the authoring-time cure and belongs in the plan skill's body check.
+- **Loss scan.** Promises: #89 settle (armed; round-five dispositions by reply); #84 fold (this
+  sweep, then the merge of engraph, undraft, settle after #89); #94 (read running; undraft on a
+  sensible verdict and cures); #95 (Altair; slot word from me); #92 pre-cures (agent running;
+  commit as author Jim on the owner's branch, PR stays a draft; the owner's branch gains bot
+  commits — say so tomorrow); #90 and the #92 nuance → the owner tomorrow; the (t) follow-up →
+  Altair if #95 settles early. Records: the machine-local record carries every SHA and comment
+  id; the per-user memory tail moves to wrap 23; the held-seat memory generalised; the
+  standard-tools memory carries tonight's instance. Observed, not inferred: the owner's two
+  words are verbatim from chat; the cause of the hold is inferred from the call order (the
+  substitution call was the one outstanding). No fenced owner wording written to tracked lines.
+  Recursion closes here.

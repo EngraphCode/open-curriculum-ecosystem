@@ -59,11 +59,11 @@ resides on the coordination branch).
    record files are byte-identical to the branch's blobs (`git cat-file` plus
    `cmp`; a DIFFERS line before the fast-forward is the tell), so the closing seat
    commits the continuity records LAST and mirrors any later edit by hand — two
-   folds converged that way on 2026-09-06. A settings file the harness rewrote
-   (enabledPlugins and skillOverrides moved from tracked project settings to user
-   level, 2026-09-06 13:18–13:21Z) stays out of the sweep until its contract is
-   verified: folding that diff would have stripped the fleet's plugin enablement
-   from the repository.
+   folds converged that way on 2026-09-06. A settings file the harness rewrites is
+   held out of the sweep until its contract is verified or the owner rules on it;
+   each hold is its own — a later harness rewrite is a new hold, never a
+   continuation of an earlier one — and the hold's outcome (verified, or ruled and
+   landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).
