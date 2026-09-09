@@ -334,11 +334,16 @@ make the next sync a conflict.
 Every landing flips every other open pull request BEHIND; the landing
 broadcast declares the slot order — the Director's call, and by pr-lifecycle
 §Phase 7 the slot goes to whichever pull request is green and clean first
-rather than being held empty. A slot-holder with an open review round is not
-green and clean, so the word can pass to the carrier ahead of its turn
-(2026-09-09: a slot-holder with ten open threads passed the word to the
-1.179.0 carrier); this skill's part is step 3's preparation, so the carrier is
-ready when the word comes early. A lane in flight at a sync parks as a
+rather than being held empty. That passing happens BEFORE a word is acted
+on: a queued candidate whose review round is open is not green and clean, so
+the word can pass to the carrier ahead of its turn (2026-09-09: a candidate
+with ten open threads passed the word to the 1.179.0 carrier). Once a holder
+has taken the word and pushed its sync it RETAINS the slot through the review
+round that push opens, its settlement and its merge — that round never
+re-assigns the slot, and no other lane syncs meanwhile (pr-lifecycle's slot
+contract), or two lanes would knock each other BEHIND in turn. This skill's
+part is step 3's preparation, so the carrier is ready when the word comes
+early. A lane in flight at a sync parks as a
 draft, keeps its own head, and merges the default branch as its final planned
 synchronisation push, at the slot word — the merge opens a review round like
 any push, and an over-bar finding from that round still cures in a push
