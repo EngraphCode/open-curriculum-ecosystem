@@ -131,6 +131,13 @@ into the permanent record):
    axis; run it here when the changeset's size is genuinely in question,
    and note that its LEVEL axis also applies at open — a question standing
    owner word already answers is not an escalation.
+6. **Records-class changesets state each invariant once on the FIRST push,
+   with the cases as fixtures or worked instances, never as a case list.** A
+   mechanism written as cases draws one finding per unhandled case per
+   round, and the tail ends only when the invariant is stated (one push on
+   #87, four rounds on #88, seven on #89, 2026-09-08); the review tail is the
+   estate's own authoring-time check arriving late. The pre-push test: "does
+   this paragraph enumerate what could be stated as a property?"
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -431,6 +438,24 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   budget-aware) is the strongest available primitive. Never hand-roll tight
   `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
   Between events, continue other work or hold; the watcher wakes you.
+- **The round in front of you is priority one over the next unit.**
+  Pre-authoring the next lane while a round sits unanswered is the fluent
+  frame that hides a late read (a round sat twenty-five minutes with checks
+  green while its seat drafted the next PR, 2026-09-08).
+- **Count gate-satisfying repetitions as you count rounds.** A monitor
+  re-arm, a hook re-run and an empty-commit re-trigger each satisfy a gate
+  without advancing the merge; before the fourth repetition of any of them,
+  name the goal the gate serves and ask whether the move advanced it — a
+  loop that sees only its own gates cannot see itself diverge (three seats,
+  2026-09-03).
+- **A red required check with an external cause is re-run after the cause
+  settles, never answered with a push** — an apt mirror returning "Hash Sum
+  mismatch" at the Playwright install step failed three runs in sixteen
+  minutes (2026-09-09). The App installation token cannot re-run a workflow
+  job ("Resource not accessible by integration"), so the bot-legitimate
+  re-trigger is the empty-commit push, which sits outside the review budget
+  and carries nothing else; granting the App the Actions write permission is
+  the owner's call.
 
 ## The review-round state machine (single definition)
 
@@ -567,7 +592,17 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    2026-07-16, PR #390: 8 rounds / ~38 findings ran
    unnoticed as non-convergence because nothing counted; predicate pinned
    2026-07-16 after one shepherd applied two different readings in one
-   day). The class-fix
+   day). A CLASS FIX states, once, the invariant the findings were
+   sampling and demotes the sampled cases to fixtures — a case the rounds
+   did not name is then a fixture at pickup, never a mechanism edit; its
+   sweep terms are the CHANGE's own before→after words, never the findings'
+   vocabulary (a class fix that swept for the reviewers' words missed the
+   word its own amendment had changed and cost a further round,
+   2026-09-09); and before its push every surface carrying the changed
+   vocabulary, order or bound — the touched files' siblings, the rules and
+   skills they cite, the adapters and index rows — is read and cured in the
+   same push (the read whose absence cost one records PR eight rounds,
+   2026-09-08). The class-fix
    push that answers a step-back OPENS A NEW CONVERGENCE EPOCH: the tally
    re-baselines at that push — round counting and both trigger arms restart
    within the epoch, and prior-epoch rounds stay recorded as history. A
@@ -614,7 +649,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    or a PR already open for its own story — never a PR opened to carry
    residue, and a residue PR that exists anyway is terminal: a settlement
    budget of one push, no rebudget, the late-cure path unchanged, no
-   further residue PR. Everything below the bar is dispositioned without a diff (the
+   further residue PR. The terminal second step-back above and clause 9(b)
+   compose rather than contradict: the terminal binding ends class fixes and
+   rebudgets, and clause 9(b)'s late cure stays the one door — for an
+   over-bar finding only, in a push carrying nothing else (Director ruling
+   2026-09-08 when the two met on one tail). Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
    2026-09-03). A code-class finding is outside this pricing altogether: a
@@ -839,7 +878,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    slots and bump-gap waits retired 2026-07-20, PDR-131: merge concurrency
    between eligible PRs is free; quality binds at settled-READY, and the
    2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
-   gate green, every Phase-8 clean — is the measured evidence) — only
+   gate green, every Phase-8 clean — is the measured evidence; under a
+   strict-currency ruleset the Phase 7 landing slot orders the syncs that
+   policy forces, and the grant is still eligibility, never position) — only
    on the item-4 settled verdict — zero threads AND zero
    undispositioned body-tally findings on the tip with a cure-worthy
    count of zero (item 2's PDR-140 semantics), every expected reviewer
@@ -1192,11 +1233,22 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
   push again, and every push opens a fresh review round (ADR-204 makes the
-  re-sync one push). So ONE non-draft PR holds the landing slot at a time:
+  re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
+  merge concurrency between settled-READY PRs is free where the ruleset does
+  not require currency — and names the strict-currency ruleset policy as an
+  owner-owned cost driver (its decision 5); this clause is that policy's cost
+  made orderly while the owner keeps it (live on this repository's default
+  branch, read from the rules API), not a return of the retired machinery, and
+  it lapses the day the policy is dropped. So ONE non-draft PR holds the landing slot at a time:
   the slot-holder syncs ONCE, pushes, settles and merges; every other seat
   may open its PR, gather reviews and disposition threads, but does NOT sync
   or merge until the slot-holder's merge-landed event, then takes the slot,
-  syncs once and lands. Slot order is the Director's call — the default is
+  syncs once and lands. "Sync once" means AT THE SLOT WORD, never at
+  readiness: a merge of the default branch made while other PRs are still
+  ahead is superseded by each of their landings and redone at the slot
+  (four times on one carrier, 2026-09-09); a waiting PR keeps its own head
+  and prepares everything that does not depend on the tip — dispositions,
+  sweeps, the merge message. Slot order is the Director's call — the default is
   the oldest non-draft PR, and the slot goes to whichever PR is green and
   clean first rather than being held empty. The fold takes the slot at the
   UTC rollover. Any auto-sync babysitter — a watcher running
