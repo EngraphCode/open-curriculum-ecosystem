@@ -303,8 +303,9 @@ first-hand as of 2026-06-25.
 > of `coordination/2026-09-08-68d53d`) — THE STATE AT THIS FOLD; the fold block above is the
 > Director's and stands verbatim; this snapshot replaces the 01:2xZ one in place, per this file's
 > refresh contract (git retains it).** Fold PR **#84** carries the day's continuity sweeps (wraps
-> 18 to 24, the owner-cards block, the compaction-boundary block, the lane seat's captures and
-> its wrap for compaction), the `.claude/settings.json` simplification landed on the owner's word
+> 18 to 23, the owner-cards block, the compaction-boundary block, the lane seat's captures and
+> its wrap for compaction; wrap 24 is written on the primary and sweeps on the successor branch
+> after this fold lands), the `.claude/settings.json` simplification landed on the owner's word
 > of 2026-09-08 ("I am fine with the simplification of the settings files"), the merge of
 > `engraph` at `30bac21da`, and three cure rounds (8, 4, 1) on its own pickup surfaces. Landed on
 > `engraph` this day, by the bot at green, clean and sensible unless stated: #83, #85, #86 (the

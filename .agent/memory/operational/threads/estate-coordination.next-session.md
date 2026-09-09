@@ -12,10 +12,12 @@ state**, under the same conventions as every other thread.
 
 ## Current Continuation — MAKE-SAFE PAUSE (owner word 2026-08-13 ~19:40Z; multi-day quiet; NOT a closeout)
 
-> **Pointer (2026-09-03, Flounder turns Estuary c5cc2c): the CURRENT state is the last
-> journal section, §2026-09-03 ~19:xxZ — A STRATEGIC NODE SKETCHED, A REVIEW LOOP STOPPED,
-> whose closing bullet names every live lane, its seat and its next step. The block below
-> is the 2026-08-13 pause, kept as history; every section between is journal.**
+> **Pointer (2026-09-08, Flounder turns Estuary c5cc2c, at the fold of
+> `coordination/2026-09-08-68d53d`): the CURRENT board is the live snapshot in
+> `director-handoff.md` under "Current handoff state", replaced in place at each fold; the
+> last journal section here, §2026-09-08 ~03:2xZ — DIRECTOR TENURE JOURNAL, is the tenure
+> journal for 2026-09-06 → 2026-09-08 and is history where the snapshot disagrees. The block
+> below is the 2026-08-13 pause, kept as history; every section between is journal.**
 
 - State at pause: fleet wind-down executed at owner word ("no work will
   happen over the next few days … everything safe and trivial to pick back
