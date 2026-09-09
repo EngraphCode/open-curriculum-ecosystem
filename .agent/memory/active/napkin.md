@@ -1183,3 +1183,61 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   the record's boundary-9 block; the tracked live snapshot in the handoff; the tenure journal;
   this napkin; the per-user tail. A further pass would re-find only the standing bounds; the
   recursion closes here.
+
+- **COMPACTION BOUNDARY WRAP — Altair spins Umbra (05a180), 2026-09-09 09:3xZ** (owner word,
+  verbatim: "you can stop the loop now, thank you for all your hard work, please prepare for
+  compaction ultrathink /oak-metacognition /oak-free-play /oak-concept-exploration /oak-wrap";
+  the loop cron d47b8e0e stopped). Seat state: #95 landed 84f05775c (01:48Z); no claim, no lane,
+  rulings-a gone; the record is
+  `.agent/state/collaboration/handoffs/05a180-altair-spins-umbra-pr-a-landed-compaction-2026-09-09.md`.
+  - **Metacognition (retrospective).** Four corrections, one reflex each. (1) The class fix at
+    round four swept the bodies for the findings' vocabulary, not the amendments'; "gate" on the
+    tuition plan cost round seven — derive sweep terms from the change, never from the reviews.
+    (2) A mechanism transmitted from a brief (Sonar issue-ignore; CodeQL query filter) went into
+    the node unchecked against the tree's own documents that refuted it; the rule existed
+    (verify-vendor-call-shapes-at-plan-author-time) and did not fire because the text arrived
+    pre-authored — pre-authored text is fluency in ordinary clothes; give it the hardest check.
+    (3) The rules tier claimed a policy amendment PR B has not landed — records-narrate-ahead,
+    second instance at this seat; the active gate is a pre-push grep of my own diff for "as
+    amended", "landed", "now says" about surfaces outside the diff. (4) A disposition with a
+    clever structural falsifier (round one, the live-surface instruction) was the fluent move
+    when the cure was one paragraph; an independent second raising tips it — when the cure is
+    cheaper than the argument, cure. Also: the owner's loop had an exit no actor here could
+    reach from 02:12Z; the right shape was one recorded ask for the morning, not fourteen
+    recomputes. And four `f=$(grep -l …)` calls after the plain-calls word — none prompted;
+    recorded so "it was fine" is not inherited as licence.
+  - **Concept exploration (the nine-round tail).** Observations: rounds 2, 3, 4, 7, 9 of #95
+    were contradictions between an amended sentence and untouched sentences of the same or a
+    sibling document; #88, #89 and #84 fired the same arm on the same day. Frame: region
+    patches by the author versus whole-file reads by sampling reviewers — the asymmetry is the
+    generator of the geometric tail on records PRs, and it converges only because each round
+    removes one contradiction. Proposal (warranted, falsifiable): a pre-push step that derives
+    the vocabulary the amendment changed (before→after words: gate, joint, ratified,
+    repo-safe) and greps every touched file and its siblings for them, as a unit on the
+    pr-tally node's practice half (the cross-surface read). Falsifier: a records PR that runs
+    it and still takes three or more contradiction rounds. Unresolved evidence: whether the
+    reviewers' sampling is stable enough that a two-round settle is achievable at all.
+  - **Free play (harvest, time-boxed).** Kept: the settle instrument counted its quiet window
+    from the bot's own replies — an instrument measuring its own echo, shaped like the watcher
+    heartbeat proving the watcher and not the seat (play seed: "instruments that count their own
+    echo"; associations only). Kept and routed into the exploration above: inverted, the
+    one-finding-per-round tail is the estate paying in rounds for whole-file reads it did not
+    do in tokens. Discarded, visibly: a lighthouse-keeper analogy for "plain calls, I am not
+    here" (forced); a bisection analogy for the tail (the mass does not halve; forced).
+  - **Loss scan.** Dies with the context: the round reasoning (on GitHub); the owner's words
+    (the stream, the Director's tail); the lessons (this block); the (t) scripts (scratchpad,
+    machine-local). Promises: (t) forwarded to the Director's word; the merge sha reported; the
+    merge scope minted at the slot as said. Attribution inferences flagged in the record. Fence
+    sweep: nothing fenced from this window in this seat's tracked lines; the bound is that no
+    fence list is held here. External bound: the reviewers were the outside eyes, five times,
+    on the untouched lines of touched files. A further pass would re-find only those bounds;
+    the recursion closes here.
+  - **Surprise, 09:26Z (Director's catch):** my shell's persistent cwd sat under
+    `.agent/skills/cognition` for ten minutes after one `cd … && sed` during the wrap's skill
+    reads; the statusline log path resolves relative to the session cwd, so it wrote
+    `.agent/skills/cognition/.logs/statusline.log` every ten seconds, and the skills adapter
+    generator refuses a directory under the skill tiers without a canonical — every push from
+    the repository failed until the cwd returned to the root. Pointer for the Director's board
+    (a unit on an existing node, ruling 9): the generator skips dot-directories, or the
+    statusline log path is absolute by default. Seat practice from here: never `cd` in a call;
+    absolute paths only (the same cwd class as the comms-home resolution failures earlier).
