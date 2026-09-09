@@ -262,15 +262,19 @@ plain form (`git grep <term> origin/<fork-default> -- '*.md'`); a pathspec
 assembled by substitution gave different counts on two runs (2026-09-09). Its
 cost is a read; its absence is a fork estate that lies about upstream.
 
-When the default tip has moved since the sweep, the enumerated set has grown by
-exactly the files the fork landed between the swept tip and the landed tip
-(`git diff --name-only <swept-tip> <landed-tip>` — forty files on 2026-09-09).
-The second sweep reads that growth at the landed tip under the same boundary
-rule — keyword hits and subject files whole, the rest at the claim level — and
-never re-opens the files already read. Every hit is classified before it is
-dismissed (a system list, an unchanged index title, a homonym of the term), and
-the classification is written into the merge message and the tally, so
-"nothing to re-true" is a read a reviewer can check, not a count.
+When the default tip has moved since the sweep, the paths changed between the
+swept tip and the landed tip (`git diff --name-only <swept-tip> <landed-tip>`)
+are a candidate set, not the enumeration's growth: intersect it with the
+fork-side enumeration (paths outside the document boundary drop out), then
+read every file in the intersection at the landed tip under the same boundary
+rule — keyword hits and subject files whole, the rest at the claim level —
+INCLUDING files swept before, because a changed file may carry a new
+assertion; the only files not re-opened are those whose content is unchanged
+since the first read (2026-09-09: forty changed paths, all inside the
+enumeration, read again). Every hit is classified before it is dismissed (a
+system list, an unchanged index title, a homonym of the term), and the
+classification is written into the merge message and the tally, so "nothing
+to re-true" is a read a reviewer can check, not a count.
 
 ### 7. Resolve numbering and naming collisions
 
@@ -294,23 +298,29 @@ cure-worthy count stays zero unless a finding is about the sync itself
 (2026-09-09, the 1.179.0 carrier: two rounds, three threads, all routed to one
 owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
-window). Merge by MERGE COMMIT with the head pinned, as the bot — the pin is
-`--match-head-commit <settled head>`, so the landing merge's second parent IS
-the head the settle verdict was read on, and a head moved between verdict and
-merge answers 409 rather than landing unverdicted (2026-09-09: ead92d875's
-second parent is the settled 007b0d32e); squash or rebase would diverge the
-history from upstream and make the next sync a conflict.
+window). Merge by MERGE COMMIT as the bot through the one sanctioned front
+door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
+(pr-lifecycle §merge boundary; `docs/engineering/merge-bot.md`): it recomputes
+the settlement verdict itself, merges only on SETTLE-READY, and pins the
+verdicted tip's sha in its own call, so the landing merge's second parent IS
+the head the verdict was read on and a head moved between verdict and merge
+answers 409 rather than landing unverdicted. A client-side merge with a
+head-match flag checks the sha and nothing else — the 1.179.0 carrier landed
+that way on 2026-09-09 (ead92d875's second parent is 007b0d32e) with no
+tool-side recomputation of the reviewer leg, which is the gap the front door
+closes. Squash or rebase would diverge the history from upstream and make the
+next sync a conflict.
 
 ### 8a. The other open lanes at a landing
 
 Every landing flips every other open pull request BEHIND; the landing
-broadcast declares the slot order. The slot word can also come by yielding —
-a slot-holder whose review round cannot land inside the quiet window yields to
-the next pull request that depends on nothing open, and the carrier is often
-that one (2026-09-09: a slot-holder with ten open threads yielded to the
-1.179.0 carrier); the rule lives in pr-lifecycle §Phase 7, and this skill's
-part is step 3's preparation, so the carrier is ready when the word comes
-early. A lane in flight at a sync parks as a
+broadcast declares the slot order — the Director's call, and by pr-lifecycle
+§Phase 7 the slot goes to whichever pull request is green and clean first
+rather than being held empty. A slot-holder with an open review round is not
+green and clean, so the word can pass to the carrier ahead of its turn
+(2026-09-09: a slot-holder with ten open threads passed the word to the
+1.179.0 carrier); this skill's part is step 3's preparation, so the carrier is
+ready when the word comes early. A lane in flight at a sync parks as a
 draft, keeps its own head, and merges the default branch as its final planned
 synchronisation push, at the slot word — the merge opens a review round like
 any push, and an over-bar finding from that round still cures in a push
