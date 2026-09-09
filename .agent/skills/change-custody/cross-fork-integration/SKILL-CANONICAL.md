@@ -143,8 +143,10 @@ procedure resumes at step 4 with step 3's attributes (author, committer,
 ### 3. Carry the snapshot on one two-parent merge with an ordinary message
 
 Work in a dedicated worktree checked out at the EXISTING carrier head —
-`git fetch origin <carrier>` then `git worktree add <path> -b <carrier>
-origin/<carrier>`; the lane-cut skill's step 1 cuts a new branch from a base,
+`git fetch origin <carrier>:refs/remotes/origin/<carrier>` (the explicit
+destination refspec, because a single-branch clone's fetch updates only
+`FETCH_HEAD` for a branch outside its refspec) then `git worktree add <path>
+-b <carrier> origin/<carrier>`; the lane-cut skill's step 1 cuts a new branch from a base,
 which is not this — with the inherited bot identity verified (its step 2),
 dependencies installed BEFORE any commit, and the local env file carried.
 Install first is a hook-integrity requirement, not a convenience: a fresh
@@ -227,15 +229,18 @@ sentence the change falsified and leave the rest standing (2026-09-09, the
 over-reach shape — a reconciliation replaced a whole acquisition criterion
 when the incoming decision had altered one class of it).
 
-The sweep's bound is by subject, not by repetition. The keyword pass over the
-enumerated files is discovery; the read pass is every enumerated file whose
-subject the change touches — the records that mention the changed component,
-surface or version — read whole for the change's claims. A second keyword pass
-"finding nothing new" over hundreds of files is neither a bound nor a proof.
-Search one term at a time in the plain form (`git grep <term>
-origin/<fork-default> -- '*.md'`); a pathspec assembled by substitution gave
-different counts on two runs (2026-09-09). Its cost is a read; its absence is
-a fork estate that lies about upstream.
+The sweep's completeness boundary is the enumerated file set, read for the
+change's CLAIMS — a paraphrase names no component, surface or version, so no
+word search and no subject filter can stand in for that read. Depth is
+proportioned inside the boundary, never the boundary narrowed: every keyword
+hit and every enumerated file whose subject the change touches is read whole;
+every other enumerated file is read at the claim level — its headings and the
+passages that assert facts about the changed area — and a file with no such
+passage is recorded as read-and-clear. A second keyword pass "finding nothing
+new" is neither the boundary nor a proof. Search one term at a time in the
+plain form (`git grep <term> origin/<fork-default> -- '*.md'`); a pathspec
+assembled by substitution gave different counts on two runs (2026-09-09). Its
+cost is a read; its absence is a fork estate that lies about upstream.
 
 ### 7. Resolve numbering and naming collisions
 
