@@ -46,6 +46,7 @@ export const CLERK_SKIP_PATHS: ReadonlySet<string> = new Set([
   '/.well-known/oauth-protected-resource/mcp',
   '/.well-known/oauth-authorization-server',
   '/.well-known/openid-configuration',
+  '/.well-known/openai-apps-challenge',
   ...HEALTH_PATHS,
   '/oauth/authorize',
   '/oauth/token',

@@ -291,6 +291,7 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 
 - `GET /.well-known/oauth-protected-resource` returns the canonical resource and authorisation servers
 - 401 responses include a `WWW-Authenticate` header with `resource` and `authorization_uri` to guide clients
+- `GET /.well-known/openai-apps-challenge` returns the OpenAI plugin-submission domain-verification token as bare `text/plain` (MCP-700); public, served in every auth mode
 
 ### Canonical address
 

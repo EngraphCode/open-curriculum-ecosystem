@@ -78,7 +78,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/oauth-and-caching-setup.ts",
-      "semanticSha256": "6a51f6cdd0e09c55cbd1e0af0f9a7048a15cc13310d60dd89c3b82098ba9fd43",
+      "semanticSha256": "79a9603906d4821bf8653d163b552925c49550231aa042eb3e042dc1f590c532",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -196,7 +196,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts",
-      "semanticSha256": "c96fa6a897a638088c9841c8a4dbb85229ae7f800a14ac52c57b25cce91b9203",
+      "semanticSha256": "d54f6b85534ceb3acd2a99028197a85107329b101f54dd48061b27df6deb30e3",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -481,6 +481,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/observe-resource-reads.ts",
       "semanticSha256": "4b471edd5b7083591b78c83a0cd934671de69a225fd3215415da52a1aa93af30",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/openai-domain-verification.ts",
+      "semanticSha256": "6b62063b3ada0f1034749c79d4a8cb5d0cba2c9b9fb720cc7f7e0533e31c5451",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
