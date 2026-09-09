@@ -669,4 +669,8 @@ which appeared only after every Superseded precedent row had been checked
 ADRs are created when a decision is significant enough to shape future
 work. The consolidation workflow checks whether completed work produced
 decisions that should be recorded. Number sequentially from the highest
-existing ADR. Add the new entry to the Index above.
+existing ADR. Add the new entry to the Index above. A fork of this
+repository numbers in the same sequence; when a sync from upstream reveals
+a collision, the fork renumbers its own record to the next free number in
+the sync's commit with every citation updated (the pre-merge analysis
+guide, §4d) — no lineage reserves a block.
