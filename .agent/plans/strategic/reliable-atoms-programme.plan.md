@@ -6,7 +6,7 @@ overview: "Factor the estate's fundamental code, data structures, algorithms, an
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-08
-ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in its own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
+ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in it's own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
 serves: TOOLS-2
 impact_areas:
   - practice-and-estate
@@ -16,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-08
+last_updated: 2026-09-09
 ---
 
 # Reliable atoms programme
@@ -38,6 +38,29 @@ the excellence bar below, provable by a conformance instrument, and
 every candidate not yet at the bar is a named register row with a
 disposition — never an unrecorded aspiration.
 
+### Owner direction — 8 September 2026 amendment
+
+The owner established the implementation-origin policy for graph and
+non-graph algorithms and data structures: author our own SMALL Reliable
+Atoms and meaningful layers of composition, learning from the best openly
+licensed examples. [ADR-229](../../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+records the decision; the [governing development policy](../../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+owns its scope, reference-research method and relationship to qualification.
+This dated amendment refines how the ratified programme develops its
+foundations. The owner requested documentation and a draft PR on the same
+date; implementation and qualification remain delivery work.
+
+## User groups and value
+
+Engineers and agents consuming the foundations gain small, explicit public
+contracts, executable examples and evidence they can use without recovering
+private implementation assumptions. Maintainers gain identifiable invariant
+owners and focused change boundaries. Capability authors gain reusable
+graph and non-graph mechanisms that can compose into new offerings. These
+are the programme's offered benefits; their realised value and whole-life
+effort savings are assessed through delivered capabilities and subsequent
+changes.
+
 ## The bet
 
 Reliability compounds at the atom tier: the frame's own law is that a
@@ -53,8 +76,10 @@ This drive is deliberately tangential to the workspace-basis and
 reorganisation questions (the owner's words: "creating utterly reliable
 atoms, rather than designing the conceptual space") — an atom's
 excellence is location-independent, and this node is robust to any
-basis ruling: atoms land in today's `packages/core/` strata and move
-wholesale if the conceptual space later renames their home.
+basis ruling: atoms are authored and qualified wherever their contract
+lives, are placed in today's `packages/core/` strata by the promotion
+decision (the ten-gate test under §Mechanism), and move wholesale if
+the conceptual space later renames their home.
 
 ## The bar
 
@@ -130,7 +155,8 @@ there). The extensions, each with its enforcing instrument:
 
 - **Atom register first**: candidates enumerated from the existing
   `packages/core/*` members (brought up to the bar, not grandfathered),
-  the census's generic-foundation rows, measured independent clusters
+  owner-directed new capabilities, the census's generic-foundation rows,
+  measured independent clusters
   (e.g. the pure image-mathematics slice), and — when the
   machinery-deconstruction ledger (MCP-603) lands — its
   construct-scale `generalises-to` rows. The register is a committed
@@ -141,13 +167,27 @@ there). The extensions, each with its enforcing instrument:
   conformance instrument at check time, never a stored column — and
   the register doubles as the agent discovery index, so "does an atom
   for this exist" is one read.
+- **Discovery, qualification and package promotion have distinct
+  decisions**: owner-directed capability and its offered value establish
+  candidate scope, including innovation before existing consumers use it.
+  The excellence bar governs qualification. The frame's ten-gate test
+  governs promotion into a shared core package, including its consumer and
+  release obligations. A package-promotion blocker is recorded against that
+  decision while the candidate's authorised design and qualification work
+  proceed. Placement follows the repository's dependency and workspace
+  rules; the register distinguishes these facts.
 - **Gates hold; the directive sets ambition**: the frame's ten-gate
   promotion test still filters what becomes core. Where a would-be
   atom fails a gate today (typically the multiple-real-consumers
-  gate), it is registered as a candidate-in-waiting and the batch's
-  gate conflicts route to the owner at a card — the standing direction
-  is read as raising priority and the excellence bar, never as
-  deleting the gates. The owner may override per batch.
+  gate), it is registered as a candidate-in-waiting — the
+  package-promotion blocker recorded above is that row, naming the
+  gate it fails — and the batch's gate conflicts route to the owner at
+  a card at the batch's promotion moment; the standing direction is
+  read as raising priority and the excellence bar, never as deleting
+  the gates. The owner may override per batch. The three decisions
+  above and this bullet are different things and both hold: the first
+  says which decision each fact belongs to, this one governs the
+  promotion decision (owner's reading, 2026-09-09).
 - **Conformance instrument at tranche one**: a validator that
   RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
   presence, export-surface strictness, packed smoke — so atom status

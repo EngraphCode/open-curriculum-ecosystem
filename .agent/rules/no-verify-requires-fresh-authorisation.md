@@ -33,6 +33,22 @@ repo-bound operational surface it names, never in this portable rule.
 Everywhere outside a recorded ruling's scope, this rule's per-invocation
 requirement stands unchanged.
 
+**Standing owner ruling — ChatGPT Work cloud, 8 September 2026.** When and only
+when `bash .agent/setup/is-chatgpt-work-cloud.sh` exits zero, `HUSKY=0` is
+authorised for local commits and pushes throughout that detected session. The
+detector is tri-state: exit 1 means only "not this profile"; any other non-zero
+exit, a missing script or the wrong working directory is a detector error and a
+blocker, never a standard-profile result and never this authorisation. The
+host is non-execution infrastructure; the required substitute route is the
+one recorded in
+[`cloud-environment-routing.md`](../directives/cloud-environment-routing.md):
+manual branch/message/outgoing-diff checks, an immediate draft PR, and a
+genuinely concluded GitHub `run-quality-gates` result before any green claim.
+Use the configured default credential only for the task-scoped story-branch
+and draft-PR route, and do not attempt bot provisioning. This ruling authorises
+only `HUSKY=0`; `--no-verify`, alternate environment variables and hook-path
+manipulation still require fresh owner initiation.
+
 If a hook is failing:
 
 1. **Fix the cause.** The hook is failing because something is wrong. Find what.

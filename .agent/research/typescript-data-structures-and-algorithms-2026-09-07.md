@@ -1,19 +1,22 @@
 # TypeScript data structures and algorithms: non-graph research
 
 **Recorded:** 2026-09-07  
-**Status:** research draft; no dependency or package design selected
+**Policy framing updated:** 2026-09-08
+
+**Status:** reference research; source observations retain their recorded date
 
 ## Purpose and scope
 
 This note surveys standard data structures and algorithms available to
 TypeScript applications through JavaScript's native runtime and external
-packages. It highlights non-graph primitives that could support useful OCE
-low-level packages without OCE implementing every underlying mechanism.
+packages. It identifies mechanisms, representations and contract questions
+that can inform OCE's own non-graph foundations.
 
-The owner's working direction is: "I would still like OCE to have low level
-packages, but I am happy for those to defer the very low level primitives to
-external packages". That motivates the research; this note does not settle
-package boundaries, public APIs or dependency choices.
+The [governing development policy](../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+establishes the current route: author graph and non-graph algorithms and data
+structures as SMALL Reliable Atoms and meaningful compositions, using openly
+licensed examples as inspiration. The [foundations bundle index](../../docs/architecture/foundations/foundations-bundle-index-2026-09-08.md)
+locates the common contracts, queue specification and worked examples.
 
 The companion **Typescript Graphs** research is available in
 [PR 72](https://github.com/EngraphCode/open-curriculum-ecosystem/pull/72).
@@ -38,7 +41,8 @@ priority queues, ordering, persistence, bitsets, union-find, caching, streams
 and incremental relations to graph requirements. These are inputs for further
 general-foundations research, not conformance findings for this survey's
 untested candidates. Findings here can in turn inform graph implementation
-and dependency choices. Package boundaries and adoption decisions remain open.
+mechanisms and composition contracts. Exact designs and package boundaries
+remain decisions for their owning capabilities under the governing policy.
 
 The document links preserve the linked graph-research snapshot; PR 72 carries
 subsequent updates and the link back to this research.
@@ -112,7 +116,9 @@ documentation, following
 [PDR-115](../practice-core/decision-records/PDR-115-naming-openly-licensed-external-sources.md).
 This note paraphrases documented facts and adds research questions. It imports
 no source code or substantial documentation passages. Documentation licensing
-is distinct from a future assessment of a selected dependency release.
+is distinct from licensing of any source code or tests inspected in a later
+reference investigation. Later investigations pin and assess the exact material
+they use.
 
 | Documentation source | Attribution | Verified notice and scope |
 | --- | --- | --- |
@@ -125,16 +131,16 @@ is distinct from a future assessment of a selected dependency release.
 
 ## Open research questions
 
-- Which non-graph primitives are already implemented or consumed in OCE, and
-  which concrete operations motivate further investigation?
-- Where do native facilities already satisfy the need?
-- Where could an external primitive reduce implementation and maintenance work,
-  accounting for integration, conversion and dependency costs?
-- What useful contract would an OCE package provide, if any, beyond direct use
-  of the external API?
-- Which exact releases and runtime/module combinations should be compared, and
-  what contract checks or representative workloads would discriminate between
-  them?
+- Which responsibilities in existing and owner-directed new capabilities need
+  a distinct atom or composition contract?
+- What language/runtime facilities form each design's declared assumptions?
+- Which openly licensed mechanisms, contract distinctions and counterexamples
+  can reduce uncertainty in our own design?
+- Which invariants belong inside an atom, and which arise only through its
+  compositions and complete consumer journeys?
+- Which exact source revisions, independent models, misuse cases and cost
+  checks would distinguish the candidate mechanisms under our contract?
 
-Those questions remain open. This draft adds evidence to the repository without
-choosing an implementation, changing architecture guidance or amending a plan.
+These questions guide further reference research. The observations above retain
+their original limits: documentation was inspected, and no implementations were
+executed or qualified by this survey.

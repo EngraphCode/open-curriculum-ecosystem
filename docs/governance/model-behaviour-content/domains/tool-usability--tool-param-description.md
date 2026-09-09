@@ -866,12 +866,7 @@ Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is e
 **What it says now:**
 
 ```text
-threadSlug: z
-    .string()
-    .min(1)
-    .optional()
-    .describe(
-      'Detail anchor: one thread slug (corpus key). Returns that thread’s full year-ordered unit progression. Exactly one anchor mode per call.',
+Detail anchor: one thread slug (corpus key). Returns that thread’s full unit progression, one curriculum-ordered run per subject. Exactly one anchor mode per call.
 ```
 
 **What it is for:** Defines the detail anchor returning one thread's full year-ordered progression.
@@ -879,7 +874,7 @@ threadSlug: z
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-param-description · **Impact tier:** high-impact
 
 ### C255 — THREAD\_PROGRESSIONS\_INPUT.subject

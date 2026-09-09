@@ -139,6 +139,8 @@ description: 'Explore how concepts develop across years through curriculum threa
 **What it says now:**
 
 ```text
+Use get-thread-progressions anchored by a threadSlug for one thread's curriculum-ordered progression (one run per subject), or by subject + keyStage to discover which of the ${String(threadProgressionStats.threadCount)} threads to anchor.
+
 Use get-prior-knowledge-graph with anchor unit slugs for each unit's stated prior knowledge — the statements Oak records about what pupils are assumed to know before it.
 ```
 
@@ -669,6 +671,10 @@ browseSubject: {
 **What it says now:**
 
 ```text
+action: 'Get the curriculum-ordered progression for the thread found in step 1',
+
+'That thread’s unit progression, one run per subject in Oak’s curriculum order (years ascending, the subject sequence’s unit order within a year)',
+
 'Get the stated prior knowledge for the thread units found in steps 1-2, anchored by their slugs'
 
 returns: "Each anchor unit's stated prior-knowledge statements"

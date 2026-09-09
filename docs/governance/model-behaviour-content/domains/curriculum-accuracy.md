@@ -289,33 +289,8 @@ const subjectDisplayMetadata: Record<
 **What it says now:**
 
 ```text
-threads: {
-    definition:
-      'An attribute assigned to units that groups together units across the curriculum building a common body of knowledge. Threads are important for making vertical connections across year groups in each subject.',
-    importance:
-      "Threads show how ideas BUILD over time — they are the pedagogical backbone of Oak's curriculum. Understanding threads enables powerful queries like 'what comes before this topic?' and 'how does this concept develop from Year 1 to Year 11?'",
-    countSummary: `${String(threadProgressionStats.threadCount)} threads across ${String(threadProgressionStats.subjectsCovered.length)} subjects, connecting units into learning progressions`,
-    characteristics: [
-      'Programme-agnostic: A single thread spans multiple programmes, key stages, and years',
-      'Year-ordered: A thread’s units progress by teaching year (within one year the order is not curricular)',
-      'Cross-key-stage: Threads enable tracking progression from early years to GCSE',
-      'Primary navigation: Threads are used as filters on the Oak website',
-    ],
-    examples: [
-      {
-        slug: 'number',
-        subject: 'maths',
-        spans: 'Reception → Year 11',
-        unitCount: 118,
-        progression: 'Counting 0-10 → Place value → Fractions → Algebra → Surds',
-      },
-      {
-        slug: 'geometry-and-measure',
-        subject: 'maths',
-        spans: 'KS1 → KS4',
+'Curriculum-ordered: A thread’s units follow Oak’s authored curriculum order within each subject — years ascending, and within a year the subject sequence’s unit order; a thread spanning subjects runs separately per subject; at key stage 4 a unit merges its exam-board and tier variants, so a KS4 run is a bias towards the earliest authored position, not any one board’s order',
 ```
-
-*Shown in part only — read the full text in the source file below.*
 
 **What it is for:** Defines threads, asserts their pedagogical importance ('backbone of Oak's curriculum'), lists characteristics (incl. within-year order not curricular), worked examples with progressions, and REST tool-usage hints.
 
@@ -323,7 +298,7 @@ threads: {
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/ontology-data.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** orientation-content · **Impact tier:** high-impact
 
 ### C293 — ontologyData.programmesVsSequences

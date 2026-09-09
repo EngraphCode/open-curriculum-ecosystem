@@ -78,9 +78,10 @@ The dated
 [`oak-curriculum-infrastructure-delta-2026-09-08.md`](../../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md)
 qualifies current use of chapter 08's historical Oak/OCE observations without changing its
 source bytes. Upstream OCE `1.178.6` restores authored order at the
-`get-thread-progressions` boundary, but Engraph's inspected default branch remains at
-`1.178.5`; the misconception-graph consumer, synthetic prerequisite-labelled edges and a
-reproducible retained bulk input remain open. Oak Curriculum API `0.11.1` separately fixes
+`get-thread-progressions` boundary; Engraph's default branch was at `1.178.5` when the
+report was written and incorporated `1.178.6` through the sync named in the report's
+reopening addendum (9 September 2026); the misconception-graph consumer, synthetic
+prerequisite-labelled edges and a reproducible retained bulk input remain open. Oak Curriculum API `0.11.1` separately fixes
 Combined Science validation in the external API repository. Read the report for the exact
 version identities, evidence limits and reopening triggers.
 
