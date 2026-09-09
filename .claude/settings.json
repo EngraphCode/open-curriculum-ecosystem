@@ -9,6 +9,7 @@
       "WebFetch(domain:zod.dev)",
       "Bash(git status:*)",
       "Bash(git mv:*)",
+      "Bash(git revert:*)",
       "Bash(git push:*)",
       "Bash(git remote get-url origin)",
       "Bash(gh run:*)",
