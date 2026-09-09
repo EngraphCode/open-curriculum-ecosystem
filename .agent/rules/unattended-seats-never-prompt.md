@@ -27,7 +27,12 @@ preventing useful work from happening" (2026-09-09).
    [`route-blocks-and-questions-to-director`](route-blocks-and-questions-to-director.md)).
    The destructive git operations and `rm -rf` are denies; the hook policy
    in `.agent/hooks/policy.json` denies the same shapes with a reappraisal,
-   so the refusal teaches.
+   so the refusal teaches. Every command that leaves the ask list is
+   CLASSIFIED, not merely unlisted: its forward-going forms (a revert, a
+   stash recovered or inspected) are allows, and its work-discarding forms
+   (a revert sequence aborted or skipped, a stash dropped or cleared) are
+   denies — nothing is left to the host's classifier, which prompts in the
+   default mode.
 2. **One plain command per Bash call.** No `;`-chained scripts, no
    command substitution at the tool boundary, no heredocs that write
    files. A ceremony with several moves is several calls, each readable on
