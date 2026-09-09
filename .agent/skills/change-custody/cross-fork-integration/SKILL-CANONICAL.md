@@ -108,8 +108,9 @@ carrier merge and landing proof names the first.
   below reads the refreshed remote-tracking ref, never a local branch.
 - The carrier: exactly one open sync pull request, counted by a client-side
   name test over the full open list (`gh pr list --repo <fork> --state open
-  --json number,headRefName`, then the head-name match) — a `--search`
-  head-name query returns nothing, silently. A second carrier for the same
+  --limit 200 --json number,headRefName`, then the head-name match; the
+  command's default page is thirty, so the limit is part of the check) — a
+  `--search` head-name query returns nothing, silently. A second carrier for the same
   lineage is a defect; close it on the record.
 - Exclusive counts both ways, from fetched history, and the merge base.
 
@@ -154,8 +155,10 @@ the bot as committer, `--no-ff`, and a message that names the situation
 without spelling the CI-skip token anywhere in the message — the host scans
 the whole head message, and a head that is upstream's release commit runs no
 workflow at all. The head that lands must be a commit whose checks ran; when
-the carrier head must stay upstream's release commit, one empty commit on the
-carrier gives the checks a head, and the landing is still a merge commit.
+the carrier is to carry upstream's release commit unchanged, the carrier head
+becomes one empty commit on top of that release commit (the release commit
+stays its parent), the checks run on the empty head, and the landing is still
+a merge commit.
 
 Make this merge AT THE SLOT WORD, never at readiness (pr-lifecycle §Phase 7,
 the landing slot): under a require-up-to-date ruleset every landing ahead of
@@ -256,10 +259,13 @@ sync a conflict.
 
 Every landing flips every other open pull request BEHIND; the landing
 broadcast declares the slot order. A lane in flight at a sync parks as a
-draft, keeps its own head, and merges the default branch as its LAST push, at
-the slot word; at that merge it re-reads its own touched files against the sync
-(`git diff --stat <its base> origin/<fork-default> -- <its files>` — an empty
-diff is the proof, recorded on the lane's PR). A lane's landing never depends
+draft, keeps its own head, and merges the default branch as its final planned
+synchronisation push, at the slot word — the merge opens a review round like
+any push, and an over-bar finding from that round still cures in a push
+carrying nothing else (PDR-140 clause 9b); at that merge it re-reads its own
+touched files against the sync (`git diff --stat <its base>
+origin/<fork-default> -- <its files>` — an empty diff is the proof, recorded
+on the lane's PR). A lane's landing never depends
 on its seat being awake: the Director's declared deadline-and-default lands it
 from a temporary branch cut on the lane's remote ref, without touching the
 seat's worktree, branch or claim (2026-09-09, the #88 follow-up).

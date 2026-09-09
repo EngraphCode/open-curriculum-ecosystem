@@ -878,7 +878,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    slots and bump-gap waits retired 2026-07-20, PDR-131: merge concurrency
    between eligible PRs is free; quality binds at settled-READY, and the
    2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
-   gate green, every Phase-8 clean — is the measured evidence) — only
+   gate green, every Phase-8 clean — is the measured evidence; under a
+   strict-currency ruleset the Phase 7 landing slot orders the syncs that
+   policy forces, and the grant is still eligibility, never position) — only
    on the item-4 settled verdict — zero threads AND zero
    undispositioned body-tally findings on the tip with a cure-worthy
    count of zero (item 2's PDR-140 semantics), every expected reviewer
@@ -1231,7 +1233,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
   push again, and every push opens a fresh review round (ADR-204 makes the
-  re-sync one push). So ONE non-draft PR holds the landing slot at a time:
+  re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
+  merge concurrency between settled-READY PRs is free where the ruleset does
+  not require currency — and names the strict-currency ruleset policy as an
+  owner-owned cost driver (its decision 5); this clause is that policy's cost
+  made orderly while the owner keeps it (live on this repository's default
+  branch, read from the rules API), not a return of the retired machinery, and
+  it lapses the day the policy is dropped. So ONE non-draft PR holds the landing slot at a time:
   the slot-holder syncs ONCE, pushes, settles and merges; every other seat
   may open its PR, gather reviews and disposition threads, but does NOT sync
   or merge until the slot-holder's merge-landed event, then takes the slot,

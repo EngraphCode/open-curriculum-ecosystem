@@ -61,10 +61,13 @@ launch a long fleet into a context about to compact; its harvest lands in
 the thin post-compaction window. A compaction, manual or automatic, ends
 every session-scoped process — monitors, background loops, crons — so
 "processes run on across the boundary" is never true (a Director seat wrote
-it and resumed to an empty process table, 2026-09-09). The boundary block
-therefore carries the re-arm recipe as if nothing survives: the exact
-watcher command, the loop commands, the cron expressions and prompts, any
-one-shot wake's date; the resume verifies by id first, expecting nothing.
+it and resumed to an empty process table, 2026-09-09; a second seat the
+same day compacted with a watcher, four monitors and a cron armed and found
+none alive). The boundary block therefore carries the re-arm recipe as if
+nothing survives: the exact watcher command, the loop commands, the cron
+expressions and prompts, any one-shot wake's date; the resume verifies by
+id first (the task list, the cron list, the process table) and re-arms
+only what that verification finds absent, so a survivor is never doubled.
 
 Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
 not the end of your session", 2026-09-03) runs the programme's

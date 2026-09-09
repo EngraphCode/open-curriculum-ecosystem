@@ -481,9 +481,12 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      alert bootstrap block (between the `CODEX_TEAM_ALERT_BOOTSTRAP_GENERATED`
      start and end markers). It is generator-owned, regenerated and never
      hand-edited, so it is an extension, not drift; a wrap reports it as
-     drift only when a marker is missing or the fenced content differs
-     from the generator's output (decided at the 2026-09-09 consolidation
-     after every wrap since 2026-09-07 had reported it).
+     drift only when the generator's own check refuses the file — a
+     marker missing, duplicated, out of order or not on its own line, or
+     the fenced content differing from the render (the generator is the
+     test; the wrap runs it rather than re-deriving its rules) (decided at
+     the 2026-09-09 consolidation after every wrap since 2026-09-07 had
+     reported it).
 
    Anything beyond the default (or beyond a named extension) is
    **drift**: an instruction, fact, preference, or operational note
