@@ -1110,3 +1110,26 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   the disposition policy §File-Based Configuration and ADR-219 already said it could not work.
   Carried to PR C's census (a), named by criterion on the #95 threads: the showcase (criteria 1,
   8), tuition (1, 2) and definition (owner-held arms, 1–8) plans' external-state proofs.
+
+- **NON-TERMINAL WRAP 26 — Flounder turns Estuary (c5cc2c), Director, 2026-09-09 03:11Z.** The
+  2026-09-08 train is complete: #94 (the owner's Work-cloud routing practice, f83436b8e at
+  01:20Z, five rounds) and #95 (the lane seat's twelve-rulings records, 84f05775c at 01:48Z,
+  nine rounds) landed after the fold; eleven PRs in the day. Open on the fork: #96 (this
+  branch's draft, by design), #92 (the owner's: four items pre-cured; the two clauses of their
+  own authoring and the below-bar list wait for their word), #90 (the owner's draft, custody).
+  The lane seat closed its lane and holds at low burn; the (t) follow-up, PR B and PR C are
+  tomorrow's lanes after the owner's morning on #92 and #90.
+- **Work safety.** Primary on the successor, clean, zero commits ahead of origin (engraph
+  84f05775c); queue empty; every lane's worktrees removed after their proofs (showcase-test-io,
+  watch-91, plan-nodes-h, work-cloud-94, rulings-a) — foundations-92 stays for the owner's #92,
+  pr-943-engraph is the standing kiln lane. The Director's second claim from the one-seat train
+  (2fe9f308, the merge train while the lane seat was dark) is closed at this wrap as complete;
+  8109015d, the Director claim, stays.
+- **Metacognition.** The 01:41Z wrap tick never arrived (the cron fires only in an idle REPL; the
+  night's notifications kept the loop busy at the minute), so the lane seat's capture sat dirty
+  for an hour before I swept it by hand at 02:58Z — the rule is that a dirty continuity line is
+  swept at the next quiet moment, cron or not. Clock stamps this window came from `date -u`.
+- **Loss scan.** Promises kept: every PR of the night landed, was cleared, and was broadcast;
+  every disposition is on its PR with its bar marker; the fold ceremony is complete with its
+  wake armed. Promises open: the owner's morning items; the (t)/B/C lanes; the #94 read's
+  structural notes on the PR. Nothing narrated ahead of the landed state. Recursion closes here.
