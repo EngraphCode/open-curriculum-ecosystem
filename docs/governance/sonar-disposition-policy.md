@@ -70,8 +70,7 @@ query filter or a rule-ignore, which would silence the rule beyond those
 sites. At this amendment's date the route comments (`auth-routes.ts`,
 `oauth-proxy-routes.ts`, `bootstrap-helpers.ts`) name the edge control and
 cite ADR-219 but do not yet recognise the defence-in-depth option, so the
-four dismissals wait on that comment change, which is the code-scanning
-lane's unit for the exception. Automatic analysis reads no file-based rule ignore
+four dismissals wait on that comment change landing in the tree. Automatic analysis reads no file-based rule ignore
 (§[File-Based Configuration](#file-based-configuration-sonarcloudproperties)),
 so the record is per site, and the comment is what keeps it from being
 re-litigated.
@@ -161,9 +160,9 @@ were the comments those marks carried; under the
 the class and license no mark. Every class below records its **cure** —
 the change that makes the pattern absent at a site that meets the
 criteria, alongside the FIX path its failing sites always took — so this
-policy is complete on its own; the code-scanning lane's plan node lists the
-sites the lane applies each cure to and references this policy, never the
-reverse. Sites marked before the ruling keep their record; the ruling binds every finding
+policy is complete on its own, and any plan that applies these cures to
+sites references this policy, never the reverse. Sites marked before the
+ruling keep their record; the ruling binds every finding
 from its date, and any re-disposition of the earlier marks is the owner's
 call (§[Maintenance](#maintenance)).
 
@@ -172,7 +171,9 @@ call (§[Maintenance](#maintenance)).
 **Pattern**: `/tmp` (or other publicly-writable paths) appears as a path
 argument in test code.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Site is in a file matching `**/*.test.ts`, `**/*.unit.test.ts`,
   `**/*.integration.test.ts`, `**/*.e2e.test.ts`, or `e2e-tests/**` /
@@ -200,7 +201,9 @@ never needed.
 `http://fake-<service>:<port>`, `http://example.com`, or RFC-2606 reserved
 test domains.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Site is in a test file (same glob set as S5443) or in a test-runner
   config (`playwright.config.ts`, `vitest.config.ts`, etc.) or a
@@ -224,7 +227,9 @@ amendment is this class's).
 **Pattern**: IP literal (RFC 1918 private, RFC 3849 documentation,
 loopback, or synthetic) in code.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Site is in a test file (same glob set as S5443).
 - The IP is a fixture value driving a test of header-redaction,
@@ -245,7 +250,9 @@ address literal sits in source.
 **Pattern**: Regex with super-linear complexity flagged by Sonar's regex
 analyser.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Site runs at codegen time (`pnpm sdk-codegen`), build time
   (`pnpm build`), or in a data-pipeline / admin CLI —
@@ -290,7 +297,9 @@ class is reviewed and migrated, never extended.
 
 **Pattern**: `Math.random()` used in code.
 
-**Decision criteria**: SAFE if and only if the use is one of:
+**Identification** — the class is present when the use is one of the
+following (before the 2026-09-08 ruling these were the conditions for a
+`SAFE` mark; they license none now):
 
 - **Non-security identifier generation** combined with a uniqueness
   primitive (timestamp, monotonic counter): correlation IDs, request
@@ -321,7 +330,9 @@ costs nothing at those sites and the rule stops firing.
 
 **Pattern**: `eval()`, `new Function(...)`, or `javascript:` URL.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Site is in test code AND the input to `Function` / `eval` is a string
   literal or a value derived synchronously from a same-file string literal
@@ -343,7 +354,9 @@ defect and takes the same replacement.
 
 **Pattern**: `createHash('md5')`, `createHash('sha1')`, or equivalent.
 
-**Decision criteria**: SAFE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `SAFE` mark; they
+license none now):
 
 - Hash output is used purely for **format conversion** or **cache key
   derivation** from a non-secret input — never for integrity verification,
@@ -367,8 +380,9 @@ HMAC / bcrypt / argon2 as appropriate for any security use.
 default, emits a framework-identifying response header (`X-Powered-By`,
 `Server`, etc.).
 
-**Decision criteria**: SAFE if and only if **a runtime test asserts the
-header is absent** at the application layer. Static analysis cannot see
+**Identification** — the class is present when **a runtime test asserts
+the header is absent** at the application layer (before the 2026-09-08
+ruling this was the condition for a `SAFE` mark; it licenses none now). Static analysis cannot see
 downstream middleware (e.g., helmet's `hidePoweredBy`); the test pins the
 property regardless of implementation detail.
 
@@ -721,8 +735,8 @@ discipline as any [`never-disable-checks`][no-disable]-adjacent decision.
   sites previously SAFE-d under the removed shape. The 2026-09-08 ruling
   removed every permitted mark at once; whether the sites marked before it
   are re-opened and cured, and in what order, is the owner's decision,
-  carried on the code-scanning lane's plan node when given — this policy
-  binds forward from the ruling and does not re-open them by itself.
+  recorded on whatever plan carries it when given — this policy binds
+  forward from the ruling and does not re-open them by itself.
 - The policy is a living document. Reviewers should challenge stale
   rationales at consolidation time.
 

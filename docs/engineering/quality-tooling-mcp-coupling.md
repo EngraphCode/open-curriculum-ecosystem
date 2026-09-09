@@ -249,11 +249,15 @@ When a finding appears in both — e.g., a regex DoS in `S5852` (Sonar) AND `js/
 
 ### Common Oak CodeQL alerts
 
-- `js/polynomial-redos` HIGH — regex with overlapping quantifiers vulnerable to ReDoS. Often co-fired with Sonar `S5852`. Investigate per-site for actual vulnerability; many alerts are linear-time with no overlap.
-- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server this is a standing false positive: the control is at the edge, where CodeQL cannot see it. Disposition and rationale are fixed by [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md); cite it rather than re-deriving one per alert.
-- `js/http-to-file-access` MEDIUM — network data written to file without sanitisation. Sometimes correctly reflects defence-in-depth shape (validate-then-skip-with-warning); dismiss-with-rationale when the architectural shape is correct.
-- `js/incomplete-sanitization` HIGH — common pattern when escaping a single character with a non-`/g` regex. Real bug when the input is user-controlled; investigate per-site.
-- `js/regex/missing-regexp-anchor` HIGH — regex used as a whole-string match without `^...$`. Real bug at security boundaries (auth, hostname); fix or dismiss per-site.
+Since 2026-09-08 every CodeQL alert is fixed at source (the one-outcome
+policy); the entries below name the cure, and the one excepted class its
+route.
+
+- `js/polynomial-redos` HIGH — regex with overlapping quantifiers vulnerable to ReDoS. Often co-fired with Sonar `S5852`. Cure at every site: rewrite to linear constructs (the policy's S5852 / S8786 cure), whether or not the site's input makes the backtracking reachable.
+- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server the control is at the edge, where CodeQL cannot see it: this is the policy's ONE excepted class — the route comment recognising the defence-in-depth option and naming the edge control lands first, then one dismissal per alert through §Dismissal citing [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md), the owner's act.
+- `js/http-to-file-access` MEDIUM — network data written to file without sanitisation. Cure at source: sanitise or validate the data at the write the query names (the validate-then-skip shape becomes explicit at that site); no dismissal.
+- `js/incomplete-sanitization` HIGH — common pattern when escaping a single character with a non-`/g` regex. Cure at source (`/g`, or a replace-all); real bug when the input is user-controlled.
+- `js/regex/missing-regexp-anchor` HIGH — regex used as a whole-string match without `^...$`. Cure at source: anchor the regex; a real bug at security boundaries (auth, hostname).
 
 ---
 
