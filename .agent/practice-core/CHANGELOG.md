@@ -4,6 +4,17 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-027 open question: which model name wins when four disagree
+
+- PDR-027 §Notes gains a dated open question, re-homed from the host's
+  open-questions register at the 2026-09-09 dedicated consolidation: the
+  identity tuple's `model` field can be declared, reported, observed and
+  configured to four different values (a July 2026 Codex config named a
+  model the CLI silently overrode), and no clause names which wins. The
+  question carries its resolution path (the field's consumers — the naming
+  registry, the Cricket tally, the identity preflight — are read first) and
+  a candidate precedence for that lane to test, not a decision.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
 
 - PDR-140 amended — new Decision clause 9, with the Amendment Log entry

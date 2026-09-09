@@ -421,27 +421,38 @@ tool retires them.
 ## 2026-09-09 consolidation batch (2026-09-07→09 instances, each measured first-hand by the seat named in the napkin and verified at the drain)
 
 - **`gh pr list --search` with a head-name query returns nothing, silently**
-  (2026-09-09, the carrier check): read the full open list with
-  `--json number,headRefName` and test the name client-side.
+  (2026-09-09, the carrier check): filter server-side with `--head <branch>`
+  (gh 2.97.0: "Filter by head branch"); any listing you read as "the full open
+  list" needs an explicit `--limit`, because the default page is thirty and the
+  command raises no error at the cap.
 - **A `git grep` over a pathspec built by substitution gave different counts on
   two runs** (8 files, then 0; 2026-09-09): one term at a time in the plain form
   `git grep <term> <ref> -- '*.md'`.
 - **The bot's push leaves the remote-tracking ref stale** (2026-09-09):
   `git fetch origin <branch>` before any `-d` or `rev-list` against it, or the
   ancestry proof reads the pre-push ref.
-- **`git add` on a renamed-away path fails, and a pathspec commit that omits the
-  old path leaves it tracked-but-missing** (2026-09-08, the fold): list the old
-  path with the new one; the ceremony script skips absent paths at the add step
-  while keeping them in the intent.
+- **`git add -- <old> <new>` after a `git mv` exits 128 (`pathspec '<old>' did
+  not match any files`), and a pathspec commit that omits the old path leaves it
+  tracked-but-missing** (2026-09-08, the fold; Git 2.43). The sequence that
+  works: `git mv` has already staged the rename, so `git add -- <new>` alone,
+  then name BOTH endpoints in the commit pathspec (`git commit -- <old> <new>`)
+  so the deletion is recorded. The commit skill's staging step still tells the
+  reader to `git add` both endpoints — a pointer for its next records pass; the
+  Director's fold script of that day worked around it by skipping absent paths
+  at its add step while keeping them in the queue intent.
 - **markdownlint MD028 fires on consecutive blockquotes without a separator**
   (2026-09-08): blank line, `---`, blank line. **MD018 fires on a wrapped line
   that begins with a PR number** (`#674)`, `#96`; 2026-09-08 and 2026-09-09):
   never let a reflow put `#NN` at a line start.
 - **A moved record's relative links change depth** (2026-09-08): the links
   validator names the fix; run it before the push after any move.
-- **`comms reply` refuses an unknown antecedent event id** (2026-09-08): read the
-  id from the store, never from memory; `comms show` and `comms direct` take the
-  full id, and the 8-character prefix used in records is refused.
+- **`comms reply` refuses an unknown antecedent event id** (2026-09-08), and
+  `comms show` refuses the 8-character prefix records use (2026-09-09); but
+  `comms direct --in-response-to` copies whatever string it is given into the
+  event unvalidated (the command's own integration test threads to a
+  nonexistent id by design), so a caller verifies that full id against the
+  store first or the threading edge dangles. Read ids from the store, never
+  from memory.
 - **The auto-mode permission classifier refused a Monitor arm and a one-shot cron
   identical in shape to ones it had allowed minutes earlier** (2026-09-08,
   2026-09-09): a refusal is not a verdict on the command — retry once with the

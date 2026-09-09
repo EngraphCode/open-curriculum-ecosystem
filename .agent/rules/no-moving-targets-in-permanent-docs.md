@@ -242,10 +242,13 @@ commit:
   as present (a rules tier claimed a policy amendment the next PR had not
   landed, 2026-09-08);
 - for every shell recipe in the diff, run each predicate against a concrete
-  case — a symlink, an existing sibling — in a scratch directory with no
-  repository in it, before the push: re-reading a recipe against the landed
-  file is not running it (an inverted `test -L` guard and a truncating
-  fixed sibling name reached a landed rule that way, 2026-09-09);
+  case before the push — a filesystem predicate (a symlink, an existing
+  sibling) in a scratch directory with no repository in it; a git predicate
+  (`merge-base --is-ancestor`, a porcelain read) in a registered worktree
+  cut for the purpose, never a scratch `git init` (the shape that held a
+  seat twice): re-reading a recipe against the landed file is not running
+  it (an inverted `test -L` guard and a truncating fixed sibling name
+  reached a landed rule that way, 2026-09-09);
 - before MOVING a range — a file, a section, an archive slice — grep the
   estate for every pointer INTO it (`grep -rn <file-name> .agent docs`, the
   range's section anchors, its own self-references such as "below" and
