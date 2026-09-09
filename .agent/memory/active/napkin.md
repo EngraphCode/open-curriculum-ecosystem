@@ -1631,3 +1631,103 @@ period with a demonstration as the readiness gate — the transfer took nine min
 successor's first merge fired twenty-three minutes later; the prior seat's instruments, read
 before use, ran unchanged; every review round dispositioned by the bar, with the four-round
 tail on #97 routed rather than cured.
+
+## Nettle guards Pistil (2de368) — Director, pointers from #100's rounds and a CI outage class (2026-09-09 17:4xZ)
+
+- Pointer (routed from #100 round two, Codex): the Bash guard and the tracked settings enumerate
+  spellings of forced recursive removal; the alias space (`-r --force`, `--recursive -f`,
+  clustered `-rvf`) needs an argument-aware matcher for the removal command — a change to the
+  guard's matching model, routed to the held-seat-observability node's refusals slice (#101,
+  todo 3). Falsifier: a seat executing a mixed-alias forced removal the enumerated list missed.
+- Observation: three consecutive `browser-tests` failures (17:27Z, 17:29Z, 17:43Z) at the
+  Playwright install step were one external cause — `apt` fetching Google's chrome-stable index
+  returned "Hash Sum mismatch" — not a test or a change on the fork. The class: a required
+  check red on an external mirror; the response is a re-run after the mirror settles, never a
+  push to "fix" it. If it recurs, the workflow's OS-deps step is the surface to make resilient
+  (retry the apt update, or skip the Google source the runner image ships).
+- Observation (2026-09-09 18:0xZ): the merge-bot app's token cannot re-run a workflow ("Resource
+  not accessible by integration" on a failed-jobs re-run); the bot-legitimate cure for an
+  external-cause red is the empty-commit push the pr-lifecycle skill already sanctions as a CI
+  cure outside the review budget (#100 at SHA:07332c155). Pointer: granting the app the
+  actions write permission, or an agent-tools re-run command, is the owner's call.
+
+- **PAUSE FOR COMPACTION — Altair spins Umbra (05a180), 2026-09-09 19:1xZ** (owner word:
+  "please prepare for compaction … /oak-metacognition /oak-free-play /oak-concept-exploration
+  /oak-wrap then stop all processes"). The record is
+  `.agent/state/collaboration/handoffs/05a180-altair-spins-umbra-queue-lanes-paused-2026-09-09.md`;
+  the letter is `.agent/experience/2026-09-09-altair-spins-umbra-the-check-that-runs-anyway.md`.
+  - State: #101 (the held-seat node, a38188043) and #102 (PR B, c3ce1cd5d) are CLEAN drafts
+    waiting their slots; #99's carrier merge 36bb08928 (onto 123d2e3e9) is local, unpushed by
+    design and superseded four times — redone onto the tip at the slot as the last push. The
+    three claims closed at the pause; the Director's declared default for #99 applies at the
+    slot word without an ABSORBED; #101 and #102 land under the standing rule at the Director's
+    read; the three worktrees (`upstream-99`, `held-seat-node`, `sonar-policy-b`) may be removed
+    by the Director under the grant after each landing (build output only, no env file).
+  - Metacognition, retrospective: three signals (the dark window; the recipe pushed unrun; the
+    early carrier merge). The shape they share — a lesson held is not a check that runs — is
+    the shape of both cures proposed today (#100, #101). Reflex kept: the trigger is the
+    command, never the framing.
+  - Free play, harvest: kept, the marker and the derived-term sweep are shaped alike (a check
+    that runs whether or not it is remembered); kept as a seed, "a record that identifies is
+    safer than one that licenses" (the Sonar catalogue's move beside the marker's); discarded
+    visibly, the succession-as-DNS analogy (forced). Concept exploration: no-run, every
+    question formed and routed (the slot-timing rule, the §6 bound, the §8 route, the
+    recipe-proof step).
+  - Lesson for the estate, one line: under require-up-to-date, "merge engraph as the last
+    push" means AT THE SLOT WORD, never at readiness — the early merge is redone as many times
+    as lanes land ahead of it.
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 1 WRAP (2026-09-09 19:0xZ; owner word: "please prepare for compaction, ultrathink … /oak-wrap then stop all processes")
+
+**Metacognition — the seat's first four hours.** Inherited: a live map, a slot order, a
+count-to-zero goal and a set of instruments, taken up through a shadow period whose readiness
+gate was a demonstration; the transfer cost nine minutes and the first merge fired twenty-three
+minutes later. Landed: #97, #92, #96 (the fold, with the successor #104 cut); #100 in the slot
+at SHA:17769410b with every thread answered. Corrections, all self-caught: three commit
+subjects over the header limit (write to the limit before the check); one script refused by
+the write hook for a home path; the classifier refusing a cron twice and a monitor once with
+the identical shape accepted a minute later; the harness killing two background waits on a
+memory heuristic the host's own gauge contradicted. The shape under the review loops: I
+authored restating surfaces (a pickup map narrating a moving board; an arming block; a deny
+list) and each restatement was reviewed as new surface. Fluency's warning bit once: the broad
+revert allow I wrote as a cure pre-approved the abbreviated rollback — a cure that opened a
+hole. The bridge from action to impact held: the owner's two impacts were the count to zero
+and no more held seats, and every hour served one or both. Would I do anything differently:
+declare an enumerated-policy surface's model limit at PR-open so rounds two onward have a
+pre-declared disposition, instead of discovering the limit one spelling at a time.
+
+**Concept exploration — review loops on enumerated-policy surfaces.** Observations: #96 ran
+6, 1, 3, 3, 3 and #100 ran 5, 0, 0, 1, 2, 1, 1; the step-back fired on each; in both the
+generator was a surface whose correctness is a semantics claim (the board is current; no
+destructive form escapes) but whose mechanism is an enumeration (a narrated list; prefix and
+substring lists). Problem frame: a reviewer holding the semantics can always supply one more
+spelling, so each cure enlarges the enumeration and the loop converges only when the supply is
+exhausted or the shepherd names the model's limit. The fluent answer ("cure every spelling")
+was valid at every step and divergent as a loop. Proposals, each a pointer for after zero:
+(1) the pr-lifecycle intake declares the class — an enumerated-policy surface names its model
+and routes semantic-completeness findings to a parser lane at open (warrant: two PRs today;
+falsifier: such a PR settling in two rounds without the declaration); (2) the prefix-closure
+technique (deny the shortest prefix that names only the option: `--ab`, `--sk`, `--ha`,
+`--me`, `--ke`, `--f`) recorded as the settings-side technique for accepted abbreviations
+(warrant: it closed the class at zero cost on #100; falsifier: an accepted abbreviation the
+shortest unique prefix misses — impossible under git's own ambiguity rule); (3) the
+argument-aware matcher is the structural cure for the guard (routed to #101 todo 3). Inherited
+shape that changed: "a settings deny list can express a destructive-form policy" — it cannot;
+it can only mirror what a parser decides.
+
+**Free play — harvest.** Kept: three enumerations today each matched the wrong thing (the
+perl prefixer caught PR comment ids; the prefix deny missed abbreviations; the substring guard
+missed split flags) — "this reminded me of" the fork-diff manifest lane: an enumeration is a
+fingerprint, never a semantics, and where the estate needs semantics it needs a parser.
+Observation to keep: the harness's memory kill fired twice while `memory_pressure` read 43%
+free — a gauge the seat cannot see, like the held-seat prompt. Discarded (forced): the relay
+baton for the succession; the tide for the fleet's pause. One kept, one noted, two discarded.
+
+**Loss scan at the boundary.** Compaction kills every process: the re-arm recipe is in the
+seat record (machine-local, pointer on claim 8109015d) and, for any checkout, in the brief's
+§Standing processes. In flight: #100's checks on 17769410b with no settle watch (the stop
+order); the slot word for #99 not sent (#100 not landed); Altair's three lanes handed to this
+seat's defaults at their pause. Promises: all discharged or forwarded (the record's sweep).
+Attribution flagged: Altair's account of their quiet; #103's authorship from a body line; the
+mirror's settling inferred. Bounds: CI logs read for failure lines only; peers' sessions
+unseen. The recursion closes at the standing bounds; a further pass re-finds them.
