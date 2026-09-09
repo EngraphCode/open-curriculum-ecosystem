@@ -59,7 +59,14 @@ makes any pickup-class home a real verifier.
 4. **Over the bar**: add the cure to the settlement batch; it lands in
    the next batched settlement push within the declared budget. Only a
    defect exposed on a served or live surface now fast-tracks an
-   immediate push, reason recorded.
+   immediate push, reason recorded. Budget exhaustion with an over-bar
+   cure pending is the step-back moment, never a deadlock: record it, run
+   the generator question over the full raised set, and rebudget by
+   recorded decision — once per PR on a records-class artefact, its push
+   carrying over-bar cures and queued ledger writes only (PDR-140 clause 4
+   and clause 9b). After that, every below-bar finding is dispositioned
+   without a cure, and a later over-bar finding still cures, in a push
+   carrying nothing beyond that cure and any queued ledger writes.
 5. **Age-out (below-bar only)**: a below-bar finding on text unchanged
    since the last reviewed head is triaged normally but never reopens
    settled state or resets the settlement clock; an over-bar finding

@@ -288,6 +288,21 @@ Three later refinements, each paid for:
   Before naming a class's cure in a plan, read the governing policy and the
   decision-record index for the class: two mechanisms in one node written
   from memory of a rule each cost a review round (2026-09-06).
+- **A rule clause that names repositories, credentials or secrets is read
+  against the workflow file before it is written.** "Re-home any fork head",
+  generalised from one instance, would have handed an external contributor's
+  head the shared repository's secrets; the workflow runs a cross-repository
+  head without secrets by design, visible from one read of the file
+  (2026-09-06). The instrument for a claim about what a workflow grants is
+  the workflow.
+- **Owner-facing state is computed against the default branch's tip after a
+  fetch, never against the coordination checkout.** The coordination branch
+  is cut once a day and lags every landing since; a card computed from it
+  asked the owner about a gate they had archived the day before
+  (2026-09-09). Before any card or report about a plan, a gate, a record's
+  status or a document's existence, read `git show origin/<default>:<path>`
+  or a listing of the tip; a session-start drift alert on the primary is a
+  pointer to re-check, never a fact.
 
 The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run

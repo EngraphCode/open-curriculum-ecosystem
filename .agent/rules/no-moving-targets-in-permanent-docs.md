@@ -235,7 +235,25 @@ commit:
   verdict), grep the whole node for every passage still calling it open —
   "the decision that remains", "deferred", "later, separate decision" —
   and re-true each (two such passages survived a ratification note three
-  sections away in the same file, 2026-09-06).
+  sections away in the same file, 2026-09-06);
+- grep the diff for "as amended", "landed", "now says" and "as of", and
+  check that every surface those words name is in the diff or already on
+  the base; a sibling lane's change is written as pending, by number, never
+  as present (a rules tier claimed a policy amendment the next PR had not
+  landed, 2026-09-08);
+- for every shell recipe in the diff, run each predicate against a concrete
+  case — a symlink, an existing sibling — in a scratch directory with no
+  repository in it, before the push: re-reading a recipe against the landed
+  file is not running it (an inverted `test -L` guard and a truncating
+  fixed sibling name reached a landed rule that way, 2026-09-09).
+
+A record narrates the landed state, in the past tense, after it lands:
+acceptance criteria authored before the landing, a live todo for a merged
+PR, a recipe without its operands and a continuity pointer at the previous
+seat's step are each a statement of a state the tree does not hold, and a
+per-push reviewer finds one per round (four rounds on one lane's records,
+2026-09-07). Land a lane's records once, at its wrap, with every status
+line past tense and everything else as declared next steps.
 
 A tracked continuity record never forecasts the pull request that carries
 it: a lane-state bullet saying what "this PR" will do next goes stale at

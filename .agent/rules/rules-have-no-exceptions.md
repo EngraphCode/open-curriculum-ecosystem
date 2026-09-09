@@ -28,6 +28,15 @@ tombstone for the case the author could not yet fit.
 4. A case you cannot yet resolve is surfaced for an owner doctrine decision,
    never parked inside the rule as a carve-out.
 
+An act's own check passing is not the same question as which standing ruling
+governs the act. A clean tree, a sound verdict and a green gate each answered
+"is this act correct?" while a standing ruling forbade the act itself — a
+lead removing a peer's local branch, a conscience-check seat stepping from
+judging into doing, a build stricter than the ask (three in one day,
+2026-09-03). Beside every correctness check, ask "which standing ruling
+governs this act?" before acting; the rule that owns the act class carries
+the answer, and this rule is why that answer has no exception.
+
 ## A documented bypass is a carve-out, even when the actor is legitimately outside the rule's audience
 
 When a real actor legitimately needs different treatment than the rule
