@@ -61,12 +61,17 @@ dismiss the findings in Sonar, and preferably find a way to keep them
 dismissed instead of revisiting this same issue every few weeks." The class
 is **missing rate limiting on the MCP server's route handlers** and nothing
 else: ADR-219 (rate limiting at the edge, no in-process limiter) stands
-unchanged; each route the analyser names carries a comment in the tree
-recognising the defence-in-depth option and the edge controls relied on;
+unchanged; BEFORE any dismissal, each route the analyser names carries a
+comment in the tree recognising that additional in-process rate limiting
+would provide defence in depth and naming the edge controls relied on; then
 each finding takes one dismissal in the analyser's own record, once,
 explained by that comment and citing the ADR — never a path exclusion, a
 query filter or a rule-ignore, which would silence the rule beyond those
-sites. Automatic analysis reads no file-based rule ignore
+sites. At this amendment's date the route comments (`auth-routes.ts`,
+`oauth-proxy-routes.ts`, `bootstrap-helpers.ts`) name the edge control and
+cite ADR-219 but do not yet recognise the defence-in-depth option, so the
+four dismissals wait on that comment change, which is the code-scanning
+lane's unit for the exception. Automatic analysis reads no file-based rule ignore
 (§[File-Based Configuration](#file-based-configuration-sonarcloudproperties)),
 so the record is per site, and the comment is what keeps it from being
 re-litigated.
@@ -75,8 +80,9 @@ re-litigated.
 
 1. **Is the site the excepted class?** If the finding is missing rate
    limiting on one of the MCP server's route handlers, apply the exception
-   as the One-Outcome Rule states — the comment at the route, one dismissal
-   in the analyser's record citing ADR-219, recorded once — and stop. This
+   as the One-Outcome Rule states — the comment at the route first, then one
+   dismissal in the analyser's record citing ADR-219, recorded once — and
+   stop. This
    is the only step with a server-side action, and it is not a class in the
    catalogue below.
 2. Otherwise **match the rule key** to a documented class below.
@@ -152,12 +158,12 @@ the 2026-09-08 ruling, as the conditions under which a site could be marked
 `SAFE` or `FALSE_POSITIVE` in the analyser, and the canonical rationales
 were the comments those marks carried; under the
 [One-Outcome Rule](#one-outcome-rule-owner-ruled-2026-09-08) they identify
-the class and license no mark. A site that meets a class's criteria is
-cured by the class's FIX path, or, where a class records none because its
-sites were once marked rather than changed, by the change that makes the
-pattern absent (the code-scanning lane's plan node,
-`code-scanning-alerts-to-zero`, carries those cures site by site). Sites
-marked before the ruling keep their record; the ruling binds every finding
+the class and license no mark. Every class below records its **cure** —
+the change that makes the pattern absent at a site that meets the
+criteria, alongside the FIX path its failing sites always took — so this
+policy is complete on its own; the code-scanning lane's plan node lists the
+sites the lane applies each cure to and references this policy, never the
+reverse. Sites marked before the ruling keep their record; the ruling binds every finding
 from its date, and any re-disposition of the earlier marks is the owner's
 call (§[Maintenance](#maintenance)).
 
@@ -182,6 +188,12 @@ filesystem use; no production runtime exposure".
 `tmp/test.log` passed alongside vi.fn() mocked `fs`. No real filesystem
 touch.
 
+**Cure** (every site): a per-run directory from `fs.mkdtemp` under
+`os.tmpdir()` — or the test runner's own temporary directory — in place of
+a fixed publicly writable path literal; a mocked filesystem takes a
+non-public fixture path. The rule fires on the literal, and the literal is
+never needed.
+
 ### S5332 — Clear-text protocols (`http://`)
 
 **Pattern**: `http://` URL in code, typically `http://localhost:<port>`,
@@ -201,6 +213,12 @@ test domains.
 **Canonical rationale**: "test-fixture URL; synthetic/localhost/test-domain
 target; production runtime uses `https://` env var".
 
+**Cure** (every site): `https://` for every URL that names a real host; a
+test that needs a clear-text loopback endpoint builds the URL at runtime
+from the runner-assigned address and a scheme constant instead of carrying
+an `http://` literal in source (the worked example under the 2026-09-08
+amendment is this class's).
+
 ### S1313 — Hardcoded IP addresses
 
 **Pattern**: IP literal (RFC 1918 private, RFC 3849 documentation,
@@ -216,6 +234,11 @@ loopback, or synthetic) in code.
 
 **Canonical rationale**: "test-fixture IP literal; drives input-handling
 test; not a production-runtime value".
+
+**Cure** (every site): a named host or a configuration value in place of
+the literal; a test of address-handling code builds its input at runtime
+(from octets, or from the parsed form the code under test consumes) so no
+address literal sits in source.
 
 ### S5852 — Slow regular expressions
 
@@ -237,9 +260,10 @@ analyser.
 controlled input; anchored or character-class-bounded; not a request-
 handler path".
 
-**FIX path**: when a regex is in a request-handler path, rewrite to use
+**FIX path and cure** (every site, request-handler or not): rewrite to
 linear constructs (negated character classes, anchored alternations,
-bounded quantifiers) per the rule's documented strategies.
+bounded quantifiers) or plain string operations, per the rule's documented
+strategies; on a request-handler path the rewrite is urgent.
 
 ### S4036 — OS commands resolved via PATH (FIX-only — no SAFE disposition)
 
@@ -287,8 +311,11 @@ state, or any cryptographic property.
 - Backoff: "AWS-style full-jitter retry backoff; spreads retry timing
   against thundering-herd; not a security context".
 
-**FIX path**: any cryptographic, session, or token use must use
-`crypto.randomUUID()`, `crypto.randomBytes()`, or `crypto.getRandomValues()`.
+**FIX path and cure** (every site): `crypto.randomUUID()`,
+`crypto.randomInt()`, `crypto.randomBytes()` or `crypto.getRandomValues()`
+in place of `Math.random()` — for identifiers, jitter and sampling as much
+as for any cryptographic, session or token use; the cryptographic source
+costs nothing at those sites and the rule stops firing.
 
 ### S1523 — Dynamic code execution (`eval`, `Function`, `javascript:`)
 
@@ -306,9 +333,11 @@ state, or any cryptographic property.
 over same-file literal-derived input; no untrusted source; not in any
 production code path".
 
-**FIX path**: any production use of `eval`/`Function` constructor with
-runtime-composed input is a real defect. Replace with parser, switch,
-schema-driven dispatch, or static lookup.
+**FIX path and cure** (every site): replace with a parser, a switch,
+schema-driven dispatch, or a static lookup; a test that validates syntax
+parses with the TypeScript compiler API or a parser package instead of
+`Function`/`eval`. A production use with runtime-composed input is a real
+defect and takes the same replacement.
 
 ### S4790 — Weak hash algorithm (MD5, SHA-1)
 
@@ -327,8 +356,10 @@ schema-driven dispatch, or static lookup.
 conversion to derive [target schema] from non-secret input; not used in
 integrity/authentication/signing context".
 
-**FIX path**: any security use must move to SHA-256 / SHA-512 / HMAC /
-bcrypt / argon2 as appropriate to the use case.
+**FIX path and cure** (every site): SHA-256 (truncated to the required
+length where a fixed-width identifier or an external schema's width is the
+property wanted) for format conversion and cache keys; SHA-256 / SHA-512 /
+HMAC / bcrypt / argon2 as appropriate for any security use.
 
 ### S5689 — Framework version disclosure
 
@@ -715,6 +746,10 @@ Implementation:
   amendment's date `brand.css`'s commented-template findings were per-site
   FALSE_POSITIVE adjudications; since 2026-09-08 such a site is changed so
   the finding no longer fires), never a scope carve-out.
+- **Movement rule**: if any studio-source file becomes consumed by product
+  code, it moves out of `studio-source/` and under the full gate in the same
+  change. Expansion of the studio-source scope follows the §Duplications
+  discipline: policy amendment first, owner authorisation, then config.
 
 ## 2026-09-08 amendment: one outcome, one exception, owner-ruled
 
@@ -744,11 +779,6 @@ missing rate limiting takes a comment naming the edge control and the
 defence-in-depth option, and its one finding is dismissed once in the
 analyser's record citing ADR-219 — never a path exclusion or a query
 filter, which would silence the rule for every route to come.
-
-- **Movement rule**: if any studio-source file becomes consumed by product
-  code, it moves out of `studio-source/` and under the full gate in the same
-  change. Expansion of the studio-source scope follows the §Duplications
-  discipline: policy amendment first, owner authorisation, then config.
 
 ## Cross-references
 
