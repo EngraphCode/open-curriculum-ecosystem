@@ -267,35 +267,33 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD LANDED, 2026-09-08 01:00Z (Flounder turns Estuary, `c5cc2c`, Director) — THIS
-> SUPERSEDES THE 2026-09-07 01:32Z BANNER BELOW.** `coordination/2026-09-07-dfe924` folded to
-> `engraph` via bot PR **#79** (opened 00:13Z at `cf884b251`, a clean merge of `engraph`
-> `d295fcc11`; two review rounds, two over-bar cures on one settlement push) at full condition
+> **§FOLD LANDED, 2026-09-09 00:52Z (Flounder turns Estuary, `c5cc2c`, Director) — THIS
+> SUPERSEDES THE 2026-09-08 01:00Z FOLD BLOCK (git retains it).** `coordination/2026-09-08-68d53d`
+> folded to `engraph` via PR **#84** (opened as a draft by Altair spins Umbra at the owner's word
+> of 11:07Z on 2026-09-08, undrafted by the owner at 21:13Z under "other than 90, can we get to
+> zero? If so, do it"; the merge of `engraph` at `30bac21da` as `beace4968`; seven review rounds,
+> 8, 4, 1, 1, 2, 2, 1 — nineteen cured, two routed — with the four-round arm firing at round four
+> and the class fix replacing this file's live snapshot in place) at full condition
 > (run-quality-gates and CodeQL green by name, zero unresolved threads, mergeStateStatus CLEAN,
-> ten-minute quiet window) as merge commit `68d53d778` at 01:00Z; the fold carried fifteen
-> coordination-home commits over four files (the napkin, this seated block, the tuition thread
-> record's LANDED block, one experience letter). The day-stamped successor
-> **`coordination/2026-09-08-68d53d`** was cut tree-preservingly from post-fold `engraph` by
-> the coordination tool and published; the held `.claude/settings.json` rode it uncommitted at
-> the cut (harness rewrite, contract then unverified) — superseded the same day: the owner
-> confirmed the simplification ("I am fine with the simplification of the settings files"), the
-> lane seat committed it on this branch, and it folds with PR #84. Product-gravity line: _moved for
-> teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
-> directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements served by the MCP
-> response). _moved for the Practice:_ the tuition collection (#66) with its review records and
-> authority file; the consolidation drain (#67, #71, #74, #75, #76, #78) and the review
-> doctrine (#77, PDR-140 Decision clause 9); the graph foundations research pack (#72); the
-> compaction sweeps, and the napkin met the rotation by the archive-coverage check. Board at
-> the fold: open #70 (the owner's non-graph survey, under Altair spins Umbra's lane, claim
-> `8e7e00d1`); landed 2026-09-07: #66, #73, #67, #71, #75, #74, #76, #72, #78, #77. Seats: A
-> DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks Apogee live under
-> claim `0b696465` (post-fold continuity PRs: repo-continuity Purpose cells, this file's
-> disposition, two thread-record criticals); Altair spins Umbra on the #70 lane, then the
-> directives item under the 30-percent gate. THE PICKUP MAP is the Director's handoff record
-> `2778f573-flounder-turns-estuary-compaction-2026-09-03.md` §COMPACTION BOUNDARY 6 and its
-> RESUMED lines (machine-local); the lane record for #70 is
-> `c5cc2c-flounder-turns-estuary-lane-handoff-to-altair-2026-09-07.md`. The 2026-09-07 banner
-> below is the prior state.
+> ten-minute quiet window) as merge commit `f5d02c38a` at 00:52Z; the fold carried the day's
+> coordination-home commits (the napkin's wraps 18 to 23 and the lane seat's captures, this
+> seated block, the tenure journal, the settings simplification, two onboarding surfaces trued,
+> the coordination-fold skill's hold rule). The day-stamped successor
+> **`coordination/2026-09-09-f5d02c`** was cut tree-preservingly from post-fold `engraph` by the
+> coordination tool and published; the wrap-24 napkin block rode it dirty and sweeps in its
+> first commit. Product-gravity line: _moved for teachers:_ nothing in the fold's own commits —
+> the day's product movement rode `engraph` directly (PR #93, the showcase unit suite no longer
+> reaching the network; PR #91, the owner's dated report on upstream OCE 1.178.6 and Curriculum
+> API 0.11.1). _moved for the Practice:_ the twelve owner rulings of 2026-09-08 applied to the
+> planning estate (#85 stamps, #95 edits), ADR-228 and the downstream-checkout rule (#87, #88),
+> the two delivery nodes born ratified — worktree-entry-hooks and pr-tally (#89), the Work-cloud
+> routing practice (#94, in flight at the fold), the compaction sweeps. Board at the fold: #94
+> and #95 in flight in that order; #92 open and unmerged for the owner's discussion of its two
+> clauses; #90 a draft on the owner's custody. Seats: A DIRECTOR IS SEATED — Flounder turns
+> Estuary, claim `8109015d`; Altair spins Umbra (`05a180`, claim `a3d107dd`) on #95. THE
+> PICKUP MAP is the live snapshot below (tracked) with the tenure journal in the
+> estate-coordination thread record; the Director's machine-local handoff record adds finer
+> detail on this machine only.
 
 ---
 

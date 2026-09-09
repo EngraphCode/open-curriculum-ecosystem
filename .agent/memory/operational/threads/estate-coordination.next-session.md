@@ -1579,3 +1579,25 @@ disagree, the live snapshot is current and this entry is history.
   `repo-continuity.md`; the napkin and `archive/napkin-2026-09-07.md`; the comms stream. The
   Director's machine-local handoff record (`2778f573-…`) holds the finer grain and is not
   required for pickup.
+
+## 2026-09-09 00:52Z — FOLD OF coordination/2026-09-08-68d53d (Flounder turns Estuary, c5cc2c, Director): PR #84 merged as f5d02c38a; successor coordination/2026-09-09-f5d02c
+
+- **The fold.** PR #84, opened as a draft by the lane seat at the owner's word of 2026-09-08
+  11:07Z and undrafted by the owner at 21:13Z, merged as `f5d02c38a` after seven review rounds
+  (8, 4, 1, 1, 2, 2, 1 findings; nineteen cured, two routed): the retired rule's citations
+  repointed in the two pickup surfaces, the settings-file sentences and the tenure count trued,
+  the napkin's fitness marker added, the two onboarding surfaces told that this fork's settings
+  activate no plugin, the babysitter recipe corrected, the coordination-fold skill's hold
+  reduced to its rule, the live snapshot replaced in place as the class fix, and the pickup map
+  named as the tracked snapshot. The successor `coordination/2026-09-09-f5d02c` was cut from
+  post-fold `engraph` by the coordination tool; the wrap-24 napkin block sweeps on it.
+- **The day.** Landed on `engraph` 2026-09-08 by the bot: #83, #85, #87, #88 (the lane seat's
+  train), #86 (the owner's merge), #93, #91, #89 (the Director's). In flight at the fold: #94
+  (the owner's Work-cloud routing practice, five rounds, terminal) and #95 (the lane seat's
+  twelve-rulings records PR, eight rounds, terminal), in that order. The owner's tomorrow: #92's
+  two clauses, #90, the #94 read's structural notes.
+- **Lessons homed.** Any tool call can hold a seat at an unseen prompt (twice on one seat, once
+  on the Director's at a nested command substitution) — the cure is the Director's
+  deadline-and-default and one plain call at a time; the geometric review tail on prose PRs
+  ends only by a class fix that states the invariant and demotes cases to fixtures (four PRs
+  tonight); stamp records from the clock, never from the feel of elapsed time.

@@ -1029,3 +1029,44 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   words are verbatim from chat; the cause of the hold is inferred from the call order (the
   substitution call was the one outstanding). No fenced owner wording written to tracked lines.
   Recursion closes here.
+
+- **NON-TERMINAL WRAP 24 — Flounder turns Estuary (c5cc2c), Director, 2026-09-08 23:11Z** (the
+  21:41Z cron tick, delivered at the turn boundary). Landed since wrap 23: #89 (30bac21da,
+  22:21Z) after seven rounds — the four-round arm at round four, the class fix, two clause-9
+  rounds, then a round dispositioned at zero under the node's own rule. In flight, all bot
+  pushes, all in the landing slot's order: #84 (this fold; rounds 8, 4, 1 cured; the third cure
+  f50e46bcc pushing; settle re-arms on it) → #94 (the owner's Work-cloud route; five rounds
+  8, 3, 2, 3, 1; the four-round arm fired at round four and the class fix stated the scan
+  invariant per transport; the round-five cure 2948085c5 sits unpushed to ride one push with the
+  merge of engraph) → #95 (Altair's PR A; six rounds 6, 3, 3, 3, 1, 1; terminal at 5bb4bfa48;
+  slot word after #94). #92 open, unmerged, pre-cured; #90 a draft; both the owner's tomorrow.
+- **Work safety.** The primary sits on the coordination branch, clean but for this block, one
+  commit ahead of origin while the bot push completes; the queue is empty; every worktree lane's
+  commits are pushed except #94's held one, which is intentional and recorded. This block is
+  swept AFTER #84 lands — on the successor coordination branch the fold cuts — because a sweep
+  push now would reset the fold's quiet window and draw a fourth review round on a PR whose
+  tail reads 8, 4, 1; the record and the per-user tail carry the same facts now. That is a
+  deliberate deviation from the tick's "sweep by the commit ceremony", chosen for the owner's
+  standing word ("get to zero") over the cron's letter, and undone within minutes of the landing.
+- **Metacognition.** Three things this window. (1) I estimated clock stamps on the record
+  ("22:5xZ" for 22:35Z; "21:3xZ" for 21:24Z) instead of reading `date -u`; the fix is
+  mechanical — stamp from the clock, never from the feel of elapsed time. (2) One commit failed
+  commitlint's header limit because I skipped the pre-check the estate provides; the pre-check is
+  thirty seconds and the failed gate was five minutes — the memory "pre-check commit messages"
+  already said so. (3) The geometric review tails on prose PRs held tonight across four PRs
+  (#89 seven rounds, #94 five, #95 six, #84 three); the class fixes ended the case-list tails,
+  and the node's own rule ("a case the rounds did not name is a fixture at pickup, never a
+  mechanism edit") let #89's round seven close at zero by disposition. The pr-tally node landed
+  with that rule about itself, which is the instrument the estate lacked.
+- **Consolidation gate.** Pointers: (v) cured on #95 (Altair, the downstream rule's
+  single-branch clause; the forced refspec on #89's hooks node); (w) the tsup transient-config
+  lint race stays open on the napkin; the linked-worktree destination derivation for the
+  create hook is recorded on the Director's record for the implementer's pickup. Memories:
+  the standard-tools memory carries tonight's substitution hold; the held-seat memory is
+  generalised; nothing new this window beyond the clock lesson, which the record carries.
+- **Loss scan.** Promises: #84 settle at f50e46bcc → #94's merge of engraph + push + reply +
+  settle → "slot open for #95" to Altair → #95 lands under Altair's settle → the successor
+  coordination branch cut and this block swept → the 00:07Z fold wake recomputed against the
+  landed fold. Owner tomorrow: #92's two clauses (and its below-bar list on the PR), #90, the
+  #94 read's items 7–13 (structural, recorded on the PR). Observed, not inferred: every SHA and
+  comment id on the record came from a tool result. Recursion closes here.
