@@ -170,6 +170,46 @@ the seat, not to any one pilot.
    seat with no successor landed. At a genuine arc-end where the whole cast
    dissolves there is no successor — closeout is the terminal act.
 
+## Standing processes of the seat (arming commands, on any checkout)
+
+Every one of these dies at a compaction or a seat change; the successor arms each from here,
+from the repository root, with plain calls (no command substitution at the call site — the
+owner's standing word for unattended seats). The monitors run under the platform's
+background-process tool; the two scheduled prompts run under the platform's scheduler (each
+platform names its own). Instrument scripts that restate these as one-liners are session
+conveniences, never the only home.
+
+1. **The all-channels comms watcher**, persistent, re-armed on its hourly exit:
+   `timeout 3600 pnpm --silent agent-tools:collaboration-state -- comms watch --platform <platform> --model <model> --supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-drain 100 --exclude-tag heartbeat`,
+   then `pnpm --silent agent-tools:collaboration-state -- comms assert-watcher-live --platform <platform> --model <model>`
+   (the `comms-all-channels-watcher` rule is canonical).
+2. **The claim heartbeat**, once now and then hourly in a persistent loop
+   (`while true; do sleep 3600; …; done`; the `liveness-heartbeat-cron` rule is canonical):
+   `date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id <claim-id> --now {}`.
+3. **The peer-liveness poll**, every 20 minutes over `.agent/state/collaboration/active-claims.json`
+   with jq's `now` builtin (no clock substitution), emitting only on a change in the peer set or
+   a peer quiet past 90 minutes; the registry's own freshness window is the stale verdict.
+4. **The PR poll**, every two minutes over the open set — number, draft flag, `mergeStateStatus`,
+   head, unresolved review threads, check rollup (the pr-lifecycle state machine's item-1
+   selection) — emitting only lines that changed.
+5. **The wrap cadence**: a recurring scheduled prompt at `41 1-23/2 * * *` (local time; 41 past
+   odd hours) whose text names the non-terminal wrap — `date -u` first; work safety (status,
+   fetch, unpushed refs, the queue); the seat's continuity sweep by pathspec, owner-authored with
+   the session trailers; a retrospective paragraph on the napkin; the board recomputed
+   first-hand; the processes verified by id; owner items held for the record while the owner is
+   absent; then drive on.
+6. **The fold wake**: a one-shot scheduled prompt seven minutes past the next UTC rollover
+   (`7 0 <day> <month> *` when the scheduler runs in UTC, else the local equivalent) whose text
+   names the coordination branch and its pull request, says `date -u` first and recompute before
+   acting, and runs the `coordination-fold` skill's ceremony from the primary with plain calls;
+   when the fold has already run earlier in the branch's landing slot, the wake only verifies
+   that the successor branch, its draft PR and the next wake exist.
+7. **A settle watch on the landing-slot holder**: required checks green by name
+   (`run-quality-gates`, `CodeQL`), then a ten-minute quiet window with zero unresolved review
+   threads, then `CLEAN`; it stops loud on every terminal state (closed, head moved, a check
+   failed, threads unresolved, not clean) and never merges — the merge is the seat's own act at
+   the recomputed gate (pr-lifecycle §Phase 7).
+
 ## Standing lessons (this Director lineage)
 
 Each lesson is the cure for a churn cause observed in the pilot.
@@ -300,28 +340,26 @@ first-hand as of 2026-06-25.
 > **§LIVE SNAPSHOT, 2026-09-09 15:0xZ (Flounder turns Estuary, `c5cc2c`, Director, at the FULL
 > HANDOFF to the owner-named successor Nettle guards Pistil, `2de368`) — THE STATE AT THIS
 > HANDOFF; the fold block above stands verbatim; this snapshot replaces the 2026-09-08 23:2xZ one
-> in place, per this file's refresh contract (git retains it).** The owner's standing goal:
-> "I want to drive the number of open PRs to zero." `engraph` is at `123d2e3e9`. Landed this
-> day by this seat: #90 (upstream 1.178.6, `eccbfc782`, on the owner's word; the founding run of
-> the cross-fork-integration skill) and #98 (the #88 follow-up, `123d2e3e9`, by the Director's
-> recorded deadline-and-default while the lane seat was held at a prompt). OPEN, in the
-> landing slot's order — one non-draft PR holds the slot, each merges `engraph` as its last push,
-> settles green by name and clean, and merges by merge commit as the bot under "green and clean
-> and sensible" with the Director's first-hand read: **#97** (the Director's cross-fork
-> integration skill draft; the owner ruled "land on the Director's read"; three review rounds
-> 2, 4, 4 — the four-round arm fired, the class fix is the what-each-step-proves section, the
-> tail is terminal: further findings are dispositioned); **#92** (the owner's foundations bundle;
-> every clause ruled and committed on the branch — clause 2 keeps the 2026-08-19 acquisition
-> criterion and the class ruling sorted by question; it needs only the merge of `engraph`, one
-> push, the settle); **#100** (the held-seat fix: the tracked settings carry no `ask` rules,
-> the Bash guard learns `rm -rf`, the rule `unattended-seats-never-prompt`; a draft until its
-> slot); **#99** (the sync maintainer's carrier for upstream 1.179.0, head `75428c5ce` = the
-> release commit, 12 commits, 18 files, merge-tree clean — the skill's second instance: the
-> two-parent merge of `engraph` first so a head with checks exists, regenerate, premise sweep
-> from fetched history, tally, settle, merge); **#101** and **#102** (Altair spins Umbra's
-> held-seat-observability node and the Sonar disposition policy amendment, drafts with tallies,
-> the Director's read before each); **#96** (this coordination branch's draft, folds at the
-> 2026-09-10 00:07Z wake by the coordination-fold skill). Rulings of 2026-09-09, by card, all
+> in place, per this file's refresh contract (git retains it); re-trued in place by the sitting
+> Director at this branch's fold, 2026-09-09 16:4xZ.** The owner's standing goal: "I want to
+> drive the number of open PRs to zero." THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open
+> set, each pull request's head, state and threads are computed from the repository service at
+> the moment of reading (the open-PR list and the review-thread selection in the pr-lifecycle
+> skill's state machine); this snapshot records what LANDED and who holds which LANE. Landed on
+> 2026-09-09, each by merge commit as the bot at green, clean and sensible: #90 (upstream
+> 1.178.6, on the owner's word; the founding run of the cross-fork-integration skill), #98 (the
+> #88 follow-up, by the Director's recorded deadline-and-default while the lane seat was held at
+> a prompt), #97 (the cross-fork-integration skill's first draft, on the owner's ruling "land on
+> the Director's read"; four review rounds, the four-round arm fired, the terminal tail's findings
+> routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-229, every
+> clause ruled by card), and this branch's own fold. The landing-slot contract governed each: one
+> non-draft PR holds the slot, merges `engraph` as its last push, settles green by name and clean,
+> merges with the head pinned. Lanes at the fold, by holder: Altair spins Umbra (`05a180`) — the
+> upstream 1.179.0 carrier under the skill's second instance (its merge of `engraph` prepared in
+> a worktree and pushed only at its slot), the held-seat-observability node, the Sonar
+> disposition policy amendment; the Director — the held-seat fix (no `ask` rules in the tracked
+> settings, the Bash guard denies `rm -rf`, the rule `unattended-seats-never-prompt`); a Codex
+> seat at the owner's request — a research-package import. Rulings of 2026-09-09, by card, all
 > applied or in flight: no-prompts cure (#100); #92 clause 2 = the class; the external-skills
 > review framework stays ARCHIVED (the morning's card about it was stale — owner-facing state is
 > computed against `origin/engraph`, never the coordination checkout); private projects
