@@ -2,7 +2,7 @@
 id: code-scanning-alerts-to-zero
 node_type: delivery
 name: "Code-scanning alerts to zero on the resting branch, and held there"
-overview: "Every open code-scanning alert on the resting branch resolves under the Sonar disposition policy — fixed in code, or a site-rationalised false-positive or safe disposition recorded in the tree — never an accepted risk or a hand dismissal, and the pull-request gate keeps the count at zero."
+overview: "Every open code-scanning alert on the resting branch is FIXED in the tree — never dismissed, never an accepted risk — with one owner-ruled, dated exception (missing rate limiting on the MCP server's routes, grounded in the two sets of edge WAFs, dismissed once per alert in the code-scanning record that raises them and explained by a comment at each route, never by a path exclusion or a rule filter), and the pull-request gate keeps the count at zero."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -14,14 +14,8 @@ impact_areas:
   - served-surface
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The owner authorises the Sonar SAFE dispositions for the localhost helper literals in unit 5 (the disposition policy reserves that UI act to the owner); recorded on this node with the site rationales"
-    expires: 2026-09-27
-  - awaiting: owner-decision
-    clears_when: "The owner performs the four false-positive dismissals of the missing-rate-limiting alerts in code scanning, each comment citing ADR-219 and naming the route and the edge control (unit 6; the merge bot holds no security_events scope)"
-    expires: 2026-09-27
-last_updated: 2026-09-06
+owner_gates: []
+last_updated: 2026-09-08
 ---
 
 # Code-scanning alerts to zero on the resting branch, and held there
@@ -29,11 +23,12 @@ last_updated: 2026-09-06
 ## Goal
 
 The repository's code-scanning surface reads zero open alerts on the resting branch, and
-stays there: each alert resolves under the estate's Sonar disposition policy
-(`docs/governance/sonar-disposition-policy.md`) — fixed in code with a test that pins the
-cure, or, only where that policy's class criteria hold, a false-positive or safe
-disposition carrying the policy's canonical rationale plus the site path and line, recorded
-in the tree. Accepted-risk and won't-fix states in the hosting service are excluded by that policy and by this node; a false-positive dismissal there is taken only where an accepted decision record dispositions the class, its comment citing that record (today: ADR-219 for missing rate limiting). A reader of
+stays there: each alert is FIXED in the tree with a test that pins the cure (owner ruling 2026-09-08, verbatim: "We don't dismiss issues, we fix them."). Where an analyser is factually wrong about the code, the cure is still a tree change — a
+restructure, or an analyser configuration change tracked in the tree — and no state lives in the
+hosting service that the tree cannot explain. ONE owner-ruled exception, dated 2026-09-08: the
+missing-rate-limiting findings on the MCP server's routes (CodeQL alerts) are dismissed once per
+alert in the code-scanning record, each dismissal explained by the comment at its route, on the ground that the two sets of edge WAFs are regarded as sufficient
+for safety for now (owner word 2026-09-08, verbatim: "we are going to pause that for now, and leave comments in the code that recognise that additional in-process rate limiting would provide defence in depth, but that we regard the two sets of edge WAFs to be sufficient for safety for now. And in this ONE case we can dismiss the findings in Sonar, and preferably find a way to keep them dismissed instead of revisiting this same issue every few weeks."). A reader of
 the security tab, an auditor of the release, or an agent picking up a lane sees a surface
 whose every line is a fact about the code, not an unread signal.
 
@@ -76,13 +71,13 @@ gate refuses new findings.
 
 ## Mechanism
 
-One disposition per class, taken from the Sonar disposition policy's two-outcome rule: a
-finding is FIXED in code, or it is a FALSE_POSITIVE or SAFE only where the policy's
-documented class criteria hold at that site, with the canonical rationale plus path and
-line recorded in the tree. Nothing is excluded by path, no rule is narrowed, and no
-accepted-risk state exists. Where a fix is cheap it is taken even when the policy would
-allow a safe disposition, because a fix clears both analysers' surfaces without any
-server-side action.
+One disposition per class: a finding is FIXED in the tree — code, or an analyser
+configuration change tracked in the tree where the analyser is factually wrong about the code
+— with the cure pinned by a test where a test can hold it. Nothing is excluded by path in the
+general case, no rule is narrowed, and no accepted-risk state exists; the one owner-ruled
+exception (missing rate limiting, below) is a per-alert dismissal in the code-scanning record,
+with its grounds recorded here and in a comment at each site — never a path exclusion or a rule
+filter, which would silence the rule on files and routes the exception does not name.
 
 - **Network data written to a file.** The drift check writes a status description derived
   from the upstream document to the workflow's output file; the schema cache writes the
@@ -119,14 +114,30 @@ server-side action.
   identifier, not a secret — and moves to a current hash truncated to the identifier's width,
   with a test that pins the width and the stability of the mapping.
 - **Clear-text protocol literal.** Fixtures that never dial their host take an `https`
-  literal, a fix. A localhost loopback in a test helper or test-runner configuration meets
-  the policy's SAFE criteria for this class and takes its canonical rationale, recorded per
-  site.
+  literal, a fix. A localhost loopback in a test helper or test-runner configuration is a
+  code cure per site: the literal leaves the source — configuration, or a helper shape the
+  analyser accepts — recorded per site (the earlier SAFE disposition is withdrawn under the
+  2026-09-08 ruling).
 - **Polynomial regular expression.** The script body is located by an index scan for the
   opening tag and the closing tag, or by a linear-time expression, with a test over a long
   pathological input; the report generator's keyword pattern is rewritten linear-time with
   the same test shape.
-- **Missing rate limiting.** An accepted decision record already owns this class: ADR-219 (2026-07-30) places rate limiting at the edge, forbids an in-process limiter (instances are short-lived, routing is not client-affine, the forwarded address is the edge's egress), and dispositions every occurrence of this finding as an individual false-positive dismissal in code scanning citing the ADR — never middleware, never a query exclusion. The four alerts, all dated the ADR's own day and never dispositioned, take exactly that: one dismissal each naming the route and the edge control, with the ADR's falsifier restated (the edge configuration is load-bearing; if it weakens, the dismissal is wrong).
+- **Missing rate limiting — the one owner-ruled exception (2026-09-08).** ADR-219 (2026-07-30)
+  stands unchanged: rate limiting is at the edge and an in-process limiter is not built. The
+  owner paused the class on 2026-09-08 (the verbatim word is in the Goal): a code comment at each
+  of the four routes states that in-process limiting would add defence in depth and that the
+  two sets of edge WAFs are regarded as sufficient for safety for now, citing ADR-219 and naming
+  the two WAFs from the deployment facts; the four findings — CodeQL's `js/missing-rate-limiting`,
+  with no matching code-quality issue at these sites — are dismissed once per alert in code
+  scanning citing ADR-219 (the ADR's own shape), each act citing the route's comment (should
+  the code-quality analyser ever raise a matching rule at a site, the same per-issue shape
+  applies there: its automatic analysis reads no file-based rule ignore, per the disposition
+  policy §File-Based Configuration), so the tree explains every dismissed state and each persists per site
+  without repetition. Never a path exclusion or a query filter: both silence the rule on files
+  and routes the exception does not name, and the ADR requires the rule to re-fire on a
+  genuinely new route, which then takes a fix or the same comment-and-dismissal pair. The ADR's
+  falsifier stands: the edge configuration is load-bearing, and if it weakens the exception is
+  wrong and the class returns to a fix.
 - **Unsafe code construction.** The type generator emits its inlined values through a
   code-safe serialiser that escapes the line-separator characters a JSON serialiser leaves
   raw, with a test over a value carrying them; the generated output is byte-identical for
@@ -143,19 +154,21 @@ the gate turns "zero" from a snapshot into an invariant.
 ## Acceptance criteria (each with a proof — required)
 
 1. The resting branch's open code-scanning alert list is empty for both analysers. Proof:
-   `repo-safe` — the hosting service's alerts query for the resting branch, run by the
-   landing seat and recorded on the lane's closing event.
+   `owner-held` — the hosting service's alerts query for the resting branch is that service's
+   own record; the landing seat reads it at closing and records the reading, dated, on the
+   lane's closing event as an observation, never as a corpus fact.
 2. Every cured site has a test that fails on the previous behaviour: the refusal of a
    non-absolute executable, the cryptographic source of the random part, the trace-id width
    and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
-3. Every non-fix disposition is one the policy's class criteria or an accepted decision record permit, carries the canonical rationale with the site path and line in the tree (for the ADR-219 class, the dismissal comment citing the ADR), and no alert on the resting branch carries an accepted-risk or won't-fix state. Proof: `repo-safe` — the recorded rationales and the alerts query's dismissal-reason and comment fields.
+3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state except the four missing-rate-limiting findings, whose dismissal is explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments; `owner-held` for the dismissed state itself — the alerts query's dismissal-reason field for exactly those four, read at closing and recorded as a dated observation.
 4. A pull request introducing one new instance of each class is blocked by a required check.
-   Proof: `repo-safe` — one probe pull request per analyser, closed unmerged, cited by number
-   on the lane's closing event.
+   Proof: `owner-held` — whether the hosting service blocked a probe pull request is that
+   service's state: one probe per analyser, closed unmerged, its blocked check result read by
+   the landing seat and recorded, dated and by number, on the lane's closing event.
 
 ## Out of scope
 
-- Snoozing, marking "won't fix" or dismissing without a citation in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the ADR-219 false-positive dismissals are explained by the ADR and are the one dismissal shape this node takes.
+- Snoozing, marking "won't fix" or dismissing in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the one dismissal this node takes (missing rate limiting) is owner-ruled, dated, made once per alert in the code-scanning record, and explained by the comment at each route.
 - The code-quality analyser's non-security quality backlog (its own quality profile), which
   has its own tracking thread and plan lineage; this node touches only findings that reach
   the code-scanning surface.
@@ -191,9 +204,9 @@ independent unless stated:
    binary having no `node_modules/.bin` entry; `typedoc` and `tsx` through the owning
    workspace's `node_modules/.bin` or `process.execPath`);
    fixture literals switch to `https` where the host is never dialled; the localhost helper
-   sites take the policy's SAFE disposition with its canonical rationale recorded per site,
-   the UI act being the owner's (first owner gate): about seven files.
-6. **Rate limiting: the ADR-219 dispositions.** The four alerts dismissed as false positives in code scanning, each comment citing the ADR and naming the route and the edge control; no tree change. If the ADR's premise is found false at pickup, the finding routes to a supersession of the ADR, not to middleware here.
+   sites take a code cure each — the literal leaves the source, as configuration or a helper
+   shape the analyser accepts — recorded per site: about seven files.
+6. **Rate limiting: the owner-ruled pause.** A code comment at each of the four routes (defence in depth acknowledged; the two edge WAFs regarded as sufficient for now; ADR-219 cited; the two WAFs named from the deployment facts), then one code-scanning dismissal per alert citing ADR-219, each citing the route's comment (the four are CodeQL alerts; no code-quality issue exists at these sites); no configuration-file change (a path exclusion or query filter would silence the rule beyond the four sites). The acts are the owner's, or the bot's under a scope that permits them, once per site. ADR-219 is not amended. About four files.
 7. **The generator's code-safe serialiser.** The inlined values escaped, with the
    line-separator test: two files.
 8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
@@ -211,8 +224,9 @@ The six clauses of the plan-body first-principles check, applied at authoring:
 - **Shape.** The tests prove behaviour the estate owns — a refusal, a source of randomness,
   a width, a linear bound, a closed vocabulary — never that an analyser's rule fires.
 - **Landing path.** Tests take the estate's existing tier names so the existing runners
-  include them; configuration changes live in the analysers' tracked configuration files,
-  never in service-side state.
+  include them; configuration changes live in the analysers' tracked configuration files; the
+  one service-side state this node takes (the four per-site dismissals) is explained by a
+  comment at each site.
 - **Vendor literal.** No rule id or analyser name in this body is a mechanism; each names a
   finding class to disposition. The capability locus for the gate is the hosting service's
   required-check setting, already in force, so the gate unit proves rather than builds.
@@ -220,7 +234,7 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   test the Mechanism states; each unit names its cure shape and its fallback.
 - **Record consumer.** The lane's closing event is the only accounting surface added, and
   the alerts query is its consumer.
-- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition policy's two-outcome rule; ADR-219 for the rate-limiting class; checks are never disabled; validation is strict at the
+- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition policy (its amendment under the owner's 2026-09-08 ruling — every finding fixed in the tree, the one exception named — travels in its own pull request and has not landed at this writing; until it does, this node's fix-only shape rests on the ruling quoted in the Goal); ADR-219 for the rate-limiting class; checks are never disabled; validation is strict at the
   boundary; no escape hatches in enforcement — and adds none.
 
 ## Review dispositions
@@ -238,6 +252,9 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-06 | PR #59 round one (Codex, Copilot) | The per-binary wording in units 4–5 contradicted the Mechanism bullet, which still prescribed one fixed allowlist for every binary. | Applied: the Mechanism bullet carries the same per-binary resolution; one design. |
 | 2026-09-06 | PR #59 round two (Codex) | `gitleaks` was filed under `node_modules/.bin`, which no workspace provides; CI installs a pinned standalone binary and `refound-gitleaks.ts` already resolves it. | Applied: `gitleaks` resolves through that existing resolver at the Mechanism bullet, unit 5 and the row above; `typedoc` and `tsx` keep the workspace bin or `process.execPath` path. |
 | 2026-09-06 | consolidation sweep (a review finding on PR #39, comms event ba2a02c1) | A collaborator with push rights already holds every permission a `pull_request` workflow can declare, so splitting a workflow into compute and publish jobs is not a security boundary against a same-repository collaborator; it is the repository's trust model. | Carried: unit 8 (the gate proof) authors this as an ADR-121 amendment inside its PR; until then any "split the job for security" proposal is checked against the fact here. |
+| 2026-09-08 | Owner ruling (cards at the Director seat) | "We don't dismiss issues, we fix them": the node's non-fix outcomes (SAFE for the localhost literals; false-positive dismissals for the ADR-219 class) are withdrawn; then the owner paused the rate-limiting class with code comments and a dismissal kept per site. | Applied: the overview, goal, mechanism, criterion 3, out of scope, units 5 and 6 and the rules tier re-trued; both owner gates removed as discharged by the word; ADR-219 stands. |
+| 2026-09-08 | PR #95 round one (Copilot, Codex) | The pause mechanism named a Sonar issue-ignore block and a CodeQL query filter or path exclusion: automatic analysis reads no file-based rule ignore, and both CodeQL shapes silence the rule beyond the four sites, against ADR-219; criteria 1 and 3 filed the hosting service's alert state as `repo-safe` against the boundary-of-certainty amendment. | Applied: the dismissal is once per site in each analyser's own record, explained by the route comments, never a path exclusion or query filter; criteria 1 and 3 split into `repo-safe` (the comments) and `owner-held` (the service's alert state, read as a dated observation). |
+| 2026-09-08 | PR #95 round three (Codex) | The four findings are CodeQL alerts with no matching code-quality issue, so a per-issue act in that analyser was unperformable; the rules tier claimed a policy amendment that has not landed; the showcase plan's live-index proofs (its criteria 1 and 8) contradict the boundary-of-certainty amendment. | Applied: the dismissal names only the code-scanning record, with the code-quality shape stated conditionally; the rules tier names the amendment as pending in its own pull request. Carried: the showcase proofs to the census of plan bodies asserting external state, named by criterion. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day

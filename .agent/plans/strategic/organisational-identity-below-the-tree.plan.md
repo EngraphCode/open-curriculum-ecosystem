@@ -200,6 +200,13 @@ the third arm of Any User, Any Machine.
 
 ## Decisions for the owner (presented, not absorbed)
 
+**Note (2026-09-08, at ratification).** The owner ratified this node on 2026-09-08 ("Ratify all
+six"), which is the first item below, "Ratify the node", resolved: it ratifies the outcome and
+the bet — not a choice among the five remaining decisions. Each of those five stays owner-held
+and is taken at pickup: the delivery node that instantiates it carries it as an `owner_gates`
+row (awaiting, clears_when, an absolute expiry) and governs no work until it clears. The decision this node carries is recorded permanently as ADR-228 (organisational
+identity is held below the tree); permanent doctrine cites that record, and this node cites it.
+
 - **Ratify the node.** The tree carries nothing organisation-specific outside its declared
   identity homes and an enumerated residue; organisational identity lives below the tree
   by the rung ladder; the validator holds it.
