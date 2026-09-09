@@ -87,11 +87,13 @@ The cardinal anti-pattern is the **rule-level disable** (the `sonar.issue.ignore
 we fix them"; the one-outcome policy in
 [`sonar-disposition-policy.md`](../governance/sonar-disposition-policy.md)):
 every finding from either analyser is fixed at source and closed by the
-next analysis. The write operations below are documented for reading
-history and for the policy's single exception (the MCP server's
-rate-limiting findings, dismissed once with the route comment citing
-ADR-219); an `accept`, `falsepositive`, `SAFE` or `ACKNOWLEDGED` write on
-any other finding is the act the policy forbids.
+next analysis. The policy's single exception is a CodeQL code-scanning
+alert class — `js/missing-rate-limiting` on the MCP server's routes,
+dismissed once through the code-scanning route in §Dismissal below with the
+route comment citing ADR-219 — so the Sonar write operations below have NO
+live use: they are documented for reading history, and an `accept`,
+`falsepositive`, `SAFE` or `ACKNOWLEDGED` write on any finding is the act
+the policy forbids.
 
 The Sonar MCP exposes two state-change operations:
 
@@ -346,10 +348,12 @@ Note any deltas from the briefing or the master plan. State drift is real; the b
 
 For each failing condition, identify the work that addresses it:
 
-- `new_violations` → per-finding fix or dismissal.
+- `new_violations` → per-finding fix at source (the one-outcome policy).
 - `new_duplicated_lines_density` → consolidation refactors.
-- `new_security_hotspots_reviewed` → hotspot review via Sonar MCP.
-- CodeQL combined → per-alert fix or dismissal.
+- `new_security_hotspots_reviewed` → cure each hotspot at source; the next
+  analysis marks it REVIEWED / FIXED.
+- CodeQL combined → per-alert fix at source; the one excepted class (the
+  MCP server's rate-limiting alerts) is dismissed once per the policy.
 
 ### 4. Per-finding work, one at a time
 
@@ -357,21 +361,23 @@ Read the code at the site. Form a disposition rooted in `principles.md`. Cross-c
 
 For mechanical fixes, batch within a rule. For per-site investigations, separate commits.
 
-### 5. Per-issue dismissals via Sonar MCP
+### 5. Per-issue dismissals via Sonar MCP (retired 2026-09-08)
 
-For findings where the disposition is `accept` or `falsepositive`:
+There is no live per-issue dismissal route: a finding that would once have
+taken `accept` or `falsepositive` is cured by its class's tree change in the
+one-outcome policy. The habit that survives is the record — strengthen the
+in-code TSDoc with why the site changed, and commit it with the cure.
 
-- Strengthen in-code TSDoc with the rationale (so the next reader has the trail without consulting the issue tracker).
-- Commit the TSDoc strengthening.
-- Use `change_sonar_issue_status` to dismiss.
+### 6. Hotspot review (since 2026-09-08: FIXED by analysis)
 
-### 6. Hotspot review via Sonar MCP
-
-For each hotspot, investigate the underlying concern. Mark REVIEWED with one of FIXED / SAFE / ACKNOWLEDGED, and ALWAYS add a comment with rationale.
+Cure each hotspot at source per its class in the policy; the next analysis
+marks it REVIEWED / FIXED. `SAFE` and `ACKNOWLEDGED` are not used.
 
 ### 7. CodeQL action items
 
-For OPEN alerts, either fix the underlying code path (preferred) or prepare a dismissal rationale and surface for owner action via the GitHub Security UI/API.
+For OPEN alerts, fix the underlying code path. The one excepted class — the
+MCP server's rate-limiting alerts — is dismissed once through §Dismissal
+with the route comment citing ADR-219, the owner's act.
 
 ### 8. Sentry validation (when a fix touches a code path Sentry observes)
 
