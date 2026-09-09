@@ -1,10 +1,16 @@
 # TypeScript graph foundations research
 
-Research and recommendations completed on **7 September 2026**. Start with the
-report's executive answer and competing approaches. The research evaluates the
-best foundations by semantics, composability, assurance, TypeScript usability
-and lifecycle cost; current OCE choices carry no preservation requirement or
-migration-convenience preference.
+Research and recommendations completed on **7 September 2026**. The report
+evaluates foundations by semantics, composability, assurance, TypeScript
+usability and lifecycle cost. Its comparisons and executions are dated research
+evidence.
+
+For current development direction, start with the [governing policy](../../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+and [foundations bundle index](../../../docs/architecture/foundations/foundations-bundle-index-2026-09-08.md).
+OCE authors its graph and non-graph algorithms and data structures from SMALL
+Reliable Atoms and meaningful compositions. This research supplies mechanisms,
+contract distinctions and counterexamples that can inform those designs; the
+governing policy owns implementation origin and reference use.
 
 | File | Purpose |
 | --- | --- |
@@ -24,16 +30,18 @@ queues, heaps, ordered containers, caches, disjoint sets and persistence.
 The [report's non-graph handoff](typescript-graph-foundations-report-2026-09-07.md#12-precise-non-graph-handoff-reconciled-with-pr-70)
 contributes graph-specific requirements for those general foundations, including
 equality, ordering, ownership, snapshots and resource bounds. General-foundation
-findings in turn inform graph design and dependency choices. The two research
-efforts inform each other; package boundaries and adoption decisions remain open.
+findings in turn inform graph mechanisms and composition contracts. The two
+research efforts inform each other; exact designs and package boundaries remain
+decisions for their owning capabilities under the governing policy.
 The document link preserves the inspected survey snapshot; PR 70 carries its
 subsequent updates and the link back to this research.
 
 ## Status and provenance
 
-Repository inclusion does not approve implementation, dependency, policy or ADR
-changes. Recommendations remain proposals, with the report's stated evidence
-limits and adoption checks.
+This record preserves the research's recommendations, evidence limits and
+evaluation checks at its stated cutoff. Its inclusion establishes no implemented
+or qualified capability. The current implementation-origin decision is recorded
+in [ADR-229](../../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md).
 
 The research inspected OCE at
 [`dfe92492711f8d7c6ac8233735994c8fada45e0e`](https://github.com/EngraphCode/open-curriculum-ecosystem/commit/dfe92492711f8d7c6ac8233735994c8fada45e0e).
