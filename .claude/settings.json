@@ -187,25 +187,6 @@
       "Bash(rm -rf:*)"
     ]
   },
-  "skillOverrides": {
-    "sentry-android-sdk": "off",
-    "sentry-cocoa-sdk": "off",
-    "sentry-dotnet-sdk": "off",
-    "sentry-elixir-sdk": "off",
-    "sentry-flutter-sdk": "off",
-    "sentry-go-sdk": "off",
-    "sentry-php-sdk": "off",
-    "sentry-ruby-sdk": "off",
-    "sentry-svelte-sdk": "off",
-    "sentry-react-native-sdk": "off",
-    "sentry-tanstack-start-sdk": "off",
-    "sentry-nestjs-sdk": "off",
-    "sentry-sdk-skill-creator": "off",
-    "chat-sdk": "off",
-    "next-forge": "off",
-    "ai-gateway": "off",
-    "ai-sdk": "off"
-  },
   "hooks": {
     "SessionStart": [
       {
@@ -283,14 +264,5 @@
     "type": "command",
     "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\"",
     "refreshInterval": 10
-  },
-  "enabledPlugins": {
-    "sentry@claude-plugins-official": true,
-    "mcp-server-dev@claude-plugins-official": true,
-    "sonarqube@claude-plugins-official": true,
-    "linear@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "posthog@claude-plugins-official": true,
-    "figma@claude-plugins-official": true
   }
 }
