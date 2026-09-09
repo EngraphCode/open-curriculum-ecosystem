@@ -7,8 +7,8 @@
  *
  * That is a safe place to stand only because of one specific behaviour, and
  * this suite is its tripwire. Per `2026-07-28` Streamable HTTP, Backward
- * Compatibility, a dual-era client that meets an HTTP `400` **inspects the
- * body before falling back**:
+ * Compatibility, a dual-era client that meets an HTTP `400` inspects the
+ * body before falling back:
  *
  * "If the body contains a recognized modern JSON-RPC error, the server
  * speaks a modern version of MCP — retry using the advertised `supported`
@@ -17,23 +17,28 @@
  * `initialize` and continue with the legacy version for subsequent
  * requests."
  *
- * So this app's refusal MUST NOT carry a recognized modern error code. The
- * versioning page's compatibility matrix then places it on the "Dual-era
- * client / Legacy server → Works" row, and production bears that out:
- * MCP-497 measured 754 refusals against 6,757 successful `initialize` calls
- * and 62,963 successful `tools/call` calls over the same 14 days — clients
- * negotiating down, not clients locked out.
+ * **Whose obligation this is.** Not the server's. The specification puts no
+ * constraint on a legacy server's choice of refusal code: era detection is a
+ * client **MAY** and body inspection a client **SHOULD**. The constraint is
+ * ours, and it binds because MCP-497 measured that real clients do exactly
+ * this at production scale — it rests on evidence, not on conformance. Do
+ * not restate it as a spec MUST; ADR-228 §Decision 3 carries the full
+ * attribution.
  *
  * **What would break it.** If a future SDK release renumbered this refusal
- * to `-32022` (`UnsupportedProtocolVersionError`), dual-era clients would
- * stop falling back and start retrying versions this app's legacy lane
- * cannot serve. The refusal would look *more* spec-shaped and behave
+ * into the specification's reserved sub-range — `-32022`
+ * (`UnsupportedProtocolVersion`), `-32020`, `-32021` — dual-era clients
+ * would stop falling back and start retrying versions this app's legacy
+ * lane cannot serve. The refusal would look *more* spec-shaped and behave
  * *worse*. That regression is silent on every other gate, so it is asserted
  * here.
  *
- * These tests describe the served endpoint's answers, driven over loopback
- * HTTP through the production composition (`initializeCoreEndpoints` →
- * `createMcpHandler`), not the SDK in isolation.
+ * These tests describe the served endpoint's answers, driven over the
+ * loopback harness through the production per-request factory and handler
+ * (`initializeCoreEndpoints` → `createMcpHandler`), with the auth layer
+ * omitted — see the `beforeAll` note. Assertions are on JSON-RPC *values*,
+ * never on SSE framing; framing fidelity is the client SDK's job, per
+ * `testing-patterns.md` §MCP Transport Layer Testing.
  *
  * @see ADR-228 — the revision posture and the conditions for migrating
  * @see ADR-112 — the per-request transport this composition reuses
@@ -42,30 +47,116 @@
 import { request } from './test-helpers/loopback-request.js';
 import { beforeAll, describe, expect, it } from 'vitest';
 import express, { type Express } from 'express';
+import { z } from 'zod';
+import { LATEST_PROTOCOL_VERSION } from '@modelcontextprotocol/sdk/types.js';
 import { initializeCoreEndpoints } from './app/core-endpoints.js';
 import { createMcpHandler } from './mcp-handler.js';
 import { createFakeLogger, createFakeHttpObservability } from './test-helpers/fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 
+/** The revision this app implements, and the only one it negotiates up to. */
+const LEGACY_REVISION = '2025-11-25';
+
+/** The revision a dual-era client declares before falling back. */
+const MODERN_REVISION = '2026-07-28';
+
 /**
- * JSON-RPC error codes the `2026-07-28` revision defines. A client that sees
- * any of these in a `400` body concludes the server speaks a modern revision
- * and does NOT fall back to `initialize`.
+ * The code the transport actually emits when it refuses a declared version.
+ *
+ * Pinned exactly, and deliberately: this is the tripwire. Any renumbering at
+ * all reds this suite, whether or not the sub-range bounds below have kept
+ * pace with the specification.
  */
-const RECOGNISED_MODERN_ERROR_CODES = [
-  -32020, // HeaderMismatch
-  -32021, // MissingRequiredClientCapability
-  -32022, // UnsupportedProtocolVersionError
-];
+const OBSERVED_REFUSAL_CODE = -32000;
+
+/**
+ * The JSON-RPC implementation-defined range, partitioned by `2026-07-28`
+ * §Error Codes (read 2026-09-09).
+ *
+ * - `-32000`..`-32019` — the **legacy** sub-range. "New codes MUST NOT be
+ *   allocated in this sub-range … Apart from `-32002`, receivers MUST NOT
+ *   assume any specific meaning for these codes." A refusal here cannot be
+ *   read as a modern error, so a dual-era client falls back.
+ * - `-32020`..`-32099` — **reserved for the MCP specification**.
+ *   "Implementations MUST NOT emit any code from this sub-range that is not
+ *   defined by this specification."
+ *
+ * Asserting membership of the legacy sub-range, rather than absence from a
+ * list of the three modern codes defined today, is the point: a later
+ * revision defining a fourth reserved code would silently narrow a denylist,
+ * and so would an SDK renumbering to a standard code such as `-32602`.
+ */
+const LEGACY_SUBRANGE_MIN = -32019;
+const LEGACY_SUBRANGE_MAX = -32000;
 
 /** The modern per-request `_meta` envelope, as the current revision defines it. */
 const MODERN_META = {
-  'io.modelcontextprotocol/protocolVersion': '2026-07-28',
+  'io.modelcontextprotocol/protocolVersion': MODERN_REVISION,
   'io.modelcontextprotocol/clientInfo': { name: 'EraProbe', version: '1.0.0' },
   'io.modelcontextprotocol/clientCapabilities': {},
 };
 
 const MCP_ACCEPT = 'application/json, text/event-stream';
+
+/** Why a red here is a decision to re-open, never an assertion to delete. */
+const RE_ADJUDICATE =
+  'ADR-228 §Decision 3: this refusal code is what keeps dual-era clients on ' +
+  'the `initialize` fallback they currently rely on. Re-adjudicate ADR-228 ' +
+  'before changing this expectation; do not delete it.';
+
+/**
+ * The refusal body the transport returns for an unsupported declared version.
+ *
+ * Plain JSON rather than SSE, and every field the cases read is **required**:
+ * a relocated or absent `code` fails the parse loudly instead of leaving a
+ * downstream assertion vacuously true. That vacuity is precisely the
+ * SDK-major change class this suite exists to catch, so it must not be
+ * reachable through an optional chain.
+ */
+const RefusalBodySchema = z
+  .object({
+    error: z.object({ code: z.number(), message: z.string() }).loose(),
+  })
+  .loose();
+
+/** A JSON-RPC error frame carried in an SSE body, `code` required. */
+const ErrorFrameSchema = z
+  .object({
+    id: z.union([z.string(), z.number()]),
+    error: z.object({ code: z.number() }).loose(),
+  })
+  .loose();
+
+/** A JSON-RPC result frame carried in an SSE body, `protocolVersion` required. */
+const InitResultFrameSchema = z
+  .object({
+    id: z.union([z.string(), z.number()]),
+    result: z.object({ protocolVersion: z.string() }).loose(),
+  })
+  .loose();
+
+/**
+ * Returns the JSON payload of the single `data:` line of an SSE-framed body,
+ * or `undefined` when the body is not exactly one SSE frame.
+ *
+ * Returns rather than throws (ADR-088): a malformed body must surface as the
+ * failed schema parse the calling case asserts on, never as an exception that
+ * reds the suite for an unrelated-looking reason. Requiring *exactly* one
+ * data line is deliberate — taking the first of several would fail a case on
+ * a confusing id mismatch instead of on shape.
+ */
+function sseData(body: string): unknown {
+  const dataLines = body
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith('data:'));
+  const [dataLine] = dataLines;
+  if (dataLines.length !== 1 || dataLine === undefined) {
+    return undefined;
+  }
+  const parsed: unknown = JSON.parse(dataLine.slice('data:'.length).trim());
+  return parsed;
+}
 
 describe('protocol-revision era contract (MCP-644)', () => {
   let app: Express;
@@ -73,30 +164,34 @@ describe('protocol-revision era contract (MCP-644)', () => {
   beforeAll(() => {
     app = express();
     app.use(express.json());
-    // The production composition: the real per-request factory behind the
-    // real handler. Auth middleware is deliberately absent — this suite is
-    // about protocol-era answers, and in production auth settles first
-    // (ADR-113), which is why a wire probe of the deployed app cannot
-    // measure any of this.
+    // The production per-request factory behind the production handler. The
+    // Clerk/`mcpAuth` layer that sits ahead of them in the real app (ADR-113)
+    // is deliberately omitted: this suite is about protocol-era answers, and
+    // in production auth settles first — which is exactly why a wire probe of
+    // the deployed app cannot measure any of this (a 401 cannot distinguish
+    // "not implemented" from "needs a token"). Note the consequence for era
+    // detection: a client meets Oak's 401 before it can ever see the 400 that
+    // reveals the era, so it can only detect the era once it holds a token.
+    const observability = createFakeHttpObservability();
     const { mcpFactory } = initializeCoreEndpoints(
       app,
       {
         runtimeConfig: createMockRuntimeConfig(),
-        observability: createFakeHttpObservability(),
+        observability,
         resourceUrl: 'https://probe.test/mcp',
         getWidgetHtml: () => '<!doctype html><html><body>test</body></html>',
       },
       createFakeLogger(),
     );
-    const handler = createMcpHandler(mcpFactory, createFakeHttpObservability());
+    const handler = createMcpHandler(mcpFactory, observability);
     app.post('/mcp', (req, res) => void handler(req, res));
   });
 
-  it('refuses a modern-envelope server/discover without a recognised modern error code', async () => {
+  it('refuses a modern-envelope server/discover with a code no client may read as modern', async () => {
     const res = await request(app)
       .post('/mcp')
       .set('Accept', MCP_ACCEPT)
-      .set('MCP-Protocol-Version', '2026-07-28')
+      .set('MCP-Protocol-Version', MODERN_REVISION)
       .set('Mcp-Method', 'server/discover')
       .send({
         jsonrpc: '2.0',
@@ -106,49 +201,76 @@ describe('protocol-revision era contract (MCP-644)', () => {
       });
 
     expect(res.status).toBe(400);
-    // The load-bearing assertion: not a modern code, so a dual-era client
-    // falls back to `initialize` rather than retrying modern versions.
-    expect(RECOGNISED_MODERN_ERROR_CODES).not.toContain(res.body.error.code);
-    // And the refusal still names what this server does speak, so the
-    // fallback is informed rather than blind.
-    expect(res.body.error.message).toContain('2025-11-25');
+    const refusal = RefusalBodySchema.safeParse(res.body);
+    expect(refusal.success, `${RE_ADJUDICATE} Body was: ${JSON.stringify(res.body)}`).toBe(true);
+
+    // THE TRIPWIRE: the exact emitted code, so any renumbering reds even if
+    // the sub-range bounds have gone stale.
+    expect(refusal.data?.error.code, RE_ADJUDICATE).toBe(OBSERVED_REFUSAL_CODE);
+    // THE CONTRACT the code has to satisfy, stated as the spec states it.
+    expect(refusal.data?.error.code, RE_ADJUDICATE).toBeGreaterThanOrEqual(LEGACY_SUBRANGE_MIN);
+    expect(refusal.data?.error.code, RE_ADJUDICATE).toBeLessThanOrEqual(LEGACY_SUBRANGE_MAX);
+    // And the refusal names what this server does speak, so the fallback is
+    // informed rather than blind.
+    expect(refusal.data?.error.message, RE_ADJUDICATE).toContain(LEGACY_REVISION);
   });
 
-  it('drives that refusal from the declared version, not the method — so no handler could answer server/discover', async () => {
+  it('refuses on the declared version alone — a legacy-shaped control at the same version suffices to show it', async () => {
     const discover = await request(app)
       .post('/mcp')
       .set('Accept', MCP_ACCEPT)
-      .set('MCP-Protocol-Version', '2026-07-28')
+      .set('MCP-Protocol-Version', MODERN_REVISION)
       .set('Mcp-Method', 'server/discover')
       .send({ jsonrpc: '2.0', id: 'd', method: 'server/discover', params: { _meta: MODERN_META } });
-    // CONTROL: a method this server certainly implements, at the same
-    // declared version. An identical answer proves the transport rejects on
-    // the version before any method dispatch — which is why registering a
-    // `server/discover` handler on this SDK line would be unreachable code.
-    const toolsList = await request(app)
+    // CONTROL: a method this server certainly implements, in LEGACY shape (no
+    // `_meta`, no `Mcp-Method`), carrying only the modern version header. An
+    // identical refusal shows the declared version SUFFICES on its own. It
+    // does not separate the method from the envelope — one control cannot —
+    // and it does not need to: what makes a `server/discover` handler
+    // unreachable is that the version alone is enough to refuse.
+    const legacyShaped = await request(app)
       .post('/mcp')
       .set('Accept', MCP_ACCEPT)
-      .set('MCP-Protocol-Version', '2026-07-28')
-      .set('Mcp-Method', 'tools/list')
-      .send({ jsonrpc: '2.0', id: 't', method: 'tools/list', params: { _meta: MODERN_META } });
+      .set('MCP-Protocol-Version', MODERN_REVISION)
+      .send({ jsonrpc: '2.0', id: 't', method: 'tools/list', params: {} });
 
-    expect(toolsList.status).toBe(discover.status);
-    expect(toolsList.body).toStrictEqual(discover.body);
+    const refused = RefusalBodySchema.safeParse(discover.body);
+    const control = RefusalBodySchema.safeParse(legacyShaped.body);
+    expect(refused.success, `Body was: ${JSON.stringify(discover.body)}`).toBe(true);
+    expect(control.success, `Body was: ${JSON.stringify(legacyShaped.body)}`).toBe(true);
+
+    expect(discover.status).toBe(400);
+    expect(legacyShaped.status).toBe(400);
+    expect(control.data?.error.code).toBe(refused.data?.error.code);
+    // Both refusals carry the two facts a falling-back client acts on. Not
+    // byte-equality of the message: an SDK that named the method in the text
+    // would differ harmlessly while the era contract held perfectly.
+    expect(refused.data?.error.message).toContain(MODERN_REVISION);
+    expect(refused.data?.error.message).toContain(LEGACY_REVISION);
+    expect(control.data?.error.message).toContain(MODERN_REVISION);
+    expect(control.data?.error.message).toContain(LEGACY_REVISION);
   });
 
-  it('has no server/discover handler at a version it does support', async () => {
-    // CONTROL for the assertion above: with the version check passed, the
-    // method itself is absent. Pins the 0-hit grep behind MCP-644 as a
-    // served fact rather than a source-tree observation.
+  it('answers server/discover with -32601 at a version it does support', async () => {
+    // CONTROL for the case above: with the version check passed, the method
+    // itself is absent. Proves it of THIS composition's registrations, by
+    // driving the boundary rather than pinning an absence — the repo-wide
+    // 0-hit grep behind MCP-644 is a separate claim, recorded in ADR-228
+    // §Context.
     const res = await request(app)
       .post('/mcp')
       .set('Accept', MCP_ACCEPT)
-      .set('MCP-Protocol-Version', '2025-11-25')
-      .set('Mcp-Method', 'server/discover')
+      .set('MCP-Protocol-Version', LEGACY_REVISION)
       .send({ jsonrpc: '2.0', id: 'legacy-discover', method: 'server/discover', params: {} });
 
     expect(res.status).toBe(200);
-    expect(res.text).toContain('-32601');
+    const frame = ErrorFrameSchema.safeParse(sseData(res.text));
+    expect(frame.success, `Body was: ${res.text}`).toBe(true);
+    expect(frame.data?.id).toBe('legacy-discover');
+    expect(
+      frame.data?.error.code,
+      'ADR-228 §Decision 2: implementing this method here would be dead code behind the version check. Re-adjudicate ADR-228 rather than deleting this.',
+    ).toBe(-32601);
   });
 
   it('still negotiates the legacy revision through initialize — the lane clients fall back to', async () => {
@@ -160,13 +282,33 @@ describe('protocol-revision era contract (MCP-644)', () => {
         id: 'init-1',
         method: 'initialize',
         params: {
-          protocolVersion: '2025-11-25',
+          protocolVersion: LEGACY_REVISION,
           capabilities: {},
           clientInfo: { name: 'EraProbe', version: '1.0.0' },
         },
       });
 
     expect(res.status).toBe(200);
-    expect(res.text).toContain('"protocolVersion":"2025-11-25"');
+    const frame = InitResultFrameSchema.safeParse(sseData(res.text));
+    expect(frame.success, `Body was: ${res.text}`).toBe(true);
+    expect(frame.data?.id).toBe('init-1');
+    expect(
+      frame.data?.result.protocolVersion,
+      'ADR-228 §Decision 1: this app serves the legacy revision deliberately. A change here is a revision migration (MCP-506), not a test to update.',
+    ).toBe(LEGACY_REVISION);
+  });
+
+  it('still stands on an SDK line whose ceiling is the legacy revision — ADR-228s exit condition', () => {
+    // A DESIGNED SENTINEL on the decision's premise, not a config audit. Every
+    // other case here describes served behaviour; this one asserts the fact
+    // that makes the posture deliberate rather than negligent — the installed
+    // SDK cannot serve the modern era. The day that stops being true is the
+    // day the modern-code list above can go stale and the whole record needs
+    // re-reading, so that day should arrive as a failing test rather than as
+    // someone remembering.
+    expect(
+      LATEST_PROTOCOL_VERSION,
+      'ADR-228 §The exit condition: the installed SDK line has moved past the legacy revision. Re-derive the reserved-sub-range bounds from the current spec and re-adjudicate ADR-228 — the migration is MCP-506.',
+    ).toBe(LEGACY_REVISION);
   });
 });

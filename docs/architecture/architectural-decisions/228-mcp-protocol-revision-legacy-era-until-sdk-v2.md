@@ -26,8 +26,10 @@ so: the revision was a property of a dependency version, visible only by
 reading `node_modules`, and nothing named the consequences or the exit.
 
 `2026-07-28` is the largest revision since MCP launched. It moves the core
-to **stateless, self-contained requests** with per-request capability
-negotiation, eliminates the `initialize` handshake and protocol-level
+to **stateless, self-contained requests** carrying version, identity and
+capabilities as per-request metadata — "there is no negotiation handshake",
+as `basic/versioning` opens — eliminates the `initialize` handshake and
+protocol-level
 sessions, removes the GET stream endpoint, renumbers several errors, and
 introduces a formal deprecation policy. In its vocabulary a server is
 **modern** (version, identity and capabilities as per-request metadata) or
@@ -41,9 +43,28 @@ The revision also makes one RPC mandatory. Read at
 > versions, capabilities, and identity before sending any other requests.
 > Servers **MUST** implement it.
 
-That RPC does not exist anywhere in this repository. MCP-644 measured
-0 hits for `server/discover` against a working control (143 hits for
-`tools/list`), and this app declares `2025-11-25` throughout.
+That RPC is implemented nowhere in this repository. Measured on
+2026-09-09 over git-tracked files under `apps/` and `packages/` at
+`origin/main` — that is, the tree as it stands _before_ this record:
+
+```text
+git grep -c "server/discover" origin/main -- apps packages  ->    0
+git grep -c "tools/list"      origin/main -- apps packages  ->  143   <- CONTROL
+```
+
+**Read the zero with its basis, because this record falsifies it.** The
+test this ADR lands (`protocol-revision-era.integration.test.ts`) names
+`server/discover` seven times in order to assert its absence, so the same
+grep run after this PR merges returns 7, all of them in that one file. A
+future reader who greps and finds hits has not found an implementation.
+Restrict the grep to `src/**` excluding `*.test.ts` to reproduce the zero.
+
+The control number is basis-sensitive too: 143 counts git-tracked files
+only; sweeping the working tree including build output gives 185. MCP-644's
+own control read 197 on 2026-08-20. The three numbers are a moving tree
+measured three ways, not a contradiction — what all of them establish is
+that the grep works, so the zero is real. This app declares `2025-11-25`
+throughout.
 
 ### What was measured, and how
 
@@ -103,14 +124,25 @@ registered for `server/discover` could never be reached. The second control
 isolates the method's genuine absence; the third shows the legacy lane
 healthy.
 
-**The mandatory clause binds modern-era servers.** The revision's own
-compatibility matrix describes a legacy server as a first-class state and
-gives its expected behaviour: for a dual-era client meeting a legacy
-server, "HTTP: the modern request returns a `4xx` without a recognized
-modern error body, and the client falls back to `initialize`" — outcome
-**Works**. If "Servers MUST implement `server/discover`" bound legacy-only
-servers, that row would describe mandated non-conformance. The MUST scopes
-to servers implementing the revision it appears in.
+**The mandatory clause binds modern-era servers.** Three independent
+supports, all read on 2026-09-09:
+
+- **Implementing the modern era is itself a MAY.** `basic/versioning`
+  §Backward Compatibility: "A server that wishes to support both legacy
+  clients … and modern clients … **MAY** implement both behaviors." A MUST
+  inside the modern era cannot bind a server that has not taken the MAY.
+  This is the shortest proof, and it is a direct permission rather than an
+  inference.
+- **`2025-11-25` is a different revision document.** §Terminology defines
+  **legacy** as "protocol versions that establish a session with an
+  `initialize` handshake (`2025-11-25` and earlier)". `2026-07-28` does not
+  retroactively amend the obligations of the revision it supersedes.
+- **The compatibility matrix says so by construction.** For a dual-era
+  client meeting a legacy server: "HTTP: the modern request returns a `4xx`
+  without a recognized modern error body, and the client falls back to
+  `initialize`" — outcome **Works**. If "Servers MUST implement
+  `server/discover`" bound legacy-only servers, that row would describe
+  mandated non-conformance.
 
 **Production corroborates the fallback.** MCP-497 measured, over 14 days:
 754 `server/discover` refusals against 6,757 successful `initialize` calls
@@ -144,19 +176,73 @@ clients locked out.
    the only answer it could conformantly give a `2026-07-28` request is a
    version refusal — which the transport already gives. A handler would be
    dead code that also misrepresents the server's era.
-3. **Do not renumber the version refusal to a modern error code.** Emitting
-   `-32022` (`UnsupportedProtocolVersionError`), `-32020` or `-32021` from
-   a server with no modern lane would tell dual-era clients "this server
-   speaks modern, retry with the advertised versions **rather than falling
-   back**" — steering them away from the `initialize` fallback that
-   currently works at production scale. The present `-32000` refusal is
-   load-bearing precisely because it is _not_ a recognized modern error.
-   `src/protocol-revision-era.integration.test.ts` is the tripwire.
-4. **The migration target is `@modelcontextprotocol/server@2.x`, serving
-   both eras.** Its `createMcpHandler` defaults to a dual-era stateless
-   mode, so one factory and one endpoint can serve modern requests per this
-   revision and legacy `initialize` traffic side by side. That is what makes
-   `server/discover` reachable, and it is the only route to it.
+3. **Keep the version refusal inside the legacy error sub-range.**
+   `2026-07-28` §Error Codes partitions the JSON-RPC implementation range.
+   `-32000`–`-32019` is the **legacy** sub-range, where "apart from
+   `-32002`, receivers **MUST NOT** assume any specific meaning for these
+   codes". `-32020`–`-32099` is **reserved for the MCP specification**,
+   where "implementations **MUST NOT** emit any code from this sub-range
+   that is not defined by this specification". This app's `-32000` sits in
+   the legacy sub-range, so no conformant client may read it as a modern
+   error, and a dual-era client falls back to `initialize`.
+
+   **This is Oak's own constraint, not a server-side MUST — do not cite it
+   as one.** The specification imposes no obligation on a server's choice
+   of refusal code here. What it states is _client_ behaviour, and only
+   permissively: per Streamable HTTP §Backward Compatibility a dual-era
+   client "**MAY** detect which era the server implements by attempting a
+   modern request first" and, on a `400`, "**SHOULD** inspect the response
+   body before falling back". The constraint binds us because MCP-497
+   measured that real clients do exactly that, at production scale — it
+   rests on evidence, not on conformance. Emitting `-32020`, `-32021` or
+   `-32022` (`UnsupportedProtocolVersion`) from a server with no modern
+   lane would tell those clients "retry the advertised versions **rather
+   than falling back**", steering them off a lane that works.
+
+   `src/protocol-revision-era.integration.test.ts` is the tripwire. It pins
+   the emitted code positively and asserts sub-range membership, rather
+   than checking absence from a list of known modern codes: a later
+   revision defining a fourth reserved code, or an SDK renumbering to a
+   standard code such as `-32602`, would each slip past a denylist and each
+   break the fallback.
+
+4. **The migration target is `@modelcontextprotocol/server@2.x`, and it
+   MUST be dual-era — never modern-only.** This answers MCP-644's third
+   question, the backward-compatibility obligation to clients pinned to
+   `2025-11-25`, and it constrains future work rather than describing
+   today.
+
+   Today the obligation is discharged by serving the revision. The
+   compatibility matrix's `Legacy client / Dual-era server` row reads
+   "**Works.** The server answers `initialize` and serves the client
+   according to the negotiated legacy revision", and this app serves
+   `2025-11-25` plus the four earlier versions in the SDK's
+   `SUPPORTED_PROTOCOL_VERSIONS`, over Streamable HTTP — not over the
+   deprecated `2024-11-05` HTTP+SSE transport, which this app does not
+   host.
+
+   At migration it becomes hard. The `Legacy client / Modern server` row
+   reads "**Fails.** … **Legacy clients have no fall-forward mechanism**",
+   and the specification offers only a SHOULD-grade consolation: a
+   modern-only server "**SHOULD** name the protocol versions it supports in
+   any error it returns to an `initialize` request … this message may be
+   the only diagnostic they can surface to users". A modern-only cutover
+   would therefore break every already-installed client permanently, with
+   no recovery path available to the client.
+
+   The target satisfies this by default rather than by configuration.
+   Verified first-hand in the installed `@modelcontextprotocol/server@2.0.0`
+   typings: `createMcpHandler` takes `legacy?: 'stateless' | 'reject'`, and
+   `'stateless'` is the default — including when the option is omitted —
+   under which each legacy request is answered by a fresh instance from the
+   same factory over a transport constructed with only
+   `sessionIdGenerator: undefined`. That is ADR-112's existing pattern
+   exactly, and the same mode answers `GET`/`DELETE` with `405`, which is
+   also this app's current behaviour. So one factory and one endpoint serve
+   both eras side by side — which is additionally what makes
+   `server/discover` reachable, and the only route to it.
+   **`legacy: 'reject'` is out of bounds for this migration.**
+
 5. **Self-description in a `DiscoverResult` will derive from served
    values, never from literals.** When the migration lands, `capabilities`
    and identity come from `SERVED_SURFACE` and `OAK_SERVER_BRANDING` — the
@@ -178,6 +264,14 @@ of fixes from the v2 release of 2026-07-27, so roughly 2027-01-27. Verify
 that date against the SDK's own `VERSIONING.md` at the time; do not trust
 this line.
 
+**The condition is armed, not just written down.** The era-contract suite
+asserts the installed SDK's own `LATEST_PROTOCOL_VERSION` is still
+`2025-11-25`. The day a dependency bump moves that ceiling, this record's
+premise is gone and the suite reds, naming this section — so the re-reading
+arrives as a failing gate rather than as someone remembering. That is also
+the day the reserved-sub-range bounds in Decision 3 must be re-derived from
+the then-current specification.
+
 ## Consequences
 
 ### Positive
@@ -185,9 +279,12 @@ this line.
 1. **The revision is now a reviewed position with a named exit**, not an
    invisible property of a dependency range.
 2. **The behaviour Oak's compatibility depends on is pinned by a test.** A
-   future SDK release that renumbered the refusal into a recognized modern
-   error would break dual-era fallback silently — it passes every other
-   gate. It now fails one.
+   future SDK release that renumbered the refusal into the reserved
+   sub-range would break dual-era fallback silently — it passes every other
+   gate. It now fails one. The same suite carries an exit-condition
+   sentinel on the SDK's own `LATEST_PROTOCOL_VERSION`, so the day the
+   installed SDK line moves past `2025-11-25` this record is re-opened by a
+   failing test rather than by someone remembering.
 3. **MCP-644's flagged ambiguity is resolved** rather than left for the
    next reader to re-derive.
 4. **The migration is smaller than "stateless migration" suggests.** The
@@ -200,17 +297,26 @@ this line.
 
 ### Negative
 
-1. **Discovery stays degraded until the migration.** A client wanting
+1. **A modern-only client cannot use this app at all.** The compatibility
+   matrix's `Modern client / Legacy server` row reads "**Fails.** The
+   server may reject the request with an implementation-defined error, stay
+   silent, or even process an era-ambiguous method under legacy
+   semantics." MCP-497's production evidence establishes that today's
+   clients are dual-era and negotiate down; it does not establish that
+   tomorrow's are. This is the consequence that worsens on its own as hosts
+   ship modern-only clients, and it is the sharpest reason the exit
+   condition below is a date and not a preference.
+2. **Discovery stays degraded until the migration.** A client wanting
    versions, capabilities and identity in one call cannot have it, and must
    probe `tools/list`, `prompts/list` and `resources/list` instead. This is
    the gap MCP-422 refers to when it records that `server/discover` is
    "post-connection capability discovery, which no static card replaces" —
    no server card closes it.
-2. **A conformance scanner will mark Oak behind**, correctly as to the
+3. **A conformance scanner will mark Oak behind**, correctly as to the
    revision and incorrectly as to fault. Any conformance evidence must name
    the revision it tested against or it will be read as current when it is
    not — the obligation MCP-184 carries.
-3. **The error-surface noise persists.** The refusal reaches Sentry through
+4. **The error-surface noise persists.** The refusal reaches Sentry through
    the transport's `onerror`, which is MCP-497's subject. This record does
    not change it, and deliberately does not fix it: the cure is to stop
    classifying a spec-correct refusal as an exception, which is that
@@ -222,9 +328,39 @@ this line.
 `Origin` header on all incoming connections to prevent DNS rebinding
 attacks", answering an invalid one with `403`. ADR-122's rationale for
 permissive CORS is about authorization under Bearer tokens; DNS rebinding
-is a different threat, and the MUST also appears under `2025-11-25`. This
-predates MCP-644 and is not settled here. It wants its own ticket, with the
-exploitability question routed to a security reviewer.
+is a different threat, and the MUST also appears under `2025-11-25`.
+
+**This is the one `2026-07-28` MUST that binds this app today, and it needs
+no migration to satisfy.** It is already owned by **MCP-650**, in progress
+— do not mint a second ticket for it. Two facts make it independent of
+everything else here, both measured on 2026-09-09:
+
+- `StreamableHTTPServerTransportOptions` is a re-exported alias of
+  `WebStandardStreamableHTTPServerTransportOptions`, which declares
+  `allowedHosts`, `allowedOrigins` and `enableDnsRebindingProtection`. The
+  guard exists on the 1.x line this app already runs.
+- `core-endpoints.ts:142` constructs the transport as
+  `new StreamableHTTPServerTransport({ sessionIdGenerator: undefined })`,
+  passing none of them. The guard is available and simply not switched on.
+
+**Do not read the existing guard as discharging this.** `security.ts`'s
+`dnsRebindingProtection` validates the **`Host`** header, not `Origin`, and
+it is mounted only on the static routes and the HTML leg of
+`GET`/`HEAD /mcp` — it never runs on `POST /mcp`, so protocol traffic has
+no `Origin` validation at all. Someone grepping `dnsRebinding`, finding a
+`403`, and marking this covered would be wrong. MCP-650 is framed on the
+`allowedHosts` leg; `allowedOrigins` is the leg this MUST names, and
+belongs in that ticket's allow-list audit rather than in a ticket of its
+own. The exploitability question routes to a security reviewer there, not
+here.
+
+For the same reason, the audit surface for "what still binds us" is the
+`2025-11-25` MUST list, not `2026-07-28`'s. Walked on 2026-09-09, the only
+unmet item is this one: the `405`-on-`GET` obligation is satisfied by
+`createRefuseGetMcp` (which answers with a legacy-sub-range `-32000` body,
+so it also reads correctly to a falling-back dual-era client), the
+version-header `400` is the refusal measured above, and session `DELETE`
+handling is MAY/SHOULD only.
 
 ## References
 
@@ -246,6 +382,8 @@ exploitability question routed to a security reviewer.
     (the capability source a `DiscoverResult` would derive from)
   - `apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts`
     (the identity source)
-- **Tickets**: MCP-644 (this scoping), MCP-497 (the error-surface noise),
-  MCP-422 (server cards), MCP-184 (conformance evidence naming its
-  revision), MCP-345 (advertised scopes)
+- **Tickets**: MCP-644 (this scoping), MCP-506 (the migration this record
+  defers to, owner-authorised 2026-08-05), MCP-650 (the `Origin`/DNS-rebinding
+  MUST, in progress), MCP-497 (the error-surface noise), MCP-422 (server
+  cards), MCP-184 (conformance evidence naming its revision), MCP-345
+  (advertised scopes)
