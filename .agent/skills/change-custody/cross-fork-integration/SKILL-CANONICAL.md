@@ -9,13 +9,14 @@ description: >-
   documents and plans for premises the change refutes, resolve numbering
   collisions, land by merge commit under the required checks.
   Use when a sync carrier exists or is due, when GitHub calls a sync dirty that
-  git merges cleanly, or when a fork-only document reads stale after an upstream
-  change. Not for two branches of one lineage (complex-merge), memory files
-  alone (semantic-merge), or curing upstream code here (route it upstream).
-  Right: one carrier, one merge commit, docs re-trued in the same landing, the
-  tree diff against upstream equal to the enumerated fork diff. Wrong: squash or
+  git merges cleanly, or when fork docs read stale after an upstream change.
+  Not for two branches of one lineage (complex-merge), memory files alone
+  (semantic-merge), or curing upstream code here.
+  Right: one carrier, two merge commits (the carrier's, then the landing's),
+  docs re-trued in the same landing, the tree diff against upstream equal to
+  the enumerated fork diff. Wrong: squash or
   rebase; a release-commit head that runs no check; hand-edited generated
-  pages; plans still asserting what upstream refuted.
+  pages; plans asserting what upstream refuted.
 ---
 
 # Cross-fork integration
@@ -85,6 +86,11 @@ appended to, while git with rename detection merged cleanly, and turning
 rename detection off reproduced the conflict locally — a diagnostic that
 explains the disagreement without establishing what GitHub's merge does.
 Record both readings; act on the local one; say why they differ in the PR.
+When `merge-tree` exits 1 it names the conflicted paths: stop here, resolve
+them by the complex-merge skill (the divergence guide's cascade classes, the
+semantic-merge skill for any `merge_class` file) on the carrier, and rerun
+`merge-tree` until it exits 0 before step 3 — `git merge` on a genuine
+conflict stops with unresolved files and every later step is inapplicable.
 
 ### 3. Carry the snapshot on one two-parent merge with an ordinary message
 
@@ -122,10 +128,16 @@ list and never from the reviews:
 - the old facts those replace (the negations: "unordered", "published on no
   surface", "not yet", the previous version string).
 
-Search the surfaces upstream's sweep could not reach, because they exist only
-here: delivery and strategic plans, runbooks, research and report records,
-executive memory, fork-only governance pages. For every hit choose one
-disposition and write it down in the PR:
+Search every fork-side document upstream's sweep could not reach: enumerate
+them as the files that differ from upstream's tip
+(`git diff --name-only <upstream-tip> <default> -- '*.md' '*.json'`), which
+includes the fork-only surfaces (delivery and strategic plans, runbooks,
+research and report records, executive memory, fork-only governance pages)
+AND every shared file carrying a fork-added paragraph. The keyword search
+over the sweep terms is discovery, never the completeness boundary: a
+paraphrase of a refuted premise is found by reading the enumerated files'
+claims, not by matching their words. For every hit choose one disposition
+and write it down in the PR:
 
 - **re-true** — a permanent document (a plan body, an authority index) gets the
   true statement, dated where the schema dates it;
@@ -157,9 +169,16 @@ sync a conflict.
 
 ### 9. Prove the landing and close the carrier
 
-- The merge commit's second parent is the carrier head; the default branch's
-  tree differs from upstream's tip only by the enumerated fork diff
-  (`git diff --stat <default> <upstream-tip>` read against the list).
+- First `git fetch origin <default>`: the server-side merge moves no local
+  ref, so every proof below reads the refreshed remote-tracking ref (or the
+  merge sha the API returned), never the pre-merge local branch.
+- The landing merge commit's second parent is the carrier head (its first
+  parent the previous default tip); this is the second of the two merge
+  commits the sync creates — the carrier's own merge of the default branch
+  in step 3 is the first — and both are verified, never conflated. The
+  default branch's tree differs from upstream's tip only by the enumerated
+  fork diff (`git diff --stat origin/<default> <upstream-tip>` read against
+  the list).
 - Post-merge reviews harvested; the carrier branch deleted after the ancestry
   proof; the worktree removed.
 - The landing recorded where the fork's continuity lives; the next upstream tip,
