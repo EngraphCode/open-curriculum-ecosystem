@@ -1160,3 +1160,8 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   `${PIPESTATUS[0]}` or `$(...)` is refused. `bash <script>` is refused even for a git-free script,
   so ceremony wrappers cannot be scripted from a worktree-resident seat here; the watcher was armed
   from the primary (ExitWorktree keep → Monitor → EnterWorktree) and survived the re-entry.
+- PRE-PUSH SECRET SCAN: gitleaks' `generic-api-key` rule (entropy 4.8) flags the challenge token
+  constant in the module, though not in the test (`\.test\.ts$` is already allowlisted). A public-by-
+  design vendor token needs a named, line-shaped `.gitleaks.toml` allowlist (the Clerk publishable-key
+  precedent), and that allowlist must ride in the SAME PR — the first push attempt failed on it after
+  the commit's whole-tree gate had passed, costing a second ceremony cycle.

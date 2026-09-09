@@ -97,6 +97,19 @@ paths = ['''^\.agent/reports/mcp-agent-facing-content-audit/current-source-ancho
 regexTarget = "line"
 regexes = ['''^\s*"indexToken"\s*:\s*"(?:ineffectiveness|pupil_premium_rates_2024_25)"\s*,?\s*$''']
 
+# The OpenAI plugin-submission domain-verification token (MCP-700) is public
+# by design: the portal fetches it from the MCP host over HTTPS and compares
+# it; holding the value grants nothing. Like the Clerk publishable keys above,
+# it lives in source. The exception is pinned to the one module, the one
+# constant-assignment line, and the literal value, so nothing else on that
+# path is exempt and a rotated token must move the allowlist in the same PR.
+[[allowlists]]
+description = "OpenAI domain-verification challenge token is public by design (MCP-700)"
+condition = "AND"
+paths = ['''^apps/oak-curriculum-mcp-streamable-http/src/openai-domain-verification\.ts$''']
+regexTarget = "line"
+regexes = ['''^\s*const OPENAI_APPS_CHALLENGE_TOKEN = 'zc9V349cLHm9igIbhHavPlwHsEuWnBD7Hzbp0hTi75g';\s*$''']
+
 
 [[rules]]
 id = "oak-api-key-uuid"

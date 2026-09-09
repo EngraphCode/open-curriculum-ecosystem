@@ -106,8 +106,8 @@ sequenceDiagram
         ClerkAuth->>Handler: Pass to health handler
         Handler->>Handler: Return health status
     else Path is /.well-known/*
-        ClerkAuth->>Handler: Pass to OAuth metadata handler
-        Handler->>Handler: Return OAuth metadata
+        ClerkAuth->>Handler: Pass to well-known handler
+        Handler->>Handler: Return OAuth metadata, or the OpenAI challenge token (MCP-700)
     else Path is /
         ClerkAuth->>Handler: Pass to landing page handler
         Handler->>Handler: Return landing page HTML
