@@ -56,7 +56,11 @@ validator chain refuses a rule that does not.
    it names exists (an ADR or PDR number resolves to a file; a directive anchor
    resolves), and exits non-zero naming each offender — the `governance-claim-
    needs-a-scanner` shape, proven by `validate-fitness-vocabulary`.
-3. The extending guide's sentence gains the validator's name as its check.
+3. The extending guide's contract is amended in the same step to the grammar
+   the validator accepts — `Operationalises ADR-NNN`, `Operationalises
+   PDR-NNN`, or `Operationalises <directive> §<section>` — and names the
+   validator as its check, so the documented authoring contract and the
+   scanner agree.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -67,9 +71,9 @@ validator chain refuses a rule that does not.
    validator with the file path and the reason. Proof: `repo-safe` — red-first unit
    tests over fixtures (missing line; unresolvable ADR number; a directive anchor
    that does not exist), no IO.
-3. The extending guide names the validator as the check for its sentence. Proof:
-   `repo-safe` — the markdown-links validator and a read of the sentence on the
-   landing PR.
+3. The extending guide states the accepted target grammar and names the validator
+   as its check. Proof: `repo-safe` — the markdown-links validator and a read of the
+   sentence on the landing PR.
 
 ## Todos (optional; proofs on todos optional)
 

@@ -295,18 +295,6 @@ under the non-policed `.agent/reference/` root; CLI invocation follows the
   Body-carried edge (cross-corpus id-space).
 - **Canonical ARC reference doc**: ws-b9 extends and repairs it; until then
   its wing-detection sections describe the pre-plan behaviour accurately.
-- **A unit added 2026-09-09 (the dedicated consolidation; observed 2026-09-09
-  09:2xZ at a lane seat, caught by the Director): `ws-b11-log-path-absolute`** —
-  the statusline's log path resolves relative to the session's persistent
-  shell cwd, so one `cd … && sed` that left the cwd under a skills tier
-  wrote `.logs/statusline.log` there every ten seconds, and the skills
-  adapter generator then refused the dot-directory under the tiers, failing
-  every push from the repository until the cwd returned to the root. The
-  unit: the log path is resolved from the repository root (or the session's
-  configured log home) at start-up, never from the cwd, with a unit test over
-  the resolver; the generator's refusal stays (it is correct), so the cure is
-  the writer. Depends: nothing; lands as its own small PR whenever the
-  execution seat is next staffed.
 
 ## Execution seat
 
@@ -335,3 +323,17 @@ budget with tally-stop.
   §2026-08-07 amendment (PR #817) — so the frontmatter stamp completed
   2026-08-07 on the 2026-08-03 ratification word. A visibility ticket
   remains optional working practice.
+- 2026-09-09 (a CANDIDATE unit recorded at the dedicated consolidation,
+  not a scope change — the node stays ratified and the unit governs no
+  work until the owner's word at the next ratification moment): the
+  statusline's log path resolves relative to the session's persistent
+  shell cwd, so one `cd … && sed` that left a seat's cwd under a skills
+  tier wrote `.logs/statusline.log` there every ten seconds (observed
+  2026-09-09 09:2xZ, caught by the Director), and the skills adapter
+  generator refused the dot-directory under the tiers, failing every push
+  from the repository until the cwd returned to the root. The candidate's
+  one deterministic rule: an absolute log path is used as given (the
+  existing `/tmp/statusline.log` contract preserved); a relative one is
+  resolved from the repository root at start-up, never from the cwd; a unit
+  test over the resolver proves both branches. The generator's refusal is
+  correct and stays; the cure is the writer.

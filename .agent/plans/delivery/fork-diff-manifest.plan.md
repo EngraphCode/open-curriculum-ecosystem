@@ -45,29 +45,36 @@ path or a missing one fails by name.
 
 ## Mechanism
 
-- A manifest at a tracked path lists divergence by class, each entry a path
-  pattern and one line of why it diverges (generated adapters for the fork's
-  platforms, the merge-bot example, the plans estate, fork-only governance pages,
-  shared files carrying a fork-added paragraph); classes name a generator where
-  one regenerates the paths.
-- A validator, run by hand at each sync and in the repo-validators chain when an
-  upstream mirror ref is present, computes `git diff --name-only <upstream-tip>
-  <fork-default>` against the fetched mirror and partitions the result by the
-  manifest: every path matches exactly one entry, or the validator exits non-zero
-  naming the unmatched paths (a new divergence to add with its why, or a stray to
-  remove) and the manifest entries that matched nothing (a divergence that ended).
+- A manifest at a tracked path lists divergence by class, each class carrying an
+  EXACT member inventory — the file paths themselves, written by hand for
+  hand-carried divergence and derived by the class's generator where one
+  regenerates the paths (the adapters, the projections) — and one line of why the
+  class diverges (generated adapters for the fork's platforms, the merge-bot
+  example, the plans estate, fork-only governance pages, shared files carrying a
+  fork-added paragraph). No open-ended pattern: a stray file under an allowed
+  directory is a surplus by name, never an accepted member.
+- A validator computes `git diff --name-only <upstream-tip> <candidate>` against
+  the fetched mirror, where `<candidate>` is the checked-out head under test (the
+  PR head in the repo-validators chain, so a new unmanifested divergence in the
+  PR itself fails there), and partitions the result by the manifest: every path
+  matches exactly one member, or the validator exits non-zero naming the
+  unmatched paths (a new divergence to add with its why, or a stray to remove)
+  and the members that matched nothing (a divergence that ended). The same
+  validator run against the refreshed `<fork-default>` after a landing is the
+  post-merge proof.
 - The cross-fork integration skill's step 9 names the validator as its proof, and
   the count-until-manifest sentence it carries today is retired in the same PR.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. The validator partitions the live tree difference against the fetched upstream
-   tip with no unmatched path and no dead entry. Proof: `repo-safe` — the
-   validator green on the default branch after the mirror fetch (run by the landing
-   seat; recorded on the sync PR).
-2. An added stray file and a removed manifest entry each fail the validator by name.
-   Proof: `repo-safe` — unit tests over an in-memory diff listing and manifest
-   fixtures, no IO.
+1. The validator partitions the candidate head's tree difference against the
+   fetched upstream tip with no unmatched path and no dead member, in the
+   repo-validators chain on the PR head and again on the refreshed default branch
+   after the landing. Proof: `repo-safe` — the chain green on the PR head; the
+   post-merge run recorded on the sync PR by the landing seat.
+2. An added stray file under an allowed directory and a removed manifest member each
+   fail the validator by name. Proof: `repo-safe` — unit tests over an in-memory
+   diff listing and manifest fixtures, no IO.
 3. The skill's step 9 names the validator and no longer carries the count sentence.
    Proof: `repo-safe` — the skill's projection check and a read on the landing PR.
 

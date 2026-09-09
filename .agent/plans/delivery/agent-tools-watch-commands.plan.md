@@ -212,29 +212,6 @@ prose each session must re-read.
    authority — this todo is a pointer, not a spec. The full Cricket
    suite is owner-mandated at four junctures: schema freeze,
    validator landing, CLI landing, node-amendment close.
-6. **The pull-request instruments** (unit added 2026-09-09 at the
-   dedicated consolidation, from the Director's and the lane seats'
-   napkin notes of 2026-09-08/09): every GitHub write of the merge
-   train's two days went through seven self-minting session scripts —
-   comment, ready-with-tally, create-draft, settle-watch (exit codes
-   per terminal state), merge-at-pinned-head with a premises comment,
-   delete-remote-branch after the ancestry proof, and reply-and-resolve
-   with the bar marker — re-derived from a scratchpad by each seat and
-   copied between seats' handoff directories. Each is one front-door
-   command on the `merge-bot` topic (the token minted inside, the
-   repository derived from the checkout per ADR-228), consuming the
-   settlement verdict slice 1 composes; the PR-poll and peer-liveness
-   delta polls fold into slice 2's `watch-arm`. The same repeated-shape
-   economics as slices 1 and 1.5.
-7. **Bot re-runs of a failed workflow job** — an owner-held row, not a
-   command: the App's installation token cannot re-run a job
-   ("Resource not accessible by integration"; four instances
-   2026-09-08/09), so the bot-legitimate re-trigger is an empty-commit
-   push outside the review budget. Granting the App the Actions write
-   permission is the owner's decision; until it is given, no `rerun`
-   command exists here, and the empty-commit push stays the documented
-   shape (`pr-lifecycle` §Phase 5).
-
 Sequence: 1 and 1.5 (landed, PR #790) → slice 2 (ratified
 2026-08-09) → release/deploy-watch → onward, with 5
 scheduling at the tooling seat's next free cycle — held BEHIND the
@@ -245,6 +222,19 @@ The original ordering was surfaced on the ratification card
 7ba78908) and the owner confirmed it at the stamp: "merge-bot merge
 first"; the 2026-08-06 owner word "finish 1, 2, 3; create
 discoverable plans for 4 and 5" produced this amendment.
+
+## Review dispositions
+
+One dated row per routed finding (PDR-140 ledger surface). A row here is a
+candidate for this node's scope, not a slice: adding a slice is a scope
+change that returns the node to sketch (plan-node schema §The status axis),
+so a candidate waits here for the owner's word at the next ratification
+moment and governs no work until then.
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-09 | The dedicated consolidation (the Director's and the lane seats' napkin notes, 2026-09-08/09) | Every GitHub write of the merge train's two days went through seven self-minting session scripts — comment, ready-with-tally, create-draft, settle-watch (exit codes per terminal state), merge-at-pinned-head with a premises comment, delete-remote-branch after the ancestry proof, reply-and-resolve with the bar marker — re-derived from a scratchpad by each seat and copied between seats' handoff directories | Candidate slice for this node, offered at the next ratification moment: each as one front-door command on the `merge-bot` topic (the token minted inside, the repository derived from the checkout per ADR-228), consuming the settlement verdict slice 1 composes; the PR-poll and peer-liveness delta polls fold into slice 2's `watch-arm`. The same repeated-shape economics as slices 1 and 1.5 |
+| 2026-09-09 | The same notes (four instances 2026-09-08/09) | The App's installation token cannot re-run a failed workflow job ("Resource not accessible by integration"), so the bot-legitimate re-trigger is an empty-commit push outside the review budget | Routed to the owner's report through the Director as a decision (grant the App the Actions write permission, or keep the empty-commit shape); no `rerun` command is planned here until that word, and `pr-lifecycle` §Phase 5 carries the empty-commit shape meanwhile |
 
 ## Review path
 
