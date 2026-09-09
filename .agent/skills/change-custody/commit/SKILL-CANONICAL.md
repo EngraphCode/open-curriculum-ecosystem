@@ -2,11 +2,10 @@
 name: commit
 classification: passive
 description: >-
-  Create a well-formed commit for current changes with conventional message
-  format. Always active, every commit, every session, no trigger required.
-  Enumerates live commitlint constraints inline at draft time, validates the
-  drafted message via `pnpm agent-tools:check-commit-message` BEFORE invoking
-  git commit, and coordinates the short-lived git index/head commit window.
+  Create a well-formed conventional commit. Always active. Classify the host
+  first: standard profiles use repo tooling and hook coordination; detected
+  ChatGPT Work cloud uses manual static/message checks, HUSKY=0, the configured
+  default credential and draft-PR CI without local execution.
 ---
 
 # Commit Current Work
@@ -27,6 +26,63 @@ applied to commit authoring. Prior prose guidance said "lines under 99 chars"
 without surfacing the preset's actual rules; every session hit rework
 (subject-case violations, header-length overruns, missing footers). This skill
 closes that exposure window.
+
+## ChatGPT Work Cloud Fast Path
+
+Before package-manager, queue, hook, identity or gate work, use the tri-state
+classification in
+[`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md).
+When it selects ChatGPT Work, use this section instead of Tooling, the
+package-manager invocations in Before You Draft (its constraint enumeration
+still applies, as text), Commit Queue and Window Protocol, Process execution
+and local-gate instructions below. The Safety Rules still bind except for the
+exact standing `HUSKY=0` ruling recorded in
+[`no-verify-requires-fresh-authorisation`](../../../rules/no-verify-requires-fresh-authorisation.md).
+
+1. Check the proposed message by hand against the constraints enumerated in
+   Before You Draft below: its step 4 table of the preset's rules (the type
+   list, the 100-character header and body-line limits, the subject and footer
+   rules and the two `footer-leading-blank` traps) and its step 5
+   accidental-major-version indicator for version-bearing changes. Read
+   `commitlint.config.*` and `.husky/commit-msg` as text only to confirm which
+   preset and which extra hooks are live; `commitlint.config.mjs` shows only an
+   `extends` entry and the hook file only names commands that cannot run here,
+   so the enumeration is the check, and none of that section's `pnpm`
+   invocations runs in this profile. CI does not supply this check.
+2. Confirm the current branch is neither the repository default branch nor a
+   protected branch. Inspect the exact staged or connector content set, the
+   complete outgoing diff and `git diff --cached --check` where a local index
+   exists. Inspect that diff for credentials before transfer.
+3. Use the configured default identity and credential without minting,
+   rewriting or repairing a bot identity. The invariant for every transport:
+   when the host carries the `gitleaks` binary (`gitleaks detect` needs no
+   package manager), no content leaves the host that the binary has not read,
+   and the scan target is exactly what the transport will carry. Local git:
+   commit with `HUSKY=0` and do not push yet; between the commit and the push
+   scan the outgoing commits — `origin/<branch>..HEAD` when the remote branch
+   exists, and on a lane's first push, where it does not, `HEAD --not
+   --remotes=origin` (the shape the estate's pre-push scan uses for a new
+   remote ref) — then push; a scan of the index before the commit exists reads
+   none of the new content. The GitHub connector, used only when shell
+   transport lacks a configured credential: the connector writes the content
+   straight to GitHub and its commit need not exist at local `HEAD`, so scan
+   the worktree content BEFORE the connector write (`gitleaks detect --no-git
+   --source <path>`), and where the binary is absent the manual inspection in
+   step 2 is the only pre-transfer check and the residual in the directive's
+   step 7 stands. Connector-created commits have no local hook process and are
+   covered by the same owner ruling. Only when the binary is absent is the CI
+   secret scan the first scan, after transfer.
+4. Open a draft PR immediately. Keep it draft until GitHub's
+   `run-quality-gates` check concludes successfully on the current head. If the
+   check is absent, cancelled or cannot run, stop and surface that blocker. A
+   failing verdict permits no second push without a named, diff-level cause
+   read from the check's own output; without one, stop and surface the blocker
+   — a red gate is never probed by pushing again, and the push-cadence rule's
+   "genuine conclusion" is a floor on spacing, never a licence to retry.
+
+Never describe the static checks above as local execution or hook-equivalent
+proof. `HUSKY=0` is the only authorised hook-skip mechanism in this profile;
+`--no-verify` and every other spelling remain prohibited.
 
 ## Tooling
 
@@ -90,10 +146,13 @@ push); push once per boundary. Small commits stay small — the cure is
 cadence, never squashed scope — and adjacent small parcels batch into one
 cycle. The stop-hook's uncommitted-changes nag is not a commit trigger; a
 review round is not a safety boundary; freezes and handoffs are never left
-unpushed. Under relocated gates (`HUSKY=0` cloud sessions) the same ruling
-covers PUSHES: the minimum spacing is a genuine required-check conclusion
-on the previous head, and a rollup on a superseded head is never reported
-(`cloud-environment.md` §Push cadence).
+unpushed. Under relocated gates the same ruling covers PUSHES: the minimum
+spacing is a genuine required-check conclusion on the previous head, and a
+rollup on a superseded head is never reported. See the
+[ChatGPT Work route](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
+or the
+[Claude cloud route](../../../claude-harness-integrations/cloud-environment.md#git-hook-policy-for-claude-cloud-sessions-husky0),
+whichever the environment classification selected.
 
 ## Before You Draft — Load the Live Constraints
 
@@ -171,14 +230,16 @@ Run these steps **before** formulating the commit message.
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
    pre-draft `check-commit-message` script is an optional convenience to catch a
    format slip ~30s earlier, not a gate. **Exception — sessions committing
-   under a standing owner hook-policy ruling (e.g. `HUSKY=0` cloud agent
-   sessions per the ruling recorded in
-   `no-verify-requires-fresh-authorisation`):** there the hooks do not run, so
-   the ruling's operational surface (this repo: the cloud-environment doc's
-   "blocking in-session substitute set") is the gate — every check it
-   enumerates is BLOCKING per commit, with exit codes read in-band (never
-   through a pipe). That enumeration is the single source of truth for what
-   substitutes for the hooks; do not work from a remembered subset of it. **Never run a per-commit negative
+   under a standing owner hook-policy ruling:** for Claude cloud sessions (the
+   `HUSKY=0` ruling recorded in `no-verify-requires-fresh-authorisation`) the
+   hooks do not run, so the ruling's operational surface (this repo: the
+   cloud-environment doc's "blocking in-session substitute set") is the gate —
+   every check it enumerates is BLOCKING per commit, with exit codes read
+   in-band (never through a pipe). That enumeration is the single source of
+   truth for what substitutes for the hooks; do not work from a remembered
+   subset of it. For a detected ChatGPT Work cloud session none of that
+   substitute set can run: the Fast Path above is the whole gate, and the
+   enumeration in this section is applied by hand. **Never run a per-commit negative
    control** (a deliberately-bad message to "prove the checker is live") — that
    tests the tool, not your message, and has no bridge to landing a conforming
    commit. If you run the checker, trust its exit code; if a given invocation
