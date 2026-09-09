@@ -329,19 +329,24 @@ first-hand as of 2026-06-25.
 > fitness breach is a curation lane later. Doctrine of the day: integration is a semantic event
 > (the skill, the guide's §4i, the rule); a re-truing narrows to the claim refuted; cross-lineage
 > ADR numbering decided once (upstream's sequence authoritative; the fork renumbers in the sync
-> commit). Seats at the handoff: this Director (claim `8109015d`, to be ADOPTED by the
-> successor with `claims adopt`), Altair spins Umbra (`05a180`, claims on #101 and #102). The
-> successor's first moves: start-right-team; adopt the claim; arm the standing processes (the
-> watcher, the claim heartbeat loop, the peer poll, the wrap cron at 41 past odd local hours, the
-> fold wake at 00:07Z — every one dies at a compaction or a seat change); read the machine-local
-> record `2778f573` §COMPACTION BOUNDARY 10 for the exact commands and the instruments (copied to
-> `.agent/state/collaboration/handoffs/instruments-c5cc2c/` on this machine: self-minting
-> scripts for comment, ready, create-draft, settle-watch, merge with the head pinned, branch
-> delete, thread replies — their home in agent-tools is a lane). Lanes after zero: the fork-diff
+> commit). Seats at the handoff: the Director claim `8109015d` was ADOPTED by Nettle guards
+> Pistil (`2de368`) at PDR-064 Moment 2, 2026-09-09 15:11:49Z (comms event `c3e76199`); the
+> registry row now names that seat, and any later pickup verifies the LIVE claim state first
+> (`claims active-agents` with a UTC `--now`) — an adoption is never repeated from this map.
+> Altair spins Umbra (`05a180`) holds claims on #99, #101 and #102. A successor's first moves,
+> on any checkout: start-right-team; the mechanical liveness check and the readiness gate in
+> this file's brief; adoption only from a pre-positioning event; then the standing processes,
+> every one of which dies at a compaction or a seat change, each armed from its TRACKED home —
+> the all-channels watcher from the `comms-all-channels-watcher` rule's arming command; the
+> claim heartbeat loop from the `liveness-heartbeat-cron` rule; the wrap cadence from the
+> `wrap` skill; the fold wake and its ceremony from the `coordination-fold` skill; the settle
+> and merge boundary from the `pr-lifecycle` skill §Phase 7. The machine-local record
+> `2778f573` and the instrument copies under `handoffs/instruments-c5cc2c/` on this machine
+> are conveniences that restate those homes as one-line scripts; their home in agent-tools is
+> a lane, and nothing a successor needs lives only there. Lanes after zero: the fork-diff
 > manifest; the instruments' home; the skill's second draft from both seats' napkin notes; PR C;
 > the principles.md curation lane; the skills-generator dot-directory fix. THE PICKUP MAP is
-> this snapshot, tracked, with the tenure journal in the estate-coordination thread record; the
-> machine-local record adds the commands on this machine only.
+> this snapshot, tracked, with the tenure journal in the estate-coordination thread record.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the
