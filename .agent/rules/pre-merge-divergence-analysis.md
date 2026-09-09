@@ -5,7 +5,9 @@ Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/archit
 When merging branches that have diverged significantly (100+ files changed
 on either side, or 10+ conflicts in a dry-run merge), follow the
 [Pre-Merge Divergence Analysis](../../docs/engineering/pre-merge-analysis.md)
-guide before attempting the merge.
+guide before attempting the merge. This rule loads for EVERY merge: the
+premise sweep it carries (§Derive Merge Risk, last paragraph) has no size
+threshold; the thresholds above select the full divergence workflow only.
 
 The scope is set by the trigger above, not by branch topology: two
 long-lived diverged branches (feature-vs-feature, or a stale branch against a

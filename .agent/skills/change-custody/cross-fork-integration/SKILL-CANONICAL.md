@@ -63,15 +63,41 @@ no conception of meaning."
   with every citation updated; the fork never reserves a block, because a block
   is estate identity carried in the tree.
 
+## What each step proves
+
+The procedure below is a sequence of proofs, and a case the steps did not
+name is judged by the proof it belongs to, never by adding a case:
+
+1. Both lineages' identities and tips are known first-hand, and the carrier
+   is single.
+2. The merge algorithm's own verdict on the live tips, not a cached one.
+3. A head whose checks run, carrying the default branch's tip.
+4. Every generated surface is true by its own generator's check.
+5. Every memory file is true by concept.
+6. Every fork-side document that differs from upstream has been read for
+   the change's claims, with a disposition per hit.
+7. No record number or name collides across the lineages.
+8. The required checks are green on the candidate that lands, and every
+   thread is dispositioned.
+9. The landed tree, read from refreshed refs, is upstream's plus the
+   enumerated fork diff.
+
+Two names run through the whole procedure and are derived once, never
+assumed equal: `<fork-default>` (this repository's default branch, read from
+the repository service — `engraph` on this line) and `<upstream-default>`
+(the parent's default branch, read the same way — `main` for this line's
+upstream). Every fetch of upstream names the second; every merge target,
+carrier merge and landing proof names the first.
+
 ## The procedure
 
 ### 1. Verify the mirror and the carrier before touching anything
 
-- Live identities: the fork's repository id, its parent's id, and the default
-  branch name — read from the repository service, never assumed.
-- The upstream tip: fetched read-only (`git fetch upstream <default>`; the
-  remote's push URL is disabled). Compare with the carrier's head: a newer
-  upstream tip queues as the NEXT carrier; a reviewed head is not moved.
+- Live identities: the fork's repository id, its parent's id, `<fork-default>`
+  and `<upstream-default>` — read from the repository service, never assumed.
+- The upstream tip: fetched read-only (`git fetch upstream <upstream-default>`;
+  the remote's push URL is disabled). Compare with the carrier's head: a
+  newer upstream tip queues as the NEXT carrier; a reviewed head is not moved.
 - The carrier: exactly one open sync pull request. A second carrier for the
   same lineage is a defect; close it on the record.
 - Exclusive counts both ways, from fetched history, and the merge base.
@@ -121,8 +147,12 @@ link targets), and a clean auto-merge is not evidence of a correct one.
 Derive the sweep terms from the incoming change's claims, never from its file
 list and never from the reviews:
 
-- upstream's own retraction list (its thread record, ADR amendments, changelog
-  and PR body name the wording it withdrew);
+- upstream's own retraction list, read from FETCHED HISTORY only — its thread
+  record, ADR amendments, changelog and commit messages name the wording it
+  withdrew; an upstream pull request's body or review is a repository-service
+  read that the downstream-checkout rule gates behind fresh owner permission
+  for each read, so it is consulted only with that permission and never
+  required by this step;
 - the new facts the diff introduces (a version, a shape, a served field, a
   count);
 - the old facts those replace (the negations: "unordered", "published on no
@@ -130,7 +160,7 @@ list and never from the reviews:
 
 Search every fork-side document upstream's sweep could not reach: enumerate
 them as the files that differ from upstream's tip
-(`git diff --name-only <upstream-tip> <default> -- '*.md' '*.json'`), which
+(`git diff --name-only <upstream-tip> <fork-default> -- '*.md' '*.json'`), which
 includes the fork-only surfaces (delivery and strategic plans, runbooks,
 research and report records, executive memory, fork-only governance pages)
 AND every shared file carrying a fork-added paragraph. The keyword search
@@ -169,15 +199,15 @@ sync a conflict.
 
 ### 9. Prove the landing and close the carrier
 
-- First `git fetch origin <default>`: the server-side merge moves no local
-  ref, so every proof below reads the refreshed remote-tracking ref (or the
-  merge sha the API returned), never the pre-merge local branch.
+- First `git fetch origin <fork-default>`: the server-side merge moves no
+  local ref, so every proof below reads the refreshed remote-tracking ref (or
+  the merge sha the API returned), never the pre-merge local branch.
 - The landing merge commit's second parent is the carrier head (its first
   parent the previous default tip); this is the second of the two merge
   commits the sync creates — the carrier's own merge of the default branch
   in step 3 is the first — and both are verified, never conflated. The
   default branch's tree differs from upstream's tip only by the enumerated
-  fork diff (`git diff --stat origin/<default> <upstream-tip>` read against
+  fork diff (`git diff --stat origin/<fork-default> <upstream-tip>` read against
   the list).
 - Post-merge reviews harvested; the carrier branch deleted after the ancestry
   proof; the worktree removed.

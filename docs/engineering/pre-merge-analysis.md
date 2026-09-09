@@ -215,10 +215,14 @@ Derive the sweep terms from the change's claims, never from its file list:
 the wording the other branch retracted (its ADR amendments, changelog,
 thread record, PR body), the new facts it introduces, and the old facts
 those replace (the negations — "unordered", "not yet", "published on no
-surface", the previous version string). Search the surfaces the other
-branch could not have edited: plans, runbooks, research and report records,
-executive memory, and any generated page whose generator lives only on
-your branch. Give every hit one disposition and record it in the pull
+surface", the previous version string). Enumerate every document that
+differs between the two tips (`git diff --name-only <other-tip> <your-tip>
+-- '*.md' '*.json'`) — the files only your branch holds (plans, runbooks,
+research and report records, executive memory, generated pages whose
+generator lives only on your branch) AND every shared file both branches
+edited, since git auto-merges a runbook whose two paragraphs now
+contradict each other. The keyword search is discovery; completeness is
+reading the enumerated files' claims. Give every hit one disposition and record it in the pull
 request — re-true a permanent document; narrow a plan whose scope is
 partly overtaken; archive a plan whose whole premise the other branch
 delivered; add a dated section to a dated record, never rewrite it. The
