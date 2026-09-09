@@ -145,9 +145,13 @@ grant is one invariant, not a list of cases: **the working tree and the
 index for that path are brought to what HEAD records — content, type
 and mode — by forward writes only, and the clearing is proven by
 `git status --porcelain -- <path>` reading empty afterwards.** The
-forward writes are: content from `git show HEAD:<path>` (the platform's
-file tool, or the redirect into a path first read as a regular file with
-`test -L`); type and mode from `git ls-tree HEAD -- <path>` (a symlink
+forward writes are: content from `git show HEAD:<path>` written to a NEW
+file beside the path and renamed over it
+(`git show HEAD:<path> > <path>.proven && mv <path>.proven <path>`, after
+`test -L <path>` has read the path as a regular file) — never a redirect
+into the existing path, which writes through its inode and overwrites any
+second hard link inside or outside the worktree while the status still
+reads empty; type and mode from `git ls-tree HEAD -- <path>` (a symlink
 recreated with `ln -sfn` to HEAD's target, never written through; the
 executable bit set or cleared with `chmod` to the recorded `100755` or
 `100644`); the index brought to match with `git add <path>` (the single-path

@@ -165,7 +165,10 @@ deleted, and in fact should be deleted as a standing protocol, to keep the
 local environment tidy, no redundant branches, no redundant worktrees").
 Provably safe = BOTH, proven per item: (a) `git status --porcelain` empty
 in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
-`origin/<base>` (`git merge-base --is-ancestor`). Items passing both prune
+`origin/<base>` (`git merge-base --is-ancestor`) — or, where the branch
+landed by squash or is content-superseded, the content proof recorded
+instead: every file proven present newer on the base by content
+comparison, the comparison written down before the removal. Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
 registrations, and plain branch deletion for proven local branches. A
