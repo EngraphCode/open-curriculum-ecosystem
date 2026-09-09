@@ -308,10 +308,13 @@ owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window). Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
-[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer in the
-repository's automatic-review configuration, the complete set, because a
-reviewer left undeclared is invisible to the tool's recomputation and its
-owed leg would not hold the merge (pr-lifecycle §merge boundary;
+[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer whose
+leg binds THIS tip: the Codex connector reviews every push, Copilot the
+first push and an explicit re-request only, so on a cured tip the declared
+set is usually the connector alone; a reviewer left undeclared is invisible
+to the tool's recomputation, and a declared reviewer that never reviewed
+the tip refuses by name as SETTLED-NO-REVIEW (2026-09-09, first-hand on
+two landings) (pr-lifecycle §merge boundary;
 `docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the
 verdicted tip's sha in its own call, so the landing merge's second parent IS
