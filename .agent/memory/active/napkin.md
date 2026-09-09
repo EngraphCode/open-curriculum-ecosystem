@@ -1070,3 +1070,31 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   landed fold. Owner tomorrow: #92's two clauses (and its below-bar list on the PR), #90, the
   #94 read's items 7–13 (structural, recorded on the PR). Observed, not inferred: every SHA and
   comment id on the record came from a tool result. Recursion closes here.
+
+- **NON-TERMINAL WRAP 25 — Flounder turns Estuary (c5cc2c), Director, 2026-09-09 01:11Z** (the
+  first block on `coordination/2026-09-09-f5d02c`). The fold landed: #84 merged as f5d02c38a at
+  00:52Z after seven rounds (8, 4, 1, 1, 2, 2, 1; the four-round arm at round four, the class
+  fix replacing the handoff's live snapshot in place, three clause-9 rounds on the two pickup
+  surfaces, the last naming the tracked snapshot as the pickup map). The successor was cut from
+  the full sha by the ceremony, published by the bot, and opened as draft #96 with its first
+  sweep (the §FOLD block, the fold-time journal entry, wrap 24). #94 is in the landing slot at
+  5248c58c0 — its held round-five cure and the merge of engraph in one push — green by name and
+  inside its quiet window at this stamp; #95 waits at 78aa20441 for the slot word.
+- **Work safety.** Primary on the successor, clean, zero commits ahead of origin; queue empty;
+  every lane's commits pushed (work-cloud-94 at 5248c58c0; Altair's rulings-a at 78aa20441 by
+  their report); this block is the only dirty line and sweeps now. The next fold wake is armed
+  for the 2026-09-10 rollover.
+- **Metacognition.** The fold's review tail (seven rounds on a records PR) came from one
+  generator — pickup surfaces that describe the state at their own hour — and the class fix
+  (one live snapshot, replaced in place, named as the pickup map) is the structural answer the
+  handoff's own refresh contract already prescribed; the rounds after it were the two surfaces
+  the fix touched, read again. I stamped from the clock this window after wrap 24's lesson, and
+  still wrote "01:0xZ" once for 00:55Z — corrected on the record; the habit is `date -u` before
+  every stamp, not after. The fold wake's letter (steps 1–11 from scratch) was recomputed against
+  a fold already in flight rather than re-run; recorded as a deviation with its reason.
+- **Loss scan.** Promises: #94's merge (in the window) → "slot open for #95" → #95 under Altair's
+  settle → the owner's morning items (#92's two clauses, #90, the #94 read's structural notes,
+  the below-bar list on #92). Homes: the record carries every SHA and comment id; the per-user
+  tail and index point at the fold; the memories for the held-seat class and the plain-call
+  discipline are current. Nothing narrated ahead of the landed state: #94 and #95 are OPEN at
+  this stamp. Recursion closes here.
