@@ -1367,3 +1367,46 @@ unread beyond their reports (their load-bearing claims verified in the tree befo
 the #92 thread bodies read in full from the harvest. A third pass re-finds only the standing
 bounds; the recursion closes. External bound for the next window: any card I raise — compute its
 premise against `origin/engraph` first.
+
+## Flounder turns Estuary (c5cc2c) — Director, NON-TERMINAL WRAP 28 (2026-09-09 13:11Z, cron)
+
+**Modes.** Metacognition on the window since wrap 27: one miss of my own and two defaults that
+did their job. The miss: my read of #98 called its shell recipe sensible on the story it told
+(a new inode, never a write through the old one) while both of its conditions were wrong —
+`test -L` is true for a symlink, and a redirect into a fixed sibling name truncates whatever is
+there. Copilot walked the predicates with an input; I walked the intent. The cure is the
+zero-cost check: for any recipe, run each predicate against a concrete case (a symlink, an
+existing sibling) before the verdict. The defaults: the lane seat went dark at 10:41Z with the
+finding open; the deadline-and-default (declared on the stream with a time, the default named,
+the lane kept theirs) let the cure land at 11:45Z and the PR land at 12:14Z without a card and
+without touching their worktree, branch or claim — a temporary local branch cut from the
+remote ref, pushed to the lane branch by name, then removed by the plain paths.
+
+**Work safety (13:11Z).** Primary on `coordination/2026-09-09-f5d02c` at 2e6d13c62 == origin
+(0/0) before this sweep; dirty: the napkin only (this block); no commit queue; worktrees:
+foundations-92 (the owner's #92 at e52889355 == origin), cross-fork-skill (#97 at b7244a865),
+follow-up-t (Altair's, at df0438480 — one behind the lane's remote tip, theirs to fast-forward),
+pr-943-engraph (the kiln). Registry: the Director claim 8109015d (heartbeat 12:43Z); Altair's
+b321a7c8 (heartbeat 10:41Z — dark 150 minutes, surfaced to the owner by push).
+
+**Board.** engraph 123d2e3e9 (#98 landed 12:14Z as the lane's recorded default; #90 landed
+10:35Z on the owner's word). OPEN: #92 (the owner's, BEHIND by design, all rounds settled, the
+principles.md clause held for the owner's word), #97 (the skill draft, BEHIND, the owner's read)
+and PR #96 (this branch's draft; folds at the 2026-09-10 00:07Z wake). Six owner decisions queued
+(clause 2's scope; the framework's Archive vs Ratify; the private projects in public docs; the
+next upstream carrier; #97's disposition; principles.md's fitness) plus Altair's held seat.
+
+**Consolidation gate.** Two memory instances appended this window (the bot push leaves
+remote-tracking refs stale until a fetch; a recipe's predicates walked before a verdict); no new
+doctrine beyond #97; no consolidate-docs run. The instruments of the day (comment, ready,
+create-draft, settle-watch, merge, delete-branch, replies — all self-minting) stay a pointer for
+an agent-tools home.
+
+**Metaloss.** Pass one: the timestamp class held this window (`date -u` before every stamp);
+the record's default lines are stamped from the clock. Pass two: promises — #92 (owner), #97
+(owner), #96 (the wake), Altair's disposal and claim close (theirs), the next carrier (owner),
+the fork-diff manifest and the instruments' home (pointers) — nothing unhomed. Attribution:
+"Altair is held at a prompt" is INFERRED from silence plus the held-seat class, not observed.
+Bounds: the poll's UNKNOWN minute after each landing is GitHub's, read twice today. A third pass
+re-finds only the standing bounds; the recursion closes. External bound: any verdict I give on a
+recipe or a mechanism — walk its predicates first.
