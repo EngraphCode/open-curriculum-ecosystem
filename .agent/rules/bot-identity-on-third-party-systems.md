@@ -33,6 +33,28 @@ for that system. The rule fires before the action, at credential-selection
 time, not after. It fires on every action; the action map below decides which
 credential the action takes.
 
+### ChatGPT Work cloud routing — evaluated first
+
+When the tri-state classifier in
+[`cloud-environment-routing.md`](../directives/cloud-environment-routing.md)
+selects ChatGPT Work, task-scoped commits, non-force story-branch pushes and
+the draft-PR creation/edit/comment writes needed to deliver the task use the
+configured default credential — the host's own GitHub credential, which
+displays as the owner's identity. Read it first — the TRANSPORT credential, which
+is what the remote write displays (`gh auth status` for `gh`; the credential
+helper or SSH key for `git push`; the connector's authenticated account for the
+connector), never `git config user.email`, which names only the commit author —
+so the name the surface will display is known before the write; do not mint,
+install, rewrite or repair a bot identity
+in this non-execution profile. If shell git has no configured transport
+credential, use the already-authenticated GitHub connector. The displayed
+operator identity is the accepted consequence of the owner's 8 September 2026
+ruling. This row is evaluated before the general map, but it
+does not authorise reviews, merges, default-branch writes, protection bypasses,
+destructive/admin writes or work beyond the user's task. Content written under
+a displayed human credential still identifies itself as agent-authored under
+[`identify-as-agent-under-shared-credentials`](./identify-as-agent-under-shared-credentials.md).
+
 ## Action (GitHub — the worked mechanics)
 
 Which credential each GitHub action class takes is settled by the action map
@@ -218,6 +240,7 @@ noun.
 
 | Action | Credential | Why this row |
 | --- | --- | --- |
+| Task-scoped story-branch and draft-PR delivery writes in detected ChatGPT Work cloud | configured default (the host's own GitHub credential, displayed as the owner's identity; read before the write) | first-priority non-execution route; excludes reviews, merges, bypasses and destructive/admin writes |
 | Review submitted as `APPROVE` | operator | only a human review supplies the approval a code-owner ruleset waits on |
 | Review submitted as `REQUEST_CHANGES` | operator | same endpoint, same gate: a bot's changes-requested neither discharges the human review request nor registers with the ruleset |
 | Review submitted as `COMMENT` state | operator | same endpoint; it discharges the review request assigned to the human |

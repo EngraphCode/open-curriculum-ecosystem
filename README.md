@@ -233,11 +233,14 @@ and
   and Sentry Seer) — install only when you need local Sentry operator tooling;
   see [Sentry CLI usage](docs/operations/sentry-cli-usage.md) for the
   `sentry-cli` vs dev-`sentry` split and workspace invocation details.
-- **Linear plugin** (Claude Code users) — issue tracking through Linear's
-  hosted MCP server. The tracked [`.claude/settings.json`](.claude/settings.json)
-  enables `linear@claude-plugins-official`, so Claude Code offers to install it
-  on first launch in this repository — accept the prompt, then authenticate with
-  `/mcp`. The full sanctioned MCP set is listed in
+- **Linear plugin** (Claude Code users, upstream line only) — issue tracking
+  through Linear's hosted MCP server. The upstream repository's tracked
+  `.claude/settings.json` enables `linear@claude-plugins-official`, so Claude
+  Code offers to install it on first launch there — accept the prompt, then
+  authenticate with `/mcp`. This fork does not use Linear (owner ruling,
+  2026-09-06), and its tracked [`.claude/settings.json`](.claude/settings.json)
+  activates no plugin; contributors here skip this entry. The full sanctioned
+  MCP set is listed in
   [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md).
 - **MCPJam** (optional, for MCP server development and validation only) —
   inspects, runs conformance checks, and authors/runs evals against the MCP
