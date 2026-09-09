@@ -53,25 +53,34 @@ path or a missing one fails by name.
   example, the plans estate, fork-only governance pages, shared files carrying a
   fork-added paragraph). No open-ended pattern: a stray file under an allowed
   directory is a surplus by name, never an accepted member.
-- A validator computes `git diff --name-only <upstream-tip> <candidate>` against
-  the fetched mirror, where `<candidate>` is the checked-out head under test (the
-  PR head in the repo-validators chain, so a new unmanifested divergence in the
-  PR itself fails there), and partitions the result by the manifest: every path
-  matches exactly one member, or the validator exits non-zero naming the
+- The manifest also records the LAST INTEGRATED upstream revision — the upstream
+  commit the most recent sync carried (the carrier head's upstream parent),
+  written by the sync in the same commit that lands it. That revision is
+  reachable from the fork's own history (it is an ancestor of the landing merge),
+  so CI needs no upstream mirror and the check never skips.
+- A validator computes `git diff --name-only <integrated-upstream-revision>
+  <candidate>`, where `<candidate>` is the checked-out head under test (the PR
+  head in the repo-validators chain, so a new unmanifested divergence in the PR
+  itself fails there and upstream commits the fork has not yet integrated never
+  appear as fork divergence), and partitions the result by the manifest: every
+  path matches exactly one member, or the validator exits non-zero naming the
   unmatched paths (a new divergence to add with its why, or a stray to remove)
-  and the members that matched nothing (a divergence that ended). The same
-  validator run against the refreshed `<fork-default>` after a landing is the
-  post-merge proof.
+  and the members that matched nothing (a divergence that ended). At a sync the
+  landing seat runs the same partition against the LIVE upstream tip on the
+  refreshed `<fork-default>` — the post-merge proof, and the moment the recorded
+  revision advances.
 - The cross-fork integration skill's step 9 names the validator as its proof, and
   the count-until-manifest sentence it carries today is retired in the same PR.
 
 ## Acceptance criteria (each with a proof — required)
 
 1. The validator partitions the candidate head's tree difference against the
-   fetched upstream tip with no unmatched path and no dead member, in the
-   repo-validators chain on the PR head and again on the refreshed default branch
-   after the landing. Proof: `repo-safe` — the chain green on the PR head; the
-   post-merge run recorded on the sync PR by the landing seat.
+   recorded integrated upstream revision with no unmatched path and no dead
+   member, in the repo-validators chain on every PR head without any mirror
+   ref; at a sync the landing seat runs it against the live upstream tip on the
+   refreshed default branch and advances the recorded revision. Proof:
+   `repo-safe` — the chain green on the PR head; the post-merge run recorded on
+   the sync PR by the landing seat.
 2. An added stray file under an allowed directory and a removed manifest member each
    fail the validator by name. Proof: `repo-safe` — unit tests over an in-memory
    diff listing and manifest fixtures, no IO.
@@ -88,5 +97,6 @@ path or a missing one fails by name.
 
 - Reducing the divergence: the manifest records what diverges and why; removing a
   hand-carried divergence is the identity node's own work.
-- Running the validator without an upstream mirror ref: the check needs the
-  fetched tip and is skipped, loudly, where none is configured.
+- The live-tip comparison outside a sync: the PR-head check diffs against the
+  recorded integrated revision and needs no mirror; only the landing seat, at a
+  sync, fetches the live upstream tip for the post-merge proof.
