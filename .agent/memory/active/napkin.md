@@ -1098,3 +1098,15 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
   tail and index point at the fold; the memories for the held-seat class and the plain-call
   discipline are current. Nothing narrated ahead of the landed state: #94 and #95 are OPEN at
   this stamp. Recursion closes here.
+
+- 2026-09-09 01:5xZ (Altair 05a180): PR #95 (the owner's 2026-09-08 rulings on the planning
+  estate) merged as 84f05775c after nine rounds (6, 3, 3, 3, 1, 1, 1, 0, 0); the rulings-a
+  worktree and branch removed under the grant (ancestry proven, tracked porcelain empty, the
+  ignored inventory build outputs plus one regenerable dev-server log). Two lessons, both mine:
+  (1) a class fix that re-reads bodies must sweep for EVERY word the amendment changed — I swept
+  for "ratified" and "joint" and missed "gate" on the tuition plan, which cost round seven;
+  (2) a pre-authored mechanism ("Sonar issue-ignore, CodeQL query filter") transmitted from a
+  brief without reading the analysers' own documentation in the tree cost rounds one and three —
+  the disposition policy §File-Based Configuration and ADR-219 already said it could not work.
+  Carried to PR C's census (a), named by criterion on the #95 threads: the showcase (criteria 1,
+  8), tuition (1, 2) and definition (owner-held arms, 1–8) plans' external-state proofs.
