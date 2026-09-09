@@ -1,5 +1,10 @@
 # Unattended Seats Never Prompt
 
+Operationalises ADR-210's PDR-044 trip-list contract (the Bash guard's
+teaching deny list, which this rule extends with the filesystem-destruction
+concept) and ADR-125's tracked platform-settings model; the directing
+decisions are the owner's words of 2026-09-08 and 2026-09-09 quoted below.
+
 A permission prompt is a hold. A seat cannot see that it is held — from
 inside, the call simply has not returned — and nobody is at the terminal
 to answer for most of a seat's life. Three seats were held this way in
@@ -27,7 +32,12 @@ preventing useful work from happening" (2026-09-09).
    command substitution at the tool boundary, no heredocs that write
    files. A ceremony with several moves is several calls, each readable on
    its own. An experiment or a dry run is a script FILE in the session
-   scratchpad, run by one plain `bash <file>` call.
+   scratchpad, run by one plain `bash <file>` call. The boundary is the
+   tool call, not the repository's text: a recipe that a rule, skill or
+   directive authors as a fenced block (the cloud-environment classifier,
+   the substrate-seeding block, a lifecycle's chained build) stays as
+   written and runs as a script file by one plain call; a seat never
+   pastes it into the call as a compound command.
 3. **No git outside the estate's registered worktrees.** A scratch
    repository (`git init` in a throwaway directory) is exactly the shape
    the classifier cannot allow. A recipe about git is proven by file copy

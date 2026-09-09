@@ -188,7 +188,13 @@
       "Bash(git worktree remove --force:*)",
       "Bash(git worktree remove -f:*)",
       "Bash(rm -rf:*)",
-      "Bash(rm -fr:*)"
+      "Bash(rm -fr:*)",
+      "Bash(rm -Rf:*)",
+      "Bash(rm -fR:*)",
+      "Bash(rm -r -f:*)",
+      "Bash(rm -f -r:*)",
+      "Bash(rm --recursive --force:*)",
+      "Bash(rm --force --recursive:*)"
     ]
   },
   "hooks": {

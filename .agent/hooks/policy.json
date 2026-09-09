@@ -132,6 +132,42 @@
           "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
         },
         {
+          "pattern": "rm -Rf",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
+          "pattern": "rm -fR",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
+          "pattern": "rm -r -f",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
+          "pattern": "rm -f -r",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
+          "pattern": "rm --recursive --force",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
+          "pattern": "rm --force --recursive",
+          "concept": "filesystem-destruction",
+          "citation": ".agent/rules/unattended-seats-never-prompt.md",
+          "reappraisal": "Nothing in the estate is removed by force: a scratch directory is session-local and needs no force, a worktree is removed by `git worktree remove` whose dirty-refusal is a safety net, and work is never removed with git or the shell. A forced removal that seems necessary is a routed request to the Director, never a prompt for an absent owner."
+        },
+        {
           "pattern": "git worktree remove --force",
           "concept": "worktree-destruction",
           "citation": ".agent/rules/worktree-hygiene.md",
