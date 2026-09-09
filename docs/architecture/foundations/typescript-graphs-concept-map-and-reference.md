@@ -16,7 +16,7 @@ last_reviewed: 2026-09-09
 
 ## 1. Purpose and scope
 
-This project explores graphs across mathematical structure, knowledge representation and software engineering. It develops language and evidence that can improve several independent applications, including OCE, the owner's CV repository and the owner's personal knowledge graph project. TypeScript and JavaScript provide the principal implementation context; relevant theory and designs from other ecosystems belong in the inquiry.
+This project explores graphs across mathematical structure, knowledge representation and software engineering. It develops language and evidence that can improve several independent applications, including OCE and other projects: the graph functionality is incubated in OCE, and at least some of its layers are expected to move out of it, or be published for wider use, in time. TypeScript and JavaScript provide the principal implementation context; relevant theory and designs from other ecosystems belong in the inquiry.
 
 The useful outcome is the ability to ask precise questions, identify appropriate contracts, compare genuinely different approaches and carry justified findings into each consumer. The current implementation policy gives those findings a concrete destination: our own small, qualified mechanisms and compositions, with modelling, algorithm, interface, interoperability, storage and user-experience decisions made at their appropriate responsibilities.
 
