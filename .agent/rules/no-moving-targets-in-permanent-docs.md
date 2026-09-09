@@ -245,7 +245,13 @@ commit:
   case — a symlink, an existing sibling — in a scratch directory with no
   repository in it, before the push: re-reading a recipe against the landed
   file is not running it (an inverted `test -L` guard and a truncating
-  fixed sibling name reached a landed rule that way, 2026-09-09).
+  fixed sibling name reached a landed rule that way, 2026-09-09);
+- before MOVING a range — a file, a section, an archive slice — grep the
+  estate for every pointer INTO it (`grep -rn <file-name> .agent docs`, the
+  range's section anchors, its own self-references such as "below" and
+  "homed here") and re-point each in the same commit; the move then lands
+  in one round instead of seven (a records disposition ran seven rounds,
+  every finding a pointer the author could have swept at open, 2026-09-08).
 
 A record narrates the landed state, in the past tense, after it lands:
 acceptance criteria authored before the landing, a live todo for a merged
