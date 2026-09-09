@@ -93,6 +93,10 @@ Reopen this current-state report when one of the following occurs:
 5. Oak publishes Curriculum API incident scope, affected-volume evidence or complete deployment confirmation.
 6. Independent consumer, adoption, accessibility, reliability or educational-effect evidence appears for either surface.
 
+## Reopening — 9 September 2026
+
+Trigger 1 is met by the pull request this addendum lands in (EngraphCode #90, the upstream sync carrying `3f1e88cabcd6fc7ce0b64c4437b796bb478b3c1a`, release `1.178.6`): its merge is Engraph's incorporation of `1.178.6`, so section 2's "has not yet incorporated" describes the state before that merge. The sync regenerated the fork's model-behaviour-content workspace from the incoming source and re-trued the two delivery plans whose premise the ordering change altered (`curriculum-structure-true-views`, `upstream-curriculum-data-exposure`). Triggers 2 to 6 stand: at upstream `main` `652718786` (fetched 9 September 2026) PR 966 is not merged, synthetic `prerequisiteFor` edges are still emitted (2,881 in the regenerated corpus), and no retained input snapshot, incident-scope evidence or independent adoption evidence has appeared.
+
 ## Source register
 
 - [Oak OCE release 1.178.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/releases/tag/v1.178.6), published 8 September 2026

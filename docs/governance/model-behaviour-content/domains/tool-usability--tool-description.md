@@ -298,6 +298,10 @@ Statements name knowledge, not the units that teach it; judging whether earlier 
 **What it says now:**
 
 ```text
+- threadSlug: the detail anchor; returns that ONE thread's full unit progression as one run per subject the thread spans — never the whole thread estate.
+
+Ordering semantics: each run is Oak's curriculum order for that subject — years ascending (earliest → latest), and within a year the authored unit order of the subject's sequence;
+
 Complements get-prior-knowledge-graph (each unit's stated prior knowledge) and get-misconception-graph (per-lesson misconceptions along a thread).
 ```
 

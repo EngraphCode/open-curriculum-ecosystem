@@ -84,7 +84,7 @@ Call these tools first to reduce errors when using search, fetch, and browsing t
 **What it says now:**
 
 ```text
-Oak's curriculum is fully sequenced: year-ordered progressions, misconception and keyword graphs, and each unit's stated prior knowledge are served by the anchored tools (get-thread-progressions, get-misconception-graph, get-keyword-graph, get-prior-knowledge-graph), so lesson and curriculum plans can build on what a class has already covered.
+Oak's curriculum is fully sequenced: curriculum-ordered thread progressions, misconception and keyword graphs, and each unit's stated prior knowledge are served by the anchored tools
 ```
 
 **What it is for:** Asserts Oak's curriculum is fully sequenced and names the anchored graph tools (get-thread-progressions, get-prior-knowledge-graph, get-misconception-graph, get-keyword-graph) so plans build on prior coverage.
