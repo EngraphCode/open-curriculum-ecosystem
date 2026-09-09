@@ -1547,3 +1547,45 @@ was inferred until the owner's screenshot observed it).
     counts on two runs (8 files, then 0) — the second, simpler form (`git grep <term>
     origin/engraph -- '*.md'`) is the one to trust and to write down. The plain-calls
     discipline (no substitution) would have avoided the wobble.
+
+## Flounder turns Estuary (c5cc2c) — Director, TERMINAL WRAP 29 at the handoff (2026-09-09 15:1xZ; PDR-064 Moment 2 landed 15:11:49Z: Nettle guards Pistil, 2de368, is the sitting Director)
+
+**The tenure, 2026-09-06 12:5xZ to 2026-09-09 15:11Z.** Three folds, twenty landings by the
+standing rules, two compactions crossed with the map intact, one full handoff by the two
+moments. The last day: the first upstream integration (#90, SHA:eccbfc782, on the owner's
+word), a lane landed by the Director's recorded default while its seat was held (#98,
+SHA:123d2e3e9), eight owner rulings by card, a skill drafted from the morning's work and driven
+through three review rounds to the four-round arm, the held-seat cure built as a harness fix, and
+the seat transferred on a demonstration rather than a read.
+
+**Metacognition.** The day's five corrections were one shape — acting on a state not
+recomputed against its source — and the estate's answer is not vigilance but the cheap check
+placed before the act. The handoff itself applied the lesson: the successor was asked to
+demonstrate a first-hand recompute, and the demonstration was the handoff. The false-positive
+in the SHA-prefix script (pure-digit comment ids match a hex class) was caught by the same
+habit — review the diff before the commit — and the review took one grep.
+
+**Concept exploration, the day's two.** A seat that cannot see its own hold needs two things
+that are both true: fewer block points (asks become denies) and a second party with a clock
+(the deadline-and-default). An integration is a semantic event with four layers of proof, and
+the fourth — prose — is proven by reading an enumerated file set for the change's claims,
+never by keyword match; a re-truing narrows to the claim refuted.
+
+**Free play, kept.** The estate counts to four and then writes a generator: the rule
+adapters want the skills generator's pattern (a lane). "Ask" and "card" are one shape at two
+altitudes, and the answer to both is a recorded default with a deadline. A handoff is a proof
+obligation, not a document: what the successor can recompute is what transferred.
+
+**Consolidation gate.** Per-user memories written this tenure's last day: compaction kills
+every session process; integration is a semantic event; owner-facing state is computed against
+the default tip; plus four instances on existing memories. Doctrine on #97 (the skill, §4i,
+the numbering rule) and #100 (the rule, the guard, the settings). Both seats' cross-fork notes
+on this napkin feed the skill's second draft. No consolidate-docs run; nothing unhomed.
+
+**Loss scan at the transfer.** The tracked pickup is the live snapshot (SHA:66ec84fc2) and the
+journal's handoff entry; the machine-local record 2778f573 §FULL HANDOFF carries the commands;
+the instruments sit in `handoffs/instruments-c5cc2c/`; the claim is adopted; the successor's
+cadence is declared on the stream. This seat's monitors and crons are stopped; the watcher
+stops after the closeout broadcast. Attribution: the successor's demonstration was read in
+full; "the seven PRs will land in the slot's order" is the plan, not a claim. Bounds as
+before. The recursion closes at the standing bounds. The seat closes here.
