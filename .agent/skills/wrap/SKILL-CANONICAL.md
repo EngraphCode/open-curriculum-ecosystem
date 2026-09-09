@@ -58,7 +58,13 @@ analysis, never spend: answering is always in order, STARTING anything — a
 fleet, a monitor, a subagent — is gated until the compaction lands (owner
 correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
 launch a long fleet into a context about to compact; its harvest lands in
-the thin post-compaction window.
+the thin post-compaction window. A compaction, manual or automatic, ends
+every session-scoped process — monitors, background loops, crons — so
+"processes run on across the boundary" is never true (a Director seat wrote
+it and resumed to an empty process table, 2026-09-09). The boundary block
+therefore carries the re-arm recipe as if nothing survives: the exact
+watcher command, the loop commands, the cron expressions and prompts, any
+one-shot wake's date; the resume verifies by id first, expecting nothing.
 
 Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
 not the end of your session", 2026-09-03) runs the programme's
