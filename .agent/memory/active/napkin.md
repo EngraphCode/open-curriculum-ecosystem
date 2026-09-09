@@ -1731,3 +1731,89 @@ seat's defaults at their pause. Promises: all discharged or forwarded (the recor
 Attribution flagged: Altair's account of their quiet; #103's authorship from a body line; the
 mirror's settling inferred. Bounds: CI logs read for failure lines only; peers' sessions
 unseen. The recursion closes at the standing bounds; a further pass re-finds them.
+
+## Vanilla lifts Nectar (e1dced) — curator, the dedicated consolidation's first two landings prepared (2026-09-09 19:5xZ)
+
+- **Shape chosen (claim f8a2daca, plan event 30f54e0f to the Director):** two sibling lane
+  worktrees from engraph SHA:31e3711c8, operated non-resident from the primary; three
+  records PRs by home class — #105 (skills: the cross-fork-integration second draft from
+  both seats' notes and the Director's four routed findings; pr-lifecycle's slot word, class
+  fix, 9(b) composition, invariant-first authoring, Phase 5 counters; the lane-cut skill's
+  cross-surface read; session-handoff §6d; wrap's compaction sentence), #106 (rules, the
+  PDR-027 open question, the gotchas batch, extending.md), and the buffers drain cut AFTER
+  #104's fold from the post-fold tip so the archive is the landed napkin. Each PR a draft at
+  first push with its tally and a one-push budget; slots at the Director's word.
+- **Measured, first-hand:** `comms show` and `comms direct` take the full event id — the
+  8-character prefix every record uses is refused ("comms event not found"); read the file by
+  prefix glob instead. The Director's scratchpad instruments (draft-PR, comment, reply, poll)
+  run unchanged from a file copy by one plain `zsh <file>` call. The engraph napkin is a
+  byte-prefix of the coordination branch's (1,607 of 1,733 lines), which is why the drain
+  waits for the fold. A `cd` inside one Bash call left the cwd under the handoffs directory
+  and the statusline wrote `handoffs/.logs/statusline.log` within the minute — the gotcha I
+  had recorded an hour earlier; cwd returned, the stray removed. `pnpm skills:generate` after
+  a canonical edit that leaves the description unchanged rewrites no projection.
+- **Homes verified duplicate (not re-homed):** distilled's "correct under both orders" tell
+  (verify-dont-trust §Name the Instrument, verbatim); the three act classes of the
+  standing-ruling entry (never-use-git §A Safety Proof; cricket §The procedure seat stays
+  inside the lens; proportionality's too-big finding) — the general sentence went to
+  rules-have-no-exceptions on #106.
+- **Pointers for the Director's board, not mine:** the coordination-fold skill's step 10
+  names the seated block but not the tracked tenure journal entry (the Director's own
+  2026-09-08 lesson; a clause rides my drain PR unless you take it); the same skill spells
+  `origin/main` where the fork's default is derived. The post-mapping lane pointers with
+  proposed nodes are in event 30f54e0f.
+- **Routes under PDR-140 clause 9(c) from #107's post-final-head threads (20:5xZ):** the
+  quality-gate-ledger finding row for the tsup transient-config lint race names two
+  remedies; the chosen one is the ESLint ignore of `tsup.config.bundled_*.mjs` in the
+  eslint-plugin-standards package (deterministic, one line, config-expert reviewed), never a
+  lint-after-build ordering — the row's wording tightens to it at the ledger's next records
+  pass. The rules-operationalises sketch's report-mode-then-blocking shape was challenged as
+  gate-off/fix/gate-on and rejected on the estate's report-first-burndown pattern; the
+  falsifier for its pickup seat is on the thread (a report window outliving the sweep by more
+  than one consolidation pass). Measured the same evening: a commit subject written to the
+  limit and checked AFTER writing overshot four times in one session — `wc -c` on the
+  subject line BEFORE the check is the habit, not the check itself.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 2 (2026-09-09 20:5xZ)
+
+- **Owner's words this window (verbatim):** "commit, then carry on" (19:1xZ) and "I want ALL
+  PRs merged, including those currently in draft" (19:2xZ). Read: the count-to-zero goal now
+  covers every draft and every PR opened from here; none parks.
+- **Landed since the boundary:** #99 (the 1.179.0 upstream carrier) at SHA:ead92d875, 20:30Z,
+  Altair as the bot, rounds 1, 1 both routed. Board at this wrap (tip SHA:ead92d875, eight
+  open): #107 in the slot at SHA:7ba11b810 (Vanilla; rounds 13, 1, 2 — the third dispositioned
+  without a push; checks running); #105, #106 BEHIND with their rounds cured in held commits
+  (Vanilla), each: cures plus the sync in one push at its word; #100 BEHIND, two Codex threads
+  at the SECOND STEP-BACK (epoch-two counts 2, 1, 1, 2) — the cure is the class boundary (git
+  reset and git revert denied whole again; the argument-aware allow is the matcher lane), the
+  rule text, commit message, replies and body edit are prepared in the worktree and the
+  scratchpad, and the settings edit itself is refused to this seat by the auto-mode classifier
+  three times (Edit tool, three shapes) — OWNER ITEM (e): the owner applies the two deny lines
+  or says "sed it"; #101, #102 (Altair), #103, #104 the fold, then Altair's #99-notes skill PR
+  and Vanilla's drain PR after #104.
+- **The slot yielded twice by rule, first-hand:** #105 held the slot at 19:52Z, opened a
+  ten-thread round and yielded to #99 (ready at the tip, depending on nothing open); #100 holds
+  its cure and yields while its owner edit waits. The yielding rule is now on the stream
+  (events 79a71c27, bf9f4a4f) and in Altair's #99 notes for the skill; it belongs in
+  pr-lifecycle's landing-slot clause: a slot-holder that cannot land inside the quiet window
+  yields to the next PR that depends on nothing open, and re-queues with the sync riding its
+  cure push.
+- **Retrospective:** the round storm on three records PRs opened at once (ten, nine, eight
+  threads inside forty minutes) was the reviewers sampling three fresh surfaces, not
+  divergence; the curator had the cures held before the routing offer arrived, and the
+  Director's routing of a second hand (Altair onto #105) was corrected by the claim-holder's
+  fact within a minute — the lesson is verify-state-before-routing at the claim-holder, not
+  at the thread count. The comms CLI facts re-measured this window: `comms direct` and
+  `comms append` require `--comms-dir`; `claims heartbeat` requires the FULL claim id (the
+  8-character prefix is "no active claim matches"); the two-leg loop is armed inline with the
+  timestamp read from a file (`date > f; read now < f`) so no substitution sits at the call
+  site. The watcher's hourly SIGTERM exit re-arms inside its own loop; asserted live after.
+- **Processes by id:** watcher b9s5wusst, PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry
+  peer poll bldjp1rii, two-leg heartbeat bptjzogt9 (n=3 claim-holding seats: Director, Altair
+  ×2, Vanilla), wrap cron 4aa37635 (`41 1-23/2 * * *`). No fold wake (classifier); the fold of
+  #104 rides the wrap cadence: in its slot after #103 or at the 2026-09-10 rollover.
+- **Owner items held:** (a) the upstream report of the OpenAI attribution and MCP-687 findings
+  on Oak's code — now THREE threads on #99, routed and resolved, the report is the owner's
+  act; (b) the App cannot re-run workflow jobs (Actions write); (c) the classifier refused the
+  one-shot fold-wake cron; (d) the external-skills-library gate alert repeats after "Archive
+  stands"; (e) NEW — the #100 settings edit (two blanket deny lines) refused to this seat.
