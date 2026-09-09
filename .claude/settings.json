@@ -172,19 +172,21 @@
       "Bash(git clean -dxf:*)",
       "Bash(git branch -D:*)",
       "Bash(git filter-branch:*)",
-      "Bash(git update-ref -d:*)"
-    ],
-    "ask": [
+      "Bash(git update-ref -d:*)",
       "Bash(git checkout --:*)",
       "Bash(git checkout HEAD --:*)",
       "Bash(git restore:*)",
-      "Bash(git stash:*)",
+      "Bash(git stash push:*)",
+      "Bash(git stash drop:*)",
+      "Bash(git stash clear:*)",
       "Bash(git reset:*)",
-      "Bash(git revert:*)",
       "Bash(git commit --amend:*)",
       "Bash(git tag -d:*)",
       "Bash(git push --delete:*)",
-      "Bash(rm -rf:*)"
+      "Bash(git worktree remove --force:*)",
+      "Bash(git worktree remove -f:*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)"
     ]
   },
   "hooks": {
