@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: index
 authority: adr-navigation
 status: active
-last_reviewed: 2026-08-30
+last_reviewed: 2026-09-08
 ---
 
 # Architectural Decision Records
@@ -218,8 +218,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-173: Graph Stack Topology — Standards-First, Layered, MCP-Agnostic](173-graph-stack-topology.md)
   (eight-workspace graph topology — seven active plus one deferred —
   with RDF 1.2-native internals, standards-based wire projection,
-  build-vs-buy attestation per library, and standards-evolution
-  tripwires; Accepted 2026-05-11)
+  and standards-evolution tripwires; Accepted 2026-05-11;
+  implementation-origin scope refined by ADR-229, 2026-09-08)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](174-dependency-vulnerability-scanning-quality-gate.md)
   (dependency vulnerability triage, blocking/disposition policy,
   Dependabot/override governance, and relationship to quality gates;
@@ -491,6 +491,11 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
   tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
   branch derived, never a literal)
+- [ADR-229: Own-built algorithm and data-structure foundations](229-own-built-algorithm-and-data-structure-foundations.md)
+  (Accepted by owner direction 2026-09-08; graph and non-graph algorithms and
+  data structures authored as SMALL Reliable Atoms and meaningful compositions,
+  informed by openly licensed references and independently qualified;
+  implementation and qualification remain separate delivery work)
 
 ## Key Architectural Decisions
 
@@ -506,10 +511,14 @@ For understanding our API integration approach:
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
 - **[ADR-064](064-elasticsearch-mapping-organization.md)** - Elasticsearch index mapping organization
 - **[ADR-108](108-sdk-workspace-decomposition.md)** - SDK workspace decomposition (generic/Oak x sdk-codegen/runtime)
-- **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
-- **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
 - **[ADR-225](225-provider-independent-capability-contracts.md)** - Proposed adoption of provider-independent capability composition: adapter-tier placement, PostgreSQL/Neon separation, and an exercised independent composition for every selected provider
 - **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
+
+For understanding the foundations and their boundaries:
+
+- **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
+- **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
+- **[ADR-229](229-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
 
 For understanding authentication, authorization, and observability:
 

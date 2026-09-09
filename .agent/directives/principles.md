@@ -9,7 +9,10 @@ fitness_rationale: >-
   grew legitimately; trimming substance was explicitly forbidden ("do not chase the
   fitness number"). This is a "for now" raise — a deliberate substance-led
   refinement (graduate elaborated guidance to governance docs per split_strategy,
-  never the principles themselves) remains the proper long-term move.
+  never the principles themselves) remains the proper long-term move. Measured
+  2026-09-09 at ≈41.9k chars / 760 lines, past the limits; the owner ruled the
+  same day that a dedicated curation lane graduates elaborated guidance later and
+  that no landing trims substance to fit ("we can always iterate later").
 split_strategy: "This file is the source of truth for all principles. Extract only elaborated guidance to governance docs, never the principles themselves. The principles are operationalised through several mechanisms, including rules, sub-agents, and tooling."
 ---
 
@@ -256,8 +259,24 @@ canonical form already exists — an industry contract, a mature library —
 adopt it behind a thin conformance check rather than re-derive it
 in-estate; own only concepts with no external canonical form, or small
 enough that a finished owned module costs less than curating a
-dependency. Both directions stay falsifiable by measured cost. A thin
-highest-specificity layer is also a detachable one (owner-directed
+dependency. Both directions stay falsifiable by measured cost. Which
+canonical form is adopted is a different question from where an owned
+implementation originates, and for algorithm and data-structure
+foundations the owner decided the second for the whole class
+(owner-directed 2026-09-08,
+[ADR-229](../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md);
+scope confirmed 2026-09-09 as that class, not the estate): "select the
+best, permissively licenced libraries, and use their code as inspiration
+to create Reliable Atoms and composition layers tailored to our needs and
+created to our deliberately very high quality standards" — the estate
+authors them. The governing policy ADR-229 cites bounds the class
+(language/runtime, protocol, storage, transport and platform capabilities
+and standards conformance stay under the sentence above), owns the
+provenance discipline that keeps learning distinct from adapting, and
+keeps the class's whole-life effort saving an empirical hypothesis
+measured through delivered capabilities and their later changes; what
+that measurement reopens is the owner's decision, never a seat's.
+A thin highest-specificity layer is also a detachable one (owner-directed
 2026-08-19): an Oak product surface built as configuration, styling, and
 experience tuning on general machinery can be handed off to a product
 squad — extracted to its own home — without dragging the lever machinery
