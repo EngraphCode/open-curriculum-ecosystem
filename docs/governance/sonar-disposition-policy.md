@@ -73,16 +73,18 @@ re-litigated.
 
 ## Disposition Workflow
 
-1. **Match the rule key** to a documented class below.
-2. **Match the site shape** against the class's shape criteria; they say
+1. **Is the site the excepted class?** If the finding is missing rate
+   limiting on one of the MCP server's route handlers, apply the exception
+   as the One-Outcome Rule states — the comment at the route, one dismissal
+   in the analyser's record citing ADR-219, recorded once — and stop. This
+   is the only step with a server-side action, and it is not a class in the
+   catalogue below.
+2. Otherwise **match the rule key** to a documented class below.
+3. **Match the site shape** against the class's shape criteria; they say
    what the analyser is seeing, which is what tells you the cure.
-3. Apply the class's **cure**: make the change and let the next analysis
-   close the finding. There is no server-side action; a `FIXED` state is
-   assigned by analysis, never by hand.
-4. If the site is the excepted class (missing rate limiting on the MCP
-   server's routes), apply the exception as the One-Outcome Rule states:
-   the comment at the route, one dismissal in the analyser's record citing
-   ADR-219, recorded once.
+4. Apply the class's **cure**: make the change and let the next analysis
+   close the finding. There is no server-side action here; a `FIXED` state
+   is assigned by analysis, never by hand.
 5. If the rule is documented but the site shape does not match: do per-site
    review, cure it, and consider whether the class needs a sub-clause
    amendment recording the new shape and its cure.
@@ -356,7 +358,9 @@ re-enable the disclosure.
 `yarn install`) without an explicit `--ignore-scripts`, flagged because
 dependency lifecycle scripts can execute arbitrary code at install time.
 
-**Decision criteria**: FALSE_POSITIVE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `FALSE_POSITIVE`
+mark; they license none now):
 
 - The installer is **pnpm at major version ≥ 10** — pnpm 10 removed
   automatic execution of dependency lifecycle scripts
@@ -393,8 +397,11 @@ pnpm ≥ 10 executes dependency lifecycle scripts only for the reviewed
 `pnpm-workspace.yaml`); arbitrary dependencies cannot execute install
 scripts at the flagged site".
 
-**FIX path** (all non-pnpm installers, and any pnpm < 10) — the flag is
-installer-specific: `--ignore-scripts` for npm and Yarn Classic (1.x);
+**FIX path** — for a pnpm ≥ 10 site the finding describes a shape that
+cannot exhibit the defect, and the cure is the site change that makes the
+rule stop firing, proven per site by the code-scanning lane's plan node
+(`code-scanning-alerts-to-zero`), never a mark. For all non-pnpm installers,
+and any pnpm < 10, the flag is installer-specific: `--ignore-scripts` for npm and Yarn Classic (1.x);
 `--mode=skip-build` for Yarn Berry (2–4, whose `install` rejects
 `--ignore-scripts`); `--ignore-scripts` for pnpm < 10. npm and yarn
 execute dependency lifecycle scripts by default at every major version,
@@ -433,7 +440,9 @@ under a path matching `**/src/types/generated/**` — primarily output of
 `openapi-typescript` consumed by `packages/sdks/oak-sdk-codegen/` and
 downstream MCP tool/stub generators.
 
-**Decision criteria**: FALSE_POSITIVE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `FALSE_POSITIVE`
+mark; they license none now):
 
 - Site is in a path matching `**/src/types/generated/**`.
 - The file is overwritten on `pnpm sdk-codegen` (or equivalent) from an
@@ -450,15 +459,16 @@ generator or the OpenAPI schema, not at this site".
 
 **Worked example**: A type-alias usage shape (rule S4323) raised against a
 file under `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/`
-is disposed FALSE_POSITIVE under this class. The flagged shape is
-mechanically chosen by `openapi-typescript`; the human-edited corpus does
-not exhibit it, and the file is regenerated on each `pnpm sdk-codegen`
-run.
+is identified under this class. The flagged shape is mechanically chosen
+by `openapi-typescript`; the human-edited corpus does not exhibit it, and
+the file is regenerated on each `pnpm sdk-codegen` run.
 
-**FIX path**: if a generator-output finding represents a real defect
-(security, correctness, runtime hazard), the fix is upstream — adjust the
-OpenAPI schema, update the generator, or post-process the output in the
-codegen pipeline. Never hand-edit a generated file.
+**FIX path**: the cure is in the codegen pipeline, never at the site and
+never a mark — adjust the OpenAPI schema, update the generator, or
+post-process the output so the flagged shape is no longer emitted; a
+generator-output finding that represents a real defect (security,
+correctness, runtime hazard) takes the same upstream route. Never hand-edit
+a generated file.
 
 ## Duplications (cpd.exclusions)
 
@@ -573,7 +583,9 @@ of the [§S5852](#s5852--slow-regular-expressions) security hotspot: same
 underlying concern (a regex whose worst case is super-linear in input length),
 surfaced as a maintainability issue rather than a security hotspot.
 
-**Decision criteria**: FALSE_POSITIVE if and only if all hold:
+**Identification** — the class is present at a site when all hold (before
+the 2026-09-08 ruling these were the conditions for a `FALSE_POSITIVE`
+mark; they license none now):
 
 - Site runs at lint/validation time, codegen time, build time, or in a
   data-pipeline / admin CLI — never inside a request handler.
@@ -585,20 +597,22 @@ surfaced as a maintainability issue rather than a security hotspot.
   input shape (for example, an end-anchored match over a negated character
   class, where the negated class and the following literal cannot overlap).
 
-When any criterion fails — most importantly when the regex is on a
-request-handler path — the disposition is **FIXED**, not FALSE_POSITIVE.
+Whether or not the criteria hold, the outcome is the rewrite below; when
+the regex is on a request-handler path the rewrite is urgent, not optional.
 
 **Canonical rationale**: "validation/build-time regex; repo-internal input;
 end-anchored over a negated character class so the flagged super-linear
 backtracking cannot occur; not a request-handler path".
 
-**FIX path**: when a flagged regex is on a request-handler path, rewrite it
+**FIX path**: rewrite the flagged regex
 to linear constructs (negated character classes, anchored alternations,
 bounded quantifiers) or to plain string operations, per the rule's
 documented strategies.
 
 **Worked examples** (all in agent-tooling validators, repo-internal markdown
-input, end-anchored over negated classes — disposed FALSE_POSITIVE):
+input, end-anchored over negated classes — identified under this class and
+marked before the ruling; since 2026-09-08 such a site is rewritten to the
+linear form so the rule stops firing):
 
 - `agent-tools/src/validators/markdown-links/validate-markdown-links-helpers.ts`
   — `/\s+"[^"]*"$/` strips a trailing markdown link title.
@@ -610,9 +624,10 @@ input, end-anchored over negated classes — disposed FALSE_POSITIVE):
 **Delta from prior**: this is the first Issue class codified beyond the
 placeholder. It mirrors the established §S5852 hotspot class one-for-one in
 decision shape (build/validation-time + controlled input + anchored/bounded
-⇒ safe; request-handler ⇒ FIX), differing only in finding type (Issue vs
-hotspot) and therefore disposition verb (`FALSE_POSITIVE` vs `SAFE`). It
-does not relax any standard: a request-handler regex still fails the gate.
+⇒ the class; request-handler ⇒ urgent), differing only in finding type
+(Issue vs hotspot); under the One-Outcome Rule neither finding type takes a
+mark. It does not relax any standard: a request-handler regex still fails
+the gate.
 
 ## File-Based Configuration (`.sonarcloud.properties`)
 
