@@ -21,8 +21,13 @@
 import type { Express } from 'express';
 import type { Logger } from '@oaknational/logger';
 
-/** Path the portal fetches; fixed by OpenAI, relative to the MCP host. */
-const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge';
+/**
+ * Path the portal fetches; fixed by OpenAI, relative to the MCP host.
+ *
+ * The canonical owner of the path: the Clerk skip list consumes this constant
+ * too, so the served route and the auth exemption cannot drift apart.
+ */
+export const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge';
 
 /**
  * The verification token the portal issued for the Oak plugin, recorded on

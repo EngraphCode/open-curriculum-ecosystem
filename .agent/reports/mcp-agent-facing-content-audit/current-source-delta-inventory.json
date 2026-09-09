@@ -196,7 +196,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts",
-      "semanticSha256": "d54f6b85534ceb3acd2a99028197a85107329b101f54dd48061b27df6deb30e3",
+      "semanticSha256": "0f407e19fe6809aaee469c4154fe311758839e09046026e890b2934343edc41c",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -486,7 +486,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/openai-domain-verification.ts",
-      "semanticSha256": "6b62063b3ada0f1034749c79d4a8cb5d0cba2c9b9fb720cc7f7e0533e31c5451",
+      "semanticSha256": "3233717f514011f4c1534f67dc036a246072ee966a49081773509a44c847d451",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
