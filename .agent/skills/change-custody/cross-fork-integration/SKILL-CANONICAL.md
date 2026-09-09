@@ -168,10 +168,9 @@ or `git commit` after step 2's genuine-conflict route), because `git merge`
 commits automatically only when the merge succeeds and a later completion
 otherwise takes the checkout's bot identity as author. In every case the pair
 is read back off the commit (`git log -1 --format='%an <%ae> / %cn <%ce>'`)
-before the push.
-The CI-skip token matters because the host scans
-the whole head message, and a head that is upstream's release commit runs no
-workflow at all. The head that lands must be a commit whose checks ran; when
+before the push. The CI-skip token matters because the host scans the whole
+head message, and a head that is upstream's release commit runs no workflow
+at all. The head that lands must be a commit whose checks ran; when
 the carrier is to carry upstream's release commit unchanged, the carrier head
 becomes one empty commit on top of that release commit (the release commit
 stays its parent), the checks run on the empty head, and the landing is still
@@ -183,14 +182,18 @@ the carrier moves its base, so a merge made at readiness is superseded by
 each of them and redone at the slot — on 2026-09-09 a carrier merge made at
 readiness was superseded four times before its slot. Before the word, prepare
 everything that does not depend on the tip: the generators' checks, the sweep
-terms, the thread dispositions, the merge message. A merge already made at
+terms, the thread dispositions, the merge message. AT the word, before the
+merge, repeat step 1's fetch of the fork's tip and step 2's recompute against
+it — every landing since the preview moved the tip, and a merge of the
+previewed tip would leave the carrier BEHIND with a tree hash that proves
+nothing about the slot-time merge. A merge already made at
 readiness is not removed when the word comes (`never-use-git-to-remove-work`):
 the slot-word merge lands on top of it and the carrier carries two merge
 commits of the default branch (2026-09-09: 36bb08928, then 007b0d32e); the
 history is valid and the cost is one redundant merge commit per early merge.
 
-The tree step 2's `merge-tree --write-tree` printed against the live tip is the
-tree the merge will have. Write it into the merge message; after the merge,
+The tree step 2's `merge-tree --write-tree` printed at the slot word against
+the live tip is the tree the merge will have. Write it into the merge message; after the merge,
 compare the commit's tree (`git log -1 --format=%T`) with it. Equality is the
 proof that what was previewed is what landed (2026-09-09: 529d87443 on both
 sides), and it goes into the tally with the head.
