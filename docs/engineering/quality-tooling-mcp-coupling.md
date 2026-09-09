@@ -119,9 +119,7 @@ mcp__sonarqube__change_security_hotspot_status({
 - `SAFE` — reviewed and determined to be safe in this context (with rationale).
 - `ACKNOWLEDGED` — accepted as a risk.
 
-**Critical**: hotspot review is the ONLY way to satisfy `new_security_hotspots_reviewed = 100%`. Marking via Sonar MCP changes the status server-side; this counts toward the QG.
-
-**Permission caveat**: the MCP integration applies per-action permissions to writes on shared infrastructure. Some hotspot/issue state-changes may be denied with an explicit "user authorised investigation, not unilateral resolution" message. When this happens, surface the specific finding (key + rationale) for owner authorisation rather than retrying.
+**History (before 2026-09-08)**: hotspot review through Sonar MCP was the way `new_security_hotspots_reviewed = 100%` was satisfied, and the MCP integration's per-action permissions could deny a write with a "user authorised investigation, not unilateral resolution" message, which was surfaced for owner authorisation. Since the ruling the condition is satisfied by curing each hotspot at source — the next analysis marks it REVIEWED / FIXED — and no hotspot write is made.
 
 ### Useful Sonar MCP read operations
 
@@ -188,7 +186,7 @@ exist rather than applying the suggestion blind.
 
 ### Anti-patterns
 
-- **`sonar.issue.ignore.multicriteria` rule-level block** (a sonar-scanner-CLI feature SonarCloud automatic analysis does not read). Disables the rule for an entire path glob across all current and future code. Violates `principles.md` "NEVER disable any quality gates". First reverted in commit `dba01e7c` after Vining Bending Root's drift incident on 2026-04-27; it later re-crept into a `sonar-project.properties` that automatic analysis never read, and that dead file has since been removed entirely. Dispositions are made per-site, server-side (see [Sonar Disposition Policy](../governance/sonar-disposition-policy.md)).
+- **`sonar.issue.ignore.multicriteria` rule-level block** (a sonar-scanner-CLI feature SonarCloud automatic analysis does not read). Disables the rule for an entire path glob across all current and future code. Violates `principles.md` "NEVER disable any quality gates". First reverted in commit `dba01e7c` after Vining Bending Root's drift incident on 2026-04-27; it later re-crept into a `sonar-project.properties` that automatic analysis never read, and that dead file has since been removed entirely. Findings are cured per site in the tree, never disposed by a rule-level block, and since 2026-09-08 never by a server-side mark either (see [Sonar Disposition Policy](../governance/sonar-disposition-policy.md)).
 - **Per-rule mass-mark via Sonar UI** without per-site investigation. Same shape as the `multicriteria` block — the disposition isn't grounded in the architectural tension at each site.
 - **"Stylistic" / "false positive" labels** without naming the architectural tension. Labels are shortcuts; describe the actual code-shape constraint instead.
 
