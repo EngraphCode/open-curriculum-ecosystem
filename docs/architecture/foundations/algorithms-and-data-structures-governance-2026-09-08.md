@@ -14,7 +14,7 @@ last_reviewed: 2026-09-09
 
 **We author and maintain our own algorithms and data structures, including graph and non-graph capabilities, as SMALL Reliable Atoms and meaningful layers of composition. We survey the best openly licensed examples and use what they teach us to design the atoms, algorithms, contracts, representations, structures and compositions.**
 
-Jim established this direction on 8 September 2026 and requested its documentation and a draft PR into Engraph OCE. It is the current implementation-origin policy. The precise mechanisms and decomposition remain design decisions governed by the requirements and evidence below. A future change of acquisition policy is an owner decision; elapsed time does not expire this one.
+The repository owner established this direction on 8 September 2026 and requested its documentation. It is the current implementation-origin policy. The precise mechanisms and decomposition remain design decisions governed by the requirements and evidence below. A future change of acquisition policy is an owner decision; elapsed time does not expire this one.
 
 The intended value is a coherent foundation whose behaviour can be understood, comprehensively assured, composed and changed within the estate. Research reuses accumulated engineering knowledge: established mechanisms, explanations, contract distinctions, counterexamples and experience. Our ability to evolve those foundations coherently is an architectural objective. Net effort savings are an empirical hypothesis to assess over delivered capabilities and subsequent changes.
 

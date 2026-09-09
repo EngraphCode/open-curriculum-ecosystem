@@ -18,7 +18,7 @@
     "Alternative implementations retain separate profile-qualified claims. Completion aggregates only qualified applicable evidence, never unsupported/inapplicable labels.",
     "Accountable owner is a stable team/role with authority over contract and evidence; ownership transfer is versioned, preserving historical attribution.",
     "A supported entry has immutable evidence revisions and no remaining required work within its conformance scope.",
-    "Missing implementation/profile/owner bindings are explicit unassigned values only on unimplemented entries; they cannot appear on supported entries.",
+    "Missing implementation/profile/owner bindings are explicit unassigned values only on unimplemented entries; they cannot appear on entries of any other status (the schema's conditional rules reject them for supported, unsupported-by-this-implementation and inapplicable entries).",
     "Cross-cutting applicability is checked on every realised capability, not discharged once by one example.",
     "Coverage keys are not atom, module, package, team or test boundaries. One meaningful proof/journey can establish several requirements; unrelated obligations cannot hide behind a parent status.",
     "Support entries are immutable by (entry_id, entry_revision). First revision is 1 with null predecessor_ref; each update appends the next revision with predecessor_ref equal to entry_id@previous_revision. Conflicting bytes for an existing identity/revision are rejected.",
@@ -675,6 +675,100 @@
           "properties": {
             "remaining_work": {
               "minItems": 1
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "status": {
+              "enum": ["unsupported-by-this-implementation", "inapplicable"]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "accountable_owner": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?!unassigned$).+"
+            },
+            "owning_composition": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?!unassigned$).+"
+            },
+            "implementation": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                }
+              }
+            },
+            "model_profile": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "definition_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                }
+              }
+            },
+            "operation_profile": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "definition_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                }
+              }
+            },
+            "execution_profile": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                },
+                "definition_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?!unassigned$).+"
+                }
+              }
             }
           }
         }

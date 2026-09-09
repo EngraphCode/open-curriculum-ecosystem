@@ -56,10 +56,9 @@ establishes candidate scope before consumers exist.
 
 - **One slice per pickup.** Each work package is sliced at pickup into
   single-story PRs within the sizing bands (design-work-for-small-PRs);
-  this node fixes the dependency order the delivery record states
-  (W01's contracts first; W02, W03, W05 and W06 contract work in
-  parallel without a universal kernel; W07 to W09 after the slices they
-  integrate), never a PR count.
+  this node fixes the order the delivery record's §6 "Depends on"
+  column states (W01's contracts first; the rest by their stated
+  dependency contracts, never by package count), never a PR count.
 - **The queue atom first.** The queue specification's exact public
   surface, ordering and rejection precedence, occurrence laws and
   queue-specific assurance are the acceptance contract; the atom is
@@ -75,8 +74,9 @@ establishes candidate scope before consumers exist.
   selected as the best permissively licensed examples and read for
   mechanism; licence data is recorded and available in the source
   review, and cited where a reference's code shapes an implementation
-  (PDR-115), never as a precondition for exploring options (owner's
-  word, 2026-09-09).
+  (documentation-hygiene §2 on adoption; PDR-115 for naming the source),
+  never as a precondition for exploring options (owner's word,
+  2026-09-09).
 
 ## Acceptance criteria (each with a proof — required)
 

@@ -1,7 +1,7 @@
 # ADR-229: Own-built algorithm and data-structure foundations
 
-**Status**: Accepted by owner direction, 2026-09-08; repository transcription
-submitted for review. Implementation and qualification remain separate work.
+**Status**: Accepted (owner direction, 2026-09-08). Implementation and
+qualification remain separate delivery work.
 
 **Date**: 2026-09-08
 
@@ -25,8 +25,8 @@ which evidence transfers into a new composition.
 
 On 8 September 2026, the owner decided to build our own algorithms and data
 structures through Reliable Atoms and layers of composition, using the best
-openly licensed examples as inspiration, and requested a governing document,
-reconciliation of the relevant documents and a draft PR. The owner's word,
+openly licensed examples as inspiration, and requested a governing document
+and the reconciliation of the relevant documents. The owner's word,
 verbatim, given on 9 September 2026 when this record was reconciled: "The
 general decision here is to select the best, permissively licenced libraries,
 and use their code as inspiration to create Reliable Atoms and composition
@@ -43,7 +43,13 @@ OCE authors and maintains its own graph and non-graph algorithms and data
 structures as SMALL Reliable Atoms and meaningful layers of composition.
 Reference research informs the mechanisms, contracts, representations,
 structures and compositions. Each authored implementation and composition
-establishes its own applicable qualification evidence.
+establishes its own applicable qualification evidence. The alternative the
+estate keeps for every other capability — a finished industry contract or
+mature library adopted behind a thin conformance boundary — is not taken for
+this class: the accepted cost is owning the implementation, assurance and
+maintenance, with the whole-life effort saving an empirical hypothesis
+(§Consequences), in exchange for foundations tailored to the estate's needs
+at its own quality bar.
 
 The governing policy is the canonical development policy for this scope. The
 [bundle index](../foundations/foundations-bundle-index-2026-09-08.md) locates

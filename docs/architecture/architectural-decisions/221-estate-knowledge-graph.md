@@ -13,7 +13,8 @@ mounting and evaluation have separate contracts. Canonical fingerprints support
 content comparison; persistent records preserve independently governed acts and
 occurrences. Set inclusion supplies the mounting law, while query behaviour,
 constraint preservation and termination carry their own stated premises. This
-amendment preserves the files-authoritative estate and named-graph boundary.
+amendment preserves the files-authoritative estate and named-graph boundary
+(owner-directed reconciliation of 2026-09-08, recorded in ADR-229 §Context).
 
 **Refines**: [ADR-200](200-intent-as-a-living-idea-graph.md) (intent as
 a living idea-graph) and

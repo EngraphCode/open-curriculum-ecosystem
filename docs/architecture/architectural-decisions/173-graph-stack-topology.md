@@ -21,7 +21,8 @@ the graph stack; integration of new foundations preserves those contracts.
 
 **Date**: 2026-05-07; amended 2026-05-10; amended 2026-05-11; amended 2026-05-21;
 amended 2026-06-01; amended 2026-07-05 (§The estate is plural by design —
-owner-corrected doctrine, 2026-06-22: graphs are a method, not one artefact)
+owner-corrected doctrine, 2026-06-22: graphs are a method, not one artefact);
+amended 2026-09-08 (implementation origin — ADR-229)
 
 **2026-05-11 amendment summary** (Flamebright Burning Lava session,
 reviewer absorption against architecture-expert-betty,

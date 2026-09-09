@@ -76,8 +76,10 @@ This drive is deliberately tangential to the workspace-basis and
 reorganisation questions (the owner's words: "creating utterly reliable
 atoms, rather than designing the conceptual space") — an atom's
 excellence is location-independent, and this node is robust to any
-basis ruling: atoms land in today's `packages/core/` strata and move
-wholesale if the conceptual space later renames their home.
+basis ruling: atoms are authored and qualified wherever their contract
+lives, are placed in today's `packages/core/` strata by the promotion
+decision (the ten-gate test under §Mechanism), and move wholesale if
+the conceptual space later renames their home.
 
 ## The bar
 

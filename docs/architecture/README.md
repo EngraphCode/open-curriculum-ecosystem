@@ -36,18 +36,19 @@ block in the ADR index:
 
 ### Core Architecture (Current)
 
-- Algorithm and data-structure foundations: [ADR-229](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
-  records the owner-established direction to author SMALL Reliable Atoms and
-  meaningful compositions, informed by openly licensed references. The
-  [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
-  owns scope, research and qualification; the [bundle index](./foundations/foundations-bundle-index-2026-09-08.md)
-  locates the graph and non-graph contracts, requirements and worked examples.
 - Foundations-first architecture: the
   [software projection of the cost-of-change gradient](./foundations-first.md)
   — how core building blocks, foundational systems, libraries, and products
   concentrate recurring mechanism and assurance at the lowest coherent layer.
   The [general pattern](../foundation/cost-of-change-gradient.md) also applies
   across human-agent systems, inquiry, and the Practice.
+- Algorithm and data-structure foundations (a documented direction; no
+  implementation has landed yet): [ADR-229](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+  records the owner-established direction to author SMALL Reliable Atoms and
+  meaningful compositions, informed by openly licensed references. The
+  [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+  owns scope, research and qualification; the [bundle index](./foundations/foundations-bundle-index-2026-09-08.md)
+  locates the graph and non-graph contracts, requirements and worked examples.
 - Standard structure:
   - `apps/` – application runtimes (MCP servers, search CLI)
   - `packages/sdks/` – SDK packages (`@oaknational/curriculum-sdk`, `@oaknational/oak-search-sdk`)

@@ -511,11 +511,14 @@ For understanding our API integration approach:
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
 - **[ADR-064](064-elasticsearch-mapping-organization.md)** - Elasticsearch index mapping organization
 - **[ADR-108](108-sdk-workspace-decomposition.md)** - SDK workspace decomposition (generic/Oak x sdk-codegen/runtime)
+- **[ADR-225](225-provider-independent-capability-contracts.md)** - Proposed adoption of provider-independent capability composition: adapter-tier placement, PostgreSQL/Neon separation, and an exercised independent composition for every selected provider
+- **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
+
+For understanding the foundations and their boundaries:
+
 - **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
 - **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
 - **[ADR-229](229-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
-- **[ADR-225](225-provider-independent-capability-contracts.md)** - Proposed adoption of provider-independent capability composition: adapter-tier placement, PostgreSQL/Neon separation, and an exercised independent composition for every selected provider
-- **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
 
 For understanding authentication, authorization, and observability:
 

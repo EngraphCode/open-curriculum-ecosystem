@@ -16,7 +16,7 @@ The [working architecture](comprehensive-graph-library-capability-architecture-2
 
 ## 1. Charter and reliance
 
-**Decision owner:** Jim. **Author and synthesiser:** `/root`, Codex. **Authority:** define and challenge the broad graph library; apply the owner-selected implementation policy; use appropriate OCE skills; revise and connect the relevant documents; and transfer the bundle into Engraph OCE's documentation estate. This document makes no implementation, merge or deployment claim.
+**Decision owner:** Jim. **Author and synthesiser:** Codex, the external project's agent seat. **Authority:** define and challenge the broad graph library; apply the owner-selected implementation policy; use appropriate OCE skills; revise and connect the relevant documents; and transfer the bundle into Engraph OCE's documentation estate. This document makes no implementation, merge or deployment claim.
 
 **Problem:** the prior report described a broad, careful envelope but left enough advisory language and unspecified model behaviour for incompatible implementations to claim success. Consumers and future implementers need an enforceable definition that preserves model distinctions, strictness and long-term ability to change.
 
@@ -83,21 +83,21 @@ Altitude changes are deliberate: values constrain architecture; architecture ass
 
 ## 4. Initial-definition expert review and first-hand dispositions
 
-All initial experts reviewed `/root` Codex’s **inquiry revision 2**, SHA-256 `b27d059bcda053a476c5f5a745d0ab5b832aebc461d6a8687bbbc9de1a392de7`. They received fixed owner constraints and distinct protected briefs. They did not receive a desired finding list. The same report, OCE sources and model infrastructure create correlation; reviewer count is not independent corroboration.
+All initial experts reviewed Codex’s **inquiry revision 2**, SHA-256 `b27d059bcda053a476c5f5a745d0ab5b832aebc461d6a8687bbbc9de1a392de7`. They received fixed owner constraints and distinct protected briefs. They did not receive a desired finding list. The same report, OCE sources and model infrastructure create correlation; reviewer count is not independent corroboration.
 
-| Pass        | Expert lenses and execution                                                                                                                                                     | Reviewed output                                                                                                             |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| M-MODEL     | `/root/model_contract_review`, gpt-5.6-sol, protected mathematical/Parallax audit pass.                                                                                         | Eight model/operation/transform findings M1–M8.                                                                             |
-| M-ATOMS     | `/root/atoms_types_review`, gpt-5.6-sol; code-expert gateway, type-expert and Betty architecture lenses, deep target review.                                                    | Eight ownership/type/package/extension findings A1–A8.                                                                      |
-| M-LIFECYCLE | `/root/knowledge_lifecycle_review`, gpt-5.6-sol; Wilma architecture and security lenses, deep target review.                                                                    | Eight knowledge/state/access findings K1–K8.                                                                                |
-| M-FRAME     | `/root/frame_challenge`, gpt-6-astra, mandate-only frame challenger and assumptions-expert; premium seat used for frame rejection rather than duplicating all specialist seats. | Four promotion findings F1–F4; four focused entropy/granularity findings F5–F8 after owner steering.                        |
-| M-CLOSURE   | `/root/definition_acceptance_review`, gpt-5.6-sol; docs-adr, prose and test-expert lenses, focused revised-definition review.                                                   | D1–D4; focused recheck closed D1/D3/D4 and narrowed D2 to historical owner attribution, repaired and checked by the author. |
+| Pass        | Expert lenses and execution                                                                                                                                               | Reviewed output                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| M-MODEL     | `model_contract_review`, gpt-5.6-sol, protected mathematical/Parallax audit pass.                                                                                         | Eight model/operation/transform findings M1–M8.                                                                             |
+| M-ATOMS     | `atoms_types_review`, gpt-5.6-sol; code-expert gateway, type-expert and Betty architecture lenses, deep target review.                                                    | Eight ownership/type/package/extension findings A1–A8.                                                                      |
+| M-LIFECYCLE | `knowledge_lifecycle_review`, gpt-5.6-sol; Wilma architecture and security lenses, deep target review.                                                                    | Eight knowledge/state/access findings K1–K8.                                                                                |
+| M-FRAME     | `frame_challenge`, gpt-6-astra, mandate-only frame challenger and assumptions-expert; premium seat used for frame rejection rather than duplicating all specialist seats. | Four promotion findings F1–F4; four focused entropy/granularity findings F5–F8 after owner steering.                        |
+| M-CLOSURE   | `definition_acceptance_review`, gpt-5.6-sol; docs-adr, prose and test-expert lenses, focused revised-definition review.                                                   | D1–D4; focused recheck closed D1/D3/D4 and narrowed D2 to historical owner attribution, repaired and checked by the author. |
 
 OCE source contracts were loaded from `.codex/agents/{code-expert,type-expert,architecture-expert-betty,architecture-expert-wilma,security-expert,assumptions-expert,docs-adr-expert,prose-expert,test-expert}.toml` and their `.agent/sub-agents/templates/` references, required reviewer principles/behaviours and relevant governance. Persona files supplied Betty/Wilma lenses. These roles were emulated in Work Mode, with several compatible lenses combined per pass; they were not nine independent reviewers.
 
 Native reviewer resolution was unavailable in this checkout: the pnpm entry point encountered the repository’s version guard, and direct source execution lacked a dependency. No guard was disabled and no repository configuration was altered. A read-only TOML check instead verified each registry entry, adapter identity/description and existence of every directly referenced canonical file. This supports the emulated source-grounded review only; it does not establish a working native reviewer environment.
 
-No UI implementation, auth integration, configuration change, release, merge or deployment occurred. Corresponding implementation/platform/release reviewers and gates are N/A here. Security reviewed the actual required disclosure/history contracts; accessibility is an interface acceptance obligation, not a claimed rendered-app audit. Onboarding/governance migration review is N/A because these are external working documents, not changed repository doctrine or entry points.
+No UI implementation, auth integration, configuration change, release, merge or deployment occurred. Corresponding implementation/platform/release reviewers and gates are N/A here. Security reviewed the actual required disclosure/history contracts; accessibility is an interface acceptance obligation, not a claimed rendered-app audit. The repository's documentation and onboarding reviewers ran on 9 September 2026 against the integrated bundle and its entry points, read-only, in this repository; their findings and each disposition are recorded on the pull request that carried the integration, and the cures they warranted are in the documents as they stand.
 
 **Disposition rule:** “resolved” below means resolved in the working definition, not proved in an implementation. The author checked each claimed gap against the target, retained valid behaviour requirements and amended over-prescriptive mechanisms. Initial high/critical grades indicate risk if relied on as implementation contracts; no live production defect is inferred.
 
@@ -155,7 +155,11 @@ The initial inquiry reviewed revision 2, preserved by its content hash and repor
 
 The initial inquiry recorded that `typescript-graphs-concept-map-and-reference.md` was read from the supplied local path. That recorded source was **v1.1, 7 September 2026**. The current corpus review uses v1.5 as input and updates the living reference separately; the historical inspection remains attributed to its own bytes. Current user direction and the governing document establish acquisition policy.
 
-Sources recorded by the initial inquiry:
+Sources recorded by the initial inquiry (the `libfile_*` identities are
+attachment ids in the owner's external project — account-local, not
+retrievable from this repository; three of the four documents are carried
+in this bundle by name, and `typescript-graph-rdf-primitives-decision-2026-09-08.md`
+and its evidence pack live only in that project, obtainable from the owner):
 
 - `typescript-graphs-project-instructions.md`, stored version 3, identity `libfile_b233631886a88191a20d6b9d91d3d2b8`.
 - `addressable-relationships-rdf-quads-and-identity-2026-09-08.md`, identity `libfile_0d1b776763348191969e69a4ccd4a974`.

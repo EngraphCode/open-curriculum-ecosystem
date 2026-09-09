@@ -16,7 +16,7 @@ last_reviewed: 2026-09-09
 
 ## 1. Purpose and scope
 
-This project explores graphs across mathematical structure, knowledge representation and software engineering. It develops language and evidence that can improve several independent applications, including OCE, Jim's CV repository and the personal knowledge graph project. TypeScript and JavaScript provide the principal implementation context; relevant theory and designs from other ecosystems belong in the inquiry.
+This project explores graphs across mathematical structure, knowledge representation and software engineering. It develops language and evidence that can improve several independent applications, including OCE, the owner's CV repository and the owner's personal knowledge graph project. TypeScript and JavaScript provide the principal implementation context; relevant theory and designs from other ecosystems belong in the inquiry.
 
 The useful outcome is the ability to ask precise questions, identify appropriate contracts, compare genuinely different approaches and carry justified findings into each consumer. The current implementation policy gives those findings a concrete destination: our own small, qualified mechanisms and compositions, with modelling, algorithm, interface, interoperability, storage and user-experience decisions made at their appropriate responsibilities.
 
@@ -275,17 +275,9 @@ A durable conclusion should record the claim, relevant model and scope, source/v
 
 Priority open questions are: which identities must survive each consumer journey; how required operations and model variants should be sequenced and implemented; where shared interfaces add value; which transformations need explicit loss records; how state and time compose; and which boundaries reduce total ownership. Proposed innovative capabilities are legitimate inputs. Contract design and implementation sequencing can precede complete production workloads; uncertainty affects qualification scope and the next discriminating observation.
 
-## 8. Use and maintenance of this project foundation
+## 8. Maintenance of this reference
 
-Paste the companion `typescript-graphs-project-instructions.md` into the project's instruction field. Attach this reference as the initial source document. The reference contains the conceptual substance needed to start a fresh session; the instructions govern how to use and extend it.
-
-Keep the complete instructions below 4,000 characters, including headings and whitespace; use this reference for supporting definitions, rationale, examples and detailed methods.
-
-Keep one current reference with dated revisions. Put substantial library evaluations, benchmarks and consumer investigations in separate documents, and add selective links when they change the shared map. Updating a stored document and updating its attached project-source copy are distinct operations unless synchronisation has been verified.
-
-The decomposition is provisional. Refine it when a new consumer, counterexample or source exposes a material distinction; avoid turning vocabulary into mandatory architecture. Findings sent to another project should include their scope, evidence and unresolved choices, then be reconciled with that project's current decisions and implementation.
-
-Before recommending or making repository changes, verify the receiving repository’s current state and applicable instructions. Keep the current reference focused on the intended design, vocabulary and working method. Put substantial evaluations in their research documents and explanations of changes in dated history records. Preserve useful facts, evidence and unresolved alternatives in their appropriate homes.
+In this repository the reference is maintained through the repository's own change process: one current reference with dated revisions, substantial evaluations in their research documents, explanations of change in dated records. The decomposition is provisional — refine it when a new consumer, counterexample or source exposes a material distinction, and avoid turning vocabulary into mandatory architecture. How the external project used this reference with its companion instruction text is recorded, as dated material only, in [the project-instructions record](typescript-graphs-project-instructions.md).
 
 ### Source basis
 
@@ -328,4 +320,4 @@ Links support the identified definitions and technical observations. Specificati
 - [OCE receiving guide](oce-graph-research-handoff-and-index-2026-09-08.md) — graph-specific routes through this bundle and the implementation evidence still needed.
 - [Project instructions](typescript-graphs-project-instructions.md) — concise direction for the source project.
 
-Historical research remains available by the exact source filenames and durable identities in the source review. In particular, `typescript-graph-rdf-primitives-decision-2026-09-08.md` (identity `libfile_871d1ed3da5c8191885e14fc5526c0b2`) carries the previous scoped comparison and `typescript-graph-rdf-primitives-evidence-2026-09-08.zip` (identity `libfile_5bea2f94947c8191bbd29d0d2480bdab`) carries its declared evidence pack. This shared reference does not claim that the ZIP’s contents were reinspected or that its probes were reexecuted in this revision. Historical acquisition preferences retain their dated evidential role; the governing document states current implementation policy.
+Historical research is recorded by its exact source filenames and the identities the source review lists; those identities are attachment ids in the owner's external project, not retrievable from this repository, so what they carried is summarised where it is used and the originals are obtained from the owner. In particular, `typescript-graph-rdf-primitives-decision-2026-09-08.md` (identity `libfile_871d1ed3da5c8191885e14fc5526c0b2`) carries the previous scoped comparison and `typescript-graph-rdf-primitives-evidence-2026-09-08.zip` (identity `libfile_5bea2f94947c8191bbd29d0d2480bdab`) carries its declared evidence pack. This shared reference does not claim that the ZIP’s contents were reinspected or that its probes were reexecuted in this revision. Historical acquisition preferences retain their dated evidential role; the governing document states current implementation policy.

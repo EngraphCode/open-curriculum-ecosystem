@@ -37,3 +37,7 @@ Use primary sources and exact versions; separate specifications, claims, inspect
 Keep definitions, owner decisions, design choices, observations and unresolved questions distinct. Preserve useful dated evidence with its scope and source revision. Current guidance states the intended design directly. Resolve consequential contradictions at their canonical home; indexes point there.
 
 Verify a receiving repository's current state and instructions before changes. Keep these instructions below 4,000 characters. Substantial findings belong in linked documents. Verify stored-file and attached-project-source updates separately.
+
+## Recorded companion guidance (the concept map's former §8, 2026-09-08)
+
+The external project's guidance for using this text with the concept map, recorded here as dated material: paste the instruction text into the project's instruction field and attach the concept map as the initial source document; keep the complete instructions below 4,000 characters including headings and whitespace, using the reference for supporting definitions, rationale, examples and detailed methods; keep one current reference with dated revisions and put substantial evaluations in separate documents; treat updating a stored document and updating its attached project-source copy as distinct operations unless synchronisation has been verified; and, before recommending or making repository changes, verify the receiving repository's current state and applicable instructions. None of this directs work in this repository.

@@ -11,7 +11,9 @@ sitting — card answers at the Director seat, Falcon hunts Flight 52841f)
 **2026-09-08 semantic clarification**: the mounting law is set inclusion.
 Query semantics, validation and termination have separate proof obligations.
 Declared orders structure the existing carrier, authority and privacy
-boundaries; each implemented guarantee retains its own premises and checks.
+boundaries; each implemented guarantee retains its own premises and checks
+(owner-directed reconciliation of 2026-09-08; the host's ADR-229 §Context
+records the direction).
 
 **Related**:
 [PDR-105](PDR-105-reference-direction-invariants.md)

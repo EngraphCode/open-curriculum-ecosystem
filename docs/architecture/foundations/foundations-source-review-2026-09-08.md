@@ -125,6 +125,8 @@ The live ADR-221 and PDR-134 repeated an actual semantic conflict identified by 
 
 These changes reconcile current directing text. They do not claim that an existing implementation now satisfies every new design obligation. The delivery record carries the remaining implementation checks.
 
+The bundle was received into `docs/architecture/foundations/` with unchanged basenames and portable relative links; the repository's architecture decision (ADR-229) and its indexes introduced it into the existing architecture and the Reliable Atoms programme. Fourteen of the documents reconciled earlier drafts held outside the repository; the governing policy, this review and the bundle index were written for the transfer. The change was documentation only: no algorithm implementation, package dependency, production migration or new qualification result came with it.
+
 ## 8. Result and remaining evidence
 
 The review supports a responsibility-based programme across graph and non-graph foundations, with exact contracts and complete composition journeys. It supplied requirements and failure cases worth conserving; it did not prove that one proposed decomposition is minimal, that a package is qualified, or that the selected origin policy already saves net effort.
