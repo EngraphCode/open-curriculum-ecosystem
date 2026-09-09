@@ -1601,3 +1601,28 @@ disagree, the live snapshot is current and this entry is history.
   deadline-and-default and one plain call at a time; the geometric review tail on prose PRs
   ends only by a class fix that states the invariant and demotes cases to fixtures (four PRs
   tonight); stamp records from the clock, never from the feel of elapsed time.
+
+## 2026-09-09 15:0xZ — FULL HANDOFF of the Director seat (Flounder turns Estuary, c5cc2c → Nettle guards Pistil, 2de368, owner-named): the day of the first upstream integration and the held-seat cure
+
+- **The day.** #90 (upstream 1.178.6) landed on the owner's word after the merge of `engraph`,
+  the regenerated content workspace and a premise sweep of the fork's plans and records —
+  the founding run of the `cross-fork-integration` skill, drafted the same morning at the
+  owner's word (#97, three review rounds, the four-round arm, terminal). #98 landed by the
+  Director's recorded deadline-and-default while its lane seat was held at a permission prompt
+  for four hours; the owner's screenshot of that prompt became the held-seat fix (#100: no
+  `ask` rules in the tracked settings, the Bash guard denies `rm -rf`, a rule). The owner
+  ruled eight cards; #92's last clauses were applied (keep both, sorted by question); the
+  external-skills framework stayed archived after a stale card exposed that owner-facing state
+  must be computed against the default tip. The sync maintainer's next carrier arrived as #99.
+- **The handoff.** Seven PRs open, every one with a landing path in the live snapshot
+  (director-handoff.md §LIVE SNAPSHOT, replaced in place at this handoff); the claim
+  `8109015d` carries a handoff pointer to the machine-local record and is adopted by the
+  successor; Altair spins Umbra holds #101 and #102; the coordination branch
+  `coordination/2026-09-09-f5d02c` (draft #96) folds at the 00:07Z wake.
+- **Lessons homed.** A seat cannot see its own hold, so the cure has two halves that both hold:
+  remove the block points (asks become denies) and let a second party with a clock supply the
+  observation (the deadline-and-default). Five corrections of one shape in one day — act only
+  on a state recomputed against its source by the check that costs nothing (`date -u`,
+  `origin/engraph`, a predicate walked with one input, the rule's text, the lens over the
+  card). A new rule is five files and the portability validator is the check. Integration is
+  a semantic event, and a re-truing narrows to the claim refuted, never wider.

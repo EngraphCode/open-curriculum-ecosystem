@@ -297,33 +297,51 @@ first-hand as of 2026-06-25.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-08 23:2xZ (Flounder turns Estuary, `c5cc2c`, Director, at the fold
-> of `coordination/2026-09-08-68d53d`) — THE STATE AT THIS FOLD; the fold block above is the
-> Director's and stands verbatim; this snapshot replaces the 01:2xZ one in place, per this file's
-> refresh contract (git retains it).** Fold PR **#84** carries the day's continuity sweeps (wraps
-> 18 to 23, the owner-cards block, the compaction-boundary block, the lane seat's captures and
-> its wrap for compaction; wrap 24 is written on the primary and sweeps on the successor branch
-> after this fold lands), the `.claude/settings.json` simplification landed on the owner's word
-> of 2026-09-08 ("I am fine with the simplification of the settings files"), the merge of
-> `engraph` at `30bac21da`, and three cure rounds (8, 4, 1) on its own pickup surfaces. Landed on
-> `engraph` this day, by the bot at green, clean and sensible unless stated: #83, #85, #86 (the
-> reliable-atoms ratification; merged by the owner), #87, #88, #93, #91, #89 (`30bac21da`, the
-> two ratified delivery nodes after seven review rounds). In flight at this snapshot, in the
-> landing slot's order after #84: #94 (the owner's Work-cloud routing practice, terminal at
-> `0670d43cf` after five rounds, one held cure riding the merge of `engraph`), then #95
-> (Altair's twelve-rulings records PR, terminal after seven rounds; the slot word is the
-> Director's). The owner's tomorrow, by their word: #92 (open, unmerged; four over-bar items
-> pre-cured; two clauses of the owner's own authoring — the reliable-atoms node's gate bullet and
-> the principles.md acquisition criterion — deferred: "we will discuss this tomorrow"), #90 (the
-> upstream integration, a draft, never merged without them), and the #94 read's structural notes
-> on that PR. Seats: A DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Altair
-> spins Umbra (`05a180`, claim `a3d107dd`) on #95. Standing words of the night: "other than 90,
-> can we get to zero? If so, do it"; "stop doing things that need approval, I am not here". The
-> successor coordination branch is cut from post-fold `engraph` by the coordination tool once
-> #84 lands, and the wrap-24 napkin block sweeps there. THE PICKUP MAP is this snapshot,
-> tracked, with the tenure journal in the estate-coordination thread record; the Director's
-> machine-local handoff record (untracked by design) adds finer detail on this machine only
-> and is never required by a successor on another checkout.
+> **§LIVE SNAPSHOT, 2026-09-09 15:0xZ (Flounder turns Estuary, `c5cc2c`, Director, at the FULL
+> HANDOFF to the owner-named successor Nettle guards Pistil, `2de368`) — THE STATE AT THIS
+> HANDOFF; the fold block above stands verbatim; this snapshot replaces the 2026-09-08 23:2xZ one
+> in place, per this file's refresh contract (git retains it).** The owner's standing goal:
+> "I want to drive the number of open PRs to zero." `engraph` is at `123d2e3e9`. Landed this
+> day by this seat: #90 (upstream 1.178.6, `eccbfc782`, on the owner's word; the founding run of
+> the cross-fork-integration skill) and #98 (the #88 follow-up, `123d2e3e9`, by the Director's
+> recorded deadline-and-default while the lane seat was held at a prompt). OPEN, in the
+> landing slot's order — one non-draft PR holds the slot, each merges `engraph` as its last push,
+> settles green by name and clean, and merges by merge commit as the bot under "green and clean
+> and sensible" with the Director's first-hand read: **#97** (the Director's cross-fork
+> integration skill draft; the owner ruled "land on the Director's read"; three review rounds
+> 2, 4, 4 — the four-round arm fired, the class fix is the what-each-step-proves section, the
+> tail is terminal: further findings are dispositioned); **#92** (the owner's foundations bundle;
+> every clause ruled and committed on the branch — clause 2 keeps the 2026-08-19 acquisition
+> criterion and the class ruling sorted by question; it needs only the merge of `engraph`, one
+> push, the settle); **#100** (the held-seat fix: the tracked settings carry no `ask` rules,
+> the Bash guard learns `rm -rf`, the rule `unattended-seats-never-prompt`; a draft until its
+> slot); **#99** (the sync maintainer's carrier for upstream 1.179.0, head `75428c5ce` = the
+> release commit, 12 commits, 18 files, merge-tree clean — the skill's second instance: the
+> two-parent merge of `engraph` first so a head with checks exists, regenerate, premise sweep
+> from fetched history, tally, settle, merge); **#101** and **#102** (Altair spins Umbra's
+> held-seat-observability node and the Sonar disposition policy amendment, drafts with tallies,
+> the Director's read before each); **#96** (this coordination branch's draft, folds at the
+> 2026-09-10 00:07Z wake by the coordination-fold skill). Rulings of 2026-09-09, by card, all
+> applied or in flight: no-prompts cure (#100); #92 clause 2 = the class; the external-skills
+> review framework stays ARCHIVED (the morning's card about it was stale — owner-facing state is
+> computed against `origin/engraph`, never the coordination checkout); private projects
+> generalised in the bundle; the next carrier waited for (it arrived as #99); principles.md's
+> fitness breach is a curation lane later. Doctrine of the day: integration is a semantic event
+> (the skill, the guide's §4i, the rule); a re-truing narrows to the claim refuted; cross-lineage
+> ADR numbering decided once (upstream's sequence authoritative; the fork renumbers in the sync
+> commit). Seats at the handoff: this Director (claim `8109015d`, to be ADOPTED by the
+> successor with `claims adopt`), Altair spins Umbra (`05a180`, claims on #101 and #102). The
+> successor's first moves: start-right-team; adopt the claim; arm the standing processes (the
+> watcher, the claim heartbeat loop, the peer poll, the wrap cron at 41 past odd local hours, the
+> fold wake at 00:07Z — every one dies at a compaction or a seat change); read the machine-local
+> record `2778f573` §COMPACTION BOUNDARY 10 for the exact commands and the instruments (copied to
+> `.agent/state/collaboration/handoffs/instruments-c5cc2c/` on this machine: self-minting
+> scripts for comment, ready, create-draft, settle-watch, merge with the head pinned, branch
+> delete, thread replies — their home in agent-tools is a lane). Lanes after zero: the fork-diff
+> manifest; the instruments' home; the skill's second draft from both seats' napkin notes; PR C;
+> the principles.md curation lane; the skills-generator dot-directory fix. THE PICKUP MAP is
+> this snapshot, tracked, with the tenure journal in the estate-coordination thread record; the
+> machine-local record adds the commands on this machine only.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the
