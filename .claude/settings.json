@@ -119,6 +119,8 @@
       "Skill(oak-commit:*)",
       "Skill(oak-complex-merge)",
       "Skill(oak-complex-merge:*)",
+      "Skill(oak-cross-fork-integration)",
+      "Skill(oak-cross-fork-integration:*)",
       "Skill(oak-pr-lifecycle)",
       "Skill(oak-pr-lifecycle:*)",
       "Skill(oak-ground-truth-design)",
