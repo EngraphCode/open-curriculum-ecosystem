@@ -1241,3 +1241,129 @@ Owner word (verbatim, 2026-09-08): "make sure that any open decisions, reviews, 
     (a unit on an existing node, ruling 9): the generator skips dot-directories, or the
     statusline log path is absolute by default. Seat practice from here: never `cd` in a call;
     absolute paths only (the same cwd class as the comms-home resolution failures earlier).
+- **CROSS-FORK NOTES — Altair spins Umbra (05a180), lane (t) / PR #98, 2026-09-09** (owner's
+  word 10:15Z via the Director: "keep notes on any work or processes relevant to the
+  cross-fork merge, so that we can learn from it"; each note names the step of the draft
+  cross-fork-integration skill on #97 it bears on).
+  - 10:2xZ, `.agent/rules/never-use-git-to-remove-work.md`, `.agent/rules/worktree-hygiene.md`:
+    the lane was cut from engraph 84f05775c while #90 (the carrier) held the landing slot, and
+    parked as a draft by the Director's word. The skill's procedure is written from the
+    carrier's seat; what an in-flight lane owes at the landing (park as a draft; merge engraph
+    as the last push; re-read its own files against the sync; the slot order after) is not a
+    step in it — the tree needed it. Bears on §8 (open the round, settle, land) as a paragraph
+    for the other open lanes, or a §8a.
+  - 10:36Z, GitHub-vs-git: within the first minute after eccbfc782 landed, `gh pr list` read
+    `mergeStateStatus: UNKNOWN` for every open PR (#98, #97, #96, #92) while `git ls-remote`
+    and `git fetch` already showed the tip moved; the lane acted on git's tip (fetch, merge)
+    and GitHub caught up to BLOCKED at the push. Bears on §2 (recompute against the live tip,
+    not the cached base): the same class as `mergeable`'s cached read, on the other side of a
+    landing.
+  - 10:37Z, the two rule files: the merge of origin/engraph into the lane (df0438480, two
+    parents fe21dab72 + eccbfc782, author the owner, committer the bot) was clean, and
+    `git diff --stat 84f05775c origin/engraph -- <the two files>` was EMPTY — the sync's 95
+    files touched neither. Read, not assumed, as the Director said. Bears on §6 (premise
+    sweep): a lane in flight re-reads its own touched files against the sync at its merge; the
+    empty diff is the proof, recorded here.
+  - 10:37Z, the merge message: `Merge remote-tracking branch 'origin/engraph' into
+    docs/grant-rename-and-proof-b-2026-09-09` passed commitlint and the pre-push gate; the head
+    that lands is this merge, whose checks run (BLOCKED at the undraft). Bears on §3 (the
+    landing head must be a commit whose checks ran): true for a lane's engraph merge as well
+    as for the carrier.
+
+## Flounder turns Estuary (c5cc2c) — Director, cross-fork notes for the skill's second draft (2026-09-09 11:0xZ)
+
+Owner's word 10:2xZ: keep notes on any work or process relevant to the cross-fork merge. The
+Director's own, from landing #90 (eccbfc782) and the morning after, each naming the step of
+`.agent/skills/change-custody/cross-fork-integration/SKILL-CANONICAL.md` (draft on #97) it bears on:
+
+- §1, the maintainer's receipt is evidence at its own time only: the upstream-sync maintainer's
+  07:05Z receipt said "no newer upstream snapshot queued"; a read-only `git fetch upstream main` at
+  09:5xZ showed eleven commits past the carrier head (652718786, MCP-687). The skill's step says
+  fetch; it should also say a receipt on the PR never substitutes for the fetch.
+- §2, GitHub's cached base: the PR API's base sha stayed at 270b8ec6f (the tip when the carrier
+  was cut) through 68 landings; `mergeable` and `mergeStateStatus` read against it. The skill has
+  this; the tree needed the instrument written down: `git merge-tree --write-tree --name-only
+  origin/<default> <carrier-head>` and its exit code, both recorded on the PR.
+- §4, count generated output from the run, never from the receipt: the PR body predicted six
+  regenerated pages; the generator changed seven (pedagogy too). A receipt's count is a
+  hypothesis; `git status --short` after the run is the fact.
+- §6, a re-truing narrows to the claim the change refuted, never wider: #92's reconciliation
+  (Codex, the owner's external project) replaced the whole 2026-08-19 acquisition criterion in
+  principles.md when ADR-229 altered one class; the premise sweep's over-reach shape, to be
+  written into §6 as a clause. Also: a dated record with reopening triggers gets a dated
+  addendum, never a rewrite — #91's delta report did.
+- §8, the other open lanes at a landing (Altair's note, confirmed from this seat): every open PR
+  flips BEHIND at the merge; the slot order is declared on the stream with the landing
+  broadcast; a lane in flight merges the default branch as its last push and re-reads its own
+  touched files against the sync (the empty diff is the proof). A §8a paragraph.
+- §9, no enumeration list of the fork diff exists: the landing proof "tree diff against
+  upstream's tip equals the enumerated fork diff" reduced to a count (586 files, +7,622/−66,304)
+  because nothing in the tree lists what the fork deliberately diverges. A lane: a tracked
+  manifest of fork-only paths (generated adapters, the merge-bot example, the plans estate…)
+  that a validator diffs against `git diff --name-only <default> <upstream-tip>`; until it
+  exists the proof is a read, not a check.
+- §9, GitHub authors the merge commit as the merging identity: `gh api commits/<merge sha>`
+  shows author el-graphael[bot], committer GitHub — the owner-as-author convention applies to
+  commits the seat makes, not to the platform's merge commit. Write it so a reader does not
+  read the merge commit as a breach.
+- Instruments, self-minting and plain-called: `pr-comment-as-bot.sh <pr> <body>`,
+  `pr-ready-as-bot.sh <pr> <tally>`, `pr-create-draft-as-bot.sh <branch> <title> <body>`,
+  `settle-watch.sh <pr>` (stops at the settled state, never merges), `merge-as-bot.sh <pr>
+  <head> <premises>` (gate recompute, premises, REST merge with the head pinned),
+  `delete-remote-branch-as-bot.sh <branch>` (after the ancestry proof), `pr<N>-replies.sh
+  <sha> …` (GraphQL reply + resolve with the bar marker). Every GitHub write of the day went
+  through one of these; a home in agent-tools is the obvious next step so no seat re-derives
+  them from a scratchpad.
+- Lesson of the morning outside the sync: owner-facing state is computed against
+  `origin/engraph`, never the coordination checkout (the archived framework plan carded as an
+  expired gate; per-user memory written). And a rule lapse of mine: `git worktree remove
+  --force` on a fresh worktree holding only an ignored env copy — proven safe in substance,
+  forbidden in form; the cure was a status read and the plain remove.
+
+## Flounder turns Estuary (c5cc2c) — Director, NON-TERMINAL WRAP 27 (2026-09-09 11:11Z, cron)
+
+**Modes.** Metacognition on the morning: three corrections of my own in one window, all of one
+shape — acting on a state I had not recomputed against its source. The stamp (an hour ahead of
+the clock, again); the framework card (the plan archived on `engraph` yesterday, carded as an
+expired gate from the coordination checkout); the `--force` on a worktree I had cut minutes
+earlier (a rule with no exceptions, read as a nuisance in the moment). The common cure is the
+same read-before-acting the day's doctrine wrote for integrations: recompute against the source
+of truth (`date -u`, `origin/engraph`, the rule's text) before the act, never from the state in
+hand. The #92 read's lesson stands beside it: when the owner's own edit deletes a clause, ask
+what the deletion is for before asking for its return — both remaining clauses carried an
+advance, and the owner's answer to my either/or was "are they in fact different things and we
+should keep both?", the principles directive's own false-frame test turned on my card.
+
+**Work safety (11:11Z).** Primary on `coordination/2026-09-09-f5d02c` at f08743505 == origin
+(0/0) before this sweep; dirty: the napkin only (Altair's cross-fork notes, my cross-fork block,
+this block); no commit queue; worktrees live: foundations-92 (the owner's #92 branch at e52889355
+== origin), cross-fork-skill (#97 at b7244a865 == origin), follow-up-t (Altair's #98),
+pr-943-engraph (the standing kiln lane). Registry: the Director claim 8109015d (heartbeat 10:43Z)
+and Altair's b321a7c8.
+
+**Board.** engraph eccbfc782 (#90 landed 10:35Z on the owner's word). OPEN: #98 (Altair, in the
+slot, BLOCKED with checks, one open thread theirs), #92 (the owner's, BEHIND by design — ten
+threads settled, reviewers run, principles.md clause held for the owner's word; its cure push
+carries the merge of engraph), #97 (the skill draft, BEHIND, the owner's read), #96 (this branch's
+draft; folds at the 2026-09-10 00:07Z wake). Six owner decisions queued for their return
+(clause 2's scope question; the framework — yesterday's Archive vs the stale card's Ratify; the
+private projects named in public docs; the next upstream carrier; #97's disposition;
+principles.md's fitness).
+
+**Consolidation gate.** Three per-user memories written today (compaction kills every session
+process; integration is a semantic event; owner-facing state is computed against the default
+tip); doctrine rides #97 (the skill, the guide's §4i, the rule paragraph, the numbering clause);
+the cross-fork notes of both seats sit above this block for the skill's second draft; no
+consolidate-docs run. The instruments of the day are session-local scripts — their home in
+agent-tools is a pointer, not a promise.
+
+**Metaloss.** Pass one: the stamp class (three lines trued on the record at 11:04Z); the
+framework card's premise; the `--force`. Pass two: promises — clause 2 (held), the framework
+(held), the #97 read (the owner's), #98 (Altair's), the next carrier (the owner's), #96's fold
+(the wake), the fork-diff manifest (a lane pointer in my notes), the instruments' home (a
+pointer) — nothing unhomed. Attribution: Altair's four notes are theirs by their directed event;
+the panel's dissents are in its output, not re-read. Bounds: the two reviewer agents' transcripts
+unread beyond their reports (their load-bearing claims verified in the tree before each cure);
+the #92 thread bodies read in full from the harvest. A third pass re-finds only the standing
+bounds; the recursion closes. External bound for the next window: any card I raise — compute its
+premise against `origin/engraph` first.
