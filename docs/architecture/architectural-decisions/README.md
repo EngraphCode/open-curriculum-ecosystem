@@ -491,9 +491,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   ← **Proposed** (2026-09-09; the revision posture MCP-644 asked to have scoped: `2026-07-28` is current
   and makes `server/discover` mandatory for modern-era servers, but `@modelcontextprotocol/sdk@1.x`
   tops out at `2025-11-25` and will never gain it, so the migration target is the
-  `@modelcontextprotocol/server@2.x` family; a `server/discover` handler on the current line is
-  unreachable behind the transport's version check, and the present non-modern refusal code is
-  load-bearing for dual-era client fallback)
+  `@modelcontextprotocol/server@2.x` family, which MUST be dual-era and never modern-only because
+  legacy clients have no fall-forward mechanism; a `server/discover` handler on the current line is
+  unreachable behind the transport's version check, and the present refusal code is load-bearing for
+  dual-era client fallback because it sits in the spec's legacy error sub-range)
 
 ## Key Architectural Decisions
 
