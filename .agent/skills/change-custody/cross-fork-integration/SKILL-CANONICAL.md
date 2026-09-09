@@ -106,11 +106,11 @@ carrier merge and landing proof names the first.
   carrier; a reviewed head is not moved.
 - The fork's tip: `git fetch origin <fork-default>` by name — every recompute
   below reads the refreshed remote-tracking ref, never a local branch.
-- The carrier: exactly one open sync pull request, counted by a client-side
-  name test over the full open list (`gh pr list --repo <fork> --state open
-  --limit 200 --json number,headRefName`, then the head-name match; the
-  command's default page is thirty, so the limit is part of the check) — a
-  `--search` head-name query returns nothing, silently. A second carrier for the same
+- The carrier: exactly one open sync pull request, filtered server-side by
+  head branch (`gh pr list --repo <fork> --state open --head <carrier>
+  --json number`); a `--search` head-name query returns nothing, silently,
+  and any listing read as "the full open list" carries an explicit
+  `--limit`, because the default page is thirty. A second carrier for the same
   lineage is a defect; close it on the record.
 - Exclusive counts both ways, from fetched history, and the merge base.
 
