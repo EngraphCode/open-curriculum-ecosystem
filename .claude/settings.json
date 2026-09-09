@@ -10,6 +10,7 @@
       "Bash(git status:*)",
       "Bash(git mv:*)",
       "Bash(git revert:*)",
+      "Bash(git reset -- :*)",
       "Bash(git stash pop:*)",
       "Bash(git stash apply:*)",
       "Bash(git stash list:*)",
