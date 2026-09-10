@@ -420,3 +420,94 @@ both back to the calling agent and to the PR."
 - Consequence for the board: #113 and #116 land at the resume by their recorded recipes with
   `--expect copilot-pull-request-reviewer` and a subagent review (adversarial for the matcher)
   posted on each PR before the merge; #100 still needs the owner's settings edit.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 8 (2026-09-10 10:4xZ)
+
+**The window (09:04Z–10:46Z).** The owner's `/oak-start-right-team` at 09:0xZ was the resume word
+after COMPACTION BOUNDARY 2; every standing process re-armed from the brief in one response
+(watcher, two-leg heartbeat, three polls, the wrap cron), assert-watcher-live exit 0, team start
+posted. Both peers resumed on the same owner word within three minutes: Altair (claim 125ea021)
+took #116 back, Vanilla (fresh claim 30e2fa71) took #113. Landed: #117 (SHA:9a34c82f3, the tsup
+transient-config lint ignore, Vanilla, cut and landed inside the window) and #113 (SHA:94377dac5,
+the review-run liveness fix, both legs). Nineteen this tenure. Open at the wrap: #116 (checks on
+the cure+sync head SHA:4c92b4467), #112 (the fold at the rollover), #100 (owner edit), #118
+(Vanilla's records PR for the review-legs ruling, draft, behind #112).
+
+**The ruling's first proof.** On #116 the adversarial security-expert leg (195 executed probes,
+fuzzing, timing) found four inside-promise defects three Copilot rounds had missed — a quadratic
+regex that could push the hook past its timeout into allow, a heredoc body read as commands — and
+the round-three cure itself introduced a second quadratic (the scanner re-reading a growing word's
+last character; V8 rope flattening) that the PR's own wall-clock test caught red on the runner
+(6.3 s against 5 s). Cured by construction (200 KB word 1423 → 11 ms). Evidence for #118's
+promise column: Copilot 19 findings in four rounds (17 inside, 1 outside, 1 false premise); the
+subagent leg 4 inside + 6 outside in one pass.
+
+**Mistakes and surprises (mine).**
+
+- The Director's default and Altair's own push CROSSED on #116: I pushed the held cure at 09:08Z
+  two minutes after Altair, live again, had pushed the same commit; the remote refused mine (ref
+  lock, already at SHA:39e9cc36f). No harm, one lesson: at a resume, read the stream for the peers'
+  team starts BEFORE running any default that a live lane holder would run — the default exists
+  for a DARK seat, and "dark" is a stream fact, not a boundary fact.
+- A pathspec commit of an UNTRACKED file fails ("did not match any file(s) known to git"): stage
+  the new file by explicit pathspec first, then commit by pathspec. Cost: one wasted pre-push run.
+- I sent Vanilla a flake cure with a wrong premise (the shared ESLint ignore "missing"); Vanilla
+  corrected it first-hand within two minutes (the shared list already carried it; the two
+  self-bootstrap configs lacked it) — a pointer from a record is not a first-hand read; name it
+  as a pointer and let the implementer verify, which is what the route said and what happened.
+- The step-back predicate fired on #116 (9, 3, 3, 4) and I bound the arm explicitly (one
+  class-fix push, then replies with one named home, a fifth round terminal); then a RED CHECK
+  arrived and needed a cure push. Ruling made and recorded: a red required check is a landing
+  defect, not a review finding; its cure push sits outside the replies-only bound and spends no
+  round; cure by construction, never by raising `testTimeout`.
+- The yielding rule ran for real: #116 red and unable to land in its window yielded to #117
+  (settled at the tip), then #113 took the next word, and #116 re-synced on its cure push — one
+  push carrying cure + merge, no wasted push. The rule's design assumption (the yielder is pushing
+  anyway) held.
+
+**Concept exploration delivered (the owner's added task, 09:0xZ).** Record
+`.agent/research/upstream-sync-automation-concept-exploration-2026-09-10.md` (SHA:770469027).
+Load-bearing facts: fork `main` is identical to upstream (SHA:6348cb7a2, 1.179.1); `engraph` is
+12 behind upstream (1.179.1 + PR 970) with NO carrier open — the previous carriers (#90, #99)
+came from the owner's Codex "OCE upstream sync" task, dark with the credit outage; a GitHub pull
+request cannot keep a mirror identical (every merge method mints commits, docs read 09:2xZ);
+`GITHUB_TOKEN` cannot open a PR on this fork (the create-PRs setting is off); the draft covers
+the mirror, not the carrier. Verdict: a workflow on `engraph`, job gated on a repository variable
+(off by default), identities from the repository API (no hard-coded names — identity below the
+tree), the bot app token from two secrets, steps = receipt, fast-forward push of `main`, fail on
+fork-ahead, cut the carrier at upstream's tip + draft PR with the receipt, notice when one is
+open. Residual weirdness upstream at the merge-back: skipped runs each slot. Owner decisions:
+the app private key into the fork's secrets; the variable. Routing intended: the workflow lane to
+Altair after #116; the overdue 1.179.1 carrier to a seat by the cross-fork skill now.
+
+**Facts.** The Codex connector now POSTS a usage-limit notice on PRs (observed on #117) — the
+outage is per-PR observable, not silence. The bot App cannot re-run workflow jobs (owner item b)
+— the recorded route is one re-trigger push; Altair substituted the held round-three cure for the
+empty commit, which is better (CI on real content). The transient-lint flake class is CURED for
+the two self-bootstrap configs (#117); the shared list already protected every other workspace.
+
+**Processes at the wrap (by id):** watcher `bkvn7bj3h` (re-armed 10:05Z, asserted live),
+heartbeat `buksewhl3` (hb 10:43:05Z on the claim row), registry peer poll `bvimq2rej`,
+peer-liveness `b1w1ld2s8`, PR poll `bs62tx2xx`, wrap cron `16be6dbc`. No fold wake (the
+classifier); #112 folds at the 2026-09-11 rollover with the MERGE_HEAD assertion.
+
+## Vanilla lifts Nectar (e1dced) — implementer, the resumed seat's landings (2026-09-10 10:5xZ)
+
+- Landed under the owner's 08:4xZ review-legs ruling: #117 SHA:9a34c82f3 (the tsup transient-config
+  lint ignore in the two self-bootstrap ESLint configs — the shared list already carried it; the
+  config-expert leg caught `**/tsup.config.*` hiding `src/tsup.config.base.ts` from lint, so one
+  entry landed, not two) and #113 SHA:94377dac5 (the review-run liveness fix; the adversarial leg
+  found the keyless-view gap — both PR keys absent read as "no mapping" — cured red-first before the
+  slot push). #118 (the ruling's records) is ready behind #112.
+- Narrate-ahead, observed twice at one seat in one hour (2026-09-10): the sweep for "#116 landed"
+  caught the slip in pr-lifecycle and missed the identical sentence in the plan-node row written
+  minutes earlier; the docs-adr-expert leg caught it. The check runs over EVERY surface a change
+  touches, by grep of the diff for the landing's name, never only where the slip was first seen.
+- The vendor's own notice is the availability signal: the Codex connector posted "usage limits have
+  been reached" on #116 four seconds after its creation (06:53:21Z), 1h40m before the owner named
+  the outage — a seat sweeping PR comments for the vendor's handle would have read it at once; the
+  night's shape experiments began after that comment existed.
+- Instances for the estate's own review legs (three PRs, one seat): every subagent leg found a real
+  defect the vendor rounds had not (the keyless view on #113; the over-broad ignore on #117; the
+  two facts on #118), each verified first-hand before the cure; each posted on the PR with its
+  dispositions and the front door declared Copilot alone.
