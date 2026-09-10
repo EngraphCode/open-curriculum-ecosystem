@@ -817,3 +817,35 @@ ever, on anything that has happened.
   check a zero result against a known hit); `echo =====` in zsh is an `=cmd` expansion; the
   merge-tree preview names conflicts but the dual-changed set for the dropped-hunk proof is the
   merge-base intersection (eleven files, not the six I read off the conflict list).
+
+## Nettle guards Pistil (2de368) — Director, HANDOVER to the same seat on a lower-powered model (2026-09-10 16:4xZ)
+
+- OWNER WORD: "treat this as a handover, please stop all subagents, and do a full handover, to
+  yourself, with a lower powered model". Four subagents stopped by name. Succession record under
+  handoffs/ (`8109015d-nettle-guards-pistil-fable-to-lower-tier-succession-2026-09-10.md`), the
+  claim's handoff_record_path set; #127 LANDED SHA:96057d8e8; #128 (draft, BEHIND) is the
+  successor's one mechanical step; #123 held; the windows lane untouched.
+- METACOGNITION: three errors this window shared one shape — reading a fact off the nearest
+  surface instead of computing it from its definition (the hour stamped from memory, not the
+  clock; "six dual-changed files" from the conflict list, not the merge-base intersection; a
+  zero-hit sweep accepted because the tool ran, when BSD xargs had silently rejected `-a`).
+  Cure written into the succession record as tripwires: recompute the safety table before any
+  act; a zero result is checked against a known hit. The record for a lower tier carries
+  commands and stop conditions, never "use judgement" (owner 2026-07-25: Sonnet classifies
+  within what it is handed; so hand it the classification).
+- FREE PLAY harvest: (1) a write capability is proven on a throwaway object before a plan rests
+  on it — the reference probe (create at a parent-only sha, ff 200, non-ff 422, delete) cost
+  four API calls and removed a whole secret from the mirror design; (2) the ABSENCE of an event
+  is a design property — GITHUB_TOKEN reference moves trigger no workflow, which is exactly what
+  a mirror wants; (3) the docs leg's blocking finding was my own instance of "records narrate
+  ahead of the landed state": a record on one branch asserting designs held on another; the
+  cure was to land the designs on the same carrier, and the general rule is that a record's
+  claims are true AT ITS OWN HEAD.
+- CONCEPT EXPLORATION (handover across a capability gradient): the successor is the same seat
+  with less judgement per token, so the record trades narrative for a procedure (adopt →
+  recompute → one step → report) and moves every judgement already made into a rule with its
+  warrant, and every judgement NOT made into the owner's deferred list. The predecessor's known
+  loss vector is the one transmitted claim the successor does not recount (PDR-063 worked
+  instance); the safety table's Evidence column exists so that recount is mechanical.
+- WRAP pointers: seat record §HANDOVER; thread record `estate-coordination` handover line;
+  per-user MEMORY.md RESUME HEADS → the succession record. No processes; no subagents.
