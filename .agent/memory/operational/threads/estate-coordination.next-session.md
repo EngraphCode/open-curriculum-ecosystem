@@ -1821,3 +1821,36 @@ Every draft opened by the sweep carries a body naming what it holds and the disp
 decide at pickup (land, semantic merge, or close with the landing named); none is a request to
 merge as it stands. The board after the sweep: #100, #112, #118 (the Director's landing in
 flight), and the six drafts #119–#124.
+
+### G. The owner's rulings on the three refused items, and the worktree removal (2026-09-10 12:5xZ–13:2xZ)
+
+Owner words (verbatim): "567 we can drop"; "the eslint enhancement we should land"; "487 sounds
+like it should merge, but only with ironclad local proof that it does not break the relevant MCP
+operations"; "Once all work is safe, remove all of the worktrees except the primary checkout";
+"on the auto sync with the upstream, we need two. One to automatically sync the upstream main to
+our fork main, and one to create PRs from our main to our engraph."
+
+- MCP-567: dropped; its patch discarded with the worktree; the test file restored to its tree's
+  HEAD before removal.
+- The eslint enhancement: lane `fix/eslint-tsup-ignore-relative-packages-2026-09-10` cut from
+  the tip (SHA:2bc77f840), the patch applied clean, the full pre-commit gate green (the six
+  relative imports the August tree flagged already import the workspace-config package on the
+  tip), draft **#125**; config-expert leg APPROVE WITH FINDINGS (five: two cured in the
+  follow-on push, three routed to `workspace-config-isolation.plan.md` §Review dispositions).
+- MCP-487: lane `fix/mcp-487-string-encoded-numbers-2026-09-10` from the tip; the August commit
+  applied with `git am -3` (two content-audit surfaces taken from the tip by `git show`, never
+  a destructive checkout); the generator's output equals the patch's generated files
+  (`pnpm sdk-codegen` left a clean tree); proof recorded on draft **#126**: sdk-codegen 102
+  files / 1064 tests, the nine-case unit test on the real generated schema, the served-boundary
+  e2e with the stub executor (9/9), the MCP server's unit (1226) and e2e (140) suites, the served
+  JSON schema unchanged (`number`, `maximum 300`), the content audit re-attested at the six new
+  semantic hashes with the anchors refreshed and `validate-current-source: OK (728)`. Code-expert
+  and security-expert legs dispatched; Copilot on the final tip; front door after.
+- The upstream producer is TWO delivery nodes (sketch): `upstream-mirror-workflow` and
+  `upstream-carrier-workflow`; the exploration record carries the ruling as an addendum;
+  `mcp-487-string-encoded-numbers` is the third node (SHA:44c3166f0).
+- Worktrees: thirty-nine removed under the owner's word by `git worktree remove` without force after
+  each read clean (the two dirty ones restored to HEAD by writing tracked content first);
+  registrations pruned. Three remain: the primary and the two live lanes, which go at their
+  landings. The `.claude/worktrees/*` platform-managed set was included on the owner's explicit
+  word of this day, which supersedes the July prune policy's exclusion for this instance.
