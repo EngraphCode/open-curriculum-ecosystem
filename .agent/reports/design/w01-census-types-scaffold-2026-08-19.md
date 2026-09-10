@@ -1,12 +1,13 @@
 # W0.1 census — the hand-authored types scaffold (preserved)
 
 Preserved from the W0.1 design-census sitting alongside
-[the cycle plan v2](./w01-census-cycle-plan-v2.md). The scaffold was
+[the cycle plan v2](./w01-census-cycle-plan-v2-2026-08-19.md). The scaffold was
 authored for `packages/design/oak-design-tokens/src/design-census/` but
 its generator and validator were never built, so as source it is an
 orphan by construction — the knowledge lives here until a census cycle
-is re-sanctioned (the governing completion-plan sketch was archived
-unratified at the 2026-08-19 records pass). The design substance: closed
+is re-sanctioned (the governing completion-plan sketch,
+`.agent/plans/delivery/archive/design-system-completion.plan.md`, had its authority
+stripped on 2026-08-17 and was archived unratified on 2026-08-18). The design substance: closed
 disposition vocabularies, fingerprinted exclusion grants, and the
 generator/validator deep-equal contract.
 

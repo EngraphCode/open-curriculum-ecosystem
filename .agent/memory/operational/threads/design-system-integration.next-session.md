@@ -3880,3 +3880,8 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   colour-contrast rule under forced colours, so that regression class is caught only by a
   rendered read (2026-08-18); a known limit for the accessibility practice's rendered-proof
   step.
+- **W0.1 census artefacts conserved (2026-09-10, the Director's safety sweep, PR #122):** the
+  cycle plan v2 and the hand-authored types scaffold from the 2026-08-09 sitting live as dated
+  historical artefacts at `.agent/reports/design/w01-census-cycle-plan-v2-2026-08-19.md` and
+  `.agent/reports/design/w01-census-types-scaffold-2026-08-19.md`; nothing there is sanctioned
+  (the completion plan is archived), and re-sanctioning a census is an owner call.

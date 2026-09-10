@@ -1,10 +1,21 @@
 # W0.1 census — cycle plan v2 (post-review re-author)
 
+> **Dated historical artefact — not live work.** The cycle plan as authored at the
+> W0.1 census sitting on 2026-08-09, preserved 2026-08-19 from an uncommitted
+> worktree. Both gates below (G1, G2) were ruled the same morning: sitemap
+> re-sequencing ADOPTED, the `oak-design-tokens` home RATIFIED, the ADR-213 §2
+> read confirmed. The cycle never ran: its governing plan,
+> `.agent/plans/delivery/archive/design-system-completion.plan.md`, was archived
+> unratified (authority stripped 2026-08-17) as a conserved knowledge store for the
+> identity-pack programme, and no live plan carries the design census. Nothing here
+> is sanctioned; re-sanctioning is an owner call. Counts and homes are as measured
+> on 2026-08-09.
+
 Supersedes v1 after the pre-execution code-expert round
 (PROCEED-WITH-REVISIONS, findings 1–19) and the focused
 architecture-expert-fred home verdict. Two Director answers gate the
-start: (G1) the sitemap deviation ruling (ARC 07:28:47Z entry); (G2) the
-ADR-213 §2 shrink-clause interpretation (ARC addendum). The shapes below
+start: (G1) the sitemap deviation ruling; (G2) the ADR-213 §2
+shrink-clause interpretation (both ruled 2026-08-09; see the status block). The shapes below
 assume both answers land as verdicted; either answer landing differently
 re-authors only its own section.
 
@@ -13,13 +24,15 @@ re-authors only its own section.
 - Pure modules: `packages/design/oak-design-tokens/src/design-census/`
 - Walker+validator: `packages/design/oak-design-tokens/scripts/validate-design-census.ts`
   (thin caller; tsx; NO second turbo-build prelude — chain into the
-  EXISTING validate-design-system-consistency invocation in root
-  package.json:44, whose design-tokens-core build prelude is turbo-cached)
+  EXISTING validate-design-system-consistency invocation behind the root
+  `repo-validators:check` script, whose design-tokens-core build prelude is turbo-cached)
 - Committed artefacts: `packages/design/oak-design-tokens/census/` with an
   exports subpath `"./census/*": "./census/*"`; `files` array gains
   `census`. Consumers import through the exports map (real graph edges).
 - Same-PR hygiene: true up the workspace package.json description (already
-  stale against the two resident validators).
+  stale against the two resident validators:
+  `scripts/validate-design-system-consistency.ts` and the contrast validator in
+  `src/design-system-contrast.ts`).
 
 ## Artefact + ledger shape (findings 1, 2, 17 adjudicated)
 
