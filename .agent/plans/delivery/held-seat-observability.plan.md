@@ -83,26 +83,35 @@ the guard.
    that it runs ahead of the permission gate; the harness's hooks reference
    (read 2026-09-09) does not state the ordering, so the ordering is
    proven live before it is claimed (criterion 3). A fourth activation,
-   matching every tool, writes one marker per seat under the PRIMARY
+   matching every tool, writes one marker file per seat under the PRIMARY
    coordination home —
-   `.agent/state/collaboration/tool-calls/<seat display name>.json`,
-   untracked by design like the comms seen-files — holding the seat
-   identity, the tool name, the session prefix and a start time, and
-   NEVER the tool input (a command line can carry a token path or a
-   secret). A PostToolUse activation with the same matcher closes it.
-   PostToolUse fires only when a call succeeds, so a denied or failed call
-   leaves its marker open until the seat's next call overwrites it: one
-   marker per seat, always the latest call. A marker that stays open is
-   therefore a call that has not come back — a prompt, a crash, a long
-   legitimate run, or a seat idle after a refusal — and every one of
-   those is a state a peer should be able to see. The harness also lists
-   `permission_prompt` among its notification matcher types without
-   documenting that event's schema; the first slice probes it, and if it
-   fires on a prompt it becomes the marker's direct signal beside the
-   call-age reading.
+   `.agent/state/collaboration/tool-calls/<canonical routing key>.json`,
+   keyed by the id-bearing routing key the peer poll and the seen-files
+   already use (display names collide and persist), untracked by design
+   like the comms seen-files — holding the seat identity and display name,
+   and an ACTIVE-CALL SET: one entry per invocation keyed by the hook's
+   `tool_use_id`, with the tool name and a start time, and NEVER the tool
+   input (a command line can carry a token path or a secret). Parallel
+   calls each add their own entry, and each close removes only its own, so
+   an early completion never erases a call still running or still at a
+   prompt. The marker is closed on every terminal path the repository
+   controls: a PostToolUse activation with the same matcher closes the
+   entry whose `tool_use_id` it carries (PostToolUse fires only when a call
+   succeeds); the guard's own deny writes the close for that entry before
+   it returns the decision; and a Stop activation and an `idle_prompt`
+   notification activation — the turn has ended, the seat is at its own
+   prompt, not held — clear every entry. The one path outside those is a
+   tool that ran and errored with no later call in the turn, which the
+   Stop close covers at the turn's end. A marker entry that stays open is
+   therefore a call that has not come back — a prompt, a crash, or a long
+   legitimate run — and each is a state a peer should be able to see. The
+   harness also lists `permission_prompt` among its notification matcher
+   types without documenting that event's schema; the first slice probes
+   it, and if it fires on a prompt it becomes the marker's direct signal
+   beside the call-age reading.
 2. **A `held` reading on the peer poll.** `comms peer-liveness` gains a
-   classification: a seat whose marker has been open longer than the held
-   threshold (default fifteen minutes, above the estate's longest routine
+   classification: a seat whose OLDEST open marker entry has been open
+   longer than the held threshold (default fifteen minutes, above the estate's longest routine
    single call, the full gate run) reads `held since <start> at <tool>`,
    whatever its heartbeat or claim says. Like `retired`, the reading is
    input-to-verify, never a verdict: the F-75 alert recipe in the
@@ -134,13 +143,18 @@ shapes generically (`hook-policy-substring-discipline`).
    start time; with the marker closed, or open for less than the threshold,
    it does not. Proof: `repo-safe` — unit tests on the classifier and an
    integration test on the CLI's rendered line.
-2. **The marker never carries tool input.** A marker written for a call
-   whose input contains a sentinel string does not contain the sentinel.
-   Proof: `repo-safe` — a unit test on the marker writer.
+2. **The marker never carries tool input, and closes per invocation.** A
+   marker written for a call whose input contains a sentinel string does
+   not contain the sentinel; with two calls open, the first to finish
+   closes only its own entry and the other stays open (out-of-order
+   completion). Proof: `repo-safe` — unit tests on the marker writer and
+   closer.
 3. **The marker is written before the prompt and closed after the call.**
    In a live Claude Code session, a call that raises a permission prompt
    reads `held` on a peer's poll while the prompt stands, and the reading
-   clears within one poll of the prompt being answered. Proof:
+   clears within one poll of the prompt being answered; a call the guard
+   denies, and a call that errors, leave no open entry once the turn ends.
+   Proof:
    `owner-held` — the harness's ordering is a platform fact the repository
    cannot prove by test; the owner, or a seat at the owner's word, runs
    the prompting call once and the Director records the two readings with
