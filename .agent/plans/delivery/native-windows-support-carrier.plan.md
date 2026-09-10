@@ -90,4 +90,6 @@ cure on upstream-authored lines beyond the two open findings; the merge-back its
 
 ## Review dispositions
 
-(none yet)
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-10 | PR #129, security-expert leg, should-fix | Verify the mode on the descriptor after `fchmod` (`fstat`), so a mount where chmod silently no-ops refuses instead of retaining authenticated output world-readable | Routed to this node as todo 5 at the owner's word to close the lane; the cure changes the Windows test strategy for the on-disk observable, so it lands as its own step |

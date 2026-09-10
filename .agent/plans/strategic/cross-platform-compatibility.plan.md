@@ -27,7 +27,7 @@ depends_on: []
 owner_gates: []
 tickets:
   - MCP-624
-last_updated: 2026-08-18
+last_updated: 2026-09-10
 ---
 
 # Host portability — support tiers, seams, and the ratchet
@@ -90,10 +90,11 @@ Linear parent MCP-624 is the visibility surface):
 3. **macOS validation of the #891 changeset** on a real Mac — closes the
    changeset's one stated first-class-tier risk; the fork's full gate on
    macOS (the lane's pre-commit gates ran on a Mac) is the first such proof.
-4. **Land the carrier** — upstream set #891 down unmerged on 2026-09-10; the
-   `native-windows-support-carrier` node's lane (PR #129) carries its head
-   with the two owner-only-write cures and the Windows CI leg; native
-   Windows becomes true at head when it lands.
+4. **The carrier landed** (2026-09-10, PR #129, merge SHA:7ef047ae2) — upstream
+   set #891 down unmerged that day; the `native-windows-support-carrier`
+   node's lane carried its head with the two owner-only-write cures and the
+   `windows-basic` CI leg, green on the landing tip; native Windows is true
+   at head.
 5. **Post-merge residue** — the SDK generator emits LF explicitly (kills
    the CRLF working-tree dirtying on Windows); the two remaining raw
    `spawnSync('git')` calls route through the trusted resolver.
@@ -148,9 +149,8 @@ Linear parent MCP-624 is the visibility surface):
 
 Delivery plans serving this node declare
 `serves: cross-platform-compatibility` — enumerate them by search,
-never by a hand-kept list. The existing child is
-[`cross-platform-research`](../delivery/cross-platform-research.plan.md)
-(re-trues under item 9). Linear parent: MCP-624; child tickets minted
+never by a hand-kept list (item 9's re-truing lands on the research
+child). Linear parent: MCP-624; child tickets minted
 per programme item at pickup. Milestones live in Linear as named
 observable states; this node points at them, never mirrors them.
 

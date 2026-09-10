@@ -46,7 +46,8 @@ skill; every Oak-repository read below was made under that comparison request an
    inherit a world-readable ACL on a shared Windows checkout (cure: verify a user-only ACL or
    refuse retained authenticated output on Windows).
 6. **The mirror does not carry it.** `git cherry -v origin/main 5dd76c612` at the mirror
-   SHA:216e64c15 (release 1.181.1) finds no patch-equivalent for any of the fifteen; the
+   SHA:216e64c15 (release 1.181.1) finds no patch-equivalent for any of the sixteen (#123's thirteen, its two cures and the
+   sweep commit); the
    mirror's own "windows" commits are the cross-platform plans and ledgers, the LF-only
    `.gitattributes` (756cead2e) and the gitleaks module-path fix (f0b2e2987).
 7. **Merging it into `engraph` is cheap in conflicts.** `git merge-tree --write-tree
