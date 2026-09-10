@@ -696,3 +696,33 @@ goes at #126's landing).
   artefact; replies-only with one named home (the design thread's pointer note at the next
   records pass), no third cure push. The geometric tail on a historical artefact is the clearest
   case for the replies-only bound: nothing landable changes by re-authoring history.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 9 (2026-09-10 14:4xZ)
+
+**The window since the eighth wrap (10:46Z–14:46Z).** The team closed at the owner's word and
+passed every task to the Director; the owner set n=1 and the safety rule; the sweep opened
+six drafts and the owner ruled the three refusals; two lanes (#125, #126) and two docs drafts
+(#121, #122) landed with posted subagent legs and Copilot; two drafts closed as overtaken; the
+board went from nine open to four, every one of them the owner's or the rollover's. Six
+landings in the window (#118, #125, #126, #121, #122 and #116 before it); twenty-five this
+tenure. Thirty-nine worktrees removed, then each lane's at its landing; the primary alone.
+
+**What the window taught about the ruling.** Every subagent leg found a real defect the vendor
+rounds had not (the served-schema examples loss on #126; the Go module path and the corepack
+contradiction on #121; the live-plan framing on #122), and every Copilot round after a leg found
+something the leg had not (the numeric-enum gap, the `PNPM_HOME` escape, the Playwright
+browsers, the mutable PR reference). More perspectives, more findings — the owner's value,
+proved six times in one afternoon. The cost side: each cure push re-binds the Copilot leg per
+tip, so a PR that takes N cure pushes takes N Copilot rounds; the replies-only bound after the
+second class-fix push is what kept #122 to three rounds and #116 to five.
+
+**Retrospective on my own errors this window (each corrected on the surface it touched):** the
+crossed push at the resume; the wrong premise on the tsup flake; the name-search disposition
+of #119; the `PNPM_HOME` escape that contradicted a rule I had not read; three commit messages
+over the line limit; two TSDoc backslashes; the zsh word-split; the unrelated-tokens hook block.
+None cost more than one gate run; all are on the napkin with their cures.
+
+**Board at the wrap (tip SHA:190787e6f):** #100 (owner's two lines), #112 (fold at the
+rollover), #120 and #123 (owner decisions, dispositions posted). Processes by id: watcher
+`bkvn7bj3h` (re-armed hourly, asserted 14:05Z), heartbeat `buksewhl3`, registry peer poll
+`bvimq2rej`, peer-liveness `b1w1ld2s8`, PR poll `bs62tx2xx`, wrap cron `16be6dbc`.
