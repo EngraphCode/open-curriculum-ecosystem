@@ -83,18 +83,19 @@ the guard.
    that it runs ahead of the permission gate; the harness's hooks reference
    (read 2026-09-09) does not state the ordering, so the ordering is
    proven live before it is claimed (criterion 3). A fourth activation,
-   matching every tool, writes one marker file per seat under the PRIMARY
-   coordination home —
-   `.agent/state/collaboration/tool-calls/<canonical routing key>.json`,
-   keyed by the id-bearing routing key the peer poll and the seen-files
-   already use (display names collide and persist), untracked by design
-   like the comms seen-files — holding the seat identity and display name,
-   and an ACTIVE-CALL SET: one entry per invocation keyed by the hook's
-   `tool_use_id`, with the tool name and a start time, and NEVER the tool
-   input (a command line can carry a token path or a secret). Parallel
-   calls each add their own entry, and each close removes only its own, so
-   an early completion never erases a call still running or still at a
-   prompt. The marker is closed on every terminal path the repository
+   matching every tool, writes one marker FILE PER INVOCATION under the
+   PRIMARY coordination home, in a directory per seat —
+   `.agent/state/collaboration/tool-calls/<canonical routing key>/<tool_use_id>.json`,
+   the directory keyed by the id-bearing routing key the peer poll and the
+   seen-files already use (display names collide and persist), the file by
+   the hook's `tool_use_id`, all untracked by design like the comms
+   seen-files — each file holding the seat identity and display name, the
+   tool name and a start time, and NEVER the tool input (a command line
+   can carry a token path or a secret). Open is a create and close is an
+   unlink; no file is ever rewritten, so two parallel hooks cannot race a
+   read-modify-write and drop each other's call, and the reading lists the
+   directory. Each close removes only its own file, so an early completion
+   never erases a call still running or still at a prompt. The marker is closed on every terminal path the repository
    controls: a PostToolUse activation with the same matcher closes the
    entry whose `tool_use_id` it carries (PostToolUse fires only when a call
    succeeds); the guard's own deny writes the close for that entry before
@@ -110,10 +111,18 @@ the guard.
    it, and if it fires on a prompt it becomes the marker's direct signal
    beside the call-age reading.
 2. **A `held` reading on the peer poll.** `comms peer-liveness` gains a
-   classification: a seat whose OLDEST open marker entry has been open
-   longer than the held threshold (default fifteen minutes, above the estate's longest routine
-   single call, the full gate run) reads `held since <start> at <tool>`,
-   whatever its heartbeat or claim says. Like `retired`, the reading is
+   classification with two signals. The primary is the harness's
+   `permission_prompt` notification where the platform delivers it (item 1
+   probes it): a seat whose latest such notification has no later close
+   reads `held at <tool>` at once. The fallback is the age reading: a seat
+   whose OLDEST open marker file has been open longer than the held
+   threshold reads `held since <start> at <tool>`, and the threshold is set
+   ABOVE the longest routine single call measured in the estate — the full
+   gate run, which this node's own opening puts at thirty minutes — so the
+   default is forty-five minutes, configurable, and a gate call under it is
+   never called held; the rendered line names the tool, so a gate at the
+   threshold is legible as one. Either reading holds whatever the seat's
+   heartbeat or claim says. Like `retired`, the reading is
    input-to-verify, never a verdict: the F-75 alert recipe in the
    liveness-heartbeat rule emits transitions INTO `held` exactly as it emits
    transitions into `retired`, and the Director's work-evidence cross-check
@@ -137,18 +146,19 @@ shapes generically (`hook-policy-substring-discipline`).
 
 ## Acceptance criteria (each with a proof — required)
 
-1. **A held seat reads `held`.** With a fixture marker open past the
-   threshold and the seat's other liveness evidence fresh,
-   `comms peer-liveness` classifies the seat `held` naming the tool and the
-   start time; with the marker closed, or open for less than the threshold,
-   it does not. Proof: `repo-safe` — unit tests on the classifier and an
+1. **A held seat reads `held`.** With a fixture prompt signal open, or a
+   fixture marker file open past the threshold, and the seat's other
+   liveness evidence fresh, `comms peer-liveness` classifies the seat
+   `held` naming the tool and the start time; with the marker closed, or
+   open for less than the threshold and no prompt signal, it does not. Proof: `repo-safe` — unit tests on the classifier and an
    integration test on the CLI's rendered line.
 2. **The marker never carries tool input, and closes per invocation.** A
    marker written for a call whose input contains a sentinel string does
    not contain the sentinel; with two calls open, the first to finish
-   closes only its own entry and the other stays open (out-of-order
-   completion). Proof: `repo-safe` — unit tests on the marker writer and
-   closer.
+   closes only its own file and the other stays open (out-of-order
+   completion); two hooks writing at the same instant leave both files
+   present (simultaneous write). Proof: `repo-safe` — unit tests on the
+   marker writer and closer.
 3. **The marker is written before the prompt and closed after the call.**
    In a live Claude Code session, a call that raises a permission prompt
    reads `held` on a peer's poll while the prompt stands, and the reading
