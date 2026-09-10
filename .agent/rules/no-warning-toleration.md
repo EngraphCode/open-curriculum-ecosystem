@@ -22,13 +22,16 @@ A signal is information about an architectural tension — before any
 response, interrogate what produced it (a bug, a half-finished change, a
 misplaced abstraction, a leaky boundary), and cross-check where else the
 same shape appears un-flagged. For an analyser finding (Sonar, CodeQL)
-there is no dismissal route since the owner's 2026-09-08 ruling ("We don't
-dismiss issues, we fix them"): the finding is cured at source under the
-one-outcome rule in `docs/governance/sonar-disposition-policy.md`. That
-policy states the single exception — the CodeQL `js/missing-rate-limiting`
-alerts on the MCP server's route handlers, dismissed once each through the
-GitHub code-scanning route after the route comment citing ADR-219 lands —
-and nothing else is dismissed. Where a warning from another
+there is no dismissal route outside the single exception the policy
+states, since the owner's 2026-09-08 ruling ("We don't dismiss issues, we
+fix them"): the finding is cured at source under the one-outcome rule in
+`docs/governance/sonar-disposition-policy.md`. That single exception is
+the CodeQL `js/missing-rate-limiting` alerts on the MCP server's route
+handlers, dismissed once each through the GitHub code-scanning route after
+the route comment citing ADR-219 lands — and that dismissal is the OWNER's
+act: an agent never dismisses an alert on its own pull request; it lands
+the route comment and surfaces the action item. Nothing else is
+dismissed. Where a warning from another
 system can only be suppressed, suppress per site with rationale, never by
 a rule-level disable — per-site forces a fresh interrogation when the
 shape recurs.
