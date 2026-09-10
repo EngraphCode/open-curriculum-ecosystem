@@ -375,12 +375,14 @@ first-hand as of 2026-06-25.
 > ALL PRs merged, including those currently in draft" (the count-to-zero goal now covers every
 > draft): #99 (the upstream 1.179.0 carrier, Altair), #107, #105 and #106 (the curator seat
 > Vanilla lifts Nectar's consolidation records), #102 (the one-outcome Sonar policy, Altair),
-> #101 (the held-seat-observability node, Altair), and this branch's own fold at the merge of
-> #101. Lanes at this fold (2026-09-10 00:5xZ), by holder: Altair spins Umbra (`05a180`) — #108
+> #101 (the held-seat-observability node, Altair); this branch's own fold at the merge of #101
+> is the pull request this snapshot lands with — a reader on `engraph` holds it landed, a
+> reader on the branch holds it pending. Lanes at this fold (2026-09-10 00:5xZ), by holder:
+> Altair spins Umbra (`05a180`) — #108
 > (the cross-fork skill's carrier lessons; step-back fired, cures held for its slot word) and
 > #110 (the #102 residue); Vanilla lifts Nectar (`e1dced`, curator) — #109 (the merge-bot
-> front door's liveness-leg fix, a source PR) and the napkin drain PR cut from the post-fold
-> tip; the Director — #100 (the held-seat fix at its second step-back; the two blanket deny
+> front door's liveness-leg fix, a source PR) and the napkin drain PR, to be cut from the
+> post-fold tip once this fold lands; the Director — #100 (the held-seat fix at its second step-back; the two blanket deny
 > lines are an OWNER edit, refused to the seat by the classifier) and #103 (a Codex seat's
 > research-package import, read done, landing at its slot on the import README's recorded
 > owner authority). Rulings of 2026-09-09, by card, all
