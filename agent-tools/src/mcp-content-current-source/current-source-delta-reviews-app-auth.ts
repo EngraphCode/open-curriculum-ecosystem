@@ -115,8 +115,20 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // MCP-580 re-review: the health entry is now spread from `HEALTH_PATHS`, so
   // the routed `/mcp/healthz` the canonical host reaches is auth-exempt exactly
   // as the root path already was. Still a routing decision over path literals.
+  //
+  // MCP-700 re-review: the OpenAI domain-verification challenge path joins the
+  // always-skip set, consumed from the route module's exported constant so the
+  // served route and the exemption share one owner. Still a routing decision.
   'apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts': excluded(
-    'c96fa6a897a638088c9841c8a4dbb85229ae7f800a14ac52c57b25cce91b9203',
+    '0f407e19fe6809aaee469c4154fe311758839e09046026e890b2934343edc41c',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-700: the OpenAI plugin-submission domain-verification challenge. The
+  // body is the portal-issued opaque token served verbatim as text/plain —
+  // vendor-shaped proof of domain control, not Oak-authored agent-facing
+  // content. The contract source and read date are in the module header.
+  'apps/oak-curriculum-mcp-streamable-http/src/openai-domain-verification.ts': excluded(
+    '3233717f514011f4c1534f67dc036a246072ee966a49081773509a44c847d451',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-518: the Clerk conditional now forks on the request's surface before
