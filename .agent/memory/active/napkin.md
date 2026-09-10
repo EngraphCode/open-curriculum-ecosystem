@@ -664,3 +664,26 @@ final tip; the front door loop.
 
 **Worktrees:** thirty-nine removed, then #125's; two remain (the primary, mcp-487-2de368, which
 goes at #126's landing).
+
+## Nettle guards Pistil (2de368) — Director, the drafts' dispositions (2026-09-10 13:3xZ)
+
+- MISTAKE, corrected on the PR: I dispositioned #119 "land — the tip cites a file it lacks"
+  from a `git grep -l <name>` that matched the CITING files, and the report itself was on the
+  tip all along (landed via #783, revised three times since; the staged copy is byte-identical
+  to the first landed version). A file's existence is a PATH fact — `git cat-file -e
+  <ref>:<path>` or `git ls-tree` — never a name search. #119 closed as overtaken with the
+  landing named; the branch deleted.
+- The same check the right way: #122's two census artefacts are absent from the tip by path
+  (real, landing as report artefacts); #121's Windows-via-WSL docs are absent by path and by
+  word (real, a small docs lane with a README reconciliation); #123's fifteen windows commits
+  have no patch-equivalent on `engraph` or on upstream `main` and touch 146 files that have all
+  moved since — a re-implementation lane for the owner to want or decline; #120 is the owner's
+  own return map; #124 is the Director's semantic merge.
+- #124 CLOSED as overtaken too, checked file by file: the letter's day-two text, the thread's
+  MCP-655 COMPLETE section, the continuity facts and the napkin wrap block (in the 2026-09-02
+  archive) all reached the tip by the kiln session's own later commits; the safety sweep had
+  conserved a working-tree snapshot of records that were about to be committed. Two of six
+  drafts were therefore duplicates of landed work — the sweep's "committed as found" rule was
+  right (safety first, merit later), and the merit pass is cheap when done by path.
+- #122 (census artefacts, absent by path) and #121 (WSL docs, absent by path and word) are
+  syncing to the tip with their review legs dispatched; #120 and #123 are the owner's.

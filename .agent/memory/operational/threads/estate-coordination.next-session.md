@@ -1869,3 +1869,28 @@ our fork main, and one to create PRs from our main to our engraph."
   the sync 8ea154cfa; Copilot's one thread replied with first-hand facts and resolved.
 - Twenty-three landings this tenure. Worktrees: the primary checkout alone. Open: #100, #112
   (fold at the rollover), the six safety drafts #119–#124.
+
+### I. The safety drafts dispositioned first-hand (2026-09-10 13:2xZ–13:4xZ)
+
+Each of the six drafts checked by PATH against the tip (`git cat-file -e`, `git cherry`), never
+by name search — the lesson of #119:
+
+- **#119** CLOSED as overtaken: the capability-floor report landed through #783 and was revised
+  three times; the staged copy equals the first landed version. (The Director's first
+  disposition said "land" from a name search that matched the citing files; corrected on the PR.)
+- **#124** CLOSED as overtaken: all four kiln records reached the tip by the kiln session's own
+  later commits (the letter's day-two text, the MCP-655 COMPLETE thread section, the continuity
+  facts, the napkin block in the 2026-09-02 archive).
+- **#122** (the W0.1 census artefacts, absent by path): synced, docs-adr-expert leg (one MAJOR —
+  no status header on a plan whose gates were ruled and whose governing plan is archived —
+  cured with a dated-historical-artefact block; renamed with the date suffix; the archived plan
+  named; the design thread record points at both), Copilot on the tip, front door running.
+- **#121** (the Windows-via-WSL README path, absent by path and word): synced, docs-adr-expert
+  and onboarding-expert legs (the Go install fallback named the wrong module path — cured via
+  CONTRIBUTING §5; the pnpm prerequisite asserted the corepack route the hooks cannot resolve —
+  re-trued at its home for every platform; `gh` added; Windows readers routed from the top of
+  Prerequisites; per-step checks; the Linux home; exported caps), three follow-ups routed to
+  `cross-platform-research.plan.md` §Review dispositions, Copilot on the tip, front door running.
+- **#120** (the owner's jim-next return map) and **#123** (the windows changeset: fifteen commits,
+  146 files, no patch-equivalent on `engraph` or upstream `main`; a re-implementation lane, not a
+  sync) hold for the owner's word, dispositions posted on each.
