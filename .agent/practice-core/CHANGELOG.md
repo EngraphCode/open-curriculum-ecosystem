@@ -4,6 +4,80 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-027 open question: which model name wins when four disagree
+
+- PDR-027 §Notes gains a dated open question, re-homed from the host's
+  open-questions register at the 2026-09-09 dedicated consolidation: the
+  identity tuple's `model` field can be declared, reported, observed and
+  configured to four different values (a July 2026 Codex config named a
+  model the CLI silently overrode), and no clause names which wins. The
+  question carries its resolution path (the field's consumers — the naming
+  registry, the Cricket tally, the identity preflight — are read first) and
+  a candidate precedence for that lane to test, not a decision.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-131 amendment: the landing slot under a strict-currency ruleset
+
+- PDR-131 gains an Amendment Log entry: where the owner keeps the
+  strict-currency ruleset policy (decision 5), the `pr-lifecycle` skill's
+  Phase 7 landing slot — one PR syncs at the slot word, the rest gather
+  reviews and wait — is that policy's cost made orderly, not a return of
+  the one-at-a-time grants decision 3 retired; the Director still grants
+  eligibility, never position, and the slot lapses the day the policy is
+  dropped. Measured 2026-09-08/09 on the fork's default branch (eleven,
+  then seven serial landings under `strict_required_status_checks_policy`).
+  Written when a reviewer read the skill's slot clause and decision 3 as a
+  contradiction.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
+
+- PDR-140 amended — new Decision clause 9, with the Amendment Log entry
+  of 2026-09-07 as the revision record: on a records-class
+  artefact whose verification point is merge, clause 2's
+  merge-verification sentence reads through prong one as written — a
+  falsehood clears the bar when a reader acting on the artefact would be
+  misled by it; a statement wrong under a rule today is not over-bar per
+  se. Clause 4's rebudget is granted once per PR and its push carries
+  over-bar cures and queued ledger writes only; a later over-bar finding
+  still cures, in a push carrying nothing beyond that cure and any queued
+  ledger writes; a routed finding's durable write rides the next push that
+  lands or lands alone as the final settlement push; post-final-head
+  route writes land together in at most one ledger push, a later route's
+  write on the seat's napkin or a records PR already open, never by
+  reopening the reviewed PR; each control carries its own falsifier. A
+  routed residue's
+  named home is an existing
+  register row or a PR already open for its own story, never a PR opened
+  to carry residue; a residue PR that exists anyway has a settlement
+  budget of one push. Measured on five records-class PRs (seventeen
+  rounds, fifty-three cures) ended by the owner's wordless out-of-band
+  skill invocation — clause 8's anti-pattern recurring. Falsifier: one
+  below-bar disposition that misleads a reader before the next records
+  pass reverts the reading by dated amendment.
+
+## [oak-open-curriculum-ecosystem] 2026-08-13 — provider-independent capability composition
+
+- New PDR-139, status Proposed: separates provider-independent semantic
+  capability contracts from explicit host composition; makes omission
+  capability-specific; separates provider extensions; and requires behaviour
+  portability wherever another binding serves a capability — with state
+  portability for authoritative state and an exercised rebuild from
+  authority for derived state — plus, for each named external provider, a
+  documented and exercised
+  independent composition: another conforming binding, a local or
+  self-hosted binding, or omission of a non-constitutive capability. The
+  pattern is tested across storage, telemetry, and agent tooling.
+
+## [oak-open-curriculum-ecosystem] 2026-08-02 — cost-of-change gradient (Lichen guards Phloem)
+
+- New PDR-135, status Proposed: gives the cost-of-change gradient a portable
+  identity outside the software-architecture, inquiry, and Practice contexts
+  that revealed it. The pattern places recurring responsibilities and shared
+  assurance at the most general coherent owner, adds context through thinner
+  specific compositions, preserves orthogonal dimensions and recursive scales,
+  and requires world-return before claiming human value. It explicitly limits
+  “near-zero” to the marginal reuse cost of already-understood mechanics and
+  carries admission tests and losing conditions.
+
 ## [oak-open-curriculum-ecosystem] 2026-08-01 — derivation-source provenance clause (Moss calls Loam)
 
 - PDR-027 amended: a new derivation-source provenance clause — where a tool

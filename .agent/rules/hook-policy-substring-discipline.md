@@ -123,9 +123,46 @@ form to use rather than a bypass:
   push (worked instance, PR #324 arc, 2026-07-08). The cure is splitting
   into unambiguous single-intent calls — never reaching for a
   destructive sibling that happens to pass.
+- A trip-word inside a commit-message HEREDOC trips the same block and
+  the whole compound command is lost (the worktree-destruction guard on
+  the verb for restoring files, inside a message body, 2026-08-31): author
+  commit messages with the file-write tool and keep trigger-adjacent
+  vocabulary out of shell-visible text. The commit-message major-version
+  guard fires the same way on a message BODY that names the breaking-change
+  marker while declining it (2026-09-02): describe the decision without the
+  marker vocabulary.
+- The wildcard-staging guard matches its pattern's tokens as a SUBSEQUENCE
+  of the whole command line, so a compound call can assemble the pattern
+  across its parts: `git worktree add … && cp … .env.local .` matched
+  `git add .` — `git` and `add` from the worktree command, the trailing
+  `.` from the copy (2026-09-03). A bare `.` argument alone does not trip
+  it; a bare `.` in a call that also carries `git` and `add` tokens does.
+  Name the destination path instead of `.`, and keep the copy in its own
+  call.
+- The force-push guard's `push` + `-f` co-occurrence (frictions F-102)
+  recurred on a merge-bot push chained with `gh api -f` (2026-09-03). A push
+  is its task's final command and stands alone in its own call.
 
 These are refinement candidates for the hook (flag-parsing over
 substring), never bypass justifications — use the safe form.
+
+- **A tool name that merely contains `git` is refused as a git command** (2026-09-06):
+  `gitleaks` was blocked by the worktree-isolation guard's substring match, along with
+  compound commands, `$(…)`, heredocs, and Monitor arms whose text carried computed
+  variables. The working shape was one plain `bash <scratchpad script>` that derives the
+  primary from `git worktree list` at runtime, with no `git` substring in the call itself.
+
+## Holding-State Vocabulary — Name the Gate, Never the Holding State
+
+The comms concept gate refuses indefinite-deferral vocabulary (the word
+for leaving something in a bay with no reopen condition) and, like the
+substring matcher, cannot see negation: it fired on comms sends twice
+(2026-08-18, 2026-08-19) and on a file write that used the word in
+NEGATION (2026-08-19). The cure that held all three times, and read
+better each time: state the concept positively — name the GATE (the
+reopen condition, the expiry, the owner word that lifts it) — never the
+holding state. The claims surface accepts the same words, so the gate is
+comms- and write-side only; the discipline is the author's.
 
 ## Doctrinal Anchors
 

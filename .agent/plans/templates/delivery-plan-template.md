@@ -43,6 +43,14 @@ last_updated: <YYYY-MM-DD>
 <What is true when this lands that is not true now — one short
 paragraph.>
 
+## User groups and value
+
+<Who experiences or consumes this outcome, and what each group gets, in
+experience terms. Innovation work may declare offered or hypothesised
+value with an honest claim boundary — proving a pre-existing need is not
+required. Where genuinely nobody experiences the outcome directly, say
+so in one line and name where the value routes.>
+
 ## Mechanism
 
 <How, briefly. Mechanism only: anything internal rides the linked
@@ -62,7 +70,14 @@ Each criterion names its proof and the proof's evidence class:
 
 <Slices, each a single-story PR carrying its round-budget class
 (PDR-132: default ≤2 review rounds; name the budget if it differs and
-why).>
+why). Each PR opens with the pr-lifecycle instruments declared at
+PR-open in a working-notes comment: the round tally on every PR, and the
+PDR-140 intake contract where the changeset is prose-class or a mixed one
+that contains prose — declared at open, before any finding exists, as
+PDR-140 clause 3 requires (code-only changesets keep the review-round
+state machine unchanged) — the step that was missing
+from this template when a review loop was cured by seat judgement instead
+(2026-09-02).>
 
 ## Out of scope
 

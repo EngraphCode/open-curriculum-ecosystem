@@ -3,12 +3,12 @@ boundary: B2-Architecture
 doc_role: index
 authority: architecture-navigation
 status: active
-last_reviewed: 2026-05-10
+last_reviewed: 2026-09-08
 ---
 
 # Architecture
 
-**Last Updated**: 2026-05-10
+**Last Updated**: 2026-09-08
 **Status**: Active architectural index
 
 ## Start Here
@@ -36,11 +36,24 @@ block in the ADR index:
 
 ### Core Architecture (Current)
 
+- Foundations-first architecture: the
+  [software projection of the cost-of-change gradient](./foundations-first.md)
+  — how core building blocks, foundational systems, libraries, and products
+  concentrate recurring mechanism and assurance at the lowest coherent layer.
+  The [general pattern](../foundation/cost-of-change-gradient.md) also applies
+  across human-agent systems, inquiry, and the Practice.
+- Algorithm and data-structure foundations (a documented direction; no
+  implementation has landed yet): [ADR-229](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+  records the owner-established direction to author SMALL Reliable Atoms and
+  meaningful compositions, informed by openly licensed references. The
+  [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+  owns scope, research and qualification; the [bundle index](./foundations/foundations-bundle-index-2026-09-08.md)
+  locates the graph and non-graph contracts, requirements and worked examples.
 - Standard structure:
   - `apps/` – application runtimes (MCP servers, search CLI)
   - `packages/sdks/` – SDK packages (`@oaknational/curriculum-sdk`, `@oaknational/oak-search-sdk`)
   - `packages/core/` – foundational shared code and provider-neutral primitives (result/env/observability/eslint/openapi adapter)
-  - `packages/libs/` – shared runtime libraries (foundation libs: logger/env-resolution/search-contracts; adapter lib: sentry-node)
+  - `packages/libs/` – shared runtime libraries; the foundation/adapter tier membership is enumerated in [ADR-041](architectural-decisions/041-workspace-structure-option-a.md), the single source for it (this line stopped restating the list after drifting four packages behind it)
 - Boundaries enforced by custom ESLint rules in `packages/core/oak-eslint`
 - Provider composition is app-local (logger/clock/storage/search retrieval), then injected into server/tool layers
 - Apps load runtime config at entry boundaries and inject dependencies (DI) into servers and tools
@@ -72,6 +85,7 @@ block in the ADR index:
 - [ADR-040: Transition to Neutral Architecture and Allowlist Identity Check](./architectural-decisions/040-neutral-architecture-and-identity-allowlist.md)
 - [ADR-041: Workspace Structure Option A Adopted](./architectural-decisions/041-workspace-structure-option-a.md)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](./architectural-decisions/174-dependency-vulnerability-scanning-quality-gate.md)
+- [ADR-229: Own-built Algorithm and Data-structure Foundations](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
 - [All ADRs](./architectural-decisions/) - Complete decision record (historical ADRs preserved)
 
 ## Related Agent Guidance

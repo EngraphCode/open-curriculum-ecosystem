@@ -3,7 +3,7 @@ prompt_id: start-right-quick
 title: 'Start Right (Quick)'
 type: workflow
 status: active
-last_updated: 2026-07-29
+last_updated: 2026-09-08
 ---
 
 # Start Right (Quick)
@@ -11,7 +11,31 @@ last_updated: 2026-07-29
 Ground yourself before beginning work. Read in the order below; each
 step leads to the surfaces the next step assumes.
 
+## Environment Classification
+
+Before any command in this workflow, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+that non-execution profile governs every command-bearing step below: retain all
+reading and static inspection, but skip package, build, test, hook, identity and
+repo-owned collaboration-CLI execution. Platform-native coordination remains
+available. Detector error is a stop, not a fall-through.
+
 ## Ground First (reading order)
+
+Ground with the proper instruments. Dumping a corpus into context (whole
+files, whole diffs) is unreadable at the altitude the work needs and forces
+compaction; the instruments are the operations each platform provides for
+them — a bounded read at an offset, a content search, a file-pattern match,
+and a read-only explorer that returns a conclusion rather than the corpus —
+with the plan visible before the first mutation (owner correction 2026-09-01,
+verbatim: "Use the proper tools for finding content, and generally sort out
+the discipline here, this is serious work. What is the plan?").
+A second instance, 2026-09-06 (owner verbatim: "stick to using standard tools
+rather than complex bash scripts which confuse the permissions agent"): the
+file-editing instruments are the platform's native per-file editing operation
+(each platform adapter names its own) and one plain command per shell call; the
+compound heredoc that rewrote two files was the instrument the owner refused,
+though the work inside it was right.
 
 ### 1. Durable directives
 
@@ -63,6 +87,35 @@ workstream from the [full ADR index](../../../../docs/architecture/architectural
   activity, not a session-open one — see `consolidate-docs`
   step 3.
 
+### 3a. Operator profile (machine-local; absence is normal)
+
+Read the operator profile if this machine has one. It carries facts about the
+human you are working with that cannot be tracked: which credential identity
+performs which action class on third-party systems, their tone-of-voice and
+communication preferences, and personal operating preferences. The contract,
+including what must never be stored there, is
+[`.agent/operator-local/README.md`](../../../operator-local/README.md).
+
+It is machine-local, so it does not travel through git and a linked worktree
+holds no copy. Resolve it in the **primary checkout**:
+
+```bash
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+[ -f "$PRIMARY/.agent/operator-local/profile.md" ] \
+  && cat "$PRIMARY/.agent/operator-local/profile.md"
+```
+
+**A missing profile is the expected condition, not a defect** (`principles.md`
+§Any User, Any Machine): proceed on tracked defaults and say nothing. Never
+block, warn, or treat its absence as a gap to fill, and never make a
+correctness property depend on it.
+
+This is a **durable** home, unlike the per-user memory buffer above
+(`per-user-memory-is-a-buffer`) — so when a session learns a stable preference
+that keeps being re-derived, graduating it into the profile is the cure. The
+reverse also holds: a profile entry that turns out to matter to more than one
+person is doctrine, and belongs in a tracked surface instead.
+
 ### 4. Live state (operational memory) — authority order
 
 Read in order; stop at whichever answers your next-step question:
@@ -71,7 +124,8 @@ Read in order; stop at whichever answers your next-step question:
 2. @.agent/memory/operational/threads/README.md — thread convention + identity discipline (PDR-027)
 3. `.agent/memory/operational/threads/<slug>.next-session.md` — the thread record for any thread the session will touch (carries identity, next-session landing, _and lane state_)
 4. `.agent/state/collaboration/active-claims.json` — active-claims
-   registry and ordered advisory `commit_queue`
+   registry (the advisory commit queue is machine-local per-intent
+   state; read it with `pnpm agent-tools:commit-queue -- list`)
 5. `.agent/state/collaboration/shared-comms-log.md` — generated recent
    free-form collaboration context
 6. `.agent/state/collaboration/conversations/*.json` — open decision
@@ -80,10 +134,10 @@ Read in order; stop at whichever answers your next-step question:
 7. `.agent/state/collaboration/escalations/*.json` — active owner-facing
    escalation cases for the touched thread or area
 
-When reading `active-claims.json`, surface any fresh `commit_queue` entries
-alongside active claims: `intent_id`, `agent_id`, `files`, `commit_subject`,
-`phase`, and `expires_at`. Queue entries are discovery and ordering signals,
-not mechanical refusals.
+Alongside active claims, surface any fresh advisory commit-queue intents
+(`pnpm agent-tools:commit-queue -- list`): `intent_id`, `agent_id`,
+`files`, `commit_subject`, `phase`, and `expires_at`. Queue entries are
+discovery and ordering signals, not mechanical refusals.
 
 If a dirty slice has no matching active claim or recent comms event, do not
 classify it as orphaned until `repo-continuity.md` Next Safe Steps, the touched
@@ -135,10 +189,13 @@ or collaboration state as `Codex` / `unknown`; use the derived `agent_name` and
 `session_id_prefix`. Codex `SessionStart` hooks may inject the same block as
 developer context, but the preflight command remains the correctness check.
 
-Before staging or committing, use the always-active commit skill. It
-checks for fresh `commit_queue` entries and `git:index/head` commit-window
-claims, enqueues your intended bundle before staging, verifies the staged
-bundle exactly before `git commit`, and clears the queue entry after success.
+Before staging or committing, use the always-active commit skill. On the
+shared primary checkout it checks for fresh commit-queue intents and
+`git:index/head` commit-window claims, enqueues your intended bundle before
+staging, verifies the staged bundle exactly before `git commit`, and clears
+the queue entry after success; in a linked worktree it commits by plain
+pathspec with an audit line and no queue or window claim (owner ruling
+2026-09-07; the skill's scope paragraph).
 
 ### 5. Active plans
 
@@ -309,7 +366,7 @@ else
   # lockstep is PINNED: state-file-seeds.integration.test.ts reddens when
   # these literals drift from the constants — fix both in the same change.
   mkdir -p "$COORD_HOME/.agent/state/collaboration" \
-  && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  && { ( set -C; printf '%s\n' '{ "schema_version": "1.4.0", "claims": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
     || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]; } \
   && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
@@ -436,7 +493,7 @@ Before diving in, pause and ask:
 These questions are **not** session-open-only: re-ask them at every task/pointer
 arrival and before declaring done, not just here.
 
-For analysis-, planning-, or decision-heavy work, [`reason`](../../reason/SKILL-CANONICAL.md)
+For analysis-, planning-, or decision-heavy work, [`reason`](../../cognition/reason/SKILL-CANONICAL.md)
 structures the thinking outward (the pair to `metacognition`'s inward reflection), and the
 [grammar of thinking](../../../reference/grammar-of-thinking.md) is the yardstick for complex
 rewrites and high-stakes planning.

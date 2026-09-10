@@ -41,6 +41,29 @@ resides on the coordination branch).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
    files against main) before pushing.
+   The napkin resolves as a union of both sides' blocks in time order — unless
+   the target branch's napkin was ROTATED since the snapshot, in which case keep
+   the rotated file and run the semantic-merge skill's archive-coverage check
+   (its step 10): diff every incoming block heading against the rotated napkin
+   AND the rotation archive, content-grep before declaring a gap, and carry every
+   genuinely absent block under a dated union note. Never filter by timestamp
+   alone: the rotation's watermark commit is where to start looking, not the
+   test, since a block authored on a third branch before the watermark and
+   merged after it would be lost (2026-09-07). Two instrument defects caught at the
+   2026-09-07 fold: a time key that failed on a heading written "16:xxZ" and
+   sorted that block last (a tolerant key cures it), and a dropped blank line at
+   one block joint that the markdownlint hook refused (MD032/MD022) — read the
+   printed order before committing. Continuity records are edited on the primary
+   by every seat while the fold snapshots them: each later edit re-dirties the
+   primary, and the post-merge fast-forward of the primary succeeds only when its
+   record files are byte-identical to the branch's blobs (`git cat-file` plus
+   `cmp`; a DIFFERS line before the fast-forward is the tell), so the closing seat
+   commits the continuity records LAST and mirrors any later edit by hand — two
+   folds converged that way on 2026-09-06. A settings file the harness rewrites is
+   held out of the sweep until its contract is verified or the owner rules on it;
+   each hold is its own — a later harness rewrite is a new hold, never a
+   continuation of an earlier one — and the hold's outcome (verified, or ruled and
+   landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).
@@ -55,9 +78,25 @@ resides on the coordination branch).
 8. Bot REST merge at the FETCHED full head sha — fetched at merge time,
    never typed from memory, never expanded from an abbreviation — with
    `merge_method=merge`, never squash.
-9. Cut the successor `coordination/estate-<today UTC>` from post-fold
-   `origin/main` (`git switch -c`, tree-preserving — dirty files carry
-   across), `git push -u`, and the primary now resides there. GitHub
+9. Cut the successor coordination branch per
+   [`cut-coordination-branch`](../cut-coordination-branch/SKILL-CANONICAL.md):
+   resolve post-fold `origin/main` ONCE and pass the same full sha to
+   both the mint and the cut — two separate resolutions race a
+   concurrent fetch, so the name records one tip while the branch
+   starts at another and the lineage the name carries is false from
+   birth:
+
+   ```bash
+   git fetch origin main
+   BASE="$(git rev-parse origin/main)"
+   git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
+   git push -u origin HEAD
+   ```
+
+   Never mint by transcription (the sha6 suffix is deliberate
+   collision policy and the tool is its single source; F-161 records
+   the break a hand-carried form caused). The cut is tree-preserving —
+   dirty files carry across — and the primary now resides there. GitHub
    auto-deleting the merged head branch is expected, not loss. If main
    moves again during or just after the ceremony (a lane PR merging
    mid-rotation), merge `origin/main` in and rebuild promptly: until
@@ -69,9 +108,13 @@ resides on the coordination branch).
    drift).
 10. **Refresh every branch-labelled surface**: stop and re-arm the
     heartbeat loop with the new `--branch` label; append the fold entry
-    (with the same product-gravity line) to the Director seated block;
-    broadcast the rotation on the canonical comms stream so every seat
-    re-homes.
+    (with the same product-gravity line) to the Director seated block AND
+    as a dated tenure entry on the tracked estate-coordination thread
+    record — the pickup path for any checkout, since the machine-local
+    record is finer grain a successor elsewhere cannot read (a reviewer
+    found the pickup map unreachable when the journal had stopped two days
+    earlier, 2026-09-08); broadcast the rotation on the canonical comms
+    stream so every seat re-homes.
 
 ## Wrap-not-closeout
 

@@ -47,16 +47,44 @@ Every session closes with wrap, ordinary or deep (owner ruling 2026-07-28)
   only its context holds.
 
 For a mid-session capture WITHOUT closing, summon
-[`knowledge-safety-sweep`](../knowledge-safety-sweep/SKILL-CANONICAL.md)
+[`knowledge-safety-sweep`](../knowledge/knowledge-safety-sweep/SKILL-CANONICAL.md)
 directly instead — the seat stays live there; wrap is for ends. A
 mid-cycle retirement under budget pressure additionally follows PDR-063's
 five-step protocol; wrap supplies the depth of the record it freezes.
 
+A freeze order binds until the owner discharges it. After "prepare for
+compaction and stop all processes", the owner's follow-on questions reopen
+analysis, never spend: answering is always in order, STARTING anything — a
+fleet, a monitor, a subagent — is gated until the compaction lands (owner
+correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
+launch a long fleet into a context about to compact; its harvest lands in
+the thin post-compaction window. A compaction, manual or automatic, ends
+every session-scoped process — monitors, background loops, crons — so
+"processes run on across the boundary" is never true (a Director seat wrote
+it and resumed to an empty process table, 2026-09-09; a second seat the
+same day compacted with a watcher, four monitors and a cron armed and found
+none alive). The boundary block therefore carries the re-arm recipe as if
+nothing survives: the exact watcher command, the loop commands, the cron
+expressions and prompts, any one-shot wake's date; the resume verifies by
+id first (the task list, the cron list, the process table) and re-arms
+only what that verification finds absent, so a survivor is never doubled.
+
+Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
+not the end of your session", 2026-09-03) runs the programme's
+knowledge-safety steps — the modes, the work-safety proof, the
+consolidation gate, the arc check, the metaloss recursion and the owner
+report — and SKIPS the terminal acts: session-handoff's closeout broadcasts
+and its final heartbeat-end, and the claims and monitors disposition. The
+seat stays live with its claim held, its watcher and heartbeat running,
+and its handoff record written as a boundary record, not a retirement. The
+routing of non-terminal boundaries to `knowledge-safety-sweep` applies when
+the seat chooses the instrument, never when the owner names wrap.
+
 ## The Programme
 
 1. **Enter the modes.** Genuinely enter
-   [`metacognition`](../metacognition/SKILL-CANONICAL.md) (retrospective
-   mode) and [`reason`](../reason/SKILL-CANONICAL.md) — the whole wrap is
+   [`metacognition`](../cognition/metacognition/SKILL-CANONICAL.md) (retrospective
+   mode) and [`reason`](../cognition/reason/SKILL-CANONICAL.md) — the whole wrap is
    these modes wearing a sequence, and every claim below carries its
    warrant.
 2. **Verify work safety with evidence.** WORK IS SAFE only when committed
@@ -71,11 +99,11 @@ five-step protocol; wrap supplies the depth of the record it freezes.
    context scan, in lock-step with knowledge-safety-sweep's discipline).
 4. **Consolidate, conditionally.** If session-handoff's consolidation gate
    fires, summon
-   [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md); the
+   [`consolidate-docs`](../knowledge/consolidate-docs/SKILL-CANONICAL.md); the
    trigger checklist is that skill's own — wrap adds no second judgement.
 5. **Check the arc.** If this session closed a significant arc (cost,
    length, or shape that surprised anyone), offer the owner a
-   [`retrospective`](../retrospective/SKILL-CANONICAL.md) — routed, not
+   [`retrospective`](../cognition/retrospective/SKILL-CANONICAL.md) — routed, not
    auto-run. If the session graduated anything, confirm each graduation
    carries its PDR-130 prediction line.
 6. **Run the metaloss recursion (owned here).** The loss scan is itself an
@@ -104,6 +132,12 @@ five-step protocol; wrap supplies the depth of the record it freezes.
      external observer. State the bound and conserve the error signature
      (where outside eyes caught what the scan missed) so a successor
      knows where to point external scrutiny.
+   - **Fence sweep**: every owner word held off the repository at his word —
+     grep every tracked line this seat and its peers wrote for the fenced
+     wording before the wrap PR lands. The 2026-09-03 wrap found the morning's
+     fenced wording on three tracked lines (a formation letter, the seat's own
+     napkin capture, a dialogue-channel file) and cut each to "the owner's
+     local-only wording"; the seat's own capture was one of the leaks.
    - **Exit — the fixed point**: the recursion closes when a further pass
      would only re-find already-named losses, and the wrap SAYS SO
      explicitly ("a third pass would only re-find X; the recursion closes

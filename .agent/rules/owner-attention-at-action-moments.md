@@ -55,6 +55,24 @@ something irreversible-or-expensive, and the owner's decision genuinely
 changes the action. The question's options should be ACTION CHOICES, not
 opinion polling.
 
+### Owner-facing lists are re-derived at every boundary, never carried
+
+An "items that are yours" list carried across closeouts becomes an ambient
+queue: labels that were once true ride as invariants, and a wrong answer
+inherited from a peer's handover arrives as a question with the carrying
+seat as its author (2026-09-06: four of ten carried items came back as
+corrections — "that is why I already decided, and told you"; "does not need
+my sign off"; "does that sound like the right answer to you?"; "this is
+already policy, it does NOT require anything from me"). At every boundary
+the list is rebuilt from nothing, and each candidate passes three tests or
+leaves: (1) it is constitutively the owner's — the decision lenses fail AND
+no owner word already answers it, his rulings searched first; (2) policy
+does not already answer it — if it does, it is an action, done; (3) the
+proposed answer is itself right — a "dismiss / close / defer" verb is a
+tell, since signals clear by fixing, landing, routing with a home or
+refuting with evidence, never by being made to go away. A peer's handover
+list is input to the tests, never their output.
+
 ### Maximise action-moment observability
 
 When the agent IS at an action-moment, make it observable:
@@ -74,6 +92,18 @@ When the agent IS at an action-moment, make it observable:
   finished), send the notification. Treat the owner as present only when
   a *recent actual owner message* exists — monitor ticks, CI events, task
   notifications, and the agent's own output are never presence evidence.
+- **When the owner has said they are away, a card is a hold, not a
+  notification.** The owner's word (2026-09-08 21:1xZ, verbatim): "stop
+  doing things that need approval, I am not here, you will get yourself
+  stuck and do no useful work for ten hours." A blocking ask raised into an
+  absent owner's session holds the seat until the owner happens past the
+  terminal; record the question with its facts and the seat's proposed
+  answer on the Director's channel or the PR for the owner's next action
+  moment, take the next slice under the standing rulings, and never treat
+  the answer as owed before they return (a card raised at bedtime was
+  answered "we will discuss this tomorrow", 2026-09-08). Blocking asks stay
+  cards (§below): an absent owner is the case where the card waits for
+  their return, so nothing blocks on it meanwhile.
   When in doubt at a real action moment, err toward notifying: a needed
   notification that lands beats one suppressed on a guessed presence
   signal. (Worked failure 2026-07-01: a merge-ready push for PR #291 was

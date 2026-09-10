@@ -24,8 +24,8 @@ When you have a draft unit/lesson and want to compare it to Oak's equivalent.
 When sequencing a topic across lessons or years.
 
 1. `search({ query: "<concept>", scope: "threads", subject })` to find the relevant thread(s).
-2. `get-thread-progressions` anchored by that thread's slug (`threadSlug` — a corpus key, not free text); units are ordered by teaching year, and same-year units are explicitly unordered. This is how Oak builds the concept over time.
-3. `get-prior-knowledge-graph` anchored by the units' slugs (`unitSlugs`) to see unit prerequisites; confirm every prerequisite is taught _before_ the unit that needs it.
+2. `get-thread-progressions` anchored by that thread's slug (`threadSlug` — a corpus key, not free text); units come as one run per subject in Oak's curriculum order (years ascending, the subject sequence's unit order within a year). This is how Oak builds the concept over time.
+3. `get-prior-knowledge-graph` anchored by the units' slugs (`unitSlugs`) for the prior knowledge each unit states it assumes. The statements name knowledge, not the units that teach it — read them against the earlier units in your sequence and judge whether each is already covered.
 4. **Check your draft:** does it assume knowledge Oak introduces later? Does it skip a step Oak treats as foundational? Adjust the sequence, or note the deviation and your rationale.
 
 **Anchors to sanity-check against:** `number` (110 units), `geometry-and-measure` (59), `ratio-and-proportion` (18) in maths; `exploring-the-gothic` (7) in English; `power-government-and-religion` (23) in history.
@@ -57,18 +57,18 @@ When you want a model to learn from or point to.
 When auditing third-party or draft material.
 
 1. Identify the Oak equivalent (workflow A, steps 1–2).
-2. Run the **review rubric** from `oak-curriculum-principles`, but substitute real Oak data for each "strong looks like": Oak's keywords, Oak's thread order, Oak's misconceptions, Oak's NC statements, Oak's content guidance.
+2. Run the **review rubric** from `oak-curriculum-principles`, but substitute real Oak data for each "strong looks like": Oak's keywords, Oak's thread order, Oak's misconceptions, Oak's national curriculum statements, Oak's content guidance.
 3. Produce: summary judgement → principle-by-principle ratings with _located_ evidence → two or three priority actions → strengths to keep. Cite the specific Oak lesson/unit/thread used as the benchmark.
 
 ---
 
 ## F. Map to national-curriculum statements and check adaptability
 
-When the concern is flexibility and national-curriculum mapping.
+When the concern is flexibility and the national curriculum statements a unit records.
 
 1. `browse-curriculum({ subject, keyStage })` to see structure, sequences and options.
 2. `get-units-summary` / `fetch({ id: "unit:<slug>" })` to read the national-curriculum statements the unit records and any `unitOptions`.
-3. Map your material to the same NC statements; use Oak's `unitOptions` as a model for offering teacher choice without forking the entitlement; confirm threads are signposted so localisation won't break coherence.
+3. Map your material to the same national curriculum statements; use Oak's `unitOptions` as a model for offering teacher choice without forking the entitlement; confirm threads are signposted so localisation won't break coherence.
 
 > **KS4 note:** tiers (foundation/higher), exam boards and exam subjects add complexity. Science KS4 must be traversed via the sequences route (the flat `key-stages/ks4/subject/science/lessons` route returns empty). See `get-curriculum-model` → structural patterns.
 

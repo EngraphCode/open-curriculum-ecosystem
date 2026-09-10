@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 19 April 2026  
+**Last Updated**: 9 September 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -21,8 +21,43 @@
 **Key principle**: When a plan discovers something valuable, that discovery should be recorded in research. Plans can be archived; research persists.
 
 ---
+An ADR-226-class multi-file markdown import forms one link-closed component under
+`validate-markdown-links` (broken-link class `tracked-source-to-untracked-target`): no subset
+of its prose is committable alone, locally or as stacked PRs. Only members carrying no
+outbound relative links — assets, scanner config, an index row, a review using absolute
+permalinks — stand independently (907 of 16,235 lines on the 2026-09-06 import). Such an
+import is atomic under the estate's gates — "split it into smaller PRs" is not available —
+and only its link-free members are a valid partial-review surface for size-capped tools.
 
 ## Research by Topic
+
+### Adaptive capacities and agent coordination
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [Adaptive capacities research package](agent-capacities-2026-09-09/README.md) | Self-contained literature review, framework, editable comparison matrix, twelve experimental families and exact source archive | Distinguish capacities, mechanisms, authority and outcomes across biological, computational and institutional arrangements; proposals remain unratified research |
+
+### Graph foundations and algorithms
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [TypeScript graph foundations research](typescript-graph-foundations-2026-09-07/README.md) | Dated comparison of models, TypeScript libraries, capabilities and proposed OCE outcomes, with reproducible probes and recorded evidence | Select foundations by semantics, assurance and lifecycle value; current OCE choices carry no preservation requirement. Recommendations remain research proposals. |
+
+### ✨ Oak Innovation Kit & demonstrations
+
+Research that informs the fourth value stream's open-ended demonstration portfolio,
+idea-to-evidence path, and exercised-reuse discipline. Strategy authority remains in
+[`docs/strategy/`](../../docs/strategy/README.md).
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local entry point for the proposed definition, dated evidence, worked scenarios, bounded investigations and historical deconstruction | The Kit as the governed, portable part of a complete product-creation system; fast and good through governed compression, explicit obligations, truthful operation and stewardship |
+
+### Public-service AI tuition
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Entry point for the 17-file reconstructed tuition research collection; [AUTHORITY.md](public-service-ai-tuition/AUTHORITY.md) states what placement confers, the owner's rulings and the deltas from the imported bytes; qualified by two dated reviews, the [author-lineage review](../reports/public-service-ai-tuition/pr-66-review-2026-09-06.md) (R1 to R7) and the [independent review](../reports/public-service-ai-tuition/pr-66-independent-review-2026-09-06.md) (F1 to F9), and by the [8 September Oak curriculum-infrastructure delta](../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md) | Service and educational design, learner profiles, inclusion, evaluation, capability proofs, engineering findings, public infrastructure and comparative research, with historical source bytes and current-state boundaries preserved |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -47,7 +82,7 @@ Understanding Oak's curriculum structure and knowledge representation.
 | Document | Purpose | Key Insights |
 |----------|---------|--------------|
 | [curriculum-ontology.md](curriculum-ontology.md) | Curriculum knowledge model | Subjects, key stages, threads, units, lessons |
-| [curriculum-structure-3d-model.md](curriculum-structure-3d-model.md) | 3D curriculum visualization | Spatial metaphor for curriculum navigation |
+| [curriculum-structure-3d-model.md](curriculum-structure-3d-model.md) | Spatial curriculum model | Three-axis metaphor for curriculum navigation |
 | [ONTOLOGY_RESEARCH_SUMMARY.md](ONTOLOGY_RESEARCH_SUMMARY.md) | Ontology research summary | |
 | [official-api-ontology-comparison.md](official-api-ontology-comparison.md) | API vs ontology comparison | |
 | [kg-neo4j-stardog-product-creation/kg-neo4j-stardog-product-creation-clean.md](kg-neo4j-stardog-product-creation/kg-neo4j-stardog-product-creation-clean.md) | Graph-serving platform comparison | Direct-use baseline plus Neo4j/Stardog strengths, weaknesses, unknowns, and prototype-worthy use cases for external features |
@@ -99,6 +134,7 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | Document | Purpose | Key Insights |
 |----------|---------|--------------|
 | **[agentic-engineering/](agentic-engineering/README.md)** | Agentic-engineering lane index | Theme-based routing for operating model, reviewer systems, safety/evidence, continuity, and graph-memory research |
+| [agentic-engineering/concept-intake/](agentic-engineering/concept-intake/README.md) | Concept inventory and candidate intake | Research-only catalogues; entries may restate current authority, which remains governed by canonical sources |
 | **[developer-experience/](developer-experience/)** | Developer-experience research index | Onboarding, enforcement, and external research guide |
 | ├─ [README.md](developer-experience/README.md) | Developer-experience index | Entry point for local DX research and the local novel repair lane |
 | ├─ [architectural-enforcement-playbook.md](developer-experience/architectural-enforcement-playbook.md) | Architectural enforcement | Guardrails, prompts, and enforcement posture |
@@ -134,6 +170,8 @@ Research on code quality, testing, and architecture.
 | └─ [roadmap-phases.md](eslint-enhancements/roadmap-phases.md) | ESLint roadmap | |
 | **[error_handling/](error_handling/)** | Error handling patterns | |
 | [deep-reflection-schema-first-and-findings.md](deep-reflection-schema-first-and-findings.md) | Schema-first insights | Cardinal rule learnings |
+| [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Provider-independent capabilities and storage options | Semantic capability contracts, explicit omission, provider bindings, and behaviour/state portability |
+| [typescript-data-structures-and-algorithms-2026-09-07.md](typescript-data-structures-and-algorithms-2026-09-07.md) | Non-graph TypeScript data structures and algorithms | Native facilities, ecosystem candidates and open research questions; no dependency selection |
 | [vi-mock-audit-report.md](vi-mock-audit-report.md) | Vitest mock audit | |
 | [zod3-zod4-openapi-implementation-plan.md](zod3-zod4-openapi-implementation-plan.md) | Zod migration | |
 
@@ -158,6 +196,45 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-09-09)
+
+- [Adaptive capacities research package](agent-capacities-2026-09-09/README.md):
+  the complete 9 September review and experimental programme, with readable
+  projections, exact archived source bytes and an explicit import-authority boundary.
+
+## Recent Additions (2026-09-08)
+
+- [Oak curriculum infrastructure delta](../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md):
+  dated current-state supplement for upstream OCE `1.178.6`, Engraph's continuing
+  `1.178.5` boundary and Curriculum API `0.11.1`; preserves open consumer,
+  reproducibility, deployment and impact gaps without rewriting the imported collection.
+
+## Recent Additions (2026-09-07)
+
+- [TypeScript data structures and algorithms](typescript-data-structures-and-algorithms-2026-09-07.md):
+  research on the non-graph primitives available to TypeScript — the general tier of the
+  foundations inquiry; its graph tier landed as the
+  [TypeScript graph foundations research](typescript-graph-foundations-2026-09-07/README.md)
+  (PR 72), whose section 12 hands this survey eleven graph-specific contracts.
+
+## Recent Additions (2026-09-06)
+
+| Document | Summary |
+| --- | --- |
+| [public-service-ai-tuition/README.md](public-service-ai-tuition/README.md) | Faithful import of the completed 6 September 2026 reconstruction: README, 13 substantive chapters and three assets. Historical probe files retain their pinned reproduction context; this import does not refresh their runtime findings or ratify the proposed work programme. |
+
+## Recent Additions (2026-08-30)
+
+| Document | Summary |
+| --- | --- |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local router for the decomposed Innovation Kit definition, dated current-estate evidence, source/provenance map, worked analytical scenarios, bounded investigations and analysis-only web-app deconstruction. |
+
+## Recent Additions (2026-08-13)
+
+| Document | Summary |
+| --- | --- |
+| [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Research supporting PostgreSQL as the technology seam with Neon as one replaceable provider binding: storage-model fit, capability-specific absence, an exercised independent composition for every named provider, and separate behaviour/state portability. |
 
 ## Recent Additions (2026-07-13)
 
@@ -264,6 +341,25 @@ When you discover something valuable:
 2. **Add to this index** — Categorize appropriately
 3. **Link from plans** — Reference the research
 4. **Update "Recent Additions"** — Date and summarize
+
+### Importing External Research Records
+
+An externally authored research record enters this surface as a faithful public
+projection
+([ADR-226](../../docs/architecture/architectural-decisions/226-agent-research-surface-for-imported-records.md)):
+
+1. **Copy content faithfully** — a record is evidence; its documents keep their
+   source bytes and stay exempt from house prose formatting.
+2. **Exclude owner-directed private material** — the presumption is publication;
+   only content with a specific shown harm is withheld.
+3. **Reduce private-repository permalinks to plain-text citations** — keep the
+   file name, line range and pinned revision; point to a stable index in the
+   private source repository that resolves the citations and records the withheld
+   minimum. Permalinks into public repositories stay live.
+4. **Keep the record self-contained and its integrity discipline authoritative**
+   — no product workspace imports from a record and a record imports no product
+   workspace; any executable content is held to OCE gates, and only
+   dependency-free leaf packages are registered in the workspace.
 
 ### Research Document Template
 
