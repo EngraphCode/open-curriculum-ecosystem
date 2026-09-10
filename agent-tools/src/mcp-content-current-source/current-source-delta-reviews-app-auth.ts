@@ -53,9 +53,21 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // issuer instead of this origin, so a PRM-following client holds the
   // issuer the authorization response's `iss` carries (RFC 9207 §2.4);
   // C705, C707 and C708 are untouched.
+  // MCP-345: the AS metadata route (C707) passes SCOPES_SUPPORTED into the
+  // rewrite, so the served document advertises the PRM's scopes rather than
+  // the upstream list; C705, C706 and C708 are untouched.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    'ace7a9c10712382d219d986b24696ab94f11ef1717df1654e39244ae8838efad',
+    '346a0daefde383606984aac0c74532752bf47fe9cc05af7fc1af6555203b3a07',
     ['C705', 'C706', 'C707', 'C708'],
+  ),
+  // MCP-345: rewriteAuthServerMetadata (C408) takes the advertised scopes and
+  // states them as scopes_supported instead of passing the upstream list
+  // through; every other field of the served AS metadata is unchanged. The
+  // JSDoc records why (a client choosing scopes from this document requested
+  // an advertised openid that its registered grant, Oak's default, omits).
+  'apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts': reviewed(
+    'fcefa57b4a0e31be024c3182e8141be0c1c77aabe144e2e196d9515b44ebc40a',
+    ['C408'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
     '1bac2a8ec91a09fb51dce02ec3f943bd76c9c3c4ee0097cc9bd318e8b716d2b0',
