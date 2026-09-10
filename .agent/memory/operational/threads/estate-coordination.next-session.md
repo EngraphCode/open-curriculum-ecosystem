@@ -1648,3 +1648,266 @@ disagree, the live snapshot is current and this entry is history.
   Lanes at the cut: #100 (the Director's, next in the slot), #99, #101, #102 (Altair spins
   Umbra, 05a180), #103 (a Codex seat's research import at the owner's request, unregistered
   on the stream). Landed by this seat today: #97, #92, #96.
+
+## 2026-09-10 02:0xZ — FOLD OF coordination/2026-09-09-31e371 (Nettle guards Pistil, 2de368, Director): PR #104 merged as SHA:2d17c6e46; successor coordination/2026-09-10-2d17c6
+
+- **The fold.** Run in the branch's landing slot after #101, with the branch DUE under the
+  24-hour rule since the 00:00Z rollover (the slot was serial: #102 and #101 held it across
+  the rollover). The sync of `engraph` at SHA:3712eefb4 made once at the slot word as
+  SHA:55736f697, its tree equal to the merge-tree preview. Three review rounds (2, 1, 1): the
+  stale lane map on the live snapshot and a backwards merge-tree diagnosis on the napkin
+  cured in the settlement push; the snapshot's tense (its own fold named as landed) through
+  the one 9(b) door; the bare-SHA sweep routed to the successor's first commit and resolved
+  on that route. Merged through the merge-bot front door (`--expect chatgpt-codex-connector`,
+  the reviewer that bound the tip; the liveness leg reported the null-field defect #109
+  cures) as SHA:2d17c6e46; premises comment 5611512457.
+- **The successor.** `coordination/2026-09-10-2d17c6`, cut tree-preservingly from post-fold
+  `engraph` at SHA:2d17c6e46 by the coordination tool, published as the bot; its first commit
+  carries this entry, the handoff's fold block and the SHA-prefix sweep; the draft PR opens
+  with it.
+- **The window between the cuts (17:16Z → 02:0xZ).** The owner's word at 19:2xZ: "I want ALL
+  PRs merged, including those currently in draft." Seven landings, each in the slot under the
+  landing-slot contract with the yielding rule (a slot-holder that cannot land inside the
+  quiet window yields to the next PR ready at the tip; ran on #105 and #100): #99 (upstream
+  1.179.0, Altair), #107, #105, #106 (the curator Vanilla lifts Nectar, e1dced, three records
+  PRs from one consolidation), #102 and #101 (Altair), this fold. The merge-bot front door
+  (`merge-bot merge --pr <n> --expect <reviewer>`) is the sanctioned merge from #106 on. The
+  compaction at 19:1xZ killed every session process; the seat re-armed from the brief.
+- **Seat and chain.** Nettle guards Pistil (2de368) holds the Director seat; claim 8109015d.
+  Lanes at the cut: #103 (the Director, next in the slot; the import README's recorded owner
+  authority for the private-origin exports is flagged on the premises), #108 and #110 (Altair,
+  cures held for the slot word), #109 (Vanilla, the front door's liveness-leg fix) and the
+  drain PR from this tip, #100 (the Director; the two blanket deny lines are an owner edit the
+  classifier refuses to the seat — held since 19:2xZ). Owner items held: the upstream report
+  on three routed #99 threads; the App's Actions write permission; the refused fold-wake
+  cron; the repeating gate alert; the #100 edit; the #103 exports flag; a test-file rename.
+
+## 2026-09-10 11:2xZ — THE TEAM'S CLOSEOUT (Nettle guards Pistil, 2de368, Director): every task passed to the Director, analysed and organised at the owner's word
+
+Owner word (2026-09-10 11:1xZ, verbatim): "the rest of the team is closing out, they are passing
+you tasks, you do not necessarily have to pick them up, but do analyse and organise them please
+… this is not session end". Seats closed at the owner's word in their own sessions: Vanilla
+lifts Nectar (e1dced; #117 and #113 landed; #118 handed over; claim closed), Efreet guards
+Patina (ade27f; the directives tier review delivered read-only; no claim ever). Altair spins
+Umbra (05a180) still live on #116 at this writing. The board is computed live, never from this
+record; this section records DISPOSITIONS and HOMES, per `follow-up-registers-need-disposition`
+and `owner-items-are-rederived-never-carried`.
+
+### A. The Director lands these itself (nothing blocks; no fresh context needed)
+
+1. **#118** — the review-legs ruling records PR (docs-only, bot-authored), READY at
+   SHA:2a6f85332 on the tip SHA:94377dac5; legs: the docs-adr-expert review posted
+   (5617471721) and Copilot's round dispositioned; terminal for fix pushes. Recipe: Vanilla's
+   handoff event 219e2b18 (sync only if the tip moved; Copilot POST on the verdict tip as the
+   bot; front door `--expect copilot-pull-request-reviewer`; the worktree `records-e1dced`
+   stays at the head for the landing and is removed under the grant after the ancestry proof).
+   ORDER: AFTER #116 — under a per-tip Copilot leg and a require-up-to-date ruleset, landing
+   anything while the slot holder waits for its bind flips the holder BEHIND, voids its leg,
+   and costs a sync push plus a fresh request: a livelock shape. The holder is never flipped.
+2. **#112** — this coordination branch's fold at the 2026-09-11 UTC rollover by the
+   coordination-fold ceremony (assert `.git/MERGE_HEAD` before any resolution commit; the
+   rotated napkin recipe if the tip rotates it again). No fold wake exists (the classifier
+   refused the one-shot cron); the Director folds by hand.
+
+### B. Lanes that wait for a word or a fresh seat (not picked up now)
+
+3. **The upstream-sync producer** (the owner's added task 09:0xZ): proposals P1–P5 in
+   `.agent/research/upstream-sync-automation-concept-exploration-2026-09-10.md`. Blocked on
+   the owner's two below-the-tree decisions (C.9). Then one code lane: the workflow on
+   `engraph`, a dispatch proof before the schedule, the cross-fork skill's step 1 re-trued.
+4. **The upstream carrier** — executed on 2026-09-10 as the sync of fork `main` at
+   SHA:216e64c15 (release 1.181.1; 33 non-merge upstream commits, 49 with merges, over four
+   releases, not the twelve of the 1.179.1 reading) into `engraph` by the cross-fork skill in the lane worktree
+   `sync-2de368`: the merge, the regenerated content-audit inventory and model-behaviour
+   workspace, the ADR-229 collision (the fork's foundations record is ADR-230), and the
+   premise sweep recorded on the carrier. Nothing waits here.
+5. **Directives tier, step 1 of five** (Efreet's order, smallest first): the cheap defects in
+   one PR with no doctrine change — the eight citations, the dead template path, the stale
+   header, the dangling pattern name, orientation l.24 and l.29, fitness frontmatter on four
+   files, AGENT.md's metacognition trigger line. A FRESH seat under the
+   `directive-file-context-budget` rule (<30% context at the edit); line numbers re-verified
+   against the live tip (they were read at SHA:064f42093). Read of the lane's opening: Efreet's
+   read-only ruling was that seat's; the owner's "pass the lane to the Director" opens step 1
+   for scheduling; steps 2–5 wait on the owner's decisions in C.8. Findings conserved verbatim:
+   `.agent/research/directives-tier-review-2026-09-10-efreet-findings.md`.
+6. **Altair's follow-ups from #116** (pointers, not specs; Altair's record names them): the
+   policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
+   `rm -rf` entry also blocks `pnpm rm -r --force <pkg>`; the wrapper-operand shape
+   `xargs -a git rm -rf`); the table-drift net (an on-demand script diffing `git help <cmd>`
+   against the argv tables). Home: the hook-policy work's plan node (Altair's record and #116's
+   body name it); no lane until a seat is allocated (the matcher landed at SHA:002860f46).
+   Altair's two candidates ride the same home: a timing-growth probe as a repo instrument
+   beside the matcher (two sizes and a ratio, never an absolute — a fast machine hides a
+   quadratic), and "the landing mechanic" as a named class in pr-lifecycle's merge boundary
+   (one vendor request on the verdict tip; its findings replies-only).
+7. **#100** — the Director's no-prompts fix at its second step-back; the split cure is in the
+   worktree `no-prompts` and the scratchpad; the two blanket deny lines are the OWNER's edit
+   (C.10). Nothing moves until then.
+
+### C. The owner's decisions (routed as questions, never decided here)
+
+8. **Directives placement** (from Efreet): whether `cloud-environment-routing` and
+   `editorial-tone` move to the rules tier under situational triggers; whether
+   `validation-strategy` is a stub, a directive, or a decision record; and the queued
+   principles.md fitness decision that gates its stance/contract separation (graduation
+   downward, never trimming).
+9. **Upstream sync**: the bot app's private key into the fork's Actions secrets (custody: the
+   key lives only on the owner's machine today) and the `UPSTREAM_SYNC_ENABLED` variable; and
+   retiring the Codex OCE task as producer once the workflow runs (two producers = the
+   duplicate-carrier defect).
+10. **#100**: the two blanket deny lines `Bash(git reset:*)` and `Bash(git revert:*)` replacing
+    the nine targeted entries — the classifier refused the seat three times; or the word "sed it".
+11. **A retrospective on the merge train's arc** (Vanilla's offer at 07:1xZ and 11:1xZ; the
+    Director concurs): nineteen landings in one Director tenure, the review-tail lessons, the
+    ruling's first proofs. Routed, never auto-run.
+12. Held owner items from the record, unchanged: (a) the upstream report of three routed #99
+    findings (the fork never writes upstream); (b) the App cannot re-run workflow jobs; (c) the
+    fold-wake cron refused by the classifier; (d) the external-skills-library gate alert
+    repeats; (f) #103's private-origin exports on the recorded authority; (g) the
+    `state-gh.unit.test.ts` rename.
+
+### D. Signals, closed here with a named home (no lane)
+
+13. The SHARED ESLint ignore `**/tsup.config.*` hides hand-written tsup config modules from
+    lint (the #117 config-expert finding): a row on the quality-gate-ledger node; a
+    config-expert-reviewed PR at the generator when a seat is there.
+14. The front door verifies only the declared vendor legs (`computeReviewerLegs` reads the
+    `--expect` logins; an empty set is refused): the subagent leg is the seat's recomputation on
+    the premises, invisible to the tool. #118 names the predicate beside the rule; the
+    machine-checked subagent-leg input is a watch-commands node row for slice 1's owner.
+15. A subagent review leg on the SAME model as the author is weaker decorrelation than a second
+    vendor (Efreet's own caveat about five lenses on one model applies to every adversarial leg
+    this window). The ruling stands — the leg counts — and its weight is a fact for the promise
+    column, not a reason to wait.
+
+### E. Closed this window
+
+The Codex leg question (the owner's ruling and #118); the tsup transient-lint flake for the two
+self-bootstrap configs (#117); the review-run liveness leg (#113); the crossed-push lesson and
+the pathspec-of-untracked lesson (napkin WRAP 8).
+
+### F. The worktree safety sweep (owner word 2026-09-10 11:5xZ: "No work is considered safe until it has been committed and pushed and is in a PR, draft PRs are acceptable. Please scan all worktrees")
+
+Forty-one worktrees scanned (`git worktree list --porcelain`; per worktree: dirty files, the
+remote branch, exclusive commits against `origin/engraph` tested by `git cherry` for patch
+equivalence, the pull request by head branch). Thirty-one were safe (clean, every commit on the
+tip, or an open pull request already). Ten were unsafe; the procedure is now the runbook node
+`worktree-safety-sweep` (sketch). Outcomes, each as a draft unless named otherwise:
+
+| Worktree | Branch | Held | Outcome |
+| --- | --- | --- | --- |
+| no-prompts | fix/unattended-seats-never-prompt-2026-09-09 | the #100 split cure, uncommitted | committed SHA:d08ab1af8, pushed to #100 |
+| pr-943-engraph | chore/continuity-kiln-2026-09-02 | four kiln-session records of 2026-09-02, staged | SHA:f9d423bdc; draft #124 (two bare URLs wrapped for MD034) |
+| design-plan-truings | jimcresswell/design-plan-ratification-and-truings | one report of 2026-08-05, staged | SHA:4e030a535; draft #119 |
+| fix-pnpm-path | jimcresswell/jim-next-2026-08-04 | one commit, the jim-next return map | pushed; draft #120 |
+| pr-888-cure | docs/windows-via-wsl | four README commits, Windows via WSL | pushed; draft #121 |
+| w01-census | jimcresswell/design-w01-census | one commit, the W0.1 census artefacts | pushed; draft #122 |
+| pr-891-macos-validation | claude/objective-nightingale-b4ba25 | fifteen windows-support commits + an untracked runner | SHA:5dd76c612; draft #123 |
+| mcp-567-vendor-symlinks | jimcresswell/mcp-567-vendor-skill-symlinks | one modified integration test (MCP-567) | REFUSED by the pre-commit gate: six of its cases fail on that tree; patch conserved |
+| vitest-config-workspace | jimcresswell/vitest-config-workspace | two staged eslint config changes | REFUSED by the pre-commit gate: the relative-packages error fires in three workspaces; patch conserved |
+| mcp-487-sanitise | jimcresswell/mcp-487-sanitise-numeric-input | one commit (MCP-487), local only | REFUSED by the pre-push validators (the MCP content-source validator fails on that August tree); format-patch conserved |
+
+The three refusals are NOT safe by the owner's definition. Their diffs are conserved as patch
+files beside the Director's seat record (`instruments-2de368/refused-*.patch`, machine-local) —
+recoverable, not yet on the remote. The bypass (`--no-verify`) needs fresh owner authorisation
+(`no-verify-requires-fresh-authorisation`); the alternative safe home is a fresh branch off the
+tip carrying the same diff as a commit whose gate can pass (the MCP-567 test needs the current
+adapter code; the eslint change needs its three workspaces' cures; the MCP-487 change needs
+re-basing onto the current sdk-codegen surface) — each a small lane, not a sweep step. The
+owner's word decides which.
+
+Every draft opened by the sweep carries a body naming what it holds and the disposition to
+decide at pickup (land, semantic merge, or close with the landing named); none is a request to
+merge as it stands. The board after the sweep: #100, #112, #118 (the Director's landing in
+flight), and the six drafts #119–#124.
+
+### G. The owner's rulings on the three refused items, and the worktree removal (2026-09-10 12:5xZ–13:2xZ)
+
+Owner words (verbatim): "567 we can drop"; "the eslint enhancement we should land"; "487 sounds
+like it should merge, but only with ironclad local proof that it does not break the relevant MCP
+operations"; "Once all work is safe, remove all of the worktrees except the primary checkout";
+"on the auto sync with the upstream, we need two. One to automatically sync the upstream main to
+our fork main, and one to create PRs from our main to our engraph."
+
+- MCP-567: dropped; its patch discarded with the worktree; the test file restored to its tree's
+  HEAD before removal.
+- The eslint enhancement: lane `fix/eslint-tsup-ignore-relative-packages-2026-09-10` cut from
+  the tip (SHA:2bc77f840), the patch applied clean, the full pre-commit gate green (the six
+  relative imports the August tree flagged already import the workspace-config package on the
+  tip), draft **#125**; config-expert leg APPROVE WITH FINDINGS (five: two cured in the
+  follow-on push, three routed to `workspace-config-isolation.plan.md` §Review dispositions).
+- MCP-487: lane `fix/mcp-487-string-encoded-numbers-2026-09-10` from the tip; the August commit
+  applied with `git am -3` (two content-audit surfaces taken from the tip by `git show`, never
+  a destructive checkout); the generator's output equals the patch's generated files
+  (`pnpm sdk-codegen` left a clean tree); proof recorded on draft **#126**: sdk-codegen 102
+  files / 1064 tests, the nine-case unit test on the real generated schema, the served-boundary
+  e2e with the stub executor (9/9), the MCP server's unit (1226) and e2e (140) suites, the served
+  JSON schema unchanged (`number`, `maximum 300`), the content audit re-attested at the six new
+  semantic hashes with the anchors refreshed and `validate-current-source: OK (728)`. Code-expert
+  and security-expert legs dispatched; Copilot on the final tip; front door after.
+- The upstream producer is TWO delivery nodes (sketch): `upstream-mirror-workflow` and
+  `upstream-carrier-workflow`; the exploration record carries the ruling as an addendum;
+  `mcp-487-string-encoded-numbers` is the third node (SHA:44c3166f0).
+- Worktrees: thirty-nine removed under the owner's word by `git worktree remove` without force after
+  each read clean (the two dirty ones restored to HEAD by writing tracked content first);
+  registrations pruned. Three remain: the primary and the two live lanes, which go at their
+  landings. The `.claude/worktrees/*` platform-managed set was included on the owner's explicit
+  word of this day, which supersedes the July prune policy's exclusion for this instance.
+
+### H. The two lanes landed (2026-09-10 12:5xZ–13:1xZ)
+
+- **#125** LANDED SHA:26dbc8eaf — the eslint enhancement; config-expert leg (five findings: two
+  cured in f80698062, three routed to `workspace-config-isolation.plan.md`); Copilot on the tip.
+- **#126** LANDED SHA:f3a839a8f — MCP-487 with the owner's proof bar met: both adversarial legs
+  (security-expert, code-expert) found the same real defect beneath their P1s — metadata chained
+  outside the `z.preprocess` wrapper is dropped by the server's `io: 'input'` conversion, so the
+  served `tools/list` had lost twelve authored examples while the August record denied it —
+  cured in one class-fix push 224bbe822 with nine smaller cures; five findings routed to the plan
+  node `mcp-487-string-encoded-numbers` §Review dispositions (the nine hand-written numeric
+  params, spec-declared bounds, `.int()` for integer types, the e2e taxonomy, numeric enums);
+  the sync 8ea154cfa; Copilot's one thread replied with first-hand facts and resolved.
+- Twenty-three landings this tenure. Worktrees: the primary checkout alone. Open: #100, #112
+  (fold at the rollover), the six safety drafts #119–#124.
+
+### I. The safety drafts dispositioned first-hand (2026-09-10 13:2xZ–13:4xZ)
+
+Each of the six drafts checked by PATH against the tip (`git cat-file -e`, `git cherry`), never
+by name search — the lesson of #119:
+
+- **#119** CLOSED as overtaken: the capability-floor report landed through #783 and was revised
+  three times; the staged copy equals the first landed version. (The Director's first
+  disposition said "land" from a name search that matched the citing files; corrected on the PR.)
+- **#124** CLOSED as overtaken: all four kiln records reached the tip by the kiln session's own
+  later commits (the letter's day-two text, the MCP-655 COMPLETE thread section, the continuity
+  facts, the napkin block in the 2026-09-02 archive).
+- **#122** (the W0.1 census artefacts, absent by path): synced, docs-adr-expert leg (one MAJOR —
+  no status header on a plan whose gates were ruled and whose governing plan is archived —
+  cured with a dated-historical-artefact block; renamed with the date suffix; the archived plan
+  named; the design thread record points at both), Copilot on the tip, front door running.
+- **#121** (the Windows-via-WSL README path, absent by path and word): synced, docs-adr-expert
+  and onboarding-expert legs (the Go install fallback named the wrong module path — cured via
+  CONTRIBUTING §5; the pnpm prerequisite asserted the corepack route the hooks cannot resolve —
+  re-trued at its home for every platform; `gh` added; Windows readers routed from the top of
+  Prerequisites; per-step checks; the Linux home; exported caps), three follow-ups routed to
+  `cross-platform-research.plan.md` §Review dispositions, Copilot on the tip, front door running.
+- **#120** (the owner's jim-next return map) and **#123** (the windows changeset: fifteen commits,
+  146 files, no patch-equivalent on `engraph` or upstream `main`; a re-implementation lane, not a
+  sync) hold for the owner's word, dispositions posted on each.
+
+### J. The two docs drafts landed (2026-09-10 13:4xZ–14:1xZ)
+
+- **#121** LANDED SHA:db87442d4 — the Windows-via-WSL README path, re-trued by the
+  docs-adr-expert and onboarding-expert legs and two Copilot threads across three cure pushes
+  (the Go install fallback's module path; the pnpm prerequisite at its home for every platform;
+  `gh`; Windows readers routed from Prerequisites; per-step checks; the Linux home and exported
+  caps; never re-point `PNPM_HOME`; Playwright browsers for the pre-push hook). Three follow-ups
+  on `cross-platform-research.plan.md` §Review dispositions.
+- **#122** LANDED SHA:190787e6f — the W0.1 census artefacts as dated historical reports
+  (`w01-census-cycle-plan-v2-2026-08-19.md`, `w01-census-types-scaffold-2026-08-19.md`), the
+  archived plan named, the design-system-integration thread record pointing at both with the
+  provenance review note. Two further Copilot design findings on the preserved scaffold
+  (`grantedAgainst` optional on every disposition; no ledger arm for the seven hardcoded
+  rotation instances) are recorded here for any re-sanctioned cycle — replies-only on the PR.
+- Twenty-five landings this tenure. The primary checkout is the only worktree. Open: #100 (the
+  owner's two settings lines), #112 (fold at the rollover), #120 and #123 (owner decisions,
+  dispositions posted on each).

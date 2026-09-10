@@ -219,7 +219,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   (eight-workspace graph topology — seven active plus one deferred —
   with RDF 1.2-native internals, standards-based wire projection,
   and standards-evolution tripwires; Accepted 2026-05-11;
-  implementation-origin scope refined by ADR-229, 2026-09-08)
+  implementation-origin scope refined by ADR-230, 2026-09-08)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](174-dependency-vulnerability-scanning-quality-gate.md)
   (dependency vulnerability triage, blocking/disposition policy,
   Dependabot/override governance, and relationship to quality gates;
@@ -491,7 +491,19 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
   tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
   branch derived, never a literal)
-- [ADR-229: Own-built algorithm and data-structure foundations](229-own-built-algorithm-and-data-structure-foundations.md)
+- [ADR-229: The MCP app stays a legacy-era `2025-11-25` server until the SDK v2 package family is adopted](229-mcp-protocol-revision-legacy-era-until-sdk-v2.md)
+  ← **Proposed** (2026-09-09; the revision posture MCP-644 asked to have scoped: `2026-07-28` is current
+  and makes `server/discover` mandatory for modern-era servers, but `@modelcontextprotocol/sdk@1.x`
+  tops out at `2025-11-25` and will never gain it, so the migration target is the
+  `@modelcontextprotocol/server@2.x` family, which MUST be dual-era and never modern-only because
+  legacy clients have no fall-forward mechanism; a `server/discover` handler on the current line is
+  unreachable behind the transport's version check, and the present refusal code is load-bearing for
+  spec-literal dual-era client fallback because it sits in the spec's legacy error sub-range.
+  **Records an unresolved conflict with ADR-122**, which is Accepted and decides the transport's
+  `Origin` MUST the other way: ADR-122's compensating auth-layer Host check does not run when
+  `CANONICAL_HOST` is set, as it is in production, so MCP-650 is an amendment to ADR-122 rather
+  than a fresh gap. ADR-229 states the conflict and does not settle it)
+- [ADR-230: Own-built algorithm and data-structure foundations](230-own-built-algorithm-and-data-structure-foundations.md)
   (Accepted by owner direction 2026-09-08; graph and non-graph algorithms and
   data structures authored as SMALL Reliable Atoms and meaningful compositions,
   informed by openly licensed references and independently qualified;
@@ -518,13 +530,13 @@ For understanding the foundations and their boundaries:
 
 - **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
 - **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
-- **[ADR-229](229-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
+- **[ADR-230](230-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
 
 For understanding authentication, authorization, and observability:
 
 - **[ADR-052](052-oauth-2.1-for-mcp-http-authentication.md)** - OAuth 2.1 for MCP HTTP server authentication
 - **[ADR-053](053-clerk-as-identity-provider.md)** - Clerk as Identity Provider and Authorization Server
-- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk; amended 2026-07-26 — transparency scoped against advertised-AS request validation)
+- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk with recorded, dated exceptions; see the ADR's Status block)
 - **[ADR-143](143-coherent-structured-fan-out-for-observability.md)** - Coherent structured fan-out for the Sentry and OpenTelemetry foundation (§6 superseded in part by ADR-160)
 - **[ADR-158](158-multi-layer-security-and-rate-limiting.md)** - Multi-layer security architecture and application rate limiting ← **Superseded by [ADR-219](219-rate-limiting-is-an-edge-concern.md)**
 - **[ADR-219](219-rate-limiting-is-an-edge-concern.md)** - Rate limiting is an edge concern

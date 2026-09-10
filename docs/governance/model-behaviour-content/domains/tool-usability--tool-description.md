@@ -247,23 +247,10 @@ Returns the key vocabulary for one teaching context: a bounded, frequency-ranked
 **What it says now:**
 
 ```text
-description: `Returns the misconceptions (with teacher responses) addressed by the anchor you name.
+- unitSlugs: the core anchor; each unit returns every placed lesson with its misconceptions, in Oak's authored teaching order
 
-Misconceptions are extracted per lesson from the Oak curriculum and reached through the thread → unit → lesson → misconception chain. Every call is anchored — exactly ONE of:
-- lessonSlugs: the leaf anchor; each lesson carries at most two misconceptions.
-- unitSlugs: the core anchor; each unit returns every placed lesson with its misconceptions (typical bodies 2–11 KB per unit).
-- threadSlug (+ optional unitOffset/unitLimit): a unit-granular window over one thread, default ${String(DEFAULT_THREAD_UNIT_LIMIT)} units per page (maximum ${String(MAX_THREAD_UNIT_LIMIT)}), with totalUnits and hasMore reported so partial coverage is always visible. unitOffset/unitLimit are valid ONLY with threadSlug — combining them with lessonSlugs or unitSlugs is rejected.
-
-Slugs are corpus keys — resolve them first with search, fetch, or browse-curriculum. Unknown slugs are reported in the result's unknownAnchors, not errored.
-
-Coverage honesty: some units belong to no thread (unit entries carry threadSlugs membership; an empty list marks a thread-unreachable unit), so thread-anchored results are thread-scoped and never subject-complete.
-
-Use this to answer questions like:
-- "What misconceptions should I anticipate in this lesson?" (anchor: that lesson's slug)
-- "Which misconceptions does this unit address across its lessons?"
+Ordering is a deterministic projection of Oak's authored order, not a single global sequence.
 ```
-
-*Shown in part only — read the full text in the source file below.*
 
 **What it is for:** Explains the thread→unit→lesson→misconception chain, the exactly-one-anchor rule, per-anchor body sizes, coverage honesty (thread-scoped never subject-complete), and example questions.
 
@@ -271,7 +258,7 @@ Use this to answer questions like:
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
 
 ### C247 — GET\_PRIOR\_KNOWLEDGE\_GRAPH\_TOOL\_DEF.description

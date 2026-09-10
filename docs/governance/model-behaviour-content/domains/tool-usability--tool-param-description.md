@@ -772,7 +772,7 @@ Lesson anchor: lesson slugs (corpus keys). Each lesson carries at most two misco
 **What it says now:**
 
 ```text
-Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesson
+Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesson and its misconceptions, in Oak’s authored teaching order.
 ```
 
 **What it is for:** Defines the unit anchor returning every placed lesson with misconceptions.
@@ -788,7 +788,7 @@ Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesso
 **What it says now:**
 
 ```text
-Thread anchor: one thread slug (corpus key). Returns a unit-granular window
+Thread anchor: one thread slug (corpus key). Returns a unit-granular window over the thread in Oak’s curriculum order,
 ```
 
 **What it is for:** Defines the thread anchor with unit-granular windowed coverage and honest totals.

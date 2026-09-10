@@ -43,7 +43,7 @@ block in the ADR index:
   The [general pattern](../foundation/cost-of-change-gradient.md) also applies
   across human-agent systems, inquiry, and the Practice.
 - Algorithm and data-structure foundations (a documented direction; no
-  implementation has landed yet): [ADR-229](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+  implementation has landed yet): [ADR-230](./architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md)
   records the owner-established direction to author SMALL Reliable Atoms and
   meaningful compositions, informed by openly licensed references. The
   [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
@@ -85,7 +85,7 @@ block in the ADR index:
 - [ADR-040: Transition to Neutral Architecture and Allowlist Identity Check](./architectural-decisions/040-neutral-architecture-and-identity-allowlist.md)
 - [ADR-041: Workspace Structure Option A Adopted](./architectural-decisions/041-workspace-structure-option-a.md)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](./architectural-decisions/174-dependency-vulnerability-scanning-quality-gate.md)
-- [ADR-229: Own-built Algorithm and Data-structure Foundations](./architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+- [ADR-230: Own-built Algorithm and Data-structure Foundations](./architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md)
 - [All ADRs](./architectural-decisions/) - Complete decision record (historical ADRs preserved)
 
 ## Related Agent Guidance
