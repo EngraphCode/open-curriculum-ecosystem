@@ -61,12 +61,10 @@ function isUnitNodeId(id: GraphCorpusNodeId): id is GraphCorpusUnitNodeId {
  * land within 0.06 percentage points; `min` was chosen on explicability, and
  * `first-seen` rejected as dependent on file enumeration order.
  *
- * One dependency worth naming: `extractUnitLessons` backfills a missing
- * `lessonOrder` with the lesson's index in the bulk array, so a position that
- * reaches here is not always an authored one. That fallback is inert on the
- * 2026-09-03 snapshot (0 of 16,741 rows lack an order) but it is the same
- * file-order dependence this section's sort key deliberately avoids, so if it
- * ever fires the position it supplies is positional, not authored.
+ * Every position that reaches here is authored: `extractUnitLessons` reads
+ * `lessonOrder` as a schema-required number under a strict parse, so a missing
+ * or non-numeric order is a boundary rejection, never a silent fallback to
+ * array index.
  */
 function buildAuthoredPositions(
   unitLessons: readonly ExtractedUnitLessons[],
@@ -114,12 +112,14 @@ function collectPlacements(
 export interface UnitLessonRunBuild {
   readonly runs: readonly GraphCorpusUnitLessonRun[];
   /**
-   * Units whose lessons carry NO authored position at all, because the unit
-   * appears in no `unitLessons` listing. Their run falls back to lesson-id
-   * order — the very failure this section exists to remove — so the count is
-   * emitted as a stat rather than left silent. Zero on the 2026-09-03
-   * snapshot; a non-zero value means upstream dropped a unit from its
-   * programme listings while its lessons survived.
+   * Units whose run carries NO authored position for any of its lessons, so
+   * the run falls back to lesson-id order — the very failure this section
+   * exists to remove — counted as a stat rather than left silent. Two causes
+   * reach it: the unit appears in no `unitLessons` listing at all, or it has a
+   * listing but none of the lessons it names are in the emitted run (the
+   * listing and the `containsLesson` edge set do not overlap). Zero on the
+   * 2026-09-03 snapshot; a non-zero value is one of those two, both upstream
+   * data-shape signals, not a fault in this builder.
    */
   readonly unitsWithoutAuthoredLessonOrder: number;
 }

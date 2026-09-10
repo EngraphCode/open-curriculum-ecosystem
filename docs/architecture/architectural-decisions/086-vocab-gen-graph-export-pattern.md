@@ -87,7 +87,7 @@
 >   so its `totalUnits` counts distinct units where the progression views
 >   count placements) and lists a unit's lessons from `unitLessonRuns`.
 >   Measured over HTTP on the same snapshot: 1,484 of 1,484 units with three
->   or more lessons serve their authored run, 0 of 17 multi-subject threads
+>   or more lessons serve their authored run, 0 of 21 multi-subject threads
 >   interleave, and the served lesson order agrees with the live API for every
 >   comparable pair in a 96-unit, 16-subject sample (3,014 pairs). The
 >   residual 0.13% against the bulk's programme variants is the variant merge
