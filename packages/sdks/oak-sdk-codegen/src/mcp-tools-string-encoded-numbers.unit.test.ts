@@ -41,4 +41,10 @@ describe('string-encoded numbers at the MCP boundary (MCP-487)', () => {
   it('normalises offset the same way', () => {
     expect(toolMcpFlatInputSchema.parse({ offset: '40' }).offset).toBe(40);
   });
+
+  it('leaves a digit string that overflows to a non-finite number as the string it was', () => {
+    const result = toolMcpFlatInputSchema.safeParse({ limit: '9'.repeat(400) });
+    expect(result.success).toBe(false);
+    expect(JSON.stringify(result.error?.issues)).toContain('received string');
+  });
 });

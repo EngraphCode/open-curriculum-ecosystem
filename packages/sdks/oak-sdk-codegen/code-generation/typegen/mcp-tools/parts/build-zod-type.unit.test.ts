@@ -6,7 +6,7 @@ import type { ParamMetadata } from './param-metadata.js';
  * MCP-487 — flat numeric params are wrapped so a string-encoded number from a
  * real MCP client is accepted, without relaxing the bound inside.
  */
-const FLAT_NUMERIC_GUARD = String.raw`z.preprocess((val) => typeof val === 'string' && /^-?\d+(\.\d+)?$/.test(val) ? Number(val) : val, `;
+const FLAT_NUMERIC_GUARD = String.raw`z.preprocess((val) => typeof val === 'string' && /^-?\d+(\.\d+)?$/.test(val) && Number.isFinite(Number(val)) ? Number(val) : val, `;
 
 /**
  * Unit tests for buildZodType and buildZodFields functions.
@@ -210,7 +210,7 @@ describe('buildZodType', () => {
         example: 50,
       };
       expect(buildZodType(meta, 'offset', 'flat')).toBe(
-        `${FLAT_NUMERIC_GUARD}z.number()).describe("Offset for pagination").meta({ examples: [50] })`,
+        `${FLAT_NUMERIC_GUARD}z.number().describe("Offset for pagination").meta({ examples: [50] }))`,
       );
     });
 
@@ -302,7 +302,7 @@ describe('buildZodType', () => {
         maximum: 300,
       };
       expect(buildZodType(meta, 'limit', 'flat')).toBe(
-        `${FLAT_NUMERIC_GUARD}z.number().lte(300)).describe("Limit the number of keywords").meta({ examples: [20] })`,
+        `${FLAT_NUMERIC_GUARD}z.number().lte(300).describe("Limit the number of keywords").meta({ examples: [20] }))`,
       );
     });
 
@@ -484,40 +484,9 @@ describe('buildZodFields', () => {
  * string genuinely is a defect and should fail loudly.
  */
 describe('buildZodType — numeric input sanitising for MCP clients (MCP-487)', () => {
-  const NUMERIC_STRING_GUARD = FLAT_NUMERIC_GUARD;
-
-  it('wraps a plain numeric flat parameter so a string-encoded number is accepted', () => {
-    const meta: ParamMetadata = {
-      typePrimitive: 'number',
-      valueConstraint: false,
-      required: false,
-    };
-    expect(buildZodType(meta, 'offset', 'flat')).toBe(`${NUMERIC_STRING_GUARD}z.number())`);
-  });
-
-  it('keeps the bound INSIDE the wrapper, so a coerced value is still range-checked', () => {
-    const meta: ParamMetadata = {
-      typePrimitive: 'number',
-      valueConstraint: false,
-      required: false,
-      maximum: 300,
-    };
-    expect(buildZodType(meta, 'limit', 'flat')).toBe(`${NUMERIC_STRING_GUARD}z.number().lte(300))`);
-  });
-
-  it('chains .describe() and .meta() outside the wrapper', () => {
-    const meta: ParamMetadata = {
-      typePrimitive: 'number',
-      valueConstraint: false,
-      required: false,
-      description: 'Limit the number of keywords',
-      example: 20,
-      maximum: 300,
-    };
-    expect(buildZodType(meta, 'limit', 'flat')).toBe(
-      `${NUMERIC_STRING_GUARD}z.number().lte(300)).describe("Limit the number of keywords").meta({ examples: [20] })`,
-    );
-  });
+  // The wrapper's own shape (guard, bound inside, description and examples inside) is pinned
+  // once in the numeric range-constraint tests above; this block keeps only the cases those
+  // do not cover.
 
   it('leaves the nested SDK schema strict — a string there is a real defect', () => {
     const meta: ParamMetadata = {
