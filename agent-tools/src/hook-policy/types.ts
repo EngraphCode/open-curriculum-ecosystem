@@ -136,13 +136,32 @@ export type ContentDenyInput =
     };
 
 /**
+ * The known Bash-guard match kinds — the single source both the runtime
+ * schema and the commit-time known-kind enforcement consume, so the two can
+ * never drift (a kind known to the enforcement but not the schema would
+ * degrade entries silently in production while the enforcement test passed).
+ */
+export const BLOCKED_PATTERN_MATCH_KINDS = [
+  'token-subsequence',
+  'substring',
+  'regex',
+  'argv',
+] as const;
+
+/**
  * Zod schema for the object arm of a blocked Bash-command policy entry: a
  * `pattern` (matched as a token subsequence by default; as a case-insensitive
  * substring when `match: 'substring'` — needed for shapes that hide inside one
  * quoted token, e.g. inline busy-loops; or as a case-insensitive regular
  * expression over the raw command when `match: 'regex'` — needed when a
  * whitespace-stripped substring would collide with unrelated tokens, e.g. a
- * command-plus-flag fingerprint that must anchor on a token boundary) plus
+ * command-plus-flag fingerprint that must anchor on a token boundary; or by
+ * PARSED arguments when `match: 'argv'` — the pattern names a command, its
+ * subcommand and the options the invocation must carry, and the matcher
+ * resolves the invocation's flags the way the command's own parser does, so
+ * `git reset --hard` matches `--h`, `--ha`, the flag after the commit, and
+ * `rm -rf` matches every split, clustered, capitalised or long spelling of a
+ * forced recursive removal) plus
  * optional doctrine metadata surfaced in the deny payload —
  * - `citation` — the doctrinal anchor (the rule, principle, ADR, or PDR);
  * - `concept` — the pattern family the command is a fingerprint of (e.g.
@@ -161,14 +180,6 @@ export type ContentDenyInput =
  * deny builder defaults a generic reappraisal if one is ever absent.
  * `.readonly()` derives the readonly contract on the entry.
  */
-/**
- * The known Bash-guard match kinds — the single source both the runtime
- * schema and the commit-time known-kind enforcement consume, so the two can
- * never drift (a kind known to the enforcement but not the schema would
- * degrade entries silently in production while the enforcement test passed).
- */
-export const BLOCKED_PATTERN_MATCH_KINDS = ['token-subsequence', 'substring', 'regex'] as const;
-
 const BlockedPatternEntrySchema = z
   .object({
     // min(1): an empty pattern would match every command (substring mode

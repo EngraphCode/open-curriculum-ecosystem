@@ -61,6 +61,72 @@ Failure semantics:
   changing canonical intent
 - `block` — the runtime or validator rejects an unsafe or incoherent state
 
+## Bash guard: four match kinds
+
+`preToolUse.blocked_patterns` guards Bash commands. Each entry names a
+`pattern` and, optionally, how it matches (`match`):
+
+- `token-subsequence` (the default) — the pattern's tokens appear in order
+  among the command's tokens, so `git push --force` catches
+  `git push origin HEAD --force`.
+- `substring` — a whitespace-stripped, case-insensitive substring, for shapes
+  that hide inside one quoted token (an inline busy-loop).
+- `regex` — a case-insensitive regular expression over the raw command, for
+  fingerprints that must anchor on a token boundary.
+- `argv` — the invocation's PARSED options: the pattern names a command, its
+  subcommand and the options the invocation must carry (`git reset --hard`,
+  `git worktree remove --force`, `rm -rf`), and the matcher resolves the
+  invocation's flags the way the command's own parser does — a long option by
+  exact name or unique prefix (`--h` is `--hard`; `--m` is ambiguous and
+  selects nothing), short flags split or clustered in either case (`-r -f`,
+  `-Rf`, `-rvf`), a spelling that stands for two options met on the same set
+  (`git branch -D` is `--delete --force`), an option value never read as a
+  flag (`-Skey` is one option; `-e pattern` takes its word), a later option
+  cancelling the one it overrides (a forced removal followed by the
+  interactive flag is interactive), options in any position, nothing after
+  `--`. One `argv` entry therefore names a destructive MODE rather than
+  one spelling of it; the option tables live beside the matcher in
+  `agent-tools/src/hook-policy/`, and a pattern the tables cannot parse fails
+  the canonical-policy test at commit time rather than matching nothing in
+  production.
+
+  What `argv` sees: the words as the command receives them (quotes removed,
+  so `rm '-rf'` is a forced removal and `"rm -rf"` is one word that invokes
+  nothing; the ANSI-C `$'…'` form is a quote whose escapes are decoded; a
+  backslash-newline continues the line); one shell segment at a time
+  (`&&`, `||`, `|`, `;`, `&`, newline, a bare parenthesis — so a function
+  body and a brace group on their own lines are read, while a here-document
+  body is the command's data and is dropped, except the substitutions the
+  shell runs in a body whose delimiter is unquoted); the
+  first few words in a segment whose basename is the command, in any
+  position (`/bin/rm`, `sudo rm`, `xargs rm`, `find -exec rm`, `env -i rm`;
+  a `.exe` or `.cmd` suffix and a backslash path name the same command),
+  except a word that is another known command's own subcommand (`git rm`
+  removes from the index, not `rm`);
+  a command substitution's body, unquoted or double-quoted (`OUT="$(…)"`,
+  balanced past quoted parentheses), and the script a shell interpreter is
+  given (the `-c` operand of the sh-like shells, every operand of `eval` and
+  `ssh`; quoted, escaped or ANSI-C quoted, however many words precede the
+  interpreter — a path handed to `bash` without `-c` is a file) as nested
+  commands, two levels deep; a comment dropped. What it does not see, by design:
+  variable, tilde and brace expansion (`rm $FLAGS dir`), aliases, shell
+  functions and git config aliases, a script on stdin, nesting past two
+  levels, and any other command with the same effect (`find -delete`, a
+  scripting language, `rimraf`). A stale built guard degrades an `argv`
+  entry to its literal spelling under the default mode until the rebuild,
+  the same window every match kind has. The guard's promise is PDR-044's
+  innate immunity — fast, broad accident prevention that "never silently
+  misses a known pathogen" — not resistance to a bypass sought on purpose; a
+  seat that wants a destructive effect and hides it behind an expansion has
+  left the class the guard exists for. The host treats a hook timeout as an
+  allow, so matching is linear in the command line: its cost is never
+  driven by the input it judges. Adoption prices each entry's false
+  positives (PDR-044 licenses them): an `rm -rf` entry also blocks
+  `pnpm rm -r --force <pkg>`, a real package-manager command.
+
+The three string kinds stay beside `argv`; which entries move onto it is a
+policy decision taken entry by entry.
+
 ## Content guard: concept-grouped doctrine blocks
 
 `preToolUseContent` guards Edit/Write content. It has two surfaces:
