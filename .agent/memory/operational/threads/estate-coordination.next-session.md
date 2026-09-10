@@ -1894,3 +1894,21 @@ by name search — the lesson of #119:
 - **#120** (the owner's jim-next return map) and **#123** (the windows changeset: fifteen commits,
   146 files, no patch-equivalent on `engraph` or upstream `main`; a re-implementation lane, not a
   sync) hold for the owner's word, dispositions posted on each.
+
+### J. The two docs drafts landed (2026-09-10 13:4xZ–14:1xZ)
+
+- **#121** LANDED SHA:db87442d4 — the Windows-via-WSL README path, re-trued by the
+  docs-adr-expert and onboarding-expert legs and two Copilot threads across three cure pushes
+  (the Go install fallback's module path; the pnpm prerequisite at its home for every platform;
+  `gh`; Windows readers routed from Prerequisites; per-step checks; the Linux home and exported
+  caps; never re-point `PNPM_HOME`; Playwright browsers for the pre-push hook). Three follow-ups
+  on `cross-platform-research.plan.md` §Review dispositions.
+- **#122** LANDED SHA:190787e6f — the W0.1 census artefacts as dated historical reports
+  (`w01-census-cycle-plan-v2-2026-08-19.md`, `w01-census-types-scaffold-2026-08-19.md`), the
+  archived plan named, the design-system-integration thread record pointing at both with the
+  provenance review note. Two further Copilot design findings on the preserved scaffold
+  (`grantedAgainst` optional on every disposition; no ledger arm for the seven hardcoded
+  rotation instances) are recorded here for any re-sanctioned cycle — replies-only on the PR.
+- Twenty-five landings this tenure. The primary checkout is the only worktree. Open: #100 (the
+  owner's two settings lines), #112 (fold at the rollover), #120 and #123 (owner decisions,
+  dispositions posted on each).

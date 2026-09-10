@@ -687,3 +687,12 @@ goes at #126's landing).
   right (safety first, merit later), and the merit pass is cheap when done by path.
 - #122 (census artefacts, absent by path) and #121 (WSL docs, absent by path and word) are
   syncing to the tip with their review legs dispatched; #120 and #123 are the owner's.
+- #121 LANDED SHA:db87442d4 (twenty-four): the WSL README path re-trued by two subagent legs and
+  two Copilot threads across three cure pushes. Two of the cures corrected MY OWN earlier cure:
+  the `PNPM_HOME` escape I wrote into the pnpm prerequisite contradicted the pnpm-store rule
+  the estate already carried (`set-up-worktree-lane`). Lesson: when a leg hands me a fix
+  sentence, read the rule it touches before pasting it — a reviewer's wording is a proposal.
+- #122's second Copilot round produced two design findings against a preserved, unsanctioned
+  artefact; replies-only with one named home (the design thread's pointer note at the next
+  records pass), no third cure push. The geometric tail on a historical artefact is the clearest
+  case for the replies-only bound: nothing landable changes by re-authoring history.
