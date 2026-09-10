@@ -77,8 +77,13 @@ Author entries below per the header; the next rotation reads this block as its m
 
 Two threads the window opened after the homes landed, recorded here because their records are
 elsewhere: the merge-bot front door's review-run liveness leg voided on any pull-request-less `gh
-agent-task` run (verified at source at this seat; the Director routed the fix to it as PR #109, a
-source PR under the standing rules, six red-first states, both pre-push reviewers' findings taken);
-and the front-door expected set — the reviewers that bound THIS tip, Copilot on the first push of an
-existing pull request only, the Codex connector on every push to a pull request and never on a
-branch push made before the pull request exists.
+agent-task` run (verified at source at this seat; the Director routed the fix to it as PR #109, then
+its successor #113 — a source PR under the standing rules, eight red-first states, both pre-push
+reviewers' findings taken); and the front-door expected set, which is the CONFIGURED set (the tool's
+own help: source it from the repository's automatic-review configuration), never the set that
+happened to bind the tip — Copilot binds any head on the bot's explicit request (`POST
+pulls/{n}/requested_reviewers`; the response omits the handle, the timeline shows it), and the Codex
+connector binds at a creation or push it observes: it bound #110 at its non-draft creation within
+four minutes and every docs PR of the window, and never bound #109 or #113 (a non-draft creation,
+three pushes, a comment trigger) — the two source PRs from one branch — an owner-side configuration
+question the Director carried as an owner item on 2026-09-10.
