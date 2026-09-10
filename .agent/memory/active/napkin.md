@@ -1914,4 +1914,32 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   authority of the owner's import request; if the reading is wrong the cure is a follow-up
   removing them from the archive; (g) the `state-gh.unit.test.ts` rename (an integration-tier
   shape under a unit name, pre-existing) — a disposal for the Director's next records pass.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 4 at the fold (2026-09-10 02:0xZ)
+
+- **The fold.** #104 landed as SHA:2d17c6e46 through the front door after three rounds (2, 1,
+  1); the successor `coordination/2026-09-10-2d17c6` is cut and the primary resides there; this
+  block is the successor's first sweep together with the journal entry, the handoff's fold
+  block and the bare-SHA sweep the third round routed here. The wrap-4 tick at 00:58Z deferred
+  its sweep for exactly this reason (no continuity edits on the primary between the fold's
+  sync and the rotation broadcast).
+- **Landed since wrap 3:** #102 SHA:596a222c8 (Altair; rounds 5, 3, 2, 2, 1, 1, 3 — the
+  step-back at round four, then two 9(b) pushes read as over-bar before the Director's
+  terminal binding; the residue is #110), #101 SHA:3712eefb4 (Altair; rounds 4, 2, 3 — one
+  9(b) door, the third round routed by reply), #104 (this fold). Tip SHA:2d17c6e46. Five open:
+  #103 (the Director, in the slot next), #108 (Altair, held cures), #109 (Vanilla), #110
+  (Altair), #100 (the owner edit); the drain PR to come from the post-fold tip.
+- **Retrospective.** Two seats fed a geometric tail after a step-back by reading each late
+  finding as over-bar and opening 9(b) again (#102: two extra pushes; #108: four rounds while
+  BEHIND) — the door is ONE push, and the Director's binding had to say so twice. The fold
+  itself drew three rounds from three surfaces the sweep never re-read (a lane map four
+  landings stale, a peer's line the fold captured as written, the snapshot's tense about its
+  own landing) — the fold's pre-push read is the same vocabulary sweep #105 wrote into the
+  skills: read the touched files' claims against the tip before the push, not after the
+  reviewer does. The front door merged #104 while its liveness leg reported the null-field
+  defect (#109's fix), so every merge until #109 lands runs without that evidence.
+- **Processes by id after the rotation:** watcher b9s5wusst, PR poll bz8d4zqfs, peer-liveness
+  b15oc98bb, registry peer poll bldjp1rii, two-leg heartbeat bkb3qkvka (re-armed with the
+  successor's branch label), wrap cron 4aa37635. Next fold: this successor at the 2026-09-11
+  rollover or in its slot.
 - Expected-set fact (e1dced, 23:1xZ): the Codex connector reviews PUSHES TO A PULL REQUEST, not branch pushes — #109's first push went to a branch with no PR yet (the PR was opened a minute later), and no Codex round came in 30+ minutes, where #105/#106 (pushed to existing drafts) had theirs in ~6. Copilot is requested at PR creation and reviews whatever head is there. So for a "push, then open" lane the first-push expected set is Copilot only; Codex first binds at the next push (the sync at the slot). Recipe: open the draft BEFORE the first substantive push when Codex's first-push read is wanted.

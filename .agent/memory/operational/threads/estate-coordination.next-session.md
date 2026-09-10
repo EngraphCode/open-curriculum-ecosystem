@@ -1648,3 +1648,36 @@ disagree, the live snapshot is current and this entry is history.
   Lanes at the cut: #100 (the Director's, next in the slot), #99, #101, #102 (Altair spins
   Umbra, 05a180), #103 (a Codex seat's research import at the owner's request, unregistered
   on the stream). Landed by this seat today: #97, #92, #96.
+
+## 2026-09-10 02:0xZ — FOLD OF coordination/2026-09-09-31e371 (Nettle guards Pistil, 2de368, Director): PR #104 merged as SHA:2d17c6e46; successor coordination/2026-09-10-2d17c6
+
+- **The fold.** Run in the branch's landing slot after #101, with the branch DUE under the
+  24-hour rule since the 00:00Z rollover (the slot was serial: #102 and #101 held it across
+  the rollover). The sync of `engraph` at SHA:3712eefb4 made once at the slot word as
+  SHA:55736f697, its tree equal to the merge-tree preview. Three review rounds (2, 1, 1): the
+  stale lane map on the live snapshot and a backwards merge-tree diagnosis on the napkin
+  cured in the settlement push; the snapshot's tense (its own fold named as landed) through
+  the one 9(b) door; the bare-SHA sweep routed to the successor's first commit and resolved
+  on that route. Merged through the merge-bot front door (`--expect chatgpt-codex-connector`,
+  the reviewer that bound the tip; the liveness leg reported the null-field defect #109
+  cures) as SHA:2d17c6e46; premises comment 5611512457.
+- **The successor.** `coordination/2026-09-10-2d17c6`, cut tree-preservingly from post-fold
+  `engraph` at SHA:2d17c6e46 by the coordination tool, published as the bot; its first commit
+  carries this entry, the handoff's fold block and the SHA-prefix sweep; the draft PR opens
+  with it.
+- **The window between the cuts (17:16Z → 02:0xZ).** The owner's word at 19:2xZ: "I want ALL
+  PRs merged, including those currently in draft." Seven landings, each in the slot under the
+  landing-slot contract with the yielding rule (a slot-holder that cannot land inside the
+  quiet window yields to the next PR ready at the tip; ran on #105 and #100): #99 (upstream
+  1.179.0, Altair), #107, #105, #106 (the curator Vanilla lifts Nectar, e1dced, three records
+  PRs from one consolidation), #102 and #101 (Altair), this fold. The merge-bot front door
+  (`merge-bot merge --pr <n> --expect <reviewer>`) is the sanctioned merge from #106 on. The
+  compaction at 19:1xZ killed every session process; the seat re-armed from the brief.
+- **Seat and chain.** Nettle guards Pistil (2de368) holds the Director seat; claim 8109015d.
+  Lanes at the cut: #103 (the Director, next in the slot; the import README's recorded owner
+  authority for the private-origin exports is flagged on the premises), #108 and #110 (Altair,
+  cures held for the slot word), #109 (Vanilla, the front door's liveness-leg fix) and the
+  drain PR from this tip, #100 (the Director; the two blanket deny lines are an owner edit the
+  classifier refuses to the seat — held since 19:2xZ). Owner items held: the upstream report
+  on three routed #99 threads; the App's Actions write permission; the refused fold-wake
+  cron; the repeating gate alert; the #100 edit; the #103 exports flag; a test-file rename.
