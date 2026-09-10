@@ -82,6 +82,12 @@ cure on upstream-authored lines beyond the two open findings; the merge-back its
    comparison; close #123 as superseded.
 4. Legs (code-expert, security-expert, test-expert), Copilot on the final tip, front door.
 
+5. Verify the mode on the descriptor after `fchmod` (security-expert leg on #129, should-fix,
+   deferred at the owner's word to close the lane): add `fstat` to the ops seam and throw before
+   `write` when `(mode & 0o777) !== 0o600`, so a mount where chmod silently no-ops (WSL DrvFS
+   without `metadata`, exFAT, some SMB/NFS) refuses instead of retaining authenticated output
+   world-readable; the real-IO tests then need the on-disk observable only on POSIX hosts.
+
 ## Review dispositions
 
 (none yet)
