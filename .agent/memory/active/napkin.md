@@ -177,3 +177,32 @@ exception after the seat recomputes the gate by name.
   successor needs the same commit under a new branch name. (4) The host killed background
   settle watches and timers three times for memory pressure at 36–43% free; the merge-bot front
   door's own wait-class polling replaces a watch, and a typed refusal is the record either way.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 7 (2026-09-10 06:5xZ)
+
+- **Landed since wrap 6:** #114 SHA:db5dafc48 (05:5xZ, Altair; docs-only REST shape after
+  SILENT-WAIT on the Codex leg), #111 SHA:03e169d16 (06:42Z, Vanilla; the napkin rotation — the
+  archive `napkin-2026-09-10.md` is the fold tip's napkin, 1,917 lines). Tip SHA:03e169d16. Five
+  open: #115 in the slot (Vanilla, the #111 follow-on, Copilot at creation); #116 (Altair, the
+  argument-aware Bash-guard matcher — a code PR prepared for the owner's return; three Opus
+  reviews before the push); #113 (Vanilla, code; OWNER ITEM h); #112 (this successor's draft,
+  synced to the tip by a true merge after the rotation, folds at the 2026-09-11 rollover); #100
+  (OWNER ITEM e, held since 2026-09-09 19:2xZ).
+- **The rotated-napkin sync, first-hand:** the coordination branch's napkin conflicted with the
+  rotation; the resolution kept the rotated file and carried wraps 4–6 (absent from the archive
+  by heading and content grep) under a dated union note. The first attempt landed as a PLAIN
+  commit — the merge state (MERGE_HEAD) was gone by the time the commit ran, so the commit
+  replaced the napkin without merging the tip; the second attempt checked for MERGE_HEAD before
+  the commit and produced the two-parent merge SHA:bef77bbcb. The check belongs in the fold
+  ceremony's step 4: assert MERGE_HEAD before the resolution commit, and read the parent count
+  after (`git rev-list --parents -n 1 HEAD`).
+- **The Codex connector** has bound nothing since #110's 04:02Z push on any shape (non-draft
+  creation, fresh branch, pushes, a trigger comment); every docs-only landing since took the
+  owner's REST exception at SETTLED-NO-REVIEW; the two code PRs (#113, #116) hold for the owner.
+- **Retrospective.** The seat's own work this window was the sync merge — two attempts, the
+  second gated where the first was not; a script that prints its state at each step is what
+  made the second attempt a one-shot. Sixteen landings since the seat was taken; the board is
+  down to the owner's two items, a curator follow-on, the matcher, and the fold.
+- **Processes by id:** watcher b9s5wusst, PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry
+  peer poll bldjp1rii, two-leg heartbeat bkb3qkvka, wrap cron 4aa37635. Owner items: (a)–(g)
+  as before; (h) the Codex connector silent on the fix branch and, since 04:02Z, on every PR.
