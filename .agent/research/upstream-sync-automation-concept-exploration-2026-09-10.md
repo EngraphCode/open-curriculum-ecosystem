@@ -210,7 +210,8 @@ producer) are their gates.
 ## Addendum — proposal 5 discharged (2026-09-10 16:1xZ)
 
 Observations 1 and 2 describe the morning's reading; by the afternoon the mirror had moved to
-`216e64c15` (release 1.181.1, 33 upstream commits over four releases) and the Director cut the
+`216e64c15` (release 1.181.1, 33 non-merge upstream commits, 49 with merges, over four
+releases) and the Director cut the
 carrier by hand under the cross-fork skill (`sync/upstream-2026-09-10`), discharging proposal 5
 at the larger snapshot. Proposals 1 to 4 stand, reshaped by the two-workflow ruling above; the
 two delivery nodes now carry decision-complete designs, including one change of shape: the

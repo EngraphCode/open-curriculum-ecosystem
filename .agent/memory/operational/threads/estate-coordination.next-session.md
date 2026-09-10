@@ -1716,8 +1716,8 @@ and `owner-items-are-rederived-never-carried`.
    the owner's two below-the-tree decisions (C.9). Then one code lane: the workflow on
    `engraph`, a dispatch proof before the schedule, the cross-fork skill's step 1 re-trued.
 4. **The upstream carrier** — executed on 2026-09-10 as the sync of fork `main` at
-   `216e64c15` (release 1.181.1; 33 upstream commits over four releases, not the twelve
-   of the 1.179.1 reading) into `engraph` by the cross-fork skill in the lane worktree
+   `216e64c15` (release 1.181.1; 33 non-merge upstream commits, 49 with merges, over four
+   releases, not the twelve of the 1.179.1 reading) into `engraph` by the cross-fork skill in the lane worktree
    `sync-2de368`: the merge, the regenerated content-audit inventory and model-behaviour
    workspace, the ADR-229 collision (the fork's foundations record is ADR-230), and the
    premise sweep recorded on the carrier. Nothing waits here.
