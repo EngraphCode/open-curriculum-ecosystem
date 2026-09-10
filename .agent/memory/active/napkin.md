@@ -37,32 +37,11 @@ gap), appends the genuinely absent blocks below this one under a dated union not
 re-imports the archived ones — `SHA:2d17c6e46e899c907b2a4333b469ed3b8ed2ef97` is where to start
 looking, never the test.
 
-Processing before the archive, by hand at one seat, no fleet: forty-odd dated blocks of the
-2026-09-07 16:5xZ → 2026-09-09 window read whole (a hand sample showed most of the window was state
-the Director's records and the pull requests already hold, plus lessons whose homes existed); the
-routed substance landed ahead of this drain in two records PRs — #105 (the skills: the
-cross-fork-integration second draft from both seats' notes on the first two syncs and the Director's
-four routed round-four findings; pr-lifecycle's slot-word reading, the class-fix definition, the
-9(b) composition, invariant-first authoring, Phase 5's counters; the lane-cut skill's cross-surface
-read; session-handoff §6d's generator-block extension; wrap's compaction sentence) and #106 (the
-rules: the triage rule's exhaustion clause; verify-dont-trust's workflow-file and default-tip
-checks; re-apply-first-question's fourth moment; no-moving-targets' records tense and recipe run;
-start-right-team's woken-seat report; rules-have-no-exceptions' standing-ruling question;
-per-user-memory's shared directory; PDR-027's open question; the gotchas 2026-09-09 batch;
-extending.md's four-files-plus-index rule) — with the last four one-paragraph homes (the moved-range
-pointer sweep, the owner-away card rule, the plans README's work-surface sentence, the fold
-ceremony's tracked journal entry) on #106's second draft commit. Left where they already live: the
-held-seat class (#100's rule and #101's node), the standing grants (#88), the derived default branch
-(#87), the one-outcome Sonar rule (#102), the Director's operating facts (the tenure journal and the
-live snapshot), the owner's rulings (the stamps of #95). Distilled's seven 2026-09-07 entries: five
-graduated on #105 and #106, one a duplicate of verify-dont-trust's survivability tell, one homed
-operationally in pr-lifecycle rather than as an edit to concept-exploration's owner-ratified
-section; the pending-graduations row graduated on #106; Q-014 re-homed into PDR-027 as its own open
-question. Pointers that are future work (the Operationalises-line sweep, the tsup lint race, the
-fork-diff manifest, the GitHub instruments' agent-tools home, the App's Actions permission, the two
-generator seeds, the statusline log path) went to the Director for plan-node homes under the owner's
-2026-09-08 ruling. Unverified at this seat and carried as such: whether an EnterWorktree entry kills
-a principal-armed monitor.
+Processing before the archive, by hand at one seat, no fleet: the window's dated blocks read whole
+and routed; the substance landed ahead of this drain in the records PRs #107, #105 and #106 and the
+source fix #113, and the registers were decided in the same pass — the commits and the homes are the
+record. Unverified at this seat and carried as such: whether an EnterWorktree entry kills a
+principal-armed monitor.
 
 Fitness at the rotation, signal only: the napkin read critical at about 1,700 lines against a 220
 target; the number routed nothing — the item-level read did. Comms: every non-heartbeat event since

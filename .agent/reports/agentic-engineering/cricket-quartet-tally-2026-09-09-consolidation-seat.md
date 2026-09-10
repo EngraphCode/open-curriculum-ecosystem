@@ -15,14 +15,14 @@ its own figures says so).
 
 | Role | Model | Effort | Stance | Verdict | Redirection (one line) | Tokens | Runtime |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| cricket-judgement-low | claude | low | normal | ON-TRACK | Append the four late homes to #105/#106 while drafts draw no review; keep the drain PR archive-plus-rotation only | ~25k | ~1 min |
-| cricket-judgement-medium | claude | medium | normal | ON-TRACK | Move the four homes into #106 now; keep the drain PR a pure mechanical rotation | ~9.4k | ~35 s |
-| cricket-judgement-high | claude | high | normal | ON-TRACK | State the comms-archive decision explicitly in NEXT (run, or why deferred) before closeout | not observable | not observable |
-| cricket-procedure-xhigh | claude | xhigh | normal | ON-TRACK | None | ~145 words out | ~2 min |
-| cricket-judgement-low | claude | low | adversarial | ON-TRACK | Run the file-set overlap of #105/#106 against #99–#104 now, before the slot | ~38k in / ~0.4k out | ~1 min |
-| cricket-judgement-medium | claude | medium | adversarial | ON-TRACK | Cut the drain PR at its own slot from the tip at that moment, never a byte-identical capture held across landings | ~11k | ~40 s |
-| cricket-judgement-high | claude | high | adversarial | ON-TRACK | Confirm with the Director that "lands them as units" means plan-node pointers only | not observable | not observable |
-| cricket-procedure-xhigh | claude | xhigh | adversarial | WRONG-PRIORITY | Undraft #105 and #106 before the fold so their review rounds run while they wait | ~7.2k in / ~1.1k out | ~5 min |
+| cricket-judgement-low | fable | low | normal | ON-TRACK | Append the four late homes to #105/#106 while drafts draw no review; keep the drain PR archive-plus-rotation only | ~25k | ~1 min |
+| cricket-judgement-medium | opus | medium | normal | ON-TRACK | Move the four homes into #106 now; keep the drain PR a pure mechanical rotation | ~9.4k | ~35 s |
+| cricket-judgement-high | sonnet | high | normal | ON-TRACK | State the comms-archive decision explicitly in NEXT (run, or why deferred) before closeout | not observable | not observable |
+| cricket-procedure-xhigh | haiku | xhigh | normal | ON-TRACK | None | ~145 words out | ~2 min |
+| cricket-judgement-low | fable | low | adversarial | ON-TRACK | Run the file-set overlap of #105/#106 against #99–#104 now, before the slot | ~38k in / ~0.4k out | ~1 min |
+| cricket-judgement-medium | opus | medium | adversarial | ON-TRACK | Cut the drain PR at its own slot from the tip at that moment, never a byte-identical capture held across landings | ~11k | ~40 s |
+| cricket-judgement-high | sonnet | high | adversarial | ON-TRACK | Confirm with the Director that "lands them as units" means plan-node pointers only | not observable | not observable |
+| cricket-procedure-xhigh | haiku | xhigh | adversarial | WRONG-PRIORITY | Undraft #105 and #106 before the fold so their review rounds run while they wait | ~7.2k in / ~1.1k out | ~5 min |
 
 Panel shape: two waves of four, identical frame, only STANCE changed. All eight returns
 delivered.

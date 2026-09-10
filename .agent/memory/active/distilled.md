@@ -60,17 +60,4 @@ and the homes are the record. -->
 
 <!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
 
-<!-- Buffer drained empty at the 2026-09-09 dedicated consolidation (Vanilla lifts Nectar):
-the seven 2026-09-07 rotation entries decided on first instance — acts that pass a
-correctness check and fail a standing check graduated to rules-have-no-exceptions (the
-standing-ruling question beside the correctness check; the three act-class homes already
-carried their instances); a gate mistaken for a goal homed operationally in pr-lifecycle
-§Phase 5 (counters on re-arms and re-runs) rather than as an edit to concept-exploration's
-owner-ratified §Loop Dynamics; the "correct under both orders" tell found a DUPLICATE of
-verify-dont-trust §Name the Instrument's survivability clause; the workflow-file check for
-clauses naming repositories and credentials graduated to verify-dont-trust §Name the
-Instrument; the woken-seat worktree report to start-right-team §Closeout Contract; records
-in the past tense after the landing to no-moving-targets §Pre-Push Sweep; the owner's end in
-one sentence before spend to re-apply-first-question's fourth firing moment. Homes verified
-live on the default branch at the drain (PRs #105 and #106). The commits and the homes are
-the record. -->
+<!-- Drained at the 2026-09-09 dedicated consolidation; the commits and the homes are the record. -->
