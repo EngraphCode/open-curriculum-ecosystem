@@ -1,3 +1,15 @@
+# [1.181.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.180.0...v1.181.0) (2026-09-10)
+
+
+### Bug Fixes
+
+* **mcp-http:** read the registry's status, bound both calls, correct the rename claim (MCP-637) ([aa07088](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa07088e19b710c842975efd2c37e13a4cefc1c3))
+
+
+### Features
+
+* **mcp-http:** compose and prove the MCP Registry entry, unpublished (MCP-637) ([95a836b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/95a836be295ffd8da3ffb266ae1a0e1612790692))
+
 # [1.180.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.179.1...v1.180.0) (2026-09-10)
 
 
