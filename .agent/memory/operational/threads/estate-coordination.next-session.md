@@ -1854,3 +1854,18 @@ our fork main, and one to create PRs from our main to our engraph."
   registrations pruned. Three remain: the primary and the two live lanes, which go at their
   landings. The `.claude/worktrees/*` platform-managed set was included on the owner's explicit
   word of this day, which supersedes the July prune policy's exclusion for this instance.
+
+### H. The two lanes landed (2026-09-10 12:5xZ–13:1xZ)
+
+- **#125** LANDED SHA:26dbc8eaf — the eslint enhancement; config-expert leg (five findings: two
+  cured in f80698062, three routed to `workspace-config-isolation.plan.md`); Copilot on the tip.
+- **#126** LANDED SHA:f3a839a8f — MCP-487 with the owner's proof bar met: both adversarial legs
+  (security-expert, code-expert) found the same real defect beneath their P1s — metadata chained
+  outside the `z.preprocess` wrapper is dropped by the server's `io: 'input'` conversion, so the
+  served `tools/list` had lost twelve authored examples while the August record denied it —
+  cured in one class-fix push 224bbe822 with nine smaller cures; five findings routed to the plan
+  node `mcp-487-string-encoded-numbers` §Review dispositions (the nine hand-written numeric
+  params, spec-declared bounds, `.int()` for integer types, the e2e taxonomy, numeric enums);
+  the sync 8ea154cfa; Copilot's one thread replied with first-hand facts and resolved.
+- Twenty-three landings this tenure. Worktrees: the primary checkout alone. Open: #100, #112
+  (fold at the rollover), the six safety drafts #119–#124.
