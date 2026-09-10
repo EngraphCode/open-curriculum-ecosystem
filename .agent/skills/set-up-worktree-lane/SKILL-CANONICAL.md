@@ -211,6 +211,14 @@ hooks gate the whole tree, so one seat's dirty file blocks every seat — and gi
 push a **600s timeout**, because the 120s default kills the hook suite mid-run and
 leaves an ambiguous write.
 
+Before any push that changes a vocabulary, an order or a bound — a renamed term, a
+re-sequenced step, a re-scoped rule — read every surface that carries it (the touched
+files' siblings, the rules and skills they cite, the adapters and index rows) and cure
+them in the same push; derive the terms from the change's own before→after words,
+never from a reviewer's. This is the review-round tally instrument's practice half:
+its absence cost one records PR eight rounds (2026-09-08), each round the next
+surface the reviewer sampled.
+
 In a detected ChatGPT Work cloud session, use `HUSKY=0` for any local git
 commit or push and the configured default credential; when shell transport has
 no configured credential, use the already-authenticated GitHub connector. Open

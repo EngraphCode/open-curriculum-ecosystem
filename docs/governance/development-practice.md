@@ -159,8 +159,12 @@ CodeQL alerts headed for evidence-bearing dismissal were instead fixed at
 source on the owner's one question ("why should I dismiss issues detected by
 CodeQL?"); a ~39M-pair differential then proved one "false positive" regex
 was a real super-linear backtracking vector the dismissal path would have
-preserved. Fix-first is the default disposition; a dismissal needs grounds
-that the instrument's frame — not just its finding — is inapplicable.
+preserved. Since the owner's 2026-09-08 ruling ("We don't dismiss issues,
+we fix them") fix-first is the ONLY disposition — the one-outcome rule in
+[`sonar-disposition-policy.md`](./sonar-disposition-policy.md), whose single
+owner-ruled exception (the MCP server's rate-limiting alerts) is the one
+dismissal that exists; the earlier route, a dismissal on grounds that the
+instrument's frame was inapplicable, is history.
 
 ## Problem-Hiding Patterns
 

@@ -31,12 +31,16 @@ export type ReviewRunsLeg =
       readonly kind: 'read';
       readonly runs: readonly ReviewRun[];
       /**
-       * True when the vendor list filled its window — older runs are
-       * unobserved, so run-ABSENCE conclusions (deadness) are unsupported;
-       * run PRESENCE (mapped live runs) remains evidence.
+       * True when a run may have gone unobserved: the vendor list filled its
+       * window (older runs unobserved), or a LIVE run's view could not be
+       * read. Run-ABSENCE conclusions (deadness) are then unsupported; run
+       * PRESENCE (mapped live runs) remains evidence.
        */
       readonly truncated?: boolean;
-      /** Human-readable truncation note for evidence lines. */
+      /**
+       * Human-readable gap note for evidence lines: the list truncation, the
+       * unreadable run views (with the first cause), or both.
+       */
       readonly note?: string;
     }
   | { readonly kind: 'unavailable'; readonly reason: string };

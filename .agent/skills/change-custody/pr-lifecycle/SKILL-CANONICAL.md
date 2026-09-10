@@ -131,6 +131,13 @@ into the permanent record):
    axis; run it here when the changeset's size is genuinely in question,
    and note that its LEVEL axis also applies at open — a question standing
    owner word already answers is not an escalation.
+6. **Records-class changesets state each invariant once on the FIRST push,
+   with the cases as fixtures or worked instances, never as a case list.** A
+   mechanism written as cases draws one finding per unhandled case per
+   round, and the tail ends only when the invariant is stated (one push on
+   #87, four rounds on #88, seven on #89, 2026-09-08); the review tail is the
+   estate's own authoring-time check arriving late. The pre-push test: "does
+   this paragraph enumerate what could be stated as a property?"
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -156,8 +163,14 @@ use, you should have added your work to 66 in the first place").
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
 selective (important-or-risky only). Cadence is at-open plus
-substance-triggered (a reshaped diff), never per cure push; Copilot's absence
-never blocks a merge. Suppressed findings are Copilot's own low-confidence
+substance-triggered (a reshaped diff), never per intermediate cure push;
+on a code pull request the tip that goes to the front door carries the
+request (under the held-cure shape that is the slot's one sync push, so
+the cadence and the tip-bound gate meet at the same push). Copilot's
+absence never blocks a merge on a docs-only bot-authored pull request (the
+owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
+request the configured Copilot leg is OWED until it binds the tip, and the
+bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
 speculative cure or a silent skip. Two scope facts: the Copilot-review
@@ -166,12 +179,13 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on. Request mechanics (first-hand 2026-08-08,
-PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
-DROPS the Copilot handle — 200 response, no error, handle absent from
-the resulting request — so request Copilot through the GitHub MCP
-`request_copilot_review` tool (or the web UI), never the bare REST
-endpoint, and verify the reviewer actually appears on the PR. A third scope
+never a gate to wait on. Request mechanics: the REST
+`requested_reviewers` endpoint's RESPONSE omits the Copilot handle, and
+the request FIRES — the timeline shows `review_requested Copilot` within
+seconds and the review follows (#108, #109, #110, #114, as the bot under
+the pull-request-work token) — so the bare REST endpoint as the bot is the
+request mechanism; verify on the timeline, never on the response or the
+requested-reviewers list. A third scope
 fact: Copilot has a changed-file ceiling and says so — on a sibling
 repository it posted only that 544 files exceeded its review limit, naming
 the limit itself (2026-08-08). Key the fallback to that explicit refusal on
@@ -431,6 +445,24 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   budget-aware) is the strongest available primitive. Never hand-roll tight
   `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
   Between events, continue other work or hold; the watcher wakes you.
+- **The round in front of you is priority one over the next unit.**
+  Pre-authoring the next lane while a round sits unanswered is the fluent
+  frame that hides a late read (a round sat twenty-five minutes with checks
+  green while its seat drafted the next PR, 2026-09-08).
+- **Count gate-satisfying repetitions as you count rounds.** A monitor
+  re-arm, a hook re-run and an empty-commit re-trigger each satisfy a gate
+  without advancing the merge; before the fourth repetition of any of them,
+  name the goal the gate serves and ask whether the move advanced it — a
+  loop that sees only its own gates cannot see itself diverge (three seats,
+  2026-09-03).
+- **A red required check with an external cause is re-run after the cause
+  settles, never answered with a push** — an apt mirror returning "Hash Sum
+  mismatch" at the Playwright install step failed three runs in sixteen
+  minutes (2026-09-09). The App installation token cannot re-run a workflow
+  job ("Resource not accessible by integration"), so the bot-legitimate
+  re-trigger is the empty-commit push, which sits outside the review budget
+  and carries nothing else; granting the App the Actions write permission is
+  the owner's call.
 
 ## The review-round state machine (single definition)
 
@@ -567,7 +599,17 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    2026-07-16, PR #390: 8 rounds / ~38 findings ran
    unnoticed as non-convergence because nothing counted; predicate pinned
    2026-07-16 after one shepherd applied two different readings in one
-   day). The class-fix
+   day). A CLASS FIX states, once, the invariant the findings were
+   sampling and demotes the sampled cases to fixtures — a case the rounds
+   did not name is then a fixture at pickup, never a mechanism edit; its
+   sweep terms are the CHANGE's own before→after words, never the findings'
+   vocabulary (a class fix that swept for the reviewers' words missed the
+   word its own amendment had changed and cost a further round,
+   2026-09-09); and before its push every surface carrying the changed
+   vocabulary, order or bound — the touched files' siblings, the rules and
+   skills they cite, the adapters and index rows — is read and cured in the
+   same push (the read whose absence cost one records PR eight rounds,
+   2026-09-08). The class-fix
    push that answers a step-back OPENS A NEW CONVERGENCE EPOCH: the tally
    re-baselines at that push — round counting and both trigger arms restart
    within the epoch, and prior-epoch rounds stay recorded as history. A
@@ -614,7 +656,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    or a PR already open for its own story — never a PR opened to carry
    residue, and a residue PR that exists anyway is terminal: a settlement
    budget of one push, no rebudget, the late-cure path unchanged, no
-   further residue PR. Everything below the bar is dispositioned without a diff (the
+   further residue PR. The terminal second step-back above and clause 9(b)
+   compose rather than contradict: the terminal binding ends class fixes and
+   rebudgets, and clause 9(b)'s late cure stays the one door — for an
+   over-bar finding only, in a push carrying nothing else (Director ruling
+   2026-09-08 when the two met on one tail). Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
    2026-09-03). A code-class finding is outside this pricing altogether: a
@@ -729,11 +775,62 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    the repository's live automatic-review configuration at each PR-open,
    and a dated example is not an input to the state machine — Copilot on
    push, and on one line the Codex connector (`chatgpt-codex-connector`),
-   which reviewed every push by its own configuration and was declared
-   in every PDR-140 intake since 2026-09-06 (owner rating 2026-08-09;
-   graduated through the rules process 2026-09-07), were the configured
-   set the day this was written; PDR-140's loop discipline governs each leg's rounds
-   like any other's. This closes the
+   declared in every PDR-140 intake since 2026-09-06 (owner rating
+   2026-08-09; graduated through the rules process 2026-09-07), were the
+   configured set the day this was written; PDR-140's loop discipline
+   governs each leg's rounds like any other's. How a configured leg binds
+   a tip, first-hand on 2026-09-09/10 across nine landings: Copilot
+   reviews the FIRST push and any tip the bot explicitly requests it on
+   (below); the Codex connector binds at creation and on later pushes
+   while its account has credit (#105, #106, #108, #110) and, when it has
+   none, posts "Codex usage limits have been reached for code reviews" on
+   the pull request instead of a review (first on #116, four seconds after
+   its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
+   owner named the outage at 08:3xZ (out of credit until about
+   2026-09-16). **Review legs are desirable, never required; the front
+   door declares the configured reviewers AVAILABLE, and a subagent
+   review posted on the pull request stands as a leg** (owner ruling
+   2026-09-10). Concretely: `--expect` once per available configured
+   reviewer — never the set that happened to bind the tip, never a
+   reviewer declared unavailable; a subagent review of any kind,
+   adversarial included, posted on the pull request with every finding
+   dispositioned and reported back to the seat is a review leg, BOUND TO
+   THE SHA IT REVIEWED exactly as the vendor leg is bound per tip: the
+   posted review names the head it read; the landing premises record that
+   sha and every push since; and those pushes may carry only cures of the
+   posted findings, the tip sync and landing-defect cures (a red required
+   check) — a push carrying any other content needs a fresh leg on the new
+   head (#117 and #113 landed that way on 2026-09-10, each with a posted
+   Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
+   four pushes after it were its cures, the sync and one landing defect). The tool verifies only the vendor legs declared to it
+   (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
+   refuses an empty set), so the subagent leg is the MERGING SEAT's own
+   recomputation — the posted review and its dispositions named on the
+   landing premises, the same seat-side check item 5 names for the tally
+   state — and with NO configured vendor available the front door cannot
+   be invoked at all: that case is the owner's call at the moment it
+   arises, and a machine-checked subagent-leg input is the named
+   follow-up on the agent-tools-watch-commands node. **A reviewer silent
+   on EVERY pull request at once is that
+   vendor's availability, never a pull-request shape**: read its own
+   notice on the pull request or ask one question — did any pull request
+   get that vendor's review after time T — then declare it once on the
+   stream ("vendor unavailable, from, until") and shape nothing around it
+   (the 2026-09-10 outage was on the board as the connector's own comment
+   from 06:53Z; seats shaped pull requests around the silence until the
+   owner named it at 08:3xZ). A fresh pull request, where one is opened
+   for any reason, needs a NEW branch name because the platform refuses a
+   second open pull request on a branch that already has one, and closes
+   its predecessor with a pointer once it is open. The ruling's grounds,
+   owner verbatim: "policy on PR reviews is that a codex or copilot or
+   external claude review is desirable, and more vendors is better because
+   that means more perspectives and more approaches, but sometimes those
+   options are not available, and development still needs to happen. Note
+   that you can always have a subagent perform any kind of review,
+   including adversarial, and post findings both back to the calling agent
+   and to the PR." A declared leg that never reviewed the tip settles by
+   timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
+   5 below names that verdict's two exits. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
@@ -783,10 +880,21 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies; the bot cannot request Copilot at all (the API refuses it as a
-   non-collaborator), so every re-request after a tip move needed the
-   owner's own credentials — the fallback the bot-identity rule bans. Until
-   the merge tool learns the class (a named follow-up), the merging seat
+   satisfies. The Copilot leg is the bot's own to obtain: `POST
+   repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
+   `reviewers[]=copilot-pull-request-reviewer[bot]` under the
+   pull-request-work token returns 201 and the timeline shows
+   `review_requested Copilot` within seconds (first-hand on #108, #109,
+   #110, #114); verify on the timeline, since the requested-reviewers
+   list never shows it, and never through the draft/ready toggle, which
+   fires nothing on a pull request already undrafted once. A synced tip
+   gets its Copilot leg by that one call as the bot, and a CODE pull
+   request lands only through the front door with every AVAILABLE
+   configured leg bound plus the posted subagent review where a vendor
+   is unavailable (item 3's owner ruling of 2026-09-10), never by the
+   REST merge below. The exception stands for
+   the docs-only bot-authored class on its own grounds. Until the tool
+   learns that class, the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
    request merges within one CI round of green with no owner action; if one
@@ -839,7 +947,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    slots and bump-gap waits retired 2026-07-20, PDR-131: merge concurrency
    between eligible PRs is free; quality binds at settled-READY, and the
    2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
-   gate green, every Phase-8 clean — is the measured evidence) — only
+   gate green, every Phase-8 clean — is the measured evidence; under a
+   strict-currency ruleset the Phase 7 landing slot orders the syncs that
+   policy forces, and the grant is still eligibility, never position) — only
    on the item-4 settled verdict — zero threads AND zero
    undispositioned body-tally findings on the tip with a cure-worthy
    count of zero (item 2's PDR-140 semantics), every expected reviewer
@@ -882,12 +992,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   `/rules/branches/<base>` and read each name across BOTH
   `/commits/{sha}/check-runs` AND `/commits/{sha}/status`.
 - **A review-request 201 is not a registration.** The REST
-  `requested_reviewers` POST can return 201 and silently drop per-PR
-  (reproduced on two PRs, two seats, ~5 minutes apart); the roster read is
-  ambiguous in both directions (Copilot leaves it the moment it starts).
-  Verify via the issue TIMELINE's `review_requested` events; the proven
-  alternate path is the GitHub MCP `request_copilot_review` tool. Cap
-  identical REST retries at two.
+  `requested_reviewers` POST's 201 response omits the Copilot handle and
+  the roster read is ambiguous in both directions (Copilot leaves it the
+  moment it starts). Verify via the issue TIMELINE's `review_requested`
+  events, which fire within seconds of the call. Cap identical REST
+  retries at two.
 - **A review row is not a review.** Read the review BODY before counting
   it — a `COMMENTED` row on the exact head once contained only a
   spend-limit skip notice (the spend limit itself is never an agent
@@ -941,9 +1050,16 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   cites a superseded commit — the held-replies discipline saved both
   rounds.
 - **Silent-wait sweep after every push (PDR-132)**: verify the expected
-  reviewer is REQUESTED on the new tip — a push does not re-request, and a
+  reviewer is REQUESTED on the new tip — a push does not re-request (the
+  bot requests Copilot on the new tip with the reviewers endpoint, item 5
+  of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
-  looking healthy (two live instances, 2026-07-20). The same sweep names a
+  looking healthy (two live instances, 2026-07-20). The request is
+  CONDITIONAL on the tip the front door will verdict: Copilot reviews
+  the first push and any tip it is requested on, so request it only
+  when that tip lacks Copilot's review — a request on an intermediate
+  head that a held cure or a sync will supersede is spent for nothing
+  (first-hand 2026-09-10 on #108, #114 and #116). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
   The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
   enumerates review runs (`--json id,name,createdAt,completedAt`;
@@ -1192,11 +1308,22 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
   push again, and every push opens a fresh review round (ADR-204 makes the
-  re-sync one push). So ONE non-draft PR holds the landing slot at a time:
+  re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
+  merge concurrency between settled-READY PRs is free where the ruleset does
+  not require currency — and names the strict-currency ruleset policy as an
+  owner-owned cost driver (its decision 5); this clause is that policy's cost
+  made orderly while the owner keeps it (live on this repository's default
+  branch, read from the rules API), not a return of the retired machinery, and
+  it lapses the day the policy is dropped. So ONE non-draft PR holds the landing slot at a time:
   the slot-holder syncs ONCE, pushes, settles and merges; every other seat
   may open its PR, gather reviews and disposition threads, but does NOT sync
   or merge until the slot-holder's merge-landed event, then takes the slot,
-  syncs once and lands. Slot order is the Director's call — the default is
+  syncs once and lands. "Sync once" means AT THE SLOT WORD, never at
+  readiness: a merge of the default branch made while other PRs are still
+  ahead is superseded by each of their landings and redone at the slot
+  (four times on one carrier, 2026-09-09); a waiting PR keeps its own head
+  and prepares everything that does not depend on the tip — dispositions,
+  sweeps, the merge message. Slot order is the Director's call — the default is
   the oldest non-draft PR, and the slot goes to whichever PR is green and
   clean first rather than being held empty. The fold takes the slot at the
   UTC rollover. Any auto-sync babysitter — a watcher running
