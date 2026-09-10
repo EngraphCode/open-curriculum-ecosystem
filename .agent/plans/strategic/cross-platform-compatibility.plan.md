@@ -39,7 +39,7 @@ The estate declares and holds two support tiers:
 | Tier | Platforms | What holds it |
 | --- | --- | --- |
 | First class | Linux, macOS, Windows via WSL | POSIX semantics throughout; per-PR CI proof on Linux AND macOS (basic leg); WSL inherits the POSIX proof and the README route (PR #888) |
-| Goal, non-vital | Native Windows | The seams landed by PR #891, a basic REQUIRED Windows CI leg, and the static ratchet — it currently blocks nothing and never becomes the slow leg |
+| Goal, non-vital | Native Windows | The seams of upstream PR #891 (set down unmerged upstream on 2026-09-10; carried onto this line by the `native-windows-support-carrier` node's lane, PR #129), a basic Windows CI leg (advisory until green, then required), and the static ratchet — it currently blocks nothing and never becomes the slow leg |
 
 The deeper outcome is platform-independent: machine assumptions (which
 binary runs, how paths compare, what the filesystem can express) live
@@ -87,11 +87,13 @@ Linear parent MCP-624 is the visibility surface):
    tiers.
 2. **Merge PR #888** (the WSL route README) — completes the first-class
    Windows path; an afternoon's setup, no repo changes.
-3. **macOS validation of PR #891** on a real Mac (the kept
-   `pr-891-macos-validation` worktree) — closes that PR's one stated
-   first-class-tier risk before it merges.
-4. **Merge PR #891** — the seam substrate and the four cross-platform
-   bug fixes ride in whole; native Windows becomes true at head.
+3. **macOS validation of the #891 changeset** on a real Mac — closes the
+   changeset's one stated first-class-tier risk; the fork's full gate on
+   macOS (the lane's pre-commit gates ran on a Mac) is the first such proof.
+4. **Land the carrier** — upstream set #891 down unmerged on 2026-09-10; the
+   `native-windows-support-carrier` node's lane (PR #129) carries its head
+   with the two owner-only-write cures and the Windows CI leg; native
+   Windows becomes true at head when it lands.
 5. **Post-merge residue** — the SDK generator emits LF explicitly (kills
    the CRLF working-tree dirtying on Windows); the two remaining raw
    `spawnSync('git')` calls route through the trusted resolver.

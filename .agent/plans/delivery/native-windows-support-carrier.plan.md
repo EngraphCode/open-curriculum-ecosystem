@@ -60,8 +60,10 @@ the Windows ACL stance) with regression tests; one CI commit adding a `windows-b
    touching any file, with a typed error that both retention entry points carry in their failed
    outcome (no caller assertion can waive it); tests pin the refusal at the writer and at both
    entry points with the platform injected.
-5. The Windows CI leg reports. Proof `repo-safe`: the `windows-basic` job runs on the PR; green
-   is the goal, and a red run names the lane's next cures first-hand.
+5. The Windows CI leg passes. Proof `repo-safe`: the `windows-basic` job is green on the PR's
+   final tip; a red run leaves this criterion unmet and its failing tests name the next cures
+   (the first run proved install and build on the Windows runner and failed eleven test
+   expectations, cured on the lane).
 6. #123 is closed as superseded, its disposition naming this lane. Proof `owner-held` (the
    platform's pull-request state is external): the Director closes it as the bot with a comment
    naming this lane; the owner verifies on #123; the closure is recorded on the

@@ -167,3 +167,7 @@ time recorded. The lane's commits now exist on `feat/native-windows-support-2026
 merge SHA:6d89538bf (second parent SHA:a57b89418), the two cures with their tests
 SHA:8eefe7045, the advisory `windows-basic` leg SHA:f3c0b3778, and the sync of `engraph`
 SHA:fbb0c51cc. "Done in this context" above described intent ahead of the landed state.
+Proposal 3's Windows clause ("refuses … unless the caller proves a private destination") is
+NOT the implemented contract: the lane's cure refuses on win32 unconditionally, before any
+file is touched, with no caller waiver (the carrier node's criterion 4); the clause stands
+here as the earlier alternative only.
