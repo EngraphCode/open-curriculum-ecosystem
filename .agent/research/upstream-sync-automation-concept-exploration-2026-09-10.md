@@ -188,3 +188,21 @@ command; not an automated semantic merge; not a second repository unless upstrea
   needs; the bot already pushes lane branches, which is the same permission).
 - Whether the OCE task resumes with its credit and races the workflow (the guard makes the race
   harmless; the retirement removes it).
+
+## Addendum — the owner's ruling (2026-09-10 12:5xZ, verbatim)
+
+"on the auto sync with the upstream, we need two. One to automatically sync the upstream main
+to our fork main, and one to create PRs from our main to our engraph."
+
+**What changes in the synthesis.** Proposal 1's single producer becomes two workflows, each
+with one job: the MIRROR (upstream `main` → this fork's `main`, a fast-forward push, failing loud
+when the fork's `main` is ahead or diverged) and the CARRIER (this fork's `main` → a draft pull
+request into `engraph`, cut at the mirror's tip under the `automation/oce-upstream-sync-<sha>`
+name with the receipt, one at a time). The mirror is no longer a by-product; it is the carrier's
+input, so the carrier reads the fork's own `main` and never touches upstream at all — which
+narrows the carrier's permissions to this repository and makes the mirror the only workflow
+that names the parent. Both stay off by default behind repository variables and read their
+identities from the repository service. The two delivery nodes `upstream-mirror-workflow` and
+`upstream-carrier-workflow` (sketch) carry the shape; the owner decisions in the report (the
+bot app's key into the fork's secrets; the enable variables; retiring the Codex OCE task as
+producer) are their gates.

@@ -613,3 +613,18 @@ resuming from the tracked surfaces alone re-derives an item this ledger already 
 **Landings this window:** #116 SHA:002860f46 (Altair; Copilot on the final tip + the posted
 adversarial leg; rounds 9, 3, 3, 4, 5; 19 cured, 7 routed, one landing defect of the lane's own).
 Twenty this tenure. #118 is the Director's next landing (the slot word is #116's broadcast).
+
+## OWNER RULINGS at the safety sweep (2026-09-10 12:5xZ, verbatim, recorded by the Director)
+
+- "567 we can drop" — the MCP-567 vendored-projection test is dropped; its patch is discarded.
+- "the eslint enhancement we should land" — the shared-ignore narrowing and the
+  no-relative-packages error land as a lane off the tip with the six import cures.
+- "487 sounds like it should merge, but only with ironclad local proof that it does not break
+  the relevant MCP operations" — the string-encoded-numbers fix re-bases onto the tip and lands
+  only with local proof of the MCP operations it touches (the nine schema cases and the tool
+  calls themselves), recorded on the PR.
+- "Once all work is safe, remove all of the worktrees except the primary checkout."
+- "on the auto sync with the upstream, we need two. One to automatically sync the upstream main
+  to our fork main, and one to create PRs from our main to our engraph" — the exploration's
+  single producer becomes TWO workflows: the mirror (upstream main → fork main) and the carrier
+  (fork main → a pull request into engraph). Off by default and configurable still bind.
