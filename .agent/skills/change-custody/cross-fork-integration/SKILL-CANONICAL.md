@@ -296,9 +296,12 @@ worktree as the working directory (the entry point exactly as it runs;
 `--branch <name>` only when HEAD's branch is not the name to push): HEAD's
 branch by name, the bot identity over a file-backed token that is never in
 argv, hooks running, no force flag; a rejected non-fast-forward is answered by
-merging, never by overwriting. It sets NO upstream on the local branch, so
-`git status -sb` in the worktree shows no ahead/behind and the closeout's
-`git branch --set-upstream-to=origin/<fork-default>` precedes `git branch -d`.
+merging, never by overwriting. It never touches branch tracking (its git argv
+is `push <remote> HEAD:<branch>`): a lane branch cut with `-b <name>
+origin/<fork-default>` keeps tracking the default, so `git status -sb` reads
+ahead/behind against the DEFAULT, never the pushed branch, and a branch cut
+without tracking shows none — either way the closeout's `git branch
+--set-upstream-to=origin/<fork-default>` precedes `git branch -d`.
 A fresh worktree needs its workspaces built before the pre-push gates pass
 (the standards ESLint plugin's `dist/` for lint; the agent-tools `dist/` for
 the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
@@ -332,7 +335,9 @@ sanctioned REST endpoint under the owner's exception below; any other pull
 request obtains the missing leg (the Copilot request as the bot; where a
 vendor is unavailable, a subagent review of any kind posted on the pull
 request and reported back stands as the leg — owner ruling 2026-09-10,
-pr-lifecycle §review-round state machine item 3) and runs the front door
+pr-lifecycle §review-round state machine item 3 — a leg the MERGING SEAT
+verifies and records on the landing premises, because the tool checks only
+the vendors declared to it) and runs the front door
 again (pr-lifecycle §merge boundary;
 `docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the

@@ -49,7 +49,12 @@ unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review
 posted on the pull request stands as its leg (owner ruling 2026-09-10;
 pr-lifecycle §review-round state machine item 3); a defaulted set never
-merges. `merge-bot merge --help` carries the full contract.
+merges. The tool verifies only the vendor legs declared to it and refuses
+an empty set: the availability rule and the posted subagent leg are the
+merging seat's own recomputation, recorded on the landing premises (a
+machine-checked subagent-leg input is the named follow-up on the
+agent-tools-watch-commands node). `merge-bot merge --help` carries the
+tool's own contract — the declared vendor set and the verdict names.
 
 **Why the REST endpoint, not the `gh pr merge` client** (the command does
 this for you): client-side `gh pr merge` refuses on a

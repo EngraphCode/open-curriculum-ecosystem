@@ -796,7 +796,16 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    adversarial included, posted on the pull request with every finding
    dispositioned and reported back to the seat is a review leg (#117 and
    #113 landed that way on 2026-09-10, each with a posted Opus review and
-   Copilot). **A reviewer silent on EVERY pull request at once is that
+   Copilot). The tool verifies only the vendor legs declared to it
+   (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
+   refuses an empty set), so the subagent leg is the MERGING SEAT's own
+   recomputation — the posted review and its dispositions named on the
+   landing premises, the same seat-side check item 5 names for the tally
+   state — and with NO configured vendor available the front door cannot
+   be invoked at all: that case is the owner's call at the moment it
+   arises, and a machine-checked subagent-leg input is the named
+   follow-up on the agent-tools-watch-commands node. **A reviewer silent
+   on EVERY pull request at once is that
    vendor's availability, never a pull-request shape**: read its own
    notice on the pull request or ask one question — did any pull request
    get that vendor's review after time T — then declare it once on the
