@@ -215,7 +215,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/test-helpers/advertised-examples.ts': excluded(
-    '41be855cff939c4a7f95b36bdc2e3d1fecceecdb0a425b791d4d9af7da766d3a',
+    '2125f30ea7eb7f29b8b0dfa565954cfdcc8d573313a9324d38a6935b038bb5bb',
     TEST_ONLY,
   ),
 };
