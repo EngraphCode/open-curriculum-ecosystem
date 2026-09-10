@@ -169,6 +169,11 @@ function scanHeredoc(command: string, index: number, state: ScanState): number |
   return next;
 }
 
+/** The last character of the word being read (empty at a word start) — read only at an operator, since each read flattens the growing word. */
+function lastCharacter(state: ScanState): string {
+  return state.inWord ? state.word.slice(-1) : '';
+}
+
 /** Consume an operator or a substitution at `index`; `null` when the text there is neither. */
 function scanOperator(command: string, index: number, state: ScanState): number | null {
   const char = command[index] ?? '';
@@ -179,8 +184,7 @@ function scanOperator(command: string, index: number, state: ScanState): number 
   if (command.startsWith('$(', index) || char === '`') {
     return readSubstitution(command, index, state);
   }
-  const previous = state.inWord ? state.word.slice(-1) : '';
-  if (ONE_CHAR_OPERATORS.has(char) && !isRedirectionPart(command, index, previous)) {
+  if (ONE_CHAR_OPERATORS.has(char) && !isRedirectionPart(command, index, lastCharacter(state))) {
     endSegment(state);
     return index + 1;
   }
