@@ -1942,4 +1942,32 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   b15oc98bb, registry peer poll bldjp1rii, two-leg heartbeat bkb3qkvka (re-armed with the
   successor's branch label), wrap cron 4aa37635. Next fold: this successor at the 2026-09-11
   rollover or in its slot.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 5 (2026-09-10 02:5xZ)
+
+- **Landed:** #103 SHA:c6657f54f (02:3xZ, the Director; the sync pushed to the lane branch by
+  name from a temporary branch `tmp/land-103` because the Codex seat's own worktree holds the
+  lane branch — the branch stays until the next fold merges the tip, `git branch -d` reads it
+  as unmerged until then; Copilot bound the tip with zero findings; the private-origin exports
+  flagged on the premises). Tip SHA:c6657f54f. Six open: #108 in the slot at SHA:8ba6c412a
+  (Altair; the one 9(b) door used; replies only; Copilot re-requested on the tip); #109
+  (Vanilla, code; Copilot re-requested); #110 (Altair); #111 (Vanilla's drain, draft, rotates
+  the napkin — this branch's blocks fold under the rotated-napkin clause); #112 (this
+  successor's draft); #100 (the owner edit, held since 19:2xZ).
+- **Merge shape corrected (from #108 round six, a Codex correctness finding):** the front door
+  declares the CONFIGURED reviewer set (`--expect copilot-pull-request-reviewer --expect
+  chatgpt-codex-connector`), never the set that bound the tip; #106, #102, #101 (connector
+  alone) and #103, #104 (one reviewer) were sound on the legs that existed and the shortcut is
+  retired. The bot CAN request a Copilot review on a synced tip — POST
+  `pulls/{n}/requested_reviewers` with `copilot-pull-request-reviewer[bot]` under the
+  pull-request-work token returns 201 and the timeline shows the request (the response's
+  reviewer list omits it) — verified on #108 and #109 at 02:5xZ; the ready toggle fires a
+  request only on a FIRST undraft. SETTLED-NO-REVIEW on a docs-only bot PR: the REST path after
+  the seat's gate recompute (the owner's 2026-09-03 exception); a code PR waits for the leg.
+- **Retrospective.** Three seats converged the merge shape in twelve minutes on the stream by
+  first-hand tests (a toggle on #108, an endpoint call on #108 and #109) rather than by
+  reading — the reading in pr-lifecycle ("the bot cannot request Copilot") was false and is
+  now a routed cure. The Director's contribution was the endpoint to try and the rule that a
+  code PR never takes the REST path.
+- **Processes by id:** unchanged from wrap 4. Owner items: unchanged (a–g).
 - Expected-set fact (e1dced, 23:1xZ): the Codex connector reviews PUSHES TO A PULL REQUEST, not branch pushes — #109's first push went to a branch with no PR yet (the PR was opened a minute later), and no Codex round came in 30+ minutes, where #105/#106 (pushed to existing drafts) had theirs in ~6. Copilot is requested at PR creation and reviews whatever head is there. So for a "push, then open" lane the first-push expected set is Copilot only; Codex first binds at the next push (the sync at the slot). Recipe: open the draft BEFORE the first substantive push when Codex's first-push read is wanted.
