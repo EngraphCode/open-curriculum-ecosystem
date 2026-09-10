@@ -1,4 +1,4 @@
-# ADR-228: The MCP app stays a legacy-era `2025-11-25` server until the SDK v2 package family is adopted
+# ADR-229: The MCP app stays a legacy-era `2025-11-25` server until the SDK v2 package family is adopted
 
 - **Status:** Proposed (2026-09-09). Nothing here is owner-ratified. It
   records a scoping decision MCP-644 asked for explicitly — "a scoping
@@ -13,8 +13,10 @@
   [ADR-052](052-oauth-2.1-for-mcp-http-authentication.md) — the OAuth
   posture the v2 family's auth opt-ins would touch;
   [ADR-122](122-permissive-cors-for-oauth-protected-mcp.md) — permissive
-  CORS, whose relationship to the transport's `Origin` MUST is flagged in
-  §Consequences as out of scope here;
+  CORS, which **decides the transport's `Origin` MUST the other way** and
+  whose compensating Host check no longer runs; §Consequences records the
+  conflict and routes the re-decision to MCP-650 rather than settling it
+  here;
   [ADR-223](223-perishable-claims-carry-risk-based-freshness-metadata.md) —
   why every external claim below carries its read date.
 
@@ -194,17 +196,36 @@ clients locked out.
    modern request first" and, on a `400`, "**SHOULD** inspect the response
    body before falling back". The constraint binds us because MCP-497
    measured that real clients do exactly that, at production scale — it
-   rests on evidence, not on conformance. Emitting `-32020`, `-32021` or
-   `-32022` (`UnsupportedProtocolVersion`) from a server with no modern
-   lane would tell those clients "retry the advertised versions **rather
-   than falling back**", steering them off a lane that works.
+   rests on evidence, not on conformance.
 
-   `src/protocol-revision-era.integration.test.ts` is the tripwire. It pins
-   the emitted code positively and asserts sub-range membership, rather
-   than checking absence from a list of known modern codes: a later
-   revision defining a fourth reserved code, or an SDK renumbering to a
-   standard code such as `-32602`, would each slip past a denylist and each
-   break the fallback.
+   **Who would actually be steered off the fallback, stated narrowly.** A
+   client that implements that SHOULD literally — treating any recognised
+   modern JSON-RPC error as "this server is modern, retry rather than fall
+   back" — is steered wrong by a refusal renumbered to `-32020`, `-32021`
+   or `-32022` (`UnsupportedProtocolVersion`). **The reference client is
+   not such a client, and the difference was measured, not assumed.** In
+   `@modelcontextprotocol/client@2.0.0`, `probeClassifier.ts` names
+   `-32020` (`HeaderMismatch`) and `-32021`
+   (`MissingRequiredClientCapability`) in a `NOT_PROBE_RECOGNIZED` set,
+   commented "not era evidence — all fall into the conservative legacy
+   default", and `classifyRpcError` diverts from the legacy default on
+   `-32022` only when `parseSupportedList(data)` yields a non-empty array
+   of strings at `data.supported`; a `-32022` carrying only a message falls
+   back like any other code, as does every unlisted code including
+   `-32602`. So the risk this decision guards is **spec-literal clients and
+   the production population MCP-497 measured** — not the reference
+   implementation, which falls back regardless.
+
+   `src/protocol-revision-era.integration.test.ts` is the tripwire, and it
+   is deliberately stricter than the harm it names. It pins the emitted
+   code positively and asserts sub-range membership, rather than checking
+   absence from a list of known modern codes: a later revision defining a
+   fourth reserved code, or an SDK renumbering to a standard code such as
+   `-32602`, would each slip past a denylist. Pinning exactly means the
+   suite also reds for renumberings that break nothing — which is the
+   intended trade, because the cost of a spurious red is one re-reading of
+   this section and the cost of a missed one is silent breakage. The
+   failure messages distinguish the two cases so that re-reading is quick.
 
 4. **The migration target is `@modelcontextprotocol/server@2.x`, and it
    MUST be dual-era — never modern-only.** This answers MCP-644's third
@@ -246,9 +267,21 @@ clients locked out.
 5. **Self-description in a `DiscoverResult` will derive from served
    values, never from literals.** When the migration lands, `capabilities`
    and identity come from `SERVED_SURFACE` and `OAK_SERVER_BRANDING` — the
-   existing single points of control — and `supportedVersions` from the
-   SDK's own constant, on the MCP-351 discipline that a served surface
-   describes itself from what it serves.
+   existing single points of control — on the MCP-351 discipline that a
+   served surface describes itself from what it serves.
+
+   `supportedVersions` follows the same **intent**, but the mechanism is
+   not settled and this record does not settle it. The target family keeps
+   its version list internal: in `@modelcontextprotocol/core@2.0.0`,
+   `LATEST_PROTOCOL_VERSION` and `SUPPORTED_PROTOCOL_VERSIONS` are
+   declared in `dist/internal.d.mts` and exported only through the
+   `./internal` subpath, not from the package root (measured 2026-09-10).
+   Whether the migration reads them from there, derives the list from the
+   handler's own configuration, or accepts a literal with a test pinning
+   it to the served behaviour is a decision for MCP-506. What this record
+   fixes is the direction — derived from what is served, not hand-copied
+   — not the import path.
+
 6. **Auth stays ahead of dispatch; ADR-113 is unchanged.** The
    `2026-07-28` authorization page carves out no exemption for
    `server/discover` and repeats that authorization "MUST be included in
@@ -258,19 +291,40 @@ clients locked out.
 
 ### The exit condition
 
-Migrate when the work is scheduled on its own terms, or at the latest
-before 1.x security support lapses — the SDK documents at least six months
-of fixes from the v2 release of 2026-07-27, so roughly 2027-01-27. Verify
-that date against the SDK's own `VERSIONING.md` at the time; do not trust
-this line.
+Migrate when the work is scheduled on its own terms. The SDK's support
+statement is a **floor, not a lapse date**, and it is easy to misread as
+one. `ROADMAP.md` — not `VERSIONING.md`, which carries the SemVer and
+release-process rules and says nothing about support duration — states
+that the `v1.x` branch "continues to receive bug fixes and security
+updates for **at least** six months after the v2 release (2026-07-27)"
+(read 2026-09-10). So 2027-01-27 is the earliest date after which support
+is no longer promised; it is not a date on which anything expires, and no
+announcement has set one. Treat it as the point from which the absence of
+a renewed commitment starts to matter, and re-read `ROADMAP.md` then
+rather than trusting this line.
 
-**The condition is armed, not just written down.** The era-contract suite
-asserts the installed SDK's own `LATEST_PROTOCOL_VERSION` is still
-`2025-11-25`. The day a dependency bump moves that ceiling, this record's
-premise is gone and the suite reds, naming this section — so the re-reading
-arrives as a failing gate rather than as someone remembering. That is also
-the day the reserved-sub-range bounds in Decision 3 must be re-derived from
-the then-current specification.
+**The condition is armed, not just written down — twice, on purpose.** The
+era-contract suite carries two sentinels, and they fire on different days:
+
+- **The SDK constant.** It asserts the installed
+  `@modelcontextprotocol/sdk` `LATEST_PROTOCOL_VERSION` is still
+  `2025-11-25`. This is the one that catches the migration itself: the v2
+  family removes that package, so the suite's import stops resolving and
+  the file reds outright.
+- **The served ceiling.** An `initialize` asking for `2026-07-28` in the
+  body — no version header, so the transport does not refuse pre-dispatch
+  — must still negotiate down to `2025-11-25`. This one reds with a
+  message a reader can act on without opening `node_modules`, if the
+  current line's ceiling ever moves under it.
+
+**Neither substitutes for the other, and the behavioural one alone would be
+a trap.** `@modelcontextprotocol/core@2.0.0` still declares
+`LATEST_PROTOCOL_VERSION = '2025-11-25'` (measured 2026-09-10 in
+`dist/internal.d.mts`), so a dual-era v2 server goes on answering a legacy
+handshake with the legacy revision. A purely behavioural probe would sit
+green on the very day this record's exit condition fires. Whichever fires,
+that is also the day the reserved-sub-range bounds in Decision 3 must be
+re-derived from the then-current specification.
 
 ## Consequences
 
@@ -280,11 +334,13 @@ the then-current specification.
    invisible property of a dependency range.
 2. **The behaviour Oak's compatibility depends on is pinned by a test.** A
    future SDK release that renumbered the refusal into the reserved
-   sub-range would break dual-era fallback silently — it passes every other
-   gate. It now fails one. The same suite carries an exit-condition
-   sentinel on the SDK's own `LATEST_PROTOCOL_VERSION`, so the day the
-   installed SDK line moves past `2025-11-25` this record is re-opened by a
-   failing test rather than by someone remembering.
+   sub-range would break fallback for spec-literal clients silently — it
+   passes every other gate. It now fails one, with a failure message that
+   distinguishes a harmless renumbering from a fallback-breaking one. The
+   same suite carries the two exit-condition sentinels described above, so
+   the day the SDK line or the served ceiling moves past `2025-11-25` this
+   record is re-opened by a failing test rather than by someone
+   remembering.
 3. **MCP-644's flagged ambiguity is resolved** rather than left for the
    next reader to re-derive.
 4. **The migration is smaller than "stateless migration" suggests.** The
@@ -326,9 +382,49 @@ the then-current specification.
 
 `2026-07-28` Streamable HTTP states that servers "**MUST** validate the
 `Origin` header on all incoming connections to prevent DNS rebinding
-attacks", answering an invalid one with `403`. ADR-122's rationale for
-permissive CORS is about authorization under Bearer tokens; DNS rebinding
-is a different threat, and the MUST also appears under `2025-11-25`.
+attacks", answering an invalid one with `403`. The MUST also appears under
+`2025-11-25`, so it binds this app today.
+
+**ADR-122 already decides this, and it decides the other way — read it
+before treating this as an open gap.** ADR-122 is **Accepted**, and it
+addresses DNS rebinding on `/mcp` by name rather than only authorization
+under Bearer tokens: its Status block records "Host validation is enforced
+in the auth layer, Origin is deliberately permissive, and the OAuth Bearer
+token is the security boundary", and its §"Origin/Host validation is scoped
+to where it adds security" reasons explicitly from the DNS-rebinding threat
+to the conclusion that "Explicit Origin validation on `/mcp` would add
+configuration surface and risk breaking legitimate browser and iframe MCP
+clients for no security gain". An earlier draft of this record described
+that rationale as being about Bearer-token authorization and DNS rebinding
+as a threat ADR-122 had not considered. That was a misreading, and it is
+withdrawn: the two positions genuinely conflict, and the conflict is the
+finding.
+
+**The conflict resolves because ADR-122's premise no longer holds.** Its
+compensating control for a permissive `Origin` on `/mcp` is the auth
+layer's Host allow-list check. That check does not run on the deployed app.
+Measured on 2026-09-10:
+
+- `host-validation-error.ts`'s `deriveSelfOrigin` opens with
+  `if (canonicalOrigin) { return ok(canonicalOrigin); }` — it returns
+  before reading the `Host` header at all. `getPRMUrl` and
+  `getMcpResourceUrl`, the two functions ADR-122 names as the check, are
+  thin wrappers over it and inherit the early return.
+- `CANONICAL_HOST` is set in production. Reached directly at the Vercel
+  origin hostname `poc-oak-open-curriculum-mcp.vercel.thenational.academy`
+  — a different `Host` from the canonical one — the protected-resource
+  metadata still answers
+  `{"resource":"https://mcp.thenational.academy/mcp"}`. Per-request
+  derivation would have echoed the arriving host; the configured origin is
+  what is being served.
+
+So on `/mcp` today there is neither `Origin` validation nor the `Host`
+validation ADR-122 substituted for it. **This makes MCP-650 an amendment to
+a standing Accepted decision, not the filling of a fresh gap** — the
+decision is not wrong so much as resting on a control that has since been
+short-circuited, and re-deciding it is ADR-122's own business rather than
+this record's. This record therefore states the conflict and stops; it does
+not amend ADR-122, and nothing here should be read as having done so.
 
 **This is the one `2026-07-28` MUST that binds this app today, and it needs
 no migration to satisfy.** It is already owned by **MCP-650**, in progress

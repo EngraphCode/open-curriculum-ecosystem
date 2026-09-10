@@ -1,5 +1,5 @@
 /**
- * The protocol-revision era contract (MCP-644, ADR-228).
+ * The protocol-revision era contract (MCP-644, ADR-229).
  *
  * This app implements the `2025-11-25` revision — a **legacy-era** server in
  * the vocabulary of the current `2026-07-28` revision, which moved the core
@@ -22,16 +22,29 @@
  * client **MAY** and body inspection a client **SHOULD**. The constraint is
  * ours, and it binds because MCP-497 measured that real clients do exactly
  * this at production scale — it rests on evidence, not on conformance. Do
- * not restate it as a spec MUST; ADR-228 §Decision 3 carries the full
+ * not restate it as a spec MUST; ADR-229 §Decision 3 carries the full
  * attribution.
  *
- * **What would break it.** If a future SDK release renumbered this refusal
- * into the specification's reserved sub-range — `-32022`
- * (`UnsupportedProtocolVersion`), `-32020`, `-32021` — dual-era clients
- * would stop falling back and start retrying versions this app's legacy
- * lane cannot serve. The refusal would look *more* spec-shaped and behave
- * *worse*. That regression is silent on every other gate, so it is asserted
- * here.
+ * **What would break it, stated no wider than the evidence.** If a future
+ * SDK release renumbered this refusal into the specification's reserved
+ * sub-range — `-32022` (`UnsupportedProtocolVersion`), `-32020`, `-32021`
+ * — a client implementing that SHOULD literally would stop falling back
+ * and start retrying versions this app's legacy lane cannot serve. The
+ * refusal would look *more* spec-shaped and behave *worse*, and the
+ * regression is silent on every other gate, so it is asserted here.
+ *
+ * **The reference client is not one of those clients.** Measured in
+ * `@modelcontextprotocol/client@2.0.0` on 2026-09-10: `probeClassifier.ts`
+ * puts `-32020` and `-32021` in a `NOT_PROBE_RECOGNIZED` set — "not era
+ * evidence — all fall into the conservative legacy default" — and
+ * `classifyRpcError` leaves the legacy default on `-32022` only when
+ * `parseSupportedList(data)` finds a non-empty string array at
+ * `data.supported`. A `-32022` carrying only a message, which is what a
+ * straight renumbering of this transport's refusal would emit, still falls
+ * back; so does every unlisted code, `-32602` included. The population this
+ * suite protects is therefore **spec-literal clients plus the production
+ * clients MCP-497 actually measured**, not the reference implementation.
+ * Do not restate the risk as "dual-era clients would stop falling back".
  *
  * These tests describe the served endpoint's answers, driven over the
  * loopback harness through the production per-request factory and handler
@@ -40,7 +53,7 @@
  * never on SSE framing; framing fidelity is the client SDK's job, per
  * `testing-patterns.md` §MCP Transport Layer Testing.
  *
- * @see ADR-228 — the revision posture and the conditions for migrating
+ * @see ADR-229 — the revision posture and the conditions for migrating
  * @see ADR-112 — the per-request transport this composition reuses
  */
 
@@ -98,11 +111,40 @@ const MODERN_META = {
 
 const MCP_ACCEPT = 'application/json, text/event-stream';
 
-/** Why a red here is a decision to re-open, never an assertion to delete. */
-const RE_ADJUDICATE =
-  'ADR-228 §Decision 3: this refusal code is what keeps dual-era clients on ' +
-  'the `initialize` fallback they currently rely on. Re-adjudicate ADR-228 ' +
-  'before changing this expectation; do not delete it.';
+/**
+ * The two reds this suite can produce differ enormously in severity, and a
+ * shared message made them read identically. They are split so the failure
+ * text itself says which one happened.
+ *
+ * {@link CODE_MOVED} is the exact pin. It reds for *any* renumbering,
+ * including one that changes nothing that matters — the contract is
+ * sub-range membership, and a move from `-32000` to another legacy-sub-range
+ * code satisfies it.
+ *
+ * {@link FALLBACK_BROKEN} is the contract itself. It reds only when the code
+ * has left the legacy sub-range, which is the regression the record exists
+ * to prevent.
+ */
+const CODE_MOVED =
+  'The transport renumbered its version refusal. This may be HARMLESS: the ' +
+  'contract is legacy-sub-range membership, asserted next, not this exact ' +
+  'value. If the sub-range assertions still pass, dual-era fallback is ' +
+  'intact — re-read ADR-229 §Decision 3, update this pin to the new code, ' +
+  'and say in the commit why the move is safe. Do not delete the pin.';
+
+const FALLBACK_BROKEN =
+  'FALLBACK REGRESSION: the version refusal has left the legacy error ' +
+  'sub-range (-32019..-32000), so a spec-literal dual-era client will read ' +
+  'it as a modern error and retry advertised versions instead of falling ' +
+  'back to `initialize` — the lane MCP-497 measured Oak s clients relying ' +
+  'on. ADR-229 §Decision 3. Re-adjudicate that record before changing this ' +
+  'expectation; do not delete it.';
+
+/** The refusal must still name what this server speaks, or fallback is blind. */
+const REFUSAL_UNINFORMATIVE =
+  'ADR-229 §Decision 3: the refusal no longer names the revision this ' +
+  'server speaks, so a falling-back client cannot choose a version. ' +
+  'Re-adjudicate ADR-229 rather than relaxing this.';
 
 /**
  * The refusal body the transport returns for an unsupported declared version.
@@ -202,17 +244,19 @@ describe('protocol-revision era contract (MCP-644)', () => {
 
     expect(res.status).toBe(400);
     const refusal = RefusalBodySchema.safeParse(res.body);
-    expect(refusal.success, `${RE_ADJUDICATE} Body was: ${JSON.stringify(res.body)}`).toBe(true);
+    expect(refusal.success, `${FALLBACK_BROKEN} Body was: ${JSON.stringify(res.body)}`).toBe(true);
 
     // THE TRIPWIRE: the exact emitted code, so any renumbering reds even if
-    // the sub-range bounds have gone stale.
-    expect(refusal.data?.error.code, RE_ADJUDICATE).toBe(OBSERVED_REFUSAL_CODE);
+    // the sub-range bounds have gone stale. Possibly harmless on its own —
+    // the assertions below say whether it is.
+    expect(refusal.data?.error.code, CODE_MOVED).toBe(OBSERVED_REFUSAL_CODE);
     // THE CONTRACT the code has to satisfy, stated as the spec states it.
-    expect(refusal.data?.error.code, RE_ADJUDICATE).toBeGreaterThanOrEqual(LEGACY_SUBRANGE_MIN);
-    expect(refusal.data?.error.code, RE_ADJUDICATE).toBeLessThanOrEqual(LEGACY_SUBRANGE_MAX);
+    // These are the ones whose failure is a real regression.
+    expect(refusal.data?.error.code, FALLBACK_BROKEN).toBeGreaterThanOrEqual(LEGACY_SUBRANGE_MIN);
+    expect(refusal.data?.error.code, FALLBACK_BROKEN).toBeLessThanOrEqual(LEGACY_SUBRANGE_MAX);
     // And the refusal names what this server does speak, so the fallback is
     // informed rather than blind.
-    expect(refusal.data?.error.message, RE_ADJUDICATE).toContain(LEGACY_REVISION);
+    expect(refusal.data?.error.message, REFUSAL_UNINFORMATIVE).toContain(LEGACY_REVISION);
   });
 
   it('refuses on the declared version alone — a legacy-shaped control at the same version suffices to show it', async () => {
@@ -255,7 +299,7 @@ describe('protocol-revision era contract (MCP-644)', () => {
     // CONTROL for the case above: with the version check passed, the method
     // itself is absent. Proves it of THIS composition's registrations, by
     // driving the boundary rather than pinning an absence — the repo-wide
-    // 0-hit grep behind MCP-644 is a separate claim, recorded in ADR-228
+    // 0-hit grep behind MCP-644 is a separate claim, recorded in ADR-229
     // §Context.
     const res = await request(app)
       .post('/mcp')
@@ -269,7 +313,7 @@ describe('protocol-revision era contract (MCP-644)', () => {
     expect(frame.data?.id).toBe('legacy-discover');
     expect(
       frame.data?.error.code,
-      'ADR-228 §Decision 2: implementing this method here would be dead code behind the version check. Re-adjudicate ADR-228 rather than deleting this.',
+      'ADR-229 §Decision 2: implementing this method here would be dead code behind the version check. Re-adjudicate ADR-229 rather than deleting this.',
     ).toBe(-32601);
   });
 
@@ -292,13 +336,20 @@ describe('protocol-revision era contract (MCP-644)', () => {
     const frame = InitResultFrameSchema.safeParse(sseData(res.text));
     expect(frame.success, `Body was: ${res.text}`).toBe(true);
     expect(frame.data?.id).toBe('init-1');
+    // This expectation is one of the few here that SURVIVES the migration.
+    // ADR-229 §Decision 4 mandates a dual-era target and puts
+    // `legacy: 'reject'` out of bounds, and a dual-era server still answers
+    // `initialize` with the negotiated legacy revision. So a red here does
+    // not mean "the migration happened, update the test" — it means the
+    // legacy lane stopped being served, which is the one migration outcome
+    // Decision 4 forbids.
     expect(
       frame.data?.result.protocolVersion,
-      'ADR-228 §Decision 1: this app serves the legacy revision deliberately. A change here is a revision migration (MCP-506), not a test to update.',
+      'ADR-229 §Decision 4: the legacy `initialize` lane has stopped answering with the legacy revision. A dual-era server — which Decision 4 mandates, ruling `legacy: reject` out of bounds — still answers this. Do not update this expectation to match a modern-only cutover; that cutover is the regression, and it breaks every already-installed client permanently.',
     ).toBe(LEGACY_REVISION);
   });
 
-  it('still stands on an SDK line whose ceiling is the legacy revision — ADR-228s exit condition', () => {
+  it('still stands on an SDK line whose ceiling is the legacy revision — ADR-229s exit condition', () => {
     // A DESIGNED SENTINEL on the decision's premise, not a config audit. Every
     // other case here describes served behaviour; this one asserts the fact
     // that makes the posture deliberate rather than negligent — the installed
@@ -306,9 +357,58 @@ describe('protocol-revision era contract (MCP-644)', () => {
     // day the modern-code list above can go stale and the whole record needs
     // re-reading, so that day should arrive as a failing test rather than as
     // someone remembering.
+    //
+    // WHY THIS STAYS, even though the probe below is behavioural and reads
+    // better. The two fire on different days, and this one fires on the day
+    // that matters. `@modelcontextprotocol/core@2.0.0` still declares
+    // `LATEST_PROTOCOL_VERSION = '2025-11-25'` (measured 2026-09-10, in
+    // `dist/internal.d.mts`), so a dual-era v2 server goes on answering a
+    // legacy handshake with the legacy revision — the behavioural probe
+    // would sit green through the very migration that ends this record. This
+    // assertion cannot: the migration removes the `@modelcontextprotocol/sdk`
+    // package, so the import at the top of this file stops resolving and the
+    // suite reds. A red that arrives as an unresolved import is exactly the
+    // signal wanted; do not "fix" it by re-pointing the import at the v2
+    // package's `./internal` subpath.
     expect(
       LATEST_PROTOCOL_VERSION,
-      'ADR-228 §The exit condition: the installed SDK line has moved past the legacy revision. Re-derive the reserved-sub-range bounds from the current spec and re-adjudicate ADR-228 — the migration is MCP-506.',
+      'ADR-229 §The exit condition: the installed SDK line has moved past the legacy revision. Re-derive the reserved-sub-range bounds from the current spec and re-adjudicate ADR-229 — the migration is MCP-506.',
+    ).toBe(LEGACY_REVISION);
+  });
+
+  it('negotiates down to the legacy revision when a client asks for the modern one', async () => {
+    // The behavioural companion to the constant sentinel above: it says the
+    // same thing about the SERVED surface rather than about an installed
+    // file, so if the current line's ceiling ever moves this reds with a
+    // message a reader can act on without opening `node_modules`.
+    //
+    // The modern revision is asked for in the initialize BODY, with no
+    // `MCP-Protocol-Version` header — deliberately. With the header the
+    // transport refuses pre-dispatch (the first case in this suite) and
+    // nothing about the ceiling is observable. Through the handshake the
+    // server answers with the best version it can serve, which is the
+    // ceiling itself.
+    const res = await request(app)
+      .post('/mcp')
+      .set('Accept', MCP_ACCEPT)
+      .send({
+        jsonrpc: '2.0',
+        id: 'init-ceiling',
+        method: 'initialize',
+        params: {
+          protocolVersion: MODERN_REVISION,
+          capabilities: {},
+          clientInfo: { name: 'EraProbe', version: '1.0.0' },
+        },
+      });
+
+    expect(res.status).toBe(200);
+    const frame = InitResultFrameSchema.safeParse(sseData(res.text));
+    expect(frame.success, `Body was: ${res.text}`).toBe(true);
+    expect(frame.data?.id).toBe('init-ceiling');
+    expect(
+      frame.data?.result.protocolVersion,
+      'ADR-229 §The exit condition: asked for the modern revision, this server no longer negotiates down to the legacy one. Its served ceiling has moved, so the record premise is gone — re-derive the reserved-sub-range bounds from the current spec and re-adjudicate ADR-229. The migration is MCP-506.',
     ).toBe(LEGACY_REVISION);
   });
 });

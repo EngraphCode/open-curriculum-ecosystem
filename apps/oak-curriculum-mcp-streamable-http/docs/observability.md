@@ -126,7 +126,7 @@ emitted by this app (alongside Sentry's own `trace_id` on the scope):
   SEP-414). Optional today, and expected to stay mostly empty: `2026-07-28`
   is the current revision (read 2026-09-09), but this app implements
   `2025-11-25` and does not adopt the field's home revision — see
-  [ADR-228](../../../docs/architecture/architectural-decisions/228-mcp-protocol-revision-legacy-era-until-sdk-v2.md).
+  [ADR-229](../../../docs/architecture/architectural-decisions/229-mcp-protocol-revision-legacy-era-until-sdk-v2.md).
   A host may still supply it. Primary cross-system join when
   present (host → MCP → downstream).
 
