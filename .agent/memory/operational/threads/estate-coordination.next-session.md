@@ -1786,3 +1786,38 @@ and `owner-items-are-rederived-never-carried`.
 The Codex leg question (the owner's ruling and #118); the tsup transient-lint flake for the two
 self-bootstrap configs (#117); the review-run liveness leg (#113); the crossed-push lesson and
 the pathspec-of-untracked lesson (napkin WRAP 8).
+
+### F. The worktree safety sweep (owner word 2026-09-10 11:5xZ: "No work is considered safe until it has been committed and pushed and is in a PR, draft PRs are acceptable. Please scan all worktrees")
+
+Forty-one worktrees scanned (`git worktree list --porcelain`; per worktree: dirty files, the
+remote branch, exclusive commits against `origin/engraph` tested by `git cherry` for patch
+equivalence, the pull request by head branch). Thirty-one were safe (clean, every commit on the
+tip, or an open pull request already). Ten were unsafe; the procedure is now the runbook node
+`worktree-safety-sweep` (sketch). Outcomes, each as a draft unless named otherwise:
+
+| Worktree | Branch | Held | Outcome |
+| --- | --- | --- | --- |
+| no-prompts | fix/unattended-seats-never-prompt-2026-09-09 | the #100 split cure, uncommitted | committed SHA:d08ab1af8, pushed to #100 |
+| pr-943-engraph | chore/continuity-kiln-2026-09-02 | four kiln-session records of 2026-09-02, staged | SHA:f9d423bdc; draft #124 (two bare URLs wrapped for MD034) |
+| design-plan-truings | jimcresswell/design-plan-ratification-and-truings | one report of 2026-08-05, staged | SHA:4e030a535; draft #119 |
+| fix-pnpm-path | jimcresswell/jim-next-2026-08-04 | one commit, the jim-next return map | pushed; draft #120 |
+| pr-888-cure | docs/windows-via-wsl | four README commits, Windows via WSL | pushed; draft #121 |
+| w01-census | jimcresswell/design-w01-census | one commit, the W0.1 census artefacts | pushed; draft #122 |
+| pr-891-macos-validation | claude/objective-nightingale-b4ba25 | fifteen windows-support commits + an untracked runner | SHA:5dd76c612; draft #123 |
+| mcp-567-vendor-symlinks | jimcresswell/mcp-567-vendor-skill-symlinks | one modified integration test (MCP-567) | REFUSED by the pre-commit gate: six of its cases fail on that tree; patch conserved |
+| vitest-config-workspace | jimcresswell/vitest-config-workspace | two staged eslint config changes | REFUSED by the pre-commit gate: the relative-packages error fires in three workspaces; patch conserved |
+| mcp-487-sanitise | jimcresswell/mcp-487-sanitise-numeric-input | one commit (MCP-487), local only | REFUSED by the pre-push validators (the MCP content-source validator fails on that August tree); format-patch conserved |
+
+The three refusals are NOT safe by the owner's definition. Their diffs are conserved as patch
+files beside the Director's seat record (`instruments-2de368/refused-*.patch`, machine-local) —
+recoverable, not yet on the remote. The bypass (`--no-verify`) needs fresh owner authorisation
+(`no-verify-requires-fresh-authorisation`); the alternative safe home is a fresh branch off the
+tip carrying the same diff as a commit whose gate can pass (the MCP-567 test needs the current
+adapter code; the eslint change needs its three workspaces' cures; the MCP-487 change needs
+re-basing onto the current sdk-codegen surface) — each a small lane, not a sweep step. The
+owner's word decides which.
+
+Every draft opened by the sweep carries a body naming what it holds and the disposition to
+decide at pickup (land, semantic merge, or close with the landing named); none is a request to
+merge as it stands. The board after the sweep: #100, #112, #118 (the Director's landing in
+flight), and the six drafts #119–#124.
