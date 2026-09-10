@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-08
+last_updated: 2026-09-10
 ---
 
 # pr-tally — the review-round tally built by commit binding, with the step-back verdict
@@ -155,6 +155,18 @@ skill.
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
 command once it lands), and the PDR-140 intake contract where the changeset carries prose.
+
+### Candidate recorded ahead of pickup (not a todo)
+
+2026-09-10, from #116, the argument-aware Bash-guard matcher; a mechanism question for todo
+3 at pickup, not a mechanism edit on this ratified node: a parser-class pull request
+declares its PROMISE at intake (for the guard, PDR-044 accident prevention, not bypass
+resistance) and each round's row carries an inside/outside-promise column, so a review tail
+on a parser is bounded by the declared promise rather than by the reviewer's imagination —
+findings outside the promise are recorded with one named home, never cured. The instance:
+Copilot raised 19 findings over four rounds (17 inside, 1 outside, 1 false premise); the
+adversarial subagent leg raised 4 inside and 6 outside in one pass. Falsifier: the next
+declaring parser PR still draws outside-promise cures after the column lands.
 
 ## Out of scope
 
