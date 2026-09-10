@@ -45,7 +45,7 @@ cross-fork-integration second draft from both seats' notes on the first two sync
 four routed round-four findings; pr-lifecycle's slot-word reading, the class-fix definition, the
 9(b) composition, invariant-first authoring, Phase 5's counters; the lane-cut skill's cross-surface
 read; session-handoff §6d's generator-block extension; wrap's compaction sentence) and #106 (the
-rules: the triage rule's exhaustion clause; verify-dont- trust's workflow-file and default-tip
+rules: the triage rule's exhaustion clause; verify-dont-trust's workflow-file and default-tip
 checks; re-apply-first-question's fourth moment; no-moving-targets' records tense and recipe run;
 start-right-team's woken-seat report; rules-have-no-exceptions' standing-ruling question;
 per-user-memory's shared directory; PDR-027's open question; the gotchas 2026-09-09 batch;
