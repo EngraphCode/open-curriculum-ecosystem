@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 8 September 2026
+**Last Updated**: 9 September 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -30,6 +30,12 @@ import is atomic under the estate's gates — "split it into smaller PRs" is not
 and only its link-free members are a valid partial-review surface for size-capped tools.
 
 ## Research by Topic
+
+### Adaptive capacities and agent coordination
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [Adaptive capacities research package](agent-capacities-2026-09-09/README.md) | Self-contained literature review, framework, editable comparison matrix, twelve experimental families and exact source archive | Distinguish capacities, mechanisms, authority and outcomes across biological, computational and institutional arrangements; proposals remain unratified research |
 
 ### Graph foundations and algorithms
 
@@ -190,6 +196,12 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-09-09)
+
+- [Adaptive capacities research package](agent-capacities-2026-09-09/README.md):
+  the complete 9 September review and experimental programme, with readable
+  projections, exact archived source bytes and an explicit import-authority boundary.
 
 ## Recent Additions (2026-09-08)
 
