@@ -17,7 +17,14 @@ import eslint from '@eslint/js';
 
 export default defineConfig(
   {
-    ignores: ['dist', 'node_modules', '**/*.d.ts'],
+    // Self-bootstrap ignores: the shared list cannot be imported here (see above),
+    // so the entries that matter to this package are restated. The tsup entries
+    // exclude the transient `tsup.config.bundled_<id>.mjs` that tsup writes and
+    // deletes while bundling its config: `eslint .` enumerates it as a lint
+    // target during a parallel turbo build and fails with ENOENT on the read
+    // (CI runs 2026-09-03 #93 and 2026-09-10 #116). A file tsup owns is never
+    // lint input.
+    ignores: ['dist', 'node_modules', '**/*.d.ts', '**/tsup.config.*', '**/*.bundled_*.mjs'],
   },
   {
     languageOptions: {
