@@ -1780,10 +1780,14 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   and the carrier fetch moves to step 1 ahead of the merge-tree recompute that consumes the
   carrier head (step 3 keeps a freshness re-fetch) — both single-branch-clone qualifiers,
   correct in kind, below the bar for a reader in an ordinary clone.
-- **A merge commit landed locally WITH conflict markers (21:4xZ, #106's sync).** `merge-tree`
-  had previewed the pair clean; the real merge conflicted on the Core changelog (two lanes
-  each adding a top entry at the same position — the tree-level preview does not see a
-  same-hunk insertion as the three-way merge does). The three resolution edits failed on a
+- **A merge commit landed locally WITH conflict markers (21:4xZ, #106's sync).** The probe
+  had read the pair clean; the real merge conflicted on the Core changelog (two lanes each
+  adding a top entry at the same position). The probe was the defect, not the preview:
+  `git merge-tree --write-tree` IS the three-way merge and reports a same-hunk insertion as
+  a conflict (exit 1, the file named) — the invocation that read clean was a deprecated
+  form whose output shape was never validated, the case `patterns/description-is-not-a-check`
+  records; the cross-fork skill's `--write-tree --name-only` form stays the authoritative
+  preflight (re-trued at the 2026-09-10 fold on a review finding). The three resolution edits failed on a
   stale read, and the chained `add && commit` ran anyway because nothing in the chain gated
   on the resolution: prettier and markdownlint both pass a file carrying `<<<<<<<` lines. The
   marker count (`grep -c '^<<<<<<<\|^=======\|^>>>>>>>'`) read 3 AFTER the commit; caught

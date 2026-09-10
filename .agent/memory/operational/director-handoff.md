@@ -357,7 +357,8 @@ first-hand as of 2026-06-25.
 > HANDOFF to the owner-named successor Nettle guards Pistil, `2de368`) — THE STATE AT THIS
 > HANDOFF; the fold block above stands verbatim; this snapshot replaces the 2026-09-08 23:2xZ one
 > in place, per this file's refresh contract (git retains it); re-trued in place by the sitting
-> Director at this branch's fold, 2026-09-09 16:4xZ.** The owner's standing goal: "I want to
+> Director at this branch's fold, 2026-09-09 16:4xZ, and again at the successor's fold,
+> 2026-09-10 00:5xZ (landed list and lane holders).** The owner's standing goal: "I want to
 > drive the number of open PRs to zero." THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open
 > set, each pull request's head, state and threads are computed from the repository service at
 > the moment of reading (the open-PR list and the review-thread selection in the pr-lifecycle
@@ -370,12 +371,19 @@ first-hand as of 2026-06-25.
 > routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-229, every
 > clause ruled by card), and this branch's own fold. The landing-slot contract governed each: one
 > non-draft PR holds the slot, merges `engraph` as its last push, settles green by name and clean,
-> merges with the head pinned. Lanes at the fold, by holder: Altair spins Umbra (`05a180`) — the
-> upstream 1.179.0 carrier under the skill's second instance (its merge of `engraph` prepared in
-> a worktree and pushed only at its slot), the held-seat-observability node, the Sonar
-> disposition policy amendment; the Director — the held-seat fix (no `ask` rules in the tracked
-> settings, the Bash guard denies `rm -rf`, the rule `unattended-seats-never-prompt`); a Codex
-> seat at the owner's request — a research-package import. Rulings of 2026-09-09, by card, all
+> merges with the head pinned. Landed since, under the owner's 2026-09-09 19:2xZ word "I want
+> ALL PRs merged, including those currently in draft" (the count-to-zero goal now covers every
+> draft): #99 (the upstream 1.179.0 carrier, Altair), #107, #105 and #106 (the curator seat
+> Vanilla lifts Nectar's consolidation records), #102 (the one-outcome Sonar policy, Altair),
+> #101 (the held-seat-observability node, Altair), and this branch's own fold at the merge of
+> #101. Lanes at this fold (2026-09-10 00:5xZ), by holder: Altair spins Umbra (`05a180`) — #108
+> (the cross-fork skill's carrier lessons; step-back fired, cures held for its slot word) and
+> #110 (the #102 residue); Vanilla lifts Nectar (`e1dced`, curator) — #109 (the merge-bot
+> front door's liveness-leg fix, a source PR) and the napkin drain PR cut from the post-fold
+> tip; the Director — #100 (the held-seat fix at its second step-back; the two blanket deny
+> lines are an OWNER edit, refused to the seat by the classifier) and #103 (a Codex seat's
+> research-package import, read done, landing at its slot on the import README's recorded
+> owner authority). Rulings of 2026-09-09, by card, all
 > applied or in flight: no-prompts cure (#100); #92 clause 2 = the class; the external-skills
 > review framework stays ARCHIVED (the morning's card about it was stale — owner-facing state is
 > computed against `origin/engraph`, never the coordination checkout); private projects
@@ -387,7 +395,9 @@ first-hand as of 2026-06-25.
 > Pistil (`2de368`) at PDR-064 Moment 2, 2026-09-09 15:11:49Z (comms event `c3e76199`); the
 > registry row now names that seat, and any later pickup verifies the LIVE claim state first
 > (`claims active-agents` with a UTC `--now`) — an adoption is never repeated from this map.
-> Altair spins Umbra (`05a180`) holds claims on #99, #101 and #102. A successor's first moves,
+> Claims at this fold, read from the registry: the Director `8109015d`; Altair spins Umbra on
+> #108 and #110 (the #99, #101 and #102 claims closed at each landing); Vanilla lifts Nectar's
+> curator claim. A successor's first moves,
 > on any checkout: start-right-team; the mechanical liveness check and the readiness gate in
 > this file's brief; adoption only from a pre-positioning event; then the standing processes,
 > every one of which dies at a compaction or a seat change, each armed from its TRACKED home —
