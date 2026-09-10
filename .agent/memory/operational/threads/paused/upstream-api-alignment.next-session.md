@@ -14,8 +14,8 @@ comms event `c0b23c22`. Pushed at the owner's word on 2026-09-04 as PR #965 unde
 
 > **2026-09-10 addendum (the 1.181.1 sync):** #965 merged upstream as release 1.178.6 and
 > reached this line through the sync #90; #966 merged upstream as MCP-682 (commit
-> `8f44de90d`, release 1.181.1) and reaches this line through the sync carrying
-> `216e64c15`. The heading above describes the state of 2026-09-07; both merges are done.
+> SHA:8f44de90d, release 1.181.1) and reaches this line through the sync carrying
+> SHA:216e64c15. The heading above describes the state of 2026-09-07; both merges are done.
 
 **The defect.** The graph corpus sorted each thread's placements by
 `(year, unitId)`, so within a year the served progression was alphabetical by
