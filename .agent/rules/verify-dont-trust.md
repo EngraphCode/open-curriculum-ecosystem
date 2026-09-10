@@ -94,6 +94,16 @@ the point of action, not a fact to inherit. And it covers your own arithmetic:
 recompute any asserted total from its parts before it leaves your output — a
 noise-inclusive grep once asserted 318 blocks where the genuine total was 214,
 with the per-type census right and only the summary total unrecomputed.
+A census carries one probe already known to hit: an all-NONE sweep with no
+known positive is a probe failure, never a finding (a space-joined path list
+the shell did not split, 2026-09-02; a word boundary that missed hyphenated
+names, 2026-09-03; a pattern matching one nesting depth that missed two
+deeper directories and changed twelve rows, 2026-09-03 — a census needs a
+known positive at EVERY depth it claims). A census in a record is re-derived
+from the live query at authoring, never carried from a snapshot: a scanning
+census of twenty alerts in six classes was twenty-seven in eight when the
+query was run (2026-09-06). And instrument-leg results are never invented to
+satisfy a record's class — a row whose legs did not run says so (2026-09-06).
 
 **Self-state is the category where this discipline is most often skipped.** Agents
 reliably verify a peer's, a sub-agent's, or a bot's claim first-hand, then accept
@@ -251,6 +261,49 @@ Four points, each paid for in this estate:
   consequence — make falsification cheap and make its absence loud — is the
   pattern `falsification-cost-determines-claim-quality`.
 
+Three later refinements, each paid for:
+
+- **The consumer's resolver is part of the claim.** A verification that ran
+  through a resolver other than the consumer's own proved a different claim:
+  a mermaid diagram every local renderer passed lost the `<br>` inside every
+  node label in the live viewer (2026-08-19); a read-shaped command run
+  through a worktree-resolved binary migrated the home registry it was only
+  meant to read (2026-08-18). Name the resolver with the instrument, and run
+  the proof through the consumer's own.
+- **Read the normative clause, never its example.** A cure built from a
+  specification's worked example was overturned by the clause the example
+  illustrated, before it shipped (RFC 9207 §2.4, 2026-08-19). The example is
+  one instance of the rule; the claim is about the rule.
+- **A by-construction claim is verified on every package it names.**
+  "Correct under both orders, harmless if the flow changes" is the
+  survivability tell: a claim that a shape holds by construction across N
+  packages is N checks, never one sentence (2026-09-06). A resolution
+  designed from a module's callers is proven at the production composition
+  root: a config-root override forwarded by the CLI made a new
+  primary-checkout resolution never run, after unit tests, type-check and
+  lint had all passed (2026-09-03).
+- **A claim about what a live system emits is proven by watching it emit.**
+  Reading the code says where to look, never what it did (2026-08-19).
+- **A mechanism written from memory of a rule is a claim about the rule.**
+  Before naming a class's cure in a plan, read the governing policy and the
+  decision-record index for the class: two mechanisms in one node written
+  from memory of a rule each cost a review round (2026-09-06).
+- **A rule clause that names repositories, credentials or secrets is read
+  against the workflow file before it is written.** "Re-home any fork head",
+  generalised from one instance, would have handed an external contributor's
+  head the shared repository's secrets; the workflow runs a cross-repository
+  head without secrets by design, visible from one read of the file
+  (2026-09-06). The instrument for a claim about what a workflow grants is
+  the workflow.
+- **Owner-facing state is computed against the default branch's tip after a
+  fetch, never against the coordination checkout.** The coordination branch
+  is cut once a day and lags every landing since; a card computed from it
+  asked the owner about a gate they had archived the day before
+  (2026-09-09). Before any card or report about a plan, a gate, a record's
+  status or a document's existence, read `git show origin/<default>:<path>`
+  or a listing of the tip; a session-start drift alert on the primary is a
+  pointer to re-check, never a fact.
+
 The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run
 it?"**
@@ -268,6 +321,21 @@ config that ran it in production; a "the bot cannot (403)" owner card whose
 cause was three lines of our own token-minting code, falsifiable by one grep.
 Verdicts-not-hedges licenses committing to a judgement; it never licenses
 skipping the check that would falsify it.
+
+Four sharpenings from one window (2026-08-18 → 19): **a number in evidence
+owes its procedure** — a banked "227 of 1287" grep matched no stated
+method (136, 126 or 550 under three plausible readings) and was restated
+with the method visible; **when the claim is about what a system EMITS,
+observe the emission** — a plan's envelope doctrine survived every document
+check and died on one live `tools/call` (three envelope shapes, not one);
+**a universal negative needs its published enumeration** — "no
+registration site carries X" is evidence only when the leg lists the sites
+it searched; and **a reviewer is rejected only against the primary source**
+— a re-derivation from memory with a wrong region order nearly rejected a
+CORRECT finding, and the falsifier for any reject-verdict is the artefact's
+own tuple. Ask for probes explicitly in reviewer dispatches: a gateway that
+verified its browser assumptions in a live Chromium caught a validator-red
+blocker pre-push that reasoning would have approved.
 
 **"Verified real" is not "verified terminal".** The sharper variant (owner,
 twice in one session, 2026-07-29): the constraint is genuine and the error is
@@ -320,6 +388,26 @@ containment when verification fails — a finding recorded under its true
 observer's name has a one-comment blast radius; one absorbed as your own
 becomes a premise others act on.
 
+**Verify at the rung that binds.** Descriptions are claims, not evidence:
+an endpoint's description string, a README, a plan sentence, a view named
+in a schema doc, a review bot's summary table — each sits BELOW the surface
+that binds (the response schema and handler code, the contract file, the
+deployed migration, the review threads themselves). One lane paid four
+times in one day (2026-08-31): an "unpublished" verdict generalised from
+the bulk schema to the whole API; a cure sourced from an endpoint's
+description while its schema returned two fields; a view cited as
+"materialised for the API" that the estate's own research had recorded as
+undeployed; a bot's "Completed" summary read as "no findings" over fifteen
+unharvested review threads. Sibling instances the same week: four false
+plan rows written from a README instead of the mapper source; a merge gate
+asserted from doctrine prose while the live ruleset's NAME carried the
+fact. Three corollaries: an absence proven on ONE surface licenses a claim
+about that surface only (sweep the endpoint inventory before writing "the
+API does not serve X"); before citing an estate artefact by name, search
+the estate's own research corpus for it (deployment status lives there);
+and a shared dirty checkout is a working surface, never a state authority
+— classify "already done" from the file at the branch base (2026-09-01).
+
 The **change-at-a-distance** facet: the world can move underneath a standing
 artefact with no claim transmitted at all (a dependency override changing
 resolution truth; a vendor re-imposing a cancelled requirement; an edge config
@@ -344,7 +432,8 @@ plan-state refusal read green through `| head`, `check-commit | tail`,
 `git push | tail`, `comms | grep -c`. The discipline is categorical:
 
 - Run every gate, push, and verification probe BARE, and read `$?` off the
-  bare command itself (or `PIPESTATUS[0]` / `set -o pipefail` when a pipe is
+  bare command itself (or bash's `PIPESTATUS[0]`, zsh's lowercase
+  `pipestatus[1]`, or `set -o pipefail` when a pipe is
   genuinely required; or append the code INSIDE the artefact:
   `; echo "EXIT: $?" >> log`).
 - A success echo chained after a pipe (`… | tail && echo OK`) is unproven —
@@ -495,6 +584,11 @@ load-bearing fact; an unlabelled or mis-zoned one is a verification failure.
 - **Never infer a timeline from a truncated log view** (`tail` / `head` / capped grep) —
   query the full window first (a `tail`-truncated `pmset` read once reported `00:51Z`
   when the full log gave `00:06Z`).
+- **A time label is read from the clock at the moment of writing, never estimated
+  afterwards.** Labels written from memory ran 25–55 minutes early (2026-09-03, compared
+  against the transcript and GitHub clocks, which agree) and an hour late (2026-09-07, a
+  pause recorded as 14:0xZ when the clock read 12:5xZ, corrected in eight files). A record's
+  sequence rests on SHAs and the host's timestamps; `date -u` in the same turn as the label.
 
 Composes with the `director-handoff.md` liveness rule (let the tool compute age
 UTC-to-UTC; never a local clock).

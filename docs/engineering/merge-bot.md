@@ -20,7 +20,8 @@ credential:
 
 ## How the bot works
 
-A GitHub App (this repo's is named in [`.github/merge-bot.json`](../../.github/merge-bot.json))
+A GitHub App (this clone's is named in its per-checkout `.github/merge-bot.json`,
+created from [`.github/merge-bot.json.example`](../../.github/merge-bot.json.example))
 is installed on the repository and is **deliberately absent from the
 protections ruleset's bypass list** ("Protect default branch": required
 checks, threads, code scanning, code quality, Copilot review) — GitHub
@@ -43,8 +44,20 @@ settlement verdict, and merges ONLY on SETTLE-READY — merge-commit method
 always, the VERDICTED tip's sha pinned in the call (a moved tip answers
 409), refusing by verdict name on everything else with exit 3. `--expect`
 is required: source it from the repository's automatic-review
-configuration; a defaulted set never merges. `merge-bot merge --help`
-carries the full contract.
+configuration, declaring the reviewers AVAILABLE — a vendor declared
+unavailable on the stream (an outage, such as the Codex connector's
+2026-09-10 usage-limit notice) is not declared, and a subagent review
+posted on the pull request stands as its leg, bound to the sha it reviewed
+as the vendor leg is bound per tip — the premises record that sha and the
+pushes since, which carry only cures of its findings, the tip sync and
+landing-defect cures, else a fresh leg on the new head (owner ruling
+2026-09-10; pr-lifecycle §review-round state machine item 3); a defaulted
+set never merges. The tool verifies only the vendor legs declared to it and refuses
+an empty set: the availability rule and the posted subagent leg are the
+merging seat's own recomputation, recorded on the landing premises (a
+machine-checked subagent-leg input is the named follow-up on the
+agent-tools-watch-commands node). `merge-bot merge --help` carries the
+tool's own contract — the declared vendor set and the verdict names.
 
 **Why the REST endpoint, not the `gh pr merge` client** (the command does
 this for you): client-side `gh pr merge` refuses on a
@@ -104,7 +117,9 @@ permissions problem.
 
 **Tokens can expire mid-chain.** A minted token can expire between the mint
 and the final write of a long pre-push gate chain — the signature is a bare
-`403` on the WRITE while reads still succeed. Mint, auth-probe, and push in
+`403` on the WRITE while reads still succeed; on the REST API the same expiry is a
+`401` mid-batch (2026-09-05: merges, thread resolutions and comment writes past the
+hour, reads still succeeding) — mint again and repeat the batch from the failed call. Mint, auth-probe, and push in
 ONE shell; take proof of push from the transfer line plus a fresh
 `ls-remote`, never the exit code; and the cure is re-mint-and-retry, not a
 permissions investigation.
@@ -148,10 +163,35 @@ need it; the observations behind that, and behind every other scope member,
 live in `token-scopes.ts` beside the decisions they justify.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
-repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
-repo at `~/.config/<appSlug>/private-key.pem`, derived from that config.
-Command-line flags (`--app-id`, `--private-key-path`, `--repo`) are explicit
-operator overrides for cross-repo use or testing — not a resolution tier.
+clone's bot (`appSlug`, `appId`, `repo`). It is **per-checkout and never
+tracked** (owner ruling 2026-09-03): each clone names its own app, so the file
+is gitignored and the tracked surface is the template
+`.github/merge-bot.json.example`, copied and filled in once per clone. The
+tools read it at the clone's **primary checkout** — a linked worktree holds no
+copy of an untracked file, so resolving there is what lets every worktree
+share the one copy, the same way the collaboration home resolves. The private
+key lives outside every repo at `~/.config/<appSlug>/private-key.pem`, derived
+from that config. The `mint-token` flags (`--app-id`, `--private-key-path`,
+`--repo`) are explicit operator overrides for cross-repo use or testing — not
+a resolution tier; `merge` and `push` take no identity flags.
+
+The file is machine state, not a secret: it holds only the app's public
+identity, and the schema is strict (`appSlug` is a lowercase slug, so it can
+only ever name a directory under `~/.config/`). Because it is untracked, a
+clone's copy is not diffable or restorable from history — recreate it from
+the template.
+
+**Clones that predate the untracking** (the file used to be tracked): the
+merge that removed it from version control also removes the working-tree
+copy on the next fast-forward, and the ignore rule then hides its absence, so
+the very next `merge-bot` command exits 2 with the config-not-readable
+message. Recreate the file at the primary checkout from the template, naming
+the app that clone used, before the next merge or push.
+The app holds no Actions permission, so no bot token can re-run a failed workflow job.
+When a required check failed on the runner side rather than in the change (2026-09-06), the
+only bot-shaped cure was a new push, and that push re-opened the review round. Re-running a
+job needs `actions: write`; whether any bot scope should carry it travels with the MCP-391
+scope split.
 
 ## Setting up a bot (requires org-admin rights)
 
@@ -204,7 +244,9 @@ for admin credentials, and optional for everyone else.
    ```
 
 5. **Install App** → your org → **Only select repositories** → this repo.
-6. Update `.github/merge-bot.json` if this bot replaces the repo's bot, and
+6. Create this clone's `.github/merge-bot.json` from
+   `.github/merge-bot.json.example`, naming the app (the file is per-checkout
+   and never tracked; a clone whose bot changes edits its own copy), and
    **never add the app to the ruleset's bypass actors** — a bypass-capable
    bot is the disease this design cures.
 7. Prove it: `pnpm agent-tools merge-bot mint-token --scope pull-request-work` exits 0 and prints a

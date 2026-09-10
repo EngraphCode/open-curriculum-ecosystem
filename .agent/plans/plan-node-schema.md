@@ -16,6 +16,28 @@ at, never mirrored. The sorting test, owner-stated: **if it moves when
 the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repository.**
 
+**Amendment (2026-09-08, owner-ruled) — the boundary of certainty.** The
+repository attests completion with certainty up to its own boundary: a
+merged commit, a proven `repo-safe` acceptance criterion, an archived
+node's recorded disposition (criteria proven, or a sketch abandoned with
+its note — archival is terminal, not by itself proof of completion). The
+state of any INSTANCE of the repository's code — a deployment,
+a dashboard, a console, a schedule system — is one-to-many with the tree
+and is never recorded or inferred in this corpus; a plan records the
+DESIRED external outcome and its `owner-held` proof (who verifies, and
+where), and the external system is the only record of its own state. The
+sorting test's Linear phrasing is one instance of this boundary, and the
+boundary holds on a checkout with no schedule system at all. Owner
+verbatim: "We can know with absolute certainty whether or not we have
+completed a piece of work up to the boundary of the repo, what we cannot
+and should not do in the planning corpus is keep or infer state about
+*deployments* of the repo code, simply because that is a one to many
+relationship, the repo is not a deployment. So, the planning estate can
+know everything about the code, and the Practice, and the plans, but
+external system state is not something to record, we can record a
+desired external system state outcome, but we cannot function as a
+reliable record of that state, only the external system can."
+
 Two consequences are load-bearing:
 
 - **Execution state is never a durable repository field.** A plan's
@@ -104,6 +126,19 @@ its delivery timescales — that fact lives in the node, not here.)
 
 ## Per-type contracts
 
+Common to **every** plan type (owner ruling 2026-08-31): the body names
+its **user groups and value** — who experiences or consumes the outcome
+and what each group gets, in experience terms; the plan skill carries
+the full requirement, including the innovation clause (offered or
+hypothesised value with an honest claim boundary satisfies it — advance
+need-proof is not required) and the one-line routing form for outcomes
+nobody experiences directly. The three authoring templates each carry
+the matching section. The requirement binds plans authored or
+materially amended from the ruling date onward; the pre-existing estate
+is not retroactively invalidated — each earlier plan gains the section
+at its next material amendment, never by bulk retrofit (the
+dated-amendment discipline above).
+
 ### Strategic
 
 The why and the what: the outcome sought, the bet it rests on, what
@@ -122,6 +157,7 @@ onto the plan estate and the schedule. The body carries (PDR-018:
 narrative in the body, never frontmatter):
 
 - **Goal** — what is true when this lands that is not true now.
+- **User groups and value** — the common requirement above, in full.
 - **Mechanism** — how, briefly.
 - **Acceptance criteria — each with a proof, required.** A proof names
   its evidence class: `repo-safe` (a test, validator, or CI check —

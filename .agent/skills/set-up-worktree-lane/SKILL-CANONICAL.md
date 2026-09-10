@@ -2,19 +2,17 @@
 name: set-up-worktree-lane
 classification: active
 description: >-
-  Create a git worktree for a lane and configure it so every downstream surface is
-  true: an inherited bot commit identity checked rather than re-set, dependencies,
-  environment files, and a draft PR at first push. Use when taking up a lane needing
-  its own checkout, or when a worktree misbehaves — commits attributed to nobody,
-  missing env, hook failures. Do not use to switch branches in place (never on the
-  principal), for the session-level residency switch alone (that is EnterWorktree),
-  or to dispose of a finished worktree. Right looks like: branch cut explicitly from
-  origin/main, the inherited bot identity verified with no worktree-scoped override
-  shadowing it, deps installed, .env.local carried, draft PR at first push. Wrong
-  looks like: EnterWorktree fresh mode basing the branch on the principal's
-  coordination HEAD so the lane PR ships foreign commits; or the bot commit email
-  carrying the app id instead of the bot user id, which resolves to no GitHub user
-  and silently breaks deployment attribution.
+  Create and verify a lane worktree: the branch cut explicitly from origin/<base>,
+  the inherited bot identity verified with no worktree-scoped override, deps
+  installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
+  Work cloud host, static branch/base checks only with execution routed to
+  draft-PR CI. Use for a new lane or a misbehaving worktree (commits attributed
+  to nobody, missing env, hook failures). Not for switching branches in place,
+  changing session residency alone, or disposing of a worktree. Wrong looks
+  like: EnterWorktree fresh mode basing the branch on the principal's
+  coordination HEAD so the lane PR ships foreign commits; the bot commit email
+  carrying the app id instead of the bot user id, which resolves to no GitHub
+  user.
 ---
 
 # Set Up a Worktree Lane
@@ -37,25 +35,55 @@ defect below was found in a worktree that satisfied each rule read separately.
 - Auditing an inherited worktree before trusting it.
 
 Not for: switching branches in place; the session-level residency switch on its own
-(`EnterWorktree` — step 3 here); disposing of a finished worktree (that is
+(`EnterWorktree` — step 4 here); disposing of a finished worktree (that is
 `worktree-hygiene` §6).
 
 ## The procedure
+
+### 0. Classify the host before setup
+
+Use the tri-state classification in
+[`cloud-environment-routing.md`](../../directives/cloud-environment-routing.md).
+If it selects ChatGPT Work, keep that profile for the whole session. It replaces
+the identity and buildability work in steps 2 and 3: read the transport
+credential (`gh auth status`; the credential helper or SSH key for `git push`)
+so the name a remote write will display is known — not `git config user.email`,
+which names only the author — but do not mint or rewrite bot credentials; do not install or run pnpm, Corepack, builds, tests or local
+gates. Use the configured default credential and the
+`HUSKY=0`/draft-PR/CI route in step 6. Detector error is a stop; a genuine
+not-Work result does not by itself identify Claude cloud.
 
 ### 1. Cut the branch with an explicit start point
 
 ```bash
 git fetch origin
-git worktree add <path> -b <branch> origin/main
+git worktree add <path> -b <branch> origin/<base>
 ```
 
-The explicit `origin/main` is load-bearing. `EnterWorktree`'s fresh mode documents
-branching from `origin/main` but has been observed basing the branch on the
-**principal's checked-out HEAD** — a coordination-branch tip on this estate — so the
-lane PR ships coordination commits riding under the story. That cost a
-close-and-recreate cycle once already (PR #673 → #674).
+`<base>` is the repository's default branch (refreshed with `git remote set-head origin --auto`, then
+read with `git symbolic-ref --short refs/remotes/origin/HEAD` and the `origin/` prefix
+stripped, or `gh repo view <owner>/<name> --json defaultBranchRef --jq .defaultBranchRef.name`
+with the repository named — derived at the moment of use, never a literal;
+[`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)
+verifies both reads), because the default branch is identity held below the tree.
+For a build-ahead lane it is the parent branch the worktree is cut from
+([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
+parent's changes; its draft PR opens against the default branch at first push, the diff
+carrying the parent's commits until the parent lands, and is never based on the parent;
+once the parent has landed, bring the child onto the default branch before any check against
+it — by a merge when the parent landed by merge commit, by a re-cut with the child's own
+commits cherry-picked across when it landed by squash (its commits are not ancestors then).
+The explicit `origin/<base>` is load-bearing. `EnterWorktree`'s fresh mode documents
+branching from the remote's default branch but, with `worktree.baseRef` set to `"head"`
+in any settings layer, bases the branch on the **principal's checked-out HEAD** — a
+coordination-branch tip on this estate — so the lane PR ships coordination commits
+riding under the story. That cost a close-and-recreate cycle once already
+(PR #673 → #674).
 
 ### 2. Verify the commit identity — inherited, never re-set here
+
+This step applies to standard and separately provisioned profiles only. In a
+detected ChatGPT Work cloud session, step 0 replaces it completely.
 
 The identity lives once in the clone's shared local config and every worktree
 inherits it (owner ruling 2026-08-04; doctrine in
@@ -73,8 +101,20 @@ If that is wrong or absent, fix the SHARED config once. Never patch this worktre
 reintroduces the exact drift this step exists to catch.
 
 ```bash
-BOT_SLUG=$(jq -r .appSlug .github/merge-bot.json)
+# The merge-bot config is per-checkout and never tracked, so it lives only at
+# the clone's primary checkout; a linked worktree holds no copy of it. Every
+# derivation is checked before the shared identity is written: an empty slug
+# or id would otherwise land as "[bot]" while the block exits clean.
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+CONFIG="$PRIMARY/.github/merge-bot.json"
+[ -n "$PRIMARY" ] && [ -f "$CONFIG" ] \
+  || { echo "no per-checkout config at $CONFIG (copy .github/merge-bot.json.example there)"; exit 1; }
+BOT_SLUG=$(jq -r .appSlug "$CONFIG")
+[ -n "$BOT_SLUG" ] && [ "$BOT_SLUG" != null ] \
+  || { echo "appSlug missing from $CONFIG"; exit 1; }
 BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
+[ -n "$BOT_ID" ] && [ "$BOT_ID" != null ] \
+  || { echo "no bot user id for ${BOT_SLUG}[bot] from the GitHub API"; exit 1; }
 
 git config user.name  "${BOT_SLUG}[bot]"
 git config user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"
@@ -95,30 +135,67 @@ work carries, passed per commit —
 The default is deliberately fail-safe: forget the flag and you get a bot-authored
 commit, never a commit that silently credits the owner with agent work.
 
-### 3. Establish residency
+### 3. Make the worktree buildable
 
-`EnterWorktree` with the path — the session-level switch. A bare `cd` is not
-residency and does not survive; a `Shell cwd was reset` line means it did not take.
-Arm background tasks only after this, since they capture their directory for life.
-
-### 4. Make the worktree buildable
+This step applies to execution-capable profiles only. In a detected ChatGPT
+Work cloud session, step 0 forbids it; missing dependencies or build output do
+not trigger provisioning.
 
 ```bash
-pnpm install
+pnpm --dir <path> install
+pnpm --dir <path> build
 ```
 
-A fresh worktree has **no `.env.local`** — copy it from a worktree that has one when
-the lane runs anything env-dependent (codegen, ingest, a local server). Data
-directories that are gitignored (bulk downloads) do not travel either; fetch them per
-the owning workflow rather than copying, so their manifest vintage stays honest.
+Both scoped to the worktree with `--dir`, because this step runs before entry, from the
+principal: an unscoped `pnpm install` there rebuilds the principal and leaves the new
+worktree without its dependencies or `dist/`. Both, before any gate, work or entry:
+`type-check` and `vitest` pass on install alone,
+but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
+with `No exports main defined`. A fresh worktree has **no `.env.local`** — copy it from
+a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
+local server). Data directories that are gitignored (bulk downloads) do not travel
+either; fetch them per the owning workflow rather than copying, so their manifest
+vintage stays honest.
+
+### 4. Establish residency — or decide not to enter
+
+In detected ChatGPT Work cloud, operate through the tool's explicit `workdir`
+or absolute paths. Do not invoke Claude's `EnterWorktree`; continue at step 5.
+
+The platform asks the human for approval on every `EnterWorktree` to a path outside
+`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
+([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
+since v2.1.206). So the session-level switch is an owner-present step: first say the
+exact invocation you are about to issue — as a directed event to the Director where a
+Director is live; in a solo session, in the reply the owner is reading, immediately
+before the call — then issue `EnterWorktree` with the path only when the owner is known
+to be at the keyboard. A prompt nobody answers holds the seat until someone does, while its
+heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
+away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
+for git, the platform's file-editing tool on absolute paths for edits, one plain command
+per call — not residency, and named as such in the lane broadcast), or have the session
+launched inside the worktree (`cd <path> && claude`), which prompts for nothing
+([`worktree-residency`](../../rules/worktree-residency.md) clause 2). A bare `cd` is not
+residency and does not survive; a `Shell cwd was reset` line means it did not take. Arm
+monitors where you reside: at the principal before an entry, or inside the worktree once
+resident — the resident arm roots its `cd` at the worktree and passes the supervisor pid
+as a literal, because the isolation guard refuses runtime-computed values such as
+`$PPID`; verify each monitor after any switch and re-arm what died from where you are.
+The arm shapes and the guard's checks are in
+[`worktree-residency`](../../rules/worktree-residency.md) clause 4.
 
 ### 5. Verify before trusting it
+
+In the ChatGPT Work cloud profile, verify only the branch, explicit base,
+story-only diff, exact changed-file set and static file/link invariants. The
+identity and attribution rows below belong to the standard profile, and no
+local runtime or full-gate claim is made.
 
 | Check | Command | Expected |
 | --- | --- | --- |
 | Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
 | Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
-| Base is clean | `git -C <path> log --oneline origin/main..HEAD` | only this story's commits |
+| Base is clean | `git -C <path> log --oneline origin/<base>..HEAD` | only this story's commits |
 | Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author human, committer bot |
 
 The second row is not optional, and a green first row cannot stand in for it. A
@@ -133,6 +210,21 @@ Every pushed branch carries at least a draft PR from its first push
 hooks gate the whole tree, so one seat's dirty file blocks every seat — and give the
 push a **600s timeout**, because the 120s default kills the hook suite mid-run and
 leaves an ambiguous write.
+
+Before any push that changes a vocabulary, an order or a bound — a renamed term, a
+re-sequenced step, a re-scoped rule — read every surface that carries it (the touched
+files' siblings, the rules and skills they cite, the adapters and index rows) and cure
+them in the same push; derive the terms from the change's own before→after words,
+never from a reviewer's. This is the review-round tally instrument's practice half:
+its absence cost one records PR eight rounds (2026-09-08), each round the next
+surface the reviewer sampled.
+
+In a detected ChatGPT Work cloud session, use `HUSKY=0` for any local git
+commit or push and the configured default credential; when shell transport has
+no configured credential, use the already-authenticated GitHub connector. Open
+the draft PR immediately and treat only a concluded `run-quality-gates` check
+on that head as execution evidence. Static inspection is reported separately,
+never as a local-gate result.
 
 ## Failure shapes this procedure exists to prevent
 

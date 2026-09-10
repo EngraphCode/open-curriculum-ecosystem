@@ -33,6 +33,7 @@ const RESOURCE_COMMON_PROPERTIES = {
 } as const;
 const COMMON_PROPERTIES = {
   ...RESOURCE_COMMON_PROPERTIES,
+  oak_client_product: 'other',
   oak_client_surface: 'other',
 } as const;
 
@@ -321,6 +322,27 @@ describe('finalOakEventPolicy integration', () => {
       expect(JSON.stringify(input)).toBe(inputBefore);
       expect(JSON.stringify(result)).not.toContain(ACTOR_ID);
     }
+  });
+
+  it('carries a rebuilt $mcp_client_user_agent and drops one outside its grammar (MCP-687)', () => {
+    const { policies } = createSubject();
+    const base = { $mcp_tool_name: 'search', $mcp_duration_ms: 13, $mcp_is_error: false };
+
+    const rebuilt = policies.finalOakEventPolicy(
+      nodeEvent('$mcp_tool_call', { ...base, $mcp_client_user_agent: 'claude-code/2 (cli)' }),
+    );
+    expect(rebuilt).toStrictEqual(
+      nodeEvent('$mcp_tool_call', { $mcp_client_user_agent: 'claude-code/2 (cli)', ...base }),
+    );
+
+    const raw = policies.finalOakEventPolicy(
+      nodeEvent('$mcp_tool_call', {
+        ...base,
+        $mcp_client_user_agent: `claude-code/2.1.226 (cli) ${ACTOR_ID}`,
+      }),
+    );
+    expect(raw).toStrictEqual(nodeEvent('$mcp_tool_call', base));
+    expect(JSON.stringify(raw)).not.toContain(ACTOR_ID);
   });
 
   it('accepts the closed unknown tool value produced by the instrumentation policy', () => {

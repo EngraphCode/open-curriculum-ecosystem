@@ -17,15 +17,8 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner ratifies the annotated corpus after WS2 is visible for
-      review (visibility-before-validation: WS4's validators land only
-      after that ratification). The structure ruling itself cleared
-      2026-08-08 — see §The ratified structure.
-    expires: 2026-08-23
-last_updated: 2026-08-10
+owner_gates: []
+last_updated: 2026-09-09
 ---
 
 # Skills-estate organisation
@@ -357,7 +350,14 @@ a core owner value).
 7. **WS7 — Estate migration.** One PR per concern group moving the
    flat canonicals into their concern, each proven conservation-clean
    per the WS6-proven instrument (clause amended 2026-08-09,
-   discharging note (e)): adapter directory names + frontmatter
+   discharging note (e); amended again 2026-09-04 for wave 1: the three
+   mechanical groups — change-custody, planning, orientation — land in
+   ONE PR of three atomic commits, the shape the 2026-08-17
+   pre-execution review chose because concurrent group PRs conflict at
+   hunk level in `practice-bootstrap.md` and on one `practice-index.md`
+   row, and sequential PRs would serialise on those same hunks for no
+   review benefit; the per-group proof obligations below hold per
+   commit, and later groups return to one PR each): adapter directory names + frontmatter
    byte-identical, the moved group's adapter bodies differing ONLY in
    the canonical-pointer line, every other skill's adapters
    byte-identical; plus `portability:check` green, full gates green.
@@ -425,3 +425,12 @@ the standing ruling, recorded here as the affected artifact's stamp).
   plan. (The apparent rhyme between concern groups and export
   boundaries is a noted association, not a design input — portability
   is the stratum axis's job.)
+
+## Review dispositions
+
+One dated row per routed finding (PDR-140 ledger surface).
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-03 | Owner card (the MCP-673 implementing session) | The WS2 annotated corpus, presented for ratification | Ratified — owner verbatim: "Ratify the annotated corpus"; WS4's validators are unblocked; the gate row is removed |
+| 2026-09-09 | The dedicated consolidation (two seats' free-play seeds, 2026-09-07 and 2026-09-09) | The rules tier's three adapters and its index row are hand-carried while the skills tier's adapters are generated; a new rule is four files plus an index row, and the portability validator refused a push for the two pieces a seat had not authored (2026-09-09). Sibling seed: `RULES_INDEX.md` generated from rule frontmatter, since the index classification test already encodes its invariants (the widest-cell, em-dash and trigger-vocabulary classes) | Routed here as a candidate WS9 (WS8 is the supporting-directories workstream above), not started: a rules-adapter generator on the skills generator's pattern, so a rule is one canonical file and `portability:check` proves nothing is hand-carried; the index generator rides the same unit. Falsifier: the generator's projections differ from the hand-carried adapters for any live rule, or the index test's invariants cannot be derived from frontmatter |

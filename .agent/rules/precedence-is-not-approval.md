@@ -39,6 +39,10 @@ Whenever a prior act is invoked as the reason for an action:
   owner directive also yields to a later one: owner direction is a stream, and
   invoking an earlier trigger against today's explicit instruction is precedence
   dressed as deference.
+When a precedent claim is raised as a challenge to a live rule already in context, the
+discriminator is what backs it (2026-09-06): a genuine collision with ratified structure —
+an ADR, a PDR, an owner ruling — earns an owner card; a bare appeal to precedent with no
+ratified backing is refuted at the seat and never forwarded.
 
 ## The Cure
 

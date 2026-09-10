@@ -13,7 +13,10 @@ description: >-
 
 Cricket is the conscience-check panel: a deliberately varied set of fast second opinions about
 whether the primary agent is doing the right work now. It is useful for priority, framing,
-displacement, invented gates, and proportion. It is not an approval gate.
+displacement, invented gates, and proportion. It is not an approval gate, and it is not a
+lens on METHOD or EVIDENCE PROVENANCE: three ON-TRACK verdicts spanned a window in which
+every owner correction concerned which tool was used and where the evidence had come from
+(2026-09-02) — point that scrutiny at reviewers and first-hand reads, never at the panel.
 
 Typing `$oak-cricket` asks the current seat to run the whole panel for its platform. The invoker
 builds the frame from live context and starts immediately; missing information is labelled
@@ -168,4 +171,14 @@ data.
   findings with reasons, and anything still ungrounded.
 
 For experiment or tally data, record the platform, model, effort, stable role, stance, and panel
-shape. Historical records retain their historical vendor-labelled role names.
+shape, and — per the 2026-08-01 ruling — per-leg tokens and runtime. Historical records retain
+their historical vendor-labelled role names.
+
+## The procedure seat stays inside the read-only lens
+
+Every seat on the panel judges; none acts. The compiled-procedure seat in particular stays
+inside the read-only lens: no messaging peers, no drafting, no write-access requests. Both
+owner-invoked suites of 2026-09-03 recorded it stepping from judging into doing (messaging the
+PR B subagent; drafting the ADR and asking for write access) — a recurring instrument defect,
+so a run whose procedure seat acted is recorded in the tally's behaviour-note column and its
+verdict weighed accordingly.

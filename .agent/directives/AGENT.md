@@ -15,6 +15,12 @@ referenced homes.
 
 ## Grounding
 
+Before any setup or command in this entry point, use the tri-state host
+classification in
+[cloud-environment-routing.md](./cloud-environment-routing.md). A detected
+ChatGPT Work profile governs every execution-bearing step in start-right as
+well as later work; detector error is a stop, never a standard-profile result.
+
 Commit to British spelling, grammar, and date formats. Reflect on your current
 task; update your task list if needed. Apply the
 [user-collaboration directive](./user-collaboration.md): dialogue, scope
@@ -129,8 +135,8 @@ directly, with no primer detour.
 
 On a loader platform invoke the skill (`/oak-working-with-agentic-ai`,
 `/oak-under-the-hood`); on a non-loader platform read and follow the canonical
-`.agent/skills/working-with-agentic-ai/SKILL-CANONICAL.md` or
-`.agent/skills/under-the-hood/SKILL-CANONICAL.md`.
+`.agent/skills/orientation/working-with-agentic-ai/SKILL-CANONICAL.md` or
+`.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md`.
 
 ## Project Context
 
@@ -173,7 +179,7 @@ Agent artefacts follow ADR-125's three-layer model: canonical content in
 [docs/engineering/extending.md](../../docs/engineering/extending.md) before
 adding rules, skills, commands, sub-agents, adapters, or ADRs.
 
-Use the [commit skill canonical](../skills/commit/SKILL-CANONICAL.md) for
+Use the [commit skill canonical](../skills/change-custody/commit/SKILL-CANONICAL.md) for
 commits. It enumerates live commitlint constraints and validates the drafted
 message via `pnpm agent-tools:check-commit-message` before `git commit`.
 
@@ -248,6 +254,10 @@ for canonical aggregate verification. The command source of truth is
 [Build System](../../docs/engineering/build-system.md) plus root
 `package.json`.
 
+These commands apply only after the environment classification permits local
+execution. ChatGPT Work uses its non-execution route instead. Claude cloud uses
+its separate [operating document](../claude-harness-integrations/cloud-environment.md).
+
 `pnpm check` always includes browser suites. Start it in a browser-capable host
 environment with the necessary process permissions on the first attempt; do
 not run it in the restricted sandbox to rediscover the known Playwright launch
@@ -258,19 +268,5 @@ independent checks separately or through the parallel tool wrapper; use shell
 chaining only when the dependency between commands is the behaviour being
 tested.
 
-Common entrypoints:
-
-```bash
-pnpm install
-pnpm sdk-codegen
-pnpm build
-pnpm type-check
-pnpm lint:fix
-pnpm format:root
-pnpm markdownlint:root
-pnpm test
-pnpm check:docs
-pnpm practice:fitness:informational
-pnpm practice:vocabulary
-pnpm check
-```
+The [Build System](../../docs/engineering/build-system.md) enumerates the live
+entrypoints; do not duplicate that command inventory here.

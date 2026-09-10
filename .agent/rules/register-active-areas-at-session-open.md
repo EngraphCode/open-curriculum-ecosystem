@@ -65,8 +65,16 @@ answer.
 
 ## Commit-window claims
 
-Before staging or committing, repeat the consultation step for the shared git
-transaction surface and the root `commit_queue`. If a fresh queue entry is
+This section governs the SHARED PRIMARY checkout only (owner ruling 2026-09-07,
+verbatim: "The commit queue was created to stop git operations colliding, that is
+not necessary for work in separate worktrees"). A lane in its own linked worktree
+commits by plain pathspec with an audit line in the message and opens neither a
+queue intent nor a `git:index/head` claim; the commit skill's scope paragraph
+carries the mechanics.
+
+Before staging or committing on the shared primary, repeat the consultation step for the shared git
+transaction surface and the advisory commit queue
+(`pnpm agent-tools:commit-queue -- list`). If a fresh queue entry is
 ahead of yours, coordinate rather than racing the index. If no fresh
 `git:index/head` claim exists, register a short-lived claim entry under
 `claims[]`:
@@ -175,6 +183,12 @@ Over-claim slightly is better than under-claim — the cost of a slightly broad
 claim is a peer pinging you to coordinate; the cost of an under-claim is a
 silent overlap.
 
+**A clean survey is a snapshot, not a lock** (2026-08-19). Between one seat's
+worktree survey and its action, a parallel seat under the same owner word
+preserved and PR'd one of the surveyed trees. Register or broadcast the scope
+BEFORE a sweep starts — not after its first finding — and re-read the surface
+immediately before acting on it.
+
 ## Claim entry schema
 
 The authoritative schema is
@@ -182,8 +196,9 @@ The authoritative schema is
 Every entry carries: `claim_id`, `agent_id` block (PDR-027 identity), `thread`
 slug, `areas` array, `claimed_at`, `freshness_seconds` (default 14400 = 4
 hours), optional `heartbeat_at`, `sidebar_open` (whether a sidebar is
-open against the claim), optional `intent_to_commit` pointer to the root queue,
-`intent` prose, and optional `notes`. Commit-window claims normally use
+open against the claim), `intent` prose, and optional `notes` (a legacy
+`intent_to_commit` pointer may survive on pre-MCP-612 rows; no live writer
+sets it — queue linkage is the store entry's own `claim_id`). Commit-window claims normally use
 `areas.kind: "git"` with `patterns: ["index/head"]` and
 `freshness_seconds: 900`.
 

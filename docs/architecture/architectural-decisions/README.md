@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: index
 authority: adr-navigation
 status: active
-last_reviewed: 2026-04-29
+last_reviewed: 2026-09-08
 ---
 
 # Architectural Decision Records
@@ -218,8 +218,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-173: Graph Stack Topology — Standards-First, Layered, MCP-Agnostic](173-graph-stack-topology.md)
   (eight-workspace graph topology — seven active plus one deferred —
   with RDF 1.2-native internals, standards-based wire projection,
-  build-vs-buy attestation per library, and standards-evolution
-  tripwires; Accepted 2026-05-11)
+  and standards-evolution tripwires; Accepted 2026-05-11;
+  implementation-origin scope refined by ADR-229, 2026-09-08)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](174-dependency-vulnerability-scanning-quality-gate.md)
   (dependency vulnerability triage, blocking/disposition policy,
   Dependabot/override governance, and relationship to quality gates;
@@ -432,13 +432,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   grammar; strictness preserves the protocol's zero-per-message-ceremony property;
   Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
 - [ADR-215: Top-level `research/` surface for imported research records](215-top-level-research-surface.md)
-  (introduces `research/` as an out-of-band research surface outside the ADR-041 product
-  dependency lattice, which is unchanged; records are imported as public projections
-  preserved byte-faithfully except that private-repo permalinks are reduced to plain-text
-  citations resolved via a stable index in the private source repository; house formatting
-  and analysis are exempted while repository-wide integrity gates still apply; only a
-  record's dependency-free leaf packages register in the workspace; first occupant: the
-  web-app-deconstruction deconstruction study; Proposed 2026-07-20)
+  ← **Superseded by [ADR-226](226-agent-research-surface-for-imported-records.md)**
+  (2026-08-30: the imported record relocated to
+  `.agent/research/innovation-kit/web-app-deconstruction/` and the top-level surface
+  retired with it)
 - [ADR-216: The plan-node estate](216-plan-node-estate.md)
   (three node types — strategic, delivery, runbook — with born-sketch owner
   ratification and delivery state as a Linear projection; supersedes ADR-117's
@@ -478,6 +475,27 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   Accepted, owner-ratified 2026-07-31)
 - [ADR-222: Bulk schema contract — interim hand-truing, then full derivation from the upstream schema](222-bulk-schema-contract-interim-truing-then-derivation.md)
 - [ADR-223: Perishable external-surface claims carry risk-based freshness metadata](223-perishable-claims-carry-risk-based-freshness-metadata.md)
+- [ADR-224: Restricted-lesson exclusion is a documented, configurable switch](224-restricted-lesson-exclusion-configurable-switch.md)
+- [ADR-225: Adopt provider-independent capability composition for runtime services](225-provider-independent-capability-contracts.md) ← **Proposed**
+- [ADR-226: `.agent/research/` as the research surface for imported records](226-agent-research-surface-for-imported-records.md)
+  (Accepted 2026-08-31; supersedes ADR-215: records enter as faithful public projections —
+  byte-preserved documents, publication presumption with owner-directed withholding,
+  private-permalink reduction with a private-source index, self-contained records, and
+  leaf-package-only workspace registration)
+- [ADR-227: The Oak MCP product is built in its own repository from packages published here](227-oak-product-in-its-own-repository.md)
+  (Accepted 2026-09-03; records the owner's rulings of 2026-09-02 and 2026-09-03 verbatim: two repositories with
+  published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
+  workspaces; a junior-developer product repository; one version per repository for now; the
+  extraction before the estate-wide seam migration)
+- [ADR-228: Organisational identity is held below the tree](228-organisational-identity-below-the-tree.md)
+  (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
+  tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
+  branch derived, never a literal)
+- [ADR-229: Own-built algorithm and data-structure foundations](229-own-built-algorithm-and-data-structure-foundations.md)
+  (Accepted by owner direction 2026-09-08; graph and non-graph algorithms and
+  data structures authored as SMALL Reliable Atoms and meaningful compositions,
+  informed by openly licensed references and independently qualified;
+  implementation and qualification remain separate delivery work)
 
 ## Key Architectural Decisions
 
@@ -493,9 +511,14 @@ For understanding our API integration approach:
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
 - **[ADR-064](064-elasticsearch-mapping-organization.md)** - Elasticsearch index mapping organization
 - **[ADR-108](108-sdk-workspace-decomposition.md)** - SDK workspace decomposition (generic/Oak x sdk-codegen/runtime)
+- **[ADR-225](225-provider-independent-capability-contracts.md)** - Proposed adoption of provider-independent capability composition: adapter-tier placement, PostgreSQL/Neon separation, and an exercised independent composition for every selected provider
+- **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
+
+For understanding the foundations and their boundaries:
+
 - **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
 - **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
-- **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
+- **[ADR-229](229-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
 
 For understanding authentication, authorization, and observability:
 
@@ -522,6 +545,7 @@ For understanding the agentic engineering practice:
 - **[ADR-129](129-domain-specialist-capability-pattern.md)** - Domain specialist capability pattern: unified `*-expert` model with situational invocation
 - **[ADR-137](137-specialist-operational-tooling-layer.md)** - Specialist operational tooling layer: optional live-system tooling for domain experts
 - **[ADR-131](131-self-reinforcing-improvement-loop.md)** - Self-reinforcing improvement loop: knowledge flow, consolidation hub, self-referential governance, inter-repo propagation
+- **[ADR-228](228-organisational-identity-below-the-tree.md)** - Organisational identity is held below the tree: who runs this tree is never in the tree; mechanism names no organisation; the default branch derived, never a literal
 - **[ADR-135](135-agent-classification-taxonomy.md)** - Agent classification taxonomy: domain_expert, process_executor, specialist; operational modes; Practice domain trio
 - **[ADR-144](144-two-threshold-fitness-model.md)** - Three-zone fitness model: `healthy` / `soft` / `hard` / `critical` graduated scale with `CRITICAL_RATIO = 1.5`; `critical` is a loop-failure signal requiring a three-question post-mortem (§Loop Health)
 - **[ADR-146](146-assumptions-expert-meta-level-plan-assessment.md)** - Assumptions expert: independent proportionality and plan-assumption challenge with an inverted doctrine hierarchy
@@ -641,9 +665,21 @@ Include migration impact if replacing a prior approach.}
   sequence indicates a withdrawal. The withdrawal and its rationale are
   recoverable from version control; no tombstone is kept in this index.
 
+Before proposing any disposition, read this section and the index's
+precedent rows for the same status. One finding held three wrong sizes in
+one arc — a doctrine-cited "restore as Superseded", a measured downgrade to
+a five-line stub that violated keep-the-file, and the conformant landing (a
+successor ADR plus the full original body under a superseded-by banner),
+which appeared only after every Superseded precedent row had been checked
+(2026-08-31).
+
 ### Creating an ADR
 
 ADRs are created when a decision is significant enough to shape future
 work. The consolidation workflow checks whether completed work produced
 decisions that should be recorded. Number sequentially from the highest
-existing ADR. Add the new entry to the Index above.
+existing ADR. Add the new entry to the Index above. A fork of this
+repository numbers in the same sequence; when a sync from upstream reveals
+a collision, the fork renumbers its own record to the next free number in
+the sync's commit with every citation updated (the pre-merge analysis
+guide, §4d) — no lineage reserves a block.

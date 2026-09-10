@@ -183,6 +183,21 @@ guards or relocations**, and several report stale or silently-green results:
   — both silently rewrite match output. Spell flags separately; the Bash
   hook policy fingerprints the r-first cluster shape (the observed one),
   not the trailing-r shapes, so those still rest on this habit.
+- SonarCloud matches command TEXT, not shell behaviour: curl options
+  expanded from a bash array were invisible to its transport rule while
+  literal-URL calls were flagged, so a behaviour-identical refactor left
+  every finding standing — write the option tokens literally at each call
+  site (2026-09-01). Local `sonar verify --file` answers 403 for this
+  organisation; the class proof is a per-rule grep plus shellcheck, and the
+  gate proof is the PR scan after the push.
+- `lint:shell` syntax-checks only `apps/**/scripts/*.sh` and `.husky/*`;
+  shell under `.agent/claude-harness-integrations/` is outside it and gets
+  shellcheck by hand.
+- In a fresh linked worktree `pnpm install` can report `prepare$ husky …
+Done` while creating NO `.husky/_` shims, so `core.hooksPath` points at
+  nothing and git skips pre-commit and pre-push with zero output (a push
+  log of two lines is the tell, 2026-08-30). After install in any linked
+  worktree, `ls .husky/_/pre-push` before trusting hook coverage.
 - Invisible bytes survive agent tools unreliably: raw ANSI `ESC` (0x1B)
   control bytes render invisibly in the Read tool and do not round-trip
   Write/Edit dependably, so escape sequences composed from read context can
@@ -191,6 +206,18 @@ guards or relocations**, and several report stale or silently-green results:
   Detect with `cat -v` (or `od -c`) against the raw file, never by eye in
   tool output; generate escape sequences from code (`\x1b` literals), not by
   copying rendered context.
+
+### Browser suites prove the BUILT artefact
+
+The showcase Playwright suites run `next start` on `.next` — rebuild before
+re-running, or the suite tests the previous code (bit twice in one day,
+2026-08-18). When a UI red appears only under one runner or one emulation,
+measure before theorising: a CI reflow red pattern-matched to
+animation-phase overflow while the a11y suite emulated reduced motion, so
+the sway was still and a two-minute probe found the true root. A browser
+test that is slow or flaky ONLY in a proxied container is a proxy-CA
+mismatch until proven otherwise (the cloud environment doc's provisioning
+defects list carries the cure).
 
 ### Lockfile desync via pnpm overrides
 
@@ -268,6 +295,43 @@ Each gate may fix issues for subsequent gates (e.g.
 Check CI logs for "cache hit, replaying logs" — stale remote
 Turbo cache. Ensure `turbo.json` `inputs` use `**/*.ts` not
 directory enumeration.
+
+### CI job red with ENOENT on a tsup bundled config, no test failed
+
+A build-versus-lint race on the runner, not a defect in the branch: ESLint in
+`@oaknational/eslint-plugin-standards` (`packages/core/oak-eslint`, whose `lint`
+is `eslint .`) can read tsup's transient `tsup.config.bundled_*.mjs` after tsup
+has removed it, so the job fails with ENOENT while every test passes. The
+discriminator: the failing step is lint, the path it names is a
+`tsup.config.bundled_*.mjs` file, and the same job passes on re-run with no
+tree change; a real lint failure names a source file and fails again. Remedy:
+re-run the failed job under the checkout's own `gh` auth (the merge-bot token
+cannot re-run jobs); a chain waiting on the PR resumes when the re-run clears.
+The structural cure is in the package, not the branch: exclude
+`**/tsup.config.bundled_*.mjs` from its lint inputs or order lint after build in
+the job.
+
+A sibling runner-side signature: the secret-scan job failing on a curl
+connection reset while a local gitleaks run over the whole history reports no
+leaks. Re-run the job; a real finding names a commit and a rule, a reset names
+neither.
+
+### CI job cancelled at its timeout inside a late step
+
+A static-checks job can be cancelled at its ten-minute budget inside "Run
+workspace-owned repo validators". The budget is the JOB's, not the step's
+(`timeout-minutes` sits on the job in `.github/workflows/ci.yml`), and that
+step is the ninth in the job: a full-history checkout, the setup action's
+install from the restored store, and six check steps (formatting, Markdown, two
+lints, sub-agent validation, portability validation) all draw on the same ten
+minutes, so the cancelled step is only where the clock ran out. Diagnose from the run's per-step
+timings against a warm run's: every step slow says runner or cold caches, and
+a re-run passes; one step slow says that step, and if the branch changed the
+validator behind it, run the validator locally on the branch before
+re-running. Sibling: a browser suite timing out at 30 s on a runner where the
+whole suite took several minutes against tens of seconds locally. Neither
+names the branch by itself; when the slow window recurs with every step slow,
+the budget is a card, not a code change.
 
 ### Pre-Commit Hook Output Too Large
 

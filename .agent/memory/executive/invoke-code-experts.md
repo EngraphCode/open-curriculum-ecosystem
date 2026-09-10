@@ -141,15 +141,67 @@ exported function were settled by one direct read of the source).
 
 ## Reviewer Reports Arrive Only on Request
 
-Reviewer subagents deliver their reports ONLY on an explicit SendMessage
-request — a summary-less idle notification means NO report was emitted
-(6/6 instances, late July 2026): request the report, never infer one from
-the idle. And a long-silent consult (~12 minutes) is a DEFECTIVE dispatch —
-kill it and re-dispatch; a seat idling on a dead consult is the failure,
-not patience. Known mechanism (MCP-386, until cured): the Agent tool's
+Two reviewer shapes, two procedures — read the dispatched definition's
+tool list before choosing. A reviewer that CARRIES a message tool delivers
+its report ONLY on an explicit SendMessage request — a summary-less idle
+notification means NO report was emitted (6/6 instances, late July 2026):
+request the report, never infer one from the idle. A reviewer that carries
+NO message tool (the expert reviewers and the Cricket legs declared with
+Read/Grep/Glob/Bash only) cannot send anything: its idle IS the finish and
+the transcript is the report — the two harvest routes at the end of this
+section are authoritative for that shape, and re-dispatching such a
+reviewer on its idle discards a verdict already written. For the message-capable shape, a long-silent consult (~12 minutes) is a
+DEFECTIVE dispatch — kill it and re-dispatch; a seat idling on a dead
+consult is the failure, not patience. Known mechanism (MCP-386, until cured): the Agent tool's
 `name` parameter correlates with dark dispatches — named dispatches went
 dark 10/10 while unnamed ones reported; prefer unnamed reviewer dispatches
 while the ticket is open.
+
+Harvest on the FIRST idle: reviewers and Crickets that finished idle with
+no report delivered cost a resend round each (six in one session,
+2026-09-01). Idle-notification results truncate at roughly 4 KB — request
+the tail by SendMessage per truncation; the cap, not the subagent, bounds
+report size. And a subagent stopped mid-report at an owner's "stop all
+processes" may already have written its verdict to the mailbox: read the
+mailbox (or the transcript) once more at resume before declaring a review
+lost — a stopped code-expert's verdict arrived on the first
+post-compaction turn carrying two findings that would have sunk the last
+settlement push (2026-09-01).
+
+Two harvest routes when no message can arrive. (a) The expert reviewer
+subagents and the Cricket legs carry Read/Grep/Glob/Bash only — no
+SendMessage tool at all — so such a reviewer emits its report as its final
+long assistant text and then idles: the idle IS the finish, never "stuck"
+(read that way by the owner on 2026-08-06), and the report is the last long
+assistant text block of the newest transcript under the project's
+directory. Stand the agent down afterwards; it cannot answer the shutdown
+either. (b) A NAMED teammate agent that reports "delivered via SendMessage"
+may have reached nothing (TaskOutput by name answered "No task found"): its
+full report is the SendMessage tool-use payload in its own transcript under
+the session's subagents directory, and the last plain-text turn is only a
+summary — three Opus code-expert reports were harvested that way in one
+pass on 2026-09-04.
+
+## Doctrine and Plan Artefacts Get the Panel Before They Are Public
+
+Measured three times in one window. Two opus adversarial legs on a
+doctrine PR returned 17 findings with near-zero overlap, BOTH
+findings-block-merge, on an artefact that had survived the Director's own
+critical pass with one graded-down finding — a placement claim naming a
+nonexistent workspace tier, an invented constitutional premise, three
+Accepted-ADR collisions (2026-08-14). Three anti-deference reviewers
+refuted a remediation-node verdict on a premise its author could have
+checked (2026-08-31). A four-reviewer pre-landing panel on a new PDR
+caught a ledger with a producer and no consumer, a silently forked tally
+semantics, a false "unchanged" claim about a sibling rule, and a triple
+restatement — at four agents for ~4 minutes wall each, against eleven
+post-push review waves the same morning (2026-08-31). An author's or a
+Director's critical pass is ONE lens; a doctrine record, plan node, or PDR
+gets the panel BEFORE the merge glide or the public push. Point the panel
+at the misinforming-surface class as well
+(`patterns/surface-that-misinforms-without-failing.md`): the seat that
+has just diagnosed the class rebuilds it inside its own cure (two
+independent instances), so the external lens is the working instrument.
 
 ## Reviewer Model Tier
 
@@ -186,6 +238,20 @@ Every bounded reviewer or worker lane should receive this minimum snapshot:
 - **Acceptance signal**
 - **Reintegration owner**
 - **Stop or escalate rule**
+
+When commissioning review, point external scrutiny at **freshly-authored
+claim-bearing prose** first — new text asserting facts (PR bodies, plan
+statements, record entries, doc claims) is where external review pays
+most: one 2026-08-11 day produced four falsified premises in new
+claim-bearing text at one seat, with sibling instances at two others
+(a false interval verdict from a mis-stamped record; a stale attribution),
+and every catch was external (Copilot rounds, opus reviewers, a pin's
+409). Process steps mostly self-catch; fresh factual prose mostly does
+not. The three categories of owner-facing claim where every 2026-09-02
+correction landed — statements about GATES, about WHO ACTS, and about
+WHERE records land — are where a dispatch points that scrutiny first; and
+ask for probes explicitly (a live-browser probe of a load-bearing
+assumption caught a validator-red blocker pre-push, 2026-08-18).
 
 This keeps reintegration cheaper and reduces clarification loops. Mailbox
 delivery alone is not reintegration; the parent lane must absorb the outcome

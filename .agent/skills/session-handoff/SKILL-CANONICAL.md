@@ -213,6 +213,16 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    log: per
    [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
    the commit and the permanent docs are the record that the session happened.
+   Continuity refreshes ride the next substantive or consolidation commit —
+   never a dedicated handover commit, and never a handover PR (owner ruling
+   2026-07-15, verbatim: "handover commits are not necessary, and handover
+   PRs are banned as a memetic pathogen"; each rotation that mints one
+   breeds review treadmills that outlive their purpose). A seat transfer is
+   fully carried by the untracked handoff record plus comms events. When
+   the owner rules a shared handoff BRANCH for a day's uncommitted records
+   (2026-09-02, `handoff/jim-september`), that branch is the owner's
+   instrument, not a licence for per-seat handover PRs — a seat's own draft
+   continuity PR was withdrawn the same day under this ruling.
    Active plans remain authoritative for scope, sequencing, acceptance criteria,
    and validation.
 
@@ -467,6 +477,16 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      `skills.md` as supplementary guidance, so the non-loader
      rules-index pointer is part of the `skills.md` contract for the
      same reason as `AGENTS.md`.
+   - `AGENTS.md` also carries the generator-fenced Codex team-session
+     alert bootstrap block (between the `CODEX_TEAM_ALERT_BOOTSTRAP_GENERATED`
+     start and end markers). It is generator-owned, regenerated and never
+     hand-edited, so it is an extension, not drift; a wrap reports it as
+     drift only when the generator's own check refuses the file — a
+     marker missing, duplicated, out of order or not on its own line, or
+     the fenced content differing from the render (the generator is the
+     test; the wrap runs it rather than re-deriving its rules) (decided at
+     the 2026-09-09 consolidation after every wrap since 2026-09-07 had
+     reported it).
 
    Anything beyond the default (or beyond a named extension) is
    **drift**: an instruction, fact, preference, or operational note
@@ -745,7 +765,7 @@ no retrospective memos; those are close-out work, this skill's §Steps.
       evidence and stop. Do not bundle handoff over a red gate.
 
     Owner-stated standing 2026-05-14 (carried by
-    [`gates/SKILL-CANONICAL.md`](../gates/SKILL-CANONICAL.md) and
+    [`gates/SKILL-CANONICAL.md`](../change-custody/gates/SKILL-CANONICAL.md) and
     [`build-system.md`](../../../docs/engineering/build-system.md)
     § `pnpm check` - Canonical full gate): session-handoff is not complete
     in the individual-contributor or handoff-owner sense unless `pnpm check`

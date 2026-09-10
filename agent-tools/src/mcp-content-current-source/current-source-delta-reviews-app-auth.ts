@@ -21,14 +21,40 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
     'edb46bf7322dd0396c25ac7b4e254fb8bb94dc92f579b9a0c6666a5cc3569ea1',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-655: the upstream OAuth-metadata fetch now requires the document's
+  // `issuer` to equal the base URL it was fetched from (RFC 8414 §3.3) —
+  // the value the PRM publishes as the authorization server — and
+  // classifies the mismatch as `issuer_mismatch`. Boot-time boundary
+  // validation only; serves no agent-facing content. Homed here, with the
+  // auth surface it guards, because the app map sits at its line limit.
+  'apps/oak-curriculum-mcp-streamable-http/src/app/metadata-fetch-error.ts': excluded(
+    'cf2cfb9f0f7763e5657ed2c2379196e4e27cd152b6914700fa245e48e7de924a',
+    IMPLEMENTATION_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/app/upstream-metadata-fetch.ts': excluded(
+    '06e90c915721be676bb603c583bfc020fb57a0b1490754350a0de5f73c1d47b6',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-655: the Clerk key-pairing guard — the secret key must belong to the
+  // instance the publishable key names (a shared JWKS `kid`), or bootstrap
+  // fails instead of every sign-in being refused after it succeeds. Boot-time
+  // boundary validation only; serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/app/clerk-key-pairing.ts': excluded(
+    '916664a0ff27167375629179970db20207357d8f9d2a739a2264b2f0703ba754',
+    IMPLEMENTATION_ONLY,
+  ),
   // MCP-351: the published PRM resource composes the shared
   // MCP_RESOURCE_PATH constant; the served document is byte-identical.
   // MCP-545: both GET /mcp mounts now serve the 405 standalone-stream
   // refusal; its body mirrors the SDK's own refusal idiom verbatim (a
   // vendor-shaped wire error, no new Oak-authored agent-facing copy) and
   // the C705–C708 metadata rows are untouched by the delta.
+  // MCP-655: the PRM (C706) names the upstream authorization server's
+  // issuer instead of this origin, so a PRM-following client holds the
+  // issuer the authorization response's `iss` carries (RFC 9207 §2.4);
+  // C705, C707 and C708 are untouched.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    'd19554a15174e8472540b189b4f17e089c9d489f0ebeb455984253e6644b36f1',
+    'ace7a9c10712382d219d986b24696ab94f11ef1717df1654e39244ae8838efad',
     ['C705', 'C706', 'C707', 'C708'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
@@ -73,8 +99,12 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // MCP-518: the public-path sets, and the case-normalisation rule they are
   // compared under, extracted from the Clerk conditional. Path literals for a
   // routing decision; serves no agent-facing content.
+  //
+  // MCP-580 re-review: the health entry is now spread from `HEALTH_PATHS`, so
+  // the routed `/mcp/healthz` the canonical host reaches is auth-exempt exactly
+  // as the root path already was. Still a routing decision over path literals.
   'apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts': excluded(
-    'fac659994388ebd20d267596eb2fac3344dcc2bb836771cefa7b3334dafa441b',
+    'c96fa6a897a638088c9841c8a4dbb85229ae7f800a14ac52c57b25cce91b9203',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-518: the Clerk conditional now forks on the request's surface before

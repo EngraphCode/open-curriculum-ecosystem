@@ -15,7 +15,7 @@ tickets:
   - MCP-527
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-07
+last_updated: 2026-08-17
 ---
 
 # Design-lane review-debt closure
@@ -48,7 +48,20 @@ Authoritative slice detail — checks, wiring, evidence, and the recorded
 over-reach rejections — was approved in the session plan and is summarised
 here; the PR bodies carry per-slice verification evidence at landing.
 
-### Slice 1 — PR #814 cure rounds (round 1 landed; round 2 pending)
+**State trued 2026-08-17 (records-truth pass, MCP-613).** Slices 1, 3, and
+4 are DISCHARGED: #814 merged 2026-08-07 (the DDR corpus, four-round
+convergence to LAND); the completion plan's §Review record carries the true
+round-2 state; #787 merged, #806 closed with adjudication, #737 merged
+2026-08-08. **Slice 2 — the `ddr-graph` validator, a day-1 owner ruling
+(2026-08-07) — remains specified below and UNBUILT ten days on** (the
+coupled `POLICED_ROOTS` / `REPO_DOCTRINE_PREFIXES` edits landed without
+it), and the 2026-08-17 review found the corpus defect its absence
+permits: DDR-010 carried no frontmatter at all (cured that day; it would
+have been the validator's natural red-first fixture). This node stays
+ratified-and-open carrying slice 2 alone; building or formally
+re-dispositioning it is the node's one live question.
+
+### Slice 1 — PR #814 cure rounds (DISCHARGED — see the dated state note above)
 
 All 17 round-1 docs-adr-expert findings cured as seven classes at
 `a261ae42d` (status-grades-authority rule; volatile-state sweep;
@@ -70,7 +83,14 @@ by string compare; every DDR-shaped token in any edge list resolves; no
 self-edges, duplicates, or id collisions; contiguous numbering; `depends_on`
 and supersession digraphs acyclic; status↔edge coupling with atomic-flip
 semantics; live records never depend on superseded ones; README index
-recomputed-and-diffed; mermaid soundness never equality. Wiring: agent-tools
+recomputed-and-diffed; mermaid soundness never equality. String-compare id
+resolution is deliberate: `fs.exists` probes lie on APFS's case-insensitive
+default. Rejected as over-reach at approval, recorded so the builder does not
+re-litigate them: mermaid full-equality; requiring all edge keys;
+slug-from-title derivation; strict existence for prose refs; date
+monotonicity/future-date checks; a separate "superseder must be ratified"
+rule. Deterministic and clock-free throughout; an empty corpus is a failure,
+never a pass. Wiring: agent-tools
 script + new last leg of `docs-validators:check` + knip entry + red-proof
 tests. Coupled edits: `docs/design` into reference-direction
 `POLICED_ROOTS` AND `REPO_DOCTRINE_PREFIXES`.

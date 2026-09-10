@@ -181,6 +181,46 @@ whatever tree it lands in, and the "watcher" watches nothing (worked
 instance 2026-07-20: a re-arm from a scratchpad clone auto-installed the
 clone and observed zero events).
 
+### Worktree residency changes the arm's shape — root it where you reside
+
+Platform worktree isolation (Claude Code `EnterWorktree`) refuses an arm
+command it cannot prove stays inside the worktree ("This session is
+isolated in the worktree …" — the refusal recorded in-repo 2026-08-06 in
+the mutation-evidence mechanics report; three seats hit it independently
+2026-08-13 and first read it as a fleet regression). It refuses the
+principal-shaped opening `cd <repo-root>` and every runtime-computed
+value it cannot resolve: the 2026-09-08 refusal named "the variable
+PPID"; the refusal reports one offender at a time, and whether the
+canonical block's `TIMEOUT_BIN="$(command -v …)"`, `set --` and
+`exec "$@"` scaffolding passes inside a worktree is unverified. A
+worktree-resident session therefore arms the SAME watcher as a fully
+literal block, not as an edit of the canonical one — the `cd` rooted at
+the worktree, the timeout binary named by the name it resolves to, and
+the supervisor pid written as a literal. Both literals are read first,
+each as a plain command: the pid from the harness's session file
+(`~/.claude/sessions/<pid>.json`, matched on `sessionId`); the binary
+from `command -v timeout || command -v gtimeout` (`timeout` on Linux,
+`gtimeout` from Homebrew coreutils on macOS; when neither resolves, omit
+the prefix and the watcher runs un-guarded, as the README states):
+
+```bash
+cd <worktree-path> || exit 1
+<timeout|gtimeout> 3600 pnpm agent-tools:collaboration-state -- comms watch --platform <platform> --model <model-id> --supervisor-pid <literal-pid> --step-timeout-ms 120000 --max-events-per-drain 100
+```
+
+That block, with `timeout` resolved, is the one verified 2026-09-08 on 2.1.263: the arm ran, the
+omit-path default resolved the PRIMARY comms directory (the heartbeat's
+`watched_comms_dir`), events drained, and `assert-watcher-live` from the
+worktree was green. A session launched at the principal arms there before
+any `EnterWorktree`; a session that finds a monitor dead after a switch
+re-arms from where it now resides — never by exiting and re-entering,
+since the re-entry prompts (`worktree-residency` clause 1). The primary
+coordination home stays writable through this CLI from a resident session
+(`comms send`, `comms reply`, `claims heartbeat` all wrote events from a
+worktree on 2026-09-08): the isolation guard blocks the platform's
+`Edit`/`Write` tools on main-checkout paths and git redirected into the
+main checkout, not a Node process writing files.
+
 **After arming the watcher, run ONE foreground comms sweep covering the
 window from BEFORE session open.** An event landing between session-open
 and watcher-arm is otherwise absorbed into the watcher's baseline and
@@ -417,6 +457,14 @@ matched on `addressed_to` where the schema's live field is `to`, making a
 directed wake invisible (the same schema-vs-observed-output discipline as
 the notification-filter paragraph above).
 
+**Probe the monitor's QUERY, not only its filter.** The corpus-test
+discipline extends to the WHOLE poll path: run the monitor's command once
+in the foreground and read a real emission BEFORE arming — a monitor that
+cannot show you one is not armed. A review-round PR watch ran blind for
+two hours because `reviewThreads` is not a `gh pr view` field, every poll
+errored, and `2>/dev/null || continue` swallowed the proof; an unrelated
+wake's cross-check caught it (2026-08-19).
+
 ### No hand-rolled fallback
 
 There is no sanctioned shell reimplementation of `comms watch`. A portable
@@ -548,6 +596,11 @@ naming the rule; the substance lives here for two reasons:
   `behaviour-note`, `heartbeat`).
 - [`use-built-agent-tools-cli`](use-built-agent-tools-cli.md) — governs
   the CLI surface this rule invokes.
+- [`use-monitor-for-event-driven-wake` §A File-Emitting Watcher Is
+  Half-Armed Without a Read Path](use-monitor-for-event-driven-wake.md#a-file-emitting-watcher-is-half-armed-without-a-read-path)
+  — an emit-to-file watcher satisfies no watcher obligation without a wake
+  mechanism or a declared read cadence; enumerate the surfaces that can
+  carry direction to the seat as the arming checklist.
 - [`directed-routing-requires-absorption-ack`](directed-routing-requires-absorption-ack.md)
   — the `ABSORB`-class sibling: this rule's checks stop at `DELIVERY`;
   absorption evidence comes from the ack convention that rule owns.

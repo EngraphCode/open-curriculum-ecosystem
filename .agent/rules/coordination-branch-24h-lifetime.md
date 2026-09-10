@@ -15,11 +15,18 @@ stamp the lifetime) and at session-open (to check it).
 
 ## Action
 
-1. **Stamp the cut date in the branch name**: `coordination/estate-<YYYY-MM-DD>`.
-   The name is the observable clock — no side-channel state needed
-   (agent-state-observable).
-2. **At session-open on a coordination branch**, read the stamp. The
-   check is UTC-date rollover: a branch whose stamp date is before the
+1. **Stamp the cut date in the branch name**:
+   `coordination/<YYYY-MM-DD>-<sha6>`, minted by the
+   [cut-coordination-branch skill](../skills/cut-coordination-branch/SKILL-CANONICAL.md)'s
+   tool (`agent-tools coordination successor-name`) — never
+   hand-transcribed. The date segment is the observable clock — no
+   side-channel state needed (agent-state-observable); the sha6 segment
+   carries the base-tip lineage (the skill states its exact guarantee).
+2. **At session-open on a coordination branch**, read the stamp — the
+   `<YYYY-MM-DD>` segment between `coordination/` and the trailing
+   `-<sha6>` (older branches may carry legacy forms such as
+   `coordination/estate-<YYYY-MM-DD>`; their date segment is still the
+   stamp). The check is UTC-date rollover: a branch whose stamp date is before the
    current UTC date is DUE — the stricter reading of "at most 24 hours"
    (a branch cut late in the day rotates sooner, never later; a
    date-only stamp cannot express hours, so the day boundary is the
@@ -47,6 +54,21 @@ stamp the lifetime) and at session-open (to check it).
    [`worktree-hygiene`](worktree-hygiene.md) and the owner's standing
    word (2026-07-28: work in worktrees where reasonable). A coordination
    branch that accumulates work products cannot converge in a day.
+5. **Keep the branch reasonably clean between rotations** (owner,
+   2026-07-25: "periodic commits, not too many, just don't let things
+   build up"): the accruing shared-state surfaces (memory, handoff maps,
+   tally ledgers) commit periodically in sensible batches under the bot
+   identity by explicit pathspec — each a continuity-only commit, never
+   bundled with a cycle commit, so the orphan boundary of
+   [`continuity-surface-commits-as-orphans`](continuity-surface-commits-as-orphans.md)
+   holds at every one of them — and the default branch merges in at quiet
+   windows so the gap stays small. Uncommitted state on the shared
+   primary is absent from the branch every other seat reads, invisible to
+   peers, and blocks other seats' operations on that tree (a merge or a
+   branch switch refuses over it). And the coordination branch IS the primary
+   checkout's own branch, always — never a snapshot worktree (owner,
+   2026-08-06, verbatim: "the coordination branch shouldn't be a
+   worktree, it should be the branch in the primary checkout, always").
 
 ## Why This Rule Exists (Worked Instance)
 

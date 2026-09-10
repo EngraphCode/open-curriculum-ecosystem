@@ -16,6 +16,9 @@
       "Bash(npx turbo:*)",
       "Bash(npx tsc:*)",
       "Skill(oak-design-system-usage)",
+      "Skill(oak-visual-comparison)",
+      "Skill(oak-visual-verification)",
+      "Skill(oak-visual-verification:*)",
       "Skill(oak-design-system-usage:*)",
       "Skill(oak-ui-visual-design)",
       "Skill(oak-ui-visual-design:*)",
@@ -37,6 +40,10 @@
       "Skill(oak-concept-exploration:*)",
       "Skill(oak-cricket)",
       "Skill(oak-cricket:*)",
+      "Skill(oak-cut-coordination-branch)",
+      "Skill(oak-cut-coordination-branch:*)",
+      "Skill(oak-dependency-currency)",
+      "Skill(oak-dependency-currency:*)",
       "Skill(oak-reason)",
       "Skill(oak-reason:*)",
       "Skill(oak-parallax)",
@@ -71,6 +78,10 @@
       "Skill(oak-consolidate-until-done:*)",
       "Skill(oak-session-handoff)",
       "Skill(oak-session-handoff:*)",
+      "Skill(oak-slack-watcher)",
+      "Skill(oak-slack-watcher:*)",
+      "Skill(oak-talk-to-slack-watcher)",
+      "Skill(oak-talk-to-slack-watcher:*)",
       "Skill(oak-semantic-merge)",
       "Skill(oak-semantic-merge:*)",
       "Skill(oak-go)",
@@ -108,6 +119,8 @@
       "Skill(oak-commit:*)",
       "Skill(oak-complex-merge)",
       "Skill(oak-complex-merge:*)",
+      "Skill(oak-cross-fork-integration)",
+      "Skill(oak-cross-fork-integration:*)",
       "Skill(oak-pr-lifecycle)",
       "Skill(oak-pr-lifecycle:*)",
       "Skill(oak-ground-truth-design)",
@@ -175,25 +188,6 @@
       "Bash(git push --delete:*)",
       "Bash(rm -rf:*)"
     ]
-  },
-  "skillOverrides": {
-    "sentry-android-sdk": "off",
-    "sentry-cocoa-sdk": "off",
-    "sentry-dotnet-sdk": "off",
-    "sentry-elixir-sdk": "off",
-    "sentry-flutter-sdk": "off",
-    "sentry-go-sdk": "off",
-    "sentry-php-sdk": "off",
-    "sentry-ruby-sdk": "off",
-    "sentry-svelte-sdk": "off",
-    "sentry-react-native-sdk": "off",
-    "sentry-tanstack-start-sdk": "off",
-    "sentry-nestjs-sdk": "off",
-    "sentry-sdk-skill-creator": "off",
-    "chat-sdk": "off",
-    "next-forge": "off",
-    "ai-gateway": "off",
-    "ai-sdk": "off"
   },
   "hooks": {
     "SessionStart": [
@@ -272,14 +266,5 @@
     "type": "command",
     "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\"",
     "refreshInterval": 10
-  },
-  "enabledPlugins": {
-    "sentry@claude-plugins-official": true,
-    "mcp-server-dev@claude-plugins-official": true,
-    "sonarqube@claude-plugins-official": true,
-    "linear@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "posthog@claude-plugins-official": true,
-    "figma@claude-plugins-official": true
   }
 }

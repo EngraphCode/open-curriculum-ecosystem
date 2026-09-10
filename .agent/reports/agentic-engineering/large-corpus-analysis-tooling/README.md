@@ -91,3 +91,46 @@ instrument, never the milestone.
   legitimately-oversized validate splits into candidate-subset runs via the resume mechanism.
 - Voter cost calibration: ~50k tokens/voter at high effort over grounding-heavy prompts
   (`OBSERVED_VALIDATE_TOKENS_PER_VOTER`, `run-orchestration.ts`).
+- Spend expectation per candidate: validate ran at about 92k subagent tokens per candidate
+  on both longitudinal runs (7.4M over 80 candidates on 2026-08-07; 4.77M over 52 on
+  2026-09-02). Voter loops terminate early, so the measured per-candidate actual, not the
+  five-voter ceiling arithmetic, is the expected-spend figure for a spend card (about 4.8M
+  expected against the 16.25M ceiling on 2026-09-02); the ceiling passed as `--ceiling`
+  (candidates × 5 × ~50k × 1.25) stays the abort bound.
+- Leg health during a run: the 2026-09-02 reduce leg wrote its first transcript line about
+  six minutes after dispatch and its structured output about two minutes later. The health
+  check that run used was a freeze detector keyed on the leg's transcript mtime (warn at 15
+  minutes without a write, stop at 30), never process liveness — a wedged leg keeps its
+  process alive while its transcript freezes; the warn threshold sits above the observed
+  first-write latency.
+- Voter free-text rationales are not captured: the voter contract records only the four-test
+  verdict grid (`judgment-schemas.ts` has no rationale field) and the workflow transcripts'
+  thinking blocks were empty on the 2026-09-02 run. A report's kill reasons are the seat's
+  reading of the committed per-voter grid and the candidate text, labelled as such; a
+  rationale field on the voter contract is the cure if a pass needs contestable reasons.
+
+## Runbook — since-marker run (first used 2026-09-02)
+
+A pass scoped to "napkins since the last processed marker" does not re-map files a prior
+run already mapped. The shape, all file-level, no engine change:
+
+1. **Partition only the post-marker files** (plus any file that shared a window with an
+   out-of-scope file in the prior run, so the new window has a clean file boundary). Use
+   window ids that continue the prior run's numbering so leaf ids stay unique.
+2. **Map** as normal; assess the map checkpoint before spending further: (a) each mapper's
+   `Read` calls cover its file in contiguous line ranges up to the file's line count;
+   (b) every leaf's grounding quote anchors verbatim in its archive after whitespace
+   collapsing (split abridged quotes at their ellipses and anchor the fragments).
+3. **Splice** the prior map checkpoint's leaves for the in-scope files by window into a
+   union map-result (partition and coverage rows added, `leafCount` recomputed, ids
+   unique). The union is the reduce corpus.
+4. **Reduce** over the union, then **dedup in-seat** against the prior run's full
+   adjudicated set (kept and killed): same-mechanism-as-a-keep candidates are not re-voted
+   (their post-marker recurrence is the finding); same-as-a-kill with pre-marker evidence
+   only are not re-voted; everything else forms a filtered reduce-result checkpoint.
+5. **Validate and meta over the filtered checkpoint**; the full reduce result stays
+   committed beside it, and the merged-disposition gate is satisfied over the filtered set.
+   Publish the dedup mapping in the report so any row can be contested.
+
+The meta stage emits absolute home paths; rewrite them repo-relative before committing the
+checkpoint (the driver resolves either form; the path ratchet accepts only the relative one).
