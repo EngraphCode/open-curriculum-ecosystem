@@ -228,7 +228,7 @@ On Windows, start at [Windows (via WSL)](#windows-via-wsl) — every prerequisit
 is installed inside WSL, never in PowerShell.
 
 - **Node.js 24.x** — install via [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), then run `nvm use` or `fnm use` to activate the version in `.nvmrc`
-- **pnpm** — install via pnpm's [standalone script](https://pnpm.io/installation#using-a-standalone-script); it self-switches to the version pinned in `package.json`. The commit hooks resolve pnpm by absolute path from a fixed set of install locations, so a `corepack enable` shim under an nvm-managed Node is not found — if you already run pnpm from corepack, point `PNPM_HOME` at its directory
+- **pnpm** — install via pnpm's [standalone script](https://pnpm.io/installation#using-a-standalone-script); it self-switches to the version pinned in `package.json`. The commit hooks resolve pnpm by absolute path from a fixed set of install locations, so a `corepack enable` shim under an nvm-managed Node is not found — if you already run pnpm from corepack, install the standalone launcher as well, and never re-point `PNPM_HOME` to make a gate run (pnpm derives its store root from it, and a re-pointed value rebinds every tree to a second store)
 - **gh** — the [GitHub CLI](https://cli.github.com/), used by the repo's pull-request and agent tooling
 - **bun** (optional, for `pnpm dev:widget-in-host`) — install via [bun.sh](https://bun.sh/docs/installation)
 - **lsof** (optional, for `apps/oak-curriculum-mcp-streamable-http/scripts/restart-dev-server.sh`) — pre-installed on macOS; on Debian/Ubuntu use `sudo apt install lsof`; source/build instructions at [github.com/lsof-org/lsof](https://github.com/lsof-org/lsof)
@@ -381,7 +381,9 @@ steps below were run end to end on Windows 11 in August 2026.
    whole-tree run are turbo runs: `export TURBO_CONCURRENCY=1` (add
    `export VITEST_MAX_WORKERS=2` if memory stays tight — the symptom of a
    starved suite: vitest reports 5000 ms timeouts, or the gate exits with no
-   error text).
+   error text). After `pnpm install`, run `pnpm exec playwright install --with-deps chromium`
+   once: the pre-push hook runs the browser suites, and `pnpm install` does not
+   fetch browsers (CI installs them the same way).
 
 ### Install and verify
 
