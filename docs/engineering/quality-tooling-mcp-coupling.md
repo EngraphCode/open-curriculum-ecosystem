@@ -228,7 +228,7 @@ gh api -X PATCH repos/<org>/<repo>/code-scanning/alerts/<number> \
 
 The dismissal reasons are constrained: `false positive`, `won't fix`, `used in tests`. The comment is the rationale carrier.
 
-The agent does not dismiss CodeQL alerts: every alert is cured at source, and the one excepted class is the owner's act via the GitHub Security UI, for which the agent prepares the rationale (the route comment, the commit message) and surfaces the action item.
+The agent does not dismiss CodeQL alerts: every alert is cured at source, and the one excepted class is the owner's act through the code-scanning route above (the Security UI or the API call), for which the agent prepares the rationale (the route comment, the commit message) and surfaces the action item.
 
 ### CodeQL coverage gaps and Sonar coverage gaps
 
