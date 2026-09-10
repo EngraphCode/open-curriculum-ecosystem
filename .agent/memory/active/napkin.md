@@ -1970,4 +1970,30 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   now a routed cure. The Director's contribution was the endpoint to try and the rule that a
   code PR never takes the REST path.
 - **Processes by id:** unchanged from wrap 4. Owner items: unchanged (a–g).
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 6 (2026-09-10 04:5xZ)
+
+- **Landed since wrap 5:** #108 SHA:253601ed9 (03:1xZ, Altair; both configured legs after the
+  bot's explicit Copilot request), #110 SHA:a11323b01 (04:3xZ, Altair; rounds 3, 3, 4, 2 — the
+  step-back at round four, one class fix, epoch two routed by reply). Tip SHA:a11323b01. Five
+  open: #113 in the slot (Vanilla; the #109 successor — the same fix commit under a second
+  branch name because the platform refuses a second open PR on a branch that has one; #109
+  closed with a pointer; Copilot requested on the head; one round cured at SHA:b16b6abbb),
+  #114 (Altair; the merge-shape facts into pr-lifecycle and the cross-fork push entry point;
+  BEHIND, round one dispositioned by reply), #111 (the drain, draft), #112 (this successor's
+  draft), #100 (the owner edit, held since 2026-09-09 19:2xZ).
+- **The Codex leg on #109, first-hand across three seats:** the connector binds a PR at its
+  creation and on pushes to a PR it has bound; a PR created as a draft from an already-pushed
+  branch drew no review on any of three pushes or a trigger comment (26 minutes at the slot
+  push where #105, #106, #108 drew one inside ten). The front door refused SETTLED-NO-REVIEW
+  (Copilot satisfied, Codex skipped) and a code PR never takes the REST path, so the cure was
+  the fresh non-draft PR at the same commit — the slot yielded to #110 for the 35 minutes it
+  took to learn this. #114 carries the facts into pr-lifecycle.
+- **Retrospective.** Every landing since the fold went through the front door with the
+  configured set; the one refusal was correct (a code PR without its Codex leg) and produced
+  the cure. Director words this window: the slot ruling with a deadline (#109 to 03:55Z, then
+  #110), the step-back binding on #110, the GO on Vanilla's default twice. The seat did no
+  landing of its own this window and none was needed — the two lane seats ran the machine.
+- **Processes by id:** unchanged. Owner items: unchanged (a–g). Next fold: #112 at the
+  2026-09-11 rollover or in its slot after #114.
 - Expected-set fact (e1dced, 23:1xZ): the Codex connector reviews PUSHES TO A PULL REQUEST, not branch pushes — #109's first push went to a branch with no PR yet (the PR was opened a minute later), and no Codex round came in 30+ minutes, where #105/#106 (pushed to existing drafts) had theirs in ~6. Copilot is requested at PR creation and reviews whatever head is there. So for a "push, then open" lane the first-push expected set is Copilot only; Codex first binds at the next push (the sync at the slot). Recipe: open the draft BEFORE the first substantive push when Codex's first-push read is wanted.
