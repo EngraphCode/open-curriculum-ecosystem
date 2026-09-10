@@ -163,8 +163,9 @@ function scanHeredoc(command: string, index: number, state: ScanState): number |
   }
   const [heredoc, next] = operator;
   state.heredocs.push(heredoc);
-  state.word += (heredoc.stripTabs ? '<<-' : '<<') + heredoc.delimiter;
-  state.inWord = true;
+  // The operator is its own token, so `rm<<EOT -rf` is `rm` `<<EOT` `-rf`.
+  endWord(state);
+  state.words.push({ text: (heredoc.stripTabs ? '<<-' : '<<') + heredoc.delimiter, nested: [] });
   return next;
 }
 

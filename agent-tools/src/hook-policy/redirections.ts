@@ -1,3 +1,4 @@
+import { decodeAnsiCQuoted } from './ansi-c-quotes.js';
 import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.js';
 
 /**
@@ -37,9 +38,13 @@ export interface Heredoc {
 /** The characters that end a delimiter word. */
 const DELIMITER_END = /[\s;&|<>()]/u;
 
-/** Read one part of a delimiter word at `index` — a quoted span, an escaped character, or a plain one: its text, whether it was quoted, and the index after it. */
+/** Read one part of a delimiter word at `index` — a quoted span (the ANSI-C `$'…'` form included), an escaped character, or a plain one: its text, whether it was quoted, and the index after it. */
 function readDelimiterPart(command: string, index: number): [string, boolean, number] {
   const char = command[index] ?? '';
+  if (command.startsWith("$'", index)) {
+    const [text, next] = decodeAnsiCQuoted(command, index);
+    return [text, true, next];
+  }
   if (char === "'" || char === '"') {
     const close = command.indexOf(char, index + 1);
     const end = close === -1 ? command.length : close;

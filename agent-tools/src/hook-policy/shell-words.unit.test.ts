@@ -147,6 +147,9 @@ b"`),
     ]);
     expect(texts("cat <<'EOT'\nrm -rf x\n")).toStrictEqual([['cat', '<<EOT']]);
     expect(texts('grep x <<< "rm -rf y"')).toStrictEqual([['grep', 'x', '<<<', 'rm -rf y']]);
+    // The operator is its own token, and an ANSI-C-quoted delimiter is decoded like any other quote.
+    expect(texts('rm<<EOT -rf dir')).toStrictEqual([['rm', '<<EOT', '-rf', 'dir']]);
+    expect(texts("cat <<$'EOT'\nbody\nEOT\nls")).toStrictEqual([['cat', '<<EOT'], ['ls']]);
   });
 
   it('keeps leading variable assignments as words of the segment', () => {

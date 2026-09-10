@@ -398,6 +398,8 @@ describe('matchesArgvPattern — shell shapes', () => {
     expect(matchesArgvPattern('rm -rf', 'cat <<EOT\n$(rm -rf x)\nEOT')).toBe(true);
     expect(matchesArgvPattern('rm -rf', "cat <<'EOT'\n$(rm -rf x)\nEOT")).toBe(false);
     expect(matchesArgvPattern('rm -rf', 'cat <<EOT\nnote\nEOT\nrm -rf x')).toBe(true);
+    expect(matchesArgvPattern('rm -rf', "cat <<$'EOT'\nnote\nEOT\nrm -rf x")).toBe(true);
+    expect(matchesArgvPattern('rm -rf', 'rm<<EOT -rf dir')).toBe(true);
   });
 
   it('reads a long interpreter flag cluster in one pass', () => {
