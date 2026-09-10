@@ -5,14 +5,14 @@
 **Status**: living knowledge document. Last updated 2026-07-30 by Glowworm
 spins Pewter during the MCP-411 rate-limiter removal.
 
-This document captures the operational knowledge for driving repo quality up using three coupled tools — SonarCloud (with the Sonar MCP), CodeQL (via GitHub), and Sentry (with the Sentry MCP) — and the discipline that turns each tool's signal into a principled fix or a defensible dismissal.
+This document captures the operational knowledge for driving repo quality up using three coupled tools — SonarCloud (with the Sonar MCP), CodeQL (via GitHub), and Sentry (with the Sentry MCP) — and the discipline that turns each tool's signal into a fix at source — since the owner's 2026-09-08 ruling the one outcome for every finding, with the single exception (the MCP server's rate-limiting alerts) stated in the disposition policy.
 
 ---
 
 ## TL;DR
 
 1. **SonarCloud** is the canonical static-analysis surface for this repo. The default Quality Gate ("Sonar way") fails on rating thresholds + coverage + duplication; the project's _active_ Quality Gate may also fail on raw `new_violations > 0` (which it does for this repo). **Always query the live QG conditions before scoping work** — different conditions need different fixes.
-2. **CodeQL** is GitHub's deep dataflow / taint-tracking analysis. It complements Sonar by catching cross-function flows that Sonar's per-rule heuristics miss (and vice versa). CodeQL alerts are dismissed via the GitHub Security UI or API; SonarCloud issues are dismissed via the Sonar MCP.
+2. **CodeQL** is GitHub's deep dataflow / taint-tracking analysis. It complements Sonar by catching cross-function flows that Sonar's per-rule heuristics miss (and vice versa). Both are cured at source outside the one excepted class — the MCP server's rate-limiting CodeQL alerts, which the owner dismisses through the GitHub code-scanning route after the route comment lands; no SonarCloud issue is dismissed.
 3. **Sentry** is the runtime observability surface. It tells you which static-analysis findings actually matter in production by correlating issue locations with real error/perf events. Use Sentry MCP to ground severity rankings against runtime impact.
 4. **The cardinal sin**: silencing a finding without investigating the architectural tension it surfaces. Per `principles.md` "NEVER disable any quality gates" and `feedback_never_ignore_signals`. The drift pattern that produces violation: investigation-mode → disposition-mode under context pressure. Mitigations are structural (one finding/site = one commit) not just textual.
 
@@ -228,7 +228,7 @@ gh api -X PATCH repos/<org>/<repo>/code-scanning/alerts/<number> \
 
 The dismissal reasons are constrained: `false positive`, `won't fix`, `used in tests`. The comment is the rationale carrier.
 
-In Oak's threat model, the agent does NOT typically dismiss CodeQL alerts directly — the dismissal authority belongs to the owner via the GitHub Security UI. The agent prepares the rationale (in commit messages and in-code TSDoc) and surfaces the action items.
+The agent does not dismiss CodeQL alerts: every alert outside the one excepted class is cured at source, and that excepted class — the MCP server's rate-limiting alerts — is dismissed by the owner through the code-scanning route above (the Security UI or the API call), for which the agent prepares the rationale (the route comment, the commit message) and surfaces the action item.
 
 ### CodeQL coverage gaps and Sonar coverage gaps
 

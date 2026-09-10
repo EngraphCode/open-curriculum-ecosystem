@@ -163,8 +163,14 @@ use, you should have added your work to 66 in the first place").
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
 selective (important-or-risky only). Cadence is at-open plus
-substance-triggered (a reshaped diff), never per cure push; Copilot's absence
-never blocks a merge. Suppressed findings are Copilot's own low-confidence
+substance-triggered (a reshaped diff), never per intermediate cure push;
+on a code pull request the tip that goes to the front door carries the
+request (under the held-cure shape that is the slot's one sync push, so
+the cadence and the tip-bound gate meet at the same push). Copilot's
+absence never blocks a merge on a docs-only bot-authored pull request (the
+owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
+request the configured Copilot leg is OWED until it binds the tip, and the
+bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
 speculative cure or a silent skip. Two scope facts: the Copilot-review
@@ -173,12 +179,13 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on. Request mechanics (first-hand 2026-08-08,
-PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
-DROPS the Copilot handle — 200 response, no error, handle absent from
-the resulting request — so request Copilot through the GitHub MCP
-`request_copilot_review` tool (or the web UI), never the bare REST
-endpoint, and verify the reviewer actually appears on the PR. A third scope
+never a gate to wait on. Request mechanics: the REST
+`requested_reviewers` endpoint's RESPONSE omits the Copilot handle, and
+the request FIRES — the timeline shows `review_requested Copilot` within
+seconds and the review follows (#108, #109, #110, #114, as the bot under
+the pull-request-work token) — so the bare REST endpoint as the bot is the
+request mechanism; verify on the timeline, never on the response or the
+requested-reviewers list. A third scope
 fact: Copilot has a changed-file ceiling and says so — on a sibling
 repository it posted only that 544 files exceeded its review limit, naming
 the limit itself (2026-08-08). Key the fallback to that explicit refusal on
@@ -772,7 +779,25 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    in every PDR-140 intake since 2026-09-06 (owner rating 2026-08-09;
    graduated through the rules process 2026-09-07), were the configured
    set the day this was written; PDR-140's loop discipline governs each leg's rounds
-   like any other's. This closes the
+   like any other's. How each configured leg binds a tip, first-hand on
+   2026-09-09/10 across nine landings: Copilot reviews the FIRST push and
+   any tip the bot explicitly requests it on (below); the Codex connector's
+   binding is NOT predictable from the repository's side — it bound some
+   pull requests at creation and on their later pushes (#105, #106, #108,
+   #110) and never bound others under any shape tried (creation as a
+   draft or non-draft, a push, a trigger comment, a fresh pull request at
+   the same commit under a new branch name: #109, #111, #113) — so a
+   silent connector on a code pull request is an OWNER item (the
+   connector's review configuration lives outside the tree), never a
+   shape for a seat to keep re-trying; a fresh pull request, where one is
+   opened for any reason, needs a NEW branch name because the platform
+   refuses a second open pull request on a branch that already has one,
+   and closes its predecessor with a pointer once it is open. The merge
+   front door declares the CONFIGURED set
+   (`--expect` once per configured reviewer), never the set that happened
+   to bind the tip: a declared leg that never reviewed the tip settles by
+   timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
+   5 below names that verdict's two exits. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
@@ -822,10 +847,18 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies; the bot cannot request Copilot at all (the API refuses it as a
-   non-collaborator), so every re-request after a tip move needed the
-   owner's own credentials — the fallback the bot-identity rule bans. Until
-   the merge tool learns the class (a named follow-up), the merging seat
+   satisfies. The Copilot leg is the bot's own to obtain: `POST
+   repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
+   `reviewers[]=copilot-pull-request-reviewer[bot]` under the
+   pull-request-work token returns 201 and the timeline shows
+   `review_requested Copilot` within seconds (first-hand on #108, #109,
+   #110, #114); verify on the timeline, since the requested-reviewers
+   list never shows it, and never through the draft/ready toggle, which
+   fires nothing on a pull request already undrafted once. A synced tip
+   gets its Copilot leg by that one call as the bot, and a CODE pull
+   request lands only with both configured legs bound, never by the REST
+   merge below. The exception stands for
+   the docs-only bot-authored class on its own grounds. Until
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
    request merges within one CI round of green with no owner action; if one
@@ -923,12 +956,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   `/rules/branches/<base>` and read each name across BOTH
   `/commits/{sha}/check-runs` AND `/commits/{sha}/status`.
 - **A review-request 201 is not a registration.** The REST
-  `requested_reviewers` POST can return 201 and silently drop per-PR
-  (reproduced on two PRs, two seats, ~5 minutes apart); the roster read is
-  ambiguous in both directions (Copilot leaves it the moment it starts).
-  Verify via the issue TIMELINE's `review_requested` events; the proven
-  alternate path is the GitHub MCP `request_copilot_review` tool. Cap
-  identical REST retries at two.
+  `requested_reviewers` POST's 201 response omits the Copilot handle and
+  the roster read is ambiguous in both directions (Copilot leaves it the
+  moment it starts). Verify via the issue TIMELINE's `review_requested`
+  events, which fire within seconds of the call. Cap identical REST
+  retries at two.
 - **A review row is not a review.** Read the review BODY before counting
   it — a `COMMENTED` row on the exact head once contained only a
   spend-limit skip notice (the spend limit itself is never an agent
@@ -982,7 +1014,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   cites a superseded commit — the held-replies discipline saved both
   rounds.
 - **Silent-wait sweep after every push (PDR-132)**: verify the expected
-  reviewer is REQUESTED on the new tip — a push does not re-request, and a
+  reviewer is REQUESTED on the new tip — a push does not re-request (the
+  bot requests Copilot on the new tip with the reviewers endpoint, item 5
+  of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
   looking healthy (two live instances, 2026-07-20). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
