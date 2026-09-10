@@ -43,7 +43,7 @@ disposition — never an unrecorded aspiration.
 The owner established the implementation-origin policy for graph and
 non-graph algorithms and data structures: author our own SMALL Reliable
 Atoms and meaningful layers of composition, learning from the best openly
-licensed examples. [ADR-229](../../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md)
+licensed examples. [ADR-230](../../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md)
 records the decision; the [governing development policy](../../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md)
 owns its scope, reference-research method and relationship to qualification.
 This dated amendment refines how the ratified programme develops its

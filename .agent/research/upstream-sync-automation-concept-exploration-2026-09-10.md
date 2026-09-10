@@ -206,3 +206,14 @@ identities from the repository service. The two delivery nodes `upstream-mirror-
 `upstream-carrier-workflow` (sketch) carry the shape; the owner decisions in the report (the
 bot app's key into the fork's secrets; the enable variables; retiring the Codex OCE task as
 producer) are their gates.
+
+## Addendum — proposal 5 discharged (2026-09-10 17:xxZ)
+
+Observations 1 and 2 describe the morning's reading; by the afternoon the mirror had moved to
+`216e64c15` (release 1.181.1, 33 upstream commits over four releases) and the Director cut the
+carrier by hand under the cross-fork skill (`sync/upstream-2026-09-10`), discharging proposal 5
+at the larger snapshot. Proposals 1 to 4 stand, reshaped by the two-workflow ruling above; the
+two delivery nodes now carry decision-complete designs, including one change of shape: the
+mirror needs no secret, because a reference update with `force=false` fast-forwards the mirror
+by the run's own token and can never mint a commit (the node's decision 5).
+

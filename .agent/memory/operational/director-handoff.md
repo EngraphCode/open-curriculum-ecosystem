@@ -368,7 +368,7 @@ first-hand as of 2026-06-25.
 > #88 follow-up, by the Director's recorded deadline-and-default while the lane seat was held at
 > a prompt), #97 (the cross-fork-integration skill's first draft, on the owner's ruling "land on
 > the Director's read"; four review rounds, the four-round arm fired, the terminal tail's findings
-> routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-229, every
+> routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-230, every
 > clause ruled by card), and this branch's own fold. The landing-slot contract governed each: one
 > non-draft PR holds the slot, merges `engraph` as its last push, settles green by name and clean,
 > merges with the head pinned. Landed since, under the owner's 2026-09-09 19:2xZ word "I want

@@ -717,15 +717,11 @@ setHostContext((prev) => ({ ...prev, ...updatedHostContext }));
 export function rewriteAuthServerMetadata(
   upstreamMetadata: UpstreamAuthServerMetadata,
   localOrigin: string,
+  advertisedScopes: readonly string[],
 ): UpstreamAuthServerMetadata {
-  return {
-    ...upstreamMetadata,
-    issuer: localOrigin,
-    authorization_endpoint: `${localOrigin}/oauth/authorize`,
-    token_endpoint: `${localOrigin}/oauth/token`,
-    registration_endpoint: `${localOrigin}/oauth/register`,
-  };
-}
+
+registration_endpoint: `${localOrigin}/oauth/register`,
+    scopes_supported: [...advertisedScopes],
 ```
 
 **What it is for:** Rewrites upstream Clerk AS metadata so issuer + authorization/token/registration endpoints point at the local proxy origin, directing the client to send all OAuth flow requests to the proxy (same-origin, Cursor-bug workaround).
@@ -734,7 +730,7 @@ export function rewriteAuthServerMetadata(
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
 ### C414 — renderEndpointCatalog: '## Endpoint Catalog' header
@@ -1916,7 +1912,7 @@ export const SCOPES_SUPPORTED = ['email'] as const;
 **What it says now:**
 
 ```text
-app.get('/.well-known/oauth-protected-resource', servePrm);
+res.json(rewriteAuthServerMetadata(upstreamMetadata, originResult.value, SCOPES_SUPPORTED));
 ```
 
 **What it is for:** Serves the OAuth Authorization Server metadata at /.well-known/oauth-authorization-server — upstream Clerk metadata with endpoint URLs rewritten to this server's origin.
