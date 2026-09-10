@@ -15,8 +15,8 @@ export default defineConfig(
     // parallel turbo build and fails with ENOENT on the read (CI run 34459013126
     // on #116, 2026-09-10; the same class on #93, 2026-09-03). That generated
     // artefact is never lint input; the authored `tsup.config.ts` stays linted
-    // here, a wider gate than the shared list's — the acceptable direction of
-    // difference.
+    // here, the same gate as the shared list's since the broad tsup config
+    // patterns left that list (#125).
     ignores: ['dist', 'node_modules', '**/*.d.ts', '**/*.bundled_*.mjs'],
   },
   {
