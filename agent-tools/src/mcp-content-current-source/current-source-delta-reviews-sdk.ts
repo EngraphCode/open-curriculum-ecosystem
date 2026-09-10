@@ -78,8 +78,12 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
       'C232',
     ],
   ),
+  // Misconception ordering (2026-09-04, MCP-682): the description (C234), the
+  // unit-anchor field (C236) and the thread-anchor field (C237) state that
+  // units and lessons come in Oak's authored curriculum order, replacing the
+  // id-sorted edge adjacency both axes had read.
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts': reviewed(
-    'd1890c49b2aede5ea09d7cda118ac83d9471f14ab72d9f7ea9813af5580a5d60',
+    'fe40f12cc14212855bd131cc7a9687a7bbc3f9c8dff590a4242058005e5e8871',
     ['C233', 'C234', 'C235', 'C236', 'C237', 'C238', 'C239', 'C240', 'C241'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
@@ -215,7 +219,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/test-helpers/advertised-examples.ts': excluded(
-    '41be855cff939c4a7f95b36bdc2e3d1fecceecdb0a425b791d4d9af7da766d3a',
+    '2125f30ea7eb7f29b8b0dfa565954cfdcc8d573313a9324d38a6935b038bb5bb',
     TEST_ONLY,
   ),
 };

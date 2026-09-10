@@ -1715,13 +1715,12 @@ and `owner-items-are-rederived-never-carried`.
    `.agent/research/upstream-sync-automation-concept-exploration-2026-09-10.md`. Blocked on
    the owner's two below-the-tree decisions (C.9). Then one code lane: the workflow on
    `engraph`, a dispatch proof before the schedule, the cross-fork skill's step 1 re-trued.
-4. **The 1.179.1 carrier** — upstream is 12 ahead of `engraph` (release 1.179.1; PR 970,
-   MCP-345 advertised-scopes docs and an e2e assertion) and NO carrier is open, because the
-   producer (the owner's Codex OCE task) is dark with the credit outage. A seat runs the
-   cross-fork skill steps 1–3 (fetch, recompute, the carrier at upstream's tip, the slot-word
-   merge), then the semantic integration (the premise sweep over ADR-113 / the MCP app docs
-   the change touches). Not the Director's own context: the skill wants a lane worktree and the
-   generators. Falsifier that the lane is moot: `engraph` reads identical against upstream.
+4. **The upstream carrier** — executed on 2026-09-10 as the sync of fork `main` at
+   SHA:216e64c15 (release 1.181.1; 33 non-merge upstream commits, 49 with merges, over four
+   releases, not the twelve of the 1.179.1 reading) into `engraph` by the cross-fork skill in the lane worktree
+   `sync-2de368`: the merge, the regenerated content-audit inventory and model-behaviour
+   workspace, the ADR-229 collision (the fork's foundations record is ADR-230), and the
+   premise sweep recorded on the carrier. Nothing waits here.
 5. **Directives tier, step 1 of five** (Efreet's order, smallest first): the cheap defects in
    one PR with no doctrine change — the eight citations, the dead template path, the stale
    header, the dangling pattern name, orientation l.24 and l.29, fitness frontmatter on four

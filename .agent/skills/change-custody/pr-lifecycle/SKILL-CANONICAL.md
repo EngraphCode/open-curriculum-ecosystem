@@ -775,27 +775,60 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    the repository's live automatic-review configuration at each PR-open,
    and a dated example is not an input to the state machine — Copilot on
    push, and on one line the Codex connector (`chatgpt-codex-connector`),
-   which reviewed every push by its own configuration and was declared
-   in every PDR-140 intake since 2026-09-06 (owner rating 2026-08-09;
-   graduated through the rules process 2026-09-07), were the configured
-   set the day this was written; PDR-140's loop discipline governs each leg's rounds
-   like any other's. How each configured leg binds a tip, first-hand on
-   2026-09-09/10 across nine landings: Copilot reviews the FIRST push and
-   any tip the bot explicitly requests it on (below); the Codex connector's
-   binding is NOT predictable from the repository's side — it bound some
-   pull requests at creation and on their later pushes (#105, #106, #108,
-   #110) and never bound others under any shape tried (creation as a
-   draft or non-draft, a push, a trigger comment, a fresh pull request at
-   the same commit under a new branch name: #109, #111, #113) — so a
-   silent connector on a code pull request is an OWNER item (the
-   connector's review configuration lives outside the tree), never a
-   shape for a seat to keep re-trying; a fresh pull request, where one is
-   opened for any reason, needs a NEW branch name because the platform
-   refuses a second open pull request on a branch that already has one,
-   and closes its predecessor with a pointer once it is open. The merge
-   front door declares the CONFIGURED set
-   (`--expect` once per configured reviewer), never the set that happened
-   to bind the tip: a declared leg that never reviewed the tip settles by
+   declared in every PDR-140 intake since 2026-09-06 (owner rating
+   2026-08-09; graduated through the rules process 2026-09-07), were the
+   configured set the day this was written; PDR-140's loop discipline
+   governs each leg's rounds like any other's. How a configured leg binds
+   a tip, first-hand on 2026-09-09/10 across nine landings: Copilot
+   reviews the FIRST push and any tip the bot explicitly requests it on
+   (below); the Codex connector binds at creation and on later pushes
+   while its account has credit (#105, #106, #108, #110) and, when it has
+   none, posts "Codex usage limits have been reached for code reviews" on
+   the pull request instead of a review (first on #116, four seconds after
+   its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
+   owner named the outage at 08:3xZ (out of credit until about
+   2026-09-16). **Review legs are desirable, never required; the front
+   door declares the configured reviewers AVAILABLE, and a subagent
+   review posted on the pull request stands as a leg** (owner ruling
+   2026-09-10). Concretely: `--expect` once per available configured
+   reviewer — never the set that happened to bind the tip, never a
+   reviewer declared unavailable; a subagent review of any kind,
+   adversarial included, posted on the pull request with every finding
+   dispositioned and reported back to the seat is a review leg, BOUND TO
+   THE SHA IT REVIEWED exactly as the vendor leg is bound per tip: the
+   posted review names the head it read; the landing premises record that
+   sha and every push since; and those pushes may carry only cures of the
+   posted findings, the tip sync and landing-defect cures (a red required
+   check) — a push carrying any other content needs a fresh leg on the new
+   head (#117 and #113 landed that way on 2026-09-10, each with a posted
+   Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
+   four pushes after it were its cures, the sync and one landing defect). The tool verifies only the vendor legs declared to it
+   (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
+   refuses an empty set), so the subagent leg is the MERGING SEAT's own
+   recomputation — the posted review and its dispositions named on the
+   landing premises, the same seat-side check item 5 names for the tally
+   state — and with NO configured vendor available the front door cannot
+   be invoked at all: that case is the owner's call at the moment it
+   arises, and a machine-checked subagent-leg input is the named
+   follow-up on the agent-tools-watch-commands node. **A reviewer silent
+   on EVERY pull request at once is that
+   vendor's availability, never a pull-request shape**: read its own
+   notice on the pull request or ask one question — did any pull request
+   get that vendor's review after time T — then declare it once on the
+   stream ("vendor unavailable, from, until") and shape nothing around it
+   (the 2026-09-10 outage was on the board as the connector's own comment
+   from 06:53Z; seats shaped pull requests around the silence until the
+   owner named it at 08:3xZ). A fresh pull request, where one is opened
+   for any reason, needs a NEW branch name because the platform refuses a
+   second open pull request on a branch that already has one, and closes
+   its predecessor with a pointer once it is open. The ruling's grounds,
+   owner verbatim: "policy on PR reviews is that a codex or copilot or
+   external claude review is desirable, and more vendors is better because
+   that means more perspectives and more approaches, but sometimes those
+   options are not available, and development still needs to happen. Note
+   that you can always have a subagent perform any kind of review,
+   including adversarial, and post findings both back to the calling agent
+   and to the PR." A declared leg that never reviewed the tip settles by
    timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
    5 below names that verdict's two exits. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
@@ -856,9 +889,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    list never shows it, and never through the draft/ready toggle, which
    fires nothing on a pull request already undrafted once. A synced tip
    gets its Copilot leg by that one call as the bot, and a CODE pull
-   request lands only with both configured legs bound, never by the REST
-   merge below. The exception stands for
-   the docs-only bot-authored class on its own grounds. Until
+   request lands only through the front door with every AVAILABLE
+   configured leg bound plus the posted subagent review where a vendor
+   is unavailable (item 3's owner ruling of 2026-09-10), never by the
+   REST merge below. The exception stands for
+   the docs-only bot-authored class on its own grounds. Until the tool
+   learns that class, the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
    request merges within one CI round of green with no owner action; if one
@@ -1018,7 +1054,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   bot requests Copilot on the new tip with the reviewers endpoint, item 5
   of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
-  looking healthy (two live instances, 2026-07-20). The same sweep names a
+  looking healthy (two live instances, 2026-07-20). The request is
+  CONDITIONAL on the tip the front door will verdict: Copilot reviews
+  the first push and any tip it is requested on, so request it only
+  when that tip lacks Copilot's review — a request on an intermediate
+  head that a held cure or a sync will supersede is spent for nothing
+  (first-hand 2026-09-10 on #108, #114 and #116). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
   The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
   enumerates review runs (`--json id,name,createdAt,completedAt`;

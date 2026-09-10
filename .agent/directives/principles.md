@@ -264,12 +264,12 @@ canonical form is adopted is a different question from where an owned
 implementation originates, and for algorithm and data-structure
 foundations the owner decided the second for the whole class
 (owner-directed 2026-09-08,
-[ADR-229](../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md);
+[ADR-230](../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md);
 scope confirmed 2026-09-09 as that class, not the estate): "select the
 best, permissively licenced libraries, and use their code as inspiration
 to create Reliable Atoms and composition layers tailored to our needs and
 created to our deliberately very high quality standards" — the estate
-authors them. The governing policy ADR-229 cites bounds the class
+authors them. The governing policy ADR-230 cites bounds the class
 (language/runtime, protocol, storage, transport and platform capabilities
 and standards conformance stay under the sentence above), owns the
 provenance discipline that keeps learning distinct from adapting, and

@@ -33,7 +33,7 @@ queue atom is the first qualified Reliable Atom of the programme or a
 register row with its failing gate named.
 
 The governing decision is
-[ADR-229](../../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md);
+[ADR-230](../../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md);
 the governing policy is the
 [algorithms and data structures governance record](../../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md);
 the programme itself is the ratified strategic node this plan serves. The
@@ -121,5 +121,5 @@ establishes candidate scope before consumers exist.
   records.
 - Package promotion decisions — the strategic node's ten-gate test and
   the owner's word at the batch.
-- New dependencies or a dependency overhaul — ADR-229's scope is
+- New dependencies or a dependency overhaul — ADR-230's scope is
   own-built foundations.
