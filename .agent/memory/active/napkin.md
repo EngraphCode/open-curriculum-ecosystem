@@ -398,3 +398,25 @@ exception after the seat recomputes the gate by name.
   second pass re-finds only the transcripts loss class; the recursion closes here.
 - **Processes:** all stopped at 08:2xZ (heartbeat first, the watcher last); nothing of this seat
   in the process table or the cron list. Claim 8109015d retained, stopped-seat-held.
+
+## OWNER RULING on PR review legs (2026-09-10 08:4xZ, verbatim, recorded by the Director at the boundary)
+
+"policy on PR reviews is that a codex or copilot or external claude review is desirable, and
+more vendors is better because that means more perspectives and more approaches, but sometimes
+those options are not available, and development still needs to happen. Note that you can
+always have a subagent perform any kind of review, including adversarial, and post findings
+both back to the calling agent and to the PR."
+
+- Reading for the train: external review legs (Codex, Copilot, an external Claude) are
+  DESIRABLE, never REQUIRED; more vendors is better; when a vendor is unavailable (the Codex
+  credit outage until about 2026-09-16), development continues — the seat runs the review
+  itself through a subagent of any kind, adversarial included, and posts the findings on the
+  PR as well as back to the seat, so the PR carries a review leg from the estate's own
+  reviewers. The "code PR waits for the Codex leg" reading of the configured-set doctrine is
+  superseded by this ruling: the configured set is the vendors AVAILABLE, and a subagent
+  review recorded on the PR stands as a leg. The doctrine surfaces to re-true at the next
+  records pass: pr-lifecycle §Phase 1 (the configured-set clause and the "code PR waits"
+  sentence), the merge-bot node's dispositions, and the front door's expected-set reading.
+- Consequence for the board: #113 and #116 land at the resume by their recorded recipes with
+  `--expect copilot-pull-request-reviewer` and a subagent review (adversarial for the matcher)
+  posted on each PR before the merge; #100 still needs the owner's settings edit.
