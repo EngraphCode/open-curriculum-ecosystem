@@ -21,10 +21,14 @@ pre-commit hooks, Vercel build output, Sentry runtime — a
 A signal is information about an architectural tension — before any
 response, interrogate what produced it (a bug, a half-finished change, a
 misplaced abstraction, a leaky boundary), and cross-check where else the
-same shape appears un-flagged. Where a reasoned false-positive dismissal
-is genuinely warranted, prefer per-site dismissal with rationale over a
-rule-level disable — per-site forces a fresh interrogation when the shape
-recurs.
+same shape appears un-flagged. For an analyser finding (Sonar, CodeQL)
+there is no dismissal route since the owner's 2026-09-08 ruling ("We don't
+dismiss issues, we fix them"): the finding is cured at source under the
+one-outcome rule in `docs/governance/sonar-disposition-policy.md`, whose
+single exception is that policy's to state. Where a warning from another
+system can only be suppressed, suppress per site with rationale, never by
+a rule-level disable — per-site forces a fresh interrogation when the
+shape recurs.
 
 If a system we control emits a warning, the rule is:
 
