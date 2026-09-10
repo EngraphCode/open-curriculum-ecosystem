@@ -61,15 +61,15 @@ The QG status for a PR returns _only_ the conditions that apply to new code. The
 
 ### Mapping QG conditions to action
 
-| QG condition                           | What it measures                            | How to address                                                            |
-| -------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------- |
-| `new_violations > 0`                   | Raw OPEN issue count on new code            | Per-issue fix OR per-issue dismissal (`accept` / `falsepositive`)         |
-| `new_security_rating > 1`              | Security rating worse than A on new code    | Resolve any new SECURITY-impact OPEN issue or unreviewed hotspot          |
-| `new_reliability_rating > 1`           | Reliability rating worse than A on new code | Resolve any new RELIABILITY-impact OPEN issue (CRITICAL bugs especially)  |
-| `new_maintainability_rating > 1`       | Maintainability rating worse than A         | Reduce technical-debt-cost on new code                                    |
-| `new_coverage < 80`                    | Test coverage on new code below threshold   | Write tests for uncovered new lines                                       |
-| `new_duplicated_lines_density > 3`     | Duplication density above 3%                | Consolidate copy-pasted code into shared modules                          |
-| `new_security_hotspots_reviewed < 100` | Security hotspots not 100% reviewed         | Mark each hotspot REVIEWED via Sonar MCP with FIXED / SAFE / ACKNOWLEDGED |
+| QG condition                           | What it measures                            | How to address                                                               |
+| -------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------- |
+| `new_violations > 0`                   | Raw OPEN issue count on new code            | Per-issue fix at source (the one-outcome policy; its single exception aside) |
+| `new_security_rating > 1`              | Security rating worse than A on new code    | Resolve any new SECURITY-impact OPEN issue or unreviewed hotspot             |
+| `new_reliability_rating > 1`           | Reliability rating worse than A on new code | Resolve any new RELIABILITY-impact OPEN issue (CRITICAL bugs especially)     |
+| `new_maintainability_rating > 1`       | Maintainability rating worse than A         | Reduce technical-debt-cost on new code                                       |
+| `new_coverage < 80`                    | Test coverage on new code below threshold   | Write tests for uncovered new lines                                          |
+| `new_duplicated_lines_density > 3`     | Duplication density above 3%                | Consolidate copy-pasted code into shared modules                             |
+| `new_security_hotspots_reviewed < 100` | Security hotspots not 100% reviewed         | Cure each hotspot at source; the next analysis marks it REVIEWED / FIXED     |
 
 ### Per-finding investigation discipline
 
@@ -82,6 +82,18 @@ The cardinal anti-pattern is the **rule-level disable** (the `sonar.issue.ignore
 **Discipline**: at each finding, read the code at the site, write an independent disposition rooted in `principles.md` (not in any pre-existing disposition table), then check the master plan or other heuristics for sanity. Commit before moving to the next finding, so per-site reasoning is observable in the commit message.
 
 ### Disposition mechanics — Sonar MCP write operations
+
+**Governing rule since 2026-09-08** (owner-ruled, "We don't dismiss issues,
+we fix them"; the one-outcome policy in
+[`sonar-disposition-policy.md`](../governance/sonar-disposition-policy.md)):
+every finding from either analyser is fixed at source and closed by the
+next analysis. The policy's single exception is a CodeQL code-scanning
+alert class — `js/missing-rate-limiting` on the MCP server's routes,
+dismissed once through the code-scanning route in §Dismissal below with the
+route comment citing ADR-219 — so the Sonar write operations below have NO
+live use: they are documented for reading history, and an `accept`,
+`falsepositive`, `SAFE` or `ACKNOWLEDGED` write on any finding is the act
+the policy forbids.
 
 The Sonar MCP exposes two state-change operations:
 
@@ -107,9 +119,7 @@ mcp__sonarqube__change_security_hotspot_status({
 - `SAFE` — reviewed and determined to be safe in this context (with rationale).
 - `ACKNOWLEDGED` — accepted as a risk.
 
-**Critical**: hotspot review is the ONLY way to satisfy `new_security_hotspots_reviewed = 100%`. Marking via Sonar MCP changes the status server-side; this counts toward the QG.
-
-**Permission caveat**: the MCP integration applies per-action permissions to writes on shared infrastructure. Some hotspot/issue state-changes may be denied with an explicit "user authorised investigation, not unilateral resolution" message. When this happens, surface the specific finding (key + rationale) for owner authorisation rather than retrying.
+**History (before 2026-09-08)**: hotspot review through Sonar MCP was the way `new_security_hotspots_reviewed = 100%` was satisfied, and the MCP integration's per-action permissions could deny a write with a "user authorised investigation, not unilateral resolution" message, which was surfaced for owner authorisation. Since the ruling the condition is satisfied by curing each hotspot at source — the next analysis marks it REVIEWED / FIXED — and no hotspot write is made.
 
 ### Useful Sonar MCP read operations
 
@@ -136,7 +146,7 @@ mcp__sonarqube__analyze_code_snippet({ snippet, language })
 
 ### Common rules + dispositions in Oak code
 
-| Rule                                     | Mechanical fix                                                              | Common per-site investigation                                                                     | Common dismissal                                        |
+| Rule                                     | Mechanical fix                                                              | Common per-site investigation                                                                     | Dismissal a site once took (history, not a route)       |
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `typescript:S6653` `Object.hasOwn`       | `Object.hasOwn(Object(obj), key)` over `.call(obj, key)`                    | None; always mechanical                                                                           | n/a                                                     |
 | `typescript:S7786` `new TypeError`       | TypeError for type-check throws (`typeof` / `Array.isArray` / `instanceof`) | Distinguish type-check throws from value/state throws                                             | n/a                                                     |
@@ -176,7 +186,7 @@ exist rather than applying the suggestion blind.
 
 ### Anti-patterns
 
-- **`sonar.issue.ignore.multicriteria` rule-level block** (a sonar-scanner-CLI feature SonarCloud automatic analysis does not read). Disables the rule for an entire path glob across all current and future code. Violates `principles.md` "NEVER disable any quality gates". First reverted in commit `dba01e7c` after Vining Bending Root's drift incident on 2026-04-27; it later re-crept into a `sonar-project.properties` that automatic analysis never read, and that dead file has since been removed entirely. Dispositions are made per-site, server-side (see [Sonar Disposition Policy](../governance/sonar-disposition-policy.md)).
+- **`sonar.issue.ignore.multicriteria` rule-level block** (a sonar-scanner-CLI feature SonarCloud automatic analysis does not read). Disables the rule for an entire path glob across all current and future code. Violates `principles.md` "NEVER disable any quality gates". First reverted in commit `dba01e7c` after Vining Bending Root's drift incident on 2026-04-27; it later re-crept into a `sonar-project.properties` that automatic analysis never read, and that dead file has since been removed entirely. Findings are cured per site in the tree, never disposed by a rule-level block, and since 2026-09-08 never by a server-side mark either (see [Sonar Disposition Policy](../governance/sonar-disposition-policy.md)).
 - **Per-rule mass-mark via Sonar UI** without per-site investigation. Same shape as the `multicriteria` block — the disposition isn't grounded in the architectural tension at each site.
 - **"Stylistic" / "false positive" labels** without naming the architectural tension. Labels are shortcuts; describe the actual code-shape constraint instead.
 
@@ -237,11 +247,15 @@ When a finding appears in both — e.g., a regex DoS in `S5852` (Sonar) AND `js/
 
 ### Common Oak CodeQL alerts
 
-- `js/polynomial-redos` HIGH — regex with overlapping quantifiers vulnerable to ReDoS. Often co-fired with Sonar `S5852`. Investigate per-site for actual vulnerability; many alerts are linear-time with no overlap.
-- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server this is a standing false positive: the control is at the edge, where CodeQL cannot see it. Disposition and rationale are fixed by [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md); cite it rather than re-deriving one per alert.
-- `js/http-to-file-access` MEDIUM — network data written to file without sanitisation. Sometimes correctly reflects defence-in-depth shape (validate-then-skip-with-warning); dismiss-with-rationale when the architectural shape is correct.
-- `js/incomplete-sanitization` HIGH — common pattern when escaping a single character with a non-`/g` regex. Real bug when the input is user-controlled; investigate per-site.
-- `js/regex/missing-regexp-anchor` HIGH — regex used as a whole-string match without `^...$`. Real bug at security boundaries (auth, hostname); fix or dismiss per-site.
+Since 2026-09-08 every CodeQL alert is fixed at source (the one-outcome
+policy); the entries below name the cure, and the one excepted class its
+route.
+
+- `js/polynomial-redos` HIGH — regex with overlapping quantifiers vulnerable to ReDoS. Often co-fired with Sonar `S5852`. Cure at every site: rewrite to linear constructs (the policy's S5852 / S8786 cure), whether or not the site's input makes the backtracking reachable.
+- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server the control is at the edge, where CodeQL cannot see it: this is the policy's ONE excepted class — the route comment recognising the defence-in-depth option and naming the edge control lands first, then one dismissal per alert through §Dismissal citing [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md), the owner's act.
+- `js/http-to-file-access` MEDIUM — network data written to file without sanitisation. Cure at source: sanitise or validate the data at the write the query names (the validate-then-skip shape becomes explicit at that site); no dismissal.
+- `js/incomplete-sanitization` HIGH — common pattern when escaping a single character with a non-`/g` regex. Cure at source (`/g`, or a replace-all); real bug when the input is user-controlled.
+- `js/regex/missing-regexp-anchor` HIGH — regex used as a whole-string match without `^...$`. Cure at source: anchor the regex; a real bug at security boundaries (auth, hostname).
 
 ---
 
@@ -336,10 +350,12 @@ Note any deltas from the briefing or the master plan. State drift is real; the b
 
 For each failing condition, identify the work that addresses it:
 
-- `new_violations` → per-finding fix or dismissal.
+- `new_violations` → per-finding fix at source (the one-outcome policy).
 - `new_duplicated_lines_density` → consolidation refactors.
-- `new_security_hotspots_reviewed` → hotspot review via Sonar MCP.
-- CodeQL combined → per-alert fix or dismissal.
+- `new_security_hotspots_reviewed` → cure each hotspot at source; the next
+  analysis marks it REVIEWED / FIXED.
+- CodeQL combined → per-alert fix at source; the one excepted class (the
+  MCP server's rate-limiting alerts) is dismissed once per the policy.
 
 ### 4. Per-finding work, one at a time
 
@@ -347,21 +363,23 @@ Read the code at the site. Form a disposition rooted in `principles.md`. Cross-c
 
 For mechanical fixes, batch within a rule. For per-site investigations, separate commits.
 
-### 5. Per-issue dismissals via Sonar MCP
+### 5. Per-issue dismissals via Sonar MCP (retired 2026-09-08)
 
-For findings where the disposition is `accept` or `falsepositive`:
+There is no live per-issue dismissal route: a finding that would once have
+taken `accept` or `falsepositive` is cured by its class's tree change in the
+one-outcome policy. The habit that survives is the record — strengthen the
+in-code TSDoc with why the site changed, and commit it with the cure.
 
-- Strengthen in-code TSDoc with the rationale (so the next reader has the trail without consulting the issue tracker).
-- Commit the TSDoc strengthening.
-- Use `change_sonar_issue_status` to dismiss.
+### 6. Hotspot review (since 2026-09-08: FIXED by analysis)
 
-### 6. Hotspot review via Sonar MCP
-
-For each hotspot, investigate the underlying concern. Mark REVIEWED with one of FIXED / SAFE / ACKNOWLEDGED, and ALWAYS add a comment with rationale.
+Cure each hotspot at source per its class in the policy; the next analysis
+marks it REVIEWED / FIXED. `SAFE` and `ACKNOWLEDGED` are not used.
 
 ### 7. CodeQL action items
 
-For OPEN alerts, either fix the underlying code path (preferred) or prepare a dismissal rationale and surface for owner action via the GitHub Security UI/API.
+For OPEN alerts, fix the underlying code path. The one excepted class — the
+MCP server's rate-limiting alerts — is dismissed once through §Dismissal
+with the route comment citing ADR-219, the owner's act.
 
 ### 8. Sentry validation (when a fix touches a code path Sentry observes)
 

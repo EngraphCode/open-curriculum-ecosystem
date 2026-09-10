@@ -8,7 +8,10 @@ tool retires them.
 ## zsh
 
 - **Unquoted leading-`=` words abort compound commands** (3 instances,
-  2026-07-20). `echo ===X===` in a chained command errors and kills the
+  2026-07-20; recurred 2026-09-09 at a seat running five chained reads —
+  the cure that holds is one plain command per call, the
+  `worktree-residency` rule's working shape, which PR #100's pending
+  unattended-seats rule restates for every seat). `echo ===X===` in a chained command errors and kills the
   REMAINING chained commands invisibly: zsh's default `EQUALS` option
   performs command-path expansion on an unquoted word beginning with
   `=` (the `=cmd` form). Quote the separator or emit it with `printf`.
@@ -414,3 +417,79 @@ tool retires them.
   node** (PDR-105; the second class after the `.agent/memory/**` one above, 2026-09-07):
   an ADR linking its delivery plan was refused at pre-commit. Doctrine states its own
   contract self-contained; a plan is named in prose at most, never linked.
+
+## 2026-09-09 consolidation batch (2026-09-07→09 instances, each measured first-hand by the seat named in the napkin and verified at the drain)
+
+- **`gh pr list --search` with a head-name query returns nothing, silently**
+  (2026-09-09, the carrier check): filter server-side with `--head <branch>`
+  (gh 2.97.0: "Filter by head branch"); any listing you read as "the full open
+  list" needs an explicit `--limit`, because the default page is thirty and the
+  command raises no error at the cap.
+- **A `git grep` over a pathspec built by substitution gave different counts on
+  two runs** (8 files, then 0; 2026-09-09): one term at a time in the plain form
+  `git grep <term> <ref> -- '*.md'`.
+- **The bot's push leaves the remote-tracking ref stale** (2026-09-09):
+  `git fetch origin <branch>` before any `-d` or `rev-list` against it, or the
+  ancestry proof reads the pre-push ref.
+- **`git add -- <old> <new>` after a `git mv` exits 128 (`pathspec '<old>' did
+  not match any files`), and a pathspec commit that omits the old path leaves it
+  tracked-but-missing** (2026-09-08, the fold; Git 2.43). The sequence that
+  works: `git mv` has already staged the rename, so `git add -- <new>` alone,
+  then name BOTH endpoints in the commit pathspec (`git commit -- <old> <new>`)
+  so the deletion is recorded. The commit skill's staging step still tells the
+  reader to `git add` both endpoints — a pointer for its next records pass; the
+  Director's fold script of that day worked around it by skipping absent paths
+  at its add step while keeping them in the queue intent.
+- **markdownlint MD028 fires on consecutive blockquotes without a separator**
+  (2026-09-08): blank line, `---`, blank line. **MD018 fires on a wrapped line
+  that begins with a PR number** (`#674)`, `#96`; 2026-09-08 and 2026-09-09):
+  never let a reflow put `#NN` at a line start.
+- **A moved record's relative links change depth** (2026-09-08): the links
+  validator names the fix; run it before the push after any move.
+- **`comms reply` refuses an unknown antecedent event id** (2026-09-08), and
+  `comms show` refuses the 8-character prefix records use (2026-09-09); but
+  `comms direct --in-response-to` copies whatever string it is given into the
+  event unvalidated (the command's own integration test threads to a
+  nonexistent id by design), so a caller verifies that full id against the
+  store first or the threading edge dangles. Read ids from the store, never
+  from memory.
+- **The auto-mode permission classifier refused a Monitor arm and a one-shot cron
+  identical in shape to ones it had allowed minutes earlier** (2026-09-08,
+  2026-09-09): a refusal is not a verdict on the command — retry once with the
+  same shape, then route it.
+- **A subagent's final result is truncated at about 16,000 characters in the
+  idle notification** (2026-09-09, four of five reviewers): put a scratchpad
+  path in the original brief and ask for the report on disk plus a one-line
+  pointer; a follow-up message asking for the file worked first time.
+- **The merge-bot App's installation token cannot re-run a workflow job**
+  (`Resource not accessible by integration`; 2026-09-08 and 2026-09-09): the
+  bot-legitimate re-trigger is an empty-commit push, outside the review budget;
+  the Actions write permission is the owner's grant.
+- **`apt` fetching Google's chrome-stable index returned "Hash Sum mismatch" at
+  the Playwright install step** — three consecutive `browser-tests` reds in
+  sixteen minutes (2026-09-09): an external-mirror class; re-run after it
+  settles, never a push to fix; the OS-deps step is the surface to make resilient
+  if it recurs.
+- **The statusline log path resolves relative to the session's persistent cwd**
+  (2026-09-09): after a `cd … && sed` left the cwd under `.agent/skills/cognition`,
+  the log wrote `.agent/skills/cognition/.logs/statusline.log` every ten seconds
+  and the skills generator refused the dot-directory under the skill tiers, so
+  every push from the repository failed until the cwd returned to the root. Never
+  `cd` in a call; absolute paths only.
+- **A `.git/index.lock` collision with a peer's `git worktree add` in the same
+  second aborts the ceremony cleanly** (2026-09-08): the lock is gone on
+  inspection; re-run.
+- **A fresh worktree has no `.husky/_` until install runs** (2026-09-09): a commit
+  made before install runs no commit-msg or pre-commit hook and reads as if the
+  gate passed.
+- **The write hook fingerprints a user-home absolute path inside a file's
+  CONTENT** (2026-09-05, 2026-09-06, 2026-09-09): scripts and records derive paths
+  at runtime (`git worktree list`, `git rev-parse`, `mktemp -d`) or use
+  repo-relative and sibling-relative paths.
+- **A pre-authored apply script's match strings drift by the time they run**
+  (2026-09-08, two words): re-read against the landed file before running; the
+  dry run proved the old text, not the landed one.
+- **The wrap cron fires only in an idle REPL** (2026-09-09): a night of
+  notifications kept a Director's loop busy at the minute and the tick never
+  arrived, so a dirty continuity line sat for an hour — a dirty continuity line
+  is swept at the next quiet moment, cron or not.

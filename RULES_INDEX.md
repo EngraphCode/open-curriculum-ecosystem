@@ -190,7 +190,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/pre-execution-code-expert-review-per-loop-cycle.md`          | situational    | ceremony:loop-cycle                                                                               |
 | `.agent/rules/precedence-is-not-approval.md`                               | core           | —                                                                                                 |
 | `.agent/rules/present-verdicts-not-menus.md`                               | core           | —                                                                                                 |
-| `.agent/rules/pre-merge-divergence-analysis.md`                            | situational    | ceremony:merge — Pre-merge of two diverged branches (100+ files, 10+ conflicts, core refactor)    |
+| `.agent/rules/pre-merge-divergence-analysis.md`                            | situational    | ceremony:merge — every merge: the premise sweep at any size; the full workflow past thresholds    |
 | `.agent/rules/re-apply-first-question-at-elaboration-boundaries.md`        | core           | —                                                                                                 |
 | `.agent/rules/read-agent-md.md`                                            | core           | —                                                                                                 |
 | `.agent/rules/read-before-asking.md`                                       | core           | —                                                                                                 |

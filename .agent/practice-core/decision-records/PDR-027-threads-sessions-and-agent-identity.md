@@ -735,3 +735,25 @@ continuity section) once threads and identity discipline have
 been exercised across multiple cross-repo hydrations. Graduation
 marks the PDR `Superseded by <Core section>` and retains it as
 provenance.
+
+### Open question — which model name wins when four disagree (2026-09-09)
+
+Captured 2026-09-07 at a napkin drain and re-homed here from the
+open-questions register at the 2026-09-09 consolidation, because the
+question is this PDR's to answer. The identity tuple carries one
+`model` field (classification context, not the routing key, per the
+2026-05-26 amendment). A 2026-09-06 audit of one seat's per-user
+memory found four sources that can disagree: the model the seat
+declares to the collaboration CLI, the model the user reports, the
+model the harness observes at runtime, and the model the platform's
+configuration names (in July 2026 a Codex config named a model the CLI
+silently overrode). No clause here says which wins. The field's
+consumers — the naming registry, the Cricket tally, the identity
+preflight — have not been asked which they need, and an answer written
+before that read is a guess; the next agent-naming or identity lane
+reads them and amends this PDR with a precedence order and the dated
+instance. A candidate for that lane to test, not a decision: the
+harness-observed identifier is the fact the others are claims about,
+the declared value is checked against it at preflight, and the
+configured and reported values are inputs that never override an
+observation.

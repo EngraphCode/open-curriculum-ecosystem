@@ -1,3 +1,21 @@
+# [1.179.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.6...v1.179.0) (2026-09-09)
+
+
+### Bug Fixes
+
+* **posthog-node:** bound the rebuilt user agent's version and recompute its validator (MCP-687) ([377f4ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/377f4cedef389f3c68c929520020123512cebd48))
+* **posthog-node:** make the header scan bound real and cite PostHog's rule precisely (MCP-687) ([cdcabfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cdcabfc1c964a10b9b7d3bd853d63b3d39e8f6ab))
+* **posthog-node:** read a truncated bracket as PostHog does and close the surface map (MCP-687) ([fe0f268](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fe0f26802ad41c1d2d3f977b6f11f8922b4cfcf6))
+* **posthog-node:** rebuild from the versioned header and gate the OpenAI split on it (MCP-687) ([10b50fa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/10b50faf36eb98ef4b1e32d88011f3d47cc50b24))
+* **posthog-node:** select the client product once for both derivations (MCP-687) ([4236c40](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4236c402e6a6c7f396ab32ac7f3eddb760ce0a8b))
+* **posthog-node:** shape the rebuilt user agent to PostHog's published harness rule (MCP-687) ([5a1e951](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5a1e951727d0cf2165690a33d5493ab5754f8d3a))
+
+
+### Features
+
+* **posthog-node:** rebuild a client user agent so PostHog's harness column resolves (MCP-687) ([62a6012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62a6012a10c71516b3ce06088c0b04d0b2fb9491))
+* **posthog-node:** recognise the OpenAI client pre-launch and scope surfaces per product (MCP-687) ([aefadc9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aefadc96d61bb555d121c141d0d22652c0bcdc97))
+
 ## [1.178.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.5...v1.178.6) (2026-09-08)
 
 
