@@ -126,19 +126,19 @@ const MCP_ACCEPT = 'application/json, text/event-stream';
  * to prevent.
  */
 const CODE_MOVED =
-  'The transport renumbered its version refusal. This may be HARMLESS: the ' +
-  'contract is legacy-sub-range membership, asserted next, not this exact ' +
-  'value. If the sub-range assertions still pass, dual-era fallback is ' +
-  'intact — re-read ADR-229 §Decision 3, update this pin to the new code, ' +
-  'and say in the commit why the move is safe. Do not delete the pin.';
+  'The transport renumbered its version refusal, and this is very likely ' +
+  'HARMLESS: the contract is legacy-sub-range membership, which is asserted ' +
+  'BEFORE this line and has already passed, so dual-era fallback is intact. ' +
+  'Re-read ADR-229 §Decision 3, update this pin to the new code, and say in ' +
+  'the commit why the move is safe. Do not delete the pin.';
 
 const FALLBACK_BROKEN =
   'FALLBACK REGRESSION: the version refusal has left the legacy error ' +
   'sub-range (-32019..-32000), so a spec-literal dual-era client will read ' +
   'it as a modern error and retry advertised versions instead of falling ' +
-  'back to `initialize` — the lane MCP-497 measured Oak s clients relying ' +
-  'on. ADR-229 §Decision 3. Re-adjudicate that record before changing this ' +
-  'expectation; do not delete it.';
+  'back to `initialize` — the fallback lane MCP-497 measured real clients ' +
+  'relying on in production. ADR-229 §Decision 3. Re-adjudicate that record ' +
+  'before changing this expectation; do not delete it.';
 
 /** The refusal must still name what this server speaks, or fallback is blind. */
 const REFUSAL_UNINFORMATIVE =
@@ -246,14 +246,21 @@ describe('protocol-revision era contract (MCP-644)', () => {
     const refusal = RefusalBodySchema.safeParse(res.body);
     expect(refusal.success, `${FALLBACK_BROKEN} Body was: ${JSON.stringify(res.body)}`).toBe(true);
 
-    // THE TRIPWIRE: the exact emitted code, so any renumbering reds even if
-    // the sub-range bounds have gone stale. Possibly harmless on its own —
-    // the assertions below say whether it is.
-    expect(refusal.data?.error.code, CODE_MOVED).toBe(OBSERVED_REFUSAL_CODE);
-    // THE CONTRACT the code has to satisfy, stated as the spec states it.
-    // These are the ones whose failure is a real regression.
+    // ORDER MATTERS, and it is the whole point of splitting the messages.
+    // vitest stops a case at its first failed assertion, so whichever runs
+    // first is the message the reader gets. THE CONTRACT goes first: a
+    // renumbering that breaks fallback fails here and reads as the
+    // regression it is. Put the exact pin first instead and a
+    // fallback-breaking change announces itself as "may be HARMLESS" — the
+    // exact confusion this split exists to remove. Verified by mutating the
+    // SDK's own emit site to -32022 and reading the message that came back.
     expect(refusal.data?.error.code, FALLBACK_BROKEN).toBeGreaterThanOrEqual(LEGACY_SUBRANGE_MIN);
     expect(refusal.data?.error.code, FALLBACK_BROKEN).toBeLessThanOrEqual(LEGACY_SUBRANGE_MAX);
+    // THE TRIPWIRE: the exact emitted code, so a renumbering reds even when
+    // it stayed inside the sub-range, and even if those bounds have gone
+    // stale. Reaching this line means the contract above still holds, so
+    // the move is very likely harmless — and the message says so.
+    expect(refusal.data?.error.code, CODE_MOVED).toBe(OBSERVED_REFUSAL_CODE);
     // And the refusal names what this server does speak, so the fallback is
     // informed rather than blind.
     expect(refusal.data?.error.message, REFUSAL_UNINFORMATIVE).toContain(LEGACY_REVISION);
