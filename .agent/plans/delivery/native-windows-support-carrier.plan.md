@@ -14,7 +14,7 @@ tickets: []
 depends_on: []
 owner_gates:
   - awaiting: owner-decision
-    clears_when: "The owner says native Windows lands on the fork now (the tier ruling calls it a non-vital goal) and, once the Windows CI leg is green, makes it a required check in the ruleset"
+    clears_when: "The owner says native Windows lands on the fork now (the tier ruling calls it a non-vital goal). Making the windows-basic leg a required check once it is green is the owner's later ruleset act, outside this plan, tracked on the estate-coordination thread record"
     expires: 2026-09-24
 last_updated: 2026-09-10
 ---
@@ -56,13 +56,16 @@ the Windows ACL stance) with regression tests; one CI commit adding a `windows-b
    (the pre-commit and pre-push gates; CI on the PR).
 3. The symlink finding is cured. Proof `repo-safe`: a test plants a symlink at the destination
    and asserts the target is untouched and the destination is a fresh owner-only regular file.
-4. The Windows ACL finding is cured. Proof `repo-safe`: on `win32` the write refuses retained
-   authenticated output unless the caller asserts a private destination; the test pins the
-   refusal.
+4. The Windows ACL finding is cured. Proof `repo-safe`: on `win32` the write refuses before
+   touching any file, with a typed error that both retention entry points carry in their failed
+   outcome (no caller assertion can waive it); tests pin the refusal at the writer and at both
+   entry points with the platform injected.
 5. The Windows CI leg reports. Proof `repo-safe`: the `windows-basic` job runs on the PR; green
    is the goal, and a red run names the lane's next cures first-hand.
-6. #123 is closed as superseded, its disposition naming this lane. Proof `repo-safe`: the PR
-   comment and the closed state.
+6. #123 is closed as superseded, its disposition naming this lane. Proof `owner-held` (the
+   platform's pull-request state is external): the Director closes it as the bot with a comment
+   naming this lane; the owner verifies on #123; the closure is recorded on the
+   estate-coordination thread record.
 
 ## Out of scope
 

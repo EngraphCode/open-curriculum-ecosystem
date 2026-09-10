@@ -782,7 +782,7 @@ may be restored before the first commit (no history exists to rewrite); a one-pa
 by mistake stays and gets its ancestry from a further merge commit on top; no amend, no reset,
 ever, on anything that has happened.
 
-## Nettle guards Pistil (2de368) — Director, the owner's four items after COMPACTION BOUNDARY 4 (2026-09-10 15:4xZ–16:3xZ)
+## Nettle guards Pistil (2de368) — Director, the owner's four items after COMPACTION BOUNDARY 4 (2026-09-10 15:4xZ–16:3xZ; the boundary block's own 16:1xZ stamp was written an hour ahead of the clock, the error the #127 round caught, so this window follows it)
 
 - OWNER WORDS (verbatim, binding): "never, ever rewrite history from the upstream fork, when we merge
   back it must be purely fast forward"; the sync workflows "configurable and conditional and default

@@ -159,3 +159,11 @@ leg's first-hand verdict) and never on urgency.
 
 **Sizing.** One lane, one merge commit plus two or three cure commits, one CI job, three review
 legs; a day of a capable seat, of which the merge and cures are done in this context.
+
+**Addendum (2026-09-10 16:5xZ) — the actual sequence.** When the sizing above was written the
+merge was STAGED and the cure module written, neither committed: the first merge commit was
+refused by the gate (one line-cap lint error in a merged test helper), which the napkin of the
+time recorded. The lane's commits now exist on `feat/native-windows-support-2026-09-10`: the
+merge SHA:6d89538bf (second parent SHA:a57b89418), the two cures with their tests
+SHA:8eefe7045, the advisory `windows-basic` leg SHA:f3c0b3778, and the sync of `engraph`
+SHA:fbb0c51cc. "Done in this context" above described intent ahead of the landed state.
