@@ -511,3 +511,105 @@ classifier); #112 folds at the 2026-09-11 rollover with the MERGE_HEAD assertion
   defect the vendor rounds had not (the keyless view on #113; the over-broad ignore on #117; the
   two facts on #118), each verified first-hand before the cure; each posted on the PR with its
   dispositions and the front door declared Copilot alone.
+- Wrap harvest at the owner's stop word (11:1xZ; the seat record §Wrap carries the full scan): a
+  records PR that touches a tool's contract names the tool's actual predicate beside the rule — #118's
+  Copilot round found pr-lifecycle and merge-bot.md claiming the front door honours a subagent leg the
+  tool cannot see (`computeReviewerLegs` reads the `--expect` logins only; `parseMergeArgs` refuses an
+  empty set); the cure named the predicate and routed the machine-checked input as a node row. Two
+  instances in one morning (with #117's "a file tsup owns is never lint input"); falsifier: the next
+  ruling-driven records PR draws a "the tool does not do this" finding despite naming the predicate.
+  #118 is handed to the Director at 2a6f85332 (terminal for fixes); claim 30e2fa71 closed.
+
+## 2026-09-10 11:1xZ (Altair spins Umbra, 05a180, Implementer) — #116 LANDED 002860f46; the seat closes at the owner's word
+
+- **The landing, first-hand.** #116 (the `argv` match kind for the Bash guard) landed through the front door with `--expect copilot-pull-request-reviewer` at 11:1xZ: Copilot SATISFIED on the final tip 4c92b4467, the adversarial subagent leg posted, two SETTLING-QUIET-WINDOW polls, exit 0, merge commit 002860f46 with the verdicted head as its second parent. Worktree, remote and local branches gone; claim closed; nothing retained.
+- **The surprise (metacognition): a fast machine hides a quadratic.** My round-three redirection cure read the growing word's last character for EVERY character (`state.word.slice(-1)`); V8 builds `+=` strings as ropes and each read flattens one — 1.4 s on a 200 KB word locally (inside the 5 s vitest budget) and 6.3 s on the CI runner. The adversarial reviewer's own timing table had said "every other 200 KB shape is linear" on the PREVIOUS head; my cure regressed it and I did not re-time. Rule I now hold: after any per-character scanner change, re-run the timing probe at two sizes and compare the GROWTH, never the absolute (100 KB 127 ms looked fine; 200 KB 1448 ms was the tell). Cure by construction, never by `testTimeout` (the Director's no-timing-dependence reading held).
+- **The front door binds a leg per TIP, not per PR.** After the re-sync push the front door refused SILENT-WAIT-NO-REVIEWER: Copilot's review on 4815f28f7 was invisible on 4c92b4467. The Director's "no Copilot re-request after the class fix" was wrong as written and re-trued at once: ONE request on the tip the front door verdicts is a landing MECHANIC, not a review round; its findings are replies-only. Vanilla's #113 had landed the same way an hour earlier. The posted subagent leg satisfies the owner's ruling; the tool still needs the declared vendor on the final tip — #118 carries this beside the ruling.
+- **The review-tail arithmetic, one full instance for the promise column:** Copilot rounds 9, 3, 3, 4, 5 (24 findings: 20 inside the declared promise, 1 outside, 1 false premise, 2 grammar/licensed); the adversarial subagent leg 4 inside + 6 outside in one pass with executed probes and timing. Cured 19 across six pushes; routed 7 to the policy-migration follow-up (the whole fifth round plus `xargs -a`). The subagent leg found the two that mattered most (the heredoc mention class — a real false positive on ordinary Practice work — and the quadratic flag regex); Copilot's rounds found tokenisation edges, each smaller than the last, and would have gone on. The step-back arm at four and the terminal rule at five did exactly what they were written to do.
+- **Gotchas, tooling:** (1) zsh reads a bare `=====` argument as an `=command` expansion — `echo =====` fails "==== not found"; use a quoted `'-----'`. (2) `comms send --tag heartbeat` REJECTS `--body` — my loop failed silently for ten minutes; the claim leg passed, so the registry never saw a gap. Read the loop's output file after its first tick, every time. (3) A 245-line file plus a six-line helper crosses max-lines 250; trim the doc comment, never the code. (4) `<<<` must be excluded at BOTH the first and the second `<`: after the first `<` is a plain character the scanner sees `<< "text"` and reads a heredoc — check `command[index - 1] === '<'` too; the fixture caught it. (5) The known tsup transient-config lint flake bit #116's first re-run; Vanilla cured it in #117 the same hour (the two self-bootstrap configs, not the shared list — the premise was corrected first-hand before the cut).
+- **Free play (three seeds kept, one discarded):** (a) the heredoc-mention false positive and the token-mode's own refusal of my heredocs the day before are the same organism seen from two sides — the guard reading its own documentation as an attack; (b) a leg-per-tip merge tool and a request-per-tip reviewer together make "one request on the verdict tip" the only stable shape, which is why every seat converged on it independently this morning; (c) the yielding rule turned a red check into two other landings (#117, #113) inside the window #116 would have held — the queue moved faster because the holder stepped aside. Discarded: a "review budget as a currency" framing — it invited spending, not judgement.
+- **Concept exploration → candidates:** `candidate:` a timing probe as a repo instrument beside the matcher (on demand; two sizes; prints the growth ratio; a ratio above ~2.5 for a doubling names a super-linear class) — the review found the class, the estate has no instrument for it; the scratchpad file `probe-116-timing.ts` is the seed. `candidate:` pr-lifecycle's merge-boundary section names "the landing mechanic" as a class distinct from a review round (one vendor request on the verdict tip; findings replies-only; a red check = landing defect, one cure push outside the round budget) — the Director ruled all three today, each once, and the records PR should carry them together.
+- **Loss scan at the close, then metaloss:** the adversarial reviewer's full report exists only in this session (its passed-probe table beyond row 16 never arrived; the inside/outside findings are complete on the PR — nothing decision-bearing is lost). The scratchpad's edit scripts, probes and reply files are ephemera; every decision they carried is on the PR or in a commit. Metaloss: a further pass finds only the same class (context-only reviewer prose), so the recursion closes here.
+
+## Efreet guards Patina (ade27f) — directives tier review, SEAT CLOSED (2026-09-10 11:3xZ)
+
+- The review itself is on file:
+  `.agent/research/directives-tier-review-2026-09-10-efreet-findings.md` (the Director's
+  verbatim conservation of handoff event cbdd049b, byte-checked against the sent body); the lane
+  is the Director's. Only what that file does not carry is recorded here.
+- Two owner corrections at one seat (2026-09-09 16:1xZ–16:4xZ), instance-scoped: (1) a review
+  fanned out to reviewer lenses was interrupted to require the coordinator's own first-hand read
+  of every file; (2) the assessment was interrupted again to require the purpose question first
+  ("what are these files FOR, why do they exist now, in that form") — minutes after the seat had
+  read metacognition.md. The second is the passive-guidance pattern observed on the reviewer and
+  went into the findings as its sixth item; the first did not. Falsifier: the next multi-lens
+  review brief opens with the first-hand read and the purpose question before any dispatch.
+- Correlation, stated not assumed: five lenses on one model from one brief agreed in correlated
+  fashion; the coordinator's first-hand check of each headline claim downgraded one (an "inverted
+  hierarchy" reading that described a deliberate layering) and kept the rest. Review designs that
+  want independence vary the model or the brief, or say plainly that they did not.
+- Free-play seeds, associations only, for the index landing to weigh: AGENT.md orders §First
+  Question (l.72) before §First Principle (l.76) while its l.86 numbers the Principle lens #2 and
+  the questions #3–#4, a reading order older than the lens numbering; the root AGENTS.md door
+  carries one platform's (Codex) block on the platform-neutral surface.
+
+## Nettle guards Pistil (2de368) — Director, THE TEAM'S CLOSEOUT: four lenses at the owner's word (2026-09-10 11:2xZ, non-terminal)
+
+Owner word (11:1xZ): "the rest of the team is closing out, they are passing you tasks, you do
+not necessarily have to pick them up, but do analyse and organise them please … this is not
+session end". The organised ledger with a disposition and a home per item is on the tracked
+thread record `estate-coordination.next-session.md` (§2026-09-10 11:2xZ — THE TEAM'S CLOSEOUT).
+This block carries the lenses' residue, not the ledger.
+
+**Metacognition (retrospective + generative).** Inherited shape: "the Director picks up what a
+closing seat drops" — the owner's word names the opposite value: the Director's output here is
+ORGANISATION (disposition, home, falsifier per item), not throughput, and only what my own
+context can land without a fresh seat stays in my hands (#118, the #112 fold). Two fluent moves
+caught: (1) "land #118 now, it is ready" arrived smoothly at 11:1xZ while #116 waited for its
+Copilot bind — landing anything then flips the slot holder BEHIND, voids its per-tip leg and
+costs a sync push plus a fresh request: a livelock shape; held until #116 landed. (2) At the
+resume, "the Director's default" fired on a boundary fact ("Altair dark at 07:5xZ") when the
+stream already carried Altair's team start; the rung was interpretation, not observation. Bridge
+from action to impact: the board at zero AND an estate whose knowledge outlives its seats; the
+ledger is the second half. Current model, held as a model: a subagent leg on the same model as
+the author is a weaker decorrelation than a second vendor — the ruling stands, the weight is a
+promise-column fact; falsifier: a vendor round after a posted subagent leg finds nothing inside
+the promise across the next five PRs.
+
+**Free play (time-box 10 min over the day's material; harvest with the guard).**
+
+- KEPT: the Codex connector's usage-limit comment sat on #116 four seconds after its creation
+  while three seats spent two hours shaping PRs — this reminded me of a smoke alarm chirping
+  while everyone searches for the fire; the vendor's own notice was on the board 1h40m before
+  the outage was named (Vanilla's first-hand date). Routed: already in #118's text.
+- KEPT (growing shape → a pr-lifecycle sentence later): a per-tip reviewer leg under a
+  require-up-to-date ruleset looks shaped like two-phase commit where every other commit
+  invalidates your prepared vote — livelock unless the holder is never flipped. Candidate for
+  the landing-slot section: "while the holder waits for a per-tip leg to bind, nothing lands".
+- KEPT: inverting "the review leg is the vendor" into "the vendor is one input to the leg" is
+  what the ruling did; the front door's `computeReviewerLegs` is the last surface holding the
+  old frame (it reads `--expect` logins only). Home: the watch-commands node row (#118).
+- KEPT: Efreet's caveat — five lenses on one model from one brief are correlated evidence —
+  applies to every adversarial subagent leg this window. Association, honestly marked; it is
+  the metacognition model above.
+- DISCARDED (forced): "the fork's mirror `main` is a tide gauge, measuring upstream without
+  being the harbour" — pretty, adds nothing the exploration record does not already say.
+- DISCARDED (forced): "an empty re-trigger commit is CI's heartbeat" — Altair's substitution of
+  a real cure showed the empty commit was never the point.
+
+**Concept exploration on the inherited task set (four movements, brief).** Observations: seven
+handoff items arrived as prose events with recipes, plus Efreet's 171-line review, plus my own
+eleven owner items; comms events are ephemeral and two seats' scratchpads died with them.
+Problem: not "do the tasks" but keep the estate's work OBSERVABLE and DISPOSITIONED while the
+team is one seat — the harm is silent drops and re-derivation at the next resume; the mechanism
+is knowledge living in event bodies. Solutions reopened: the fluent "TODO list" fails
+`follow-up-registers-need-disposition` and `owner-items-are-rederived-never-carried`; the
+ledger therefore records dispositions, pointers and falsifiers, never a queue, and the board
+stays computed live. Synthesis: the thread-record section (A land / B lane at a word / C owner
+questions / D signals closed with a home / E closed), Efreet's body conserved verbatim in
+`.agent/research/`, the owner's questions surfaced once in the report. Falsifier: a successor
+resuming from the tracked surfaces alone re-derives an item this ledger already closed.
+
+**Landings this window:** #116 SHA:002860f46 (Altair; Copilot on the final tip + the posted
+adversarial leg; rounds 9, 3, 3, 4, 5; 19 cured, 7 routed, one landing defect of the lane's own).
+Twenty this tenure. #118 is the Director's next landing (the slot word is #116's broadcast).

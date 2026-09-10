@@ -1681,3 +1681,108 @@ disagree, the live snapshot is current and this entry is history.
   classifier refuses to the seat — held since 19:2xZ). Owner items held: the upstream report
   on three routed #99 threads; the App's Actions write permission; the refused fold-wake
   cron; the repeating gate alert; the #100 edit; the #103 exports flag; a test-file rename.
+
+## 2026-09-10 11:2xZ — THE TEAM'S CLOSEOUT (Nettle guards Pistil, 2de368, Director): every task passed to the Director, analysed and organised at the owner's word
+
+Owner word (2026-09-10 11:1xZ, verbatim): "the rest of the team is closing out, they are passing
+you tasks, you do not necessarily have to pick them up, but do analyse and organise them please
+… this is not session end". Seats closed at the owner's word in their own sessions: Vanilla
+lifts Nectar (e1dced; #117 and #113 landed; #118 handed over; claim closed), Efreet guards
+Patina (ade27f; the directives tier review delivered read-only; no claim ever). Altair spins
+Umbra (05a180) still live on #116 at this writing. The board is computed live, never from this
+record; this section records DISPOSITIONS and HOMES, per `follow-up-registers-need-disposition`
+and `owner-items-are-rederived-never-carried`.
+
+### A. The Director lands these itself (nothing blocks; no fresh context needed)
+
+1. **#118** — the review-legs ruling records PR (docs-only, bot-authored), READY at
+   SHA:2a6f85332 on the tip SHA:94377dac5; legs: the docs-adr-expert review posted
+   (5617471721) and Copilot's round dispositioned; terminal for fix pushes. Recipe: Vanilla's
+   handoff event 219e2b18 (sync only if the tip moved; Copilot POST on the verdict tip as the
+   bot; front door `--expect copilot-pull-request-reviewer`; the worktree `records-e1dced`
+   stays at the head for the landing and is removed under the grant after the ancestry proof).
+   ORDER: AFTER #116 — under a per-tip Copilot leg and a require-up-to-date ruleset, landing
+   anything while the slot holder waits for its bind flips the holder BEHIND, voids its leg,
+   and costs a sync push plus a fresh request: a livelock shape. The holder is never flipped.
+2. **#112** — this coordination branch's fold at the 2026-09-11 UTC rollover by the
+   coordination-fold ceremony (assert `.git/MERGE_HEAD` before any resolution commit; the
+   rotated napkin recipe if the tip rotates it again). No fold wake exists (the classifier
+   refused the one-shot cron); the Director folds by hand.
+
+### B. Lanes that wait for a word or a fresh seat (not picked up now)
+
+3. **The upstream-sync producer** (the owner's added task 09:0xZ): proposals P1–P5 in
+   `.agent/research/upstream-sync-automation-concept-exploration-2026-09-10.md`. Blocked on
+   the owner's two below-the-tree decisions (C.9). Then one code lane: the workflow on
+   `engraph`, a dispatch proof before the schedule, the cross-fork skill's step 1 re-trued.
+4. **The 1.179.1 carrier** — upstream is 12 ahead of `engraph` (release 1.179.1; PR 970,
+   MCP-345 advertised-scopes docs and an e2e assertion) and NO carrier is open, because the
+   producer (the owner's Codex OCE task) is dark with the credit outage. A seat runs the
+   cross-fork skill steps 1–3 (fetch, recompute, the carrier at upstream's tip, the slot-word
+   merge), then the semantic integration (the premise sweep over ADR-113 / the MCP app docs
+   the change touches). Not the Director's own context: the skill wants a lane worktree and the
+   generators. Falsifier that the lane is moot: `engraph` reads identical against upstream.
+5. **Directives tier, step 1 of five** (Efreet's order, smallest first): the cheap defects in
+   one PR with no doctrine change — the eight citations, the dead template path, the stale
+   header, the dangling pattern name, orientation l.24 and l.29, fitness frontmatter on four
+   files, AGENT.md's metacognition trigger line. A FRESH seat under the
+   `directive-file-context-budget` rule (<30% context at the edit); line numbers re-verified
+   against the live tip (they were read at SHA:064f42093). Read of the lane's opening: Efreet's
+   read-only ruling was that seat's; the owner's "pass the lane to the Director" opens step 1
+   for scheduling; steps 2–5 wait on the owner's decisions in C.8. Findings conserved verbatim:
+   `.agent/research/directives-tier-review-2026-09-10-efreet-findings.md`.
+6. **Altair's follow-ups from #116** (pointers, not specs; Altair's record names them): the
+   policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
+   `rm -rf` entry also blocks `pnpm rm -r --force <pkg>`; the wrapper-operand shape
+   `xargs -a git rm -rf`); the table-drift net (an on-demand script diffing `git help <cmd>`
+   against the argv tables). Home: the hook-policy work's plan node (Altair's record and #116's
+   body name it); no lane until a seat is allocated (the matcher landed at SHA:002860f46).
+   Altair's two candidates ride the same home: a timing-growth probe as a repo instrument
+   beside the matcher (two sizes and a ratio, never an absolute — a fast machine hides a
+   quadratic), and "the landing mechanic" as a named class in pr-lifecycle's merge boundary
+   (one vendor request on the verdict tip; its findings replies-only).
+7. **#100** — the Director's no-prompts fix at its second step-back; the split cure is in the
+   worktree `no-prompts` and the scratchpad; the two blanket deny lines are the OWNER's edit
+   (C.10). Nothing moves until then.
+
+### C. The owner's decisions (routed as questions, never decided here)
+
+8. **Directives placement** (from Efreet): whether `cloud-environment-routing` and
+   `editorial-tone` move to the rules tier under situational triggers; whether
+   `validation-strategy` is a stub, a directive, or a decision record; and the queued
+   principles.md fitness decision that gates its stance/contract separation (graduation
+   downward, never trimming).
+9. **Upstream sync**: the bot app's private key into the fork's Actions secrets (custody: the
+   key lives only on the owner's machine today) and the `UPSTREAM_SYNC_ENABLED` variable; and
+   retiring the Codex OCE task as producer once the workflow runs (two producers = the
+   duplicate-carrier defect).
+10. **#100**: the two blanket deny lines `Bash(git reset:*)` and `Bash(git revert:*)` replacing
+    the nine targeted entries — the classifier refused the seat three times; or the word "sed it".
+11. **A retrospective on the merge train's arc** (Vanilla's offer at 07:1xZ and 11:1xZ; the
+    Director concurs): nineteen landings in one Director tenure, the review-tail lessons, the
+    ruling's first proofs. Routed, never auto-run.
+12. Held owner items from the record, unchanged: (a) the upstream report of three routed #99
+    findings (the fork never writes upstream); (b) the App cannot re-run workflow jobs; (c) the
+    fold-wake cron refused by the classifier; (d) the external-skills-library gate alert
+    repeats; (f) #103's private-origin exports on the recorded authority; (g) the
+    `state-gh.unit.test.ts` rename.
+
+### D. Signals, closed here with a named home (no lane)
+
+13. The SHARED ESLint ignore `**/tsup.config.*` hides hand-written tsup config modules from
+    lint (the #117 config-expert finding): a row on the quality-gate-ledger node; a
+    config-expert-reviewed PR at the generator when a seat is there.
+14. The front door verifies only the declared vendor legs (`computeReviewerLegs` reads the
+    `--expect` logins; an empty set is refused): the subagent leg is the seat's recomputation on
+    the premises, invisible to the tool. #118 names the predicate beside the rule; the
+    machine-checked subagent-leg input is a watch-commands node row for slice 1's owner.
+15. A subagent review leg on the SAME model as the author is weaker decorrelation than a second
+    vendor (Efreet's own caveat about five lenses on one model applies to every adversarial leg
+    this window). The ruling stands — the leg counts — and its weight is a fact for the promise
+    column, not a reason to wait.
+
+### E. Closed this window
+
+The Codex leg question (the owner's ruling and #118); the tsup transient-lint flake for the two
+self-bootstrap configs (#117); the review-run liveness leg (#113); the crossed-push lesson and
+the pathspec-of-untracked lesson (napkin WRAP 8).
