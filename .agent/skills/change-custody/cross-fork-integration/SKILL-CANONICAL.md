@@ -335,9 +335,12 @@ sanctioned REST endpoint under the owner's exception below; any other pull
 request obtains the missing leg (the Copilot request as the bot; where a
 vendor is unavailable, a subagent review of any kind posted on the pull
 request and reported back stands as the leg — owner ruling 2026-09-10,
-pr-lifecycle §review-round state machine item 3 — a leg the MERGING SEAT
-verifies and records on the landing premises, because the tool checks only
-the vendors declared to it) and runs the front door
+pr-lifecycle §review-round state machine item 3 — bound to the sha it
+reviewed: the premises record that sha and every push since, and those
+pushes carry only cures of its findings, the tip sync and landing-defect
+cures, else a fresh leg on the new head; a leg the MERGING SEAT verifies
+and records on the landing premises, because the tool checks only the
+vendors declared to it) and runs the front door
 again (pr-lifecycle §merge boundary;
 `docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the

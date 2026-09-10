@@ -794,9 +794,15 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    reviewer — never the set that happened to bind the tip, never a
    reviewer declared unavailable; a subagent review of any kind,
    adversarial included, posted on the pull request with every finding
-   dispositioned and reported back to the seat is a review leg (#117 and
-   #113 landed that way on 2026-09-10, each with a posted Opus review and
-   Copilot). The tool verifies only the vendor legs declared to it
+   dispositioned and reported back to the seat is a review leg, BOUND TO
+   THE SHA IT REVIEWED exactly as the vendor leg is bound per tip: the
+   posted review names the head it read; the landing premises record that
+   sha and every push since; and those pushes may carry only cures of the
+   posted findings, the tip sync and landing-defect cures (a red required
+   check) — a push carrying any other content needs a fresh leg on the new
+   head (#117 and #113 landed that way on 2026-09-10, each with a posted
+   Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
+   four pushes after it were its cures, the sync and one landing defect). The tool verifies only the vendor legs declared to it
    (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
    refuses an empty set), so the subagent leg is the MERGING SEAT's own
    recomputation — the posted review and its dispositions named on the
