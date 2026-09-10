@@ -14,8 +14,8 @@ export type NestedMatcher = (command: string, depth: number) => boolean;
 
 /** The last path segment of a command word (`/bin/rm` is `rm`). */
 export function basename(text: string): string {
-  const slash = text.lastIndexOf('/');
-  return slash === -1 ? text : text.slice(slash + 1);
+  const separator = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+  return text.slice(separator + 1).replace(/\.(?:exe|cmd)$/iu, '');
 }
 
 /** Shell interpreters whose quoted argument is a script and so is read as a nested command. */
@@ -67,9 +67,15 @@ function interpreterScriptWords(words: readonly ShellWord[]): readonly ShellWord
   if (SCRIPT_OPERAND_INTERPRETERS.has(basename(words[interpreterIndex]?.text ?? ''))) {
     return rest.filter((word) => !word.text.startsWith('-'));
   }
-  const commandFlag = rest.findIndex((word) => /^-[A-Za-z]*c[A-Za-z]*$/u.test(word.text));
+  const commandFlag = rest.findIndex((word) => isCommandFlagCluster(word.text));
   const script = rest.slice(commandFlag + 1).find((word) => !word.text.startsWith('-'));
   return commandFlag === -1 || script === undefined ? [] : [script];
+}
+
+/** An option cluster of letters carrying `c` (`-c`, `-lc`, `-ec`), read in one pass so its cost is linear in the word. */
+function isCommandFlagCluster(text: string): boolean {
+  const letters = text.slice(1);
+  return text.startsWith('-') && /^[A-Za-z]+$/u.test(letters) && letters.includes('c');
 }
 
 /** Whether a script handed to a shell interpreter in the segment carries a matching command. */

@@ -232,6 +232,21 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -- -rf')).toBe(false);
   });
 
+  it("does not read a known command's own subcommand as an invocation of the command it is named after", () => {
+    expect(matchesArgvPattern(recursiveForce, 'git rm -rf --cached node_modules')).toBe(false);
+    expect(matchesArgvPattern(recursiveForce, 'git rm --cached -r -f node_modules')).toBe(false);
+    expect(matchesArgvPattern(recursiveForce, 'git rm -r x && rm -rf y')).toBe(true);
+  });
+
+  it('names the command the same under a Windows suffix or a backslash path', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm.exe -rf dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, '/mnt/c/Git/usr/bin/rm.exe -rf dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, String.raw`"C:\Git\usr\bin\rm.exe" -rf dir`)).toBe(
+      true,
+    );
+    expect(matchesArgvPattern('git reset --hard', 'git.exe reset --hard')).toBe(true);
+  });
+
   it('does not mistake another command for rm by a suffix of its name', () => {
     expect(matchesArgvPattern(recursiveForce, 'pnpm exec form -rf x')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rmdir -rf x')).toBe(false);
@@ -367,6 +382,28 @@ describe('matchesArgvPattern — shell shapes', () => {
     );
     expect(matchesArgvPattern('rm -rf', 'rm -r 2>/dev/null -f dir >| log')).toBe(true);
     expect(matchesArgvPattern('rm -rf', 'echo -rf |& rm -r dir')).toBe(false);
+  });
+
+  it('reads a here-document body as data, not commands, except the substitutions the shell runs in it', () => {
+    const hardReset = 'git reset --hard';
+    expect(
+      matchesArgvPattern(
+        hardReset,
+        "git commit -F- <<'EOT'\nfix: stop using git reset --hard\nEOT",
+      ),
+    ).toBe(false);
+    expect(
+      matchesArgvPattern('rm -rf', "cat > README.md <<'EOT'\nDo not use rm -rf here.\nEOT"),
+    ).toBe(false);
+    expect(matchesArgvPattern('rm -rf', 'cat <<EOT\n$(rm -rf x)\nEOT')).toBe(true);
+    expect(matchesArgvPattern('rm -rf', "cat <<'EOT'\n$(rm -rf x)\nEOT")).toBe(false);
+    expect(matchesArgvPattern('rm -rf', 'cat <<EOT\nnote\nEOT\nrm -rf x')).toBe(true);
+  });
+
+  it('reads a long interpreter flag cluster in one pass', () => {
+    // The flag test is linear in the word: a cluster this long was a multi-second backtrack before.
+    expect(matchesArgvPattern('rm -rf', `sh -${'c'.repeat(100_000)}1 'rm -rf x'`)).toBe(false);
+    expect(matchesArgvPattern('rm -rf', `sh -${'e'.repeat(100_000)}c 'rm -rf x'`)).toBe(true);
   });
 
   it('drops a comment before reading the line', () => {

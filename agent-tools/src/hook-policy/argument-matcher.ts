@@ -139,16 +139,27 @@ function invocationMatches(
 const MAX_INVOCATION_CANDIDATES = 8;
 
 /**
+ * Whether the word before `index` is a command whose next word is its own
+ * subcommand (`git rm`), so the candidate at `index` invokes that command,
+ * not the one it is named after.
+ */
+function isSubcommandOf(words: readonly ShellWord[], index: number): boolean {
+  const previous = index > 0 ? findCommandTable(basename(words[index - 1]?.text ?? '')) : undefined;
+  return previous !== undefined && previous.subcommands.some((table) => table.words.length > 0);
+}
+
+/**
  * Whether the segment invokes the spec's command with its required options,
  * reading from any of the first few words whose basename is the command
- * (after `sudo`, `xargs`, `find -exec`, …). A later twin of the command name
- * that is really an operand (`rm -- rm -rf x` deletes three files) can
- * over-match; PDR-044 licenses that cost, and it is the deny direction.
+ * (after `sudo`, `xargs`, `find -exec`, …) and is not another known
+ * command's subcommand. A later twin of the command name that is really an
+ * operand (`rm -- rm -rf x` deletes three files) can over-match; PDR-044
+ * licenses that cost, and it is the deny direction.
  */
 function invocationInSegment(words: readonly ShellWord[], spec: ArgvPatternSpec): boolean {
   let tried = 0;
   for (const [index, word] of words.entries()) {
-    if (basename(word.text) !== spec.command) {
+    if (basename(word.text) !== spec.command || isSubcommandOf(words, index)) {
       continue;
     }
     if (invocationMatches(words, index, spec)) {

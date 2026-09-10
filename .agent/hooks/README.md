@@ -94,10 +94,15 @@ Failure semantics:
   so `rm '-rf'` is a forced removal and `"rm -rf"` is one word that invokes
   nothing; the ANSI-C `$'…'` form is a quote whose escapes are decoded; a
   backslash-newline continues the line); one shell segment at a time
-  (`&&`, `||`, `|`, `;`, `&`, newline, a bare parenthesis — so a heredoc
-  body, a function body and a brace group on their own lines are read); the
+  (`&&`, `||`, `|`, `;`, `&`, newline, a bare parenthesis — so a function
+  body and a brace group on their own lines are read, while a here-document
+  body is the command's data and is dropped, except the substitutions the
+  shell runs in a body whose delimiter is unquoted); the
   first few words in a segment whose basename is the command, in any
-  position (`/bin/rm`, `sudo rm`, `xargs rm`, `find -exec rm`, `env -i rm`);
+  position (`/bin/rm`, `sudo rm`, `xargs rm`, `find -exec rm`, `env -i rm`;
+  a `.exe` or `.cmd` suffix and a backslash path name the same command),
+  except a word that is another known command's own subcommand (`git rm`
+  removes from the index, not `rm`);
   a command substitution's body, unquoted or double-quoted (`OUT="$(…)"`,
   balanced past quoted parentheses), and the script a shell interpreter is
   given (the `-c` operand of the sh-like shells, every operand of `eval` and

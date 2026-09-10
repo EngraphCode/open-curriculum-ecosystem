@@ -131,6 +131,24 @@ b"`),
     expect(texts('echo a#b "#c"')).toStrictEqual([['echo', 'a#b', '#c']]);
   });
 
+  it('drops a here-document body, keeping only the substitutions an unquoted delimiter lets the shell run', () => {
+    expect(texts("cat > note.md <<'EOT'\nNever run rm -rf here.\nEOT\necho done")).toStrictEqual([
+      ['cat', '>', 'note.md', '<<EOT'],
+      ['echo', 'done'],
+    ]);
+    const [first, second] = segmentCommand('cat <<EOT\n$(rm -rf x) `echo y`\nEOT\nls');
+    expect(first?.map((word) => word.text)).toStrictEqual(['cat', '<<EOT', '<<']);
+    expect(first?.[2]?.nested).toStrictEqual(['rm -rf x', 'echo y']);
+    expect(second?.map((word) => word.text)).toStrictEqual(['ls']);
+    // `<<-` strips leading tabs; two bodies on one line follow in order; a missing delimiter runs to the end.
+    expect(texts('cat <<-A <<B\n\tbody\n\tA\nmore\nB\nls')).toStrictEqual([
+      ['cat', '<<-A', '<<B'],
+      ['ls'],
+    ]);
+    expect(texts("cat <<'EOT'\nrm -rf x\n")).toStrictEqual([['cat', '<<EOT']]);
+    expect(texts('grep x <<< "rm -rf y"')).toStrictEqual([['grep', 'x', '<<<', 'rm -rf y']]);
+  });
+
   it('keeps leading variable assignments as words of the segment', () => {
     expect(texts('FLAGS=-rf rm $FLAGS dir')).toStrictEqual([['FLAGS=-rf', 'rm', '$FLAGS', 'dir']]);
   });

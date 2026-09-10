@@ -1,4 +1,6 @@
 import { decodeAnsiCQuoted } from './ansi-c-quotes.js';
+import type { Heredoc } from './redirections.js';
+import { isRedirectionPart, readHeredocOperator, skipHeredocBodies } from './redirections.js';
 import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.js';
 
 /**
@@ -20,7 +22,9 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
  * ever read against the command in its own segment. The `&` or `|` of a
  * redirection (`2>&1`, `&>log`, `>|file`) stays inside its word: the shell
  * removes a redirection before the command runs, so an option after it
- * still belongs to the same command.
+ * still belongs to the same command. A here-document body is the command's
+ * data, not commands, and is dropped — except the substitutions the shell
+ * runs inside a body whose delimiter is unquoted, kept as nested commands.
  *
  * What the scanner does not do, by design: expand variables or tildes,
  * resolve aliases or shell functions, or read a script arriving on stdin.
@@ -46,6 +50,7 @@ interface ScanState {
   word: string;
   inWord: boolean;
   nested: string[];
+  heredocs: Heredoc[];
 }
 
 const TWO_CHAR_OPERATORS: readonly string[] = ['&&', '||', '|&'];
@@ -139,17 +144,28 @@ function readComment(command: string, index: number): number {
   return newline === -1 ? command.length : newline;
 }
 
-/**
- * Whether the `&` or `|` at `index` belongs to a redirection (`>&`, `<&`,
- * `&>`, `>|`) rather than to a list or pipeline operator.
- */
-function isRedirectionPart(command: string, index: number, state: ScanState): boolean {
-  const char = command[index];
-  const previous = state.inWord ? state.word.slice(-1) : '';
-  if (char === '&') {
-    return previous === '>' || previous === '<' || command[index + 1] === '>';
+/** Consume a here-document operator, or the bodies pending at a newline; `null` when neither is at `index`. */
+function scanHeredoc(command: string, index: number, state: ScanState): number | null {
+  if (command[index] === '\n' && state.heredocs.length > 0) {
+    endWord(state);
+    const nested: string[] = [];
+    const next = skipHeredocBodies(command, index, state.heredocs, nested);
+    state.heredocs = [];
+    if (nested.length > 0) {
+      state.words.push({ text: '<<', nested });
+    }
+    endSegment(state);
+    return next;
   }
-  return char === '|' && previous === '>';
+  const operator = readHeredocOperator(command, index);
+  if (operator === null) {
+    return null;
+  }
+  const [heredoc, next] = operator;
+  state.heredocs.push(heredoc);
+  state.word += (heredoc.stripTabs ? '<<-' : '<<') + heredoc.delimiter;
+  state.inWord = true;
+  return next;
 }
 
 /** Consume an operator or a substitution at `index`; `null` when the text there is neither. */
@@ -162,7 +178,8 @@ function scanOperator(command: string, index: number, state: ScanState): number 
   if (command.startsWith('$(', index) || char === '`') {
     return readSubstitution(command, index, state);
   }
-  if (ONE_CHAR_OPERATORS.has(char) && !isRedirectionPart(command, index, state)) {
+  const previous = state.inWord ? state.word.slice(-1) : '';
+  if (ONE_CHAR_OPERATORS.has(char) && !isRedirectionPart(command, index, previous)) {
     endSegment(state);
     return index + 1;
   }
@@ -186,7 +203,10 @@ function scanQuoting(command: string, index: number, state: ScanState): number |
 
 /** Consume the text at `index` and return the index of the next unread character. */
 function scanAt(command: string, index: number, state: ScanState): number {
-  const consumed = scanOperator(command, index, state) ?? scanQuoting(command, index, state);
+  const consumed =
+    scanHeredoc(command, index, state) ??
+    scanOperator(command, index, state) ??
+    scanQuoting(command, index, state);
   if (consumed !== null) {
     return consumed;
   }
@@ -214,6 +234,7 @@ export function segmentCommand(command: string): readonly (readonly ShellWord[])
     word: '',
     inWord: false,
     nested: [],
+    heredocs: [],
   };
   let index = 0;
   while (index < command.length) {
