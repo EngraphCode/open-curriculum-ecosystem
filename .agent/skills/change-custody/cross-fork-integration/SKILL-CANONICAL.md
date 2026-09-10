@@ -291,7 +291,8 @@ the authority frame, in this commit, with citations. Confirm the index rows.
 
 ### 8. Open the round, settle, land
 
-Push as the bot with `merge-bot push` from the worktree: HEAD's branch by
+Push as the bot with `pnpm agent-tools merge-bot push` from the worktree:
+HEAD's branch by
 name, the bot identity over a file-backed token that is never in argv, hooks
 running, no force flag; a rejected non-fast-forward is answered by merging,
 never by overwriting. Undraft; declare the review tally at open (pr-lifecycle

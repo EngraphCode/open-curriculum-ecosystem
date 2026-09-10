@@ -772,7 +772,19 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    in every PDR-140 intake since 2026-09-06 (owner rating 2026-08-09;
    graduated through the rules process 2026-09-07), were the configured
    set the day this was written; PDR-140's loop discipline governs each leg's rounds
-   like any other's. This closes the
+   like any other's. How each configured leg binds a tip, first-hand on
+   2026-09-09/10 across nine landings: Copilot reviews the FIRST push and
+   any tip the bot explicitly requests it on (below); the Codex connector
+   binds a pull request at its CREATION and on the pushes of a pull
+   request it bound at creation — a pull request opened from a branch
+   already pushed, with no later push it observed, drew no Codex review
+   on any push or trigger comment (#109, #111), and the cure is a fresh
+   pull request opened non-draft from the same branch, its tally naming
+   the predecessor. The merge front door declares the CONFIGURED set
+   (`--expect` once per configured reviewer), never the set that happened
+   to bind the tip: a declared leg that never reviewed the tip settles by
+   timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
+   5 below names that verdict's two exits. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
@@ -822,9 +834,18 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies; the bot cannot request Copilot at all (the API refuses it as a
-   non-collaborator), so every re-request after a tip move needed the
-   owner's own credentials — the fallback the bot-identity rule bans. Until
+   satisfies. (The grounds this clause carried until 2026-09-10 — "the bot
+   cannot request Copilot at all" — are falsified: `POST
+   repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
+   `reviewers[]=copilot-pull-request-reviewer[bot]` under the
+   pull-request-work token returns 201 and the timeline shows
+   `review_requested Copilot` within seconds — first-hand on #108, #109
+   and #110; the requested-reviewers list does not show it, the timeline
+   does; the draft/ready toggle fires nothing on a pull request already
+   undrafted once. So a synced tip gets its Copilot leg by that one call
+   as the bot, and a CODE pull request lands only with both configured
+   legs bound, never by the REST merge below.) The exception stands for
+   the docs-only bot-authored class on its own grounds. Until
    the merge tool learns the class (a named follow-up), the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
@@ -982,7 +1003,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   cites a superseded commit — the held-replies discipline saved both
   rounds.
 - **Silent-wait sweep after every push (PDR-132)**: verify the expected
-  reviewer is REQUESTED on the new tip — a push does not re-request, and a
+  reviewer is REQUESTED on the new tip — a push does not re-request (the
+  bot requests Copilot on the new tip with the reviewers endpoint, item 5
+  of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
   looking healthy (two live instances, 2026-07-20). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
