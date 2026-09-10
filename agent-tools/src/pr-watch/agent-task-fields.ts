@@ -57,20 +57,21 @@ const agentTaskViewSchema = z
       .string()
       .nullish()
       .transform((value) => value ?? null),
-    pullRequestNumber: z
-      .number()
-      .nullish()
-      .transform((value) => value ?? undefined),
-    pullRequestUrl: z
-      .string()
-      .nullish()
-      .transform((value) => value ?? undefined),
+    pullRequestNumber: z.number().nullable().optional(),
+    pullRequestUrl: z.string().nullable().optional(),
   })
   .loose()
+  // Validate the RAW states before normalising: the vendor sends both keys,
+  // both with values or both explicit null. Any other combination — a key
+  // omitted while the other is present, one null beside one value — is an
+  // unknown shape and fails the parse here, so a live run carrying it is
+  // unobserved rather than read as "no mapping".
   .refine(
-    (view) => (view.pullRequestNumber === undefined) === (view.pullRequestUrl === undefined),
+    (view) =>
+      (view.pullRequestNumber === undefined) === (view.pullRequestUrl === undefined) &&
+      (view.pullRequestNumber === null) === (view.pullRequestUrl === null),
     {
-      message: 'pullRequestNumber and pullRequestUrl must be both present or both absent',
+      message: 'pullRequestNumber and pullRequestUrl must be both present or both null',
       path: ['pullRequestUrl'],
     },
   );
@@ -90,12 +91,13 @@ export interface AgentTaskView {
  */
 export function parseAgentTaskView(raw: unknown): AgentTaskView {
   const parsed = agentTaskViewSchema.parse(raw);
+  // Both null (the verified PR-less shape) reads as no mapping.
+  const pullRequestNumber = parsed.pullRequestNumber ?? undefined;
+  const pullRequestUrl = parsed.pullRequestUrl ?? undefined;
   return {
     id: parsed.id,
     completedAt: parsed.completedAt,
-    ...(parsed.pullRequestNumber === undefined
-      ? {}
-      : { pullRequestNumber: parsed.pullRequestNumber }),
-    ...(parsed.pullRequestUrl === undefined ? {} : { pullRequestUrl: parsed.pullRequestUrl }),
+    ...(pullRequestNumber === undefined ? {} : { pullRequestNumber }),
+    ...(pullRequestUrl === undefined ? {} : { pullRequestUrl }),
   };
 }

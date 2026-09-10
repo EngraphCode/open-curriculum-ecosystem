@@ -78,6 +78,15 @@ interface ExecutorScript {
   readonly agentTaskViews?: Readonly<Record<string, string>>;
 }
 
+/** Build the view script from (id, view) pairs without `Object.*` (typescript-practice). */
+function viewsOf(entries: readonly (readonly [string, string])[]): Record<string, string> {
+  const views: Record<string, string> = {};
+  for (const [id, view] of entries) {
+    views[id] = view;
+  }
+  return views;
+}
+
 function agentTaskResponse(script: ExecutorScript, args: readonly string[]): string {
   if (args[1] === 'list') {
     const listResult = script.agentTaskList ?? JSON.stringify([]);
@@ -316,7 +325,30 @@ describe('readPrStateReading', () => {
       kind: 'read',
       runs: [],
       truncated: true,
-      note: 'agent-task view unreadable for half — those runs unobserved (first: pullRequestNumber and pullRequestUrl must be both present or both absent at pullRequestUrl)',
+      note: 'agent-task view unreadable for half — those runs unobserved (first: pullRequestNumber and pullRequestUrl must be both present or both null at pullRequestUrl)',
+    });
+  });
+
+  it('bounds the evidence line: three unreadable ids named, the rest counted, the first cause kept', () => {
+    // Four live runs with no readable view: the note names the first three,
+    // counts the fourth, and keeps the first failure's cause; all four are
+    // live, so the leg is truncated.
+    const live = ['u-1', 'u-2', 'u-3', 'u-4'].map((id) => ({
+      id,
+      name: 'Task from @x',
+      createdAt: 't',
+      completedAt: null,
+    }));
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor({ agentTaskList: JSON.stringify(live), agentTaskViews: {} }, []),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [],
+      truncated: true,
+      note: 'agent-task view unreadable for u-1, u-2, u-3 +1 more — those runs unobserved (first: unexpected agent-task view u-1)',
     });
   });
 
@@ -353,18 +385,20 @@ describe('readPrStateReading', () => {
       createdAt: `2026-09-09T00:${String(99 - index).padStart(2, '0')}:00Z`,
       completedAt: 'done',
     }));
-    const views = Object.fromEntries(
-      listed.slice(0, 5).map((run) => [
-        run.id,
-        JSON.stringify({
-          id: run.id,
-          completedAt: 'done',
-          pullRequestNumber: 461,
-          pullRequestUrl: PR_URL,
-        }),
-      ]),
+    const views = viewsOf(
+      listed
+        .slice(0, 5)
+        .filter((run) => run.id !== 'done-2')
+        .map((run) => [
+          run.id,
+          JSON.stringify({
+            id: run.id,
+            completedAt: 'done',
+            pullRequestNumber: 461,
+            pullRequestUrl: PR_URL,
+          }),
+        ]),
     );
-    delete views['done-2'];
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
@@ -458,13 +492,20 @@ describe('readPrStateReading', () => {
       createdAt: 't',
       completedAt: 't2',
     }));
-    const views = Object.fromEntries(
-      completed.map((run) => [
+    // Paired views (the vendor's shape): the first three map to THIS PR, the
+    // rest to another PR in the same repository.
+    const views = viewsOf(
+      completed.map((run, index) => [
         run.id,
-        JSON.stringify({ id: run.id, completedAt: 't2', pullRequestNumber: 1 }),
+        JSON.stringify({
+          id: run.id,
+          completedAt: 't2',
+          pullRequestNumber: index < 3 ? 461 : 1,
+          pullRequestUrl: index < 3 ? PR_URL : PR_URL.replace('/pull/461', '/pull/1'),
+        }),
       ]),
     );
-    readPrStateReading({
+    const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
       execFileSync: makeExecutor(
@@ -474,6 +515,11 @@ describe('readPrStateReading', () => {
     });
     const viewCalls = calls.filter((args) => args[0] === 'agent-task' && args[1] === 'view');
     expect(viewCalls).toHaveLength(5);
+    // Of the five views read, the three for this PR map; nothing is unobserved.
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: completed.slice(0, 3),
+    });
     // The view leg must name its fields: bare --json is a usage error on this
     // vendor surface (caught live, 2026-07-21).
     expect(viewCalls[0]).toContain('id,completedAt,pullRequestNumber,pullRequestUrl');

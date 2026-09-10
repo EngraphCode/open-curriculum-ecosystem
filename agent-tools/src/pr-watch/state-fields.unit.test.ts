@@ -235,6 +235,29 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
     ).toThrow();
   });
 
+  it('rejects a one-sided null (the other key omitted) before normalising', () => {
+    // The raw states are validated before null collapses to "absent": a key
+    // missing beside an explicit null is not the vendor's shape and must not
+    // read as "both absent, no mapping".
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestNumber: null }),
+    ).toThrow();
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestUrl: null }),
+    ).toThrow();
+  });
+
+  it('rejects one null beside one value', () => {
+    expect(() =>
+      parseAgentTaskView({
+        id: 'run-1',
+        completedAt: null,
+        pullRequestNumber: null,
+        pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+      }),
+    ).toThrow();
+  });
+
   it('parses a PR-less view (explicit null PR fields — verified live 2026-09-09) as no mapping', () => {
     // `gh agent-task view` on a run that opened no pull request returns
     // `pullRequestNumber: null, pullRequestUrl: null`, not absent keys.
