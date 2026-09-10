@@ -18,7 +18,7 @@ tickets:
   - MCP-491
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-09
+last_updated: 2026-09-10
 ---
 
 # Quality-gate ledger — a register that recomputes
@@ -262,6 +262,22 @@ Findings recorded ahead of the inventory (dated; each a disposition for step 1):
   config change, config-expert reviewed; until it lands every PR the race bites
   pays an empty-commit re-trigger. The inventory records the gate's ordering
   dependency as part of its description.
+- **2026-09-10 — the transient-artefact race cured at its level; the shared ignore
+  list over-reaches.** The race bit again on #116 (`workspace-config:lint`, run
+  34459013126). First-hand: the shared ESLint ignores already excluded
+  `**/tsup.config.*` and `**/*.bundled_*.mjs`; the two packages that fail are the
+  two self-bootstrap configs (`workspace-config`, `oak-eslint`) that cannot import
+  the shared list. #117 (SHA:9a34c82f3) restated `**/*.bundled_*.mjs` in both —
+  the one pattern the transient file needs — after the config-expert review showed
+  that `**/tsup.config.*` also hides the hand-written
+  `packages/core/workspace-config/src/tsup.config.base.ts` module (the
+  `createLibConfig`/`createSdkConfig`/`createAppConfig` source every tsup config
+  imports) from lint. Disposition, open: the SHARED list's `**/tsup.config.*`
+  (`packages/core/oak-eslint/src/shared.ts`, since 2026-05-22) hides that same
+  module from the root lint today — narrow it to the transient pattern at the
+  generator in its own config-expert-reviewed PR and record the restored coverage;
+  falsifier: `eslint --print-config` on the module from the repo root printing
+  `undefined` after that PR lands.
 
 ## Falsifiers held open
 
