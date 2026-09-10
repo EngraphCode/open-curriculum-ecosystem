@@ -41,7 +41,7 @@ subsequent updates and the link back to this research.
 This record preserves the research's recommendations, evidence limits and
 evaluation checks at its stated cutoff. Its inclusion establishes no implemented
 or qualified capability. The current implementation-origin decision is recorded
-in [ADR-229](../../../docs/architecture/architectural-decisions/229-own-built-algorithm-and-data-structure-foundations.md).
+in [ADR-230](../../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md).
 
 The research inspected OCE at
 [`dfe92492711f8d7c6ac8233735994c8fada45e0e`](https://github.com/EngraphCode/open-curriculum-ecosystem/commit/dfe92492711f8d7c6ac8233735994c8fada45e0e).

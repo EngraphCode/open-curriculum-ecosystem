@@ -12,7 +12,7 @@ sitting — card answers at the Director seat, Falcon hunts Flight 52841f)
 Query semantics, validation and termination have separate proof obligations.
 Declared orders structure the existing carrier, authority and privacy
 boundaries; each implemented guarantee retains its own premises and checks
-(owner-directed reconciliation of 2026-09-08; the host's ADR-229 §Context
+(owner-directed reconciliation of 2026-09-08; the host's ADR-230 §Context
 records the direction).
 
 **Related**:

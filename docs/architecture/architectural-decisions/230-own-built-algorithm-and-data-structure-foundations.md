@@ -1,9 +1,15 @@
-# ADR-229: Own-built algorithm and data-structure foundations
+# ADR-230: Own-built algorithm and data-structure foundations
 
 **Status**: Accepted (owner direction, 2026-09-08). Implementation and
 qualification remain separate delivery work.
 
 **Date**: 2026-09-08
+
+**Numbering**: recorded as ADR-229 on 2026-09-08; renumbered to ADR-230 on
+2026-09-10 at the upstream sync that brought the upstream line's ADR-229 (the
+MCP protocol-revision era record), under the cross-lineage rule in
+`docs/engineering/pre-merge-analysis.md` §4d: upstream's sequence is
+authoritative and the colliding record renumbers with every citation.
 
 **Related**:
 [ADR-041](041-workspace-structure-option-a.md) — repository dependency tiers;

@@ -97,6 +97,18 @@ Reopen this current-state report when one of the following occurs:
 
 Trigger 1 is met by the pull request this addendum lands in (EngraphCode #90, the upstream sync carrying `3f1e88cabcd6fc7ce0b64c4437b796bb478b3c1a`, release `1.178.6`): its merge is Engraph's incorporation of `1.178.6`, so section 2's "has not yet incorporated" describes the state before that merge. The sync regenerated the fork's model-behaviour-content workspace from the incoming source and re-trued the two delivery plans whose premise the ordering change altered (`curriculum-structure-true-views`, `upstream-curriculum-data-exposure`). Triggers 2 to 6 stand: at upstream `main` `652718786` (fetched 9 September 2026) PR 966 is not merged, synthetic `prerequisiteFor` edges are still emitted (2,881 in the regenerated corpus), and no retained input snapshot, incident-scope evidence or independent adoption evidence has appeared.
 
+## Reopening — 10 September 2026
+
+Trigger 2 is met by the pull request this addendum lands in (the upstream sync carrying
+`216e64c1563354a0b096846e98ea465b8d2321ee`, release `1.181.1`): upstream merged PR 966 as
+MCP-682 (commit `8f44de90d`, released in `1.181.1`), so `get-misconception-graph` now serves
+curriculum order with the per-board caveat upstream recorded, and section 1's "must not yet be
+described as serving the corrected order" describes the state before this merge. The sync
+regenerated the fork's model-behaviour-content workspace from the incoming source. Triggers 3
+to 6 stand: at `216e64c15` synthetic `prerequisiteFor` edges are still emitted (2,882 in the
+regenerated corpus), and no retained input snapshot, incident-scope evidence or independent
+adoption evidence has appeared.
+
 ## Source register
 
 - [Oak OCE release 1.178.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/releases/tag/v1.178.6), published 8 September 2026
