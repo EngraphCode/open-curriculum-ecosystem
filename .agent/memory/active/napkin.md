@@ -727,6 +727,129 @@ rollover), #120 and #123 (owner decisions, dispositions posted). Processes by id
 `bkvn7bj3h` (re-armed hourly, asserted 14:05Z), heartbeat `buksewhl3`, registry peer poll
 `bvimq2rej`, peer-liveness `b1w1ld2s8`, PR poll `bs62tx2xx`, wrap cron `16be6dbc`.
 
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 3 (2026-09-10 15:3xZ)
+
+The owner's next task (verbatim on the seat record §COMPACTION BOUNDARY 3 addendum): compare
+PR #123 with the upstream windows work and explore which should merge, favouring upstream's
+(done by a person working on Windows) but preserving the fork's enhancements; the complex
+analysis and development now, before a model switch. Facts at the boundary: the fifteen
+commits have no patch-equivalent on the mirror at 1.181.1; upstream's "windows" commits are
+plans, ledgers, the LF-only gitattributes and the gitleaks path; the comparison target is
+upstream PR #891 (open on 2026-08-17 beside #888); footprint 146 files, 12 in the fork's own
+delta. Processes stopped (STOP BOUNDARY 3). Loss scan: every finding of the afternoon is on the
+PRs, the thread record §F–J, the plan nodes' dispositions and this napkin; the front-door loop
+and probe scripts are session-local instruments, restated in the seat record; the design-thread
+note for #122's two scaffold findings is owed at the fold (promise held by this seat).
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 4 (2026-09-10 16:1xZ; the owner's "stop everything … no commit or push required")
+
+**Where the windows lane stands:** the merge of upstream #891's head into a lane off the tip is
+staged whole with its four conflicts resolved and the reconciled tests green, but the merge
+commit was refused by the hook and the merge marker vanished — the seat record §COMPACTION
+BOUNDARY 4 carries the recovery (restore the markers by writing them, learn the gate's reason
+from its log, commit with two parents proven) and the exact resolution texts. The cure module
+for the two owner-only-write findings is written and conserved beside the record; the tests,
+the Windows CI job, the push, the PR and the closure of #123 remain.
+
+**Metacognition, the whole day's arc (retrospective).** The Director's day had one shape three
+times: a belief inherited from a record ("Altair is dark", "the report is absent", "upstream
+did the Windows work") acted on before the live surface was read (the stream, the path, the
+PR's state an hour old). Each cost little because the surfaces were cheap to read; the cure is
+the same each time — the live fact before the default. The generative half: the owner's asks
+today were narrow pointers (compare, scan, drop/land) whose real scope was wider each time
+(the sync producer is two workflows; the drafts needed dispositions, not merges; the windows
+work needed a verdict on ownership, not a diff). The scope-from-goal step paid every time.
+
+**Free play, the day's last harvest (guard applied).** KEPT: upstream closing #891 an hour
+before I compared against it reminded me of reading a star that has already died — the
+mirror's light is the past, and every "upstream has" needs a timestamp. KEPT: the merge marker
+vanishing under a refused hook is the same shape as the rotated napkin's MERGE_HEAD lesson
+from this morning — the estate had the rule and the seat did not run the assertion BEFORE the
+commit attempt; a rule that fires after the fact is a story, not a guard. DISCARDED (forced):
+"twenty-five landings as a tide table" — a number dressed as an image.
+
+**Concept exploration, closing.** The day's recurring incident class is now nameable: a seat
+acting on a conserved fact whose live counterpart had moved. The proposal with a falsifier:
+every default in the Director's brief names the LIVE surface that licenses it (the stream for
+peer liveness, the path for existence, the PR service for review state) — falsified if the
+next resume runs a default from the record alone and the surface agrees anyway three times.
+
+## OWNER RULING (2026-09-10 16:2xZ, verbatim, recorded by the Director at the boundary)
+
+"we must NOT rewrite the shared history, all commits happened, we are adding more or we are
+not, that is all." Applied: the windows lane's recovery adds commits only — the merge markers
+may be restored before the first commit (no history exists to rewrite); a one-parent commit made
+by mistake stays and gets its ancestry from a further merge commit on top; no amend, no reset,
+ever, on anything that has happened.
+
+## Nettle guards Pistil (2de368) — Director, the owner's four items after COMPACTION BOUNDARY 4 (2026-09-10 15:4xZ–16:3xZ; the boundary block's own 16:1xZ stamp was written an hour ahead of the clock, the error the #127 round caught, so this window follows it)
+
+- OWNER WORDS (verbatim, binding): "never, ever rewrite history from the upstream fork, when we merge
+  back it must be purely fast forward"; the sync workflows "configurable and conditional and default
+  off, so that merging them back to the upstream fork cause no behaviour change by default"; "I want
+  1-3 completed and 4 planned with decision completeness, then we stop and change to the lower
+  powered model". Items: 1 engraph up to date with main; 2 the rule; 3 the owner merged #100, #112,
+  #120 (#123 stays, the windows lane's superseded draft); 4 the two workflows planned.
+- THE CARRIER (item 1): `sync/upstream-2026-09-10` from origin/engraph in worktree sync-2de368;
+  merge-tree exit 1 on three paths; owner-author bot-committer merge SHA:3be8022da (parents
+  SHA:6b2e90619, SHA:216e64c15); napkin ours + upstream's block under a union note; inventory
+  regenerated; ADR collision 229/229 → the fork's foundations record is ADR-230 (17 files);
+  sweep subagent over 449 fork-side docs: 8 hits (one generated workspace regenerated — the one
+  validator failure on the merged tree; two re-truings; three dated addenda; two stand). PR #127.
+- ROUND 1 ON A SYNC: Copilot 4 upstream + 1 sync (future-dated stamps: I wrote hour 17 at 16:0xZ —
+  read the clock before stamping); code leg 1 (a count without its counting rule: 33 non-merge,
+  49 with merges); docs leg 1 blocking (a record asserted designs the head did not hold — the
+  plan re-true lived on another branch; cure: land them on the carrier) + 3 bare SHAs. CodeQL red
+  on one new high `js/missing-rate-limiting` in an upstream route: the owner's ONE dismissable
+  class (2026-09-08), cured by tracked `query-filters` in codeql-config.yml, never a UI act. Four
+  cure commits, one push; round 2 Copilot 2 upstream, 0 sync.
+- ITEM 4 (decision-complete, two nodes): the MIRROR needs NO secret — `PATCH git/refs/heads/<mirror>`
+  with `force=false` by the run's own token; a parent-only sha is writable through the fork's API
+  (probe: create at a parent-only sha 201; ff to a later parent-only sha 200; the reverse 422
+  "Update is not a fast forward"; probe refs deleted). `merge-upstream` rejected: it MINTS a merge
+  commit on divergence. GITHUB_TOKEN moves trigger no workflow (wanted: no CI/Release noise on
+  the mirror). The CARRIER needs the bot app token (the repo setting forbids GITHUB_TOKEN PRs);
+  prefix `automation/upstream-carrier-`, marker `<!-- upstream-carrier -->` (the old marker named
+  the estate). The mirror branch is DERIVED from parent.default_branch (no variable: no second
+  instance). The bot app cannot read/write repository variables (403): the enable variable is the
+  owner's hand. assumptions-expert: NOT YET → three-item path, all applied; dispositions on the nodes.
+- LESSONS: BSD xargs has no `-a` (a silent zero-hit sweep looked like a clean sweep — always sanity
+  check a zero result against a known hit); `echo =====` in zsh is an `=cmd` expansion; the
+  merge-tree preview names conflicts but the dual-changed set for the dropped-hunk proof is the
+  merge-base intersection (eleven files, not the six I read off the conflict list).
+
+## Nettle guards Pistil (2de368) — Director, HANDOVER to the same seat on a lower-powered model (2026-09-10 16:4xZ)
+
+- OWNER WORD: "treat this as a handover, please stop all subagents, and do a full handover, to
+  yourself, with a lower powered model". Four subagents stopped by name. Succession record under
+  handoffs/ (`8109015d-nettle-guards-pistil-fable-to-lower-tier-succession-2026-09-10.md`), the
+  claim's handoff_record_path set; #127 LANDED SHA:96057d8e8; #128 (draft, BEHIND) is the
+  successor's one mechanical step; #123 held; the windows lane untouched.
+- METACOGNITION: three errors this window shared one shape — reading a fact off the nearest
+  surface instead of computing it from its definition (the hour stamped from memory, not the
+  clock; "six dual-changed files" from the conflict list, not the merge-base intersection; a
+  zero-hit sweep accepted because the tool ran, when BSD xargs had silently rejected `-a`).
+  Cure written into the succession record as tripwires: recompute the safety table before any
+  act; a zero result is checked against a known hit. The record for a lower tier carries
+  commands and stop conditions, never "use judgement" (owner 2026-07-25: Sonnet classifies
+  within what it is handed; so hand it the classification).
+- FREE PLAY harvest: (1) a write capability is proven on a throwaway object before a plan rests
+  on it — the reference probe (create at a parent-only sha, ff 200, non-ff 422, delete) cost
+  four API calls and removed a whole secret from the mirror design; (2) the ABSENCE of an event
+  is a design property — GITHUB_TOKEN reference moves trigger no workflow, which is exactly what
+  a mirror wants; (3) the docs leg's blocking finding was my own instance of "records narrate
+  ahead of the landed state": a record on one branch asserting designs held on another; the
+  cure was to land the designs on the same carrier, and the general rule is that a record's
+  claims are true AT ITS OWN HEAD.
+- CONCEPT EXPLORATION (handover across a capability gradient): the successor is the same seat
+  with less judgement per token, so the record trades narrative for a procedure (adopt →
+  recompute → one step → report) and moves every judgement already made into a rule with its
+  warrant, and every judgement NOT made into the owner's deferred list. The predecessor's known
+  loss vector is the one transmitted claim the successor does not recount (PDR-063 worked
+  instance); the safety table's Evidence column exists so that recount is mechanical.
+- WRAP pointers: seat record §HANDOVER; thread record `estate-coordination` handover line;
+  per-user MEMORY.md RESUME HEADS → the succession record. No processes; no subagents.
+
 ## Union note (2026-09-10 16:0xZ, the Director at the 1.181.1 sync of fork main into engraph): the block below was written on the upstream line on 2026-09-09 after this napkin was rotated on the engraph line; carried whole, dated as written.
 
 ## 2026-09-09 09:2xZ (Serval weaves Tunnel, 29b9f7) — MCP-700 OpenAI domain-verification challenge

@@ -27,7 +27,7 @@ depends_on: []
 owner_gates: []
 tickets:
   - MCP-624
-last_updated: 2026-08-18
+last_updated: 2026-09-10
 ---
 
 # Host portability — support tiers, seams, and the ratchet
@@ -39,7 +39,7 @@ The estate declares and holds two support tiers:
 | Tier | Platforms | What holds it |
 | --- | --- | --- |
 | First class | Linux, macOS, Windows via WSL | POSIX semantics throughout; per-PR CI proof on Linux AND macOS (basic leg); WSL inherits the POSIX proof and the README route (PR #888) |
-| Goal, non-vital | Native Windows | The seams landed by PR #891, a basic REQUIRED Windows CI leg, and the static ratchet — it currently blocks nothing and never becomes the slow leg |
+| Goal, non-vital | Native Windows | The seams of upstream PR #891 (set down unmerged upstream on 2026-09-10; carried onto this line by the `native-windows-support-carrier` node's lane, PR #129), a basic Windows CI leg (advisory until green, then required), and the static ratchet — it currently blocks nothing and never becomes the slow leg |
 
 The deeper outcome is platform-independent: machine assumptions (which
 binary runs, how paths compare, what the filesystem can express) live
@@ -87,11 +87,14 @@ Linear parent MCP-624 is the visibility surface):
    tiers.
 2. **Merge PR #888** (the WSL route README) — completes the first-class
    Windows path; an afternoon's setup, no repo changes.
-3. **macOS validation of PR #891** on a real Mac (the kept
-   `pr-891-macos-validation` worktree) — closes that PR's one stated
-   first-class-tier risk before it merges.
-4. **Merge PR #891** — the seam substrate and the four cross-platform
-   bug fixes ride in whole; native Windows becomes true at head.
+3. **macOS validation of the #891 changeset** on a real Mac — closes the
+   changeset's one stated first-class-tier risk; the fork's full gate on
+   macOS (the lane's pre-commit gates ran on a Mac) is the first such proof.
+4. **The carrier landed** (2026-09-10, PR #129, merge SHA:7ef047ae2) — upstream
+   set #891 down unmerged that day; the `native-windows-support-carrier`
+   node's lane carried its head with the two owner-only-write cures and the
+   `windows-basic` CI leg, green on the landing tip; native Windows is true
+   at head.
 5. **Post-merge residue** — the SDK generator emits LF explicitly (kills
    the CRLF working-tree dirtying on Windows); the two remaining raw
    `spawnSync('git')` calls route through the trusted resolver.
@@ -146,9 +149,8 @@ Linear parent MCP-624 is the visibility surface):
 
 Delivery plans serving this node declare
 `serves: cross-platform-compatibility` — enumerate them by search,
-never by a hand-kept list. The existing child is
-[`cross-platform-research`](../delivery/cross-platform-research.plan.md)
-(re-trues under item 9). Linear parent: MCP-624; child tickets minted
+never by a hand-kept list (item 9's re-truing lands on the research
+child). Linear parent: MCP-624; child tickets minted
 per programme item at pickup. Milestones live in Linear as named
 observable states; this node points at them, never mirrors them.
 

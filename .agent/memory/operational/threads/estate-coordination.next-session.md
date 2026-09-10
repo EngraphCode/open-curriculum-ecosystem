@@ -1911,3 +1911,16 @@ by name search — the lesson of #119:
 - Twenty-five landings this tenure. The primary checkout is the only worktree. Open: #100 (the
   owner's two settings lines), #112 (fold at the rollover), #120 and #123 (owner decisions,
   dispositions posted on each).
+
+## 2026-09-10 16:4xZ — HANDOVER: the Director seat passes to the same seat on a lower-powered model
+
+- #127, the 1.181.1 upstream carrier, LANDED at SHA:96057d8e8 (second parent SHA:d2762651f;
+  upstream tip SHA:216e64c15 an ancestor of `engraph`; `main` 0 ahead). Lane B.4 above is done.
+- The pickup contract is the machine-local succession record
+  `.agent/state/collaboration/handoffs/8109015d-nettle-guards-pistil-fable-to-lower-tier-succession-2026-09-10.md`
+  (claim 8109015d's `handoff_record_path`): adopt the claim, recompute its safety table, sync and
+  land #128 (this branch's docs tail), re-arm nothing at n=1, touch neither the windows lane
+  (§COMPACTION BOUNDARY 4 of the seat record) nor any Oak surface.
+- Owner-held after this handover: the windows lane's next step; the mirror workflow's variable;
+  the carrier workflow's two secrets and variable, and retiring the Codex OCE task; one upstream
+  report of six routed Copilot findings from #127; the directives-tier placement questions.
