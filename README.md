@@ -224,8 +224,12 @@ and
 
 ### Prerequisites
 
+On Windows, start at [Windows (via WSL)](#windows-via-wsl) — every prerequisite below
+is installed inside WSL, never in PowerShell.
+
 - **Node.js 24.x** — install via [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), then run `nvm use` or `fnm use` to activate the version in `.nvmrc`
-- **pnpm** — run `corepack enable` (ships with Node.js) to auto-install the pinned version
+- **pnpm** — install via pnpm's [standalone script](https://pnpm.io/installation#using-a-standalone-script); it self-switches to the version pinned in `package.json`. The commit hooks resolve pnpm by absolute path from a fixed set of install locations, so a `corepack enable` shim under an nvm-managed Node is not found — if you already run pnpm from corepack, point `PNPM_HOME` at its directory
+- **gh** — the [GitHub CLI](https://cli.github.com/), used by the repo's pull-request and agent tooling
 - **bun** (optional, for `pnpm dev:widget-in-host`) — install via [bun.sh](https://bun.sh/docs/installation)
 - **lsof** (optional, for `apps/oak-curriculum-mcp-streamable-http/scripts/restart-dev-server.sh`) — pre-installed on macOS; on Debian/Ubuntu use `sudo apt install lsof`; source/build instructions at [github.com/lsof-org/lsof](https://github.com/lsof-org/lsof)
 - **GNU `timeout`** (optional, for the agent-collaboration comms watcher's self-termination guard) — the canonical watcher is wrapped in `timeout`/`gtimeout` so a watcher whose agent has gone away cannot linger as an orphan process. macOS: `brew install coreutils` (GNU coreutils; the binary installs as `gtimeout`); Debian/Ubuntu and most Linux ship it with GNU coreutils as `timeout` (`sudo apt install coreutils` if missing). The watcher runs un-guarded if neither binary is on `PATH`, so it is needed only to enforce the dead-watcher cleanup (see [`comms-all-channels-watcher`](.agent/rules/comms-all-channels-watcher.md) and friction F-101).
@@ -254,8 +258,7 @@ and
 ### Windows (via WSL)
 
 Windows contributors work through [WSL2](https://learn.microsoft.com/windows/wsl/) —
-inside it, every prerequisite above applies as written for Debian/Ubuntu, with
-one pnpm exception covered in step 3. Steps 1-2
+inside it, every prerequisite above applies as written for Debian/Ubuntu. Steps 1-2
 run in Windows PowerShell; steps 3-6 run inside Ubuntu. Requires Windows 11 (or
 Windows 10 2004+) with virtualization enabled in firmware — if `wsl --install`
 ends in error `0x80370102`, enable virtualization in your BIOS/UEFI first. The
@@ -282,7 +285,8 @@ steps below were run end to end on Windows 11 in August 2026.
    Scale to your machine: cap `memory` at roughly half your RAM, `processors` at
    no more than your core count, and keep swap at least equal to memory so the
    gates page rather than die. Apply with `wsl --shutdown` (also from
-   PowerShell) — this closes any running Ubuntu session; reopen it with `wsl`.
+   PowerShell) — this closes any running Ubuntu session; reopen it with `wsl ~`
+   (the `~` starts you in the Linux home rather than under `/mnt/c`).
 
 3. **Install the toolchain inside Ubuntu** — start with
    `sudo apt update && sudo apt install -y curl git ca-certificates`, then follow
@@ -290,16 +294,14 @@ steps below were run end to end on Windows 11 in August 2026.
    instructions apply unchanged (for Node, run `nvm install 24` — the version
    `.nvmrc` pins; the repo is not cloned until step 6, so there is no
    `.nvmrc` for a bare `nvm install` to read yet, and `nvm use` inside the
-   repo confirms the match after cloning) with one exception: install pnpm with its
-   [standalone script](https://pnpm.io/installation#using-a-standalone-script) —
-   `curl -fsSL https://get.pnpm.io/install.sh | sh -`, then open a new shell or
-   `source ~/.bashrc` — not `corepack enable`. The standalone binary still
-   honours the repository's pinned pnpm version. The commit hooks resolve pnpm
-   only from a fixed list of trusted install locations; the standalone install
-   at `~/.local/share/pnpm` is on that list, a corepack shim under nvm's Node
-   directory is not, and with corepack alone every commit fails — currently
-   misreported as a formatting failure. Two additions Ubuntu's default sources do
-   not carry. The pre-push hook requires `gitleaks` — install the released
+   repo confirms the match after cloning). Install pnpm per
+   [Prerequisites](#prerequisites) — `curl -fsSL https://get.pnpm.io/install.sh | sh -`,
+   then open a new shell or `source ~/.bashrc`; the standalone install at
+   `~/.local/share/pnpm` is one of the trusted locations the hooks resolve pnpm
+   from, and a corepack shim under nvm's Node directory is not, so a commit made
+   with only that shim fails at the hook's pnpm resolution. Two additions
+   Ubuntu's default sources do not carry. First, the pre-push hook requires
+   `gitleaks` — install the released
    binary with the same version and content pins CI uses, architecture-aware
    (gitleaks is a security control, so its binary is content-pinned, not just
    version-pinned; both digests below come from the official
@@ -315,7 +317,7 @@ steps below were run end to end on Windows 11 in August 2026.
             expected=79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d1547a2470a66e ;;
      arm64) asset="gitleaks_${version}_linux_arm64.tar.gz"
             expected=b4cbbb6ddf7d1b2a603088cd03a4e3f7ce48ee7fd449b51f7de6ee2906f5fa2f ;;
-     *)     echo "unsupported architecture: $(dpkg --print-architecture)" ;;
+     *)     echo "unsupported architecture: $(dpkg --print-architecture)"; exit 1 ;;
    esac
    curl -sSfL --proto '=https' --proto-redir '=https' -o "$asset" \
      "https://github.com/gitleaks/gitleaks/releases/download/v${version}/${asset}"
@@ -323,10 +325,11 @@ steps below were run end to end on Windows 11 in August 2026.
      sudo tar -C /usr/local/bin -xzf "$asset" gitleaks && rm "$asset"
    ```
 
-   (If you already have Go, `go install github.com/gitleaks/gitleaks/v8@latest`
-   also works and verifies through Go's checksum database — but these steps do
-   not install Go, and `~/go/bin` must then be on your `PATH` for the pre-push
-   hook to find it.) Second, the repo's PR and agent
+   (If you already have Go, the `go install` fallback in
+   [CONTRIBUTING.md §5](CONTRIBUTING.md#5-push-and-create-pr) also works — it
+   uses gitleaks' declared `zricethezav` module path — but these steps do not
+   install Go, and `~/go/bin` must then be on your `PATH` for the pre-push hook
+   to find it.) Second, the repo's PR and agent
    tooling uses `gh` (the GitHub CLI), which installs from
    [GitHub's apt repository](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
 
@@ -336,8 +339,9 @@ steps below were run end to end on Windows 11 in August 2026.
    simply re-run): `pnpm config set fetch-timeout 300000` and
    `pnpm config set fetch-retries 5`.
 5. **Reuse Windows' stored git credentials — only if you already use Git for
-   Windows.** The helper lives in one of two places depending on how Git was
-   installed, so find the one you have and configure that path:
+   Windows.** The helper lives in one of two install layouts, all-users or per-user, each
+   with an x64 and a Windows-on-ARM path, so find the one you have and configure
+   that path:
 
    ```bash
    localappdata=$(wslpath "$(cmd.exe /c "echo %LOCALAPPDATA%" 2>/dev/null | tr -d '\r')" 2>/dev/null)
@@ -364,12 +368,16 @@ steps below were run end to end on Windows 11 in August 2026.
    `gh auth login` instead, and do not configure a helper path that is not
    there.
 
-6. **Continue with [Install and verify](#install-and-verify) below**, cloning
-   inside the Linux filesystem (for example `~/oak`), never under `/mnt/c` —
-   cross-boundary file access is an order of magnitude slower. On a capped VM,
-   prefix the verify commands with `TURBO_CONCURRENCY=1` (add
-   `VITEST_MAX_WORKERS=2` if memory stays tight — the symptom of a starved
-   suite: vitest reports 5000 ms timeouts, or the gate exits with no error text).
+6. **Continue with [Install and verify](#install-and-verify) below** from the
+   Linux filesystem — `cd ~ && mkdir -p oak && cd oak` first, never under
+   `/mnt/c`, where cross-boundary file access is an order of magnitude slower
+   and `git clone` would otherwise land in your PowerShell working directory.
+   On a capped VM, export the concurrency caps before running and keep them
+   exported (in `~/.bashrc`), because every verify leg and the pre-push hook's
+   whole-tree run are turbo runs: `export TURBO_CONCURRENCY=1` (add
+   `export VITEST_MAX_WORKERS=2` if memory stays tight — the symptom of a
+   starved suite: vitest reports 5000 ms timeouts, or the gate exits with no
+   error text).
 
 ### Install and verify
 
