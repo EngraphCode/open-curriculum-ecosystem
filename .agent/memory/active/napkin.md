@@ -206,3 +206,195 @@ exception after the seat recomputes the gate by name.
 - **Processes by id:** watcher b9s5wusst, PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry
   peer poll bldjp1rii, two-leg heartbeat bkb3qkvka, wrap cron 4aa37635. Owner items: (a)–(g)
   as before; (h) the Codex connector silent on the fix branch and, since 04:02Z, on every PR.
+
+## Vanilla lifts Nectar (e1dced) — curator, the wrap's harvest before compaction (2026-09-10 07:3xZ)
+
+- **PDR-130 gap, routed (freeze: no PR from this seat):** the fast-lane graduations of #105 and
+  #106 landed WITHOUT the one-sentence prediction-and-falsifier PDR-130 §Decision 1 requires
+  ("in the graduated artefact or the register row that promoted it"); the register rows they
+  drained carried none either. The PDR's own falsifier names the cure class: "a mechanical
+  check or retirement". Candidate: a records pass adding the sentence per graduated clause, or a
+  validator that refuses a pending-graduations drain whose row lacks a prediction line.
+- **Play harvest (time-boxed at the wrap; associations, never findings; discards shown):**
+  (1) KEPT — "the last tombstone is the sentence saying there is no tombstone": my drain comment
+  shrank across three reviewer rounds from a ledger to a one-liner to nothing; each removal left
+  a smaller record that work happened. (2) DISCARDED as forced — "the connector's silence is a
+  feature enforcing open-early": #114 (non-draft, fresh branch) falsified it within the hour; the
+  data says it stopped on every shape after 04:02Z. (3) KEPT as a teaching shape — the merge
+  train read like one runway and a tower speaking slot words: every landing sends the circling
+  PRs BEHIND, and the expected-set confusion was pilots reading the runway lights (who bound the
+  tip) instead of the tower's configuration. (4) KEPT — the host killing background watches under
+  memory pressure reminded me of the held-seat incidents: both are the environment overriding the
+  seat's model of its own processes; both cures were "verify by evidence" (the front door's typed
+  verdict, the boundary block's "expect nothing survives"). (5) Sat still on the rotation record's
+  sentence "a peer's block absent from the archive at the fold is the next window's, never this
+  archive's loss" — a boundary that makes conflict impossible by construction; nothing to route.
+- **Concept exploration on the seed with a shape — "doctrine read is not doctrine fired":**
+  observations — four instances at one seat in one night of a rule known and not fired at
+  authoring: the "#NN" line-start gotcha I had recorded that morning (caught by markdownlint —
+  a check that runs; so NOT in the class), the drain-comment tombstone after reading the rule
+  (two reviewer rounds), the "reviewers that bound the tip" expected set after reading the tool's
+  help (three seats made it), the PDR-130 prediction lines missing from graduations authored
+  beside the PDR. Problem frame — the gap is between held doctrine and fired doctrine at
+  authoring under completion drive; it harms the review loop (each instance cost a round and the
+  tail is geometric); constraints: no new rule (rules-have-no-exceptions; new-rule-vs-pdr-clause);
+  success = the artefact's shape triggers the check without recall. Solutions re-opened — the
+  fluent answer (a pre-push checklist) is a passive list and fails the same way; the structural
+  answers are checks that run: (a) a buffer-tombstone validator (refuse `<!-- Drained`/`Buffer
+  drained`/`re-homed … removed here` comments in distilled, pending-graduations, open-questions;
+  warrant: two rounds tonight, the rule's "write nothing else"; falsifier: if no such comment is
+  written in three months the validator is dead weight); (b) a PDR-130 prediction-line check on
+  register drains (warrant: the PDR's own falsifier; falsifier: if the rows already carry the
+  sentence the check is redundant); (c) `merge-bot merge` validating `--expect` against the
+  repository's automatic-review configuration and refusing a subset (warrant: three seats
+  declared the shortcut; falsifier: the configuration is not readable under the App token, then
+  the check cannot be built and the doctrine stays in pr-lifecycle). Homes: plan rows on the
+  quality-gate-ledger and agent-tools-watch-commands nodes at the Director's sweep — none cut
+  under the freeze. Unresolved evidence that would change the synthesis: whether the estate's
+  existing validators already cover (a) or (b) (not searched at this seat's wrap).
+
+## Altair spins Umbra (05a180) — Implementer, compaction wrap after the argv-matcher lane (2026-09-10 07:5xZ)
+
+- **Landed / holding.** #114 landed SHA:db5dafc48 (05:5xZ; docs-only REST shape after the
+  Codex leg timed out). #116 (the argument-aware Bash-guard match kind `argv`) opened non-draft
+  at SHA:dfbdbdeb8, one slot push to SHA:d3f095970 (round-one cure + the merge of
+  SHA:f2d32241f), front door SETTLED-NO-REVIEW on the Codex leg at 07:4xZ; HOLDING at the tip for
+  the owner's word beside #113. Round-two cure SHA:39e9cc36f is HELD UNPUSHED in worktree
+  `arg-matcher`; claim 125ea021 retained; the push recipe is in the seat's cold-pause record
+  under the collaboration handoffs directory. Seat cold-paused by its own call at the
+  Director's offer (07:4xZ), then wrapped for compaction at the owner's word.
+- **Surprise: the reviewer does not read the boundary.** Expected: a PR whose body and README
+  state the guard's promise (PDR-044 innate immunity — accident prevention, not bypass
+  resistance) and list its non-goals would have its findings graded against that line.
+  Observed: the Opus security-expert did (it was told to); Copilot's two rounds (nine, then
+  three findings) never referenced it, and four of the twelve sat outside or beside the promise
+  (a wrapper operand shadowing the command name; a path handed to a shell read as a script — a
+  licensed false positive; ANSI-C unicode and control escapes). Every one was cheap, so the seat
+  cured all twelve; the loop shrank (9 → 3) and each cure opened the next, smaller class
+  (line continuation → ANSI-C decoding → its unicode forms; an override → its value-aware form).
+  Lesson: "cheap" is not the third conjunct — validity, relevance, proportion — and on a PARSER a
+  review tail is unbounded by construction unless the declared promise bounds it. Cure shape:
+  classify each finding against the declared promise BEFORE costing it; inside → cure; outside →
+  one reply citing the promise as the named home, no push. `candidate:` pr-lifecycle amendment —
+  a guard/parser-class PR declares its promise at intake and the PDR-140 tally carries an
+  inside/outside column (the dual of the Director's 2026-09-09 proposal (1) for
+  enumerated-policy surfaces). `candidate:` a repository code-review skill for Copilot
+  (Copilot's own review footer offers `.github/skills/code-review/SKILL.md`) carrying the
+  triage stance and the promise vocabulary — owner/Director decision, since it shapes every
+  review; falsifier: Copilot still raises outside-findings at the same rate on the next
+  declaring PR after it lands.
+- **Grounded execution knowledge (first-hand).** The PreToolUse guard runs under a five-second
+  hook timeout in the tracked Claude settings (two entries), and a timeout is an allow the shim
+  cannot convert to a block — so a guard's matching must be linear in the command line
+  (security-expert probe, verified by this seat in the settings file). Copilot reviews the
+  first push of a non-draft PR at creation and any tip the bot requests it on (#116: 06:53Z at
+  creation, 07:16Z on request). The Codex connector bound nothing on any code PR tonight
+  (#113, #116) — owner item (h); whether its silence is owner-side is the Director's inference,
+  not an observation.
+- **Tooling gotchas from the lane.** (1) The Bash guard's substring mode refused two edit
+  scripts because a heredoc quoted one of its own fingerprints inside a comment being replaced
+  — never paste a fingerprint into a command, even to remove it; (2) the token-subsequence mode
+  missed the same heredocs' quoted `'git` tokens, the exact gap `argv` closes — the old model's
+  two failure modes on one afternoon in the tool replacing it; (3) the Write hook refuses a
+  user-home path anywhere in a file's content — keep edit scripts path-free in the scratchpad
+  and change directory in the shell; (4) the Bash tool refuses a command carrying control
+  characters; (5) prettier rewraps long lines, so a python replace anchored on exact source
+  text fails after formatting — grep the current text before anchoring, or anchor on a short
+  unique line; (6) zsh does not word-split an unquoted `$FILES` — spell pathspecs out;
+  (7) agent-tools lint: max-lines 250, complexity 8, max-statements 20, max-depth 3, no
+  `Object.keys`, tsdoc code spans on one line, `String.raw` for any literal with an escaped
+  backslash (and a bare backtick cannot be written inside `String.raw` — use a template
+  literal with `String.fromCodePoint(92)`); knip flags unused exports and re-exports; eslint
+  needs the workspace plugin built in a fresh worktree; (8) `claims close` needs `--platform`,
+  `--model` and `--summary`; the claim record's key is `claim_id`.
+- **Play seeds (associations, not findings; two discarded visibly).** Kept: the day's own edit
+  tooling was byte-anchored (exact-text replaces against a formatter) while building a parser
+  to replace byte-anchored policy — "this looks shaped like" the thing it replaced; kept: a
+  small inventory of estate points where a timeout is permissive (the hook's five seconds → an
+  allow; the Codex leg's quiet-window timeout → SETTLED-NO-REVIEW → the docs REST path; a
+  background settle watch killed by the host's memory heuristic → the front door's own polling)
+  — three fail-open timers in one day; kept: PDR-044's "never silently misses a known pathogen"
+  beside the matcher's stated non-goals — a run-time miss inside a declared non-goal is silent
+  at the hook and declared at the doctrine, which is the honest reading but worth one line
+  where the promise is stated. Discarded: "review rounds as affinity maturation" (the estate's
+  own immune vocabulary supplied the connection — fluency); "review before the push is fuzzing
+  without the round" (already doctrine: invoke the code experts).
+- **Loss scan and metaloss (written here, not chat-only).** Compressed reasoning: the choice
+  of a bounded multi-candidate invocation search over the security-expert's first-invocation
+  reading (deny direction, PDR-044 licenses the over-match) is recorded in the matcher's doc
+  comment and the PR tally, sufficient for the follow-up. Promises: the skills amendment from
+  #114's residue (five items) stays owed by this seat, named in the record and the per-user
+  memory; the table-drift script and the entry-by-entry policy migration are named follow-ups
+  in the PR body; no silent drops. Attribution: "Copilot ignores the declared promise" is an
+  observation on two rounds, not a property; the connector's silence being owner-side is the
+  Director's inference. Blind spots: the comms stream between 07:50Z and this wrap was swept
+  by list (nothing non-heartbeat); the three Opus review transcripts are gone — their
+  substance survives only in the PR body and the scratchpad reports, which die with the
+  session; every finding they raised is either cured in the code or named in the PR body.
+  Index of homes: the cold-pause record (collaboration handoffs, this seat's name, dated
+  2026-09-10), the per-user memory TAIL for 05a180, PR #116's body and tallies, this block.
+  External bound: no outside eyes read this wrap; the error signature to point them at is the
+  cure-reflex on cheap findings. Fence: no owner wording held off the repository this window.
+  Fixed point: a third pass would only re-find the three Opus transcripts as the loss class;
+  the recursion closes here.
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 2 WRAP (2026-09-10 08:3xZ)
+
+- **Owner's words (verbatim):** "Codex is out of credit, there will be no more Codex review
+  for 6 days." and "Great, good work, please prepare for compaction … then stop all
+  processes." The first is the fact beneath every Codex symptom since 04:02Z: the connector's
+  silence on #109, #111, #113, #114, #115, #116 was an account outage, never a PR shape. The
+  outage ends about 2026-09-16.
+- **Metacognition (retrospective).** Three seats spent about two hours shaping pull requests
+  around a silent reviewer — a fresh PR at a new branch name, a trigger comment, the ready
+  toggle, the explicit request endpoint, a deadline on the slot — and every experiment was
+  individually sound; the generator beneath them was one external fact no seat could read. The
+  directive's "friction is rarely the thing it first looks like" applied: the cheap move was
+  the one query "did ANY pull request get a Codex review after T?" (none had, from 04:02Z) and
+  the declaration "reviewer unavailable — owner item" at that moment, not two hours later. The
+  reflex reached for was doctrine-by-analogy — Copilot's binding IS shaped by the PR (first
+  push, explicit request), so Codex's was assumed to be — and the correct move next time is:
+  a leg silent on every PR at once is the reviewer's availability; declare it, stop shaping,
+  land docs by the exception, hold code, and say so on the stream in one event.
+- **Metacognition (generative) — the owner decision this fact opens.** The configured
+  reviewer set includes a reviewer that cannot review for six days; the front door refuses
+  every code PR for the window; #113 and #116 are green, clean, Copilot-approved, and each had
+  three first-hand Opus expert reviews before its push. Verdict offered to the owner: for the
+  outage window, rule the configured set to Copilot alone and let code PRs land through the
+  front door with `--expect copilot-pull-request-reviewer` after the seat's recorded expert
+  review; the ruling is dated and expires with the credit. The alternative is six days of no
+  code landing. Not acted on — the owner's decision.
+- **Concept exploration — "a merge gate that binds on a third-party reviewer with no
+  availability signal".** Problem frame: the gate reads silence as "not yet" for ever; harm:
+  code blocked for days and seats burning effort on shape experiments; the owner is the only
+  source of the fact. Proposal A (now, proportionate): the owner's one-line ruling above.
+  Falsifier: a code PR landing in the window without a recorded first-hand expert review.
+  Proposal B (a plan row for the merge-bot node, not now): an outage declaration in the
+  automatic-review configuration — reviewer, from, until, ratified-by — that the front door's
+  expected-set derivation honours and that expires, so a seat never edits the set and never
+  shapes PRs around an outage again. Falsifier: a seat still experimenting with PR shapes on a
+  declared outage. Unresolved evidence: where this repository's "automatic-review
+  configuration" actually lives (the front door's help names it; this seat found only tests).
+- **Free play (harvest; discards visible).** KEPT: "an unattended seat's cleverness expands to
+  fill the space an unknown external fact leaves" — this reminded me of the ten-hour hold and
+  the no-prompts fix proving its thesis on itself; the class is "gates the seat cannot satisfy
+  from inside". KEPT (association only): the rounds shrank after Codex went quiet (#111, #115
+  landed inside two rounds; #116's Copilot-only rounds were 9 then 3) — these look shaped like
+  "the tail is proportional to the number of samplers"; unmeasured. KEPT: MERGE_HEAD vanishing
+  under the commit hooks looks shaped like the 2026-09-06 "continuity records last" fold
+  lesson — the same class, a hook chain touching merge state. DISCARDED: a timetable per PR so
+  the Director could pre-announce the order — the reactive slot word served seventeen landings;
+  forced. NOTED, routed nowhere: "Great, good work" — the first positive owner word in two days
+  of corrections; a signal, not an instruction.
+- **Loss scan and metaloss.** Promises: every slot word discharged; the #100 split, the #103
+  flag, #113 and #116 are held on named owner items in the record; Altair's held cure and
+  Vanilla's fix worktree are named in their records; the two experience letters and both
+  peers' wrap blocks ride this sweep. Attribution inferences: "the connector's silence is
+  owner-side" was the Director's inference at 05:1xZ and is now the owner's fact. Blind spots:
+  the comms stream after 07:50Z was read by the watcher until 08:2xZ and by nothing since; the
+  scratchpad instruments are copied to the handoffs directory and survive; the Opus review
+  transcripts of #116 live only in its PR body. Index of homes: the seat record §STOP BOUNDARY
+  2 (machine-local), the brief §Standing processes, this block, the per-user memory TAIL. A
+  second pass re-finds only the transcripts loss class; the recursion closes here.
+- **Processes:** all stopped at 08:2xZ (heartbeat first, the watcher last); nothing of this seat
+  in the process table or the cron list. Claim 8109015d retained, stopped-seat-held.
