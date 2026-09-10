@@ -291,7 +291,8 @@ the authority frame, in this commit, with citations. Confirm the index rows.
 
 ### 8. Open the round, settle, land
 
-Push as the bot with `merge-bot push` from the worktree: HEAD's branch by
+Push as the bot with `pnpm agent-tools merge-bot push` from the worktree:
+HEAD's branch by
 name, the bot identity over a file-backed token that is never in argv, hooks
 running, no force flag; a rejected non-fast-forward is answered by merging,
 never by overwriting. Undraft; declare the review tally at open (pr-lifecycle
@@ -313,8 +314,10 @@ the repository's automatic-review configuration, the set pr-lifecycle's
 Phase 1 declares as the state machine's input for every round, never
 narrowed to the reviewers that happen to have bound the tip: a reviewer
 left undeclared is invisible to the tool's recomputation, and a configured
-leg that never reviews the tip (Copilot reviews the first push and an
-explicit re-request; the Codex connector every push) settles through the
+leg that never reviews the tip (Copilot reviews the first push and any tip
+the bot requests it on; the Codex connector's binding is not predictable
+from the repository's side — pr-lifecycle §Phase 1) settles
+through the
 timeout to SETTLED-NO-REVIEW, which the front door refuses by name — the
 docs-only bot-authored class then lands through the sanctioned REST
 endpoint under the owner's exception below, and any other pull request

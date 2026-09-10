@@ -67,8 +67,3 @@ already made, not a lesson already learned.
 
 New entries append below as `## Q-NNN — <title>` sections; continue the Q-numbering from
 the git history.
-
-<!-- Q-014 (which model name wins when the declared, reported, observed and configured names
-disagree) re-homed at the 2026-09-09 dedicated consolidation into PDR-027 §Notes as that
-record's own open question, with its resolution path and a candidate for the identity lane to
-test; removed here per this register's own instruction. The commit and the home are the record. -->
