@@ -207,7 +207,7 @@ identities from the repository service. The two delivery nodes `upstream-mirror-
 bot app's key into the fork's secrets; the enable variables; retiring the Codex OCE task as
 producer) are their gates.
 
-## Addendum — proposal 5 discharged (2026-09-10 17:xxZ)
+## Addendum — proposal 5 discharged (2026-09-10 16:1xZ)
 
 Observations 1 and 2 describe the morning's reading; by the afternoon the mirror had moved to
 `216e64c15` (release 1.181.1, 33 upstream commits over four releases) and the Director cut the

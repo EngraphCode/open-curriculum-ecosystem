@@ -727,7 +727,7 @@ rollover), #120 and #123 (owner decisions, dispositions posted). Processes by id
 `bkvn7bj3h` (re-armed hourly, asserted 14:05Z), heartbeat `buksewhl3`, registry peer poll
 `bvimq2rej`, peer-liveness `b1w1ld2s8`, PR poll `bs62tx2xx`, wrap cron `16be6dbc`.
 
-## Union note (2026-09-10 17:0xZ, the Director at the 1.181.1 sync of fork main into engraph): the block below was written on the upstream line on 2026-09-09 after this napkin was rotated on the engraph line; carried whole, dated as written.
+## Union note (2026-09-10 16:0xZ, the Director at the 1.181.1 sync of fork main into engraph): the block below was written on the upstream line on 2026-09-09 after this napkin was rotated on the engraph line; carried whole, dated as written.
 
 ## 2026-09-09 09:2xZ (Serval weaves Tunnel, 29b9f7) — MCP-700 OpenAI domain-verification challenge
 
