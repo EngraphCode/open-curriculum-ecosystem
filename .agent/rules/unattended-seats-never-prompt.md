@@ -28,11 +28,16 @@ preventing useful work from happening" (2026-09-09).
    The destructive git operations and `rm -rf` are denies; the hook policy
    in `.agent/hooks/policy.json` denies the same shapes with a reappraisal,
    so the refusal teaches. Every command that leaves the ask list is
-   CLASSIFIED, not merely unlisted: its forward-going forms (a revert, a
-   stash recovered or inspected) are allows, and its work-discarding forms
-   (a revert sequence aborted or skipped, a stash dropped or cleared) are
-   denies — nothing is left to the host's classifier, which prompts in the
-   default mode.
+   CLASSIFIED, not merely unlisted: its forward-going forms (a stash
+   recovered or inspected) are allows, and its work-discarding forms (a
+   stash dropped or cleared) are denies — nothing is left to the host's
+   classifier, which prompts in the default mode. A command whose safety
+   turns on its ARGUMENTS stays denied whole: the settings match by
+   prefix, so a cage of targeted denies around `git reset` and `git
+   revert` leaks through every accepted option abbreviation (`--h` is
+   `--hard`) and every mode flag placed after the revision; their
+   forward-going forms (a pathspec unstage, a revert) become allows only
+   under an argument-aware matcher, which is its own lane.
 2. **One plain command per Bash call.** No `;`-chained scripts, no
    command substitution at the tool boundary, no heredocs that write
    files. A ceremony with several moves is several calls, each readable on
