@@ -217,6 +217,14 @@ independent unless stated:
    2026-09-06 carries it until then). A required check found missing is a second change in
    the same unit.
 
+9. **The one-outcome residue in the practice surfaces** (2026-09-10, routed
+   from PR #102's seventh review round under the four-round step-back): the
+   surviving current-tense dismissal sentences — the Sonar MCP rule's
+   per-finding paragraph, `no-warning-toleration`'s false-positive clause,
+   the quality-tooling playbook's TL;DR and §Dismissal — re-trued to the
+   one-outcome rule in the follow-on pull request that carries this row.
+   Docs-only.
+
 ## First-principles check
 
 The six clauses of the plan-body first-principles check, applied at authoring:
