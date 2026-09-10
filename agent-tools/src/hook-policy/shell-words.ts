@@ -1,15 +1,19 @@
+import { decodeAnsiCQuoted } from './ansi-c-quotes.js';
+
 /**
  * Shell-word segmentation for the argument-aware Bash-guard matcher.
  *
  * Splits a command line into simple-command segments of words the way a
  * shell would read it far enough for option matching. What the words are:
  * the literal text after quote removal (`rm '-rf' dir` gives `rm` the word
- * `-rf`, exactly as the shell does; the ANSI-C `$'…'` form is a quote), with
- * a backslash escaping the next character (inside double quotes only the
- * characters bash lets it escape); a command substitution (`$(…)` or a
- * backtick pair), unquoted or inside double quotes, stays inside its word
- * and its body is carried alongside as a nested command; a comment from an
- * unquoted `#` at a word start is dropped. What ends a segment: the
+ * `-rf`, exactly as the shell does; the ANSI-C `$'…'` form is a quote whose
+ * escapes are decoded), with a backslash escaping the next character (inside
+ * double quotes only the characters bash lets it escape) and a
+ * backslash-newline continuing the line; a command substitution (`$(…)` or
+ * a backtick pair), unquoted or inside double quotes, stays inside its word
+ * and its body — balanced past quoted and escaped parentheses — is carried
+ * alongside as a nested command; a comment from an unquoted `#` at a word
+ * start is dropped. What ends a segment: the
  * command-list and pipeline operators (`&&`, `||`, `|`, `;`, `&`), a
  * newline, and a bare sub-shell or group parenthesis, so an option is only
  * ever read against the command in its own segment.
@@ -97,24 +101,55 @@ function readQuoted(command: string, start: number, quote: string, state: ScanSt
   return index + 1;
 }
 
+/** A backslash before a newline is a line continuation: both vanish before the shell reads a word. */
 function readEscape(command: string, index: number, state: ScanState): number {
-  state.word += command[index + 1] ?? '';
-  state.inWord = true;
+  const escaped = command[index + 1] ?? '';
+  if (escaped !== '\n') {
+    state.word += escaped;
+    state.inWord = true;
+  }
   return index + 2;
 }
 
-/** The index of the `)` closing a `$(` opened at `start`, honouring nesting; the line's end when unclosed. */
+/** The index just past a quoted span opened at `index` (the line's end when unterminated). */
+function skipQuotedSpan(command: string, index: number): number {
+  const quote = command[index] ?? '';
+  let cursor = index + 1;
+  while (cursor < command.length && command[cursor] !== quote) {
+    cursor += quote === '"' && command[cursor] === '\\' ? 2 : 1;
+  }
+  return cursor + 1;
+}
+
+/** The index just past the opaque text at `index` (an escape pair or a quoted span), or `null` when it is plain. */
+function skipOpaque(command: string, index: number): number | null {
+  const char = command[index] ?? '';
+  if (char === '\\') {
+    return index + 2;
+  }
+  return char === '"' || char === "'" ? skipQuotedSpan(command, index) : null;
+}
+
+/**
+ * The index of the `)` closing a `$(` opened at `start`, honouring nesting,
+ * quoted spans and escapes inside the body; the line's end when unclosed.
+ */
 function findSubstitutionClose(command: string, start: number): number {
   let depth = 0;
-  for (let index = start; index < command.length; index += 1) {
-    if (command[index] === '(') {
-      depth += 1;
-    } else if (command[index] === ')') {
-      depth -= 1;
-      if (depth === 0) {
-        return index;
-      }
+  let index = start;
+  while (index < command.length) {
+    const opaqueEnd = skipOpaque(command, index);
+    if (opaqueEnd !== null) {
+      index = opaqueEnd;
+      continue;
     }
+    const char = command[index] ?? '';
+    depth += char === '(' ? 1 : 0;
+    depth -= char === ')' ? 1 : 0;
+    if (char === ')' && depth === 0) {
+      return index;
+    }
+    index += 1;
   }
   return command.length;
 }
@@ -163,7 +198,10 @@ function scanOperator(command: string, index: number, state: ScanState): number 
 /** Consume a quoted span (including the ANSI-C `$'…'` form) or an escape at `index`; `null` when the text there is neither. */
 function scanQuoting(command: string, index: number, state: ScanState): number | null {
   if (command.startsWith("$'", index)) {
-    return readQuoted(command, index + 1, "'", state);
+    const [text, next] = decodeAnsiCQuoted(command, index);
+    state.word += text;
+    state.inWord = true;
+    return next;
   }
   const char = command[index] ?? '';
   if (char === '"' || char === "'") {

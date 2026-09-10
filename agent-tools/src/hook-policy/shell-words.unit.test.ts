@@ -79,6 +79,33 @@ describe('segmentCommand', () => {
     expect(dollar?.[1]?.nested).toStrictEqual(['f $(g x)']);
   });
 
+  it('removes a backslash-newline continuation, outside and inside double quotes', () => {
+    expect(
+      texts(String.raw`rm -r \
+-f dir`),
+    ).toStrictEqual([['rm', '-r', '-f', 'dir']]);
+    expect(
+      texts(String.raw`echo "a\
+b"`),
+    ).toStrictEqual([['echo', 'ab']]);
+  });
+
+  it('decodes ANSI-C escapes in a $-quoted span', () => {
+    expect(texts(String.raw`printf $'a\tb\x41\101\''`)).toStrictEqual([['printf', "a\tbAA'"]]);
+    expect(texts(String.raw`bash -c $'echo start\nrm -rf x'`)).toStrictEqual([
+      ['bash', '-c', 'echo start\nrm -rf x'],
+    ]);
+  });
+
+  it('balances a substitution past quoted and escaped parentheses', () => {
+    const [segment] = segmentCommand('OUT="$(printf \')\'; rm -rf x)" tail');
+    expect(segment?.map((word) => word.text)).toStrictEqual([
+      "OUT=$(printf ')'; rm -rf x)",
+      'tail',
+    ]);
+    expect(segment?.[0]?.nested).toStrictEqual(["printf ')'; rm -rf x"]);
+  });
+
   it('drops a comment from an unquoted hash at a word start to the end of the line', () => {
     expect(texts('pnpm build # rm -rf dist first')).toStrictEqual([['pnpm', 'build']]);
     expect(texts('pnpm build # comment\nrm -rf dist')).toStrictEqual([

@@ -80,8 +80,11 @@ Failure semantics:
   exact name or unique prefix (`--h` is `--hard`; `--m` is ambiguous and
   selects nothing), short flags split or clustered in either case (`-r -f`,
   `-Rf`, `-rvf`), a spelling that stands for two options met on the same set
-  (`git branch -D` is `--delete --force`), options in any position, nothing
-  after `--`. One `argv` entry therefore names a destructive MODE rather than
+  (`git branch -D` is `--delete --force`), an option value never read as a
+  flag (`-Skey` is one option; `-e pattern` takes its word), a later option
+  cancelling the one it overrides (a forced removal followed by the
+  interactive flag is interactive), options in any position, nothing after
+  `--`. One `argv` entry therefore names a destructive MODE rather than
   one spelling of it; the option tables live beside the matcher in
   `agent-tools/src/hook-policy/`, and a pattern the tables cannot parse fails
   the canonical-policy test at commit time rather than matching nothing in
@@ -89,15 +92,18 @@ Failure semantics:
 
   What `argv` sees: the words as the command receives them (quotes removed,
   so `rm '-rf'` is a forced removal and `"rm -rf"` is one word that invokes
-  nothing; the ANSI-C `$'…'` form is a quote); one shell segment at a time
+  nothing; the ANSI-C `$'…'` form is a quote whose escapes are decoded; a
+  backslash-newline continues the line); one shell segment at a time
   (`&&`, `||`, `|`, `;`, `&`, newline, a bare parenthesis — so a heredoc
   body, a function body and a brace group on their own lines are read); the
-  first word in a segment whose basename is the command, in any position
-  (`/bin/rm`, `sudo rm`, `xargs rm`, `find -exec rm`, `env -i rm`); a
-  command substitution's body, unquoted or double-quoted (`OUT="$(…)"`), and
-  a script handed to a shell interpreter (`sh -c "…"`, escaped or ANSI-C
-  quoted, however many words precede the interpreter) as nested commands,
-  two levels deep; a comment dropped. What it does not see, by design:
+  first few words in a segment whose basename is the command, in any
+  position (`/bin/rm`, `sudo rm`, `xargs rm`, `find -exec rm`, `env -i rm`);
+  a command substitution's body, unquoted or double-quoted (`OUT="$(…)"`,
+  balanced past quoted parentheses), and the script a shell interpreter is
+  given (the `-c` operand of the sh-like shells, every operand of `eval` and
+  `ssh`; quoted, escaped or ANSI-C quoted, however many words precede the
+  interpreter — a path handed to `bash` without `-c` is a file) as nested
+  commands, two levels deep; a comment dropped. What it does not see, by design:
   variable, tilde and brace expansion (`rm $FLAGS dir`), aliases, shell
   functions and git config aliases, a script on stdin, nesting past two
   levels, and any other command with the same effect (`find -delete`, a

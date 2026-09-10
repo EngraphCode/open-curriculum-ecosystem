@@ -136,6 +136,19 @@ export type ContentDenyInput =
     };
 
 /**
+ * The known Bash-guard match kinds — the single source both the runtime
+ * schema and the commit-time known-kind enforcement consume, so the two can
+ * never drift (a kind known to the enforcement but not the schema would
+ * degrade entries silently in production while the enforcement test passed).
+ */
+export const BLOCKED_PATTERN_MATCH_KINDS = [
+  'token-subsequence',
+  'substring',
+  'regex',
+  'argv',
+] as const;
+
+/**
  * Zod schema for the object arm of a blocked Bash-command policy entry: a
  * `pattern` (matched as a token subsequence by default; as a case-insensitive
  * substring when `match: 'substring'` — needed for shapes that hide inside one
@@ -167,19 +180,6 @@ export type ContentDenyInput =
  * deny builder defaults a generic reappraisal if one is ever absent.
  * `.readonly()` derives the readonly contract on the entry.
  */
-/**
- * The known Bash-guard match kinds — the single source both the runtime
- * schema and the commit-time known-kind enforcement consume, so the two can
- * never drift (a kind known to the enforcement but not the schema would
- * degrade entries silently in production while the enforcement test passed).
- */
-export const BLOCKED_PATTERN_MATCH_KINDS = [
-  'token-subsequence',
-  'substring',
-  'regex',
-  'argv',
-] as const;
-
 const BlockedPatternEntrySchema = z
   .object({
     // min(1): an empty pattern would match every command (substring mode

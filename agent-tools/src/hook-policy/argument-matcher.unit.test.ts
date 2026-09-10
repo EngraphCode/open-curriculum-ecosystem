@@ -113,6 +113,14 @@ describe('matchesArgvPattern — git revert', () => {
     // `--s` is ambiguous between --signoff, --strategy, --strategy-option and --skip.
     expect(matchesArgvPattern('git revert --skip', 'git revert --s')).toBe(false);
   });
+
+  it('reads the rest of a cluster as an optional value, never the next word', () => {
+    // `-Ss` is gpg-sign with key id `s`; `-sS` is signoff and then gpg-sign.
+    expect(matchesArgvPattern('git revert --signoff', 'git revert -Ss HEAD')).toBe(false);
+    expect(matchesArgvPattern('git revert --signoff', 'git revert -sS HEAD')).toBe(true);
+    expect(matchesArgvPattern('git revert --signoff', 'git revert -S -s HEAD')).toBe(true);
+    expect(matchesArgvPattern('git revert --signoff', 'git revert -S --signoff HEAD')).toBe(true);
+  });
 });
 
 describe('matchesArgvPattern — git worktree remove', () => {
@@ -200,6 +208,12 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'sudo rm -rf dir')).toBe(true);
   });
 
+  it('lets a later option cancel the one it overrides, as rm does', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf -i dir')).toBe(false);
+    expect(matchesArgvPattern(recursiveForce, 'rm -i -rf dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -r --interactive=always -f dir')).toBe(true);
+  });
+
   it('leaves the single-mode removals alone', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -r dir')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rm -f file')).toBe(false);
@@ -267,10 +281,45 @@ describe('matchesArgvPattern — shell shapes', () => {
     expect(matchesArgvPattern('rm -rf', "bash -c $'rm -rf x'")).toBe(true);
   });
 
-  it('reads the first invocation of the command in a segment as the shell does', () => {
-    // A later twin of the command name is an operand of the first invocation.
-    expect(matchesArgvPattern('rm -rf', 'rm -- rm -rf x')).toBe(false);
+  it('tries the first few words naming the command, so a wrapper operand cannot shadow the invocation', () => {
+    expect(matchesArgvPattern('rm -rf', 'xargs -a rm -- rm -rf')).toBe(true);
     expect(matchesArgvPattern('rm -rf', 'rm rm -rf x')).toBe(true);
+    // The licensed over-match: the first rm deletes files named rm, -rf and x.
+    expect(matchesArgvPattern('rm -rf', 'rm -- rm -rf x')).toBe(true);
+  });
+
+  it('reads only the script an interpreter is given, never a path it is given', () => {
+    expect(matchesArgvPattern('rm -rf', 'sh -ec "rm -rf x"')).toBe(true);
+    expect(matchesArgvPattern('rm -rf', 'bash "/tmp/rm -rf script"')).toBe(false);
+    expect(matchesArgvPattern('rm -rf', 'bash -x "/tmp/rm -rf script"')).toBe(false);
+    expect(matchesArgvPattern('rm -rf', 'eval "rm -rf x"')).toBe(true);
+  });
+
+  it('continues a line at a backslash-newline as the shell does', () => {
+    expect(
+      matchesArgvPattern(
+        'rm -rf',
+        String.raw`rm -r \
+-f dir`,
+      ),
+    ).toBe(true);
+    expect(
+      matchesArgvPattern(
+        'git reset --hard',
+        String.raw`git reset \
+  --hard HEAD~1`,
+      ),
+    ).toBe(true);
+  });
+
+  it('decodes ANSI-C escapes inside a $-quoted script', () => {
+    expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'echo start\nrm -rf x'`)).toBe(true);
+    expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'rm\x20-rf x'`)).toBe(true);
+  });
+
+  it('balances a substitution past quoted and escaped parentheses', () => {
+    expect(matchesArgvPattern('rm -rf', 'OUT="$(printf \')\'; rm -rf x)"')).toBe(true);
+    expect(matchesArgvPattern('rm -rf', String.raw`echo $(printf "\)"; rm -rf x)`)).toBe(true);
   });
 
   it('reads nested commands two levels deep and no further', () => {

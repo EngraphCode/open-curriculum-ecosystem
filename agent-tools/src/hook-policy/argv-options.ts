@@ -31,6 +31,16 @@ function namesOf(spec: OptionSpec): readonly string[] {
   return spec.implies ?? [spec.name];
 }
 
+/** Record an option as present, cancelling the options it overrides (last on the line wins). */
+function recordPresent(spec: OptionSpec, present: Set<string>): void {
+  for (const cancelled of spec.overrides ?? []) {
+    present.delete(cancelled);
+  }
+  for (const canonical of namesOf(spec)) {
+    present.add(canonical);
+  }
+}
+
 /** Resolve one short-option letter; `null` when the table does not list it. */
 function resolveShortOption(letter: string, table: readonly OptionSpec[]): OptionSpec | null {
   return table.find((spec) => spec.short?.includes(letter) === true) ?? null;
@@ -49,9 +59,7 @@ function parseLongWord(
   if (spec === null) {
     return next;
   }
-  for (const canonical of namesOf(spec)) {
-    present.add(canonical);
-  }
+  recordPresent(spec, present);
   return spec.arg === 'required' && equals === -1 ? next + 1 : next;
 }
 
@@ -68,12 +76,14 @@ function parseShortCluster(
     if (spec === null) {
       continue;
     }
-    for (const canonical of namesOf(spec)) {
-      present.add(canonical);
-    }
+    recordPresent(spec, present);
     if (spec.arg === 'required') {
       // The rest of the cluster is the value; an empty rest takes the next word.
       return position + 1 < letters.length ? next : next + 1;
+    }
+    if (spec.arg === 'optional') {
+      // The rest of the cluster, if any, is the value; the next word never is.
+      return next;
     }
   }
   return next;

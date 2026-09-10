@@ -11,9 +11,13 @@
  * spelling, or the letter of a `shortOnly` option); `short` lists every
  * short letter that means the same option; `arg` says whether the option
  * takes a value — `required` (attached, `=`-joined, or the next token) or
- * `optional` (only an `=`-joined value counts); `implies` names the
- * canonical options this spelling stands for, so a pattern and an invocation
- * meet on the same set whichever spelling either uses.
+ * `optional` (an `=`-joined value on the long form, or the rest of the
+ * cluster on the short form — `-Skey` is the gpg-sign option with a key,
+ * never the sign and a `-k`; the next token is never taken); `implies`
+ * names the canonical options this spelling stands for, so a pattern and an
+ * invocation meet on the same set whichever spelling either uses;
+ * `overrides` names the options this one cancels when it comes later on the
+ * line (`rm -f` and `rm -i` each override the other, last wins).
  */
 export interface OptionSpec {
   readonly name: string;
@@ -23,4 +27,6 @@ export interface OptionSpec {
   readonly shortOnly?: true;
   /** The option is a spelling of these canonical options (`git branch -D` is `--delete --force`). */
   readonly implies?: readonly string[];
+  /** The options this one cancels when it appears later on the line (last wins). */
+  readonly overrides?: readonly string[];
 }
