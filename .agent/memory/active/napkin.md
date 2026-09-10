@@ -726,3 +726,17 @@ None cost more than one gate run; all are on the napkin with their cures.
 rollover), #120 and #123 (owner decisions, dispositions posted). Processes by id: watcher
 `bkvn7bj3h` (re-armed hourly, asserted 14:05Z), heartbeat `buksewhl3`, registry peer poll
 `bvimq2rej`, peer-liveness `b1w1ld2s8`, PR poll `bs62tx2xx`, wrap cron `16be6dbc`.
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 3 (2026-09-10 15:3xZ)
+
+The owner's next task (verbatim on the seat record §COMPACTION BOUNDARY 3 addendum): compare
+PR #123 with the upstream windows work and explore which should merge, favouring upstream's
+(done by a person working on Windows) but preserving the fork's enhancements; the complex
+analysis and development now, before a model switch. Facts at the boundary: the fifteen
+commits have no patch-equivalent on the mirror at 1.181.1; upstream's "windows" commits are
+plans, ledgers, the LF-only gitattributes and the gitleaks path; the comparison target is
+upstream PR #891 (open on 2026-08-17 beside #888); footprint 146 files, 12 in the fork's own
+delta. Processes stopped (STOP BOUNDARY 3). Loss scan: every finding of the afternoon is on the
+PRs, the thread record §F–J, the plan nodes' dispositions and this napkin; the front-door loop
+and probe scripts are session-local instruments, restated in the seat record; the design-thread
+note for #122's two scaffold findings is owed at the fold (promise held by this seat).
