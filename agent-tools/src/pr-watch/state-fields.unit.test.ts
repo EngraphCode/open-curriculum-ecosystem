@@ -217,8 +217,69 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
         name: 'Review',
         completedAt: null,
         pullRequestNumber: 461,
+        pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
       }),
-    ).toEqual({ id: 'run-1', completedAt: null, pullRequestNumber: 461 });
+    ).toEqual({
+      id: 'run-1',
+      completedAt: null,
+      pullRequestNumber: 461,
+      pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+    });
+  });
+
+  it('rejects a partial pair (a number without its URL) as an unknown shape', () => {
+    // The vendor pairs the two fields; a half-mapped view must not read as
+    // "an observed run for some other PR".
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestNumber: 461 }),
+    ).toThrow();
+  });
+
+  it('rejects a one-sided null (the other key omitted) before normalising', () => {
+    // The raw states are validated before null collapses to "absent": a key
+    // missing beside an explicit null is not the vendor's shape and must not
+    // read as "both absent, no mapping".
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestNumber: null }),
+    ).toThrow();
+    expect(() =>
+      parseAgentTaskView({ id: 'run-1', completedAt: null, pullRequestUrl: null }),
+    ).toThrow();
+  });
+
+  it('rejects one null beside one value', () => {
+    expect(() =>
+      parseAgentTaskView({
+        id: 'run-1',
+        completedAt: null,
+        pullRequestNumber: null,
+        pullRequestUrl: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+      }),
+    ).toThrow();
+  });
+
+  it('rejects a view carrying NEITHER pull-request key as an unknown shape', () => {
+    // The vendor always sends both keys (explicit nulls for a PR-less run).
+    // A view with neither is not a known shape: reading it as "no mapping"
+    // would drop a live run for THIS PR as observed-and-unrelated, the
+    // unsafe direction (adversarial review on #113, 2026-09-10).
+    expect(() => parseAgentTaskView({ id: 'run-1', completedAt: null })).toThrow();
+  });
+
+  it('parses a PR-less view (explicit null PR fields — verified live 2026-09-09) as no mapping', () => {
+    // `gh agent-task view` on a run that opened no pull request returns
+    // `pullRequestNumber: null, pullRequestUrl: null`, not absent keys.
+    expect(
+      parseAgentTaskView({
+        completedAt: '2026-09-06T20:37:00.148299674Z',
+        id: 'aa61c92c-d7ad-4362-b5d5-a4cbdd941ff8',
+        pullRequestNumber: null,
+        pullRequestUrl: null,
+      }),
+    ).toEqual({
+      id: 'aa61c92c-d7ad-4362-b5d5-a4cbdd941ff8',
+      completedAt: '2026-09-06T20:37:00.148299674Z',
+    });
   });
 
   it('fails loud on misshapen agent-task output', () => {
