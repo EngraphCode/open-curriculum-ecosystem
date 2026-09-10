@@ -165,7 +165,8 @@ intake contract declared at open.
 
 0. **The no-prompts fix** (the prevention half, the Director's seat): the
    settings, the guard shapes and the `unattended-seats-never-prompt` rule.
-   Its pull request number is recorded here when it lands.
+   Its pull request is #100 (the number is the fix's identity whether or not
+   it has landed; this node claims nothing about its landing).
 1. **The marker.** Writer and closer in the hook-policy module; the two
    activations in the Claude Code settings; PRIMARY-home resolution reused
    from the collaboration-state tooling; tests for AC 2. Code-class.
