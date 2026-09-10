@@ -142,7 +142,13 @@ export type ContentDenyInput =
  * quoted token, e.g. inline busy-loops; or as a case-insensitive regular
  * expression over the raw command when `match: 'regex'` — needed when a
  * whitespace-stripped substring would collide with unrelated tokens, e.g. a
- * command-plus-flag fingerprint that must anchor on a token boundary) plus
+ * command-plus-flag fingerprint that must anchor on a token boundary; or by
+ * PARSED arguments when `match: 'argv'` — the pattern names a command, its
+ * subcommand and the options the invocation must carry, and the matcher
+ * resolves the invocation's flags the way the command's own parser does, so
+ * `git reset --hard` matches `--h`, `--ha`, the flag after the commit, and
+ * `rm -rf` matches every split, clustered, capitalised or long spelling of a
+ * forced recursive removal) plus
  * optional doctrine metadata surfaced in the deny payload —
  * - `citation` — the doctrinal anchor (the rule, principle, ADR, or PDR);
  * - `concept` — the pattern family the command is a fingerprint of (e.g.
@@ -167,7 +173,12 @@ export type ContentDenyInput =
  * never drift (a kind known to the enforcement but not the schema would
  * degrade entries silently in production while the enforcement test passed).
  */
-export const BLOCKED_PATTERN_MATCH_KINDS = ['token-subsequence', 'substring', 'regex'] as const;
+export const BLOCKED_PATTERN_MATCH_KINDS = [
+  'token-subsequence',
+  'substring',
+  'regex',
+  'argv',
+] as const;
 
 const BlockedPatternEntrySchema = z
   .object({
