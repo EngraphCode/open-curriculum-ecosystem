@@ -781,38 +781,39 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    governs each leg's rounds like any other's. How a configured leg binds
    a tip, first-hand on 2026-09-09/10 across nine landings: Copilot
    reviews the FIRST push and any tip the bot explicitly requests it on
-   (below); the Codex connector bound pull requests at creation and on
-   later pushes (#105, #106, #108, #110) until 2026-09-10 04:02Z and then
-   nothing on any shape (#109, #111, #113, #114, #116) — an account
-   outage the owner named at 08:3xZ (out of credit until about
-   2026-09-16), and from 09:49Z the connector posted its own "usage
-   limits have been reached" comment at creation (#117). **A reviewer
-   silent on EVERY pull request at once is that vendor's AVAILABILITY,
-   never a pull-request shape**: the cheap move is one query — did any
-   pull request get that vendor's review after time T — and one
-   declaration on the stream ("vendor unavailable, from, until"), after
-   which no seat shapes pull requests around it (three seats spent two
-   hours on a fresh branch name, a trigger comment, the ready toggle and
-   a deadline before the fact was read; the Director's 2026-09-10
-   retrospective). A fresh pull request, where one is opened for any
-   reason, needs a NEW branch name because the platform refuses a second
-   open pull request on a branch that already has one, and closes its
-   predecessor with a pointer once it is open. **Review legs are
-   desirable, never required** (owner ruling 2026-09-10, verbatim:
-   "policy on PR reviews is that a codex or copilot or external claude
-   review is desirable, and more vendors is better because that means
-   more perspectives and more approaches, but sometimes those options are
-   not available, and development still needs to happen. Note that you
-   can always have a subagent perform any kind of review, including
-   adversarial, and post findings both back to the calling agent and to
-   the PR."): the merge front door declares the configured reviewers
-   AVAILABLE (`--expect` once per available configured reviewer), never
-   the set that happened to bind the tip and never a reviewer declared
-   unavailable, and a subagent review of any kind — adversarial included —
-   posted on the pull request with every finding dispositioned and
-   reported back to the seat stands as a review leg (#117 and #113
-   landed that way on 2026-09-10, each with a posted Opus review and
-   Copilot). A declared leg that never reviewed the tip settles by
+   (below); the Codex connector binds at creation and on later pushes
+   while its account has credit (#105, #106, #108, #110) and, when it has
+   none, posts "Codex usage limits have been reached for code reviews" on
+   the pull request instead of a review (first on #116, four seconds after
+   its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
+   owner named the outage at 08:3xZ (out of credit until about
+   2026-09-16). **Review legs are desirable, never required; the front
+   door declares the configured reviewers AVAILABLE, and a subagent
+   review posted on the pull request stands as a leg** (owner ruling
+   2026-09-10). Concretely: `--expect` once per available configured
+   reviewer — never the set that happened to bind the tip, never a
+   reviewer declared unavailable; a subagent review of any kind,
+   adversarial included, posted on the pull request with every finding
+   dispositioned and reported back to the seat is a review leg (#117 and
+   #113 landed that way on 2026-09-10, each with a posted Opus review and
+   Copilot). **A reviewer silent on EVERY pull request at once is that
+   vendor's availability, never a pull-request shape**: read its own
+   notice on the pull request or ask one question — did any pull request
+   get that vendor's review after time T — then declare it once on the
+   stream ("vendor unavailable, from, until") and shape nothing around it
+   (the 2026-09-10 outage was on the board as the connector's own comment
+   from 06:53Z; seats shaped pull requests around the silence until the
+   owner named it at 08:3xZ). A fresh pull request, where one is opened
+   for any reason, needs a NEW branch name because the platform refuses a
+   second open pull request on a branch that already has one, and closes
+   its predecessor with a pointer once it is open. The ruling's grounds,
+   owner verbatim: "policy on PR reviews is that a codex or copilot or
+   external claude review is desirable, and more vendors is better because
+   that means more perspectives and more approaches, but sometimes those
+   options are not available, and development still needs to happen. Note
+   that you can always have a subagent perform any kind of review,
+   including adversarial, and post findings both back to the calling agent
+   and to the PR." A declared leg that never reviewed the tip settles by
    timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
    5 below names that verdict's two exits. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
@@ -877,7 +878,8 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    configured leg bound plus the posted subagent review where a vendor
    is unavailable (item 3's owner ruling of 2026-09-10), never by the
    REST merge below. The exception stands for
-   the docs-only bot-authored class on its own grounds. Until
+   the docs-only bot-authored class on its own grounds. Until the tool
+   learns that class, the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
    request merges within one CI round of green with no owner action; if one

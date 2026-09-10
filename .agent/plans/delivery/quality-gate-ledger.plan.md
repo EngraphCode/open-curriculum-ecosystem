@@ -18,7 +18,7 @@ tickets:
   - MCP-491
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-09
+last_updated: 2026-09-10
 ---
 
 # Quality-gate ledger — a register that recomputes

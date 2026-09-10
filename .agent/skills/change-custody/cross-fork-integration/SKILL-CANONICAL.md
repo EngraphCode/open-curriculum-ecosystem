@@ -314,8 +314,9 @@ cure-worthy count stays zero unless a finding is about the sync itself
 owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window) — the front door's own wait-class polling is the settle instrument: a
-background settle watch is a process the host may kill (twice on 2026-09-10,
-under its memory heuristic), and the typed verdict is the record either way.
+background settle watch is a process the host may kill (several times across
+two seats on 2026-09-10, under its memory heuristic), and the typed verdict is
+the record either way.
 Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
 [--expect <reviewer> ...]` — `--expect` is repeated once per AVAILABLE
