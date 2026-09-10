@@ -73,7 +73,6 @@ export const ignores = [
   'dist/',
   'node_modules/',
   '**/*.d.ts',
-  'commitlint.config.js',
   'reference/',
   // Ignore ephemeral bundled config artifacts (e.g., tsup.config.bundled_*.mjs)
   '**/*.bundled_*.mjs',
