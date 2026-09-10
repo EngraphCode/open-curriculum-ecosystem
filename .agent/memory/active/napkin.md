@@ -1910,3 +1910,4 @@ unseen. The recursion closes at the standing bounds; a further pass re-finds the
   authority of the owner's import request; if the reading is wrong the cure is a follow-up
   removing them from the archive; (g) the `state-gh.unit.test.ts` rename (an integration-tier
   shape under a unit name, pre-existing) — a disposal for the Director's next records pass.
+- Expected-set fact (e1dced, 23:1xZ): the Codex connector reviews PUSHES TO A PULL REQUEST, not branch pushes — #109's first push went to a branch with no PR yet (the PR was opened a minute later), and no Codex round came in 30+ minutes, where #105/#106 (pushed to existing drafts) had theirs in ~6. Copilot is requested at PR creation and reviews whatever head is there. So for a "push, then open" lane the first-push expected set is Copilot only; Codex first binds at the next push (the sync at the slot). Recipe: open the draft BEFORE the first substantive push when Codex's first-push read is wanted.
