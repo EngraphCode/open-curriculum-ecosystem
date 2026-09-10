@@ -4,7 +4,15 @@
  * no-real-io-in-tests structural allowlist. Each sandbox is a fresh temp
  * directory; `cleanupSandboxes` removes everything a test file created.
  */
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  lstatSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -32,4 +40,19 @@ export function readSandboxFile(...segments: string[]): string {
 /** Write a sandbox file as UTF-8. */
 export function writeSandboxFile(content: string, ...segments: string[]): void {
   writeFileSync(join(...segments), content, 'utf8');
+}
+
+/** Plant a symbolic link at `linkPath` pointing at `targetPath`. */
+export function linkSandboxFile(targetPath: string, linkPath: string): void {
+  symlinkSync(targetPath, linkPath);
+}
+
+/** Whether the entry at the path is itself a symbolic link (not followed). */
+export function isSandboxSymbolicLink(...segments: string[]): boolean {
+  return lstatSync(join(...segments)).isSymbolicLink();
+}
+
+/** The entry names directly under a sandbox directory, in a stable order. */
+export function listSandboxEntries(...segments: string[]): string[] {
+  return readdirSync(join(...segments)).sort((a, b) => a.localeCompare(b));
 }
