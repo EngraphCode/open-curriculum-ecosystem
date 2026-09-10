@@ -2867,3 +2867,74 @@ rule, carrying unmerged continuity commits forward.
   heartbeat loop armed within minutes, the validated argument set being `comms send --tag
   heartbeat --title … --claim-id … --intent-id … --branch … --current-cycle-label …` and
   `claims heartbeat --active … --claim-id … --now <iso>` (no platform/model on the second).
+
+## 2026-09-02 ~11:2xZ (Kiln holds Slag, 1447f4, implementer → support) — wrap harvest: MCP-655 shipped to production; the second-reader afternoon (metacognition / free-play / concept-exploration / wrap; owner-invoked)
+
+- Landed today, in order: #946 reconciled with main and merged by the owner (10:42Z,
+  `55f7a457c`); release 1.175.3 → production PRM names Clerk (10:50Z); Cursor proof on both
+  previews (owner); node archived (#948, `995eb0aa6`); MCP-655 Done; second-reader verdict on
+  Luna's #945 union; Claude Code production sign-in proved (11:07Z) after the stale-client
+  cure; #945 merged `bf8db3a8e` (11:04Z). Every proof the plan asked for is closed.
+- CORRECTION (owner, verbatim "I don't think that is true, I think the bot is on the bypass
+  list"): I asserted a merge gate from doctrine prose ("a bot-authored PR shows BLOCKED until
+  the code-owner approval lands") without reading the live ruleset, whose NAME said
+  "bot-exempt by owner ruling 2026-07-21". Class: query the value, never the lookalike — a
+  rule's worked instance is not the current configuration. The merge-bot's refusal was the
+  Copilot leg all along; the tool told me, I had not run it before speaking.
+- CORRECTION (owner, verbatim "nope, I said it needed doing, not that you should do it,
+  support Luna"): "X needs doing" in a support role is a routing fact, not an assignment. I
+  had started grounding to take the #945 merge myself — Luna's worktree was already
+  mid-merge. Cure applied in the same minute: stayed out of her tree, offered the
+  second-reader read. What "support" meant across the day, by concept-exploration: five
+  shapes were offered (sign-in fallback, UAT split, reconciliation ownership, second reader,
+  provenance/record-keeping); the one that paid was the second read — it found a factual
+  error (a release number) and three dropped facts that both git and the merger had read as
+  clean. The semantic-merge skill's "both confident and wrong" clause is the warrant.
+- CORRECTION (mine, CI-caught): a markdownlint cure applied AFTER `git add` — the pre-commit
+  lint reads the working tree, the commit captures the index. #946 went red once for it.
+  Rule of thumb: every cure is followed by its own `git add` before `git commit`.
+- The stale-client class, seen live: after the release, the owner's production sign-in still
+  failed with "expected <https://mcp.thenational.academy>" while production served the fixed
+  PRM (cache MISS, age 0, both forms). A validating client keeps the authorisation server
+  from its first registration under that server name; the "expected X" text discriminates a
+  client cache from a server fault in one read. Cure = rename or remove-and-re-add the
+  `.mcp.json` entry. ADR-115 Negative 8 already names it; the UAT guide row 1.5 says
+  remove-and-re-add. Nothing new to write into doctrine; the napkin holds the live instance.
+- Second-reader method that worked (reusable): read the merge commit from the shared object
+  store with `git show <sha>:<file>`; per memory file — markers count, heading set-diff of
+  EACH clean side against the result, "result lines outside main ∪ ours" (nothing invented),
+  "main lines absent from result" read line by line, era witness = newest heading of each
+  side, then `git diff --stat main result -- <files that should equal main>`. The script is
+  in this session's scratchpad only; if a third union happens this week it is worth an
+  agent-tools command (free-play seed, not a promise).
+- Free-play seeds (routed as associations): (1) a post-release authenticated probe of
+  production (row 1.5 as a check, like `preview-serves` for the unauthenticated paths) would
+  have shown "production fixed" without a human sign-in; (2) `pr state --expect` before ANY
+  owner-facing "merge-ready" line — the settlement tool already knows what binds the tip;
+  (3) the ruleset's title carried the fact I needed — configuration names are documentation.
+- Loss scan: durable homes — thread record §Lanes (MCP-655 COMPLETE bullet, Kiln row), PR
+  #946 (description + proof comments), Linear MCP-655 (Done; release + production proof
+  comments), the archived node's Outcome, ADR-115 (already on main), the ARC channel file in
+  the primary (untracked churn; every decision-bearing entry mirrored on the stream: events
+  1bcfd7f2, e6b3e485, 04b505c2, ea88fd19, 51956f30, 96ae82ce, 2346a5e4, 85357e33), the two
+  experience letters. Deliberately context-only: the scratchpad scripts (bot-gh, heartbeat,
+  ci-watch, review-945-union, wait-*), the scratch bodies, the persisted gate outputs.
+- Promises sweep: every commitment discharged (Luna update, #945 comment, gate-states,
+  Cursor/production proof records, node archive, second read, provenance for Finch's card);
+  forwarded with owners — Luna: her production smoke after the release; the owner: Finch's
+  ff-only pull on the primary (blocked by the uncommitted `.cursor/mcp.json` he ruled to
+  leave), #908 → #915 sequence; nobody: MCP-656 and the SDK v2 exploration stay pointers.
+- Attribution inferences flagged: "release 1.175.4 came from #948" — not verified (a docs
+  merge does not normally cut a release; the trigger is unknown to me); "Luna applied the
+  three carries at 8b642d911" — her word, the owner declined a second pass; "Cursor exercised
+  tools" — the owner's word, content unseen.
+- Blind-spot bounds: no view of Luna's or Finch's terminals; the primary's state read only
+  through its gitdir and file mtimes; Copilot's review never bound `bbc4f7b7a` before the
+  owner merged (the merge was his call, not a settlement verdict).
+- Index of homes: this block; the thread record §Lanes; PR #946; Linear MCP-655; the archived
+  node; the ARC file; comms events above; claim `b6efbce3` closed at the closeout event.
+- External bound and error signature: three of the day's four corrections came from the
+  owner reading my sentences, none from my own checks; the fourth (staging order) from CI.
+  Point external scrutiny at owner-facing claims about GATES and about WHO ACTS.
+- Metaloss fixed point: a second pass re-found only the 1.175.4 provenance and the unverified
+  carries, both named; a third pass would only re-find them. The recursion closes here.

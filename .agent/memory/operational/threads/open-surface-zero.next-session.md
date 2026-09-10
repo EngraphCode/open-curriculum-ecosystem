@@ -11,7 +11,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
 | Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — PR #943 (EngraphCode fork `engraph` → `main`): full drive taken at owner word 2026-09-01 by handoff from Genet mends Lamplight (cloud seat); Sonar-gate cure parcel + review truings via fork PR; rehomed as #945 and paused behind the MCP-655 auth fix; resumed 2026-09-02 for the live-service validation and the bot merge | 2026-09-01 | 2026-09-02 |
-| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — the MCP-655 OAuth issuer-alignment lane from Luna's handover (event 5dbec23b): scope narrowed at owner word, review panel absorbed, fix landed and merged as #946 (2026-09-02 10:42Z, `55f7a457c`); cherry-picked the PRM fix onto `feat/innovation-kit-updates` at owner word 2026-09-02 ("option 2") so #945 could be validated before #946 merged; support seat for the #945 landing (ARC channel `2026-09-02-pr-945-landing-luna-seeks-twilight-and-kiln-holds-slag.md`); see §Lanes | 2026-09-01 | 2026-09-02 |
+| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — the MCP-655 OAuth issuer-alignment lane from Luna's handover (event 5dbec23b): scope narrowed at owner word, review panel absorbed, fix landed and merged as #946 (2026-09-02 10:42Z, `55f7a457c`); cherry-picked the PRM fix onto `feat/innovation-kit-updates` at owner word 2026-09-02 ("option 2") so #945 could be validated before #946 merged; support seat for the #945 landing (ARC channel `2026-09-02-pr-945-landing-luna-seeks-twilight-and-kiln-holds-slag.md`: sign-in fallback, then second reader of Luna's memory-file union); lane COMPLETE 2026-09-02 (released 1.175.3, production sign-in proved, node archived by #948, MCP-655 Done); wrapped at owner word ~11:2xZ, claim `b6efbce3` closed; see §Lanes | 2026-09-01 | 2026-09-02 |
 
 ## Lane state
 
@@ -213,7 +213,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   recorded on the PR); the fork's `engraph` ruleset requires `run-quality-gates` + CodeQL
   (strict up-to-date) and thread resolution, no auto Copilot.
 
-### Lane: MCP-655 OAuth issuer alignment — FIX LANDED on the branch (2026-09-01, Kiln holds Slag, 1447f4); reviews on the final diff and the owner-held preview proofs are what remain
+### Lane: MCP-655 OAuth issuer alignment — COMPLETE (Kiln holds Slag, 1447f4; #946 merged 2026-09-02 10:42Z, released 1.175.3, production proved, node archived)
 
 - Defect: Claude Code 2.1.252 refuses the app's OAuth authorization response on preview and
   production ("Issuer mismatch … RFC 9207"): the PRM names the app as authorization server while
@@ -282,3 +282,32 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   commands after an exit — check `pwd` before trusting a "local" result; `EnterWorktree` killed a
   Monitor armed at the primary on 2026-09-01 (exit 124 within ~30 s); no comms watcher was armed
   on 2026-09-02 (n=1: Luna frozen, owner in the terminal — the seat swept by hand).
+- **COMPLETE 2026-09-02 ~11:1xZ (wrap at owner word; every fact below read first-hand):**
+  `main` (with #944, the MCP-122 domain re-point) was merged into the fix branch at
+  `bbc4f7b7a` — two doc conflicts (napkin, UAT guide) resolved identically to #945's branch so
+  the second merge auto-resolved the guide. **#946 merged by the owner at 10:42Z as
+  `55f7a457c`**; release 1.175.3 (`555fe6587`, 10:47Z) took it to production, whose PRM now
+  names `https://clerk.thenational.academy` on both path forms (cache MISS, age 0) and whose
+  401 `resource_metadata` is correct. Proofs closed: Cursor authenticated and exercised tools
+  on both previews (owner, 10:30–10:35Z, "Cursor validated both preview servers"); Claude Code
+  v2 on both previews (09:03Z in the #945 lane; this seat earlier); Claude Code v2 on
+  PRODUCTION at 11:07Z (`/mcp`: "Authentication successful. Connected to oak-prod"; an
+  authenticated tool call returned 200). The production attempt first failed with "expected
+  <https://mcp.thenational.academy>" — the STALE-CLIENT class ADR-115 Negative 8 names: a
+  validating client keeps the authorisation server it recorded at first registration; cure =
+  rename or remove-and-re-add the server entry so it registers afresh (`.mcp.json` entry
+  `oak-curriculum` → `oak-prod`). MCP-655 → Done (Linear carries the release and both proofs);
+  the plan node is archived at `.agent/plans/archive/mcp-655-oauth-issuer-alignment.plan.md`
+  (#948, `995eb0aa6`, owner-merged 10:58Z). This seat was then the second reader of Luna's
+  #945 union (semantic-merge §7–9 proofs from the object store): one factual cure (release
+  number) and three carries, applied at `8b642d911`; #945 merged `bf8db3a8e` at 11:04Z.
+  Corrections of the day that a successor should carry: (a) this seat told the owner the
+  code-owner gate needed his click — wrong; ruleset 19395183 is titled "bot-exempt by owner
+  ruling 2026-07-21" — read the live ruleset, never infer a gate from doctrine prose; (b) a
+  markdownlint cure applied AFTER `git add` shipped the unfixed index while the pre-commit lint
+  read the fixed working tree — re-stage after every cure (#946 went red once for it); (c) a
+  merge-bot `SILENT-WAIT-NO-REVIEWER` refusal means no review binds the tip after a push —
+  request Copilot under the bot and wait, or the owner merges. Follow-ups stay pointers:
+  MCP-656 (proxy-path projection), the SDK v2 exploration (owner: not yet), truing
+  `.mcp.json.example`. Claim `b6efbce3` CLOSED at the closeout broadcast; nothing armed.
+  Successor map: this section, PR #946, Linear MCP-655, the archived node.

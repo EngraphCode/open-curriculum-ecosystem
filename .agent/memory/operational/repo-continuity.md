@@ -54,10 +54,11 @@ forward-asks remain.
   Clerk keys in the preview environment — cured by the owner's key
   correction plus a bootstrap key-pairing guard at `7579d4269`; **#946
   merged 2026-09-02 10:42Z as `55f7a457c`**, shipped in release 1.175.3
-  (`555fe6587`, 10:47Z; production PRM verified naming Clerk). The node
-  `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md` (amended
-  2026-09-01 to the PRM-only scope) carries that lane's close-out and moves
-  to `.agent/plans/archive/` with #948. #945
+  (`555fe6587`, 10:47Z; production PRM verified naming Clerk); the Claude
+  Code production sign-in proved at 11:07Z after a stale-client rename;
+  MCP-655 Done; the node is archived at
+  `.agent/plans/archive/mcp-655-oauth-issuer-alignment.plan.md` (#948,
+  `995eb0aa6`) and carries that lane's close-out. #945
   resumed 2026-09-02 once the fix was cherry-picked onto its branch
   (`6028ac95c`, owner word "option 2"): the live-service validation through
   the owner's authenticated Claude Code session passed (verdict GO, record
