@@ -166,3 +166,14 @@ exception after the seat recomputes the gate by name.
   continuity thread says the liveness defect was "found and fixed on #109"; #109 is closed and its
   successor #113 holds unlanded as an owner item — the row must say found and routed (#109 → #113),
   never fixed, until the fix lands (records-narrate-ahead, my own lesson of the day).
+- Gotchas from the fix lane (e1dced, 2026-09-10): (1) the repo hook reads `push … -f` across a
+  whole command line — a call that combined `git branch …` with `merge-bot push --branch
+  fix/…-pr-fields…` was refused as a force push because "-f" sits inside "pr-fields"; the same
+  push alone (no git word in the call) passed. Keep git words out of push calls, or split.
+  (2) zsh does not word-split an unquoted `$VAR` holding a space-separated file list: `eslint
+  $F` received ONE argument and exited 2 (as did prettier), read as a gate failure until the
+  paths were listed explicitly — use `${=F}`, an array, or the literal list. (3) `gh pr create`
+  on a branch that already has an open PR returns THAT PR's URL (no error, no new PR): a
+  successor needs the same commit under a new branch name. (4) The host killed background
+  settle watches and timers three times for memory pressure at 36–43% free; the merge-bot front
+  door's own wait-class polling replaces a watch, and a typed refusal is the record either way.
