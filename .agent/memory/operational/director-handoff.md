@@ -170,6 +170,63 @@ the seat, not to any one pilot.
    seat with no successor landed. At a genuine arc-end where the whole cast
    dissolves there is no successor — closeout is the terminal act.
 
+## Standing processes of the seat (arming commands, on any checkout)
+
+Every one of these dies at a compaction or a seat change; the successor arms each from here,
+from the repository root, with plain calls (no command substitution at the call site — the
+owner's standing word for unattended seats). The monitors run under the platform's
+background-process tool; the two scheduled prompts run under the platform's scheduler (each
+platform names its own). Instrument scripts that restate these as one-liners are session
+conveniences, never the only home.
+
+1. **The all-channels comms watcher**, persistent, re-armed on its hourly exit — on the
+   PRINCIPAL checkout:
+   `timeout 3600 pnpm --silent agent-tools:collaboration-state -- comms watch --platform <platform> --model <model> --supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-drain 100 --exclude-tag heartbeat`,
+   then `pnpm --silent agent-tools:collaboration-state -- comms assert-watcher-live --platform <platform> --model <model>`.
+   A seat RESIDENT IN A LINKED WORKTREE cannot pass `$PPID` (the platform's worktree isolation
+   refuses the runtime expression): it arms the fully literal form in the
+   `comms-all-channels-watcher` rule's worktree-isolation section — the `cd` rooted at the
+   worktree, the timeout binary by its resolved name, the supervisor pid written as a literal.
+   That rule is canonical for both forms.
+2. **The liveness heartbeat**, a persistent loop every 240 seconds bumping BOTH surfaces each
+   tick, per the `liveness-heartbeat-cron` rule's canonical invocation: the comms heartbeat
+   event (`comms send --tag heartbeat` with `--title` and the four typed state arguments
+   `--claim-id`, `--intent-id`, `--branch`, `--current-cycle-label`) and the registry heartbeat
+   `date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id <claim-id> --now {}`,
+   each leg with its own `|| echo` so a half-dead heartbeat reports itself; read `heartbeat_at`
+   back off the claim row after arming. The registry-only hourly loop (the second leg alone,
+   `sleep 3600`) is NOT this heartbeat: it is the PDR-078 §4 consumer-absent form — n=2
+   owner-visible per PDR-082, or a claimless standby — and a seat running it declares that
+   exemption on the stream and re-arms the full loop the moment a consuming peer appears.
+3. **The peer-liveness poll**: the `comms peer-liveness` delta poll against the PRIMARY
+   coordination home's comms directory, per the heartbeat rule's F-75 recipe (`active` under
+   four minutes, `offline` to ten, `retired` past ten — input to verify, never a verdict). The
+   watcher's heartbeat exclusion REQUIRES this pairing. A 20-minute read of
+   `.agent/state/collaboration/active-claims.json` with jq's `now` builtin (emitting on a change
+   in the peer set or a peer quiet past 90 minutes) is only the coarse fallback while every peer
+   runs under the exemption above and emits no heartbeat; claim freshness cannot see a silent
+   retirement.
+4. **The PR poll**, every two minutes over the open set — number, draft flag, `mergeStateStatus`,
+   head, unresolved review threads, check rollup (the pr-lifecycle state machine's item-1
+   selection) — emitting only lines that changed.
+5. **The wrap cadence**: a recurring scheduled prompt at `41 1-23/2 * * *` (local time; 41 past
+   odd hours) whose text names the non-terminal wrap — `date -u` first; work safety (status,
+   fetch, unpushed refs, the queue); the seat's continuity sweep by pathspec, owner-authored with
+   the session trailers; a retrospective paragraph on the napkin; the board recomputed
+   first-hand; the processes verified by id; owner items held for the record while the owner is
+   absent; then drive on.
+6. **The fold wake**: a one-shot scheduled prompt seven minutes past the next UTC rollover
+   (`7 0 <day> <month> *` when the scheduler runs in UTC, else the local equivalent) whose text
+   names the coordination branch and its pull request, says `date -u` first and recompute before
+   acting, and runs the `coordination-fold` skill's ceremony from the primary with plain calls;
+   when the fold has already run earlier in the branch's landing slot, the wake only verifies
+   that the successor branch, its draft PR and the next wake exist.
+7. **A settle watch on the landing-slot holder**: required checks green by name
+   (`run-quality-gates`, `CodeQL`), then a ten-minute quiet window with zero unresolved review
+   threads, then `CLEAN`; it stops loud on every terminal state (closed, head moved, a check
+   failed, threads unresolved, not clean) and never merges — the merge is the seat's own act at
+   the recomputed gate (pr-lifecycle §Phase 7).
+
 ## Standing lessons (this Director lineage)
 
 Each lesson is the cure for a churn cause observed in the pilot.
@@ -267,65 +324,95 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD LANDED, 2026-09-08 01:00Z (Flounder turns Estuary, `c5cc2c`, Director) — THIS
-> SUPERSEDES THE 2026-09-07 01:32Z BANNER BELOW.** `coordination/2026-09-07-dfe924` folded to
-> `engraph` via bot PR **#79** (opened 00:13Z at `cf884b251`, a clean merge of `engraph`
-> `d295fcc11`; two review rounds, two over-bar cures on one settlement push) at full condition
-> (run-quality-gates and CodeQL green by name, zero unresolved threads, mergeStateStatus CLEAN,
-> ten-minute quiet window) as merge commit `68d53d778` at 01:00Z; the fold carried fifteen
-> coordination-home commits over four files (the napkin, this seated block, the tuition thread
-> record's LANDED block, one experience letter). The day-stamped successor
-> **`coordination/2026-09-08-68d53d`** was cut tree-preservingly from post-fold `engraph` by
-> the coordination tool and published; the held `.claude/settings.json` rode it uncommitted at
-> the cut (harness rewrite, contract then unverified) — superseded the same day: the owner
-> confirmed the simplification ("I am fine with the simplification of the settings files"), the
-> lane seat committed it on this branch, and it folds with PR #84. Product-gravity line: _moved for
-> teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
-> directly (PR #73, the upstream 1.178.5 sync: prior-knowledge statements served by the MCP
-> response). _moved for the Practice:_ the tuition collection (#66) with its review records and
-> authority file; the consolidation drain (#67, #71, #74, #75, #76, #78) and the review
-> doctrine (#77, PDR-140 Decision clause 9); the graph foundations research pack (#72); the
-> compaction sweeps, and the napkin met the rotation by the archive-coverage check. Board at
-> the fold: open #70 (the owner's non-graph survey, under Altair spins Umbra's lane, claim
-> `8e7e00d1`); landed 2026-09-07: #66, #73, #67, #71, #75, #74, #76, #72, #78, #77. Seats: A
-> DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Juno seeks Apogee live under
-> claim `0b696465` (post-fold continuity PRs: repo-continuity Purpose cells, this file's
-> disposition, two thread-record criticals); Altair spins Umbra on the #70 lane, then the
-> directives item under the 30-percent gate. THE PICKUP MAP is the Director's handoff record
-> `2778f573-flounder-turns-estuary-compaction-2026-09-03.md` §COMPACTION BOUNDARY 6 and its
-> RESUMED lines (machine-local); the lane record for #70 is
-> `c5cc2c-flounder-turns-estuary-lane-handoff-to-altair-2026-09-07.md`. The 2026-09-07 banner
-> below is the prior state.
+> **§FOLD LANDED, 2026-09-09 17:16Z (Nettle guards Pistil, `2de368`, Director) — THIS
+> SUPERSEDES THE 2026-09-09 00:52Z FOLD BLOCK (git retains it).** `coordination/2026-09-09-f5d02c`
+> folded to `engraph` via PR **#96** (opened as a draft by the prior Director at the 00:52Z
+> cut, undrafted by the owner on 2026-09-09 under "I want to drive the number of open PRs to
+> zero", run in its landing slot after #97 and #92 rather than at the rollover wake; the merge
+> of `engraph` at `03ec90594` as `44ed15102`; five review rounds, 6, 1, 3, 3, 3 — the
+> step-back arm firing at round four on one generator, the live snapshot narrating a board that
+> moved under it, and the class fix making this file's snapshot record landings and lanes only
+> with the board computed live) at full condition (run-quality-gates and CodeQL green by name,
+> zero unresolved threads, mergeStateStatus CLEAN, ten-minute quiet window) as merge commit
+> `31e3711c8` at 17:16Z; the fold carried the day's coordination-home commits (the prior
+> Director's wraps and terminal wrap, both seats' cross-fork notes, the lane seat's letter and
+> notes, the Director succession on the snapshot and the journal, the seat's standing processes
+> with their arming commands on this brief, the SHA prefixes). The day-stamped successor
+> **`coordination/2026-09-09-31e371`** was cut tree-preservingly from post-fold `engraph` by
+> the coordination tool and published; this seat's first wrap block rode it dirty and sweeps in
+> its first commit. Product-gravity line: _moved for teachers:_ nothing in the fold's own
+> commits — the day's product movement rode `engraph` directly (#90, upstream 1.178.6). _moved
+> for the Practice:_ the cross-fork-integration skill's first draft (#97), the owner's
+> foundations bundle with ADR-229 (#92), the Director succession recorded on tracked surfaces,
+> the pickup map's class fix. Seats at the fold: A DIRECTOR IS SEATED — Nettle guards Pistil,
+> claim `8109015d` (adopted at PDR-064 Moment 2, 15:11:49Z); Altair spins Umbra (`05a180`) on
+> the upstream 1.179.0 carrier, the held-seat-observability node and the Sonar policy
+> amendment. THE PICKUP MAP is the live snapshot below (tracked) with the tenure journal in the
+> estate-coordination thread record; the board is computed live from the repository service,
+> never read from either.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-08 23:2xZ (Flounder turns Estuary, `c5cc2c`, Director, at the fold
-> of `coordination/2026-09-08-68d53d`) — THE STATE AT THIS FOLD; the fold block above is the
-> Director's and stands verbatim; this snapshot replaces the 01:2xZ one in place, per this file's
-> refresh contract (git retains it).** Fold PR **#84** carries the day's continuity sweeps (wraps
-> 18 to 23, the owner-cards block, the compaction-boundary block, the lane seat's captures and
-> its wrap for compaction; wrap 24 is written on the primary and sweeps on the successor branch
-> after this fold lands), the `.claude/settings.json` simplification landed on the owner's word
-> of 2026-09-08 ("I am fine with the simplification of the settings files"), the merge of
-> `engraph` at `30bac21da`, and three cure rounds (8, 4, 1) on its own pickup surfaces. Landed on
-> `engraph` this day, by the bot at green, clean and sensible unless stated: #83, #85, #86 (the
-> reliable-atoms ratification; merged by the owner), #87, #88, #93, #91, #89 (`30bac21da`, the
-> two ratified delivery nodes after seven review rounds). In flight at this snapshot, in the
-> landing slot's order after #84: #94 (the owner's Work-cloud routing practice, terminal at
-> `0670d43cf` after five rounds, one held cure riding the merge of `engraph`), then #95
-> (Altair's twelve-rulings records PR, terminal after seven rounds; the slot word is the
-> Director's). The owner's tomorrow, by their word: #92 (open, unmerged; four over-bar items
-> pre-cured; two clauses of the owner's own authoring — the reliable-atoms node's gate bullet and
-> the principles.md acquisition criterion — deferred: "we will discuss this tomorrow"), #90 (the
-> upstream integration, a draft, never merged without them), and the #94 read's structural notes
-> on that PR. Seats: A DIRECTOR IS SEATED — Flounder turns Estuary, claim `8109015d`; Altair
-> spins Umbra (`05a180`, claim `a3d107dd`) on #95. Standing words of the night: "other than 90,
-> can we get to zero? If so, do it"; "stop doing things that need approval, I am not here". The
-> successor coordination branch is cut from post-fold `engraph` by the coordination tool once
-> #84 lands, and the wrap-24 napkin block sweeps there. THE PICKUP MAP is this snapshot,
-> tracked, with the tenure journal in the estate-coordination thread record; the Director's
-> machine-local handoff record (untracked by design) adds finer detail on this machine only
-> and is never required by a successor on another checkout.
+> **§LIVE SNAPSHOT, 2026-09-09 15:0xZ (Flounder turns Estuary, `c5cc2c`, Director, at the FULL
+> HANDOFF to the owner-named successor Nettle guards Pistil, `2de368`) — THE STATE AT THIS
+> HANDOFF; the fold block above stands verbatim; this snapshot replaces the 2026-09-08 23:2xZ one
+> in place, per this file's refresh contract (git retains it); re-trued in place by the sitting
+> Director at this branch's fold, 2026-09-09 16:4xZ, and again at the successor's fold,
+> 2026-09-10 00:5xZ (landed list and lane holders).** The owner's standing goal: "I want to
+> drive the number of open PRs to zero." THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open
+> set, each pull request's head, state and threads are computed from the repository service at
+> the moment of reading (the open-PR list and the review-thread selection in the pr-lifecycle
+> skill's state machine); this snapshot records what LANDED and who holds which LANE. Landed on
+> 2026-09-09, each by merge commit as the bot at green, clean and sensible: #90 (upstream
+> 1.178.6, on the owner's word; the founding run of the cross-fork-integration skill), #98 (the
+> #88 follow-up, by the Director's recorded deadline-and-default while the lane seat was held at
+> a prompt), #97 (the cross-fork-integration skill's first draft, on the owner's ruling "land on
+> the Director's read"; four review rounds, the four-round arm fired, the terminal tail's findings
+> routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-229, every
+> clause ruled by card), and this branch's own fold. The landing-slot contract governed each: one
+> non-draft PR holds the slot, merges `engraph` as its last push, settles green by name and clean,
+> merges with the head pinned. Landed since, under the owner's 2026-09-09 19:2xZ word "I want
+> ALL PRs merged, including those currently in draft" (the count-to-zero goal now covers every
+> draft): #99 (the upstream 1.179.0 carrier, Altair), #107, #105 and #106 (the curator seat
+> Vanilla lifts Nectar's consolidation records), #102 (the one-outcome Sonar policy, Altair),
+> #101 (the held-seat-observability node, Altair); this branch's own fold at the merge of #101
+> is the pull request this snapshot lands with — a reader on `engraph` holds it landed, a
+> reader on the branch holds it pending. Lanes at this fold (2026-09-10 00:5xZ), by holder:
+> Altair spins Umbra (`05a180`) — #108
+> (the cross-fork skill's carrier lessons; step-back fired, cures held for its slot word) and
+> #110 (the #102 residue); Vanilla lifts Nectar (`e1dced`, curator) — #109 (the merge-bot
+> front door's liveness-leg fix, a source PR) and the napkin drain PR, to be cut from the
+> post-fold tip once this fold lands; the Director — #100 (the held-seat fix at its second step-back; the two blanket deny
+> lines are an OWNER edit, refused to the seat by the classifier) and #103 (a Codex seat's
+> research-package import, read done, landing at its slot on the import README's recorded
+> owner authority). Rulings of 2026-09-09, by card, all
+> applied or in flight: no-prompts cure (#100); #92 clause 2 = the class; the external-skills
+> review framework stays ARCHIVED (the morning's card about it was stale — owner-facing state is
+> computed against `origin/engraph`, never the coordination checkout); private projects
+> generalised in the bundle; the next carrier waited for (it arrived as #99); principles.md's
+> fitness breach is a curation lane later. Doctrine of the day: integration is a semantic event
+> (the skill, the guide's §4i, the rule); a re-truing narrows to the claim refuted; cross-lineage
+> ADR numbering decided once (upstream's sequence authoritative; the fork renumbers in the sync
+> commit). Seats at the handoff: the Director claim `8109015d` was ADOPTED by Nettle guards
+> Pistil (`2de368`) at PDR-064 Moment 2, 2026-09-09 15:11:49Z (comms event `c3e76199`); the
+> registry row now names that seat, and any later pickup verifies the LIVE claim state first
+> (`claims active-agents` with a UTC `--now`) — an adoption is never repeated from this map.
+> Claims at this fold, read from the registry: the Director `8109015d`; Altair spins Umbra on
+> #108 and #110 (the #99, #101 and #102 claims closed at each landing); Vanilla lifts Nectar's
+> curator claim. A successor's first moves,
+> on any checkout: start-right-team; the mechanical liveness check and the readiness gate in
+> this file's brief; adoption only from a pre-positioning event; then the standing processes,
+> every one of which dies at a compaction or a seat change, each armed from its TRACKED home —
+> the all-channels watcher from the `comms-all-channels-watcher` rule's arming command; the
+> claim heartbeat loop from the `liveness-heartbeat-cron` rule; the wrap cadence from the
+> `wrap` skill; the fold wake and its ceremony from the `coordination-fold` skill; the settle
+> and merge boundary from the `pr-lifecycle` skill §Phase 7. The machine-local record
+> `2778f573` and the instrument copies under `handoffs/instruments-c5cc2c/` on this machine
+> are conveniences that restate those homes as one-line scripts; their home in agent-tools is
+> a lane, and nothing a successor needs lives only there. Lanes after zero: the fork-diff
+> manifest; the instruments' home; the skill's second draft from both seats' napkin notes; PR C;
+> the principles.md curation lane; the skills-generator dot-directory fix. THE PICKUP MAP is
+> this snapshot, tracked, with the tenure journal in the estate-coordination thread record.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the

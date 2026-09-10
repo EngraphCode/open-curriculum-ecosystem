@@ -22,6 +22,14 @@ is a discipline that fires:
    question is *how do we adopt the new insight*, not *carry on
    with the now-known-bad approach* or *expand the now-known-bad
    approach to cover the new clause*.
+4. **Before approving spend or apparatus on any lane** — a fleet, a
+   ceremony, a queue, a merge mechanism: write the owner's end in
+   one sentence and re-ask whether the lane is still denominated
+   in it. A classification treated as a fact ("this is a
+   rate-limiting cure", "this needs the merge queue") is answered
+   by what the thing is FOR; seven owner corrections in one day
+   shared that shape, and each was cheaper than the ceremony that
+   preceded it (2026-09-06/07).
 
 Plan-following is **not** principle-following. A plan that was
 correct at authoring time can become principle-violating at

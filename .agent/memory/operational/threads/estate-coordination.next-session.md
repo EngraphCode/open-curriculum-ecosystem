@@ -644,7 +644,8 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5 | c28ad9 | Ocelot binds Tunnel | Director — adopted b1d00d68 at Moment 2 `a91c1177` | 2026-08-17 | 2026-08-17 |
 | claude-code | claude-fable-5-1 | 661556 | Chinook seeks Cloud | implementer, lead at n=2 — MCP-673 corpus truing: PR A (#959, owner-word amendments) and PR B (factual true-ups), claim ed9ec042 | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | 9e26e6 | Vesta rides Solstice | second seat at n=2 (Chinook seeks Cloud 661556 leads) — MCP-673 corpus truing; boundary set by the lead | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
+| claude-code | claude-fable-5-1 | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c | 2026-09-09 | 2026-09-09 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
@@ -1579,3 +1580,71 @@ disagree, the live snapshot is current and this entry is history.
   `repo-continuity.md`; the napkin and `archive/napkin-2026-09-07.md`; the comms stream. The
   Director's machine-local handoff record (`2778f573-…`) holds the finer grain and is not
   required for pickup.
+
+## 2026-09-09 00:52Z — FOLD OF coordination/2026-09-08-68d53d (Flounder turns Estuary, c5cc2c, Director): PR #84 merged as SHA:f5d02c38a; successor coordination/2026-09-09-f5d02c
+
+- **The fold.** PR #84, opened as a draft by the lane seat at the owner's word of 2026-09-08
+  11:07Z and undrafted by the owner at 21:13Z, merged as `SHA:f5d02c38a` after seven review rounds
+  (8, 4, 1, 1, 2, 2, 1 findings; nineteen cured, two routed): the retired rule's citations
+  repointed in the two pickup surfaces, the settings-file sentences and the tenure count trued,
+  the napkin's fitness marker added, the two onboarding surfaces told that this fork's settings
+  activate no plugin, the babysitter recipe corrected, the coordination-fold skill's hold
+  reduced to its rule, the live snapshot replaced in place as the class fix, and the pickup map
+  named as the tracked snapshot. The successor `coordination/2026-09-09-f5d02c` was cut from
+  post-fold `engraph` by the coordination tool; the wrap-24 napkin block sweeps on it.
+- **The day.** Landed on `engraph` 2026-09-08 by the bot: #83, #85, #87, #88 (the lane seat's
+  train), #86 (the owner's merge), #93, #91, #89 (the Director's). In flight at the fold: #94
+  (the owner's Work-cloud routing practice, five rounds, terminal) and #95 (the lane seat's
+  twelve-rulings records PR, eight rounds, terminal), in that order. The owner's tomorrow: #92's
+  two clauses, #90, the #94 read's structural notes.
+- **Lessons homed.** Any tool call can hold a seat at an unseen prompt (twice on one seat, once
+  on the Director's at a nested command substitution) — the cure is the Director's
+  deadline-and-default and one plain call at a time; the geometric review tail on prose PRs
+  ends only by a class fix that states the invariant and demotes cases to fixtures (four PRs
+  tonight); stamp records from the clock, never from the feel of elapsed time.
+
+## 2026-09-09 15:0xZ — FULL HANDOFF of the Director seat (Flounder turns Estuary, c5cc2c → Nettle guards Pistil, 2de368, owner-named): the day of the first upstream integration and the held-seat cure
+
+- **The day.** #90 (upstream 1.178.6) landed on the owner's word after the merge of `engraph`,
+  the regenerated content workspace and a premise sweep of the fork's plans and records —
+  the founding run of the `cross-fork-integration` skill, drafted the same morning at the
+  owner's word (#97, three review rounds, the four-round arm, terminal). #98 landed by the
+  Director's recorded deadline-and-default while its lane seat was held at a permission prompt
+  for four hours; the owner's screenshot of that prompt became the held-seat fix (#100: no
+  `ask` rules in the tracked settings, the Bash guard denies `rm -rf`, a rule). The owner
+  ruled eight cards; #92's last clauses were applied (keep both, sorted by question); the
+  external-skills framework stayed archived after a stale card exposed that owner-facing state
+  must be computed against the default tip. The sync maintainer's next carrier arrived as #99.
+- **The handoff.** Seven PRs open, every one with a landing path in the live snapshot
+  (director-handoff.md §LIVE SNAPSHOT, replaced in place at this handoff); the claim
+  `8109015d` carries a handoff pointer to the machine-local record and is adopted by the
+  successor; Altair spins Umbra holds #101 and #102; the coordination branch
+  `coordination/2026-09-09-f5d02c` (draft #96) folds at the 00:07Z wake.
+- **Lessons homed.** A seat cannot see its own hold, so the cure has two halves that both hold:
+  remove the block points (asks become denies) and let a second party with a clock supply the
+  observation (the deadline-and-default). Five corrections of one shape in one day — act only
+  on a state recomputed against its source by the check that costs nothing (`date -u`,
+  `origin/engraph`, a predicate walked with one input, the rule's text, the lens over the
+  card). A new rule is five files and the portability validator is the check. Integration is
+  a semantic event, and a re-truing narrows to the claim refuted, never wider.
+
+## 2026-09-09 17:16Z — FOLD OF coordination/2026-09-09-f5d02c (Nettle guards Pistil, 2de368, Director): PR #96 merged as SHA:31e3711c8; successor coordination/2026-09-09-31e371
+
+- **The fold.** Run in the branch's landing slot after #97 and #92, ahead of the 00:07Z
+  rollover wake, because the owner undrafted #96 for the count to zero. Five review rounds
+  (6, 1, 3, 3, 3): the step-back arm fired at round four on one generator — the live snapshot
+  narrating open pull requests and their next actions, which went stale under every landing
+  during the fold itself — and the class fix made the snapshot record landings and lanes only,
+  with the board computed live from the repository service; the same push put the seat's
+  standing processes and their arming commands on the tracked brief, and round five trued
+  those commands to the liveness and watcher rules (the two-leg heartbeat, the peer-liveness
+  delta poll, the worktree-literal watcher arm). Merged as the bot at green, clean and
+  sensible with the head pinned; premises comment 5605873882.
+- **The successor.** `coordination/2026-09-09-31e371`, cut tree-preservingly from post-fold
+  `engraph` at SHA:31e3711c8 by the coordination tool, published as the bot with a draft PR at
+  first push; this seat's first wrap block rode across dirty and sweeps in its first commit.
+- **Seat and chain.** Nettle guards Pistil (2de368) holds the Director seat since the
+  PDR-064 Moment 2 of 15:11:49Z (from Flounder turns Estuary, c5cc2c); claim 8109015d adopted.
+  Lanes at the cut: #100 (the Director's, next in the slot), #99, #101, #102 (Altair spins
+  Umbra, 05a180), #103 (a Codex seat's research import at the owner's request, unregistered
+  on the stream). Landed by this seat today: #97, #92, #96.

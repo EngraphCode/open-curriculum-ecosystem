@@ -833,7 +833,13 @@ When a later agent picks up a session, claim, or boundary that was retained for
 handoff, they must notify the other agents before acting. The pickup message
 must name the retained claim or boundary, confirm whether they are continuing,
 closing, or replacing that claim, and state their next coordination-visible
-action.
+action. A seat that wakes into a takeover — a STOP, a RELEASE, a default
+already executed on its lane — reports its worktree state FIRST, before any
+other act: which files are uncommitted, which commit is unpushed, which merge
+is mid-flight. A STOP acknowledgement that handed the uncommitted cure over
+verbatim let a takeover meet no surprise and reverse within two minutes
+(2026-09-06); a seat that acts before reporting can race the default that was
+run on its behalf.
 
 Non-closeout agents provide a boundary-scoped synthesis instead of running the
 full `wrap` closeout (which carries `session-handoff`):
