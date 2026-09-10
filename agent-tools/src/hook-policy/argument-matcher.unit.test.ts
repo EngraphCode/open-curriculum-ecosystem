@@ -212,6 +212,11 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -rf -i dir')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rm -i -rf dir')).toBe(true);
     expect(matchesArgvPattern(recursiveForce, 'rm -r --interactive=always -f dir')).toBe(true);
+    // `--interactive=never` prompts for nothing, so it cancels nothing.
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf --interactive=never dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -r --interactive=never -f dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf --interactive=once dir')).toBe(false);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf --interactive dir')).toBe(false);
   });
 
   it('leaves the single-mode removals alone', () => {
@@ -315,11 +320,22 @@ describe('matchesArgvPattern — shell shapes', () => {
   it('decodes ANSI-C escapes inside a $-quoted script', () => {
     expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'echo start\nrm -rf x'`)).toBe(true);
     expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'rm\x20-rf x'`)).toBe(true);
+    expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'rm\u0020-rf x'`)).toBe(true);
+    expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'rm\U00000020-rf x'`)).toBe(true);
+    expect(matchesArgvPattern('rm -rf', String.raw`bash -c $'echo a\cJrm -rf x'`)).toBe(true);
   });
 
   it('balances a substitution past quoted and escaped parentheses', () => {
     expect(matchesArgvPattern('rm -rf', 'OUT="$(printf \')\'; rm -rf x)"')).toBe(true);
     expect(matchesArgvPattern('rm -rf', String.raw`echo $(printf "\)"; rm -rf x)`)).toBe(true);
+  });
+
+  it('reads a nested old-style substitution through its escaped inner backticks', () => {
+    const backslash = String.fromCodePoint(92);
+    expect(matchesArgvPattern('rm -rf', `echo \`echo ${backslash}\`rm -rf x${backslash}\`\``)).toBe(
+      true,
+    );
+    expect(matchesArgvPattern('rm -rf', `echo \`printf '${backslash}\`'; rm -rf x\``)).toBe(true);
   });
 
   it('reads nested commands two levels deep and no further', () => {

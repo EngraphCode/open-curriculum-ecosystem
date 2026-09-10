@@ -92,9 +92,20 @@ b"`),
 
   it('decodes ANSI-C escapes in a $-quoted span', () => {
     expect(texts(String.raw`printf $'a\tb\x41\101\''`)).toStrictEqual([['printf', "a\tbAA'"]]);
+    expect(texts(String.raw`printf $'\u0041\U00000042\cA\q'`)).toStrictEqual([
+      ['printf', `AB${String.fromCodePoint(1)}${String.raw`\q`}`],
+    ]);
     expect(texts(String.raw`bash -c $'echo start\nrm -rf x'`)).toStrictEqual([
       ['bash', '-c', 'echo start\nrm -rf x'],
     ]);
+  });
+
+  it('closes a backtick substitution at the first unescaped backtick and unescapes the inner ones', () => {
+    const backslash = String.fromCodePoint(92);
+    const substitution = `\`echo ${backslash}\`inner${backslash}\`\``;
+    const [segment] = segmentCommand(`echo ${substitution} tail`);
+    expect(segment?.map((word) => word.text)).toStrictEqual(['echo', substitution, 'tail']);
+    expect(segment?.[1]?.nested).toStrictEqual(['echo `inner`']);
   });
 
   it('balances a substitution past quoted and escaped parentheses', () => {

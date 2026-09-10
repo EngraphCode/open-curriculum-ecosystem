@@ -35,6 +35,26 @@ function decodeAnsiCEscape(command: string, index: number): readonly [string, nu
   if (octal !== null) {
     return [String.fromCodePoint(Number.parseInt(octal[0], 8)), index + 1 + octal[0].length];
   }
+  return decodeUnicodeOrControlEscape(command, index, next);
+}
+
+/** Decode `\uHHHH`, `\UHHHHHHHH` and `\cX`; an unknown escape stays literal, as bash leaves it. */
+function decodeUnicodeOrControlEscape(
+  command: string,
+  index: number,
+  next: string,
+): readonly [string, number] {
+  const unicode = /^[uU]([0-9A-Fa-f]{1,8})/u.exec(command.slice(index + 1));
+  if (unicode?.[1] !== undefined) {
+    const digits = next === 'u' ? unicode[1].slice(0, 4) : unicode[1];
+    const codePoint = Number.parseInt(digits, 16);
+    const text = codePoint <= 0x10_ff_ff ? String.fromCodePoint(codePoint) : '';
+    return [text, index + 2 + digits.length];
+  }
+  if (next === 'c' && command.length > index + 2) {
+    const control = (command.codePointAt(index + 2) ?? 0) & 0x1f;
+    return [String.fromCodePoint(control), index + 3];
+  }
   return [`\\${next}`, index + 2];
 }
 

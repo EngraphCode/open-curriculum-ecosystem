@@ -17,7 +17,9 @@
  * names the canonical options this spelling stands for, so a pattern and an
  * invocation meet on the same set whichever spelling either uses;
  * `overrides` names the options this one cancels when it comes later on the
- * line (`rm -f` and `rm -i` each override the other, last wins).
+ * line (`rm -f` and `rm -i` each override the other, last wins), except
+ * under a value listed in `overridesUnless` (`--interactive=never` prompts
+ * for nothing and so cancels nothing).
  */
 export interface OptionSpec {
   readonly name: string;
@@ -29,4 +31,6 @@ export interface OptionSpec {
   readonly implies?: readonly string[];
   /** The options this one cancels when it appears later on the line (last wins). */
   readonly overrides?: readonly string[];
+  /** Values of this option under which it cancels nothing (`--interactive=never` leaves `-f` in force). */
+  readonly overridesUnless?: readonly string[];
 }

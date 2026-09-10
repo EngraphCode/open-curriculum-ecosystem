@@ -38,7 +38,13 @@ import type { OptionSpec } from './argv-option-spec.js';
 const rm: readonly OptionSpec[] = [
   { name: 'recursive', short: 'rR' },
   { name: 'force', short: 'f', overrides: ['interactive'] },
-  { name: 'interactive', short: 'i', arg: 'optional', overrides: ['force'] },
+  {
+    name: 'interactive',
+    short: 'i',
+    arg: 'optional',
+    overrides: ['force'],
+    overridesUnless: ['never'],
+  },
   { name: 'dir', short: 'd' },
   { name: 'verbose', short: 'v' },
   { name: 'one-file-system', short: 'x' },

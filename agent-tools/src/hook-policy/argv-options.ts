@@ -31,9 +31,18 @@ function namesOf(spec: OptionSpec): readonly string[] {
   return spec.implies ?? [spec.name];
 }
 
-/** Record an option as present, cancelling the options it overrides (last on the line wins). */
-function recordPresent(spec: OptionSpec, present: Set<string>): void {
-  for (const cancelled of spec.overrides ?? []) {
+/** The value a short option takes from the rest of its cluster, when it takes one and the rest is non-empty. */
+function attachedValue(spec: OptionSpec, rest: string): string | null {
+  return spec.arg === undefined || rest === '' ? null : rest;
+}
+
+/**
+ * Record an option as present, cancelling the options it overrides (last on
+ * the line wins) unless its value is one under which it cancels nothing.
+ */
+function recordPresent(spec: OptionSpec, present: Set<string>, value: string | null): void {
+  const exempt = value !== null && (spec.overridesUnless ?? []).includes(value);
+  for (const cancelled of exempt ? [] : (spec.overrides ?? [])) {
     present.delete(cancelled);
   }
   for (const canonical of namesOf(spec)) {
@@ -59,7 +68,7 @@ function parseLongWord(
   if (spec === null) {
     return next;
   }
-  recordPresent(spec, present);
+  recordPresent(spec, present, equals === -1 ? null : text.slice(equals + 1));
   return spec.arg === 'required' && equals === -1 ? next + 1 : next;
 }
 
@@ -76,7 +85,7 @@ function parseShortCluster(
     if (spec === null) {
       continue;
     }
-    recordPresent(spec, present);
+    recordPresent(spec, present, attachedValue(spec, letters.slice(position + 1)));
     if (spec.arg === 'required') {
       // The rest of the cluster is the value; an empty rest takes the next word.
       return position + 1 < letters.length ? next : next + 1;
