@@ -291,11 +291,17 @@ the authority frame, in this commit, with citations. Confirm the index rows.
 
 ### 8. Open the round, settle, land
 
-Push as the bot with `pnpm agent-tools merge-bot push` from the worktree:
-HEAD's branch by
-name, the bot identity over a file-backed token that is never in argv, hooks
-running, no force flag; a rejected non-fast-forward is answered by merging,
-never by overwriting. Undraft; declare the review tally at open (pr-lifecycle
+Push as the bot with `pnpm --silent agent-tools merge-bot push --json`, the
+worktree as the working directory (the entry point exactly as it runs;
+`--branch <name>` only when HEAD's branch is not the name to push): HEAD's
+branch by name, the bot identity over a file-backed token that is never in
+argv, hooks running, no force flag; a rejected non-fast-forward is answered by
+merging, never by overwriting. It sets NO upstream on the local branch, so
+`git status -sb` in the worktree shows no ahead/behind and the closeout's
+`git branch --set-upstream-to=origin/<fork-default>` precedes `git branch -d`.
+A fresh worktree needs its workspaces built before the pre-push gates pass
+(the standards ESLint plugin's `dist/` for lint; the agent-tools `dist/` for
+the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
 §review-round state machine); harvest every thread. Findings about the sync
 itself are cured here; findings about upstream code are routed and resolved on
 the route — and the report to upstream is the OWNER's act, because the fork
@@ -307,21 +313,26 @@ cure-worthy count stays zero unless a finding is about the sync itself
 (2026-09-09, the 1.179.0 carrier: two rounds, three threads, all routed to one
 owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
-window). Merge by MERGE COMMIT as the bot through the one sanctioned front
+window) — the front door's own wait-class polling is the settle instrument: a
+background settle watch is a process the host may kill (twice on 2026-09-10,
+under its memory heuristic), and the typed verdict is the record either way.
+Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
-[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer in
-the repository's automatic-review configuration, the set pr-lifecycle's
-Phase 1 declares as the state machine's input for every round, never
-narrowed to the reviewers that happen to have bound the tip: a reviewer
-left undeclared is invisible to the tool's recomputation, and a configured
-leg that never reviews the tip (Copilot reviews the first push and any tip
-the bot requests it on; the Codex connector's binding is not predictable
-from the repository's side — pr-lifecycle §Phase 1) settles
-through the
-timeout to SETTLED-NO-REVIEW, which the front door refuses by name — the
-docs-only bot-authored class then lands through the sanctioned REST
-endpoint under the owner's exception below, and any other pull request
-waits for the leg (pr-lifecycle §merge boundary;
+[--expect <reviewer> ...]` — `--expect` is repeated once per AVAILABLE
+reviewer in the repository's automatic-review configuration, the set
+pr-lifecycle's Phase 1 declares as the state machine's input for every round,
+never narrowed to the reviewers that happen to have bound the tip and never
+widened to a vendor declared unavailable: a reviewer left undeclared is
+invisible to the tool's recomputation, and a declared leg that never reviews
+the tip (Copilot reviews the first push and any tip the bot requests it on)
+settles through the timeout to SETTLED-NO-REVIEW, which the front door
+refuses by name — the docs-only bot-authored class then lands through the
+sanctioned REST endpoint under the owner's exception below; any other pull
+request obtains the missing leg (the Copilot request as the bot; where a
+vendor is unavailable, a subagent review of any kind posted on the pull
+request and reported back stands as the leg — owner ruling 2026-09-10,
+pr-lifecycle §review-round state machine item 3) and runs the front door
+again (pr-lifecycle §merge boundary;
 `docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the
 verdicted tip's sha in its own call, so the landing merge's second parent IS
