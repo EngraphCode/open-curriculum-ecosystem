@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { unwrap, unwrapErr } from '@oaknational/result';
 import {
   describeValidationFailure,
+  describeValidationRejection,
   readServedResource,
   readValidationVerdict,
 } from './registry-validation.js';
@@ -72,6 +73,48 @@ describe('describeValidationFailure', () => {
 
   it('still fails loudly when a rejection names no issue', () => {
     expect(describeValidationFailure({ valid: false, issues: [] })).toContain('without naming');
+  });
+});
+
+describe('describeValidationRejection', () => {
+  // The exact bodies POST /v0.1/validate returned on 2026-09-10 against build
+  // 1.8.1. Both are problem details, and neither carries a `valid` field —
+  // which is why the status is read before the body is treated as a verdict.
+  it('names the field the registry rejected, for a description over the cap', () => {
+    const message = describeValidationRejection(422, {
+      title: 'Unprocessable Entity',
+      status: 422,
+      detail: 'validation failed',
+      errors: [{ message: 'expected length <= 100', location: 'body.description' }],
+    });
+
+    expect(message).toContain('HTTP 422');
+    expect(message).toContain('body.description');
+    expect(message).toContain('expected length <= 100');
+  });
+
+  it('names the missing property, for an omitted $schema', () => {
+    const message = describeValidationRejection(422, {
+      title: 'Unprocessable Entity',
+      status: 422,
+      detail: 'validation failed',
+      errors: [{ message: 'expected required property $schema to be present', location: 'body' }],
+    });
+
+    expect(message).toContain('expected required property $schema to be present');
+  });
+
+  it('falls back to the summary when the body names no field', () => {
+    expect(
+      describeValidationRejection(400, { title: 'Bad Request', detail: 'validation failed' }),
+    ).toContain('validation failed');
+  });
+
+  it('still reports the status when the body is not readable at all', () => {
+    const message = describeValidationRejection(502, undefined);
+
+    expect(message).toContain('HTTP 502');
+    expect(message).toContain('no readable explanation');
   });
 });
 

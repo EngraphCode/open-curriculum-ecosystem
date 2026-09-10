@@ -141,6 +141,24 @@ describe('buildServerJsonDocument', () => {
       overrides: { servedMcpUrl: 'http://mcp.thenational.academy/mcp' },
       expected: 'not a publishable https URL',
     },
+    {
+      // https clears the scheme rule, so only the host rule catches this one.
+      // Measured 2026-09-10: the registry answers valid:false, "invalid
+      // remote URL", for exactly this URL.
+      constraint: 'an https loopback endpoint',
+      overrides: { servedMcpUrl: 'https://localhost:3000/mcp' },
+      expected: 'names a loopback host',
+    },
+    {
+      constraint: 'an https endpoint on the loopback address',
+      overrides: { servedMcpUrl: 'https://127.0.0.1/mcp' },
+      expected: 'names a loopback host',
+    },
+    {
+      constraint: 'an https endpoint under the .localhost suffix',
+      overrides: { servedMcpUrl: 'https://oak.localhost/mcp' },
+      expected: 'names a loopback host',
+    },
   ])('refuses $constraint', ({ overrides, expected }) => {
     expect(unwrapErr(buildServerJsonDocument(publicationInputs(overrides)))).toContain(expected);
   });

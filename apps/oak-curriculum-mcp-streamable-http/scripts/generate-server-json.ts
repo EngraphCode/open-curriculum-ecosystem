@@ -47,15 +47,54 @@ import {
 import {
   REGISTRY_VALIDATE_URL,
   describeValidationFailure,
+  describeValidationRejection,
   readServedResource,
   readValidationVerdict,
 } from '../src/mcp-registry/registry-validation.js';
 import { resolveServedPrmUrl } from '../src/served-origin.js';
+import { fetchWithTimeout } from './fetch-with-timeout.js';
+
+/**
+ * How long either network step may take before the run is abandoned.
+ *
+ * @remarks
+ * Both calls are single probes against public endpoints, not a retry loop. A
+ * host that has not answered in ten seconds is not going to make this run
+ * meaningful, and an unbounded wait in CI reports as the job timing out
+ * rather than as the request that hung.
+ */
+const REQUEST_TIMEOUT_MS = 10_000;
 
 /** Fails the run with a message, rather than writing a document nobody proved. */
 function fail(message: string): never {
   process.stderr.write(`generate-server-json: ${message}\n`);
   process.exit(1);
+}
+
+/** The message of a thrown value, for reporting a transport failure as a refusal. */
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
+/**
+ * Reads a response body as JSON without letting a non-JSON body throw.
+ *
+ * @param response - The response to read.
+ * @returns The parsed body, or `undefined` if it was not JSON.
+ *
+ * @remarks
+ * A 200 is not a promise of JSON. A CDN interstitial, a proxy error page or a
+ * truncated body all parse as a `SyntaxError`, which would escape this module
+ * as an unhandled rejection and lose the `generate-server-json:` prefix that
+ * makes a failure attributable. `undefined` lets each caller say what the
+ * missing body means for its own step.
+ */
+async function readJsonBody(response: Response): Promise<unknown> {
+  try {
+    return await response.json();
+  } catch {
+    return undefined;
+  }
 }
 
 const inputs = resolveServerJsonInputs(process.env);
@@ -82,7 +121,16 @@ if (advertised === undefined) {
  */
 const prmUrl = resolveServedPrmUrl(resolveServedOriginInputs(process.env));
 
-const prmResponse = await fetch(prmUrl, { headers: { accept: 'application/json' } });
+const prmResponse = await fetchWithTimeout(
+  prmUrl,
+  { headers: { accept: 'application/json' } },
+  REQUEST_TIMEOUT_MS,
+).catch((error: unknown) =>
+  fail(
+    `could not reach the deployment's protected-resource metadata at ${prmUrl}: ` +
+      `${errorMessage(error)} — a registry entry must name a running server`,
+  ),
+);
 if (!prmResponse.ok) {
   fail(
     `the deployment did not serve protected-resource metadata at ${prmUrl} ` +
@@ -90,7 +138,7 @@ if (!prmResponse.ok) {
   );
 }
 
-const servedResource = readServedResource(await prmResponse.json());
+const servedResource = readServedResource(await readJsonBody(prmResponse));
 if (!servedResource.ok) {
   fail(`${prmUrl}: ${servedResource.error}`);
 }
@@ -100,12 +148,29 @@ if (!proven.ok) {
   fail(proven.error);
 }
 
-const validateResponse = await fetch(REGISTRY_VALIDATE_URL, {
-  method: 'POST',
-  headers: { 'content-type': 'application/json' },
-  body: JSON.stringify(document),
-});
-const verdict = readValidationVerdict(await validateResponse.json());
+const validateResponse = await fetchWithTimeout(
+  REGISTRY_VALIDATE_URL,
+  {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(document),
+  },
+  REQUEST_TIMEOUT_MS,
+).catch((error: unknown) =>
+  fail(`could not reach the registry at ${REGISTRY_VALIDATE_URL}: ${errorMessage(error)}`),
+);
+
+const validateBody = await readJsonBody(validateResponse);
+
+// A refused request and a rejected document are different answers on
+// different shapes: only the second carries `valid`. Reading the status
+// first is what lets the registry's own diagnosis reach the operator instead
+// of a schema complaint about the field a problem-details body never has.
+if (!validateResponse.ok) {
+  fail(describeValidationRejection(validateResponse.status, validateBody));
+}
+
+const verdict = readValidationVerdict(validateBody);
 if (!verdict.ok) {
   fail(`could not read the registry's verdict: ${verdict.error}`);
 }

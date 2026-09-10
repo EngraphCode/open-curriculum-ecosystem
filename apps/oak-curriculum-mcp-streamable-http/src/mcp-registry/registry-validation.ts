@@ -55,6 +55,73 @@ const registryValidationVerdictSchema = z.object({
 export type RegistryValidationVerdict = z.infer<typeof registryValidationVerdictSchema>;
 
 /**
+ * One field-level complaint inside a problem-details body.
+ *
+ * @remarks
+ * `location` is the registry's dotted path into the submitted document
+ * (`body.description`), which is the most useful half of the answer.
+ */
+const registryProblemErrorSchema = z.object({
+  message: z.string().optional(),
+  location: z.string().optional(),
+});
+
+/**
+ * The registry's error body for a request it would not evaluate.
+ *
+ * @remarks
+ * A rejected *request* and a rejected *document* are different answers on
+ * different shapes, and only the second carries `valid`. Measured against
+ * build `1.8.1` on 2026-09-10: a description over the 100-character cap and
+ * an omitted `$schema` both return HTTP 422 with
+ * `{"title","status","detail","errors":[{"message","location"}]}` and **no
+ * `valid` field**; a malformed body returns the same shape as HTTP 400.
+ * Reading that as an unrecognised verdict buries the registry's own
+ * diagnosis under a schema complaint, so it is read on its own terms.
+ *
+ * Every field is optional because the shape is the registry's to change, and
+ * a status code with no readable body is still a usable answer.
+ */
+const registryProblemSchema = z.object({
+  title: z.string().optional(),
+  detail: z.string().optional(),
+  errors: z.array(registryProblemErrorSchema).default([]),
+});
+
+/**
+ * Describes a non-success validation response in the registry's own words.
+ *
+ * @param status - The HTTP status the registry answered with.
+ * @param body - The response body, parsed if it was JSON, `undefined` if not.
+ * @returns A message naming the status and every complaint the body carried.
+ *
+ * @example
+ * ```typescript
+ * if (!response.ok) {
+ *   fail(describeValidationRejection(response.status, await readJsonBody(response)));
+ * }
+ * ```
+ */
+export function describeValidationRejection(status: number, body: unknown): string {
+  const prefix = `the registry refused the document (HTTP ${String(status)})`;
+
+  const parsed = registryProblemSchema.safeParse(body);
+  if (!parsed.success) {
+    return `${prefix} and its response carried no readable explanation`;
+  }
+
+  const described = parsed.data.errors.map(
+    (error) => `${error.location ?? '(document)'}: ${error.message ?? '(no message)'}`,
+  );
+  if (described.length > 0) {
+    return `${prefix}: ${described.join('; ')}`;
+  }
+
+  const summary = parsed.data.detail ?? parsed.data.title;
+  return summary === undefined ? prefix : `${prefix}: ${summary}`;
+}
+
+/**
  * Validates an arbitrary validation response into a verdict.
  *
  * @param body - The parsed response body, `unknown` as it arrives.

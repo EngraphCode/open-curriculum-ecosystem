@@ -62,11 +62,25 @@ const REGISTRY_DESCRIPTION_ENV = 'MCP_REGISTRY_DESCRIPTION';
  * (`oak-curriculum-http`, set at the composition root) so a client that
  * finds Oak in the registry and a client that connects see one identifier —
  * but it is deliberately its own constant, because the two have opposite
- * lifetimes. A registry name is effectively permanent: the registry refuses
- * to mutate a published version, so a rename does not move the existing
- * entry, it creates a second competing one and orphans the first. Deriving
- * this from the served name would let an ordinary rename fork Oak's registry
- * identity silently.
+ * lifetimes. A registry name cannot be edited in place: the registry's edit
+ * endpoint answers a changed name with *"Cannot rename server"*, and it needs
+ * an `edit` permission which neither the GitHub nor the DNS ownership route
+ * grants at all.
+ *
+ * Renaming therefore means withdrawing the old entry and publishing the new
+ * one — reversible, and not a fork. `validateNoDuplicateRemoteURLs` refuses a
+ * publish whose remote URL a *differently named* server already holds, but it
+ * queries without asking for deleted rows, and the store then excludes them,
+ * so a withdrawn row releases the endpoint. A publish-scoped token is enough
+ * to withdraw, since the status endpoint accepts `publish` or `edit`.
+ *
+ * What stays true is that a rename is a deliberate act with a migration
+ * behind it. Deriving this constant from the served name would let an
+ * ordinary rename move Oak's registry identity silently, without anyone
+ * choosing to withdraw and republish.
+ *
+ * @see {@link https://github.com/modelcontextprotocol/registry/blob/main/internal/service/registry_service.go} `validateNoDuplicateRemoteURLs`
+ * @see {@link https://github.com/modelcontextprotocol/registry/blob/main/internal/api/handlers/v0/status.go} the withdraw path's permission check
  */
 export const MCP_SERVER_NAME = 'oak-curriculum-http';
 

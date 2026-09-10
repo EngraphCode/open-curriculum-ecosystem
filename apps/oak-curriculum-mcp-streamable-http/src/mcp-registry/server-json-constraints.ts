@@ -47,16 +47,41 @@ const NAMESPACE_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$/;
 const SERVER_NAME_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]$/;
 
 /**
- * The endpoint constraint: HTTPS only.
+ * The endpoint's scheme constraint.
  *
  * @remarks
- * Stricter than the schema's `^https?://[^\s]+$` and exactly as strict as the
- * registry's `IsValidRemoteURL`, which rejects any non-HTTPS scheme and every
- * loopback hostname. Encoding it here is what makes a local-development
- * origin (`http://localhost:3333/mcp`) unpublishable by construction rather
- * than by remembering.
+ * Stricter than the schema's `^https?://[^\s]+$`, matching the scheme half of
+ * the registry's `IsValidRemoteURL`. The host half is
+ * {@link LOOPBACK_ENDPOINT_HOSTNAMES}, because the registry rejects the two
+ * concerns separately and so does this.
  */
 const PUBLISHABLE_ENDPOINT_PATTERN = /^https:\/\/[^\s]+$/;
+
+/**
+ * The hostnames the registry refuses in a remote URL.
+ *
+ * @remarks
+ * Read from `IsValidRemoteURL`, which rejects `localhost`, `127.0.0.1` and
+ * any `*.localhost` host — measured 2026-09-10 against build `1.8.1`, where
+ * `https://localhost:3000/mcp` returned `valid:false` with
+ * `"invalid remote URL"` at `remotes[0].url`. Note the registry's list, not
+ * a broader one: `::1` and the RFC 1918 ranges are *not* refused there, and
+ * inventing a stricter local rule would refuse documents the registry would
+ * take.
+ */
+const LOOPBACK_ENDPOINT_HOSTNAMES: readonly string[] = ['localhost', '127.0.0.1'];
+
+/** Whether a URL's host is one the registry refuses as a remote. */
+function hasLoopbackHost(rawUrl: string): boolean {
+  let hostname: string;
+  try {
+    hostname = new URL(rawUrl).hostname.toLowerCase();
+  } catch {
+    // Unparseable URLs are the scheme constraint's to refuse, not this one's.
+    return false;
+  }
+  return LOOPBACK_ENDPOINT_HOSTNAMES.includes(hostname) || hostname.endsWith('.localhost');
+}
 
 /** Composes the registry name from its two halves. */
 export function composeRegistryName(inputs: ServerJsonInputs): string {
@@ -112,6 +137,13 @@ const endpointIsPublishable: Constraint = (inputs) =>
       'compose the document from a deployment with CANONICAL_HOST configured, never from ' +
       'a local development origin';
 
+const endpointIsNotLoopback: Constraint = (inputs) =>
+  hasLoopbackHost(inputs.servedMcpUrl)
+    ? `endpoint ${JSON.stringify(inputs.servedMcpUrl)} names a loopback host, which the ` +
+      'registry refuses as a remote — compose the document from a deployment with ' +
+      'CANONICAL_HOST configured, never from a local development origin'
+    : undefined;
+
 /**
  * Every constraint, in the order a publisher meets them: identity first, then
  * the display fields, then the endpoint the entry actually promises.
@@ -124,6 +156,7 @@ const CONSTRAINTS: readonly Constraint[] = [
   titleFitsTheCap,
   versionIsSemantic,
   endpointIsPublishable,
+  endpointIsNotLoopback,
 ];
 
 /**

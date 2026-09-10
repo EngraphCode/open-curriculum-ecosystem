@@ -35,7 +35,7 @@ export const APP_REGISTRY_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDe
     TYPE_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/server-json-constraints.ts': excluded(
-    'ebeeea076d67fc08eaa2500b864748c58eae814c1fd3be87c212e286c99409f7',
+    '747ba10b8d80b98165d28dc9a23efc5a41e8275f20d2bf5099925333c2cb9fe7',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/server-json-inputs.ts': excluded(
@@ -43,7 +43,7 @@ export const APP_REGISTRY_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDe
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/registry-validation.ts': excluded(
-    'b8d27bc0661db1d2b1c2d90007cf012a49d004db71c242b7cca6a368f01562b7',
+    '89bf91fd133a1f1fb35f6b20abc31d39460e0e6b6529049a95ab80b145a4cebb',
     IMPLEMENTATION_ONLY,
   ),
 };
