@@ -37,14 +37,11 @@ import type { OptionSpec } from './argv-option-spec.js';
 
 const rm: readonly OptionSpec[] = [
   { name: 'recursive', short: 'rR' },
-  { name: 'force', short: 'f', overrides: ['interactive'] },
-  {
-    name: 'interactive',
-    short: 'i',
-    arg: 'optional',
-    overrides: ['force'],
-    overridesUnless: ['never'],
-  },
+  { name: 'force', short: 'f', overrides: ['interactive', 'I'] },
+  // Only the long form takes a WHEN; the short `-i` takes none, so `-rif` is `-r -i -f`.
+  { name: 'interactive', arg: 'optional', overrides: ['force'], overridesUnless: ['never'] },
+  { name: 'i', short: 'i', shortOnly: true, implies: ['interactive'], overrides: ['force'] },
+  { name: 'I', short: 'I', shortOnly: true, overrides: ['force'] },
   { name: 'dir', short: 'd' },
   { name: 'verbose', short: 'v' },
   { name: 'one-file-system', short: 'x' },

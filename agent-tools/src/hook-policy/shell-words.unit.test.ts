@@ -17,6 +17,11 @@ describe('segmentCommand', () => {
       ['tee', 'log'],
       ['wait'],
     ]);
+    expect(texts('cat a 2>&1 | grep b &>out >| f |& tee')).toStrictEqual([
+      ['cat', 'a', '2>&1'],
+      ['grep', 'b', '&>out', '>|', 'f'],
+      ['tee'],
+    ]);
     expect(texts('git fetch\ngit reset --hard')).toStrictEqual([
       ['git', 'fetch'],
       ['git', 'reset', '--hard'],

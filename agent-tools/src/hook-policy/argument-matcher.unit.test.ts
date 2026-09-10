@@ -217,6 +217,12 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -r --interactive=never -f dir')).toBe(true);
     expect(matchesArgvPattern(recursiveForce, 'rm -rf --interactive=once dir')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rm -rf --interactive dir')).toBe(false);
+    // The short `-i` takes no value, so `-rif` is `-r -i -f` and force wins; `-I` cancels force too.
+    expect(matchesArgvPattern(recursiveForce, 'rm -rif dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rfi dir')).toBe(false);
+    expect(matchesArgvPattern(recursiveForce, 'rm -ri -f dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rIf dir')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rfI dir')).toBe(false);
   });
 
   it('leaves the single-mode removals alone', () => {
@@ -352,6 +358,15 @@ describe('matchesArgvPattern — shell shapes', () => {
     expect(matchesArgvPattern('rm -rf', 'FLAGS=-rf; rm $FLAGS dir')).toBe(false);
     expect(matchesArgvPattern('rm -rf', 'alias nuke="rm -rf"; nuke dir')).toBe(false);
     expect(matchesArgvPattern('rm -rf', 'sh < script.sh')).toBe(false);
+  });
+
+  it('reads an option after a redirection, which the shell removes before the command runs', () => {
+    expect(matchesArgvPattern('git reset --hard', 'git reset 2>&1 --hard HEAD~1')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'git reset --hard HEAD~1 &>/dev/null')).toBe(
+      true,
+    );
+    expect(matchesArgvPattern('rm -rf', 'rm -r 2>/dev/null -f dir >| log')).toBe(true);
+    expect(matchesArgvPattern('rm -rf', 'echo -rf |& rm -r dir')).toBe(false);
   });
 
   it('drops a comment before reading the line', () => {

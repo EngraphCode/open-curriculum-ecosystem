@@ -15,9 +15,12 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
  * and its body — balanced past quoted and escaped parentheses — is carried
  * alongside as a nested command; a comment from an unquoted `#` at a word
  * start is dropped. What ends a segment: the
- * command-list and pipeline operators (`&&`, `||`, `|`, `;`, `&`), a
+ * command-list and pipeline operators (`&&`, `||`, `|`, `|&`, `;`, `&`), a
  * newline, and a bare sub-shell or group parenthesis, so an option is only
- * ever read against the command in its own segment.
+ * ever read against the command in its own segment. The `&` or `|` of a
+ * redirection (`2>&1`, `&>log`, `>|file`) stays inside its word: the shell
+ * removes a redirection before the command runs, so an option after it
+ * still belongs to the same command.
  *
  * What the scanner does not do, by design: expand variables or tildes,
  * resolve aliases or shell functions, or read a script arriving on stdin.
@@ -45,7 +48,7 @@ interface ScanState {
   nested: string[];
 }
 
-const TWO_CHAR_OPERATORS: readonly string[] = ['&&', '||'];
+const TWO_CHAR_OPERATORS: readonly string[] = ['&&', '||', '|&'];
 const ONE_CHAR_OPERATORS: ReadonlySet<string> = new Set(['|', ';', '&', '\n', '(', ')']);
 
 function endWord(state: ScanState): void {
@@ -136,6 +139,19 @@ function readComment(command: string, index: number): number {
   return newline === -1 ? command.length : newline;
 }
 
+/**
+ * Whether the `&` or `|` at `index` belongs to a redirection (`>&`, `<&`,
+ * `&>`, `>|`) rather than to a list or pipeline operator.
+ */
+function isRedirectionPart(command: string, index: number, state: ScanState): boolean {
+  const char = command[index];
+  const previous = state.inWord ? state.word.slice(-1) : '';
+  if (char === '&') {
+    return previous === '>' || previous === '<' || command[index + 1] === '>';
+  }
+  return char === '|' && previous === '>';
+}
+
 /** Consume an operator or a substitution at `index`; `null` when the text there is neither. */
 function scanOperator(command: string, index: number, state: ScanState): number | null {
   const char = command[index] ?? '';
@@ -146,7 +162,7 @@ function scanOperator(command: string, index: number, state: ScanState): number 
   if (command.startsWith('$(', index) || char === '`') {
     return readSubstitution(command, index, state);
   }
-  if (ONE_CHAR_OPERATORS.has(char)) {
+  if (ONE_CHAR_OPERATORS.has(char) && !isRedirectionPart(command, index, state)) {
     endSegment(state);
     return index + 1;
   }
