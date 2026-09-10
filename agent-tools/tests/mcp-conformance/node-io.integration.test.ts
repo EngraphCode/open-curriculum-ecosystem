@@ -21,7 +21,6 @@ import {
   listSandboxEntries,
   readSandboxFile,
   sandbox,
-  sandboxFileMode,
   writeSandboxFile,
 } from './test-helpers/io-sandbox.js';
 
@@ -40,8 +39,8 @@ afterEach(() => {
 function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWriteOps } {
   const calls: string[] = [];
   const ops: OwnerOnlyWriteOps = {
-    open: (_path, _flags, mode) => {
-      calls.push(`open:${mode.toString(8)}`);
+    open: (_path, flags, mode) => {
+      calls.push(`open:${flags}:${mode.toString(8)}`);
       return 17;
     },
     fchmod: (fd, mode) => {
@@ -63,12 +62,19 @@ function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWrit
   return { calls, ops };
 }
 
-const ORDERED_OWNER_ONLY_WRITE = ['open:600', 'fchmod:17:600', 'write:17', 'close:17', 'rename'];
+/**
+ * The POSIX platform label every non-Windows test injects: the owner-only
+ * ordering contract is proven on any host, while the running host's own
+ * platform (a Windows leg refuses by design) is covered by the win32 tests.
+ */
+const POSIX: NodeJS.Platform = 'linux';
+
+const ORDERED_OWNER_ONLY_WRITE = ['open:wx:600', 'fchmod:17:600', 'write:17', 'close:17', 'rename'];
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
   it('a relative report dir writes under the repo root and reports the relative path', () => {
     const root = sandbox();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), undefined, POSIX);
     const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
     expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'protocol.json') });
     expect(readSandboxFile(root, 'tmp', 'reports', 'protocol.json')).toBe('{"raw":"bytes"}');
@@ -77,7 +83,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
   it('an absolute report dir stands as given — written there and reported verbatim', () => {
     const root = sandbox();
     const elsewhere = join(sandbox(), 'evidence');
-    const io = buildMcpConformanceNodeIo(root, elsewhere);
+    const io = buildMcpConformanceNodeIo(root, elsewhere, undefined, POSIX);
     const outcome = io.retainRawReport('oauth', 'verbatim');
     expect(outcome).toEqual({ ok: true, reportedPath: join(elsewhere, 'oauth.json') });
     expect(readSandboxFile(elsewhere, 'oauth.json')).toBe('verbatim');
@@ -87,7 +93,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const root = sandbox();
     // Occupy the report-dir path with a FILE so mkdir cannot create it.
     writeSandboxFile('a file where a directory must go', root, 'blocked');
-    const io = buildMcpConformanceNodeIo(root, 'blocked');
+    const io = buildMcpConformanceNodeIo(root, 'blocked', undefined, POSIX);
     const outcome = io.retainRawReport('protocol', 'content');
     expect(outcome.ok).toBe(false);
     expect(!outcome.ok && outcome.error.length > 0).toBe(true);
@@ -95,7 +101,13 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
 
   it('the aggregate summary lands beside the raw reports with the caller-shaped path', () => {
     const root = sandbox();
-    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
+    const outcome = writeRunSummary(
+      root,
+      join('tmp', 'reports'),
+      '{"verdict":"pass"}',
+      undefined,
+      POSIX,
+    );
     expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
     expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
   });
@@ -111,7 +123,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     // express, so the requested-operations ordering is the invariant.)
     const root = sandbox();
     const { calls, ops } = recordingOps();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), ops);
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), ops, POSIX);
 
     const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
 
@@ -123,10 +135,10 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const root = sandbox();
     const { calls, ops } = recordingOps();
 
-    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}', ops);
+    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}', ops, POSIX);
 
     expect(outcome.ok).toBe(true);
-    expect(calls.indexOf('fchmod:17:600')).toBeGreaterThan(calls.indexOf('open:600'));
+    expect(calls.indexOf('fchmod:17:600')).toBeGreaterThan(calls.indexOf('open:wx:600'));
     expect(calls.indexOf('fchmod:17:600')).toBeLessThan(calls.indexOf('write:17'));
   });
 
@@ -137,7 +149,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const root = sandbox();
     const { calls, ops } = recordingOps();
 
-    const outcome = retainOwnerOnlyAt(join(root, 'packs', 'reviewer-pack.md'), 'pack', ops);
+    const outcome = retainOwnerOnlyAt(join(root, 'packs', 'reviewer-pack.md'), 'pack', ops, POSIX);
 
     expect(outcome.ok).toBe(true);
     expect(calls).toEqual(ORDERED_OWNER_ONLY_WRITE);
@@ -152,7 +164,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
         throw new Error('EPERM: fchmod refused');
       },
     };
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), failing);
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), failing, POSIX);
 
     const outcome = io.retainRawReport('protocol', 'secret');
 
@@ -168,20 +180,20 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     // destination for writing would truncate and overwrite the link's target
     // (a file outside the report directory) before any descriptor could be
     // tightened. The real `node:fs` adapter is exercised here, so the on-disk
-    // state is the observable.
+    // state is the observable; the requested 0600 mode is proven by the ordered
+    // recorder tests, because NTFS reports no POSIX mode bits to read back.
     const root = sandbox();
     const target = join(root, 'target.txt');
     const destination = join(root, 'reviewer-pack.md');
     writeSandboxFile('original', target);
     linkSandboxFile(target, destination);
 
-    const outcome = retainOwnerOnlyAt(destination, 'fresh');
+    const outcome = retainOwnerOnlyAt(destination, 'fresh', undefined, POSIX);
 
     expect(outcome).toEqual({ ok: true, reportedPath: destination });
     expect(readSandboxFile(target)).toBe('original');
     expect(isSandboxSymbolicLink(destination)).toBe(false);
     expect(readSandboxFile(destination)).toBe('fresh');
-    expect(sandboxFileMode(destination)).toBe(0o600);
     expect(listSandboxEntries(root)).toEqual(['reviewer-pack.md', 'target.txt']);
   });
 

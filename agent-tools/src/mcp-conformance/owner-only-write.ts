@@ -46,6 +46,7 @@
  * @packageDocumentation
  */
 
+import { randomBytes } from 'node:crypto';
 import { closeSync, fchmodSync, openSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 
@@ -95,7 +96,7 @@ export class OwnerOnlyUnavailableError extends Error {
 
 /** A temporary sibling name that no other writer will create first. */
 function temporaryNameFor(filePath: string): string {
-  const stamp = `${String(process.pid)}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  const stamp = `${String(process.pid)}-${Date.now().toString(36)}-${randomBytes(4).toString('hex')}`;
   return join(dirname(filePath), `.${basename(filePath)}.${stamp}.tmp`);
 }
 

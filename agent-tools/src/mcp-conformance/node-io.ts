@@ -124,9 +124,14 @@ export function writeUnder(
   }
 }
 
-function retainUnder(repoRoot: string, reportDir: string, ops?: OwnerOnlyWriteOps) {
+function retainUnder(
+  repoRoot: string,
+  reportDir: string,
+  ops?: OwnerOnlyWriteOps,
+  platform?: NodeJS.Platform,
+) {
   return (suite: ConformanceSuite, content: string): RetentionOutcome =>
-    writeUnder(repoRoot, reportDir, `${suite}.json`, content, ops);
+    writeUnder(repoRoot, reportDir, `${suite}.json`, content, ops, platform);
 }
 
 /**
@@ -153,8 +158,9 @@ export function writeRunSummary(
   reportDir: string,
   reportJson: string,
   ops?: OwnerOnlyWriteOps,
+  platform?: NodeJS.Platform,
 ): RetentionOutcome {
-  return writeUnder(repoRoot, reportDir, 'summary.json', reportJson, ops);
+  return writeUnder(repoRoot, reportDir, 'summary.json', reportJson, ops, platform);
 }
 
 /**
@@ -165,11 +171,14 @@ export function writeRunSummary(
  * @param ops - Owner-only write operations; production callers omit it and
  *   get the real `node:fs` edge. Injectable so the owner-only ordering
  *   contract is provable THROUGH this production entry point.
+ * @param platform - Defaults to the running host; a Windows host yields the
+ *   owner-only refusal on every retention (see `owner-only-write.ts`).
  */
 export function buildMcpConformanceNodeIo(
   repoRoot: string,
   reportDir: string,
   ops?: OwnerOnlyWriteOps,
+  platform?: NodeJS.Platform,
 ): McpConformanceIo {
   return {
     runMcpjam: (args) => {
@@ -179,7 +188,7 @@ export function buildMcpConformanceNodeIo(
       }
       return bin;
     },
-    retainRawReport: retainUnder(repoRoot, reportDir, ops),
+    retainRawReport: retainUnder(repoRoot, reportDir, ops, platform),
   };
 }
 

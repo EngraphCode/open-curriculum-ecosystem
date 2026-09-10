@@ -216,7 +216,7 @@ describe('runMergeBotCli mint-token', () => {
     const run = runWith({ args: ['mint-token', '--scope', 'pull-request-work'] });
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('.github/merge-bot.json is the single authority');
-    expect(run.errText()).toContain('.github/merge-bot.json.example');
+    expect(run.errText()).toContain(join('.github', 'merge-bot.json.example'));
     expect(run.out()).toBe('');
   });
 
@@ -247,7 +247,7 @@ describe('runMergeBotCli mint-token', () => {
     });
     expect(await run.exit).toBe(0);
     expect(gitCwds).toEqual(['/primary-worktrees/lane']);
-    expect(configReads).toEqual(['/primary/.github/merge-bot.json']);
+    expect(configReads).toEqual([join('/primary', '.github', 'merge-bot.json')]);
   });
 
   it('fails with exit 2 naming the primary checkout, with guidance every action can follow, when git cannot locate it', async () => {

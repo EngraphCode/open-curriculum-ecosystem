@@ -10,7 +10,6 @@ import {
   readdirSync,
   readFileSync,
   rmSync,
-  statSync,
   symlinkSync,
   writeFileSync,
 } from 'node:fs';
@@ -51,11 +50,6 @@ export function linkSandboxFile(targetPath: string, linkPath: string): void {
 /** Whether the entry at the path is itself a symbolic link (not followed). */
 export function isSandboxSymbolicLink(...segments: string[]): boolean {
   return lstatSync(join(...segments)).isSymbolicLink();
-}
-
-/** The POSIX permission bits of the file at the path (the link target, if any). */
-export function sandboxFileMode(...segments: string[]): number {
-  return statSync(join(...segments)).mode & 0o777;
 }
 
 /** The entry names directly under a sandbox directory, in a stable order. */
