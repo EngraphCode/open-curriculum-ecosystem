@@ -334,8 +334,35 @@ jobs:
         if: always()
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
 
+  # The basic native-Windows leg the owner's 2026-08-18 tier ruling requires
+  # (POSIX and WSL first-class; native Windows a non-vital goal proven by CI,
+  # never assumed). It installs the workspace and runs the agent-tools unit
+  # tests on a Windows runner — the surface the native-Windows changeset
+  # (upstream PR #891, carried by the fork) makes work: path separators and
+  # drive letters, trusted git and gh resolution, LF normalisation, pnpm
+  # resolution for spawned processes. Advisory until the owner makes it a
+  # required check once it is green (the carrier plan's owner gate), so it is
+  # deliberately NOT in run-quality-gates' needs list yet; a failure here is
+  # visible on the checks tab and is the signal the ruling asks for.
+  windows-basic:
+    name: windows-basic
+    permissions:
+      contents: read
+    runs-on: windows-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/setup
+      - name: Build agent-tools and its dependencies
+        shell: bash
+        run: pnpm exec turbo run build --filter=@oaknational/agent-tools... --output-logs=errors-only
+      - name: Unit-test agent-tools
+        shell: bash
+        run: pnpm --filter @oaknational/agent-tools test
+
   # Single required status check: fans in every gate above (the advisory
-  # schema-drift pair excepted, by design) and fails unless every
+  # schema-drift pair and the advisory windows-basic leg excepted, by design) and fails unless every
   # one succeeded — failed, cancelled, AND skipped results all block (fail-closed,
   # so adding an `if:` guard to a gate later cannot silently bypass it). Reusing
   # the existing `run-quality-gates` context keeps the branch ruleset unchanged
