@@ -628,3 +628,39 @@ Twenty this tenure. #118 is the Director's next landing (the slot word is #116's
   to our fork main, and one to create PRs from our main to our engraph" — the exploration's
   single producer becomes TWO workflows: the mirror (upstream main → fork main) and the carrier
   (fork main → a pull request into engraph). Off by default and configurable still bind.
+
+## Nettle guards Pistil (2de368) — Director, the rulings window (2026-09-10 12:5xZ–13:5xZ)
+
+**Landed:** #125 (SHA:26dbc8eaf, the eslint enhancement; config-expert leg APPROVE WITH FINDINGS,
+two cured, three routed). Twenty-two. **In flight:** #126 (MCP-487) at SHA:8ea154cfa — both legs
+REQUEST CHANGES → one class-fix push 224bbe822 cured the shared P1 (metadata chained outside the
+`z.preprocess` wrapper is dropped by the server's `io: 'input'` conversion: twelve `examples`
+vanished from `tools/list` against the 2026-07-28 ruling, and the August record denied it) plus
+nine smaller findings; five routed to the plan node; the sync merge after #125; Copilot on the
+final tip; the front door loop.
+
+**Lessons (mine).**
+
+- The owner's bar "ironclad local proof it does not break the relevant MCP operations" was met
+  by the SUITES and still missed a served-contract regression that only a probe of the exact SDK
+  conversion path (`io: 'input'`) revealed. Both adversarial legs found it independently; my own
+  probe had shown the input-mode rendering lacking `examples` an hour earlier and I read it as
+  cosmetic. Lesson: when a probe shows a difference between two renderings, find out which one
+  the server SERVES before calling the difference cosmetic — the served path is a fact to read,
+  not a property to assume.
+- A test helper that converts in a different mode from production reports a wire the clients
+  never see; both legs found one each (`wireProperties`, the roundtrip test). The class: any test
+  of "what agents read" must convert with the server's own options.
+- zsh does not word-split `$FILES` (Altair's napkin gotcha, re-learned at the cost of one gate
+  run): spell pathspecs out.
+- A TSDoc block refuses `\n` and `\d` inside prose (tsdoc-unnecessary-backslash); write "a
+  trailing newline" and "the digit class".
+- The hook's token-subsequence mode blocked a command in which `git`, `push` and `-f` appeared
+  as unrelated tokens (a `git ls-remote`, the word "push" in comment text, gh's `-f` flag) — the
+  argv matcher #116 landed is the cure; until entries migrate, keep unrelated tokens in
+  separate commands.
+- The pre-push gate re-runs the full turbo lint; a comment table with backslashes cost two
+  extra gate runs. Lint the touched file with `eslint <file>` before the commit that carries it.
+
+**Worktrees:** thirty-nine removed, then #125's; two remain (the primary, mcp-487-2de368, which
+goes at #126's landing).
