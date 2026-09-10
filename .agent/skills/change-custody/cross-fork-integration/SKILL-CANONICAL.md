@@ -308,13 +308,17 @@ owner-held upstream report, cure-worthy 0). Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window). Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
-[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer whose
-leg binds THIS tip: the Codex connector reviews every push, Copilot the
-first push and an explicit re-request only, so on a cured tip the declared
-set is usually the connector alone; a reviewer left undeclared is invisible
-to the tool's recomputation, and a declared reviewer that never reviewed
-the tip refuses by name as SETTLED-NO-REVIEW (2026-09-09, first-hand on
-two landings) (pr-lifecycle §merge boundary;
+[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer in
+the repository's automatic-review configuration, the set pr-lifecycle's
+Phase 1 declares as the state machine's input for every round, never
+narrowed to the reviewers that happen to have bound the tip: a reviewer
+left undeclared is invisible to the tool's recomputation, and a configured
+leg that never reviews the tip (Copilot reviews the first push and an
+explicit re-request; the Codex connector every push) settles through the
+timeout to SETTLED-NO-REVIEW, which the front door refuses by name — the
+docs-only bot-authored class then lands through the sanctioned REST
+endpoint under the owner's exception below, and any other pull request
+waits for the leg (pr-lifecycle §merge boundary;
 `docs/engineering/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the
 verdicted tip's sha in its own call, so the landing merge's second parent IS
