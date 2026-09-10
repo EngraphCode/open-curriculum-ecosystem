@@ -104,8 +104,13 @@ carrier merge and landing proof names the first.
   receipt three hours old preceded a fetch that found eleven newer commits.
   Compare with the carrier's head: a newer upstream tip queues as the NEXT
   carrier; a reviewed head is not moved.
-- The fork's tip: `git fetch origin <fork-default>` by name — every recompute
-  below reads the refreshed remote-tracking ref, never a local branch.
+- The fork's tip: `git fetch origin <fork-default>:refs/remotes/origin/<fork-default>`
+  with the explicit destination refspec — a single-branch clone's fetch updates
+  only `FETCH_HEAD` for a branch outside its refspec — so every recompute below
+  reads the refreshed remote-tracking ref, never a local branch.
+- The carrier's head: `git fetch origin <carrier>:refs/remotes/origin/<carrier>`,
+  the same refspec form, fetched HERE so that `origin/<carrier>` exists for
+  step 2's recompute and step 3's worktree; neither step fetches it again.
 - The carrier: exactly one open sync pull request, filtered server-side by
   head branch (`gh pr list --repo <fork> --state open --head <carrier>
   --json number`); a `--search` head-name query returns nothing, silently,
@@ -143,10 +148,8 @@ procedure resumes at step 4 with step 3's attributes (author, committer,
 ### 3. Carry the snapshot on one two-parent merge with an ordinary message
 
 Work in a dedicated worktree checked out at the EXISTING carrier head —
-`git fetch origin <carrier>:refs/remotes/origin/<carrier>` (the explicit
-destination refspec, because a single-branch clone's fetch updates only
-`FETCH_HEAD` for a branch outside its refspec) then `git worktree add <path>
--b <carrier> origin/<carrier>`; the lane-cut skill's step 1 cuts a new branch from a base,
+`git worktree add <path> -b <carrier> origin/<carrier>` on the remote-tracking
+ref step 1 fetched; the lane-cut skill's step 1 cuts a new branch from a base,
 which is not this — with the inherited bot identity verified (its step 2),
 dependencies installed BEFORE any commit, and the local env file carried.
 Install first is a hook-integrity requirement, not a convenience: a fresh
@@ -154,9 +157,20 @@ worktree has no `.husky/_` until install runs, so a merge commit made before
 it is created with no commit-msg or pre-commit hook and reads as if the gate
 passed. Merge the default branch INTO the carrier with the owner as author and
 the bot as committer, `--no-ff`, and a message that names the situation
-without spelling the CI-skip token anywhere in the message — the host scans
-the whole head message, and a head that is upstream's release commit runs no
-workflow at all. The head that lands must be a commit whose checks ran; when
+without spelling the CI-skip token anywhere in the message. `git merge` has no
+author option (the first attempt on 2026-09-09 failed on one, exit 129): the
+owner-as-author identity is set in the call's environment and the committer
+comes from the checkout's inherited bot configuration —
+`GIT_AUTHOR_NAME="<owner name>" GIT_AUTHOR_EMAIL="<owner address>" git merge
+--no-ff -F <message-file> <fork-default-tip>`. The environment must also be
+set on the command that completes a conflicted merge (`git merge --continue`
+or `git commit` after step 2's genuine-conflict route), because `git merge`
+commits automatically only when the merge succeeds and a later completion
+otherwise takes the checkout's bot identity as author. In every case the pair
+is read back off the commit (`git log -1 --format='%an <%ae> / %cn <%ce>'`)
+before the push. The CI-skip token matters because the host scans the whole
+head message, and a head that is upstream's release commit runs no workflow
+at all. The head that lands must be a commit whose checks ran; when
 the carrier is to carry upstream's release commit unchanged, the carrier head
 becomes one empty commit on top of that release commit (the release commit
 stays its parent), the checks run on the empty head, and the landing is still
@@ -168,7 +182,21 @@ the carrier moves its base, so a merge made at readiness is superseded by
 each of them and redone at the slot — on 2026-09-09 a carrier merge made at
 readiness was superseded four times before its slot. Before the word, prepare
 everything that does not depend on the tip: the generators' checks, the sweep
-terms, the thread dispositions, the merge message.
+terms, the thread dispositions, the merge message. AT the word, before the
+merge, repeat step 1's fetch of the fork's tip and step 2's recompute against
+it — every landing since the preview moved the tip, and a merge of the
+previewed tip would leave the carrier BEHIND with a tree hash that proves
+nothing about the slot-time merge. A merge already made at
+readiness is not removed when the word comes (`never-use-git-to-remove-work`):
+the slot-word merge lands on top of it and the carrier carries two merge
+commits of the default branch (2026-09-09: 36bb08928, then 007b0d32e); the
+history is valid and the cost is one redundant merge commit per early merge.
+
+The tree step 2's `merge-tree --write-tree` printed at the slot word against
+the live tip is the tree the merge will have. Write it into the merge message; after the merge,
+compare the commit's tree (`git log -1 --format=%T`) with it. Equality is the
+proof that what was previewed is what landed (2026-09-09: 529d87443 on both
+sides), and it goes into the tally with the head.
 
 ### 4. Make every generated surface true again
 
@@ -242,6 +270,20 @@ plain form (`git grep <term> origin/<fork-default> -- '*.md'`); a pathspec
 assembled by substitution gave different counts on two runs (2026-09-09). Its
 cost is a read; its absence is a fork estate that lies about upstream.
 
+When the default tip has moved since the sweep, the paths changed between the
+swept tip and the landed tip (`git diff --name-only <swept-tip> <landed-tip>`)
+are a candidate set, not the enumeration's growth: intersect it with the
+fork-side enumeration (paths outside the document boundary drop out), then
+read every file in the intersection at the landed tip under the same boundary
+rule — keyword hits and subject files whole, the rest at the claim level —
+INCLUDING files swept before, because a changed file may carry a new
+assertion; the only files not re-opened are those whose content is unchanged
+since the first read (2026-09-09: forty changed paths, all inside the
+enumeration, read again). Every hit is classified before it is dismissed (a
+system list, an unchanged index title, a homonym of the term), and the
+classification is written into the merge message and the tally, so "nothing
+to re-true" is a read a reviewer can check, not a count.
+
 ### 7. Resolve numbering and naming collisions
 
 ADRs, PDRs, plan ids, generated file names: renumber the fork's own record per
@@ -249,21 +291,66 @@ the authority frame, in this commit, with citations. Confirm the index rows.
 
 ### 8. Open the round, settle, land
 
-Undraft; declare the review tally at open (pr-lifecycle §review-round state
-machine); harvest every thread. Findings about the sync itself are cured here;
-findings about upstream code are routed and resolved on the route — and the
-report to upstream is the OWNER's act, because the fork writes to no upstream
-surface without the owner's per-instance word: it reaches the owner as one ask
-through the Director, and the thread's disposition names that route. Settle at
-green by name (`run-quality-gates`, `CodeQL`) and clean (zero unresolved,
-`CLEAN`, the quiet window). Merge by MERGE COMMIT with the head pinned, as the
-bot; squash or rebase would diverge the history from upstream and make the next
-sync a conflict.
+Push as the bot with `merge-bot push` from the worktree: HEAD's branch by
+name, the bot identity over a file-backed token that is never in argv, hooks
+running, no force flag; a rejected non-fast-forward is answered by merging,
+never by overwriting. Undraft; declare the review tally at open (pr-lifecycle
+§review-round state machine); harvest every thread. Findings about the sync
+itself are cured here; findings about upstream code are routed and resolved on
+the route — and the report to upstream is the OWNER's act, because the fork
+writes to no upstream surface without the owner's per-instance word: it reaches
+the owner as one ask through the Director, and the thread's disposition names
+that route. On a carrier every review round is findings on someone else's
+code, so that route is the whole disposition vocabulary the lane needs and the
+cure-worthy count stays zero unless a finding is about the sync itself
+(2026-09-09, the 1.179.0 carrier: two rounds, three threads, all routed to one
+owner-held upstream report, cure-worthy 0). Settle at green by name
+(`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
+window). Merge by MERGE COMMIT as the bot through the one sanctioned front
+door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
+[--expect <reviewer> ...]` — `--expect` is repeated once per reviewer in
+the repository's automatic-review configuration, the set pr-lifecycle's
+Phase 1 declares as the state machine's input for every round, never
+narrowed to the reviewers that happen to have bound the tip: a reviewer
+left undeclared is invisible to the tool's recomputation, and a configured
+leg that never reviews the tip (Copilot reviews the first push and an
+explicit re-request; the Codex connector every push) settles through the
+timeout to SETTLED-NO-REVIEW, which the front door refuses by name — the
+docs-only bot-authored class then lands through the sanctioned REST
+endpoint under the owner's exception below, and any other pull request
+waits for the leg (pr-lifecycle §merge boundary;
+`docs/engineering/merge-bot.md`): it recomputes
+the settlement verdict itself, merges only on SETTLE-READY, and pins the
+verdicted tip's sha in its own call, so the landing merge's second parent IS
+the head the verdict was read on and a head moved between verdict and merge
+answers 409 rather than landing unverdicted. A client-side merge with a
+head-match flag checks the sha and nothing else — the 1.179.0 carrier landed
+that way on 2026-09-09 (ead92d875's second parent is 007b0d32e) with no
+tool-side recomputation of the reviewer leg, which is the gap the front door
+closes. One class the front door refuses by name: a round settled only by
+timeout (`SETTLED-NO-REVIEW`) on a bot-authored pull request that touches
+only documentation and Practice surfaces is merge-eligible under
+pr-lifecycle's owner-ruled 2026-09-03 exception, and until the tool learns
+that class the merging seat recomputes the gate by name and lands it through
+the sanctioned REST endpoint as the bot; a carrier that carries code is never
+in that class. Squash or rebase would diverge the history from upstream and
+make the next sync a conflict.
 
 ### 8a. The other open lanes at a landing
 
 Every landing flips every other open pull request BEHIND; the landing
-broadcast declares the slot order. A lane in flight at a sync parks as a
+broadcast declares the slot order — the Director's call, and by pr-lifecycle
+§Phase 7 the slot goes to whichever pull request is green and clean first
+rather than being held empty. That passing happens BEFORE a word is acted
+on: a queued candidate whose review round is open is not green and clean, so
+the word can pass to the carrier ahead of its turn (2026-09-09: a candidate
+with ten open threads passed the word to the 1.179.0 carrier). Once a holder
+has taken the word and pushed its sync it RETAINS the slot through the review
+round that push opens, its settlement and its merge — that round never
+re-assigns the slot, and no other lane syncs meanwhile (pr-lifecycle's slot
+contract), or two lanes would knock each other BEHIND in turn. This skill's
+part is step 3's preparation, so the carrier is ready when the word comes
+early. A lane in flight at a sync parks as a
 draft, keeps its own head, and merges the default branch as its final planned
 synchronisation push, at the slot word — the merge opens a review round like
 any push, and an over-bar finding from that round still cures in a push
@@ -277,7 +364,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
 
 ### 9. Prove the landing and close the carrier
 
-- First `git fetch origin <fork-default>`: the server-side merge moves no
+- First `git fetch origin <fork-default>:refs/remotes/origin/<fork-default>`
+  (the destination refspec, as in step 1): the server-side merge moves no
   local ref, so every proof below reads the refreshed remote-tracking ref (or
   the merge sha the API returned), never the pre-merge local branch.
 - The landing merge commit's second parent is the carrier head (its first
@@ -317,6 +405,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
 - A carrier merge made at readiness rather than at the slot word, redone once
   per landing ahead of it.
 - A merge commit made in a worktree before install, so no hook ran on it.
+- A slot-word merge attempted with an author flag `git merge` does not have, or
+  landed with the bot as author because the environment was not set.
 - A receipt's count or "nothing newer" read as the fact the fetch or the run
   would have given.
 
