@@ -3023,3 +3023,70 @@ rule, carrying unmerged continuity commits forward.
   heartbeat loop armed within minutes, the validated argument set being `comms send --tag
   heartbeat --title … --claim-id … --intent-id … --branch … --current-cycle-label …` and
   `claims heartbeat --active … --claim-id … --now <iso>` (no platform/model on the second).
+
+## 2026-09-03 — Civet calls Crypt (`2a5c71`), Director seat, `mcp-submission-drive`
+
+**A method relayed without the detail that made it safe cost four production OAuth clients.** I
+probed `POST /oauth/register` with `redirect_uris: ["not-a-valid-uri"]` — no scheme, so not a URI,
+rejected 400 before anything was created. I then told an implementer to re-probe with "a
+deliberately invalid body, **as before**" and never gave the string. It chose
+`ftp://not-a-valid-redirect`, which IS a valid URI, and Clerk accepted all four variants at 201,
+minting four clients with never-expiring secrets in production three days before publicity. The
+cure is mechanical: **when relaying a method whose safety depends on an exact value, paste the
+value.** "As before" transmits the shape and drops the safety.
+
+**And the false claim I was working from was already in the repo.** `rate_limits.tf` (from
+`928977d`) says "validation precedes the upstream fetch, so a probe creates no client". That holds
+only for a MALFORMED body; a syntactically valid nonsense URI sails through. A safety claim stated
+absolutely, true only conditionally, travelling as a method — the whole chain.
+
+**A `-target` Terraform plan on a `cloudflare_ruleset` must be read rule by rule, never by its
+summary count.** The plan said `0 to add, 1 to change, 0 to destroy`, which reads as "append my
+rule". It was a silent in-place overwrite of a DIFFERENT rule: Terraform index-matches nested
+blocks by POSITION, and live position 3 held a hand-made dashboard rule absent from both config and
+stored state. The owner caught it from the plan output. `1 to change` on a ruleset can mean append
+or replace, and only the per-rule diff distinguishes them.
+
+**`terraform state show` reads STORED state; a plan REFRESHES against live.** That gap is what
+proved the third rule was created by hand outside Terraform — state had two rules, the refreshed
+plan had three. Reaching for `state show` after a plan disagrees with it is a good instinct: the
+disagreement itself is the finding.
+
+**Green CI on a Terraform expression proves nothing about the expression.** `validate` and all
+three checks treat `expression` as an opaque string. Cloudflare validates wirefilter server-side at
+write time, so **the apply is the only instrument that can prove it parses.** Do not let CI green
+imply runtime coverage on a rule expression.
+
+**`-target` addresses RESOURCES, never nested blocks.** The owner asked whether the doomed rule
+could be excluded from the apply. It could not — any apply of the resource rewrites the whole rules
+list. Targeting bought isolation from the 20014-conflicting resource, never from sibling rules.
+
+**Registry-freshness is not comms-liveness, and I got to use it.** I arrived to a Director reading
+`stale` in the claims registry while posting to comms 90 minutes earlier. Refusing the stale row as
+takeover licence was right, and the outgoing seat confirmed the cause was its own suspended
+heartbeat under the PDR-078 §4 consumer-absent exemption (F-161: the exemption has a suspend
+condition and no resume condition). **My Moment 2 rested on its explicit written stand-down, not on
+a freshness window** — the correct basis, since a row that licenses nothing when stale licenses
+nothing when fresh.
+
+**Grounding before declaring availability paid for itself three times.** Reading the full handover
+banner before claiming anything let me catch three errors in it — a struck-but-unstated stale claim
+row, an orphaned commit-queue entry, and a stale registry premise — while holding no authority.
+That is the readiness gate's whole argument.
+
+**A peer's report of owner intent is not owner approval.** The outgoing Director refused to issue
+Moment 1 on my quotation of the owner and asked him directly. It was right, I endorsed it rather
+than pressing, and it cost minutes.
+
+**Watcher drain deadlines are not survivable at default on this comms directory.** Mine died at
+60000ms, the predecessor's at 120000ms. Arm at `--step-timeout-ms 300000` from the start.
+
+**Emgeebot cannot READ Cloud-Config, not merely write it** — 404 on the repo under a freshly minted
+installation token while the monorepo resolves under the same token. So no agent here can verify
+anything about that repo except through the owner's credential, which bounds what a Director can
+check first-hand and is worth stating whenever Cloud-Config comes up.
+
+**A stale measurement changed an owner decision.** I told him #562 needed review on a 13:20Z
+reading; by 15:4x it was `APPROVED` and merely `BEHIND`. He deferred it to next week on my stale
+basis. Re-measure before a fact becomes an input to someone else's scheduling — the shelf-life
+lesson, inherited from two predecessors and re-earned anyway.
