@@ -68,15 +68,7 @@ already made, not a lesson already learned.
 New entries append below as `## Q-NNN — <title>` sections; continue the Q-numbering from
 the git history.
 
-## Q-014 — Which model name has precedence when the declared, reported, observed and configured names disagree?
-
-- **Context**: PDR-027's identity tuple carries one `model` field. In July 2026 a Codex config
-  file named a model the CLI silently overrode; a 2026-09-06 audit of that seat's per-user
-  memory found the declared Practice model, the user-reported model, the harness-observed
-  model and the platform config's setting can all differ, and no doctrine names which wins.
-- **Deferral reason**: the field's consumers (the naming registry, the Cricket tally, the
-  identity preflight) have not been asked which they need; an answer without them is a
-  guess.
-- **Suggested resolution path**: the next agent-naming or identity lane reads the consumers,
-  then amends PDR-027 with a precedence order and the audit's dated instance.
-- **Status**: open (captured 2026-09-07 at the napkin drain).
+<!-- Q-014 (which model name wins when the declared, reported, observed and configured names
+disagree) re-homed at the 2026-09-09 dedicated consolidation into PDR-027 §Notes as that
+record's own open question, with its resolution path and a candidate for the identity lane to
+test; removed here per this register's own instruction. The commit and the home are the record. -->

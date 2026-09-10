@@ -23,6 +23,13 @@ complete owner-ratification stamp (`ratified_by` + `ratified_date` +
 `ratified_where`). Executed is not ratified; the stamp is the
 difference, and the estate validator enforces it.
 
+This corpus is the work surface (owner ruling 2026-09-08, verbatim: "we
+have an entire, sophisticated, in-repo planning system with multiple
+layers of discoverability!"): a lane pointer a seat would leave for a
+successor becomes a delivery node or a unit inside an existing node here,
+and an owner decision becomes a gate row here — never a board in prose, a
+register file, or a queue surface such as repository issues.
+
 _Reading path (2026-09-03, MCP-673): start at the strategy index
 ([`docs/strategy/README.md`](../../docs/strategy/README.md)) for the
 repository's strategic commitments. The extraction of the MCP app
