@@ -137,7 +137,7 @@ describe('commit-queue per-intent store', () => {
 
   it('resolves the store directory as a commit-queue sibling of the claims file', () => {
     expect(commitQueueDirForActivePath('/repo/.agent/state/collaboration/active-claims.json')).toBe(
-      '/repo/.agent/state/collaboration/commit-queue',
+      join('/repo', '.agent', 'state', 'collaboration', 'commit-queue'),
     );
   });
 

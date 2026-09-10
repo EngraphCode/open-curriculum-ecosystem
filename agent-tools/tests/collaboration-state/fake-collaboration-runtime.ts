@@ -17,6 +17,7 @@ import {
   type DirectedCommsMessage,
 } from '../../src/collaboration-state/types';
 import { FAKE_COMMS_CONCEPT_GATE_BLOCKS } from './fake-collaboration-runtime-fixtures';
+import { posixPath } from './posix-path';
 
 const emptyActiveClaims: CollaborationRegistry = {
   schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
@@ -91,11 +92,11 @@ export function createFakeCollaborationRuntime(
     },
     readCommsEvents: (commsDir) => readCommsEvents(state, commsDir),
     readActiveClaimsPaths: () => [...state.activeClaimsPaths],
-    readSeenIds: (seenFile) => state.seenByFile.get(seenFile) ?? [],
-    readTextFile: (path) => state.textByPath.get(path),
+    readSeenIds: (seenFile) => state.seenByFile.get(posixPath(seenFile)) ?? [],
+    readTextFile: (path) => state.textByPath.get(posixPath(path)),
     writeCommsEvent: (commsDir, event) => writeCommsEvent(state, commsDir, event),
     seedTextFile: (filePath, text) => {
-      state.textByPath.set(filePath, text);
+      state.textByPath.set(posixPath(filePath), text);
     },
     ensuredDirectories: () => [...state.ensuredDirectories],
   };
@@ -138,10 +139,10 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     readDirectedCommsMessages: async (commsDir) =>
       readCommsEvents(state, commsDir).filter(isDirectedCommsMessage),
     writeTextFile: async ({ filePath, text }) => {
-      state.textByPath.set(filePath, text);
+      state.textByPath.set(posixPath(filePath), text);
     },
     readTextFile: async (filePath) => {
-      const text = state.textByPath.get(filePath);
+      const text = state.textByPath.get(posixPath(filePath));
       if (text === undefined) {
         throw Object.assign(new Error(`ENOENT: no such file or directory, open '${filePath}'`), {
           code: 'ENOENT',
@@ -149,9 +150,10 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
       }
       return text;
     },
-    readSeenIds: async (seenFile) => new Set(state.seenByFile.get(seenFile) ?? []),
+    readSeenIds: async (seenFile) => new Set(state.seenByFile.get(posixPath(seenFile)) ?? []),
     appendSeenMessageIds: async (seenFile, eventIds) => {
-      state.seenByFile.set(seenFile, [...(state.seenByFile.get(seenFile) ?? []), ...eventIds]);
+      const key = posixPath(seenFile);
+      state.seenByFile.set(key, [...(state.seenByFile.get(key) ?? []), ...eventIds]);
     },
     migrateLegacyCommsDirectories: async (input) => migrateLegacyComms(state, input),
     ensureDirectory: async (directoryPath) => {
@@ -170,7 +172,7 @@ function seedComms(
   comms: Readonly<Record<string, readonly CommsEvent[]>>,
 ): void {
   for (const directory in comms) {
-    state.commsByDir.set(directory, new Map((comms[directory] ?? []).map(toEventEntry)));
+    state.commsByDir.set(posixPath(directory), new Map((comms[directory] ?? []).map(toEventEntry)));
   }
 }
 
@@ -206,12 +208,13 @@ function readCommsEvents(state: FakeRuntimeState, commsDir: string): readonly Co
 }
 
 function directory(state: FakeRuntimeState, commsDir: string): Map<string, CommsEvent> {
-  const existing = state.commsByDir.get(commsDir);
+  const key = posixPath(commsDir);
+  const existing = state.commsByDir.get(key);
   if (existing !== undefined) {
     return existing;
   }
   const created = new Map<string, CommsEvent>();
-  state.commsByDir.set(commsDir, created);
+  state.commsByDir.set(key, created);
 
   return created;
 }

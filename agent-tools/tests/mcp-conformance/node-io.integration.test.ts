@@ -1,12 +1,24 @@
-import { chmodSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { unwrapErr } from '@oaknational/result';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { buildMcpConformanceNodeIo, writeRunSummary } from '../../src/mcp-conformance/node-io.js';
+import {
+  buildMcpConformanceNodeIo,
+  retainOwnerOnlyAt,
+  writeRunSummary,
+  writeUnder,
+} from '../../src/mcp-conformance/node-io.js';
+import {
+  OwnerOnlyUnavailableError,
+  writeOwnerOnly,
+  type OwnerOnlyWriteOps,
+} from '../../src/mcp-conformance/owner-only-write.js';
 import {
   cleanupSandboxes,
+  isSandboxSymbolicLink,
+  linkSandboxFile,
+  listSandboxEntries,
   readSandboxFile,
   sandbox,
   writeSandboxFile,
@@ -17,18 +29,52 @@ afterEach(() => {
 });
 
 /**
- * POSIX permission bits as an octal string (e.g. `'600'`). Read as a string
- * rather than masked numerically so the assertion reads as the `chmod` form
- * an operator would check with.
+ * A pure recorder over the descriptor-ordered write operations. On-disk mode
+ * bits are a POSIX observable (NTFS reports every writable file identically),
+ * so the owner-only guarantee is proven at the level the product actually
+ * controls: WHAT it requested and IN WHAT ORDER — a fresh file created
+ * exclusively at 0600, descriptor tightened before any content, closed, then
+ * renamed over the destination (never opened by path).
  */
-function permissionsOf(path: string): string {
-  return statSync(path).mode.toString(8).slice(-3);
+function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWriteOps } {
+  const calls: string[] = [];
+  const ops: OwnerOnlyWriteOps = {
+    open: (_path, flags, mode) => {
+      calls.push(`open:${flags}:${mode.toString(8)}`);
+      return 17;
+    },
+    fchmod: (fd, mode) => {
+      calls.push(`fchmod:${String(fd)}:${mode.toString(8)}`);
+    },
+    write: (fd) => {
+      calls.push(`write:${String(fd)}`);
+    },
+    close: (fd) => {
+      calls.push(`close:${String(fd)}`);
+    },
+    rename: () => {
+      calls.push('rename');
+    },
+    unlink: () => {
+      calls.push('unlink');
+    },
+  };
+  return { calls, ops };
 }
+
+/**
+ * The POSIX platform label every non-Windows test injects: the owner-only
+ * ordering contract is proven on any host, while the running host's own
+ * platform (a Windows leg refuses by design) is covered by the win32 tests.
+ */
+const POSIX: NodeJS.Platform = 'linux';
+
+const ORDERED_OWNER_ONLY_WRITE = ['open:wx:600', 'fchmod:17:600', 'write:17', 'close:17', 'rename'];
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
   it('a relative report dir writes under the repo root and reports the relative path', () => {
     const root = sandbox();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), undefined, POSIX);
     const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
     expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'protocol.json') });
     expect(readSandboxFile(root, 'tmp', 'reports', 'protocol.json')).toBe('{"raw":"bytes"}');
@@ -37,7 +83,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
   it('an absolute report dir stands as given — written there and reported verbatim', () => {
     const root = sandbox();
     const elsewhere = join(sandbox(), 'evidence');
-    const io = buildMcpConformanceNodeIo(root, elsewhere);
+    const io = buildMcpConformanceNodeIo(root, elsewhere, undefined, POSIX);
     const outcome = io.retainRawReport('oauth', 'verbatim');
     expect(outcome).toEqual({ ok: true, reportedPath: join(elsewhere, 'oauth.json') });
     expect(readSandboxFile(elsewhere, 'oauth.json')).toBe('verbatim');
@@ -47,7 +93,7 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const root = sandbox();
     // Occupy the report-dir path with a FILE so mkdir cannot create it.
     writeSandboxFile('a file where a directory must go', root, 'blocked');
-    const io = buildMcpConformanceNodeIo(root, 'blocked');
+    const io = buildMcpConformanceNodeIo(root, 'blocked', undefined, POSIX);
     const outcome = io.retainRawReport('protocol', 'content');
     expect(outcome.ok).toBe(false);
     expect(!outcome.ok && outcome.error.length > 0).toBe(true);
@@ -55,36 +101,142 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
 
   it('the aggregate summary lands beside the raw reports with the caller-shaped path', () => {
     const root = sandbox();
-    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
+    const outcome = writeRunSummary(
+      root,
+      join('tmp', 'reports'),
+      '{"verdict":"pass"}',
+      undefined,
+      POSIX,
+    );
     expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
     expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
   });
 
-  it('a retained report is owner-only — attended runs carry credentials in vendor output', () => {
+  it('a retained report is owner-only by construction — created at 0600, descriptor tightened before any content lands', () => {
+    // Attended runs carry credentials in vendor output. The ordering is the
+    // whole guarantee: `mode` applies at creation only, and a chmod AFTER the
+    // write would expose the payload in the window between them — so the
+    // contract proven here, THROUGH the production retention surface, is
+    // open(0600, exclusive) → fchmod(0600) → write → close on one descriptor
+    // → rename over the destination, never a path re-open of the
+    // destination. (On-disk mode bits are a POSIX observable NTFS cannot
+    // express, so the requested-operations ordering is the invariant.)
     const root = sandbox();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
-    io.retainRawReport('protocol', '{"raw":"bytes"}');
-    expect(permissionsOf(join(root, 'tmp', 'reports', 'protocol.json'))).toBe('600');
+    const { calls, ops } = recordingOps();
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), ops, POSIX);
+
+    const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
+
+    expect(outcome.ok).toBe(true);
+    expect(calls).toEqual(ORDERED_OWNER_ONLY_WRITE);
   });
 
-  it('the aggregate summary is owner-only too — it embeds the same vendor fields', () => {
+  it('the aggregate summary is owner-only through the same ordered write', () => {
     const root = sandbox();
-    writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
-    expect(permissionsOf(join(root, 'tmp', 'reports', 'summary.json'))).toBe('600');
+    const { calls, ops } = recordingOps();
+
+    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}', ops, POSIX);
+
+    expect(outcome.ok).toBe(true);
+    expect(calls.indexOf('fchmod:17:600')).toBeGreaterThan(calls.indexOf('open:wx:600'));
+    expect(calls.indexOf('fchmod:17:600')).toBeLessThan(calls.indexOf('write:17'));
   });
 
-  it('an existing world-readable report has its MODE corrected, not just its content', () => {
-    // `mode` on writeFileSync applies at creation only, so a report left by an
-    // earlier run under a looser umask would keep its permissions forever.
+  it('an already-resolved absolute destination gets the same ordered owner-only write', () => {
+    // The reviewer pack (`--pack-out`) embeds vendor failure text from authed
+    // runs — the same content class the summary protects — so the absolute
+    // path entry point must carry the identical ordering contract.
     const root = sandbox();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
-    io.retainRawReport('protocol', 'first run');
-    const path = join(root, 'tmp', 'reports', 'protocol.json');
-    chmodSync(path, 0o644);
+    const { calls, ops } = recordingOps();
 
-    io.retainRawReport('protocol', 'second run');
+    const outcome = retainOwnerOnlyAt(join(root, 'packs', 'reviewer-pack.md'), 'pack', ops, POSIX);
 
-    expect(permissionsOf(path)).toBe('600');
+    expect(outcome.ok).toBe(true);
+    expect(calls).toEqual(ORDERED_OWNER_ONLY_WRITE);
+  });
+
+  it('a chmod failure is a loud retention failure before any content lands; the descriptor still closes and no temporary file survives', () => {
+    const root = sandbox();
+    const { calls, ops } = recordingOps();
+    const failing: OwnerOnlyWriteOps = {
+      ...ops,
+      fchmod: () => {
+        throw new Error('EPERM: fchmod refused');
+      },
+    };
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), failing, POSIX);
+
+    const outcome = io.retainRawReport('protocol', 'secret');
+
+    expect(outcome).toEqual({ ok: false, error: 'EPERM: fchmod refused' });
+    expect(calls).not.toContain('write:17');
+    expect(calls).not.toContain('rename');
+    expect(calls).toContain('close:17');
+    expect(calls).toContain('unlink');
+  });
+
+  it('a symbolic link planted at the destination is replaced by an owner-only regular file; its target is left untouched', () => {
+    // A stale or planted report link must never be FOLLOWED: opening the
+    // destination for writing would truncate and overwrite the link's target
+    // (a file outside the report directory) before any descriptor could be
+    // tightened. The real `node:fs` adapter is exercised here, so the on-disk
+    // state is the observable; the requested 0600 mode is proven by the ordered
+    // recorder tests, because NTFS reports no POSIX mode bits to read back.
+    const root = sandbox();
+    const target = join(root, 'target.txt');
+    const destination = join(root, 'reviewer-pack.md');
+    writeSandboxFile('original', target);
+    linkSandboxFile(target, destination);
+
+    const outcome = retainOwnerOnlyAt(destination, 'fresh', undefined, POSIX);
+
+    expect(outcome).toEqual({ ok: true, reportedPath: destination });
+    expect(readSandboxFile(target)).toBe('original');
+    expect(isSandboxSymbolicLink(destination)).toBe(false);
+    expect(readSandboxFile(destination)).toBe('fresh');
+    expect(listSandboxEntries(root)).toEqual(['reviewer-pack.md', 'target.txt']);
+  });
+
+  it('on Windows the owner-only write is refused before any file is touched, with a typed error naming the reason', () => {
+    // NTFS access control is ACL-based; fchmod cannot set it, so "owner-only"
+    // would be a false claim there. The refusal precedes every filesystem
+    // operation, so no artefact — protected or not — is ever created.
+    const root = sandbox();
+    const { calls, ops } = recordingOps();
+
+    expect(() => {
+      writeOwnerOnly(join(root, 'summary.json'), 'secret', ops, 'win32');
+    }).toThrow(OwnerOnlyUnavailableError);
+    expect(calls).toEqual([]);
+  });
+
+  it('on Windows every retention entry point yields a failed outcome naming the Windows refusal, and nothing is written', () => {
+    const root = sandbox();
+    const viaAbsolutePath = recordingOps();
+    const viaReportDir = recordingOps();
+
+    const packOutcome = retainOwnerOnlyAt(
+      join(root, 'packs', 'reviewer-pack.md'),
+      'pack',
+      viaAbsolutePath.ops,
+      'win32',
+    );
+    const reportOutcome = writeUnder(
+      root,
+      join('tmp', 'reports'),
+      'protocol.json',
+      'secret',
+      viaReportDir.ops,
+      'win32',
+    );
+
+    for (const outcome of [packOutcome, reportOutcome]) {
+      expect(outcome.ok).toBe(false);
+      expect(!outcome.ok && outcome.error).toContain('win32');
+      expect(!outcome.ok && outcome.error).toContain('ACL');
+    }
+    expect(viaAbsolutePath.calls).toEqual([]);
+    expect(viaReportDir.calls).toEqual([]);
   });
 });
 
