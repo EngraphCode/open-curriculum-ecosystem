@@ -315,8 +315,8 @@ Phase 1 declares as the state machine's input for every round, never
 narrowed to the reviewers that happen to have bound the tip: a reviewer
 left undeclared is invisible to the tool's recomputation, and a configured
 leg that never reviews the tip (Copilot reviews the first push and any tip
-the bot requests it on; the Codex connector binds a pull request at its
-creation and on the pushes of one it bound — pr-lifecycle §Phase 1) settles
+the bot requests it on; the Codex connector's binding is not predictable
+from the repository's side — pr-lifecycle §Phase 1) settles
 through the
 timeout to SETTLED-NO-REVIEW, which the front door refuses by name — the
 docs-only bot-authored class then lands through the sanctioned REST
