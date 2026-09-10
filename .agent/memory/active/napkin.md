@@ -83,7 +83,9 @@ reviewers' findings taken); and the front-door expected set, which is the CONFIG
 own help: source it from the repository's automatic-review configuration), never the set that
 happened to bind the tip — Copilot binds any head on the bot's explicit request (`POST
 pulls/{n}/requested_reviewers`; the response omits the handle, the timeline shows it), and the Codex
-connector binds at a creation or push it observes: it bound #110 at its non-draft creation within
-four minutes and every docs PR of the window, and never bound #109 or #113 (a non-draft creation,
-three pushes, a comment trigger) — the two source PRs from one branch — an owner-side configuration
-question the Director carried as an owner item on 2026-09-10.
+connector binds at a creation or push it observes, until it does not: it bound #110 at its non-draft
+creation within four minutes and every docs PR of the night, and then nothing after #110's 04:02Z
+push — not #113 (a non-draft creation, a push), not #114 (a non-draft creation from a fresh branch,
+three pushes), and never #109 or #111 — an owner-side question the Director carried as an owner item
+on 2026-09-10; a code PR waits for the leg, a docs-only bot PR takes the owner's 2026-09-03 REST
+exception after the seat recomputes the gate by name.
