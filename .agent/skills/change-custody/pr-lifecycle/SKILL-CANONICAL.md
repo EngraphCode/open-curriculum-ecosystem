@@ -163,7 +163,10 @@ use, you should have added your work to 66 in the first place").
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
 selective (important-or-risky only). Cadence is at-open plus
-substance-triggered (a reshaped diff), never per cure push. Copilot's
+substance-triggered (a reshaped diff), never per intermediate cure push;
+on a code pull request the tip that goes to the front door carries the
+request (under the held-cure shape that is the slot's one sync push, so
+the cadence and the tip-bound gate meet at the same push). Copilot's
 absence never blocks a merge on a docs-only bot-authored pull request (the
 owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
 request the configured Copilot leg is OWED until it binds the tip, and the
@@ -176,10 +179,9 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on. Request mechanics, re-read 2026-09-10: the REST
-`requested_reviewers` endpoint's RESPONSE omits the Copilot handle (the
-2026-08-08 reading on PRs #829/#830 took that for a silent drop), but the
-request FIRES — the timeline shows `review_requested Copilot` within
+never a gate to wait on. Request mechanics: the REST
+`requested_reviewers` endpoint's RESPONSE omits the Copilot handle, and
+the request FIRES — the timeline shows `review_requested Copilot` within
 seconds and the review follows (#108, #109, #110, #114, as the bot under
 the pull-request-work token) — so the bare REST endpoint as the bot is the
 request mechanism; verify on the timeline, never on the response or the
@@ -845,19 +847,18 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies. (The grounds this clause carried until 2026-09-10 — "the bot
-   cannot request Copilot at all" — are falsified: `POST
+   satisfies. The Copilot leg is the bot's own to obtain: `POST
    repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    `reviewers[]=copilot-pull-request-reviewer[bot]` under the
    pull-request-work token returns 201 and the timeline shows
-   `review_requested Copilot` within seconds — first-hand on #108, #109
-   and #110; the requested-reviewers list does not show it, the timeline
-   does; the draft/ready toggle fires nothing on a pull request already
-   undrafted once. So a synced tip gets its Copilot leg by that one call
-   as the bot, and a CODE pull request lands only with both configured
-   legs bound, never by the REST merge below.) The exception stands for
+   `review_requested Copilot` within seconds (first-hand on #108, #109,
+   #110, #114); verify on the timeline, since the requested-reviewers
+   list never shows it, and never through the draft/ready toggle, which
+   fires nothing on a pull request already undrafted once. A synced tip
+   gets its Copilot leg by that one call as the bot, and a CODE pull
+   request lands only with both configured legs bound, never by the REST
+   merge below. The exception stands for
    the docs-only bot-authored class on its own grounds. Until
-   the merge tool learns the class (a named follow-up), the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
    REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
    request merges within one CI round of green with no owner action; if one
@@ -955,12 +956,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   `/rules/branches/<base>` and read each name across BOTH
   `/commits/{sha}/check-runs` AND `/commits/{sha}/status`.
 - **A review-request 201 is not a registration.** The REST
-  `requested_reviewers` POST can return 201 and silently drop per-PR
-  (reproduced on two PRs, two seats, ~5 minutes apart); the roster read is
-  ambiguous in both directions (Copilot leaves it the moment it starts).
-  Verify via the issue TIMELINE's `review_requested` events; the proven
-  alternate path is the GitHub MCP `request_copilot_review` tool. Cap
-  identical REST retries at two.
+  `requested_reviewers` POST's 201 response omits the Copilot handle and
+  the roster read is ambiguous in both directions (Copilot leaves it the
+  moment it starts). Verify via the issue TIMELINE's `review_requested`
+  events, which fire within seconds of the call. Cap identical REST
+  retries at two.
 - **A review row is not a review.** Read the review BODY before counting
   it — a `COMMENTED` row on the exact head once contained only a
   spend-limit skip notice (the spend limit itself is never an agent

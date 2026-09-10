@@ -300,19 +300,15 @@ carry.
   the second code owner sat blocked on the owner personally — a standing
   bottleneck this user-instigated grant removed.
 
-- **Copilot review requests (granted 2026-08-06; no live use since
-  2026-09-10)** — the owner's word, verbatim, stays on record: "there is
-  standing permission to use my/user credentials for requesting reviews
-  from copilot." Its ground was the mechanics of the day: the REST
-  `requested_reviewers` endpoint accepted `copilot-pull-request-reviewer[bot]`
-  only from a HUMAN user token, a bot/app token getting `422` (tooling-lane
-  probe + first-hand human-token success, both 2026-08-06). That ground is
-  falsified: on 2026-09-10 the same call under the app's pull-request-work
-  token returned 201 and fired `review_requested Copilot` on the timeline
-  (#108, #109, #110, #114 — the requested-reviewers list does not show the
-  bot reviewer; the timeline does), so the bot requests Copilot AS ITSELF
-  and the owner-credential path has nothing left to license. The worked
-  command, now run as the bot:
+- **Copilot review requests (granted 2026-08-06)** — the owner's word,
+  verbatim, stays on record: "there is standing permission to use my/user
+  credentials for requesting reviews from copilot." The live route needs
+  none of it: the bot requests Copilot AS ITSELF with the REST
+  `requested_reviewers` endpoint under the app's pull-request-work token
+  (201; `review_requested Copilot` fires on the timeline — #108, #109,
+  #110, #114 — and the requested-reviewers list never shows the bot
+  reviewer), so the owner-credential path has nothing left to license.
+  The worked command, run as the bot:
 
   ```bash
   gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
