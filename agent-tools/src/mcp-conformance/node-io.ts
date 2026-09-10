@@ -101,7 +101,9 @@ function spawnMcpjam(
  * retention (`drive-node-io.ts`) — every retained artefact can embed authed
  * vendor output, so all of them are OWNER-ONLY, established before any
  * content lands; the full rationale and ordering discipline live with
- * {@link writeOwnerOnly} in `owner-only-write.ts`.
+ * {@link writeOwnerOnly} in `owner-only-write.ts`. `platform` defaults to
+ * the running host; a Windows host yields a failed outcome naming that
+ * owner-only retention is unavailable there, and nothing is written.
  */
 export function writeUnder(
   repoRoot: string,
@@ -109,12 +111,13 @@ export function writeUnder(
   fileName: string,
   content: string,
   ops?: OwnerOnlyWriteOps,
+  platform?: NodeJS.Platform,
 ): RetentionOutcome {
   const writeDir = resolve(repoRoot, reportDir);
   const reportedPath = join(reportDir, fileName);
   try {
     mkdirSync(writeDir, { recursive: true });
-    writeOwnerOnly(join(writeDir, fileName), content, ops);
+    writeOwnerOnly(join(writeDir, fileName), content, ops, platform);
     return { ok: true, reportedPath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
@@ -187,16 +190,18 @@ export function buildMcpConformanceNodeIo(
  * `--pack-out`): the pack embeds vendor failure text from authed runs, the
  * same content class the summary protects owner-only. `ops` is the same
  * injectable seam as everywhere else on this surface, so the ordering
- * contract is provable through this entry point too.
+ * contract is provable through this entry point too, as is the Windows
+ * refusal (`platform` defaults to the running host).
  */
 export function retainOwnerOnlyAt(
   absolutePath: string,
   content: string,
   ops?: OwnerOnlyWriteOps,
+  platform?: NodeJS.Platform,
 ): RetentionOutcome {
   try {
     mkdirSync(dirname(absolutePath), { recursive: true });
-    writeOwnerOnly(absolutePath, content, ops);
+    writeOwnerOnly(absolutePath, content, ops, platform);
     return { ok: true, reportedPath: absolutePath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
