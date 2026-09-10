@@ -779,8 +779,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    request it bound at creation — a pull request opened from a branch
    already pushed, with no later push it observed, drew no Codex review
    on any push or trigger comment (#109, #111), and the cure is a fresh
-   pull request opened non-draft from the same branch, its tally naming
-   the predecessor. The merge front door declares the CONFIGURED set
+   pull request opened non-draft at the same commit under a NEW branch
+   name (the platform refuses a second open pull request on a branch that
+   already has one — #113 succeeding #109), its tally naming the
+   predecessor, the predecessor closed with a pointer once the successor
+   is open. The merge front door declares the CONFIGURED set
    (`--expect` once per configured reviewer), never the set that happened
    to bind the tip: a declared leg that never reviewed the tip settles by
    timeout to SETTLED-NO-REVIEW, which the tool refuses by name, and item
