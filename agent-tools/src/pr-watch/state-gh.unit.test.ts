@@ -229,6 +229,34 @@ describe('readPrStateReading', () => {
     });
   });
 
+  it('a LIVE run whose view carries neither PR key is unobserved, never read as unrelated', () => {
+    // If a build of gh ever omitted the pair instead of sending nulls, a
+    // live run for THIS PR would otherwise collapse to "no mapping" and the
+    // leg would assert deadness for a reviewer whose run is live — the same
+    // class as the null-field defect, in the unsafe direction.
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'keyless', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            keyless: JSON.stringify({ id: 'keyless', completedAt: null }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [],
+      truncated: true,
+      note: 'agent-task view unreadable for keyless — those runs unobserved (first: Invalid input: expected number, received undefined at pullRequestNumber)',
+    });
+  });
+
   it('a run whose view cannot be read is skipped, marked unobserved, and never voids the leg', () => {
     // A single misshapen or failing view is that run's problem: the other
     // runs still map, and the leg reports the gap as truncation (absence
@@ -325,7 +353,7 @@ describe('readPrStateReading', () => {
       kind: 'read',
       runs: [],
       truncated: true,
-      note: 'agent-task view unreadable for half — those runs unobserved (first: pullRequestNumber and pullRequestUrl must be both present or both null at pullRequestUrl)',
+      note: 'agent-task view unreadable for half — those runs unobserved (first: Invalid input: expected string, received undefined at pullRequestUrl)',
     });
   });
 

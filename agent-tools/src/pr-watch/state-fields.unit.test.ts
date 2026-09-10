@@ -258,6 +258,14 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
     ).toThrow();
   });
 
+  it('rejects a view carrying NEITHER pull-request key as an unknown shape', () => {
+    // The vendor always sends both keys (explicit nulls for a PR-less run).
+    // A view with neither is not a known shape: reading it as "no mapping"
+    // would drop a live run for THIS PR as observed-and-unrelated, the
+    // unsafe direction (adversarial review on #113, 2026-09-10).
+    expect(() => parseAgentTaskView({ id: 'run-1', completedAt: null })).toThrow();
+  });
+
   it('parses a PR-less view (explicit null PR fields — verified live 2026-09-09) as no mapping', () => {
     // `gh agent-task view` on a run that opened no pull request returns
     // `pullRequestNumber: null, pullRequestUrl: null`, not absent keys.

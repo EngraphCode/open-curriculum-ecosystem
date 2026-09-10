@@ -47,9 +47,11 @@ export function parseAgentTaskList(raw: unknown): ReviewRun[] {
 // EXPLICIT nulls (`pullRequestNumber: null, pullRequestUrl: null`), not absent
 // keys, and the two fields are PAIRED (both set, or both null). Both null
 // reads as "no mapping"; a bare `.optional()` rejected the null and one
-// PR-less run anywhere in the window voided the leg for every PR. A partial
-// pair is an unknown shape and fails the parse — the caller then treats the
-// run as unobserved rather than as an observed, unrelated run.
+// PR-less run anywhere in the window voided the leg for every PR. Both keys
+// are REQUIRED: a view carrying neither, or a partial pair, is an unknown
+// shape and fails the parse — the caller then treats the run as unobserved
+// rather than as an observed, unrelated run (an omitted pair read as "no
+// mapping" would drop a live run for this PR, the unsafe direction).
 const agentTaskViewSchema = z
   .object({
     id: z.string(),
@@ -57,24 +59,19 @@ const agentTaskViewSchema = z
       .string()
       .nullish()
       .transform((value) => value ?? null),
-    pullRequestNumber: z.number().nullable().optional(),
-    pullRequestUrl: z.string().nullable().optional(),
+    pullRequestNumber: z.number().nullable(),
+    pullRequestUrl: z.string().nullable(),
   })
   .loose()
   // Validate the RAW states before normalising: the vendor sends both keys,
-  // both with values or both explicit null. Any other combination — a key
-  // omitted while the other is present, one null beside one value — is an
-  // unknown shape and fails the parse here, so a live run carrying it is
-  // unobserved rather than read as "no mapping".
-  .refine(
-    (view) =>
-      (view.pullRequestNumber === undefined) === (view.pullRequestUrl === undefined) &&
-      (view.pullRequestNumber === null) === (view.pullRequestUrl === null),
-    {
-      message: 'pullRequestNumber and pullRequestUrl must be both present or both null',
-      path: ['pullRequestUrl'],
-    },
-  );
+  // both with values or both explicit null. One null beside one value is an
+  // unknown shape and fails the parse here (a missing key already failed
+  // above), so a live run carrying it is unobserved rather than read as
+  // "no mapping".
+  .refine((view) => (view.pullRequestNumber === null) === (view.pullRequestUrl === null), {
+    message: 'pullRequestNumber and pullRequestUrl must be both present or both null',
+    path: ['pullRequestUrl'],
+  });
 
 /** One `gh agent-task view <id>` result — the surface carrying the run→PR map. */
 export interface AgentTaskView {
