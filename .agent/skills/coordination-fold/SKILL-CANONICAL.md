@@ -108,9 +108,13 @@ resides on the coordination branch).
    drift).
 10. **Refresh every branch-labelled surface**: stop and re-arm the
     heartbeat loop with the new `--branch` label; append the fold entry
-    (with the same product-gravity line) to the Director seated block;
-    broadcast the rotation on the canonical comms stream so every seat
-    re-homes.
+    (with the same product-gravity line) to the Director seated block AND
+    as a dated tenure entry on the tracked estate-coordination thread
+    record — the pickup path for any checkout, since the machine-local
+    record is finer grain a successor elsewhere cannot read (a reviewer
+    found the pickup map unreachable when the journal had stopped two days
+    earlier, 2026-09-08); broadcast the rotation on the canonical comms
+    stream so every seat re-homes.
 
 ## Wrap-not-closeout
 

@@ -1605,3 +1605,313 @@ plan-tier runbook for the empty-commit recipe is the permanent-to-ephemeral dire
 recipe's stable home is decided when the second draft lands. The fold-wake one-shot cron was
 refused twice by the auto-mode classifier; the wrap cadence (00:41Z) carries the fold check
 as the fallback, surfaced to the owner.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 1 (2026-09-09 17:11Z, cron; written while #96 settles, committed on the successor branch after the fold)
+
+Work safety: HEAD SHA:cc313999f == origin, tree clean, queue empty; #96 in its quiet window at
+that head, so this wrap pushes nothing (a push reopens the round). Board: #96 the slot holder
+(sixteen threads, zero unresolved, five rounds: 6, 1, 3, 3, 3 — the step-back arm fired at
+round four and the class fix, the pickup map no longer narrating the live board, opened a new
+epoch); then #100 (mine), #99 (Altair, prepared), #101 and #102 (Altair, read), #103 (a Codex
+seat's research import at the owner's request, draft, unregistered on the stream). Landed by
+this seat: #97 SHA:9188cbe64, #92 SHA:03ec90594. Registry: all claims fresh; Altair quiet
+100 minutes on the registry, legitimately waiting for the slot word. Processes verified in the
+table: watcher, claim loop, registry peer poll, F-75 peer-liveness delta poll, PR poll, the
+settle watch on #96; the wrap cron 8ee7fd16; the fold wake refused twice by the classifier and
+moot tonight since the fold runs in its slot. Retrospective. Corrections, all mine: two commit
+subjects over the 100-character header limit (write the subject to the limit before the
+check, never after); a script written with a home path refused by the write hook (the recipe
+derives the home at runtime); the classifier refusing a one-shot cron twice and a settle-watch
+monitor once with the identical shape accepted a minute later (a refusal is not a verdict on
+the command; retry once with the same shape, then route). Surprise: a fold PR is the one
+changeset whose surface grows under review by design, so a records-class round budget cannot
+hold on it; the generator was the snapshot narrating a board that moved under it, and the
+cure was structural (compute the board live), not another re-truing. What worked: the shadow
+period with a demonstration as the readiness gate — the transfer took nine minutes and the
+successor's first merge fired twenty-three minutes later; the prior seat's instruments, read
+before use, ran unchanged; every review round dispositioned by the bar, with the four-round
+tail on #97 routed rather than cured.
+
+## Nettle guards Pistil (2de368) — Director, pointers from #100's rounds and a CI outage class (2026-09-09 17:4xZ)
+
+- Pointer (routed from #100 round two, Codex): the Bash guard and the tracked settings enumerate
+  spellings of forced recursive removal; the alias space (`-r --force`, `--recursive -f`,
+  clustered `-rvf`) needs an argument-aware matcher for the removal command — a change to the
+  guard's matching model, routed to the held-seat-observability node's refusals slice (#101,
+  todo 3). Falsifier: a seat executing a mixed-alias forced removal the enumerated list missed.
+- Observation: three consecutive `browser-tests` failures (17:27Z, 17:29Z, 17:43Z) at the
+  Playwright install step were one external cause — `apt` fetching Google's chrome-stable index
+  returned "Hash Sum mismatch" — not a test or a change on the fork. The class: a required
+  check red on an external mirror; the response is a re-run after the mirror settles, never a
+  push to "fix" it. If it recurs, the workflow's OS-deps step is the surface to make resilient
+  (retry the apt update, or skip the Google source the runner image ships).
+- Observation (2026-09-09 18:0xZ): the merge-bot app's token cannot re-run a workflow ("Resource
+  not accessible by integration" on a failed-jobs re-run); the bot-legitimate cure for an
+  external-cause red is the empty-commit push the pr-lifecycle skill already sanctions as a CI
+  cure outside the review budget (#100 at SHA:07332c155). Pointer: granting the app the
+  actions write permission, or an agent-tools re-run command, is the owner's call.
+
+- **PAUSE FOR COMPACTION — Altair spins Umbra (05a180), 2026-09-09 19:1xZ** (owner word:
+  "please prepare for compaction … /oak-metacognition /oak-free-play /oak-concept-exploration
+  /oak-wrap then stop all processes"). The record is
+  `.agent/state/collaboration/handoffs/05a180-altair-spins-umbra-queue-lanes-paused-2026-09-09.md`;
+  the letter is `.agent/experience/2026-09-09-altair-spins-umbra-the-check-that-runs-anyway.md`.
+  - State: #101 (the held-seat node, a38188043) and #102 (PR B, c3ce1cd5d) are CLEAN drafts
+    waiting their slots; #99's carrier merge 36bb08928 (onto 123d2e3e9) is local, unpushed by
+    design and superseded four times — redone onto the tip at the slot as the last push. The
+    three claims closed at the pause; the Director's declared default for #99 applies at the
+    slot word without an ABSORBED; #101 and #102 land under the standing rule at the Director's
+    read; the three worktrees (`upstream-99`, `held-seat-node`, `sonar-policy-b`) may be removed
+    by the Director under the grant after each landing (build output only, no env file).
+  - Metacognition, retrospective: three signals (the dark window; the recipe pushed unrun; the
+    early carrier merge). The shape they share — a lesson held is not a check that runs — is
+    the shape of both cures proposed today (#100, #101). Reflex kept: the trigger is the
+    command, never the framing.
+  - Free play, harvest: kept, the marker and the derived-term sweep are shaped alike (a check
+    that runs whether or not it is remembered); kept as a seed, "a record that identifies is
+    safer than one that licenses" (the Sonar catalogue's move beside the marker's); discarded
+    visibly, the succession-as-DNS analogy (forced). Concept exploration: no-run, every
+    question formed and routed (the slot-timing rule, the §6 bound, the §8 route, the
+    recipe-proof step).
+  - Lesson for the estate, one line: under require-up-to-date, "merge engraph as the last
+    push" means AT THE SLOT WORD, never at readiness — the early merge is redone as many times
+    as lanes land ahead of it.
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 1 WRAP (2026-09-09 19:0xZ; owner word: "please prepare for compaction, ultrathink … /oak-wrap then stop all processes")
+
+**Metacognition — the seat's first four hours.** Inherited: a live map, a slot order, a
+count-to-zero goal and a set of instruments, taken up through a shadow period whose readiness
+gate was a demonstration; the transfer cost nine minutes and the first merge fired twenty-three
+minutes later. Landed: #97, #92, #96 (the fold, with the successor #104 cut); #100 in the slot
+at SHA:17769410b with every thread answered. Corrections, all self-caught: three commit
+subjects over the header limit (write to the limit before the check); one script refused by
+the write hook for a home path; the classifier refusing a cron twice and a monitor once with
+the identical shape accepted a minute later; the harness killing two background waits on a
+memory heuristic the host's own gauge contradicted. The shape under the review loops: I
+authored restating surfaces (a pickup map narrating a moving board; an arming block; a deny
+list) and each restatement was reviewed as new surface. Fluency's warning bit once: the broad
+revert allow I wrote as a cure pre-approved the abbreviated rollback — a cure that opened a
+hole. The bridge from action to impact held: the owner's two impacts were the count to zero
+and no more held seats, and every hour served one or both. Would I do anything differently:
+declare an enumerated-policy surface's model limit at PR-open so rounds two onward have a
+pre-declared disposition, instead of discovering the limit one spelling at a time.
+
+**Concept exploration — review loops on enumerated-policy surfaces.** Observations: #96 ran
+6, 1, 3, 3, 3 and #100 ran 5, 0, 0, 1, 2, 1, 1; the step-back fired on each; in both the
+generator was a surface whose correctness is a semantics claim (the board is current; no
+destructive form escapes) but whose mechanism is an enumeration (a narrated list; prefix and
+substring lists). Problem frame: a reviewer holding the semantics can always supply one more
+spelling, so each cure enlarges the enumeration and the loop converges only when the supply is
+exhausted or the shepherd names the model's limit. The fluent answer ("cure every spelling")
+was valid at every step and divergent as a loop. Proposals, each a pointer for after zero:
+(1) the pr-lifecycle intake declares the class — an enumerated-policy surface names its model
+and routes semantic-completeness findings to a parser lane at open (warrant: two PRs today;
+falsifier: such a PR settling in two rounds without the declaration); (2) the prefix-closure
+technique (deny the shortest prefix that names only the option: `--ab`, `--sk`, `--ha`,
+`--me`, `--ke`, `--f`) recorded as the settings-side technique for accepted abbreviations
+(warrant: it closed the class at zero cost on #100; falsifier: an accepted abbreviation the
+shortest unique prefix misses — impossible under git's own ambiguity rule); (3) the
+argument-aware matcher is the structural cure for the guard (routed to #101 todo 3). Inherited
+shape that changed: "a settings deny list can express a destructive-form policy" — it cannot;
+it can only mirror what a parser decides.
+
+**Free play — harvest.** Kept: three enumerations today each matched the wrong thing (the
+perl prefixer caught PR comment ids; the prefix deny missed abbreviations; the substring guard
+missed split flags) — "this reminded me of" the fork-diff manifest lane: an enumeration is a
+fingerprint, never a semantics, and where the estate needs semantics it needs a parser.
+Observation to keep: the harness's memory kill fired twice while `memory_pressure` read 43%
+free — a gauge the seat cannot see, like the held-seat prompt. Discarded (forced): the relay
+baton for the succession; the tide for the fleet's pause. One kept, one noted, two discarded.
+
+**Loss scan at the boundary.** Compaction kills every process: the re-arm recipe is in the
+seat record (machine-local, pointer on claim 8109015d) and, for any checkout, in the brief's
+§Standing processes. In flight: #100's checks on 17769410b with no settle watch (the stop
+order); the slot word for #99 not sent (#100 not landed); Altair's three lanes handed to this
+seat's defaults at their pause. Promises: all discharged or forwarded (the record's sweep).
+Attribution flagged: Altair's account of their quiet; #103's authorship from a body line; the
+mirror's settling inferred. Bounds: CI logs read for failure lines only; peers' sessions
+unseen. The recursion closes at the standing bounds; a further pass re-finds them.
+
+## Vanilla lifts Nectar (e1dced) — curator, the dedicated consolidation's first two landings prepared (2026-09-09 19:5xZ)
+
+- **Shape chosen (claim f8a2daca, plan event 30f54e0f to the Director):** two sibling lane
+  worktrees from engraph SHA:31e3711c8, operated non-resident from the primary; three
+  records PRs by home class — #105 (skills: the cross-fork-integration second draft from
+  both seats' notes and the Director's four routed findings; pr-lifecycle's slot word, class
+  fix, 9(b) composition, invariant-first authoring, Phase 5 counters; the lane-cut skill's
+  cross-surface read; session-handoff §6d; wrap's compaction sentence), #106 (rules, the
+  PDR-027 open question, the gotchas batch, extending.md), and the buffers drain cut AFTER
+  #104's fold from the post-fold tip so the archive is the landed napkin. Each PR a draft at
+  first push with its tally and a one-push budget; slots at the Director's word.
+- **Measured, first-hand:** `comms show` and `comms direct` take the full event id — the
+  8-character prefix every record uses is refused ("comms event not found"); read the file by
+  prefix glob instead. The Director's scratchpad instruments (draft-PR, comment, reply, poll)
+  run unchanged from a file copy by one plain `zsh <file>` call. The engraph napkin is a
+  byte-prefix of the coordination branch's (1,607 of 1,733 lines), which is why the drain
+  waits for the fold. A `cd` inside one Bash call left the cwd under the handoffs directory
+  and the statusline wrote `handoffs/.logs/statusline.log` within the minute — the gotcha I
+  had recorded an hour earlier; cwd returned, the stray removed. `pnpm skills:generate` after
+  a canonical edit that leaves the description unchanged rewrites no projection.
+- **Homes verified duplicate (not re-homed):** distilled's "correct under both orders" tell
+  (verify-dont-trust §Name the Instrument, verbatim); the three act classes of the
+  standing-ruling entry (never-use-git §A Safety Proof; cricket §The procedure seat stays
+  inside the lens; proportionality's too-big finding) — the general sentence went to
+  rules-have-no-exceptions on #106.
+- **Pointers for the Director's board, not mine:** the coordination-fold skill's step 10
+  names the seated block but not the tracked tenure journal entry (the Director's own
+  2026-09-08 lesson; a clause rides my drain PR unless you take it); the same skill spells
+  `origin/main` where the fork's default is derived. The post-mapping lane pointers with
+  proposed nodes are in event 30f54e0f.
+- **Routes under PDR-140 clause 9(c) from #107's post-final-head threads (20:5xZ):** the
+  quality-gate-ledger finding row for the tsup transient-config lint race names two
+  remedies; the chosen one is the ESLint ignore of `tsup.config.bundled_*.mjs` in the
+  eslint-plugin-standards package (deterministic, one line, config-expert reviewed), never a
+  lint-after-build ordering — the row's wording tightens to it at the ledger's next records
+  pass. The rules-operationalises sketch's report-mode-then-blocking shape was challenged as
+  gate-off/fix/gate-on and rejected on the estate's report-first-burndown pattern; the
+  falsifier for its pickup seat is on the thread (a report window outliving the sweep by more
+  than one consolidation pass). Measured the same evening: a commit subject written to the
+  limit and checked AFTER writing overshot four times in one session — `wc -c` on the
+  subject line BEFORE the check is the habit, not the check itself.
+- **Routes under 9(c) from #105's post-budget round (21:2xZ), for the cross-fork skill's next
+  amendment (Altair's #99-notes PR from the landed head):** the default-branch fetches in
+  steps 1, 2 and 9 take the explicit destination refspec
+  (`<fork-default>:refs/remotes/origin/<fork-default>`) the carrier fetch already carries,
+  and the carrier fetch moves to step 1 ahead of the merge-tree recompute that consumes the
+  carrier head (step 3 keeps a freshness re-fetch) — both single-branch-clone qualifiers,
+  correct in kind, below the bar for a reader in an ordinary clone.
+- **A merge commit landed locally WITH conflict markers (21:4xZ, #106's sync).** The probe
+  had read the pair clean; the real merge conflicted on the Core changelog (two lanes each
+  adding a top entry at the same position). The probe was the defect, not the preview:
+  `git merge-tree --write-tree` IS the three-way merge and reports a same-hunk insertion as
+  a conflict (exit 1, the file named) — the invocation that read clean was a deprecated
+  form whose output shape was never validated, the case `patterns/description-is-not-a-check`
+  records; the cross-fork skill's `--write-tree --name-only` form stays the authoritative
+  preflight (re-trued at the 2026-09-10 fold on a review finding). The three resolution edits failed on a
+  stale read, and the chained `add && commit` ran anyway because nothing in the chain gated
+  on the resolution: prettier and markdownlint both pass a file carrying `<<<<<<<` lines. The
+  marker count (`grep -c '^<<<<<<<\|^=======\|^>>>>>>>'`) read 3 AFTER the commit; caught
+  before the push; cured by a correcting commit on top (history append-only). The check that
+  belongs before every conflict-resolution commit is that count reading zero — a gate the
+  commit skill and the semantic-merge skill could name; and the chain shape (edit outcome
+  unverified, then commit) is the same generator as the unrun recipe: a step whose success was
+  assumed from its issuance.
+- **Routes under 9(c) from #106's post-budget round (21:5xZ):** (1) the Q-014 drain comment
+  in open-questions is a tombstone under that register's own contract (removed, no ledger) —
+  the buffers drain PR deletes it; (2) verify-dont-trust's default-tip clause gains the
+  qualifier that it governs claims about LANDED state, while a card about proposed state on
+  an open PR reads that PR's head — the rule's next records pass.
+- **Corrected by a peer's fact (Altair, 21:59Z): the sanctioned bot-merge path is the front
+  door `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>...`** (pr-lifecycle's
+  merge boundary; docs/engineering/merge-bot.md) — it recomputes the settlement verdict and
+  pins the verdicted sha itself. #107 and #105 were merged from this seat through the
+  Director's session script (a REST PUT with the head pinned after a hand recompute of OPEN,
+  CLEAN, zero unresolved): the same outcome, not the sanctioned instrument, and the
+  merge-base deletion sweep the front door names was not run on either. From #106 on: the
+  sweep first, then the front door with the expected reviewer set declared. Read the tool's
+  own help before adopting a peer's script — the script was the Director's instrument for
+  their lanes, and I inherited it as the path.
+- **The front door's expected set is the reviewers the configuration fires on THIS tip
+  (measured 22:1xZ on #106):** with `--expect copilot-pull-request-reviewer` the verdict was
+  SETTLED-NO-REVIEW (typed refusal, exit 3) because Copilot reviews the first push only and
+  never binds a sync tip — declare the every-push reviewer (the Codex connector) alone on a
+  synced head. Two tool facts from the same run: (a) the command's review-run liveness read
+  fails schema validation (`pullRequestNumber` / `pullRequestUrl` received null) and is
+  reported as "liveness unavailable" — a defect in the check-run reader, a friction to file;
+  (b) `pnpm --silent … | tail` swallows the exit code — the pipe's tail read 0 while the
+  command exited 3 (my own recorded gotcha, exit-codes-in-band, breached once tonight).
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 2 (2026-09-09 20:5xZ)
+
+- **Owner's words this window (verbatim):** "commit, then carry on" (19:1xZ) and "I want ALL
+  PRs merged, including those currently in draft" (19:2xZ). Read: the count-to-zero goal now
+  covers every draft and every PR opened from here; none parks.
+- **Landed since the boundary:** #99 (the 1.179.0 upstream carrier) at SHA:ead92d875, 20:30Z,
+  Altair as the bot, rounds 1, 1 both routed. Board at this wrap (tip SHA:ead92d875, eight
+  open): #107 in the slot at SHA:7ba11b810 (Vanilla; rounds 13, 1, 2 — the third dispositioned
+  without a push; checks running); #105, #106 BEHIND with their rounds cured in held commits
+  (Vanilla), each: cures plus the sync in one push at its word; #100 BEHIND, two Codex threads
+  at the SECOND STEP-BACK (epoch-two counts 2, 1, 1, 2) — the cure is the class boundary (git
+  reset and git revert denied whole again; the argument-aware allow is the matcher lane), the
+  rule text, commit message, replies and body edit are prepared in the worktree and the
+  scratchpad, and the settings edit itself is refused to this seat by the auto-mode classifier
+  three times (Edit tool, three shapes) — OWNER ITEM (e): the owner applies the two deny lines
+  or says "sed it"; #101, #102 (Altair), #103, #104 the fold, then Altair's #99-notes skill PR
+  and Vanilla's drain PR after #104.
+- **The slot yielded twice by rule, first-hand:** #105 held the slot at 19:52Z, opened a
+  ten-thread round and yielded to #99 (ready at the tip, depending on nothing open); #100 holds
+  its cure and yields while its owner edit waits. The yielding rule is now on the stream
+  (events 79a71c27, bf9f4a4f) and in Altair's #99 notes for the skill; it belongs in
+  pr-lifecycle's landing-slot clause: a slot-holder that cannot land inside the quiet window
+  yields to the next PR that depends on nothing open, and re-queues with the sync riding its
+  cure push.
+- **Retrospective:** the round storm on three records PRs opened at once (ten, nine, eight
+  threads inside forty minutes) was the reviewers sampling three fresh surfaces, not
+  divergence; the curator had the cures held before the routing offer arrived, and the
+  Director's routing of a second hand (Altair onto #105) was corrected by the claim-holder's
+  fact within a minute — the lesson is verify-state-before-routing at the claim-holder, not
+  at the thread count. The comms CLI facts re-measured this window: `comms direct` and
+  `comms append` require `--comms-dir`; `claims heartbeat` requires the FULL claim id (the
+  8-character prefix is "no active claim matches"); the two-leg loop is armed inline with the
+  timestamp read from a file (`date > f; read now < f`) so no substitution sits at the call
+  site. The watcher's hourly SIGTERM exit re-arms inside its own loop; asserted live after.
+- **Processes by id:** watcher b9s5wusst, PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry
+  peer poll bldjp1rii, two-leg heartbeat bptjzogt9 (n=3 claim-holding seats: Director, Altair
+  ×2, Vanilla), wrap cron 4aa37635 (`41 1-23/2 * * *`). No fold wake (classifier); the fold of
+  #104 rides the wrap cadence: in its slot after #103 or at the 2026-09-10 rollover.
+- **Owner items held:** (a) the upstream report of the OpenAI attribution and MCP-687 findings
+  on Oak's code — now THREE threads on #99, routed and resolved, the report is the owner's
+  act; (b) the App cannot re-run workflow jobs (Actions write); (c) the classifier refused the
+  one-shot fold-wake cron; (d) the external-skills-library gate alert repeats after "Archive
+  stands"; (e) NEW — the #100 settings edit (two blanket deny lines) refused to this seat.
+
+### Front-door liveness defect, verified at source (e1dced, 22:3xZ)
+
+- **Surface**: `agent-tools:merge-bot merge` (the review-run liveness leg, `pr-watch/review-runs.ts` → `agent-task-fields.ts`)
+- **Signal**: friction (a defect in the landed slice 1 of agent-tools-watch-commands)
+- **Observation**: `agentTaskViewSchema` types `pullRequestNumber`/`pullRequestUrl` as `.optional()`; `gh agent-task view` returns explicit `null` for a run with no pull request (run `aa61c92c`, 2026-09-06, reproduced by hand); `.optional()` rejects `null`, the ZodError escapes `mapRunsToPr`, and `readReviewRunsLeg` degrades the whole leg to "liveness unavailable" — one PR-less run in the window blinds the read for every PR. Also: `gh agent-task list` is USER-scoped across repositories (four `castr` runs sat ahead of this repository's in the window); the URL guard excludes them but they consume the list limit.
+- **Behaviour change / candidate follow-up**: `.nullish()` → `undefined` on both fields (the file's `completedAt` already takes that shape) with a null-view fixture; a per-run parse failure skips the run, never voids the leg; the cross-repo window is a second finding for the slice owner. Row drafted for the node's §Review dispositions (rides the drain PR); routed to the Director for the fix lane.
+- **Source plane**: active
+- Fix-lane review residue (e1dced, 22:3xZ; PDR-140 9c): test-expert on the liveness fix notes `state-gh.unit.test.ts` is an integration-tier shape (an argv-branching fake executor that throws) wearing a `.unit.test.ts` name — pre-existing across all eleven original tests, not folded into the hotfix; a rename is its own cycle for the Director to dispose. code-expert: no README/merge-bot.md text described the old degradation, so no doc change beyond the two in-code doc comments; pr-lifecycle §agent-task surfaces could add "PR fields are explicit null for PR-less runs (verified 2026-09-09)" — optional, left for the drain.
+- Gotcha (e1dced, 22:3xZ): zsh does not word-split an unquoted `$VAR` holding a space-separated file list — `eslint $F` received ONE argument and exited 2 (both eslint and prettier), read as a gate failure until the files were listed explicitly. Use `${=F}`, an array, or list the paths.
+
+## Nettle guards Pistil (2de368) — Director, NON-TERMINAL WRAP 3 (2026-09-09 22:5xZ)
+
+- **Landed this window (four):** #99 SHA:ead92d875 (20:30Z, Altair), #107 SHA:1e445112d (21:14Z,
+  Vanilla), #105 SHA:57e1248f0 (21:42Z, Vanilla), #106 SHA:c085015ae (22:15Z, Vanilla via the
+  merge-bot front door). Tip SHA:c085015ae. Seven open: #102 in the slot at SHA:26bf3063e
+  (Altair; rounds 5, 3, 2, converging; checks running); #101 next (Altair, citing #100 by number
+  with no landing claim); #103 (the Director's read done — the ZIP carries five private-origin
+  exports under `evidence/private/`; the import README records the owner's request as the
+  authority for the transfer; lands on that record with the flag on the premises; tally and
+  premises files ready); #104 the fold (in its slot after #103 or at the 00:00Z rollover);
+  #108 (Altair; step-back fired after five rounds while BEHIND — cures held unpushed, replies
+  only, one push at its word); #109 (Vanilla's fix of the front door's liveness leg — the block
+  above; source PR, gates green, two threads open); #100 (BEHIND; the settings edit still
+  refused to this seat — owner item (e), four hours now); then Vanilla's drain PR after #104.
+- **New practice facts:** the sanctioned bot merge is `merge-bot merge --pr <n> --expect
+  <reviewer>` (recomputes the settlement verdict, pins the sha; the observed reviewer set is
+  copilot-pull-request-reviewer and chatgpt-codex-connector) — the scratchpad `merge-as-bot.sh`
+  is the REST path and is retired for landings from here. The yielding rule ran twice more (a
+  slot-holder that cannot land inside the quiet window yields to the next PR ready at the tip)
+  and is in #105's landed pr-lifecycle text and Altair's #108.
+- **Retrospective:** the train moved four landings in three hours with three seats and one
+  Director word per slot; the one stall is #100, blocked on a settings edit the auto-mode
+  classifier refuses to this seat three times over — an unattended seat's own no-prompts fix
+  cannot be landed by an unattended seat, the fix's thesis proved on itself. The round storm
+  on freshly-undrafted records PRs (ten, nine, eight, thirteen threads inside an hour)
+  converged in one push each once the curator held cures for the slot word; #108's five
+  rounds while BEHIND were the counter-example (each cure push drew the next sample) and the
+  hold-until-the-word rule is on the stream for it.
+- **Processes by id:** watcher b9s5wusst (hourly re-arm inside its loop, asserted live at each
+  exit), PR poll bz8d4zqfs, peer-liveness b15oc98bb, registry peer poll bldjp1rii, two-leg
+  heartbeat bptjzogt9, wrap cron 4aa37635. Fold: #104 at its slot or the rollover; the wrap
+  cadence carries the check.
+- **Owner items held:** (a) the upstream report — three routed threads on #99; (b) the App
+  cannot re-run workflow jobs; (c) the fold-wake cron refused by the classifier; (d) the
+  external-skills-library gate alert; (e) the #100 settings edit (two blanket deny lines);
+  (f) NEW — #103 publishes private-origin exports on a public repository on the recorded
+  authority of the owner's import request; if the reading is wrong the cure is a follow-up
+  removing them from the archive; (g) the `state-gh.unit.test.ts` rename (an integration-tier
+  shape under a unit name, pre-existing) — a disposal for the Director's next records pass.
+- Expected-set fact (e1dced, 23:1xZ): the Codex connector reviews PUSHES TO A PULL REQUEST, not branch pushes — #109's first push went to a branch with no PR yet (the PR was opened a minute later), and no Codex round came in 30+ minutes, where #105/#106 (pushed to existing drafts) had theirs in ~6. Copilot is requested at PR creation and reviews whatever head is there. So for a "push, then open" lane the first-push expected set is Copilot only; Codex first binds at the next push (the sync at the slot). Recipe: open the draft BEFORE the first substantive push when Codex's first-push read is wanted.
