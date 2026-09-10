@@ -267,10 +267,11 @@ steps below were run end to end on Windows 11 in August 2026.
 1. **Install WSL and Ubuntu** — in an administrator PowerShell (right-click
    Start → Terminal (Admin)) run `wsl --install`, approve the elevation prompt,
    and create your Unix account when Ubuntu first launches (a reboot is only
-   needed if the installer asks for one).
+   needed if the installer asks for one). Check: `wsl -l -v` in PowerShell lists
+   Ubuntu with VERSION 2.
 2. **Cap the VM if the machine has 16 GB or less** — by default WSL2 may take up
    to half the machine's RAM with only a quarter of that as swap, and this
-   repository's whole-tree gates can then be OOM-killed inside the VM or starve
+   repository's whole-tree gates can then be killed when the VM runs out of memory, or starve
    the Windows side (the symptom: Windows becomes unresponsive and `Vmmem`
    dominates Task Manager). Back in PowerShell, create the file
    (`notepad $env:USERPROFILE\.wslconfig`):
@@ -286,7 +287,8 @@ steps below were run end to end on Windows 11 in August 2026.
    no more than your core count, and keep swap at least equal to memory so the
    gates page rather than die. Apply with `wsl --shutdown` (also from
    PowerShell) — this closes any running Ubuntu session; reopen it with `wsl ~`
-   (the `~` starts you in the Linux home rather than under `/mnt/c`).
+   (the `~` starts you in the Linux home rather than under `/mnt/c`). Check: inside
+   Ubuntu, `free -h` and `nproc` report the caps you set.
 
 3. **Install the toolchain inside Ubuntu** — start with
    `sudo apt update && sudo apt install -y curl git ca-certificates`, then follow
@@ -299,8 +301,8 @@ steps below were run end to end on Windows 11 in August 2026.
    then open a new shell or `source ~/.bashrc`; the standalone install at
    `~/.local/share/pnpm` is one of the trusted locations the hooks resolve pnpm
    from, and a corepack shim under nvm's Node directory is not, so a commit made
-   with only that shim fails at the hook's pnpm resolution. Two additions
-   Ubuntu's default sources do not carry. First, the pre-push hook requires
+   with only that shim fails at the hook's pnpm resolution. Ubuntu's default
+   package sources carry neither of the next two tools. First, the pre-push hook requires
    `gitleaks` — install the released
    binary with the same version and content pins CI uses, architecture-aware
    (gitleaks is a security control, so its binary is content-pinned, not just
@@ -332,6 +334,8 @@ steps below were run end to end on Windows 11 in August 2026.
    to find it.) Second, the repo's PR and agent
    tooling uses `gh` (the GitHub CLI), which installs from
    [GitHub's apt repository](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
+
+   Check: `node -v && pnpm -v && gitleaks version && gh --version` all answer.
 
 4. **Give pnpm network patience once** — WSL2's NAT (its network translation
    layer) can time out fetching large tarballs (`pnpm install` dies with
@@ -390,7 +394,7 @@ pnpm test && pnpm type-check && pnpm lint
 
 If these pass, your toolchain is working. No API keys are required for unit tests, type-checking, linting, or building.
 
-**Before your first push**: install [gitleaks](https://github.com/gitleaks/gitleaks/releases) (`brew install gitleaks` on macOS). The pre-push hook runs a secrets scan and will block pushes if gitleaks is not installed.
+**Before your first push**: install [gitleaks](https://github.com/gitleaks/gitleaks/releases) (`brew install gitleaks` on macOS; WSL/Linux: see [Windows (via WSL)](#windows-via-wsl)). The pre-push hook runs a secrets scan and will block pushes if gitleaks is not installed.
 
 ### Get an API key (optional)
 
