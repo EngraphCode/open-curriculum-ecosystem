@@ -247,8 +247,8 @@ noun.
 | The **body** of any review, and any inline comment carried inside the same submission | operator, inseparably — it is one API call | see the discriminator above |
 | A **standalone** inline review comment or thread reply (`POST …/pulls/<n>/comments`, `POST …/pulls/comments/<id>/replies`) | bot | not a review submission: it discharges no request and sets no review state |
 | An ordinary PR or issue comment (`POST …/issues/<n>/comments`) | bot | as above — a comment is a write, not a review |
-| Requesting or re-requesting a review **from a human** | bot | an ordinary mutating write: the `422` below is specific to the Copilot reviewer, and a human reviewer is accepted from the bot installation token |
-| Requesting a review **from Copilot** | operator | mechanism, not preference: `requested_reviewers` rejects a bot/app token with `422` — dated grant below |
+| Requesting or re-requesting a review **from a human** | bot | an ordinary mutating write, accepted from the bot installation token |
+| Requesting a review **from Copilot** | bot | since 2026-09-10 the same endpoint accepts `copilot-pull-request-reviewer[bot]` from the app's pull-request-work token (201; the timeline shows `review_requested Copilot`, the requested-reviewers list does not) — first-hand #108, #109, #110, #114; the 2026-08-06 grant below is history with no live use |
 | Commits, pushes, PR creation, merges, thread resolutions, label and state edits, and every other `gh api -X POST/PATCH/DELETE` | bot | the closed default: nothing reaches the operator's credential except a row above |
 
 The trigger is the **write**, at credential-selection time, never the tool
@@ -300,24 +300,27 @@ carry.
   the second code owner sat blocked on the owner personally — a standing
   bottleneck this user-instigated grant removed.
 
-- **Copilot review requests (granted 2026-08-06)** — the warrant for the
-  Copilot row. Owner word, verbatim:
-  "there is standing permission to use my/user credentials for requesting
-  reviews from copilot." Mechanics: the REST
-  `requested_reviewers` endpoint accepts
-  `copilot-pull-request-reviewer[bot]` only from a HUMAN user token — a
-  bot/app token gets `422` (tooling-lane probe + first-hand human-token
-  success, both 2026-08-06), so the owner's ambient `gh` keyring is the
-  only working path. The worked command:
+- **Copilot review requests (granted 2026-08-06; no live use since
+  2026-09-10)** — the owner's word, verbatim, stays on record: "there is
+  standing permission to use my/user credentials for requesting reviews
+  from copilot." Its ground was the mechanics of the day: the REST
+  `requested_reviewers` endpoint accepted `copilot-pull-request-reviewer[bot]`
+  only from a HUMAN user token, a bot/app token getting `422` (tooling-lane
+  probe + first-hand human-token success, both 2026-08-06). That ground is
+  falsified: on 2026-09-10 the same call under the app's pull-request-work
+  token returned 201 and fired `review_requested Copilot` on the timeline
+  (#108, #109, #110, #114 — the requested-reviewers list does not show the
+  bot reviewer; the timeline does), so the bot requests Copilot AS ITSELF
+  and the owner-credential path has nothing left to license. The worked
+  command, now run as the bot:
 
   ```bash
   gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
     -f "reviewers[]=copilot-pull-request-reviewer[bot]"
   ```
 
-  The surface displays the owner as the requester — the grant's accepted
-  consequence. It licenses exactly the Copilot row and is never precedent for
-  any other fallback.
+  The grant was never precedent for any other fallback, and its retirement
+  as a live route restores the rule's one shape: bot identity, always.
 
 ## History and grandfathering
 
