@@ -163,8 +163,11 @@ use, you should have added your work to 66 in the first place").
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
 selective (important-or-risky only). Cadence is at-open plus
-substance-triggered (a reshaped diff), never per cure push; Copilot's absence
-never blocks a merge. Suppressed findings are Copilot's own low-confidence
+substance-triggered (a reshaped diff), never per cure push. Copilot's
+absence never blocks a merge on a docs-only bot-authored pull request (the
+owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
+request the configured Copilot leg is OWED until it binds the tip, and the
+bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
 speculative cure or a silent skip. Two scope facts: the Copilot-review
@@ -173,12 +176,14 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on. Request mechanics (first-hand 2026-08-08,
-PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
-DROPS the Copilot handle — 200 response, no error, handle absent from
-the resulting request — so request Copilot through the GitHub MCP
-`request_copilot_review` tool (or the web UI), never the bare REST
-endpoint, and verify the reviewer actually appears on the PR. A third scope
+never a gate to wait on. Request mechanics, re-read 2026-09-10: the REST
+`requested_reviewers` endpoint's RESPONSE omits the Copilot handle (the
+2026-08-08 reading on PRs #829/#830 took that for a silent drop), but the
+request FIRES — the timeline shows `review_requested Copilot` within
+seconds and the review follows (#108, #109, #110, #114, as the bot under
+the pull-request-work token) — so the bare REST endpoint as the bot is the
+request mechanism; verify on the timeline, never on the response or the
+requested-reviewers list. A third scope
 fact: Copilot has a changed-file ceiling and says so — on a sibling
 repository it posted only that 544 files exceeded its review limit, naming
 the limit itself (2026-08-08). Key the fallback to that explicit refusal on
