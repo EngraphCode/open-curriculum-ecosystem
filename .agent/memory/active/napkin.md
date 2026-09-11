@@ -881,3 +881,36 @@ ever, on anything that has happened.
   design vendor token needs a named, line-shaped `.gitleaks.toml` allowlist (the Clerk publishable-key
   precedent), and that allowlist must ride in the SAME PR — the first push attempt failed on it after
   the commit's whole-tree gate had passed, costing a second ceremony cycle.
+
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 5 / last high-powered window (2026-09-10 16:4xZ–2026-09-11 07:0xZ)
+
+- OUTCOME: #127 (1.181.1 sync), #129 (native-Windows carrier: upstream #891's head + two owner-only-
+  write cures + `windows-basic`, GREEN on the landing tip — the first native-Windows CI proof on
+  this line) and #128 (the day's records) all LANDED by the front door; #123 closed as superseded.
+  Open PRs 0. The high-powered seat stops; the lower-powered seat picks up from the succession
+  record (`handoffs/8109015d-…-succession-2026-09-10.md`, §Revision 2 and 3).
+- OWNER WORDS (binding): "Mechanisms aren't purpose, design is not impact. What is the work trying
+  to achieve and why, what is the value, to whom, when. That is all that matters." And: "#123 and
+  #128 are both part of the Windows work" — the seat had read them as separate; at a handover,
+  the boundary of "done" is confirmed in the owner's own words before the record is written.
+- METACOGNITION: three misreadings in one day shared a shape — the nearest surface taken for the
+  fact: (1) "MERGE_HEAD gone" was read at the main .git while a linked worktree keeps its markers
+  under `.git/worktrees/<name>/` — always `git rev-parse --git-dir` before reading a marker; the
+  "trap" recorded at boundary 4 was false; (2) the count off the conflict list; (3) the hour
+  stamped from memory. The prose-review tail on #128 ran 5, 3, 5, 2 over four rounds before the
+  budget rule was applied; the memory existed (`prose-pr-review-tail-is-geometric-terminate-it`)
+  and was applied late — the terminating declaration belongs at round 2 of any docs PR.
+- FREE PLAY: (1) a write capability is proven on a throwaway object (the reference-update probe
+  removed a secret from a design in four API calls); (2) the absence of an event as a design
+  property (GITHUB_TOKEN reference moves trigger no workflow: what a mirror wants); (3) "a record's
+  claims are true at its own head" is a checkable property — a record that cites a sha outside its
+  own ancestry is the docs leg's blocking finding and my own error class; a validator pointer, not
+  a rule; (4) review capacity is metered (Codex credits out; a subagent leg died on the spend
+  limit): the tally names vendor state as evidence, and the front door's `--expect` set stays the
+  configured reviewers, never the ones that happened to answer.
+- CONCEPT (closing a lane): a lane CLOSES on value — the value statement holds at the landed head
+  — and SETTLES on safety (green by name, the quiet window, threads dispositioned). Settlement is
+  necessary, not sufficient; and value can hold while a prose tail never quiets, which the
+  terminating declaration reconciles (settle on dispositions). Candidate rule text, not a rule.
+- FOLD: the coordination branch of 2026-09-10 is merged; the successor branch is cut at this
+  boundary by the instrument and carries this block. Uncommitted at the stop: nothing.
