@@ -533,10 +533,19 @@ describe('validatePlanFile — fenced yaml must parse', () => {
       'a nested list item',
       ['- outer', '  - inner', `    ${FENCE}yaml`, ...BODY.map((l) => `    ${l}`), `    ${FENCE}`],
     ],
-    // The fence opening on the marker's own line, which neither the reader nor
-    // the first detector recognised (Copilot, PR #132).
     ['a bullet-list marker', [`- ${FENCE}yaml`, ...BODY.map((l) => `  ${l}`), `  ${FENCE}`]],
     ['an ordered-list marker', [`1. ${TILDE}yml`, ...BODY.map((l) => `   ${l}`), `   ${TILDE}`]],
+    // FIXTURES, not mechanism cases. Four review rounds sampled the container
+    // list one prefix at a time; the detector no longer enumerates prefixes, so
+    // these are here to pin the invariant — a YAML fence the reader did not
+    // take is refused, whatever put it out of reach — rather than to name
+    // shapes the code must special-case. A shape nobody has thought of belongs
+    // in this list too, and needs no code change to pass.
+    [
+      'a list inside a blockquote',
+      [`> - ${FENCE}yaml`, ...BODY.map((l) => `>   ${l}`), `>   ${FENCE}`],
+    ],
+    ['three levels of nesting', [`> > - ${FENCE}yml`, ...BODY.map((l) => `> >   ${l}`)]],
   ];
 
   for (const [container, lines] of containedFences) {
@@ -556,6 +565,18 @@ describe('validatePlanFile — fenced yaml must parse', () => {
       }
     });
   }
+
+  it('prose that merely mentions a fence is not one — the refusal reads shapes, not words', () => {
+    // The other side of the invariant. Every container marker is letter-free,
+    // so the detector requires a letter-free prefix: arbitrary nesting stays in
+    // scope while a node writing ABOUT the convention is left alone.
+    const outcome = validatePlanFile(
+      '.agent/plans/delivery/pins.plan.md',
+      [...FRONTMATTER, `Pin the workflow in a ${FENCE}yaml block at the top level.`, ''].join('\n'),
+    );
+
+    expect(isOk(outcome)).toBe(true);
+  });
 
   it('a non-yaml fence is left alone — the check reads YAML blocks, not every block', () => {
     const outcome = validatePlanFile(

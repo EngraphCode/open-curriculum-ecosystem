@@ -45,6 +45,16 @@ import { createMessage, type RuleWithReappraisingMessages } from '../reappraisin
  *
  * // Valid — deterministic enumeration of a literal dataset.
  * it.each([1, 2, 3])('doubles %i', (n) => {});
+ *
+ * WHAT IT REACHES, stated once rather than enumerated. The rule reads the
+ * member access where the guard is applied and resolves its root through
+ * scope, so every spelling of that expression is in scope — dotted or
+ * bracketed, aliased, namespaced, chained — and a local merely sharing a name
+ * is not. It does NOT follow a guard extracted into a value first
+ * (`const guard = it.skipIf`), which would need type information a syntactic
+ * rule does not have. That is a stated limit rather than a gap to chase: the
+ * shape it cannot see is not one anybody reaches for by accident, and the
+ * directive stays reviewer-enforced there.
  */
 const CONDITIONAL_MEMBERS = new Set(['skipIf', 'runIf']);
 
