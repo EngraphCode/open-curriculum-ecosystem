@@ -123,14 +123,54 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
   create(context) {
     let bindings: VitestBindings = { callees: new Set(), namespaces: new Set() };
 
-    /** `vitest.it` / `vitest.describe`, where `vitest` is a namespace import. */
+    /**
+     * The statically known property name of a member access, under either
+     * spelling: `x.skipIf` and `x['skipIf']` are the same call, so reading only
+     * the dotted form would leave the bracketed one — ordinary, legal syntax —
+     * outside a gate that claims to ban the construct.
+     */
+    function staticPropertyName(node: TSESTree.MemberExpression): string | undefined {
+      if (!node.computed) {
+        return node.property.type === AST_NODE_TYPES.Identifier ? node.property.name : undefined;
+      }
+      return node.property.type === AST_NODE_TYPES.Literal &&
+        typeof node.property.value === 'string'
+        ? node.property.value
+        : undefined;
+    }
+
+    /**
+     * Whether `name` at this position is Vitest's, rather than a local of the
+     * same spelling.
+     *
+     * A bare `it` or `test` is Vitest only under globals mode, where nothing
+     * declares it — so an identifier that RESOLVES to a declaration in scope is
+     * somebody else's (`const test = scheduler; test.skipIf()` is not a test
+     * guard, and this rule is error-level for the whole repository). A local
+     * bound to a Vitest import is still Vitest, which is what the alias set
+     * carries.
+     */
+    function isVitestIdentifier(node: TSESTree.Identifier): boolean {
+      if (bindings.callees.has(node.name)) {
+        return true;
+      }
+      if (!TEST_CALLEES.has(node.name)) {
+        return false;
+      }
+      // Unresolved means no declaration anywhere in scope: the globals-mode case.
+      return context.sourceCode.getScope(node).references.every((reference) => {
+        return reference.identifier !== node || reference.resolved === null;
+      });
+    }
+
+    /** `vitest.it` / `vitest['it']`, where `vitest` is a namespace import. */
     function isNamespacedTestCallee(node: TSESTree.MemberExpression): boolean {
+      const property = staticPropertyName(node);
       return (
-        !node.computed &&
+        property !== undefined &&
         node.object.type === AST_NODE_TYPES.Identifier &&
-        node.property.type === AST_NODE_TYPES.Identifier &&
         bindings.namespaces.has(node.object.name) &&
-        TEST_CALLEES.has(node.property.name)
+        TEST_CALLEES.has(property)
       );
     }
 
@@ -159,7 +199,7 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
       if (current.type !== AST_NODE_TYPES.Identifier) {
         return false;
       }
-      return TEST_CALLEES.has(current.name) || bindings.callees.has(current.name);
+      return isVitestIdentifier(current);
     }
 
     return {
@@ -167,10 +207,8 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
         bindings = collectVitestBindings(node.body);
       },
       MemberExpression(node) {
-        if (node.computed || node.property.type !== 'Identifier') {
-          return;
-        }
-        if (!CONDITIONAL_MEMBERS.has(node.property.name)) {
+        const property = staticPropertyName(node);
+        if (property === undefined || !CONDITIONAL_MEMBERS.has(property)) {
           return;
         }
         if (!rootsAtTestCallee(node.object)) {

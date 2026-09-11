@@ -34,7 +34,7 @@ import { extractFrontmatter } from '../portability/portability-fs.js';
 import { type ParsedPlanFile, type PlanConformanceFailure } from './plan-corpus-types.js';
 import { type ChoiceRegistry } from './plan-corpus-registries.js';
 import { planNodeSchema, type PlanNode } from './plan-node-schema.js';
-import { yamlFencedBlocks } from './yaml-fence-blocks.js';
+import { scanYamlFences } from './yaml-fence-blocks.js';
 
 /**
  * Every fenced YAML block in a plan node must PARSE.
@@ -59,8 +59,9 @@ import { yamlFencedBlocks } from './yaml-fence-blocks.js';
  */
 function yamlFenceFailures(content: string): string[] {
   const messages: string[] = [];
+  const scan = scanYamlFences(content);
   let index = 0;
-  for (const block of yamlFencedBlocks(content)) {
+  for (const block of scan.blocks) {
     index += 1;
     try {
       parseYaml(block);
@@ -70,6 +71,13 @@ function yamlFenceFailures(content: string): string[] {
         `fenced yaml block ${String(index)} does not parse: ${reason ?? 'unknown parse error'}`,
       );
     }
+  }
+  for (const line of scan.unreadableAt) {
+    messages.push(
+      `yaml fence at line ${String(line)} sits inside a blockquote or an indented container, ` +
+        'where this check cannot read it; move the block to the top level so its text is ' +
+        'verified rather than assumed',
+    );
   }
   return messages;
 }

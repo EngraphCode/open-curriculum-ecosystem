@@ -23,6 +23,18 @@ ruleTester.run('no-conditional-tests', noConditionalTestsRule, {
     {
       code: "import * as scheduler from 'node:timers';\nscheduler.it.skipIf(slow)('x', () => {});",
     },
+    // A LOCAL that happens to be spelled like a Vitest entry point is not one.
+    // This rule is error-level for the whole repository, so a bare name match
+    // would fail lint on unrelated code.
+    {
+      code: 'const test = scheduler;\ntest.skipIf(slow);',
+    },
+    {
+      code: 'function run(describe) {\n  describe.runIf(live);\n}',
+    },
+    {
+      code: "import { it } from './my-own-helpers.js';\nit.skipIf(slow)('x', () => {});",
+    },
   ],
   invalid: [
     // The exact shape a succession record handed a seat on 2026-09-11.
@@ -67,6 +79,20 @@ ruleTester.run('no-conditional-tests', noConditionalTestsRule, {
     },
     {
       code: "import * as vitest from 'vitest';\nvitest.describe.concurrent.runIf(live)('y', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    // Bracketed access is the same call in different syntax, at the guard and
+    // at the namespace root alike.
+    {
+      code: "it['skipIf'](process.platform === 'win32')('writes 0600', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    {
+      code: "import { it as spec } from 'vitest';\nspec['runIf'](live)('x', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    {
+      code: "import * as vitest from 'vitest';\nvitest['it'].skipIf(slow)('x', () => {});",
       errors: [{ messageId: 'conditionalTestBanned' }],
     },
   ],

@@ -527,6 +527,32 @@ describe('validatePlanFile — fenced yaml must parse', () => {
     });
   }
 
+  const containedFences: readonly (readonly [string, readonly string[]])[] = [
+    ['a blockquote', [`> ${FENCE}yaml`, ...BODY.map((line) => `> ${line}`), `> ${FENCE}`]],
+    [
+      'a nested list item',
+      ['- outer', '  - inner', `    ${FENCE}yaml`, ...BODY.map((l) => `    ${l}`), `    ${FENCE}`],
+    ],
+  ];
+
+  for (const [container, lines] of containedFences) {
+    it(`REFUSES a yaml fence inside ${container} rather than passing it silently`, () => {
+      // Following fences into containers means tracking container state, which
+      // is a Markdown parser's job. The gap must not be a quiet one: a node
+      // whose pinned YAML sits in a blockquote would sail past a check whose
+      // whole purpose is that no pinned YAML goes unparsed. So it is named.
+      const outcome = validatePlanFile(
+        '.agent/plans/delivery/pins.plan.md',
+        [...FRONTMATTER, ...lines, ''].join('\n'),
+      );
+
+      expect(isErr(outcome)).toBe(true);
+      if (isErr(outcome)) {
+        expect(outcome.error.messages.join(' ')).toContain('move the block to the top level');
+      }
+    });
+  }
+
   it('a non-yaml fence is left alone — the check reads YAML blocks, not every block', () => {
     const outcome = validatePlanFile(
       '.agent/plans/delivery/pins.plan.md',

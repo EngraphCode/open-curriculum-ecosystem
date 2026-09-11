@@ -27,6 +27,13 @@ import {
  * to (`testing-strategy.md` §Test Types; the `no-real-io-in-tests` rule). That
  * is the starting point, not an outcome of how these happened to be written.
  *
+ * That claim has to cover the QUIET filesystem access too. Until 2026-09-11 it
+ * did not: the `runMcpjam` case below called the real module resolver, and
+ * `resolve` walks `node_modules` directories on disk even though no path in the
+ * call names a file (review finding, PR #132). A seam takes it now, like every
+ * other edge here. A prohibition is not satisfied by an absence of `node:fs`
+ * imports; it is satisfied when nothing on the path reaches the disk.
+ *
  * Nothing is lost by it. Everything worth describing here is a property of OUR
  * code — the path it resolves, the content it hands over, the order it asks
  * for, and the fact that it never opens the destination. Whether the operating
@@ -346,8 +353,24 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
 // the spawn-free resolution-failure branch.
 describe('runMcpjam — bin-resolution failure is loud and spawn-free', () => {
   it('a root without the dependency yields a launch error naming pnpm install', () => {
-    const io = buildMcpConformanceNodeIo(resolve('/no-such-root'), 'tmp/unused');
+    // The resolver is injected. Module resolution walks `node_modules` on disk,
+    // so calling the real one here would have been filesystem access even
+    // though no path in the call names a file — the quiet kind this file must
+    // not perform, and the reason it is a seam.
+    const absent = (): string => {
+      throw new Error("Cannot find module '@mcpjam/cli'");
+    };
+    const io = buildMcpConformanceNodeIo(
+      resolve('/no-such-root'),
+      'tmp/unused',
+      undefined,
+      POSIX,
+      absent,
+    );
+
     const error = unwrapErr(io.runMcpjam(['--version']));
+
     expect(error.message).toContain('pnpm install');
+    expect(error.message).toContain('@mcpjam/cli');
   });
 });

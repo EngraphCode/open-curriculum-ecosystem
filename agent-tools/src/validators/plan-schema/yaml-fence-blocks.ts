@@ -12,8 +12,15 @@
  * so this scanner tracks the opening delimiter, closes on a matching run, and
  * strips the opener's own indentation from the content as CommonMark does.
  *
+ * FAIL-CLOSED at the edge of what it reads. Fences nest inside blockquotes and
+ * list items, and following them there means tracking container state, which is
+ * a Markdown parser's job. Rather than narrow the promise to "most blocks", the
+ * scanner REFUSES a YAML fence it finds in a position it cannot read, so the
+ * unread case is loud instead of a silent false green — the same move as the
+ * mode probe in `owner-only-write.ts`.
+ *
  * Its own home because it is a Markdown concern, not a plan-schema one; the
- * plan validator consumes {@link yamlFencedBlocks} and knows nothing of fences.
+ * plan validator consumes {@link scanYamlFences} and knows nothing of fences.
  *
  * @packageDocumentation
  */
@@ -85,32 +92,69 @@ function countLeadingSpaces(line: string, limit: number): number {
 }
 
 /**
- * Every fenced YAML block in `content`, in document order, each ready to hand
- * to a YAML parser.
+ * A line that OPENS a YAML fence in a position this scanner does not read: a
+ * blockquote, or a list item deep enough that the fence is indented past the
+ * top level.
+ *
+ * CommonMark fences nest inside containers, and reading those correctly means
+ * tracking container state — a Markdown parser's job, not this file's. The
+ * unread case must not be a silent one, though: a plan node whose pinned YAML
+ * sits in a blockquote would sail past a check whose whole purpose is that no
+ * pinned YAML goes unparsed. So an unreadable position is REFUSED by name
+ * rather than skipped, and the author moves the block to the top level, which
+ * is where a pinned file belongs anyway.
  */
-export function yamlFencedBlocks(content: string): string[] {
+const CONTAINED_YAML_FENCE = /^(?:[ \t]*>|[ \t]{4,})[ \t>]*(?:`{3,}|~{3,})[ \t]*(?:yaml|yml)\b/iu;
+
+/** What one scan of a document found: the blocks it read, and what it could not. */
+export interface YamlFenceScan {
+  /** Every fenced YAML block read, in document order, ready for a YAML parser. */
+  readonly blocks: string[];
+  /** 1-based line numbers of YAML fences in positions this scanner cannot read. */
+  readonly unreadableAt: number[];
+}
+
+/**
+ * Read one line while NO fence is open: it may open one, or it may be a YAML
+ * fence in a container this scanner will not guess at, which is recorded.
+ */
+function readOutsideFence(
+  line: string,
+  lineNumber: number,
+  unreadableAt: number[],
+): OpenFence | undefined {
+  const open = openFenceAt(line);
+  if (open === undefined && CONTAINED_YAML_FENCE.test(line)) {
+    unreadableAt.push(lineNumber);
+  }
+  return open;
+}
+
+/** Every fenced YAML block in `content`, plus any this scanner refuses to guess at. */
+export function scanYamlFences(content: string): YamlFenceScan {
   const blocks: string[] = [];
+  const unreadableAt: number[] = [];
   let open: OpenFence | undefined;
   let current: string[] = [];
+  let lineNumber = 0;
   for (const rawLine of content.split('\n')) {
+    lineNumber += 1;
     const line = rawLine.replace(/\r$/u, '');
     if (open === undefined) {
-      open = openFenceAt(line);
+      open = readOutsideFence(line, lineNumber, unreadableAt);
       current = [];
-      continue;
-    }
-    if (closesFence(line, open)) {
+    } else if (closesFence(line, open)) {
       if (open.isYaml) {
         blocks.push(`${current.join('\n')}\n`);
       }
       open = undefined;
-      continue;
+    } else {
+      current.push(line.slice(countLeadingSpaces(line, open.indent)));
     }
-    current.push(line.slice(countLeadingSpaces(line, open.indent)));
   }
   // CommonMark closes an unterminated block at the end of the document.
   if (open?.isYaml === true) {
     blocks.push(`${current.join('\n')}\n`);
   }
-  return blocks;
+  return { blocks, unreadableAt };
 }
