@@ -3,20 +3,17 @@ id: upstream-mirror-workflow
 node_type: delivery
 name: "Upstream mirror workflow — the fork's main kept identical to upstream main, automatically"
 overview: "A GitHub Actions workflow on the default branch, off by default behind one repository variable, that compares this fork's mirror branch with its parent's default branch and fast-forwards the mirror by a reference update that can never mint a commit, failing loud when the mirror is ahead or diverged."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-11
+ratified_where: "Owner card answer of 2026-09-11 09:2xZ in the Director session (Nettle guards Pistil, 2de368): \"Ratify both\"; recorded on the seat record §COMPACTION BOUNDARY 5 and the estate-coordination thread record"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The repository variable UPSTREAM_MIRROR_ENABLED is true on the fork after the workflow file lands on the default branch. The owner's 2026-09-10 ruling already decides that the mirror is automatic; the residue is the owner's hand on the variable, because the bot app cannot read or write repository variables (403 on 2026-09-10) and no secret is needed"
-    expires: 2026-09-24
-last_updated: 2026-09-10
+owner_gates: []
+last_updated: 2026-09-11
 ---
 
 # Upstream mirror workflow
@@ -197,6 +194,10 @@ change to the fork's `Release` or `CI` workflows (mirror pushes by the run's tok
 neither, decision 7).
 
 ## Todos
+
+Gate cleared 2026-09-11: `UPSTREAM_MIRROR_ENABLED=true` is set on the fork (by the owner's hand
+through the owner's `gh`, since the bot's token scopes carry no variables permission). The
+workflow is inert until the file lands.
 
 1. Author `.github/workflows/upstream-mirror.yml` with the file above; format with Prettier;
    land it on the default branch through the ordinary lane (bot identity, legs, front door).

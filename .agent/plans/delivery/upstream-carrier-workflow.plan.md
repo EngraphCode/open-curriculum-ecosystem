@@ -3,10 +3,10 @@ id: upstream-carrier-workflow
 node_type: delivery
 name: "Upstream carrier workflow — a draft pull request from the fork's main into the default branch whenever main moves"
 overview: "A GitHub Actions workflow on the default branch, off by default behind one repository variable, that opens exactly one draft carrier pull request into the default branch at the mirror branch's tip whenever the mirror carries commits the default branch lacks and no carrier is open, with the receipt the cross-fork skill's step 1 reads; it opens as the bot app so the pull request is a first-class pull request on the platform."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-11
+ratified_where: "Owner card answer of 2026-09-11 09:2xZ in the Director session (Nettle guards Pistil, 2de368): \"Ratify both\"; recorded on the seat record §COMPACTION BOUNDARY 5 and the estate-coordination thread record"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
@@ -14,11 +14,8 @@ tickets: []
 depends_on:
   - plan: upstream-mirror-workflow
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The bot app's client id and private key are in the fork's Actions secrets as UPSTREAM_CARRIER_APP_CLIENT_ID and UPSTREAM_CARRIER_APP_PRIVATE_KEY (the key leaving the owner's machine for the repository's secret store is the owner's custody decision, 2026-09-10 report), and UPSTREAM_CARRIER_ENABLED is set to true"
-    expires: 2026-09-24
-last_updated: 2026-09-10
+owner_gates: []
+last_updated: 2026-09-11
 ---
 
 # Upstream carrier workflow
@@ -243,6 +240,11 @@ The semantic integration (steps 3–9 of the cross-fork skill are a seat's); mer
 requesting reviews; the mirror itself.
 
 ## Todos
+
+Gate cleared 2026-09-11: `UPSTREAM_CARRIER_APP_CLIENT_ID` (the app's public client id) and
+`UPSTREAM_CARRIER_APP_PRIVATE_KEY` are in the fork's Actions secrets and `UPSTREAM_CARRIER_ENABLED=true`
+is set, all through the owner's `gh` at the owner's word (the bot's token scopes carry no secrets
+or variables permission). The workflow is inert until the file lands.
 
 1. Author `.github/workflows/upstream-carrier.yml` with the file above; format with Prettier;
    land it on the default branch through the ordinary lane.

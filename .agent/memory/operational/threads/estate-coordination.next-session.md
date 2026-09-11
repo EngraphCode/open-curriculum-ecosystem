@@ -1924,3 +1924,23 @@ by name search — the lesson of #119:
 - Owner-held after this handover: the windows lane's next step; the mirror workflow's variable;
   the carrier workflow's two secrets and variable, and retiring the Codex OCE task; one upstream
   report of six routed Copilot findings from #127; the directives-tier placement questions.
+
+## 2026-09-11 09:2xZ — the owner's cards: the sync nodes ratified, their gates cleared, the upstream report drafted
+
+- The owner ratified `upstream-mirror-workflow` and `upstream-carrier-workflow` by card ("Ratify
+  both"); both nodes carry the stamp. Gates cleared the same hour: `UPSTREAM_MIRROR_ENABLED`,
+  `UPSTREAM_CARRIER_ENABLED`, `UPSTREAM_CARRIER_APP_CLIENT_ID` and `UPSTREAM_CARRIER_APP_PRIVATE_KEY`
+  are set on the fork through the owner's `gh` (the bot's scopes carry no variables or secrets
+  permission). The workflow files are the next lane (the nodes pin their text); until they land
+  nothing runs.
+- `windows-basic` stays advisory until 2026-09-17 or later (owner card); the ruleset act is the
+  owner's.
+- The upstream report of the six routed #127 findings is drafted for the owner's review at
+  `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md` (owner card:
+  "Draft the report now, and write it to this checkout for my review"); sending it is the
+  owner's act.
+- 09:4xZ, the remaining cards: the Codex OCE task is already retired (the carrier workflow is the
+  only producer once it lands); the fstat verification of the owner-only write is a small lane
+  now, folding in the two dispositioned #128 findings (todos 1–3 marked landed; item 9 pending);
+  the older held items (§C: directives-tier placement; #100's two deny lines) wait for a session
+  with their context. The lower-powered seat's two lanes are on the succession record §Revision 4.
