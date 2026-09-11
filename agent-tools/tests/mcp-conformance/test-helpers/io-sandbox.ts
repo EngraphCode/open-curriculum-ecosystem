@@ -3,16 +3,16 @@
  * real IO on behalf of tests, homed on the `test-helpers/` surface per the
  * no-real-io-in-tests structural allowlist. Each sandbox is a fresh temp
  * directory; `cleanupSandboxes` removes everything a test file created.
- *
- * The read-back helpers this module used to carry — file reads, symbolic-link
- * planting, link detection, directory listing — left with the tests that used
- * them. Those tests assert what LANDS ON DISK, which is a smoke-tier concern
- * under `.agent/directives/testing-strategy.md`, and they now live in
- * `smoke-tests/owner-only-write-posix.smoke.ts` reading the real filesystem
- * directly. What remains here is what the in-process suites still need: a
- * tracked temporary directory, and a way to occupy a path before a test runs.
  */
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  lstatSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -32,7 +32,27 @@ export function cleanupSandboxes(): void {
   }
 }
 
+/** Read a sandbox file as UTF-8. */
+export function readSandboxFile(...segments: string[]): string {
+  return readFileSync(join(...segments), 'utf8');
+}
+
 /** Write a sandbox file as UTF-8. */
 export function writeSandboxFile(content: string, ...segments: string[]): void {
   writeFileSync(join(...segments), content, 'utf8');
+}
+
+/** Plant a symbolic link at `linkPath` pointing at `targetPath`. */
+export function linkSandboxFile(targetPath: string, linkPath: string): void {
+  symlinkSync(targetPath, linkPath);
+}
+
+/** Whether the entry at the path is itself a symbolic link (not followed). */
+export function isSandboxSymbolicLink(...segments: string[]): boolean {
+  return lstatSync(join(...segments)).isSymbolicLink();
+}
+
+/** The entry names directly under a sandbox directory, in a stable order. */
+export function listSandboxEntries(...segments: string[]): string[] {
+  return readdirSync(join(...segments)).sort((a, b) => a.localeCompare(b));
 }

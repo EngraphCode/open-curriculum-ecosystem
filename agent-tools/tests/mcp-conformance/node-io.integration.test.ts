@@ -15,7 +15,15 @@ import {
   writeOwnerOnly,
   type OwnerOnlyWriteOps,
 } from '../../src/mcp-conformance/owner-only-write.js';
-import { cleanupSandboxes, sandbox, writeSandboxFile } from './test-helpers/io-sandbox.js';
+import {
+  cleanupSandboxes,
+  isSandboxSymbolicLink,
+  linkSandboxFile,
+  listSandboxEntries,
+  readSandboxFile,
+  sandbox,
+  writeSandboxFile,
+} from './test-helpers/io-sandbox.js';
 
 afterEach(() => {
   cleanupSandboxes();
@@ -79,6 +87,23 @@ const ORDERED_OWNER_ONLY_WRITE = [
 ];
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
+  it('a relative report dir writes under the repo root and reports the relative path', () => {
+    const root = sandbox();
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), undefined, POSIX);
+    const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
+    expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'protocol.json') });
+    expect(readSandboxFile(root, 'tmp', 'reports', 'protocol.json')).toBe('{"raw":"bytes"}');
+  });
+
+  it('an absolute report dir stands as given — written there and reported verbatim', () => {
+    const root = sandbox();
+    const elsewhere = join(sandbox(), 'evidence');
+    const io = buildMcpConformanceNodeIo(root, elsewhere, undefined, POSIX);
+    const outcome = io.retainRawReport('oauth', 'verbatim');
+    expect(outcome).toEqual({ ok: true, reportedPath: join(elsewhere, 'oauth.json') });
+    expect(readSandboxFile(elsewhere, 'oauth.json')).toBe('verbatim');
+  });
+
   it('an unwritable target is a loud retention failure, never a throw', () => {
     const root = sandbox();
     // Occupy the report-dir path with a FILE so mkdir cannot create it.
@@ -87,6 +112,19 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const outcome = io.retainRawReport('protocol', 'content');
     expect(outcome.ok).toBe(false);
     expect(!outcome.ok && outcome.error.length > 0).toBe(true);
+  });
+
+  it('the aggregate summary lands beside the raw reports with the caller-shaped path', () => {
+    const root = sandbox();
+    const outcome = writeRunSummary(
+      root,
+      join('tmp', 'reports'),
+      '{"verdict":"pass"}',
+      undefined,
+      POSIX,
+    );
+    expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
+    expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
   });
 
   it('a retained report is owner-only by construction — created at 0600, descriptor tightened before any content lands', () => {
@@ -178,6 +216,28 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     expect(() => {
       writeOwnerOnly(join(root, 'summary.json'), 'secret', ops, POSIX);
     }).toThrow(OwnerOnlyModeNotHeldError);
+  });
+
+  it('a symbolic link planted at the destination is replaced by an owner-only regular file; its target is left untouched', () => {
+    // A stale or planted report link must never be FOLLOWED: opening the
+    // destination for writing would truncate and overwrite the link's target
+    // (a file outside the report directory) before any descriptor could be
+    // tightened. The real `node:fs` adapter is exercised here, so the on-disk
+    // state is the observable; the requested 0600 mode is proven by the ordered
+    // recorder tests, because NTFS reports no POSIX mode bits to read back.
+    const root = sandbox();
+    const target = join(root, 'target.txt');
+    const destination = join(root, 'reviewer-pack.md');
+    writeSandboxFile('original', target);
+    linkSandboxFile(target, destination);
+
+    const outcome = retainOwnerOnlyAt(destination, 'fresh', undefined, POSIX);
+
+    expect(outcome).toEqual({ ok: true, reportedPath: destination });
+    expect(readSandboxFile(target)).toBe('original');
+    expect(isSandboxSymbolicLink(destination)).toBe(false);
+    expect(readSandboxFile(destination)).toBe('fresh');
+    expect(listSandboxEntries(root)).toEqual(['reviewer-pack.md', 'target.txt']);
   });
 
   it('on Windows the owner-only write is refused before any file is touched, with a typed error naming the reason', () => {
