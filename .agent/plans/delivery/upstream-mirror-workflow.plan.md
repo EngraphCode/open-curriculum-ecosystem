@@ -201,9 +201,9 @@ workflow is inert until the file lands.
 
 1. Author `.github/workflows/upstream-mirror.yml` with the file above; format with Prettier;
    land it on the default branch through the ordinary lane (bot identity, legs, front door).
-2. The owner sets `UPSTREAM_MIRROR_ENABLED=true` (the gate). Then one dispatch with the parent
-   ahead, read against criterion 1, before relying on the schedule; read the workflow state
-   (decision 10).
+2. After the file lands, read the workflow state (decision 10) and `gh workflow enable` it if it
+   is anything but `active`; then one dispatch, read against criterion 1, before relying on the
+   schedule. Nothing here waits on the owner: the gate above is already cleared.
 3. Re-true the cross-fork skill's step 1 to name this workflow as the mirror's producer, and
    the thread record's continuity line.
 

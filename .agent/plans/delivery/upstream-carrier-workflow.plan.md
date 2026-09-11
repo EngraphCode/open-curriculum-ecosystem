@@ -248,8 +248,9 @@ or variables permission). The workflow is inert until the file lands.
 
 1. Author `.github/workflows/upstream-carrier.yml` with the file above; format with Prettier;
    land it on the default branch through the ordinary lane.
-2. The owner adds the two secrets and sets `UPSTREAM_CARRIER_ENABLED=true` (the gate). Then one
-   dispatch against the live board (criteria 1, 2 and 4 as the board allows).
+2. After the file lands, read the workflow state as the mirror node's todo 2 does, then one
+   dispatch against the live board (criteria 1, 2 and 4 as the board allows). Nothing here waits
+   on the owner: the gate above is already cleared.
 3. Re-true the cross-fork skill's step 1 (the carrier's producer, the new prefix and marker, the
    receipt's fields) and the pr-lifecycle references to the previous producer's marker.
 

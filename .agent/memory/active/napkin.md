@@ -882,13 +882,13 @@ ever, on anything that has happened.
   precedent), and that allowlist must ride in the SAME PR — the first push attempt failed on it after
   the commit's whole-tree gate had passed, costing a second ceremony cycle.
 
-## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 5 / last high-powered window (2026-09-10 16:4xZ–2026-09-11 07:0xZ)
+## Nettle guards Pistil (2de368) — Director, COMPACTION BOUNDARY 5 / last high-powered window (2026-09-10 16:4xZ–2026-09-11 10:0xZ)
 
 - OUTCOME: #127 (1.181.1 sync), #129 (native-Windows carrier: upstream #891's head + two owner-only-
   write cures + `windows-basic`, GREEN on the landing tip — the first native-Windows CI proof on
   this line) and #128 (the day's records) all LANDED by the front door; #123 closed as superseded.
   Open PRs 0. The high-powered seat stops; the lower-powered seat picks up from the succession
-  record (`handoffs/8109015d-…-succession-2026-09-10.md`, §Revision 2 and 3).
+  record (`handoffs/8109015d-…-succession-2026-09-10.md`, §Revision 4 and 5).
 - OWNER WORDS (binding): "Mechanisms aren't purpose, design is not impact. What is the work trying
   to achieve and why, what is the value, to whom, when. That is all that matters." And: "#123 and
   #128 are both part of the Windows work" — the seat had read them as separate; at a handover,

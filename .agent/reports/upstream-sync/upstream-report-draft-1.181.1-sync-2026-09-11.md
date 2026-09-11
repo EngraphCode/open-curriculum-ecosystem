@@ -5,7 +5,7 @@ naming the findings a downstream review round surfaced on upstream-authored file
 integrating releases 1.179.1 to 1.181.1 (fork PR #127, 2026-09-10). Intended impact: upstream
 decides whether to cure; the fork cures none of these (it never diverges upstream code on a
 sync). Questions for a reviewer: are the six findings stated accurately against upstream's code
-at `216e64c15`; is anything fork-specific mislabelled as upstream's. Evidence standard: each
+at `216e64c15`, and is anything fork-specific mislabelled as upstream's? Evidence standard: each
 finding cites the file and line the reviewer named and is reproducible from upstream's tree at
 that tip. Authority boundary: this note is the owner's to send, edit or drop; it names no fork
 surface, branch or organisation. Non-goals: no cure proposals beyond the reviewer's own words;
