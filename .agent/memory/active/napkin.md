@@ -812,7 +812,9 @@ ever, on anything that has happened.
   prefix `automation/upstream-carrier-`, marker `<!-- upstream-carrier -->` (the old marker named
   the estate). The mirror branch is DERIVED from parent.default_branch (no variable: no second
   instance). The bot app cannot read/write repository variables (403): the enable variable is the
-  owner's hand. assumptions-expert: NOT YET → three-item path, all applied; dispositions on the nodes.
+  owner's hand. [CORRECTED 2026-09-11: false, and of the same class as the dispatch claim below —
+  the installation holds `actions_variables: write` and `secrets: write`. The 403 was a token
+  scope that did not request them.] assumptions-expert: NOT YET → three-item path, all applied; dispositions on the nodes.
 - LESSONS: BSD xargs has no `-a` (a silent zero-hit sweep looked like a clean sweep — always sanity
   check a zero result against a known hit); `echo =====` in zsh is an `=cmd` expansion; the
   merge-tree preview names conflicts but the dual-changed set for the dropped-hunk proof is the
@@ -920,3 +922,136 @@ ever, on anything that has happened.
   an owner fact to ask, never a residual to flag (memory `org-and-audience-models-are-owner-facts`);
   three of the four unknowns I listed at the cards were of that kind. The seat stops here; the
   lower-powered seat runs Lanes A and B from the succession record §Revision 4.
+
+## Nettle guards Pistil (2de368) — Director, the first lower-tier window (2026-09-11 10:0xZ–13:5xZ, Opus 5)
+
+<!-- fitness exceeded by ~750 lines; needs consolidation -->
+
+The observations below and in the boundary-6 block were written in full rather than trimmed
+(`knowledge-preservation-over-fitness-warnings`; the owner's "never trim docs to fit limits"),
+and this file stood at 922 lines against a 300-line limit before them. The workflow's other
+valid response — graduation to permanent homes — is a dedicated consolidation pass, not a
+session-close act, so the pressure is flagged here for that pass rather than absorbed silently.
+Two of this window's lessons ALREADY graduated, into the `no-conditional-tests` lint rule and
+the plan corpus's fenced-YAML check, which is the drain working as intended.
+
+- OUTCOME: the succession's two lanes both ran. #130 (the predecessor's records) landed at
+  SHA:0d6a9769c under the docs-only bot-authored exception after Copilot timed out on the tip;
+  #131 (the two sync workflows) landed at SHA:ad64f3cd5 by the front door with both reviewers
+  bound; #132 (the fstat verification with the records fold) is at the front door. Both
+  workflows read `state: active` with no enable needed.
+- THE LESSON OF THE WINDOW — a handed instruction is a hypothesis, and twice today the
+  instruction was wrong in a way only execution could reveal. (1) The succession record said
+  "copy the fenced YAML verbatim; if the copy would differ, STOP and report". The copy was exact
+  and the RATIFIED TEXT did not run: two plain-scalar `run:` values carrying a colon-space, so
+  neither file parsed, and a `gh api --arg` flag that does not exist. (2) It said to mark four
+  tests `it.skipIf(process.platform === 'win32')`; `no-conditional-tests` names `it.skipIf` first
+  in its forbidden list. Neither was ambiguity to route to the owner; both had exactly one correct
+  answer available by reading a rule or running a parser. The generalisation: BEFORE following a
+  handed recipe, run the cheapest oracle that can falsify it — a parser, a `--help`, the rule the
+  instruction would violate. A predecessor's plan never outranks an always-applied rule.
+- THE LINE THAT HELD ALL DAY: on ratified text, cure what cannot run, carry what changes
+  behaviour. Three parse and flag defects cured; four design findings (unpaginated duplicate
+  guard, two comparison-window races, the carrier's missing parent check) carried to the owner
+  with shapes verified read-only against the live fork. That line is what let a lane diverge from
+  owner-ratified text without the seat quietly redesigning it.
+- REVIEW CAPACITY RETURNED: Codex is back from its credit outage and found the `gh api --arg`
+  defect independently of this seat's parser pass, on the same day. Two reviewers reaching one
+  defect by different routes is the strongest signal available here, and it is worth naming in
+  the tally when it happens.
+- COPILOT TIMED OUT on #130's second tip after two requests that both fired on the timeline. The
+  front door settled SETTLED-NO-REVIEW, which is never merge-eligible EXCEPT for the docs-only
+  bot-authored class the owner ruled on 2026-09-03. Recomputing that class by name at the
+  boundary — author, paths, checks, zero unresolved threads — is the seat's own act, because the
+  tool does not yet consume disposition state.
+- I CLAIMED THE BOT COULD NOT DISPATCH A WORKFLOW, AND IT WAS FALSE. A 403 `Resource not
+  accessible by integration` was read as "the app lacks `actions`", and written into two plan
+  nodes and this napkin as an owner-held item. The owner doubted it; the installation holds
+  `actions: write`. The 403 meant the token-scope TABLE requested no such permission — which the
+  table's own header states, in a paragraph I had already read: an ungranted permission fails the
+  MINT with 422, so a 403 reading exactly `Resource not accessible by integration` is a
+  wrong-scope symptom — other 403s (ruleset refusals, rate limits) are NOT, and the table says so.
+  A `workflow-dispatch` scope now exists
+  and the bot dispatched both workflows green. THE GENERATOR: a refusal is a symptom, and a
+  capability claim needs the GRANT. I reasoned forward from the symptom instead of checking what
+  governs it — the same shape as the test-placement error below.
+- FOLD: the coordination branch of 2026-09-11 carries this block; uncommitted at the stop:
+  nothing.
+
+## COMPACTION BOUNDARY 6 — Nettle guards Pistil (2de368), Director, first Opus 5 window (2026-09-11 10:0xZ–16:0xZ)
+
+- OUTCOME: #130 (predecessor's records) LANDED SHA:0d6a9769c under the owner's docs-only
+  bot-authored exception after Copilot timed out on the tip; #131 (the two upstream sync workflows)
+  LANDED SHA:ad64f3cd5 with both reviewers bound; both workflows dispatched BY THE BOT and green;
+  #132 (mode verification + IO-free tests + the workflow-dispatch scope) and #133 (continuity) open
+  at the boundary.
+
+- **THE OWNER'S FRAME AT THE BOUNDARY (binding, and it changes what a lesson may look like): "We
+  are using lower powered models now, so we need to rely more on the structure of the Practice than
+  we have been doing."** A lesson written as advice — "read the rule first", "run the oracle" — is
+  a judgement the next seat may not have the capability to exercise. Every lesson below therefore
+  states the STRUCTURE that now catches it, or says plainly that it is not yet caught. Three cures
+  built this window, each proven by a negative control rather than asserted:
+  1. `@oaknational/no-conditional-tests` — `it.skipIf`/`runIf` on `it`/`test`/`describe` now fail
+     lint. Before: a probe file passed at exit 0 while the identical `it.skip` failed. After: the
+     same probe fails at exit 1 naming the rule. This is the gate that would have refused the
+     succession record's instruction without anyone needing to recall the rule.
+  2. `validate-plan-corpus` now PARSES every fenced YAML block in every plan node, on the gate that
+     already walks the corpus. The failing test is the exact colon-space shape that shipped two
+     unloadable owner-ratified workflows. A node whose pinned text cannot run no longer reaches a
+     seat.
+  3. `OwnerOnlyWriteOps` gained `mkdir`, so no filesystem call on a retention path sits outside the
+     injected seam and the tests cannot reach for one.
+  NOT yet structural: a capability asserted from a refusal. The specified cure is a `merge-bot
+  grants` command printing the installation's real permissions beside the scope table; the thread
+  record carries its design and the functions it needs. Until it exists this one rests on a memory
+  line, which is exactly the weak form the owner is warning about.
+
+- **THE GENERATOR OF EVERY ERROR THIS WINDOW: I reasoned forward from the nearest symptom or the
+  handed text, instead of reading the rule that governs it.** Three instances, all the same shape:
+  (1) the succession record said to mark four tests `it.skipIf(win32)` and I planned to, checking
+  `no-conditional-tests` only by luck; (2) a 403 on a workflow dispatch became "the app lacks the
+  permission", when the tool's own header — which I had read — says a 403 reading exactly
+  `Resource not accessible by integration` is a wrong-scope symptom and an ungranted permission
+  fails the mint with 422; (3) three successive test placements,
+  each asking "WHERE may a test that does filesystem IO live", when `testing-strategy.md` does not
+  admit the premise. The counterexample proves I hold the technique: on the ratified YAML I ran a
+  parser BEFORE landing and found three blocking defects. I applied the technique to an artefact and
+  not to an instruction. **Run the cheapest oracle that can falsify a handed instruction BEFORE
+  following it — the rule file is an oracle, not just the parser.**
+
+- **AUTHORITY HAS A DIRECTION, AND INVERTING IT DEMOTES A RULE TO A PREFERENCE** (owner, verbatim):
+  "'so the tests need no filesystem' is still inverting the authority, the tests are not _allowed_
+  access to the filesystem". I had written the seam as serving the tests' needs. It does not: the
+  prohibition is the premise and the seam is its consequence. The tell is a sentence where a rule
+  appears as something the design accommodates rather than something the design obeys.
+
+- **I SPENT THE OWNER'S ATTENTION ON A QUESTION THE RULES ANSWERED** (owner, verbatim): "TESTS DO
+  NOT CREATE OR ALLOW IO UNDER ANY CIRCUMSTANCES! Check the principles, you do not need me for this
+  … you even suggested the right solution, so you know this, so why the hell are you asking?" A card
+  is for a decision that is constitutively the owner's. A question the directives settle is not one,
+  and asking it costs more than getting it wrong quietly would.
+
+- THE CURE, once the premise was right, was small and obvious: `mkdir` into the `OwnerOnlyWriteOps`
+  seam, so both retention entry points drive the whole path through it and no filesystem call sits
+  outside. 5155 tests pass with zero IO and no platform guard, so the Windows leg runs the identical
+  set. The one test that asserted the OS's `rename` replaces a symlink is ABSENT rather than
+  relocated: that is a property of the operating system, not of our module.
+
+- CONCEPT — **a handoff transmits INTENT with authority and MECHANISM without it**. My predecessor's
+  intent was right both times (verify the mode; keep the Windows leg green; land the ratified
+  design). Both mechanisms were wrong (a forbidden skip; YAML that did not parse). A successor takes
+  the intent as binding and re-derives the mechanism against live rules. The succession record's own
+  tripwire said "if the copy would differ from the node, STOP and report" — which only anticipated
+  MY error, never the node's.
+
+- FREE PLAY: (1) two independent reviewers reaching the same defect by different routes happened
+  TWICE today (Codex on `gh api --arg`, which I found with a parser; both reviewers on the e2e
+  mislabelling) — independent convergence is the strongest signal available here and belongs in the
+  tally by name; (2) the front door's `SETTLED-NO-REVIEW` is never merge-eligible EXCEPT for the
+  docs-only bot-authored class, and recomputing that class by name at the boundary is the seat's own
+  act because the tool cannot see disposition state; (3) a red advisory check is information, but a
+  DELIBERATE permanent red is not flakiness and must not ride an advisory window onto the default
+  branch — that judgement held #132 for the hours it took to find the real answer.
+
+- FOLD: the 2026-09-11 coordination branch carries this block. Uncommitted at the stop: nothing.

@@ -645,7 +645,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | 661556 | Chinook seeks Cloud | implementer, lead at n=2 — MCP-673 corpus truing: PR A (#959, owner-word amendments) and PR B (factual true-ups), claim ed9ec042 | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | 9e26e6 | Vesta rides Solstice | second seat at n=2 (Chinook seeks Cloud 661556 leads) — MCP-673 corpus truing; boundary set by the lead | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
-| claude-code | claude-fable-5-1 | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c | 2026-09-09 | 2026-09-09 |
+| claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
@@ -1947,3 +1947,246 @@ by name search — the lesson of #119:
 - 10:0xZ, owner word: native Windows is PROVEN in use — a developer on the estate works on Windows
   machines; the carrier node's value statement holds beyond the hosted runner. The high-powered
   Director seat stops; the lower-powered seat picks up Lanes A and B (succession record §Revision 4).
+
+## 2026-09-11 13:5xZ — the seat continues on Opus 5: both succession lanes run
+
+Model switch inside one continuous seat (PDR-027: the row's `model` changes, no row is added).
+Claim 8109015d adopted at `claude-opus-5[1m]`; thorough grounding run; the safety table recomputed
+clean before any edit.
+
+- **#130 LANDED SHA:0d6a9769c** — the predecessor's records. Copilot reviewed the first tip (five
+  findings, four cured, one routed) and never bound the second after two requests that both fired,
+  so the front door settled `SETTLED-NO-REVIEW`. Landed under the owner's 2026-09-03 docs-only
+  bot-authored exception with the class recomputed by name at the boundary. Codex reviewed both
+  tips; its continuity-commit finding is dispositioned with the shape lesson on the seat record.
+- **#131 LANDED SHA:ad64f3cd5** — `upstream-mirror.yml` and `upstream-carrier.yml`, from the
+  nodes the owner ratified. THREE DEFECTS IN THE RATIFIED TEXT were cured at authoring time
+  because the files did not run: a plain-scalar `run:` value carrying a colon-space in each node,
+  so neither parsed, and `gh api --arg`, which is not a flag. Codex found the third independently.
+  Both reviewers bound the final tip; seven threads dispositioned.
+- **#132 OPEN** — the fstat verification of the owner-only write (the carrier node's todo 5) with
+  the records fold. The handed `it.skipIf` shape was refused by `no-conditional-tests`. An earlier
+  draft of this line then said the four real-filesystem tests had MOVED to an e2e suite; that move
+  was itself refused, and the tests were deleted as redundant. The disposition below is the one
+  that holds, and this line is corrected rather than left to contradict it. Either way the unit
+  suite the Windows leg runs registers the same set on every host.
+- **Both workflows read `state: active`** with no `gh workflow enable` needed — the mirror node's
+  decision 10 answered for a workflow added to a fork after creation.
+
+### Owner-held after this window
+
+1. **DONE, and a correction.** An earlier draft of this record said the first workflow dispatch was
+   an owner-only act, because the bot answered 403 `Resource not accessible by integration` on
+   `POST .../dispatches`. That was WRONG and the owner caught it. The `el-graphael` installation
+   holds `actions: write` (read from `GET /orgs/{org}/installations`); the 403 meant the merge-bot
+   token-scope table requested no such permission, and that table's own header states that an
+   ungranted permission fails the MINT with 422, so a 403 whose body is exactly `Resource not
+   accessible by integration` is a wrong-scope symptom. Other 403s — a ruleset refusal, a rate
+   limit — are not scope problems, and the checked-in table in `token-scopes.ts` carries that
+   qualifier; a diagnosis that drops it sends the next operator to the wrong table. A
+   `workflow-dispatch` scope now exists (PR #132) and the BOT dispatched both workflows on
+   2026-09-11: mirror run 34614449174 logged "In sync", carrier run 34614457898 logged "Nothing to
+   carry", which are the two lines that had carried the YAML parse defects. Nothing here is
+   owner-held. **The generator lesson: verify a capability against the GRANT, never against one
+   token's refusal.**
+2. **Four carried findings on the two sync workflows.** Each is real, none stops a workflow
+   running, and each changes behaviour in text the owner ratified, so each is the owner's call.
+   Recorded in full here rather than as labels, because the node rows for two of them ride on
+   PR #132, which is HELD (item 6), and a finding must not be recoverable only from a held branch.
+   Each shape below was verified read-only against the live fork on 2026-09-11.
+
+   - **The carrier does not check the mirror against the parent** (Copilot, PR #131; the strongest
+     of the four). *Scenario:* a commit that did not come from upstream reaches the fork's mirror
+     branch. The carrier's only comparison is `{default}...{mirror}`, so that commit counts toward
+     `mirror_ahead_by`, the carrier is cut at it, and the receipt calls it "upstream's snapshot" —
+     a false statement in the artefact the integrating seat trusts. *Remedy:* compare the mirror
+     with the parent BEFORE comparing it with the default branch, and fail unless the mirror is
+     identical to or behind the parent (an older valid snapshot is acceptable). *Gate:* bounded
+     today against AUTOMATION only: the mirror workflow's only write is a `force=false`
+     fast-forward to the parent's tip, so no workflow can create the condition, and the mirror
+     workflow fails loud once it exists. It is NOT bounded against a person or a bot with write
+     access. An earlier draft said "reopen if anyone gains a direct push to the mirror branch",
+     which read as a future trigger; the condition already holds. Verified read-only on
+     2026-09-11: `GET /repos/EngraphCode/open-curriculum-ecosystem/branches/main` answers
+     `protected: false` and `GET .../rules/branches/main` answers an empty list, so every writer
+     on the fork can already push a fork-only commit to the mirror and the carrier would label it
+     upstream's snapshot. Two ways to close it, and the choice is the owner's: apply the remedy
+     above, or protect the mirror branch so only the mirror workflow writes it.
+   - **The mirror's comparison window** (Codex, PR #131). *Scenario:* the parent advances between
+     the compare call and the `parent_tip` read; the stale `identical` means the fast-forward never
+     fires and the mirror stays behind until the next slot — across a Friday slot, a weekend, since
+     the schedule is Monday to Friday. *Remedy:* read `parent_tip` FIRST and compare against that
+     immutable sha; the compare endpoint accepts a sha on the head side. *Gate:* latency only,
+     never a wrong write; the next slot self-heals.
+   - **The carrier's comparison window** (Codex, PR #131). *Scenario:* the mirror advances between
+     the compare and the `mirror_tip` read, so the carrier is cut at the new tip while its receipt's
+     merge base and exclusive counts describe the old one. *Remedy:* the same ordering swap — read
+     `mirror_tip` first, compare `{default}...{mirror_tip}`. *Gate:* a stale receipt on a draft a
+     seat reads before integrating, never a wrong merge.
+   - **The duplicate guard reads one page** (Copilot on PR #131 and Codex on PR #130 — two
+     reviewers independently). *Scenario:* more than one hundred open pull requests against the
+     default branch hides an existing carrier, and a second one opens, against the node's promise
+     of exactly one. *Remedy:* `--paginate --slurp` with the filter across the flattened pages;
+     `--paginate` alone applies the `--jq` program per page and emits one result per page. *Gate:*
+     unreachable on this fork, whose open count is a handful; reachable in the deployment context
+     the node designs for, since the file is written to be inherited by the parent.
+3. **The upstream report** at `.agent/reports/upstream-sync/` is still the owner's to send.
+4. **`windows-basic` required** on or after 2026-09-17.
+5. The older held items (§C: directives-tier placement; #100's two deny lines) still wait for a
+   session with their context.
+6. **PR #132 was HELD and is no longer: the red was removed by construction.** For one round its
+   `windows-basic` leg failed reproducibly and by design — the new verification refuses when the
+   descriptor does not read 0600, Node on Windows reports every writable file as 0666, and four
+   tests wrote through the real adapter — so the advisory window was not a licence to land it. It
+   is recorded because the reasoning is the lesson, not because a decision is still open.
+
+   The question looked like "where does a real-filesystem proof of a library function live when
+   all four taxonomy categories exclude it", and three answers were weighed. All three are written
+   out HERE, in the landed record, because an earlier draft pointed at
+   `native-windows-support-carrier.plan.md` for them and the node does not carry them (Codex, PR
+   #133): a pointer into a branch is not a home, and the branch is gone once the lane lands.
+
+   - **Guard the four tests** with `it.skipIf(process.platform === 'win32')`, which is what the
+     succession record instructed. REFUSED: `.agent/rules/no-conditional-tests.md` names
+     `it.skipIf` first among its forbidden mechanisms. Nothing at the gate would have caught it,
+     which is why this lane also builds the lint rule that now does.
+   - **Move them to an e2e suite** that runs on Linux only. REFUSED: `testing-strategy.md` defines
+     e2e as driving a separately running system over its protocol channel, and classification is
+     by behaviour shape, never by filename or by which CI leg happens to run it.
+   - **Delete them, because they were REDUNDANT rather than homeless.** TAKEN. Three of the four
+     asserted the ordering, which the recorded-ops constant already proves at the seam, without a
+     filesystem. The fourth asserted that the operating system's `rename` replaces a symbolic link
+     rather than following it — a property of the operating system, not of this module, so it was
+     describing Node. The question had a false premise: tests are not permitted filesystem access
+     at all, so "where may a test that does IO live" has no answer, and asking it three times in
+     three shapes was the error. The cure was to put `mkdir` in the injected seam so no call on the
+     retention path sits outside it.
+
+   Landed proof rather than argument: `windows-basic` passes on #132, and the unit suite's
+   registered set is now identical on every host.
+
+## 2026-09-11 16:0xZ — COMPACTION BOUNDARY 6 (Nettle guards Pistil, 2de368, Director, Opus 5)
+
+Owner word: reflect, prepare for compaction, run a Cricket suite without Fable members.
+
+- **Cricket suite (6 dispatches).** The quartet's Fable member dropped at the owner's word; the
+  other three roles ran both stances. `judgement-medium` normal ON-TRACK and adversarial ON-TRACK;
+  `judgement-high` normal ON-TRACK, adversarial **DRIFTING**; `procedure-xhigh` normal ON-TRACK,
+  adversarial **DRIFTING**. Non-unanimous, so it routes to the sitting Director, which is this seat.
+  Cost: 6 dispatches, ~190k subagent tokens, 17s–125s each.
+  - The `judgement-high` adversarial DRIFTING was the useful one and its redirection was ACTED ON
+    before this entry: it said to verify that neither open pull request still carried a corrected
+    error. One did — this record and the napkin both still asserted the bot could not dispatch a
+    workflow. Both corrected; owner-held item 1 above now records the correction instead.
+  - The `procedure-xhigh` adversarial DRIFTING was a frame-discipline complaint: "compaction
+    records" was not cited by rule id in the prompt. The governing surfaces are
+    `continuity-surface-commits-as-orphans`, ADR-150 and PDR-011, plus the owner's own instruction.
+  - Consistent with the standing ruling that Cricket is a lens and not an authority: four legs
+    passed the frame, and the one that changed behaviour did so by naming a specific unverified
+    claim rather than by disagreeing about priority.
+
+- **State.** #130 LANDED SHA:0d6a9769c; #131 LANDED SHA:ad64f3cd5; both workflows dispatched by the
+  bot and green. #132 OPEN at SHA:97b54611b with the Windows red resolved by construction (5155
+  tests, zero IO, no platform guard). #133 OPEN. Worktrees: primary and `fstat-2de368`.
+
+- **Mechanical cures, and the one still outstanding.** The owner's correction at the boundary was
+  that this seat "described mechanical fixes, but what you have implemented is prose". Of the
+  window's three failures:
+  1. *A handed `it.skipIf` that no gate would have refused* — CURED MECHANICALLY on #132.
+     `@oaknational/no-conditional-tests` reports `skipIf`/`runIf` on `it`/`test`/`describe`,
+     including chained forms, leaving `.each` over a literal dataset alone. Proven with a negative
+     control: the probe file that passed lint at exit 0 now fails at exit 1 naming the rule, while
+     `it.skip` was already caught by `vitest/no-disabled-tests`. The rule document now names its
+     enforcement and says which clauses stay reviewer-enforced and why.
+  2. *Tests performing filesystem IO* — CURED STRUCTURALLY on #132 for this module: `mkdir` joined
+     the `OwnerOnlyWriteOps` seam, so no filesystem call on a retention path sits outside it and
+     the tests cannot reach for one. Repo-wide the `@oaknational/no-real-io-in-tests` rule already
+     enforces the prohibition; its `**/test-helpers/**` allowlist is the remaining escape hatch and
+     is a repo-wide contract, not this lane's to narrow.
+  3. *A capability asserted from a 403* — NOT YET CURED, and specified rather than hand-waved. The
+     mechanism should be a `merge-bot grants` command that PRINTS the installation's actual granted
+     permissions beside the scope table, so "what can the bot do" is read rather than inferred.
+     Everything it needs exists: `signAppJwt`, `sendGithubRequest`, `readJsonBody` and
+     `resolveInstallationId` in `agent-tools/src/merge-bot/mint-installation-token.ts` already call
+     `GET /repos/{owner}/{repo}/installation`, whose response carries `permissions`;
+     `INSTALLATION_SCHEMA` parses only `.id` today and needs that field added. It is NOT built,
+     deliberately: it wants its own pull request with its own tests, not a fifth concern bolted onto
+     #132 at the end of a long window. Until it exists, the standing practice is the memory line —
+     verify a capability against the grant, never against one token's refusal.
+
+- **The window's generator, for whoever reads this next.** Three owner corrections, one cause:
+  reasoning forward from the nearest symptom or the handed text instead of reading what governs it.
+  The full account is the napkin's COMPACTION BOUNDARY 6 block and the per-user memory
+  `read-the-governing-document-before-naming-a-mechanism`. The short form: a handoff transmits
+  INTENT with authority and MECHANISM without it; verify a capability against the grant, never
+  against one token's refusal; and a prohibition is the premise a design obeys, never a need the
+  design serves.
+
+## 2026-09-11 17:2xZ — the second review round on #132 and #133: eight findings, six real
+
+Same seat, same session, after the compaction at boundary 6. The owner's word for the window:
+"this is an n=1 session. We want 132 and 133 merged, and then we are going to explore integrating
+some new research about AI tutoring into the repo."
+
+Both pull requests were green on every named check, including `windows-basic`, and both were
+refused by the front door for open review threads — 8 of 17 on #132, 4 of 7 on #133. Every one was
+read and dispositioned; none was waived.
+
+- **Three of #132's eight were STALE**, written against tips from before the tests were made
+  IO-free (`a6ee831f`, `97b54611`). Two predicted a permanent `windows-basic` red from four
+  real-adapter tests; those tests no longer exist and the leg is green on the live tip. The third
+  objected to plan prose calling a `test-helpers` placement "legitimate"; that prose is gone. The
+  proof is the live check run, not the argument.
+
+- **Five were real, and three of them were defects in mechanisms THIS LANE HAD JUST BUILT.** That
+  is the part worth carrying: a gate built in a hurry to replace prose can be as unsound as the
+  prose, and the second review round is where that shows up.
+
+  1. *The mode verification accepted a mount that reports bits it does not enforce* (Codex, P1).
+     CIFS/SMB without Unix extensions synthesises every mode from `file_mode=`, so `file_mode=0600`
+     answers 0600 to any reading while `fchmod` changes nothing and the server ACL still governs
+     access. Reading 0600 back there is this verification's own false claim wearing the right
+     answer. CURED: the descriptor is moved to 0400 and read FIRST, and a mount that will not
+     round-trip the probe raises the typed `OwnerOnlyModeNotEnforcedError`. Proven by removing the
+     probe and watching the synthetic-0600 case be accepted.
+  2. *Both retention entry points created the report directory before the Windows refusal* (Codex).
+     A refused retention still mutated a caller-selected path. CURED: an exported
+     `assertOwnerOnlyEstablishable` runs before `mkdir`. The test that had asserted `['mkdir']`
+     now asserts no call at all — it had been ratifying the defect.
+  3. *The `no-conditional-tests` lint rule matched three literal identifier spellings* (Codex), so
+     `suite.skipIf`, `import { it as spec }` and `import * as vitest` walked past the gate that had
+     just been built to replace prose. CURED: the rule resolves the root back to its `vitest`
+     import and reads `suite`. All five bypass forms were proven live before the fix.
+  4. *The fenced-YAML plan gate matched one literal fence spelling* (Codex), so ```` ```yml ````, a
+     tilde fence, an indented fence, a four-backtick fence or an info string with a title restored
+     the false green it was built to remove. CURED: the scanner reads Markdown fences. The 128-node
+     live corpus still passes; today it contains only three-backtick `yaml` blocks, so the widening
+     is prospective and its proof is in the unit tests, not in the corpus.
+  5. *The carrier node's acceptance criterion 3 named a symlink test that had been deleted* (Codex).
+     CURED: the criterion states the invariant actually held — the destination is never opened.
+
+- **#133's four were all real**, and two of them were false claims in the continuity surfaces.
+  1. *The mirror-provenance gate called itself bounded on a condition that already holds* (P1).
+     Verified read-only: `main` answers `protected: false` and no ruleset applies, so every writer
+     on the fork can already push a fork-only commit to the mirror and the carrier would call it
+     upstream's snapshot. CURED: the item now says it is bounded against automation ONLY, and names
+     the owner's two ways to close it.
+  2. *A pointer to three decision options that the landed tree does not carry.* CURED: all three
+     are written out in the record itself, with which was taken and why. A pointer into a branch is
+     not a home.
+  3. *The 403 diagnosis had lost its qualifier* in three places, sending a future operator to the
+     scope table for ruleset and rate-limit refusals too. CURED in all three.
+  4. *The napkin passed its fitness limit with neither consolidation nor the required marker.*
+     CURED with the marker, which is the workflow's first valid response; the observations stay at
+     full weight.
+
+- **Landed state.** #132 carries the cure as SHA:0e67a9e1e. Gates run on the lane before the push:
+  type-check 60/60, lint 58/58 with zero errors, agent-tools 5166 tests, the eslint plugin 433.
+
+- **What this round is evidence for.** The previous window's conclusion was that a lesson is
+  unfinished until it names a gate. This round refines it: a gate is unfinished until something has
+  tried to get past it. Three of the five real findings were bypasses of gates built hours earlier,
+  and each bypass was ordinary, legal syntax rather than anything adversarial. The cheap discipline
+  that would have caught all three at authoring time is to write the bypass cases as tests BEFORE
+  calling the gate built — the same negative-control move already used on the product code, applied
+  to the gate itself.
