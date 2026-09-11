@@ -231,8 +231,11 @@ jobs:
 4. A run with nothing to carry (`mirror_ahead_by` 0) writes nothing. Proof `repo-safe`: the
    "Nothing to carry" line and no ref created.
 5. The Codex OCE task and this workflow never both produce a carrier for one tip. Proof
-   `owner-held`: the owner retires the task once criterion 1 is proven; the guard's prefix
-   match covers the interval.
+   DISCHARGED 2026-09-11: the owner retired the task ahead of this workflow landing (card
+   answer, "I have already retired the Codex task"), so no interval exists in which two
+   producers are live and this workflow is the only producer from its first run. The guard's
+   prefix match, which also matches the retired producer's prefix, is now belt and braces
+   rather than the interval's cover.
 
 ## Out of scope
 
@@ -280,3 +283,16 @@ Codex review on PR #130, 2026-09-11, carried to the owner rather than actioned:
 | --- | --- |
 | The duplicate guard requests `per_page=100` without `--paginate`, so on a repository with more than one hundred open pull requests targeting the default branch an open carrier outside the first page is invisible and the run opens a second one, against decision 5's promise of exactly one carrier. Unreachable on this repository (a handful of open pull requests); reachable in the deployment context this node designs for, since the file is written to be inherited by the parent at the merge-back. | Carried to the owner with a recommended shape rather than cured, because the node is ratified and this is a design choice, not a transcription defect with one correct form. The shape: `--paginate --slurp` with the filter applied across the flattened pages, since `--paginate` alone applies the `--jq` program per page and would emit one result per page. Until the owner's word the guard holds on this repository and the risk is bounded by its open-pull-request count. |
 | The same step's `--arg` flag | Cured at authoring time; see the row above. Codex reached this defect independently of the seat's own parser pass, on the same day. |
+
+Review round on PR #131, 2026-09-11, at the workflow files' landing. Both configured reviewers
+bound the tip. Cured: nothing in the file — see the authoring-time table above for the three
+defects cured before the first push. Carried to the owner:
+
+| Finding | Disposition |
+| --- | --- |
+| The comparison and the mirror tip are two separate authenticated requests, so a mirror move between them yields a carrier cut at the new tip whose receipt (merge base, exclusive counts) describes the old one. The mirror and carrier workflows hold separate concurrency groups, so a delayed or manual run can interleave. (Codex, P2) | Carried, not cured: the receipt is wrong only in a race whose window is the gap between two calls seconds apart, and the fix changes which commit the carrier is cut at, which is a behaviour change on ratified text. Recommended shape, verified read-only on 2026-09-11: read `mirror_tip` FIRST, then compare `{default}...{mirror_tip}` — the compare endpoint accepts an immutable sha on the head side (proven against this repository), so both reads describe one snapshot and the second call disappears. There is no field on the compare response that carries the head tip: `commits` is paginated and capped, so `.commits[-1]` is not it. |
+| The duplicate guard reads one page of one hundred open pull requests. (Copilot at this tip, and Codex on PR #130 — two independent reviewers, which is why this row now names both) | Carried, not cured, with the recommended shape `--paginate --slurp` and the filter applied across the flattened pages, since `--paginate` alone applies the `--jq` program per page and emits one result per page. |
+
+The two findings compound: a carrier opened in either failure mode is a draft a seat reads before
+integrating, so neither can merge anything by itself. That bounds the cost of carrying them to
+the owner rather than diverging further from the ratified text in one landing.
