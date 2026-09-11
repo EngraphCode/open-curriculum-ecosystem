@@ -168,7 +168,8 @@ jobs:
         if: steps.compare.outputs.status == 'identical'
         env:
           MIRROR_BRANCH: ${{ steps.compare.outputs.mirror_branch }}
-        run: echo "In sync: ${MIRROR_BRANCH} equals the parent's default branch. No action taken."
+        run: |
+          echo "In sync: ${MIRROR_BRANCH} equals the parent's default branch. No action taken."
 ```
 
 ## Acceptance criteria (each with a proof)
@@ -221,3 +222,18 @@ read the same day and the in-tree workflows):
 | "zero rulesets" contradicted the exploration record | Cured: "no ruleset applies to `main`". |
 | The parent reads assume a public parent | Cured: stated in the file's header and as decision 8a. |
 | The five load-bearing platform assertions (unset `vars.X`, `GITHUB_TOKEN` triggers no run, `client-id`, skipped job upstream, `-F` booleans) | Confirmed against the documentation read 2026-09-10; no change. |
+
+Authoring-time validation, 2026-09-11 (the successor seat at todo 1, running the ratified text
+through a parser before landing it; the defect was in this node's own text, so the cure lands in
+the same pull request as the file):
+
+| Finding | Disposition |
+| --- | --- |
+| The "Report in sync" step's single-line `run:` value is a plain YAML scalar carrying a colon-space (`echo "In sync: ...`), which YAML reads as a second key. The file does not parse, so Actions cannot load the workflow at all and no acceptance criterion could ever be met. | Cured in §The file: a `run: \|` block scalar, the form every other step in both nodes already uses. The shell command is byte-identical and no decision changes. Evidence: `yaml@2.9.0` and Prettier each refuse the pre-cure text at that line and accept the cured text, with `.github/workflows/ci.yml` as a parsing control; the landed file is re-extracted from this fence, so file and node cannot drift. |
+
+Codex review on PR #130, 2026-09-11, carried to the owner rather than actioned (the node is
+ratified; this is a choice, not a defect that stops the file running):
+
+| Finding | Disposition |
+| --- | --- |
+| The enable variable is already `true`, so the first scheduled slot after the file lands can act before todo 2's workflow-state check and controlled first dispatch. The reviewer's shape is to leave the variable false until after landing and the state check, then enable it immediately before the smoke dispatch. | Carried to the owner, with the landing sequenced to make the window moot: the slots are 00/06/12/18 UTC, the lane lands and dispatches inside a slot gap, and both workflows are no-ops today (mirror compare `identical`, carrier `mirror_ahead_by` 0, both exercised read-only on 2026-09-11). Were upstream to move in that window, a fast-forward of the mirror by a `force=false` reference update is the ratified behaviour. The seat cannot flip the variable in either direction: the bot's token scopes carry no variables permission, so every flip is an owner act, and the owner set all four deliberately ahead of the landing. The standing question for the owner is whether an enable variable should sit false until a first dispatch has proven its workflow. |
