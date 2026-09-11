@@ -2190,3 +2190,92 @@ read and dispositioned; none was waived.
   that would have caught all three at authoring time is to write the bypass cases as tests BEFORE
   calling the gate built — the same negative-control move already used on the product code, applied
   to the gate itself.
+
+## 2026-09-11 17:3xZ — an owner decision raised by #132's fourth review round
+
+**The owner-only retention cannot prove ENFORCEMENT, only that the mode interface is live.**
+
+OPEN OWNER DECISION — the request, its three options and its evidence live in the decision thread
+[`owner-only-retention-enforcement-2026-09-11.json`](../../../state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json),
+`status: open`. Not restated here: a thread record cites a decision thread, it does not carry its
+body (`threads/README.md` §Relationship to other operational surfaces). This lane's next safe step does not depend on the answer,
+since PR #132 landed with its claim narrowed to what it establishes, so the decision is
+discoverable open work rather than a block.
+
+Recorded here only because it changes how a later reader should read the module: the guarantee is
+that a retained artefact is created owner-only, never widened, and refused outright unless the
+filesystem's own mode interface is live and reports owner-only. That is strictly more than the
+previous code established and strictly less than enforcement, and `owner-only-write.ts` says so in
+those words.
+
+### The review arc on #132, as evidence about gates
+
+Seven rounds by the landing, and the useful pattern is not the count but the direction:
+
+1. Two gates built to replace prose that had already failed to hold.
+2. Both found too NARROW — ordinary syntax walked past them.
+3. The lint rule found simultaneously too WIDE (any local named `test` would fail lint
+   repository-wide), the fence check narrow in a second direction, and a "no filesystem" claim
+   false in its quietest corner (module resolution walks `node_modules` on disk).
+4. The fence detector narrow in a THIRD direction (a fence opening on a list marker's own line),
+   and the mode probe's claim shown to exceed what it proves.
+5. A class fix that stated the invariant and then kept implementing a heuristic, which is not a
+   class fix — it moves the sampler. "Any letter-free prefix is a container" traded the
+   false-negative sampler for a false-positive one and would have refused a dated line of prose.
+6. The same shadowing defect on the lint rule's namespace branch that had been cured on its callee
+   branch one round earlier: one branch resolving bindings, its sibling still matching spellings.
+7. The ambiguity that ended it: a four-space-indented fence line is a real fence inside a list item
+   and literal text in a top-level indented code block. No regex separates them.
+
+**What actually closed it, and the correction worth carrying.** Round 7's remedy was
+container-aware parsing. It was declined. The requirement it served had been INVENTED at round 3,
+when a reviewer observed that the doc claimed "every fenced YAML block" while nested blocks went
+unread. Two answers existed: grow the detector, or fix the claim. Only the first was tried, and it
+cost five rounds and produced two false positives on valid documents against zero true positives in
+a 128-node corpus. The contract is now top-level fences, said plainly, and the detector is gone —
+112 lines removed, 55 added.
+
+**The generator, carried forward.** A gate is not finished when it fires on the case that
+motivated it. It is finished when someone has tried to get past it, tried to trip it on innocent
+code, AND checked that what it claims matches what it establishes. Narrow, wide and overclaiming
+are three separate failures; one small rule held all three. But the deeper one is upstream of all
+of them: a reviewer's observation is EVIDENCE, not a specification. Round 3's finding was true and
+the requirement inferred from it was never asked for by the gate's purpose. Before curing, ask what
+the gate is FOR — the answer is sometimes that the claim was wrong rather than the coverage, and
+that answer is always cheaper than the one that adds code.
+
+## 2026-09-11 19:4xZ — #134's step-back, run this time, and what it found
+
+**BUDGET-EXCEEDED and STEP-BACK-MANDATORY, recorded before curing rather than after.** PDR-132's
+budget is two rounds, every class; #134 opened a third. The state machine's other arm fired too —
+the tally reads 1, 1, 1 across three settled rounds, which satisfies
+`c[n] >= c[n-1] AND c[n-1] >= c[n-2]` with a non-zero latest count. Both were true on #132 as well
+and neither was evaluated there; the difference on #134 is only that the question got asked.
+
+**The generator, which is one thing and not four.** Every finding on this pull request is a claim
+written into a record without checking its source:
+
+| Round | The claim | The source that would have refuted it |
+| --- | --- | --- |
+| 1 | a decision body belongs in the thread record | `threads/README.md` §Relationship to other operational surfaces, which says cite, never copy |
+| 2 | `fs.statfsSync` reports `f_type` | one `node -e` call: the property is `type` |
+| 3 | `agent-tools pr` already harvests threads with their commit binding | `pr-watch/gh.ts`, whose query selects `isResolved` alone |
+| 4 | a `pr rounds` command should be built | `.agent/plans/delivery/pr-tally.plan.md`, owner-ratified 2026-09-08, already specifying the job more completely |
+
+Round 4 is the sharpest: the per-user memory this seat wrote THIS WINDOW says *read the governing
+document before naming a mechanism*, widened twice already, and a rival command was specified for
+work the owner had ratified a plan for three days earlier. The memory was not enough because a
+memory is advice.
+
+**The class fix, applied instead of curing round 4 alone.** Every remaining verifiable claim in
+this changeset was swept against its source in one pass rather than waiting to be sampled. That
+caught a fourth defect no reviewer had raised: the citation `threads/README.md` §Surfaces names no
+section that exists. It also demoted an unverifiable constant — a CIFS magic number quoted from
+memory — to an instruction to read it from the platform's own headers at implementation time.
+
+**Why this class recurs where the code classes do not.** A false claim in code is executed;
+a false claim in a record is not. Writing records, nothing runs, so the habit of proving claims
+lapses exactly where the estate's own doctrine has the least mechanical backing. The estate has no
+gate that reads a record's citations and checks them, and building one is not this lane's work —
+but the shape of the missing gate is now named, alongside `pr-tally`, as the second unbuilt
+instrument this window identified.

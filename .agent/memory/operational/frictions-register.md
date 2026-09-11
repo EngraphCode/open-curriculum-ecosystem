@@ -4030,10 +4030,42 @@ commit SHA and the closing plan reference.
   metacognition skills did. Filed under PDR-140 clause 8: an out-of-band
   cognitive-skill invocation correcting a running PR loop is a defect
   against pr-lifecycle.
+- **Observed AGAIN**: 2026-09-11 (PR #132, a mixed code/records changeset;
+  Nettle guards Pistil, 2de368). Five-plus settled rounds, sixteen findings,
+  every one read as cure-worthy and cured in its own push; PDR-132's
+  two-round budget passed without the budget-exceeded record or the
+  generator question; the step-back's four-round arm true throughout and
+  never evaluated. The correction was again the owner's manual invocation —
+  `metacognition`, `pr-lifecycle`, `proportionality`, `plan`, the same set
+  as 2026-09-03 plus one. No tally existed either time.
 - **Expected**: the tally built at PR-open reads step-back-mandatory at the
   fourth settled round and the settlement budget refuses a fifth cure push.
+- **Why the first filing did not cure it, and THE CURE IS ALREADY RATIFIED.** The
+  expectation above presupposes a tally, and nothing makes one exist: item 2 says
+  "build the tally, or the trigger cannot fire", which is advice, and advice is what
+  fails under load — the same generator this estate has been curing everywhere else
+  by building gates. Twice now the shepherd was mid-loop, each finding individually
+  valid, with no artefact counting anything.
+
+  The instrument that would end it is
+  [`pr-tally`](../../plans/delivery/pr-tally.plan.md), owner-ratified 2026-09-08
+  ("pr-tally, ratified") and NOT BUILT: `pnpm agent-tools pr-tally --pr <n>`, building
+  the tally by the commit each review binds to, printing one row per settled round with
+  raised and cure-worthy counts and the mechanical step-back verdict. The plan already
+  cites the 2026-09-08 instance of this friction as its own motivation. So this entry
+  adds nothing to the design and points at it: what the recurrence contributes is
+  EVIDENCE OF PRIORITY — the plan has now been ratified and unbuilt through two full
+  recurrences, on 2026-09-03 and 2026-09-11.
+
+  Recorded because the wrong turn is itself an instance of the register's subject: the
+  first version of this bullet specified a rival `pr rounds` command with a different
+  data flow, written without checking whether the estate had already planned the work.
+  It had, and the ratified plan is more complete — body findings, Codex badge blocks,
+  signed machine-readable bar markers for dispositions, the reviewer-leg predicate. Two
+  incompatible specifications for one job is worse than none (Copilot, PR #134).
+
 - **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
-  4), under the skills claim.
+  4), under the skills claim; the build routes to the ratified `pr-tally` plan.
 
 ### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
 
