@@ -1965,9 +1965,11 @@ clean before any edit.
   so neither parsed, and `gh api --arg`, which is not a flag. Codex found the third independently.
   Both reviewers bound the final tip; seven threads dispositioned.
 - **#132 OPEN** — the fstat verification of the owner-only write (the carrier node's todo 5) with
-  the records fold. The handed `it.skipIf` shape was refused by `no-conditional-tests`; the four
-  real-filesystem tests moved to an e2e suite instead, so the unit suite the Windows leg runs is
-  identical on every host.
+  the records fold. The handed `it.skipIf` shape was refused by `no-conditional-tests`. An earlier
+  draft of this line then said the four real-filesystem tests had MOVED to an e2e suite; that move
+  was itself refused, and the tests were deleted as redundant. The disposition below is the one
+  that holds, and this line is corrected rather than left to contradict it. Either way the unit
+  suite the Windows leg runs registers the same set on every host.
 - **Both workflows read `state: active`** with no `gh workflow enable` needed — the mirror node's
   decision 10 answered for a workflow added to a fork after creation.
 
