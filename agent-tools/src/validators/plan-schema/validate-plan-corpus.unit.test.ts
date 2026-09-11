@@ -431,3 +431,60 @@ describe('loadCorpus — corpus discovery', () => {
     ]);
   });
 });
+
+describe('validatePlanFile — fenced yaml must parse', () => {
+  const FENCE = '`'.repeat(3);
+  const FRONTMATTER = [
+    '---',
+    'id: pins-a-workflow',
+    'node_type: delivery',
+    'name: "Pins a workflow file"',
+    'overview: "A node whose fenced yaml is the file a seat copies verbatim."',
+    'status: sketch',
+    'serves: some-strategic-node',
+    'impact_areas:',
+    '  - practice-and-estate',
+    'last_updated: 2026-09-11',
+    '---',
+    '',
+  ];
+
+  function nodeWithRunLine(runLine: string): string {
+    return [
+      ...FRONTMATTER,
+      `${FENCE}yaml`,
+      'name: Upstream mirror',
+      'jobs:',
+      '  mirror:',
+      '    steps:',
+      '      - name: Report in sync',
+      runLine,
+      FENCE,
+      '',
+    ].join('\n');
+  }
+
+  it('accepts a node whose fenced yaml parses', () => {
+    const outcome = validatePlanFile(
+      '.agent/plans/delivery/pins.plan.md',
+      nodeWithRunLine('        run: |\n          echo "In sync: nothing to do."'),
+    );
+
+    expect(isOk(outcome)).toBe(true);
+  });
+
+  it('rejects the exact shape that pinned a non-loading workflow on 2026-09-11', () => {
+    // A single-line `run:` value carrying a colon-space inside a plain scalar.
+    // Two owner-ratified nodes pinned this; neither workflow could have loaded,
+    // and only a seat that chose to run a parser caught it.
+    const outcome = validatePlanFile(
+      '.agent/plans/delivery/pins.plan.md',
+      nodeWithRunLine('        run: echo "In sync: main equals the parent."'),
+    );
+
+    expect(isErr(outcome)).toBe(true);
+    if (isErr(outcome)) {
+      expect(outcome.error.messages.join(' ')).toContain('fenced yaml block 1 does not parse');
+    }
+  });
+});
