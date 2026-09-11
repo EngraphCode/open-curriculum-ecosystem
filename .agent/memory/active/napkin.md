@@ -974,6 +974,27 @@ ever, on anything that has happened.
   #132 (mode verification + IO-free tests + the workflow-dispatch scope) and #133 (continuity) open
   at the boundary.
 
+- **THE OWNER'S FRAME AT THE BOUNDARY (binding, and it changes what a lesson may look like): "We
+  are using lower powered models now, so we need to rely more on the structure of the Practice than
+  we have been doing."** A lesson written as advice — "read the rule first", "run the oracle" — is
+  a judgement the next seat may not have the capability to exercise. Every lesson below therefore
+  states the STRUCTURE that now catches it, or says plainly that it is not yet caught. Three cures
+  built this window, each proven by a negative control rather than asserted:
+  1. `@oaknational/no-conditional-tests` — `it.skipIf`/`runIf` on `it`/`test`/`describe` now fail
+     lint. Before: a probe file passed at exit 0 while the identical `it.skip` failed. After: the
+     same probe fails at exit 1 naming the rule. This is the gate that would have refused the
+     succession record's instruction without anyone needing to recall the rule.
+  2. `validate-plan-corpus` now PARSES every fenced YAML block in every plan node, on the gate that
+     already walks the corpus. The failing test is the exact colon-space shape that shipped two
+     unloadable owner-ratified workflows. A node whose pinned text cannot run no longer reaches a
+     seat.
+  3. `OwnerOnlyWriteOps` gained `mkdir`, so no filesystem call on a retention path sits outside the
+     injected seam and the tests cannot reach for one.
+  NOT yet structural: a capability asserted from a refusal. The specified cure is a `merge-bot
+  grants` command printing the installation's real permissions beside the scope table; the thread
+  record carries its design and the functions it needs. Until it exists this one rests on a memory
+  line, which is exactly the weak form the owner is warning about.
+
 - **THE GENERATOR OF EVERY ERROR THIS WINDOW: I reasoned forward from the nearest symptom or the
   handed text, instead of reading the rule that governs it.** Three instances, all the same shape:
   (1) the succession record said to mark four tests `it.skipIf(win32)` and I planned to, checking

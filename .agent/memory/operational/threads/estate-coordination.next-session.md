@@ -2057,6 +2057,31 @@ Owner word: reflect, prepare for compaction, run a Cricket suite without Fable m
   bot and green. #132 OPEN at SHA:97b54611b with the Windows red resolved by construction (5155
   tests, zero IO, no platform guard). #133 OPEN. Worktrees: primary and `fstat-2de368`.
 
+- **Mechanical cures, and the one still outstanding.** The owner's correction at the boundary was
+  that this seat "described mechanical fixes, but what you have implemented is prose". Of the
+  window's three failures:
+  1. *A handed `it.skipIf` that no gate would have refused* — CURED MECHANICALLY on #132.
+     `@oaknational/no-conditional-tests` reports `skipIf`/`runIf` on `it`/`test`/`describe`,
+     including chained forms, leaving `.each` over a literal dataset alone. Proven with a negative
+     control: the probe file that passed lint at exit 0 now fails at exit 1 naming the rule, while
+     `it.skip` was already caught by `vitest/no-disabled-tests`. The rule document now names its
+     enforcement and says which clauses stay reviewer-enforced and why.
+  2. *Tests performing filesystem IO* — CURED STRUCTURALLY on #132 for this module: `mkdir` joined
+     the `OwnerOnlyWriteOps` seam, so no filesystem call on a retention path sits outside it and
+     the tests cannot reach for one. Repo-wide the `@oaknational/no-real-io-in-tests` rule already
+     enforces the prohibition; its `**/test-helpers/**` allowlist is the remaining escape hatch and
+     is a repo-wide contract, not this lane's to narrow.
+  3. *A capability asserted from a 403* — NOT YET CURED, and specified rather than hand-waved. The
+     mechanism should be a `merge-bot grants` command that PRINTS the installation's actual granted
+     permissions beside the scope table, so "what can the bot do" is read rather than inferred.
+     Everything it needs exists: `signAppJwt`, `sendGithubRequest`, `readJsonBody` and
+     `resolveInstallationId` in `agent-tools/src/merge-bot/mint-installation-token.ts` already call
+     `GET /repos/{owner}/{repo}/installation`, whose response carries `permissions`;
+     `INSTALLATION_SCHEMA` parses only `.id` today and needs that field added. It is NOT built,
+     deliberately: it wants its own pull request with its own tests, not a fifth concern bolted onto
+     #132 at the end of a long window. Until it exists, the standing practice is the memory line —
+     verify a capability against the grant, never against one token's refusal.
+
 - **The window's generator, for whoever reads this next.** Three owner corrections, one cause:
   reasoning forward from the nearest symptom or the handed text instead of reading what governs it.
   The full account is the napkin's COMPACTION BOUNDARY 6 block and the per-user memory
