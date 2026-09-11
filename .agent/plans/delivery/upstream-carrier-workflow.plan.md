@@ -296,3 +296,25 @@ defects cured before the first push. Carried to the owner:
 The two findings compound: a carrier opened in either failure mode is a draft a seat reads before
 integrating, so neither can merge anything by itself. That bounds the cost of carrying them to
 the owner rather than diverging further from the ratified text in one landing.
+
+Landed 2026-09-11 via PR #131 (merge SHA:ad64f3cd5). Facts established at the landing, recorded
+here so the next reader does not re-derive them:
+
+- Both workflows read `state: active` from `GET /repos/{owner}/{repo}/actions/workflows`
+  immediately after the file landed, so no `gh workflow enable` was needed. That answers the
+  mirror node's decision 10 for a workflow added to a fork AFTER the fork was created, which the
+  platform documents nowhere: it behaves like an inherited one.
+- **The first dispatch is an OWNER act.** `POST .../actions/workflows/{id}/dispatches` as the bot
+  answers 403 `Resource not accessible by integration`: the bot app holds no `actions` permission
+  and the token-scope table mints none. The action map in
+  `.agent/rules/bot-identity-on-third-party-systems.md` routes every other POST to the bot and
+  forbids reaching for the operator's credential outside its listed rows, so the seat cannot
+  dispatch under the owner's `gh` either. Either the owner dispatches, or the schedule delivers
+  the first run unaided — 18:00 UTC for the mirror and 18:30 UTC for the carrier on the landing
+  day.
+
+Second review round on PR #131, 2026-09-11. Carried to the owner:
+
+| Finding | Disposition |
+| --- | --- |
+| The carrier never checks the mirror against the parent. A commit on the mirror that did not come from upstream still counts toward `mirror_ahead_by`, so the carrier is cut at it and the receipt calls it "upstream's snapshot" — a false statement in the artefact the integrating seat trusts. (Copilot; the reviewer called it mandatory) | Carried, not cured, and the strongest finding this lane carried. Bounded by two facts: the mirror workflow's only write is a `force=false` fast-forward to the parent's tip, so it cannot itself create the condition, and when the condition exists the mirror workflow already fails loud with the compare link, so the estate detects it. What is missing is a gate on the carrier, not the detection. Recommended shape, the reviewer's own: compare the mirror with the parent before comparing it with the default branch, and fail unless the mirror is identical to or behind the parent, an older valid snapshot being acceptable. |

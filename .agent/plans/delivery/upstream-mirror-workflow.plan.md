@@ -237,3 +237,25 @@ ratified; this is a choice, not a defect that stops the file running):
 | Finding | Disposition |
 | --- | --- |
 | The enable variable is already `true`, so the first scheduled slot after the file lands can act before todo 2's workflow-state check and controlled first dispatch. The reviewer's shape is to leave the variable false until after landing and the state check, then enable it immediately before the smoke dispatch. | Carried to the owner, with the landing sequenced to make the window moot: the slots are 00/06/12/18 UTC, the lane lands and dispatches inside a slot gap, and both workflows are no-ops today (mirror compare `identical`, carrier `mirror_ahead_by` 0, both exercised read-only on 2026-09-11). Were upstream to move in that window, a fast-forward of the mirror by a `force=false` reference update is the ratified behaviour. The seat cannot flip the variable in either direction: the bot's token scopes carry no variables permission, so every flip is an owner act, and the owner set all four deliberately ahead of the landing. The standing question for the owner is whether an enable variable should sit false until a first dispatch has proven its workflow. |
+
+Landed 2026-09-11 via PR #131 (merge SHA:ad64f3cd5). Facts established at the landing, recorded
+here so the next reader does not re-derive them:
+
+- Both workflows read `state: active` from `GET /repos/{owner}/{repo}/actions/workflows`
+  immediately after the file landed, so no `gh workflow enable` was needed. That answers the
+  mirror node's decision 10 for a workflow added to a fork AFTER the fork was created, which the
+  platform documents nowhere: it behaves like an inherited one.
+- **The first dispatch is an OWNER act.** `POST .../actions/workflows/{id}/dispatches` as the bot
+  answers 403 `Resource not accessible by integration`: the bot app holds no `actions` permission
+  and the token-scope table mints none. The action map in
+  `.agent/rules/bot-identity-on-third-party-systems.md` routes every other POST to the bot and
+  forbids reaching for the operator's credential outside its listed rows, so the seat cannot
+  dispatch under the owner's `gh` either. Either the owner dispatches, or the schedule delivers
+  the first run unaided — 18:00 UTC for the mirror and 18:30 UTC for the carrier on the landing
+  day.
+
+Review round on PR #131, 2026-09-11. Carried to the owner:
+
+| Finding | Disposition |
+| --- | --- |
+| The compare on the parent and the `parent_tip` read are separate authenticated requests. A parent move between them leaves a stale `identical`, the fast-forward never fires, and the mirror stays behind until the next slot — which across a Friday evening slot means a weekend, since the schedule is Monday to Friday. (Codex, P2) | Carried, not cured: nothing wrong is written and the next slot self-heals, so the cost is latency rather than correctness, while the fix changes the workflow's read order in text the owner ratified. Recommended shape, verified read-only on 2026-09-11: read `parent_tip` FIRST and compare the mirror against that immutable sha, which the compare endpoint accepts on the head side. One decision settles this and the carrier node's matching row. |

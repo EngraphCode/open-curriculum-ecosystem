@@ -3,20 +3,17 @@ id: native-windows-support-carrier
 node_type: delivery
 name: "Native Windows support — land upstream's set-down changeset on engraph with its cures and a CI leg"
 overview: "Merge upstream PR #891's head (native Windows support across agent-tools, thirteen commits by Luke Arnold plus review closes) into engraph in a feature lane, cure the two open security findings on the owner-only write, add the basic Windows CI leg the 2026-08-18 ruling requires, and close the fork's stale snapshot #123 as superseded."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-10
+ratified_where: "Owner word of 2026-09-10 sending the lane to land (\"123 and 128 are both part of the Windows work, and I want both resolved and merged before we switch models\"); the advisory window and the proven-in-use fact are the owner's words of 2026-09-11, recorded on the estate-coordination thread record"
 serves: cross-platform-compatibility
 impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The owner says native Windows lands on the fork now (the tier ruling calls it a non-vital goal). Making the windows-basic leg a required check once it is green is the owner's later ruleset act, outside this plan, tracked on the estate-coordination thread record"
-    expires: 2026-09-24
-last_updated: 2026-09-10
+owner_gates: []
+last_updated: 2026-09-11
 ---
 
 # Native Windows support — the carrier of upstream's changeset
@@ -80,17 +77,33 @@ Owner decision 2026-09-11: `windows-basic` stays advisory for a week from its fi
 (2026-09-10) so flakiness on `windows-latest` is observed before it can block a landing; the
 ruleset act follows on 2026-09-17 or later, at the owner's hand.
 
-1. Merge, resolve, gate, commit (owner as author, Luke's commits preserved by the merge).
-2. Cure the two findings with tests; commit.
-3. Add the `windows-basic` job; commit; push as the bot; draft PR with the provenance and the
-   comparison; close #123 as superseded.
-4. Legs (code-expert, security-expert, test-expert), Copilot on the final tip, front door.
+All of todos 1 to 4 are DONE; PR #129 landed at SHA:7ef047ae2 on 2026-09-10 with `windows-basic`
+green on its landing tip, and #123 closed as superseded. Todo 5 is done as described below.
 
-5. Verify the mode on the descriptor after `fchmod` (security-expert leg on #129, should-fix,
-   deferred at the owner's word to close the lane): add `fstat` to the ops seam and throw before
-   `write` when `(mode & 0o777) !== 0o600`, so a mount where chmod silently no-ops (WSL DrvFS
-   without `metadata`, exFAT, some SMB/NFS) refuses instead of retaining authenticated output
-   world-readable; the real-IO tests then need the on-disk observable only on POSIX hosts.
+1. DONE — merge, resolve, gate, commit: the merge SHA:6d89538bf carries upstream's head with
+   Luke Arnold's commits preserved and the owner as author of the merge.
+2. DONE — the two security findings cured with tests: SHA:8eefe7045.
+3. DONE — the `windows-basic` job: SHA:f3c0b3778; pushed as the bot; #123 closed as superseded.
+4. DONE — legs and front door: the test and security legs posted on #129 (the code leg never
+   delivered, the vendor's spend limit), Copilot on the final tip, landed by the front door.
+
+5. DONE — verify the mode on the descriptor after `fchmod` (PR #131's successor lane, 2026-09-11).
+   `OwnerOnlyWriteOps` gained `fstat`, the node adapter reads `fstatSync(fd).mode`, and a mode
+   other than 0600 raises the typed `OwnerOnlyModeNotHeldError` BEFORE any content lands, so a
+   mount where chmod silently no-ops (WSL DrvFS without `metadata`, exFAT, some SMB/NFS) refuses
+   instead of retaining authenticated output world-readable.
+
+   The test strategy this step's last clause anticipated resolved differently from the shape the
+   succession record proposed, and the difference is worth recording. That record asked for
+   `it.skipIf(process.platform === 'win32')` on the four real-adapter tests;
+   `.agent/rules/no-conditional-tests.md` names `it.skipIf` first among its forbidden mechanisms
+   and admits no local waiver, so the guard was not available. The rule's own third diagnosis
+   gives the cure for a test that needs an absent environment resource: move the suite, never
+   guard the test. The four tests that write through the real `node:fs` adapter now live in
+   `agent-tools/e2e-tests/owner-only-write-posix.e2e.test.ts`, which `test:e2e` runs on Linux in
+   CI, while the unit suite proves the ordering, the verification and both refusals through the
+   recorded ops seam with no filesystem at all. The Windows leg runs `test`, whose registered set
+   is now identical on every host — which is what the rule's dividing line asks for.
 
 ## Review dispositions
 

@@ -32,6 +32,14 @@
  * close sits INSIDE the try (a close failure means the write may not have
  * flushed) and the finally is error-path best-effort only.
  *
+ * THE TIGHTENING IS VERIFIED, NOT ASSUMED. `fchmod` reports success on
+ * filesystems that do not carry POSIX permission bits at all, so a successful
+ * call is not evidence that the file is owner-only. The descriptor's mode is
+ * therefore read back before any content lands, and a mode other than 0600
+ * raises `OwnerOnlyModeNotHeldError` with nothing written — turning a silent
+ * false claim into a loud refusal on any mount whose semantics differ from the
+ * host's own.
+ *
  * PLATFORM SCOPE. The ordering discipline delivers owner-only protection on
  * POSIX. On Windows, `fchmod` cannot express owner-only — NTFS access
  * control is ACL-based and the POSIX mode surface reaches only the
@@ -47,14 +55,27 @@
  */
 
 import { randomBytes } from 'node:crypto';
-import { closeSync, fchmodSync, openSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
+import {
+  closeSync,
+  fchmodSync,
+  fstatSync,
+  openSync,
+  renameSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { basename, dirname, join } from 'node:path';
+
+/** The permission bits an owner-only artefact must hold: read and write for the owner alone. */
+const OWNER_ONLY_MODE = 0o600;
 
 /** The filesystem edge the ordered write drives; a fake proves the order. */
 export interface OwnerOnlyWriteOps {
   /** Exclusive create of a NEW file at 0600; must fail if the path exists. */
   readonly open: (path: string, flags: 'wx', mode: number) => number;
   readonly fchmod: (fd: number, mode: number) => void;
+  /** The descriptor's CURRENT mode, read back so the tightening is verified rather than assumed. */
+  readonly fstat: (fd: number) => number;
   readonly write: (fd: number, content: string) => void;
   readonly close: (fd: number) => void;
   /** Atomic replace of the destination by the temporary file. */
@@ -68,6 +89,7 @@ const nodeOwnerOnlyWriteOps: OwnerOnlyWriteOps = {
   fchmod: (fd, mode) => {
     fchmodSync(fd, mode);
   },
+  fstat: (fd) => fstatSync(fd).mode,
   write: (fd, content) => {
     writeFileSync(fd, content, { encoding: 'utf8' });
   },
@@ -94,6 +116,18 @@ export class OwnerOnlyUnavailableError extends Error {
   }
 }
 
+/** The refusal raised when the descriptor does not actually hold owner-only permissions. */
+export class OwnerOnlyModeNotHeldError extends Error {
+  public constructor(observedMode: number) {
+    super(
+      `owner-only retention refused: the descriptor reads mode 0${(observedMode & 0o777).toString(8)} ` +
+        'after fchmod(0600), so the filesystem did not honour the tightening and the artefact would ' +
+        'not be owner-only; nothing was written',
+    );
+    this.name = 'OwnerOnlyModeNotHeldError';
+  }
+}
+
 /** A temporary sibling name that no other writer will create first. */
 function temporaryNameFor(filePath: string): string {
   const stamp = `${String(process.pid)}-${Date.now().toString(36)}-${randomBytes(4).toString('hex')}`;
@@ -101,10 +135,26 @@ function temporaryNameFor(filePath: string): string {
 }
 
 /**
+ * Tighten the descriptor to owner-only and VERIFY it, so the guarantee rests on
+ * what the filesystem reports rather than on `fchmod` returning without error.
+ *
+ * @throws OwnerOnlyModeNotHeldError when the descriptor reads any other mode.
+ */
+function tightenToOwnerOnly(ops: OwnerOnlyWriteOps, handle: number): void {
+  ops.fchmod(handle, OWNER_ONLY_MODE);
+  const observedMode = ops.fstat(handle);
+  if ((observedMode & 0o777) !== OWNER_ONLY_MODE) {
+    throw new OwnerOnlyModeNotHeldError(observedMode);
+  }
+}
+
+/**
  * The ordered owner-only write; production callers omit `ops` and get the real
  * `node:fs` edge, and `platform` defaults to the running host.
  *
  * @throws OwnerOnlyUnavailableError on `win32`, before any file is touched.
+ * @throws OwnerOnlyModeNotHeldError when the descriptor does not read 0600 after
+ * the tightening, before any content lands.
  */
 export function writeOwnerOnly(
   filePath: string,
@@ -119,9 +169,9 @@ export function writeOwnerOnly(
   let handle: number | undefined;
   let created = false;
   try {
-    handle = ops.open(temporaryPath, 'wx', 0o600);
+    handle = ops.open(temporaryPath, 'wx', OWNER_ONLY_MODE);
     created = true;
-    ops.fchmod(handle, 0o600);
+    tightenToOwnerOnly(ops, handle);
     ops.write(handle, content);
     ops.close(handle);
     handle = undefined;

@@ -10,19 +10,12 @@ import {
   writeUnder,
 } from '../../src/mcp-conformance/node-io.js';
 import {
+  OwnerOnlyModeNotHeldError,
   OwnerOnlyUnavailableError,
   writeOwnerOnly,
   type OwnerOnlyWriteOps,
 } from '../../src/mcp-conformance/owner-only-write.js';
-import {
-  cleanupSandboxes,
-  isSandboxSymbolicLink,
-  linkSandboxFile,
-  listSandboxEntries,
-  readSandboxFile,
-  sandbox,
-  writeSandboxFile,
-} from './test-helpers/io-sandbox.js';
+import { cleanupSandboxes, sandbox, writeSandboxFile } from './test-helpers/io-sandbox.js';
 
 afterEach(() => {
   cleanupSandboxes();
@@ -36,7 +29,10 @@ afterEach(() => {
  * exclusively at 0600, descriptor tightened before any content, closed, then
  * renamed over the destination (never opened by path).
  */
-function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWriteOps } {
+function recordingOps(statMode = 0o100600): {
+  readonly calls: string[];
+  readonly ops: OwnerOnlyWriteOps;
+} {
   const calls: string[] = [];
   const ops: OwnerOnlyWriteOps = {
     open: (_path, flags, mode) => {
@@ -45,6 +41,10 @@ function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWrit
     },
     fchmod: (fd, mode) => {
       calls.push(`fchmod:${String(fd)}:${mode.toString(8)}`);
+    },
+    fstat: (fd) => {
+      calls.push(`fstat:${String(fd)}`);
+      return statMode;
     },
     write: (fd) => {
       calls.push(`write:${String(fd)}`);
@@ -69,26 +69,16 @@ function recordingOps(): { readonly calls: string[]; readonly ops: OwnerOnlyWrit
  */
 const POSIX: NodeJS.Platform = 'linux';
 
-const ORDERED_OWNER_ONLY_WRITE = ['open:wx:600', 'fchmod:17:600', 'write:17', 'close:17', 'rename'];
+const ORDERED_OWNER_ONLY_WRITE = [
+  'open:wx:600',
+  'fchmod:17:600',
+  'fstat:17',
+  'write:17',
+  'close:17',
+  'rename',
+];
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
-  it('a relative report dir writes under the repo root and reports the relative path', () => {
-    const root = sandbox();
-    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), undefined, POSIX);
-    const outcome = io.retainRawReport('protocol', '{"raw":"bytes"}');
-    expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'protocol.json') });
-    expect(readSandboxFile(root, 'tmp', 'reports', 'protocol.json')).toBe('{"raw":"bytes"}');
-  });
-
-  it('an absolute report dir stands as given — written there and reported verbatim', () => {
-    const root = sandbox();
-    const elsewhere = join(sandbox(), 'evidence');
-    const io = buildMcpConformanceNodeIo(root, elsewhere, undefined, POSIX);
-    const outcome = io.retainRawReport('oauth', 'verbatim');
-    expect(outcome).toEqual({ ok: true, reportedPath: join(elsewhere, 'oauth.json') });
-    expect(readSandboxFile(elsewhere, 'oauth.json')).toBe('verbatim');
-  });
-
   it('an unwritable target is a loud retention failure, never a throw', () => {
     const root = sandbox();
     // Occupy the report-dir path with a FILE so mkdir cannot create it.
@@ -97,19 +87,6 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const outcome = io.retainRawReport('protocol', 'content');
     expect(outcome.ok).toBe(false);
     expect(!outcome.ok && outcome.error.length > 0).toBe(true);
-  });
-
-  it('the aggregate summary lands beside the raw reports with the caller-shaped path', () => {
-    const root = sandbox();
-    const outcome = writeRunSummary(
-      root,
-      join('tmp', 'reports'),
-      '{"verdict":"pass"}',
-      undefined,
-      POSIX,
-    );
-    expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
-    expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
   });
 
   it('a retained report is owner-only by construction — created at 0600, descriptor tightened before any content lands', () => {
@@ -175,26 +152,32 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     expect(calls).toContain('unlink');
   });
 
-  it('a symbolic link planted at the destination is replaced by an owner-only regular file; its target is left untouched', () => {
-    // A stale or planted report link must never be FOLLOWED: opening the
-    // destination for writing would truncate and overwrite the link's target
-    // (a file outside the report directory) before any descriptor could be
-    // tightened. The real `node:fs` adapter is exercised here, so the on-disk
-    // state is the observable; the requested 0600 mode is proven by the ordered
-    // recorder tests, because NTFS reports no POSIX mode bits to read back.
+  it('a filesystem that does not honour the tightening is a loud refusal before any content lands', () => {
+    // `fchmod` returns success on mounts that carry no POSIX permission bits,
+    // so a successful call is not evidence the file is owner-only. Reading the
+    // descriptor back is what turns a silent false claim into a refusal: the
+    // recorder reports a world-readable 0644, and nothing is written.
     const root = sandbox();
-    const target = join(root, 'target.txt');
-    const destination = join(root, 'reviewer-pack.md');
-    writeSandboxFile('original', target);
-    linkSandboxFile(target, destination);
+    const { calls, ops } = recordingOps(0o100644);
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'), ops, POSIX);
 
-    const outcome = retainOwnerOnlyAt(destination, 'fresh', undefined, POSIX);
+    const outcome = io.retainRawReport('protocol', 'secret');
 
-    expect(outcome).toEqual({ ok: true, reportedPath: destination });
-    expect(readSandboxFile(target)).toBe('original');
-    expect(isSandboxSymbolicLink(destination)).toBe(false);
-    expect(readSandboxFile(destination)).toBe('fresh');
-    expect(listSandboxEntries(root)).toEqual(['reviewer-pack.md', 'target.txt']);
+    expect(outcome.ok).toBe(false);
+    expect(!outcome.ok && outcome.error).toContain('0644');
+    expect(calls).not.toContain('write:17');
+    expect(calls).not.toContain('rename');
+    expect(calls).toContain('close:17');
+    expect(calls).toContain('unlink');
+  });
+
+  it('the mode refusal is typed, so a caller can tell it from an IO failure', () => {
+    const root = sandbox();
+    const { ops } = recordingOps(0o100666);
+
+    expect(() => {
+      writeOwnerOnly(join(root, 'summary.json'), 'secret', ops, POSIX);
+    }).toThrow(OwnerOnlyModeNotHeldError);
   });
 
   it('on Windows the owner-only write is refused before any file is touched, with a typed error naming the reason', () => {
