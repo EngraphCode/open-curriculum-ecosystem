@@ -93,17 +93,37 @@ green on its landing tip, and #123 closed as superseded. Todo 5 is done as descr
    mount where chmod silently no-ops (WSL DrvFS without `metadata`, exFAT, some SMB/NFS) refuses
    instead of retaining authenticated output world-readable.
 
-   The test strategy this step's last clause anticipated resolved differently from the shape the
-   succession record proposed, and the difference is worth recording. That record asked for
-   `it.skipIf(process.platform === 'win32')` on the four real-adapter tests;
+   The test placement this step's last clause anticipated took two attempts, and both the wrong
+   turn and the cure are recorded because the reasoning generalises.
+
+   The succession record asked for `it.skipIf(process.platform === 'win32')` on the four tests
+   that write through the real `node:fs` adapter, since NTFS reports every writable file as 0666
+   and the new verification correctly refuses there. That shape was not available:
    `.agent/rules/no-conditional-tests.md` names `it.skipIf` first among its forbidden mechanisms
-   and admits no local waiver, so the guard was not available. The rule's own third diagnosis
-   gives the cure for a test that needs an absent environment resource: move the suite, never
-   guard the test. The four tests that write through the real `node:fs` adapter now live in
-   `agent-tools/e2e-tests/owner-only-write-posix.e2e.test.ts`, which `test:e2e` runs on Linux in
-   CI, while the unit suite proves the ordering, the verification and both refusals through the
-   recorded ops seam with no filesystem at all. The Windows leg runs `test`, whose registered set
-   is now identical on every host — which is what the rule's dividing line asks for.
+   and admits no local waiver.
+
+   The first cure moved those four tests into an `e2e-tests` vitest suite. Two reviewers
+   independently rejected it on PR #132, correctly: `.agent/directives/testing-strategy.md`
+   classifies by behaviour shape and says so explicitly — a test that imports the product into
+   its own process is an integration test whatever its filename, integration tests must not
+   touch the filesystem, and an E2E test must drive a separately running system over a protocol
+   channel. The move had relabelled integration tests rather than rehoming them.
+
+   The landed cure is the SMOKE tier, which is the category the directive actually provides for
+   this: `agent-tools/smoke-tests/owner-only-write-posix.smoke.ts` drives the BUILT artefact and
+   asserts the bytes on disk — the stored mode read back with `statSync`, the content, and a
+   planted symbolic link replaced rather than followed. It runs in the `test:e2e` chain, which
+   executes on Linux in CI, and it refuses loudly on `win32` rather than pretending. That is a
+   stronger proof than the vitest tests gave, because it reads the real mode rather than the
+   requested one.
+
+   The in-process suites keep the ordering, the verification and both refusals through the
+   recorded ops seam. They are not filesystem-free, and an earlier draft of this node wrongly
+   said they were (caught by Copilot on PR #132): `sandbox()` still creates a temporary directory
+   and `writeUnder` still calls `mkdirSync` before reaching the injected writer. What they no
+   longer depend on is POSIX **mode** semantics, which is the property that makes them identical
+   on every host. Widening the ops seam to cover directory creation would make the claim literally
+   true and is a larger change than this step; it is named here rather than left implied.
 
 ## Review dispositions
 
