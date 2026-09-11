@@ -533,6 +533,10 @@ describe('validatePlanFile — fenced yaml must parse', () => {
       'a nested list item',
       ['- outer', '  - inner', `    ${FENCE}yaml`, ...BODY.map((l) => `    ${l}`), `    ${FENCE}`],
     ],
+    // The fence opening on the marker's own line, which neither the reader nor
+    // the first detector recognised (Copilot, PR #132).
+    ['a bullet-list marker', [`- ${FENCE}yaml`, ...BODY.map((l) => `  ${l}`), `  ${FENCE}`]],
+    ['an ordered-list marker', [`1. ${TILDE}yml`, ...BODY.map((l) => `   ${l}`), `   ${TILDE}`]],
   ];
 
   for (const [container, lines] of containedFences) {

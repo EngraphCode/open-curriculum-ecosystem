@@ -40,14 +40,31 @@
  * false claim into a loud refusal on any mount whose semantics differ from the
  * host's own.
  *
- * AND THE READING ITSELF IS VERIFIED. A mount can report permission bits it
+ * AND THE READING ITSELF IS CHECKED. A mount can report permission bits it
  * does not enforce: CIFS/SMB without Unix extensions synthesises every mode
  * from `file_mode=`, so `file_mode=0600` answers 0600 to every reading while
  * `fchmod` changes nothing. Reading 0600 back there is exactly the false
  * claim above wearing the right answer. The descriptor is therefore moved to
  * a different mode and read FIRST; a mount that does not round-trip that
  * probe raises `OwnerOnlyModeNotEnforcedError`, and only a filesystem whose
- * bits track `fchmod` reaches the 0600 reading at all.
+ * mode interface is LIVE reaches the 0600 reading at all.
+ *
+ * WHAT THAT PROBE DOES NOT ESTABLISH, stated because the difference is the
+ * whole subject of this file. A round-trip proves the mode interface responds
+ * to writes; it does not prove those bits govern access. A CIFS mount using
+ * client-cached `dynperm` with `noperm` round-trips mode changes locally while
+ * the server's own credentials and ACLs stay authoritative, and this module
+ * would write there (review finding, PR #132). Closing that needs an
+ * EFFECTIVE-ACCESS check, and Node exposes none: `fs.access` answers for the
+ * calling process, never for another principal, and a filesystem-type
+ * allowlist reads differently on every platform and would refuse retention on
+ * every network mount — a product decision about who may retain where, not a
+ * defect fix, so it is the owner's and is recorded on the estate-coordination
+ * thread rather than taken here. The guarantee this module makes is therefore
+ * exact: the artefact is created owner-only, never widened, and refused
+ * outright unless the filesystem's own mode interface is live and reports
+ * owner-only. On a mount that lies about enforcement, that is strictly more
+ * than the previous code established and strictly less than enforcement.
  *
  * PLATFORM SCOPE. The ordering discipline delivers owner-only protection on
  * POSIX. On Windows, `fchmod` cannot express owner-only — NTFS access

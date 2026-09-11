@@ -92,19 +92,32 @@ function countLeadingSpaces(line: string, limit: number): number {
 }
 
 /**
- * A line that OPENS a YAML fence in a position this scanner does not read: a
- * blockquote, or a list item deep enough that the fence is indented past the
- * top level.
+ * The three ways a line can sit inside a CommonMark container: a blockquote
+ * marker, a list marker (bullet or ordered, the fence beginning on the same
+ * line), or indentation past the four columns that end top-level content.
+ *
+ * All three are listed because a detector that catches only some of them is
+ * worth less than it appears: it reports the containers it knows and stays
+ * silent on the rest, which is the same false green in a smaller box. The
+ * list-marker case was missing until a review found it (Copilot, PR #132).
+ */
+const CONTAINER_PREFIX = String.raw`(?:[ \t]*>[ \t>]*|[ \t]*(?:[-*+]|\d{1,9}[.)])[ \t]+|[ \t]{4,})`;
+
+/**
+ * A line that OPENS a YAML fence in a position this scanner does not read.
  *
  * CommonMark fences nest inside containers, and reading those correctly means
  * tracking container state — a Markdown parser's job, not this file's. The
  * unread case must not be a silent one, though: a plan node whose pinned YAML
- * sits in a blockquote would sail past a check whose whole purpose is that no
- * pinned YAML goes unparsed. So an unreadable position is REFUSED by name
- * rather than skipped, and the author moves the block to the top level, which
- * is where a pinned file belongs anyway.
+ * sits in a blockquote or a list item would sail past a check whose whole
+ * purpose is that no pinned YAML goes unparsed. So an unreadable position is
+ * REFUSED by name rather than skipped, and the author moves the block to the
+ * top level, which is where a pinned file belongs anyway.
  */
-const CONTAINED_YAML_FENCE = /^(?:[ \t]*>|[ \t]{4,})[ \t>]*(?:`{3,}|~{3,})[ \t]*(?:yaml|yml)\b/iu;
+const CONTAINED_YAML_FENCE = new RegExp(
+  String.raw`^${CONTAINER_PREFIX}(?:\x60{3,}|~{3,})[ \t]*(?:yaml|yml)\b`,
+  'iu',
+);
 
 /** What one scan of a document found: the blocks it read, and what it could not. */
 export interface YamlFenceScan {
