@@ -296,3 +296,31 @@ defects cured before the first push. Carried to the owner:
 The two findings compound: a carrier opened in either failure mode is a draft a seat reads before
 integrating, so neither can merge anything by itself. That bounds the cost of carrying them to
 the owner rather than diverging further from the ratified text in one landing.
+
+Landed 2026-09-11 via PR #131 (merge SHA:ad64f3cd5). Facts established at the landing, recorded
+here so the next reader does not re-derive them:
+
+- Both workflows read `state: active` from `GET /repos/{owner}/{repo}/actions/workflows`
+  immediately after the file landed, so no `gh workflow enable` was needed. That answers the
+  mirror node's decision 10 for a workflow added to a fork AFTER the fork was created, which the
+  platform documents nowhere: it behaves like an inherited one.
+- **Both workflows were dispatched by the BOT and ran green on 2026-09-11.** Mirror run
+  34614449174 logged `compare main...oaknational/oak-open-curriculum-ecosystem:main => identical`
+  then `In sync: main equals the parent's default branch. No action taken.`; carrier run
+  34614457898 logged `compare engraph...main => behind (mirror ahead by 0)` then `Nothing to
+  carry: main holds no commit the default branch lacks.` Those are the two lines that carried the
+  parse defects cured at authoring time, so the platform loading and running the cured files is
+  proven end to end.
+- **A correction worth keeping.** The first attempt to dispatch answered 403 `Resource not
+  accessible by integration`, and this node briefly recorded the first dispatch as an owner-only
+  act on the strength of it. That was wrong. The installation holds `actions: write` (read from
+  `GET /orgs/{org}/installations`); the 403 was the CLI's token-scope table having no scope that
+  REQUESTS it, and the table's own header says an ungranted permission fails the mint with 422, so
+  a 403 is always a wrong-scope symptom. A `workflow-dispatch` scope now exists and the bot
+  dispatches under it. Verify a capability against the grant, never against one token's refusal.
+
+Second review round on PR #131, 2026-09-11. Carried to the owner:
+
+| Finding | Disposition |
+| --- | --- |
+| The carrier never checks the mirror against the parent. A commit on the mirror that did not come from upstream still counts toward `mirror_ahead_by`, so the carrier is cut at it and the receipt calls it "upstream's snapshot" — a false statement in the artefact the integrating seat trusts. (Copilot; the reviewer called it mandatory) | Carried, not cured, and the strongest finding this lane carried. Bounded by two facts: the mirror workflow's only write is a `force=false` fast-forward to the parent's tip, so it cannot itself create the condition, and when the condition exists the mirror workflow already fails loud with the compare link, so the estate detects it. What is missing is a gate on the carrier, not the detection. Recommended shape, the reviewer's own: compare the mirror with the parent before comparing it with the default branch, and fail unless the mirror is identical to or behind the parent, an older valid snapshot being acceptable. |

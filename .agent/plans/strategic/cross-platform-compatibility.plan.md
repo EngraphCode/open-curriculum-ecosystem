@@ -27,7 +27,7 @@ depends_on: []
 owner_gates: []
 tickets:
   - MCP-624
-last_updated: 2026-09-10
+last_updated: 2026-09-11
 ---
 
 # Host portability — support tiers, seams, and the ratchet
@@ -153,6 +153,17 @@ never by a hand-kept list (item 9's re-truing lands on the research
 child). Linear parent: MCP-624; child tickets minted
 per programme item at pickup. Milestones live in Linear as named
 observable states; this node points at them, never mirrors them.
+
+**Item 9's re-truing of `cross-platform-research` is still PENDING**
+(stated 2026-09-11, at the carrier's close). The carrier node
+`native-windows-support-carrier` is complete: upstream's changeset
+landed at SHA:7ef047ae2 with `windows-basic` green, the owner-only
+write's mode is now verified on the descriptor rather than assumed,
+and the owner's word of 2026-09-11 records native Windows as proven
+in use on the estate rather than only on a hosted runner. What has
+NOT happened is the research child absorbing that evidence, which is
+where item 9 lives; it is named here so the gap is visible from the
+strategic node rather than only from a thread record.
 
 ## Ratification history
 
