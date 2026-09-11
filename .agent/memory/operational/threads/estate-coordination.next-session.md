@@ -1944,3 +1944,6 @@ by name search — the lesson of #119:
   now, folding in the two dispositioned #128 findings (todos 1–3 marked landed; item 9 pending);
   the older held items (§C: directives-tier placement; #100's two deny lines) wait for a session
   with their context. The lower-powered seat's two lanes are on the succession record §Revision 4.
+- 10:0xZ, owner word: native Windows is PROVEN in use — a developer on the estate works on Windows
+  machines; the carrier node's value statement holds beyond the hosted runner. The high-powered
+  Director seat stops; the lower-powered seat picks up Lanes A and B (succession record §Revision 4).

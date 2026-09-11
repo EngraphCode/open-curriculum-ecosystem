@@ -914,3 +914,9 @@ ever, on anything that has happened.
   terminating declaration reconciles (settle on dispositions). Candidate rule text, not a rule.
 - FOLD: the coordination branch of 2026-09-10 is merged; the successor branch is cut at this
   boundary by the instrument and carries this block. Uncommitted at the stop: nothing.
+- FINAL (2026-09-11 10:0xZ, owner word): "consider real Windows proven, one of our developers uses
+  Windows machines" — the parallax bridge claim (hosted runner → a developer's machine) closes on
+  the owner's fact, not on a further observation. Lesson: an "unknown" about the organisation is
+  an owner fact to ask, never a residual to flag (memory `org-and-audience-models-are-owner-facts`);
+  three of the four unknowns I listed at the cards were of that kind. The seat stops here; the
+  lower-powered seat runs Lanes A and B from the succession record §Revision 4.
