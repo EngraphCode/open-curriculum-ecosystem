@@ -34,7 +34,7 @@ import { extractFrontmatter } from '../portability/portability-fs.js';
 import { type ParsedPlanFile, type PlanConformanceFailure } from './plan-corpus-types.js';
 import { type ChoiceRegistry } from './plan-corpus-registries.js';
 import { planNodeSchema, type PlanNode } from './plan-node-schema.js';
-import { scanYamlFences } from './yaml-fence-blocks.js';
+import { yamlFencedBlocks } from './yaml-fence-blocks.js';
 
 /**
  * Every fenced YAML block in a plan node must PARSE.
@@ -53,15 +53,17 @@ import { scanYamlFences } from './yaml-fence-blocks.js';
  * node whose fenced YAML is known to parse rather than one it must think to
  * verify.
  *
- * Scope is deliberately narrow: PARSEABILITY, not schema conformance. Whether a
- * workflow's keys are the right keys is the reviewer's question; whether the
- * bytes are YAML at all is mechanical, and mechanical questions belong here.
+ * Scope is deliberately narrow twice over. PARSEABILITY, not schema conformance:
+ * whether a workflow's keys are the right keys is the reviewer's question, and
+ * whether the bytes are YAML at all is mechanical. And TOP-LEVEL fences, which
+ * is where a pinned file goes — a YAML block nested in a blockquote or a list
+ * item is illustrative prose rather than a file a seat copies, so it is out of
+ * scope by the same reasoning rather than by an admitted gap.
  */
 function yamlFenceFailures(content: string): string[] {
   const messages: string[] = [];
-  const scan = scanYamlFences(content);
   let index = 0;
-  for (const block of scan.blocks) {
+  for (const block of yamlFencedBlocks(content)) {
     index += 1;
     try {
       parseYaml(block);
@@ -71,13 +73,6 @@ function yamlFenceFailures(content: string): string[] {
         `fenced yaml block ${String(index)} does not parse: ${reason ?? 'unknown parse error'}`,
       );
     }
-  }
-  for (const line of scan.unreadableAt) {
-    messages.push(
-      `yaml fence at line ${String(line)} sits inside a blockquote or an indented container, ` +
-        'where this check cannot read it; move the block to the top level so its text is ' +
-        'verified rather than assumed',
-    );
   }
   return messages;
 }

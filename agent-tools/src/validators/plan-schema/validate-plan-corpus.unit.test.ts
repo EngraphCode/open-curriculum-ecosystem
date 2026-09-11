@@ -527,56 +527,49 @@ describe('validatePlanFile — fenced yaml must parse', () => {
     });
   }
 
-  const containedFences: readonly (readonly [string, readonly string[]])[] = [
+  /**
+   * Blocks OUTSIDE the contract. A pinned file goes in a top-level fence; a
+   * YAML block nested in a blockquote or a list item is illustrative prose,
+   * not a file a seat copies, so it is neither read nor refused. These cases
+   * put that boundary on the record as a decision rather than an accident — an
+   * earlier form of this check refused them, which took five review rounds and
+   * produced two false positives on valid documents before it turned out the
+   * CLAIM was the defect, not the coverage.
+   */
+  const nestedBlocks: readonly (readonly [string, readonly string[]])[] = [
     ['a blockquote', [`> ${FENCE}yaml`, ...BODY.map((line) => `> ${line}`), `> ${FENCE}`]],
-    [
-      'a nested list item',
-      ['- outer', '  - inner', `    ${FENCE}yaml`, ...BODY.map((l) => `    ${l}`), `    ${FENCE}`],
-    ],
     ['a bullet-list marker', [`- ${FENCE}yaml`, ...BODY.map((l) => `  ${l}`), `  ${FENCE}`]],
     ['an ordered-list marker', [`1. ${TILDE}yml`, ...BODY.map((l) => `   ${l}`), `   ${TILDE}`]],
-    // FIXTURES, not mechanism cases. Four review rounds sampled the container
-    // list one prefix at a time; the detector no longer enumerates prefixes, so
-    // these are here to pin the invariant — a YAML fence the reader did not
-    // take is refused, whatever put it out of reach — rather than to name
-    // shapes the code must special-case. A shape nobody has thought of belongs
-    // in this list too, and needs no code change to pass.
     [
       'a list inside a blockquote',
       [`> - ${FENCE}yaml`, ...BODY.map((l) => `>   ${l}`), `>   ${FENCE}`],
     ],
-    ['three levels of nesting', [`> > - ${FENCE}yml`, ...BODY.map((l) => `> >   ${l}`)]],
+    // CommonMark reads a four-space-indented line at top level as an indented
+    // CODE block, so its text is literal and not a fence at all. Telling that
+    // apart from a fence indented inside a list item needs container state,
+    // which is why guessing was the wrong move (Copilot, round 7).
+    ['a four-space indent', [`    ${FENCE}yaml`, ...BODY.map((l) => `    ${l}`), `    ${FENCE}`]],
   ];
 
-  for (const [container, lines] of containedFences) {
-    it(`REFUSES a yaml fence inside ${container} rather than passing it silently`, () => {
-      // Following fences into containers means tracking container state, which
-      // is a Markdown parser's job. The gap must not be a quiet one: a node
-      // whose pinned YAML sits in a blockquote would sail past a check whose
-      // whole purpose is that no pinned YAML goes unparsed. So it is named.
+  for (const [container, lines] of nestedBlocks) {
+    it(`neither reads nor refuses a yaml block inside ${container}`, () => {
       const outcome = validatePlanFile(
         '.agent/plans/delivery/pins.plan.md',
         [...FRONTMATTER, ...lines, ''].join('\n'),
       );
 
-      expect(isErr(outcome)).toBe(true);
-      if (isErr(outcome)) {
-        expect(outcome.error.messages.join(' ')).toContain('move the block to the top level');
-      }
+      expect(isOk(outcome)).toBe(true);
     });
   }
 
   const proseMentioningAFence: readonly (readonly [string, string])[] = [
     ['a sentence', `Pin the workflow in a ${FENCE}yaml block at the top level.`],
-    // A punctuation-only prefix is not a container prefix. An earlier form of
-    // the detector read "letter-free" as "contained" and refused this, which is
-    // the worse failure: a gate that rejects valid documents.
     ['a dated line', `2026-09-11: ${FENCE}yaml is the required spelling.`],
     ['a list item of prose', `- see the ${FENCE}yaml example above`],
   ];
 
   for (const [shape, line] of proseMentioningAFence) {
-    it(`leaves ${shape} that merely mentions a fence alone — the refusal reads grammar, not punctuation`, () => {
+    it(`leaves ${shape} that merely mentions a fence alone`, () => {
       const outcome = validatePlanFile(
         '.agent/plans/delivery/pins.plan.md',
         [...FRONTMATTER, line, ''].join('\n'),

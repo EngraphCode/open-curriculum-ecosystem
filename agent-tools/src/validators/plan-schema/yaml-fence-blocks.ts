@@ -12,15 +12,32 @@
  * so this scanner tracks the opening delimiter, closes on a matching run, and
  * strips the opener's own indentation from the content as CommonMark does.
  *
- * FAIL-CLOSED at the edge of what it reads. Fences nest inside blockquotes and
- * list items, and following them there means tracking container state, which is
- * a Markdown parser's job. Rather than narrow the promise to "most blocks", the
- * scanner REFUSES a YAML fence it finds in a position it cannot read, so the
- * unread case is loud instead of a silent false green — the same move as the
- * mode probe in `owner-only-write.ts`.
+ * TOP-LEVEL fences, and that is the whole contract rather than a shortfall
+ * against a larger one. A plan node PINS a file by putting its text in a
+ * top-level fenced block, which is what a seat then copies verbatim; a YAML
+ * block nested inside a blockquote or a list item is illustrative prose, not a
+ * pinned file, and was never what this check exists to protect.
+ *
+ * That sentence is the correction of a wrong turn worth recording, because the
+ * cost was five review rounds. The original doc claimed "every fenced YAML
+ * block"; a reviewer rightly observed that nested blocks were missed; and the
+ * response was to grow a detector that refused what it could not read — first
+ * blockquotes, then list markers, then nesting, then any letter-free prefix,
+ * each correction sampled again by the next round. Two answers had been
+ * available at that first finding and only one was tried. The other is this
+ * one: the claim was wrong, not the coverage. Fixing the sentence costs
+ * nothing the purpose needed, and the detector it retires had become a larger
+ * source of defects — two false positives on valid documents — than the case
+ * it was added for, which the live corpus has never contained.
+ *
+ * The distinction CommonMark draws here cannot be drawn without container
+ * state: a four-space-indented fence line is a real fence inside a list item
+ * and literal text in a top-level indented code block. A regex cannot tell
+ * those apart, and neither reading is safe to guess. A parser could, and is
+ * not worth a dependency for a case the convention does not produce.
  *
  * Its own home because it is a Markdown concern, not a plan-schema one; the
- * plan validator consumes {@link scanYamlFences} and knows nothing of fences.
+ * plan validator consumes {@link yamlFencedBlocks} and knows nothing of fences.
  *
  * @packageDocumentation
  */
@@ -91,77 +108,15 @@ function countLeadingSpaces(line: string, limit: number): number {
   return count;
 }
 
-/**
- * A YAML fence opener on a line the top-level reader did not take.
- *
- * @remarks
- * THE INVARIANT, stated once instead of enumerated. CommonMark fences nest
- * inside containers, and reading those correctly means tracking container
- * state — a Markdown parser's job, not this file's. The unread case must not
- * be silent, though: a plan node whose pinned YAML sits in a container would
- * sail past a check whose whole purpose is that no pinned YAML goes unparsed.
- *
- * An earlier form of this detector LISTED the containers it knew — blockquote,
- * then list marker, then deep indent — and four review rounds sampled it once
- * each, a new prefix every time. What is unbounded there is the NESTING, not
- * the vocabulary: CommonMark has exactly two container-start markers, the
- * blockquote `>` and the list marker, each optionally indented. So the grammar
- * is closed and can be stated once, and arbitrary nesting is a repetition of
- * it rather than a longer list.
- *
- * A first attempt at that stated it as "any letter-free prefix", on the
- * reasoning that container markers carry no letters. That was complete but too
- * broad in the other direction: it refused ordinary prose whose prefix happens
- * to be punctuation, such as a dated line mentioning a fence spelling, and a
- * gate that rejects valid documents is a worse failure than the one it was
- * closing. The prefix below is the actual grammar — repeat the two markers,
- * allow their indentation, and require the fence immediately after — so
- * `> - `, `> > - ` and any depth match, while `2026-09-11: ` does not, a colon
- * and hyphens being no part of it.
- */
-const CONTAINER_MARKER = String.raw` {0,3}(?:>[ \t]?|(?:[-*+]|\d{1,9}[.)])[ \t]+)`;
-
-const UNREAD_YAML_FENCE = new RegExp(
-  String.raw`^(?:${CONTAINER_MARKER})*[ \t]*(?:\x60{3,}|~{3,})[ \t]*(?:yaml|yml)\b`,
-  'iu',
-);
-
-/** What one scan of a document found: the blocks it read, and what it could not. */
-export interface YamlFenceScan {
-  /** Every fenced YAML block read, in document order, ready for a YAML parser. */
-  readonly blocks: string[];
-  /** 1-based line numbers of YAML fences in positions this scanner cannot read. */
-  readonly unreadableAt: number[];
-}
-
-/**
- * Read one line while NO fence is open: it may open one, or it may be a YAML
- * fence in a container this scanner will not guess at, which is recorded.
- */
-function readOutsideFence(
-  line: string,
-  lineNumber: number,
-  unreadableAt: number[],
-): OpenFence | undefined {
-  const open = openFenceAt(line);
-  if (open === undefined && UNREAD_YAML_FENCE.test(line)) {
-    unreadableAt.push(lineNumber);
-  }
-  return open;
-}
-
-/** Every fenced YAML block in `content`, plus any this scanner refuses to guess at. */
-export function scanYamlFences(content: string): YamlFenceScan {
+/** Every top-level fenced YAML block in `content`, in document order. */
+export function yamlFencedBlocks(content: string): string[] {
   const blocks: string[] = [];
-  const unreadableAt: number[] = [];
   let open: OpenFence | undefined;
   let current: string[] = [];
-  let lineNumber = 0;
   for (const rawLine of content.split('\n')) {
-    lineNumber += 1;
     const line = rawLine.replace(/\r$/u, '');
     if (open === undefined) {
-      open = readOutsideFence(line, lineNumber, unreadableAt);
+      open = openFenceAt(line);
       current = [];
     } else if (closesFence(line, open)) {
       if (open.isYaml) {
@@ -176,5 +131,5 @@ export function scanYamlFences(content: string): YamlFenceScan {
   if (open?.isYaml === true) {
     blocks.push(`${current.join('\n')}\n`);
   }
-  return { blocks, unreadableAt };
+  return blocks;
 }
