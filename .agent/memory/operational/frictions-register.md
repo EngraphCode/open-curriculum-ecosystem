@@ -4046,10 +4046,28 @@ commit SHA and the closing plan reference.
   is what fails under load — the same generator this estate has been curing
   everywhere else by building gates. Twice now the shepherd was mid-loop,
   each finding individually valid, with no artefact counting anything. The
-  cure is to compute the tally rather than ask for it: `agent-tools pr`
-  already harvests review threads with their originating review's
-  `commit.oid` (the exact bucketing key item 2 specifies), so a
-  `pr rounds <n>` action can emit one row per settled round and the verdict
+  cure is to compute the tally rather than ask for it — but NOT by wrapping
+  what exists, which an earlier draft of this entry wrongly implied.
+  `pr-watch`'s `REVIEW_THREADS_QUERY` selects `totalCount` and
+  `nodes { isResolved }` only, and `parseReviewThreadPages` reduces those to
+  `{total, unresolved}` (`pr-watch/gh.ts`, `pr-watch/review-threads.ts`);
+  no commit binding survives. The separate reviews harvest carries
+  `commit.oid` per REVIEW, which cannot bucket an inline thread's finding to
+  the tip that thread was raised against (Copilot, PR #134 — the correction
+  matters because a specification that overstates what exists misleads the
+  builder about the size of the job, which is this register's own failure
+  class one level up).
+
+  So the build is: EXTEND the thread harvest to carry each thread's
+  originating commit, then add the command over it. The selection is
+  available — verified live on PR #134, 2026-09-11:
+  `reviewThreads { nodes { isResolved comments(first: 1) { nodes {
+  pullRequestReview { commit { oid } } } } } }` returned one distinct oid
+  per thread, matching the tips those threads were raised on, which is the
+  key `pr-lifecycle` item 2 names as
+  `comments.nodes[0].pullRequestReview.commit.oid`. The parser then keeps
+  per-thread rows instead of reducing to counts, and a `pr rounds <n>`
+  action emits one row per settled round with the verdict
   STEP-BACK-MANDATORY | BUDGET-EXCEEDED | CONVERGING | TERMINAL-ZERO from
   the PR itself. The cure-worthy count still needs a human-or-agent
   disposition per finding, so the command reads raised counts and takes
