@@ -93,41 +93,34 @@ green on its landing tip, and #123 closed as superseded. Todo 5 is done as descr
    mount where chmod silently no-ops (WSL DrvFS without `metadata`, exFAT, some SMB/NFS) refuses
    instead of retaining authenticated output world-readable.
 
-   The test placement this step's last clause anticipated is UNSETTLED, and is the one thing this
-   step hands to the owner. Three placements were tried and each was rejected on a different
-   clause of the repository's own directives, which is the signal that the taxonomy has a gap
-   rather than that the seat kept guessing badly.
+   The test placement this step's last clause anticipated is SETTLED, and the route to it is worth
+   recording because three attempts were wrong before the obvious one.
 
-   1. `it.skipIf(process.platform === 'win32')`, as the succession record proposed.
-      `.agent/rules/no-conditional-tests.md` names `it.skipIf` first among its forbidden
-      mechanisms. Not available.
-   2. An `e2e-tests` vitest suite. Both reviewers rejected it on PR #132:
-      `.agent/directives/testing-strategy.md` classifies by behaviour shape, not filename, and a
-      test that imports the product into its own process is an integration test whatever it is
-      called. The move relabelled rather than rehomed.
-   3. A smoke script. Codex rejected that too, correctly: the smoke tier means the built artefact
-      invoked as production invokes it, "never source through a test-runner loader", and a script
-      that imports `dist/…/node-io.js` under `tsx` is an integration test against `dist`.
+   Attempt 1 was the succession record's `it.skipIf(process.platform === 'win32')`;
+   `no-conditional-tests` names `it.skipIf` first among its forbidden mechanisms. Attempt 2 moved
+   the tests into an `e2e-tests` vitest suite; both reviewers rejected it, since classification is
+   by behaviour shape and a test importing the product into its own process is an integration test
+   whatever its filename. Attempt 3 made it a smoke script; Codex rejected that too, since the
+   smoke tier means the built artefact invoked as production invokes it, never source through a
+   test-runner loader.
 
-   The landed state is therefore the PRE-EXISTING one: the four real-filesystem tests stay in
-   `node-io.integration.test.ts`, doing their IO through `test-helpers/io-sandbox.ts`, which is on
-   the `no-real-io-in-tests` lint allowlist — the mechanism that made this placement legitimate
-   before this step existed. Nothing was invented and nothing was relabelled.
+   Each attempt asked the same wrong question — WHERE may a test that does filesystem IO live —
+   and the rules do not answer it because they do not admit it. Tests are not permitted filesystem
+   access at all (`testing-strategy.md` §Test Types; the `no-real-io-in-tests` rule). The
+   authority runs from the prohibition to the design, and inverting that is what produced three
+   dead ends.
 
-   What is genuinely open: with the verification in place the production write refuses when the
-   descriptor does not read 0600, and Node on Windows reports every writable file as 0666, so
-   these four tests are expected to fail on the Windows leg. That expectation is REASONED, not
-   observed — no Windows run has yet exercised them with the verification present. This step's
-   landing lets `windows-basic`, advisory until 2026-09-17 precisely so it can be observed before
-   it blocks, supply the observation.
+   The cure follows directly. `OwnerOnlyWriteOps` gains `mkdir`, so both retention entry points —
+   `writeUnder` and `retainOwnerOnlyAt` — drive the whole path through the injected seam and no
+   filesystem call sits outside it. The tests then describe what this module actually decides: the
+   directory it resolves, the content it hands over, the order it requests, the refusals, and the
+   fact that it opens a temporary sibling and never the destination. All 5155 pass with no
+   filesystem and no platform guard, so the Windows leg runs the identical set.
 
-   The owner's decision, when the observation is in: where a real-filesystem proof of a library
-   function lives, given that the taxonomy's four categories each exclude it — unit and
-   integration forbid IO (the allowlist notwithstanding), E2E requires a separately running
-   system, and smoke requires a built entrypoint invoked as production invokes it. The candidate
-   answers are to widen the ops seam so the suites need no filesystem at all, to give the
-   allowlist an explicit platform-scope clause, or to add a host-bound tier the taxonomy does not
-   yet have.
+   One test is absent rather than relocated, deliberately. It asserted that the operating system's
+   `rename` replaces a symbolic link, which is a property of the operating system rather than of
+   this module; the module's own half of that guarantee — never opening the destination — is
+   described at the seam.
 
 ## Review dispositions
 

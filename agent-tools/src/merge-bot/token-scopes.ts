@@ -119,6 +119,36 @@ export const TOKEN_SCOPES = {
   'code-scanning-alerts': {
     security_events: 'read',
   },
+
+  /**
+   * Dispatching a workflow run — the `actions/workflows/.../dispatches` POST —
+   * and reading the runs that result.
+   *
+   * Separate from `pull-request-work` deliberately. That scope already carries
+   * `workflows: write`, which governs CHANGING workflow FILES, and the two are
+   * easy to conflate: a token that may edit `.github/workflows/**` has no
+   * business also starting arbitrary runs for the fifty-minute life of a merge
+   * poll, and a seat that needs one dispatch has no business holding contents
+   * write. GitHub keeps them as separate permissions and so does this table.
+   *
+   * ## Provenance, 2026-09-11
+   *
+   * Recorded because a seat got this wrong and the wrong answer reached a plan
+   * node and a thread record. `gh workflow run` under a `pull-request-work`
+   * token answers 403 `Resource not accessible by integration`, and that was
+   * read as the bot APP lacking the permission — so the first dispatch of the
+   * two upstream sync workflows was written up as an owner-only act. It is not:
+   * the installation holds `actions: write` (read from
+   * `GET /orgs/{org}/installations`), and the 403 was this table having no
+   * scope that requests it. The header above says exactly this — an ungranted
+   * permission fails the MINT with 422, so a 403 is always a wrong-scope
+   * symptom — and the seat had read that line and still mis-attributed the
+   * failure. Verify a capability against the grant, never against one token's
+   * refusal.
+   */
+  'workflow-dispatch': {
+    actions: 'write',
+  },
 } as const satisfies Readonly<Record<string, TokenPermissionSet>>;
 
 /** The closed set of scope names, derived so there is one source. */

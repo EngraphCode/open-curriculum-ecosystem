@@ -304,14 +304,20 @@ here so the next reader does not re-derive them:
   immediately after the file landed, so no `gh workflow enable` was needed. That answers the
   mirror node's decision 10 for a workflow added to a fork AFTER the fork was created, which the
   platform documents nowhere: it behaves like an inherited one.
-- **The first dispatch is an OWNER act.** `POST .../actions/workflows/{id}/dispatches` as the bot
-  answers 403 `Resource not accessible by integration`: the bot app holds no `actions` permission
-  and the token-scope table mints none. The action map in
-  `.agent/rules/bot-identity-on-third-party-systems.md` routes every other POST to the bot and
-  forbids reaching for the operator's credential outside its listed rows, so the seat cannot
-  dispatch under the owner's `gh` either. Either the owner dispatches, or the schedule delivers
-  the first run unaided — 18:00 UTC for the mirror and 18:30 UTC for the carrier on the landing
-  day.
+- **Both workflows were dispatched by the BOT and ran green on 2026-09-11.** Mirror run
+  34614449174 logged `compare main...oaknational/oak-open-curriculum-ecosystem:main => identical`
+  then `In sync: main equals the parent's default branch. No action taken.`; carrier run
+  34614457898 logged `compare engraph...main => behind (mirror ahead by 0)` then `Nothing to
+  carry: main holds no commit the default branch lacks.` Those are the two lines that carried the
+  parse defects cured at authoring time, so the platform loading and running the cured files is
+  proven end to end.
+- **A correction worth keeping.** The first attempt to dispatch answered 403 `Resource not
+  accessible by integration`, and this node briefly recorded the first dispatch as an owner-only
+  act on the strength of it. That was wrong. The installation holds `actions: write` (read from
+  `GET /orgs/{org}/installations`); the 403 was the CLI's token-scope table having no scope that
+  REQUESTS it, and the table's own header says an ungranted permission fails the mint with 422, so
+  a 403 is always a wrong-scope symptom. A `workflow-dispatch` scope now exists and the bot
+  dispatches under it. Verify a capability against the grant, never against one token's refusal.
 
 Second review round on PR #131, 2026-09-11. Carried to the owner:
 

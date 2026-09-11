@@ -12,7 +12,6 @@
  * install-drift risk.
  */
 import { spawnSync } from 'node:child_process';
-import { mkdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
 
@@ -20,7 +19,11 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { boundedExcerpt } from './bounded-excerpt.js';
 import { type McpConformanceIo, type RetentionOutcome } from './io-port.js';
-import { writeOwnerOnly, type OwnerOnlyWriteOps } from './owner-only-write.js';
+import {
+  nodeOwnerOnlyWriteOps,
+  writeOwnerOnly,
+  type OwnerOnlyWriteOps,
+} from './owner-only-write.js';
 import { type McpjamSpawnResult } from './runner.js';
 import { type ConformanceSuite } from './types.js';
 
@@ -115,9 +118,14 @@ export function writeUnder(
 ): RetentionOutcome {
   const writeDir = resolve(repoRoot, reportDir);
   const reportedPath = join(reportDir, fileName);
+  // Directory creation goes through the SAME seam as the write. Tests are not
+  // permitted filesystem access, so every call on this path is injectable by
+  // construction; a direct `mkdirSync` here would put the code after it out of
+  // reach of any permitted test.
+  const edge = ops ?? nodeOwnerOnlyWriteOps;
   try {
-    mkdirSync(writeDir, { recursive: true });
-    writeOwnerOnly(join(writeDir, fileName), content, ops, platform);
+    edge.mkdir(writeDir);
+    writeOwnerOnly(join(writeDir, fileName), content, edge, platform);
     return { ok: true, reportedPath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
@@ -208,9 +216,12 @@ export function retainOwnerOnlyAt(
   ops?: OwnerOnlyWriteOps,
   platform?: NodeJS.Platform,
 ): RetentionOutcome {
+  // The same seam as `writeUnder`: no filesystem call on a retention path sits
+  // outside it, so every one of them is reachable by a test that may not do IO.
+  const edge = ops ?? nodeOwnerOnlyWriteOps;
   try {
-    mkdirSync(dirname(absolutePath), { recursive: true });
-    writeOwnerOnly(absolutePath, content, ops, platform);
+    edge.mkdir(dirname(absolutePath));
+    writeOwnerOnly(absolutePath, content, edge, platform);
     return { ok: true, reportedPath: absolutePath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
