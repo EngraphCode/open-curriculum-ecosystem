@@ -76,6 +76,10 @@ cure on upstream-authored lines beyond the two open findings; the merge-back its
 
 ## Todos
 
+Owner decision 2026-09-11: `windows-basic` stays advisory for a week from its first green run
+(2026-09-10) so flakiness on `windows-latest` is observed before it can block a landing; the
+ruleset act follows on 2026-09-17 or later, at the owner's hand.
+
 1. Merge, resolve, gate, commit (owner as author, Luke's commits preserved by the merge).
 2. Cure the two findings with tests; commit.
 3. Add the `windows-basic` job; commit; push as the bot; draft PR with the provenance and the
