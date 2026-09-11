@@ -34,6 +34,7 @@ import { extractFrontmatter } from '../portability/portability-fs.js';
 import { type ParsedPlanFile, type PlanConformanceFailure } from './plan-corpus-types.js';
 import { type ChoiceRegistry } from './plan-corpus-registries.js';
 import { planNodeSchema, type PlanNode } from './plan-node-schema.js';
+import { yamlFencedBlocks } from './yaml-fence-blocks.js';
 
 /**
  * Every fenced YAML block in a plan node must PARSE.
@@ -58,14 +59,9 @@ import { planNodeSchema, type PlanNode } from './plan-node-schema.js';
  */
 function yamlFenceFailures(content: string): string[] {
   const messages: string[] = [];
-  const fence = /^```yaml\r?\n([\s\S]*?)^```/gmu;
   let index = 0;
-  for (const match of content.matchAll(fence)) {
+  for (const block of yamlFencedBlocks(content)) {
     index += 1;
-    const block = match[1];
-    if (block === undefined) {
-      continue;
-    }
     try {
       parseYaml(block);
     } catch (error) {

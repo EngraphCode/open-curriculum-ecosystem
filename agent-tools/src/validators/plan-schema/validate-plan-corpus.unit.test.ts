@@ -487,4 +487,74 @@ describe('validatePlanFile — fenced yaml must parse', () => {
       expect(outcome.error.messages.join(' ')).toContain('fenced yaml block 1 does not parse');
     }
   });
+
+  /**
+   * The same broken `run:` line, inside every other ordinary Markdown fence an
+   * author reaches for. Each is legal Markdown rendering a YAML block, so a
+   * check reading one literal spelling hands back the false green it exists to
+   * remove.
+   */
+  const BODY = [
+    'name: Upstream mirror',
+    'jobs:',
+    '  mirror:',
+    '    steps:',
+    '      - name: Report in sync',
+    '        run: echo "In sync: main equals the parent."',
+  ];
+  const TILDE = '~'.repeat(3);
+  const LONG_FENCE = '`'.repeat(4);
+
+  const otherFenceSpellings: readonly (readonly [string, readonly string[]])[] = [
+    ['the yml info string', [`${FENCE}yml`, ...BODY, FENCE]],
+    ['a tilde fence', [`${TILDE}yaml`, ...BODY, TILDE]],
+    ['an indented fence', [`   ${FENCE}yaml`, ...BODY.map((line) => `   ${line}`), `   ${FENCE}`]],
+    ['a four-backtick fence', [`${LONG_FENCE}yaml`, ...BODY, LONG_FENCE]],
+    ['an info string carrying a title', [`${FENCE}yaml title="ci.yml"`, ...BODY, FENCE]],
+  ];
+
+  for (const [spelling, lines] of otherFenceSpellings) {
+    it(`reads ${spelling} as a yaml block, so the same defect cannot pass under it`, () => {
+      const outcome = validatePlanFile(
+        '.agent/plans/delivery/pins.plan.md',
+        [...FRONTMATTER, ...lines, ''].join('\n'),
+      );
+
+      expect(isErr(outcome)).toBe(true);
+      if (isErr(outcome)) {
+        expect(outcome.error.messages.join(' ')).toContain('fenced yaml block 1 does not parse');
+      }
+    });
+  }
+
+  it('a non-yaml fence is left alone — the check reads YAML blocks, not every block', () => {
+    const outcome = validatePlanFile(
+      '.agent/plans/delivery/pins.plan.md',
+      [...FRONTMATTER, `${FENCE}bash`, 'echo "In sync: not yaml at all"', FENCE, ''].join('\n'),
+    );
+
+    expect(isOk(outcome)).toBe(true);
+  });
+
+  it('a fence nested inside a longer fence does not close it, so the outer block parses as one', () => {
+    // A node pinning a file that itself contains a fence must open a longer
+    // run. Treating the inner fence as the closer would slice the block in two
+    // and parse a fragment.
+    const outcome = validatePlanFile(
+      '.agent/plans/delivery/pins.plan.md',
+      [
+        ...FRONTMATTER,
+        `${LONG_FENCE}yaml`,
+        'name: Upstream mirror',
+        'description: |',
+        `  ${FENCE}`,
+        '  an embedded fence',
+        `  ${FENCE}`,
+        LONG_FENCE,
+        '',
+      ].join('\n'),
+    );
+
+    expect(isOk(outcome)).toBe(true);
+  });
 });

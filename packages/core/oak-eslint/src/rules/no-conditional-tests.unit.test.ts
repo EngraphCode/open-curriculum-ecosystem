@@ -18,6 +18,11 @@ ruleTester.run('no-conditional-tests', noConditionalTestsRule, {
     {
       code: "it('runs everywhere', () => {\n  expect(true).toBe(true);\n});",
     },
+    // A namespace import of something that is not Vitest does not make every
+    // `.skipIf` on it a test guard.
+    {
+      code: "import * as scheduler from 'node:timers';\nscheduler.it.skipIf(slow)('x', () => {});",
+    },
   ],
   invalid: [
     // The exact shape a succession record handed a seat on 2026-09-11.
@@ -36,6 +41,32 @@ ruleTester.run('no-conditional-tests', noConditionalTestsRule, {
     // Chained forms bottom out at the same callee and must not slip through.
     {
       code: "it.each([1])('case %i', (n) => {});\nit.concurrent.skipIf(slow)('later', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    // `suite` is Vitest's own alias for `describe`; banning one spelling of a
+    // construct and not the other is not a ban.
+    {
+      code: "suite.skipIf(process.platform === 'win32')('windows', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    // An import alias renames the identifier, not the construct. Recognising
+    // only the exported spellings leaves the gate open to ordinary, legal
+    // syntax — which would make the rule file's enforcement claim false.
+    {
+      code: "import { it as spec } from 'vitest';\nspec.skipIf(process.platform === 'win32')('writes 0600', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    {
+      code: "import { describe as group } from 'vitest';\ngroup.runIf(hasNetwork)('live', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    // Reached through a namespace import, including the chained form.
+    {
+      code: "import * as vitest from 'vitest';\nvitest.it.skipIf(slow)('x', () => {});",
+      errors: [{ messageId: 'conditionalTestBanned' }],
+    },
+    {
+      code: "import * as vitest from 'vitest';\nvitest.describe.concurrent.runIf(live)('y', () => {});",
       errors: [{ messageId: 'conditionalTestBanned' }],
     },
   ],

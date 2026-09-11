@@ -19,11 +19,8 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { boundedExcerpt } from './bounded-excerpt.js';
 import { type McpConformanceIo, type RetentionOutcome } from './io-port.js';
-import {
-  nodeOwnerOnlyWriteOps,
-  writeOwnerOnly,
-  type OwnerOnlyWriteOps,
-} from './owner-only-write.js';
+import { nodeOwnerOnlyWriteOps, type OwnerOnlyWriteOps } from './owner-only-write-ops.js';
+import { assertOwnerOnlyEstablishable, writeOwnerOnly } from './owner-only-write.js';
 import { type McpjamSpawnResult } from './runner.js';
 import { type ConformanceSuite } from './types.js';
 
@@ -124,6 +121,10 @@ export function writeUnder(
   // reach of any permitted test.
   const edge = ops ?? nodeOwnerOnlyWriteOps;
   try {
+    // A refusal leaves nothing behind: the platform check precedes `mkdir`, or a
+    // Windows host would create the caller's report directory on its way to
+    // reporting that it wrote nothing.
+    assertOwnerOnlyEstablishable(platform ?? process.platform);
     edge.mkdir(writeDir);
     writeOwnerOnly(join(writeDir, fileName), content, edge, platform);
     return { ok: true, reportedPath };
@@ -220,6 +221,9 @@ export function retainOwnerOnlyAt(
   // outside it, so every one of them is reachable by a test that may not do IO.
   const edge = ops ?? nodeOwnerOnlyWriteOps;
   try {
+    // As in `writeUnder`: refuse the platform before creating any directory, so
+    // a refused retention mutates nothing at the caller-selected path.
+    assertOwnerOnlyEstablishable(platform ?? process.platform);
     edge.mkdir(dirname(absolutePath));
     writeOwnerOnly(absolutePath, content, edge, platform);
     return { ok: true, reportedPath: absolutePath };

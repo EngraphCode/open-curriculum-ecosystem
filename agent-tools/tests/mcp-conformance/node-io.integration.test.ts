@@ -9,11 +9,12 @@ import {
   writeRunSummary,
   writeUnder,
 } from '../../src/mcp-conformance/node-io.js';
+import { type OwnerOnlyWriteOps } from '../../src/mcp-conformance/owner-only-write-ops.js';
 import {
+  OwnerOnlyModeNotEnforcedError,
   OwnerOnlyModeNotHeldError,
   OwnerOnlyUnavailableError,
   writeOwnerOnly,
-  type OwnerOnlyWriteOps,
 } from '../../src/mcp-conformance/owner-only-write.js';
 
 /**
@@ -33,11 +34,14 @@ import {
  * system; asserting it here would have been testing Node rather than the
  * product, which is why its former test is absent rather than relocated.
  *
- * `statMode` is what the descriptor reports back after the tightening: the
- * default is an owner-only regular file, and a test that wants the refusal
- * passes something else.
+ * `reportMode` is the MOUNT: the permission bits `fstat` answers for a given
+ * `fchmod` request. The default honours the request, which is what a POSIX
+ * filesystem does; a mount that ignores `fchmod` and synthesises a constant
+ * mode, or one that reports a different mode than the one asked for, is that
+ * same seam with a different function — which is the whole reason the
+ * verification exists and the only way to describe it without a filesystem.
  */
-function recordingOps(statMode = 0o100600): {
+function recordingOps(reportMode: (requested: number) => number = (requested) => requested): {
   readonly calls: string[];
   readonly madeDirs: string[];
   readonly opened: string[];
@@ -50,6 +54,7 @@ function recordingOps(statMode = 0o100600): {
   const opened: string[] = [];
   const written: string[] = [];
   const renames: { from: string; to: string }[] = [];
+  let requestedMode = 0;
   const ops: OwnerOnlyWriteOps = {
     mkdir: (path) => {
       calls.push('mkdir');
@@ -62,10 +67,12 @@ function recordingOps(statMode = 0o100600): {
     },
     fchmod: (fd, mode) => {
       calls.push(`fchmod:${String(fd)}:${mode.toString(8)}`);
+      requestedMode = mode;
     },
     fstat: (fd) => {
       calls.push(`fstat:${String(fd)}`);
-      return statMode;
+      // The regular-file type bits ride along, as the real `fstat` reports them.
+      return 0o100000 | reportMode(requestedMode);
     },
     write: (fd, content) => {
       calls.push(`write:${String(fd)}`);
@@ -91,15 +98,27 @@ function recordingOps(statMode = 0o100600): {
  */
 const POSIX: NodeJS.Platform = 'linux';
 
+/**
+ * The mode the module sets and reads back purely to establish that this mount
+ * enforces permission bits rather than reporting them. Pinned here because a
+ * change to it is a change to what the verification proves.
+ */
+const MODE_HONOURED_PROBE = 0o400;
+
 const ORDERED_OWNER_ONLY_WRITE = [
   'mkdir',
   'open:wx:600',
+  `fchmod:17:${MODE_HONOURED_PROBE.toString(8)}`,
+  'fstat:17',
   'fchmod:17:600',
   'fstat:17',
   'write:17',
   'close:17',
   'rename',
 ];
+
+/** A mount that answers one mode to every reading, whatever `fchmod` asked for. */
+const reportingConstant = (constantMode: number) => (): number => constantMode;
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
   it('a relative report dir resolves under the repo root while the reported path stays caller-shaped', () => {
@@ -217,8 +236,12 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
   it('a filesystem that does not honour the tightening is a loud refusal before any content lands', () => {
     // `fchmod` returns success on mounts that carry no POSIX permission bits,
     // so a successful call is not evidence the file is owner-only. Reading the
-    // descriptor back turns a silent false claim into a refusal.
-    const { calls, written, ops } = recordingOps(0o100644);
+    // descriptor back turns a silent false claim into a refusal. This mount
+    // tracks the probe but will not go narrower than 0644 — an exFAT or
+    // DrvFS-without-metadata shape.
+    const { calls, written, ops } = recordingOps((requested) =>
+      requested === MODE_HONOURED_PROBE ? requested : 0o644,
+    );
     const io = buildMcpConformanceNodeIo('/repo', join('tmp', 'reports'), ops, POSIX);
 
     const outcome = io.retainRawReport('protocol', 'secret');
@@ -232,11 +255,42 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
   });
 
   it('the mode refusal is typed, so a caller can tell it from an IO failure', () => {
-    const { ops } = recordingOps(0o100666);
+    const { ops } = recordingOps((requested) =>
+      requested === MODE_HONOURED_PROBE ? requested : 0o666,
+    );
 
     expect(() => {
       writeOwnerOnly(resolve('/repo', 'summary.json'), 'secret', ops, POSIX);
     }).toThrow(OwnerOnlyModeNotHeldError);
+  });
+
+  it('a mount that REPORTS 0600 without enforcing it is refused, because reading 0600 back proves nothing there', () => {
+    // The false claim wearing the right answer: CIFS/SMB without Unix
+    // extensions synthesises every mode from `file_mode=`, so `file_mode=0600`
+    // answers 0600 to any reading while `fchmod` changes nothing and the
+    // server-side ACL still governs who can read the file. A single reading
+    // would accept this mount; the probe that precedes it does not.
+    const { calls, written, ops } = recordingOps(reportingConstant(0o600));
+    const io = buildMcpConformanceNodeIo('/repo', join('tmp', 'reports'), ops, POSIX);
+
+    const outcome = io.retainRawReport('protocol', 'secret');
+
+    expect(outcome.ok).toBe(false);
+    expect(!outcome.ok && outcome.error).toContain('synthetic');
+    expect(written).toEqual([]);
+    expect(calls).not.toContain('rename');
+    // Refused at the FIRST reading: the 0600 tightening is never even asked for.
+    expect(calls).not.toContain('fchmod:17:600');
+    expect(calls).toContain('close:17');
+    expect(calls).toContain('unlink');
+  });
+
+  it('the unenforced-mode refusal is typed, so it is distinguishable from a mount that simply reads wide', () => {
+    const { ops } = recordingOps(reportingConstant(0o600));
+
+    expect(() => {
+      writeOwnerOnly(resolve('/repo', 'summary.json'), 'secret', ops, POSIX);
+    }).toThrow(OwnerOnlyModeNotEnforcedError);
   });
 
   it('on Windows the owner-only write is refused before any file is touched, with a typed error naming the reason', () => {
@@ -275,10 +329,11 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
       expect(!outcome.ok && outcome.error).toContain('win32');
       expect(!outcome.ok && outcome.error).toContain('ACL');
     }
-    // Both entry points create their directory before reaching the refusal,
-    // and neither writes anything.
-    expect(viaAbsolutePath.calls).toEqual(['mkdir']);
-    expect(viaReportDir.calls).toEqual(['mkdir']);
+    // A refusal leaves NOTHING behind. Creating the caller's report directory
+    // on the way to reporting that nothing was written is still a mutation of
+    // a caller-selected path, so the platform check precedes even the `mkdir`.
+    expect(viaAbsolutePath.calls).toEqual([]);
+    expect(viaReportDir.calls).toEqual([]);
     expect(viaAbsolutePath.written).toEqual([]);
     expect(viaReportDir.written).toEqual([]);
   });

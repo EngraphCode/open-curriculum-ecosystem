@@ -1,8 +1,12 @@
+import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
+
 import { createMessage, type RuleWithReappraisingMessages } from '../reappraising-message.js';
 
 /**
  * ESLint rule that bans Vitest's conditional-execution APIs — `skipIf` and
- * `runIf` — on `it`, `test` and `describe`.
+ * `runIf` — on `it`, `test`, `describe` and `suite`, however the file spells
+ * them: the exported name under globals mode, a local alias, or a property of
+ * a namespace import.
  *
  * @remarks
  * `.agent/rules/no-conditional-tests.md` names `it.skipIf` FIRST among its
@@ -31,11 +35,71 @@ import { createMessage, type RuleWithReappraisingMessages } from '../reappraisin
  * // Invalid — the same shape inverted.
  * describe.runIf(hasNetwork)('live calls', () => {});
  *
+ * // Invalid — an alias renames the identifier, not the construct.
+ * import { it as spec } from 'vitest';
+ * spec.skipIf(isCi)('writes 0600', () => {});
+ *
+ * // Invalid — reached through a namespace import.
+ * import * as vitest from 'vitest';
+ * vitest.describe.skipIf(isCi)('live calls', () => {});
+ *
  * // Valid — deterministic enumeration of a literal dataset.
  * it.each([1, 2, 3])('doubles %i', (n) => {});
  */
 const CONDITIONAL_MEMBERS = new Set(['skipIf', 'runIf']);
-const TEST_CALLEES = new Set(['it', 'test', 'describe']);
+
+/**
+ * Vitest's test entry points, by their exported names — `suite` included, since
+ * it is the canonical alias for `describe` and a rule that missed it would ban
+ * one spelling of the same construct.
+ */
+const TEST_CALLEES = new Set(['it', 'test', 'describe', 'suite']);
+
+/** The module whose test entry points this rule governs. */
+const VITEST_MODULE = 'vitest';
+
+/**
+ * The LOCAL names a file has bound to Vitest's test entry points.
+ *
+ * Matching the exported spellings alone is not enough: an alias
+ * (`import { it as spec }`) or a namespace (`import * as vitest`) renames the
+ * root identifier, and a gate that recognises only three or four literal
+ * spellings is bypassed by ordinary, legal import syntax — which would make
+ * the enforcement claim in `.agent/rules/no-conditional-tests.md` false.
+ */
+interface VitestBindings {
+  /** Locals bound directly to a test entry point, under any alias. */
+  readonly callees: Set<string>;
+  /** Locals bound to the whole module, reached as `<local>.it`. */
+  readonly namespaces: Set<string>;
+}
+
+function collectVitestBindings(body: TSESTree.ProgramStatement[]): VitestBindings {
+  const callees = new Set<string>();
+  const namespaces = new Set<string>();
+  for (const statement of body) {
+    if (statement.type !== AST_NODE_TYPES.ImportDeclaration) {
+      continue;
+    }
+    if (statement.source.value !== VITEST_MODULE) {
+      continue;
+    }
+    for (const specifier of statement.specifiers) {
+      if (specifier.type === AST_NODE_TYPES.ImportNamespaceSpecifier) {
+        namespaces.add(specifier.local.name);
+        continue;
+      }
+      if (
+        specifier.type === AST_NODE_TYPES.ImportSpecifier &&
+        specifier.imported.type === AST_NODE_TYPES.Identifier &&
+        TEST_CALLEES.has(specifier.imported.name)
+      ) {
+        callees.add(specifier.local.name);
+      }
+    }
+  }
+  return { callees, namespaces };
+}
 
 const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanned'> = {
   meta: {
@@ -57,7 +121,51 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
   defaultOptions: [],
 
   create(context) {
+    let bindings: VitestBindings = { callees: new Set(), namespaces: new Set() };
+
+    /** `vitest.it` / `vitest.describe`, where `vitest` is a namespace import. */
+    function isNamespacedTestCallee(node: TSESTree.MemberExpression): boolean {
+      return (
+        !node.computed &&
+        node.object.type === AST_NODE_TYPES.Identifier &&
+        node.property.type === AST_NODE_TYPES.Identifier &&
+        bindings.namespaces.has(node.object.name) &&
+        TEST_CALLEES.has(node.property.name)
+      );
+    }
+
+    /**
+     * Walk `it.each(...).skipIf`, `it.concurrent.skipIf` and every other
+     * chained form back to what the chain is rooted in, and say whether that
+     * is a Vitest test entry point under ANY of its reachable spellings: the
+     * exported name (Vitest's globals mode injects it unimported), a local
+     * alias, or a property of a namespace import.
+     */
+    function rootsAtTestCallee(start: TSESTree.Node): boolean {
+      let current = start;
+      while (
+        current.type === AST_NODE_TYPES.CallExpression ||
+        current.type === AST_NODE_TYPES.MemberExpression
+      ) {
+        if (current.type === AST_NODE_TYPES.MemberExpression) {
+          if (isNamespacedTestCallee(current)) {
+            return true;
+          }
+          current = current.object;
+          continue;
+        }
+        current = current.callee;
+      }
+      if (current.type !== AST_NODE_TYPES.Identifier) {
+        return false;
+      }
+      return TEST_CALLEES.has(current.name) || bindings.callees.has(current.name);
+    }
+
     return {
+      Program(node) {
+        bindings = collectVitestBindings(node.body);
+      },
       MemberExpression(node) {
         if (node.computed || node.property.type !== 'Identifier') {
           return;
@@ -65,13 +173,7 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
         if (!CONDITIONAL_MEMBERS.has(node.property.name)) {
           return;
         }
-        // `it.skipIf`, and the chained forms `it.each(...).skipIf` /
-        // `it.concurrent.skipIf`, all bottom out at one of the test callees.
-        let root = node.object;
-        while (root.type === 'CallExpression' || root.type === 'MemberExpression') {
-          root = root.type === 'CallExpression' ? root.callee : root.object;
-        }
-        if (root.type !== 'Identifier' || !TEST_CALLEES.has(root.name)) {
+        if (!rootsAtTestCallee(node.object)) {
           return;
         }
         context.report({ node, messageId: 'conditionalTestBanned' });

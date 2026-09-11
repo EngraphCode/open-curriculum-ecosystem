@@ -40,6 +40,15 @@
  * false claim into a loud refusal on any mount whose semantics differ from the
  * host's own.
  *
+ * AND THE READING ITSELF IS VERIFIED. A mount can report permission bits it
+ * does not enforce: CIFS/SMB without Unix extensions synthesises every mode
+ * from `file_mode=`, so `file_mode=0600` answers 0600 to every reading while
+ * `fchmod` changes nothing. Reading 0600 back there is exactly the false
+ * claim above wearing the right answer. The descriptor is therefore moved to
+ * a different mode and read FIRST; a mount that does not round-trip that
+ * probe raises `OwnerOnlyModeNotEnforcedError`, and only a filesystem whose
+ * bits track `fchmod` reaches the 0600 reading at all.
+ *
  * PLATFORM SCOPE. The ordering discipline delivers owner-only protection on
  * POSIX. On Windows, `fchmod` cannot express owner-only — NTFS access
  * control is ACL-based and the POSIX mode surface reaches only the
@@ -55,74 +64,21 @@
  */
 
 import { randomBytes } from 'node:crypto';
-import {
-  closeSync,
-  fchmodSync,
-  fstatSync,
-  mkdirSync,
-  openSync,
-  renameSync,
-  unlinkSync,
-  writeFileSync,
-} from 'node:fs';
 import { basename, dirname, join } from 'node:path';
+
+import { nodeOwnerOnlyWriteOps, type OwnerOnlyWriteOps } from './owner-only-write-ops.js';
 
 /** The permission bits an owner-only artefact must hold: read and write for the owner alone. */
 const OWNER_ONLY_MODE = 0o600;
 
 /**
- * The filesystem edge the ordered write drives; a fake proves the order.
- *
- * EVERY filesystem call on the retention path belongs here, directory creation
- * included.
- *
- * The authority runs one way. Tests are NOT PERMITTED to touch the filesystem
- * (`testing-strategy.md` §Test Types; the `no-real-io-in-tests` rule); that
- * prohibition is the premise, and this seam is its consequence. A filesystem
- * call left outside the seam makes the code after it undescribable within the
- * rules, because the only way to reach that code would be an IO the test may
- * not perform. So a new call on this path is added HERE first, not reached for
- * directly.
+ * A mode set and read back only to prove the filesystem honours mode changes
+ * at all. Owner-read alone: strictly narrower than the target, so the probe
+ * never widens access even for the moment it is held, and DIFFERENT from
+ * {@link OWNER_ONLY_MODE}, which is the whole point — a mount that reports a
+ * constant synthetic 0600 cannot round-trip this value.
  */
-export interface OwnerOnlyWriteOps {
-  /** Create the destination directory and any missing parents; existing is not an error. */
-  readonly mkdir: (path: string) => void;
-  /** Exclusive create of a NEW file at 0600; must fail if the path exists. */
-  readonly open: (path: string, flags: 'wx', mode: number) => number;
-  readonly fchmod: (fd: number, mode: number) => void;
-  /** The descriptor's CURRENT mode, read back so the tightening is verified rather than assumed. */
-  readonly fstat: (fd: number) => number;
-  readonly write: (fd: number, content: string) => void;
-  readonly close: (fd: number) => void;
-  /** Atomic replace of the destination by the temporary file. */
-  readonly rename: (from: string, to: string) => void;
-  /** Best-effort removal of the temporary file on a failed write. */
-  readonly unlink: (path: string) => void;
-}
-
-/** The real `node:fs` edge; production callers get this by omitting `ops`. */
-export const nodeOwnerOnlyWriteOps: OwnerOnlyWriteOps = {
-  mkdir: (path) => {
-    mkdirSync(path, { recursive: true });
-  },
-  open: (path, flags, mode) => openSync(path, flags, mode),
-  fchmod: (fd, mode) => {
-    fchmodSync(fd, mode);
-  },
-  fstat: (fd) => fstatSync(fd).mode,
-  write: (fd, content) => {
-    writeFileSync(fd, content, { encoding: 'utf8' });
-  },
-  close: (fd) => {
-    closeSync(fd);
-  },
-  rename: (from, to) => {
-    renameSync(from, to);
-  },
-  unlink: (path) => {
-    unlinkSync(path);
-  },
-};
+const MODE_HONOURED_PROBE = 0o400;
 
 /** The refusal an owner-only retention raises on a platform that cannot establish it. */
 export class OwnerOnlyUnavailableError extends Error {
@@ -148,6 +104,40 @@ export class OwnerOnlyModeNotHeldError extends Error {
   }
 }
 
+/**
+ * The refusal raised when the mount reports permission bits it does not
+ * actually enforce, so reading 0600 back would prove nothing.
+ */
+export class OwnerOnlyModeNotEnforcedError extends Error {
+  public constructor(observedMode: number) {
+    super(
+      `owner-only retention refused: the descriptor still reads mode ` +
+        `0${(observedMode & 0o777).toString(8)} after fchmod(0${MODE_HONOURED_PROBE.toString(8)}), so this ` +
+        'mount reports synthetic permission bits rather than enforcing them and a later 0600 reading ' +
+        'would be no evidence at all; nothing was written',
+    );
+    this.name = 'OwnerOnlyModeNotEnforcedError';
+  }
+}
+
+/**
+ * Refuse a platform that cannot establish owner-only permissions, BEFORE the
+ * caller touches the filesystem.
+ *
+ * {@link writeOwnerOnly} makes the same check as its own first act, but by
+ * then a caller that had to create the destination directory has already
+ * mutated a caller-selected path to hand back a failed outcome. A refusal
+ * must leave nothing behind, so the entry points in `node-io.ts` call this
+ * before their `mkdir` and the module keeps its own guard as the contract.
+ *
+ * @throws OwnerOnlyUnavailableError on `win32`.
+ */
+export function assertOwnerOnlyEstablishable(platform: NodeJS.Platform): void {
+  if (platform === 'win32') {
+    throw new OwnerOnlyUnavailableError(platform);
+  }
+}
+
 /** A temporary sibling name that no other writer will create first. */
 function temporaryNameFor(filePath: string): string {
   const stamp = `${String(process.pid)}-${Date.now().toString(36)}-${randomBytes(4).toString('hex')}`;
@@ -158,9 +148,27 @@ function temporaryNameFor(filePath: string): string {
  * Tighten the descriptor to owner-only and VERIFY it, so the guarantee rests on
  * what the filesystem reports rather than on `fchmod` returning without error.
  *
- * @throws OwnerOnlyModeNotHeldError when the descriptor reads any other mode.
+ * TWO READINGS, because one proves less than it appears to. A mount that
+ * carries no permission bits of its own can still REPORT them: a CIFS/SMB
+ * mount without Unix extensions synthesises every file's mode from the
+ * `file_mode=` mount option, so `file_mode=0600` answers 0600 to any reading
+ * while `fchmod` changes nothing and the server-side ACL — or a shared mount
+ * credential — still lets another principal read the file. Reading 0600 back
+ * on such a mount is the false claim this verification exists to refuse, so
+ * the descriptor is first moved to a DIFFERENT mode and read: a filesystem
+ * that reports the probe value is one whose mode bits track `fchmod`, and
+ * only there does the 0600 reading that follows mean anything. Both refusals
+ * fire before any content lands.
+ *
+ * @throws OwnerOnlyModeNotEnforcedError when the probe does not round-trip.
+ * @throws OwnerOnlyModeNotHeldError when the descriptor then reads any mode but 0600.
  */
 function tightenToOwnerOnly(ops: OwnerOnlyWriteOps, handle: number): void {
+  ops.fchmod(handle, MODE_HONOURED_PROBE);
+  const probedMode = ops.fstat(handle);
+  if ((probedMode & 0o777) !== MODE_HONOURED_PROBE) {
+    throw new OwnerOnlyModeNotEnforcedError(probedMode);
+  }
   ops.fchmod(handle, OWNER_ONLY_MODE);
   const observedMode = ops.fstat(handle);
   if ((observedMode & 0o777) !== OWNER_ONLY_MODE) {
@@ -173,6 +181,8 @@ function tightenToOwnerOnly(ops: OwnerOnlyWriteOps, handle: number): void {
  * `node:fs` edge, and `platform` defaults to the running host.
  *
  * @throws OwnerOnlyUnavailableError on `win32`, before any file is touched.
+ * @throws OwnerOnlyModeNotEnforcedError when the mount reports permission bits it
+ * does not enforce, before any content lands.
  * @throws OwnerOnlyModeNotHeldError when the descriptor does not read 0600 after
  * the tightening, before any content lands.
  */
@@ -182,9 +192,7 @@ export function writeOwnerOnly(
   ops: OwnerOnlyWriteOps = nodeOwnerOnlyWriteOps,
   platform: NodeJS.Platform = process.platform,
 ): void {
-  if (platform === 'win32') {
-    throw new OwnerOnlyUnavailableError(platform);
-  }
+  assertOwnerOnlyEstablishable(platform);
   const temporaryPath = temporaryNameFor(filePath);
   let handle: number | undefined;
   let created = false;

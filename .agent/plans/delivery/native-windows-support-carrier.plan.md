@@ -51,8 +51,14 @@ the Windows ACL stance) with regression tests; one CI commit adding a `windows-b
    branch's diff against the merge-base plus the four resolutions.
 2. POSIX behaviour is unchanged. Proof `repo-safe`: the estate's full gate green on the lane
    (the pre-commit and pre-push gates; CI on the PR).
-3. The symlink finding is cured. Proof `repo-safe`: a test plants a symlink at the destination
-   and asserts the target is untouched and the destination is a fresh owner-only regular file.
+3. The symlink finding is cured. Proof `repo-safe`: a test asserts the destination path is NEVER
+   opened — the module opens an exclusively-created temporary sibling, tightens and writes that,
+   and reaches the destination only as a `rename` target. That is the whole of this module's
+   protection and all of it is ours. Whether the operating system's `rename` replaces a symbolic
+   link rather than following it is a property of the operating system, so a test planting a real
+   link would describe Node rather than the product, and could not be written at all under the
+   prohibition on filesystem access in tests. This criterion asked for that planted-link test
+   until 2026-09-11 and is restated here as the invariant actually held.
 4. The Windows ACL finding is cured. Proof `repo-safe`: on `win32` the write refuses before
    touching any file, with a typed error that both retention entry points carry in their failed
    outcome (no caller assertion can waive it); tests pin the refusal at the writer and at both
