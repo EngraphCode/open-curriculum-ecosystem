@@ -920,3 +920,42 @@ ever, on anything that has happened.
   an owner fact to ask, never a residual to flag (memory `org-and-audience-models-are-owner-facts`);
   three of the four unknowns I listed at the cards were of that kind. The seat stops here; the
   lower-powered seat runs Lanes A and B from the succession record §Revision 4.
+
+## Nettle guards Pistil (2de368) — Director, the first lower-tier window (2026-09-11 10:0xZ–13:5xZ, Opus 5)
+
+- OUTCOME: the succession's two lanes both ran. #130 (the predecessor's records) landed at
+  SHA:0d6a9769c under the docs-only bot-authored exception after Copilot timed out on the tip;
+  #131 (the two sync workflows) landed at SHA:ad64f3cd5 by the front door with both reviewers
+  bound; #132 (the fstat verification with the records fold) is at the front door. Both
+  workflows read `state: active` with no enable needed.
+- THE LESSON OF THE WINDOW — a handed instruction is a hypothesis, and twice today the
+  instruction was wrong in a way only execution could reveal. (1) The succession record said
+  "copy the fenced YAML verbatim; if the copy would differ, STOP and report". The copy was exact
+  and the RATIFIED TEXT did not run: two plain-scalar `run:` values carrying a colon-space, so
+  neither file parsed, and a `gh api --arg` flag that does not exist. (2) It said to mark four
+  tests `it.skipIf(process.platform === 'win32')`; `no-conditional-tests` names `it.skipIf` first
+  in its forbidden list. Neither was ambiguity to route to the owner; both had exactly one correct
+  answer available by reading a rule or running a parser. The generalisation: BEFORE following a
+  handed recipe, run the cheapest oracle that can falsify it — a parser, a `--help`, the rule the
+  instruction would violate. A predecessor's plan never outranks an always-applied rule.
+- THE LINE THAT HELD ALL DAY: on ratified text, cure what cannot run, carry what changes
+  behaviour. Three parse and flag defects cured; four design findings (unpaginated duplicate
+  guard, two comparison-window races, the carrier's missing parent check) carried to the owner
+  with shapes verified read-only against the live fork. That line is what let a lane diverge from
+  owner-ratified text without the seat quietly redesigning it.
+- REVIEW CAPACITY RETURNED: Codex is back from its credit outage and found the `gh api --arg`
+  defect independently of this seat's parser pass, on the same day. Two reviewers reaching one
+  defect by different routes is the strongest signal available here, and it is worth naming in
+  the tally when it happens.
+- COPILOT TIMED OUT on #130's second tip after two requests that both fired on the timeline. The
+  front door settled SETTLED-NO-REVIEW, which is never merge-eligible EXCEPT for the docs-only
+  bot-authored class the owner ruled on 2026-09-03. Recomputing that class by name at the
+  boundary — author, paths, checks, zero unresolved threads — is the seat's own act, because the
+  tool does not yet consume disposition state.
+- THE BOT CANNOT DISPATCH A WORKFLOW: 403 `Resource not accessible by integration`, no `actions`
+  permission in any mint scope, and the action map forbids reaching for the operator's credential
+  outside its listed rows. So the first run is the owner's act or the schedule's. Same shape as
+  the variables and secrets: the capability boundary is the owner's, and naming it beats working
+  around it.
+- FOLD: the coordination branch of 2026-09-11 carries this block; uncommitted at the stop:
+  nothing.

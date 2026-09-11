@@ -1947,3 +1947,40 @@ by name search — the lesson of #119:
 - 10:0xZ, owner word: native Windows is PROVEN in use — a developer on the estate works on Windows
   machines; the carrier node's value statement holds beyond the hosted runner. The high-powered
   Director seat stops; the lower-powered seat picks up Lanes A and B (succession record §Revision 4).
+
+## 2026-09-11 13:5xZ — the seat continues on Opus 5: both succession lanes run
+
+Model switch inside one continuous seat (PDR-027: the row's `model` changes, no row is added).
+Claim 8109015d adopted at `claude-opus-5[1m]`; thorough grounding run; the safety table recomputed
+clean before any edit.
+
+- **#130 LANDED SHA:0d6a9769c** — the predecessor's records. Copilot reviewed the first tip (five
+  findings, four cured, one routed) and never bound the second after two requests that both fired,
+  so the front door settled `SETTLED-NO-REVIEW`. Landed under the owner's 2026-09-03 docs-only
+  bot-authored exception with the class recomputed by name at the boundary. Codex reviewed both
+  tips; its continuity-commit finding is dispositioned with the shape lesson on the seat record.
+- **#131 LANDED SHA:ad64f3cd5** — `upstream-mirror.yml` and `upstream-carrier.yml`, from the
+  nodes the owner ratified. THREE DEFECTS IN THE RATIFIED TEXT were cured at authoring time
+  because the files did not run: a plain-scalar `run:` value carrying a colon-space in each node,
+  so neither parsed, and `gh api --arg`, which is not a flag. Codex found the third independently.
+  Both reviewers bound the final tip; seven threads dispositioned.
+- **#132 OPEN** — the fstat verification of the owner-only write (the carrier node's todo 5) with
+  the records fold. The handed `it.skipIf` shape was refused by `no-conditional-tests`; the four
+  real-filesystem tests moved to an e2e suite instead, so the unit suite the Windows leg runs is
+  identical on every host.
+- **Both workflows read `state: active`** with no `gh workflow enable` needed — the mirror node's
+  decision 10 answered for a workflow added to a fork after creation.
+
+### Owner-held after this window
+
+1. **The first workflow dispatch.** The bot answers 403 on `POST .../dispatches` (no `actions`
+   permission in any mint scope) and the action map forbids the operator's credential for it. The
+   schedule fires at 18:00Z (mirror) and 18:30Z (carrier); a dispatch before then is the owner's.
+2. **Four carried findings on the sync nodes**, each with a shape verified read-only: the
+   unpaginated duplicate guard (both reviewers), the carrier's comparison window, the mirror's
+   comparison window, and the carrier's missing parent check (the strongest — a receipt that could
+   call a fork-only commit "upstream's snapshot").
+3. **The upstream report** at `.agent/reports/upstream-sync/` is still the owner's to send.
+4. **`windows-basic` required** on or after 2026-09-17.
+5. The older held items (§C: directives-tier placement; #100's two deny lines) still wait for a
+   session with their context.
