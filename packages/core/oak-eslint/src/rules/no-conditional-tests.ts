@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, type TSESLint, type TSESTree } from '@typescript-eslint/utils';
 
 import { createMessage, type RuleWithReappraisingMessages } from '../reappraising-message.js';
 
@@ -69,46 +69,48 @@ const TEST_CALLEES = new Set(['it', 'test', 'describe', 'suite']);
 const VITEST_MODULE = 'vitest';
 
 /**
- * The LOCAL names a file has bound to Vitest's test entry points.
+ * What a local name is BOUND to, resolved rather than spelled.
  *
- * Matching the exported spellings alone is not enough: an alias
- * (`import { it as spec }`) or a namespace (`import * as vitest`) renames the
- * root identifier, and a gate that recognises only three or four literal
- * spellings is bypassed by ordinary, legal import syntax — which would make
- * the enforcement claim in `.agent/rules/no-conditional-tests.md` false.
+ * @remarks
+ * Two failures sit on this question and they pull in opposite directions. Match
+ * the exported spellings alone and an alias (`import { it as spec }`) or a
+ * namespace (`import * as vitest`) walks past the gate. Match a collected set
+ * of local names and a shadowing declaration — a parameter called `vitest`, a
+ * `const test` — reports code that has nothing to do with testing, in a rule
+ * that is error-level for the whole repository. Both were live here, found one
+ * round apart, and a spelling test cannot answer either.
+ *
+ * So the binding is resolved: walk the scope chain for the name, and ask what
+ * its definition IS. Unresolved means nothing declares it, which is Vitest's
+ * globals mode. Resolved means somebody declared it, and it counts only if that
+ * declaration is an import of the thing itself.
  */
-interface VitestBindings {
-  /** Locals bound directly to a test entry point, under any alias. */
-  readonly callees: Set<string>;
-  /** Locals bound to the whole module, reached as `<local>.it`. */
-  readonly namespaces: Set<string>;
-}
+type VitestBindingKind = 'callee' | 'namespace';
 
-function collectVitestBindings(body: TSESTree.ProgramStatement[]): VitestBindings {
-  const callees = new Set<string>();
-  const namespaces = new Set<string>();
-  for (const statement of body) {
-    if (statement.type !== AST_NODE_TYPES.ImportDeclaration) {
-      continue;
-    }
-    if (statement.source.value !== VITEST_MODULE) {
-      continue;
-    }
-    for (const specifier of statement.specifiers) {
-      if (specifier.type === AST_NODE_TYPES.ImportNamespaceSpecifier) {
-        namespaces.add(specifier.local.name);
-        continue;
-      }
-      if (
-        specifier.type === AST_NODE_TYPES.ImportSpecifier &&
-        specifier.imported.type === AST_NODE_TYPES.Identifier &&
-        TEST_CALLEES.has(specifier.imported.name)
-      ) {
-        callees.add(specifier.local.name);
-      }
-    }
+/** Whether one variable definition is the vitest import this kind needs. */
+function isVitestImport(definition: TSESLint.Scope.Definition, kind: VitestBindingKind): boolean {
+  const specifier = definition.node;
+  if (
+    specifier.type !== AST_NODE_TYPES.ImportSpecifier &&
+    specifier.type !== AST_NODE_TYPES.ImportNamespaceSpecifier
+  ) {
+    return false;
   }
-  return { callees, namespaces };
+  const declaration = specifier.parent;
+  if (
+    declaration.type !== AST_NODE_TYPES.ImportDeclaration ||
+    declaration.source.value !== VITEST_MODULE
+  ) {
+    return false;
+  }
+  if (specifier.type === AST_NODE_TYPES.ImportNamespaceSpecifier) {
+    return kind === 'namespace';
+  }
+  return (
+    kind === 'callee' &&
+    specifier.imported.type === AST_NODE_TYPES.Identifier &&
+    TEST_CALLEES.has(specifier.imported.name)
+  );
 }
 
 const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanned'> = {
@@ -131,7 +133,35 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
   defaultOptions: [],
 
   create(context) {
-    let bindings: VitestBindings = { callees: new Set(), namespaces: new Set() };
+    /** The variable a name resolves to here, or `undefined` when nothing declares it. */
+    function resolve(node: TSESTree.Identifier): TSESLint.Scope.Variable | undefined {
+      let scope: TSESLint.Scope.Scope | null = context.sourceCode.getScope(node);
+      while (scope !== null) {
+        const variable = scope.set.get(node.name);
+        if (variable !== undefined) {
+          return variable;
+        }
+        scope = scope.upper;
+      }
+      return undefined;
+    }
+
+    /**
+     * Whether this identifier IS the Vitest binding of the given kind here.
+     *
+     * One test for both kinds, because the two failures it answers are the
+     * same question asked twice: unresolved means globals mode, which only a
+     * bare entry-point name can be; resolved means it counts only if the
+     * declaration is the vitest import itself, so a parameter or a `const`
+     * that merely shares the spelling is somebody else's.
+     */
+    function isVitestBinding(node: TSESTree.Identifier, kind: VitestBindingKind): boolean {
+      const variable = resolve(node);
+      if (variable === undefined) {
+        return kind === 'callee' && TEST_CALLEES.has(node.name);
+      }
+      return variable.defs.some((definition) => isVitestImport(definition, kind));
+    }
 
     /**
      * The statically known property name of a member access, under either
@@ -149,38 +179,14 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
         : undefined;
     }
 
-    /**
-     * Whether `name` at this position is Vitest's, rather than a local of the
-     * same spelling.
-     *
-     * A bare `it` or `test` is Vitest only under globals mode, where nothing
-     * declares it — so an identifier that RESOLVES to a declaration in scope is
-     * somebody else's (`const test = scheduler; test.skipIf()` is not a test
-     * guard, and this rule is error-level for the whole repository). A local
-     * bound to a Vitest import is still Vitest, which is what the alias set
-     * carries.
-     */
-    function isVitestIdentifier(node: TSESTree.Identifier): boolean {
-      if (bindings.callees.has(node.name)) {
-        return true;
-      }
-      if (!TEST_CALLEES.has(node.name)) {
-        return false;
-      }
-      // Unresolved means no declaration anywhere in scope: the globals-mode case.
-      return context.sourceCode.getScope(node).references.every((reference) => {
-        return reference.identifier !== node || reference.resolved === null;
-      });
-    }
-
-    /** `vitest.it` / `vitest['it']`, where `vitest` is a namespace import. */
+    /** `vitest.it` / `vitest['it']`, where `vitest` resolves to a namespace import. */
     function isNamespacedTestCallee(node: TSESTree.MemberExpression): boolean {
       const property = staticPropertyName(node);
       return (
         property !== undefined &&
+        TEST_CALLEES.has(property) &&
         node.object.type === AST_NODE_TYPES.Identifier &&
-        bindings.namespaces.has(node.object.name) &&
-        TEST_CALLEES.has(property)
+        isVitestBinding(node.object, 'namespace')
       );
     }
 
@@ -209,13 +215,10 @@ const noConditionalTestsRule: RuleWithReappraisingMessages<'conditionalTestBanne
       if (current.type !== AST_NODE_TYPES.Identifier) {
         return false;
       }
-      return isVitestIdentifier(current);
+      return isVitestBinding(current, 'callee');
     }
 
     return {
-      Program(node) {
-        bindings = collectVitestBindings(node.body);
-      },
       MemberExpression(node) {
         const property = staticPropertyName(node);
         if (property === undefined || !CONDITIONAL_MEMBERS.has(property)) {

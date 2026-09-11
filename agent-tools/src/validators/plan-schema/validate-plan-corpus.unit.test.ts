@@ -566,17 +566,25 @@ describe('validatePlanFile — fenced yaml must parse', () => {
     });
   }
 
-  it('prose that merely mentions a fence is not one — the refusal reads shapes, not words', () => {
-    // The other side of the invariant. Every container marker is letter-free,
-    // so the detector requires a letter-free prefix: arbitrary nesting stays in
-    // scope while a node writing ABOUT the convention is left alone.
-    const outcome = validatePlanFile(
-      '.agent/plans/delivery/pins.plan.md',
-      [...FRONTMATTER, `Pin the workflow in a ${FENCE}yaml block at the top level.`, ''].join('\n'),
-    );
+  const proseMentioningAFence: readonly (readonly [string, string])[] = [
+    ['a sentence', `Pin the workflow in a ${FENCE}yaml block at the top level.`],
+    // A punctuation-only prefix is not a container prefix. An earlier form of
+    // the detector read "letter-free" as "contained" and refused this, which is
+    // the worse failure: a gate that rejects valid documents.
+    ['a dated line', `2026-09-11: ${FENCE}yaml is the required spelling.`],
+    ['a list item of prose', `- see the ${FENCE}yaml example above`],
+  ];
 
-    expect(isOk(outcome)).toBe(true);
-  });
+  for (const [shape, line] of proseMentioningAFence) {
+    it(`leaves ${shape} that merely mentions a fence alone — the refusal reads grammar, not punctuation`, () => {
+      const outcome = validatePlanFile(
+        '.agent/plans/delivery/pins.plan.md',
+        [...FRONTMATTER, line, ''].join('\n'),
+      );
+
+      expect(isOk(outcome)).toBe(true);
+    });
+  }
 
   it('a non-yaml fence is left alone — the check reads YAML blocks, not every block', () => {
     const outcome = validatePlanFile(

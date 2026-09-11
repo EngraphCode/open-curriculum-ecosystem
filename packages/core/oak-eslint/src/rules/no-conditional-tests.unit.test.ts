@@ -35,6 +35,14 @@ ruleTester.run('no-conditional-tests', noConditionalTestsRule, {
     {
       code: "import { it } from './my-own-helpers.js';\nit.skipIf(slow)('x', () => {});",
     },
+    // The SAME shadowing question on the namespace branch, which a spelling
+    // test answered wrongly for one round after it was fixed on the other.
+    {
+      code: "import * as vitest from 'vitest';\nfunction run(vitest) {\n  vitest.it.skipIf(slow)('x', () => {});\n}",
+    },
+    {
+      code: "import * as vitest from 'vitest';\nconst render = (vitest) => vitest['it'].runIf(live)('y', () => {});",
+    },
   ],
   invalid: [
     // The exact shape a succession record handed a seat on 2026-09-11.

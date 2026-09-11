@@ -102,22 +102,29 @@ function countLeadingSpaces(line: string, limit: number): number {
  * sail past a check whose whole purpose is that no pinned YAML goes unparsed.
  *
  * An earlier form of this detector LISTED the containers it knew — blockquote,
- * list marker, deep indent — and four review rounds sampled it once each, a
- * new prefix every time, most recently a list inside a blockquote. That
- * sampler cannot exhaust: container nesting is unbounded, so there is always
- * one more prefix, and every fix would have been individually correct and
- * collectively futile. So the detector stops asking WHY the reader skipped the
- * line and asks only WHETHER a YAML fence is on it. Completeness follows by
- * construction rather than by enumeration: a top-level opener never reaches
- * here, having been consumed already, and anything else carrying this shape is
- * unread — whatever prefix put it there.
+ * then list marker, then deep indent — and four review rounds sampled it once
+ * each, a new prefix every time. What is unbounded there is the NESTING, not
+ * the vocabulary: CommonMark has exactly two container-start markers, the
+ * blockquote `>` and the list marker, each optionally indented. So the grammar
+ * is closed and can be stated once, and arbitrary nesting is a repetition of
+ * it rather than a longer list.
  *
- * The one thing before the fence that matters is a LETTER. Every container
- * marker (`>`, `-`, `*`, `+`, `1.`, whitespace) is letter-free, so requiring a
- * letter-free prefix keeps arbitrary nesting in scope while leaving prose
- * alone: a sentence that merely mentions a fence is not a fence.
+ * A first attempt at that stated it as "any letter-free prefix", on the
+ * reasoning that container markers carry no letters. That was complete but too
+ * broad in the other direction: it refused ordinary prose whose prefix happens
+ * to be punctuation, such as a dated line mentioning a fence spelling, and a
+ * gate that rejects valid documents is a worse failure than the one it was
+ * closing. The prefix below is the actual grammar — repeat the two markers,
+ * allow their indentation, and require the fence immediately after — so
+ * `> - `, `> > - ` and any depth match, while `2026-09-11: ` does not, a colon
+ * and hyphens being no part of it.
  */
-const UNREAD_YAML_FENCE = /^[^\p{L}]*(?:`{3,}|~{3,})[ \t]*(?:yaml|yml)\b/iu;
+const CONTAINER_MARKER = String.raw` {0,3}(?:>[ \t]?|(?:[-*+]|\d{1,9}[.)])[ \t]+)`;
+
+const UNREAD_YAML_FENCE = new RegExp(
+  String.raw`^(?:${CONTAINER_MARKER})*[ \t]*(?:\x60{3,}|~{3,})[ \t]*(?:yaml|yml)\b`,
+  'iu',
+);
 
 /** What one scan of a document found: the blocks it read, and what it could not. */
 export interface YamlFenceScan {
