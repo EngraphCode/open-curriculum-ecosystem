@@ -4030,10 +4030,33 @@ commit SHA and the closing plan reference.
   metacognition skills did. Filed under PDR-140 clause 8: an out-of-band
   cognitive-skill invocation correcting a running PR loop is a defect
   against pr-lifecycle.
+- **Observed AGAIN**: 2026-09-11 (PR #132, a mixed code/records changeset;
+  Nettle guards Pistil, 2de368). Five-plus settled rounds, sixteen findings,
+  every one read as cure-worthy and cured in its own push; PDR-132's
+  two-round budget passed without the budget-exceeded record or the
+  generator question; the step-back's four-round arm true throughout and
+  never evaluated. The correction was again the owner's manual invocation —
+  `metacognition`, `pr-lifecycle`, `proportionality`, `plan`, the same set
+  as 2026-09-03 plus one. No tally existed either time.
 - **Expected**: the tally built at PR-open reads step-back-mandatory at the
   fourth settled round and the settlement budget refuses a fifth cure push.
+- **Why the first filing did not cure it, and what would.** The expectation
+  above presupposes a tally, and nothing MAKES one exist: item 2 says
+  "build the tally, or the trigger cannot fire", which is advice, and advice
+  is what fails under load — the same generator this estate has been curing
+  everywhere else by building gates. Twice now the shepherd was mid-loop,
+  each finding individually valid, with no artefact counting anything. The
+  cure is to compute the tally rather than ask for it: `agent-tools pr`
+  already harvests review threads with their originating review's
+  `commit.oid` (the exact bucketing key item 2 specifies), so a
+  `pr rounds <n>` action can emit one row per settled round and the verdict
+  STEP-BACK-MANDATORY | BUDGET-EXCEEDED | CONVERGING | TERMINAL-ZERO from
+  the PR itself. The cure-worthy count still needs a human-or-agent
+  disposition per finding, so the command reads raised counts and takes
+  dispositions as input rather than inventing them. NOT BUILT; specified
+  here so the third instance is a build, not a third filing.
 - **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
-  4), under the skills claim.
+  4), under the skills claim; the missing command routes to `agent-tools`.
 
 ### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
 
