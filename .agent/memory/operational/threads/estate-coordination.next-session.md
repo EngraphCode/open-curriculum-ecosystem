@@ -2195,33 +2195,22 @@ read and dispositioned; none was waived.
 
 **The owner-only retention cannot prove ENFORCEMENT, only that the mode interface is live.**
 
-PR #132 added a round-trip probe so a mount that reports permission bits without honouring
-`fchmod` is refused rather than trusted. Copilot then named the residual precisely, and it is real: a
-round-trip proves the mode interface responds to writes; it does not prove those bits govern
-access. A CIFS mount using client-cached `dynperm` with `noperm` round-trips mode changes locally
-while the server's own credentials and ACLs stay authoritative. The module would write a
-credential-bearing artefact there.
+OPEN OWNER DECISION — the request, its three options and its evidence live in the decision thread
+[`owner-only-retention-enforcement-2026-09-11.json`](../../../state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json),
+`status: open`. Not restated here: a thread record cites a decision thread, it does not carry its
+body (`threads/README.md` §Surfaces). This lane's next safe step does not depend on the answer,
+since PR #132 landed with its claim narrowed to what it establishes, so the decision is
+discoverable open work rather than a block.
 
-**Why it is not cured on that lane.** Closing it needs an effective-access check, and Node exposes
-none — `fs.access` answers for the calling process, never for another principal. The available
-mechanism is a filesystem-type allowlist (`fs.statfsSync` reports an `f_type` magic on Linux;
-macOS reports something else), used deny-by-default. That would refuse retention on EVERY network
-mount, which is a product decision about who may retain conformance output where, not a defect
-fix. It also lands outside this lane's scope, which was the carrier node's todo 5.
-
-**What #132 does instead.** The module's claim is narrowed to exactly what it establishes: the
-artefact is created owner-only, never widened, and refused outright unless the filesystem's own
-mode interface is live and reports owner-only. On a lying mount that is strictly more than the
-previous code established and strictly less than enforcement, and the file says so in those words.
-
-**The owner's call, when it comes up.** Either accept the residual as bounded — attended
-conformance with retained authenticated output runs on POSIX or under WSL, on local storage, which
-is the first-class tier — or commission the deny-by-default mount check as its own lane with its
-own tests, accepting that retention then refuses on network mounts.
+Recorded here only because it changes how a later reader should read the module: the guarantee is
+that a retained artefact is created owner-only, never widened, and refused outright unless the
+filesystem's own mode interface is live and reports owner-only. That is strictly more than the
+previous code established and strictly less than enforcement, and `owner-only-write.ts` says so in
+those words.
 
 ### The review arc on #132, as evidence about gates
 
-Four rounds, and the useful pattern is not the count but the direction:
+Seven rounds by the landing, and the useful pattern is not the count but the direction:
 
 1. Two gates built to replace prose that had already failed to hold.
 2. Both found too NARROW — ordinary syntax walked past them.
@@ -2230,10 +2219,27 @@ Four rounds, and the useful pattern is not the count but the direction:
    false in its quietest corner (module resolution walks `node_modules` on disk).
 4. The fence detector narrow in a THIRD direction (a fence opening on a list marker's own line),
    and the mode probe's claim shown to exceed what it proves.
+5. A class fix that stated the invariant and then kept implementing a heuristic, which is not a
+   class fix — it moves the sampler. "Any letter-free prefix is a container" traded the
+   false-negative sampler for a false-positive one and would have refused a dated line of prose.
+6. The same shadowing defect on the lint rule's namespace branch that had been cured on its callee
+   branch one round earlier: one branch resolving bindings, its sibling still matching spellings.
+7. The ambiguity that ended it: a four-space-indented fence line is a real fence inside a list item
+   and literal text in a top-level indented code block. No regex separates them.
+
+**What actually closed it, and the correction worth carrying.** Round 7's remedy was
+container-aware parsing. It was declined. The requirement it served had been INVENTED at round 3,
+when a reviewer observed that the doc claimed "every fenced YAML block" while nested blocks went
+unread. Two answers existed: grow the detector, or fix the claim. Only the first was tried, and it
+cost five rounds and produced two false positives on valid documents against zero true positives in
+a 128-node corpus. The contract is now top-level fences, said plainly, and the detector is gone —
+112 lines removed, 55 added.
 
 **The generator, carried forward.** A gate is not finished when it fires on the case that
 motivated it. It is finished when someone has tried to get past it, tried to trip it on innocent
 code, AND checked that what it claims matches what it establishes. Narrow, wide and overclaiming
-are three separate failures; one small rule held all three across four rounds. The cheap version
-is to write the bypass cases, the innocent cases, and the claim's own falsifier before calling a
-gate built — the same negative-control move already routine for product code, applied to the gate.
+are three separate failures; one small rule held all three. But the deeper one is upstream of all
+of them: a reviewer's observation is EVIDENCE, not a specification. Round 3's finding was true and
+the requirement inferred from it was never asked for by the gate's purpose. Before curing, ask what
+the gate is FOR — the answer is sometimes that the claim was wrong rather than the coverage, and
+that answer is always cheaper than the one that adds code.
