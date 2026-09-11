@@ -1973,9 +1973,17 @@ clean before any edit.
 
 ### Owner-held after this window
 
-1. **The first workflow dispatch.** The bot answers 403 on `POST .../dispatches` (no `actions`
-   permission in any mint scope) and the action map forbids the operator's credential for it. The
-   schedule fires at 18:00Z (mirror) and 18:30Z (carrier); a dispatch before then is the owner's.
+1. **DONE, and a correction.** An earlier draft of this record said the first workflow dispatch was
+   an owner-only act, because the bot answered 403 `Resource not accessible by integration` on
+   `POST .../dispatches`. That was WRONG and the owner caught it. The `el-graphael` installation
+   holds `actions: write` (read from `GET /orgs/{org}/installations`); the 403 meant the merge-bot
+   token-scope table requested no such permission, and that table's own header states that an
+   ungranted permission fails the MINT with 422, so a 403 is always a wrong-scope symptom. A
+   `workflow-dispatch` scope now exists (PR #132) and the BOT dispatched both workflows on
+   2026-09-11: mirror run 34614449174 logged "In sync", carrier run 34614457898 logged "Nothing to
+   carry", which are the two lines that had carried the YAML parse defects. Nothing here is
+   owner-held. **The generator lesson: verify a capability against the GRANT, never against one
+   token's refusal.**
 2. **Four carried findings on the two sync workflows.** Each is real, none stops a workflow
    running, and each changes behaviour in text the owner ratified, so each is the owner's call.
    Recorded in full here rather than as labels, because the node rows for two of them ride on
@@ -2024,3 +2032,35 @@ clean before any edit.
    `native-windows-support-carrier.plan.md`, and the third — that the real-IO tests may be
    REDUNDANT rather than homeless, since the ordered-operations constant already proves at the seam
    what three of them assert — would be a deletion, which is not a lone seat's call.
+
+## 2026-09-11 16:0xZ — COMPACTION BOUNDARY 6 (Nettle guards Pistil, 2de368, Director, Opus 5)
+
+Owner word: reflect, prepare for compaction, run a Cricket suite without Fable members.
+
+- **Cricket suite (6 dispatches).** The quartet's Fable member dropped at the owner's word; the
+  other three roles ran both stances. `judgement-medium` normal ON-TRACK and adversarial ON-TRACK;
+  `judgement-high` normal ON-TRACK, adversarial **DRIFTING**; `procedure-xhigh` normal ON-TRACK,
+  adversarial **DRIFTING**. Non-unanimous, so it routes to the sitting Director, which is this seat.
+  Cost: 6 dispatches, ~190k subagent tokens, 17s–125s each.
+  - The `judgement-high` adversarial DRIFTING was the useful one and its redirection was ACTED ON
+    before this entry: it said to verify that neither open pull request still carried a corrected
+    error. One did — this record and the napkin both still asserted the bot could not dispatch a
+    workflow. Both corrected; owner-held item 1 above now records the correction instead.
+  - The `procedure-xhigh` adversarial DRIFTING was a frame-discipline complaint: "compaction
+    records" was not cited by rule id in the prompt. The governing surfaces are
+    `continuity-surface-commits-as-orphans`, ADR-150 and PDR-011, plus the owner's own instruction.
+  - Consistent with the standing ruling that Cricket is a lens and not an authority: four legs
+    passed the frame, and the one that changed behaviour did so by naming a specific unverified
+    claim rather than by disagreeing about priority.
+
+- **State.** #130 LANDED SHA:0d6a9769c; #131 LANDED SHA:ad64f3cd5; both workflows dispatched by the
+  bot and green. #132 OPEN at SHA:97b54611b with the Windows red resolved by construction (5155
+  tests, zero IO, no platform guard). #133 OPEN. Worktrees: primary and `fstat-2de368`.
+
+- **The window's generator, for whoever reads this next.** Three owner corrections, one cause:
+  reasoning forward from the nearest symptom or the handed text instead of reading what governs it.
+  The full account is the napkin's COMPACTION BOUNDARY 6 block and the per-user memory
+  `read-the-governing-document-before-naming-a-mechanism`. The short form: a handoff transmits
+  INTENT with authority and MECHANISM without it; verify a capability against the grant, never
+  against one token's refusal; and a prohibition is the premise a design obeys, never a need the
+  design serves.
