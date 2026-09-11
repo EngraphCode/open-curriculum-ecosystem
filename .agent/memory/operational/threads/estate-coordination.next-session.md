@@ -1978,7 +1978,10 @@ clean before any edit.
    `POST .../dispatches`. That was WRONG and the owner caught it. The `el-graphael` installation
    holds `actions: write` (read from `GET /orgs/{org}/installations`); the 403 meant the merge-bot
    token-scope table requested no such permission, and that table's own header states that an
-   ungranted permission fails the MINT with 422, so a 403 is always a wrong-scope symptom. A
+   ungranted permission fails the MINT with 422, so a 403 whose body is exactly `Resource not
+   accessible by integration` is a wrong-scope symptom. Other 403s — a ruleset refusal, a rate
+   limit — are not scope problems, and the checked-in table in `token-scopes.ts` carries that
+   qualifier; a diagnosis that drops it sends the next operator to the wrong table. A
    `workflow-dispatch` scope now exists (PR #132) and the BOT dispatched both workflows on
    2026-09-11: mirror run 34614449174 logged "In sync", carrier run 34614457898 logged "Nothing to
    carry", which are the two lines that had carried the YAML parse defects. Nothing here is
@@ -1997,9 +2000,16 @@ clean before any edit.
      a false statement in the artefact the integrating seat trusts. *Remedy:* compare the mirror
      with the parent BEFORE comparing it with the default branch, and fail unless the mirror is
      identical to or behind the parent (an older valid snapshot is acceptable). *Gate:* bounded
-     today because the mirror workflow's only write is a `force=false` fast-forward to the parent's
-     tip, so automation cannot create the condition, and the mirror workflow already fails loud
-     when it exists. Reopen if anyone gains a direct push to the mirror branch.
+     today against AUTOMATION only: the mirror workflow's only write is a `force=false`
+     fast-forward to the parent's tip, so no workflow can create the condition, and the mirror
+     workflow fails loud once it exists. It is NOT bounded against a person or a bot with write
+     access. An earlier draft said "reopen if anyone gains a direct push to the mirror branch",
+     which read as a future trigger; the condition already holds. Verified read-only on
+     2026-09-11: `GET /repos/EngraphCode/open-curriculum-ecosystem/branches/main` answers
+     `protected: false` and `GET .../rules/branches/main` answers an empty list, so every writer
+     on the fork can already push a fork-only commit to the mirror and the carrier would label it
+     upstream's snapshot. Two ways to close it, and the choice is the owner's: apply the remedy
+     above, or protect the mirror branch so only the mirror workflow writes it.
    - **The mirror's comparison window** (Codex, PR #131). *Scenario:* the parent advances between
      the compare call and the `parent_tip` read; the stale `identical` means the fast-forward never
      fires and the mirror stays behind until the next slot — across a Friday slot, a weekend, since
@@ -2022,16 +2032,36 @@ clean before any edit.
 4. **`windows-basic` required** on or after 2026-09-17.
 5. The older held items (§C: directives-tier placement; #100's two deny lines) still wait for a
    session with their context.
-6. **PR #132 is HELD, not abandoned.** Its security change is complete and correct and its POSIX
-   suites are green, but `windows-basic` fails on it, reproducibly and by design: the verification
-   refuses when the descriptor does not read 0600, and Node on Windows reports every writable file
-   as 0666, so the four tests that write through the real adapter ask for a guarantee NTFS cannot
-   give. That is a permanent red rather than flakiness, so the advisory window is not a licence to
-   land it. The owner's decision is where a real-filesystem proof of a library function lives when
-   all four taxonomy categories exclude it; three candidate answers are on
-   `native-windows-support-carrier.plan.md`, and the third — that the real-IO tests may be
-   REDUNDANT rather than homeless, since the ordered-operations constant already proves at the seam
-   what three of them assert — would be a deletion, which is not a lone seat's call.
+6. **PR #132 was HELD and is no longer: the red was removed by construction.** For one round its
+   `windows-basic` leg failed reproducibly and by design — the new verification refuses when the
+   descriptor does not read 0600, Node on Windows reports every writable file as 0666, and four
+   tests wrote through the real adapter — so the advisory window was not a licence to land it. It
+   is recorded because the reasoning is the lesson, not because a decision is still open.
+
+   The question looked like "where does a real-filesystem proof of a library function live when
+   all four taxonomy categories exclude it", and three answers were weighed. All three are written
+   out HERE, in the landed record, because an earlier draft pointed at
+   `native-windows-support-carrier.plan.md` for them and the node does not carry them (Codex, PR
+   #133): a pointer into a branch is not a home, and the branch is gone once the lane lands.
+
+   - **Guard the four tests** with `it.skipIf(process.platform === 'win32')`, which is what the
+     succession record instructed. REFUSED: `.agent/rules/no-conditional-tests.md` names
+     `it.skipIf` first among its forbidden mechanisms. Nothing at the gate would have caught it,
+     which is why this lane also builds the lint rule that now does.
+   - **Move them to an e2e suite** that runs on Linux only. REFUSED: `testing-strategy.md` defines
+     e2e as driving a separately running system over its protocol channel, and classification is
+     by behaviour shape, never by filename or by which CI leg happens to run it.
+   - **Delete them, because they were REDUNDANT rather than homeless.** TAKEN. Three of the four
+     asserted the ordering, which the recorded-ops constant already proves at the seam, without a
+     filesystem. The fourth asserted that the operating system's `rename` replaces a symbolic link
+     rather than following it — a property of the operating system, not of this module, so it was
+     describing Node. The question had a false premise: tests are not permitted filesystem access
+     at all, so "where may a test that does IO live" has no answer, and asking it three times in
+     three shapes was the error. The cure was to put `mkdir` in the injected seam so no call on the
+     retention path sits outside it.
+
+   Landed proof rather than argument: `windows-basic` passes on #132, and the unit suite's
+   registered set is now identical on every host.
 
 ## 2026-09-11 16:0xZ — COMPACTION BOUNDARY 6 (Nettle guards Pistil, 2de368, Director, Opus 5)
 
@@ -2089,3 +2119,72 @@ Owner word: reflect, prepare for compaction, run a Cricket suite without Fable m
   INTENT with authority and MECHANISM without it; verify a capability against the grant, never
   against one token's refusal; and a prohibition is the premise a design obeys, never a need the
   design serves.
+
+## 2026-09-11 17:2xZ — the second review round on #132 and #133: eight findings, six real
+
+Same seat, same session, after the compaction at boundary 6. The owner's word for the window:
+"this is an n=1 session. We want 132 and 133 merged, and then we are going to explore integrating
+some new research about AI tutoring into the repo."
+
+Both pull requests were green on every named check, including `windows-basic`, and both were
+refused by the front door for open review threads — 8 of 17 on #132, 4 of 7 on #133. Every one was
+read and dispositioned; none was waived.
+
+- **Three of #132's eight were STALE**, written against tips from before the tests were made
+  IO-free (`a6ee831f`, `97b54611`). Two predicted a permanent `windows-basic` red from four
+  real-adapter tests; those tests no longer exist and the leg is green on the live tip. The third
+  objected to plan prose calling a `test-helpers` placement "legitimate"; that prose is gone. The
+  proof is the live check run, not the argument.
+
+- **Five were real, and three of them were defects in mechanisms THIS LANE HAD JUST BUILT.** That
+  is the part worth carrying: a gate built in a hurry to replace prose can be as unsound as the
+  prose, and the second review round is where that shows up.
+
+  1. *The mode verification accepted a mount that reports bits it does not enforce* (Codex, P1).
+     CIFS/SMB without Unix extensions synthesises every mode from `file_mode=`, so `file_mode=0600`
+     answers 0600 to any reading while `fchmod` changes nothing and the server ACL still governs
+     access. Reading 0600 back there is this verification's own false claim wearing the right
+     answer. CURED: the descriptor is moved to 0400 and read FIRST, and a mount that will not
+     round-trip the probe raises the typed `OwnerOnlyModeNotEnforcedError`. Proven by removing the
+     probe and watching the synthetic-0600 case be accepted.
+  2. *Both retention entry points created the report directory before the Windows refusal* (Codex).
+     A refused retention still mutated a caller-selected path. CURED: an exported
+     `assertOwnerOnlyEstablishable` runs before `mkdir`. The test that had asserted `['mkdir']`
+     now asserts no call at all — it had been ratifying the defect.
+  3. *The `no-conditional-tests` lint rule matched three literal identifier spellings* (Codex), so
+     `suite.skipIf`, `import { it as spec }` and `import * as vitest` walked past the gate that had
+     just been built to replace prose. CURED: the rule resolves the root back to its `vitest`
+     import and reads `suite`. All five bypass forms were proven live before the fix.
+  4. *The fenced-YAML plan gate matched one literal fence spelling* (Codex), so ```` ```yml ````, a
+     tilde fence, an indented fence, a four-backtick fence or an info string with a title restored
+     the false green it was built to remove. CURED: the scanner reads Markdown fences. The 128-node
+     live corpus still passes; today it contains only three-backtick `yaml` blocks, so the widening
+     is prospective and its proof is in the unit tests, not in the corpus.
+  5. *The carrier node's acceptance criterion 3 named a symlink test that had been deleted* (Codex).
+     CURED: the criterion states the invariant actually held — the destination is never opened.
+
+- **#133's four were all real**, and two of them were false claims in the continuity surfaces.
+  1. *The mirror-provenance gate called itself bounded on a condition that already holds* (P1).
+     Verified read-only: `main` answers `protected: false` and no ruleset applies, so every writer
+     on the fork can already push a fork-only commit to the mirror and the carrier would call it
+     upstream's snapshot. CURED: the item now says it is bounded against automation ONLY, and names
+     the owner's two ways to close it.
+  2. *A pointer to three decision options that the landed tree does not carry.* CURED: all three
+     are written out in the record itself, with which was taken and why. A pointer into a branch is
+     not a home.
+  3. *The 403 diagnosis had lost its qualifier* in three places, sending a future operator to the
+     scope table for ruleset and rate-limit refusals too. CURED in all three.
+  4. *The napkin passed its fitness limit with neither consolidation nor the required marker.*
+     CURED with the marker, which is the workflow's first valid response; the observations stay at
+     full weight.
+
+- **Landed state.** #132 carries the cure as SHA:0e67a9e1e. Gates run on the lane before the push:
+  type-check 60/60, lint 58/58 with zero errors, agent-tools 5166 tests, the eslint plugin 433.
+
+- **What this round is evidence for.** The previous window's conclusion was that a lesson is
+  unfinished until it names a gate. This round refines it: a gate is unfinished until something has
+  tried to get past it. Three of the five real findings were bypasses of gates built hours earlier,
+  and each bypass was ordinary, legal syntax rather than anything adversarial. The cheap discipline
+  that would have caught all three at authoring time is to write the bypass cases as tests BEFORE
+  calling the gate built — the same negative-control move already used on the product code, applied
+  to the gate itself.

@@ -925,6 +925,16 @@ ever, on anything that has happened.
 
 ## Nettle guards Pistil (2de368) — Director, the first lower-tier window (2026-09-11 10:0xZ–13:5xZ, Opus 5)
 
+<!-- fitness exceeded by ~750 lines; needs consolidation -->
+
+The observations below and in the boundary-6 block were written in full rather than trimmed
+(`knowledge-preservation-over-fitness-warnings`; the owner's "never trim docs to fit limits"),
+and this file stood at 922 lines against a 300-line limit before them. The workflow's other
+valid response — graduation to permanent homes — is a dedicated consolidation pass, not a
+session-close act, so the pressure is flagged here for that pass rather than absorbed silently.
+Two of this window's lessons ALREADY graduated, into the `no-conditional-tests` lint rule and
+the plan corpus's fenced-YAML check, which is the drain working as intended.
+
 - OUTCOME: the succession's two lanes both ran. #130 (the predecessor's records) landed at
   SHA:0d6a9769c under the docs-only bot-authored exception after Copilot timed out on the tip;
   #131 (the two sync workflows) landed at SHA:ad64f3cd5 by the front door with both reviewers
@@ -959,7 +969,9 @@ ever, on anything that has happened.
   nodes and this napkin as an owner-held item. The owner doubted it; the installation holds
   `actions: write`. The 403 meant the token-scope TABLE requested no such permission — which the
   table's own header states, in a paragraph I had already read: an ungranted permission fails the
-  MINT with 422, so a 403 is always a wrong-scope symptom. A `workflow-dispatch` scope now exists
+  MINT with 422, so a 403 reading exactly `Resource not accessible by integration` is a
+  wrong-scope symptom — other 403s (ruleset refusals, rate limits) are NOT, and the table says so.
+  A `workflow-dispatch` scope now exists
   and the bot dispatched both workflows green. THE GENERATOR: a refusal is a symptom, and a
   capability claim needs the GRANT. I reasoned forward from the symptom instead of checking what
   governs it — the same shape as the test-placement error below.
@@ -999,8 +1011,9 @@ ever, on anything that has happened.
   handed text, instead of reading the rule that governs it.** Three instances, all the same shape:
   (1) the succession record said to mark four tests `it.skipIf(win32)` and I planned to, checking
   `no-conditional-tests` only by luck; (2) a 403 on a workflow dispatch became "the app lacks the
-  permission", when the tool's own header — which I had read — says a 403 is always a wrong-scope
-  symptom and an ungranted permission fails the mint with 422; (3) three successive test placements,
+  permission", when the tool's own header — which I had read — says a 403 reading exactly
+  `Resource not accessible by integration` is a wrong-scope symptom and an ungranted permission
+  fails the mint with 422; (3) three successive test placements,
   each asking "WHERE may a test that does filesystem IO live", when `testing-strategy.md` does not
   admit the premise. The counterexample proves I hold the technique: on the ratified YAML I ran a
   parser BEFORE landing and found three blocking defects. I applied the technique to an artefact and
