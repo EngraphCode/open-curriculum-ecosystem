@@ -1976,11 +1976,51 @@ clean before any edit.
 1. **The first workflow dispatch.** The bot answers 403 on `POST .../dispatches` (no `actions`
    permission in any mint scope) and the action map forbids the operator's credential for it. The
    schedule fires at 18:00Z (mirror) and 18:30Z (carrier); a dispatch before then is the owner's.
-2. **Four carried findings on the sync nodes**, each with a shape verified read-only: the
-   unpaginated duplicate guard (both reviewers), the carrier's comparison window, the mirror's
-   comparison window, and the carrier's missing parent check (the strongest — a receipt that could
-   call a fork-only commit "upstream's snapshot").
+2. **Four carried findings on the two sync workflows.** Each is real, none stops a workflow
+   running, and each changes behaviour in text the owner ratified, so each is the owner's call.
+   Recorded in full here rather than as labels, because the node rows for two of them ride on
+   PR #132, which is HELD (item 6), and a finding must not be recoverable only from a held branch.
+   Each shape below was verified read-only against the live fork on 2026-09-11.
+
+   - **The carrier does not check the mirror against the parent** (Copilot, PR #131; the strongest
+     of the four). *Scenario:* a commit that did not come from upstream reaches the fork's mirror
+     branch. The carrier's only comparison is `{default}...{mirror}`, so that commit counts toward
+     `mirror_ahead_by`, the carrier is cut at it, and the receipt calls it "upstream's snapshot" —
+     a false statement in the artefact the integrating seat trusts. *Remedy:* compare the mirror
+     with the parent BEFORE comparing it with the default branch, and fail unless the mirror is
+     identical to or behind the parent (an older valid snapshot is acceptable). *Gate:* bounded
+     today because the mirror workflow's only write is a `force=false` fast-forward to the parent's
+     tip, so automation cannot create the condition, and the mirror workflow already fails loud
+     when it exists. Reopen if anyone gains a direct push to the mirror branch.
+   - **The mirror's comparison window** (Codex, PR #131). *Scenario:* the parent advances between
+     the compare call and the `parent_tip` read; the stale `identical` means the fast-forward never
+     fires and the mirror stays behind until the next slot — across a Friday slot, a weekend, since
+     the schedule is Monday to Friday. *Remedy:* read `parent_tip` FIRST and compare against that
+     immutable sha; the compare endpoint accepts a sha on the head side. *Gate:* latency only,
+     never a wrong write; the next slot self-heals.
+   - **The carrier's comparison window** (Codex, PR #131). *Scenario:* the mirror advances between
+     the compare and the `mirror_tip` read, so the carrier is cut at the new tip while its receipt's
+     merge base and exclusive counts describe the old one. *Remedy:* the same ordering swap — read
+     `mirror_tip` first, compare `{default}...{mirror_tip}`. *Gate:* a stale receipt on a draft a
+     seat reads before integrating, never a wrong merge.
+   - **The duplicate guard reads one page** (Copilot on PR #131 and Codex on PR #130 — two
+     reviewers independently). *Scenario:* more than one hundred open pull requests against the
+     default branch hides an existing carrier, and a second one opens, against the node's promise
+     of exactly one. *Remedy:* `--paginate --slurp` with the filter across the flattened pages;
+     `--paginate` alone applies the `--jq` program per page and emits one result per page. *Gate:*
+     unreachable on this fork, whose open count is a handful; reachable in the deployment context
+     the node designs for, since the file is written to be inherited by the parent.
 3. **The upstream report** at `.agent/reports/upstream-sync/` is still the owner's to send.
 4. **`windows-basic` required** on or after 2026-09-17.
 5. The older held items (§C: directives-tier placement; #100's two deny lines) still wait for a
    session with their context.
+6. **PR #132 is HELD, not abandoned.** Its security change is complete and correct and its POSIX
+   suites are green, but `windows-basic` fails on it, reproducibly and by design: the verification
+   refuses when the descriptor does not read 0600, and Node on Windows reports every writable file
+   as 0666, so the four tests that write through the real adapter ask for a guarantee NTFS cannot
+   give. That is a permanent red rather than flakiness, so the advisory window is not a licence to
+   land it. The owner's decision is where a real-filesystem proof of a library function lives when
+   all four taxonomy categories exclude it; three candidate answers are on
+   `native-windows-support-carrier.plan.md`, and the third — that the real-IO tests may be
+   REDUNDANT rather than homeless, since the ordered-operations constant already proves at the seam
+   what three of them assert — would be a deletion, which is not a lone seat's call.
