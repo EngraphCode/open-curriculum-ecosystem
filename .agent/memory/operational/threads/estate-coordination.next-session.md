@@ -2198,7 +2198,7 @@ read and dispositioned; none was waived.
 OPEN OWNER DECISION — the request, its three options and its evidence live in the decision thread
 [`owner-only-retention-enforcement-2026-09-11.json`](../../../state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json),
 `status: open`. Not restated here: a thread record cites a decision thread, it does not carry its
-body (`threads/README.md` §Surfaces). This lane's next safe step does not depend on the answer,
+body (`threads/README.md` §Relationship to other operational surfaces). This lane's next safe step does not depend on the answer,
 since PR #132 landed with its claim narrowed to what it establishes, so the decision is
 discoverable open work rather than a block.
 
@@ -2243,3 +2243,39 @@ of them: a reviewer's observation is EVIDENCE, not a specification. Round 3's fi
 the requirement inferred from it was never asked for by the gate's purpose. Before curing, ask what
 the gate is FOR — the answer is sometimes that the claim was wrong rather than the coverage, and
 that answer is always cheaper than the one that adds code.
+
+## 2026-09-11 19:4xZ — #134's step-back, run this time, and what it found
+
+**BUDGET-EXCEEDED and STEP-BACK-MANDATORY, recorded before curing rather than after.** PDR-132's
+budget is two rounds, every class; #134 opened a third. The state machine's other arm fired too —
+the tally reads 1, 1, 1 across three settled rounds, which satisfies
+`c[n] >= c[n-1] AND c[n-1] >= c[n-2]` with a non-zero latest count. Both were true on #132 as well
+and neither was evaluated there; the difference on #134 is only that the question got asked.
+
+**The generator, which is one thing and not four.** Every finding on this pull request is a claim
+written into a record without checking its source:
+
+| Round | The claim | The source that would have refuted it |
+| --- | --- | --- |
+| 1 | a decision body belongs in the thread record | `threads/README.md` §Relationship to other operational surfaces, which says cite, never copy |
+| 2 | `fs.statfsSync` reports `f_type` | one `node -e` call: the property is `type` |
+| 3 | `agent-tools pr` already harvests threads with their commit binding | `pr-watch/gh.ts`, whose query selects `isResolved` alone |
+| 4 | a `pr rounds` command should be built | `.agent/plans/delivery/pr-tally.plan.md`, owner-ratified 2026-09-08, already specifying the job more completely |
+
+Round 4 is the sharpest: the per-user memory this seat wrote THIS WINDOW says *read the governing
+document before naming a mechanism*, widened twice already, and a rival command was specified for
+work the owner had ratified a plan for three days earlier. The memory was not enough because a
+memory is advice.
+
+**The class fix, applied instead of curing round 4 alone.** Every remaining verifiable claim in
+this changeset was swept against its source in one pass rather than waiting to be sampled. That
+caught a fourth defect no reviewer had raised: the citation `threads/README.md` §Surfaces names no
+section that exists. It also demoted an unverifiable constant — a CIFS magic number quoted from
+memory — to an instruction to read it from the platform's own headers at implementation time.
+
+**Why this class recurs where the code classes do not.** A false claim in code is executed;
+a false claim in a record is not. Writing records, nothing runs, so the habit of proving claims
+lapses exactly where the estate's own doctrine has the least mechanical backing. The estate has no
+gate that reads a record's citations and checks them, and building one is not this lane's work —
+but the shape of the missing gate is now named, alongside `pr-tally`, as the second unbuilt
+instrument this window identified.

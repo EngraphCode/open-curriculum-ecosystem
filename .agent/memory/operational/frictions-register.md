@@ -4040,41 +4040,32 @@ commit SHA and the closing plan reference.
   as 2026-09-03 plus one. No tally existed either time.
 - **Expected**: the tally built at PR-open reads step-back-mandatory at the
   fourth settled round and the settlement budget refuses a fifth cure push.
-- **Why the first filing did not cure it, and what would.** The expectation
-  above presupposes a tally, and nothing MAKES one exist: item 2 says
-  "build the tally, or the trigger cannot fire", which is advice, and advice
-  is what fails under load — the same generator this estate has been curing
-  everywhere else by building gates. Twice now the shepherd was mid-loop,
-  each finding individually valid, with no artefact counting anything. The
-  cure is to compute the tally rather than ask for it — but NOT by wrapping
-  what exists, which an earlier draft of this entry wrongly implied.
-  `pr-watch`'s `REVIEW_THREADS_QUERY` selects `totalCount` and
-  `nodes { isResolved }` only, and `parseReviewThreadPages` reduces those to
-  `{total, unresolved}` (`pr-watch/gh.ts`, `pr-watch/review-threads.ts`);
-  no commit binding survives. The separate reviews harvest carries
-  `commit.oid` per REVIEW, which cannot bucket an inline thread's finding to
-  the tip that thread was raised against (Copilot, PR #134 — the correction
-  matters because a specification that overstates what exists misleads the
-  builder about the size of the job, which is this register's own failure
-  class one level up).
+- **Why the first filing did not cure it, and THE CURE IS ALREADY RATIFIED.** The
+  expectation above presupposes a tally, and nothing makes one exist: item 2 says
+  "build the tally, or the trigger cannot fire", which is advice, and advice is what
+  fails under load — the same generator this estate has been curing everywhere else
+  by building gates. Twice now the shepherd was mid-loop, each finding individually
+  valid, with no artefact counting anything.
 
-  So the build is: EXTEND the thread harvest to carry each thread's
-  originating commit, then add the command over it. The selection is
-  available — verified live on PR #134, 2026-09-11:
-  `reviewThreads { nodes { isResolved comments(first: 1) { nodes {
-  pullRequestReview { commit { oid } } } } } }` returned one distinct oid
-  per thread, matching the tips those threads were raised on, which is the
-  key `pr-lifecycle` item 2 names as
-  `comments.nodes[0].pullRequestReview.commit.oid`. The parser then keeps
-  per-thread rows instead of reducing to counts, and a `pr rounds <n>`
-  action emits one row per settled round with the verdict
-  STEP-BACK-MANDATORY | BUDGET-EXCEEDED | CONVERGING | TERMINAL-ZERO from
-  the PR itself. The cure-worthy count still needs a human-or-agent
-  disposition per finding, so the command reads raised counts and takes
-  dispositions as input rather than inventing them. NOT BUILT; specified
-  here so the third instance is a build, not a third filing.
+  The instrument that would end it is
+  [`pr-tally`](../../plans/delivery/pr-tally.plan.md), owner-ratified 2026-09-08
+  ("pr-tally, ratified") and NOT BUILT: `pnpm agent-tools pr-tally --pr <n>`, building
+  the tally by the commit each review binds to, printing one row per settled round with
+  raised and cure-worthy counts and the mechanical step-back verdict. The plan already
+  cites the 2026-09-08 instance of this friction as its own motivation. So this entry
+  adds nothing to the design and points at it: what the recurrence contributes is
+  EVIDENCE OF PRIORITY — the plan has now been ratified and unbuilt through two full
+  recurrences, on 2026-09-03 and 2026-09-11.
+
+  Recorded because the wrong turn is itself an instance of the register's subject: the
+  first version of this bullet specified a rival `pr rounds` command with a different
+  data flow, written without checking whether the estate had already planned the work.
+  It had, and the ratified plan is more complete — body findings, Codex badge blocks,
+  signed machine-readable bar markers for dispositions, the reviewer-leg predicate. Two
+  incompatible specifications for one job is worse than none (Copilot, PR #134).
+
 - **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
-  4), under the skills claim; the missing command routes to `agent-tools`.
+  4), under the skills claim; the build routes to the ratified `pr-tally` plan.
 
 ### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
 
