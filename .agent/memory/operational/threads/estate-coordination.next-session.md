@@ -2190,3 +2190,50 @@ read and dispositioned; none was waived.
   that would have caught all three at authoring time is to write the bypass cases as tests BEFORE
   calling the gate built — the same negative-control move already used on the product code, applied
   to the gate itself.
+
+## 2026-09-11 17:3xZ — an owner decision raised by #132's fourth review round
+
+**The owner-only retention cannot prove ENFORCEMENT, only that the mode interface is live.**
+
+PR #132 added a round-trip probe so a mount that reports permission bits without honouring
+`fchmod` is refused rather than trusted. Copilot then named the residual precisely, and it is real: a
+round-trip proves the mode interface responds to writes; it does not prove those bits govern
+access. A CIFS mount using client-cached `dynperm` with `noperm` round-trips mode changes locally
+while the server's own credentials and ACLs stay authoritative. The module would write a
+credential-bearing artefact there.
+
+**Why it is not cured on that lane.** Closing it needs an effective-access check, and Node exposes
+none — `fs.access` answers for the calling process, never for another principal. The available
+mechanism is a filesystem-type allowlist (`fs.statfsSync` reports an `f_type` magic on Linux;
+macOS reports something else), used deny-by-default. That would refuse retention on EVERY network
+mount, which is a product decision about who may retain conformance output where, not a defect
+fix. It also lands outside this lane's scope, which was the carrier node's todo 5.
+
+**What #132 does instead.** The module's claim is narrowed to exactly what it establishes: the
+artefact is created owner-only, never widened, and refused outright unless the filesystem's own
+mode interface is live and reports owner-only. On a lying mount that is strictly more than the
+previous code established and strictly less than enforcement, and the file says so in those words.
+
+**The owner's call, when it comes up.** Either accept the residual as bounded — attended
+conformance with retained authenticated output runs on POSIX or under WSL, on local storage, which
+is the first-class tier — or commission the deny-by-default mount check as its own lane with its
+own tests, accepting that retention then refuses on network mounts.
+
+### The review arc on #132, as evidence about gates
+
+Four rounds, and the useful pattern is not the count but the direction:
+
+1. Two gates built to replace prose that had already failed to hold.
+2. Both found too NARROW — ordinary syntax walked past them.
+3. The lint rule found simultaneously too WIDE (any local named `test` would fail lint
+   repository-wide), the fence check narrow in a second direction, and a "no filesystem" claim
+   false in its quietest corner (module resolution walks `node_modules` on disk).
+4. The fence detector narrow in a THIRD direction (a fence opening on a list marker's own line),
+   and the mode probe's claim shown to exceed what it proves.
+
+**The generator, carried forward.** A gate is not finished when it fires on the case that
+motivated it. It is finished when someone has tried to get past it, tried to trip it on innocent
+code, AND checked that what it claims matches what it establishes. Narrow, wide and overclaiming
+are three separate failures; one small rule held all three across four rounds. The cheap version
+is to write the bypass cases, the innocent cases, and the claim's own falsifier before calling a
+gate built — the same negative-control move already routine for product code, applied to the gate.
