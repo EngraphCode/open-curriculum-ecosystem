@@ -52,7 +52,7 @@ carrier just the same.
 | 2 | Off by default | Job-level `if: vars.UPSTREAM_CARRIER_ENABLED == 'true'`. An unset variable evaluates to the empty string, so a copy inherited by upstream at the merge-back runs a skipped job per slot: zero minutes, no write, no notification, the token step never executed. The residual is the skipped-run row in upstream's Actions tab, named for the owner at the merge-back with the mirror's. |
 | 3 | No identity in the tree | The default branch from `GET /repos/{owner}/{repo}` (`default_branch`); the mirror branch derived from the same record as `parent.default_branch` (the mirror is by construction the fork's branch of that name; no variable, per the mirror node's decision 3); a repository with `fork=false` exits zero with a notice. The parent's name is read from the same record for the receipt only. The carrier prefix is `automation/upstream-carrier-` and the marker is `<!-- upstream-carrier -->`: neither names an organisation or a product (the previous producer's `engraph-oce-upstream-sync` marker and `automation/oce-upstream-sync-` prefix carried estate identity, ADR-228). |
 | 4 | The compare | `GET /repos/{owner}/{repo}/compare/{default}...{mirror}` (both branches of this repository; verified live 2026-09-10: `diverged`, `ahead_by 49`, `behind_by 698` with the default branch 698 ahead and the mirror 49 ahead). A carrier is due when `ahead_by > 0` — status `ahead` or `diverged`; `identical` or `behind` means the mirror is already integrated. The merge base is `.merge_base_commit.sha`; the default tip `.base_commit.sha`; the mirror tip from `GET /repos/{owner}/{repo}/branches/{mirror}` → `.commit.sha`. |
-| 5 | The duplicate guard | `GET /repos/{owner}/{repo}/pulls?state=open&base={default}&per_page=100`, filtered to heads in THIS repository (`.head.repo.full_name == $repo`, passed with `--arg`, so a fork-of-the-fork's branch cannot suppress the carrier) matching `^automation/.*upstream` — which also matches the previous producer's prefix, so a race with the Codex task (should it wake with its credit) is harmless. One match → a `::notice` naming it and how far the mirror has moved since, exit 0; never a second carrier, never a moved head. |
+| 5 | The duplicate guard | `GET /repos/{owner}/{repo}/pulls?state=open&base={default}&per_page=100`, filtered to heads in THIS repository (`.head.repo.full_name == env.GITHUB_REPOSITORY`, read from the runner environment inside the `--jq` program because `gh api` carries no `--arg` flag, so a fork-of-the-fork's branch cannot suppress the carrier) matching `^automation/.*upstream` — which also matches the previous producer's prefix, so a race with the Codex task (should it wake with its credit) is harmless. One match → a `::notice` naming it and how far the mirror has moved since, exit 0; never a second carrier, never a moved head. |
 | 6 | The writes | Two, both as the bot app: `POST /repos/{owner}/{repo}/git/refs` with `ref=refs/heads/automation/upstream-carrier-{mirrorTip}` and `sha={mirrorTip}` (docs read 2026-09-10; 201, 422 on a name already taken); then `POST /repos/{owner}/{repo}/pulls` with `title`, `head`, `base`, `body`, `draft=true` (the owner's draft's call). |
 | 7 | The token | The bot app's installation token minted in the run by `actions/create-github-app-token` pinned at `1b10c78c7865c340bc4f6099eb2f838309f1e8c3` (v3.1.1; inputs `client-id`, `private-key`; output `token`) — the same action, pin and input shape as the estate's `release.yml`, verified in-tree 2026-09-10. Not `GITHUB_TOKEN`: on the fork "Allow GitHub Actions to create and approve pull requests" is off (exploration record observation 5), and a pull request opened by the app is authored by the estate's bot identity, which the merge tooling already recognises. Secrets: `UPSTREAM_CARRIER_APP_CLIENT_ID`, `UPSTREAM_CARRIER_APP_PRIVATE_KEY` (the owner's gate). The app already holds `contents: write` and `pull-requests: write` on the fork — it pushes lane branches and opens pull requests today. |
 | 8 | The head and its checks | The carrier head is the mirror's tip exactly; a release tip carries the CI-skip token, so no check runs on it until the seat's slot-word merge gives it a buildable head (the skill's step 3). The workflow does no merge and requests no review: both belong to the seat's integration round. |
@@ -147,7 +147,8 @@ jobs:
         if: steps.compare.outputs.mirror_ahead_by == '0'
         env:
           MIRROR_BRANCH: ${{ steps.compare.outputs.mirror_branch }}
-        run: echo "Nothing to carry: ${MIRROR_BRANCH} holds no commit the default branch lacks."
+        run: |
+          echo "Nothing to carry: ${MIRROR_BRANCH} holds no commit the default branch lacks."
 
       - name: Find an open carrier
         id: existing
@@ -159,8 +160,7 @@ jobs:
         run: |
           set -euo pipefail
           number="$(gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&base=${DEFAULT_BRANCH}&per_page=100" \
-            --arg repo "${GITHUB_REPOSITORY}" \
-            --jq '[.[] | select(.head.repo.full_name == $repo and (.head.ref | test("^automation/.*upstream")))] | .[0].number // empty')"
+            --jq '[.[] | select(.head.repo.full_name == env.GITHUB_REPOSITORY and (.head.ref | test("^automation/.*upstream")))] | .[0].number // empty')"
           echo "number=${number}" >>"$GITHUB_OUTPUT"
           if [ -n "$number" ]; then
             echo "::notice title=Carrier already open::PR #${number} is the open carrier; the mirror is now ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. No new carrier opened."
@@ -231,8 +231,11 @@ jobs:
 4. A run with nothing to carry (`mirror_ahead_by` 0) writes nothing. Proof `repo-safe`: the
    "Nothing to carry" line and no ref created.
 5. The Codex OCE task and this workflow never both produce a carrier for one tip. Proof
-   `owner-held`: the owner retires the task once criterion 1 is proven; the guard's prefix
-   match covers the interval.
+   DISCHARGED 2026-09-11: the owner retired the task ahead of this workflow landing (card
+   answer, "I have already retired the Codex task"), so no interval exists in which two
+   producers are live and this workflow is the only producer from its first run. The guard's
+   prefix match, which also matches the retired producer's prefix, is now belt and braces
+   rather than the interval's cover.
 
 ## Out of scope
 
@@ -266,3 +269,30 @@ Assumptions-expert subagent review, 2026-09-10 (verdict at review time NOT YET, 
 | The duplicate guard matched `head.ref` only, so a fork-of-the-fork's branch name could suppress the carrier | Cured: the guard also requires `.head.repo.full_name == $repo`. |
 | Decision 2 said less than the mirror's about the merge-back residual | Cured: the same sentence. |
 | The gate (the private key's custody) | Confirmed legitimate; unchanged. |
+
+Authoring-time validation, 2026-09-11 (the successor seat at todo 1, as for the mirror node):
+
+| Finding | Disposition |
+| --- | --- |
+| The "Report when the mirror is already integrated" step's single-line `run:` value is a plain YAML scalar carrying a colon-space (`echo "Nothing to carry: ...`). The file does not parse. | Cured in §The file: a `run: \|` block scalar, matching every other step. The shell command is byte-identical. Same evidence as the mirror node's row. |
+| The "Find an open carrier" step passes `--arg repo` to `gh api`. `--arg` is a jq flag and `gh api` has no such flag, so under `set -euo pipefail` the step fails and no carrier is ever opened. The flag entered with the disposition above that added the `.head.repo.full_name` guard. | Cured in §The file and decision 5: the repository is read inside the existing `--jq` program as `env.GITHUB_REPOSITORY`, which the runner always sets. The guard is preserved exactly. Evidence: `gh` 2.97.0 answers `unknown flag: --arg`; the cured call was run read-only against this fork and returned empty, with a control query proving the repository filter matches this fork's one open head and the `^automation/.*upstream` test correctly excludes it. |
+
+Codex review on PR #130, 2026-09-11, carried to the owner rather than actioned:
+
+| Finding | Disposition |
+| --- | --- |
+| The duplicate guard requests `per_page=100` without `--paginate`, so on a repository with more than one hundred open pull requests targeting the default branch an open carrier outside the first page is invisible and the run opens a second one, against decision 5's promise of exactly one carrier. Unreachable on this repository (a handful of open pull requests); reachable in the deployment context this node designs for, since the file is written to be inherited by the parent at the merge-back. | Carried to the owner with a recommended shape rather than cured, because the node is ratified and this is a design choice, not a transcription defect with one correct form. The shape: `--paginate --slurp` with the filter applied across the flattened pages, since `--paginate` alone applies the `--jq` program per page and would emit one result per page. Until the owner's word the guard holds on this repository and the risk is bounded by its open-pull-request count. |
+| The same step's `--arg` flag | Cured at authoring time; see the row above. Codex reached this defect independently of the seat's own parser pass, on the same day. |
+
+Review round on PR #131, 2026-09-11, at the workflow files' landing. Both configured reviewers
+bound the tip. Cured: nothing in the file — see the authoring-time table above for the three
+defects cured before the first push. Carried to the owner:
+
+| Finding | Disposition |
+| --- | --- |
+| The comparison and the mirror tip are two separate authenticated requests, so a mirror move between them yields a carrier cut at the new tip whose receipt (merge base, exclusive counts) describes the old one. The mirror and carrier workflows hold separate concurrency groups, so a delayed or manual run can interleave. (Codex, P2) | Carried, not cured: the receipt is wrong only in a race whose window is the gap between two calls seconds apart, and the fix changes which commit the carrier is cut at, which is a behaviour change on ratified text. Recommended shape, verified read-only on 2026-09-11: read `mirror_tip` FIRST, then compare `{default}...{mirror_tip}` — the compare endpoint accepts an immutable sha on the head side (proven against this repository), so both reads describe one snapshot and the second call disappears. There is no field on the compare response that carries the head tip: `commits` is paginated and capped, so `.commits[-1]` is not it. |
+| The duplicate guard reads one page of one hundred open pull requests. (Copilot at this tip, and Codex on PR #130 — two independent reviewers, which is why this row now names both) | Carried, not cured, with the recommended shape `--paginate --slurp` and the filter applied across the flattened pages, since `--paginate` alone applies the `--jq` program per page and emits one result per page. |
+
+The two findings compound: a carrier opened in either failure mode is a draft a seat reads before
+integrating, so neither can merge anything by itself. That bounds the cost of carrying them to
+the owner rather than diverging further from the ratified text in one landing.
