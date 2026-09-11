@@ -120,6 +120,18 @@ describe('runMergeBotCli mint-token --scope', () => {
     });
   });
 
+  it('still puts actions write on the wire for a workflow dispatch', async () => {
+    // A LITERAL for the same reason as the row above. `actions: write` is fixed
+    // externally by GitHub: it is what the workflow-dispatch endpoint requires,
+    // and a 403 reading exactly `Resource not accessible by integration` on
+    // `POST .../dispatches` was the observed symptom of its absence
+    // (2026-09-11). The generic test compares the minted payload against the
+    // table, so a typo or a downgrade to `read` in the TABLE would satisfy it —
+    // the two would agree on the wrong thing, and only a live dispatch would
+    // find out.
+    expect(await mintedPermissionsFor('workflow-dispatch')).toEqual({ actions: 'write' });
+  });
+
   it('lists every scope and its permissions in the usage text', async () => {
     // USAGE is the discovery surface for a newly-required flag, and its list
     // is derived — this proves the derivation renders, not that a literal
