@@ -1205,3 +1205,16 @@ variables — one observation); no validator here scans cited pnpm scripts under
   three-way enumeration in `pr-lifecycle` Phase 4 ("anything else → ticket") predates clause 1's
   reject-or-route default; the block's "PDR-140 owns the clauses" governs today; the wording
   reconciliation is a PDR-140 amendment, never a lane's cure.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 16:5xZ: PDR-008 contradicts package.json (peer finding, verified)
+
+Cauldron herds Lustre (880ff9), reading PDR-008 at SHA:2b1b15ab8 while adopting the script
+naming: its tables define `check` as the mutating alias of `check:fix` and `check:ci` as the CI
+form, while the root `package.json` defines `check` as the read-only aggregate, `fix` as the
+mutating one, `format-check:root`/`format:root`, `markdownlint-check:root`/`markdownlint:root`,
+`check:docs`/`fix:docs`, and no `check:ci` (CI runs the legs individually under
+validate-check-ci-parity). VERIFIED here by `jq` over `package.json` and lines 86-126 of the PDR.
+`practice-verification.md` item 9 lists the old set too (unverified here). Home: a small records
+lane — an amendment-log entry on PDR-008 describing the live convention plus item 9 rewritten
+(the peer's checkout carries a worked example under its own PDR-008 §Amendment Log; read-only
+for this side). Not a mechanism change; the scripts are right, the record is stale.
