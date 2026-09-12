@@ -200,4 +200,34 @@ describe('buildRows — the invariant: nothing the recording does not prove sett
     expect(row?.undispositioned).toBe(0);
     expect(row?.manual).toBe(4);
   });
+
+  it('attributes a marked line missing its reference to the head that line names, never to a sibling line\u2019s head', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const [first, second] = harvest.commits.map((commit) => commit.oid);
+    expect(second, 'fixture has fewer than two heads').toBeDefined();
+    const codexBody = review({
+      id: 'PRR_codexbody',
+      databaseId: 9000002,
+      author: CODEX,
+      commitOid: first ?? '',
+      body: '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Name the thing**\n\nBody.',
+    });
+    const mixed = comment(
+      9000009,
+      `- **Over-bar** · head SHA:${(first ?? '').slice(0, 9)} · review 9000002 · \`docs/a.md:1\` · Name the thing · Cured in SHA:deadbeef0.\n- **Below-bar** · head SHA:${(second ?? '').slice(0, 9)} · the rest, together.`,
+    );
+    const rows = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, codexBody],
+        comments: [...harvest.comments, mixed],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows;
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows;
+    expect(rows.find((row) => row.head === first)?.manual).toBe(
+      base.find((row) => row.head === first)?.manual,
+    );
+    expect(rows.find((row) => row.head === second)?.undispositioned).toBe(0);
+  });
 });

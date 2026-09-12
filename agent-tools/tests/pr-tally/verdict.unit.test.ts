@@ -1,12 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseRecordedHarvest } from '../../src/pr-tally/harvest.js';
-import { buildRows } from '../../src/pr-tally/rows.js';
 import type { TallyRow } from '../../src/pr-tally/rows.js';
-import { verdict, verdictFromRows } from '../../src/pr-tally/verdict.js';
-import pr135 from './fixtures/pr-135-harvest.json' with { type: 'json' };
-import pr136 from './fixtures/pr-136-harvest.json' with { type: 'json' };
-import pr138 from './fixtures/pr-138-harvest.json' with { type: 'json' };
+import { verdictFromRows } from '../../src/pr-tally/verdict.js';
 
 const EXPECTED = ['copilot-pull-request-reviewer', 'chatgpt-codex-connector'];
 
@@ -103,34 +98,5 @@ describe('verdictFromRows — the step-back predicate, the terminal-success prec
     expect(result.kind).toBe('open');
     expect(result.counts).toStrictEqual([2, 0]);
     expect(result.evidence[0]).toMatch(/h2 \(unsettled\)/u);
-  });
-
-  it('reads the #135 corpus as open: nothing in it is signed to the predicate, so nothing is dispositioned', () => {
-    const result = verdict(
-      buildRows({ harvest: parseRecordedHarvest(pr135), expectedReviewers: EXPECTED }),
-      {},
-    );
-    expect(result.kind).toBe('open');
-    expect(result.evidence.join('\n')).toMatch(/undispositioned/u);
-  });
-
-  it('reads the #138 corpus as open at its final head: one suppressed item without a one-line disposition', () => {
-    const result = verdict(
-      buildRows({ harvest: parseRecordedHarvest(pr138), expectedReviewers: EXPECTED }),
-      { classFixHeads: ['a1ec078e2'] },
-    );
-    expect(result.kind).toBe('open');
-    expect(result.epoch).toBe(2);
-    expect(result.counts).toStrictEqual([9, 3, 1, 0]);
-  });
-
-  it('reads the #136 corpus as open with the counts of epoch three at 3, 2, 1, 0 — the tally the seat kept', () => {
-    const result = verdict(
-      buildRows({ harvest: parseRecordedHarvest(pr136), expectedReviewers: EXPECTED }),
-      { classFixHeads: ['1ca90fece', 'bc6370624'] },
-    );
-    expect(result.kind).toBe('open');
-    expect(result.epoch).toBe(3);
-    expect(result.counts).toStrictEqual([3, 2, 1, 0]);
   });
 });

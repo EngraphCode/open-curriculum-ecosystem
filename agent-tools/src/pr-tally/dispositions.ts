@@ -8,7 +8,7 @@ import type { BarMarker } from './markers.js';
  * The seat's signed body-only dispositions, as the intake contract records
  * them: one line per finding — the marker, then
  * `head SHA:<sha> · review <id> · <path>:<line> · <item>` — in a signed issue
- * comment. A signed, marked comment carrying no parseable line is a batched
+ * comment. A signed, marked line carrying no parseable reference is a batched
  * disposition: the heads it names read as manual for their body items.
  */
 
@@ -26,7 +26,7 @@ interface BodyDispositionKey {
 
 export interface BodyDispositions {
   readonly keys: readonly BodyDispositionKey[];
-  /** SHA prefixes named by a signed, marked comment carrying NO parseable line. */
+  /** SHA prefixes named by signed, marked lines carrying NO parseable reference. */
   readonly batchedHeads: readonly string[];
 }
 
@@ -77,12 +77,17 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
       .filter((key): key is BodyDispositionKey => key !== null),
   );
   // A marked line that does not parse is a batched disposition, whether or
-  // not a sibling line parses: the heads its comment names read as manual.
-  const batchedHeads = signed
-    .filter((comment) =>
-      comment.body.split('\n').some((line) => parseKey(line) === null && isMarked(line)),
-    )
-    .flatMap((comment) => headsNamed(comment.body));
+  // not a sibling line parses: the heads it names read as manual — the
+  // line's own head reference when it carries one, else its comment's.
+  const batchedHeads = signed.flatMap((comment) =>
+    comment.body
+      .split('\n')
+      .filter((line) => parseKey(line) === null && isMarked(line))
+      .flatMap((line) => {
+        const own = headsNamed(line);
+        return own.length > 0 ? own : headsNamed(comment.body);
+      }),
+  );
   return { keys, batchedHeads };
 }
 
