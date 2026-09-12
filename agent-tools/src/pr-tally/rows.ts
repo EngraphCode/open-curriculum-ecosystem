@@ -1,16 +1,24 @@
+import { isSignedSelfReply } from '../pr-watch/reviewer-legs.js';
 import {
-  hasLanded,
-  isSignedSelfReply,
-  isSkipMarker,
-  QUIET_WINDOW_MS,
-} from '../pr-watch/reviewer-legs.js';
-import { declaredRestatement, keyNames, readBodyDispositions } from './dispositions.js';
+  batchApplies,
+  declaredRestatement,
+  keyNames,
+  keysNamingThread,
+  readBodyDispositions,
+} from './dispositions.js';
 import type { BodyDispositions } from './dispositions.js';
 import { extractBodyFindings } from './findings.js';
 import type { BodyFinding } from './findings.js';
 import type { RecordedHarvest } from './harvest.js';
 import { readBarMarker } from './markers.js';
 import type { BarMarker } from './markers.js';
+import {
+  landed,
+  quietWindowElapsed,
+  sameLogin,
+  selfReplyReviewIds,
+  skipOnly,
+} from './settlement.js';
 
 /**
  * The tally rows the pr-lifecycle state machine's item 2 specifies: one row
@@ -72,21 +80,22 @@ export interface Tally {
 
 type Disposition = BarMarker | 'manual' | 'undispositioned';
 
-// The recorded review carries a nullable commit; the pr-watch predicate wants the string form.
-const landed = (review: Review): boolean =>
-  hasLanded({ ...review, commitOid: review.commitOid ?? '' });
-
-// GitHub logins are case-insensitive (the reviewer-leg comparison does the same).
-const sameLogin = (left: string, right: string): boolean =>
-  left.toLowerCase() === right.toLowerCase();
-
-function threadDisposition(thread: Thread): Disposition {
+function threadDisposition(
+  thread: Thread,
+  review: Review | undefined,
+  dispositions: BodyDispositions,
+): Disposition {
   const signed = thread.comments.slice(1).filter((comment) => isSignedSelfReply(comment.body));
   const last = signed.at(-1);
-  if (last === undefined) {
-    return 'undispositioned';
+  if (last !== undefined) {
+    return readBarMarker(last.body) ?? 'manual';
   }
-  return readBarMarker(last.body) ?? 'manual';
+  const line =
+    review === undefined ? undefined : keysNamingThread(thread, review, dispositions).at(-1);
+  if (line !== undefined) {
+    return line.marker ?? 'manual';
+  }
+  return 'undispositioned';
 }
 
 function bodyItemDisposition(
@@ -99,8 +108,7 @@ function bodyItemDisposition(
   if (named !== undefined) {
     return named.marker ?? 'manual';
   }
-  const head = review.commitOid ?? '';
-  return dispositions.unbound || dispositions.batchedHeads.some((prefix) => head.startsWith(prefix))
+  return dispositions.batches.some((batch) => batchApplies(batch, review))
     ? 'manual'
     : 'undispositioned';
 }
@@ -130,32 +138,6 @@ function tallyDispositions(dispositions: readonly Disposition[]): {
   };
 }
 
-// The quiet window (state machine item 4): more than QUIET_WINDOW_MS since the
-// latest landed review binding the head. No anchoring review, or one whose
-// submission time is missing (it could be the newest), makes the anchor
-// unknowable: the head stays open, as `pr-watch`'s quietWindowAnchor holds it.
-function quietWindowElapsed(reviews: readonly Review[], now: string | undefined): boolean {
-  const times = reviews.map((review) => Date.parse(review.submittedAt));
-  if (times.length === 0 || !times.every(Number.isFinite)) {
-    return false;
-  }
-  if (now === undefined) {
-    return true;
-  }
-  return Date.parse(now) - Math.max(...times) > QUIET_WINDOW_MS;
-}
-
-// GitHub creates an empty review record for every inline reply; the seat's
-// signed replies' records must anchor nothing.
-function selfReplyReviewIds(harvest: RecordedHarvest): ReadonlySet<string> {
-  return new Set(
-    harvest.reviewThreads
-      .flatMap((thread) => thread.comments)
-      .filter((comment) => comment.reviewId !== null && isSignedSelfReply(comment.body))
-      .map((comment) => comment.reviewId ?? ''),
-  );
-}
-
 function bodyItemDispositions(
   review: Review,
   threads: readonly Thread[],
@@ -183,13 +165,19 @@ function findingsFor(
       thread.reviewCommitOid === head &&
       (thread.reviewId === null || landedIds.has(thread.reviewId)),
   );
-  // A skip marker declares that no review occurred: it carries no finding prose.
-  const reviews = landedReviews.filter((review) => !isSkipMarker(review.body));
+  const reviews = landedReviews.filter((review) => !skipOnly(review));
   const bodyItems = reviews.flatMap((review) =>
     bodyItemDispositions(review, threads, dispositions),
   );
   const manualBodies = reviews.filter((review) => extractBodyFindings(review).manual).length;
-  return { dispositions: [...threads.map(threadDisposition), ...bodyItems], manualBodies };
+  const threadDispositions = threads.map((thread) =>
+    threadDisposition(
+      thread,
+      landedReviews.find((review) => review.id === thread.reviewId),
+      dispositions,
+    ),
+  );
+  return { dispositions: [...threadDispositions, ...bodyItems], manualBodies };
 }
 
 function rowFor(
@@ -200,9 +188,8 @@ function rowFor(
 ): TallyRow {
   const { harvest, expectedReviewers, now } = input;
   const bound = harvest.reviews.filter((review) => review.commitOid === head && landed(review));
-  // A skip marker declares that no review occurred; it satisfies no leg.
   const reviewers = expectedReviewers.filter((login) =>
-    bound.some((review) => sameLogin(review.author, login) && !isSkipMarker(review.body)),
+    bound.some((review) => sameLogin(review.author, login) && !skipOnly(review)),
   );
   const owed = expectedReviewers.filter((login) => !reviewers.includes(login));
   const anchoring = bound.filter((review) => !selfReviews.has(review.id));

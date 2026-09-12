@@ -243,7 +243,7 @@ describe('buildRows — one row per settled head, in branch order, counts from r
     const batched = {
       databaseId: 9000004,
       author: 'el-graphael',
-      createdAt: '2026-09-12T12:40:00Z',
+      createdAt: '2026-09-13T00:00:00Z',
       body: `## Suppressed findings on SHA:${head.slice(0, 9)}, reconciled\n\n**Below-bar** — all four, no reader acts on them.${SIGNATURE}`,
     };
     const row = buildRows({

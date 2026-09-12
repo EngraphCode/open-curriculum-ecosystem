@@ -24,12 +24,15 @@ interface BodyDispositionKey {
   readonly marker: BarMarker | null;
 }
 
+/** A signed, marked line carrying NO parseable reference: the heads it names (none = every head) read as manual for the body items that predate it. */
+interface Batch {
+  readonly heads: readonly string[];
+  readonly createdAt: string;
+}
+
 export interface BodyDispositions {
   readonly keys: readonly BodyDispositionKey[];
-  /** SHA prefixes named by signed, marked lines carrying NO parseable reference. */
-  readonly batchedHeads: readonly string[];
-  /** A signed, marked line with no reference names NO head at all: every unnamed body item reads manual. */
-  readonly unbound: boolean;
+  readonly batches: readonly Batch[];
 }
 
 // The anchor may sit in a code span; the SHA may be a prefix.
@@ -81,20 +84,34 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
   // A marked line that does not parse is a batched disposition, whether or
   // not a sibling line parses: the heads it names read as manual — the
   // line's own head reference when it carries one, else its comment's.
-  const batched = signed.flatMap((comment) =>
+  const batches = signed.flatMap((comment) =>
     comment.body
       .split('\n')
       .filter((line) => parseKey(line) === null && isMarked(line))
       .map((line) => {
         const own = headsNamed(line);
-        return own.length > 0 ? own : headsNamed(comment.body);
+        return {
+          heads: own.length > 0 ? own : headsNamed(comment.body),
+          createdAt: comment.createdAt,
+        };
       }),
   );
-  return {
-    keys,
-    batchedHeads: batched.flat(),
-    unbound: batched.some((heads) => heads.length === 0),
-  };
+  return { keys, batches };
+}
+
+/**
+ * Whether a batch dispositions this review's unnamed items: it names the
+ * review's head (or no head at all) AND was posted after the review landed —
+ * a batch never reaches findings that did not exist when it was written.
+ * An unreadable time on either side keeps the conservative reading.
+ */
+export function batchApplies(batch: Batch, review: Review): boolean {
+  const head = review.commitOid ?? '';
+  const names = batch.heads.length === 0 || batch.heads.some((prefix) => head.startsWith(prefix));
+  const landed = Date.parse(review.submittedAt);
+  const posted = Date.parse(batch.createdAt);
+  const predates = !Number.isFinite(landed) || !Number.isFinite(posted) || landed < posted;
+  return names && predates;
 }
 
 function sameReview(key: BodyDispositionKey, review: Review): boolean {
@@ -136,18 +153,34 @@ export function declaredRestatement(
   if (atAnchor.length !== 1) {
     return false;
   }
-  return dispositions.keys.some((key) => {
-    const named = THREAD_KEY.exec(key.item);
-    if (named === null || !sameReview(key, review) || !sameAnchor(key, item)) {
-      return false;
-    }
-    const id = named[1] ?? '';
-    return threads.some(
-      (thread) =>
-        thread.id === id &&
-        thread.reviewId === review.id &&
-        thread.path === key.path &&
-        (thread.originalLine ?? thread.line) === key.line,
-    );
-  });
+  return threads.some(
+    (thread) =>
+      thread.reviewId === review.id &&
+      keysNamingThread(thread, review, dispositions).some((key) => sameAnchor(key, item)),
+  );
+}
+
+// A `thread <id>` line of the same review, at the thread's own anchor.
+function namesThread(key: BodyDispositionKey, thread: Thread, review: Review): boolean {
+  const named = THREAD_KEY.exec(key.item);
+  return (
+    named !== null &&
+    named[1] === thread.id &&
+    sameReview(key, review) &&
+    thread.path === key.path &&
+    (thread.originalLine ?? thread.line) === key.line
+  );
+}
+
+/**
+ * The signed `thread <id>` lines naming this thread, in comment order. Such a
+ * line collapses a body item onto the thread AND carries a marker: when the
+ * thread has no signed reply of its own, the latest line is its disposition.
+ */
+export function keysNamingThread(
+  thread: Thread,
+  review: Review,
+  dispositions: BodyDispositions,
+): BodyDispositionKey[] {
+  return dispositions.keys.filter((key) => namesThread(key, thread, review));
 }

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { parseRecordedHarvest } from '../../src/pr-tally/harvest.js';
 import type { RecordedHarvest } from '../../src/pr-tally/harvest.js';
 import { buildRows } from '../../src/pr-tally/rows.js';
+import type { TallyRow } from '../../src/pr-tally/rows.js';
 import pr138 from './fixtures/pr-138-harvest.json' with { type: 'json' };
 
 const COPILOT = 'copilot-pull-request-reviewer';
@@ -11,6 +12,12 @@ const EXPECTED = [COPILOT, CODEX];
 const SIGNATURE = '\n\n— Nettle guards Pistil (2de368)';
 
 const firstHead = (harvest: RecordedHarvest) => harvest.commits[0]?.oid ?? '';
+
+const counts = (row: TallyRow | undefined) => ({
+  raised: row?.raised ?? 0,
+  cureWorthy: row?.cureWorthy ?? 0,
+  undispositioned: row?.undispositioned ?? 0,
+});
 
 const review = (
   overrides: Partial<RecordedHarvest['reviews'][number]> & { commitOid: string },
@@ -24,12 +31,16 @@ const review = (
   ...overrides,
 });
 
-const comment = (databaseId: number, body: string) => ({
+// Posted after every review the #138 recording carries (a batch reaches only items that predate it).
+const comment = (databaseId: number, body: string, createdAt = '2026-09-13T00:00:00Z') => ({
   databaseId,
   author: 'el-graphael',
-  createdAt: '2026-09-12T12:30:00Z',
+  createdAt,
   body: `${body}${SIGNATURE}`,
 });
+
+const copilotOneItem = (text: string) =>
+  `### 🟡 Changes recommended\n\n<details>\n<summary>Review details</summary>\n\n### Suppressed comments (1)\n\n**docs/a.md:9**\n* ${text}\n\n- **Comments generated:** 0 new\n</details>`;
 
 describe('buildRows — settlement needs a substantive, dated review from a declared reviewer', () => {
   it('never settles any head when the expected reviewer set is empty', () => {
@@ -336,5 +347,144 @@ describe('buildRows — the invariant: nothing the recording does not prove sett
     }).rows.find((candidate) => candidate.head === head);
     expect(row?.raised).toBe((base?.raised ?? 0) + 1);
     expect(row?.cureWorthy).toBe((base?.cureWorthy ?? 0) + 1);
+  });
+
+  it('applies a batch only to the body items that predate it, never to a later review of the head', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const unbound = comment(9000013, '**Below-bar** — the rest, all of them, together.');
+    const later = review({
+      id: 'PRR_later',
+      databaseId: 9000014,
+      commitOid: head,
+      submittedAt: '2026-09-14T00:00:00Z',
+      body: copilotOneItem('A finding raised after the batch was posted.'),
+    });
+    const row = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, later],
+        comments: [...harvest.comments, unbound],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.manual).toBe(4);
+    expect(row?.undispositioned).toBe(1);
+  });
+
+  it('keeps anchoring the quiet window on a review whose opening finding is signed', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const reviewerLatest = harvest.reviews
+      .filter((candidate) => candidate.commitOid === head && candidate.author !== 'el-graphael')
+      .map((candidate) => Date.parse(candidate.submittedAt))
+      .reduce((max, value) => Math.max(max, value), 0);
+    const peerReview = review({
+      id: 'PRR_peer',
+      author: COPILOT,
+      commitOid: head,
+      submittedAt: new Date(reviewerLatest + 30 * 60 * 1000).toISOString(),
+    });
+    const signedOpening = {
+      id: 'PRRT_peer',
+      isResolved: false,
+      isOutdated: false,
+      path: 'docs/a.md',
+      line: 3,
+      originalLine: 3,
+      reviewId: 'PRR_peer',
+      reviewCommitOid: head,
+      comments: [
+        {
+          databaseId: 8,
+          reviewId: 'PRR_peer',
+          author: COPILOT,
+          createdAt: peerReview.submittedAt,
+          body: `A finding, signed.${SIGNATURE}`,
+        },
+      ],
+    };
+    const now = new Date(reviewerLatest + 35 * 60 * 1000).toISOString();
+    const settled = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, peerReview],
+        reviewThreads: [...harvest.reviewThreads, signedOpening],
+      },
+      expectedReviewers: EXPECTED,
+      now,
+    }).rows.some((row) => row.head === head);
+    expect(settled).toBe(false);
+  });
+
+  it('keeps the items of a structured review whose finding quotes the skip phrase', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const quoting = review({
+      id: 'PRR_quoting',
+      databaseId: 9000015,
+      commitOid: head,
+      body: copilotOneItem('The body "Unable to review: service unavailable" must satisfy no leg.'),
+    });
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows.find(
+      (row) => row.head === head,
+    );
+    const row = buildRows({
+      harvest: { ...harvest, reviews: [...harvest.reviews, quoting] },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.raised).toBe((base?.raised ?? 0) + 1);
+  });
+
+  it('lets a thread line disposition the named thread when the thread carries no reply', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const codexBody = review({
+      id: 'PRR_codex_line',
+      databaseId: 9000016,
+      author: CODEX,
+      commitOid: head,
+      body: '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Said once**\n\nBody.',
+    });
+    const thread = {
+      id: 'PRRT_codex_line',
+      isResolved: true,
+      isOutdated: false,
+      path: 'docs/a.md',
+      line: 8,
+      originalLine: 8,
+      reviewId: 'PRR_codex_line',
+      reviewCommitOid: head,
+      comments: [
+        {
+          databaseId: 9,
+          reviewId: 'PRR_codex_line',
+          author: CODEX,
+          createdAt: '2026-09-12T12:00:00Z',
+          body: 'The finding.',
+        },
+      ],
+    };
+    const declared = comment(
+      9000017,
+      `**Over-bar** · head SHA:${head.slice(0, 9)} · review 9000016 · \`docs/a.md:8\` · thread PRRT_codex_line · Cured in SHA:deadbeef0.`,
+    );
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows.find(
+      (row) => row.head === head,
+    );
+    const row = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, codexBody],
+        reviewThreads: [...harvest.reviewThreads, thread],
+        comments: [...harvest.comments, declared],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    const before = counts(base);
+    const after = counts(row);
+    expect(after.raised).toBe(before.raised + 1);
+    expect(after.cureWorthy).toBe(before.cureWorthy + 1);
+    expect(after.undispositioned).toBe(before.undispositioned);
   });
 });
