@@ -38,11 +38,12 @@ resides on the coordination branch).
    clause 4 names. At the DUE check, read the commits since the cut: a work product with its
    own review contract (a report, a source change, a plan under active edit) belongs on its
    own lane, and the Director routes a seat there at claim time. One found already on the
-   branch is never re-cut out of history; the fold PR names it in §Scope, declares its intake by
-   its own class (a served document is records-class with verification point merge; a source
-   change or a plan under active edit takes the class PDR-140 clauses 1–3 give it) and expects
-   the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report committed
-   to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
+   branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
+   PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
+   and carries the intake (a served document: records-class, verification point merge); a
+   source change is code-class and stays on the review-round state machine, no intake. It
+   expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
+   committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
    took a day.
 
 ## Ceremony
