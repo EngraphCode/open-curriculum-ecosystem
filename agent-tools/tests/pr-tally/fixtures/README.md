@@ -158,3 +158,29 @@ What the corpus carries, each claim checked against the JSON with `jq` on 2026-0
   the batched comment `5645946537`, so the machine reading of that round is "manual tally
   required" for those eight, not terminal success. The terminal-success reading of that
   round is the seat's human tally on the PR; a fixture test asserts the manual verdict.
+
+## `pr-136-harvest.json` and `pr-138-harvest.json`
+
+Recorded on 2026-09-12 after each pull request merged (#136 at `2b1b15ab8`, #138 at
+`e477e62f7`) with the query above widened for todo 1: `pageInfo` on every connection,
+`originalLine`, `startLine` and `originalStartLine` on every thread (the anchor that survives
+outdating — `line` is `null` on 18 and 19 of their threads), and `databaseId` on every review
+(the REST id a one-line disposition names). Every recorded `hasNextPage` is false. The #135
+recording predates the widened query and carries neither `originalLine` nor review
+`databaseId`.
+
+These two are the conforming corpora the node's todo 3 left owed — pull requests run under the
+disposition format — and what they exercise, checked with the tally builder's own tests:
+
+- #136: ten reviewed heads and one merge commit no reviewer bound; twenty thread replies, the
+  first six signed with the role suffix (unsigned to the predicate) and the last fourteen with
+  the bare prefix; two class-fix heads (`1ca90fece`, `bc6370624`); eight Copilot suppressed
+  items across four reviews.
+- #138: seven reviewed heads and one merge commit; every thread reply bare-signed and marked,
+  so every thread is machine-dispositioned; twenty-three Copilot suppressed items, of which
+  those on `db67da4d5`, `a1ec078e2` and `33cca25bc` carry one-line dispositions naming head,
+  review id, anchor and item, while those on `352ad0ee5`, `84dd6291b`, `ebf90ac3b` and
+  `fe81ac086` were never dispositioned in that form and read as undispositioned; one class-fix
+  head (`a1ec078e2`). The machine verdict at the final head is therefore `open`, not terminal
+  success — the seat's human tally on the PR read it as terminal by disposition. Both readings
+  are true; the recording shows which findings the format did not reach.

@@ -146,7 +146,14 @@ skill.
 ## Todos
 
 1. **The tally builder and the verdict, with fixtures** — criteria 1 and 2; one PR, default
-   round budget.
+   round budget. Landed 2026-09-12: `agent-tools/src/pr-tally/` — `harvest.ts` (the recorded
+   boundary), `markers.ts` (the closed marker grammar), `findings.ts` (body items by the
+   reviewer's markers), `rows.ts` (rows per settled head in branch order) and `verdict.ts` (the
+   predicate with epochs), each with its unit tests over the recorded corpora; the conforming
+   fixtures #136 and #138 recorded with the widened query. Not yet read from a recording: check-run
+   history, so SKIPPED and timeout settlement (criterion 5's skip and timeout cases) wait for the
+   command (todo 2) to harvest it; the ledger's signature question is answered by not widening the
+   predicate — the #135 corpus reads as undispositioned, truthfully.
 2. **The command and the validation script** — criterion 3 and the `--json` shape; one PR.
 3. **The practice half** — the skill step (criterion 4) and the disposition format: the bar
    marker and the disposition named in the pr-lifecycle intake contract (PDR-140's
