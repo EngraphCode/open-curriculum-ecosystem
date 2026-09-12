@@ -294,8 +294,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
   standard they can imagine, never against the story. Read the observation as evidence and
   set the remedy aside; test the REMEDY against the description's §Scope FIRST — the cheapest
   conjunct, and the one that decides, for most findings, that no cure lands here. The
-  observation is then verified as the three-way test requires, because it is routed only if
-  true and rejected if false: a false observation is never given a durable home. Where a
+  observation is then verified as the three-way test requires and priced on the bar: a false
+  observation is rejected and never given a durable home; a true one over the bar earns its
+  in-scope cure or its named home; a true one below the bar takes a reasoned rejection with no
+  write, or a home that already exists (PDR-140 clauses 1 and 9). Where a
   cure is owed, it is derived from the story, never from the remedy. A remedy that would
   exceed the declared scope — coverage, markers on every claim, the full plan reproduced here,
   a decision held pending, where §Scope asked for none of them — is a scope finding whatever
