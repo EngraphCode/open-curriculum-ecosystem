@@ -155,9 +155,10 @@ What the corpus carries, each claim checked against the JSON with `jq` on 2026-0
 - one push marked as the class fix (the epoch reset), in `5645857878`;
 - the final head, `b50820152`, read by the intake contract: its two thread findings carry
   marked below-bar replies; its eight Copilot suppressed items are dispositioned only inside
-  the batched comment `5645946537`, so the machine reading of that round is "manual tally
-  required" for those eight, not terminal success. The terminal-success reading of that
-  round is the seat's human tally on the PR; a fixture test asserts the manual verdict.
+  the batched comment `5645946537`, which carries the role suffix and so is not signed to
+  the predicate: the machine reading of that round is undispositioned for all ten, never
+  terminal success. The terminal-success reading is the seat's human tally on the PR; the
+  tally builder's tests assert the open verdict over this corpus.
 
 ## `pr-136-harvest.json` and `pr-138-harvest.json`
 
@@ -176,11 +177,16 @@ disposition format — and what they exercise, checked with the tally builder's 
   first six signed with the role suffix (unsigned to the predicate) and the last fourteen with
   the bare prefix; two class-fix heads (`1ca90fece`, `bc6370624`); eight Copilot suppressed
   items across four reviews.
+- #135, read by the machine: every seat reply AND every seat comment carries the role suffix
+  the predicate rejects, so nothing in it is a signed disposition; every finding is
+  undispositioned, none manual, and the verdict is open. (A SIGNED batched comment naming a
+  head would make that head's body items manual; this corpus has none.)
 - #138: seven reviewed heads and one merge commit; every thread reply bare-signed and marked,
   so every thread is machine-dispositioned; twenty-three Copilot suppressed items, of which
   those on `db67da4d5`, `a1ec078e2` and `33cca25bc` carry one-line dispositions naming head,
   review id, anchor and item, while those on `352ad0ee5`, `84dd6291b`, `ebf90ac3b` and
   `fe81ac086` were never dispositioned in that form and read as undispositioned; one class-fix
-  head (`a1ec078e2`). The machine verdict at the final head is therefore `open`, not terminal
+  head (`a1ec078e2`); one suppressed item declared a restatement of a named thread is counted
+  once. The machine verdict at the final head is therefore `open`, not terminal
   success — the seat's human tally on the PR read it as terminal by disposition. Both readings
   are true; the recording shows which findings the format did not reach.

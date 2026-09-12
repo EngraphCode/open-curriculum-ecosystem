@@ -6,9 +6,12 @@ import type { Tally, TallyRow } from './rows.js';
  * `c[n] >= c[n-1] AND c[n-1] >= c[n-2]` or four settled rounds, either arm
  * firing only while the latest settled count is non-zero; a settled round at
  * cure-worthy zero is the terminal success state and takes precedence; a
- * push the seat marks as the class fix opens a new epoch. A latest round the
- * machine cannot count — a signed disposition with no marker, or findings
- * with no signed disposition — is surfaced as such, never read as zero.
+ * push the seat marks as the class fix opens a new epoch at its head, whether
+ * or not that head settles. Anything the machine cannot count blocks every
+ * count-based verdict: a signed disposition with no marker anywhere in the
+ * settled rows reads as manual tally required, findings with no signed
+ * disposition anywhere read as open, and a current head still owed a
+ * reviewer reads as open — disposition obligations never reset with an epoch.
  */
 
 type VerdictKind =
@@ -33,22 +36,43 @@ export interface VerdictOptions {
   readonly classFixHeads?: readonly string[];
 }
 
-function isClassFix(row: TallyRow, options: VerdictOptions): boolean {
-  return (options.classFixHeads ?? []).some((head) => row.head.startsWith(head));
+/** The verdict's input: settled rows, every head in branch order, and the current head's settlement. */
+export interface VerdictInput {
+  readonly rows: readonly TallyRow[];
+  /** Every head in branch order; defaults to the rows' heads. */
+  readonly heads?: readonly string[];
+  /** The current head when it is NOT settled; the verdict then reads open. */
+  readonly unsettledHead?: string;
 }
 
+const isClassFix = (head: string, options: VerdictOptions): boolean =>
+  (options.classFixHeads ?? []).some((prefix) => head.startsWith(prefix));
+
+// A class fix opens a new epoch only once a settled round precedes it.
+function settledBefore(rows: readonly TallyRow[], heads: readonly string[], head: string): boolean {
+  const position = heads.indexOf(head);
+  return rows.some((row) => heads.indexOf(row.head) < position);
+}
+
+// Epoch boundaries are found over EVERY head in branch order, so a class-fix
+// head superseded before it settled still opens its epoch; only settled rows
+// are counted.
 function currentEpoch(
   rows: readonly TallyRow[],
+  heads: readonly string[],
   options: VerdictOptions,
 ): { epoch: number; rows: TallyRow[] } {
   let epoch = 1;
   let current: TallyRow[] = [];
-  for (const row of rows) {
-    if (isClassFix(row, options) && current.length > 0) {
+  for (const head of heads) {
+    if (isClassFix(head, options) && settledBefore(rows, heads, head)) {
       epoch += 1;
       current = [];
     }
-    current.push(row);
+    const row = rows.find((candidate) => candidate.head === head);
+    if (row !== undefined) {
+      current.push(row);
+    }
   }
   return { epoch, rows: current };
 }
@@ -77,20 +101,34 @@ function uncountedEvidence(rows: readonly TallyRow[]): string[] {
     );
 }
 
-/** The verdict over settled rows alone (pure over the row shape; the tally builder supplies them). */
-export function verdictFromRows(rows: readonly TallyRow[], options: VerdictOptions): Verdict {
-  const { epoch, rows: epochRows } = currentEpoch(rows, options);
+function blockedKind(input: VerdictInput): VerdictKind | undefined {
+  if (input.rows.some((row) => row.manual > 0)) {
+    return 'manual-tally-required';
+  }
+  if (input.rows.some((row) => row.undispositioned > 0) || input.unsettledHead !== undefined) {
+    return 'open';
+  }
+  return undefined;
+}
+
+/** The verdict over settled rows and the head order (pure over the row shape; the tally builder supplies them). */
+export function verdictFromRows(input: VerdictInput, options: VerdictOptions): Verdict {
+  const heads = input.heads ?? input.rows.map((row) => row.head);
+  const { epoch, rows: epochRows } = currentEpoch(input.rows, heads, options);
   const counts = epochRows.map((row) => row.cureWorthy);
+  const evidence = [
+    ...(input.unsettledHead === undefined
+      ? []
+      : [`current head ${input.unsettledHead.slice(0, 9)} is not settled`]),
+    ...uncountedEvidence(input.rows),
+  ];
   const latest = epochRows.at(-1);
-  const evidence = uncountedEvidence(rows);
   if (latest === undefined) {
     return { kind: 'no-settled-round', epoch, counts, evidence };
   }
-  if (latest.manual > 0) {
-    return { kind: 'manual-tally-required', epoch, counts, evidence };
-  }
-  if (latest.undispositioned > 0) {
-    return { kind: 'open', epoch, counts, evidence };
+  const blocked = blockedKind(input);
+  if (blocked !== undefined) {
+    return { kind: blocked, epoch, counts, evidence };
   }
   if (latest.cureWorthy === 0) {
     return { kind: 'terminal-success', epoch, counts, evidence };
@@ -98,7 +136,9 @@ export function verdictFromRows(rows: readonly TallyRow[], options: VerdictOptio
   return { kind: stepBackArmed(counts) ? 'step-back' : 'converging', epoch, counts, evidence };
 }
 
-/** The verdict over a built tally: its settled rows, in branch order. */
+/** The verdict over a built tally: its settled rows, every head in branch order, and whether the current head settled. */
 export function verdict(tally: Tally, options: VerdictOptions): Verdict {
-  return verdictFromRows(tally.rows, options);
+  const current = tally.heads.at(-1);
+  const unsettledHead = tally.unsettled.some((row) => row.head === current) ? current : undefined;
+  return verdictFromRows({ rows: tally.rows, heads: tally.heads, unsettledHead }, options);
 }

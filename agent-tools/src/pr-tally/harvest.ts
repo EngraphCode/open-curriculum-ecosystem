@@ -5,9 +5,12 @@ import { z } from 'zod';
  * node names (commits in branch order, review threads with every comment,
  * the paged reviews connection with each review's commit and body, and the
  * issue comments), recorded once from GitHub's GraphQL surface and read
- * here from a file. Every connection carries its `pageInfo`, and a recording
- * with any `hasNextPage: true` is refused — a truncated recording is not a
- * fixture (`agent-tools/tests/pr-tally/fixtures/README.md`).
+ * here from a file. The consumed fields are validated strictly and a missing
+ * or misshapen one fails loud; unknown keys are stripped, as `pr-watch`'s
+ * boundary parsers do, so a recording may carry fields this reader does not
+ * consume. Every connection carries its `pageInfo`, and a recording with any
+ * `hasNextPage: true` is refused — a truncated recording is not a fixture
+ * (`agent-tools/tests/pr-tally/fixtures/README.md`).
  *
  * @remarks
  * This module does no IO. The recording query is in the fixtures README;
