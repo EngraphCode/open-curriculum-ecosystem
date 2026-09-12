@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "conversation_id": "owner-only-retention-enforcement-2026-09-11",
   "thread": "estate-coordination",
-  "status": "open",
+  "status": "closed",
   "title": "Conformance retention: what protects credential-bearing vendor output?",
   "participants": [
     {
@@ -54,6 +54,26 @@
           "summary": "The carrier node whose todo 5 the verification closed; acceptance criteria and dispositions."
         }
       ]
+    },
+    {
+      "entry_id": "entry-004",
+      "kind": "decision",
+      "created_at": "2026-09-12T00:00:00Z",
+      "author": {
+        "agent_name": "Owner",
+        "platform": "human",
+        "model": "human",
+        "session_id_prefix": "unknown"
+      },
+      "body": "Owner, 2026-09-12, verbatim at the cards: \"redact at boundary, but do not touch any .env files\". Option C. The constraint is part of the decision, not a gloss on it: the redactor must not read, scan or otherwise reach for .env files. The obvious implementation it forbids is sourcing known secret VALUES from the environment files to match against the output, which would make the redactor a second secret-handling surface and widen exactly what option C exists to narrow. Redaction is therefore a property of the OUTPUT — shape-matched on the text about to be retained — never a comparison against a list of real secrets read from disk."
+    },
+    {
+      "entry_id": "entry-005",
+      "kind": "resolution",
+      "created_at": "2026-09-12T00:00:00Z",
+      "outcome": "resolved",
+      "body": "Resolved as option C with the .env prohibition. Options A and B are not taken. A composes with C rather than competing — the mode verification landed on PR #132 stays exactly as it is, and its residual stays documented — but it is no longer the answer to the question, because a retained artefact carrying no credential does not depend on the mount honouring its permission bits. B is refused: no filesystem-type allowlist, so retention keeps working on network mounts. Implementation is not yet planned; the delivery node is this resolution's named follow-up."
     }
-  ]
+  ],
+  "closed_at": "2026-09-12T00:00:00Z"
 }

@@ -1055,3 +1055,26 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
   branch — that judgement held #132 for the hours it took to find the real answer.
 
 - FOLD: the 2026-09-11 coordination branch carries this block. Uncommitted at the stop: nothing.
+
+## Nettle guards Pistil (2de368) — Director, the owner's cards of 2026-09-12
+
+- CARD DISCIPLINE, corrected by the owner. I asked four cards; one was refused as "vastly premature":
+  _where should the AI tutoring work land — this tree or the pedagogy-library visitor?_ The owner:
+  "We haven't even created the brief yet, this question is vastly premature." The card was
+  well-formed and the constraint behind it was real (the 2026-09-06 corrected frame: Engraph-only
+  product lives in its own repo). It was still wrong to ask, because a LANDING question presupposes
+  a brief, and there is none. THE TEST for a decision card, which the four lenses do not supply:
+  does the answer change what I do NEXT? Two of the four passed it; the landing one would not have
+  changed the next act, which is to wait for material the owner has not sent. A card whose answer
+  cannot be acted on yet is cost, not diligence — it spends the owner's attention to buy a fact
+  that will be stale when it is finally needed.
+- The owner's other answers, both of which ARE actionable: retention is cured by REDACTING AT THE
+  BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and closed);
+  and `pr-tally` gets no build decision until they have seen "a plan that can be completed in two
+  hours" — a scoping ask, not a refusal.
+- The `.env` constraint is worth keeping as design, not just as an instruction: the implementation
+  it forbids is sourcing real secret VALUES from env files to match against output, which would
+  make the redactor a second secret-handling surface — widening exactly what the decision narrows.
+  Redaction is therefore a property of the OUTPUT's shape, never a comparison against real secrets.
+
+- FOLD: the 2026-09-12 cards ride the coordination branch. Uncommitted at the stop: nothing.

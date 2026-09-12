@@ -2195,12 +2195,18 @@ read and dispositioned; none was waived.
 
 **The owner-only retention cannot prove ENFORCEMENT, only that the mode interface is live.**
 
-OPEN OWNER DECISION — the request, its three options and its evidence live in the decision thread
+DECIDED 2026-09-12 — the request, its options, the owner's decision and its resolution live in
 [`owner-only-retention-enforcement-2026-09-11.json`](../../../state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json),
-`status: open`. Not restated here: a thread record cites a decision thread, it does not carry its
-body (`threads/README.md` §Relationship to other operational surfaces). This lane's next safe step does not depend on the answer,
-since PR #132 landed with its claim narrowed to what it establishes, so the decision is
-discoverable open work rather than a block.
+`status: closed`. Not restated here: a thread record cites a decision thread, it does not carry its
+body (`threads/README.md` §Relationship to other operational surfaces).
+
+The outcome in one line, because it changes what a later seat should build: option C, REDACT AT THE
+RETENTION BOUNDARY, with the owner's constraint that the redactor must not touch any `.env` files.
+Option B (a filesystem-type allowlist) is refused, so retention keeps working on network mounts.
+Option A composes rather than competes — #132's mode verification stays exactly as it is and its
+residual stays documented — but it is no longer the answer, because an artefact carrying no
+credential does not depend on the mount honouring its permission bits. The implementation has no
+delivery node yet; that is the resolution's named follow-up.
 
 Recorded here only because it changes how a later reader should read the module: the guarantee is
 that a retained artefact is created owner-only, never widened, and refused outright unless the
