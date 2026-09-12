@@ -32,16 +32,16 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
-3. **The branch carries continuity records only** — the continuity-only commits
+3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
+   memory surfaces, the class
    [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
-   specifies. At the DUE check, read the commits since the cut: a work product with its own
-   review contract (a report, a source change, a plan under active edit; doctrine and memory
-   surfaces are shared state the rule keeps on the branch) belongs on its own lane, and the
-   Director routes a seat there at claim time. One found already on the branch is never
-   re-cut out of history; the fold PR names it in §Scope and the intake (records-class plus
-   one served artefact, verification point merge) and expects the rounds it brings. Worked
-   instance, 2026-09-12: a 470-line exploration report committed to the coordination branch
-   drew thirty of the fold's thirty-eight findings, and the fold took a day.
+   clause 4 names. At the DUE check, read the commits since the cut: a work product with its
+   own review contract (a report, a source change, a plan under active edit) belongs on its
+   own lane, and the Director routes a seat there at claim time. One found already on the
+   branch is never re-cut out of history; the fold PR names it in §Scope and the intake
+   (records-class plus one served artefact, verification point merge) and expects the rounds
+   it brings. Worked instance, 2026-09-12: a 470-line exploration report committed to the
+   coordination branch drew thirty of the fold's thirty-eight findings, and the fold took a day.
 
 ## Ceremony
 

@@ -295,9 +295,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
   observation is then verified as the three-way test requires, because it is routed only if
   true and rejected if false: a false observation is never given a durable home. Where a
   cure is owed, it is derived from the story, never from the remedy. A remedy that would
-  widen the artefact — add coverage, add markers to every claim, reproduce the full plan here,
-  hold a decision pending — is a scope finding whatever the truth of its observation: no cure
-  here; the verified observation goes to a named home in one line. Worked instances,
+  exceed the declared scope — coverage, markers on every claim, the full plan reproduced here,
+  a decision held pending, where §Scope asked for none of them — is a scope finding whatever
+  the truth of its observation: no cure here; the verified observation goes to a named home
+  in one line. Worked instances,
   2026-09-11/12: a true observation about
   nested fences became a container-aware parser nobody had asked for (five rounds, then
   deleted); a report's per-claim marker contract was cured by narrowing the claim, never by

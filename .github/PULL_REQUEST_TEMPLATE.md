@@ -43,7 +43,7 @@ budget.
 
 - In scope:
 - Out of scope:
-- Findings outside this scope are routed to a named home, never cured here.
+- Findings whose remedy falls outside this scope take no cure here (`pr-lifecycle` §Phase 4 dispositions them).
 - Intake (prose/records changesets): class — ; verification point — ; bar — ; budget —
 
 ## Validation
