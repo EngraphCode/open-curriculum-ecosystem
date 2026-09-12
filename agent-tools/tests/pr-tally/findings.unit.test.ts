@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import { extractBodyFindings } from '../../src/pr-tally/findings.js';
-import { parseRecordedHarvest } from '../../src/pr-tally/harvest.js';
-import pr135 from './fixtures/pr-135-harvest.json' with { type: 'json' };
-import pr136 from './fixtures/pr-136-harvest.json' with { type: 'json' };
-import pr138 from './fixtures/pr-138-harvest.json' with { type: 'json' };
 
 const COPILOT = 'copilot-pull-request-reviewer';
 const CODEX = 'chatgpt-codex-connector';
@@ -86,34 +82,11 @@ describe('extractBodyFindings â€” findings from review bodies, by the reviewerâ€
     });
   });
 
-  it.each([
-    ['#135', pr135, 37],
-    ['#136', pr136, 8],
-    ['#138', pr138, 23],
-  ])(
-    'reads every Copilot suppressed block in the %s corpus with counts equal to the declared totals',
-    (_label, fixture, expectedTotal) => {
-      const harvest = parseRecordedHarvest(fixture);
-      const copilot = harvest.reviews.filter((review) => review.author === COPILOT);
-      const results = copilot.map((review) => extractBodyFindings(review));
-      expect(results.every((result) => !result.manual)).toBe(true);
-      const declared = copilot
-        .map((review) => /Suppressed comments \((\d+)\)/u.exec(review.body))
-        .map((match) => (match === null ? 0 : Number(match[1])));
-      expect(results.map((result) => result.items.length)).toStrictEqual(declared);
-      expect(results.reduce((sum, result) => sum + result.items.length, 0)).toBe(expectedTotal);
-    },
-  );
-
-  it('reads every Codex review body in the corpora as boilerplate: no body-only Codex item is recorded', () => {
-    for (const fixture of [pr135, pr136, pr138]) {
-      const codex = parseRecordedHarvest(fixture).reviews.filter(
-        (review) => review.author === CODEX,
-      );
-      expect(codex.length).toBeGreaterThan(0);
-      for (const review of codex) {
-        expect(extractBodyFindings(review)).toStrictEqual({ items: [], manual: false });
-      }
-    }
+  it('surfaces a Codex body whose headings repeat as manual: one line would disposition both', () => {
+    const badge =
+      '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Same heading**';
+    expect(
+      extractBodyFindings({ author: CODEX, body: `${badge}\n\nOne.\n\n${badge}\n\nTwo.` }),
+    ).toStrictEqual({ items: [], manual: true });
   });
 });

@@ -142,13 +142,14 @@ describe('buildRows — the invariant: nothing the recording does not prove sett
     expect(cure, 'fixture has fewer than two heads').toBeDefined();
     const batched = comment(
       9000007,
-      `**Over-bar** — the four on ${(reviewed ?? '').slice(0, 9)}, together. Cured in \`SHA:${(cure ?? '').slice(0, 9)}\`.`,
+      `**Over-bar** — the four on SHA:${(reviewed ?? '').slice(0, 9)}, together. Cured in \`SHA:${(cure ?? '').slice(0, 9)}\`.`,
     );
     const rows = buildRows({
       harvest: { ...harvest, comments: [...harvest.comments, batched] },
       expectedReviewers: EXPECTED,
     }).rows;
     const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows;
+    expect(rows.find((row) => row.head === reviewed)?.manual).toBe(4);
     expect(rows.find((row) => row.head === cure)?.manual).toBe(
       base.find((row) => row.head === cure)?.manual,
     );
@@ -229,5 +230,111 @@ describe('buildRows — the invariant: nothing the recording does not prove sett
       base.find((row) => row.head === first)?.manual,
     );
     expect(rows.find((row) => row.head === second)?.undispositioned).toBe(0);
+  });
+
+  it('counts a signed opening finding from a reviewer: only replies are dispositions', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const signedFinding = {
+      id: 'PRRT_peer',
+      isResolved: false,
+      isOutdated: false,
+      path: 'docs/a.md',
+      line: 3,
+      originalLine: 3,
+      reviewId: 'PRR_peer',
+      reviewCommitOid: head,
+      comments: [
+        {
+          databaseId: 5,
+          reviewId: 'PRR_peer',
+          author: 'peer-seat',
+          createdAt: '2026-09-12T12:00:00Z',
+          body: `A finding, signed by the reviewing seat.${SIGNATURE}`,
+        },
+      ],
+    };
+    const peerReview = review({ id: 'PRR_peer', author: 'peer-seat', commitOid: head });
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows.find(
+      (row) => row.head === head,
+    );
+    const row = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, peerReview],
+        reviewThreads: [...harvest.reviewThreads, signedFinding],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.raised).toBe((base?.raised ?? 0) + 1);
+    expect(row?.undispositioned).toBe((base?.undispositioned ?? 0) + 1);
+  });
+
+  it('reads a signed, marked line naming no head as an unbound batch: every unnamed body item is manual', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const unbound = comment(9000010, '**Below-bar** — the rest, all of them, together.');
+    const row = buildRows({
+      harvest: { ...harvest, comments: [...harvest.comments, unbound] },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.undispositioned).toBe(0);
+    expect(row?.manual).toBe(4);
+  });
+
+  it('dedupes a declared restatement of an anchorless Codex item at the anchor the line records', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const codexBody = review({
+      id: 'PRR_codex_same',
+      databaseId: 9000011,
+      author: CODEX,
+      commitOid: head,
+      body: '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Said differently**\n\nBody.',
+    });
+    const thread = {
+      id: 'PRRT_codex_same',
+      isResolved: true,
+      isOutdated: false,
+      path: 'docs/a.md',
+      line: 7,
+      originalLine: 7,
+      reviewId: 'PRR_codex_same',
+      reviewCommitOid: head,
+      comments: [
+        {
+          databaseId: 6,
+          reviewId: 'PRR_codex_same',
+          author: CODEX,
+          createdAt: '2026-09-12T12:00:00Z',
+          body: 'The finding.',
+        },
+        {
+          databaseId: 7,
+          reviewId: 'PRR_r2',
+          author: 'el-graphael',
+          createdAt: '2026-09-12T12:01:00Z',
+          body: `**Over-bar**. Cured.${SIGNATURE}`,
+        },
+      ],
+    };
+    const declared = comment(
+      9000012,
+      `**Over-bar** · head SHA:${head.slice(0, 9)} · review 9000011 · \`docs/a.md:7\` · thread PRRT_codex_same · counted once.`,
+    );
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows.find(
+      (row) => row.head === head,
+    );
+    const row = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, codexBody],
+        reviewThreads: [...harvest.reviewThreads, thread],
+        comments: [...harvest.comments, declared],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.raised).toBe((base?.raised ?? 0) + 1);
+    expect(row?.cureWorthy).toBe((base?.cureWorthy ?? 0) + 1);
   });
 });

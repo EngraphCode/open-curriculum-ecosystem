@@ -79,7 +79,10 @@ function codexFindings(body: string): BodyFindings {
     .map((line) => CODEX_ITEM.exec(line))
     .filter((match): match is RegExpExecArray => match !== null)
     .map((match) => ({ key: (match[1] ?? '').trim(), path: null, line: null, substance: '' }));
-  return { items, manual: false };
+  // Two items under one heading share a key and carry no anchor to tell them
+  // apart: one line would disposition both, so the body reads manual.
+  const headings = new Set(items.map((item) => item.key));
+  return headings.size === items.length ? { items, manual: false } : { items: [], manual: true };
 }
 
 /**

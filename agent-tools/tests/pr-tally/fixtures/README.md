@@ -1,9 +1,9 @@
 # pr-tally fixtures
 
 Recorded harvests for the `pr-tally` command's tests (the delivery node
-`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Todo 1's tests read these files (the
-tally builder's and the settlement unit suites, and the corpus suite that reads them through the
-whole instrument); tests never call GitHub.
+`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Todo 1's integration suites read these
+files — the tally builder's, the settlement suite, and the corpus suite that reads them through
+the whole instrument; the unit suites take literal inputs; tests never call GitHub.
 
 ## `pr-135-harvest.json`
 
@@ -152,7 +152,8 @@ What the corpus carries, each claim checked against the JSON with `jq` on 2026-0
   (`5644727301`, `5644730066`, `5645756283`), which disposition nothing, and three body-only
   disposition comments (`5645760733`, `5645857878`, `5645946537`) that batch findings from
   several heads under prose headings and tables, predating the one-line-per-finding form —
-  the corpus's "manual tally required" case for body-only items;
+  and carrying the role suffix, so unsigned to the predicate: the corpus's undispositioned
+  case for body-only items (a batched comment signed to the predicate would read manual);
 - one push marked as the class fix (the epoch reset), in `5645857878`;
 - the final head, `b50820152`, read by the intake contract: its two thread findings carry
   marked below-bar replies; its eight Copilot suppressed items are dispositioned only inside

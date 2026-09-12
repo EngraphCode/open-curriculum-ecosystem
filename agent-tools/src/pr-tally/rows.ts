@@ -100,7 +100,7 @@ function bodyItemDisposition(
     return named.marker ?? 'manual';
   }
   const head = review.commitOid ?? '';
-  return dispositions.batchedHeads.some((prefix) => head.startsWith(prefix))
+  return dispositions.unbound || dispositions.batchedHeads.some((prefix) => head.startsWith(prefix))
     ? 'manual'
     : 'undispositioned';
 }
@@ -176,16 +176,15 @@ function findingsFor(
 ): { dispositions: Disposition[]; manualBodies: number } {
   const landedIds = new Set(landedReviews.map((review) => review.id));
   // A thread counts only when its originating review landed (a PENDING draft's threads do not).
+  // An opening comment is a finding whoever signs it — a signed reviewer's
+  // finding is never mistaken for a disposition (only replies disposition).
   const threads = harvest.reviewThreads.filter(
     (thread) =>
       thread.reviewCommitOid === head &&
-      (thread.reviewId === null || landedIds.has(thread.reviewId)) &&
-      !isSignedSelfReply(thread.comments[0]?.body ?? ''),
+      (thread.reviewId === null || landedIds.has(thread.reviewId)),
   );
   // A skip marker declares that no review occurred: it carries no finding prose.
-  const reviews = landedReviews.filter(
-    (review) => !isSignedSelfReply(review.body) && !isSkipMarker(review.body),
-  );
+  const reviews = landedReviews.filter((review) => !isSkipMarker(review.body));
   const bodyItems = reviews.flatMap((review) =>
     bodyItemDispositions(review, threads, dispositions),
   );

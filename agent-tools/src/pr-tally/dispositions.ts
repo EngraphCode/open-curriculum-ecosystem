@@ -28,6 +28,8 @@ export interface BodyDispositions {
   readonly keys: readonly BodyDispositionKey[];
   /** SHA prefixes named by signed, marked lines carrying NO parseable reference. */
   readonly batchedHeads: readonly string[];
+  /** A signed, marked line with no reference names NO head at all: every unnamed body item reads manual. */
+  readonly unbound: boolean;
 }
 
 // The anchor may sit in a code span; the SHA may be a prefix.
@@ -79,16 +81,20 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
   // A marked line that does not parse is a batched disposition, whether or
   // not a sibling line parses: the heads it names read as manual — the
   // line's own head reference when it carries one, else its comment's.
-  const batchedHeads = signed.flatMap((comment) =>
+  const batched = signed.flatMap((comment) =>
     comment.body
       .split('\n')
       .filter((line) => parseKey(line) === null && isMarked(line))
-      .flatMap((line) => {
+      .map((line) => {
         const own = headsNamed(line);
         return own.length > 0 ? own : headsNamed(comment.body);
       }),
   );
-  return { keys, batchedHeads };
+  return {
+    keys,
+    batchedHeads: batched.flat(),
+    unbound: batched.some((heads) => heads.length === 0),
+  };
 }
 
 function sameReview(key: BodyDispositionKey, review: Review): boolean {
@@ -113,7 +119,9 @@ export function keyNames(key: BodyDispositionKey, item: BodyFinding, review: Rev
  * thread OF THE SAME REVIEW at the same anchor (the state machine's dedup
  * rule) — then the item is that thread and counts once. The declaration binds
  * only when it is unambiguous: exactly one body item of the review sits at
- * that anchor.
+ * that anchor. The thread is matched at the KEY's anchor — an anchorless item
+ * (a Codex heading) carries none of its own; an anchored item's anchor has
+ * already been proven equal to the key's.
  */
 export function declaredRestatement(
   item: BodyFinding,
@@ -138,8 +146,8 @@ export function declaredRestatement(
       (thread) =>
         thread.id === id &&
         thread.reviewId === review.id &&
-        thread.path === item.path &&
-        (thread.originalLine ?? thread.line) === item.line,
+        thread.path === key.path &&
+        (thread.originalLine ?? thread.line) === key.line,
     );
   });
 }

@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseRecordedHarvest } from '../../src/pr-tally/harvest.js';
 import { readBarMarker } from '../../src/pr-tally/markers.js';
-import pr135 from './fixtures/pr-135-harvest.json' with { type: 'json' };
 
 describe('readBarMarker — the closed grammar of the opening bold span', () => {
   it.each([
@@ -25,16 +23,5 @@ describe('readBarMarker — the closed grammar of the opening bold span', () => 
     [''],
   ])('reads %s as no marker', (body) => {
     expect(readBarMarker(body)).toBeNull();
-  });
-
-  it('reads every seat reply in the recorded #135 corpus: fourteen over-bar, three below-bar', () => {
-    const harvest = parseRecordedHarvest(pr135);
-    const markers = harvest.reviewThreads
-      .flatMap((thread) => thread.comments)
-      .filter((comment) => comment.author === 'el-graphael')
-      .map((comment) => readBarMarker(comment.body));
-    expect(markers.filter((marker) => marker === 'over-bar')).toHaveLength(14);
-    expect(markers.filter((marker) => marker === 'below-bar')).toHaveLength(3);
-    expect(markers).not.toContain(null);
   });
 });
