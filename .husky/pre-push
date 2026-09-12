@@ -37,6 +37,17 @@ if [ "$secret_scan_status" -ne 0 ]; then
   exit 1
 fi
 
+echo "💸 Pricing the review loop against the declared budget..."
+# The review cost gate (PR #139, 2026-09-12: seven settlement pushes against a
+# declared budget of two, stopped only by the owner). Past the budget, while the
+# loop is not converging, the push is refused: the remaining findings are
+# dispositioned without a cure, or the owner raises the budget on the PR.
+if ! pnpm --silent agent-tools:review-cost gate --branch; then
+  echo "❌ Review cost gate refused the push (BUDGET-EXHAUSTED or unreadable)."
+  echo "💡 Disposition the remaining findings without a cure, or record a rebudget on the PR."
+  exit 1
+fi
+
 echo "📝 Checking formatting..."
 if ! pnpm format-check:root; then
   echo "❌ Formatting issues found!"
