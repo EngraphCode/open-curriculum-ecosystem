@@ -159,7 +159,9 @@ For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
 target may be, what a flag may be — so reviewers read a contract rather than
-discover it a case per round: on
+discover it a case per round, and the
+pull request's tests and recorded fixtures are the specification a code finding
+must be exercised by (the state machine's item 2): on
 2026-09-06 rounds two to four of a containment-writer review were one contract
 specified case by case. A review OF a pull request lands its records on that
 PR's branch, never as a separate PR into the base (on this fork every PR branch
@@ -322,6 +324,13 @@ surfaces. Partial reads produce false "no problems" verdicts:
      ALL THREE conjuncts are required: individual validity is NOT
      sufficiency — a correct finding whose cure widens the PR beyond its
      ticket's story fails the proportionality conjunct and goes to state 3.
+     On code, RELEVANT means exercised by a tested or recorded input of the
+     pull request's specification (the state machine's item 2): a correct
+     case no such input exercises fails this conjunct and goes to state 3
+     as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
+     the declared settlement-push budget is spent, every finding goes to
+     state 3 whatever it exercises — the cost gate refuses the push, and
+     the reviewer blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
@@ -612,10 +621,20 @@ disposition carries and which it predates.
    is the count `c[n]`, the terminal-zero test, and both step-back arms
    read (a round can settle at raised > 0, cure-worthy = 0: that IS the
    terminal success state under triage). In lanes PDR-140 excludes
-   (code-class changesets; human and code findings of mixed ones) no
-   routing disposition exists — every verified-correct finding is
-   cure-worthy by definition — so the two counts coincide there and the
-   pre-PDR-140 reading of `c[n]` is unchanged. Rows are PERSISTED in the
+   (code-class changesets; human and code findings of mixed ones)
+   PDR-140's prose pricing does not apply; the bar is the specification
+   the pull request carries — its tests and recorded fixtures: a
+   verified-correct finding that a tested or recorded input exercises is
+   cure-worthy while the declared settlement-push budget lasts; a
+   verified-correct case no such input exercises, and every finding once
+   the budget is spent, is a fixture at pickup — Phase 4's state 3,
+   dispositioned below-bar with the reason and routed as that state
+   routes, never a mechanism edit (PR #139, 2026-09-12: reading "verified correct" as
+   "cure-worthy by definition" on an instrument over an open input space
+   ran seven settlement pushes against a declared budget of two and 98
+   comments, every finding correct, none exercised by a recorded input,
+   until the owner stopped the loop — the out-of-band correction this
+   block names as a defect against the skill). Rows are PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
    (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted
@@ -745,10 +764,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    2026-09-08 when the two met on one tail). Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
-   2026-09-03). A code-class finding is outside this pricing altogether: a
+   2026-09-03). A code-class finding is outside this prose pricing: a
    verified defect follows the code-review state machine's own transitions
-   (PDR-132's round budget and the step-back arms above), never a
-   settlement-push cap. The tip of the LAST budgeted settlement push — the
+   (PDR-132's round budget, the step-back arms above, and item 2's
+   specification boundary), and its cures land inside the same declared
+   settlement-push budget — a code loop with no cap ran seven pushes on
+   PR #139 (2026-09-12). The tip of the LAST budgeted settlement push — the
    declared budget (two by default, PDR-140 clause 4) plus any rebudget
    recorded when exhaustion left a mandatory cure pending — is the FINAL
    HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
