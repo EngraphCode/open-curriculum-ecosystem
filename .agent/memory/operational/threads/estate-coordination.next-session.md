@@ -2588,3 +2588,13 @@ retrospective on the day's arc (offered, not run); the verification-point amendm
   memory tail; PRs #136/#138/#139; the node `pr-tally.plan.md` (todo 1 and 3 status, four ledger rows).
 - *Fence sweep*: no owner word fenced; the quoted sentences above sit on tracked lines.
 - *Fixed point*: a further pass re-finds only the claim-areas discrepancy and the retrospective offer.
+
+### Addendum at 18:0xZ — round three on #139 is OPEN and unread
+
+Both reviewers posted on SHA:cdc2748e6 as this block was being written: five threads (two Copilot, three
+Codex) and two Copilot suppressed items, all on `agent-tools/src/pr-tally/rows.ts`, deliberately not read
+under the owner's pause. Epoch one settled counts so far 10, 9; this round is at most 7 raised, so the
+non-decreasing arm cannot fire on it, and a FOURTH non-zero settled round arms the step-back regardless.
+Post-compaction: harvest it first (threads and the suppressed block), verify each against the state
+machine's text and the code, cure the correct ones in one push, reject the incorrect with verified
+reasoning; the front door was polling at the boundary and will have exited THREADS-OPEN.
