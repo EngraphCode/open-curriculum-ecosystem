@@ -110,6 +110,8 @@ interface HarvestedThread {
 /** One review from the paged connection, carrying its own commit binding. */
 interface HarvestedReviewRecord {
   readonly id: string;
+  /** The REST id, when the recording carried it — the id a disposition line names. */
+  readonly databaseId: number | null;
   readonly author: string;
   readonly state: string;
   readonly commitOid: string | null;
@@ -210,6 +212,7 @@ export function parseRecordedHarvest(raw: unknown): RecordedHarvest {
     reviewThreads: shape.reviewThreads.nodes.map(flattenThread),
     reviews: shape.reviews.nodes.map((review) => ({
       id: review.id,
+      databaseId: review.databaseId ?? null,
       author: review.author?.login ?? '',
       state: review.state,
       commitOid: review.commit?.oid ?? null,
