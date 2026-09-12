@@ -35,6 +35,10 @@ query {
         oid
       }
       commits(first: 50) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           commit {
             oid
@@ -43,6 +47,10 @@ query {
         }
       }
       reviewThreads(first: 50) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           id
           isResolved
@@ -50,6 +58,10 @@ query {
           path
           line
           comments(first: 50) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             nodes {
               databaseId
               author {
@@ -68,6 +80,10 @@ query {
         }
       }
       reviews(first: 50) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           id
           author {
@@ -82,6 +98,10 @@ query {
         }
       }
       comments(first: 50) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           databaseId
           author {
@@ -96,9 +116,11 @@ query {
 }
 ```
 
-Every connection was under one page (7 commits, 17 threads, 26 reviews,
-10 comments); a larger PR needs the `pageInfo` cursors the node's mechanism
-requires.
+Every connection was under one page for PR #135 (7 commits, 17 threads, 26 reviews, 10
+comments). For a larger PR, page each connection to exhaustion before unwrapping: while any
+`pageInfo.hasNextPage` is true, re-query that connection with `after: "<endCursor>"` and
+concatenate its `nodes` — the nested thread `comments` connection included — as the node's
+mechanism requires; a truncated recording is not a fixture.
 
 What the corpus exercises, by the node's criterion 5: nine reviewer reviews bound to five
 heads; two of the seven commits never reviewed (superseded before a
@@ -111,4 +133,8 @@ marked as the class fix (the epoch reset); and the last review wave on the
 final head raising ten findings, every one dispositioned below the bar — the
 terminal-success reading. The disposition
 verbs (`Cured in`, `Routed to`, `Rejected`) were named after this corpus
-was recorded: its rejections carry the rationale without the word.
+was recorded: its rejections carry the rationale without the word. Its two body-only
+disposition comments (the suppressed-findings reconciliations, `5645760733` and `5645946537`)
+predate the one-line-per-finding form the intake contract now requires — they batch several
+heads under prose headings — so they are the corpus's "manual tally required" case for
+body-only items, and the thread replies are its marked case.
