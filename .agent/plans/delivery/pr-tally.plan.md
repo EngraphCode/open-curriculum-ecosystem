@@ -95,7 +95,7 @@ skill.
   a reply landing before the next push never unsettles the head). The invariant: the
   command derives no count from prose; every count reads a recorded field, and a finding
   without the marker is surfaced as "manual tally required" like an unmarked body. The
-  marker is not yet in the intake contract — the practice half (todo 3) carries it there,
+  marker is in the intake contract (pr-lifecycle §Response pricing, the disposition format),
   so that ordinary rounds produce counts, not "manual" verdicts.
 - **The verdict**: the exact predicate from the skill — `c[n] >= c[n-1] AND c[n-1] >= c[n-2]`
   across three settled cure-worthy counts, or four settled rounds in the epoch, either arm
@@ -151,7 +151,10 @@ skill.
    marker and the disposition named in the pr-lifecycle intake contract (PDR-140's
    disposition shape) and its projections, with an end-to-end fixture produced by that
    workflow and consumed by criterion 5; one small records PR, landed before or with todo 1
-   so that the first live round reads counts rather than "manual tally required".
+   so that the first live round reads counts rather than "manual tally required". Landed
+   2026-09-12: the format in `pr-lifecycle` §Response pricing and its projections; the fixture
+   at `agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`; the skill step landed
+   earlier in SHA:ccdbc5613.
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
 command once it lands), and the PDR-140 intake contract where the changeset carries prose.

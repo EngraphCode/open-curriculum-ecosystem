@@ -500,6 +500,24 @@ sufficient by design (PDR-140 clause 8): needing an out-of-band
 cognitive-skill invocation to correct a running loop is a defect
 against this skill — file it as one.
 
+**Disposition format — the recorded fields the tally reads (the
+`pr-tally` node's todo 3, 2026-09-12).** Every reply or comment that
+dispositions a finding is signed with the seat's identity tuple and OPENS
+with a bold span that contains `over-bar` or `below-bar` (case-insensitive;
+`**Over-bar**`, `**Below-bar**`, `**In scope, over-bar**` and `**Over-bar on
+prong two**` all read) and, for over-bar, names the PDR-140 prong met — then
+one disposition sentence beginning
+`Cured in SHA:<sha>`, `Routed to <home>` or `Rejected`, with its
+rationale. The cure-worthy count reads the marker and nothing else (a
+below-bar finding and a build-changing one can both be routed to a home),
+and a disposition without the marker reads as "manual tally required",
+exactly as an unmarked review body does; the seat's signed replies are
+excluded from the raised count and from the quiet-window anchor (item 2).
+The recorded corpus is the fixture at
+`agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`: every
+disposition there opens with the marker; the disposition verbs postdate
+its rounds, whose rejections carry the rationale without the word.
+
 1. **The compound read.** One GraphQL selection is the BASELINE compound
    state — it answers most PR-state questions, but two inputs come from
    elsewhere and are added on top of it: the reviewer-leg SATISFIED verdict
