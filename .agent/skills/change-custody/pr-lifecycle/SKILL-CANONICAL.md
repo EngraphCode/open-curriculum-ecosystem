@@ -297,8 +297,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
   cure is owed, it is derived from the story, never from the remedy. A remedy that would
   exceed the declared scope — coverage, markers on every claim, the full plan reproduced here,
   a decision held pending, where §Scope asked for none of them — is a scope finding whatever
-  the truth of its observation: no cure here; the verified observation goes to a named home
-  in one line. Worked instances,
+  the truth of its observation: the remedy takes no cure here. The verified observation is
+  then priced on the bar like any other finding — over it, an in-scope cure is derived from
+  the story (a correction or a removal; PDR-140 clause 2 decides where a cure lands, never
+  whether truth matters); below it, a named home in one line. Worked instances,
   2026-09-11/12: a true observation about
   nested fences became a container-aware parser nobody had asked for (five rounds, then
   deleted); a report's per-claim marker contract was cured by narrowing the claim, never by

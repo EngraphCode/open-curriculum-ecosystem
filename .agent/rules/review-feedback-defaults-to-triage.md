@@ -25,10 +25,8 @@ makes any pickup-class home a real verifier.
 
 ## Action
 
-Before step 1, apply `pr-lifecycle` §Phase 4's scope-first test: the
-remedy is separated from the observation and tested against the
-description's §Scope, so an out-of-scope remedy takes no cure here; the
-observation still passes step 1 before it is routed or rejected.
+Before step 1, apply `pr-lifecycle` §Phase 4's scope-first test to the
+finding's remedy; the observation still passes step 1.
 
 1. **Verify first-hand**, per `pr-comments-resolve-and-recheck` — a
    concrete failure scenario or its verified absence, never
