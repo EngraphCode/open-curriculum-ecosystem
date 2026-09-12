@@ -533,7 +533,11 @@ restates an inline thread at that anchor and is counted once — then the
 disposition sentence. The reference is the recorded field that binds the
 line to its round and item; a body-only disposition without it, or a
 comment that batches findings under prose headings, reads as "manual tally
-required" for those items, exactly as an unmarked review body does. The
+required" for those items, exactly as an unmarked review body does — where
+an unmarked body is one carrying finding prose without the reviewer's
+markers; a reviewer's no-finding boilerplate (Codex's ordinary summary, a
+Copilot review with zero generated comments) carries no item and raises
+zero, never manual. The
 cure-worthy count reads the marker and nothing else (a below-bar finding
 and a build-changing one can both be routed to a home); signed replies and
 comments are excluded from the raised count and from the quiet-window
