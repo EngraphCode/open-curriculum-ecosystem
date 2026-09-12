@@ -35,7 +35,8 @@ resides on the coordination branch).
 3. **The branch carries continuity records only** — the continuity-only commits
    [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
    specifies. At the DUE check, read the commits since the cut: a work product with its own
-   review contract (a report, a plan, a doctrine change) belongs on its own lane, and the
+   review contract (a report, a source change, a plan under active edit; doctrine and memory
+   surfaces are shared state the rule keeps on the branch) belongs on its own lane, and the
    Director routes a seat there at claim time. One found already on the branch is never
    re-cut out of history; the fold PR names it in §Scope and the intake (records-class plus
    one served artefact, verification point merge) and expects the rounds it brings. Worked
