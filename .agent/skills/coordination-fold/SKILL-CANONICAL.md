@@ -32,6 +32,19 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
+3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
+   memory surfaces, the class
+   [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
+   clause 4 names. At the DUE check, read the commits since the cut: a work product with its
+   own review contract (a report, a source change, a plan under active edit) belongs on its
+   own lane, and the Director routes a seat there at claim time. One found already on the
+   branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
+   PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
+   and carries the intake (a served document: records-class, verification point merge); a
+   source change is code-class and stays on the review-round state machine, no intake. It
+   expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
+   committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
+   took a day.
 
 ## Ceremony
 
@@ -69,7 +82,10 @@ resides on the coordination branch).
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).
    The body carries the **product-gravity line** (rule Action 3):
    `moved for teachers: … / moved for the Practice: …` — honest, no
-   quota, drift made glanceable.
+   quota, drift made glanceable. The description uses the template's §Scope
+   with the records-class intake declared
+   ([`pr-lifecycle`](../change-custody/pr-lifecycle/SKILL-CANONICAL.md) §Phase 2);
+   cures batch into the declared settlement pushes, never one push per finding.
 7. Arm a settle watch (Monitor) whose filter is loud on EVERY terminal
    state (`silence-is-never-liveness`). Full condition = the four
    required checks BY NAME (CodeQL, SonarCloud Code Analysis,

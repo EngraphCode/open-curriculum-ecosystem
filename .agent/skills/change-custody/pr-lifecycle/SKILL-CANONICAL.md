@@ -146,6 +146,15 @@ artefact for reviewers**, never a file list: what changed, why it matters,
 what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
+**The description's §Scope is the review contract; on a prose- or records-class changeset
+it carries the intake declaration** the state machine's §Response pricing block names as
+the declaration's home. It is a step of OPENING, not of the first review round, because
+reviewers read the body: a scope and a bar stated there bound what they propose. A pull
+request PDR-140 governs that lacks it has no bounded loop until it exists (a code-class
+pull request is bounded by the review-round transitions and declares no intake): the
+2026-09-11 coordination fold (PR #135) opened with a narrative body and no scope or intake,
+and ran five rounds and thirty-eight findings on records before the declaration was posted
+late.
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
@@ -279,6 +288,27 @@ surfaces. Partial reads produce false "no problems" verdicts:
   to TRIAGE every comment, if it is incorrect reject it, if it is correct,
   relevant and proportionate address it, if it is anything else raise a
   ticket, tell the Director, and close the comment."*
+- **Separate the observation from the remedy, and test scope before correctness.** A
+  finding arrives as an observation bundled with a proposed change, and the change is where
+  scope expands: reviewers — bots above all — grade the diff's text against the widest
+  standard they can imagine, never against the story. Read the observation as evidence and
+  set the remedy aside; test the REMEDY against the description's §Scope FIRST — the cheapest
+  conjunct, and the one that decides, for most findings, that no cure lands here. The
+  observation is then verified as the three-way test requires and priced on the bar: a false
+  observation is rejected and never given a durable home; a true one over the bar earns its
+  in-scope cure or its named home; a true one below the bar takes a reasoned rejection with no
+  write, or a home that already exists (PDR-140 clauses 1 and 9). Where a
+  cure is owed, it is derived from the story, never from the remedy. A remedy that would
+  exceed the declared scope — coverage, markers on every claim, the full plan reproduced here,
+  a decision held pending, where §Scope asked for none of them — is a scope finding whatever
+  the truth of its observation: the remedy takes no cure here. The verified observation is
+  then priced on the bar like any other finding — over it, an in-scope cure is derived from
+  the story (a correction or a removal; PDR-140 clause 2 decides where a cure lands, never
+  whether truth matters); below it, a named home in one line. Worked instances,
+  2026-09-11/12: a true observation about
+  nested fences became a container-aware parser nobody had asked for (five rounds, then
+  deleted); a report's per-claim marker contract was cured by narrowing the claim, never by
+  adding markers (one push).
 - The three-way test, exactly one terminal state per finding:
   1. **INCORRECT → reject**, with verified reasoning in the reply
      (`dispositions-need-verified-failure-scenarios`). Rejection is a
@@ -473,7 +503,9 @@ as phase-local restatements.
 **Response pricing — the intake contract
 ([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md),
 owner-ratified 2026-08-31; prose-class changesets).** Before the first
-review wave, the opening working notes declare the intake contract:
+review wave, the pull request description's §Scope — the shepherd's
+opening working notes in PDR-140 clause 3's sense, and the one surface
+every reviewer reads — declares the intake contract:
 artefact class, next verification point, the worthiness-bar reading
 that follows from those two, and the settlement-push budget. Thereafter
 triage per PDR-140 and
