@@ -351,7 +351,10 @@ first-hand as of 2026-06-25.
 > claims archived. The owner's directives of 2026-09-12, verbatim in the estate-coordination thread record
 > §COMPACTION BOUNDARY 7: `pr-tally` is the next work (todo 3 first, per the node's own sequencing); no
 > Windows work; the redaction delivery node is paused until the issue recurs; the AI tutoring research
-> waits for the owner's word. Owner-held: the four sync-workflow findings, to be cured in ONE lane (the
+> waits for the owner's word. Lanes open at the 2026-09-12 13:1xZ compaction boundary: #136 (scope is the
+> review contract, the owner's word of 2026-09-12; lane worktree `fold-intake-2de368`; settlement push one
+> landed, Copilot requested on its tip, the front door to run post-compaction) and #137 (the successor's
+> draft fold PR). Owner-held: the four sync-workflow findings, to be cured in ONE lane (the
 > owner's card word; not started), the mirror-provenance route the owner's choice; the upstream report under
 > `.agent/reports/upstream-sync/` is the owner's to send; the directives-tier placement; #100's two deny
 > lines. A successor's first moves, on any checkout: start-right-team; the mechanical liveness check and

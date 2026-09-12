@@ -2425,3 +2425,88 @@ action here is the front door's read.
 
 *Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a clock
 running it. Two candidates were checked and are not that; the search was not exhaustive.
+
+## 2026-09-12 13:1xZ — COMPACTION BOUNDARY 8 (Nettle guards Pistil, 2de368, Director, Fable 5.1, n=1)
+
+### Board at the boundary
+
+PR #135 MERGED as SHA:69a537717 by the front door (the fold; six rounds, the last terminal by
+disposition). The successor `coordination/2026-09-12-69a537` is cut, published, and carries this
+record; its draft fold PR is **#137**. **#136** (scope is the review contract — the template's
+§Scope with the intake, `pr-lifecycle` §Phase 2 and §Phase 4, the triage rule, `proportionality`,
+`coordination-fold`, `.github/copilot-instructions.md`, `AGENTS.md`) is OPEN from the lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/fold-intake-2de368` on `lane/fold-intake-2de368`:
+settlement push one landed as SHA:39c627107 curing all four round-one findings (in scope, over
+bar); the threads are replied to and resolved; Copilot is requested on that tip (13:07:47Z);
+**the front door has NOT been run on it** — the owner's freeze. Open pull requests: #136, #137.
+Worktrees: the primary (successor) and the lane. Claim `8109015d` re-registered under
+`claude-fable-5-1` by `claims adopt`; its areas row still names the 2026-09-03 handoff record (the
+tool has no areas update; a defect to route, not a blocker). Rotation broadcast sent on the comms
+stream. No process of this seat is running.
+
+### The owner's words of 2026-09-12, verbatim, that bind the next window
+
+"the stop is lifted, plan before acting" (the settlement plan approved: `pr-tally` at TODO 3
+FIRST, per the node's own sequencing). "copilot and others have a tendency to expand scope, we
+can't let that happen" — the story of #136. "please prepare for compaction … and then stop all
+processes, post-compaction we will resume this work."
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- The front door on #136, as a background task:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 136 --expect copilot-pull-request-reviewer --json`
+  — read its exit by name. THREADS-OPEN → harvest, triage scope-first (remedy set aside, tested
+  against #136's §Scope; observation verified; routed only if true), one cure-only push if over
+  bar, replies and resolutions as the bot, Copilot re-requested on the final tip.
+- The all-channels watcher from the `comms-all-channels-watcher` rule's arming command, from the
+  repo root. The heartbeat cron stays DROPPED while n=1 (PDR-082).
+- After #136 lands: remove the lane worktree with BOTH proofs (`git status --porcelain` empty;
+  HEAD an ancestor of freshly fetched `origin/engraph`); `git branch -d` the lane; the remote
+  branch deletes only after the ancestor proof.
+
+### Next work, in order
+
+1. Land #136 (above). 2. `pr-tally` TODO 3 — the bar marker and disposition format in the
+pr-lifecycle intake contract, its projections, one end-to-end fixture from #135's dispositions;
+read `tdd-as-design` and `testing-strategy` before the first test; the node's `## Review
+dispositions` rows are read at pickup. 3. Todo 1, then todo 2, as the node sequences. 4. Fold #137
+at the DUE check with §Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings (one lane; the mirror-provenance route the owner's choice); the
+upstream report under `.agent/reports/upstream-sync/`; the directives-tier placement; #100's two
+deny lines; F-181's one-line settings cure and the stray `.logs/statusline.log` in
+`visitors/pedagogy-library` (untouched); the redaction node (paused until recurrence); the
+tutoring research (waits for the owner's word); a retrospective on this arc, offered, not run.
+
+### Metaloss passes
+
+- *Compressed reasoning*: the disposition of every finding on #135 and #136 is on the pull
+  request itself, per finding, with its bar reading; this block carries only the counts. The
+  judgement "ten raised, zero over bar" on `b50820152` is decision-sufficient because each row
+  names its rationale on the PR.
+- *Promises sweep*: F-183 landed (SHA:3ca466d38); the napkin's retention wording landed; the claim
+  areas discrepancy is FORWARDED above; the pr-tally slice is superseded by the approved plan;
+  the successor's draft PR opened (#137); the retrospective is routed to the owner.
+- *Attribution inferences, flagged*: "the peer reached the owner's credential because the bot
+  path was unavailable" is NOT known (F-183 records the question); "Copilot honoured the
+  instruction" rests on ONE labelled thread on #136 — an observation, not a proof; the
+  markdownlint fixer's MD018 rewrite of `#135,` to `# 135,` is inferred from the diff, not
+  observed as it ran.
+- *Blind-spot bounds*: this seat cannot see whether Copilot's second review on #136 raises
+  threads until it lands; the comms stream is unwatched; the second seat's closed context is
+  unreadable; the subject repository behind the exploration report was never read by this seat.
+- *Index of homes*: this block; the handoff's live snapshot (lanes line updated at this
+  boundary); the plan file `~/.claude/plans/spicy-churning-peacock.md` (machine-local, Part B is
+  the pr-tally sequence); the per-user memory tail; PR #135's comments (the intake, two
+  reconciliations, the round dispositions); PR #136's threads and description; the letter
+  `.agent/experience/2026-09-12-nettle-guards-pistil-the-day-a-fold-took.md`.
+- *External bound*: the assumptions-expert review caught two claim-adding cures the seat's own
+  falsifier had not; Codex caught the authority mix and the route-before-verify; the owner
+  caught the relayed proposal and the scope thesis. Point outside eyes at any record this seat
+  wrote about its own work — that is where every catch landed.
+- *Fence sweep*: no owner word was fenced today; the two quoted sentences above are on tracked
+  lines by design.
+- *Fixed point*: a further pass would only re-find the claim-areas discrepancy and the
+  one-data-point caveat; the recursion closes here.

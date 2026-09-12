@@ -1108,3 +1108,35 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
 - FOLD: the 2026-09-12 cards and this boundary ride the coordination branch, folded at the close.
   Uncommitted at the stop: nothing — and this line is written AFTER the commit this time, the
   contradiction the second seat caught earlier today.
+
+## Nettle guards Pistil (2de368) — Director, the fold that took a day and the scope thesis (2026-09-12 08:2xZ–13:1xZ)
+
+<!-- fitness exceeded; consolidation owed -->
+
+- THE GENERATOR, SEEN FROM INSIDE: three acts felt like diligence and were scope expansion under
+  the seat's own hand — folding a peer's 470-line report because it was "already on the branch";
+  writing a rival slice into the thread record "so it does not live only in a transcript"; leaving
+  the intake declaration for "a comment after round one". A true sentence justified each. The
+  reviewers then did the same from outside: every finding an observation bundled with a remedy
+  graded against the widest standard imaginable. #136 is the cure for both sides at once.
+- WHAT ENDED A LOOP, MECHANICALLY: the remedy separated from the observation; the remedy tested
+  against §Scope before the observation is verified; a push marked as the class fix so the
+  epoch resets. The `b50820152` round: ten raised, zero over bar, no push, merged. First
+  terminal-by-disposition settlement this week.
+- CORRECTION OF THE DAY, TWICE: "written down ≠ correct, useful, or under authority" — the
+  owner on a relayed proposal; Codex an hour later on the seat's own decision record, where the
+  recorder's reading sat under `author: Owner`. Cured by attribution, not deletion.
+- INSTRUMENT NOTES (candidate rows, not filed): (1) the repo hook reads reply prose containing
+  "push" beside `-F` flags as the `git push -f` fingerprint — the cure is prose through the Write
+  tool and API-only shell calls, not rewording; (2) `pnpm markdownlint:root` FIXES as it checks —
+  a `#135,` at a line start became `# 135,` (an h1) and MD001 then fired on the neighbour; keep
+  PR numbers mid-line, and read the fixer's diff; (3) a reply loop globbed a scratch directory
+  holding stale drafts — 28 clean 404s, the F-182 shape in the seat's own hands; (4) a mid-seat
+  model switch leaves the claim row's model stale and `comms send` refuses the collision —
+  `claims adopt` under the running model is the honest re-registration; (5) `claims` has no
+  areas update, so a widened lane leaves a stale areas row.
+- ONE DATA POINT: Copilot's first thread on #136 labelled itself "Out-of-scope observation" and
+  Codex cited `AGENTS.md:L9-L13` — the reviewer instruction is read from the head branch, as
+  the vendor docs said. Recorded as one observation against the falsifier, not as the result.
+- FOLD: the successor `coordination/2026-09-12-69a537` carries this block; draft fold PR #137.
+  Uncommitted at the stop: nothing — this line is written after the commit.
