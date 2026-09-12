@@ -24,7 +24,7 @@ the GraphQL envelope to the `pullRequest` object and pretty-printing:
   suppressed-findings dispositions and the round reconciliations were
   recorded.
 
-The recording query, for a fresh capture of another PR:
+The recording query as run for PR #135 (the number is hard-coded; change it for another PR):
 
 ```graphql
 query {
@@ -124,21 +124,35 @@ comments; the largest nested thread has two comments) and the recorded `pageInfo
 concatenate its `nodes` — the nested thread `comments` connection included — as the node's
 mechanism requires; a truncated recording is not a fixture.
 
-What the corpus exercises, by the node's criterion 5: nine reviewer reviews bound to five
-heads; two of the seven commits never reviewed (superseded before a
-review bound); review bodies carrying Copilot suppressed-findings blocks with
-several findings each (there is NO Codex body-only item: every Codex finding on #135 is a
-thread and its review bodies are boilerplate, so that shape takes a fixture of its own at
-todo 1); the seat's signed
-replies (author `el-graphael`, signed "Nettle guards Pistil (2de368)") each
-opening with the bar marker (`**Over-bar**` / `**Below-bar**`), to be
-excluded from the raised count and read for the cure-worthy count; one push
-marked as the class fix (the epoch reset); and the last review wave on the
-final head raising ten findings, every one dispositioned below the bar — the
-terminal-success reading. The disposition
-verbs (`Cured in`, `Routed to`, `Rejected`) were named after this corpus
-was recorded: its rejections carry the rationale without the word. Its two body-only
-disposition comments (the suppressed-findings reconciliations, `5645760733` and `5645946537`)
-predate the one-line-per-finding form the intake contract now requires — they batch several
-heads under prose headings — so they are the corpus's "manual tally required" case for
-body-only items, and the thread replies are its marked case.
+What the corpus carries, each claim checked against the JSON with `jq` on 2026-09-12:
+
+- nine reviewer reviews bound to five heads; two of the seven commits never reviewed
+  (superseded before a review bound);
+- four Copilot review bodies, every one carrying a suppressed-findings block with several
+  findings; five Codex review bodies, all boilerplate — there is NO Codex body-only item in
+  this corpus (every Codex finding on #135 is a thread), so that shape takes a fixture of its
+  own at todo 1;
+- seventeen seat thread replies (author `el-graphael`). Every one opens with a bar marker
+  that satisfies the closed grammar (fourteen over-bar, three below-bar: `3996143642`,
+  `3996223154`, `3996223195`). Five over-bar replies name no prong (`3996143427`,
+  `3996143456`, `3996143594`, `3996188479`, `3996188520`). One reply carries the literal
+  `Rejected` (`3996143642`); the two final below-bar replies carry no disposition verb and
+  end "No write" (`3996223154`, `3996223195`); no `Routed to` example is recorded. The
+  count reads the marker only, so all seventeen count;
+- every one of those seventeen replies ends `— Nettle guards Pistil (2de368), Director`. The
+  ratified self-reply predicate (`agent-tools/src/pr-watch/reviewer-legs.ts`,
+  `SIGNATURE_SUFFIX`) requires the final line to END with the `(<six hex>)` prefix, so the
+  role suffix makes every recorded reply read as NOT signed under the current code. The
+  node's ledger carries the pickup question for todo 1: widen the predicate by dated
+  amendment, or treat this corpus's replies as unsigned;
+- six seat issue comments: two resume-state records and the late intake declaration
+  (`5644727301`, `5644730066`, `5645756283`), which disposition nothing, and three body-only
+  disposition comments (`5645760733`, `5645857878`, `5645946537`) that batch findings from
+  several heads under prose headings and tables, predating the one-line-per-finding form —
+  the corpus's "manual tally required" case for body-only items;
+- one push marked as the class fix (the epoch reset), in `5645857878`;
+- the final head, `b50820152`, read by the intake contract: its two thread findings carry
+  marked below-bar replies; its eight Copilot suppressed items are dispositioned only inside
+  the batched comment `5645946537`, so the machine reading of that round is "manual tally
+  required" for those eight, not terminal success. The terminal-success reading of that
+  round is the seat's human tally on the PR; a fixture test asserts the manual verdict.
