@@ -2380,6 +2380,19 @@ file already contains, not a new claim about it.
    tutoring research because I will tell you." Nothing to do until then: no shaping question, no
    brief prepared in advance, no material sought out.
 
+### 2026-09-12 12:5xZ — FOLD LANDED (Nettle guards Pistil, 2de368, Director)
+
+`coordination/2026-09-11-f6d7db` folded to `engraph` via #135 as SHA:69a537717 (two parents,
+SHA:f262a5b6b and SHA:b50820152), by the front door as the bot after six review rounds — 4, 5, 3,
+6, 4-distinct, 10 raised with zero over the bar — the last a settled round at cure-worthy zero, the
+machine's terminal-success state. The successor is `coordination/2026-09-12-69a537`, cut from
+post-fold `engraph` by the coordination tool; the primary resides on it; the rotation is
+broadcast on the comms stream. Product-gravity line: *moved for teachers:* nothing in the fold's
+own commits — the day's product movement rode `engraph` through the sync workflows (#131).
+*moved for the Practice:* #132, #131, the retention decision, the exploration report, F-181,
+F-182. Lanes after the fold: #136 (scope is the review contract, at the owner's word of
+2026-09-12) in the landing slot; `pr-tally` todo 3 next. F-183 lands with this entry.
+
 ### The window's generator, stated once more because naming it twice did not stop it
 
 **A valid criticism creates INFORMATION, not an obligation.** Whether it creates an obligation
@@ -2412,3 +2425,176 @@ action here is the front door's read.
 
 *Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a clock
 running it. Two candidates were checked and are not that; the search was not exhaustive.
+
+## 2026-09-12 13:1xZ — COMPACTION BOUNDARY 8 (Nettle guards Pistil, 2de368, Director, Fable 5.1, n=1)
+
+### Board at the boundary
+
+PR #135 MERGED as SHA:69a537717 by the front door (the fold; six rounds, the last terminal by
+disposition). The successor `coordination/2026-09-12-69a537` is cut, published, and carries this
+record; its draft fold PR is **#137**. **#136** (scope is the review contract — the template's
+§Scope with the intake, `pr-lifecycle` §Phase 2 and §Phase 4, the triage rule, `proportionality`,
+`coordination-fold`, `.github/copilot-instructions.md`, `AGENTS.md`) is OPEN from the lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/fold-intake-2de368` on `lane/fold-intake-2de368`:
+settlement push one landed as SHA:39c627107 curing all four round-one findings (in scope, over
+bar); the threads are replied to and resolved; Copilot is requested on that tip (13:07:47Z);
+**the front door has NOT been run on it** — the owner's freeze. Open pull requests: #136, #137.
+Worktrees: the primary (successor) and the lane. Claim `8109015d` re-registered under
+`claude-fable-5-1` by `claims adopt`; its areas row still names the 2026-09-03 handoff record (the
+tool has no areas update; a defect to route, not a blocker). Rotation broadcast sent on the comms
+stream. No process of this seat is running.
+
+### The owner's words of 2026-09-12, verbatim, that bind the next window
+
+"the stop is lifted, plan before acting" (the settlement plan approved: `pr-tally` at TODO 3
+FIRST, per the node's own sequencing). "copilot and others have a tendency to expand scope, we
+can't let that happen" — the story of #136. "please prepare for compaction … and then stop all
+processes, post-compaction we will resume this work."
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- The front door on #136, as a background task:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 136 --expect copilot-pull-request-reviewer --json`
+  — read its exit by name. THREADS-OPEN → harvest, triage scope-first (remedy set aside, tested
+  against #136's §Scope; observation verified; routed only if true), one cure-only push if over
+  bar, replies and resolutions as the bot, Copilot re-requested on the final tip.
+- The all-channels watcher from the `comms-all-channels-watcher` rule's arming command, from the
+  repo root. The heartbeat cron stays DROPPED while n=1 (PDR-082).
+- After #136 lands: remove the lane worktree with BOTH proofs (`git status --porcelain` empty;
+  HEAD an ancestor of freshly fetched `origin/engraph`); `git branch -d` the lane; the remote
+  branch deletes only after the ancestor proof.
+
+### Next work, in order
+
+1. Land #136 (above). 2. `pr-tally` TODO 3 — the bar marker and disposition format in the
+pr-lifecycle intake contract, its projections, one end-to-end fixture from #135's dispositions;
+read `tdd-as-design` and `testing-strategy` before the first test; the node's `## Review
+dispositions` rows are read at pickup. 3. Todo 1, then todo 2, as the node sequences. 4. Fold #137
+at the DUE check with §Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings (one lane; the mirror-provenance route the owner's choice); the
+upstream report under `.agent/reports/upstream-sync/`; the directives-tier placement; #100's two
+deny lines; F-181's one-line settings cure and the stray `.logs/statusline.log` in
+`visitors/pedagogy-library` (untouched); the redaction node (paused until recurrence); the
+tutoring research (waits for the owner's word); a retrospective on this arc, offered, not run.
+
+### Metaloss passes
+
+- *Compressed reasoning*: the disposition of every finding on #135 and #136 is on the pull
+  request itself, per finding, with its bar reading; this block carries only the counts. The
+  judgement "ten raised, zero over bar" on `b50820152` is decision-sufficient because each row
+  names its rationale on the PR.
+- *Promises sweep*: F-183 landed (SHA:3ca466d38); the napkin's retention wording landed; the claim
+  areas discrepancy is FORWARDED above; the pr-tally slice is superseded by the approved plan;
+  the successor's draft PR opened (#137); the retrospective is routed to the owner.
+- *Attribution inferences, flagged*: "the peer reached the owner's credential because the bot
+  path was unavailable" is NOT known (F-183 records the question); "Copilot honoured the
+  instruction" rests on ONE labelled thread on #136 — an observation, not a proof; the
+  markdownlint fixer's MD018 rewrite of `#135,` to `# 135,` is inferred from the diff, not
+  observed as it ran.
+- *Blind-spot bounds*: this seat cannot see whether Copilot's second review on #136 raises
+  threads until it lands; the comms stream is unwatched; the second seat's closed context is
+  unreadable; the subject repository behind the exploration report was never read by this seat.
+- *Index of homes*: this block; the handoff's live snapshot (lanes line updated at this
+  boundary); the plan file `~/.claude/plans/spicy-churning-peacock.md` (machine-local, Part B is
+  the pr-tally sequence); the per-user memory tail; PR #135's comments (the intake, two
+  reconciliations, the round dispositions); PR #136's threads and description; the letter
+  `.agent/experience/2026-09-12-nettle-guards-pistil-the-day-a-fold-took.md`.
+- *External bound*: the assumptions-expert review caught two claim-adding cures the seat's own
+  falsifier had not; Codex caught the authority mix and the route-before-verify; the owner
+  caught the relayed proposal and the scope thesis. Point outside eyes at any record this seat
+  wrote about its own work — that is where every catch landed.
+- *Fence sweep*: no owner word was fenced today; the two quoted sentences above are on tracked
+  lines by design.
+- *Fixed point*: a further pass would only re-find the claim-areas discrepancy and the
+  one-data-point caveat; the recursion closes here.
+
+## 2026-09-12 17:5xZ — COMPACTION BOUNDARY 9 (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1)
+
+### Board at the boundary
+
+Merged today by the front door as the bot: #135 SHA:69a537717 (the fold), #136 SHA:2b1b15ab8 (scope is the
+review contract, seven surfaces, ten rounds in three epochs), #138 SHA:e477e62f7 (the disposition format and
+the #135 fixture, nine rounds in two epochs). Both lane worktrees removed with both proofs; local and remote
+lane branches deleted. OPEN: **#139** (pr-tally todo 1 — `agent-tools/src/pr-tally/{harvest,markers,findings,
+dispositions,rows,verdict}.ts`, 54 unit tests, fixtures #135/#136/#138) from lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/pr-tally-todo1-2de368` on `lane/pr-tally-todo1-2de368`, tip
+SHA:cdc2748e6 = settlement two; two rounds so far, epoch one counts 10, 9 (code-class: every verified-correct
+finding cured — 19 of 19); every thread resolved; Copilot requested on the tip. **#137** (draft fold of this
+branch) at its DUE check. Primary resides on `coordination/2026-09-12-69a537`. Claim `8109015d` under
+`claude-fable-5-1` (areas row still stale; no tool to widen). At the boundary two background tasks of this
+seat are RUNNING — the front door on #139 and the reviewer wake — and will not survive a compaction as ids.
+
+### The owner's words this window, verbatim
+
+"you are not currently acting as a Director, you are a sole operator, I mention this in case it allows you to
+drop some ceremony" (dropped: no title in signatures, no broadcasts, no team bootstrap). "there are two agents
+operating on this machine, you are the only agent in the OCE checkout, and Cauldron herds Lustre (880ff9) is
+operating in the […]/jimcresswell.net checkout" (the machine-local prefix elided by this record)" (a third, Coal weaves Pumice, f67c69, in
+castr). "Lustre is working on transplanting the Practice to their repo … some communication at some points may
+be helpful" (exchanged by SendMessage; nine findings received, each verified here before disposition). "reflect
+deeply on the state and direction of the pull requests" (the reflection: fourteen rounds with zero rejections;
+the verification point "merge" made every wording defect over-bar; the cure was pricing against a named reader
+— the next two rounds closed by rejection). "for the next three hours please do everything first-hand, no
+subagents" (~16:1xZ; binds to ~19:1xZ; nothing this window used one). "when you get to a sensible point please
+pause and prepare for compaction".
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- Process table: `ps -eo pid,command | grep "merge --pr 139"`. If absent, from the primary:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 139 --expect copilot-pull-request-reviewer --json`
+  as a background task; read its exit by name (exit 3 = typed refusal such as THREADS-OPEN; exit 1 = the
+  45-minute poll deadline, re-run). A wake on the tip's reviews is a `gh pr view 139 --json reviews` loop.
+- On THREADS-OPEN: harvest threads AND Copilot's suppressed block; code findings keep the code review's
+  standard (verify each; cure the correct ones; reject the incorrect with verified reasoning); the README's
+  prose findings take the intake (class records, verification point todo 2's pickup, PDR-140 clause 9). Epoch
+  one counts 10, 9 — a third round ≥ 9 arms the step-back; a fourth non-zero round arms it regardless.
+- On MERGED: `git fetch origin engraph`; both proofs on the lane worktree; `git worktree remove`; `git branch -d`;
+  delete the remote branch as the bot after the ancestor proof; fetch `--prune`.
+
+### Next work, in order
+
+1. Land #139. 2. pr-tally todo 2 (the command, `--json`, the validation script; harvest check-run history for
+SKIPPED/timeout settlement; emit the one-line disposition template for every undispositioned body item — the
+format the seat wrote by hand only 40% of the time, see the napkin). 3. The small source lane for the transplant
+findings (hook context line before the env-file check; ADR-203 citation; reference-local source glob;
+CLAUDE_CODE_SESSION_ID seed source with a PDR-027 amendment). 4. The PDR-008 records lane (its tables name a
+script convention package.json no longer has; practice-verification item 9). 5. Fold #137 at its DUE check with
+§Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings; the upstream report; the directives-tier placement; #100's two deny lines;
+F-181 and the stray statusline log; the redaction node (paused until recurrence); the tutoring research; a
+retrospective on the day's arc (offered, not run); the verification-point amendment to `pr-lifecycle`
+§Response pricing (a candidate, in the napkin).
+
+### Metaloss passes
+
+- *Compressed reasoning*: every finding's disposition on #136, #138 and #139 is on the pull request itself with
+  its bar reading; this block carries counts. The instrument's own tests carry the corpora's numbers.
+- *Promises sweep*: the conforming fixtures owed by todo 3 are recorded (#136, #138) and consumed; the
+  signature question is answered by not widening the predicate; the originalLine row is honoured by the
+  widened query; the #135 corpus reads open (its comments carry the suffix too — the README said manual once
+  and was corrected). The lane-cut skill step (criterion 4) was already landed in SHA:ccdbc5613.
+- *Attribution inferences, flagged*: "the reviewers read the AGENTS.md instruction" rests on their citing it in
+  findings — evidence, not proof; "todo 2 should emit the disposition template" is this seat's proposal, not the
+  node's word.
+- *Blind-spot bounds*: the third reviewer round on #139 is unseen; the front door's state after compaction is
+  unknown until re-read by id; Lustre's and Pumice's work is unread.
+- *Index of homes*: this block; the handoff's live snapshot; the napkin (this window's blocks); the per-user
+  memory tail; PRs #136/#138/#139; the node `pr-tally.plan.md` (todo 1 and 3 status, four ledger rows).
+- *Fence sweep*: no owner word fenced; the quoted sentences above sit on tracked lines.
+- *Fixed point*: a further pass re-finds only the claim-areas discrepancy and the retrospective offer.
+
+### Addendum at 18:0xZ — round three on #139 is OPEN and unread
+
+Both reviewers posted on SHA:cdc2748e6 as this block was being written: five threads (two Copilot, three
+Codex) and two Copilot suppressed items, all on `agent-tools/src/pr-tally/rows.ts`, deliberately not read
+under the owner's pause. Epoch one settled counts so far 10, 9; this round is at most 7 raised, so the
+non-decreasing arm cannot fire on it, and a FOURTH non-zero settled round arms the step-back regardless.
+Post-compaction: harvest it first (threads and the suppressed block), verify each against the state
+machine's text and the code, cure the correct ones in one push, reject the incorrect with verified
+reasoning; the front door was polling at the boundary and will have exited THREADS-OPEN.

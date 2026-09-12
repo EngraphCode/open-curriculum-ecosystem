@@ -1068,8 +1068,9 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
   changed the next act, which is to wait for material the owner has not sent. A card whose answer
   cannot be acted on yet is cost, not diligence — it spends the owner's attention to buy a fact
   that will be stale when it is finally needed.
-- The owner's other answers, both of which ARE actionable: retention is cured by REDACTING AT THE
-  BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and closed);
+- The owner's other answers, both of which ARE actionable: retention is to be cured by REDACTING AT
+  THE BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and
+  closed; unbuilt, and paused by the owner on 2026-09-12 until the issue recurs);
   and `pr-tally` gets no build decision until they have seen "a plan that can be completed in two
   hours" — a scoping ask, not a refusal.
 - The `.env` constraint is worth keeping as design, not just as an instruction: the implementation
@@ -1107,3 +1108,137 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
 - FOLD: the 2026-09-12 cards and this boundary ride the coordination branch, folded at the close.
   Uncommitted at the stop: nothing — and this line is written AFTER the commit this time, the
   contradiction the second seat caught earlier today.
+
+## Nettle guards Pistil (2de368) — Director, the fold that took a day and the scope thesis (2026-09-12 08:2xZ–13:1xZ)
+
+<!-- fitness exceeded; consolidation owed -->
+
+- THE GENERATOR, SEEN FROM INSIDE: three acts felt like diligence and were scope expansion under
+  the seat's own hand — folding a peer's 470-line report because it was "already on the branch";
+  writing a rival slice into the thread record "so it does not live only in a transcript"; leaving
+  the intake declaration for "a comment after round one". A true sentence justified each. The
+  reviewers then did the same from outside: every finding an observation bundled with a remedy
+  graded against the widest standard imaginable. #136 is the cure for both sides at once.
+- WHAT ENDED A LOOP, MECHANICALLY: the remedy separated from the observation; the remedy tested
+  against §Scope before the observation is verified; a push marked as the class fix so the
+  epoch resets. The `b50820152` round: ten raised, zero over bar, no push, merged. First
+  terminal-by-disposition settlement this week.
+- CORRECTION OF THE DAY, TWICE: "written down ≠ correct, useful, or under authority" — the
+  owner on a relayed proposal; Codex an hour later on the seat's own decision record, where the
+  recorder's reading sat under `author: Owner`. Cured by attribution, not deletion.
+- INSTRUMENT NOTES (candidate rows, not filed): (1) the repo hook reads reply prose containing
+  "push" beside `-F` flags as the `git push -f` fingerprint — the cure is prose through the Write
+  tool and API-only shell calls, not rewording; (2) `pnpm markdownlint:root` FIXES as it checks —
+  a `#135,` at a line start became `# 135,` (an h1) and MD001 then fired on the neighbour; keep
+  PR numbers mid-line, and read the fixer's diff; (3) a reply loop globbed a scratch directory
+  holding stale drafts — 28 clean 404s, the F-182 shape in the seat's own hands; (4) a mid-seat
+  model switch leaves the claim row's model stale and `comms send` refuses the collision —
+  `claims adopt` under the running model is the honest re-registration; (5) `claims` has no
+  areas update, so a widened lane leaves a stale areas row.
+- ONE DATA POINT: Copilot's first thread on #136 labelled itself "Out-of-scope observation" and
+  Codex cited `AGENTS.md:L9-L13` — the reviewer instruction is read from the head branch, as
+  the vendor docs said. Recorded as one observation against the falsifier, not as the result.
+- FOLD: the successor `coordination/2026-09-12-69a537` carries this block; draft fold PR #137.
+  Uncommitted at the stop: nothing — this line is written after the commit.
+
+## Nettle guards Pistil (2de368) — sole operator, 2026-09-12 14:0xZ: the transplant seat's findings, verified first-hand
+
+Cauldron herds Lustre (880ff9), transplanting the Practice into `jimcresswell.net`, sent seven
+findings by cross-session message (read-only against `SHA:a55fd8fdd`). Each verified here before
+any disposition — a peer's finding is a transmitted claim, not a fact (owner, 2026-09-12):
+
+- **1 TRUE** — `agent-tools/src/claude/session-identity-hook.ts` emits "PRACTICE_AGENT_SESSION_ID_CLAUDE
+  is set in $CLAUDE_ENV_FILE" in `additionalContext` BEFORE the `CLAUDE_ENV_FILE === undefined` return,
+  so a no-write session is told the variable is set. Bug (misleading context). Home: a small source
+  lane after #136/#138 land — bugs before todo 1.
+- **2 PROPOSAL, sound** — no seed source is harness-native for a Claude CLI seat; `CLAUDE_CODE_SESSION_ID`
+  is in every Bash shell here (equal to the seed) and referenced nowhere in `agent-tools/src`. Adding it
+  after `CLAUDE_CODE_REMOTE_SESSION_ID` in `collaboration-seed.ts` is the CODEX_THREAD_ID shape (PDR-027).
+  Same lane as 1; PDR-027's source list would be amended in the same change.
+- **3 TRUE** — `state-file-seeds.ts:3,41` and `start-right.md:326` cite "ADR-199 / PDR-094" for
+  untracked-by-design state files; both records are event ROTATION. The owner of the term is ADR-203
+  (`203-state-tier-process-and-archive-move.md:24`); PDR-127 also cites PDR-094 for it at `:39`. Same lane.
+- **4 TRUE, by design** — the "clear run for Matt" clause's removal trigger is the owner's declaration; no
+  mechanism fires it. The owner's, untouched (start-right.md:244-267).
+- **5 DOES NOT REPRODUCE HERE** — all nineteen scripts cited by start-right.md §Quality Gates exist in this
+  `package.json` (checked by `jq`). The drift is in the transplant. A cited-script validator is still a
+  portability instrument worth having; the peer is building one and offered its shape — candidate, not a
+  defect here.
+- **6 DOES NOT REPRODUCE HERE** (the peer retracted it on re-check: an inventory conflation) — no file under `.agent/practice-core/` links `docs/engineering/tooling.md`
+  or `docs/foundation/cost-of-change-gradient.md` at this tip (`grep -rln`, empty). Rejected for this estate.
+- **7 TRUE** — `validate-markdown-links.ts:62` `SOURCE_IGNORE_GLOBS` has no `**/reference-local/**`
+  entry, so a nested private checkout there is walked as a source. Same lane as 1.
+
+Answered to the peer: no record here of a missed startup identity write (this session has both
+variables — one observation); no validator here scans cited pnpm scripts under `.agent/skills`.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:0xZ: two more from the transplant seat, verified
+
+- **bootstrap `WORKSPACE_DEPS` hard-codes `packages/core/*`** (`agent-tools/src/bootstrap/bootstrap.ts:78-82`):
+  TRUE and correct for this layout; a host-profile value in a transplant. Not a defect here; the
+  portability home is the peer's, and PDR-105's host-profile idea is the pointer.
+- **`turbo.json` site outputs naming `.next/`**: DOES NOT REPRODUCE — this tree names
+  `.next/**` outputs and `!.next/**` inputs (`turbo.json:225-241`) for both Next demos.
+- The peer's cited-scripts validator shape (markdown-only extraction, a pnpm tokenizer with a
+  built-ins set, root-vs-`--filter` resolution, an empty allowlist) is recorded as a candidate
+  portability instrument; not adopted here until a consumer exists (this tree's citations are
+  green by `jq` check today).
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:2xZ: fourteen rounds, zero rejections — the generator under both class fixes
+
+- Across #136 (nine rounds) and #138 (five) I dispositioned every finding "in scope, over-bar" and
+  cured it; each cure spawned the next round's mirror. The two class fixes named shallow generators
+  (restated-not-cited; claims unchecked). The deep one: the intake declared verification point
+  "merge (the owner reads this PR)" on a doctrine amendment, so every wording imperfection cleared
+  prong one and PDR-140's budget ran unbounded through its own cure-only-push clause. #135 closed
+  in one round this morning BY DECLINING ten findings — the machine's success state arrives by
+  rejection, not by cure (my own letter of this morning says so; I did not apply it).
+- #136's §Scope was a file list, so every reviewer remedy on those files passed the scope test
+  trivially; the clause that would have bitten — "each changed by the minimum that makes the
+  existing doctrine fire" — sat in the same sentence and I never ran it on my own cures.
+- Structural residue, NOT for #136: on a doctrine amendment the verification point should be the
+  next pull request run under the amended rule (PDR-140 clause 3's "ratification reading" is the
+  nearest term), never the merge read. Candidate for `pr-lifecycle` §Response pricing at its next
+  amendment, with a falsifier: a doctrine PR declared that way still draws over-bar cures past round
+  two.
+- PDR-140 follow-up (Codex, #136 epoch three round four, rejected below-bar): the owner's 2026-07-25
+  three-way enumeration in `pr-lifecycle` Phase 4 ("anything else → ticket") predates clause 1's
+  reject-or-route default; the block's "PDR-140 owns the clauses" governs today; the wording
+  reconciliation is a PDR-140 amendment, never a lane's cure.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 16:5xZ: PDR-008 contradicts package.json (peer finding, verified)
+
+Cauldron herds Lustre (880ff9), reading PDR-008 at SHA:2b1b15ab8 while adopting the script
+naming: its tables define `check` as the mutating alias of `check:fix` and `check:ci` as the CI
+form, while the root `package.json` defines `check` as the read-only aggregate, `fix` as the
+mutating one, `format-check:root`/`format:root`, `markdownlint-check:root`/`markdownlint:root`,
+`check:docs`/`fix:docs`, and no `check:ci` (CI runs the legs individually under
+validate-check-ci-parity). VERIFIED here by `jq` over `package.json` and lines 86-126 of the PDR.
+`practice-verification.md` item 9 lists the old set too (unverified here). Home: a small records
+lane — an amendment-log entry on PDR-008 describing the live convention plus item 9 rewritten
+(the peer's checkout carries a worked example under its own PDR-008 §Amendment Log; read-only
+for this side). Not a mechanism change; the scripts are right, the record is stale.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 17:5xZ, compaction boundary 9: the instrument's first honest reading of my own loops
+
+- **The tally builder read #136 and #138 and found the seat's own gaps.** Five heads on #136 and four rounds
+  on #138 carry Copilot suppressed items with no one-line disposition — I dispositioned threads faithfully and
+  the suppressed block only sometimes. The machine says `open` where my comments said "terminal by
+  disposition". Both true; the recording shows which findings the format never reached. This is the value the
+  node promised, arriving on the day the instrument was built.
+- **Proposal for todo 2 (the seat's, not the node's)**: the command prints, for every undispositioned body
+  item, the one-line disposition template with head, review id, anchor and item key filled — the seat only
+  chooses the marker and writes the rationale. Hand-writing the reference produced a wrong review id, a
+  `thread <id>` key from the wrong review, and four rounds of silence; a form the instrument emits cannot.
+- **Code-class review is a different loop.** #139's two rounds raised 24, distinct 19, cured 19: every
+  finding verified against the state machine's text and the code, every one correct. The corpus tests caught
+  none of them because the corpora do not exhibit PENDING drafts, superseded class-fix heads, reply-created
+  review records or same-anchor siblings — synthetic cases now do. The reviewers were reading the doctrine the
+  code claims to implement and checking the claim; that is the review working as designed.
+- **Pre-commit gate lessons (three refusals, all mine)**: it type-checks and knips the WHOLE tree including
+  unstaged files; knip flags exported types consumed only inside the module (un-export until a consumer
+  exists); a `git add` of one file commits everything already in the index — cycles 2 and 3 became one commit
+  that way (recorded on the PR; history stands). commitlint: subject ≤ 100, lowercase-start (a PDR id at the
+  start reads as upper-case).
+- **The pricing discipline held**: after the reflection, #136 closed by two rejections and #138 by four; on
+  #139 nothing was rejected because nothing was wrong — the bar is a test, not a quota.
