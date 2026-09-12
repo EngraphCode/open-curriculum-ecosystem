@@ -14,6 +14,7 @@ import {
   runPrWatchTopic,
   runSessionMetadataTopic,
   runSpawnTopic,
+  runReviewCostTopic,
 } from './agent-tools-cli-topics.js';
 import type {
   AgentToolsCliInput,
@@ -132,6 +133,7 @@ const UNIFORM_TOPIC_HANDLERS: Readonly<Record<string, UniformTopicHandler>> = {
   'merge-bot': runMergeBotTopic,
   pr: runPrTopic,
   'pr-watch': runPrWatchTopic,
+  'review-cost': runReviewCostTopic,
   spawn: runSpawnTopic,
 };
 
@@ -234,6 +236,7 @@ function usage(): string {
     '  merge-bot',
     '  pr',
     '  pr-watch',
+    '  review-cost',
     '  spawn',
   ].join('\n');
 }

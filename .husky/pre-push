@@ -25,15 +25,31 @@ echo "🛡️ Running secret scan (pushed commits only; CI scans full history)..
 # argument handling) and hand them to the scanner, which scans ONLY the pushed
 # commits. The CI secret-scan job runs the full `--branches --tags` scan as the
 # comprehensive backstop, so no history goes unscanned.
-secret_scan_refs="$(mktemp)"
-[ -t 0 ] || cat > "$secret_scan_refs"   # capture git's ref lines (empty on a manual/TTY run)
-pnpm agent-tools:secret-scan --remote "$1" --refs-file "$secret_scan_refs"
+push_refs="$(mktemp)"
+[ -t 0 ] || cat > "$push_refs"   # capture git's ref lines once (empty on a manual/TTY run)
+pnpm agent-tools:secret-scan --remote "$1" --refs-file "$push_refs"
 secret_scan_status=$?
-rm -f "$secret_scan_refs"
 if [ "$secret_scan_status" -ne 0 ]; then
+  rm -f "$push_refs"
   echo "❌ Secret scan failed."
   echo "Remove or scrub secret-like values before pushing."
   echo "Use local placeholders for .env.example and real credentials only in .env files."
+  exit 1
+fi
+
+echo "💸 Pricing the review loop against the declared budget..."
+# The review cost gate (PR #139, 2026-09-12: seven settlement pushes against a
+# declared budget of two, stopped only by the owner). Past the budget, while the
+# loop is not converging, the push is refused: the remaining findings are
+# dispositioned without a cure, or the owner raises the budget on the PR.
+# Every pushed branch is priced from the captured ref lines, so naming another
+# branch cannot route around the gate; a TTY run with no ref lines prices nothing.
+pnpm --silent agent-tools:review-cost gate --refs-file "$push_refs"
+review_cost_status=$?
+rm -f "$push_refs"
+if [ "$review_cost_status" -ne 0 ]; then
+  echo "❌ Review cost gate refused the push (BUDGET-EXHAUSTED or unreadable)."
+  echo "💡 Disposition the remaining findings without a cure, or record a rebudget on the PR."
   exit 1
 fi
 
