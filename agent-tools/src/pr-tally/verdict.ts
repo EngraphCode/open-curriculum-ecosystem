@@ -8,10 +8,11 @@ import type { Tally, TallyRow } from './rows.js';
  * cure-worthy zero is the terminal success state and takes precedence; a
  * push the seat marks as the class fix opens a new epoch at its head, whether
  * or not that head settles. Anything the machine cannot count blocks every
- * count-based verdict: a signed disposition with no marker anywhere in the
- * settled rows reads as manual tally required, findings with no signed
- * disposition anywhere read as open, and a current head still owed a
- * reviewer reads as open — disposition obligations never reset with an epoch.
+ * count-based verdict, and is checked before anything else: a signed
+ * disposition with no marker on ANY head reads as manual tally required,
+ * findings with no signed disposition on ANY head read as open, and a current
+ * head still owed a reviewer reads as open — disposition obligations never
+ * reset with an epoch, and an unsettled head's findings are obligations too.
  */
 
 type VerdictKind =
@@ -36,11 +37,13 @@ export interface VerdictOptions {
   readonly classFixHeads?: readonly string[];
 }
 
-/** The verdict's input: settled rows, every head in branch order, and the current head's settlement. */
+/** The verdict's input: settled rows, every head in branch order, unsettled heads with their findings, and the current head's settlement. */
 export interface VerdictInput {
   readonly rows: readonly TallyRow[];
   /** Every head in branch order; defaults to the rows' heads. */
   readonly heads?: readonly string[];
+  /** Unsettled heads with their counts so far; their uncounted findings block like a settled row's. */
+  readonly unsettled?: readonly TallyRow[];
   /** The current head when it is NOT settled; the verdict then reads open. */
   readonly unsettledHead?: string;
 }
@@ -97,15 +100,17 @@ function uncountedEvidence(rows: readonly TallyRow[]): string[] {
     .filter((row) => row.undispositioned > 0 || row.manual > 0)
     .map(
       (row) =>
-        `${row.head.slice(0, 9)}: ${row.undispositioned} undispositioned, ${row.manual} manual — cure-worthy ${row.cureWorthy} is a floor`,
+        `${row.head.slice(0, 9)}${row.settled ? '' : ' (unsettled)'}: ${row.undispositioned} undispositioned, ${row.manual} manual — cure-worthy ${row.cureWorthy} is a floor`,
     );
 }
 
+// Blocking is checked over EVERY head, settled or not, before any count is read.
 function blockedKind(input: VerdictInput): VerdictKind | undefined {
-  if (input.rows.some((row) => row.manual > 0)) {
+  const all = [...input.rows, ...(input.unsettled ?? [])];
+  if (all.some((row) => row.manual > 0)) {
     return 'manual-tally-required';
   }
-  if (input.rows.some((row) => row.undispositioned > 0) || input.unsettledHead !== undefined) {
+  if (all.some((row) => row.undispositioned > 0) || input.unsettledHead !== undefined) {
     return 'open';
   }
   return undefined;
@@ -120,15 +125,15 @@ export function verdictFromRows(input: VerdictInput, options: VerdictOptions): V
     ...(input.unsettledHead === undefined
       ? []
       : [`current head ${input.unsettledHead.slice(0, 9)} is not settled`]),
-    ...uncountedEvidence(input.rows),
+    ...uncountedEvidence([...input.rows, ...(input.unsettled ?? [])]),
   ];
-  const latest = epochRows.at(-1);
-  if (latest === undefined) {
-    return { kind: 'no-settled-round', epoch, counts, evidence };
-  }
   const blocked = blockedKind(input);
   if (blocked !== undefined) {
     return { kind: blocked, epoch, counts, evidence };
+  }
+  const latest = epochRows.at(-1);
+  if (latest === undefined) {
+    return { kind: 'no-settled-round', epoch, counts, evidence };
   }
   if (latest.cureWorthy === 0) {
     return { kind: 'terminal-success', epoch, counts, evidence };
@@ -136,9 +141,12 @@ export function verdictFromRows(input: VerdictInput, options: VerdictOptions): V
   return { kind: stepBackArmed(counts) ? 'step-back' : 'converging', epoch, counts, evidence };
 }
 
-/** The verdict over a built tally: its settled rows, every head in branch order, and whether the current head settled. */
+/** The verdict over a built tally: its settled rows, every head in branch order, its unsettled heads, and whether the current head settled. */
 export function verdict(tally: Tally, options: VerdictOptions): Verdict {
   const current = tally.heads.at(-1);
   const unsettledHead = tally.unsettled.some((row) => row.head === current) ? current : undefined;
-  return verdictFromRows({ rows: tally.rows, heads: tally.heads, unsettledHead }, options);
+  return verdictFromRows(
+    { rows: tally.rows, heads: tally.heads, unsettled: tally.unsettled, unsettledHead },
+    options,
+  );
 }

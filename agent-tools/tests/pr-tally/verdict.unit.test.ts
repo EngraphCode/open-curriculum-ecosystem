@@ -5,6 +5,7 @@ import { buildRows } from '../../src/pr-tally/rows.js';
 import type { TallyRow } from '../../src/pr-tally/rows.js';
 import { verdict, verdictFromRows } from '../../src/pr-tally/verdict.js';
 import pr135 from './fixtures/pr-135-harvest.json' with { type: 'json' };
+import pr136 from './fixtures/pr-136-harvest.json' with { type: 'json' };
 import pr138 from './fixtures/pr-138-harvest.json' with { type: 'json' };
 
 const EXPECTED = ['copilot-pull-request-reviewer', 'chatgpt-codex-connector'];
@@ -88,8 +89,20 @@ describe('verdictFromRows — the step-back predicate, the terminal-success prec
     expect(result.evidence[0]).toMatch(/current head h3 is not settled/u);
   });
 
-  it('reads no settled round as exactly that', () => {
+  it('reads no settled round as exactly that — unless the current head is unsettled, which is open', () => {
     expect(kindOf([])).toBe('no-settled-round');
+    expect(verdictFromRows({ rows: [], heads: ['h1'], unsettledHead: 'h1' }, {}).kind).toBe('open');
+  });
+
+  it('lets the uncounted findings of an unsettled head block, while its counts stay out of convergence', () => {
+    const superseded = { ...row('h2', 0, { undispositioned: 1 }), settled: false, owed: EXPECTED };
+    const result = verdictFromRows(
+      { rows: [row('h1', 2), row('h3', 0)], heads: ['h1', 'h2', 'h3'], unsettled: [superseded] },
+      {},
+    );
+    expect(result.kind).toBe('open');
+    expect(result.counts).toStrictEqual([2, 0]);
+    expect(result.evidence[0]).toMatch(/h2 \(unsettled\)/u);
   });
 
   it('reads the #135 corpus as open: nothing in it is signed to the predicate, so nothing is dispositioned', () => {
@@ -109,5 +122,15 @@ describe('verdictFromRows — the step-back predicate, the terminal-success prec
     expect(result.kind).toBe('open');
     expect(result.epoch).toBe(2);
     expect(result.counts).toStrictEqual([9, 3, 1, 0]);
+  });
+
+  it('reads the #136 corpus as open with the counts of epoch three at 3, 2, 1, 0 — the tally the seat kept', () => {
+    const result = verdict(
+      buildRows({ harvest: parseRecordedHarvest(pr136), expectedReviewers: EXPECTED }),
+      { classFixHeads: ['1ca90fece', 'bc6370624'] },
+    );
+    expect(result.kind).toBe('open');
+    expect(result.epoch).toBe(3);
+    expect(result.counts).toStrictEqual([3, 2, 1, 0]);
   });
 });

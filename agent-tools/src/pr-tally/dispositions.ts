@@ -34,6 +34,7 @@ export interface BodyDispositions {
 const DISPOSITION_LINE =
   /^-?\s*\*\*[^*\n]+\*\*\s*·\s*head SHA:([0-9a-f]{7,40})\s*·\s*review (\S+)\s*·\s*`?([^`·\n]+?):(\d+)`?\s*·\s*(.+?)\s*·/u;
 const SHA_MENTION = /SHA:([0-9a-f]{7,40})/gu;
+const THREAD_KEY = /^thread (\S+)$/u;
 
 function parseKey(line: string): BodyDispositionKey | null {
   const match = DISPOSITION_LINE.exec(line);
@@ -66,33 +67,55 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
   return { keys, batchedHeads };
 }
 
-/** Whether a key names this item of this review: same head and review; same anchor unless the item has none. */
-export function keyNames(key: BodyDispositionKey, item: BodyFinding, review: Review): boolean {
+function sameReview(key: BodyDispositionKey, review: Review): boolean {
   const head = review.commitOid ?? '';
-  const sameReview =
+  return (
     head.startsWith(key.headPrefix) &&
-    (key.reviewId === review.id || key.reviewId === String(review.databaseId));
-  const sameAnchor = item.path === null || (key.path === item.path && key.line === item.line);
-  return sameReview && sameAnchor && key.item === item.key;
+    (key.reviewId === review.id || key.reviewId === String(review.databaseId))
+  );
+}
+
+function sameAnchor(key: BodyDispositionKey, item: BodyFinding): boolean {
+  return item.path === null || (key.path === item.path && key.line === item.line);
+}
+
+/** Whether a key names this item of this review: same head and review; same anchor unless the item has none; same key. */
+export function keyNames(key: BodyDispositionKey, item: BodyFinding, review: Review): boolean {
+  return sameReview(key, review) && sameAnchor(key, item) && key.item === item.key;
 }
 
 /**
- * Whether a signed line declares this item a restatement of a named thread
- * (`thread <id>`) that exists on the item's file — the line may have moved
- * between the thread's push and this one — then the item is that thread and
- * counts once.
+ * Whether a signed line declares this item a restatement of a named inline
+ * thread OF THE SAME REVIEW at the same anchor (the state machine's dedup
+ * rule) — then the item is that thread and counts once. The declaration binds
+ * only when it is unambiguous: exactly one body item of the review sits at
+ * that anchor.
  */
 export function declaredRestatement(
   item: BodyFinding,
   review: Review,
   dispositions: BodyDispositions,
   threads: readonly Thread[],
+  siblings: readonly BodyFinding[],
 ): boolean {
+  const atAnchor = siblings.filter(
+    (sibling) => sibling.path === item.path && sibling.line === item.line,
+  );
+  if (atAnchor.length !== 1) {
+    return false;
+  }
   return dispositions.keys.some((key) => {
-    if (!key.item.startsWith('thread ') || !keyNames({ ...key, item: item.key }, item, review)) {
+    const named = THREAD_KEY.exec(key.item);
+    if (named === null || !sameReview(key, review) || !sameAnchor(key, item)) {
       return false;
     }
-    const id = key.item.slice('thread '.length).trim();
-    return threads.some((thread) => thread.id === id && thread.path === item.path);
+    const id = named[1] ?? '';
+    return threads.some(
+      (thread) =>
+        thread.id === id &&
+        thread.reviewId === review.id &&
+        thread.path === item.path &&
+        (thread.originalLine ?? thread.line) === item.line,
+    );
   });
 }

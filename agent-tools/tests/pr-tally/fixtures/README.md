@@ -176,7 +176,10 @@ disposition format — and what they exercise, checked with the tally builder's 
 - #136: ten reviewed heads and one merge commit no reviewer bound; twenty thread replies, the
   first six signed with the role suffix (unsigned to the predicate) and the last fourteen with
   the bare prefix; two class-fix heads (`1ca90fece`, `bc6370624`); eight Copilot suppressed
-  items across four reviews.
+  items across four reviews, none dispositioned in the one-line form. Read by the machine:
+  the first two heads' findings and one item on each of five later heads are undispositioned,
+  and epoch three's settled counts are 3, 2, 1, 0 — the seat's own tally on the PR — so the
+  verdict is open on those obligations, never terminal.
 - #135, read by the machine: every seat reply AND every seat comment carries the role suffix
   the predicate rejects, so nothing in it is a signed disposition; every finding is
   undispositioned, none manual, and the verdict is open. (A SIGNED batched comment naming a
@@ -186,7 +189,8 @@ disposition format — and what they exercise, checked with the tally builder's 
   those on `db67da4d5`, `a1ec078e2` and `33cca25bc` carry one-line dispositions naming head,
   review id, anchor and item, while those on `352ad0ee5`, `84dd6291b`, `ebf90ac3b` and
   `fe81ac086` were never dispositioned in that form and read as undispositioned; one class-fix
-  head (`a1ec078e2`); one suppressed item declared a restatement of a named thread is counted
-  once. The machine verdict at the final head is therefore `open`, not terminal
+  head (`a1ec078e2`); one suppressed item's disposition on `db67da4d5` named a thread from an
+  EARLIER review as its key, and the dedup rule is same-review, so that item reads as
+  undispositioned. The machine verdict at the final head is therefore `open`, not terminal
   success — the seat's human tally on the PR read it as terminal by disposition. Both readings
   are true; the recording shows which findings the format did not reach.

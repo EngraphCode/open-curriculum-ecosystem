@@ -14,7 +14,8 @@ import type { BarMarker } from './markers.js';
  * finding once), its cure-worthy count read from the bar markers of the
  * seat's signed dispositions — never from prose. A head is settled when every
  * expected reviewer has a LANDED review bound to it and, where a clock is
- * supplied, the quiet window after the latest such review has elapsed; a head
+ * supplied, the quiet window after the latest such review has elapsed — the
+ * seat's own reply-created review records never anchor that window; a head
  * bound by none is superseded, a head an expected reviewer still owes is
  * unsettled. Timeout and skip settlement need the check-run history a
  * recording does not yet carry, so this builder reads SATISFIED-or-OWED only.
@@ -59,6 +60,10 @@ type Disposition = BarMarker | 'manual' | 'undispositioned';
 // The recorded review carries a nullable commit; the pr-watch predicate wants the string form.
 const landed = (review: Review): boolean =>
   hasLanded({ ...review, commitOid: review.commitOid ?? '' });
+
+// GitHub logins are case-insensitive (the reviewer-leg comparison does the same).
+const sameLogin = (left: string, right: string): boolean =>
+  left.toLowerCase() === right.toLowerCase();
 
 function threadDisposition(thread: Thread): Disposition {
   const signed = thread.comments.slice(1).filter((comment) => isSignedSelfReply(comment.body));
@@ -120,40 +125,69 @@ function quietWindowElapsed(reviews: readonly Review[], now: string | undefined)
   return Date.parse(now) - newest > QUIET_WINDOW_MS;
 }
 
+// GitHub creates an empty review record for every inline reply; the seat's
+// signed replies' records must anchor nothing.
+function selfReplyReviewIds(harvest: RecordedHarvest): ReadonlySet<string> {
+  return new Set(
+    harvest.reviewThreads
+      .flatMap((thread) => thread.comments)
+      .filter((comment) => comment.reviewId !== null && isSignedSelfReply(comment.body))
+      .map((comment) => comment.reviewId ?? ''),
+  );
+}
+
+function bodyItemDispositions(
+  review: Review,
+  threads: readonly Thread[],
+  dispositions: BodyDispositions,
+): Disposition[] {
+  const items = extractBodyFindings(review).items;
+  return items
+    .filter((item) => !restatesThread(item, review, threads))
+    .filter((item) => !declaredRestatement(item, review, dispositions, threads, items))
+    .map((item) => bodyItemDisposition(item, review, dispositions));
+}
+
 function findingsFor(
   head: string,
   harvest: RecordedHarvest,
+  landedReviews: readonly Review[],
   dispositions: BodyDispositions,
 ): { dispositions: Disposition[]; manualBodies: number } {
+  const landedIds = new Set(landedReviews.map((review) => review.id));
+  // A thread counts only when its originating review landed (a PENDING draft's threads do not).
   const threads = harvest.reviewThreads.filter(
     (thread) =>
-      thread.reviewCommitOid === head && !isSignedSelfReply(thread.comments[0]?.body ?? ''),
+      thread.reviewCommitOid === head &&
+      (thread.reviewId === null || landedIds.has(thread.reviewId)) &&
+      !isSignedSelfReply(thread.comments[0]?.body ?? ''),
   );
-  const reviews = harvest.reviews.filter(
-    (review) => review.commitOid === head && landed(review) && !isSignedSelfReply(review.body),
-  );
+  const reviews = landedReviews.filter((review) => !isSignedSelfReply(review.body));
   const bodyItems = reviews.flatMap((review) =>
-    extractBodyFindings(review)
-      .items.filter((item) => !restatesThread(item, review, threads))
-      .filter((item) => !declaredRestatement(item, review, dispositions, harvest.reviewThreads))
-      .map((item) => bodyItemDisposition(item, review, dispositions)),
+    bodyItemDispositions(review, threads, dispositions),
   );
   const manualBodies = reviews.filter((review) => extractBodyFindings(review).manual).length;
   return { dispositions: [...threads.map(threadDisposition), ...bodyItems], manualBodies };
 }
 
-function rowFor(head: string, input: BuildRowsInput, dispositions: BodyDispositions): TallyRow {
+function rowFor(
+  head: string,
+  input: BuildRowsInput,
+  dispositions: BodyDispositions,
+  selfReviews: ReadonlySet<string>,
+): TallyRow {
   const { harvest, expectedReviewers, now } = input;
   const bound = harvest.reviews.filter((review) => review.commitOid === head && landed(review));
   const reviewers = expectedReviewers.filter((login) =>
-    bound.some((review) => review.author === login),
+    bound.some((review) => sameLogin(review.author, login)),
   );
   const owed = expectedReviewers.filter((login) => !reviewers.includes(login));
-  const found = findingsFor(head, harvest, dispositions);
+  const anchoring = bound.filter((review) => !selfReviews.has(review.id));
+  const found = findingsFor(head, harvest, bound, dispositions);
   const counts = tallyDispositions(found.dispositions);
   return {
     head,
-    settled: owed.length === 0 && quietWindowElapsed(bound, now),
+    settled: owed.length === 0 && quietWindowElapsed(anchoring, now),
     reviewers,
     owed,
     raised: found.dispositions.length,
@@ -165,7 +199,10 @@ function rowFor(head: string, input: BuildRowsInput, dispositions: BodyDispositi
 /** Build the tally from a recorded harvest: every head in branch order, split into settled rows and unsettled heads. */
 export function buildRows(input: BuildRowsInput): Tally {
   const dispositions = readBodyDispositions(input.harvest);
-  const rows = input.harvest.commits.map((commit) => rowFor(commit.oid, input, dispositions));
+  const selfReviews = selfReplyReviewIds(input.harvest);
+  const rows = input.harvest.commits.map((commit) =>
+    rowFor(commit.oid, input, dispositions, selfReviews),
+  );
   return {
     heads: input.harvest.commits.map((commit) => commit.oid),
     rows: rows.filter((row) => row.settled),

@@ -58,7 +58,8 @@ const reviewSchema = z.object({
   author: z.object({ login: z.string().min(1) }).nullable(),
   state: z.string().min(1),
   commit: z.object({ oid: z.string().min(1) }).nullable(),
-  submittedAt: z.string().min(1),
+  // GitHub returns null for the authenticated user's own PENDING draft; `pr-watch` normalises it to ''.
+  submittedAt: z.string().nullable(),
   body: z.string(),
 });
 
@@ -88,6 +89,8 @@ type RecordedHarvestShape = z.infer<typeof recordedHarvestSchema>;
 /** One comment on a review thread, its author flattened to a login (`''` when GitHub omits it). */
 interface HarvestedThreadComment {
   readonly databaseId: number;
+  /** The id of the review record GitHub created for this comment; a signed reply's review is excluded from anchoring. */
+  readonly reviewId: string | null;
   readonly author: string;
   readonly createdAt: string;
   readonly body: string;
@@ -158,6 +161,7 @@ type ThreadShape = RecordedHarvestShape['reviewThreads']['nodes'][number];
 function flattenComment(comment: ThreadShape['comments']['nodes'][number]): HarvestedThreadComment {
   return {
     databaseId: comment.databaseId,
+    reviewId: comment.pullRequestReview?.id ?? null,
     author: comment.author?.login ?? '',
     createdAt: comment.createdAt,
     body: comment.body,
@@ -219,7 +223,7 @@ export function parseRecordedHarvest(raw: unknown): RecordedHarvest {
       author: review.author?.login ?? '',
       state: review.state,
       commitOid: review.commit?.oid ?? null,
-      submittedAt: review.submittedAt,
+      submittedAt: review.submittedAt ?? '',
       body: review.body,
     })),
     comments: shape.comments.nodes.map((comment) => ({
