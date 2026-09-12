@@ -2195,12 +2195,18 @@ read and dispositioned; none was waived.
 
 **The owner-only retention cannot prove ENFORCEMENT, only that the mode interface is live.**
 
-OPEN OWNER DECISION — the request, its three options and its evidence live in the decision thread
+DECIDED 2026-09-12 — the request, its options, the owner's decision and its resolution live in
 [`owner-only-retention-enforcement-2026-09-11.json`](../../../state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json),
-`status: open`. Not restated here: a thread record cites a decision thread, it does not carry its
-body (`threads/README.md` §Relationship to other operational surfaces). This lane's next safe step does not depend on the answer,
-since PR #132 landed with its claim narrowed to what it establishes, so the decision is
-discoverable open work rather than a block.
+`status: closed`. Not restated here: a thread record cites a decision thread, it does not carry its
+body (`threads/README.md` §Relationship to other operational surfaces).
+
+The outcome in one line, because it changes what a later seat should build: option C, REDACT AT THE
+RETENTION BOUNDARY, with the owner's constraint that the redactor must not touch any `.env` files.
+Option B (a filesystem-type allowlist) is refused, so retention keeps working on network mounts.
+Option A composes rather than competes — #132's mode verification stays exactly as it is and its
+residual stays documented — but it is no longer the answer, because an artefact carrying no
+credential does not depend on the mount honouring its permission bits. The implementation has no
+delivery node yet; that is the resolution's named follow-up.
 
 Recorded here only because it changes how a later reader should read the module: the guarantee is
 that a retained artefact is created owner-only, never widened, and refused outright unless the
@@ -2279,3 +2285,130 @@ lapses exactly where the estate's own doctrine has the least mechanical backing.
 gate that reads a record's citations and checks them, and building one is not this lane's work —
 but the shape of the missing gate is now named, alongside `pr-tally`, as the second unbuilt
 instrument this window identified.
+
+## 2026-09-12 — COMPACTION BOUNDARY 7 (Nettle guards Pistil, 2de368, Director, Opus 5, n=2)
+
+### Board at the boundary
+
+Five pull requests landed across 2026-09-11/12, all by the front door as the bot, all two-parent —
+PR #130 SHA:0d6a9769c, #131 SHA:ad64f3cd5, #132 SHA:14d9938c2, #133 SHA:f4897e38c, #134
+SHA:f262a5b6b.
+Open pull requests reached ZERO after #134. Two commits then landed on the coordination branch and
+are NOT yet in a pull request at the time of writing: SHA:712abe242 (this seat, the owner's
+retention decision) and SHA:7f2426877 (the second seat's exploration report). The fold carries both.
+
+The `fstat-2de368` worktree is removed and its remote branch deleted, both proofs run per item
+(porcelain empty; HEAD an ancestor of a freshly-fetched `origin/engraph`; ignored paths inventoried
+and dispositioned). One worktree remains, the primary.
+
+### The owner's decisions of 2026-09-12, at the cards
+
+1. **Conformance retention: option C, REDACT AT THE BOUNDARY**, verbatim "redact at boundary, but do
+   not touch any .env files". Recorded and closed in
+   `conversations/owner-only-retention-enforcement-2026-09-11.json`. The constraint is part of the
+   decision: the forbidden implementation is sourcing real secret VALUES from env files to match
+   against output, which would make the redactor a second secret-handling surface. Redaction is a
+   property of the OUTPUT's shape. Option B (filesystem-type allowlist) refused. Option A composes
+   but is not the answer. **No delivery node exists yet — that is the resolution's named follow-up.**
+2. **`pr-tally`: no build decision until a two-hour plan has been seen.** A two-hour slice was
+   presented and reproduced here in full at the boundary (git retains it at SHA:be6f75c05); it
+   was superseded on 2026-09-12 by the owner's approval of the settlement plan, which names todo 3
+   as the slice — see the section below, which now cites the node instead of carrying a slice.
+3. **A card was REFUSED as premature**: where the AI tutoring work should land. "We haven't even
+   created the brief yet, this question is vastly premature." The material will arrive when the
+   owner sends it; until then there is nothing to shape and nothing to ask.
+
+### The pr-tally slice — the ratified node is the only home of the design
+
+The design of `pr-tally` lives in one place, `.agent/plans/delivery/pr-tally.plan.md` (ratified
+2026-09-08); this record cites it and carries no rival specification. A two-hour slice was written
+out here in full at the boundary (git retains that text at SHA:be6f75c05; it is not reproduced
+here) and drew two review findings on #135 that the node already answers: the slice's row carried `raised` only, where the node's predicate reads the cure-worthy
+count from the bar marker; and it ordered rows by first appearance, where the node requires branch
+commit order. Both are ledgered on the node under `## Review dispositions`. The slice that follows
+the node's own sequencing is todo 3 first (the bar marker and disposition format in the
+pr-lifecycle intake contract, with #135's dispositions as its first fixture), then todo 1, then
+todo 2. The owner's go on the two-hour ask is answered by the approved settlement plan of
+2026-09-12, which named todo 3 as the slice.
+
+### The n=2 session
+
+Second seat **Sandpiper weaves Updraft (a96287)**, claude-code, claude-opus-5[1m], started ~09:1xZ
+2026-09-12, lane claim 3cc70488. Boundary: a read-only exploration of the external public repository
+`github.com/spotify/portal-ai-plugins`, cloned outside this tree, producing one report. Delivered as
+SHA:7f2426877 — `.agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md` plus its index
+row. No overlap with this seat's surfaces at any point. PDR-082 mode: heartbeat cron, inter-seat
+directed events and the 120s sweep dropped; watcher, claims and substantive broadcasts retained.
+
+The second seat corrected one of this seat's claims and the correction is kept because it is the
+false-green class: **prettier does NOT cover `.agent/reports/**`** — `.prettierignore` carries both
+`**/reports/` and `.agent/`, and `prettier --file-info` returns `ignored: true`. This seat had
+asserted the opposite to them unverified. Worse, `prettier --check` over that path prints "All
+matched files use Prettier code style!" **while matching zero files** — a success line that cannot
+distinguish a clean input set from an empty one. Same shape as the BSD `xargs -a` entry of
+2026-09-10.
+
+### The owner's note of 2026-09-12, taken after this boundary was written
+
+Four directives and one question, in the owner's own words: "the pr-ta11y is next, we don't need to
+do any windows work, the redaction work is paused until the issue recurs, what is the upstream
+report? You will know when I want to work on the tutoring research because I will tell you". The
+list below is amended to match. The question was answered in the session and changes nothing about
+item 4: the report stays the owner's to send, and the answer given was a description of what the
+file already contains, not a new claim about it.
+
+### Owner-held, carried forward
+
+1. **The redaction delivery node** — decided, unbuilt, and **PAUSED by the owner on 2026-09-12
+   until the issue recurs**. Do not author the node speculatively. The option-C decision and its
+   `.env` prohibition stand unchanged and are what gets built if a retention incident makes it live.
+2. **`pr-tally` is the NEXT work** — owner, 2026-09-12. The slice is todo 3 first, per the node's
+   own sequencing, set by the owner's approval of the settlement plan later that day; the earlier
+   two-hour slice of todo 1 and its objection (a library with no caller) are superseded, and the
+   node's `## Review dispositions` carries the two findings that retired it.
+3. **The four sync-workflow findings** — the owner's card answer stands: "Cure all four in one lane."
+   The mirror-provenance one has TWO routes and the choice is still the owner's: apply the carrier's
+   parent-check remedy, or protect the mirror branch. `main` is `protected: false` with no ruleset
+   (verified 2026-09-11), so the condition is live, not hypothetical.
+4. **The upstream report** at `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md`
+   is still the owner's to send.
+5. **No Windows work is queued** — owner, 2026-09-12: "we don't need to do any windows work". That
+   `windows-basic` becomes a required check on or after 2026-09-17 remains true as a repository
+   fact; it is not an instruction to open a Windows lane, and no seat should treat the date as one.
+6. The older held items: directives-tier placement; #100's two deny lines.
+7. **The AI tutoring research** — owner, 2026-09-12: "You will know when I want to work on the
+   tutoring research because I will tell you." Nothing to do until then: no shaping question, no
+   brief prepared in advance, no material sought out.
+
+### The window's generator, stated once more because naming it twice did not stop it
+
+**A valid criticism creates INFORMATION, not an obligation.** Whether it creates an obligation
+depends on cost, reachability, and what the thing is for. This seat collapsed "true" into "must act"
+sixteen times on #132 and five on #134, and the tell was not the curing — it was that each reply
+AMPLIFIED the finding's severity. That is agreement performed rather than reasoned, and it ratchets:
+a reviewer that is thanked effusively keeps finding.
+
+What broke it was mechanical, not resolve: **stating the PDR-140 prong out loud in the reply before
+curing.** From the round that started doing it, one finding was declined as under-bar and one remedy
+was refused outright — the container-aware parser, whose requirement had been invented mid-review.
+Keep the practice, not the resolve.
+
+The related failure, distinct and worth its own name: **generating requirements from adjacent true
+facts.** The fence detector's container requirement came from a reviewer's true observation; the
+tutoring landing card came from a real recorded constraint. Neither was asked for by the purpose of
+the thing. Both cost real work before being deleted or refused.
+
+### A proposal, with its falsifier
+
+**The estate enforces on ACTIONS and on TIME, and barely on STATE CROSSINGS.** Gates fire on commit,
+push and CI; crons fire on a clock. Conditions — a claim's freshness, a fitness limit — are evaluated
+only where some action happens to run the evaluator (`validate-claim-freshness` and
+`fitness-vocabulary` both run from `repo-validators:check`, an action gate). The review-loop budget
+and the step-back predicate are state crossings with NO action running them, which is why F-177 has
+now recurred twice and why `pr-tally` has stayed ratified and unbuilt: it is the estate's first
+instrument of a class the estate has no habit for. This also explains the nineteen-construction-site
+cost of wiring it — a state-crossing check has to attach to a frequent action, and the frequent
+action here is the front door's read.
+
+*Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a clock
+running it. Two candidates were checked and are not that; the search was not exhaustive.

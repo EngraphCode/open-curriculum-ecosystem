@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-10
+last_updated: 2026-09-12
 ---
 
 # pr-tally — the review-round tally built by commit binding, with the step-back verdict
@@ -178,3 +178,13 @@ declaring parser PR still draws outside-promise cures after the column lands.
   by this command's `--json` output and landed on its own node.
 - Reading review state from `latestReviews`: the skill forbids it for the tally (rows vanish
   when a reviewer posts again); the harvest reads threads and the paged reviews connection.
+
+## Review dispositions
+
+One row per finding; "pickup" means read and applied by the implementer at pickup, the node's
+mechanism unchanged.
+
+| Date | Source | Finding | Disposition |
+| --- | --- | --- | --- |
+| 2026-09-12 | PR #135 round three | A slice proposed in the thread record carried only `raised` per row, where this node's predicate reads the cure-worthy count from the bar marker — a round of below-bar findings must be terminal zero even with `raised > 0` | Pickup: todo 3 (the marker) lands first per this node's own sequencing; todo 1's row carries the cure-worthy count |
+| 2026-09-12 | PR #135 round three | The same slice ordered rows by first appearance, which is review-arrival order; this node requires branch commit order, since a late review of an older head would reverse `c[n]` | Pickup: `buildRows` takes an authoritative head-order input and sorts bindings against it |
