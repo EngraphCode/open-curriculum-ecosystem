@@ -2667,6 +2667,81 @@ below is a cross-reference index, not a second source of truth.
   `commit-queue-local-ephemera` / MCP-612.
 - **Target surface**: `agent-tools/src/commit-queue/`.
 
+### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
+
+- **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
+  over the session's own material, then verified first-hand
+- **Surface**: `.claude/settings.local.json` env block →
+  `.claude/scripts/statusline-identity.mjs` → the agent-tools statusline adapter
+- **Observed**: the variable is set to the RELATIVE path `.logs/statusline.log`,
+  so it resolves against whatever cwd the statusline child inherits rather than
+  against the project. Two foreign checkouts received it in one morning: a
+  third-party clone in a session scratchpad, and — the one that matters —
+  `visitors/pedagogy-library`, which is a SATELLITE REPOSITORY WITH ITS OWN GIT
+  AND ITS OWN REMOTE. That repo does not ignore the path: `git -C
+  visitors/pedagogy-library status --short` reports `?? .logs/`, and
+  `check-ignore` exits non-zero. The file there is 12,080 bytes written
+  2026-09-12 08:53–08:54 by session `2de3685d`, and each line is a raw
+  statusline payload carrying an absolute home path, a transcript path, and
+  cost and rate-limit telemetry.
+- **Expected**: session instrumentation writes inside the project that owns the
+  session, never into a directory the seat merely visited. A satellite repo's
+  working tree is another repository's surface.
+- **Why it matters beyond tidiness**: the payload content is exactly the class
+  `no-machine-local-paths` exists to keep out of version control (absolute
+  `/Users/<name>/…` paths are PII by that rule's own reasoning), and the
+  estate's validator cannot see it — `validate-no-machine-local-paths` scans
+  THIS repository's tracked files, so a sibling repo's untracked working tree is
+  structurally outside its reach. One `git add -A` in the visitor commits
+  another session's telemetry to a different remote.
+- **Candidate cure**: make the path absolute at its source — resolve it from
+  `CLAUDE_PROJECT_DIR` (already used by the shim two lines above) or from the
+  `project_dir` the statusline payload itself carries, rather than leaving a
+  bare relative path in the env block. Unsetting it is the zero-cost
+  alternative; it is an opt-in diagnostic, not a required surface.
+- **Target surface**: the statusline log-path resolution (adapter), plus the
+  machine-local settings entry that supplies it
+- **Status**: open — the settings file is machine-local and untracked, so the
+  one-line change is the OWNER'S to make deliberately; this row is the
+  disposition, not a request
+- **Owner direction status**: unsolicited
+
+### F-182 — instruments that answer about themselves rather than about their input
+
+- **Source**: Nettle guards Pistil (`2de368`) and Sandpiper weaves Updraft
+  (`a96287`), 2026-09-12; the owed row recorded on pull request 135 as issue
+  comment 5644730066 and landed here
+- **Surface**: `prettier --check` (the trigger instance), with two siblings
+  named below
+- **Observed**: over a path `.prettierignore` excludes, `prettier --check`
+  prints `All matched files use Prettier code style!` **while matching zero
+  files**. The success sentence is byte-identical to a real pass and nothing in
+  it distinguishes a clean input set from an empty one. Two seats read that line
+  and believed it the same day; `prettier --file-info <path>` answers truthfully
+  (`{"ignored": true, "inferredParser": null}`).
+- **The class, which is the point of the row**: the same shape fired twice more
+  within about 48 hours on unrelated tools — BSD `xargs` silently rejecting `-a`
+  so a zero-hit sweep read as a clean sweep (2026-09-10), and a `comms send
+  --body` whose backtick spans were eaten by the shell while the command still
+  reported success (2026-09-12, corrected as comms event `5b58b189`). In each
+  case the instrument reported on ITSELF — it ran, it exited zero, it printed
+  its success string — and said nothing about whether its input reached it.
+- **Expected**: a seat can tell, from a check's own output, whether the check
+  had anything to check.
+- **Candidate cure**: no new rule (`rules-have-no-exceptions`,
+  `new-rule-vs-pdr-clause`). The portable discipline is to pair any
+  zero-or-green result with a known-hit control before believing it, and to
+  prefer the interrogating form of a tool where one exists (`--file-info` over
+  `--check`; reading a written record back over trusting a write's exit code).
+  Where a gate in this estate reports over a possibly-empty set, printing the
+  matched-file COUNT alongside the verdict converts the vacuous pass into a
+  visible one.
+- **Target surface**: rule or doctrine home for the discipline; individually,
+  any estate-owned check that can report success over an empty input set
+- **Status**: open
+- **Owner direction status**: standing (agent-observed tooling friction is
+  first-class user feedback, Pelagic event `2dbd74f6`)
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.

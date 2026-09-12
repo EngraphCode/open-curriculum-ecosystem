@@ -63,6 +63,18 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   now?". Resolve the newest by the date in the filename — and where several
   share a date, the root `README.md`'s progress pointer names the canonical
   one; never assume a remembered filename is the latest
+- [spotify-portal-ai-plugins-exploration-2026-09-12.md](./spotify-portal-ai-plugins-exploration-2026-09-12.md)
+  — first-hand exploration of Spotify's `portal-ai-plugins` repository at `3c24ca3`: what it
+  is (a portal plugin of six Markdown skills plus three host manifests over one external CLI,
+  and a second plugin, shunt, that ships hooks, scripts, skills and evals; authored in a
+  six-day window), how it is built (one canonical skills directory behind thin per-host
+  manifests; a second plugin, shunt, layering PreToolUse hooks over named-argument scripts
+  over judgement-only skills), and what value it enables for each of four user groups by what
+  mechanism. Separates the subject's own assertions from what was checked: the published
+  token-savings table is arithmetically sound but **not reproducible from the repository** —
+  its scenarios name 4,014 and 7,408 lines where the committed fixtures hold 602 and 90 — and
+  a coverage gap in the Bash hook's allow conditions is derived from source. Nothing in the
+  subject was executed; the questions it raises for this estate are named, not answered
 - [upstream-and-bulk-alignment-concept-exploration-2026-07-26.md](./upstream-and-bulk-alignment-concept-exploration-2026-07-26.md)
   — fleet-verified concept exploration for MCP-152/MCP-153: the spec delta
   reclassified as shape-novelty (first POST/requestBody/map response the
