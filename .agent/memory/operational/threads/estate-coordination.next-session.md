@@ -2633,3 +2633,36 @@ reasoning; the front door was polling at the boundary and will have exited THREA
   comment volume, push size, relatedness, frequency; weights in a policy file), budget from the
   PR body, pre-push refusal past budget while marginal cost is not falling, the front door
   printing the cost line. Calibrate on #135, #136, #138, #139 with owner-named stop rounds.
+
+## 2026-09-12 23:2xZ — the two guards landed: #140 (reviewer context) and #141 (the review cost gate)
+
+- **#140 MERGED at SHA:527fd11ff** (two-parent, front door). The "Code review" block in
+  `AGENTS.md` and `.github/copilot-instructions.md` no longer tells reviewers "code findings keep
+  the code review's own standard"; the specification boundary is the tests and recorded fixtures
+  the PR carries, observations are reported once in whatever shape the reviewer's output allows,
+  and once the description says the budget is spent items on unchanged code are observations.
+  pr-lifecycle Phase 4 and item 2 carry the same boundary and the spent-budget rule; the PR
+  template's `## Scope` has the code line. Budget two, spent at two; round three's findings
+  rejected with reasoning. Copilot's last two reviews opened with "Observation:" and recommended
+  approval — the block shaped reviewer output within the hour.
+- **#141 MERGED at SHA:ae57ef111** (two-parent, front door). `agent-tools review-cost gate`:
+  a round per reviewed head, priced by a floor plus findings, comment volume, push size and
+  files, times relatedness and reactivity; the opening round priced never charged; settlement
+  rounds accrue against the description's `budget — N` (two by default) × the policy unit;
+  BUDGET-EXHAUSTED (exit 3) past it unless the crossing round halves the one before, one
+  extension only, consumed once the head advances; a pure base sync (branch side unchanged)
+  prices zero, any other merge in full; drafts and skip markers measure nothing; every pushed
+  branch is priced from the pre-push hook's captured ref lines. Weights in `DEFAULT_POLICY`
+  (`agent-tools/src/review-cost/cost.ts`). Live: #139 refused at push three, #138 at three,
+  #136 at four; on #141 itself the hook priced push one at 16.46 of 40 and push two at 33.86
+  (warn). Budget two, spent at two; round four's one observation rejected with reasoning.
+- **Next (owner-directed calibration, the gate's own follow-up):** the owner names the round
+  each recorded loop (#135, #136, #138, #139, #141) should have stopped at; the weights are fit
+  to those labels and moved to a policy file if anything varies per lane. Recorded fixtures at
+  pickup: a tree comparison for sync detection (numstat equality can be fooled by an edit that
+  preserves per-file counts — #141 round four); an unstructured prose review that quotes the skip
+  phrase (#139); the front door's `isSkipMarker` substring read of a substantive Copilot review
+  (#139's tip — real instance, `pr-watch/reviewer-legs.ts`); pr-tally todo 2 (the command and
+  `--json`) now has the harvest it needs in `review-cost/harvest.ts`.
+- **Open PRs:** #137 (draft fold) only. Both lanes retired; worktrees removed; the coordination
+  branch is the only branch besides engraph.
