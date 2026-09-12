@@ -25,11 +25,10 @@ makes any pickup-class home a real verifier.
 
 ## Action
 
-Before step 1, separate the observation from the proposed remedy and
-test the observation against the description's §Scope: a remedy that
-would widen the artefact is routed with a named home before any
-verification work (`pr-lifecycle` §Phase 4) — reviewers grade the text
-against the widest standard they can imagine, never against the story.
+Before step 1, apply `pr-lifecycle` §Phase 4's scope-first test: the
+remedy is separated from the observation and tested against the
+description's §Scope, so an out-of-scope remedy takes no cure here; the
+observation still passes step 1 before it is routed or rejected.
 
 1. **Verify first-hand**, per `pr-comments-resolve-and-recheck` — a
    concrete failure scenario or its verified absence, never
