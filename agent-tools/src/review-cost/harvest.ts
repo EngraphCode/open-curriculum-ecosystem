@@ -125,12 +125,24 @@ export function currentRepo(ghPath?: string, run: GhCommandExecutor = execFileSy
   ).trim();
 }
 
-/** Lines and files changed between two revisions, from `git diff --numstat`. */
+// A merge commit on the branch is a sync from the base: it changes no reviewed
+// content, so its push measures zero (pr-lifecycle: sync pushes sit outside the budget).
+function isMergeCommit(revision: string, run: GhCommandExecutor): boolean {
+  const parents = run('git', ['rev-list', '--parents', '-n', '1', revision], GH_EXEC_OPTIONS)
+    .trim()
+    .split(/\s+/u);
+  return parents.length > 2;
+}
+
+/** Lines and files changed between two revisions, from `git diff --numstat`; zero for a sync merge. */
 export function gitDiffStat(
   from: string,
   to: string,
   run: GhCommandExecutor = execFileSync,
 ): DiffStat {
+  if (isMergeCommit(to, run)) {
+    return { lines: 0, files: [] };
+  }
   const out = run('git', ['diff', '--numstat', `${from}..${to}`], GH_EXEC_OPTIONS);
   const rows = out
     .split('\n')
