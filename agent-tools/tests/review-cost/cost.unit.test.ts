@@ -10,6 +10,7 @@ const measure = (overrides: Partial<RoundMeasure> & { head: string }): RoundMeas
   pushFiles: 0,
   relatedness: 0,
   hoursSincePrevious: null,
+  sync: false,
   ...overrides,
 });
 
@@ -174,6 +175,53 @@ describe('reviewCost — the opening round is priced, never charged; settlement 
     const rounds = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'].map(small);
     expect(reviewCost(rounds.slice(0, 4), 2).verdict).not.toBe('exhausted');
     expect(reviewCost(rounds, 2).verdict).toBe('exhausted');
+  });
+
+  it('accrues nothing for a reviewed sync round, whatever it raised', () => {
+    const rounds = [
+      measure({ head: 'r1', findings: 6, commentChars: 4000, pushLines: 300, pushFiles: 6 }),
+      measure({
+        head: 'sync',
+        findings: 6,
+        commentChars: 5000,
+        pushLines: 0,
+        pushFiles: 0,
+        hoursSincePrevious: 0.1,
+        sync: true,
+      }),
+    ];
+    const report = reviewCost(rounds, 2);
+    expect(report.total).toBe(0);
+    expect(report.rounds[1]?.cost).toBe(0);
+    expect(report.verdict).toBe('within');
+  });
+
+  it('grants the converging push once: with the head already advanced past the last reviewed round it is exhausted', () => {
+    const rounds = [
+      measure({ head: 'r1', findings: 12, commentChars: 9000, pushLines: 900, pushFiles: 12 }),
+      measure({
+        head: 'r2',
+        findings: 20,
+        commentChars: 9000,
+        pushLines: 400,
+        pushFiles: 6,
+        hoursSincePrevious: 2,
+      }),
+      measure({
+        head: 'r3',
+        findings: 2,
+        commentChars: 500,
+        pushLines: 20,
+        pushFiles: 1,
+        hoursSincePrevious: 2,
+      }),
+    ];
+    expect(reviewCost(rounds, 1).verdict).toBe('converging');
+    const taken = reviewCost(rounds, 1, undefined, { headAdvanced: true });
+    expect(taken.verdict).toBe('exhausted');
+    expect(taken.evidence.some((line) => line.includes('converging push has been taken'))).toBe(
+      true,
+    );
   });
 
   it('scales the budget with the declared pushes', () => {

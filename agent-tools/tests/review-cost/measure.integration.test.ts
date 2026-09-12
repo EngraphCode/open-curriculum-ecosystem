@@ -10,7 +10,7 @@ const EXPECTED = ['copilot-pull-request-reviewer', 'chatgpt-codex-connector'];
 
 // A recording carries no diffs; the reader is injected. Each push here is a
 // modest edit to the same two files, the fix-push signature.
-const sameFiles: DiffStat = { lines: 120, files: ['a.ts', 'b.ts'] };
+const sameFiles: DiffStat = { lines: 120, files: ['a.ts', 'b.ts'], sync: false };
 
 const short = (oid: string) => oid.slice(0, 9);
 const hours = (value: number | null) => (value === null ? null : Math.round(value * 100) / 100);
@@ -56,6 +56,36 @@ describe('measureRounds — one measure per reviewed head of the #138 recording'
       '33cca25bc..ebf90ac3b',
       'ebf90ac3b..fe81ac086',
     ]);
+  });
+
+  it('creates no round for a head whose only review from a declared reviewer is a skip marker', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const unreviewed = harvest.commits.find(
+      (commit) => !harvest.reviews.some((review) => review.commitOid === commit.oid),
+    );
+    expect(unreviewed, 'fixture has no unreviewed head').toBeDefined();
+    const skip = {
+      id: 'PRR_skip',
+      databaseId: 9000001,
+      author: EXPECTED[0] ?? '',
+      state: 'COMMENTED',
+      commitOid: unreviewed?.oid ?? '',
+      submittedAt: '2026-09-12T16:00:00Z',
+      body: 'Unable to review: service unavailable.',
+    };
+    const before = measureRounds({
+      harvest,
+      expectedReviewers: EXPECTED,
+      baseRef: 'origin/engraph',
+      diff: () => sameFiles,
+    });
+    const after = measureRounds({
+      harvest: { ...harvest, reviews: [...harvest.reviews, skip] },
+      expectedReviewers: EXPECTED,
+      baseRef: 'origin/engraph',
+      diff: () => sameFiles,
+    });
+    expect(after.map((round) => round.head)).toStrictEqual(before.map((round) => round.head));
   });
 
   it('reads the #138 loop — six settlement rounds of fix-pushes — as exhausted against a budget of two', () => {

@@ -1,5 +1,6 @@
 import { extractBodyFindings } from '../pr-tally/findings.js';
 import type { RecordedHarvest } from '../pr-tally/harvest.js';
+import { skipOnly } from '../pr-tally/settlement.js';
 import type { RoundMeasure } from './cost.js';
 
 /**
@@ -12,6 +13,8 @@ import type { RoundMeasure } from './cost.js';
 export interface DiffStat {
   readonly lines: number;
   readonly files: readonly string[];
+  /** A sync from the base: the push changed no reviewed content. */
+  readonly sync: boolean;
 }
 
 interface MeasureInput {
@@ -29,12 +32,15 @@ const sameLogin = (left: string, right: string): boolean =>
 
 const MS_PER_HOUR = 60 * 60 * 1000;
 
+// A head is reviewed when a declared reviewer's SUBSTANTIVE review landed on it:
+// a PENDING draft or a skip marker (pr-tally's reading) creates no round.
 function reviewedHeads(input: MeasureInput): { oid: string; committedDate: string }[] {
   return input.harvest.commits.filter((commit) =>
     input.harvest.reviews.some(
       (review) =>
         review.commitOid === commit.oid &&
         review.state !== 'PENDING' &&
+        !skipOnly(review) &&
         input.expectedReviewers.some((login) => sameLogin(review.author, login)),
     ),
   );
@@ -89,6 +95,7 @@ export function measureRounds(input: MeasureInput): RoundMeasure[] {
       pushFiles: stat.files.length,
       relatedness: relatednessOf(stat, previous?.stat),
       hoursSincePrevious: hoursBetween(previous?.committedDate, head.committedDate),
+      sync: stat.sync,
     });
     previous = { ...head, stat };
   }

@@ -141,7 +141,7 @@ export function gitDiffStat(
   run: GhCommandExecutor = execFileSync,
 ): DiffStat {
   if (isMergeCommit(to, run)) {
-    return { lines: 0, files: [] };
+    return { lines: 0, files: [], sync: true };
   }
   const out = run('git', ['diff', '--numstat', `${from}..${to}`], GH_EXEC_OPTIONS);
   const rows = out
@@ -152,7 +152,11 @@ export function gitDiffStat(
     (sum, [added, deleted]) => sum + (Number(added) || 0) + (Number(deleted) || 0),
     0,
   );
-  return { lines, files: rows.map((row) => row[2] ?? '').filter((file) => file !== '') };
+  return {
+    lines,
+    files: rows.map((row) => row[2] ?? '').filter((file) => file !== ''),
+    sync: false,
+  };
 }
 
 export function currentBranch(run: GhCommandExecutor = execFileSync): string {

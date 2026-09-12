@@ -26,6 +26,8 @@ export interface RoundMeasure {
   readonly relatedness: number;
   /** Hours since the previous reviewed head; null for the opening round. */
   readonly hoursSincePrevious: number | null;
+  /** A sync from the base: the push changed no reviewed content, so the round accrues nothing. */
+  readonly sync: boolean;
 }
 
 export interface CostPolicy {
@@ -67,6 +69,11 @@ type CostVerdict = 'within' | 'warn' | 'converging' | 'exhausted';
 interface RoundCost {
   readonly head: string;
   readonly cost: number;
+}
+
+export interface CostOptions {
+  /** The pull request's head is already beyond the last reviewed head: a push has been taken since. */
+  readonly headAdvanced?: boolean;
 }
 
 export interface CostReport {
@@ -120,14 +127,18 @@ function converging(costs: readonly number[], budget: number, policy: CostPolicy
   );
 }
 
+// The converging extension is exactly one push: once the head has advanced past
+// the last reviewed head, it has been taken, and the next review must land first.
 function verdictFor(
   total: number,
   budget: number,
   costs: readonly number[],
   policy: CostPolicy,
+  options: CostOptions,
 ): CostVerdict {
   if (total >= budget) {
-    return converging(costs, budget, policy) ? 'converging' : 'exhausted';
+    const extension = converging(costs, budget, policy) && options.headAdvanced !== true;
+    return extension ? 'converging' : 'exhausted';
   }
   return total >= budget * policy.warnShare ? 'warn' : 'within';
 }
@@ -142,16 +153,23 @@ export function reviewCost(
   rounds: readonly RoundMeasure[],
   budgetPushes: number,
   policy: CostPolicy = DEFAULT_POLICY,
+  options: CostOptions = {},
 ): CostReport {
-  const costs = rounds.map((measure) => ({ head: measure.head, cost: roundCost(measure, policy) }));
+  // A sync round is listed at zero: it changed no reviewed content (pr-lifecycle).
+  const costs = rounds.map((measure) => ({
+    head: measure.head,
+    cost: measure.sync ? 0 : roundCost(measure, policy),
+  }));
   const settlement = costs.slice(1).map((entry) => entry.cost);
   const total = round2(settlement.reduce((sum, cost) => sum + cost, 0));
   const budget = round2(budgetPushes * policy.unitRound);
+  const charged = costs.filter((entry, index) => index === 0 || entry.cost > 0);
   const verdict = verdictFor(
     total,
     budget,
-    costs.map((entry) => entry.cost),
+    charged.map((entry) => entry.cost),
     policy,
+    options,
   );
   const evidence = [
     `rounds ${String(costs.length)} (opening plus ${String(Math.max(0, costs.length - 1))} settlement), budget ${String(budgetPushes)} settlement pushes`,
@@ -160,6 +178,9 @@ export function reviewCost(
       ? [
           'BUDGET-EXHAUSTED: no further settlement push; every remaining finding is dispositioned without a cure, or the budget is raised on the pull request by the owner',
         ]
+      : []),
+    ...(verdict === 'exhausted' && options.headAdvanced === true
+      ? ['the head is already past the last reviewed round: the one converging push has been taken']
       : []),
     ...(verdict === 'converging'
       ? [

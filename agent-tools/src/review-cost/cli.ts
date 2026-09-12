@@ -164,7 +164,10 @@ function report(target: { number: number; repo: string }, parsed: ParsedArgs): C
     baseRef: `${live.harvest.commits[0]?.oid ?? live.harvest.headRefOid}^`,
     diff: gitDiffStat,
   });
-  return reviewCost(rounds, readBudget(live.body).pushes, DEFAULT_POLICY);
+  const lastReviewed = rounds.at(-1)?.head;
+  return reviewCost(rounds, readBudget(live.body).pushes, DEFAULT_POLICY, {
+    headAdvanced: lastReviewed !== undefined && lastReviewed !== live.harvest.headRefOid,
+  });
 }
 
 function render(target: { number: number }, result: CostReport, json: boolean): string {
