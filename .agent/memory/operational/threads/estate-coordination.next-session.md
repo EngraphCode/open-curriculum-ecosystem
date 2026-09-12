@@ -2310,9 +2310,10 @@ and dispositioned). One worktree remains, the primary.
    against output, which would make the redactor a second secret-handling surface. Redaction is a
    property of the OUTPUT's shape. Option B (filesystem-type allowlist) refused. Option A composes
    but is not the answer. **No delivery node exists yet — that is the resolution's named follow-up.**
-2. **`pr-tally`: no build decision until a two-hour plan has been seen.** The plan was presented and
-   is reproduced below in full, because the owner has NOT yet answered and it must not be
-   recoverable only from a chat transcript.
+2. **`pr-tally`: no build decision until a two-hour plan has been seen.** A two-hour slice was
+   presented and reproduced here in full at the boundary (git retains it at SHA:be6f75c05); it
+   was superseded on 2026-09-12 by the owner's approval of the settlement plan, which names todo 3
+   as the slice — see the section below, which now cites the node instead of carrying a slice.
 3. **A card was REFUSED as premature**: where the AI tutoring work should land. "We haven't even
    created the brief yet, this question is vastly premature." The material will arrive when the
    owner sends it; until then there is nothing to shape and nothing to ask.
@@ -2321,8 +2322,8 @@ and dispositioned). One worktree remains, the primary.
 
 The design of `pr-tally` lives in one place, `.agent/plans/delivery/pr-tally.plan.md` (ratified
 2026-09-08); this record cites it and carries no rival specification. A two-hour slice was written
-out here in full at the boundary and drew two review findings on #135 that the node already
-answers: the slice's row carried `raised` only, where the node's predicate reads the cure-worthy
+out here in full at the boundary (git retains that text at SHA:be6f75c05; it is not reproduced
+here) and drew two review findings on #135 that the node already answers: the slice's row carried `raised` only, where the node's predicate reads the cure-worthy
 count from the bar marker; and it ordered rows by first appearance, where the node requires branch
 commit order. Both are ledgered on the node under `## Review dispositions`. The slice that follows
 the node's own sequencing is todo 3 first (the bar marker and disposition format in the
@@ -2361,9 +2362,10 @@ file already contains, not a new claim about it.
 1. **The redaction delivery node** — decided, unbuilt, and **PAUSED by the owner on 2026-09-12
    until the issue recurs**. Do not author the node speculatively. The option-C decision and its
    `.env` prohibition stand unchanged and are what gets built if a retention incident makes it live.
-2. **`pr-tally` is the NEXT work** — owner, 2026-09-12. The two-hour plan above is the standing
-   proposal, and the objection recorded with it (a library with no caller) stands with it; the owner
-   has not ruled on where the slice boundary falls.
+2. **`pr-tally` is the NEXT work** — owner, 2026-09-12. The slice is todo 3 first, per the node's
+   own sequencing, set by the owner's approval of the settlement plan later that day; the earlier
+   two-hour slice of todo 1 and its objection (a library with no caller) are superseded, and the
+   node's `## Review dispositions` carries the two findings that retired it.
 3. **The four sync-workflow findings** — the owner's card answer stands: "Cure all four in one lane."
    The mirror-provenance one has TWO routes and the choice is still the owner's: apply the carrier's
    parent-check remedy, or protect the mirror branch. `main` is `protected: false` with no ruleset

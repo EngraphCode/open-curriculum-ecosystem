@@ -351,8 +351,8 @@ first-hand as of 2026-06-25.
 > claims archived. The owner's directives of 2026-09-12, verbatim in the estate-coordination thread record
 > §COMPACTION BOUNDARY 7: `pr-tally` is the next work (todo 3 first, per the node's own sequencing); no
 > Windows work; the redaction delivery node is paused until the issue recurs; the AI tutoring research
-> waits for the owner's word. Owner-held: the four sync-workflow findings, cured in ONE lane at the owner's
-> card word, the mirror-provenance route the owner's choice; the upstream report under
+> waits for the owner's word. Owner-held: the four sync-workflow findings, to be cured in ONE lane (the
+> owner's card word; not started), the mirror-provenance route the owner's choice; the upstream report under
 > `.agent/reports/upstream-sync/` is the owner's to send; the directives-tier placement; #100's two deny
 > lines. A successor's first moves, on any checkout: start-right-team; the mechanical liveness check and
 > the readiness gate in this file's brief; adoption only from a pre-positioning event; the all-channels
