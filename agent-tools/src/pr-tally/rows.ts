@@ -21,7 +21,7 @@ type Thread = RecordedHarvest['reviewThreads'][number];
 type Review = RecordedHarvest['reviews'][number];
 
 /** One head's row. `undispositioned` findings have no signed disposition; `manual` ones have a signed disposition with no marker. */
-interface TallyRow {
+export interface TallyRow {
   readonly head: string;
   readonly settled: boolean;
   /** Expected reviewers with a review bound to this head. */
