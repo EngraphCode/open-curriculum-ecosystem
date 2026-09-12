@@ -88,6 +88,31 @@ describe('measureRounds — one measure per reviewed head of the #138 recording'
     expect(after.map((round) => round.head)).toStrictEqual(before.map((round) => round.head));
   });
 
+  it('adds no findings and no characters for a PENDING draft on an otherwise reviewed head', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = harvest.commits[0]?.oid ?? '';
+    const draft = {
+      id: 'PRR_draft',
+      databaseId: 9000002,
+      author: EXPECTED[0] ?? '',
+      state: 'PENDING',
+      commitOid: head,
+      submittedAt: '',
+      body: '### Suppressed comments (1)\n\n**docs/a.md:1**\n* A draft finding with a long body.\n',
+    };
+    const measure = (reviews: typeof harvest.reviews) =>
+      measureRounds({
+        harvest: { ...harvest, reviews },
+        expectedReviewers: EXPECTED,
+        baseRef: 'origin/engraph',
+        diff: () => sameFiles,
+      })[0];
+    const before = measure(harvest.reviews);
+    const after = measure([...harvest.reviews, draft]);
+    expect(after?.findings).toBe(before?.findings);
+    expect(after?.commentChars).toBe(before?.commentChars);
+  });
+
   it('reads the #138 loop — six settlement rounds of fix-pushes — as exhausted against a budget of two', () => {
     const harvest = parseRecordedHarvest(pr138);
     const rounds = measureRounds({

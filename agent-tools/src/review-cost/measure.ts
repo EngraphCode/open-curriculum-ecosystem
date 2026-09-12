@@ -32,32 +32,43 @@ const sameLogin = (left: string, right: string): boolean =>
 
 const MS_PER_HOUR = 60 * 60 * 1000;
 
-// A head is reviewed when a declared reviewer's SUBSTANTIVE review landed on it:
-// a PENDING draft or a skip marker (pr-tally's reading) creates no round.
+// A review measures only when it LANDED and is substantive: a PENDING draft
+// or a skip marker (pr-tally's reading) adds no findings and no characters.
+const landed = (review: Review): boolean => review.state !== 'PENDING' && !skipOnly(review);
+
+// A head is reviewed when a declared reviewer's landed, substantive review binds it.
 function reviewedHeads(input: MeasureInput): { oid: string; committedDate: string }[] {
   return input.harvest.commits.filter((commit) =>
     input.harvest.reviews.some(
       (review) =>
         review.commitOid === commit.oid &&
-        review.state !== 'PENDING' &&
-        !skipOnly(review) &&
+        landed(review) &&
         input.expectedReviewers.some((login) => sameLogin(review.author, login)),
     ),
   );
 }
 
-function findingsOn(head: string, harvest: RecordedHarvest, bound: readonly Review[]): number {
-  const threads = harvest.reviewThreads.filter((thread) => thread.reviewCommitOid === head).length;
+type Thread = RecordedHarvest['reviewThreads'][number];
+
+// The threads of a head whose originating review landed (an unbound thread counts).
+function threadsOn(head: string, harvest: RecordedHarvest, bound: readonly Review[]): Thread[] {
+  const ids = new Set(bound.map((review) => review.id));
+  return harvest.reviewThreads.filter(
+    (thread) =>
+      thread.reviewCommitOid === head && (thread.reviewId === null || ids.has(thread.reviewId)),
+  );
+}
+
+function findingsOn(threads: readonly Thread[], bound: readonly Review[]): number {
   const bodyItems = bound.reduce(
     (sum, review) => sum + extractBodyFindings(review).items.length,
     0,
   );
-  return threads + bodyItems;
+  return threads.length + bodyItems;
 }
 
-function commentCharsOn(head: string, harvest: RecordedHarvest, bound: readonly Review[]): number {
-  const threadChars = harvest.reviewThreads
-    .filter((thread) => thread.reviewCommitOid === head)
+function commentCharsOn(threads: readonly Thread[], bound: readonly Review[]): number {
+  const threadChars = threads
     .flatMap((thread) => thread.comments)
     .reduce((sum, comment) => sum + comment.body.length, 0);
   return threadChars + bound.reduce((sum, review) => sum + review.body.length, 0);
@@ -86,11 +97,14 @@ export function measureRounds(input: MeasureInput): RoundMeasure[] {
   let previous: { oid: string; committedDate: string; stat: DiffStat } | undefined;
   for (const head of heads) {
     const stat = input.diff(previous?.oid ?? input.baseRef, head.oid);
-    const bound = input.harvest.reviews.filter((review) => review.commitOid === head.oid);
+    const bound = input.harvest.reviews.filter(
+      (review) => review.commitOid === head.oid && landed(review),
+    );
+    const threads = threadsOn(head.oid, input.harvest, bound);
     measures.push({
       head: head.oid,
-      findings: findingsOn(head.oid, input.harvest, bound),
-      commentChars: commentCharsOn(head.oid, input.harvest, bound),
+      findings: findingsOn(threads, bound),
+      commentChars: commentCharsOn(threads, bound),
       pushLines: stat.lines,
       pushFiles: stat.files.length,
       relatedness: relatednessOf(stat, previous?.stat),

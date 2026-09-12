@@ -125,25 +125,36 @@ export function currentRepo(ghPath?: string, run: GhCommandExecutor = execFileSy
   ).trim();
 }
 
-// A merge commit on the branch is a sync from the base: it changes no reviewed
-// content, so its push measures zero (pr-lifecycle: sync pushes sit outside the budget).
-function isMergeCommit(revision: string, run: GhCommandExecutor): boolean {
+// A merge commit is a sync from the base ONLY when its branch side changed
+// nothing: the diff from its first parent to the merge equals the diff the
+// second parent brings in from their merge base. A merge carrying cures or
+// conflict edits is priced in full from the previous reviewed head — the
+// base's changes ride along, which overcharges, the safe direction for a gate.
+function numstat(range: string, run: GhCommandExecutor): string {
+  return run('git', ['diff', '--numstat', range], GH_EXEC_OPTIONS).trim();
+}
+
+function isBaseSync(revision: string, run: GhCommandExecutor): boolean {
   const parents = run('git', ['rev-list', '--parents', '-n', '1', revision], GH_EXEC_OPTIONS)
     .trim()
     .split(/\s+/u);
-  return parents.length > 2;
+  const [, first, second] = parents;
+  if (parents.length !== 3 || first === undefined || second === undefined) {
+    return false;
+  }
+  return numstat(`${first}..${revision}`, run) === numstat(`${first}...${second}`, run);
 }
 
-/** Lines and files changed between two revisions, from `git diff --numstat`; zero for a sync merge. */
+/** Lines and files changed between two revisions, from `git diff --numstat`; zero for a base sync. */
 export function gitDiffStat(
   from: string,
   to: string,
   run: GhCommandExecutor = execFileSync,
 ): DiffStat {
-  if (isMergeCommit(to, run)) {
+  if (isBaseSync(to, run)) {
     return { lines: 0, files: [], sync: true };
   }
-  const out = run('git', ['diff', '--numstat', `${from}..${to}`], GH_EXEC_OPTIONS);
+  const out = numstat(`${from}..${to}`, run);
   const rows = out
     .split('\n')
     .filter((line) => line.trim() !== '')
