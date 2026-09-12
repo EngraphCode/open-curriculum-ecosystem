@@ -513,9 +513,13 @@ reply on a review thread inherits the thread's head and anchor from the
 harvest. A finding that lives only in a review body (a Copilot suppressed
 item, a Codex body item) has no thread, so its disposition is an issue
 comment carrying ONE LINE PER FINDING, each line the marker, then the
-reference `head SHA:<sha> · <path>:<line>` (the review body's own anchor for
-that item), then the disposition sentence — the reference is the recorded
-field that binds the line to its round and item; a body-only disposition
+reference `head SHA:<sha> · <path>:<line> · <item>` — the review body's own
+anchor for that item, and an item key that survives two findings at one
+anchor: a Codex item's bold heading, a Copilot suppressed item's ordinal in
+its block (`item 3 of 6`), or `thread <id>` when the body item restates an
+inline thread at that anchor and is counted once — then the disposition
+sentence; the reference is the recorded field that binds the line to its
+round and item; a body-only disposition
 without it, or a comment that batches findings under prose headings, reads
 as "manual tally required" for those items, exactly as an unmarked review
 body does. The cure-worthy count reads the marker and nothing else (a

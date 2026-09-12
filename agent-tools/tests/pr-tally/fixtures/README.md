@@ -8,8 +8,10 @@ they never call GitHub.
 
 The four reads the node's mechanism names, recorded once from PR #135 of
 `EngraphCode/open-curriculum-ecosystem` on 2026-09-12 after the PR merged
-(merge commit `69a537717`), unedited apart from unwrapping the GraphQL
-envelope to the `pullRequest` object and pretty-printing:
+(merge commit `69a537717`) with the query below — `pageInfo` selected on every
+connection, and every recorded `hasNextPage` is false, the machine-readable
+evidence that each connection was exhausted — unedited apart from unwrapping
+the GraphQL envelope to the `pullRequest` object and pretty-printing:
 
 - `commits` — the branch's commits in PR order, the authoritative head order
   the tally sorts bindings against;
@@ -117,7 +119,7 @@ query {
 ```
 
 Every connection was under one page for PR #135 (7 commits, 17 threads, 26 reviews, 10
-comments). For a larger PR, page each connection to exhaustion before unwrapping: while any
+comments; the largest nested thread has two comments) and the recorded `pageInfo` says so. For a larger PR, page each connection to exhaustion before unwrapping: while any
 `pageInfo.hasNextPage` is true, re-query that connection with `after: "<endCursor>"` and
 concatenate its `nodes` — the nested thread `comments` connection included — as the node's
 mechanism requires; a truncated recording is not a fixture.
@@ -125,7 +127,9 @@ mechanism requires; a truncated recording is not a fixture.
 What the corpus exercises, by the node's criterion 5: nine reviewer reviews bound to five
 heads; two of the seven commits never reviewed (superseded before a
 review bound); review bodies carrying Copilot suppressed-findings blocks with
-several findings each and Codex badge-and-heading items; the seat's signed
+several findings each (there is NO Codex body-only item: every Codex finding on #135 is a
+thread and its review bodies are boilerplate, so that shape takes a fixture of its own at
+todo 1); the seat's signed
 replies (author `el-graphael`, signed "Nettle guards Pistil (2de368)") each
 opening with the bar marker (`**Over-bar**` / `**Below-bar**`), to be
 excluded from the raised count and read for the cure-worthy count; one push

@@ -6,6 +6,10 @@
     "oid": "69a5377176d5ce16f2ecf1f18257d688238d0b18"
   },
   "commits": {
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Nw"
+    },
     "nodes": [
       {
         "commit": {
@@ -52,6 +56,10 @@
     ]
   },
   "reviewThreads": {
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjozMDoyOFrOocAd6Q=="
+    },
     "nodes": [
       {
         "id": "PRRT_kwDORdPTys6hum1L",
@@ -60,6 +68,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0M1rO7jBO9g=="
+          },
           "nodes": [
             {
               "databaseId": 3995657878,
@@ -99,6 +111,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0NVrO7jBPFw=="
+          },
           "nodes": [
             {
               "databaseId": 3995657885,
@@ -138,6 +154,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0NlrO7jBPQw=="
+          },
           "nodes": [
             {
               "databaseId": 3995665049,
@@ -177,6 +197,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0N1rO7jBPYA=="
+          },
           "nodes": [
             {
               "databaseId": 3995665064,
@@ -216,6 +240,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0OFrO7jBPeQ=="
+          },
           "nodes": [
             {
               "databaseId": 3995686192,
@@ -255,6 +283,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo0OVrO7jBPoQ=="
+          },
           "nodes": [
             {
               "databaseId": 3995686193,
@@ -294,6 +326,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1MFrO7jBPxA=="
+          },
           "nodes": [
             {
               "databaseId": 3995686194,
@@ -333,6 +369,10 @@
         "path": ".agent/state/collaboration/conversations/owner-only-retention-enforcement-2026-09-11.json",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1MVrO7jBP6g=="
+          },
           "nodes": [
             {
               "databaseId": 3995686196,
@@ -372,6 +412,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": 2204,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1MlrO7jBQGg=="
+          },
           "nodes": [
             {
               "databaseId": 3995686197,
@@ -411,6 +455,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": 2298,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1M1rO7jBQQQ=="
+          },
           "nodes": [
             {
               "databaseId": 3995706888,
@@ -450,6 +498,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1NFrO7jBQXA=="
+          },
           "nodes": [
             {
               "databaseId": 3995706893,
@@ -489,6 +541,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjowMjo1NVrO7jBQeg=="
+          },
           "nodes": [
             {
               "databaseId": 3995706898,
@@ -528,6 +584,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": 2332,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjoyNDoxN1rO7jD_Dg=="
+          },
           "nodes": [
             {
               "databaseId": 3996150017,
@@ -567,6 +627,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": 2332,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjoyNDoxOFrO7jD_Pw=="
+          },
           "nodes": [
             {
               "databaseId": 3996155858,
@@ -606,6 +670,10 @@
         "path": ".agent/memory/operational/threads/estate-coordination.next-session.md",
         "line": null,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjoyNDoxOVrO7jD_aA=="
+          },
           "nodes": [
             {
               "databaseId": 3996155871,
@@ -645,6 +713,10 @@
         "path": ".agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md",
         "line": 271,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjo0MToyMlrO7jGGsg=="
+          },
           "nodes": [
             {
               "databaseId": 3996200597,
@@ -684,6 +756,10 @@
         "path": ".agent/memory/operational/frictions-register.md",
         "line": 2741,
         "comments": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wOS0xMlQxMjo0MToyM1rO7jGG2w=="
+          },
           "nodes": [
             {
               "databaseId": 3996200600,
@@ -719,6 +795,10 @@
     ]
   },
   "reviews": {
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Y3Vyc29yOnYyOpO0MjAyNi0wOS0xMlQxMjo0MToyM1q0MjAyNi0wOS0xMlQxMjo0MToyM1rPAAAAATUiwHM="
+    },
     "nodes": [
       {
         "id": "PRR_kwDORdPTys8AAAABNRoynA",
@@ -1035,6 +1115,10 @@
     ]
   },
   "comments": {
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Y3Vyc29yOnYyOpHPAAAAAVCGTqk="
+    },
     "nodes": [
       {
         "databaseId": 5644727301,
