@@ -146,7 +146,16 @@ skill.
 ## Todos
 
 1. **The tally builder and the verdict, with fixtures** — criteria 1 and 2; one PR, default
-   round budget.
+   round budget. Landed 2026-09-12: `agent-tools/src/pr-tally/` — `harvest.ts` (the recorded
+   boundary), `markers.ts` (the closed marker grammar), `findings.ts` (body items by the
+   reviewer's markers), `dispositions.ts` (the seat's signed body-only disposition lines),
+   `settlement.ts` (which reviews settle a head), `rows.ts` (rows per settled head in branch
+   order) and `verdict.ts` (the predicate with epochs), each with its unit tests and the
+   integration suites over the recorded corpora; the conforming
+   fixtures #136 and #138 recorded with the widened query. Not yet read from a recording: check-run
+   history, so SKIPPED and timeout settlement (criterion 5's skip and timeout cases) wait for the
+   command (todo 2) to harvest it; the ledger's signature question is answered by not widening the
+   predicate — the #135 corpus reads as undispositioned, truthfully.
 2. **The command and the validation script** — criterion 3 and the `--json` shape; one PR.
 3. **The practice half** — the skill step (criterion 4) and the disposition format: the bar
    marker and the disposition named in the pr-lifecycle intake contract (PDR-140's
@@ -155,9 +164,9 @@ skill.
    so that the first live round reads counts rather than "manual tally required". Partly landed
    2026-09-12: the format in `pr-lifecycle` §Response pricing and its projections; the skill
    step landed earlier in SHA:ccdbc5613; the fixture recorded so far,
-   `agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`, predates the format and is the
-   manual-tally corpus. STILL OWED before todo 1's first test: the conforming end-to-end
-   fixture, recorded from a pull request run under this format (#136 or #138) once it merges.
+   `agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`, predates the format and reads as
+   undispositioned. Landed 2026-09-12 with todo 1: the conforming end-to-end fixtures, recorded
+   from #136 and #138 after they merged (the widened query), read by the corpus suite.
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
 command once it lands), and the PDR-140 intake contract where the changeset carries prose.
