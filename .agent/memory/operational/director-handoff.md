@@ -324,95 +324,42 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD LANDED, 2026-09-10 02:0xZ (Nettle guards Pistil, `2de368`, Director) — THIS
-> SUPERSEDES THE 2026-09-09 17:16Z FOLD BLOCK (git retains it).** `coordination/2026-09-09-31e371`
-> folded to `engraph` via PR **#104** (opened as a draft by this seat at the 17:16Z cut, run in
-> its landing slot after #101 with the branch DUE under the 24-hour rule since the 00:00Z
-> rollover; the merge of `engraph` at SHA:3712eefb4 as SHA:55736f697, made once at the slot
-> word with the tree equal to the merge-tree preview; three review rounds, 2, 1, 1 — the stale
-> lane map and a backwards merge-tree diagnosis cured in the settlement push, the snapshot's
-> tense through the one 9(b) door, the bare-SHA sweep routed to the successor's first commit)
-> at full condition (run-quality-gates and CodeQL green by name, zero unresolved threads,
-> mergeStateStatus CLEAN, ten-minute quiet window) through the merge-bot front door as merge
-> commit SHA:2d17c6e46 at 02:0xZ; the fold carried this seat's three wraps and the
-> compaction-boundary sweep, the lane seat's pause block and experience letter, the curator
-> seat's consolidation blocks and the front-door defect diagnosis, and the handoff snapshot
-> re-trued at the fold. The day-stamped successor **`coordination/2026-09-10-2d17c6`** was cut
-> tree-preservingly from post-fold `engraph` by the coordination tool and published; its first
-> commit carries this block, the journal entry and the SHA-prefix sweep. Product-gravity line:
-> _moved for teachers:_ nothing in the fold's own commits — the day's product movement rode
-> `engraph` directly (#99, upstream 1.179.0, among seven landings between the cuts). _moved for
-> the Practice:_ the consolidation's three records PRs (#105 the skills homes with the
-> cross-fork skill's second draft, #106 the rules and PDR homes, #107 the plan units), the
-> one-outcome Sonar policy (#102), the held-seat-observability node (#101), the continuity
-> sweeps of three seats. Seats at the fold: A DIRECTOR IS SEATED — Nettle guards Pistil, claim
-> `8109015d`; Altair spins Umbra (`05a180`) on #108 and #110; Vanilla lifts Nectar (`e1dced`,
-> curator) on #109 and the drain PR. THE PICKUP MAP is the live snapshot below (tracked) with
-> the tenure journal in the estate-coordination thread record; the board is computed live from
-> the repository service, never read from either.
+> **§FOLD, 2026-09-12 (Nettle guards Pistil, `2de368`, Director) — THIS SUPERSEDES THE 2026-09-10 02:0xZ
+> FOLD BLOCK (git retains it).** `coordination/2026-09-11-f6d7db` folds to `engraph` via PR **#135**, cut
+> 2026-09-11 and DUE under the 24-hour rule; the fold carries the owner's retention decision (recorded and
+> closed), the second seat's exploration report, compaction boundary 7, the owner's note of 2026-09-12, two
+> verified frictions (F-181, F-182) and this settlement. Landed between the cuts, each by the front door as
+> the bot: #130 SHA:0d6a9769c and #131 SHA:ad64f3cd5 (the two upstream sync workflows, dispatched green by
+> the bot), #132 SHA:14d9938c2 (owner-only mode verification and IO-free tests), #133 SHA:f4897e38c
+> (continuity), #134 SHA:f262a5b6b (the 2026-09-11 records). Open pull requests reached zero at #134; this
+> fold is the one open pull request at its own landing. Review on #135: three Codex rounds and two Copilot
+> rounds, threads raised 4, 5, 3; PDR-132's budget exceeded; settled under PDR-140 clause 9 in one
+> rebudgeted push after the intake declaration owed at open was posted late and said so. Product-gravity
+> line: _moved for teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
+> through the sync workflows (#131). _moved for the Practice:_ the mode verification (#132), the sync
+> workflows (#131), the retention decision (option C, redact at the boundary, no `.env` file touched), the
+> exploration report, F-181 and F-182.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-09 15:0xZ (Flounder turns Estuary, `c5cc2c`, Director, at the FULL
-> HANDOFF to the owner-named successor Nettle guards Pistil, `2de368`) — THE STATE AT THIS
-> HANDOFF; the fold block above stands verbatim; this snapshot replaces the 2026-09-08 23:2xZ one
-> in place, per this file's refresh contract (git retains it); re-trued in place by the sitting
-> Director at this branch's fold, 2026-09-09 16:4xZ, and again at the successor's fold,
-> 2026-09-10 00:5xZ (landed list and lane holders).** The owner's standing goal: "I want to
-> drive the number of open PRs to zero." THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open
-> set, each pull request's head, state and threads are computed from the repository service at
-> the moment of reading (the open-PR list and the review-thread selection in the pr-lifecycle
-> skill's state machine); this snapshot records what LANDED and who holds which LANE. Landed on
-> 2026-09-09, each by merge commit as the bot at green, clean and sensible: #90 (upstream
-> 1.178.6, on the owner's word; the founding run of the cross-fork-integration skill), #98 (the
-> #88 follow-up, by the Director's recorded deadline-and-default while the lane seat was held at
-> a prompt), #97 (the cross-fork-integration skill's first draft, on the owner's ruling "land on
-> the Director's read"; four review rounds, the four-round arm fired, the terminal tail's findings
-> routed to the skill's second draft), #92 (the owner's foundations bundle with ADR-230, every
-> clause ruled by card), and this branch's own fold. The landing-slot contract governed each: one
-> non-draft PR holds the slot, merges `engraph` as its last push, settles green by name and clean,
-> merges with the head pinned. Landed since, under the owner's 2026-09-09 19:2xZ word "I want
-> ALL PRs merged, including those currently in draft" (the count-to-zero goal now covers every
-> draft): #99 (the upstream 1.179.0 carrier, Altair), #107, #105 and #106 (the curator seat
-> Vanilla lifts Nectar's consolidation records), #102 (the one-outcome Sonar policy, Altair),
-> #101 (the held-seat-observability node, Altair); this branch's own fold at the merge of #101
-> is the pull request this snapshot lands with — a reader on `engraph` holds it landed, a
-> reader on the branch holds it pending. Lanes at this fold (2026-09-10 00:5xZ), by holder:
-> Altair spins Umbra (`05a180`) — #108
-> (the cross-fork skill's carrier lessons; step-back fired, cures held for its slot word) and
-> #110 (the #102 residue); Vanilla lifts Nectar (`e1dced`, curator) — #109 (the merge-bot
-> front door's liveness-leg fix, a source PR) and the napkin drain PR, to be cut from the
-> post-fold tip once this fold lands; the Director — #100 (the held-seat fix at its second step-back; the two blanket deny
-> lines are an OWNER edit, refused to the seat by the classifier) and #103 (a Codex seat's
-> research-package import, read done, landing at its slot on the import README's recorded
-> owner authority). Rulings of 2026-09-09, by card, all
-> applied or in flight: no-prompts cure (#100); #92 clause 2 = the class; the external-skills
-> review framework stays ARCHIVED (the morning's card about it was stale — owner-facing state is
-> computed against `origin/engraph`, never the coordination checkout); private projects
-> generalised in the bundle; the next carrier waited for (it arrived as #99); principles.md's
-> fitness breach is a curation lane later. Doctrine of the day: integration is a semantic event
-> (the skill, the guide's §4i, the rule); a re-truing narrows to the claim refuted; cross-lineage
-> ADR numbering decided once (upstream's sequence authoritative; the fork renumbers in the sync
-> commit). Seats at the handoff: the Director claim `8109015d` was ADOPTED by Nettle guards
-> Pistil (`2de368`) at PDR-064 Moment 2, 2026-09-09 15:11:49Z (comms event `c3e76199`); the
-> registry row now names that seat, and any later pickup verifies the LIVE claim state first
-> (`claims active-agents` with a UTC `--now`) — an adoption is never repeated from this map.
-> Claims at this fold, read from the registry: the Director `8109015d`; Altair spins Umbra on
-> #108 and #110 (the #99, #101 and #102 claims closed at each landing); Vanilla lifts Nectar's
-> curator claim. A successor's first moves,
-> on any checkout: start-right-team; the mechanical liveness check and the readiness gate in
-> this file's brief; adoption only from a pre-positioning event; then the standing processes,
-> every one of which dies at a compaction or a seat change, each armed from its TRACKED home —
-> the all-channels watcher from the `comms-all-channels-watcher` rule's arming command; the
-> claim heartbeat loop from the `liveness-heartbeat-cron` rule; the wrap cadence from the
-> `wrap` skill; the fold wake and its ceremony from the `coordination-fold` skill; the settle
-> and merge boundary from the `pr-lifecycle` skill §Phase 7. The machine-local record
-> `2778f573` and the instrument copies under `handoffs/instruments-c5cc2c/` on this machine
-> are conveniences that restate those homes as one-line scripts; their home in agent-tools is
-> a lane, and nothing a successor needs lives only there. Lanes after zero: the fork-diff
-> manifest; the instruments' home; the skill's second draft from both seats' napkin notes; PR C;
-> the principles.md curation lane; the skills-generator dot-directory fix. THE PICKUP MAP is
-> this snapshot, tracked, with the tenure journal in the estate-coordination thread record.
+> **§LIVE SNAPSHOT, 2026-09-12 (Nettle guards Pistil, `2de368`, Director, at the fold of
+> `coordination/2026-09-11-f6d7db`) — replaces the 2026-09-09 15:0xZ snapshot in place (git retains it).**
+> THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's head, state and threads
+> are computed from the repository service at the moment of reading; this snapshot records what LANDED and
+> who holds which LANE. Seats: A DIRECTOR IS SEATED — Nettle guards Pistil, claim `8109015d`; n=1 since the
+> second seat Sandpiper weaves Updraft (`a96287`) closed at the owner's word on 2026-09-12 with its three
+> claims archived. The owner's directives of 2026-09-12, verbatim in the estate-coordination thread record
+> §COMPACTION BOUNDARY 7: `pr-tally` is the next work (todo 3 first, per the node's own sequencing); no
+> Windows work; the redaction delivery node is paused until the issue recurs; the AI tutoring research
+> waits for the owner's word. Owner-held: the four sync-workflow findings, cured in ONE lane at the owner's
+> card word, the mirror-provenance route the owner's choice; the upstream report under
+> `.agent/reports/upstream-sync/` is the owner's to send; the directives-tier placement; #100's two deny
+> lines. A successor's first moves, on any checkout: start-right-team; the mechanical liveness check and
+> the readiness gate in this file's brief; adoption only from a pre-positioning event; the all-channels
+> watcher from the `comms-all-channels-watcher` rule's arming command; the heartbeat cron stays dropped
+> while n=1 (PDR-082); the fold wake and its ceremony from the `coordination-fold` skill; the settle and
+> merge boundary from the `pr-lifecycle` skill §Phase 7. THE PICKUP MAP is this snapshot, tracked, with the
+> tenure journal in the estate-coordination thread record.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the

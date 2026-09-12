@@ -4,6 +4,8 @@
 **Subject**: [`github.com/spotify/portal-ai-plugins`](https://github.com/spotify/portal-ai-plugins) at `3c24ca3`
 **Author seat**: Sandpiper weaves Updraft (`a96287`), claude-code / `claude-opus-5[1m]`
 **Thread**: `agentic-engineering-enhancements`
+**Settlement edits**: 2026-09-12, Nettle guards Pistil (`2de368`), on PR #135 — claims narrowed to
+the evidence the report itself carries; the author seat had closed
 
 ## Review contract
 
@@ -15,8 +17,9 @@ repository's own marketing.
 
 **Questions a review should test.**
 
-1. Does every factual claim carry its source, and is each one marked as *read*, *executed*,
-   *probed*, or *asserted by the subject*?
+1. Is each section's evidence level stated — *read* for §2 and the structural claims of §3,
+   *asserted by the subject* for Portal, CLI and AiKA runtime claims, *executed* or *probed*
+   only where §5.1 says so — and does any sentence overstate its section's level?
 2. Is the value section denominated in outcomes for named user groups, rather than in
    mechanisms?
 3. Are the subject's own claims separated from what was independently verified — in
@@ -26,10 +29,12 @@ repository's own marketing.
 **Evidence standard and authority boundary.** Every structural claim comes from reading the
 cloned repository's files in full — all 37 tracked files were read, none sampled. Claims about
 Spotify Portal, the Portal CLI's runtime behaviour, and AiKA are **the subject repository's own
-assertions**, marked as such throughout; this estate holds no Portal instance and no Portal
-credentials, so none of them could be exercised. One external corroboration was fetched (the
-npm registry metadata for `@spotify/portal-cli`). One local shell probe was run, against a
-script written in this session, never against the subject's code.
+assertions**, marked at section level — here, in §4's prerequisites and in §5.4 — rather than
+sentence by sentence (the contract as first written promised per-claim markers the report does
+not carry); this estate holds no Portal instance and no Portal credentials, so none of them
+could be exercised. One external corroboration was fetched (the npm registry metadata for
+`@spotify/portal-cli`). One local shell probe was run, against a script written in this
+session, never against the subject's code.
 
 **Material non-goals.** This report authorises nothing. It does not recommend adopting,
 vendoring, forking, or integrating with any part of the subject, and it does not rank the
@@ -38,8 +43,9 @@ this estate would have to answer, the question is named and its factors laid out
 is the owner's.
 
 **Successful review.** A reviewer who checks the reproduction block, re-reads the subject at
-`3c24ca3`, and finds every marked claim to hold at its marked evidence level. A claim whose
-marker overstates its evidence is a contract failure and should be reported as such, by line.
+`3c24ca3`, and finds each section's claims to hold at that section's stated evidence level. A
+sentence that overstates its section's level is a contract failure and should be reported as
+such, by line.
 
 ---
 
@@ -47,12 +53,13 @@ marker overstates its evidence is a contract failure and should be reported as s
 
 `portal-ai-plugins` is Spotify's official packaging of **Spotify Portal** — their commercial
 Backstage distribution — as installable plugins for three coding agents: Claude Code, Codex,
-and Cursor. It ships no application code. It is a repository of **agent instructions** (six
+and Cursor. The **portal plugin** ships no application code: it is **agent instructions** (six
 Markdown skills) plus **host manifests** (three JSON files) that make those instructions
-installable, and it drives everything through one external dependency: the `@spotify/portal-cli`
-npm package. A second, independent plugin in the same repository — **shunt** — has nothing to
-do with developer portals: it is a token-economy device that intercepts large file reads and
-routes them to cheaper worker models, using the Portal CLI only as a transport.
+installable, driving everything through one external dependency, the `@spotify/portal-cli`
+npm package. A second, independent plugin in the same repository — **shunt** — does ship code:
+hooks, transport scripts, two skills and an eval harness (§3.3), with `jq` as a prerequisite.
+It has nothing to do with developer portals: it is a token-economy device that intercepts large
+file reads and routes them to cheaper worker models, using the Portal CLI only as a transport.
 
 ## 2. Provenance and scale (read first-hand)
 
@@ -98,10 +105,11 @@ skills/                     ← the canonical workflow instructions (6 skills)
 .cursor-plugin/marketplace.json  ← marketplace listing the portal plugin only
 ```
 
-Each host manifest points at the **same** `skills/` directory. The commit that established
-this is named for it: `663f158 refactor: use skills as the only workflow source`. `AGENTS.md`
-makes it a standing rule — *"Keep each workflow canonical in `skills/`"* — and forbids
-publishing the skills separately: *"Do not publish the bundled skills as standalone packages."*
+The Claude Code and Codex manifests point at the **same** `skills/` directory. The commit that
+established this is named for it: `663f158 refactor: use skills as the only workflow source`.
+`AGENTS.md` makes it a standing rule — *"Keep each workflow canonical in `skills/`"* — and
+forbids publishing the skills separately: *"Do not publish the bundled skills as standalone
+packages."*
 
 This is the same shape this estate calls canonical-content-plus-thin-adapters. Here the
 adapters carry no content at all: they are pure metadata (name, version, author, licence,
@@ -130,7 +138,7 @@ and how to interpret the results. There is no code between the agent and the CLI
 Three disciplines recur across the skills and are worth naming because they are the
 load-bearing part of the design:
 
-- **Discover the surface, never pin it.** Every skill instructs the agent to run `--help`
+- **Discover the surface, never pin it.** The skills instruct the agent to run `--help`
   before relying on a command or flag. `setup` checks for the five expected commands (`auth`,
   `actions`, `owner`, `search`, `service`) and *stops* if they are missing rather than
   degrading. The plugin therefore does not encode the CLI's interface; it encodes how to find
@@ -220,8 +228,8 @@ architectural decisions (*"judgment calls stay on Claude"*). Eval case 3 encodes
 test: given a bug on a specific line of a 602-line file, the expected behaviour is that the
 agent does **not** delegate and instead reads with offset/limit.
 
-Designing an eval for the case where your own feature must not fire is an unusually honest
-move, and it is the single practice in this repository most worth naming.
+Designing an eval for the case where your own feature must not fire is a distinct practice;
+whether it is one worth naming in this estate is §7's fourth question, and is left open there.
 
 ## 4. What value it enables, and how
 
@@ -257,21 +265,24 @@ that number is and is not).
 **By what mechanism.** This is the interesting part, and it is a genuine idea: **the saving is
 enforced, not advised.** A `PreToolUse` hook on `Read` blocks any full-file read over 350
 lines and returns a `reason` string that tells the agent what to do instead; a second hook on
-`Bash` catches `cat`/`head`/`tail`/`less`/`more` reaching for the same file. The agent cannot
-comply-by-accident-of-good-intentions, because the cheap path is the only path left open. The
-skill then supplies the routing knowledge, and the script supplies the safe invocation.
+`Bash` catches `cat`/`head`/`tail`/`less`/`more` reaching for the same file. On those reads the
+agent cannot comply by accident of good intentions, because the direct path is closed; the
+gate's edges — a compound Bash command carrying a pipe or redirect (§5.3), and code-writer, which
+has no enforcement at all (§3.4) — are where the claim stops. The skill then supplies the
+routing knowledge, and the script supplies the safe invocation.
 
 The threshold is deliberately permissive in the directions that matter: a read with `offset`
 or `limit` is always allowed, because a targeted read is evidence the agent already knows what
 it needs. So the hook shapes *how* the agent reads rather than forbidding reading.
 
-**What must be true for the value to exist.** A Portal instance with AiKA enabled, `jq`
-installed, an authenticated CLI, and the two worker modes available (public on the instance, or
-created by the user). The delegation is one-shot by design — nothing is stored server-side —
-so a follow-up question re-sends the corpus. The README argues this is the right trade
-(*"Re-sending files is free where it matters, because the corpus goes to the worker model and
-never enters Claude's context"*), which holds for context economy and does not hold for wall
-clock or for the worker's own billing.
+**What must be true for the value to exist** (as the README states it; §5.4 lists what was not
+verified)**.** A Portal instance with AiKA enabled, `jq` installed, an authenticated CLI, and the
+two worker modes available (public on the instance, or created by the user). The delegation is
+one-shot by the README's account — it states that nothing is stored server-side, a claim §5.4
+lists as unverified — so a follow-up question re-sends the corpus. The README argues this is the
+right trade (*"Re-sending files is free where it matters, because the corpus goes to the worker
+model and never enters Claude's context"*), which holds for context economy and does not hold for
+wall clock or for the worker's own billing.
 
 ### 4.3 For Spotify
 
@@ -307,8 +318,8 @@ Independent of Portal, four things in this repository are mechanisms rather than
 | --- | --- | --- |
 | 37 tracked files, all read | `git ls-files`, then each file read in full | Confirmed |
 | 6 commits, 2 contributors, 2026-08-11 → 2026-08-17 | `git log` over the full history | Confirmed |
-| One canonical skills directory, three host manifests pointing at it | Read all four manifests | Confirmed |
-| `@spotify/portal-cli` is published and current | npm registry metadata, fetched 2026-09-12 | Exists; latest `0.4.4` published 2026-09-11; first `0.1.0` published 2025-10-07; licence field `SEE LICENSE IN LICENSE.md` |
+| One canonical skills directory; the Claude Code and Codex host manifests point at it | Read the three host manifests and the two marketplace manifests (five files) | Confirmed |
+| `@spotify/portal-cli` is published and current | npm registry metadata, fetched 2026-09-12; step 7 of §8 prints the dist-tags and the created and modified timestamps | Exists; latest `0.4.4`; first published 2025-10-07 (the licence field quoted in §4.1 came from the same fetch and is not printed by step 7) |
 | The README savings table is arithmetically consistent with its own runner | Recomputed each row against `run.sh`'s integer floor arithmetic | Confirmed: 82%, 94%, 94%, mean 90% all reproduce exactly |
 | shunt's `--instance` flag survives an instance name containing a space | Shell probe written in this session, reproducing the expansion `${SHUNT_PORTAL_INSTANCE:+--instance "$SHUNT_PORTAL_INSTANCE"}` against a stub, under `bash` | Confirmed correct — `--instance` and `my portal` arrive as two arguments, the space preserved. No defect |
 
@@ -423,7 +434,11 @@ Named, with their factors. None is answered here; each belongs to the owner.
 
 ## 8. Reproduction
 
-Every number in this report is reproducible from the subject at `3c24ca3`.
+The repository-derived numbers in this report (§2, §3, §5.2, §5.3) are reproducible from the
+subject at `3c24ca3`. The rest are not: the npm registry metadata (§5.1) is an external fetch
+dated 2026-09-12; the shell probe (§5.1) ran against a script written in this session; the
+on-disk size (§2) depends on the clone; and the README's benchmark figures (§5.2) come from a
+corpus the repository does not contain.
 
 ```bash
 # 1. Clone, outside any tracked tree, and pin the commit this report read.
@@ -438,7 +453,7 @@ git log --reverse --pretty=format:'%ad' --date=iso | head -1 # 2026-08-11 18:15:
 git log -1 --pretty=format:'%ad' --date=iso                  # 2026-08-17 13:35:05 +0200
 
 # 3. The file inventory this report read in full (§3).
-find . -path ./.git -prune -o -type f -print | sort
+git ls-files | sort   # the tracked set, including the CLAUDE.md symlink that find -type f omits
 
 # 4. Skill and script sizes (§3.1, §3.3).
 wc -l skills/*/SKILL.md plugins/shunt/skills/*/SKILL.md \

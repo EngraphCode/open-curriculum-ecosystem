@@ -65,7 +65,8 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   one; never assume a remembered filename is the latest
 - [spotify-portal-ai-plugins-exploration-2026-09-12.md](./spotify-portal-ai-plugins-exploration-2026-09-12.md)
   — first-hand exploration of Spotify's `portal-ai-plugins` repository at `3c24ca3`: what it
-  is (six Markdown skills plus three host manifests over one external CLI, authored in a
+  is (a portal plugin of six Markdown skills plus three host manifests over one external CLI,
+  and a second plugin, shunt, that ships hooks, scripts, skills and evals; authored in a
   six-day window), how it is built (one canonical skills directory behind thin per-host
   manifests; a second plugin, shunt, layering PreToolUse hooks over named-argument scripts
   over judgement-only skills), and what value it enables for each of four user groups by what

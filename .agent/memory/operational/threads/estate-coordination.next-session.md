@@ -2317,44 +2317,18 @@ and dispositioned). One worktree remains, the primary.
    created the brief yet, this question is vastly premature." The material will arrive when the
    owner sends it; until then there is nothing to shape and nothing to ask.
 
-### The two-hour pr-tally plan, as presented and awaiting go/no-go
+### The pr-tally slice — the ratified node is the only home of the design
 
-Scoped as a slice of todo 1 of the ratified `.agent/plans/delivery/pr-tally.plan.md`. **Stated
-honestly at the top: the ratified node has no two-hour unit** — todo 1 in full (criteria 1, 2 and 5,
-twelve fixture cases including body findings, bar markers and SKIPPED legs) is about half a day.
-
-Build, one new directory `agent-tools/src/pr-tally/`, nothing existing touched:
-
-- `types.ts` — `ThreadBinding {boundTo, isResolved}`, `TallyRow {commit, raised, inFlight}`, `TallyVerdict`.
-- `tally.ts` — `buildRows(bindings, headOid)`: group by bound commit in first-appearance order, the
-  head's row marked in-flight. Pure.
-- `verdict.ts` — `tallyVerdict(rows)`: TERMINAL-ZERO precedence, then STEP-BACK-MANDATORY
-  (`c[n] >= c[n-1] AND c[n-1] >= c[n-2]`, or four settled rounds; either arm only while the latest
-  count is non-zero), then BUDGET-EXCEEDED (more than two settled rounds, PDR-132), else CONVERGING.
-  Pure.
-- Paired unit tests: both arms firing and not firing, terminal-zero precedence, in-flight head
-  excluded, and the two real shapes from this window.
-
-Threads-only is sound rather than a shortcut: a thread buckets by its FIRST comment's review commit,
-so a seat's own disposition replies can never inflate a count — verified live on 2026-09-12 (three
-threads returning three distinct oids, each matching its tip). Body-only findings are not counted and
-come back as `manualTallyRequired`, so a caller says so rather than under-reporting silently.
-
-Time: types 10, tally 20, verdict 25, fixtures and tests 35, gates 15 — 105 minutes, 15 spare. No IO.
-
-Deferred and named: cure-worthy counts and the bar-marker disposition format (node todo 3); the
-`pr-tally` command, `--json` and the live validation script (node todo 2); epoch reset; SKIPPED legs
-and quiet windows; the practice half.
-
-**Why the command is not in the two hours, measured rather than estimated**: wiring rows through
-`PrStateReading` touches NINETEEN construction sites (`grep -c "reviewThreads: {"` over
-`agent-tools/src`), roughly thirty minutes of fixture churn before a line of tally logic. That
-plumbing belongs with todo 2, which the node already scopes as its own pull request. The instinct
-was to put the verdict on `pr state` so it fires automatically; reading the code changed it.
-
-**The objection put to the owner with the plan**: this lands a library with no caller. It does not
-fire until todo 2 wires it, so it would not have caught this window on its own. The alternative is a
-larger first slice that busts two hours.
+The design of `pr-tally` lives in one place, `.agent/plans/delivery/pr-tally.plan.md` (ratified
+2026-09-08); this record cites it and carries no rival specification. A two-hour slice was written
+out here in full at the boundary and drew two review findings on #135 that the node already
+answers: the slice's row carried `raised` only, where the node's predicate reads the cure-worthy
+count from the bar marker; and it ordered rows by first appearance, where the node requires branch
+commit order. Both are ledgered on the node under `## Review dispositions`. The slice that follows
+the node's own sequencing is todo 3 first (the bar marker and disposition format in the
+pr-lifecycle intake contract, with #135's dispositions as its first fixture), then todo 1, then
+todo 2. The owner's go on the two-hour ask is answered by the approved settlement plan of
+2026-09-12, which named todo 3 as the slice.
 
 ### The n=2 session
 
