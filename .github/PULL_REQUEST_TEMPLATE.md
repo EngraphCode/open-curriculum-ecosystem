@@ -34,8 +34,9 @@ References LINEAR-ID
 
 <!--
 State what is deliberately in and out of this PR. This section is the review contract:
-reviewers test findings against it, and the shepherd routes any finding whose remedy falls
-outside it to a named home rather than curing it here (pr-lifecycle §Phase 4; PDR-140).
+reviewers test findings against it, and a finding whose proposed remedy falls outside it is
+dispositioned by pr-lifecycle §Phase 4 (the remedy is discarded; the observation is still
+priced on PDR-140's bar).
 On a prose- or records-class changeset, and on a mixed one whose prose findings PDR-140
 governs, also declare the intake: the artefact class, its next verification point, the
 worthiness-bar reading that follows, and the settlement-push budget.
@@ -43,7 +44,7 @@ worthiness-bar reading that follows, and the settlement-push budget.
 
 - In scope:
 - Out of scope:
-- Findings whose remedy falls outside this scope take no cure here (`pr-lifecycle` §Phase 4 dispositions them).
+- A finding whose proposed remedy falls outside this scope is dispositioned by `pr-lifecycle` §Phase 4: the remedy is discarded, the observation still priced.
 - Intake (prose/records changesets, and the prose findings of mixed ones): class — ; verification point — ; bar — ; budget —
 
 ## Validation

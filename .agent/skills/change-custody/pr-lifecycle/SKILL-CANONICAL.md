@@ -150,9 +150,11 @@ story materially changes (a reshaped scope, a new commit class).
 it carries the intake declaration** the state machine's §Response pricing block names as
 the declaration's home. It is a step of OPENING, not of the first review round, because
 reviewers read the body: a scope and a bar stated there bound what they propose. A pull
-request without it has no bounded loop until it exists: the 2026-09-11 coordination fold
-(PR #135) opened with a narrative body and no scope or intake, and ran five rounds and
-thirty-eight findings on records before the declaration was posted late.
+request PDR-140 governs that lacks it has no bounded loop until it exists (a code-class
+pull request is bounded by the review-round transitions and declares no intake): the
+2026-09-11 coordination fold (PR #135) opened with a narrative body and no scope or intake,
+and ran five rounds and thirty-eight findings on records before the declaration was posted
+late.
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
