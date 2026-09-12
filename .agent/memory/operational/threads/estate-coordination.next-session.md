@@ -2510,3 +2510,81 @@ tutoring research (waits for the owner's word); a retrospective on this arc, off
   lines by design.
 - *Fixed point*: a further pass would only re-find the claim-areas discrepancy and the
   one-data-point caveat; the recursion closes here.
+
+## 2026-09-12 17:5xZ — COMPACTION BOUNDARY 9 (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1)
+
+### Board at the boundary
+
+Merged today by the front door as the bot: #135 SHA:69a537717 (the fold), #136 SHA:2b1b15ab8 (scope is the
+review contract, seven surfaces, ten rounds in three epochs), #138 SHA:e477e62f7 (the disposition format and
+the #135 fixture, nine rounds in two epochs). Both lane worktrees removed with both proofs; local and remote
+lane branches deleted. OPEN: **#139** (pr-tally todo 1 — `agent-tools/src/pr-tally/{harvest,markers,findings,
+dispositions,rows,verdict}.ts`, 54 unit tests, fixtures #135/#136/#138) from lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/pr-tally-todo1-2de368` on `lane/pr-tally-todo1-2de368`, tip
+SHA:cdc2748e6 = settlement two; two rounds so far, epoch one counts 10, 9 (code-class: every verified-correct
+finding cured — 19 of 19); every thread resolved; Copilot requested on the tip. **#137** (draft fold of this
+branch) at its DUE check. Primary resides on `coordination/2026-09-12-69a537`. Claim `8109015d` under
+`claude-fable-5-1` (areas row still stale; no tool to widen). At the boundary two background tasks of this
+seat are RUNNING — the front door on #139 and the reviewer wake — and will not survive a compaction as ids.
+
+### The owner's words this window, verbatim
+
+"you are not currently acting as a Director, you are a sole operator, I mention this in case it allows you to
+drop some ceremony" (dropped: no title in signatures, no broadcasts, no team bootstrap). "there are two agents
+operating on this machine, you are the only agent in the OCE checkout, and Cauldron herds Lustre (880ff9) is
+operating in the […]/jimcresswell.net checkout" (the machine-local prefix elided by this record)" (a third, Coal weaves Pumice, f67c69, in
+castr). "Lustre is working on transplanting the Practice to their repo … some communication at some points may
+be helpful" (exchanged by SendMessage; nine findings received, each verified here before disposition). "reflect
+deeply on the state and direction of the pull requests" (the reflection: fourteen rounds with zero rejections;
+the verification point "merge" made every wording defect over-bar; the cure was pricing against a named reader
+— the next two rounds closed by rejection). "for the next three hours please do everything first-hand, no
+subagents" (~16:1xZ; binds to ~19:1xZ; nothing this window used one). "when you get to a sensible point please
+pause and prepare for compaction".
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- Process table: `ps -eo pid,command | grep "merge --pr 139"`. If absent, from the primary:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 139 --expect copilot-pull-request-reviewer --json`
+  as a background task; read its exit by name (exit 3 = typed refusal such as THREADS-OPEN; exit 1 = the
+  45-minute poll deadline, re-run). A wake on the tip's reviews is a `gh pr view 139 --json reviews` loop.
+- On THREADS-OPEN: harvest threads AND Copilot's suppressed block; code findings keep the code review's
+  standard (verify each; cure the correct ones; reject the incorrect with verified reasoning); the README's
+  prose findings take the intake (class records, verification point todo 2's pickup, PDR-140 clause 9). Epoch
+  one counts 10, 9 — a third round ≥ 9 arms the step-back; a fourth non-zero round arms it regardless.
+- On MERGED: `git fetch origin engraph`; both proofs on the lane worktree; `git worktree remove`; `git branch -d`;
+  delete the remote branch as the bot after the ancestor proof; fetch `--prune`.
+
+### Next work, in order
+
+1. Land #139. 2. pr-tally todo 2 (the command, `--json`, the validation script; harvest check-run history for
+SKIPPED/timeout settlement; emit the one-line disposition template for every undispositioned body item — the
+format the seat wrote by hand only 40% of the time, see the napkin). 3. The small source lane for the transplant
+findings (hook context line before the env-file check; ADR-203 citation; reference-local source glob;
+CLAUDE_CODE_SESSION_ID seed source with a PDR-027 amendment). 4. The PDR-008 records lane (its tables name a
+script convention package.json no longer has; practice-verification item 9). 5. Fold #137 at its DUE check with
+§Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings; the upstream report; the directives-tier placement; #100's two deny lines;
+F-181 and the stray statusline log; the redaction node (paused until recurrence); the tutoring research; a
+retrospective on the day's arc (offered, not run); the verification-point amendment to `pr-lifecycle`
+§Response pricing (a candidate, in the napkin).
+
+### Metaloss passes
+
+- *Compressed reasoning*: every finding's disposition on #136, #138 and #139 is on the pull request itself with
+  its bar reading; this block carries counts. The instrument's own tests carry the corpora's numbers.
+- *Promises sweep*: the conforming fixtures owed by todo 3 are recorded (#136, #138) and consumed; the
+  signature question is answered by not widening the predicate; the originalLine row is honoured by the
+  widened query; the #135 corpus reads open (its comments carry the suffix too — the README said manual once
+  and was corrected). The lane-cut skill step (criterion 4) was already landed in SHA:ccdbc5613.
+- *Attribution inferences, flagged*: "the reviewers read the AGENTS.md instruction" rests on their citing it in
+  findings — evidence, not proof; "todo 2 should emit the disposition template" is this seat's proposal, not the
+  node's word.
+- *Blind-spot bounds*: the third reviewer round on #139 is unseen; the front door's state after compaction is
+  unknown until re-read by id; Lustre's and Pumice's work is unread.
+- *Index of homes*: this block; the handoff's live snapshot; the napkin (this window's blocks); the per-user
+  memory tail; PRs #136/#138/#139; the node `pr-tally.plan.md` (todo 1 and 3 status, four ledger rows).
+- *Fence sweep*: no owner word fenced; the quoted sentences above sit on tracked lines.
+- *Fixed point*: a further pass re-finds only the claim-areas discrepancy and the retrospective offer.

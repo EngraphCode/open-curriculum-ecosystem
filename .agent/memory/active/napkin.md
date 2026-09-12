@@ -1218,3 +1218,27 @@ validate-check-ci-parity). VERIFIED here by `jq` over `package.json` and lines 8
 lane — an amendment-log entry on PDR-008 describing the live convention plus item 9 rewritten
 (the peer's checkout carries a worked example under its own PDR-008 §Amendment Log; read-only
 for this side). Not a mechanism change; the scripts are right, the record is stale.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 17:5xZ, compaction boundary 9: the instrument's first honest reading of my own loops
+
+- **The tally builder read #136 and #138 and found the seat's own gaps.** Five heads on #136 and four rounds
+  on #138 carry Copilot suppressed items with no one-line disposition — I dispositioned threads faithfully and
+  the suppressed block only sometimes. The machine says `open` where my comments said "terminal by
+  disposition". Both true; the recording shows which findings the format never reached. This is the value the
+  node promised, arriving on the day the instrument was built.
+- **Proposal for todo 2 (the seat's, not the node's)**: the command prints, for every undispositioned body
+  item, the one-line disposition template with head, review id, anchor and item key filled — the seat only
+  chooses the marker and writes the rationale. Hand-writing the reference produced a wrong review id, a
+  `thread <id>` key from the wrong review, and four rounds of silence; a form the instrument emits cannot.
+- **Code-class review is a different loop.** #139's two rounds raised 24, distinct 19, cured 19: every
+  finding verified against the state machine's text and the code, every one correct. The corpus tests caught
+  none of them because the corpora do not exhibit PENDING drafts, superseded class-fix heads, reply-created
+  review records or same-anchor siblings — synthetic cases now do. The reviewers were reading the doctrine the
+  code claims to implement and checking the claim; that is the review working as designed.
+- **Pre-commit gate lessons (three refusals, all mine)**: it type-checks and knips the WHOLE tree including
+  unstaged files; knip flags exported types consumed only inside the module (un-export until a consumer
+  exists); a `git add` of one file commits everything already in the index — cycles 2 and 3 became one commit
+  that way (recorded on the PR; history stands). commitlint: subject ≤ 100, lowercase-start (a PDR id at the
+  start reads as upper-case).
+- **The pricing discipline held**: after the reflection, #136 closed by two rejections and #138 by four; on
+  #139 nothing was rejected because nothing was wrong — the bar is a test, not a quota.
