@@ -2373,20 +2373,36 @@ matched files use Prettier code style!" **while matching zero files** — a succ
 distinguish a clean input set from an empty one. Same shape as the BSD `xargs -a` entry of
 2026-09-10.
 
+### The owner's note of 2026-09-12, taken after this boundary was written
+
+Four directives and one question, in the owner's own words: "the pr-ta11y is next, we don't need to
+do any windows work, the redaction work is paused until the issue recurs, what is the upstream
+report? You will know when I want to work on the tutoring research because I will tell you". The
+list below is amended to match. The question was answered in the session and changes nothing about
+item 4: the report stays the owner's to send, and the answer given was a description of what the
+file already contains, not a new claim about it.
+
 ### Owner-held, carried forward
 
-1. **The redaction delivery node** — decided, unbuilt, no node yet.
-2. **`pr-tally`** — awaiting go/no-go on the two-hour plan above.
+1. **The redaction delivery node** — decided, unbuilt, and **PAUSED by the owner on 2026-09-12
+   until the issue recurs**. Do not author the node speculatively. The option-C decision and its
+   `.env` prohibition stand unchanged and are what gets built if a retention incident makes it live.
+2. **`pr-tally` is the NEXT work** — owner, 2026-09-12. The two-hour plan above is the standing
+   proposal, and the objection recorded with it (a library with no caller) stands with it; the owner
+   has not ruled on where the slice boundary falls.
 3. **The four sync-workflow findings** — the owner's card answer stands: "Cure all four in one lane."
    The mirror-provenance one has TWO routes and the choice is still the owner's: apply the carrier's
    parent-check remedy, or protect the mirror branch. `main` is `protected: false` with no ruleset
    (verified 2026-09-11), so the condition is live, not hypothetical.
 4. **The upstream report** at `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md`
    is still the owner's to send.
-5. **`windows-basic` required** on or after 2026-09-17.
+5. **No Windows work is queued** — owner, 2026-09-12: "we don't need to do any windows work". That
+   `windows-basic` becomes a required check on or after 2026-09-17 remains true as a repository
+   fact; it is not an instruction to open a Windows lane, and no seat should treat the date as one.
 6. The older held items: directives-tier placement; #100's two deny lines.
-7. **The AI tutoring research** — the owner sends the material when they choose. Nothing to do until
-   then, and no shaping question to ask before a brief exists.
+7. **The AI tutoring research** — owner, 2026-09-12: "You will know when I want to work on the
+   tutoring research because I will tell you." Nothing to do until then: no shaping question, no
+   brief prepared in advance, no material sought out.
 
 ### The window's generator, stated once more because naming it twice did not stop it
 
