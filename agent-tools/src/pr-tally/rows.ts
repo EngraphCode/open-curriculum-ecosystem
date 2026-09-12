@@ -1,4 +1,9 @@
-import { hasLanded, isSignedSelfReply, QUIET_WINDOW_MS } from '../pr-watch/reviewer-legs.js';
+import {
+  hasLanded,
+  isSignedSelfReply,
+  isSkipMarker,
+  QUIET_WINDOW_MS,
+} from '../pr-watch/reviewer-legs.js';
 import { declaredRestatement, keyNames, readBodyDispositions } from './dispositions.js';
 import type { BodyDispositions } from './dispositions.js';
 import { extractBodyFindings } from './findings.js';
@@ -13,12 +18,15 @@ import type { BarMarker } from './markers.js';
  * that head (threads plus body items of every landed review, one logical
  * finding once), its cure-worthy count read from the bar markers of the
  * seat's signed dispositions — never from prose. A head is settled when every
- * expected reviewer has a LANDED review bound to it and, where a clock is
- * supplied, the quiet window after the latest such review has elapsed — the
- * seat's own reply-created review records never anchor that window; a head
- * bound by none is superseded, a head an expected reviewer still owes is
- * unsettled. Timeout and skip settlement need the check-run history a
- * recording does not yet carry, so this builder reads SATISFIED-or-OWED only.
+ * expected reviewer (at least one is declared; an empty set settles nothing)
+ * has a LANDED, SUBSTANTIVE review bound to it — a skip marker ("unable to
+ * review") satisfies no leg — and the quiet window after the latest such
+ * review has elapsed: the seat's own reply-created review records never
+ * anchor that window, and a landed review with no submission time makes the
+ * anchor unknowable, holding the head open as `pr-watch` does. A head bound
+ * by none is superseded, a head an expected reviewer still owes is unsettled.
+ * Timeout and skip settlement need the check-run history a recording does not
+ * yet carry, so this builder reads SATISFIED-or-OWED only.
  */
 
 type Thread = RecordedHarvest['reviewThreads'][number];
@@ -79,7 +87,8 @@ function bodyItemDisposition(
   review: Review,
   dispositions: BodyDispositions,
 ): Disposition {
-  const named = dispositions.keys.find((key) => keyNames(key, item, review));
+  // The latest signed line wins, as the last signed thread reply does.
+  const named = dispositions.keys.findLast((key) => keyNames(key, item, review));
   if (named !== undefined) {
     return named.marker ?? 'manual';
   }
@@ -115,14 +124,18 @@ function tallyDispositions(dispositions: readonly Disposition[]): {
 }
 
 // The quiet window (state machine item 4): more than QUIET_WINDOW_MS since the
-// latest landed review binding the head, when a clock is supplied.
+// latest landed review binding the head. No anchoring review, or one whose
+// submission time is missing (it could be the newest), makes the anchor
+// unknowable: the head stays open, as `pr-watch`'s quietWindowAnchor holds it.
 function quietWindowElapsed(reviews: readonly Review[], now: string | undefined): boolean {
+  const times = reviews.map((review) => Date.parse(review.submittedAt));
+  if (times.length === 0 || !times.every(Number.isFinite)) {
+    return false;
+  }
   if (now === undefined) {
     return true;
   }
-  const latest = reviews.map((review) => Date.parse(review.submittedAt)).filter(Number.isFinite);
-  const newest = Math.max(...latest, Number.NEGATIVE_INFINITY);
-  return Date.parse(now) - newest > QUIET_WINDOW_MS;
+  return Date.parse(now) - Math.max(...times) > QUIET_WINDOW_MS;
 }
 
 // GitHub creates an empty review record for every inline reply; the seat's
@@ -178,8 +191,9 @@ function rowFor(
 ): TallyRow {
   const { harvest, expectedReviewers, now } = input;
   const bound = harvest.reviews.filter((review) => review.commitOid === head && landed(review));
+  // A skip marker declares that no review occurred; it satisfies no leg.
   const reviewers = expectedReviewers.filter((login) =>
-    bound.some((review) => sameLogin(review.author, login)),
+    bound.some((review) => sameLogin(review.author, login) && !isSkipMarker(review.body)),
   );
   const owed = expectedReviewers.filter((login) => !reviewers.includes(login));
   const anchoring = bound.filter((review) => !selfReviews.has(review.id));
@@ -187,7 +201,7 @@ function rowFor(
   const counts = tallyDispositions(found.dispositions);
   return {
     head,
-    settled: owed.length === 0 && quietWindowElapsed(anchoring, now),
+    settled: reviewers.length > 0 && owed.length === 0 && quietWindowElapsed(anchoring, now),
     reviewers,
     owed,
     raised: found.dispositions.length,

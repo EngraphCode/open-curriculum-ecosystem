@@ -67,7 +67,7 @@ export const QUIET_WINDOW_MS = 10 * 60 * 1000;
 const SKIP_PATTERN = /review skipped|unable to review/iu;
 const QUOTA_PATTERN = /spend limit|overage|quota/iu;
 
-function isSkipMarker(body: string): boolean {
+export function isSkipMarker(body: string): boolean {
   return SKIP_PATTERN.test(body);
 }
 

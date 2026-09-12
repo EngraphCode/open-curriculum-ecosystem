@@ -33,8 +33,21 @@ export interface BodyDispositions {
 // The anchor may sit in a code span; the SHA may be a prefix.
 const DISPOSITION_LINE =
   /^-?\s*\*\*[^*\n]+\*\*\s*·\s*head SHA:([0-9a-f]{7,40})\s*·\s*review (\S+)\s*·\s*`?([^`·\n]+?):(\d+)`?\s*·\s*(.+?)\s*·/u;
-const SHA_MENTION = /SHA:([0-9a-f]{7,40})/gu;
+// A head reference is the format's `head SHA:<sha>`; a cure citation is its
+// `Cured in SHA:<sha>` and names no head. Any other mention is read as a head
+// only when the comment carries no head reference at all (conservatively).
+const HEAD_REFERENCE = /head SHA:([0-9a-f]{7,40})/gu;
+const SHA_MENTION = /(?<!Cured in )SHA:([0-9a-f]{7,40})/gu;
 const THREAD_KEY = /^thread (\S+)$/u;
+const BULLET = /^-\s*/u;
+
+function headsNamed(body: string): string[] {
+  const references = [...body.matchAll(HEAD_REFERENCE)].map((match) => match[1] ?? '');
+  if (references.length > 0) {
+    return references;
+  }
+  return [...body.matchAll(SHA_MENTION)].map((match) => match[1] ?? '');
+}
 
 function parseKey(line: string): BodyDispositionKey | null {
   const match = DISPOSITION_LINE.exec(line);
@@ -47,9 +60,11 @@ function parseKey(line: string): BodyDispositionKey | null {
     path: match[3] ?? '',
     line: Number(match[4]),
     item: (match[5] ?? '').trim(),
-    marker: readBarMarker(line.replace(/^-\s*/u, '')),
+    marker: readBarMarker(line.replace(BULLET, '')),
   };
 }
+
+const isMarked = (line: string): boolean => readBarMarker(line.replace(BULLET, '')) !== null;
 
 /** Read every signed body-only disposition in the harvest's issue comments. */
 export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions {
@@ -62,8 +77,8 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
   );
   const batchedHeads = signed
     .filter((comment) => comment.body.split('\n').every((line) => parseKey(line) === null))
-    .filter((comment) => comment.body.split('\n').some((line) => readBarMarker(line) !== null))
-    .flatMap((comment) => [...comment.body.matchAll(SHA_MENTION)].map((match) => match[1] ?? ''));
+    .filter((comment) => comment.body.split('\n').some(isMarked))
+    .flatMap((comment) => headsNamed(comment.body));
   return { keys, batchedHeads };
 }
 
