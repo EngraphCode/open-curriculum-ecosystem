@@ -1183,3 +1183,25 @@ variables — one observation); no validator here scans cited pnpm scripts under
   built-ins set, root-vs-`--filter` resolution, an empty allowlist) is recorded as a candidate
   portability instrument; not adopted here until a consumer exists (this tree's citations are
   green by `jq` check today).
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:2xZ: fourteen rounds, zero rejections — the generator under both class fixes
+
+- Across #136 (nine rounds) and #138 (five) I dispositioned every finding "in scope, over-bar" and
+  cured it; each cure spawned the next round's mirror. The two class fixes named shallow generators
+  (restated-not-cited; claims unchecked). The deep one: the intake declared verification point
+  "merge (the owner reads this PR)" on a doctrine amendment, so every wording imperfection cleared
+  prong one and PDR-140's budget ran unbounded through its own cure-only-push clause. #135 closed
+  in one round this morning BY DECLINING ten findings — the machine's success state arrives by
+  rejection, not by cure (my own letter of this morning says so; I did not apply it).
+- #136's §Scope was a file list, so every reviewer remedy on those files passed the scope test
+  trivially; the clause that would have bitten — "each changed by the minimum that makes the
+  existing doctrine fire" — sat in the same sentence and I never ran it on my own cures.
+- Structural residue, NOT for #136: on a doctrine amendment the verification point should be the
+  next pull request run under the amended rule (PDR-140 clause 3's "ratification reading" is the
+  nearest term), never the merge read. Candidate for `pr-lifecycle` §Response pricing at its next
+  amendment, with a falsifier: a doctrine PR declared that way still draws over-bar cures past round
+  two.
+- PDR-140 follow-up (Codex, #136 epoch three round four, rejected below-bar): the owner's 2026-07-25
+  three-way enumeration in `pr-lifecycle` Phase 4 ("anything else → ticket") predates clause 1's
+  reject-or-route default; the block's "PDR-140 owns the clauses" governs today; the wording
+  reconciliation is a PDR-140 amendment, never a lane's cure.
