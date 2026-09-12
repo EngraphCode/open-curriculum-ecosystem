@@ -1171,3 +1171,15 @@ any disposition — a peer's finding is a transmitted claim, not a fact (owner, 
 
 Answered to the peer: no record here of a missed startup identity write (this session has both
 variables — one observation); no validator here scans cited pnpm scripts under `.agent/skills`.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:0xZ: two more from the transplant seat, verified
+
+- **bootstrap `WORKSPACE_DEPS` hard-codes `packages/core/*`** (`agent-tools/src/bootstrap/bootstrap.ts:78-82`):
+  TRUE and correct for this layout; a host-profile value in a transplant. Not a defect here; the
+  portability home is the peer's, and PDR-105's host-profile idea is the pointer.
+- **`turbo.json` site outputs naming `.next/`**: DOES NOT REPRODUCE — this tree names
+  `.next/**` outputs and `!.next/**` inputs (`turbo.json:225-241`) for both Next demos.
+- The peer's cited-scripts validator shape (markdown-only extraction, a pnpm tokenizer with a
+  built-ins set, root-vs-`--filter` resolution, an empty allowlist) is recorded as a candidate
+  portability instrument; not adopted here until a consumer exists (this tree's citations are
+  green by `jq` check today).
