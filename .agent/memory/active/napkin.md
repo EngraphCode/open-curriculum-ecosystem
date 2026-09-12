@@ -1140,3 +1140,34 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
   the vendor docs said. Recorded as one observation against the falsifier, not as the result.
 - FOLD: the successor `coordination/2026-09-12-69a537` carries this block; draft fold PR #137.
   Uncommitted at the stop: nothing — this line is written after the commit.
+
+## Nettle guards Pistil (2de368) — sole operator, 2026-09-12 14:0xZ: the transplant seat's findings, verified first-hand
+
+Cauldron herds Lustre (880ff9), transplanting the Practice into `jimcresswell.net`, sent seven
+findings by cross-session message (read-only against `SHA:a55fd8fdd`). Each verified here before
+any disposition — a peer's finding is a transmitted claim, not a fact (owner, 2026-09-12):
+
+- **1 TRUE** — `agent-tools/src/claude/session-identity-hook.ts` emits "PRACTICE_AGENT_SESSION_ID_CLAUDE
+  is set in $CLAUDE_ENV_FILE" in `additionalContext` BEFORE the `CLAUDE_ENV_FILE === undefined` return,
+  so a no-write session is told the variable is set. Bug (misleading context). Home: a small source
+  lane after #136/#138 land — bugs before todo 1.
+- **2 PROPOSAL, sound** — no seed source is harness-native for a Claude CLI seat; `CLAUDE_CODE_SESSION_ID`
+  is in every Bash shell here (equal to the seed) and referenced nowhere in `agent-tools/src`. Adding it
+  after `CLAUDE_CODE_REMOTE_SESSION_ID` in `collaboration-seed.ts` is the CODEX_THREAD_ID shape (PDR-027).
+  Same lane as 1; PDR-027's source list would be amended in the same change.
+- **3 TRUE** — `state-file-seeds.ts:3,41` and `start-right.md:326` cite "ADR-199 / PDR-094" for
+  untracked-by-design state files; both records are event ROTATION. The owner of the term is ADR-203
+  (`203-state-tier-process-and-archive-move.md:24`); PDR-127 also cites PDR-094 for it at `:39`. Same lane.
+- **4 TRUE, by design** — the "clear run for Matt" clause's removal trigger is the owner's declaration; no
+  mechanism fires it. The owner's, untouched (start-right.md:244-267).
+- **5 DOES NOT REPRODUCE HERE** — all nineteen scripts cited by start-right.md §Quality Gates exist in this
+  `package.json` (checked by `jq`). The drift is in the transplant. A cited-script validator is still a
+  portability instrument worth having; the peer is building one and offered its shape — candidate, not a
+  defect here.
+- **6 DOES NOT REPRODUCE HERE** (the peer retracted it on re-check: an inventory conflation) — no file under `.agent/practice-core/` links `docs/engineering/tooling.md`
+  or `docs/foundation/cost-of-change-gradient.md` at this tip (`grep -rln`, empty). Rejected for this estate.
+- **7 TRUE** — `validate-markdown-links.ts:62` `SOURCE_IGNORE_GLOBS` has no `**/reference-local/**`
+  entry, so a nested private checkout there is walked as a source. Same lane as 1.
+
+Answered to the peer: no record here of a missed startup identity write (this session has both
+variables — one observation); no validator here scans cited pnpm scripts under `.agent/skills`.
