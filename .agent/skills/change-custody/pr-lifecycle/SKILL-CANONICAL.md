@@ -613,9 +613,17 @@ disposition carries and which it predates.
    read (a round can settle at raised > 0, cure-worthy = 0: that IS the
    terminal success state under triage). In lanes PDR-140 excludes
    (code-class changesets; human and code findings of mixed ones) no
-   routing disposition exists — every verified-correct finding is
-   cure-worthy by definition — so the two counts coincide there and the
-   pre-PDR-140 reading of `c[n]` is unchanged. Rows are PERSISTED in the
+   routing disposition exists, and the bar is the specification the
+   pull request carries — its tests and recorded fixtures: a
+   verified-correct finding that a tested or recorded input exercises is
+   cure-worthy; a verified-correct case no such input exercises is a
+   fixture at pickup, dispositioned below-bar with the reason, never a
+   mechanism edit (PR #139, 2026-09-12: reading "verified correct" as
+   "cure-worthy by definition" on an instrument over an open input space
+   ran seven settlement pushes against a declared budget of two and 98
+   comments, every finding correct, none exercised by a recorded input,
+   until the owner stopped the loop — the out-of-band correction this
+   block names as a defect against the skill). Rows are PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
    (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted

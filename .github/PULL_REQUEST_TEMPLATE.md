@@ -46,6 +46,7 @@ worthiness-bar reading that follows, and the settlement-push budget.
 - Out of scope:
 - A finding whose proposed remedy falls outside this scope is dispositioned by `pr-lifecycle` §Phase 4: the remedy is discarded, the observation still priced.
 - Intake (prose/records changesets, and the prose findings of mixed ones): class — ; verification point — (a pickup names its verifier: the acceptance criterion or ledger surface that consumes it, PDR-140 clause 3); bar — ; budget —
+- Specification and budget (code changesets, and the code findings of mixed ones): the tests and recorded fixtures this PR carries are the specification — a case no tested or recorded input exercises is an observation, not a finding; settlement-push budget — (default two); once spent, this line is updated to say so and items on unchanged code are observations
 
 ## Validation
 
