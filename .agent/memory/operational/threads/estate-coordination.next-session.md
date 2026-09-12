@@ -2380,6 +2380,19 @@ file already contains, not a new claim about it.
    tutoring research because I will tell you." Nothing to do until then: no shaping question, no
    brief prepared in advance, no material sought out.
 
+### 2026-09-12 12:5xZ — FOLD LANDED (Nettle guards Pistil, 2de368, Director)
+
+`coordination/2026-09-11-f6d7db` folded to `engraph` via #135 as SHA:69a537717 (two parents,
+SHA:f262a5b6b and SHA:b50820152), by the front door as the bot after six review rounds — 4, 5, 3,
+6, 4-distinct, 10 raised with zero over the bar — the last a settled round at cure-worthy zero, the
+machine's terminal-success state. The successor is `coordination/2026-09-12-69a537`, cut from
+post-fold `engraph` by the coordination tool; the primary resides on it; the rotation is
+broadcast on the comms stream. Product-gravity line: *moved for teachers:* nothing in the fold's
+own commits — the day's product movement rode `engraph` through the sync workflows (#131).
+*moved for the Practice:* #132, #131, the retention decision, the exploration report, F-181,
+F-182. Lanes after the fold: #136 (scope is the review contract, at the owner's word of
+2026-09-12) in the landing slot; `pr-tally` todo 3 next. F-183 lands with this entry.
+
 ### The window's generator, stated once more because naming it twice did not stop it
 
 **A valid criticism creates INFORMATION, not an obligation.** Whether it creates an obligation

@@ -1068,8 +1068,9 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
   changed the next act, which is to wait for material the owner has not sent. A card whose answer
   cannot be acted on yet is cost, not diligence — it spends the owner's attention to buy a fact
   that will be stale when it is finally needed.
-- The owner's other answers, both of which ARE actionable: retention is cured by REDACTING AT THE
-  BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and closed);
+- The owner's other answers, both of which ARE actionable: retention is to be cured by REDACTING AT
+  THE BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and
+  closed; unbuilt, and paused by the owner on 2026-09-12 until the issue recurs);
   and `pr-tally` gets no build decision until they have seen "a plan that can be completed in two
   hours" — a scoping ask, not a refusal.
 - The `.env` constraint is worth keeping as design, not just as an instruction: the implementation
