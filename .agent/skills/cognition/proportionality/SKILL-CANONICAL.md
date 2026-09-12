@@ -46,7 +46,7 @@ shrinks things is expediency with better manners.
 
 | Axis | Question | Findings |
 |---|---|---|
-| **Scope** | Is this one thing, or several wearing one name? | **Too big** → narrow; home the remainder as pointers with named carriers. **Too small** → widen; the real work is larger than the ask implies |
+| **Scope** | Is this one thing, or several wearing one name? | **Too big** → narrow; home the remainder as pointers with named carriers — including expansion BY REVIEW: a finding whose remedy would widen the artefact is a scope finding whatever the truth of its observation, routed before it is verified ([`pr-lifecycle`](../../change-custody/pr-lifecycle/SKILL-CANONICAL.md) §Phase 4). **Too small** → widen; the real work is larger than the ask implies |
 | **Instrument** | Is the tool matched to the question? | **Too heavy** → re-tier (an inline check over a fleet; a cheaper model tier; a probe over a plan). **Too light** → escalate the instrument; a cheap check on an irreversible call is false economy |
 | **Level** | Whose decision is this? | **Wrong level** → route it: owner, Director, or resolve at the seat. A decision already covered by standing word is not an escalation |
 

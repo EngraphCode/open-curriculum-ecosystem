@@ -146,6 +146,15 @@ artefact for reviewers**, never a file list: what changed, why it matters,
 what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
+**The description's §Scope is the review contract, and on a prose- or records-class
+changeset it carries the intake declaration** — artefact class, next verification point,
+worthiness-bar reading, settlement-push budget: the contract the state machine's §Response
+pricing block fires on. It is a step of OPENING, not of the first review round: reviewers
+read the body, so a scope and a bar stated there bound what they propose, while a
+declaration made later in working notes bounds only the seat. A pull request without it
+has no bounded loop until it exists (the 2026-09-11 coordination fold, #135, opened with a
+narrative body and no scope or intake, and ran five rounds and thirty-eight findings on
+records before the declaration was posted late).
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
@@ -279,6 +288,19 @@ surfaces. Partial reads produce false "no problems" verdicts:
   to TRIAGE every comment, if it is incorrect reject it, if it is correct,
   relevant and proportionate address it, if it is anything else raise a
   ticket, tell the Director, and close the comment."*
+- **Separate the observation from the remedy, and test scope before correctness.** A
+  finding arrives as an observation bundled with a proposed change, and the change is where
+  scope expands: reviewers — bots above all — grade the diff's text against the widest
+  standard they can imagine, never against the story. Read the observation as evidence and
+  discard the remedy; test the observation against the description's §Scope FIRST (the
+  cheapest conjunct, and the one that disposes of most findings before any verification
+  work); only then verify it and derive any cure from the story. A remedy that would widen
+  the artefact — add coverage, add markers to every claim, reproduce the full plan here, hold
+  a decision pending — is a scope finding whatever the truth of its observation: route it
+  with one line and a named home. Worked instances, 2026-09-11/12: a true observation about
+  nested fences became a container-aware parser nobody had asked for (five rounds, then
+  deleted); a report's per-claim marker contract was cured by narrowing the claim, never by
+  adding markers (one push).
 - The three-way test, exactly one terminal state per finding:
   1. **INCORRECT → reject**, with verified reasoning in the reply
      (`dispositions-need-verified-failure-scenarios`). Rejection is a

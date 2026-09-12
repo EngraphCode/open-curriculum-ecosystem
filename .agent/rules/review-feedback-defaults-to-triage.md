@@ -18,11 +18,18 @@ binds a prose artefact (PDR-140 binds the prose findings of mixed
 changesets; code findings keep the existing state-machine behaviour).
 Fires per wave, before any cure is drafted. At PR-open, the companion moment:
 declare the intake contract (artefact class, next verification point,
-worthiness-bar reading, settlement-push budget) in the working notes
+worthiness-bar reading, settlement-push budget) in the pull request
+description's §Scope — the template's section, which reviewers read —
 before the first review arrives, citing the acceptance criterion that
 makes any pickup-class home a real verifier.
 
 ## Action
+
+Before step 1, separate the observation from the proposed remedy and
+test the observation against the description's §Scope: a remedy that
+would widen the artefact is routed with a named home before any
+verification work (`pr-lifecycle` §Phase 4) — reviewers grade the text
+against the widest standard they can imagine, never against the story.
 
 1. **Verify first-hand**, per `pr-comments-resolve-and-recheck` — a
    concrete failure scenario or its verified absence, never

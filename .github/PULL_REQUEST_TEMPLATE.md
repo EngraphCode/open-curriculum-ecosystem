@@ -32,10 +32,19 @@ References LINEAR-ID
 
 ## Scope
 
-<!-- State what is deliberately in and out of this PR. -->
+<!--
+State what is deliberately in and out of this PR. This section is the review contract:
+reviewers test findings against it, and the shepherd routes any finding whose remedy falls
+outside it to a named home rather than curing it here (pr-lifecycle §Phase 4; PDR-140).
+On a prose- or records-class changeset, also declare the intake: the artefact class, its
+next verification point, the worthiness-bar reading that follows, and the settlement-push
+budget.
+-->
 
 - In scope:
 - Out of scope:
+- Findings outside this scope are routed to a named home, never cured here.
+- Intake (prose/records changesets): class — ; verification point — ; bar — ; budget —
 
 ## Validation
 
