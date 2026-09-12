@@ -327,7 +327,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
      On code, RELEVANT means exercised by a tested or recorded input of the
      pull request's specification (the state machine's item 2): a correct
      case no such input exercises fails this conjunct and goes to state 3
-     as a fixture at pickup, never to state 2 (PR #139, 2026-09-12).
+     as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
+     the declared settlement-push budget is spent, every finding goes to
+     state 3 whatever it exercises — the cost gate refuses the push, and
+     the reviewer blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
@@ -618,13 +621,15 @@ disposition carries and which it predates.
    is the count `c[n]`, the terminal-zero test, and both step-back arms
    read (a round can settle at raised > 0, cure-worthy = 0: that IS the
    terminal success state under triage). In lanes PDR-140 excludes
-   (code-class changesets; human and code findings of mixed ones) no
-   routing disposition exists, and the bar is the specification the
-   pull request carries — its tests and recorded fixtures: a
+   (code-class changesets; human and code findings of mixed ones)
+   PDR-140's prose pricing does not apply; the bar is the specification
+   the pull request carries — its tests and recorded fixtures: a
    verified-correct finding that a tested or recorded input exercises is
-   cure-worthy; a verified-correct case no such input exercises is a
-   fixture at pickup, dispositioned below-bar with the reason, never a
-   mechanism edit (PR #139, 2026-09-12: reading "verified correct" as
+   cure-worthy while the declared settlement-push budget lasts; a
+   verified-correct case no such input exercises, and every finding once
+   the budget is spent, is a fixture at pickup — Phase 4's state 3,
+   dispositioned below-bar with the reason and routed as that state
+   routes, never a mechanism edit (PR #139, 2026-09-12: reading "verified correct" as
    "cure-worthy by definition" on an instrument over an open input space
    ran seven settlement pushes against a declared budget of two and 98
    comments, every finding correct, none exercised by a recorded input,
