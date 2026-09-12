@@ -148,8 +148,9 @@ skill.
 1. **The tally builder and the verdict, with fixtures** — criteria 1 and 2; one PR, default
    round budget. Landed 2026-09-12: `agent-tools/src/pr-tally/` — `harvest.ts` (the recorded
    boundary), `markers.ts` (the closed marker grammar), `findings.ts` (body items by the
-   reviewer's markers), `rows.ts` (rows per settled head in branch order) and `verdict.ts` (the
-   predicate with epochs), each with its unit tests over the recorded corpora; the conforming
+   reviewer's markers), `dispositions.ts` (the seat's signed body-only disposition lines),
+   `rows.ts` (rows per settled head in branch order) and `verdict.ts` (the predicate with
+   epochs), each with its unit tests over the recorded corpora; the conforming
    fixtures #136 and #138 recorded with the widened query. Not yet read from a recording: check-run
    history, so SKIPPED and timeout settlement (criterion 5's skip and timeout cases) wait for the
    command (todo 2) to harvest it; the ledger's signature question is answered by not widening the

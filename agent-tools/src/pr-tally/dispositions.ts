@@ -34,10 +34,11 @@ export interface BodyDispositions {
 const DISPOSITION_LINE =
   /^-?\s*\*\*[^*\n]+\*\*\s*·\s*head SHA:([0-9a-f]{7,40})\s*·\s*review (\S+)\s*·\s*`?([^`·\n]+?):(\d+)`?\s*·\s*(.+?)\s*·/u;
 // A head reference is the format's `head SHA:<sha>`; a cure citation is its
-// `Cured in SHA:<sha>` and names no head. Any other mention is read as a head
-// only when the comment carries no head reference at all (conservatively).
+// `Cured in SHA:<sha>` (bare or in a code span) and names no head. Any other
+// mention is read as a head only when the comment carries no head reference
+// at all (conservatively).
 const HEAD_REFERENCE = /head SHA:([0-9a-f]{7,40})/gu;
-const SHA_MENTION = /(?<!Cured in )SHA:([0-9a-f]{7,40})/gu;
+const SHA_MENTION = /(?<!Cured in `?)SHA:([0-9a-f]{7,40})/gu;
 const THREAD_KEY = /^thread (\S+)$/u;
 const BULLET = /^-\s*/u;
 
@@ -75,9 +76,12 @@ export function readBodyDispositions(harvest: RecordedHarvest): BodyDispositions
       .map(parseKey)
       .filter((key): key is BodyDispositionKey => key !== null),
   );
+  // A marked line that does not parse is a batched disposition, whether or
+  // not a sibling line parses: the heads its comment names read as manual.
   const batchedHeads = signed
-    .filter((comment) => comment.body.split('\n').every((line) => parseKey(line) === null))
-    .filter((comment) => comment.body.split('\n').some(isMarked))
+    .filter((comment) =>
+      comment.body.split('\n').some((line) => parseKey(line) === null && isMarked(line)),
+    )
     .flatMap((comment) => headsNamed(comment.body));
   return { keys, batchedHeads };
 }

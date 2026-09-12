@@ -13,6 +13,30 @@ const EXPECTED = [COPILOT, CODEX];
 const SIGNATURE = '\n\n— Nettle guards Pistil (2de368)';
 
 const short = (oid: string) => oid.slice(0, 9);
+
+const EMPTY_THREAD: RecordedHarvest['reviewThreads'][number] = {
+  id: '',
+  isResolved: false,
+  isOutdated: false,
+  path: '',
+  line: null,
+  originalLine: null,
+  reviewId: null,
+  reviewCommitOid: null,
+  comments: [],
+};
+
+// The first recorded thread bound to a head at a recorded anchor by a recorded review.
+const anchoredThread = (harvest: RecordedHarvest): RecordedHarvest['reviewThreads'][number] => {
+  const thread = harvest.reviewThreads.find(
+    (candidate) =>
+      candidate.reviewCommitOid !== null &&
+      candidate.originalLine !== null &&
+      candidate.reviewId !== null,
+  );
+  expect(thread, 'fixture has no anchored bound thread').toBeDefined();
+  return thread ?? EMPTY_THREAD;
+};
 const firstHead = (harvest: RecordedHarvest) => harvest.commits[0]?.oid ?? '';
 
 const review = (
@@ -81,21 +105,17 @@ describe('buildRows — one row per settled head, in branch order, counts from r
 
   it('counts a body item that restates an inline thread of the same review at the same anchor once', () => {
     const harvest = parseRecordedHarvest(pr138);
-    const thread = harvest.reviewThreads.find(
-      (candidate) => candidate.reviewCommitOid !== null && candidate.originalLine !== null,
-    );
-    if (thread === undefined || thread.reviewCommitOid === null || thread.reviewId === null) {
-      throw new Error('fixture has no anchored bound thread');
-    }
+    const thread = anchoredThread(harvest);
+    const head = thread.reviewCommitOid ?? '';
+    const opening = thread.comments[0]?.body.split('\n')[0] ?? '';
     const restating = review({
-      id: thread.reviewId,
+      id: thread.reviewId ?? '',
       databaseId: null,
-      commitOid: thread.reviewCommitOid,
-      body: `### Suppressed comments (1)\n\n**${thread.path}:${thread.originalLine ?? 0}**\n* ${thread.comments[0]?.body.split('\n')[0] ?? ''}\n`,
+      commitOid: head,
+      body: `### Suppressed comments (1)\n\n**${thread.path}:${thread.originalLine ?? 0}**\n* ${opening}\n`,
     });
     const raisedFor = (tally: ReturnType<typeof buildRows>) =>
-      [...tally.rows, ...tally.unsettled].find((row) => row.head === thread.reviewCommitOid)
-        ?.raised;
+      [...tally.rows, ...tally.unsettled].find((row) => row.head === head)?.raised;
     expect(
       raisedFor(
         buildRows({
@@ -109,13 +129,11 @@ describe('buildRows — one row per settled head, in branch order, counts from r
   it('surfaces a signed thread disposition that carries no bar marker as manual, never counted', () => {
     const harvest = parseRecordedHarvest(pr138);
     const target = harvest.reviewThreads.find((thread) => thread.comments.length > 1);
-    if (target === undefined) {
-      throw new Error('fixture has no replied thread');
-    }
+    expect(target, 'fixture has no replied thread').toBeDefined();
     const stripped = {
       ...harvest,
       reviewThreads: harvest.reviewThreads.map((thread) =>
-        thread.id === target.id
+        thread.id === target?.id
           ? {
               ...thread,
               comments: thread.comments
@@ -130,7 +148,7 @@ describe('buildRows — one row per settled head, in branch order, counts from r
       ),
     };
     const row = buildRows({ harvest: stripped, expectedReviewers: EXPECTED }).rows.find(
-      (candidate) => candidate.head === target.reviewCommitOid,
+      (candidate) => candidate.head === target?.reviewCommitOid,
     );
     expect(row?.manual).toBe(1);
   });
@@ -312,9 +330,7 @@ describe('buildRows — one row per settled head, in branch order, counts from r
       submittedAt: new Date(reviewerLatest + 30 * 60 * 1000).toISOString(),
     });
     const thread = harvest.reviewThreads.find((candidate) => candidate.reviewCommitOid === head);
-    if (thread === undefined) {
-      throw new Error('fixture has no thread on the final head');
-    }
+    expect(thread, 'fixture has no thread on the final head').toBeDefined();
     const signedReply = {
       databaseId: 2,
       reviewId: 'PRR_reply',
@@ -326,7 +342,7 @@ describe('buildRows — one row per settled head, in branch order, counts from r
       ...harvest,
       reviews: [...harvest.reviews, replyReview],
       reviewThreads: harvest.reviewThreads.map((candidate) =>
-        candidate.id === thread.id
+        candidate.id === thread?.id
           ? { ...candidate, comments: [...candidate.comments, signedReply] }
           : candidate,
       ),
@@ -411,10 +427,8 @@ describe('buildRows — one row per settled head, in branch order, counts from r
       },
       expectedReviewers: EXPECTED,
     }).rows[0];
-    if (base === undefined || row === undefined) {
-      throw new Error('no first row');
-    }
-    expect(row.raised).toBe(base.raised + 1);
-    expect(row.cureWorthy).toBe(base.cureWorthy + 1);
+    expect(base, 'no first row').toBeDefined();
+    expect(row?.raised).toBe((base?.raised ?? 0) + 1);
+    expect(row?.cureWorthy).toBe((base?.cureWorthy ?? 0) + 1);
   });
 });

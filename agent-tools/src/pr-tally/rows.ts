@@ -27,6 +27,13 @@ import type { BarMarker } from './markers.js';
  * by none is superseded, a head an expected reviewer still owes is unsettled.
  * Timeout and skip settlement need the check-run history a recording does not
  * yet carry, so this builder reads SATISFIED-or-OWED only.
+ *
+ * THE INVARIANT every case here samples: nothing the recording does not prove
+ * settles or counts. An unproven settlement input (no declared reviewer, a
+ * skip marker, a missing submission time) reads unsettled; an unreadable
+ * disposition (no marker, a marked line with no reference, a batched comment)
+ * reads manual; a citation is never a head. A case these rounds did not name
+ * is a fixture at pickup, never a mechanism edit.
  */
 
 type Thread = RecordedHarvest['reviewThreads'][number];
@@ -175,7 +182,10 @@ function findingsFor(
       (thread.reviewId === null || landedIds.has(thread.reviewId)) &&
       !isSignedSelfReply(thread.comments[0]?.body ?? ''),
   );
-  const reviews = landedReviews.filter((review) => !isSignedSelfReply(review.body));
+  // A skip marker declares that no review occurred: it carries no finding prose.
+  const reviews = landedReviews.filter(
+    (review) => !isSignedSelfReply(review.body) && !isSkipMarker(review.body),
+  );
   const bodyItems = reviews.flatMap((review) =>
     bodyItemDispositions(review, threads, dispositions),
   );

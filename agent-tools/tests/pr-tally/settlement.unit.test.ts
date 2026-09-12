@@ -103,12 +103,10 @@ describe('buildRows — settlement needs a substantive, dated review from a decl
   it('reads a batched disposition as manual on the heads it names as heads, never on the cure it cites', () => {
     const harvest = parseRecordedHarvest(pr138);
     const [reviewed, cure] = harvest.commits.map((commit) => commit.oid);
-    if (reviewed === undefined || cure === undefined) {
-      throw new Error('fixture has fewer than two heads');
-    }
+    expect(cure, 'fixture has fewer than two heads').toBeDefined();
     const batched = comment(
       9000005,
-      `**Over-bar** — the four on head SHA:${reviewed.slice(0, 9)}, together. Cured in SHA:${cure.slice(0, 9)}.`,
+      `**Over-bar** — the four on head SHA:${(reviewed ?? '').slice(0, 9)}, together. Cured in SHA:${(cure ?? '').slice(0, 9)}.`,
     );
     const rowsByHead = buildRows({
       harvest: { ...harvest, comments: [...harvest.comments, batched] },
@@ -132,6 +130,73 @@ describe('buildRows — settlement needs a substantive, dated review from a decl
       harvest: { ...harvest, comments: [...harvest.comments, malformed] },
       expectedReviewers: EXPECTED,
     }).rows.find((candidate) => candidate.head === head);
+    expect(row?.undispositioned).toBe(0);
+    expect(row?.manual).toBe(4);
+  });
+});
+
+describe('buildRows — the invariant: nothing the recording does not prove settles or counts', () => {
+  it('never reads a code-wrapped cure citation as a head a batched disposition names', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const [reviewed, cure] = harvest.commits.map((commit) => commit.oid);
+    expect(cure, 'fixture has fewer than two heads').toBeDefined();
+    const batched = comment(
+      9000007,
+      `**Over-bar** — the four on ${(reviewed ?? '').slice(0, 9)}, together. Cured in \`SHA:${(cure ?? '').slice(0, 9)}\`.`,
+    );
+    const rows = buildRows({
+      harvest: { ...harvest, comments: [...harvest.comments, batched] },
+      expectedReviewers: EXPECTED,
+    }).rows;
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows;
+    expect(rows.find((row) => row.head === cure)?.manual).toBe(
+      base.find((row) => row.head === cure)?.manual,
+    );
+  });
+
+  it('reads a skip marker from any reviewer as no finding prose, never as manual', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const skipped = review({
+      id: 'PRR_other_skip',
+      author: 'some-other-reviewer',
+      commitOid: head,
+      body: 'Review skipped: unable to review this pull request.',
+    });
+    const withSkip = buildRows({
+      harvest: { ...harvest, reviews: [...harvest.reviews, skipped] },
+      expectedReviewers: EXPECTED,
+    }).rows.find((row) => row.head === head);
+    const base = buildRows({ harvest, expectedReviewers: EXPECTED }).rows.find(
+      (row) => row.head === head,
+    );
+    expect(withSkip?.manual).toBe(base?.manual);
+    expect(withSkip?.raised).toBe(base?.raised);
+  });
+
+  it('reads a marked line missing its reference as batched even beside a line that parses', () => {
+    const harvest = parseRecordedHarvest(pr138);
+    const head = firstHead(harvest);
+    const codexBody = review({
+      id: 'PRR_codexbody',
+      databaseId: 9000002,
+      author: CODEX,
+      commitOid: head,
+      body: '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Name the thing**\n\nBody.',
+    });
+    const mixed = comment(
+      9000008,
+      `- **Over-bar** · head SHA:${head.slice(0, 9)} · review 9000002 · \`docs/a.md:1\` · Name the thing · Cured in SHA:deadbeef0.\n- **Below-bar** · head SHA:${head.slice(0, 9)} · the rest, together.`,
+    );
+    const row = buildRows({
+      harvest: {
+        ...harvest,
+        reviews: [...harvest.reviews, codexBody],
+        comments: [...harvest.comments, mixed],
+      },
+      expectedReviewers: EXPECTED,
+    }).rows.find((candidate) => candidate.head === head);
+    expect(row?.cureWorthy).toBe(4);
     expect(row?.undispositioned).toBe(0);
     expect(row?.manual).toBe(4);
   });

@@ -1,8 +1,8 @@
 # pr-tally fixtures
 
 Recorded harvests for the `pr-tally` command's tests (the delivery node
-`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Todo 1's tests will read these
-files; nothing consumes them yet, and tests never call GitHub.
+`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Todo 1's tests read these files (the
+tally builder's, the verdict's and the settlement suites); tests never call GitHub.
 
 ## `pr-135-harvest.json`
 
