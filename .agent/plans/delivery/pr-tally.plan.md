@@ -86,7 +86,8 @@ skill.
   is one finding; two distinct defects at one anchor are two); the cure-worthy count is
   read from the disposition state the seat records — a reply or comment signed by the
   seat's identity tuple carries a machine-readable bar marker (over-bar or below-bar, the
-  PDR-140 prong met) and a disposition (a cure commit, or a named home); the count reads
+  PDR-140 prong met) and a disposition (a cure commit, a named home, or a rejection with its
+  rationale); the count reads
   the bar marker, never the disposition type, because a below-bar finding and a
   build-changing one can both be routed to a home — and the seat's own signed replies and
   comments are excluded from the raised count AND from the newer-review test that anchors
@@ -151,10 +152,12 @@ skill.
    marker and the disposition named in the pr-lifecycle intake contract (PDR-140's
    disposition shape) and its projections, with an end-to-end fixture produced by that
    workflow and consumed by criterion 5; one small records PR, landed before or with todo 1
-   so that the first live round reads counts rather than "manual tally required". Landed
-   2026-09-12: the format in `pr-lifecycle` §Response pricing and its projections; the fixture
-   at `agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`; the skill step landed
-   earlier in SHA:ccdbc5613.
+   so that the first live round reads counts rather than "manual tally required". Partly landed
+   2026-09-12: the format in `pr-lifecycle` §Response pricing and its projections; the skill
+   step landed earlier in SHA:ccdbc5613; the fixture recorded so far,
+   `agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`, predates the format and is the
+   manual-tally corpus. STILL OWED before todo 1's first test: the conforming end-to-end
+   fixture, recorded from a pull request run under this format (#136 or #138) once it merges.
 
 Each PR opens with the pr-lifecycle instruments declared at open: the round tally (from this
 command once it lands), and the PDR-140 intake contract where the changeset carries prose.
@@ -191,4 +194,4 @@ mechanism unchanged.
 | --- | --- | --- | --- |
 | 2026-09-12 | PR #135 round three | A slice proposed in the thread record carried only `raised` per row, where this node's predicate reads the cure-worthy count from the bar marker — a round of below-bar findings must be terminal zero even with `raised > 0` | Pickup: todo 3 (the marker) lands first per this node's own sequencing; todo 1's row carries the cure-worthy count |
 | 2026-09-12 | PR #135 round three | The same slice ordered rows by first appearance, which is review-arrival order; this node requires branch commit order, since a late review of an older head would reverse `c[n]` | Pickup: `buildRows` takes an authoritative head-order input and sorts bindings against it |
-| 2026-09-12 | PR #138 round three | The recorded corpus's seventeen seat replies end with a role suffix (", Director") that the ratified self-reply predicate (`reviewer-legs.ts` `SIGNATURE_SUFFIX`, final line ends with the six-hex prefix) rejects, so none reads as signed under the current code | Pickup: todo 1 decides by dated amendment whether the predicate accepts a trailing role suffix, or treats this corpus's replies as unsigned; the fixture is a recording and is not edited |
+| 2026-09-12 | PR #138 round three | The recorded corpus's seventeen seat replies end with a role suffix (", Director") that the ratified self-reply predicate (`reviewer-legs.ts` `SIGNATURE_SUFFIX`: the final line ends with the six-hex prefix or its `-hex3` token form) rejects, so none reads as signed under the current code | Pickup: todo 1 decides by dated amendment whether the predicate accepts a trailing role suffix, or treats this corpus's replies as unsigned; the fixture is a recording and is not edited |

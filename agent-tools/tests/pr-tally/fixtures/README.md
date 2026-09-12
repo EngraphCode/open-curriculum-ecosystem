@@ -1,8 +1,8 @@
 # pr-tally fixtures
 
 Recorded harvests for the `pr-tally` command's tests (the delivery node
-`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Tests read these files;
-they never call GitHub.
+`.agent/plans/delivery/pr-tally.plan.md`, todo 3). Todo 1's tests will read these
+files; nothing consumes them yet, and tests never call GitHub.
 
 ## `pr-135-harvest.json`
 
@@ -145,7 +145,9 @@ What the corpus carries, each claim checked against the JSON with `jq` on 2026-0
   role suffix makes every recorded reply read as NOT signed under the current code. The
   node's ledger carries the pickup question for todo 1: widen the predicate by dated
   amendment, or treat this corpus's replies as unsigned;
-- six seat issue comments: two resume-state records and the late intake declaration
+- ten issue comments: `jimCresswell`'s handback and its correction (`5644831605`,
+  `5644834828`), a Codex summary and a Sonar badge, none dispositioning anything; and six
+  by `el-graphael` — two resume-state records and the late intake declaration
   (`5644727301`, `5644730066`, `5645756283`), which disposition nothing, and three body-only
   disposition comments (`5645760733`, `5645857878`, `5645946537`) that batch findings from
   several heads under prose headings and tables, predating the one-line-per-finding form —

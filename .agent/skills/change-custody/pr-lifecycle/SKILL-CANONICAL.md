@@ -502,15 +502,19 @@ against this skill — file it as one.
 
 **Disposition format — the recorded fields the tally reads (the
 `pr-tally` node's todo 3, 2026-09-12).** Every reply or comment that
-dispositions a finding is signed as `reviewer-legs.ts` defines a signed
-self-reply — its final line begins with an em dash and ends with the
-seat's `(<six lowercase hex>)` prefix, nothing after it — and OPENS with
-the bar marker: a bold span whose text contains exactly one of the tokens
-`over-bar` or `below-bar` (case-insensitive) and no other bar token, so
-`**Over-bar**`, `**In scope, over-bar**` and `**Over-bar on prong two**`
-read as over-bar, `**Below-bar**` as below-bar, and a span such as
-`**Not over-bar**` or `**Below-bar, not over-bar**` reads as no marker.
-The prong met and the scope reading are stated where they apply; the
+dispositions a finding is signed as `isSignedSelfReply` in
+`agent-tools/src/pr-watch/reviewer-legs.ts` already defines, unchanged:
+its final line begins with an em dash and ends with the seat's
+`(<six lowercase hex>)` prefix or the token form
+`(<six lowercase hex>-<three hex, either case>)`, nothing after it. It
+OPENS with the bar marker: a bold span whose ENTIRE text matches,
+case-insensitively, an optional scope prefix `In scope,` or
+`Out of scope,`, then exactly `Over-bar` or `Below-bar`, then an optional
+`on prong one` or `on prong two`, then an optional full stop — and
+nothing else. `**Over-bar**`, `**In scope, over-bar**` and
+`**Over-bar on prong two.**` read; `**Not over-bar**`,
+`**Below-bar, not over-bar**` and any span with other words read as no
+marker. The prong and the scope reading are stated where they apply; the
 count does not read them. After the marker comes the disposition
 sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty hex
 characters, bare or inside a code span), `Routed to <home>`, or
