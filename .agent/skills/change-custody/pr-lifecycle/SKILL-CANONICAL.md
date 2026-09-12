@@ -532,6 +532,56 @@ sufficient by design (PDR-140 clause 8): needing an out-of-band
 cognitive-skill invocation to correct a running loop is a defect
 against this skill — file it as one.
 
+**Disposition format — the recorded fields the tally reads (the
+`pr-tally` node's todo 3, 2026-09-12).** Every reply or comment that
+dispositions a finding is signed as `isSignedSelfReply` in
+`agent-tools/src/pr-watch/reviewer-legs.ts` already defines, unchanged:
+its final line begins with an em dash and ends with the seat's
+`(<six lowercase hex>)` prefix or the token form
+`(<six lowercase hex>-<three hex, either case>)`, nothing after it. It
+OPENS with the bar marker: a bold span whose ENTIRE text matches,
+case-insensitively, an optional scope prefix `In scope,` or
+`Out of scope,`, then exactly `Over-bar` or `Below-bar`, then an optional
+`on prong one` or `on prong two`, then an optional full stop — and
+nothing else. `**Over-bar**`, `**In scope, over-bar**` and
+`**Over-bar on prong two.**` read; `**Not over-bar**`,
+`**Below-bar, not over-bar**` and any span with other words read as no
+marker. The prong and the scope reading are stated where they apply; the
+count does not read them. After the marker comes the disposition
+sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty hex
+characters, bare or inside a code span), `Routed to <home>`, or
+`Rejected` with the rationale — the convention for a reader; the machine
+reads the marker only, so a disposition whose sentence lacks the verb is
+still counted. A reply on a review thread inherits the thread's head and
+anchor from the harvest. A finding that lives only in a review body (a
+Copilot suppressed item, a Codex body item) has no thread, so its
+disposition is an issue comment carrying ONE LINE PER FINDING: the marker,
+then the reference `head SHA:<sha> · review <id> · <path>:<line> · <item>`
+— the review's own id (two reviews by one reviewer can bind one head), the
+body's anchor for the item, and an item key that survives two findings at
+one anchor: a Codex item's bold heading, a Copilot suppressed item's
+ordinal in its block (`item 3 of 6`), or `thread <id>` when the body item
+restates an inline thread at that anchor and is counted once — then the
+disposition sentence. The reference is the recorded field that binds the
+line to its round and item; a body-only disposition without it, or a
+comment that batches findings under prose headings, reads as "manual tally
+required" for those items, exactly as an unmarked review body does — where
+an unmarked body is one carrying finding prose without the reviewer's
+markers; a reviewer's no-finding boilerplate carries no item and raises zero,
+never manual — and boilerplate is proven by the reviewer's own marker parse
+yielding no item, never by a footer: Codex's ordinary summary has no
+badge-and-heading item; a Copilot body counts as boilerplate only when its
+suppressed-findings block is absent or empty, because its "Comments
+generated: 0 new" footer coexists with suppressed items (two recorded
+reviews say 0 new and carry fifteen and eight). The
+cure-worthy count reads the marker and nothing else (a below-bar finding
+and a build-changing one can both be routed to a home); signed replies and
+comments are excluded from the raised count and from the quiet-window
+anchor (item 2). The recorded corpus is the fixture at
+`agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`; its README
+states, checked against the file, which of these fields each recorded
+disposition carries and which it predates.
+
 1. **The compound read.** One GraphQL selection is the BASELINE compound
    state — it answers most PR-state questions, but two inputs come from
    elsewhere and are added on top of it: the reviewer-leg SATISFIED verdict
