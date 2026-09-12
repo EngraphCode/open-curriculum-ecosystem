@@ -2285,3 +2285,138 @@ lapses exactly where the estate's own doctrine has the least mechanical backing.
 gate that reads a record's citations and checks them, and building one is not this lane's work —
 but the shape of the missing gate is now named, alongside `pr-tally`, as the second unbuilt
 instrument this window identified.
+
+## 2026-09-12 — COMPACTION BOUNDARY 7 (Nettle guards Pistil, 2de368, Director, Opus 5, n=2)
+
+### Board at the boundary
+
+Five pull requests landed across 2026-09-11/12, all by the front door as the bot, all two-parent —
+PR #130 SHA:0d6a9769c, #131 SHA:ad64f3cd5, #132 SHA:14d9938c2, #133 SHA:f4897e38c, #134
+SHA:f262a5b6b.
+Open pull requests reached ZERO after #134. Two commits then landed on the coordination branch and
+are NOT yet in a pull request at the time of writing: SHA:712abe242 (this seat, the owner's
+retention decision) and SHA:7f2426877 (the second seat's exploration report). The fold carries both.
+
+The `fstat-2de368` worktree is removed and its remote branch deleted, both proofs run per item
+(porcelain empty; HEAD an ancestor of a freshly-fetched `origin/engraph`; ignored paths inventoried
+and dispositioned). One worktree remains, the primary.
+
+### The owner's decisions of 2026-09-12, at the cards
+
+1. **Conformance retention: option C, REDACT AT THE BOUNDARY**, verbatim "redact at boundary, but do
+   not touch any .env files". Recorded and closed in
+   `conversations/owner-only-retention-enforcement-2026-09-11.json`. The constraint is part of the
+   decision: the forbidden implementation is sourcing real secret VALUES from env files to match
+   against output, which would make the redactor a second secret-handling surface. Redaction is a
+   property of the OUTPUT's shape. Option B (filesystem-type allowlist) refused. Option A composes
+   but is not the answer. **No delivery node exists yet — that is the resolution's named follow-up.**
+2. **`pr-tally`: no build decision until a two-hour plan has been seen.** The plan was presented and
+   is reproduced below in full, because the owner has NOT yet answered and it must not be
+   recoverable only from a chat transcript.
+3. **A card was REFUSED as premature**: where the AI tutoring work should land. "We haven't even
+   created the brief yet, this question is vastly premature." The material will arrive when the
+   owner sends it; until then there is nothing to shape and nothing to ask.
+
+### The two-hour pr-tally plan, as presented and awaiting go/no-go
+
+Scoped as a slice of todo 1 of the ratified `.agent/plans/delivery/pr-tally.plan.md`. **Stated
+honestly at the top: the ratified node has no two-hour unit** — todo 1 in full (criteria 1, 2 and 5,
+twelve fixture cases including body findings, bar markers and SKIPPED legs) is about half a day.
+
+Build, one new directory `agent-tools/src/pr-tally/`, nothing existing touched:
+
+- `types.ts` — `ThreadBinding {boundTo, isResolved}`, `TallyRow {commit, raised, inFlight}`, `TallyVerdict`.
+- `tally.ts` — `buildRows(bindings, headOid)`: group by bound commit in first-appearance order, the
+  head's row marked in-flight. Pure.
+- `verdict.ts` — `tallyVerdict(rows)`: TERMINAL-ZERO precedence, then STEP-BACK-MANDATORY
+  (`c[n] >= c[n-1] AND c[n-1] >= c[n-2]`, or four settled rounds; either arm only while the latest
+  count is non-zero), then BUDGET-EXCEEDED (more than two settled rounds, PDR-132), else CONVERGING.
+  Pure.
+- Paired unit tests: both arms firing and not firing, terminal-zero precedence, in-flight head
+  excluded, and the two real shapes from this window.
+
+Threads-only is sound rather than a shortcut: a thread buckets by its FIRST comment's review commit,
+so a seat's own disposition replies can never inflate a count — verified live on 2026-09-12 (three
+threads returning three distinct oids, each matching its tip). Body-only findings are not counted and
+come back as `manualTallyRequired`, so a caller says so rather than under-reporting silently.
+
+Time: types 10, tally 20, verdict 25, fixtures and tests 35, gates 15 — 105 minutes, 15 spare. No IO.
+
+Deferred and named: cure-worthy counts and the bar-marker disposition format (node todo 3); the
+`pr-tally` command, `--json` and the live validation script (node todo 2); epoch reset; SKIPPED legs
+and quiet windows; the practice half.
+
+**Why the command is not in the two hours, measured rather than estimated**: wiring rows through
+`PrStateReading` touches NINETEEN construction sites (`grep -c "reviewThreads: {"` over
+`agent-tools/src`), roughly thirty minutes of fixture churn before a line of tally logic. That
+plumbing belongs with todo 2, which the node already scopes as its own pull request. The instinct
+was to put the verdict on `pr state` so it fires automatically; reading the code changed it.
+
+**The objection put to the owner with the plan**: this lands a library with no caller. It does not
+fire until todo 2 wires it, so it would not have caught this window on its own. The alternative is a
+larger first slice that busts two hours.
+
+### The n=2 session
+
+Second seat **Sandpiper weaves Updraft (a96287)**, claude-code, claude-opus-5[1m], started ~09:1xZ
+2026-09-12, lane claim 3cc70488. Boundary: a read-only exploration of the external public repository
+`github.com/spotify/portal-ai-plugins`, cloned outside this tree, producing one report. Delivered as
+SHA:7f2426877 — `.agent/reports/spotify-portal-ai-plugins-exploration-2026-09-12.md` plus its index
+row. No overlap with this seat's surfaces at any point. PDR-082 mode: heartbeat cron, inter-seat
+directed events and the 120s sweep dropped; watcher, claims and substantive broadcasts retained.
+
+The second seat corrected one of this seat's claims and the correction is kept because it is the
+false-green class: **prettier does NOT cover `.agent/reports/**`** — `.prettierignore` carries both
+`**/reports/` and `.agent/`, and `prettier --file-info` returns `ignored: true`. This seat had
+asserted the opposite to them unverified. Worse, `prettier --check` over that path prints "All
+matched files use Prettier code style!" **while matching zero files** — a success line that cannot
+distinguish a clean input set from an empty one. Same shape as the BSD `xargs -a` entry of
+2026-09-10.
+
+### Owner-held, carried forward
+
+1. **The redaction delivery node** — decided, unbuilt, no node yet.
+2. **`pr-tally`** — awaiting go/no-go on the two-hour plan above.
+3. **The four sync-workflow findings** — the owner's card answer stands: "Cure all four in one lane."
+   The mirror-provenance one has TWO routes and the choice is still the owner's: apply the carrier's
+   parent-check remedy, or protect the mirror branch. `main` is `protected: false` with no ruleset
+   (verified 2026-09-11), so the condition is live, not hypothetical.
+4. **The upstream report** at `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md`
+   is still the owner's to send.
+5. **`windows-basic` required** on or after 2026-09-17.
+6. The older held items: directives-tier placement; #100's two deny lines.
+7. **The AI tutoring research** — the owner sends the material when they choose. Nothing to do until
+   then, and no shaping question to ask before a brief exists.
+
+### The window's generator, stated once more because naming it twice did not stop it
+
+**A valid criticism creates INFORMATION, not an obligation.** Whether it creates an obligation
+depends on cost, reachability, and what the thing is for. This seat collapsed "true" into "must act"
+sixteen times on #132 and five on #134, and the tell was not the curing — it was that each reply
+AMPLIFIED the finding's severity. That is agreement performed rather than reasoned, and it ratchets:
+a reviewer that is thanked effusively keeps finding.
+
+What broke it was mechanical, not resolve: **stating the PDR-140 prong out loud in the reply before
+curing.** From the round that started doing it, one finding was declined as under-bar and one remedy
+was refused outright — the container-aware parser, whose requirement had been invented mid-review.
+Keep the practice, not the resolve.
+
+The related failure, distinct and worth its own name: **generating requirements from adjacent true
+facts.** The fence detector's container requirement came from a reviewer's true observation; the
+tutoring landing card came from a real recorded constraint. Neither was asked for by the purpose of
+the thing. Both cost real work before being deleted or refused.
+
+### A proposal, with its falsifier
+
+**The estate enforces on ACTIONS and on TIME, and barely on STATE CROSSINGS.** Gates fire on commit,
+push and CI; crons fire on a clock. Conditions — a claim's freshness, a fitness limit — are evaluated
+only where some action happens to run the evaluator (`validate-claim-freshness` and
+`fitness-vocabulary` both run from `repo-validators:check`, an action gate). The review-loop budget
+and the step-back predicate are state crossings with NO action running them, which is why F-177 has
+now recurred twice and why `pr-tally` has stayed ratified and unbuilt: it is the estate's first
+instrument of a class the estate has no habit for. This also explains the nineteen-construction-site
+cost of wiring it — a state-crossing check has to attach to a frequent action, and the frequent
+action here is the front door's read.
+
+*Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a clock
+running it. Two candidates were checked and are not that; the search was not exhaustive.
