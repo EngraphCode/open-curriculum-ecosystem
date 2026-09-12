@@ -141,6 +141,25 @@ describe('reviewCost — the opening round is priced, never charged; settlement 
     expect(reviewCost(later, 1).verdict).toBe('exhausted');
   });
 
+  it('lets the first settlement round earn the extension against the opening round as its baseline', () => {
+    const report = reviewCost(
+      [
+        measure({ head: 'r1', findings: 60, commentChars: 40000, pushLines: 3000, pushFiles: 40 }),
+        measure({
+          head: 'r2',
+          findings: 30,
+          commentChars: 20000,
+          pushLines: 600,
+          pushFiles: 10,
+          hoursSincePrevious: 3,
+        }),
+      ],
+      1,
+    );
+    expect(report.total).toBeGreaterThan(report.budget);
+    expect(report.verdict).toBe('converging');
+  });
+
   it('exhausts a long loop of small rounds through the round floor alone', () => {
     const small = (head: string) =>
       measure({

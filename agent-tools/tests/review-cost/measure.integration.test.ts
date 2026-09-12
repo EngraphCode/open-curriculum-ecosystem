@@ -12,29 +12,53 @@ const EXPECTED = ['copilot-pull-request-reviewer', 'chatgpt-codex-connector'];
 // modest edit to the same two files, the fix-push signature.
 const sameFiles: DiffStat = { lines: 120, files: ['a.ts', 'b.ts'] };
 
+const short = (oid: string) => oid.slice(0, 9);
+const hours = (value: number | null) => (value === null ? null : Math.round(value * 100) / 100);
+
 describe('measureRounds — one measure per reviewed head of the #138 recording', () => {
-  it('measures every head a declared reviewer reviewed, in branch order, with the diff reader', () => {
+  it('measures the seven reviewed heads exactly, in branch order, each push from the head before', () => {
     const harvest = parseRecordedHarvest(pr138);
-    const calls: [string, string][] = [];
+    const calls: string[] = [];
     const rounds = measureRounds({
       harvest,
       expectedReviewers: EXPECTED,
       baseRef: 'origin/engraph',
       diff: (from, to) => {
-        calls.push([from, to]);
+        calls.push(`${short(from)}..${short(to)}`);
         return sameFiles;
       },
     });
-    expect(rounds.length).toBeGreaterThan(3);
-    expect(calls[0]?.[0]).toBe('origin/engraph');
-    expect(calls[1]?.[0]).toBe(rounds[0]?.head);
-    expect(rounds[0]?.hoursSincePrevious).toBeNull();
-    expect(rounds[0]?.relatedness).toBe(0);
-    expect(rounds.slice(1).every((round) => round.relatedness === 1)).toBe(true);
-    expect(rounds.every((round) => round.findings > 0 && round.commentChars > 0)).toBe(true);
+    expect(
+      rounds.map((round) => [
+        short(round.head),
+        round.findings,
+        round.commentChars,
+        round.pushLines,
+        round.pushFiles,
+        round.relatedness,
+        hours(round.hoursSincePrevious),
+      ]),
+    ).toStrictEqual([
+      ['352ad0ee5', 7, 9345, 120, 2, 0, null],
+      ['84dd6291b', 11, 10273, 120, 2, 1, 0.28],
+      ['db67da4d5', 10, 9648, 120, 2, 1, 0.19],
+      ['a1ec078e2', 9, 10247, 120, 2, 1, 0.32],
+      ['33cca25bc', 5, 6267, 120, 2, 1, 0.24],
+      ['ebf90ac3b', 3, 3685, 120, 2, 1, 0.27],
+      ['fe81ac086', 3, 4147, 120, 2, 1, 0.22],
+    ]);
+    expect(calls).toStrictEqual([
+      'origin/en..352ad0ee5',
+      '352ad0ee5..84dd6291b',
+      '84dd6291b..db67da4d5',
+      'db67da4d5..a1ec078e2',
+      'a1ec078e2..33cca25bc',
+      '33cca25bc..ebf90ac3b',
+      'ebf90ac3b..fe81ac086',
+    ]);
   });
 
-  it('reads the #138 loop — seven reviewed heads of fix-pushes — as exhausted against a budget of two', () => {
+  it('reads the #138 loop — six settlement rounds of fix-pushes — as exhausted against a budget of two', () => {
     const harvest = parseRecordedHarvest(pr138);
     const rounds = measureRounds({
       harvest,

@@ -96,11 +96,15 @@ export function roundCost(measure: RoundMeasure, policy: CostPolicy): number {
 }
 
 // The one converging extension: the budget was crossed by THIS round, and this
-// round cost no more than the converging ratio of the round before it.
+// round cost no more than the converging ratio of the round before it — the
+// opening round included as the baseline, though never charged.
 function converging(costs: readonly number[], budget: number, policy: CostPolicy): boolean {
   let running = 0;
   let crossedAt = -1;
   costs.forEach((cost, index) => {
+    if (index === 0) {
+      return;
+    }
     running += cost;
     if (crossedAt === -1 && running >= budget) {
       crossedAt = index;
@@ -143,7 +147,12 @@ export function reviewCost(
   const settlement = costs.slice(1).map((entry) => entry.cost);
   const total = round2(settlement.reduce((sum, cost) => sum + cost, 0));
   const budget = round2(budgetPushes * policy.unitRound);
-  const verdict = verdictFor(total, budget, settlement, policy);
+  const verdict = verdictFor(
+    total,
+    budget,
+    costs.map((entry) => entry.cost),
+    policy,
+  );
   const evidence = [
     `rounds ${String(costs.length)} (opening plus ${String(Math.max(0, costs.length - 1))} settlement), budget ${String(budgetPushes)} settlement pushes`,
     `settlement cost ${String(total)} of ${String(budget)}; rounds: ${costs.map((entry) => `${entry.head.slice(0, 9)} ${String(entry.cost)}`).join(', ')}`,
