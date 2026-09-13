@@ -95,6 +95,9 @@ function usageError(parsed: ParsedArgs): string | undefined {
       ? 'survey takes --since <YYYY-MM-DD> and no selector'
       : undefined;
   }
+  if (parsed.since !== undefined) {
+    return '--since is a survey flag; the gate takes exactly one selector';
+  }
   return selectors(parsed) === 1 ? undefined : 'pass exactly one of --pr, --branch, --refs-file';
 }
 
@@ -116,7 +119,7 @@ function guarded(
       : gate(parsed, stdout);
   } catch (cause) {
     const message = cause instanceof Error ? cause.message : String(cause);
-    stderr.write(`review-cost gate: operational failure — ${message}\n`);
+    stderr.write(`review-cost ${parsed.command}: operational failure — ${message}\n`);
     return 1;
   }
 }

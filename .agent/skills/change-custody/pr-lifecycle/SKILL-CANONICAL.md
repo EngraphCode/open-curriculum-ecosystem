@@ -769,7 +769,14 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    (PDR-132's round budget, the step-back arms above, and item 2's
    specification boundary), and its cures land inside the same declared
    settlement-push budget — a code loop with no cap ran seven pushes on
-   PR #139 (2026-09-12). The tip of the LAST budgeted settlement push — the
+   PR #139 (2026-09-12). The budget is enforced at the push: the review
+   cost gate (`agent-tools review-cost gate`, in the pre-push hook) prices
+   every reviewed round and prints `warn` at half the declared budget and
+   refuses the push past it (BUDGET-EXHAUSTED). `warn` is this machine's
+   re-pricing checkpoint, answered once in the round's disposition
+   comment with one of three moves — stop and reject the rest, split
+   along the finding classes, or ask the owner for a rebudget recorded on
+   the description; pushing anyway is not a move. The tip of the LAST budgeted settlement push — the
    declared budget (two by default, PDR-140 clause 4) plus any rebudget
    recorded when exhaustion left a mandatory cure pending — is the FINAL
    HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
