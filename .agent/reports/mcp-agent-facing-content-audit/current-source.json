@@ -106,7 +106,7 @@
             "docs://oak/guidance/explore-curriculum.md",
             "docs://oak/guidance/find-lessons.md",
             "docs://oak/guidance/learning-progression.md",
-            "ui://widget/oak-curriculum-app-local.html"
+            "ui://widget/oak-curriculum-app.html"
           ],
           "dormant": [
             "docs://oak/guidance/adapt-lesson.md",
@@ -10736,7 +10736,7 @@
         "evidence": {
           "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 2
+          "anchorCount": 1
         }
       },
       "lineage": {

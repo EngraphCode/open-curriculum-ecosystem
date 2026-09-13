@@ -9229,16 +9229,10 @@
             "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts",
             "anchors": [
               {
-                "tokenCount": 22,
-                "tokenSha256": "0f3ae1f2beea0b3a7e014699e24f3a042494296db059c1287fb3e609b394b7b5",
+                "tokenCount": 20,
+                "tokenSha256": "729073974851ffc7bcaefb0ff6ba838a779ee956f933ca4eb4d15a3b3088536f",
                 "indexToken": "BASE_WIDGET_URI",
                 "indexOffset": 2
-              },
-              {
-                "tokenCount": 23,
-                "tokenSha256": "b6bb254ff6a08417e535915cc1927ed5a00d262ca1811c482f21e3684a5f2696",
-                "indexToken": "VERCEL_GIT_COMMIT_SHA",
-                "indexOffset": 14
               }
             ]
           }

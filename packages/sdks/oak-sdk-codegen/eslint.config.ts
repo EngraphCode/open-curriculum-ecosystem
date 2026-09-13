@@ -108,6 +108,28 @@ const config = defineConfigArray(
     },
   },
 
+  // MCP-489: the widget address is one published value, the same on every
+  // build (ADR-141, widget URI identity amendment). Its sources read no
+  // environment, so a build-dependent address cannot return unnoticed; the
+  // sentinel test alone cannot see one that differs only on deployed builds.
+  {
+    files: [
+      'code-generation/typegen/cross-domain-constants.ts',
+      'code-generation/typegen/generate-widget-constants.ts',
+    ],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            'MemberExpression[object.property.name="process"][property.name="env"], MemberExpression[object.name="process"][property.name="env"]',
+          message:
+            'The widget address is the same on every build (ADR-141, widget URI identity amendment, MCP-489); its sources read no environment.',
+        },
+      ],
+    },
+  },
+
   {
     files: ['code-generation/zodgen-core.ts'],
     rules: {

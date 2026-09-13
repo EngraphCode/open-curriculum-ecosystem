@@ -124,6 +124,22 @@ describe('MCP App UI Composition (Client SDK)', () => {
     }
   });
 
+  it('advertises the one published widget address that clients hold', async () => {
+    // Designed sentinel (testing-strategy, "Prove behaviour, never config or
+    // content"): clients keep the address from the tool list they were given,
+    // so the value served here is a contract, not an implementation detail.
+    const { tools } = await client.listTools();
+    const tool = tools.find((t) => t.name === 'get-curriculum-model');
+    const ui = tool?._meta?.ui;
+
+    expect(
+      typeof ui === 'object' && ui !== null && 'resourceUri' in ui ? ui.resourceUri : undefined,
+      'Serving a different widget address breaks every client holding an earlier tool list, ' +
+        'and a published plugin needs a new reviewed version first. Re-adjudicate against ' +
+        'ADR-141 (widget URI identity amendment, MCP-489) before changing this expectation.',
+    ).toBe('ui://widget/oak-curriculum-app.html');
+  });
+
   it('widget resource returns HTML with MCP App MIME type', async () => {
     const result = await client.readResource({ uri: WIDGET_URI });
 

@@ -1387,7 +1387,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts",
-      "semanticSha256": "fd2db884860762272d0c2824c930d09082e46db88f918e2d47a0035483afcb7b",
+      "semanticSha256": "43c7c5b75932e88e31de8a86867582d89f3fdd8cdbfa9280d6130fa7ac259b55",
       "itemIds": [
         "C479",
         "C480"
@@ -1395,7 +1395,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts",
-      "semanticSha256": "2655cff78ca4a1cfb2dd0452f194f6cb33579f2372a0eb1e7ed09e1065e630d5",
+      "semanticSha256": "7251820fa063619dc7b000cd7f1ba441ac1fac7f6a6b9fee5da701609e3e2e76",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -1511,12 +1511,6 @@
       "semanticSha256": "f5b9dab9db0897facc78f5d565844ec2ce84e40dd6621eb6f843d19d182988cc",
       "itemIds": [],
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
-    },
-    {
-      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts",
-      "semanticSha256": "8c8c63616d88ddc3a467810c92fb899b241b539e958110d09a1013cdc332238a",
-      "itemIds": [],
-      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/aliases/types.ts",

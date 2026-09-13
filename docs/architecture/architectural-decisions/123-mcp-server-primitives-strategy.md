@@ -114,9 +114,9 @@ value surfaces — a whole-corpus dump has no bounded resource form.
 
 A further resource serves the interactive MCP App widget:
 
-| Resource URI                    | Content              | Priority | Audience  |
-| ------------------------------- | -------------------- | -------- | --------- |
-| `ui://widget/oak-banner-*.html` | React MCP App (HTML) | —        | `["app"]` |
+| Resource URI                          | Content              | Priority | Audience  |
+| ------------------------------------- | -------------------- | -------- | --------- |
+| `ui://widget/oak-curriculum-app.html` | React MCP App (HTML) | —        | `["app"]` |
 
 This resource uses `text/html;profile=mcp-app` content type and is registered via `registerAppResource` per [ADR-141](141-mcp-apps-standard-primary.md). CSP declarations for external fonts are included via `_meta.ui.csp.resourceDomains` on the content item.
 

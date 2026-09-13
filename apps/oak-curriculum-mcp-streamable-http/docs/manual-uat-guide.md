@@ -380,12 +380,13 @@ single-answer language.
 
 ## 10. Resources
 
-| #    | Resource                           | How                         | Expected result                                                                                                  |
-| ---- | ---------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 10.1 | `curriculum://model`               | `resources/read`            | `application/json` domain ontology + tool guidance (resource form of 2.1).                                       |
-| 10.2 | `docs://oak/getting-started.md`    | `resources/read`            | `text/markdown` intro: server, auth, first steps.                                                                |
-| 10.3 | `eef://interpretation`             | `resources/read` (also 8.6) | N-A while the row is dormant in the served-surface definition; `text/markdown` EEF reasoning scaffold when live. |
-| 10.4 | `ui://widget/oak-curriculum-app-*` | `resources/read`            | `text/html;profile=mcp-app` widget document (the MCP App surface).                                               |
+| #    | Resource                              | How                                         | Expected result                                                                                                    |
+| ---- | ------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 10.1 | `curriculum://model`                  | `resources/read`                            | `application/json` domain ontology + tool guidance (resource form of 2.1).                                         |
+| 10.2 | `docs://oak/getting-started.md`       | `resources/read`                            | `text/markdown` intro: server, auth, first steps.                                                                  |
+| 10.3 | `eef://interpretation`                | `resources/read` (also 8.6)                 | N-A while the row is dormant in the served-surface definition; `text/markdown` EEF reasoning scaffold when live.   |
+| 10.4 | `ui://widget/oak-curriculum-app.html` | `resources/read`                            | `text/html;profile=mcp-app` widget document (the MCP App surface).                                                 |
+| 10.5 | Same address, unauthenticated         | `resources/read` with no token (Appendix B) | The widget document; the address is the one `get-curriculum-model` advertises in `_meta.ui.resourceUri` (ADR-141). |
 
 ---
 
@@ -537,7 +538,7 @@ definition change turns it live.
 from `tools/list` until a reviewed definition change turns them live.
 
 **Resources (6 served):** `curriculum://model`, `docs://oak/getting-started.md`,
-`ui://widget/oak-curriculum-app-*.html`, and the navigation guidance three:
+`ui://widget/oak-curriculum-app.html`, and the navigation guidance three:
 `docs://oak/guidance/find-lessons.md`, `docs://oak/guidance/explore-curriculum.md`,
 `docs://oak/guidance/learning-progression.md`. (The creation-oriented three
 guidance documents and `eef://interpretation` exist dormant and never appear in

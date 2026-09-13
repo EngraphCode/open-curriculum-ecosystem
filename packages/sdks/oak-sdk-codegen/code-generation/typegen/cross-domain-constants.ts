@@ -1,33 +1,22 @@
-import { resolveWidgetUriSuffix } from './widget-uri-suffix.js';
-
 /**
- * Base widget URI with a deterministic per-build cache-busting suffix.
+ * The one published address of the Oak curriculum MCP App widget.
  *
  * Generated at sdk-codegen time so every consumer — the tool definitions
- * advertising `_meta.ui.resourceUri` and the app's served-surface
- * registration — derives from this one constant.
+ * advertising `_meta.ui.resourceUri`, the app's served-surface registration
+ * key, and the auth public-resource allowlist — derives from this one
+ * constant (MCP-187).
  *
- * This module-level binding is the one sanctioned `process.env`
- * composition point for the widget URI; the resolver itself lives
- * environment-free in `widget-uri-suffix.ts` so its unit suite's import
- * graph carries no ambient-state read.
- *
- * URI identity is the only cache-invalidation lever the MCP Apps standard
- * gives a server: hosts MAY prefetch and cache `ui://` resource content,
- * and the standard defines no invalidation, freshness, or versioning
- * mechanism — so a changed URI is what forces hosts to reload the widget
- * bundle instead of serving a stale cached copy.
- *
- * Format: ui://widget/oak-curriculum-app-<suffix>.html
- * Example: ui://widget/oak-curriculum-app-abc12345.html
+ * The address is the same on every build and is a published contract. A
+ * client keeps the address from the tool list it was given, so serving a
+ * different address in its place breaks every client holding an earlier
+ * list, and a published plugin needs a new reviewed version before it sees a
+ * new address. Widget changes ship as compatible content behind this address.
+ * The contract, its evidence, and the procedure for an incompatible change
+ * live in ADR-141 (widget URI identity amendment, MCP-489).
  *
  * @see https://modelcontextprotocol.io/extensions/apps/overview (MCP Apps standard)
  */
-export const BASE_WIDGET_URI = `ui://widget/oak-curriculum-app-${resolveWidgetUriSuffix({
-  vercel: process.env.VERCEL,
-  gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA,
-  deploymentId: process.env.VERCEL_DEPLOYMENT_ID,
-})}.html`;
+export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app.html';
 
 /**
  * Tools that should advertise a widget UI via `_meta.ui.resourceUri`.
