@@ -17,6 +17,13 @@ class or category is introduced from it.
   happened, where, and against what, with the strongest alternative explanation
   named. They may motivate a fixture, a probe, or a row; they may not name a
   category, tune a weight, or write a special case.
+- **A cure is not a distribution.** This rule binds claims about how often or
+  where something happens — a category, a tendency, a tuned weight, a special
+  case. A cure shape proven by one executed decision still graduates under
+  [`new-rule-vs-pdr-clause`](new-rule-vs-pdr-clause.md) and the patterns
+  README barrier when the decision lenses give a clear answer; it states its
+  count (`n = 1`) and its falsifier like any other record, and claims nothing
+  about frequency.
 - **A fit is not a test.** A weight, threshold or rule chosen on a set of
   instances is not evidenced by those instances; it is evidenced by instances it
   was not chosen on. Record which is which.
