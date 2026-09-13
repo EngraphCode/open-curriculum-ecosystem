@@ -103,10 +103,10 @@ matrix** (Sections 1–13) for a release gate.
 
 1. **0.1** `tools/list` — the expected tools are present.
 2. **2.1** `get-curriculum-model` `{}` — orientation returns.
-3. **2.2** `get-changelog-latest` `{}` — upstream API reachable; record the version.
+3. **2.2** `get-rate-limit` `{}` — upstream API reachable; live limit/remaining/reset returned.
 4. **4.1** `search` `{ scope: 'lessons', query: 'photosynthesis', subject: 'science', keyStage: 'ks3' }` — ranked hits with fetchable slugs.
 5. **5.2** `fetch` a lesson id from step 4.
-6. **7.2** `get-prior-knowledge-graph` `{ unitSlugs: ['<a unit slug>'], depth: 1 }` — bounded subgraph, anchors echoed.
+6. **7.2** `get-prior-knowledge-graph` `{ unitSlugs: ['<a unit slug>'] }` — stated prior-knowledge statements, anchors echoed.
 7. If EEF is present: **8.1** `get-eef-evidence` `{ function: 'inspect-strand', strandId: 'eef-tl-feedback' }` and **8.6** read `eef://interpretation`.
 8. **12.2** `search` `{}` (no scope) — expect `-32602` (negative control: the server rejects bad input).
 
@@ -151,16 +151,27 @@ serialised `content` blocks AND the decorated `structuredContent`. This is the
 contract that keeps the server renderable across the whole client population.
 
 > **Client rendering varies — and that is exactly why the dual shape matters.**
-> Different hosts surface different halves of the response: Cursor surfaces only
-> `content` blocks; Claude Code surfaces only `structuredContent`; claude.ai and
-> ChatGPT surface both. A tool that emitted `content: []` (structuredContent
-> only) was historically invisible in content-only clients (rendered
-> `(omitted)`) — the EEF tool's `content: []` shape was aligned onto the dual
-> shape for this reason. When validating in a single host, judge "did the data
-> arrive" by what _that host_ renders, but treat a missing `content[1]`
-> serialised block on a success as a **P1 contract regression**, not a client
-> quirk. Over curl (Appendix B) you always see the full envelope regardless of
-> host.
+> Different hosts surface different halves of the response, and which half is
+> a DATED observation per client version, never a standing fact: Cursor
+> surfaces only `content` blocks; Claude Code on its v2 MCP runtime (2.1.25x,
+> observed 2026-09-02 on an OAuth seat) renders only the `content` text and
+> does not surface `structuredContent`; claude.ai and ChatGPT surface both. A
+> tool that emitted `content: []` (structuredContent only) was historically
+> invisible in content-only clients (rendered `(omitted)`) — the EEF tool's
+> `content: []` shape was aligned onto the dual shape for this reason. When
+> validating in a single host, judge "did the data arrive" by what _that
+> host_ renders, but treat a missing `content[1]` serialised block on a
+> success as a **P1 contract regression**, not a client quirk. Over curl
+> (Appendix B) you always see the full envelope regardless of host.
+>
+> **What a Claude Code seat can and cannot observe** (2026-09-02, same run):
+> `tools/list` yes — the loaded tool set IS the inventory; `resources/list`
+> yes (the resource-listing tool); `prompts/list` NO — a raw JSON-RPC error is
+> not surfaced, only the absence of slash commands; `structuredContent` NO;
+> the server-side `-32602` YES — an empty-args call reaches the server and the
+> SDK's "Input validation error: Invalid arguments for tool …" comes back
+> verbatim. Record every unobservable row as N-A / unverified, never as PASS
+> by inference.
 
 ---
 
@@ -171,7 +182,7 @@ Run first. The live server is the source of truth; reconcile against
 
 | #   | Method           | How             | Expected result                                                                                                                                 |
 | --- | ---------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 40 served: 39 live universal + 1 app-local). Note any **addition or removal**.               |
+| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 38 served: 37 live universal + 1 app-local). Note any **addition or removal**.               |
 | 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, the three `docs://oak/guidance/*` navigation documents, and the MCP App `ui://…` widget. |
 | 0.3 | `prompts/list`   | Probe prompts.  | JSON-RPC error `-32601` Method not found — the app serves zero prompts (D11); a result listing ANY prompt is a defect.                          |
 
@@ -215,12 +226,10 @@ token returns `200` SSE-wrapped JSON-RPC.
 Call these **first** in any session (the server requires `get-curriculum-model`
 before other curriculum tools).
 
-| #   | Tool                   | How  | Expected result                                                                                                      |
-| --- | ---------------------- | ---- | -------------------------------------------------------------------------------------------------------------------- |
-| 2.1 | `get-curriculum-model` | `{}` | Domain model + tool guidance (key stages, subjects, entity hierarchy, tool categories, workflows, tips). Dual shape. |
-| 2.2 | `get-changelog-latest` | `{}` | Latest upstream API version string + date — confirms upstream Oak API reachability. **Record the version.**          |
-| 2.3 | `get-changelog`        | `{}` | Changelog entries (list form of 2.2).                                                                                |
-| 2.4 | `get-rate-limit`       | `{}` | Rate-limit status for the authenticated principal (may be unlimited for internal users).                             |
+| #   | Tool                   | How  | Expected result                                                                                                                   |
+| --- | ---------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 2.1 | `get-curriculum-model` | `{}` | Domain model + tool guidance (key stages, subjects, entity hierarchy, tool categories, workflows, tips). Dual shape.              |
+| 2.2 | `get-rate-limit`       | `{}` | Rate-limit status for the authenticated principal (may be unlimited for internal users) — confirms upstream Oak API reachability. |
 
 ---
 
@@ -295,13 +304,15 @@ context from Section 3.
 The four anchored graph tools. Acceptance is the **`working-with-graphs`
 doctrine** (see the
 [skill](../../../.agent/skills/working-with-graphs/SKILL-CANONICAL.md)): every
-response uses **structural bounds only** (anchors / depth / granularity), is
+response uses **structural bounds only** (anchors / depth or membership /
+granularity), is
 **complete within its bound**, reports **honest windows** (`hasMore`, totals),
 **echoes the anchors** that navigate to the next bounded call, makes **no
 server-side relevance judgement**, and shows **no soft stubs** — refusal/empty
 arrives in the honest typed shapes only.
 
-> **Size note.** Graph tools return the whole bounded subgraph in one response.
+> **Size note.** Graph tools return the whole bounded result in one response —
+> a subgraph, or for prior knowledge the anchor units' statements.
 > A broad anchor can exceed a host's token limit; where the tool accepts
 > narrowing arguments, scope the call down. "Returns without a transport error
 > and satisfies the checklist" is the pass; a host-side size cap is a known
@@ -309,8 +320,8 @@ arrives in the honest typed shapes only.
 
 | #   | Tool                        | Positive probe                                                                                                                                                          | Negative probe                                                                                                      |
 | --- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| 7.1 | `get-thread-progressions`   | discovery: `{ subject: 'maths', keyStage: 'ks2' }`; detail: `{ threadSlug: 'number-fractions' }` → year-ordered units                                                   | unknown `threadSlug` → reported in `unknownAnchors`, not errored.                                                   |
-| 7.2 | `get-prior-knowledge-graph` | `{ unitSlugs: ['understanding-percentages'], depth: 2 }` → nodes + `prerequisiteFor` edges, all endpoints members                                                       | unknown slug alongside a real one → unknown in `unknownAnchors`, real anchor served.                                |
+| 7.1 | `get-thread-progressions`   | discovery: `{ subject: 'maths', keyStage: 'ks2' }`; detail: `{ threadSlug: 'number-fractions' }` → one curriculum-ordered run per subject                               | unknown `threadSlug` → reported in `unknownAnchors`, not errored.                                                   |
+| 7.2 | `get-prior-knowledge-graph` | `{ unitSlugs: ['understanding-percentages'] }` → units with stated `priorKnowledge` statements and `threadSlugs`, anchors echoed                                        | unknown slug alongside a real one → unknown in `unknownAnchors`, real anchor served.                                |
 | 7.3 | `get-misconception-graph`   | unit anchor `{ … }`; thread window with `unitOffset`/`unitLimit` → honest window (`hasMore`, whole members)                                                             | `unitOffset` with a _unit_ anchor → typed refusal (offset applies to thread anchor only).                           |
 | 7.4 | `get-keyword-graph`         | `{ subject: 'maths', keyStage: 'ks2', limit: 5 }` → ranked keywords, honest totals (`totalMatchingKeywords`, `hasMore`), per-entry lesson decoration (`hasMoreLessons`) | `limit: 0` → JSON-RPC `-32602` (the schema declares integer [1, 100], so the bound is enforced at the input layer). |
 
@@ -451,7 +462,7 @@ runbook and the server. See
 ```text
 Oak Curriculum MCP — UAT run record
 Target:        <url or localhost:3333>
-Upstream API:  <version from 2.2 get-changelog-latest>
+Upstream API:  <reachable per 2.2 get-rate-limit; version not exposed via MCP>
 App version:   <x-app-version / get-curriculum-model build, if exposed>
 Date (UTC):    <YYYY-MM-DD>
 Run by:        <engineer / agent + host/client>
@@ -484,14 +495,13 @@ Verdict: GO / NO-GO   (no open P0/P1 to ship)
 ## Appendix A: expected live inventory
 
 The reconciliation reference for Section 0. The live `*/list` methods are
-authoritative; this is the expected full surface (40 served tools / 6 served
+authoritative; this is the expected full surface (38 served tools / 6 served
 resources / 0 prompts, plus the dormant rows noted inline). Tool definitions
 are generated from the OpenAPI schema + aggregated tools, so this list
 changes via `pnpm sdk-codegen` — update this appendix when Section 0 shows a
 drift.
 
-**Tools — orientation (4):** `get-curriculum-model`, `get-changelog-latest`,
-`get-changelog`, `get-rate-limit`.
+**Tools — orientation (2):** `get-curriculum-model`, `get-rate-limit`.
 
 **Tools — discovery & browse (10):** `browse-curriculum`, `explore-topic`,
 `get-subjects`, `get-subjects-key-stages`, `get-subjects-years`,

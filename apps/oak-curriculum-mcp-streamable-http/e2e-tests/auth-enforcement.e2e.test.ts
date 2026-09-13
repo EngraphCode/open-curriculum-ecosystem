@@ -51,6 +51,7 @@ import {
 } from './helpers/test-config.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
 import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
+import { SCOPES_SUPPORTED } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 /**
  * Type guard for OAuth Protected Resource metadata response.
@@ -321,6 +322,22 @@ describe('Auth Enforcement (E2E - Production Equivalent)', () => {
         'client_secret_post',
       ]);
     });
+
+    it('AS metadata advertises the PRM scopes, not the upstream list (MCP-345)', async () => {
+      const app = await createAuthApp();
+      const asRes = await request(app).get('/.well-known/oauth-authorization-server');
+      const prmRes = await request(app).get('/.well-known/oauth-protected-resource/mcp');
+
+      expect(asRes.status).toBe(200);
+      expect(prmRes.status).toBe(200);
+
+      const as = requireRecord(asRes.body, 'Expected auth server metadata body');
+      const prm = requireRecord(prmRes.body, 'Expected protected resource metadata body');
+
+      expect(as.scopes_supported).toEqual([...SCOPES_SUPPORTED]);
+      expect(as.scopes_supported).not.toEqual(TEST_UPSTREAM_METADATA.scopes_supported);
+      expect(as.scopes_supported).toEqual(prm.scopes_supported);
+    });
   });
 
   describe('OAuth Proxy Endpoints Exist', () => {
@@ -469,26 +486,6 @@ describe('Auth Enforcement - RFC Compliance', () => {
 });
 
 describe('All Tools Require HTTP Auth (noauth = no scope check, not no token)', () => {
-  it('returns HTTP 401 for get-changelog without auth', async () => {
-    const res = await request(await createAuthApp())
-      .post('/mcp')
-      .set('Host', 'localhost')
-      .set('Accept', 'application/json, text/event-stream')
-      .send({
-        jsonrpc: '2.0',
-        id: '1',
-        method: 'tools/call',
-        params: { name: 'get-changelog', arguments: {} },
-      });
-
-    expect(res.status).toBe(401);
-
-    const wwwAuth = res.headers['www-authenticate'];
-    expect(wwwAuth).toBeDefined();
-    expect(wwwAuth).toContain('Bearer');
-    expect(wwwAuth).toContain('resource_metadata=');
-  });
-
   it('returns HTTP 401 for get-rate-limit without auth', async () => {
     const res = await request(await createAuthApp())
       .post('/mcp')

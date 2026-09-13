@@ -1,3 +1,105 @@
+# [1.180.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.179.1...v1.180.0) (2026-09-10)
+
+
+### Features
+
+* **mcp:** serve the OpenAI domain-verification challenge ([a97ea9e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a97ea9e71dee321ed9b7686be2dc97707ce6a2c2))
+
+## [1.179.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.179.0...v1.179.1) (2026-09-09)
+
+
+### Bug Fixes
+
+* **mcp-app:** advertise only the granted scopes in the AS metadata (MCP-345) ([4d26b3c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4d26b3c23b663806c35dc40db481e9d9a8272a7d))
+
+# [1.179.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.6...v1.179.0) (2026-09-09)
+
+
+### Bug Fixes
+
+* **posthog-node:** bound the rebuilt user agent's version and recompute its validator (MCP-687) ([377f4ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/377f4cedef389f3c68c929520020123512cebd48))
+* **posthog-node:** make the header scan bound real and cite PostHog's rule precisely (MCP-687) ([cdcabfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cdcabfc1c964a10b9b7d3bd853d63b3d39e8f6ab))
+* **posthog-node:** read a truncated bracket as PostHog does and close the surface map (MCP-687) ([fe0f268](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fe0f26802ad41c1d2d3f977b6f11f8922b4cfcf6))
+* **posthog-node:** rebuild from the versioned header and gate the OpenAI split on it (MCP-687) ([10b50fa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/10b50faf36eb98ef4b1e32d88011f3d47cc50b24))
+* **posthog-node:** select the client product once for both derivations (MCP-687) ([4236c40](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4236c402e6a6c7f396ab32ac7f3eddb760ce0a8b))
+* **posthog-node:** shape the rebuilt user agent to PostHog's published harness rule (MCP-687) ([5a1e951](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5a1e951727d0cf2165690a33d5493ab5754f8d3a))
+
+
+### Features
+
+* **posthog-node:** rebuild a client user agent so PostHog's harness column resolves (MCP-687) ([62a6012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62a6012a10c71516b3ce06088c0b04d0b2fb9491))
+* **posthog-node:** recognise the OpenAI client pre-launch and scope surfaces per product (MCP-687) ([aefadc9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aefadc96d61bb555d121c141d0d22652c0bcdc97))
+
+## [1.178.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.5...v1.178.6) (2026-09-08)
+
+
+### Bug Fixes
+
+* **graph-corpus:** carry Oak's authored curriculum order ([c6b6ff2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c6b6ff257e50b2b3f9dbdc3587c8710b239ccf4b))
+* **graph-corpus:** disclose the KS4 exam-board merge and harden the bulk reader (MCP-681) ([3b44c41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3b44c41bec95389e8cf57ec1d1870580af00c7d5))
+* **graph-corpus:** export the run type; pin the ordered sections on the artefact ([5f1e638](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f1e6385a39679eab58bfe6bcac4878a6a73ef91))
+* **graph-corpus:** measure the fallback stat over the run, not the listing ([df134ee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/df134eed5a0954d4397afebfc017396f92e53dd2)), closes [#965](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/965)
+* **plugin:** audit same-year order too, now the tool serves it (MCP-681) ([3365403](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/336540339cfe1d5ff5037d14962a0f8bb7005888))
+
+## [1.178.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.4...v1.178.5) (2026-09-07)
+
+
+### Bug Fixes
+
+* **mcp:** close Copilot review findings; delete the dead prerequisite view (MCP-671) ([03b0ce5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/03b0ce5cb343381edb93940d4819f7fba61aa65c))
+* **mcp:** close remaining review comments — moving-target counts, stale report (MCP-671) ([063a79b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/063a79ba35fedee1d5748a033327c1f664e11cbf))
+* **mcp:** collapse duplicate statements; drop redundant C066 override (MCP-671) ([fb32eb8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fb32eb819423bbfb21ae67bfa2b85e7328184c16))
+* **mcp:** describe the prior-knowledge response by its actual wire keys (MCP-671) ([bff004f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bff004f70e5fb625f6b9fd1d80959aae8f6c9125))
+* **mcp:** stamp the revised guidance resources' lastModified (MCP-671) ([93a732d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/93a732d63ea4862021a96dfd10e051967dcc8d34))
+
+## [1.178.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.3...v1.178.4) (2026-09-03)
+
+## [1.178.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.2...v1.178.3) (2026-09-03)
+
+## [1.178.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.1...v1.178.2) (2026-09-03)
+
+## [1.178.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.0...v1.178.1) (2026-09-03)
+
+# [1.178.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.2...v1.178.0) (2026-09-03)
+
+
+### Bug Fixes
+
+* **mcp-tools:** export PaginationEcho publicly, parse rel per RFC 8288, discriminate the echo ([af44ea4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/af44ea4fd4b52b612253f4b69a71234103dc0405))
+* **mcp-tools:** reject unsafe-integer offsets in the pagination echo; export PaginationEcho publicly ([5aabafe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5aabafe3a4d085f6903b80fa3b2f08e77ce3d614))
+* **sdk-codegen:** resolve relative Link targets so the pagination echo keeps offset and limit ([9de3eac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9de3eac9b82a0f6ea32d516096c6dd3d20d1c109))
+
+
+### Features
+
+* **mcp-tools:** carry the upstream pagination signal into paginated tool results ([acdd8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/acdd8d434bbed5dcb2f16be57c2908a3a04f5b1d))
+
+## [1.177.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.1...v1.177.2) (2026-09-03)
+
+## [1.177.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.0...v1.177.1) (2026-09-02)
+
+# [1.177.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.4...v1.177.0) (2026-09-02)
+
+
+### Bug Fixes
+
+* **plugin:** complete the evidence-informed port and the rubric red flag ([df614ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/df614abea827b41748c4deae561351b8a89164ba)), closes [#892](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/892)
+
+
+### Features
+
+* **plugin:** add the upstream sources-pointer sentences the port missed ([15b009c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15b009c83c3fdbdaf0bcde9a1b66aa4c7b25c15f))
+* **plugin:** apply Emma's skill feedback to the bundled copies ([7046e9d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7046e9d372ef1967b0d2b2357406e4a877c715c4)), closes [#844](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/844)
+
+## [1.176.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.3...v1.176.4) (2026-09-02)
+
+
+### Bug Fixes
+
+* **mcp-tools:** disable the two dead changelog tools ahead of the cache refresh ([62fc40f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62fc40ffa1cbe4e15835713d0fb21330f2f4ea41))
+
+## [1.176.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.2...v1.176.3) (2026-09-02)
+
 ## [1.176.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.1...v1.176.2) (2026-09-02)
 
 ## [1.176.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.0...v1.176.1) (2026-09-02)
