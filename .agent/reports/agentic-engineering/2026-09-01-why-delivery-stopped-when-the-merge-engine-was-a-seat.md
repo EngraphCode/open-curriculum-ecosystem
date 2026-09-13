@@ -106,11 +106,13 @@ Because bypass governs *who may merge*, not *whose PR is exempt*, every PR in th
 reads `mergeStateStatus: BLOCKED` by design and only a bypass actor can land it. So the
 question "what was our throughput?" reduces to "which bypass actor was working?".
 
-Who actually pressed merge, recomputed from GraphQL `mergedBy` over 500 merged PRs:
+Who actually pressed merge, recomputed from GraphQL `mergedBy` over the 512
+merges in the weeks below (the arc's earlier weeks are in the L1 table above
+but outside this window):
 
 | Week | Who merged |
 |---|---|
-| 2026-07-06 | `jimCresswell`=19 |
+| 2026-07-06 | `jimCresswell`=31 |
 | 2026-07-13 | `jimCresswell`=57 |
 | 2026-07-20 | **`jimbot-oakington-iii`=89**, `jimCresswell`=55 |
 | 2026-07-27 | **`jimbot-oakington-iii`=133**, `jimCresswell`=4 |
@@ -210,9 +212,10 @@ week of **27 July**. 143 PRs created, 137 merged, clearance **0.96**, `jimbot` m
 133 of them, **14 human approvals**, **zero** changes-requested.
 
 - Cured segment: roughly **one human touch per ten merges**, and the queue cleared weekly.
-- Uncured segment (17 Aug onward): human attention consumed at a *higher* absolute rate —
-  27 blocking reviews in the week of 17 August, plus this session's whole audit — for
-  **zero** merges.
+- Uncured segment (21 Aug onward, from the stand-down): human attention consumed at a
+  *higher* absolute rate — 27 blocking reviews in the week of 17 August, plus this
+  session's whole audit — for **zero** merges. That week's own 16 merges all landed on
+  or before the 20th.
 
 The uncured process is not merely slower. It costs more human attention per unit of
 delivered work, and delivers none.
