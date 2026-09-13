@@ -89,7 +89,11 @@ names as a real defect.
   finding costs and when it is paid — are owned by
   [PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md)
   (feedback defaults to triage; cures batch into declared settlement pushes), whose intake
-  contract binds at PR-open exactly as PDR-132's budgets bind at authoring.
+  contract binds at PR-open exactly as PDR-132's budgets bind at authoring. The in-loop
+  re-pricing checkpoint — the review cost gate's `warn` and the three answers it admits —
+  is `pr-lifecycle`'s (§Response pricing), as PDR-140 clause 8 requires of every in-loop
+  checkpoint; this gate is cited there and never invoked out of band to correct a running
+  loop. The wrap's survey and the review-cost ledger audit every answer with hindsight.
 - **Changeset size** —
   [PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md)
   owns the round budget and binds it at authoring time.

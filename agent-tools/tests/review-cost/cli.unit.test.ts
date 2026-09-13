@@ -53,6 +53,18 @@ describe('review-cost gate — malformed invocations are refused as usage, never
     expect(run(['gate']).stderr).toContain('exactly one of');
   });
 
+  it('refuses a survey without a date, with a malformed date, or with a selector', () => {
+    expect(run(['survey']).exitCode).toBe(2);
+    expect(run(['survey', '--since', '12/09/2026']).exitCode).toBe(2);
+    expect(run(['survey', '--since', '2026-09-12', '--pr', '7']).exitCode).toBe(2);
+  });
+
+  it('refuses a survey flag on the gate: a malformed invocation never looks successful', () => {
+    const result = run(['gate', '--pr', '7', '--since', '2026-09-12']);
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('--since is a survey flag');
+  });
+
   it('refuses an unknown subcommand and an unknown flag', () => {
     expect(run(['price', '--pr', '7']).exitCode).toBe(2);
     expect(run(['gate', '--pr', '7', '--verbose']).exitCode).toBe(2);
