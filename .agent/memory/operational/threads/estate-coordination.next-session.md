@@ -2752,6 +2752,8 @@ estate are one instance of a transplant, not a distribution over transplants).
 | T17 | 09-13 08:53 | SHA:e477e62f7 | pr-lifecycle fixture | cites PR #135 by number; dead pointer in a transplant | TRUE as described | rejected here; the practice cites worked instances by number |
 | T18 | 09-13 08:53 | SHA:e477e62f7 | session-handoff SKILL-CANONICAL | forbids handover commits while wraps commit as `chore(continuity)` | TRUE; both rulings hold by estate | recorded for the lineage's next consolidation of the clause |
 | T19 | 09-13 08:53 | peer's tree | cited-scripts validator | `EXCLUDED_PATH_FRAGMENTS` gains `.agent/collaboration/rapid-comms/` | not a finding | held with T09 |
+| T20 | 09-13 10:4x | SHA:e477e62f7 | `.claude/settings.json:222` | CORRECTION to T01's cause hypothesis: the 5 s hook timeout was not it (shim runs in 0.11 s; the hook did not exist at that session's start) | accepted; this record never carried the hypothesis | T01 stands; timeout unchanged |
+| T21 | 09-13 10:4x | SHA:e477e62f7 | `session-identity-hook.ts:104-113`, `.claude/hooks/practice-session-identity.mjs:89` | `appendLine` planned on every SessionStart with no presence check; the shim appends; startup, resume and compaction each add an identical line | TRUE (this seat's env file: 13 lines, 1 distinct) | transplant source lane: skip when present or write the single line; unit test on the planner |
 
 Counts, for the analysis and nothing more: nineteen rows; sixteen findings (T08, T09, T19 are a request and
 two shape notes); twelve verified true or sound here (T06 retracted, T11 does not reproduce, T05 reproduces
@@ -2759,3 +2761,13 @@ only transplant-side, T15 not reachable here); five routed to the transplant sou
 T13), one to the pnpm major bump (T16), one to the PDR-008 lane (T12), four true with no change (T04, T10,
 T14, T18), one below-bar (T15), one rejected on doctrine (T17). Standing: further batches append rows T20
 onward.
+
+Batch 2 (10:4xZ): the peer's completeness check ran from its own transcript (seven sends reconstructed) and
+every remaining candidate was checked at the pin before sending; two rows (T20, T21). Checked at the pin and
+not findings, so closed: the ADR-065/144/182/199/203 citations in the start-right workflows resolve here;
+the observability backlog artefact resolves; the path drift for `*-reviewer.md`, `skills/free-play/` and the
+cross-platform surface matrix occurs only under `.agent/plans-old-archive/`; `.claude/commands/` is empty at
+the pin. Held by the peer for later batches, not withheld: the installable-Practice extraction proposals
+(after the owner ratifies its practice-completion node) and the cited-paths validator shape (when it lands).
+The peer states nothing else OCE-affecting is held. Running counts: twenty-one rows, eighteen findings,
+thirteen verified true or sound, six to the transplant source lane (T21 added).
