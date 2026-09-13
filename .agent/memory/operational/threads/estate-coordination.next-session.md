@@ -2771,3 +2771,77 @@ the pin. Held by the peer for later batches, not withheld: the installable-Pract
 (after the owner ratifies its practice-completion node) and the cited-paths validator shape (when it lands).
 The peer states nothing else OCE-affecting is held. Running counts: twenty-one rows, eighteen findings,
 thirteen verified true or sound, six to the transplant source lane (T21 added).
+
+## 2026-09-13 10:3xZ — #143 round one settled; #142 refused by the door on a vendor outage; the ruling's path taken
+
+**#143 (SHA:1ba34663f), settlement push 1 of 2.** Round one was Codex alone (three findings in one
+review comment, 5652449972); Copilot returned its error marker on the opening head. Each finding held
+against the record it cited and was cured in one push: (1) PDR-130 §§2/4 — the directive-tier line "A
+signal is not the fact it stands for" imports research frames and is constitutional-class, so it left
+`principles.md` for a slow-lane row in `pending-graduations.md` (prediction: an instance in a signal
+kind the fast-lane forms do not name; falsifier: every instance already covered — redundant; review
+2026-12-15); the rule, the `verify-dont-trust` clause, the `reason` sentence and the pattern stay
+fast-lane under §1 with their prediction lines. (2) `new-rule-vs-pdr-clause:55-59` and the patterns
+README barrier admit a single-instance cure shape; the rule now says it binds distributional claims and
+"a cure is not a distribution". (3) `verify-dont-trust`'s instrument clause is limited to verdicts
+recomputable from the state; a reviewer's finding is adjudicated on merit through pr-lifecycle's triage.
+Body re-trued (owed items go to their own PR; the principle's promotion is decided at its review);
+disposition comment 5652617051 as the bot; Copilot re-requested 10:07Z. The pre-push gate priced the
+push "within — rounds 0 (opening plus 0 settlement)": **observation (n = 1)** — the gate counts rounds
+from the declared reviewer's landed substantive reviews, so a round carried by Codex's comment-shaped
+review with Copilot's marker on the head is priced as no round at all. A fixture at the gate's pickup,
+not a weight change.
+
+**#142 (SHA:92018c1f1).** The front door (09:59Z–10:06Z, 14 polls SETTLING-QUIET-WINDOW) refused with
+`SETTLED-NO-REVIEW`, exit 3: Copilot's two tip-bound reviews are error markers ("unable to review",
+scope unevaluable), the timeout arm read the leg SKIPPED, and a timeout skip is not merge-eligible by
+design (security D1, 2026-08-06). Every check success; threads zero; `mergeStateStatus` CLEAN; Codex's
+summary reads "Running" on the tip since 08:40Z. **Copilot's error marker three times today across two
+PRs (08:46Z and 09:25Z on #142, 09:59Z on #143)** — an outage on this vendor, recorded once here; the
+owner's 2026-09-10 ruling applies: a subagent review posted to the PR stands as a leg, and the door is
+run with the available reviewer declared. Copilot requested a third time 10:09Z (free); a code-expert
+subagent review of the settlement diff f0447d13d..92018c1f1 dispatched 10:1xZ; its report was posted
+on the PR as a bot comment (below). **Observation (n = 1), a fixture at pr-watch's pickup:** the author's
+thread replies create empty-bodied tip-bound reviews under the bot identity, and `legFor` reads any
+non-skip tip-bound body as SATISFIED — declaring the bot as an expected reviewer would read satisfied
+from those empties alone. Not exercised for a verdict here (the substantive review is posted first, and
+the declaration names it); the predicate needs "non-empty" beside "non-skip".
+
+**Transplant register:** rows T01–T21 (10:0xZ block above); the register is the note the owner asked
+for; batch 2 closed the completeness ask.
+
+**#142 round two (10:1xZ).** Copilot's third request answered at 10:10Z: "Approval recommended", 0 new,
+13/13 files — the outage was transient (three markers, then a review). The subagent leg (code-expert,
+Opus) reported on the settlement push: tests 34/6 files green, tsc clean, no IO; two findings, both
+verified: the pr-lifecycle sentence at `:773-775` says the gate "refuses the push past" the budget and
+omits the single converging extension (`cost.unit.test.ts:114-136`, `:199-222`) — **routed** to the
+owed-items PR, which edits that passage; the description's "31 tests, 5 files" — **cured** in the body.
+Four observations (unpriceable rows exit 0 and read as data; `|` unescaped in error rows; two `--json`
+shapes; no ledger cell for an unpriceable row) are fixtures at the survey's pickup. Posted as the bot
+(comment 5652643099). The door's second run holds through the quiet window from 10:10Z.
+
+**Next lane, readings taken (the owed items, one small records PR once #142 is on engraph):** wrap
+`SKILL-CANONICAL.md` step 6 (line ~109) gains the rigour line ("which claims this session made from
+fewer observations than they need, and which recorded falsifiers fired") and what to record for an
+unpriceable survey row; pr-lifecycle state machine item 4 "Round settled; merge-ready" (line ~952)
+gains the conscience-check sentence (at every round boundary and before every durable write, the
+cricket check takes the state line — round, pushes vs budget, cure-worthy count, value remaining —
+its verdict evidence, never authority) and `:773-775` gains the converging-extension clause;
+`review-cost-ledger.md` §Weight changes gains a Falsifier column and the rule (a change only against
+a disagreement in at least three independent pull requests carrying the owner's label; every change
+names its rows; the initial row records that its weights were fit on #136, #138, #139 and then scored
+against them — a fit, not a test). Cut from `origin/engraph` after #142's merge; budget two.
+
+**#142 MERGED (10:21Z), SHA:ebf0c4251**, two parents, by the bot at the door's second run
+(`SETTLE-READY`: Copilot's leg SATISFIED on the tip, quiet window elapsed). Hygiene: lane tip an
+ancestor of engraph; worktree removed; local and remote `lane/review-cost-survey-2de368` deleted (the
+remote as the bot); pruned. The ledger and the wrap survey step are now on engraph.
+
+**COLD PAUSE at the owner's word (10:2xZ), sole operator.** Open: #143 at settlement push 1 of 2
+(SHA:1ba34663f), Copilot re-requested 10:07Z, round two unread; #137 (draft fold). Next lane, not
+opened: the owed-items records PR (readings above), cut from `origin/engraph` at SHA:ebf0c4251 or
+later; then the wrap survey for this session (`review-cost survey --since 2026-09-12`), rows for
+
+# 142 and #143 with the seat's stop-round reading, no inference. Held by the owner: unchanged from
+
+boundary 10. Coordination branch tip after this commit is the record.
