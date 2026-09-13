@@ -569,12 +569,14 @@ rather than `managed_challenge`, because an MCP client cannot solve an
 interactive challenge and would see one as a hung connection instead of a
 refusal.
 
-The underlying defect — the edge discriminating against curriculum content
-about security topics — is tracked on
-[MCP-665](https://linear.app/oaknational/issue/MCP-665). The durable fix for
-this scenario's blind spot, forwarding firewall events into Sentry via
-Logpush so an edge block lands in an Oak instrument at all, is post-publicity
-and not yet ticketed.
+The underlying defect — the edge matching literal attack syntax, which a
+genuine code sample in a computing lesson can carry — is tracked on
+[MCP-665](https://linear.app/oaknational/issue/MCP-665). That ticket predates
+the measurement above and still frames the defect as discrimination against
+security topics; scope the fix to signature matching, not to allow-listing
+subject matter. The durable fix for this scenario's blind spot, forwarding
+firewall events into Sentry via Logpush so an edge block lands in an Oak
+instrument at all, is post-publicity and not yet ticketed.
 
 ## Tools and Commands Reference
 
