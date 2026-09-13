@@ -22,17 +22,19 @@ before it (`early`), or after it (`late`).
 
 | Date | PR | Rounds | Settlement cost / budget | Verdict | Seat's stop round | Gate | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-09-13 | #135 | 5 | 112.22 / 40 | exhausted | after settlement push 1 (the fold's late intake; value at push 1) | agreed — round 2 alone (58.69) crosses | records fold; 38 findings; intake posted late |
-| 2026-09-13 | #136 | 10 | 97.3 / 40 | exhausted | after settlement push 3 (the first class fix) | late — would refuse push 6; rounds of 7–15 each accrue slowly | docs; ten rounds of small findings; a sync at round 3 priced 0 |
-| 2026-09-13 | #138 | 7 | 155.06 / 40 | exhausted | after settlement push 2 | agreed — refuses push 3 | records; two rejections at the end were the convergence |
+| 2026-09-13 | #135 | 5 | 112.22 / 40 | exhausted | after settlement push 1 (the fold's late intake; value at push 1) | agreed — round 2 alone (58.69) crosses | the coordination fold; 38 findings; intake posted late |
+| 2026-09-13 | #136 | 10 | 97.3 / 40 | exhausted | after settlement push 3 (the first class fix) | late — would refuse push 6; rounds of 7–15 each accrue slowly | ten rounds of small findings; a sync at round 3 priced 0 |
+| 2026-09-13 | #138 | 7 | 155.06 / 40 | exhausted | after settlement push 2 | agreed — refuses push 3 | two rejections at the end were the convergence |
 | 2026-09-13 | #139 | 8 | 174.59 / 40 | exhausted | after settlement push 2 (todo 1's value landed there) | agreed — refuses push 3 | the loop that produced the gate; 98 comments; owner stopped it |
 | 2026-09-13 | #140 | 3 | 35.11 / 40 | warn | after settlement push 2 (as declared) | agreed — warn at the declared stop, refuses push 3 | reviewer context; round 3 rejected under the spent budget |
 | 2026-09-13 | #141 | 4 | 52.11 / 40 | exhausted | after settlement push 2 (as declared) | agreed — the fourth round is the post-merge rejection-only round | the gate itself; priced its own pushes at 16.46 and 33.86 |
 
-Reading of the first six: the gate agrees with the seat on five and fires late on one, #136,
-whose loop was many small rounds — the round floor of 3 may be too low for records loops, or
-records loops may deserve a budget of one push. Left as recorded: the next records loop is
-the test.
+Reading of the first six: the gate agrees with the seat's stop round on five and fires late
+on one, #136. That is one row, not a class: one policy prices every pull request, and the
+calibration reads the numbers in these rows, never labels attached to them. If a class ever
+exists it will show as a cluster in the rows before anyone names it (owner, 2026-09-13:
+inventing a category before the evidence "would skew all calculations, invite special
+cases, and broadly turn this effort into theatre before it has properly begun").
 
 ## Weight changes
 
