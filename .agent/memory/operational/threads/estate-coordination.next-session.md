@@ -2845,3 +2845,131 @@ later; then the wrap survey for this session (`review-cost survey --since 2026-0
 # 142 and #143 with the seat's stop-round reading, no inference. Held by the owner: unchanged from
 
 boundary 10. Coordination branch tip after this commit is the record.
+
+## 2026-09-13 13:4xZ — SESSION CLOSE (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1): full handover
+
+The owner: "Work will continue in a fresh session with no access to this context." This block is that
+session's whole context for this lane; the per-user memory tail points here and adds nothing.
+
+**Safety, verbatim at close.** Primary `## coordination/2026-09-12-69a537...origin/coordination/2026-09-12-69a537`
+clean but for the owner's untracked `.agent/research/cognitive-systems/` (theirs; tracked on #143's
+branch); lane `## lane/rigour-consolidation-2de368...origin/lane/rigour-consolidation-2de368` clean at
+SHA:1ba34663f (worktree `../oak-open-curriculum-ecosystem-worktrees/rigour-consolidation-2de368`). The
+detached survey worktree was removed clean. Zero processes of this seat. Claim 8109015d closed and
+archived at this close. Open pull requests: #143, #137 (draft fold).
+
+**Landed this session (2026-09-12 to 13), by SHA on engraph.** #139 SHA:d7cef7075 (pr-tally todo 1);
+
+# 140 SHA:527fd11ff (reviewer context block in AGENTS.md and copilot-instructions); #141 SHA:ae57ef111
+
+(review cost gate in the pre-push hook); #142 SHA:ebf0c4251 (survey, ledger, wrap step 6). On the
+coordination branch: the transplant findings register (T01–T21), the 10:3xZ block, and the sketch plan
+node `.agent/plans/delivery/review-round-predicates.plan.md` (SHA:04f08cd8e; unratified, governs
+nothing).
+
+**#143 — the one live pull request. Exact state.** Branch `lane/rigour-consolidation-2de368`, tip
+SHA:1ba34663f, base engraph (contains SHA:ae57ef111; engraph has since moved to SHA:ebf0c4251, so a
+sync merge may be needed — it prices zero at the gate). Budget two settlement pushes; **push 1 of 2
+taken** (round one, three Codex findings, cured; disposition comment 5652617051). **Round two landed
+10:12Z on SHA:1ba34663f: seven findings, READ, NOT VERIFIED, NOT DISPOSITIONED** — Codex review with
+two P2 inline threads; Copilot review "changes recommended" with three inline threads and two
+suppressed items in its body (harvest the suppressed block: `pr-comments-include-suppressed-copilot`).
+The seven, with this seat's first read (a read, not a verdict; verify each first-hand):
+
+1. Pattern `signal-read-as-fact` `proven_in` counts seven events from one seat-day without the
+   independent count or the comparator — the rule in the same PR requires both. TRUE on its face
+   (this seat's own rule unapplied to its own file). Cure: state `n = 1` seat-day, unit, comparator.
+2. Pattern frontmatter lacks the `stable` barrier field (patterns README §Barrier, four criteria)
+   and the polarity blockquote after the frontmatter (README lines ~39-68). Verify the README's
+   exact required shape, then add both.
+3. Rule `one-instance-is-an-observation.md` lacks the leading "Operationalises …" line —
+   VERIFIED at close: `docs/engineering/extending.md:109-116` requires it (ADR-131
+   §Self-Referential Property). Cite the actual governing record(s): PDR-130 (the prediction-line
+   obligation) and PDR-026 (falsifiability) are the candidates; read them before citing.
+4. RULES_INDEX row out of alphabetical order — VERIFIED at close: the row sits at line 179 among
+   the `no-*` rows; it belongs between `oak-chrome-session-is-metered` (183) and
+   `owner-attention-at-action-moments` (184).
+5. (Copilot, suppressed) The rule's trigger sentence binds any record that "names a pattern",
+   including an index entry or a cross-reference that repeats no count; narrow to records that
+   introduce or infer a distributional claim and exclude references to an established pattern.
+   Plausible; the same wording is at line ~30 and in the Cursor adapter's description.
+6. (Copilot, suppressed) Pattern line ~41 "where there is none the signal is acted on every time"
+   is a universal frequency claim from one seat-day, contradicting the rule's own scope. TRUE;
+   scope it to what was observed.
+7. Codex: "complete the admission barrier before indexing" — the same as 2 from the index side.
+
+**Next actions, in order (a fresh session).**
+
+1. Start right (quick, solo). Read this block, then `.agent/plans/delivery/review-round-predicates.plan.md`
+   and the `verified-correct-is-not-a-proportionality-test` memory's practice-homes paragraph.
+2. #143, the last push. In the lane worktree: `git fetch origin engraph`; if behind, `git merge
+   origin/engraph` (plain merge, ordinary message). Verify the seven above first-hand; cure every
+   true one in ONE commit by pathspec; `pnpm portability:check`, `pnpm repo-validators:check`
+   (regenerate the patterns index with `--fix` if the pattern file changes), markdownlint, prettier;
+   push (the gate prices it: expect "within", settlement push 2 of 2). As the bot
+   (`token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1`;
+   `GH_TOKEN="$token" gh …`, repo pinned to `EngraphCode/open-curriculum-ecosystem`): reply on each
+   of the five inline threads and resolve them (GraphQL `resolveReviewThread`), one signed issue
+   comment for the two suppressed items in the body-only line format, state line first ("Round 2;
+   settlement push 2 of 2 taken at SHA:<sha>; …; value remaining: none — past budget, rejection
+   only"); re-true the body's §Scope budget line; re-request Copilot
+   (`POST pulls/143/requested_reviewers`, `reviewers[]=copilot-pull-request-reviewer[bot]`). Then
+   `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 143 --expect copilot-pull-request-reviewer --json`
+   as a background task; read its verdict by name. Any later finding: rejection with reasoning, no
+   cure (budget spent). On merge: fetch, two-parent proof, `git worktree remove`, `git branch -d`,
+   delete the remote branch as the bot, `git fetch --prune`.
+3. The owed-items records PR, cut from `origin/engraph`: wrap `SKILL-CANONICAL.md` step 6 gains
+   the rigour line ("which claims this session made from fewer observations than they need, and
+   which recorded falsifiers fired") and what to record for an unpriceable survey row; pr-lifecycle
+   state machine item 4 gains the conscience-check sentence (at every round boundary and before
+   every durable write, the cricket check takes the state line — round, pushes vs budget,
+   cure-worthy count, value remaining — its verdict evidence, never authority); pr-lifecycle
+   `:773-775` gains "except the single converging extension a round at or below half the one before
+   earns" (routed off #142's leg, comment 5652643099); `review-cost-ledger.md` §Weight changes
+   gains a Falsifier column and the rule (a change only against a disagreement in at least three
+   independent pull requests carrying the owner's label; every change names its rows; the initial
+   row records that its weights were fit on #136, #138, #139 and then scored against them — a
+   fit, not a test); and the two survey rows below appended to §Pull requests. Budget two.
+4. `review-round-predicates`: put the node to the owner for ratification (one ask, the node's
+   path); on the word, todo 1 (record `pr-142-harvest.json`, `pr-143-harvest.json` after #143
+   merges) then PR A, then PR B, as the node says.
+5. Transplant register: further batches from Cauldron herds Lustre (880ff9) append rows from T22
+   in the 10:0xZ block's table, each verified first-hand before its disposition; the owner's
+   standing word 2026-09-13: "When they report findings please make a note of them for analysis."
+   Routed there and waiting on lanes: the transplant source lane (T01, T02, T03, T07, T13, T21),
+   the PDR-008 records lane (T12), the `-s` → `--silent` sweep at the pnpm major bump (T16).
+
+**Wrap step 6, the survey (run at close from a detached engraph worktree, `--since 2026-09-12`).**
+Every row's verdict as printed; the two rows owed to the ledger (append in action 3, verbatim):
+
+| Date | PR | Rounds | Settlement cost / budget | Verdict | Seat's stop round | Gate | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-09-13 | #142 | 2 | 13.99 / 40 | within | after settlement push 1 (vendor round two: zero; the leg's two findings cured in the body and routed) | agreed — within at the stop | Copilot errored twice on the tip then reviewed; the door refused SETTLED-NO-REVIEW correctly on the markers |
+| 2026-09-13 | #143 | 1 (survey) / 2 (seat) | 0 / 40 | within | after settlement push 2 (declared; round two carries seven text-conformance findings) | late — the survey counts the settlement head as the opening round because round one was a Codex issue comment (`review-round-predicates`, defect 1); under the corrected predicate: 2 rounds, 10.85 charged | one row, not a class; re-price after PR A |
+
+The six seeded rows re-surveyed unchanged (#135 112.22, #136 97.3, #138 155.06, #139 174.59, #140
+35.11, #141 52.11); #137 (draft fold) 0 rounds.
+
+**Held by the owner, unchanged:** the four sync-workflow findings; the upstream report; the
+directives-tier placement; #100's two deny lines; F-181 (the relative statusline log path) and the
+stray log in `visitors/pedagogy-library`; the redaction node (paused until recurrence); the tutoring
+research; a retrospective on the 2026-09-12/13 arc (offered, not run); #137's fold at its DUE check;
+ratification of `review-round-predicates`; the slow-lane row for "A signal is not the fact it stands
+for" (review 2026-12-15).
+
+**Observations carried as observations (n = 1 each unless stated).** Copilot's error marker three
+times in one morning across two PRs, then a normal review on the third request — transient. The gate
+counts no round for a Codex issue-comment round (planned). Empty-bodied reviews from thread replies
+satisfy a leg predicate (planned). Three predicates over review shapes failed on unseen shapes in one
+seat-day (skip-marker substring, empty body, comment-shaped round) — n = 3 predicates, one seat-day,
+recorded in the napkin; if a fourth arrives the cure shape is one shared review-shape normaliser.
+
+**Metaloss recursion.** Pass 1 (compressed reasoning): the day's diagnosis is in #143's pattern and
+rule, the plan node, and the 10:3xZ block; decision-sufficient. Pass 2 (promises): every commitment
+above has a numbered action and a home; none lives only here. Pass 3 (attribution): the seven #143
+readings are marked as reads, two as verified; the survey's #143 "late" is the instrument's number
+beside the seat's count, both shown. Pass 4 (fence sweep): no owner word was held off the record;
+the owner's verbatim words this session are in the 10:0xZ and 10:3xZ blocks. Pass 5 (index of
+homes): this block; the plan node; the register; the napkin entry of 13:3xZ; the per-user memory
+tail (a pointer). A sixth pass re-finds only the #143 round-two verifications, which are action 2's
+work, not a loss: fixed point.

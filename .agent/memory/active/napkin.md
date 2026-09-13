@@ -1242,3 +1242,30 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   start reads as upper-case).
 - **The pricing discipline held**: after the reflection, #136 closed by two rejections and #138 by four; on
   #139 nothing was rejected because nothing was wrong — the bar is a test, not a quota.
+
+## Nettle guards Pistil (2de368) — 2026-09-13 13:3xZ, session close: the window's own instances
+
+- **My own rule, unapplied to my own pattern file.** Codex round two on #143: the pattern
+  `signal-read-as-fact` names seven instances without the independent count or the comparator the
+  rule two files away requires, and says "every time" of one seat-day. The cure I authored did not
+  bind on the record I wrote in the same commit. The stop has to be a validator field on the pattern
+  frontmatter, not the author's reading of their own rule (the pattern file's own cure section says
+  so; I still missed it).
+- **A stale claim carried into a PR body.** "31 tests, 5 files" survived the settlement push that
+  made it 34 and 6; the checklist line "validation reflects the final diff" was ticked. Re-derive
+  every count in a description from the final diff at the last push, never carry it.
+- **The door's first refusal was correct, and I checked before calling it the #139 defect.** Read
+  `reviewer-legs.ts` and `settlement.ts` first; the timeout skip is not merge-eligible by design.
+  The state-first habit held. What it cost: eleven minutes of reading, cheaper than a wrong claim.
+- **Codex has two review shapes.** A review with inline comments, or an issue comment headed
+  "Codex Review" with badge blocks linking blob URLs at the head SHA. Nothing in the instruments
+  named the second shape; #143 round one arrived in it and priced as no round. Planned in
+  `review-round-predicates`.
+- **Time slip.** I wrote "over two hours" for Codex "Running since 08:40Z" at ~10:00Z (1h20m);
+  local clock is UTC+1 and I mixed them once. Harmless here; state reads should quote the
+  instrument's timestamps, never my arithmetic.
+- **Observation, n = 3 predicates, one seat-day (not a class):** three predicates over review
+  shapes each failed on a shape not in their fixtures — the skip-marker substring (#139),
+  the empty body (#142), the comment-shaped round (#143). If a fourth arrives, the cure shape is a
+  shared review-shape normaliser consumed by pr-watch, pr-tally and review-cost alike; the plan
+  node's normaliser is the first step of that, deliberately scoped to two instruments.
