@@ -1176,8 +1176,9 @@ list. Targeting bought isolation from the 20014-conflicting resource, never from
 **Registry-freshness is not comms-liveness, and I got to use it.** I arrived to a Director reading
 `stale` in the claims registry while posting to comms 90 minutes earlier. Refusing the stale row as
 takeover licence was right, and the outgoing seat confirmed the cause was its own suspended
-heartbeat under the PDR-078 §4 consumer-absent exemption (F-161: the exemption has a suspend
-condition and no resume condition). **My Moment 2 rested on its explicit written stand-down, not on
+heartbeat under the PDR-078 §4 consumer-absent exemption (F-166 — recorded as F-161 at the time,
+renumbered at the convergence merge: the exemption has a suspend condition and no resume
+condition). **My Moment 2 rested on its explicit written stand-down, not on
 a freshness window** — the correct basis, since a row that licenses nothing when stale licenses
 nothing when fresh.
 

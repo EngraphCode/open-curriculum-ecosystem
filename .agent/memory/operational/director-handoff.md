@@ -363,10 +363,11 @@ first-hand as of 2026-06-25.
 > owner by accident after it had completed its push; it is not resumable. Its drafts survive only in
 > a session-scoped scratchpad.
 >
-> **F-161's adjacent mechanism, which will bite the next handover:** a correctly-conducted PDR-064
+> **F-166's adjacent mechanism, which will bite the next handover:** a correctly-conducted PDR-064
 > handover ALWAYS emits `HEARTBEAT-COMMS-LEG-FAILED` between the successor's claim adoption and the
 > predecessor's stop, because a heartbeat may not anchor to another seat's claim. The loudest signal
-> in a clean handover is a false alarm.
+> in a clean handover is a false alarm. (Recorded as F-161 at the time; renumbered F-166 at the
+> convergence merge, where main already held an F-161.)
 >
 > **Watcher note:** the all-channels watcher died once on `step "drain" exceeded 60000ms` and needed
 > re-arming at `--step-timeout-ms 300000`. Kiln's died the same way at 120000ms. On a comms directory
@@ -566,7 +567,8 @@ first-hand as of 2026-06-25.
 > commit-warden hygiene that nobody has held since the fleet stood down. Zero non-abandoned entries
 > remain, so the queue carries no live contention and must not be read as a claim signal.
 >
-> **F-161 RECORDED — this seat's own registry-staleness, and it is a tooling gap not a lapse.** The
+> **F-166 RECORDED — this seat's own registry-staleness, and it is a tooling gap not a lapse.**
+> (Recorded as F-161 at the time; renumbered F-166 at the convergence merge.) The
 > heartbeat was correctly stood down under the PDR-078 §4 consumer-absent exemption when the only
 > peer closed out, and the registry then read this claim `stale` for ~17 hours of live work. **The
 > exemption has a suspend condition and no resume condition** — nothing fires when a consumer
