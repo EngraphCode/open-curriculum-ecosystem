@@ -2666,3 +2666,36 @@ reasoning; the front door was polling at the boundary and will have exited THREA
   `--json`) now has the harvest it needs in `review-cost/harvest.ts`.
 - **Open PRs:** #137 (draft fold) only. Both lanes retired; worktrees removed; the coordination
   branch is the only branch besides engraph.
+
+## 2026-09-13 00:4xZ — transplant findings, batch 1 (Cauldron herds Lustre, 880ff9), dispositioned on merit
+
+Owner-ruled 2026-09-13: OCE-affecting findings from the transplant seat come here batched;
+disposition on merits, no reply owed. Each verified first-hand at `origin/engraph` before its
+disposition.
+
+1. **Plan-corpus validator crashes on a host without `docs/strategy`** — verified true
+   (`validate-plan-corpus.ts:48-60`: bare `readFile` of the strategy README, no fail-closed
+   message). No failure on this estate (the directory exists); a portability defect under
+   `practice-core-portability`. **Routed** to the small transplant source lane already listed
+   under Next work (with the hook context line, the ADR-203 citation, the reference-local
+   globs, the session-id seed): fail closed with the family's message.
+2. **Archived plan nodes are validated live for ever** — verified true
+   (`plan-corpus-loading.ts:52` walks every subdirectory by design; ten nodes under
+   `delivery/archive/` today). **Answered, no change**: intentional — an archived node stays
+   conformant so a resumed lane reads a valid node; the cost is one directory walk. Revisit
+   only if the validator's runtime ever registers on the gate profile.
+3. **`renderPatternIndex([])` on an empty corpus** — not reachable here (242 patterns);
+   **below-bar** for this estate; the transplant lane may adopt the one-line render when the
+   validator is next touched.
+4. **pnpm 12 rejects `pnpm -s`** — verified: this estate pins pnpm 11.20.0 and carries nine
+   `pnpm -s` sites in `agent-tools/package.json` and one in the commit skill. **Routed** with
+   its trigger: the pnpm major bump is the landing that replaces every `-s` with `--silent` in
+   the same push; nothing before it.
+5. **pr-lifecycle cites PR #135 by number** — **rejected** here: the practice cites worked
+   instances by pull request number on every surface; the transplant rewrites them
+   generically on its side.
+6. **session-handoff forbids handover commits; wraps commit as `chore(continuity)`** — both
+   rulings hold by estate; **recorded** for the lineage's next consolidation of that clause
+   (no OCE change).
+7. **cited-scripts validator: `.agent/collaboration/rapid-comms/` excluded** — **recorded**
+   with the validator shape already noted; lands with the transplant lane.
