@@ -172,7 +172,11 @@ Every non-trivial plan MUST define:
    ([PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
    round budgets bind at authoring time; slicing at plan time is free,
    slicing at the first over-budget review round is the measured
-   expensive path). Slicing at pickup CONSUMES the plan's disposition
+   expensive path). The plan's estimate is coarse by design — the default
+   two settlement pushes — and a slice that would need more is a slice to
+   split, not a larger number; the binding budget is the one the pull
+   request's description declares at PR-open, which the review cost gate
+   reads (`agent-tools review-cost`, 2026-09-12). Slicing at pickup CONSUMES the plan's disposition
    ledger
    ([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md)):
    the canonical ledger surface is a `## Review dispositions` section

@@ -1,15 +1,10 @@
 import { readFileSync } from 'node:fs';
 
-import { readBudget } from './budget.js';
-import { DEFAULT_POLICY, reviewCost, type CostReport } from './cost.js';
-import {
-  currentBranch,
-  currentRepo,
-  gitDiffStat,
-  openPullRequestFor,
-  readLiveHarvest,
-} from './harvest.js';
-import { measureRounds } from './measure.js';
+import type { CostReport } from './cost.js';
+import { currentBranch, currentRepo, openPullRequestFor } from './harvest.js';
+import { pricePullRequest } from './price.js';
+import { runSurvey } from './survey.js';
+import { parseArgs, selectors, USAGE, type ParsedArgs } from './args.js';
 
 /**
  * `review-cost gate` — the pre-push guard: the review loop's cost against the
@@ -24,113 +19,6 @@ export interface ReviewCostCliInput {
   readonly args: readonly string[];
   readonly stdout?: Pick<NodeJS.WriteStream, 'write'>;
   readonly stderr?: Pick<NodeJS.WriteStream, 'write'>;
-}
-
-/** The repository's automatic reviewers — the declared expected set when `--expect` is absent. */
-const DEFAULT_EXPECTED_REVIEWERS = ['copilot-pull-request-reviewer', 'chatgpt-codex-connector'];
-
-interface ParsedArgs {
-  pr?: number;
-  branch: boolean;
-  refsFile?: string;
-  repo?: string;
-  expect: string[];
-  json: boolean;
-  help: boolean;
-  ghPath?: string;
-  error?: string;
-}
-
-const USAGE = [
-  'review-cost gate (--pr <number> | --branch | --refs-file <path>) [--repo <owner/repo>] [--expect <login>]... [--json] [--gh <path>]',
-  "  The review loop's cost against the settlement-push budget the pull request declares",
-  '  (`budget — N` in its description; two when undeclared). Every reviewed head is a round;',
-  '  its cost rises with findings, comment volume, push size, files, pushes to the same files',
-  '  and pushes within the hour (weights: DEFAULT_POLICY in cost.ts).',
-  '  Exit 0 within budget, warn or converging; exit 3 BUDGET-EXHAUSTED; exit 1 operational;',
-  '  exit 2 usage. Exactly one selector:',
-  '  --pr: one pull request; --branch: the open pull request of the current branch;',
-  '  --refs-file: the ref lines git hands the pre-push hook — every pushed branch with an open',
-  '  pull request is priced and any exhausted one refuses the push. No open pull request passes.',
-].join('\n');
-
-const POSITIVE_INTEGER = /^[1-9]\d*$/u;
-
-type Value = () => string | undefined;
-
-const FLAG_HANDLERS: Readonly<Record<string, (parsed: ParsedArgs, value: Value) => void>> = {
-  '--pr': (parsed, value) => {
-    const raw = value();
-    if (raw === undefined || !POSITIVE_INTEGER.test(raw)) {
-      parsed.error = `--pr needs a positive integer, got '${raw ?? ''}'`;
-      return;
-    }
-    parsed.pr = Number(raw);
-  },
-  '--branch': (parsed) => {
-    parsed.branch = true;
-  },
-  '--refs-file': (parsed, value) => {
-    parsed.refsFile = value();
-  },
-  '--repo': (parsed, value) => {
-    parsed.repo = value();
-  },
-  '--expect': (parsed, value) => {
-    const login = value();
-    if (login !== undefined) {
-      parsed.expect.push(login);
-    }
-  },
-  '--json': (parsed) => {
-    parsed.json = true;
-  },
-  '--gh': (parsed, value) => {
-    parsed.ghPath = value();
-  },
-  '--help': (parsed) => {
-    parsed.help = true;
-  },
-  '-h': (parsed) => {
-    parsed.help = true;
-  },
-};
-
-// A value-taking flag must be followed by a value that is not itself a flag.
-const VALUE_FLAGS = new Set(['--pr', '--refs-file', '--repo', '--expect', '--gh']);
-
-// The error a flag raises before its handler runs: unknown, or a value flag with no value.
-function flagError(flag: string, next: string | undefined): string | undefined {
-  if (!Object.hasOwn(FLAG_HANDLERS, flag)) {
-    return `unknown argument: ${flag}`;
-  }
-  if (VALUE_FLAGS.has(flag) && (next === undefined || next.startsWith('-'))) {
-    return `${flag} needs a value`;
-  }
-  return undefined;
-}
-
-function parseArgs(args: readonly string[]): ParsedArgs {
-  const parsed: ParsedArgs = { branch: false, expect: [], json: false, help: false };
-  const rest = [...args];
-  if (rest.shift() !== 'gate') {
-    parsed.error = 'expected the `gate` subcommand';
-  }
-  while (rest.length > 0) {
-    const flag = rest.shift() ?? '';
-    const error = flagError(flag, rest[0]);
-    if (error !== undefined) {
-      parsed.error = error;
-      break;
-    }
-    FLAG_HANDLERS[flag]?.(parsed, () => rest.shift());
-  }
-  return parsed;
-}
-
-function selectors(parsed: ParsedArgs): number {
-  return [parsed.pr !== undefined, parsed.branch, parsed.refsFile !== undefined].filter(Boolean)
-    .length;
 }
 
 function resolveTarget(parsed: ParsedArgs): { number: number; repo: string } | null {
@@ -154,22 +42,6 @@ function pushedBranches(refsFile: string): string[] {
     .map((ref) => ref.slice('refs/heads/'.length));
 }
 
-function report(target: { number: number; repo: string }, parsed: ParsedArgs): CostReport {
-  const live = readLiveHarvest({ number: target.number, repo: target.repo, ghPath: parsed.ghPath });
-  const rounds = measureRounds({
-    harvest: live.harvest,
-    expectedReviewers: parsed.expect.length > 0 ? parsed.expect : DEFAULT_EXPECTED_REVIEWERS,
-    // The opening push is measured from the parent of the pull request's first commit,
-    // which holds for an open and for a merged pull request alike.
-    baseRef: `${live.harvest.commits[0]?.oid ?? live.harvest.headRefOid}^`,
-    diff: gitDiffStat,
-  });
-  const lastReviewed = rounds.at(-1)?.head;
-  return reviewCost(rounds, readBudget(live.body).pushes, DEFAULT_POLICY, {
-    headAdvanced: lastReviewed !== undefined && lastReviewed !== live.harvest.headRefOid,
-  });
-}
-
 function render(target: { number: number }, result: CostReport, json: boolean): string {
   if (json) {
     return `${JSON.stringify({ pr: target.number, ...result })}\n`;
@@ -183,7 +55,12 @@ function gateOne(
   parsed: ParsedArgs,
   stdout: Pick<NodeJS.WriteStream, 'write'>,
 ): number {
-  const result = report(target, parsed);
+  const result = pricePullRequest({
+    number: target.number,
+    repo: target.repo,
+    expectedReviewers: parsed.expect,
+    ghPath: parsed.ghPath,
+  });
   stdout.write(render(target, result, parsed.json));
   return result.verdict === 'exhausted' ? 3 : 0;
 }
@@ -213,6 +90,11 @@ function usageError(parsed: ParsedArgs): string | undefined {
   if (parsed.error !== undefined) {
     return parsed.error;
   }
+  if (parsed.command === 'survey') {
+    return parsed.since === undefined || selectors(parsed) > 0
+      ? 'survey takes --since <YYYY-MM-DD> and no selector'
+      : undefined;
+  }
   return selectors(parsed) === 1 ? undefined : 'pass exactly one of --pr, --branch, --refs-file';
 }
 
@@ -222,7 +104,16 @@ function guarded(
   stderr: Pick<NodeJS.WriteStream, 'write'>,
 ): number {
   try {
-    return gate(parsed, stdout);
+    return parsed.command === 'survey'
+      ? runSurvey({
+          since: parsed.since ?? '',
+          repo: parsed.repo,
+          expectedReviewers: parsed.expect,
+          ghPath: parsed.ghPath,
+          json: parsed.json,
+          stdout,
+        })
+      : gate(parsed, stdout);
   } catch (cause) {
     const message = cause instanceof Error ? cause.message : String(cause);
     stderr.write(`review-cost gate: operational failure — ${message}\n`);

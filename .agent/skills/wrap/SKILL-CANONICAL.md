@@ -106,7 +106,18 @@ the seat chooses the instrument, never when the owner names wrap.
    [`retrospective`](../cognition/retrospective/SKILL-CANONICAL.md) — routed, not
    auto-run. If the session graduated anything, confirm each graduation
    carries its PDR-130 prediction line.
-6. **Run the metaloss recursion (owned here).** The loss scan is itself an
+6. **Price the session's review loops.** Run
+   `node agent-tools/dist/src/bin/agent-tools.js review-cost survey --since <session start>`
+   and append one row per pull request the session touched to
+   `.agent/memory/operational/review-cost-ledger.md`: the survey's numbers, the seat's
+   reading of the round the loop should have stopped at, and whether the gate agreed,
+   fired early, or fired late. Post-merge reviews and comments are in the count, so a
+   merged pull request is surveyed again at the next wrap that touches it. A reading is
+   the seat's; the owner's correction on the row is the calibration label. The gate's
+   weights change only against this ledger, and every change is a row in its changes
+   table (owner, 2026-09-13: "there is no constant right answer, it's a try and see
+   situation — keep notes, give it a go, and make sure that we regularly review").
+7. **Run the metaloss recursion (owned here).** The loss scan is itself an
    artefact that can lose information. Scan the scan, and repeat until the
    fixed point (the bounded discipline is this estate's
    `bounded-metaloss-recursion` pattern; these are its named passes):
@@ -143,7 +154,7 @@ the seat chooses the instrument, never when the owner names wrap.
      explicitly ("a third pass would only re-find X; the recursion closes
      here"). Closing without naming the fixed point is an unfinished wrap;
      looping past it is the meta-rabbit-hole.
-7. **Report.** The final owner-facing message: landed outcome against the
+8. **Report.** The final owner-facing message: landed outcome against the
    session's landing target (PDR-026), safety evidence, what is conserved
    where, what is deliberately context-only with reasons, and the claims/
    monitors/comms disposition — with the closeout broadcasts

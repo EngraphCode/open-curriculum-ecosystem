@@ -89,7 +89,14 @@ names as a real defect.
   finding costs and when it is paid — are owned by
   [PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md)
   (feedback defaults to triage; cures batch into declared settlement pushes), whose intake
-  contract binds at PR-open exactly as PDR-132's budgets bind at authoring.
+  contract binds at PR-open exactly as PDR-132's budgets bind at authoring. The re-pricing
+  trigger is mechanical: the review cost gate (`agent-tools review-cost gate`, in the
+  pre-push hook since 2026-09-12) prints `warn` at half the declared budget and refuses the
+  push past it. At `warn` this gate's question is asked once, in the round's disposition
+  comment: is the remaining value worth another push — stop and reject the rest, split
+  along the finding classes, or ask the owner for a rebudget recorded on the description.
+  The answer is never a fourth option of pushing anyway; the wrap's survey and the
+  review-cost ledger audit every answer with hindsight.
 - **Changeset size** —
   [PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md)
   owns the round budget and binds it at authoring time.
