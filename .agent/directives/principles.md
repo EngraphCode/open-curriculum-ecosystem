@@ -600,6 +600,22 @@ paths, setup files) don't apply.
   docs prompt verification; misleading docs are trusted and acted
   on. Fix immediately — never defer, never TODO. Pairs with PDR-026
   §Landing target definition.
+- **A signal is not the fact it stands for** - An instrument's verdict, a
+  reviewer's finding, a single instance, a fit to the data at hand: each is
+  a signal of a fact, never the fact. Before a seat acts on one or writes it
+  into a durable record it states what the signal stands for, why it is
+  present, against what it is compared, and what would show it wrong. A
+  claim about a pattern carries its count of independent instances in the
+  same sentence
+  ([`one-instance-is-an-observation`](../rules/one-instance-is-an-observation.md));
+  a tool's verdict the seat can check against the state is checked
+  ([`verify-dont-trust`](../rules/verify-dont-trust.md)). The foundations
+  are the research reports on experimental design and statistical rigour
+  under `.agent/research/cognitive-systems/structured-thinking/`, cited
+  and never restated (owner, 2026-09-13, after one day produced seven
+  instances of the failure: a reviewer's "correct" acted on as "relevant",
+  a front door's verdict waited on over the visible state, a category
+  from one row, weights fit and scored on the same three loops).
 - **Target-architecture wording needs consuming-runtime evidence** -
   Present-tense architectural claims ("the SDK exposes the target
   schema", "all consumers migrated", "the app uses the new
