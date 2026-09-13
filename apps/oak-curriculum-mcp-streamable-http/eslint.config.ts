@@ -221,8 +221,15 @@ const config = defineConfigArray(
       'scripts/**/*.ts',
     ],
     rules: {
+      // A per-file rule value replaces the inherited one rather than merging,
+      // so the ExportAllDeclaration selector from `recommended` is re-included.
       'no-restricted-syntax': [
         'error',
+        {
+          selector: 'ExportAllDeclaration',
+          message:
+            'Avoid export * from "module" syntax to improve tree shaking. Use named exports instead.',
+        },
         {
           selector:
             'MemberExpression[object.property.name="process"][property.name="env"], MemberExpression[object.name="process"][property.name="env"]',

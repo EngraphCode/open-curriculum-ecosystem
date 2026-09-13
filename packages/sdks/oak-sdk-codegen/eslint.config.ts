@@ -112,6 +112,8 @@ const config = defineConfigArray(
   // build (ADR-141, widget URI identity amendment). Its sources read no
   // environment, so a build-dependent address cannot return unnoticed; the
   // sentinel test alone cannot see one that differs only on deployed builds.
+  // A per-file rule value replaces the inherited one rather than merging, so
+  // the ExportAllDeclaration selector from `recommended` is re-included.
   {
     files: [
       'code-generation/typegen/cross-domain-constants.ts',
@@ -120,6 +122,11 @@ const config = defineConfigArray(
     rules: {
       'no-restricted-syntax': [
         'error',
+        {
+          selector: 'ExportAllDeclaration',
+          message:
+            'Avoid export * from "module" syntax to improve tree shaking. Use named exports instead.',
+        },
         {
           selector:
             'MemberExpression[object.property.name="process"][property.name="env"], MemberExpression[object.name="process"][property.name="env"]',
