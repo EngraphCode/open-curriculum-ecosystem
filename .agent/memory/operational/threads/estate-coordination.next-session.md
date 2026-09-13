@@ -2721,3 +2721,41 @@ disposition.
 **Blind-spot bounds.** The CodeQL failure's cause is unread (the log carried no error line); the schema-drift job's log was gone; both are answered by the reruns, not by this record. Codex's round two on #142 had not landed at the boundary. Nothing here certifies its own completeness; the owner remains the reader of claims in free prose.
 
 **Metaloss recursion.** Compressed reasoning: the day's diagnosis survives in the pattern file, the principle line and this block, decision-sufficient. Promises: every commitment is in the open-work list above with a named landing. Attribution: the one inference is flagged. Fence sweep: no owner word was held off the repository this window; the verbatim quotes above are the owner's words to the practice, recorded as such. Index of homes: this block; the per-user memory tail points here. A third pass would only re-find the CodeQL cause and Codex's pending review; the recursion closes here.
+
+## 2026-09-13 10:0xZ — transplant findings register (Cauldron herds Lustre, 880ff9), kept for analysis
+
+Owner, 2026-09-13, verbatim: "ask them to make sure that they have reported all of their findings. When they
+report findings please make a note of them for analysis." The ask was sent (session channel, 09:5xZ). This
+register is the note: every finding the transplant seat has sent, one row each, in arrival order, with the
+first-hand verification and the disposition. Later batches append rows here; the analysis is the owner's and
+is not drawn in this record (`one-instance-is-an-observation`: sixteen findings from one transplant of one
+estate are one instance of a transplant, not a distribution over transplants).
+
+| # | Sent (UTC) | Pin | Surface | Finding | Verified here | Disposition |
+|---|---|---|---|---|---|---|
+| T01 | 09-12 13:45 | SHA:a55fd8fdd | `agent-tools/src/claude/session-identity-hook.ts:87-99` | context line "env file is set" emitted before the `CLAUDE_ENV_FILE` check | TRUE | transplant source lane |
+| T02 | 09-12 13:45 | SHA:a55fd8fdd | `collaboration-seed.ts:46-70`, `agent-identity-cli.ts:130-152` | no harness-native seed source for a Claude seat; add `CLAUDE_CODE_SESSION_ID` | sound proposal | transplant source lane, with a PDR-027 amendment |
+| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | transplant source lane |
+| T04 | 09-12 13:45 | SHA:a55fd8fdd | `start-right.md:244-267` | "clear run for Matt" clause's removal trigger fires from nothing | TRUE, by design | the owner's, untouched |
+| T05 | 09-12 13:45 | SHA:a55fd8fdd | skill gate lists vs `package.json` | hand-copied gate lists drift; no validator for cited pnpm scripts | does not reproduce here (19 of 19 exist); drift was transplant-side | validator shape received (T09); candidate instrument, no lane |
+| T06 | 09-12 13:45 | SHA:a55fd8fdd | PDR-006, -008, -137, -139, README | Core links to host docs paths | does not reproduce; peer RETRACTED 13:51 (inventory conflation) | rejected |
+| T07 | 09-12 13:45 | SHA:a55fd8fdd | `validate-markdown-links.ts:62` | `SOURCE_IGNORE_GLOBS` lacks `**/reference-local/**`; nested checkouts walked | TRUE | transplant source lane |
+| T08 | 09-12 13:47 | — | #136, #138 pointers | request, not a finding | — | answered |
+| T09 | 09-12 14:36 | peer's tree | cited-scripts validator | shape shared (tokenizer, resolution, scan roots, exclusions, empty allowlist) | not a finding | held with T05, T16 |
+| T10 | 09-12 14:36 | SHA:a55fd8fdd | `agent-tools/src/bootstrap/bootstrap.ts:78-82` | `WORKSPACE_DEPS` hard-codes `packages/core/*` | TRUE, correct here; a host-profile value in a transplant | recorded, no change |
+| T11 | 09-12 14:36 | SHA:a55fd8fdd | `turbo.json` | site build outputs omit `.next/` | does not reproduce (`turbo.json:225-241` names `.next/**`) | rejected |
+| T12 | 09-12 15:38 | SHA:2b1b15ab8 | PDR-008 `:90-92,109-125,338-347`; practice-verification item 9 | tables define `check`/`check:fix`/`check:ci`; `package.json` has `check`/`fix` and per-leg names, no `check:ci` | TRUE | PDR-008 records lane (next-work item 4) |
+| T13 | 09-13 08:53 | SHA:e477e62f7 | `validate-plan-corpus.ts:48-60` | bare `readFile` of `docs/strategy` README; ENOENT instead of the fail-closed message | TRUE | transplant source lane |
+| T14 | 09-13 08:53 | SHA:e477e62f7 | `plan-corpus-loading.ts:52` | archived nodes under the scan root validated live for ever | TRUE, by design | answered, no change |
+| T15 | 09-13 08:53 | SHA:e477e62f7 | `validate-patterns-index-helpers.ts` | `renderPatternIndex([])` renders links to absent files | not reachable here (242 patterns) | below-bar |
+| T16 | 09-13 08:53 | SHA:e477e62f7 | `agent-tools/package.json` (nine sites), commit skill `:391` | pnpm 12 rejects `pnpm -s` | TRUE (pin 11.20.0) | lands with the pnpm major bump as one `--silent` sweep |
+| T17 | 09-13 08:53 | SHA:e477e62f7 | pr-lifecycle fixture | cites PR #135 by number; dead pointer in a transplant | TRUE as described | rejected here; the practice cites worked instances by number |
+| T18 | 09-13 08:53 | SHA:e477e62f7 | session-handoff SKILL-CANONICAL | forbids handover commits while wraps commit as `chore(continuity)` | TRUE; both rulings hold by estate | recorded for the lineage's next consolidation of the clause |
+| T19 | 09-13 08:53 | peer's tree | cited-scripts validator | `EXCLUDED_PATH_FRAGMENTS` gains `.agent/collaboration/rapid-comms/` | not a finding | held with T09 |
+
+Counts, for the analysis and nothing more: nineteen rows; sixteen findings (T08, T09, T19 are a request and
+two shape notes); twelve verified true or sound here (T06 retracted, T11 does not reproduce, T05 reproduces
+only transplant-side, T15 not reachable here); five routed to the transplant source lane (T01, T02, T03, T07,
+T13), one to the pnpm major bump (T16), one to the PDR-008 lane (T12), four true with no change (T04, T10,
+T14, T18), one below-bar (T15), one rejected on doctrine (T17). Standing: further batches append rows T20
+onward.
