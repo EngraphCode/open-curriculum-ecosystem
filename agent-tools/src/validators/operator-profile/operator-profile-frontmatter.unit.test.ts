@@ -16,6 +16,7 @@ import {
   scopeKeyFromRelPath,
 } from './operator-profile-keys.js';
 import { classifyProfileEntries } from './operator-profile-layout.js';
+import { resolveProfileRoot } from './validate-operator-profile.js';
 
 function messagesOf(result: ReturnType<typeof parseOperatorProfileDocument>): readonly string[] {
   return result.ok ? [] : result.error;
@@ -67,6 +68,20 @@ describe('parseOperatorProfileDocument', () => {
     expect(messagesOf(result)).toEqual([
       'no YAML frontmatter block (every operator-profile document opens with one)',
     ]);
+  });
+
+  it('refuses unparseable YAML without echoing it, and still scans it for credentials', () => {
+    const token = `ghp_${'z'.repeat(30)}`;
+    const broken = `---\nkind: [unclosed\ntoken: ${token}\n---\n\n# body\n`;
+    const messages = messagesOf(parseOperatorProfileDocument(INDEX_POSITION, broken));
+    expect(messages[0]).toMatch(
+      /^frontmatter is not parseable YAML \(\w+\); the block's text is not echoed$/,
+    );
+    expect(
+      messages.some((message) => message.startsWith('credential-shaped content on line 3')),
+    ).toBe(true);
+    expect(messages.join('\n')).not.toContain('unclosed');
+    expect(messages.join('\n')).not.toContain(token);
   });
 
   it('refuses a kind that contradicts the layout position', () => {
@@ -164,6 +179,34 @@ describe('key derivation from paths and host names', () => {
     expect(deriveMachineKey('build01')).toBe('build01');
     expect(deriveMachineKey('')).toBeUndefined();
     expect(deriveMachineKey('-leading-dash')).toBeUndefined();
+  });
+});
+
+describe('resolveProfileRoot', () => {
+  const home = '/srv/operator-home';
+
+  it('prefers --root, then PRACTICE_HOME, then the home fallback', () => {
+    expect(unwrap(resolveProfileRoot(['--root', '/srv/elsewhere/profile'], {}, home))).toBe(
+      '/srv/elsewhere/profile',
+    );
+    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '/opt/practice' }, home))).toBe(
+      '/opt/practice/profile',
+    );
+    expect(unwrap(resolveProfileRoot([], {}, home))).toBe('/srv/operator-home/.practice/profile');
+    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '' }, home))).toBe(
+      '/srv/operator-home/.practice/profile',
+    );
+  });
+
+  it('refuses a --root flag without a directory argument', () => {
+    expect(resolveProfileRoot(['--root'], {}, home)).toEqual({
+      ok: false,
+      error: '--root needs a directory argument',
+    });
+    expect(resolveProfileRoot(['--root', '--json'], {}, home)).toEqual({
+      ok: false,
+      error: '--root needs a directory argument',
+    });
   });
 });
 

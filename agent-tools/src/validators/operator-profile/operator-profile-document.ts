@@ -40,9 +40,11 @@ function parseFrontmatterMapping(content: string): Result<unknown, string> {
   try {
     parsed = parseYaml(frontmatter);
   } catch (cause) {
-    return err(
-      `frontmatter is not parseable YAML: ${cause instanceof Error ? cause.message : String(cause)}`,
-    );
+    // Content-free on purpose: a YAML parser's message can quote the
+    // offending source, and the source may be the credential this
+    // validator exists to keep out of every output.
+    const name = cause instanceof Error ? cause.name : 'error';
+    return err(`frontmatter is not parseable YAML (${name}); the block's text is not echoed`);
   }
   return isJsonObject(parsed) ? ok(parsed) : err('frontmatter is not a YAML mapping');
 }
@@ -114,7 +116,8 @@ function credentialMessages(content: string): readonly string[] {
 /**
  * Validate one profile document: frontmatter against the family schema, the
  * kind against its position in the layout, the scope or machine key against
- * the file name, a non-empty body, and no credential-shaped lines.
+ * the file name, a non-empty body, and no credential-shaped lines. The
+ * credential scan runs on every document, frontmatter parse or no parse.
  *
  * @param expectation - what the layout says this document must be
  * @param content - the whole document text
@@ -124,14 +127,15 @@ export function parseOperatorProfileDocument(
   expectation: ProfileDocumentExpectation,
   content: string,
 ): Result<ParsedProfileDocument, readonly string[]> {
+  const credentials = credentialMessages(content);
   const frontmatter = parseFrontmatter(content);
   if (!frontmatter.ok) {
-    return frontmatter;
+    return err([...frontmatter.error, ...credentials]);
   }
   const messages = [
     ...positionMessages(expectation, frontmatter.value),
     ...bodyMessages(content),
-    ...credentialMessages(content),
+    ...credentials,
   ];
   if (messages.length > 0) {
     return err(messages);

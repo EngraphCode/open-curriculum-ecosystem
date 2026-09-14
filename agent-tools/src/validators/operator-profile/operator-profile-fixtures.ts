@@ -144,7 +144,24 @@ ratified: true
 # Not a calendar date
 `;
 
+const IMPOSSIBLE_DATE = `---
+practice_profile: operator-profile
+schema_version: 1
+kind: index
+updated: 2026-99-99
+ratified: true
+---
+
+# The shape of a date, not a date
+`;
+
 export const PROFILE_FIXTURES: readonly ProfileFixture[] = [
+  {
+    name: 'updated is an impossible date',
+    ...AT_INDEX,
+    frontmatterValid: false,
+    content: IMPOSSIBLE_DATE,
+  },
   { name: 'valid index', ...AT_INDEX, frontmatterValid: true, content: VALID_INDEX },
   { name: 'valid scope', ...AT_SCOPE, frontmatterValid: true, content: VALID_SCOPE },
   { name: 'valid machine', ...AT_MACHINE, frontmatterValid: true, content: VALID_MACHINE },

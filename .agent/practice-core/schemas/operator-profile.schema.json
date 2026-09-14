@@ -8,9 +8,9 @@
   "$comment_body": "The body below the frontmatter is prose with clear headings, short enough to read whole at session open. It names identities, never credentials (no tokens, keys, passwords or canary values); paths inside it are fine and no tracked file may resolve through one; nothing in it is load-bearing for a gate, validator or build. Estate validators refuse credential-shaped lines.",
   "$defs": {
     "date": {
-      "$comment": "ISO calendar date, the day the document was last edited.",
+      "$comment": "ISO calendar date (YYYY-MM-DD), the day the document was last edited; the pattern bounds the month to 01-12 and the day to 01-31, the strongest check expressible identically in this contract and in an estate's enforcement schema without a format library.",
       "type": "string",
-      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
     },
     "scope_key": {
       "$comment": "owner--repository, lowercase, derived from the origin remote URL; the file is repos/<scope_key>.md and the two must agree.",

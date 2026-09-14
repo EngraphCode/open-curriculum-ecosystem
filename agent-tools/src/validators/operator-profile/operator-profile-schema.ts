@@ -38,7 +38,8 @@ export const SCOPE_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*--[a-z0-9][a-z0-9._-]*$/;
 /** The short host name, lowercase; the machine file is `machines/<machine_key>.md`. */
 export const MACHINE_KEY_PATTERN = /^[a-z0-9][a-z0-9.-]*$/;
 
-const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+/** YYYY-MM-DD with the month bounded to 01-12 and the day to 01-31 — the contract's pattern, verbatim. */
+const DATE_PATTERN = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
 const commonFields = {
   practice_profile: z.literal('operator-profile'),

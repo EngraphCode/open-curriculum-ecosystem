@@ -28,7 +28,7 @@ import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { collect, err, ok, type Result } from '@oaknational/result';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 import { parseOperatorProfileDocument } from './operator-profile-document.js';
@@ -78,31 +78,52 @@ export function resolveProfileRoot(
   return ok(path.resolve(value));
 }
 
-async function isDirectory(target: string): Promise<boolean> {
+type Presence = 'directory' | 'absent' | 'not-a-directory';
+
+/**
+ * Whether a path is a directory, distinguishing genuine absence (ENOENT,
+ * the expected condition) from an operational failure such as EACCES, which
+ * is never reported as absence.
+ */
+async function presence(target: string): Promise<Result<Presence, string>> {
   try {
-    return (await stat(target)).isDirectory();
-  } catch {
-    return false;
+    return ok((await stat(target)).isDirectory() ? 'directory' : 'not-a-directory');
+  } catch (cause) {
+    const code = cause instanceof Error && 'code' in cause ? String(cause.code) : 'unknown';
+    if (code === 'ENOENT') {
+      return ok('absent');
+    }
+    return err(`cannot read ${target} (${code})`);
   }
 }
 
-async function listEntries(root: string, dirName: string | undefined): Promise<ProfileEntry[]> {
+async function listEntries(
+  root: string,
+  dirName: string | undefined,
+): Promise<Result<ProfileEntry[], string>> {
   const dir = dirName === undefined ? root : path.join(root, dirName);
-  if (!(await isDirectory(dir))) {
-    return [];
+  const there = await presence(dir);
+  if (!there.ok) {
+    return there;
+  }
+  if (there.value !== 'directory') {
+    return ok([]);
   }
   const prefix = dirName === undefined ? '' : `${dirName}/`;
-  return (await readdir(dir, { withFileTypes: true })).map((entry) => ({
-    relPath: `${prefix}${entry.name}`,
-    isDirectory: entry.isDirectory(),
-  }));
+  return ok(
+    (await readdir(dir, { withFileTypes: true })).map((entry) => ({
+      relPath: `${prefix}${entry.name}`,
+      isDirectory: entry.isDirectory(),
+    })),
+  );
 }
 
-async function listProfileEntries(root: string): Promise<readonly ProfileEntry[]> {
+async function listProfileEntries(root: string): Promise<Result<readonly ProfileEntry[], string>> {
   const levels = await Promise.all(
     [undefined, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map((dirName) => listEntries(root, dirName)),
   );
-  return levels.flat();
+  const collected = collect(levels);
+  return collected.ok ? ok(collected.value.flat()) : collected;
 }
 
 async function collectFailures(root: string, layout: ProfileLayout): Promise<DocumentFailure[]> {
@@ -126,28 +147,48 @@ function plural(count: number, noun: string): string {
   return `${count} ${noun}${count === 1 ? '' : 's'}`;
 }
 
+// Plain text throughout: `writeLine` sanitises escape characters by design,
+// so ANSI styling would render as literal fragments.
 function reportFailures(root: string, failures: readonly DocumentFailure[]): void {
-  writeLine(`\x1b[31m✗ ${plural(failures.length, 'document')} at ${root} refused:\x1b[0m\n`);
+  writeLine(`✗ ${plural(failures.length, 'document')} at ${root} refused:\n`);
   for (const failure of failures) {
-    writeLine(`  \x1b[31m${failure.relPath}\x1b[0m`);
+    writeLine(`  ${failure.relPath}`);
     for (const message of failure.messages) {
       writeLine(`    - ${message}`);
     }
     writeLine('');
   }
   writeLine(
-    `\x1b[33mRemediation: fix the document in place. The contract is ${OPERATOR_PROFILE_CONTRACT_REL_PATH}.\x1b[0m\n`,
+    `Remediation: fix the document in place. The contract is ${OPERATOR_PROFILE_CONTRACT_REL_PATH}.\n`,
   );
 }
 
+/** The root's entries, or `absent` (exit 0), or the operational failure to report (exit 1). */
+async function readRoot(root: string): Promise<Result<readonly ProfileEntry[] | 'absent', string>> {
+  const there = await presence(root);
+  if (!there.ok) {
+    return err(`${there.error} — an unreadable profile root is a failure, never absence`);
+  }
+  if (there.value === 'absent') {
+    return ok('absent');
+  }
+  if (there.value === 'not-a-directory') {
+    return err(`${root} exists but is not a directory`);
+  }
+  return listProfileEntries(root);
+}
+
 async function checkRoot(root: string): Promise<number> {
-  if (!(await isDirectory(root))) {
-    writeLine(
-      `\x1b[32m✓ No operator profile at ${root} — absence is the expected condition.\x1b[0m\n`,
-    );
+  const entries = await readRoot(root);
+  if (!entries.ok) {
+    writeErrorLine(`✗ ${entries.error}`);
+    return 1;
+  }
+  if (entries.value === 'absent') {
+    writeLine(`✓ No operator profile at ${root} — absence is the expected condition.\n`);
     return 0;
   }
-  const layout = classifyProfileEntries(await listProfileEntries(root));
+  const layout = classifyProfileEntries(entries.value);
   const failures = await collectFailures(root, layout);
   if (failures.length > 0) {
     reportFailures(root, failures);
@@ -155,7 +196,7 @@ async function checkRoot(root: string): Promise<number> {
   }
   const count = layout.documents.length;
   writeLine(
-    `\x1b[32m✓ ${plural(count, 'document')} at ${root} conform${count === 1 ? 's' : ''} to the family-1 schema.\x1b[0m\n`,
+    `✓ ${plural(count, 'document')} at ${root} conform${count === 1 ? 's' : ''} to the family-1 schema.\n`,
   );
   return 0;
 }
