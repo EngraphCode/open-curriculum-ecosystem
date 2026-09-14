@@ -18,15 +18,27 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `claude-memory-buffer-drain.plan.md` (`../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md`)
   — **COMPLETED and archived 2026-07-05**; its §Closeout carries the
   honest verdict (complete).
-- **Next safe step** (2026-09-14, after the second dedicated drain): the
-  dedicated consolidation session that is due lands the seven due entries
-  in `pending-graduations.md` (their target directives named per entry,
-  including the orientation re-point to PDR-141); at PR #143's landing the
-  last held buffer memory (`verified-correct-is-not-a-proportionality-test`)
-  is deleted; the owner ratifies PDR-141 (the operator profile in the home
-  directory, `~/.practice/profile/index.md` plus the repository scope file,
-  the Practice's first out-of-repo surface) and the seeded profile content.
-  Otherwise the thread is quiescent. The first drain (2026-07-05) was complete end-to-end
+- **Next safe step** (2026-09-14, COLD PAUSE at the session limit, owner's
+  word; nothing runs). In order: (1) take draft PR #144 (branch
+  `lane/operator-profile-schema-281e44`, worktree
+  `.claude/worktrees/operator-profile-schema`, commit `2e35a7c19`: the
+  operator-profile JSON Schema, validator, fixtures, tests, contract
+  smoke, `pnpm profile:check`, the Practice-index pointer) to ready with a
+  Copilot request and run it through pr-lifecycle to merge; (2) after it
+  lands, on the coordination branch: amend PDR-141 to name the schema, the
+  frontmatter, the third `machine` kind and the decision that the root may
+  be an optional private git repository the operator syncs (the machine
+  split keeps the estate machine-agnostic; the Practice never initialises
+  or pushes it); update start-right §3a and the operator-local README to
+  the three files and the check command; (3) the dedicated consolidation
+  session that is due lands the seven due entries in `pending-graduations.md`
+  (including the orientation re-point to PDR-141); (4) at PR #143's landing
+  the last held buffer memory (`verified-correct-is-not-a-proportionality-test`)
+  is deleted; (5) the owner ratifies PDR-141 and the seeded profile
+  (`~/.practice/profile/`: index, the `engraphcode--open-curriculum-ecosystem`
+  scope file, the `bossmang` machine file; every item marked inferred).
+  The coordination branch `coordination/2026-09-12-69a537` is past its
+  fold window. The first drain (2026-07-05) was complete end-to-end
   (all strata; index empty, live-only, untruncated; every entry file
   terminally marked). The per-user buffer lifecycle
   continues under `per-user-memory-is-a-buffer`: the buffer accretes again

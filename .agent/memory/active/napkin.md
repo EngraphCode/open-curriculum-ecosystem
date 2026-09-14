@@ -1337,6 +1337,25 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   on the machine (eight here), scoped per repository like vendor memory but keyed by repository
   identity, never path: PDR-141, `~/.practice/profile/`, the checkout tier retired, its README
   now a pointer, the orientation re-point queued for the dedicated consolidation.
+- **Owner's third direction, then a COLD PAUSE at the session limit (2026-09-14 ~10:5xZ).** The
+  profile needs a versioned schema, validators in the repo, frontmatter in its documents and a
+  stable in-repo index pointer; and the owner asked whether the root may be a private git
+  repository synced between machines without losing the machine-agnostic direction. Answer built
+  in: a third document kind, `machines/<machine-key>.md`, keyed by the short host name, so person
+  and line facts travel and machine facts stay keyed to their host; git furniture tolerated by the
+  layout classifier; the estate never initialises or pushes the repository. Landed on the lane
+  worktree `.claude/worktrees/operator-profile-schema`, branch `lane/operator-profile-schema-281e44`
+  from `origin/engraph`: commit `2e35a7c19`, pushed, draft PR #144. Family-1 JSON Schema in
+  `practice-core/schemas`; zod mirror, key derivation, credential tripwire, document and layout
+  modules, CLI `pnpm profile:check`, fixtures, 24 unit tests, the contract smoke in `test:e2e`;
+  the Practice index row. The home profile now carries frontmatter and a `machines/bossmang.md`;
+  `pnpm profile:check` reads 3 documents conforming. Mistakes, mine, three refused commits: knip
+  entries not registered for the two CLI scripts; the version guard's phrase check on "breaking
+  change" in a body; and, earlier, a fixture type that lacked the fields its test read (caught by
+  tsc and eslint, not by vitest, which passed spuriously — a reminder that vitest does not
+  type-check). Not done, for resume: PDR-141 amendment naming the schema, frontmatter, the
+  machine kind and the git-sync decision; start-right 3a and the operator-local README updated to
+  three files and the check command; #144 to ready with a Copilot request; the coordination fold.
 - **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)
