@@ -60,6 +60,19 @@ a displayed human credential still identifies itself as agent-authored under
 Which credential each GitHub action class takes is settled by the action map
 below; this section is the mechanics for its bot-credential rows.
 
+Identity values are DERIVED at time of use from an observable source — a
+prior bot-authored commit (`git log --format='%an <%ae>'` on a known bot
+commit), the repository's shared config, or the owner's word — and never
+recalled from memory or filled in with a plausible value. Owner, 2026-07-25,
+categorical: "do NOT make up identities." The instance: after a compaction
+the summary carried the identity MECHANISM (env-scoped author and committer
+variables) but not the values, and a seat confabulated a plausible-looking
+bot email that does not exist and pushed three commits under it; the owner
+ruled forward-correction only, no mailmap, the fabricated strings standing on
+the record. A remembered identity — including the values in this rule — is a
+candidate to verify, never a value to use; the smoother the value arrives,
+the harder the check.
+
 The GitHub bot identity is `jimbot-oakington-iii[bot]`. Two different numbers
 attach to it and **only one belongs in an email address**:
 
@@ -336,6 +349,25 @@ wired on one maintainer's machine as the ambient commit-author and push
 credential for the `oak-open-curriculum-ecosystem` tree via a machine-local
 `includeIf` (2026-08-04). Its mechanics and key live only on that machine
 (`~/.config/<slug>/`), never in this repo.
+
+The reverse reading matters too: `mantagen` is that maintainer's OWN GitHub
+identity, a person, often driven by his bots (owner, 2026-09-01, verbatim:
+"mantagen is Matt's github identity, not a bot, but often it is used by his
+bots"). Nothing on the surface distinguishes a review he wrote from one his
+agents wrote, so never describe the account as "a bot" — say "a review under
+Matt's identity" — and treat its findings on the merits like any reviewer
+round (harvest, verify, cure or refute), never as a human gate to wait on:
+on one PR three changes-requested reviews under that identity were his
+agents' and confused, and the owner merged over them; on another both rounds
+were correct. When a changes-requested review under that identity blocks a
+ruleset merge, the owner-sanctioned path (2026-08-17, conditional) is "if
+you can honestly say that the requested changes are made then dismiss the
+comment" — the honesty condition binds PER ROUND: read every standing round
+in full first, and a newer round with unmet asks blocks the dismissal until
+cured. That identity's bots do not necessarily re-review on demand (owner,
+2026-08-18: "Copilot should re-assess on demand"); when a prompt
+re-assessment of a cured head is wanted, fire a Copilot re-request and watch
+for both.
 
 This does not weaken the shared-bot contract above; it refines the attribution
 model:

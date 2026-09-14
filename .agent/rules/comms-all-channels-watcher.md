@@ -672,3 +672,18 @@ wrong. Check these before trusting a quiet channel:
   with a separate harness-absorption cursor; the portable acceptance test
   belongs in
   [`comms-watch-mechanism`](../reference/comms-watch-mechanism.md).
+- **Heads-down windows never suspend the sweep, and directed events are
+  answered within one cadence.** Owner, 2026-07-20: "it is important to
+  monitor comms, and to be responsive to your team mates" — after three
+  directed Director events sat unanswered for about fifteen minutes while
+  the seat was in an owner plan-mode window and its watcher had died at the
+  hourly backstop unnoticed; heartbeats kept flowing, so the team read a
+  live-but-unresponsive seat, a worse signal than silence. Watcher liveness
+  is part of every turn's footing: re-arm immediately on any exit
+  notification, and when heads-down (plan mode, a long owner dialogue, a
+  background wait) run the fallback sweep by hand. Answer a directed event
+  within one cadence even when the answer is one line ("saturated, full
+  reply at X"). And re-arm ONLY as an event-emitting monitor: a watcher
+  re-armed as a plain background shell consumed three directed events and
+  advanced the seen cursor while the session never woke (2026-07-25) — the
+  only proof of health is the next event arriving in-session.

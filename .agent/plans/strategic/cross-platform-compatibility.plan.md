@@ -48,6 +48,14 @@ codebase is correct BY CONSTRUCTION on every tier — most of what native
 Windows needed turned out to be latent cross-platform defects, including
 one on a security boundary.
 
+Amendment 2026-09-11 (owner, verbatim): "consider real Windows proven, one
+of our developers uses Windows machines." Native Windows is in daily use on
+the estate, and this line carries the upstream's native-Windows changeset
+(PR #129, the `windows-basic` leg green). An organisation fact of this kind
+is the owner's to state: ask for it, never list it as an unknown. The tier
+table above still prices native Windows as a goal; the proof status is no
+longer a gap.
+
 ## The bet
 
 Cure the generator, not the instances — retained from this node's first

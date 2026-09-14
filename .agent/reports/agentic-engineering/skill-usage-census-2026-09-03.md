@@ -352,3 +352,13 @@ data says about it. None is decided here.
   the worktree-residency rule already requires.
 
 Data files for this census are machine-local and not tracked; this report is the record.
+
+## How to read this census (owner, 2026-09-03)
+
+The owner's reading rule, given the day the census landed (verbatim gist): include the
+top 100 and read the table "like a risk assessment, but for value". Some skills are rare
+but high impact (metacognition, free-play, concept-exploration, reason); some are new
+(the parallax family); some fire only at key moments (pr-lifecycle, proportionality).
+Frequency alone is the wrong instrument: a rebuilt table carries, beside the counts,
+a trigger class and a landed date for each skill, and a frequency census is never
+presented as a value verdict.

@@ -4210,3 +4210,20 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
   F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
   watcher rule names the background-shell watcher as the anti-pattern.
+
+### F-184 — the root `test` task's inputs omit the root registry files its tests read, so the pre-push cache replays a stale pass
+
+- **Observed**: 2026-09-07 (a693fb). An edit to `RULES_INDEX.md` (an
+  explaining cell on a new core row) passed every local gate — the pre-push
+  log read `@oaknational/agent-tools:test: cache hit, replaying logs` —
+  then failed CI's `rules-index-classification` test cold; one CI cycle and
+  one extra push on a terminal PR. The task declares only package-local
+  inputs (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`).
+- **Expected**: every root file a package's tests read is declared among
+  that task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form
+  `tsconfig.base.json` already uses), so a root-file edit invalidates the
+  cache and the classification test runs on push.
+- **Route**: a one-line `turbo.json` change per root file the tests read,
+  as its own config change with the classification test as proof;
+  `build-system.md` §Caching carries the interim discipline (run the
+  dedicated test directory before pushing an edited registry file).

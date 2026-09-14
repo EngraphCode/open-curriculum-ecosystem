@@ -50,6 +50,29 @@ shrinks things is expediency with better manners.
 | **Instrument** | Is the tool matched to the question? | **Too heavy** → re-tier (an inline check over a fleet; a cheaper model tier; a probe over a plan). **Too light** → escalate the instrument; a cheap check on an irreversible call is false economy |
 | **Level** | Whose decision is this? | **Wrong level** → route it: owner, Director, or resolve at the seat. A decision already covered by standing word is not an escalation |
 
+### Step back and be sensible
+
+The owner's own phrasing of the instrument axis (2026-07-19, after a session
+whose deliverables landed well under an apparatus that had grown heavy: a
+twenty-two-agent audit, a three-agent fleet to verify a deterministic script,
+paired conscience checks plus a mid-session adjudication of their divergence,
+in a session opened with "absolute minimum of comms ceremony"): "please
+remember: step back and be sensible." Standing mandates and effort flags
+license scale; they never require it. Before dispatching any fleet, cron,
+paired check or formal record: name the cheapest instrument that would settle
+the question (a deterministic result needs a spot-check, not a verification
+fleet; a divergent conscience check needs a one-line note; a status update
+needs the few sentences the reader will act on); use it unless the stakes, a
+legal, destructive or owner-facing gate, genuinely warrant redundancy.
+
+The scope axis has the same owner form (2026-07-25, a dependency-update lane
+that grew into reachability forensics, a deployed-environment card and an
+implied threat posture the product never had): "I asked for an update of
+deps, not an overhaul of settled architecture." A remit licenses its remit;
+security work inherits the PRODUCT's actual threat model, never a generic
+maximal one, and settled architecture, deliberate testing affordances
+included, is not a finding.
+
 ### The non-override clause
 
 Proportionality bounds **scope, instrument weight, and attention cost**. It never bounds

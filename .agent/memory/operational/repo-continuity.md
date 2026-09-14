@@ -248,7 +248,16 @@ forward-asks remain.
 - **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
   plan [`no-throw-remediation.plan.md`](../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
   the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes). Investigation-first
-  WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work.
+  WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work. **Owner ruling
+  2026-09-08** on the 1,227 warnings across 16 packages: "Turn the rule off for now, we can't fix it
+  without creating incredible churn, so that needs to wait until the Engraph fork is merged back into
+  the upstream. However, in any workspace with no current warnings and in any new workspace, leave it
+  on as an error." The rule is binary: off where the debt lives, error everywhere else and for every
+  new workspace; the migration lane waits for the merge-back. The merge-back is planned for October
+  2026 and has no plan node by the owner's word the same day ("do not worry about the October
+  re-integration, I have some thoughts, but we do not need a plan yet, and we should not let the
+  intention overly influence the decisions we make now"); Oak-line delivery sketches not pending on
+  the fork are left as they are until then.
 - **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (§Open
   Owner-Decision Items); a HARD deep-docs-read prerequisite before any build.
 - **Onboarding-improvement arc** — PR #199 merged; follow-ons open (B2/B3 risk-register seeding; the

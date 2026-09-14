@@ -104,6 +104,46 @@ the held command classes — recursive deletes, network writes, anything the
 hook policy approves interactively — not only "do not modify files"; the
 resume from the run id returned the cached agents instantly.
 
+## The review's first question is the warrant, never the instrument
+
+Owner, 2026-08-17, closing the landscape-survey post-mortem: "the more we
+expect to spend, the more certain we need to be of what we are measuring,
+why, and what value we hope to get out of it." The original ask had been a
+survey of common patterns, algorithms and data structures across the
+estate; a week of elaborations later a taxonomy survey of about thirteen
+million tokens ran a fleet-design review that stress-tested the
+instrument's internals and never asked whether the question was ours to
+answer or worth the spend. Review depth had scaled with instrument
+complexity, not with spend. So, before any above-trivial spend (a fleet, a
+long campaign, a paid vendor run): write the three-part warrant in one
+short block (what is measured, why, what value is expected), check the
+question's class (an owner-fact question goes to the owner's records and a
+card, never to measurement), present it at the action moment, re-state it
+at EVERY elaboration boundary, and check the current effort against the
+VERBATIM original ask. The review below starts from that block; a review
+that opens on the instrument has skipped the question that prices it.
+
+## Tier every leg to its judgment weight
+
+Owner, 2026-07-26, on a seven-agent verification workflow whose every agent
+inherited the Fable main-loop model: "You can't start a suite of Fable
+instances like that … doing that burns quota too quickly, there are more
+refined, less brute force ways of achieving good outcomes with sweeps and
+research." `Workflow` and `Agent` calls inherit the session model by
+default, so a heavyweight main loop silently multiplies its own cost by N,
+and quota is a shared fleet resource. An effort flag in the harness is not
+owner word; the owner prices quota. The default composition: inline first
+(a few serial greps, reads or `gh` calls by the main loop answer most
+"verification legs"); when a fan-out is justified, tier per leg, with
+mechanical verification, extraction and existence checks on the cheapest
+tier at low effort, in-frame judgement on the middle tier, and one
+frame-challenge or deep-adjudication seat on the top tier; and fewer,
+sharper agents over breadth, merging cheap legs into one agent's checklist.
+The 2026-08-06 lift of the top-tier subagent embargo removed the
+prohibition, not the economy: a heavyweight sweep can be warranted ("in
+this case it may well be warranted, I do not trust the state we were
+handed"), and that warrant is the owner's to price case by case.
+
 ## Ahead-of-time cost estimate, pilot and yield (owner word 2026-09-07)
 
 The owner, on the 2026-09-06/07 mapping fleets: "your dynamic workflows have been

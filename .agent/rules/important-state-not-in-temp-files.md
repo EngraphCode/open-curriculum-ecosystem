@@ -34,6 +34,17 @@ must never be left in a temp file long-term, using it as a buffer is
 fine, but leaving it there for reference is not okay, everything of
 importance stays in the repo."*
 
+Tracked-versus-untracked is a placement axis, never an importance axis
+(owner, 2026-07-16, after an audit was scoped by tracked globs and missed
+the untracked handoff records where the worst defects lived: "we stop
+treating untracked files as if they are of secondary importance, they are
+local because they are high traffic and ephemeral, not because they don't
+matter, they matter, A LOT"). When scoping any corpus, audit, validator or
+conservation concern, include the untracked live tier — handoff records,
+rapid-comms channels, briefs, live reports — explicitly, classified by
+authoritative-versus-derived and live-versus-historical, never by git
+status.
+
 ## The Distinction
 
 The rule turns on **how the temp file is used downstream**, not on

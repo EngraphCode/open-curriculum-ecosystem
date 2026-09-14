@@ -37,6 +37,20 @@ file-editing instruments are the platform's native per-file editing operation
 compound heredoc that rewrote two files was the instrument the owner refused,
 though the work inside it was right.
 
+Regrounding has TWO legs, and the second is the one skipped. After a
+compaction or a handoff, verifying mechanical state — PRs, claims, comms,
+git, the board — is not being up to speed; the governing corpus (the plans
+README, the strategic node, the live plans, recent closeout records) carries
+the intent those states serve, and a proposal reasoned from a summary and
+memory fragments re-opens decisions already made (owner, 2026-07-24, after a
+"drain the plans backlog" recommendation that the corpus reset had
+deliberately frozen: "I think you need to spend more time understanding the
+history rather than trying to make sensible guesses about next steps").
+Before any scope proposal or card, cite the governing document read THIS
+session that grounds it; no citation, not ready to propose. And read
+inherited letters and records critically — drift accumulates, so their
+claims are checked against the artefacts, never assumed.
+
 ### 1. Durable directives
 
 Read and internalise. **This foundation-directive reading is the
