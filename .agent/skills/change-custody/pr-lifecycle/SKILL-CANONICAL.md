@@ -208,11 +208,22 @@ artefact for reviewers**, never a file list: what changed, why it matters,
 what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
+**The description's §Scope is the review contract; on a prose- or records-class changeset
+it carries the intake declaration** the state machine's §Response pricing block names as
+the declaration's home. It is a step of OPENING, not of the first review round, because
+reviewers read the body: a scope and a bar stated there bound what they propose. A pull
+request PDR-140 governs that lacks it has no bounded loop until it exists (a code-class
+pull request is bounded by the review-round transitions and declares no intake): the
+2026-09-11 coordination fold (PR #135) opened with a narrative body and no scope or intake,
+and ran five rounds and thirty-eight findings on records before the declaration was posted
+late.
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
 target may be, what a flag may be — so reviewers read a contract rather than
-discover it a case per round: on
+discover it a case per round, and the
+pull request's tests and recorded fixtures are the specification a code finding
+must be exercised by (the state machine's item 2): on
 2026-09-06 rounds two to four of a containment-writer review were one contract
 specified case by case. A review OF a pull request lands its records on that
 PR's branch, never as a separate PR into the base (on this fork every PR branch
@@ -370,6 +381,27 @@ live tickets where the platform is in use.
   to TRIAGE every comment, if it is incorrect reject it, if it is correct,
   relevant and proportionate address it, if it is anything else raise a
   ticket, tell the Director, and close the comment."*
+- **Separate the observation from the remedy, and test scope before correctness.** A
+  finding arrives as an observation bundled with a proposed change, and the change is where
+  scope expands: reviewers — bots above all — grade the diff's text against the widest
+  standard they can imagine, never against the story. Read the observation as evidence and
+  set the remedy aside; test the REMEDY against the description's §Scope FIRST — the cheapest
+  conjunct, and the one that decides, for most findings, that no cure lands here. The
+  observation is then verified as the three-way test requires and priced on the bar: a false
+  observation is rejected and never given a durable home; a true one over the bar earns its
+  in-scope cure or its named home; a true one below the bar takes a reasoned rejection with no
+  write, or a home that already exists (PDR-140 clauses 1 and 9). Where a
+  cure is owed, it is derived from the story, never from the remedy. A remedy that would
+  exceed the declared scope — coverage, markers on every claim, the full plan reproduced here,
+  a decision held pending, where §Scope asked for none of them — is a scope finding whatever
+  the truth of its observation: the remedy takes no cure here. The verified observation is
+  then priced on the bar like any other finding — over it, an in-scope cure is derived from
+  the story (a correction or a removal; PDR-140 clause 2 decides where a cure lands, never
+  whether truth matters); below it, a named home in one line. Worked instances,
+  2026-09-11/12: a true observation about
+  nested fences became a container-aware parser nobody had asked for (five rounds, then
+  deleted); a report's per-claim marker contract was cured by narrowing the claim, never by
+  adding markers (one push).
 - The three-way test, exactly one terminal state per finding:
   1. **INCORRECT → reject**, with verified reasoning in the reply
      (`dispositions-need-verified-failure-scenarios`). Rejection is a
@@ -383,6 +415,13 @@ live tickets where the platform is in use.
      ALL THREE conjuncts are required: individual validity is NOT
      sufficiency — a correct finding whose cure widens the PR beyond its
      ticket's story fails the proportionality conjunct and goes to state 3.
+     On code, RELEVANT means exercised by a tested or recorded input of the
+     pull request's specification (the state machine's item 2): a correct
+     case no such input exercises fails this conjunct and goes to state 3
+     as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
+     the declared settlement-push budget is spent, every finding goes to
+     state 3 whatever it exercises — the cost gate refuses the push, and
+     the reviewer blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
@@ -564,7 +603,9 @@ as phase-local restatements.
 **Response pricing — the intake contract
 ([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md),
 owner-ratified 2026-08-31; prose-class changesets).** Before the first
-review wave, the opening working notes declare the intake contract:
+review wave, the pull request description's §Scope — the shepherd's
+opening working notes in PDR-140 clause 3's sense, and the one surface
+every reviewer reads — declares the intake contract:
 artefact class, next verification point, the worthiness-bar reading
 that follows from those two, and the settlement-push budget. Thereafter
 triage per PDR-140 and
@@ -590,6 +631,56 @@ outside the budget and never carry cures. In-loop, this machine is
 sufficient by design (PDR-140 clause 8): needing an out-of-band
 cognitive-skill invocation to correct a running loop is a defect
 against this skill — file it as one.
+
+**Disposition format — the recorded fields the tally reads (the
+`pr-tally` node's todo 3, 2026-09-12).** Every reply or comment that
+dispositions a finding is signed as `isSignedSelfReply` in
+`agent-tools/src/pr-watch/reviewer-legs.ts` already defines, unchanged:
+its final line begins with an em dash and ends with the seat's
+`(<six lowercase hex>)` prefix or the token form
+`(<six lowercase hex>-<three hex, either case>)`, nothing after it. It
+OPENS with the bar marker: a bold span whose ENTIRE text matches,
+case-insensitively, an optional scope prefix `In scope,` or
+`Out of scope,`, then exactly `Over-bar` or `Below-bar`, then an optional
+`on prong one` or `on prong two`, then an optional full stop — and
+nothing else. `**Over-bar**`, `**In scope, over-bar**` and
+`**Over-bar on prong two.**` read; `**Not over-bar**`,
+`**Below-bar, not over-bar**` and any span with other words read as no
+marker. The prong and the scope reading are stated where they apply; the
+count does not read them. After the marker comes the disposition
+sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty hex
+characters, bare or inside a code span), `Routed to <home>`, or
+`Rejected` with the rationale — the convention for a reader; the machine
+reads the marker only, so a disposition whose sentence lacks the verb is
+still counted. A reply on a review thread inherits the thread's head and
+anchor from the harvest. A finding that lives only in a review body (a
+Copilot suppressed item, a Codex body item) has no thread, so its
+disposition is an issue comment carrying ONE LINE PER FINDING: the marker,
+then the reference `head SHA:<sha> · review <id> · <path>:<line> · <item>`
+— the review's own id (two reviews by one reviewer can bind one head), the
+body's anchor for the item, and an item key that survives two findings at
+one anchor: a Codex item's bold heading, a Copilot suppressed item's
+ordinal in its block (`item 3 of 6`), or `thread <id>` when the body item
+restates an inline thread at that anchor and is counted once — then the
+disposition sentence. The reference is the recorded field that binds the
+line to its round and item; a body-only disposition without it, or a
+comment that batches findings under prose headings, reads as "manual tally
+required" for those items, exactly as an unmarked review body does — where
+an unmarked body is one carrying finding prose without the reviewer's
+markers; a reviewer's no-finding boilerplate carries no item and raises zero,
+never manual — and boilerplate is proven by the reviewer's own marker parse
+yielding no item, never by a footer: Codex's ordinary summary has no
+badge-and-heading item; a Copilot body counts as boilerplate only when its
+suppressed-findings block is absent or empty, because its "Comments
+generated: 0 new" footer coexists with suppressed items (two recorded
+reviews say 0 new and carry fifteen and eight). The
+cure-worthy count reads the marker and nothing else (a below-bar finding
+and a build-changing one can both be routed to a home); signed replies and
+comments are excluded from the raised count and from the quiet-window
+anchor (item 2). The recorded corpus is the fixture at
+`agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`; its README
+states, checked against the file, which of these fields each recorded
+disposition carries and which it predates.
 
 1. **The compound read.** One GraphQL selection is the BASELINE compound
    state — it answers most PR-state questions, but two inputs come from
@@ -621,10 +712,20 @@ against this skill — file it as one.
    is the count `c[n]`, the terminal-zero test, and both step-back arms
    read (a round can settle at raised > 0, cure-worthy = 0: that IS the
    terminal success state under triage). In lanes PDR-140 excludes
-   (code-class changesets; human and code findings of mixed ones) no
-   routing disposition exists — every verified-correct finding is
-   cure-worthy by definition — so the two counts coincide there and the
-   pre-PDR-140 reading of `c[n]` is unchanged. Rows are PERSISTED in the
+   (code-class changesets; human and code findings of mixed ones)
+   PDR-140's prose pricing does not apply; the bar is the specification
+   the pull request carries — its tests and recorded fixtures: a
+   verified-correct finding that a tested or recorded input exercises is
+   cure-worthy while the declared settlement-push budget lasts; a
+   verified-correct case no such input exercises, and every finding once
+   the budget is spent, is a fixture at pickup — Phase 4's state 3,
+   dispositioned below-bar with the reason and routed as that state
+   routes, never a mechanism edit (PR #139, 2026-09-12: reading "verified correct" as
+   "cure-worthy by definition" on an instrument over an open input space
+   ran seven settlement pushes against a declared budget of two and 98
+   comments, every finding correct, none exercised by a recorded input,
+   until the owner stopped the loop — the out-of-band correction this
+   block names as a defect against the skill). Rows are PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
    (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted
@@ -754,10 +855,19 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    2026-09-08 when the two met on one tail). Everything below the bar is dispositioned without a diff (the
    lead's ratchet ruling on #961's round four and the owner's word on its
    wrap PR — "ignore bot comments … less than a P1 or equivalent" —
-   2026-09-03). A code-class finding is outside this pricing altogether: a
+   2026-09-03). A code-class finding is outside this prose pricing: a
    verified defect follows the code-review state machine's own transitions
-   (PDR-132's round budget and the step-back arms above), never a
-   settlement-push cap. The tip of the LAST budgeted settlement push — the
+   (PDR-132's round budget, the step-back arms above, and item 2's
+   specification boundary), and its cures land inside the same declared
+   settlement-push budget — a code loop with no cap ran seven pushes on
+   PR #139 (2026-09-12). The budget is enforced at the push: the review
+   cost gate (`agent-tools review-cost gate`, in the pre-push hook) prices
+   every reviewed round and prints `warn` at half the declared budget and
+   refuses the push past it (BUDGET-EXHAUSTED). `warn` is this machine's
+   re-pricing checkpoint, answered once in the round's disposition
+   comment with one of three moves — stop and reject the rest, split
+   along the finding classes, or ask the owner for a rebudget recorded on
+   the description; pushing anyway is not a move. The tip of the LAST budgeted settlement push — the
    declared budget (two by default, PDR-140 clause 4) plus any rebudget
    recorded when exhaustion left a mandatory cure pending — is the FINAL
    HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
