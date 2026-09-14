@@ -102,7 +102,10 @@ ran a recursive delete inside its own scratch trial held a fifteen-agent
 workflow at 14/15 for fifteen minutes (2026-09-03). A research prompt names
 the held command classes — recursive deletes, network writes, anything the
 hook policy approves interactively — not only "do not modify files"; the
-resume from the run id returned the cached agents instantly.
+resume from the run id returned the cached agents instantly. The Claude
+harness phenotype of the tool — the died-agent check, the stall diagnosis
+and the resume path — is
+[`workflow-tool-operations.md`](../claude-harness-integrations/workflow-tool-operations.md).
 
 ## The review's first question is the warrant, never the instrument
 

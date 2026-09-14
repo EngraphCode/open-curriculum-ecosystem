@@ -29,12 +29,12 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   dedicated consolidation session that is due lands the seven due entries in
   `pending-graduations.md` (including the orientation re-point to PDR-141);
   (2) at PR #143's landing the last held buffer memory
-  (`verified-correct-is-not-a-proportionality-test`) is deleted; (3) the
-  owner ratifies PDR-141 and the seeded profile (index, the
-  `engraphcode--open-curriculum-ecosystem` scope file, the `bossmang`
-  machine file; every item marked inferred, `ratified: false`); (4) the
-  three pickup fixtures posted on #144 become tests when a recorded input
-  reaches them. The coordination branch `coordination/2026-09-12-69a537` is
+  (`verified-correct-is-not-a-proportionality-test`) is deleted; (3) done
+  the same day: PDR-141 Accepted (owner-ratified, `dd813b6ef`) and the
+  seeded profile ratified with three owner additions (Castr and
+  jimcresswell.net as consumers, British English always, Oak systems off
+  limits on Engraph forks always); (4) the three pickup fixtures posted on
+  #144 become tests when a recorded input reaches them. The coordination branch `coordination/2026-09-12-69a537` is
   past its fold window. The first drain (2026-07-05) was complete end-to-end
   (all strata; index empty, live-only, untruncated; every entry file
   terminally marked). The per-user buffer lifecycle

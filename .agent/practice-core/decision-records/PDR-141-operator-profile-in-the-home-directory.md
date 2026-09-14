@@ -81,8 +81,10 @@ scopes by repository identity instead.
    and tests can point elsewhere). Nothing lands under it without a PDR
    naming the surface; this PDR names one.
 2. **The profile layout.** `~/.practice/profile/index.md` holds what is true
-   of the operator on this machine across every repository. A repository-
-   scoped fact lives in `~/.practice/profile/repos/<scope-key>.md`.
+   of the operator everywhere, on every machine and in every repository. A
+   repository-scoped fact lives in `~/.practice/profile/repos/<scope-key>.md`;
+   a machine-scoped fact in `~/.practice/profile/machines/<machine-key>.md`
+   (decision 10).
 3. **The scope key** is the repository's identity, never its path: the
    `origin` remote's owner and repository name, lowercased, joined with
    `--` (for this line, `engraphcode--open-curriculum-ecosystem`). A fork
@@ -107,20 +109,29 @@ scopes by repository identity instead.
    tracked file may resolve through one. Nothing load-bearing for a gate,
    validator or build. Content an agent inferred from observed behaviour is
    marked inferred until the operator ratifies it.
-7. **Readers.** The shared start-right grounding reads the index and the
-   current repository's scope file, in that order, and is the single tracked
-   read pointer. Because the location is the home directory, no primary-
-   checkout resolution is needed: a linked worktree, a second clone and a
-   session in any other Practice repository read the same files.
+7. **Readers.** The shared start-right grounding is the single tracked read
+   pointer. It runs the host's profile check FIRST (the host's Practice index
+   names the command), so a document carrying a credential-shaped line is
+   refused before anything is read into a session; then it reads the index,
+   the current repository's scope file and this machine's file, in that
+   order. Because the location is the home directory, no primary-checkout
+   resolution is needed: a linked worktree, a second clone and a session in
+   any other Practice repository read the same files. The scope key is
+   derived from the `origin` remote in its `https://host/owner/repo`,
+   `git@host:owner/repo` and `ssh://git@host/owner/repo` forms alike, with or
+   without `.git`:
 
    ```bash
    PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
    [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
    SCOPE="$(git remote get-url origin 2>/dev/null \
-     | sed -E 's#^(git@|https?://)([^/:]+)[:/]##; s#\.git$##; s#/#--#' \
+     | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
      | tr '[:upper:]' '[:lower:]')"
    [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
      && cat "$PROFILE_ROOT/repos/$SCOPE.md"
+   MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+   [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
+     && cat "$PROFILE_ROOT/machines/$MACHINE.md"
    ```
 
 8. **The checkout tier is retired.** `.agent/operator-local/profile.md` is
@@ -140,14 +151,15 @@ between machines, provided the estate stays machine-agnostic.
 
 9. **The contract is Core-carried.** `practice-core/schemas/operator-profile.schema.json`
    (family 1.0.0) governs every document's YAML frontmatter: `practice_profile`,
-   `schema_version`, `kind`, `updated`, `ratified`, and the kind's key. The
-   estate's enforcement surface is the `operator-profile` validator in
-   `agent-tools` (`pnpm profile:check`), a strict mirror bound to the contract
-   by a conformance smoke in the e2e suite, as the inter-Practice wire
-   contract is bound. Within a family, evolution is additive-optional with a
-   MINOR bump of the document and every validator together; anything else is
-   a new family. The check runs at session open and after edits, never in
-   the commit or push gates: decision 4 stands.
+   `schema_version`, `kind`, `updated`, `ratified`, and the kind's key. Each
+   host that adopts the Core binds its own enforcement validator to the
+   contract — a strict mirror proved equivalent by a conformance smoke on
+   shared fixtures, as the inter-Practice wire contract is bound — and names
+   the check command in its Practice index; the Core names no host tool
+   (`practice-core-portability`). Within a family, evolution is
+   additive-optional with a MINOR bump of the document and every validator
+   together; anything else is a new family. The check runs at session open
+   and after edits, never in the commit or push gates: decision 4 stands.
 10. **A third kind, `machine`.** `machines/<machine-key>.md`, keyed by the
     short host name lowercased, holds what is true of one machine only
     (which CLIs are logged out, where checkouts live). The index holds what
@@ -171,10 +183,11 @@ between machines, provided the estate stays machine-agnostic.
 - This PDR licenses one surface. A second home-directory surface (a cache,
   a registry, a cross-repository state file) is a new decision, recorded by
   amending this PDR or by its own PDR, never by convention.
-- The profile is per person per machine. It is not a team surface, not a
-  sync target, and nothing another user or CI needs may live in it; a fact
-  that matters to more than one person is doctrine and goes to a tracked
-  surface.
+- The profile is one person's. The operator may keep it in a private
+  repository and sync it between their own machines (decision 11); it is
+  never a team surface, never shared with another person or with CI, and
+  nothing another user or CI needs may live in it. A fact that matters to
+  more than one person is doctrine and goes to a tracked surface.
 - Repository-scoped files hold facts true of that line; they never restate
   the shared index.
 

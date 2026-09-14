@@ -7,8 +7,8 @@ Per [PDR-141](../practice-core/decision-records/PDR-141-operator-profile-in-the-
 it lives under the Practice's home-directory root so that every Practice
 repository, linked worktree and clone on the machine reads the same files:
 
-- `~/.practice/profile/index.md` — true of the operator across every
-  repository on this machine;
+- `~/.practice/profile/index.md` — true of the operator everywhere, on every
+  machine and in every repository;
 - `~/.practice/profile/repos/<scope-key>.md` — true of one repository line,
   keyed by the `origin` remote's owner and name (for this line,
   `engraphcode--open-curriculum-ecosystem`), never by a path;

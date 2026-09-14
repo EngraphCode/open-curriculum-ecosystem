@@ -6,7 +6,8 @@ Practice Core package.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
 
-- New PDR-141 (Proposed; owner-directed core): the operator profile — which
+- New PDR-141 (Accepted: owner-ratified 2026-09-14 with the same day's
+  amendment; owner-directed core): the operator profile — which
   identity acts where, how the operator wants to be written to and for,
   personal operating preferences — moves out of the checkout
   (`.agent/operator-local/profile.md`) to `~/.practice/profile/index.md`

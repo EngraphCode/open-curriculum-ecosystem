@@ -776,9 +776,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     [`gates/SKILL-CANONICAL.md`](../change-custody/gates/SKILL-CANONICAL.md) and
     [`build-system.md`](../../../docs/engineering/build-system.md)
     § `pnpm check` - Canonical full gate): session-handoff is not complete
-    in the individual-contributor or handoff-owner sense unless `pnpm check`
-    completes with no errors or warnings. This step makes that standing
-    direction structurally enforced rather than agent-recalled.
+    in the individual-contributor or handoff-owner sense unless the full
+    gate completes with no errors or warnings. Since the owner's ruling of
+    2026-09-14 that evidence is the landed commit's own hook run, never a
+    separate `pnpm check`; this step makes the standing direction
+    structurally enforced rather than agent-recalled.
 
     **Singleton in multi-agent windows.** Where a whole-repo gate run is
     warranted at all (it never is beside a commit, per the ruling above),

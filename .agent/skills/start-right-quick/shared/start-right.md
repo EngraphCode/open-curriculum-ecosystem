@@ -112,23 +112,26 @@ including what must never be stored there, is
 
 It lives in the operator's home directory, shared by every Practice
 repository, linked worktree and clone on the machine, and it may be a git
-repository the operator syncs between machines. Read the index, then the
-current repository's scope file (keyed by the `origin` remote's owner and
-name, never a path), then this machine's file (keyed by the short host
-name); then run the check, which exits 0 and says so when nothing is there:
+repository the operator syncs between machines. Run the check FIRST — it
+exits 0 and says so when nothing is there, and it refuses a document
+carrying a credential-shaped line before anything is read into the session
+— then read the index, the current repository's scope file (keyed by the
+`origin` remote's owner and name in any of its https, scp-style or ssh
+forms, never a path), then this machine's file (keyed by the short host
+name):
 
 ```bash
+pnpm profile:check || { echo "fix the profile before reading it"; exit 1; }
 PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
 [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
 SCOPE="$(git remote get-url origin 2>/dev/null \
-  | sed -E 's#^(git@|https?://)([^/:]+)[:/]##; s#\.git$##; s#/#--#' \
+  | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
   | tr '[:upper:]' '[:lower:]')"
 [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
   && cat "$PROFILE_ROOT/repos/$SCOPE.md"
 MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
 [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
   && cat "$PROFILE_ROOT/machines/$MACHINE.md"
-pnpm profile:check
 ```
 
 A present profile that fails the check is fixed at once, never read around:
@@ -558,9 +561,12 @@ first.
 
 ## Quality Gates
 
-Run after making changes. Note: some gates trigger earlier ones;
-caching prevents duplicate work. See @docs/engineering/build-system.md
-and ADR-065 for caching details.
+Run after making changes, before the commit. Note: some gates trigger
+earlier ones; caching prevents duplicate work. See
+@docs/engineering/build-system.md and ADR-065 for caching details. The
+commit's own pre-commit hook runs the whole-tree gates: never run
+`pnpm check` or any whole-repo gate beside or after a commit (owner ruling
+2026-09-14, in session-handoff step 11).
 
 ```bash
 # From repo root, one at a time
