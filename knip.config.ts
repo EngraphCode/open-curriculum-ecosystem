@@ -99,6 +99,8 @@ const config: KnipConfig = {
         'src/validators/fitness-vocabulary/validate-fitness-vocabulary.ts',
         'src/validators/collaboration-state/validate-collaboration-state.ts',
         'src/validators/protocol-wire/validate-protocol-wire-contract.ts',
+        'src/validators/operator-profile/validate-operator-profile.ts',
+        'src/validators/operator-profile/validate-operator-profile-contract.ts',
         'src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts',
         'src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts',
         'src/validators/markdown-links/validate-markdown-links.ts',

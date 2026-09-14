@@ -290,6 +290,7 @@ reusable knowledge:
 | Collaboration channels | [`memory/executive/agent-collaboration-channels.md`](memory/executive/agent-collaboration-channels.md) | Register of communication options and when to use each |
 | Pattern library | [`memory/active/patterns/`](memory/active/patterns/README.md) | Abstract solutions to recurring design problems (live count surfaces in the directory listing) |
 | Session napkin | [`memory/active/napkin.md`](memory/active/napkin.md) | Current session observations, written continuously |
+| Operator profile | `~/.practice/profile/index.md` (home directory, not in this repository; may not exist) | The operator's own facts — identities, writing preferences, machine notes — shared by every Practice repository on the machine; `repos/<scope-key>.md` for this line, `machines/<machine-key>.md` for the host. Contract: [`practice-core/schemas/operator-profile.schema.json`](practice-core/schemas/operator-profile.schema.json); check with `pnpm profile:check`. Absence is the expected condition |
 | Napkin archive | [`memory/active/archive/`](memory/active/archive/) | Rotated napkins (historical record) |
 | Operational continuity | [`memory/operational/repo-continuity.md`](memory/operational/repo-continuity.md) | Repo-wide active-thread register, standing decisions, pending-graduations |
 
