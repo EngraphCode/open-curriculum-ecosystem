@@ -1,6 +1,7 @@
 import { readBudget } from './budget.js';
 import { DEFAULT_POLICY, reviewCost, type CostReport } from './cost.js';
-import { gitDiffStat, readLiveHarvest } from './harvest.js';
+import { gitDiffStat } from './git.js';
+import { readLiveHarvest } from './harvest.js';
 import { measureRounds } from './measure.js';
 
 /** The repository's automatic reviewers — the declared expected set when `--expect` is absent. */
@@ -13,8 +14,14 @@ export interface PricingInput {
   readonly ghPath?: string;
 }
 
-/** Price one pull request as the gate prices it: its live recording, its declared budget, the policy. */
-export function pricePullRequest(input: PricingInput): CostReport {
+export interface GatePricing {
+  readonly report: CostReport;
+  /** The base branch's tip as GitHub holds it — the identity a sync push must merge. */
+  readonly baseRefOid: string | undefined;
+}
+
+/** Price one pull request as the gate prices it, with the base identity the sync test needs. */
+export function priceForGate(input: PricingInput): GatePricing {
   const live = readLiveHarvest({ number: input.number, repo: input.repo, ghPath: input.ghPath });
   const rounds = measureRounds({
     harvest: live.harvest,
@@ -26,7 +33,13 @@ export function pricePullRequest(input: PricingInput): CostReport {
     diff: gitDiffStat,
   });
   const lastReviewed = rounds.at(-1)?.head;
-  return reviewCost(rounds, readBudget(live.body).pushes, DEFAULT_POLICY, {
+  const report = reviewCost(rounds, readBudget(live.body).pushes, DEFAULT_POLICY, {
     headAdvanced: lastReviewed !== undefined && lastReviewed !== live.harvest.headRefOid,
   });
+  return { report, baseRefOid: live.baseRefOid };
+}
+
+/** Price one pull request as the gate prices it: its live recording, its declared budget, the policy. */
+export function pricePullRequest(input: PricingInput): CostReport {
+  return priceForGate(input).report;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { runReviewCostCli } from '../../src/review-cost/cli.js';
+import { gateExit, parsePushedRefs, runReviewCostCli } from '../../src/review-cost/cli.js';
 
 // A sink that records output; no gh, no git — every case here is refused before either runs.
 const run = (args: readonly string[]) => {
@@ -68,5 +68,50 @@ describe('review-cost gate — malformed invocations are refused as usage, never
   it('refuses an unknown subcommand and an unknown flag', () => {
     expect(run(['price', '--pr', '7']).exitCode).toBe(2);
     expect(run(['gate', '--pr', '7', '--verbose']).exitCode).toBe(2);
+  });
+});
+
+describe('parsePushedRefs — the hook ref lines the gate prices', () => {
+  it('reads the branch, the local head and the remote head; a creation has no remote head', () => {
+    const refs = parsePushedRefs(
+      [
+        'refs/heads/lane/a 1111111 refs/heads/lane/a 2222222',
+        'refs/heads/lane/new 3333333 refs/heads/lane/new 0000000000000000000000000000000000000000',
+        'refs/heads/gone 0000000000000000000000000000000000000000 refs/heads/gone 4444444',
+        'refs/tags/v1 5555555 refs/tags/v1 0000000',
+        '',
+      ].join('\n'),
+    );
+    expect(refs).toStrictEqual([
+      { branch: 'lane/a', localSha: '1111111', remoteSha: '2222222' },
+      { branch: 'lane/new', localSha: '3333333', remoteSha: undefined },
+    ]);
+  });
+});
+
+describe('gateExit — a sync push passes an exhausted loop, and only a sync push', () => {
+  const exhausted = {
+    rounds: [],
+    total: 61.41,
+    budget: 40,
+    budgetPushes: 2,
+    verdict: 'exhausted',
+    evidence: ['BUDGET-EXHAUSTED'],
+  } as const;
+
+  it('refuses an exhausted loop with exit 3 when the push is not a sync', () => {
+    expect(gateExit(exhausted, false)).toStrictEqual({ code: 3, evidence: ['BUDGET-EXHAUSTED'] });
+  });
+
+  it('passes a sync push on an exhausted loop, saying why', () => {
+    const exit = gateExit(exhausted, true);
+    expect(exit.code).toBe(0);
+    expect(exit.evidence.at(-1)).toContain('outside the settlement budget (PDR-140 clause 4)');
+  });
+
+  it('passes a loop within budget with its evidence unchanged, sync or not', () => {
+    const within = { ...exhausted, total: 12, verdict: 'within', evidence: ['within'] } as const;
+    expect(gateExit(within, false)).toStrictEqual({ code: 0, evidence: ['within'] });
+    expect(gateExit(within, true)).toStrictEqual({ code: 0, evidence: ['within'] });
   });
 });
