@@ -1302,3 +1302,35 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   ESLint rule should be deleted, and that deletion is the delivery node's first slice, not a
   docs-session act. Not run: markdownlint, prettier, the plan-corpus validator — by the owner's
   frame; the next seat runs `pnpm check:docs` and `pnpm repo-validators:check` before any commit.
+
+## Zephyr guards Leeward (281e44) — curator, the Claude per-user memory drain (2026-09-14, n=1, Fable 5.1)
+
+- **What landed.** `f24683337` swept Kinkajou's Reliable Atoms block (owner word). `0e4173b43`
+  graduated the buffer: 495 entries read first-hand; nine Sonnet batch mappers and one Fable
+  validator corroborated homes; 62 files changed across rules, PDRs, executive memory, skills,
+  docs, plans and registers; six directive-bound entries queued in `pending-graduations.md`
+  under the context-budget rule; 488 buffer files retired after the commit landed (backup
+  tarball beside the buffer); the operator profile seeded at `.agent/operator-local/profile.md`,
+  every item marked inferred for the owner to ratify. The rulings ledger cites no memory-file
+  names any more.
+- **Mistakes, mine.** (1) `rm` of a duplicate kit doc I had written — inside the
+  never-use-git rule's own-draft scope, but I clarified that scope in the rule the same hour
+  because the rule read as if provenance forbade it. (2) A zsh unmatched glob in a `grep`
+  aborted the whole command and produced three false NONE verdicts; re-grepped without globs;
+  recorded in the gotchas. (3) Three duplicate homes I created before finding the existing one
+  (a durability hierarchy already in the permanent-doc rule; a theme-closure doc whose report
+  already existed; a KNOWN-ISSUES item already in the compositions doc): removed, the
+  consolidate-at-second-consumer discipline is grep-before-writing. (4) The first enqueue used a
+  fresh UUID as `--id`; the guard refused because `--id` is the seat's agent id from the claims
+  registry, not a per-intent id. Abandoned and re-enqueued. (5) The 30-minute git claim lapsed
+  mid-drain; closed and re-opened with a two-hour TTL.
+- **Validator's grep weaknesses, acted on.** Rules citing memory files by name (repointed);
+  refuted state standing in plans (design-showcase R4 re-attributed); concepts split across
+  pattern, rule and skill (homes chosen by the new-rule-vs-pdr-clause classifier). Two
+  memories the validator flagged: `worktree-entry-standing-permission` retired as refuted by
+  `worktree-residency`; `verified-correct-is-not-a-proportionality-test` held in the buffer until
+  PR #143 lands its homes.
+- **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
+  (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
+  place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)
+  appears in the session list with no claim in this repo's registry.
