@@ -31,6 +31,13 @@ and only its link-free members are a valid partial-review surface for size-cappe
 
 ## Research by Topic
 
+### Cognitive systems and structured thinking
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [The foundations of experimental design](cognitive-systems/structured-thinking/experimental-design-foundations.md) | Six principles with sources: an answerable question, a fair comparison, meaningful measurement, informative evidence, an honest test, a claim within the evidence; a ten-item planning record | Fairness and informativeness are separate requirements; the independent unit is what was assigned, never what produced a row; the important rules are set before the result is seen |
+| [Five foundations of statistical rigour](cognitive-systems/structured-thinking/statistical-rigour-foundations.md) | Meaning, data generation, comparison and conditioning, uncertainty, error control and correction — with the five-sentence compact form for any important quantitative claim | A number is only as useful as its connection to the question; more rows do not repair bias or dependence; a claim's strength matches the evidence, and the procedure must give error a fair chance to show. The always-loaded form is the rule `one-instance-is-an-observation` |
+
 ### Adaptive capacities and agent coordination
 
 | Document | Purpose | Key insights |
