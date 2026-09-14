@@ -4,7 +4,6 @@ import { z } from 'zod';
 
 import { GH_EXEC_OPTIONS, resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 import { parseRecordedHarvest, type RecordedHarvest } from '../pr-tally/harvest.js';
-import type { DiffStat } from './measure.js';
 
 /**
  * The live inputs the gate reads: the pull request's recording (the pr-tally
@@ -17,6 +16,7 @@ const RECORDING_QUERY = `query($owner: String!, $name: String!, $number: Int!) {
   repository(owner: $owner, name: $name) {
     pullRequest(number: $number) {
       number headRefOid baseRefName body
+      baseRef { target { oid } }
       mergeCommit { oid }
       commits(first: 100) { pageInfo { hasNextPage endCursor } nodes { commit { oid committedDate } } }
       reviewThreads(first: 100) { pageInfo { hasNextPage endCursor } nodes {
@@ -33,6 +33,8 @@ const RECORDING_QUERY = `query($owner: String!, $name: String!, $number: Int!) {
 interface LiveHarvest {
   readonly harvest: RecordedHarvest;
   readonly body: string;
+  /** The tip of the pull request's base branch as GitHub holds it; undefined when the base is gone. */
+  readonly baseRefOid: string | undefined;
 }
 
 interface HarvestOptions {
@@ -46,7 +48,10 @@ interface HarvestOptions {
 const ENVELOPE = z.object({
   data: z.object({
     repository: z.object({
-      pullRequest: z.looseObject({ body: z.string().nullable() }),
+      pullRequest: z.looseObject({
+        body: z.string().nullable(),
+        baseRef: z.object({ target: z.object({ oid: z.string().min(1) }) }).nullable(),
+      }),
     }),
   }),
 });
@@ -90,7 +95,11 @@ export function readLiveHarvest(options: HarvestOptions): LiveHarvest {
     ),
   );
   const pullRequest = envelope.data.repository.pullRequest;
-  return { harvest: parseRecordedHarvest(pullRequest), body: pullRequest.body ?? '' };
+  return {
+    harvest: parseRecordedHarvest(pullRequest),
+    body: pullRequest.body ?? '',
+    baseRefOid: pullRequest.baseRef?.target.oid,
+  };
 }
 
 /** The open pull request whose head is the given branch, or null when none is open. */
@@ -166,53 +175,4 @@ export function currentRepo(ghPath?: string, run: GhCommandExecutor = execFileSy
     ['repo', 'view', '--json', 'nameWithOwner', '--jq', '.nameWithOwner'],
     GH_EXEC_OPTIONS,
   ).trim();
-}
-
-// A merge commit is a sync from the base ONLY when its branch side changed
-// nothing: the diff from its first parent to the merge equals the diff the
-// second parent brings in from their merge base. A merge carrying cures or
-// conflict edits is priced in full from the previous reviewed head — the
-// base's changes ride along, which overcharges, the safe direction for a gate.
-function numstat(range: string, run: GhCommandExecutor): string {
-  return run('git', ['diff', '--numstat', range], GH_EXEC_OPTIONS).trim();
-}
-
-function isBaseSync(revision: string, run: GhCommandExecutor): boolean {
-  const parents = run('git', ['rev-list', '--parents', '-n', '1', revision], GH_EXEC_OPTIONS)
-    .trim()
-    .split(/\s+/u);
-  const [, first, second] = parents;
-  if (parents.length !== 3 || first === undefined || second === undefined) {
-    return false;
-  }
-  return numstat(`${first}..${revision}`, run) === numstat(`${first}...${second}`, run);
-}
-
-/** Lines and files changed between two revisions, from `git diff --numstat`; zero for a base sync. */
-export function gitDiffStat(
-  from: string,
-  to: string,
-  run: GhCommandExecutor = execFileSync,
-): DiffStat {
-  if (isBaseSync(to, run)) {
-    return { lines: 0, files: [], sync: true };
-  }
-  const out = numstat(`${from}..${to}`, run);
-  const rows = out
-    .split('\n')
-    .filter((line) => line.trim() !== '')
-    .map((line) => line.split('\t'));
-  const lines = rows.reduce(
-    (sum, [added, deleted]) => sum + (Number(added) || 0) + (Number(deleted) || 0),
-    0,
-  );
-  return {
-    lines,
-    files: rows.map((row) => row[2] ?? '').filter((file) => file !== ''),
-    sync: false,
-  };
-}
-
-export function currentBranch(run: GhCommandExecutor = execFileSync): string {
-  return run('git', ['rev-parse', '--abbrev-ref', 'HEAD'], GH_EXEC_OPTIONS).trim();
 }
