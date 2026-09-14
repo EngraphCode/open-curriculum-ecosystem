@@ -156,6 +156,20 @@ worker takes the implementation slice only after the verdict lands.
 - `collaboration-state-write-safety.plan.md`
   — current comms-event and transaction-helper implementation plan.
 
+## Scale ceremony to the audience
+
+The comms-event protocol — session-open, pause and closeout broadcasts,
+heartbeat-end — exists for coordination between live agents. In an n=1
+session, with zero peers, there is no audience: the napkin, the continuity
+surfaces, the thread records, the PRs and git history already carry the
+record, and emitting the events anyway is ritual that costs owner
+wall-clock (owner, 2026-07-18, at a closeout: "this is an n=1 session, stop
+messaging ceremony and do the session close out"). Verify the peer state
+first (the claims registry and the comms log); when solo, write the tracked
+record and skip the broadcasts. Multi-agent windows keep the full protocol.
+This scales ceremony; it never lifts a gate — an n=1 session treats its goal
+as direction, never as permission to skip checks.
+
 ## Identity
 
 Sign entries with the PDR-027 identity row: `agent_name`, `platform`,

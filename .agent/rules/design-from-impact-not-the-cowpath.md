@@ -60,6 +60,39 @@ legitimate prose — so this is an agent self-scan at write and
 consolidation moments, not a hook substring
 ([`hook-policy-substring-discipline`](hook-policy-substring-discipline.md)).
 
+## A Lane Closes on Its Value Statement
+
+Owner, 2026-09-10, after a lane was reported in terms of legs, analyser
+rules, `continue-on-error` and a refinement: "well that sounds like
+convoluted nonsense! Mechanisms aren't purpose, design is not impact. What
+is the work trying to achieve and why, what is the value, to whom, when.
+That is all that matters." Open every lane report with the value statement
+— what, why, to whom, when — and close the lane when that statement holds at
+the landed head. The front door's settlement (green by name, the quiet
+window, threads dispositioned) is the SAFETY condition, necessary and never
+sufficient; a prose-review tail on the lane's records is terminated by
+declaration at its budget, never chased. And at a handover, confirm the
+boundary of "done" in the owner's own words before writing the record (a
+seat read two PRs as outside the lane; the owner read them as its two
+halves).
+
+## Precedent Is Not Correctness
+
+That an existing component chose X — a framework, a pattern, a library — is
+evidence about THAT component's use case, never a justification for the same
+choice elsewhere (owner, 2026-07-08, after a Slack-app design leaned on the
+repository's Express MCP server as a reason to choose Express: "Precedent is
+NOT correctness … the Express MCP is sensible for THAT use case, not this
+one"; the Slack adapter was Web-Request-native and wanted a different
+runtime). Reasoning from precedent is a fluency trap — it arrives smoothly
+and skips the fit check. When about to justify a choice with "the existing
+module does X", stop and re-derive from this use case's actual constraints;
+reuse genuinely shared packages freely, never inherit framework or
+architecture choices by precedent; state the fit-for-use-case warrant, not
+the precedent. The same rule reads the current tooling configuration as a
+hypothesis about the right design, never a law (`never-disable-checks`
+§Configuring a check to express the architecture).
+
 ## Re-Apply at Every Altitude
 
 The substrate lens slips off in **detail and capture mode** — recording

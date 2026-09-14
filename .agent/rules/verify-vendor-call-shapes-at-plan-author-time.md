@@ -36,8 +36,7 @@ function signature.
   the model's priors and must be checked against the latest published
   documentation — never against installed source alone or a
   remembered capability matrix (corpus-validated recurring class,
-  2026-06-30; see also the per-user memory
-  "Platform feature support — check official docs").
+  2026-06-30).
 - **When probing a vendor refusal or normalisation before encoding it,
   enumerate the class's sub-cases and probe the EXACT spelling being
   encoded.** Two probes of different sub-cases can both be "right" and

@@ -16,9 +16,11 @@ serves: reliable-atoms-programme
 impact_areas:
   - practice-and-estate
 tickets: []
-depends_on: []
+depends_on:
+  - plan: reliable-atoms-workspace-shape
+    kind: beneficial
 owner_gates: []
-last_updated: 2026-09-09
+last_updated: 2026-09-14
 ---
 
 # Graph and queue foundations delivery
@@ -70,6 +72,15 @@ establishes candidate scope before consumers exist.
   qualifies it; the ten-gate test promotes it into a shared core
   package. A gate the queue atom fails at promotion is a register row
   naming that gate, routed to the owner at the batch's promotion moment.
+- **The queue atom's home declares the workspace class.** The workspace
+  that receives the queue atom declares the Reliable Atoms class and is
+  built to fit the class's directory caps and stricter tiers from its
+  first commit (owner direction 2026-09-14; the values live in
+  `reliable-atoms-workspace-shape`). That node is a `beneficial`
+  dependency: the minimum shippable shape without it is the same
+  workspace built to the same caps and tiers by hand-check at PR review,
+  with the validator and the shared tier configs landing after and
+  proving the shape already held.
 - **Reference research recorded, not cited.** Reference libraries are
   selected as the best permissively licensed examples and read for
   mechanism; licence data is recorded and available in the source

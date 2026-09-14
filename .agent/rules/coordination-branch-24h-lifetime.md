@@ -53,7 +53,19 @@ stamp the lifetime) and at session-open (to check it).
    start in worktrees on their own branches per
    [`worktree-hygiene`](worktree-hygiene.md) and the owner's standing
    word (2026-07-28: work in worktrees where reasonable). A coordination
-   branch that accumulates work products cannot converge in a day.
+   branch that accumulates work products cannot converge in a day. And
+   CODE never rides it directly at all: source, workflows, hooks,
+   config-as-code, anything executable or CI-affecting enters the
+   repository only on a branch through a pull request with review before
+   merge, however small and however well the author verified it (owner,
+   2026-07-25, after dependency pin bumps were evaluated first-hand and
+   committed straight to the coordination branch: "that's not a cure,
+   that's papering over a fuck up. Do not allow code into this repo
+   without a first hand review, not ever"; cured the same hour by a revert
+   and a real pull request). Self-review is structurally blind and a
+   direct commit forecloses every reviewer; the test is "is this code?",
+   never "am I confident?". Direct commits here remain correct only for
+   fleet state and knowledge surfaces.
 5. **Keep the branch reasonably clean between rotations** (owner,
    2026-07-25: "periodic commits, not too many, just don't let things
    build up"): the accruing shared-state surfaces (memory, handoff maps,

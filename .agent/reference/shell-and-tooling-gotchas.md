@@ -493,3 +493,21 @@ tool retires them.
   notifications kept a Director's loop busy at the minute and the tick never
   arrived, so a dirty continuity line sat for an hour — a dirty continuity line
   is swept at the next quiet moment, cron or not.
+- **The Sonar CLI's login and integrate path rewrites TRACKED files in place**
+  (2026-09-03): `sonar auth login --org <org>` replaced the estate's customised
+  hook scripts under `.claude/hooks/sonar-secrets/build-scripts/` with the CLI's
+  stock five-line scripts, rewrote the two hook command lines in
+  `.claude/settings.json` (dropping the error-logging wrapper and a trailing
+  newline) and the SonarLint block in `.vscode/settings.json` — no seat edited
+  them, and the session ran the stock hooks from then on. A vendor-owned
+  in-tree surface is a pin class to name; after any `sonar auth` or
+  `sonar integrate` run, `git status` before anything else, and read a
+  logout's state from the tool's own status command, never its exit line (a
+  `sonar auth logout` once left the keychain connection in place).
+- **`ls --time-style` and `cat -A` are GNU flags; the macOS tools refuse them**
+  — use `stat -f '%Sm %N'` for mtimes and `cat -v` for invisible characters.
+- **A zsh glob that matches nothing aborts the WHOLE command** (`no matches
+  found`), so a grep over several paths with one unmatched glob returns
+  nothing for all of them and reads as a clean negative (four false NONE
+  verdicts in one curation pass, 2026-09-14). Name paths literally, or set
+  `nullglob` for the call; a census with a glob in it needs a known positive.

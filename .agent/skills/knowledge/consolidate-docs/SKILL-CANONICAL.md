@@ -321,6 +321,24 @@ Worked instance: the 2026-07-02 salvage —
 `discovery-run-salvage-report-2026-07-02.md` with its tier table, work-listed
 by `corpus-analysis-salvage-and-topology-redesign.plan.md`.
 
+## Sweep pointers into a moved range before moving it
+
+A moved or archived range leaves its readers behind. PR #80 (2026-09-08,
+the director-handoff disposition) was a correct move that the Director
+had read, and still paid seven review rounds after the YES, every finding a
+real pointer into the moved range: a retained block's "below", a
+next-safe-steps entry, a rule's provenance line, the archive's own relative
+link, a snapshot's "homed here" for a contract with no other home, the
+header's byte-equality claim after the link edit. Each stale pointer is a
+reader misled, so each costs a round and the tail is geometric. BEFORE the
+move, in one pass: grep the file name across `.agent` and `docs` and re-true
+every hit; read the moved text's own self-references ("below", "above",
+"this file", "stays here") from the reader's new position; re-resolve every
+relative link from the new directory; sweep provenance lines in rules and
+records and the identity-naming census rows; and if a contract lived only
+in the moved or replaceable text, home it in a durable surface first. Then
+the move lands in one round.
+
 ## Plan supersession discipline
 
 When a plan is narrowed, reframed, or superseded, the same change set

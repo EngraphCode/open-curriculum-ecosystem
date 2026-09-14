@@ -84,6 +84,16 @@ concerns; this ADR owns the repository's decision to follow that policy.
   this implementation-origin policy. Reusable graph foundations may support
   several models; their integration into an existing stack must preserve that
   stack's declared semantic and source-authority contracts.
+- Workspaces that hold Reliable Atoms form a declared class (owner direction,
+  2026-09-14) whose internal shape is budgeted stricter than the rest of the
+  estate: directory cardinality by a blocking repository validator, and the
+  length, complexity and clarity budgets at the class's own lint tier,
+  compiler profile and assurance thresholds. ADR-166 §Amendment 2026-09-14
+  records the scale ownership and the class-scoped budget rule; the
+  programme's delivery node carries the values. The class binds shape, never
+  placement — ADR-041 and ADR-154 still govern where such workspaces sit —
+  and a workspace that does not fit the class's parameters is outside the
+  class, never a reason to loosen them.
 - Exact reference material and its applicable licence, revision, assumptions
   and actual use remain recorded. Existing observations retain their evidence
   scope and execution date. A familiar mechanism and a reference's successful

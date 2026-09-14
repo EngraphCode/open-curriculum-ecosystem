@@ -37,6 +37,20 @@ file-editing instruments are the platform's native per-file editing operation
 compound heredoc that rewrote two files was the instrument the owner refused,
 though the work inside it was right.
 
+Regrounding has TWO legs, and the second is the one skipped. After a
+compaction or a handoff, verifying mechanical state — PRs, claims, comms,
+git, the board — is not being up to speed; the governing corpus (the plans
+README, the strategic node, the live plans, recent closeout records) carries
+the intent those states serve, and a proposal reasoned from a summary and
+memory fragments re-opens decisions already made (owner, 2026-07-24, after a
+"drain the plans backlog" recommendation that the corpus reset had
+deliberately frozen: "I think you need to spend more time understanding the
+history rather than trying to make sensible guesses about next steps").
+Before any scope proposal or card, cite the governing document read THIS
+session that grounds it; no citation, not ready to propose. And read
+inherited letters and records critically — drift accumulates, so their
+claims are checked against the artefacts, never assumed.
+
 ### 1. Durable directives
 
 Read and internalise. **This foundation-directive reading is the
@@ -87,23 +101,58 @@ workstream from the [full ADR index](../../../../docs/architecture/architectural
   activity, not a session-open one — see `consolidate-docs`
   step 3.
 
-### 3a. Operator profile (machine-local; absence is normal)
+### 3a. Operator profile (home directory; absence is normal)
 
 Read the operator profile if this machine has one. It carries facts about the
 human you are working with that cannot be tracked: which credential identity
 performs which action class on third-party systems, their tone-of-voice and
 communication preferences, and personal operating preferences. The contract,
 including what must never be stored there, is
-[`.agent/operator-local/README.md`](../../../operator-local/README.md).
+[PDR-141](../../../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md).
 
-It is machine-local, so it does not travel through git and a linked worktree
-holds no copy. Resolve it in the **primary checkout**:
+It lives in the operator's home directory, shared by every Practice
+repository, linked worktree and clone on the machine, and it may be a git
+repository the operator syncs between machines. Run the check FIRST — it
+exits 0 and says so when nothing is there, and it refuses a document
+carrying a credential-shaped line before anything is read into the session
+— then read the index, the current repository's scope file (keyed by the
+`origin` remote's owner and name in any of its https, scp-style or ssh
+forms, never a path), then this machine's file (keyed by the short host
+name):
+
+The check and the sync need the host's tooling (agent-tools, installed and
+built): on a cold clone run this step after the install and build below,
+never before; the grounding never blocks on the profile.
 
 ```bash
-PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
-[ -f "$PRIMARY/.agent/operator-local/profile.md" ] \
-  && cat "$PRIMARY/.agent/operator-local/profile.md"
+# First the host's profile sync, pull side (PDR-141 decisions 13 to 16): the
+# Practice index names the command once the host binds one; a no-op unless
+# the root is a repository with a remote.
+if pnpm profile:check; then
+  PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
+  [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
+  SCOPE="$(git remote get-url origin 2>/dev/null \
+    | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
+    | tr '[:upper:]' '[:lower:]')"
+  [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
+    && cat "$PROFILE_ROOT/repos/$SCOPE.md"
+  MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+  [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
+    && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+else
+  echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
+fi
 ```
+
+A present profile that fails the check is fixed at once, never read around:
+the contract is `practice-core/schemas/operator-profile.schema.json`. When a
+session writes the profile on the operator's word, it runs the host's
+profile sync, push side, in the same breath (PDR-141 decisions 13 to 16;
+the Practice index names the command once the host binds one): the check
+runs first, the commit is the operator's with a message naming the seat and
+the fact, and no write sits unpushed across a session boundary. The sync is
+a no-op on a profile that is not a repository, and both absence and a
+non-repository profile stay first-class.
 
 **A missing profile is the expected condition, not a defect** (`principles.md`
 §Any User, Any Machine): proceed on tracked defaults and say nothing. Never
@@ -529,9 +578,13 @@ first.
 
 ## Quality Gates
 
-Run after making changes. Note: some gates trigger earlier ones;
-caching prevents duplicate work. See @docs/engineering/build-system.md
-and ADR-065 for caching details.
+Run after making changes, before the commit. Note: some gates trigger
+earlier ones; caching prevents duplicate work. See
+@docs/engineering/build-system.md and ADR-065 for caching details. The
+commit's own pre-commit hook runs the local gates (validators, build,
+type-check, lint, unit tests) and the pull request's checks run the wider
+suites: never run `pnpm check` or any whole-repo gate beside or after a
+commit (owner ruling 2026-09-14, in session-handoff step 11).
 
 ```bash
 # From repo root, one at a time

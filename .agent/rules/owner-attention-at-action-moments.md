@@ -123,6 +123,21 @@ exercise his glance, and a render published only to an agent-side sync
 surface is not "shown". The render IS the visible surface for design
 decisions, and this applies to any UI-shipping lane.
 
+The cadence is the owner's too (2026-08-13): "design work needs continual
+review, because otherwise the wrong thing is worked on and time is wasted …
+frequent and tight feedback loops are the essence of modern best practice."
+A seat that runs tight loops between agents (review fleets, expert chains)
+while deferring the one loop that validates direction, the owner seeing
+pixels, to an internal finish line has inverted the practice. Plan design
+work so the owner sees rendered pages at each structural milestone, the
+first look at the skeleton and never after "done"; and write every
+owner-facing report in outcome language (pages, pixels, what changed for a
+viewer), because internal codenames, bundle numbers and ledger sections
+carry no meaning outside the session and read as "nothing is happening"
+even when work is intense (owner, same day: "You say you are running
+something to go, I don't know what that means, but whatever it means,
+nothing is actually happening").
+
 ### Evidence that refutes an owner-approved premise is an action-moment
 
 When reviewer findings, a data fingerprint, or your own analysis refute a premise
@@ -197,6 +212,61 @@ a question alive only in prose is invisible at the moment it matters. This
 was the owner's SEVENTH escalation of the same defect before it was
 promoted here from buffer memory (2026-07-31); treat prose-blocking as a
 zero-tolerance shape.
+
+The escalations that followed (eight by 2026-08-12: "please give me decisions
+as cards, always") fix the mechanics:
+
+- **The trigger is mechanical.** A turn whose text carries a question mark
+  aimed at the owner, or the words "your call", "want me to", "shall I",
+  "say the word", ends in a card carrying that question instead. A question
+  already asked in prose is still uncarded; re-asking in prose compounds the
+  failure. The scope is CHOICES, not only decisions: any turn laying two paths
+  before the owner is a card, however reversible the paths.
+- **Gates are decision states.** Waiting-for-review, a merge word, a
+  ratification of a presented plan, a design sign-off: each is a card in the
+  turn it becomes the owner's, and every later turn that would restate
+  "standing by" re-fires the card. A heartbeat label or closing line reading
+  "blocked on owner" without a live card is the tell.
+- **Owner-run actions are carded too.** An action only the owner can safely
+  run (risk-class git on the primary, re-auth, a held branch deletion) is a
+  card the moment it exists, typically "Run now" with the exact command to
+  type via `!` versus "Leave for later". "Non-blocking" does not downgrade a
+  card to prose: urgency is the owner's call, visibility is the seat's.
+- **Cards are self-contained.** The card renders apart from the chat; the
+  what, the why and the trade-off go inside the question text and option
+  descriptions, never "given the explanation above". Prose may elaborate; the
+  card stands alone.
+- **The lenses decide WHAT reaches the owner; the card only formats HOW**
+  (owner, 2026-07-25: "don't use up my time with questions you have not put
+  through the decision matrix"). A question is carded only when it survives
+  the decision lenses or is constitutively the owner's; "irreversible" is not
+  a survival criterion, because the safety rules demand conservation proof
+  before the analysis and then the disposition is forced. Execution
+  permission is separate: a risk-class step stays owner-run even when the
+  decision is settled, and that card presents the command, never the
+  question of whether.
+- **More than four questions are successive cards**, never a prose overflow;
+  an open-ended question still travels as a card with candidate options plus
+  free text.
+
+## An owner ask binds at its first utterance
+
+A fourth-time owner ask means the first record did not BIND (owner,
+2026-08-10: "for some of them it is the fourth time I have asked for
+something, I don't want there to have to be a fifth"). The asks WERE
+recorded — as prose in chat, plan narrative, even the napkin — and prose
+records decay into "routable at your word" phrasing that silently
+re-attaches an owner gate the owner already discharged: a skills-grouping
+ruling given with "no debate" was "still not grouped" three days later; a
+standing merge policy already recorded was re-gated on owner clicks the
+same day it was cited. Recorded is not executed; the record must carry WHO
+acts and WHEN or every reader re-derives caution and waits. At the FIRST
+ask, convert: an execution ask becomes a routable lane marked READY with
+its route moment named, needing no further word; a policy ask becomes the
+gating rule or validator that fires at the decision point; an owner ruling
+is never left as narrative only. At every freeze or handoff, sweep the
+owner's words against this test — any "at the owner's word" phrasing where
+the word already exists is a defect.
 
 ## Cross-references
 
