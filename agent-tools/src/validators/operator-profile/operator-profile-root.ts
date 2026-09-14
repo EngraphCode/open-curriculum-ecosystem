@@ -17,8 +17,8 @@ import {
   type ProfileEntry,
   type ProfileLayout,
 } from './operator-profile-layout.js';
-import { MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
-import { assessSyncState } from './operator-profile-sync-state.js';
+import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
+import { assessSyncState, type SyncStateInput } from './operator-profile-sync-state.js';
 
 export interface DocumentFailure {
   readonly relPath: string;
@@ -152,17 +152,52 @@ async function documentFailures(root: string, layout: ProfileLayout): Promise<Do
   return failures;
 }
 
-/** The sync leg: findings only for a repository with a remote (PDR decision 16). */
+/** The document paths a push can stage that exist in the root; an unreadable one is an error. */
+export async function existingProfilePaths(
+  root: string,
+): Promise<Result<readonly string[], string>> {
+  const present = await Promise.all(
+    [INDEX_FILE_NAME, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map(async (relPath) => {
+      const there = await presence(path.join(root, relPath));
+      return there.ok ? ok(there.value === 'absent' ? [] : [relPath]) : there;
+    }),
+  );
+  const collected = collect(present);
+  return collected.ok ? ok(collected.value.flat()) : collected;
+}
+
+const NOT_A_REPOSITORY: SyncStateInput = {
+  isRepository: false,
+  hasRemote: false,
+  hasUpstream: false,
+  porcelain: '',
+  ahead: 0,
+  behind: 0,
+};
+
+/**
+ * The sync leg: findings only for a repository with a remote, information
+ * for the other first-class states (PDR decision 16); a git read that fails
+ * is an operational error, never a clean state.
+ */
 async function syncReport(
   root: string,
-): Promise<{ readonly failures: readonly DocumentFailure[]; readonly info: readonly string[] }> {
-  if (!(await isGitRepository(root))) {
-    return { failures: [], info: [] };
+): Promise<
+  Result<
+    { readonly failures: readonly DocumentFailure[]; readonly info: readonly string[] },
+    string
+  >
+> {
+  const state = (await isGitRepository(root))
+    ? readSyncState(createGitRunner(root))
+    : ok(NOT_A_REPOSITORY);
+  if (!state.ok) {
+    return err(`the sync state of ${root} is unreadable — ${state.error}`);
   }
-  const assessment = assessSyncState(readSyncState(createGitRunner(root)));
+  const assessment = assessSyncState(state.value);
   const failures =
     assessment.findings.length === 0 ? [] : [{ relPath: '(sync)', messages: assessment.findings }];
-  return { failures, info: assessment.info };
+  return ok({ failures, info: assessment.info });
 }
 
 /**
@@ -184,9 +219,12 @@ export async function readProfileReport(
   const layout = classifyProfileEntries(entries.value);
   const documents = await documentFailures(root, layout);
   const sync = await syncReport(root);
+  if (!sync.ok) {
+    return sync;
+  }
   return ok({
     documentCount: layout.documents.length,
-    failures: [...documents, ...sync.failures],
-    info: sync.info,
+    failures: [...documents, ...sync.value.failures],
+    info: sync.value.info,
   });
 }

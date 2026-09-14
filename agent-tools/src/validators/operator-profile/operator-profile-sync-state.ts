@@ -7,6 +7,8 @@
  * report; everything else is information, never a finding.
  */
 
+import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
+
 export interface SyncStateInput {
   /** The root has a `.git` entry. */
   readonly isRepository: boolean;
@@ -30,6 +32,17 @@ export interface SyncAssessment {
 }
 
 const PUSH_CURE = 'cure: pnpm profile:sync push --message "<seat>: <the fact>"';
+const FURNITURE_CURE =
+  'cure: commit or ignore them in the profile repository yourself (profile:sync push stages only index.md, repos and machines)';
+
+/** Whether a path is one of the three document kinds a push can stage. */
+export function isProfileDocumentPath(relPath: string): boolean {
+  return (
+    relPath === INDEX_FILE_NAME ||
+    relPath.startsWith(`${SCOPES_DIR_NAME}/`) ||
+    relPath.startsWith(`${MACHINES_DIR_NAME}/`)
+  );
+}
 
 /** Non-empty porcelain lines: the dirty paths. */
 export function dirtyPaths(porcelain: string): readonly string[] {
@@ -53,6 +66,25 @@ function nothingToSync(input: SyncStateInput): string | undefined {
     return 'the profile is a git repository with no remote (first-class; nothing to sync)';
   }
   return undefined;
+}
+
+/** Dirty documents take the push cure; dirty git furniture cannot, and says so. */
+function dirtyFindings(porcelain: string): readonly string[] {
+  const dirty = dirtyPaths(porcelain);
+  const documents = dirty.filter((relPath) => isProfileDocumentPath(relPath));
+  const others = dirty.filter((relPath) => !isProfileDocumentPath(relPath));
+  const findings: string[] = [];
+  if (documents.length > 0) {
+    findings.push(
+      `${count(documents.length, 'uncommitted change')} (${documents.join(', ')}) — ${PUSH_CURE}`,
+    );
+  }
+  if (others.length > 0) {
+    findings.push(
+      `${count(others.length, 'uncommitted change')} outside the profile documents (${others.join(', ')}) — ${FURNITURE_CURE}`,
+    );
+  }
+  return findings;
 }
 
 function upstreamFindings(input: SyncStateInput): readonly string[] {
@@ -84,10 +116,5 @@ export function assessSyncState(input: SyncStateInput): SyncAssessment {
   if (info !== undefined) {
     return { findings: [], info: [info] };
   }
-  const dirty = dirtyPaths(input.porcelain);
-  const dirtyFindings =
-    dirty.length === 0
-      ? []
-      : [`${count(dirty.length, 'uncommitted change')} (${dirty.join(', ')}) — ${PUSH_CURE}`];
-  return { findings: [...dirtyFindings, ...upstreamFindings(input)], info: [] };
+  return { findings: [...dirtyFindings(input.porcelain), ...upstreamFindings(input)], info: [] };
 }

@@ -23,11 +23,16 @@ import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 import {
   createGitRunner,
   pullProfile,
-  pushProfile,
+  remoteNames,
   type GitRunner,
 } from './operator-profile-git.js';
-import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
-import { isGitRepository, readProfileReport, resolveProfileRoot } from './operator-profile-root.js';
+import { pushProfile } from './operator-profile-git-push.js';
+import {
+  existingProfilePaths,
+  isGitRepository,
+  readProfileReport,
+  resolveProfileRoot,
+} from './operator-profile-root.js';
 
 type Command = { readonly kind: 'pull' } | { readonly kind: 'push'; readonly message: string };
 
@@ -52,13 +57,6 @@ export function parseSyncArgs(argv: readonly string[]): Result<Command, string> 
   }
   return err('usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]');
 }
-
-/** The paths a push stages: the three document kinds, nothing else. */
-export const PROFILE_PATHSPECS: readonly string[] = [
-  INDEX_FILE_NAME,
-  SCOPES_DIR_NAME,
-  MACHINES_DIR_NAME,
-];
 
 /** Document failures only: the sync leg is what a push is about to cure. */
 async function nonConformingDocuments(root: string): Promise<Result<number, string>> {
@@ -93,20 +91,31 @@ async function runPush(root: string, run: GitRunner, message: string): Promise<n
       ),
     );
   }
-  return report(pushProfile(run, message, PROFILE_PATHSPECS));
+  const paths = await existingProfilePaths(root);
+  if (!paths.ok) {
+    return report(paths);
+  }
+  return report(pushProfile(run, message, paths.value));
 }
 
-/** The runner for a root that is a repository with a remote; a message otherwise. */
-async function syncTarget(root: string): Promise<GitRunner | string> {
+/**
+ * The runner for a root that is a repository with a remote; a message for the
+ * two first-class states with nothing to sync; an error when git cannot read
+ * the repository (never mistaken for "no remote").
+ */
+async function syncTarget(root: string): Promise<Result<GitRunner | string, string>> {
   if (!(await isGitRepository(root))) {
-    return `profile at ${root} is absent or not a git repository — nothing to sync`;
+    return ok(`profile at ${root} is absent or not a git repository — nothing to sync`);
   }
   const run = createGitRunner(root);
-  const remotes = run(['remote']);
-  if (!remotes.ok || remotes.stdout.trim() === '') {
-    return `profile at ${root} has no remote — nothing to sync`;
+  const remotes = remoteNames(run);
+  if (!remotes.ok) {
+    return err(`profile at ${root}: ${remotes.error}`);
   }
-  return run;
+  if (remotes.value.length === 0) {
+    return ok(`profile at ${root} has no remote — nothing to sync`);
+  }
+  return ok(run);
 }
 
 async function main(argv: readonly string[]): Promise<number> {
@@ -117,14 +126,18 @@ async function main(argv: readonly string[]): Promise<number> {
     return 2;
   }
   const target = await syncTarget(root.value);
-  if (typeof target === 'string') {
-    writeLine(`✓ ${target}`);
+  if (!target.ok) {
+    writeErrorLine(`✗ ${target.error}`);
+    return 1;
+  }
+  if (typeof target.value === 'string') {
+    writeLine(`✓ ${target.value}`);
     return 0;
   }
   if (command.value.kind === 'pull') {
-    return report(pullProfile(target));
+    return report(pullProfile(target.value));
   }
-  return runPush(root.value, target, command.value.message);
+  return runPush(root.value, target.value, command.value.message);
 }
 
 const currentFilePath = fileURLToPath(import.meta.url);
