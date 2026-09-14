@@ -9,6 +9,10 @@ pipeline, ending in a twelve-day merge freeze
 **Status of the numbers**: every count below is recomputed from its primary source at
 writing time (GitHub REST/GraphQL, the ruleset API, git history, the comms stream).
 Sets are stated as open sets with exemplars.
+**Status of the record**: historical, as at 2026-09-01 — not a live status. Every
+present-tense claim below describes that day: `main` frozen since 20 August, 34 non-draft
+PRs waiting, `www…/mcp` returning 404. The freeze ended the next morning, 2026-09-02, when
+PR #944 landed and merges resumed.
 
 ---
 
