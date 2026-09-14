@@ -67,6 +67,39 @@ is appropriate only when no other home can encode the substance because
 the substance is structural contract rather than per-session discipline
 or multi-instance cure.
 
+## Scope the substance to the circumstance before choosing a home
+
+A correction is evidence about one situation's structural shape, and the
+cure is the move that makes the next EQUIVALENT decision right. Before the
+classifier runs, write (a) the exact circumstance, (b) what was actually
+wrong, (c) the specific cure, and scope "how to apply" to the circumstance
+class the owner named. Universal never-rules minted from one instance carry
+costs the instance never priced — ceremony, refusals of legitimate moves,
+waiting on peers who do not exist — and drift the Practice. Owner,
+2026-09-02, verbatim: "you are over generalising from single instances of
+corrections in specific circumstances", rejecting within a minute three
+never-rules ("seats may be live without comms presence", "never any cwd =
+primary", "never use nested worktrees") minted from two corrections whose
+causes were specific: a stale-stream liveness reading (the seat's later
+compaction-freeze event had revoked its closeout), and lane work planned
+from a nested checkout with the primary as cwd. The instance-scoped cures
+were the substance: read the stream to its END before a liveness statement;
+land a lane from its own sibling worktree; keep long event bodies out of
+shell heredocs.
+
+Then apply the structure test before writing the lesson down at all (owner
+reframing, 2026-09-11: "you've described mechanical fixes, but what you have
+implemented is prose … We are using lower powered models now, so we need to
+rely more on the structure of the Practice than we have been doing"): **could
+a lower-powered seat comply without recalling this lesson?** If not, the
+lesson is unfinished — find the gate, the validator, the seam or the template
+field that makes compliance the default and build that. The worked
+conversions: a conditional test skip → a lint rule that names the conditional
+APIs, with the identical probe as its negative control; a plan node pinning
+text that does not run → the corpus validator parsing every fenced block;
+tests reaching for the filesystem → the injected ops seam. A lesson that can
+only be recalled is the weak form.
+
 ## Worked Instance
 
 The 2026-05-26 pre-pose viability check graduated from

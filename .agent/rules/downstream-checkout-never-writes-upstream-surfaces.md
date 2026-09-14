@@ -81,6 +81,28 @@ a second pull request, and the default branch has since been set to the
 fork's working branch, which is why the base is derived and never
 written down.
 
+The boundary runs through authority as well as surfaces. An upstream
+product decision — a live set, a listing gate, a closure "not to re-enable
+X for now" — is a fact about the upstream, never a constraint on the
+downstream line unless the owner adopts it (owner, 2026-09-05, correcting a
+report that had carried the upstream's connector-listing gate onto the fork
+by analogy: "The Engraph fork is not subject to the same authority as the
+Oak fork", and, on a closure the report had hedged over as if it might bind,
+"The decision was made, but you have no reason to think it was made with
+authority or appropriate context"). A decision's existence and its authority
+are separate facts. When an upstream decision reaches this line, record it
+as a fact about the upstream and transmit no upstream product gate as a gate
+here; the only gates on a served-surface change downstream are the line's
+own product decision and its licence position.
+
+The upstream organisation's PRIVATE repositories are internal systems, not
+reads: only the public upstream repository is a permitted read source.
+Before any read of another repository under the upstream organisation, run
+the visibility check on its own (`gh repo view <owner>/<repo> --json
+visibility`) and read the answer before issuing the read — never batch the
+check with the read (a code search ran in the same batch as the check that
+answered PRIVATE, 2026-09-05).
+
 ## Related Surfaces
 
 - [ADR-228](../../docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md)

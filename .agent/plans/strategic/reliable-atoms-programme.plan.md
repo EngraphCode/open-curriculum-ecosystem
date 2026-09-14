@@ -16,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-09
+last_updated: 2026-09-14
 ---
 
 # Reliable atoms programme
@@ -49,6 +49,69 @@ owns its scope, reference-research method and relationship to qualification.
 This dated amendment refines how the ratified programme develops its
 foundations. The owner requested documentation and a draft PR on the same
 date; implementation and qualification remain delivery work.
+
+### Owner direction — 14 September 2026 amendment
+
+The owner bound the SHAPE of the workspaces that hold Reliable Atoms,
+verbatim: "I want the workspaces containing the Reliable Atoms to be
+subject to the max number of files per directory validator … I was
+thinking max 5 typescript files per directory, max 7 files of any
+kind, and probably some tweaks as we discover edge cases … I am not
+expecting one 'Reliable Atoms' workspace, I am expecting that to be a
+class of workspace, and to have some sensible grouping of Atoms with a
+given workspace." The same day: "I want the other length and
+complexity constraints _stricter_ for Reliable Atoms than for other
+code, and if there are other type[s] of length or complexity or clarity
+or related constraints we could add, I want them added"; and, on the
+mechanism, "we decided NOT to do it with ESLint, it clearly should be a
+validator, and the unused ESLint rule should be deleted … this is not a
+job for a test, and therefore not a job for Vitest."
+
+Four consequences, each recorded in its durable home:
+
+- **A declared workspace class.** Workspaces holding Reliable Atoms are
+  a class — several workspaces, each grouping atoms by cohesion (the
+  architecture's §9 rule: boundaries follow cohesion, explicit
+  dependencies, platform needs, release responsibility and useful
+  consumption; one atom per package is not a default). Membership is
+  declared on the workspace, never inferred from a name or a path
+  (validation-strategy §Validation jurisdiction).
+- **Directory cardinality is a blocking budget for the class.** The
+  check is a repository validator in the estate's validator framework,
+  recomputed from the tracked tree — never an ESLint rule (a per-file
+  AST rule is the wrong instrument for repository topology) and never a
+  test (a test proves product behaviour; a validator proves a
+  structural invariant of the repository). The unregistered ESLint rule
+  is deleted. [ADR-166](../../../docs/architecture/architectural-decisions/166-architectural-budget-system-across-scales.md)
+  §2026-09-14 amendment records the scale's owner and enforcement
+  state; the initial values and their edge-case calibration ledger live
+  in the delivery node that builds the validator (enumerate by
+  `serves:`), per ADR-166's rule that thresholds live in executable
+  configuration or calibrated child plans, never in doctrine.
+- **Every length, complexity and clarity budget binds stricter for the
+  class than for the rest of the estate**, and constraints of that kind
+  the estate does not yet carry are added for the class first. Bar
+  element 10 below names the classes of constraint; the delivery node
+  carries the values and the instruments.
+- **This binds the container, not the atom's definition.** R01 stays a
+  responsibility judgement, never a line count; the caps bound the
+  workspace's directories and files so that an atom's home stays small
+  enough to read whole. §The bet's location-independence holds: the
+  class says nothing about WHERE atom workspaces sit in the tree, only
+  what shape they have.
+
+The class is designed to fit its parameters from its first workspace.
+No workspace outside the class is a reference population for it: an
+existing `packages/core/*` member that does not fit the starting
+parameters is, by that fact, not a Reliable Atoms workspace — a special
+case recorded as that workspace's own register row, never as an edge
+case of the class and never as a reason to loosen a value. Edge cases
+are discovered while building atom workspaces and recorded in the
+delivery node's ledger at that moment (owner correction 2026-09-14,
+after a seat measured a non-atom core workspace against the caps and
+began to declare its root an exception). The exploration that produced
+this framing is
+`.agent/research/reliable-atoms-workspace-shape-exploration-2026-09-14.md`.
 
 ## User groups and value
 
@@ -150,6 +213,22 @@ there). The extensions, each with its enforcing instrument:
    generated or surface-diffed elsewhere. Cross-platform proof runs
    as a conditional CI matrix leg for register-flagged
    platform-sensitive atoms only.
+10. **Structural budgets on the workspace class** (owner direction,
+    2026-09-14 amendment above). Every workspace declaring the class is
+    bounded on four axes, each with its instrument: directory
+    cardinality — TypeScript files and files of any kind per directory,
+    and directory depth — recomputed from the tracked tree by a
+    repository validator, blocking; every length, complexity and clarity
+    budget the estate lints, at stricter values for the class, plus the
+    clarity constraints the estate does not yet lint (naming, explicit
+    types on every function, exhaustiveness, readonly by default, no
+    magic numbers), at the class's lint tier; a stricter compiler profile
+    (indexed-access, optional-property and declaration strictness); and
+    mutation-score and coverage thresholds that break. The values and
+    the instruments live in the delivery node that builds them, per
+    ADR-166's rule that thresholds live in executable configuration or
+    calibrated child plans; the doctrine here is the axes and the
+    direction of strictness.
 
 ## Mechanism
 
@@ -206,7 +285,13 @@ there). The extensions, each with its enforcing instrument:
 - The conformance instrument is green over every at-bar row, and its
   checks are recomputed, not recorded.
 - Every existing `packages/core/*` member either meets the bar or
-  holds a register row naming exactly what it lacks.
+  holds a register row naming exactly what it lacks — including, since
+  2026-09-14, whether it fits the workspace class's shape; one that
+  does not is outside the class until reshaped, and is never evidence
+  about the class.
+- Every workspace declaring the class passes the class validator and
+  lints, compiles and mutates at the class tier; the delivery node's
+  edge-case ledger holds only cases met inside the class.
 - Not claimed: performance optimisation beyond budget fences; any
   workspace-architecture outcome (the basis drive owns that space);
   extraction completeness — the register grows as the ledger and the

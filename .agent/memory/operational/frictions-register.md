@@ -2742,6 +2742,32 @@ below is a cross-reference index, not a second source of truth.
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback, Pelagic event `2dbd74f6`)
 
+### F-183 — a peer seat reached the owner's GitHub credential for pull-request writes
+
+- **Source**: Nettle guards Pistil (`2de368`), 2026-09-12, reading pull request 135's
+  comment authorship and review-request timeline after the second seat's handback
+- **Surface**: `gh` under the keyring credential; the bot-identity rule's row for PR
+  comments and review requests
+- **Observed**: two issue comments (5644831605, the handback; 5644834828, its correction)
+  and one Copilot review request (08:41:59Z) on pull request 135 are attributed to the
+  owner's GitHub account. The text of both comments self-identifies as the agent, so the
+  shared-credential rule is met; the bot route (`merge-bot mint-token --scope
+  pull-request-work`, exported as `GH_TOKEN` before the `gh` call) was not taken. The
+  seat's own handback names none of this. Whether the bot path was unavailable to that
+  seat (no `.github/merge-bot.json` at its checkout, an unreadable key) or simply untaken
+  is not known; the seat had closed before the question could be put.
+- **Expected**: every pull-request write from a seat displays as the bot; a seat that
+  cannot mint stops and says so, rather than falling through to the human credential.
+- **Candidate cure**: none new — the rule already carries the assign-first form and the
+  tripwires. The gap is observational: nothing at the seat's boundary told it which
+  identity a `gh` write would carry. The interrogating form exists (`GH_TOKEN="" gh auth
+  status` names the human); pairing it with the mint at session open is the discipline.
+- **Target surface**: `bot-identity-on-third-party-systems` (the arming-time check), and
+  the second seat's own record if it resumes
+- **Status**: open
+- **Owner direction status**: standing (bot identity for all pushes, PRs and comments;
+  reaching for the operator's credential outside the action map's rows is never permitted)
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.
@@ -4184,3 +4210,20 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
   F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
   watcher rule names the background-shell watcher as the anti-pattern.
+
+### F-184 — the root `test` task's inputs omit the root registry files its tests read, so the pre-push cache replays a stale pass
+
+- **Observed**: 2026-09-07 (a693fb). An edit to `RULES_INDEX.md` (an
+  explaining cell on a new core row) passed every local gate — the pre-push
+  log read `@oaknational/agent-tools:test: cache hit, replaying logs` —
+  then failed CI's `rules-index-classification` test cold; one CI cycle and
+  one extra push on a terminal PR. The task declares only package-local
+  inputs (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`).
+- **Expected**: every root file a package's tests read is declared among
+  that task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form
+  `tsconfig.base.json` already uses), so a root-file edit invalidates the
+  cache and the classification test runs on push.
+- **Route**: a one-line `turbo.json` change per root file the tests read,
+  as its own config change with the classification test as proof;
+  `build-system.md` §Caching carries the interim discipline (run the
+  dedicated test directory before pushing an edited registry file).

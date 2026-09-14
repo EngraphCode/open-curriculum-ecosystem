@@ -271,6 +271,20 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
 
 ## `collaboration-state` quick reference
 
+- **Every entry point that reads the claims file is a migration trigger.**
+  `claims`, `comms append` / `comms send`, and the audits all read the
+  active-claims file through the migrating reader, so the first such call
+  after a rebuild that ships a newer registry schema runs the one-time
+  migration — and the migration archives nothing by design (the operator
+  conserves the blob). A comms broadcast is therefore a transactional touch,
+  not a read: on 2026-09-04 the 1.3.0 → 1.4.0 queue split ran under a
+  merge-landed broadcast seconds after the primary's dist was rebuilt and
+  before the planned by-hand archive copy, so no pre-migration copy of that
+  day's file exists. When a landing changes a state-file schema, sequence it
+  as archive copy → rebuild → first write, and use absolute paths in every
+  shell call on this repo (the shell's working directory persists between
+  calls; one `cd` into a subdirectory made later relative paths read as
+  "file missing").
 - `identity preflight` — emit the collaboration-state identity block with
   `agent_name`, `platform`, `model`, `session_id_prefix`, and seed source.
 - `comms watch` / `comms inbox` / `comms list` headings and summary lines,

@@ -38,9 +38,18 @@ discipline held for expensive chains gets skipped.
   duplicate event/commit/row (worked instance 2026-07-24: a duplicated
   directed comms event from exactly this shape). Derive output parsing from
   observed output, never from memory of a schema.
-- When a command fails, capture the FULL output on that first run —
-  `tail -N` on a failure swallows the reason and forces a re-run
-  (sibling discipline: capture-expensive-command-output-first-run).
+- Capture the FULL output on the FIRST run of every check, gate, commit,
+  push and validator — `tail -N` swallows the reason and forces a re-run
+  that the first run had already answered (owner, 2026-07-08: "you ran the
+  full expensive check, decided the tail didn't count, and ran it again";
+  2026-08-13/14, generalised to every state-changing command after a
+  `git push | tail -1` printed "Pre-push checks completed!" over a dropped
+  SSH transfer and cost two blind reruns). The settled mechanism: redirect
+  to one untracked scratch file, OVERWRITTEN each run (no timestamped
+  variants, no historic accumulation), append the exit code inside it, then
+  read or grep the file. Decide what the run must yield (exit code, first
+  failure line, summary counts) before invoking it, and structure the one
+  run to capture that.
 - **No `tail` or `head` on command output, ever** (owner ruling 2026-09-03,
   verbatim: "I think we need to stop using tail, it causes this same issue
   over and over and over"). Truncation is the pipe hazard's twin: it hides

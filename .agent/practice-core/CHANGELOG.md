@@ -4,6 +4,20 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
+
+- New PDR-141 (Accepted: owner-ratified 2026-09-14 with the same day's
+  amendment; owner-directed core): the operator profile — which
+  identity acts where, how the operator wants to be written to and for,
+  personal operating preferences — moves out of the checkout
+  (`.agent/operator-local/profile.md`) to `~/.practice/profile/index.md`
+  with repository-scoped files under `repos/<scope-key>.md`, keyed by the
+  origin remote's owner and name rather than a path. Strictly optional,
+  below every tracked surface, no credentials, nothing load-bearing. Names
+  `~/.practice/` as the Practice's home-directory root, the first surface
+  the Practice creates and consumes outside a repository; any further such
+  surface needs its own decision.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — operator-profile schema: the Core-carried contract for the home-directory profile
 
 - New `schemas/operator-profile.schema.json` (family 1.0.0): the frontmatter

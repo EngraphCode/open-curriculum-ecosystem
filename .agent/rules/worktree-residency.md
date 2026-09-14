@@ -241,7 +241,8 @@ under; the `--worktree` launch flag and `worktree.baseRef` (`"fresh"`
 HEAD); the `WorktreeCreate` hook contract. Re-verify from the
 platform's current documentation when the CLI major-versions or this
 rule's mechanics disagree with observation
-(`capability-questions-from-original-sources`) — and remember that a
+(`verify-vendor-call-shapes-at-plan-author-time` — capability answers come from
+original vendor sources at time of use) — and remember that a
 seat cannot observe a prompt shown to the human: "no friction" seen
 from inside a session is evidence about the human's presence, never
 about the platform.

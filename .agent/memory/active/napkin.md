@@ -1068,8 +1068,9 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
   changed the next act, which is to wait for material the owner has not sent. A card whose answer
   cannot be acted on yet is cost, not diligence — it spends the owner's attention to buy a fact
   that will be stale when it is finally needed.
-- The owner's other answers, both of which ARE actionable: retention is cured by REDACTING AT THE
-  BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and closed);
+- The owner's other answers, both of which ARE actionable: retention is to be cured by REDACTING AT
+  THE BOUNDARY with the constraint "do not touch any .env files" (recorded as the decision and
+  closed; unbuilt, and paused by the owner on 2026-09-12 until the issue recurs);
   and `pr-tally` gets no build decision until they have seen "a plan that can be completed in two
   hours" — a scoping ask, not a refusal.
 - The `.env` constraint is worth keeping as design, not just as an instruction: the implementation
@@ -1107,3 +1108,284 @@ the plan corpus's fenced-YAML check, which is the drain working as intended.
 - FOLD: the 2026-09-12 cards and this boundary ride the coordination branch, folded at the close.
   Uncommitted at the stop: nothing — and this line is written AFTER the commit this time, the
   contradiction the second seat caught earlier today.
+
+## Nettle guards Pistil (2de368) — Director, the fold that took a day and the scope thesis (2026-09-12 08:2xZ–13:1xZ)
+
+<!-- fitness exceeded; consolidation owed -->
+
+- THE GENERATOR, SEEN FROM INSIDE: three acts felt like diligence and were scope expansion under
+  the seat's own hand — folding a peer's 470-line report because it was "already on the branch";
+  writing a rival slice into the thread record "so it does not live only in a transcript"; leaving
+  the intake declaration for "a comment after round one". A true sentence justified each. The
+  reviewers then did the same from outside: every finding an observation bundled with a remedy
+  graded against the widest standard imaginable. #136 is the cure for both sides at once.
+- WHAT ENDED A LOOP, MECHANICALLY: the remedy separated from the observation; the remedy tested
+  against §Scope before the observation is verified; a push marked as the class fix so the
+  epoch resets. The `b50820152` round: ten raised, zero over bar, no push, merged. First
+  terminal-by-disposition settlement this week.
+- CORRECTION OF THE DAY, TWICE: "written down ≠ correct, useful, or under authority" — the
+  owner on a relayed proposal; Codex an hour later on the seat's own decision record, where the
+  recorder's reading sat under `author: Owner`. Cured by attribution, not deletion.
+- INSTRUMENT NOTES (candidate rows, not filed): (1) the repo hook reads reply prose containing
+  "push" beside `-F` flags as the `git push -f` fingerprint — the cure is prose through the Write
+  tool and API-only shell calls, not rewording; (2) `pnpm markdownlint:root` FIXES as it checks —
+  a `#135,` at a line start became `# 135,` (an h1) and MD001 then fired on the neighbour; keep
+  PR numbers mid-line, and read the fixer's diff; (3) a reply loop globbed a scratch directory
+  holding stale drafts — 28 clean 404s, the F-182 shape in the seat's own hands; (4) a mid-seat
+  model switch leaves the claim row's model stale and `comms send` refuses the collision —
+  `claims adopt` under the running model is the honest re-registration; (5) `claims` has no
+  areas update, so a widened lane leaves a stale areas row.
+- ONE DATA POINT: Copilot's first thread on #136 labelled itself "Out-of-scope observation" and
+  Codex cited `AGENTS.md:L9-L13` — the reviewer instruction is read from the head branch, as
+  the vendor docs said. Recorded as one observation against the falsifier, not as the result.
+- FOLD: the successor `coordination/2026-09-12-69a537` carries this block; draft fold PR #137.
+  Uncommitted at the stop: nothing — this line is written after the commit.
+
+## Nettle guards Pistil (2de368) — sole operator, 2026-09-12 14:0xZ: the transplant seat's findings, verified first-hand
+
+Cauldron herds Lustre (880ff9), transplanting the Practice into `jimcresswell.net`, sent seven
+findings by cross-session message (read-only against `SHA:a55fd8fdd`). Each verified here before
+any disposition — a peer's finding is a transmitted claim, not a fact (owner, 2026-09-12):
+
+- **1 TRUE** — `agent-tools/src/claude/session-identity-hook.ts` emits "PRACTICE_AGENT_SESSION_ID_CLAUDE
+  is set in $CLAUDE_ENV_FILE" in `additionalContext` BEFORE the `CLAUDE_ENV_FILE === undefined` return,
+  so a no-write session is told the variable is set. Bug (misleading context). Home: a small source
+  lane after #136/#138 land — bugs before todo 1.
+- **2 PROPOSAL, sound** — no seed source is harness-native for a Claude CLI seat; `CLAUDE_CODE_SESSION_ID`
+  is in every Bash shell here (equal to the seed) and referenced nowhere in `agent-tools/src`. Adding it
+  after `CLAUDE_CODE_REMOTE_SESSION_ID` in `collaboration-seed.ts` is the CODEX_THREAD_ID shape (PDR-027).
+  Same lane as 1; PDR-027's source list would be amended in the same change.
+- **3 TRUE** — `state-file-seeds.ts:3,41` and `start-right.md:326` cite "ADR-199 / PDR-094" for
+  untracked-by-design state files; both records are event ROTATION. The owner of the term is ADR-203
+  (`203-state-tier-process-and-archive-move.md:24`); PDR-127 also cites PDR-094 for it at `:39`. Same lane.
+- **4 TRUE, by design** — the "clear run for Matt" clause's removal trigger is the owner's declaration; no
+  mechanism fires it. The owner's, untouched (start-right.md:244-267).
+- **5 DOES NOT REPRODUCE HERE** — all nineteen scripts cited by start-right.md §Quality Gates exist in this
+  `package.json` (checked by `jq`). The drift is in the transplant. A cited-script validator is still a
+  portability instrument worth having; the peer is building one and offered its shape — candidate, not a
+  defect here.
+- **6 DOES NOT REPRODUCE HERE** (the peer retracted it on re-check: an inventory conflation) — no file under `.agent/practice-core/` links `docs/engineering/tooling.md`
+  or `docs/foundation/cost-of-change-gradient.md` at this tip (`grep -rln`, empty). Rejected for this estate.
+- **7 TRUE** — `validate-markdown-links.ts:62` `SOURCE_IGNORE_GLOBS` has no `**/reference-local/**`
+  entry, so a nested private checkout there is walked as a source. Same lane as 1.
+
+Answered to the peer: no record here of a missed startup identity write (this session has both
+variables — one observation); no validator here scans cited pnpm scripts under `.agent/skills`.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:0xZ: two more from the transplant seat, verified
+
+- **bootstrap `WORKSPACE_DEPS` hard-codes `packages/core/*`** (`agent-tools/src/bootstrap/bootstrap.ts:78-82`):
+  TRUE and correct for this layout; a host-profile value in a transplant. Not a defect here; the
+  portability home is the peer's, and PDR-105's host-profile idea is the pointer.
+- **`turbo.json` site outputs naming `.next/`**: DOES NOT REPRODUCE — this tree names
+  `.next/**` outputs and `!.next/**` inputs (`turbo.json:225-241`) for both Next demos.
+- The peer's cited-scripts validator shape (markdown-only extraction, a pnpm tokenizer with a
+  built-ins set, root-vs-`--filter` resolution, an empty allowlist) is recorded as a candidate
+  portability instrument; not adopted here until a consumer exists (this tree's citations are
+  green by `jq` check today).
+
+## Nettle guards Pistil (2de368) — 2026-09-12 15:2xZ: fourteen rounds, zero rejections — the generator under both class fixes
+
+- Across #136 (nine rounds) and #138 (five) I dispositioned every finding "in scope, over-bar" and
+  cured it; each cure spawned the next round's mirror. The two class fixes named shallow generators
+  (restated-not-cited; claims unchecked). The deep one: the intake declared verification point
+  "merge (the owner reads this PR)" on a doctrine amendment, so every wording imperfection cleared
+  prong one and PDR-140's budget ran unbounded through its own cure-only-push clause. #135 closed
+  in one round this morning BY DECLINING ten findings — the machine's success state arrives by
+  rejection, not by cure (my own letter of this morning says so; I did not apply it).
+- #136's §Scope was a file list, so every reviewer remedy on those files passed the scope test
+  trivially; the clause that would have bitten — "each changed by the minimum that makes the
+  existing doctrine fire" — sat in the same sentence and I never ran it on my own cures.
+- Structural residue, NOT for #136: on a doctrine amendment the verification point should be the
+  next pull request run under the amended rule (PDR-140 clause 3's "ratification reading" is the
+  nearest term), never the merge read. Candidate for `pr-lifecycle` §Response pricing at its next
+  amendment, with a falsifier: a doctrine PR declared that way still draws over-bar cures past round
+  two.
+- PDR-140 follow-up (Codex, #136 epoch three round four, rejected below-bar): the owner's 2026-07-25
+  three-way enumeration in `pr-lifecycle` Phase 4 ("anything else → ticket") predates clause 1's
+  reject-or-route default; the block's "PDR-140 owns the clauses" governs today; the wording
+  reconciliation is a PDR-140 amendment, never a lane's cure.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 16:5xZ: PDR-008 contradicts package.json (peer finding, verified)
+
+Cauldron herds Lustre (880ff9), reading PDR-008 at SHA:2b1b15ab8 while adopting the script
+naming: its tables define `check` as the mutating alias of `check:fix` and `check:ci` as the CI
+form, while the root `package.json` defines `check` as the read-only aggregate, `fix` as the
+mutating one, `format-check:root`/`format:root`, `markdownlint-check:root`/`markdownlint:root`,
+`check:docs`/`fix:docs`, and no `check:ci` (CI runs the legs individually under
+validate-check-ci-parity). VERIFIED here by `jq` over `package.json` and lines 86-126 of the PDR.
+`practice-verification.md` item 9 lists the old set too (unverified here). Home: a small records
+lane — an amendment-log entry on PDR-008 describing the live convention plus item 9 rewritten
+(the peer's checkout carries a worked example under its own PDR-008 §Amendment Log; read-only
+for this side). Not a mechanism change; the scripts are right, the record is stale.
+
+## Nettle guards Pistil (2de368) — 2026-09-12 17:5xZ, compaction boundary 9: the instrument's first honest reading of my own loops
+
+- **The tally builder read #136 and #138 and found the seat's own gaps.** Five heads on #136 and four rounds
+  on #138 carry Copilot suppressed items with no one-line disposition — I dispositioned threads faithfully and
+  the suppressed block only sometimes. The machine says `open` where my comments said "terminal by
+  disposition". Both true; the recording shows which findings the format never reached. This is the value the
+  node promised, arriving on the day the instrument was built.
+- **Proposal for todo 2 (the seat's, not the node's)**: the command prints, for every undispositioned body
+  item, the one-line disposition template with head, review id, anchor and item key filled — the seat only
+  chooses the marker and writes the rationale. Hand-writing the reference produced a wrong review id, a
+  `thread <id>` key from the wrong review, and four rounds of silence; a form the instrument emits cannot.
+- **Code-class review is a different loop.** #139's two rounds raised 24, distinct 19, cured 19: every
+  finding verified against the state machine's text and the code, every one correct. The corpus tests caught
+  none of them because the corpora do not exhibit PENDING drafts, superseded class-fix heads, reply-created
+  review records or same-anchor siblings — synthetic cases now do. The reviewers were reading the doctrine the
+  code claims to implement and checking the claim; that is the review working as designed.
+- **Pre-commit gate lessons (three refusals, all mine)**: it type-checks and knips the WHOLE tree including
+  unstaged files; knip flags exported types consumed only inside the module (un-export until a consumer
+  exists); a `git add` of one file commits everything already in the index — cycles 2 and 3 became one commit
+  that way (recorded on the PR; history stands). commitlint: subject ≤ 100, lowercase-start (a PDR id at the
+  start reads as upper-case).
+- **The pricing discipline held**: after the reflection, #136 closed by two rejections and #138 by four; on
+  #139 nothing was rejected because nothing was wrong — the bar is a test, not a quota.
+
+## Nettle guards Pistil (2de368) — 2026-09-13 13:3xZ, session close: the window's own instances
+
+- **My own rule, unapplied to my own pattern file.** Codex round two on #143: the pattern
+  `signal-read-as-fact` names seven instances without the independent count or the comparator the
+  rule two files away requires, and says "every time" of one seat-day. The cure I authored did not
+  bind on the record I wrote in the same commit. The stop has to be a validator field on the pattern
+  frontmatter, not the author's reading of their own rule (the pattern file's own cure section says
+  so; I still missed it).
+- **A stale claim carried into a PR body.** "31 tests, 5 files" survived the settlement push that
+  made it 34 and 6; the checklist line "validation reflects the final diff" was ticked. Re-derive
+  every count in a description from the final diff at the last push, never carry it.
+- **The door's first refusal was correct, and I checked before calling it the #139 defect.** Read
+  `reviewer-legs.ts` and `settlement.ts` first; the timeout skip is not merge-eligible by design.
+  The state-first habit held. What it cost: eleven minutes of reading, cheaper than a wrong claim.
+- **Codex has two review shapes.** A review with inline comments, or an issue comment headed
+  "Codex Review" with badge blocks linking blob URLs at the head SHA. Nothing in the instruments
+  named the second shape; #143 round one arrived in it and priced as no round. Planned in
+  `review-round-predicates`.
+- **Time slip.** I wrote "over two hours" for Codex "Running since 08:40Z" at ~10:00Z (1h20m);
+  local clock is UTC+1 and I mixed them once. Harmless here; state reads should quote the
+  instrument's timestamps, never my arithmetic.
+- **Observation, n = 3 predicates, one seat-day (not a class):** three predicates over review
+  shapes each failed on a shape not in their fixtures — the skip-marker substring (#139),
+  the empty body (#142), the comment-shaped round (#143). If a fourth arrives, the cure shape is a
+  shared review-shape normaliser consumed by pr-watch, pr-tally and review-cost alike; the plan
+  node's normaliser is the first step of that, deliberately scoped to two instruments.
+
+## Kinkajou binds Lair (e17ab4) — 2026-09-14, owner-directed docs-only session: the Reliable Atoms workspace class
+
+- **Owner correction, the session's lesson.** Given a NEW class with stated starting parameters
+  (five TypeScript files and seven files of any kind per directory), I measured an existing
+  non-atom core workspace against them, found its root over the any-kind cap, and began to
+  pre-declare "the workspace root" an edge case of the class before one atom workspace existed.
+  The owner: do not take a non-atom workspace as an example; note it does not fit the starting
+  parameters and declare it a special case. The generator is threshold inflation arriving BEFORE
+  the rule is built — ADR-166's anti-gaming rule from the other side. Cure recorded structurally:
+  the delivery node's ledger admits rows only from workspaces declaring the class; the programme
+  node and ADR-166's amendment say a non-fitting workspace is outside the class, never evidence.
+- **Owner correction two.** "That decision was already made" — the July 2026 concept record's
+  finding four (repository concentration belongs in the validator framework; syntax-local
+  invariants stay in ESLint) was the decision; I had read its "pending ratification" status as
+  the question still open. A finding the owner has adopted in later direction is decided even
+  when the record's status line lags; read the finding, not only the status.
+- **Owner ruling three, recorded verbatim in the programme node:** not a job for a test, therefore
+  not for Vitest — a directory's shape is a structural invariant of the repository, and the
+  instrument is a repository validator with unit tests over its pure logic, never a test asserting
+  file counts.
+- **State at close (owner's frame: no commit, no push, no gates).** Uncommitted on the working
+  tree of `coordination/2026-09-12-69a537`: the programme node's 2026-09-14 amendment and bar
+  element 10; the new delivery node `reliable-atoms-workspace-shape` (values, instruments, empty
+  edge-case ledger); the research note `reliable-atoms-workspace-shape-exploration-2026-09-14.md`
+  and its index row; ADR-166 §Amendment 2026-09-14 and its two table rows; ADR-230's new
+  repository-interpretation bullet; the general architecture §9 binding sentence and the bundle
+  index's authority sentence; the July backlog child plan's supersession note and three backlog
+  todo re-truings; the paused budget thread record (identity row, ruling note); the
+  graph-and-queue node's `beneficial` dependency. No source file changed: the owner said the
+  ESLint rule should be deleted, and that deletion is the delivery node's first slice, not a
+  docs-session act. Not run: markdownlint, prettier, the plan-corpus validator — by the owner's
+  frame; the next seat runs `pnpm check:docs` and `pnpm repo-validators:check` before any commit.
+
+## Zephyr guards Leeward (281e44) — curator, the Claude per-user memory drain (2026-09-14, n=1, Fable 5.1)
+
+- **What landed.** `f24683337` swept Kinkajou's Reliable Atoms block (owner word). `0e4173b43`
+  graduated the buffer: 495 entries read first-hand; nine Sonnet batch mappers and one Fable
+  validator corroborated homes; 62 files changed across rules, PDRs, executive memory, skills,
+  docs, plans and registers; six directive-bound entries queued in `pending-graduations.md`
+  under the context-budget rule; 488 buffer files retired after the commit landed (backup
+  tarball beside the buffer); the operator profile seeded at `.agent/operator-local/profile.md`,
+  every item marked inferred for the owner to ratify. The rulings ledger cites no memory-file
+  names any more.
+- **Mistakes, mine.** (1) `rm` of a duplicate kit doc I had written — inside the
+  never-use-git rule's own-draft scope, but I clarified that scope in the rule the same hour
+  because the rule read as if provenance forbade it. (2) A zsh unmatched glob in a `grep`
+  aborted the whole command and produced three false NONE verdicts; re-grepped without globs;
+  recorded in the gotchas. (3) Three duplicate homes I created before finding the existing one
+  (a durability hierarchy already in the permanent-doc rule; a theme-closure doc whose report
+  already existed; a KNOWN-ISSUES item already in the compositions doc): removed, the
+  consolidate-at-second-consumer discipline is grep-before-writing. (4) The first enqueue used a
+  fresh UUID as `--id`; the guard refused because `--id` is the seat's agent id from the claims
+  registry, not a per-intent id. Abandoned and re-enqueued. (5) The 30-minute git claim lapsed
+  mid-drain; closed and re-opened with a two-hour TTL.
+- **Validator's grep weaknesses, acted on.** Rules citing memory files by name (repointed);
+  refuted state standing in plans (design-showcase R4 re-attributed); concepts split across
+  pattern, rule and skill (homes chosen by the new-rule-vs-pdr-clause classifier). Two
+  memories the validator flagged: `worktree-entry-standing-permission` retired as refuted by
+  `worktree-residency`; `verified-correct-is-not-a-proportionality-test` held in the buffer until
+  PR #143 lands its homes.
+- **After the closeout, two owner rulings.** (1) "The commit triggers the gates … never, ever" run
+  them separately — landed as `02572a7a9` in session-handoff step 11 and the singleton rule, after
+  this seat had launched `pnpm check` beside its own commit. (2) The operator profile is a
+  person-and-machine fact, so it lives in the home directory and serves every Practice repository
+  on the machine (eight here), scoped per repository like vendor memory but keyed by repository
+  identity, never path: PDR-141, `~/.practice/profile/`, the checkout tier retired, its README
+  now a pointer, the orientation re-point queued for the dedicated consolidation.
+- **Owner's third direction, then a COLD PAUSE at the session limit (2026-09-14 ~10:5xZ).** The
+  profile needs a versioned schema, validators in the repo, frontmatter in its documents and a
+  stable in-repo index pointer; and the owner asked whether the root may be a private git
+  repository synced between machines without losing the machine-agnostic direction. Answer built
+  in: a third document kind, `machines/<machine-key>.md`, keyed by the short host name, so person
+  and line facts travel and machine facts stay keyed to their host; git furniture tolerated by the
+  layout classifier; the estate never initialises or pushes the repository. Landed on the lane
+  worktree `.claude/worktrees/operator-profile-schema`, branch `lane/operator-profile-schema-281e44`
+  from `origin/engraph`: commit `2e35a7c19`, pushed, draft PR #144. Family-1 JSON Schema in
+  `practice-core/schemas`; zod mirror, key derivation, credential tripwire, document and layout
+  modules, CLI `pnpm profile:check`, fixtures, 24 unit tests, the contract smoke in `test:e2e`;
+  the Practice index row. The home profile now carries frontmatter and a `machines/bossmang.md`;
+  `pnpm profile:check` reads 3 documents conforming. Mistakes, mine, three refused commits: knip
+  entries not registered for the two CLI scripts; the version guard's phrase check on "breaking
+  change" in a body; and, earlier, a fixture type that lacked the fields its test read (caught by
+  tsc and eslint, not by vitest, which passed spuriously — a reminder that vitest does not
+  type-check). Not done, for resume: PDR-141 amendment naming the schema, frontmatter, the
+  machine kind and the git-sync decision; start-right 3a and the operator-local README updated to
+  three files and the check command; #144 to ready with a Copilot request; the coordination fold.
+- **Resumed (owner's word, "as short and efficient as possible"), #144 landed.** The owner
+  created a private repository for the profile; `~/.practice/profile` is now that repository
+  (origin recorded in the profile's own index, first push done under the owner's git identity,
+  his personal repo). #144: ready, Copilot requested, three review rounds — Codex round one
+  (root `$ref` binding, cured), Copilot round one (five findings: content-free parse errors,
+  bounded date pattern, ENOENT-only absence, plain output, resolver tests; all cured), Codex
+  round two (duplicate of the parse-error finding, cured), a Windows leg failure (POSIX
+  separators in the new resolver test, cured), Codex round three (three self-labelled
+  observations with no recorded input, rejected below the bar with the two-push budget spent,
+  pickup fixtures posted on the PR). Merged by the front door as `4540dec49`; the lane
+  worktree and branch retired after the ancestry proof. Two lessons, mine: (1) the first two PR
+  writes (a thread reply, a Copilot request) went out under the owner's `gh` session before I
+  used the bot's minted `pull-request-work` token — every later write was the bot's; (2)
+  `merge-bot merge --expect` takes the GraphQL login without the `[bot]` suffix — with the suffix
+  every leg reads OWED and the tool refuses "no review binds the current tip"; that cost three
+  refused runs before I read the harvest. Then engraph merged into the coordination branch
+  (one changelog union) and the PDR-141 amendment landed with its consumers.
+- **Fold of the 2026-09-12 branch (PR #137) and the owner's frame.** Fifteen findings on the fold
+  (Codex 3, Copilot 12), all correct: the Core PDR named a host tool; the reader recipe mis-derived
+  ssh remotes and read before checking; three internal contradictions in PDR-141 after its
+  amendment; two surfaces still requiring a separate `pnpm check`; three records still queuing a
+  ratification already done; an ADR cell claiming a planned validator as live; an unlinked
+  harness note. One settlement push. The owner's frame for the profile, recorded in PDR-141
+  §Notes: a simple personal knowledge graph with sovereignty, because he controls the repository
+  the canonical copy lives in. PDR-141 ratified (`dd813b6ef`); the profile ratified with three
+  additions and pushed to the owner's private profile repository (named only in the profile's
+  own index, PDR-141 decision 11); the jimcresswell.net
+  transplant base `e477e62f7` noted in the profile; a delta note for Cauldron herds Lustre goes
+  into that repository's Practice Box after the fold lands.
+- **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
+  (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
+  place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)
+  appears in the session list with no claim in this repo's registry.

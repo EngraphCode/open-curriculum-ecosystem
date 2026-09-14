@@ -82,6 +82,39 @@ Three reasons, in increasing order of consequence:
 | "Delete the needless complexity" | `git checkout HEAD -- .` | `rm` the files that should not exist; `Edit` the files that should exist but in simpler form; capture the realisation in the napkin |
 | "I went down a wrong path; reset" | `git reset --hard HEAD` | `Edit` the files back toward where you want them; this is slower and that is the point — slow is the rate at which the realisation travels with the action |
 
+The `rm` in that table is scoped to YOUR OWN deliberate drafts of this
+session — files you created on purpose and now judge needless. It does not
+extend to an unintended or unexplained artefact: an errant tool probe's
+write, a stray output, a file in the wrong tree. Owner ruling (2026-07-15,
+after a session proposed `rm -rf` on a 1.4 MB artefact its own probe had
+written, framed as "my own accidental write, safe to remove"): **file
+deletion is only allowed in exceptional circumstances** — provenance does
+not confer deletion rights, and an agent tidying away the evidence of its
+own mistake is a completion-drive reflex, not hygiene. For any such
+artefact, surface it — exact path, size, provenance, why it is wrong — and
+ask for disposition; never `rm` it unprompted, even when it is untracked,
+seconds old and self-made. The artefact plus the report of how it got there
+IS the record; disposal is the owner's call.
+
+## Standard Git Only — No Improvised Mechanics
+
+The safety rules above never license inventing parallel mechanics around
+git. Owner, twice in one closing hour (2026-07-16/17): "I am not okay with
+untracked or unpushed content being 'secured', use standard git workflows"
+— and, offered a relocate-and-overwrite-from-main clearing sequence with an
+owner-run stash alternative, "I told you, that was not acceptable."
+Quarantine relocations, copy-then-overwrite dances and convention-only
+untracked files are exactly the non-standard state that made the 2026-07-16
+estate audit necessary. So: every file is either tracked and committed on a
+pushed branch or matched by an explicit ignore rule — no third state; never
+propose or perform a relocate, quarantine or copy-back sequence as a
+substitute for a git operation; the one sanctioned rolling coordination
+branch is the standard home for live coordination surfaces; and when a
+dirty tree blocks a standard operation, the options presented are standard
+git ones, with the genuinely risk-class step (clearing a dirty shared
+checkout) routed to the owner to run, surfaced once, never an agent
+workaround.
+
 ## A Block Is a Question, Never a Detour
 
 When the hook blocks — or would block — one of these commands, do NOT

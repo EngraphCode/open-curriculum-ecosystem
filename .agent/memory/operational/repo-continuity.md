@@ -248,7 +248,21 @@ forward-asks remain.
 - **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
   plan [`no-throw-remediation.plan.md`](../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
   the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes). Investigation-first
-  WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work.
+  WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work. **Owner ruling
+  2026-09-08** on the 1,227 warnings across 16 packages: "Turn the rule off for now, we can't fix it
+  without creating incredible churn, so that needs to wait until the Engraph fork is merged back into
+  the upstream. However, in any workspace with no current warnings and in any new workspace, leave it
+  on as an error." The rule is binary: off where the debt lives, error everywhere else and for every
+  new workspace; the migration lane waits for the merge-back. The merge-back is planned for October
+  2026 and has no plan node by the owner's word the same day ("do not worry about the October
+  re-integration, I have some thoughts, but we do not need a plan yet, and we should not let the
+  intention overly influence the decisions we make now"); Oak-line delivery sketches not pending on
+  the fork are left as they are until then. The same cards ratified six of 25 delivery sketches
+  (consolidation-induction, consolidation-ledger, consolidation-signal,
+  director-continuity-surface-redesign, commit-queue-local-ephemera,
+  code-quality-binding-per-checkout) and held the other nineteen until October, the Director's
+  recommended `codex-app-server-idle-wake` among them: route fresh seats under the ratified set and
+  do not re-raise the Codex wake before October.
 - **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (§Open
   Owner-Decision Items); a HARD deep-docs-read prerequisite before any build.
 - **Onboarding-improvement arc** — PR #199 merged; follow-ons open (B2/B3 risk-register seeding; the
@@ -289,7 +303,7 @@ each thread record; this table is the repo-level index.
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 first). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + the record. | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
-| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived). Thread quiescent — no queued next step; buffer lifecycle continues under `per-user-memory-is-a-buffer`; descendants belong to the strategy-and-plan-estate lane | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5 / Gull lifts Nimbus / consolidator — dedicated consolidation complete / 2026-08-07 |
+| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. Queued: seven directive-bound entries in `pending-graduations.md` for the due dedicated consolidation session; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE the same day, all six proposals owner-adopted and P1–P5 landed; shepherded 2026-08-25 (OCE PR #17 `c40a4287`, castr PR #53 `e62891ee`); plan archived; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. The remaining probe and two recorded deferrals live in the record. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
 
 ## Paused Threads
@@ -332,6 +346,60 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair pending / 2026-08-03 |
 
 ## Next Safe Steps
+
+### PICKUP for the next session — the estate-coordination thread, not the Reliable Atoms note (owner's word 2026-09-14)
+
+The next session resumes the **estate-coordination** thread exactly where
+Nettle guards Pistil closed it: read
+`threads/estate-coordination.next-session.md` §"SESSION CLOSE (Nettle guards
+Pistil …)" first — #143's last settlement push, then the owed-items records
+PR, then the survey rows. The note below records a dirty-tree fact that the
+resuming seat sweeps into its first commit; it is NOT a lane to continue and
+carries no next action of its own (owner's word, 2026-09-14: the next session
+picks up the previous thread, not this one).
+
+### Claude per-user buffer drained (2026-09-14) — what the next seat inherits
+
+Zephyr guards Leeward (281e44) swept the Reliable Atoms block below into
+`f24683337` (so the "UNCOMMITTED" note beneath is now history), landed the
+buffer graduation as `0e4173b43`, its records as `f53748785`, the owner's
+gates ruling as `02572a7a9`, and PDR-141 (the operator profile moves to
+`~/.practice/profile/`, the Practice's first out-of-repo surface,
+owner-directed). Inherited: the dedicated consolidation session that is due
+lands the seven due entries in `pending-graduations.md` (six buffer
+graduations into directives, the orientation re-point to PDR-141); PDR-141
+is Accepted (owner-ratified 2026-09-14, `dd813b6ef`) and the seeded profile
+was ratified the same day with three owner additions; the held buffer
+memory is deleted when PR #143 lands. The
+coordination branch `coordination/2026-09-12-69a537` is past its 24-hour
+fold window. This work touched nothing in the estate-coordination thread,
+whose pickup contract (above) stands unchanged.
+
+Resumed 2026-09-14 ~11:3xZ at the owner's word: PR #144 (the profile's
+schema, validator and stable index pointer) merged by the front door as
+`4540dec49`; engraph merged into this branch; PDR-141's amendment (the
+contract, the `machine` kind, the optional git-synced root) and the
+start-right and README updates landed. The profile at `~/.practice/profile/`
+is the owner's private git repository, pushed. Remaining in the thread
+record's Next safe step; the fold of this branch is overdue.
+
+### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
+
+An owner-directed docs-only session (Kinkajou binds Lair, e17ab4; no commit,
+no push, no gates by the owner's word) left the 2026-09-14 rulings on the
+working tree of the live coordination branch: the programme node's amendment
+and bar element 10, the new delivery node `reliable-atoms-workspace-shape`,
+the research note of the same date, ADR-166 §Amendment 2026-09-14, ADR-230's
+new interpretation bullet, the foundations bundle's two binding sentences, the
+July backlog child plan's supersession note, the paused budget thread record,
+and the graph-and-queue node's new dependency. What the resuming seat does
+with it: `git status` to see the set, `pnpm check:docs` and
+`pnpm repo-validators:check` (the plan-corpus validator has not run on the
+new node), then sweep it into the first commit of the estate-coordination
+work under the commit skill. Deleting the unregistered
+`max-files-per-dir` ESLint rule is the delivery node's first slice, a source
+change with gates, not a docs sweep. The paused thread record carries the
+full note; no existing core workspace is a reference for the class.
 
 ### Plans estate — superseded-node placement to re-true (2026-09-06)
 

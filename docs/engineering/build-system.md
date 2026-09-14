@@ -394,6 +394,30 @@ When deliberately aligning with an upstream spec change, bypass turbo with
 cache's `info.version` moved. The full runbook lives in the
 [oak-sdk-codegen README](../../packages/sdks/oak-sdk-codegen/README.md#responding-to-upstream-spec-changes).
 
+### A root file a test reads must be among the task's inputs, or the cache replays a stale pass
+
+Turbo invalidates a task's cache from its declared inputs. The root `test`
+task declares package-local inputs (`$TURBO_DEFAULT$`, `**/*.ts`,
+`vitest.config.ts`), so a test that reads a ROOT file — the rules index, the
+patterns index, the plan corpus — is not re-run when only that root file
+changes: the pre-push hook runs `turbo run … test …`, prints
+`cache hit, replaying logs`, and replays the earlier pass. On 2026-09-07 an
+explaining cell on a new core row of `RULES_INDEX.md` passed every local
+gate this way and failed CI's classification test cold (a core row's trigger
+cell must be exactly the em dash); the 100 ms dedicated test would have
+caught it before the push. Two disciplines follow:
+
+- **Before pushing an edit to a registry or index file that has a test
+  directory named after it, run that directory directly** (for the rules
+  index, `pnpm exec vitest run tests/rules/` from `agent-tools/`), and read
+  the hook's turbo summary for `replaying logs` on the package whose tests
+  cover the file.
+- **The structural cure is declaring the root file among the task's
+  inputs** (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json`
+  already uses) — a one-line `turbo.json` change per root file a test
+  reads, landed as its own config change with the classification test as
+  the proof.
+
 ### Uncached tasks (always run)
 
 | Task       | Cached | Reason                                   |

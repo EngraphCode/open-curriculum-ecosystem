@@ -29,8 +29,16 @@ curation practice that keeps it navigable by someone who did not write it.
   "BLOCKS / DOES NOT BLOCK <gate>" header line in the description (instance: the Wednesday
   submission record on MCP-201..213).
 - Team and project hygiene per `linear-mcp-team-and-project-hygiene`; milestone homes are
-  PROPOSE-AND-AGREE with the owner, in prose — never set unilaterally, never dangled
-  (`milestones-propose-agree-never-dangle`).
+  PROPOSE-AND-AGREE with the owner, in prose — never set unilaterally, never dangled.
+  Three owner rulings from one milestone-reshape sitting (2026-07-26): "Milestones are not
+  mine only, they require my agreement, you can suggest changes" — the guard bans unilateral
+  changes, not proposals, and a proposal complements every ticket number with prose ("I
+  don't know what MCP-121 is about … you need to complement ticket numbers with actual
+  prose"); "we never leave work dangling, never" — moving work out of a window is legitimate
+  only when it lands in a named milestone with a date and carriers, so "later" is a place,
+  never a state; and control surfaces (allowlists, gates) are living capabilities, never
+  freezes ("we want that ability to turn things on and off, not feature freeze, this isn't a
+  CAB") — audit milestone names and descriptions for freeze vocabulary.
 
 ## The repo holds the knowledge; the ticket holds the work
 

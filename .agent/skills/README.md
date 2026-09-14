@@ -12,6 +12,15 @@ by the `agent-tools` skills-adapter generator — edit canonicals,
 never adapters. Vendored external skills live only in the adapter
 tier, pinned by `skills-lock.json`.
 
+The canonical definitions here group by concern (a family directory per
+concern — cognition, change-custody, knowledge, orientation, and so on);
+the generated platform adapters stay flat. That is an owner decision
+(2026-08-07, verbatim: "I want skills grouped by concern, at least in the
+core skills definitions, the vendor specific projections can remain flat.
+That is a user decision and I have made it, no debate required"): flat
+listings optimise the adapter and runtime layer, and concern-grouping is
+the discovery structure for the humans and agents navigating the corpus.
+
 Where a new capability lands — in this corpus, another audience set,
 or another lever entirely — is decided by
 [the capability landing decision procedure](../rules/capability-landing-decision-procedure.md).
@@ -26,3 +35,15 @@ landing procedure, as a new row here.
 | --- | --- | --- | --- |
 | Practice skills corpus | agents and humans building this repository and its mechanisms | `.agent/skills/` | generated platform adapters (`.claude/skills/`, `.agents/skills/`) |
 | Curriculum and teacher skills | teachers and other users of Oak curriculum content | `.claude-plugin/marketplace.json` | Claude plugin marketplace |
+
+Three corpora share the word "skills" and nothing else (owner, 2026-08-17:
+"the current skills lane is ONLY about the Practice skills, it is not about
+the user facing skills"): the Practice skills here in `.agent/skills`; the
+user-facing product skills under `plugins/oak-open-curriculum`, with their
+own lane and owners; and third-party vendor-managed skills installed with
+`pnpm skills` into `.agents/skills` (the
+`third-party-skills-require-security-review` rule governs them). Every lane
+quantifier — "finish the skill work", "all Practice skills have evals" —
+ranges over `.agent/skills` only; conflating any two mis-scopes sweeps,
+evals, reviews and lane quantifiers, so when a path, a command or a PR says
+"skills", resolve WHICH corpus before acting.
