@@ -13,7 +13,14 @@ proven_in: >-
   loops") from one ledger row; cost-gate weights fit on three loops and scored
   on the same three; "the gate agrees on five of six" where the seat wrote the
   labels; signals narrated in status lines and treated as processed. Owner's
-  words in the thread record for 2026-09-12/13.
+  words in the thread record for 2026-09-12/13. Independent instances: n = 1
+  (one seat, one pull-request arc, two days; the seven events share the seat
+  and the reviewers and are not independent). Comparator: the same seat's acts
+  on the same days where a stop existed at the point of action (the merge front
+  door, the review cost gate at the push), which held. By the rule this pattern
+  names, that is an observation and a cure shape, admitted under the barrier's
+  amended proven-by-implementation criterion (an executed decision: the owner's
+  ruling of 2026-09-13); it claims nothing about frequency.
 proven_date: 2026-09-13
 related_pattern: timing-artefact-read-as-state
 barrier:
@@ -26,7 +33,15 @@ barrier:
     the review cost gate's refusal at the push, and the survey the wrap runs
     so a claim about the gate is checked by the instrument rather than by the
     seat's own labels.
+  stable: true
 ---
+
+> **POLARITY: ANTI-PATTERN.** The failure shape is acting on a signal — a
+> reviewer's "correct", an instrument's verdict, one instance, a fit — as the
+> fact it stands for, without the stop that asks what it stands for, against
+> what, and what would show it wrong.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern).
 
 # Signal read as fact
 

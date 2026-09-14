@@ -1,5 +1,12 @@
 # One Instance Is an Observation
 
+Operationalises
+[PDR-130](../practice-core/decision-records/PDR-130-two-speed-learning.md)
+(every graduation carries its prediction and its falsifier) and
+[PDR-100](../practice-core/decision-records/PDR-100-decision-debt-as-a-first-class-pillar.md)
+(a single-instance lesson graduates on the decision lenses, never on a
+second instance — which is why a cure is not a distribution).
+
 When a durable record — a ledger row, a plan, a memory, a thread record, a
 pull request comment, a decision record — names a pattern, class, tendency,
 category or rule derived from observations, the same sentence states the number
