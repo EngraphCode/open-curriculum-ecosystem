@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "operator-profile.schema.json",
+  "$ref": "#/$defs/profile_frontmatter",
   "title": "Operator profile frontmatter (the operator-profile PDR; the PDR's number is estate-local)",
   "version": "1.0.0",
   "$comment_contract": "Core-carried: the operator profile is the Practice's one surface outside a repository, at `~/.practice/profile/` (root overridable by PRACTICE_HOME). It is the OPERATOR's, not a machine's: `index.md` holds what is true of the operator everywhere; `repos/<scope-key>.md` holds what is true of one repository line, the scope key being the origin remote's owner and repository name lowercased and joined with `--`, never a path; `machines/<machine-key>.md` holds what is true of one machine only, the machine key being the short host name lowercased. That split is what lets the root be an optional, private git repository the operator syncs between machines: person-level and line-level facts travel, machine-level facts stay keyed to their host, and the estate never assumes any particular machine. The Practice never initialises, commits or pushes that repository; the operator does. Every document opens with a YAML frontmatter block that this schema governs. The profile is strictly optional: a missing root or document is the expected condition and no reader may fail, warn or depend on it. Version-family compatibility: within one MAJOR family evolution is additive-optional only (a new field is optional and lands with a MINOR bump of this document and of every estate validator together); a breaking change is a MAJOR bump and a new family. The shapes are strict (additionalProperties false) because the only consumers are the estate's own validators; a field the family does not name is a refusal, never a silent pass.",
@@ -44,7 +45,14 @@
     "scope_frontmatter": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["practice_profile", "schema_version", "kind", "scope_key", "updated", "ratified"],
+      "required": [
+        "practice_profile",
+        "schema_version",
+        "kind",
+        "scope_key",
+        "updated",
+        "ratified"
+      ],
       "properties": {
         "practice_profile": { "const": "operator-profile" },
         "schema_version": { "const": 1 },
@@ -64,7 +72,14 @@
     "machine_frontmatter": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["practice_profile", "schema_version", "kind", "machine_key", "updated", "ratified"],
+      "required": [
+        "practice_profile",
+        "schema_version",
+        "kind",
+        "machine_key",
+        "updated",
+        "ratified"
+      ],
       "properties": {
         "practice_profile": { "const": "operator-profile" },
         "schema_version": { "const": 1 },

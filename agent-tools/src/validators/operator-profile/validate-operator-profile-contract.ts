@@ -46,27 +46,47 @@ assert.equal(
 const defs = document['$defs'];
 assert.ok(isJsonObject(defs), 'the contract carries $defs');
 
-// Only `$defs` reaches the compiler, so the root annotation keys never weaken
-// strict mode: a mistyped keyword in the contract fails compilation loudly.
-const ajv = new Ajv({ strict: true, allErrors: true });
-const schema: AnySchema = { $ref: '#/$defs/profile_frontmatter', $defs: defs };
-const validate: ValidateFunction = ajv.compile(schema);
+// Two compilations. The strict one passes only `$defs` to the compiler, so a
+// mistyped keyword in the shapes fails loudly and the root annotation keys
+// (`version`, `$comment_*`) never reach strict mode. The whole-document one
+// is what a portable consumer does — compile the published file as it is —
+// and proves the root `$ref` binds the document to the frontmatter shape;
+// it tolerates the annotation keys as unknown keywords, which is the only
+// relaxation a consumer needs.
+const strictAjv = new Ajv({ strict: true, allErrors: true });
+const strictSchema: AnySchema = { $ref: '#/$defs/profile_frontmatter', $defs: defs };
+const validateShapes: ValidateFunction = strictAjv.compile(strictSchema);
+
+assert.equal(
+  document['$ref'],
+  '#/$defs/profile_frontmatter',
+  'the published document binds its root to the frontmatter shape',
+);
+const consumerAjv = new Ajv({ strict: true, strictSchema: false, allErrors: true });
+const publishedSchema: AnySchema = document;
+const validateDocument: ValidateFunction = consumerAjv.compile(publishedSchema);
 
 let checked = 0;
 for (const fixture of PROFILE_FIXTURES) {
   const frontmatter = extractFrontmatter(fixture.content);
   assert.ok(frontmatter !== null, `${fixture.name}: fixture has a frontmatter block`);
   const mapping: unknown = parseYaml(frontmatter);
-  const contractVerdict = validate(mapping) === true;
+  const shapesVerdict = validateShapes(mapping) === true;
+  const documentVerdict = validateDocument(mapping) === true;
   const enforcementVerdict = operatorProfileFrontmatterSchema.safeParse(mapping).success;
   assert.equal(
-    contractVerdict,
+    shapesVerdict,
     fixture.frontmatterValid,
     `${fixture.name}: the contract's verdict matches the fixture's declared validity`,
   );
   assert.equal(
+    documentVerdict,
+    shapesVerdict,
+    `${fixture.name}: the published document, compiled whole, gives the same verdict`,
+  );
+  assert.equal(
     enforcementVerdict,
-    contractVerdict,
+    shapesVerdict,
     `${fixture.name}: the enforcement schema agrees with the contract`,
   );
   checked += 1;
