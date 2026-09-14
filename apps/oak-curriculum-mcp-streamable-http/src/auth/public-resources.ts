@@ -49,8 +49,9 @@ const PUBLIC_RESOURCE_URIS = [
   ...DOCUMENTATION_RESOURCES.map((resource) => resource.uri),
   WIDGET_URI,
   // Retired widget addresses (ADR-141): deliberately unregistered, unlike every
-  // other row. Public so an unauthenticated read gets resource-not-found, the
-  // answer that sends a client holding one back to list tools.
+  // other row. Public so an unauthenticated read gets resource-not-found — the
+  // address does not exist — rather than an authentication challenge, which
+  // would tell the client to sign in and retry the same address.
   ...RETIRED_WIDGET_URIS,
   // Agent guidance documents, SERVED LIVE-SET ONLY (ADR-205 classification made
   // explicitly, mcp-101 slice B2b): static SDK-compiled workflow guidance markdown,
