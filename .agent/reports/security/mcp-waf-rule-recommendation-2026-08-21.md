@@ -9,6 +9,18 @@ design for the observation window, and the rate-limit rules for the OAuth endpoi
 cannot be applied; Cloudflare rejects its structure. The measurement design in §4, §5 and §6
 stands unchanged and is still wanted.**
 
+> **Point-in-time record — configuration claims are true as at 2026-08-21; upstream state
+> re-verified against `oaknational/Cloud-Config` as at 2026-09-14.** This is a dated
+> recommendation, not a live description of the edge, and its reasoning is preserved as
+> written. Where Cloud-Config has moved since, the affected section carries a dated correction
+> block rather than a rewrite: **§0a.7** (the configuration that could not be applied was
+> reverted), **§6.0** (a registration rate limit has since merged, with different numbers and
+> a different rollout) and **§7.2** (the alpha host is gone). Two findings are re-verified as
+> **still true and uncured**: the unscoped `.sql` rule and the non-`block` logging behaviour
+> (§5.4). Before acting on any configuration statement below, read the correction block in its
+> section and re-read the current `infrastructure/cloudflare/rulesets` directory. §4.6 carries
+> the expiry clock on the evidence.
+
 ---
 
 ## 0a. CORRECTION, 2026-08-21 — the recommended HCL cannot be applied
@@ -120,6 +132,36 @@ merge commit and current `origin/main`. **So `Cloud-Config@main` now declares a 
 Cloudflare will not accept, and any apply in the `cloudflare-rulesets` workspace from `main`
 fails** — including applies for unrelated changes that are already waiting in that workspace.
 Curing that is the first call on this lane, ahead of any new feature.
+
+#### CORRECTION, 2026-09-14 — this has been cured, and the cure went further than the defect
+
+**Measured** by Seat "Fruitbat mends Burrow" against the `oaknational/Cloud-Config` default
+branch and its merge history, read 2026-09-14 via `gh api` and `gh pr`:
+
+- **`Cloud-Config#562`, a revert of `#558`, merged at 2026-09-03T16:27:37Z.** Its diff removes
+  the `mcp.thenational.academy`-scoped OWASP `execute` rule in full and restores the zone-wide
+  rule's expression from `(http.host ne "mcp.thenational.academy")` back to `true`.
+- **The current `firewall_managed_rules.tf` declares exactly one OWASP `execute` rule**, plus
+  the `lifecycle`-ignored `rules[0]` placeholder. The double-deployment shape that produced
+  `20014` is gone.
+
+**So the two paragraphs above are no longer true.** `main` no longer declares a configuration
+Cloudflare will reject, applies in the `cloudflare-rulesets` workspace are not blocked by this
+defect, and curing it is not the first call on any lane.
+
+**But read what the revert restored, because it is not what this document recommends.** The
+surviving zone-wide rule carries `action = "managed_challenge"` and `score_threshold = 40` —
+the pre-`#558` status quo. `#558` was reverted whole, not narrowed to its structural defect.
+**Neither amendment in §2 is in the configuration**: not `log` (§2.1), not `score_threshold =
+60` (§2.2), and the MCP host now has no MCP-specific WAF treatment at all. The problem §2
+measured — a `managed_challenge` that a non-browser MCP client cannot solve, at a threshold
+that S2 measured as catching legitimate curriculum JSON-RPC — is back in force and uncured.
+**This document's central recommendation is outstanding, not overtaken.**
+
+Everything else in §0a stands: §0a.2's vendor constraint on the structure, §0a.3's second
+instance, §0a.4 on `terraform plan`, and §0a.5 on `latest-change-at` are all lessons about the
+tooling rather than statements about a particular commit, and the revert does not touch them.
+Whatever structure eventually replaces §3.1 still has to satisfy §0a.2.
 
 ---
 
@@ -727,6 +769,15 @@ concluded optimistically.
 - **Attribution of S2's five captured ray IDs expires around 2026-09-20** — Enterprise Security
   Events retention is 30 days from the 2026-08-21 capture. After that the §4.4 payloads must be
   re-run to re-capture. This is the highest-value item that decays.
+
+  > **CLOCK — checked 2026-09-14, six days remaining.** Stated as a date rather than a
+  > duration so a later reader can tell at a glance whether it has run out: **on or after
+  > 2026-09-20, treat every ray-ID-attributed statement in this document as unverifiable
+  > from the original evidence.** Those ray IDs are what tie the measured 403s to specific
+  > rule IDs, so once they age out, §4's Day 0 gate and §5.1's category attribution both
+  > need the §4.4 payloads re-fired and a fresh capture before either can be relied on.
+  > Re-firing is not free — §8 records why — so the choice is to re-capture deliberately
+  > before the deadline or to accept the attribution gap knowingly after it.
 - **Security Events is sampled** and is the right instrument for attributing one ray ID, the
   wrong one for counting across a fortnight. Logpush is the primary counting instrument;
   `firewallEventsAdaptive` via the GraphQL Analytics API is the fallback.
@@ -882,6 +933,54 @@ will know whether they matter.
 ---
 
 ## 6. The IP-keyed rate-limit rules on `/oauth/register` and `/oauth/token`
+
+### 6.0 CORRECTION, 2026-09-14 — half of this section has shipped, with different numbers
+
+**Measured** by Seat "Fruitbat mends Burrow" against the `oaknational/Cloud-Config` default
+branch and its merge history, read 2026-09-14 via `gh api` and `gh pr`. Read this before §6.1,
+whose opening measurement is now stale.
+
+**`Cloud-Config#569`, "rate-limit POST /oauth/register on the MCP host (MCP-674)", merged at
+2026-09-03T16:57:40Z** (merge commit `d196d914a`), touching `rate_limits.tf` only. The rule as
+merged differs from §6.3 and §6.4 in four ways, each worth knowing before this section is used
+as an instruction:
+
+| | This document (§6.3 / §6.4) | As merged in `#569` |
+| --- | --- | --- |
+| Rollout | `log` for the window, then `block` | **`block` from the outset — no observation window** |
+| Budget | 50 per 600s | **20 per 60s** |
+| `mitigation_timeout` | 600s | **60s** |
+| Expression | any method, `/oauth/register` | **`POST` only, `/oauth/register` and `/oauth/register/`, host lowercased** |
+
+The merged rule keeps what §6 asked for on the points that matter most: `block` rather than a
+challenge, a 429 with a JSON `temporarily_unavailable` body rather than 403 text/plain, and all
+requests counted rather than failures only (§6.5's Correction 1). Its own comment states the
+20/60s figure "is NOT calibrated from observed traffic, because there is none" — so the
+document's §4.3 measurement work is not discharged by the rule existing.
+
+**One precision the bare number hides.** `characteristics` is `["cf.colo.id", "ip.src"]`, so 20
+per minute is **per IP per Cloudflare data centre**, not a global ceiling. §6.2 already makes
+this point about counting; the merged rule's own comment agrees that "the effective global
+ceiling is higher than 20". Anyone comparing the shipped threshold against this document's
+recommendation should compare like with like — both are per-colo.
+
+**`/oauth/token` remains unlimited.** Verified as a whole-directory negative, not a single-file
+one: `rate_limits.tf` is the only `phase = "http_ratelimit"` resource in
+`infrastructure/cloudflare/rulesets`, and a grep for `oauth` across all eleven files in that
+directory returns only the registration rule and its comment. That comment states the position
+explicitly — "`/mcp` and `/oauth/token` are deliberately NOT limited here" — on the reasoning
+that the only useful key for those is the authenticated subject, which the edge cannot see.
+That is a coherent position and it is a different one from §6.3's; **§6.3's token rule has not
+been adopted, and §6.6's `/mcp` position is unchanged.**
+
+**What this correction does NOT establish: whether the rule is applied at the edge.** This is a
+reading of the Terraform declaration on the default branch and nothing more. Confirming that
+the `cloudflare-rulesets` workspace has applied it needs Terraform Cloud run history or the
+Cloudflare dashboard, neither of which was available here; and probing it live would mean
+generating registration traffic against production Clerk, which §8 rules out for the same
+reason it ruled out re-firing S2's payloads. **Treat the rule as declared, not as confirmed
+active.** §0a.5 is the standing warning about assuming otherwise, and §0a.1 is the worked case
+of a merged declaration that never reached the edge.
 
 ### 6.1 Why these, and why now
 
@@ -1127,6 +1226,32 @@ S2's ray-ID attribution, which tells you which of its rules fire and expires aro
 
 ### 7.2 Residual 2 — the alpha bypass
 
+> **CORRECTION, 2026-09-14 — this residual is closed. The host is gone.**
+>
+> **Measured** by Seat "Fruitbat mends Burrow", 2026-09-14, on two independent instruments:
+>
+> - **DNS, with a control.** `dig +short curriculum-mcp-alpha.oaknational.dev` returns
+>   nothing, while the control `dig +short mcp.thenational.academy` returns `104.18.6.160`
+>   and `104.18.7.160`. The empty answer is therefore the host's absence and not a broken
+>   resolver.
+> - **Declaration.** No `curriculum-mcp-alpha` DNS record survives in
+>   `infrastructure/cloudflare/misc/dns_records.tf` on the Cloud-Config default branch, and
+>   no reference to the host survives anywhere in the `rulesets` directory — bar one
+>   historical comment in `rate_limits.tf` recording that both the Cloudflare DNS record and
+>   the Vercel project domain were removed on 2026-09-03 and re-verified the same day.
+>
+> **So "every rule in this document is bypassable through it" is no longer true**, and the
+> `#561` topology point below is now purely historical. The paragraphs that follow are kept
+> as the record of a real gap that was open between 2026-08-21 and 2026-09-03 — they explain
+> why host-scoping a rule is not the same as covering a surface, which is a lesson that
+> outlives the host.
+>
+> **The third residual at the foot of this section is untouched and still stands:**
+> `clerk.thenational.academy` CNAMEs out of Oak's zone, so no Cloudflare rule can reach
+> `revocation_endpoint`. Any statement of the form "the OAuth surface is rate-limited at the
+> edge" remains false for that endpoint — and, per §6.0, remains false for `/oauth/token`
+> too.
+
 **What it is.** `curriculum-mcp-alpha.oaknational.dev` is in a **different zone**, is a
 **production domain of the production Vercel project**, and is **not behind Cloudflare** —
 S2's `dig` shows a CNAME to `...vercel-dns-013.com` with Vercel A records, and the `.sql`
@@ -1182,6 +1307,17 @@ cover rests on the `dig` chain, not on a header.
 ---
 
 ## 9. The recommendation in one place
+
+> **Read with the 2026-09-14 corrections — four of these seven items have moved.** The list is
+> kept as authored; the state of each as at 2026-09-14 is: **(1)** still outstanding, but
+> `#558` was reverted whole on 2026-09-03, so there is no longer a PR to amend and the MCP
+> host is back on zone-wide `managed_challenge` at threshold 40 — see §0a.7; **(4)** `#561`
+> merged at 2026-08-21T14:04:43Z and no `www.thenational.academy` MCP reference survives
+> anywhere in the rulesets directory, so the sequencing hazard is discharged; **(5)** the
+> `/oauth/register` half merged on 2026-09-03 at 20/60s and straight to `block`, the
+> `/oauth/token` half did not — see §6.0, and note that neither is confirmed applied at the
+> edge; **(7)** the alpha residual is closed (§7.2), the `revocation_endpoint` residual is
+> not. Items **(2)**, **(3)** and **(6)** are unaffected and outstanding.
 
 1. **Amend `Cloud-Config#558`**: `action = "log"` and `score_threshold = 60` on the
    MCP-scoped OWASP rule (§3.1). Keep everything else it does. **Do not merge it as written.**
