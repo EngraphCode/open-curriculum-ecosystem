@@ -113,6 +113,14 @@ const config = defineConfigArray(
   // the environment, whichever file a read would move into. Tests run without
   // deployment variables, so no test sees an address that differs only on a
   // deployed build; the post-deploy UAT probes are that check.
+  // The two selectors below ban the whole route rather than one spelling of
+  // it: any import of the process module, and any reference to the identifier
+  // `process`. Between them they reject `process.env`, `process['env']`,
+  // `process[key]`, `const {env} = process`, `globalThis.process.env`,
+  // `Reflect.get(process, 'env')`, `import {env} from 'node:process'` and
+  // `import proc from 'process'`. An earlier pair of `MemberExpression`
+  // selectors matched only the two dotted spellings, so the rest stayed green
+  // (pull request 978, Copilot review).
   // A per-file rule value replaces the inherited one rather than merging, so
   // the ExportAllDeclaration selector from `recommended` is re-included. Test
   // files keep the test rules' own value.
@@ -128,10 +136,14 @@ const config = defineConfigArray(
             'Avoid export * from "module" syntax to improve tree shaking. Use named exports instead.',
         },
         {
-          selector:
-            'MemberExpression[object.property.name="process"][property.name="env"], MemberExpression[object.name="process"][property.name="env"]',
+          selector: 'ImportDeclaration[source.value=/^(node:)?process$/]',
           message:
-            'Typegen sources read no environment, so generated constants such as the widget address are the same on every build (ADR-141, widget URI identity amendment, MCP-489).',
+            'Typegen sources read no environment, so generated constants such as the widget address are the same on every build. Importing the process module is a route to it (ADR-141, widget URI identity amendment, MCP-489).',
+        },
+        {
+          selector: 'Identifier[name="process"]',
+          message:
+            'Typegen sources read no environment, so generated constants such as the widget address are the same on every build. Every reference to `process` is banned here, computed and destructured access included (ADR-141, widget URI identity amendment, MCP-489).',
         },
       ],
     },

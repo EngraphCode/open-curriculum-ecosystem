@@ -17,9 +17,10 @@
  *   all host clients.
  * - **Retired widget addresses**: per-build widget addresses from releases
  *   before the address was fixed. Not served; listed so that an
- *   unauthenticated read reaches the resource-not-found error, which tells a
- *   client to list tools again, instead of an authorization challenge, which
- *   tells it to sign in and retry the same address (ADR-141).
+ *   unauthenticated read reaches the resource-not-found error rather than an
+ *   authentication challenge, which would tell the client to sign in and
+ *   retry the same address. What a client does after the not-found answer is
+ *   the host's behaviour; the server sends no refresh instruction (ADR-141).
  *
  * Data-fetching tools (tools/call) still require authentication.
  *

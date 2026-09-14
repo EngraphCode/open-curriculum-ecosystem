@@ -183,7 +183,7 @@ describe('MCP App UI Composition (Client SDK)', () => {
     expect(contents[0]?._meta?.ui, message).toEqual(published);
   });
 
-  it('answers a retired widget address with resource-not-found, so a client lists tools again', async () => {
+  it('answers a retired widget address with resource-not-found, not an authentication challenge', async () => {
     expect(RETIRED_WIDGET_URIS.length).toBeGreaterThan(0);
 
     for (const uri of RETIRED_WIDGET_URIS) {

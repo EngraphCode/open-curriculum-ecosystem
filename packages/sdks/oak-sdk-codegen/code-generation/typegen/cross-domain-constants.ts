@@ -25,9 +25,10 @@ export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app-v1.html';
  *
  * None of them is served. They sit on the auth public-resource allowlist so
  * that an unauthenticated read of one reaches the server's resource-not-found
- * error, which tells a client to list tools again, instead of an authorization
- * challenge, which tells it to sign in and retry the same address (ADR-141,
- * widget URI identity amendment, MCP-489).
+ * error rather than an authentication challenge, which would tell the client
+ * to sign in and retry the same address. The server sends no instruction to
+ * list tools again; recovery is the host's behaviour (ADR-141, widget URI
+ * identity amendment, MCP-489).
  *
  * The set is closed: `…-899803c6.html` is release 1.181.1's address, the last
  * per-build address production served, and `…-5ce56c4b.html` is release

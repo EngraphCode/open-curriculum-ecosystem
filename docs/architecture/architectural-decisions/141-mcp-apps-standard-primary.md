@@ -104,7 +104,11 @@ Specifically:
   codegen. `registerAppTool` auto-populates it at registration time for backward
   compatibility.
 
-## Amendment — widget URI identity (2026-09-12, MCP-489)
+## Amendment — widget URI identity
+
+Recorded 2026-07-26 (MCP-187); revised 2026-09-12 (MCP-489). The heading
+carries no date, so a citation of it survives the next revision; the
+pre-revision text is kept below under "Superseded amendment".
 
 `WIDGET_URI` is the published address `ui://widget/oak-curriculum-app-v1.html`,
 the same on every build.
@@ -179,16 +183,22 @@ the same on every build.
   release 1.181.1's `ui://widget/oak-curriculum-app-899803c6.html`, the last
   per-build address production served, and release 1.178.6's
   `ui://widget/oak-curriculum-app-5ce56c4b.html`, held by a ChatGPT desktop
-  connector on 2026-09-10. An unauthenticated read of either reaches the
-  resource-not-found error, which tells a client to list tools again, rather
-  than an authorization challenge, which tells it to sign in and retry the
-  same address. A signed-in read of any earlier per-build address gets the
-  same not-found error. A client recovers when it lists tools again;
-  reconnecting recovers only when the host lists tools as it reconnects.
+  connector on 2026-09-10. An unauthenticated read of either reaches
+  not-found rather than an authentication challenge. That is the whole of
+  what the allowlist entry buys: the client is told the address does not
+  exist instead of being told to sign in and retry the same address. Nothing
+  in the protocol makes a missing-resource error an instruction to list tools
+  again, and this server sends no such instruction, so what a client does
+  next is the host's behaviour, not a contract Oak can rely on. A signed-in
+  read of any earlier per-build address gets the same not-found error.
+  Recovery needs a fresh `tools/list`; reconnecting recovers only when the
+  host lists tools as it reconnects.
 - **Not found is `-32602`.** The MCP specification says servers SHOULD return
-  `-32002` for a missing resource. The MCP SDK returns `-32602` (invalid
-  params) and this server does not override it, so Oak's tests and UAT rows
-  expect the SDK's value.
+  `-32002` for a missing resource. The MCP SDK throws
+  `ErrorCode.InvalidParams`, which serialises as `-32602`, for a resource it
+  does not hold. The code is hardcoded upstream and this server does not
+  override it, so the deviation from the specification's SHOULD is an
+  upstream constraint, and Oak's tests and UAT rows expect `-32602`.
 - **Staleness is the accepted cost.** The [MCP Apps
   specification](https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/2026-01-26/apps.mdx)
   (2026-01-26) lets hosts "prefetch and cache UI resource content" and gives

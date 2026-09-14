@@ -38,10 +38,10 @@ describe('RETIRED_WIDGET_URIS', () => {
   it('lists the per-build addresses clients may still hold', () => {
     expect(
       RETIRED_WIDGET_URIS,
-      'Dropping an address turns an unauthenticated read of it back into an authorization ' +
-        'challenge, which a client answers by signing in and retrying rather than by listing ' +
-        'tools again. Re-adjudicate against ADR-141 (widget URI identity amendment, MCP-489) ' +
-        'before changing this expectation.',
+      'Dropping an address turns an unauthenticated read of it back into an authentication ' +
+        'challenge, which tells the client to sign in and retry the same address instead of ' +
+        'that the address does not exist. Re-adjudicate against ADR-141 (widget URI identity ' +
+        'amendment, MCP-489) before changing this expectation.',
     ).toEqual([
       'ui://widget/oak-curriculum-app-899803c6.html',
       'ui://widget/oak-curriculum-app-5ce56c4b.html',

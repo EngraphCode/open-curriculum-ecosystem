@@ -84,9 +84,11 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   ),
   // MCP-489: the emitted TSDoc describes the fixed widget address and the
   // retired list; the emitted value is C479's, reviewed in
-  // cross-domain-constants.ts.
+  // cross-domain-constants.ts. Re-attested at pull request 978, where the
+  // retired-list TSDoc dropped the claim that a not-found answer instructs a
+  // client to list tools again; no new authored agent-facing content.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts': excluded(
-    '6fe0f39e7dd03a462a32c4118b4d7284d7421150cb2404a7199cdea833b6febe',
+    '1792a2edc0aff839b8218e7367c68c5750fc0c2ef186cb47a301a82edbc38696',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-462: reads upstream's numeric bounds off the parameter schema and

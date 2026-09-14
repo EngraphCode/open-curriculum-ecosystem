@@ -27,9 +27,9 @@ export const WIDGET_URI = "ui://widget/oak-curriculum-app-v1.html" as const;
  * Widget addresses from releases before the address was fixed.
  *
  * Not served. Listed on the auth public-resource allowlist so that an
- * unauthenticated read reaches the resource-not-found error, which tells a
- * client to list tools again, rather than an authorization challenge (ADR-141,
- * widget URI identity amendment; MCP-489).
+ * unauthenticated read reaches the resource-not-found error rather than an
+ * authentication challenge. The server sends no instruction to list tools
+ * again (ADR-141, widget URI identity amendment; MCP-489).
  *
  * @see code-generation/typegen/cross-domain-constants.ts - Source of truth
  */
