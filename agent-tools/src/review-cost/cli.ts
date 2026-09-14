@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 
 import type { CostReport } from './cost.js';
-import { currentBranch, currentRepo, isSyncPush, openPullRequestFor } from './harvest.js';
-import { pricePullRequest } from './price.js';
+import { currentBranch, isSyncPush } from './git.js';
+import { currentRepo, openPullRequestFor } from './harvest.js';
+import { priceForGate } from './price.js';
 import { runSurvey } from './survey.js';
 import { parseArgs, selectors, USAGE, type ParsedArgs } from './args.js';
 
@@ -56,7 +57,7 @@ export function parsePushedRefs(content: string): PushedRef[] {
 }
 
 const SYNC_PUSH_EVIDENCE =
-  'sync push: one merge of the base that changes nothing else — outside the settlement budget (PDR-140 clause 4), passes whatever the verdict';
+  "sync push: one merge of the pull request's base over the remote head, its tree exactly git's automatic merge — outside the settlement budget (PDR-140 clause 4), passes whatever the verdict";
 
 /** The gate's exit for one priced pull request; a sync push passes an exhausted loop. */
 export function gateExit(
@@ -82,27 +83,32 @@ function render(
   return `review-cost gate: PR #${String(target.number)} ${result.verdict}\n${lines}\n`;
 }
 
+// A push that creates the branch is never a sync; one that moves it is a sync when the
+// pushed head is one merge of the pull request's base over the head the remote holds.
+function pushIsSync(ref: PushedRef | undefined, baseRefOid: string | undefined): boolean {
+  return (
+    ref !== undefined &&
+    ref.remoteSha !== undefined &&
+    baseRefOid !== undefined &&
+    isSyncPush(ref.remoteSha, ref.localSha, baseRefOid)
+  );
+}
+
 function gateOne(
   target: { number: number; repo: string },
   parsed: ParsedArgs,
   stdout: Pick<NodeJS.WriteStream, 'write'>,
-  syncPush = false,
+  pushed?: PushedRef,
 ): number {
-  const result = pricePullRequest({
+  const priced = priceForGate({
     number: target.number,
     repo: target.repo,
     expectedReviewers: parsed.expect,
     ghPath: parsed.ghPath,
   });
-  const exit = gateExit(result, syncPush);
-  stdout.write(render(target, result, exit.evidence, parsed.json));
+  const exit = gateExit(priced.report, pushIsSync(pushed, priced.baseRefOid));
+  stdout.write(render(target, priced.report, exit.evidence, parsed.json));
   return exit.code;
-}
-
-// A push that creates the branch is never a sync; one that moves it is a sync when the
-// pushed head is one merge of the base over the head the remote holds.
-function pushIsSync(ref: PushedRef): boolean {
-  return ref.remoteSha !== undefined && isSyncPush(ref.remoteSha, ref.localSha);
 }
 
 function gate(parsed: ParsedArgs, stdout: Pick<NodeJS.WriteStream, 'write'>): number {
@@ -116,7 +122,7 @@ function gate(parsed: ParsedArgs, stdout: Pick<NodeJS.WriteStream, 'write'>): nu
         );
         return 0;
       }
-      return gateOne({ number, repo }, parsed, stdout, pushIsSync(ref));
+      return gateOne({ number, repo }, parsed, stdout, ref);
     });
     return codes.includes(3) ? 3 : 0;
   }
