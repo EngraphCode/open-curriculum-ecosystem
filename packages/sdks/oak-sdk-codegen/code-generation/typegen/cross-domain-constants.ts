@@ -1,5 +1,5 @@
 /**
- * The one published address of the Oak curriculum MCP App widget.
+ * The published address of the Oak curriculum MCP App widget.
  *
  * Generated at sdk-codegen time so every consumer — the tool definitions
  * advertising `_meta.ui.resourceUri`, the app's served-surface registration
@@ -10,13 +10,33 @@
  * client keeps the address from the tool list it was given, so serving a
  * different address in its place breaks every client holding an earlier
  * list, and a published plugin needs a new reviewed version before it sees a
- * new address. Widget changes ship as compatible content behind this address.
- * The contract, its evidence, and the procedure for an incompatible change
- * live in ADR-141 (widget URI identity amendment, MCP-489).
+ * new address. Compatible widget changes ship as content behind this address;
+ * an incompatible change takes the next version segment (`-v2`). The
+ * contract, its evidence, and the procedure for an incompatible change live in
+ * ADR-141 (widget URI identity amendment, MCP-489).
  *
  * @see https://modelcontextprotocol.io/extensions/apps/overview (MCP Apps standard)
  */
-export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app.html';
+export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app-v1.html';
+
+/**
+ * Per-build widget addresses from releases before the address was fixed that
+ * clients may still hold.
+ *
+ * None of them is served. They sit on the auth public-resource allowlist so
+ * that an unauthenticated read of one reaches the server's resource-not-found
+ * error, which tells a client to list tools again, instead of an authorization
+ * challenge, which tells it to sign in and retry the same address (ADR-141,
+ * widget URI identity amendment, MCP-489).
+ *
+ * The set is closed: `…-899803c6.html` is release 1.181.1's address, the last
+ * per-build address production served, and `…-5ce56c4b.html` is release
+ * 1.178.6's, held by a ChatGPT desktop connector on 2026-09-10.
+ */
+export const RETIRED_WIDGET_URIS: readonly string[] = [
+  'ui://widget/oak-curriculum-app-899803c6.html',
+  'ui://widget/oak-curriculum-app-5ce56c4b.html',
+];
 
 /**
  * Tools that should advertise a widget UI via `_meta.ui.resourceUri`.

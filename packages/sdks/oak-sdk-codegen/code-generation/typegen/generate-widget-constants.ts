@@ -1,13 +1,18 @@
 /**
  * Generate widget constants file from cross-domain constants.
  *
- * Creates `src/types/generated/widget-constants.ts` with WIDGET_URI constant
- * exported for consumption by handwritten SDK files and public API.
+ * Creates `src/types/generated/widget-constants.ts` with the WIDGET_URI,
+ * RETIRED_WIDGET_URIS and WIDGET_TOOL_NAMES constants exported for
+ * consumption by handwritten SDK files and public API.
  */
 
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
-import { BASE_WIDGET_URI, WIDGET_TOOL_NAMES } from './cross-domain-constants.js';
+import {
+  BASE_WIDGET_URI,
+  RETIRED_WIDGET_URIS,
+  WIDGET_TOOL_NAMES,
+} from './cross-domain-constants.js';
 import type { Logger } from '@oaknational/logger';
 
 const OUTPUT_PATH = resolve(import.meta.dirname, '../../src/types/generated/widget-constants.ts');
@@ -15,9 +20,9 @@ const OUTPUT_PATH = resolve(import.meta.dirname, '../../src/types/generated/widg
 function generateWidgetConstantsFile(): string {
   return `/**
  * GENERATED FILE - DO NOT EDIT
- * 
+ *
  * Widget URI constants generated from sdk-codegen cross-domain constants.
- * 
+ *
  * @see code-generation/typegen/cross-domain-constants.ts - Single source of truth
  */
 
@@ -27,15 +32,28 @@ function generateWidgetConstantsFile(): string {
  * This app renders tool output with Oak branding, logo, and styling.
  * All UI-bearing tools reference this URI in their \`_meta.ui.resourceUri\` field (ADR-141).
  *
- * **One published address**: the URI is the same on every build. Clients keep
- * the address from the tool list they were given, so widget changes ship as
- * compatible content behind it; changing the address is a published-contract
- * change (ADR-141, widget URI identity amendment; MCP-489).
+ * **Published address**: the URI is the same on every build. Clients keep the
+ * address from the tool list they were given, so compatible widget changes
+ * ship as content behind it; an incompatible change takes the next version
+ * segment and is a published-contract change (ADR-141, widget URI identity
+ * amendment; MCP-489).
  *
  * @see code-generation/typegen/cross-domain-constants.ts - Source of truth
  * @see https://modelcontextprotocol.io/extensions/apps/overview (MCP Apps standard)
  */
 export const WIDGET_URI = ${JSON.stringify(BASE_WIDGET_URI)} as const;
+
+/**
+ * Widget addresses from releases before the address was fixed.
+ *
+ * Not served. Listed on the auth public-resource allowlist so that an
+ * unauthenticated read reaches the resource-not-found error, which tells a
+ * client to list tools again, rather than an authorization challenge (ADR-141,
+ * widget URI identity amendment; MCP-489).
+ *
+ * @see code-generation/typegen/cross-domain-constants.ts - Source of truth
+ */
+export const RETIRED_WIDGET_URIS: readonly string[] = ${JSON.stringify(RETIRED_WIDGET_URIS)};
 
 /**
  * Tools that advertise a widget UI via \`_meta.ui.resourceUri\`.

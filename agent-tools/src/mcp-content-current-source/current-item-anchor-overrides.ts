@@ -234,7 +234,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   // every build.
   C479: {
     'packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts': [
-      "export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app.html';",
+      "export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app-v1.html';",
     ],
   },
 };

@@ -178,7 +178,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts",
-      "semanticSha256": "75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227",
+      "semanticSha256": "feba3bc1c8e933a2bc991cebadc014d636d54fb39431a0195103873899941ca9",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -589,7 +589,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts",
-      "semanticSha256": "0ddeaa2c8e1938d0be9951b51ccaedea6eb58e77bbb255dd949fb5a1852986c4",
+      "semanticSha256": "07cf39ca0ec83f7273e723293a671acb2f437da907ddb8d62e57482ac60489d2",
       "itemIds": [
         "C690",
         "C691",
@@ -1315,6 +1315,12 @@
       "exclusionReason": "Type-only change; no authored agent-facing content."
     },
     {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/widget-constants.ts",
+      "semanticSha256": "892eb7db109b5bb3dd9b5b6318b671534409f594017662703c76b8894b1c61c9",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/apply-deferred-paths.ts",
       "semanticSha256": "7d95eb732a06a198166ebf3733a387e66e6c177c1974d4f3d3f194ec3b546ee0",
       "itemIds": [],
@@ -1387,7 +1393,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts",
-      "semanticSha256": "43c7c5b75932e88e31de8a86867582d89f3fdd8cdbfa9280d6130fa7ac259b55",
+      "semanticSha256": "7b9021cb3680a365f71b5df00c16d2cec028099ecec5ed50e5405d6ea52b284d",
       "itemIds": [
         "C479",
         "C480"
@@ -1395,7 +1401,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts",
-      "semanticSha256": "7251820fa063619dc7b000cd7f1ba441ac1fac7f6a6b9fee5da701609e3e2e76",
+      "semanticSha256": "6fe0f39e7dd03a462a32c4118b4d7284d7421150cb2404a7199cdea833b6febe",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

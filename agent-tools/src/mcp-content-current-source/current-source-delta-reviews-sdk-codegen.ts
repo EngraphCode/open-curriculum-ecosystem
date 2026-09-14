@@ -74,16 +74,19 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     'd7cefcfc67a83313bc6a88cffdd09ca510e8d34415f8ab3b3afd5e354cd5ac9b',
     UPSTREAM_BULK_ONLY,
   ),
-  // MCP-489: BASE_WIDGET_URI (C479) is one fixed published address with no
-  // build-environment input. WIDGET_TOOL_NAMES (C480) is unchanged.
+  // MCP-489: BASE_WIDGET_URI (C479) is one fixed, versioned published address
+  // with no build-environment input. RETIRED_WIDGET_URIS lists earlier
+  // per-build addresses for the auth allowlist; it is not served or advertised.
+  // WIDGET_TOOL_NAMES (C480) is unchanged.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts': reviewed(
-    '43c7c5b75932e88e31de8a86867582d89f3fdd8cdbfa9280d6130fa7ac259b55',
+    '7b9021cb3680a365f71b5df00c16d2cec028099ecec5ed50e5405d6ea52b284d',
     ['C479', 'C480'],
   ),
-  // MCP-489: the emitted TSDoc describes the one fixed widget address; the
-  // emitted value is C479's, reviewed in cross-domain-constants.ts.
+  // MCP-489: the emitted TSDoc describes the fixed widget address and the
+  // retired list; the emitted value is C479's, reviewed in
+  // cross-domain-constants.ts.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts': excluded(
-    '7251820fa063619dc7b000cd7f1ba441ac1fac7f6a6b9fee5da701609e3e2e76',
+    '6fe0f39e7dd03a462a32c4118b4d7284d7421150cb2404a7199cdea833b6febe',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-462: reads upstream's numeric bounds off the parameter schema and

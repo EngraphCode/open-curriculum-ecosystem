@@ -15,6 +15,11 @@
  *   require authentication. Owner: Oak engineering. Removal condition:
  *   when the MCP protocol supports authenticated resource delivery for
  *   all host clients.
+ * - **Retired widget addresses**: per-build widget addresses from releases
+ *   before the address was fixed. Not served; listed so that an
+ *   unauthenticated read reaches the resource-not-found error, which tells a
+ *   client to list tools again, instead of an authorization challenge, which
+ *   tells it to sign in and retry the same address (ADR-141).
  *
  * Data-fetching tools (tools/call) still require authentication.
  *
@@ -27,6 +32,7 @@
 import {
   DOCUMENTATION_RESOURCES,
   NAVIGATION_GUIDANCE_URIS,
+  RETIRED_WIDGET_URIS,
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools';
 
@@ -41,6 +47,10 @@ import {
 const PUBLIC_RESOURCE_URIS = [
   ...DOCUMENTATION_RESOURCES.map((resource) => resource.uri),
   WIDGET_URI,
+  // Retired widget addresses (ADR-141): deliberately unregistered, unlike every
+  // other row. Public so an unauthenticated read gets resource-not-found, the
+  // answer that sends a client holding one back to list tools.
+  ...RETIRED_WIDGET_URIS,
   // Agent guidance documents, SERVED LIVE-SET ONLY (ADR-205 classification made
   // explicitly, mcp-101 slice B2b): static SDK-compiled workflow guidance markdown,
   // no user-specific data — the same data-sensitivity class as getting-started.md.

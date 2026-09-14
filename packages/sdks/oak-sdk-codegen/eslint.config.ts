@@ -109,16 +109,16 @@ const config = defineConfigArray(
   },
 
   // MCP-489: the widget address is one published value, the same on every
-  // build (ADR-141, widget URI identity amendment). Its sources read no
-  // environment, so a build-dependent address cannot return unnoticed; the
-  // sentinel test alone cannot see one that differs only on deployed builds.
+  // build (ADR-141, widget URI identity amendment). No typegen source reads
+  // the environment, whichever file a read would move into. Tests run without
+  // deployment variables, so no test sees an address that differs only on a
+  // deployed build; the post-deploy UAT probes are that check.
   // A per-file rule value replaces the inherited one rather than merging, so
-  // the ExportAllDeclaration selector from `recommended` is re-included.
+  // the ExportAllDeclaration selector from `recommended` is re-included. Test
+  // files keep the test rules' own value.
   {
-    files: [
-      'code-generation/typegen/cross-domain-constants.ts',
-      'code-generation/typegen/generate-widget-constants.ts',
-    ],
+    files: ['code-generation/typegen/**/*.ts'],
+    ignores: ['**/*.test.ts'],
     rules: {
       'no-restricted-syntax': [
         'error',
@@ -131,7 +131,7 @@ const config = defineConfigArray(
           selector:
             'MemberExpression[object.property.name="process"][property.name="env"], MemberExpression[object.name="process"][property.name="env"]',
           message:
-            'The widget address is the same on every build (ADR-141, widget URI identity amendment, MCP-489); its sources read no environment.',
+            'Typegen sources read no environment, so generated constants such as the widget address are the same on every build (ADR-141, widget URI identity amendment, MCP-489).',
         },
       ],
     },
