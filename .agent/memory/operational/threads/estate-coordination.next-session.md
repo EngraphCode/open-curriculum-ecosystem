@@ -3006,3 +3006,54 @@ hold and this line's pr-tally family; nothing further asked of this line.
 
 This thread's pickup contract (the 2026-09-13 SESSION CLOSE block above) stands unchanged: #143's
 last settlement push, the owed-items records PR, the survey rows. The next session resumes there.
+
+### 2026-09-14 LANDINGS — #143 and #146 merged, #145 held for a morning ruling (Zephyr guards Leeward, 281e44)
+
+Owner's word: close the two open pull requests as efficiently as possible, then a dedicated
+consolidation session at the owner's word. #143 merged as `e474e883e` (last settlement push
+`70d6a6584`: five round-two findings cured; round three dispositioned at the spent budget), lane
+retired, the held buffer memory deleted. #145 settled at `d36b738ed` (two settlement pushes,
+sixteen findings cured; round three dispositioned) but could not take the base update the front
+door requires: the pre-push review-cost gate refused the merge push as BUDGET-EXHAUSTED. The
+owner named it a cost-model defect; PR #146 made the gate pass a sync push (one merge of the
+pull request's base over the remote head, its tree exactly git's automatic merge; PDR-140 clause
+4) and merged as `048f377fa`; engraph folded into `coordination/2026-09-14-7658a7` at
+`176291eb2`. Deviation, recorded at Cauldron herds Lustre's flag: #146 landed with the Codex leg
+carried on the landing premises (PR comment 5671056932) — Codex completed the head with no
+findings (summary comment: commit 4a51851 Completed 2026-09-14T21:12:50Z; 👍 reaction
+21:12:53Z) and posts no review object then, which the door's leg read cannot see; an
+unobservable leg is an unlanded leg, and reasoning about the vendor is what the door replaces.
+Not repeated on #145.
+
+moved for teachers: nothing / moved for the Practice: the profile sync tool one push from
+landing; the review-cost gate no longer traps a settled pull request behind a moved base; the
+rigour consolidation (one-instance-is-an-observation, the pattern, the sources) on engraph.
+
+Owner rulings tonight, verbatim, queued in `pending-graduations.md` for the consolidation
+session: "tests never, ever, under any circumstances use or create IO" (testing-strategy still
+lets smoke and E2E tests trigger IO); "sometimes you don't need an automated check, sometimes
+you need an observation" (validation-strategy). Both were corrections of this seat's cures.
+
+PICKUPS (the morning):
+
+1. **#145 rebudget** — the owner rules whether `budget — 3` is written on #145 for the one
+   mandatory cure (`318a2ea21`, local on `lane/operator-profile-sync-281e44` with the lane's
+   engraph merges `b1656e680` and `dd432d965`): the IO unit test and its helper out, an
+   injected presence probe with a pure unit test. On the raise: push, re-request Copilot, the
+   front door with both legs declared (no premises-carried leg), retire the lane, then
+   start-right §3a binds `pnpm profile:sync pull`. Without it #145 stays open.
+2. **Reviewer-legs reads a zero-finding Codex completion** (tool feedback): the Codex summary
+   comment's Completed row for the tip, with the 👍 reaction, is the vendor's zero-finding
+   review; the door should bind it as SATISFIED. Until it does, Codex is declared expected only
+   where a review object can be expected, or the leg waits.
+3. **#145 round-three cures, homed** (Codex two, Copilot one, all true): a first push from a
+   non-default branch must resolve the remote's default branch and refuse otherwise; when the
+   branch is behind, the unpushed-commits finding's cure reads pull, then push; the git runner
+   scrubs `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` from its environment as the
+   refounding runner does. Fixtures at pickup, one small PR.
+4. **#143 round-three cures, homed** (the consolidation session, with the pattern's wording):
+   `signal-read-as-fact` says "fields the record shape requires", not "the validator
+   requires" (the patterns validator reads name, category, use_this_when and polarity); "acted
+   on every time" is scoped to the proving day.
+5. The 2026-09-13 SESSION CLOSE pickups above (the owed-items records PR, the survey rows) and
+   the seven due entries in `pending-graduations.md` — the dedicated consolidation session.

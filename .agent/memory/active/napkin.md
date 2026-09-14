@@ -1401,3 +1401,32 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)
   appears in the session list with no claim in this repo's registry.
+- **Landing #143 and #146; #145 held (2026-09-14 ~21:5xZ, owner asleep from ~21:20Z).** #143
+  (rigour consolidation, picked up from the 2026-09-13 close) merged as `e474e883e` after its
+  last settlement push (five findings cured) and a round three dispositioned at the spent budget
+  (one below the bar, two true wording cures homed for the consolidation session); lane retired,
+  the held buffer memory deleted. #145 (profile sync) took two settlement pushes (ten, then six
+  findings, all cured), a round three dispositioned without a cure (three true, homed), then hit
+  the shape the owner named as a cost-model defect: fully settled but BEHIND-BASE at the door,
+  and the pre-push gate refusing the base-update push as BUDGET-EXHAUSTED. PR #146 cured the
+  gate (a sync push — one merge of the pull request's base over the remote head, its tree
+  exactly git's automatic merge — passes whatever the verdict, PDR-140 clause 4) and merged as
+  `048f377fa`. Three lessons, mine, all of one kind — reaching for IO where the doctrine says
+  never: (1) `operator-profile-root.unit.test.ts` created a temporary directory through a
+  `test-helpers/` module to get past the real-IO lint rule — a dodge, and exactly the precedent
+  claim the due entry "a reviewer's allowlist precedent never licenses IO in a test" (owner,
+  2026-09-06) already refutes; (2) a smoke test on #146 built scratch git repositories to prove
+  the sync predicate against the real git; the owner's word, verbatim: "tests never, ever, under
+  any circumstances use or create IO" and "sometimes you don't need an automated check, sometimes
+  you need an observation" — the real-git run is an observation made once at cure time and
+  recorded on the pull request, and the wiring is proven by the injected seam; (3) a residency
+  slip: one edit ran in the wrong worktree because a `cd` in a parallel call moved the session's
+  residency; the stray file was removed before any commit. A fourth, flagged by Cauldron herds
+  Lustre as a deviation and accepted: #146 landed with the Codex leg carried on the landing
+  premises (comment 5671056932) because Codex completed the head with no findings and posts no
+  review object then (its summary comment names commit 4a51851 Completed 21:12:50Z; 👍 at
+  21:12:53Z) — under measured-state doctrine an unobservable leg is an unlanded leg; the cure is
+  the door reading the completion record, or Codex not declared expected until it does; not to
+  be repeated on #145. #145's cure for (1) is `318a2ea21`, local and unpushed with the lane's
+  engraph merges, held for the owner's morning ruling on a rebudget (Cauldron: the raise is the
+  owner's; PDR-140 clause 9's seat grant is records-class only).

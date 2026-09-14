@@ -389,6 +389,16 @@ the check's sync leg), Copilot requested; when it lands, start-right's
 profile step invokes the pull, and engraph is merged into the coordination
 branch.
 
+Landings of 2026-09-14 evening (the owner asleep from ~21:20Z): #143 merged as
+`e474e883e` and #146 (the review-cost gate passes a sync push; the cost-model
+defect the owner named when #145 sat settled but BEHIND-BASE with the gate
+refusing its base update) as `048f377fa`; engraph folded into
+`coordination/2026-09-14-7658a7` at `176291eb2`; the held buffer memory
+deleted. #145 is one push from landing: its cure `318a2ea21` (the IO unit
+test out at the owner's word) is local on its lane and held for the morning
+ruling on a rebudget. The estate-coordination thread record's 2026-09-14
+LANDINGS entry carries the five pickups.
+
 ### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
 
 An owner-directed docs-only session (Kinkajou binds Lair, e17ab4; no commit,
