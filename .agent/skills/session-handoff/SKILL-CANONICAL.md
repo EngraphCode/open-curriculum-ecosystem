@@ -746,11 +746,19 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     - If `oak-consolidate-docs` runs now, refresh `Deep consolidation status`
       to `completed this handoff — <reason>`.
 
-11. **Verify the `pnpm check` cleanliness gate.** A sole-contributor session
-    or team handoff-owner closeout cannot be marked complete while
-    `pnpm check` is red or carries warnings. Run `pnpm check` from the repo
-    root before declaring handoff complete. The outcome routes one of three
-    ways:
+11. **Verify the cleanliness gate — from the commit, never a separate run.**
+    A sole-contributor session or team handoff-owner closeout cannot be
+    marked complete while the gate is red or carries warnings. The gate
+    evidence is the landed commit's own pre-commit run: the hook runs
+    Prettier and markdownlint on the staged files, the repo validators, the
+    shell lint, and the whole-tree build, type-check, lint and unit tests
+    (`.turbo/last-gate.log`). Owner ruling, 2026-09-14, verbatim: "the
+    commit triggers the gates, there is no point and a fair amount of cost
+    running the gates separately as well, never, ever do that." So a
+    closing seat never runs `pnpm check` (or any whole-repo gate) after or
+    beside a commit: read the commit's gate log and the commit's landing,
+    and record that. A session that landed no commit has nothing to gate.
+    The outcome routes one of three ways:
 
     - **Green** — handoff may complete. Record the green run in the landed
       outcome or as a no-landing-session closeout artefact.
@@ -772,9 +780,10 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     completes with no errors or warnings. This step makes that standing
     direction structurally enforced rather than agent-recalled.
 
-    **Singleton in multi-agent windows.** When two or more agents are
-    closing concurrently, only **one** of them runs the whole-repo
-    `pnpm check`. Apply the
+    **Singleton in multi-agent windows.** Where a whole-repo gate run is
+    warranted at all (it never is beside a commit, per the ruling above),
+    and two or more agents are closing concurrently, only **one** of them
+    runs it. Apply the
     [`check-singleton-per-window`](../../rules/check-singleton-per-window.md)
     rule: before invoking `pnpm check`, broadcast on the comms stream
     *"Lane &lt;name&gt; running pnpm check, ETA ~30s, will broadcast

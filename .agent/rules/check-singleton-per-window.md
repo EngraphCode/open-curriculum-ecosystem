@@ -10,9 +10,15 @@ every concurrent peer — their CLIs (heartbeats, comms, marshal
 commands) and watchers die for the rebuild window (~90s). A
 whole-repo sweep is a shared-substrate mutation, not a private read.
 
-This rule complements `session-handoff` step §11 (which directs every
-closing agent to run `pnpm check`) by adding an N-agent constraint:
-the *team* runs check once, not N times.
+This rule complements `session-handoff` step §11 by adding an N-agent
+constraint: the *team* runs a whole-repo gate at most once per window,
+not N times. The stronger constraint sits above it: the commit ceremony's
+pre-commit hook already runs the whole-tree gates, so a gate run beside or
+after a commit is never warranted (owner, 2026-09-14, verbatim: "the
+commit triggers the gates, there is no point and a fair amount of cost
+running the gates separately as well, never, ever do that"). The
+singleton discipline below governs the residue: a whole-repo run that no
+commit triggers.
 
 ## The Invariant
 
