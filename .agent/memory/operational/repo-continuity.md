@@ -333,6 +333,35 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
+### PICKUP for the next session — the estate-coordination thread, not the Reliable Atoms note (owner's word 2026-09-14)
+
+The next session resumes the **estate-coordination** thread exactly where
+Nettle guards Pistil closed it: read
+`threads/estate-coordination.next-session.md` §"SESSION CLOSE (Nettle guards
+Pistil …)" first — #143's last settlement push, then the owed-items records
+PR, then the survey rows. The note below records a dirty-tree fact that the
+resuming seat sweeps into its first commit; it is NOT a lane to continue and
+carries no next action of its own (owner's word, 2026-09-14: the next session
+picks up the previous thread, not this one).
+
+### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
+
+An owner-directed docs-only session (Kinkajou binds Lair, e17ab4; no commit,
+no push, no gates by the owner's word) left the 2026-09-14 rulings on the
+working tree of the live coordination branch: the programme node's amendment
+and bar element 10, the new delivery node `reliable-atoms-workspace-shape`,
+the research note of the same date, ADR-166 §Amendment 2026-09-14, ADR-230's
+new interpretation bullet, the foundations bundle's two binding sentences, the
+July backlog child plan's supersession note, the paused budget thread record,
+and the graph-and-queue node's new dependency. What the resuming seat does
+with it: `git status` to see the set, `pnpm check:docs` and
+`pnpm repo-validators:check` (the plan-corpus validator has not run on the
+new node), then sweep it into the first commit of the estate-coordination
+work under the commit skill. Deleting the unregistered
+`max-files-per-dir` ESLint rule is the delivery node's first slice, a source
+change with gates, not a docs sweep. The paused thread record carries the
+full note; no existing core workspace is a reference for the class.
+
 ### Plans estate — superseded-node placement to re-true (2026-09-06)
 
 A 2026-09-06 review round moved a superseded delivery node from `delivery/` into

@@ -1269,3 +1269,36 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   the empty body (#142), the comment-shaped round (#143). If a fourth arrives, the cure shape is a
   shared review-shape normaliser consumed by pr-watch, pr-tally and review-cost alike; the plan
   node's normaliser is the first step of that, deliberately scoped to two instruments.
+
+## Kinkajou binds Lair (e17ab4) — 2026-09-14, owner-directed docs-only session: the Reliable Atoms workspace class
+
+- **Owner correction, the session's lesson.** Given a NEW class with stated starting parameters
+  (five TypeScript files and seven files of any kind per directory), I measured an existing
+  non-atom core workspace against them, found its root over the any-kind cap, and began to
+  pre-declare "the workspace root" an edge case of the class before one atom workspace existed.
+  The owner: do not take a non-atom workspace as an example; note it does not fit the starting
+  parameters and declare it a special case. The generator is threshold inflation arriving BEFORE
+  the rule is built — ADR-166's anti-gaming rule from the other side. Cure recorded structurally:
+  the delivery node's ledger admits rows only from workspaces declaring the class; the programme
+  node and ADR-166's amendment say a non-fitting workspace is outside the class, never evidence.
+- **Owner correction two.** "That decision was already made" — the July 2026 concept record's
+  finding four (repository concentration belongs in the validator framework; syntax-local
+  invariants stay in ESLint) was the decision; I had read its "pending ratification" status as
+  the question still open. A finding the owner has adopted in later direction is decided even
+  when the record's status line lags; read the finding, not only the status.
+- **Owner ruling three, recorded verbatim in the programme node:** not a job for a test, therefore
+  not for Vitest — a directory's shape is a structural invariant of the repository, and the
+  instrument is a repository validator with unit tests over its pure logic, never a test asserting
+  file counts.
+- **State at close (owner's frame: no commit, no push, no gates).** Uncommitted on the working
+  tree of `coordination/2026-09-12-69a537`: the programme node's 2026-09-14 amendment and bar
+  element 10; the new delivery node `reliable-atoms-workspace-shape` (values, instruments, empty
+  edge-case ledger); the research note `reliable-atoms-workspace-shape-exploration-2026-09-14.md`
+  and its index row; ADR-166 §Amendment 2026-09-14 and its two table rows; ADR-230's new
+  repository-interpretation bullet; the general architecture §9 binding sentence and the bundle
+  index's authority sentence; the July backlog child plan's supersession note and three backlog
+  todo re-truings; the paused budget thread record (identity row, ruling note); the
+  graph-and-queue node's `beneficial` dependency. No source file changed: the owner said the
+  ESLint rule should be deleted, and that deletion is the delivery node's first slice, not a
+  docs-session act. Not run: markdownlint, prettier, the plan-corpus validator — by the owner's
+  frame; the next seat runs `pnpm check:docs` and `pnpm repo-validators:check` before any commit.
