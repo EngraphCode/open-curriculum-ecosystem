@@ -48,7 +48,16 @@ One stacked-PR mechanic that bites at open and at retarget: **a base
 retarget fires no `synchronize` event, so required checks do not re-run**
 and the PR can sit green-stale or pending forever. The cure is an empty
 commit on the head branch (`git commit-tree` against the same tree, push),
-touching no checkout.
+touching no checkout. A second stacked-PR mechanic bites at the merge
+boundary, after every review round is spent (measured first-hand
+2026-08-11): on native GitHub stack members the synchronous REST merge
+endpoint answers 403 ("use the asynchronous merge endpoint") even at a
+settle-ready verdict, base edits answer 422, and the vendor's only
+stack-merge instrument is a CLI cascade under ambient credentials — which
+the bot-identity rule forbids. If PRs are stacked for review ergonomics,
+plan the merge boundary from the start as stack dissolution plus sequential
+bottom-up merges on the standard bot path; never discover the 403 at
+settle.
 
 ## What a PR is (the intent under every phase below)
 
@@ -90,6 +99,41 @@ into the permanent record):
   inventory a seat may hold; the count is reported at every wrap and acted
   on at every boundary — merged when green and clean, closed with its
   reason, or owned with a named seat and a next step.
+- **A review lane's deliverable is the review ON the PR, and a review of a PR
+  lands on that PR's branch.** Post the first typed, first-hand-verified
+  finding on the PR as soon as it exists and say what follows; the report,
+  the node, the thread record and the panels are the record, never the gate
+  (owner, 2026-09-06, after ninety minutes of plan, fleet design, census
+  scripts and continuity artefacts: "there is not a single review on the PR
+  from you so far"). A record about an open PR — a review report, its node,
+  its rows — lands on that PR's branch, pushed as the bot under the PR's own
+  review contract, never as a separate PR into the base (owner, 2026-09-07,
+  after re-basing such a PR by hand: "I never wanted the review in a
+  separate PR, that is of very little use, you should have added your work
+  to 66 in the first place"); "never push to the reviewed PR's branch" was a
+  seat's borrowed etiquette, never doctrine, and the owner's own act on their
+  PR is authority. When the reviewed branch is behind the base, sync it in
+  the same push. And the lane stays denominated in the review of the
+  object's substance — chapters read, findings made — not in the apparatus
+  built to review it (owner, 2026-09-07: "Your one job was to review PR 66,
+  have you done that?").
+- **A remote branch without a PR is not safe.** Closing a PR is never a
+  preservation move (owner, 2026-09-04, verbatim: "a remote branch without a
+  PR is NOT considered safe, the work will rot or be orphaned, if it is
+  worthwhile then it stays open"). The PR is the visible index and the merge
+  vehicle; a bare branch is invisible inventory that decays. Never present
+  "close, branch preserved" as a disposition: judge the work's worth —
+  worthwhile work stays open as an owned lane (sync, gates, first-hand review,
+  settle, merge); worthless work closes with the reason and its branch goes.
+  The earlier form of the same ruling (owner, 2026-07-26, on a "preservation
+  draft" PR that went from frozen reference to conflicting to owner card in one
+  day): "work sitting on a branch is not 'preserved', merged work is preserved,
+  if it is valuable we find a way to merge it, if not we delete it." A branch
+  is a decaying claim, not a home; "frozen for reference", "parked" and "kept
+  for pickup" are not dispositions. At a seat's closeout a wrap-mandated
+  tracked artefact reaches its safety floor as an open DRAFT PR (remote,
+  discoverable, merge-vehicle attached) — never local preservation — and the
+  draft still owes a merge-or-delete disposition afterwards.
 
 ## Phase 1 — Before opening
 
@@ -140,6 +184,24 @@ into the permanent record):
    this paragraph enumerate what could be stated as a property?"
 
 ## Phase 2 — Open with a reviewer-facing description
+
+Every PR created under the owner's identity or the fleet bot carries the
+repository's fleet-authorship label at creation (`--label` on the create
+call, or the API equivalent; the label and its meaning are in the PR label
+ledger under `docs/engineering/`). Owner standing word (2026-08-11): "PRs are
+getting created without the jimbot label, if a PR is created with my identity
+or the jimbot identity, it needs that label." The label is the filter that
+separates this estate's PRs from other authors' on a shared repository; a
+PR found without it is labelled at sight, and this open-step is the
+generator cure so the convention never depends on per-seat vigilance.
+
+Request no HUMAN reviewer at open or at any later round without the owner's
+express word (owner standing rule, 2026-08-13: "don't request matt as a
+reviewer, don't tag anyone in a Linear ticket without my express request").
+Review requests and ticket mentions fire notifications at real people;
+pulling in a colleague's attention is the owner's call, never an agent
+default. Bot reviewers (Copilot, the Codex connector) stay within the
+standing grants; an owner-named exception binds for that instance only.
 
 Read `.github/pull_request_template.md` and fill it as a **communication
 artefact for reviewers**, never a file list: what changed, why it matters,
@@ -242,7 +304,14 @@ had already looked.
 ## Phase 3 — Harvest EVERY feedback surface (the step most often botched)
 
 Immediately after opening — and again after every push — pull all four
-surfaces. Partial reads produce false "no problems" verdicts:
+surfaces. Partial reads produce false "no problems" verdicts. Where the PR is
+linked to a ticket, the ticket's comments are a fifth surface: a
+collaborator's bots comment on Linear tickets instead of on PRs (owner,
+2026-08-11: "start monitors watching for changes in Linear tickets, Matt's
+bots are commenting on them instead of on PRs"), so a "settled" PR can carry
+unharvested findings sitting on the ticket; fold ticket-borne commentary into
+the round tally before any settle signal, with a change monitor on the lane's
+live tickets where the platform is in use.
 
 1. **Review threads (the authoritative comment surface)** — GraphQL
    `pullRequest.reviewThreads`, reading per thread `isResolved`, `path`, and
@@ -260,7 +329,18 @@ surfaces. Partial reads produce false "no problems" verdicts:
    each review's own `commit.oid` retained alongside its body (the paged
    `reviews` connection carries both) — the binding the state machine's
    tally (item 2) buckets body findings by; a Sonar gate summary or a bot
-   capability notice lives here. The dual of item 1's REST-only failure: a
+   capability notice lives here. Read this surface UNFILTERED, every time
+   (owner, 2026-08-12, verbatim: "never ever filter reviews, ever. That means
+   accepting some noise about exhausted quotas, so be it, better that than
+   missing feedback"): no login filter, no state filter, no tip filter on any
+   review read at any point in a drive — a read selected on one bot's login
+   left four changes-requested reviews under a colleague's identity invisible
+   until the merge ruleset bounced the merge. A narrow read is lawful only
+   AFTER an unfiltered read in the same breath has enumerated the full set.
+   And the suppressed block is harvested as if it were the review body,
+   every round: two suppressed findings left silent on one PR came back as a
+   headline comment on the merged PR two weeks later and were raised again on
+   its successor (2026-09-02). The dual of item 1's REST-only failure: a
    reviewThreads-ONLY harvest also structurally undercounts — Copilot's
    "suppressed low-confidence findings" live only in review submission
    bodies with no thread state, and those suppressed findings have run real
@@ -280,7 +360,18 @@ surfaces. Partial reads produce false "no problems" verdicts:
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
    (`search_sonar_issues_in_projects` with `pullRequestId`, per the
    `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
-   summary names conditions; only the issue list names the work.
+   summary names conditions; only the issue list names the work. Sonar on
+   this repository is automatic analysis (server-side, fired by the push
+   webhook; no CI scan step), so the required "SonarCloud Code Analysis"
+   check can stay absent forever when the webhook drops: the ruleset shows
+   it "expected", the merge endpoint refuses, and everything else is green
+   (PR #465, 2026-07-21). Docs-only PRs are analysed too, so absence never
+   means not-applicable. A settle watch therefore checks BOTH that no check
+   is pending AND that Sonar's public API reports a verdict for the PR
+   (`api/qualitygates/project_status` with the pull-request key returning a
+   status other than NONE); a checks-only watch calls "settled" too early.
+   The cure for a dropped trigger is an empty commit pushed to re-fire the
+   webhook; analysis follows within minutes.
 
 ## Phase 4 — TRIAGE every comment; fix at source
 
@@ -769,7 +860,14 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    (PDR-132's round budget, the step-back arms above, and item 2's
    specification boundary), and its cures land inside the same declared
    settlement-push budget — a code loop with no cap ran seven pushes on
-   PR #139 (2026-09-12). The tip of the LAST budgeted settlement push — the
+   PR #139 (2026-09-12). The budget is enforced at the push: the review
+   cost gate (`agent-tools review-cost gate`, in the pre-push hook) prices
+   every reviewed round and prints `warn` at half the declared budget and
+   refuses the push past it (BUDGET-EXHAUSTED). `warn` is this machine's
+   re-pricing checkpoint, answered once in the round's disposition
+   comment with one of three moves — stop and reject the rest, split
+   along the finding classes, or ask the owner for a rebudget recorded on
+   the description; pushing anyway is not a move. The tip of the LAST budgeted settlement push — the
    declared budget (two by default, PDR-140 clause 4) plus any rebudget
    recorded when exhaustion left a mandatory cure pending — is the FINAL
    HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
@@ -1099,7 +1197,20 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   the roster read is ambiguous in both directions (Copilot leaves it the
   moment it starts). Verify via the issue TIMELINE's `review_requested`
   events, which fire within seconds of the call. Cap identical REST
-  retries at two.
+  retries at two. Three mechanics of that read (2026-08-11/12): the
+  review lands under `copilot-pull-request-reviewer[bot]`, so watch for
+  landings by the observed-login SUBSTRING (`copilot`), never an exact
+  login written from memory (an exact-match filter ran silent ten minutes
+  past a landed review); the timeline WRITE can trail a read by up to a
+  minute, so one short retry precedes any "dropped" verdict (a seat read
+  "no fresh event" seconds after a fire, diagnosed a dead path and routed
+  the leg away while the first fire had in fact bound); and re-requesting
+  an already-pending reviewer is a silent no-op that mimics a drop, so
+  check for a pending request before diagnosing one. There are no
+  proven-requester seats and no seat-specific lore (owner, 2026-08-12:
+  "it's a cli call, there is nothing special about you calling rather than
+  someone else") — a fire with no timeline event gets an instance
+  diagnosis, never a routed-away leg.
 - **A review row is not a review.** Read the review BODY before counting
   it — a `COMMENTED` row on the exact head once contained only a
   spend-limit skip notice (the spend limit itself is never an agent
@@ -1251,6 +1362,20 @@ posted, then fired within the minute — fully auditable). Then:
   correction at the MCP-673 wrap, 2026-09-03: #961 merged at green while a
   wrap workflow's output was still owed, and a fourth PR had to be
   authorised).
+- **A PR authored by a human colleague, or by that colleague's own agents, is
+  reviewed and (where it earns it) approved — never merged by us.** The
+  owner's standing word (2026-08-03/04, verbatim): "you can review PRs from
+  Matt on my behalf, just make sure it is clear that it is an agent review,
+  and surface if he insists on it actually being me who reviews" and "Don't
+  merge Matt's PRs for him, ever, but do review and if appropriate approve."
+  The agent review states in its body that it is an agent review on the
+  owner's behalf at his standing word, under the identity the action map
+  assigns; the merge is the author's own act, and an approved, green, clean
+  PR of theirs needs nothing further from us. If the mechanical code-owner
+  gate still demands the owner's personal approval, report that one click
+  remains; if the author asks for the owner personally, stop and surface —
+  never argue the grant at them. The bot-merges-at-settled practice below
+  applies to OUR PRs only.
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
   conflict-freeness and reads TRUE on a PR with failing checks and open

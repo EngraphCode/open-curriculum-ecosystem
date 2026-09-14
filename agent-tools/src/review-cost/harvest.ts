@@ -53,6 +53,17 @@ const ENVELOPE = z.object({
 
 const OPEN_PULL_REQUESTS = z.array(z.object({ number: z.number().int().positive() }));
 
+const PULL_REQUEST_LIST = z.array(
+  z.object({
+    number: z.number().int().positive(),
+    state: z.string(),
+    title: z.string(),
+    mergedAt: z.string().nullable(),
+  }),
+);
+
+export type ListedPullRequest = z.infer<typeof PULL_REQUEST_LIST>[number];
+
 /** Read the pull request's recording and description through `gh`. */
 export function readLiveHarvest(options: HarvestOptions): LiveHarvest {
   const run = options.run ?? execFileSync;
@@ -113,6 +124,38 @@ export function openPullRequestFor(
     ),
   );
   return open[0]?.number ?? null;
+}
+
+/** Every pull request updated on or after the date (ISO day), newest first, any state. */
+export function pullRequestsSince(
+  since: string,
+  repo: string,
+  ghPath?: string,
+  run: GhCommandExecutor = execFileSync,
+): ListedPullRequest[] {
+  const gh = resolveGhPath(ghPath);
+  return PULL_REQUEST_LIST.parse(
+    JSON.parse(
+      run(
+        gh,
+        [
+          'pr',
+          'list',
+          '--repo',
+          repo,
+          '--state',
+          'all',
+          '--search',
+          `updated:>=${since}`,
+          '--json',
+          'number,state,title,mergedAt',
+          '--limit',
+          '100',
+        ],
+        GH_EXEC_OPTIONS,
+      ),
+    ),
+  );
 }
 
 /** The repository's `owner/repo` from `gh`, when the caller does not name it. */

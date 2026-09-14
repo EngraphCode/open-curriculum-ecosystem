@@ -14,6 +14,20 @@ impulse is the **diagnostic, not the cure**. Write the entry. If
 rotation is needed, surface that as a separate question after the
 entry lands.
 
+The dual holds too: **fitness functions are signals for attention, not
+instructions to act** (owner, 2026-08-13, verbatim, after a seat read a
+governance document's size-limit frontmatter plus its `split_strategy`
+field as a contract to execute). A breach says WHERE to look, never WHAT
+to do; an artefact's embedded remedy — a split strategy, a threshold, a
+TODO — was authored before the breach's evidence existed, and acting on
+it unexamined converts a measurement into policy. When a limit or
+validator fires, investigate on evidence (who consumes the surface, what
+the breach actually costs), form no conclusion from the artefact's own
+self-prescription in either direction, and derive any action from the
+findings. The owner's direction in the occasioning case: a three-expert
+review with "do not assume that it should be split, do not assume
+anything".
+
 Archive is also downstream of curation. Never archive unprocessed
 content as a way to make the live surface smaller. First read the
 source, extract the behaviour-changing substance, route each item to

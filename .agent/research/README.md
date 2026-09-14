@@ -49,6 +49,7 @@ and only its link-free members are a valid partial-review surface for size-cappe
 | Document | Purpose | Key insights |
 | --- | --- | --- |
 | [TypeScript graph foundations research](typescript-graph-foundations-2026-09-07/README.md) | Dated comparison of models, TypeScript libraries, capabilities and proposed OCE outcomes, with reproducible probes and recorded evidence | Select foundations by semantics, assurance and lifecycle value; current OCE choices carry no preservation requirement. Recommendations remain research proposals. |
+| [Reliable Atoms workspace shape exploration](reliable-atoms-workspace-shape-exploration-2026-09-14.md) | Concept exploration behind the owner's 2026-09-14 ruling: a declared workspace class for atoms, a blocking directory-cardinality validator, stricter tiers; the warrant home for the programme's bar element 10 | The class is a design target shaped to its parameters, never calibrated against workspaces outside it; repository shape is a validator's subject, not an ESLint rule's or a test's; the estate-wide report-only signal question is untouched |
 
 ### ✨ Oak Innovation Kit & demonstrations
 

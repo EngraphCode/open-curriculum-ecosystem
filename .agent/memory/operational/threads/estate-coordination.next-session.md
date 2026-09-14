@@ -2380,6 +2380,19 @@ file already contains, not a new claim about it.
    tutoring research because I will tell you." Nothing to do until then: no shaping question, no
    brief prepared in advance, no material sought out.
 
+### 2026-09-12 12:5xZ — FOLD LANDED (Nettle guards Pistil, 2de368, Director)
+
+`coordination/2026-09-11-f6d7db` folded to `engraph` via #135 as SHA:69a537717 (two parents,
+SHA:f262a5b6b and SHA:b50820152), by the front door as the bot after six review rounds — 4, 5, 3,
+6, 4-distinct, 10 raised with zero over the bar — the last a settled round at cure-worthy zero, the
+machine's terminal-success state. The successor is `coordination/2026-09-12-69a537`, cut from
+post-fold `engraph` by the coordination tool; the primary resides on it; the rotation is
+broadcast on the comms stream. Product-gravity line: *moved for teachers:* nothing in the fold's
+own commits — the day's product movement rode `engraph` through the sync workflows (#131).
+*moved for the Practice:* #132, #131, the retention decision, the exploration report, F-181,
+F-182. Lanes after the fold: #136 (scope is the review contract, at the owner's word of
+2026-09-12) in the landing slot; `pr-tally` todo 3 next. F-183 lands with this entry.
+
 ### The window's generator, stated once more because naming it twice did not stop it
 
 **A valid criticism creates INFORMATION, not an obligation.** Whether it creates an obligation
@@ -2412,3 +2425,551 @@ action here is the front door's read.
 
 *Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a clock
 running it. Two candidates were checked and are not that; the search was not exhaustive.
+
+## 2026-09-12 13:1xZ — COMPACTION BOUNDARY 8 (Nettle guards Pistil, 2de368, Director, Fable 5.1, n=1)
+
+### Board at the boundary
+
+PR #135 MERGED as SHA:69a537717 by the front door (the fold; six rounds, the last terminal by
+disposition). The successor `coordination/2026-09-12-69a537` is cut, published, and carries this
+record; its draft fold PR is **#137**. **#136** (scope is the review contract — the template's
+§Scope with the intake, `pr-lifecycle` §Phase 2 and §Phase 4, the triage rule, `proportionality`,
+`coordination-fold`, `.github/copilot-instructions.md`, `AGENTS.md`) is OPEN from the lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/fold-intake-2de368` on `lane/fold-intake-2de368`:
+settlement push one landed as SHA:39c627107 curing all four round-one findings (in scope, over
+bar); the threads are replied to and resolved; Copilot is requested on that tip (13:07:47Z);
+**the front door has NOT been run on it** — the owner's freeze. Open pull requests: #136, #137.
+Worktrees: the primary (successor) and the lane. Claim `8109015d` re-registered under
+`claude-fable-5-1` by `claims adopt`; its areas row still names the 2026-09-03 handoff record (the
+tool has no areas update; a defect to route, not a blocker). Rotation broadcast sent on the comms
+stream. No process of this seat is running.
+
+### The owner's words of 2026-09-12, verbatim, that bind the next window
+
+"the stop is lifted, plan before acting" (the settlement plan approved: `pr-tally` at TODO 3
+FIRST, per the node's own sequencing). "copilot and others have a tendency to expand scope, we
+can't let that happen" — the story of #136. "please prepare for compaction … and then stop all
+processes, post-compaction we will resume this work."
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- The front door on #136, as a background task:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 136 --expect copilot-pull-request-reviewer --json`
+  — read its exit by name. THREADS-OPEN → harvest, triage scope-first (remedy set aside, tested
+  against #136's §Scope; observation verified; routed only if true), one cure-only push if over
+  bar, replies and resolutions as the bot, Copilot re-requested on the final tip.
+- The all-channels watcher from the `comms-all-channels-watcher` rule's arming command, from the
+  repo root. The heartbeat cron stays DROPPED while n=1 (PDR-082).
+- After #136 lands: remove the lane worktree with BOTH proofs (`git status --porcelain` empty;
+  HEAD an ancestor of freshly fetched `origin/engraph`); `git branch -d` the lane; the remote
+  branch deletes only after the ancestor proof.
+
+### Next work, in order
+
+1. Land #136 (above). 2. `pr-tally` TODO 3 — the bar marker and disposition format in the
+pr-lifecycle intake contract, its projections, one end-to-end fixture from #135's dispositions;
+read `tdd-as-design` and `testing-strategy` before the first test; the node's `## Review
+dispositions` rows are read at pickup. 3. Todo 1, then todo 2, as the node sequences. 4. Fold #137
+at the DUE check with §Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings (one lane; the mirror-provenance route the owner's choice); the
+upstream report under `.agent/reports/upstream-sync/`; the directives-tier placement; #100's two
+deny lines; F-181's one-line settings cure and the stray `.logs/statusline.log` in
+`visitors/pedagogy-library` (untouched); the redaction node (paused until recurrence); the
+tutoring research (waits for the owner's word); a retrospective on this arc, offered, not run.
+
+### Metaloss passes
+
+- *Compressed reasoning*: the disposition of every finding on #135 and #136 is on the pull
+  request itself, per finding, with its bar reading; this block carries only the counts. The
+  judgement "ten raised, zero over bar" on `b50820152` is decision-sufficient because each row
+  names its rationale on the PR.
+- *Promises sweep*: F-183 landed (SHA:3ca466d38); the napkin's retention wording landed; the claim
+  areas discrepancy is FORWARDED above; the pr-tally slice is superseded by the approved plan;
+  the successor's draft PR opened (#137); the retrospective is routed to the owner.
+- *Attribution inferences, flagged*: "the peer reached the owner's credential because the bot
+  path was unavailable" is NOT known (F-183 records the question); "Copilot honoured the
+  instruction" rests on ONE labelled thread on #136 — an observation, not a proof; the
+  markdownlint fixer's MD018 rewrite of `#135,` to `# 135,` is inferred from the diff, not
+  observed as it ran.
+- *Blind-spot bounds*: this seat cannot see whether Copilot's second review on #136 raises
+  threads until it lands; the comms stream is unwatched; the second seat's closed context is
+  unreadable; the subject repository behind the exploration report was never read by this seat.
+- *Index of homes*: this block; the handoff's live snapshot (lanes line updated at this
+  boundary); the plan file `~/.claude/plans/spicy-churning-peacock.md` (machine-local, Part B is
+  the pr-tally sequence); the per-user memory tail; PR #135's comments (the intake, two
+  reconciliations, the round dispositions); PR #136's threads and description; the letter
+  `.agent/experience/2026-09-12-nettle-guards-pistil-the-day-a-fold-took.md`.
+- *External bound*: the assumptions-expert review caught two claim-adding cures the seat's own
+  falsifier had not; Codex caught the authority mix and the route-before-verify; the owner
+  caught the relayed proposal and the scope thesis. Point outside eyes at any record this seat
+  wrote about its own work — that is where every catch landed.
+- *Fence sweep*: no owner word was fenced today; the two quoted sentences above are on tracked
+  lines by design.
+- *Fixed point*: a further pass would only re-find the claim-areas discrepancy and the
+  one-data-point caveat; the recursion closes here.
+
+## 2026-09-12 17:5xZ — COMPACTION BOUNDARY 9 (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1)
+
+### Board at the boundary
+
+Merged today by the front door as the bot: #135 SHA:69a537717 (the fold), #136 SHA:2b1b15ab8 (scope is the
+review contract, seven surfaces, ten rounds in three epochs), #138 SHA:e477e62f7 (the disposition format and
+the #135 fixture, nine rounds in two epochs). Both lane worktrees removed with both proofs; local and remote
+lane branches deleted. OPEN: **#139** (pr-tally todo 1 — `agent-tools/src/pr-tally/{harvest,markers,findings,
+dispositions,rows,verdict}.ts`, 54 unit tests, fixtures #135/#136/#138) from lane worktree
+`../oak-open-curriculum-ecosystem-worktrees/pr-tally-todo1-2de368` on `lane/pr-tally-todo1-2de368`, tip
+SHA:cdc2748e6 = settlement two; two rounds so far, epoch one counts 10, 9 (code-class: every verified-correct
+finding cured — 19 of 19); every thread resolved; Copilot requested on the tip. **#137** (draft fold of this
+branch) at its DUE check. Primary resides on `coordination/2026-09-12-69a537`. Claim `8109015d` under
+`claude-fable-5-1` (areas row still stale; no tool to widen). At the boundary two background tasks of this
+seat are RUNNING — the front door on #139 and the reviewer wake — and will not survive a compaction as ids.
+
+### The owner's words this window, verbatim
+
+"you are not currently acting as a Director, you are a sole operator, I mention this in case it allows you to
+drop some ceremony" (dropped: no title in signatures, no broadcasts, no team bootstrap). "there are two agents
+operating on this machine, you are the only agent in the OCE checkout, and Cauldron herds Lustre (880ff9) is
+operating in the […]/jimcresswell.net checkout" (the machine-local prefix elided by this record)" (a third, Coal weaves Pumice, f67c69, in
+castr). "Lustre is working on transplanting the Practice to their repo … some communication at some points may
+be helpful" (exchanged by SendMessage; nine findings received, each verified here before disposition). "reflect
+deeply on the state and direction of the pull requests" (the reflection: fourteen rounds with zero rejections;
+the verification point "merge" made every wording defect over-bar; the cure was pricing against a named reader
+— the next two rounds closed by rejection). "for the next three hours please do everything first-hand, no
+subagents" (~16:1xZ; binds to ~19:1xZ; nothing this window used one). "when you get to a sensible point please
+pause and prepare for compaction".
+
+### Re-arm recipe (nothing survives a compaction; verify by id, then arm only what is absent)
+
+- Process table: `ps -eo pid,command | grep "merge --pr 139"`. If absent, from the primary:
+  `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 139 --expect copilot-pull-request-reviewer --json`
+  as a background task; read its exit by name (exit 3 = typed refusal such as THREADS-OPEN; exit 1 = the
+  45-minute poll deadline, re-run). A wake on the tip's reviews is a `gh pr view 139 --json reviews` loop.
+- On THREADS-OPEN: harvest threads AND Copilot's suppressed block; code findings keep the code review's
+  standard (verify each; cure the correct ones; reject the incorrect with verified reasoning); the README's
+  prose findings take the intake (class records, verification point todo 2's pickup, PDR-140 clause 9). Epoch
+  one counts 10, 9 — a third round ≥ 9 arms the step-back; a fourth non-zero round arms it regardless.
+- On MERGED: `git fetch origin engraph`; both proofs on the lane worktree; `git worktree remove`; `git branch -d`;
+  delete the remote branch as the bot after the ancestor proof; fetch `--prune`.
+
+### Next work, in order
+
+1. Land #139. 2. pr-tally todo 2 (the command, `--json`, the validation script; harvest check-run history for
+SKIPPED/timeout settlement; emit the one-line disposition template for every undispositioned body item — the
+format the seat wrote by hand only 40% of the time, see the napkin). 3. The small source lane for the transplant
+findings (hook context line before the env-file check; ADR-203 citation; reference-local source glob;
+CLAUDE_CODE_SESSION_ID seed source with a PDR-027 amendment). 4. The PDR-008 records lane (its tables name a
+script convention package.json no longer has; practice-verification item 9). 5. Fold #137 at its DUE check with
+§Scope and the records-class intake declared.
+
+### Owner-held, unchanged
+
+The four sync-workflow findings; the upstream report; the directives-tier placement; #100's two deny lines;
+F-181 and the stray statusline log; the redaction node (paused until recurrence); the tutoring research; a
+retrospective on the day's arc (offered, not run); the verification-point amendment to `pr-lifecycle`
+§Response pricing (a candidate, in the napkin).
+
+### Metaloss passes
+
+- *Compressed reasoning*: every finding's disposition on #136, #138 and #139 is on the pull request itself with
+  its bar reading; this block carries counts. The instrument's own tests carry the corpora's numbers.
+- *Promises sweep*: the conforming fixtures owed by todo 3 are recorded (#136, #138) and consumed; the
+  signature question is answered by not widening the predicate; the originalLine row is honoured by the
+  widened query; the #135 corpus reads open (its comments carry the suffix too — the README said manual once
+  and was corrected). The lane-cut skill step (criterion 4) was already landed in SHA:ccdbc5613.
+- *Attribution inferences, flagged*: "the reviewers read the AGENTS.md instruction" rests on their citing it in
+  findings — evidence, not proof; "todo 2 should emit the disposition template" is this seat's proposal, not the
+  node's word.
+- *Blind-spot bounds*: the third reviewer round on #139 is unseen; the front door's state after compaction is
+  unknown until re-read by id; Lustre's and Pumice's work is unread.
+- *Index of homes*: this block; the handoff's live snapshot; the napkin (this window's blocks); the per-user
+  memory tail; PRs #136/#138/#139; the node `pr-tally.plan.md` (todo 1 and 3 status, four ledger rows).
+- *Fence sweep*: no owner word fenced; the quoted sentences above sit on tracked lines.
+- *Fixed point*: a further pass re-finds only the claim-areas discrepancy and the retrospective offer.
+
+### Addendum at 18:0xZ — round three on #139 is OPEN and unread
+
+Both reviewers posted on SHA:cdc2748e6 as this block was being written: five threads (two Copilot, three
+Codex) and two Copilot suppressed items, all on `agent-tools/src/pr-tally/rows.ts`, deliberately not read
+under the owner's pause. Epoch one settled counts so far 10, 9; this round is at most 7 raised, so the
+non-decreasing arm cannot fire on it, and a FOURTH non-zero settled round arms the step-back regardless.
+Post-compaction: harvest it first (threads and the suppressed block), verify each against the state
+machine's text and the code, cure the correct ones in one push, reject the incorrect with verified
+reasoning; the front door was polling at the boundary and will have exited THREADS-OPEN.
+
+## 2026-09-12 21:4xZ — #139 MERGED at SHA:d7cef7075; the owner stopped the loop at 98 comments
+
+- **What landed.** pr-tally todo 1 (SHA:d7cef7075, two-parent merge of SHA:e1867f5c8): seven
+  modules, 72 tests, three recorded corpora read correctly. Value delivered at settlement push
+  two (SHA:cdc2748e6); five further pushes delivered no corpus-instanced cure.
+- **The loop.** Declared budget: two settlement pushes. Taken: seven. Epoch one 10, 9, 6,
+  class fix at the mandated step-back (SHA:9f39e2731); epoch two 3, 7, 4, 0 — the zero came
+  only when the owner intervened and every round-four finding was rejected as a fixture at
+  pickup. Owner, verbatim: "if that hasn't tripped the proportionality guards then the
+  proportionality guards are shit"; "Correctness is not authority, it is not relevance, it is
+  not impact, it is not cost. Stop doing what you are told and start doing what is needed."
+- **The generator, as diagnosed with the owner.** Reviewer output on a large diff never
+  reaches zero (re-scan mechanics, open input space); the gate demands zero threads; cure is
+  the default closure because correctness is cheap to verify and relevance is not; every cure
+  is a push and every push a round; termination sat in the seat's judgement, which the loop
+  consumes; every guard was prose and prose has no force at push time. The seat deferred to
+  instruments (reviewer findings, then the front door's verdict) over the verified state.
+- **Merge mechanics.** The front door refused SILENT-WAIT-NO-REVIEWER: `pr-watch`'s
+  `isSkipMarker` matched "unable to review" QUOTED inside a Copilot finding on the tip — a
+  substantive review read as a skip marker. Real recorded instance; the pr-tally cure for the
+  same predicate landed in `settlement.ts` (`skipOnly`); `reviewer-legs.ts` still carries the
+  substring form. Merged by the bot through the REST merge endpoint pinned to the tip, on the
+  owner's settled-word from direct visibility (pr-lifecycle: an owner settled-word supersedes
+  the proxy), with threads 0 unresolved and mergeStateStatus CLEAN verified in the same call.
+- **Memory.** `verified-correct-is-not-a-proportionality-test` (per-user memory).
+- **Next, owner-directed ("make sure it cannot happen again"), two small PRs, budget two
+  settlement pushes each, findings past budget rejected:** (1) reviewer context — the "Code
+  review" block in `AGENTS.md` and `.github/copilot-instructions.md` drops "code findings keep
+  the code review's own standard" (the clause Codex cited on every #139 finding) for the
+  specification-boundary rule and the one-line rule for cosmetics; the PR template gains a
+  "Review contract" section; (2) the review cost gate — a pure cost function (rounds, findings,
+  comment volume, push size, relatedness, frequency; weights in a policy file), budget from the
+  PR body, pre-push refusal past budget while marginal cost is not falling, the front door
+  printing the cost line. Calibrate on #135, #136, #138, #139 with owner-named stop rounds.
+
+## 2026-09-12 23:2xZ — the two guards landed: #140 (reviewer context) and #141 (the review cost gate)
+
+- **#140 MERGED at SHA:527fd11ff** (two-parent, front door). The "Code review" block in
+  `AGENTS.md` and `.github/copilot-instructions.md` no longer tells reviewers "code findings keep
+  the code review's own standard"; the specification boundary is the tests and recorded fixtures
+  the PR carries, observations are reported once in whatever shape the reviewer's output allows,
+  and once the description says the budget is spent items on unchanged code are observations.
+  pr-lifecycle Phase 4 and item 2 carry the same boundary and the spent-budget rule; the PR
+  template's `## Scope` has the code line. Budget two, spent at two; round three's findings
+  rejected with reasoning. Copilot's last two reviews opened with "Observation:" and recommended
+  approval — the block shaped reviewer output within the hour.
+- **#141 MERGED at SHA:ae57ef111** (two-parent, front door). `agent-tools review-cost gate`:
+  a round per reviewed head, priced by a floor plus findings, comment volume, push size and
+  files, times relatedness and reactivity; the opening round priced never charged; settlement
+  rounds accrue against the description's `budget — N` (two by default) × the policy unit;
+  BUDGET-EXHAUSTED (exit 3) past it unless the crossing round halves the one before, one
+  extension only, consumed once the head advances; a pure base sync (branch side unchanged)
+  prices zero, any other merge in full; drafts and skip markers measure nothing; every pushed
+  branch is priced from the pre-push hook's captured ref lines. Weights in `DEFAULT_POLICY`
+  (`agent-tools/src/review-cost/cost.ts`). Live: #139 refused at push three, #138 at three,
+  #136 at four; on #141 itself the hook priced push one at 16.46 of 40 and push two at 33.86
+  (warn). Budget two, spent at two; round four's one observation rejected with reasoning.
+- **Next (owner-directed calibration, the gate's own follow-up):** the owner names the round
+  each recorded loop (#135, #136, #138, #139, #141) should have stopped at; the weights are fit
+  to those labels and moved to a policy file if anything varies per lane. Recorded fixtures at
+  pickup: a tree comparison for sync detection (numstat equality can be fooled by an edit that
+  preserves per-file counts — #141 round four); an unstructured prose review that quotes the skip
+  phrase (#139); the front door's `isSkipMarker` substring read of a substantive Copilot review
+  (#139's tip — real instance, `pr-watch/reviewer-legs.ts`); pr-tally todo 2 (the command and
+  `--json`) now has the harvest it needs in `review-cost/harvest.ts`.
+- **Open PRs:** #137 (draft fold) only. Both lanes retired; worktrees removed; the coordination
+  branch is the only branch besides engraph.
+
+## 2026-09-13 00:4xZ — transplant findings, batch 1 (Cauldron herds Lustre, 880ff9), dispositioned on merit
+
+Owner-ruled 2026-09-13: OCE-affecting findings from the transplant seat come here batched;
+disposition on merits, no reply owed. Each verified first-hand at `origin/engraph` before its
+disposition.
+
+1. **Plan-corpus validator crashes on a host without `docs/strategy`** — verified true
+   (`validate-plan-corpus.ts:48-60`: bare `readFile` of the strategy README, no fail-closed
+   message). No failure on this estate (the directory exists); a portability defect under
+   `practice-core-portability`. **Routed** to the small transplant source lane already listed
+   under Next work (with the hook context line, the ADR-203 citation, the reference-local
+   globs, the session-id seed): fail closed with the family's message.
+2. **Archived plan nodes are validated live for ever** — verified true
+   (`plan-corpus-loading.ts:52` walks every subdirectory by design; ten nodes under
+   `delivery/archive/` today). **Answered, no change**: intentional — an archived node stays
+   conformant so a resumed lane reads a valid node; the cost is one directory walk. Revisit
+   only if the validator's runtime ever registers on the gate profile.
+3. **`renderPatternIndex([])` on an empty corpus** — not reachable here (242 patterns);
+   **below-bar** for this estate; the transplant lane may adopt the one-line render when the
+   validator is next touched.
+4. **pnpm 12 rejects `pnpm -s`** — verified: this estate pins pnpm 11.20.0 and carries nine
+   `pnpm -s` sites in `agent-tools/package.json` and one in the commit skill. **Routed** with
+   its trigger: the pnpm major bump is the landing that replaces every `-s` with `--silent` in
+   the same push; nothing before it.
+5. **pr-lifecycle cites PR #135 by number** — **rejected** here: the practice cites worked
+   instances by pull request number on every surface; the transplant rewrites them
+   generically on its side.
+6. **session-handoff forbids handover commits; wraps commit as `chore(continuity)`** — both
+   rulings hold by estate; **recorded** for the lineage's next consolidation of that clause
+   (no OCE change).
+7. **cited-scripts validator: `.agent/collaboration/rapid-comms/` excluded** — **recorded**
+   with the validator shape already noted; lands with the transplant lane.
+
+## 2026-09-13 09:3xZ — COMPACTION BOUNDARY 10 (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1)
+
+**Safety, verbatim at the boundary.** Primary `## coordination/2026-09-12-69a537...origin/coordination/2026-09-12-69a537` (clean but for the owner's untracked `.agent/research/cognitive-systems/`, theirs, now tracked on #143's branch); `## lane/review-cost-survey-2de368...origin/lane/review-cost-survey-2de368` clean at SHA:92018c1f1; `## lane/rigour-consolidation-2de368...origin/lane/rigour-consolidation-2de368` clean at SHA:f762426f1. Zero processes of this seat running. Open PRs: #142, #143, #137 (draft fold).
+
+**Landed since boundary 9.** #139 SHA:d7cef7075 (pr-tally todo 1, merged by the bot's REST call on the owner's settled-word after the front door misread a substantive review as a skip marker); #140 SHA:527fd11ff (reviewer context); #141 SHA:ae57ef111 (the review cost gate, in the pre-push hook). Each recorded above with its numbers.
+
+**The owner's directions this window, in order (verbatim where quoted).** "I want 139 merged, then I want you to stop and we move on to new work." → "if that hasn't tripped the proportionality guards then the proportionality guards are shit." → "What do we need to do to stop this from happening? … Correctness is not authority, it is not relevance, it is not impact, it is not cost. Stop doing what you are told and start doing what is needed." → "I want a cost function … more cost means more likely that we stop … we set the context in which the reviewers operate." → "stop treating it like a bloody mystery and start treating it like a deterministic engineering system." → "Make sure it cannot happen again." → "why is it that I have to keep prodding you to examine your own reasoning?" → "awareness requires feedback loops, feedback loops require mechanisms." → "there is no constant right answer, it's a try and see situation … keep notes, give it a go, and make sure that we regularly review, perhaps as a part of the wrap skill." → inventing a category "would skew all calculations, invite special cases, and broadly turn this effort into theatre before it has properly begun." → "not generalising from a single point … deserves a simple, short skill or rule or principle." → "step back, then step waaaaay back" (the class is a failure to apply basic rigour at all, not one over-generalisation). → "the memory is platform specific, that is why we have memories and patterns and rules and documentation and hooks."
+
+**Open work, exactly.**
+
+- **#142 (survey, ledger, wrap step; SHA:92018c1f1).** Settlement push 1 of 2 taken; round one's seven findings cured and resolved; round two: Copilot errored ("unable to review", re-requested at 09:2xZ), Codex not yet landed on this head, no open threads. Two failed jobs re-run as the bot under the `workflow-dispatch` scope (actions: write): CodeQL `Analyze (javascript-typescript)` (run 34748348080; a parallel run of the same job on the same commit had passed; no error line in the log — cause unknown, the rerun is the test) and `schema-drift` (run 34748348052; failed in 81 s with no steps — runner-level; not a required check). Required checks on engraph: `run-quality-gates` (green) and `CodeQL`. Post-compaction: read #142's state — Copilot's re-review, both reruns — then the front door; if the front door reads SILENT-WAIT on a skip marker with the state settled, that is the pr-watch predicate defect recorded at boundary 9's successor block, not a timer: read the state and act as on #139.
+- **#143 (the consolidation; SHA:f762426f1).** Opening head; Copilot requested at 09:2xZ; no round yet; budget two. Carries: rule `one-instance-is-an-observation` (core; Claude, Cursor, Codex wrappers; RULES_INDEX row; PDR-130 prediction line), the `verify-dont-trust` instrument clause, the `reason` warrant's count-and-comparison sentence, the principle "A signal is not the fact it stands for", the anti-pattern `signal-read-as-fact` (seven instances as proof), and the owner's two research reports under `.agent/research/cognitive-systems/structured-thinking/` with index rows. **Owed on #143 once #142 lands** (they edit surfaces #142 carries; a sync merge prices zero at the gate): the wrap step's rigour line ("which claims this session made from fewer observations than they need, and which recorded falsifiers fired"), the pr-lifecycle round step (the cricket conscience check at every round boundary and before every durable write, as a step, not a memory), the ledger's falsifier column and its weight-change rule (a change only against a disagreement in at least three independent pull requests carrying the owner's label, every change naming its rows, the first change recording that the initial weights were fit on the loops they were then scored against). Pre-review push if #143's round one has not landed, else settlement push one.
+- **Then the wrap's own survey step** for this session (#142's ledger, once merged): `review-cost survey --since 2026-09-12`, rows for #142 and #143 with the seat's stop-round reading, no inference from them.
+- **Transplant batch 1** dispositioned above (00:4xZ block); items 1, 4, 7 are routed and wait on the transplant source lane and the pnpm major bump respectively.
+- **Held by the owner, unchanged:** the four sync-workflow findings; the upstream report; directives-tier placement; #100 deny lines; F-181; the redaction node (paused); the tutoring research; the retrospective offer; the pr-watch `isSkipMarker` substring defect (real instance on #139's tip; a fixture at pickup with `pr-tally`'s `skipOnly` as the shape).
+
+**What this window established (conserved where).** The failure class and its cure are in #143's pattern and principle, not only here: a signal acted on as the fact it stands for; the cure is a stop at the point of action or of writing, never a label on the work; prose stops bind on invocation, mechanical stops bind on every model. The gate is the mechanical stop for pushes; the survey and ledger make the seat's claims about the gate checkable by the instrument rather than by the seat's own labels; one policy prices every pull request and no class is named before the rows show a cluster. **Inference flagged as inference:** that the reviewer block changed Copilot's behaviour rests on two reviews that opened with "Observation:" (n = 2); it is recorded as an observation.
+
+**Blind-spot bounds.** The CodeQL failure's cause is unread (the log carried no error line); the schema-drift job's log was gone; both are answered by the reruns, not by this record. Codex's round two on #142 had not landed at the boundary. Nothing here certifies its own completeness; the owner remains the reader of claims in free prose.
+
+**Metaloss recursion.** Compressed reasoning: the day's diagnosis survives in the pattern file, the principle line and this block, decision-sufficient. Promises: every commitment is in the open-work list above with a named landing. Attribution: the one inference is flagged. Fence sweep: no owner word was held off the repository this window; the verbatim quotes above are the owner's words to the practice, recorded as such. Index of homes: this block; the per-user memory tail points here. A third pass would only re-find the CodeQL cause and Codex's pending review; the recursion closes here.
+
+## 2026-09-13 10:0xZ — transplant findings register (Cauldron herds Lustre, 880ff9), kept for analysis
+
+Owner, 2026-09-13, verbatim: "ask them to make sure that they have reported all of their findings. When they
+report findings please make a note of them for analysis." The ask was sent (session channel, 09:5xZ). This
+register is the note: every finding the transplant seat has sent, one row each, in arrival order, with the
+first-hand verification and the disposition. Later batches append rows here; the analysis is the owner's and
+is not drawn in this record (`one-instance-is-an-observation`: sixteen findings from one transplant of one
+estate are one instance of a transplant, not a distribution over transplants).
+
+| # | Sent (UTC) | Pin | Surface | Finding | Verified here | Disposition |
+|---|---|---|---|---|---|---|
+| T01 | 09-12 13:45 | SHA:a55fd8fdd | `agent-tools/src/claude/session-identity-hook.ts:87-99` | context line "env file is set" emitted before the `CLAUDE_ENV_FILE` check | TRUE | transplant source lane |
+| T02 | 09-12 13:45 | SHA:a55fd8fdd | `collaboration-seed.ts:46-70`, `agent-identity-cli.ts:130-152` | no harness-native seed source for a Claude seat; add `CLAUDE_CODE_SESSION_ID` | sound proposal | transplant source lane, with a PDR-027 amendment |
+| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | transplant source lane |
+| T04 | 09-12 13:45 | SHA:a55fd8fdd | `start-right.md:244-267` | "clear run for Matt" clause's removal trigger fires from nothing | TRUE, by design | the owner's, untouched |
+| T05 | 09-12 13:45 | SHA:a55fd8fdd | skill gate lists vs `package.json` | hand-copied gate lists drift; no validator for cited pnpm scripts | does not reproduce here (19 of 19 exist); drift was transplant-side | validator shape received (T09); candidate instrument, no lane |
+| T06 | 09-12 13:45 | SHA:a55fd8fdd | PDR-006, -008, -137, -139, README | Core links to host docs paths | does not reproduce; peer RETRACTED 13:51 (inventory conflation) | rejected |
+| T07 | 09-12 13:45 | SHA:a55fd8fdd | `validate-markdown-links.ts:62` | `SOURCE_IGNORE_GLOBS` lacks `**/reference-local/**`; nested checkouts walked | TRUE | transplant source lane |
+| T08 | 09-12 13:47 | — | #136, #138 pointers | request, not a finding | — | answered |
+| T09 | 09-12 14:36 | peer's tree | cited-scripts validator | shape shared (tokenizer, resolution, scan roots, exclusions, empty allowlist) | not a finding | held with T05, T16 |
+| T10 | 09-12 14:36 | SHA:a55fd8fdd | `agent-tools/src/bootstrap/bootstrap.ts:78-82` | `WORKSPACE_DEPS` hard-codes `packages/core/*` | TRUE, correct here; a host-profile value in a transplant | recorded, no change |
+| T11 | 09-12 14:36 | SHA:a55fd8fdd | `turbo.json` | site build outputs omit `.next/` | does not reproduce (`turbo.json:225-241` names `.next/**`) | rejected |
+| T12 | 09-12 15:38 | SHA:2b1b15ab8 | PDR-008 `:90-92,109-125,338-347`; practice-verification item 9 | tables define `check`/`check:fix`/`check:ci`; `package.json` has `check`/`fix` and per-leg names, no `check:ci` | TRUE | PDR-008 records lane (next-work item 4) |
+| T13 | 09-13 08:53 | SHA:e477e62f7 | `validate-plan-corpus.ts:48-60` | bare `readFile` of `docs/strategy` README; ENOENT instead of the fail-closed message | TRUE | transplant source lane |
+| T14 | 09-13 08:53 | SHA:e477e62f7 | `plan-corpus-loading.ts:52` | archived nodes under the scan root validated live for ever | TRUE, by design | answered, no change |
+| T15 | 09-13 08:53 | SHA:e477e62f7 | `validate-patterns-index-helpers.ts` | `renderPatternIndex([])` renders links to absent files | not reachable here (242 patterns) | below-bar |
+| T16 | 09-13 08:53 | SHA:e477e62f7 | `agent-tools/package.json` (nine sites), commit skill `:391` | pnpm 12 rejects `pnpm -s` | TRUE (pin 11.20.0) | lands with the pnpm major bump as one `--silent` sweep |
+| T17 | 09-13 08:53 | SHA:e477e62f7 | pr-lifecycle fixture | cites PR #135 by number; dead pointer in a transplant | TRUE as described | rejected here; the practice cites worked instances by number |
+| T18 | 09-13 08:53 | SHA:e477e62f7 | session-handoff SKILL-CANONICAL | forbids handover commits while wraps commit as `chore(continuity)` | TRUE; both rulings hold by estate | recorded for the lineage's next consolidation of the clause |
+| T19 | 09-13 08:53 | peer's tree | cited-scripts validator | `EXCLUDED_PATH_FRAGMENTS` gains `.agent/collaboration/rapid-comms/` | not a finding | held with T09 |
+| T20 | 09-13 10:4x | SHA:e477e62f7 | `.claude/settings.json:222` | CORRECTION to T01's cause hypothesis: the 5 s hook timeout was not it (shim runs in 0.11 s; the hook did not exist at that session's start) | accepted; this record never carried the hypothesis | T01 stands; timeout unchanged |
+| T21 | 09-13 10:4x | SHA:e477e62f7 | `session-identity-hook.ts:104-113`, `.claude/hooks/practice-session-identity.mjs:89` | `appendLine` planned on every SessionStart with no presence check; the shim appends; startup, resume and compaction each add an identical line | TRUE (this seat's env file: 13 lines, 1 distinct) | transplant source lane: skip when present or write the single line; unit test on the planner |
+
+Counts, for the analysis and nothing more: nineteen rows; sixteen findings (T08, T09, T19 are a request and
+two shape notes); twelve verified true or sound here (T06 retracted, T11 does not reproduce, T05 reproduces
+only transplant-side, T15 not reachable here); five routed to the transplant source lane (T01, T02, T03, T07,
+T13), one to the pnpm major bump (T16), one to the PDR-008 lane (T12), four true with no change (T04, T10,
+T14, T18), one below-bar (T15), one rejected on doctrine (T17). Standing: further batches append rows T20
+onward.
+
+Batch 2 (10:4xZ): the peer's completeness check ran from its own transcript (seven sends reconstructed) and
+every remaining candidate was checked at the pin before sending; two rows (T20, T21). Checked at the pin and
+not findings, so closed: the ADR-065/144/182/199/203 citations in the start-right workflows resolve here;
+the observability backlog artefact resolves; the path drift for `*-reviewer.md`, `skills/free-play/` and the
+cross-platform surface matrix occurs only under `.agent/plans-old-archive/`; `.claude/commands/` is empty at
+the pin. Held by the peer for later batches, not withheld: the installable-Practice extraction proposals
+(after the owner ratifies its practice-completion node) and the cited-paths validator shape (when it lands).
+The peer states nothing else OCE-affecting is held. Running counts: twenty-one rows, eighteen findings,
+thirteen verified true or sound, six to the transplant source lane (T21 added).
+
+## 2026-09-13 10:3xZ — #143 round one settled; #142 refused by the door on a vendor outage; the ruling's path taken
+
+**#143 (SHA:1ba34663f), settlement push 1 of 2.** Round one was Codex alone (three findings in one
+review comment, 5652449972); Copilot returned its error marker on the opening head. Each finding held
+against the record it cited and was cured in one push: (1) PDR-130 §§2/4 — the directive-tier line "A
+signal is not the fact it stands for" imports research frames and is constitutional-class, so it left
+`principles.md` for a slow-lane row in `pending-graduations.md` (prediction: an instance in a signal
+kind the fast-lane forms do not name; falsifier: every instance already covered — redundant; review
+2026-12-15); the rule, the `verify-dont-trust` clause, the `reason` sentence and the pattern stay
+fast-lane under §1 with their prediction lines. (2) `new-rule-vs-pdr-clause:55-59` and the patterns
+README barrier admit a single-instance cure shape; the rule now says it binds distributional claims and
+"a cure is not a distribution". (3) `verify-dont-trust`'s instrument clause is limited to verdicts
+recomputable from the state; a reviewer's finding is adjudicated on merit through pr-lifecycle's triage.
+Body re-trued (owed items go to their own PR; the principle's promotion is decided at its review);
+disposition comment 5652617051 as the bot; Copilot re-requested 10:07Z. The pre-push gate priced the
+push "within — rounds 0 (opening plus 0 settlement)": **observation (n = 1)** — the gate counts rounds
+from the declared reviewer's landed substantive reviews, so a round carried by Codex's comment-shaped
+review with Copilot's marker on the head is priced as no round at all. A fixture at the gate's pickup,
+not a weight change.
+
+**#142 (SHA:92018c1f1).** The front door (09:59Z–10:06Z, 14 polls SETTLING-QUIET-WINDOW) refused with
+`SETTLED-NO-REVIEW`, exit 3: Copilot's two tip-bound reviews are error markers ("unable to review",
+scope unevaluable), the timeout arm read the leg SKIPPED, and a timeout skip is not merge-eligible by
+design (security D1, 2026-08-06). Every check success; threads zero; `mergeStateStatus` CLEAN; Codex's
+summary reads "Running" on the tip since 08:40Z. **Copilot's error marker three times today across two
+PRs (08:46Z and 09:25Z on #142, 09:59Z on #143)** — an outage on this vendor, recorded once here; the
+owner's 2026-09-10 ruling applies: a subagent review posted to the PR stands as a leg, and the door is
+run with the available reviewer declared. Copilot requested a third time 10:09Z (free); a code-expert
+subagent review of the settlement diff f0447d13d..92018c1f1 dispatched 10:1xZ; its report was posted
+on the PR as a bot comment (below). **Observation (n = 1), a fixture at pr-watch's pickup:** the author's
+thread replies create empty-bodied tip-bound reviews under the bot identity, and `legFor` reads any
+non-skip tip-bound body as SATISFIED — declaring the bot as an expected reviewer would read satisfied
+from those empties alone. Not exercised for a verdict here (the substantive review is posted first, and
+the declaration names it); the predicate needs "non-empty" beside "non-skip".
+
+**Transplant register:** rows T01–T21 (10:0xZ block above); the register is the note the owner asked
+for; batch 2 closed the completeness ask.
+
+**#142 round two (10:1xZ).** Copilot's third request answered at 10:10Z: "Approval recommended", 0 new,
+13/13 files — the outage was transient (three markers, then a review). The subagent leg (code-expert,
+Opus) reported on the settlement push: tests 34/6 files green, tsc clean, no IO; two findings, both
+verified: the pr-lifecycle sentence at `:773-775` says the gate "refuses the push past" the budget and
+omits the single converging extension (`cost.unit.test.ts:114-136`, `:199-222`) — **routed** to the
+owed-items PR, which edits that passage; the description's "31 tests, 5 files" — **cured** in the body.
+Four observations (unpriceable rows exit 0 and read as data; `|` unescaped in error rows; two `--json`
+shapes; no ledger cell for an unpriceable row) are fixtures at the survey's pickup. Posted as the bot
+(comment 5652643099). The door's second run holds through the quiet window from 10:10Z.
+
+**Next lane, readings taken (the owed items, one small records PR once #142 is on engraph):** wrap
+`SKILL-CANONICAL.md` step 6 (line ~109) gains the rigour line ("which claims this session made from
+fewer observations than they need, and which recorded falsifiers fired") and what to record for an
+unpriceable survey row; pr-lifecycle state machine item 4 "Round settled; merge-ready" (line ~952)
+gains the conscience-check sentence (at every round boundary and before every durable write, the
+cricket check takes the state line — round, pushes vs budget, cure-worthy count, value remaining —
+its verdict evidence, never authority) and `:773-775` gains the converging-extension clause;
+`review-cost-ledger.md` §Weight changes gains a Falsifier column and the rule (a change only against
+a disagreement in at least three independent pull requests carrying the owner's label; every change
+names its rows; the initial row records that its weights were fit on #136, #138, #139 and then scored
+against them — a fit, not a test). Cut from `origin/engraph` after #142's merge; budget two.
+
+**#142 MERGED (10:21Z), SHA:ebf0c4251**, two parents, by the bot at the door's second run
+(`SETTLE-READY`: Copilot's leg SATISFIED on the tip, quiet window elapsed). Hygiene: lane tip an
+ancestor of engraph; worktree removed; local and remote `lane/review-cost-survey-2de368` deleted (the
+remote as the bot); pruned. The ledger and the wrap survey step are now on engraph.
+
+**COLD PAUSE at the owner's word (10:2xZ), sole operator.** Open: #143 at settlement push 1 of 2
+(SHA:1ba34663f), Copilot re-requested 10:07Z, round two unread; #137 (draft fold). Next lane, not
+opened: the owed-items records PR (readings above), cut from `origin/engraph` at SHA:ebf0c4251 or
+later; then the wrap survey for this session (`review-cost survey --since 2026-09-12`), rows for
+
+# 142 and #143 with the seat's stop-round reading, no inference. Held by the owner: unchanged from
+
+boundary 10. Coordination branch tip after this commit is the record.
+
+## 2026-09-13 13:4xZ — SESSION CLOSE (Nettle guards Pistil, 2de368, sole operator, Fable 5.1, n=1): full handover
+
+The owner: "Work will continue in a fresh session with no access to this context." This block is that
+session's whole context for this lane; the per-user memory tail points here and adds nothing.
+
+**Safety, verbatim at close.** Primary `## coordination/2026-09-12-69a537...origin/coordination/2026-09-12-69a537`
+clean but for the owner's untracked `.agent/research/cognitive-systems/` (theirs; tracked on #143's
+branch); lane `## lane/rigour-consolidation-2de368...origin/lane/rigour-consolidation-2de368` clean at
+SHA:1ba34663f (worktree `../oak-open-curriculum-ecosystem-worktrees/rigour-consolidation-2de368`). The
+detached survey worktree was removed clean. Zero processes of this seat. Claim 8109015d closed and
+archived at this close. Open pull requests: #143, #137 (draft fold).
+
+**Landed this session (2026-09-12 to 13), by SHA on engraph.** #139 SHA:d7cef7075 (pr-tally todo 1);
+
+# 140 SHA:527fd11ff (reviewer context block in AGENTS.md and copilot-instructions); #141 SHA:ae57ef111
+
+(review cost gate in the pre-push hook); #142 SHA:ebf0c4251 (survey, ledger, wrap step 6). On the
+coordination branch: the transplant findings register (T01–T21), the 10:3xZ block, and the sketch plan
+node `.agent/plans/delivery/review-round-predicates.plan.md` (SHA:04f08cd8e; unratified, governs
+nothing).
+
+**#143 — the one live pull request. Exact state.** Branch `lane/rigour-consolidation-2de368`, tip
+SHA:1ba34663f, base engraph (contains SHA:ae57ef111; engraph has since moved to SHA:ebf0c4251, so a
+sync merge may be needed — it prices zero at the gate). Budget two settlement pushes; **push 1 of 2
+taken** (round one, three Codex findings, cured; disposition comment 5652617051). **Round two landed
+10:12Z on SHA:1ba34663f: seven findings, READ, NOT VERIFIED, NOT DISPOSITIONED** — Codex review with
+two P2 inline threads; Copilot review "changes recommended" with three inline threads and two
+suppressed items in its body (harvest the suppressed block: `pr-comments-include-suppressed-copilot`).
+The seven, with this seat's first read (a read, not a verdict; verify each first-hand):
+
+1. Pattern `signal-read-as-fact` `proven_in` counts seven events from one seat-day without the
+   independent count or the comparator — the rule in the same PR requires both. TRUE on its face
+   (this seat's own rule unapplied to its own file). Cure: state `n = 1` seat-day, unit, comparator.
+2. Pattern frontmatter lacks the `stable` barrier field (patterns README §Barrier, four criteria)
+   and the polarity blockquote after the frontmatter (README lines ~39-68). Verify the README's
+   exact required shape, then add both.
+3. Rule `one-instance-is-an-observation.md` lacks the leading "Operationalises …" line —
+   VERIFIED at close: `docs/engineering/extending.md:109-116` requires it (ADR-131
+   §Self-Referential Property). Cite the actual governing record(s): PDR-130 (the prediction-line
+   obligation) and PDR-026 (falsifiability) are the candidates; read them before citing.
+4. RULES_INDEX row out of alphabetical order — VERIFIED at close: the row sits at line 179 among
+   the `no-*` rows; it belongs between `oak-chrome-session-is-metered` (183) and
+   `owner-attention-at-action-moments` (184).
+5. (Copilot, suppressed) The rule's trigger sentence binds any record that "names a pattern",
+   including an index entry or a cross-reference that repeats no count; narrow to records that
+   introduce or infer a distributional claim and exclude references to an established pattern.
+   Plausible; the same wording is at line ~30 and in the Cursor adapter's description.
+6. (Copilot, suppressed) Pattern line ~41 "where there is none the signal is acted on every time"
+   is a universal frequency claim from one seat-day, contradicting the rule's own scope. TRUE;
+   scope it to what was observed.
+7. Codex: "complete the admission barrier before indexing" — the same as 2 from the index side.
+
+**Next actions, in order (a fresh session).**
+
+1. Start right (quick, solo). Read this block, then `.agent/plans/delivery/review-round-predicates.plan.md`
+   and the `verified-correct-is-not-a-proportionality-test` memory's practice-homes paragraph.
+2. #143, the last push. In the lane worktree: `git fetch origin engraph`; if behind, `git merge
+   origin/engraph` (plain merge, ordinary message). Verify the seven above first-hand; cure every
+   true one in ONE commit by pathspec; `pnpm portability:check`, `pnpm repo-validators:check`
+   (regenerate the patterns index with `--fix` if the pattern file changes), markdownlint, prettier;
+   push (the gate prices it: expect "within", settlement push 2 of 2). As the bot
+   (`token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1`;
+   `GH_TOKEN="$token" gh …`, repo pinned to `EngraphCode/open-curriculum-ecosystem`): reply on each
+   of the five inline threads and resolve them (GraphQL `resolveReviewThread`), one signed issue
+   comment for the two suppressed items in the body-only line format, state line first ("Round 2;
+   settlement push 2 of 2 taken at SHA:<sha>; …; value remaining: none — past budget, rejection
+   only"); re-true the body's §Scope budget line; re-request Copilot
+   (`POST pulls/143/requested_reviewers`, `reviewers[]=copilot-pull-request-reviewer[bot]`). Then
+   `node agent-tools/dist/src/bin/agent-tools.js merge-bot merge --pr 143 --expect copilot-pull-request-reviewer --json`
+   as a background task; read its verdict by name. Any later finding: rejection with reasoning, no
+   cure (budget spent). On merge: fetch, two-parent proof, `git worktree remove`, `git branch -d`,
+   delete the remote branch as the bot, `git fetch --prune`.
+3. The owed-items records PR, cut from `origin/engraph`: wrap `SKILL-CANONICAL.md` step 6 gains
+   the rigour line ("which claims this session made from fewer observations than they need, and
+   which recorded falsifiers fired") and what to record for an unpriceable survey row; pr-lifecycle
+   state machine item 4 gains the conscience-check sentence (at every round boundary and before
+   every durable write, the cricket check takes the state line — round, pushes vs budget,
+   cure-worthy count, value remaining — its verdict evidence, never authority); pr-lifecycle
+   `:773-775` gains "except the single converging extension a round at or below half the one before
+   earns" (routed off #142's leg, comment 5652643099); `review-cost-ledger.md` §Weight changes
+   gains a Falsifier column and the rule (a change only against a disagreement in at least three
+   independent pull requests carrying the owner's label; every change names its rows; the initial
+   row records that its weights were fit on #136, #138, #139 and then scored against them — a
+   fit, not a test); and the two survey rows below appended to §Pull requests. Budget two.
+4. `review-round-predicates`: put the node to the owner for ratification (one ask, the node's
+   path); on the word, todo 1 (record `pr-142-harvest.json`, `pr-143-harvest.json` after #143
+   merges) then PR A, then PR B, as the node says.
+5. Transplant register: further batches from Cauldron herds Lustre (880ff9) append rows from T22
+   in the 10:0xZ block's table, each verified first-hand before its disposition; the owner's
+   standing word 2026-09-13: "When they report findings please make a note of them for analysis."
+   Routed there and waiting on lanes: the transplant source lane (T01, T02, T03, T07, T13, T21),
+   the PDR-008 records lane (T12), the `-s` → `--silent` sweep at the pnpm major bump (T16).
+
+**Wrap step 6, the survey (run at close from a detached engraph worktree, `--since 2026-09-12`).**
+Every row's verdict as printed; the two rows owed to the ledger (append in action 3, verbatim):
+
+| Date | PR | Rounds | Settlement cost / budget | Verdict | Seat's stop round | Gate | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-09-13 | #142 | 2 | 13.99 / 40 | within | after settlement push 1 (vendor round two: zero; the leg's two findings cured in the body and routed) | agreed — within at the stop | Copilot errored twice on the tip then reviewed; the door refused SETTLED-NO-REVIEW correctly on the markers |
+| 2026-09-13 | #143 | 1 (survey) / 2 (seat) | 0 / 40 | within | after settlement push 2 (declared; round two carries seven text-conformance findings) | late — the survey counts the settlement head as the opening round because round one was a Codex issue comment (`review-round-predicates`, defect 1); under the corrected predicate: 2 rounds, 10.85 charged | one row, not a class; re-price after PR A |
+
+The six seeded rows re-surveyed unchanged (#135 112.22, #136 97.3, #138 155.06, #139 174.59, #140
+35.11, #141 52.11); #137 (draft fold) 0 rounds.
+
+**Held by the owner, unchanged:** the four sync-workflow findings; the upstream report; the
+directives-tier placement; #100's two deny lines; F-181 (the relative statusline log path) and the
+stray log in `visitors/pedagogy-library`; the redaction node (paused until recurrence); the tutoring
+research; a retrospective on the 2026-09-12/13 arc (offered, not run); #137's fold at its DUE check;
+ratification of `review-round-predicates`; the slow-lane row for "A signal is not the fact it stands
+for" (review 2026-12-15).
+
+**Observations carried as observations (n = 1 each unless stated).** Copilot's error marker three
+times in one morning across two PRs, then a normal review on the third request — transient. The gate
+counts no round for a Codex issue-comment round (planned). Empty-bodied reviews from thread replies
+satisfy a leg predicate (planned). Three predicates over review shapes failed on unseen shapes in one
+seat-day (skip-marker substring, empty body, comment-shaped round) — n = 3 predicates, one seat-day,
+recorded in the napkin; if a fourth arrives the cure shape is one shared review-shape normaliser.
+
+**Metaloss recursion.** Pass 1 (compressed reasoning): the day's diagnosis is in #143's pattern and
+rule, the plan node, and the 10:3xZ block; decision-sufficient. Pass 2 (promises): every commitment
+above has a numbered action and a home; none lives only here. Pass 3 (attribution): the seven #143
+readings are marked as reads, two as verified; the survey's #143 "late" is the instrument's number
+beside the seat's count, both shown. Pass 4 (fence sweep): no owner word was held off the record;
+the owner's verbatim words this session are in the 10:0xZ and 10:3xZ blocks. Pass 5 (index of
+homes): this block; the plan node; the register; the napkin entry of 13:3xZ; the per-user memory
+tail (a pointer). A sixth pass re-finds only the #143 round-two verifications, which are action 2's
+work, not a loss: fixed point.

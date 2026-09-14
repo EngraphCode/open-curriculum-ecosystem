@@ -90,6 +90,48 @@ already pointing at.
   — whose name the ticket write surfaces displays; this rule governs
   where the ticket lives.
 
+## Working practice on the Linear surface
+
+- **Ticket first, PR linked, metrics tight** (owner, 2026-07-16, after four
+  bucket PRs consumed twelve hours and three hundred review comments):
+  "there is a strict order: we create a ticket in Linear before work starts;
+  once a PR exists we link it with the Linear ticket; we measure the
+  DORA-like team metrics on Linear and we keep them TIGHT. A PR open for 12
+  hours of active development with several hundreds of comments is a red
+  flag." Writing the ticket fixes the atomic scope before code exists; every
+  PR class takes a ticket (doctrine, docs, roll-ups alike, owner 2026-07-21);
+  wider arcs live in repo plans projected to Linear, never in a PR used as a
+  bucket. This is working PRACTICE, never repo validity: work does not
+  require a ticket to be valid, and no repo check may require records in an
+  external service (owner, 2026-08-07).
+- **Role vocabulary is namespace-scoped.** On Linear and every Oak-wide
+  surface the coordinating agent is "lead AI", never "Director" (owner,
+  2026-07-21: "within the team you are the Director, within Oak the Director
+  can mean any number of very senior people, and someone will get
+  confused"); sign Linear content "(lead AI)". "Director" stays in repo
+  doctrine, comms events and team-internal records.
+- **Plain language on the ticket surface.** Tickets, milestone descriptions
+  and the pages they link are owner- and stakeholder-facing, never
+  engineer-to-engineer shorthand (owner, 2026-07-28, reading a ticket graph:
+  "please use plain language in tickets where possible, I don't know what
+  you mean by drill here" — "deletion drill" had spread across a title, a
+  pillar map, a milestone and a page). Say what happens in ordinary words
+  ("run the whole deletion process once for real and keep the proof");
+  keep the technical terms the owner uses himself and gloss anything
+  operational-cultural; when a correction lands, sweep every surface the
+  jargon leaked to.
+- **A Linear document has no merge.** A full-content document save from the
+  seat's own last-sent copy silently reverts every owner edit made since
+  (twice in one afternoon on a handover document, 2026-07-29, including
+  restoring a rule the owner had deleted). Any save to an owner-touched
+  document reads the document fresh first and sends a minimal delta on the
+  CURRENT content; never resend from memory.
+- **Mention no person in a ticket without the owner's express request**
+  (owner standing rule, 2026-08-13: "don't tag anyone in a Linear ticket
+  without my express request"). A mention fires a notification at a real
+  colleague; summoning that attention is the owner's call, and an
+  owner-named exception binds for that instance only.
+
 ## Enforcement
 
 Behavioural at the ticket-write moment. Placement is observable and
