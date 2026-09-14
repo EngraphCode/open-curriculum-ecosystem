@@ -64,6 +64,9 @@ export function resolveProfileRoot(
 
 type Presence = 'directory' | 'absent' | 'not-a-directory';
 
+/** Reports what is at a path; the filesystem one is the default, tests inject a fake. */
+export type PresenceProbe = (target: string) => Promise<Result<Presence, string>>;
+
 /**
  * Whether a path is a directory, distinguishing genuine absence (ENOENT,
  * the expected condition) from an operational failure such as EACCES, which
@@ -152,13 +155,21 @@ async function documentFailures(root: string, layout: ProfileLayout): Promise<Do
   return failures;
 }
 
-/** The document paths a push can stage that exist in the root; an unreadable one is an error. */
+/**
+ * The document paths a push can stage that exist in the root; an unreadable
+ * one is an error, never treated as absent.
+ *
+ * @param root - the profile root
+ * @param probe - what is at a path (the filesystem by default)
+ * @returns the existing document paths, in the layout's order
+ */
 export async function existingProfilePaths(
   root: string,
+  probe: PresenceProbe = presence,
 ): Promise<Result<readonly string[], string>> {
   const present = await Promise.all(
     [INDEX_FILE_NAME, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map(async (relPath) => {
-      const there = await presence(path.join(root, relPath));
+      const there = await probe(path.join(root, relPath));
       return there.ok ? ok(there.value === 'absent' ? [] : [relPath]) : there;
     }),
   );

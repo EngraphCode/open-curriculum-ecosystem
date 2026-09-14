@@ -1,39 +1,47 @@
-import { unwrap } from '@oaknational/result';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import path from 'node:path';
 
-import { existingProfilePaths, readProfileReport } from './operator-profile-root.js';
-import {
-  makeProfileRootFixture,
-  type ProfileRootFixture,
-} from './test-helpers/profile-root-fixture.js';
+import { err, ok, unwrap } from '@oaknational/result';
+import { describe, expect, it } from 'vitest';
 
-/**
- * The IO layer against a temporary root the fixture owns: which document
- * paths a push may stage, and the check's information line for a present
- * profile that is not a repository. Nothing here touches a git repository.
- */
-describe('existingProfilePaths and the non-repository sync line', () => {
-  let fixture: ProfileRootFixture;
+import { existingProfilePaths, type PresenceProbe } from './operator-profile-root.js';
 
-  beforeEach(async () => {
-    fixture = await makeProfileRootFixture();
+// The probe is injected: nothing here touches a filesystem. The fake answers
+// by the path's last segment, as the real probe answers by what is on disk.
+const ROOT = path.join('profile-root');
+
+type Present = Readonly<Record<string, 'directory' | 'not-a-directory'>>;
+
+function probeOf(present: Present): PresenceProbe {
+  return (target) => Promise.resolve(ok(present[path.basename(target)] ?? 'absent'));
+}
+
+describe('existingProfilePaths — the document paths a push may stage', () => {
+  it('lists only the paths that exist, in layout order, so a minimal profile can be pushed', async () => {
+    const probe = probeOf({ 'index.md': 'not-a-directory', machines: 'directory' });
+    expect(unwrap(await existingProfilePaths(ROOT, probe))).toEqual(['index.md', 'machines']);
   });
 
-  afterEach(async () => {
-    await fixture.remove();
-  });
-
-  it('lists only the document paths that exist, so a minimal profile can be pushed', async () => {
-    await fixture.addFile('index.md');
-    await fixture.addDirectory('machines');
-    expect(unwrap(await existingProfilePaths(fixture.root))).toEqual(['index.md', 'machines']);
-  });
-
-  it('reports a present profile that is not a repository as information in the check', async () => {
-    expect(unwrap(await readProfileReport(fixture.root))).toEqual({
-      documentCount: 0,
-      failures: [],
-      info: ['the profile is not a git repository (first-class; nothing to sync)'],
+  it('lists nothing for an empty root and everything for a full one', async () => {
+    expect(unwrap(await existingProfilePaths(ROOT, probeOf({})))).toEqual([]);
+    const full = probeOf({
+      'index.md': 'not-a-directory',
+      repos: 'directory',
+      machines: 'directory',
     });
+    expect(unwrap(await existingProfilePaths(ROOT, full))).toEqual([
+      'index.md',
+      'repos',
+      'machines',
+    ]);
+  });
+
+  it('reports an unreadable path as an error, never as absent', async () => {
+    const probe: PresenceProbe = (target) =>
+      Promise.resolve(
+        path.basename(target) === 'repos' ? err(`cannot read ${target} (EACCES)`) : ok('absent'),
+      );
+    const result = await existingProfilePaths(ROOT, probe);
+    expect(result.ok).toBe(false);
+    expect(result.ok ? '' : result.error).toContain('EACCES');
   });
 });
