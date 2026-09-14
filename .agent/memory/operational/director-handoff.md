@@ -262,6 +262,75 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> # §SEAT LIVE — Kestrel weaves Downdraft (`24c921`, claude-opus-5), took the seat from cold 2026-09-13
+>
+> **Two Directors sat between Civet's block below and this one without refreshing this section.**
+> Mackerel rides Brine (`529615`) recorded its tenure only in comms (`1feda95d`); Sloop spins
+> Seabed (`9f30c5`) posted one event and nothing else. If you are reading Civet's block below as
+> current state, it is ten days stale.
+>
+> ## The takeover signal that nearly fooled me, stated so it does not fool you
+>
+> **Four claims read `fresh` for a process that did not exist.** Mackerel's Director claim was
+> `stale`, but four lane claims it opened read `fresh` minutes before I arrived. What settled it
+> was the process table, not the registry: the only `claude` processes on the host had started
+> _after_ those claims were written. **The registry cannot distinguish "recently written" from
+> "currently held".** Add a process check to the readiness gate's liveness question; a fresh row
+> is necessary evidence of liveness and nowhere near sufficient.
+>
+> ## What this seat landed
+>
+> Eight lane branches are pushed and every one is in sync with its remote, verified by
+> `rev-list --left-right` per branch rather than by any gate's tick:
+>
+> - **#955** — the inherited mid-merge completed (`5aeaa755f`), then merged to _current_ main
+>   (`3b43dab97`); it was still 27 behind because the inherited `MERGE_HEAD` was a 10-Sep tip.
+> - **#963, #947** — review-thread cures committed, pushed, replied to as emgeebot and resolved.
+>   Both PRs now have zero unresolved threads.
+> - **#931, #932, #934, #935, #960** — the local, unpushed main-merges pushed. All 0 behind main.
+> - **`de82bfb6c`** — three cross-references trued to the renumbered F-166 (see below).
+>
+> ## Three traps this seat hit, each of which will recur
+>
+> 1. **A green gate is not a landed artefact.** Four serial pushes printed
+>    `✅ Pre-push checks completed!` and then 401'd; the remote never moved. The cause is a
+>    credential race: the token is minted when git opens the connection, the ~10-minute pre-push
+>    gate runs, and the token has expired by the time the pack is sent. **Long-gate pushes are
+>    currently a coin flip** — #935 took three attempts, #932 three. Retry is the workaround; the
+>    cure belongs in the credential helper's token lifetime. Always verify the remote ref.
+> 2. **The commit skill prescribes a claim label its own guard cannot match.** It tells worktree
+>    seats to claim `git:index/head@<worktree-name>`; `commit-queue/guard.ts:134` tests exact
+>    array membership on `index/head`, so it never matches. `claims open` accepts the label and
+>    `guard` then refuses the claim it just wrote. The only working spellings are the bare label —
+>    which falsely asserts a window on the PRIMARY index — or no ceremony. The tool rewards the
+>    mislabel. One-line predicate fix plus a test; it is a leaf.
+> 3. **Two generated files were NUL-corrupted by an interrupted write.** `#932`'s worktree held
+>    16,384 NUL bytes in each of two `oak-sdk-codegen` vocab `data.json` files — 16 KiB apiece,
+>    the signature of a crash or OOM kill mid-write, matching this host's known crash and a
+>    low-memory kill of this session's own comms watcher. It read at first glance like a
+>    narrower-corpus codegen run; it was not. The corrupt artefacts are preserved in this
+>    session's scratchpad, valid content restored from the committed blobs, and a sweep of all 40
+>    worktrees found no other instance. **It was blocking #932's push** — the pre-push gate runs
+>    against the working tree, so a dirty generated file fails the gate.
+>
+> ## Owner-gated, carried, and NOT discharged by this seat
+>
+> - **Four probe-created OAuth clients are live in the production Clerk IdP**, each with
+>   `client_secret_expires_at: 0`. Find by `client_name: "probe-mcp674-recheck"`. Inherited from
+>   Civet, still the highest-priority residue. **Owner cleanup.**
+> - **Twelve PRs are green, thread-clean, and blocked solely on a code-owner approving review**:
+>   #927 #928 #931 #932 #933 #934 #935 #947 #955 #960 #963 #975. This is the estate's actual
+>   bottleneck and it is the same failure #947's own retrospective diagnoses.
+> - **The one-implementer-at-a-time ruling (3 Sep)** was put to the owner for release, with ~10
+>   disjoint lanes waiting. Unanswered; this seat stayed serial.
+> - **The codeql-action pair** is committed-ready in `oak-codeql-action-4-37-9-pair` (pin verified:
+>   tag `v4.37.9` → `cdf488f5…`). Raising it needs a leaf ticket and overrides the
+>   "Dependabot owns github-actions bumps" doctrine, because Dependabot's split #941/#942 can
+>   never go green. Put to the owner with a recommendation to mint and raise; unanswered.
+> - **Two expired plan owner-decision gates** remain (Mackerel discharged six of the eight).
+
+---
+
 > # §SEAT WOUND DOWN AT OWNER WORD, 2026-09-03 ~17:0xZ (Civet calls Crypt, `2a5c71`, claude-opus-5)
 >
 > **THIS SUPERSEDES THE MOMENT-1 BLOCK BELOW.** Owner word, verbatim: _"OK i'm going to pick this

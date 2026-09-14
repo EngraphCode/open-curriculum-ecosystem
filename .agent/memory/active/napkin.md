@@ -20,6 +20,47 @@ sentence; only owner-ratified doctrine gets the imperative. On this shared surfa
 exact-match anchor or append-only — never rewrite from a positional marker (truncate-race,
 2026-07-28).
 
+## 2026-09-13 (Kestrel weaves Downdraft, 24c921, Director from cold) — five inherited half-states
+
+**A `fresh` claim is not a live seat, and four of them were lying.** Mackerel rides Brine's
+Director claim read `stale`, but four lane claims it opened read `fresh` minutes before I
+arrived. `ps -eo pid,ppid,lstart` settled it: the only `claude` processes on the host started
+*after* those claims were written, so no process backed any of them. The registry cannot
+distinguish "recently written" from "currently held"; the process table can. Check the clock
+against the process list, not the freshness field, before inheriting a lane.
+
+**A green gate is not a landed artefact.** Four serial pushes each printed
+`✅ Pre-push checks completed!`; two of them then died on `error: RPC failed; HTTP 401` and
+the remote never moved. Reading the gate line would have recorded two false successes. The
+loop's own `PUSH-EXIT` caught it and an independent `rev-list --left-right origin/$br...$br`
+confirmed it. The 401 was transient — `ls-remote` succeeded minutes later — which matches the
+existing note that an emgeebot push failure can be temporal. Verify the remote ref, never the
+gate's tick.
+
+**The commit skill prescribes a claim label its own guard cannot match.** The skill tells a
+worktree seat to claim `git:index/head@<worktree-name>`; `commit-queue/guard.ts:134` tests
+exact array membership on `index/head`, so that label never matches. `claims open` accepted
+it and `guard` then refused the claim it had just written. The only working spellings are the
+bare label — which asserts a window on the PRIMARY index a worktree seat is not using — or no
+ceremony at all, so the tool's shape rewards the false coordination signal. Filed in comms
+`85cb86b7`; recorded here because the register lives on another branch this session.
+
+**A merge that looks like catastrophic loss can be correct, and the arithmetic says which.**
+The inherited resolution took `napkin.md` from 3,092 lines to 1,234. The explanation was that
+`main` had rotated the napkin mid-branch: 1,167 live lines plus a 3,093-line archive. The
+result was main's 1,167 plus the 67 lines unique to our side. Diff all three sides; the line
+count alone accuses the wrong thing.
+
+**The same merge's real defect was invisible to the line count.** A heading census — not the
+diff — found our `F-161` renumbered to `F-166` against main's existing F-161, leaving three
+references pointing at a real but *different* friction. A dangling reference announces itself;
+a reference that resolves to the wrong live entry does not. Census headings across both sides
+after any merge of an id-bearing register.
+
+**My own waste, recorded:** I dumped `ps -eo pid,ppid,lstart,command` unfiltered to identify
+one process and spent several thousand tokens on Electron command lines carrying embedded JSON
+config. Narrow the projection before running a process query on a desktop host.
+
 ## Napkin rotated (2026-09-02 napkin-only dedicated consolidation, Kiln holds Slag, 1447f4)
 
 Rotated inside the owner-launched dedicated consolidation, scoped by owner word to "the
