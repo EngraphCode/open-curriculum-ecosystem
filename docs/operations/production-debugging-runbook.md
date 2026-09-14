@@ -2,7 +2,7 @@
 
 This runbook provides step-by-step debugging workflows for the Oak Open Curriculum Ecosystem using Phase 2 observability features (correlation IDs, timing metrics, error enrichment).
 
-**Last Updated**: 2026-09-03  
+**Last Updated**: 2026-09-14  
 **Applies To**: HTTP Server (Vercel), Legacy Stdio Server (local/Claude Desktop)
 
 ## Production Endpoints and Hosts
@@ -546,7 +546,7 @@ curl -sS -o /dev/null -D - -X POST https://mcp.thenational.academy/mcp \
 # the same status on both is the route, not the edge.
 ```
 
-**Step 3: attribute the block in Cloudflare.** Only Cloudflare's firewall
+**Step 3: attribute the block in Cloudflare.** Cloudflare's firewall
 events name the rule and ruleset, and the `cf-ray` value on the 403 identifies
 the request. Nothing in this repository can make that attribution — do not
 infer a rule from the status code.
@@ -561,22 +561,50 @@ scripting? a lesson for KS4", and `DROP TABLE students;`. So a computing
 lesson about security is not itself the trigger — check the exact string
 before assuming the topic caused it.
 
-For orientation, the rule lives in `oaknational/Cloud-Config` at
-`infrastructure/cloudflare/rulesets/firewall_managed_rules.tf`: host-scoped to
-`mcp.thenational.academy`, OWASP Core Ruleset at paranoia level 1,
-`score_threshold = 40`, `action = "block"`. The action is deliberately `block`
-rather than `managed_challenge`, because an MCP client cannot solve an
-interactive challenge and would see one as a hung connection instead of a
-refusal.
+For orientation, the zone's WAF lives in `oaknational/Cloud-Config` under
+`infrastructure/cloudflare/rulesets/`, and **no rule there is scoped to this
+host** (read on `main` 2026-09-14). `firewall_managed_rules.tf` deploys the
+OWASP Core Ruleset zone-wide across `thenational.academy` — `kind = "zone"`,
+`expression = "true"` — at paranoia level 1, with levels 2 to 4 explicitly
+disabled, and overrides the Inbound Anomaly Score Exceeded rule to
+`score_threshold = 40` and `action = "managed_challenge"`.
+`firewall_rules.tf` names no MCP host at all; its `block` rules are zone-wide
+and match on the URI (`.sql`, `__proto__`, `/xmlrpc.php`), none of which the
+payloads above touch. The only host-scoped MCP rule in the whole repository is
+the `/oauth/register` rate limit in `rate_limits.tf`, and that returns 429,
+not 403.
+
+**So the Terraform does not account for the 403, and you should not try to
+make it.** The managed-ruleset resource also declares a first `execute` rule
+as an empty placeholder under `lifecycle { ignore_changes = [rules[0]] }`,
+deliberately outside Terraform's control — so the file cannot tell you
+everything the managed phase runs. Step 3 is not a formality; read the
+firewall event.
+
+A `block`-over-`managed_challenge` rationale for this host does exist in
+Cloud-Config, but as an **aspiration, not a deployment**: the `mcp` DNS-record
+comment in `misc/dns_records.tf` records that a non-browser MCP client cannot
+solve a challenge and that "that action should be block on this scope", and
+`rate_limits.tf` reasons the same way for its own rule. Nothing in the
+repository implements it for the WAF. Do not read that comment as a
+description of what is deployed.
 
 The underlying defect — the edge matching literal attack syntax, which a
 genuine code sample in a computing lesson can carry — is tracked on
 [MCP-665](https://linear.app/oaknational/issue/MCP-665). That ticket predates
 the measurement above and still frames the defect as discrimination against
 security topics; scope the fix to signature matching, not to allow-listing
-subject matter. The durable fix for this scenario's blind spot, forwarding
-firewall events into Sentry via Logpush so an edge block lands in an Oak
-instrument at all, is post-publicity and not yet ticketed.
+subject matter. The durable fix for this scenario's blind spot — a
+`firewall_events` Logpush job feeding an instrument this team watches — is
+post-publicity and not yet ticketed.
+
+The blind spot is narrower than "no instrument at all", though.
+`misc/logpush.tf` in Cloud-Config already declares an enabled `http_requests`
+Logpush job on this zone carrying `WAFAction`, `WAFRuleID`, `WAFRuleMessage`,
+`FirewallMatchesActions`, `FirewallMatchesRuleIDs` and `RayID` to Datadog,
+sampled at `0.3`. It is not a surface this team watches and a given block may
+fall outside the sample, so it does not replace Step 3 — but check it before
+concluding the request left no trace anywhere.
 
 ## Tools and Commands Reference
 
