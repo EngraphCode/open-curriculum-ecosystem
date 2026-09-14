@@ -1373,6 +1373,17 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   every leg reads OWED and the tool refuses "no review binds the current tip"; that cost three
   refused runs before I read the harvest. Then engraph merged into the coordination branch
   (one changelog union) and the PDR-141 amendment landed with its consumers.
+- **Fold of the 2026-09-12 branch (PR #137) and the owner's frame.** Fifteen findings on the fold
+  (Codex 3, Copilot 12), all correct: the Core PDR named a host tool; the reader recipe mis-derived
+  ssh remotes and read before checking; three internal contradictions in PDR-141 after its
+  amendment; two surfaces still requiring a separate `pnpm check`; three records still queuing a
+  ratification already done; an ADR cell claiming a planned validator as live; an unlinked
+  harness note. One settlement push. The owner's frame for the profile, recorded in PDR-141
+  §Notes: a simple personal knowledge graph with sovereignty, because he controls the repository
+  the canonical copy lives in. PDR-141 ratified (`dd813b6ef`); the profile ratified with three
+  additions and pushed to `jimCresswell/jc-personal-practice-profile`; the jimcresswell.net
+  transplant base `e477e62f7` noted in the profile; a delta note for Cauldron herds Lustre goes
+  into that repository's Practice Box after the fold lands.
 - **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)

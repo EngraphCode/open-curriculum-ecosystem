@@ -23,10 +23,9 @@ Three kinds of fact about the human at a machine were homeless until August
 2026 and each was lost at least once: which identity (which bot, which human
 account) performs which action class on third-party systems; how the operator
 wants agents to write to them and as them; and personal operating
-preferences that are neither doctrine nor session state. The host repository
-cured this with a machine-local, git-ignored directory inside the checkout
-(`.agent/operator-local/profile.md`, 2026-08-18), placed below every tracked
-surface in the authority order.
+preferences that are neither doctrine nor session state. The first host
+cured this with a machine-local, git-ignored directory inside its checkout
+(2026-08-18), placed below every tracked surface in the authority order.
 
 The 2026-09-14 dedicated drain of the Claude per-user memory buffer seeded
 that file for the first time and exposed the placement defect. The facts it
@@ -91,11 +90,14 @@ scopes by repository identity instead.
    and its upstream therefore hold separate scope files, which is correct:
    the facts differ by line. A repository with no `origin` remote has no
    scope file until it has one; readers proceed on the shared index.
-4. **Strictly optional.** A missing root, index or scope file is the
-   expected condition, not a defect: readers proceed on tracked defaults
-   and say nothing. Nothing may fail, warn, block, or make a correctness
-   property depend on the profile's presence or content (`principles.md`
-   §Any User, Any Machine).
+4. **Strictly optional.** A missing root, index, scope or machine file is
+   the expected condition, not a defect: readers proceed on tracked
+   defaults and say nothing. Nothing may fail, warn or block on the
+   profile's ABSENCE, and no correctness property of the estate may depend
+   on the profile at all (`principles.md` §Any User, Any Machine). A PRESENT
+   document that violates the contract or carries a credential-shaped line
+   is refused by the check and is not read until fixed: that refusal is the
+   one way a profile blocks anything, and it blocks only its own reading.
 5. **Authority.** The profile sits below every tracked surface. Where it
    conflicts with a directive, ADR, PDR, rule or active plan, the tracked
    surface wins and the profile's clause is stale by construction; only a
@@ -112,9 +114,12 @@ scopes by repository identity instead.
 7. **Readers.** The shared start-right grounding is the single tracked read
    pointer. It runs the host's profile check FIRST (the host's Practice index
    names the command), so a document carrying a credential-shaped line is
-   refused before anything is read into a session; then it reads the index,
-   the current repository's scope file and this machine's file, in that
-   order. Because the location is the home directory, no primary-checkout
+   refused before anything is read into a session; when the check refuses,
+   or cannot run because the host's tooling is not yet built (a cold clone
+   before its install and build), nothing is read and the grounding
+   continues — the profile is read once the tooling is built and the check
+   passes. Then it reads the index, the current repository's scope file and
+   this machine's file, in that order. Because the location is the home directory, no primary-checkout
    resolution is needed: a linked worktree, a second clone and a session in
    any other Practice repository read the same files. The scope key is
    derived from the `origin` remote in its `https://host/owner/repo`,
@@ -134,12 +139,13 @@ scopes by repository identity instead.
      && cat "$PROFILE_ROOT/machines/$MACHINE.md"
    ```
 
-8. **The checkout tier is retired.** `.agent/operator-local/profile.md` is
-   no longer a home; the host directory keeps a short reference document
-   pointing here and its ignore rules so that a stray file placed there
-   stays untracked. The per-user vendor memory buffer graduates
-   person-and-machine facts into this profile, and this profile graduates
-   anything that turns out to be doctrine back into a tracked surface.
+8. **Checkout-local profile tiers are retired.** A host that kept a
+   machine-local profile inside its checkout retires that tier: the
+   location becomes a pointer to this PDR, and the host's bridge index
+   carries its own migration note (the Core carries none). The per-user
+   vendor memory buffer graduates person-and-machine facts into this
+   profile, and this profile graduates anything that turns out to be
+   doctrine back into a tracked surface.
 
 ## Amendment 2026-09-14 — the contract, the machine kind and the synced root
 
@@ -178,6 +184,44 @@ between machines, provided the estate stays machine-agnostic.
     profile, which names the home-directory path, states that it may not
     exist, links the contract and names the check.
 
+## Amendment 2026-09-14 (second) — keeping a synced profile in sync
+
+Owner question the same day: how is the profile regularly committed, pushed
+and pulled; which branch; who runs git; how are conflicts handled. The
+owner's frame for the answer: a profile may not exist, and a profile that
+exists may not be a repository — both remain first-class; everything below
+applies only to a root that is a git repository with a remote.
+
+13. **One branch.** The remote's default branch, no machine branches: the
+    `machine` kind (decision 10) already isolates machine facts, so write
+    locality does the work and the history stays linear.
+14. **The Practice runs the sync, at two moments, under the operator's own
+    git identity** (it is the operator's repository; a bot has no standing
+    in it). At session open, before the profile is read: fetch and
+    fast-forward; where fast-forward is impossible, a plain merge, never a
+    rebase. Immediately after any write — and the Practice writes the
+    profile only on the operator's word — run the check, commit with a
+    message naming the seat and the fact, and push. No write sits unpushed
+    across a session boundary. Never force, never rewrite history, never
+    stage by wildcard. This scopes decision 11's "never initialises,
+    commits or pushes": initialising stays the operator's act; committing
+    and pushing the operator's own ratified writes at these two moments is
+    the Practice's.
+15. **Conflicts resolve by union.** One author, pull-before-write and
+    write-then-push make a conflict rare; when two machines have written
+    the same file between syncs, both sides are kept in time order, the
+    `updated` date resolves to the later one, nothing is discarded, and the
+    commit message says so. A conflict union cannot resolve is surfaced to
+    the operator, never guessed.
+16. **Drift is caught structurally.** The host's profile check reports
+    sync state as findings when the root is a repository: a dirty working
+    tree, unpushed commits, or a tracking branch behind its remote, each
+    with the one command that cures it; absence of a remote is information,
+    never a finding. The host's git mechanics live in one tested tool,
+    never in shell recipes seats retype, so a seat resident in a linked
+    worktree (whose shell git is confined to that worktree) syncs the
+    profile the same way as any other.
+
 ## Boundaries
 
 - This PDR licenses one surface. A second home-directory surface (a cache,
@@ -201,11 +245,23 @@ machine, or a reader that fails or warns on a missing root. Reopen
 conditions: a second out-of-repo surface is requested; a profile grows past
 a screen (doctrine leaking into the tier); a credential is found in one.
 
+## Notes
+
+The owner's framing, 2026-09-14, after ratification: "the Practice profile
+is a kind of simple personal knowledge graph, with a degree of sovereignty
+because I control the repo that the canonical version lives in." That is
+the surface's nature in one sentence: three node kinds (the person, a
+repository line, a machine), each typed by the contract, versioned in a
+repository the operator alone controls, and read by every Practice the
+operator runs. Later amendments test against it: anything that would move
+the canonical copy out of the operator's control, or that would let a
+Practice write it, breaks the sovereignty the surface exists to give.
+
 ## Provenance
 
 Owner direction 2026-09-14 at the close of the Claude buffer drain; the
 seat (Zephyr guards Leeward, 281e44) authored the layout, scope key and
-reader contract. The August 2026 checkout tier and its rationale are in the
-host's `orientation.md` §The Operator-Local Profile Tier and the
-`bot-identity-on-third-party-systems` rule, which point here for the
-binding.
+reader contract. A host's directives place the tier in their authority
+order and a host's rules own the portable mappings (which credential
+performs which action class); those surfaces point here for the binding,
+and the Core names none of them.

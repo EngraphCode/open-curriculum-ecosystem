@@ -120,22 +120,36 @@ carrying a credential-shaped line before anything is read into the session
 forms, never a path), then this machine's file (keyed by the short host
 name):
 
+The check and the sync need the host's tooling (agent-tools, installed and
+built): on a cold clone run this step after the install and build below,
+never before; the grounding never blocks on the profile.
+
 ```bash
-pnpm profile:check || { echo "fix the profile before reading it"; exit 1; }
-PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
-[ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
-SCOPE="$(git remote get-url origin 2>/dev/null \
-  | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
-  | tr '[:upper:]' '[:lower:]')"
-[ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
-  && cat "$PROFILE_ROOT/repos/$SCOPE.md"
-MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-[ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
-  && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+pnpm profile:sync pull   # a no-op unless the root is a repository with a remote
+if pnpm profile:check; then
+  PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
+  [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
+  SCOPE="$(git remote get-url origin 2>/dev/null \
+    | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
+    | tr '[:upper:]' '[:lower:]')"
+  [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
+    && cat "$PROFILE_ROOT/repos/$SCOPE.md"
+  MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+  [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
+    && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+else
+  echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
+fi
 ```
 
 A present profile that fails the check is fixed at once, never read around:
-the contract is `practice-core/schemas/operator-profile.schema.json`.
+the contract is `practice-core/schemas/operator-profile.schema.json`. When a
+session writes the profile on the operator's word, it runs
+`pnpm profile:sync push --message "<seat>: <the fact>"` in the same breath
+(PDR-141 decisions 13 to 16): the check runs first, the commit is the
+operator's, and no write sits unpushed across a session boundary. The sync
+tool is a no-op on a profile that is not a repository, and both absence and
+a non-repository profile stay first-class.
 
 **A missing profile is the expected condition, not a defect** (`principles.md`
 §Any User, Any Machine): proceed on tracked defaults and say nothing. Never
