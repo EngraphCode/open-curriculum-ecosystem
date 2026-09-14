@@ -101,22 +101,28 @@ workstream from the [full ADR index](../../../../docs/architecture/architectural
   activity, not a session-open one — see `consolidate-docs`
   step 3.
 
-### 3a. Operator profile (machine-local; absence is normal)
+### 3a. Operator profile (home directory; absence is normal)
 
 Read the operator profile if this machine has one. It carries facts about the
 human you are working with that cannot be tracked: which credential identity
 performs which action class on third-party systems, their tone-of-voice and
 communication preferences, and personal operating preferences. The contract,
 including what must never be stored there, is
-[`.agent/operator-local/README.md`](../../../operator-local/README.md).
+[PDR-141](../../../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md).
 
-It is machine-local, so it does not travel through git and a linked worktree
-holds no copy. Resolve it in the **primary checkout**:
+It lives in the operator's home directory, shared by every Practice
+repository, linked worktree and clone on the machine: the index, then the
+current repository's scope file (keyed by the `origin` remote's owner and
+name, never a path):
 
 ```bash
-PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
-[ -f "$PRIMARY/.agent/operator-local/profile.md" ] \
-  && cat "$PRIMARY/.agent/operator-local/profile.md"
+PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
+[ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
+SCOPE="$(git remote get-url origin 2>/dev/null \
+  | sed -E 's#^(git@|https?://)([^/:]+)[:/]##; s#\.git$##; s#/#--#' \
+  | tr '[:upper:]' '[:lower:]')"
+[ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
+  && cat "$PROFILE_ROOT/repos/$SCOPE.md"
 ```
 
 **A missing profile is the expected condition, not a defect** (`principles.md`

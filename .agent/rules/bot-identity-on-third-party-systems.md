@@ -275,8 +275,9 @@ before. The operator's credential is the only one that can clear that gate. The
 split is forced by mechanism, not chosen for convenience.
 
 **Which bot and which human is machine-local** and is deliberately not stated
-here; it belongs in the operator profile
-([`.agent/operator-local/README.md`](../operator-local/README.md)). This rule
+here; it belongs in the operator profile in the home directory
+([PDR-141](../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md):
+`~/.practice/profile/index.md` and the repository's scope file). This rule
 owns the portable mapping, the profile owns the bindings. A rule that hard-coded
 one person's accounts would be false on every other machine (`principles.md`
 §Any User, Any Machine).

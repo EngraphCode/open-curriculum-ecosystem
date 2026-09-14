@@ -1330,6 +1330,13 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   memories the validator flagged: `worktree-entry-standing-permission` retired as refuted by
   `worktree-residency`; `verified-correct-is-not-a-proportionality-test` held in the buffer until
   PR #143 lands its homes.
+- **After the closeout, two owner rulings.** (1) "The commit triggers the gates … never, ever" run
+  them separately — landed as `02572a7a9` in session-handoff step 11 and the singleton rule, after
+  this seat had launched `pnpm check` beside its own commit. (2) The operator profile is a
+  person-and-machine fact, so it lives in the home directory and serves every Practice repository
+  on the machine (eight here), scoped per repository like vendor memory but keyed by repository
+  identity, never path: PDR-141, `~/.practice/profile/`, the checkout tier retired, its README
+  now a pointer, the orientation re-point queued for the dedicated consolidation.
 - **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)

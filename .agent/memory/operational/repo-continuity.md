@@ -303,7 +303,7 @@ each thread record; this table is the repo-level index.
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 first). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + the record. | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
-| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). Queued: six directive-bound entries in `pending-graduations.md` for a fresh seat under the 30% budget; the owner's ratification of `.agent/operator-local/profile.md`; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
+| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 moves the operator profile to `~/.practice/profile/`. Queued: seven directive-bound entries in `pending-graduations.md` for the due dedicated consolidation session; the owner's ratification of PDR-141 and the seeded profile; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE the same day, all six proposals owner-adopted and P1–P5 landed; shepherded 2026-08-25 (OCE PR #17 `c40a4287`, castr PR #53 `e62891ee`); plan archived; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. The remaining probe and two recorded deferrals live in the record. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
 
 ## Paused Threads
@@ -361,12 +361,19 @@ picks up the previous thread, not this one).
 ### Claude per-user buffer drained (2026-09-14) — what the next seat inherits
 
 Zephyr guards Leeward (281e44) swept the Reliable Atoms block below into
-`f24683337` (so the "UNCOMMITTED" note beneath is now history) and landed the
-buffer graduation as `0e4173b43`. Inherited: six due entries in
-`pending-graduations.md` for a fresh seat under the directive-file context
-budget; the owner's ratification of the seeded `.agent/operator-local/profile.md`;
-the held buffer memory deleted when PR #143 lands. The coordination branch
-`coordination/2026-09-12-69a537` is past its 24-hour fold window.
+`f24683337` (so the "UNCOMMITTED" note beneath is now history), landed the
+buffer graduation as `0e4173b43`, its records as `f53748785`, the owner's
+gates ruling as `02572a7a9`, and PDR-141 (the operator profile moves to
+`~/.practice/profile/`, the Practice's first out-of-repo surface,
+owner-directed). Inherited: the dedicated consolidation session that is due
+lands the seven due entries in `pending-graduations.md` (six buffer
+graduations into directives, the orientation re-point to PDR-141); the
+owner ratifies PDR-141 and the seeded profile (index plus the
+`engraphcode--open-curriculum-ecosystem` scope file, every item marked
+inferred); the held buffer memory is deleted when PR #143 lands. The
+coordination branch `coordination/2026-09-12-69a537` is past its 24-hour
+fold window. This work touched nothing in the estate-coordination thread,
+whose pickup contract (above) stands unchanged.
 
 ### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
 

@@ -18,13 +18,15 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `claude-memory-buffer-drain.plan.md` (`../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md`)
   — **COMPLETED and archived 2026-07-05**; its §Closeout carries the
   honest verdict (complete).
-- **Next safe step** (2026-09-14, after the second dedicated drain): a
-  fresh seat under the directive-file context budget lands the six due
-  entries in `pending-graduations.md` (their target directives named per
-  entry); at PR #143's landing the last held buffer memory
-  (`verified-correct-is-not-a-proportionality-test`) is deleted; the owner
-  ratifies or amends `.agent/operator-local/profile.md`. Otherwise the
-  thread is quiescent. The first drain (2026-07-05) was complete end-to-end
+- **Next safe step** (2026-09-14, after the second dedicated drain): the
+  dedicated consolidation session that is due lands the seven due entries
+  in `pending-graduations.md` (their target directives named per entry,
+  including the orientation re-point to PDR-141); at PR #143's landing the
+  last held buffer memory (`verified-correct-is-not-a-proportionality-test`)
+  is deleted; the owner ratifies PDR-141 (the operator profile in the home
+  directory, `~/.practice/profile/index.md` plus the repository scope file,
+  the Practice's first out-of-repo surface) and the seeded profile content.
+  Otherwise the thread is quiescent. The first drain (2026-07-05) was complete end-to-end
   (all strata; index empty, live-only, untruncated; every entry file
   terminally marked). The per-user buffer lifecycle
   continues under `per-user-memory-is-a-buffer`: the buffer accretes again
