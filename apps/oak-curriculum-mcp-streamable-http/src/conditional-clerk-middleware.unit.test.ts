@@ -38,6 +38,11 @@ describe('shouldSkipClerkMiddleware', () => {
       expect(testShouldSkipClerkMiddleware(req)).toBe(true);
     });
 
+    it('returns true for the OpenAI domain-verification challenge path (MCP-700)', () => {
+      const req = createMockRequest('/.well-known/openai-apps-challenge', undefined);
+      expect(testShouldSkipClerkMiddleware(req)).toBe(true);
+    });
+
     it('returns true for the robots.txt path (MCP-703)', () => {
       const req = createMockRequest('/robots.txt', undefined);
       expect(testShouldSkipClerkMiddleware(req)).toBe(true);

@@ -56,6 +56,10 @@ For any incoming HTTP request, middleware executes in this order:
    [For GET /.well-known/oauth-authorization-server:]
    9a. Locally-derived AS metadata handler (publicly accessible)
    ↓
+   [For GET /.well-known/openai-apps-challenge:]
+   9a. OpenAI domain-verification challenge handler (publicly accessible;
+       registered before clerkMiddleware and in every auth mode — MCP-700)
+   ↓
    [For GET /robots.txt:]
    9a. robots.txt handler (publicly accessible; registered before
        clerkMiddleware and in every auth mode — MCP-703)
@@ -110,8 +114,8 @@ sequenceDiagram
         ClerkAuth->>Handler: Pass to health handler
         Handler->>Handler: Return health status
     else Path is /.well-known/*
-        ClerkAuth->>Handler: Pass to OAuth metadata handler
-        Handler->>Handler: Return OAuth metadata
+        ClerkAuth->>Handler: Pass to well-known handler
+        Handler->>Handler: Return OAuth metadata, or the OpenAI challenge token (MCP-700)
     else Path is /
         ClerkAuth->>Handler: Pass to landing page handler
         Handler->>Handler: Return landing page HTML
@@ -351,6 +355,8 @@ flowchart TD
 
    **Phase 2.5**: Public pre-auth routes (`setupOAuthAndCaching`), registered
    BEFORE `clerkMiddleware` so they answer without any auth context
+   - OpenAI domain-verification challenge (`/.well-known/openai-apps-challenge`),
+     in every auth mode (MCP-700)
    - `robots.txt` (`/robots.txt`), in every auth mode — a crawler arrives with
      no credentials, so a file reachable only through the auth vendor is an
      unfetchable one (MCP-703)
@@ -391,6 +397,7 @@ Then, depending on path:
   GET /mcp → Accept header check → MCP readiness → 405 stream refusal (MCP-545)
   /healthz, /mcp/healthz → Health handler
   /robots.txt → Crawler-directive handler (public, every auth mode)
+  /.well-known/openai-apps-challenge → Domain-verification challenge handler (public, every auth mode)
   /.well-known/* → OAuth metadata handler
   / → Landing page handler
   /static/* → Static file handler

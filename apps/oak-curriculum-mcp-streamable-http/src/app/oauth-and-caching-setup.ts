@@ -1,6 +1,7 @@
 import type { Express, RequestHandler } from 'express';
 import type { Logger, PhasedTimer } from '@oaknational/logger';
 import { registerPublicOAuthMetadataEndpoints } from '../auth-routes.js';
+import { registerOpenAiDomainVerificationChallenge } from '../openai-domain-verification.js';
 import { registerRobotsTxt } from '../robots-txt.js';
 import type { RuntimeConfig } from '../runtime-config.js';
 import { runBootstrapPhase, runAsyncBootstrapPhase } from './bootstrap-helpers.js';
@@ -167,6 +168,9 @@ export async function setupOAuthAndCaching(
   injectedMetadata: UpstreamAuthServerMetadata | undefined,
   canonicalOrigin?: string,
 ): Promise<void> {
+  // Public in every auth mode: the challenge proves domain control to the
+  // OpenAI plugin-submission portal and is not an OAuth surface (MCP-700).
+  registerOpenAiDomainVerificationChallenge(app, log);
   // Public in every auth mode: a crawler arrives with no credentials, and a
   // robots.txt reachable only through the auth vendor is an unfetchable one
   // (MCP-703). Not an OAuth surface, so it does not sit behind the

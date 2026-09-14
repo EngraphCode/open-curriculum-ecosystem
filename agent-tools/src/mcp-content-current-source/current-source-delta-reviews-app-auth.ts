@@ -54,9 +54,21 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // issuer instead of this origin, so a PRM-following client holds the
   // issuer the authorization response's `iss` carries (RFC 9207 §2.4);
   // C705, C707 and C708 are untouched.
+  // MCP-345: the AS metadata route (C707) passes SCOPES_SUPPORTED into the
+  // rewrite, so the served document advertises the PRM's scopes rather than
+  // the upstream list; C705, C706 and C708 are untouched.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    'ace7a9c10712382d219d986b24696ab94f11ef1717df1654e39244ae8838efad',
+    '346a0daefde383606984aac0c74532752bf47fe9cc05af7fc1af6555203b3a07',
     ['C705', 'C706', 'C707', 'C708'],
+  ),
+  // MCP-345: rewriteAuthServerMetadata (C408) takes the advertised scopes and
+  // states them as scopes_supported instead of passing the upstream list
+  // through; every other field of the served AS metadata is unchanged. The
+  // JSDoc records why (a client choosing scopes from this document requested
+  // an advertised openid that its registered grant, Oak's default, omits).
+  'apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts': reviewed(
+    'fcefa57b4a0e31be024c3182e8141be0c1c77aabe144e2e196d9515b44ebc40a',
+    ['C408'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
     '1bac2a8ec91a09fb51dce02ec3f943bd76c9c3c4ee0097cc9bd318e8b716d2b0',
@@ -105,11 +117,25 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // the routed `/mcp/healthz` the canonical host reaches is auth-exempt exactly
   // as the root path already was. Still a routing decision over path literals.
   //
-  // MCP-703 re-review: `/robots.txt` joins the always-skip set, consumed from
-  // the route module's exported constant so the served route and the
-  // exemption share one owner. Still a routing decision.
+  // MCP-700 re-review: the OpenAI domain-verification challenge path joins the
+  // always-skip set, consumed from the route module's exported constant so the
+  // served route and the exemption share one owner. Still a routing decision.
+  //
+  // MCP-703 re-review: `/robots.txt` joins the same set on the same terms,
+  // consumed from its own route module's exported constant. This hash attests
+  // the merged state carrying BOTH path constants — neither side's reviewed
+  // hash described it, so it is re-reviewed here rather than inherited. Still
+  // a routing decision over path literals; no agent-facing content either way.
   'apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts': excluded(
-    '4b8fbb148d9a4674c0c1b638ceb60da08465e375ec915bf286be7907f2a94327',
+    '05519704af70c2de6498df2215a2fc5b11f9f45aaf876d2ac37159a8242ff283',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-700: the OpenAI plugin-submission domain-verification challenge. The
+  // body is the portal-issued opaque token served verbatim as text/plain —
+  // vendor-shaped proof of domain control, not Oak-authored agent-facing
+  // content. The contract source and read date are in the module header.
+  'apps/oak-curriculum-mcp-streamable-http/src/openai-domain-verification.ts': excluded(
+    '3233717f514011f4c1534f67dc036a246072ee966a49081773509a44c847d451',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-703: the MCP host's `robots.txt`, registered in Phase 2.5 of
