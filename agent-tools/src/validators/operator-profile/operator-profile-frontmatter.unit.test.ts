@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import { unwrap } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
@@ -183,19 +185,21 @@ describe('key derivation from paths and host names', () => {
 });
 
 describe('resolveProfileRoot', () => {
-  const home = '/srv/operator-home';
+  // Expected values are built with the platform's own path module so the
+  // test proves precedence, not a separator: Windows joins with backslashes
+  // and resolves a rooted path onto the current drive.
+  const home = path.join('srv', 'operator-home');
+  const homeProfile = path.join(home, '.practice', 'profile');
 
   it('prefers --root, then PRACTICE_HOME, then the home fallback', () => {
-    expect(unwrap(resolveProfileRoot(['--root', '/srv/elsewhere/profile'], {}, home))).toBe(
-      '/srv/elsewhere/profile',
+    const explicit = path.join('srv', 'elsewhere', 'profile');
+    expect(unwrap(resolveProfileRoot(['--root', explicit], {}, home))).toBe(path.resolve(explicit));
+    const practiceHome = path.join('opt', 'practice');
+    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: practiceHome }, home))).toBe(
+      path.join(practiceHome, 'profile'),
     );
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '/opt/practice' }, home))).toBe(
-      '/opt/practice/profile',
-    );
-    expect(unwrap(resolveProfileRoot([], {}, home))).toBe('/srv/operator-home/.practice/profile');
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '' }, home))).toBe(
-      '/srv/operator-home/.practice/profile',
-    );
+    expect(unwrap(resolveProfileRoot([], {}, home))).toBe(homeProfile);
+    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '' }, home))).toBe(homeProfile);
   });
 
   it('refuses a --root flag without a directory argument', () => {
