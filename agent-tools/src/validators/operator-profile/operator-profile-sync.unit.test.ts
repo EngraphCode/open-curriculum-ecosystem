@@ -202,21 +202,25 @@ describe('pullProfile', () => {
 });
 
 describe('pushProfile', () => {
+  const NOTHING_TRACKED = { prefix: ['ls-files'], stdout: '' } as const;
   const UPSTREAM = { prefix: ['rev-parse', '--abbrev-ref'], stdout: 'origin/main' } as const;
   const CHANGED = { prefix: ['diff', '--cached', '--quiet'], ok: false } as const;
+  const AHEAD_ONE = { prefix: ['rev-list', '--left-right'], stdout: '0\t1' } as const;
 
   it('stages by pathspec, commits only those paths with the message, and pushes to the upstream', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
       { prefix: ['commit'] },
       UPSTREAM,
-      { prefix: ['rev-list', '--count'], stdout: '1' },
+      AHEAD_ONE,
       { prefix: ['push', '--quiet'] },
     ]);
     expect(unwrap(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe('committed and pushed');
-    expect(calls[0]).toEqual(['add', '--', 'index.md', 'repos', 'machines']);
-    expect(calls[1]).toEqual([
+    expect(calls[0]).toEqual(['ls-files', '--', 'index.md', 'repos', 'machines']);
+    expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos', 'machines']);
+    expect(calls[2]).toEqual([
       'diff',
       '--cached',
       '--quiet',
@@ -225,7 +229,7 @@ describe('pushProfile', () => {
       'repos',
       'machines',
     ]);
-    expect(calls[2]).toEqual([
+    expect(calls[3]).toEqual([
       'commit',
       '--quiet',
       '--only',
@@ -239,8 +243,24 @@ describe('pushProfile', () => {
     expect(calls.at(-1)).toEqual(['push', '--quiet']);
   });
 
+  it('stages a tracked document whose directory no longer exists, so a deletion is committed', () => {
+    const { run, calls } = scripted([
+      { prefix: ['ls-files'], stdout: 'index.md\nrepos/a--b.md' },
+      { prefix: ['add'] },
+      CHANGED,
+      { prefix: ['commit'] },
+      UPSTREAM,
+      AHEAD_ONE,
+      { prefix: ['push', '--quiet'] },
+    ]);
+    expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
+    expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos/a--b.md']);
+    expect(calls[3]?.slice(-3)).toEqual(['--', 'index.md', 'repos/a--b.md']);
+  });
+
   it('sets the upstream on the first push, on the one remote whatever its name', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
       { prefix: ['commit'] },
@@ -256,6 +276,7 @@ describe('pushProfile', () => {
 
   it('refuses to guess between several remotes when no upstream is set', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
       { prefix: ['commit'] },
@@ -270,10 +291,11 @@ describe('pushProfile', () => {
 
   it('still pushes commits an earlier push left local when there is nothing new to commit', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
       UPSTREAM,
-      { prefix: ['rev-list', '--count'], stdout: '2' },
+      { prefix: ['rev-list', '--left-right'], stdout: '0\t2' },
       { prefix: ['push', '--quiet'] },
     ]);
     expect(unwrap(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
@@ -285,6 +307,7 @@ describe('pushProfile', () => {
 
   it('sets the upstream even when there is nothing new to commit', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
       { prefix: ['rev-parse', '--abbrev-ref'], ok: false },
@@ -299,10 +322,11 @@ describe('pushProfile', () => {
 
   it('reports in sync without committing or pushing when nothing changed and nothing is ahead', () => {
     const { run, calls } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
       UPSTREAM,
-      { prefix: ['rev-list', '--count'], stdout: '0' },
+      { prefix: ['rev-list', '--left-right'], stdout: '0\t0' },
     ]);
     expect(unwrap(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
       'nothing to commit; in sync with the upstream',
@@ -310,27 +334,55 @@ describe('pushProfile', () => {
     expect(calls.some((call) => call[0] === 'commit' || call[0] === 'push')).toBe(false);
   });
 
-  it('stages only the paths given, so an absent optional directory is never a pathspec', () => {
-    const { run, calls } = scripted([
+  it('refuses to push a branch behind its remote and prescribes the pull, whether or not it committed', () => {
+    const behind = { prefix: ['rev-list', '--left-right'], stdout: '1\t0' } as const;
+    const clean = scripted([
+      NOTHING_TRACKED,
+      { prefix: ['add'] },
+      { prefix: ['diff', '--cached', '--quiet'] },
+      UPSTREAM,
+      behind,
+    ]);
+    expect(failure(pushProfile(clean.run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
+      'the branch is 1 commit behind the remote — run pnpm profile:sync pull, then push again',
+    );
+    const committed = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
       { prefix: ['commit'] },
       UPSTREAM,
-      { prefix: ['rev-list', '--count'], stdout: '1' },
+      { prefix: ['rev-list', '--left-right'], stdout: '2\t1' },
+    ]);
+    expect(failure(pushProfile(committed.run, 'seat: fact', PROFILE_PATHSPECS))).toContain(
+      'committed locally; the branch is 2 commits behind',
+    );
+    expect(committed.calls.some((call) => call[0] === 'push')).toBe(false);
+  });
+
+  it('stages only the paths given plus tracked ones, so an absent untracked directory is never a pathspec', () => {
+    const { run, calls } = scripted([
+      NOTHING_TRACKED,
+      { prefix: ['add'] },
+      CHANGED,
+      { prefix: ['commit'] },
+      UPSTREAM,
+      AHEAD_ONE,
       { prefix: ['push', '--quiet'] },
     ]);
     expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
-    expect(calls[0]).toEqual(['add', '--', 'index.md']);
-    expect(calls[2]?.slice(-2)).toEqual(['--', 'index.md']);
+    expect(calls[1]).toEqual(['add', '--', 'index.md']);
+    expect(calls[3]?.slice(-2)).toEqual(['--', 'index.md']);
   });
 
   it('keeps the commit local and says so when the push fails', () => {
     const { run } = scripted([
+      NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
       { prefix: ['commit'] },
       UPSTREAM,
-      { prefix: ['rev-list', '--count'], stdout: '1' },
+      AHEAD_ONE,
       { prefix: ['push'], ok: false },
     ]);
     expect(failure(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toContain(

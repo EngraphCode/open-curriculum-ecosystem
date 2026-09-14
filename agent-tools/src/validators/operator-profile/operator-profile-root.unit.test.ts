@@ -30,13 +30,10 @@ describe('existingProfilePaths and the non-repository sync line', () => {
   });
 
   it('reports a present profile that is not a repository as information in the check', async () => {
-    const report = unwrap(await readProfileReport(fixture.root));
-    expect(report).not.toBe('absent');
-    if (report !== 'absent') {
-      expect(report.failures).toEqual([]);
-      expect(report.info).toEqual([
-        'the profile is not a git repository (first-class; nothing to sync)',
-      ]);
-    }
+    expect(unwrap(await readProfileReport(fixture.root))).toEqual({
+      documentCount: 0,
+      failures: [],
+      info: ['the profile is not a git repository (first-class; nothing to sync)'],
+    });
   });
 });

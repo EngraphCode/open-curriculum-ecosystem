@@ -40,9 +40,11 @@ function plural(count: number, noun: string): string {
   return `${count} ${noun}${count === 1 ? '' : 's'}`;
 }
 
+const SYNC_REL_PATH = '(sync)';
+
 // Plain text throughout: `writeLine` sanitises escape characters by design,
 // so ANSI styling would render as literal fragments.
-function reportFailures(root: string, failures: readonly DocumentFailure[]): void {
+function reportDocumentFailures(root: string, failures: readonly DocumentFailure[]): void {
   writeLine(`✗ ${plural(failures.length, 'document')} at ${root} refused:\n`);
   for (const failure of failures) {
     writeLine(`  ${failure.relPath}`);
@@ -54,6 +56,29 @@ function reportFailures(root: string, failures: readonly DocumentFailure[]): voi
   writeLine(
     `Remediation: fix the document in place. The contract is ${OPERATOR_PROFILE_CONTRACT_REL_PATH}.\n`,
   );
+}
+
+/** Sync findings carry their own cure each; they are not document failures. */
+function reportSyncFindings(root: string, findings: readonly string[]): void {
+  writeLine(`✗ the profile at ${root} is out of sync with its remote:\n`);
+  for (const finding of findings) {
+    writeLine(`    - ${finding}`);
+  }
+  writeLine('');
+}
+
+function reportFailures(root: string, failures: readonly DocumentFailure[]): void {
+  const documents = failures.filter((failure) => failure.relPath !== SYNC_REL_PATH);
+  const sync = failures.filter((failure) => failure.relPath === SYNC_REL_PATH);
+  if (documents.length > 0) {
+    reportDocumentFailures(root, documents);
+  }
+  if (sync.length > 0) {
+    reportSyncFindings(
+      root,
+      sync.flatMap((failure) => failure.messages),
+    );
+  }
 }
 
 async function checkRoot(root: string): Promise<number> {

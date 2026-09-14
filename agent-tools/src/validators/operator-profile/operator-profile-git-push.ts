@@ -14,16 +14,40 @@ import {
   firstLine,
   gitFailure,
   hasUpstream,
+  leftRightCounts,
   remoteNames,
   type GitRunner,
 } from './operator-profile-git.js';
+import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
+
+/**
+ * The pathspecs to stage: the document paths that exist in the worktree plus
+ * every tracked document path, so a deleted document (whose directory may no
+ * longer exist) is staged as a deletion and never dropped.
+ */
+function stagingPaths(
+  run: GitRunner,
+  existing: readonly string[],
+): Result<readonly string[], string> {
+  const tracked = run(['ls-files', '--', INDEX_FILE_NAME, SCOPES_DIR_NAME, MACHINES_DIR_NAME]);
+  if (!tracked.ok) {
+    return err(gitFailure('git ls-files', tracked));
+  }
+  const trackedPaths = tracked.stdout.split('\n').filter((line) => line !== '');
+  return ok([...new Set([...existing, ...trackedPaths])]);
+}
 
 /** Stage by pathspec and commit only those paths; `committed: false` when nothing changed. */
 function stageAndCommit(
   run: GitRunner,
   message: string,
-  paths: readonly string[],
+  existing: readonly string[],
 ): Result<{ readonly committed: boolean }, string> {
+  const staged = stagingPaths(run, existing);
+  if (!staged.ok) {
+    return staged;
+  }
+  const paths = staged.value;
   if (paths.length === 0) {
     return ok({ committed: false });
   }
@@ -39,18 +63,6 @@ function stageAndCommit(
     return err(gitFailure('commit', committed));
   }
   return ok({ committed: true });
-}
-
-/** Commits on the branch the upstream lacks. */
-function aheadCount(run: GitRunner): Result<number, string> {
-  const counted = run(['rev-list', '--count', '@{u}..HEAD']);
-  if (!counted.ok) {
-    return err(gitFailure('git rev-list', counted));
-  }
-  const count = Number.parseInt(firstLine(counted.stdout), 10);
-  return Number.isNaN(count)
-    ? err(`git rev-list returned no count: "${counted.stdout}"`)
-    : ok(count);
 }
 
 /** The remote a first push goes to: the repository's one remote, never a guess. */
@@ -80,12 +92,25 @@ function pushFirst(run: GitRunner, committed: boolean): Result<string, string> {
   return ok(`${committed ? 'committed and ' : ''}pushed; upstream set on ${remote.value}`);
 }
 
+function plural(count: number, noun: string): string {
+  return `${count} ${noun}${count === 1 ? '' : 's'}`;
+}
+
+/** A branch behind its remote is never pushed; the pull is the cure. */
+function behindRefusal(committed: boolean, behind: number): string {
+  return `${committed ? 'committed locally; ' : ''}the branch is ${plural(behind, 'commit')} behind the remote — run pnpm profile:sync pull, then push again`;
+}
+
 function pushAhead(run: GitRunner, committed: boolean): Result<string, string> {
-  const ahead = aheadCount(run);
-  if (!ahead.ok) {
-    return ahead;
+  const counts = leftRightCounts(run);
+  if (!counts.ok) {
+    return counts;
   }
-  if (ahead.value === 0) {
+  const { ahead, behind } = counts.value;
+  if (behind > 0) {
+    return err(behindRefusal(committed, behind));
+  }
+  if (ahead === 0) {
     return ok('nothing to commit; in sync with the upstream');
   }
   const pushed = run(['push', '--quiet']);
@@ -95,27 +120,29 @@ function pushAhead(run: GitRunner, committed: boolean): Result<string, string> {
   return ok(
     committed
       ? 'committed and pushed'
-      : `pushed ${ahead.value} local commit${ahead.value === 1 ? '' : 's'} (nothing new to commit)`,
+      : `pushed ${plural(ahead, 'local commit')} (nothing new to commit)`,
   );
 }
 
 /**
  * Commit and push the operator's ratified writes: stage the profile's
  * documents by pathspec, commit those paths only, push whatever the upstream
- * lacks (setting the upstream on the first push). The caller runs the
- * profile check first and passes only paths that exist.
+ * lacks (setting the upstream on the first push); a branch behind its
+ * remote is refused with the pull cure. The caller runs the profile check
+ * first and passes the document paths that exist; tracked deletions are
+ * added here.
  *
  * @param run - the git runner bound to the root
  * @param message - names the seat and the fact
- * @param paths - the profile's document paths that exist in the root
+ * @param existing - the profile's document paths that exist in the root
  * @returns what happened, or the failure to surface
  */
 export function pushProfile(
   run: GitRunner,
   message: string,
-  paths: readonly string[],
+  existing: readonly string[],
 ): Result<string, string> {
-  const commit = stageAndCommit(run, message, paths);
+  const commit = stageAndCommit(run, message, existing);
   if (!commit.ok) {
     return commit;
   }

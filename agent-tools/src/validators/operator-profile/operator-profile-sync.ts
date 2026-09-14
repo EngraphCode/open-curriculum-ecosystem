@@ -122,7 +122,8 @@ async function main(argv: readonly string[]): Promise<number> {
   const command = parseSyncArgs(argv);
   const root = resolveProfileRoot(argv, process.env, homedir());
   if (!command.ok || !root.ok) {
-    writeErrorLine(`✗ ${command.ok ? '' : command.error}${root.ok ? '' : root.error}`);
+    const usage = [command, root].flatMap((parsed) => (parsed.ok ? [] : [parsed.error]));
+    writeErrorLine(`✗ ${usage.join('; ')}`);
     return 2;
   }
   const target = await syncTarget(root.value);

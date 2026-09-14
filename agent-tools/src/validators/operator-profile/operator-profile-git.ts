@@ -86,7 +86,8 @@ function parseCounts(
   return ok({ behind, ahead });
 }
 
-function leftRightCounts(
+/** Commits behind and ahead of the upstream. */
+export function leftRightCounts(
   run: GitRunner,
 ): Result<{ readonly behind: number; readonly ahead: number }, string> {
   const counted = run(['rev-list', '--left-right', '--count', '@{u}...HEAD']);
