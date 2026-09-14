@@ -53,9 +53,13 @@ cure was passing the fork's default branch explicitly). An unresolvable
 ref is a typed refusal. Cut tree-preserving and publish:
 
 ```bash
+# A single-branch clone has no remote-tracking ref for the default branch
+# yet: read the name from the remote and fetch it to an explicit tracking
+# ref first (the downstream-checkout rule's recipe), then set-head.
+NAME="$(git ls-remote --symref origin HEAD | sed -n 's#^ref: refs/heads/\(.*\)\tHEAD$#\1#p')"
+git fetch origin "${NAME}:refs/remotes/origin/${NAME}"
 git remote set-head origin --auto
 DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
-git fetch origin "${DEFAULT#origin/}"
 BASE="$(git rev-parse "$DEFAULT")"
 git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
 git push -u origin HEAD

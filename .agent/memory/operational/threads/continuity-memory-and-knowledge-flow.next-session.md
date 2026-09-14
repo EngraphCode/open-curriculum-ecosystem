@@ -24,8 +24,9 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   engraph merged into the coordination branch; PDR-141's amendment (the
   contract, the `machine` kind, the optional git-synced root) and the
   start-right and README updates landed. The profile at
-  `~/.practice/profile/` is the owner's private git repository
-  (`jimCresswell/jc-personal-practice-profile`, pushed). Remaining: (1) the
+  `~/.practice/profile/` is the owner's private git repository, pushed
+  (its remote is recorded in the profile's own index, never here — PDR-141
+  decision 11). Remaining: (1) the
   dedicated consolidation session that is due lands the seven due entries in
   `pending-graduations.md` (including the orientation re-point to PDR-141);
   (2) at PR #143's landing the last held buffer memory

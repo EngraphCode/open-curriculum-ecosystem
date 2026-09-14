@@ -1381,7 +1381,8 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   harness note. One settlement push. The owner's frame for the profile, recorded in PDR-141
   §Notes: a simple personal knowledge graph with sovereignty, because he controls the repository
   the canonical copy lives in. PDR-141 ratified (`dd813b6ef`); the profile ratified with three
-  additions and pushed to `jimCresswell/jc-personal-practice-profile`; the jimcresswell.net
+  additions and pushed to the owner's private profile repository (named only in the profile's
+  own index, PDR-141 decision 11); the jimcresswell.net
   transplant base `e477e62f7` noted in the profile; a delta note for Cauldron herds Lustre goes
   into that repository's Practice Box after the fold lands.
 - **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window

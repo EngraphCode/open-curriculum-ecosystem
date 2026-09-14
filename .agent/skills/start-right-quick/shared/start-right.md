@@ -125,7 +125,9 @@ built): on a cold clone run this step after the install and build below,
 never before; the grounding never blocks on the profile.
 
 ```bash
-pnpm profile:sync pull   # a no-op unless the root is a repository with a remote
+# First the host's profile sync, pull side (PDR-141 decisions 13 to 16): the
+# Practice index names the command once the host binds one; a no-op unless
+# the root is a repository with a remote.
 if pnpm profile:check; then
   PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
   [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
@@ -144,12 +146,13 @@ fi
 
 A present profile that fails the check is fixed at once, never read around:
 the contract is `practice-core/schemas/operator-profile.schema.json`. When a
-session writes the profile on the operator's word, it runs
-`pnpm profile:sync push --message "<seat>: <the fact>"` in the same breath
-(PDR-141 decisions 13 to 16): the check runs first, the commit is the
-operator's, and no write sits unpushed across a session boundary. The sync
-tool is a no-op on a profile that is not a repository, and both absence and
-a non-repository profile stay first-class.
+session writes the profile on the operator's word, it runs the host's
+profile sync, push side, in the same breath (PDR-141 decisions 13 to 16;
+the Practice index names the command once the host binds one): the check
+runs first, the commit is the operator's with a message naming the seat and
+the fact, and no write sits unpushed across a session boundary. The sync is
+a no-op on a profile that is not a repository, and both absence and a
+non-repository profile stay first-class.
 
 **A missing profile is the expected condition, not a defect** (`principles.md`
 §Any User, Any Machine): proceed on tracked defaults and say nothing. Never
@@ -578,9 +581,10 @@ first.
 Run after making changes, before the commit. Note: some gates trigger
 earlier ones; caching prevents duplicate work. See
 @docs/engineering/build-system.md and ADR-065 for caching details. The
-commit's own pre-commit hook runs the whole-tree gates: never run
-`pnpm check` or any whole-repo gate beside or after a commit (owner ruling
-2026-09-14, in session-handoff step 11).
+commit's own pre-commit hook runs the local gates (validators, build,
+type-check, lint, unit tests) and the pull request's checks run the wider
+suites: never run `pnpm check` or any whole-repo gate beside or after a
+commit (owner ruling 2026-09-14, in session-handoff step 11).
 
 ```bash
 # From repo root, one at a time
