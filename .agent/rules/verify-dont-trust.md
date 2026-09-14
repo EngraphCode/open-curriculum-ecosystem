@@ -18,6 +18,14 @@ not trust confirmations".
 
 If a decision changes work ownership, route, completion status, gate state, or
 knowledge disposition, verify it against the surface that would make it true.
+An instrument's verdict that is recomputable from that surface — a front
+door's refusal, a tally's count, a gate's price — is a reading of the surface,
+not the surface: when the seat can read the state directly, the state governs,
+and a verdict the state contradicts is a defect to file against the instrument,
+never a timer to wait on (2026-09-12: a front door read a substantive review as
+a skip marker and the seat waited on its timeout arm with the settled state in
+front of it). A reviewer's finding is not such a verdict: it is adjudicated on
+its merits through `pr-lifecycle`'s triage, never dismissed by reading state.
 A claim becomes true only when the proving surface is current and visible, not
 merely present in a historical, contaminated, in-flight, or superseded artefact.
 

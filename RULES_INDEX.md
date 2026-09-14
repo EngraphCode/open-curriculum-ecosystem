@@ -180,6 +180,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/no-warning-toleration.md`                                    | core           | —                                                                                                 |
 | `.agent/rules/notion-page-edits-update-ledger.md`                          | situational    | tool:notion                                                                                       |
 | `.agent/rules/oak-chrome-session-is-metered.md`                            | situational    | tool:chrome-browser                                                                               |
+| `.agent/rules/one-instance-is-an-observation.md`                           | core           | —                                                                                                 |
 | `.agent/rules/owner-attention-at-action-moments.md`                        | core           | —                                                                                                 |
 | `.agent/rules/pr-comments-resolve-and-recheck.md`                          | situational    | ceremony:pr-lifecycle                                                                             |
 | `.agent/rules/per-user-memory-is-a-buffer.md`                              | core           | —                                                                                                 |
