@@ -1385,7 +1385,19 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   own index, PDR-141 decision 11); the jimcresswell.net
   transplant base `e477e62f7` noted in the profile; a delta note for Cauldron herds Lustre goes
   into that repository's Practice Box after the fold lands.
-- **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
+- **Folded and rotated (2026-09-14 ~14:5xZ).** #137 merged as `7658a723a`; successor
+  `coordination/2026-09-14-7658a7`. Four review rounds; the pre-push review-cost gate refused the
+  third settlement push at the declared two — exactly its job — and the owner raised the budget
+  to three on the PR (the intake line the gate reads takes a digit: `budget — 3`, not a word).
+  Three of round three's four findings were truth defects my own cures introduced: naming a
+  command before its lane bound it, an overclaim that the pre-commit hook runs the whole gate
+  (it runs the local gates; the PR's checks run widget, e2e, ui and a11y), and the owner's private
+  repository named in two tracked records against decision 11. Lesson: a cure is a claim too;
+  read each one against the head it lands on before pushing. Round four dispositioned without a
+  cure (budget spent): #145 binds the profile pull invocation; step 11's pending-checks sentence
+  landed here. The sync tool is PR #145 (Copilot requested). The jimcresswell.net delta note is in
+  that repository's Practice Box with its delivery event; Cauldron messaged.
+- **Surfaced at the drain's close (since folded, above).** `coordination/2026-09-12-69a537` was then past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)
   appears in the session list with no claim in this repo's registry.

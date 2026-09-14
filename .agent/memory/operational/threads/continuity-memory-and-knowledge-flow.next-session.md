@@ -26,7 +26,10 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   start-right and README updates landed. The profile at
   `~/.practice/profile/` is the owner's private git repository, pushed
   (its remote is recorded in the profile's own index, never here — PDR-141
-  decision 11). Remaining: (1) the
+  decision 11). The sync tool (`pnpm profile:sync pull` and `push`, the check's
+  sync leg, PDR-141 decisions 13 to 16) is PR #145, Copilot requested; when it
+  lands, start-right's profile step invokes the pull and engraph is merged into
+  the coordination branch. Remaining: (1) the
   dedicated consolidation session that is due lands the seven due entries in
   `pending-graduations.md` (including the orientation re-point to PDR-141);
   (2) at PR #143's landing the last held buffer memory

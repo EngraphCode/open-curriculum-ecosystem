@@ -2973,3 +2973,36 @@ the owner's verbatim words this session are in the 10:0xZ and 10:3xZ blocks. Pas
 homes): this block; the plan node; the register; the napkin entry of 13:3xZ; the per-user memory
 tail (a pointer). A sixth pass re-finds only the #143 round-two verifications, which are action 2's
 work, not a loss: fixed point.
+
+## 2026-09-14 — FOLD of coordination/2026-09-12-69a537 (Zephyr guards Leeward, 281e44, sole operator, Fable 5.1, n=1) and rotation
+
+PR #137 merged by the front door as `7658a723a`; the successor coordination branch
+`coordination/2026-09-14-7658a7` cut from that head, tree-preserving, the primary residing
+there. The fold carried 29 commits: Nettle guards Pistil's estate-coordination records through
+the 2026-09-13 session close, Kinkajou binds Lair's Reliable Atoms rulings, and the 2026-09-14
+work — the Claude memory buffer graduated to its repo homes (488 entries retired), the owner's
+gates ruling, PDR-141 (the operator profile in the home directory, Accepted with two amendments
+and the owner's frame: a sovereign personal knowledge graph), the merge of engraph at #144, and
+three settlement pushes.
+
+moved for teachers: nothing / moved for the Practice: the Claude buffer drained, PDR-141
+accepted, the operator profile a schema-governed home-directory surface with its validator
+(#144) and its sync tool on PR #145, the gates ruling in session-handoff step 11.
+
+Review: four rounds, 24 threads (Codex 12, Copilot 12), 21 cured, three dispositioned without a
+cure at the raised budget — the intake declared two settlement pushes; the pre-push
+review-cost gate refused the third, and the owner raised the budget to three on the PR when
+round three's four findings were truth defects the fold's own cures had introduced (an unbound
+command named, an overclaim about the pre-commit hook, the owner's private repository named in
+tracked records, a missing cut-recipe fallback). Pickups: #145 updates start-right to invoke the
+profile pull; step 11's pending-checks sentence landed in this branch's first records commit.
+
+Delivered at the owner's word: the delta note for the jimcresswell.net transplant (base
+`e477e62f7`) into that repository's Practice Box with its paired delivery event; Cauldron herds
+Lustre (880ff9) messaged with the path, and replied: received and read, routed as that
+Practice's update pass (a three-way read against the transfer base after their closure's
+remaining items land), with one overlap noted for that pass between their suppressed-findings
+hold and this line's pr-tally family; nothing further asked of this line.
+
+This thread's pickup contract (the 2026-09-13 SESSION CLOSE block above) stands unchanged: #143's
+last settlement push, the owed-items records PR, the survey rows. The next session resumes there.

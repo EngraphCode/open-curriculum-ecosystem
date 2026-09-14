@@ -377,11 +377,17 @@ whose pickup contract (above) stands unchanged.
 
 Resumed 2026-09-14 ~11:3xZ at the owner's word: PR #144 (the profile's
 schema, validator and stable index pointer) merged by the front door as
-`4540dec49`; engraph merged into this branch; PDR-141's amendment (the
-contract, the `machine` kind, the optional git-synced root) and the
-start-right and README updates landed. The profile at `~/.practice/profile/`
-is the owner's private git repository, pushed. Remaining in the thread
-record's Next safe step; the fold of this branch is overdue.
+`4540dec49`; engraph merged into the branch; PDR-141's amendments (the
+contract, the `machine` kind, the optional git-synced root; then the sync
+decisions 13 to 16) and the start-right and README updates landed. The
+profile at `~/.practice/profile/` is the owner's private git repository,
+pushed. The 2026-09-12 coordination branch folded to engraph as `7658a723a`
+(PR #137, four review rounds, budget raised to three by the owner) and the
+successor `coordination/2026-09-14-7658a7` was cut from that head. Open: the
+profile sync tool on pull request 145 (`pnpm profile:sync pull` and `push`,
+the check's sync leg), Copilot requested; when it lands, start-right's
+profile step invokes the pull, and engraph is merged into the coordination
+branch.
 
 ### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
 
