@@ -1356,6 +1356,23 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   type-check). Not done, for resume: PDR-141 amendment naming the schema, frontmatter, the
   machine kind and the git-sync decision; start-right 3a and the operator-local README updated to
   three files and the check command; #144 to ready with a Copilot request; the coordination fold.
+- **Resumed (owner's word, "as short and efficient as possible"), #144 landed.** The owner
+  created a private repository for the profile; `~/.practice/profile` is now that repository
+  (origin recorded in the profile's own index, first push done under the owner's git identity,
+  his personal repo). #144: ready, Copilot requested, three review rounds — Codex round one
+  (root `$ref` binding, cured), Copilot round one (five findings: content-free parse errors,
+  bounded date pattern, ENOENT-only absence, plain output, resolver tests; all cured), Codex
+  round two (duplicate of the parse-error finding, cured), a Windows leg failure (POSIX
+  separators in the new resolver test, cured), Codex round three (three self-labelled
+  observations with no recorded input, rejected below the bar with the two-push budget spent,
+  pickup fixtures posted on the PR). Merged by the front door as `4540dec49`; the lane
+  worktree and branch retired after the ancestry proof. Two lessons, mine: (1) the first two PR
+  writes (a thread reply, a Copilot request) went out under the owner's `gh` session before I
+  used the bot's minted `pull-request-work` token — every later write was the bot's; (2)
+  `merge-bot merge --expect` takes the GraphQL login without the `[bot]` suffix — with the suffix
+  every leg reads OWED and the tool refuses "no review binds the current tip"; that cost three
+  refused runs before I read the harvest. Then engraph merged into the coordination branch
+  (one changelog union) and the PDR-141 amendment landed with its consumers.
 - **Surfaced, not actioned.** `coordination/2026-09-12-69a537` is past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
   place (tracked on #143's branch). A peer session labelled Director (Cauldron herds Lustre)

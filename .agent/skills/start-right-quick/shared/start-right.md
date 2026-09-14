@@ -111,9 +111,11 @@ including what must never be stored there, is
 [PDR-141](../../../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md).
 
 It lives in the operator's home directory, shared by every Practice
-repository, linked worktree and clone on the machine: the index, then the
+repository, linked worktree and clone on the machine, and it may be a git
+repository the operator syncs between machines. Read the index, then the
 current repository's scope file (keyed by the `origin` remote's owner and
-name, never a path):
+name, never a path), then this machine's file (keyed by the short host
+name); then run the check, which exits 0 and says so when nothing is there:
 
 ```bash
 PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
@@ -123,7 +125,14 @@ SCOPE="$(git remote get-url origin 2>/dev/null \
   | tr '[:upper:]' '[:lower:]')"
 [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
   && cat "$PROFILE_ROOT/repos/$SCOPE.md"
+MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+[ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
+  && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+pnpm profile:check
 ```
+
+A present profile that fails the check is fixed at once, never read around:
+the contract is `practice-core/schemas/operator-profile.schema.json`.
 
 **A missing profile is the expected condition, not a defect** (`principles.md`
 §Any User, Any Machine): proceed on tracked defaults and say nothing. Never

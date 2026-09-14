@@ -11,7 +11,15 @@ repository, linked worktree and clone on the machine reads the same files:
   repository on this machine;
 - `~/.practice/profile/repos/<scope-key>.md` — true of one repository line,
   keyed by the `origin` remote's owner and name (for this line,
-  `engraphcode--open-curriculum-ecosystem`), never by a path.
+  `engraphcode--open-curriculum-ecosystem`), never by a path;
+- `~/.practice/profile/machines/<machine-key>.md` — true of one machine,
+  keyed by the short host name, which is what lets the root be a private
+  git repository the operator syncs between machines.
+
+Every document opens with frontmatter governed by
+[`practice-core/schemas/operator-profile.schema.json`](../practice-core/schemas/operator-profile.schema.json);
+`pnpm profile:check` validates a present profile and says so, exit 0, when
+none exists.
 
 The contract is PDR-141's: strictly optional (a missing file is the expected
 condition and nothing warns, blocks or depends on it); below every tracked

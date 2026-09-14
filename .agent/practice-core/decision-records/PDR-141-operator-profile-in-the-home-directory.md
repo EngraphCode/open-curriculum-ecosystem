@@ -130,6 +130,42 @@ scopes by repository identity instead.
    person-and-machine facts into this profile, and this profile graduates
    anything that turns out to be doctrine back into a tracked surface.
 
+## Amendment 2026-09-14 — the contract, the machine kind and the synced root
+
+Owner direction the same day, after the seeding: the profile needs a
+versioned schema, validators in the repository, frontmatter in its documents
+and a stable in-repo index pointing at the local index while acknowledging
+it may not exist; and the root may be a git repository the operator syncs
+between machines, provided the estate stays machine-agnostic.
+
+9. **The contract is Core-carried.** `practice-core/schemas/operator-profile.schema.json`
+   (family 1.0.0) governs every document's YAML frontmatter: `practice_profile`,
+   `schema_version`, `kind`, `updated`, `ratified`, and the kind's key. The
+   estate's enforcement surface is the `operator-profile` validator in
+   `agent-tools` (`pnpm profile:check`), a strict mirror bound to the contract
+   by a conformance smoke in the e2e suite, as the inter-Practice wire
+   contract is bound. Within a family, evolution is additive-optional with a
+   MINOR bump of the document and every validator together; anything else is
+   a new family. The check runs at session open and after edits, never in
+   the commit or push gates: decision 4 stands.
+10. **A third kind, `machine`.** `machines/<machine-key>.md`, keyed by the
+    short host name lowercased, holds what is true of one machine only
+    (which CLIs are logged out, where checkouts live). The index holds what
+    is true of the operator everywhere; a scope file what is true of one
+    line.
+11. **The root may be a private git repository the operator syncs.** The
+    machine split is what makes this safe: person-level and line-level facts
+    travel, machine-level facts stay keyed to their host, and no reader
+    assumes any machine. The layout tolerates git furniture (`.git`,
+    `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
+    The Practice reads the repository and validates it; it never
+    initialises, commits or pushes it, and it refuses credential-shaped
+    lines before anything is synced. The operator's remote is a fact of the
+    profile, recorded in its own index, never in a tracked surface.
+12. **The stable pointer** is the Practice index's row for the operator
+    profile, which names the home-directory path, states that it may not
+    exist, links the contract and names the check.
+
 ## Boundaries
 
 - This PDR licenses one surface. A second home-directory surface (a cache,

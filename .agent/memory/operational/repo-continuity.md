@@ -375,14 +375,13 @@ coordination branch `coordination/2026-09-12-69a537` is past its 24-hour
 fold window. This work touched nothing in the estate-coordination thread,
 whose pickup contract (above) stands unchanged.
 
-COLD PAUSE (owner's word, 2026-09-14 ~10:5xZ, the session limit): nothing
-runs. The profile's schema, validator and stable index pointer are on draft
-PR #144 (`lane/operator-profile-schema-281e44`, worktree
-`.claude/worktrees/operator-profile-schema`, commit `2e35a7c19`, pushed).
-Resume order in the thread record's Next safe step: #144 to ready and
-merged; then PDR-141's amendment (schema, frontmatter, the `machine` kind,
-the optional git-synced root) and the start-right and README updates on the
-coordination branch; then the fold.
+Resumed 2026-09-14 ~11:3xZ at the owner's word: PR #144 (the profile's
+schema, validator and stable index pointer) merged by the front door as
+`4540dec49`; engraph merged into this branch; PDR-141's amendment (the
+contract, the `machine` kind, the optional git-synced root) and the
+start-right and README updates landed. The profile at `~/.practice/profile/`
+is the owner's private git repository, pushed. Remaining in the thread
+record's Next safe step; the fold of this branch is overdue.
 
 ### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)
 
