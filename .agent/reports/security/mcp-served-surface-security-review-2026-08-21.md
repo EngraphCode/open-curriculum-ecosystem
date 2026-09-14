@@ -6,6 +6,13 @@
 **Repository state**: `origin/main` at `1173c1adf` (release 1.175.1)
 **Deployed state at probe time**: `x-app-version: 1.175.1` on every surface probed
 
+**As at 2026-08-21.** Every measurement below was taken on that date, and this
+document is not maintained against later change. Three findings have since been
+overtaken — F1 with R1, F5, and R11 in part — and are recorded as such under
+"Findings overtaken since this review", below the summary table. The findings
+themselves are left standing with their original reasoning. Everything not named
+there still holds, F3 with R6 and F8 included.
+
 ## What this document is
 
 A written assessment. **No security configuration was changed by this review.**
@@ -111,6 +118,67 @@ at R1, because it is the cheapest closure of a measured exposure.
 | N2 | "`script-src 'unsafe-inline'` is an XSS weakness here" — refuted as stated; it exists solely for a Cloudflare-injected script, and on production no `script-src` is served at all | NON-FINDING |
 | N3 | "Preview deployments are a production-data bypass" — refuted; previews bind to the development Clerk instance | NON-FINDING |
 | N4 | "This is a confused-deputy proxy needing per-client consent" — refuted; the proxy introduces no static client ID | NON-FINDING |
+
+## Findings overtaken since this review
+
+Added 2026-09-14 by a later seat, at a reviewer's request. This section records
+only that the world moved; nothing above or below it is rewritten, and the
+overtaken findings keep their original reasoning because a dated review's
+reasoning is the part that stays useful. Each item was verified first-hand here
+rather than relayed from the ticket that closed it.
+
+**F1 and R1 — closed.** `curriculum-mcp-alpha.oaknational.dev` no longer
+exists. Measured 2026-09-14: the zone's authoritative nameserver
+`pat.ns.cloudflare.com` returns **NXDOMAIN** for the name and `curl` cannot
+resolve it. Two controls make that discriminating — the `oaknational.dev` apex
+answers `NOERROR` with A records, so the zone is live, and a fabricated
+`s1probe-nonexistent-xyz.oaknational.dev` also returns NXDOMAIN, so the
+instrument tells absence from presence. `mcp.thenational.academy/mcp/healthz`
+is unaffected at `200`. The removal is recorded in `oaknational/Cloud-Config`,
+in a comment on the rate-limit rule in
+`infrastructure/cloudflare/rulesets/rate_limits.tf` (commit `a018e33d5`,
+PR 569): both the Cloudflare DNS record and the Vercel project domain were
+removed on **2026-09-03**, re-verified there the same day. It is a comment
+rather than a resource deletion because `oaknational.dev` is not a zone that
+repository manages. **F2 is not closed by this.** F2 is the general case — that
+edge coverage is a per-DNS-record property with no origin-side backstop — and
+none of it turned on the alias existing.
+
+**F5 — closed, by MCP-345.** The server advertises `email` alone.
+`SCOPES_SUPPORTED = ['email']` is generated into
+`packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/scopes-supported.ts`
+from `code-generation/mcp-security-policy.ts`, and
+`apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts` passes that
+constant both into the protected-resource document (line 120) and into
+`rewriteAuthServerMetadata` (line 138), which now *replaces* the upstream
+`scopes_supported` rather than passing it through. Measured live 2026-09-14:
+`/.well-known/oauth-authorization-server` and
+`/.well-known/oauth-protected-resource` on `mcp.thenational.academy` both
+return `"scopes_supported":["email"]`. The seven-scope advertisement is gone,
+and the two documents no longer disagree.
+
+**R11 — answered in configuration, with the boundary kept.** A rate limit on
+`POST /oauth/register` now exists in `rate_limits.tf` on Cloud-Config `main`:
+"MCP dynamic client registration limit", `block`, 20 requests per 60s keyed on
+`cf.colo.id` and `ip.src`, returning `429` with an RFC 6749
+`temporarily_unavailable` JSON body, `enabled = true`, scoped to
+`mcp.thenational.academy` and `POST /oauth/register` (PR 569, merged
+2026-09-03). **Configuration presence is not proof of edge application, and
+this seat did not measure a served `429`.** PR 569's own body states the owner
+held the apply; a comment on it the same day records a targeted apply in HCP
+Terraform run `run-x9KvMk4GqBGx8pXM`. That is a record that an apply was run,
+not a measurement of the edge — the burst probe in that PR's post-apply
+checklist remains the instrument that would settle it. Note also that the rule
+is zone-scoped to `thenational.academy`, so it never bound the alpha alias;
+that gap closed by the alias going away, not by this rule.
+
+**Not overtaken.** F3 with R6 stands: re-measured 2026-09-14,
+`mcp.thenational.academy` serves two CSP directives
+(`upgrade-insecure-requests; frame-ancestors 'self'`) while
+`poc-oak-open-curriculum-mcp.vercel.thenational.academy` serves all thirteen
+from the same build, and both carry `server: cloudflare` and a `cf-ray` — so
+Cloudflare being in the path still does not explain the difference. F8 stands
+as written.
 
 ## Question 1 — origin bypass, and whether it is a stack-wide property
 
