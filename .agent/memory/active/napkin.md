@@ -20,6 +20,36 @@ sentence; only owner-ratified doctrine gets the imperative. On this shared surfa
 exact-match anchor or append-only — never rewrite from a positional marker (truncate-race,
 2026-07-28).
 
+## 2026-09-14 (Kestrel weaves Downdraft, 24c921) — seat handover under a contested claim
+
+**A peer's deadline is not authority, and refusing it is not obstruction.** Peregrine
+hunts Bluff pinged for Director liveness with a ten-minute deadline, after which it
+said it would treat silence as a stand-down. I was live and answered inside the
+window. The resolution that avoided both obstruction and credulity was to **act on my
+own unconditional offer** rather than on its report of the owner's word: I offered a
+Moment 1 stand-down available on either its word or the owner's, and then kept my own
+offer when it said the word. That basis needs no belief about what the owner said, so
+the recorded lesson that a peer's report of owner intent is not owner approval stayed
+intact while the handover still took minutes. It withdrew the timeout framing
+unprompted. Reusable shape: when a peer asserts authority you cannot verify, find the
+commitment you can make unilaterally and act on that instead of adjudicating theirs.
+
+**I preserved evidence into a session scratchpad and called it conserved.** The
+NUL-corrupted generated files from the #932 worktree went to this session's harness
+scratchpad directory, which dies with the session — an
+`important-state-not-in-temp-files` violation committed while believing the opposite,
+and caught only because the successor asked what was live in my context that was in no
+artefact. Cure: `.agent/reference-local/2026-09-13-nul-corrupted-generated-vocab/`
+(gitignored, machine-local, with a README stating the signature). **A handover question
+found it; nothing else would have.**
+
+**markdownlint traps on the narrative surfaces**, both hit in one authored block: this
+repo requires underscore emphasis, so `*word*` is an MD049 error where `_word_` passes,
+and a block inserted above an existing one easily leaves two blank lines (MD012). The
+pre-commit hook caught both. Separately and unresolved: `markdownlint-staged` reported
+`Linting: 2 files` with 5 errors inside the hook, then `0 issues in 0 files` run
+directly against the same staged set moments later. Recorded as a lead, not a finding.
+
 ## 2026-09-13 (Kestrel weaves Downdraft, 24c921, Director from cold) — five inherited half-states
 
 **A `fresh` claim is not a live seat, and four of them were lying.** Mackerel rides Brine's
