@@ -4,12 +4,12 @@ pdr_kind: governance
 
 # PDR-141: The operator profile lives in the home directory — the Practice's first surface outside a repository
 
-**Status**: Proposed (owner-directed 2026-09-14, in-session: the profile is
-"strictly optional" and lives "in the home directory so that ALL Practice
-repos on the machine can use it … in the same way that the Claude vendor
-memory is both in a shared directory and within that scopes some things to
-a particular directory or project"; the shape below — the root, the scope
-key, the reader contract — is the seat's proposal for the owner to ratify)
+**Status**: Accepted (owner-ratified 2026-09-14, in-session, the decision
+and the same day's amendment together; the owner's direction that shaped
+it: the profile is "strictly optional" and lives "in the home directory so
+that ALL Practice repos on the machine can use it … in the same way that the
+Claude vendor memory is both in a shared directory and within that scopes
+some things to a particular directory or project")
 **Date**: 2026-09-14
 **Related**: [PDR-050](PDR-050-state-memory-substrate-contracts.md)
 (substrate contracts), [PDR-067](PDR-067-surface-classification-for-fitness-response.md)
