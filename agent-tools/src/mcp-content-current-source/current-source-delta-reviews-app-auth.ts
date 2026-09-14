@@ -144,8 +144,13 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // implementation-only change — but its audience is web crawlers, which
   // never speak MCP, so it reaches no MCP consumer. See CRAWLER_FACING_ONLY
   // for why that distinction is drawn rather than collapsed.
+  //
+  // MCP-703 re-review (owner ruling 2026-09-14): the served body no longer
+  // names a landing page, and rests the no-sitemap statement on the host being
+  // machine surface. Re-attested rather than inherited because the served text
+  // changed; the audience did not, so the exclusion reason stands.
   'apps/oak-curriculum-mcp-streamable-http/src/robots-txt.ts': excluded(
-    '176b11817f8881d6510d4d5d68f93ec1df488c869d60aaaee3450f9aa0137853',
+    '7f5b4024d481e07426d52781159ef39e5f5c60fd2e70e35f3cc7da154b070c4a',
     CRAWLER_FACING_ONLY,
   ),
   // MCP-518: the Clerk conditional now forks on the request's surface before

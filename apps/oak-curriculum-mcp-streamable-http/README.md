@@ -301,20 +301,20 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 - `GET /robots.txt` returns this host's crawler directives as `text/plain` (MCP-703). Public,
   registered before Clerk middleware, and served in every auth mode — a crawler arrives with no
   credentials, so a file reachable only through the auth vendor is an unfetchable one.
-- The body is not a copy of `www`'s. This host serves **one self-canonicalising page** — the same
-  baked landing page at `/` and at `/mcp`, each carrying the `rel="canonical"` that resolves the
-  pair — and everything else here is machine surface, so it names **no sitemap**;
-  `/.well-known/` is explicitly `Allow`ed so the discovery documents stay fetchable under
-  RFC 9309 §2.2.2's longest-match rule; and only the authorisation endpoints, the signed
-  expiring asset URLs and the liveness probes are disallowed. It names no origin, so it is
-  identical on every host this app answers on.
+- The body is not a copy of `www`'s. This host is a machine surface — the MCP endpoint, its
+  OAuth authorisation proxy and the discovery documents — with no crawlable page set to
+  enumerate, so it names **no sitemap**; `/.well-known/` is explicitly `Allow`ed so the discovery
+  documents stay fetchable under RFC 9309 §2.2.2's longest-match rule; and only the authorisation
+  endpoints, the signed expiring asset URLs and the liveness probes are disallowed. It names no
+  origin, so it is identical on every host this app answers on, and it names no page, so it does
+  not go stale when the served page set changes.
 - This meets the `robots.txt` half of agent-readiness baseline `AR-A6`. **On the sitemap half,
-  this host is a named `AR-A6` exception: it publishes no crawlable page set to enumerate.** One
-  page, reachable at the root, canonical-linked to its `/mcp` twin, and found by any crawler that
-  fetches `/`; a `Sitemap:` directive would advertise a document that does not exist. Decided on
-  MCP-703 (PR #972) — proposed in the change, independently reached by the reviewing seat and by
-  the Director, and recorded here rather than left open. Revisit it if this host ever grows a
-  page set.
+  this host is a named `AR-A6` exception: a machine surface has no crawlable page set to
+  enumerate, so a `Sitemap:` directive would advertise a document that does not exist.**
+  **Decided by the repo owner on 2026-09-14** (MCP-703, PR #972), on the ground that this host is
+  machine surface rather than on how many pages it serves — so the exception counts no pages, and
+  holds whether or not a page describes the machine surfaces. Revisit it if this host ever grows
+  a crawlable page set.
 - Content Signals values (`search`, `ai-input`, `ai-train`) are deliberately absent: that is
   `AR-A7`, an editorial and legal decision about values, undecided for this host. `open-api`
   already publishes its own set, so cross-host consistency belongs to that decision rather than

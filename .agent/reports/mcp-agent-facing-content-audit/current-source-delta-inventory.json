@@ -647,7 +647,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/robots-txt.ts",
-      "semanticSha256": "176b11817f8881d6510d4d5d68f93ec1df488c869d60aaaee3450f9aa0137853",
+      "semanticSha256": "7f5b4024d481e07426d52781159ef39e5f5c60fd2e70e35f3cc7da154b070c4a",
       "itemIds": [],
       "exclusionReason": "Crawler-directive content served at the HTTP edge; authored, but addressed to fetchers that never speak MCP, so it reaches no MCP consumer."
     },

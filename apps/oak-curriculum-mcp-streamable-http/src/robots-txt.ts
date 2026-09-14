@@ -11,12 +11,19 @@
  * ## Why the body is not `www`'s body
  *
  * `www` is a content site: its file names six sitemaps. This host is a machine
- * surface — an MCP endpoint, its OAuth authorisation proxy, the discovery
- * documents, and one landing page describing them. It publishes no crawlable
- * page set, so it has no sitemap, and a `Sitemap:` directive copied across
- * would advertise a document that does not exist. `principles.md` forbids
- * stating what is not true of the thing in front of us, and a robots.txt is
- * read by machines that cannot tell a courtesy from a claim.
+ * surface — an MCP endpoint, its OAuth authorisation proxy and the discovery
+ * documents — with no crawlable page set to enumerate, so it has no sitemap,
+ * and a `Sitemap:` directive copied across would advertise a document that
+ * does not exist. `principles.md` forbids stating what is not true of the
+ * thing in front of us, and a robots.txt is read by machines that cannot tell
+ * a courtesy from a claim.
+ *
+ * That reasoning counts no pages. It holds for a host of machine surfaces
+ * alone, and holds no less if one page describes them — so neither this text
+ * nor the `AR-A6` exception it carries moves if the landing page is added to
+ * or taken off this host. The body names no page for the same reason: a
+ * crawler reading it would have no way to tell a stale enumeration from a
+ * current one.
  *
  * ## Why `/.well-known/` is Allow-listed rather than merely unmentioned
  *
@@ -35,9 +42,9 @@
  * (ADR-126 — signed and time-limited, not single-use: there is no nonce and no
  * consumption record), and the two liveness probes. None holds anything to
  * index, and crawling the authorisation endpoints would manufacture junk auth
- * attempts. The landing page and its own static assets stay allowed: a
- * renderer needs the stylesheet, and the `/` and `/mcp` copies of that one
- * page already resolve through the page's own `rel="canonical"`.
+ * attempts. Nothing else is withdrawn: whatever this host serves at `/` and
+ * under its public asset trees stays allowed, so a renderer can still fetch a
+ * stylesheet it needs.
  *
  * ## What is deliberately absent
  *
@@ -114,13 +121,13 @@ const SIGNED_DOWNLOAD_PREFIX = '/assets/download/';
  */
 const ROBOTS_TXT_BODY = [
   '# Oak National Academy Model Context Protocol server. A machine surface:',
-  '# the MCP endpoint, its OAuth authorisation proxy, the discovery documents,',
-  '# and one landing page describing them with its own assets. Oak curriculum',
-  '# pages written for people are on https://www.thenational.academy.',
+  '# the MCP endpoint, its OAuth authorisation proxy, and the discovery',
+  '# documents. Oak curriculum pages written for people are on',
+  '# https://www.thenational.academy.',
   '#',
-  '# No Sitemap: this host publishes no crawlable page set. The /.well-known/',
-  '# documents are allowed explicitly because that is how clients discover',
-  '# this server and authorise against it.',
+  '# No Sitemap: a machine surface has no crawlable page set to enumerate.',
+  '# The /.well-known/ documents are allowed explicitly because that is how',
+  '# clients discover this server and authorise against it.',
   '',
   'User-agent: *',
   `Allow: ${WELL_KNOWN_PREFIX}`,

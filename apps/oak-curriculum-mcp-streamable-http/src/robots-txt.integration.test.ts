@@ -73,13 +73,13 @@ const directivesOf = (body: string): readonly string[] =>
 
 /** The body a crawler receives, as reviewed on MCP-703. */
 const EXPECTED_BODY = `# Oak National Academy Model Context Protocol server. A machine surface:
-# the MCP endpoint, its OAuth authorisation proxy, the discovery documents,
-# and one landing page describing them with its own assets. Oak curriculum
-# pages written for people are on https://www.thenational.academy.
+# the MCP endpoint, its OAuth authorisation proxy, and the discovery
+# documents. Oak curriculum pages written for people are on
+# https://www.thenational.academy.
 #
-# No Sitemap: this host publishes no crawlable page set. The /.well-known/
-# documents are allowed explicitly because that is how clients discover
-# this server and authorise against it.
+# No Sitemap: a machine surface has no crawlable page set to enumerate.
+# The /.well-known/ documents are allowed explicitly because that is how
+# clients discover this server and authorise against it.
 
 User-agent: *
 Allow: /.well-known/
