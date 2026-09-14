@@ -31,6 +31,8 @@ export const USAGE = [
   '  --pr: one pull request; --branch: the open pull request of the current branch;',
   '  --refs-file: the ref lines git hands the pre-push hook — every pushed branch with an open',
   '  pull request is priced and any exhausted one refuses the push. No open pull request passes.',
+  '  A sync push — one merge of the base over the head the remote holds, changing nothing else —',
+  '  sits outside the budget (PDR-140 clause 4) and passes whatever the verdict.',
   '  survey: every pull request updated since the date, any state, priced as the gate prices it —',
   '  the review-cost ledger reads this at wrap; post-merge reviews and comments are in the count.',
 ].join('\n');

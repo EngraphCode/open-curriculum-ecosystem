@@ -177,15 +177,47 @@ function numstat(range: string, run: GhCommandExecutor): string {
   return run('git', ['diff', '--numstat', range], GH_EXEC_OPTIONS).trim();
 }
 
-function isBaseSync(revision: string, run: GhCommandExecutor): boolean {
+/** The two parents of a merge commit, or undefined for anything else. */
+function mergeParents(
+  revision: string,
+  run: GhCommandExecutor,
+): { readonly first: string; readonly second: string } | undefined {
   const parents = run('git', ['rev-list', '--parents', '-n', '1', revision], GH_EXEC_OPTIONS)
     .trim()
     .split(/\s+/u);
   const [, first, second] = parents;
   if (parents.length !== 3 || first === undefined || second === undefined) {
+    return undefined;
+  }
+  return { first, second };
+}
+
+function isBaseSync(revision: string, run: GhCommandExecutor): boolean {
+  const parents = mergeParents(revision, run);
+  if (parents === undefined) {
     return false;
   }
-  return numstat(`${first}..${revision}`, run) === numstat(`${first}...${second}`, run);
+  return (
+    numstat(`${parents.first}..${revision}`, run) ===
+    numstat(`${parents.first}...${parents.second}`, run)
+  );
+}
+
+/**
+ * Whether a push is a pure base sync: the pushed head is one merge commit
+ * whose first parent is the head the remote already holds and whose branch
+ * side changed nothing. Such a push changes no reviewed content and sits
+ * outside the settlement budget (PDR-140 clause 4), so the gate passes it
+ * whatever the loop's verdict. A push of several commits, or of a merge that
+ * carries cures or conflict edits, is never a sync push.
+ */
+export function isSyncPush(
+  remoteSha: string,
+  localSha: string,
+  run: GhCommandExecutor = execFileSync,
+): boolean {
+  const parents = mergeParents(localSha, run);
+  return parents !== undefined && parents.first === remoteSha && isBaseSync(localSha, run);
 }
 
 /** Lines and files changed between two revisions, from `git diff --numstat`; zero for a base sync. */
