@@ -1,6 +1,9 @@
 # ADR-228: Agent-web standards — six dispositions, and the standing of a vendor scorecard
 
-- **Status:** Accepted (2026-09-09)
+- **Status:** Proposed (2026-09-09). Nothing here is owner-ratified.
+  Ratification is the owner's call, not a lane's; the dispositions below are
+  put forward for that decision, each with the measurements it rests on and a
+  falsifiable revisit trigger
 - **Date:** 2026-09-09
 - **Deciders:** Matthew Gregory (owner) asked that the day's agent-readiness
   standards decisions be recorded — "record/update decisions in ADRs if
@@ -264,7 +267,8 @@ the item rather than reopening it.
 
 The earlier "no" recorded on MCP-346 was correct, but its rationale — that the
 extension is immature — is the weaker of the two available arguments and would
-expire the moment the extension matured. **This ADR supersedes that rationale.**
+expire the moment the extension matured. **This ADR proposes to supersede that
+rationale.**
 The stronger argument is that the paths the scanner probes are wrong paths, and
 would still be wrong paths after the extension stabilised.
 
@@ -423,7 +427,8 @@ capability and correctly hosts its skills — and it is not decided here.
    Server Card, and `auth.md` completeness. This ADR is the answer when they are
    re-raised, and each red row now has a named trigger that would turn it green
    for a reason other than the scanner.
-3. **MCP-346's decision stands; its rationale is superseded by §5 here.** The
+3. **MCP-346's decision stands; this ADR proposes to supersede its rationale
+   with §5 here.** The
    ticket said no because the extension was immature. The durable reason is that
    the probed paths are the wrong paths.
 4. **MCP-422 keeps its shape and gains a deadline-free trigger.** Oak's
@@ -454,7 +459,7 @@ capability and correctly hosts its skills — and it is not decided here.
    to be a mismatch, which is how two lanes talked themselves into a false
    negative that was not one.
 9. **A vendor scorecard is evidence, never a backlog.** The general rule this
-   ADR establishes: when a scored surface is operated by a party that sells the
+   ADR proposes: when a scored surface is operated by a party that sells the
    remedy, its rows are read as prompts and answered on Oak's own tests. The
    corollary from MCP-347: a fix worth making on standards merits is not sold as
    a score win, and a score row that would not move is not an argument against
