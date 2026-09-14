@@ -4,6 +4,20 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — operator-profile schema: the Core-carried contract for the home-directory profile
+
+- New `schemas/operator-profile.schema.json` (family 1.0.0): the frontmatter
+  contract for the operator profile, the Practice's one surface outside a
+  repository (`~/.practice/profile/`, per the estate's operator-profile PDR,
+  numbered locally). Three document kinds — `index` (the operator
+  everywhere), `scope` (one repository line, keyed by the origin remote's
+  owner and name), `machine` (one machine, keyed by the short host name) —
+  so the root can be an optional private git repository the operator syncs
+  between machines without the estate assuming any machine. Strict shapes,
+  additive-optional minors, MAJOR for a breaking change. The host binds it
+  to its enforcement validator with a conformance smoke, as the wire
+  contract is bound.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-027 open question: which model name wins when four disagree
 
 - PDR-027 §Notes gains a dated open question, re-homed from the host's
