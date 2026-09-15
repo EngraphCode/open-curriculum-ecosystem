@@ -1385,7 +1385,7 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   own index, PDR-141 decision 11); the jimcresswell.net
   transplant base `e477e62f7` noted in the profile; a delta note for Cauldron herds Lustre goes
   into that repository's Practice Box after the fold lands.
-- **Folded and rotated (2026-09-14 ~14:5xZ).** #137 merged as `7658a723a`; successor
+- **Folded and rotated (2026-09-14 ~15:1xZ).** #137 merged as `7658a723a` at 15:13:30Z; successor
   `coordination/2026-09-14-7658a7`. Four review rounds; the pre-push review-cost gate refused the
   third settlement push at the declared two — exactly its job — and the owner raised the budget
   to three on the PR (the intake line the gate reads takes a digit: `budget — 3`, not a word).
@@ -1478,7 +1478,8 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   §PICKUP points at the LANDINGS entry, which points at every other home. External bound: every
   correction last night came from outside — the owner three times, Cauldron once — and this
   wrap's own first find came from rereading a handover a peer wrote. Fence: the private profile
-  repository appears in no tracked line (history carries two removed mentions). A third pass
+  repository's name and remote appear in no tracked line (PDR-141 decision 11; history carries
+  two removed mentions). A third pass
   re-finds only the suppressed-item class; the recursion closes here.
 - **The IO invariant framed as a question (2026-09-15, owner correction).** Owner, verbatim, on
   the wrap report's line "How far 'tests never use or create IO' reaches": "This is not a

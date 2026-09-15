@@ -2994,8 +2994,9 @@ cure at the raised budget — the intake declared two settlement pushes; the pre
 review-cost gate refused the third, and the owner raised the budget to three on the PR when
 round three's four findings were truth defects the fold's own cures had introduced (an unbound
 command named, an overclaim about the pre-commit hook, the owner's private repository named in
-tracked records, a missing cut-recipe fallback). Pickups: #145 updates start-right to invoke the
-profile pull; step 11's pending-checks sentence landed in this branch's first records commit.
+tracked records, a missing cut-recipe fallback). Pickups: start-right invokes the profile pull once
+the sync tool lands (it landed as #145, which carried no start-right edit; the binding is the
+2026-09-15 successor branch's first doctrine commit); step 11's pending-checks sentence landed in this branch's first records commit.
 
 Delivered at the owner's word: the delta note for the jimcresswell.net transplant (base
 `e477e62f7`) into that repository's Practice Box with its paired delivery event; Cauldron herds
@@ -3004,8 +3005,9 @@ Practice's update pass (a three-way read against the transfer base after their c
 remaining items land), with one overlap noted for that pass between their suppressed-findings
 hold and this line's pr-tally family; nothing further asked of this line.
 
-This thread's pickup contract (the 2026-09-13 SESSION CLOSE block above) stands unchanged: #143's
-last settlement push, the owed-items records PR, the survey rows. The next session resumes there.
+At this fold the thread's pickup contract was the 2026-09-13 SESSION CLOSE block above: #143's
+last settlement push, the owed-items records PR, the survey rows. It is superseded by the
+2026-09-14 LANDINGS entry below: #143 landed as `e474e883e`, and the pickups resume there.
 
 ### 2026-09-14 LANDINGS — #143 and #146 merged, #145 held for a morning ruling (Zephyr guards Leeward, 281e44)
 
