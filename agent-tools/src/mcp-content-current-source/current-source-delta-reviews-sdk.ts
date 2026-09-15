@@ -222,4 +222,11 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '2125f30ea7eb7f29b8b0dfa565954cfdcc8d573313a9324d38a6935b038bb5bb',
     TEST_ONLY,
   ),
+  // MCP-489: the public re-export now also carries RETIRED_WIDGET_URIS for the
+  // auth allowlist; no agent-facing text, and C479's value is reviewed at its
+  // codegen source.
+  'packages/sdks/oak-curriculum-sdk/src/mcp/widget-constants.ts': excluded(
+    '892eb7db109b5bb3dd9b5b6318b671534409f594017662703c76b8894b1c61c9',
+    IMPLEMENTATION_ONLY,
+  ),
 };

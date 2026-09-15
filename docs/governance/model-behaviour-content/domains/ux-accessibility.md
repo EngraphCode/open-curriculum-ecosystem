@@ -309,7 +309,7 @@ const WIDGET_UI_META = {
     resourceDomains: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
   },
   prefersBorder: false,
-} as const;
+} satisfies McpUiResourceMeta;
 ```
 
 **What it is for:** Authored MCP-App UI metadata on the contents[] item: declares CSP resourceDomains (Google Fonts) so CSP-enforcing hosts allow the Lexend @import, and prefersBorder:false so the host does not add chrome.
@@ -317,7 +317,7 @@ const WIDGET_UI_META = {
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts`
 - **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** Expanded since the audit baseline.
 - **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
 
 ## Retired (1)
