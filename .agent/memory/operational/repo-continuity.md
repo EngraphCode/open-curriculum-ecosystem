@@ -389,17 +389,17 @@ pushed. The 2026-09-12 coordination branch folded to engraph as `7658a723a`
 successor `coordination/2026-09-14-7658a7` was cut from that head. The
 profile sync tool (`pnpm profile:sync pull` and `push`, the check's sync leg)
 landed 2026-09-15 as #145 (`0f3168369`) and engraph is merged into the
-coordination branch (`08ceb4668`); start-right §3a's block does not yet run
-the pull, which is the successor coordination branch's first doctrine commit.
+coordination branch (`08ceb4668`); start-right §3a runs the pull ahead of the
+check since `c9abf6ce9`, the first doctrine commit on `coordination/2026-09-15-4786ab`.
 
 Landings of 2026-09-14 evening (the owner asleep from ~21:20Z): #143 merged as
 `e474e883e` and #146 (the review-cost gate passes a sync push; the cost-model
 defect the owner named when #145 sat settled but BEHIND-BASE with the gate
 refusing its base update) as `048f377fa`; engraph folded into
 `coordination/2026-09-14-7658a7` at `176291eb2`; the held buffer memory
-deleted. #145 is one push from landing: its cure `318a2ea21` (the IO unit
-test out at the owner's word) is local on its lane and held for the morning
-ruling on a rebudget. The estate-coordination thread record's 2026-09-14
+deleted. #145 was then one push from landing, its cure `318a2ea21` (the IO
+unit test out at the owner's word) held for the morning ruling on a rebudget;
+it landed 2026-09-15 as `0f3168369` on the owner's raise. The estate-coordination thread record's 2026-09-14
 LANDINGS entry carries the five pickups.
 
 ### Reliable Atoms workspace class — owner rulings recorded, UNCOMMITTED (2026-09-14)

@@ -1394,8 +1394,10 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   (it runs the local gates; the PR's checks run widget, e2e, ui and a11y), and the owner's private
   repository named in two tracked records against decision 11. Lesson: a cure is a claim too;
   read each one against the head it lands on before pushing. Round four dispositioned without a
-  cure (budget spent): #145 binds the profile pull invocation; step 11's pending-checks sentence
-  landed here. The sync tool is PR #145 (Copilot requested). The jimcresswell.net delta note is in
+  cure (budget spent): the profile pull invocation was left to #145's landing, which carried
+  no start-right edit, and the pull was bound on 2026-09-15 on the successor coordination
+  branch; step 11's pending-checks sentence landed here. The sync tool was then PR #145, which
+  landed 2026-09-15 as `0f3168369`. The jimcresswell.net delta note is in
   that repository's Practice Box with its delivery event; Cauldron messaged.
 - **Surfaced at the drain's close (since folded, above).** `coordination/2026-09-12-69a537` was then past its 24-hour fold window
   (stamp 09-12); PR #143 open; the owner's untracked `.agent/research/cognitive-systems/` left in
@@ -1411,8 +1413,8 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   and the pre-push gate refusing the base-update push as BUDGET-EXHAUSTED. PR #146 cured the
   gate (a sync push — one merge of the pull request's base over the remote head, its tree
   exactly git's automatic merge — passes whatever the verdict, PDR-140 clause 4) and merged as
-  `048f377fa`. Three lessons, mine, all of one kind — reaching for IO where the doctrine says
-  never: (1) `operator-profile-root.unit.test.ts` created a temporary directory through a
+  `048f377fa`. Three lessons, mine; the first two share one kind, reaching for IO where the
+  doctrine says never, and the third is a residency slip: (1) `operator-profile-root.unit.test.ts` created a temporary directory through a
   `test-helpers/` module to get past the real-IO lint rule — a dodge, and exactly the precedent
   claim the due entry "a reviewer's allowlist precedent never licenses IO in a test" (owner,
   2026-09-06) already refutes; (2) a smoke test on #146 built scratch git repositories to prove
@@ -1555,3 +1557,12 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   open. Cause: I reasoned from the rotation event's timestamp, 15:14:12Z, instead of reading
   the rule's clock, which is the branch name's date. Seat cure: at session open on a
   coordination branch, compare the name's date with `date -u +%F` before anything else.
+- **The fold landed; the residency slip a third time (2026-09-15).** The owner merged #148 by
+  hand at 14:46:47Z. The successor `coordination/2026-09-15-4786ab` is cut, and start-right runs
+  the profile pull since `c9abf6ce9`. The slip: a `cd` into the comms directory, inside one of
+  three parallel shell calls, moved the session's working directory again. It was read-only
+  and was restored at once. The napkin's own cure from 2026-09-15 said "a shell call never runs
+  a bare `cd`", and I broke it within four hours. n = 3 for this seat across two days: the
+  written cure does not hold under a parallel call. The structural cure is to give a loop over
+  a directory's files absolute paths (`ls "$DIR"` with `"$DIR/$f"`), never a `cd`, and to name
+  the working directory as a precondition when writing any multi-call batch.

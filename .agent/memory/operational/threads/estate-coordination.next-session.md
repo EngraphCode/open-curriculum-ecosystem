@@ -3057,10 +3057,10 @@ PICKUPS (the morning):
    post-merge deletion sweep read 137 deleted lines, all moved to `operator-profile-root.ts`.
    Lane retired (worktree removed, branch deleted); engraph merged into this branch at
    `08ceb4668`. The Practice index's operator-profile row names `pnpm profile:sync pull` at
-   session open and `push` after a write. Start-right §3a's executable block still runs only
-   `pnpm profile:check`, so no session pulls yet. Adding the pull ahead of the check is the
-   successor branch's first doctrine commit (fold PR #148 round one: Codex, and three Copilot
-   threads). Run once on the
+   session open and `push` after a write. #145 carried no start-right edit, so the binding
+   came separately: since `c9abf6ce9` (2026-09-15, the first doctrine commit on
+   `coordination/2026-09-15-4786ab`), start-right §3a runs the pull ahead of the check. The
+   gap was found by fold PR #148's round one: Codex, and three Copilot threads. Run once on the
    primary after the merge and an agent-tools build: `pnpm -s profile:sync pull` printed
    "Already up to date." and exited 0; `pnpm -s profile:check` found three conforming
    documents and no sync findings.
@@ -3084,8 +3084,9 @@ PICKUPS (the morning):
    check's missing-upstream finding prescribes manual upstream selection when several remotes
    exist, and the push resolves its remote before committing (today `pushProfile` commits,
    then refuses in `firstPushRemote`, leaving a local commit; Codex round four, thread
-   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
-   filesystem-backed test, is `318a2ea21`). From #144's suppressed blocks (reviews 5197235280
+   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals. That suppressed block's
+   fourth item, the filesystem-backed `operator-profile-root` unit test, is cured by
+   `318a2ea21`, not by the follow-up. From #144's suppressed blocks (reviews 5197235280
    and 5197433102, never dispositioned): `updated` validates a real calendar day in both the
    zod and JSON Schema surfaces with an impossible-date fixture; the contract smoke's TSDoc
    names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
@@ -3109,3 +3110,52 @@ PICKUPS (the morning):
 The suppressed items above are dispositioned on their pull requests at this wrap: one issue
 comment each on #137, #143, #144 and #145, one line per item. The owner's bedtime (~21:20Z) is
 Cauldron herds Lustre's report, not observed here.
+
+## 2026-09-15 — FOLD of coordination/2026-09-14-7658a7 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1) and rotation
+
+PR #148 merged as `4786abb7f` at 14:46:47Z, by the owner's hand, at head `d7b162e45`: all 21
+checks were green and Copilot and Codex had reviewed that head. The successor
+`coordination/2026-09-15-4786ab` was cut from that merge commit with
+`agent-tools coordination successor-name`, tree-preserving, and pushed; the primary resides
+there. The fold carried ten commits, two of them engraph merges:
+
+- the 2026-09-12 fold's tenure entry and session-handoff step 11's pending-checks sentence;
+- the 2026-09-14 landings of #143 and #146;
+- the wrap for compaction: nine suppressed Copilot items homed, the ledger rows, the letter;
+- the owner's 2026-09-15 correction recording the IO invariant as absolute;
+- #145's landing, with the Practice index naming the profile sync;
+- the DUE-check misread;
+- engraph merged in at #146 and #145;
+- two settlement pushes.
+
+moved for teachers: nothing / moved for the Practice: the review-cost gate passes a pure base
+sync (#146), the operator-profile sync tool landed (#145) and start-right now pulls the profile
+before reading it, the IO invariant recorded as absolute and first for the consolidation session,
+the ledger's 2026-09-14 and 2026-09-15 rows.
+
+Review: three rounds, 21 findings, every one in this seat's own records.
+
+- Round one (Codex two threads; Copilot four threads and two suppressed items): seven cured at
+  `3d201a0c6`. They included a start-right binding claimed before it existed, seven due entries
+  where there are nine, and "five agree" where four do. One was routed: the Practice index row is
+  right, and the gap was start-right's block.
+- Round two (Codex one thread; Copilot six suppressed items): all seven cured at `d7b162e45`. They
+  were stale pointers, a fold time, the fence wording, and an observation's worked instance.
+- Round three (Codex one thread; Copilot five suppressed items) arrived after the merge. All six
+  are true and cured on the successor branch, with the binding itself at `c9abf6ce9`.
+
+Settlement cost 47.18 of 40 at the survey. The seat's lesson, n = 1: records written in a
+hurry at a landing produce truth defects at the fold, so a landing record should be read
+against the head before it is committed.
+
+The DUE check was misread: by the rule's UTC-date clock the branch was due at this session's
+open, and the seat named 15:14Z from the cut event's timestamp (napkin, `018d2b4cd`).
+
+Pickups:
+
+- the operator-profile follow-up PR (LANDINGS pickup 3);
+- #147, the upstream carrier, which waits for the owner's word;
+- the reviewer-legs read of a zero-finding Codex completion (pickup 2);
+- the two review-cost tool readings in the napkin: the quiet window anchors on the seat's own
+  reply, and the survey's sync test ignores the first parent;
+- the consolidation session, at the owner's word.

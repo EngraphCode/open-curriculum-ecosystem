@@ -30,9 +30,8 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   sync leg, PDR-141 decisions 13 to 16) landed 2026-09-15 as PR #145
   (`0f3168369`), after the owner's one-push raise for the IO cure `318a2ea21`.
   The Practice index's operator-profile row names `pnpm profile:sync pull` at
-  session open and `push` after a write; start-right §3a's block still runs
-  only the check, and adding the pull ahead of it is the successor
-  coordination branch's first doctrine commit. Its homed follow-ups (round three and four findings,
+  session open and `push` after a write; start-right §3a runs the pull ahead of
+  the check since `c9abf6ce9` (2026-09-15). Its homed follow-ups (round three and four findings,
   #144's suppressed items) are the operator-profile follow-up PR, the
   estate-coordination LANDINGS pickup 3. The gate defect that held
   it (a settled pull request behind a moved base) is cured by #146,
