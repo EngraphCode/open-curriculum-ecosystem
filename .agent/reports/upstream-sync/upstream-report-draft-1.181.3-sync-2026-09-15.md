@@ -1,0 +1,55 @@
+# Draft for the owner: findings on upstream's 1.181.2–1.181.3 changes, surfaced by the fork's sync review
+
+**Review contract.** Purpose: give the owner one paste-ready note for upstream's maintainers,
+naming the findings a downstream review round surfaced on upstream-authored files while
+integrating releases 1.181.2 and 1.181.3 (fork PR #147, 2026-09-15). Intended impact: upstream
+decides whether to cure; the fork cures none of these, because it never diverges upstream code on
+a sync. Questions for a reviewer: is each of the five findings stated accurately against
+upstream's code at `c67d33c8a`, and is anything fork-specific mislabelled as upstream's? Evidence
+standard: each finding cites the file and line the reviewer named and is reproducible from
+upstream's tree at that tip. Authority boundary: this note is the owner's to send, edit or drop;
+it names no fork surface, branch or organisation. Non-goals: no cure proposals beyond the
+reviewers' own words; no claim about severity beyond what the code shows. A successful review
+confirms that each finding reproduces, or marks it withdrawn.
+
+## The note (paste-ready; the owner edits freely)
+
+Hi — while integrating 1.181.2 → 1.181.3 downstream, an automated review round raised five
+points on files that came in with those releases. None were changed on our side; passing them on
+in case they are useful.
+
+1. `packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts` (around line
+   40): the new closed widget-address vocabulary is typed `readonly string[]`, which discards the
+   exact literal union. Keeping the source tuple literal with `as const` would let consumers keep
+   the finite contract, as `docs/governance/typescript-practice.md` asks.
+2. `packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts` (around line
+   56): the generator emits the same widened list in its public output even if the source tuple is
+   exact. Emitting the generated list with `as const` would preserve the literal vocabulary in the
+   generated API.
+3. `packages/sdks/oak-sdk-codegen/eslint.config.ts` (around line 120): the typegen environment guard
+   does not ban every direct `process` route it describes. `globalThis['process'].env.VERCEL` has no
+   `Identifier[name="process"]`, import or `require`, so it stays lint-clean while making generated
+   output deployment-dependent. Covering computed `globalThis` access, with a regression test, or
+   narrowing the "whole route" wording to what the selectors guarantee, would close it.
+4. `docs/operations/production-debugging-runbook.md` (around line 546): the instruction compares
+   status codes, but status equality does not distinguish route handling from an edge block. If the
+   edge rejects both requests, both can be 403 without `x-vercel-id`. The preceding text already
+   names `x-vercel-id` as the discriminator, so comparing that header would match it.
+5. `apps/oak-curriculum-mcp-streamable-http/e2e-tests/mcp-app-composition.e2e.test.ts` (around line
+   192): the retired-address checks run several protocol reads inside one test case, so a failure
+   on the first retired address stops every later address being exercised or reported. The same
+   loop shape appears in the newly added router test. Parameterised cases (`it.each` over the
+   retired addresses) would isolate each one, as the repository's immediate-fail list for loops
+   with side effects in test functions asks.
+6. `docs/architecture/architectural-decisions/141-mcp-apps-standard-primary.md` (around line 257):
+   the "Source of truth" paragraph still names
+   `packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts` as the pure
+   resolver, but that file and its unit test were deleted when the widget address was versioned.
+   Pointing the paragraph at the generator that now owns the address would keep the ADR true.
+
+## Provenance
+
+Items 1 to 5 come from fork PR #147's review round one at head `c67d33c8a`: Copilot review threads
+on items 1 to 4, and a Codex review thread on item 5. Each thread is dispositioned on the pull
+request as routed to this draft. Item 6 comes from the fork's premise sweep of the same sync,
+reading upstream's ADR-141 at `c67d33c8a` against the files the release deleted.
