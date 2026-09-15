@@ -18,7 +18,7 @@ import {
   scopeKeyFromRelPath,
 } from './operator-profile-keys.js';
 import { classifyProfileEntries } from './operator-profile-layout.js';
-import { resolveProfileRoot } from './validate-operator-profile.js';
+import { resolveProfileRoot } from './operator-profile-root.js';
 
 function messagesOf(result: ReturnType<typeof parseOperatorProfileDocument>): readonly string[] {
   return result.ok ? [] : result.error;
