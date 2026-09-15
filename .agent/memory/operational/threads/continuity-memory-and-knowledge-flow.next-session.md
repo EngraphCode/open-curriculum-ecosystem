@@ -26,11 +26,22 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   start-right and README updates landed. The profile at
   `~/.practice/profile/` is the owner's private git repository, pushed
   (its remote is recorded in the profile's own index, never here — PDR-141
-  decision 11). Remaining: (1) the
-  dedicated consolidation session that is due lands the seven due entries in
-  `pending-graduations.md` (including the orientation re-point to PDR-141);
-  (2) at PR #143's landing the last held buffer memory
-  (`verified-correct-is-not-a-proportionality-test`) is deleted; (3) done
+  decision 11). The sync tool (`pnpm profile:sync pull` and `push`, the check's
+  sync leg, PDR-141 decisions 13 to 16) landed 2026-09-15 as PR #145
+  (`0f3168369`), after the owner's one-push raise for the IO cure `318a2ea21`.
+  The Practice index's operator-profile row names `pnpm profile:sync pull` at
+  session open and `push` after a write; start-right §3a's block still runs
+  only the check, and adding the pull ahead of it is the successor
+  coordination branch's first doctrine commit. Its homed follow-ups (round three and four findings,
+  #144's suppressed items) are the operator-profile follow-up PR, the
+  estate-coordination LANDINGS pickup 3. The gate defect that held
+  it (a settled pull request behind a moved base) is cured by #146,
+  `048f377fa`. Remaining: (1) the
+  dedicated consolidation session that is due lands the nine due entries in
+  `pending-graduations.md` (including the orientation re-point to PDR-141 and
+  the owner's two 2026-09-14 rulings);
+  (2) done 2026-09-14 at PR #143's landing (`e474e883e`): the last held buffer
+  memory (`verified-correct-is-not-a-proportionality-test`) deleted; (3) done
   the same day: PDR-141 Accepted (owner-ratified, `dd813b6ef`) and the
   seeded profile ratified with three owner additions (Castr and
   jimcresswell.net as consumers, British English always, Oak systems off

@@ -2973,3 +2973,139 @@ the owner's verbatim words this session are in the 10:0xZ and 10:3xZ blocks. Pas
 homes): this block; the plan node; the register; the napkin entry of 13:3xZ; the per-user memory
 tail (a pointer). A sixth pass re-finds only the #143 round-two verifications, which are action 2's
 work, not a loss: fixed point.
+
+## 2026-09-14 — FOLD of coordination/2026-09-12-69a537 (Zephyr guards Leeward, 281e44, sole operator, Fable 5.1, n=1) and rotation
+
+PR #137 merged by the front door as `7658a723a`; the successor coordination branch
+`coordination/2026-09-14-7658a7` cut from that head, tree-preserving, the primary residing
+there. The fold carried 29 commits: Nettle guards Pistil's estate-coordination records through
+the 2026-09-13 session close, Kinkajou binds Lair's Reliable Atoms rulings, and the 2026-09-14
+work — the Claude memory buffer graduated to its repo homes (488 entries retired), the owner's
+gates ruling, PDR-141 (the operator profile in the home directory, Accepted with two amendments
+and the owner's frame: a sovereign personal knowledge graph), the merge of engraph at #144, and
+three settlement pushes.
+
+moved for teachers: nothing / moved for the Practice: the Claude buffer drained, PDR-141
+accepted, the operator profile a schema-governed home-directory surface with its validator
+(#144) and its sync tool on PR #145, the gates ruling in session-handoff step 11.
+
+Review: four rounds, 24 threads (Codex 12, Copilot 12), 21 cured, three dispositioned without a
+cure at the raised budget — the intake declared two settlement pushes; the pre-push
+review-cost gate refused the third, and the owner raised the budget to three on the PR when
+round three's four findings were truth defects the fold's own cures had introduced (an unbound
+command named, an overclaim about the pre-commit hook, the owner's private repository named in
+tracked records, a missing cut-recipe fallback). Pickups: start-right invokes the profile pull once
+the sync tool lands (it landed as #145, which carried no start-right edit; the binding is the
+2026-09-15 successor branch's first doctrine commit); step 11's pending-checks sentence landed in this branch's first records commit.
+
+Delivered at the owner's word: the delta note for the jimcresswell.net transplant (base
+`e477e62f7`) into that repository's Practice Box with its paired delivery event; Cauldron herds
+Lustre (880ff9) messaged with the path, and replied: received and read, routed as that
+Practice's update pass (a three-way read against the transfer base after their closure's
+remaining items land), with one overlap noted for that pass between their suppressed-findings
+hold and this line's pr-tally family; nothing further asked of this line.
+
+At this fold the thread's pickup contract was the 2026-09-13 SESSION CLOSE block above: #143's
+last settlement push, the owed-items records PR, the survey rows. It is superseded by the
+2026-09-14 LANDINGS entry below: #143 landed as `e474e883e`, and the pickups resume there.
+
+### 2026-09-14 LANDINGS — #143 and #146 merged, #145 held for a morning ruling (Zephyr guards Leeward, 281e44)
+
+Owner's word: close the two open pull requests as efficiently as possible, then a dedicated
+consolidation session at the owner's word. #143 merged as `e474e883e` (last settlement push
+`70d6a6584`: five round-two findings cured; round three dispositioned at the spent budget), lane
+retired, the held buffer memory deleted. #145 settled at `d36b738ed` (two settlement pushes,
+sixteen findings cured; round three dispositioned) but could not take the base update the front
+door requires: the pre-push review-cost gate refused the merge push as BUDGET-EXHAUSTED. The
+owner, at the card: "Sounds like we have a problem with the cost model that we need to fix?";
+PR #146 made the gate pass a sync push (one merge of the
+pull request's base over the remote head, its tree exactly git's automatic merge; PDR-140 clause
+4) and merged as `048f377fa`; engraph folded into `coordination/2026-09-14-7658a7` at
+`176291eb2`. Deviation, recorded at Cauldron herds Lustre's flag: #146 landed with the Codex leg
+carried on the landing premises (PR comment 5671056932) — Codex completed the head with no
+findings (summary comment: commit 4a51851 Completed 2026-09-14T21:12:50Z; 👍 reaction
+21:12:53Z) and posts no review object then, which the door's leg read cannot see; an
+unobservable leg is an unlanded leg, and reasoning about the vendor is what the door replaces.
+Not repeated on #145.
+
+moved for teachers: nothing / moved for the Practice: the profile sync tool one push from
+landing; the review-cost gate no longer traps a settled pull request behind a moved base; the
+rigour consolidation (one-instance-is-an-observation, the pattern, the sources) on engraph.
+
+Owner rulings tonight, verbatim, queued in `pending-graduations.md` for the consolidation
+session: "tests never, ever, under any circumstances use or create IO" (testing-strategy still
+lets smoke and E2E tests trigger IO); "sometimes you don't need an automated check, sometimes
+you need an observation" (validation-strategy). Both were corrections of this seat's cures.
+On 2026-09-15 the owner corrected the wrap report, which had put the first ruling's reach to
+the owner as a question, verbatim: "This is not a question of degrees, it is an absolute
+invariant, and I don't appreciate it being questioned". Every test, every helper a test
+imports, and the existing estate are covered, with no carve-out. A test that creates IO is an
+error, and what it proved goes to non-test validation kept minimal or to a recorded
+observation. The register entry is corrected in place and is the consolidation session's
+first item, and it names the six passages in testing-strategy that still admit IO.
+
+PICKUPS (the morning):
+
+1. **#145 — LANDED 2026-09-15 as `0f3168369`.** The owner raised the budget, verbatim: "yes,
+   push the fix". It was written as `budget — 4`, because the gate prices 20 per push and the
+   two taken pushes had cost 61.41, so three refused the push. Settlement push 3 at
+   `dd432d965` carried `b1656e680`, `318a2ea21` (the IO test and its helper out, an injected
+   presence probe) and `dd432d965`. The hand-run observation is recorded in #145's Validation
+   section. Round four was dispositioned without a cure: Codex's several-remotes thread and
+   Copilot's body item restating the GIT_* finding, both routed to pickup 3. The front door
+   merged at 11:30:45Z with both legs SATISFIED on the tip; no leg was carried on premises. The
+   post-merge deletion sweep read 137 deleted lines, all moved to `operator-profile-root.ts`.
+   Lane retired (worktree removed, branch deleted); engraph merged into this branch at
+   `08ceb4668`. The Practice index's operator-profile row names `pnpm profile:sync pull` at
+   session open and `push` after a write. Start-right §3a's executable block still runs only
+   `pnpm profile:check`, so no session pulls yet. Adding the pull ahead of the check is the
+   successor branch's first doctrine commit (fold PR #148 round one: Codex, and three Copilot
+   threads). Run once on the
+   primary after the merge and an agent-tools build: `pnpm -s profile:sync pull` printed
+   "Already up to date." and exited 0; `pnpm -s profile:check` found three conforming
+   documents and no sync findings.
+2. **Reviewer-legs reads a zero-finding Codex completion** (tool feedback): the Codex summary
+   comment's Completed row for the tip, with the 👍 reaction, is the vendor's zero-finding
+   review; the door should bind it as SATISFIED. Until it does, Codex is declared expected only
+   where a review object can be expected, or the leg waits. For the owner, not decided at the
+   seat: the verify-dont-trust instrument clause landed tonight with #143 ("when the seat can
+   read the state directly, the state governs") and Cauldron's reading ("an unobservable leg is
+   an unlanded leg") agree wherever the door can observe the state and part exactly at the
+   door's blind spot; pr-lifecycle's premises-carried subagent leg is a third reading. The tool
+   cure dissolves the conflict for Codex; whether a seat may ever carry a vendor leg the door
+   cannot observe is the owner's ruling (n = 1: #146).
+3. **The operator-profile follow-up PR, homed** (one small PR after #145 lands; each case a
+   fixture at pickup; READ, not RUN). From #145's round three (Codex two, Copilot one, all
+   true): a first push from a non-default branch resolves the remote's default branch and
+   refuses otherwise; when the branch is behind, the unpushed-commits finding's cure reads
+   pull, then push; the git runner scrubs `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` as
+   the refounding runner does. From #145's round-three suppressed block (review 5200049148,
+   harvested only at the wrap): `isGitRepository` treats only ENOENT as not-a-repository; the
+   check's missing-upstream finding prescribes manual upstream selection when several remotes
+   exist, and the push resolves its remote before committing (today `pushProfile` commits,
+   then refuses in `firstPushRemote`, leaving a local commit; Codex round four, thread
+   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
+   filesystem-backed test, is `318a2ea21`). From #144's suppressed blocks (reviews 5197235280
+   and 5197433102, never dispositioned): `updated` validates a real calendar day in both the
+   zod and JSON Schema surfaces with an impossible-date fixture; the contract smoke's TSDoc
+   names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
+   `err`s (a per-document failure for a read) rather than uncaught exceptions; the layout's
+   `ReadonlySet<string>` vocabularies keep their literal unions. #144's other five suppressed
+   items are cured in the merged code (read 2026-09-14).
+4. **#143's residue, homed** (the consolidation session, with the pattern's wording):
+   `signal-read-as-fact` says "fields the record shape requires", not "the validator
+   requires" (the patterns validator reads name, category, use_this_when and polarity); "acted
+   on every time" is scoped to the proving day (Codex round three and two Copilot suppressed
+   items); and `one-instance-is-an-observation`'s trigger — rule lines 3 and 30 and the Cursor
+   description — narrows to records that introduce or infer a distributional claim, excluding
+   references to an established pattern (Copilot suppressed item, review 5190391923: listed in
+   the 2026-09-13 close as item 5 and missed at tonight's settlement push, which harvested
+   threads only).
+5. The 2026-09-13 SESSION CLOSE pickups above — the owed-items records PR (its two survey rows
+   are now appended to `review-cost-ledger.md` on this branch, so that PR drops them) and the
+   `review-round-predicates` ratification — and the nine due entries in
+   `pending-graduations.md`: the dedicated consolidation session, at the owner's word.
+
+The suppressed items above are dispositioned on their pull requests at this wrap: one issue
+comment each on #137, #143, #144 and #145, one line per item. The owner's bedtime (~21:20Z) is
+Cauldron herds Lustre's report, not observed here.

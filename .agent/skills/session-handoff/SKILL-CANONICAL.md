@@ -760,8 +760,10 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     ever do that." So a closing seat never runs `pnpm check` (or any
     whole-repo gate) after or beside a commit: read the commit's gate log
     and the commit's landing, note that the pull request's checks carry the
-    rest, and record that. A session that landed no commit has nothing to
-    gate.
+    rest, and record that. Pending pull-request checks are named in the
+    handover with their owner, and a red one blocks the close: a handoff
+    never reads green over a suite that has not finished. A session that
+    landed no commit has nothing to gate.
     The outcome routes one of three ways:
 
     - **Green** — handoff may complete. Record the green run in the landed
