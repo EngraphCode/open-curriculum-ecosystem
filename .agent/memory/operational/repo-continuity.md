@@ -351,8 +351,8 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 The next session resumes the **estate-coordination** thread: read
 `threads/estate-coordination.next-session.md` §"2026-09-14 LANDINGS" first —
-its five pickups, the #145 rebudget ruling at their head (#145 must not merge
-as it stands) — then §"SESSION CLOSE (Nettle guards Pistil …)" for the
+its pickups (pickup 1, #145, landed 2026-09-15 as `0f3168369`; pickup 3's
+operator-profile follow-up PR is next in that line) — then §"SESSION CLOSE (Nettle guards Pistil …)" for the
 owed-items records PR (#143's last settlement push there is done: #143 merged
 2026-09-14 as `e474e883e`). The note below records a dirty-tree fact that the
 resuming seat sweeps into its first commit; it is NOT a lane to continue and

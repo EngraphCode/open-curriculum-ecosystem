@@ -3044,19 +3044,21 @@ first item, and it names the six passages in testing-strategy that still admit I
 
 PICKUPS (the morning):
 
-1. **#145 rebudget** — the owner rules whether `budget — 3` is written on #145 for the one
-   mandatory cure (`318a2ea21`, local on `lane/operator-profile-sync-281e44` with the lane's
-   engraph merges `b1656e680` and `dd432d965`; `git log lane/operator-profile-sync-281e44 --not
-   --remotes` lists exactly these three, their only copy): the IO unit test and its helper out,
-   an injected presence probe with a pure unit test. On the raise: push, record on #145 the
-   observation `318a2ea21`'s message names (run by hand 2026-09-14: `pnpm -s profile:check
-   --root <an empty directory>` printed the not-a-git-repository information line and exited
-   0), re-request Copilot, the front door with both legs declared (no premises-carried leg),
-   retire the lane, then start-right §3a binds `pnpm profile:sync pull`. **#145 must not merge
-   as it stands**: its pushed head `d36b738ed` carries `operator-profile-root.unit.test.ts`,
-   which creates a temporary directory. Never update its branch server-side — that would read
-   SETTLE-READY at the door and merge the IO test. Without the raise, what happens to #145 is
-   the owner's call.
+1. **#145 — LANDED 2026-09-15 as `0f3168369`.** The owner raised the budget, verbatim: "yes,
+   push the fix". It was written as `budget — 4`, because the gate prices 20 per push and the
+   two taken pushes had cost 61.41, so three refused the push. Settlement push 3 at
+   `dd432d965` carried `b1656e680`, `318a2ea21` (the IO test and its helper out, an injected
+   presence probe) and `dd432d965`. The hand-run observation is recorded in #145's Validation
+   section. Round four was dispositioned without a cure: Codex's several-remotes thread and
+   Copilot's body item restating the GIT_* finding, both routed to pickup 3. The front door
+   merged at 11:30:45Z with both legs SATISFIED on the tip; no leg was carried on premises. The
+   post-merge deletion sweep read 137 deleted lines, all moved to `operator-profile-root.ts`.
+   Lane retired (worktree removed, branch deleted); engraph merged into this branch at
+   `08ceb4668`. The Practice index's operator-profile row names `pnpm profile:sync pull` at
+   session open and `push` after a write, which binds start-right §3a. Run once on the
+   primary after the merge and an agent-tools build: `pnpm -s profile:sync pull` printed
+   "Already up to date." and exited 0; `pnpm -s profile:check` found three conforming
+   documents and no sync findings.
 2. **Reviewer-legs reads a zero-finding Codex completion** (tool feedback): the Codex summary
    comment's Completed row for the tip, with the 👍 reaction, is the vendor's zero-finding
    review; the door should bind it as SATISFIED. Until it does, Codex is declared expected only
@@ -3075,7 +3077,9 @@ PICKUPS (the morning):
    the refounding runner does. From #145's round-three suppressed block (review 5200049148,
    harvested only at the wrap): `isGitRepository` treats only ENOENT as not-a-repository; the
    check's missing-upstream finding prescribes manual upstream selection when several remotes
-   exist; `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
+   exist, and the push resolves its remote before committing (today `pushProfile` commits,
+   then refuses in `firstPushRemote`, leaving a local commit; Codex round four, thread
+   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
    filesystem-backed test, is `318a2ea21`). From #144's suppressed blocks (reviews 5197235280
    and 5197433102, never dispositioned): `updated` validates a real calendar day in both the
    zod and JSON Schema surfaces with an impossible-date fixture; the contract smoke's TSDoc

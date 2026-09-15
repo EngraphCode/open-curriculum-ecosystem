@@ -1503,3 +1503,44 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   shell calls moved the session's working directory, and the sibling grep's relative paths
   failed. It was read-only, so nothing was written. n = 2, this seat: a shell call never runs
   a bare `cd`; paths are absolute.
+- **#145's raise was priced in the wrong unit (2026-09-15, surprise).** Owner, verbatim: "yes,
+  push the fix". The pickup I wrote the night before proposed `budget — 3` for one push. The
+  gate refused the push as BUDGET-EXHAUSTED, `settlement cost 61.41 of 60`, because the
+  budget is declared in pushes but priced at `unitRound` 20 each. Two taken pushes that cost
+  61.41 had already used three pushes' worth. The pickup counted pushes where the gate counts
+  cost, and the evidence line to check it was in last night's ledger rows. Written as 4,
+  stated on the pull request as one push only; the gate then read warn, 61.41 of 80, and the
+  push landed at `dd432d965`. Seat cure: a proposed raise is priced from the gate's own
+  evidence line (the smallest N with the total below N × 20), never from a push count.
+  **Practice/tooling feedback.**
+  - **Surface**: `agent-tools:review-cost gate`
+  - **Signal**: friction
+  - **Observation**: the refusal says "or the budget is raised on the pull request by the
+    owner" without the smallest declared budget that admits the next push, so the owner and
+    the seat must derive it by hand from the unit weight, which the text never names.
+  - **Behaviour change / candidate follow-up**: the BUDGET-EXHAUSTED evidence names the
+    smallest `budget — N` that admits one more push (floor(total / unitRound) + 1). One line
+    in `cost.ts`'s evidence, with a unit test.
+- **#145 landed; two tool readings from its last round (2026-09-15).** The front door merged
+  #145 at 11:30:45Z as `0f3168369` after a round four dispositioned without a cure.
+  **Practice/tooling feedback.**
+  - **Surface**: `agent-tools:merge-bot merge` (pr-watch settlement)
+  - **Signal**: friction
+  - **Observation**: the quiet window's anchor is the latest tip-bound review, and the seat's
+    own signed thread reply creates one. Replying to the Codex thread at 11:20:27Z moved the
+    window's end from about 11:24Z to 11:30:27Z. `bodyTallyEvidence` already excludes
+    signed self-replies; `quietWindowAnchor` does not. n = 1.
+  - **Behaviour change / candidate follow-up**: the anchor skips signed self-replies, as the
+    body tally does. The window guards against a vendor round still composing, which a seat's
+    own reply is not.
+  - **Surface**: `agent-tools:review-cost` (survey and gate pricing, `gitDiffStat`)
+  - **Signal**: surprise
+  - **Observation**: settlement push 3 (`d36b738ed..dd432d965`: an engraph merge, the cure
+    `318a2ea21`, then a second engraph merge) prices at 0 as a sync. `gitDiffStat` calls a
+    round a sync when its head's tree equals git's automatic merge of the head's own two
+    parents. It never checks that the first parent is the previous reviewed head, which the
+    pre-push `isSyncPush` does check. A cure pushed beneath a clean base merge therefore goes
+    uncharged. n = 1; on #145 the ledger total reads 61.41, which is the truth before push 3.
+  - **Behaviour change / candidate follow-up**: `gitDiffStat` treats `to` as a sync only when
+    its first parent is `from`, the same predicate as the gate. One condition, plus a unit
+    test over injected git output with a cure beneath the merge.

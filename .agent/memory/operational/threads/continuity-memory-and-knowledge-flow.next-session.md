@@ -27,11 +27,13 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `~/.practice/profile/` is the owner's private git repository, pushed
   (its remote is recorded in the profile's own index, never here — PDR-141
   decision 11). The sync tool (`pnpm profile:sync pull` and `push`, the check's
-  sync leg, PDR-141 decisions 13 to 16) is PR #145: settled at `d36b738ed`
-  (two settlement pushes, sixteen findings cured; round three dispositioned),
-  its last cure `318a2ea21` (the IO unit test out, owner's word 2026-09-14)
-  local on the lane and held for the morning ruling on a rebudget; when it
-  lands, start-right's profile step invokes the pull. The gate defect that held
+  sync leg, PDR-141 decisions 13 to 16) landed 2026-09-15 as PR #145
+  (`0f3168369`), after the owner's one-push raise for the IO cure `318a2ea21`.
+  The Practice index's operator-profile row names `pnpm profile:sync pull` at
+  session open and `push` after a write, so start-right's profile step
+  invokes the pull. Its homed follow-ups (round three and four findings,
+  #144's suppressed items) are the operator-profile follow-up PR, the
+  estate-coordination LANDINGS pickup 3. The gate defect that held
   it (a settled pull request behind a moved base) is cured by #146,
   `048f377fa`. Remaining: (1) the
   dedicated consolidation session that is due lands the seven due entries in
