@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: index
 authority: adr-navigation
 status: active
-last_reviewed: 2026-08-30
+last_reviewed: 2026-09-08
 ---
 
 # Architectural Decision Records
@@ -218,8 +218,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-173: Graph Stack Topology — Standards-First, Layered, MCP-Agnostic](173-graph-stack-topology.md)
   (eight-workspace graph topology — seven active plus one deferred —
   with RDF 1.2-native internals, standards-based wire projection,
-  build-vs-buy attestation per library, and standards-evolution
-  tripwires; Accepted 2026-05-11)
+  and standards-evolution tripwires; Accepted 2026-05-11;
+  implementation-origin scope refined by ADR-230, 2026-09-08)
 - [ADR-174: Dependency Vulnerability Scanning as a Quality Gate](174-dependency-vulnerability-scanning-quality-gate.md)
   (dependency vulnerability triage, blocking/disposition policy,
   Dependabot/override governance, and relationship to quality gates;
@@ -487,6 +487,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
   workspaces; a junior-developer product repository; one version per repository for now; the
   extraction before the estate-wide seam migration)
+- [ADR-228: Organisational identity is held below the tree](228-organisational-identity-below-the-tree.md)
+  (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
+  tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
+  branch derived, never a literal)
 - [ADR-229: The MCP app stays a legacy-era `2025-11-25` server until the SDK v2 package family is adopted](229-mcp-protocol-revision-legacy-era-until-sdk-v2.md)
   ← **Proposed** (2026-09-09; the revision posture MCP-644 asked to have scoped: `2026-07-28` is current
   and makes `server/discover` mandatory for modern-era servers, but `@modelcontextprotocol/sdk@1.x`
@@ -499,6 +503,11 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   `Origin` MUST the other way: ADR-122's compensating auth-layer Host check does not run when
   `CANONICAL_HOST` is set, as it is in production, so MCP-650 is an amendment to ADR-122 rather
   than a fresh gap. ADR-229 states the conflict and does not settle it)
+- [ADR-230: Own-built algorithm and data-structure foundations](230-own-built-algorithm-and-data-structure-foundations.md)
+  (Accepted by owner direction 2026-09-08; graph and non-graph algorithms and
+  data structures authored as SMALL Reliable Atoms and meaningful compositions,
+  informed by openly licensed references and independently qualified;
+  implementation and qualification remain separate delivery work)
 
 ## Key Architectural Decisions
 
@@ -514,10 +523,14 @@ For understanding our API integration approach:
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
 - **[ADR-064](064-elasticsearch-mapping-organization.md)** - Elasticsearch index mapping organization
 - **[ADR-108](108-sdk-workspace-decomposition.md)** - SDK workspace decomposition (generic/Oak x sdk-codegen/runtime)
-- **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
-- **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
 - **[ADR-225](225-provider-independent-capability-contracts.md)** - Proposed adoption of provider-independent capability composition: adapter-tier placement, PostgreSQL/Neon separation, and an exercised independent composition for every selected provider
 - **[ADR-132](132-sitemap-scanner-for-canonical-url-validation.md)** - Sitemap scanner and reference-map validation for canonical URL generation
+
+For understanding the foundations and their boundaries:
+
+- **[ADR-154](154-separate-framework-from-consumer.md)** - Separate framework from consumer: reusable mechanism vs Oak-specific instance, enforced through workspace topology
+- **[ADR-155](155-decompose-at-the-tension.md)** - Decompose at the tension: classification resistance signals hidden coupling, decompose at the fault line
+- **[ADR-230](230-own-built-algorithm-and-data-structure-foundations.md)** - Own-built algorithm and data-structure foundations: current development policy, reference research and qualification
 
 For understanding authentication, authorization, and observability:
 
@@ -544,6 +557,7 @@ For understanding the agentic engineering practice:
 - **[ADR-129](129-domain-specialist-capability-pattern.md)** - Domain specialist capability pattern: unified `*-expert` model with situational invocation
 - **[ADR-137](137-specialist-operational-tooling-layer.md)** - Specialist operational tooling layer: optional live-system tooling for domain experts
 - **[ADR-131](131-self-reinforcing-improvement-loop.md)** - Self-reinforcing improvement loop: knowledge flow, consolidation hub, self-referential governance, inter-repo propagation
+- **[ADR-228](228-organisational-identity-below-the-tree.md)** - Organisational identity is held below the tree: who runs this tree is never in the tree; mechanism names no organisation; the default branch derived, never a literal
 - **[ADR-135](135-agent-classification-taxonomy.md)** - Agent classification taxonomy: domain_expert, process_executor, specialist; operational modes; Practice domain trio
 - **[ADR-144](144-two-threshold-fitness-model.md)** - Three-zone fitness model: `healthy` / `soft` / `hard` / `critical` graduated scale with `CRITICAL_RATIO = 1.5`; `critical` is a loop-failure signal requiring a three-question post-mortem (§Loop Health)
 - **[ADR-146](146-assumptions-expert-meta-level-plan-assessment.md)** - Assumptions expert: independent proportionality and plan-assumption challenge with an inverted doctrine hierarchy
@@ -676,4 +690,8 @@ which appeared only after every Superseded precedent row had been checked
 ADRs are created when a decision is significant enough to shape future
 work. The consolidation workflow checks whether completed work produced
 decisions that should be recorded. Number sequentially from the highest
-existing ADR. Add the new entry to the Index above.
+existing ADR. Add the new entry to the Index above. A fork of this
+repository numbers in the same sequence; when a sync from upstream reveals
+a collision, the fork renumbers its own record to the next free number in
+the sync's commit with every citation updated (the pre-merge analysis
+guide, §4d) — no lineage reserves a block.

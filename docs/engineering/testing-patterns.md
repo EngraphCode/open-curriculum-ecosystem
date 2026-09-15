@@ -89,32 +89,32 @@ Compliant tests to use as templates:
 
 ---
 
-## Untestable-Without-Prohibited-Mechanisms Is a Product-Code DI Defect
+## Untestable Code Is a Product-Code DI Defect
 
 When adding tests to existing green code would make them audit-shaped, check
-whether the untestability is itself the defect. A seam that cannot be tested
-without prohibited mechanisms (ambient env import, a module-level singleton
-reachable only via `vi.mock`, a non-injectable route) has a product-code DI
-defect, and the conformant cure is a **fresh TDD cycle** against a
-not-yet-existing injectable seam — genuine RED first — NOT a retrofit and NOT
-abstention (test-expert ruling, 2026-07-01, curriculum-hub search seam:
-extract the core with the service injected + a `createHandler(fn)` factory).
-"Tests would be audit-shaped" is a signal to inspect the product code's
-injectability, never merely a reason to skip.
+whether the untestability is itself the defect: a test that is merely
+audit-shaped is deleted or rewritten (`tdd-as-design` §Describe vs. Audit),
+while a seam testable only through prohibited mechanisms, or a test that seems
+to need real IO, IS the defect. In both of those shapes the product code lacks
+a dependency-injection seam (ADR-078):
 
-## A Test That Needs Real IO Is a Product Defect
-
-When a unit or integration test seems to need real IO beyond the loopback
-harness exchange with an imported app (see [Test File
-Classification](#test-file-classification)), the product code
-lacks a dependency-injection seam (ADR-078) — a product defect, not a
-test-writing inconvenience. The fix is to refactor the product to be
-testable (route the read/write through an injectable dependency, as
-sibling modules already do) and inject an in-memory fake — never to leave
-the IO in the test, and never to treat the refactor as out-of-scope
-("if you need to refactor code to make it testable that is a good thing —
-that is surfacing an architectural issue and fixing it"; owner,
-2026-06-13).
+- **A seam testable only through prohibited mechanisms** (ambient env import,
+  a module-level singleton reachable only via `vi.mock`, a non-injectable
+  route). The conformant cure is a **fresh TDD cycle** against a
+  not-yet-existing injectable seam — genuine RED first — NOT a retrofit and
+  NOT abstention (test-expert ruling, 2026-07-01, curriculum-hub search seam:
+  extract the core with the service injected + a `createHandler(fn)` factory).
+  "Tests would be audit-shaped" is a signal to inspect the product code's
+  injectability, never merely a reason to skip.
+- **A unit or integration test that seems to need real IO** beyond the
+  loopback harness exchange with an imported app (see [Test File
+  Classification](#test-file-classification)). The fix is to refactor the
+  product to be testable (route the read/write through an injectable
+  dependency, as sibling modules already do) and inject an in-memory fake —
+  never to leave the IO in the test, and never to treat the refactor as
+  out-of-scope ("if you need to refactor code to make it testable that is a
+  good thing — that is surfacing an architectural issue and fixing it";
+  owner, 2026-06-13).
 
 ## Real-Content Backstops for Transforms
 
@@ -169,12 +169,6 @@ of the product contract — `_meta` fields, session lifecycle,
 and event streaming all happen there. Use MCP client SDK
 (`Client` + `StreamableHTTPClientTransport`) for
 full-fidelity E2E tests alongside supertest.
-
-## Structural Equality
-
-`ensurePathsOnSchema` creates a new object (spread) — use
-`toStrictEqual` not `toBe` for structural equality checks
-on spread-derived objects.
 
 ## Rendered-Output Assertions
 
@@ -278,6 +272,8 @@ ambient overrides — see `no-global-state-in-tests`.
 - Removing a test (e.g. deleting an audit-shaped constant assertion) can orphan the
   export it referenced — knip then blocks the commit. Un-export or delete the orphan
   in the same change.
+- A spread-derived object is a new object (the codegen helper `ensurePathsOnSchema`
+  is one): assert structural equality with `toStrictEqual`, never identity with `toBe`.
 
 ## Discriminating Fixtures
 
@@ -296,7 +292,6 @@ tripwire.
 
 - Replace Express `_router` access with supertest HTTP assertions.
 - Extract repeated setup into scoped helpers inside `describe`.
-- For 30+ file migrations, use subagents.
 - Bulk factories accept `startIndex`; do not mutate readonly `_id`.
 
 ### Related

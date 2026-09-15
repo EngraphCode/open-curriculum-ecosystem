@@ -9,7 +9,10 @@ fitness_rationale: >-
   grew legitimately; trimming substance was explicitly forbidden ("do not chase the
   fitness number"). This is a "for now" raise — a deliberate substance-led
   refinement (graduate elaborated guidance to governance docs per split_strategy,
-  never the principles themselves) remains the proper long-term move.
+  never the principles themselves) remains the proper long-term move. Measured
+  2026-09-09 at ≈41.9k chars / 760 lines, past the limits; the owner ruled the
+  same day that a dedicated curation lane graduates elaborated guidance later and
+  that no landing trims substance to fit ("we can always iterate later").
 split_strategy: "This file is the source of truth for all principles. Extract only elaborated guidance to governance docs, never the principles themselves. The principles are operationalised through several mechanisms, including rules, sub-agents, and tooling."
 ---
 
@@ -227,6 +230,14 @@ architecture keeps it extractable. A component whose licence cannot
 be named in one word is one where general mechanism and Oak identity
 cohabit.
 
+A mechanism built to prove a capability is a consumer of the
+framework, never the framework: check its warrant when it outlives its
+demonstration. An identity built as an override sheet to prove live
+switching quietly became the architecture until the owner read the
+substitution off the page's own badges (2026-08-18); the day's defect
+ledger argued for self-containment, and the demonstration instrument
+was retired with its demo.
+
 ### Context Specificity Gradient
 
 Every capability decomposes by context specificity. Push functionality
@@ -248,8 +259,24 @@ canonical form already exists — an industry contract, a mature library —
 adopt it behind a thin conformance check rather than re-derive it
 in-estate; own only concepts with no external canonical form, or small
 enough that a finished owned module costs less than curating a
-dependency. Both directions stay falsifiable by measured cost. A thin
-highest-specificity layer is also a detachable one (owner-directed
+dependency. Both directions stay falsifiable by measured cost. Which
+canonical form is adopted is a different question from where an owned
+implementation originates, and for algorithm and data-structure
+foundations the owner decided the second for the whole class
+(owner-directed 2026-09-08,
+[ADR-230](../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md);
+scope confirmed 2026-09-09 as that class, not the estate): "select the
+best, permissively licenced libraries, and use their code as inspiration
+to create Reliable Atoms and composition layers tailored to our needs and
+created to our deliberately very high quality standards" — the estate
+authors them. The governing policy ADR-230 cites bounds the class
+(language/runtime, protocol, storage, transport and platform capabilities
+and standards conformance stay under the sentence above), owns the
+provenance discipline that keeps learning distinct from adapting, and
+keeps the class's whole-life effort saving an empirical hypothesis
+measured through delivered capabilities and their later changes; what
+that measurement reopens is the owner's decision, never a seat's.
+A thin highest-specificity layer is also a detachable one (owner-directed
 2026-08-19): an Oak product surface built as configuration, styling, and
 experience tuning on general machinery can be handed off to a product
 squad — extracted to its own home — without dragging the lever machinery
@@ -308,6 +335,28 @@ this way produces cleaner boundaries and simpler classification.
   command MUST target the canonical surface and fail loudly when that
   surface is absent or invalid; it must not quietly scan an old location,
   skip a missing canonical directory, or keep a migration path alive.
+- **No timing dependence** - nothing we build relies on timing, ordering
+  luck, or a race being unlikely (owner principle, 2026-08-17, verbatim:
+  "nothing we do should ever, ever rely on timing or races, we build
+  things so they WORK" — "an important principle of fleet mechanics, and
+  also in general"). Eliminate the shared mutable resource instead of
+  shrinking its window; make the correct order structural (a render-time
+  latch, a declarative guard, a per-seat directory) instead of scheduled;
+  in review, a correctness argument that contains "the window is small",
+  "usually", or an ordering assumption names a defect. The worked shapes
+  are the anti-pattern `timing-derived-state-is-the-defect`; its
+  read-side dual is the pattern `timing-artefact-read-as-state`.
+- **At most one holder, and for continuously owned authority exactly
+  one** - a singleton-authority state never has two holders. A
+  continuously owned authority (a coordinator role, a document root's
+  theme, a shared index between windows' owner) has exactly one holder at
+  all times, never zero; a windowed authority (a commit window on
+  `git:index/head`) has one holder while it is open and none between
+  windows, by design. Ownership is decided by context up front, never
+  negotiated at runtime between two well-meaning holders — two theme holds
+  on one root corrected each other forever until context (standalone: the
+  page; framed: the parent) chose the owner (2026-08-19); the coordinator
+  two-moments invariant of PDR-064 is the same rule for roles.
 - **Pure functions first** - Use TDD to design (*test first*, red,
   green, refactor), no side effects, no I/O
 - **Consistent Naming** - Use consistent naming conventions for
@@ -398,6 +447,16 @@ this way produces cleaner boundaries and simpler classification.
   of responsibility, keeping boundaries and public API clear with
   index.ts files, using TDD. Run lint after every substantive edit
   to catch violations early.
+- **Never trim documentation to fit a limit** — size and complexity
+  limits exist for developer experience, and documentation IS
+  developer experience; a file over its limit is a signal of an
+  unsplit seam, never of excess explanation. Split at a meaningful
+  responsibility seam with each half fully documented; never
+  condense TSDoc, comments or docs to satisfy the number (owner,
+  2026-08-03: "we never trim to hit complexity limits … the
+  approved approach is to split files by identifying fundamentally
+  meaningful seams"; 2026-09-01: "we do not trim information to
+  meet targets, we maximise developer experience").
 - **Splitting long functions** - If a function exceeds 50 lines
   (`max-lines-per-function`), split it into smaller, pure functions
   with a single responsibility, using TDD. Extract conditional

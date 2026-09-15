@@ -18,9 +18,38 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `claude-memory-buffer-drain.plan.md` (`../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md`)
   — **COMPLETED and archived 2026-07-05**; its §Closeout carries the
   honest verdict (complete).
-- **Next safe step**: none queued — the thread is quiescent. The drain is
-  complete end-to-end (all strata; index empty, live-only, untruncated;
-  every entry file terminally marked). The per-user buffer lifecycle
+- **Next safe step** (2026-09-14, after the resume): PR #144 (the
+  operator-profile JSON Schema, validator, fixtures, tests, contract smoke,
+  `pnpm profile:check`, the Practice-index pointer) MERGED as `4540dec49`;
+  engraph merged into the coordination branch; PDR-141's amendment (the
+  contract, the `machine` kind, the optional git-synced root) and the
+  start-right and README updates landed. The profile at
+  `~/.practice/profile/` is the owner's private git repository, pushed
+  (its remote is recorded in the profile's own index, never here — PDR-141
+  decision 11). The sync tool (`pnpm profile:sync pull` and `push`, the check's
+  sync leg, PDR-141 decisions 13 to 16) landed 2026-09-15 as PR #145
+  (`0f3168369`), after the owner's one-push raise for the IO cure `318a2ea21`.
+  The Practice index's operator-profile row names `pnpm profile:sync pull` at
+  session open and `push` after a write; start-right §3a's block still runs
+  only the check, and adding the pull ahead of it is the successor
+  coordination branch's first doctrine commit. Its homed follow-ups (round three and four findings,
+  #144's suppressed items) are the operator-profile follow-up PR, the
+  estate-coordination LANDINGS pickup 3. The gate defect that held
+  it (a settled pull request behind a moved base) is cured by #146,
+  `048f377fa`. Remaining: (1) the
+  dedicated consolidation session that is due lands the nine due entries in
+  `pending-graduations.md` (including the orientation re-point to PDR-141 and
+  the owner's two 2026-09-14 rulings);
+  (2) done 2026-09-14 at PR #143's landing (`e474e883e`): the last held buffer
+  memory (`verified-correct-is-not-a-proportionality-test`) deleted; (3) done
+  the same day: PDR-141 Accepted (owner-ratified, `dd813b6ef`) and the
+  seeded profile ratified with three owner additions (Castr and
+  jimcresswell.net as consumers, British English always, Oak systems off
+  limits on Engraph forks always); (4) the three pickup fixtures posted on
+  #144 become tests when a recorded input reaches them. The coordination branch `coordination/2026-09-12-69a537` is
+  past its fold window. The first drain (2026-07-05) was complete end-to-end
+  (all strata; index empty, live-only, untruncated; every entry file
+  terminally marked). The per-user buffer lifecycle
   continues under `per-user-memory-is-a-buffer`: the buffer accretes again
   in normal use and drains when its index grows, using the completed
   plan's proven loop shape. Two named descendants of the drain live
@@ -106,6 +135,29 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-09-14 — Zephyr guards Leeward (claude-code / claude-fable-5-1 / 281e44), THE SECOND
+  DEDICATED DRAIN OF THE CLAUDE BUFFER, COMPLETE** (owner's ask: load the full Claude memory,
+  disposition it to permanent cross-vendor homes, leave only what strictly belongs local; n=1,
+  no Director seated). Corpus: 495 files, 1.5 MB, read first-hand in ten batches; nine Sonnet
+  general-purpose mappers wrote per-batch corroboration reports and one Fable validator
+  resampled 25 files against them (the owner's mid-turn addition). Dispositions: graduated
+  (a clause written into an existing home), already carried (home verified, file retired),
+  refuted (stale, e.g. the lifted Linear write freeze; the worktree-entry grant contradicted by
+  `worktree-residency`), strictly local (owner-sensitive), directive-bound (queued). Landed:
+  `f24683337` (Kinkajou's docs-only block swept at the owner's word, attributed) and
+  `0e4173b43` (62 files: 33 rules, PDR-026/027/117, owner-signal-interpretation, seven skills,
+  six docs, two plans, the ledger, frictions F-184, six pending-graduations entries,
+  repo-continuity's no-throw and October rulings, two new files — the Workflow tool operating
+  notes and Forge's delight reflection). Buffer side: 488 files retired after the commit; the
+  index rewritten to seven survivors; the resume-heads file reduced to pointers (its 205 KB of
+  TAIL blocks were handovers already in thread records; full text in the backup tarball); the
+  operator profile seeded at `.agent/operator-local/profile.md`, untracked, every item marked
+  inferred for ratification. Held in the buffer by design: the first-major-release T0 rulings,
+  the fork-naming ruling, the progression strand, the licensing handling residue, and the
+  verified-correct memory until PR #143 lands. Next: a fresh seat under the 30% budget lands
+  the six due entries in pending-graduations (editorial-tone, principles ×2, testing-strategy
+  ×2, validation-strategy); the owner ratifies or amends the profile; at #143's landing the
+  last held memory is deleted.
 - **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM D COMPLETE —
   DRAIN COMPLETE, PLAN ARCHIVED** (second session at this seat, post-compaction head): the full
   Stratum D queue landed in five commits. `7f4988c63` — user-collaboration split_strategy
@@ -201,9 +253,12 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| Zephyr guards Leeward | claude-code | claude-fable-5-1 | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded | 2026-09-14 | 2026-09-14 |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
 | Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |
 | Hedgehog stirs Rime | claude-code | fable-5 | da727a | curator | 2026-07-04 | 2026-07-05 |
 | Corsair guards Channel | claude-code | claude-fable-5 | ecdd12 | curator — 2026-07-08 dedicated consolidation (R0-arc window): register drained to zero, PDR-126 + PDR-027 amendment, practice box cleared, napkin rotated; see repo-continuity §Next Safe Steps 0a | 2026-07-08 | 2026-07-08 |
 | Gull lifts Nimbus | claude | claude-fable-5 | 3da0ae | curator + consolidator (claim de328d24) — 2026-08-07 curator pass (16/27 MCP-455 rows homed, pending-graduations drained then re-registered directive-gated) then the owner-launched whole-goal dedicated consolidation: napkin corpus processed to homes across four checkpoint commits, 7c thread-register audit + index cures under Director scope extension, step 3a first archive batch (6,045 events under the recorded PDR-094 gates) + the 995-event post-watermark absorption sweep, resonance practice-box bundle receipted, napkin rotated | 2026-08-07 | 2026-08-07 |
+| Juno seeks Apogee | claude | fable-5.1 | a693fb | implementer (consolidation seat, claim 38ec1aaf; Director Flounder turns Estuary c5cc2c) — the owner-named dedicated consolidation on the Engraph fork, mode dedicated-knowledge-curation, bottom-up: raw sources (comms window after Kiln's 2026-08-14T06:16Z watermark, handoffs, experience, platform memories) then the napkin, distilled, the registers and the homes; lane `chore/consolidation-2026-09-06` | 2026-09-06 | 2026-09-06 |
+| Vanilla lifts Nectar | claude-code | claude-fable-5-1 | e1dced | curator (claim f8a2daca; Director Nettle guards Pistil 2de368) — the owner-launched dedicated consolidation of 2026-09-09 on the Engraph fork, mode dedicated-knowledge-curation, bottom-up by hand: the napkin window 2026-09-07 16:5xZ → 2026-09-09 read whole, distilled, the registers, the per-user and platform memories, the comms bodies; homes on PRs #107 (plan units), #105 (skills) and #106 (rules, PDR-027, the gotchas); the front-door liveness defect found at source and routed as a fix (#109, then its successor #113, held as an owner item at the drain); the napkin rotated from the post-fold tip 2d17c6e46 on the drain PR | 2026-09-09 | 2026-09-10 |

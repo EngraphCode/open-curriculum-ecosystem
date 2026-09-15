@@ -154,9 +154,9 @@ twice, the cardinality claim is too strong and wants the same proof-shaped excep
 ## Related Surfaces
 
 - [`design-work-for-small-prs`](design-work-for-small-prs.md) — the sizing sibling.
-- [`ticket-management`](../skills/ticket-management/SKILL-CANONICAL.md) — one story
+- [`ticket-management`](../skills/planning/ticket-management/SKILL-CANONICAL.md) — one story
   per ticket; the scoping home this rule's clause 1 makes binding.
-- [`pr-lifecycle`](../skills/pr-lifecycle/SKILL-CANONICAL.md) — where the PR body is
+- [`pr-lifecycle`](../skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md) — where the PR body is
   authored and clause 3 is applied.
 - [`rules-have-no-exceptions`](rules-have-no-exceptions.md) — why a hard rule admits
   no convenience case, and why a case that seems not to fit repairs the rule's stated

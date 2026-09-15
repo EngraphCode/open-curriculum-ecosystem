@@ -30,7 +30,11 @@ small PRs."*
 - **Worked instances**: the 92-file landing-page PR whose 43 threads never
   converged (restacked by owner ruling as six small PRs); the 30-file PR
   that ran ten review rounds. Both predate the bands; both are why they
-  exist.
+  exist. A third, inside the bands (2026-09-06, a 26-path SDK changeset):
+  nine of ten review findings across two rounds hit its one
+  filesystem-touching script, and the writer plus its ADR amendment was a
+  second review story a split at open would have isolated — a script that
+  touches the filesystem earns its own PR beside pure renderers.
 - Archival-class and generated-artefact changesets keep their PDR-132
   exemption — the bands govern authored work.
 - **The indivisibility exception is proof-shaped, never convenience-shaped**

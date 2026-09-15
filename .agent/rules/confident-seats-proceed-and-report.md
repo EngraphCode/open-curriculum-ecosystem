@@ -17,6 +17,14 @@ ruling its own analysis already supported, re-pinging into a dead session.
 - **A wrong confident call is a capture, not a sin.** Blocking-by-default is the defect this
   rule removes; a reasoned proceed that gets redirected produced information. Capture it and
   move.
+- **Commits inside the claimed boundary are pre-authorised.** Owner standing grant
+  (2026-07-15, verbatim: "you have permission to commit — all agents ALL ALWAYS have
+  permission to commit"), given after a lane sat idle ~25 minutes awaiting per-commit word
+  that had come from a Director relay, not the owner; the idle time was the failure, not the
+  commit risk. Never hold a lane for per-commit authorisation. If the platform permission layer
+  refuses a commit action, surface it once and keep doing every commit-independent piece of
+  work meanwhile (drafts, briefs, verification prep) — blocked at one step never means blocked
+  entirely.
 
 ## The boundary (owner-confirmed 2026-07-27)
 

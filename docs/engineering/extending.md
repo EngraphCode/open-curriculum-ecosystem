@@ -109,7 +109,14 @@ parity required to keep `pnpm portability:check` green.
 **Always create the canonical file first** under `.agent/`, then add platform
 adapters, then run `pnpm portability:check`. Every canonical rule must cite
 the ADR(s) it operationalises with a leading "Operationalises ADR-NNN" line
-(ADR-131 §Self-Referential Property).
+(ADR-131 §Self-Referential Property). A new rule is four files plus its index
+row: the canonical `.agent/rules/<name>.md`, the `.claude/rules/` and
+`.agents/rules/` pointer adapters, the `.cursor/rules/<name>.mdc` adapter
+(with `alwaysApply` and a `description`), and a `RULES_INDEX.md` row (core or
+situational, alphabetical; a core row's trigger cell is the bare em dash).
+`pnpm portability:check` is the check for the set — run it before the push,
+not after the pre-push validator refuses (2026-09-09: one push refused for the
+two pieces the seat had not authored).
 
 **Landing a new skill is a two-gate operation, and the second gate may be
 owner-keyed.** Gate one: the canonical file plus its generated platform adapters

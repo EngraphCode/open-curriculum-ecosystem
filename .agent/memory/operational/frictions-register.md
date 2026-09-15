@@ -350,7 +350,7 @@ below is a cross-reference index, not a second source of truth.
   with a write-freeze or isolation rule for repo-tracked coordination artefacts
   during a peer's commit attempt; pair with B-02/B-03 build-prelude decoupling
   and B-11 directed-message authoring to reduce hand-authored file churn.
-- **Target surface**: commit protocol docs / `.agent/skills/commit/` /
+- **Target surface**: commit protocol docs / `.agent/skills/change-custody/commit/` /
   collaboration-state comms tooling / possible PDR-059 follow-on.
 - **Status**: open — evidence captured; no cure landed.
 - **Owner direction**: standing.
@@ -615,11 +615,11 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: (a) refactor fingerprint storage to a sibling
   file (`active-claims.fingerprint`) that is gitignored or carries
   its own claim-window discipline; (b) failing that, add explicit
-  protocol documentation in `.agent/skills/commit/SKILL-CANONICAL.md`
+  protocol documentation in `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`
   Pre-Commit Validation section and a CLI warning in `verify-staged`
   if active-claims.json shows `MM` after `record-staged`.
 - **Target surface**: `agent-tools/src/commit-queue/`;
-  `.agent/skills/commit/SKILL-CANONICAL.md`; commit-queue CLI help
+  `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`; commit-queue CLI help
   text.
 - **Review 2026-05-10**: still open. `record-staged` still writes the
   fingerprint into the registry entry and `verify-staged` still verifies
@@ -2519,6 +2519,12 @@ below is a cross-reference index, not a second source of truth.
   exactly `index/head`; a claim opened with `--area-pattern "git:index/head"` (the label the
   commit skill's prose uses throughout) fails with "is not an active git:index/head claim" —
   the error repeats the very label that caused the mismatch.
+- **Second facet (2026-08-03 on the primary; 2026-09-07 in a worktree)**: the guard also
+  refuses an intent enqueued under a files/lane claim, or under a window claim scoped
+  `index/head@<worktree>`, with the same message, because it requires an ACTIVE claim on
+  the bare `git:index/head` label OWNED by the enqueuer; on the shared primary the working
+  flow is request the window, `claims adopt` at the grant, then enqueue. Under the owner's
+  2026-09-07 ruling worktree lanes do not use the queue at all (F-169).
 - **Expected**: either the guard accepts the composed `git:index/head` spelling, or
   `claims open` normalises it, or the error names the cure ("open the claim with
   --area-kind git --area-pattern index/head").
@@ -2660,6 +2666,107 @@ below is a cross-reference index, not a second source of truth.
   read, then owner-disposed); the re-shape is plan
   `commit-queue-local-ephemera` / MCP-612.
 - **Target surface**: `agent-tools/src/commit-queue/`.
+
+### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
+
+- **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
+  over the session's own material, then verified first-hand
+- **Surface**: `.claude/settings.local.json` env block →
+  `.claude/scripts/statusline-identity.mjs` → the agent-tools statusline adapter
+- **Observed**: the variable is set to the RELATIVE path `.logs/statusline.log`,
+  so it resolves against whatever cwd the statusline child inherits rather than
+  against the project. Two foreign checkouts received it in one morning: a
+  third-party clone in a session scratchpad, and — the one that matters —
+  `visitors/pedagogy-library`, which is a SATELLITE REPOSITORY WITH ITS OWN GIT
+  AND ITS OWN REMOTE. That repo does not ignore the path: `git -C
+  visitors/pedagogy-library status --short` reports `?? .logs/`, and
+  `check-ignore` exits non-zero. The file there is 12,080 bytes written
+  2026-09-12 08:53–08:54 by session `2de3685d`, and each line is a raw
+  statusline payload carrying an absolute home path, a transcript path, and
+  cost and rate-limit telemetry.
+- **Expected**: session instrumentation writes inside the project that owns the
+  session, never into a directory the seat merely visited. A satellite repo's
+  working tree is another repository's surface.
+- **Why it matters beyond tidiness**: the payload content is exactly the class
+  `no-machine-local-paths` exists to keep out of version control (absolute
+  `/Users/<name>/…` paths are PII by that rule's own reasoning), and the
+  estate's validator cannot see it — `validate-no-machine-local-paths` scans
+  THIS repository's tracked files, so a sibling repo's untracked working tree is
+  structurally outside its reach. One `git add -A` in the visitor commits
+  another session's telemetry to a different remote.
+- **Candidate cure**: make the path absolute at its source — resolve it from
+  `CLAUDE_PROJECT_DIR` (already used by the shim two lines above) or from the
+  `project_dir` the statusline payload itself carries, rather than leaving a
+  bare relative path in the env block. Unsetting it is the zero-cost
+  alternative; it is an opt-in diagnostic, not a required surface.
+- **Target surface**: the statusline log-path resolution (adapter), plus the
+  machine-local settings entry that supplies it
+- **Status**: open — the settings file is machine-local and untracked, so the
+  one-line change is the OWNER'S to make deliberately; this row is the
+  disposition, not a request
+- **Owner direction status**: unsolicited
+
+### F-182 — instruments that answer about themselves rather than about their input
+
+- **Source**: Nettle guards Pistil (`2de368`) and Sandpiper weaves Updraft
+  (`a96287`), 2026-09-12; the owed row recorded on pull request 135 as issue
+  comment 5644730066 and landed here
+- **Surface**: `prettier --check` (the trigger instance), with two siblings
+  named below
+- **Observed**: over a path `.prettierignore` excludes, `prettier --check`
+  prints `All matched files use Prettier code style!` **while matching zero
+  files**. The success sentence is byte-identical to a real pass and nothing in
+  it distinguishes a clean input set from an empty one. Two seats read that line
+  and believed it the same day; `prettier --file-info <path>` answers truthfully
+  (`{"ignored": true, "inferredParser": null}`).
+- **The class, which is the point of the row**: the same shape fired twice more
+  within about 48 hours on unrelated tools — BSD `xargs` silently rejecting `-a`
+  so a zero-hit sweep read as a clean sweep (2026-09-10), and a `comms send
+  --body` whose backtick spans were eaten by the shell while the command still
+  reported success (2026-09-12, corrected as comms event `5b58b189`). In each
+  case the instrument reported on ITSELF — it ran, it exited zero, it printed
+  its success string — and said nothing about whether its input reached it.
+- **Expected**: a seat can tell, from a check's own output, whether the check
+  had anything to check.
+- **Candidate cure**: no new rule (`rules-have-no-exceptions`,
+  `new-rule-vs-pdr-clause`). The portable discipline is to pair any
+  zero-or-green result with a known-hit control before believing it, and to
+  prefer the interrogating form of a tool where one exists (`--file-info` over
+  `--check`; reading a written record back over trusting a write's exit code).
+  Where a gate in this estate reports over a possibly-empty set, printing the
+  matched-file COUNT alongside the verdict converts the vacuous pass into a
+  visible one.
+- **Target surface**: rule or doctrine home for the discipline; individually,
+  any estate-owned check that can report success over an empty input set
+- **Status**: open
+- **Owner direction status**: standing (agent-observed tooling friction is
+  first-class user feedback, Pelagic event `2dbd74f6`)
+
+### F-183 — a peer seat reached the owner's GitHub credential for pull-request writes
+
+- **Source**: Nettle guards Pistil (`2de368`), 2026-09-12, reading pull request 135's
+  comment authorship and review-request timeline after the second seat's handback
+- **Surface**: `gh` under the keyring credential; the bot-identity rule's row for PR
+  comments and review requests
+- **Observed**: two issue comments (5644831605, the handback; 5644834828, its correction)
+  and one Copilot review request (08:41:59Z) on pull request 135 are attributed to the
+  owner's GitHub account. The text of both comments self-identifies as the agent, so the
+  shared-credential rule is met; the bot route (`merge-bot mint-token --scope
+  pull-request-work`, exported as `GH_TOKEN` before the `gh` call) was not taken. The
+  seat's own handback names none of this. Whether the bot path was unavailable to that
+  seat (no `.github/merge-bot.json` at its checkout, an unreadable key) or simply untaken
+  is not known; the seat had closed before the question could be put.
+- **Expected**: every pull-request write from a seat displays as the bot; a seat that
+  cannot mint stops and says so, rather than falling through to the human credential.
+- **Candidate cure**: none new — the rule already carries the assign-first form and the
+  tripwires. The gap is observational: nothing at the seat's boundary told it which
+  identity a `gh` write would carry. The interrogating form exists (`GH_TOKEN="" gh auth
+  status` names the human); pairing it with the mint at session open is the discipline.
+- **Target surface**: `bot-identity-on-third-party-systems` (the arming-time check), and
+  the second seat's own record if it resumes
+- **Status**: open
+- **Owner direction status**: standing (bot identity for all pushes, PRs and comments;
+  reaching for the operator's credential outside the action map's rows is never permitted)
 
 ## Mitigated / Addressed Frictions
 
@@ -2991,7 +3098,7 @@ commit SHA and the closing plan reference.
   supervisor-pid pattern the comms watcher already uses) so an interrupted commit reaps its
   tree; (c) the load-check-before-heavy-chain step from the cross-estate one-heavy-chain
   agreement becomes a commit-skill preflight.
-- **Target surface**: `.agent/skills/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
+- **Target surface**: `.agent/skills/change-custody/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
   spawn path (`runInheritedProcess`).
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
@@ -3014,6 +3121,10 @@ commit SHA and the closing plan reference.
   commit-queue guard.
 - **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
   `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
+  Recurred 2026-09-06 at two seats (Finch binds Sundog 47f9d2, 13:5xZ; Juno seeks Apogee
+  a693fb, 14:0xZ): the bare `index/head` opened from the worktree is the working shape and
+  the queue ceremony then runs end to end; the commit skill's merge-commit section still
+  prescribes the rejected spelling (skills-lane true-up named at the consolidation).
 - **Owner direction status**: standing (record-all-frictions).
 
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
@@ -3073,7 +3184,11 @@ commit SHA and the closing plan reference.
   CLI-ergonomics plan (`agent-tools-cli-ergonomics.plan.md`) — this friction is that
   plan's highest-priority item by owner direction.
 - **Target surface**: `agent-tools/src/collaboration-state/` (inbox command).
-- **Status**: open — OWNER PRIORITY.
+- **Status**: open — OWNER PRIORITY. Second instance 2026-09-03 (Buzzard lifts
+  Eyrie, 326bcb, relayed at a boundary): the post-arm gap sweep had to read the
+  whole inbox or rely on the seen-file cursor; the ask now includes
+  `comms list --since` parity (folded here from a duplicate entry at the
+  2026-09-06 consolidation).
 - **Owner direction status**: owner-directed 2026-07-08.
 
 ### F-136 — practice-core CONTENT has no portability scanner (`portability:check` covers adapters only)
@@ -3806,7 +3921,13 @@ commit SHA and the closing plan reference.
   (~30 minutes); its silence was indistinguishable from "no change", and a
   60 s `gh pr view` poll emitting only on reviewDecision / mergeStateStatus
   / head change, terminating on MERGED/CLOSED, caught the owner's merge
-  within a minute.
+  within a minute. 2026-09-06 (Finch binds Sundog, 47f9d2): `pr-watch 58
+  --watch --interval 60` under a Monitor emitted nothing for 33 minutes
+  across three reviewer submissions, six threads and two failing checks;
+  replaced by a direct `gh` read poll. The consolidation seat the same day
+  armed a 60 s change-emitting `gh` poll from the start (head, merge state,
+  review decision, check rollup, unresolved-thread count) and never the
+  tool.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -3818,7 +3939,10 @@ commit SHA and the closing plan reference.
 - **Observed**: 2026-09-02 (Luna seeks Twilight, 5c0ddc): a claim's areas
   named a run-record path that broke the archive's filename convention
   (`YYYY-MM-DD-<target>.md`); the only honest cure was close + reopen,
-  recorded in the closure summary.
+  recorded in the closure summary. 2026-09-06 (Juno seeks Apogee, a693fb): a
+  Director-approved extension of a consolidation claim to four more paths
+  was close + reopen again (38ec1aaf → bf754a27), the handoff record
+  re-attached by hand and the heartbeat loop restarted on the new id.
 - **Expected**: `claims amend --area` (or an equivalent single-row edit)
   that preserves the claim id and history.
 - **Route**: agent-tooling backlog.
@@ -3888,3 +4012,287 @@ commit SHA and the closing plan reference.
   the coordination successor-branch name"). Renumbered to F-166 at the
   convergence merge. The collision is itself an instance of the staleness
   this register exists to catch.
+
+### F-185 — `merge-bot merge` cannot read review-run liveness and degrades the verdict to SILENT-WAIT
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908 on the
+  canonical line; conserved as received); reproduced 2026-09-06 (Juno seeks
+  Apogee, a693fb, PRs #59, #60 and #61 on this line). The review-run leg
+  reads `gh agent-task view … --json id,completedAt,pullRequestNumber,pullRequestUrl`
+  through the boundary parser in `agent-task-fields.ts`; when the view
+  returns `pullRequestNumber` and `pullRequestUrl` as null the parse fails
+  and the leg degrades to a typed `unavailable` (the verdict evidence
+  carries `review-run liveness unavailable: … expected number, received
+  null`), so WAITING-REVIEW-RUN-LIVE is unreachable. With the runs
+  unreadable the most-blocking leg reads SILENT-WAIT-RUNS-UNREADABLE for a
+  reviewer that was requested and SILENT-WAIT-NO-REVIEWER for one that was
+  not (the docs-only class requests none — the state these instances saw);
+  the tool polls neither, so the seat retries by hand.
+- **Expected**: the view parser tolerates null `pullRequestNumber` /
+  `pullRequestUrl` (a run not yet bound to a pull request is a live run, not
+  an unreadable surface), so a running reviewer reaches the wait-class
+  verdict the tool polls; the cure sits in `agent-task-fields.ts`, not in a
+  new hosting-service integration.
+- **Route**: agent-tooling backlog (pr-watch review-runs leg, consumed by
+  merge-bot).
+- **Id note (2026-09-15)**: filed as F-166 on this line; renumbered to F-185 at the upstream
+  sync of `c67d33c`, where the upstream line's F-166 (the PDR-078 §4 re-arm trigger, above)
+  holds the number.
+
+### F-167 — Copilot's automatic review does not bind a tip that is only a merge commit of the base
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908; conserved
+  as received, not reproduced). After a "merge base in, then land" push,
+  Copilot posted no review on the merge-only tip, so the Copilot leg read
+  OWED until it was requested explicitly. The 2026-08-11 finding "Copilot
+  does not auto-re-review on push" is the sibling; this narrows it to
+  merge-only tips.
+- **Expected**: the landing chain's docs-only class (pr-lifecycle item 5)
+  expects no Copilot leg by repository configuration; on other classes the
+  expected set still comes from that configuration, so after an update
+  merge the chain requests the configured review explicitly, or the
+  quiet-window timeout settles the leg as the settlement contract provides
+  — a merge-only tip never removes a configured reviewer from the set.
+- **Route**: pr-lifecycle worked instance.
+
+### F-168 — `merge-bot merge`'s 45-minute poll budget outlives a 10-minute background-shell bound
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4; the 2026-08-12 entry
+  "merge-bot polls outlive the Bash default" is the earlier form); met by
+  design 2026-09-06 (Juno seeks Apogee, a693fb): the chains run under a
+  persistent monitor with a retry loop. The tool's poll loop (30 s × 90)
+  outlives a harness background task's maximum bound, so a chain started as
+  a background shell is killed before the tool's own budget ends; the
+  tool's non-wait refusals (SILENT-WAIT, THREADS-OPEN) also return at once,
+  so a landing needs an outer loop.
+- **Expected**: the tool documents that it must run under a session-length
+  monitor, or takes a `--wait-for-reviewer` mode that polls SILENT-WAIT too.
+- **Route**: merge-bot documentation; the landing-loop shape in the
+  pr-lifecycle skill.
+
+### F-169 — the commit queue serialises commit windows ACROSS worktrees even with disjoint files
+
+- **Observed**: 2026-09-05 (Flounder turns Estuary, c5cc2c, the #41/#42
+  landing arc). `commit-queue guard` refuses a fresh intent ahead of yours
+  even when its files are disjoint and it was enqueued from another
+  worktree, so parallel lanes commit in sequence and publish in parallel.
+- **Expected**: the guard scopes contention to the invoking tree (F-132's
+  same-tree reading) or to overlapping files; the commit skill states the
+  same-tree reading as the design intent on the queued and merge paths.
+- **Route**: SUPERSEDED by scope, 2026-09-07 — the owner's ruling (~12:24Z,
+  relayed by the Director in 4c19ff3c and 1fd65378): the queue exists to stop
+  git operations colliding in the shared primary and is not used for work in
+  separate worktrees, which commit by plain pathspec with an audit line; the
+  cross-worktree ordering this row observed is therefore never exercised. The
+  guard's estate-wide freshness key remains the shared primary's contract; the
+  Director's decision-matrix finding on it (2026-09-06, 81234225: coarser than
+  the per-tree invariant; cure a claim-scope-keyed guard, owner-gated on the
+  2026-08-17 'legacy-use' word) stands there. The separate host bound (two, at
+  most three, simultaneous full local gates, engineered as a semaphore) is its
+  own lane. The commit skill true-up carries F-132/F-139/F-169 as superseded.
+
+### F-170 — the liveness heartbeat loop has no consumer-absence exit
+
+- **Observed**: 2026-09-05/06 (Finch binds Sundog, 47f9d2: about 240
+  heartbeat events overnight with no consumer after the lead closed at
+  16:40Z; Buzzard lifts Eyrie, 326bcb, the same night's seed). The two-leg
+  loop beats every four minutes until a seat stops it by hand; the registry
+  already shows when the seat is alone (one claim), which is PDR-078 §4's
+  consumer-absent condition.
+- **Expected**: the loop reads the registry each tick and, after N
+  consecutive ticks with no other live claim, SUSPENDS emission (with a
+  heartbeat-end event) while keeping its registry read alive as a
+  lightweight detector, resuming emission the tick a consuming peer's
+  claim appears — PDR-078 §4's consumer-absent exemption is self-healing by
+  contract, so an exit that leaves no detector would show the new peer a
+  silent active seat and open the retirement protocol at ten minutes. A
+  seat beating for an owner watching the stream is not a consumer by the
+  exemption's own text.
+- **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
+  exemption already names the condition.
+
+### F-172 — a failed pre-commit step leaves a fresh intent that blocks the next enqueue
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb). A guard refusal
+  (the window claim opened under the wrong label, F-132) left the enqueued
+  intent fresh; the retry's guard then refused on "multiple fresh matching
+  commit-queue intents" until both were moved to `abandoned` by hand with
+  `phase --intent-id … --phase abandoned`. There is no `abandon` verb and
+  the ceremony had no failure branch that abandoned its own intent.
+- **Expected**: `guard` failure abandons the intent it was guarding (or a
+  documented `abandon` verb exists), and the ceremony's failure branches
+  call it.
+- **Route**: agent-tooling backlog (commit-queue); the commit skill's
+  ceremony text.
+
+### F-173 — the liveness readers cannot see a paused seat: retired at ten minutes, claim swept at freshness expiry
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb; raised by the Codex
+  connector on the rules PR and verified in the tree). `peer-liveness.ts`
+  classifies from heartbeat events only (retired at or above ten minutes)
+  and never reads a heartbeat-end that names an owner-word stand-down; the
+  stale-claim sweep archives a retained claim once `freshness_seconds`
+  (four hours by default) expires. Two claims whose last heartbeat fell on
+  the declared sleep day of 2026-08-19 were archived as `stale` by the
+  2026-09-02 fold, handoff records intact. The liveness rule's paused-seat
+  bullet now states this; the promise "no reader retires a paused seat"
+  holds for peers reading the stream, not for the tools.
+- **Expected**: a machine-readable paused state — a claim field set by the
+  stand-down (with the owner-word event id) that the liveness classifier
+  reports as `paused` and the stale sweep skips until the claim's own
+  declared resume horizon, or until the seat closes it.
+- **Route**: agent-tools backlog (collaboration-state: claims + peer-liveness),
+  beside F-170.
+
+### F-174 — `assert-watcher-live` keys on the display name alone
+
+- **Observed**: 2026-09-02 (Kiln holds Slag, 1447f4; verified in
+  `cli-comms-assert-watcher-live.ts`: `codename = self.agent_name`, platform
+  and model never compared). A watcher armed as `claude / claude-fable-5`
+  against a registry row of `claude-code / claude-fable-5-1` asserted green;
+  the first `comms send` under the shorter tuple was refused. The F-95 gate
+  accepted a lookalike key.
+- **Expected**: the move-1 assert checks the full identity tuple against the
+  registry row; an arm whose platform/model has no row is refused.
+- **Route**: agent-tooling backlog (collaboration-state), beside F-95; the
+  watcher rule's arm template derives arm and assert from one
+  `identity preflight` read.
+
+### F-175 — content-audit review modules can pin one path twice; the last spread wins silently
+
+- **Observed**: 2026-09-02 ~18:4xZ (the pagination-echo lane's second
+  catch-up merge). After the merge two review modules pinned
+  `mcp-tools/runtime/execute.ts` with different hashes;
+  `CURRENT_SOURCE_DELTA_REVIEWS` spreads the modules in order, so the later
+  pin won, the earlier was dead code and the validator stayed green. Cured
+  by one owner per path (the generated-runtime module).
+- **Expected**: the aggregator refuses a path pinned in more than one
+  module, as the truth-set builder's `requireNoDuplicates` refuses
+  duplicate ids.
+- **Route**: agent-tooling backlog (content-audit); until then a merge that
+  touches two review modules greps the pinned paths for duplicates before
+  trusting a green validator.
+
+### F-176 — workflow fan-outs launch without a per-stage budget or a pilot measurement
+
+- **Observed**: 2026-09-03 (the wrap workflow's dedupe barrier over 160 raw
+  learnings was still generating after fourteen minutes and would have fed
+  about 300 verification agents; the lead stopped the run and synthesised by
+  hand, so the verify and synthesis stages never ran). 2026-09-06/07 (Juno
+  seeks Apogee, a693fb): two mapping fleets of 110 planned legs spent about
+  8.1M tokens at 82k–171k per leg, with a verify phase of 41 legs returning
+  one result; the fleet-design rule's design-review threshold bound nothing
+  at launch.
+- **Expected**: a launch carries a pilot-measured per-leg cost times N and a
+  stage budget the script enforces (the workflow API's `budget`); a stage
+  whose fan-out depends on an earlier stage's output caps that output
+  before it fans out.
+- **Route**: the fleet-design rule (cost model, pilot as step 0, yield
+  sample; the 2026-09-07 napkin block carries the full defect list); the
+  wrap skill's workflow template carries a stage budget.
+
+### F-177 — pr-lifecycle's in-loop step-back did not fire on a prose-class PR; corrected out of band
+
+- **Observed**: 2026-09-03 (PR #50, a prose-class report): eleven review
+  rounds, 28 findings each cured in its own push with a fresh monitor; the
+  shepherd's own round-four step-back comment did not stop the curing; the
+  owner's manual invocation of the pr-lifecycle, proportionality and
+  metacognition skills did. Filed under PDR-140 clause 8: an out-of-band
+  cognitive-skill invocation correcting a running PR loop is a defect
+  against pr-lifecycle.
+- **Observed AGAIN**: 2026-09-11 (PR #132, a mixed code/records changeset;
+  Nettle guards Pistil, 2de368). Five-plus settled rounds, sixteen findings,
+  every one read as cure-worthy and cured in its own push; PDR-132's
+  two-round budget passed without the budget-exceeded record or the
+  generator question; the step-back's four-round arm true throughout and
+  never evaluated. The correction was again the owner's manual invocation —
+  `metacognition`, `pr-lifecycle`, `proportionality`, `plan`, the same set
+  as 2026-09-03 plus one. No tally existed either time.
+- **Expected**: the tally built at PR-open reads step-back-mandatory at the
+  fourth settled round and the settlement budget refuses a fifth cure push.
+- **Why the first filing did not cure it, and THE CURE IS ALREADY RATIFIED.** The
+  expectation above presupposes a tally, and nothing makes one exist: item 2 says
+  "build the tally, or the trigger cannot fire", which is advice, and advice is what
+  fails under load — the same generator this estate has been curing everywhere else
+  by building gates. Twice now the shepherd was mid-loop, each finding individually
+  valid, with no artefact counting anything.
+
+  The instrument that would end it is
+  [`pr-tally`](../../plans/delivery/pr-tally.plan.md), owner-ratified 2026-09-08
+  ("pr-tally, ratified") and NOT BUILT: `pnpm agent-tools pr-tally --pr <n>`, building
+  the tally by the commit each review binds to, printing one row per settled round with
+  raised and cure-worthy counts and the mechanical step-back verdict. The plan already
+  cites the 2026-09-08 instance of this friction as its own motivation. So this entry
+  adds nothing to the design and points at it: what the recurrence contributes is
+  EVIDENCE OF PRIORITY — the plan has now been ratified and unbuilt through two full
+  recurrences, on 2026-09-03 and 2026-09-11.
+
+  Recorded because the wrong turn is itself an instance of the register's subject: the
+  first version of this bullet specified a rival `pr rounds` command with a different
+  data flow, written without checking whether the estate had already planned the work.
+  It had, and the ratified plan is more complete — body findings, Codex badge blocks,
+  signed machine-readable bar markers for dispositions, the reviewer-leg predicate. Two
+  incompatible specifications for one job is worse than none (Copilot, PR #134).
+
+- **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
+  4), under the skills claim; the build routes to the ratified `pr-tally` plan.
+
+### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
+
+- **Observed**: 2026-09-06 (Flounder turns Estuary, c5cc2c; the standing
+  prune under worktree-hygiene §6). Seventy-eight merged local branches
+  deleted with plain `-d`; two merged into HEAD refused —
+  `sync/upstream-2026-09-02` on its upstream (git's `-d` test is merge into
+  the configured upstream, HEAD only when none is set) and `heads/pr834head`
+  on its name (message unrecorded).
+- **Expected**: the rule's proof (ancestor of the freshly fetched base)
+  deletes the branch.
+- **Route**: worktree-hygiene §6 prune paragraph — after the ancestry
+  proof, `git branch --unset-upstream <branch>` then `-d`; the name case
+  recorded verbatim at the next prune; never `-D`.
+
+### F-179 — sub-agent reports truncate in transit when the return payload is large
+
+- **Observed**: 2026-09-06 ~13:4xZ (Juno seeks Apogee, a693fb; three Sonnet
+  extractors over ~58k-byte comms windows): one report arrived whole, two
+  arrived cut in the tool result with no marker separating a short report
+  from a truncated one.
+- **Expected**: a report arrives whole or fails loudly.
+- **Route**: dispatch briefs name a scratchpad file as the deliverable and
+  return its path; the dispatcher reads the file and spot-reads every kept
+  leaf against the source (the owner's method word, 2026-09-06: write
+  intermediate findings to disk).
+
+### F-180 — the heartbeat cannot tell "alive and turning" from "alive but stalled": absorption-dark seats read green
+
+- **Observed**: 2026-09-06 (Finch binds Sundog 17:25–19:23Z and
+  19:53–20:40Z; Juno seeks Apogee 20:13–20:39Z) and 2026-09-07 (Juno: a
+  Director directed event of 12:37Z read at 16:1xZ). Heartbeat fresh, cycle
+  label unchanged, no event: the seat's background-shell watcher wrote the
+  events to a file and no harness turn ran. The Director's detector
+  (heartbeat-fresh, cycle-unchanged, no-event) found each case by hand.
+- **Expected**: the heartbeat carries the seat's last TURN time, written by
+  the turn and not by the loop, so "emit fresh, turn old" reads on the
+  stream within one cadence; the watcher runs in the Monitor shape that
+  wakes the seat per event (the use-monitor rule), never as a background
+  shell.
+- **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
+  F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
+  watcher rule names the background-shell watcher as the anti-pattern.
+
+### F-184 — the root `test` task's inputs omit the root registry files its tests read, so the pre-push cache replays a stale pass
+
+- **Observed**: 2026-09-07 (a693fb). An edit to `RULES_INDEX.md` (an
+  explaining cell on a new core row) passed every local gate — the pre-push
+  log read `@oaknational/agent-tools:test: cache hit, replaying logs` —
+  then failed CI's `rules-index-classification` test cold; one CI cycle and
+  one extra push on a terminal PR. The task declares only package-local
+  inputs (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`).
+- **Expected**: every root file a package's tests read is declared among
+  that task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form
+  `tsconfig.base.json` already uses), so a root-file edit invalidates the
+  cache and the classification test runs on push.
+- **Route**: a one-line `turbo.json` change per root file the tests read,
+  as its own config change with the classification test as proof;
+  `build-system.md` §Caching carries the interim discipline (run the
+  dedicated test directory before pushing an edited registry file).
