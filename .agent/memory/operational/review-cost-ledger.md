@@ -44,7 +44,7 @@ exists it will show as a cluster in the rows before anyone names it (owner, 2026
 inventing a category before the evidence "would skew all calculations, invite special
 cases, and broadly turn this effort into theatre before it has properly begun").
 
-Reading of the 2026-09-14 rows: five agree at the seat's stop; #143 is late by one push for the
+Reading of the 2026-09-14 rows: four agree at the seat's stop (#137, #144, #145, #146); #143 is late by one push for the
 defect the 2026-09-13 row already named. #144 is one observation (n = 1) of the gate pricing a
 CI cure as a settlement round: PDR-140 clause 4 lists a CI cure beside a sync as outside the
 budget, and #146 exempted syncs only. No weight changes; the CI-cure reading waits for rows.

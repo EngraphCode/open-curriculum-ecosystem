@@ -367,8 +367,10 @@ buffer graduation as `0e4173b43`, its records as `f53748785`, the owner's
 gates ruling as `02572a7a9`, and PDR-141 (the operator profile moves to
 `~/.practice/profile/`, the Practice's first out-of-repo surface,
 owner-directed). Inherited: the dedicated consolidation session that is due
-lands the seven due entries in `pending-graduations.md` (six buffer
-graduations into directives, the orientation re-point to PDR-141); PDR-141
+lands the nine due entries in `pending-graduations.md` (six buffer
+graduations into directives, the orientation re-point to PDR-141, and the
+owner's two 2026-09-14 rulings: tests never use or create IO, and sometimes
+an observation rather than an automated check); PDR-141
 is Accepted (owner-ratified 2026-09-14, `dd813b6ef`) and the seeded profile
 was ratified the same day with three owner additions; the held buffer
 memory is deleted when PR #143 lands. The

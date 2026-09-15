@@ -3055,7 +3055,10 @@ PICKUPS (the morning):
    post-merge deletion sweep read 137 deleted lines, all moved to `operator-profile-root.ts`.
    Lane retired (worktree removed, branch deleted); engraph merged into this branch at
    `08ceb4668`. The Practice index's operator-profile row names `pnpm profile:sync pull` at
-   session open and `push` after a write, which binds start-right §3a. Run once on the
+   session open and `push` after a write. Start-right §3a's executable block still runs only
+   `pnpm profile:check`, so no session pulls yet. Adding the pull ahead of the check is the
+   successor branch's first doctrine commit (fold PR #148 round one: Codex, and three Copilot
+   threads). Run once on the
    primary after the merge and an agent-tools build: `pnpm -s profile:sync pull` printed
    "Already up to date." and exited 0; `pnpm -s profile:check` found three conforming
    documents and no sync findings.
