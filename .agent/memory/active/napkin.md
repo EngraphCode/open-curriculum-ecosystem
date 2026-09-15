@@ -1460,7 +1460,8 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   acting past the door on my own read. Crosswalk: that clause and Cauldron's "an unobservable
   leg is an unlanded leg" agree wherever the instrument can observe the state and part exactly
   at its blind spot, so the blind spot is the defect — the gate's (cured by #146), the door's
-  (pickup 2), and the lint rule's helper exemption (an open question on the IO entry). Status:
+  (pickup 2), and the lint rule's helper exemption (a hole in the IO invariant, closed by the
+  no-IO recovery plan's WS3). Status:
   provisional, n = 1 seat-night; nothing graduates from it. Falsifier: a seat that cures the
   instrument still meets the same owner correction. Learning signal, for the owner: when a
   sanctioned instrument and the seat's reading disagree, cure the instrument or route the
@@ -1479,3 +1480,26 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   wrap's own first find came from rereading a handover a peer wrote. Fence: the private profile
   repository appears in no tracked line (history carries two removed mentions). A third pass
   re-finds only the suppressed-item class; the recursion closes here.
+- **The IO invariant framed as a question (2026-09-15, owner correction).** Owner, verbatim, on
+  the wrap report's line "How far 'tests never use or create IO' reaches": "This is not a
+  question of degrees, it is an absolute invariant, and I don't appreciate it being questioned".
+  The report and the register entry I wrote the night before put the invariant's reach over
+  the existing estate to the owner as a decision. The rules had already answered it three
+  times: the register entry directly above mine (owner, 2026-09-06: "Tests that need IO have
+  failed, they are errors, they are forbidden"), the owner's 2026-07-07 direction on
+  `no-io-test-boundary-and-di-recovery.plan.md` ("strict, everywhere, all the time"), and this
+  napkin's 2026-09-11 lesson from another seat ("I spent the owner's attention on a question
+  the rules answered"). It is the fifth owner correction on this invariant since 2026-07-07.
+  Generator: I measured the invariant by the directive's text, and the text admits IO in tests
+  in six places. Each admission read as a boundary, so I asked where the boundary ran. This is
+  the 2026-09-11 authority inversion again: the owner's word is the invariant and the text is
+  drift, never the reverse. The written lesson existed and did not fire, because the directive
+  still says the opposite on every read (passive guidance loses to artefact gravity). Cure,
+  structural: the register entry is corrected in place, with no open question. It names the
+  six passages, the recovery plan's "smoke tests" destination and the lint rule's helper
+  exemption as holes in the invariant, and it goes first in the consolidation session. Cure,
+  at the seat: an IO question about a test has no degrees to find, so it is never a card.
+  Second, a residency slip for the second time in two days: a `cd` inside one of two parallel
+  shell calls moved the session's working directory, and the sibling grep's relative paths
+  failed. It was read-only, so nothing was written. n = 2, this seat: a shell call never runs
+  a bare `cd`; paths are absolute.

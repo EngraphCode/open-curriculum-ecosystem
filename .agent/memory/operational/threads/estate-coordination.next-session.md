@@ -3034,6 +3034,13 @@ Owner rulings tonight, verbatim, queued in `pending-graduations.md` for the cons
 session: "tests never, ever, under any circumstances use or create IO" (testing-strategy still
 lets smoke and E2E tests trigger IO); "sometimes you don't need an automated check, sometimes
 you need an observation" (validation-strategy). Both were corrections of this seat's cures.
+On 2026-09-15 the owner corrected the wrap report, which had put the first ruling's reach to
+the owner as a question, verbatim: "This is not a question of degrees, it is an absolute
+invariant, and I don't appreciate it being questioned". Every test, every helper a test
+imports, and the existing estate are covered, with no carve-out. A test that creates IO is an
+error, and what it proved goes to non-test validation kept minimal or to a recorded
+observation. The register entry is corrected in place and is the consolidation session's
+first item, and it names the six passages in testing-strategy that still admit IO.
 
 PICKUPS (the morning):
 
