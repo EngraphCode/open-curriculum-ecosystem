@@ -125,9 +125,11 @@ built): on a cold clone run this step after the install and build below,
 never before; the grounding never blocks on the profile.
 
 ```bash
-# First the host's profile sync, pull side (PDR-141 decisions 13 to 16): the
-# Practice index names the command once the host binds one; a no-op unless
-# the root is a repository with a remote.
+# First the host's profile sync, pull side (PDR-141 decisions 13 to 16), as the
+# Practice index names it: a no-op that says so unless the root is a repository
+# with a remote. A refused pull (a conflict, no network) is surfaced and the
+# grounding continues; the check below then reports the sync state.
+pnpm profile:sync pull || echo "profile not pulled: read the line above — a conflict is the operator's to resolve by union (PDR-141 decision 15); the check still runs"
 if pnpm profile:check; then
   PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
   [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"

@@ -768,6 +768,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
 
     - **Green** — handoff may complete. Record the green run in the landed
       outcome or as a no-landing-session closeout artefact.
+    - **Pending on the pull request** — the landed commit's local gate is
+      green, and pull-request checks are still running. The handoff may
+      complete, naming each pending check and its owner, and records the
+      outcome as pending, never green. The owner reads the checks when they
+      finish and routes a red one to its lane.
     - **Red on this session's work** — fix before declaring complete. The
       [`local-broken-code-never-leaves`](../../rules/local-broken-code-never-leaves.md)
       rule applies; the
