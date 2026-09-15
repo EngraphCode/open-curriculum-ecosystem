@@ -1430,3 +1430,52 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   be repeated on #145. #145's cure for (1) is `318a2ea21`, local and unpushed with the lane's
   engraph merges, held for the owner's morning ruling on a rebudget (Cauldron: the raise is the
   owner's; PDR-140 clause 9's seat grant is records-class only).
+- **Wrap for compaction (2026-09-15, the owner's word; model switched to Opus 5 for the wrap).**
+  Metaloss pass 1 found a real loss: the 2026-09-13 handover listed two #143 findings living
+  only in Copilot's suppressed review body, and last night's settlement push harvested threads
+  only — pr-lifecycle §Phase 3 says the suppressed block is harvested as the review body, every
+  round. A sweep of every Copilot review body on the five pull requests this session touched
+  found eighteen suppressed items: six cured in merged code, one by #145's held cure, two
+  already homed through Codex's matching thread, and nine true and never dispositioned (one on
+  #143, five on #144, three on #145). All nine are homed in the estate-coordination LANDINGS pickups 3 and 4 and dispositioned on their
+  pull requests at this wrap. Cause, mine: I resumed from the compaction summary's line "#143's
+  last settlement push", not from the handover block that named where the findings lived; a
+  summary keeps the what and drops the where.
+  **Free play** (material: the day; time-box: one pass). Kept, as associations: (a) four refusals
+  in one day named a cure that did not work from the refused state — #145's push cure on an
+  ahead branch, its diverged-branch cure, its furniture finding, and the gate's
+  BUDGET-EXHAUSTED text on a sync — these look shaped alike (n = 1 seat-day, two tools; an
+  observation, no class); (b) the Codex leg reminded me of a nil return: an inspector who finds
+  nothing leaves a sticker, and the door accepts only reports. Discarded visibly: "the two
+  owner rulings are complements" (already the queue's shape; adds nothing); "sovereignty runs
+  from the morning's drain to the evening's unreadable vendor signal" (abstraction drift, too
+  high to test).
+  **Concept exploration and Parallax (core depth, one counterframe)** over the night's
+  corrections — the IO helper, the IO smoke, the premises-carried leg, and the route-around
+  options I first offered at the #145 card. Each was the cheapest move that changed an
+  instrument's verdict rather than the property the instrument protects; the smoke was the
+  same move in reverse (more instrument where an observation was the tool). The counterframe
+  is the one I swung from: 2026-09-12's lesson (don't wait on a door when the state is
+  visible) landed as verify-dont-trust's instrument clause, and last night I over-applied it by
+  acting past the door on my own read. Crosswalk: that clause and Cauldron's "an unobservable
+  leg is an unlanded leg" agree wherever the instrument can observe the state and part exactly
+  at its blind spot, so the blind spot is the defect — the gate's (cured by #146), the door's
+  (pickup 2), and the lint rule's helper exemption (an open question on the IO entry). Status:
+  provisional, n = 1 seat-night; nothing graduates from it. Falsifier: a seat that cures the
+  instrument still meets the same owner correction. Learning signal, for the owner: when a
+  sanctioned instrument and the seat's reading disagree, cure the instrument or route the
+  decision; never act between them.
+  **Metaloss passes.** Compressed reasoning: the LANDINGS entry, pickups and this block carry
+  the decisions with their evidence. Promises: the #145, #143 and #146 replies that said
+  "homed" are homed; `318a2ea21`'s message says an observation is recorded on the pull request,
+  and pickup 1 now carries it until the push; my line to Cauldron ("the next line comes with the
+  ruling or at #145's landing") is discharged by a final line at this wrap. Attribution: the
+  owner's bedtime is Cauldron's report; the cost-model words are quoted verbatim; the
+  suppressed-item classifications are READ. Blind spots: this seat cannot see Cauldron's report
+  to the owner or its records; the comms watcher's one-hour timeout ended in the evening, and
+  the comms list since 15:00Z shows only this seat's events. Index of homes: repo-continuity
+  §PICKUP points at the LANDINGS entry, which points at every other home. External bound: every
+  correction last night came from outside — the owner three times, Cauldron once — and this
+  wrap's own first find came from rereading a handover a peer wrote. Fence: the private profile
+  repository appears in no tracked line (history carries two removed mentions). A third pass
+  re-finds only the suppressed-item class; the recursion closes here.

@@ -3015,7 +3015,8 @@ consolidation session at the owner's word. #143 merged as `e474e883e` (last sett
 retired, the held buffer memory deleted. #145 settled at `d36b738ed` (two settlement pushes,
 sixteen findings cured; round three dispositioned) but could not take the base update the front
 door requires: the pre-push review-cost gate refused the merge push as BUDGET-EXHAUSTED. The
-owner named it a cost-model defect; PR #146 made the gate pass a sync push (one merge of the
+owner, at the card: "Sounds like we have a problem with the cost model that we need to fix?";
+PR #146 made the gate pass a sync push (one merge of the
 pull request's base over the remote head, its tree exactly git's automatic merge; PDR-140 clause
 4) and merged as `048f377fa`; engraph folded into `coordination/2026-09-14-7658a7` at
 `176291eb2`. Deviation, recorded at Cauldron herds Lustre's flag: #146 landed with the Codex leg
@@ -3038,22 +3039,57 @@ PICKUPS (the morning):
 
 1. **#145 rebudget** — the owner rules whether `budget — 3` is written on #145 for the one
    mandatory cure (`318a2ea21`, local on `lane/operator-profile-sync-281e44` with the lane's
-   engraph merges `b1656e680` and `dd432d965`): the IO unit test and its helper out, an
-   injected presence probe with a pure unit test. On the raise: push, re-request Copilot, the
-   front door with both legs declared (no premises-carried leg), retire the lane, then
-   start-right §3a binds `pnpm profile:sync pull`. Without it #145 stays open.
+   engraph merges `b1656e680` and `dd432d965`; `git log lane/operator-profile-sync-281e44 --not
+   --remotes` lists exactly these three, their only copy): the IO unit test and its helper out,
+   an injected presence probe with a pure unit test. On the raise: push, record on #145 the
+   observation `318a2ea21`'s message names (run by hand 2026-09-14: `pnpm -s profile:check
+   --root <an empty directory>` printed the not-a-git-repository information line and exited
+   0), re-request Copilot, the front door with both legs declared (no premises-carried leg),
+   retire the lane, then start-right §3a binds `pnpm profile:sync pull`. **#145 must not merge
+   as it stands**: its pushed head `d36b738ed` carries `operator-profile-root.unit.test.ts`,
+   which creates a temporary directory. Never update its branch server-side — that would read
+   SETTLE-READY at the door and merge the IO test. Without the raise, what happens to #145 is
+   the owner's call.
 2. **Reviewer-legs reads a zero-finding Codex completion** (tool feedback): the Codex summary
    comment's Completed row for the tip, with the 👍 reaction, is the vendor's zero-finding
    review; the door should bind it as SATISFIED. Until it does, Codex is declared expected only
-   where a review object can be expected, or the leg waits.
-3. **#145 round-three cures, homed** (Codex two, Copilot one, all true): a first push from a
-   non-default branch must resolve the remote's default branch and refuse otherwise; when the
-   branch is behind, the unpushed-commits finding's cure reads pull, then push; the git runner
-   scrubs `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` from its environment as the
-   refounding runner does. Fixtures at pickup, one small PR.
-4. **#143 round-three cures, homed** (the consolidation session, with the pattern's wording):
+   where a review object can be expected, or the leg waits. For the owner, not decided at the
+   seat: the verify-dont-trust instrument clause landed tonight with #143 ("when the seat can
+   read the state directly, the state governs") and Cauldron's reading ("an unobservable leg is
+   an unlanded leg") agree wherever the door can observe the state and part exactly at the
+   door's blind spot; pr-lifecycle's premises-carried subagent leg is a third reading. The tool
+   cure dissolves the conflict for Codex; whether a seat may ever carry a vendor leg the door
+   cannot observe is the owner's ruling (n = 1: #146).
+3. **The operator-profile follow-up PR, homed** (one small PR after #145 lands; each case a
+   fixture at pickup; READ, not RUN). From #145's round three (Codex two, Copilot one, all
+   true): a first push from a non-default branch resolves the remote's default branch and
+   refuses otherwise; when the branch is behind, the unpushed-commits finding's cure reads
+   pull, then push; the git runner scrubs `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` as
+   the refounding runner does. From #145's round-three suppressed block (review 5200049148,
+   harvested only at the wrap): `isGitRepository` treats only ENOENT as not-a-repository; the
+   check's missing-upstream finding prescribes manual upstream selection when several remotes
+   exist; `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
+   filesystem-backed test, is `318a2ea21`). From #144's suppressed blocks (reviews 5197235280
+   and 5197433102, never dispositioned): `updated` validates a real calendar day in both the
+   zod and JSON Schema surfaces with an impossible-date fixture; the contract smoke's TSDoc
+   names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
+   `err`s (a per-document failure for a read) rather than uncaught exceptions; the layout's
+   `ReadonlySet<string>` vocabularies keep their literal unions. #144's other five suppressed
+   items are cured in the merged code (read 2026-09-14).
+4. **#143's residue, homed** (the consolidation session, with the pattern's wording):
    `signal-read-as-fact` says "fields the record shape requires", not "the validator
    requires" (the patterns validator reads name, category, use_this_when and polarity); "acted
-   on every time" is scoped to the proving day.
-5. The 2026-09-13 SESSION CLOSE pickups above (the owed-items records PR, the survey rows) and
-   the seven due entries in `pending-graduations.md` — the dedicated consolidation session.
+   on every time" is scoped to the proving day (Codex round three and two Copilot suppressed
+   items); and `one-instance-is-an-observation`'s trigger — rule lines 3 and 30 and the Cursor
+   description — narrows to records that introduce or infer a distributional claim, excluding
+   references to an established pattern (Copilot suppressed item, review 5190391923: listed in
+   the 2026-09-13 close as item 5 and missed at tonight's settlement push, which harvested
+   threads only).
+5. The 2026-09-13 SESSION CLOSE pickups above — the owed-items records PR (its two survey rows
+   are now appended to `review-cost-ledger.md` on this branch, so that PR drops them) and the
+   `review-round-predicates` ratification — and the nine due entries in
+   `pending-graduations.md`: the dedicated consolidation session, at the owner's word.
+
+The suppressed items above are dispositioned on their pull requests at this wrap: one issue
+comment each on #137, #143, #144 and #145, one line per item. The owner's bedtime (~21:20Z) is
+Cauldron herds Lustre's report, not observed here.

@@ -349,11 +349,12 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the estate-coordination thread, not the Reliable Atoms note (owner's word 2026-09-14)
 
-The next session resumes the **estate-coordination** thread exactly where
-Nettle guards Pistil closed it: read
-`threads/estate-coordination.next-session.md` §"SESSION CLOSE (Nettle guards
-Pistil …)" first — #143's last settlement push, then the owed-items records
-PR, then the survey rows. The note below records a dirty-tree fact that the
+The next session resumes the **estate-coordination** thread: read
+`threads/estate-coordination.next-session.md` §"2026-09-14 LANDINGS" first —
+its five pickups, the #145 rebudget ruling at their head (#145 must not merge
+as it stands) — then §"SESSION CLOSE (Nettle guards Pistil …)" for the
+owed-items records PR (#143's last settlement push there is done: #143 merged
+2026-09-14 as `e474e883e`). The note below records a dirty-tree fact that the
 resuming seat sweeps into its first commit; it is NOT a lane to continue and
 carries no next action of its own (owner's word, 2026-09-14: the next session
 picks up the previous thread, not this one).
