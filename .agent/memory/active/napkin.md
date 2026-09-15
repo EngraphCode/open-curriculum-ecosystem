@@ -1566,3 +1566,11 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   written cure does not hold under a parallel call. The structural cure is to give a loop over
   a directory's files absolute paths (`ls "$DIR"` with `"$DIR/$f"`), never a `cd`, and to name
   the working directory as a precondition when writing any multi-call batch.
+- **A gate run beside a commit (2026-09-15).** After markdownlint refused the fold records
+  commit, I ran `pnpm exec markdownlint-cli2` on the repaired file before re-committing. The
+  repository's globs made that a 2,141-file lint of the whole markdown estate, exactly the
+  separate gate run the owner's 2026-09-14 ruling forbids: "the commit triggers the gates,
+  there is no point and a fair amount of cost running the gates separately as well, never,
+  ever do that". The commit's own hook was the check, and it passed on the retry. Seat cure:
+  a hook refusal is answered by fixing what the refusal names and committing again, never by
+  pre-running the hook's instrument.
