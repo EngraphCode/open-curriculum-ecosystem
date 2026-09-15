@@ -4,7 +4,7 @@
 naming the findings a downstream review round surfaced on upstream-authored files while
 integrating releases 1.181.2 and 1.181.3 (fork PR #147, 2026-09-15). Intended impact: upstream
 decides whether to cure; the fork cures none of these, because it never diverges upstream code on
-a sync. Questions for a reviewer: is each of the five findings stated accurately against
+a sync. Questions for a reviewer: is each of the eight findings stated accurately against
 upstream's code at `c67d33c8a`, and is anything fork-specific mislabelled as upstream's? Evidence
 standard: each finding cites the file and line the reviewer named and is reproducible from
 upstream's tree at that tip. Authority boundary: this note is the owner's to send, edit or drop;
@@ -14,7 +14,7 @@ confirms that each finding reproduces, or marks it withdrawn.
 
 ## The note (paste-ready; the owner edits freely)
 
-Hi — while integrating 1.181.2 → 1.181.3 downstream, an automated review round raised five
+Hi — while integrating 1.181.2 → 1.181.3 downstream, automated review rounds and our own read raised eight
 points on files that came in with those releases. None were changed on our side; passing them on
 in case they are useful.
 
@@ -46,10 +46,24 @@ in case they are useful.
    `packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts` as the pure
    resolver, but that file and its unit test were deleted when the widget address was versioned.
    Pointing the paragraph at the generator that now owns the address would keep the ADR true.
+7. `packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts` (around line
+   37): `RETIRED_WIDGET_URIS` lists `oak-curriculum-app-899803c6` and `oak-curriculum-app-5ce56c4b`,
+   but the production UAT report `apps/oak-curriculum-mcp-streamable-http/docs/uat-reports/2026-08-04-prod.md`
+   (around lines 69 to 73) records `ui://widget/oak-curriculum-app-85820fb2.html` as an address a
+   production `resources/list` advertised. A client that kept that list would still meet the
+   authentication challenge the allowlist exists to avoid. Inventorying every production address
+   clients may have retained, rather than the two most recent, would close it.
+8. `.agent/reports/mcp-agent-facing-content-audit/registry.json` (item C479, `BASE_WIDGET_URI`,
+   around line 10978): the `behavioural_intent` still reads "the cache-busting hash forces hosts to
+   reload a fresh bundle", while the constant is now the fixed `oak-curriculum-app-v1` address and
+   ADR-141 describes versioned, never hashed, addresses. Regenerated audit pages therefore show the
+   `-v1` excerpt beside a purpose that contradicts it. Correcting the intent at its source would
+   make the regenerated surfaces agree.
 
 ## Provenance
 
 Items 1 to 5 come from fork PR #147's review round one at head `c67d33c8a`: Copilot review threads
 on items 1 to 4, and a Codex review thread on item 5. Each thread is dispositioned on the pull
 request as routed to this draft. Item 6 comes from the fork's premise sweep of the same sync,
-reading upstream's ADR-141 at `c67d33c8a` against the files the release deleted.
+reading upstream's ADR-141 at `c67d33c8a` against the files the release deleted. Items 7 and 8 come from
+the round-two Copilot review of the integration head `15de4bc69`; the same round re-raised item 3.
