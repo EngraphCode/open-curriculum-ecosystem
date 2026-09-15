@@ -1544,3 +1544,13 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   - **Behaviour change / candidate follow-up**: `gitDiffStat` treats `to` as a sync only when
     its first parent is `from`, the same predicate as the gate. One condition, plus a unit
     test over injected git output with a cure beneath the merge.
+- **The fold's DUE time misread (2026-09-15).** I told the owner three times that the
+  coordination branch's fold was due "at about 15:14Z", 24 hours after the cut. The rule
+  (`coordination-branch-24h-lifetime` Action 2) makes a branch DUE at the UTC date rollover:
+  a stamp date before today's UTC date is due. `coordination/2026-09-14-7658a7` was therefore
+  due at this session's open, and at n = 1 the rule says to act on it before staking new work.
+  Two records commits and an engraph merge went onto a due branch first. They are
+  shared-state commits, so nothing needs re-cutting, but the check was not run at session
+  open. Cause: I reasoned from the rotation event's timestamp, 15:14:12Z, instead of reading
+  the rule's clock, which is the branch name's date. Seat cure: at session open on a
+  coordination branch, compare the name's date with `date -u +%F` before anything else.
