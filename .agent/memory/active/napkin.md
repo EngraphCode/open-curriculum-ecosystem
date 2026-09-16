@@ -1702,3 +1702,32 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   What I would do differently: state the FRAME as a question alongside the question itself ("am I
   asking about evidence strength, or about what a result is?"), because a peer cannot supply a
   position I have already excluded in the asking.
+- **Concept exploration (2026-09-16 night): ABSENCE-MODELLING is the generator under
+  class-blindness.** Last night I named the generator as instruments calibrated on the seat's own
+  changeset meeting someone else's. The owner's correction exposes a sharper one underneath: these
+  instruments infer state from what is MISSING — no findings, no conflicts, no red checks, no
+  review object — and that works only while every actor reports failure and stays silent on
+  success. It breaks the instant an actor reports success EXPLICITLY, because there is no channel
+  for a positive result to arrive on. Proposal: every leg carries a positive-evidence channel, and
+  every verdict names whether it concluded from PRESENCE or from ABSENCE. Falsifier: a verdict that
+  reads correctly from absence alone in a case where presence was obtainable — that would make the
+  distinction bookkeeping rather than load-bearing.
+- **The open question this leaves on tonight's own work (2026-09-16).** The quiet window is the
+  purest absence-model in the estate: it infers "no reviewer is still composing" from ten minutes
+  of silence, and it can never distinguish that from a reviewer that never started, a vendor
+  outage, or a round that finished and reported elsewhere. Tonight I TIGHTENED it (empty-bodied
+  reviews no longer anchor it), which makes it more confident about an inference it was never
+  entitled to make in the first place. That is not an argument against the tightening — the
+  anchor was measuring the seat's own replies and is now measuring reviewer activity, which is
+  strictly better — but it is an argument that the window is the next thing to examine under the
+  presence/absence lens, ahead of the remaining slices. Unresolved, and named here so it is not
+  lost: what would a PRESENCE-based settlement look like, where a round ends because every
+  declared reviewer has REPORTED, rather than because nobody has spoken for ten minutes?
+- **Free play's discard pile is worth re-reading before the next pass (2026-09-16).** Last night's
+  free play considered Codex's 👍 reaction and discarded it as "forced — it is a documented signal
+  and nothing more". It was the answer to the question that then cost most of two evenings: a
+  documented signal that a review finished with no findings is exactly the positive channel the
+  door lacks. I threw it out for being too plain. The lesson is not "keep everything" — the other
+  discards that night were genuinely forced — but that the discard pile should be re-read against
+  the day's live question before it is dropped, because "documented and nothing more" describes
+  both a dead end and a fact so ordinary it does not feel like an insight.
