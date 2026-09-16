@@ -63,8 +63,8 @@ audit surfaces taken from the tip and regenerated, never hand-merged.
 
 ## Out of scope
 
-Any other coercion (booleans, arrays); the host's bridge; upstream's copy of the fix (the fork
-never writes upstream; the finding rides the owner's held upstream-report item).
+Any other coercion (booleans, arrays); the host's bridge; the Oak fork's copy of the fix (the
+two forks are peers, and the cure reaches the Oak fork at the merge-back, never as a note).
 
 ## Todos
 

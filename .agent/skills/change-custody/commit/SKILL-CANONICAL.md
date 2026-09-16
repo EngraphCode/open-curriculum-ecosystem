@@ -223,7 +223,11 @@ Run these steps **before** formulating the commit message.
    seat amended one unpushed commit four times folding new substance in, and
    every amend invalidated shas already published to a ticket, the comms
    stream and a rapid channel, manufacturing its own correction churn.
-   Commits only append; the PR body maps the trail once at open. A "one
+   Commits only append; the PR body maps the trail once at open (owner,
+   2026-09-10, verbatim: "we must NOT rewrite the shared history, all
+   commits happened, we are adding more or we are not" — a one-parent
+   commit made by mistake stays, and gains its ancestry from a further
+   merge commit on top). A "one
    clean commit" aesthetic is a squash instinct in a never-squash estate.
 
    **The `commit-msg` hook is the real gate — do not test the checker.** The
@@ -589,7 +593,12 @@ topology for memory-file reconciliation):
    resolution — read `git status` and `git diff --cached --stat` and confirm
    every path belongs to the merge (conflict resolutions plus the merge's own
    union writes). There is no queue fingerprint; the first-hand read is the
-   verification.
+   verification. Assert the merge is still in progress before the commit
+   (`git rev-parse -q --verify MERGE_HEAD`) and read the parent count after it
+   (`git rev-list --parents -n 1 HEAD`): a resolution committed once the merge
+   state had gone landed as a plain one-parent commit (2026-09-10). In a linked
+   worktree the marker lives in that worktree's own git directory
+   (`worktree-hygiene`).
 3. **Commit the whole index plainly**: `git commit` (message via `-F`, no
    pathspec, no `--no-verify`) so the full pre-commit gate runs and the hook
    is the green verdict.
@@ -638,10 +647,14 @@ Before opening the four-move protocol above:
 
 1. `git status` — see all changes; `git diff --staged && git diff` —
    understand what will be committed.
-2. Confirm quality gates have passed (or run them now). Do NOT
-   pre-prime the turbo cache by running `bash .husky/pre-commit`
-   separately — the real commit will warm it; the pre-prime is
-   wasted ~30s and confuses symptom for cause.
+2. Do not run the quality gates before or beside the commit: the
+   commit's own hook is the gate (owner, 2026-09-14, verbatim: "the
+   commit triggers the gates, there is no point and a fair amount of
+   cost running the gates separately as well, never, ever do that").
+   Do NOT pre-prime the turbo cache by running `bash .husky/pre-commit`
+   either, and never pre-run one of the hook's instruments (Prettier,
+   markdownlint) on the staged files. When the hook refuses, fix what
+   the refusal names and commit again.
 3. Stage selectively — never blindly `git add .`. Skip `.env`,
    credentials, `bulk-downloads/`. The `commit-queue` enqueue +
    guard chain in move 2 enforces explicit pathspecs by design.

@@ -1,5 +1,14 @@
 # Draft for the owner: findings on upstream's 1.179.1–1.181.1 changes, surfaced by the fork's sync review
 
+> **Owner correction, 2026-09-16 — this file's framing is withdrawn; its findings are not yet
+> re-read.** There is no "upstream": there are two peer forks of OCE, and this fork merges back
+> to the Oak fork. A defect in carried code is cure-worthy here and reaches the Oak fork at the
+> merge-back, so **nothing here is to be sent**. The six findings below were recorded as another
+> project's to cure; they have not been re-read against this fork's current tree under the
+> peer-fork model. The next seat that touches carried code re-reads each one and moves every
+> finding that still reproduces into a local work list, as the 1.181.3 set was
+> (`upstream-report-draft-1.181.3-sync-2026-09-15.md`).
+
 **Review contract.** Purpose: give the owner one paste-ready note for upstream's maintainers,
 naming the findings a downstream review round surfaced on upstream-authored files while
 integrating releases 1.179.1 to 1.181.1 (fork PR #127, 2026-09-10). Intended impact: upstream

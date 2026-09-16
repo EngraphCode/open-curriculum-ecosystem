@@ -41,6 +41,15 @@ A receiver should be able to act WITHOUT a clarifying question back to the sende
 - *"See our earlier discussion"* — the receiver has no earlier discussion.
 - *"Remember the decision we made"* — the receiver was not there.
 - *"The usual approach"* — the receiver does not know the usual.
+- *"As before"* for a method whose safety rests on an exact value — paste the
+  value. "As before" carries the shape and drops the safety: a probe relayed
+  without its deliberately invalid string came back with a valid one and
+  created four production OAuth clients (2026-09-03).
+- A constraint without the interest it protects — hand over the interest
+  beside the rule. A rule compressed from its purpose ("no fourth commit" for
+  "a bound review leg is expensive; spend none on something discretionary")
+  misfires at the first case its author did not imagine, and the receiver
+  cannot reason with it (2026-09-12).
 - *"As I mentioned"* — the receiver did not hear it.
 - *"The relevant plan / docs"* — the receiver cannot guess which.
 - *"You know what to do next"* — the receiver does not.
@@ -52,7 +61,21 @@ After compaction, your future self IS a new receiver. Compaction-boundary handof
 If runtime monitors, cron jobs, watchers, or loop instructions matter after the
 compaction, flush their exact commands and intended state into the handoff and
 verify them on first wake-up. Do not rely on the compaction summary or the
-runtime process table to preserve that contract reliably.
+runtime process table to preserve that contract reliably. A summary keeps the
+what and drops the where: resume from the handover a seat wrote, never from the
+summary's line about it (2026-09-15: nine suppressed review findings went
+unanswered because a resume read "the last settlement push" from the summary,
+not the handover naming where they lived).
+
+A handover transmits INTENT with authority and MECHANISM without it: the
+receiver takes the intent as binding and re-derives the mechanism against the
+live rules, running the cheapest oracle that can falsify it (a parser, the
+command's `--help`, the rule the step would break) before following it
+(2026-09-11: a succession record's forbidden `it.skipIf` and unparseable
+workflow YAML). A handover to a lower-capability seat carries commands and
+stop conditions, never "use judgement": every judgement already made becomes
+a rule with its warrant, and every judgement not made goes to the owner's
+list.
 
 ## Handoff artefacts teach by their form
 

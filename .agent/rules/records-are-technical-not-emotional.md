@@ -41,6 +41,13 @@ A record's REGISTER encodes its authority, and readers obey the register
   content labelled as reviewed-at-acceptance. The mechanical check: **an
   owner-attributed clause is a verbatim quote or a marked seat reading —
   nothing between.**
+- **A record's time comes from the clock, never from memory.** Read
+  `date -u` before writing a timestamp or a due time, and quote an
+  instrument's own timestamps rather than arithmetic over them: a boundary
+  block stamped an hour ahead of the clock (2026-09-10), a duration computed
+  across UTC and local time (2026-09-13), and a coordination branch reported
+  due "at 15:14Z" from an event's time when the rule's clock is the branch
+  name's date (2026-09-15) each reached a record or the owner.
 - **A rule that needs repeated shrinking corrections was never
   grounded.** When a constraint contracts correction by correction (a
   full prohibition, then a may-share residue, then coincidence-not-concept,

@@ -3622,8 +3622,14 @@ commit SHA and the closing plan reference.
   of downstream), and prints the written `event_id` on every send path
   (`comms direct` currently prints none).
 
-### F-150 — `turbo run lint` returns a cached green that never ran the new linter
+### F-186 — `turbo run lint` returns a cached green that never ran the new linter
 
+- **Id note (2026-09-16)**: filed as F-150 on 2026-07-25, a number the
+  `pnpm install --ignore-scripts` friction above already held; the collision
+  was noticed on 2026-07-30 and left. Renumbered to the next free id at the
+  2026-09-16 dedicated consolidation. Dated records that cite "F-150" for the
+  turbo-lint cache (the 2026-07-31 corpus data, archived napkins) mean this
+  entry.
 - **Source**: Cygnus weaves Vastness (41a8c5), MCP-151 majors sweep 2026-07-25,
   bumping `eslint-plugin-unicorn` 70 → 72 (PR #550).
 - **Observed**: after the bump, `pnpm exec turbo run lint` reported
@@ -4306,3 +4312,47 @@ commit SHA and the closing plan reference.
   as its own config change with the classification test as proof;
   `build-system.md` §Caching carries the interim discipline (run the
   dedicated test directory before pushing an edited registry file).
+
+### F-187 — three identity and link-validator defects a transplant seat found, verified and never cured
+
+- **Observed**: reported 2026-09-12 by Cauldron herds Lustre (880ff9) from
+  the `jimcresswell.net` transplant, verified the same day by Nettle guards
+  Pistil (2de368), and re-verified at source on 2026-09-16 at the dedicated
+  consolidation, all three still present:
+  1. `agent-tools/src/claude/session-identity-hook.ts` builds
+     `additionalContext` (whose text says "PRACTICE_AGENT_SESSION_ID_CLAUDE is
+     set in $CLAUDE_ENV_FILE") before the `envFile === undefined` early return,
+     so a session with no env file is told the variable is set.
+  2. `agent-tools/src/collaboration-state/collaboration-seed.ts` reads no
+     `CLAUDE_CODE_SESSION_ID`, which every Claude Code Bash shell carries and
+     which equals the seed; the harness-native source list goes from
+     `CLAUDE_CODE_REMOTE_SESSION_ID` to `CODEX_THREAD_ID` (PDR-027's source
+     list would change with it).
+  3. `agent-tools/src/validators/markdown-links/validate-markdown-links.ts`
+     ignores only the root-anchored `.agent/reference-local/**`, so a nested
+     private checkout under another `reference-local/` directory is walked as a
+     link source.
+- **Expected**: the hook claims only what it wrote; a Claude seat resolves its
+  seed without a hook artefact; every `reference-local/` directory is outside
+  the validator's sources.
+- **Route**: one small source lane, TDD per defect, reviewed by code-expert;
+  it was routed on 2026-09-12 as "a small source lane after #136/#138" and no
+  seat took it.
+
+### F-188 — no check refuses a drain tombstone left in a drainable buffer
+
+- **Observed**: 2026-09-16 dedicated consolidation. `pending-graduations.md`
+  carried five HTML comments of the form "Register drained to empty at the …
+  consolidation … The commits and the homes are the record" (drains of
+  2026-07-20, 08-07, 08-14, 09-06, 09-09), although
+  `permanent-doc-is-the-consolidation-record` names that form a tombstone and
+  a seat had removed the same form from `distilled.md` on 2026-09-10 after two
+  review rounds (#111, #115). The class recurred in a sibling buffer despite its
+  home.
+- **Expected**: a drained buffer carries its header prose and nothing else,
+  and a check says so at commit time rather than a reviewer at round three.
+- **Route**: the practice-fitness validator already parses the three
+  drainable registers (`agent-tools/src/practice-fitness/item-count.ts`); a
+  refusal of a drain-comment shape there is the candidate cure. Falsifier: if
+  no such comment is written in the three months after the five are removed,
+  the check is dead weight.

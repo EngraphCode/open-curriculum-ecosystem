@@ -59,11 +59,12 @@ and no seat re-derives the recipe at the wall.
    the default branch from the pushed branch. Verification: the pull request's author is
    the bot; every workflow runs on the empty head.
 4. `agent` — triage every reviewer thread under the normal review-round discipline; a
-   finding about upstream code is never cured on the sync (a cure would diverge the tree
-   from upstream), so its disposition is a signed reply naming the route — an upstream
-   report, or a follow-up lane on this repository — and the thread is resolved on that
-   route, never on a canned line; a finding about the sync itself (the empty commit, the
-   branch shape) is cured here. The ruleset requires resolution. Verification: zero
+   finding about carried code is cure-worthy on this fork but not on the sync (the two
+   forks are peers and the merge-back delivers the cure; `cross-fork-integration`
+   §Authority frame), so its disposition is a signed reply naming the local work list or
+   follow-up lane that carries it — and the thread is resolved on that route, never on a
+   canned line; a finding about the sync itself (the empty commit, the branch shape) is
+   cured here. The ruleset requires resolution. Verification: zero
    unresolved threads, each with a route or a verified rejection with its rationale in
    its reply.
 5. `agent` — merge by MERGE COMMIT with the head pinned, through the bot's merge path and
@@ -97,7 +98,7 @@ untouched.
 ## Rollback
 
 Steps 1 to 3 change no shared state beyond a branch and a pull request, both deletable.
-Step 4's routed review findings are durable by design (an upstream report, a follow-up lane
+Step 4's routed review findings are durable by design (a local work list, a follow-up lane
 node, or a frictions-register row written before the merge, as the review-triage rule
 requires) and a rollback keeps them; only the branch and the pull request are deleted.
 Step 5 has no rollback beyond a forward-going revert merge, which would itself diverge from

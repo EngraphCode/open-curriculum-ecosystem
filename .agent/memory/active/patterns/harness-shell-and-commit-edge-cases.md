@@ -98,6 +98,15 @@ barrier:
   permission does not depend on another call's result — the shared-cwd trap
   above in another costume: parallel calls share state, and ordering by
   hope is no ordering.
+- **A permission-layer denial is not lifted by the owner's approval in chat**:
+  `git commit --amend --only` was denied, then denied again after the owner
+  chose "Allow" in the question tool (2026-09-16). Offer the owner the exact
+  command to run with `!` at once instead of retrying; a leading space before
+  the `!` sends the line as chat text and runs nothing.
+- **git's file-system monitor prints `error: could not read IPC response`** on
+  `git grep`, `git fetch`, `git worktree remove` and inside commit hooks while
+  the command completes normally (2026-09-16). `git -c core.fsmonitor=false`
+  silences it for a read.
 
 ## See also (homed elsewhere, not duplicated)
 

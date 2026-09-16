@@ -24,7 +24,10 @@ not the surface: when the seat can read the state directly, the state governs,
 and a verdict the state contradicts is a defect to file against the instrument,
 never a timer to wait on (2026-09-12: a front door read a substantive review as
 a skip marker and the seat waited on its timeout arm with the settled state in
-front of it). A reviewer's finding is not such a verdict: it is adjudicated on
+front of it). Cure the instrument or route the decision to its owner; never act
+between them, and never take the cheapest move that changes the verdict in place
+of the property it protects — an IO test routed through a helper to quiet a lint
+rule, a leg carried on a comment past a door that cannot read it (2026-09-14). A reviewer's finding is not such a verdict: it is adjudicated on
 its merits through `pr-lifecycle`'s triage, never dismissed by reading state.
 A claim becomes true only when the proving surface is current and visible, not
 merely present in a historical, contaminated, in-flight, or superseded artefact.
@@ -387,7 +390,13 @@ Three later refinements, each paid for:
   GRANT, never against one attempt's refusal — a `403` from a CLI is a
   wrong-scope symptom (an ungranted permission fails the mint with `422`),
   and "the bot lacks `actions`" stood in two plan nodes and a thread record
-  while the installation held `actions: write` (2026-09-11).
+  while the installation held `actions: write` (2026-09-11). A write capability
+  a plan will rest on is proven by one write on a throwaway object, never
+  inferred from a read (four reference-update calls, create, fast-forward,
+  refused non-fast-forward, delete, removed a whole secret from the mirror
+  workflow's design, 2026-09-10). On owner-ratified text that does not run —
+  ratified YAML that does not parse — cure what cannot run, and carry every
+  design change to the owner rather than redesigning in the lane (2026-09-11).
 - **A rule clause that names repositories, credentials or secrets is read
   against the workflow file before it is written.** "Re-home any fork head",
   generalised from one instance, would have handed an external contributor's
@@ -402,7 +411,10 @@ Three later refinements, each paid for:
   (2026-09-09). Before any card or report about a plan, a gate, a record's
   status or a document's existence, read `git show origin/<default>:<path>`
   or a listing of the tip; a session-start drift alert on the primary is a
-  pointer to re-check, never a fact.
+  pointer to re-check, never a fact. Existence is a PATH fact
+  (`git cat-file -e <ref>:<path>`), never a name search: `git grep -l <name>`
+  matches the files that CITE a document, and a report on the tip all along was
+  dispositioned as absent that way (2026-09-10).
 
 The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run

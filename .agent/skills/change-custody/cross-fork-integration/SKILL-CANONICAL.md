@@ -47,9 +47,19 @@ no conception of meaning."
 
 ## Authority frame
 
-- **Upstream's mechanism is authoritative for shared mechanism.** A reviewer
-  finding about upstream code is never cured on the fork; it is routed as an
-  upstream report or a fork lane, and the thread is resolved on that route.
+- **Two peer forks, never an upstream** (owner, 2026-09-16, verbatim: "there
+  is no 'upstream' there are two forks of OCE. Eventually this fork will be
+  merged back to the Oak fork. All of those issues should be fixed locally,
+  they go to Oak when the fork syncs back, not before."). In this skill,
+  "upstream" names the Oak fork as the source of a sync, never an authority.
+  A reviewer finding on code that arrived with a sync is cure-worthy on this
+  fork: cure it in its own lane, and the merge-back delivers it. Nothing is
+  ever sent to the other fork's maintainers. Ask, of any finding: whose code is
+  this, and where does a fix travel?
+- **History is never rewritten across the forks** (owner, 2026-09-10,
+  verbatim: "never, ever rewrite history from the upstream fork, when we merge
+  back it must be purely fast forward"). A sync is a merge; no squash, rebase or
+  amend touches commits that came from the other fork.
 - **The fork holds its own product authority.** An upstream product decision
   arriving through a sync is a fact about upstream, not a constraint here,
   unless the owner adopts it.
@@ -306,15 +316,17 @@ A fresh worktree needs its workspaces built before the pre-push gates pass
 (the standards ESLint plugin's `dist/` for lint; the agent-tools `dist/` for
 the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
 §review-round state machine); harvest every thread. Findings about the sync
-itself are cured here; findings about upstream code are routed and resolved on
-the route — and the report to upstream is the OWNER's act, because the fork
-writes to no upstream surface without the owner's per-instance word: it reaches
-the owner as one ask through the Director, and the thread's disposition names
-that route. On a carrier every review round is findings on someone else's
-code, so that route is the whole disposition vocabulary the lane needs and the
-cure-worthy count stays zero unless a finding is about the sync itself
-(2026-09-09, the 1.179.0 carrier: two rounds, three threads, all routed to one
-owner-held upstream report, cure-worthy 0). Settle at green by name
+itself are cured on the carrier. Findings about carried code are cure-worthy on
+this fork too, but not in the carrier's rounds: each is recorded, with its
+file and line, on a local work list and cured in its own lane, and the thread's
+disposition names that list. The carrier's cure-worthy count is therefore the
+sync's own findings plus the carried-code findings that are true, never zero by
+construction. Three carriers were dispositioned under the withdrawn upstream
+model as routed away, cure-worthy 0 — #99 (1.179.0), #127 (1.181.1) and #147
+(1.181.3); the 1.181.3 set is the local work list
+`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`,
+and the 1.179.0 and 1.181.1 sets have not been re-read under the peer-fork
+model. Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window) — the front door's own wait-class polling is the settle instrument: a
 background settle watch is a process the host may kill (several times across
