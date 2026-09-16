@@ -69,9 +69,11 @@ still unhomed, as at the 2026-09-10 rotation.
 - **An insertion with a scaffold line left the scaffold.** An Edit that anchored a new entry by
   duplicating the next entry's bracket line left a placeholder bullet and a duplicate bracket in
   the register; caught by grepping the result, removed before any commit.
-- **The residency slip, once more.** A `cd` into the comms directory inside a counting command
-  moved the session's working directory; read-only, restored at once. Routed as recurrence
-  evidence (the action-time interrupt plan).
+- **The residency slip, once more — twice.** A `cd` into the comms directory inside a counting
+  command moved the session's working directory; read-only, restored at once, and routed as
+  recurrence evidence to the action-time interrupt plan. About an hour later, minutes after that
+  evidence row was committed, a `cd` into the scratchpad to grep three logs moved it again. The
+  written evidence did not fire at the next act, which is what the row says about the class.
 - **Locators with an exact-quote output format made verification cheap.** Each proposed home came
   back as `path:line` plus a quoted fragment, so checking a citation was one `sed -n` of the line.
   The strongest yield was not the homes found but the contradictions found beside them:

@@ -240,14 +240,33 @@ grounds untracked-by-design in exactly those two.
 
 **Resume recipe.**
 
-1. Done: #150 landed (`a07940ac9`); the successor `coordination/2026-09-16-a07940` is cut;
-   the graduations are committed (`63b544464`) and the fold's landing records follow them.
-2. Push the successor and open its draft pull request (the safety floor).
-3. Then, in a fresh context, the directive queue.
-4. Then the Core amendments (the pending-graduations entry naming PDR-008, PDR-117, PDR-141).
-5. Then the napkin rotation: archive `napkin-2026-09-16.md` proven by `cmp`, the fresh napkin's
-   rotation record naming the archive-coverage marker.
-6. Then the Claude RESUME HEADS pointer update, and the successor's fold at its rollover.
+1. Done:
+   - #150 landed (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` is cut;
+   - the graduations are committed (`63b544464`), with the fold records after them
+     (`29648a216`);
+   - the napkin is rotated to `archive/napkin-2026-09-16.md` (`8c48a6669`, `cmp`-proven), and
+     the retrospective carries a citations-and-proposals addendum;
+   - pushed, and draft #152 opened as the safety floor.
+2. Before step 3, read the Core entry's PDR-008 half as a reading, not a text cure. The portable
+   convention says `check` is the mutating alias of `check:fix` with a `check:ci` beside it; this
+   host's `package.json` makes `check` the read-only aggregate, `fix` the mutating one, and has no
+   `check:ci`. Which side moves is a Practice-convention judgement (PDR-104 best effort, surfaced
+   to the owner), not a stale sentence.
+3. In a fresh context, below 30 %, the directive queue.
+4. Then the Core amendments: PDR-117's written stand-down and PDR-141 decision 7's order, plus
+   PDR-008 after its reading.
+5. The Claude RESUME HEADS pointers were re-trued on 2026-09-16. The successor folds at its
+   rollover, with #152 readied first.
+
+**Owner decisions surfaced at this point, not taken.**
+
+- The CodeQL `js/missing-rate-limiting` mechanism. The rule text naming per-alert dismissal as
+  the owner's act (`41235118c`, 2026-09-10 01:18) preceded the repo-wide exclusion by about
+  sixteen hours. The exclusion was added to `.github/codeql/codeql-config.yml` (`bd7a3509e`,
+  2026-09-10 17:17) as a carrier's landing-defect cure citing the same 2026-09-08 ruling, and
+  neither the rule nor ADR-219 was amended.
+- Clearing the resonance Practice Box bundle.
+- Whether directive edits may run in this session despite the budget rule.
 
 ## Standing decisions this thread carries forward
 
