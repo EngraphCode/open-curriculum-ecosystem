@@ -358,9 +358,10 @@ first-hand as of 2026-06-25.
 > - #143 `e474e883e`, #146 `048f377fa`, #144 `4540dec49` and #145 `0f3168369`;
 > - #148, the 2026-09-14 fold, `4786abb7f`;
 > - #147, the 1.181.3 carrier, landed on recorded premises, `0bd321131`;
-> - #149, the reviewer-leg tightening, `514bfc06a`.
->
-> **Open:** draft #150, carrying `coordination/2026-09-15-4786ab`, whose fold is DUE.
+> - #149, the reviewer-leg tightening, `514bfc06a`;
+> - #150, the 2026-09-15 fold, `a07940ac9` (2026-09-16 21:39Z, front door, three rounds), at the
+>   opening of the owner's dedicated consolidation session. The successor is
+>   `coordination/2026-09-16-a07940`, and the consolidation's commits ride it.
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the
@@ -368,8 +369,8 @@ first-hand as of 2026-06-25.
 >
 > **Withdrawn by the owner on 2026-09-16:** the upstream-report item. There are two peer forks and no
 > upstream, so nothing under `.agent/reports/upstream-sync/` is sent to anyone. Its drafts are local
-> work lists: the 1.181.3 draft is re-headed; the 1.181.1 draft is named in the cross-fork entry in
-> `pending-graduations.md`.
+> work lists: the 1.181.3 draft is re-headed as seven local defects, and the 1.181.1 draft carries a
+> header saying its six findings wait to be re-read under the peer-fork model.
 >
 > **A successor's first moves, on any checkout:**
 >

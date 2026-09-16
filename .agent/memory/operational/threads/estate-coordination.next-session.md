@@ -3575,3 +3575,36 @@ platform text or no text. It adds proposal B, a Bash-guard entry refusing shell 
 files. The convergence in item 2 meets the single `napkin.md` conflict above. The consolidation's
 napkin rotation, if it runs before the convergence, changes that conflict's shape. Run the
 archive-coverage check (semantic-merge) whichever order is taken.
+
+### 2026-09-16 21:39Z — FOLD of coordination/2026-09-15-4786ab (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1) and rotation
+
+The owner's dedicated consolidation session converged the branch before draining anything:
+
+- `engraph` `514bfc06a` was merged in as `7ccc8dd2e`. The napkin conflict was two appends at one
+  point, resolved as a union byte-identical to `git merge-file --union`, with the heading
+  set-diff of each side empty.
+- PR #150 merged through the front door at 21:39:14Z as `a07940ac9`: parents `514bfc06a` and
+  `744b7a6dc`, Copilot and Codex SATISFIED on the tip, the quiet window elapsed.
+- The successor `coordination/2026-09-16-a07940` was cut from that merge commit with
+  `agent-tools coordination successor-name`, tree-preserving; the primary resides there.
+
+moved for teachers: nothing / moved for the Practice: the reviewer-leg tightening's landing
+record, the deep retrospective over five napkin windows with its four proposals, the two-forks
+correction recorded, and the start-right profile order, session-handoff's pending-checks paragraph
+and the merge-door decision note trued at review.
+
+Review: three rounds and fifteen findings, every one true.
+
+- Round one (Copilot two threads, Codex two): cured at `00fe8819e`. The findings were the fold's
+  missing prose-class intake for its sketch plan node (cured in the description), start-right's
+  "check FIRST" above a pull-first block, session-handoff's older standing sentence against its
+  pending-checks outcome, and the decision note calling an observed vendor comment documented.
+- Round two (Codex two threads, Copilot two suppressed items): cured at `744b7a6dc`. The sketch
+  node read an inline-only review as empty and a wrong-tip completion comment as `OWED`; the
+  2026-09-16 letter closed with a live imperative; and the 1.181.3 work list carried an item
+  against a superseded, preserved ADR-141 paragraph, so the list is seven.
+- Round three (Codex one thread, Copilot three suppressed items) was dispositioned without a
+  cure, the budget spent. The routes: this entry and the continuity pickup, and three rows on the
+  landing-instruments node's `## Review dispositions`.
+
+Settlement pushes: 2 of 2. The consolidation's own commits ride the successor.

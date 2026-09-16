@@ -96,6 +96,159 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `git:index/head` claim from the corpus-salvage lane (shared branch) before
   staging.
 
+### 2026-09-16 — the owner's dedicated consolidation session, IN PROGRESS: the resume point
+
+Zephyr guards Leeward (281e44), curator claim `c16450da`, mode dedicated-knowledge-curation.
+Owner goal verbatim: "the goal is knowledge curation, not chasing fitness numbers … Done means
+empty pending graduations and empty buffers."
+
+**Done in the first context.**
+
+- Base converged: `engraph` `514bfc06a` merged into `coordination/2026-09-15-4786ab` as
+  `7ccc8dd2e`; the napkin conflict resolved as a union, byte-identical to `git merge-file --union`.
+- Fold PR #150: rounds one and two cured in settlement pushes `00fe8819e` and `744b7a6dc`, budget
+  spent; round three requested on `744b7a6dc`. The napkin rotation and every drain ride a
+  successor branch after #150 lands, never #150.
+- Read first-hand in full: every non-heartbeat comms event since 2026-09-10T06:00Z (sweep through
+  2026-09-16T20:45Z); the Claude per-user memory (five entries, strictly local); the non-repo
+  Claude plans (the OCE ones homed, three belong to jimcresswell.net); Codex `MEMORY.md` (the OCE
+  groups); experience letters 2026-09-03 → 09-16 across both lines; the whole napkin (2,200
+  lines). Cursor: unchanged since 2026-06-04. Gemini: no memory content.
+- About 150 napkin, comms and letter items were checked against their homes: four read-only
+  locators proposed citations, and the seat verified them before disposition. Most are
+  duplicates of live homes or rejected as thin; the graduations are below.
+
+**Graduations, by home class** (one PR per class; directive edits wait for a context below 30 %).
+
+- *pr-lifecycle*:
+  - TEXT CURE of line ~1005: "the Codex connector binds at creation and on later pushes" is
+    false. Its triggers are open, ready and an `@codex review` comment; request by comment on
+    the verdict tip.
+  - TEXT CURE of the Phase 5 `pr-watch --watch` prescription (F-164): use a one-shot
+    `agent-tools pr state <n> --expect <login>` or a background `gh pr checks <n> --watch`.
+  - TEXT CURE of the Phase 1 `git push origin refA refB refC` example: use `merge-bot push`.
+  - `gh pr create` on a branch with an open PR returns that PR's URL.
+  - The landing slot: a holder waiting for a per-tip leg keeps the slot and nothing lands meanwhile.
+  - Claim-bearing changesets table each stated invariant against its code sites and tool
+    predicates, with a context-free verification pass before publication (retrospective
+    proposal 3).
+  - The PDR-140 prong is stated before a cure.
+  - Causal scope: a regression the change introduces is in scope.
+- *commit skill*:
+  - TEXT CURE of "Confirm quality gates have passed (or run them now)" against the owner's
+    2026-09-14 ruling.
+  - The merge path asserts `MERGE_HEAD` before the resolution commit.
+  - The owner's 2026-09-10 words beside "Commits only append": "we must NOT rewrite the shared
+    history, all commits happened, we are adding more or we are not".
+- *cross-fork-integration skill*:
+  - The two-forks text cure (pending-graduations entry).
+  - The owner's 2026-09-10 words: "never, ever rewrite history from the upstream fork, when we
+    merge back it must be purely fast forward".
+- *rules*:
+  - handoff-messages-self-contained:
+    - a summary keeps the what and drops the where;
+    - a lower-tier handover carries commands and stop conditions;
+    - intent is binding, mechanism is re-derived;
+    - paste the value when safety depends on it;
+    - a constraint travels with its interest.
+  - verify-dont-trust:
+    - existence is a path fact, never a name search;
+    - "or route the decision; never act between them";
+    - on ratified text, cure what cannot run and carry what changes behaviour;
+    - prove a write capability on a throwaway object.
+  - precedence-is-not-approval: a peer's deadline is not authority.
+  - no-warning-toleration: the CodeQL mechanism, after the owner's word (below).
+- *executive memory, skills and patterns*:
+  - invoke-code-experts: the coordinator's first-hand read and purpose question before a lens
+    dispatch.
+  - free-play: re-read the discard pile against the live question.
+  - retrospective: find the task class's last run before choosing a whole-corpus method.
+  - session-handoff: 6d names `AGENTS.md` `## Code review`, and records stamp from `date -u`.
+  - start-right: ADR-199/PDR-094 → ADR-203 for untracked state.
+  - pattern `zero-match-false-green`: verdict channels that read success as silence.
+  - a new pattern: measure growth at two sizes, never absolute time.
+  - pattern `baseline-transmits-its-stance`: a consultation inherits the asker's frame.
+  - `docs/engineering/merge-bot.md`: `--expect` takes the login without `[bot]`.
+  - the Claude harness integration doc: a permission denial that survives the owner's approval
+    means offering the `!` command.
+  - `.agent/research/README.md`: the research-package import method.
+- *registers and plan rows*:
+  - frictions:
+    - renumber the second F-150;
+    - rows for the unfixed transplant defects (the session-identity hook context before the
+      undefined return; `CLAUDE_CODE_SESSION_ID` as a seed; `**/reference-local/**` in the link
+      validator; `state-file-seeds.ts` citing ADR-199/PDR-094).
+  - quality-gate-ledger: a buffer-tombstone validator row; remove pending-graduations' five
+    drain-comment tombstones.
+  - pr-tally: the pre-filled disposition-template row.
+  - knip's "Remove from ignoreBinaries" hints (`lsof`, `ps`): cure the configuration in a lane.
+- *Practice Core (step 8)*:
+  - PDR-008's script tables and practice-verification item 9 against `package.json`.
+  - PDR-117's readiness gate: a written stand-down, never freshness.
+  - PDR-141 decision 7's "check FIRST" beside decision 14's pull.
+- *slow lane*: retrospective proposal 2 with addendum A (review 2026-12-16).
+- *Retrospective proposals*: 1 and 3 enacted above; 4 is the skill's own shape (its before/after
+  byte report is rejected under `permanent-doc-is-the-consolidation-record`); B, a Bash-guard
+  entry refusing shell edits of tracked files, is a hook-policy code lane.
+- *Recurred despite a home* (PDR-098 evidence for the action-time interrupt lane):
+  - zsh does not word-split (verify-dont-trust);
+  - a bare `cd` moves residency (the harness-shell pattern), n = 4 at this seat, one of them this
+    session;
+  - "Use the proper tools only", including a chained shell call this session.
+- *Directives, after the context reset*:
+  - the IO invariant: testing-strategy's six passages, PDR-091, counters as configuration echoes,
+    the observation instrument and visibility-before-validation in validation-strategy;
+  - principles: no change freezes; open source is the standard;
+  - editorial-tone: never invent public copy;
+  - orientation: the PDR-141 re-point;
+  - the directives review's cheap defects (`.agent/research/directives-tier-review-2026-09-10-efreet-findings.md`
+    §7 step 1).
+
+**Owner decisions surfaced.**
+
+- The CodeQL `js/missing-rate-limiting` mechanism. `.github/codeql/codeql-config.yml` carries a
+  repo-wide query exclusion (`bd7a3509e`, 2026-09-10, attributing it to the 2026-09-08 ruling).
+  The `no-warning-toleration` rule and ADR-219 state per-alert dismissal by the owner, never a
+  repo-wide exclusion.
+- Clearing the Practice Box resonance bundle (2026-07-08). Item 10 is now answered by the IO
+  invariant.
+- The directive-edit override, which is not requested.
+
+**Committed as `63b544464` on `coordination/2026-09-16-a07940`**, after #150 landed as
+`a07940ac9`. Every graduation above is written except the following:
+
+- the directives and the Practice Core items;
+- the new growth-measurement pattern, moved to the directive queue as a testing-strategy
+  §No wall-clock ceilings clause;
+- the knip configuration lane;
+- the CodeQL owner decision.
+
+Written:
+
+- pr-lifecycle, commit, cross-fork, session-handoff, free-play and retrospective skills;
+- handoff, verify-dont-trust, precedence and records rules;
+- the three patterns and executive invoke-code-experts;
+- merge-bot.md and the research README;
+- the sync runbook, the MCP-487 plan line and the 1.181.1 report header;
+- rows on the pr-tally and landing-instruments nodes;
+- frictions F-186 (the renumbered duplicate F-150), F-187 and F-188;
+- in `pending-graduations.md`: the five drain tombstones removed, the cross-fork entry drained,
+  and the slow-lane row for retrospective proposal 2 registered.
+
+Rejected at the check: the start-right "ADR-199 / PDR-094" citation, because ADR-203:24-25
+grounds untracked-by-design in exactly those two.
+
+**Resume recipe.**
+
+1. Done: #150 landed (`a07940ac9`); the successor `coordination/2026-09-16-a07940` is cut;
+   the graduations are committed (`63b544464`) and the fold's landing records follow them.
+2. Push the successor and open its draft pull request (the safety floor).
+3. Then, in a fresh context, the directive queue.
+4. Then the Core amendments (the pending-graduations entry naming PDR-008, PDR-117, PDR-141).
+5. Then the napkin rotation: archive `napkin-2026-09-16.md` proven by `cmp`, the fresh napkin's
+   rotation record naming the archive-coverage marker.
+6. Then the Claude RESUME HEADS pointer update, and the successor's fold at its rollover.
+
 ## Standing decisions this thread carries forward
 
 - **No ledger**: the reconciled index IS the work-list (line retires only on
