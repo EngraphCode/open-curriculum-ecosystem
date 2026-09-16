@@ -970,11 +970,7 @@ export function generateScopesSupportedFile(): string {
 **What it says now:**
 
 ```text
-export const BASE_WIDGET_URI = `ui://widget/oak-curriculum-app-${resolveWidgetUriSuffix({
-
-vercel: process.env.VERCEL,
-  gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA,
-  deploymentId: process.env.VERCEL_DEPLOYMENT_ID
+export const BASE_WIDGET_URI = 'ui://widget/oak-curriculum-app-v1.html';
 ```
 
 **What it is for:** Advertise the widget bundle URI in \_meta.ui.resourceUri for widget tools; the cache-busting hash forces hosts to reload a fresh bundle.

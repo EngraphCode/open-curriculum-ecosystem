@@ -9,9 +9,9 @@ import {
   type PathExistsCheck,
   type PrTarget,
 } from './gh.js';
+import { defaultExpectedReviewers } from './expected-reviewers.js';
 import { parseReviewThreadPages } from './review-threads.js';
 import { readReviewRunsLeg } from './review-runs.js';
-import { hasLanded, isSignedSelfReply } from './reviewer-legs.js';
 import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from './state-fields.js';
 import type { PrStateReading } from './state-types.js';
 
@@ -157,20 +157,15 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
     const confirm = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
     if (confirm.headRefOid === view.headRefOid) {
       const declared = options.expectedReviewers ?? [];
-      // A defaulted expected set must not be polluted by the agent's own signed
-      // disposition replies (shared-credential reviews), unsubmitted drafts, or
-      // deleted-account 'unknown' authors — each would mint a phantom OWED leg.
-      const observedAuthors = reviews
-        .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
-        .map((review) => review.author)
-        .filter((author) => author !== 'unknown');
-      const observed = [...new Set([...confirm.reviewRequests, ...observedAuthors])];
       return {
         ...confirm,
         reviewThreads,
         reviews,
         reviewRuns,
-        expectedReviewers: declared.length > 0 ? declared : observed,
+        expectedReviewers:
+          declared.length > 0
+            ? declared
+            : defaultExpectedReviewers(confirm.reviewRequests, reviews),
         expectedDeclared: declared.length > 0,
       };
     }

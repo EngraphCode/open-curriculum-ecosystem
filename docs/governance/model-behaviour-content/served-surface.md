@@ -78,7 +78,7 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 - `docs://oak/guidance/explore-curriculum.md`
 - `docs://oak/guidance/find-lessons.md`
 - `docs://oak/guidance/learning-progression.md`
-- `ui://widget/oak-curriculum-app-local.html`
+- `ui://widget/oak-curriculum-app-v1.html`
 
 ### Dormant (4)
 
