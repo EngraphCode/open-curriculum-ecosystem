@@ -22,8 +22,9 @@ and is the wrong question. The right one is: *what is a review result?*
 
 GitHub's review object is a **transport** for a reviewer's result, not the result itself.
 The Codex connector uses a different transport when it has nothing to report — a completion
-comment naming the reviewed commit, plus a 👍 reaction — exactly as its own documentation
-states. Treating the transport as the evidence turned a good result into "no evidence".
+comment naming the reviewed commit, plus a 👍 reaction. Its About text documents only the 👍;
+the commit-bound comment is observed behaviour (#147, #149), not a vendor contract. Treating
+the transport as the evidence turned a good result into "no evidence".
 
 Three errors underneath that:
 

@@ -112,10 +112,11 @@ including what must never be stored there, is
 
 It lives in the operator's home directory, shared by every Practice
 repository, linked worktree and clone on the machine, and it may be a git
-repository the operator syncs between machines. Run the check FIRST — it
-exits 0 and says so when nothing is there, and it refuses a document
-carrying a credential-shaped line before anything is read into the session
-— then read the index, the current repository's scope file (keyed by the
+repository the operator syncs between machines. Pull the profile first,
+then run the check — it exits 0 and says so when nothing is there, and it
+refuses a document carrying a credential-shaped line before anything is
+read into the session — then read the index, the current repository's
+scope file (keyed by the
 `origin` remote's owner and name in any of its https, scp-style or ssh
 forms, never a path), then this machine's file (keyed by the short host
 name):
