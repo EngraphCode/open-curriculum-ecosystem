@@ -196,6 +196,28 @@ with `query-the-value-never-the-lookalike` loaded (2026-09-02). The calibration
 holds: every bite was cheaper and mostly externally caught, and none was
 prevented by the passive home.
 
+**Recurrence-evidence ledger routed from the 2026-09-16 dedicated consolidation**
+(the window 2026-09-10 → 2026-09-16; PDR-098 recurrence-despite-home), three
+classes whose homes held and did not fire:
+
+- **A bare `cd` moves the session's residency.** Home: the
+  `harness-shell-and-commit-edge-cases` pattern (parallel calls share one working
+  directory). One seat broke it four times across 2026-09-14 → 09-16, once four
+  hours after writing its own cure ("a shell call never runs a bare `cd`"), and
+  again during the consolidation that routed this row.
+- **"Use the proper tools only"** (owner, 2026-09-16) — repository file edits
+  through the file-editing tools, never sed, heredocs or node scripts. Corrected by
+  the owner on 2026-09-02, 09-06 and 09-16, and broken twice more by the corrected
+  seat the same day. A platform text works against it: the harness's auto-mode note
+  offers shell edits "instead of the dedicated Read, Edit, or Write tools" and
+  arrives fresh at every mode change (the 2026-09-16 retrospective's addendum). The
+  candidate interrupt is a Bash-guard policy entry refusing in-place edits of
+  tracked files (`sed -i`, `perl -pi`, a redirect or heredoc into a tracked path);
+  unresolved whether the argument-aware `argv` matcher (#116) sees redirection
+  targets, which are not argv.
+- **zsh does not word-split an unquoted variable.** Home: `verify-dont-trust`.
+  Re-learned at the cost of a gate run by at least three seats on 2026-09-10.
+
 ## The Reconciliation (the distinct value)
 
 The register item demands reconciliation with metacognition and immune-system

@@ -1108,6 +1108,10 @@ Lines 1279–1917 (09-09):
 
 ## N6 — live napkin.md (window ≈ 2026-09-10 → 09-16)
 
+_Dated note, 2026-09-16 (the dedicated consolidation): this window's napkin was rotated to
+`.agent/memory/active/archive/napkin-2026-09-16.md`; its first 1,978 lines are unchanged, so the
+line numbers below resolve there as written._
+
 Lines 23–422 (09-10):
 
 - 76–96: A geometric tail after a step-back: seats re-opened the one 9(b) door on each

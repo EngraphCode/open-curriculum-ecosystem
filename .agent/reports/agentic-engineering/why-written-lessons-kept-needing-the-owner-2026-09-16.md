@@ -571,3 +571,29 @@ needs a different cure:
   - whether the argument-aware matcher (#116) sees shell redirection targets at all, since
     redirections are not argv;
   - whether scratchpad scripts that call CLIs stay outside it, as they should.
+
+## Addendum 2026-09-16 (the dedicated consolidation): where the citations now resolve, and what became of the proposals
+
+**Citations.** The live napkin this record cites as `napkin.md:<line>` was rotated at the
+consolidation to `.agent/memory/active/archive/napkin-2026-09-16.md`, byte-identical to the
+coordination branch's napkin at `29648a216`. Its first 1,978 lines are the napkin as it stood at
+this record's commit (`940c019a6`), unchanged by the later union that appended the Oak-line
+blocks after them, so every `napkin.md:<line>` citation above resolves at the same line in that
+archive file.
+
+**Proposals, as the consolidation dispositioned them.**
+
+- Proposal 1: two of the three texts were cured in `63b544464` (pr-lifecycle's watch
+  prescription, with its false Codex-push claim; the cross-fork routing clause, with the sync
+  runbook, the MCP-487 plan line and the 1.181.1 draft's header). The IO admissions in
+  `testing-strategy.md` are the first entry of the directive pass, which the
+  directive-file context budget holds for a fresh context.
+- Proposal 2 with addendum A: registered as a slow-lane row in `pending-graduations.md`, review
+  2026-12-16.
+- Proposal 3: enacted in pr-lifecycle §Phase 2 (a claim table and a pre-publication verification
+  pass, with a prediction and a falsifier).
+- Proposal 4: the consolidation ran by hand with read-only locators whose every citation was
+  checked; its before-and-after byte report is not produced, because
+  `permanent-doc-is-the-consolidation-record` forbids before/after accounting in a closeout.
+- Proposal B: routed as the candidate interrupt beside the recurrence evidence in
+  `action-time-structural-interrupt-design-space.plan.md`, with its unresolved matcher question.
