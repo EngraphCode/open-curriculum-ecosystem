@@ -1647,3 +1647,58 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   lane owns and backs no commit. Cost: one cycle. The refusal named the rule exactly, which
   is what a good refusal does — and it is the same instrument class the day's plan node is
   about, read from the other side: an instrument that says precisely what it looked for.
+- **A merge gate settled on evidence the seat itself created (2026-09-16).** The door's leg
+  predicate asked only whether a tip-bound landed review was NOT a skip marker. Replying to a
+  review thread through the API creates a review object with an EMPTY body under the replier's
+  identity, so my own seven disposition replies on #147 were tip-bound reviews — and one of them
+  read SATISFIED. The quiet-window anchor had the mirror hole: it excludes PENDING drafts and
+  signed self-replies, but an empty body carries no signature to detect, so the window anchored
+  on my own reply at 15:44:32Z, seven minutes after the round's last real review. What makes it
+  more than a bug: under the 2026-09-10 vendor-outage ruling the declared `--expect` set may name
+  the seat's own posting identity, so a seat could have settled its own pull request with its own
+  replies — reachable by design, not only by accident. Cured at SHA:8808bb37d. The generator both
+  halves share: an EMPTY RESULT SET READ AS A SATISFIED PREDICATE — zero classifiable evidence
+  reads as "nothing to wait for", exactly as zero required checks reads as "all green".
+- **Spend a consultation at the moment you are about to cross your own scope line (2026-09-16).**
+  I was about to let a vendor's completion COMMENT satisfy a reviewer leg — crossing a line I had
+  written myself three days earlier in `review-round-predicates` ("a separate decision with its own
+  fixture"). The owner was asleep and had named Cauldron herds Lustre (880ff9) for second opinions.
+  Their verdict was no: a review object's commit binding is structural and platform-made, a
+  comment's is prose the vendor wrote, and an issue comment stays editable by anyone with write
+  access after the fact — the door's value is that it cannot be talked into a merge. The cure was
+  to SPLIT: land the tightening, route the widening to the owner as its own decision note
+  (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`). The tell I want to keep:
+  noticing that I was about to overturn my own earlier scoping was itself the signal to ask.
+- **A line ceiling selects against the LONGEST comment, not the least load-bearing (2026-09-16).**
+  The commit's first gate run refused — `reviewer-legs.ts` at 263 lines against a 250 maximum.
+  Trimming my own prose was the only cure inside the story's budget: four modules import
+  `isSignedSelfReply`/`hasLanded` from that file, so the decomposition the ceiling is really
+  pointing at is a second changeset with its own round budget. I came close to cutting the comment
+  stating that discarded evidence must be COUNTED — the clause the whole cure rests on — because
+  it competed against dated instances already recorded in the SKILL. Ordering from Cauldron herds
+  Lustre (880ff9) that helps at the moment of the trim: ask which lines a later reader could NOT
+  reconstruct from another surface, and trim those last; and where decomposition is genuinely in
+  reach, take it over prose-trimming — it only fails to be the answer when it is out of budget,
+  which was this case. Neither removes the pressure.
+- **Owner correction (2026-09-16): "no findings IS a result, it shouldn't need special
+  treatment".** I had spent an evening asking whether a vendor's completion comment was strong
+  enough EVIDENCE to settle a leg, and routed it to the owner as a gate-weakening decision. Wrong
+  question. A completed review with zero findings is a positive result; GitHub's review object is
+  a TRANSPORT for a result, not the result. Codex uses a different transport when it has nothing
+  to report. Treating the transport as the evidence turned a good result into "missing evidence".
+  Three errors under it: (1) the door watches only the channels FINDINGS arrive on, so success is
+  indistinguishable from silence — the same empty-set generator I had named that same night,
+  running in the opposite direction, and I missed the inversion; "no evidence" and "evidence of
+  nothing" are different states; (2) I weighted "a comment is editable" as decisive without ever
+  naming the attacker — anyone with write access here can approve, dismiss or merge outright, so
+  the door guards against an AGENT settling an unreviewed pull request, not against a forger;
+  (3) the cost asymmetry was backwards — wrongly trusting costs one recoverable merge, wrongly
+  ignoring stalls EVERY clean round permanently, so the door fails hardest exactly when the work
+  is good.
+- **A consultation inherits the asker's frame (2026-09-16).** I asked the Director "may weaker
+  evidence settle a merge gate?" and got a well-reasoned answer to that question, which I then
+  treated as settling the matter. Two agents, one frame, mutual reinforcement — the opposite of
+  parallax, while feeling like diligence. The genuinely different position came from the owner.
+  What I would do differently: state the FRAME as a question alongside the question itself ("am I
+  asking about evidence strength, or about what a result is?"), because a peer cannot supply a
+  position I have already excluded in the asking.

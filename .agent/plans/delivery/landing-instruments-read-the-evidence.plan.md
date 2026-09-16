@@ -169,6 +169,37 @@ intake declared at open where the changeset carries prose (PDR-140 clause 3). Pi
 Sequence: 1 first (it is the live blocker), then 3, then 4, 5 and 6 in any order; 2 lands
 when its fixtures are recorded. Slice 5's ledger line lands with slice 5, never ahead of it.
 
+**Recorded during implementation, 2026-09-16 (Zephyr guards Leeward, 281e44).** Slice 1
+was split on the Director's verdict and the owner's asleep-hours consultation route. The
+TIGHTENING half landed on `lane/reviewer-leg-empty-body-281e44`: an empty-bodied review
+satisfies no leg and never anchors the quiet window, with the empties counted in the
+leg's detail. The EVIDENCE-WIDENING half — whether a vendor's completion comment may
+bind a tip — did not land and is not this node's to decide: it is routed to the owner at
+`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`, honouring the
+out-of-scope line `review-round-predicates` had already drawn. Until the owner rules,
+slice 1 is PART-DONE and pull request 147 stays held.
+
+Two follow-ups this node now owns, neither scheduled:
+
+- `agent-tools/src/pr-watch/reviewer-legs.ts` sits at 249 lines against a 250-line
+  ceiling; the tightening's own comments were trimmed to fit. The seam the ceiling is
+  pointing at is extracting the body-classification predicates (`isSkipMarker`,
+  `isSubstantive`, `isSignedSelfReply`) from the leg machine — deferred because
+  `state-gh.ts`, `settlement.ts`, `pr-tally/rows.ts` and `pr-tally/dispositions.ts`
+  import from that module, which makes it a second story with its own round budget. The
+  next edit to this file pays that cost, so it is the next seat's first question, not a
+  surprise.
+- Line-limit pressure selects against the LONGEST comment, not the least load-bearing
+  one. On this change the comment recording that discarded evidence must be counted —
+  the clause the whole cure rests on — competed for space against dated instances already
+  recorded in the SKILL. Noticed, not cured; no mechanism is proposed here. Two orderings
+  that helped at the moment of the trim, from Cauldron herds Lustre (880ff9), 2026-09-16:
+  ask which lines a later reader could NOT reconstruct from another surface, and trim
+  those last (the dated instances were recoverable from the SKILL, the counted-empties
+  invariant was not); and where decomposition is actually available, it beats
+  prose-trimming outright — a ceiling breach usually wants a module split, not a shorter
+  paragraph. Neither removes the pressure; they only order the queue.
+
 ## Prediction and falsifier
 
 With slice 1 landed, #147 lands through the front door with both legs satisfied and no seat

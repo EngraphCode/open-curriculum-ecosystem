@@ -3240,3 +3240,103 @@ carrier by its fork-side resolution, or to name the carrier class in PDR-140 bes
 **The seat's own correction (owner, 2026-09-16): "Use the proper tools only".** The integration's
 file edits went through `node -e` and shell scripts instead of the platform's editing tools. The
 napkin carries the cure; it binds every seat here.
+
+### 2026-09-16 (night) — slice 1 SPLIT: the tightening landed, the widening routed to the owner
+
+Owner's word at the start of the night: "please continue, take your time, no rush … I am going to
+bed now. If you need a second opinion on something, ask Cauldron herds Lustre (880ff9)."
+
+**Two blocks above are SUPERSEDED — read this section instead of them.** "The fix, designed and
+ready to write" (the `lane/codex-completion-leg-281e44` design, where a reviewer's own completion
+comment satisfies its leg) and "Order for the next seat" (which tells you to land that fix). They
+record what was designed on 2026-09-15 and are kept as history; neither is the instruction now.
+
+**Why they were superseded.** Letting a completion COMMENT satisfy a leg crosses an out-of-scope
+line this line had already drawn in `review-round-predicates` ("Treating a Codex issue-comment
+round as a reviewer leg for the door … is a separate decision with its own fixture"). With the
+owner asleep, the question went to the Director. Verdict (Cauldron herds Lustre, 880ff9,
+2026-09-16): the comment must NOT satisfy the leg. A review object's commit binding is structural
+and platform-made; a comment's binding is prose the vendor wrote; an issue comment stays editable
+by anyone with write access after the fact; and the door's value is exactly that it cannot be
+talked into a merge. Their resolution: let such a comment DOWNGRADE a refusal to a named state,
+and let the owner rule once whether that state may settle.
+
+**What landed instead — the tightening half only.** Branch `lane/reviewer-leg-empty-body-281e44`,
+cut from `origin/engraph` `4786abb7f`, commit **SHA:8808bb37d** (owner author, bot committer, plain
+pathspec from the lane worktree, no queue per the 2026-09-07 scope ruling). Six files. A leg reads
+SATISFIED only from a tip-bound landed review whose body is SUBSTANTIVE — non-empty after trimming
+and not a skip marker — and the quiet-window anchor excludes empty bodies; the empties are counted
+in the leg's detail. `pr-lifecycle` item 3 and `docs/engineering/merge-bot.md` carry the matching
+clause. Four tests, each observed failing first: an empty tip-bound review read SATISFIED where
+OWED belongs, and the round read SETTLE-READY where SETTLED-NO-REVIEW belongs.
+
+**The live defect it cures, found on #147 itself.** Replying to a review thread through the API
+creates a review object with an EMPTY body under the replier's identity, so this seat's own seven
+disposition replies were tip-bound reviews on #147's tip — and the quiet window was anchored on the
+seat's own reply at 15:44:32Z, seven minutes after the round's last real review. Under the
+2026-09-10 vendor-outage ruling the declared `--expect` set may name the seat's own posting
+identity, so a seat could have settled its own pull request with its own replies: reachable by
+design, not only by accident.
+
+**Routed to the owner, awaiting a ruling:**
+`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md` — may a vendor's completion
+comment satisfy a leg? It carries the #147 evidence verbatim, three options, the Director's verdict
+and grounds, this seat's recommendation (option 2), and four preconditions that must hold before
+any comment is admissible at all (configured author; unedited; abbreviated sha resolving to exactly
+one commit; that commit is the tip), with the requirement that a comment failing a precondition
+NEVER reads the same as no comment — the refusal names which precondition failed.
+
+### 2026-09-16 12:32Z — #147 LANDED, and the owner's correction that made the question dissolve
+
+**The owner's correction, verbatim (2026-09-16):** *"No findings means no problems, that IS a
+result, it shouldn't need special treatment, it is a result that no further issue was found, that
+is a positive, why is this causing confusion?"* — followed by the instruction to land #147 on
+recorded premises.
+
+This supersedes the decision note's earlier recommendation AND the Director's verdict, because it
+replaces the question rather than answering it. The seat had asked "may WEAKER EVIDENCE settle a
+merge gate?", which contains its own answer. The right question is "what is a review result?" A
+completed review with zero findings is a POSITIVE RESULT; GitHub's review object is a TRANSPORT
+for a result, not the result itself, and the Codex connector uses a different transport when it
+has nothing to report. Three errors sat under the mis-framing, all recorded in the napkin and the
+decision note: success is indistinguishable from silence because the door watches only the
+channels FINDINGS arrive on (the same empty-set generator running in the opposite direction);
+"a comment is editable" was weighted as decisive without ever naming the attacker, when anyone
+with write access here can approve, dismiss or merge outright; and the cost asymmetry was
+backwards — wrongly trusting costs one recoverable merge, wrongly ignoring stalls EVERY clean
+round permanently.
+
+**The landing.** Premises posted first as comment 5697459274 (Copilot's review object 5212222680
+bound to the tip; Codex's completion comment 5683402893, unedited — `created_at` equals
+`updated_at` — naming `15de4bc69e`, with 👀 15:46:27Z and 👍 15:51:12Z; 21/21 checks SUCCESS;
+7 threads, 0 unresolved; the deletion sweep's endpoints re-verified unchanged). Then
+`merge-bot merge --pr 147 --expect copilot-pull-request-reviewer` — Copilot declared as the leg
+the tool can machine-check, Codex's leg carried as the merging seat's own recomputation per the
+2026-09-10 ruling. Merged SHA:0bd321131 at 12:32:08Z by `app/el-graphael`.
+
+**Landing proof, both parts.** The merge's parents are SHA:4786abb7f (engraph) then
+SHA:15de4bc69 (the carrier head), in that order. `engraph` now differs from upstream's tip
+SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-tools` 330,
+`docs` 79, `packages` 57, `apps` 37, `demos` 29, `.claude` 21, `.agents` 20, `.github` 8,
+`.cursor` 7, and eleven single root files. That is the enumerated fork diff.
+
+**Order for the next seat.**
+
+1. #147 is LANDED; the upstream 1.181.3 sync is complete. **Sending the upstream report draft
+   (`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`) is still the
+   owner's act and has not been done.**
+2. Pull request 149 (`lane/reviewer-leg-empty-body-281e44`) is OPEN IN DRAFT with `unit-tests` and
+   `browser-tests` still running and zero failures. Mark it ready when they conclude green, then
+   land it. Its worktree retires at that merge.
+3. The remaining half of slice 1 — reading a configured vendor's zero-findings result as the
+   result it is — is now an ordinary implementation, not a decision: the owner has ruled. Build it
+   as a reviewer's REPORTED RESULT binding a tip, with the review object and the completion report
+   as two transports of the same thing; the four preconditions in the decision note are parsing
+   hygiene, not suspicion, and a comment failing one must name WHICH one rather than read as
+   silence.
+4. `.claude/worktrees/upstream-carrier-c67d33c` and its remote branch retire at this landing.
+
+**Follow-up now owned by the plan node** (`landing-instruments-read-the-evidence`, still a sketch,
+governs nothing): `reviewer-legs.ts` sits at 249 of 250 lines, so the next edit to it pays for
+extracting the body-classification predicates — deferred tonight because four modules import
+`isSignedSelfReply`/`hasLanded` from it, making the split a second story with its own round budget.
