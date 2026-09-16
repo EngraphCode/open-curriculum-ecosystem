@@ -647,7 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69` and held at the owner's ruling for the reviewer-leg fix; the owner's IO-invariant and instrument corrections recorded | 2026-09-14 | 2026-09-16 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded | 2026-09-14 | 2026-09-16 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -3342,8 +3342,9 @@ SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-too
 
 **Follow-up now owned by the plan node** (`landing-instruments-read-the-evidence`, still a sketch,
 governs nothing): `reviewer-legs.ts` sits at 249 of 250 lines, so the next edit to it pays for
-extracting the body-classification predicates — deferred tonight because four modules import
-`isSignedSelfReply`/`hasLanded` from it, making the split a second story with its own round budget.
+extracting the body-classification predicates — deferred tonight because five modules import
+`isSignedSelfReply`/`hasLanded` from it, making the
+split a second story with its own round budget.
 
 ### 2026-09-16 14:12Z — #149 LANDED (the tightening half of slice 1)
 
@@ -3380,8 +3381,11 @@ composing gh reads, so it became the pure `agent-tools/src/pr-watch/expected-rev
 literal-input tests. `reviewer-legs.ts` is still at 249.
 
 **Live instance on the landing tip.** The seat's six signed thread replies created six empty-bodied
-`el-graphael` reviews bound to SHA:8e81f02cc. The door, built from the primary before this fix,
-anchored its quiet window on them — the exact artefact the PR removes from the anchor.
+`el-graphael` reviews bound to SHA:8e81f02cc, the last at 14:02:12Z — observed through the API. The
+door that merged the PR was built from the primary before this fix, so by that code its quiet window
+anchored on those reviews, the exact artefact the PR removes from the anchor. That anchoring is
+derived from the code, not observed as a wait. It is consistent with the timing: the merge fired at
+14:12:46Z, 34 seconds after a window measured from the last empty review would have elapsed.
 
 **Order for the next seat, replacing items 2 and 3 above.**
 
@@ -3390,3 +3394,117 @@ anchored its quiet window on them — the exact artefact the PR removes from the
 2. The eight local defects from the 1.181.3 sync (item 1 above).
 3. `coordination/2026-09-15-4786ab` is past its 24-hour lifetime and carries unlanded records;
    it wants its own pull request.
+
+### 2026-09-16 ~15:0xZ — COMPACTION BOUNDARY (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"prepare for compaction, then stop all processes, post-compaction
+we run a dedicated consolidation session"*.
+
+**Board at the boundary.**
+
+- `engraph` is at SHA:514bfc06a (#149).
+- Open pull requests: #150 only, the draft carrying `coordination/2026-09-15-4786ab`. It was opened
+  at this wrap because the owner's 2026-09-10 ruling counts work safe only once it is on a pull
+  request, and drafts are acceptable.
+- The branch's stamp is 2026-09-15, so it is DUE. `engraph` has moved twice since the cut
+  (#147, #149).
+- Worktrees: the primary checkout only.
+- Claims and the commit queue: empty.
+
+**Re-arm recipe: nothing to re-arm.** This segment ran no comms watcher, no heartbeat and no cron.
+Its one Monitor expired at 30 minutes, and every background shell exited. A resuming seat verifies
+the task list and the cron list are empty. It arms the all-channels comms watcher only if a team
+session starts.
+
+**Next work, in order.** This replaces the order in §"2026-09-16 14:12Z — #149 LANDED".
+
+1. The dedicated consolidation session, at the owner's word. `pending-graduations.md` reads 10
+   due, and two entries are triggered as its first items, in this order:
+   - the IO invariant (the owner's absolute ruling, due since 2026-09-14);
+   - the cross-fork routing clause, reformatted at this wrap so the parser counts it.
+
+   It also carries:
+   - #143's residue (2026-09-14 LANDINGS pickup 4);
+   - the napkin, far past its critical threshold;
+   - `repo-continuity.md`, past its line and character limits;
+   - F-164's doctrine-and-tool pair. The pr-lifecycle SKILL still prescribes `pr-watch --watch`,
+     which has now failed at four seats: silent at three, and an early ALL-GREEN exit at one.
+     `agent-tools pr state <n> --expect <login>` gives the same verdict read-only, one reading at a
+     time;
+   - the two `candidate:` napkin entries from this afternoon: claims tabled against their code
+     sites, and declared versus causal scope;
+   - the stale surfaces this wrap's verification found and did not rewrite:
+     - `review-round-predicates.plan.md`: its banner, defect 2 (landed in #149) and the
+       out-of-scope line the owner's ruling overtook;
+     - the carried-code routing in the `sync-default-branch-past-a-skip-ci-upstream-tip` runbook,
+       step 4 and rollback;
+     - the out-of-scope line in `mcp-487-string-encoded-numbers.plan.md`;
+     - the 1.181.1 report draft, still framed as a letter to send.
+
+     The last three are named in the cross-fork entry.
+2. The convergence of this branch: merge `engraph` in, land #150 or its successor fold, and cut the
+   next day-stamped branch. The consolidation session decides whether it consolidates before or
+   after rotating.
+3. The remaining half of slice 1: the node's `Recorded during implementation` block and ledger.
+4. Still owed from earlier windows, not landed:
+   - the operator-profile follow-up PR (2026-09-14 LANDINGS pickup 3);
+   - the owed-items records PR (pickup 5);
+   - the eight local defects from the 1.181.3 sync.
+5. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
+   15:13Z by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as directed event
+   `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's words, verbatim:
+   *"I would like the typescript strictness levels brought up to the highest levels we are aiming
+   for after the next slices, but to schedule it as maintenance, I am happy with that label because
+   it should always have been that strict, it drifted over time."*
+
+   **When.** Cauldron's reading is that it runs after the jimcresswell.net strictness slices now in
+   flight land (its #94, #95 and those after), so this estate inherits a proven method. It needs a
+   plan node; none is authored yet.
+
+   **Target set.** Every tsconfig resolves it from one base, and no workspace config restates or
+   relaxes a flag: `strict`, `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`,
+   `noImplicitOverride`, `noFallthroughCasesInSwitch`, `allowUnreachableCode: false`,
+   `allowUnusedLabels: false`, `erasableSyntaxOnly`, `verbatimModuleSyntax`,
+   `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`. Excluded by owner ruling:
+   `noPropertyAccessFromIndexSignature` ("more pain than it is worth" — mostly stylistic, and it
+   fights ESLint dot-notation).
+
+   **Measured by Cauldron** (read-only, 2026-09-16, TypeScript 6.0.3, `tsc --showConfig` on all 99
+   tracked tsconfigs; not re-verified here):
+   - 98 of the 99 are consistent, and all 98 resolve `strict`, `noUnusedLocals`,
+     `noUnusedParameters`, `noImplicitReturns`, `noFallthroughCasesInSwitch` and
+     `erasableSyntaxOnly`.
+   - None resolves `noImplicitOverride`, `allowUnreachableCode: false`, `allowUnusedLabels: false`,
+     `verbatimModuleSyntax`, `noUncheckedIndexedAccess` or `exactOptionalPropertyTypes`.
+   - The outlier is the vendored skill template
+     `.agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth`, which resolves only
+     `strict`. Whether a vendored template is in scope at all is a decision for the plan.
+
+   **Method, as proven there.**
+   1. Measure each candidate flag with `tsc --noEmit --incremental false <flag>` against every
+      type-check target, counting errors.
+   2. One pull request moves every tsconfig onto one strict base and adds the zero-cost flags,
+      proven by `tsc --showConfig` on every config, and checked that a framework build does not
+      rewrite its tsconfig.
+   3. Costly flags go in directory-sized slices of about ten files, then one small pull request
+      flips the flag in the base. That works only while
+      `@typescript-eslint/no-unnecessary-condition` is off, so check that first.
+   4. Fix by meaning, never a blanket `?? ''`:
+      - `.at(i)` inside an existing guard;
+      - `for (const [index, line] of lines.entries())` for index loops;
+      - `const [head = ''] = text.split(sep)` for a first segment;
+      - a mandatory capture group returns the function's own not-found value when it is undefined;
+      - tests replace `toHaveLength(1)` plus `x[0].field` with `toMatchObject([{ field }])`.
+   5. Prove each slice by type-checking with the flag on AND off, zero errors both ways.
+
+   Cauldron's own correction, carried so it is not inherited: a guard on `arr[i]` is NOT a TS2367
+   error while the flag is off, because a comparison with undefined always compiles.
+
+**Owner-held.**
+
+- Whether the Cricket-suite reading is right. It ran medium, high and procedure, and left out
+  `cricket-judgement-low` because that definition pins `model: fable`. Recorded in the napkin
+  2026-09-16.
+- The `landing-instruments-read-the-evidence` node is a sketch; ratifying it is the owner's act.
+
+**Metaloss.** Passes and findings are in the napkin, 2026-09-16 afternoon block.

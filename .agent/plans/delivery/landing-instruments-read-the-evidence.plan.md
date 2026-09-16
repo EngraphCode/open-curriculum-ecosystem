@@ -178,11 +178,13 @@ was split on the Director's verdict and the owner's asleep-hours consultation ro
 TIGHTENING half landed on `lane/reviewer-leg-empty-body-281e44`: an empty-bodied review
 satisfies no leg and never anchors the quiet window, with the empties counted in the
 leg's detail. That half landed as pull request 149 (merge SHA:514bfc06a, 2026-09-16). Its round
-one added two cures:
+one added three cures:
 
 - the count now rides every arm;
 - the expected set defaulted without `--expect` now excludes empty bodies too, because without
-  that the tightening itself would have minted a phantom OWED leg.
+  that the tightening itself would have minted a phantom OWED leg;
+- pr-lifecycle item 3 now states the anchor's eligibility as implemented: a non-empty skip marker
+  still anchors the quiet window.
 
 The derivation moved into the pure `pr-watch/expected-reviewers.ts`. The EVIDENCE-WIDENING half is
 no longer a decision. The owner ruled on 2026-09-16 that a zero-findings review is a positive
@@ -191,14 +193,33 @@ landed on recorded premises that same day. What remains of slice 1 is the implem
 reviewer's reported result binding a tip, with the review object and the completion comment as two
 transports of it.
 
+The connector's transports, first-hand on #149 (2026-09-16):
+
+- At ready-for-review, with a finding to report, it posted a review OBJECT carrying one inline
+  comment (review 5223405525).
+- At an `@codex review` comment on the cure tip, with nothing to report, it did two things. It put a
+  👍 on the pull request itself (13:56:35Z). One second later it posted an issue COMMENT, "Didn't
+  find any major issues", naming the commit as `8e81f02cc4` (comment 5698673326, no reactions of
+  its own).
+- #147's zero-findings run did the same: a 👍 on the pull request (15:51:12Z), then a completion
+  comment naming `15de4bc69e` (comment 5683402893). The 👀 at 15:46:27Z recorded in #147's
+  premises is no longer listed by the reactions API.
+- Its About text mentions only the 👍 for a run with no suggestions.
+
+On a zero-findings run the COMMENT is the only emission that names a commit; the 👍 sits on the
+pull request and binds no tip, so it is corroboration at most. A findings run binds its tip through
+the review object's `commit_id`, and its body names the commit too. The vendor's About text
+describes a subset of what it emits; it is not the contract.
+
 Two follow-ups this node now owns, neither scheduled:
 
 - `agent-tools/src/pr-watch/reviewer-legs.ts` sits at 249 lines against a 250-line
   ceiling; the tightening's own comments were trimmed to fit. The seam the ceiling is
   pointing at is extracting the body-classification predicates (`isSkipMarker`,
-  `isSubstantive`, `isSignedSelfReply`) from the leg machine — deferred because
-  `state-gh.ts`, `settlement.ts`, `pr-tally/rows.ts` and `pr-tally/dispositions.ts`
-  import from that module, which makes it a second story with its own round budget. The
+  `isSubstantive`, `isSignedSelfReply`) from the leg machine — deferred because five
+  modules import from that module (`pr-watch/settlement.ts`, `pr-watch/expected-reviewers.ts`
+  since #149 took the derivation out of `pr-watch/state-gh.ts`, `pr-tally/settlement.ts`,
+  `pr-tally/rows.ts` and `pr-tally/dispositions.ts`), which makes it a second story with its own round budget. The
   next edit to this file pays that cost, so it is the next seat's first question, not a
   surprise.
 - Line-limit pressure selects against the LONGEST comment, not the least load-bearing
@@ -232,4 +253,3 @@ One dated row per routed finding (PDR-140 ledger surface).
 | --- | --- | --- | --- |
 | 2026-09-16 | #149 round two, Copilot (settlement.ts) | A human review with inline comments and no summary has an empty body. It neither satisfies a leg nor anchors the quiet window, so after an earlier substantive review settlement can come sooner than ten minutes after it — not only stall. | Slice 1, remaining half: the typed reading must tell an inline-only review from a thread-reply artefact by the review's own comments. Bounded meanwhile by its threads having to resolve. #149's description is corrected. |
 | 2026-09-16 | #149 round two, Copilot (states.unit.test.ts) | No test covers the ordering where an empty review with `submittedAt: ''` is filtered before the missing-timestamp guard, so it cannot force the conservative null anchor. | Slice 1, remaining half: the first edit to the settlement suite adds the literal-input case. Not pushed on #149, because a third round would exceed its budget. |
-| 2026-09-16 | #149 sync push, observed by the seat | `review-cost`'s `isSyncPush` checks the merge's second parent against GitHub's `baseRefOid`. That value lagged at `SHA:4786abb7f` for 40 minutes after the base moved, and refreshed only when the head was pushed. So a sync onto a moved base never reads as a sync at pre-push time, and the exemption for an exhausted budget cannot fire. | Slice 5 (the cost readings), one instance: compare against the fetched base tip. The #149 push passed only because its budget was unspent. |

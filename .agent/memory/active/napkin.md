@@ -1671,7 +1671,7 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   noticing that I was about to overturn my own earlier scoping was itself the signal to ask.
 - **A line ceiling selects against the LONGEST comment, not the least load-bearing (2026-09-16).**
   The commit's first gate run refused — `reviewer-legs.ts` at 263 lines against a 250 maximum.
-  Trimming my own prose was the only cure inside the story's budget: four modules import
+  Trimming my own prose was the only cure inside the story's budget: five modules import
   `isSignedSelfReply`/`hasLanded` from that file, so the decomposition the ceiling is really
   pointing at is a second changeset with its own round budget. I came close to cutting the comment
   stating that discarded evidence must be COUNTED — the clause the whole cure rests on — because
@@ -1764,3 +1764,215 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   file", so a shell redirect feels cheaper than reading a 199-line file to find an anchor. The cure
   is not vigilance, it is that the file-editing tools are the only route, and an append has an
   anchor like any other edit — the last line of the file.
+
+## Zephyr guards Leeward (281e44) — 2026-09-16 afternoon, sole operator, Opus 5: #149 landed, the wrap's captures
+
+- **Concept exploration: claims stronger than their checks — five in one landing.**
+  Observations:
+  1. The PR promised the discarded empties are COUNTED in the leg's detail. The mixed test
+     asserted only the SATISFIED state, and the SATISFIED and quota arms returned before the count
+     was computed. Copilot and Codex both found it in round one.
+  2. The PR's risk section said the human inline-only edge "can only stall". I reasoned from one
+     consumer, the leg, and not the other my change also touched, the anchor. Copilot's round two
+     showed settlement can also come sooner.
+  3. The phantom OWED leg. The comment above `isSignedSelfReply` in `reviewer-legs.ts` names the
+     three consumers of the sibling exclusion: the quiet-window anchor, the body tally and the
+     defaulted expected set. The body tally already excluded empty bodies (since 2026-07-21,
+     `4e26ec503`). The lane added the exclusion to the anchor and missed the defaulted set, with
+     the enumeration in the file I was editing.
+  4. My landing premises called round two's finding a disclosure "sharpened rather than a hole
+     found" — a softening at the finish line, caught by the medium Cricket.
+  5. At this wrap I wrote into the plan node that Codex's zero-findings run arrived "as a reaction
+     on #147 and a comment on #149". The API shows both on both. Caught this time by reading the
+     reactions before committing.
+
+  Problem frame: prose promises are written from the model of the change, while tests and reasoning
+  run over the changed lines. The gap between them is where every real round-one and round-two
+  finding lived, and the existing `test-claim-assertion-parity` pattern did not fire, because it is
+  phrased about a test's own header, not a PR description's claims.
+
+  Proposal: at PR authoring, table each invariant the description states against every code site
+  it binds (each arm, each consumer) and the assertion at each. When adding an exclusion parallel to
+  an existing one, the existing one's consumer list is the site list.
+
+  Falsifier: the next PR authored with that table still draws round-one findings of this class —
+  then the table is ceremony and the cure is elsewhere.
+
+  `candidate:` an amendment to `test-claim-assertion-parity` extending it from test headers to PR
+  claims. n = 1 session, five instances; an observation until a second session shows it.
+- **Declared scope and causal scope diverge (2026-09-16).** Copilot filed the phantom-leg finding
+  as an observation "outside this PR's declared scope", and the PR's own Phase 4 clause would have
+  routed it away. But the defect was caused by this PR: before it, the author's leg read SATISFIED;
+  with it, OWED. I cured it in the PR, and all three Crickets agreed independently. The distinction
+  worth keeping: declared scope is the author's promise to the reviewer; causal scope is the
+  change's promise to the codebase, and a regression the change introduces is inside the second
+  whatever the first says. The vendors are taught the declared-scope rule in the `## Code review`
+  sections of `AGENTS.md` (read by Codex) and `.github/copilot-instructions.md` (landed with #136,
+  `180db8de5`, 2026-09-12; extended by #140 the same day). That is why Copilot filed this one as out of scope, and why any causal-scope clause
+  has to reach those two surfaces as well as the triage doctrine.
+  `candidate:` a clause for `pr-lifecycle` §Phase 4 / `review-feedback-defaults-to-triage`; n = 1.
+- **Session-handoff step 6d does not list `AGENTS.md`'s `## Code review` section as a named
+  extension (2026-09-16).** Read strictly, the drift sweep flags it at every wrap. It is not drift:
+  it landed deliberately as reviewer context (#136, 2026-09-12; extended by #140) and mirrors the Copilot
+  instructions. Left in place, not moved. The step's named-extension list wants the section added
+  at the consolidation session, so the sweep stops reporting a deliberate surface.
+- **The door fix landed through the door it fixes (2026-09-16), a bootstrap.** My six signed
+  thread replies created six empty-bodied `el-graphael` reviews on #149's landing tip. The door
+  that merged it was built from the primary before the fix, so by that code it anchored its quiet
+  window on them — the exact artefact the PR removes. That is derived from the code and consistent
+  with the timing, not observed as a wait. Harmless here (a wait, never a satisfied leg). Play seed, an
+  association and not a finding: an instrument change could be proven on its own landing by
+  running the lane's built verdict against its own pull request before merge. The read-only form
+  already exists: `agent-tools pr state <n> --expect <login>` computes the door's verdict and never
+  merges. I did not reach for it, and a one-shot `pr state` read would also have served the wait
+  the silent watcher failed.
+- **I read a silent watcher as waiting — the absence-model at my own hands (2026-09-16).** A
+  Monitor on `pr-watch 149 --watch` emitted nothing for ten minutes. I read the silence as "checks
+  still running" until a blocking wait timed out and a one-shot read showed 19 passed, 1 pending.
+  The watcher had no positive liveness line, so its silence could not be told from its failure —
+  the generator named in last night's concept exploration, repeated by me the next afternoon. It
+  is F-164's fourth recorded instance, and the pr-lifecycle SKILL still prescribes that exact
+  `--watch` form, so doctrine walks a seat into it. What worked: a background `gh pr checks
+  --watch`, which ends when the checks do and returns their exit code.
+- **A parameter's name is not its source (2026-09-16).** `gh pr view 149 --json baseRefOid` still
+  read `4786abb7f` after #147 moved `engraph`, and read `0bd321131` only after the sync push: the
+  pull request's cached `baseRefOid` field lags. I then asserted that `review-cost`'s sync test
+  compares against that stale value, because `isSyncPush` in `git.ts` takes a parameter named
+  `baseRefOid`. I never read `harvest.ts`, which fills it from `baseRef { target { oid } }`, the
+  live base tip. The false finding went into the plan node's ledger as a slice-5 defect and into
+  commit `234bbef1b`'s message. This wrap's verification workflow caught it, and the row is
+  removed. What stands is narrower: read the live ref target, never the pull request's cached
+  `baseRefOid`, as I did.
+- **The friction ratchet fired at three, and decomposition was in reach this time (2026-09-16).**
+  `reviewer-legs.ts` reached 263 of 250 lines at the lane's first commit (trimmed then: the seam
+  had five importers). Curing the phantom leg in place hit `readPrStateReading` at 51 of 50 lines
+  and its test file at 729 of 700. The third signal read as a seam, not a budget: deriving the
+  defaulted set is a pure job inside an IO-composition function. It became
+  `pr-watch/expected-reviewers.ts` with literal-input tests. What made the difference from last
+  night was no importers: the extracted function was new to the codebase's call graph.
+- **Owner approval in chat does not lift a permission-layer denial (2026-09-16).**
+  `git commit --amend --only` was denied, then denied again after the owner chose "Allow the amend"
+  in the question tool. The owner ran it with `!`. When a denial survives the owner's approval,
+  offer the `!` command at once instead of retrying. The amend's cause, small and worth keeping:
+  commitlint read a body line opening `premises:` as a trailer ("footer must have leading blank
+  line"), so body prose must not start a line with `word:`.
+- **The Cricket suite as a standing instrument, first use (2026-09-16).** Owner, verbatim:
+  _"please periodically run full Cricket suites, no Fable instance"_. My reading, flagged as an
+  interpretation: the three Crickets whose definitions pin a non-Fable model (medium on opus, high
+  on sonnet, procedure on haiku), leaving out `cricket-judgement-low` because its frontmatter pins
+  `model: fable`. The unchosen reading was keeping low with its model overridden. Three
+  checkpoints (plan, round-one triage, landing premises), nine verdicts, all ON-TRACK. The value
+  was in the redirections, not the verdicts: a test case (one author with an empty and a non-empty
+  review stays in the defaulted set), the premises honesty catch, and showing the evidence for a
+  precondition instead of asserting it. The procedure Cricket added no redirection at any
+  checkpoint. n = 1 session; whether the reading is right is the owner's.
+- **Free play over the afternoon (2026-09-16), harvest.** Kept as associations:
+  - the fix-through-its-own-door bootstrap (above);
+  - the silent watcher as absence-modelling in my own practice (above);
+  - the pull request's cached `baseRefOid` beside the stale tracking ref — both caches of remote
+    state read as live (above; the gate itself reads the live tip);
+  - Codex's transports. Its About text promises a 👍 for a clean run; it emitted a 👍 AND a comment
+    naming the commit, and only the comment binds a tip. Routed to the plan node's slice 1 as
+    grounded knowledge.
+
+  Discarded, visibly:
+  - the three size limits as "tide marks of one flood" — forced, and it restates the plan node's
+    extraction note;
+  - the Crickets as a jury — the analogy adds nothing a reader of the verdicts lacks;
+  - Copilot being "more scope-disciplined than the author" as an inversion worth keeping — on a
+    second look it is the declared/causal distinction wearing a costume, already kept above.
+- **Metacognition at the close (2026-09-16): what changed.** I came into the landing treating
+  review rounds as a cost to be kept inside budget. Round one found my own stated invariant broken
+  in two arms, and a regression in a consumer the file had enumerated for me. The rounds did what
+  my authoring should have done. The bridge I would build differently: write the claim-to-sites
+  table before asking for review, so the reviewer's round is spent on what I could not see, not on
+  what I wrote and did not check.
+- **Loss scan and metaloss passes at the compaction wrap (2026-09-16), from inside the context.**
+  First pass — what reached no durable surface, now homed or named:
+  - The platform plan `~/.claude/plans/jolly-exploring-yeti.md` is this session's. Its substance is
+    homed in the thread record §#149 LANDED and on #149's description and premises. Eight older
+    plans on that surface belong to other sessions and are left for the consolidation's
+    platform-surface read.
+  - Scratchpad scripts die with the session. Their shapes — reply-and-resolve (look up the thread
+    by its first comment's `databaseId`, then `resolveReviewThread`), request-Copilot by POST,
+    mark-ready, edit-body, open-draft — are all already candidates on `agent-tools-watch-commands`,
+    or are one `gh` call.
+  - The Explore sub-agent's grounded facts, its context now gone. Most live in code or SKILLs. Two
+    did not:
+    - pr-lifecycle's push example (around line 150) still shows `git push origin refA refB refC`,
+      which the bot-identity rule bans in favour of `merge-bot push`, so the SKILL contradicts the
+      rule;
+    - the budget parser (`review-cost/budget.ts`) matches only a digit after the dash, so the
+      template's "(default two)" and any worded number silently read as the default 2. A declared
+      "budget — three" would be ignored.
+  - Worktree push mechanics. The Bash tool resets the working directory to the project root, so a
+    lane push is `cd <worktree> && node <primary>/agent-tools/dist/src/bin/agent-tools.js merge-bot
+    push --branch <lane>`. A merge commit takes the owner author through `GIT_AUTHOR_NAME` and
+    `GIT_AUTHOR_EMAIL`, because `git merge` has no `--author` option.
+  - `git worktree remove` and `git fetch` each printed "could not read IPC response" (the
+    file-system monitor daemon) while completing normally.
+  - A near-slip against the owner's 2026-09-14 gates ruling. After the commit hook refused on
+    formatting, I printed Prettier's layout to stdout, which was needed to make the edit with the
+    Edit tool. I then also ran `prettier --check` on the five files before re-committing, which
+    duplicated the hook's own prettier-staged step. Not a gate run beside a landed commit, but the
+    same reflex. The diff was the need; the check was not.
+
+  Second pass — the scan's own losses:
+  - Attribution inferences flagged: "the pre-fix door anchored on the empty reviews" was written as
+    fact in the thread record, but it is derived from the code and the timing; now marked there.
+    "Codex reviewed because the PR went ready" rests on the connector's own trigger text plus
+    timing, not a request event.
+  - Promises swept, all discharged:
+    - the `baseRefOid` "finding" I promised to record was recorded, then withdrawn as false at this
+      wrap's verification (entry above);
+    - the round-two routings the thread replies promised (plan ledger, committed `234bbef1b`);
+    - #150's description says this wrap's commit follows on the branch (discharged by this wrap's
+      push);
+    - the missing-timestamp test is owed to a named slice.
+  - Blind-spot bounds:
+    - Everything before the session's summary exists only as that summary, and its losses were
+      decided at the earlier wraps (`07410eb1f`, `8f82cd0bc`).
+    - No comms watcher ran this afternoon. The comms directory shows no event since 11:52Z from any
+      seat, so nothing addressed here went unseen — within what the directory holds. That directory
+      does not hold another repository's stream. An owner direction for this estate arrived at
+      15:13Z as a directed event in the jimcresswell.net stream, from Cauldron herds Lustre
+      (880ff9), and reached this seat only through a cross-session message. A watcher on this
+      repository's stream alone would never have seen it.
+    - The twelve sub-agent contexts are gone. Their surviving value is the redirections recorded
+      above.
+  - Index of homes: the repo-continuity PICKUP section points at the thread record's COMPACTION
+    BOUNDARY block, which points here; #150's description lists the branch's commits.
+  - External bound and error signature: every real defect this session's outside eyes caught was a
+    prose claim stronger than its check — broken arms, a risk direction, a missed consumer, a
+    softened premise. That is where the next seat should point external scrutiny. The one I caught
+    myself (the Codex transports) was caught by reading an API before committing, not by the scan.
+  - The external bound, measured. Before committing, this wrap ran a verification workflow
+    (`wf_15bc764e-e59`): four context-free readers, one lens each (GitHub facts, code facts, a
+    stale live-state sweep, internal consistency), and one skeptic told to refute each claimed
+    error. 31 agents; 27 error reports, 3 refuted by their skeptics. The 24 that survived come to
+    about eighteen distinct errors, some found by two lenses, and every one was corrected before
+    the commit. They were the concept exploration's own class, reproduced while
+    recording it:
+    - the `baseRefOid` gate claim (a parameter's name read as its source);
+    - the `## Code review` sections attributed to #140 instead of #136;
+    - "two of the three consumers";
+    - "four importers" (five);
+    - "no verdict-only mode" (`pr state` exists);
+    - "silent at four seats" (silent at three);
+    - "the earlier pickups have all landed" (two PRs still owed);
+    - "two cures" (three);
+    - "only the comment names a commit" (the review object binds via `commit_id`);
+    - a routing clause quoted from lines 51 to 52 (it is 50 to 52, and not word for word);
+    - "two carriers" (three: #99, #127, #147);
+    - an inconsistent ledger row;
+    - a pickup that named one first item where the register holds two;
+    - stale surfaces I had not swept: the Director snapshot, the sync runbook, two plan nodes and
+      the 1.181.1 report draft.
+
+    The self-run scan found none of these, which is exactly what this skill's bound predicts: the
+    context holder can detect loss, not error.
+  - Fence sweep: this wrap wrote no owner-fenced wording. It names no Oak surface, no private
+    repository and no address.
+
+  Fixed point: a third pass would only re-find the inference flags and the plan-surface note above.
+  The recursion closes here.

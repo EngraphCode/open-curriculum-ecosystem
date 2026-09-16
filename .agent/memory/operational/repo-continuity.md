@@ -298,7 +298,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 / Zephyr guards Leeward (281e44) / sole operator — #145 landed, the 2026-09-14 branch folded, #147 integrated and held for the reviewer-leg fix / 2026-09-16 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
+| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 / Zephyr guards Leeward (281e44) / sole operator — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), draft #150 carries the DUE coordination branch into the owner-directed consolidation session / 2026-09-16 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
@@ -347,19 +347,30 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
-### PICKUP for the next session — the estate-coordination thread, not the Reliable Atoms note (owner's word 2026-09-14)
+### PICKUP for the next session — a dedicated consolidation session (owner's word 2026-09-16)
 
-The next session resumes the **estate-coordination** thread: read
-`threads/estate-coordination.next-session.md` §"2026-09-14 LANDINGS" first —
-§"2026-09-15/16 — #147, the upstream carrier" FIRST (it carries the live
-order: the reviewer-leg fix lands, then #147 lands through the fixed door),
-then §"2026-09-14 LANDINGS" for the standing pickups (pickup 1, #145, landed
-2026-09-15 as `0f3168369`; pickup 3's operator-profile follow-up PR) — then §"SESSION CLOSE (Nettle guards Pistil …)" for the
-owed-items records PR (#143's last settlement push there is done: #143 merged
-2026-09-14 as `e474e883e`). The note below records a dirty-tree fact that the
-resuming seat sweeps into its first commit; it is NOT a lane to continue and
-carries no next action of its own (owner's word, 2026-09-14: the next session
-picks up the previous thread, not this one).
+The owner's words, verbatim, 2026-09-16: *"prepare for compaction, then stop all processes,
+post-compaction we run a dedicated consolidation session"*. **Deep consolidation: due —
+owner-directed.** It ran nothing in the closing session by that direction.
+
+Read `threads/estate-coordination.next-session.md` §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY"
+first. It carries the board, the empty re-arm recipe and the order:
+
+1. the consolidation — `pending-graduations.md` reads 10 due; its first items are the IO invariant,
+   then the cross-fork routing clause;
+2. the convergence of `coordination/2026-09-15-4786ab`, which is DUE and carried by draft #150;
+3. the remaining half of slice 1;
+4. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the eight
+   local defects from the 1.181.3 sync;
+5. scheduled maintenance: TypeScript strictness to the owner's target set, after the
+   jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
+   Lustre; its full substance is in the thread record's COMPACTION BOUNDARY item 5.
+
+Pull request #147 landed 2026-09-16 as `0bd321131` and #149 as `514bfc06a`. Of the pickups this
+section named before, #145 and #143 have landed. The reviewer-leg fix landed only its tightening half (#149); the
+rest is item 3. The operator-profile follow-up PR and the owed-items records PR have not landed.
+The note below records a 2026-09-14 dirty-tree fact already swept into `f24683337`; it is not a
+lane.
 
 ### Claude per-user buffer drained (2026-09-14) — what the next seat inherits
 

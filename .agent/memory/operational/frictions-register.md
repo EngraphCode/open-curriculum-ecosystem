@@ -3927,7 +3927,17 @@ commit SHA and the closing plan reference.
   replaced by a direct `gh` read poll. The consolidation seat the same day
   armed a 60 s change-emitting `gh` poll from the start (head, merge state,
   review decision, check rollup, unresolved-thread count) and never the
-  tool.
+  tool. 2026-09-16 (Zephyr guards Leeward, 281e44), a fourth instance:
+  `pnpm --silent agent-tools:pr-watch 149 --watch --interval 60` under a
+  Monitor, piped through `grep --line-buffered`, emitted only pnpm's echo line
+  for ten minutes while the checks moved from 0 to 19 passing. The silence was
+  read as "still waiting" until a blocking wait timed out and a one-shot
+  `pr-watch 149` showed 19 passed, 1 pending, 0 failed. Replaced by a
+  background `gh pr checks 149 --watch --interval 60`, which ends with the
+  checks and returns their exit code. The pr-lifecycle SKILL still prescribes
+  the `--watch` form as the supervised watch, so a seat that follows doctrine
+  meets this friction by design; the doctrine and the tool want correcting
+  together.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a

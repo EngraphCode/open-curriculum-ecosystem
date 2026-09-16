@@ -342,28 +342,47 @@ first-hand as of 2026-06-25.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-12 (Nettle guards Pistil, `2de368`, Director, at the fold of
-> `coordination/2026-09-11-f6d7db`) — replaces the 2026-09-09 15:0xZ snapshot in place (git retains it).**
-> THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's head, state and threads
-> are computed from the repository service at the moment of reading; this snapshot records what LANDED and
-> who holds which LANE. Seats: A DIRECTOR IS SEATED — Nettle guards Pistil, claim `8109015d`; n=1 since the
-> second seat Sandpiper weaves Updraft (`a96287`) closed at the owner's word on 2026-09-12 with its three
-> claims archived. The owner's directives of 2026-09-12, verbatim in the estate-coordination thread record
-> §COMPACTION BOUNDARY 7: `pr-tally` is the next work (todo 3 first, per the node's own sequencing); no
-> Windows work; the redaction delivery node is paused until the issue recurs; the AI tutoring research
-> waits for the owner's word. Lanes at the 2026-09-12 17:5xZ compaction boundary (the seat a sole operator
-> by the owner's word, no Director role in force): #136 MERGED SHA:2b1b15ab8 and #138 MERGED SHA:e477e62f7
-> (their lane worktrees retired); #139 OPEN (pr-tally todo 1; lane worktree `pr-tally-todo1-2de368`, tip
-> SHA:cdc2748e6, two rounds settled, front door and wake to re-arm post-compaction) and #137 (the
-> successor's draft fold PR). Owner-held: the four sync-workflow findings, to be cured in ONE lane (the
-> owner's card word; not started), the mirror-provenance route the owner's choice; the upstream report under
-> `.agent/reports/upstream-sync/` is the owner's to send; the directives-tier placement; #100's two deny
-> lines. A successor's first moves, on any checkout: start-right-team; the mechanical liveness check and
-> the readiness gate in this file's brief; adoption only from a pre-positioning event; the all-channels
-> watcher from the `comms-all-channels-watcher` rule's arming command; the heartbeat cron stays dropped
-> while n=1 (PDR-082); the fold wake and its ceremony from the `coordination-fold` skill; the settle and
-> merge boundary from the `pr-lifecycle` skill §Phase 7. THE PICKUP MAP is this snapshot, tracked, with the
-> tenure journal in the estate-coordination thread record.
+> **§LIVE SNAPSHOT, 2026-09-16 (Zephyr guards Leeward, `281e44`, sole operator, at the compaction
+> boundary before the owner-directed consolidation session) — replaces the 2026-09-12 snapshot in place
+> (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
+> head, state and threads are computed from the repository service at the moment of reading; this
+> snapshot records what LANDED and who holds which LANE.
+>
+> **Seats.** No Director is seated. The estate runs at n=1 with Zephyr guards Leeward as sole operator,
+> holding no claims at the boundary.
+>
+> **Landed since the 2026-09-12 snapshot:**
+>
+> - #139 `d7cef7075`;
+> - #137, the 2026-09-12 fold, `7658a723a`;
+> - #143 `e474e883e`, #146 `048f377fa`, #144 `4540dec49` and #145 `0f3168369`;
+> - #148, the 2026-09-14 fold, `4786abb7f`;
+> - #147, the 1.181.3 carrier, landed on recorded premises, `0bd321131`;
+> - #149, the reviewer-leg tightening, `514bfc06a`.
+>
+> **Open:** draft #150, carrying `coordination/2026-09-15-4786ab`, whose fold is DUE.
+>
+> **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
+> sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the
+> directives-tier placement; #100's two deny lines.
+>
+> **Withdrawn by the owner on 2026-09-16:** the upstream-report item. There are two peer forks and no
+> upstream, so nothing under `.agent/reports/upstream-sync/` is sent to anyone. Its drafts are local
+> work lists: the 1.181.3 draft is re-headed; the 1.181.1 draft is named in the cross-fork entry in
+> `pending-graduations.md`.
+>
+> **A successor's first moves, on any checkout:**
+>
+> - start-right-team;
+> - the mechanical liveness check and the readiness gate in this file's brief;
+> - adoption only from a pre-positioning event;
+> - the all-channels watcher, from the `comms-all-channels-watcher` rule's arming command;
+> - the heartbeat cron stays dropped while n=1 (PDR-082);
+> - the fold wake and its ceremony, from the `coordination-fold` skill;
+> - the settle and merge boundary, from the `pr-lifecycle` skill §Phase 7.
+>
+> **THE PICKUP MAP** is `repo-continuity.md` §PICKUP, which points at the estate-coordination thread
+> record §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY"; the tenure journal stays in that record.
 >
 > **Three standing rulings the archived blocks carried, conserved here with their homes.**
 > (1) _Queue scope_ (owner, 2026-09-07 12:24Z via the Director): the commit queue serves the
