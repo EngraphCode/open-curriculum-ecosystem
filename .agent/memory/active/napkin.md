@@ -1640,3 +1640,10 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
   (allowed by PDR-141) and an already-tracked site name; no private profile repository name, no
   fork name on an Oak surface. Fixed point: a third pass re-finds only the instrument-class
   finding; the recursion closes here.
+- **A queue intent's claim is the commit WINDOW, not the area (2026-09-16).** For the plan
+  node I opened a files-kind claim over the three paths and enqueued against it;
+  `commit-queue guard` refused: "claim … is not an active git:index/head claim". The window
+  claim is `--area-kind git --area-pattern index/head`; a files claim registers the area a
+  lane owns and backs no commit. Cost: one cycle. The refusal named the rule exactly, which
+  is what a good refusal does — and it is the same instrument class the day's plan node is
+  about, read from the other side: an instrument that says precisely what it looked for.

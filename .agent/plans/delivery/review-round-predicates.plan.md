@@ -20,6 +20,13 @@ last_updated: 2026-09-13
 
 # review-round predicates — a round is any declared reviewer's structured review of a head; a leg needs a body
 
+> **Absorbed, pending ratification (2026-09-16).** Both defects below are slices 1 and 2 of
+> `landing-instruments-read-the-evidence`, which carries them with the rest of the recorded
+> gaps in the same instruments. Both nodes are sketches and neither governs work; at the
+> ratification moment the owner's word retires this node as
+> `superseded_by: landing-instruments-read-the-evidence`. Until then this text stands as the
+> fuller statement of the two defects and their fixtures.
+
 ## Goal
 
 The two mechanical stops the estate built around review loops read the state they claim

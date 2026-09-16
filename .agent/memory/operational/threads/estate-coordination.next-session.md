@@ -3209,6 +3209,23 @@ satisfies. The lane's worktree was removed at this wrap (it held no commits); re
 `git worktree add .claude/worktrees/codex-completion-leg -b lane/codex-completion-leg-281e44
 origin/engraph`, then install and build.
 
+**Scope widened at the owner's word (2026-09-16): "expand the merge tool fixes to cover all
+known gaps and failures and issues".** The design above is now slice 1 of the sketch node
+`.agent/plans/delivery/landing-instruments-read-the-evidence.plan.md`, which carries every
+recorded gap in the landing instruments under four generators: the leg predicate reads one
+evidence shape where the surfaces produce five (the completion comment, the empty-bodied
+review, the comment-shaped round, the posted subagent leg); the door only reads and never
+asks, so a leg nobody requested stalls (F-167, and Codex's triggers exclude a push); the cost
+gate measures a changeset as if it were the seat's own (a carrier's import priced at 552.25
+and 503.87 against 40; a cure under a clean base merge priced 0; a refusal that does not name
+the admitting budget); and two watch predicates ignore state they claim to read (F-162,
+F-164). It absorbs the sketch `review-round-predicates` (that node now carries a pointer;
+the status flip to `superseded_by` is the owner's word at ratification), and leaves the
+command-surface candidates — the session-script commands, the deletion-sweep integration —
+with `agent-tools-watch-commands`. Six slices, sequence 1 → 3 → 4/5/6, with 2 when its
+fixtures are recorded. The node is born sketch and governs no work until the owner ratifies
+it; #147 waits on slice 1.
+
 **Order for the next seat.** Land the reviewer-leg fix; then on #147 merge `engraph` in (a sync
 push the cost gate passes), re-request Copilot, and run the front door from a checkout carrying
 the fix. Then the post-merge proof: the landing merge's second parent is the carrier head, and the
