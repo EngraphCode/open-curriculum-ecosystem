@@ -302,7 +302,7 @@ describe('computeReviewerLegs — empty-bodied reviews (the thread-reply artefac
     expect(legs[0]?.detail).toContain('empty');
   });
 
-  it('a substantive review beside the empties still satisfies the leg', () => {
+  it('a substantive review beside the empties still satisfies the leg, and the detail counts them', () => {
     const legs = computeReviewerLegs({
       ...base,
       expectedReviewers: ['copilot-pull-request-reviewer'],
@@ -311,6 +311,22 @@ describe('computeReviewerLegs — empty-bodied reviews (the thread-reply artefac
       now: '2026-07-21T12:06:00Z',
     });
     expect(legs[0]?.state).toBe('SATISFIED');
+    expect(legs[0]?.detail).toContain('1 tip-bound empty-bodied review ignored');
+  });
+
+  it('a quota marker beside an empty still skips on quota, and the detail counts the empty', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      expectedReviewers: ['claude'],
+      reviews: [
+        review({ author: 'claude', body: '' }),
+        review({ author: 'claude', body: '⚠️ Code review skipped — overage spend limit reached.' }),
+      ],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]).toMatchObject({ state: 'SKIPPED', skipReason: 'quota' });
+    expect(legs[0]?.detail).toContain('1 tip-bound empty-bodied review ignored');
   });
 
   it('empties alone resolve via the timeout arm once the window elapses, never SATISFIED', () => {

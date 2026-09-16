@@ -947,11 +947,13 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    only by accident. The empties are COUNTED in the leg's detail, never
    dropped silently: a predicate over a filtered set says how many items
    it filtered and why, or an empty result set reads the same as a
-   satisfied one. The quiet window anchors to the LATEST SUBSTANTIVE
-   review matching the current tip, never to the author's globally latest
-   review and never to an empty-bodied one — the window is a proxy for "a
-   reviewer may still be composing", so it measures REVIEWER activity, not
-   the seat's own dispositioning (2026-09-15, #147: the anchor sat on the
+   satisfied one. The quiet window anchors to the LATEST LANDED review
+   matching the current tip whose body is non-empty and unsigned — a skip
+   marker still anchors it, because a vendor posting one is reviewer
+   activity — never to the author's globally latest review and never to an
+   empty-bodied one; the window is a proxy for "a reviewer may still be
+   composing", so it measures REVIEWER activity, not the seat's own
+   dispositioning (2026-09-15, #147: the anchor sat on the
    seat's own reply, seven minutes after the round's last real review; the
    signed-self-reply exclusion did not catch it, because an empty body
    carries no signature to detect).
