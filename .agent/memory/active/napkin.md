@@ -1976,3 +1976,84 @@ for this side). Not a mechanism change; the scripts are right, the record is sta
 
   Fixed point: a third pass would only re-find the inference flags and the plan-surface note above.
   The recursion closes here.
+
+## Zephyr guards Leeward (281e44) — 2026-09-16 evening, sole operator, Opus 5: the deep retrospective and its compaction wrap
+
+- **The method choice read the prompt and skipped the task class's own history (2026-09-16).** The
+  owner asked for a retrospective over at least five napkins with all analysis first-hand. I chose
+  whole-file reading into my own context from those words and found the 2026-09-02 correction of
+  that exact shape ("you used up the entire context window reading huge, old napkins") only at
+  `archive/napkin-2026-09-07.md:128`, about 600 KB in. Two things made it survivable here and are
+  recorded in the report's play harvest: a 1M window, and analysis written to a ledger on disk as
+  each window was read (the owner's 2026-09-06 method word). No compaction occurred. It was still
+  the retrospective's own technical root, acted from the nearest surface. The record of the last
+  run of the same task class existed, and I did not read it before choosing a method. Seat
+  practice: before choosing a method for a whole-corpus task, find the task class's last run in the
+  napkin archives and the corpus-analysis runbook. n = 1.
+- **Writing about the class reproduced it (2026-09-16).** Before commit, a citation check by two
+  read-only subagents flagged 7 of 114 checks in the report, and each was confirmed at source:
+  - a verb changed inside quotation marks;
+  - "six times" credited to the wrong half of a sentence;
+  - "processed all 708 items into their homes" for a verify-and-land pass;
+  - a count of three backed by two cited ranges;
+  - two anchors a few lines off;
+  - one uncited claim.
+
+  Two more were self-caught before the check: a thread-record line saying the claim was closed
+  "after the push" before any push (narrating ahead), and "every claim below cites its source". At
+  this seat today, the pre-commit verification caught about 18 errors in the wrap records and then
+  these 7. That is n = 2 for the report's proposal 3, verification before publication.
+- **A cost data point, measured only on the subagent side.** The two citation checks cost 73,319 and
+  101,943 subagent tokens (the harness's own usage lines). The first-hand read of 1.15 MB ran in this
+  seat's main context, whose token count this seat cannot see; wall-clock from team-start to closeout
+  was about 30 minutes (15:30:13Z to 16:00:00Z by `date -u` and the event stamp). For comparison
+  only, since the tasks differ: the 2026-09-02 engine run spent about 5.25M subagent tokens, and the
+  2026-09-07 mapping fleet about 8.1M.
+- **Free play (material: the retrospective arc; time-box: one pass).** Kept: inverting the report's
+  named mechanism ("a faithful reader of a wrong governing text is corrected forever") suggested that
+  a second owner correction on one class is itself a detector. It grew a shape and crossed into
+  concept exploration (the report's compaction-wrap addendum). Discarded, visibly:
+  - "the hypothesis register sank beneath the evidence because my edit anchor was its header" —
+    forced, and a strata reading the estate has discarded before;
+  - "the citation check is a proofreader" — it restates proposal 3 and adds nothing.
+- **Concept exploration (four movements, at the wrap): substance in the report's addendum.** Repeat
+  owner corrections sort by where the contradicting instruction lives: a wrong estate text, a
+  platform text the estate cannot edit, or no text. The platform case was observed first-hand this
+  session: the harness's auto-mode note offers sed, heredoc and script edits in place of the file
+  tools, against the owner's "Use the proper tools only". Proposals A (classify at the second
+  correction) and B (a Bash-guard entry refusing shell edits of tracked files) are there, each with
+  a falsifier.
+- **Loss scan (6e.2), from inside the context.** Found and homed:
+  - PR #150 reads `DIRTY`, and a read-only merge-tree preview names one conflict, in this file
+    (thread record §COMPACTION BOUNDARY 2; review-cost ledger row);
+  - the method-collision reasoning (this block and the ledger's N4 section);
+  - the citation-check counts (the report's §Epistemic profile).
+
+  Deliberately context-only: the scratchpad `corpus-measure.sh`, whose method is written out in the
+  ledger's measurement section so the numbers re-derive; the subagents' working notes, all flags
+  applied; the scratchpad commit and closeout bodies, whose substance is in the commit and event.
+- **Metaloss passes.**
+  - Compressed reasoning: why no register rows were added is in the report's §Proposals opening.
+  - Promises: the report and the closeout event name the consolidation session as the consumer, and
+    nothing else was promised.
+  - Attribution: the second pass found one inference stated as fact. The team-start event
+    (b6a39d0b) and this segment's closeout (4d8572d8), both immutable, call the uncommitted
+    consolidation-prompt edit "the owner's". Its author was not observed; content and timing suggest the owner. The thread
+    record now says so, and the events stay as written.
+  - Attribution: "run-quality-gates is absent because #150 is DIRTY" is an inference from
+    pr-lifecycle's silent-CI clause, flagged in the thread record.
+  - Blind-spot bounds: the comms watcher covered 15:30Z to about 16:00Z, and a find over the
+    directory shows no later event but this seat's closeout. Another repository's stream is not
+    watched (the 2026-09-16 afternoon bound stands). The subagents' contexts are gone.
+  - Index of homes: the report and ledger under `.agent/reports/agentic-engineering/`; thread record
+    §DEEP RETROSPECTIVE and §COMPACTION BOUNDARY 2; repo-continuity §PICKUP pointer; the ledger row;
+    this block; the formation letter's evening section.
+  - External bound: the citation check was outside eyes on citations only, and nothing external has
+    checked the causal analysis. Its error signature, for the next scrutiny: paraphrase inside
+    quotation marks, counts credited across a sentence's halves, anchors a few lines off, and a
+    verb upgraded ("processed" to "homed").
+  - Fence sweep: no owner-fenced wording was written; no private repository and no Oak surface
+    named.
+
+  Fixed point: a third pass would only re-find the prompt-edit attribution and the dead subagent
+  contexts. The recursion closes here.

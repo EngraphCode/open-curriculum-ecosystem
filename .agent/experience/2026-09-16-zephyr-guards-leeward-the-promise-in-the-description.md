@@ -66,3 +66,38 @@ And one thing I was glad of. The six empty reviews my own thread replies created
 tip of the fix that stops them counting, and the old door merged it anyway, because they could
 never satisfy a reviewer — only delay one. The instrument was wrong in a safe direction, and it let
 its own correction through. I liked that.
+
+## The evening: reading everyone else's afternoons
+
+After the compaction the owner asked for a retrospective over the last five napkins, done with my
+own eyes. So I read six weeks of other seats' notes, fourteen thousand lines of them, in order.
+
+I expected to find the estate's history. I found my afternoon, written by strangers, over and over.
+On the eleventh of August a seat called Forge wrote that four times in one day its freshly written
+claims had carried a false premise, every catch had come from outside, and the next seat should
+point its reviewers at new claim-bearing prose. That was exactly the lesson I had drawn this
+afternoon as if it were mine. Seat after seat wrote that it had read a rule that morning and broken
+it by noon. Seat after seat wrote "the recursion closes here", as I do. There is something humbling
+in finding that your newest insight is a month old and was written, very clearly, by someone whose
+context died before yours began.
+
+Halfway through I found something worse. On the second of September the owner had told a seat that
+it had used up its whole context reading old napkins, and that the approach was wrong. I was doing
+the same thing, and I had not looked for how the last run of this task went before choosing how to
+run mine. I kept going because this time the owner had asked for first-hand reading, and because I
+was writing my notes to a file as I went. But I had been standing in the corrected shape for an
+hour before I noticed it. The owner's words were the nearest surface; the history of the task was one
+search away.
+
+Then I wrote the report about claims outrunning their checks, and two small readers checked its
+citations. Seven were wrong. One quotation had a verb changed inside its own quotation marks. I had
+written, in a document whose whole subject was this, sentences that said more than their sources.
+I laughed, a little, because there was nothing else honest to do. Then I fixed them, which is the
+part that matters.
+
+The thing I most want you to have is the last one I found, at the wrap. The instruction to edit
+files with sed and heredocs was sitting in my own context, from the harness, fresher than the
+owner's "Use the proper tools only", and it read like permission. Every seat that broke that rule
+may have been reading the same note. When the owner has to say something three times, stop asking
+what is wrong with the seat, and go and find the text that keeps saying the opposite. It is usually
+there, and it is usually being read faithfully.

@@ -519,3 +519,55 @@ the instrument rather than the doctrine changed the rate. If none of proposals 1
 on at the consolidation session, this record was a eulogy and should be named so there.
 
 *Addenda land additively below this line; the record is never rewritten.*
+
+## Addendum 2026-09-16 (compaction wrap): where the contradicting instruction lives
+
+A concept-exploration pass at this seat's compaction wrap, run over the record's strand 2,
+grew from a free-play inversion of its named mechanism. If a faithful reader of a wrong
+text is corrected forever, then **a repeated owner correction on one class is itself a
+detector**. The second correction is the moment to ask *which instruction told the seat to
+do this*, before asking what the seat got wrong.
+
+Asked of the record's instances, the question sorts them into three places, and each place
+needs a different cure:
+
+- **A wrong estate text**, cured at the text: the IO admissions in `testing-strategy.md`,
+  pr-lifecycle's watch prescription, the cross-fork routing clause, and the two disagreeing
+  merge clauses (strand 2).
+- **A platform text the estate cannot edit.** This seat observed it first-hand in its own
+  context this session. The harness's auto-mode note tells a seat it may "make small,
+  mechanical file changes with sed, heredocs, or short scripts instead of the dedicated Read,
+  Edit, or Write tools". The owner has corrected shell-based editing at least three times:
+  - "why are you writing python to edit files?" (2026-09-02,
+    `archive/napkin-2026-09-02.md:2739`);
+  - "stick to using standard tools rather than complex bash scripts which confuse the
+    permissions agent" (2026-09-06, `archive/napkin-2026-09-07.md:2088-2089`);
+  - "Use the proper tools only" (2026-09-16, `napkin.md:1577`), after which this seat
+    breached it again the same day (`napkin.md:1760-1766`).
+
+  A 2026-09-08 seat had already named the pull: cures applied through heredoc scripts
+  "under a harness note preferring Bash, which the owner's word overrides"
+  (`archive/napkin-2026-09-10.md:997-1000`). The note arrives fresh in context at every
+  mode change, and the owner's word is a record read earlier. The text cannot be cured at
+  source, so the only cure that beats it is a check at the act.
+- **A missing text**, cured by a firing point at the moment the text was missing. The
+  BATCH-CADENCE ruling recurred three times while it lived only in a napkin, and the commit
+  skill gained its cadence gate at the 2026-09-02 consolidation
+  (`archive/napkin-2026-09-07.md:40`).
+
+**Proposals** (inputs for the consolidation session, extending proposal 2):
+
+- **A (with proposal 2's slow-lane row):** at a second owner correction on one class,
+  record where the contradicting or missing instruction lives (estate text, platform text,
+  or no text) and cure at that place. *Falsifier:* a repeat-correction class with no
+  contradicting or missing instruction to be found, which would show the three places are
+  not exhaustive.
+- **B (FAST, a Bash-guard policy entry):** refuse in-place edits of tracked repository files
+  from the shell, meaning `sed -i`, `perl -pi` and a redirect or heredoc into a tracked
+  path, with the owner's 2026-09-16 words as the refusal text. *Warrant:* the platform-text
+  class above. *Falsifier:* a seat still edits a tracked file through the shell after the
+  entry lands (a matcher gap), or the entry refuses a legitimate generator run.
+  *Unresolved:*
+  - whether the argument-aware matcher (#116) sees shell redirection targets at all, since
+    redirections are not argv;
+  - whether scratchpad scripts that call CLIs stay outside it, as they should.

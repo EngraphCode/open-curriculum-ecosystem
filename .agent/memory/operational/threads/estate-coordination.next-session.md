@@ -647,7 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded | 2026-09-14 | 2026-09-16 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`) | 2026-09-14 | 2026-09-16 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -3542,3 +3542,36 @@ governing texts the owner corrected in person before any new doctrine:
 
 Proposal 2 goes to the slow-lane register; proposals 3 and 4 are fast. No register row was added
 here.
+
+### 2026-09-16 16:3xZ — COMPACTION BOUNDARY 2 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"please prepare for compaction, then stop all processes, the next
+session will be the dedicated consolidation session"*.
+
+**Board at the boundary, read first-hand at 16:3xZ.**
+
+- `engraph` is at SHA:514bfc06a (`ls-remote`).
+- The one open pull request is #150, a draft whose head is SHA:940c019a6. Its `mergeStateStatus`
+  reads `DIRTY`. `git merge-tree --write-tree --name-only origin/engraph HEAD` exits 1 with a single
+  conflict, in `.agent/memory/active/napkin.md`; `frictions-register.md` auto-merges.
+- The checks listed on #150 are CodeQL (two) and SonarCloud (two), all passing. `run-quality-gates`
+  is absent. Inference, not observed: pr-lifecycle's "CI can go SILENT" clause says a conflicting
+  pull request stops `pull_request` runs, which fits this absence.
+- Claims and the commit queue are empty; the abandoned intent lapsed at its TTL. Worktrees: the
+  primary checkout only.
+- The uncommitted edit to `.agent/prompts/agentic-engineering/dedicated-consolidation-session.md` is
+  untouched. Attribution is inference: its author was not observed; by its content and timing it is
+  the owner's.
+
+**Re-arm recipe: nothing to re-arm.** One Monitor ran this segment, the all-channels comms watcher,
+and it was stopped after the closeout event. Two citation-check subagents ran and completed. No
+heartbeat and no cron ran. A resuming seat verifies that the task
+list and the cron list are empty.
+
+**Next work, in order.** It is unchanged from §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY", with one
+input read first: the retrospective's §Proposals and its compaction-wrap addendum. The addendum
+classifies repeat owner corrections by where the contradicting instruction lives: an estate text, a
+platform text or no text. It adds proposal B, a Bash-guard entry refusing shell edits of tracked
+files. The convergence in item 2 meets the single `napkin.md` conflict above. The consolidation's
+napkin rotation, if it runs before the convergence, changes that conflict's shape. Run the
+archive-coverage check (semantic-merge) whichever order is taken.
