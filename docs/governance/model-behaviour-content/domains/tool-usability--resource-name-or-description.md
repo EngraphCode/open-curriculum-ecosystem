@@ -95,9 +95,7 @@ registerAppResource(
 **What it says now:**
 
 ```text
-{
-      description: 'Interactive Oak curriculum MCP App for search and curriculum exploration.',
-    },
+description: 'Interactive Oak curriculum MCP App for search and curriculum exploration.',
 ```
 
 **What it is for:** Describes the widget resource's purpose (search + curriculum exploration) to help hosts/agents decide when to render it.
