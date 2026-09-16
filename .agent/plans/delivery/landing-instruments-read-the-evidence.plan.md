@@ -50,15 +50,17 @@ Four readings and one act. Each names the defect it cures and the recorded insta
 
 **1. One evidence type, two questions.** `pr-watch/reviewer-legs.ts` reads a single shape:
 an entry of the `reviews` connection, landed, bound to the tip, whose body is not a skip
-marker. The surfaces produce at least five: a review with findings; a review with an empty
-body (a thread reply creates one under the replier's identity); an issue comment carrying a
+marker. The surfaces produce at least five: a review with findings (a summary body, or inline
+comments of its own under an empty summary); a review with an empty body and no inline comments
+(a thread reply creates one under the replier's identity); an issue comment carrying a
 round's findings, each linking a blob URL that names a commit; a completion comment stating
 the commit reviewed with no findings, beside a reaction; and a review posted by a seat for
 an unavailable vendor under the 2026-09-10 ruling. The cure is a typed reading —
 `{ reviewer, source, tipBinding, substance, id, at }` — over which the leg asks two
 orthogonal questions instead of one: **did this reviewer look at this tip**, and **did it
-say anything that must be dispositioned**. `SATISFIED` needs the first; `substance: empty`
-never satisfies; a skip marker keeps today's arms. A body from a declared reviewer that
+say anything that must be dispositioned**. `SATISFIED` needs the first; `substance: empty` —
+no summary body and no inline comments of its own — never satisfies; a skip marker keeps today's
+arms. A body from a declared reviewer that
 names the tip and types to nothing is `UNCLASSIFIED`: the verdict refuses and quotes it.
 Recorded instances: #147's completion comment (2026-09-15), #142's seven empty tip-bound
 reviews (2026-09-12), #143's comment-shaped round (2026-09-13).
@@ -107,10 +109,14 @@ what may merge: every change either adds evidence the tool can read, or refuses 
 
 1. A recorded harvest whose only tip evidence from a declared reviewer is a completion
    comment naming that commit reads `SATISFIED`; the same harvest with the named commit
-   changed reads `OWED` — `repo-safe`: `agent-tools/src/pr-watch/reviewer-legs.unit.test.ts`
+   changed reads a refusal that names the failed precondition (the commit is not the current
+   tip) and quotes the comment, never `OWED`, as the ruled decision note requires —
+   `repo-safe`: `agent-tools/src/pr-watch/reviewer-legs.unit.test.ts`
    over literal inputs, plus a recorded #147 fixture in the settlement suite.
-2. A tip-bound landed review with an empty body never satisfies a leg, and the evidence line
-   counts the empties — `repo-safe`: the same suite, with the recorded #142 harvest.
+2. A tip-bound landed review with an empty body and no inline comments of its own never
+   satisfies a leg, and the evidence line counts the empties; the same review carrying inline
+   comments is a review with findings — `repo-safe`: the same suite, with the recorded #142
+   harvest and a literal inline-only review.
 3. A comment-shaped round is one round with its findings and head in both the tally rows and
    the cost survey — `repo-safe`: `tests/pr-tally/rows.integration.test.ts` and
    `tests/review-cost/measure.integration.test.ts` over the recorded #143 harvest.

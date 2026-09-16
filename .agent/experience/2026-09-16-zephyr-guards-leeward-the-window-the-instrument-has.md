@@ -72,3 +72,8 @@ seven words, and the work reordered around the answer without argument.
 To whoever sits here next: the carrier is open and green, waiting on a tool fix that is designed
 and written down. Do the fix. Then land it. And when something refuses you, look at the window
 it has before you look at the work.
+
+_Postscript, later on 2026-09-16, so the paragraph above is not read as a live instruction: the
+owner ruled that a zero-findings result is a result, #147 landed on its recorded premises as
+`0bd321131`, and the tightening half of the tool fix landed as #149 (`514bfc06a`). The letter
+above stands as it was written._

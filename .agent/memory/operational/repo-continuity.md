@@ -360,7 +360,7 @@ first. It carries the board, the empty re-arm recipe and the order:
    then the cross-fork routing clause;
 2. the convergence of `coordination/2026-09-15-4786ab`, which is DUE and carried by draft #150;
 3. the remaining half of slice 1;
-4. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the eight
+4. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync;
 5. scheduled maintenance: TypeScript strictness to the owner's target set, after the
    jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
