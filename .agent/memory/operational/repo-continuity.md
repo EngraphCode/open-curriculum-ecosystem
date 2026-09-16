@@ -366,6 +366,14 @@ first. It carries the board, the empty re-arm recipe and the order:
    jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
    Lustre; its full substance is in the thread record's COMPACTION BOUNDARY item 5.
 
+**Input to the consolidation, written after the compaction.** At the owner's word the same day
+(*"run a deep retrospective, on the current branch … include the last five napkins at least"*), the
+seat wrote `.agent/reports/agentic-engineering/why-written-lessons-kept-needing-the-owner-2026-09-16.md`
+and its reading ledger. Its four proposals are written for the consolidation session to register or
+kill. Proposal 1 cures the texts the owner corrected in person before any new doctrine: items 1 and 2
+above, plus pr-lifecycle's `pr-watch --watch` prescription, which F-164 records as silent. Read the
+record's §Proposals before the register.
+
 Pull request #147 landed 2026-09-16 as `0bd321131` and #149 as `514bfc06a`. Of the pickups this
 section named before, #145 and #143 have landed. The reviewer-leg fix landed only its tightening half (#149); the
 rest is item 3. The operator-profile follow-up PR and the owed-items records PR have not landed.

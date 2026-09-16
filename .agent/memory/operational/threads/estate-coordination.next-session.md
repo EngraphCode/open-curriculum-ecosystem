@@ -3508,3 +3508,37 @@ session starts.
 - The `landing-instruments-read-the-evidence` node is a sketch; ratifying it is the owner's act.
 
 **Metaloss.** Passes and findings are in the napkin, 2026-09-16 afternoon block.
+
+### 2026-09-16 ~15:3xZ–16:xxZ — DEEP RETROSPECTIVE at the owner's word (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"run a deep retrospective, on the current branch, you can commit
+and push but no need to merge. Make sure to include the last five napkins at least ultrathink all
+analysis but me first hand by you, subagents are for locating information, but that information must
+be verified, checked, and analysed by you before use"*.
+
+**What this entry's commit carries, on draft #150.**
+
+- The record: `.agent/reports/agentic-engineering/why-written-lessons-kept-needing-the-owner-2026-09-16.md`.
+- Its reading ledger, beside it.
+- A pointer paragraph in `repo-continuity.md` §PICKUP.
+
+Six napkin files were read first-hand in full: the 2026-08-07 archive as baseline, then 08-14, 09-02,
+09-07, 09-10 and the live file, 14,113 lines. The analysis was written to the ledger as each window was
+read. Subagents only checked the record's citations, and the seat verified every flag they raised.
+
+**Board unchanged by this entry.**
+
+- `engraph` is at SHA:514bfc06a.
+- Open pull requests: #150 only.
+- Worktrees: the primary checkout only.
+- Claims: one, this seat's retrospective claim `059a1e4d`, open while this commit lands.
+
+**For the consolidation session.** The record's §Proposals are its input. Proposal 1 cures three
+governing texts the owner corrected in person before any new doctrine:
+
+- the IO invariant in `testing-strategy.md`, corrected five times while its text stood;
+- the cross-fork routing clause;
+- pr-lifecycle's `pr-watch --watch` prescription at lines 537–538.
+
+Proposal 2 goes to the slow-lane register; proposals 3 and 4 are fast. No register row was added
+here.
