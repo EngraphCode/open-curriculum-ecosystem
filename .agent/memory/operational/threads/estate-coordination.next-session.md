@@ -3330,9 +3330,8 @@ SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-too
    re-headed accordingly (its path and name still carry the withdrawn model; renaming is a
    separate change). #147's dispositions, which read "cure-worthy count: 0; every item concerns
    upstream-authored code or data", were wrong on that count — the items were cure-worthy here.
-2. Pull request 149 (`lane/reviewer-leg-empty-body-281e44`) is OPEN IN DRAFT with `unit-tests` and
-   `browser-tests` still running and zero failures. Mark it ready when they conclude green, then
-   land it. Its worktree retires at that merge.
+2. **LANDED 2026-09-16 14:12:46Z** — pull request 149 merged at SHA:514bfc06a; its worktree and
+   both branches are retired. See the section below.
 3. The remaining half of slice 1 — reading a configured vendor's zero-findings result as the
    result it is — is now an ordinary implementation, not a decision: the owner has ruled. Build it
    as a reviewer's REPORTED RESULT binding a tip, with the review object and the completion report
@@ -3345,3 +3344,49 @@ SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-too
 governs nothing): `reviewer-legs.ts` sits at 249 of 250 lines, so the next edit to it pays for
 extracting the body-classification predicates — deferred tonight because four modules import
 `isSignedSelfReply`/`hasLanded` from it, making the split a second story with its own round budget.
+
+### 2026-09-16 14:12Z — #149 LANDED (the tightening half of slice 1)
+
+**Path.**
+
+1. Synced onto `engraph` by one automatic merge: SHA:f8fa232da, owner author, pushed as the bot,
+   costed 0.
+2. Marked ready at 13:31:41Z. The first undraft requested Copilot, and Codex reviewed
+   unprompted.
+3. Round one, on SHA:f8fa232da, produced three cures, all in one settlement push (SHA:8e81f02cc):
+   - Copilot and Codex: the empty-body count was dropped on the SATISFIED and quota arms.
+   - Copilot: the SKILL overstated the anchor's eligibility; the prose is corrected.
+   - Copilot: the defaulted expected set would have minted a phantom OWED leg — a regression this
+     change itself introduced, cured in-PR.
+4. After the cure push, Copilot was re-requested by POST and Codex by an `@codex review` comment
+   (a push does not trigger the connector).
+5. Round two, on SHA:8e81f02cc:
+   - Codex posted a zero-findings completion comment (5698673326).
+   - Copilot raised two observations, both dispositioned without a push (see the plan node's
+     ledger).
+6. Premises were posted as comment 5698905254 at 14:12:22Z. The door then ran with
+   `--expect copilot-pull-request-reviewer`, and the Codex leg was carried on the premises.
+7. Merge parents: SHA:0bd321131, then SHA:8e81f02cc. Rounds used: 2 of 2; settlement pushes:
+   1 of 2.
+
+**Size limits, three in this lane.**
+
+- `reviewer-legs.ts` reached 263 of 250 lines at the lane's first commit.
+- Curing the defaulted set in place pushed `readPrStateReading` to 51 of 50 lines, and
+  `state-gh.unit.test.ts` to 729 of 700.
+
+At the third signal the shape was reconsidered. The defaulted-set derivation is a separate job from
+composing gh reads, so it became the pure `agent-tools/src/pr-watch/expected-reviewers.ts` with
+literal-input tests. `reviewer-legs.ts` is still at 249.
+
+**Live instance on the landing tip.** The seat's six signed thread replies created six empty-bodied
+`el-graphael` reviews bound to SHA:8e81f02cc. The door, built from the primary before this fix,
+anchored its quiet window on them — the exact artefact the PR removes from the anchor.
+
+**Order for the next seat, replacing items 2 and 3 above.**
+
+1. The remaining half of slice 1: reading a configured vendor's zero-findings result. Its first
+   edit to the settlement suite owes the missing-timestamp test routed from #149 round two.
+2. The eight local defects from the 1.181.3 sync (item 1 above).
+3. `coordination/2026-09-15-4786ab` is past its 24-hour lifetime and carries unlanded records;
+   it wants its own pull request.

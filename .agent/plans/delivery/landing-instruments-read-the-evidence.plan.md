@@ -156,7 +156,8 @@ intake declared at open where the changeset carries prose (PDR-140 clause 3). Pi
 
 1. **The evidence type and the completion source.** The typed reading, the two questions, the
    empty-body clause, the `UNCLASSIFIED` refusal; the quiet-window anchor excludes empty
-   bodies and signed self-replies alike. Unblocks #147, which waits on this slice.
+   bodies and signed self-replies alike. The empty-body clause and the anchor landed in #149;
+   #147 landed on premises without waiting.
 2. **The comment-shaped round.** The harvest normaliser (author is a declared reviewer, the
    findings' blob URLs name one commit in the pull request's commits), consumed by the tally
    rows and `measureRounds`; unbound comments appear in the evidence. Needs the #142 and #143
@@ -169,18 +170,26 @@ intake declared at open where the changeset carries prose (PDR-140 clause 3). Pi
    resolution, the refusal naming the admitting budget; then the ledger's re-derivation line.
 6. **The watch exit predicate.** Mergeability and review decision in ALL-GREEN.
 
-Sequence: 1 first (it is the live blocker), then 3, then 4, 5 and 6 in any order; 2 lands
+Sequence: 1 first (its remaining half is next), then 3, then 4, 5 and 6 in any order; 2 lands
 when its fixtures are recorded. Slice 5's ledger line lands with slice 5, never ahead of it.
 
 **Recorded during implementation, 2026-09-16 (Zephyr guards Leeward, 281e44).** Slice 1
 was split on the Director's verdict and the owner's asleep-hours consultation route. The
 TIGHTENING half landed on `lane/reviewer-leg-empty-body-281e44`: an empty-bodied review
 satisfies no leg and never anchors the quiet window, with the empties counted in the
-leg's detail. The EVIDENCE-WIDENING half — whether a vendor's completion comment may
-bind a tip — did not land and is not this node's to decide: it is routed to the owner at
-`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`, honouring the
-out-of-scope line `review-round-predicates` had already drawn. Until the owner rules,
-slice 1 is PART-DONE and pull request 147 stays held.
+leg's detail. That half landed as pull request 149 (merge SHA:514bfc06a, 2026-09-16). Its round
+one added two cures:
+
+- the count now rides every arm;
+- the expected set defaulted without `--expect` now excludes empty bodies too, because without
+  that the tightening itself would have minted a phantom OWED leg.
+
+The derivation moved into the pure `pr-watch/expected-reviewers.ts`. The EVIDENCE-WIDENING half is
+no longer a decision. The owner ruled on 2026-09-16 that a zero-findings review is a positive
+result (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`), and pull request 147
+landed on recorded premises that same day. What remains of slice 1 is the implementation: a
+reviewer's reported result binding a tip, with the review object and the completion comment as two
+transports of it.
 
 Two follow-ups this node now owns, neither scheduled:
 
@@ -205,8 +214,9 @@ Two follow-ups this node now owns, neither scheduled:
 
 ## Prediction and falsifier
 
-With slice 1 landed, #147 lands through the front door with both legs satisfied and no seat
-premises carrying a leg. With slice 3 landed, a merge-only tip or a push the connector does
+With slice 1 landed, a landing whose configured vendor reports zero findings in a completion
+comment lands through the front door with that leg machine-checked, and no seat premises carry it
+(#147 and #149 each carried the Codex leg on premises). With slice 3 landed, a merge-only tip or a push the connector does
 not observe produces a request and then a review, instead of a stall that reaches the owner.
 Falsifier for the evidence type: a landing where the door reads `SATISFIED` from a completion
 comment whose commit the vendor did not in fact review — the vendor's own statement would
@@ -216,5 +226,10 @@ lists, twice — the request would then be ceremony, and the leg belongs on the 
 
 ## Review dispositions
 
-One dated row per routed finding (PDR-140 ledger surface). Empty at authoring: this node has
-not yet been through a review round.
+One dated row per routed finding (PDR-140 ledger surface).
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-16 | #149 round two, Copilot (settlement.ts) | A human review with inline comments and no summary has an empty body. It neither satisfies a leg nor anchors the quiet window, so after an earlier substantive review settlement can come sooner than ten minutes after it — not only stall. | Slice 1, remaining half: the typed reading must tell an inline-only review from a thread-reply artefact by the review's own comments. Bounded meanwhile by its threads having to resolve. #149's description is corrected. |
+| 2026-09-16 | #149 round two, Copilot (states.unit.test.ts) | No test covers the ordering where an empty review with `submittedAt: ''` is filtered before the missing-timestamp guard, so it cannot force the conservative null anchor. | Slice 1, remaining half: the first edit to the settlement suite adds the literal-input case. Not pushed on #149, because a third round would exceed its budget. |
+| 2026-09-16 | #149 sync push, observed by the seat | `review-cost`'s `isSyncPush` checks the merge's second parent against GitHub's `baseRefOid`. That value lagged at `SHA:4786abb7f` for 40 minutes after the base moved, and refreshed only when the head was pushed. So a sync onto a moved base never reads as a sync at pre-push time, and the exemption for an exhausted budget cannot fire. | Slice 5 (the cost readings), one instance: compare against the fetched base tip. The #149 push passed only because its budget was unspent. |
