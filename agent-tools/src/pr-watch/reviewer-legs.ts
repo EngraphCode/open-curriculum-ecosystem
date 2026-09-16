@@ -139,6 +139,23 @@ function elapsedMs(fromIso: string, nowIso: string): number {
   return Date.parse(nowIso) - Date.parse(fromIso);
 }
 
+// An EMPTY body says nothing, so it satisfies no leg: the API creates a review
+// with an empty body under the REPLIER's identity for every thread reply. The
+// pr-lifecycle SKILL item 3 carries the rule and its recorded instances.
+function isSubstantive(review: HarvestedReview): boolean {
+  return review.body.trim() !== '' && !isSkipMarker(review.body);
+}
+
+// Discarded evidence is COUNTED: a predicate over a filtered set says how many
+// items it filtered, or an empty set reads the same as a satisfied one.
+function emptyBodyNote(tipBound: readonly HarvestedReview[]): string {
+  const empties = tipBound.filter((review) => review.body.trim() === '').length;
+  if (empties === 0) {
+    return '';
+  }
+  return `; ${String(empties)} tip-bound empty-bodied review${empties === 1 ? '' : 's'} ignored (a thread reply creates one)`;
+}
+
 function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg {
   const tipBound = input.reviews.filter(
     (review) =>
@@ -146,33 +163,32 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
       hasLanded(review) &&
       bindsTip(review, input.headRefOid),
   );
-  if (tipBound.some((review) => !isSkipMarker(review.body))) {
-    return { reviewer, state: 'SATISFIED', detail: 'review binds current tip' };
+  const note = emptyBodyNote(tipBound);
+  if (tipBound.some(isSubstantive)) {
+    return { reviewer, state: 'SATISFIED', detail: `substantive review binds current tip${note}` };
   }
   if (tipBound.some((review) => isScopeDeclaredSkip(review.body))) {
     return {
       reviewer,
       state: 'SKIPPED',
       skipReason: 'quota',
-      detail: 'tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)',
+      detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${note}`,
     };
   }
   const unevaluableMarker = tipBound.some((review) => isSkipMarker(review.body));
+  const qualifier = unevaluableMarker || note !== '' ? 'substantive ' : '';
   if (input.checksGreenAt !== null && elapsedMs(input.checksGreenAt, input.now) > QUIET_WINDOW_MS) {
     return {
       reviewer,
       state: 'SKIPPED',
       skipReason: 'timeout',
-      detail: `timeout: no ${unevaluableMarker ? 'substantive ' : ''}tip-bound review one quiet window after checks green (${input.checksGreenAt})`,
+      detail: `timeout: no ${qualifier}tip-bound review one quiet window after checks green (${input.checksGreenAt})${note}`,
     };
   }
-  return {
-    reviewer,
-    state: 'OWED',
-    detail: unevaluableMarker
-      ? 'tip-bound skip marker with unevaluable scope — no substantive review; awaiting the timeout arm'
-      : 'no review binds the current tip',
-  };
+  const owedDetail = unevaluableMarker
+    ? 'tip-bound skip marker with unevaluable scope — no substantive review; awaiting the timeout arm'
+    : 'no substantive review binds the current tip';
+  return { reviewer, state: 'OWED', detail: `${owedDetail}${note}` };
 }
 
 /** Compute every expected reviewer's leg for the current tip, in declared order. */

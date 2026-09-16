@@ -52,7 +52,11 @@ as the vendor leg is bound per tip — the premises record that sha and the
 pushes since, which carry only cures of its findings, the tip sync and
 landing-defect cures, else a fresh leg on the new head (owner ruling
 2026-09-10; pr-lifecycle §review-round state machine item 3); a defaulted
-set never merges. The tool verifies only the vendor legs declared to it and refuses
+set never merges. A review with an EMPTY body satisfies no leg and never
+anchors the quiet window — the API creates one per thread reply, so a pull
+request whose author dispositioned findings carries its own — and the leg's
+detail counts the empties it ignored.
+The tool verifies only the vendor legs declared to it and refuses
 an empty set: the availability rule and the posted subagent leg are the
 merging seat's own recomputation, recorded on the landing premises (a
 machine-checked subagent-leg input is the named follow-up on the

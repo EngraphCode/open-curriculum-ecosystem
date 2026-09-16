@@ -930,13 +930,33 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    (2026-08-19: rounds 3–8 on one PR each found real holes in code born
    in round 3's cure).
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
-   ANY harvested review by the reviewer binds to the current tip (the
+   ANY harvested review by the reviewer binds to the current tip AND
+   carries a SUBSTANTIVE body: non-empty after trimming, and not a skip
+   marker (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
    can hide this when overlapping review jobs complete out of order — an
    older-tip review landing after a current-tip one makes the author's
    "latest" point backwards, leaving the leg falsely OWED and untouchable
-   by the timeout). The quiet window anchors to the LATEST review matching
-   the current tip, never to the author's globally latest review.
+   by the timeout). An EMPTY body satisfies nothing: replying to a review
+   thread through the API creates a review with an empty body under the
+   REPLIER's identity, so a pull request whose author dispositioned
+   findings carries tip-bound empty reviews of its own (seven on #142's
+   tip 92018c1f1, 2026-09-12; seven on #147's tip 15de4bc69, 2026-09-15),
+   and the declared set may name the seat's own posting identity under the
+   vendor-outage ruling above — so the hole is reachable by design, not
+   only by accident. The empties are COUNTED in the leg's detail, never
+   dropped silently: a predicate over a filtered set says how many items
+   it filtered and why, or an empty result set reads the same as a
+   satisfied one. The quiet window anchors to the LATEST LANDED review
+   matching the current tip whose body is non-empty and unsigned — a skip
+   marker still anchors it, because a vendor posting one is reviewer
+   activity — never to the author's globally latest review and never to an
+   empty-bodied one; the window is a proxy for "a reviewer may still be
+   composing", so it measures REVIEWER activity, not the seat's own
+   dispositioning (2026-09-15, #147: the anchor sat on the
+   seat's own reply, seven minutes after the round's last real review; the
+   signed-self-reply exclusion did not catch it, because an empty body
+   carries no signature to detect).
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a

@@ -295,6 +295,55 @@ describe('computePrVerdict — per-reviewer legs (the collapsed-legs r2 class)',
   });
 });
 
+describe('computePrVerdict — empty-bodied reviews never settle a round (the thread-reply artefact)', () => {
+  it('a tip-bound EMPTY review never satisfies the leg — the round is not merge-eligible', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: '',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:05:00Z',
+          },
+        ],
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLED-NO-REVIEW');
+  });
+
+  it('an empty review never ANCHORS the quiet window — the window measures reviewer activity, not the seat’s own replies', () => {
+    // Worked instance 2026-09-15 (#147): the anchor excluded PENDING drafts
+    // and SIGNED self-replies, but an empty body is neither — so the window
+    // anchored on the seat's own thread reply at 15:44:32Z, seven minutes
+    // after the round's last real review.
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: 'Reviewed 2 of 2 files.',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:05:00Z',
+          },
+          {
+            author: 'el-graphael',
+            state: 'COMMENTED',
+            body: '',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:58:00Z',
+          },
+        ],
+      }),
+      '2026-07-21T13:00:00Z',
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+  });
+});
+
 describe('computePrVerdict — run liveness per reviewer', () => {
   it('WAITING-REVIEW-RUN-LIVE when the owed requested reviewer has a live run', () => {
     const verdict = computePrVerdict(
