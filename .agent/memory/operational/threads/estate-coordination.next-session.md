@@ -647,6 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`) | 2026-09-14 | 2026-09-16 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -3057,10 +3058,10 @@ PICKUPS (the morning):
    post-merge deletion sweep read 137 deleted lines, all moved to `operator-profile-root.ts`.
    Lane retired (worktree removed, branch deleted); engraph merged into this branch at
    `08ceb4668`. The Practice index's operator-profile row names `pnpm profile:sync pull` at
-   session open and `push` after a write. Start-right §3a's executable block still runs only
-   `pnpm profile:check`, so no session pulls yet. Adding the pull ahead of the check is the
-   successor branch's first doctrine commit (fold PR #148 round one: Codex, and three Copilot
-   threads). Run once on the
+   session open and `push` after a write. #145 carried no start-right edit, so the binding
+   came separately: since `c9abf6ce9` (2026-09-15, the first doctrine commit on
+   `coordination/2026-09-15-4786ab`), start-right §3a runs the pull ahead of the check. The
+   gap was found by fold PR #148's round one: Codex, and three Copilot threads. Run once on the
    primary after the merge and an agent-tools build: `pnpm -s profile:sync pull` printed
    "Already up to date." and exited 0; `pnpm -s profile:check` found three conforming
    documents and no sync findings.
@@ -3084,8 +3085,9 @@ PICKUPS (the morning):
    check's missing-upstream finding prescribes manual upstream selection when several remotes
    exist, and the push resolves its remote before committing (today `pushProfile` commits,
    then refuses in `firstPushRemote`, leaving a local commit; Codex round four, thread
-   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals (its fourth item, the
-   filesystem-backed test, is `318a2ea21`). From #144's suppressed blocks (reviews 5197235280
+   `PRRT_kwDORdPTys6ifXvq`, 2026-09-15); `parseSyncArgs` rejects unknown options and positionals. That suppressed block's
+   fourth item, the filesystem-backed `operator-profile-root` unit test, is cured by
+   `318a2ea21`, not by the follow-up. From #144's suppressed blocks (reviews 5197235280
    and 5197433102, never dispositioned): `updated` validates a real calendar day in both the
    zod and JSON Schema surfaces with an impossible-date fixture; the contract smoke's TSDoc
    names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
@@ -3109,3 +3111,467 @@ PICKUPS (the morning):
 The suppressed items above are dispositioned on their pull requests at this wrap: one issue
 comment each on #137, #143, #144 and #145, one line per item. The owner's bedtime (~21:20Z) is
 Cauldron herds Lustre's report, not observed here.
+
+## 2026-09-15 — FOLD of coordination/2026-09-14-7658a7 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1) and rotation
+
+PR #148 merged as `4786abb7f` at 14:46:47Z, by the owner's hand, at head `d7b162e45`: all 21
+checks were green and Copilot and Codex had reviewed that head. The successor
+`coordination/2026-09-15-4786ab` was cut from that merge commit with
+`agent-tools coordination successor-name`, tree-preserving, and pushed; the primary resides
+there. The fold carried ten commits, two of them engraph merges:
+
+- the 2026-09-12 fold's tenure entry and session-handoff step 11's pending-checks sentence;
+- the 2026-09-14 landings of #143 and #146;
+- the wrap for compaction: nine suppressed Copilot items homed, the ledger rows, the letter;
+- the owner's 2026-09-15 correction recording the IO invariant as absolute;
+- #145's landing, with the Practice index naming the profile sync;
+- the DUE-check misread;
+- engraph merged in at #146 and #145;
+- two settlement pushes.
+
+moved for teachers: nothing / moved for the Practice: the review-cost gate passes a pure base
+sync (#146), the operator-profile sync tool landed (#145) and start-right now pulls the profile
+before reading it, the IO invariant recorded as absolute and first for the consolidation session,
+the ledger's 2026-09-14 and 2026-09-15 rows.
+
+Review: three rounds, 21 findings, every one in this seat's own records.
+
+- Round one (Codex two threads; Copilot four threads and two suppressed items): seven cured at
+  `3d201a0c6`. They included a start-right binding claimed before it existed, seven due entries
+  where there are nine, and "five agree" where four do. One was routed: the Practice index row is
+  right, and the gap was start-right's block.
+- Round two (Codex one thread; Copilot six suppressed items): all seven cured at `d7b162e45`. They
+  were stale pointers, a fold time, the fence wording, and an observation's worked instance.
+- Round three (Codex one thread; Copilot five suppressed items) arrived after the merge. All six
+  are true and cured on the successor branch, with the binding itself at `c9abf6ce9`.
+
+Settlement cost 47.18 of 40 at the survey. The seat's lesson, n = 1: records written in a
+hurry at a landing produce truth defects at the fold, so a landing record should be read
+against the head before it is committed.
+
+The DUE check was misread: by the rule's UTC-date clock the branch was due at this session's
+open, and the seat named 15:14Z from the cut event's timestamp (napkin, `018d2b4cd`).
+
+Pickups:
+
+- the operator-profile follow-up PR (LANDINGS pickup 3);
+- #147, the upstream carrier, which waits for the owner's word;
+- the reviewer-legs read of a zero-finding Codex completion (pickup 2);
+- the two review-cost tool readings in the napkin: the quiet window anchors on the seat's own
+  reply, and the survey's sync test ignores the first parent;
+- the consolidation session, at the owner's word.
+
+### 2026-09-15/16 — #147, the upstream carrier: integrated, held at the door, and the owner's ruling
+
+The owner's word: "review the work in the unpushed branches, if it is valuable push it to a draft
+PR, otherwise delete it. The next PR for attention is 147".
+
+**The two unpushed branches, deleted.** `jimcresswell/mcp-673-adr-oak-product-extraction` carried
+the Proposed draft of ADR-227, which engraph holds Accepted; `chore/continuity-kiln-2026-09-02`
+carried continuity records whose every line is on engraph, most re-wrapped in the 2026-09-02
+napkin archive. The comparison is recorded in comms `fb503c04` before the deletion. Nothing on
+this machine now sits on no remote.
+
+**#147 integrated but not landed.** The carrier head `c67d33c8a` equals upstream `main` (release
+1.181.3). `engraph` `4786abb7f` is merged into it as `15de4bc69` (owner author, bot committer),
+pushed through `merge-bot push`. Four conflicts were resolved by concept: the rules index keeps
+this line's table plus upstream's `one-pr-per-leaf-issue` row; upstream's F-166 keeps the number
+and this line's F-166 becomes **F-185** with an id note and its one citation updated; the napkin
+carries upstream's three seat blocks under a dated union note; the director handoff keeps its one
+live snapshot and upstream's 402-line block is conserved at
+`.agent/memory/operational/archive/director-handoff-upstream-line-2026-09-15.md`.
+`build-mcp-content-workspace` regenerated four model-behaviour-content pages; `sdk-codegen`
+changed nothing. Rounds one and two are dispositioned with cure-worthy 0, routed to the
+owner-held upstream report draft
+`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md` (`de2a1b382`),
+eight items. **Sending that report is the owner's act; it has not been sent.**
+
+**Why it did not land, and the ruling.** Every check is green (21, including `run-quality-gates`
+and `CodeQL`), no thread is open, and the deletion sweep is clean. Codex reviewed the head with no
+findings and posted no review object: comment `5683402893` names `15de4bc69e`, with 👀 at
+15:46:27Z and 👍 at 15:51:12Z. The front door reads review objects only, so it refuses
+SILENT-WAIT-NO-REVIEWER. Asked to choose, the owner ruled: **fix the tool first, then land #147
+through it.**
+
+**The fix, designed and ready to write.** Lane `lane/codex-completion-leg-281e44`, cut from
+`4786abb7f`. In `agent-tools/src/pr-watch/`: `reviewer-legs.ts` gains a `HarvestedComment`
+type ({author, body, createdAt}) and a predicate reading a completion line that names a commit
+(`Reviewed commit: <sha>`, an abbreviation the tip must start with); `computeReviewerLegs` gains a
+`comments` input, and a reviewer's OWN completion naming the tip satisfies its leg, while another
+author's comment, another commit and a skip marker never do. `state-fields.ts` gains a
+`parseCommentsHarvest` mirroring `parseReviewsHarvest`; `state-gh.ts` harvests the issue comments
+beside the reviews and carries them on `PrStateReading`; `settlement.ts` passes them through;
+`merge-bot/test-helpers/pr-state-reading.ts` gains `comments: []`. Doctrine: pr-lifecycle's
+review-round state machine item 3 gains one sentence naming the completion comment as a SATISFIED
+source. Tests first, in the injected-input style of `reviewer-legs.unit.test.ts`: satisfied on an
+abbreviated-sha completion; owed on another commit; owed on another author; a skip marker never
+satisfies. The lane's worktree was removed at this wrap (it held no commits); re-cut with
+`git worktree add .claude/worktrees/codex-completion-leg -b lane/codex-completion-leg-281e44
+origin/engraph`, then install and build.
+
+**Scope widened at the owner's word (2026-09-16): "expand the merge tool fixes to cover all
+known gaps and failures and issues".** The design above is now slice 1 of the sketch node
+`.agent/plans/delivery/landing-instruments-read-the-evidence.plan.md`, which carries every
+recorded gap in the landing instruments under four generators: the leg predicate reads one
+evidence shape where the surfaces produce five (the completion comment, the empty-bodied
+review, the comment-shaped round, the posted subagent leg); the door only reads and never
+asks, so a leg nobody requested stalls (F-167, and Codex's triggers exclude a push); the cost
+gate measures a changeset as if it were the seat's own (a carrier's import priced at 552.25
+and 503.87 against 40; a cure under a clean base merge priced 0; a refusal that does not name
+the admitting budget); and two watch predicates ignore state they claim to read (F-162,
+F-164). It absorbs the sketch `review-round-predicates` (that node now carries a pointer;
+the status flip to `superseded_by` is the owner's word at ratification), and leaves the
+command-surface candidates — the session-script commands, the deletion-sweep integration —
+with `agent-tools-watch-commands`. Six slices, sequence 1 → 3 → 4/5/6, with 2 when its
+fixtures are recorded. The node is born sketch and governs no work until the owner ratifies
+it; #147 waits on slice 1.
+
+**Order for the next seat.** Land the reviewer-leg fix; then on #147 merge `engraph` in (a sync
+push the cost gate passes), re-request Copilot, and run the front door from a checkout carrying
+the fix. Then the post-merge proof: the landing merge's second parent is the carrier head, and the
+default branch's tree differs from upstream's tip only by the enumerated fork diff. Retire the
+carrier worktree `.claude/worktrees/upstream-carrier-c67d33c` after that landing.
+
+**Pricing, recorded.** #147's rounds price 552.25 and 503.87 against a 40 budget because the gate
+measures upstream's 56-file import as the round's push; a carrier's cure-worthy count is zero by
+construction. The ledger row and the napkin carry the reading; the candidate cure is to price a
+carrier by its fork-side resolution, or to name the carrier class in PDR-140 beside a sync.
+
+**The seat's own correction (owner, 2026-09-16): "Use the proper tools only".** The integration's
+file edits went through `node -e` and shell scripts instead of the platform's editing tools. The
+napkin carries the cure; it binds every seat here.
+
+### 2026-09-16 (night) — slice 1 SPLIT: the tightening landed, the widening routed to the owner
+
+Owner's word at the start of the night: "please continue, take your time, no rush … I am going to
+bed now. If you need a second opinion on something, ask Cauldron herds Lustre (880ff9)."
+
+**Two blocks above are SUPERSEDED — read this section instead of them.** "The fix, designed and
+ready to write" (the `lane/codex-completion-leg-281e44` design, where a reviewer's own completion
+comment satisfies its leg) and "Order for the next seat" (which tells you to land that fix). They
+record what was designed on 2026-09-15 and are kept as history; neither is the instruction now.
+
+**Why they were superseded.** Letting a completion COMMENT satisfy a leg crosses an out-of-scope
+line this line had already drawn in `review-round-predicates` ("Treating a Codex issue-comment
+round as a reviewer leg for the door … is a separate decision with its own fixture"). With the
+owner asleep, the question went to the Director. Verdict (Cauldron herds Lustre, 880ff9,
+2026-09-16): the comment must NOT satisfy the leg. A review object's commit binding is structural
+and platform-made; a comment's binding is prose the vendor wrote; an issue comment stays editable
+by anyone with write access after the fact; and the door's value is exactly that it cannot be
+talked into a merge. Their resolution: let such a comment DOWNGRADE a refusal to a named state,
+and let the owner rule once whether that state may settle.
+
+**What landed instead — the tightening half only.** Branch `lane/reviewer-leg-empty-body-281e44`,
+cut from `origin/engraph` `4786abb7f`, commit **SHA:8808bb37d** (owner author, bot committer, plain
+pathspec from the lane worktree, no queue per the 2026-09-07 scope ruling). Six files. A leg reads
+SATISFIED only from a tip-bound landed review whose body is SUBSTANTIVE — non-empty after trimming
+and not a skip marker — and the quiet-window anchor excludes empty bodies; the empties are counted
+in the leg's detail. `pr-lifecycle` item 3 and `docs/engineering/merge-bot.md` carry the matching
+clause. Four tests, each observed failing first: an empty tip-bound review read SATISFIED where
+OWED belongs, and the round read SETTLE-READY where SETTLED-NO-REVIEW belongs.
+
+**The live defect it cures, found on #147 itself.** Replying to a review thread through the API
+creates a review object with an EMPTY body under the replier's identity, so this seat's own seven
+disposition replies were tip-bound reviews on #147's tip — and the quiet window was anchored on the
+seat's own reply at 15:44:32Z, seven minutes after the round's last real review. Under the
+2026-09-10 vendor-outage ruling the declared `--expect` set may name the seat's own posting
+identity, so a seat could have settled its own pull request with its own replies: reachable by
+design, not only by accident.
+
+**Routed to the owner, awaiting a ruling:**
+`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md` — may a vendor's completion
+comment satisfy a leg? It carries the #147 evidence verbatim, three options, the Director's verdict
+and grounds, this seat's recommendation (option 2), and four preconditions that must hold before
+any comment is admissible at all (configured author; unedited; abbreviated sha resolving to exactly
+one commit; that commit is the tip), with the requirement that a comment failing a precondition
+NEVER reads the same as no comment — the refusal names which precondition failed.
+
+### 2026-09-16 12:32Z — #147 LANDED, and the owner's correction that made the question dissolve
+
+**The owner's correction, verbatim (2026-09-16):** *"No findings means no problems, that IS a
+result, it shouldn't need special treatment, it is a result that no further issue was found, that
+is a positive, why is this causing confusion?"* — followed by the instruction to land #147 on
+recorded premises.
+
+This supersedes the decision note's earlier recommendation AND the Director's verdict, because it
+replaces the question rather than answering it. The seat had asked "may WEAKER EVIDENCE settle a
+merge gate?", which contains its own answer. The right question is "what is a review result?" A
+completed review with zero findings is a POSITIVE RESULT; GitHub's review object is a TRANSPORT
+for a result, not the result itself, and the Codex connector uses a different transport when it
+has nothing to report. Three errors sat under the mis-framing, all recorded in the napkin and the
+decision note: success is indistinguishable from silence because the door watches only the
+channels FINDINGS arrive on (the same empty-set generator running in the opposite direction);
+"a comment is editable" was weighted as decisive without ever naming the attacker, when anyone
+with write access here can approve, dismiss or merge outright; and the cost asymmetry was
+backwards — wrongly trusting costs one recoverable merge, wrongly ignoring stalls EVERY clean
+round permanently.
+
+**The landing.** Premises posted first as comment 5697459274 (Copilot's review object 5212222680
+bound to the tip; Codex's completion comment 5683402893, unedited — `created_at` equals
+`updated_at` — naming `15de4bc69e`, with 👀 15:46:27Z and 👍 15:51:12Z; 21/21 checks SUCCESS;
+7 threads, 0 unresolved; the deletion sweep's endpoints re-verified unchanged). Then
+`merge-bot merge --pr 147 --expect copilot-pull-request-reviewer` — Copilot declared as the leg
+the tool can machine-check, Codex's leg carried as the merging seat's own recomputation per the
+2026-09-10 ruling. Merged SHA:0bd321131 at 12:32:08Z by `app/el-graphael`.
+
+**Landing proof, both parts.** The merge's parents are SHA:4786abb7f (engraph) then
+SHA:15de4bc69 (the carrier head), in that order. `engraph` now differs from upstream's tip
+SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-tools` 330,
+`docs` 79, `packages` 57, `apps` 37, `demos` 29, `.claude` 21, `.agents` 20, `.github` 8,
+`.cursor` 7, and eleven single root files. That is the enumerated fork diff.
+
+**Order for the next seat.**
+
+1. #147 is LANDED; the 1.181.3 sync is complete. **CORRECTED 2026-09-16 (owner): there is no
+   "upstream" — there are two forks of OCE, and this one merges back to the Oak fork eventually.
+   Nothing is sent to anyone.** The eight findings in
+   `.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md` are a LOCAL
+   WORK LIST to be cured on this fork; they reach the Oak fork at the merge-back. That file is
+   re-headed accordingly (its path and name still carry the withdrawn model; renaming is a
+   separate change). #147's dispositions, which read "cure-worthy count: 0; every item concerns
+   upstream-authored code or data", were wrong on that count — the items were cure-worthy here.
+2. **LANDED 2026-09-16 14:12:46Z** — pull request 149 merged at SHA:514bfc06a; its worktree and
+   both branches are retired. See the section below.
+3. The remaining half of slice 1 — reading a configured vendor's zero-findings result as the
+   result it is — is now an ordinary implementation, not a decision: the owner has ruled. Build it
+   as a reviewer's REPORTED RESULT binding a tip, with the review object and the completion report
+   as two transports of the same thing; the four preconditions in the decision note are parsing
+   hygiene, not suspicion, and a comment failing one must name WHICH one rather than read as
+   silence.
+4. `.claude/worktrees/upstream-carrier-c67d33c` and its remote branch retire at this landing.
+
+**Follow-up now owned by the plan node** (`landing-instruments-read-the-evidence`, still a sketch,
+governs nothing): `reviewer-legs.ts` sits at 249 of 250 lines, so the next edit to it pays for
+extracting the body-classification predicates — deferred tonight because five modules import
+`isSignedSelfReply`/`hasLanded` from it, making the
+split a second story with its own round budget.
+
+### 2026-09-16 14:12Z — #149 LANDED (the tightening half of slice 1)
+
+**Path.**
+
+1. Synced onto `engraph` by one automatic merge: SHA:f8fa232da, owner author, pushed as the bot,
+   costed 0.
+2. Marked ready at 13:31:41Z. The first undraft requested Copilot, and Codex reviewed
+   unprompted.
+3. Round one, on SHA:f8fa232da, produced three cures, all in one settlement push (SHA:8e81f02cc):
+   - Copilot and Codex: the empty-body count was dropped on the SATISFIED and quota arms.
+   - Copilot: the SKILL overstated the anchor's eligibility; the prose is corrected.
+   - Copilot: the defaulted expected set would have minted a phantom OWED leg — a regression this
+     change itself introduced, cured in-PR.
+4. After the cure push, Copilot was re-requested by POST and Codex by an `@codex review` comment
+   (a push does not trigger the connector).
+5. Round two, on SHA:8e81f02cc:
+   - Codex posted a zero-findings completion comment (5698673326).
+   - Copilot raised two observations, both dispositioned without a push (see the plan node's
+     ledger).
+6. Premises were posted as comment 5698905254 at 14:12:22Z. The door then ran with
+   `--expect copilot-pull-request-reviewer`, and the Codex leg was carried on the premises.
+7. Merge parents: SHA:0bd321131, then SHA:8e81f02cc. Rounds used: 2 of 2; settlement pushes:
+   1 of 2.
+
+**Size limits, three in this lane.**
+
+- `reviewer-legs.ts` reached 263 of 250 lines at the lane's first commit.
+- Curing the defaulted set in place pushed `readPrStateReading` to 51 of 50 lines, and
+  `state-gh.unit.test.ts` to 729 of 700.
+
+At the third signal the shape was reconsidered. The defaulted-set derivation is a separate job from
+composing gh reads, so it became the pure `agent-tools/src/pr-watch/expected-reviewers.ts` with
+literal-input tests. `reviewer-legs.ts` is still at 249.
+
+**Live instance on the landing tip.** The seat's six signed thread replies created six empty-bodied
+`el-graphael` reviews bound to SHA:8e81f02cc, the last at 14:02:12Z — observed through the API. The
+door that merged the PR was built from the primary before this fix, so by that code its quiet window
+anchored on those reviews, the exact artefact the PR removes from the anchor. That anchoring is
+derived from the code, not observed as a wait. It is consistent with the timing: the merge fired at
+14:12:46Z, 34 seconds after a window measured from the last empty review would have elapsed.
+
+**Order for the next seat, replacing items 2 and 3 above.**
+
+1. The remaining half of slice 1: reading a configured vendor's zero-findings result. Its first
+   edit to the settlement suite owes the missing-timestamp test routed from #149 round two.
+2. The eight local defects from the 1.181.3 sync (item 1 above).
+3. `coordination/2026-09-15-4786ab` is past its 24-hour lifetime and carries unlanded records;
+   it wants its own pull request.
+
+### 2026-09-16 ~15:0xZ — COMPACTION BOUNDARY (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"prepare for compaction, then stop all processes, post-compaction
+we run a dedicated consolidation session"*.
+
+**Board at the boundary.**
+
+- `engraph` is at SHA:514bfc06a (#149).
+- Open pull requests: #150 only, the draft carrying `coordination/2026-09-15-4786ab`. It was opened
+  at this wrap because the owner's 2026-09-10 ruling counts work safe only once it is on a pull
+  request, and drafts are acceptable.
+- The branch's stamp is 2026-09-15, so it is DUE. `engraph` has moved twice since the cut
+  (#147, #149).
+- Worktrees: the primary checkout only.
+- Claims and the commit queue: empty.
+
+**Re-arm recipe: nothing to re-arm.** This segment ran no comms watcher, no heartbeat and no cron.
+Its one Monitor expired at 30 minutes, and every background shell exited. A resuming seat verifies
+the task list and the cron list are empty. It arms the all-channels comms watcher only if a team
+session starts.
+
+**Next work, in order.** This replaces the order in §"2026-09-16 14:12Z — #149 LANDED".
+
+1. The dedicated consolidation session, at the owner's word. `pending-graduations.md` reads 10
+   due, and two entries are triggered as its first items, in this order:
+   - the IO invariant (the owner's absolute ruling, due since 2026-09-14);
+   - the cross-fork routing clause, reformatted at this wrap so the parser counts it.
+
+   It also carries:
+   - #143's residue (2026-09-14 LANDINGS pickup 4);
+   - the napkin, far past its critical threshold;
+   - `repo-continuity.md`, past its line and character limits;
+   - F-164's doctrine-and-tool pair. The pr-lifecycle SKILL still prescribes `pr-watch --watch`,
+     which has now failed at four seats: silent at three, and an early ALL-GREEN exit at one.
+     `agent-tools pr state <n> --expect <login>` gives the same verdict read-only, one reading at a
+     time;
+   - the two `candidate:` napkin entries from this afternoon: claims tabled against their code
+     sites, and declared versus causal scope;
+   - the stale surfaces this wrap's verification found and did not rewrite:
+     - `review-round-predicates.plan.md`: its banner, defect 2 (landed in #149) and the
+       out-of-scope line the owner's ruling overtook;
+     - the carried-code routing in the `sync-default-branch-past-a-skip-ci-upstream-tip` runbook,
+       step 4 and rollback;
+     - the out-of-scope line in `mcp-487-string-encoded-numbers.plan.md`;
+     - the 1.181.1 report draft, still framed as a letter to send.
+
+     The last three are named in the cross-fork entry.
+2. The convergence of this branch: merge `engraph` in, land #150 or its successor fold, and cut the
+   next day-stamped branch. The consolidation session decides whether it consolidates before or
+   after rotating.
+3. The remaining half of slice 1: the node's `Recorded during implementation` block and ledger.
+4. Still owed from earlier windows, not landed:
+   - the operator-profile follow-up PR (2026-09-14 LANDINGS pickup 3);
+   - the owed-items records PR (pickup 5);
+   - the eight local defects from the 1.181.3 sync.
+5. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
+   15:13Z by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as directed event
+   `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's words, verbatim:
+   *"I would like the typescript strictness levels brought up to the highest levels we are aiming
+   for after the next slices, but to schedule it as maintenance, I am happy with that label because
+   it should always have been that strict, it drifted over time."*
+
+   **When.** Cauldron's reading is that it runs after the jimcresswell.net strictness slices now in
+   flight land (its #94, #95 and those after), so this estate inherits a proven method. It needs a
+   plan node; none is authored yet.
+
+   **Target set.** Every tsconfig resolves it from one base, and no workspace config restates or
+   relaxes a flag: `strict`, `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`,
+   `noImplicitOverride`, `noFallthroughCasesInSwitch`, `allowUnreachableCode: false`,
+   `allowUnusedLabels: false`, `erasableSyntaxOnly`, `verbatimModuleSyntax`,
+   `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`. Excluded by owner ruling:
+   `noPropertyAccessFromIndexSignature` ("more pain than it is worth" — mostly stylistic, and it
+   fights ESLint dot-notation).
+
+   **Measured by Cauldron** (read-only, 2026-09-16, TypeScript 6.0.3, `tsc --showConfig` on all 99
+   tracked tsconfigs; not re-verified here):
+   - 98 of the 99 are consistent, and all 98 resolve `strict`, `noUnusedLocals`,
+     `noUnusedParameters`, `noImplicitReturns`, `noFallthroughCasesInSwitch` and
+     `erasableSyntaxOnly`.
+   - None resolves `noImplicitOverride`, `allowUnreachableCode: false`, `allowUnusedLabels: false`,
+     `verbatimModuleSyntax`, `noUncheckedIndexedAccess` or `exactOptionalPropertyTypes`.
+   - The outlier is the vendored skill template
+     `.agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth`, which resolves only
+     `strict`. Whether a vendored template is in scope at all is a decision for the plan.
+
+   **Method, as proven there.**
+   1. Measure each candidate flag with `tsc --noEmit --incremental false <flag>` against every
+      type-check target, counting errors.
+   2. One pull request moves every tsconfig onto one strict base and adds the zero-cost flags,
+      proven by `tsc --showConfig` on every config, and checked that a framework build does not
+      rewrite its tsconfig.
+   3. Costly flags go in directory-sized slices of about ten files, then one small pull request
+      flips the flag in the base. That works only while
+      `@typescript-eslint/no-unnecessary-condition` is off, so check that first.
+   4. Fix by meaning, never a blanket `?? ''`:
+      - `.at(i)` inside an existing guard;
+      - `for (const [index, line] of lines.entries())` for index loops;
+      - `const [head = ''] = text.split(sep)` for a first segment;
+      - a mandatory capture group returns the function's own not-found value when it is undefined;
+      - tests replace `toHaveLength(1)` plus `x[0].field` with `toMatchObject([{ field }])`.
+   5. Prove each slice by type-checking with the flag on AND off, zero errors both ways.
+
+   Cauldron's own correction, carried so it is not inherited: a guard on `arr[i]` is NOT a TS2367
+   error while the flag is off, because a comparison with undefined always compiles.
+
+**Owner-held.**
+
+- Whether the Cricket-suite reading is right. It ran medium, high and procedure, and left out
+  `cricket-judgement-low` because that definition pins `model: fable`. Recorded in the napkin
+  2026-09-16.
+- The `landing-instruments-read-the-evidence` node is a sketch; ratifying it is the owner's act.
+
+**Metaloss.** Passes and findings are in the napkin, 2026-09-16 afternoon block.
+
+### 2026-09-16 ~15:3xZ–16:xxZ — DEEP RETROSPECTIVE at the owner's word (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"run a deep retrospective, on the current branch, you can commit
+and push but no need to merge. Make sure to include the last five napkins at least ultrathink all
+analysis but me first hand by you, subagents are for locating information, but that information must
+be verified, checked, and analysed by you before use"*.
+
+**What this entry's commit carries, on draft #150.**
+
+- The record: `.agent/reports/agentic-engineering/why-written-lessons-kept-needing-the-owner-2026-09-16.md`.
+- Its reading ledger, beside it.
+- A pointer paragraph in `repo-continuity.md` §PICKUP.
+
+Six napkin files were read first-hand in full: the 2026-08-07 archive as baseline, then 08-14, 09-02,
+09-07, 09-10 and the live file, 14,113 lines. The analysis was written to the ledger as each window was
+read. Subagents only checked the record's citations, and the seat verified every flag they raised.
+
+**Board unchanged by this entry.**
+
+- `engraph` is at SHA:514bfc06a.
+- Open pull requests: #150 only.
+- Worktrees: the primary checkout only.
+- Claims: one, this seat's retrospective claim `059a1e4d`, open while this commit lands.
+
+**For the consolidation session.** The record's §Proposals are its input. Proposal 1 cures three
+governing texts the owner corrected in person before any new doctrine:
+
+- the IO invariant in `testing-strategy.md`, corrected five times while its text stood;
+- the cross-fork routing clause;
+- pr-lifecycle's `pr-watch --watch` prescription at lines 537–538.
+
+Proposal 2 goes to the slow-lane register; proposals 3 and 4 are fast. No register row was added
+here.
+
+### 2026-09-16 16:3xZ — COMPACTION BOUNDARY 2 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"please prepare for compaction, then stop all processes, the next
+session will be the dedicated consolidation session"*.
+
+**Board at the boundary, read first-hand at 16:3xZ.**
+
+- `engraph` is at SHA:514bfc06a (`ls-remote`).
+- The one open pull request is #150, a draft whose head is SHA:940c019a6. Its `mergeStateStatus`
+  reads `DIRTY`. `git merge-tree --write-tree --name-only origin/engraph HEAD` exits 1 with a single
+  conflict, in `.agent/memory/active/napkin.md`; `frictions-register.md` auto-merges.
+- The checks listed on #150 are CodeQL (two) and SonarCloud (two), all passing. `run-quality-gates`
+  is absent. Inference, not observed: pr-lifecycle's "CI can go SILENT" clause says a conflicting
+  pull request stops `pull_request` runs, which fits this absence.
+- Claims and the commit queue are empty; the abandoned intent lapsed at its TTL. Worktrees: the
+  primary checkout only.
+- The uncommitted edit to `.agent/prompts/agentic-engineering/dedicated-consolidation-session.md` is
+  untouched. Attribution is inference: its author was not observed; by its content and timing it is
+  the owner's.
+
+**Re-arm recipe: nothing to re-arm.** One Monitor ran this segment, the all-channels comms watcher,
+and it was stopped after the closeout event. Two citation-check subagents ran and completed. No
+heartbeat and no cron ran. A resuming seat verifies that the task
+list and the cron list are empty.
+
+**Next work, in order.** It is unchanged from §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY", with one
+input read first: the retrospective's §Proposals and its compaction-wrap addendum. The addendum
+classifies repeat owner corrections by where the contradicting instruction lives: an estate text, a
+platform text or no text. It adds proposal B, a Bash-guard entry refusing shell edits of tracked
+files. The convergence in item 2 meets the single `napkin.md` conflict above. The consolidation's
+napkin rotation, if it runs before the convergence, changes that conflict's shape. Run the
+archive-coverage check (semantic-merge) whichever order is taken.

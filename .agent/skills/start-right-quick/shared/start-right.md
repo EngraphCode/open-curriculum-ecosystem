@@ -112,10 +112,11 @@ including what must never be stored there, is
 
 It lives in the operator's home directory, shared by every Practice
 repository, linked worktree and clone on the machine, and it may be a git
-repository the operator syncs between machines. Run the check FIRST — it
-exits 0 and says so when nothing is there, and it refuses a document
-carrying a credential-shaped line before anything is read into the session
-— then read the index, the current repository's scope file (keyed by the
+repository the operator syncs between machines. Pull the profile first,
+then run the check — it exits 0 and says so when nothing is there, and it
+refuses a document carrying a credential-shaped line before anything is
+read into the session — then read the index, the current repository's
+scope file (keyed by the
 `origin` remote's owner and name in any of its https, scp-style or ssh
 forms, never a path), then this machine's file (keyed by the short host
 name):
@@ -125,9 +126,11 @@ built): on a cold clone run this step after the install and build below,
 never before; the grounding never blocks on the profile.
 
 ```bash
-# First the host's profile sync, pull side (PDR-141 decisions 13 to 16): the
-# Practice index names the command once the host binds one; a no-op unless
-# the root is a repository with a remote.
+# First the host's profile sync, pull side (PDR-141 decisions 13 to 16), as the
+# Practice index names it: a no-op that says so unless the root is a repository
+# with a remote. A refused pull (a conflict, no network) is surfaced and the
+# grounding continues; the check below then reports the sync state.
+pnpm profile:sync pull || echo "profile not pulled: read the line above — a conflict is the operator's to resolve by union (PDR-141 decision 15); the check still runs"
 if pnpm profile:check; then
   PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
   [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"

@@ -768,6 +768,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
 
     - **Green** — handoff may complete. Record the green run in the landed
       outcome or as a no-landing-session closeout artefact.
+    - **Pending on the pull request** — the landed commit's local gate is
+      green, and pull-request checks are still running. The handoff may
+      complete, naming each pending check and its owner, and records the
+      outcome as pending, never green. The owner reads the checks when they
+      finish and routes a red one to its lane.
     - **Red on this session's work** — fix before declaring complete. The
       [`local-broken-code-never-leaves`](../../rules/local-broken-code-never-leaves.md)
       rule applies; the
@@ -784,9 +789,12 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     § `pnpm check` - Canonical full gate): session-handoff is not complete
     in the individual-contributor or handoff-owner sense unless the full
     gate completes with no errors or warnings. Since the owner's ruling of
-    2026-09-14 that evidence is the landed commit's own hook run, never a
-    separate `pnpm check`; this step makes the standing direction
-    structurally enforced rather than agent-recalled.
+    2026-09-14, that evidence is the landed commit's own hook run, never a
+    separate `pnpm check`. The suites the hook does not run are the pull
+    request's checks: one still running at the close does not hold it, and
+    is named with its owner under the Pending outcome above; one already red
+    blocks it. This step makes the standing direction structurally enforced
+    rather than agent-recalled.
 
     **Singleton in multi-agent windows.** Where a whole-repo gate run is
     warranted at all (it never is beside a commit, per the ruling above),
