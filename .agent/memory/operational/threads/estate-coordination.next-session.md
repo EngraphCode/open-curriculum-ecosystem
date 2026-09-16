@@ -3322,9 +3322,14 @@ SHA:c67d33c in 965 files, all in the fork's own estate: `.agent` 366, `agent-too
 
 **Order for the next seat.**
 
-1. #147 is LANDED; the upstream 1.181.3 sync is complete. **Sending the upstream report draft
-   (`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`) is still the
-   owner's act and has not been done.**
+1. #147 is LANDED; the 1.181.3 sync is complete. **CORRECTED 2026-09-16 (owner): there is no
+   "upstream" — there are two forks of OCE, and this one merges back to the Oak fork eventually.
+   Nothing is sent to anyone.** The eight findings in
+   `.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md` are a LOCAL
+   WORK LIST to be cured on this fork; they reach the Oak fork at the merge-back. That file is
+   re-headed accordingly (its path and name still carry the withdrawn model; renaming is a
+   separate change). #147's dispositions, which read "cure-worthy count: 0; every item concerns
+   upstream-authored code or data", were wrong on that count — the items were cure-worthy here.
 2. Pull request 149 (`lane/reviewer-leg-empty-body-281e44`) is OPEN IN DRAFT with `unit-tests` and
    `browser-tests` still running and zero failures. Mark it ready when they conclude green, then
    land it. Its worktree retires at that merge.

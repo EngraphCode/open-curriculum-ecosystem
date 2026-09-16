@@ -83,9 +83,12 @@ repository's appear. Each is a narrow guard with a literal-input test.
 tree equals git's automatic merge of the head's own two parents, without asking whether the
 first parent is the previous reviewed head — so a cure pushed beneath a clean base merge
 prices zero (#145's third push, 2026-09-15). An upstream carrier's rounds price the import
-as the seat's churn (#147: 552.25 then 503.87 against a budget of 40) although a carrier's
-findings are on someone else's code and its cure-worthy count is zero by construction; the
-carrier is priced by its fork-side resolution diff. And `BUDGET-EXHAUSTED` names the
+as the seat's churn (#147: 552.25 then 503.87 against a budget of 40) although the seat authored
+none of it; the carrier is priced by its fork-side resolution diff. **Corrected 2026-09-16
+(owner):** the premise that a carrier's cure-worthy count is "zero by construction" is FALSE —
+the two repositories are peer forks of OCE that merge back, not an upstream and a downstream, so
+a finding on carried code is cure-worthy HERE. Only the PRICING claim survives, and it survives
+because the seat did not AUTHOR the import, never because the findings belong to someone else. And `BUDGET-EXHAUSTED` names the
 smallest declared budget that would admit the next push, which the owner and the seat
 currently derive by hand from an unstated unit weight.
 

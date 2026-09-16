@@ -197,3 +197,37 @@ cricket skill, the no-moving-targets rule — verified by reading the home; two 
 PR #75 carried them (pr-lifecycle's reviewer-set clause names the Codex connector; the plan skill
 and the plan-templates README carry the decision-log sentence). The commits and the homes are
 the record. -->
+
+## Cross-fork routing doctrine encodes a withdrawn relationship model (2026-09-16)
+
+**Trigger: the first item of the next dedicated consolidation session, and before the next sync
+of carried code — whichever comes first.**
+
+The owner's correction, 2026-09-16, verbatim: *"there is no 'upstream' there are two forks of OCE.
+Eventually this fork will be merged back to the Oak fork. All of those issues should be fixed
+locally, they go to Oak when the fork syncs back, not before."*
+
+`.agent/skills/change-custody/cross-fork-integration/SKILL-CANONICAL.md` lines 51 to 52 read: "a
+finding about upstream code is never cured on the fork; it is routed as an upstream report or a
+fork lane, and the thread is resolved on that route." The FORK LANE arm is correct. The UPSTREAM
+REPORT arm encodes an upstream/downstream relationship that does not exist, and the clause's
+opening — "never cured on the fork" — inverts the right default. Under peer forks that merge back,
+a finding on carried code is cure-worthy on this fork, and the merge-back is the delivery
+mechanism; nothing is ever sent to another project's maintainers.
+
+The same passage is reinforced at line 316 by a worked instance recorded approvingly ("the 1.179.0
+carrier: two rounds, three threads, all routed to one owner-held upstream report, cure-worthy 0"),
+so the correction has to reach both the clause and its instance, or the instance will re-teach the
+withdrawn model.
+
+Cost already measured, not hypothetical: across two carriers (1.179.0 and 1.181.3) every finding
+on carried code was dispositioned "cure-worthy 0" and routed away. The 1.181.3 set is eight real
+defects — now re-headed as a local work list at
+`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md` — and the 1.179.0
+set has not been re-examined under the corrected model.
+
+Not rewritten at session end deliberately: this is canonical doctrine with a live worked instance,
+and it wants the consolidation session's reading rather than a fast edit at a close. Two further
+surfaces carry the withdrawn model in their NAMES and want a decision at the same time: the
+directory `.agent/reports/upstream-sync/` and the term "upstream" throughout the carrier lane's
+records and branch naming (`automation/upstream-carrier-*`).

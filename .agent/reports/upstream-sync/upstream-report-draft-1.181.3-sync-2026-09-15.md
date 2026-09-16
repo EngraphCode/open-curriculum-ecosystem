@@ -1,22 +1,36 @@
-# Draft for the owner: findings on upstream's 1.181.2–1.181.3 changes, surfaced by the fork's sync review
+# Work list: eight defects carried in with the 1.181.2–1.181.3 sync — to be cured HERE
 
-**Review contract.** Purpose: give the owner one paste-ready note for upstream's maintainers,
-naming the findings a downstream review round surfaced on upstream-authored files while
-integrating releases 1.181.2 and 1.181.3 (fork PR #147, 2026-09-15). Intended impact: upstream
-decides whether to cure; the fork cures none of these, because it never diverges upstream code on
-a sync. Questions for a reviewer: is each of the eight findings stated accurately against
-upstream's code at `c67d33c8a`, and is anything fork-specific mislabelled as upstream's? Evidence
-standard: each finding cites the file and line the reviewer named and is reproducible from
-upstream's tree at that tip. Authority boundary: this note is the owner's to send, edit or drop;
-it names no fork surface, branch or organisation. Non-goals: no cure proposals beyond the
-reviewers' own words; no claim about severity beyond what the code shows. A successful review
-confirms that each finding reproduces, or marks it withdrawn.
+> **Owner correction, 2026-09-16 — this file's purpose has changed; its items have not.**
+> There is no "upstream". There are TWO FORKS of OCE, and this fork will eventually merge back
+> to the Oak fork. So a defect in code that arrived with a sync is **cure-worthy here**, and it
+> reaches the Oak fork when this fork syncs back — not before, and not as a note.
+>
+> This file was drafted as a paste-ready letter for another project's maintainers. That framing
+> was wrong and is withdrawn. **Nothing here is to be sent.** The eight items below stand exactly
+> as recorded — they are accurate findings against the tree at `c67d33c8a` — and each is now a
+> local work item.
+>
+> What the correction invalidates, recorded so the reasoning is not repeated: fork PR #147's
+> round dispositions read "cure-worthy count: 0; every item concerns upstream-authored code or
+> data" and routed each finding here. That count was wrong. The findings were cure-worthy on this
+> fork, and the merge-back is the delivery mechanism.
+>
+> The file's path still reads `upstream-sync/` and its name still reads `upstream-report-draft`.
+> Both retain the withdrawn model; renaming them is a separate change and has not been made.
 
-## The note (paste-ready; the owner edits freely)
+**Review contract.** Purpose: carry eight defects, found by review rounds over the code that
+arrived with releases 1.181.2 and 1.181.3 (PR #147, 2026-09-15), as a work list for this fork.
+Intended impact: each is cured here and travels to the Oak fork at the merge-back. Questions for
+a reviewer: is each finding stated accurately against the tree at `c67d33c8a`, and does any of
+them describe code this fork has since changed? Evidence standard: each cites the file and line
+the reviewer named and reproduces at that tip. Non-goals: no cure proposals beyond the reviewers'
+own words; no claim about severity beyond what the code shows. A successful review confirms that
+each finding reproduces, or marks it withdrawn.
 
-Hi — while integrating 1.181.2 → 1.181.3 downstream, automated review rounds and our own read raised eight
-points on files that came in with those releases. None were changed on our side; passing them on
-in case they are useful.
+## The eight items
+
+Found while integrating 1.181.2 → 1.181.3, by automated review rounds and this line's own read,
+on files that came in with those releases.
 
 1. `packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts` (around line
    40): the new closed widget-address vocabulary is typed `readonly string[]`, which discards the
