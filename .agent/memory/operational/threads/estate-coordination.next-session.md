@@ -647,6 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69` and held at the owner's ruling for the reviewer-leg fix; the owner's IO-invariant and instrument corrections recorded | 2026-09-14 | 2026-09-16 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -3159,3 +3160,66 @@ Pickups:
 - the two review-cost tool readings in the napkin: the quiet window anchors on the seat's own
   reply, and the survey's sync test ignores the first parent;
 - the consolidation session, at the owner's word.
+
+### 2026-09-15/16 — #147, the upstream carrier: integrated, held at the door, and the owner's ruling
+
+The owner's word: "review the work in the unpushed branches, if it is valuable push it to a draft
+PR, otherwise delete it. The next PR for attention is 147".
+
+**The two unpushed branches, deleted.** `jimcresswell/mcp-673-adr-oak-product-extraction` carried
+the Proposed draft of ADR-227, which engraph holds Accepted; `chore/continuity-kiln-2026-09-02`
+carried continuity records whose every line is on engraph, most re-wrapped in the 2026-09-02
+napkin archive. The comparison is recorded in comms `fb503c04` before the deletion. Nothing on
+this machine now sits on no remote.
+
+**#147 integrated but not landed.** The carrier head `c67d33c8a` equals upstream `main` (release
+1.181.3). `engraph` `4786abb7f` is merged into it as `15de4bc69` (owner author, bot committer),
+pushed through `merge-bot push`. Four conflicts were resolved by concept: the rules index keeps
+this line's table plus upstream's `one-pr-per-leaf-issue` row; upstream's F-166 keeps the number
+and this line's F-166 becomes **F-185** with an id note and its one citation updated; the napkin
+carries upstream's three seat blocks under a dated union note; the director handoff keeps its one
+live snapshot and upstream's 402-line block is conserved at
+`.agent/memory/operational/archive/director-handoff-upstream-line-2026-09-15.md`.
+`build-mcp-content-workspace` regenerated four model-behaviour-content pages; `sdk-codegen`
+changed nothing. Rounds one and two are dispositioned with cure-worthy 0, routed to the
+owner-held upstream report draft
+`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md` (`de2a1b382`),
+eight items. **Sending that report is the owner's act; it has not been sent.**
+
+**Why it did not land, and the ruling.** Every check is green (21, including `run-quality-gates`
+and `CodeQL`), no thread is open, and the deletion sweep is clean. Codex reviewed the head with no
+findings and posted no review object: comment `5683402893` names `15de4bc69e`, with 👀 at
+15:46:27Z and 👍 at 15:51:12Z. The front door reads review objects only, so it refuses
+SILENT-WAIT-NO-REVIEWER. Asked to choose, the owner ruled: **fix the tool first, then land #147
+through it.**
+
+**The fix, designed and ready to write.** Lane `lane/codex-completion-leg-281e44`, cut from
+`4786abb7f`. In `agent-tools/src/pr-watch/`: `reviewer-legs.ts` gains a `HarvestedComment`
+type ({author, body, createdAt}) and a predicate reading a completion line that names a commit
+(`Reviewed commit: <sha>`, an abbreviation the tip must start with); `computeReviewerLegs` gains a
+`comments` input, and a reviewer's OWN completion naming the tip satisfies its leg, while another
+author's comment, another commit and a skip marker never do. `state-fields.ts` gains a
+`parseCommentsHarvest` mirroring `parseReviewsHarvest`; `state-gh.ts` harvests the issue comments
+beside the reviews and carries them on `PrStateReading`; `settlement.ts` passes them through;
+`merge-bot/test-helpers/pr-state-reading.ts` gains `comments: []`. Doctrine: pr-lifecycle's
+review-round state machine item 3 gains one sentence naming the completion comment as a SATISFIED
+source. Tests first, in the injected-input style of `reviewer-legs.unit.test.ts`: satisfied on an
+abbreviated-sha completion; owed on another commit; owed on another author; a skip marker never
+satisfies. The lane's worktree was removed at this wrap (it held no commits); re-cut with
+`git worktree add .claude/worktrees/codex-completion-leg -b lane/codex-completion-leg-281e44
+origin/engraph`, then install and build.
+
+**Order for the next seat.** Land the reviewer-leg fix; then on #147 merge `engraph` in (a sync
+push the cost gate passes), re-request Copilot, and run the front door from a checkout carrying
+the fix. Then the post-merge proof: the landing merge's second parent is the carrier head, and the
+default branch's tree differs from upstream's tip only by the enumerated fork diff. Retire the
+carrier worktree `.claude/worktrees/upstream-carrier-c67d33c` after that landing.
+
+**Pricing, recorded.** #147's rounds price 552.25 and 503.87 against a 40 budget because the gate
+measures upstream's 56-file import as the round's push; a carrier's cure-worthy count is zero by
+construction. The ledger row and the napkin carry the reading; the candidate cure is to price a
+carrier by its fork-side resolution, or to name the carrier class in PDR-140 beside a sync.
+
+**The seat's own correction (owner, 2026-09-16): "Use the proper tools only".** The integration's
+file edits went through `node -e` and shell scripts instead of the platform's editing tools. The
+napkin carries the cure; it binds every seat here.
