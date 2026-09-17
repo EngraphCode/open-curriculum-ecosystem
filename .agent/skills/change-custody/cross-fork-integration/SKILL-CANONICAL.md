@@ -327,8 +327,11 @@ carrier's round tally carries it is open: the tally reads the bar marker, so
 the finding counts as cure-worthy in the round that raised it, the carrier
 cannot cure it, and terminal success needs a cure-worthy count of zero. Until
 the `pr-tally` node's row decides the question, a carrier round holding such a
-finding is not read as terminal zero; it settles by its budget and the
-dispositions that route each finding to the local work list. Three carriers routed every carried-code finding away under the
+finding is not read as terminal zero and does not settle by its budget either:
+the carrier stops at that round, with each finding dispositioned on its thread
+to the local work list, and the decision is raised to the owner before the
+carrier's next round (2026-09-17: a fold review found the earlier "settles by
+its budget" wording could not reach the terminal zero pr-lifecycle requires). Three carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list

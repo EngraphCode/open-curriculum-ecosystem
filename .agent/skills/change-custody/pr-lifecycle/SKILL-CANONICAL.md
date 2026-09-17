@@ -496,11 +496,14 @@ live tickets where the platform is in use.
   by horizon, not more rounds).
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
-- Sonar findings keep their per-site channel: **owner-dispositioned with
-  evidence** (per-site, e.g. a false-positive with rationale at that site)
-  remains a terminal state alongside the three above. Triage routes
-  findings; it never buries them — never dismissed by category, never
-  gate-narrowed, never warning-downgraded, never suppressed.
+- Sonar findings have no per-site disposition channel: every finding is
+  cured at source, and the tracked CodeQL query exclusion of
+  `js/missing-rate-limiting` is the one excepted class (the owner's
+  2026-09-08 ruling, "we don't dismiss issues, we fix them", and the
+  2026-09-17 mechanism ruling; `docs/governance/sonar-disposition-policy.md`).
+  Triage routes findings; it never buries them — never dismissed by
+  category or per site, never gate-narrowed, never warning-downgraded,
+  never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention. The class sweep that ends a loop re-runs

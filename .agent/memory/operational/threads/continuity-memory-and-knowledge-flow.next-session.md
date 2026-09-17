@@ -144,20 +144,24 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 
 **Next, in the owner's order.**
 
-1. Fold #153 on 2026-09-17, before the rollover, with its own pre-publication claim pass,
-   because the integration lane's slot waits on it (this seat's decision after the second
-   context's compaction, reported to the owner); later consolidation work rides the next
-   successor. Tell Dynamo turns Temper when it lands, on the ARC channel and in the rotation
-   broadcast. State at the third context's wrap: the pass is done and its cures are committed;
-   next are the description (a new bullet for the cure commit, "ten rules" not nine, and the
-   pass result under Validation), ready, the review rounds under budget 2, and the front door.
-   At resume, re-arm the comms watcher and the ARC tail, and read the comms stream from 16:04Z
-   (the watcher's expiry gap) and the ARC channel from its last entry.
-2. The directive pass in a fresh context below 30 %, with careful analysis: the twelve entries in
-   `pending-graduations.md`, the IO invariant and the lifecycle decision first among them. The
-   30 % is read, not estimated: `agent-tools session-metadata --vendor claude --model <id>
-   --session-id <id>`, with the same-size `claude-opus-4-8[1m]` entry standing in for Opus 5
-   until F-191's window-registry lane lands.
+1. LANDED: #153 folded on 2026-09-17 at the owner's word, through the front door as
+   `b5b0e70cd` (20:17:05Z), after a pre-publication claim pass (33 findings, all cured in
+   `56f42807e`) and three rounds (twelve findings, all true; seven cured in `a1aa47c6b` and
+   `8e7d37824`, five routed to the successor and cured in its first records commit). The
+   successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
+   Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
+2. The directive pass, in THIS context (the fourth), by the owner's answer of 2026-09-17: the
+   seat's window is 1M, and against a 1M window the meter read 13.3 % at 18:36Z, under the
+   `directive-file-context-budget` rule's 30 %. The twelve entries in `pending-graduations.md`,
+   in three commits on the successor: testing-strategy and validation-strategy (the IO invariant
+   with its echoes in tdd-as-design, principles §Testing, test-immediate-fails items 8 and 9,
+   ADR-161 and the recovery plan's end-state note; the observation instrument;
+   visibility-before-validation; counters as configuration echoes; growth at two sizes); then
+   principles, orientation, editorial-tone and the directives review's cheap defects; then
+   continuity-practice's lifecycle section, the consolidate-docs trigger step and the
+   frontmatter sweep. The meter is read before each directive edit:
+   `agent-tools session-metadata --vendor claude --model claude-opus-4-8[1m] --session-id <id>`
+   (the same-size entry stands in until F-191's window-registry lane lands).
 3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
    landed: graduate, then archive, the finished history of `repo-continuity.md`, the
    agentic-engineering-enhancements and estate-coordination thread records,

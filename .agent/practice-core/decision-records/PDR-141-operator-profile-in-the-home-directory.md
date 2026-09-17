@@ -179,11 +179,16 @@ between machines, provided the estate stays machine-agnostic.
     assumes any machine. The layout tolerates git furniture (`.git`,
     `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
     The Practice reads the repository and validates it; it never
-    initialises, commits or pushes it, and it refuses credential-shaped
-    lines before anything is read into a session or pushed (decision 7's
-    order: the sync, then the check, then the reads; 2026-09-17 amendment).
-    The operator's remote is a fact of the profile, recorded in its own
-    index, never in a tracked surface.
+    initialises, commits or pushes it, and its check refuses a document
+    carrying a credential-shaped line before anything is read into a
+    session (decision 7's order: the sync, then the check, then the reads;
+    2026-09-17 amendment). The push leg of decision 14 refuses a
+    non-conforming working tree; it does not yet scan the content of the
+    commits it pushes, so a credential-shaped line in an earlier unpushed
+    commit is the operator's to keep out of history until that scan lands
+    (the host's frictions register, F-193, carries the lane). The
+    operator's remote is a fact of the profile, recorded in its own index,
+    never in a tracked surface.
 12. **The stable pointer** is the Practice index's row for the operator
     profile, which names the home-directory path, states that it may not
     exist, links the contract and names the check.
@@ -240,8 +245,10 @@ a remote, then the check, then the reads. A root that is not a repository, or
 has no remote, has no sync step, and the check still runs before anything is
 read. Decision 11 had said the refusal comes "before anything is synced",
 which decision 14's session-open fetch made impossible to honour; it now says
-before anything is read or pushed, the same order (a fold review found the
-surviving phrase on 2026-09-17).
+before anything is read into a session, the same order (a fold review found
+the surviving phrase on 2026-09-17), and it states what the push leg checks:
+the working tree, not the content of the commits pushed (a second fold review
+the same day found the over-claim against the mechanism's source).
 
 ## Boundaries
 

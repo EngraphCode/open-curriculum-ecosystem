@@ -354,9 +354,11 @@ first-hand as of 2026-06-25.
 > snapshot records what LANDED and who holds which LANE.
 >
 > **Seats.** No Director is seated. From 2026-09-17 15:31Z the estate runs at n = 2: Zephyr guards
-> Leeward (the dedicated consolidation, claim `47cfcbeb`) and Dynamo turns Temper (`2a4c8a`, the
-> owner-approved Oak integration lane, claim `35006027`, carrier draft #154), which by the owner's
-> word merges nothing until #153's fold lands. The two seats coordinate on the ARC channel
+> Leeward (the dedicated consolidation, curator claim `62a5dfd0` on
+> `coordination/2026-09-17-b5b0e7` from 20:19Z, after `47cfcbeb` closed at the fold) and Dynamo
+> turns Temper (`2a4c8a`, the owner-approved Oak integration lane, claim `35006027`, carrier draft
+> #154), whose landing slot opened when #153 merged at 20:17Z; that seat is paused at the owner's
+> word since 16:1xZ. The two seats coordinate on the ARC channel
 > `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:**
@@ -370,8 +372,11 @@ first-hand as of 2026-06-25.
 > - #150, the 2026-09-15 fold, `a07940ac9` (2026-09-16 21:39Z, front door, three rounds), at the
 >   opening of the owner's dedicated consolidation session;
 > - #152, the 2026-09-16 fold carrying the consolidation's first half, `cd847a2b3` (2026-09-17
->   15:09Z, front door, a pre-publication claim pass and three rounds). The successor is
->   `coordination/2026-09-17-cd847a`, and the consolidation's second half rides it.
+>   15:09Z, front door, a pre-publication claim pass and three rounds);
+> - #153, the 2026-09-17 fold carrying the consolidation's second half, `b5b0e70cd` (2026-09-17
+>   20:17Z, front door, a pre-publication claim pass and three rounds, folded on its cut date at
+>   the owner's word because the Oak integration lane's slot waited on it). The successor is
+>   `coordination/2026-09-17-b5b0e7`, and the consolidation's directive pass rides it.
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the
