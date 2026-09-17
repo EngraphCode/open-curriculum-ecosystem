@@ -73,7 +73,10 @@ while napkin history rotates to an archive. So either journal-shaped history in 
 and registers gains an archive disposition with a proof, or curate-and-delete stays the
 disposition and gains its trigger and coverage. Either way the missing parts are the same:
 per-surface role and disposition notes, a trigger owned by a named skill step, instrument
-coverage for every surface that grows, and a proof the act runs.
+coverage for every surface that grows, and a proof the act runs. The runbook's present proof
+(`grep -F` every live pointer) is narrower than the loss it guards: curating repo-continuity's
+pickup on 2026-09-17 deleted the only sentence saying the "UNCOMMITTED" block below it had been
+committed, a statement about a neighbour that no pointer check sees.
 
 Candidate homes when promoted: `continuity-practice.md` §Disposition (a directive: careful
 analysis first, by the owner's word) with the owning skill step; and a concept node for the

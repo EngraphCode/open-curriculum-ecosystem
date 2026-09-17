@@ -107,6 +107,24 @@ barrier:
   `git fetch` and `git worktree remove`, among others, while the command
   completes normally (2026-09-16). `git -c core.fsmonitor=false`
   silences it for a read.
+- **Markdown commit refusals that recur**, all from the pre-commit markdownlint (2026-09-16/17):
+  a wrapped line that begins with `#` and a number (`#127 …`) is an ATX heading with no space
+  (MD018), so re-wrap until the number sits mid-line and grep `^#[0-9]` before committing (one
+  first fix moved the wrong word); deleting a file's last block also deletes its final newline
+  (MD047); a backticked sha inside an inline-bracket register line nests code spans (MD038); a
+  list needs a blank line before it (MD032). A refused commit abandons its queue intent, so the
+  re-run opens a fresh window claim and intent.
+- **A pathspec comes from `git ls-files`, never from memory**: on the case-insensitive
+  filesystem `.github/pull_request_template.md` edited the tracked
+  `.github/PULL_REQUEST_TEMPLATE.md` while `git add` staged nothing, and the commit queue's
+  staged-set check refused (2026-09-17).
+- **Never type a `--now` timestamp by hand**: `claims open` and `claims close` default `--now` to
+  the current time when the flag is omitted, and two hand-typed values in one context landed 36
+  minutes and 41 seconds in the future (2026-09-17). A time a command needs is read, never
+  recalled.
+- **Check an Edit that anchors an insertion on a duplicated line**: anchoring a new register
+  entry by repeating the next entry's bracket line left a placeholder bullet and a duplicate
+  bracket; grep the result before committing (2026-09-16).
 
 ## See also (homed elsewhere, not duplicated)
 

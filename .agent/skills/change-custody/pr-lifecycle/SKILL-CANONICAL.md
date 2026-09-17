@@ -309,7 +309,14 @@ actually present**:
   citations. Prediction: claim-class findings in round one become rare on
   changesets that ran the pass; falsifier: such a changeset still draws three or
   more rounds of claim-class findings, or the pass costs more than the rounds it
-  replaced.
+  replaced. **A text cure's sweep reads outward, not only at the cited line**: the
+  corrected claim across the whole branch (in other words and in other files), the
+  surviving sentences in the same file that teach the model the cure withdraws, and the
+  governing texts of any act a new sentence prescribes. On the first run of this pass
+  (#152, 2026-09-17: 31 claim errors before publication), round one still raised five
+  over-bar findings, three of them this class — a new push instruction that skipped the
+  Work-cloud route its identity rule evaluates first, a withdrawal banner above surviving
+  instructions, and a cured tool claim repeated in a continuity record.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two

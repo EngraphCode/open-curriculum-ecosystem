@@ -4405,3 +4405,18 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
   the guard and the push parser resolve the default branch from `origin/HEAD` or
   configuration, with a unit test on each.
+
+### F-191 — no instrument reads a seat's own context usage, so the 30 % directive rule runs on an estimate
+
+- **Observed**: 2026-09-17, the dedicated consolidation's second context. The
+  `directive-file-context-budget` rule gates directive edits on context usage below 30 %, and
+  the seat had to decide whether the directive pass fitted after a fold's review rounds. No
+  tool reports the figure: `agent-tools context-cost` estimates a fileset, not a session, and
+  the session transcript's bytes since the compaction boundary (3.47 MB) are dominated by
+  metadata and persisted tool output. The seat estimated from what it had loaded and moved the
+  pass to a fresh context.
+- **Expected**: the budget a rule gates on is readable at the moment the rule fires, so the
+  decision rests on a reading, not a guess in either direction.
+- **Route**: a harness-integration question first (whether the platform exposes context usage
+  to a hook or status surface); until then the rule's own wording carries the estimate, and a
+  consolidation declares its contexts at open (consolidate-until-done's grounding step 7).

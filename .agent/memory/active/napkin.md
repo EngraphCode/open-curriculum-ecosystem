@@ -212,3 +212,42 @@ still unhomed, as at the 2026-09-10 rotation.
 - **The MD018 trap, known and recorded, bit a re-wrap.** A cure that re-wrapped a paragraph left
   a line starting `#127`; the first fix moved the wrong word and the line still started with the
   number. Caught by grepping `^#[0-9]` before re-running, not by the hook a second time.
+- **Round one on #152 after the pre-publication pass: six raised, five over the bar, and three of
+  the five were the consistency class the pass had just named.** Codex: pr-lifecycle's new "every
+  push goes through merge-bot push" contradicted the Work-cloud route the bot identity rule
+  evaluates first. Copilot: the 1.181.1 report's withdrawal banner sat above a surviving review
+  contract and note that still read as instructions, and the continuity record repeated the
+  `gh pr create` claim the pass had cured in the skill. The other two: the compound watch loop
+  read as a tool that does not exist, and a list named a friction row (T03) rejected at the check.
+  Rounds two and three raised eight and seven; #152 landed `cd847a2b3` at 15:09:09Z.
+- **The consistency class's generator, at two levels.** The pass's sweep looked for the corrected
+  claim in other words; round one's instances were the corrected claim in other files and in
+  texts the new clause never consulted. Graduated to pr-lifecycle §Phase 2: a text cure's sweep
+  reads outward.
+- **A route comment said to exist did not say what was said.** Re-truing ADR-219 the seat first
+  wrote that the MCP routes' comments recognise in-process limiting as defence in depth; a grep
+  showed they name the edge and cite ADR-219 only, as the disposition policy had recorded. The
+  draft came from the policy's prescription, read as a description. Cured before commit.
+- **The hand-typed `--now` a second time, 41 seconds ahead,** at the fold claim's close; graduated
+  to the harness pattern (never pass the flag) and the action-time plan's recurrence ledger.
+- **Context decision without an instrument**: filed as F-191; the two-context shape graduated to
+  consolidate-until-done's grounding step 7.
+- **The owner re-prioritised mid-pass (15:0xZ):** "the priorities are drainable buffers to EMPTY,
+  then memory files to an optimised soft"; "we have missing rotation definitions and mechanisms,
+  record that in distilled.md now"; directives "need very careful analysis anyway". Reading the
+  directive before writing showed the premise needed precision: continuity surfaces have a
+  defined disposition that forbids rotation, and what is missing is its trigger, instrument
+  coverage for the largest records, and definitions for surfaces outside its scope. The entry in
+  `distilled.md` says so and leaves the archive-or-curate choice to the owner.
+- **The owner, 15:2xZ, verbatim:** "Reliable Atoms as a concept will be completely removed, this has
+  not happened yet, but it will, we have a replacement concept that is far more effective and
+  useful". Recorded under repo-continuity's Reliable Atoms block; nothing built on it.
+- **Curating two continuity surfaces by the runbook.** The continuity thread record's resume point
+  went from about 210 lines of finished graduation lists, answered questions and a done recipe to
+  a compact state; repo-continuity's pickup dropped a landed DUE instruction, a landed item, a
+  dispositioned retrospective input and a 2026-09-14 block whose insight lives in PDR-141, the
+  register and its commits. The `grep -F` check found every live pointer in its home, and found
+  one loss the runbook would not have: the deleted note was the only statement that the
+  "UNCOMMITTED" Reliable Atoms block below it had been committed, so the heading now carries it.
+  A deletion's losslessness check covers the text's pointers and also what the text told the
+  reader about its neighbours.

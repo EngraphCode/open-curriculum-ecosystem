@@ -360,8 +360,10 @@ first-hand as of 2026-06-25.
 > - #147, the 1.181.3 carrier, landed on recorded premises, `0bd321131`;
 > - #149, the reviewer-leg tightening, `514bfc06a`;
 > - #150, the 2026-09-15 fold, `a07940ac9` (2026-09-16 21:39Z, front door, three rounds), at the
->   opening of the owner's dedicated consolidation session. The successor is
->   `coordination/2026-09-16-a07940`, and the consolidation's commits ride it.
+>   opening of the owner's dedicated consolidation session;
+> - #152, the 2026-09-16 fold carrying the consolidation's first half, `cd847a2b3` (2026-09-17
+>   15:09Z, front door, a pre-publication claim pass and three rounds). The successor is
+>   `coordination/2026-09-17-cd847a`, and the consolidation's second half rides it.
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the
