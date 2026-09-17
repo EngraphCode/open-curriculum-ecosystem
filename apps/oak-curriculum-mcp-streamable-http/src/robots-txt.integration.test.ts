@@ -106,8 +106,6 @@ const createTestApp = async (options: HarnessOptions = {}) =>
         : createMockRuntimeConfig(),
     observability: createFakeHttpObservability(),
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
-    getLandingPageHtml: () =>
-      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     ...(options.clerkMiddlewareFactory === undefined
       ? {}
