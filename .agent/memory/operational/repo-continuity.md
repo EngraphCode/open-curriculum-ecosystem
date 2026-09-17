@@ -353,8 +353,12 @@ The owner's words, verbatim, 2026-09-16: *"prepare for compaction, then stop all
 post-compaction we run a dedicated consolidation session"*. **Deep consolidation: due —
 owner-directed.** It ran nothing in the closing session by that direction.
 
+**First, from 2026-09-17:** `coordination/2026-09-16-a07940` is DUE. Fold its draft #152 before
+staking new work, per `threads/estate-coordination.next-session.md` §"2026-09-17 ~12:3xZ —
+COMPACTION BOUNDARY 3", which carries the current board.
+
 Read `threads/estate-coordination.next-session.md` §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY"
-first. It carries the board, the empty re-arm recipe and the order:
+next. It carries the empty re-arm recipe and the order:
 
 1. the consolidation — IN PROGRESS since 2026-09-16 ~20:4xZ. Its resume point is
    `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's

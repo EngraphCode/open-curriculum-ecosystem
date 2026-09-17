@@ -85,3 +85,78 @@ still unhomed, as at the 2026-09-10 rotation.
   were not timed, so there is no comparison; observation only, cause not measured.
 - **The board moved during the pass.** #151 opened: the sync workflow's carrier of the mirror at
   `487a25e` into `engraph`. Not this session's lane.
+
+## Zephyr guards Leeward (281e44) — 2026-09-17 ~12:3xZ, the compaction wrap of the consolidation's first context
+
+- **Three wrap-time instances of the technical root, all caught by reading a source.**
+  - A card to the owner claimed the Practice Box bundle had "none of its items still owed". The
+    bundle's own disposition section names the file as the durable carrier of four design-core
+    offers. The owner answered "Clear it" on that premise, and the resume point now carries the
+    caveat. This is the first false premise of the session to reach the owner.
+  - Three records were stamped "~00:1xZ" from the assumption that the owner's answer came
+    straight back. The clock read 12:28Z. A workflow run list showing runs at 05:06Z and 10:47Z
+    exposed it minutes after `records-are-technical-not-emotional` gained its clock clause in
+    `63b544464`. Cured by reading `date -u`.
+  - A files list named `.github/pull_request_template.md`. The tracked path is
+    `.github/PULL_REQUEST_TEMPLATE.md`, and the case-insensitive filesystem edited the file under
+    either spelling while `git add` staged nothing. The commit queue's staged-set check refused
+    before the hook. A path goes into a pathspec from `git ls-files`, never from memory.
+- **Metacognition (retrospective).** The pass was designed around the owner's suggested order: raw
+  sources, then the napkin, then distilled, then the registers. The directive-file context budget
+  gates the registers' heaviest items, the directives, at 30 %. Walking bottom-up first-hand in one
+  context spent exactly the headroom those items need, so this context could not have finished the
+  goal. That is the budget rule working as written (directive work is "the final step", queued
+  when the boundary is reached above 30 %), not a slip. The slip was not naming it at session
+  open: the due entries were visibly directive-bound from the first read of the register, and
+  the two-context shape could have been declared then rather than discovered at the end.
+- **Metacognition (generative): what the pass was for.** Its measurable value is three governing
+  texts cured, the ones the retrospective showed re-teaching corrected errors. The
+  twenty-odd graduations are the smaller part, and the retrospective's own warning applies to
+  them: written lessons do not fire at the act. Two classes recurred inside this very pass after
+  their lessons were written: the `cd`, twice, and a time stamped from memory.
+- **Free play (material: the pass; one time-box).** Kept, as associations:
+  - a record cannot contain its own landing, which is shaped like a letter unable to carry its
+    own postmark. Round three's finding, "the pickup still says the fold is open", could only be
+    cured after the merge, by the successor;
+  - searching for where a lesson lives turned up the texts that disagree with it. The locators'
+    best yield was two contradictions found beside the homes they were asked for.
+  Discarded, visibly:
+  - "the case-insensitive filesystem and the two forks are one naming problem" — forced;
+  - "the goal hook as a tide the context budget holds back" — an image with no test in it.
+- **Concept exploration: a dedicated consolidation whose due items are directives is a
+  two-context shape by construction.** Observations: the budget rule's 30 % gate; the owner's
+  bottom-up reading order; this pass reaching the directive boundary far above 30 % with the
+  directive entries the oldest in the register (09-14). Problem frame: `consolidate-until-done`'s
+  completion contract reads as one session's work, so a seat discovers the split at the end and
+  the goal hook reads "not done" through a correct stop. Proposal: the skill's Required Grounding
+  asks, at open, whether any due register entry targets a directive. If one does, the seat
+  declares the two-context shape: context one reads and routes, and context two opens with the
+  directive queue below 30 %. The owner sees the shape before any work is staked. Warrant: this
+  pass. Falsifier: the next dedicated consolidation with directive-bound entries finishes them in
+  its first context below 30 % without planning for it.
+- **Loss scan and metaloss passes.**
+  - Compressed reasoning: the PDR-008 direction question, the CodeQL record order and the
+    DUE-versus-budget ordering are written into the continuity resume point with their evidence.
+    The locators' rejected items keep their rationale only in a scratchpad note that dies with
+    the session; the items themselves stay in `archive/napkin-2026-09-16.md` for any later pass,
+    and each rejection was a thin or self-announcing lesson.
+  - Promises: to the owner, the directive pass in a fresh context (recorded); #150's round-three
+    routes (repo-continuity, the Director snapshot, three node rows), all landed in `29648a216`
+    and `63b544464`; the retrospective's "register or kill" of its proposals, discharged in its
+    dated addendum. None is silently dropped.
+  - Attribution: that #151 came from the scheduled carrier workflow is inference (branch prefix,
+    workflow name), flagged in the boundary block. The uncommitted edit to the
+    dedicated-consolidation prompt is still attributed by content only, and is left untouched.
+  - Blind-spot bounds: no comms watcher ran in this context. A read of the directory after the
+    fact shows no event from another seat since 20:45Z. The four locators' contexts are gone,
+    and the value they carried survives only as verified citations in the homes.
+  - Index of homes: repo-continuity §PICKUP → the estate-coordination §COMPACTION BOUNDARY 3 → the
+    continuity thread record's resume point → the register's due entries.
+  - External bound and error signature: `63b544464`'s twenty-three files have had no outside
+    review yet (#152 has no rounds). Point outside eyes at claims stronger than their sources,
+    the class found at wrap time here: counts, a premise on a card, a time stamp, a path spelled
+    from memory.
+  - Fence sweep: no Oak surface named, no private repository named, and no owner-fenced wording
+    written.
+  - Fixed point: a third pass would only re-find the three wrap-time instances above. The
+    recursion closes here.

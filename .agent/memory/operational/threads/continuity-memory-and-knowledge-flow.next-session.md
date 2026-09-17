@@ -258,15 +258,45 @@ grounds untracked-by-design in exactly those two.
 5. The Claude RESUME HEADS pointers were re-trued on 2026-09-16. The successor folds at its
    rollover, with #152 readied first.
 
-**Owner decisions surfaced at this point, not taken.**
+**Owner answers to the consolidation's question** (asked 2026-09-16 ~22:1xZ; the answers were
+read at 2026-09-17 ~12:2xZ by `date -u`, and the time they were given was not observed).
 
-- The CodeQL `js/missing-rate-limiting` mechanism. The rule text naming per-alert dismissal as
-  the owner's act (`41235118c`, 2026-09-10 01:18) preceded the repo-wide exclusion by about
-  sixteen hours. The exclusion was added to `.github/codeql/codeql-config.yml` (`bd7a3509e`,
-  2026-09-10 17:17) as a carrier's landing-defect cure citing the same 2026-09-08 ruling, and
-  neither the rule nor ADR-219 was amended.
-- Clearing the resonance Practice Box bundle.
-- Whether directive edits may run in this session despite the budget rule.
+1. *Directives:* "Fresh context". The directive pass runs in a new context below 30 %, never this
+   one.
+2. *CodeQL:* verbatim, "a permanent exclusion is allowed, but ONLY for that one issue". The
+   tracked `query-filters` exclusion of `js/missing-rate-limiting` in
+   `.github/codeql/codeql-config.yml` stands. Five doctrine surfaces still describe per-alert
+   dismissal and are re-trued, registered as a due entry in `pending-graduations.md` that names
+   each site. The earlier record order stays as evidence: the rule text naming per-alert
+   dismissal (`41235118c`, 2026-09-10 01:18) preceded the exclusion (`bd7a3509e`, 17:17 the same
+   day).
+3. *Practice Box:* "Clear it". A caveat the question did not state: the bundle's own disposition
+   section names the file as the durable carrier of items 1–4, the four design-core offers (the
+   proof ladder, the refusals list, the posture-selection procedure, the obligation family).
+   Before the file is removed, those four need a home that a future design lane reads, such as
+   a dated research note or a row on the design plan. Then the file clears with the owner's
+   word as its authority. The question's "none of its items is still owed" was this seat's
+   overstatement.
+
+**The branch is DUE.** `coordination/2026-09-16-a07940` carries the stamp 2026-09-16, and the UTC
+date turned at 00:00Z on 2026-09-17, while the owner's question waited. At n = 1 the lifetime rule says to
+converge before staking new work.
+
+**The next session, in order:**
+
+1. Fold #152 first: ready it with its intake, run the rounds under budget 2, land it through the
+   front door, and cut the successor.
+2. Graduate the CodeQL entry.
+3. Home the Practice Box offers, then clear the box.
+4. The directive pass, only while the context is below 30 %. If the fold's rounds take the seat
+   past that, it goes to another fresh context.
+5. The Core pass.
+
+The rulings between them hold:
+
+- the directive budget: below 30 % at the directive edit;
+- the 24-hour lifetime: converge a DUE branch before staking new work;
+- the owner's word, which is to continue the consolidation in the next session.
 
 ## Standing decisions this thread carries forward
 
@@ -424,7 +454,7 @@ grounds untracked-by-design in exactly those two.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| Zephyr guards Leeward | claude-code | claude-fable-5-1 | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded | 2026-09-14 | 2026-09-14 |
+| Zephyr guards Leeward | claude-code | claude-opus-5 (was claude-fable-5-1 until 2026-09-15) | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded; then the owner-launched dedicated consolidation of 2026-09-16/17 (curator claim c16450da): the raw sources and the whole napkin read first-hand, three governing texts cured and the graduations landed (`63b544464`), the napkin rotated (`8c48a6669`), the directive and Core passes queued for a fresh context | 2026-09-14 | 2026-09-17 |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
 | Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |

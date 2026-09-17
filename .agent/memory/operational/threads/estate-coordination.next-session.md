@@ -647,7 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`) | 2026-09-14 | 2026-09-16 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation | 2026-09-14 | 2026-09-17 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -3608,3 +3608,47 @@ Review: three rounds and fifteen findings, every one true.
   landing-instruments node's `## Review dispositions`.
 
 Settlement pushes: 2 of 2. The consolidation's own commits ride the successor.
+
+### 2026-09-17 ~12:3xZ — COMPACTION BOUNDARY 3 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"please prepare for compaction, then stop all processes, the next
+session will continue the dedicated consolidation session"*.
+
+**Board at the boundary, read first-hand.**
+
+- `engraph` is at SHA:a07940ac9 (#150).
+- `coordination/2026-09-16-a07940` is at SHA:da479374f, pushed and matching `ls-remote`. It carries
+  the consolidation's first half: `63b544464` (graduations), `29648a216` (fold records),
+  `8c48a6669` (the napkin rotation), `da479374f` (the resume point and ledger rows), plus this
+  wrap's commit.
+- Open pull requests:
+  - #152, the successor's draft, `CLEAN`, with no review round yet;
+  - #151, a carrier of the mirror at `487a25e` into `engraph`, opened 2026-09-16 21:31Z by the
+    bot on `automation/upstream-carrier-487a25e…`. That the scheduled carrier workflow opened it
+    is an inference from the branch prefix and the workflow's name; the creating run was not
+    read. Not this seat's lane; its carried-code findings are cure-worthy locally under the
+    peer-fork model.
+- The branch stamp is 2026-09-16 and the UTC date turned at 00:00Z while the owner's question
+  waited (the clock read 12:28Z at this wrap), so the branch is DUE.
+- Claims: the curator claim `c16450da` closes with this wrap; the commit-window claims are closed;
+  the queue is empty.
+- Worktrees: the primary only.
+
+**Re-arm recipe: nothing to re-arm.** The two PR watches ended (one expired, one ended on MERGED),
+the front door and push background commands exited, and the four read-only locator subagents
+completed. No comms watcher, heartbeat or cron ran. A resuming seat checks that the task and cron
+lists are empty.
+
+**Next work, in order.** The consolidation's resume point is authoritative:
+`threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
+dedicated consolidation session, IN PROGRESS", with its owner answers of 2026-09-17 and the order.
+
+1. Fold #152, the DUE branch.
+2. The CodeQL re-truing (owner: "a permanent exclusion is allowed, but ONLY for that one issue").
+3. Home the Practice Box offers, then clear the box.
+4. The directive pass below 30 %.
+5. The Core pass.
+6. The remaining pickups from §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY", items 3 to 5: slice 1's
+   other half, the owed PRs and the seven 1.181.3 defects, TypeScript strictness.
+
+**Metaloss.** Passes and findings are in the napkin's 2026-09-16 night block.
