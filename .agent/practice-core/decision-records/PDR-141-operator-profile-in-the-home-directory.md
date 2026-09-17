@@ -112,8 +112,10 @@ scopes by repository identity instead.
    validator or build. Content an agent inferred from observed behaviour is
    marked inferred until the operator ratifies it.
 7. **Readers.** The shared start-right grounding is the single tracked read
-   pointer. It runs the host's profile check FIRST (the host's Practice index
-   names the command), so a document carrying a credential-shaped line is
+   pointer. Where the profile root is a repository with a remote, decision
+   14's session-open sync runs first (2026-09-17 amendment); then the
+   grounding runs the host's profile check before anything is read (the
+   host's Practice index names the command), so a document carrying a credential-shaped line is
    refused before anything is read into a session; when the check refuses,
    or cannot run because the host's tooling is not yet built (a cold clone
    before its install and build), nothing is read and the grounding
@@ -178,8 +180,10 @@ between machines, provided the estate stays machine-agnostic.
     `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
     The Practice reads the repository and validates it; it never
     initialises, commits or pushes it, and it refuses credential-shaped
-    lines before anything is synced. The operator's remote is a fact of the
-    profile, recorded in its own index, never in a tracked surface.
+    lines before anything is read into a session or pushed (decision 7's
+    order: the sync, then the check, then the reads; 2026-09-17 amendment).
+    The operator's remote is a fact of the profile, recorded in its own
+    index, never in a tracked surface.
 12. **The stable pointer** is the Practice index's row for the operator
     profile, which names the home-directory path, states that it may not
     exist, links the contract and names the check.
@@ -221,6 +225,23 @@ applies only to a root that is a git repository with a remote.
     never in shell recipes seats retype, so a seat resident in a linked
     worktree (whose shell git is confined to that worktree) syncs the
     profile the same way as any other.
+
+## Amendment 2026-09-17 — decision 7's order beside decision 14
+
+Decision 7 said the grounding runs the profile check "FIRST"; the second
+2026-09-14 amendment's decision 14 put a fetch and fast-forward at session
+open, before the profile is read. Read together they disagreed on what runs
+first. A host's start-right prose followed decision 7 and said to run the
+check first, above a command block that already pulled the profile before
+the check (a review of the host's grounding found the disagreement on
+2026-09-16, and the host cured its prose to pull, then check, then read).
+Decision 7 now names the order: the sync where the root is a repository with
+a remote, then the check, then the reads. A root that is not a repository, or
+has no remote, has no sync step, and the check still runs before anything is
+read. Decision 11 had said the refusal comes "before anything is synced",
+which decision 14's session-open fetch made impossible to honour; it now says
+before anything is read or pushed, the same order (a fold review found the
+surviving phrase on 2026-09-17).
 
 ## Boundaries
 

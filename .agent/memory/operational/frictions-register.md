@@ -4369,3 +4369,66 @@ commit SHA and the closing plan reference.
   instance; a refusal of a drain-comment shape there is the candidate cure. Falsifier: if
   no such comment is written in the three months after the five are removed,
   the check is dead weight.
+
+### F-189 — this host never adopted PDR-008's gate names, and item 9 of the Practice verification fails on it
+
+- **Observed**: 2026-09-12 (a peer's report, checked with `jq`), re-read on 2026-09-17 at the
+  dedicated consolidation. PDR-008 (Accepted 2026-04-18) fixes the aggregate gate names: bare
+  names verify, `:fix` applies, `check` is the one exception as the mutating alias of
+  `check:fix`, and `check:ci` is the non-mutating CI form; §Per-ecosystem adaptation says names
+  travel verbatim, "not `format-check`". `practice-verification.md` item 9 checks for that set.
+  The root `package.json` here defines `check` as the non-mutating aggregate and `fix` as the
+  mutating one, has no `check:fix` and no `check:ci`, spells `type-check` for `typecheck`, and
+  runs mutating commands under bare names (`format:root` writes, `markdownlint:root` runs
+  `--fix`) beside `format-check:root`. The divergence is wider than `check`.
+- **Expected**: PDR-008 §Accepted cost: "Existing repos that use non-canonical names pay a
+  one-time rename cost." (Its "flagged as deviations needing rationale" clause covers names a
+  repository adds later, not existing ones.) This host has not paid it.
+- **Reading, not a text cure**: the Core text is not stale; item 9 failing here is the check
+  doing its job. Which side moves is a Practice-convention judgement, for the owner: this host
+  renames its scripts, or the Core drops Rule 4's
+  `check` exception, since `check` as the verify aggregate is Rule 1 without the exception and
+  this host has run it that way for months (one host's evidence). A rename's footprint is read
+  at decision time with `git grep -lP 'pnpm check(?![:\w-])' HEAD`, never from a count carried
+  here. At the #153 tip (2026-09-17) the CI workflow, PR template, directives, skills and docs
+  held 33 files; the name also runs through rules, the hook policy, the root README,
+  CONTRIBUTING and SECURITY, app and package docs, Cursor rules, PDR-082, and typed agent-tools
+  source and tests (`repo-check`, the check/CI parity validator); records under memory, plans
+  and reports name it hundreds of times more and stay as history.
+- **Route**: owner decision, surfaced at the dedicated consolidation's closing report; then a
+  script-rename lane here or a PDR-008 amendment through the Core exchange.
+
+### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
+
+- **Observed**: 2026-09-17, truing #152's description. `.husky/refuse-commit-on-main.sh`
+  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-cli.ts`
+  (`DEFAULT_BRANCH_NAMES`) refuses a push to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
+  local commit or a bot push aimed at it. The remote covers the push: `engraph`'s branch rules
+  carry `pull_request`, `non_fast_forward`, `deletion`, `required_status_checks` and
+  `copilot_code_review` (read 2026-09-17).
+- **Expected**: the guards read the repository's default branch rather than a literal name, so
+  a local commit on the default branch is refused before it has to be undone.
+- **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
+  the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
+  configuration, with a unit test on each.
+
+### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
+
+- **Observed**: 2026-09-17, the dedicated consolidation's second context. The
+  `directive-file-context-budget` rule gates directive edits on context usage below 30 %, and
+  the seat had to decide whether the directive pass fitted after a fold's review rounds. It
+  looked for a reading, found `agent-tools context-cost` (which estimates a fileset, not a
+  session) and the transcript's bytes (3.47 MB since the compaction boundary, dominated by
+  metadata and persisted tool output), estimated from what it had loaded, and moved the pass to
+  a fresh context. An instrument existed that it did not find: `agent-tools session-metadata
+  --vendor claude --model <id> --session-id <id>` reads a session's context occupancy from the
+  vendor transcript, and the Claude statusline already reads the platform's
+  `context_window.used_percentage`. The #153 pre-publication pass found both. The command
+  refuses this seat's model id (`unknown model: claude-opus-5[1m] (no window size registered)`,
+  `agent-tools/src/session-metadata/window-registry.ts`); read against the same-size
+  `claude-opus-4-8[1m]` entry after the compaction it gave 29.5 % used.
+- **Expected**: the budget a rule gates on is readable at the moment the rule fires, from the
+  rule's own text, so the decision rests on a reading, not a guess in either direction.
+- **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
+  `[1m]` variant) in `window-registry.ts`; then the directive pass names the command in
+  `directive-file-context-budget` and consolidate-until-done's grounding step 7 cites it.

@@ -3,8 +3,7 @@
 Operationalises PDR-011 (capture → distil → graduate → enforce; the permanent
 home is the endpoint, the buffer just empties) and generalises
 [`collaboration-is-value-contingent`](collaboration-is-value-contingent.md) from
-collaboration to knowledge-recording. Graduates the standing owner principle
-captured in auto-memory `feedback_no_provenance_pointers`.
+collaboration to knowledge-recording. Graduates a standing owner principle.
 
 ## The principle
 
@@ -55,7 +54,7 @@ Do **not** create, append to, or accumulate any of these:
   accumulate; none is read for value.
 - **Provenance pointers** — tombstones, "moved verbatim to X", "see ledger Y",
   "GRADUATED → home", "(N graduated, see …)" count-line citations. The commit and
-  the home are the provenance (`feedback_no_provenance_pointers`).
+  the home are the provenance.
 
 A single **functional** navigation reference is not accounting: a fresh napkin
 noting "prior capture in archive/" so it is findable, an ADR index entry, a
@@ -85,8 +84,7 @@ that mandates one.
 ## Why a rule, not a clause
 
 The owner has corrected this repeatedly ("many times") and it "keeps turning up
-in various guises". It lived only in auto-memory (`feedback_no_provenance_pointers`,
-`feedback_useful_work_over_ceremony`), which is passive — under the gravity of
+in various guises". It lived only in per-user auto-memory, which is passive — under the gravity of
 skill instructions that mandate ledgers and closeout proof, the guidance did not
 fire (the
 `passive-guidance-loses-to-artefact-gravity`

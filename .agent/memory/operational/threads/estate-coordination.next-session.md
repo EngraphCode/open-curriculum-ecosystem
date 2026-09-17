@@ -3657,3 +3657,27 @@ dedicated consolidation session, IN PROGRESS", with its owner answers of 2026-09
    other half, the owed PRs and the seven 1.181.3 defects, TypeScript strictness.
 
 **Metaloss.** Passes and findings are in the napkin's 2026-09-17 ~12:3xZ block.
+
+### 2026-09-17 15:09Z — the 2026-09-16 branch folded as #152 (Zephyr guards Leeward, 281e44, sole operator)
+
+`coordination/2026-09-16-a07940` landed through the front door as `cd847a2b3` at 15:09:09Z
+(parents `a07940ac9`, `979abe968`; tree equal to the tip; the tip proven an ancestor of `engraph`).
+The successor is `coordination/2026-09-17-cd847a`, cut from the merge with the consolidation's
+uncommitted graduations carried across.
+
+moved for teachers: nothing / moved for the Practice: the dedicated consolidation's first half,
+with three governing texts cured, and the first run of pr-lifecycle's pre-publication claim pass.
+
+Review: a context-free pass raised 31 claim errors before publication, all cured in `fd82a7e4e`;
+three rounds then raised 21 findings. Settlement pushes 2 of 2 (`6d07d7f5d`, `979abe968`); round
+three was dispositioned without a cure and its true findings routed to the successor
+(`49b6c3ae9`). Review-cost ledger: 52.93 of 40, exhausted at the stop.
+
+Board: `engraph` at SHA:cd847a2b3. Open: draft #153, the successor carrying the consolidation's
+second half, and draft #154, Dynamo turns Temper's carrier of Oak main at `d9138c8` (1.185.0,
+opened 15:36Z), which superseded the stale carrier #151 (closed 15:32Z). From 15:31Z the estate is
+n = 2: Dynamo turns Temper (2a4c8a, claim `35006027`) runs the owner-approved Oak integration lane
+in its own worktree and, by the owner's word in its team-start event `852e7764`, merges nothing
+until #153's fold lands. #153 therefore folds on its cut date rather than at the 2026-09-18
+rollover (this seat's decision, reported to the owner); the two seats coordinate on the ARC
+channel `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.

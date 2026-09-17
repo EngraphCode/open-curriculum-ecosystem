@@ -249,8 +249,14 @@ Use these links by trigger:
 
 ## Commands
 
-From the repo root. Run gates one at a time while iterating; use `pnpm check`
-for canonical aggregate verification. The command source of truth is
+From the repo root. The commit is the gate: the pre-commit and pre-push hooks
+run the gates and the pull request's checks run the rest, so never run the
+gates separately, before, beside or after a commit (owner, 2026-09-14: "the
+commit triggers the gates, there is no point and a fair amount of cost
+running the gates separately as well, never, ever do that"). Running one test
+file while a change is red is development, not a gate run. `pnpm check` is
+the aggregate the hooks and CI compose, kept for their parity, not a command a
+seat runs by hand. The command source of truth is
 [Build System](../../docs/engineering/build-system.md) plus root
 `package.json`.
 
@@ -258,7 +264,8 @@ These commands apply only after the environment classification permits local
 execution. ChatGPT Work uses its non-execution route instead. Claude cloud uses
 its separate [operating document](../claude-harness-integrations/cloud-environment.md).
 
-`pnpm check` always includes browser suites. Start it in a browser-capable host
+The browser suites run as pull request checks. When one refuses and the cure
+needs a local reproduction, run that one suite in a browser-capable host
 environment with the necessary process permissions on the first attempt; do
 not run it in the restricted sandbox to rediscover the known Playwright launch
 failure.

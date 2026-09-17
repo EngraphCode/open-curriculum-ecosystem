@@ -4,6 +4,19 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-17 — PDR-117 and PDR-141 amendments from the dedicated consolidation
+
+- PDR-117 §Takeover verification, with a dated amendment: neither the claims
+  registry nor the heartbeat stream licenses a Director takeover. Moment 2
+  rests on the outgoing Director's explicit written stand-down or the owner's
+  word; a row that licenses nothing when stale licenses nothing when fresh,
+  and the two reads guard only against taking the seat over a live Director.
+- PDR-141 decision 7, with a dated amendment: the order at session open is
+  decision 14's sync (where the profile root is a repository with a remote),
+  then the profile check, then the reads, where decision 7 had said the check
+  runs "FIRST"; decision 11's "before anything is synced" now reads before
+  anything is read or pushed, the same order.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
 
 - New PDR-141 (Accepted: owner-ratified 2026-09-14 with the same day's

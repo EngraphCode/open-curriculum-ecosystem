@@ -323,10 +323,12 @@ this fork too, but not in the carrier's rounds: each is recorded, with its
 file and line, on a local work list and cured in its own lane, and the thread's
 disposition names that list. What no longer holds is a count of zero by
 construction: a true carried-code finding is over the bar for this fork. How the
-carrier's round tally carries it is open — the tally reads the bar marker, so
-the finding counts in the round that raised it, while the carrier cannot cure
-it and a round settles at a cure-worthy count of zero — and the `pr-tally` node
-holds that question. Three carriers routed every carried-code finding away under the
+carrier's round tally carries it is open: the tally reads the bar marker, so
+the finding counts as cure-worthy in the round that raised it, the carrier
+cannot cure it, and terminal success needs a cure-worthy count of zero. Until
+the `pr-tally` node's row decides the question, a carrier round holding such a
+finding is not read as terminal zero; it settles by its budget and the
+dispositions that route each finding to the local work list. Three carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list
