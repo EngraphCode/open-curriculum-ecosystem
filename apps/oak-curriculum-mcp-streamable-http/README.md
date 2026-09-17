@@ -229,7 +229,7 @@ Summary:
   - `CLERK_PUBLISHABLE_KEY` — Clerk publishable key for OAuth
   - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware
 - Optional env:
-  - `ALLOWED_HOSTS` (comma-separated, additive, supports `*` wildcards). Names hosts to allow **in addition to** the Vercel system hostnames and `localhost`/`127.0.0.1`/`::1`; it cannot remove a host from the allow-list. It gates two things: the DNS-rebinding guard on the HTML surfaces (`GET /` and the `/mcp` HTML-negotiation leg), and the Host a request may be self-described from in OAuth metadata and `/mcp` auth challenge/resource URLs. When `CANONICAL_HOST` is set it supersedes that second use entirely — self-description then reads the configured origin and never consults this list. Narrowing self-description is `CANONICAL_HOST`'s job, never this variable's.
+  - `ALLOWED_HOSTS` (comma-separated, additive, supports `*` wildcards). Names hosts to allow **in addition to** the Vercel system hostnames and `localhost`/`127.0.0.1`/`::1`; it cannot remove a host from the allow-list. It gates the Host a request may be self-described from in OAuth metadata and `/mcp` auth challenge/resource URLs. (It also bounds `dnsRebindingProtection`, but that guard is mounted on **no route** since the HTML surfaces were removed on 2026-08-20 — MCP-650 owns remounting it — so setting this variable changes no Host-rejection behaviour today.) When `CANONICAL_HOST` is set it supersedes that second use entirely — self-description then reads the configured origin and never consults this list. Narrowing self-description is `CANONICAL_HOST`'s job, never this variable's.
   - `CANONICAL_HOST` — the address this server is served at when an edge presents a different Host to the origin (see [Canonical address](#canonical-address)). Bare hostname; startup-validated.
   - `LOG_LEVEL` (default `info`, use `debug` for staging)
   - `SENTRY_MODE` — `off` (default), `fixture`, or `sentry`
@@ -303,6 +303,30 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 ### OpenAI domain verification
 
 - `GET /.well-known/openai-apps-challenge` returns the plugin-submission portal's domain-verification token as bare `text/plain` (MCP-700). Not an OAuth surface: public, registered before Clerk middleware, and served in every auth mode. Contract: [OpenAI plugin submission, "Domain verification"](https://developers.openai.com/plugins/deploy/submission), which requires the endpoint to "return only that plugin's verification token".
+
+### Crawler directives
+
+- `GET /robots.txt` returns this host's crawler directives as `text/plain` (MCP-703). Public,
+  registered before Clerk middleware, and served in every auth mode — a crawler arrives with no
+  credentials, so a file reachable only through the auth vendor is an unfetchable one.
+- The body is not a copy of `www`'s. This host is a machine surface — the MCP endpoint, its
+  OAuth authorisation proxy and the discovery documents — with no crawlable page set to
+  enumerate, so it names **no sitemap**; `/.well-known/` is explicitly `Allow`ed so the discovery
+  documents stay fetchable under RFC 9309 §2.2.2's longest-match rule; and only the authorisation
+  endpoints, the signed expiring asset URLs and the liveness probes are disallowed. It names no
+  origin, so it is identical on every host this app answers on, and it names no page, so it does
+  not go stale when the served page set changes.
+- This meets the `robots.txt` half of agent-readiness baseline `AR-A6`. **On the sitemap half,
+  this host is a named `AR-A6` exception: a machine surface has no crawlable page set to
+  enumerate, so a `Sitemap:` directive would advertise a document that does not exist.**
+  **Decided by the repo owner on 2026-09-14** (MCP-703, PR #972), on the ground that this host is
+  machine surface rather than on how many pages it serves — so the exception counts no pages, and
+  holds whether or not a page describes the machine surfaces. Revisit it if this host ever grows
+  a crawlable page set.
+- Content Signals values (`search`, `ai-input`, `ai-train`) are deliberately absent: that is
+  `AR-A7`, an editorial and legal decision about values, undecided for this host. `open-api`
+  already publishes its own set, so cross-host consistency belongs to that decision rather than
+  to this baseline file.
 
 ### Canonical address
 
@@ -452,9 +476,11 @@ This application has comprehensive test coverage across three testing layers:
 
 ### Widget Tests (Playwright)
 
-Widget tests run against the Vite dev server (port 5173), separate from
-the MCP server landing page tests (port 3333). Both light and dark
-themes are tested via Playwright projects with `colorScheme` emulation.
+Widget tests run against the Vite dev server (port 5173). Both light and
+dark themes are tested via Playwright projects with `colorScheme`
+emulation. This workspace has no other Playwright suite: the browser
+suite that ran on port 3333 covered the landing page and went with it on
+2026-08-20.
 
 ```bash
 # Widget visual/structural tests (both themes)
@@ -476,9 +502,9 @@ pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:widget
 # E2E tests (Vitest, requires built artefacts)
 pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:e2e
 
-# MCP server landing page tests (Playwright)
-pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:ui
-pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:a11y
+# Widget browser tests (Playwright)
+pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:widget:ui
+pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:widget:a11y
 
 # Widget Playwright tests (separate from server tests)
 pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:widget:ui
