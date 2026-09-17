@@ -223,7 +223,8 @@ Lines 1339–2037:
   being loaded in context": *"prose is vigilance and rides the model; only enforcement
   is structure and rides the estate."*
 - 1441–1451: Bot identity must be checked per write CHANNEL, not per session. A
-  duplicate `gh pr create` returns the existing PR's URL with exit 0.
+  duplicate `gh pr create` returns the existing PR's URL with exit 0 [the source's claim; at gh
+  2.97.0 the command exits non-zero with that URL inside its error text, read 2026-09-17].
 - 1489–1504: **Claim-before-check recurred six or more times in one Director tenure,
   every instance caught externally.** Variants: TARGET-VS-ACTUAL, and RECORDED-THEN-
   BELIEVED ("the tripwire must fire at CITATION time"). "`claim-before-check` still has
@@ -1107,6 +1108,10 @@ Lines 1279–1917 (09-09):
   the owner's explicit end.
 
 ## N6 — live napkin.md (window ≈ 2026-09-10 → 09-16)
+
+_Dated note, 2026-09-16 (the dedicated consolidation): this window's napkin was rotated to
+`.agent/memory/active/archive/napkin-2026-09-16.md`; its first 1,978 lines are unchanged, so the
+line numbers below resolve there as written._
 
 Lines 23–422 (09-10):
 

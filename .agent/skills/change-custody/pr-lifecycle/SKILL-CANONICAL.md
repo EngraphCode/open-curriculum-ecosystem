@@ -146,11 +146,16 @@ into the permanent record):
    resolving it solo is how approved versions get silently reverted.
 2. **Tree and gates**: working tree clean; a successful push already ran the
    full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it. When several branches need pushing,
-   push them as ONE multi-ref command (`git push origin refA refB refC`) —
-   the pre-push gate chain runs once per push invocation, not per ref, so N
-   separate pushes pay the ~3-minute suite N times for the same tree
-   (first-hand, 2026-08-06).
+   re-run gates just to re-confirm it. The identity route for a push is
+   `bot-identity-on-third-party-systems`, which evaluates the ChatGPT Work
+   cloud profile first: a detected Work cloud session pushes as
+   [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
+   routes it (the configured credential, `HUSKY=0`, no pnpm and no bot
+   minting). Every other push goes through
+   `pnpm agent-tools merge-bot push --branch <name>`, never a plain
+   `git push`, and the pre-push gate chain runs once per push invocation, so
+   batch a branch's cures into one push rather than paying the ~3-minute
+   suite once per cure.
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
 4. **Scope the PR for review, not for tidiness**: an artefact that invites
@@ -286,6 +291,22 @@ actually present**:
   framing does not cover.
 - **Removals** — anything the diff deletes that a reader of the title would not
   expect to lose.
+- **Invariants and tool behaviour** — table each invariant the description
+  states ("counted", "never", "only") and each tool behaviour it names against
+  every code site that binds it (each arm, each consumer) and the assertion or
+  predicate that holds it there; when an exclusion is added beside an existing
+  one, the existing one's consumer list is the site list. A claim-bearing
+  changeset (records, doctrine, a description stating invariants) also gets one
+  context-free verification pass against its sources and code before it is
+  published; the pass replaces post-push rounds and never adds to them, and a
+  changeset with no stated claims skips it. Worked instances, 2026-09-16: #149's
+  round one found a counted invariant unasserted in two arms and a regression in
+  a consumer its own file enumerated, and pre-publication passes caught about
+  eighteen claim errors in one wrap's records and seven in a retrospective's
+  citations. Prediction: claim-class findings in round one become rare on
+  changesets that ran the pass; falsifier: such a changeset still draws three or
+  more rounds of claim-class findings, or the pass costs more than the rounds it
+  replaced.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two
@@ -401,7 +422,11 @@ live tickets where the platform is in use.
   2026-09-11/12: a true observation about
   nested fences became a container-aware parser nobody had asked for (five rounds, then
   deleted); a report's per-claim marker contract was cured by narrowing the claim, never by
-  adding markers (one push).
+  adding markers (one push). The scope test reads CAUSAL scope as well as declared scope:
+  a regression the pull request's own change introduces is inside it whatever §Scope says,
+  because declared scope is the author's promise to the reviewer and causal scope is the
+  change's promise to the codebase (2026-09-16, #149: a reviewer filed a phantom OWED leg as
+  "outside this PR's declared scope"; the change had caused it, and it was cured in the PR).
 - The three-way test, exactly one terminal state per finding:
   1. **INCORRECT → reject**, with verified reasoning in the reply
      (`dispositions-need-verified-failure-scenarios`). Rejection is a
@@ -512,7 +537,7 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 - **Every PR-state read STARTS from the compound read — the review-round
   state machine's item 1, below — in ONE call.** This is a floor, not a
-  ceiling: the Phase 3 harvest and the pr-watch poll are consumers and
+  ceiling: the Phase 3 harvest and the compound watch loop are consumers and
   refinements of the same compound state — what is forbidden is reading any
   SINGLE field in isolation to answer a question, however narrow the
   prompting signal (owner correction, ~50th instance of the class, PR #329,
@@ -534,35 +559,48 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   `MERGEABLE`/mergeable-state alongside the checks, and confirm runs exist
   for the CURRENT head via `gh run list` filtered per-head — a checks-green
   read against a head with zero runs is reading the PREVIOUS head's truth.
-- Run the repo's budgeted watcher in the background:
-  `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
-  change, including new comments by author and the unresolved review-thread
-  count moving in EITHER direction. KNOWN SUBSET: pr-watch currently reads
-  PR-view fields, REST review comments, and thread counts — not review
-  bodies or `latestReviews` — so a summary-only review does NOT change its
-  snapshot. Treat its events as wake signals only, never as the state; the
-  Phase 3 harvest is the authoritative read on every wake, and extending
-  pr-watch to the full compound floor is tracked as the
+- Watch with a compound read that emits on change: a background loop under
+  a Monitor that runs one compound GraphQL read of the pull request per
+  60-second tick (state, merge state, head, the check rollup counted by state,
+  unresolved threads, reviews bound to the head; a connection that reports
+  truncation is paged within the tick, as item 1 requires) and prints one line only when that
+  reading changes, ending only on MERGED or CLOSED. No tool provides that
+  loop yet: the seat writes it, running the compound selection of the
+  review-round state machine's item 1 at a 60-second interval (not the tight
+  polling F-110 forbids), until the `ws6-pr-watch-compound-floor` item below
+  gives it a tool form. For a single verdict,
+  `pnpm agent-tools pr state <n> --expect <login> [--expect <login> ...]`,
+  with one `--expect` per available configured reviewer as for the merge
+  (the flag declares the whole expected set), computes the front door's
+  reading once and never merges. Do NOT use
+  `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: it was
+  silent across head and check transitions at three seats and exited early on
+  ALL-GREEN at a fourth (frictions F-164), so its silence cannot be told from
+  its failure. Treat any watcher's events as wake signals only, never as the
+  state; the Phase 3 harvest is the authoritative read on every wake, and
+  extending pr-watch to the full compound floor is tracked as the
   `ws6-pr-watch-compound-floor` item in
   [`pr-merge-readiness-discipline.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
   Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
-- **Know the watcher's designed hole: it also ENDS on ALL-GREEN.** Comments
-  post asynchronously up to ~10 minutes after a push, so an all-green exit
-  opens an unguarded window exactly when a bot round may still be composing.
-  **The mandated shape is a SUPERVISED watch**: a loop that re-arms pr-watch
-  on EVERY exit and terminates ONLY on MERGED/CLOSED, recomputing the
-  compound state at each re-arm (proven live end-to-end on PR #330,
-  2026-07-08: the watch rode the full arc to MERGED and self-terminated on
-  the recompute). MERGED/CLOSED is the only terminal claim — the only state
-  no late comment can un-green. Two refinements to the re-arm loop, both
-  worked instances: (a) **the loop SPINS when the PR is all-green but the
-  merge waits on an authorisation gate** — pr-watch's all-green exit fires
-  instantly on every re-arm and the cycle floods the notification surface
-  until the platform kills the monitor (2026-07-15). On an all-green exit
-  with the PR still OPEN, swap to a slow compound poll (~120s, one GraphQL
-  compound read per tick, emit only on deviation or terminal state).
+- **Know the designed hole of any watch that ends before MERGED/CLOSED.**
+  pr-watch ends on ALL-GREEN and `gh pr checks --watch` ends when the checks
+  complete, but comments post asynchronously up to ~10 minutes after a push,
+  so such an exit opens an unguarded window exactly when a bot round may still
+  be composing. **The mandated shape is a SUPERVISED watch**: one that
+  terminates ONLY on MERGED/CLOSED — the compound loop above does so by
+  construction; the earlier shape re-armed a shorter watch on EVERY exit and
+  recomputed the compound state at each re-arm (proven live end-to-end on PR
+  #330, 2026-07-08: the watch rode the full arc to MERGED and self-terminated
+  on the recompute). MERGED/CLOSED is the only terminal claim — the only state
+  no late comment can un-green. Two worked instances shaped the compound loop:
+  (a) **a re-arm loop SPINS when the PR is all-green but the merge waits on an
+  authorisation gate** — pr-watch's all-green exit fired instantly on every
+  re-arm and the cycle flooded the notification surface until the platform
+  killed the monitor (2026-07-15); the cure was a slow compound poll that
+  emits only on change or terminal state, the shape the watch above takes
+  from the start.
   (b) **The watch must emit on every state that means "stuck", not only
   failure and success**: an auto-merge/queue entry stalled at BEHIND or
   ejected from a merge group looks identical to "still waiting" unless the
@@ -571,8 +609,8 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 - **There is no push-event transport to wait on instead**: true push events
   are webhooks (they need a server); `gh api repos/…/events` is itself a poll
   with ~30–60s feed latency; `gh pr checks --watch` has the same
-  exit-at-completion hole class. Polling the PR GraphQL at 60s (pr-watch,
-  budget-aware) is the strongest available primitive. Never hand-roll tight
+  exit-at-completion hole class. Polling the PR GraphQL at 60s (one compound
+  read per tick) is the strongest available primitive. Never hand-roll tight
   `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
   Between events, continue other work or hold; the watcher wakes you.
 - **The round in front of you is priority one over the next unit.**
@@ -646,8 +684,11 @@ case-insensitively, an optional scope prefix `In scope,` or
 nothing else. `**Over-bar**`, `**In scope, over-bar**` and
 `**Over-bar on prong two.**` read; `**Not over-bar**`,
 `**Below-bar, not over-bar**` and any span with other words read as no
-marker. The prong and the scope reading are stated where they apply; the
-count does not read them. After the marker comes the disposition
+marker. The prong and the scope reading are stated where they apply, and
+the reply states them BEFORE any cure is written: naming the generator
+twice did not stop cure-reflex rounds at one seat, and stating the prong
+did, at once (2026-09-12, #136 and #138; "a sentence that must be written is
+a step"). The count does not read them. After the marker comes the disposition
 sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty hex
 characters, bare or inside a code span), `Routed to <home>`, or
 `Rejected` with the rationale — the convention for a reader; the machine
@@ -1002,9 +1043,14 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    governs each leg's rounds like any other's. How a configured leg binds
    a tip, first-hand on 2026-09-09/10 across nine landings: Copilot
    reviews the FIRST push and any tip the bot explicitly requests it on
-   (below); the Codex connector binds at creation and on later pushes
-   while its account has credit (#105, #106, #108, #110) and, when it has
-   none, posts "Codex usage limits have been reached for code reviews" on
+   (below); the Codex connector's own text lists its triggers as open,
+   ready-for-review and an `@codex review` comment — a push is not among
+   them, and #147's integration head (pushed 2026-09-15 ~15:3xZ) drew no
+   review in the fourteen minutes before an `@codex review` comment, though
+   rounds on #105, #106, #108 and #110 had arrived after pushes — so
+   a seat that needs Codex on a new tip requests it with an `@codex review`
+   comment on that tip rather than waiting on a push; while its account
+   has no credit it posts "Codex usage limits have been reached for code reviews" on
    the pull request instead of a review (first on #116, four seconds after
    its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
    owner named the outage at 08:3xZ (out of credit until about
@@ -1041,7 +1087,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    from 06:53Z; seats shaped pull requests around the silence until the
    owner named it at 08:3xZ). A fresh pull request, where one is opened
    for any reason, needs a NEW branch name because the platform refuses a
-   second open pull request on a branch that already has one, and closes
+   second open pull request on a branch that already has one (`gh pr
+   create` on such a branch exits non-zero with "a pull request for branch …
+   already exists" and the EXISTING pull request's address inside that error
+   text, gh 2.97.0; a script that keeps the output and drops the exit status
+   reads that address as a new pull request), and closes
    its predecessor with a pointer once it is open. The ruling's grounds,
    owner verbatim: "policy on PR reviews is that a codex or copilot or
    external claude review is desirable, and more vendors is better because
@@ -1573,8 +1623,14 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   and prepares everything that does not depend on the tip — dispositions,
   sweeps, the merge message. Slot order is the Director's call — the default is
   the oldest non-draft PR, and the slot goes to whichever PR is green and
-  clean first rather than being held empty. The fold takes the slot at the
-  UTC rollover. Any auto-sync babysitter — a watcher running
+  clean first rather than being held empty. A holder that has synced and is
+  waiting for a per-tip reviewer leg to bind is NOT an empty slot: nothing else
+  lands meanwhile, because every landing knocks the holder BEHIND and voids the
+  leg bound to its head, a livelock. A holder yields only when it cannot land
+  inside its window (a red check to cure), and its re-sync rides that cure push
+  (2026-09-10: #117 and #113 landed while #116 cured a red check; "land #117
+  now" arrived twice while #116 waited on its leg, and was held). The fold takes
+  the slot at the UTC rollover. Any auto-sync babysitter — a watcher running
   `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
   slot-holder only; a waiting PR is never auto-synced, because each sync is
   a push and each push is a review round. Worked instance (2026-09-06): one

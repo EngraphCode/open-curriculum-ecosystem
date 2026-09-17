@@ -23,9 +23,11 @@ description: >-
 
 ## Why this exists
 
-This line is a fork that syncs from its upstream by merge, forever. Each sync
-leaves a merge commit upstream never sees, so the fork's tree is upstream's
-tree plus a deliberate, enumerated, regenerable diff — and the check that it
+This line is a fork that syncs from its upstream by merge until it merges back.
+Each sync leaves a merge commit the Oak fork does not carry until the merge-back
+fast-forwards it, so the fork's tree is upstream's tree plus a deliberate,
+enumerated diff (the regenerable fork diffs and the local cures of carried
+code) — and the check that it
 still is so is a tree diff, never an ancestry test. Git proves that the text of
 two histories combines. It has no conception of meaning, and an integration
 changes meaning in four places git cannot see:
@@ -47,9 +49,19 @@ no conception of meaning."
 
 ## Authority frame
 
-- **Upstream's mechanism is authoritative for shared mechanism.** A reviewer
-  finding about upstream code is never cured on the fork; it is routed as an
-  upstream report or a fork lane, and the thread is resolved on that route.
+- **Two peer forks, never an upstream** (owner, 2026-09-16, verbatim: "there
+  is no 'upstream' there are two forks of OCE. Eventually this fork will be
+  merged back to the Oak fork. All of those issues should be fixed locally,
+  they go to Oak when the fork syncs back, not before."). In this skill,
+  "upstream" names the Oak fork as the source of a sync, never an authority.
+  A reviewer finding on code that arrived with a sync is cure-worthy on this
+  fork: cure it in its own lane, and the merge-back delivers it. Nothing is
+  ever sent to the other fork's maintainers. Ask, of any finding: whose code is
+  this, and where does a fix travel?
+- **History is never rewritten across the forks** (owner, 2026-09-10,
+  verbatim: "never, ever rewrite history from the upstream fork, when we merge
+  back it must be purely fast forward"). A sync is a merge; no squash, rebase or
+  amend touches commits that came from the other fork.
 - **The fork holds its own product authority.** An upstream product decision
   arriving through a sync is a fact about upstream, not a constraint here,
   unless the owner adopts it.
@@ -306,15 +318,21 @@ A fresh worktree needs its workspaces built before the pre-push gates pass
 (the standards ESLint plugin's `dist/` for lint; the agent-tools `dist/` for
 the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
 §review-round state machine); harvest every thread. Findings about the sync
-itself are cured here; findings about upstream code are routed and resolved on
-the route — and the report to upstream is the OWNER's act, because the fork
-writes to no upstream surface without the owner's per-instance word: it reaches
-the owner as one ask through the Director, and the thread's disposition names
-that route. On a carrier every review round is findings on someone else's
-code, so that route is the whole disposition vocabulary the lane needs and the
-cure-worthy count stays zero unless a finding is about the sync itself
-(2026-09-09, the 1.179.0 carrier: two rounds, three threads, all routed to one
-owner-held upstream report, cure-worthy 0). Settle at green by name
+itself are cured on the carrier. Findings about carried code are cure-worthy on
+this fork too, but not in the carrier's rounds: each is recorded, with its
+file and line, on a local work list and cured in its own lane, and the thread's
+disposition names that list. What no longer holds is a count of zero by
+construction: a true carried-code finding is over the bar for this fork. How the
+carrier's round tally carries it is open — the tally reads the bar marker, so
+the finding counts in the round that raised it, while the carrier cannot cure
+it and a round settles at a cure-worthy count of zero — and the `pr-tally` node
+holds that question. Three carriers routed every carried-code finding away under the
+withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
+(1.181.1, whose round one cured five findings on the sync itself) and #147
+(1.181.3); the 1.181.3 set is the local work list
+`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`,
+and the 1.179.0 and 1.181.1 sets have not been re-read under the peer-fork
+model. Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window) — the front door's own wait-class polling is the settle instrument: a
 background settle watch is a process the host may kill (several times across
@@ -417,7 +435,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
   and the pull request reads pending forever.
 - Trusting GitHub's dirty verdict over a clean local merge-tree, or the reverse
   without saying which was read.
-- Curing an upstream finding on the fork, diverging the tree at the next sync.
+- Routing a finding on carried code to the other fork instead of curing it
+  here in its own lane, or curing it inside the carrier's rounds.
 - Regenerating one page by hand because "only the excerpt changed".
 - Merging a memory file on the conflict count.
 - Plans and reports left asserting the state before the sync — the class this

@@ -470,6 +470,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      AGENT.md pointer to its rules-index references the way Claude
      Code does, so the rules-index pointer is part of the AGENTS.md
      contract.
+   - `AGENTS.md` also carries a `## Code review` section: the review
+     contract the Codex connector reads from the head branch, mirrored for
+     Copilot in `.github/copilot-instructions.md` (landed with #136 on
+     2026-09-12, extended by #140). It is deliberate reviewer context, not
+     drift.
    - `skills.md` extends the default with the same rules-index line.
      This is the entry point for
      [Linear coding sessions](https://linear.app/docs/coding-sessions);

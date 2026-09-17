@@ -647,7 +647,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`) | 2026-09-14 | 2026-09-16 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation | 2026-09-14 | 2026-09-17 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -2736,7 +2736,7 @@ estate are one instance of a transplant, not a distribution over transplants).
 |---|---|---|---|---|---|---|
 | T01 | 09-12 13:45 | SHA:a55fd8fdd | `agent-tools/src/claude/session-identity-hook.ts:87-99` | context line "env file is set" emitted before the `CLAUDE_ENV_FILE` check | TRUE | transplant source lane |
 | T02 | 09-12 13:45 | SHA:a55fd8fdd | `collaboration-seed.ts:46-70`, `agent-identity-cli.ts:130-152` | no harness-native seed source for a Claude seat; add `CLAUDE_CODE_SESSION_ID` | sound proposal | transplant source lane, with a PDR-027 amendment |
-| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | transplant source lane |
+| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | rejected at the 2026-09-16 consolidation: ADR-203:24-25 grounds untracked-by-design in PDR-094 Invariant 6 and ADR-199, the pair cited |
 | T04 | 09-12 13:45 | SHA:a55fd8fdd | `start-right.md:244-267` | "clear run for Matt" clause's removal trigger fires from nothing | TRUE, by design | the owner's, untouched |
 | T05 | 09-12 13:45 | SHA:a55fd8fdd | skill gate lists vs `package.json` | hand-copied gate lists drift; no validator for cited pnpm scripts | does not reproduce here (19 of 19 exist); drift was transplant-side | validator shape received (T09); candidate instrument, no lane |
 | T06 | 09-12 13:45 | SHA:a55fd8fdd | PDR-006, -008, -137, -139, README | Core links to host docs paths | does not reproduce; peer RETRACTED 13:51 (inventory conflation) | rejected |
@@ -2937,7 +2937,8 @@ The seven, with this seat's first read (a read, not a verdict; verify each first
 5. Transplant register: further batches from Cauldron herds Lustre (880ff9) append rows from T22
    in the 10:0xZ block's table, each verified first-hand before its disposition; the owner's
    standing word 2026-09-13: "When they report findings please make a note of them for analysis."
-   Routed there and waiting on lanes: the transplant source lane (T01, T02, T03, T07, T13, T21),
+   Routed there and waiting on lanes: the transplant source lane (T01, T02, T07, T13, T21; T03
+   rejected at the 2026-09-16 consolidation),
    the PDR-008 records lane (T12), the `-s` → `--silent` sweep at the pnpm major bump (T16).
 
 **Wrap step 6, the survey (run at close from a detached engraph worktree, `--since 2026-09-12`).**
@@ -3575,3 +3576,84 @@ platform text or no text. It adds proposal B, a Bash-guard entry refusing shell 
 files. The convergence in item 2 meets the single `napkin.md` conflict above. The consolidation's
 napkin rotation, if it runs before the convergence, changes that conflict's shape. Run the
 archive-coverage check (semantic-merge) whichever order is taken.
+
+### 2026-09-16 21:39Z — FOLD of coordination/2026-09-15-4786ab (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1) and rotation
+
+The owner's dedicated consolidation session converged the branch before draining anything:
+
+- `engraph` `514bfc06a` was merged in as `7ccc8dd2e`. The napkin conflict was two appends at one
+  point, resolved as a union byte-identical to `git merge-file --union`, with the heading
+  set-diff of each side empty.
+- PR #150 merged through the front door at 21:39:14Z as `a07940ac9`: parents `514bfc06a` and
+  `744b7a6dc`, Copilot and Codex SATISFIED on the tip, the quiet window elapsed.
+- The successor `coordination/2026-09-16-a07940` was cut from that merge commit with
+  `agent-tools coordination successor-name`, tree-preserving; the primary resides there.
+
+moved for teachers: nothing / moved for the Practice: the reviewer-leg tightening's landing
+record, the deep retrospective over five napkin windows with its four proposals, the two-forks
+correction recorded, and the start-right profile order, session-handoff's pending-checks paragraph
+and the merge-door decision note trued at review.
+
+Review: three rounds and twelve findings, every one true (four a round; the fold commit's message
+and its comms event say fifteen, #148's count, in error).
+
+- Round one (Copilot two threads, Codex two): cured at `00fe8819e`. The findings were the fold's
+  missing prose-class intake for its sketch plan node (cured in the description), start-right's
+  "check FIRST" above a pull-first block, session-handoff's older standing sentence against its
+  pending-checks outcome, and the decision note calling an observed vendor comment documented.
+- Round two (Codex two threads, Copilot two suppressed items): cured at `744b7a6dc`. The sketch
+  node read an inline-only review as empty and a wrong-tip completion comment as `OWED`; the
+  2026-09-16 letter closed with a live imperative; and the 1.181.3 work list carried an item
+  against a superseded, preserved ADR-141 paragraph, so the list is seven.
+- Round three (Codex one thread, Copilot three suppressed items) was dispositioned without a
+  cure, the budget spent. The routes: this entry and the continuity pickup, and three rows on the
+  landing-instruments node's `## Review dispositions`.
+
+Settlement pushes: 2 of 2. The consolidation's own commits ride the successor.
+
+### 2026-09-17 ~12:3xZ — COMPACTION BOUNDARY 3 (Zephyr guards Leeward, 281e44, sole operator, Opus 5, n=1)
+
+**The owner's words, verbatim:** *"please prepare for compaction, then stop all processes, the next
+session will continue the dedicated consolidation session"*.
+
+**Board at the boundary, read first-hand.**
+
+- `engraph` is at SHA:a07940ac9 (#150).
+- `coordination/2026-09-16-a07940` is at SHA:da479374f, pushed and matching `ls-remote`. It carries
+  the consolidation's first half: `63b544464` (graduations), `29648a216` (fold records),
+  `8c48a6669` (the napkin rotation), `da479374f` (the resume point and ledger rows), plus this
+  wrap's commit.
+- Open pull requests:
+  - #152, the successor's draft, `CLEAN`, with no review round yet;
+  - #151, a carrier of the mirror at `487a25e` into `engraph`, opened 2026-09-16 21:31Z by the
+    bot on `automation/upstream-carrier-487a25e…`. That the scheduled carrier workflow opened it
+    is an inference from the branch prefix and the workflow's name; the creating run was not
+    read. Not this seat's lane; its carried-code findings are cure-worthy locally under the
+    peer-fork model.
+- The branch stamp is 2026-09-16 and the UTC date turned at 00:00Z while the owner's question
+  waited (the clock read 12:28Z at this wrap), so the branch is DUE.
+- Claims: the curator claim `c16450da` closes with this wrap; the commit-window claims are closed;
+  the commit queue holds only this seat's abandoned intent from the refused first wrap commit,
+  lapsing at its TTL.
+- Worktrees: the primary only.
+
+**Re-arm recipe: nothing to re-arm.** The two PR watches ended (one expired, one ended on MERGED),
+the front door and push background commands exited, and the four read-only locator subagents
+completed. No comms watcher, heartbeat or cron ran. A resuming seat checks that the task and cron
+lists are empty.
+
+**Next work, in order.** The consolidation's resume point is authoritative:
+`threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
+dedicated consolidation session, IN PROGRESS", with its owner answers of 2026-09-17 and the order.
+
+1. Fold #152, the DUE branch.
+2. The CodeQL re-truing (owner: "a permanent exclusion is allowed, but ONLY for that one issue").
+3. Home what the Practice Box bundle still carries, then clear the box: the four design-core
+   offers (items 1–4), the castr-bound items 5 and 9, and the Core-exchange evidence of items 6
+   and 8, as its 2026-08-07 disposition section records.
+4. The directive pass below 30 %.
+5. The Core pass.
+6. The remaining pickups from §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY", items 3 to 5: slice 1's
+   other half, the owed PRs and the seven 1.181.3 defects, TypeScript strictness.
+
+**Metaloss.** Passes and findings are in the napkin's 2026-09-17 ~12:3xZ block.

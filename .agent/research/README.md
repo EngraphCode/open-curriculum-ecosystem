@@ -29,6 +29,15 @@ permalinks — stand independently (907 of 16,235 lines on the 2026-09-06 import
 import is atomic under the estate's gates — "split it into smaller PRs" is not available —
 and only its link-free members are a valid partial-review surface for size-capped tools.
 
+A research package imported from outside the repository keeps the exact original bytes
+(an archive) beside its readable Markdown projections, and a manifest records each file's
+source and projection hashes, the source revision, the archive's identity, every link
+transformation, and the authority boundary: skills, directives and code copied inside a
+package are frozen evidence, never active instructions. Projections are not claimed
+byte-identical: reformatting (a footnote rewritten to the repository validator's multiline
+form, line endings normalised) is listed in the manifest. The worked instance is
+[`agent-capacities-2026-09-09/`](agent-capacities-2026-09-09/README.md).
+
 ## Research by Topic
 
 ### Cognitive systems and structured thinking

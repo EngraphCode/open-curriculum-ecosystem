@@ -467,7 +467,13 @@ get **mechanical UNSOUND tripwires** (explicit per-item criteria whose
 failure forces an UNSOUND verdict, since frame-rejection cannot be expected
 of the tier); and the fleet author's own deliverable carries arithmetic
 closure proofs (the table author sits in the Sonnet position with respect
-to their own frame). Composes with the frame clause below: specialist
+to their own frame). Before any lens is dispatched, the coordinator reads
+the material first-hand and states the purpose question — what are these
+files FOR, and why do they exist in this form now — and treats lenses run
+on one model from one brief as correlated evidence, never as independent
+confirmations (owner corrections at one reviewer seat, 2026-09-09: a
+fan-out interrupted twice, first for the coordinator's own read, then for
+the purpose question). Composes with the frame clause below: specialist
 review validates correctness WITHIN a frame — tier choice decides whether
 anyone in the fleet can reject the frame at all.
 
