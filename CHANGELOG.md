@@ -1,3 +1,16 @@
+# [1.183.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.182.0...v1.183.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* **agent-tools:** allow the canonical MCP host in served under-the-hood sections ([5159886](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/51598867d976aa012dbd6ab9a2a68fb1c4bcb0e7))
+* **skills:** quote projected frontmatter, and name the field a refusal got wrong ([f559329](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f5593291a69346f9da2a50c4a8e0e64f8b5b75e4))
+
+
+### Features
+
+* **skills:** carry spec-portable frontmatter through to both adapter surfaces ([1848b6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1848b6f2f98d7377c3166fb40eb33609270068f3))
+
 # [1.182.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.181.4...v1.182.0) (2026-09-17)
 
 
