@@ -2,7 +2,7 @@
 id: code-scanning-alerts-to-zero
 node_type: delivery
 name: "Code-scanning alerts to zero on the resting branch, and held there"
-overview: "Every open code-scanning alert on the resting branch is FIXED in the tree — never dismissed, never an accepted risk — with one owner-ruled, dated exception (missing rate limiting on the MCP server's routes, grounded in the two sets of edge WAFs, dismissed once per alert in the code-scanning record that raises them and explained by a comment at each route, never by a path exclusion or a rule filter), and the pull-request gate keeps the count at zero."
+overview: "Every open code-scanning alert on the resting branch is FIXED in the tree — never dismissed, never an accepted risk — with one owner-ruled, dated exception (the missing-rate-limiting query, grounded in ADR-219 and the two sets of edge WAFs, excluded permanently by a tracked query filter in the CodeQL configuration and for that query only), and the pull-request gate keeps the count at zero."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -15,7 +15,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-08
+last_updated: 2026-09-17
 ---
 
 # Code-scanning alerts to zero on the resting branch, and held there
@@ -26,9 +26,8 @@ The repository's code-scanning surface reads zero open alerts on the resting bra
 stays there: each alert is FIXED in the tree with a test that pins the cure (owner ruling 2026-09-08, verbatim: "We don't dismiss issues, we fix them."). Where an analyser is factually wrong about the code, the cure is still a tree change — a
 restructure, or an analyser configuration change tracked in the tree — and no state lives in the
 hosting service that the tree cannot explain. ONE owner-ruled exception, dated 2026-09-08: the
-missing-rate-limiting findings on the MCP server's routes (CodeQL alerts) are dismissed once per
-alert in the code-scanning record, each dismissal explained by the comment at its route, on the ground that the two sets of edge WAFs are regarded as sufficient
-for safety for now (owner word 2026-09-08, verbatim: "we are going to pause that for now, and leave comments in the code that recognise that additional in-process rate limiting would provide defence in depth, but that we regard the two sets of edge WAFs to be sufficient for safety for now. And in this ONE case we can dismiss the findings in Sonar, and preferably find a way to keep them dismissed instead of revisiting this same issue every few weeks."). A reader of
+missing-rate-limiting findings on the MCP server's routes (CodeQL alerts), on the ground that the two sets of edge WAFs are regarded as sufficient
+for safety for now (owner word 2026-09-08, verbatim: "we are going to pause that for now, and leave comments in the code that recognise that additional in-process rate limiting would provide defence in depth, but that we regard the two sets of edge WAFs to be sufficient for safety for now. And in this ONE case we can dismiss the findings in Sonar, and preferably find a way to keep them dismissed instead of revisiting this same issue every few weeks."). Its mechanism, ruled 2026-09-17 (owner, verbatim: "a permanent exclusion is allowed, but ONLY for that one issue"), is the tracked `query-filters` exclusion of `js/missing-rate-limiting` in `.github/codeql/codeql-config.yml`, for that query only. A reader of
 the security tab, an auditor of the release, or an agent picking up a lane sees a surface
 whose every line is a fact about the code, not an unread signal.
 
@@ -75,9 +74,10 @@ One disposition per class: a finding is FIXED in the tree — code, or an analys
 configuration change tracked in the tree where the analyser is factually wrong about the code
 — with the cure pinned by a test where a test can hold it. Nothing is excluded by path in the
 general case, no rule is narrowed, and no accepted-risk state exists; the one owner-ruled
-exception (missing rate limiting, below) is a per-alert dismissal in the code-scanning record,
-with its grounds recorded here and in a comment at each site — never a path exclusion or a rule
-filter, which would silence the rule on files and routes the exception does not name.
+exception (missing rate limiting, below) is the tracked query-filter exclusion of that one query
+in the CodeQL configuration, with its grounds recorded here, in ADR-219 and in the comments at
+the routes. It silences the query on every file and route, which the owner's 2026-09-17 word
+accepts for that query and no other.
 
 - **Network data written to a file.** The drift check writes a status description derived
   from the upstream document to the workflow's output file; the schema cache writes the
@@ -128,14 +128,12 @@ filter, which would silence the rule on files and routes the exception does not 
   of the four routes states that in-process limiting would add defence in depth and that the
   two sets of edge WAFs are regarded as sufficient for safety for now, citing ADR-219 and naming
   the two WAFs from the deployment facts; the four findings — CodeQL's `js/missing-rate-limiting`,
-  with no matching code-quality issue at these sites — are dismissed once per alert in code
-  scanning citing ADR-219 (the ADR's own shape), each act citing the route's comment (should
-  the code-quality analyser ever raise a matching rule at a site, the same per-issue shape
-  applies there: its automatic analysis reads no file-based rule ignore, per the disposition
-  policy §File-Based Configuration), so the tree explains every dismissed state and each persists per site
-  without repetition. Never a path exclusion or a query filter: both silence the rule on files
-  and routes the exception does not name, and the ADR requires the rule to re-fire on a
-  genuinely new route, which then takes a fix or the same comment-and-dismissal pair. The ADR's
+  with no matching code-quality issue at these sites — are covered by the tracked `query-filters`
+  exclusion of that query in `.github/codeql/codeql-config.yml` (`bd7a3509e`, the mechanism the
+  owner ruled on 2026-09-17), so the tree explains the exception and nothing is dismissed by hand.
+  The exclusion silences the query on every route to come; ADR-219's edge rule, amended the same
+  day, is the control for them. At 2026-09-17 the route comments name the edge control and cite
+  ADR-219 but do not yet state the defence-in-depth option. The ADR's
   falsifier stands: the edge configuration is load-bearing, and if it weakens the exception is
   wrong and the class returns to a fix.
 - **Unsafe code construction.** The type generator emits its inlined values through a
@@ -160,7 +158,7 @@ the gate turns "zero" from a snapshot into an invariant.
 2. Every cured site has a test that fails on the previous behaviour: the refusal of a
    non-absolute executable, the cryptographic source of the random part, the trace-id width
    and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
-3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state except the four missing-rate-limiting findings, whose dismissal is explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments; `owner-held` for the dismissed state itself — the alerts query's dismissal-reason field for exactly those four, read at closing and recorded as a dated observation.
+3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state, and the missing-rate-limiting query raises none because the tracked configuration excludes it, explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments and the `query-filters` entry; `owner-held` for the service's state — the alerts query for dismissed alerts and for open `js/missing-rate-limiting` alerts, both empty, read at closing and recorded as a dated observation.
 4. A pull request introducing one new instance of each class is blocked by a required check.
    Proof: `owner-held` — whether the hosting service blocked a probe pull request is that
    service's state: one probe per analyser, closed unmerged, its blocked check result read by
@@ -168,7 +166,7 @@ the gate turns "zero" from a snapshot into an invariant.
 
 ## Out of scope
 
-- Snoozing, marking "won't fix" or dismissing in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the one dismissal this node takes (missing rate limiting) is owner-ruled, dated, made once per alert in the code-scanning record, and explained by the comment at each route.
+- Snoozing, marking "won't fix" or dismissing in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the one exception this node takes (missing rate limiting) is owner-ruled, dated, and a tracked exclusion of one query in the CodeQL configuration, not a dismissal.
 - The code-quality analyser's non-security quality backlog (its own quality profile), which
   has its own tracking thread and plan lineage; this node touches only findings that reach
   the code-scanning surface.
@@ -206,7 +204,7 @@ independent unless stated:
    fixture literals switch to `https` where the host is never dialled; the localhost helper
    sites take a code cure each — the literal leaves the source, as configuration or a helper
    shape the analyser accepts — recorded per site: about seven files.
-6. **Rate limiting: the owner-ruled pause.** A code comment at each of the four routes (defence in depth acknowledged; the two edge WAFs regarded as sufficient for now; ADR-219 cited; the two WAFs named from the deployment facts), then one code-scanning dismissal per alert citing ADR-219, each citing the route's comment (the four are CodeQL alerts; no code-quality issue exists at these sites); no configuration-file change (a path exclusion or query filter would silence the rule beyond the four sites). The acts are the owner's, or the bot's under a scope that permits them, once per site. ADR-219 is not amended. About four files.
+6. **Rate limiting: the owner-ruled pause.** A code comment at each of the four routes (defence in depth acknowledged; the two edge WAFs regarded as sufficient for now; ADR-219 cited; the two WAFs named from the deployment facts). The exclusion itself already stands in `.github/codeql/codeql-config.yml` (`bd7a3509e`), ruled the mechanism on 2026-09-17, and ADR-219 carries the matching amendment; no dismissal is made. What remains is the comment change at the routes, which today name the edge control and cite ADR-219 without the defence-in-depth option. About four files.
 7. **The generator's code-safe serialiser.** The inlined values escaped, with the
    line-separator test: two files.
 8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
@@ -232,9 +230,8 @@ The six clauses of the plan-body first-principles check, applied at authoring:
 - **Shape.** The tests prove behaviour the estate owns — a refusal, a source of randomness,
   a width, a linear bound, a closed vocabulary — never that an analyser's rule fires.
 - **Landing path.** Tests take the estate's existing tier names so the existing runners
-  include them; configuration changes live in the analysers' tracked configuration files; the
-  one service-side state this node takes (the four per-site dismissals) is explained by a
-  comment at each site.
+  include them; configuration changes live in the analysers' tracked configuration files,
+  including the one query exclusion; the node takes no service-side state.
 - **Vendor literal.** No rule id or analyser name in this body is a mechanism; each names a
   finding class to disposition. The capability locus for the gate is the hosting service's
   required-check setting, already in force, so the gate unit proves rather than builds.
@@ -242,7 +239,7 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   test the Mechanism states; each unit names its cure shape and its fallback.
 - **Record consumer.** The lane's closing event is the only accounting surface added, and
   the alerts query is its consumer.
-- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition policy (its amendment under the owner's 2026-09-08 ruling — every finding fixed in the tree, the one exception named — travels in its own pull request and has not landed at this writing; until it does, this node's fix-only shape rests on the ruling quoted in the Goal); ADR-219 for the rate-limiting class; checks are never disabled; validation is strict at the
+- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition policy (its One-Outcome Rule under the owner's 2026-09-08 ruling — every finding fixed in the tree, the one exception named — with its 2026-09-17 amendment on the exception's mechanism); ADR-219 for the rate-limiting class; checks are never disabled; validation is strict at the
   boundary; no escape hatches in enforcement — and adds none.
 
 ## Review dispositions
@@ -263,6 +260,7 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-08 | Owner ruling (cards at the Director seat) | "We don't dismiss issues, we fix them": the node's non-fix outcomes (SAFE for the localhost literals; false-positive dismissals for the ADR-219 class) are withdrawn; then the owner paused the rate-limiting class with code comments and a dismissal kept per site. | Applied: the overview, goal, mechanism, criterion 3, out of scope, units 5 and 6 and the rules tier re-trued; both owner gates removed as discharged by the word; ADR-219 stands. |
 | 2026-09-08 | PR #95 round one (Copilot, Codex) | The pause mechanism named a Sonar issue-ignore block and a CodeQL query filter or path exclusion: automatic analysis reads no file-based rule ignore, and both CodeQL shapes silence the rule beyond the four sites, against ADR-219; criteria 1 and 3 filed the hosting service's alert state as `repo-safe` against the boundary-of-certainty amendment. | Applied: the dismissal is once per site in each analyser's own record, explained by the route comments, never a path exclusion or query filter; criteria 1 and 3 split into `repo-safe` (the comments) and `owner-held` (the service's alert state, read as a dated observation). |
 | 2026-09-08 | PR #95 round three (Codex) | The four findings are CodeQL alerts with no matching code-quality issue, so a per-issue act in that analyser was unperformable; the rules tier claimed a policy amendment that has not landed; the showcase plan's live-index proofs (its criteria 1 and 8) contradict the boundary-of-certainty amendment. | Applied: the dismissal names only the code-scanning record, with the code-quality shape stated conditionally; the rules tier names the amendment as pending in its own pull request. Carried: the showcase proofs to the census of plan bodies asserting external state, named by criterion. |
+| 2026-09-17 | Owner answer (the dedicated consolidation's question on the mechanism) | The rules tier and this node described one dismissal per alert while `.github/codeql/codeql-config.yml` carried a `query-filters` exclusion of the query (`41235118c` then `bd7a3509e`, 2026-09-10). Owner, verbatim: "a permanent exclusion is allowed, but ONLY for that one issue". | Applied: the overview, goal, mechanism, the rate-limiting class, criterion 3, out of scope, unit 6 and the landing-path check re-trued to the tracked exclusion; ADR-219, the disposition policy, the two rules and the quality-tooling playbook amended in the same change. The route comments' defence-in-depth wording stays owed in unit 6. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day

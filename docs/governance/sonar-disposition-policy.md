@@ -58,32 +58,33 @@ comments in the code that recognise that additional in-process rate
 limiting would provide defence in depth, but that we regard the two sets of
 edge WAFs to be sufficient for safety for now. And in this ONE case we can
 dismiss the findings in Sonar, and preferably find a way to keep them
-dismissed instead of revisiting this same issue every few weeks." The class
-is **missing rate limiting on the MCP server's route handlers** and nothing
-else: ADR-219 (rate limiting at the edge, no in-process limiter) stands
-unchanged; BEFORE any dismissal, each route the analyser names carries a
-comment in the tree recognising that additional in-process rate limiting
-would provide defence in depth and naming the edge controls relied on; then
-each finding takes one dismissal in the analyser's own record, once,
-explained by that comment and citing the ADR — never a path exclusion, a
-query filter or a rule-ignore, which would silence the rule beyond those
-sites. At this amendment's date the route comments (`auth-routes.ts`,
+dismissed instead of revisiting this same issue every few weeks." The
+exception is the CodeQL query **`js/missing-rate-limiting`** and nothing
+else, and ADR-219 (rate limiting at the edge, no in-process limiter) is its
+ground. Its mechanism was ruled on 2026-09-17, when two records disagreed —
+the rules tier described one dismissal per alert (`41235118c`) and the
+tracked CodeQL configuration excluded the query (`bd7a3509e`) — owner,
+verbatim: "a permanent exclusion is allowed, but ONLY for that one issue".
+The mechanism is the `query-filters` entry in
+`.github/codeql/codeql-config.yml`, which excludes the query for every file
+the analysis scans, so a new route anywhere raises no alert and ADR-219's
+edge rule is the control for it. No other query filter, path exclusion,
+rule-ignore or dismissal exists or is admitted. The owner's 2026-09-08 word
+also asked for comments in the code recognising the defence-in-depth option:
+at this amendment's date the route comments (`auth-routes.ts`,
 `oauth-proxy-routes.ts`, `bootstrap-helpers.ts`) name the edge control and
-cite ADR-219 but do not yet recognise the defence-in-depth option, so the
-four dismissals wait on that comment change landing in the tree. Automatic analysis reads no file-based rule ignore
-(§[File-Based Configuration](#file-based-configuration-sonarcloudproperties)),
-so the record is per site, and the comment is what keeps it from being
-re-litigated.
+cite ADR-219 but do not yet recognise it (the `code-scanning-alerts-to-zero`
+plan's unit 6). The exclusion is tracked in the tree, so it is never
+re-litigated by hand.
 
 ## Disposition Workflow
 
-1. **Is the site the excepted class?** If the finding is missing rate
-   limiting on one of the MCP server's route handlers, apply the exception
-   as the One-Outcome Rule states — the comment at the route first, then one
-   dismissal in the analyser's record citing ADR-219, recorded once — and
-   stop. This
-   is the only step with a server-side action, and it is not a class in the
-   catalogue below.
+1. **Is the finding the excepted query?** `js/missing-rate-limiting` is
+   excluded in `.github/codeql/codeql-config.yml`, so it should never
+   appear. If it does, the tracked exclusion has regressed: restore the
+   configuration, never an act in the analyser's console. It is not a class
+   in the catalogue below, and no step of this workflow has a server-side
+   action.
 2. Otherwise **match the rule key** to a documented class below.
 3. **Match the site shape** against the class's shape criteria; they say
    what the analyser is seeing, which is what tells you the cure.
@@ -108,9 +109,9 @@ These govern _how_ a finding is dispositioned, beneath the per-class catalogue:
   [decision lenses][principles] (LTAE first) decisively resolve which change
   cures a site, decide it — framing a lens-resolved call as an owner-fork is
   analysis-passback. Escalate only when all lenses genuinely fail or the
-  scope is product/feature. (The one analyser-side act this policy still
-  admits, the excepted class's dismissal, is the owner's; the cure
-  _determination_ never is.)
+  scope is product/feature. (The one exception, the tracked exclusion of
+  `js/missing-rate-limiting`, was the owner's ruling; the cure
+  _determination_ at a site never is.)
 - **A deliberately-adopted profile's findings are a worklist, not noise.** When
   the owner activates an analyser profile on purpose, the target is zero,
   by cure. Do NOT frame the resulting backlog as an activation-wave
@@ -123,9 +124,9 @@ These govern _how_ a finding is dispositioned, beneath the per-class catalogue:
   refactors (alerts #83–86 recurred as #226–229 after the code moved), so a
   dismissal buys silence, not absence: cure structurally in the code
   instead. The posture was vindicated when a flagged pattern proved to be a
-  real super-linear-backtracking ReDoS vector. Agents never dismiss alerts
-  on their own PRs; the one dismissal the One-Outcome Rule excepts is the
-  owner's act.
+  real super-linear-backtracking ReDoS vector. Agents never dismiss alerts;
+  the One-Outcome Rule's one exception is a tracked query exclusion, not a
+  dismissal.
 - **Triage by cause-class, but a class splits by disposition-route.** A rule
   class (e.g. a regex backlog) does not resolve uniformly: generated output →
   fix at the generator; generator source → fix in place + regen; hand-written →
@@ -807,6 +808,23 @@ missing rate limiting takes a comment naming the edge control and the
 defence-in-depth option, and its one finding is dismissed once in the
 analyser's record citing ADR-219 — never a path exclusion or a query
 filter, which would silence the rule for every route to come.
+
+## 2026-09-17 amendment: the exception's mechanism is the tracked exclusion
+
+The 2026-09-08 worked example above prescribed one dismissal per alert and
+forbade a query filter. On 2026-09-10 the rules tier recorded that per-alert
+shape (`41235118c`), and the same day `.github/codeql/codeql-config.yml`
+gained a `query-filters` exclusion of `js/missing-rate-limiting`
+(`bd7a3509e`), whose comment attributes it to the 2026-09-08 ruling. Asked
+which mechanism the ruling meant, the owner answered on 2026-09-17,
+verbatim: "a permanent exclusion is allowed, but ONLY for that one issue".
+
+Delta from prior: the exception's mechanism is the tracked exclusion, and
+the §One-Outcome Rule text and Disposition Workflow step 1 are amended to
+it. The cost the worked example named is accepted knowingly: the query is
+silenced for every route to come, and ADR-219's edge rule is the control
+for them. The scope does not widen: no other query, path or finding class
+is excluded or dismissed.
 
 ## Cross-references
 

@@ -26,13 +26,15 @@ there is no dismissal route outside the single exception the policy
 states, since the owner's 2026-09-08 ruling ("We don't dismiss issues, we
 fix them"): the finding is cured at source under the one-outcome rule in
 `docs/governance/sonar-disposition-policy.md`. That single exception is
-the CodeQL `js/missing-rate-limiting` alerts on the MCP server's route
-handlers, dismissed once each through the GitHub code-scanning route only
-after a route comment lands that recognises additional in-process rate
-limiting as defence in depth, names the edge controls relied on, and cites
-ADR-219 — and that dismissal is the OWNER's act: an agent never dismisses an alert on its own pull request; it lands
-the route comment and surfaces the action item. Nothing else is
-dismissed. Where a warning from another
+the CodeQL query `js/missing-rate-limiting`, excluded permanently by the
+tracked `query-filters` entry in `.github/codeql/codeql-config.yml` (owner,
+2026-09-17, verbatim: "a permanent exclusion is allowed, but ONLY for that
+one issue"). ADR-219 is its ground: rate limiting is an edge concern, and
+the MCP server's route registrations carry comments citing it. The exclusion
+removes the query for every file the analysis scans, so a new HTTP route
+anywhere raises no alert; ADR-219's edge rule, not the analyser, is the
+control for it. No other query id or finding class is excluded, filtered or
+dismissed by any route, and an agent never dismisses an alert. Where a warning from another
 system can only be suppressed, suppress per site with rationale, never by
 a rule-level disable — per-site forces a fresh interrogation when the
 shape recurs.
