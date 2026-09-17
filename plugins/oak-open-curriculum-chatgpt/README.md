@@ -2,7 +2,8 @@
 
 This directory is the ChatGPT/Codex packaging of the Claude plugin in `../oak-open-curriculum/`.
 It is a **checked-in copy**, not a build output. The Claude plugin is the source: a correction to
-a shared skill lands there first and is re-copied here, never the other way round.
+a shared skill lands there first and is re-copied here, never the other way round. Both carry the
+same version; the changes per version are in `../oak-open-curriculum/CHANGELOG.md`.
 
 ## Why a separate package
 
@@ -49,6 +50,14 @@ judging from the descriptions alone; current and proposed wording; the ChatGPT l
 Claude list). Every run routed every request correctly. The descriptions therefore carry the
 do-not-use boundaries and nothing more, and the two Claude workflow descriptions were made
 identical to the merged skills' for consistency between the plugins, not as a routing fix.
+
+Routing check (2026-09-16): oak-skills' own trigger-eval method — one fresh Opus judge per
+query, shown the descriptions only — over the 27 upstream queries whose expected lead is a skill
+shipped here, against both packages, four runs across three wordings. The two merged skills took
+the narrow requests in every run, with or without a boundary sentence on
+`oak-curriculum-principles-mcp-enabled`, and that sentence pulled general "review my unit"
+requests onto the MCP-requiring skill. So the two merged skills carry do-not-use boundaries, and
+the MCP-enabled skill's description is oak-skills' approved text, unchanged.
 
 ## Sideload for testing (desktop app)
 
