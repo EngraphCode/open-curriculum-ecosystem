@@ -321,9 +321,12 @@ the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
 itself are cured on the carrier. Findings about carried code are cure-worthy on
 this fork too, but not in the carrier's rounds: each is recorded, with its
 file and line, on a local work list and cured in its own lane, and the thread's
-disposition names that list. The carrier's cure-worthy count is therefore the
-sync's own findings plus the carried-code findings that are true, never zero by
-construction. Three carriers routed every carried-code finding away under the
+disposition names that list. What no longer holds is a count of zero by
+construction: a true carried-code finding is over the bar for this fork. How the
+carrier's round tally carries it is open — the tally reads the bar marker, so
+the finding counts in the round that raised it, while the carrier cannot cure
+it and a round settles at a cure-worthy count of zero — and the `pr-tally` node
+holds that question. Three carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list

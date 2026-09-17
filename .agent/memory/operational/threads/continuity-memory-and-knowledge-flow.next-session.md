@@ -126,7 +126,7 @@ empty pending graduations and empty buffers."
     the verdict tip.
   - TEXT CURE of the Phase 5 `pr-watch --watch` prescription (F-164): a background loop under a
     Monitor running one compound GraphQL read a tick, ending only on MERGED or CLOSED, and a
-    one-shot `agent-tools pr state <n> --expect <login>` for a single verdict.
+    one-shot `pnpm agent-tools pr state <n> --expect <login>` for a single verdict.
   - TEXT CURE of the Phase 1 `git push origin refA refB refC` example: use `merge-bot push`.
   - `gh pr create` on a branch with an open PR exits non-zero, with that PR's URL inside the
     error text (gh 2.97.0).

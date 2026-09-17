@@ -560,15 +560,18 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   for the CURRENT head via `gh run list` filtered per-head — a checks-green
   read against a head with zero runs is reading the PREVIOUS head's truth.
 - Watch with a compound read that emits on change: a background loop under
-  a Monitor that runs ONE GraphQL read of the pull request per 60-second tick
-  (state, merge state, head, the check rollup counted by state, unresolved
-  threads, reviews bound to the head) and prints one line only when that
+  a Monitor that runs one compound GraphQL read of the pull request per
+  60-second tick (state, merge state, head, the check rollup counted by state,
+  unresolved threads, reviews bound to the head; a connection that reports
+  truncation is paged within the tick, as item 1 requires) and prints one line only when that
   reading changes, ending only on MERGED or CLOSED. No tool provides that
   loop yet: the seat writes it, running the compound selection of the
   review-round state machine's item 1 at a 60-second interval (not the tight
   polling F-110 forbids), until the `ws6-pr-watch-compound-floor` item below
   gives it a tool form. For a single verdict,
-  `agent-tools pr state <n> --expect <login>` computes the front door's
+  `pnpm agent-tools pr state <n> --expect <login> [--expect <login> ...]`,
+  with one `--expect` per available configured reviewer as for the merge
+  (the flag declares the whole expected set), computes the front door's
   reading once and never merges. Do NOT use
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: it was
   silent across head and check transitions at three seats and exited early on
