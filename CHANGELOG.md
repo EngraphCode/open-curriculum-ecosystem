@@ -1,3 +1,16 @@
+# [1.184.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.183.0...v1.184.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* **mcp-app:** drop the landing-page option that [#928](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/928) removed from createApp ([1d49707](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1d4970757159424cac337b9ba528dfd6c7d21a6a)), closes [#972](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/972)
+* **mcp:** rest robots.txt and its AR-A6 exception on machine surface (MCP-703) ([19d6a90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/19d6a9058ab4a2063aeb142e2b2c3573df376a35)), closes [#928](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/928)
+
+
+### Features
+
+* **mcp:** serve robots.txt from the MCP host (MCP-703) ([c5f89c4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c5f89c4e60e9ae1f4cb82458761b6da4566a354b))
+
 # [1.183.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.182.0...v1.183.0) (2026-09-17)
 
 
