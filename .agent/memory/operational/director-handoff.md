@@ -75,8 +75,10 @@ the seat, not to any one pilot.
      condition?
    - What is owner-gated versus team-doable right now?
    - What is the single next safe step?
-   - **Is the outgoing Director actually standing down** — heartbeat stopped, or
-     it pre-positioned you?
+   - **Is the outgoing Director actually standing down** — an explicit written
+     stand-down (its pre-positioning event naming you, or its retirement event),
+     or the owner's word? A stopped heartbeat is not one (PDR-117 §Takeover
+     verification, amended 2026-09-17).
 
    **Mechanical liveness check (MANDATORY — paste its output before Moment-2).**
    Do NOT compute the outgoing Director's last-event age by hand and do NOT read

@@ -125,10 +125,11 @@ accepts for that query and no other.
 - **Missing rate limiting — the one owner-ruled exception (2026-09-08).** ADR-219's (2026-07-30)
   edge decision stands: rate limiting is at the edge and an in-process limiter is not built; only
   its static-analysis clause was amended, on 2026-09-17. The
-  owner paused the class on 2026-09-08 (the verbatim word is in the Goal): a code comment at each
-  of the four routes states that in-process limiting would add defence in depth and that the
-  two sets of edge WAFs are regarded as sufficient for safety for now, citing ADR-219 and naming
-  the two WAFs from the deployment facts; the four findings — CodeQL's `js/missing-rate-limiting`,
+  owner paused the class on 2026-09-08 (the verbatim word is in the Goal): the pause takes the
+  form of a code comment at each of the four routes, whose intended wording is that in-process
+  limiting would add defence in depth and that the two sets of edge WAFs are regarded as
+  sufficient for safety for now, citing ADR-219 and naming the two WAFs from the deployment
+  facts (unit 6 owes that wording); the four findings — CodeQL's `js/missing-rate-limiting`,
   with no matching code-quality issue at these sites — are covered by the tracked `query-filters`
   exclusion of that query in `.github/codeql/codeql-config.yml` (`bd7a3509e`, the mechanism the
   owner ruled on 2026-09-17), so the tree explains the exception and nothing is dismissed by hand.
