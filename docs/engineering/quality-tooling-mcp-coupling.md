@@ -225,8 +225,10 @@ verbatim: "a permanent exclusion is allowed, but ONLY for that one issue").
 The exclusion covers every file the analysis scans, so a new route anywhere
 raises no alert and ADR-219's edge rule is the control for it; if the alert
 appears, the tracked exclusion has regressed and the cure is the
-configuration. No other query, path or finding class is excluded, and an
-agent never dismisses an alert.
+configuration. No other query or finding class is excluded, and an agent
+never dismisses an alert. The configuration's one `paths-ignore` entry, the
+studio-source preservation tier (ADR-213), is a scope boundary for
+non-production material, not a finding-class exception.
 
 For reading history only, CodeQL alerts were dismissed via:
 
@@ -405,7 +407,7 @@ At natural session boundaries:
 
 ### 10. Push
 
-Push as the change-custody skills route it: `pr-lifecycle` Phase 1 and `bot-identity-on-third-party-systems` name the push route, and the pre-push gates run on every push. `--no-verify` needs fresh owner authorisation each time (`no-verify-requires-fresh-authorisation`).
+Push as the change-custody skills route it: `pr-lifecycle` Phase 1 and `bot-identity-on-third-party-systems` name the push route, and the pre-push gates run on every push whose hook runs; a `HUSKY=0` push (the ChatGPT Work cloud profile, and Claude cloud sessions by the owner's 2026-08-31 ruling) runs none and proves nothing local. `--no-verify` needs fresh owner authorisation each time (`no-verify-requires-fresh-authorisation`).
 
 ---
 

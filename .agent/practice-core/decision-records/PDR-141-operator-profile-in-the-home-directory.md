@@ -229,9 +229,10 @@ applies only to a root that is a git repository with a remote.
 Decision 7 said the grounding runs the profile check "FIRST"; the second
 2026-09-14 amendment's decision 14 put a fetch and fast-forward at session
 open, before the profile is read. Read together they disagreed on what runs
-first, and a host's start-right text that followed decision 7 checked a copy
-the sync was about to replace (a review of the host's grounding found it on
-2026-09-16, and the host cured its text to pull, then check, then read).
+first. A host's start-right prose followed decision 7 and said to run the
+check first, above a command block that already pulled the profile before
+the check (a review of the host's grounding found the disagreement on
+2026-09-16, and the host cured its prose to pull, then check, then read).
 Decision 7 now names the order: the sync where the root is a repository with
 a remote, then the check, then the reads. A root that is not a repository, or
 has no remote, has no sync step, and the check still runs before anything is

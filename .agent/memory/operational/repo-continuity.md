@@ -163,7 +163,9 @@ forward-asks remain.
   integrated files cleared, the research-programme guide re-homed to
   `reference/`, the outbound bundle held (castr-bound items forward at the
   next window; the four design-shape offers queue for the cross-estate
-  integration session, owner-scoped).
+  integration session, owner-scoped). The Practice Box was cleared on
+  2026-09-17 at the owner's word; the bundle's carries now live in the AEE
+  thread record's "Offered by resonance on 2026-07-08" block.
 - **Curriculum Hub — PAUSED 2026-09-06 (no fork lane).** Merged 2026-07-06; the remainder
   (§J deploy, the fidelity-register judgments, follow-ups, the ESLint 10 defect) lives
   in the [thread record](threads/paused/curriculum-hub-demo.next-session.md).
@@ -303,7 +305,7 @@ each thread record; this table is the repo-level index.
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 first). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + the record. | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
-| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. Queued: nine directive-bound entries (the owner's two 2026-09-14 rulings among them) in `pending-graduations.md` for the due dedicated consolidation session; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
+| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. Queued: twelve directive-bound entries (the owner's 2026-09-17 lifecycle decision and two 2026-09-14 rulings among them) in `pending-graduations.md`, for the directive pass in a fresh context; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE the same day, all six proposals owner-adopted and P1–P5 landed; shepherded 2026-08-25 (OCE PR #17 `c40a4287`, castr PR #53 `e62891ee`); plan archived; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. The remaining probe and two recorded deferrals live in the record. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
 
 ## Paused Threads
@@ -361,7 +363,8 @@ branch folded as #152".
 
 1. the consolidation — IN PROGRESS on `coordination/2026-09-17-cd847a` (draft #153), cut from
    #152's merge (`cd847a2b3`, 2026-09-17 15:09Z). By the owner's word, #153's fold gates Dynamo
-   turns Temper's Oak integration lane, which merges nothing until it lands;
+   turns Temper's Oak integration lane, which merges nothing until it lands, so #153 folds on
+   2026-09-17 rather than at the rollover;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the
@@ -656,7 +659,8 @@ F-41 CLI tail).
 4. **Practice Box dispositioned 2026-07-23 (owner card)** — see the
    §Current State inter-Practice bullet for the disposition. Still queued,
    owner-scoped: the dedicated cross-estate integration session for the
-   outbound bundle's four design-shape offers (proof-ladder claim-typing,
+   resonance bundle's four design-shape offers (carried since 2026-09-17 in the
+   AEE thread record's "Offered by resonance on 2026-07-08" block; proof-ladder claim-typing,
    refusals-list, posture-selection procedure, obligation-family) plus the
    earlier-noted recomputable-plan-state / worker-class / protocol-PDR
    candidates; a further PDR-117 host-indirection tightening landed

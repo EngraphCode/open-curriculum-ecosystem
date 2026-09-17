@@ -52,8 +52,9 @@ finds no in-process limiter because there is none, and cannot see the edge that
 carries the control. The query is excluded in tracked CodeQL configuration (the
 2026-09-17 amendment below); every other finding is cured at source under the
 one-outcome rule in `docs/governance/sonar-disposition-policy.md`. The exclusion
-is an architectural claim on the record, not a silenced check — and it is
-falsified the moment the edge stops carrying the control.
+knowingly silences the query for every route; it rests on an architectural
+claim on the record, and that claim is falsified the moment the edge stops
+carrying the control.
 
 ## Consequences
 

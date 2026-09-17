@@ -94,9 +94,12 @@ the seat, not to any one pilot.
    ```
 
    Read the outgoing Director's `freshness_status` and `fresh_until` from the
-   tool's output. A `stale` Director (or one whose heartbeat you have confirmed
-   stopped) is genuinely standing down; a `fresh` one is still live — do not take
-   the seat over it without a pre-position. If you ever need a single claim's age,
+   tool's output. Neither reading licenses the takeover: a `stale` row, or a
+   heartbeat you have confirmed stopped, does not show a stand-down (a heartbeat
+   can be suspended under PDR-078 §4 while the seat is live), and a `fresh` row
+   is a reason not to act. Moment 2 rests on the outgoing Director's explicit
+   written stand-down (its pre-positioning or retirement event) or the owner's
+   word (PDR-117 §Takeover verification, amended 2026-09-17). If you ever need a single claim's age,
    `claims status --active <path> --now <utc-iso>` prints the same UTC-computed
    `age_seconds` / `fresh_until` per claim. **Never** compare a `…Z` timestamp
    against a local wall-clock: on 2026-06-25 a successor read a `07:52Z`
@@ -342,14 +345,17 @@ first-hand as of 2026-06-25.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-16 (Zephyr guards Leeward, `281e44`, sole operator, at the compaction
-> boundary before the owner-directed consolidation session) — replaces the 2026-09-12 snapshot in place
-> (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
+> **§LIVE SNAPSHOT, 2026-09-17 (Zephyr guards Leeward, `281e44`, at the fold of the owner-directed
+> consolidation's second half; first written 2026-09-16 at the compaction boundary before that
+> session) — replaces the 2026-09-12 snapshot in place (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
 > head, state and threads are computed from the repository service at the moment of reading; this
 > snapshot records what LANDED and who holds which LANE.
 >
-> **Seats.** No Director is seated. The estate runs at n=1 with Zephyr guards Leeward as sole operator,
-> holding no claims at the boundary.
+> **Seats.** No Director is seated. From 2026-09-17 15:31Z the estate runs at n = 2: Zephyr guards
+> Leeward (the dedicated consolidation, claim `47cfcbeb`) and Dynamo turns Temper (`2a4c8a`, the
+> owner-approved Oak integration lane, claim `35006027`, carrier draft #154), which by the owner's
+> word merges nothing until #153's fold lands. The two seats coordinate on the ARC channel
+> `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:**
 >

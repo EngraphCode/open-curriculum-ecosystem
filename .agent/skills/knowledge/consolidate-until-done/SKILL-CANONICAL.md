@@ -94,9 +94,11 @@ Before substantive work:
    `.agent/directives/`, the pass needs a context below 30 % at the directive
    edits (`directive-file-context-budget`), and a first-hand read of the raw
    sources, the napkin and the registers spends most of that headroom. So say
-   at open how the pass will meet both: the directive entries first in a
-   fresh context, or the reading in this context and the directive edits in
-   the next, with the owner seeing the shape before any work is staked. A
+   at open how the pass will meet both, keeping directive work the final step
+   the rule sequences: the earlier stages in this context and the directive
+   edits alone in the next, or, when the earlier stages are already done, a
+   fresh context that opens at the directive step, with the owner seeing the
+   shape before any work is staked. A
    review round on a fold, and each read of a large doctrine file, is spent
    out of the same budget. Worked instance (2026-09-16/17): one dedicated
    consolidation reached its directive boundary above 30 % in its first

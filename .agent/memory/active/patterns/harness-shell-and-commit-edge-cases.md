@@ -118,8 +118,9 @@ barrier:
   filesystem `.github/pull_request_template.md` edited the tracked
   `.github/PULL_REQUEST_TEMPLATE.md` while `git add` staged nothing, and the commit queue's
   staged-set check refused (2026-09-17).
-- **Never type a `--now` timestamp by hand**: `claims open` and `claims close` default `--now` to
-  the current time when the flag is omitted, and two hand-typed values in one context landed 36
+- **Never type a `--now` timestamp by hand**: `claims open` defaults `--now` to the current time
+  when the flag is omitted, while `claims close` requires the flag, so a close reads `date -u`
+  into it (as a commit-ceremony script does). Two hand-typed values in one context landed 36
   minutes and 41 seconds in the future (2026-09-17). A time a command needs is read, never
   recalled.
 - **Check an Edit that anchors an insertion on a duplicated line**: anchoring a new register

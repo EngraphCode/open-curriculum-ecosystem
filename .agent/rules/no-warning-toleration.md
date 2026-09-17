@@ -22,11 +22,10 @@ A signal is information about an architectural tension — before any
 response, interrogate what produced it (a bug, a half-finished change, a
 misplaced abstraction, a leaky boundary), and cross-check where else the
 same shape appears un-flagged. For an analyser finding (Sonar, CodeQL)
-there is no dismissal route outside the single exception the policy
-states, since the owner's 2026-09-08 ruling ("We don't dismiss issues, we
-fix them"): the finding is cured at source under the one-outcome rule in
-`docs/governance/sonar-disposition-policy.md`. That single exception is
-the CodeQL query `js/missing-rate-limiting`, excluded permanently by the
+there is no dismissal route, since the owner's 2026-09-08 ruling ("We
+don't dismiss issues, we fix them"): the finding is cured at source under
+the one-outcome rule in `docs/governance/sonar-disposition-policy.md`. The
+single exception to cure-at-source is the CodeQL query `js/missing-rate-limiting`, excluded permanently by the
 tracked `query-filters` entry in `.github/codeql/codeql-config.yml` (owner,
 2026-09-17, verbatim: "a permanent exclusion is allowed, but ONLY for that
 one issue"). ADR-219 is its ground: rate limiting is an edge concern, and

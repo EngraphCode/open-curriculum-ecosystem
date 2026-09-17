@@ -4381,42 +4381,54 @@ commit SHA and the closing plan reference.
   mutating one, has no `check:fix` and no `check:ci`, spells `type-check` for `typecheck`, and
   runs mutating commands under bare names (`format:root` writes, `markdownlint:root` runs
   `--fix`) beside `format-check:root`. The divergence is wider than `check`.
-- **Expected**: PDR-008 §Accepted cost: an existing repository pays a one-time rename, or its
-  names are "flagged as deviations needing rationale". This host has neither.
+- **Expected**: PDR-008 §Accepted cost: "Existing repos that use non-canonical names pay a
+  one-time rename cost." (Its "flagged as deviations needing rationale" clause covers names a
+  repository adds later, not existing ones.) This host has not paid it.
 - **Reading, not a text cure**: the Core text is not stale; item 9 failing here is the check
   doing its job. Which side moves is a Practice-convention judgement, for the owner: this host
-  renames its scripts (`pnpm check` is named in 34 tracked files across the CI workflow, two
-  directives, seven skill files, ADRs and docs, counted 2026-09-17), or the Core drops Rule 4's
+  renames its scripts, or the Core drops Rule 4's
   `check` exception, since `check` as the verify aggregate is Rule 1 without the exception and
-  this host has run it that way for months (one host's evidence).
+  this host has run it that way for months (one host's evidence). A rename's footprint is read
+  at decision time with `git grep -lP 'pnpm check(?![:\w-])' HEAD`, never from a count carried
+  here. At the #153 tip (2026-09-17) the CI workflow, PR template, directives, skills and docs
+  held 33 files; the name also runs through rules, the hook policy, the root README,
+  CONTRIBUTING and SECURITY, app and package docs, Cursor rules, PDR-082, and typed agent-tools
+  source and tests (`repo-check`, the check/CI parity validator); records under memory, plans
+  and reports name it hundreds of times more and stay as history.
 - **Route**: owner decision, surfaced at the dedicated consolidation's closing report; then a
   script-rename lane here or a PDR-008 amendment through the Core exchange.
 
 ### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
 
 - **Observed**: 2026-09-17, truing #152's description. `.husky/refuse-commit-on-main.sh`
-  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-args.ts` refuses a push
-  to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
+  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-cli.ts`
+  (`DEFAULT_BRANCH_NAMES`) refuses a push to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
   local commit or a bot push aimed at it. The remote covers the push: `engraph`'s branch rules
   carry `pull_request`, `non_fast_forward`, `deletion`, `required_status_checks` and
   `copilot_code_review` (read 2026-09-17).
 - **Expected**: the guards read the repository's default branch rather than a literal name, so
   a local commit on the default branch is refused before it has to be undone.
 - **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
-  the guard and the push parser resolve the default branch from `origin/HEAD` or
+  the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
   configuration, with a unit test on each.
 
-### F-191 — no instrument reads a seat's own context usage, so the 30 % directive rule runs on an estimate
+### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
 
 - **Observed**: 2026-09-17, the dedicated consolidation's second context. The
   `directive-file-context-budget` rule gates directive edits on context usage below 30 %, and
-  the seat had to decide whether the directive pass fitted after a fold's review rounds. No
-  tool reports the figure: `agent-tools context-cost` estimates a fileset, not a session, and
-  the session transcript's bytes since the compaction boundary (3.47 MB) are dominated by
-  metadata and persisted tool output. The seat estimated from what it had loaded and moved the
-  pass to a fresh context.
-- **Expected**: the budget a rule gates on is readable at the moment the rule fires, so the
-  decision rests on a reading, not a guess in either direction.
-- **Route**: a harness-integration question first (whether the platform exposes context usage
-  to a hook or status surface); until then the rule's own wording carries the estimate, and a
-  consolidation declares its contexts at open (consolidate-until-done's grounding step 7).
+  the seat had to decide whether the directive pass fitted after a fold's review rounds. It
+  looked for a reading, found `agent-tools context-cost` (which estimates a fileset, not a
+  session) and the transcript's bytes (3.47 MB since the compaction boundary, dominated by
+  metadata and persisted tool output), estimated from what it had loaded, and moved the pass to
+  a fresh context. An instrument existed that it did not find: `agent-tools session-metadata
+  --vendor claude --model <id> --session-id <id>` reads a session's context occupancy from the
+  vendor transcript, and the Claude statusline already reads the platform's
+  `context_window.used_percentage`. The #153 pre-publication pass found both. The command
+  refuses this seat's model id (`unknown model: claude-opus-5[1m] (no window size registered)`,
+  `agent-tools/src/session-metadata/window-registry.ts`); read against the same-size
+  `claude-opus-4-8[1m]` entry after the compaction it gave 29.5 % used.
+- **Expected**: the budget a rule gates on is readable at the moment the rule fires, from the
+  rule's own text, so the decision rests on a reading, not a guess in either direction.
+- **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
+  `[1m]` variant) in `window-registry.ts`; then the directive pass names the command in
+  `directive-file-context-budget` and consolidate-until-done's grounding step 7 cites it.

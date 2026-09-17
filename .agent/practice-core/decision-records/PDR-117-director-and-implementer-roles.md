@@ -808,7 +808,8 @@ dated contributions the live team verifies critically, without custody risk.
 §Takeover verification cross-checked the claims registry against the heartbeat
 stream so that a stale registry row would not license taking the seat over a
 live Director. It did not say what does license the takeover, so a reader of
-the same guard could let a fresh row stand in for the answer.
+the same guard could let a stale row, or a silent heartbeat, stand in for the
+licence.
 The founding instance (2026-09-03, a Director handover): the incoming seat found
 the outgoing Director reading `stale` in the registry while it had posted to
 comms ninety minutes earlier; its heartbeat had been suspended under PDR-078

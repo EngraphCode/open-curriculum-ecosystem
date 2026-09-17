@@ -36,17 +36,16 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   estate-coordination LANDINGS pickup 3. The gate defect that held
   it (a settled pull request behind a moved base) is cured by #146,
   `048f377fa`. Remaining: (1) the
-  dedicated consolidation session that is due lands the nine due entries in
-  `pending-graduations.md` (including the orientation re-point to PDR-141 and
-  the owner's two 2026-09-14 rulings);
+  directive-bound entries in `pending-graduations.md` (twelve at 2026-09-17,
+  including the orientation re-point to PDR-141 and the owner's two 2026-09-14
+  rulings) land in the directive pass the resume point below orders;
   (2) done 2026-09-14 at PR #143's landing (`e474e883e`): the last held buffer
   memory (`verified-correct-is-not-a-proportionality-test`) deleted; (3) done
   the same day: PDR-141 Accepted (owner-ratified, `dd813b6ef`) and the
   seeded profile ratified with three owner additions (Castr and
   jimcresswell.net as consumers, British English always, Oak systems off
   limits on Engraph forks always); (4) the three pickup fixtures posted on
-  #144 become tests when a recorded input reaches them. The coordination branch `coordination/2026-09-12-69a537` is
-  past its fold window. The first drain (2026-07-05) was complete end-to-end
+  #144 become tests when a recorded input reaches them. The first drain (2026-07-05) was complete end-to-end
   (all strata; index empty, live-only, untruncated; every entry file
   terminally marked). The per-user buffer lifecycle
   continues under `per-user-memory-is-a-buffer`: the buffer accretes again
@@ -114,11 +113,14 @@ on `coordination/2026-09-17-cd847a`: the CodeQL exception re-trued to the tracke
 record's exchange lane, and the drained-memory citation sweep (`9cdeace24`); PDR-117 and PDR-141
 amended, frictions F-189 and F-190, the fold's routed findings, consolidate-until-done's
 directive-shape step and the distilled lifecycle entry (`49b6c3ae9`); then the records, the
-napkin's graduations and its rotation.
+napkin's graduations and its rotation. The third (2026-09-17, after compaction) opened the ARC
+channel with Dynamo turns Temper, ran #153's pre-publication claim pass (four verifiers, 33
+findings, every one true at its source) and committed the cures, including F-191's correction:
+`agent-tools session-metadata` reads context usage.
 
 **Buffers.** `open-questions.md` and `distilled.md` are empty. `pending-graduations.md` holds twelve
 directive-bound entries: the eleven carried, and the owner's lifecycle decision below. The napkin
-was rotated (`2c81c5d22`) and holds only this context's wrap. Of the
+was rotated (`2c81c5d22`) and holds the second and third contexts' wraps. Of the
 other assistants' memory, read on 2026-09-16: the Claude per-user buffer holds five strictly local
 entries, Cursor is unchanged since 2026-06-04, Gemini has none, and Codex's `MEMORY.md` OCE groups
 were read with no recorded disposition, which the next pass confirms first-hand.
@@ -142,11 +144,20 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 
 **Next, in the owner's order.**
 
-1. Fold #153 at the 2026-09-18 rollover (or earlier on the owner's word), with its own
-   pre-publication claim pass, so the integration lane's slot follows; later consolidation work
-   rides the next successor. Tell Dynamo turns Temper when it lands.
+1. Fold #153 on 2026-09-17, before the rollover, with its own pre-publication claim pass,
+   because the integration lane's slot waits on it (this seat's decision after the second
+   context's compaction, reported to the owner); later consolidation work rides the next
+   successor. Tell Dynamo turns Temper when it lands, on the ARC channel and in the rotation
+   broadcast. State at the third context's wrap: the pass is done and its cures are committed;
+   next are the description (a new bullet for the cure commit, "ten rules" not nine, and the
+   pass result under Validation), ready, the review rounds under budget 2, and the front door.
+   At resume, re-arm the comms watcher and the ARC tail, and read the comms stream from 16:04Z
+   (the watcher's expiry gap) and the ARC channel from its last entry.
 2. The directive pass in a fresh context below 30 %, with careful analysis: the twelve entries in
-   `pending-graduations.md`, the IO invariant and the lifecycle decision first among them.
+   `pending-graduations.md`, the IO invariant and the lifecycle decision first among them. The
+   30 % is read, not estimated: `agent-tools session-metadata --vendor claude --model <id>
+   --session-id <id>`, with the same-size `claude-opus-4-8[1m]` entry standing in for Opus 5
+   until F-191's window-registry lane lands.
 3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
    landed: graduate, then archive, the finished history of `repo-continuity.md`, the
    agentic-engineering-enhancements and estate-coordination thread records,

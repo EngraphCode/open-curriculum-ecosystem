@@ -593,7 +593,7 @@ caching prevents duplicate work: see @docs/engineering/build-system.md and
 ADR-065.
 
 ```bash
-# From repo root, one at a time
+# The gates, for reference: the commit runs them; never run them separately
 pnpm sdk-codegen        # Makes changes
 pnpm build              # Makes changes
 pnpm type-check

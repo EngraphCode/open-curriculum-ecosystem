@@ -122,8 +122,9 @@ accepts for that query and no other.
   opening tag and the closing tag, or by a linear-time expression, with a test over a long
   pathological input; the report generator's keyword pattern is rewritten linear-time with
   the same test shape.
-- **Missing rate limiting — the one owner-ruled exception (2026-09-08).** ADR-219 (2026-07-30)
-  stands unchanged: rate limiting is at the edge and an in-process limiter is not built. The
+- **Missing rate limiting — the one owner-ruled exception (2026-09-08).** ADR-219's (2026-07-30)
+  edge decision stands: rate limiting is at the edge and an in-process limiter is not built; only
+  its static-analysis clause was amended, on 2026-09-17. The
   owner paused the class on 2026-09-08 (the verbatim word is in the Goal): a code comment at each
   of the four routes states that in-process limiting would add defence in depth and that the
   two sets of edge WAFs are regarded as sufficient for safety for now, citing ADR-219 and naming
@@ -131,8 +132,8 @@ accepts for that query and no other.
   with no matching code-quality issue at these sites — are covered by the tracked `query-filters`
   exclusion of that query in `.github/codeql/codeql-config.yml` (`bd7a3509e`, the mechanism the
   owner ruled on 2026-09-17), so the tree explains the exception and nothing is dismissed by hand.
-  The exclusion silences the query on every route to come; ADR-219's edge rule, amended the same
-  day, is the control for them. At 2026-09-17 the route comments name the edge control and cite
+  The exclusion silences the query on every route to come; ADR-219's edge rule is the control for
+  them. At 2026-09-17 the route comments name the edge control and cite
   ADR-219 but do not yet state the defence-in-depth option. The ADR's
   falsifier stands: the edge configuration is load-bearing, and if it weakens the exception is
   wrong and the class returns to a fix.
@@ -260,7 +261,7 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-08 | Owner ruling (cards at the Director seat) | "We don't dismiss issues, we fix them": the node's non-fix outcomes (SAFE for the localhost literals; false-positive dismissals for the ADR-219 class) are withdrawn; then the owner paused the rate-limiting class with code comments and a dismissal kept per site. | Applied: the overview, goal, mechanism, criterion 3, out of scope, units 5 and 6 and the rules tier re-trued; both owner gates removed as discharged by the word; ADR-219 stands. |
 | 2026-09-08 | PR #95 round one (Copilot, Codex) | The pause mechanism named a Sonar issue-ignore block and a CodeQL query filter or path exclusion: automatic analysis reads no file-based rule ignore, and both CodeQL shapes silence the rule beyond the four sites, against ADR-219; criteria 1 and 3 filed the hosting service's alert state as `repo-safe` against the boundary-of-certainty amendment. | Applied: the dismissal is once per site in each analyser's own record, explained by the route comments, never a path exclusion or query filter; criteria 1 and 3 split into `repo-safe` (the comments) and `owner-held` (the service's alert state, read as a dated observation). |
 | 2026-09-08 | PR #95 round three (Codex) | The four findings are CodeQL alerts with no matching code-quality issue, so a per-issue act in that analyser was unperformable; the rules tier claimed a policy amendment that has not landed; the showcase plan's live-index proofs (its criteria 1 and 8) contradict the boundary-of-certainty amendment. | Applied: the dismissal names only the code-scanning record, with the code-quality shape stated conditionally; the rules tier names the amendment as pending in its own pull request. Carried: the showcase proofs to the census of plan bodies asserting external state, named by criterion. |
-| 2026-09-17 | Owner answer (the dedicated consolidation's question on the mechanism) | The rules tier and this node described one dismissal per alert while `.github/codeql/codeql-config.yml` carried a `query-filters` exclusion of the query (`41235118c` then `bd7a3509e`, 2026-09-10). Owner, verbatim: "a permanent exclusion is allowed, but ONLY for that one issue". | Applied: the overview, goal, mechanism, the rate-limiting class, criterion 3, out of scope, unit 6 and the landing-path check re-trued to the tracked exclusion; ADR-219, the disposition policy, the two rules and the quality-tooling playbook amended in the same change. The route comments' defence-in-depth wording stays owed in unit 6. |
+| 2026-09-17 | Owner answer (the dedicated consolidation's question on the mechanism) | The rules tier (`41235118c`) and this node described one dismissal per alert while `.github/codeql/codeql-config.yml` carried a `query-filters` exclusion of the query (`bd7a3509e`), both 2026-09-10. Owner, verbatim: "a permanent exclusion is allowed, but ONLY for that one issue". | Applied: the overview, goal, mechanism, the rate-limiting class, criterion 3, out of scope, unit 6 and the landing-path check re-trued to the tracked exclusion; ADR-219, the disposition policy, the two rules and the quality-tooling playbook amended in the same change. The route comments' defence-in-depth wording stays owed in unit 6. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day

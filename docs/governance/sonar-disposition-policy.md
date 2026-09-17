@@ -21,8 +21,9 @@ it, so a finding in a known class is cured by reference and only a site
 outside every documented class needs fresh judgement.
 
 The policy composes with the analysers' own records: a cured finding closes
-on the next analysis of the corrected code, and the one excepted class
-carries its per-site record there, explained by comments in the tree.
+on the next analysis of the corrected code, and the one excepted query is
+excluded by tracked CodeQL configuration, explained by ADR-219 and the
+route comments.
 Together they give an auditable record: _what the pattern is_, _what
 clears it_, and _which sites instantiate it_.
 
@@ -68,9 +69,12 @@ verbatim: "a permanent exclusion is allowed, but ONLY for that one issue".
 The mechanism is the `query-filters` entry in
 `.github/codeql/codeql-config.yml`, which excludes the query for every file
 the analysis scans, so a new route anywhere raises no alert and ADR-219's
-edge rule is the control for it. No other query filter, path exclusion,
-rule-ignore or dismissal exists or is admitted. The owner's 2026-09-08 word
-also asked for comments in the code recognising the defence-in-depth option:
+edge rule is the control for it. No other query or finding class is
+excluded, filtered or dismissed, and none is admitted. The analysers' path
+exclusions are scope rules, not finding-class exceptions: the studio-source
+preservation tier (§2026-07-19 amendment, ADR-213) and the duplication
+globs under §Expansion discipline. The owner's 2026-09-08 word also asked
+for comments in the code recognising the defence-in-depth option:
 at this amendment's date the route comments (`auth-routes.ts`,
 `oauth-proxy-routes.ts`, `bootstrap-helpers.ts`) name the edge control and
 cite ADR-219 but do not yet recognise it (the `code-scanning-alerts-to-zero`
@@ -719,9 +723,10 @@ say what the analyser sees and which change clears it, and the next analysis
 closes the finding. The absence of a file-based ignore is not a gap to be
 filled by a server-side mark — since the 2026-09-08 ruling there is no mark
 to make, for S5443 / S5332 / S1313 in test fixtures as for every other
-class. The one per-site record the policy admits, the excepted rate-limiting
-class, lives in the analyser's own record exactly because no file can carry
-it without silencing the rule beyond its sites.
+class. The one exception, the rate-limiting query, is no per-site record
+either: it is the tracked `query-filters` entry in
+`.github/codeql/codeql-config.yml`, which knowingly silences that query for
+every route (§One-Outcome Rule).
 
 ### Expansion discipline (`.sonarcloud.properties`)
 
@@ -823,8 +828,9 @@ Delta from prior: the exception's mechanism is the tracked exclusion, and
 the §One-Outcome Rule text and Disposition Workflow step 1 are amended to
 it. The cost the worked example named is accepted knowingly: the query is
 silenced for every route to come, and ADR-219's edge rule is the control
-for them. The scope does not widen: no other query, path or finding class
-is excluded or dismissed.
+for them. The scope does not widen: no other query or finding class is
+excluded or dismissed, and the path scope rules (the studio-source tier of
+the 2026-07-19 amendment, the duplication globs) are unchanged by this one.
 
 ## Cross-references
 

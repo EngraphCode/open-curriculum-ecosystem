@@ -144,12 +144,14 @@ into the permanent record):
    Tripwire: a conflict beyond trivial union-append on `.agent`
    continuity/state/memory files STOPS the merge and routes to the Director —
    resolving it solo is how approved versions get silently reverted.
-2. **Tree and gates**: working tree clean. Outside the ChatGPT Work cloud
-   profile a successful push already ran the full pre-push gate suite, so a
-   clean push IS the local-green proof — do not re-run gates just to
-   re-confirm it. A Work cloud push runs no local gate (`HUSKY=0`), so it
-   proves nothing local, and that profile's routing directive names the
-   static checks it reports instead. The identity route for a push is
+2. **Tree and gates**: working tree clean. A push whose pre-push hook ran has
+   already run the full gate suite, so a clean push IS the local-green proof —
+   do not re-run gates just to re-confirm it. A push made with `HUSKY=0` runs
+   no local gate and proves nothing local: the ChatGPT Work cloud profile
+   pushes that way (its routing directive names the static checks it reports
+   instead), and so do Claude cloud sessions by the owner's 2026-08-31 ruling
+   (`.agent/claude-harness-integrations/cloud-environment.md`, which relies on
+   CI as the gate and names the in-session validation it keeps). The identity route for a push is
    `bot-identity-on-third-party-systems`, which evaluates the ChatGPT Work
    cloud profile first: a detected Work cloud session pushes as
    [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
