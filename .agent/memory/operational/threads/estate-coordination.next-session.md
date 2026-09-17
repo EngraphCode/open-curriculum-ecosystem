@@ -3593,7 +3593,8 @@ record, the deep retrospective over five napkin windows with its four proposals,
 correction recorded, and the start-right profile order, session-handoff's pending-checks paragraph
 and the merge-door decision note trued at review.
 
-Review: three rounds and fifteen findings, every one true.
+Review: three rounds and twelve findings, every one true (four a round; the fold commit's message
+and its comms event say fifteen, #148's count, in error).
 
 - Round one (Copilot two threads, Codex two): cured at `00fe8819e`. The findings were the fold's
   missing prose-class intake for its sketch plan node (cured in the description), start-right's
@@ -3631,7 +3632,8 @@ session will continue the dedicated consolidation session"*.
 - The branch stamp is 2026-09-16 and the UTC date turned at 00:00Z while the owner's question
   waited (the clock read 12:28Z at this wrap), so the branch is DUE.
 - Claims: the curator claim `c16450da` closes with this wrap; the commit-window claims are closed;
-  the queue is empty.
+  the commit queue holds only this seat's abandoned intent from the refused first wrap commit,
+  lapsing at its TTL.
 - Worktrees: the primary only.
 
 **Re-arm recipe: nothing to re-arm.** The two PR watches ended (one expired, one ended on MERGED),
@@ -3645,10 +3647,12 @@ dedicated consolidation session, IN PROGRESS", with its owner answers of 2026-09
 
 1. Fold #152, the DUE branch.
 2. The CodeQL re-truing (owner: "a permanent exclusion is allowed, but ONLY for that one issue").
-3. Home the Practice Box offers, then clear the box.
+3. Home what the Practice Box bundle still carries, then clear the box: the four design-core
+   offers (items 1–4), the castr-bound items 5 and 9, and the Core-exchange evidence of items 6
+   and 8, as its 2026-08-07 disposition section records.
 4. The directive pass below 30 %.
 5. The Core pass.
 6. The remaining pickups from §"2026-09-16 ~15:0xZ — COMPACTION BOUNDARY", items 3 to 5: slice 1's
    other half, the owed PRs and the seven 1.181.3 defects, TypeScript strictness.
 
-**Metaloss.** Passes and findings are in the napkin's 2026-09-16 night block.
+**Metaloss.** Passes and findings are in the napkin's 2026-09-17 ~12:3xZ block.

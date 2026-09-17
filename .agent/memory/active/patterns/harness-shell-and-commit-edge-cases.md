@@ -104,8 +104,8 @@ barrier:
   command to run with `!` at once instead of retrying; a leading space before
   the `!` sends the line as chat text and runs nothing.
 - **git's file-system monitor prints `error: could not read IPC response`** on
-  `git grep`, `git fetch`, `git worktree remove` and inside commit hooks while
-  the command completes normally (2026-09-16). `git -c core.fsmonitor=false`
+  `git fetch` and `git worktree remove`, among others, while the command
+  completes normally (2026-09-16). `git -c core.fsmonitor=false`
   silences it for a read.
 
 ## See also (homed elsewhere, not duplicated)

@@ -532,7 +532,7 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 - **Every PR-state read STARTS from the compound read — the review-round
   state machine's item 1, below — in ONE call.** This is a floor, not a
-  ceiling: the Phase 3 harvest and the pr-watch poll are consumers and
+  ceiling: the Phase 3 harvest and the compound watch loop are consumers and
   refinements of the same compound state — what is forbidden is reading any
   SINGLE field in isolation to answer a question, however narrow the
   prompting signal (owner correction, ~50th instance of the class, PR #329,
@@ -572,21 +572,23 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
-- **Know the watcher's designed hole: it also ENDS on ALL-GREEN.** Comments
-  post asynchronously up to ~10 minutes after a push, so an all-green exit
-  opens an unguarded window exactly when a bot round may still be composing.
-  **The mandated shape is a SUPERVISED watch**: a loop that re-arms its watch
-  on EVERY exit and terminates ONLY on MERGED/CLOSED, recomputing the
-  compound state at each re-arm (proven live end-to-end on PR #330,
-  2026-07-08: the watch rode the full arc to MERGED and self-terminated on
-  the recompute). MERGED/CLOSED is the only terminal claim — the only state
-  no late comment can un-green. Two refinements to the re-arm loop, both
-  worked instances: (a) **the loop SPINS when the PR is all-green but the
-  merge waits on an authorisation gate** — pr-watch's all-green exit fires
-  instantly on every re-arm and the cycle floods the notification surface
-  until the platform kills the monitor (2026-07-15). On an all-green exit
-  with the PR still OPEN, swap to a slow compound poll (~120s, one GraphQL
-  compound read per tick, emit only on deviation or terminal state).
+- **Know the designed hole of any watch that ends before MERGED/CLOSED.**
+  pr-watch ends on ALL-GREEN and `gh pr checks --watch` ends when the checks
+  complete, but comments post asynchronously up to ~10 minutes after a push,
+  so such an exit opens an unguarded window exactly when a bot round may still
+  be composing. **The mandated shape is a SUPERVISED watch**: one that
+  terminates ONLY on MERGED/CLOSED — the compound loop above does so by
+  construction; the earlier shape re-armed a shorter watch on EVERY exit and
+  recomputed the compound state at each re-arm (proven live end-to-end on PR
+  #330, 2026-07-08: the watch rode the full arc to MERGED and self-terminated
+  on the recompute). MERGED/CLOSED is the only terminal claim — the only state
+  no late comment can un-green. Two worked instances shaped the compound loop:
+  (a) **a re-arm loop SPINS when the PR is all-green but the merge waits on an
+  authorisation gate** — pr-watch's all-green exit fired instantly on every
+  re-arm and the cycle flooded the notification surface until the platform
+  killed the monitor (2026-07-15); the cure was a slow compound poll that
+  emits only on change or terminal state, the shape the watch above takes
+  from the start.
   (b) **The watch must emit on every state that means "stuck", not only
   failure and success**: an auto-merge/queue entry stalled at BEHIND or
   ejected from a merge group looks identical to "still waiting" unless the
@@ -1031,8 +1033,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    reviews the FIRST push and any tip the bot explicitly requests it on
    (below); the Codex connector's own text lists its triggers as open,
    ready-for-review and an `@codex review` comment — a push is not among
-   them, and #147 and #149 (2026-09-15/16) drew no review from a push,
-   though rounds on #105, #106, #108 and #110 had arrived after pushes — so
+   them, and #147's integration head (pushed 2026-09-15 ~15:3xZ) drew no
+   review in the fourteen minutes before an `@codex review` comment, though
+   rounds on #105, #106, #108 and #110 had arrived after pushes — so
    a seat that needs Codex on a new tip requests it with an `@codex review`
    comment on that tip rather than waiting on a push; while its account
    has no credit it posts "Codex usage limits have been reached for code reviews" on
@@ -1073,8 +1076,10 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    owner named it at 08:3xZ). A fresh pull request, where one is opened
    for any reason, needs a NEW branch name because the platform refuses a
    second open pull request on a branch that already has one (`gh pr
-   create` on such a branch prints the EXISTING pull request's address and
-   no error, so read the number it returns before treating it as new), and closes
+   create` on such a branch exits non-zero with "a pull request for branch …
+   already exists" and the EXISTING pull request's address inside that error
+   text, gh 2.97.0; a script that keeps the output and drops the exit status
+   reads that address as a new pull request), and closes
    its predecessor with a pointer once it is open. The ruling's grounds,
    owner verbatim: "policy on PR reviews is that a codex or copilot or
    external claude review is desirable, and more vendors is better because

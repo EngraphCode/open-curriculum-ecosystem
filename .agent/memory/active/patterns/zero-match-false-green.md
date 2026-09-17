@@ -56,14 +56,15 @@ never a pass — a gate over nothing never passes.
 Further instances, 2026-09-10 to 2026-09-16, the same generator in other
 instruments: `prettier --check` over an ignored path printed "All matched files
 use Prettier code style!" while matching zero files (`--file-info` returns
-`ignored: true` and discriminates); BSD `xargs` rejected `-a` silently and a sweep
+`ignored: true` and discriminates); BSD `xargs` has no `-a` and refuses it on
+stderr with exit 1, but the sweep composed around it read neither, so a sweep
 over nothing read clean; a shell ate four code spans from a comms body and the
 send reported success. The verdict-channel form is the same generator one level
 up: an instrument that watches only the channels failures arrive on reads a
 positive result as silence. The merge door read review objects only, so a
 vendor's explicit zero-findings completion comment read as "no review", and a
 watcher with no positive liveness line was read as "still waiting" for ten
-minutes after the checks passed. The cure there is a positive-evidence channel
+minutes while the checks moved from none to nineteen passing (frictions F-164). The cure there is a positive-evidence channel
 for every leg, and a verdict that names whether it concluded from PRESENCE or
 from ABSENCE (the `landing-instruments-read-the-evidence` node carries the
 door's form).

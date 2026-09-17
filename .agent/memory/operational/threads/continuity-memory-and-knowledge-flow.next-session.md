@@ -118,14 +118,15 @@ empty pending graduations and empty buffers."
   locators proposed citations, and the seat verified them before disposition. Most are
   duplicates of live homes or rejected as thin; the graduations are below.
 
-**Graduations, by home class** (one PR per class; directive edits wait for a context below 30 %).
+**Graduations, by home class** (directive edits wait for a context below 30 %).
 
 - *pr-lifecycle*:
   - TEXT CURE of line ~1005: "the Codex connector binds at creation and on later pushes" is
     false. Its triggers are open, ready and an `@codex review` comment; request by comment on
     the verdict tip.
-  - TEXT CURE of the Phase 5 `pr-watch --watch` prescription (F-164): use a one-shot
-    `agent-tools pr state <n> --expect <login>` or a background `gh pr checks <n> --watch`.
+  - TEXT CURE of the Phase 5 `pr-watch --watch` prescription (F-164): a background loop under a
+    Monitor running one compound GraphQL read a tick, ending only on MERGED or CLOSED, and a
+    one-shot `agent-tools pr state <n> --expect <login>` for a single verdict.
   - TEXT CURE of the Phase 1 `git push origin refA refB refC` example: use `merge-bot push`.
   - `gh pr create` on a branch with an open PR returns that PR's URL.
   - The landing slot: a holder waiting for a per-tip leg keeps the slot and nothing lands meanwhile.
@@ -192,8 +193,8 @@ empty pending graduations and empty buffers."
   entry refusing shell edits of tracked files, is a hook-policy code lane.
 - *Recurred despite a home* (PDR-098 evidence for the action-time interrupt lane):
   - zsh does not word-split (verify-dont-trust);
-  - a bare `cd` moves residency (the harness-shell pattern), n = 4 at this seat, one of them this
-    session;
+  - a bare `cd` moves residency (the harness-shell pattern), n = 5 at this seat, two of them this
+    session, the second minutes after the recurrence row was committed;
   - "Use the proper tools only", including a chained shell call this session.
 - *Directives, after the context reset*:
   - the IO invariant: testing-strategy's six passages, PDR-091, counters as configuration echoes,
@@ -215,7 +216,11 @@ empty pending graduations and empty buffers."
 - The directive-edit override, which is not requested.
 
 **Committed as `63b544464` on `coordination/2026-09-16-a07940`**, after #150 landed as
-`a07940ac9`. Every graduation above is written except the following:
+`a07940ac9`, with three items landing other than as listed above: the recurrence-despite-home classes and
+retrospective proposal B went to the action-time interrupt plan in `8c48a6669`; the
+quality-gate-ledger buffer-tombstone row became frictions F-188; and the Claude harness
+permission-denial item went to the `harness-shell-and-commit-edge-cases` pattern, not the harness
+integration docs. Every graduation above is written except the following:
 
 - the directives and the Practice Core items;
 - the new growth-measurement pattern, moved to the directive queue as a testing-strategy
@@ -271,12 +276,16 @@ read at 2026-09-17 ~12:2xZ by `date -u`, and the time they were given was not ob
    dismissal (`41235118c`, 2026-09-10 01:18) preceded the exclusion (`bd7a3509e`, 17:17 the same
    day).
 3. *Practice Box:* "Clear it". A caveat the question did not state: the bundle's own disposition
-   section names the file as the durable carrier of items 1–4, the four design-core offers (the
-   proof ladder, the refusals list, the posture-selection procedure, the obligation family).
-   Before the file is removed, those four need a home that a future design lane reads, such as
-   a dated research note or a row on the design plan. Then the file clears with the owner's
-   word as its authority. The question's "none of its items is still owed" was this seat's
-   overstatement.
+   section (2026-08-07) names the file as the durable carrier of items 1–4, the four design-core
+   offers (the proof ladder, the refusals list, the posture-selection procedure, the obligation
+   family), and carries three more forward: items 5 and 9 to the next castr exchange window, and
+   item 6 to the next Core exchange; item 8's evidence also travels at a Core exchange. Before the
+   file is removed, each needs a home its consumer reads: the offers where a future design lane
+   reads them, such as a dated research note or a row on the design plan; the castr and Core
+   carries where the next exchange window reads them. Then the file clears with the owner's word
+   as its authority. The question's "none of its items is still owed" was this seat's
+   overstatement, and this caveat's first form named only items 1–4 (corrected at #152's
+   pre-publication pass).
 
 **The branch is DUE.** `coordination/2026-09-16-a07940` carries the stamp 2026-09-16, and the UTC
 date turned at 00:00Z on 2026-09-17, while the owner's question waited. At n = 1 the lifetime rule says to

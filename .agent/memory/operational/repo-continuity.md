@@ -363,12 +363,22 @@ next. It carries the empty re-arm recipe and the order:
 1. the consolidation — IN PROGRESS since 2026-09-16 ~20:4xZ. Its resume point is
    `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
    dedicated consolidation session, IN PROGRESS", which says what is written and what remains
-   (the directive queue, the Practice Core amendments, the napkin rotation);
+   (the CodeQL re-truing, the Practice Box homes, the directive queue, the Practice Core
+   amendments; the napkin rotation landed in `8c48a6669`);
 2. the convergence of `coordination/2026-09-15-4786ab` — LANDED as #150 (`a07940ac9`,
    2026-09-16 21:39Z); the successor is `coordination/2026-09-16-a07940`;
 3. the remaining half of slice 1;
 4. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
-   local defects from the 1.181.3 sync;
+   local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the
+   carried-code findings of #99 (1.179.0, three threads, no file of their own) and #127 (1.181.1,
+   `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md`) under the
+   peer-fork model, and add the true ones to the list; the cross-fork skill records that neither
+   set has been re-read. Second, the names that still carry the withdrawn model: the
+   `upstream-sync/` report directory and the `automation/upstream-carrier-*` branch prefix. The
+   skill now defines "upstream" only as the Oak fork in its role as a sync source, and the 1.181.3
+   list's header records that renaming is a separate change, not yet made. This seat's verdict is
+   to rename both in one small lane, with a link sweep, because a name that teaches a withdrawn
+   authority misleads every seat that reads it;
 5. scheduled maintenance: TypeScript strictness to the owner's target set, after the
    jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
    Lustre; its full substance is in the thread record's COMPACTION BOUNDARY item 5.

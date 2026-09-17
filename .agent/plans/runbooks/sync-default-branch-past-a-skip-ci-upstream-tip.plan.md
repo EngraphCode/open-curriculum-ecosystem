@@ -79,7 +79,7 @@ and no seat re-derives the recipe at the wall.
    branch.
 
 Amendment (2026-09-03): once one sync has landed, the default branch carries that sync's
-empty and merge commits, which upstream never sees, so the NEXT sync branch cut at the
+empty and merge commits, which the Oak fork does not carry until the merge-back, so the NEXT sync branch cut at the
 upstream tip reads BEHIND under the up-to-date requirement and cannot merge. The cure runs
 AFTER step 3, because the host's update-branch acts on an open pull request: open the pull
 request, update its branch server-side as the bot (`gh pr update-branch --repo

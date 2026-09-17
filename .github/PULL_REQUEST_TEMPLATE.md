@@ -40,8 +40,9 @@ priced on the standard its artefact class carries).
 On a prose- or records-class changeset, and on a mixed one whose prose findings PDR-140
 governs, also declare the intake: the artefact class, its next verification point, the
 worthiness-bar reading that follows, and the settlement-push budget.
-Write the budget as a digit after the dash (`budget — 2`): the review-cost gate reads only a
-digit there, so a worded number ("three") silently reads as the default of 2.
+Write the budget as a digit after the intake line's dash: the review-cost gate reads only a
+digit there, so a worded number ("three") silently reads as the default of 2. It takes the
+first budget line in the body, comments included, so remove this comment block.
 -->
 
 - In scope:

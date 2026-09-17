@@ -50,7 +50,8 @@ Deference contamination is anchor propagation one level up.
   opinion asked as "may weaker evidence settle a merge gate?" returns a
   well-reasoned answer to that question, and two agents in one frame reinforce
   each other while it feels like diligence (2026-09-16; the owner's reframe,
-  "no findings IS a result", came from outside the frame). State the frame as
+  "No findings means no problems, that IS a result", came from outside the
+  frame). State the frame as
   a question beside the question ("am I asking about evidence strength, or
   about what a result is?"), because a peer cannot supply a position the
   asking has already excluded.

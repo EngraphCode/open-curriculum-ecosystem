@@ -584,7 +584,9 @@ archive file.
 **Proposals, as the consolidation dispositioned them.**
 
 - Proposal 1: two of the three texts were cured in `63b544464` (pr-lifecycle's watch
-  prescription, with its false Codex-push claim; the cross-fork routing clause, with the sync
+  prescription, with its false Codex-push claim — replaced by a compound GraphQL watch loop
+  that ends only on MERGED or CLOSED, not by the `gh pr checks --watch` form proposed above,
+  which the skill records as sharing the exit-at-completion hole; the cross-fork routing clause, with the sync
   runbook, the MCP-487 plan line and the 1.181.1 draft's header). The IO admissions in
   `testing-strategy.md` are the first entry of the directive pass, which the
   directive-file context budget holds for a fresh context.

@@ -23,9 +23,11 @@ description: >-
 
 ## Why this exists
 
-This line is a fork that syncs from its upstream by merge, forever. Each sync
-leaves a merge commit upstream never sees, so the fork's tree is upstream's
-tree plus a deliberate, enumerated, regenerable diff — and the check that it
+This line is a fork that syncs from its upstream by merge until it merges back.
+Each sync leaves a merge commit the Oak fork does not carry until the merge-back
+fast-forwards it, so the fork's tree is upstream's tree plus a deliberate,
+enumerated diff (the regenerable fork diffs and the local cures of carried
+code) — and the check that it
 still is so is a tree diff, never an ancestry test. Git proves that the text of
 two histories combines. It has no conception of meaning, and an integration
 changes meaning in four places git cannot see:
@@ -321,8 +323,9 @@ this fork too, but not in the carrier's rounds: each is recorded, with its
 file and line, on a local work list and cured in its own lane, and the thread's
 disposition names that list. The carrier's cure-worthy count is therefore the
 sync's own findings plus the carried-code findings that are true, never zero by
-construction. Three carriers were dispositioned under the withdrawn upstream
-model as routed away, cure-worthy 0 — #99 (1.179.0), #127 (1.181.1) and #147
+construction. Three carriers routed every carried-code finding away under the
+withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
+(1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list
 `.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`,
 and the 1.179.0 and 1.181.1 sets have not been re-read under the peer-fork
@@ -429,7 +432,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
   and the pull request reads pending forever.
 - Trusting GitHub's dirty verdict over a clean local merge-tree, or the reverse
   without saying which was read.
-- Curing an upstream finding on the fork, diverging the tree at the next sync.
+- Routing a finding on carried code to the other fork instead of curing it
+  here in its own lane, or curing it inside the carrier's rounds.
 - Regenerating one page by hand because "only the excerpt changed".
 - Merging a memory file on the conflict count.
 - Plans and reports left asserting the state before the sync — the class this

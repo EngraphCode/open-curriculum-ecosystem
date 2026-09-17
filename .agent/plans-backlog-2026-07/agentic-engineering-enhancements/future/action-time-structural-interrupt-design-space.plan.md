@@ -202,9 +202,10 @@ classes whose homes held and did not fire:
 
 - **A bare `cd` moves the session's residency.** Home: the
   `harness-shell-and-commit-edge-cases` pattern (parallel calls share one working
-  directory). One seat broke it four times across 2026-09-14 → 09-16, once four
-  hours after writing its own cure ("a shell call never runs a bare `cd`"), and
-  again during the consolidation that routed this row.
+  directory). One seat broke it five times across 2026-09-14 → 09-16: three times
+  before the consolidation that routed this row, once of them four hours after
+  writing its own cure ("a shell call never runs a bare `cd`"), and twice during
+  that consolidation, the second minutes after this row was committed.
 - **"Use the proper tools only"** (owner, 2026-09-16) — repository file edits
   through the file-editing tools, never sed, heredocs or node scripts. Corrected by
   the owner on 2026-09-02, 09-06 and 09-16, and broken twice more by the corrected

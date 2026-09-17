@@ -3628,8 +3628,11 @@ commit SHA and the closing plan reference.
   `pnpm install --ignore-scripts` friction above already held; the collision
   was noticed on 2026-07-30 and left. Renumbered to the next free id at the
   2026-09-16 dedicated consolidation. Dated records that cite "F-150" for the
-  turbo-lint cache (the 2026-07-31 corpus data, archived napkins) mean this
-  entry.
+  turbo-lint cache (the 2026-07-31 corpus data under
+  `.agent/reports/agentic-engineering/comms-corpus-knowledge-transfer/data/`)
+  mean this entry; the 2026-07-23 napkin's F-150 is the `--ignore-scripts`
+  entry, which keeps the number, and the 2026-07-30 records cite the collision
+  itself.
 - **Source**: Cygnus weaves Vastness (41a8c5), MCP-151 majors sweep 2026-07-25,
   bumping `eslint-plugin-unicorn` 70 → 72 (PR #550).
 - **Observed**: after the bump, `pnpm exec turbo run lint` reported
@@ -3940,10 +3943,10 @@ commit SHA and the closing plan reference.
   read as "still waiting" until a blocking wait timed out and a one-shot
   `pr-watch 149` showed 19 passed, 1 pending, 0 failed. Replaced by a
   background `gh pr checks 149 --watch --interval 60`, which ends with the
-  checks and returns their exit code. The pr-lifecycle SKILL still prescribes
-  the `--watch` form as the supervised watch, so a seat that follows doctrine
-  meets this friction by design; the doctrine and the tool want correcting
-  together.
+  checks and returns their exit code. The pr-lifecycle SKILL prescribed the
+  `--watch` form as the supervised watch until the 2026-09-16 consolidation
+  (`63b544464`) replaced it with a compound GraphQL watch loop that ends only
+  on MERGED or CLOSED; the tool still wants correcting.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -4337,7 +4340,13 @@ commit SHA and the closing plan reference.
   the validator's sources.
 - **Route**: one small source lane, TDD per defect, reviewed by code-expert;
   it was routed on 2026-09-12 as "a small source lane after #136/#138" and no
-  seat took it.
+  seat took it. The same lane carries two more uncured rows of the transplant
+  findings register (estate-coordination thread record, §"2026-09-13 10:0xZ"),
+  both still present on 2026-09-17: T13, the bare `readFile` of
+  `docs/strategy/README.md` in `validate-plan-corpus.ts` (ENOENT instead of the
+  fail-closed message), and T21, the env-file line appended on every
+  SessionStart with no presence check (`session-identity-hook.ts` plans it,
+  `.claude/hooks/practice-session-identity.mjs` appends it).
 
 ### F-188 — no check refuses a drain tombstone left in a drainable buffer
 
@@ -4351,8 +4360,12 @@ commit SHA and the closing plan reference.
   home.
 - **Expected**: a drained buffer carries its header prose and nothing else,
   and a check says so at commit time rather than a reviewer at round three.
-- **Route**: the practice-fitness validator already parses the three
-  drainable registers (`agent-tools/src/practice-fitness/item-count.ts`); a
-  refusal of a drain-comment shape there is the candidate cure. Falsifier: if
+- **Route**: the practice-fitness validator is the candidate home, keyed on
+  the `fitness_content_role: drainable-buffer` designation the four live
+  buffers carry (`napkin.md`, `distilled.md`, `open-questions.md`,
+  `pending-graduations.md`) — not `item-count.ts`, which parses only the
+  concept-counted register (`fitness_item_count: required`, today
+  `pending-graduations.md` alone) and so would miss the `distilled.md`
+  instance; a refusal of a drain-comment shape there is the candidate cure. Falsifier: if
   no such comment is written in the three months after the five are removed,
   the check is dead weight.

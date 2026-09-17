@@ -35,12 +35,13 @@ unchanged by the union that appended the Oak-line blocks after them.
 Processing before the archive, by hand at one seat: the window read whole, and every
 behaviour-changing entry checked against its home. Four read-only locators proposed citations for
 about 150 items from the napkin, the comms stream and the experience letters; each citation was
-read at its line before any disposition. The homes landed in `SHA:63b544464`: three governing
+read at its line before any disposition. The homes landed in `SHA:63b544464` (three governing
 texts cured, graduations into rules, skills, patterns, executive memory and docs, the registers
-decided, and three recurrence-despite-home classes routed to the action-time interrupt plan as
-evidence. What the directive-file context budget holds back is registered in
-`pending-graduations.md` (the IO invariant, the directive entries, three Practice Core texts) for
-a fresh context; the rest was graduated, confirmed duplicate, or rejected as thin. The Oak-line
+decided) and in this rotation's commit (three recurrence-despite-home classes routed to the
+action-time interrupt plan as evidence). What waits for a fresh context is registered in
+`pending-graduations.md`: the IO invariant and the other directive entries, held by the
+directive-file context budget, and three Practice Core texts, held for the Core pass (PDR-052
+does not count PDR work as directive work); the rest was graduated, confirmed duplicate, or rejected as thin. The Oak-line
 Terraform lessons of 2026-09-03 have no home on this fork, which carries no Terraform; the
 archive keeps them. Every block on another branch absent from this file and from the archive
 belongs to the next window: a fold runs the semantic-merge skill's archive-coverage check against
@@ -56,8 +57,8 @@ still unhomed, as at the 2026-09-10 rotation.
   fast-lane graduations landed without PDR-130's one-sentence prediction and falsifier. Of this
   pass's graduations in `63b544464`, one carries a prediction and falsifier (pr-lifecycle's claim
   table and verification pass) and the rest do not. Evidence for the PDR-130 slow-lane row's
-  review on 2026-10-01, whose falsifier is exactly this: graduations routinely without
-  prediction lines.
+  review on 2026-10-01, whose prediction (at least three fast-lane graduations carrying
+  prediction lines) this pass does not meet.
 - **Writing the slow-lane row narrated ahead.** The row for the retrospective's proposal 2 first
   said the three governing texts "are cured fast-lane at the same consolidation"; two were, and
   the IO admissions are still queued for the directive pass. Caught by rereading the row while
@@ -89,14 +90,17 @@ still unhomed, as at the 2026-09-10 rotation.
 ## Zephyr guards Leeward (281e44) — 2026-09-17 ~12:3xZ, the compaction wrap of the consolidation's first context
 
 - **Three wrap-time instances of the technical root, all caught by reading a source.**
-  - A card to the owner claimed the Practice Box bundle had "none of its items still owed". The
-    bundle's own disposition section names the file as the durable carrier of four design-core
-    offers. The owner answered "Clear it" on that premise, and the resume point now carries the
+  - A card to the owner claimed the Practice Box bundle had "none of its items is still owed".
+    The bundle's own disposition section names the file as the durable carrier of four
+    design-core offers, and carries items 5, 6 and 9 forward to exchange windows (the resume
+    point's first caveat named only the offers; #152's pre-publication pass caught it). The owner
+    answered "Clear it" on that premise, and the resume point now carries the
     caveat. This is the first false premise of the session to reach the owner.
   - Three records were stamped "~00:1xZ" from the assumption that the owner's answer came
     straight back. The clock read 12:28Z. A workflow run list showing runs at 05:06Z and 10:47Z
-    exposed it minutes after `records-are-technical-not-emotional` gained its clock clause in
-    `63b544464`. Cured by reading `date -u`.
+    exposed it. `records-are-technical-not-emotional` had gained its clock clause in `63b544464`
+    at 2026-09-16 21:43Z: under an hour of the seat's working time earlier, and about fifteen
+    hours of wall-clock time. Cured by reading `date -u`.
   - A files list named `.github/pull_request_template.md`. The tracked path is
     `.github/PULL_REQUEST_TEMPLATE.md`, and the case-insensitive filesystem edited the file under
     either spelling while `git add` staged nothing. The commit queue's staged-set check refused
@@ -110,7 +114,9 @@ still unhomed, as at the 2026-09-10 rotation.
   open: the due entries were visibly directive-bound from the first read of the register, and
   the two-context shape could have been declared then rather than discovered at the end.
 - **Metacognition (generative): what the pass was for.** Its measurable value is three governing
-  texts cured, the ones the retrospective showed re-teaching corrected errors. The
+  texts cured that re-taught corrected errors: two of the retrospective's three (the cross-fork
+  routing clause, pr-lifecycle's watch prescription) and the commit skill's gates line; the
+  retrospective's third, the IO admissions, waits for the directive pass. The
   twenty-odd graduations are the smaller part, and the retrospective's own warning applies to
   them: written lessons do not fire at the act. Two classes recurred inside this very pass after
   their lessons were written: the `cd`, twice, and a time stamped from memory.
@@ -160,3 +166,49 @@ still unhomed, as at the 2026-09-10 rotation.
     written.
   - Fixed point: a third pass would only re-find the three wrap-time instances above. The
     recursion closes here.
+
+## Zephyr guards Leeward (281e44) — 2026-09-17 afternoon, the consolidation's second context
+
+- **The first run of pr-lifecycle's pre-publication claim pass, on the fold #152, before any
+  reviewer saw it.** Four context-free general-purpose verifiers, one per slice of the 34
+  non-archive files (skills and docs; rules, patterns, plans and reports; the operational
+  registers; the thread records, napkin and letter), each told to extract checkable claims from
+  added lines and verify them against files, git, the agent-tools source and read-only GitHub.
+  About 415 claims checked; 31 distinct findings raised, every one verified at its source by the
+  seat before a cure, all 31 true (one only in part: the harness pattern's leading-space `!` line
+  was this seat's first-hand observation, and only its IPC command list outran its source). The
+  seat found one more itself, the boundary block's "the queue is empty" beside an abandoned
+  intent. The archive (2,200 lines) was proven by blob id instead of read.
+- **What the findings were.** Counts and times (fifteen findings where there were twelve, n = 4
+  where it is five, "minutes" across fifteen wall-clock hours, a size of eight edits where the
+  list holds about twenty). Pointers and attribution (a slice number, a metaloss block, which
+  commit carried which home, a "one PR per class" beside one commit, PDR work under the directive
+  budget). Tool behaviour (`gh pr create` exits non-zero on an existing pull request, BSD `xargs`
+  refuses `-a` loudly, `item-count.ts` reads one register, #149's push was not evidence).
+  Consistency with surviving text: the class the cured-text pass creates, where a new clause
+  lands beside an old sentence teaching the opposite (the cross-fork failure shape, pr-watch's
+  ALL-GREEN hole bullet, the template's example matching the budget regex, a record still
+  naming `gh pr checks --watch`). Quotations compressed inside quotation marks (the owner's "No
+  findings means no problems, that IS a result"; a card's "is still owed"). Incomplete scope
+  (the CodeQL entry's site list, F-187's lane, the Practice Box carries, a naming decision and a
+  re-read dropped when an entry drained).
+- **For the claim-table prediction** (pr-lifecycle §Phase 2: claim-class findings in round one
+  become rare on changesets that ran the pass; falsifier: three or more rounds of claim-class
+  findings, or the pass costing more than the rounds it replaced). The pass cost four agents of
+  about 220k–300k tokens each and about ten minutes of wall-clock; #150 took three rounds for
+  twelve findings. #152's rounds are the reading.
+- **The consistency class is worth a name before it is a rule.** A text cure edits the sentence
+  the owner corrected; the file's other sentences that teach the old model survive, because the
+  cure was located by the correction, not by the model. Two of four slices found one. The cure
+  step wants a sweep of the whole file for the withdrawn model, not the cited line. n = 1 pass;
+  an observation. The seat's own sweep for the corrected claims after curing found two more
+  (the sync runbook's "which upstream never sees" and F-164's "still prescribes").
+- **The time-from-memory slip, a third time, minutes after writing the second into this file.**
+  Closing a refused commit's window claim, the seat passed `--now 2026-09-17T14:52:00Z` typed
+  from a guess; `date -u` read 14:16Z. The stamp sits in the claims archive 36 minutes in the
+  future. The commit ceremony script reads `date -u` for its own close; the hand-typed close did
+  not. Recurrence evidence for the action-time interrupt plan: a `--now` flag is an action-time
+  point where a hand-typed time can be refused.
+- **The MD018 trap, known and recorded, bit a re-wrap.** A cure that re-wrapped a paragraph left
+  a line starting `#127`; the first fix moved the wrong word and the line still started with the
+  number. Caught by grepping `^#[0-9]` before re-running, not by the hook a second time.
