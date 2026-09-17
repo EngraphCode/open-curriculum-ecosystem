@@ -359,8 +359,9 @@ dedicated consolidation session" first: it says what is written, what remains an
 The board is `threads/estate-coordination.next-session.md` §"2026-09-17 15:09Z — the 2026-09-16
 branch folded as #152".
 
-1. the consolidation — IN PROGRESS on `coordination/2026-09-17-cd847a`, cut from #152's merge
-   (`cd847a2b3`, 2026-09-17 15:09Z);
+1. the consolidation — IN PROGRESS on `coordination/2026-09-17-cd847a` (draft #153), cut from
+   #152's merge (`cd847a2b3`, 2026-09-17 15:09Z). By the owner's word, #153's fold gates Dynamo
+   turns Temper's Oak integration lane, which merges nothing until it lands;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the

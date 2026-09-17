@@ -35,3 +35,39 @@ Comms: every non-heartbeat event through 2026-09-16T20:45Z was read in the first
 then the stream holds only this seat's own events. The watermark is not advanced and no archive
 move has run, because the substantive-event mover is still unhomed, as at the 2026-09-10 and
 2026-09-16 rotations.
+
+## Zephyr guards Leeward (281e44) — 2026-09-17 ~15:4xZ, the wrap of the consolidation's second context
+
+- **Metacognition (retrospective).** The context ran fold-first by the lifetime rule, then drained
+  what the fold freed. Its largest yield came from checking claims before writing them, not from
+  the writing: the pre-publication pass (31), the seat's own check of every verifier finding, the
+  PDR-008 reading, the route-comment grep, and reading `continuity-practice.md` before recording
+  the owner's "missing rotation definitions", which turned a bare gap into a precise one (a
+  disposition that forbade archiving and had no trigger). The recurring slip of the context was
+  time typed from memory, twice, each caught only by reading the clock after the write.
+- **Metacognition (generative): what changed about the work.** The owner moved the target from
+  "empty the register" to "buffers to EMPTY, then memory files to an optimised soft", and then
+  decided the lifecycle question the seat put ("Graduate, then archive"). The lesson for a
+  consolidation is that the order of work follows which buffers the owner means by empty, and
+  that a decision gating a bulk act is asked before the act, not after it.
+- **Free play (material: this context; one time-box).** Kept, as associations: a claim pass and a
+  napkin rotation are the same act at two scales (read everything, move it only once each piece
+  has a home, prove nothing was lost); and the fold that gates another seat's landing is a slot
+  held by a record, not a PR. Discarded, visibly: "the `--now` flag and the directive budget are
+  one instrument gap" — both are readings the seat lacks, but one is refusable by the CLI and the
+  other is a platform question; the likeness is thin.
+- **Concept exploration: the four-part memory-surface lifecycle.** Observations: the napkin has a
+  role, a disposition, a trigger and a proof; continuity surfaces had three of four; the largest
+  records had none declared. Problem frame: a surface without a trigger grows however good its
+  disposition. Proposal: the lifecycle as a candidate concept node beside the owner's decision in
+  the register, so the directive pass writes the four parts, not only the disposition. Warrant:
+  this context's evidence. Falsifier: after the directive pass lands a trigger, the large records
+  still grow past their thresholds without the step firing.
+- **Loss scan and metaloss.** Compressed reasoning: the lifecycle evidence lives in the register
+  entry; the PDR-008 reading in F-189; the context-budget decision in F-191 and the resume point.
+  Promises: the directive pass, #153's fold for Dynamo turns Temper's lane, and the archive work
+  are in the resume point with their order. Attribution: the Oak integration lane's facts are
+  Dynamo turns Temper's team-start event, read first-hand, not re-verified. Blind spot: n = 2 from
+  15:31Z, and this seat ran no comms watcher; the claims registry and the stream were read at the
+  wrap. Fence sweep: no Oak surface written; the fork is named only on this fork. Fixed point: a
+  third pass re-finds only the two `--now` slips.

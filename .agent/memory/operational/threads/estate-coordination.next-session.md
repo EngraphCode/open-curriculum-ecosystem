@@ -3673,6 +3673,8 @@ three rounds then raised 21 findings. Settlement pushes 2 of 2 (`6d07d7f5d`, `97
 three was dispositioned without a cure and its true findings routed to the successor
 (`49b6c3ae9`). Review-cost ledger: 52.93 of 40, exhausted at the stop.
 
-Board: `engraph` at SHA:cd847a2b3. Open: #151, the automated carrier of the mirror at `487a25e`
-(not this seat's lane). The successor's draft pull request carries the consolidation's second
-half.
+Board: `engraph` at SHA:cd847a2b3. Open: #151, the automated carrier of the mirror at `487a25e`,
+and draft #153, the successor carrying the consolidation's second half. From 15:31Z the estate is
+n = 2: Dynamo turns Temper (2a4c8a, claim `35006027`) runs the owner-approved Oak integration lane
+(a fresh carrier of Oak main at 1.185.0, superseding #151, in its own worktree) and, by the
+owner's word in its team-start event `852e7764`, merges nothing until #153's fold lands.

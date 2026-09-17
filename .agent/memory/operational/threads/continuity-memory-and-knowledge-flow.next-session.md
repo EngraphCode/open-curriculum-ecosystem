@@ -116,30 +116,45 @@ amended, frictions F-189 and F-190, the fold's routed findings, consolidate-unti
 directive-shape step and the distilled lifecycle entry (`49b6c3ae9`); then the records, the
 napkin's graduations and its rotation.
 
-**Buffers.** `open-questions.md` is empty. `distilled.md` holds the owner-directed memory-lifecycle
-entry. `pending-graduations.md` holds eleven directive-bound entries. The napkin is rotated. Of the
+**Buffers.** `open-questions.md` and `distilled.md` are empty. `pending-graduations.md` holds twelve
+directive-bound entries: the eleven carried, and the owner's lifecycle decision below. The napkin
+was rotated (`2c81c5d22`) and holds only this context's wrap. Of the
 other assistants' memory, read on 2026-09-16: the Claude per-user buffer holds five strictly local
 entries, Cursor is unchanged since 2026-06-04, Gemini has none, and Codex's `MEMORY.md` OCE groups
 were read with no recorded disposition, which the next pass confirms first-hand.
 
+**Owner decision taken, 2026-09-17.** Finished history in continuity records and registers is
+graduated, then archived ("Graduate, then archive"), like the napkin: behaviour-changing entries
+graduate first, finished history moves to a dated archive proven byte-identical, live state stays,
+a named skill step triggers it, and every growing surface carries fitness coverage. Registered as
+a due entry in `pending-graduations.md`, because `continuity-practice.md` still says "never
+archive" until its directive text changes.
+
 **Owner decisions open.** (1) PDR-008 (F-189): the host renames its gate scripts, or the Core drops
-Rule 4's `check` exception. (2) The memory-surface lifecycle (`distilled.md`): an archive
-disposition for journal-shaped history, or curate-and-delete with a trigger and coverage. (3) The
-upstream-sync naming lane (repo-continuity pickup item 3), where this seat's verdict is to rename.
+Rule 4's `check` exception. (2) The upstream-sync naming lane (repo-continuity pickup item 3),
+where this seat's verdict is to rename.
+
+**A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
+the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
+in its own worktree, superseding #151. Owner's word, in its team-start event `852e7764`: that lane
+merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold lands on
+`engraph`. So the fold of #153 gates it, and #153 already carries a complete set of work.
 
 **Next, in the owner's order.**
 
-1. Memory files to an optimised soft, conserving knowledge: `repo-continuity.md`, the
-   agentic-engineering-enhancements and estate-coordination thread records, `director-handoff.md`,
-   the paused mcp-submission-drive record and `frictions-register.md`. Until decision (2), the
-   tool is `continuity-practice.md` §Disposition's runbook: read whole, verify each home first,
-   and prove losslessness with `grep -F`.
-2. The directive pass in a fresh context below 30 %, with careful analysis: the eleven entries in
-   `pending-graduations.md`, the IO invariant first.
-3. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
+1. Fold #153 at the 2026-09-18 rollover (or earlier on the owner's word), with its own
+   pre-publication claim pass, so the integration lane's slot follows; later consolidation work
+   rides the next successor. Tell Dynamo turns Temper when it lands.
+2. The directive pass in a fresh context below 30 %, with careful analysis: the twelve entries in
+   `pending-graduations.md`, the IO invariant and the lifecycle decision first among them.
+3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
+   landed: graduate, then archive, the finished history of `repo-continuity.md`, the
+   agentic-engineering-enhancements and estate-coordination thread records,
+   `director-handoff.md`, the paused mcp-submission-drive record and `frictions-register.md`.
+4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
    (`lsof`, `ps`), a configuration cure in its own lane; and the Claude per-user RESUME HEADS
    pointers, re-trued at each wrap.
-4. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
+5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
    work list, TypeScript strictness).
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the successor
