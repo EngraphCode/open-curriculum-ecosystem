@@ -3,6 +3,12 @@
   "baselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25",
   "files": [
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/app/agent-discovery-link-header.ts",
+      "semanticSha256": "672574968333ebb330092cbc84a778a424581d7973026436e656ab406d5c1e72",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/app-version-header.ts",
       "semanticSha256": "9871f2ded345a8785aabf2d70baa2368690e398c3edfae900eca5073ea2c6891",
       "itemIds": [],
@@ -96,7 +102,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/application.ts",
-      "semanticSha256": "4fa41fc4e60136f9fdc8dae6e27dece097c2c110b25369fb426806eb063bf533",
+      "semanticSha256": "a27c4a1656d579495e0f302d96c7d4a3813a6f34ca8ab5b44c1800c243c6e565",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -114,7 +120,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts",
-      "semanticSha256": "346a0daefde383606984aac0c74532752bf47fe9cc05af7fc1af6555203b3a07",
+      "semanticSha256": "ef2c82b62f2a6fbc3e8cee07350e5ce30ac4afdf0a676cd2be06c5ffabe71c96",
       "itemIds": [
         "C705",
         "C706",
@@ -592,7 +598,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts",
-      "semanticSha256": "9c3dddde4f86692f2a37c1dee77e29302bee4f8728c7134f88a6a696f2826d1e",
+      "semanticSha256": "24c3c95488ee833c38c519badc175eab7d37406fd7276b7014013eee4aa61bee",
       "itemIds": [
         "C355"
       ]

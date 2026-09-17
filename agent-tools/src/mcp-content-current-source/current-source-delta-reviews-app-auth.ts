@@ -57,8 +57,12 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // MCP-345: the AS metadata route (C707) passes SCOPES_SUPPORTED into the
   // rewrite, so the served document advertises the PRM's scopes rather than
   // the upstream list; C705, C706 and C708 are untouched.
+  // MCP-734: the two PRM route literals now read from the re-exported
+  // `PROTECTED_RESOURCE_METADATA_PREFIX` (served-origin.ts) instead of
+  // restating the path — same routes, same served documents, no content row
+  // moves.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    '346a0daefde383606984aac0c74532752bf47fe9cc05af7fc1af6555203b3a07',
+    'ef2c82b62f2a6fbc3e8cee07350e5ce30ac4afdf0a676cd2be06c5ffabe71c96',
     ['C705', 'C706', 'C707', 'C708'],
   ),
   // MCP-345: rewriteAuthServerMetadata (C408) takes the advertised scopes and
@@ -72,6 +76,17 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
     '1bac2a8ec91a09fb51dce02ec3f943bd76c9c3c4ee0097cc9bd318e8b716d2b0',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-734: the RFC 8288 `Link` header advertising the protected-resource
+  // metadata. Homed here beside `get-prm-url.ts` — this ledger's declared
+  // scope covers public-resource sets, and that module derives the same PRM
+  // address this header publishes. The only authored token is the link's
+  // `title`, naming the RFC 9728 document it points at; a response header
+  // reaches no MCP consumer in any case, since clients read JSON-RPC from
+  // `/mcp` and never parse this field.
+  'apps/oak-curriculum-mcp-streamable-http/src/app/agent-discovery-link-header.ts': excluded(
+    '672574968333ebb330092cbc84a778a424581d7973026436e656ab406d5c1e72',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-prm-url.ts': excluded(

@@ -94,12 +94,14 @@ export function resolveServedMcpUrl(inputs: ServedOriginInputs): string {
 /**
  * The well-known prefix protected-resource metadata is published beneath.
  *
- * Module-local: {@link resolveServedPrmUrl} is the only reader. It was
- * exported until 2026-08-20 for the landing page's link assertions, and that
- * suite went with the page. The published routes themselves are unaffected —
- * `auth-routes.ts` states both well-known paths as its own literals.
+ * Exported again for MCP-734: `auth-routes.ts` mounts both PRM routes from
+ * this constant, and `agent-discovery-link-header.ts` advertises the same
+ * prefix in the origin's `Link` header, so a single literal governs every
+ * reader instead of each restating the path and risking drift. It was
+ * briefly module-local between 2026-08-20 (when the landing page's link
+ * assertions — its only other reader — were removed) and this reopening.
  */
-const PROTECTED_RESOURCE_METADATA_PREFIX = '/.well-known/oauth-protected-resource';
+export const PROTECTED_RESOURCE_METADATA_PREFIX = '/.well-known/oauth-protected-resource';
 
 /**
  * Resolves the absolute URL of the served protected-resource metadata.

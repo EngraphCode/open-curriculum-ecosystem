@@ -58,10 +58,10 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '09817477965c485c539f219148228b4c63ed217b5ceabde063ca1f40c43007cf',
     IMPLEMENTATION_ONLY,
   ),
-  // Landing-page removal: the HTML-negotiation mount, the page seam, and the
-  // now-unmounted DNS-rebinding middleware (MCP-650) leave the root.
+  // Landing-page removal (MCP-650) leaves the root with no HTML route; MCP-734
+  // adds only the agent-discovery Link header mount on top of that state.
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
-    '4fa41fc4e60136f9fdc8dae6e27dece097c2c110b25369fb426806eb063bf533',
+    'a27c4a1656d579495e0f302d96c7d4a3813a6f34ca8ab5b44c1800c243c6e565',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-517: states the configured canonical origin in the forwarded headers
@@ -200,11 +200,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // strings relocated with it.
   // MCP-511: adds `resolveServedPrmUrl` and the well-known prefix, making this
   // the one home for both self-descriptions — endpoint and PRM URL. C355
-  // re-anchors on the same endpoint construction; the addition is a derived
-  // address built from constants already here, carrying no authored text.
-  // Re-attested 2026-09-10: the prefix goes module-local; no address moves.
+  // re-anchors on the same endpoint construction; a derived address, no new text.
+  // Re-attested 2026-09-10: the prefix goes module-local, then MCP-734
+  // re-exports it so auth-routes.ts shares the literal; no address moves.
   'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts': reviewed(
-    '9c3dddde4f86692f2a37c1dee77e29302bee4f8728c7134f88a6a696f2826d1e',
+    '24c3c95488ee833c38c519badc175eab7d37406fd7276b7014013eee4aa61bee',
     ['C355'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(
