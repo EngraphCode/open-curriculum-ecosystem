@@ -180,8 +180,10 @@ between machines, provided the estate stays machine-agnostic.
     `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
     The Practice reads the repository and validates it; it never
     initialises, commits or pushes it, and it refuses credential-shaped
-    lines before anything is synced. The operator's remote is a fact of the
-    profile, recorded in its own index, never in a tracked surface.
+    lines before anything is read into a session or pushed (decision 7's
+    order: the sync, then the check, then the reads; 2026-09-17 amendment).
+    The operator's remote is a fact of the profile, recorded in its own
+    index, never in a tracked surface.
 12. **The stable pointer** is the Practice index's row for the operator
     profile, which names the home-directory path, states that it may not
     exist, links the contract and names the check.
@@ -236,7 +238,10 @@ the check (a review of the host's grounding found the disagreement on
 Decision 7 now names the order: the sync where the root is a repository with
 a remote, then the check, then the reads. A root that is not a repository, or
 has no remote, has no sync step, and the check still runs before anything is
-read.
+read. Decision 11 had said the refusal comes "before anything is synced",
+which decision 14's session-open fetch made impossible to honour; it now says
+before anything is read or pushed, the same order (a fold review found the
+surviving phrase on 2026-09-17).
 
 ## Boundaries
 

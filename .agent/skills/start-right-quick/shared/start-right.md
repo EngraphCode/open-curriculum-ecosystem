@@ -581,35 +581,44 @@ first.
 
 ## Quality Gates
 
-The commit is the gate. Its pre-commit hook runs the local gates
-(validators, build, type-check, lint, unit tests) and the pull request's
-checks run the wider suites, so never run these gates before, beside or
-after a commit (owner, 2026-09-14, verbatim in the commit skill: "the commit
-triggers the gates, there is no point and a fair amount of cost running the
-gates separately as well, never, ever do that"). The list below names what
-the gates are, for reading a failure and for curing one; a cloud profile
-follows `cloud-environment-routing.md`. Some gates trigger earlier ones and
-caching prevents duplicate work: see @docs/engineering/build-system.md and
-ADR-065.
+The commit is the gate. Its pre-commit hook runs the local gates: the
+staged formatting and markdown checks, the repo validators, shell lint,
+then build, type-check, lint and unit tests, then dependency-cruiser and
+knip. The pre-push hook runs the wider local set: the whole-tree format
+and markdown checks, the sub-agent, portability, skills and repo
+validators, the schema-drift check, then codegen, build, type-check, lint,
+unit, E2E and UI tests, dependency-cruiser, knip and the encoding check.
+The pull request's checks run the rest (the widget and accessibility
+suites, CodeQL, Sonar, the Windows and browser jobs). So never run these
+gates before, beside or after a commit or push (owner, 2026-09-14, verbatim
+in the commit skill: "the commit triggers the gates, there is no point and a
+fair amount of cost running the gates separately as well, never, ever do
+that"). Running one test file while a change is red is development, not a
+gate run; the ban is on running the suites the hooks run. The list below
+names the commands, for reading a failure and for curing one: a command
+marked "cure" mutates the tree and is run only when a hook has refused and
+named it, never as a gate. A cloud profile follows
+`cloud-environment-routing.md`. Some gates trigger earlier ones and caching
+prevents duplicate work: see @docs/engineering/build-system.md and ADR-065.
 
 ```bash
-# The gates, for reference: the commit runs them; never run them separately
-pnpm sdk-codegen        # Makes changes
-pnpm build              # Makes changes
-pnpm type-check
-pnpm lint:fix           # Makes changes
-pnpm format:root        # Makes changes
-pnpm markdownlint:root  # Makes changes
-pnpm subagents:check    # After sub-agent definition changes
-pnpm portability:check  # After platform surface or hook changes
-pnpm repo-validators:check  # Workspace-owned repo validators
-pnpm test
-pnpm test:widget
-pnpm test:e2e
-pnpm test:ui
-pnpm test:a11y
-pnpm test:widget:ui
-pnpm test:widget:a11y
+# For reference: the commit and push hooks run the gates; never run them separately.
+pnpm sdk-codegen        # push hook; regenerates the SDK
+pnpm build              # both hooks
+pnpm type-check         # both hooks
+pnpm lint:fix           # cure: when the lint gate refuses
+pnpm format:root        # cure: when the format gate refuses
+pnpm markdownlint:root  # cure: when the markdown gate refuses
+pnpm subagents:check    # push hook
+pnpm portability:check  # push hook
+pnpm repo-validators:check  # both hooks
+pnpm test               # both hooks
+pnpm test:e2e           # push hook
+pnpm test:ui            # push hook
+pnpm test:widget        # pull request checks
+pnpm test:a11y          # pull request checks
+pnpm test:widget:ui     # pull request checks
+pnpm test:widget:a11y   # pull request checks
 
 # Practice health — three-zone model, ADR-144
 pnpm practice:fitness:informational  # Four-zone report (always exit 0)

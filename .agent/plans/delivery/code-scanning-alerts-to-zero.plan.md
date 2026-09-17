@@ -142,8 +142,11 @@ accepts for that query and no other.
   raw, with a test over a value carrying them; the generated output is byte-identical for
   every value the generator inlines today.
 - **The gate.** The pull-request workflow already runs both analysers as required checks;
-  this node adds the proof that a new alert of any of the eight classes blocks a merge, and
-  the reading command that shows the resting branch at zero.
+  this node adds the proof that a new alert of any of the seven analysed classes blocks a
+  merge, and the reading command that shows the resting branch at zero. The eighth class,
+  missing rate limiting, is excluded from the query by the owner's ruling, so no required
+  check can fail on a new instance of it; its control is the edge (ADR-219), and the probe
+  does not carry it.
 
 Why this produces the outcome: each class is cured at its root (the atom, the fixture, the
 regex) rather than at its symptom, so the same site cannot re-trip a sibling rule; each
@@ -160,7 +163,10 @@ the gate turns "zero" from a snapshot into an invariant.
    non-absolute executable, the cryptographic source of the random part, the trace-id width
    and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
 3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state, and the missing-rate-limiting query raises none because the tracked configuration excludes it, explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments and the `query-filters` entry; `owner-held` for the service's state — the alerts query for dismissed alerts and for open `js/missing-rate-limiting` alerts, both empty, read at closing and recorded as a dated observation.
-4. A pull request introducing one new instance of each class is blocked by a required check.
+4. A pull request introducing one new instance of each of the seven analysed classes is
+   blocked by a required check. The owner-ruled exclusion of `js/missing-rate-limiting` means
+   no required check can fail on a new instance of that class; it is not probed, and its
+   control is the edge rule ADR-219 states.
    Proof: `owner-held` — whether the hosting service blocked a probe pull request is that
    service's state: one probe per analyser, closed unmerged, its blocked check result read by
    the landing seat and recorded, dated and by number, on the lane's closing event.

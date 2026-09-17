@@ -14,7 +14,8 @@ Practice Core package.
 - PDR-141 decision 7, with a dated amendment: the order at session open is
   decision 14's sync (where the profile root is a repository with a remote),
   then the profile check, then the reads, where decision 7 had said the check
-  runs "FIRST".
+  runs "FIRST"; decision 11's "before anything is synced" now reads before
+  anything is read or pushed, the same order.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
 
