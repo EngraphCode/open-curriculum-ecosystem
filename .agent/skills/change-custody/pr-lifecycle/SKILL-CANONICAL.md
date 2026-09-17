@@ -146,11 +146,16 @@ into the permanent record):
    resolving it solo is how approved versions get silently reverted.
 2. **Tree and gates**: working tree clean; a successful push already ran the
    full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it. Every push goes through
+   re-run gates just to re-confirm it. The identity route for a push is
+   `bot-identity-on-third-party-systems`, which evaluates the ChatGPT Work
+   cloud profile first: a detected Work cloud session pushes as
+   [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
+   routes it (the configured credential, `HUSKY=0`, no pnpm and no bot
+   minting). Every other push goes through
    `pnpm agent-tools merge-bot push --branch <name>`, never a plain
-   `git push` (`bot-identity-on-third-party-systems`), and the pre-push gate
-   chain runs once per push invocation, so batch a branch's cures into one
-   push rather than paying the ~3-minute suite once per cure.
+   `git push`, and the pre-push gate chain runs once per push invocation, so
+   batch a branch's cures into one push rather than paying the ~3-minute
+   suite once per cure.
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
 4. **Scope the PR for review, not for tidiness**: an artefact that invites
@@ -558,7 +563,11 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   a Monitor that runs ONE GraphQL read of the pull request per 60-second tick
   (state, merge state, head, the check rollup counted by state, unresolved
   threads, reviews bound to the head) and prints one line only when that
-  reading changes, ending only on MERGED or CLOSED. For a single verdict,
+  reading changes, ending only on MERGED or CLOSED. No tool provides that
+  loop yet: the seat writes it, running the compound selection of the
+  review-round state machine's item 1 at a 60-second interval (not the tight
+  polling F-110 forbids), until the `ws6-pr-watch-compound-floor` item below
+  gives it a tool form. For a single verdict,
   `agent-tools pr state <n> --expect <login>` computes the front door's
   reading once and never merges. Do NOT use
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: it was

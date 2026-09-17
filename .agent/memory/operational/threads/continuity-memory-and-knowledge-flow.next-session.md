@@ -128,7 +128,8 @@ empty pending graduations and empty buffers."
     Monitor running one compound GraphQL read a tick, ending only on MERGED or CLOSED, and a
     one-shot `agent-tools pr state <n> --expect <login>` for a single verdict.
   - TEXT CURE of the Phase 1 `git push origin refA refB refC` example: use `merge-bot push`.
-  - `gh pr create` on a branch with an open PR returns that PR's URL.
+  - `gh pr create` on a branch with an open PR exits non-zero, with that PR's URL inside the
+    error text (gh 2.97.0).
   - The landing slot: a holder waiting for a per-tip leg keeps the slot and nothing lands meanwhile.
   - Claim-bearing changesets table each stated invariant against its code sites and tool
     predicates, with a context-free verification pass before publication (retrospective
@@ -178,7 +179,8 @@ empty pending graduations and empty buffers."
     - renumber the second F-150;
     - rows for the unfixed transplant defects (the session-identity hook context before the
       undefined return; `CLAUDE_CODE_SESSION_ID` as a seed; `**/reference-local/**` in the link
-      validator; `state-file-seeds.ts` citing ADR-199/PDR-094).
+      validator), filed as F-187; the fourth candidate, T03's `state-file-seeds.ts` citation of
+      ADR-199/PDR-094, was rejected at the check (below).
   - quality-gate-ledger: a buffer-tombstone validator row; remove pending-graduations' five
     drain-comment tombstones.
   - pr-tally: the pre-filled disposition-template row.
@@ -240,8 +242,9 @@ Written:
 - in `pending-graduations.md`: the five drain tombstones removed, the cross-fork entry drained,
   and the slow-lane row for retrospective proposal 2 registered.
 
-Rejected at the check: the start-right "ADR-199 / PDR-094" citation, because ADR-203:24-25
-grounds untracked-by-design in exactly those two.
+Rejected at the check: transplant row T03, the "ADR-199 / PDR-094" citation in start-right and in
+`state-file-seeds.ts`, because ADR-203:24-25 grounds untracked-by-design in exactly those two
+(PDR-094 Invariant 6 and ADR-199).
 
 **Resume recipe.**
 

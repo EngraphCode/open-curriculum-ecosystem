@@ -2736,7 +2736,7 @@ estate are one instance of a transplant, not a distribution over transplants).
 |---|---|---|---|---|---|---|
 | T01 | 09-12 13:45 | SHA:a55fd8fdd | `agent-tools/src/claude/session-identity-hook.ts:87-99` | context line "env file is set" emitted before the `CLAUDE_ENV_FILE` check | TRUE | transplant source lane |
 | T02 | 09-12 13:45 | SHA:a55fd8fdd | `collaboration-seed.ts:46-70`, `agent-identity-cli.ts:130-152` | no harness-native seed source for a Claude seat; add `CLAUDE_CODE_SESSION_ID` | sound proposal | transplant source lane, with a PDR-027 amendment |
-| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | transplant source lane |
+| T03 | 09-12 13:45 | SHA:a55fd8fdd | `state-file-seeds.ts:2`, `start-right.md:326` | "ADR-199 / PDR-094" cited for untracked state files; PDR-094 is event rotation | TRUE (owner of the term: ADR-203; PDR-127 `:39` also) | rejected at the 2026-09-16 consolidation: ADR-203:24-25 grounds untracked-by-design in PDR-094 Invariant 6 and ADR-199, the pair cited |
 | T04 | 09-12 13:45 | SHA:a55fd8fdd | `start-right.md:244-267` | "clear run for Matt" clause's removal trigger fires from nothing | TRUE, by design | the owner's, untouched |
 | T05 | 09-12 13:45 | SHA:a55fd8fdd | skill gate lists vs `package.json` | hand-copied gate lists drift; no validator for cited pnpm scripts | does not reproduce here (19 of 19 exist); drift was transplant-side | validator shape received (T09); candidate instrument, no lane |
 | T06 | 09-12 13:45 | SHA:a55fd8fdd | PDR-006, -008, -137, -139, README | Core links to host docs paths | does not reproduce; peer RETRACTED 13:51 (inventory conflation) | rejected |
@@ -2937,7 +2937,8 @@ The seven, with this seat's first read (a read, not a verdict; verify each first
 5. Transplant register: further batches from Cauldron herds Lustre (880ff9) append rows from T22
    in the 10:0xZ block's table, each verified first-hand before its disposition; the owner's
    standing word 2026-09-13: "When they report findings please make a note of them for analysis."
-   Routed there and waiting on lanes: the transplant source lane (T01, T02, T03, T07, T13, T21),
+   Routed there and waiting on lanes: the transplant source lane (T01, T02, T07, T13, T21; T03
+   rejected at the 2026-09-16 consolidation),
    the PDR-008 records lane (T12), the `-s` → `--silent` sweep at the pnpm major bump (T16).
 
 **Wrap step 6, the survey (run at close from a detached engraph worktree, `--since 2026-09-12`).**

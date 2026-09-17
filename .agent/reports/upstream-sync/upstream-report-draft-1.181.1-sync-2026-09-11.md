@@ -9,7 +9,10 @@
 > finding that still reproduces into a local work list, as the 1.181.3 set was
 > (`upstream-report-draft-1.181.3-sync-2026-09-15.md`).
 
-**Review contract.** Purpose: give the owner one paste-ready note for upstream's maintainers,
+The two sections below keep the withdrawn framing's wording as the record of what was
+first written; neither is an instruction, and the six findings are the only live content.
+
+**Review contract (withdrawn 2026-09-16).** Purpose: give the owner one paste-ready note for upstream's maintainers,
 naming the findings a downstream review round surfaced on upstream-authored files while
 integrating releases 1.179.1 to 1.181.1 (fork PR #127, 2026-09-10). Intended impact: upstream
 decides whether to cure; the fork cures none of these (it never diverges upstream code on a
@@ -21,7 +24,7 @@ surface, branch or organisation. Non-goals: no cure proposals beyond the reviewe
 no claim about severity beyond what the code shows. A successful review confirms each finding
 reproduces or marks it withdrawn.
 
-## The note (paste-ready; the owner edits freely)
+## The findings, in the withdrawn note's wording (nothing here is sent)
 
 Hi — while integrating 1.179.1 → 1.181.1 downstream, an automated review round raised six
 points on files that came in with those releases. None were changed on our side; passing them
