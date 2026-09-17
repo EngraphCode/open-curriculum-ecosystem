@@ -1,3 +1,11 @@
+# [1.185.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.184.0...v1.185.0) (2026-09-17)
+
+
+### Features
+
+* **mcp:** advertise an agent-discovery Link header (MCP-734) ([fc7072e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc7072e6310fb9147d147242f15f4e56cff557c3))
+* **mcp:** route arriving agents to the Oak surfaces this server lacks ([2bcdb57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2bcdb573eeca8d24627a1e0bcdb620ab344601aa))
+
 # [1.184.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.183.0...v1.184.0) (2026-09-17)
 
 
