@@ -144,9 +144,12 @@ into the permanent record):
    Tripwire: a conflict beyond trivial union-append on `.agent`
    continuity/state/memory files STOPS the merge and routes to the Director —
    resolving it solo is how approved versions get silently reverted.
-2. **Tree and gates**: working tree clean; a successful push already ran the
-   full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it. The identity route for a push is
+2. **Tree and gates**: working tree clean. Outside the ChatGPT Work cloud
+   profile a successful push already ran the full pre-push gate suite, so a
+   clean push IS the local-green proof — do not re-run gates just to
+   re-confirm it. A Work cloud push runs no local gate (`HUSKY=0`), so it
+   proves nothing local, and that profile's routing directive names the
+   static checks it reports instead. The identity route for a push is
    `bot-identity-on-third-party-systems`, which evaluates the ChatGPT Work
    cloud profile first: a detected Work cloud session pushes as
    [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
@@ -564,7 +567,10 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   60-second tick (state, merge state, head, the check rollup counted by state,
   unresolved threads, reviews bound to the head; a connection that reports
   truncation is paged within the tick, as item 1 requires) and prints one line only when that
-  reading changes, ending only on MERGED or CLOSED. No tool provides that
+  reading changes, ending only on MERGED or CLOSED. It also prints a heartbeat
+  line at a fixed cadence (every tenth tick) and a line when it exits for any
+  other reason, so a dead or hung watcher is told apart from a quiet pull
+  request (F-164's expected shape); the heartbeat is liveness, never state. No tool provides that
   loop yet: the seat writes it, running the compound selection of the
   review-round state machine's item 1 at a 60-second interval (not the tight
   polling F-110 forbids), until the `ws6-pr-watch-compound-floor` item below

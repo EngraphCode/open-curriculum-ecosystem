@@ -89,6 +89,23 @@ Before substantive work:
    loaded, staged-base mismatches surface AT pickup and stale-base rotations
    drop to zero; if the check never fires across a quarter of staged
    sessions, fold it into the general grounding line.
+7. **Read the register for directive-bound entries, and declare the shape.**
+   If any due entry in `pending-graduations.md` targets
+   `.agent/directives/`, the pass needs a context below 30 % at the directive
+   edits (`directive-file-context-budget`), and a first-hand read of the raw
+   sources, the napkin and the registers spends most of that headroom. So say
+   at open how the pass will meet both: the directive entries first in a
+   fresh context, or the reading in this context and the directive edits in
+   the next, with the owner seeing the shape before any work is staked. A
+   review round on a fold, and each read of a large doctrine file, is spent
+   out of the same budget. Worked instance (2026-09-16/17): one dedicated
+   consolidation reached its directive boundary above 30 % in its first
+   context and declared the shape only then; its second context had to fold
+   a due branch first, and the fold's pre-publication pass and review rounds
+   left too little headroom, so the directive entries moved to a third. Prediction (PDR-130): with this
+   step loaded, a consolidation with directive-bound entries names its
+   contexts at open and finishes its directive entries in a planned context;
+   falsifier: the next such pass discovers the split at its end again.
 
 ## Completion Contract
 

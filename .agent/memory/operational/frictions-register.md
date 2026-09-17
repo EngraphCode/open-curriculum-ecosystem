@@ -4369,3 +4369,39 @@ commit SHA and the closing plan reference.
   instance; a refusal of a drain-comment shape there is the candidate cure. Falsifier: if
   no such comment is written in the three months after the five are removed,
   the check is dead weight.
+
+### F-189 — this host never adopted PDR-008's gate names, and item 9 of the Practice verification fails on it
+
+- **Observed**: 2026-09-12 (a peer's report, checked with `jq`), re-read on 2026-09-17 at the
+  dedicated consolidation. PDR-008 (Accepted 2026-04-18) fixes the aggregate gate names: bare
+  names verify, `:fix` applies, `check` is the one exception as the mutating alias of
+  `check:fix`, and `check:ci` is the non-mutating CI form; §Per-ecosystem adaptation says names
+  travel verbatim, "not `format-check`". `practice-verification.md` item 9 checks for that set.
+  The root `package.json` here defines `check` as the non-mutating aggregate and `fix` as the
+  mutating one, has no `check:fix` and no `check:ci`, spells `type-check` for `typecheck`, and
+  runs mutating commands under bare names (`format:root` writes, `markdownlint:root` runs
+  `--fix`) beside `format-check:root`. The divergence is wider than `check`.
+- **Expected**: PDR-008 §Accepted cost: an existing repository pays a one-time rename, or its
+  names are "flagged as deviations needing rationale". This host has neither.
+- **Reading, not a text cure**: the Core text is not stale; item 9 failing here is the check
+  doing its job. Which side moves is a Practice-convention judgement, for the owner: this host
+  renames its scripts (`pnpm check` is named in 34 tracked files across the CI workflow, two
+  directives, seven skill files, ADRs and docs, counted 2026-09-17), or the Core drops Rule 4's
+  `check` exception, since `check` as the verify aggregate is Rule 1 without the exception and
+  this host has run it that way for months (one host's evidence).
+- **Route**: owner decision, surfaced at the dedicated consolidation's closing report; then a
+  script-rename lane here or a PDR-008 amendment through the Core exchange.
+
+### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
+
+- **Observed**: 2026-09-17, truing #152's description. `.husky/refuse-commit-on-main.sh`
+  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-args.ts` refuses a push
+  to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
+  local commit or a bot push aimed at it. The remote covers the push: `engraph`'s branch rules
+  carry `pull_request`, `non_fast_forward`, `deletion`, `required_status_checks` and
+  `copilot_code_review` (read 2026-09-17).
+- **Expected**: the guards read the repository's default branch rather than a literal name, so
+  a local commit on the default branch is refused before it has to be undone.
+- **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
+  the guard and the push parser resolve the default branch from `origin/HEAD` or
+  configuration, with a unit test on each.

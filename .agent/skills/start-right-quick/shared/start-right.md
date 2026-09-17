@@ -581,13 +581,16 @@ first.
 
 ## Quality Gates
 
-Run after making changes, before the commit. Note: some gates trigger
-earlier ones; caching prevents duplicate work. See
-@docs/engineering/build-system.md and ADR-065 for caching details. The
-commit's own pre-commit hook runs the local gates (validators, build,
-type-check, lint, unit tests) and the pull request's checks run the wider
-suites: never run `pnpm check` or any whole-repo gate beside or after a
-commit (owner ruling 2026-09-14, in session-handoff step 11).
+The commit is the gate. Its pre-commit hook runs the local gates
+(validators, build, type-check, lint, unit tests) and the pull request's
+checks run the wider suites, so never run these gates before, beside or
+after a commit (owner, 2026-09-14, verbatim in the commit skill: "the commit
+triggers the gates, there is no point and a fair amount of cost running the
+gates separately as well, never, ever do that"). The list below names what
+the gates are, for reading a failure and for curing one; a cloud profile
+follows `cloud-environment-routing.md`. Some gates trigger earlier ones and
+caching prevents duplicate work: see @docs/engineering/build-system.md and
+ADR-065.
 
 ```bash
 # From repo root, one at a time
