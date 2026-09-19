@@ -3696,17 +3696,21 @@ with its carries homed, PDR-117 and PDR-141 amended, the memory-lifecycle decisi
 directive pass, and AGENT.md §Commands cured to the owner's never-run-gates-separately ruling.
 
 Review: a context-free pass raised 33 claim errors before publication, all cured in `56f42807e`;
-three rounds then raised twelve findings, all true at source. Settlement pushes 2 of 2
-(`a1aa47c6b`, `8e7d37824`) cured seven; round three's five (Codex one thread, Copilot four
-suppressed items) were dispositioned without a cure and cured on the successor in its first
-records commit. Review-cost ledger: 32.75 of 40, warn at the stop.
+three rounds then raised thirteen distinct findings, all true at source. Settlement pushes 2 of 2
+(`a1aa47c6b`, `8e7d37824`) cured six; one (round two, the pickup naming its own fold as next) was
+dispositioned on its thread; round three's six (one Codex thread, five Copilot suppressed items,
+two of them one stale-index-cell class) were dispositioned without a cure and cured on the
+successor in its first records commit. Review-cost ledger: 32.75 of 40, warn at the stop.
 
 Board: `engraph` at SHA:b5b0e70cd. Open: draft #154, Dynamo turns Temper's carrier of Oak main
 at `d9138c8` (1.185.0), whose slot opened at this merge by the owner's word; the successor's
 draft pull request opens at its first commit. The estate stays n = 2 (Dynamo turns Temper,
-2a4c8a, claim `35006027`, paused at the owner's word at 16:1xZ). Next on the successor, this
-seat: the directive pass (twelve register entries) in this context, by the owner's word that the
-seat's window is 1M (13.3 % read at 18:36Z), then the graduate-then-archive curation of the
-large memory files. An open doctrine question raised by this fold's round three, for the owner
+2a4c8a, claim `35006027`, paused at the owner's word at 16:1xZ). Next, this seat: the directive
+pass (twelve register entries). On 2026-09-17 the owner's word was that the seat's window is 1M
+(13.3 % read at 18:36Z) and the pass was planned for that context; at the directive step the
+meter read 51 %, and on 2026-09-19 the owner chose a fresh context. So this successor carries
+only the fold's records and the wrap, folds on 2026-09-19 (a day past its DUE), and the pass
+runs in a fresh context on the branch cut after it, then the graduate-then-archive curation of
+the large memory files. An open doctrine question raised by this fold's round three, for the owner
 before #154's rounds: how a carrier's round tally treats a carried-code finding it may not cure
 (the cross-fork skill now says the carrier stops at that round pending the `pr-tally` decision).

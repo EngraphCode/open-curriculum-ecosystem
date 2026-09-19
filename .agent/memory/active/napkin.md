@@ -126,8 +126,10 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   wrong (the question is which gate names are right for the whole Practice ecosystem, then
   standardising everywhere; this repository's names have been stable for a long time); rename
   the sync names after #154 lands. #153 folded through the front door at 20:17:05Z as
-  `b5b0e70cd` after three rounds (twelve findings, all true at source; seven cured in two
-  settlement pushes, five dispositioned to the successor and cured there in `84d7bc441`). The
+  `b5b0e70cd` after three rounds (thirteen distinct findings, all true at source: six cured in
+  two settlement pushes, one dispositioned on its thread, six routed to the successor and cured
+  there in `84d7bc441`; this block first said "twelve, seven, five", which its own
+  pre-publication pass on #155 showed fits neither the distinct nor the raised count). The
   successor `coordination/2026-09-17-b5b0e7` was cut and draft #155 opened. Then the meter read
   51 % of 1M, the owner chose a fresh context for the directive pass, and the answer arrived
   about 38 hours later, so the successor was DUE at pickup and this context folds it.
@@ -150,7 +152,8 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   placeholders.
 - **Surprise: a mid-session model relabel collides in the comms route (F-192).** The identity id
   is seeded from the session and survived the model change; `comms append` refused the new label
-  against the live identity, while the watcher and the claims accepted it. Kept the old label for
+  against the live identity, while `comms watch` and `assert-watcher-live` accepted it; the claims
+  were never tried under the new label, and `claims open` runs the same guard. Kept the old label for
   the session's coordination surfaces and recorded it.
 - **Surprise: the owner's answers can arrive days later.** A card asked at 20:2xZ on 09-17 was
   answered on 09-19; every branch-lifetime and claim-freshness assumption in the seat's plan

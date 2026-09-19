@@ -376,7 +376,9 @@ first-hand as of 2026-06-25.
 > - #153, the 2026-09-17 fold carrying the consolidation's second half, `b5b0e70cd` (2026-09-17
 >   20:17Z, front door, a pre-publication claim pass and three rounds, folded on its cut date at
 >   the owner's word because the Oak integration lane's slot waited on it). The successor is
->   `coordination/2026-09-17-b5b0e7`, and the consolidation's directive pass rides it.
+>   `coordination/2026-09-17-b5b0e7`, which carries the fold's records and folds on 2026-09-19;
+>   the consolidation's directive pass runs in a fresh context on the branch cut after it (the
+>   owner's word, 2026-09-19).
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

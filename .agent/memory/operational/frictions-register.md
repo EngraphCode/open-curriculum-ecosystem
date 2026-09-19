@@ -4370,7 +4370,7 @@ commit SHA and the closing plan reference.
   no such comment is written in the three months after the five are removed,
   the check is dead weight.
 
-### F-189 — this host never adopted PDR-008's gate names, and item 9 of the Practice verification fails on it
+### F-189 — this repository's gate-script names and PDR-008's differ, item 9 of the Practice verification fails on it, and the right names for the ecosystem are undecided
 
 - **Observed**: 2026-09-12 (a peer's report, checked with `jq`), re-read on 2026-09-17 at the
   dedicated consolidation. PDR-008 (Accepted 2026-04-18) fixes the aggregate gate names: bare
@@ -4383,7 +4383,9 @@ commit SHA and the closing plan reference.
   `--fix`) beside `format-check:root`. The divergence is wider than `check`.
 - **Expected**: PDR-008 §Accepted cost: "Existing repos that use non-canonical names pay a
   one-time rename cost." (Its "flagged as deviations needing rationale" clause covers names a
-  repository adds later, not existing ones.) This host has not paid it.
+  repository adds later, not existing ones.) The two name sets differ and nothing has been
+  renamed; whether PDR-008's set or another is the one every repository should carry is the
+  owner's open decision (the Reading below).
 - **Reading, corrected by the owner (2026-09-17)**: the Core text is not stale; item 9 failing
   here is the check doing its job. The first framing of this entry ("this host never adopted
   PDR-008's names; this host renames, or the Core drops its exception") was wrong, the owner
@@ -4453,7 +4455,10 @@ commit SHA and the closing plan reference.
   change within a session, and the collision check keys on the id, so a label change under the
   same id is a relabel, not a second identity. The route accepts it and the later events carry
   the new label.
-- **Route**: the comms identity-route check in `agent-tools` treats a matching id with a
+- **Route**: the shared guard (`assertNoLiveIdentityRoutingCollision` in
+  `agent-tools/src/collaboration-state/active-agents.ts`, called by the identity write guard
+  behind the comms and identity commands and by the `claims open` gate; it routes on the id and
+  refuses when the model strings differ) treats a matching id with a
   different model label as the same identity (a relabel event on the stream, not a refusal);
   the claims rows and the heartbeat file carry the current label. Until then a seat whose model
   changes mid-session keeps its opening label on the coordination surfaces and records the
@@ -4464,7 +4469,8 @@ commit SHA and the closing plan reference.
 - **Observed**: 2026-09-17, raised by Codex at #153's round three and verified at source.
   `operator-profile-sync.ts` `nonConformingDocuments()` reads the profile report over the
   current documents; `operator-profile-git-push.ts` `pushAhead()` pushes every commit the branch
-  is ahead by. An earlier unpushed commit that carried a credential-shaped line, since removed
+  is ahead by, and `pushFirst()` (the no-upstream case) pushes `HEAD` the same way. An earlier
+  unpushed commit that carried a credential-shaped line, since removed
   from the working tree, passes the check and is pushed with its history. PDR-141 decision 11
   claimed the refusal covered anything pushed; the decision is narrowed to what the mechanism
   delivers in the successor's first records commit.
