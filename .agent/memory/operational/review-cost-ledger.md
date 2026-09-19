@@ -1,3 +1,13 @@
+---
+fitness_line_target: 200
+fitness_line_limit: 300
+fitness_char_limit: 60000
+fitness_line_length: 100
+fitness_content_role: reference
+overflow_disposition: 'every row is live while the gate''s weights are calibrated against it; rows older than the last weights change graduate into that change''s row, then archive to a dated file proven byte-identical (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: mostly-append-register
+---
+
 # Review Cost Ledger
 
 The record the review cost gate is calibrated against (`agent-tools review-cost`,

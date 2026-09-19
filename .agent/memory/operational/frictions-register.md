@@ -1,3 +1,19 @@
+---
+fitness_line_target: 1200
+fitness_line_limit: 1800
+fitness_char_limit: 130000
+fitness_line_length: 100
+fitness_content_role: reference
+fitness_rationale: >-
+  Set 2026-09-19 with the four-part lifecycle (continuity-practice.md §Disposition of
+  Continuity Surfaces). The limits describe the register's function, a working list of
+  OPEN frictions plus the recently settled, not its size on the day (4,545 lines, most of
+  them settled entries that no consolidation step had ever moved). A reading past the
+  limit is the signal that settled entries await the graduate-then-archive step.
+overflow_disposition: 'leave-if-live (open, partially addressed, or cited by a live lane); else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: mostly-append-register
+---
+
 # Agent Tooling Frictions Register
 
 Live capture of frictions, gaps, and observed failures in the agent tooling
@@ -4528,6 +4544,20 @@ commit SHA and the closing plan reference.
   cause, the cure is the owner's choice between disabling it for this clone and keeping
   installs out of watched roots; until then every ceremony stages with
   `git -c core.fsmonitor=false`.
+- **Cured 2026-09-19 ~19:42Z** by Dynamo turns Temper (2a4c8a) at the owner's word, after a
+  lens pass and a second opinion (comms events `a924faaf`, `c82ce1de`): the monitor unset in
+  the clone's shared configuration, five daemons stopped, none respawned on the next status
+  (0.04 s). Read back by this seat at 19:4xZ (`git config --local --get core.fsmonitor`
+  returns nothing; `pgrep` finds no daemon). The measurement that settled it: bursts of files
+  in an ignored directory block a read-only `git status` for as long as the burst lasts (9.8 s
+  at 100,000 files, up to 24.5 s at 400,000), never more than 0.15 s with the monitor off, and
+  with no load the monitor saves nothing (0.04 to 0.11 s without it). Added datum, the same
+  day: this seat's read-only `git diff --cached` on the primary slept ten minutes while the
+  churn ran in a DIFFERENT worktree, so the event backlog is host-wide. The per-call flag is
+  retired from the ceremonies. The guard (one assertion in the commit queue's guard step, one
+  line in the worktree-lane skill) and a bounded enumeration of other unwarranted ambient
+  settings are the sketch node `warranted-means-in-the-operating-environment`.
+- **Status**: cured on this host; the guard is open.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 
