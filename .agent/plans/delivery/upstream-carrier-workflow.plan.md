@@ -203,17 +203,28 @@ jobs:
 
       # A carrier is unworked when it is still a draft, its head is still the
       # tip it was cut at under this producer's exact name (no seat commit),
-      # this app opened it, and no seat has labelled it taken. Such a carrier
-      # that the mirror has moved past is superseded: closed with its reason,
-      # its branch deleted, and the cut step below re-runs at the mirror's tip.
+      # and no seat has labelled it taken. Such a carrier that the mirror has
+      # moved past is superseded: its branch deleted, the pull request closed
+      # with its reason, and the cut step below re-runs at the mirror's tip.
       # A carrier with a seat commit, undrafted, or labelled
-      # `upstream-carrier-taken` is a seat's work and is never touched. Before
-      # any write the step proves the mirror is strictly ahead of the head, so
-      # the only commit the branch points at stays reachable from the mirror
-      # (a rewound mirror fails the run instead of being tidied); re-reads the
-      # pull request's state and aborts on any change since the read above;
-      # and deletes the branch under a lease on the head sha, so a push that
-      # lands in the window is never deleted under.
+      # `upstream-carrier-taken` is a seat's work: the step's `if:` skips it.
+      #
+      # The only thing a supersession destroys is the branch reference, so the
+      # reference is what the step takes atomically and FIRST: a delete under a
+      # lease on the head sha is a compare-and-swap, refused if any push has
+      # moved the branch. Nothing is closed or commented until that delete has
+      # won, so a seat's commit is never deleted and never stranded on a closed
+      # pull request. A seat's first push is therefore its binding pickup. The
+      # label is read at the evaluation and again just before the delete; a
+      # label applied after that second read does not stop this run, and the
+      # seat finds the carrier closed with its reason and takes up the re-cut
+      # one, having nothing on the branch to lose.
+      #
+      # Before any write the step also proves, and fails the run if it cannot,
+      # that this app opened the carrier (an unworked carrier of this exact
+      # name by another author is an anomaly a human reads, never a skip) and
+      # that the mirror is strictly ahead of the head, so the one commit the
+      # branch points at stays reachable (a rewound mirror is never tidied).
       - name: Supersede an unworked carrier the mirror has moved past
         id: supersede
         if: >-
@@ -222,17 +233,22 @@ jobs:
           && steps.existing.outputs.draft == 'true'
           && steps.existing.outputs.taken == 'false'
           && steps.existing.outputs.unmoved == 'true'
-          && steps.existing.outputs.author == format('{0}[bot]', steps.app-token.outputs.app-slug)
           && steps.existing.outputs.head_sha != steps.compare.outputs.mirror_tip
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           NUMBER: ${{ steps.existing.outputs.number }}
           HEAD_REF: ${{ steps.existing.outputs.head_ref }}
           HEAD_SHA: ${{ steps.existing.outputs.head_sha }}
+          AUTHOR: ${{ steps.existing.outputs.author }}
+          PRODUCER: ${{ format('{0}[bot]', steps.app-token.outputs.app-slug) }}
           MIRROR_TIP: ${{ steps.compare.outputs.mirror_tip }}
           MIRROR_BRANCH: ${{ steps.compare.outputs.mirror_branch }}
         run: |
           set -euo pipefail
+          if [ "$AUTHOR" != "$PRODUCER" ]; then
+            echo "::error title=Unworked carrier is not this producer's::PR #${NUMBER} is an unworked draft on ${HEAD_REF} opened by ${AUTHOR}, not ${PRODUCER}. It blocks the carrier at the mirror's tip and this run will not close another author's pull request. Nothing is written; a human decides."
+            exit 1
+          fi
           # The mirror must be strictly ahead of the carrier head, so the head
           # stays reachable from the mirror after its branch is deleted.
           ancestry="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${HEAD_SHA}...${MIRROR_TIP}" --jq '"\(.status) \(.behind_by)"')"
@@ -240,28 +256,45 @@ jobs:
             echo "::error title=Carrier head is not behind the mirror::compare ${HEAD_SHA:0:7}...${MIRROR_TIP:0:7} => ${ancestry}; the mirror may have been rewound. Nothing is written; a human decides."
             exit 1
           fi
-          # Re-read immediately before the first write: a seat may have taken
-          # the carrier up since the read above.
+          # A seat may have taken the carrier up since the evaluation: that is
+          # a pickup, not a fault. Leave it and end the step.
           now="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" --jq '"\(.state) \(.draft) \(.head.sha) \(.labels | map(.name) | index("upstream-carrier-taken") != null)"')"
           if [ "$now" != "open true ${HEAD_SHA} false" ]; then
-            echo "::error title=Carrier state changed::PR #${NUMBER} now reads (state draft head taken) = ${now}; a seat may have taken it up. Nothing is written; the next slot re-evaluates."
-            exit 1
+            echo "::notice title=Carrier taken up::PR #${NUMBER} now reads (state draft head taken) = ${now}; a seat has it. Nothing is written."
+            exit 0
           fi
-          body="$(printf '%s\n' \
-            "Superseded: no seat took this carrier up (still a draft, head still ${HEAD_SHA:0:7}, no \`upstream-carrier-taken\` label) and the mirror \`${MIRROR_BRANCH}\` has moved on to \`${MIRROR_TIP}\`. This run closes it and opens the carrier at that tip; nothing here was moved or rebased." \
-            "" \
-            "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")"
-          gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/comments" -f "body=${body}" --jq '.html_url'
-          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" -f state=closed --jq '.state'
-          # Delete under a lease: the push is refused if the branch no longer
-          # points at HEAD_SHA, so a commit landing in the window survives. The
-          # token rides an HTTP header, never the URL.
+          # The compare-and-swap, and the first write. The token rides an HTTP
+          # header, never the URL.
+          remote="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
           lease="$(mktemp -d)"
           git init -q "$lease"
           auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
-          git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" push \
-            --force-with-lease="refs/heads/${HEAD_REF}:${HEAD_SHA}" \
-            "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" ":refs/heads/${HEAD_REF}"
+          at="$(git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" ls-remote "$remote" "refs/heads/${HEAD_REF}" | cut -f1)"
+          if [ -n "$at" ] && [ "$at" != "$HEAD_SHA" ]; then
+            echo "::notice title=Carrier taken up::${HEAD_REF} moved to ${at:0:7}; a seat has pushed. Nothing is written."
+            exit 0
+          fi
+          # An absent reference is an earlier run's delete whose close did not
+          # land: the close and comment below finish it.
+          if [ -n "$at" ] && ! git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" push \
+            --force-with-lease="refs/heads/${HEAD_REF}:${HEAD_SHA}" "$remote" ":refs/heads/${HEAD_REF}"; then
+            moved="$(git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" ls-remote "$remote" "refs/heads/${HEAD_REF}" | cut -f1)"
+            if [ -n "$moved" ] && [ "$moved" != "$HEAD_SHA" ]; then
+              echo "::notice title=Carrier taken up::the lease on ${HEAD_REF} was refused: it moved to ${moved:0:7}. Nothing is written."
+              exit 0
+            fi
+            echo "::error title=Carrier branch delete failed::${HEAD_REF} still reads ${moved:-absent} and the leased delete was refused for another reason. Nothing else is written."
+            exit 1
+          fi
+          # The explicit close is idempotent: it makes the state certain whether
+          # or not the platform has already closed the pull request on the
+          # deletion of its head branch.
+          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" -f state=closed --jq '.state'
+          body="$(printf '%s\n' \
+            "Superseded: no seat took this carrier up (still a draft, head still ${HEAD_SHA:0:7}, no \`upstream-carrier-taken\` label) and the mirror \`${MIRROR_BRANCH}\` has moved on to \`${MIRROR_TIP}\`. This run deleted its branch under a lease on that head, closed it, and opens the carrier at the mirror's tip; nothing here was moved or rebased, and the head commit stays on the mirror." \
+            "" \
+            "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/comments" -f "body=${body}" --jq '.html_url'
           echo "superseded=true" >>"$GITHUB_OUTPUT"
           echo "::notice title=Carrier superseded::PR #${NUMBER} at ${HEAD_SHA:0:7} closed and its branch deleted; a carrier at ${MIRROR_TIP:0:7} follows."
 
@@ -368,12 +401,22 @@ carrier is this producer's own and safe to drop: the head ref equals the exact
 (`app-slug` from the token action), and the compare `<head>...<mirror tip>` reads `ahead` with
 `behind_by` 0, so the head stays reachable from the mirror; any other reading fails the run with
 an error and writes nothing (a rewound mirror surfaces rather than being tidied; the security
-review of 2026-09-17). An unworked carrier the mirror has moved past is then superseded — a
-comment naming the reason and the run, `state=closed`, the branch reference deleted — and the
-cut step runs at the mirror's tip in the same run. Everything else stands: no head is ever
-moved, no second carrier is ever open, and a carrier with a seat commit, undrafted, or labelled
-is a seat's work the workflow never touches. Criteria 2 and 6 prove the two arms; the fence
-above tracks the file.
+review of 2026-09-17). An unworked carrier the mirror has moved past is then superseded, and
+the order of the writes is the safety argument (amended 2026-09-19 at the pull request's first
+review round, where both reviewers showed the earlier comment, close, delete order left a
+pickup between the re-read and the close closed under): the branch reference is deleted FIRST,
+under a lease on the head sha, which is a compare-and-swap the platform refuses if any push has
+moved the branch; only after that delete has won is the pull request closed and the comment
+naming the reason and the run posted; then the cut step runs at the mirror's tip in the same
+run. A seat's first push is therefore its binding pickup: a seat's commit is never deleted and
+never stranded on a closed pull request, by construction. The label is read at the evaluation
+and again just before the delete; a label applied after that second read does not stop the run,
+and the seat finds the carrier closed with its reason and takes up the re-cut one, having
+nothing on the branch to lose. A pickup seen at either read, or a refused lease, ends the step
+with a notice and exit 0: it is a pickup, never a fault. Everything else stands: no head is
+ever moved, no second carrier is ever open, and a carrier with a seat commit, undrafted, or
+labelled is a seat's work the step's condition skips. Criteria 2 and 6 prove the two arms; the
+fence above tracks the file.
 
 ## Out of scope
 
@@ -475,17 +518,30 @@ commit; recorded here because a subagent transcript is not a destination — own
 | security-expert hardening (low): no `permission-*` inputs on the token mint, so the run held the App's full installation set; `.[0]` inspects only the newest match, so a second open carrier would survive a supersession; the label is a courtesy signal (a repository-level label deletion clears it silently) — the author and head-sha tests are load-bearing. Verification: outsider input excluded server-side plus the head-repo equality (a null head repo also excluded); all PR-derived values enter via `env:`; the App is in no bypass list and the default branch has an active `deletion` rule; every write is under the bot token; failure order bounded (comment-fail → nothing; close-fail → duplicate comment next slot; delete-fail → a new carrier is cut and the stale branch persists as an orphan nothing sweeps); the cut step has no `if: always()`. Closing verdict: approve with the three guards, the leased delete with pre-close re-read, and the skill sentence. | Cured: `permission-contents: write` and `permission-pull-requests: write` on the mint; more than one open carrier fails the run loudly by name; the label's courtesy status is stated in this node's amendment. |
 | **code-expert** (verdict: changes requested, then cleared on the shell; records owed). Shell and expressions verified: `.[0] // empty` precedence; `${head_ref##*-}` on a 40-hex sha and its safe failure on the retired producer's names; the folded `if:` scalars; single-line outputs; the exact-match label test; cut-step idempotency after a same-run supersession; the comment POST needs `issues: write`, which the installation holds. Important: the receipt still told the seat "does nothing else"; the skill's step 1 lacked the protocol; decisions 5, 6 (its row "The writes", which said two and is now five) and the frontmatter overview ("no carrier is open") read the old contract; decision 9a's self-heal ladder and the accepted orphan ref; the `name_sha` derivation should be an exact-shape `unmoved` output; an emitted `author` output went unconsumed. Evidence: no workflow test harness exists; today's board makes the first run after landing a no-op (#154 labelled, head == mirror tip), so criterion 6's proof is owed at the next unworked-carrier release. Suggestions: `any(.labels[]; …)` reads as intended; the two-open-carriers gap; "(evaluating whether it is unworked)" on the notice. | Cured: the receipt carries the label rule; step 1 carries it; decision 5 annotated; `unmoved` replaces `name_sha`; `author` consumed in the `if:`; the notice reads "(evaluating…)"; two open carriers now fail loudly. Still owed before commit (recorded in the seat's handoff record): the decision 6 note, the overview sentence, the 9a ladder with the accepted orphan and the seconds-wide window, todo 4 for the owed proof, and a review-dispositions row set — this block is that row set; the remaining three are annotations. |
 
-Decision 6 (amended 2026-09-17): the writes are now up to five, all as the bot app — the
-supersession's comment (`POST …/issues/{n}/comments`), close (`PATCH …/pulls/{n}`) and leased
-branch delete (`git push --force-with-lease` deleting `refs/heads/<carrier>`), then the ref
-create and the pull request as before. Decision 9a (amended 2026-09-17): the supersession's
-failure ladder — comment fails → nothing written; close fails → the next slot supersedes again
-with one duplicate comment; delete fails after the close → the next slot sees no open carrier
-and cuts the new one under its own name, and the old `automation/upstream-carrier-<sha>` branch
-stays as an accepted orphan (the closed pull request's "Restore branch" record is its trail;
-nothing sweeps it); the seconds-wide window between the `existing` read and the first write is
-closed by the pre-close re-read and the leased delete, and a pickup that lands inside it fails
-the run with nothing written. Neither arm wedges the producer. The frontmatter overview's "and
-no carrier is open" now reads "and no carrier, or only an unworked one, is open". Todo 4:
+Decision 6 (amended 2026-09-17, order amended 2026-09-19): the writes are now up to five, all
+as the bot app — the supersession's leased branch delete (a push under a lease on the head sha
+that deletes `refs/heads/<carrier>`), then its close (`PATCH …/pulls/{n}`) and comment
+(`POST …/issues/{n}/comments`), then the ref create and the pull request as before. Decision 9a
+(amended 2026-09-17, rewritten 2026-09-19 for the new order): the supersession's failure
+ladder — the lease is refused because the branch moved → a seat has pushed; a notice, exit 0,
+nothing written; the delete fails for any other reason → the run fails with nothing else
+written; the close fails after the delete → the next slot finds the pull request still open
+with its reference absent, skips the delete, and finishes the close and comment (where the
+platform has itself closed the pull request on the head's deletion, the next slot sees no open
+carrier and cuts the new one); the comment fails after the close → the
+next slot sees no open carrier and cuts the new one, and the closed pull request lacks only its
+reason (the run's log holds it). No arm strands a seat's commit, no arm leaves an orphan
+branch, and no arm wedges the producer. The 2026-09-17 ladder (comment, close, delete, with a
+pre-close re-read) is withdrawn: its re-read shrank a window it could not close, which
+`principles.md` §No timing dependence names as the defect.
+
+Review round one on the lane's pull request, 2026-09-19:
+
+| Finding | Disposition |
+| --- | --- |
+| **Codex (P1) and Copilot, same finding**: a seat that labels, undrafts or pushes after the re-read while the comment request runs is still closed; a push then makes the delete fail after the close, stranding the seat's work on a closed pull request, against the declared guarantee. | True at source. Cured by order: the leased delete is the first write and the only destructive one, so the platform's compare-and-swap on the reference decides; close and comment follow only a won delete. A pickup seen at either read, or a refused lease, is a notice and exit 0. The residual is stated, not shrunk: a label applied after the second read does not stop the run, and the seat, holding nothing on the branch, takes up the re-cut carrier. |
+| **Copilot**: the author test sat in the step's `if:`, so an unworked carrier by another author skipped silently and blocked every later carrier, against the description's "fails loudly". | True at source. Cured: the author proof moved into the shell as the step's first act; a mismatch is `::error` and exit 1 naming both authors, and nothing is written. |
+
+The frontmatter overview's "and no carrier is open" now reads "and no carrier, or only an unworked one, is open". Todo 4:
 criterion 6's proof is owed at the next unworked-carrier release; today's board makes the first
 run after landing a no-op.

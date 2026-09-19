@@ -132,7 +132,8 @@ carrier merge and landing proof names the first.
   label to the carrier at pickup, as the bot, before any push: the carrier
   workflow closes and re-cuts a draft that carries no label and no seat commit
   once the mirror moves past it, and the label is the seat's only pickup signal
-  before its first push (a label that does not yet exist is created by the first
+  before its first push, which is the binding pickup (the workflow's delete is
+  leased on the head sha, so a pushed commit is never deleted or stranded) (a label that does not yet exist is created by the first
   application).
 - Exclusive counts both ways, from fetched history, and the merge base.
 

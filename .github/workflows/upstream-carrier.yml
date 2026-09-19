@@ -137,17 +137,28 @@ jobs:
 
       # A carrier is unworked when it is still a draft, its head is still the
       # tip it was cut at under this producer's exact name (no seat commit),
-      # this app opened it, and no seat has labelled it taken. Such a carrier
-      # that the mirror has moved past is superseded: closed with its reason,
-      # its branch deleted, and the cut step below re-runs at the mirror's tip.
+      # and no seat has labelled it taken. Such a carrier that the mirror has
+      # moved past is superseded: its branch deleted, the pull request closed
+      # with its reason, and the cut step below re-runs at the mirror's tip.
       # A carrier with a seat commit, undrafted, or labelled
-      # `upstream-carrier-taken` is a seat's work and is never touched. Before
-      # any write the step proves the mirror is strictly ahead of the head, so
-      # the only commit the branch points at stays reachable from the mirror
-      # (a rewound mirror fails the run instead of being tidied); re-reads the
-      # pull request's state and aborts on any change since the read above;
-      # and deletes the branch under a lease on the head sha, so a push that
-      # lands in the window is never deleted under.
+      # `upstream-carrier-taken` is a seat's work: the step's `if:` skips it.
+      #
+      # The only thing a supersession destroys is the branch reference, so the
+      # reference is what the step takes atomically and FIRST: a delete under a
+      # lease on the head sha is a compare-and-swap, refused if any push has
+      # moved the branch. Nothing is closed or commented until that delete has
+      # won, so a seat's commit is never deleted and never stranded on a closed
+      # pull request. A seat's first push is therefore its binding pickup. The
+      # label is read at the evaluation and again just before the delete; a
+      # label applied after that second read does not stop this run, and the
+      # seat finds the carrier closed with its reason and takes up the re-cut
+      # one, having nothing on the branch to lose.
+      #
+      # Before any write the step also proves, and fails the run if it cannot,
+      # that this app opened the carrier (an unworked carrier of this exact
+      # name by another author is an anomaly a human reads, never a skip) and
+      # that the mirror is strictly ahead of the head, so the one commit the
+      # branch points at stays reachable (a rewound mirror is never tidied).
       - name: Supersede an unworked carrier the mirror has moved past
         id: supersede
         if: >-
@@ -156,17 +167,22 @@ jobs:
           && steps.existing.outputs.draft == 'true'
           && steps.existing.outputs.taken == 'false'
           && steps.existing.outputs.unmoved == 'true'
-          && steps.existing.outputs.author == format('{0}[bot]', steps.app-token.outputs.app-slug)
           && steps.existing.outputs.head_sha != steps.compare.outputs.mirror_tip
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           NUMBER: ${{ steps.existing.outputs.number }}
           HEAD_REF: ${{ steps.existing.outputs.head_ref }}
           HEAD_SHA: ${{ steps.existing.outputs.head_sha }}
+          AUTHOR: ${{ steps.existing.outputs.author }}
+          PRODUCER: ${{ format('{0}[bot]', steps.app-token.outputs.app-slug) }}
           MIRROR_TIP: ${{ steps.compare.outputs.mirror_tip }}
           MIRROR_BRANCH: ${{ steps.compare.outputs.mirror_branch }}
         run: |
           set -euo pipefail
+          if [ "$AUTHOR" != "$PRODUCER" ]; then
+            echo "::error title=Unworked carrier is not this producer's::PR #${NUMBER} is an unworked draft on ${HEAD_REF} opened by ${AUTHOR}, not ${PRODUCER}. It blocks the carrier at the mirror's tip and this run will not close another author's pull request. Nothing is written; a human decides."
+            exit 1
+          fi
           # The mirror must be strictly ahead of the carrier head, so the head
           # stays reachable from the mirror after its branch is deleted.
           ancestry="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${HEAD_SHA}...${MIRROR_TIP}" --jq '"\(.status) \(.behind_by)"')"
@@ -174,28 +190,45 @@ jobs:
             echo "::error title=Carrier head is not behind the mirror::compare ${HEAD_SHA:0:7}...${MIRROR_TIP:0:7} => ${ancestry}; the mirror may have been rewound. Nothing is written; a human decides."
             exit 1
           fi
-          # Re-read immediately before the first write: a seat may have taken
-          # the carrier up since the read above.
+          # A seat may have taken the carrier up since the evaluation: that is
+          # a pickup, not a fault. Leave it and end the step.
           now="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" --jq '"\(.state) \(.draft) \(.head.sha) \(.labels | map(.name) | index("upstream-carrier-taken") != null)"')"
           if [ "$now" != "open true ${HEAD_SHA} false" ]; then
-            echo "::error title=Carrier state changed::PR #${NUMBER} now reads (state draft head taken) = ${now}; a seat may have taken it up. Nothing is written; the next slot re-evaluates."
-            exit 1
+            echo "::notice title=Carrier taken up::PR #${NUMBER} now reads (state draft head taken) = ${now}; a seat has it. Nothing is written."
+            exit 0
           fi
-          body="$(printf '%s\n' \
-            "Superseded: no seat took this carrier up (still a draft, head still ${HEAD_SHA:0:7}, no \`upstream-carrier-taken\` label) and the mirror \`${MIRROR_BRANCH}\` has moved on to \`${MIRROR_TIP}\`. This run closes it and opens the carrier at that tip; nothing here was moved or rebased." \
-            "" \
-            "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")"
-          gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/comments" -f "body=${body}" --jq '.html_url'
-          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" -f state=closed --jq '.state'
-          # Delete under a lease: the push is refused if the branch no longer
-          # points at HEAD_SHA, so a commit landing in the window survives. The
-          # token rides an HTTP header, never the URL.
+          # The compare-and-swap, and the first write. The token rides an HTTP
+          # header, never the URL.
+          remote="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
           lease="$(mktemp -d)"
           git init -q "$lease"
           auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
-          git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" push \
-            --force-with-lease="refs/heads/${HEAD_REF}:${HEAD_SHA}" \
-            "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" ":refs/heads/${HEAD_REF}"
+          at="$(git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" ls-remote "$remote" "refs/heads/${HEAD_REF}" | cut -f1)"
+          if [ -n "$at" ] && [ "$at" != "$HEAD_SHA" ]; then
+            echo "::notice title=Carrier taken up::${HEAD_REF} moved to ${at:0:7}; a seat has pushed. Nothing is written."
+            exit 0
+          fi
+          # An absent reference is an earlier run's delete whose close did not
+          # land: the close and comment below finish it.
+          if [ -n "$at" ] && ! git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" push \
+            --force-with-lease="refs/heads/${HEAD_REF}:${HEAD_SHA}" "$remote" ":refs/heads/${HEAD_REF}"; then
+            moved="$(git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" ls-remote "$remote" "refs/heads/${HEAD_REF}" | cut -f1)"
+            if [ -n "$moved" ] && [ "$moved" != "$HEAD_SHA" ]; then
+              echo "::notice title=Carrier taken up::the lease on ${HEAD_REF} was refused: it moved to ${moved:0:7}. Nothing is written."
+              exit 0
+            fi
+            echo "::error title=Carrier branch delete failed::${HEAD_REF} still reads ${moved:-absent} and the leased delete was refused for another reason. Nothing else is written."
+            exit 1
+          fi
+          # The explicit close is idempotent: it makes the state certain whether
+          # or not the platform has already closed the pull request on the
+          # deletion of its head branch.
+          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" -f state=closed --jq '.state'
+          body="$(printf '%s\n' \
+            "Superseded: no seat took this carrier up (still a draft, head still ${HEAD_SHA:0:7}, no \`upstream-carrier-taken\` label) and the mirror \`${MIRROR_BRANCH}\` has moved on to \`${MIRROR_TIP}\`. This run deleted its branch under a lease on that head, closed it, and opens the carrier at the mirror's tip; nothing here was moved or rebased, and the head commit stays on the mirror." \
+            "" \
+            "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/comments" -f "body=${body}" --jq '.html_url'
           echo "superseded=true" >>"$GITHUB_OUTPUT"
           echo "::notice title=Carrier superseded::PR #${NUMBER} at ${HEAD_SHA:0:7} closed and its branch deleted; a carrier at ${MIRROR_TIP:0:7} follows."
 
