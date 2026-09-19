@@ -108,6 +108,17 @@ Before substantive work:
    step loaded, a consolidation with directive-bound entries names its
    contexts at open and finishes its directive entries in a planned context;
    falsifier: the next such pass discovers the split at its end again.
+   The falsifier fired (2026-09-17 to 2026-09-19): the same seat named the shape at
+   open at 13 %, then spent the headroom on a fold's three review rounds and on reading
+   six directives during the fold's waits, and stood at 51 % with no directive edited;
+   across four contexts and four folds the register held the same twelve entries. Naming
+   the shape at open is not enough. Two further requirements: read the figure again
+   after any fold's last push and before the first directive read
+   (`directive-file-context-budget` §Sequencing), and state the pass's own measure (the
+   register's count, the buffers' undrained items) first in every report to the owner,
+   naming work that does not move it as not moving it. Falsifier for these: a pass that
+   does both still reaches its directive step over the line, or still reports folds as
+   progress while the register's count stands.
 
 ## Completion Contract
 
@@ -218,7 +229,12 @@ Repeat this loop until the completion contract is met:
    comms only when those surfaces are in scope. For platform-owned files, inventory the learning items and
    record knowledge disposition without taking over file rotation, archival, or
    deletion; if a required platform surface is absent or inaccessible, record
-   that as an explicit inventory disposition.
+   that as an explicit inventory disposition. The inventory also settles, in the
+   owner's words, which surfaces "empty" covers, and any owner decision that gates a
+   bulk act (an archive lifecycle, a frontmatter sweep) is asked before the act
+   (2026-09-17: the owner widened the target from the register to "buffers to EMPTY,
+   then memory files to an optimised soft" and ruled "Graduate, then archive" only
+   because the seat asked before moving anything).
 2. **Choose the next real item.** The organising axis is the **knowledge flow**
    (sources → napkin → distilled → pending-graduations → permanent homes;
    PDR-046's staircase, walked **bottom-up**), NOT the fitness report's

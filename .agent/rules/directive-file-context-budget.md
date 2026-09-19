@@ -47,6 +47,25 @@ first; if the agent reaches the directive boundary at or above 30%
 context, finish the in-flight step, write a handoff, and queue
 the directive edits for a fresh session.
 
+The read is part of the directive work and is budgeted the same way: do not
+read directives end-to-end in a context that will not also edit them. A context
+that carries other heavy work first (a branch fold with review rounds, a long
+raw-source read) reads the figure again after that work's last step and BEFORE
+the first directive read; if it is already near the line, the directive reads
+belong to the next context with the edits. Worked instance (2026-09-17 to
+2026-09-19): one seat read 13 % at open, declared "fold here, directives here",
+read six directives during the fold's waits, and stood at 51 % at the directive
+step with no edit made; the reads were repeated in a later context.
+
+## Reading the Figure
+
+`pnpm --silent agent-tools session-metadata --vendor <vendor> --model <id>
+--session-id <id>` reads the latest assistant turn's occupancy from the
+session transcript, so the rule gates on a reading, not an estimate. The first
+reading after a compaction can be the compaction call's own usage line (69 %
+read, then 11 % one turn later, 2026-09-19); read it again after one more turn
+before acting on it.
+
 ## The 30% Threshold Is Load-Bearing
 
 30% is not a tidy number; it is the headroom required for:

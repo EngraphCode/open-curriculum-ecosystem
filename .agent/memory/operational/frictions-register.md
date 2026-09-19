@@ -4454,8 +4454,15 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
   `[1m]` variant) and `claude-fable-5-1` (this seat's model from 2026-09-17 18:3xZ, also
   refused: `unknown model: claude-fable-5-1`; the owner's word the same day is that its window
-  is 1M) in `window-registry.ts`; then the directive pass names the command in
-  `directive-file-context-budget` and consolidate-until-done's grounding step 7 cites it.
+  is 1M) in `window-registry.ts`. The rule now names the command
+  (`directive-file-context-budget` §Reading the Figure, 2026-09-19) and consolidate-until-done's
+  step 7 cites that section; the registry lane stands.
+- **Second observation, 2026-09-19 15:41Z**: the first reading after a compaction gave 69 %
+  and the next, one turn later, 11 %. `usage.ts` `parseLatestUsage` returns the latest
+  transcript line carrying a usage object, and straight after a compaction that line is the
+  compaction call itself, which carried the whole pre-compaction context. Expected: the
+  reading names the turn it came from, or skips a compaction call's usage line, so a seat
+  gating on the figure does not hand off on a stale one. It rides the same source lane.
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
