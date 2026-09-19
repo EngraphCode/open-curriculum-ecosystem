@@ -179,14 +179,17 @@ between machines, provided the estate stays machine-agnostic.
     assumes any machine. The layout tolerates git furniture (`.git`,
     `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
     The Practice reads the repository and validates it; it never
-    initialises, commits or pushes it, and its check refuses a document
+    initialises it, and it commits and pushes only the operator's ratified
+    writes at the two moments decision 14 names, never otherwise. Its check
+    refuses a document
     carrying a credential-shaped line before anything is read into a
     session (decision 7's order: the sync, then the check, then the reads;
     2026-09-17 amendment). The push leg of decision 14 refuses a
     non-conforming working tree; it does not yet scan the content of the
     commits it pushes, so a credential-shaped line in an earlier unpushed
-    commit is the operator's to keep out of history until that scan lands
-    (the host's frictions register, F-193, carries the lane). The
+    commit is the operator's to keep out of history until a host's sync
+    tooling scans every commit the outgoing ref introduces (each host
+    tracks that lane in its own records). The
     operator's remote is a fact of the profile, recorded in its own index,
     never in a tracked surface.
 12. **The stable pointer** is the Practice index's row for the operator

@@ -276,3 +276,9 @@ The wrap is on the remote. No gate of mine runs while two context-free verifiers
 Two verifiers, fifteen findings (eleven distinct), each checked at source and cured: stale siblings of amended text, records disagreeing on where the directive pass runs, the DUE edge, #153 arithmetic, two mechanism precisions. One gate run now, then the push, then #155 is readied.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-19T11:00:54Z — #155 round one: four findings, all true; one gate run starts now (settlement push one of two)
+
+PDR-141 decision 11 (a commit-and-push sentence beside its own exception, and a host-local friction number inside a portable Core record), F-193's route missing the first-push path, and pr-lifecycle's analyser bullet naming Sonar only. Cured in one commit; gates now, then the push.
+
+— Zephyr guards Leeward (281e44)

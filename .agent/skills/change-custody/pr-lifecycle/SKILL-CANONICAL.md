@@ -496,8 +496,9 @@ live tickets where the platform is in use.
   by horizon, not more rounds).
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
-- Sonar findings have no per-site disposition channel: every finding is
-  cured at source, and the tracked CodeQL query exclusion of
+- Analyser findings, Sonar's and CodeQL's alike, have no per-site
+  disposition channel: every finding is cured at source, and the tracked
+  CodeQL query exclusion of
   `js/missing-rate-limiting` is the one excepted class (the owner's
   2026-09-08 ruling, "we don't dismiss issues, we fix them", and the
   2026-09-17 mechanism ruling; `docs/governance/sonar-disposition-policy.md`).

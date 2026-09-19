@@ -4477,6 +4477,8 @@ commit SHA and the closing plan reference.
 - **Expected**: the push leg refuses when any commit it is about to push carries a
   credential-shaped line (the pushed-commit secret scan the repository's pre-push hook runs is
   the shape), so the profile repository's history never carries one.
-- **Route**: a code lane in `agent-tools` (TDD over injected git output: the ahead commits'
-  content scanned before the push, refusal naming the commit); then PDR-141 decision 11 is
-  re-widened to match.
+- **Route**: a code lane in `agent-tools` (TDD over injected git output, with cases for both
+  push paths, `pushAhead()` and the no-upstream `pushFirst()`: every commit the outgoing ref
+  introduces is scanned before the push, and the refusal names the commit); then PDR-141
+  decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
+  host's tracker for the lane.
