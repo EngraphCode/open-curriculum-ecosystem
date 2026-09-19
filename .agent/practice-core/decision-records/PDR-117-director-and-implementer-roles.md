@@ -129,7 +129,11 @@ the awareness (Director, minimum action).**
   exactly when a convenient premise (a felt "they've gone quiet") licenses the
   takeover. (Reading claim-freshness *as* liveness is a known code defect where it
   is done mechanically; the cross-check is the doctrinal guard until that is
-  cured.)
+  cured.) Neither read licenses the takeover (2026-09-17 amendment): the
+  Moment-2 acknowledgement rests on the outgoing Director's explicit written
+  stand-down or the owner's word. A registry row that licenses nothing when
+  stale licenses nothing when fresh; the two reads guard only against taking
+  the seat over a Director who is still live.
 - **Dissolve when pressure clears.** The Director seat is justified by
   coordination pressure; when it clears (e.g. the team settles to n≤2
   owner-visible per PDR-082), dissolve it rather than perform it more quietly.
@@ -798,3 +802,23 @@ holds even when a live seat names a surface for durable homing: the write
 itself gets an explicit ask. Session-local scratch files, the seat's own
 platform memory and monitors are fine. Comms carry the handover value, as
 dated contributions the live team verifies critically, without custody risk.
+
+## Amendment (2026-09-17) — A takeover rests on a written stand-down, never on freshness
+
+§Takeover verification cross-checked the claims registry against the heartbeat
+stream so that a stale registry row would not license taking the seat over a
+live Director. It did not say what does license the takeover, so a reader of
+the same guard could let a stale row, or a silent heartbeat, stand in for the
+licence.
+The founding instance (2026-09-03, a Director handover): the incoming seat found
+the outgoing Director reading `stale` in the registry while it had posted to
+comms ninety minutes earlier; its heartbeat had been suspended under PDR-078
+§4's consumer-absent exemption. The incoming seat refused the stale row as
+licence and took the seat on the outgoing Director's explicit written
+stand-down, and recorded why: a row that licenses nothing when stale licenses
+nothing when fresh.
+
+The bullet now says so. Registry freshness and comms liveness are evidence
+against acting over a live seat; the licence for Moment 2 is the outgoing
+seat's written stand-down (its PDR-064 pre-positioning or retirement event) or
+the owner's word.

@@ -12,9 +12,9 @@ This document captures the operational knowledge for driving repo quality up usi
 ## TL;DR
 
 1. **SonarCloud** is the canonical static-analysis surface for this repo. The default Quality Gate ("Sonar way") fails on rating thresholds + coverage + duplication; the project's _active_ Quality Gate may also fail on raw `new_violations > 0` (which it does for this repo). **Always query the live QG conditions before scoping work** — different conditions need different fixes.
-2. **CodeQL** is GitHub's deep dataflow / taint-tracking analysis. It complements Sonar by catching cross-function flows that Sonar's per-rule heuristics miss (and vice versa). Both are cured at source outside the one excepted class — the MCP server's rate-limiting CodeQL alerts, which the owner dismisses through the GitHub code-scanning route after the route comment lands; no SonarCloud issue is dismissed.
+2. **CodeQL** is GitHub's deep dataflow / taint-tracking analysis. It complements Sonar by catching cross-function flows that Sonar's per-rule heuristics miss (and vice versa). Both are cured at source; the one exception is the CodeQL query `js/missing-rate-limiting`, excluded by tracked configuration under ADR-219 (§Dismissal), and no finding from either analyser is dismissed.
 3. **Sentry** is the runtime observability surface. It tells you which static-analysis findings actually matter in production by correlating issue locations with real error/perf events. Use Sentry MCP to ground severity rankings against runtime impact.
-4. **The cardinal sin**: silencing a finding without investigating the architectural tension it surfaces. Per `principles.md` "NEVER disable any quality gates" and `feedback_never_ignore_signals`. The drift pattern that produces violation: investigation-mode → disposition-mode under context pressure. Mitigations are structural (one finding/site = one commit) not just textual.
+4. **The cardinal sin**: silencing a finding without investigating the architectural tension it surfaces. Per `principles.md` "NEVER disable any quality gates" and the `no-warning-toleration` rule. The drift pattern that produces violation: investigation-mode → disposition-mode under context pressure. Mitigations are structural (one finding/site = one commit) not just textual.
 
 ---
 
@@ -87,10 +87,10 @@ The cardinal anti-pattern is the **rule-level disable** (the `sonar.issue.ignore
 we fix them"; the one-outcome policy in
 [`sonar-disposition-policy.md`](../governance/sonar-disposition-policy.md)):
 every finding from either analyser is fixed at source and closed by the
-next analysis. The policy's single exception is a CodeQL code-scanning
-alert class — `js/missing-rate-limiting` on the MCP server's routes,
-dismissed once through the code-scanning route in §Dismissal below with the
-route comment citing ADR-219 — so the Sonar write operations below have NO
+next analysis. The policy's single exception is the CodeQL query
+`js/missing-rate-limiting`, excluded by the tracked `query-filters` entry in
+`.github/codeql/codeql-config.yml` and grounded in ADR-219 (§Dismissal
+below) — so the Sonar write operations below have NO
 live use: they are documented for reading history, and an `accept`,
 `falsepositive`, `SAFE` or `ACKNOWLEDGED` write on any finding is the act
 the policy forbids.
@@ -217,7 +217,20 @@ CodeQL alert state machine: `open` → `dismissed` (with reason) → `closed` (w
 
 ### Dismissal
 
-CodeQL alerts are dismissed via:
+There is no live dismissal route: every CodeQL alert is cured at source, and
+the one exception is not a dismissal. The query `js/missing-rate-limiting` is
+excluded permanently by the `query-filters` entry in
+`.github/codeql/codeql-config.yml`, grounded in ADR-219 (owner, 2026-09-17,
+verbatim: "a permanent exclusion is allowed, but ONLY for that one issue").
+The exclusion covers every file the analysis scans, so a new route anywhere
+raises no alert and ADR-219's edge rule is the control for it; if the alert
+appears, the tracked exclusion has regressed and the cure is the
+configuration. No other query or finding class is excluded, and an agent
+never dismisses an alert. The configuration's one `paths-ignore` entry, the
+studio-source preservation tier (ADR-213), is a scope boundary for
+non-production material, not a finding-class exception.
+
+For reading history only, CodeQL alerts were dismissed via:
 
 ```bash
 gh api -X PATCH repos/<org>/<repo>/code-scanning/alerts/<number> \
@@ -227,8 +240,6 @@ gh api -X PATCH repos/<org>/<repo>/code-scanning/alerts/<number> \
 ```
 
 The dismissal reasons are constrained: `false positive`, `won't fix`, `used in tests`. The comment is the rationale carrier.
-
-The agent does not dismiss CodeQL alerts: every alert outside the one excepted class is cured at source, and that excepted class — the MCP server's rate-limiting alerts — is dismissed by the owner through the code-scanning route above (the Security UI or the API call), for which the agent prepares the rationale (the route comment, the commit message) and surfaces the action item.
 
 ### CodeQL coverage gaps and Sonar coverage gaps
 
@@ -252,7 +263,7 @@ policy); the entries below name the cure, and the one excepted class its
 route.
 
 - `js/polynomial-redos` HIGH — regex with overlapping quantifiers vulnerable to ReDoS. Often co-fired with Sonar `S5852`. Cure at every site: rewrite to linear constructs (the policy's S5852 / S8786 cure), whether or not the site's input makes the backtracking reachable.
-- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server the control is at the edge, where CodeQL cannot see it: this is the policy's ONE excepted class — the route comment recognising the defence-in-depth option and naming the edge control lands first, then one dismissal per alert through §Dismissal citing [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md), the owner's act.
+- `js/missing-rate-limiting` HIGH — routes with no rate-limit middleware in CodeQL's dataflow. On the HTTP MCP server the control is at the edge, where CodeQL cannot see it: this is the policy's ONE exception, and the query is excluded by the tracked `query-filters` entry in `.github/codeql/codeql-config.yml` under [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md) (§Dismissal), so it raises no alert.
 - `js/http-to-file-access` MEDIUM — network data written to file without sanitisation. Cure at source: sanitise or validate the data at the write the query names (the validate-then-skip shape becomes explicit at that site); no dismissal.
 - `js/incomplete-sanitization` HIGH — common pattern when escaping a single character with a non-`/g` regex. Cure at source (`/g`, or a replace-all); real bug when the input is user-controlled.
 - `js/regex/missing-regexp-anchor` HIGH — regex used as a whole-string match without `^...$`. Cure at source: anchor the regex; a real bug at security boundaries (auth, hostname).
@@ -307,7 +318,7 @@ When fixing a Sonar finding (especially a hotspot), instrument the fix with Sent
 
 ## Anti-pattern: the metacognitive drift
 
-This document was written in part because of an incident on 2026-04-27 where Vining Bending Root's session drifted from per-site investigation to per-rule disposition labelling under context pressure, producing commit `03a58787` (a `sonar.issue.ignore.multicriteria` block). The drift mechanism is captured in `.agent/memory/active/napkin.md` 2026-04-27 entry and the `feedback_never_ignore_signals` user-memory.
+This document was written in part because of an incident on 2026-04-27 where Vining Bending Root's session drifted from per-site investigation to per-rule disposition labelling under context pressure, producing commit `03a58787` (a `sonar.issue.ignore.multicriteria` block). The drift mechanism is recorded in `.agent/memory/active/archive/napkin-2026-04-28.md`, and its standing form is the `no-warning-toleration` rule.
 
 ### Triggers to detect drift early
 
@@ -354,8 +365,9 @@ For each failing condition, identify the work that addresses it:
 - `new_duplicated_lines_density` → consolidation refactors.
 - `new_security_hotspots_reviewed` → cure each hotspot at source; the next
   analysis marks it REVIEWED / FIXED.
-- CodeQL combined → per-alert fix at source; the one excepted class (the
-  MCP server's rate-limiting alerts) is dismissed once per the policy.
+- CodeQL combined → per-alert fix at source; the one excepted query
+  (`js/missing-rate-limiting`) is excluded in tracked configuration and
+  raises no alert.
 
 ### 4. Per-finding work, one at a time
 
@@ -377,9 +389,9 @@ marks it REVIEWED / FIXED. `SAFE` and `ACKNOWLEDGED` are not used.
 
 ### 7. CodeQL action items
 
-For OPEN alerts, fix the underlying code path. The one excepted class — the
-MCP server's rate-limiting alerts — is dismissed once through §Dismissal
-with the route comment citing ADR-219, the owner's act.
+For OPEN alerts, fix the underlying code path. The one excepted query,
+`js/missing-rate-limiting`, is excluded in tracked configuration
+(§Dismissal); an open alert of that query means the exclusion has regressed.
 
 ### 8. Sentry validation (when a fix touches a code path Sentry observes)
 
@@ -395,17 +407,17 @@ At natural session boundaries:
 
 ### 10. Push
 
-Push only when explicitly authorised by the owner (per the `feedback_no_verify_fresh_permission`-style discipline). Each push is per-bundle authorisation, not blanket.
+Push as the change-custody skills route it: `pr-lifecycle` Phase 1 and `bot-identity-on-third-party-systems` name the push route, and the pre-push gates run on every push whose hook runs; a `HUSKY=0` push (the ChatGPT Work cloud profile, and Claude cloud sessions by the owner's 2026-08-31 ruling) runs none and proves nothing local. `--no-verify` needs fresh owner authorisation each time (`no-verify-requires-fresh-authorisation`).
 
 ---
 
 ## Cross-references
 
 - `principles.md` §Code Quality — the authoritative ban on disabling checks.
-- `.agent/memory/active/napkin.md` 2026-04-27 — the drift-pattern lesson.
-- `.agent/plans/observability/current/pr-87-quality-finding-resolution.plan.md` — current canonical plan with corrected disposition table.
-- `feedback_never_ignore_signals` — user-memory feedback rule.
-- `feedback_no_verify_fresh_permission` — push permission per-bundle.
+- `.agent/memory/active/archive/napkin-2026-04-28.md` — the drift-pattern lesson.
+- `.agent/plans-old-archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md` — the superseded plan with its corrected disposition table, kept for history.
+- `.agent/rules/no-warning-toleration.md` — never ignore a signal.
+- `.agent/rules/no-verify-requires-fresh-authorisation.md` — hook bypass needs fresh owner authorisation.
 - `.agent/rules/strict-validation-at-boundary.md` — boundary validation discipline (informs how to investigate `js/incomplete-sanitization` and `js/regex/missing-regexp-anchor` style alerts).
 - `.agent/rules/use-result-pattern.md` — the Result-pattern discipline for error handling (informs when "throw `Error`" vs "throw `TypeError`" vs "return `Result<T, E>`" applies).
 - ADR index (`docs/architecture/architectural-decisions/`) — for architectural reasoning at boundary changes.

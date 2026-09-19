@@ -5,7 +5,7 @@ or a policy. Therefore it does not need to be canonical or exhaustive. -->
 
 ## Base
 
-/goal ultrathink /oak-start-right-thorough /oak-metacognition /oak-free-play /oak-concept-exploration  /oak-parallax  /oak-consolidate-until-done 
+/goal ultrathink /oak-start-right-thorough /oak-metacognition /oak-free-play /oak-concept-exploration  /oak-parallax  /oak-consolidate-until-done
 
   This is a dedicated consolidation session. As always, the goal is knowledge
   curation, not chasing fitness numbers. The fitness function results are never the
@@ -17,10 +17,10 @@ or a policy. Therefore it does not need to be canonical or exhaustive. -->
 
   Subagent results and sources MUST be critically assessed before being accepted or synthesised
 
-  Take your time to explore different approaches before you decide how to proceed. It's often a good
-  idea to start with all of the raw sources, then the napkin, then distilled, then re-assess the
-  situation. Starting with pending graduations means emptying those buffers then filling them
-  up again, but sometimes that is the right choice.
+  Take your time to explore different approaches before you decide how to proceed. Should a retrospective be run first /oak-retrospective ? Should the parallax skills be applied /oak-parallax ? Are we still on target to fulfil /oak-consolidate-docs ?
+  
+  It may be a good idea to start with all of the raw sources, then the napkin, then distilled, then re-assess the
+  situation. Starting with pending graduations means emptying those buffers then filling them up again.
 
   Since 2026-07-31 (PDR-134/ADR-221 ratified): concept nodes are a graduation target class —
   recurring named ideas graduate as candidate/working concepts, and the curator stewards the scheme.

@@ -75,8 +75,10 @@ the seat, not to any one pilot.
      condition?
    - What is owner-gated versus team-doable right now?
    - What is the single next safe step?
-   - **Is the outgoing Director actually standing down** — heartbeat stopped, or
-     it pre-positioned you?
+   - **Is the outgoing Director actually standing down** — an explicit written
+     stand-down (its pre-positioning event naming you, or its retirement event),
+     or the owner's word? A stopped heartbeat is not one (PDR-117 §Takeover
+     verification, amended 2026-09-17).
 
    **Mechanical liveness check (MANDATORY — paste its output before Moment-2).**
    Do NOT compute the outgoing Director's last-event age by hand and do NOT read
@@ -94,9 +96,12 @@ the seat, not to any one pilot.
    ```
 
    Read the outgoing Director's `freshness_status` and `fresh_until` from the
-   tool's output. A `stale` Director (or one whose heartbeat you have confirmed
-   stopped) is genuinely standing down; a `fresh` one is still live — do not take
-   the seat over it without a pre-position. If you ever need a single claim's age,
+   tool's output. Neither reading licenses the takeover: a `stale` row, or a
+   heartbeat you have confirmed stopped, does not show a stand-down (a heartbeat
+   can be suspended under PDR-078 §4 while the seat is live), and a `fresh` row
+   is a reason not to act. Moment 2 rests on the outgoing Director's explicit
+   written stand-down (its pre-positioning or retirement event) or the owner's
+   word (PDR-117 §Takeover verification, amended 2026-09-17). If you ever need a single claim's age,
    `claims status --active <path> --now <utc-iso>` prints the same UTC-computed
    `age_seconds` / `fresh_until` per claim. **Never** compare a `…Z` timestamp
    against a local wall-clock: on 2026-06-25 a successor read a `07:52Z`
@@ -342,14 +347,19 @@ first-hand as of 2026-06-25.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-16 (Zephyr guards Leeward, `281e44`, sole operator, at the compaction
-> boundary before the owner-directed consolidation session) — replaces the 2026-09-12 snapshot in place
-> (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
+> **§LIVE SNAPSHOT, 2026-09-17 (Zephyr guards Leeward, `281e44`, at the fold of the owner-directed
+> consolidation's second half; first written 2026-09-16 at the compaction boundary before that
+> session) — replaces the 2026-09-12 snapshot in place (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
 > head, state and threads are computed from the repository service at the moment of reading; this
 > snapshot records what LANDED and who holds which LANE.
 >
-> **Seats.** No Director is seated. The estate runs at n=1 with Zephyr guards Leeward as sole operator,
-> holding no claims at the boundary.
+> **Seats.** No Director is seated. From 2026-09-17 15:31Z the estate runs at n = 2: Zephyr guards
+> Leeward (the dedicated consolidation, curator claim `62a5dfd0` on
+> `coordination/2026-09-17-b5b0e7` from 20:19Z, after `47cfcbeb` closed at the fold) and Dynamo
+> turns Temper (`2a4c8a`, the owner-approved Oak integration lane, claim `35006027`, carrier draft
+> #154), whose landing slot opened when #153 merged at 20:17Z; that seat is paused at the owner's
+> word since 16:1xZ. The two seats coordinate on the ARC channel
+> `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:**
 >
@@ -360,8 +370,15 @@ first-hand as of 2026-06-25.
 > - #147, the 1.181.3 carrier, landed on recorded premises, `0bd321131`;
 > - #149, the reviewer-leg tightening, `514bfc06a`;
 > - #150, the 2026-09-15 fold, `a07940ac9` (2026-09-16 21:39Z, front door, three rounds), at the
->   opening of the owner's dedicated consolidation session. The successor is
->   `coordination/2026-09-16-a07940`, and the consolidation's commits ride it.
+>   opening of the owner's dedicated consolidation session;
+> - #152, the 2026-09-16 fold carrying the consolidation's first half, `cd847a2b3` (2026-09-17
+>   15:09Z, front door, a pre-publication claim pass and three rounds);
+> - #153, the 2026-09-17 fold carrying the consolidation's second half, `b5b0e70cd` (2026-09-17
+>   20:17Z, front door, a pre-publication claim pass and three rounds, folded on its cut date at
+>   the owner's word because the Oak integration lane's slot waited on it). The successor is
+>   `coordination/2026-09-17-b5b0e7`, which carries the fold's records and folds on 2026-09-19;
+>   the consolidation's directive pass runs in a fresh context on the branch cut after it (the
+>   owner's word, 2026-09-19).
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

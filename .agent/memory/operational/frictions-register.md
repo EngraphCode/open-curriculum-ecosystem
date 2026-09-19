@@ -4369,3 +4369,131 @@ commit SHA and the closing plan reference.
   instance; a refusal of a drain-comment shape there is the candidate cure. Falsifier: if
   no such comment is written in the three months after the five are removed,
   the check is dead weight.
+
+### F-189 — this repository's gate-script names and PDR-008's differ, item 9 of the Practice verification fails on it, and the right names for the ecosystem are undecided
+
+- **Observed**: 2026-09-12 (a peer's report, checked with `jq`), re-read on 2026-09-17 at the
+  dedicated consolidation. PDR-008 (Accepted 2026-04-18) fixes the aggregate gate names: bare
+  names verify, `:fix` applies, `check` is the one exception as the mutating alias of
+  `check:fix`, and `check:ci` is the non-mutating CI form; §Per-ecosystem adaptation says names
+  travel verbatim, "not `format-check`". `practice-verification.md` item 9 checks for that set.
+  The root `package.json` here defines `check` as the non-mutating aggregate and `fix` as the
+  mutating one, has no `check:fix` and no `check:ci`, spells `type-check` for `typecheck`, and
+  runs mutating commands under bare names (`format:root` writes, `markdownlint:root` runs
+  `--fix`) beside `format-check:root`. The divergence is wider than `check`.
+- **Expected**: PDR-008 §Accepted cost: "Existing repos that use non-canonical names pay a
+  one-time rename cost." (Its "flagged as deviations needing rationale" clause covers names a
+  repository adds later, not existing ones.) The two name sets differ and nothing has been
+  renamed; whether PDR-008's set or another is the one every repository should carry is the
+  owner's open decision (the Reading below).
+- **Reading, corrected by the owner (2026-09-17)**: the Core text is not stale; item 9 failing
+  here is the check doing its job. The first framing of this entry ("this host never adopted
+  PDR-008's names; this host renames, or the Core drops its exception") was wrong, the owner
+  said: this repository's `package.json` names have not changed in a very long time, and the
+  question is not one of consolidation or of one repository conforming. The question is which
+  names are RIGHT for the Practice ecosystem as a whole, decided once, and then standardised
+  across every Practice repository; this repository's long-stable names are one input to that
+  decision, PDR-008's tables are another. A rename's footprint, wherever it lands, is read at
+  decision time with `git grep -lP 'pnpm check(?![:\w-])' HEAD`, never from a count carried
+  here. At the #153 tip (2026-09-17) the CI workflow, PR template, directives, skills and docs
+  held 33 files; the name also runs through rules, the hook policy, the root README,
+  CONTRIBUTING and SECURITY, app and package docs, Cursor rules, PDR-082, and typed agent-tools
+  source and tests (`repo-check`, the check/CI parity validator); records under memory, plans
+  and reports name it hundreds of times more and stay as history.
+- **Route**: an owner decision on the ecosystem-wide names, taken through the Core exchange
+  (PDR-008 amended to the chosen set, with the per-ecosystem adaptation clause re-read); then a
+  standardisation lane in each Practice repository whose names differ from the chosen set.
+
+### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
+
+- **Observed**: 2026-09-17, truing #152's description. `.husky/refuse-commit-on-main.sh`
+  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-cli.ts`
+  (`DEFAULT_BRANCH_NAMES`) refuses a push to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
+  local commit or a bot push aimed at it. The remote covers the push: `engraph`'s branch rules
+  carry `pull_request`, `non_fast_forward`, `deletion`, `required_status_checks` and
+  `copilot_code_review` (read 2026-09-17).
+- **Expected**: the guards read the repository's default branch rather than a literal name, so
+  a local commit on the default branch is refused before it has to be undone.
+- **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
+  the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
+  configuration, with a unit test on each.
+
+### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
+
+- **Observed**: 2026-09-17, the dedicated consolidation's second context. The
+  `directive-file-context-budget` rule gates directive edits on context usage below 30 %, and
+  the seat had to decide whether the directive pass fitted after a fold's review rounds. It
+  looked for a reading, found `agent-tools context-cost` (which estimates a fileset, not a
+  session) and the transcript's bytes (3.47 MB since the compaction boundary, dominated by
+  metadata and persisted tool output), estimated from what it had loaded, and moved the pass to
+  a fresh context. An instrument existed that it did not find: `agent-tools session-metadata
+  --vendor claude --model <id> --session-id <id>` reads a session's context occupancy from the
+  vendor transcript, and the Claude statusline already reads the platform's
+  `context_window.used_percentage`. The #153 pre-publication pass found both. The command
+  refuses this seat's model id (`unknown model: claude-opus-5[1m] (no window size registered)`,
+  `agent-tools/src/session-metadata/window-registry.ts`); read against the same-size
+  `claude-opus-4-8[1m]` entry after the compaction it gave 29.5 % used.
+- **Expected**: the budget a rule gates on is readable at the moment the rule fires, from the
+  rule's own text, so the decision rests on a reading, not a guess in either direction.
+- **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
+  `[1m]` variant) and `claude-fable-5-1` (this seat's model from 2026-09-17 18:3xZ, also
+  refused: `unknown model: claude-fable-5-1`; the owner's word the same day is that its window
+  is 1M) in `window-registry.ts`; then the directive pass names the command in
+  `directive-file-context-budget` and consolidate-until-done's grounding step 7 cites it.
+
+### F-192 — a mid-session model change collides with the seat's live identity in the comms route
+
+- **Observed**: 2026-09-17 ~18:36Z. The owner switched this seat's model from Opus 5 to
+  Fable 5.1 at a compaction boundary. `identity preflight` resolves the same agent id under
+  both labels (the id is seeded from the session, not the model), and `comms watch` and
+  `assert-watcher-live` accepted the new label, but `comms append --model claude-fable-5-1`
+  was refused: "identity route Zephyr guards Leeward / id:5180aeb6… collides with live
+  identity Zephyr guards Leeward / claude-code / claude-opus-5 / 281e44-031 / id:5180aeb6…".
+  The seat kept the old label for its comms, claims and commit ceremony for the rest of the
+  session, so every record of the session names Opus 5 while the model was Fable 5.1.
+- **Expected**: one seat, one identity; the model label is a fact about the seat that may
+  change within a session, and the collision check keys on the id, so a label change under the
+  same id is a relabel, not a second identity. The route accepts it and the later events carry
+  the new label.
+- **Route**: the shared guard (`assertNoLiveIdentityRoutingCollision` in
+  `agent-tools/src/collaboration-state/active-agents.ts`, called by the identity write guard
+  behind the comms and identity commands and by the `claims open` gate; it routes on the id and
+  refuses when the model strings differ) treats a matching id with a
+  different model label as the same identity (a relabel event on the stream, not a refusal);
+  the claims rows and the heartbeat file carry the current label. Until then a seat whose model
+  changes mid-session keeps its opening label on the coordination surfaces and records the
+  change in its records, as this seat did.
+
+### F-193 — the operator-profile push leg checks the working tree, not the commits it pushes
+
+- **Observed**: 2026-09-17, raised by Codex at #153's round three and verified at source.
+  `operator-profile-sync.ts` `nonConformingDocuments()` reads the profile report over the
+  current documents; `operator-profile-git-push.ts` `pushAhead()` pushes every commit the branch
+  is ahead by, and `pushFirst()` (the no-upstream case) pushes `HEAD` the same way. An earlier
+  unpushed commit that carried a credential-shaped line, since removed
+  from the working tree, passes the check and is pushed with its history. PDR-141 decision 11
+  claimed the refusal covered anything pushed; the decision is narrowed to what the mechanism
+  delivers in the successor's first records commit.
+- **Expected**: the push leg refuses when any commit it is about to push carries a
+  credential-shaped line (the pushed-commit secret scan the repository's pre-push hook runs is
+  the shape), so the profile repository's history never carries one.
+- **Route**: a code lane in `agent-tools` (TDD over injected git output, with cases for both
+  push paths, `pushAhead()` and the no-upstream `pushFirst()`: every commit the outgoing ref
+  introduces is scanned before the push, and the refusal names the commit); then PDR-141
+  decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
+  host's tracker for the lane.
+
+### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
+
+- **Observed**: 2026-09-19, raised by Codex at #155's round two. `sha-prefix-in-collaboration-content`
+  requires `SHA:` before every commit sha written into the napkin, the thread records and
+  `repo-continuity.md`. At the #155 tip those surfaces held about 285 backticked bare shas
+  beside about 130 prefixed ones (read with `grep -oE` over the four files), including every
+  fold entry this seat wrote on 2026-09-16 and 17. No gate reads the rule: the gitleaks
+  allowlist it exists for matches `<word>: <40-hex>`, which a backticked short sha never trips,
+  so nothing refuses the bare form. The shas #155 introduced were prefixed in its second
+  settlement push; the older ones stand.
+- **Expected**: a rule that says MUST is read by something at write time, or it says SHOULD.
+- **Route**: a validator row (the markdown records' sha form) in the repo validators, with the
+  existing bare shas converted in one mechanical sweep in the same lane; until then a seat
+  writing a sha into these surfaces prefixes it.

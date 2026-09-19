@@ -218,6 +218,15 @@ classes whose homes held and did not fire:
   targets, which are not argv.
 - **zsh does not word-split an unquoted variable.** Home: `verify-dont-trust`.
   Re-learned at the cost of a gate run by at least three seats on 2026-09-10.
+- **A time written from memory, not read from the clock.** Home:
+  `records-are-technical-not-emotional` (the clock clause landed 2026-09-16 21:43Z).
+  One seat broke it three times across 2026-09-16 → 09-17 after writing the clause:
+  three records stamped "~00:1xZ" when the clock read 12:28Z (exposed by a workflow run
+  list showing later runs), then two hand-typed `claims close --now` values, 36 minutes
+  and 41 seconds ahead, each found only by reading `date -u` just after the write.
+  `claims open` defaults `--now` to the clock and `claims close` requires the flag, so the
+  candidate interrupt is structural and small: a close-time default like the open's, or
+  the CLI refusing a `--now` more than a minute from its own clock.
 
 ## The Reconciliation (the distinct value)
 

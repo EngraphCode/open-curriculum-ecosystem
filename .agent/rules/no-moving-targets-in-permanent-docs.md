@@ -294,7 +294,6 @@ carrying PR is dispositioned, never cured.
 
 - [PDR-105](../practice-core/decision-records/PDR-105-reference-direction-invariants.md)
   §Axis 1 (durability) — the reference-direction invariant this rule operationalises
-- per-user feedback memory: `feedback_no_moving_targets_in_permanent_docs`
 - PDR-044 §Innate immunity (write-time fingerprints)
 - PDR-038 §2026-05-04 amendment (stated principles require structural enforcement)
 

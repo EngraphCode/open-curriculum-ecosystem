@@ -176,10 +176,9 @@ name the divergence in any reply or coordination decision rather than
 rounding it off — and when archiving or closing claims for a "gone"
 identity whose `id` is unavailable (a historical id-less row), cite the
 **prefix** (stable) over the name (which may have wiped) so audit trails
-remain durable. Source: Claude per-user memory
-`feedback_identity_routing_uses_name_and_prefix_pair` (owner stated
-2026-05-05 after the Twilit→Ashen drift and Asteroid identity-wipe);
-reconciled to PDR-076a `(name, id)` routing 2026-05-29.
+remain durable. Source: the owner, 2026-05-05, after the Twilit→Ashen
+drift and Asteroid identity-wipe; reconciled to PDR-076a `(name, id)`
+routing 2026-05-29.
 
 ## Self-application
 
