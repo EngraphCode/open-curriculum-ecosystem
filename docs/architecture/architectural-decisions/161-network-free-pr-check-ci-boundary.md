@@ -6,7 +6,15 @@ the same PR-check boundary. Amended 2026-06-26 to state the boundary's scope
 precisely — it concerns **third-party-vendor** networks — so a call to GitHub's
 own dependency-graph API via the run's own `GITHUB_TOKEN`, on the same instance
 the workflow already depends on, is permitted (see §Third-party-vendor scope:
-GitHub's own APIs).
+GitHub's own APIs). Amended 2026-09-19 for the testing taxonomy's IO invariant
+(owner, 2026-09-14: tests never use or create IO): wherever this ADR says "E2E
+tests" or "smoke tests", read E2E and smoke **checks**, which are validation
+surfaces outside the test suites
+([`testing-strategy.md`](../../../.agent/directives/testing-strategy.md)
+§Out-of-process checks); the sentence "E2E tests CAN trigger STDIO IO" it quotes
+from that directive no longer stands there. The PR-check pipeline runs unit and
+integration tests (no IO) and the validation checks it is configured to run; its
+network-free boundary is unchanged.
 **Date**: 2026-04-17
 **Related**: [ADR-078](078-dependency-injection-for-testability.md) — the DI
 discipline that makes in-process tests deterministic;

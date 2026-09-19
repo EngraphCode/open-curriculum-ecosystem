@@ -138,9 +138,26 @@ archive" until its directive text changes.
 **Owner decisions open.** (1) F-189, as the owner reframed it on 2026-09-17: which gate-script
 names are right for the whole Practice ecosystem, decided once and then standardised in every
 Practice repository (not one repository conforming to PDR-008, nor the Core dropping a clause).
-(2) How a carrier's round tally treats a carried-code finding it may not cure, before #154's
-rounds (the cross-fork skill's 2026-09-17 sentence). Decided on 2026-09-17 and no longer open:
-the upstream-sync naming lane (rename both, after #154 lands; repo-continuity pickup item 3).
+The seat's verdict is in the F-189 entry for the owner to ratify: PDR-008 without its Rule 4
+(`check` verifies, `fix` mutates, `check:ci` retired), and this repository renames its three
+Rule 1 breaches. (2) The fsmonitor daemon on this machine (F-195: a supported cause, one bounded
+observation owed). Decided and no longer open: the upstream-sync naming lane (2026-09-17: rename
+both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,
+verbatim in the cross-fork skill: blocked by errors, fix them on the carrier; not blocked but
+issues visible, merge and fix in a separate pull request).
+
+**The agreed order (owner, 2026-09-19).** After compaction the buffers are drained: the twelve
+register entries first, on their own lane, then the napkin's three wrap blocks graduated. Then
+the seat moves back to development work. The measure is the register's count (twelve at this
+wrap), stated first in every report; a fold, a review round or a record that does not move it is
+named as not moving it.
+
+**The directive pass is its own lane (the seat's step-back, 2026-09-19).** Four folds in four
+contexts left the twelve entries untouched, because the consolidation's doctrine rode the
+coordination branch against `coordination-fold` precondition 3 and each fold's records fed the
+next fold's review. The pass opens a lane branch from `engraph` with its own draft pull request
+(no 24-hour clock; reviewers price doctrine), and the coordination branch carries a few lines of
+state.
 
 **A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
 the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
@@ -155,16 +172,17 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    `SHA:56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `SHA:a1aa47c6b`
    and `SHA:8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
    its first records commit). The
-   successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
+   successor `coordination/2026-09-17-b5b0e7` was cut and has since folded (item 2); Dynamo turns
    Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
 2. The directive pass, in a FRESH context (the owner's word, 2026-09-19, after the fourth
    context's meter read 51 % of the 1M window at the directive step; it had read 13.3 % at its
    open, and the fold's rounds plus the directive reads made during the fold's waits spent the
-   headroom). The fourth context folds the DUE successor `coordination/2026-09-17-b5b0e7` before
-   it stops, so the fresh context opens on a clean successor at the directive step. Its plan,
+   headroom). The fourth context folded the DUE successor `coordination/2026-09-17-b5b0e7` as
+   #155 (`SHA:65a929d9a`, 2026-09-19 11:30Z) before it stopped, so the fresh context opens on
+   `coordination/2026-09-19-65a929` at the directive step. Its plan,
    the draft texts and the re-verified cheap-defect list are conserved in the machine-local
    handoff record `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`
-   (claim `62a5dfd0`'s `handoff_record_path`), with the drafts in `instruments-281e44/` beside
+   (the `handoff_record_path` of the seat's curator claim, read from the registry), with the drafts in `instruments-281e44/` beside
    it. The twelve entries in `pending-graduations.md` land in three commits: testing-strategy and
    validation-strategy (the IO invariant with its echoes in tdd-as-design, principles §Testing,
    test-immediate-fails items 8 and 9, ADR-161 and the recovery plan's end-state note; the

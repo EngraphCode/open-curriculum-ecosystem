@@ -39,7 +39,9 @@ todos:
 > therefore: the `@oaknational/no-real-io-in-tests` allowlist migrates to ZERO and the
 > **allowlist mechanism itself is deleted**; the rule escalates warn→error in the same
 > landing as conformance (never a standing warn tier). Tests that genuinely need a real
-> filesystem are category-moved (validator-script self-proofs or smoke tests), never
+> filesystem are category-moved (validator-script self-proofs or recorded observations;
+> no test tier admits IO, smoke included, by the owner's 2026-09-14 ruling now stated in
+> `testing-strategy.md` §Philosophy), never
 > exempted. The ~13 refounding-suite entries (2026-07 additions) are in scope; no new
 > entries may be added anywhere in the interim (recorded also in the R0-lane handoff
 > record 2026-07-07 and the napkin, with the generator-level lesson: a violation

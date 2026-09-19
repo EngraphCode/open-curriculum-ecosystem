@@ -319,6 +319,18 @@ actually present**:
   over-bar findings, three of them this class — a new push instruction that skipped the
   Work-cloud route its identity rule evaluates first, a withdrawal banner above surviving
   instructions, and a cured tool claim repeated in a continuity record.
+  The sweep binds an authored re-truing as much as a review cure: on #153 a re-truing
+  written before this paragraph existed left five sentences in the same files teaching
+  the model it withdrew, and they were five of the doctrine group's nine findings.
+  Two further verifier lenses, from the classes the pass did not reach on #153 and #155
+  (2026-09-17 to 2026-09-19): **an amendment's neighbours** (after amending a sentence in a
+  record or a decision, grep the same file and its sister records for the old claim's nouns;
+  nine of #155's fifteen pre-publication findings were unchanged siblings of text just
+  amended), and **a mechanism claim is read against the code** (a sentence saying what a
+  tool does is checked at the tool's source, not at its documentation). When one sentence
+  is about to be amended a third time, stop and re-read the whole passage against the
+  mechanism's source first: four of #155's eight review findings were on one sentence of
+  one decision, each cure drawing the next.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two

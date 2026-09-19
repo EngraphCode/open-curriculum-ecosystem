@@ -4400,9 +4400,25 @@ commit SHA and the closing plan reference.
   CONTRIBUTING and SECURITY, app and package docs, Cursor rules, PDR-082, and typed agent-tools
   source and tests (`repo-check`, the check/CI parity validator); records under memory, plans
   and reports name it hundreds of times more and stay as history.
-- **Route**: an owner decision on the ecosystem-wide names, taken through the Core exchange
-  (PDR-008 amended to the chosen set, with the per-ecosystem adaptation clause re-read); then a
-  standardisation lane in each Practice repository whose names differ from the chosen set.
+- **The seat's verdict through the decision lenses (2026-09-19, at the owner's word "run it
+  through the decision matrix"; for the owner to ratify)**: both sides move. PDR-008's Rule 1
+  (a bare name verifies; mutation carries `:fix`) is the strict, safe rule. Its Rule 4 makes
+  `check` a mutating alias and gives one warrant, that the aggregate is "typed tens of times
+  per day"; the owner's 2026-09-14 ruling (the commit runs the gates; never run them separately)
+  removed that warrant, and an exception whose reason is gone is an escape hatch the strict lens
+  removes. So the ecosystem set is PDR-008 without Rule 4: `check` verifies, `fix` mutates, and
+  `check:ci` goes, since `check` is already CI-safe (one name, one concept; simpler). That is
+  this repository's existing `check` and `fix`. This repository breaks Rule 1 in three other
+  places and renames them: `format:root` writes and `markdownlint:root` fixes under bare names
+  beside `format-check:root` and `markdownlint-check:root`, and `type-check` is spelled against
+  the Core's `typecheck`. The direction is the safe one: a mutating `check` that becomes a
+  verifying one fails loudly, never silently changes a tree. Limit: only this repository's
+  scripts were read; a Practice repository whose hooks rely on `check` mutating needs its own
+  look before the amendment lands. Falsifier: such a repository exists and the change breaks it
+  silently.
+- **Route**: the owner ratifies or corrects the verdict; then the Core exchange amends PDR-008
+  (Rule 4 withdrawn, `check:ci` retired, the tables re-read), and a standardisation lane runs
+  in each Practice repository whose names differ, this one included.
 
 ### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
 
@@ -4438,8 +4454,15 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
   `[1m]` variant) and `claude-fable-5-1` (this seat's model from 2026-09-17 18:3xZ, also
   refused: `unknown model: claude-fable-5-1`; the owner's word the same day is that its window
-  is 1M) in `window-registry.ts`; then the directive pass names the command in
-  `directive-file-context-budget` and consolidate-until-done's grounding step 7 cites it.
+  is 1M) in `window-registry.ts`. The rule now names the command
+  (`directive-file-context-budget` §Reading the Figure, 2026-09-19) and consolidate-until-done's
+  step 7 cites that section; the registry lane stands.
+- **Second observation, 2026-09-19 15:41Z**: the first reading after a compaction gave 69 %
+  and the next, one turn later, 11 %. `usage.ts` `parseLatestUsage` returns the latest
+  transcript line carrying a usage object, and straight after a compaction that line is the
+  compaction call itself, which carried the whole pre-compaction context. Expected: the
+  reading names the turn it came from, or skips a compaction call's usage line, so a seat
+  gating on the figure does not hand off on a stale one. It rides the same source lane.
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -4482,6 +4505,29 @@ commit SHA and the closing plan reference.
   introduces is scanned before the push, and the refusal names the commit); then PDR-141
   decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
   host's tracker for the lane.
+
+### F-195 — git hung three times on the fsmonitor socket on 2026-09-17; the cause is supported, not proven
+
+- **Observed**: 2026-09-17 ~15:59Z to ~16:13Z, three git commands slept on the fsmonitor
+  daemon's unix socket on this machine: a commit in a trial worktree (twelve minutes), this
+  seat's `git add` on the primary (ten minutes, holding `.git/index.lock`), and a `git status`
+  on the primary ("could not read IPC response"). `core.fsmonitor` and `core.untrackedcache`
+  are true in this clone's local `.git/config`; no tracked file or commit sets them, and git
+  keeps no history of its config, so who enabled them and when is unknown. What changed that
+  day: four linked worktrees were created between 15:36Z and 15:49Z (their directory birth
+  times), each starting its own daemon (five are running, one per worktree), each followed by a
+  dependency install writing a very large `node_modules` tree inside the watched root. All three
+  hangs fell within twenty-five minutes of that; this seat saw none in the three days before,
+  with one worktree and one daemon.
+- **Reading**: an install floods the daemon with file events (FSEvents reports ignored paths
+  too), and a git command waiting on the daemon's socket blocks until it catches up. This fits
+  the timing and known daemon behaviour under heavy ignored-directory churn. It has not been
+  reproduced here: two processes sleeping in one window name no cause.
+- **Route**: one bounded observation at the next worktree install: time `git status` with and
+  without `-c core.fsmonitor=false` while the install runs, and record it. If the daemon is the
+  cause, the cure is the owner's choice between disabling it for this clone and keeping
+  installs out of watched roots; until then every ceremony stages with
+  `git -c core.fsmonitor=false`.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 

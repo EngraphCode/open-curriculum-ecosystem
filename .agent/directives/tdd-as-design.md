@@ -46,7 +46,11 @@ and every check the test-expert applies, derives from it.
    are complementary and run in parallel. The higher-scale tests
    describe value flow that lower-scale tests cannot reach. Different
    scales have different greening costs, and that is intentional, not a
-   flaw to optimise away.
+   flaw to optimise away. The scales that drive a running system (E2E,
+   UI, a11y, visual regression) use IO, so they are validation checks,
+   not tests (`testing-strategy.md` §Philosophy); the cycle discipline
+   applies to them unchanged, as checks written before the code they
+   describe, and "test" at those scales in this directive reads "check".
 
 ## The Atomic Landing Invariant
 
@@ -167,15 +171,14 @@ refactoring. They should be deleted or rewritten as descriptions.
 
 - `principles.md` §Code Quality — TDD is named there as a non-negotiable;
   this directive is the foundational definition that "TDD" expands to.
-- `testing-strategy.md` — defines the test-type taxonomy (unit /
-  integration / E2E / smoke); this directive defines *why* tests
+- `testing-strategy.md` — defines the taxonomy (unit and integration
+  tests; E2E and smoke as validation checks); this directive defines *why* tests
   exist and *how* they relate to product code. The two are
   complementary; in cases of conflict, this directive's
   foundational definition is authoritative on intent and the
   testing-strategy taxonomy is authoritative on shape.
-- `validation-strategy.md` (forthcoming under plan
-  `validation-and-tdd-doctrine-restructure`) — the umbrella that
-  positions tests as one of several validation surfaces.
+- `validation-strategy.md` — the umbrella that positions tests as one
+  of several validation surfaces.
 - `.agent/rules/no-conditional-tests.md`,
   `no-global-state-in-tests.md`, `test-immediate-fails.md` — the
   rule surface operationalising this directive (the skip

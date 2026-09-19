@@ -104,6 +104,11 @@ When the agent IS at an action-moment, make it observable:
   answered "we will discuss this tomorrow", 2026-09-08). Blocking asks stay
   cards (§below): an absent owner is the case where the card waits for
   their return, so nothing blocks on it meanwhile.
+  A card's answer can arrive days later (one raised 2026-09-17 ~20:2xZ was
+  answered on 2026-09-19), and every time-bound assumption in the seat's plan
+  expires in between: a branch's 24-hour lifetime, a claim's freshness, a
+  watcher's cap. The pause notice written beside the card names each such
+  edge and what the resume does first if it has passed.
   When in doubt at a real action moment, err toward notifying: a needed
   notification that lands beats one suppressed on a guessed presence
   signal. (Worked failure 2026-07-01: a merge-ready push for PR #291 was
