@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-11
+last_updated: 2026-09-17
 ---
 
 # Upstream mirror workflow
@@ -85,6 +85,14 @@ name: Upstream mirror
 # The compare endpoint reports status, ahead_by and behind_by from the HEAD
 # side, so `ahead` means the PARENT is ahead and `behind` means THIS mirror
 # is ahead.
+#
+# A dispatched run's own token is capped at the permissions of the token that
+# dispatched it, in addition to the job's own `permissions:` block: a dispatch
+# under a token carrying `actions: write` alone ran the compare and then
+# failed the reference update with 403 (run 35240876819, 2026-09-17), while
+# the same step succeeds on every scheduled run. Dispatch with a token that
+# also carries `contents: write` (in this estate, the bot's
+# `upstream-mirror-dispatch` scope, named for this act).
 
 on:
   schedule:
@@ -259,9 +267,40 @@ here so the next reader does not re-derive them:
   REQUESTS it, and the table's own header says an ungranted permission fails the mint with 422, so
   a 403 is always a wrong-scope symptom. A `workflow-dispatch` scope now exists and the bot
   dispatches under it. Verify a capability against the grant, never against one token's refusal.
+- **The dispatched run inherits the dispatching token's ceiling (measured 2026-09-17).** The
+  2026-09-11 dispatches proved the workflow loads and runs, but both found the mirror `identical`,
+  so no bot-dispatched run had reached the reference update until 2026-09-17. That day the mirror
+  was 19 commits behind after the scheduled run at 10:47Z; run 35240876819, dispatched by the bot
+  under the `workflow-dispatch` scope as it then was (`actions: write` alone), ran the compare and
+  failed the `PATCH git/refs` step with 403 `Resource not accessible by integration`, while every
+  scheduled run of the same step succeeds (run 35212280055 moved 57 commits that morning). `main`
+  carries no ruleset and no branch protection, and the job declares `contents: write`, so the
+  cap came from the dispatch: a dispatched run's own `GITHUB_TOKEN` is limited to the permissions
+  the dispatching token carried. Cured in the CLI's scope table, not in this workflow: a scope
+  named for this act, `upstream-mirror-dispatch`, carries `actions: write` and `contents: write`
+  (the general `workflow-dispatch` scope stays actions-only for the carrier dispatch and job
+  re-runs, which write nothing — the security review's split), and run 35241924531, dispatched
+  at 15:41:57Z under the lane's first shape (the general scope widened to that same permission
+  set, before the review split it), fast-forwarded `main` by 19 commits to the parent's tip.
+  Decision 7 stands (the run's own token, so a moved reference triggers no workflow); its
+  precondition is now stated in the file's header, which the fence above carries too: whoever
+  dispatches must hold what the run writes with.
 
 Review round on PR #131, 2026-09-11. Carried to the owner:
 
 | Finding | Disposition |
 | --- | --- |
 | The compare on the parent and the `parent_tip` read are separate authenticated requests. A parent move between them leaves a stale `identical`, the fast-forward never fires, and the mirror stays behind until the next slot — which across a Friday evening slot means a weekend, since the schedule is Monday to Friday. (Codex, P2) | Carried, not cured: nothing wrong is written and the next slot self-heals, so the cost is latency rather than correctness, while the fix changes the workflow's read order in text the owner ratified. Recommended shape, verified read-only on 2026-09-11: read `parent_tip` FIRST and compare the mirror against that immutable sha, which the compare endpoint accepts on the head side. One decision settles this and the carrier node's matching row. |
+
+Pre-commit reviews on the lane `fix/upstream-mirror-dispatch-token-scope`, 2026-09-17 (subagent
+reviews commissioned by the integrating seat, Dynamo turns Temper 2a4c8a, before any commit;
+recorded here because a subagent transcript is not a destination — owner, 2026-09-17):
+
+| Finding | Disposition |
+| --- | --- |
+| **security-expert** (verdict: approve with changes). Item 1: one scope now serves three acts (mirror dispatch, carrier dispatch, job re-run) and only the first writes; every carrier dispatch and re-run would hold a push-capable token for an hour. Split: keep `workflow-dispatch: {actions}`; add a scope named for the act that writes. Verified first-hand: runs 35212280055 (schedule, success), 35240876819 (dispatch, failure), 35241924531 (dispatch, success); `main` has no protection and no ruleset; the App is in no bypass list of ruleset 21202096; the mint body is single-repo and exact-set; bot re-runs 34748348080 and 34748348052 on 2026-09-12 prove the third consumer. | Cured: `workflow-dispatch` reverted to `{actions: write}`; new `upstream-mirror-dispatch: {actions: write, contents: write}` carrying the 2026-09-17 provenance; two literal tests. |
+| security-expert item 2: `merge-bot.md` "re-running a failed job has not been exercised" is false (the two 2026-09-12 re-runs). | Cured: the paragraph cites both runs. |
+| security-expert item 3: the "Setting up a bot" grant list omits Actions: Read & write, so a bot built from it fails every dispatch mint with 422. | Cured: Actions: Read & write added, naming the two scopes that request it. |
+| security-expert item 4: "the two sync workflows write through the run's own token" is false for the carrier (App token). | Cured: the mirror writes through the run's own token; the carrier through its App token; the paragraph moved onto the new scope. |
+| security-expert hardening (low): a dispatch recipe should end by revoking the token (`DELETE /installation/token`); a ruleset on `main` with `deletion` + `non_fast_forward` only; a validator coupling a dispatchable job's `permissions:` to its scope; the test's "fixed externally by GitHub" over-claims for `contents` (fixed by the mirror job's own block); "whatever the job asks for" reads as replacement, the mechanism is an intersection; the cap claim must not be widened to re-runs (they keep the original run's context; `actions/checkout` ran under `actions` alone). Blast radius of the widened token: single-repo, exact-set, one hour; cannot write `engraph`; can push other branches including force-moving `main`; the fork holds no secrets beyond the carrier App pair. | Carried to the findings ledger (D5) and, for the owner, the mirror-branch ruleset; the test comment names its fixer; "in addition to the job's own `permissions:` block" in the header and docstring; the re-run bound stated in the docstring. |
+| **code-expert** (verdict: changes requested, then cleared). Critical: the new `merge-bot.md` paragraph stated a falsehood about re-runs (as above). Important: the 2026-09-11 separation rationale contradicted the row it introduced; "two sync workflows" contradicted the carrier sentence; the node's verbatim fence no longer matched the file while line 232 claims file and node cannot drift; the grant list omits Actions; the test's "both members fixed externally by GitHub" over-claims; the header names fork tooling in a file decision 3 keeps identity-free; "after the 10:47Z scheduled slot" reads oddly against the cron; cite GitHub's documentation of the cap or say the measurement is the warrant; under the split, `workflow-dispatch`'s docstring must say "not for the mirror" or the 403 recurs for the next seat; the measurement paragraph must say run 35241924531 ran under the pre-split widened `workflow-dispatch`. Live verification: the three runs' events and actors match the prose; the fence matched the file byte-for-byte at HEAD. Specialists named: security-expert (commissioned), docs-adr-expert (focused, optional), test-expert (optional); architecture lenses and config-expert not warranted. | All cured: the fence re-spliced from the file (diff empty); the header's scope name marked "in this estate"; "the scheduled run at 10:47Z"; the docstring says GitHub's token documentation, read 2026-09-17, states no such rule and the measurement is the warrant; the "not for the mirror" pointer with the 403 run; the measurement paragraph names the pre-split shape. The optional docs and test passes were not commissioned (freeze at the owner's word, 2026-09-17). |
