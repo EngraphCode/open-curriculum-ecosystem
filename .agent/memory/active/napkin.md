@@ -209,3 +209,21 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   the next: the third time a sentence is amended, stop and re-read the whole decision against
   the mechanism's source first. The successor is `coordination/2026-09-19-65a929`; the
   directive pass opens the next context there.
+- **Step back, at the owner's word (2026-09-19 ~15:3xZ): the folds were feeding themselves.**
+  Four contexts, four folds (#150, #152, #153, #155), and the register held the same twelve
+  directive entries throughout. #155's whole content was records about folding #153 and it
+  drew twenty-three findings, every one true, each cure writing more records for the next fold
+  to price. The cause is a placement mistake by this seat: `coordination-fold` precondition 3
+  says a work product with its own review contract belongs on its own lane, and the
+  consolidation's doctrine rode the coordination branch, so every fold was large and the
+  24-hour lifetime forced a fold before the directive pass could start. Behaviour change: the
+  directive pass is its own branch and pull request (no lifetime clock; reviewers price
+  doctrine, not housekeeping), and a fold entry is a few lines of state, not a narrative. A
+  second mistake in the same sitting: three of four owner cards were shaped by the machinery
+  and not the owner's ends — a menu where the owner had asked for the right answer (F-189), a
+  simple carrier question wrapped in tally jargon, a fsmonitor setting offered without a cause.
+  `present-verdicts-not-menus` was loaded and not followed. The owner's carrier rule, verbatim:
+  "If the merge to the engraph branch is blocked by errors, fix them, if it is not blocked but
+  we can see issues then merge and we fix in a separate PR"; it replaced ten lines of the
+  cross-fork skill. When a question to the owner needs the process's own vocabulary to be
+  asked, the question is about the means; restate it in the owner's terms or answer it.

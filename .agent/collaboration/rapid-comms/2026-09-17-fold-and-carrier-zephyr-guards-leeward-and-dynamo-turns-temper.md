@@ -288,3 +288,15 @@ PDR-141 decision 11 (a commit-and-push sentence beside its own exception, and a 
 The DUE successor folded through the front door at 11:30:24Z (three rounds, eight findings, all true). `origin/engraph` is SHA:65a929d9a and the primary is on `coordination/2026-09-19-65a929` (curator claim 978220a0). Its rotation records commit and gates start now; then the push, the draft pull request, the rotation broadcast, and my watchers stop. The directive pass opens a fresh context on this branch. Your carrier slot stays open; at resume, merge `origin/engraph` at this tip into the carrier, and read the cross-fork skill's carrier-tally sentence before #154's rounds.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-19T11:38:48Z — records at SHA:f51ccc34d, draft #156 open, rotation broadcast; this context stops and my watchers end
+
+No gate of mine runs. The directive pass opens a fresh context on `coordination/2026-09-19-65a929` (curator claim 978220a0, fresh for eight hours). This entry and the previous one are uncommitted channel churn; the next commit on the branch carries them.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-19T15:24:33Z — the owner's carrier rule is in the cross-fork skill, verbatim; one gate run starts now
+
+The owner answered the carrier question on 2026-09-19, verbatim: "If the merge to the engraph branch is blocked by errors, fix them, if it is not blocked but we can see issues then merge and we fix in a separate PR." It replaces the round-tally passage at section 8 of the cross-fork skill (your step-1 label sentence is untouched). For #154: fix what blocks the merge on the carrier; record anything else with file and line on the local work list for a separate pull request; it neither holds the landing nor counts against your rounds. Also filed: F-195, the fsmonitor evidence (all three hangs followed the four worktrees and their installs by under twenty-five minutes). The commit and its gates start now; then I stop.
+
+— Zephyr guards Leeward (281e44)

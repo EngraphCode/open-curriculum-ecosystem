@@ -138,9 +138,20 @@ archive" until its directive text changes.
 **Owner decisions open.** (1) F-189, as the owner reframed it on 2026-09-17: which gate-script
 names are right for the whole Practice ecosystem, decided once and then standardised in every
 Practice repository (not one repository conforming to PDR-008, nor the Core dropping a clause).
-(2) How a carrier's round tally treats a carried-code finding it may not cure, before #154's
-rounds (the cross-fork skill's 2026-09-17 sentence). Decided on 2026-09-17 and no longer open:
-the upstream-sync naming lane (rename both, after #154 lands; repo-continuity pickup item 3).
+The seat's verdict is in the F-189 entry for the owner to ratify: PDR-008 without its Rule 4
+(`check` verifies, `fix` mutates, `check:ci` retired), and this repository renames its three
+Rule 1 breaches. (2) The fsmonitor daemon on this machine (F-195: a supported cause, one bounded
+observation owed). Decided and no longer open: the upstream-sync naming lane (2026-09-17: rename
+both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,
+verbatim in the cross-fork skill: blocked by errors, fix them on the carrier; not blocked but
+issues visible, merge and fix in a separate pull request).
+
+**The directive pass is its own lane (the seat's step-back, 2026-09-19).** Four folds in four
+contexts left the twelve entries untouched, because the consolidation's doctrine rode the
+coordination branch against `coordination-fold` precondition 3 and each fold's records fed the
+next fold's review. The pass opens a lane branch from `engraph` with its own draft pull request
+(no 24-hour clock; reviewers price doctrine), and the coordination branch carries a few lines of
+state.
 
 **A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
 the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
