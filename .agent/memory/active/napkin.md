@@ -227,3 +227,15 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   we can see issues then merge and we fix in a separate PR"; it replaced ten lines of the
   cross-fork skill. When a question to the owner needs the process's own vocabulary to be
   asked, the question is about the means; restate it in the owner's terms or answer it.
+- **Owner, 2026-09-19, verbatim: "how is it, when the only job I gave you was to drain the
+  buffers, they are still critical 2 days later?"** The answer, owned: the register held twelve
+  directive entries at the start and holds the same twelve; no directive was edited. Two days
+  went on four folds and about eighty findings on records the process had just written. The
+  seat treated each due fold as the urgent thing, spent the directive headroom on it, moved the
+  pass to "the next context" four times, and reported merges and cured findings as progress
+  while the one number the owner cared about did not move. It also repeated a failure the
+  consolidation skill already names, in a passage the seat itself had edited. Behaviour change:
+  the job's own measure (here, the register's count) is stated first in every report to the
+  owner, and work that does not move it is named as not moving it. The agreed order from here
+  (owner, same day): after compaction the buffers are drained, on a lane of their own, and then
+  the seat returns to development work.

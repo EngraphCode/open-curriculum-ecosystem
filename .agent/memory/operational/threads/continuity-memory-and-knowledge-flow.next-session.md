@@ -146,6 +146,12 @@ both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (20
 verbatim in the cross-fork skill: blocked by errors, fix them on the carrier; not blocked but
 issues visible, merge and fix in a separate pull request).
 
+**The agreed order (owner, 2026-09-19).** After compaction the buffers are drained: the twelve
+register entries first, on their own lane, then the napkin's three wrap blocks graduated. Then
+the seat moves back to development work. The measure is the register's count (twelve at this
+wrap), stated first in every report; a fold, a review round or a record that does not move it is
+named as not moving it.
+
 **The directive pass is its own lane (the seat's step-back, 2026-09-19).** Four folds in four
 contexts left the twelve entries untouched, because the consolidation's doctrine rode the
 coordination branch against `coordination-fold` precondition 3 and each fold's records fed the
