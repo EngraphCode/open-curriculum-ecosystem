@@ -3684,8 +3684,8 @@ channel `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-gua
 
 ### 2026-09-17 20:17Z — the 2026-09-17 branch folded as #153 (Zephyr guards Leeward, 281e44, curator at n = 2)
 
-`coordination/2026-09-17-cd847a` landed through the front door as `b5b0e70cd` at 20:17:05Z
-(parents `cd847a2b3`, `8e7d37824`; both reviewer legs satisfied on the tip; 21 of 21 checks;
+`coordination/2026-09-17-cd847a` landed through the front door as `SHA:b5b0e70cd` at 20:17:05Z
+(parents `cd847a2b3`, `SHA:8e7d37824`; both reviewer legs satisfied on the tip; 21 of 21 checks;
 zero unresolved threads). The owner's word at 19:3xZ: fold now. The successor is
 `coordination/2026-09-17-b5b0e7`, cut from the merge with the coordination tool; the primary
 resides there and this seat's curator claim `62a5dfd0` holds it.
@@ -3695,9 +3695,9 @@ the owner's CodeQL ruling homed in the doctrine that disagreed with it, the Prac
 with its carries homed, PDR-117 and PDR-141 amended, the memory-lifecycle decision queued for the
 directive pass, and AGENT.md §Commands cured to the owner's never-run-gates-separately ruling.
 
-Review: a context-free pass raised 33 claim errors before publication, all cured in `56f42807e`;
+Review: a context-free pass raised 33 claim errors before publication, all cured in `SHA:56f42807e`;
 three rounds then raised thirteen distinct findings, all true at source. Settlement pushes 2 of 2
-(`a1aa47c6b`, `8e7d37824`) cured six; one (round two, the pickup naming its own fold as next) was
+(`SHA:a1aa47c6b`, `SHA:8e7d37824`) cured six; one (round two, the pickup naming its own fold as next) was
 dispositioned on its thread; round three's six (one Codex thread, five Copilot suppressed items,
 two of them one stale-index-cell class) were dispositioned without a cure and cured on the
 successor in its first records commit. Review-cost ledger: 32.75 of 40, warn at the stop.

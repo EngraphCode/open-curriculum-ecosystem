@@ -126,9 +126,9 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   wrong (the question is which gate names are right for the whole Practice ecosystem, then
   standardising everywhere; this repository's names have been stable for a long time); rename
   the sync names after #154 lands. #153 folded through the front door at 20:17:05Z as
-  `b5b0e70cd` after three rounds (thirteen distinct findings, all true at source: six cured in
+  `SHA:b5b0e70cd` after three rounds (thirteen distinct findings, all true at source: six cured in
   two settlement pushes, one dispositioned on its thread, six routed to the successor and cured
-  there in `84d7bc441`; this block first said "twelve, seven, five", which its own
+  there in `SHA:84d7bc441`; this block first said "twelve, seven, five", which its own
   pre-publication pass on #155 showed fits neither the distinct nor the raised count). The
   successor `coordination/2026-09-17-b5b0e7` was cut and draft #155 opened. Then the meter read
   51 % of 1M, the owner chose a fresh context for the directive pass, and the answer arrived
@@ -192,7 +192,7 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   seat. Falsifier: a pass that reads the meter after its fold and before its directive reads
   still finds the split at the end.
 - **Loss scan and metaloss.** Uncommitted at this block: this block, the resume-point edits, the
-  handoff record (machine-local, untracked by design) and the ARC churn since `84d7bc441`; the
+  handoff record (machine-local, untracked by design) and the ARC churn since `SHA:84d7bc441`; the
   wrap commit carries the tracked ones. Promises: the successor folds now (this context), the
   directive pass opens the next context at its directive step from the handoff record; Dynamo
   turns Temper's slot is open and they are paused at the owner's word (claim stale since

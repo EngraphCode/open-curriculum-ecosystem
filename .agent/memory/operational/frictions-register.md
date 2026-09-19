@@ -4482,3 +4482,18 @@ commit SHA and the closing plan reference.
   introduces is scanned before the push, and the refusal names the commit); then PDR-141
   decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
   host's tracker for the lane.
+
+### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
+
+- **Observed**: 2026-09-19, raised by Codex at #155's round two. `sha-prefix-in-collaboration-content`
+  requires `SHA:` before every commit sha written into the napkin, the thread records and
+  `repo-continuity.md`. At the #155 tip those surfaces held about 285 backticked bare shas
+  beside about 130 prefixed ones (read with `grep -oE` over the four files), including every
+  fold entry this seat wrote on 2026-09-16 and 17. No gate reads the rule: the gitleaks
+  allowlist it exists for matches `<word>: <40-hex>`, which a backticked short sha never trips,
+  so nothing refuses the bare form. The shas #155 introduced were prefixed in its second
+  settlement push; the older ones stand.
+- **Expected**: a rule that says MUST is read by something at write time, or it says SHOULD.
+- **Route**: a validator row (the markdown records' sha form) in the repo validators, with the
+  existing bare shas converted in one mechanical sweep in the same lane; until then a seat
+  writing a sha into these surfaces prefixes it.

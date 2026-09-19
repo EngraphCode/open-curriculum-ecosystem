@@ -117,9 +117,9 @@ napkin's graduations and its rotation. The third (2026-09-17, after compaction) 
 channel with Dynamo turns Temper, ran #153's pre-publication claim pass (four verifiers, 33
 findings, every one true at its source) and committed the cures, including F-191's correction:
 `agent-tools session-metadata` reads context usage. The fourth (2026-09-17 18:3xZ to 2026-09-19)
-folded #153 (`b5b0e70cd`) after three rounds, cut `coordination/2026-09-17-b5b0e7`, cured #153's
-routed round-three findings and wrote the rotation records there (`84d7bc441`), and wrapped
-(`0731703d7`) when the meter read 51 % at the directive step.
+folded #153 (`SHA:b5b0e70cd`) after three rounds, cut `coordination/2026-09-17-b5b0e7`, cured #153's
+routed round-three findings and wrote the rotation records there (`SHA:84d7bc441`), and wrapped
+(`SHA:0731703d7`) when the meter read 51 % at the directive step.
 
 **Buffers.** `open-questions.md` and `distilled.md` are empty. `pending-graduations.md` holds twelve
 directive-bound entries: the eleven carried, and the owner's lifecycle decision below. The napkin
@@ -151,9 +151,9 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 **Next, in the owner's order.**
 
 1. LANDED: #153 folded on 2026-09-17 at the owner's word, through the front door as
-   `b5b0e70cd` (20:17:05Z), after a pre-publication claim pass (33 findings, all cured in
-   `56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `a1aa47c6b`
-   and `8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
+   `SHA:b5b0e70cd` (20:17:05Z), after a pre-publication claim pass (33 findings, all cured in
+   `SHA:56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `SHA:a1aa47c6b`
+   and `SHA:8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
    its first records commit). The
    successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
    Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.

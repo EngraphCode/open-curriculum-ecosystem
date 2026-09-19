@@ -179,8 +179,9 @@ between machines, provided the estate stays machine-agnostic.
     assumes any machine. The layout tolerates git furniture (`.git`,
     `.gitignore`, `.gitattributes`) and nothing else beyond the three kinds.
     The Practice reads the repository and validates it; it never
-    initialises it, and it commits and pushes only the operator's ratified
-    writes at the two moments decision 14 names, never otherwise. Its check
+    initialises it. Decision 14 names the only two git operations it runs:
+    a fetch and fast-forward (or plain merge) at session open, and, after a
+    write the operator has ratified, a commit and push of that write. Its check
     refuses a document
     carrying a credential-shaped line before anything is read into a
     session (decision 7's order: the sync, then the check, then the reads;
@@ -215,10 +216,10 @@ applies only to a root that is a git repository with a remote.
     profile only on the operator's word — run the check, commit with a
     message naming the seat and the fact, and push. No write sits unpushed
     across a session boundary. Never force, never rewrite history, never
-    stage by wildcard. This scopes decision 11's "never initialises,
-    commits or pushes": initialising stays the operator's act; committing
-    and pushing the operator's own ratified writes at these two moments is
-    the Practice's.
+    stage by wildcard. Decision 11 says the same from its side: initialising
+    stays the operator's act; the session-open fetch and merge, and the
+    commit and push of the operator's own ratified writes, are the
+    Practice's, and it runs no other git operation on the repository.
 15. **Conflicts resolve by union.** One author, pull-before-write and
     write-then-push make a conflict rare; when two machines have written
     the same file between syncs, both sides are kept in time order, the
