@@ -354,8 +354,8 @@ first-hand as of 2026-06-25.
 > snapshot records what LANDED and who holds which LANE.
 >
 > **Seats.** No Director is seated. From 2026-09-17 15:31Z the estate runs at n = 2: Zephyr guards
-> Leeward (the dedicated consolidation, curator claim `62a5dfd0` on
-> `coordination/2026-09-17-b5b0e7` from 20:19Z, after `47cfcbeb` closed at the fold) and Dynamo
+> Leeward (the dedicated consolidation; its curator claim moves with each fold and is read from
+> the claims registry, on `coordination/2026-09-19-65a929` from 2026-09-19 11:3xZ) and Dynamo
 > turns Temper (`2a4c8a`, the owner-approved Oak integration lane, claim `35006027`, carrier draft
 > #154), whose landing slot opened when #153 merged at 20:17Z; that seat is paused at the owner's
 > word since 16:1xZ. The two seats coordinate on the ARC channel
@@ -376,9 +376,11 @@ first-hand as of 2026-06-25.
 > - #153, the 2026-09-17 fold carrying the consolidation's second half, `b5b0e70cd` (2026-09-17
 >   20:17Z, front door, a pre-publication claim pass and three rounds, folded on its cut date at
 >   the owner's word because the Oak integration lane's slot waited on it). The successor is
->   `coordination/2026-09-17-b5b0e7`, which carries the fold's records and folds on 2026-09-19;
->   the consolidation's directive pass runs in a fresh context on the branch cut after it (the
->   owner's word, 2026-09-19).
+>   `coordination/2026-09-17-b5b0e7`, which carried the fold's records;
+> - #155, that successor's fold, `65a929d9a` (2026-09-19 11:30Z, front door, a pre-publication
+>   claim pass and three rounds, a day past its DUE). The successor is
+>   `coordination/2026-09-19-65a929`; the consolidation's directive pass runs on it in a fresh
+>   context (the owner's word, 2026-09-19).
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

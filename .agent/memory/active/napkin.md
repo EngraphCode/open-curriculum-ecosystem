@@ -199,3 +199,13 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   23:31Z 09-17; not this seat's to close). Owner decisions open: F-189's ecosystem-wide names;
   the carrier tally question before #154's rounds. Blind spot: nothing from any seat on the
   stream or the ARC channel since 09-17 20:20Z. Fence sweep: no Oak surface written.
+- **Addendum, 2026-09-19 11:3xZ: #155 folded as `SHA:65a929d9a`.** Its own pre-publication pass
+  raised fifteen findings on a thirteen-file records branch, nine of them unchanged SIBLINGS of
+  text this seat had just amended (an "Owner decisions open" paragraph, a board pointer, a
+  title and an Expected bullet, three records still saying "this context"). Behaviour change:
+  after amending a sentence in a record, grep the same file and its sister records for the old
+  claim's nouns before committing; the amendment is not done until its siblings agree. And four
+  of the eight review findings were on one sentence of PDR-141 decision 11, each cure drawing
+  the next: the third time a sentence is amended, stop and re-read the whole decision against
+  the mechanism's source first. The successor is `coordination/2026-09-19-65a929`; the
+  directive pass opens the next context there.

@@ -155,16 +155,17 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    `SHA:56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `SHA:a1aa47c6b`
    and `SHA:8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
    its first records commit). The
-   successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
+   successor `coordination/2026-09-17-b5b0e7` was cut and has since folded (item 2); Dynamo turns
    Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
 2. The directive pass, in a FRESH context (the owner's word, 2026-09-19, after the fourth
    context's meter read 51 % of the 1M window at the directive step; it had read 13.3 % at its
    open, and the fold's rounds plus the directive reads made during the fold's waits spent the
-   headroom). The fourth context folds the DUE successor `coordination/2026-09-17-b5b0e7` before
-   it stops, so the fresh context opens on a clean successor at the directive step. Its plan,
+   headroom). The fourth context folded the DUE successor `coordination/2026-09-17-b5b0e7` as
+   #155 (`SHA:65a929d9a`, 2026-09-19 11:30Z) before it stopped, so the fresh context opens on
+   `coordination/2026-09-19-65a929` at the directive step. Its plan,
    the draft texts and the re-verified cheap-defect list are conserved in the machine-local
    handoff record `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`
-   (claim `62a5dfd0`'s `handoff_record_path`), with the drafts in `instruments-281e44/` beside
+   (the `handoff_record_path` of the seat's curator claim, read from the registry), with the drafts in `instruments-281e44/` beside
    it. The twelve entries in `pending-graduations.md` land in three commits: testing-strategy and
    validation-strategy (the IO invariant with its echoes in tdd-as-design, principles §Testing,
    test-immediate-fails items 8 and 9, ADR-161 and the recovery plan's end-state note; the
