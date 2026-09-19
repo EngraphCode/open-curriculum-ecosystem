@@ -144,7 +144,7 @@ current session:
    surface to do its job for the next reader, **not** because a count fell. For a
    continuity/narrative file, judge the content against the file's own
    `overflow_disposition` / `continuity-practice` §Disposition (leave-if-live; else
-   conserve-insight-and-delete). Never trim understanding or raise a limit to change
+   graduate, then archive, and only after full processing). Never trim understanding or raise a limit to change
    a report: both optimise the proxy and leave the impact untouched (and
    [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
    forbids the report-gaming).

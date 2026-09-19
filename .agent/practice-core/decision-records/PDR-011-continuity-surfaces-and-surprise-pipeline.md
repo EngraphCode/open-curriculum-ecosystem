@@ -225,6 +225,24 @@ unit).
   satisfied because the consolidation gate survives inside the programme. The repo-bound
   twin (ADR-150) carries the same amendment with body revision. Realised in the origin
   host's `wrap` and `session-handoff` skills and its continuity directive.
+- **2026-09-17 — the finished disposition becomes "graduate, then archive", and a
+  surface's lifecycle is named as four parts.** Owner decision in the origin estate,
+  choosing "Graduate, then archive" over curate-and-delete: three months under the
+  2026-06-08 disposition showed that a disposition and a runbook no skill step invoked
+  left the continuity surfaces growing, while the capture surface, which had a trigger
+  and a proof, stayed curated. Under this amendment §Decision's disposition 2 reads:
+  every behaviour-changing finished entry is written into its permanent home and the
+  home is read back; then the finished history moves whole to a dated archive beside the
+  surface, proven byte-identical; the live surface keeps its live state and a pointer.
+  A memory surface is curated only when it has all four parts: a role, a disposition
+  for finished content, a trigger (a named workflow step), and a proof that nothing was
+  lost. The 2026-06-08 prohibition survives in its purpose: an archive, split, shard or
+  rename made to change a fitness category is still not curation, and archiving happens
+  only after full processing (owner, 2026-09-19, verbatim: "archiving happens ONLY after
+  full processing, not as a means to tick a box"). §Decision body text is retained
+  verbatim as the historical record per PDR convention. Realised in the origin host's
+  continuity directive and its consolidation skill's continuity-archive step; the
+  repo-bound twin (ADR-150) mirrors this in its Amendment Log.
 
 ## Context
 

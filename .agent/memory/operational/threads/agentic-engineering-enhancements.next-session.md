@@ -11,8 +11,7 @@ fitness_line_length_rationale: >-
   noise while still flagging genuine over-runs (this record still has a few >115
   lines that correctly remain flagged).
 fitness_content_role: reference
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
-archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
 # Next-Session Record — `agentic-engineering-enhancements` thread
