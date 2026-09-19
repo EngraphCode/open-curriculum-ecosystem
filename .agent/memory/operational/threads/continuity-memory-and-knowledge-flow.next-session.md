@@ -150,18 +150,24 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    `8e7d37824`, five routed to the successor and cured in its first records commit). The
    successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
    Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
-2. The directive pass, in THIS context (the fourth), by the owner's answer of 2026-09-17: the
-   seat's window is 1M, and against a 1M window the meter read 13.3 % at 18:36Z, under the
-   `directive-file-context-budget` rule's 30 %. The twelve entries in `pending-graduations.md`,
-   in three commits on the successor: testing-strategy and validation-strategy (the IO invariant
-   with its echoes in tdd-as-design, principles §Testing, test-immediate-fails items 8 and 9,
-   ADR-161 and the recovery plan's end-state note; the observation instrument;
-   visibility-before-validation; counters as configuration echoes; growth at two sizes); then
-   principles, orientation, editorial-tone and the directives review's cheap defects; then
-   continuity-practice's lifecycle section, the consolidate-docs trigger step and the
-   frontmatter sweep. The meter is read before each directive edit:
-   `agent-tools session-metadata --vendor claude --model claude-opus-4-8[1m] --session-id <id>`
-   (the same-size entry stands in until F-191's window-registry lane lands).
+2. The directive pass, in a FRESH context (the owner's word, 2026-09-19, after the fourth
+   context's meter read 51 % of the 1M window at the directive step; it had read 13.3 % at its
+   open, and the fold's rounds plus the directive reads made during the fold's waits spent the
+   headroom). The fourth context folds the DUE successor `coordination/2026-09-17-b5b0e7` before
+   it stops, so the fresh context opens on a clean successor at the directive step. Its plan,
+   the draft texts and the re-verified cheap-defect list are conserved in the machine-local
+   handoff record `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`
+   (claim `62a5dfd0`'s `handoff_record_path`), with the drafts in `instruments-281e44/` beside
+   it. The twelve entries in `pending-graduations.md` land in three commits: testing-strategy and
+   validation-strategy (the IO invariant with its echoes in tdd-as-design, principles §Testing,
+   test-immediate-fails items 8 and 9, ADR-161 and the recovery plan's end-state note; the
+   observation instrument; visibility-before-validation; counters as configuration echoes;
+   growth at two sizes); then principles, orientation, editorial-tone and the directives
+   review's cheap defects; then continuity-practice's lifecycle section, the consolidate-docs
+   trigger step and the frontmatter sweep. The meter is read BEFORE the first directive read,
+   not only before the edit: `agent-tools session-metadata --vendor claude --model
+   claude-opus-4-8[1m] --session-id <id>` (the same-size entry stands in until F-191's
+   window-registry lane lands); a reading at or above 30 % stops the pass before it starts.
 3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
    landed: graduate, then archive, the finished history of `repo-continuity.md`, the
    agentic-engineering-enhancements and estate-coordination thread records,

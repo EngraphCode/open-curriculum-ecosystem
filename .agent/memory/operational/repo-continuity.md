@@ -364,8 +364,10 @@ branch folded as #152".
 1. the consolidation — IN PROGRESS on `coordination/2026-09-17-b5b0e7`, cut from #153's merge
    (`b5b0e70cd`, 2026-09-17 20:17Z; #153 folded at the owner's word on its cut date because
    Dynamo turns Temper's Oak integration lane merges nothing until it landed, and that slot is
-   now open). Next on it: the directive pass over the twelve register entries in this context
-   (the owner's word, 2026-09-17: the seat's window is 1M; it read 13.3 % at 18:36Z), then the
+   now open). The branch carries the fold's records and is folded at its DUE on 2026-09-19 by
+   the same seat; the directive pass over the twelve register entries runs in a fresh context
+   on the next successor (the owner's word, 2026-09-19, after the meter read 51 % of the 1M
+   window; the plan and drafts are in the seat's machine-local handoff record), then the
    graduate-then-archive curation of the large memory files;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
