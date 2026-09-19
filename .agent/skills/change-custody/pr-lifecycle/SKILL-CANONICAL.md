@@ -144,9 +144,14 @@ into the permanent record):
    Tripwire: a conflict beyond trivial union-append on `.agent`
    continuity/state/memory files STOPS the merge and routes to the Director —
    resolving it solo is how approved versions get silently reverted.
-2. **Tree and gates**: working tree clean; a successful push already ran the
-   full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it. The identity route for a push is
+2. **Tree and gates**: working tree clean. A push whose pre-push hook ran has
+   already run the full gate suite, so a clean push IS the local-green proof —
+   do not re-run gates just to re-confirm it. A push made with `HUSKY=0` runs
+   no local gate and proves nothing local: the ChatGPT Work cloud profile
+   pushes that way (its routing directive names the static checks it reports
+   instead), and so do Claude cloud sessions by the owner's 2026-08-31 ruling
+   (`.agent/claude-harness-integrations/cloud-environment.md`, which relies on
+   CI as the gate and names the in-session validation it keeps). The identity route for a push is
    `bot-identity-on-third-party-systems`, which evaluates the ChatGPT Work
    cloud profile first: a detected Work cloud session pushes as
    [`cloud-environment-routing.md`](../../../directives/cloud-environment-routing.md#chatgpt-work-cloud-profile)
@@ -306,7 +311,14 @@ actually present**:
   citations. Prediction: claim-class findings in round one become rare on
   changesets that ran the pass; falsifier: such a changeset still draws three or
   more rounds of claim-class findings, or the pass costs more than the rounds it
-  replaced.
+  replaced. **A text cure's sweep reads outward, not only at the cited line**: the
+  corrected claim across the whole branch (in other words and in other files), the
+  surviving sentences in the same file that teach the model the cure withdraws, and the
+  governing texts of any act a new sentence prescribes. On the first run of this pass
+  (#152, 2026-09-17: 31 claim errors before publication), round one still raised five
+  over-bar findings, three of them this class — a new push instruction that skipped the
+  Work-cloud route its identity rule evaluates first, a withdrawal banner above surviving
+  instructions, and a cured tool claim repeated in a continuity record.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two
@@ -484,11 +496,15 @@ live tickets where the platform is in use.
   by horizon, not more rounds).
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
-- Sonar findings keep their per-site channel: **owner-dispositioned with
-  evidence** (per-site, e.g. a false-positive with rationale at that site)
-  remains a terminal state alongside the three above. Triage routes
-  findings; it never buries them — never dismissed by category, never
-  gate-narrowed, never warning-downgraded, never suppressed.
+- Analyser findings, Sonar's and CodeQL's alike, have no per-site
+  disposition channel: every finding is cured at source, and the tracked
+  CodeQL query exclusion of
+  `js/missing-rate-limiting` is the one excepted class (the owner's
+  2026-09-08 ruling, "we don't dismiss issues, we fix them", and the
+  2026-09-17 mechanism ruling; `docs/governance/sonar-disposition-policy.md`).
+  Triage routes findings; it never buries them — never dismissed by
+  category or per site, never gate-narrowed, never warning-downgraded,
+  never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention. The class sweep that ends a loop re-runs
@@ -564,7 +580,10 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   60-second tick (state, merge state, head, the check rollup counted by state,
   unresolved threads, reviews bound to the head; a connection that reports
   truncation is paged within the tick, as item 1 requires) and prints one line only when that
-  reading changes, ending only on MERGED or CLOSED. No tool provides that
+  reading changes, ending only on MERGED or CLOSED. It also prints a heartbeat
+  line at a fixed cadence (every tenth tick) and a line when it exits for any
+  other reason, so a dead or hung watcher is told apart from a quiet pull
+  request (F-164's expected shape); the heartbeat is liveness, never state. No tool provides that
   loop yet: the seat writes it, running the compound selection of the
   review-round state machine's item 1 at a 60-second interval (not the tight
   polling F-110 forbids), until the `ws6-pr-watch-compound-floor` item below

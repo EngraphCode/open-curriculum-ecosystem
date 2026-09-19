@@ -322,6 +322,46 @@ in its repo-independent scope while the exchange protocol defines
 the conjugation model; reconcile at the next exchange-window doctrine
 sitting.
 
+**Offered by resonance on 2026-07-08** (the session known there as Gnarled
+Ripening Root, `f0bdae`). The next exchange window reads them:
+
+- **Offers for the cross-estate design integration session (owner-scoped;
+  adopting a foreign estate's shapes is an owner-priced decision taken when
+  that work opens).** Four artefact shapes resonance's owner-ratified design
+  practice built, offered as domain-general:
+  1. *The proof ladder*: every design claim carries a proof-rung class —
+     `computable` (a validator decides it), `comparable` (decidable against a
+     reference artefact), `statistical` (decidable over a sample with stated
+     confidence), `perceptual` (decidable only by human judgement, batched
+     into owner moments) — so "is this claim proven?" is a typed question
+     routed to its cheapest honest instrument, and claims are priced by their
+     verification cost.
+  2. *The refusals-list shape*: a machine-readable list of what the system
+     refuses to do (resonance: thirteen design refusals as JSON), each
+     enforced by a named gate or an explicit review duty, never prose only.
+  3. *The posture selection procedure*: a shipped procedure, not a
+     configuration key, by which an estate selects its design posture and
+     records the outcome as a decision record; posture is instance judgement
+     re-derived per estate, and judgement flattened into configuration is the
+     named failure mode (resonance's portability-taxonomy decision record:
+     substrate / configuration / instance judgement).
+  4. *The obligation-family shape*: a small closed set of universal, binary,
+     enforcement-mapped obligations (resonance: fifteen MUST-level design
+     obligations, each mapped to its gate or review); the shape travels, the
+     obligations are instance content.
+- **Castr-bound, for the next castr exchange window.** (5) castr's graft
+  lacks the plan-templates surface; its napkin carries the corrected note.
+  (9) castr's copy of the region renderer likely carries a zero-patterns
+  defect that resonance TDD-fixed in its transplant (a renderer over an empty
+  patterns set); paired design question for castr, not a defect claim: two
+  content-pinning test cases resonance dropped as over-constraining.
+- **Core-exchange evidence, travelling with its record at the next Core
+  exchange, not cited into the PDRs from here** (a foreign estate's internal
+  window is not first-hand-verifiable from this seat). (6) A fresh resonance
+  instance of the invented-optionality failure class castr's PDR-005
+  amendment records. (8) The 2026-07-04 resonance n = 2 collaboration window
+  as a third instance for PDR-078 §4 and PDR-082.
+
 **2026-07-07 UPDATE (written by the visiting resonance seat Kiln tracks Basalt,
 prefix `2a5066`, under the join ceremony — the WS0-landing record queued since
 2026-07-06 plus this landing's own):**

@@ -276,7 +276,6 @@ the word already exists is a defect.
 - Composes with [`agent-state-observable.md`](agent-state-observable.md)
   — owner observability at action-moments is one application of the
   broader "agent state that affects others must be observable" principle.
-- Composes with `no-analysis-responsibility-passback` (`no-analysis-responsibility-passback.md`)
-  (if exists; see memory `feedback_no_responsibility_passback`) — agents
-  analyse and present verdicts at action-moments, never pass analysis
-  responsibility back to owner via reasoning-moment questions.
+- Composes with [`present-verdicts-not-menus.md`](present-verdicts-not-menus.md)
+  — agents analyse and present verdicts at action-moments, never pass
+  analysis responsibility back to the owner via reasoning-moment questions.

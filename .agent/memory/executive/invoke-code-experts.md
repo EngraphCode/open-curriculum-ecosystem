@@ -280,6 +280,17 @@ Brief-construction disciplines (per PDR-015 reviewer authority):
   reviewer's verdict to cite the doctrine it read. Absorb the verdict per
   `verify-dont-trust` §Reviewer output is evidence to test — never adopt a
   load-bearing claim unverified.
+- **Make the evidence shape cheap to verify.** A locator or verifier brief asks
+  for each result as `path:line` with a short quoted fragment and, for a
+  finding, the command and an output excerpt that shows it; then checking a
+  claim is one read of one line. It also asks for a coverage statement (what was
+  read, roughly how many claims were checked) and says "no findings is a valid
+  result" so nothing is manufactured. Worked instances: four locators proposed
+  homes for about 150 items from the napkin, the comms stream and the experience
+  letters, and their best yield was the contradictions
+  found beside those homes (2026-09-16); four context-free verifiers checked
+  about 415 claims on a records fold, and all 31 findings survived the seat's
+  own check at their sources (2026-09-17).
 
 ## Reviewer Dispatch vs Peer Collaboration
 

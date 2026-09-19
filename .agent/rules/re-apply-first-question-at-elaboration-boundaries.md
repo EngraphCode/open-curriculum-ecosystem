@@ -145,7 +145,6 @@ sharpening: the question is never "should we adopt", only "how".
 
 ## Doctrinal Anchors
 
-- per-user feedback memory: `feedback_question_shape_known_bad_vs_adopt`
 - principles.md §First Question (the principle this rule
   operationalises)
 - principles.md §Architectural Excellence Over Expediency (the

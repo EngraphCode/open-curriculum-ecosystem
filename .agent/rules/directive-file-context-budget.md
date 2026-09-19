@@ -76,7 +76,6 @@ rule.
 
 ## Doctrinal Anchors
 
-- per-user feedback memory: `feedback_30_percent_context_for_directives`
 - principles.md §Owner Direction Beats Plan (conflict surfacing)
 - pattern: `eager-rounding-off-on-partial-structures`
 - Owner-stated standing authority: *"this is always true"* (2026-05-05)
