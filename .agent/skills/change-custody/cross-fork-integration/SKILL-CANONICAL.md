@@ -128,7 +128,12 @@ carrier merge and landing proof names the first.
   --json number`); a `--search` head-name query returns nothing, silently,
   and any listing read as "the full open list" carries an explicit
   `--limit`, because the default page is thirty. A second carrier for the same
-  lineage is a defect; close it on the record.
+  lineage is a defect; close it on the record. Apply the `upstream-carrier-taken`
+  label to the carrier at pickup, as the bot, before any push: the carrier
+  workflow closes and re-cuts a draft that carries no label and no seat commit
+  once the mirror moves past it, and the label is the seat's only pickup signal
+  before its first push (a label that does not yet exist is created by the first
+  application).
 - Exclusive counts both ways, from fetched history, and the merge base.
 
 ### 2. Recompute the merge against the live tip, not the PR's cached base

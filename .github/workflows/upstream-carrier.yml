@@ -3,7 +3,11 @@ name: Upstream carrier
 # Opens one draft carrier pull request into this repository's default branch
 # at the mirror branch's tip whenever the mirror carries commits the default
 # branch lacks and no carrier is open. It never merges, moves or duplicates a
-# carrier: the integration is a seat's work on the carrier. Off by default:
+# carrier: the integration is a seat's work on the carrier. A carrier no seat
+# has taken up — still a draft, its head still the sha in its name, without
+# the `upstream-carrier-taken` label a seat applies at pickup — is closed on
+# its record and re-cut when the mirror has moved past it, so the one open
+# carrier is at the mirror's tip rather than stale. Off by default:
 # the job runs only where the repository variable UPSTREAM_CARRIER_ENABLED is
 # the string 'true', so a copy inherited by the parent at a merge-back is
 # inert there. No repository, organisation or branch is named here: the
@@ -45,6 +49,11 @@ jobs:
         with:
           client-id: ${{ secrets.UPSTREAM_CARRIER_APP_CLIENT_ID }}
           private-key: ${{ secrets.UPSTREAM_CARRIER_APP_PRIVATE_KEY }}
+          # Only what this run writes with: a reference (contents) and a pull
+          # request with its comment (pull-requests). The installation may hold
+          # more; the token does not.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Compare the default branch with the mirror branch
         id: compare
@@ -93,15 +102,107 @@ jobs:
           MIRROR_AHEAD_BY: ${{ steps.compare.outputs.mirror_ahead_by }}
         run: |
           set -euo pipefail
-          number="$(gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&base=${DEFAULT_BRANCH}&per_page=100" \
-            --jq '[.[] | select(.head.repo.full_name == env.GITHUB_REPOSITORY and (.head.ref | test("^automation/.*upstream")))] | .[0].number // empty')"
-          echo "number=${number}" >>"$GITHUB_OUTPUT"
-          if [ -n "$number" ]; then
-            echo "::notice title=Carrier already open::PR #${number} is the open carrier; the mirror is now ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. No new carrier opened."
+          carriers="$(gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&base=${DEFAULT_BRANCH}&per_page=100" \
+            --jq '[.[] | select(.head.repo.full_name == env.GITHUB_REPOSITORY and (.head.ref | test("^automation/.*upstream"))) | {number, head_ref: .head.ref, head_sha: .head.sha, draft, author: .user.login, labels: [.labels[].name]}]')"
+          count="$(jq 'length' <<<"$carriers")"
+          if [ "$count" = "0" ]; then
+            echo "number=" >>"$GITHUB_OUTPUT"
+            exit 0
           fi
+          if [ "$count" != "1" ]; then
+            echo "::error title=More than one open carrier::$(jq -r '[.[].number] | map("#" + tostring) | join(", ")' <<<"$carriers") are all open carriers; the skill calls a second carrier a defect to close on the record. Nothing is written."
+            exit 1
+          fi
+          carrier="$(jq '.[0]' <<<"$carriers")"
+          number="$(jq -r '.number' <<<"$carrier")"
+          head_ref="$(jq -r '.head_ref' <<<"$carrier")"
+          head_sha="$(jq -r '.head_sha' <<<"$carrier")"
+          draft="$(jq -r '.draft' <<<"$carrier")"
+          author="$(jq -r '.author' <<<"$carrier")"
+          taken="$(jq -r '.labels | index("upstream-carrier-taken") != null' <<<"$carrier")"
+          # Unmoved: the head is still the tip the branch was cut at, by this
+          # producer's exact name. Any seat commit moves the head off it.
+          unmoved=false
+          [ "$head_ref" = "${CARRIER_PREFIX}${head_sha}" ] && unmoved=true
+          {
+            echo "number=${number}"
+            echo "head_ref=${head_ref}"
+            echo "head_sha=${head_sha}"
+            echo "draft=${draft}"
+            echo "author=${author}"
+            echo "taken=${taken}"
+            echo "unmoved=${unmoved}"
+          } >>"$GITHUB_OUTPUT"
+          echo "::notice title=Carrier already open::PR #${number} is the open carrier at ${head_sha:0:7}; the mirror is now ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch (evaluating whether it is unworked)."
+
+      # A carrier is unworked when it is still a draft, its head is still the
+      # tip it was cut at under this producer's exact name (no seat commit),
+      # this app opened it, and no seat has labelled it taken. Such a carrier
+      # that the mirror has moved past is superseded: closed with its reason,
+      # its branch deleted, and the cut step below re-runs at the mirror's tip.
+      # A carrier with a seat commit, undrafted, or labelled
+      # `upstream-carrier-taken` is a seat's work and is never touched. Before
+      # any write the step proves the mirror is strictly ahead of the head, so
+      # the only commit the branch points at stays reachable from the mirror
+      # (a rewound mirror fails the run instead of being tidied); re-reads the
+      # pull request's state and aborts on any change since the read above;
+      # and deletes the branch under a lease on the head sha, so a push that
+      # lands in the window is never deleted under.
+      - name: Supersede an unworked carrier the mirror has moved past
+        id: supersede
+        if: >-
+          steps.compare.outputs.mirror_ahead_by != '0'
+          && steps.existing.outputs.number != ''
+          && steps.existing.outputs.draft == 'true'
+          && steps.existing.outputs.taken == 'false'
+          && steps.existing.outputs.unmoved == 'true'
+          && steps.existing.outputs.author == format('{0}[bot]', steps.app-token.outputs.app-slug)
+          && steps.existing.outputs.head_sha != steps.compare.outputs.mirror_tip
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          NUMBER: ${{ steps.existing.outputs.number }}
+          HEAD_REF: ${{ steps.existing.outputs.head_ref }}
+          HEAD_SHA: ${{ steps.existing.outputs.head_sha }}
+          MIRROR_TIP: ${{ steps.compare.outputs.mirror_tip }}
+          MIRROR_BRANCH: ${{ steps.compare.outputs.mirror_branch }}
+        run: |
+          set -euo pipefail
+          # The mirror must be strictly ahead of the carrier head, so the head
+          # stays reachable from the mirror after its branch is deleted.
+          ancestry="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${HEAD_SHA}...${MIRROR_TIP}" --jq '"\(.status) \(.behind_by)"')"
+          if [ "$ancestry" != "ahead 0" ]; then
+            echo "::error title=Carrier head is not behind the mirror::compare ${HEAD_SHA:0:7}...${MIRROR_TIP:0:7} => ${ancestry}; the mirror may have been rewound. Nothing is written; a human decides."
+            exit 1
+          fi
+          # Re-read immediately before the first write: a seat may have taken
+          # the carrier up since the read above.
+          now="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" --jq '"\(.state) \(.draft) \(.head.sha) \(.labels | map(.name) | index("upstream-carrier-taken") != null)"')"
+          if [ "$now" != "open true ${HEAD_SHA} false" ]; then
+            echo "::error title=Carrier state changed::PR #${NUMBER} now reads (state draft head taken) = ${now}; a seat may have taken it up. Nothing is written; the next slot re-evaluates."
+            exit 1
+          fi
+          body="$(printf '%s\n' \
+            "Superseded: no seat took this carrier up (still a draft, head still ${HEAD_SHA:0:7}, no \`upstream-carrier-taken\` label) and the mirror \`${MIRROR_BRANCH}\` has moved on to \`${MIRROR_TIP}\`. This run closes it and opens the carrier at that tip; nothing here was moved or rebased." \
+            "" \
+            "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${NUMBER}/comments" -f "body=${body}" --jq '.html_url'
+          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" -f state=closed --jq '.state'
+          # Delete under a lease: the push is refused if the branch no longer
+          # points at HEAD_SHA, so a commit landing in the window survives. The
+          # token rides an HTTP header, never the URL.
+          lease="$(mktemp -d)"
+          git init -q "$lease"
+          auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -C "$lease" -c "http.extraheader=AUTHORIZATION: basic ${auth}" push \
+            --force-with-lease="refs/heads/${HEAD_REF}:${HEAD_SHA}" \
+            "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" ":refs/heads/${HEAD_REF}"
+          echo "superseded=true" >>"$GITHUB_OUTPUT"
+          echo "::notice title=Carrier superseded::PR #${NUMBER} at ${HEAD_SHA:0:7} closed and its branch deleted; a carrier at ${MIRROR_TIP:0:7} follows."
 
       - name: Cut the carrier branch and open the draft pull request
-        if: steps.compare.outputs.mirror_ahead_by != '0' && steps.existing.outputs.number == ''
+        if: >-
+          steps.compare.outputs.mirror_ahead_by != '0'
+          && (steps.existing.outputs.number == '' || steps.supersede.outputs.superseded == 'true')
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           DEFAULT_BRANCH: ${{ steps.compare.outputs.default_branch }}
@@ -145,7 +246,9 @@ jobs:
             "cross-fork-integration skill: a two-parent merge of the default branch into this branch at" \
             "the slot word, the generated surfaces regenerated, the premise sweep recorded here, then the" \
             "review round and the front door. Merge by merge commit only; never squash or rebase, so the" \
-            "snapshot stays in the default branch's ancestry. This workflow opens the carrier and does" \
+            "snapshot stays in the default branch's ancestry. Apply the \`upstream-carrier-taken\` label at" \
+            "pickup, before any push: a draft with no label and no seat commit is closed and re-cut when the" \
+            "mirror moves past it. This workflow opens the carrier and does" \
             "nothing else: it never merges, moves or duplicates it.")"
 
           number="$(gh api --method POST "repos/${GITHUB_REPOSITORY}/pulls" \
