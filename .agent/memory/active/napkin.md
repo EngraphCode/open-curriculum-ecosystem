@@ -118,3 +118,84 @@ move has run, because the substantive-event mover is still unhomed, as at the 20
   that seat's carrier-supersede worktree), not confirmed by the peer. Blind spot: the comms
   watcher expired about 16:04Z and was re-armed seeded from now, so the stream between is unread;
   it is read at resume. Fence sweep: no Oak surface written.
+
+## Zephyr guards Leeward (281e44) — 2026-09-17 18:3xZ to 2026-09-19 10:4xZ, the consolidation's fourth context: the #153 fold, and the directive pass gated again
+
+- **What happened.** Resumed after compaction as Fable 5.1 (the owner's switch); the agent id is
+  unchanged. The owner answered four cards: fold #153 now; the window is 1M; F-189's framing was
+  wrong (the question is which gate names are right for the whole Practice ecosystem, then
+  standardising everywhere; this repository's names have been stable for a long time); rename
+  the sync names after #154 lands. #153 folded through the front door at 20:17:05Z as
+  `SHA:b5b0e70cd` after three rounds (thirteen distinct findings, all true at source: six cured in
+  two settlement pushes, one dispositioned on its thread, six routed to the successor and cured
+  there in `SHA:84d7bc441`; this block first said "twelve, seven, five", which its own
+  pre-publication pass on #155 showed fits neither the distinct nor the raised count). The
+  successor `coordination/2026-09-17-b5b0e7` was cut and draft #155 opened. Then the meter read
+  51 % of 1M, the owner chose a fresh context for the directive pass, and the answer arrived
+  about 38 hours later, so the successor was DUE at pickup and this context folds it.
+- **Mistake: the headroom was spent before the meter was read again.** At 18:36Z the meter read
+  13.3 % and the seat declared the shape "fold here, directives here". By the directive step it
+  read 51 %. The spend: the fold's three rounds (each a fresh harvest of reviews, threads and
+  checks) and, larger, end-to-end reads of six directives (about 2,300 lines) made DURING the
+  fold's waits, before any edit could happen. consolidate-until-done step 7's prediction ("names
+  its contexts at open and finishes its directive entries in a planned context") is falsified a
+  second time by this seat: the shape was named at open and the split was still found at the
+  end. Cause: the rule budgets the READ as well as the edit, and the seat pre-read to save time
+  it then could not use. Behaviour change: in a context that also folds, read the meter after
+  the fold's last push and BEFORE any directive read; if it is above about 20 % at that moment,
+  the directive reads belong to the next context, and the current one does nothing but the fold
+  and the handoff. The drafts written this context (the IO rewrite, the commit-2/3 texts, the
+  plan) are conserved in the machine-local handoff record so the reads are not repeated blind.
+- **Mistake: the rotation broadcast draft said "one review round" after three.** Caught before
+  posting by re-reading the sed-filled file. A template filled by placeholder substitution keeps
+  every sentence that was true when the template was written; re-read the whole body, not the
+  placeholders.
+- **Surprise: a mid-session model relabel collides in the comms route (F-192).** The identity id
+  is seeded from the session and survived the model change; `comms append` refused the new label
+  against the live identity, while `comms watch` and `assert-watcher-live` accepted it; the claims
+  were never tried under the new label, and `claims open` runs the same guard. Kept the old label for
+  the session's coordination surfaces and recorded it.
+- **Surprise: the owner's answers can arrive days later.** A card asked at 20:2xZ on 09-17 was
+  answered on 09-19; every branch-lifetime and claim-freshness assumption in the seat's plan
+  expired in between. Behaviour change: at any owner-gated pause, the pause notice names the
+  branch's lifetime edge and what the resume does first if it has passed (here: fold before the
+  directive pass, which the rule already says).
+- **Reviewer classes this fold.** Round one: a decision's surviving phrase (PDR-141 D11 after D7
+  was amended), a comment over a mixed list (the gates block), a directive contradicting a ruling
+  (AGENT.md §Commands), a criterion over an excluded query (the code-scanning probe). Round two: a
+  checklist question contradicting its own paragraph (the Director readiness gate), a plan
+  sentence contradicting its own unit. Round three: an over-claim against a mechanism's source
+  (the profile push leg), stale index cells, an interim rule that cannot reach terminal zero (the
+  carrier tally), an outward-sweep miss on the branch's own cure (pr-lifecycle Phase 4's Sonar
+  per-site disposition), an incomplete hook inventory. All true; the pre-publication pass had not
+  reached the cross-file consistency of an amendment with its neighbours, nor claims about
+  mechanisms. Candidate for pr-lifecycle's claim table: "an amendment's neighbours" and "a
+  mechanism claim is read against the code" as named verifier lenses.
+- **Metacognition (retrospective).** The seat asked the owner four questions at open and got
+  four answers that changed the work (the fold timing, the window, F-189's frame, the naming
+  lane); the fifth question (the meter) came at the end because the seat measured only at the
+  start. The thing to have measured was the RATE: 13 % at open, three rounds and the reads
+  ahead; a second reading after the fold's last push would have stopped the directive reads.
+- **Free play (one time-box).** Kept: a fold's review rounds are a good place to read, but only
+  what the fold needs; reading for the next task in a gated context is spending someone else's
+  budget. Kept: the Codex "0c7b347d" sha was a merge-preview commit that no longer exists; a
+  reviewer's sha can name an object GitHub computed and discarded. Discarded, visibly: "the
+  meter over-reads because persisted tool output is not in the harness context" — untested, and
+  the rule gates on the reading, not on a theory of the reading.
+- **Concept exploration: a budgeted read.** Observations: the 30 % rule names the edit; this seat
+  and its second context both crossed the line on reads made in service of the edit. Existing
+  home: `directive-file-context-budget` says "full-depth reading of the directive file
+  end-to-end" is what the headroom is FOR. Proposal: no new concept; the rule's sequencing
+  section gains one sentence, "the read is part of the directive work and is budgeted the same
+  way: do not pre-read directives in a context that will not edit them" — a directive-pass edit
+  for the fresh context, added to the register entry for the rule. Warrant: two contexts of one
+  seat. Falsifier: a pass that reads the meter after its fold and before its directive reads
+  still finds the split at the end.
+- **Loss scan and metaloss.** Uncommitted at this block: this block, the resume-point edits, the
+  handoff record (machine-local, untracked by design) and the ARC churn since `SHA:84d7bc441`; the
+  wrap commit carries the tracked ones. Promises: the successor folds now (this context), the
+  directive pass opens the next context at its directive step from the handoff record; Dynamo
+  turns Temper's slot is open and they are paused at the owner's word (claim stale since
+  23:31Z 09-17; not this seat's to close). Owner decisions open: F-189's ecosystem-wide names;
+  the carrier tally question before #154's rounds. Blind spot: nothing from any seat on the
+  stream or the ARC channel since 09-17 20:20Z. Fence sweep: no Oak surface written.

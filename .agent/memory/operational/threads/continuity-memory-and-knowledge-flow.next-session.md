@@ -116,11 +116,14 @@ directive-shape step and the distilled lifecycle entry (`49b6c3ae9`); then the r
 napkin's graduations and its rotation. The third (2026-09-17, after compaction) opened the ARC
 channel with Dynamo turns Temper, ran #153's pre-publication claim pass (four verifiers, 33
 findings, every one true at its source) and committed the cures, including F-191's correction:
-`agent-tools session-metadata` reads context usage.
+`agent-tools session-metadata` reads context usage. The fourth (2026-09-17 18:3xZ to 2026-09-19)
+folded #153 (`SHA:b5b0e70cd`) after three rounds, cut `coordination/2026-09-17-b5b0e7`, cured #153's
+routed round-three findings and wrote the rotation records there (`SHA:84d7bc441`), and wrapped
+(`SHA:0731703d7`) when the meter read 51 % at the directive step.
 
 **Buffers.** `open-questions.md` and `distilled.md` are empty. `pending-graduations.md` holds twelve
 directive-bound entries: the eleven carried, and the owner's lifecycle decision below. The napkin
-was rotated (`2c81c5d22`) and holds the second and third contexts' wraps. Of the
+was rotated (`2c81c5d22`) and holds the second, third and fourth contexts' wraps. Of the
 other assistants' memory, read on 2026-09-16: the Claude per-user buffer holds five strictly local
 entries, Cursor is unchanged since 2026-06-04, Gemini has none, and Codex's `MEMORY.md` OCE groups
 were read with no recorded disposition, which the next pass confirms first-hand.
@@ -132,32 +135,46 @@ a named skill step triggers it, and every growing surface carries fitness covera
 a due entry in `pending-graduations.md`, because `continuity-practice.md` still says "never
 archive" until its directive text changes.
 
-**Owner decisions open.** (1) PDR-008 (F-189): the host renames its gate scripts, or the Core drops
-Rule 4's `check` exception. (2) The upstream-sync naming lane (repo-continuity pickup item 3),
-where this seat's verdict is to rename.
+**Owner decisions open.** (1) F-189, as the owner reframed it on 2026-09-17: which gate-script
+names are right for the whole Practice ecosystem, decided once and then standardised in every
+Practice repository (not one repository conforming to PDR-008, nor the Core dropping a clause).
+(2) How a carrier's round tally treats a carried-code finding it may not cure, before #154's
+rounds (the cross-fork skill's 2026-09-17 sentence). Decided on 2026-09-17 and no longer open:
+the upstream-sync naming lane (rename both, after #154 lands; repo-continuity pickup item 3).
 
 **A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
 the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
 in its own worktree, superseding #151. Owner's word, in its team-start event `852e7764`: that lane
 merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold lands on
-`engraph`. So the fold of #153 gates it, and #153 already carries a complete set of work.
+`engraph`. The fold of #153 gated it; #153 landed on 2026-09-17 20:17Z and the slot is open.
 
 **Next, in the owner's order.**
 
-1. Fold #153 on 2026-09-17, before the rollover, with its own pre-publication claim pass,
-   because the integration lane's slot waits on it (this seat's decision after the second
-   context's compaction, reported to the owner); later consolidation work rides the next
-   successor. Tell Dynamo turns Temper when it lands, on the ARC channel and in the rotation
-   broadcast. State at the third context's wrap: the pass is done and its cures are committed;
-   next are the description (a new bullet for the cure commit, "ten rules" not nine, and the
-   pass result under Validation), ready, the review rounds under budget 2, and the front door.
-   At resume, re-arm the comms watcher and the ARC tail, and read the comms stream from 16:04Z
-   (the watcher's expiry gap) and the ARC channel from its last entry.
-2. The directive pass in a fresh context below 30 %, with careful analysis: the twelve entries in
-   `pending-graduations.md`, the IO invariant and the lifecycle decision first among them. The
-   30 % is read, not estimated: `agent-tools session-metadata --vendor claude --model <id>
-   --session-id <id>`, with the same-size `claude-opus-4-8[1m]` entry standing in for Opus 5
-   until F-191's window-registry lane lands.
+1. LANDED: #153 folded on 2026-09-17 at the owner's word, through the front door as
+   `SHA:b5b0e70cd` (20:17:05Z), after a pre-publication claim pass (33 findings, all cured in
+   `SHA:56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `SHA:a1aa47c6b`
+   and `SHA:8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
+   its first records commit). The
+   successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
+   Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
+2. The directive pass, in a FRESH context (the owner's word, 2026-09-19, after the fourth
+   context's meter read 51 % of the 1M window at the directive step; it had read 13.3 % at its
+   open, and the fold's rounds plus the directive reads made during the fold's waits spent the
+   headroom). The fourth context folds the DUE successor `coordination/2026-09-17-b5b0e7` before
+   it stops, so the fresh context opens on a clean successor at the directive step. Its plan,
+   the draft texts and the re-verified cheap-defect list are conserved in the machine-local
+   handoff record `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`
+   (claim `62a5dfd0`'s `handoff_record_path`), with the drafts in `instruments-281e44/` beside
+   it. The twelve entries in `pending-graduations.md` land in three commits: testing-strategy and
+   validation-strategy (the IO invariant with its echoes in tdd-as-design, principles §Testing,
+   test-immediate-fails items 8 and 9, ADR-161 and the recovery plan's end-state note; the
+   observation instrument; visibility-before-validation; counters as configuration echoes;
+   growth at two sizes); then principles, orientation, editorial-tone and the directives
+   review's cheap defects; then continuity-practice's lifecycle section, the consolidate-docs
+   trigger step and the frontmatter sweep. The meter is read BEFORE the first directive read,
+   not only before the edit: `agent-tools session-metadata --vendor claude --model
+   claude-opus-4-8[1m] --session-id <id>` (the same-size entry stands in until F-191's
+   window-registry lane lands); a reading at or above 30 % stops the pass before it starts.
 3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
    landed: graduate, then archive, the finished history of `repo-continuity.md`, the
    agentic-engineering-enhancements and estate-coordination thread records,

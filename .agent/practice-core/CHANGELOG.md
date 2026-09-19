@@ -15,7 +15,8 @@ Practice Core package.
   decision 14's sync (where the profile root is a repository with a remote),
   then the profile check, then the reads, where decision 7 had said the check
   runs "FIRST"; decision 11's "before anything is synced" now reads before
-  anything is read or pushed, the same order.
+  anything is read into a session, the same order, and names what the push
+  leg checks (the working tree, not the pushed commits' content).
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
 

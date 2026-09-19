@@ -300,12 +300,12 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 / Zephyr guards Leeward (281e44) / sole operator — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`) and the 2026-09-16 branch as #152 (`cd847a2b3`) inside the owner-directed consolidation, successor `coordination/2026-09-17-cd847a` / 2026-09-17 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
+| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`) inside the owner-directed consolidation, successor `coordination/2026-09-17-b5b0e7` / 2026-09-17 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 first). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + the record. | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
-| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. Queued: twelve directive-bound entries (the owner's 2026-09-17 lifecycle decision and two 2026-09-14 rulings among them) in `pending-graduations.md`, for the directive pass in a fresh context; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude / claude-fable-5-1 / Zephyr guards Leeward / curator — second dedicated drain complete / 2026-09-14 |
+| `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. Queued: twelve directive-bound entries (the owner's 2026-09-17 lifecycle decision and two 2026-09-14 rulings among them) in `pending-graduations.md`, for the directive pass in a fresh context; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1 / Zephyr guards Leeward (281e44) / curator — the dedicated consolidation's second half folded as #153 (`SHA:b5b0e70cd`); the directive pass next, in a fresh context on the successor of `coordination/2026-09-17-b5b0e7` / 2026-09-19 ← the same seat / curator — second dedicated drain complete / 2026-09-14 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE the same day, all six proposals owner-adopted and P1–P5 landed; shepherded 2026-08-25 (OCE PR #17 `c40a4287`, castr PR #53 `e62891ee`); plan archived; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. The remaining probe and two recorded deferrals live in the record. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
 
 ## Paused Threads
@@ -358,13 +358,18 @@ preserve knowledge, never to move towards numerical targets"*.
 
 Read `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
 dedicated consolidation session" first: it says what is written, what remains and in what order.
-The board is `threads/estate-coordination.next-session.md` §"2026-09-17 15:09Z — the 2026-09-16
-branch folded as #152".
+The board is `threads/estate-coordination.next-session.md` §"2026-09-17 20:17Z — the 2026-09-17
+branch folded as #153".
 
-1. the consolidation — IN PROGRESS on `coordination/2026-09-17-cd847a` (draft #153), cut from
-   #152's merge (`cd847a2b3`, 2026-09-17 15:09Z). By the owner's word, #153's fold gates Dynamo
-   turns Temper's Oak integration lane, which merges nothing until it lands, so #153 folds on
-   2026-09-17 rather than at the rollover;
+1. the consolidation — IN PROGRESS on `coordination/2026-09-17-b5b0e7`, cut from #153's merge
+   (`SHA:b5b0e70cd`, 2026-09-17 20:17Z; #153 folded at the owner's word on its cut date because
+   Dynamo turns Temper's Oak integration lane merges nothing until it landed, and that slot is
+   now open). The branch carries the fold's records and is folded on 2026-09-19 by the same
+   seat, a day past its DUE (2026-09-18 00:00Z), when the owner's answer arrived; the directive
+   pass over the twelve register entries runs in a fresh context
+   on the next successor (the owner's word, 2026-09-19, after the meter read 51 % of the 1M
+   window; the plan and drafts are in the seat's machine-local handoff record), then the
+   graduate-then-archive curation of the large memory files;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the
@@ -374,9 +379,12 @@ branch folded as #152".
    set has been re-read. Second, the names that still carry the withdrawn model: the
    `upstream-sync/` report directory and the `automation/upstream-carrier-*` branch prefix. The
    skill now defines "upstream" only as the Oak fork in its role as a sync source, and the 1.181.3
-   list's header records that renaming is a separate change, not yet made. This seat's verdict is
-   to rename both in one small lane, with a link sweep, because a name that teaches a withdrawn
-   authority misleads every seat that reads it;
+   list's header records that renaming is a separate change, not yet made. The owner's word
+   (2026-09-17): rename both in one small lane with a link sweep, after the carrier #154 lands,
+   since its machinery lanes and the carrier branch use the current prefix. A second small lane,
+   from F-191: register the Opus 5 and Fable 5.1 window sizes in
+   `agent-tools/src/session-metadata/window-registry.ts` so `session-metadata` reads this seat's
+   context without a stand-in entry;
 4. scheduled maintenance: TypeScript strictness to the owner's target set, after the
    jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
    Lustre; its full substance is in the estate-coordination record's §"2026-09-16 ~15:0xZ —

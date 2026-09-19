@@ -584,10 +584,11 @@ first.
 The commit is the gate. Its pre-commit hook runs the local gates: the
 staged formatting and markdown checks, the repo validators, shell lint,
 then build, type-check, lint and unit tests, then dependency-cruiser and
-knip. The pre-push hook runs the wider local set: the whole-tree format
-and markdown checks, the sub-agent, portability, skills and repo
-validators, the schema-drift check, then codegen, build, type-check, lint,
-unit, E2E and UI tests, dependency-cruiser, knip and the encoding check.
+knip. The pre-push hook runs the wider local set: the pushed-commit secret
+scan and the review-cost gate first, then the whole-tree format and markdown
+checks, the sub-agent, portability, skills and repo validators, shell lint,
+the schema-drift check, then codegen, build, type-check, lint, unit, E2E and
+UI tests, dependency-cruiser, knip and the encoding check.
 The pull request's checks run the rest (the widget and accessibility
 suites, CodeQL, Sonar, the Windows and browser jobs). So never run these
 gates before, beside or after a commit or push (owner, 2026-09-14, verbatim
