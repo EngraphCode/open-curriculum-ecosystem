@@ -173,6 +173,14 @@ it is named as not moving it. The general lesson the step-back drew (a consolida
 is a work product with its own review contract) is in `coordination-fold` precondition 3; this
 context's single-branch shape is the owner's specific word for this session.
 
+**The owner's next order (2026-09-19 ~19:5xZ, verbatim).** "once the buffers are fully drained,
+and the work is pushed and merged, please run a full and deep retro" (metacognition, free play,
+concept exploration, reason, retrospective, in that order). The buffers read empty and the work
+is pushed (`SHA:d3c81c0b2` and after); the merge is draft #156's one fold through the front
+door, which Dynamo turns Temper's landings will first put BEHIND (sync once, at the fold). The
+retrospective's arc is the whole dedicated consolidation, 2026-09-16 to its merge: five contexts,
+four folds that did not move the register, then one context that emptied it.
+
 **A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
 the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
 in its own worktree, superseding #151. Owner's word, in its team-start event `852e7764`: that lane
@@ -197,11 +205,24 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    no filesystem IO and no helper exemption.
 3. IN PROGRESS: memory files, by graduate, then archive (`consolidate-docs` step 6b), each
    read whole before anything moves. Done: `repo-continuity.md` (snapshot
-   `archive/repo-continuity-2026-09-19.md`). Next by traffic: `director-handoff.md`, the
+   `archive/repo-continuity-2026-09-19.md`) and `director-handoff.md` (snapshot
+   `archive/director-handoff-2026-09-19.md`; verdict on reading it whole: the Brief is live
+   role procedure and stays, its size is its function; only the superseded 2026-09-12 fold
+   block and one fixed-friction bullet were finished). Next by traffic: the
    agentic-engineering-enhancements record, `collaboration-state-conventions.md`, the
    estate-coordination record, `frictions-register.md` (its settled entries), this record's
-   own landed history above, then the paused thread records. A reading past a limit on any of
-   them is the signal to read it, never a reason to move it unread.
+   own landed history above, the design-system-integration record, then the paused thread
+   records. A reading past a limit on any of them is the signal to read it, never a reason
+   to move it unread. Sizing, measured 2026-09-19: the agentic-engineering-enhancements
+   record is about 55,000 tokens to read (its last 280 lines alone are 27,000), the
+   estate-coordination record about 75,000 and the frictions register about 90,000, so each
+   of the three needs a context of its own, opened below 30 %. The first 740 lines of the
+   agentic-engineering-enhancements record were read and NOT curated (nothing moved, by the
+   owner's rule): they are nine EXECUTED consolidation and doctrine logs whose homes are
+   their commits, beside three live lanes that stay (the inter-Practice exchange's standing
+   follow-ups and the resonance offers, the corpus-generalisation Phase 0 restart brief, the
+   mutation-testing re-baseline); the logs' "named next-pass" items each need a home check
+   before the logs move.
 4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
    (`lsof`, `ps`), a configuration cure in its own lane; and the Claude per-user RESUME HEADS
    pointers, re-trued at each wrap.
