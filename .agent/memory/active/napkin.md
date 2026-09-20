@@ -193,3 +193,6 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   connector edits its summary comments and never its clean ones (63 / 0 of 28) — count edited
   clean comments in the cost survey; the context check should say "unreadable", not
   "compacted", when the transcript cannot be read.
+- 2026-09-20 20:4xZ (Dynamo turns Temper, 2a4c8a): a seat that cannot trigger its own
+  compaction stops three times at the same mark if each stop is a report — the report reads as
+  an end to its writer. The cure is a named next piece of loss-tolerant work, never "continue".

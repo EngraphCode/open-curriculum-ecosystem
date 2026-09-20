@@ -246,20 +246,20 @@ never route to a closing-out agent), and takeover verification (registry-freshne
 for those; the lessons below are the **operational craft** of running the seat in
 this repo that PDR-117 does not carry.
 
-Seven of the pilot's lessons now live in rules and are read there, not here: arm the
-comms watcher as move 1 (`comms-all-channels-watcher`, with the reserve-seat
-`--exclude-tag heartbeat` filtering under its sanctioned tag exclusion); stop your own
-heartbeat at stand-down (`liveness-heartbeat-cron` §Loop hygiene); verify a PR's inline
-review comments first-hand, not just `gh pr checks` (`pr-comments-resolve-and-recheck`);
-for an artefact open weeks, "what has been decided since this was written?" comes before
-its merits (`verify-dont-trust`); closeout is serial mutation verified first-hand at the
-instant — content check before `git worktree remove`, archive-not-delete, patch-id before
-pruning, never line-merge memory files (`worktree-hygiene` §6); and the auto-update-branch
-babysitter for the landing-slot holder (the pr-lifecycle skill §Phase 7). The lessons below
-have no other home.
-
+- **Arm the comms watcher as move 1, before any coordination** — it is
+  constitutive team-visibility, not discretionary infrastructure; an
+  un-armed watcher went blind to a simultaneous identical-branch claim. n=2
+  retains it; only the heartbeat is in the drop-set.
+- **Stop your own heartbeat at stand-down** or it asserts false "active" liveness
+  — a heartbeat loop with no exit ran ~8h of false liveness across an outage.
+- **Verify a PR's inline review comments first-hand**, not just `gh pr checks` —
+  inline bot findings are invisible to the check-status view (the PR #220 / #222
+  Proto-finding blind spot).
 - **Re-spinning a deep-context session does not reset its budget** — security- or
   quality-critical work wants a genuinely fresh seat, not a re-spin of a spent one.
+- **For an artefact open weeks+, "what has been decided since this was written?"
+  is the first-order question** before its internal merits — check the decision
+  timeline for superseding decisions.
 - **Curate, don't mechanically slice, prose-not-written-to-be-sliced**, and
   drift-guard the projection against source.
 - **Ground in the homed plan before designing — most "design" is crosswalk +
@@ -275,6 +275,25 @@ have no other home.
   the Director is the signal to climb (filter-vs-derive dissolved into one object
   that was both relief and structural cure). Run the five decision lenses before
   surfacing ANY question; surface only the constitutively-owner one.
+- **Closeout is serial mutation, verified first-hand at the instant.** Re-verify a
+  worktree clean immediately before `git worktree remove` (never `--force`);
+  archive-not-delete (move, count-conserved); patch-id-verify a squash-merged branch
+  before pruning (branch-existence is not preservation); never line-merge
+  memory/state files.
+- **A reserve/standby seat burns the very freshness it exists to preserve** if it
+  cannot filter the heartbeat firehose — reserve-seat watcher filtering (the Lane-C
+  `--exclude-tag heartbeat` work) is load-bearing economics, not a nicety; standby
+  burn shortens the Director tenure the bench exists to extend.
+- **The auto-update-branch babysitter** (reusable release-churn cure): a Monitor
+  that `gh pr update-branch`es the LANDING-SLOT HOLDER when it reads OPEN, BEHIND
+  and auto-merge ENABLED (the eligibility the pr-lifecycle skill's babysitter clause
+  sets; `gh pr update-branch` only updates the branch — auto-merge is set once on the
+  holder with `gh pr merge --auto`) and emits only on a conflict — never a waiter,
+  whose sync the landing-slot contract forbids (the pr-lifecycle skill §Phase 7, where
+  PR #87 re-homed the landing slot on 2026-09-08 when it retired
+  `pr-target-is-engraph`). Safe because auto-merge enforces every merge gate
+  server-side, so it only lets a genuinely-ready PR win the release-churn race —
+  removing per-round babysitting from the Director's context.
 
 The experiential source for the last several lessons is the Trawler-tenure how-to
 brief ([`director-howto-and-pdr117-gaps-2026-06-29.md`](../../reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md)).
@@ -285,14 +304,26 @@ authored on fresh context (owner-directed), with PDR-117 as the surface to amend
 
 ## Known friction (route to tooling, not to the brief or the plan)
 
-These are tooling gaps, not doctrine gaps — they belong in the frictions register
-(`.agent/memory/operational/frictions-register.md`), named here only so a successor
-recognises them rather than rediscovers them. The three the pilot found are its entries
-F-96 (a continuity-buffer handoff commit blocked by markdownlint), F-160 (the comms
-watcher's drain step dies at its deadline on a large event directory) and F-97 (no PR
-monitor covers inline review comments and PR terminal state together); read their
-current state there. (`claims adopt`, `claims set-handoff` and the watcher-presence gate
-on `claims open` exist since PR #225: frictions F-94 and F-95.)
+These are tooling gaps, not doctrine gaps — they belong in the agent-tooling
+backlog (`.agent/memory/operational/frictions-register.md`), named here only so a
+successor recognises them rather than rediscovers them. Register state below is
+first-hand as of 2026-06-25. (`claims adopt`, `claims set-handoff` and the watcher-presence
+gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
+
+- **Continuity-buffer handoff commit blocked by markdownlint** — a mid-arc handoff
+  commit can hit a markdownlint wall on shared multi-agent buffers; the interim
+  cure is the dedicated consolidation pass (rotate + lint, then commit), but a
+  lint-incremental / per-committer scope would unblock the handoff commit without
+  it. Partially captured: **F-83** (whole-tree pre-commit gate hostage on a shared
+  checkout; structural cure = the worktree transition) and **F-39** (markdownlint
+  MD004 wrap friction) are in the register; the specific continuity-buffer
+  handoff-commit cure is not yet its own entry.
+- **Comms watcher drain-step hits its 60s deadline** under high comms volume and
+  needs manual re-arming across a long session — supervise or raise the deadline;
+  fail-loud already works.
+- **No PR monitor covers inline review comments + PR terminal state** — until one
+  exists, poll `gh pr view N --json state,reviewDecision`,
+  `gh api repos/.../pulls/N/comments`, and `gh pr view N --json comments` by hand.
 
 ## CURRENT HANDOFF STATE
 
@@ -321,11 +352,31 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > its own worktree; it also measured and cured F-195, the git file monitor). The two seats coordinate on the ARC channel
 > `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
-> **Landed since the 2026-09-12 snapshot:** the folds #137, #148, #150, #152, #153, #155 and
-> #156 (`44729c98c`, 2026-09-20 12:44Z; successor `coordination/2026-09-20-44729c`) and the
-> lanes #139, #143–#147, #149, #157 and #158. Each is in the estate-coordination record's
-> journal by merge commit, and in git; the list as it stood is in
-> `archive/director-handoff-2026-09-20.md`.
+> **Landed since the 2026-09-12 snapshot:**
+>
+> - #139 `d7cef7075`;
+> - #137, the 2026-09-12 fold, `7658a723a`;
+> - #143 `e474e883e`, #146 `048f377fa`, #144 `4540dec49` and #145 `0f3168369`;
+> - #148, the 2026-09-14 fold, `4786abb7f`;
+> - #147, the 1.181.3 carrier, landed on recorded premises, `0bd321131`;
+> - #149, the reviewer-leg tightening, `514bfc06a`;
+> - #150, the 2026-09-15 fold, `a07940ac9` (2026-09-16 21:39Z, front door, three rounds), at the
+>   opening of the owner's dedicated consolidation session;
+> - #152, the 2026-09-16 fold carrying the consolidation's first half, `cd847a2b3` (2026-09-17
+>   15:09Z, front door, a pre-publication claim pass and three rounds);
+> - #153, the 2026-09-17 fold carrying the consolidation's second half, `b5b0e70cd` (2026-09-17
+>   20:17Z, front door, a pre-publication claim pass and three rounds, folded on its cut date at
+>   the owner's word because the Oak integration lane's slot waited on it). The successor is
+>   `coordination/2026-09-17-b5b0e7`, which carried the fold's records;
+> - #155, that successor's fold, `65a929d9a` (2026-09-19 11:30Z, front door, a pre-publication
+>   claim pass and three rounds, a day past its DUE). The successor is
+>   `coordination/2026-09-19-65a929`;
+> - #157 `bdbdda04a` and #158 `9993647b1`, Dynamo turns Temper's two sync-machinery lanes
+>   (2026-09-20);
+> - #156, the 2026-09-19 fold, `44729c98c` (2026-09-20 12:44Z, front door, a pre-publication claim
+>   pass and three rounds): the consolidation's directive pass and buffer drain (`SHA:668d75378`,
+>   `SHA:f6ce4d0c3`, `SHA:28e8b73be`, `SHA:d3c81c0b2`); the four drainable buffers read empty. The
+>   successor is `coordination/2026-09-20-44729c`.
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

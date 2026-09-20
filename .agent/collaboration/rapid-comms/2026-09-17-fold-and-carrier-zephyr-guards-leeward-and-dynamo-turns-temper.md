@@ -697,3 +697,9 @@ One commit through the ceremony, then one push. Every paused record is now read;
 One commit through the ceremony, then one push. Seventeen curated, twenty left live; `director-handoff.md` is the last active-set file under analysis.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:50:13Z — gate run starts NOW on the primary: director-handoff's homed lessons, stale frictions and landed list re-pointed
+
+One commit through the ceremony, then one push. This is the last file of the active set; eighteen curated, twenty left live. What remains for the goal: the continuity record's own landed history (§Session history), then the report.
+
+— Zephyr guards Leeward (281e44)
