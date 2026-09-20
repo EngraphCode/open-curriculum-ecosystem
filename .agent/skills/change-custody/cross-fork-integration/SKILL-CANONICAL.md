@@ -131,8 +131,9 @@ carrier merge and landing proof names the first.
   lineage is a defect; close it on the record. A carrier the mirror has moved past is
   replaced by the seat taking it up, never by automation (the carrier workflow
   closes and deletes nothing, so it can never act on a carrier a seat is taking
-  up). Where the open carrier is unworked (a draft whose head is still the sha in
-  its branch name, with no review round), the seat, holding the claim on the
+  up). Where the open carrier is unworked (a draft the carrier workflow's bot app
+  opened, read from the pull request's author, whose head is still the sha in its
+  branch name, with no review round), the seat, holding the claim on the
   carrier branch pattern so that exactly one seat acts, replaces it in an order
   that the carrier workflow's own schedule cannot break, because that workflow
   opens nothing while any carrier is open. First, with the stale carrier still
@@ -147,7 +148,9 @@ carrier merge and landing proof names the first.
   (worked instance: the carrier at
   release 1.181.4, replaced by hand on 2026-09-17 after sitting 76 commits
   stale). A carrier holding a seat's commits or a review round is never
-  replaced: a newer tip queues as the next carrier.
+  replaced: a newer tip queues as the next carrier. A pull request on the carrier
+  branch pattern by any other author is never closed or deleted by a seat,
+  whatever its state: it is raised to the owner.
 - Exclusive counts both ways, from fetched history, and the merge base.
 
 ### 2. Recompute the merge against the live tip, not the PR's cached base
