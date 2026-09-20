@@ -133,14 +133,18 @@ carrier merge and landing proof names the first.
   closes and deletes nothing, so it can never act on a carrier a seat is taking
   up). Where the open carrier is unworked (a draft whose head is still the sha in
   its branch name, with no review round), the seat, holding the claim on the
-  carrier branch pattern so that exactly one seat acts, comments the reason,
-  closes it and deletes its branch as the bot; where the mirror is behind the upstream
-  tip, dispatches the mirror workflow under the merge-bot's
-  `upstream-mirror-dispatch` scope, waits for that run to conclude `success`
-  (a dispatch returns at once and orders nothing) and re-reads the mirror's tip
-  as equal to the upstream tip; only then dispatches the carrier workflow under
-  `workflow-dispatch`, waits for it likewise, and takes up the carrier that run
-  opens, confirming its head is the tip just read (worked instance: the carrier at
+  carrier branch pattern so that exactly one seat acts, replaces it in an order
+  that the carrier workflow's own schedule cannot break, because that workflow
+  opens nothing while any carrier is open. First, with the stale carrier still
+  open, the mirror: where it is behind the upstream tip, dispatch the mirror
+  workflow under the merge-bot's `upstream-mirror-dispatch` scope, wait for that
+  run to conclude `success` (a dispatch returns at once and orders nothing), and
+  re-read the mirror's tip as equal to the upstream tip. Second, as the bot,
+  comment the reason on the stale carrier, close it and delete its branch. Third,
+  dispatch the carrier workflow under `workflow-dispatch` and wait for it; a
+  scheduled run may have opened the carrier first, and either is accepted. Take
+  up the one open carrier, confirming its head is the mirror's tip
+  (worked instance: the carrier at
   release 1.181.4, replaced by hand on 2026-09-17 after sitting 76 commits
   stale). A carrier holding a seat's commits or a review round is never
   replaced: a newer tip queues as the next carrier.
