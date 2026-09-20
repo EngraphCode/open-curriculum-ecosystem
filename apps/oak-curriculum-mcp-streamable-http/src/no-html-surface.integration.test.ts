@@ -1,13 +1,11 @@
 import { request } from './test-helpers/loopback-request.js';
 import { describe, it, expect, beforeEach } from 'vitest';
 import type { Express } from 'express';
-import type { Logger } from '@oaknational/logger';
 
 import { createApp } from './application.js';
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 import { getScratchStaticRoot } from './test-helpers/static-root-fixture.js';
-import { createFakeLogger } from './test-helpers/logger-fakes.js';
 
 /** What a browser sends on a document navigation. */
 const BROWSER_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
@@ -83,29 +81,6 @@ describe('the served surface carries no HTML (owner instruction 2026-08-20)', ()
     expect(res.body).toStrictEqual({ error: 'Not found' });
   });
 
-  it('answers a browser navigation to a path it has no route for with the same refusal', async () => {
-    // The root is one instance of the class: any unmatched path meets the
-    // terminal not-found handler, never the framework's HTML document.
-    const res = await request(app)
-      .get('/no-such-path')
-      .set('Host', 'localhost')
-      .accept(BROWSER_ACCEPT);
-
-    expect(res.status).toBe(404);
-    expect(res.headers['content-type']).toMatch(/application\/json/);
-    expect(res.body).toStrictEqual({ error: 'Not found' });
-  });
-
-  it('answers a HEAD to an unmatched path with the refusal and no body', async () => {
-    const res = await request(app)
-      .head('/no-such-path')
-      .set('Host', 'localhost')
-      .accept(BROWSER_ACCEPT);
-
-    expect(res.status).toBe(404);
-    expect(res.text ?? '').toBe('');
-  });
-
   /**
    * The protocol refusals the deleted negotiation suite sat in front of.
    *
@@ -164,52 +139,5 @@ describe('the served surface carries no HTML (owner instruction 2026-08-20)', ()
       expect(res.headers['allow']).toBe('POST');
       expect(res.text ?? '').toBe('');
     });
-  });
-});
-
-/**
- * The not-found refusal is the end of the route chain and nothing more: it
- * sits after every route, so a route's own error still reaches the error
- * logger, and it answers an unmatched path itself, so a missing route is
- * never logged as an error.
- */
-describe('the not-found refusal ends the chain and is not an error', () => {
-  const SECRET = 'no-html-suite-secret-0123456789';
-
-  async function buildApp(log: Logger): Promise<Express> {
-    return createApp({
-      staticRoot: await getScratchStaticRoot(),
-      runtimeConfig: createMockRuntimeConfig({
-        dangerouslyDisableAuth: true,
-        env: { ALLOWED_HOSTS: 'localhost,127.0.0.1,::1', TEST_ERROR_SECRET: SECRET },
-      }),
-      observability: createFakeHttpObservability(),
-      logger: log,
-      getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
-    });
-  }
-
-  it('leaves an error a route forwards to the error logger', async () => {
-    const log = createFakeLogger();
-    const app = await buildApp(log);
-
-    const res = await request(app)
-      .post('/test-error?mode=unhandled&token=tok-order')
-      .set('Host', 'localhost')
-      .set('x-test-error-secret', SECRET)
-      .send({});
-
-    expect(res.status).toBe(500);
-    expect(log.error).toHaveBeenCalledTimes(1);
-  });
-
-  it('logs nothing as an error for a path it has no route for', async () => {
-    const log = createFakeLogger();
-    const app = await buildApp(log);
-
-    const res = await request(app).get('/no-such-path').set('Host', 'localhost');
-
-    expect(res.status).toBe(404);
-    expect(log.error).not.toHaveBeenCalled();
   });
 });

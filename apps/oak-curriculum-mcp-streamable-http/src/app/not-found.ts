@@ -11,16 +11,30 @@
  * route so a route's own error still does. The body takes the shape of this
  * host's other refusals (`{ error }` as JSON). Express sends no body for
  * HEAD.
+ *
+ * The types are the narrowest the two functions read, so a test drives them
+ * with a recording response and a recording app: no listener, no socket.
  */
 
-import type { Express, Request, Response } from 'express';
+/** What the refusal writes to: a status, then a JSON body. */
+export interface RefusalResponse {
+  status(code: number): { json(body: unknown): unknown };
+}
+
+/** Where the refusal is mounted: anything that takes a path-less handler. */
+export interface RefusalMount {
+  use(handler: (req: unknown, res: RefusalResponse) => void): unknown;
+}
 
 /** The body every unmatched path receives. */
 const NOT_FOUND_BODY = { error: 'Not found' } as const;
 
+/** Answers an unmatched request; two parameters, so it can never call onward. */
+export function notFoundHandler(_req: unknown, res: RefusalResponse): void {
+  res.status(404).json(NOT_FOUND_BODY);
+}
+
 /** Mounts the refusal; call it after the last route and before the error handlers. */
-export function mountNotFound(app: Express): void {
-  app.use((_req: Request, res: Response): void => {
-    res.status(404).json(NOT_FOUND_BODY);
-  });
+export function mountNotFound(app: RefusalMount): void {
+  app.use(notFoundHandler);
 }
