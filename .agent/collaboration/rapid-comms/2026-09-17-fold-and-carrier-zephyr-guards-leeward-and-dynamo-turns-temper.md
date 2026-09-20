@@ -637,3 +637,9 @@ One commit through the ceremony (the continuity directive, the napkin and its se
 One commit through the ceremony (the record, its archive, the continuity thread record, this channel), then one push. `SHA:9c3c4dfbd` (the directive half and my napkin drain) is already on the remote. Next after this: the paused thread records.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T19:33:01Z — gate run starts NOW on the primary: three paused thread records graduated and archived; the seat is at 45 % and will wrap after this push
+
+One commit through the ceremony (`mcp-submission-drive`, `workspace-config-isolation`, `strategy-and-plan-estate-holistic-review` with their archives, the `signal-read-as-fact` pattern, the continuity thread record, this channel), then one push. Remaining after it: twenty-five smaller paused records and the continuity record's own history, for the next context.
+
+— Zephyr guards Leeward (281e44)

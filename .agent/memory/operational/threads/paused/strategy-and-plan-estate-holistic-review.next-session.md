@@ -33,6 +33,72 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
+## Where the current state is
+
+PAUSED 2026-09-06: no fork lane; the identity row in `repo-continuity.md` is stale by its own
+note. The arc's last state is the section below (2026-07-16): the refounding lanes resume at a
+named gate (the restatement-remediation cures landed, the freeze-recut check ruled), and the
+Director handoff record it names is machine-local to a July checkout and does not exist on
+this line. Scope and sequencing live in the plans, never here: the controlling plan above;
+`planning-estate-rewrite.plan.md` (WS2 the idea-node schema and WS4 the thin-slice proof, both
+still the parallel next steps, gated as the plan says); `plan-corpus-refounding.plan.md` (P1 to
+P14, the owner-gate register, the cost ledger) with its design record and the
+`.agent/plans-refounding/` artefact root (the freeze-planning sitting of 2026-07-14, the S1
+deterministic evidence contract, the Walk-A structure priors); ADR-200 and ADR-201.
+
+The journal from 2026-06-22 to 2026-07-16 (fifteen "Where We Are / Were" entries: the
+architecture's convergence, the corpus-refounding commission, R0a to R0c, the main-commit guards,
+the dedicated consolidation pass, r1's G2+G3 sitting and the pre-S0 tranche, the freeze-planning
+sitting and the rule's ratification, S0, the S1 deterministic slice, the r2 seed and the
+restatement-remediation gate) was curated on 2026-09-20 by graduate, then archive. The whole
+pre-curation record is preserved at
+`.agent/memory/operational/archive/strategy-and-plan-estate-holistic-review-thread-2026-09-20.md`,
+byte-identical to the record committed at `SHA:52c376002` (blob `fc7d810df`). It was read by the
+split method (two analysts, the join by grep; the file runs newest first, so each entry's next
+step resolves in the entry above it). Its lessons were found homed before the move: the WS4 hard
+gate and the non-goals anti-patterns in ADR-200; "scope from the goal, not from the pointer" in
+`scope-from-goal-before-approach`; agent-produced inputs as input-to-verify in `verify-dont-trust`;
+"mergeable is not READY" and the shepherding seat's truly-green merge (re-trued 2026-09-03) in
+`pr-lifecycle`; bypass mechanics outside agent-facing doctrine in `never-commit-to-main`; the
+disposable audit adapter never a standing warn-tier validator in PDR-126; doc-to-code sync as
+validator work in `validate-ratified-lists`. The settled decisions and the method below stay in
+the record's words.
+
+## Landed arcs (the journal's entries, by their merge commits)
+
+- Architecture (2026-06-22): ADR-200 and ADR-201 with the rewrite plan at `SHA:e33a278f9`; the
+  `no-agent-substrate-access` lint rule at `SHA:a3ca73f1a`; PDR-113 graduated.
+- Corpus refounding R0 (2026-07-06 to 07-08): commissioned and designed 2026-07-06 (G-ADR
+  ratified, V0.1 signed); R0a as #315 `SHA:9994781b2`, #317 `SHA:3bc698531`, #321 `SHA:af6c285e5`
+  and the G1 sitting's record #322; R0b as #323 `SHA:751ce9699`; R0c as #325 `SHA:8385bc41a`,
+  with #324 `SHA:5faf08205` (the five-seat continuity chain) and #327 (the mergeable-is-not-READY
+  doctrine); the dedicated consolidation pass drained the arc's capture debt.
+- The main-commit guards (2026-07-08): #332 `SHA:d89d5c379` (`never-commit-to-main` and the shared
+  five-hook branch guard), #333 `SHA:9a1bb14d6`, #334 `SHA:5efe61aaa`, #335.
+- r1 to S1 (2026-07-14 to 07-15): G2 and G3 ruled at the owner sitting; the pre-S0 tranche #370
+  `SHA:89f65108d`; the reconciliation omnibus #372 `SHA:3254dbc34`; the freeze-planning sitting's
+  ratification #377 `SHA:019448a16`; S0 as #379 `SHA:68d6d232` (681 files frozen) and the
+  orphan-recovery #380 `SHA:55a69ceca`; the S1 deterministic evidence contract #382
+  `SHA:de3cc54c1`; #706 closed on a proven-redundant regeneration proof.
+- r2 and the remediation gate (2026-07-16): #390 and #391 (the r2 seed); the restatement-audit
+  module #393; PR #387 `SHA:c0aba5a5b` (the tooling lane). Three pull requests the journal names
+  once and never resolves (#329, #374, #375) have no merge commit in this history.
+
+## Lessons with no other home (the record's words, 2026-07-08 to 07-16)
+
+- A git hook's behaviour is verified by a hand-run script, never a committed CI test (owner
+  ruling, 2026-07-08; the branch guard was proven 11/11 in a scratch harness).
+- No-loss is two directions plus a bad-pile re-screen by a fresh-context reviewer that did not
+  perform the harvest; the independence requirement governs the whole audit, and independence is
+  constructed, not asserted.
+- The calibration disclosure of a reader-sample residual is evidence that the residual is
+  necessary, not permission for blanket dispatch.
+- A halt of more than 20 % unmapped status at an audit run is the trigger for the next status
+  table, not a defect.
+- A union that re-homes continuity can drop an era (the Goshawk and Rigel era fell out of this
+  record and `repo-continuity.md` at #324 and was restored by concept-union at the next
+  closeout): a union is checked for what it dropped, not only for what it merged.
+
 ## Where We Are (2026-07-16, Mussel rides Coral 6f8857 sitting Director — RESTATEMENT-REMEDIATION GATE ACTIVE; refounding lanes resume at the cures-landed + freeze-recut-check gate)
 
 The r2 landing exposed the estate's dominant defect class, and the owner redirected the
@@ -59,481 +125,6 @@ Sequencing 5) — then the owner sequences the big push.
 `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
 (untracked-by-design; read end-to-end first — it names the guiding plan, the halt
 conditions, and the queue); then the napkin's 2026-07-16 entries; then sweep comms.
-
-## Where We Were (2026-07-15 afternoon — S1 deterministic slice MERGED; full S1 OPEN)
-
-**S0 is CLOSED and merged**: PR #379 (`SHA:68d6d232`, release 1.69.1) landed the 681-file
-frozen conservation commit; orphan-recovery PR #380 merged at `SHA:55a69ceca`. **The S1
-deterministic script layer has now landed**: Zodiac turns Solstice ran the freeze check,
-inventory, residue, sweep, and P4 detector-calibration twice from the exact recorded base;
-the compact, recomputable evidence contract merged through PR #382 (`SHA:de3cc54c1`, tip
-`SHA:766f3d5eb`). The merged evidence records 681/681 frozen files, 77 residue candidates,
-3,514 sweep hits across 523 files, byte-identical repeated outputs, and the required honest
-disclosure that the marker-free plant was invisible while the control hit. All 18 checks
-passed; all three review threads are resolved. Review repairs made the exact-base requirement,
-setup/repeated/verification phases, and fail-loud checksum manifest machine-readable.
-
-**Full S1 remains OPEN.** PR #382 proves and preserves only the deterministic layer; it does
-not discharge the declared-rate reader sample or any judgement/fleet residual. Hedgehog tracks
-Eventide is the owner-assigned Fleet Captain — warm-resumed 2026-07-15 ~14:27Z and now
-RUNNING the signed `s1-reader-sample-b1` batch under claim `45befb32` (P12 pre-declaration
-signed by the Director, event `3ffe6154`). The `refound-reader`/`refound-locator`
-layer remains narrow, zero-judgement, calibration-gated, pre-declared against the P12 cost
-ledger, and justified only where the scripts prove reading unavoidable. The calibration
-disclosure is evidence that this residual is necessary, not permission for blanket dispatch.
-
-**Custody and conservation.** Mussel rides Coral (`6f8857`) retains Director authority under
-claim `0f4be777`, adopted from the now-retired Schooner guards Whirlpool seat. The five large
-generated outputs are ignored and intentionally absent from PR #382;
-their clean 49 MB conservation commit `SHA:42b27e3eb` was pushed and preserved as draft
-PR #706 under the 2026-08-02 retention ruling, then DISCHARGED the same day: the recorded
-regeneration re-verify ran at the pinned base `SHA:0a04617d4` — two full rounds, all five
-outputs byte-identical to the pinned manifest
-(`.agent/plans-refounding/proofs/s1-deterministic-evidence.v1.md`; `shasum -c` all OK,
-`wc -lc` matching) — so the bundle is proven-redundant; PR #706 closes on that proof and
-its branch deletes (commits stay reachable via the PR ref). Next safe step = the
-`s1-reader-sample-b1` batch closes on its declared loss-check proofs; its verbatim-anchored
-findings feed the J3 adjudication queue; S2 tiling and the divergence report follow.
-
-## Where We Were (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
-
-The runway completed end-to-end tonight. **The dedicated consolidation session
-executed** (Dolphin weaves Reef, ffedcf: PDR-127 team-branch protocol + PDR-128
-review-conversations, napkin rotated, graduations drained, commits
-`SHA:725749349` + `SHA:53c6b1d08`). **The freeze-planning sitting RULED** —
-the owner ratified the seven-class register-free freeze rule and ruled the
-window open (record:
-`.agent/plans-refounding/freeze-planning-sitting-2026-07-14.md`; `ratifiedBy`
-set, the mechanical S0 hold LIFTED). The reconciliation **PR #377 MERGED to
-main** (`SHA:019448a16` — the consolidation tier + the ratification). **THE S0
-HARD FREEZE WINDOW IS OPEN** (broadcast event
-`13c052a9-aad7-4aa6-87e9-699f1a2371f9`): no merges to main, no in-scope writes
-until CLOSE; reports out-of-corpus. **S0 is staged, not started**: the r1
-worktree on fresh branch `feat/plan-corpus-refounding-s0` at `SHA:019448a16`,
-stale evidence artefacts cleared (owner-named), tool ready. **The Director seat
-TRANSFERRED to Barnacle calls Spray (6d5d9c)** — PDR-064 Moment 2 at
-20:42:46Z, claim `0f4be777` adopted, their 9-agent adversarial verification
-confirmed the handoff record against ground truth. **Pickup = the handoff
-record** `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
-(§2 = the S0 execution order; §4 = deferred work incl. the ONE remaining
-orphan-recovery: the 48-line compaction napkin entry from `SHA:882e82687` —
-the other two candidate orphans were RETRACTED on substance-probe verification,
-already landed via PR #372). Then S1 → S2 → divergence report as Walk-A input.
-
-## Where We Were (2026-07-14 later, Quasar mends Umbra 52b4de Director — pre-S0 estate shaped: registers re-homed, Walk-A priors recorded; runway = consolidation session → freeze-planning sitting → S0)
-
-Director custody after Cedar's terminal closeout (their block below stands as the
-r1 execution record). Landed since: **PR #370 MERGED** (`SHA:89f65108d` — the
-pre-S0 tranche + four Director-fixed review rounds; the freeze tool now
-mechanically REFUSES S0 until the freeze-planning sitting re-ratifies the rule,
-`ratifiedBy` null). **PR #375** (open at this writing) re-homes the six
-operational registers OUT of `.agent/plans/**` (frictions register +
-deferred-controls → memory/operational; three documentation-sync-logs →
-memory/operational/documentation-sync-logs/; cost ledger → the artefact root) —
-the freeze rule's register class is DELETED, not confirmed — and records the
-**Walk-A structure priors** (owner-reacted: three-layer hierarchy ratified in
-principle; lanes 6–8; ~20 strategic plans; WIP 5 with 2–3 owner-hot; the
-thread-dissolution recommendation; the conservatory-lane policy; the
-rows/concepts/plans analysis units) at
-`.agent/plans-refounding/walk-a-structure-priors.md` — the Walk A sitting input
-of record. **Owner-set runway:** dedicated consolidation session → the
-freeze-planning sitting (re-ratify the register-free rule; confirm the hard
-hours-scale window + moratorium) → S0. Successor context: Barnacle calls Spray
-(6d5d9c) is the owner-named eventual Director successor (cold standby).
-
-## Where We Were (2026-07-14, Cedar rides Undergrowth 270379 — r1 STARTED: G2+G3 ruled, pre-S0 tranche on PR #370; S0 HELD for the freeze-planning sitting)
-
-The r1 seat opened fresh per the 2026-07-14 owner ruling (fresh implementer, not an Elder
-recall), under Director Quasar mends Umbra (52b4de), in the
-`plan-corpus-refounding-r1` worktree (branch `feat/plan-corpus-refounding-r1`).
-
-- **G2+G3 were RULED at the ~12:25–12:30Z owner sitting** (relay of record: the Director's
-  directed event 12:29:05Z; full ratification records in the artefact-root packets):
-  G2.1/G2.2/G2.3 yes; **G2.4 overruled → HARD freeze window** (hours-scale, team holds
-  landings); owner **moratorium** on plan-corpus work during the window (the arrivals table
-  is violation-detection inside it); deletions halt for ruling; **G3.3: operational
-  registers are OUT of the corpus** (six-path closed list in the freeze rule; exact-list
-  confirmation rides the freeze-planning sitting).
-- **PR #370** carries the pre-S0 tranche: the F-141 freeze-tool hardening (`SHA:2baa798db`),
-  the G3.3 out-subtraction with the `operational-registers` rule class (`SHA:6ab5270a2` —
-  in-set under the amended rule: 677 files, tool-derived = git arithmetic), and the sitting
-  records with the owner-gate register truings and F-141 (`SHA:f1f0d25a5`). Two code-expert
-  gateways absorbed; all resolutions applied; residuals recorded in F-141.
-- **S0 is HELD**: owner directed a step-back — the Director runs a pre-freeze estate review
-  (all open sessions/PRs/branches/uncommitted work), then a freeze-planning sitting. The S0
-  branch sequence when it opens: gate-exclusion configs commit → clear the exploration's
-  stale freeze artefacts from the r1 worktree (the tool refuses over a non-empty frozen
-  tree; they were cut at pre-G3.3 `SHA:cf3327515` and disagree with the amended rule) →
-  fresh branch off then-current main → freeze → one atomic S0 commit → push → merge, all
-  inside the declared hard window. Then S1 (inventory + residue + planted-orphan proofs) and
-  S2 (tiling baseline + the audit-mode claim-vs-derived divergence report as Walk-A input).
-- **Seat closed 2026-07-14 ~14:35Z** (owner-directed terminal handoff): PR #372 (the
-  owner-directed reconciliation omnibus) MERGED `SHA:3254dbc34`; its tail wave is PR #374
-  (open, Director merges); **PR #370 remains OPEN** — one straggler check + BEHIND; merge
-  custody with the Director. **S0's explicit gate: PR #370 must merge first** (the freeze
-  instrument's hardening + out-subtraction live there), then the freeze-planning sitting,
-  then the hard window. The r1 worktree still holds the UNTRACKED stale freeze artefacts —
-  clear before S0. No claims retained; this section is the pickup.
-- The six-path derivation rationale (churn evidence + kind-judgement calls) is in the napkin
-  entry "2026-07-14 — Cedar rides Undergrowth: compaction-prep loss scan" and the Director
-  sitting brief; the G1-era r1 pickup block below is SUPERSEDED by this section through the
-  packet stage.
-
-## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed; SETTLED: PR #333 MERGED, both threads resolved)
-
-**Settled 2026-07-08 (Callisto guards Penumbra, da9f8c): PR #333 MERGED
-(`9a1bb14d6`), the Codex P2 thread was replied-to and resolved, and the pickup
-below is DISCHARGED — kept for the record; nothing here is live work.** The
-remaining closeout continuity landed via PR #334 (MERGED 2026-07-08,
-`5efe61aaa`).
-
-PR #333's two review-round findings were **fixed in code and pushed**
-(merged into the branch at `ec20d572c`, origin in sync; the owner reconciled the
-branch's divergence with the v1.64.0 release merge `fe8a6baff`):
-
-- **Bugbot (Low)** — ambient `GUARD_BRANCH` could redirect the four non-rebase
-  hooks; each now sets `GUARD_BRANCH=""` before sourcing the shared guard.
-  **Thread already RESOLVED.**
-- **Codex (P2)** — `pre-rebase` refused only by branch name, so a topic-branch
-  rebase with `main` inside the rewritten range (`--update-refs` /
-  `rebase.updateRefs`) could force-move `main`; `pre-rebase` now also refuses
-  when `refs/heads/main` is an ancestor of the rebased tip but not of the
-  upstream. Rule coverage claim trued. **Thread replied-to and RESOLVED
-  2026-07-08** (reply cites the range-check fix; `f73307d22` carries the full
-  scratch-proof description).
-
-The former next-session pickup (reply+resolve that thread, re-harvest, check
-merge-readiness) was executed 2026-07-08 and PR #333 merged (`9a1bb14d6`) —
-discharged, no live work remains in this block. The guarding check remains
-`lint:shell:syntax` (a git hook's behaviour is verified by hand-run script, not
-a committed CI test — owner ruling that session). This is orthogonal to r1 below.
-
-## Where We Are (2026-07-08 evening, Elder stirs Chlorophyll 1af3af — main-commit guards landed via PR #332; r1 ASSIGNED to Elder on owner recall)
-
-**Owner rulings this session:** (1) local `main` receives no commits, EVER —
-the consolidation landing had stranded three commits on a diverged local
-`main`; resolution + prevention landed via **PR #332 (merged `d89d5c379`)**:
-the commits re-homed, the `never-commit-to-main` rule (exceptionless), and
-the shared five-hook branch guard (see the rule for the enumeration; eight
-review threads settled across four rounds + a post-merge round on the
-follow-up branch). (2) **r1 is assigned to Elder stirs Chlorophyll on
-explicit owner recall; the first step is resolving the owner's gate
-questions (G2+G3).** (3) Bypass mechanics are never documented in
-agent-facing doctrine (napkin-captured, graduation candidate).
-
-**r1 pickup — self-contained here** (the Pelican PDR-063 handoff record is
-machine-local under gitignored `handoffs/` — read it where present, never
-depend on it from a fresh clone):
-
-- Open a FRESH claim on the refounding areas
-  (`agent-tools/src/refounding/**`, `agent-tools/src/plan-state/**`) after
-  arming the all-channels watcher. (The Pelican retained claim `7b10679e`
-  was closed as stale by owner ruling 2026-07-08 at the Elder closeout —
-  there is nothing to adopt; this tracked block is the pickup.)
-- r1 = the controlling plan's `r1-freeze-inventory-baseline` todo (S0/S1/S2
-  stable points), gated on **G2** (S0 landing sanction: denominator totals,
-  scoped gate exclusions with reasons, secret-scan attestation, declared
-  commit window) and **G3** (arrivals-routing table) — both rows in the
-  plan's owner-gate register. Audit mode is mechanically unblocked (OG-2
-  table half discharged; ratified status-mapping v1 default).
-- First moves: `refound-freeze` DRY-RUN → author the G2 packet from its
-  output + draft the G3 table → ONE owner sitting (the graduated
-  `gate-sitting-as-matrix-filtered-questions` pattern) → S0 atomic freeze
-  inside the declared commit window (freeze artefacts live at the
-  refounding artefact root OUTSIDE the denominator; commits on a branch —
-  the new main guard makes branch-first mechanical) → S1 scripted
-  inventory + residue audit + planted-orphan proofs on the real corpus →
-  S2 tiling baseline + the estate-wide audit-mode run → the
-  claim-vs-derived divergence report published as Walk-A input.
-- Binding contracts: Stoat's tranche-3 execution-record §3 verdicts remain
-  BINDING for r1 rework — that record is machine-local
-  (`handoffs/2026-07-07-stoat-r0a-tranche3-execution-record.md`, present on
-  this machine; a fresh checkout lacks it — at adoption, fold whatever r1
-  actually consumes from it into tracked surfaces if working elsewhere).
-  The F2 R1-precondition stands (live set = in-enumeration ∪
-  effective-denominator before the amendment writer). The >20%
-  unmapped-status halt at the audit run is the table-v2 trigger, not a
-  defect.
-- Watch item (PDR-126 × OG-WE): the disposable audit adapter must never be
-  wired as a STANDING warn-tier repo-validator in the interim — PDR-126
-  clause 3's sequenced-conformance shape is the sanctioned path (the
-  refounding IS the conformance plan; OG-WE lands the permanent gate at
-  enforce); cite PDR-126 at the OG-WE sitting.
-- OG-2 judgement-machinery half + OG-3 (sealed canary key) remain OPEN, due
-  before any challenge stream (R3); may ride the Walk-A sitting.
-
-## Where We Are (2026-07-08 later, Corsair guards Channel ecdd12 — the dedicated consolidation pass EXECUTED; next = r1)
-
-**The R0-arc consolidation debt is drained.** The dedicated pass (Corsair guards Channel,
-curator, solo on main) processed the seven-seat napkin window into permanent homes,
-drained pending-graduations to zero by decision (the R0 arc's doctrine now lives in
-verify-dont-trust §bare-exit, pr-lifecycle Phases 5–8 — supervised terminal-condition
-watch, compound-read floor, conditioned arm-early — semantic-merge's era-witness/link
-recompute steps, and PDR-126), cleared the practice box (owner-approved; the teaching
-bundle's recomputable-team-state residual is now a WS0 agenda item in the AEE thread
-record), retired two completed threads, and rotated the napkin
-(`archive/napkin-2026-07-08-corsair-dedicated-consolidation.md`). Detail:
-`repo-continuity.md` §Next Safe Steps 0a. **Next for THIS thread: r1** gated on G2+G3
-(unchanged; pickup = the Pelican handoff record below on retained claim `7b10679e`). The
-remediation-agent question in the section below is ANSWERED: the owner turned the bot OFF
-(2026-07-08, this pass) — the #326-gauntlet register item was rejected as moot.
-
-## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
-
-**The single pickup surface for the next session is the PDR-063 handoff record**
-`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`)
-on claim `7b10679e` (retained; sixth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→Pelican→next).
-Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-merge (PR #325,
-`8385bc41a`): the consolidated owner-gate register (OG-2 in two halves — table half
-DISCHARGED by owner ruling 2026-07-08 with the `STATUS_MAPPING_V1_RATIFICATION` flip landed,
-r1 audit mode mechanically unblocked; judgement-machinery half OPEN before R3; OG-3 canary
-key; OG-WE; the Walk-C terminal cutover sanction) and the Director-owned cost ledger
-(`.agent/plans-refounding/plan-corpus-refounding-cost-ledger.md`; H-series unified on the operational numbering the
-runners emit, cost backstop H7, unconditional). Same day: the `mergeable`-is-not-READY +
-arm-auto-merge-early doctrine landed (PR #327, owner-correction arc) and the five-seat
-continuity chain merged (PR #324 — NOTE: its union dropped the Goshawk/Rigel era from THIS
-record and from repo-continuity; restored by concept-union at the Pelican closeout from
-`5faf08205`). **In flight, self-driving: PR #329** (the proper S4782/S6661 fixes, auto-merge
-armed, watched; supersedes the remediation bot's #326 — close #326 after #329 merges; the
-remediation agent's on/off is an open owner decision). **Next: (1) the dedicated
-consolidation pass — live-due, owner-scheduled to run first** (napkin ~700 lines / five seat
-windows / two practice-box files / three register items incl. the graduation-ripe quiet-pipe
-class); **(2) r1** gated on G2+G3 (audit mode unblocked; Stoat's §3 contracts BINDING; the
-F2 R1-precondition stands). Owner-gated residue in the handoff record §4.
-
-## Where We Were (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
-
-**The single pickup surface for the next session is the PDR-063 handoff record**
-`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`)
-on claim `7b10679e` (retained; fifth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→next;
-**successor owner-named: Pelican calls Spray, 55b041** — adopt on arrival, runway clean).
-Headlines: **R0b is complete on main** (PR #323 owner-merged truly-green at `751ce9699`,
-release 1.63.0): the plan-state recomputation engine — one deterministic engine, two adapters
-(permanent gate over V0/V0.1 frontmatter; disposable audit over census records), the
-`plan-state` CLI, and status-mapping table v1 (OG-2 ratification PENDING; the CLI mechanically
-refuses audit mode on the unratified default) — plus two shared-surface hardenings
-(dangling-symlink write refusal; terminal control-char stripping). Both review moments ran
-(pre-execution APPROVED-WITH-RESOLUTIONS; seven-seat gateway absorbed at source, two convergent
-must-fix classes). PR #320 also merged (`c703dce16`). **Next: R0c** (owner-gate register — add
-the OG-2 row — + cost ledger; Stoat's §3 contracts still BINDING); first truing owed = the
-`r0b-plan-state-tool` todo still reads `pending`. Then r1, gated on G2+G3 (+OG-2 for audit
-mode). The OG-2 agenda, the R1-runway core/-extraction named item, and the owner-gated residue
-(primary realign now three closeout commits deep; branch/worktree disposals; Zodiac queue
-clearing) live in the handoff record §3–§4.
-
-## Where We Were (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
-
-**The single pickup surface for the next session is the PDR-063 handoff record**
-`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md` (`../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`)
-on claim `7b10679e` (retained; **successor owner-named: Rigel turns Void, c6080b** — fourth
-runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel).
-Headlines: **R0a is complete on main** (PR #321 merged truly-green at `af6c285e5`: four
-tranche-3 cycles + merge-forward `92f3cb0e2` + consolidations `a70885cc5`; three convergence
-rounds, severity decay 7→2→0; the owner-approved six-reviewer gateway absorbed). **G1 is
-DISCHARGED** — the owner ran the sitting in-chat 2026-07-07; the record is the G1 packet §9;
-`freeze-rule.json` is ratified (clean v1; destination `.agent/refounded-plans/` with terminal
-archive+rename; EMPTY sanctioned set; reader-sample cure at 10%; archive = sweep for the
-refounding but the WS6 HARVEST reads ALL live + ALL archived plans in full — owner ruling,
-also in `planning-estate-rewrite.plan.md` §ws6). PR #322 carries the ratification record
-(merge it truly-green if still open at pickup). Two owner corrections now structural:
-doc↔code sync checks are validator work (`validate-ratified-lists`, three lists guarded);
-truly-green PRs merge by the shepherding agent (pr-lifecycle Phase 7 IS the authorisation) — [RE-TRUED 2026-09-03 at owner word: a self-authored, sub-agent-reviewed PR merges at truly-green by the shepherding seat exactly as any other; pr-lifecycle Phase 7 carries the ruling].
-The Walk-A derivation input (few thread-level plans + implementation collections + a holding
-bucket; zero concepts lost) is recorded in §9. **Next: R0b** (plan-state engine; Stoat's §3
-contracts BINDING; first truing = the `r0a-mechanical-instrument` todo still reading
-`pending`). Owner-gated residue and the full deferred set live in the handoff record §4.
-
-## Where We Were (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
-
-**The single pickup surface for the next session is the PDR-063 handoff record**
-`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md` (`../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`)
-on claim `7b10679e` (retained): it carries the merged-estate state with provenance marks, the
-FULLY-ANALYSED main→t3 merge-forward (three conflict resolutions — one conserved verbatim in
-`handoffs/assets/` — plus two semantic re-points and the publicly-promised census
-consolidations), the t3-PR endgame protocol (agent-owned settle probes; the owner-corrected
-convergence-ownership discipline now in the pr-lifecycle skill), and the seven open
-owner-gated items (subagent freeze, gateway roster, housekeeping branch, G1 sitting, R0b,
-branch deletions, Zodiac queue residue). Stoat's tranche-3 execution record's §3 contracts
-remain BINDING for R0b and rework. Session tally: six adversarial bot rounds on #317,
-14 threads all fixed-with-citation, Sonar green by code.
-
-## Where We Were (2026-07-07 mid-day, Stoat rides Gloaming — R0a tranches 1+2 LANDED and on PR #317; #315 MERGED; tranche 3 building on a stacked branch; G1 packet sitting-ready)
-
-R0a is two-thirds landed and under review; the protocol estate is on `main`. Verified
-first-hand this morning:
-
-- **PR #315 MERGED** (owner, 08:01Z, merge commit `9994781b2`): the refounding protocol plan,
-  design record, registers, and the six fresh bot-thread fixes (friction renumber
-  F-122/F-123→F-130/F-131 across five surfaces at `798839a72`; the register reorder that also
-  cured the static-checks markdownlint red; the G-ADR prerequisites truing; the opener's
-  plant-challenge-canary supersession at `033cdee7b`). All 13 threads resolved
-  fixed-with-citation under the F-130 binding-moment discipline.
-- **Branch `feat/plan-corpus-refounding-r0a` pushed; PR #317 OPEN** (tip `582eda9be`,
-  ~5.9k insertions): tranche 1 (`23fd4d907` — freeze + verify-freeze, 70 module tests,
-  three-reviewer chain absorbed), R0c registers + **G1 packet sitting-ready** (`02e681f62`),
-  the destination-cardinality non-goal (`52785f9d6`), **tranche 2 LANDED** (`e1d8bb8c9` —
-  refound-inventory/residue/sweep/plant-orphan/plant-challenge-canary, 201 module tests,
-  13-item fix pass absorbed, anchor ratio 41.14% in-band), main merged in (`d3fe60bab`), and
-  the plan **promoted `current/`→`active/`** with the validator-proven link sweep
-  (`582eda9be`). #317's published scope EXCLUDES tranche 3 — do not push tranche-3 commits to
-  it. **#317 merge authority is NOT granted** (the owner's conditional grant was
-  #315-specific); merge is an owner moment.
-- **Tranche 3 (merge-recheck → tile → claim-census → batch-status) is BUILDING** on the
-  stacked branch `feat/plan-corpus-refounding-r0a-t3` in the repurposed
-  `plan-corpus-refounding` worktree. The pre-execution code-expert review (two-moments rule)
-  settled seven contract ambiguities and seven landed-decision contradictions BEFORE build —
-  notably: freeze-rule **schema v2 with sanctioned-writer classes** lands in cycle 1 (the
-  landed v1 parser cannot parse what G1 ratifies); census reads the FROZEN tree, never live;
-  banner-awareness degenerates to strict byte identity until the R2 F4 policy. **The complete
-  binding verdict set, builder state, and resume mechanics are self-contained in
-  `.agent/state/collaboration/handoffs/2026-07-07-stoat-r0a-tranche3-execution-record.md`**
-  (claim `7b10679e` handoff_record_path points there; PDR-063 — read it before any tranche-3
-  source edit).
-- **Standing owner directives (in force, this window)**: NO new subagents without owner
-  approval (temporary; resuming an existing builder via SendMessage is sanctioned — the
-  spend-limit death/resume mechanics are in the execution record §4); push authority for the
-  r0a branch stands; all four resonance-side watchers are real agents (owner-confirmed).
-
-**Next safe steps, in order**: (1) builder cycles 1–2 return → integrator first-hand verify →
-per-cycle atomic landings on the t3 branch; (2) owner gate: subagent approval for the
-cycles-3/4 builder + the post-execution gateway roster (execution record §3); (3) G1-packet
-truing after cycle 1 (schema v2 as the ratified rule's parse target); (4) shepherd #317 bot
-rounds (fix inline under the freeze) — merge is the owner's; (5) after #317 merges: main →
-t3 branch, open the t3 PR; (6) R0b (F5 one-engine-two-adapters); (7) the G1 owner sitting
-(packet ready). Housekeeping owed: formal frictions-register entries for the two
-commit-queue/PDR-117 worktree findings; queue hygiene (abandoned intents `258714ba`,
-`e38f8da0`); resonance PDR-129/130 citation truing (Kiln correction 2026-07-07); merged
-`docs/plan-corpus-refounding` branch-ref deletion (owner-gated; worktree repurposed to t3).
-Worktree-seat commit craft unchanged: pathspec-staged plain `git commit -F`, BACKGROUND task,
-1-min load <12 first (two consecutive sub-11 readings; announce windows AFTER the load read).
-
-## Where We Were (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
-
-**Owner direction (2026-07-06, in-session):** losslessly re-found the plan corpus around
-intent FIRST — the donor-estate (resonance) method at oak scale — as an independently
-valuable intermediate step on the road to the ADR-200 intent graph. Not instead of the
-graph: the refounded corpus becomes WS6's harvest substrate; WS2/WS4 proceed in parallel
-and must not wait.
-
-**What landed this session (branch `docs/plan-corpus-refounding`):**
-
-- The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
-  — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
-  placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
-  verification; the consolidated owner-gate register (G0..Walk C — **next action: the
-  G1 + G-ADR owner sitting**: freeze-rule ratification + the Decision-level ADR-200
-  amendment + the V0.1 proof-typed-todos sign-off); corrected economics (40–60M tokens /
-  25–45 seat-sessions, pre-pilot bands re-priced at SP3).
-- The design record
-  [`plan-estate-refounding-design-2026-07-06.md`](../../../../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md)
-  — 6-facet design panel + 4-lens adversarial critique (22 critical findings, every one
-  dispositioned) + the donor-seat cross-estate review (sound-with-revisions, zero
-  overturns; B1 planted-loss challenge canaries and B2 the WS6 substrate statement both
-  absorbed) + the resonance mechanism adopt/adapt/reject/invert table.
-- The dated additive amendment to
-  [`planning-estate-rewrite.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
-  — `ws-r-corpus-refounding` gates ws6; WS6's substrate = refounded corpus + frozen
-  archive via binding-clause provenance edges; ADR-200's text stands UNEDITED until the
-  G-ADR gate (honesty boundary).
-
-**Provenance of the method:** the first live cross-estate design collaboration under the
-inter-practice protocol — the resonance exchange seat (oak-side name Kiln tracks Basalt,
-prefix 2a5066) delivered the refounding synthesis + ten-item kit to the incoming box,
-corrected its own invariant mid-exchange (challenge-every-class), and adversarially
-reviewed the synthesis. The exchange dialogue is conserved in
-`.agent/collaboration/rapid-comms/wildfire-herds-sulphur-and-kiln-tracks-basalt.md`.
-
-**Owner ratifications (2026-07-06, same sitting, formal questions put and answered):**
-G-ADR RATIFIED (the ADR-200 Decision amendment is landed — §Consequences Amendment +
-§Sequence note); V0.1 SIGNED in full (proof-typed todos + `permanent-home-routed` +
-the pending/holding-lane rule — landed in the V0 schema spec); **R0 execution
-AUTHORISED**; branch push + PR approved.
-
-**Next safe steps (in order):** (1) R0a mechanical instrument build (scripts +
-discrimination proofs — freeze may land the moment its own proofs pass; produces the G1
-freeze-rule packet for the owner sitting); (2) R0b plan-state tool + R0c registers;
-(3) the G1 owner sitting when the packet is ready; (4) WS2 (idea-node schema) continues
-in parallel, unchanged, per the section below.
-
-**Successor (owner-named, 2026-07-06): Stoat rides Gloaming.** The pasteable R0 session
-opener is
-[`prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md`](../../../../prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md)
-— grounding order, the R0 work breakdown, the G1-packet deliverable, and the operational
-craft (background commits per F-131; the F-130 merge-ready discipline; the built
-worktree). The conserved design-panel corpus (full script contracts) is at
-`reports/agentic-engineering/plan-estate-refounding-design-panel-2026-07-06/`.
-
-## Where We Were (2026-06-22, Pelican stirs Buoy — continuity curated; architecture committed; next = WS2)
-
-The architecture has **converged and is committed**; progression is **GO** for the substrate build.
-Read, in order:
-[`ADR-200`](../../../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
-(the living idea-graph architecture — **Accepted**, owner-ratified),
-[`ADR-201`](../../../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
-(external-evidence integration — **Proposed**; the *full-value* path, gated on the substrate landing;
-the substrate value stands without it), the executable
-[`planning-estate-rewrite.plan.md`](../../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md),
-and this section.
-
-**State (re-derived first-hand, 2026-06-22):**
-
-- ADR-200/201 + the rewrite plan are committed (`e33a278f9`); the adopted `no-agent-substrate-access`
-  eslint rule is committed (`a3ca73f1a`).
-- The dedicated **consolidation is done and committed** (Petrel stirs Wingspan): the napkin was rotated
-  (the 667-line content archived verbatim; a fresh napkin started), cross-session lessons graduated, and **PDR-113** (source intent from
-  the principal, not the records) graduated — `9acde4d8` / `243c4cf8` / `deb697c6`. The
-  napkin-rotation + graduation half of the consolidation is discharged.
-- This session (Pelican stirs Buoy) **curated this thread record** — conserve-and-delete of the finished
-  survey-era / role-rotation / handoff session history per `continuity-practice.md` §Disposition (the
-  insight is homed in ADR-200/201, the controlling plan, the rewrite plan, and the survey archive; git
-  retains the literal record), **fixed the rewrite plan's stale frozen-estate prerequisite**, and
-  **reframed `repo-continuity.md`** to the ADR-200 reality.
-- This session also **triaged the open-question surface through the decision lenses** (owner-directed): the
-  design-direction verdicts are folded into ADR-200 §Open and the rewrite plan's "Lens-resolved directions"
-  subsection; **Q-008 is RESOLVED** (the human-authoring side = a prose→graph **reconciliation workflow**,
-  now in ADR-200 §8); and **Q-005/006/007 moved to automatic triggers, out of owner ownership** (owner
-  direction). The open-questions register is the durable home; nothing in the triage blocks WS2.
-
-**Next safe step: WS2** — author the idea-node JSON Schema **structure** and decide id-minting, per the
-rewrite plan (WS1 done; WS2 decision-complete; ADR-200 §5 structure, vocabularies left open as
-`$comment DISCOVERED`). Acceptance: a hand-written sample idea-node validates; ids are stable across an
-edit to `statement`.
-
-**Disciplines a successor MUST hold (ADR-200 + this session's reflection):**
-
-- **WS4 thin-slice-proof is a HARD GATE.** Prove the idea-graph end-to-end on a thin vertical slice (both
-  drift mechanisms + supersede AND merge) **before** the full harvest (WS6). Do not let "build the SDK +
-  tooling" momentum reach the harvest before WS4 passes — the survey already got burned by a
-  placeholder-not-landed graph adapter.
-- **The full dependency chain:** WS6 ← WS3 **and** WS4; **WS6b** (V2 vocabulary reassessment) ← WS6;
-  WS7 ← WS6b **and** WS5.
-- **No-loss is TWO directions + a bad-pile re-screen, by a fresh-context reviewer that DID NOT perform the
-  harvest.** The independence requirement governs the **whole** two-direction audit (harvest-recall +
-  re-expression), not only the bad-pile re-screen — "independence is constructed, not asserted"
-  (ADR-200 §5).
-- **Conserve, never trim.** No valuable idea is ever lost; conservation conserves and organises.
-- **The ADR-200 §Non-goals anti-patterns recur under context pressure and MUST be resisted:** NOT a
-  refactor/relabelling; NOT preserving existing plans because they exist (existence is not correctness;
-  default-replace); conformance/classification of old plans is NOT the goal.
-- **Freeze/unfreeze boundary:** forward, genuinely-new V0-bridge work is **unblocked**; the rewrite of the
-  existing estate (WS6–WS7) is gated on the substrate; the harvest scope is **re-derived per pass, not
-  frozen**.
-- **No PII in version control, ever** (ADR-201 §4, organisation constraint) — binds any future
-  external-evidence work.
-- Do **not** execute during a planning turn; tests assert **effects**, never message-constants.
-
-**Cross-link — the large-corpus-analysis method applies to this estate review (2026-06-29, Wren stirs Rainbow).**
-The proving run of the corpus-analysis method (over the napkin timeseries) generalises to
-this non-timeseries estate — see "Generalisation beyond the timeseries" in
-[`large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md).
-The transfer: parameterise the **partition axis** (subgraph/neighbourhood, weighted by
-leverage/connectivity, not recency) and the **negative-space source** (here **relational
-absence** — orphan plans, unserved goals, undeclared dependencies — which the ADR-200
-idea-graph makes into DETERMINISTIC edge-queries). Applied to the estate, the method
-becomes a renderer over the idea-graph and its highest-value lens (absence detection)
-becomes cheap and exact; the method's graph-substrate future converges with ADR-200's
-deliverable. Apply once WS4 proves the graph end-to-end.
 
 ## Settled corpus-design decisions — do not re-litigate
 

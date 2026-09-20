@@ -317,8 +317,14 @@ design-system-integration thread record (3,901 lines; nine analysts, the join by
 in-flight pull request checked at its merge commit; archive
 `.agent/memory/operational/archive/design-system-integration-thread-2026-09-20.md`, blob
 `c19df5e90`; the live record keeps the identity table, the landed arcs by merge commit, six open
-items with no other home, and the two live sections of 2026-09-05 and 2026-09-06). Next: the
-paused thread records, then this record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+items with no other home, and the two live sections of 2026-09-05 and 2026-09-06). Then the three
+largest paused records by the same method (`mcp-submission-drive`, `workspace-config-isolation`,
+`strategy-and-plan-estate-holistic-review`; two analysts each; archives
+`archive/<slug>-thread-2026-09-20.md`), which also gave `signal-read-as-fact` two earlier
+instances (n = 2). Next: the remaining twenty-five paused records (the largest
+`upstream-api-alignment` 487 lines, `eef` 393, `typescript-estate-consolidation-review` 356,
+`codex-to-codex-hook-review-experiment` 349, `statusline-enhancements` 328), then this record's
+own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
 theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
