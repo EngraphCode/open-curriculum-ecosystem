@@ -1028,7 +1028,23 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    dispositioning (2026-09-15, #147: the anchor sat on the
    seat's own reply, seven minutes after the round's last real review; the
    signed-self-reply exclusion did not catch it, because an empty body
-   carries no signature to detect).
+   carries no signature to detect). A reviewer's reported result has TWO
+   transports, and the leg reads both: the review object, and a completion
+   comment on the conversation — the Codex connector's transport for a
+   zero-findings run ("Didn't find any major issues", naming the commit it
+   read), which by the owner's ruling of 2026-09-16 is a positive result,
+   not missing evidence (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`).
+   Such a comment SATISFIES the leg when its author is a declared reviewer,
+   it is unedited, and the commit prefix it names resolves to exactly one
+   commit of the pull request, that commit being the current tip; the
+   evidence names the transport. A declared reviewer's comment that fails a
+   precondition, on a leg the tip does not otherwise satisfy, is never read
+   as no comment: the verdict is `UNCLASSIFIED-EVIDENCE`, naming the
+   precondition and quoting the comment (a near-miss that reads as silence
+   puts the reader back where they started); the door refuses it by name,
+   and the cure is a fresh result on the tip (an `@codex review` comment),
+   never an edit. A live run for that reviewer outranks the refusal while
+   the window is open.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a

@@ -6,11 +6,17 @@ import {
   QUIET_WINDOW_MS,
 } from './reviewer-legs.js';
 import type { ReviewerLeg } from './reviewer-legs.js';
+import {
+  allReviews,
+  completionRefusalEvidence,
+  completionTransportEvidence,
+} from './completion-evidence.js';
 import type { PrStateReading, PrVerdict } from './state-types.js';
 
 /**
  * The reviewer-leg and settlement half of the `pr state` verdict (SKILL items
- * 3–4): per-expected-reviewer legs over the full harvest, the most-blocking
+ * 3–4): per-expected-reviewer legs over BOTH transports of a reviewer's
+ * result (the review object and the completion comment), the most-blocking
  * OWED leg, and the settled path with its quiet window (more than 10 minutes
  * since the latest tip-bound review — declaring SETTLE-READY inside the
  * window recreates the bot-round-still-composing hole).
@@ -58,7 +64,7 @@ function legLine(leg: ReviewerLeg): string {
 // signature to detect. On a tip where every leg settled via SKIPPED (no
 // tip-bound review), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
-  const tipBound = reading.reviews
+  const tipBound = allReviews(reading)
     .filter((review) => review.commitOid === reading.headRefOid)
     .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
     .filter((review) => review.body.trim() !== '');
@@ -82,7 +88,7 @@ function quietWindowAnchor(reading: PrStateReading): string | null {
 // landing), so settlement stays leg-driven and the evidence hands the reader
 // the exact body-tally inputs instead.
 function bodyTallyEvidence(reading: PrStateReading): string[] {
-  return reading.reviews
+  return allReviews(reading)
     .filter((review) => review.commitOid === reading.headRefOid)
     .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
     .filter((review) => review.body.trim() !== '')
@@ -100,6 +106,7 @@ function settledVerdict(input: {
   const { reading, legs, now } = input;
   const shared = [
     ...legs.map((leg) => legLine(leg)),
+    ...completionTransportEvidence(reading),
     ...bodyTallyEvidence(reading),
     ...expectedSetEvidence(reading),
     ...runsEvidence(reading),
@@ -197,7 +204,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
   const legs = computeReviewerLegs({
     headRefOid: reading.headRefOid,
     expectedReviewers: reading.expectedReviewers,
-    reviews: reading.reviews,
+    reviews: allReviews(reading),
     reviewRequests: reading.reviewRequests,
     checksGreenAt: reading.checksGreenAt,
     now,
@@ -211,6 +218,17 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     // liveRunReviewers above).
     runsReadable: reading.reviewRuns.kind === 'read' && reading.reviewRuns.truncated !== true,
   });
+  // A declared reviewer's comment that fails a precondition, on a leg the tip
+  // does not satisfy, is a near-miss the verdict quotes rather than reading
+  // as silence — unless that reviewer's run is still live, when the result it
+  // is composing outranks what it said about an earlier tip.
+  const refusals = completionRefusalEvidence(reading, legs);
+  if (refusals.length > 0 && blocking.kind !== 'WAITING-REVIEW-RUN-LIVE') {
+    return {
+      state: 'UNCLASSIFIED-EVIDENCE',
+      evidence: [...refusals, ...legs.map((leg) => legLine(leg)), ...expectedSetEvidence(reading)],
+    };
+  }
   if (blocking.kind === 'settled') {
     return settledVerdict({ reading, legs, now });
   }
@@ -220,6 +238,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     evidence: [
       `most blocking reviewer leg: ${blocking.reviewer}`,
       ...legDetail,
+      ...refusals,
       ...unmappedLiveRunEvidence(reading, blocking.kind),
       ...expectedSetEvidence(reading),
       ...runsEvidence(reading),

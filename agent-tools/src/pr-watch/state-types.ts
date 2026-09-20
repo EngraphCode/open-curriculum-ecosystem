@@ -1,3 +1,4 @@
+import type { CompletionCommentReading } from './completion-comments.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
 import type { HarvestedReview } from './reviewer-legs.js';
@@ -78,6 +79,13 @@ export interface PrStateReading {
   readonly expectedDeclared: boolean;
   /** The FULL paginated review harvest — never the latestReviews pointer. */
   readonly reviews: readonly HarvestedReview[];
+  /**
+   * The second transport of a reviewer's reported result: an expected
+   * reviewer's completion comments, each read as a review bound to the one
+   * commit it names or refused by name (`completion-comments.ts`). The legs
+   * read both transports; a refusal is quoted in the verdict.
+   */
+  readonly completionComments: CompletionCommentReading;
   readonly reviewRuns: ReviewRunsLeg;
 }
 
@@ -97,6 +105,7 @@ export const PR_VERDICT_STATES = [
   'ARMED-BEHIND-RED',
   'QUOTA-SKIPPED',
   'SETTLED-NO-REVIEW',
+  'UNCLASSIFIED-EVIDENCE',
   'MERGED',
   'CLOSED',
   'CONFLICT-DIRTY',

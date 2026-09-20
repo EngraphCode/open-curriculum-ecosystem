@@ -9,10 +9,21 @@ import {
   type PathExistsCheck,
   type PrTarget,
 } from './gh.js';
+import { readCompletionComments } from './completion-comments.js';
 import { defaultExpectedReviewers } from './expected-reviewers.js';
 import { parseReviewThreadPages } from './review-threads.js';
 import { readReviewRunsLeg } from './review-runs.js';
-import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from './state-fields.js';
+import {
+  parseConversation,
+  PR_STATE_CONVERSATION_JSON_FIELDS,
+  type ParsedConversation,
+} from './state-conversation.js';
+import {
+  parseReviewsHarvest,
+  parseStateView,
+  PR_STATE_VIEW_JSON_FIELDS,
+  type ParsedStateView,
+} from './state-fields.js';
 import type { PrStateReading } from './state-types.js';
 
 /**
@@ -73,16 +84,16 @@ function reviewsHarvestArgs(prNumber: string, repo: string | undefined): string[
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
 // documented transient computed over seconds, so an immediate retry is a
 // no-op. Fail loud once rather than let a green reading settle over an
-// uncomputed conflict state.
+// uncomputed conflict state. The one payload carries the state view and the
+// conversation legs (comments and commits); both parse from it.
 function readMergeabilityComputedView(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly viewArgs: readonly string[];
   readonly prNumber: string;
 }) {
-  const view = parseStateView(
-    parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
-  );
+  const raw = parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view');
+  const view = parseStateView(raw);
   // The refusal binds OPEN PRs only: GitHub stops computing (and commonly
   // returns UNKNOWN for) merged/closed PRs, whose terminal verdicts must
   // remain reachable — including a PR that closes mid-compound-read.
@@ -91,7 +102,7 @@ function readMergeabilityComputedView(input: {
       `PR #${input.prNumber}: mergeability not yet computed (mergeable=UNKNOWN) — re-run in a few seconds`,
     );
   }
-  return view;
+  return { view, conversation: parseConversation(raw) };
 }
 
 // Wrap the harvest failure with operator-grade evidence: a nonexistent or
@@ -117,6 +128,35 @@ function readReviewsHarvest(input: {
   }
 }
 
+// The expected set resolves first (declared, else the observed surface), and
+// the completion comments are read against it: a comment widens no defaulted
+// set, so an undeclared, unrequested author's comment reads as no review.
+function composeReading(input: {
+  readonly view: ParsedStateView;
+  readonly conversation: ParsedConversation;
+  readonly reviewThreads: PrStateReading['reviewThreads'];
+  readonly reviews: PrStateReading['reviews'];
+  readonly reviewRuns: PrStateReading['reviewRuns'];
+  readonly declared: readonly string[];
+}): PrStateReading {
+  const expectedReviewers =
+    input.declared.length > 0
+      ? input.declared
+      : defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
+  return {
+    ...input.view,
+    reviewThreads: input.reviewThreads,
+    reviews: input.reviews,
+    completionComments: readCompletionComments({
+      ...input.conversation,
+      reviewers: expectedReviewers,
+    }),
+    reviewRuns: input.reviewRuns,
+    expectedReviewers,
+    expectedDeclared: input.declared.length > 0,
+  };
+}
+
 /**
  * Fetch the `pr state` gh surfaces and compose the compound reading.
  *
@@ -137,12 +177,13 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
   const { number, repo } = options.target;
   const prNumber = String(number);
 
-  const viewArgs = ['pr', 'view', prNumber, '--json', PR_STATE_VIEW_JSON_FIELDS.join(',')];
+  const viewFields = [...PR_STATE_VIEW_JSON_FIELDS, ...PR_STATE_CONVERSATION_JSON_FIELDS];
+  const viewArgs = ['pr', 'view', prNumber, '--json', viewFields.join(',')];
   if (repo !== undefined) {
     viewArgs.push('--repo', repo);
   }
 
-  let view = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
+  let { view } = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
   for (let attempt = 0; attempt < TIP_CONSISTENT_ATTEMPTS; attempt += 1) {
     const reviewThreads = parseReviewThreadPages(
       parseGhJson(
@@ -155,21 +196,16 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
     // The confirm read closes the race window; on a match it is also the
     // freshest same-tip snapshot, so the reading composes from it.
     const confirm = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
-    if (confirm.headRefOid === view.headRefOid) {
-      const declared = options.expectedReviewers ?? [];
-      return {
+    if (confirm.view.headRefOid === view.headRefOid) {
+      return composeReading({
         ...confirm,
         reviewThreads,
         reviews,
         reviewRuns,
-        expectedReviewers:
-          declared.length > 0
-            ? declared
-            : defaultExpectedReviewers(confirm.reviewRequests, reviews),
-        expectedDeclared: declared.length > 0,
-      };
+        declared: options.expectedReviewers ?? [],
+      });
     }
-    view = confirm;
+    view = confirm.view;
   }
   throw new Error(
     `PR #${prNumber}: head moved during the compound read on consecutive attempts — the reading cannot bind one tip; re-run when the PR is quiet`,

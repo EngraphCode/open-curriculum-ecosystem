@@ -14,6 +14,8 @@ const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pul
 
 function viewPayload(oid: string = HEAD): string {
   return JSON.stringify({
+    comments: [],
+    commits: [{ oid }],
     number: 461,
     url: PR_URL,
     state: 'OPEN',
@@ -603,6 +605,7 @@ describe('readPrStateReading', () => {
       statusCheckRollup: [],
       autoMergeRequest: null,
       reviewRequests: [],
+      commits: [{ oid: HEAD }],
     });
     const reading = readPrStateReading({
       target: { number: 461 },
