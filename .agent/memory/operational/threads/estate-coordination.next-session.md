@@ -71,6 +71,14 @@ this section when it lands or the owner closes it.
 ### Held by the owner
 
 - **F-189**, the ecosystem-wide gate-script names (the seat's verdict is in the F-189 entry).
+- **Two structural proposals on the carrier machinery** (Dynamo turns Temper's approved plan of
+  2026-09-17, routed here at their closeout, not absorbed): (1) the carrier workflow re-cuts an
+  unworked carrier (draft, no seat commit beyond the mirror tip, no review round) when the mirror
+  moves, instead of leaving it stale — warrant: at Oak's cadence (five releases in two days) a
+  carrier is stale before any seat reaches it; falsifier: the owner wants one carrier per Oak
+  release for audit reasons. (2) The mirror runs more often than every six hours on weekdays, or
+  on Oak's release event — warrant: the 2026-09-17 nineteen-commit lag was a timing artefact of a
+  10:47Z run; falsifier: the owner prefers the batching.
 - **The directives-tier placement** (from Efreet guards Patina's review, 2026-09-10): whether
   `cloud-environment-routing` and `editorial-tone` move to the rules tier under situational
   triggers; whether `validation-strategy` is a stub, a directive, or a decision record; and the

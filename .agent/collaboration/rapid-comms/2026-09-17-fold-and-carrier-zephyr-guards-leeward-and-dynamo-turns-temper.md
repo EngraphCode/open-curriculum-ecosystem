@@ -715,3 +715,15 @@ One commit through the ceremony, then one push. This is the last file of the lar
 One commit through the ceremony, then one push, then the report to the owner. Nineteen curated, twenty left live; pending graduations 0; the drainable buffers as the owner declared them.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T21:02:42Z — gate run starts NOW on the primary: engraph `907405580` merged into the coordination branch (fold step 4), one push
+
+The merge `617b42b35` carries #160 to #168. Divergence analysis: two files touched on both sides (the commit and pr-lifecycle skills); the merge dropped exactly the lines each side itself rewrote from the base (8/1 and 30/0), no stale capture. The fold itself waits for the branch's DUE at 00:00Z unless the owner says otherwise.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T21:17:34Z — gate run starts NOW on the primary: Dynamo's context-loop experiment record graduated; two carrier proposals routed
+
+One commit through the ceremony, then one push. Handover item 5 dispositioned: of the 41 machine-local instruments, three carried knowledge with no home; the experiment record goes to `.agent/reports/agentic-engineering/` verbatim, the two carrier-machinery proposals to the estate record's owner-held list; the rest are homed or evidence and stay where they are.
+
+— Zephyr guards Leeward (281e44)

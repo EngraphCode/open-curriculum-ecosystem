@@ -160,7 +160,10 @@ Rule 1 breaches. (2) The context-loop experiment of 2026-09-19 (a five-minute ch
 the compaction preparation at 70 %): the owner's rule restarts it after each compaction; this
 seat did not re-create it after the compaction of 2026-09-20 and did not ask, so it is the
 owner's to restart or end. Its findings and the design of a better run are tracked in
-`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`. (3) A
+`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`; Dynamo
+turns Temper's own run, with its log and closing note, is beside it verbatim as
+`context-loop-experiment-dynamo-turns-temper-2026-09-19.md` (graduated from their machine-local
+instruments at their closeout, 2026-09-20). (3) A
 candidate, to be put to the owner once this consolidation is done and not before: a
 consolidation fold cures what blocks the merge and lists the rest as a work list for its own
 lane, as the owner's carrier rule of 2026-09-19 already does for the integration lane. Frame: a
