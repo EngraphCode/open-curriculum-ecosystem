@@ -3,7 +3,7 @@
 **Review contract.** Purpose: record every issue found while integrating the Oak line's main
 `d9138c8b9` (release 1.185.0) into `engraph`, from any source — the seat's own reading during
 conflict resolution, regeneration and the premise sweep; this line's quality gates; the review
-rounds on the carrier. Owner's word (2026-09-17): quality cures of authored on the Oak line code never ride
+rounds on the carrier. Owner's word (2026-09-17): quality cures of code authored on the Oak line never ride
 the sync and each becomes its own pull request later; a cure that a failing gate on this line forces is
 made on the carrier and recorded here as gate-forced; issues in this line's own sync machinery are
 fixed in their own lanes and recorded here for the record. Each item cites the file and its lines
@@ -12,7 +12,7 @@ numbers differ from the Oak line's tip; the cited passages are byte-identical th
 a context-free claim pass on 2026-09-20), the standard it misses, and the finding in the finder's words; no cure text beyond that. A reader
 verifies each item reproduces at the cited tip before opening its lane.
 
-## A. authored on the Oak line code and prose: quality findings (cure in their own PRs, never on the carrier)
+## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
 The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
@@ -35,7 +35,7 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
 3. `.agent/skills/README.md` line 37 (the audience registry row): the curriculum skills' home is
    given as `.claude-plugin/marketplace.json` alone; the tree now also lists
    `plugins/oak-open-curriculum-chatgpt` through `.agents/plugins/marketplace.json` (Oak #968).
-   The authored on this line sentence below the table was re-trued on the carrier.
+   The sentence below the table, authored on this line, was re-trued on the carrier.
 4. (Moved to C2: the generator source is present only on this line, so the premise was this line's own.)
 5. `agent-tools/src/workspace-census/subjects.ts` line 86 (identical on the Oak line's tip):
    `PLUGIN_MANIFEST_SUFFIX = '/.claude-plugin/plugin.json'` is the census's only plugin-manifest
@@ -63,7 +63,7 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    "Portable skill, command, and rule adapters" and omits the new `.agents/plugins/marketplace.json`
    (Oak #968). Minor. Standard: §Documentation Is Infrastructure (stable indexes point and must not
    drift).
-11. Oak's ADR-125 amendments of 2026-09-08 and its ChatGPT package README qualify
+11. The Oak line's ADR-125 amendments of 2026-09-08 and its ChatGPT package README qualify
     `plugins/oak-open-curriculum/` as "(Claude Code)" and call the ChatGPT package's source "the
     Claude plugin". Owner ruling on this line (2026-09-17, verbatim): "it is a Claude plugin, it
     is in no way constrained to Claude Code only". This line's `development-practice.md` definition
@@ -75,14 +75,32 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
     dependency-currency lane's SHA-pinned-actions leg.
 
+12. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 73–127 (identical
+    on the Oak line's tip; raised by Copilot on the carrier, round one): the numbered chain above
+    correctly shows `GET /robots.txt` terminating before Clerk (MCP-703), but the "Complete
+    Request Lifecycle" sequence diagram below still sends every request through `ClerkAuth` and
+    has no robots branch, so the document contradicts itself. Standard: §Misleading docs are
+    blocking.
+
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
-_None so far: the merged tree type-checked after one integration cure (C1)._
+1. `agent-tools/src/validators/plugin-skill-copies/plugin-skill-copies-fs.unit.test.ts`
+   (added by the Oak line with its skill-copies validator): six tests failed this line's
+   `windows-basic` check on the carrier's first CI run (run 35509685464, 2026-09-20). The
+   walker under test joins its working paths with the host's separator, which is correct for
+   real IO; the test's in-memory file system was keyed with forward slashes and did no
+   normalising, so on Windows every lookup missed (`expected { skills: [] … } to strictly equal
+   { skills: ['alpha', 'zeta'] … }`). The Oak line runs no Windows job, so the test had never
+   run there. Cured in the test's facade only: it reads either separator as the same key. The
+   walker's tree keys were already separator-stable by construction. Verified locally (10 of
+   10) and by simulating the Windows join; the check itself is the proof on the next run.
+   Standard: `principles.md` §Any User, Any Machine; the same class as this line's
+   windows-portable fixture pass.
 
-## C. Integration cascades cured on the carrier (authored on this line files meeting the change)
+## C. Integration cascades cured on the carrier (files authored on this line meeting the change)
 
 1. `apps/oak-curriculum-mcp-streamable-http/e2e-tests/string-encoded-numbers.e2e.test.ts`
-   (line 64 at `engraph` `cd847a2b3`): a present only on this line test passed `getLandingPageHtml` to
+   (line 64 at `engraph` `cd847a2b3`): a test present only on this line passed `getLandingPageHtml` to
    `createApp`, an option Oak #928 removed; `type-check` failed with TS2353 on the merged tree.
    The same class Oak cured on its own side in #987. Cured by dropping the option (the test's
    subject is string-encoded numbers, not the landing page). Standard: the divergence rule's
