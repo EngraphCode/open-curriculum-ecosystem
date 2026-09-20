@@ -1,7 +1,7 @@
 # Downstream Checkout Never Writes Upstream Surfaces
 
 Operationalises
-[ADR-228](../../docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md)
+[ADR-231](../../docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md)
 (organisational identity is held below the tree: mechanism names no
 organisation; the default branch is derived, never a literal).
 
@@ -105,7 +105,7 @@ answered PRIVATE, 2026-09-05).
 
 ## Related Surfaces
 
-- [ADR-228](../../docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md)
+- [ADR-231](../../docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md)
   — the identity this rule protects is configuration below the tree; the
   mechanism above names no organisation.
 - [`bot-identity-on-third-party-systems`](bot-identity-on-third-party-systems.md)

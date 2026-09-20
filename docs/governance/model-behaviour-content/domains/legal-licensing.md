@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 Attribution, Open Government Licence v3.0 notices, trademark, and EEF citation obligations.
 
-**20 items.** Of those, 0 are traced to a surface an agent can reach today, 2 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 1 no longer exists in the codebase. 17 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**20 items.** Of those, 0 are traced to a surface an agent can reach today, 2 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 3 no longer exist in the codebase. 15 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 
@@ -31,7 +31,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (16)
+## Words owned in this repository (14)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -248,42 +248,6 @@ oakUrls: {
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** source-attribution · **Impact tier:** high-impact
 
-### C351 — curriculum-API doc link sentence
-
-**What it says now:**
-
-```text
-For details about the underlying curriculum data, see the
-
-Oak Curriculum API documentation
-```
-
-**What it is for:** Points the reader to the Oak Curriculum API documentation for details about the underlying data, attributing the data source.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** source-attribution · **Impact tier:** high-impact
-
-### C352 — GitHub source link sentence (WORKSPACE\_GITHUB\_URL)
-
-**What it says now:**
-
-```text
-Browse the MCP server implementation:
-
-code on GitHub
-```
-
-**What it is for:** Offers the reader the MCP server implementation source on GitHub (transparency / open-source attribution) via a hardcoded repo path.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** source-attribution · **Impact tier:** high-impact
-
 ### C378 — OAK\_WHO\_WE\_ARE\_URL
 
 **What it says now:**
@@ -426,9 +390,41 @@ licence. Attribution required — see https://open-api.thenational.academy/docs/
 - **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** source-attribution · **Impact tier:** high-impact
 
-## Retired (1)
+## Retired (3)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
+
+### C351 — curriculum-API doc link sentence
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+For details about the underlying curriculum data, see the Oak Curriculum API documentation.
+```
+
+**What it is for:** Points the reader to the Oak Curriculum API documentation for details about the underlying data, attributing the data source.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** source-attribution · **Impact tier:** high-impact
+
+### C352 — GitHub source link sentence (WORKSPACE\_GITHUB\_URL)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Browse the MCP server implementation: <a ...>code on GitHub</a> -> github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/apps/oak-curriculum-mcp-streamable-http
+```
+
+**What it is for:** Offers the reader the MCP server implementation source on GitHub (transparency / open-source attribution) via a hardcoded repo path.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** source-attribution · **Impact tier:** high-impact
 
 ### C377 — CANONICAL\_SKILL\_URL
 

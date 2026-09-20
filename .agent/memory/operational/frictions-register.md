@@ -1198,6 +1198,14 @@ below is a cross-reference index, not a second source of truth.
   (§Reality Reconciliation); generator + validator.
 - **Status**: recorded — review deferred to a later session (owner direction
   2026-06-14). Gap ledger lives in the owning plan's §Reality Reconciliation.
+  Partially addressed 2026-09-09 on the Oak line (MCP-706, ADR-125 amendment of
+  2026-09-09), carried in at the 1.185.0 sync of 2026-09-17: the spec-portable
+  fields `license`, `compatibility`, `metadata` and `allowed-tools` pass through,
+  quoted, to both adapter surfaces, and a malformed spec field refuses the
+  canonical; the prefix applies to every canonical, so `metadata.owned` (quoted
+  `"true"`) is declared metadata rather than the trigger. Still open from the
+  2026-06-14 observation: the owned/ingested consistency check and `claude-*`
+  hoisting.
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback); review-timing session-scoped (deferred 2026-06-14).
 

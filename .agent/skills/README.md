@@ -39,8 +39,10 @@ landing procedure, as a new row here.
 Three corpora share the word "skills" and nothing else (owner, 2026-08-17:
 "the current skills lane is ONLY about the Practice skills, it is not about
 the user facing skills"): the Practice skills here in `.agent/skills`; the
-user-facing product skills under `plugins/oak-open-curriculum`, with their
-own lane and owners; and third-party vendor-managed skills installed with
+user-facing product skills under `plugins/oak-open-curriculum` (the Claude
+plugin, for any Claude host, never "the Claude Code plugin" — owner, 2026-09-17)
+and its ChatGPT and Codex package `plugins/oak-open-curriculum-chatgpt`, with
+their own lane and owners; and third-party vendor-managed skills installed with
 `pnpm skills` into `.agents/skills` (the
 `third-party-skills-require-security-review` rule governs them). Every lane
 quantifier — "finish the skill work", "all Practice skills have evals" —

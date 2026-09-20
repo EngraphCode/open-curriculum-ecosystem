@@ -290,7 +290,7 @@ is a class (§Where the first-principles check fires).
 
 | Box | Stays here (class) | Product band (moves) | First cut |
 | --- | --- | --- | --- |
-| MCP server (`apps/oak-curriculum-mcp-streamable-http`) | server framework, OAuth-for-MCP on Clerk, widget kit, observability and logging glue, landing page, asset download (MCP-family and toolkit) — ~19,800 hand-written lines | served surface, the app-local tools and under-the-hood tour, generated tool metadata, auth and env values, the widget's product UI — ~700 lines plus configuration | **split** (mandatory); the workspace itself retires here at M2 |
+| MCP server (`apps/oak-curriculum-mcp-streamable-http`) | server framework, OAuth-for-MCP on Clerk, widget kit, observability and logging glue, asset download (MCP-family and toolkit) — ~19,800 hand-written lines at authoring; the landing page named here at authoring was removed by Oak #928/#987 (1.181.4–1.184.0), so nothing of it stays or moves | served surface, the app-local tools and under-the-hood tour, generated tool metadata, auth and env values, the widget's product UI — ~700 lines plus configuration | **split** (mandatory); the workspace itself retires here at M2 |
 | Search CLI (`apps/oak-search-cli`) | ingestion runtime, index lifecycle, diagnostics, evaluation harness, command shell (toolkit); the Oak data adapters, supplementation and document model (Oak-org, into the corpus pack) — ~31,500 hand-written lines between them | the MCP search instance: index configuration, scopes, schedule, its commands composed from the shell | **split** (mandatory), three ways; the workspace itself retires here at M2 |
 | Curriculum SDK (`packages/sdks/oak-curriculum-sdk`) | generic client, config, validation (curriculum toolkit) — ~3,400 lines; Oak's curriculum types, API configuration and the API-derived tools (Oak-org pack) | the app-local tool layer, guidance resources and agent-support metadata — part of ~8,500 lines, co-changing with the app above everything else (379 touches) | **split**, three ways; D0a measures how much of the tool layer is API-derived, and the hub demo consumes the client |
 | Search SDK (`packages/sdks/oak-search-sdk`) | retrieval and admin machinery (toolkit) — most of ~8,500 lines, with a field-mapping port for the Oak field names its queries and facets name today; Oak index contracts, scopes and synonyms (Oak-org, into the corpus pack) | the MCP instance's retrieval profile, scopes and namespace | **split**, three ways; if the port is wider than a field mapping, retrieval is Oak-org and the toolkit claim for it is dropped; the hub demo consumes the read surface |
@@ -629,8 +629,9 @@ until the last of them is recorded):
   deploy word (the cut-over node's gate): a diff of the served-surface
   manifest (tools and resources, live and dormant) taken before and after;
   the conformance check against production; the server's end-to-end suite
-  pointed at the new production for the auth, widget, landing-page and
-  asset-download paths; and the search instance's benchmark against its
+  pointed at the new production for the auth, widget and asset-download
+  paths (the landing-page path named at authoring no longer exists: Oak
+  #928/#987 removed the page); and the search instance's benchmark against its
   index at the same baselines.
 - **AC6 — a squad-shaped change.** The first real product change after
   cut-over lands in the new repository without a commit here. Proof:
@@ -769,7 +770,8 @@ package the app consumes in place):
 2. **E2** OAuth-for-MCP on Clerk: the proxy and auth as the Clerk adapter for
    MCP authentication; a provider port arrives with the second provider,
    never before. Proof: AC4; the registration proof re-run.
-3. **E3** The widget build kit, the landing page and asset download; the
+3. **E3** The widget build kit and asset download (the landing page named
+   here at authoring was removed by Oak #928/#987 before this step ran); the
    widget's cross-workspace token watcher goes, the registry version bump
    being the token path. Proof: AC4; the widget build from the kit.
 4. **E4** The observability, logging and correlation glue folded into the

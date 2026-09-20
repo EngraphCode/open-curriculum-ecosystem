@@ -46,7 +46,7 @@ export const REVIEW_DOMAIN_GLOSS: Readonly<Record<string, string>> = {
   'legal-licensing':
     'Attribution, Open Government Licence v3.0 notices, trademark, and EEF citation obligations.',
   'ux-accessibility':
-    'Human-facing surfaces — the landing page, the widget, and authorisation and consent copy. WCAG 2.2 AA applies.',
+    'Human-facing surfaces — the widget, and authorisation and consent copy. WCAG 2.2 AA applies.',
   'tool-usability':
     'How an agent discovers and uses the tools — titles, descriptions, parameter descriptions, and the orientation directives that steer a first call.',
   'recovery-copy':

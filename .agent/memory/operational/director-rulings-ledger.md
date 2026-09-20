@@ -110,7 +110,6 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | MAG-4 | iteration local; Claude Design owner-instigated only | owner-verbatim | napkin 2700–2717 (no-studio-sync + dormant-retained) + MCP-588 |
 | MAG-5 | counter-brand off-horizontal delta | owner-verbatim | plan `design-system-completion` (point 9 + gate provenance) |
 | MAG-6 | PDS identity refocus (rename from the outgoing identity) | owner-verbatim | plan `public-digital-service-identity` |
-| SPARK-6 | /mcp landing 406 without Accept: text/html | seat-inference | ADR-046:22 |
 | PETREL-ERA | bot identity every write; mint-fails-stop; never-squash; sha-pins; suppressed-findings; pathspec; --body-file; zero-new-Sonar | owner-verbatim (class) | always-applied rules + per-user memories (fleet spot-checked) |
 | OAK-ID | Oak identity instantly recognisable (canonical refs) | owner-paraphrase | plan `oak-identity-recognisability` §Goal (merged PR #873) |
 | CBC | claim-before-check pattern | seat-inference | rule `verify-dont-trust` §Name the Instrument (`360214de9`) |
@@ -135,6 +134,9 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 
 ## Expired / superseded / executed (dated; no home owed)
 
+SPARK-6 (the `/mcp` landing 406 without `Accept: text/html`; superseded 2026-09-17 at the
+1.185.0 sync: the MCP app serves no HTML on any host and the `/mcp` HTML-negotiation leg is
+gone, Oak #928/#987 — a browser `GET /mcp` draws the protocol gate's 406 for every request).
 R1, R5, R9, R12, R15, R25, R26, R31 (superseded by L1578's general grant),
 R32–R35, R37–R41, R43, R44, R49, R50, S626–S648, L1571, L1572 (superseded;
 class kin `model-tier-stance-gradient`), L1574 (superseded by L1580), L1576

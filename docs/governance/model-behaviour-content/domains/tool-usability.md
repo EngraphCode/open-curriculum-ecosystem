@@ -24,7 +24,7 @@ This view holds **304 items** — too many to read in one sitting, so it is divi
 | [tool-guidance](./tool-usability--tool-guidance.md) | 70 | 49 | 0 | 21 |
 | [tool-description](./tool-usability--tool-description.md) | 46 | 14 | 29 | 3 |
 | [tool-title](./tool-usability--tool-title.md) | 42 | 13 | 27 | 2 |
-| [response-format-template](./tool-usability--response-format-template.md) | 30 | 28 | 0 | 2 |
+| [response-format-template](./tool-usability--response-format-template.md) | 30 | 26 | 0 | 4 |
 | [resource-name-or-description](./tool-usability--resource-name-or-description.md) | 9 | 4 | 0 | 5 |
 | [server-instructions](./tool-usability--server-instructions.md) | 5 | 5 | 0 | 0 |
 | [resource-content](./tool-usability--resource-content.md) | 1 | 1 | 0 | 0 |

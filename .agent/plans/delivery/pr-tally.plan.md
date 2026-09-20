@@ -38,7 +38,7 @@ skill.
 - **The owner**: the review-loop discipline the estate wrote becomes an instrument that runs,
   which is what the owner's 2026-08-31 and 2026-09-08 corrections asked for.
 - **Any organisation running this tree**: the command derives the repository from the
-  checkout and names none (ADR-228).
+  checkout and names none (ADR-231).
 
 ## Mechanism
 

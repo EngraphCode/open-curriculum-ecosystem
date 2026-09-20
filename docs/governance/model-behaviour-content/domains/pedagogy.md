@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 Prompts, orientation, and curriculum-model doctrine — how the content teaches an agent to teach. Reviewed by Oak education experts.
 
-**99 items.** Of those, 14 are traced to a surface an agent can reach today, 18 to a surface that is retained but switched off, 2 to both a reachable and a switched-off surface, and 5 no longer exist in the codebase. 60 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**99 items.** Of those, 14 are traced to a surface an agent can reach today, 18 to a surface that is retained but switched off, 2 to both a reachable and a switched-off surface, and 17 no longer exist in the codebase. 48 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 
@@ -31,7 +31,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (93)
+## Words owned in this repository (81)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -1200,105 +1200,6 @@ Agent guidance: continue the progression
 - **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts`).
 - **Kind of surface:** prompt-name-or-description · **Impact tier:** high-impact
 
-### C343 — h1 page heading (alpha status)
-
-**What it says now:**
-
-```text
-Public Beta
-```
-
-**What it is for:** Orients the reader that this is the Oak Curriculum MCP and signals restricted maturity/access ('Invite Only Public Alpha'), setting expectations about availability.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C344 — hero explainer paragraph
-
-**What it says now:**
-
-```text
-Designed for teachers, this service connects your AI assistant to Oak
-```
-
-**What it is for:** Frames the value proposition to educators/agents: connects an AI assistant to Oak's free, sequenced, openly licenced curriculum; links to the licence terms; makes quantitative scope claims ('thousands of lessons, units, and assets').
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C346 — connect section heading
-
-**What it says now:**
-
-```text
-Connect the Oak Curriculum MCP to your AI assistant
-```
-
-**What it is for:** Introduces the connection instructions, directing the reader to wire the MCP server into their AI assistant.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C347 — config instruction sentence
-
-**What it says now:**
-
-```text
-Add this to your MCP client configuration:
-```
-
-**What it is for:** Instructs the reader to paste the following JSON into their MCP client configuration.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C350 — Documentation section heading
-
-**What it says now:**
-
-```text
-<h2 className="oak-heading-5">Documentation</h2>
-```
-
-**What it is for:** Introduces the documentation links block.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C354 — MCP client config JSON snippet template
-
-**What it says now:**
-
-```text
-"mcpServers": {
-    "oak-open-curriculum": {
-      "type": "http",
-```
-
-**What it is for:** Provides the copy-paste JSON that wires this server into an MCP client: fixes the server key 'oak-curriculum', type 'http', and the resolved endpoint URL.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** The wording has changed since the audit baseline.
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
 ### C355 — canonical MCP endpoint URL strings
 
 **What it says now:**
@@ -1313,102 +1214,6 @@ export function resolveServedMcpUrl(inputs: ServedOriginInputs): string {
 - **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** The wording has changed since the audit baseline.
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C360 — resources section framing sentence
-
-**What it says now:**
-
-```text
-Resources available via MCP resources/read:
-```
-
-**What it is for:** Tells the reader these resources are retrievable via the MCP resources/read operation, orienting how to consume them.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C362 — tools section framing sentence
-
-**What it says now:**
-
-```text
-The following tools are available via the MCP protocol:
-```
-
-**What it is for:** Introduces the tool catalogue, stating the tools are available via the MCP protocol.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C363 — 'Curriculum tools' group label
-
-**What it says now:**
-
-```text
-<h3 className="tool-group-label">Curriculum tools</h3>
-```
-
-**What it is for:** Labels the first (aggregated) tool group, framing these as the higher-level curriculum tools.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C364 — 'Curriculum tools' group hint
-
-**What it says now:**
-
-```text
-Higher-level tools that combine multiple API calls
-```
-
-**What it is for:** Explains that curriculum tools combine multiple API calls, steering the reader toward these higher-level tools first.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C365 — 'API pass-through' group label
-
-**What it says now:**
-
-```text
-<h3 className="tool-group-label muted">API pass-through</h3>
-```
-
-**What it is for:** Labels the second (generated) tool group, visually de-emphasised (muted), framing these as lower-priority raw endpoints.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** orientation-content · **Impact tier:** high-impact
-
-### C366 — 'API pass-through' group hint
-
-**What it says now:**
-
-```text
-Individual Oak Curriculum API endpoints
-```
-
-**What it is for:** Explains that pass-through tools map to individual Oak Curriculum API endpoints.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
 - **Kind of surface:** orientation-content · **Impact tier:** high-impact
 
 ### C376 — OAK\_UNDER\_THE\_HOOD\_TOOL\_SUMMARY
@@ -2180,7 +1985,7 @@ national curriculum coverage)
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/curriculum-mapping.ts`).
 - **Kind of surface:** prompt-message-template · **Impact tier:** high-impact
 
-## Retired (5)
+## Retired (17)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
 
@@ -2250,6 +2055,103 @@ Workflow: 1. Place the lesson. Use search with scope "lessons" ... get-prior-kno
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** orientation-content · **Impact tier:** high-impact
 
+### C343 — h1 page heading (alpha status)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<h1 id="title">Oak Curriculum MCP - Invite Only Public Alpha</h1>
+```
+
+**What it is for:** Orients the reader that this is the Oak Curriculum MCP and signals restricted maturity/access ('Invite Only Public Alpha'), setting expectations about availability.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C344 — hero explainer paragraph
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Designed for educators, this service connects your AI assistant to Oak's high quality, free, fully sequenced and ... openly licenced ... curriculum resources
+```
+
+**What it is for:** Frames the value proposition to educators/agents: connects an AI assistant to Oak's free, sequenced, openly licenced curriculum; links to the licence terms; makes quantitative scope claims ('thousands of lessons, units, and assets').
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C346 — connect section heading
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Connect the Oak Curriculum MCP to your AI assistant
+```
+
+**What it is for:** Introduces the connection instructions, directing the reader to wire the MCP server into their AI assistant.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C347 — config instruction sentence
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Add this to your MCP client configuration:
+```
+
+**What it is for:** Instructs the reader to paste the following JSON into their MCP client configuration.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C350 — Documentation section heading
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<h2>Documentation</h2>
+```
+
+**What it is for:** Introduces the documentation links block.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C354 — MCP client config JSON snippet template
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+"mcpServers": { "oak-curriculum": { "type": "http", "url": "${mcpServerUrl}" } }
+```
+
+**What it is for:** Provides the copy-paste JSON that wires this server into an MCP client: fixes the server key 'oak-curriculum', type 'http', and the resolved endpoint URL.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
 ### C356 — prompts section framing sentence
 
 **What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
@@ -2262,6 +2164,102 @@ Prompts are workflow templates that guide common curriculum tasks:
 
 - **Can an agent see it?** Retired — the words no longer exist in the codebase
 - **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C360 — resources section framing sentence
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Resources available via MCP resources/read:
+```
+
+**What it is for:** Tells the reader these resources are retrievable via the MCP resources/read operation, orienting how to consume them.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C362 — tools section framing sentence
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+The following tools are available via the MCP protocol:
+```
+
+**What it is for:** Introduces the tool catalogue, stating the tools are available via the MCP protocol.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C363 — 'Curriculum tools' group label
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<h3 class="tool-group-label">Curriculum tools</h3>
+```
+
+**What it is for:** Labels the first (aggregated) tool group, framing these as the higher-level curriculum tools.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C364 — 'Curriculum tools' group hint
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Higher-level tools that combine multiple API calls
+```
+
+**What it is for:** Explains that curriculum tools combine multiple API calls, steering the reader toward these higher-level tools first.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C365 — 'API pass-through' group label
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<h3 class="tool-group-label muted">API pass-through</h3>
+```
+
+**What it is for:** Labels the second (generated) tool group, visually de-emphasised (muted), framing these as lower-priority raw endpoints.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** orientation-content · **Impact tier:** high-impact
+
+### C366 — 'API pass-through' group hint
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Individual Oak Curriculum API endpoints
+```
+
+**What it is for:** Explains that pass-through tools map to individual Oak Curriculum API endpoints.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** orientation-content · **Impact tier:** high-impact
