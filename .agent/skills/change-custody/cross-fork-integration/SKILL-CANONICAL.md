@@ -67,7 +67,7 @@ no conception of meaning."
   arriving through a sync is a fact about upstream, not a constraint here,
   unless the owner adopts it.
 - **Fork diffs are deliberate, enumerated and regenerable.** Organisational
-  identity lives below the tree (ADR-228); a hand-carried prose divergence that
+  identity lives below the tree (ADR-231); a hand-carried prose divergence that
   upstream also edits conflicts at every sync and is a defect to remove.
 - **Numbering across lineages.** ADRs, PDRs and plan ids are minted
   sequentially from the highest existing record on the lineage being edited.
@@ -490,5 +490,5 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
   here — the reference direction runs plan → doctrine).
 - `.agent/skills/set-up-worktree-lane/SKILL-CANONICAL.md` — the identity
   check and the build; step 3 above says why its branch cut does not apply.
-- `docs/architecture/architectural-decisions/228-organisational-identity-below-the-tree.md`
+- `docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md`
   — why the fork diff is enumerated and identity-free.

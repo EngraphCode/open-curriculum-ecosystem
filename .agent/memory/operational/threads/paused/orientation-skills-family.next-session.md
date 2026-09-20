@@ -227,7 +227,12 @@ is fine; user exposure is gated.
 
 ## Deferred follow-ups (not blocking; out of this plan's scope)
 
-- **`metadata.owned` doctrine-vs-implementation drift**: PDR-051 §Validation /
+- OVERTAKEN 2026-09-09 (carried in at the 1.185.0 sync, 2026-09-17): ADR-125
+  §Owned-Skill Naming Convention and its 2026-09-09 amendment (MCP-706) settle
+  this — the prefix applies to every canonical, `metadata.owned` (quoted) is
+  declared metadata, and Practice-class membership is the class marker. The
+  original wording stands below as the dated record.
+  **`metadata.owned` doctrine-vs-implementation drift**: PDR-051 §Validation /
   ADR-125 item 5 say owned skills carry `metadata.owned: true`, but the live
   discriminator is `skills-lock.json` absence; existing owned skills
   (`napkin`, `working-with-graphs`) also lack the flag. Repo-wide reconciliation

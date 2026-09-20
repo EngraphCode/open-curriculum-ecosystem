@@ -204,7 +204,7 @@ the third arm of Any User, Any Machine.
 six"), which is the first item below, "Ratify the node", resolved: it ratifies the outcome and
 the bet — not a choice among the five remaining decisions. Each of those five stays owner-held
 and is taken at pickup: the delivery node that instantiates it carries it as an `owner_gates`
-row (awaiting, clears_when, an absolute expiry) and governs no work until it clears. The decision this node carries is recorded permanently as ADR-228 (organisational
+row (awaiting, clears_when, an absolute expiry) and governs no work until it clears. The decision this node carries is recorded permanently as ADR-231 (organisational
 identity is held below the tree); permanent doctrine cites that record, and this node cites it.
 
 - **Ratify the node.** The tree carries nothing organisation-specific outside its declared

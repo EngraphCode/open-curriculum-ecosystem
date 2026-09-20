@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 Annotations, schemas, authorisation scopes, and discovery or branding metadata.
 
-**93 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 6 no longer exist in the codebase. 87 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**93 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 11 no longer exist in the codebase. 82 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 
@@ -31,7 +31,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (83)
+## Words owned in this repository (78)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -550,90 +550,6 @@ const OAK_ACORN_PATH =
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** server-branding · **Impact tier:** simple-config
-
-### C341 — HTML\_HEAD \<title\>
-
-**What it says now:**
-
-```text
-const PAGE_TITLE = 'Oak Curriculum MCP (HTTP)';
-```
-
-**What it is for:** Names the service in the browser tab / document title so a reader (or an agent fetching the page) identifies it as the Oak Curriculum MCP HTTP server.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/html-head.ts`).
-- **Kind of surface:** server-branding · **Impact tier:** simple-config
-
-### C345 — status/route/auth meta line
-
-**What it says now:**
-
-```text
-Status: ok • Route: <code>/mcp</code> • Auth: OAuth 2.1
-```
-
-**What it is for:** Advertises operational facts an agent/user needs to connect: hardcoded 'Status: ok', MCP route '/mcp', and auth scheme 'OAuth 2.1'.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
-
-### C353 — app-version meta template
-
-**What it says now:**
-
-```text
-<meta name="app-version" content={appVersion} />
-```
-
-**What it is for:** Emits the build identity as an HTML meta tag so tooling/agents can read the deployed app version.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
-
-### C357 — section count headings (Prompts/Resources/Tools)
-
-**What it says now:**
-
-```text
-Resources ({resources.length})
-
-Tools ({aggregatedTools.length + generatedTools.length})
-```
-
-**What it is for:** Advertises how many prompts/resources/tools exist via templated counts in each section heading, signalling surface size. (Grouped: 3 near-identical headings — prompts L51, resources L44, tools L144.)
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx`, `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts`).
-- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
-
-### C369 — AGGREGATED\_TOOL\_ORDER curation list
-
-**What it says now:**
-
-```text
-export const AGGREGATED_TOOL_ORDER: readonly AggregatedToolName[] = [
-```
-
-**What it is for:** Curated display order of aggregated tools ('value-add first, utilities last') that shapes which tools a reader sees first (get-curriculum-model, browse, explore, search, fetch, then graphs/utilities/download).
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/derive-view-props.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
 ### C371 — OAK\_UNDER\_THE\_HOOD\_TOOL\_NAME
 
@@ -1920,7 +1836,7 @@ res.json(rewriteAuthServerMetadata(upstreamMetadata, originResult.value, SCOPES_
 - **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
-## Retired (6)
+## Retired (11)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
 
@@ -1940,6 +1856,22 @@ annotations: { priority: 0.2, audience: ['assistant'] }
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** tool-annotations · **Impact tier:** high-impact
 
+### C341 — HTML\_HEAD \<title\>
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<title>Oak Curriculum MCP (HTTP)</title>
+```
+
+**What it is for:** Names the service in the browser tab / document title so a reader (or an agent fetching the page) identifies it as the Oak Curriculum MCP HTTP server.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/html-head.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** server-branding · **Impact tier:** simple-config
+
 ### C342 — logo alt text
 
 **What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
@@ -1955,6 +1887,72 @@ alt="Oak National Academy logo"
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** server-branding · **Impact tier:** simple-config
+
+### C345 — status/route/auth meta line
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Status: ok • Route: <code>/mcp</code> • Auth: OAuth 2.1
+```
+
+**What it is for:** Advertises operational facts an agent/user needs to connect: hardcoded 'Status: ok', MCP route '/mcp', and auth scheme 'OAuth 2.1'.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
+
+### C353 — app-version meta template
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<meta name="app-version" content="${appVersion}" />
+```
+
+**What it is for:** Emits the build identity as an HTML meta tag so tooling/agents can read the deployed app version.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
+
+### C357 — section count headings (Prompts/Resources/Tools)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<h2>Prompts (${promptCount})</h2>  /  Resources (${count})  /  Tools (${count})
+```
+
+**What it is for:** Advertises how many prompts/resources/tools exist via templated counts in each section heading, signalling surface size. (Grouped: 3 near-identical headings — prompts L51, resources L44, tools L144.)
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
+
+### C369 — AGGREGATED\_TOOL\_ORDER curation list
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+['get-curriculum-model','browse-curriculum','explore-topic','search','fetch','get-thread-progressions',...,'download-asset']
+```
+
+**What it is for:** Curated display order of aggregated tools ('value-add first, utilities last') that shapes which tools a reader sees first (get-curriculum-model, browse, explore, search, fetch, then graphs/utilities/download).
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
 ### C383 — resource\_link annotations {audience:['assistant'], priority:0.9}
 

@@ -223,8 +223,8 @@ Research on API structure and data analysis.
 ## Recent Additions (2026-09-08)
 
 - [Oak curriculum infrastructure delta](../reports/public-service-ai-tuition/oak-curriculum-infrastructure-delta-2026-09-08.md):
-  dated current-state supplement for upstream OCE `1.178.6`, Engraph's continuing
-  `1.178.5` boundary and Curriculum API `0.11.1`; preserves open consumer,
+  supplement on the state on 2026-09-08: upstream OCE `1.178.6`, this line's
+  `1.178.5` boundary at that date and Curriculum API `0.11.1`; preserves open consumer,
   reproducibility, deployment and impact gaps without rewriting the imported collection.
 
 ## Recent Additions (2026-09-07)

@@ -213,6 +213,14 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-09-17 — the manifest arm finds Claude plugin manifests only (found at the 1.185.0
+  sync).** Arm (ii-b) admits the parent directory of every tracked
+  `.claude-plugin/plugin.json`, and `agent-tools/src/workspace-census/subjects.ts` encodes the
+  same single suffix. The tree now also carries `plugins/oak-open-curriculum-chatgpt/`, whose
+  manifest is `.codex-plugin/plugin.json` (ADR-125's 2026-09-08 amendment), so that plugin
+  surface is never a census subject and the subject count under-reads by one. Widening the arm
+  and the rule is a code change in its own lane; this entry records the gap so the count is read
+  with it until then.
 - **2026-09-07 — admission mechanics of a top-level tier homed here from ADR-041 (measured
   2026-09-06 on a refuted fork-only tier).** Admission requires upstream-owned edits: the census root constant, two dependency-cruiser
   regexes, the workspace list and a row in ADR-041. A two-level workspace glob is invisible to

@@ -12,9 +12,9 @@ last_reviewed: 2026-08-06
 >
 > **Nothing here has been approved yet.** This workspace exists so the content *can* be reviewed. Wording that appears here is what the system says today, not what anyone has signed off.
 
-Human-facing surfaces — the landing page, the widget, and authorisation and consent copy. WCAG 2.2 AA applies.
+Human-facing surfaces — the widget, and authorisation and consent copy. WCAG 2.2 AA applies.
 
-**16 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 1 no longer exists in the codebase. 15 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**16 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 4 no longer exist in the codebase. 12 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 
@@ -31,7 +31,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (15)
+## Words owned in this repository (12)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -70,54 +70,6 @@ _meta: {
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** auth-consent-copy · **Impact tier:** high-impact
-
-### C348 — config snippet aria-label
-
-**What it says now:**
-
-```text
-aria-label="JSON configuration snippet"
-```
-
-**What it is for:** Labels the preformatted code block for assistive tech so non-visual users know it is the JSON configuration snippet.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
-
-### C349 — OAuth / access-restriction copy
-
-**What it says now:**
-
-```text
-You will be prompted to sign in with your Oak account.
-```
-
-**What it is for:** Tells the user the server uses OAuth 2.1, that they will be prompted to log in, and that access is limited to internal staff or invitees — links to the PRM well-known endpoint.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
-- **Kind of surface:** auth-consent-copy · **Impact tier:** high-impact
-
-### C367 — 'How to use' collapsible label
-
-**What it says now:**
-
-```text
-How to use<span className="oak-visually-hidden"> {tool.name}</span>
-```
-
-**What it is for:** Labels the nested collapsible that holds the how-to-use remainder of a tool description (first-paragraph = summary, rest = how-to-use).
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
 
 ### C385 — visually-hidden \<h1\> heading
 
@@ -320,9 +272,57 @@ const WIDGET_UI_META = {
 - **Since the audit baseline:** Expanded since the audit baseline.
 - **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
 
-## Retired (1)
+## Retired (4)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
+
+### C348 — config snippet aria-label
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+aria-label="JSON configuration snippet"
+```
+
+**What it is for:** Labels the preformatted code block for assistive tech so non-visual users know it is the JSON configuration snippet.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
+
+### C349 — OAuth / access-restriction copy
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+This server uses OAuth 2.1 authorization. You will be prompted to log in. Access is currently for internal staff or by invitation.
+```
+
+**What it is for:** Tells the user the server uses OAuth 2.1, that they will be prompted to log in, and that access is limited to internal staff or invitees — links to the PRM well-known endpoint.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** auth-consent-copy · **Impact tier:** high-impact
+
+### C367 — 'How to use' collapsible label
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<summary>How to use</summary>
+```
+
+**What it is for:** Labels the nested collapsible that holds the how-to-use remainder of a tool description (first-paragraph = summary, rest = how-to-use).
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
 
 ### C370 — 'Click to expand' hint (grouped)
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { testShouldSkipClerkMiddleware } from './conditional-clerk-middleware.js';
-import { selectsHtmlLeg } from './mcp-middleware.js';
+import { requestsHtmlDocument } from './mcp-middleware.js';
 
 /**
  * The skip decision's own argument type, read off the function rather than
@@ -40,6 +40,11 @@ describe('shouldSkipClerkMiddleware', () => {
 
     it('returns true for the OpenAI domain-verification challenge path (MCP-700)', () => {
       const req = createMockRequest('/.well-known/openai-apps-challenge', undefined);
+      expect(testShouldSkipClerkMiddleware(req)).toBe(true);
+    });
+
+    it('returns true for the robots.txt path (MCP-703)', () => {
+      const req = createMockRequest('/robots.txt', undefined);
       expect(testShouldSkipClerkMiddleware(req)).toBe(true);
     });
 
@@ -326,7 +331,7 @@ describe('shouldSkipClerkMiddleware — the surface fork on /mcp', () => {
     it('skips Clerk for every request the negotiation serves the page to', () => {
       const served = methods.flatMap((method) =>
         accepts
-          .filter((accept) => selectsHtmlLeg(method, accept))
+          .filter((accept) => requestsHtmlDocument(method, accept))
           .map((accept) => ({ method, accept })),
       );
 
@@ -349,7 +354,7 @@ describe('shouldSkipClerkMiddleware — the surface fork on /mcp', () => {
       );
 
       for (const { method, accept } of protocolShaped) {
-        expect(selectsHtmlLeg(method, accept)).toBe(false);
+        expect(requestsHtmlDocument(method, accept)).toBe(false);
         expect(
           testShouldSkipClerkMiddleware(
             createMockRequest('/mcp', undefined, { method, accept, secFetchDest: 'document' }),

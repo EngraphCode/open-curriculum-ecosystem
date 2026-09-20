@@ -16,7 +16,7 @@ How an agent discovers and uses the tools — titles, descriptions, parameter de
 
 This page holds only the **response-format-template** items of that view, so it can be reviewed in one sitting.
 
-**30 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 2 no longer exist in the codebase. 28 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**30 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 4 no longer exist in the codebase. 26 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the tool-usability view](./tool-usability.md) · [Back to the workspace index](../README.md)
 
@@ -33,7 +33,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (28)
+## Words owned in this repository (26)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -454,40 +454,6 @@ const message = error.upstreamMessage
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** response-format-template · **Impact tier:** high-impact
 
-### C361 — resource list-item display template
-
-**What it says now:**
-
-```text
-<span className="resource-title">{resource.title}</span>
-```
-
-**What it is for:** Frames each resource's SDK-sourced URI, title, and description into a list item; per the file's own TSDoc this lists the full static ALL\_MCP\_RESOURCES set including the flag-gated EEF entry even when its registration flag is off.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts`).
-- **Kind of surface:** response-format-template · **Impact tier:** high-impact
-
-### C368 — tool list-item display template
-
-**What it says now:**
-
-```text
-<details className="oak-disclosure tool-item">
-```
-
-**What it is for:** Frames each tool's SDK-sourced name and description into a collapsible item, applying the first-paragraph split to show a summary and hide the rest under 'How to use'; per file comment this affects human browsing only, not MCP tool behaviour.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/tools-section.tsx`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
-- **Kind of surface:** response-format-template · **Impact tier:** high-impact
-
 ### C398 — sendInvalidResourceResponse
 
 **What it says now:**
@@ -650,7 +616,7 @@ const response: ResponseObject = {
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** response-format-template · **Impact tier:** high-impact
 
-## Retired (2)
+## Retired (4)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
 
@@ -684,6 +650,40 @@ Arguments: <code>${a.name}</code>${a.required ? '' : ' (optional)'}
 - **Can an agent see it?** Retired — the words no longer exist in the codebase
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** response-format-template · **Impact tier:** high-impact
+
+### C361 — resource list-item display template
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<li><code>${resource.uri}</code><span class="resource-title">${resource.title}</span><span class="tool-desc">${resource.description}</span></li>
+```
+
+**What it is for:** Frames each resource's SDK-sourced URI, title, and description into a list item; per the file's own TSDoc this lists the full static ALL\_MCP\_RESOURCES set including the flag-gated EEF entry even when its registration flag is off.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** response-format-template · **Impact tier:** high-impact
+
+### C368 — tool list-item display template
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+<details class="tool-item"><summary><code>${tool.name}</code></summary>${descContent}</details>
+```
+
+**What it is for:** Frames each tool's SDK-sourced name and description into a collapsible item, applying the first-paragraph split to show a summary and hide the rest under 'How to use'; per file comment this affects human browsing only, not MCP tool behaviour.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** response-format-template · **Impact tier:** high-impact

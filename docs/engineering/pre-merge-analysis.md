@@ -161,7 +161,7 @@ that it never needs deciding: upstream's sequence is authoritative; the
 fork's colliding record is renumbered to the next free number in the
 same commit as the sync, with every citation updated and the index rows
 confirmed; the fork never reserves a block of numbers, because a block
-is estate identity carried in the tree (ADR-228).
+is estate identity carried in the tree (ADR-231).
 
 ### 4e. Dependency version conflicts
 

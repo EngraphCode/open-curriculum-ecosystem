@@ -354,6 +354,9 @@ the liaison seat; `Backlog`, High, M9, `CloudOps`.
   the change, because the alpha alias still serves them (MCP-307 open).
 - The predicate is `selectsHtmlLeg` in `src/mcp-middleware.ts`, already unit-tested —
   use it as the spec.
+  - 2026-09-17: the app's `/mcp` HTML leg and `selectsHtmlLeg` were removed on the Oak
+    line (#928/#987, carried in at the 1.185.0 sync); a browser `GET /mcp` now receives
+    the protocol gate's 406. The spec above names code that no longer exists.
 - **THE UNKNOWN:** code comments say the rule is scoped to `/mcp` and `/mcp/*`, but
   `/.well-known/oauth-protected-resource/mcp` demonstrably resolves on `www` and does
   **not** match that scope. Either a second undocumented rule exists or the live scope

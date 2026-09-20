@@ -39,7 +39,7 @@ checked-out HEAD, a coordination-branch tip on this estate.
 - **The owner**: one fewer approval prompt to be present for; the platform's documented
   creation path made to obey the estate's conventions rather than its settings default.
 - **Any organisation running this tree as its own**: the hooks derive the default branch
-  and the sibling directory from the checkout, naming no organisation (ADR-228).
+  and the sibling directory from the checkout, naming no organisation (ADR-231).
 
 ## Mechanism
 
@@ -149,7 +149,7 @@ PDR-140 intake contract where the changeset carries prose.
   setting changes it; the cure is launch-time residency, which this node makes mechanical.
 - A setting to skip the install and build at launch: not offered — a worktree built after
   its session opens has no statusline, and that requirement outranks launch speed.
-- A per-fork re-identification tool or any hard-coded branch or directory name: ADR-228
+- A per-fork re-identification tool or any hard-coded branch or directory name: ADR-231
   forbids both; everything here is derived.
 - The dirty-but-proven clearing of a worktree: the seat's, under `worktree-hygiene` §6 and
   the standing grant for proven paths; the remove hook only refuses what is unproven.

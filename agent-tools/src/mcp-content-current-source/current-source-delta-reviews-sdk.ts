@@ -26,8 +26,19 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // order (MCP-681): the server-instructions sequencing sentence (C054) now
   // names curriculum-ordered thread progressions and each unit's stated
   // prior knowledge rather than a prior-knowledge graph.
+  // MCP-421: the instructions also gained one paragraph routing an arriving
+  // agent to the Oak surfaces this server does not cover (A012), and an
+  // exported character budget for the whole string. Reviewed as agent-facing
+  // routing copy, not owner-signed public copy: it makes no claim about Oak,
+  // it publishes two URLs, and both were fetched live (200 each, with a
+  // control probe under the same prefix returning 404) before being
+  // recorded. Phrased as a capability boundary so it cannot read as an
+  // invitation to leave the authorisation-bound surface. Placed before the
+  // brand paragraph, which still closes the string; C049-C055 are otherwise
+  // unaffected. Hash recomputed against the merged file, which carries both
+  // changes, via `validate-current-source.ts --refresh-anchors`.
   'packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts': reviewed(
-    '423f78d9882261f797f978ee978a002bfd730f79b2a9a5ae15d71ea09eed54fe',
+    '2e077cf5c5d8c5fdd5dd60b672e97c2f97bbe9949c111870d633bb0784f7be76',
     ['C049', 'C050', 'C051', 'C052', 'C053', 'C054', 'C055'],
   ),
   // MCP-438: the description's embedded presentation directive (the fonts

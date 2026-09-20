@@ -48,6 +48,13 @@ archived per the plan-node schema's lifecycle; the authority strip below
 already made the boundary structural, and the archive makes the corpus
 state it. Everything conserved here remains exactly as conserved.
 
+**Addendum (2026-09-17, the 1.185.0 sync).** The MCP app's landing page and
+its visual suite (`tests/visual/landing-page.spec.ts`, `playwright.config.ts`)
+were removed on the Oak line (#928, #987); the citations of them below as live
+precedent (W0.3, W0.6, §Relationships) are history, kept as conserved. Whoever
+lifts the axe both-arrays discipline out of this store re-cites a surviving
+proof.
+
 **AUTHORITY STRIPPED — CONSERVED STORY-OPEN INPUTS (owner ruling
 2026-08-17, records-truth pass MCP-613).** This node was `status: sketch`,
 was never ratified, and its prose binds nothing — a lesson already paid

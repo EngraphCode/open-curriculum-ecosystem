@@ -487,10 +487,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
   workspaces; a junior-developer product repository; one version per repository for now; the
   extraction before the estate-wide seam migration)
-- [ADR-228: Organisational identity is held below the tree](228-organisational-identity-below-the-tree.md)
-  (Accepted 2026-09-08; homes the decision the ratified strategic node carries: who runs this tree is never in the
-  tree — identity derived, per-checkout, environment or service-bound; mechanism names no organisation; the default
-  branch derived, never a literal)
+- [ADR-228: Agent-web standards — six dispositions, and the standing of a vendor scorecard](228-agent-web-standards-dispositions.md)
+  ← **Proposed** (2026-09-09; nothing owner-ratified — adopt ARD at both the v0.91 and predecessor paths, decline A2A on
+  applicability alone, decline WebMCP, DNS-AID and the MCP Server Card — the last on the merits,
+  proposing to supersede MCP-346's rationale — and change nothing for `auth.md`; each disposition carries a
+  falsifiable revisit trigger, and `isitagentready.com` is framed as Cloudflare's own product
+  rather than a conformance standard)
 - [ADR-229: The MCP app stays a legacy-era `2025-11-25` server until the SDK v2 package family is adopted](229-mcp-protocol-revision-legacy-era-until-sdk-v2.md)
   ← **Proposed** (2026-09-09; the revision posture MCP-644 asked to have scoped: `2026-07-28` is current
   and makes `server/discover` mandatory for modern-era servers, but `@modelcontextprotocol/sdk@1.x`
@@ -508,6 +510,11 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   data structures authored as SMALL Reliable Atoms and meaningful compositions,
   informed by openly licensed references and independently qualified;
   implementation and qualification remain separate delivery work)
+- [ADR-231: Organisational identity is held below the tree](231-organisational-identity-below-the-tree.md)
+  (Accepted 2026-09-08 as this line's ADR-228; renumbered at the 1.185.0 sync because the Oak
+  line had minted its own ADR-228 — homes the decision the ratified strategic node carries: who
+  runs this tree is never in the tree — identity derived, per-checkout, environment or
+  service-bound; mechanism names no organisation; the default branch derived, never a literal)
 
 ## Key Architectural Decisions
 
@@ -557,7 +564,7 @@ For understanding the agentic engineering practice:
 - **[ADR-129](129-domain-specialist-capability-pattern.md)** - Domain specialist capability pattern: unified `*-expert` model with situational invocation
 - **[ADR-137](137-specialist-operational-tooling-layer.md)** - Specialist operational tooling layer: optional live-system tooling for domain experts
 - **[ADR-131](131-self-reinforcing-improvement-loop.md)** - Self-reinforcing improvement loop: knowledge flow, consolidation hub, self-referential governance, inter-repo propagation
-- **[ADR-228](228-organisational-identity-below-the-tree.md)** - Organisational identity is held below the tree: who runs this tree is never in the tree; mechanism names no organisation; the default branch derived, never a literal
+- **[ADR-231](231-organisational-identity-below-the-tree.md)** - Organisational identity is held below the tree: who runs this tree is never in the tree; mechanism names no organisation; the default branch derived, never a literal
 - **[ADR-135](135-agent-classification-taxonomy.md)** - Agent classification taxonomy: domain_expert, process_executor, specialist; operational modes; Practice domain trio
 - **[ADR-144](144-two-threshold-fitness-model.md)** - Three-zone fitness model: `healthy` / `soft` / `hard` / `critical` graduated scale with `CRITICAL_RATIO = 1.5`; `critical` is a loop-failure signal requiring a three-question post-mortem (§Loop Health)
 - **[ADR-146](146-assumptions-expert-meta-level-plan-assessment.md)** - Assumptions expert: independent proportionality and plan-assumption challenge with an inverted doctrine hierarchy

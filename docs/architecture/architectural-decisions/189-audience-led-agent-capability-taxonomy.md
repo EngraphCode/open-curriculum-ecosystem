@@ -94,6 +94,13 @@ recorded independently.
   (`.claude-plugin/marketplace.json`, which lists the plugin) and the plugin directory it
   points at (`plugins/`); an installed plugin and a listed one differ exactly there. A
   sibling skills library's privacy is incidental to that question.
+- **Addendum 2026-09-17 (the 1.185.0 sync).** The tree now carries a second listing manifest
+  and package: `.agents/plugins/marketplace.json` lists `plugins/oak-open-curriculum-chatgpt`
+  (ChatGPT and Codex) beside `.claude-plugin/marketplace.json` and `plugins/oak-open-curriculum`
+  (the Claude plugin, for any Claude host — the "(Claude Code)" qualifier in ADR-125's 2026-09-08
+  amendment is the Oak line's wording, corrected on this line by the owner on 2026-09-17: the
+  plugin is in no way constrained to Claude Code). The listed-versus-installed distinction above
+  holds per manifest.
 
 ## Validation
 

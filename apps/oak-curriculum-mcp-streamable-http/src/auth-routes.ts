@@ -11,7 +11,7 @@ import type { McpServerFactory } from './mcp-request-context.js';
 import { rewriteAuthServerMetadata, type UpstreamAuthServerMetadata } from './oauth-proxy/index.js';
 import type { HttpObservability } from './observability/http-observability.js';
 import { deriveSelfOrigin, hostValidationErrorMessage } from './host-validation-error.js';
-import { MCP_RESOURCE_PATH } from './served-origin.js';
+import { MCP_RESOURCE_PATH, PROTECTED_RESOURCE_METADATA_PREFIX } from './served-origin.js';
 
 /**
  * Refuses the standalone GET SSE stream with the spec-mandated 405 (MCP-545).
@@ -121,8 +121,8 @@ export function registerPublicOAuthMetadataEndpoints(
     });
   };
 
-  app.get('/.well-known/oauth-protected-resource', servePrm);
-  app.get('/.well-known/oauth-protected-resource/mcp', servePrm);
+  app.get(PROTECTED_RESOURCE_METADATA_PREFIX, servePrm);
+  app.get(`${PROTECTED_RESOURCE_METADATA_PREFIX}${MCP_RESOURCE_PATH}`, servePrm);
 
   app.get('/.well-known/oauth-authorization-server', (req, res) => {
     const originResult = deriveSelfOrigin(req, allowedHosts, canonicalOrigin);

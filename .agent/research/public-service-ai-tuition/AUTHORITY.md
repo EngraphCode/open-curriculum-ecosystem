@@ -82,7 +82,9 @@ source bytes. Upstream OCE `1.178.6` restores authored order at the
 report was written and incorporated `1.178.6` through the sync named in the report's
 reopening addendum (9 September 2026) and `1.181.1`, which corrects the
 misconception-graph consumer, through the sync named in the 10 September 2026 addendum;
-synthetic prerequisite-labelled edges and a reproducible retained bulk input remain open. Oak Curriculum API `0.11.1` separately fixes
+synthetic prerequisite-labelled edges and a reproducible retained bulk input remain open. The sync to `1.185.0`
+(20 September 2026) changed neither surface: its only edits to the two graph end-to-end checks
+remove a landing-page option the application no longer takes. Oak Curriculum API `0.11.1` separately fixes
 Combined Science validation in the external API repository. Read the report for the exact
 version identities, evidence limits and reopening triggers.
 

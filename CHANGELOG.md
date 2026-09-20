@@ -1,3 +1,72 @@
+# [1.185.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.184.0...v1.185.0) (2026-09-17)
+
+
+### Features
+
+* **mcp:** advertise an agent-discovery Link header (MCP-734) ([fc7072e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc7072e6310fb9147d147242f15f4e56cff557c3))
+* **mcp:** route arriving agents to the Oak surfaces this server lacks ([2bcdb57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2bcdb573eeca8d24627a1e0bcdb620ab344601aa))
+
+# [1.184.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.183.0...v1.184.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* **mcp-app:** drop the landing-page option that [#928](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/928) removed from createApp ([1d49707](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1d4970757159424cac337b9ba528dfd6c7d21a6a)), closes [#972](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/972)
+* **mcp:** rest robots.txt and its AR-A6 exception on machine surface (MCP-703) ([19d6a90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/19d6a9058ab4a2063aeb142e2b2c3573df376a35)), closes [#928](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/928)
+
+
+### Features
+
+* **mcp:** serve robots.txt from the MCP host (MCP-703) ([c5f89c4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c5f89c4e60e9ae1f4cb82458761b6da4566a354b))
+
+# [1.183.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.182.0...v1.183.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* **agent-tools:** allow the canonical MCP host in served under-the-hood sections ([5159886](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/51598867d976aa012dbd6ab9a2a68fb1c4bcb0e7))
+* **skills:** quote projected frontmatter, and name the field a refusal got wrong ([f559329](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f5593291a69346f9da2a50c4a8e0e64f8b5b75e4))
+
+
+### Features
+
+* **skills:** carry spec-portable frontmatter through to both adapter surfaces ([1848b6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1848b6f2f98d7377c3166fb40eb33609270068f3))
+
+# [1.182.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.181.4...v1.182.0) (2026-09-17)
+
+
+### Bug Fixes
+
+* **agent-tools:** a derived skill that vanishes mid-scan is a finding (MCP-692) ([0fa79d2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0fa79d272e4c9d4a9b932bda598b12271cbbcd4a))
+* **agent-tools:** a skill with no manifest is never identical; pin the shipped policy (MCP-692) ([904b748](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/904b74857e6c4ec484f400a6f39d43eca7557bcf))
+* **agent-tools:** clear the two Sonar major code smells on the plugin package checks (MCP-692) ([2d3c065](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2d3c065079d2fd11d2fa25f64de8830ec9eaa7de)), closes [#968](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/968)
+* **agent-tools:** copy-only skills must derive from a workflow; gate the marketplace file (MCP-692) ([ddbe619](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ddbe619dfb91dbfdd2148b9bd4f4f1cdb0cf9bc9))
+* **agent-tools:** discover shared skills and test the walker in the skill-copy gate (MCP-692) ([0c97ecb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0c97ecbe3b74809e6ddde1d028be4b28217f776f))
+* **agent-tools:** fail when a copy drops a source skill; gate the package root (MCP-692) ([68ed9bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/68ed9bf0d551ac36d7c17e6dbf5e94bf2f0731fe))
+* **agent-tools:** gate a vanished manifest, a stray copy, and every frontmatter key (MCP-692) ([de41e94](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de41e942182882869883f72e6b71b19683622153))
+* **agent-tools:** ignore evals on the source side only; check package-root entry kinds (MCP-692) ([ed59272](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed59272641c3e2f49bb3870735109bac14ef207c))
+* **agent-tools:** never advise deleting the last copy; compare the shared display name (MCP-692) ([ac63ff5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ac63ff5b626efd405013af142d0aa04a73b1bd34))
+* **agent-tools:** never follow a symlinked root; fail on a skill without its manifest (MCP-692) ([00fa027](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/00fa027eb070d3babcf2017a24ce1ff231d9ec29))
+* **agent-tools:** read the workflow where it is used, not from a listing snapshot (MCP-692) ([0a54ce1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0a54ce110de59e77aa088f5f05d0e251a2f04ff6))
+* **agent-tools:** refuse symlinks and gate the manifest shape in the plugin package checks (MCP-692) ([a01a621](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a01a621ce2a8bc5876f46c17c9533b9ca2d896fa))
+* **agent-tools:** walk copy-only skills and cover every derivation (MCP-692) ([d126c06](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d126c0696927076853ae68b79a9ed16cf9e2e41e))
+* **plugins:** align workflow skills with their merged copies; move evals to source (MCP-692) ([57fcffe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57fcffe64c83390ea3ed1c452b236a3cd9b4bb27))
+* **plugins:** carry the approved principles wording into the ChatGPT package (MCP-692) ([7ab390a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7ab390af22de3da06ef90f2d00a69e5bcc0b227d)), closes [#985](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/985) [#985](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/985) [#985](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/985)
+* **plugins:** give the three MCP-backed skills a do-not-use boundary (MCP-692) ([404d403](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/404d403151783bc70a47a808ebd2d33ec23d4674))
+* **plugins:** host-neutral tool-name guidance, transcript checklist, validator gaps (MCP-692) ([fc71fea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc71fea30e679ca2c756d545bddfeb713b5939ad)), closes [#968](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/968)
+* **plugins:** mark transcripts recommended, not required, at WCAG AA (MCP-692) ([823819e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/823819e97efaa725cbdb477cf2cb68c129a504d6))
+* **plugins:** re-derive find-misconceptions after its agent changed on main (MCP-692) ([7eff80a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7eff80ac37577cd4f6061caab8f7560b05fb42d5)), closes [#966](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/966)
+* **plugins:** report a vanished shared skill and carry the licence notice (MCP-692) ([e37f6ad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e37f6ad9b263cecdced4de7b563a4648e1ccc357)), closes [#958](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/958)
+* **plugins:** restore the MCP-enabled skill description to main's wording (MCP-692) ([94b19a8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94b19a81c0404be550bc35bfe62287479d37abf3))
+* **plugin:** use oak-skills' approved wording where Emma's feedback was applied differently ([045d380](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/045d3801cc14d86a4bdc81c56a5b10b7773f2c61))
+
+
+### Features
+
+* **plugins:** package the Oak plugin for ChatGPT and Codex (MCP-692) ([367d112](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/367d11293c1c225bc71ca4cf5bdef4242830860b))
+
+## [1.181.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.181.3...v1.181.4) (2026-09-16)
+
 ## [1.181.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.181.2...v1.181.3) (2026-09-14)
 
 ## [1.181.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.181.1...v1.181.2) (2026-09-14)
