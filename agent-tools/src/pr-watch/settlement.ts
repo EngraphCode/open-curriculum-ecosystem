@@ -216,7 +216,9 @@ function unclassifiedVerdict(
     evidence: [
       ...refusals.map((refusal) => refusal.line),
       ...legs.map((leg) => legLine(leg)),
+      ...completionTransportEvidence(reading),
       ...expectedSetEvidence(reading),
+      ...runsEvidence(reading),
     ],
   };
 }

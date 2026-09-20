@@ -239,7 +239,10 @@ pull request. One substitution, recorded: the ruling's first precondition names 
 repository's live automatic-review configuration, and the code reads a comment against the
 `--expect` set, which `docs/engineering/merge-bot.md` requires to be sourced from that
 configuration; a configured reviewer the operator did not declare is outside the reading, as
-it is outside every leg, and the door refuses a defaulted set.
+it is outside every leg, and the door refuses a defaulted set. A follow-up this node now owns,
+unscheduled (test-expert, 2026-09-20): `pr-watch/state-gh.ts` multiplexes four gh legs
+through one `execFileSync` seam, so its suites need a fake that branches on argv; one
+reader per leg would let each test pass a constant.
 
 Two follow-ups this node now owns, neither scheduled:
 

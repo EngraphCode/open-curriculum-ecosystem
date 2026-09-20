@@ -6,9 +6,10 @@ import type { GhCommandExecutor } from './gh.js';
 /**
  * The gh seam reads the second transport of a reviewer's reported result: a
  * completion comment on the conversation, bound to the commit it names.
- * Injected executor, no real gh; the view carries only the fields the
- * parsers read, shaped as `gh pr view --json` emits them on pull request 167
- * (2026-09-20; that pull request's description records the read).
+ * Four parsers compose through the gh seam with an injected executor and no
+ * real gh; the view carries only the fields the parsers read, shaped as
+ * `gh pr view --json` emits them on pull request 167 (2026-09-20; that pull
+ * request's description records the read).
  */
 
 const HEAD = 'f'.repeat(40);
@@ -28,6 +29,7 @@ const CODEX_CLEAN_COMMENT = {
 interface ViewShape {
   readonly comments: readonly unknown[];
   readonly commits: readonly { readonly oid: string }[];
+  readonly reviewRequests?: readonly unknown[];
 }
 
 function viewPayload(view: ViewShape): string {
@@ -83,9 +85,9 @@ const BOUND_TO_HEAD = {
 };
 
 describe('readPrStateReading — the completion-comment transport', () => {
-  it("requests the conversation legs and reads an expected reviewer's completion comment as a review bound to the commit it names", () => {
+  it('the view request names the conversation legs', () => {
     const calls: string[][] = [];
-    const reading = readPrStateReading({
+    readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
       expectedReviewers: [CODEX],
@@ -93,7 +95,31 @@ describe('readPrStateReading — the completion-comment transport', () => {
     });
 
     const prView = calls.find((args) => args[0] === 'pr' && args[1] === 'view');
-    expect(prView?.at(-1)).toMatch(/,comments,commits$/u);
+    expect(prView?.at(-1)?.split(',')).toEqual(expect.arrayContaining(['comments', 'commits']));
+  });
+
+  it("reads an expected reviewer's completion comment as a review bound to the commit it names", () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: [CODEX],
+      execFileSync: executor(WITH_TIP, []),
+    });
+
+    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
+  });
+
+  it('a DEFAULTED expected set that holds the commenter (an outstanding request) reads its comment', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: executor(
+        { ...WITH_TIP, reviewRequests: [{ __typename: 'User', login: CODEX }] },
+        [],
+      ),
+    });
+
+    expect(reading.expectedDeclared).toBe(false);
     expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 

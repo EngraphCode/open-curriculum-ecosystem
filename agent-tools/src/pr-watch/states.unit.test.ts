@@ -522,7 +522,7 @@ describe('computePrVerdict — round-4 residual classes (2026-07-21)', () => {
     expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
   });
 
-  it('an EMPTY review with no submittedAt is filtered before the missing-timestamp guard, so it never forces the null anchor (#149 round two)', () => {
+  it("an EMPTY review with no submittedAt neither anchors nor holds open the quiet window: the round settles on the real review's time (#149 round two)", () => {
     // Literal-input case: the empties exclusion runs first, so a thread-reply
     // artefact whose timestamp gh omitted neither anchors the window nor
     // holds it open — the round settles on the real review's own time.

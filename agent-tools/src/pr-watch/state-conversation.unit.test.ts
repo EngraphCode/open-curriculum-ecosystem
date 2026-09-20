@@ -77,8 +77,22 @@ describe('parseConversation', () => {
     expect(parseConversation(livePayload([])).comments).toStrictEqual([]);
   });
 
-  it('fails loud when either leg is missing or null: a misshapen payload is never an empty one', () => {
-    expect(() => parseConversation({ number: 167, comments: [] })).toThrow();
-    expect(() => parseConversation({ number: 167, comments: null, commits: COMMITS })).toThrow();
-  });
+  it.each([
+    ['a missing commits leg', { number: 167, comments: [] }, /commits/u],
+    ['a null comments leg', { number: 167, comments: null, commits: COMMITS }, /comments/u],
+    [
+      'a comment without its edited flag',
+      {
+        number: 167,
+        comments: [{ ...CODEX_COMMENT, includesCreatedEdit: undefined }],
+        commits: COMMITS,
+      },
+      /includesCreatedEdit/u,
+    ],
+  ])(
+    'fails loud naming the leg on %s: a misshapen payload is never an empty one',
+    (_name, payload, leg) => {
+      expect(() => parseConversation(payload)).toThrow(leg);
+    },
+  );
 });

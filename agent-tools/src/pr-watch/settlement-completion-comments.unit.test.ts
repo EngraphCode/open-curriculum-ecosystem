@@ -59,9 +59,35 @@ describe('computePrVerdict — the completion-comment transport', () => {
     expect(verdict.evidence).toContain(
       `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z read as a review of the tip (transport: completion-comment)`,
     );
-    // A zero-findings result has nothing to tally: the body-tally hand-over
-    // names review objects only.
+  });
+
+  it('a zero-findings completion comment is not handed to the body tally: the tally names review objects only', () => {
+    const verdict = computePrVerdict(
+      settledReading({ ...both, completionComments: { reviews: [codexClean(TIP)], refused: [] } }),
+      LATE_NOW,
+    );
+
     expect(verdict.evidence.join('\n')).not.toContain(`tip-bound review body present: ${CODEX}`);
+  });
+
+  it('two completion comments by one reviewer: the tip-bound one is the result, the other a past round', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        completionComments: {
+          reviews: [
+            codexClean(OLD_TIP),
+            { ...codexClean(TIP, '2026-07-21T12:20:00Z'), id: 'IC_3' },
+          ],
+          refused: [],
+        },
+      }),
+      LATE_NOW,
+    );
+
+    expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence.join('\n')).toContain('completion comment IC_3');
+    expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 
   it('a tip-bound completion comment anchors the quiet window as a review object does', () => {
@@ -179,6 +205,48 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
     expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
     expect(verdict.evidence.join('\n')).toContain(`${CODEX}: SKIPPED — timeout`);
+    expect(verdict.evidence.join('\n')).toContain('refused — names commit bbbbbbbbbb');
+  });
+
+  it('a refusal on the BLOCKING reviewer, with no live run and before the timeout arm, decides the verdict', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [],
+        reviewRequests: [CODEX],
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        reviewRuns: { kind: 'unavailable', reason: 'gh agent-task missing' },
+      }),
+      '2026-07-21T12:05:00Z',
+    );
+
+    expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
+    expect(verdict.evidence.join('\n')).toContain('refused — names commit bbbbbbbbbb');
+    expect(verdict.evidence.join('\n')).toContain(`${CODEX}: OWED`);
+    expect(verdict.evidence.join('\n')).toContain(`${COPILOT}: OWED`);
+    expect(verdict.evidence).toContain('review-run liveness unavailable: gh agent-task missing');
+  });
+
+  it('a stale comment of a reviewer satisfied by a review object is not reported while another leg blocks', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [
+          {
+            author: CODEX,
+            state: 'COMMENTED',
+            body: 'One finding.',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:06:00Z',
+          },
+        ],
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+      }),
+      '2026-07-21T12:05:00Z',
+    );
+
+    expect(verdict.state).toBe('SILENT-WAIT-NO-REVIEWER');
+    expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 
   it("a refusal on a reviewer that is not the blocking one rides in the evidence; the blocking leg's own state names the reader's next act", () => {
@@ -215,7 +283,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
     );
   });
 
-  it("a tip-bound quota marker is the reviewer's later word: an older completion comment is a past round, and the round reads QUOTA-SKIPPED", () => {
+  it('a tip-bound quota marker answers the leg; an older-tip completion comment is a past round whenever it was posted', () => {
     const verdict = computePrVerdict(
       settledReading({
         ...both,
@@ -229,7 +297,10 @@ describe('computePrVerdict — the completion-comment transport', () => {
             submittedAt: '2026-07-21T12:20:00Z',
           },
         ],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: {
+          reviews: [codexClean(OLD_TIP, '2026-07-21T12:25:00Z')],
+          refused: [],
+        },
       }),
       LATE_NOW,
     );

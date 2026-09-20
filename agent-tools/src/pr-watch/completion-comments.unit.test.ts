@@ -21,10 +21,9 @@ const CODEX_CLEAN = {
   createdAt: '2026-09-20T14:47:25Z',
   edited: false,
 };
-const COMMITS = [
-  '6123105a51fdfabb37e39ff45361d0136ac51317',
-  '8c12413681aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-];
+const OTHER = '6123105a51fdfabb37e39ff45361d0136ac51317';
+const NAMED = '8c12413681aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+const COMMITS = [OTHER, NAMED];
 const REVIEWERS = ['chatgpt-codex-connector', 'copilot-pull-request-reviewer'];
 const QUOTE = "Codex Review: Didn't find any major issues. Swish!";
 
@@ -56,7 +55,7 @@ describe('readCompletionComments', () => {
           author: 'chatgpt-codex-connector',
           state: 'COMMENTED',
           body: CODEX_CLEAN.body,
-          commitOid: '8c12413681aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          commitOid: NAMED,
           submittedAt: '2026-09-20T14:47:25Z',
           transport: 'completion-comment',
         },
@@ -66,9 +65,33 @@ describe('readCompletionComments', () => {
   });
 
   it('matches an expected reviewer whatever the case of its login', () => {
-    const reading = read({ ...CODEX_CLEAN, author: 'ChatGPT-Codex-Connector' });
+    expect(read({ ...CODEX_CLEAN, author: 'ChatGPT-Codex-Connector' })).toStrictEqual({
+      reviews: [
+        {
+          id: CODEX_CLEAN.id,
+          author: 'ChatGPT-Codex-Connector',
+          state: 'COMMENTED',
+          body: CODEX_CLEAN.body,
+          commitOid: NAMED,
+          submittedAt: '2026-09-20T14:47:25Z',
+          transport: 'completion-comment',
+        },
+      ],
+      refused: [],
+    });
+  });
 
-    expect(reading.reviews).toHaveLength(1);
+  it('reads several comments in input order: a result, a refusal and a bystander each land where they belong', () => {
+    const edited = { ...CODEX_CLEAN, id: 'IC_2', edited: true };
+    const bystander = { ...CODEX_CLEAN, id: 'IC_3', author: 'el-graphael' };
+    const reading = readCompletionComments({
+      comments: [bystander, CODEX_CLEAN, edited],
+      commits: COMMITS,
+      reviewers: REVIEWERS,
+    });
+
+    expect(reading.reviews.map((review) => review.id)).toStrictEqual([CODEX_CLEAN.id]);
+    expect(reading.refused.map((comment) => comment.id)).toStrictEqual(['IC_2']);
   });
 
   it("a comment by an author who is not an expected reviewer is not a reviewer's report: neither read nor refused", () => {
@@ -115,9 +138,15 @@ describe('readCompletionComments', () => {
   });
 
   it('refuses a comment whose named commit is not in the pull request', () => {
-    expect(read(CODEX_CLEAN, [COMMITS[0] ?? ''])).toStrictEqual(
+    expect(read(CODEX_CLEAN, [OTHER])).toStrictEqual(
       refusal('names a commit that is not in the pull request'),
     );
+  });
+
+  it('a labelled prefix shorter than seven characters names no reviewed commit: the label alone is not the report', () => {
+    expect(
+      read({ ...CODEX_CLEAN, body: `${QUOTE}\n\n**Reviewed commit:** \`8c1241\`` }),
+    ).toStrictEqual(refusal('names no reviewed commit'));
   });
 
   it('refuses a comment whose prefix matches several commits of the pull request', () => {
@@ -128,8 +157,10 @@ describe('readCompletionComments', () => {
 });
 
 describe('readCompletionComments — the live body', () => {
-  // The comment Codex posted on pull request 167 (2026-09-20), whole: the
-  // About block carries no inline code, so it names one commit.
+  // The comment Codex posted on pull request 167 (2026-09-20), whole, with
+  // its named commit re-pointed at this suite's commit list: the About block
+  // carries no inline code, so it names one commit. A description added
+  // after the label anchoring landed.
   const LIVE_BODY =
     'Codex Review: Didn\'t find any major issues. :tada:\n\n**Reviewed commit:** `8c12413681`\n\n<details> <summary>ℹ️ About Codex in GitHub</summary>\n<br/>\n\nCodex has been enabled to automatically review pull requests in this repo. Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment "@codex review".\n\nIf Codex has suggestions, it will comment; otherwise it will react with 👍.\n\n\n\n\nWhen you [sign up for Codex through ChatGPT](https://openai.com/codex), Codex can also answer questions or update the PR, like "@codex address that feedback".\n            \n</details>';
 
@@ -144,9 +175,11 @@ describe('readCompletionComments — the live body', () => {
 });
 
 describe('quoteOf', () => {
-  it("takes the comment's first non-empty line, bounded to 120 characters", () => {
-    expect(quoteOf('\n\n  first line  \nsecond')).toBe('first line');
-    expect(quoteOf('x'.repeat(200))).toHaveLength(120);
-    expect(quoteOf('\n \n')).toBe('');
+  it.each([
+    ['\n\n  first line  \nsecond', 'first line'],
+    ['x'.repeat(200), 'x'.repeat(120)],
+    ['\n \n', ''],
+  ])("takes the comment's first non-empty line, bounded to 120 characters: %j", (body, quote) => {
+    expect(quoteOf(body)).toBe(quote);
   });
 });
