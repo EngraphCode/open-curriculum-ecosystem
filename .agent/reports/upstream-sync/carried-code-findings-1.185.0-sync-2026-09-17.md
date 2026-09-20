@@ -126,6 +126,14 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     build that emits `server.json` leaves an untracked file in the tree. Standard: §Misleading
     docs are blocking.
 
+17. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 68, 120–121, 246,
+    270, 305, 329, 372–374 and 402, and `src/app/health-endpoints.ts` lines 22, 32 and 36 (both
+    identical on the Oak line's tip; found on 2026-09-20 by a context-free claim pass on the A2
+    cure, verified by this seat with `git grep -i landing`): the document still describes a live
+    "Landing Page Handler" at `/` (A12 covers only the robots branch of the same document), and
+    the source comment says the root landing page is mounted in `static-content.ts` and that a
+    probe could be handed the landing page. Standard: §Misleading docs are blocking.
+
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
 1. `agent-tools/src/validators/plugin-skill-copies/plugin-skill-copies-fs.unit.test.ts`

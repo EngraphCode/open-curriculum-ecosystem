@@ -19,8 +19,8 @@ last_updated: 2026-09-20
 # Landing instruments: read the evidence that exists, and ask when nobody has
 
 This node absorbs the sketch `review-round-predicates` (2026-09-13, unratified): its two
-defects are slices 1 and 2 here, restated with their fixtures. Both are sketches and neither
-governs work; at the ratification moment the owner's word retires that node as
+defects are slices 1 and 2 here, restated with their fixtures. This node's ratification on
+2026-09-20 retired that one, which now reads
 `superseded_by: landing-instruments-read-the-evidence`. The `agent-tools-watch-commands` node
 keeps the command-surface candidates in its own disposition ledger (the session-script
 commands, the deletion-sweep integration); this node owns the readings and the one act.
