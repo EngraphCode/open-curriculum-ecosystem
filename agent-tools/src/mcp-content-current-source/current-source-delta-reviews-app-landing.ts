@@ -23,6 +23,12 @@ import {
 } from './current-source-delta-review-helpers.js';
 
 export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  // The no-HTML surface's terminal refusal (A15, 2026-09-20): a JSON 404 for
+  // every unmatched path, where the framework's HTML document used to answer.
+  'apps/oak-curriculum-mcp-streamable-http/src/app/not-found.ts': excluded(
+    '1d2f0424515508d452c0fa58054b8d8e3c281f8233b6d21e7687fff6b358c88b',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts': excluded(
     '99d81650fd174e889196cc299b26425d57ea49bf66b5232c119aac67b052a043',
     DELETED_SOURCE,
