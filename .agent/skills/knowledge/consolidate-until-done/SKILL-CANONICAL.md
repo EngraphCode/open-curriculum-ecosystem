@@ -129,6 +129,33 @@ Before substantive work:
    record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
    stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
    reads still stops mid-surface for lack of headroom.
+   **Reserve the last step's price.** Directive work is the pass's final step and the one the
+   30 % gate closes on, so its cost is set aside at open (the bytes of the directives to be
+   read whole, over four, plus the edits), and an earlier stage stops when the headroom
+   reaches that reservation, however unfinished it is. Where a standing rule with a deadline
+   (a DUE branch fold) would spend the reservation, that collision is put to the owner once,
+   as a question about which gives way for this job, at its first occurrence. Source: the
+   retrospective
+   `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+   Falsifier: a pass that reserved still reaches its directive step over the line.
+
+8. **Choose the instruments once, at open; the launch prompt need not.** This skill is the
+   whole procedure, so a launch prompt can be one line naming it, the owner's measure and
+   anything specific to the day. Loading several skill bodies at open spends the headroom
+   step 7 reserves, so each of these is decided here and loaded only when it fires:
+   - *Other seats live?* If the claims registry or the stream shows one, apply
+     [`start-right-team`](../../start-right-team/SKILL-CANONICAL.md) (watcher first) in
+     place of the solo grounding; a shared host also means one gate run at a time, agreed on
+     the seats' channel.
+   - *A retrospective first?* Only when an arc has finished since the last consolidation
+     and its cost or shape surprised; otherwise it follows the pass, at the owner's word.
+   - *Parallax?* At screening depth, at a real fork whose frames differ; where each lesson
+     belongs is decided by reading the target, not by an inquiry.
+   - *Metacognition, free play, concept exploration?* At boundaries (a stage's end, the
+     wrap), written to the napkin as they are done; a proposal they produce is landed in its
+     home in the same commit when it is small.
+   - *Tombstones* found or made along the way are removed as met
+     ([`no-tombstones-for-removed-ideas`](../../../rules/no-tombstones-for-removed-ideas.md)).
 
 ## Completion Contract
 

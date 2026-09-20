@@ -118,3 +118,17 @@ still unhomed, as at the three rotations before.
   cure was read back first-hand. Blind spot: the comms watcher has been down since about
   21:00Z on 2026-09-19 by declared choice; the stream and the ARC channel are read at resume.
   Fence sweep: no Oak surface written. Fixed point: a further pass re-finds only the MD018 slip.
+- **Addendum, 2026-09-20 ~11:1xZ: the retrospective and the second wrap.** At the owner's word
+  the arc's retrospective is
+  `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+  Its named mechanism: clocked obligations starve unclocked jobs (the fold had a deadline and
+  a ceremony, the register had a count). It routes four proposals (two landed in
+  `consolidate-until-done`, one slow-lane row, one prediction the #156 fold tests) and reads
+  the launch prompt against the arc: the prompt loaded six skill bodies before any work, so
+  the refinement is subtraction, and the procedure it carried now lives in the skill's
+  grounding step 8. Measured for the context-loop experiment: the first preparation
+  (three cognition passes, a wrap, one commit and push) cost 16,440 tokens in about five
+  minutes; the figures for the retrospective and the second wrap are in the experiment file.
+  Second loss scan: nothing new beyond this addendum; Dynamo turns Temper posted on the ARC
+  channel while this seat wrote and #157 merged to `engraph` (`SHA:bdbdda04a`), both read at
+  resume.

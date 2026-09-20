@@ -234,9 +234,17 @@ the stream and the ARC channel from 2026-09-19 20:2xZ (the watcher was down by d
 while the seat idled). (b) Fold draft #156: the branch is DUE since 2026-09-20 00:00Z; merge
 `origin/engraph` in once (Dynamo turns Temper's landings put it BEHIND), announce the gate run
 on the ARC channel, then ready, reviews under the budget, the front door, the successor cut
-with a few lines of state. (c) The three large records, each in its own context, priced first.
-The retrospective on the consolidation's arc is landed (see
-`.agent/reports/agentic-engineering/`, dated 2026-09-20); its routed proposals are in it.
+with a few lines of state. The fold tests a prediction recorded before the fact (the
+retrospective's proposal 4): #156 carries doctrine on the coordination branch, so it draws
+twenty or more findings across its pre-publication pass and review; ten or fewer refutes it.
+Declare its class in the description, expect its rounds, and write the count on its ledger
+row either way. (c) The three large records, each in its own context, priced first.
+The retrospective on the consolidation's arc is landed:
+`.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
+instruments chosen once), one is a slow-lane row (review 2026-12-20), one is the fold's
+prediction above. It also reads the launch prompt against the arc and proposes a four-line
+prompt; the prompt file is the owner's scratchpad and was left as the owner had it.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (this branch
 is stamped 2026-09-19 and fell due at 2026-09-20 00:00Z; by the owner's word it folds once,
