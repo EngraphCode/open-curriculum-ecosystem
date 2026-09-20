@@ -235,7 +235,11 @@ wait state — the cure is a fresh result on the tip). What this leaves of slice
 inline-only review (a review object with an empty summary and inline comments of its own)
 still reads as an empty body — the review's own comments are not yet a leg input (the
 round-two row of pull request 149 below); that is the next edit to the leg machine, its own
-pull request.
+pull request. One substitution, recorded: the ruling's first precondition names the
+repository's live automatic-review configuration, and the code reads a comment against the
+`--expect` set, which `docs/engineering/merge-bot.md` requires to be sourced from that
+configuration; a configured reviewer the operator did not declare is outside the reading, as
+it is outside every leg, and the door refuses a defaulted set.
 
 Two follow-ups this node now owns, neither scheduled:
 

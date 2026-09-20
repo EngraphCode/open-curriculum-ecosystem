@@ -82,21 +82,24 @@ describe('readCompletionComments', () => {
     expect(read({ ...CODEX_CLEAN, edited: true })).toStrictEqual(refusal('edited after creation'));
   });
 
-  it('refuses a comment that names no reviewed commit, even one that mentions a commit in passing', () => {
+  it('refuses a comment that names no reviewed commit', () => {
     expect(read({ ...CODEX_CLEAN, body: `${QUOTE}\n` })).toStrictEqual(
       refusal('names no reviewed commit'),
     );
-    expect(
-      read({
-        ...CODEX_CLEAN,
-        body: `Codex could not complete the review of \`8c12413681\` — try again`,
-      }),
-    ).toStrictEqual({
-      ...refusal('names no reviewed commit'),
+  });
+
+  it('a comment that mentions a commit in passing names no reviewed commit: it is refused and quoted, never read as a result', () => {
+    const mention = 'Codex could not complete the review of `8c12413681` — try again';
+
+    expect(read({ ...CODEX_CLEAN, body: mention })).toStrictEqual({
+      reviews: [],
       refused: [
         {
-          ...refusal('names no reviewed commit').refused[0],
-          quote: 'Codex could not complete the review of `8c12413681` — try again',
+          id: CODEX_CLEAN.id,
+          author: CODEX_CLEAN.author,
+          createdAt: CODEX_CLEAN.createdAt,
+          precondition: 'names no reviewed commit',
+          quote: mention,
         },
       ],
     });

@@ -129,7 +129,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
     expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 
-  it('a refused comment never outranks a LIVE run inside the window: the result being composed is awaited, the refusal stays in evidence', () => {
+  it('a refused comment never outranks a LIVE run before the timeout arm: the result being composed is awaited, the refusal stays in evidence', () => {
     const verdict = computePrVerdict(
       settledReading({
         ...both,

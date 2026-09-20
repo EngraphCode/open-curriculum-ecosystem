@@ -18,8 +18,9 @@ import { authorLogin } from './state-fields.js';
 /** The `--json` fields this parser reads, requested beside the state view's. */
 export const PR_STATE_CONVERSATION_JSON_FIELDS = ['comments', 'commits'] as const;
 
-// A deleted account's comment is by 'unknown' (state-fields.ts), a login no
-// expected reviewer set holds, so it reads as no review.
+// A deleted account's comment is by 'unknown' (state-fields.ts), a login this
+// tool never declares, so it reads as no review unless an operator declares
+// that literal.
 const commentSchema = z.object({
   // The GraphQL node id, as `pr view` emits it (never the REST integer).
   id: z.string(),

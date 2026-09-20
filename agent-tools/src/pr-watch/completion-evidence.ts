@@ -35,9 +35,9 @@ export interface CompletionRefusal {
   readonly line: string;
 }
 
-// A leg the tip has not answered: OWED, or timed out. A SATISFIED leg's older
-// comments are past rounds, and a tip-bound quota marker is that reviewer's
-// later word — neither is a near-miss.
+// A leg the tip has not answered: OWED, or timed out. A SATISFIED leg's other
+// comments, whatever their date, are past rounds, and a tip-bound quota
+// marker is that reviewer's later word — neither is a near-miss.
 function unanswered(leg: ReviewerLeg): boolean {
   return leg.state === 'OWED' || (leg.state === 'SKIPPED' && leg.skipReason === 'timeout');
 }

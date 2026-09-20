@@ -63,10 +63,13 @@ transports and the tool reads both: the review object, and a completion
 comment on the conversation naming the commit reviewed (the Codex
 connector's zero-findings transport; a positive result by the owner's
 ruling of 2026-09-16). A declared reviewer's comment that fails a
-precondition on a leg the tip has not answered — edited, naming no commit or several, naming a commit outside
-the pull request or one that is not the tip — refuses as
-`UNCLASSIFIED-EVIDENCE` with the precondition named and the comment quoted,
-never as silence; the cure is a fresh result on the tip.
+precondition on a leg the tip has not answered — edited, naming no
+reviewed commit or more than one, naming a prefix that matches no commit
+of the pull request or more than one, or naming a commit that is not the
+tip — refuses as `UNCLASSIFIED-EVIDENCE` with the precondition named and
+the comment quoted, never as silence; the cure is a fresh result on the
+tip. On a leg the tip satisfies, such a comment is a past round and is not
+reported.
 The tool verifies only the vendor legs declared to it and refuses
 an empty set: the availability rule and the posted subagent leg are the
 merging seat's own recomputation, recorded on the landing premises (a
