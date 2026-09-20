@@ -1,12 +1,12 @@
 ---
 id: landing-instruments-read-the-evidence
 node_type: delivery
-name: "Landing instruments: read the evidence that exists, and ask when nobody has"
-overview: "The merge door and the review-cost gate verdict on the evidence the surfaces actually produce, refuse loudly on evidence they cannot type, and request a review nobody has asked for."
+name: 'Landing instruments: read the evidence that exists, and ask when nobody has'
+overview: 'The merge door and the review-cost gate verdict on the evidence the surfaces actually produce, refuse loudly on evidence they cannot type, and request a review nobody has asked for.'
 status: ratified
-ratified_by: "Jim Cresswell (owner)"
+ratified_by: 'Jim Cresswell (owner)'
 ratified_date: 2026-09-20
-ratified_where: "Owner card answer of 2026-09-20 ~13:35Z in the session of Dynamo turns Temper (2a4c8a): the card \"Which of these do you ratify now?\" with all four options selected, among them this node's; recorded in that seat's handoff record and on the pull request that carries this stamp"
+ratified_where: 'Owner card answer of 2026-09-20 ~13:35Z in the session of Dynamo turns Temper (2a4c8a): the card "Which of these do you ratify now?" with all four options selected, among them this node''s; recorded in that seat''s handoff record and on the pull request that carries this stamp'
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
@@ -110,8 +110,12 @@ what may merge: every change either adds evidence the tool can read, or refuses 
    comment naming that commit reads `SATISFIED`; the same harvest with the named commit
    changed reads a refusal that names the failed precondition (the commit is not the current
    tip) and quotes the comment, never `OWED`, as the ruled decision note requires —
-   `repo-safe`: `agent-tools/src/pr-watch/reviewer-legs.unit.test.ts`
-   over literal inputs, plus a recorded #147 fixture in the settlement suite.
+   `repo-safe`: `agent-tools/src/pr-watch/completion-comments.unit.test.ts` (one refusal
+   case per precondition, over the comment recorded on #160) and
+   `agent-tools/src/pr-watch/settlement-completion-comments.unit.test.ts` (the tip-bound
+   comment satisfies; the non-tip comment reads `UNCLASSIFIED-EVIDENCE`, quoted). Amended
+   2026-09-20 from `reviewer-legs.unit.test.ts` + a #147 fixture: the transport is read in
+   its own module and the leg machine is unchanged.
 2. A tip-bound landed review with an empty body and no inline comments of its own never
    satisfies a leg, and the evidence line counts the empties; the same review carrying inline
    comments is a review with findings — `repo-safe`: the same suite, with the recorded #142
@@ -216,6 +220,31 @@ pull request and binds no tip, so it is corroboration at most. A findings run bi
 the review object's `commit_id`, and its body names the commit too. The vendor's About text
 describes a subset of what it emits; it is not the contract.
 
+**Recorded during implementation, 2026-09-20 (Dynamo turns Temper, 2a4c8a).** The warrant
+for taking the remaining half now: on 2026-09-20 alone this seat landed eight pull requests
+(#160 to #167) each on a "Landing premises" comment recomputing the Codex leg by hand on the
+same four preconditions; the comments are on those pull requests. The
+implementation reads the transport in its own modules rather than retyping the leg:
+`pr-watch/state-conversation.ts` parses the comments and the commits, each harvested in full by
+a paginated GraphQL read (`pr-watch/harvests.ts`, beside the reviews query);
+`pr-watch/completion-comments.ts` reads a declared reviewer's comment as a review bound to the
+one commit it names, or as a REFUSAL naming the failed precondition and quoting the comment;
+`pr-watch/completion-evidence.ts` gives the settlement half the union of both transports, the
+transport evidence and the refusals; the reading gains `completionComments`; the closed verdict
+set gains `UNCLASSIFIED-EVIDENCE` (a refused near-miss on a leg the tip does not satisfy; not a
+wait state — the cure is a fresh result on the tip). What this leaves of slice 1: the
+inline-only review (a review object with an empty summary and inline comments of its own)
+still reads as an empty body — the review's own comments are not yet a leg input (the
+round-two row of pull request 149 below); that is the next edit to the leg machine, its own
+pull request. One substitution, recorded: the ruling's first precondition names the
+repository's live automatic-review configuration, and the code reads a comment against the
+`--expect` set, which `docs/engineering/merge-bot.md` requires to be sourced from that
+configuration; a configured reviewer the operator did not declare is outside the reading, as
+it is outside every leg, and the door refuses a defaulted set. A follow-up this node now owns,
+unscheduled (test-expert, 2026-09-20): `pr-watch/state-gh.ts` multiplexes four gh legs
+through one `execFileSync` seam, so its suites need a fake that branches on argv; one
+reader per leg would let each test pass a constant.
+
 Two follow-ups this node now owns, neither scheduled:
 
 - `agent-tools/src/pr-watch/reviewer-legs.ts` sits at 249 lines against a 250-line
@@ -254,10 +283,10 @@ lists, twice — the request would then be ceremony, and the leg belongs on the 
 
 One dated row per routed finding (PDR-140 ledger surface).
 
-| Date | Source | Finding | Routing |
-| --- | --- | --- | --- |
-| 2026-09-16 | #149 round two, Copilot (settlement.ts) | A human review with inline comments and no summary has an empty body. It neither satisfies a leg nor anchors the quiet window, so after an earlier substantive review settlement can come sooner than ten minutes after it — not only stall. | Slice 1, remaining half: the typed reading must tell an inline-only review from a thread-reply artefact by the review's own comments. Bounded meanwhile by its threads having to resolve. #149's description is corrected. |
-| 2026-09-16 | #149 round two, Copilot (states.unit.test.ts) | No test covers the ordering where an empty review with `submittedAt: ''` is filtered before the missing-timestamp guard, so it cannot force the conservative null anchor. | Slice 1, remaining half: the first edit to the settlement suite adds the literal-input case. Not pushed on #149, because a third round would exceed its budget. |
-| 2026-09-16 | #150 round three, Copilot (suppressed, the act) | The request act names reviewers but no executable reviewer-to-trigger mapping: Copilot is requested by `POST pulls/{n}/requested_reviewers`, Codex only by an `@codex review` comment, and the door's only input is `--expect` logins (`merge-args.ts`), so acceptance criterion 5 can pass on the Copilot request while the Codex stall remains | Ratification reading, then slice 3 (the act): name where the mapping lives and prove both trigger paths in criterion 5 |
-| 2026-09-16 | #150 round three, Copilot (suppressed, the node's shape) | Six PR-sized slices in one delivery node, where the plan skill holds that a delivery node is one step of a lane, never the lane | Ratification reading: the owner decides whether the node ratifies as written or splits into delivery nodes under a parent before any slice is taken |
-| 2026-09-16 | #150 round three, Copilot (suppressed, criterion 1) | Criterion 1 proves the happy path and a non-tip commit only, where the ruled decision note also requires a configured author, an unedited comment and an abbreviation resolving to exactly one commit of the pull request | Slice 1, remaining half: criterion 1's proof carries one refusal case per precondition |
+| Date       | Source                                                   | Finding                                                                                                                                                                                                                                                                                                                                          | Routing                                                                                                                                                                                                                                                                                                                                                                |
+| ---------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-16 | #149 round two, Copilot (settlement.ts)                  | A human review with inline comments and no summary has an empty body. It neither satisfies a leg nor anchors the quiet window, so after an earlier substantive review settlement can come sooner than ten minutes after it — not only stall.                                                                                                     | Slice 1, remaining half: the typed reading must tell an inline-only review from a thread-reply artefact by the review's own comments. Bounded meanwhile by its threads having to resolve. #149's description is corrected. Re-routed 2026-09-20: the completion-transport pull request does not take it; it is the next edit to the leg machine, its own pull request. |
+| 2026-09-16 | #149 round two, Copilot (states.unit.test.ts)            | No test covers the ordering where an empty review with `submittedAt: ''` is filtered before the missing-timestamp guard, so it cannot force the conservative null anchor.                                                                                                                                                                        | Slice 1, remaining half: the first edit to the settlement suite adds the literal-input case. Not pushed on #149, because a third round would exceed its budget. Added 2026-09-20 in `states.unit.test.ts` with the completion-transport pull request.                                                                                                                  |
+| 2026-09-16 | #150 round three, Copilot (suppressed, the act)          | The request act names reviewers but no executable reviewer-to-trigger mapping: Copilot is requested by `POST pulls/{n}/requested_reviewers`, Codex only by an `@codex review` comment, and the door's only input is `--expect` logins (`merge-args.ts`), so acceptance criterion 5 can pass on the Copilot request while the Codex stall remains | Ratification reading, then slice 3 (the act): name where the mapping lives and prove both trigger paths in criterion 5                                                                                                                                                                                                                                                 |
+| 2026-09-16 | #150 round three, Copilot (suppressed, the node's shape) | Six PR-sized slices in one delivery node, where the plan skill holds that a delivery node is one step of a lane, never the lane                                                                                                                                                                                                                  | Ratification reading: the owner decides whether the node ratifies as written or splits into delivery nodes under a parent before any slice is taken                                                                                                                                                                                                                    |
+| 2026-09-16 | #150 round three, Copilot (suppressed, criterion 1)      | Criterion 1 proves the happy path and a non-tip commit only, where the ruled decision note also requires a configured author, an unedited comment and an abbreviation resolving to exactly one commit of the pull request                                                                                                                        | Slice 1, remaining half: criterion 1's proof carries one refusal case per precondition. Done 2026-09-20: `completion-comments.unit.test.ts`, one case per precondition.                                                                                                                                                                                                |

@@ -92,7 +92,8 @@ function bindsTip(review: HarvestedReview, headRefOid: string): boolean {
 // GitHub logins are case-insensitive; compare through one casing so a declared
 // `--expect jimcresswell` matches the API's `jimCresswell` (display keeps the
 // declared form).
-function normaliseLogin(login: string): string {
+/** The one login comparison every reader of a reviewer's result shares. */
+export function normaliseLogin(login: string): string {
   return login.toLowerCase();
 }
 
