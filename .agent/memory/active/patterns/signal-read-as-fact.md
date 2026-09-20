@@ -52,8 +52,9 @@ reviewer says "correct", a tool says OWED, one row disagrees, a weight fits —
 and the seat acts on it as the fact it stands for. Rigour is a stop: what does
 this stand for, why is it here, compared with what, how much is unresolved,
 what would show it wrong. Nothing in the seat's loop imposes that stop except a
-mechanism at the point of action, so where there is none the signal is acted on
-every time, and reflection written into a status line counts as having stopped.
+mechanism at the point of action; on the proving day, where there was none the
+signal was acted on each time it arrived, and reflection written into a status
+line counted as having stopped.
 
 ## The cure
 
@@ -61,7 +62,7 @@ Stops at the point, never labels on the work:
 
 - **Actions**: hooks and gates that refuse (the merge front door, the review
   cost gate at the push). These held throughout the proving day.
-- **Records with a shape**: fields the validator requires — a count and a
+- **Records with a shape**: fields the record shape requires — a count and a
   comparator beside any named pattern, a falsifier beside any graduation or
   weight change (PDR-130), a marker on every disposition (pr-tally).
 - **Repeated judgements**: an instrument that computes the same judgement from

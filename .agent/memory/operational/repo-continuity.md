@@ -340,15 +340,16 @@ branch folded as #156".
    context without a stand-in entry;
 4. scheduled maintenance: TypeScript strictness to the owner's target set, after the
    jimcresswell.net strictness slices land. The direction was relayed 2026-09-16 by Cauldron herds
-   Lustre; its full substance is in the estate-coordination record's §"2026-09-16 ~15:0xZ —
-   COMPACTION BOUNDARY" item 5.
+   Lustre; its full substance is in the estate-coordination record's §"Tool and code lanes
+   owed" item 7.
 
 The landings of 2026-09-12 to 2026-09-15 (the operator profile's schema as #144, its sync
 tool as #145, the review-cost gate's sync pass as #146, then #143 and the fold #137) are
 finished;
-their narrative and pickups live in the estate-coordination thread record's 2026-09-14
-LANDINGS entry and the blocks around it, and in the continuity-memory-and-knowledge-flow
-record for the profile's own landings.
+their open pickups live in the estate-coordination thread record's §"Open items the journal
+named, with no other home", their narrative in its archive
+(`.agent/memory/operational/archive/estate-coordination-thread-2026-09-20.md`), and the
+profile's own landings in the continuity-memory-and-knowledge-flow record.
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 

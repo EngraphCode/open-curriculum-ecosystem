@@ -42,7 +42,7 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   session open and `push` after a write; start-right §3a runs the pull ahead of
   the check since `c9abf6ce9` (2026-09-15). Its homed follow-ups (round three and four findings,
   #144's suppressed items) are the operator-profile follow-up PR, the
-  estate-coordination LANDINGS pickup 3. The gate defect that held
+  estate-coordination record's §"Tool and code lanes owed" item 4. The gate defect that held
   it (a settled pull request behind a moved base) is cured by #146,
   `048f377fa`. Remaining: (1) the
   directive-bound entries in `pending-graduations.md` (twelve at 2026-09-17,
@@ -235,8 +235,16 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    not and were graduated before anything moved (F-196, the stale-claims sweep reading a live
    seat as stale; the corpus tooling README's re-freeze-the-recall-fixture note; the
    `skill-composition.md` wording of `wrap`), and the unverifiable 2026-07-28 follow-ons stay
-   in the record as open residuals. Next by traffic: `collaboration-state-conventions.md`, the
-   estate-coordination record, `frictions-register.md` (its settled entries), this record's
+   in the record as open residuals. Also on 2026-09-20, the estate-coordination record
+   (snapshot `archive/estate-coordination-thread-2026-09-20.md`, blob `4ca3b11df`; 3,794 lines to
+   about 425). Read whole, it was nine tenures of finished journal around some twenty items named
+   as open. Each was checked for a home first: the lessons were homed already, #143's three
+   wording residues were cured in the same commit, and the items with no other home (the
+   practice-index framing the owner called "deeply incorrect", the TypeScript strictness spec,
+   the operator-profile follow-ups, the owed-items records, a `merge-bot grants` command, the
+   transplant register, the owner-held list) are kept in their own words under the record's
+   §"Open items the journal named, with no other home". Next by traffic:
+   `collaboration-state-conventions.md`, `frictions-register.md` (its settled entries), this record's
    own landed history above, the design-system-integration record, then the paused thread
    records. A reading past a limit on any of them is the signal to read it, never a reason
    to move it unread. Sizing, measured 2026-09-19: the agentic-engineering-enhancements
