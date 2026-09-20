@@ -3765,4 +3765,4 @@ invariant; continuity surfaces have a disposition with a trigger and a proof.
 
 Board: `engraph` at SHA:44729c98c, carrying #157 and #158 (Dynamo turns Temper's sync-machinery
 lanes). Open: #154, that seat's carrier, ready for review and BEHIND since this fold; the successor's draft pull request. Next,
-this seat: graduate, then archive the three large records, one per context.
+this seat: graduate, then archive the three large records, one at a time.

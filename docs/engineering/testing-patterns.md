@@ -23,22 +23,20 @@ For worked Red/Green/Refactor examples, see
 
 ## In-Process App Construction with Dependency Injection
 
-Code that creates the application in-process (via `createApp()`), whether a
-test or an E2E check's harness, must configure it through dependency injection with explicit runtime-config
-objects or hermetic test helpers, never by reading or mutating `process.env`.
-Do not import production config loaders unless the test is directly proving
-the loader; they may read `.env` files as part of the production pipeline.
+Code that creates the application in-process (via `createApp()`) configures it
+through dependency injection, with explicit runtime-config objects or hermetic
+test helpers; `process.env` stays untouched. A production config loader is
+imported only where the test directly proves the loader, since loaders may read
+`.env` files as part of the production pipeline.
 
-`request(app)` opens a loopback listener, and a socket is IO. By the owner's
-2026-09-14 ruling (tests never use or create IO;
-[testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy),
-`request(app)` against an imported app is no compliant shape at all: it is not a
-test and not an E2E check (an E2E check drives a separately
-running system, and this app is constructed in the driving process). The suites
-that do it are pre-invariant estate for
-`no-io-test-boundary-and-di-recovery.plan.md`, and the pattern below no longer
-shows it. The configuration discipline this section teaches (steps 1 and 2)
-binds whatever constructs the app. See
+An app constructed this way is proven in one of two ways. An integration test
+calls the handler or middleware under test directly, with literal request and
+response values. An E2E check boots the built app as a separate process and
+drives it over its protocol channel. Tests use and create no IO
+([testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy),
+and a listener is a socket, so the listener lives in the separately running
+system. The suites that call `request(app)` on an imported app are pre-invariant
+estate for `no-io-test-boundary-and-di-recovery.plan.md`. See
 [Test File Classification](#test-file-classification).
 
 ### The Pattern
@@ -47,7 +45,7 @@ binds whatever constructs the app. See
 import { createApp } from '../src/application.js';
 import { createMockObservability, createMockRuntimeConfig } from './helpers/test-config.js';
 
-// 1. Build an explicit runtime config — never read or mutate process.env
+// 1. Build an explicit runtime config from literals
 const runtimeConfig = createMockRuntimeConfig({
   dangerouslyDisableAuth: true,
   env: { OAK_API_KEY: 'test-api-key' },
@@ -59,10 +57,9 @@ const app = await createApp({
   observability: createMockObservability(runtimeConfig),
 });
 
-// 3. Prove behaviour without a listener: call the handler or middleware under
-//    test directly (an integration test), or boot the built app as a separate
-//    process and drive it over its protocol channel (an E2E check). Never
-//    `request(app)` here: it opens a loopback socket in this process.
+// 3. Prove behaviour: call the handler or middleware under test directly (an
+//    integration test), or boot the built app as a separate process and drive
+//    it over its protocol channel (an E2E check).
 ```
 
 ### Key Rules
@@ -150,20 +147,17 @@ not what the author intends:
 - **Module-level state = integration**: any test that touches
   module-level singletons must be `*.integration.test.ts`, even
   if it injects DI fakes for the new behaviour. A singleton that
-  performs IO is a product DI defect (above): no test tier admits
-  IO, so the file name cures nothing.
-- **Classify by boundary, not tool** (owner, 2026-07-29): code
-  imported into the test process is under the integration rule;
-  a harness driving a separately running black-box system over a
-  network interface is an E2E check. The same day's reading that
-  `request(app)`'s loopback socket was "tool mechanics" is withdrawn
-  by the 2026-09-14 ruling: a socket is IO, so `request(app)` in a
+  performs IO is a product DI defect (above), cured in the product
+  code by an injected seam.
+- **Classify by the boundary** (owner, 2026-07-29): code imported
+  into the test process is under the integration rule; a harness
+  driving a separately running black-box system over a network
+  interface is an E2E check. A socket is IO, so `request(app)` in a
   `*.integration.test.ts` file is pre-invariant estate.
 - **Middleware proofs exercise the middleware alone**: a middleware
   is a function of `(req, res, next)`; call it directly with literal
-  request and response values and a captured `next`, and never boot
-  the full application to prove one middleware decision (review lens
-  Q3/Q4). The existing example,
+  request and response values and a captured `next`. One middleware
+  decision is proven on the middleware (review lens Q3/Q4). The existing example,
   `apps/oak-curriculum-mcp-streamable-http/src/correlation/middleware.integration.test.ts`,
   mounts the middleware on a bare `express()` app and drives it with
   `request(app)`; its scoping is the lesson, its listener is

@@ -215,8 +215,9 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    records. A reading past a limit on any of them is the signal to read it, never a reason
    to move it unread. Sizing, measured 2026-09-19: the agentic-engineering-enhancements
    record is about 55,000 tokens to read (its last 280 lines alone are 27,000), the
-   estate-coordination record about 75,000 and the frictions register about 90,000, so each
-   of the three needs a context of its own, opened below 30 %. The first 740 lines of the
+   estate-coordination record about 75,000 and the frictions register about 90,000. Each is
+   priced against the headroom the context has at that moment (the window is a million
+   tokens) and read whole before anything moves. The first 740 lines of the
    agentic-engineering-enhancements record were read and NOT curated (nothing moved, by the
    owner's rule): they are nine EXECUTED consolidation and doctrine logs whose homes are
    their commits, beside three live lanes that stay (the inter-Practice exchange's standing
@@ -228,14 +229,22 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    pointers, re-trued at each wrap.
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
    work list, TypeScript strictness).
+6. DONE 2026-09-20 at the owner's word: the no-IO doctrine states the present design in the
+   positive. Nine phrases in three files (`testing-strategy.md`, `test-immediate-fails.md`,
+   `testing-patterns.md`) told part of it as a story of what had been removed; each passage
+   now states what a test is, what a check is and which suites the recovery plan owns, and the
+   change itself (three sanctioned shapes ended on 2026-09-14) is recorded once, in ADR-078's
+   amendment entry. The search that found the nine was literal (`withdrawn`, `no longer`,
+   `no sanctioned shape`) and reads zero after the cure; the structural negation-contrast form
+   is not grep-able (F-154), so other passages of this arc's doctrine are unread for it.
 
 **Resume point, 2026-09-20 after the fold.** The drain is on `engraph`: #156 merged as
 `SHA:44729c98c` at 12:44Z through the front door; the live branch is
 `coordination/2026-09-20-44729c`. The prediction recorded before the fact (the retrospective's
 proposal 4: doctrine on the coordination branch draws twenty or more findings; ten or fewer
 refutes) held: 36 in the pre-publication pass, then 23, 6 and 5 in three rounds; the #156 row
-of `review-cost-ledger.md` has the reading. Next: the three large records (item 3 above), each
-in its own context, priced first, opened below 30 %.
+of `review-cost-ledger.md` has the reading. Next: the three large records (item 3 above), one at a
+time, each priced against the headroom at hand and read whole.
 The retrospective on the consolidation's arc is landed:
 `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
 Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's

@@ -331,6 +331,16 @@ actually present**:
   is about to be amended a third time, stop and re-read the whole passage against the
   mechanism's source first: four of #155's eight review findings were on one sentence of
   one decision, each cure drawing the next.
+  A changeset that lands a corrected direction (an owner ruling that renames a category,
+  withdraws a shape or reverses a reading) opens its pass with the two-list sweep of
+  [`no-tombstones-for-removed-ideas`](../../../rules/no-tombstones-for-removed-ideas.md)
+  §Corrected Directions, run estate-wide by the OLD name before any verifier reads: every hit
+  is residue to re-true or a fact to harvest, and the sweep's range is the whole estate.
+  Worked instance, 2026-09-20: the no-IO test invariant's landing searched
+  the eight files it changed and their citers; 22 of the fold's 34 review findings were
+  residue in the next rings (a reviewer template, two ADR bodies, four docs, a rule), found one
+  ring per round. Falsifier: a changeset that ran the sweep still draws two rounds of
+  residue-class findings.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two

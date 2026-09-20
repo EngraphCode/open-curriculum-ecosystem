@@ -144,7 +144,7 @@ still unhomed, as at the three rotations before.
   wrong tip and the wrong content. Dynamo turns Temper's retrospective of the same day names the
   same slip. Behaviour change: resolve the ref to a full sha in the same shell call as the
   merge, merge that sha, and write the message from `git log <head>..<sha>` after resolving.
-  Home: the coordination-fold skill's step 4, at the next consolidation (second instance).
+  Graduated the same day to the coordination-fold skill's step 4 (second instance).
 - **Surprise: a category rename has the whole estate as its sibling set.** The claim pass
   searched the eight changed files and their citers and found 19; the reviewers then found the
   next ring three times (the test-expert template's trigger and checklist, ADR-078's pattern
@@ -153,13 +153,38 @@ still unhomed, as at the three rotations before.
   all six of round two, four of round three's five). What would
   have found them first: one estate-wide grep for the retired terms ("E2E test", "smoke
   test", `request(app)`, `.e2e.test.ts` as a required name) run BEFORE the verifiers, with
-  every hit dispositioned, in place of a search scoped to the change's own files. Candidate
-  home: pr-lifecycle's pre-publication pass, as a third lens ("a renamed category is swept
-  estate-wide by its old name"). One instance; it waits for a second.
+  every hit dispositioned, in place of a search scoped to the change's own files. I first
+  filed this as a new lens waiting for a second instance. It is neither new nor single: the
+  instrument is `no-tombstones-for-removed-ideas` §Corrected Directions (the RESIDUE and
+  HARVEST sweep every owner correction fires), which I did not run when I graduated the
+  owner's no-IO ruling, and the second instance arrived the same afternoon (the 30 % read
+  clause, below, whose residue sat in five files). An existing rule went unfired at the moment
+  of absorbing a correction. Graduated the same day: pr-lifecycle's pre-publication pass now
+  names that sweep, by the OLD name, estate-wide, as its first act.
 - **What worked.** Verifier findings were checked at source before each cure and three of my
   own cure sentences were wrong when first written (a "Phase 4" that is step 8; "the existing
   smoke suites" that is one suite; `request(app)` relabelled as an E2E check, which both
   reviewers caught). A cure is a new claim and gets the same check as the text it replaces.
+- **Owner correction, 13:3xZ, verbatim: "you are taking the 30% too literally and too strictly,
+  if I give you a skill to read then read it".** I had declined the metacognition skill's
+  directed read of its directive at 40 %, citing a sentence I wrote into the budget rule the day
+  before ("the read is budgeted too") from ONE incident. Two errors under it. First, I turned a
+  single observation into a prohibition and then obeyed it against the owner's instruction.
+  The governing decision, PDR-052, already lists "Reading a directive as input to other work"
+  under what is NOT directive-file work: I amended a rule on 2026-09-19 without reading the
+  decision it operationalises, and my clause contradicted it. My first repair, the same hour,
+  was itself a tombstone (a rule paragraph naming the dead idea in order to reject it, with the
+  owner's "I never meant" inside it); at the owner's word I re-did it under the tombstone rule:
+  the rule now states PDR-052's scope in the positive, and the residue (the skill's "before the
+  first directive read", three records' "opened below 30 %") is re-trued. Harvested, still
+  true: the meter command, the stale first reading after a compaction, pricing a pass at open.
+  Second, and costlier: by the same analogy I had told the owner the three large memory records
+  "need a compaction first, each opened below 30 %". They are memory files, not directives;
+  the constraint on them is headroom to read each whole, and at 40 % of a million-token window
+  there are about 600,000 tokens of it. That plan was written at 65 % in the previous context
+  and I carried it across a compaction that changed its premise. Behaviour change: a gate is
+  applied to the class it names and no wider; a plan's premise (here, the figure) is re-read
+  when the figure changes, before the plan is repeated to the owner as a blocker.
 - **Open for the owner.** Codex's round-three finding on the launch prompt's last sentence
   (the owner's words, left as written; the skill now says the prompt's answer holds for the
   session it launched and no other).

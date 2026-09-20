@@ -317,7 +317,7 @@ branch folded as #156".
    directive entries graduated, `SHA:f6ce4d0c3`, `SHA:28e8b73be`, `SHA:d3c81c0b2`).
    What remains is the graduate-then-archive curation of the large memory files
    (`continuity-practice.md` §Disposition; `consolidate-docs` step 6b): this file and
-   `director-handoff.md` are done; next, one per context and priced first, are the
+   `director-handoff.md` are done; next, one at a time and each priced first, are the
    agentic-engineering-enhancements record, the estate-coordination record and the frictions
    register, then `collaboration-state-conventions.md` and the paused thread records. Each
    is read whole before anything moves;

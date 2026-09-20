@@ -56,6 +56,12 @@ resides on the coordination branch).
 3. Commit by explicit pathspec (`stage-by-explicit-pathspec`);
    lowercase-start subjects (commitlint).
 4. `git fetch origin main`, then merge `origin/main` INTO the branch.
+   Resolve the ref to a full sha in the same shell call as the merge, merge
+   that sha, and write the merge message AFTER resolving, from
+   `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
+   seat fetches, so a message written from an earlier reading names the wrong
+   tip and the wrong content (two seats made this slip on one day, 2026-09-20;
+   one merge message named #157 while the merge also carried #158).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
    files against main) before pushing.

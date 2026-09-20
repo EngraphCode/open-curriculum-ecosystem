@@ -47,15 +47,19 @@ first; if the agent reaches the directive boundary at or above 30%
 context, finish the in-flight step, write a handoff, and queue
 the directive edits for a fresh session.
 
-The read is part of the directive work and is budgeted the same way: do not
-read directives end-to-end in a context that will not also edit them. A context
-that carries other heavy work first (a branch fold with review rounds, a long
-raw-source read) reads the figure again after that work's last step and BEFORE
-the first directive read; if it is already near the line, the directive reads
-belong to the next context with the edits. Worked instance (2026-09-17 to
-2026-09-19): one seat read 13 % at open, declared "fold here, directives here",
-read six directives during the fold's waits, and stood at 51 % at the directive
-step with no edit made; the reads were repeated in a later context.
+The gate covers directive-file work as PDR-052 defines it: direct editing of a
+directive's content, restructuring its sections or cross-references, and
+authoring new sections (owner, 2026-09-20: "don't attempt to rewrite directives
+with low context"). Reading a directive as input to other work, citation
+updates and frontmatter-only edits are ordinary work at any figure; a directive
+does its job by being read.
+
+A context that carries other heavy work first (a branch fold with review rounds,
+a long raw-source read) reads the figure again after that work's last step and
+before its first directive edit; at or above the line, the edits belong to the
+next context. Worked instance (2026-09-17 to 2026-09-19): one seat read 13 % at
+open, declared "fold here, directives here", and stood at 51 % at the directive
+step with no edit made; the edits landed in a later context opened at 11 %.
 
 ## Reading the Figure
 

@@ -255,9 +255,7 @@ describes it). Rollout sequencing:
   violates the principle of using the right tool for the job. Use
   the right tool: ESLint for boundary enforcement, Playwright for
   browser testing, vitest for runtime logic.
-  There is no sanctioned shape (the spawn-topology contract test
-  recorded 2026-08-07 is withdrawn by the 2026-09-14 ruling). A
-  child's stdio topology or exit and signal fidelity is real process
+  A child's stdio topology or exit and signal fidelity is real process
   IO; where no injection seam below it can carry the proof (a fake
   would model libuv engine semantics, the "double models the engine"
   trap), the proof is an observation made once at cure time and
@@ -366,14 +364,11 @@ about testing CODE, not testing RUNNING SYSTEMS.
   system - they test how multiple code units integrate when imported
   and called directly. An HTTP surface is exercised below the
   listener, at a handler or middleware function called directly with
-  request and response values, never by opening a listener: a
-  loopback socket is IO, whatever tool opens it, and the 2026-07-29
-  "calling mechanics" reading of a harness-owned listener
-  (`supertest(app)`) is withdrawn by the 2026-09-14 ruling. The
-  existing `supertest(app)` suites are pre-invariant estate, and the
-  worked recipe for the handler seam is the recovery plan's to
-  establish; until it lands, no new listener-opening test is written.
-  Every upstream dependency is an injected simple fake.
+  request and response values: a loopback socket is IO, whatever tool
+  opens it. The existing `supertest(app)` suites are pre-invariant
+  estate, the worked recipe for the handler seam is the recovery
+  plan's to establish, and every new HTTP-surface test is written at
+  that seam. Every upstream dependency is an injected simple fake.
 
 #### Out-of-process checks
 

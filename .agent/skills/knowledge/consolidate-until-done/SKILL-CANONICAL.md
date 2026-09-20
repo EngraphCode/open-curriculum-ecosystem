@@ -113,7 +113,7 @@ Before substantive work:
    six directives during the fold's waits, and stood at 51 % with no directive edited;
    across four contexts and four folds no register entry left (eleven, then twelve). Naming
    the shape at open is not enough. Two further requirements: read the figure again
-   after any fold's last push and before the first directive read
+   after any fold's last push and before the first directive edit
    (`directive-file-context-budget` §Sequencing), and state the pass's own measure (the
    register's count, the buffers' undrained items) first in every report to the owner,
    naming work that does not move it as not moving it. Falsifier for these: a pass that
