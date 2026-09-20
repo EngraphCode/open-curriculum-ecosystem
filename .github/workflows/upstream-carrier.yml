@@ -117,12 +117,13 @@ jobs:
           number="$(jq -r '.[0].number' <<<"$carriers")"
           head_sha="$(jq -r '.[0].head_sha' <<<"$carriers")"
           echo "number=${number}" >>"$GITHUB_OUTPUT"
-          # Reported, never acted on: replacing a carrier the mirror has moved
-          # past is the work of the seat that takes it up.
+          # Reported, never acted on, and never judged: a head that differs
+          # from the mirror's tip is a stale unworked carrier or a seat's own
+          # commits, and only the seat reading the carrier can tell which.
           if [ "$head_sha" = "$MIRROR_TIP" ]; then
             echo "::notice title=Carrier already open::PR #${number} is the open carrier at the mirror's tip ${MIRROR_TIP:0:7}; the mirror is ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch."
           else
-            echo "::notice title=Carrier already open::PR #${number} is the open carrier with head ${head_sha:0:7}; the mirror's tip is now ${MIRROR_TIP:0:7}, ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. This workflow leaves it; the seat that takes it up replaces it (cross-fork skill, step 1)."
+            echo "::notice title=Carrier already open::PR #${number} is the open carrier with head ${head_sha:0:7}; the mirror's tip is now ${MIRROR_TIP:0:7}, ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. This workflow leaves it either way: a seat's commits move the head too, and only an unworked carrier is ever replaced, by the seat that takes it up (cross-fork skill, step 1)."
           fi
 
       - name: Cut the carrier branch and open the draft pull request

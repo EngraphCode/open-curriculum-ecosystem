@@ -183,12 +183,13 @@ jobs:
           number="$(jq -r '.[0].number' <<<"$carriers")"
           head_sha="$(jq -r '.[0].head_sha' <<<"$carriers")"
           echo "number=${number}" >>"$GITHUB_OUTPUT"
-          # Reported, never acted on: replacing a carrier the mirror has moved
-          # past is the work of the seat that takes it up.
+          # Reported, never acted on, and never judged: a head that differs
+          # from the mirror's tip is a stale unworked carrier or a seat's own
+          # commits, and only the seat reading the carrier can tell which.
           if [ "$head_sha" = "$MIRROR_TIP" ]; then
             echo "::notice title=Carrier already open::PR #${number} is the open carrier at the mirror's tip ${MIRROR_TIP:0:7}; the mirror is ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch."
           else
-            echo "::notice title=Carrier already open::PR #${number} is the open carrier with head ${head_sha:0:7}; the mirror's tip is now ${MIRROR_TIP:0:7}, ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. This workflow leaves it; the seat that takes it up replaces it (cross-fork skill, step 1)."
+            echo "::notice title=Carrier already open::PR #${number} is the open carrier with head ${head_sha:0:7}; the mirror's tip is now ${MIRROR_TIP:0:7}, ${MIRROR_AHEAD_BY} commit(s) ahead of the default branch. This workflow leaves it either way: a seat's commits move the head too, and only an unworked carrier is ever replaced, by the seat that takes it up (cross-fork skill, step 1)."
           fi
 
       - name: Cut the carrier branch and open the draft pull request
@@ -267,8 +268,9 @@ jobs:
    prefix match, which also matches the retired producer's prefix, is now belt and braces
    rather than the interval's cover.
 
-6. With more than one carrier open, a run fails naming each and writes nothing (added
-   2026-09-20). Proof `repo-safe`: the run log; unexercised until the state next occurs, since
+6. With the mirror ahead and more than one carrier open, a run fails naming each and writes
+   nothing (added 2026-09-20). With nothing to carry the guard does not run, as no step after
+   the compare does: duplicates then block nothing, and the next due run names them. Proof `repo-safe`: the run log; unexercised until the state next occurs, since
    no workflow test harness exists.
 
 ### Amendment 2026-09-20 — a stale carrier is replaced by the seat that takes it up
@@ -402,4 +404,5 @@ Review rounds on the lane's pull request, 2026-09-19 to 2026-09-20:
 | Round one, **Copilot**: the author test in the step's `if:` skipped an unworked carrier by another author silently, against the description's "fails loudly". | True at source. Cured in the same push by moving the proof into the shell; moot once the step was removed. |
 | Round two, **Codex (P1) and Copilot, same finding**: a lease holds the reference's old value at the instant of deletion and reserves nothing afterwards, so a seat's ordinary first push recreates the branch between the delete and the close, and the run closes the pull request over it. | True at source, and the second cure of one mechanism: the step-back fired. No ordering of two writes to two resources is atomic. Put to the owner with a verdict; the owner chose the seat-at-pickup shape. The supersede step, the pickup label and their prose were removed (second and last settlement push). |
 | Round two, **Copilot**: the supersession comment said the run deleted the branch even on the recovery path where it had skipped the delete. | True at source; moot, the comment no longer exists. |
+| Round five, **Codex (P2), two**: the multiple-carrier guard is skipped when nothing is due, against criterion 6's unconditional wording; and the notice told operators a carrier whose head differs from the mirror's tip "is replaced", though a seat's own commits move the head too. | Both true at source. Criterion 6 narrowed to what the workflow does, with why (nothing after the compare runs when nothing is due, and duplicates then block nothing). The notice made neutral: it reports both shas, says a seat's commits also move the head, and that only an unworked carrier is ever replaced. |
 | Routed, not built: a seat's first carrier push leased on the sha in the branch name would give a two-sided compare-and-swap on the one reference (Copilot, round two). | Not needed under the adopted shape, where no automation deletes a carrier branch. Recorded so the idea is findable if automated replacement is ever reopened. |
