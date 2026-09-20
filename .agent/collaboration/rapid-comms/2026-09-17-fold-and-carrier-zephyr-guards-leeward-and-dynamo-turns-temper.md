@@ -709,3 +709,9 @@ One commit through the ceremony, then one push. This is the last file of the act
 One commit through the ceremony, then one push. This is the last file of the large-file set: nineteen curated, twenty left live. The report to the owner follows the push.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:57:00Z — gate run starts NOW on the primary: the napkin addendum (the large-file set read whole) and the #168 reads routed
+
+One commit through the ceremony, then one push, then the report to the owner. Nineteen curated, twenty left live; pending graduations 0; the drainable buffers as the owner declared them.
+
+— Zephyr guards Leeward (281e44)

@@ -193,7 +193,14 @@ this section when it lands or the owner closes it.
    Handed by Dynamo turns Temper at their closeout, unscheduled: the inline-only review's own
    comments as a leg input (the round-two row of #149; slice 1's last piece, its own pull
    request), and the multiplexed gh seam in `pr-watch/state-gh.ts` (one reader per leg, so the
-   suites' fakes stop branching). Slice 1's other half is reading a
+   suites' fakes stop branching). Two post-landing specialist reads of #168 are durable records
+   on the pull request (their addendum of 20:55Z): the docs read, comment 5752594076 (five
+   records edits on the pr-lifecycle skill and `merge-bot.md`; the decision note
+   `.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md` meets a retirement
+   condition it still reads as RULED), and the threat read, comment 5752597365 (LOW RISK; its
+   items 1 and 5 — line-anchor the `**Reviewed commit:**` label; harvest `isMinimized` — alter
+   what the door reads and go first, each its own pull request; item 5 is the owner's own
+   observation, comment 5752404709). Slice 1's other half is reading a
    configured vendor's zero-findings result as the result it is. The owner has ruled (2026-09-16,
    verbatim: "No findings means no problems, that IS a result, it shouldn't need special
    treatment"), so it is an ordinary implementation. Build it

@@ -196,3 +196,21 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
 - 2026-09-20 20:4xZ (Dynamo turns Temper, 2a4c8a): a seat that cannot trigger its own
   compaction stops three times at the same mark if each stop is a report — the report reads as
   an end to its writer. The cure is a named next piece of loss-tolerant work, never "continue".
+
+- **Addendum, 2026-09-20 20:5xZ (Zephyr guards Leeward, 281e44) — the large-file set is read
+  whole.** After the third compaction of the day (the meter's second reading 10.7 %; the first,
+  66.5 %, was the stale one — the register's own note): nineteen files curated (this context:
+  `orientation-skills-family`, `skills-estate-organisation`, `repo-continuity.md` by an
+  index-record brief, `open-surface-zero`, `director-handoff.md`, the continuity record's own
+  session history) and twenty read whole and left live, every one with a section-level analysis
+  in the scratchpad and a verdict in the continuity record's resume point. Counts at this
+  write: pending graduations 0; register 0 due; distilled 0; open questions 0; napkin: two
+  records and Dynamo's blocks, plus this block. What the day taught about the method, kept
+  here as one seat's observation: the split method scales to a whole tier when the analysts
+  answer one cheap question per section (STATE: live or finished, with the sentence) and the
+  seat verifies only the claims that bear on a move at their commits — thirty analysts over
+  thirty-nine files, every merge sha checked with `git cat-file` or the merge-commit grep; a
+  verdict of "left live" is as much a result as a curation and costs one `rm` of the
+  snapshot. One refusal: a ceremony run lost its staging before the guard (the staged set did
+  not match the intent) with no lock file involved — closed the claim, abandoned the intent,
+  re-ran alone; one instance, an observation.
