@@ -142,3 +142,14 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   twenty-one small paused records. Blind spot: the census re-point is the only archive-time
   step the lifecycle text does not name; a candidate sentence for `continuity-practice.md`
   §Disposition at a context below 30 %.
+- **Owner correction, 2026-09-20 ~20:0xZ, verbatim: "wrapping and pushing is no use whatsoever
+  if you can't trigger your own compaction, which you can't, all you are achieving is
+  stopping."** The instance: this seat wrapped at 56 % and answered the goal hook's refusals
+  with "holding for `/compact`" seven times, on the reading that the earlier freeze order
+  ("prepare for compaction and stop all processes") still governed; it did not — that order
+  was for one compaction the owner then ran, and absent a fresh one the seat's compaction is the
+  80 % auto-compaction, with the preparation at 70 %. The cure: a seat past the meter's peak
+  keeps working the job in bounded pieces until the preparation threshold, and wraps then, once.
+  Home: `consolidate-until-done` step 7 (the pricing paragraph: the budget of a context runs to
+  the preparation threshold, never to a wrap the seat chooses early). The done-condition
+  candidate of the continuity record's item 4 stands.
