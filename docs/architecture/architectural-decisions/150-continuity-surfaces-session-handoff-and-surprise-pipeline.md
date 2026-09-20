@@ -1,6 +1,6 @@
 # ADR-150: Continuity Surfaces, Session Handoff, and Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29, 2026-06-07, 2026-06-08, 2026-06-12, 2026-06-19, 2026-07-28)
+**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29, 2026-06-07, 2026-06-08, 2026-06-12, 2026-06-19, 2026-07-28, 2026-09-17)
 **Date**: 2026-04-02 (amended 2026-04-20 — §3 abstracted from
 prompt-host to canonical repo-local surface; §4 generalised; Rationale
 and Consequences language aligned to the amendment per OAC Phase 4.3;

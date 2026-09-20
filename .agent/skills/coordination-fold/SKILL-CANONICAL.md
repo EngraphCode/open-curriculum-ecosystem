@@ -44,7 +44,7 @@ resides on the coordination branch).
    source change is code-class and stays on the review-round state machine, no intake. It
    expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
    committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
-   took a day. Second instance, 2026-09-14 to 2026-09-19: a dedicated consolidation's doctrine
+   took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
    rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
    large, the lifetime rule forced the next before the consolidation's own work could start,
    and the last fold's whole content was records about the fold before it (twenty-three

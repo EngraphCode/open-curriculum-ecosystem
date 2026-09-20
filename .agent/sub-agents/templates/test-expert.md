@@ -82,7 +82,7 @@ are an admission you did not read them.
 
 1. **Prefer pure functions and unit tests** — fastest, narrowest, most specific.
 2. **Prefer unit tests over integration tests** — simpler, more focused.
-3. **Prefer integration tests over E2E tests** — faster, more deterministic.
+3. **Prefer integration tests over E2E checks** — faster, more deterministic.
 
 But the hierarchy is *complementary*, not *substitutional*. A unit test is
 never enough on its own to show that value is delivered. The doctrine is
@@ -104,7 +104,8 @@ never enough on its own to show that value is delivered. The doctrine is
 
 For each test file:
 
-- Classify as unit, integration, or E2E based on **what it actually does**
+- Classify as a unit test, an integration test, or an E2E check (a
+  validation surface, not a test) based on **what it actually does**
   (does it import product code? does it spawn processes? does it exchange
   protocol with a separate running system?), not just its name.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
@@ -226,19 +227,23 @@ Integration tests include MCP protocol compliance testing. They import
 and test code directly — they never spawn processes, make network calls,
 or test deployed systems.
 
-### Out-of-Process Tests
+### Out-of-Process Checks
 
-Tests that validate a running system in a separate process.
+Checks that drive a running system in a separate process. They are
+validation surfaces, never tests: tests never use or create IO
+(`testing-strategy.md` §Philosophy, owner, 2026-09-14). The `test` in the
+file names below is pre-invariant naming.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E** | Running system behaviour | Minimal, largely around network IO | STDIO only, NOT filesystem or network | `*.e2e.test.ts` |
-| **Smoke** | Deployed system verification | NONE | All types | `*.smoke.test.ts` or standalone scripts |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio, or HTTP on the local host) | `*.e2e.test.ts` |
+| **Smoke check** | The shipped form is viable | NONE | All types | `*.smoke.test.ts` or standalone scripts |
 
 ### The Critical Distinction
 
 ```typescript
-// THIS IS NOT AN INTEGRATION TEST — it is an E2E test
+// THIS IS NOT AN INTEGRATION TEST — it drives a running system, so it is
+// an E2E check, and as a test it is an error (network IO)
 describe('API Integration Test', () => {
   it('should call the deployed API', async () => {
     const response = await fetch('http://localhost:3000/api/users');

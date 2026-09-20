@@ -619,7 +619,9 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     Continuity Surfaces: per entry, live or finished; the behaviour-changing
     finished entries graduated and their homes read back; the finished range
     moved whole to `archive/<surface>-YYYY-MM-DD.md` beside the surface and
-    proven byte-identical against the committed blob; the runbook's token and
+    proven byte-identical against the committed blob (finished ranges that are
+    not contiguous: a snapshot of the whole pre-curation file, proven the same
+    way, then the live file curated); the runbook's token and
     neighbour checks run; the live surface left with its live state and a
     one-line pointer. This is the trigger the continuity surfaces lacked
     until 2026-09-17, when only the napkin had one. Archiving happens only after

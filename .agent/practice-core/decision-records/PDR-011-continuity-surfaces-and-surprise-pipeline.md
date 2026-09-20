@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-011: Continuity Surfaces and the Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08, amended 2026-06-12, amended 2026-07-28)
+**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08, amended 2026-06-12, amended 2026-07-28, amended 2026-09-17)
 **Date**: 2026-04-18 (amended 2026-04-20 — contract host abstracted
 from "primary session-continuation prompt" to "canonical repo-local
 surface set"; field set split into portable minimum plus optional

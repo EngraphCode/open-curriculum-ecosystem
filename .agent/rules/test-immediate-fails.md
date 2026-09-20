@@ -47,17 +47,16 @@ seam, extract a pure function, inject a dependency).
    `schema-cache-reader.ts`) are pre-invariant estate for
    `no-io-test-boundary-and-di-recovery.plan.md`, never a precedent
    ([PDR-091](../practice-core/decision-records/PDR-091-precedence-is-not-approval.md)).
-5. **Any test (unit/integration/E2E in-process) touches
-   `process.env`.** Reading OR writing `process.env` is prohibited.
+5. **Any test (unit or integration) touches `process.env`.** Reading OR writing `process.env` is prohibited.
    Pass literal inputs; do not inherit from shell state.
-6. **Any in-process test touches `process.cwd()`.** Anchor file
-   paths at `import.meta.dirname`, not the caller's cwd.
-7. **Any in-process test reads from `.env` / `.env.local` / any
+6. **Any test touches `process.cwd()`.** A test has no file path to
+   anchor (item 4); a path the unit needs is passed in as a literal.
+7. **Any test reads from `.env` / `.env.local` / any
    runtime environment file.** Tests construct config literals
    directly; they do not route through loaders that read disk.
 8. **Any test spawns a child process, fork, or test-authored
-   worker.** Covered by `testing-strategy.md §No process spawning in
-   in-process tests`. There is no sanctioned shape: the
+   worker.** Covered by `testing-strategy.md` §Rules, "No process spawning
+   in tests". There is no sanctioned shape: the
    spawn-topology contract test recorded 2026-08-07 is withdrawn by
    the 2026-09-14 ruling, and that proof is an observation or a
    validator's self-proof. The directive is the authority; this item
@@ -126,9 +125,10 @@ seam, extract a pure function, inject a dependency).
 ## Pipeline Immediate Fails
 
 20. **Test category does not match its file name.** A
-    `*.unit.test.ts` that touches IO is a category error — either
-    rename or redesign. Per `testing-strategy.md`, naming IS the
-    category. Renaming such a test to `.integration` cures nothing,
+    `*.unit.test.ts` that injects a fake is an integration test under
+    the wrong name: rename it. Per `testing-strategy.md`, naming IS the
+    category. A test that touches IO is a different defect (item 4):
+    renaming it to `.integration` cures nothing,
     since no test tier admits IO; the cure is an injected seam or a
     move to validation.
 21. **Test is named `*.integration.test.ts` but opens a socket, hits

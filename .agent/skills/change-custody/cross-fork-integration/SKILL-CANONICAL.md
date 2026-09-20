@@ -55,7 +55,8 @@ no conception of meaning."
   they go to Oak when the fork syncs back, not before."). In this skill,
   "upstream" names the Oak fork as the source of a sync, never an authority.
   A reviewer finding on code that arrived with a sync is cure-worthy on this
-  fork: cure it in its own lane, and the merge-back delivers it. Nothing is
+  fork: cure it in its own lane (on the carrier only where it blocks the
+  merge; step 8's carrier rule), and the merge-back delivers it. Nothing is
   ever sent to the other fork's maintainers. Ask, of any finding: whose code is
   this, and where does a fix travel?
 - **History is never rewritten across the forks** (owner, 2026-09-10,
@@ -435,7 +436,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
 - Trusting GitHub's dirty verdict over a clean local merge-tree, or the reverse
   without saying which was read.
 - Routing a finding on carried code to the other fork instead of curing it
-  here in its own lane, or curing it inside the carrier's rounds.
+  here in its own lane, or curing inside the carrier's rounds a finding that
+  does not block the merge.
 - Regenerating one page by hand because "only the excerpt changed".
 - Merging a memory file on the conflict count.
 - Plans and reports left asserting the state before the sync — the class this

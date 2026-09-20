@@ -3,7 +3,8 @@
 **Status**: Accepted  
 **Date**: 2025-12-14  
 **Deciders**: Engineering Team  
-**Related**: [Testing Strategy](../../../.agent/directives/testing-strategy.md), [Rules](../../../.agent/directives/principles.md)
+**Related**: [Testing Strategy](../../../.agent/directives/testing-strategy.md), [Rules](../../../.agent/directives/principles.md)  
+**Amended**: 2026-09-19, for the testing taxonomy's IO invariant (owner, 2026-09-14: tests never use or create IO). Wherever this ADR says "smoke tests" or "smoke suites", read smoke **checks**, which are validation surfaces outside the test suites. In the in-process app pattern, `createApp()` with injected configuration stands; driving the app with supertest opens a loopback socket, so that line belongs to an E2E check, and the suites that do it in-process are pre-invariant estate for `no-io-test-boundary-and-di-recovery.plan.md`. The DI decision is unchanged.
 
 ## Context
 

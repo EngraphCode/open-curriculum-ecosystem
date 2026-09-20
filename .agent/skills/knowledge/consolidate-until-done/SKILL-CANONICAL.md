@@ -111,7 +111,7 @@ Before substantive work:
    The falsifier fired (2026-09-17 to 2026-09-19): the same seat named the shape at
    open at 13 %, then spent the headroom on a fold's three review rounds and on reading
    six directives during the fold's waits, and stood at 51 % with no directive edited;
-   across four contexts and four folds the register held the same twelve entries. Naming
+   across four contexts and four folds no register entry left (eleven, then twelve). Naming
    the shape at open is not enough. Two further requirements: read the figure again
    after any fold's last push and before the first directive read
    (`directive-file-context-budget` §Sequencing), and state the pass's own measure (the

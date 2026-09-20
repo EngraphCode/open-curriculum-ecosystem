@@ -21,10 +21,10 @@ For worked Red/Green/Refactor examples, see
 
 ---
 
-## In-Process App Tests with Dependency Injection
+## In-Process App Construction with Dependency Injection
 
-Tests that create the application in-process (via `createApp()`)
-must configure it through dependency injection with explicit runtime-config
+Code that creates the application in-process (via `createApp()`), whether a
+test or an E2E check's harness, must configure it through dependency injection with explicit runtime-config
 objects or hermetic test helpers, never by reading or mutating `process.env`.
 Do not import production config loaders unless the test is directly proving
 the loader; they may read `.env` files as part of the production pipeline.
@@ -89,7 +89,8 @@ injected object; they must not read or write `process.env`.
 
 ### Reference Implementations
 
-Compliant tests to use as templates:
+Templates for the configuration discipline (steps 1 and 2). Their `request(app)`
+driving line is pre-invariant estate, as above:
 
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/auth-bypass.e2e.test.ts`
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/web-security-selective.e2e.test.ts`
@@ -142,9 +143,10 @@ Test classification is based on what the test actually does,
 not what the author intends:
 
 - **Module-level state = integration**: any test that touches
-  module-level singletons with IO must be
-  `*.integration.test.ts`, even if it injects DI fakes for
-  the new behaviour.
+  module-level singletons must be `*.integration.test.ts`, even
+  if it injects DI fakes for the new behaviour. A singleton that
+  performs IO is a product DI defect (above): no test tier admits
+  IO, so the file name cures nothing.
 - **Classify by boundary, not tool** (owner, 2026-07-29): code
   imported into the test process is under the integration rule;
   a harness driving a separately running black-box system over a
@@ -164,14 +166,15 @@ not what the author intends:
 
 ## Composition Testing
 
-Unit + E2E tests can all pass while the integrated product
-fails. For features spanning multiple modules (MCP tool →
-SDK → host), add a **composition test** that exercises the
+Unit tests and E2E checks can all pass while the integrated
+product fails. For features spanning multiple modules (MCP tool →
+SDK → host), add a **composition proof** that exercises the
 integration seam.
 
-Example: `mcp-app-composition.e2e.test.ts` caught
-knip/depcruise cleanup that broke the UI — the composition
-test IS the enforcement for multi-module integration.
+Example: `mcp-app-composition.e2e.test.ts` (an E2E check under its
+pre-invariant file name) caught knip/depcruise cleanup that broke
+the UI — the composition proof IS the enforcement for multi-module
+integration.
 
 ## MCP Transport Layer Testing
 
@@ -276,11 +279,12 @@ ambient overrides — see `no-global-state-in-tests`.
   `tsconfig.lint.json`. Files must be included in both for linting to work.
 - Stale vitest include globs are silent because of `passWithNoTests: true` — remove
   dead globs promptly after file moves.
-- `resolveEnv` integration tests that need `.env` file isolation: use `'/tmp'` as
-  `startDir` to prevent ambient `.env` files from satisfying schema requirements.
+- `resolveEnv` suites that pass `'/tmp'` as `startDir`, to stop ambient `.env` files
+  satisfying schema requirements, read the filesystem: pre-invariant estate for
+  `no-io-test-boundary-and-di-recovery.plan.md`, which establishes the replacement.
 - After refactoring entry points (removing `dotenv`, changing `loadRuntimeConfig`
-  signature), check E2E tests that launch the process directly — they break when the
-  entry-point contract changes.
+  signature), check the E2E checks that launch the process directly — they break when
+  the entry-point contract changes.
 - Removing a test (e.g. deleting an audit-shaped constant assertion) can orphan the
   export it referenced — knip then blocks the commit. Un-export or delete the orphan
   in the same change.
@@ -302,7 +306,8 @@ tripwire.
 
 ## Test Isolation
 
-- Replace Express `_router` access with supertest HTTP assertions.
+- Replace Express `_router` access with a direct call of the handler or middleware
+  under test; assertions over HTTP belong to an E2E check.
 - Extract repeated setup into scoped helpers inside `describe`.
 - Bulk factories accept `startIndex`; do not mutate readonly `_id`.
 

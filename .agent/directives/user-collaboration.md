@@ -105,7 +105,7 @@ Agents should:
   moving it; merges, cured findings and folded branches are not progress on
   a job they do not advance (owner, 2026-09-19, verbatim: "how is it, when
   the only job I gave you was to drain the buffers, they are still critical
-  2 days later?"; twelve entries at the start, twelve after four folds)
+  2 days later?"; eleven entries at the start, twelve after four folds)
 
 Overrides are rare. The normal posture is shared reasoning: make the concern
 visible, explain why it matters, and let the owner decide with the real trade-off

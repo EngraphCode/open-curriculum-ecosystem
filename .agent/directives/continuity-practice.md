@@ -55,7 +55,8 @@ table: `.agent/memory/README.md` §Tracking Tiers.
 This section is scoped to the **continuity surfaces** —
 `repo-continuity.md` and `threads/<slug>.next-session.md` — and to the
 journal-shaped records and registers beside them that accumulate finished
-history (`director-handoff.md`, `frictions-register.md`). Other surface
+history (`director-handoff.md`, `frictions-register.md`,
+`review-cost-ledger.md`). Other surface
 types (the napkin, distilled, buffers) have their own disposition notes
 and lifecycles; nothing here changes them or the fitness apparatus.
 
@@ -78,8 +79,10 @@ work this content describes?". Two dispositions:
    finished history moves whole to a dated archive beside the surface
    (`archive/<surface>-YYYY-MM-DD.md`), proven byte-identical to the moved
    range against the committed blob, as the napkin rotation proves its
-   archive; and the live surface keeps only the live state and a one-line
-   pointer to the archive. Git retains the literal record either way; the
+   archive (where the finished ranges are not contiguous, the archive is a
+   snapshot of the whole pre-curation file, proven byte-identical to its
+   committed blob, and the live file is then curated); and the live surface
+   keeps only the live state and a one-line pointer to the archive. Git retains the literal record either way; the
    archive keeps it readable without a checkout of history.
 
 **Archiving happens only after full processing, never as a means to tick a
@@ -115,11 +118,12 @@ embedded here in the doctrine it enacts; indexed in
 2. **Route by disposition.** Finished and insight-homed → the entry joins the range to
    archive, but *verify the home holds it first* (the `verify-dont-trust` rule; "it's
    all homed" is a convenient claim to check, not trust). Finished and un-homed → route
-   the insight to its permanent home, *then* add it to the range. Live → keep, compacted (a compact pointer, not the
-   landing narrative). Compact bloated index-table cells to the index shape — lane state
+   the insight to its permanent home, *then* add it to the range. Live → keep,
+   compacted (a compact pointer, not the landing narrative). Compact bloated index-table cells to the index shape — lane state
    lives in the thread record, not here.
 3. **Verify losslessness mechanically** (after the rewrite, before committing): the
-   archive file's blob equals the moved range's bytes; every live-pointer token from
+   archive file's blob equals the moved range's bytes (for a whole-file snapshot, the
+   pre-curation file's committed blob); every live-pointer token from
    the pre-curation file still appears in the live surface (`grep -F` each); every
    curated passage's statement about a neighbour is re-read against the neighbour (a
    passage saying an "UNCOMMITTED" block had since been committed was the only place
@@ -127,7 +131,8 @@ embedded here in the doctrine it enacts; indexed in
    index-table row count is unchanged; the link-reference count is unchanged;
    `markdownlint` is clean. An *empty dropped-token set is the proof* — the "I kept
    everything" assertion is not (the loss-detector mirrors the `semantic-merge` skill
-   §Verify and [PDR-119](../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)).
+   §Verify and
+   [PDR-119](../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)).
 
 ## Continuity Questions
 

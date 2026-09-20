@@ -18,7 +18,7 @@ split_strategy: "Move recipes to docs/engineering/testing-patterns.md and docs/e
 
 - Vitest
 - React Testing Library
-- Supertest
+- Supertest (E2E checks only; see §Development Workflow)
 - Playwright
 
 Mutation testing (Stryker) is **meta-quality** — it audits the test surface,
@@ -245,7 +245,7 @@ describes it). Rollout sequencing:
 [di]: ../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md
 [testing-patterns-value-proxies]: ../../docs/engineering/testing-patterns.md#acceptance-value-proxies
 
-- **No process spawning in in-process tests** - Test code MUST NOT
+- **No process spawning in tests** - Test code MUST NOT
   spawn child processes, create test-authored workers, or
   instantiate tools that internally spawn processes (e.g.
   programmatic ESLint with TypeScript project service). This

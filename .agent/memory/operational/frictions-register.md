@@ -4472,7 +4472,7 @@ commit SHA and the closing plan reference.
   refused: `unknown model: claude-fable-5-1`; the owner's word the same day is that its window
   is 1M) in `window-registry.ts`. The rule now names the command
   (`directive-file-context-budget` §Reading the Figure, 2026-09-19) and consolidate-until-done's
-  step 7 cites that section; the registry lane stands.
+  step 7 cites the rule (its §Sequencing); the registry lane stands.
 - **Second observation, 2026-09-19 15:41Z**: the first reading after a compaction gave 69 %
   and the next, one turn later, 11 %. `usage.ts` `parseLatestUsage` returns the latest
   transcript line carrying a usage object, and straight after a compaction that line is the

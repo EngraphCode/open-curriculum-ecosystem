@@ -709,7 +709,7 @@ Universal testing principles:
   ambient env files, or `process.cwd()`; a validation check's composition root
   may read ambient env and inject it;
 - no skipped tests, no conditional tests, no complex mocks, no complex test
-  logic, no process spawning in in-process tests. Conditional tests are an
+  logic, no process spawning in tests. Conditional tests are an
   architectural-failure symptom — remove them, fix the ambiguity in product
   code, write deterministic behaviour-proving tests.
 

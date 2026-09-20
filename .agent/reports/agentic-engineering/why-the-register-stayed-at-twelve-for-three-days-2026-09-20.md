@@ -26,14 +26,15 @@ Instants are commit times in UTC, read from `git log` on 2026-09-20; merges are 
 | 2026-09-17 ~20:2x | the meter reads 51 % at the directive step; the pass is put to the owner | 12 |
 | 2026-09-19 11:30 | #155 folded, `SHA:65a929d9a`; its content was records about #153; 15 and 8 findings | 12 |
 | 2026-09-19 ~15:3x | the owner's question; then "drain the buffers to zero, do not mess about with coordination branches" | 12 |
-| 2026-09-19 15:48 | fifth context, opened at 11 %: the napkin graduated and rotated, `SHA:668d75378` | 12 |
+| 2026-09-19 15:47 | fifth context, opened at 11 %: the napkin graduated and rotated, `SHA:668d75378` | 12 |
 | 2026-09-19 16:06 | eight entries graduated, `SHA:f6ce4d0c3` | 4 |
 | 2026-09-19 16:1x to 19:3x | the meter reads 32.4 %; the seat stops at the 30 % rule and cards the owner; the answer (override) arrives about three hours later | 4 |
 | 2026-09-19 19:38 | three entries graduated, `SHA:28e8b73be` | 1 |
 | 2026-09-19 19:47 | the last entry leaves, `SHA:d3c81c0b2`; all four drainable buffers read empty | 0 |
 
 Derived: the four folds drew 52, 46, 23 and 12 findings (pre-publication plus review, from the
-ledger rows for #152, #153, #155 and #150), about 130 in all, every one recorded as true. None
+ledger rows for #152, #153, #155 and #150), about 130 in all, all but a handful recorded as true (the ledger records one rejected on
+#152, and #150's round two a refusal and a withdrawn item). None
 of them concerned a register entry. The register moved from twelve to zero in two working
 stretches of the fifth context, 15:41Z to about 16:10Z and 19:35Z to 19:47Z: about forty
 minutes of directive work, seventy-five with the napkin and the two record files that followed.

@@ -12,7 +12,14 @@ tests" or "smoke tests", read E2E and smoke **checks**, which are validation
 surfaces outside the test suites
 ([`testing-strategy.md`](../../../.agent/directives/testing-strategy.md)
 §Out-of-process checks); the sentence "E2E tests CAN trigger STDIO IO" it quotes
-from that directive no longer stands there. The PR-check pipeline runs unit and
+from that directive no longer stands there. Three sentences below read
+differently under it: an E2E check drives a separately running system over its
+protocol channel (stdio, or HTTP on the local host), so "in-process" no longer
+describes it, and "never network" means never a third-party network; consequence
+2's "test that would need to reach the network" is a check, never a test; and
+the "smoke tests" this ADR keeps off the PR-check path are the network-reaching
+ones, while the artefact-viability smoke checks of the directive's §Smoke Checks
+reach no network and run from CI-gated tasks. The PR-check pipeline runs unit and
 integration tests (no IO) and the validation checks it is configured to run; its
 network-free boundary is unchanged.
 **Date**: 2026-04-17

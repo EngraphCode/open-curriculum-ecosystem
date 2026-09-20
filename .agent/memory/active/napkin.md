@@ -56,8 +56,8 @@ still unhomed, as at the three rotations before.
   most refined") the seat stayed on one branch and drained in order: the napkin
   (`SHA:668d75378`), then the register's twelve directive entries (`SHA:f6ce4d0c3`,
   `SHA:28e8b73be`, `SHA:d3c81c0b2`), the last four at 32 % on the owner's express override of
-  the 30 % rule. Then the first two surfaces under the new lifecycle: `repo-continuity.md` and
-  `director-handoff.md` (`SHA:0a4ce83f7`). Dynamo turns Temper resumed mid-session, measured
+  the 30 % rule. Then the first two surfaces under the new lifecycle: `repo-continuity.md`
+  (in `SHA:d3c81c0b2`) and `director-handoff.md` (`SHA:0a4ce83f7`). Dynamo turns Temper resumed mid-session, measured
   and cured F-195, and the two seats shared the host's gate slot over the ARC channel.
 - **Metacognition (retrospective).** Three things were different from the four contexts that
   left the register at twelve. The owner removed the competing obligation (no fold). The texts
@@ -118,7 +118,7 @@ still unhomed, as at the three rotations before.
   cure was read back first-hand. Blind spot: the comms watcher has been down since about
   21:00Z on 2026-09-19 by declared choice; the stream and the ARC channel are read at resume.
   Fence sweep: no Oak surface written. Fixed point: a further pass re-finds only the MD018 slip.
-- **Addendum, 2026-09-20 ~11:1xZ: the retrospective and the second wrap.** At the owner's word
+- **Addendum, 2026-09-20 ~10:5xZ: the retrospective and the second wrap.** At the owner's word
   the arc's retrospective is
   `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
   Its named mechanism: clocked obligations starve unclocked jobs (the fold had a deadline and
