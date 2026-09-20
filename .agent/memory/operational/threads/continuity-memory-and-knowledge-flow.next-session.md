@@ -243,8 +243,17 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    practice-index framing the owner called "deeply incorrect", the TypeScript strictness spec,
    the operator-profile follow-ups, the owed-items records, a `merge-bot grants` command, the
    transplant register, the owner-held list) are kept in their own words under the record's
-   §"Open items the journal named, with no other home". Next by traffic:
-   `collaboration-state-conventions.md`, `frictions-register.md` (its settled entries), this record's
+   §"Open items the journal named, with no other home". `collaboration-state-conventions.md`
+   (264 lines) was read whole the same day: every section is live operational reference (the
+   vocabulary, the surface index, the write-safety contract and its CLI traps, the schema
+   refinement discipline), nothing in it is finished, and nothing moved. `frictions-register.md`
+   the same day, by the owner's split method (nine analysts, one piece each, their analyses
+   joined by grep over the whole file): 194 entries; 29 settled (25 cured, four superseded by
+   owner rulings) were each verified at the source they name and moved to
+   `archive/frictions-register-2026-09-20.md` (blob `42b7d373d`), with an index row per moved
+   id in the live register so doctrine citations resolve, and a row for F-108, which had been
+   assigned and cured inside other entries and never had an entry. The join found F-81 and
+   F-171 head no entry, and eleven entries carry no Status line. Next by traffic: this record's
    own landed history above, the design-system-integration record, then the paused thread
    records. A reading past a limit on any of them is the signal to read it, never a reason
    to move it unread. Sizing, measured 2026-09-19: the agentic-engineering-enhancements

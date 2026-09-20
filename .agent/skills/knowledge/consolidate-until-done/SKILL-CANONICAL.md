@@ -129,6 +129,18 @@ Before substantive work:
    record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
    stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
    reads still stops mid-surface for lack of headroom.
+   A surface larger than a few thousand tokens is read by SPLITTING it, never whole into the
+   curating seat's context (owner, 2026-09-20: "Do not fill up the context pointlessly with
+   giant files, pick one file, split it, analyse the pieces separately, then analyse the
+   analyses to find what was lost by splitting, repeat"): split at entry or section
+   boundaries; one analyst per piece reports per entry (the status line verbatim, its class,
+   its cross-references, the cure surface it names) to a file; the seat reads the analyses and
+   then runs the join checks over the whole file by grep (every cross-reference resolves, every
+   id occurs once, a status stated in another entry agrees), because the join is where a split
+   loses information; and every analyst claim that bears on a move is verified first-hand at
+   its source before that entry moves. Worked instance (2026-09-20): two records of 3,794 and
+   4,612 lines read whole into one context cost about 160,000 tokens; the same reading by
+   pieces costs the seat the analyses alone.
    A price is set against the figure of the context that will pay it, so a plan carried
    across a compaction is priced again at resume before it is repeated to the owner. The
    30 % gate prices directive edits only; a memory file needs headroom to be read whole,

@@ -52,3 +52,39 @@ Comms: the ARC channel was read to its end at 14:42Z (last entry this seat's 14:
 notice); Dynamo turns Temper's 14:19Z team-start on the stream was read at the wrap. The
 watermark is not advanced and no archive move has run, because the substantive-event mover is
 still unhomed, as at the four rotations before.
+
+## Zephyr guards Leeward (281e44) — 2026-09-20 ~15:0xZ, owner correction on reading large files
+
+- **Owner correction, verbatim: "Do not fill up the context pointlessly with giant files, pick
+  one file, split it, analyse the pieces separately, then analyse the analyses to find what was
+  lost by splitting, repeat".** The instance: this seat read the frictions register (4,612
+  lines, about 86,000 tokens) into its own context in five reads, taking the meter from 35 % to
+  44 %, when the register's entries are self-contained and a split read by analysts would have
+  cost the seat a few thousand tokens of analyses. The estate-coordination record (3,794 lines)
+  had been read the same way an hour earlier. Both readings were "the whole file, read first"
+  taken as "into the curating seat's context".
+- **Metacognition.** The lifecycle's "read whole before anything moves" is a proof obligation
+  (nothing is curated unread), and a seat can meet it by having each piece read and analysed
+  separately, keeping for itself the analyses and the join. The join step is where the split
+  loses information, and it is named: cross-entry supersessions (F-72 closed by F-85), id
+  collisions (F-150/F-186, F-161/F-166, F-166/F-185), the index sections at the file's middle,
+  and any entry whose status is only stated in another entry. So the method is: split at entry
+  boundaries; each analyst reports per entry (status line verbatim, class, cross-references,
+  named cure surface) to a file (F-179: never in the return payload); the seat reads the
+  analyses, then runs the join checks by grep over the whole file (every `F-` cross-reference
+  resolves; every id occurs once; every status named elsewhere agrees). What the seat verifies
+  first-hand is each analyst's claim that bears on a move (a "cured" reading, a "superseded"
+  reading), at the cited source, before that entry moves.
+- **Home**: `consolidate-until-done` step 7 (the pricing paragraph gains the split method) and
+  `continuity-practice.md` §Runbook step 1 (a directive; edited at a context below 30 %).
+
+## 2026-09-20 15:0xZ — Dynamo turns Temper (2a4c8a): three pull requests in one queue cost sync rounds
+
+- Observation: with #160, #161 and #162 all settled at once, each landing put the other two
+  BEHIND (the door's strict up-to-date base), and each sync push draws a fresh reviewer round
+  over the same tip-plus-merge. Three PRs → two sync rounds after #162, one more after #160.
+  Nothing wrong; the cost is structural. Land in the order the checks finish, and open the next
+  lane's PR only when the queue is short, or accept the rounds.
+- Observation: the workspace census `check` failed on `engraph` at `93c35f285` (20 stale facts
+  entries) and is in no gate; its facts count files under `.agent/`, so any commit there stales
+  it. A finding for its own lane (recorded on #163's description).
