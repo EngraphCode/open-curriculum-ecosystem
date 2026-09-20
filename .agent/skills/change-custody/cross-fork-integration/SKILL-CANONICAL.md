@@ -128,13 +128,19 @@ carrier merge and landing proof names the first.
   --json number`); a `--search` head-name query returns nothing, silently,
   and any listing read as "the full open list" carries an explicit
   `--limit`, because the default page is thirty. A second carrier for the same
-  lineage is a defect; close it on the record. Apply the `upstream-carrier-taken`
-  label to the carrier at pickup, as the bot, before any push: the carrier
-  workflow closes and re-cuts a draft that carries no label and no seat commit
-  once the mirror moves past it, and the label is the seat's only pickup signal
-  before its first push, which is the binding pickup (the workflow's delete is
-  leased on the head sha, so a pushed commit is never deleted or stranded) (a label that does not yet exist is created by the first
-  application).
+  lineage is a defect; close it on the record. A carrier the mirror has moved past is
+  replaced by the seat taking it up, never by automation (the carrier workflow
+  closes and deletes nothing, so it can never act on a carrier a seat is taking
+  up). Where the open carrier is unworked (a draft whose head is still the sha in
+  its branch name, with no review round), the seat, holding the claim on the
+  carrier branch pattern so that exactly one seat acts, comments the reason,
+  closes it and deletes its branch as the bot; dispatches the mirror workflow
+  under the merge-bot's `upstream-mirror-dispatch` scope where the mirror is
+  behind the upstream tip, then the carrier workflow under `workflow-dispatch`;
+  and takes up the carrier that run opens (worked instance: the carrier at
+  release 1.181.4, replaced by hand on 2026-09-17 after sitting 76 commits
+  stale). A carrier holding a seat's commits or a review round is never
+  replaced: a newer tip queues as the next carrier.
 - Exclusive counts both ways, from fetched history, and the merge base.
 
 ### 2. Recompute the merge against the live tip, not the PR's cached base
