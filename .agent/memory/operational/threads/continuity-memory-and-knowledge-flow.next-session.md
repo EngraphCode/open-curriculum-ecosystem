@@ -248,8 +248,14 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 `coordination/2026-09-20-44729c`. The prediction recorded before the fact (the retrospective's
 proposal 4: doctrine on the coordination branch draws twenty or more findings; ten or fewer
 refutes) held: 36 in the pre-publication pass, then 23, 6 and 5 in three rounds; the #156 row
-of `review-cost-ledger.md` has the reading. Next: the three large records (item 3 above), one at a
-time, each priced against the headroom at hand and read whole.
+of `review-cost-ledger.md` has the reading. The owner's correction at the 14:3xZ wrap, verbatim: "you are supposed to analyse the buffers,
+preserve the knowledge, then analyse and preserve the knowledge in the oversized memory files,
+nothing else". So the next context does two things only, in this order, and opens every report
+with the four buffer counts and the number of oversized files curated: (1) drain the napkin's
+four blocks of 2026-09-20 into their homes and rotate it; (2) the oversized memory files (item
+3 above), one at a time, each priced against the headroom at hand and read whole, the
+estate-coordination record next. Anything else (a review finding outside that, a peer's queue
+item, a branch fold that is not blocking) is named in the report as not the job and left.
 The retrospective on the consolidation's arc is landed:
 `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
 Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
