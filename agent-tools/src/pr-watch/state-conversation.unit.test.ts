@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseConversation } from './state-conversation.js';
+import { parseCommitsHarvest, parseConversation } from './state-conversation.js';
 
 /**
  * The conversation legs of the `pr state` view: the top-level comments (the
@@ -34,13 +34,18 @@ const CODEX_COMMENT: LiveComment = {
   url: 'https://github.com/acme/widgets/pull/167#issuecomment-5751335720',
 };
 
-const COMMITS = [
-  { oid: '51f81abea574121babf5f82ea8b2205304238b7b', committedDate: '2026-09-20T16:54:21Z' },
-  { oid: HEAD, committedDate: '2026-09-20T17:07:21Z' },
-];
-
 function livePayload(comments: readonly LiveComment[] = [CODEX_COMMENT]): unknown {
-  return { number: 167, comments, commits: COMMITS };
+  return { number: 167, comments };
+}
+
+function commitsPage(oids: readonly string[]): unknown {
+  return {
+    data: {
+      repository: {
+        pullRequest: { commits: { nodes: oids.map((oid) => ({ commit: { oid } })) } },
+      },
+    },
+  };
 }
 
 describe('parseConversation', () => {
@@ -55,7 +60,6 @@ describe('parseConversation', () => {
           edited: false,
         },
       ],
-      commits: ['51f81abea574121babf5f82ea8b2205304238b7b', HEAD],
     });
   });
 
@@ -78,14 +82,12 @@ describe('parseConversation', () => {
   });
 
   it.each([
-    ['a missing commits leg', { number: 167, comments: [] }, /commits/u],
-    ['a null comments leg', { number: 167, comments: null, commits: COMMITS }, /comments/u],
+    ['a null comments leg', { number: 167, comments: null }, /comments/u],
     [
       'a comment without its edited flag',
       {
         number: 167,
         comments: [{ ...CODEX_COMMENT, includesCreatedEdit: undefined }],
-        commits: COMMITS,
       },
       /includesCreatedEdit/u,
     ],
@@ -95,4 +97,19 @@ describe('parseConversation', () => {
       expect(() => parseConversation(payload)).toThrow(leg);
     },
   );
+});
+
+describe('parseCommitsHarvest', () => {
+  it('flattens the slurped pages into the full SHAs in the connection order', () => {
+    const older = '51f81abea574121babf5f82ea8b2205304238b7b';
+
+    expect(parseCommitsHarvest([commitsPage([older]), commitsPage([HEAD])])).toStrictEqual([
+      older,
+      HEAD,
+    ]);
+  });
+
+  it('fails loud on an empty page array: an empty harvest must be a real empty page', () => {
+    expect(() => parseCommitsHarvest([])).toThrow();
+  });
 });

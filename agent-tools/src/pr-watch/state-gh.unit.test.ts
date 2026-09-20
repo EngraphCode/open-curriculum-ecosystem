@@ -15,7 +15,6 @@ const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pul
 function viewPayload(oid: string = HEAD): string {
   return JSON.stringify({
     comments: [],
-    commits: [{ oid }],
     number: 461,
     url: PR_URL,
     state: 'OPEN',
@@ -50,6 +49,11 @@ function threadsPayload(): string {
     },
   ]);
 }
+
+const commitsPayload = (): string =>
+  JSON.stringify([
+    { data: { repository: { pullRequest: { commits: { nodes: [{ commit: { oid: HEAD } }] } } } } },
+  ]);
 
 function reviewsPayload(): string {
   return JSON.stringify([
@@ -105,6 +109,13 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
   return view;
 }
 
+function graphqlPayload(query: string | undefined): string {
+  if (query?.includes('reviewThreads') === true) {
+    return threadsPayload();
+  }
+  return query?.includes('commits(') === true ? commitsPayload() : reviewsPayload();
+}
+
 function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecutor {
   return (_file, args) => {
     calls.push([...args]);
@@ -112,9 +123,8 @@ function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecu
       return viewPayload();
     }
     if (args[0] === 'api') {
-      // Both GraphQL legs arrive as `api graphql`; dispatch on the query text.
       const query = args.find((arg) => arg.startsWith('query='));
-      return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+      return graphqlPayload(query);
     }
     if (args[0] === 'agent-task') {
       return agentTaskResponse(script, args);
@@ -606,7 +616,6 @@ describe('readPrStateReading', () => {
       autoMergeRequest: null,
       reviewRequests: [],
       comments: [],
-      commits: [{ oid: HEAD }],
     });
     const reading = readPrStateReading({
       target: { number: 461 },
@@ -617,7 +626,7 @@ describe('readPrStateReading', () => {
         }
         if (args[0] === 'api') {
           const query = args.find((arg) => arg.startsWith('query='));
-          return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+          return graphqlPayload(query);
         }
         if (args[0] === 'agent-task') {
           return agentTaskResponse({}, args);
@@ -657,7 +666,7 @@ describe('readPrStateReading — tip consistency (r4 regression)', () => {
       }
       if (args[0] === 'api') {
         const query = args.find((arg) => arg.startsWith('query='));
-        return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+        return graphqlPayload(query);
       }
       if (args[0] === 'agent-task') {
         return agentTaskResponse({}, args);

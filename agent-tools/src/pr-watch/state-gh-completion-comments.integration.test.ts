@@ -9,10 +9,12 @@ import type { GhCommandExecutor } from './gh.js';
  * Four parsers compose through the gh seam with an injected executor and no
  * real gh; the view carries only the fields the parsers read, shaped as
  * `gh pr view --json` emits them on pull request 167 (2026-09-20; that pull
- * request's description records the read).
+ * request's description records the read), and the commits arrive as the
+ * slurped pages of the paginated harvest.
  */
 
 const HEAD = 'f'.repeat(40);
+const OLDER = 'e'.repeat(40);
 const CODEX = 'chatgpt-codex-connector';
 const CODEX_BODY = `Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** \`${HEAD.slice(0, 10)}\`\n`;
 
@@ -26,13 +28,14 @@ const CODEX_CLEAN_COMMENT = {
   includesCreatedEdit: false,
 };
 
-interface ViewShape {
+interface Surfaces {
   readonly comments: readonly unknown[];
-  readonly commits: readonly { readonly oid: string }[];
+  /** The commits harvest, one inner list per page. */
+  readonly commitPages: readonly (readonly string[])[];
   readonly reviewRequests?: readonly unknown[];
 }
 
-function viewPayload(view: ViewShape): string {
+function viewPayload(surfaces: Surfaces): string {
   return JSON.stringify({
     number: 461,
     url: 'https://github.com/acme/widgets/pull/461',
@@ -43,8 +46,10 @@ function viewPayload(view: ViewShape): string {
     headRefOid: HEAD,
     statusCheckRollup: [],
     autoMergeRequest: null,
-    reviewRequests: [{ __typename: 'User', login: 'copilot-pull-request-reviewer' }],
-    ...view,
+    reviewRequests: surfaces.reviewRequests ?? [
+      { __typename: 'User', login: 'copilot-pull-request-reviewer' },
+    ],
+    comments: surfaces.comments,
   });
 }
 
@@ -54,26 +59,42 @@ function emptyPage(connection: string): string {
   ]);
 }
 
-// Every leg answers empty except the view, which carries the given shape.
-function executor(view: ViewShape, calls: string[][]): GhCommandExecutor {
+function commitsPages(pages: readonly (readonly string[])[]): string {
+  return JSON.stringify(
+    pages.map((oids) => ({
+      data: {
+        repository: {
+          pullRequest: { commits: { nodes: oids.map((oid) => ({ commit: { oid } })) } },
+        },
+      },
+    })),
+  );
+}
+
+// Every leg answers empty except the view and the commits harvest, which
+// carry the given surfaces.
+function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
   return (_file, args) => {
     calls.push([...args]);
     if (args[0] === 'pr') {
-      return viewPayload(view);
+      return viewPayload(surfaces);
     }
     if (args[0] === 'agent-task') {
       return JSON.stringify([]);
     }
-    const query = args.find((arg) => arg.startsWith('query='));
-    return emptyPage(query?.includes('reviewThreads') === true ? 'reviewThreads' : 'reviews');
+    const query = args.find((arg) => arg.startsWith('query=')) ?? '';
+    if (query.includes('reviewThreads')) {
+      return emptyPage('reviewThreads');
+    }
+    if (query.includes('commits(')) {
+      return commitsPages(surfaces.commitPages);
+    }
+    return emptyPage('reviews');
   };
 }
 
 const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
-const WITH_TIP: ViewShape = {
-  comments: [CODEX_CLEAN_COMMENT],
-  commits: [{ oid: 'e'.repeat(40) }, { oid: HEAD }],
-};
+const WITH_TIP: Surfaces = { comments: [CODEX_CLEAN_COMMENT], commitPages: [[OLDER, HEAD]] };
 const BOUND_TO_HEAD = {
   id: 'IC_1',
   author: CODEX,
@@ -85,7 +106,7 @@ const BOUND_TO_HEAD = {
 };
 
 describe('readPrStateReading — the completion-comment transport', () => {
-  it('the view request names the conversation legs', () => {
+  it('the view request names the comments leg and the commits are harvested by a paginated read', () => {
     const calls: string[][] = [];
     readPrStateReading({
       target: { number: 461 },
@@ -95,7 +116,11 @@ describe('readPrStateReading — the completion-comment transport', () => {
     });
 
     const prView = calls.find((args) => args[0] === 'pr' && args[1] === 'view');
-    expect(prView?.at(-1)?.split(',')).toEqual(expect.arrayContaining(['comments', 'commits']));
+    expect(prView?.at(-1)?.split(',')).toEqual(expect.arrayContaining(['comments']));
+    const commitsRead = calls.find((args) =>
+      args.some((arg) => arg.startsWith('query=') && arg.includes('commits(')),
+    );
+    expect(commitsRead).toEqual(expect.arrayContaining(['--paginate', '--slurp']));
   });
 
   it("reads an expected reviewer's completion comment as a review bound to the commit it names", () => {
@@ -104,6 +129,20 @@ describe('readPrStateReading — the completion-comment transport', () => {
       ...ghSeam,
       expectedReviewers: [CODEX],
       execFileSync: executor(WITH_TIP, []),
+    });
+
+    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
+  });
+
+  it('a comment naming a commit on a later page of the harvest binds it: the list is the whole history', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: [CODEX],
+      execFileSync: executor(
+        { comments: [CODEX_CLEAN_COMMENT], commitPages: [[OLDER], [HEAD]] },
+        [],
+      ),
     });
 
     expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
@@ -120,20 +159,6 @@ describe('readPrStateReading — the completion-comment transport', () => {
     });
 
     expect(reading.expectedDeclared).toBe(false);
-    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
-  });
-
-  it("a comment naming the tip binds it even when the view's commit list stops short of the tip (gh lists a pull request's first hundred)", () => {
-    const reading = readPrStateReading({
-      target: { number: 461 },
-      ...ghSeam,
-      expectedReviewers: [CODEX],
-      execFileSync: executor(
-        { comments: [CODEX_CLEAN_COMMENT], commits: [{ oid: 'e'.repeat(40) }] },
-        [],
-      ),
-    });
-
     expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 

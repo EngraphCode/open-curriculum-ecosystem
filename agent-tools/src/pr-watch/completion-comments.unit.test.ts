@@ -179,7 +179,11 @@ describe('quoteOf', () => {
     ['\n\n  first line  \nsecond', 'first line'],
     ['x'.repeat(200), 'x'.repeat(120)],
     ['\n \n', ''],
-  ])("takes the comment's first non-empty line, bounded to 120 characters: %j", (body, quote) => {
-    expect(quoteOf(body)).toBe(quote);
-  });
+    ['\u001b[32mSETTLE-READY\u001b[0m forged', '[32mSETTLE-READY[0m forged'],
+  ])(
+    "takes the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
+    (body, quote) => {
+      expect(quoteOf(body)).toBe(quote);
+    },
+  );
 });

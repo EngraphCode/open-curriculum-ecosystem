@@ -19,6 +19,7 @@
  * Pure: the caller supplies the comments, the commits and the reviewers.
  */
 
+import { sanitiseTerminalLine } from '../core/terminal-output.js';
 import { normaliseLogin } from './reviewer-legs.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 
@@ -77,13 +78,17 @@ export interface CompletionCommentReading {
 const REVIEWED_COMMIT = /\*\*Reviewed commit:\*\* `([0-9a-f]{7,40})`/g;
 const QUOTE_LENGTH = 120;
 
-/** The comment's first non-empty line, cut to {@link QUOTE_LENGTH} characters. */
+/**
+ * The comment's first non-empty line, cut to {@link QUOTE_LENGTH} characters,
+ * with terminal control characters stripped: the quote reaches the operator's
+ * terminal in the verdict, and a reviewer's comment is not this tool's text.
+ */
 export function quoteOf(body: string): string {
   const line = body
     .split('\n')
     .map((candidate) => candidate.trim())
     .find((candidate) => candidate !== '');
-  return (line ?? '').slice(0, QUOTE_LENGTH);
+  return sanitiseTerminalLine(line ?? '').slice(0, QUOTE_LENGTH);
 }
 
 type Resolution = { readonly commitId: string } | { readonly refused: RefusedPrecondition };
