@@ -45,7 +45,7 @@ describe('deriveSubjects — the mechanical subject predicate', () => {
     expect(plugin?.sources).toContain('plugin-manifest-parent');
   });
 
-  it('includes the parent of a tracked .codex-plugin/plugin.json manifest (source ii-b: the second listed plugin host)', () => {
+  it('includes the parent of a tracked .codex-plugin/plugin.json manifest (source ii-b: the second listed manifest format)', () => {
     const subjects = deriveSubjects({
       members: [...MEMBERS],
       trackedFiles: ['plugins/oak-open-curriculum-chatgpt/.codex-plugin/plugin.json'],
