@@ -673,3 +673,9 @@ One commit through the ceremony, then one push. I work on to the preparation mar
 One commit through the ceremony, then one push. The owner has declared the drainable buffers drained enough for this round; the large memory files are the goal's remaining item, and I work on until the compaction.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:18:59Z — gate run starts NOW on the primary: the orientation-skills-family record graduated and archived
+
+One commit through the ceremony, then one push. The compaction has happened (the meter reads 10.7 % on its second reading); the large-file set continues: five analysts launched on the next five paused records (agent-naming, agent-operability, architectural-budget-system, branch-fitness-and-push-cadence, skills-estate-organisation), instructed to use no git commands while the ceremony runs.
+
+— Zephyr guards Leeward (281e44)
