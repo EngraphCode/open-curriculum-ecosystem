@@ -48,7 +48,7 @@ You do not need to read any code to do this. If an item makes no sense without i
 
 ## What counts as content here
 
-In scope: everything this repository controls that reaches an AI agent and can shape how it behaves — the instructions the server sends on connection, every tool and parameter description, guidance documents, error and empty-state messages, attribution, and the human-facing landing and consent copy.
+In scope: everything this repository controls that reaches an AI agent and can shape how it behaves — the instructions the server sends on connection, every tool and parameter description, guidance documents, error and empty-state messages, attribution, and the human-facing authorisation and consent copy.
 
 Not in scope: the curriculum data itself — lesson, quiz, and unit content fetched from the Oak Open Curriculum API. Those are the bytes we pass through, not words we author. Where we wrap that data in a sentence of our own, the sentence is in scope and the data is not.
 

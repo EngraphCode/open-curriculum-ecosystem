@@ -1,21 +1,22 @@
 # Findings ledger: the 1.181.3 → 1.185.0 sync (carrier #154, 2026-09-17)
 
-**Review contract.** Purpose: record every issue found while integrating Oak main
+**Review contract.** Purpose: record every issue found while integrating the Oak line's main
 `d9138c8b9` (release 1.185.0) into `engraph`, from any source — the seat's own reading during
-conflict resolution, regeneration and the premise sweep; the fork's quality gates; the review
-rounds on the carrier. Owner's word (2026-09-17): quality cures of Oak-authored code never ride
-the sync and each becomes its own pull request later; a cure that a failing fork gate forces is
-made on the carrier and recorded here as gate-forced; issues in the fork's own sync machinery are
-fixed in their own lanes and recorded here for the record. Each item cites the file and line
-against the tree at `d9138c8b9` (Oak-authored) or at the carrier head (fork-authored), the
-standard it misses, and the finding in the finder's words; no cure text beyond that. A reader
+conflict resolution, regeneration and the premise sweep; this line's quality gates; the review
+rounds on the carrier. Owner's word (2026-09-17): quality cures of authored on the Oak line code never ride
+the sync and each becomes its own pull request later; a cure that a failing gate on this line forces is
+made on the carrier and recorded here as gate-forced; issues in this line's own sync machinery are
+fixed in their own lanes and recorded here for the record. Each item cites the file and its lines
+as they stand at the carrier's merged head (where this line's merged edits shift a file, the
+numbers differ from the Oak line's tip; the cited passages are byte-identical there, checked by
+a context-free claim pass on 2026-09-20), the standard it misses, and the finding in the finder's words; no cure text beyond that. A reader
 verifies each item reproduces at the cited tip before opening its lane.
 
-## A. Oak-authored code and prose: quality findings (cure in their own PRs, never on the carrier)
+## A. authored on the Oak line code and prose: quality findings (cure in their own PRs, never on the carrier)
 
-The Oak line's landing-page teardown (#928, 1.183.0) removed the page and left the repository's
+The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
-(`git diff d9138c8b9 -- <file>` shows no text added on this line), so by the owner's constraint it
+(`git diff d9138c8b9 -- <file>` leaves the cited passage untouched; one file, `deployment-architecture.md`, carries this line's deploy-config-gate text elsewhere), so by the owner's constraint it
 is cured on this line in its own PR, never on the sync, and the two lines carry the cure together
 when they rejoin (owner, 2026-09-17: one repository temporarily diverged). Prose authored on this
 line about the same subject was re-trued on the carrier. Standard for all of A1–A4: principles
@@ -34,42 +35,42 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
 3. `.agent/skills/README.md` line 37 (the audience registry row): the curriculum skills' home is
    given as `.claude-plugin/marketplace.json` alone; the tree now also lists
    `plugins/oak-open-curriculum-chatgpt` through `.agents/plugins/marketplace.json` (Oak #968).
-   The fork-authored sentence below the table was re-trued on the carrier.
-4. (Moved to C2: the generator source is fork-only, so the premise was the fork's own.)
-5. `agent-tools/src/workspace-census/subjects.ts` line 86 (identical on Oak's tip):
+   The authored on this line sentence below the table was re-trued on the carrier.
+4. (Moved to C2: the generator source is present only on this line, so the premise was this line's own.)
+5. `agent-tools/src/workspace-census/subjects.ts` line 86 (identical on the Oak line's tip):
    `PLUGIN_MANIFEST_SUFFIX = '/.claude-plugin/plugin.json'` is the census's only plugin-manifest
    arm, so `plugins/oak-open-curriculum-chatgpt/`, whose manifest is `.codex-plugin/plugin.json`
-   (Oak #968), is never a census subject; Oak's own tree carries both the package and the
-   unchanged rule. The fork's census plan gains a dated amendment on the carrier; widening the
+   (Oak #968), is never a census subject; the Oak line's own tree carries both the package and the
+   unchanged rule. This line's census plan gains a dated amendment on the carrier; widening the
    rule is a code change for its own PR. Standard: principles §Strict and Complete (a
    classifier that silently misses a member of its class).
-6. `.agent/reports/mcp-agent-facing-content-audit/registry.json`, item C355's purpose (identical
-   on Oak's tip): "Determines the endpoint URL shown in the connection snippet: HTTPS on the
+6. `.agent/reports/mcp-agent-facing-content-audit/registry.json`, item C355's `behavioural_intent` field (identical
+   on the Oak line's tip): "Determines the endpoint URL shown in the connection snippet: HTTPS on the
    Vercel host when present, else the localhost:3333/mcp dev default." The snippet went with the
    landing page; `served-origin.ts` lines 7–8 at the same tip say it fed the page "until that
    page was removed on 2026-08-20". Standard: §Misleading docs are blocking; the generated
    pedagogy page repeats it and is not hand-edited.
 7. `docs/architecture/architectural-decisions/217-*` (server-rendered HTML in the MCP app) still
-   reads `Status: Accepted` on Oak's tip after #928 removed the surface it decides; the ADR index
-   rows repeat it. Oak's own ADR status, left as Oak's; recorded so the merge-back carries the
+   reads `Status: Accepted` on the Oak line's tip after #928 removed the surface it decides; the ADR index
+   rows repeat it. the Oak line's own ADR status, left as Oak's; recorded so the merge-back carries the
    question. Standard: §Misleading docs are blocking.
 8. `apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md` lines 29 and 84
-   (identical on Oak's tip): "names extra hosts for the DNS-rebinding guard" and "automatically
+   (identical on the Oak line's tip): "names extra hosts for the DNS-rebinding guard" and "automatically
    included in the allowed hosts for DNS rebinding protection" — `dnsRebindingProtection` has been
    mounted on no route since 2026-08-20 (MCP-650); `ALLOWED_HOSTS` still feeds `deriveSelfOrigin`.
    Standard: §Misleading docs are blocking.
-9. `.agent/practice-index.md` line 367 (identical on Oak's tip): the `.agents/` row reads
+9. `.agent/practice-index.md` line 367 (identical on the Oak line's tip): the `.agents/` row reads
    "Portable skill, command, and rule adapters" and omits the new `.agents/plugins/marketplace.json`
    (Oak #968). Minor. Standard: §Documentation Is Infrastructure (stable indexes point and must not
    drift).
 11. Oak's ADR-125 amendments of 2026-09-08 and its ChatGPT package README qualify
     `plugins/oak-open-curriculum/` as "(Claude Code)" and call the ChatGPT package's source "the
     Claude plugin". Owner ruling on this line (2026-09-17, verbatim): "it is a Claude plugin, it
-    is in no way constrained to Claude Code only". The fork's `development-practice.md` definition
+    is in no way constrained to Claude Code only". This line's `development-practice.md` definition
     ("never write 'Claude Code plugin' for the Oak plugin") stands; Oak's qualifier is the
-    misstatement, and fork prose never copies it (two rehearsal edits that had were corrected).
+    misstatement, and prose on this line never copies it (two rehearsal edits that had were corrected).
     Standard: §Consistent Naming (one concept, one name); §Misleading docs are blocking.
-10. `.github/actions/setup/action.yml` line 13 (identical on Oak's tip): `pnpm/action-setup` pinned
+10. `.github/actions/setup/action.yml` line 13 (identical on the Oak line's tip): `pnpm/action-setup` pinned
     at v6.0.9 while Oak bumped its own `ci.yml` to v6.1.0 (#980) and left the composite action
     behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
     dependency-currency lane's SHA-pinned-actions leg.
@@ -78,28 +79,34 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
 
 _None so far: the merged tree type-checked after one integration cure (C1)._
 
-## C. Integration cascades cured on the carrier (fork-authored files meeting the change)
+## C. Integration cascades cured on the carrier (authored on this line files meeting the change)
 
 1. `apps/oak-curriculum-mcp-streamable-http/e2e-tests/string-encoded-numbers.e2e.test.ts`
-   (line 64 at `engraph` `cd847a2b3`): a fork-only test passed `getLandingPageHtml` to
+   (line 64 at `engraph` `cd847a2b3`): a present only on this line test passed `getLandingPageHtml` to
    `createApp`, an option Oak #928 removed; `type-check` failed with TS2353 on the merged tree.
    The same class Oak cured on its own side in #987. Cured by dropping the option (the test's
    subject is string-encoded numbers, not the landing page). Standard: the divergence rule's
    "signature mismatches in auto-merged files".
-2. `agent-tools/src/mcp-content-workspace/content-workspace-config.ts` line 49 (fork-only): the
+2. `agent-tools/src/mcp-content-workspace/content-workspace-config.ts` line 49 (present only on this line): the
    ux-accessibility domain description read "Human-facing surfaces — the landing page, the
    widget, and authorisation and consent copy", and the generated governance README and
    ux-accessibility page carried it. Re-trued at the source and the pages regenerated. Standard:
    the cross-fork skill's §6 premise sweep (a generated page is regenerated, never hand-edited).
 
-## D. Fork sync machinery (fixed in their own lanes)
+3. `agent-tools/src/mcp-content-workspace/render-index-page.ts` line 76 (present only on this
+   line; raised by the integration code review, 2026-09-20): the governance index page's scope
+   sentence ended "the human-facing landing and consent copy". Re-trued at the source to
+   "authorisation and consent copy" and the page regenerated. Same standard as C2.
+
+## D. This line's sync machinery (fixed in their own lanes)
 
 1. **A bot-dispatched mirror run cannot move the mirror.** `.github/workflows/upstream-mirror.yml`
    fast-forwards `main` with the run's own token; scheduled runs succeed, but run 35240876819
    (dispatched by the bot under the `workflow-dispatch` scope, `actions: write` alone) failed the
    reference update with 403 while its reads succeeded — a dispatched run's token is capped at the
-   dispatching token's permissions. Lane `fix/upstream-mirror-dispatch-token-scope`: the scope
-   carries `contents: write`; run 35241924531 under it moved `main` by 19 commits. Standard:
+   dispatching token's permissions. Lane `fix/upstream-mirror-dispatch-token-scope`: a new scope,
+   `upstream-mirror-dispatch`, carries `actions: write` and `contents: write` (the general
+   `workflow-dispatch` scope stays `actions: write` alone); run 35241924531 under it moved `main` by 19 commits. Standard:
    principles §Target-architecture wording needs consuming-runtime evidence (the node's
    "dispatch works" rested on two runs that never reached the write).
 2. **An unworked carrier goes stale and blocks its replacement.** The carrier workflow's duplicate
@@ -117,7 +124,7 @@ _None so far: the merged tree type-checked after one integration cure (C1)._
    minutes with no hook child (15:48Z); a peer seat's `git add` on the primary held `index.lock`
    about ten minutes (~15:58Z); the primary's `git status` answered `error: could not read IPC
    response` (16:13Z). Five `fsmonitor--daemon` processes ran, one per worktree of the one clone;
-   `-c core.fsmonitor=false` avoids the socket. Not a code defect on either fork; a host and
+   `-c core.fsmonitor=false` avoids the socket. Not a code defect on either line; a host and
    worktree-topology finding for the harness-shell pattern and the worktree-hygiene rule.
    Standard: `one-instance-is-an-observation` (three instances, two seats: now a finding).
 
@@ -181,3 +188,8 @@ _None so far: the merged tree type-checked after one integration cure (C1)._
    Raised by Copilot on pull request 158, round seven, as an observation on unchanged code.
    Standard: principles §Strict and Complete (a guard that silently reads part of its set).
    Own pull request: `--paginate` with a slurped filter.
+9. **Stale build inputs left by the landing-page teardown** (identical on the Oak line's tip;
+   raised by the integration code review, 2026-09-20): `turbo.json`'s `test:ui` and `test:a11y`
+   tasks list `playwright.config.ts` as an input, and `.prettierignore` line 78 ignores the MCP
+   application's `.generated/` directory; the application has neither since #928. Harmless to a
+   gate; a stale pointer. Standard: principles §No unused code. Own pull request, with A10.

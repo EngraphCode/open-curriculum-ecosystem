@@ -60,8 +60,8 @@ an addendum at most.
 | H14 | `docs/governance/development-practice.md` | 428–429 | 5 | this line (owner definition) | KEEP — owner 2026-09-17: the plugin is a Claude plugin, not Claude Code only; the Oak line's qualifier is the misstatement (ledger A11) | none |
 | H15 | `.agent/plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md` | 168 | 1 | tip | leave: an owner-gated plan whose gate names its pickup; at that pickup re-count the "~16–24 rendered items" without the landing page | none |
 | H16 | `.agent/plans/strategic/public-packages-release.plan.md` | 66–69 | 10 | tip | leave: "1.175.x" was stale before this sync and is not the sentence's point; drop the number if the sentence is ever edited | none |
-| N1 | `.agent/reports/README.md` 57–58; `.agent/research/README.md` 226–227 | — | 10-adjacent | this line | narrow "Engraph's continuing 1.178.5 boundary" to "dated report with per-sync reopening addenda" — owed on the carrier, not yet applied | carrier (owed) |
-| N2 | `.agent/research/public-service-ai-tuition/AUTHORITY.md` | 80–85 | 10-adjacent | this line | add the 1.185.0 sync to the incorporation record — owed on the carrier, not yet applied | carrier (owed) |
+| N1 | `.agent/reports/README.md` 57–58; `.agent/research/README.md` 226–227 | — | 10-adjacent | this line | narrow "Engraph's continuing 1.178.5 boundary" to "dated report with per-sync reopening addenda" — applied at the landing, 2026-09-20 (§Recompute at the landing) | carrier (owed) |
+| N2 | `.agent/research/public-service-ai-tuition/AUTHORITY.md` | 80–85 | 10-adjacent | this line | add the 1.185.0 sync to the incorporation record — applied at the landing, 2026-09-20 (§Recompute at the landing) | carrier (owed) |
 | N3 | `.agent/practice-index.md` | 367 | 5 | tip | ledger A9 (minor) | ledger |
 | N4 | `.agent/reports/mcp-agent-facing-content-audit/registry.json` C355 purpose | — | 1 | tip | ledger A6; the generated pedagogy page repeats it and is not hand-edited | ledger |
 | N5 | `.github/actions/setup/action.yml` | 13 | 11 | tip | ledger A10 (the v6.0.9 pin the Oak line's own bump left behind) | ledger |
@@ -243,16 +243,44 @@ Accepted (N8).
 The sweep above was run against `engraph` at `cd847a2b3`. The merge landed against `9993647b1`,
 four pull requests later (153, 155, 157, 158). Completeness boundary for the difference:
 `git diff --name-only cd847a2b3 origin/engraph -- '*.md' '*.json'` named 45 files at
-`bdbdda04a`; their ADDED lines were searched for every term of the twelve claims. Five lines
-matched, and none asserts a refuted premise: each is this lane's own record of the rehearsal
+`bdbdda04a`; their ADDED lines were searched for every term of the twelve claims. Every matching
+line was read (five by this seat's term list, eight by the claim pass's wider reading), and
+none asserts a refuted premise: each is this lane's own record of the rehearsal
 (the landing-page test taken as deleted, the renumbering to ADR-231) or a dated mention of an
 earlier sync. Pull request 158's three files landed after that read; they were authored by
 this seat with the change in view and cite no swept premise. The renumbering was re-checked on
 the merged tree: no citation of the old `228-organisational-identity` path remains, and every
-remaining "ADR-228" names the Oak line's record, the index's renumbering note, or an archive.
+remaining "ADR-228" names the Oak line's record, the index's renumbering note, or this lane's
+own dated channel record of the renumbering; no archive mentions it.
 
 Dispositions applied at the landing that the record above listed as owed: the two index rows
 for the 2026-09-08 infrastructure-delta report now give the report's date instead of calling it
 current state (narrowed); the public-service research collection's authority file gains one
 sentence that the 1.185.0 sync changed neither curriculum-graph surface it qualifies (addendum,
 checked against the Oak line's diff of the two graph end-to-end checks).
+
+## Pre-publication reviews of the merge commit, 2026-09-20
+
+Two context-free subagent passes read merge commit `514c8100b` before it was pushed (recorded
+here because a subagent transcript is not a destination).
+
+- **Claim pass** (96 claims checked, 8 findings, all true, all cured in the following commit).
+  One was false: the landing-page teardown (#928) shipped in release 1.181.4, read from the Oak
+  line's first-parent log, where the ledger's preamble and the re-trued extraction plan said
+  1.183.0. Six were misleading: the ledger's line numbers are the merged head's where its
+  contract said the Oak line's tip; item D1 read as if the general dispatch scope had been
+  widened; the ledger still wrote "the fork" against the owner's one-repository wording outside
+  its reframed preamble; the ADR-228 list missed this lane's channel record; the C355 field was
+  misnamed; rows N1 and N2 still read as owed. One was unsupported: the count of matching lines
+  in the landing-time recompute. Every specific check passed: the ADR-231 record is consistent,
+  the root manifest carries both validators at 1.185.0, the deleted test is absent, and no code
+  names the removed landing-page option.
+- **Integration code review** (code-expert; verdict approved, nothing blocks the merge; static
+  reading only). The three conflict resolutions are correct; none of the Oak line's 32 deletions
+  is still referenced by a file present only on this line; nothing the Oak line's new code
+  depends on was changed here; no pin skew breaks CI. Four record-only items: a generator input
+  present only on this line still named landing copy as in scope (cured on the carrier as the
+  same class as C2, page regenerated); stale build inputs identical on the Oak line's tip
+  (ledger item D9); the setup action's pin skew (already A10); ADR-125's own "(Claude Code)"
+  text (already A11). Reviewers it named as focused follow-ups: docs-adr-expert on the
+  renumbering and the ADR-189 addendum, config-expert on the merged build configuration.
