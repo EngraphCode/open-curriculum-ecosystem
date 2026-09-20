@@ -128,7 +128,29 @@ carrier merge and landing proof names the first.
   --json number`); a `--search` head-name query returns nothing, silently,
   and any listing read as "the full open list" carries an explicit
   `--limit`, because the default page is thirty. A second carrier for the same
-  lineage is a defect; close it on the record.
+  lineage is a defect; close it on the record. A carrier the mirror has moved past is
+  replaced by the seat taking it up, never by automation (the carrier workflow
+  closes and deletes nothing, so it can never act on a carrier a seat is taking
+  up). Where the open carrier is unworked (a draft the carrier workflow's bot app
+  opened, read from the pull request's author, whose head is still the sha in its
+  branch name, with no review round), the seat, holding the claim on the
+  carrier branch pattern so that exactly one seat acts, replaces it in an order
+  that the carrier workflow's own schedule cannot break, because that workflow
+  opens nothing while any carrier is open. First, with the stale carrier still
+  open, the mirror: where it is behind the upstream tip, dispatch the mirror
+  workflow under the merge-bot's `upstream-mirror-dispatch` scope, wait for that
+  run to conclude `success` (a dispatch returns at once and orders nothing), and
+  re-read the mirror's tip as equal to the upstream tip. Second, as the bot,
+  comment the reason on the stale carrier, close it and delete its branch. Third,
+  dispatch the carrier workflow under `workflow-dispatch` and wait for it; a
+  scheduled run may have opened the carrier first, and either is accepted. Take
+  up the one open carrier, confirming its head is the mirror's tip
+  (worked instance: the carrier at
+  release 1.181.4, replaced by hand on 2026-09-17 after sitting 76 commits
+  stale). A carrier holding a seat's commits or a review round is never
+  replaced: a newer tip queues as the next carrier. A pull request on the carrier
+  branch pattern by any other author is never closed or deleted by a seat,
+  whatever its state: it is raised to the owner.
 - Exclusive counts both ways, from fetched history, and the merge base.
 
 ### 2. Recompute the merge against the live tip, not the PR's cached base
