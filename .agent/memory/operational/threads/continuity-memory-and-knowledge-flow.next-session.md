@@ -176,7 +176,11 @@ running, when the last buffer item is a directive edit: on 2026-09-20 the goal h
 the stop nine times at 69 % with exactly that item open, and the owner answered a card
 "Compact now". Candidate: the done-condition gains "or the owner has called the compaction",
 so the hook and the freeze order agree; the seat's part is to name the two rules in conflict
-and put the choice to the owner once, then answer the hook in one line. Decided
+and put the choice to the owner once, then answer the hook in one line. (5) Handed by Dynamo
+turns Temper at their closeout (2026-09-20 20:35Z, item 2): the owner's observation on #168
+(comment 5752404709) that a minimised but unedited completion comment would still read as a
+review; the cure, if the owner wants it, is one field on the comments harvest and one
+precondition on the door. Routing follows the owner's word. Decided
 and no longer open: the fsmonitor daemon (F-195: measured and cured
 on 2026-09-19 by Dynamo turns Temper at the owner's word; the monitor is unset for the clone); the upstream-sync naming lane (2026-09-17: rename
 both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,

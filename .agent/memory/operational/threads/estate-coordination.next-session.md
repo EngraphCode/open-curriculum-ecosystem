@@ -187,7 +187,13 @@ this section when it lands or the owner closes it.
 
 ### Tool and code lanes owed
 
-1. **The remaining half of slice 1** of `landing-instruments-read-the-evidence`: reading a
+1. **The remaining half of slice 1** of `landing-instruments-read-the-evidence`. The door reads
+   a reviewer's completion comment since #168 (`SHA:907405580`, landed 2026-09-20 by the door
+   itself with the Codex leg machine-checked; the node's prediction held on its first trial).
+   Handed by Dynamo turns Temper at their closeout, unscheduled: the inline-only review's own
+   comments as a leg input (the round-two row of #149; slice 1's last piece, its own pull
+   request), and the multiplexed gh seam in `pr-watch/state-gh.ts` (one reader per leg, so the
+   suites' fakes stop branching). Slice 1's other half is reading a
    configured vendor's zero-findings result as the result it is. The owner has ruled (2026-09-16,
    verbatim: "No findings means no problems, that IS a result, it shouldn't need special
    treatment"), so it is an ordinary implementation. Build it
