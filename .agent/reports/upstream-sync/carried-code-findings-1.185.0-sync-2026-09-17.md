@@ -82,6 +82,23 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     has no robots branch, so the document contradicts itself. Standard: §Misleading docs are
     blocking.
 
+13. `apps/oak-curriculum-mcp-streamable-http/src/app/agent-discovery-link-header.ts` line 51
+    (identical on the Oak line's tip; raised by Copilot on the carrier, round two): the docstring
+    says the header "rides every response", but `application.ts` mounts it in
+    `setupPostAuthPhases` (line 92), after the handlers that can terminate a request first
+    (`robots.txt`, the domain-verification challenge, the OAuth routes), so those responses do not
+    carry it. Mount order read at source; the missing header on those routes was not exercised.
+    Standard: §Target-architecture wording needs consuming-runtime evidence.
+14. `docs/architecture/architectural-decisions/122-permissive-cors-for-oauth-protected-mcp.md`
+    lines 68–70 (identical on the Oak line's tip; raised by Copilot on the carrier, round two):
+    the paragraph says the authenticated `/mcp` endpoint is Host-validated in the auth layer and a
+    disallowed Host is rejected with `403` before authentication. Copilot reads
+    `host-validation-error.ts` lines 69–70 as returning the canonical origin before the request
+    Host is read when `CANONICAL_HOST` is set, with the standalone guard mounted on no route
+    (consistent with A8). Reported, not reproduced by this seat; the reader reproduces before
+    opening the lane. (Copilot's second point, an "incomplete" phrase, is its own masking of the
+    words "Bearer token"; the file's text is complete.) Standard: §Misleading docs are blocking.
+
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
 1. `agent-tools/src/validators/plugin-skill-copies/plugin-skill-copies-fs.unit.test.ts`
