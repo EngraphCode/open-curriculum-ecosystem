@@ -10,7 +10,7 @@ import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.
  * (2026-09-20; that pull request's description records them).
  */
 
-const HEAD = '7a9cd61414f0e2b7c6d5a4b3c2d1e0f9a8b7c6d5';
+const HEAD = 'f'.repeat(40);
 
 interface CommentNode {
   readonly id: string;
@@ -91,14 +91,17 @@ describe('parseCommentsHarvest', () => {
       [commentsPage([{ ...CODEX_NODE, lastEditedAt: undefined }])],
       /lastEditedAt/u,
     ],
-  ])('fails loud on %s: a misshapen harvest is never an empty one', (_name, payload, leg) => {
-    expect(() => parseCommentsHarvest(payload)).toThrow(leg);
-  });
+  ])(
+    'fails loud on %s: a misshapen harvest never reads as empty or as unedited',
+    (_name, payload, leg) => {
+      expect(() => parseCommentsHarvest(payload)).toThrow(leg);
+    },
+  );
 });
 
 describe('parseCommitsHarvest', () => {
   it('flattens the slurped pages into the full SHAs in the connection order', () => {
-    const older = '2f98940b8c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f';
+    const older = 'e'.repeat(40);
 
     expect(parseCommitsHarvest([commitsPage([older]), commitsPage([HEAD])])).toStrictEqual([
       older,

@@ -6,7 +6,7 @@ import type { GhCommandExecutor } from './gh.js';
 /**
  * The gh seam reads the second transport of a reviewer's reported result: a
  * completion comment on the conversation, bound to the commit it names.
- * Four parsers compose through the gh seam with an injected executor and no
+ * Five parsers compose through the gh seam with an injected executor and no
  * real gh; the comments and the commits arrive as the slurped pages of their
  * paginated harvests, shaped as read on pull request 168 (2026-09-20; that
  * pull request's description records the reads).
