@@ -199,17 +199,29 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 2. LANDED 2026-09-19 in the fifth context: the directive pass. The fourth context had folded
    the DUE successor as #155 (`SHA:65a929d9a`) and stopped at 51 %; the fifth opened after a
    compaction at 11 %, drained the napkin first, then landed the twelve entries from the
-   drafts in the machine-local handoff record. One reading beyond the drafts, made at the
-   edit and open to the owner's correction: `test-immediate-fails` item 4's sanctioned
-   committed-fixture disk read is withdrawn with the other carve-outs, since the ruling admits
-   no filesystem IO and no helper exemption.
+   drafts in the machine-local handoff record. One reading went beyond the drafts and the
+   owner ratified it by card on 2026-09-20 ("Yes, no disk reads"): committed fixtures enter a
+   test as imported modules or literal values, and a fixture file read from disk is IO. The
+   same card ratified the fitness limits this seat set on `frictions-register.md` and
+   `review-cost-ledger.md` ("They stand") and the launch prompt's last sentence as written
+   ("Keep as it is"), with consolidate-until-done step 7 limiting the prompt's answer to the
+   session it launched.
 3. IN PROGRESS: memory files, by graduate, then archive (`consolidate-docs` step 6b), each
    read whole before anything moves. Done: `repo-continuity.md` (snapshot
    `archive/repo-continuity-2026-09-19.md`) and `director-handoff.md` (snapshot
    `archive/director-handoff-2026-09-19.md`; verdict on reading it whole: the Brief is live
    role procedure and stays, its size is its function; only the superseded 2026-09-12 fold
-   block and one fixed-friction bullet were finished). Next by traffic: the
-   agentic-engineering-enhancements record, `collaboration-state-conventions.md`, the
+   block and one fixed-friction bullet were finished) and, on 2026-09-20, the
+   agentic-engineering-enhancements record (snapshot
+   `archive/agentic-engineering-enhancements-thread-2026-09-20.md`, blob `f6237bcf8`; 1,029
+   lines to 566). Read whole, it held eleven finished sections (executed consolidation and
+   doctrine logs, the salvage arc, two lanes' landing narratives) beside five live lanes, which
+   stay verbatim with the Briny handoff banner and the identity table. Every "named next-pass"
+   item in the logs was checked for a home first: most were discharged or homed; three were
+   not and were graduated before anything moved (F-196, the stale-claims sweep reading a live
+   seat as stale; the corpus tooling README's re-freeze-the-recall-fixture note; the
+   `skill-composition.md` wording of `wrap`), and the unverifiable 2026-07-28 follow-ons stay
+   in the record as open residuals. Next by traffic: `collaboration-state-conventions.md`, the
    estate-coordination record, `frictions-register.md` (its settled entries), this record's
    own landed history above, the design-system-integration record, then the paused thread
    records. A reading past a limit on any of them is the signal to read it, never a reason
@@ -217,14 +229,7 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    record is about 55,000 tokens to read (its last 280 lines alone are 27,000), the
    estate-coordination record about 75,000 and the frictions register about 90,000. Each is
    priced against the headroom the context has at that moment (the window is a million
-   tokens) and read whole before anything moves. The first 740 lines of the
-   agentic-engineering-enhancements record were read and NOT curated (nothing moved, by the
-   owner's rule): they are nine EXECUTED consolidation and doctrine logs whose homes are
-   their commits, beside three live lanes that stay (the inter-Practice exchange's standing
-   follow-ups and the resonance offers, the corpus-generalisation Phase 0 restart brief, the
-   mutation-testing re-baseline); the logs' "named next-pass" items each need a home check
-   before the logs move.
-4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
+   tokens) and read whole before anything moves.4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
    (`lsof`, `ps`), a configuration cure in its own lane; and the Claude per-user RESUME HEADS
    pointers, re-trued at each wrap.
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3

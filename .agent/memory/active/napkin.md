@@ -185,6 +185,16 @@ still unhomed, as at the three rotations before.
   and I carried it across a compaction that changed its premise. Behaviour change: a gate is
   applied to the class it names and no wider; a plan's premise (here, the figure) is re-read
   when the figure changes, before the plan is repeated to the owner as a blocker.
-- **Open for the owner.** Codex's round-three finding on the launch prompt's last sentence
-  (the owner's words, left as written; the skill now says the prompt's answer holds for the
-  session it launched and no other).
+- **Owner ruling, 13:42Z, verbatim: "two parallel gate runs are fine as long as they are in
+  different work trees".** It replaces the seats' working agreement of one gate run at a time
+  on the host; inside one worktree it is still one at a time. Home owed: `no-unbounded-host-load`
+  or the ARC reference, read first. One observation beside it, the same quarter hour: my push
+  ran beside another seat's push gates and `smoke:comms-watch-coordination-home` failed on its
+  own ten-second wait ("watcher did not exit within 10 seconds"); it passed alone a minute
+  later and the push passed on retry. One instance. It is a wall-clock bound inside a smoke
+  check, which `testing-strategy.md` §Smoke Checks says proves completion by events.
+- **Owner card, ~13:58Z, four answers.** The launch prompt's last sentence stays as written
+  ("Keep as it is"); fixtures never enter a test by a disk read ("Yes, no disk reads"); the
+  fitness limits on the frictions register and the review-cost ledger stand ("They stand");
+  next work is the large records in this context ("Large records now"). Recorded in the
+  continuity thread record. Still open for the owner: F-189's verdict.

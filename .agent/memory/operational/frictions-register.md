@@ -4581,3 +4581,18 @@ commit SHA and the closing plan reference.
 - **Route**: a validator row (the markdown records' sha form) in the repo validators, with the
   existing bare shas converted in one mechanical sweep in the same lane; until then a seat
   writing a sha into these surfaces prefixes it.
+
+### F-196 — the stale-claims sweep reads a live seat as stale when its loop bumps comms only
+
+- **Observed**: 2026-07-23, in a dedicated consolidation's stale-claims sweep (Magma mends
+  Sulphur, `639530`); registered 2026-09-20 when the thread record that was its only home was
+  curated. `claims archive-stale` judges liveness by the claim's own `heartbeat_at`, or
+  `claimed_at` where there is none (`isClaimStale`, `collaboration-state/claims.ts`). A live
+  Director seat whose cadence loop posted comms heartbeats but never ran `claims heartbeat`
+  read as stale, and the sweep offered its claim for archiving.
+- **Expected**: one liveness reading per seat. A seat that is visibly live on the comms stream
+  is live to the claims sweep as well, or the sweep says which signal it read.
+- **Route**: a claims-tooling candidate (the sweep consults the seat's newest comms heartbeat
+  beside the claim's, or the heartbeat command bumps both). The seat-side cure is already
+  practice: a seat that holds a claim runs `claims heartbeat` on it
+  (`liveness-heartbeat-cron`). One instance.

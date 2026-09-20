@@ -3764,5 +3764,31 @@ from twelve directive-bound entries to none; the testing doctrine states the own
 invariant; continuity surfaces have a disposition with a trigger and a proof.
 
 Board: `engraph` at SHA:44729c98c, carrying #157 and #158 (Dynamo turns Temper's sync-machinery
-lanes). Open: #154, that seat's carrier, ready for review and BEHIND since this fold; the successor's draft pull request. Next,
-this seat: graduate, then archive the three large records, one at a time.
+lanes). Open: #154, that seat's carrier, ready for review and BEHIND since this fold; the
+successor's draft pull request. Next, this seat: graduate, then archive the three large
+records, one at a time.
+
+### 2026-09-20 13:20Z — the Oak line at release 1.185.0 is integrated (Dynamo turns Temper, 2a4c8a; entry written by that seat, landed by the curator seat)
+
+Carrier pull request 154 merged by merge commit as SHA:93c35f285 (parents SHA:44729c98c and the
+carrier head SHA:704b3903a) on recorded premises. Proofs read after the landing: the Oak line's
+tip SHA:d9138c8b9 and the two-parent integration merge SHA:514c8100b are ancestors of `engraph`;
+`engraph`'s tree equals the carrier head's tree; the mirror equals the Oak line's tip and
+`engraph` lacks none of its commits. This line's ADR-228 (organisational identity below the tree)
+is ADR-231; the Oak line's ADR-228 (agent-web standards) keeps the number. The landing's records
+are on `engraph` under `.agent/reports/upstream-sync/`: the findings ledger (A1–A14, B1, C1–C3,
+D1–D9) and the premise-sweep record with its landing-time recompute and the two pre-publication
+subagent verdicts. Same lane, same day: pull request 157 (a merge-bot scope,
+`upstream-mirror-dispatch`, because a bot-dispatched run's token is capped at the dispatching
+token's permissions) and pull request 158 (the carrier workflow closes nothing; a stale unworked
+carrier is replaced by the seat that takes it up, cross-fork skill step 1). The git file monitor
+was unset for this clone (F-195). The owner's rulings of the day: cure on this line only the
+ledger items that mislead operators (A2, A5, A15) and hold the rest for the Oak line; a ruleset
+on `main` (`deletion`, `non_fast_forward`; id 23729318) created at the owner's word; four
+ratifications, recorded on that seat's draft #161. Pickups: the follow-up pull requests in the
+owner's order (the commit-message hook failing on warnings, draft #160; A2, A5, A15; D8; the
+merge-door slice); the next carrier opens itself when the Oak line moves.
+
+Board at 13:55Z: `engraph` at SHA:93c35f285; this branch carries it (merge `SHA:3005d3c26`).
+Open drafts: #159 (this branch), #160 and #161 (Dynamo turns Temper, paused at a compaction
+boundary).

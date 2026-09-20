@@ -231,7 +231,9 @@ forward-asks remain.
   (next: WS-1 CLI-ergonomics conformance guard — §Next Safe Steps; WS-4 is the structural drain-fix).
 - **Fitness-system doctrine (agentic lane)** — the Closure & Role-Routing findings record + backbone
   plan landed (`547d889c9`); next is the plan's WS0 (PDR-106 + ADR-144 amendment) and the §11
-  comparison. Detail in the `agentic-engineering-enhancements` thread record.
+  comparison. Detail in
+  `.agent/plans-backlog-2026-07/agentic-engineering-enhancements/current/fitness-system-closure-and-role-routing.findings.md`
+  and the `.plan.md` beside it.
 - **Collaboration-state lifecycle**: `.agent/state/` files are live signal sources, not long-term
   documentation. The 2026-07-23 dedicated pass ran the class-tiered
   archive-move (3,618 routine events; provenance + byte-preservation gates

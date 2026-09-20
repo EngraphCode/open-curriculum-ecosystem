@@ -83,6 +83,10 @@ instrument, never the milestone.
   build step typically leaves the shell in `agent-tools/` (first-hand, 2026-08-07
   longitudinal run — the relative launch failed on a doubled `agent-tools/agent-tools/`
   path).
+- Re-freeze the recall fixture from the marker-chain reports that cover the NEW window before
+  spending on a run: the frozen 18-baseline fixture is calibrated to February–June 2026, so a
+  later window measured against it reports recall for the wrong period (first-hand, the same
+  2026-08-07 run).
 - The Workflow tool's `.output` file wraps the script's return under `.result` (alongside
   `summary`, `logs`, `totalTokens`). Every stage returns a typed envelope discriminated on `ok` —
   inspect it before committing a checkpoint; a failure is a value, not an exception.
