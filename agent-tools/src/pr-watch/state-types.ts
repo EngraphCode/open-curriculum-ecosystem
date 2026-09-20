@@ -83,7 +83,8 @@ export interface PrStateReading {
    * The second transport of a reviewer's reported result: an expected
    * reviewer's completion comments, each read as a review bound to the one
    * commit it names or refused by name (`completion-comments.ts`). The legs
-   * read both transports; a refusal is quoted in the verdict.
+   * read both transports; a refusal is quoted in the verdict when that
+   * reviewer's leg is OWED or timed out.
    */
   readonly completionComments: CompletionCommentReading;
   readonly reviewRuns: ReviewRunsLeg;

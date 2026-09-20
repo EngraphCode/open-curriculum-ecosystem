@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { CompletionComment } from './completion-comments.js';
+import { authorLogin } from './state-fields.js';
 
 /**
  * Boundary parser for the conversation legs of the `pr state` view: the
@@ -17,13 +18,8 @@ import type { CompletionComment } from './completion-comments.js';
 /** The `--json` fields this parser reads, requested beside the state view's. */
 export const PR_STATE_CONVERSATION_JSON_FIELDS = ['comments', 'commits'] as const;
 
-// Author can be null on GitHub (deleted account); 'unknown' is a login no
-// expected reviewer set holds, so such a comment reads as no review.
-const authorLogin = z
-  .object({ login: z.string() })
-  .nullish()
-  .transform((value) => value?.login ?? 'unknown');
-
+// A deleted account's comment is by 'unknown' (state-fields.ts), a login no
+// expected reviewer set holds, so it reads as no review.
 const commentSchema = z.object({
   // The GraphQL node id, as `pr view` emits it (never the REST integer).
   id: z.string(),
@@ -37,8 +33,9 @@ const commentSchema = z.object({
 // gh emits arrays for both, empty when there is nothing: a null or a missing
 // leg is a misshapen payload, never an empty one. Without the commit list a
 // named prefix would resolve nowhere, and every completion comment would be
-// refused as naming a commit outside the pull request. gh bounds the list at
-// its first hundred commits; the reading seam puts the tip beside it.
+// refused as naming a commit outside the pull request. gh back-fills every
+// page of comments for `--json comments` but bounds the commit list at the
+// pull request's first hundred; the reading seam puts the tip beside it.
 const conversationSchema = z.object({
   comments: z.array(commentSchema),
   commits: z.array(z.object({ oid: z.string() })),

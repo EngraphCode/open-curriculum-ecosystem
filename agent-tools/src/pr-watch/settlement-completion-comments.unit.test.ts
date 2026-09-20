@@ -59,6 +59,9 @@ describe('computePrVerdict — the completion-comment transport', () => {
     expect(verdict.evidence).toContain(
       `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z read as a review of the tip (transport: completion-comment)`,
     );
+    // A zero-findings result has nothing to tally: the body-tally hand-over
+    // names review objects only.
+    expect(verdict.evidence.join('\n')).not.toContain(`tip-bound review body present: ${CODEX}`);
   });
 
   it('a tip-bound completion comment anchors the quiet window as a review object does', () => {
@@ -126,7 +129,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
     expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 
-  it("a refused comment never outranks that reviewer's LIVE run inside the window: the result being composed is awaited, the refusal stays in evidence", () => {
+  it('a refused comment never outranks a LIVE run inside the window: the result being composed is awaited, the refusal stays in evidence', () => {
     const verdict = computePrVerdict(
       settledReading({
         ...both,
@@ -176,5 +179,62 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
     expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
     expect(verdict.evidence.join('\n')).toContain(`${CODEX}: SKIPPED — timeout`);
+  });
+
+  it("a refusal on a reviewer that is not the blocking one rides in the evidence; the blocking leg's own state names the reader's next act", () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [],
+        reviewRequests: [COPILOT],
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+      }),
+      '2026-07-21T12:05:00Z',
+    );
+
+    expect(verdict.state).toBe('SILENT-WAIT-RUN-DEAD');
+    expect(verdict.evidence).toContain(`most blocking reviewer leg: ${COPILOT}`);
+    expect(verdict.evidence.join('\n')).toContain(
+      `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z refused — names commit bbbbbbbbbb`,
+    );
+  });
+
+  it('a tip-bound completion comment satisfying one leg is named in the evidence while another leg blocks', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [],
+        completionComments: { reviews: [codexClean(TIP)], refused: [] },
+      }),
+      '2026-07-21T12:05:00Z',
+    );
+
+    expect(verdict.state).toBe('SILENT-WAIT-NO-REVIEWER');
+    expect(verdict.evidence).toContain(
+      `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z read as a review of the tip (transport: completion-comment)`,
+    );
+  });
+
+  it("a tip-bound quota marker is the reviewer's later word: an older completion comment is a past round, and the round reads QUOTA-SKIPPED", () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [
+          ...settledReading().reviews,
+          {
+            author: CODEX,
+            state: 'COMMENTED',
+            body: 'Review skipped: spend limit reached',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:20:00Z',
+          },
+        ],
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+      }),
+      LATE_NOW,
+    );
+
+    expect(verdict.state).toBe('QUOTA-SKIPPED');
+    expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 });

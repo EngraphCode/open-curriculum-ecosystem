@@ -63,7 +63,7 @@ transports and the tool reads both: the review object, and a completion
 comment on the conversation naming the commit reviewed (the Codex
 connector's zero-findings transport; a positive result by the owner's
 ruling of 2026-09-16). A declared reviewer's comment that fails a
-precondition — edited, naming no commit or several, naming a commit outside
+precondition on a leg the tip has not answered — edited, naming no commit or several, naming a commit outside
 the pull request or one that is not the tip — refuses as
 `UNCLASSIFIED-EVIDENCE` with the precondition named and the comment quoted,
 never as silence; the cure is a fresh result on the tip.

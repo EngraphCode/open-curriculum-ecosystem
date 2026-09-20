@@ -1043,8 +1043,10 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    precondition and quoting the comment (a near-miss that reads as silence
    puts the reader back where they started); the door refuses it by name,
    and the cure is a fresh result on the tip (an `@codex review` comment),
-   never an edit. A live run for that reviewer outranks the refusal while
-   the window is open.
+   never an edit. The refusal decides the verdict when the round is
+   otherwise settled or when it is the blocking reviewer's; a live run
+   outranks it, and a refusal on another reviewer rides in the evidence
+   beside the blocking leg's own state.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a

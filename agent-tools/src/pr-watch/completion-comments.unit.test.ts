@@ -124,6 +124,22 @@ describe('readCompletionComments', () => {
   });
 });
 
+describe('readCompletionComments — the live body', () => {
+  // The comment Codex posted on pull request 167 (2026-09-20), whole: the
+  // About block carries no inline code, so it names one commit.
+  const LIVE_BODY =
+    'Codex Review: Didn\'t find any major issues. :tada:\n\n**Reviewed commit:** `8c12413681`\n\n<details> <summary>ℹ️ About Codex in GitHub</summary>\n<br/>\n\nCodex has been enabled to automatically review pull requests in this repo. Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment "@codex review".\n\nIf Codex has suggestions, it will comment; otherwise it will react with 👍.\n\n\n\n\nWhen you [sign up for Codex through ChatGPT](https://openai.com/codex), Codex can also answer questions or update the PR, like "@codex address that feedback".\n            \n</details>';
+
+  it('reads the whole live comment, About block included, as one review bound to the named commit', () => {
+    const reading = read({ ...CODEX_CLEAN, body: LIVE_BODY });
+
+    expect(reading.refused).toStrictEqual([]);
+    expect(reading.reviews.map((review) => review.commitOid)).toStrictEqual([
+      '8c12413681aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    ]);
+  });
+});
+
 describe('quoteOf', () => {
   it("takes the comment's first non-empty line, bounded to 120 characters", () => {
     expect(quoteOf('\n\n  first line  \nsecond')).toBe('first line');
