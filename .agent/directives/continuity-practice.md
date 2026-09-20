@@ -77,7 +77,9 @@ work this content describes?". Two dispositions:
    a still-live operational fact — the compact current-state surface), and
    the home is read back to confirm it holds the substance; then the
    finished history moves whole to a dated archive beside the surface
-   (`archive/<surface>-YYYY-MM-DD.md`), proven byte-identical to the moved
+   (`archive/<surface>-YYYY-MM-DD.md`; a second archive of one surface on one
+   day takes a letter suffix, `-YYYY-MM-DDb.md`, and an existing archive is
+   never overwritten), proven byte-identical to the moved
    range against the committed blob, as the napkin rotation proves its
    archive (where the finished ranges are not contiguous, the archive is a
    snapshot of the whole pre-curation file, proven byte-identical to its

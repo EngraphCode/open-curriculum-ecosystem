@@ -1,7 +1,8 @@
 # No Global State Manipulation in Tests
 
 Tests MUST NOT read or mutate global state. Prohibited in ALL tests
-(unit and integration), and in the files of an E2E check:
+(unit and integration), and in the check files and setup files of an E2E
+or smoke check (its composition root is the one exception, below):
 
 - `process.env.X` reads — inherit ambient shell state and hide missing DI seams
 - `process.env.X = 'value'` — mutates global state, causes race conditions

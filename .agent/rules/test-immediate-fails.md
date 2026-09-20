@@ -125,8 +125,8 @@ seam, extract a pure function, inject a dependency).
 ## Pipeline Immediate Fails
 
 20. **Test category does not match its file name.** A
-    `*.unit.test.ts` that injects a fake is an integration test under
-    the wrong name: rename it. Per `testing-strategy.md`, naming IS the
+    `*.unit.test.ts` that exercises several units working together is an
+    integration test under the wrong name: rename it. Per `testing-strategy.md`, naming IS the
     category. A test that touches IO is a different defect (item 4):
     renaming it to `.integration` cures nothing,
     since no test tier admits IO; the cure is an injected seam or a

@@ -35,8 +35,9 @@ and **Implementer** (ephemeral, owns one bounded lane) — are defined by
 [PDR-117](../practice-core/decision-records/PDR-117-director-and-implementer-roles.md).
 
 Read [metacognition.md](./metacognition.md) and apply it: its generative mode
-is the default for any non-trivial work, and its retrospective mode runs at
-every boundary, not only when a plan is being finalised.
+is the default for any non-trivial work, and its retrospective mode runs on
+every correction signal, wherever in the work it arrives, not only when a plan
+is being finalised.
 
 ## The Practice
 

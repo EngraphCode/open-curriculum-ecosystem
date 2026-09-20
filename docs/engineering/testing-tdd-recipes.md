@@ -37,7 +37,9 @@ unit, integration, and E2E levels.
 
 ## TDD At All Levels
 
-TDD applies to unit, integration, and E2E tests. Each level specifies the
+TDD applies to unit tests, integration tests and E2E checks (an E2E check
+drives a running system and is a validation surface, not a test; where this
+file says "E2E test", read E2E check). Each level specifies the
 desired behaviour before implementation changes at that same level.
 
 ### Unit Test TDD

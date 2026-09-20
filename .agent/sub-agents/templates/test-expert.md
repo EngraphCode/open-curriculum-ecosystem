@@ -109,7 +109,10 @@ For each test file:
   (does it import product code? does it spawn processes? does it exchange
   protocol with a separate running system?), not just its name.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
-  `*.integration.test.ts`, `*.e2e.test.ts`).
+  `*.integration.test.ts`). An existing `*.e2e.test.ts` file is pre-invariant
+  estate for the recovery plan, never a naming mismatch to flag; a NEW E2E or
+  smoke check is a validator reachable from a CI-gated task and is never
+  required to carry a test suffix.
 - Flag any mismatch as an immediate-fail (per `test-immediate-fails.md`
   §Pipeline).
 
@@ -180,9 +183,9 @@ The atomic-landing invariant from `tdd-as-design.md`:
 - **For behaviour changes**, the test at the affected scale is updated
   *first* (within the same commit) — pure-function changes update unit
   tests; integration changes update integration tests; system-behaviour
-  changes update E2E tests; and where a higher-scale test requires
-  several lower-scale changes first, the lower-scale cycles sequence
-  ahead, finishing with the commit that greens the higher-scale test.
+  changes update E2E checks; and where a higher-scale test or check
+  requires several lower-scale changes first, the lower-scale cycles
+  sequence ahead, finishing with the commit that greens the higher scale.
 
 ### Step 6: Apply the Mock-Quality Check
 
@@ -236,8 +239,8 @@ file names below is pre-invariant naming.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio, or HTTP on the local host) | `*.e2e.test.ts` |
-| **Smoke check** | The shipped form is viable | NONE | All types | `*.smoke.test.ts` or standalone scripts |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | Existing files: `*.e2e.test.ts` (pre-invariant); no test suffix is required of a new check |
+| **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
 
@@ -300,16 +303,16 @@ CORRECT SEQUENCE
             (the cycle is the atomic landing)
 ```
 
-### Violation 3: Updating E2E tests after implementation
+### Violation 3: Updating E2E checks after implementation
 
 ```text
 WRONG SEQUENCE
   1. Implement new feature
-  2. E2E tests fail (old spec)
-  3. Update E2E tests to match implementation
+  2. E2E checks fail (old spec)
+  3. Update E2E checks to match implementation
 
 CORRECT SEQUENCE (in one commit, or sequenced lower-scale cycles first)
-  1. Update E2E test to specify NEW behaviour (RED, in the commit)
+  1. Update the E2E check to specify NEW behaviour (RED, in the commit)
   2. Implement feature in the same commit (GREEN)
   3. Refactor in the same commit (still GREEN)
 ```
@@ -396,9 +399,9 @@ need for product code refactoring and cites the relevant specialist.
 
 ### Structural
 
-- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts`,
-      `*.e2e.test.ts`
-- [ ] Tests live next to code (except E2E in `e2e-tests/`)
+- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (an
+      existing `*.e2e.test.ts` is pre-invariant estate, not a mismatch)
+- [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
 - [ ] No conditional execution (`skipIf`, `runIf`, runtime branching,

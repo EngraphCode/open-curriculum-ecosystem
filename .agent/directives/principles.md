@@ -246,8 +246,12 @@ cohabit.
 Open source and public is the Oak and UK Government standard (owner,
 2026-08-12, verbatim, on a proposal that framed opening a private Oak
 repository as a licensing cost: "open source and public is the Oak and UK Gov
-standard, forcing that change is actually a huge positive"). Oak is a public
-body and the government service standard mandates open source, so a proposal
+standard, forcing that change is actually a huge positive"). This is Oak
+policy as the owner states it. Its external root is the Government Service
+Standard's point 12,
+[Make new source code open](https://www.gov.uk/service-manual/service-standard/point-12-make-new-source-code-open),
+which binds the services in that standard's scope and names its own exceptions;
+Oak, a public body, holds the same default for its own surfaces. So a proposal
 that makes a private Oak surface public is aligned with standing policy, and
 the framing burden is on staying private. File the open-sourcing itself under
 benefits and policy alignment; only the transitional work (a security review

@@ -618,7 +618,8 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     history above its live state, run `continuity-practice.md` §Disposition of
     Continuity Surfaces: per entry, live or finished; the behaviour-changing
     finished entries graduated and their homes read back; the finished range
-    moved whole to `archive/<surface>-YYYY-MM-DD.md` beside the surface and
+    moved whole to `archive/<surface>-YYYY-MM-DD.md` beside the surface (a
+    letter suffix for a second archive that day; never overwrite one) and
     proven byte-identical against the committed blob (finished ranges that are
     not contiguous: a snapshot of the whole pre-curation file, proven the same
     way, then the live file curated); the runbook's token and

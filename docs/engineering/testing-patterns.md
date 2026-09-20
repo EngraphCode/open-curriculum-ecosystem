@@ -29,20 +29,22 @@ objects or hermetic test helpers, never by reading or mutating `process.env`.
 Do not import production config loaders unless the test is directly proving
 the loader; they may read `.env` files as part of the production pipeline.
 
-`request(app)` opens a loopback listener, and a socket is IO: by the owner's
+`request(app)` opens a loopback listener, and a socket is IO. By the owner's
 2026-09-14 ruling (tests never use or create IO;
-[testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy)
-the driving line in the pattern below belongs in an E2E check, not a test, and
-the suites that use it in-process are pre-invariant estate for
-`no-io-test-boundary-and-di-recovery.plan.md`. The configuration discipline this
-section teaches (steps 1 and 2) binds whatever drives the app. See
+[testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy),
+`request(app)` against an imported app is no compliant shape at all: it is not a
+test and not an E2E check (an E2E check drives a separately
+running system, and this app is constructed in the driving process). The suites
+that do it are pre-invariant estate for
+`no-io-test-boundary-and-di-recovery.plan.md`, and the pattern below no longer
+shows it. The configuration discipline this section teaches (steps 1 and 2)
+binds whatever constructs the app. See
 [Test File Classification](#test-file-classification).
 
 ### The Pattern
 
 ```typescript
 import { createApp } from '../src/application.js';
-import request from 'supertest';
 import { createMockObservability, createMockRuntimeConfig } from './helpers/test-config.js';
 
 // 1. Build an explicit runtime config — never read or mutate process.env
@@ -57,9 +59,10 @@ const app = await createApp({
   observability: createMockObservability(runtimeConfig),
 });
 
-// 3. Drive it (E2E check only: this line opens a loopback listener)
-const response = await request(app).get('/healthz');
-expect(response.status).toBe(200);
+// 3. Prove behaviour without a listener: call the handler or middleware under
+//    test directly (an integration test), or boot the built app as a separate
+//    process and drive it over its protocol channel (an E2E check). Never
+//    `request(app)` here: it opens a loopback socket in this process.
 ```
 
 ### Key Rules
@@ -82,9 +85,11 @@ environment variables via the spawn `env` option. This is safe
 because the variables are scoped to the child process and cannot
 leak into the runner.
 
-Vitest smoke suites may load ambient environment in the runner config
-composition root, validate it, and pass the resulting object through
-`test.provide` / `inject`. Test files and setup files must consume the
+A smoke or E2E check's composition root (its entry script, or the runner
+config of a check suite that a CI-gated task runs apart from the in-process
+test suites) may load ambient environment, validate it, and inject the
+resulting object; the Oak Search CLI's smoke suite does this through
+Vitest's `test.provide` / `inject` (`vitest.smoke.config.ts`). A check's files and setup files consume the
 injected object; they must not read or write `process.env`.
 
 ### Reference Implementations
