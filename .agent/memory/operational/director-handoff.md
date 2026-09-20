@@ -330,9 +330,9 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > **§FOLD, 2026-09-19 (Zephyr guards Leeward, `281e44`, curator; no Director seated) — supersedes the
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
 > `archive/director-handoff-2026-09-19.md` and narrated in the estate-coordination thread record
-> §2026-09-12 FOLD LANDED.** The last fold is #155 (SHA:65a929d9a, 2026-09-19 11:30Z); the live branch
-> is `coordination/2026-09-19-65a929`, draft #156, which by the owner's word of 2026-09-19 folds once,
-> when the dedicated consolidation's drain is done. _moved for teachers:_ nothing. _moved for the
+> §2026-09-12 FOLD LANDED.** The last fold is #156 (SHA:44729c98c, 2026-09-20 12:44Z), the
+> 2026-09-19 branch, folded once and late at the owner's word, when the dedicated consolidation's drain
+> was done; the live branch is `coordination/2026-09-20-44729c`. _moved for teachers:_ nothing. _moved for the
 > Practice:_ the twelve directive-bound graduations, the graduate-then-archive lifecycle and its trigger.
 
 ---
@@ -345,7 +345,7 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 >
 > **Seats.** No Director is seated. From 2026-09-17 15:31Z the estate runs at n = 2: Zephyr guards
 > Leeward (the dedicated consolidation; its curator claim moves with each fold and is read from
-> the claims registry, on `coordination/2026-09-19-65a929` from 2026-09-19 11:3xZ) and Dynamo
+> the claims registry, on `coordination/2026-09-20-44729c` from 2026-09-20 12:4xZ) and Dynamo
 > turns Temper (`2a4c8a`, the owner-approved Oak integration lane, claim `35006027`, carrier draft
 > #154), whose landing slot opened when #153 merged at 20:17Z; that seat resumed at the owner's
 > word on 2026-09-19 (team-start 19:48Z: the two sync-machinery lanes, then the carrier, each in
@@ -370,9 +370,13 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 >   `coordination/2026-09-17-b5b0e7`, which carried the fold's records;
 > - #155, that successor's fold, `65a929d9a` (2026-09-19 11:30Z, front door, a pre-publication
 >   claim pass and three rounds, a day past its DUE). The successor is
->   `coordination/2026-09-19-65a929`. On it, not yet on `engraph` (draft #156): the consolidation's
->   directive pass and buffer drain of 2026-09-19 (`SHA:668d75378`, `SHA:f6ce4d0c3`, `SHA:28e8b73be`,
->   `SHA:d3c81c0b2`); the four drainable buffers read empty.
+>   `coordination/2026-09-19-65a929`;
+> - #157 `bdbdda04a` and #158 `9993647b1`, Dynamo turns Temper's two sync-machinery lanes
+>   (2026-09-20);
+> - #156, the 2026-09-19 fold, `44729c98c` (2026-09-20 12:44Z, front door, a pre-publication claim
+>   pass and three rounds): the consolidation's directive pass and buffer drain (`SHA:668d75378`,
+>   `SHA:f6ce4d0c3`, `SHA:28e8b73be`, `SHA:d3c81c0b2`); the four drainable buffers read empty. The
+>   successor is `coordination/2026-09-20-44729c`.
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

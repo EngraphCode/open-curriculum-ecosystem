@@ -132,3 +132,34 @@ still unhomed, as at the three rotations before.
   Second loss scan: nothing new beyond this addendum; Dynamo turns Temper posted on the ARC
   channel while this seat wrote and #157 merged to `engraph` (`SHA:bdbdda04a`), both read at
   resume.
+
+## Zephyr guards Leeward (281e44) — 2026-09-20 ~12:5xZ, the fold of #156
+
+- **What happened.** #156 merged as `SHA:44729c98c`: a pre-publication pass of 36 findings,
+  then rounds of 23, 6 and 5; two settlement pushes; successor `coordination/2026-09-20-44729c`.
+  The retrospective's prediction (twenty or more) held in round one alone.
+- **Mistake: a merge message written from a ref read ten minutes earlier.** I fetched, read
+  `origin/engraph` as `SHA:bdbdda04a`, wrote the merge message, committed the cures (the hooks
+  fetched), then merged: the ref had moved to `SHA:9993647b1` (#158) and the message named the
+  wrong tip and the wrong content. Dynamo turns Temper's retrospective of the same day names the
+  same slip. Behaviour change: resolve the ref to a full sha in the same shell call as the
+  merge, merge that sha, and write the message from `git log <head>..<sha>` after resolving.
+  Home: the coordination-fold skill's step 4, at the next consolidation (second instance).
+- **Surprise: a category rename has the whole estate as its sibling set.** The claim pass
+  searched the eight changed files and their citers and found 19; the reviewers then found the
+  next ring three times (the test-expert template's trigger and checklist, ADR-078's pattern
+  body, ADR-161's decision table and fourth alternative, three docs under `docs/`, the
+  no-conditional-tests rule). Twenty-two of the 34 review findings were this one class (twelve of round one's 23,
+  all six of round two, four of round three's five). What would
+  have found them first: one estate-wide grep for the retired terms ("E2E test", "smoke
+  test", `request(app)`, `.e2e.test.ts` as a required name) run BEFORE the verifiers, with
+  every hit dispositioned, in place of a search scoped to the change's own files. Candidate
+  home: pr-lifecycle's pre-publication pass, as a third lens ("a renamed category is swept
+  estate-wide by its old name"). One instance; it waits for a second.
+- **What worked.** Verifier findings were checked at source before each cure and three of my
+  own cure sentences were wrong when first written (a "Phase 4" that is step 8; "the existing
+  smoke suites" that is one suite; `request(app)` relabelled as an E2E check, which both
+  reviewers caught). A cure is a new claim and gets the same check as the text it replaces.
+- **Open for the owner.** Codex's round-three finding on the launch prompt's last sentence
+  (the owner's words, left as written; the skill now says the prompt's answer holds for the
+  session it launched and no other).

@@ -3752,3 +3752,17 @@ directive pass from the machine-local handoff record
 `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`.
 Open for the owner: F-189's ecosystem-wide gate names; the carrier round-tally question, which
 wants an answer before the rounds of #154.
+
+### 2026-09-20 12:44Z — the 2026-09-19 branch folded as #156 (Zephyr guards Leeward, 281e44, curator at n = 2)
+
+Merged `SHA:44729c98c` through the front door; successor `coordination/2026-09-20-44729c`. Folded
+once and about thirteen hours past its DUE at the owner's word (the drain ranked above the fold).
+Its review figures are the #156 row of `review-cost-ledger.md`.
+
+*moved for teachers:* nothing. *moved for the Practice:* the pending-graduations register went
+from twelve directive-bound entries to none; the testing doctrine states the owner's no-IO
+invariant; continuity surfaces have a disposition with a trigger and a proof.
+
+Board: `engraph` at SHA:44729c98c, carrying #157 and #158 (Dynamo turns Temper's sync-machinery
+lanes). Open: #154, that seat's carrier, ready for review and BEHIND since this fold; the successor's draft pull request. Next,
+this seat: graduate, then archive the three large records, one per context.

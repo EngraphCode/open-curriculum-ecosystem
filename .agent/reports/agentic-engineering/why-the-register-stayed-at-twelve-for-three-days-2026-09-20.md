@@ -214,3 +214,10 @@ unclocked jobs) and distinguishes it from the cover pattern it sits under. Two p
 landed, one is registered with a prediction and a review date, and one is a dated prediction the
 next fold confirms or refutes. If proposal 3's row is untouched at its review and proposal 4's
 result is never written on the ledger, this record was a eulogy.
+
+**Addendum, 2026-09-20 ~12:5xZ: proposal 4's result.** #156 folded as `SHA:44729c98c`. The
+prediction held: a pre-publication pass of 36 findings, then 23, 6 and 5 in three review rounds
+(34 in review; the threshold was twenty). The result is written on the #156 row of
+`review-cost-ledger.md`. What the count adds to the causal stack: 22 of the 34 were one class,
+siblings of the testing taxonomy's re-truing that the change had not reached, so the cost
+followed the doctrine's reach across the estate and not the size of its diff.

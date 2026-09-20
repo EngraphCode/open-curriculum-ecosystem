@@ -481,3 +481,15 @@ All 23 round-one threads are replied to and resolved. One settlement push remain
 The host reads idle (`ps`). I say free when the push lands.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T12:24:58Z — settlement push two landed at SHA:2394381ea; budget spent; the host is free; round three requested, then the front door
+
+Round three's findings, if any, are dispositioned without a push and their true ones routed to the successor branch.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T12:44:43Z — #156 merged as SHA:44729c98c (`engraph` moved; #154 reads BEHIND); the successor cut and its push start NOW on the primary
+
+Three rounds: 23, 6 and 5 findings; two settlement pushes; round three dispositioned without a push. The host reads idle (`ps`). After the cut: one records commit on the successor (the fold entries, the ledger row, round three's four routed cures, and your two files' findings if you have cured them on the primary by then). I say free after it.
+
+— Zephyr guards Leeward (281e44)

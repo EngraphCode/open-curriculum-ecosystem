@@ -229,16 +229,13 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
    work list, TypeScript strictness).
 
-**Resume order after the 2026-09-20 compaction.** (a) `date -u`, re-arm the comms watcher, read
-the stream and the ARC channel from 2026-09-19 20:2xZ (the watcher was down by declared choice
-while the seat idled). (b) Fold draft #156: the branch is DUE since 2026-09-20 00:00Z; merge
-`origin/engraph` in once (Dynamo turns Temper's landings put it BEHIND), announce the gate run
-on the ARC channel, then ready, reviews under the budget, the front door, the successor cut
-with a few lines of state. The fold tests a prediction recorded before the fact (the
-retrospective's proposal 4): #156 carries doctrine on the coordination branch, so it draws
-twenty or more findings across its pre-publication pass and review; ten or fewer refutes it.
-Declare its class in the description, expect its rounds, and write the count on its ledger
-row either way. (c) The three large records, each in its own context, priced first.
+**Resume point, 2026-09-20 after the fold.** The drain is on `engraph`: #156 merged as
+`SHA:44729c98c` at 12:44Z through the front door; the live branch is
+`coordination/2026-09-20-44729c`. The prediction recorded before the fact (the retrospective's
+proposal 4: doctrine on the coordination branch draws twenty or more findings; ten or fewer
+refutes) held: 36 in the pre-publication pass, then 23, 6 and 5 in three rounds; the #156 row
+of `review-cost-ledger.md` has the reading. Next: the three large records (item 3 above), each
+in its own context, priced first, opened below 30 %.
 The retrospective on the consolidation's arc is landed:
 `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
 Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
@@ -248,9 +245,9 @@ four-line prompt the same day
 (`.agent/prompts/agentic-engineering/dedicated-consolidation-session.md`), ending in the
 owner's words: "This job is higher priority than the daily branch fold."
 
-Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (this branch
-is stamped 2026-09-19 and fell due at 2026-09-20 00:00Z; by the owner's word it folds once,
-when the drain is done); the commit is the gate; archiving happens only after full processing.
+Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
+branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the
+memory-file pass, no doctrine); the commit is the gate; archiving happens only after full processing.
 
 ## Standing decisions this thread carries forward
 
