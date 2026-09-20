@@ -179,5 +179,8 @@ cure pushes against a declared two, then a sixth under a budget the owner raised
 - **Routing.** The owner ratified by card on 2026-09-20: the commit-message hook fails on
   warnings (pull request 160); the claim pass runs before every publish (it caught eight true
   errors on the carrier before any reviewer saw them); the merge door reads a vendor's clean
-  comment (the node `landing-instruments-read-the-evidence`, stamped the same day). This record
-  is no eulogy: two of its three proposals changed a gate or a standing practice within a day.
+  comment (the node `landing-instruments-read-the-evidence`, stamped the same day, which is
+  the sketch proposal 3 calls unratified). These are proposal 2, the addendum's re-scoped
+  proposal 1 and proposal 3. Ratified and routed is what the evidence supports at this writing:
+  pull request 160 is open and the merge door's change is not built. Proposal 1's original
+  sentence form (the writers' list in a brief) is routed nowhere.
