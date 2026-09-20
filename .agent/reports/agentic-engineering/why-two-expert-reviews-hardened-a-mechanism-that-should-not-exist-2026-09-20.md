@@ -134,9 +134,8 @@ the carrier's closeout, it is a eulogy.
 
 ## State of this record
 
-Written 2026-09-20, untracked in the primary checkout. It is not safe until it is committed,
-pushed and on a pull request; it rides the coordination branch's commit queue with this seat's
-landing records, at the curator seat's word.
+Written 2026-09-20 and landed on `engraph` the same day by the coordination fold (#156); its
+correction and addendum are carried by the author's records pull request (#161).
 
 ## Addendum, 2026-09-20 11:35Z — the record's own lesson did not bind its author
 
