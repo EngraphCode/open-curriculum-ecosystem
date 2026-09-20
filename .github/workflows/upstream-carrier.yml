@@ -103,8 +103,11 @@ jobs:
           MIRROR_TIP: ${{ steps.compare.outputs.mirror_tip }}
         run: |
           set -euo pipefail
-          carriers="$(gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&base=${DEFAULT_BRANCH}&per_page=100" \
-            --jq '[.[] | select(.head.repo.full_name == env.GITHUB_REPOSITORY and (.head.ref | test("^automation/.*upstream"))) | {number, head_sha: .head.sha}]')"
+          # Every page: --paginate alone would run a --jq program once per page,
+          # and gh refuses --slurp beside --jq, so the pages are gathered into one
+          # array and the filter runs in jq over them flat.
+          carriers="$(gh api --paginate --slurp "repos/${GITHUB_REPOSITORY}/pulls?state=open&base=${DEFAULT_BRANCH}&per_page=100" \
+            | jq '[.[][] | select(.head.repo.full_name == env.GITHUB_REPOSITORY and (.head.ref | test("^automation/.*upstream"))) | {number, head_sha: .head.sha}]')"
           count="$(jq 'length' <<<"$carriers")"
           if [ "$count" = "0" ]; then
             echo "number=" >>"$GITHUB_OUTPUT"
