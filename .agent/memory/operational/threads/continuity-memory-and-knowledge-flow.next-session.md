@@ -321,10 +321,16 @@ items with no other home, and the two live sections of 2026-09-05 and 2026-09-06
 largest paused records by the same method (`mcp-submission-drive`, `workspace-config-isolation`,
 `strategy-and-plan-estate-holistic-review`; two analysts each; archives
 `archive/<slug>-thread-2026-09-20.md`), which also gave `signal-read-as-fact` two earlier
-instances (n = 2). Next: the remaining twenty-five paused records (the largest
-`upstream-api-alignment` 487 lines, `eef` 393, `typescript-estate-consolidation-review` 356,
-`codex-to-codex-hook-review-experiment` 349, `statusline-enhancements` 328), then this record's
-own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+instances (n = 2). Then `eef` (393 lines; archive `archive/eef-thread-2026-09-20.md`; the live
+record keeps the pause banner, the open items at the pause in the record's words, the standing
+decisions, the identity table and the links). Read and left live, whole: `statusline-enhancements`
+(a pickup record whose sections are open state and which says "Do NOT archive this record") and
+`typescript-estate-consolidation-review` (standing decisions, falsifiers and a resume order for a
+lane that reactivates at the owner's word). Analyses written and not yet acted on, in the seat's
+scratchpad: `upstream-api-alignment` (`uaa-piece-1.md`) and
+`codex-to-codex-hook-review-experiment` (`cch-piece-1.md`); their archive snapshots are on disk
+untracked, hash-matched to `SHA:c5e49a10b`. Next: those two verdicts, then the remaining
+twenty-one paused records (all under 300 lines), then this record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
 theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live

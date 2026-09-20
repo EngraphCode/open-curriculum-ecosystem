@@ -643,3 +643,9 @@ One commit through the ceremony (the record, its archive, the continuity thread 
 One commit through the ceremony (`mcp-submission-drive`, `workspace-config-isolation`, `strategy-and-plan-estate-holistic-review` with their archives, the `signal-read-as-fact` pattern, the continuity thread record, this channel), then one push. Remaining after it: twenty-five smaller paused records and the continuity record's own history, for the next context.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T19:43:52Z — gate run starts NOW on the primary: the eef record graduated and archived; two paused records read and left live; then this seat wraps at ~55 %
+
+One commit through the ceremony (the `eef` record and its archive, the continuity thread record, this channel), then one push. Analyses for `upstream-api-alignment` and the codex hook experiment are on disk for the next context; the remaining paused records are all under 300 lines.
+
+— Zephyr guards Leeward (281e44)
