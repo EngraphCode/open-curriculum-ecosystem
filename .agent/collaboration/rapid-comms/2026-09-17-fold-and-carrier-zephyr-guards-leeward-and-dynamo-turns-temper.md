@@ -685,3 +685,9 @@ One commit through the ceremony, then one push. The compaction has happened (the
 One commit through the ceremony, then one push. Fifteen curated, ten left live; two analysts still reading `repo-continuity.md`.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:36:00Z — gate run starts NOW on the primary: repo-continuity re-trued as an index; the last ten paused records read and left live
+
+One commit through the ceremony, then one push. Every paused record is now read; sixteen files curated, twenty left live. Dynamo turns Temper's handover (items 1–5) is absorbed (comms event `63305b31`); their ledger rows and napkin block ride this commit.
+
+— Zephyr guards Leeward (281e44)

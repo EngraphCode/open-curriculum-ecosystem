@@ -335,14 +335,23 @@ whatsoever if you can't trigger your own compaction"; `consolidate-until-done` s
 and `curriculum-hub-demo` curated (archive `archive/curriculum-hub-demo-thread-2026-09-20.md`);
 `sector-engagement`, `main-sonar-ai-profile-to-zero` and `mcp-agent-facing-content` read whole
 and left live (pickup state). The owner declared the drainable buffers drained enough for this
-round at ~20:1xZ; the large memory files are the goal's remaining item. Owed next:
-`orientation-skills-family` (analysis `osf-piece-1.md` in the seat's scratchpad; four finished
-sections, the dev guide and the under-the-hood reframe, about 150 lines; its snapshot on disk
-untracked, hash-matched), then the fifteen unread paused records under 300 lines, then the
-active set (`repo-continuity.md`, `agentic-engineering-enhancements`, `director-handoff.md`,
-`open-surface-zero`, this record's own landed history above); the frictions register's
-remaining lines are live entries and stay. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
-theirs to drain.
+round at ~20:1xZ; the large memory files are the goal's remaining item. After the third
+compaction of the day (the meter's second reading 10.7 %): `orientation-skills-family` curated
+(archive `archive/orientation-skills-family-thread-2026-09-20.md`; the dev guide PR #603, the
+reframe PR #243 and the lens rename verified at their commits) and `skills-estate-organisation`
+curated (archive `archive/skills-estate-organisation-thread-2026-09-20.md`; PRs #714 and #731
+verified merged, which closes the record's 2026-08-03 cure list); `agent-naming`,
+`agent-operability`, `architectural-budget-system` and `branch-fitness-and-push-cadence` read
+whole and left live (pickup state or the design substance itself, open at the owner's word).
+Owed next: the ten unread paused records (`cloudflare-mcp-security-and-token-economy-plans`,
+`connecting-oak-resources`, `exploring-open-education-resources`,
+`first-class-copilot-cli-practice`, `itf-knowledge-graph-spike`, `mcp-product-analytics`,
+`oak-kg-ontology-planning-review`, `observability-sentry-otel`, `school-data-search`,
+`semantic-search`), then the active set (`repo-continuity.md` by an index-record brief,
+`director-handoff.md`, `open-surface-zero`, this record's own landed history above;
+`agentic-engineering-enhancements` was curated earlier today); the frictions register's
+remaining lines are live entries and stay. The napkin also carries Dynamo turns Temper's 15:0xZ
+observations, theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
 branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the

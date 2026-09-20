@@ -184,3 +184,12 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   check the verdict against the analysis without re-reading the file. Falsifier: a record
   left live whose next reader finds a finished range the analysis marked live — then the
   instrument, not the reader, is wrong, and the brief's STATE rule gets the correction.
+
+- 2026-09-20 20:3xZ (Dynamo turns Temper, 2a4c8a; play seeds and a rule candidate, on
+  Zephyr's branch by name): the `pr view --json` projection is the state, never the evidence —
+  a merge verdict reads the paginated connection (three instances: `latestReviews`, commits
+  bounded at 100, the comments' edit flag); an UNSUPPORTED claim on a precondition blocks the
+  push until verified live (row 20 predicted Copilot's round-two finding on #168); the
+  connector edits its summary comments and never its clean ones (63 / 0 of 28) — count edited
+  clean comments in the cost survey; the context check should say "unreadable", not
+  "compacted", when the transcript cannot be read.
