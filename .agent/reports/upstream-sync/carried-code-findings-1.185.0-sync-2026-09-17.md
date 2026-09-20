@@ -22,8 +22,8 @@ each cure made here edits a file the Oak line authored and becomes a conflict at
 The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
 (`git diff d9138c8b9 -- <file>` leaves the cited passage untouched; one file, `deployment-architecture.md`, carries this line's deploy-config-gate text elsewhere), so by the owner's constraint it
-is cured on this line in its own PR, never on the sync, and the two lines carry the cure together
-when they rejoin (owner, 2026-09-17: one repository temporarily diverged). Prose authored on this
+is cured in its own PR, never on the sync. Which line makes the cure is the ruling above: A2 on
+this line, A1 and A3 on the Oak line (A4 moved to C2 and was cured on the carrier). Prose authored on this
 line about the same subject was re-trued on the carrier. Standard for all of A1–A4: principles
 §Misleading docs are blocking; §Target-architecture wording needs consuming-runtime evidence.
 
