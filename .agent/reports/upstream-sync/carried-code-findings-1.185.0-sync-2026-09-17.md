@@ -116,6 +116,16 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     `testing-strategy.md` (a test proves the behaviour its name states); §Misleading docs are
     blocking, for the test's name and comment.
 
+16. `apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/server-json.ts` lines 82–86
+    (identical on the Oak line's tip; found by this seat on 2026-09-20 while removing a leftover
+    build directory at the owner's word): the docstring says the artefact is written "under the
+    gitignored `.generated/` directory, alongside the baked landing page", and
+    `SERVER_JSON_ARTEFACT_RELATIVE_PATH` is `.generated/server.json`. No ignore rule covers that
+    directory (`git check-ignore` on the path matches nothing, on this line and on the Oak line's
+    tip), and the landing page no longer exists: its teardown took the ignore entry with it. A
+    build that emits `server.json` leaves an untracked file in the tree. Standard: §Misleading
+    docs are blocking.
+
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
 1. `agent-tools/src/validators/plugin-skill-copies/plugin-skill-copies-fs.unit.test.ts`
