@@ -312,10 +312,13 @@ its directive half, `continuity-practice.md` §Runbook step 1, landed after the 
 compaction of 2026-09-20 at a context of 11 %, and this seat's two napkin blocks of the day
 were drained to `archive/napkin-2026-09-20b.md` in the same commit). Done this context: the
 estate-coordination record, the collaboration-state conventions, the frictions register.
-Next, by the split method from the first read: the design-system-integration thread record
-(3,901 lines; index its second-level headings by grep, one analyst per run of sections,
-analyses to files, join by grep), then the paused thread records, then this record's own
-landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+Done after the second compaction, by the split method from the first read: the
+design-system-integration thread record (3,901 lines; nine analysts, the join by grep, every
+in-flight pull request checked at its merge commit; archive
+`.agent/memory/operational/archive/design-system-integration-thread-2026-09-20.md`, blob
+`c19df5e90`; the live record keeps the identity table, the landed arcs by merge commit, six open
+items with no other home, and the two live sections of 2026-09-05 and 2026-09-06). Next: the
+paused thread records, then this record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
 theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
