@@ -120,16 +120,38 @@ describe('runMergeBotCli mint-token --scope', () => {
     });
   });
 
-  it('still puts actions write on the wire for a workflow dispatch', async () => {
+  it('still puts actions write, and nothing more, on the wire for a workflow dispatch', async () => {
     // A LITERAL for the same reason as the row above. `actions: write` is fixed
     // externally by GitHub: it is what the workflow-dispatch endpoint requires,
     // and a 403 reading exactly `Resource not accessible by integration` on
     // `POST .../dispatches` was the observed symptom of its absence
-    // (2026-09-11). The generic test compares the minted payload against the
-    // table, so a typo or a downgrade to `read` in the TABLE would satisfy it —
-    // the two would agree on the wrong thing, and only a live dispatch would
-    // find out.
+    // (2026-09-11). The exact set matters as much as the member: this scope
+    // dispatches the carrier and re-runs failed jobs, neither of which writes,
+    // so a contents permission creeping in here would hand every such act a
+    // push-capable token it never uses. The generic test compares the minted
+    // payload against the table, so a typo or a downgrade to `read` in the
+    // TABLE would satisfy it — the two would agree on the wrong thing, and
+    // only a live dispatch would find out.
     expect(await mintedPermissionsFor('workflow-dispatch')).toEqual({ actions: 'write' });
+  });
+
+  it('still puts actions and contents write on the wire for the mirror dispatch', async () => {
+    // A LITERAL for the same reason. Each member has a named fixer outside
+    // this table: `actions: write` is what GitHub's dispatch endpoint
+    // requires; `contents: write` is what the dispatched mirror job's own
+    // `permissions:` block declares (its node's decision 7) combined with
+    // GitHub's cap on a dispatched run — its `GITHUB_TOKEN` cannot exceed the
+    // dispatching token's permissions. Measured: the mirror's fast-forward
+    // answered 403 under `workflow-dispatch` (run 35240876819, 2026-09-17)
+    // while every scheduled run of the same step succeeded, and succeeded
+    // under this permission set (run 35241924531). A change to that job's
+    // permissions is this value's re-adjudication point; a downgrade of either
+    // member in the TABLE would pass the generic test and fail only at the
+    // next live mirror dispatch.
+    expect(await mintedPermissionsFor('upstream-mirror-dispatch')).toEqual({
+      actions: 'write',
+      contents: 'write',
+    });
   });
 
   it('lists every scope and its permissions in the usage text', async () => {

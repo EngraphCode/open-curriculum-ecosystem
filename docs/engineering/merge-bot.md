@@ -104,11 +104,13 @@ scope the silent one — which is how a read-only need came to be served by a
 three-write token (MCP-385). The scopes, and the evidence for each member,
 are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 
-| scope                  | permissions                                                   | for                                                                           |
-| ---------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit, comment, review reply, thread resolution |
-| `pull-request-merge`   | `pull_requests: write`, `contents: write`                     | the merge act alone (what `merge-bot merge` mints itself)                     |
-| `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                  |
+| scope                      | permissions                                                   | for                                                                                                                                                                   |
+| -------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pull-request-work`        | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit, comment, review reply, thread resolution                                                                                         |
+| `pull-request-merge`       | `pull_requests: write`, `contents: write`                     | the merge act alone (what `merge-bot merge` mints itself)                                                                                                             |
+| `code-scanning-alerts`     | `security_events: read`                                       | reading code-scanning alerts                                                                                                                                          |
+| `workflow-dispatch`        | `actions: write`                                              | dispatching the upstream carrier workflow; re-running a failed job                                                                                                    |
+| `upstream-mirror-dispatch` | `actions: write`, `contents: write`                           | dispatching the upstream mirror workflow: a dispatched run's own token is capped at the dispatching token's permissions, and the mirror run moves a reference with it |
 
 That table is a **mirror**, kept inline because a reader choosing a scope
 needs the read/write levels in front of them. `token-scopes.ts` is
@@ -194,11 +196,12 @@ copy on the next fast-forward, and the ignore rule then hides its absence, so
 the very next `merge-bot` command exits 2 with the config-not-readable
 message. Recreate the file at the primary checkout from the template, naming
 the app that clone used, before the next merge or push.
-The app holds no Actions permission, so no bot token can re-run a failed workflow job.
-When a required check failed on the runner side rather than in the change (2026-09-06), the
-only bot-shaped cure was a new push, and that push re-opened the review round. Re-running a
-job needs `actions: write`; whether any bot scope should carry it travels with the MCP-391
-scope split.
+The installation holds `actions: write` (read from the installations endpoint, 2026-09-11) and
+the `workflow-dispatch` scope requests it, so a bot token can dispatch a workflow and re-run a
+failed job (two re-runs on 2026-09-12: CodeQL run 34748348080 and CI run 34748348052, both green
+on the second attempt). When a required check failed on the runner side before that scope
+existed (2026-09-06), the only cure taken was a new push, which re-opened the review round.
+Whether re-runs should be a routine bot act travels with the MCP-391 scope split.
 
 ## Setting up a bot (requires org-admin rights)
 
@@ -212,7 +215,8 @@ for admin credentials, and optional for everyone else.
 
    Requested by a scope, so a missing one fails that scope's mint with `422`:
    **Pull requests: Read & write**, **Contents: Read & write**, **Workflows:
-   Read & write**, **Code scanning alerts: Read-only**.
+   Read & write**, **Code scanning alerts: Read-only**, **Actions: Read &
+   write** (requested by `workflow-dispatch` and `upstream-mirror-dispatch`).
 
    Granted but requested by **no** scope, so no bot token can exercise them:
    **Checks: Read-only**, **Commit statuses: Read-only**. They are held
