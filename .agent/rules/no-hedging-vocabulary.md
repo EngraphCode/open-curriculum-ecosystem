@@ -86,6 +86,36 @@ as observations and owner corrections are quoted verbatim — the same
 recursive-exclusion logic that exempts this file as the cataloguing
 home.
 
+## Advocacy Register Is a Self-Signal
+
+The trip-list catches the literal shapes; the wider family is any prose that
+argues FOR a decision instead of describing its evidence — *warranted*,
+*justified*, *acceptable because*, *carve-out*. The owner reads these as
+near-proof the agent did something wrong and knows it (2026-08-10, verbatim:
+"carve-out and warranted are danger words, in the same sentence they near
+guarantee that the agent did something wrong and knows it"). The instance
+that drew it: a sentence defending an instrument disable that rested on the
+agent's own probe alone; the cure was a vendor citation, not a rewording.
+Advocacy prose marks a decision that has not yet earned a neutral
+restatement — usually one made alone, without a source or ruling. On
+catching a defending word in your own record or report, do not rephrase: go
+and get the missing evidence (vendor source, measurement, owner word) or
+reverse the decision.
+
+*Residue* belongs to the same family from the storage side (owner,
+2026-08-11, on a plan's follow-up register presented as "residue …
+recorded follow-ups, not silent gaps": "residue is another danger word, it
+is a bucket that unfinished work goes in. It needs critical assessment,
+sequencing or rejecting"). A register row held without a disposition reads
+as diligence while storing unfinished work — one such row was already
+implemented and tested on the default branch yet still listed as owed. At
+creation or first revisit every register or backlog row takes exactly one
+disposition: sequenced (a named single-story slot), rejected (with the
+reason), reshaped (restated with the right instrument), folded (into a
+named sibling), or closed (already done, or a condition rather than work).
+A register presented to the owner carries dispositions, never inventory;
+"recorded" alone is not a state.
+
 ## Indefinite-Deferral Vocabulary (regex family, added 2026-06-10)
 
 Owner-directed graduation: language that puts work into an
@@ -95,6 +125,29 @@ the removal decision. Work is either a live deliverable with named
 dependencies and an owner-agreed gate, or it is removed by owner
 decision. There is no third state, and an owner ratification of a
 bundle does not ratify a holding-state clause embedded inside it.
+
+The positive form is the owner's triage taxonomy (2026-07-25, verbatim in
+substance: "if it matters we fix it, if not we get rid of it, on rare
+occasion we sequence it in a plan, and we never, ever say 'later' without
+a mechanism because that is the same as just ignoring it"). Every finding
+takes exactly one of three verbs: FIX now; DELETE (out of scope is removal,
+never an open gap); or SEQUENCE, rarely, where a real plan position or
+blocking relation IS the mechanism. "Defer", "later", "follow-up" and
+"revisit" standing alone are ignoring with extra steps, and a Director
+hearing "deferred" asks which of the three verbs it actually is. Three
+sharpenings the owner paid for (2026-07-23/27): "until X lands" is not a
+schedule but an assignment to endless limbo — a cure that rides a condition
+has no owner and no sequence position, so any sentence shaped "A is
+acceptable until B" is rewritten as "B blocks A" or the plan is wrong; a
+trigger without a READER ("the second specimen mints the ticket") is a
+smuggled drop one hop removed, and only a mechanical trigger (a blocked-by
+relation, a merge event) has force; and pinning a known defect as a tested
+"documented bound" RATIFIES it — a test asserting the gap converts an open
+question into intentional behaviour every future reader treats as
+considered and closed. A stopgap is a known-wrong landed state plus a
+cleanup promise, and promises are the currency drift is paid in ("no stop
+gaps, we do everything properly, *everything*", 2026-07-23): staging is
+fine only when every landed state is fully correct on its own terms.
 
 The hook group (`concept: indefinite-deferral`) matches with
 word-boundary regex — not literal substrings — so words *containing*

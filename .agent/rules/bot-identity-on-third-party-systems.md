@@ -33,10 +33,45 @@ for that system. The rule fires before the action, at credential-selection
 time, not after. It fires on every action; the action map below decides which
 credential the action takes.
 
+### ChatGPT Work cloud routing — evaluated first
+
+When the tri-state classifier in
+[`cloud-environment-routing.md`](../directives/cloud-environment-routing.md)
+selects ChatGPT Work, task-scoped commits, non-force story-branch pushes and
+the draft-PR creation/edit/comment writes needed to deliver the task use the
+configured default credential — the host's own GitHub credential, which
+displays as the owner's identity. Read it first — the TRANSPORT credential, which
+is what the remote write displays (`gh auth status` for `gh`; the credential
+helper or SSH key for `git push`; the connector's authenticated account for the
+connector), never `git config user.email`, which names only the commit author —
+so the name the surface will display is known before the write; do not mint,
+install, rewrite or repair a bot identity
+in this non-execution profile. If shell git has no configured transport
+credential, use the already-authenticated GitHub connector. The displayed
+operator identity is the accepted consequence of the owner's 8 September 2026
+ruling. This row is evaluated before the general map, but it
+does not authorise reviews, merges, default-branch writes, protection bypasses,
+destructive/admin writes or work beyond the user's task. Content written under
+a displayed human credential still identifies itself as agent-authored under
+[`identify-as-agent-under-shared-credentials`](./identify-as-agent-under-shared-credentials.md).
+
 ## Action (GitHub — the worked mechanics)
 
 Which credential each GitHub action class takes is settled by the action map
 below; this section is the mechanics for its bot-credential rows.
+
+Identity values are DERIVED at time of use from an observable source — a
+prior bot-authored commit (`git log --format='%an <%ae>'` on a known bot
+commit), the repository's shared config, or the owner's word — and never
+recalled from memory or filled in with a plausible value. Owner, 2026-07-25,
+categorical: "do NOT make up identities." The instance: after a compaction
+the summary carried the identity MECHANISM (env-scoped author and committer
+variables) but not the values, and a seat confabulated a plausible-looking
+bot email that does not exist and pushed three commits under it; the owner
+ruled forward-correction only, no mailmap, the fabricated strings standing on
+the record. A remembered identity — including the values in this rule — is a
+candidate to verify, never a value to use; the smoother the value arrives,
+the harder the check.
 
 The GitHub bot identity is `jimbot-oakington-iii[bot]`. Two different numbers
 attach to it and **only one belongs in an email address**:
@@ -179,6 +214,22 @@ Director, or to the owner at an action moment — never a licence to fall back
 to owner credentials. The fallback happens only when the owner explicitly
 permits it, and the owner generally instigates it.
 
+Before surfacing a blocker, check where the bot App is installed against
+the pull request's BASE repository and where its head lives. Bot and
+reviewer tooling act on the repository the App is installed on: a seat's
+OWN work whose head sits on a repository the App does not cover refuses
+three ways at once — the bot with no access to that head, the
+review-request tool with a 403, the REST reviewer endpoint silently
+dropping the handle — and the cure for that case is re-homing the head
+onto a branch of the repository the tooling acts on, after which every
+instrument works unchanged (under an hour, 2026-09-01). Three failures
+with one cause are a topology fact, never three blockers. An external
+contributor's fork head is the normal shape and is never re-homed: the
+workflows run a cross-repository head with a read-only token and no
+secrets by design, and moving such a head into the shared repository
+would hand it the shared repository's secrets — the blocker there, if any,
+is surfaced, not cured by relocation.
+
 ## The action map (owner ruling 2026-08-17) — general, not per-seat
 
 Owner ruling, MG, 2026-08-17, verbatim:
@@ -202,14 +253,15 @@ noun.
 
 | Action | Credential | Why this row |
 | --- | --- | --- |
+| Task-scoped story-branch and draft-PR delivery writes in detected ChatGPT Work cloud | configured default (the host's own GitHub credential, displayed as the owner's identity; read before the write) | first-priority non-execution route; excludes reviews, merges, bypasses and destructive/admin writes |
 | Review submitted as `APPROVE` | operator | only a human review supplies the approval a code-owner ruleset waits on |
 | Review submitted as `REQUEST_CHANGES` | operator | same endpoint, same gate: a bot's changes-requested neither discharges the human review request nor registers with the ruleset |
 | Review submitted as `COMMENT` state | operator | same endpoint; it discharges the review request assigned to the human |
 | The **body** of any review, and any inline comment carried inside the same submission | operator, inseparably — it is one API call | see the discriminator above |
 | A **standalone** inline review comment or thread reply (`POST …/pulls/<n>/comments`, `POST …/pulls/comments/<id>/replies`) | bot | not a review submission: it discharges no request and sets no review state |
 | An ordinary PR or issue comment (`POST …/issues/<n>/comments`) | bot | as above — a comment is a write, not a review |
-| Requesting or re-requesting a review **from a human** | bot | an ordinary mutating write: the `422` below is specific to the Copilot reviewer, and a human reviewer is accepted from the bot installation token |
-| Requesting a review **from Copilot** | operator | mechanism, not preference: `requested_reviewers` rejects a bot/app token with `422` — dated grant below |
+| Requesting or re-requesting a review **from a human** | bot | an ordinary mutating write, accepted from the bot installation token |
+| Requesting a review **from Copilot** | bot | since 2026-09-10 the same endpoint accepts `copilot-pull-request-reviewer[bot]` from the app's pull-request-work token (201; the timeline shows `review_requested Copilot`, the requested-reviewers list does not) — first-hand #108, #109, #110, #114; the 2026-08-06 grant below is history with no live use |
 | Commits, pushes, PR creation, merges, thread resolutions, label and state edits, and every other `gh api -X POST/PATCH/DELETE` | bot | the closed default: nothing reaches the operator's credential except a row above |
 
 The trigger is the **write**, at credential-selection time, never the tool
@@ -223,8 +275,9 @@ before. The operator's credential is the only one that can clear that gate. The
 split is forced by mechanism, not chosen for convenience.
 
 **Which bot and which human is machine-local** and is deliberately not stated
-here; it belongs in the operator profile
-([`.agent/operator-local/README.md`](../operator-local/README.md)). This rule
+here; it belongs in the operator profile in the home directory
+([PDR-141](../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md):
+`~/.practice/profile/index.md` and the repository's scope file). This rule
 owns the portable mapping, the profile owns the bindings. A rule that hard-coded
 one person's accounts would be false on every other machine (`principles.md`
 §Any User, Any Machine).
@@ -261,24 +314,23 @@ carry.
   the second code owner sat blocked on the owner personally — a standing
   bottleneck this user-instigated grant removed.
 
-- **Copilot review requests (granted 2026-08-06)** — the warrant for the
-  Copilot row. Owner word, verbatim:
-  "there is standing permission to use my/user credentials for requesting
-  reviews from copilot." Mechanics: the REST
-  `requested_reviewers` endpoint accepts
-  `copilot-pull-request-reviewer[bot]` only from a HUMAN user token — a
-  bot/app token gets `422` (tooling-lane probe + first-hand human-token
-  success, both 2026-08-06), so the owner's ambient `gh` keyring is the
-  only working path. The worked command:
+- **Copilot review requests (granted 2026-08-06)** — the owner's word,
+  verbatim, stays on record: "there is standing permission to use my/user
+  credentials for requesting reviews from copilot." The live route needs
+  none of it: the bot requests Copilot AS ITSELF with the REST
+  `requested_reviewers` endpoint under the app's pull-request-work token
+  (201; `review_requested Copilot` fires on the timeline — #108, #109,
+  #110, #114 — and the requested-reviewers list never shows the bot
+  reviewer), so the owner-credential path has nothing left to license.
+  The worked command, run as the bot:
 
   ```bash
   gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
     -f "reviewers[]=copilot-pull-request-reviewer[bot]"
   ```
 
-  The surface displays the owner as the requester — the grant's accepted
-  consequence. It licenses exactly the Copilot row and is never precedent for
-  any other fallback.
+  The grant was never precedent for any other fallback, and its retirement
+  as a live route restores the rule's one shape: bot identity, always.
 
 ## History and grandfathering
 
@@ -298,6 +350,25 @@ wired on one maintainer's machine as the ambient commit-author and push
 credential for the `oak-open-curriculum-ecosystem` tree via a machine-local
 `includeIf` (2026-08-04). Its mechanics and key live only on that machine
 (`~/.config/<slug>/`), never in this repo.
+
+The reverse reading matters too: `mantagen` is that maintainer's OWN GitHub
+identity, a person, often driven by his bots (owner, 2026-09-01, verbatim:
+"mantagen is Matt's github identity, not a bot, but often it is used by his
+bots"). Nothing on the surface distinguishes a review he wrote from one his
+agents wrote, so never describe the account as "a bot" — say "a review under
+Matt's identity" — and treat its findings on the merits like any reviewer
+round (harvest, verify, cure or refute), never as a human gate to wait on:
+on one PR three changes-requested reviews under that identity were his
+agents' and confused, and the owner merged over them; on another both rounds
+were correct. When a changes-requested review under that identity blocks a
+ruleset merge, the owner-sanctioned path (2026-08-17, conditional) is "if
+you can honestly say that the requested changes are made then dismiss the
+comment" — the honesty condition binds PER ROUND: read every standing round
+in full first, and a newer round with unmet asks blocks the dismissal until
+cured. That identity's bots do not necessarily re-review on demand (owner,
+2026-08-18: "Copilot should re-assess on demand"); when a prompt
+re-assessment of a cured head is wanted, fire a Copilot re-request and watch
+for both.
 
 This does not weaken the shared-bot contract above; it refines the attribution
 model:

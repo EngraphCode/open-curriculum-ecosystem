@@ -136,6 +136,13 @@ cross_plane: true   # optional; see Cross-Plane Span Tag below
 ---
 ```
 
+Concept-node keys are not part of this schema. ADR-221 §6 makes a pattern file its own
+concept node; the concept front-matter keys are never minted by hand — they arrive with the
+SDK increment that owns the concept-node schema, whose own checks settle whether the index
+regeneration tolerates added keys. A pattern's lifecycle stage (PDR-134's candidate and
+working classes) is stated in its prose; the promotion trigger is a key for it appearing in
+the schema block above, and the 2026-09-02 rotation graduated five pattern files in the
+prose form.
 The `use_this_when` field is the primary discovery mechanism. It describes the moment an engineer should think "I have seen this before." For anti-patterns, the trigger is the moment the failure mode is about to fire — the diagnostic moment.
 
 ### Cross-Plane Span Tag (optional)
@@ -179,7 +186,7 @@ drift. After adding or changing a pattern file, regenerate with
 
 ## Pattern Index
 
-### Code (32)
+### Code (33)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Lint-Rule Pincer Is a Design Signal, Not an Obstacle** -- Use this when: Two (or more) lint rules jointly ban every shape you can think of for an in-component or in-function implementation, and the reflex is to disable one rule or contort past them. → [lint-rule-pincer-is-a-design-signal.md](lint-rule-pincer-is-a-design-signal.md)
@@ -209,6 +216,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Pure Leaf Module Extraction** -- Use this when: Pure functions and I/O functions coexist in a module, and other modules need only the pure functions. → [pure-leaf-extraction.md](pure-leaf-extraction.md)
 - **String-Based Codegen Type-Safety Gap** *(anti-pattern)* -- Use this when: A code generator emits code as string templates rather than AST nodes, and the output includes API calls with specific argument names or shapes. → [string-codegen-type-safety-gap.md](string-codegen-type-safety-gap.md)
 - **Template Literal Derived Union with Builder** -- Use this when: A string union type is the cross-product of two smaller unions joined by a separator, and code constructs members at runtime via template literals. → [template-literal-derived-union.md](template-literal-derived-union.md)
+- **timing-derived-state-is-the-defect** *(anti-pattern)* -- Use this when: About to accept a design whose correctness depends on ordering, a small window, or one event arriving before another: a shared resource under fixed names, a state written from an event's timing, a validation that holds only because of step order, or a review argument that says 'usually' or 'the window is small'. → [timing-derived-state-is-the-defect.md](timing-derived-state-is-the-defect.md)
 - **Unknown Until Validated** -- Use this when: a function produces data whose type cannot be statically verified and a validation boundary exists downstream. → [unknown-until-validated.md](unknown-until-validated.md)
 - **Validate a Sampled Schema Against the Complete Corpus** -- Use this when: A type, union, schema, or universal claim was derived from a SAMPLE of the data it describes — and you are about to trust it for the whole corpus (build on it, verify with it, or assert it). → [validate-sampled-schema-against-complete-corpus.md](validate-sampled-schema-against-complete-corpus.md)
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
@@ -234,7 +242,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (118)
+### Process (119)
 
 - **A Description Is Not a Check** *(anti-pattern)* -- Use this when: About to act on, transmit, or review a DESCRIPTION of an artefact — a commit message, a code comment, a handoff summary, a self-report, a probe's green output — instead of reading the artefact itself; and at review-routing time, deciding where to point external scrutiny. → [description-is-not-a-check.md](description-is-not-a-check.md)
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
@@ -331,6 +339,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Scoped Gitignore for Colliding Directory Names** -- Use this when: Adding or tightening `.gitignore` rules for a generically named directory (`reference`, `data`, `output`, `tmp`) and more than one subtree uses that name for different purposes. → [scoped-gitignore-for-colliding-directory-names.md](scoped-gitignore-for-colliding-directory-names.md)
 - **Shared Strictness Requires Workspace Adoption** -- Use this when: A repo has landed a root strictness or gate foundation and it is tempting to treat the shared config itself as completion before every claimed participant actually composes it and passes under it. → [shared-strictness-requires-workspace-adoption.md](shared-strictness-requires-workspace-adoption.md)
 - **Shared-State Topology Is a Coordinator Question, Not a Solo-Archaeology One** *(anti-pattern)* -- Use this when: You need to know who owns a shared artefact, which branch carries the canonical buffer/coordination state, or where live shared state lives — and you are not the coordinator/Director. → [shared-state-topology-is-a-coordinator-question.md](shared-state-topology-is-a-coordinator-question.md)
+- **signal-read-as-fact** *(anti-pattern)* -- Use this when: About to act on, or write into a record, an instrument's verdict, a reviewer's finding, a single instance, or a fit to the data at hand — without having stated what it is a signal of, why it is present, against what, and what would show it wrong. → [signal-read-as-fact.md](signal-read-as-fact.md)
 - **Source-first adopt-or-explain evaluation** -- Use this when: Evaluating whether an existing dependency's utilities should replace hand-rolled code. → [source-first-adopt-or-explain.md](source-first-adopt-or-explain.md)
 - **Stage What You Commit, Commit What You Staged** -- Use this when: about to run `git commit` with unrelated changes visible in `git status` — the index may carry work the commit message does not describe. → [stage-what-you-commit.md](stage-what-you-commit.md)
 - **State the Positive Understanding the Reader Needs, Not Your Own Correction Path** -- Use this when: Authoring or revising any artefact (doc, comment, copy, message) after you were corrected or changed your mind about it. → [state-positive-understanding-not-correction-path.md](state-positive-understanding-not-correction-path.md)

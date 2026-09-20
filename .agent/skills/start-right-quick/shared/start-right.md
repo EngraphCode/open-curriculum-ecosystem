@@ -3,7 +3,7 @@ prompt_id: start-right-quick
 title: 'Start Right (Quick)'
 type: workflow
 status: active
-last_updated: 2026-07-29
+last_updated: 2026-09-08
 ---
 
 # Start Right (Quick)
@@ -11,7 +11,45 @@ last_updated: 2026-07-29
 Ground yourself before beginning work. Read in the order below; each
 step leads to the surfaces the next step assumes.
 
+## Environment Classification
+
+Before any command in this workflow, use the tri-state classification in
+`.agent/directives/cloud-environment-routing.md`. When it selects ChatGPT Work,
+that non-execution profile governs every command-bearing step below: retain all
+reading and static inspection, but skip package, build, test, hook, identity and
+repo-owned collaboration-CLI execution. Platform-native coordination remains
+available. Detector error is a stop, not a fall-through.
+
 ## Ground First (reading order)
+
+Ground with the proper instruments. Dumping a corpus into context (whole
+files, whole diffs) is unreadable at the altitude the work needs and forces
+compaction; the instruments are the operations each platform provides for
+them — a bounded read at an offset, a content search, a file-pattern match,
+and a read-only explorer that returns a conclusion rather than the corpus —
+with the plan visible before the first mutation (owner correction 2026-09-01,
+verbatim: "Use the proper tools for finding content, and generally sort out
+the discipline here, this is serious work. What is the plan?").
+A second instance, 2026-09-06 (owner verbatim: "stick to using standard tools
+rather than complex bash scripts which confuse the permissions agent"): the
+file-editing instruments are the platform's native per-file editing operation
+(each platform adapter names its own) and one plain command per shell call; the
+compound heredoc that rewrote two files was the instrument the owner refused,
+though the work inside it was right.
+
+Regrounding has TWO legs, and the second is the one skipped. After a
+compaction or a handoff, verifying mechanical state — PRs, claims, comms,
+git, the board — is not being up to speed; the governing corpus (the plans
+README, the strategic node, the live plans, recent closeout records) carries
+the intent those states serve, and a proposal reasoned from a summary and
+memory fragments re-opens decisions already made (owner, 2026-07-24, after a
+"drain the plans backlog" recommendation that the corpus reset had
+deliberately frozen: "I think you need to spend more time understanding the
+history rather than trying to make sensible guesses about next steps").
+Before any scope proposal or card, cite the governing document read THIS
+session that grounds it; no citation, not ready to propose. And read
+inherited letters and records critically — drift accumulates, so their
+claims are checked against the artefacts, never assumed.
 
 ### 1. Durable directives
 
@@ -63,23 +101,61 @@ workstream from the [full ADR index](../../../../docs/architecture/architectural
   activity, not a session-open one — see `consolidate-docs`
   step 3.
 
-### 3a. Operator profile (machine-local; absence is normal)
+### 3a. Operator profile (home directory; absence is normal)
 
 Read the operator profile if this machine has one. It carries facts about the
 human you are working with that cannot be tracked: which credential identity
 performs which action class on third-party systems, their tone-of-voice and
 communication preferences, and personal operating preferences. The contract,
 including what must never be stored there, is
-[`.agent/operator-local/README.md`](../../../operator-local/README.md).
+[PDR-141](../../../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md).
 
-It is machine-local, so it does not travel through git and a linked worktree
-holds no copy. Resolve it in the **primary checkout**:
+It lives in the operator's home directory, shared by every Practice
+repository, linked worktree and clone on the machine, and it may be a git
+repository the operator syncs between machines. Pull the profile first,
+then run the check — it exits 0 and says so when nothing is there, and it
+refuses a document carrying a credential-shaped line before anything is
+read into the session — then read the index, the current repository's
+scope file (keyed by the
+`origin` remote's owner and name in any of its https, scp-style or ssh
+forms, never a path), then this machine's file (keyed by the short host
+name):
+
+The check and the sync need the host's tooling (agent-tools, installed and
+built): on a cold clone run this step after the install and build below,
+never before; the grounding never blocks on the profile.
 
 ```bash
-PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
-[ -f "$PRIMARY/.agent/operator-local/profile.md" ] \
-  && cat "$PRIMARY/.agent/operator-local/profile.md"
+# First the host's profile sync, pull side (PDR-141 decisions 13 to 16), as the
+# Practice index names it: a no-op that says so unless the root is a repository
+# with a remote. A refused pull (a conflict, no network) is surfaced and the
+# grounding continues; the check below then reports the sync state.
+pnpm profile:sync pull || echo "profile not pulled: read the line above — a conflict is the operator's to resolve by union (PDR-141 decision 15); the check still runs"
+if pnpm profile:check; then
+  PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
+  [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
+  SCOPE="$(git remote get-url origin 2>/dev/null \
+    | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
+    | tr '[:upper:]' '[:lower:]')"
+  [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
+    && cat "$PROFILE_ROOT/repos/$SCOPE.md"
+  MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+  [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
+    && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+else
+  echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
+fi
 ```
+
+A present profile that fails the check is fixed at once, never read around:
+the contract is `practice-core/schemas/operator-profile.schema.json`. When a
+session writes the profile on the operator's word, it runs the host's
+profile sync, push side, in the same breath (PDR-141 decisions 13 to 16;
+the Practice index names the command once the host binds one): the check
+runs first, the commit is the operator's with a message naming the seat and
+the fact, and no write sits unpushed across a session boundary. The sync is
+a no-op on a profile that is not a repository, and both absence and a
+non-repository profile stay first-class.
 
 **A missing profile is the expected condition, not a defect** (`principles.md`
 §Any User, Any Machine): proceed on tracked defaults and say nothing. Never
@@ -100,7 +176,8 @@ Read in order; stop at whichever answers your next-step question:
 2. @.agent/memory/operational/threads/README.md — thread convention + identity discipline (PDR-027)
 3. `.agent/memory/operational/threads/<slug>.next-session.md` — the thread record for any thread the session will touch (carries identity, next-session landing, _and lane state_)
 4. `.agent/state/collaboration/active-claims.json` — active-claims
-   registry and ordered advisory `commit_queue`
+   registry (the advisory commit queue is machine-local per-intent
+   state; read it with `pnpm agent-tools:commit-queue -- list`)
 5. `.agent/state/collaboration/shared-comms-log.md` — generated recent
    free-form collaboration context
 6. `.agent/state/collaboration/conversations/*.json` — open decision
@@ -109,10 +186,10 @@ Read in order; stop at whichever answers your next-step question:
 7. `.agent/state/collaboration/escalations/*.json` — active owner-facing
    escalation cases for the touched thread or area
 
-When reading `active-claims.json`, surface any fresh `commit_queue` entries
-alongside active claims: `intent_id`, `agent_id`, `files`, `commit_subject`,
-`phase`, and `expires_at`. Queue entries are discovery and ordering signals,
-not mechanical refusals.
+Alongside active claims, surface any fresh advisory commit-queue intents
+(`pnpm agent-tools:commit-queue -- list`): `intent_id`, `agent_id`,
+`files`, `commit_subject`, `phase`, and `expires_at`. Queue entries are
+discovery and ordering signals, not mechanical refusals.
 
 If a dirty slice has no matching active claim or recent comms event, do not
 classify it as orphaned until `repo-continuity.md` Next Safe Steps, the touched
@@ -164,10 +241,13 @@ or collaboration state as `Codex` / `unknown`; use the derived `agent_name` and
 `session_id_prefix`. Codex `SessionStart` hooks may inject the same block as
 developer context, but the preflight command remains the correctness check.
 
-Before staging or committing, use the always-active commit skill. It
-checks for fresh `commit_queue` entries and `git:index/head` commit-window
-claims, enqueues your intended bundle before staging, verifies the staged
-bundle exactly before `git commit`, and clears the queue entry after success.
+Before staging or committing, use the always-active commit skill. On the
+shared primary checkout it checks for fresh commit-queue intents and
+`git:index/head` commit-window claims, enqueues your intended bundle before
+staging, verifies the staged bundle exactly before `git commit`, and clears
+the queue entry after success; in a linked worktree it commits by plain
+pathspec with an audit line and no queue or window claim (owner ruling
+2026-09-07; the skill's scope paragraph).
 
 ### 5. Active plans
 
@@ -338,7 +418,7 @@ else
   # lockstep is PINNED: state-file-seeds.integration.test.ts reddens when
   # these literals drift from the constants — fix both in the same change.
   mkdir -p "$COORD_HOME/.agent/state/collaboration" \
-  && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  && { ( set -C; printf '%s\n' '{ "schema_version": "1.4.0", "claims": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
     || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]; } \
   && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
@@ -501,28 +581,45 @@ first.
 
 ## Quality Gates
 
-Run after making changes. Note: some gates trigger earlier ones;
-caching prevents duplicate work. See @docs/engineering/build-system.md
-and ADR-065 for caching details.
+The commit is the gate. Its pre-commit hook runs the local gates: the
+staged formatting and markdown checks, the repo validators, shell lint,
+then build, type-check, lint and unit tests, then dependency-cruiser and
+knip. The pre-push hook runs the wider local set: the pushed-commit secret
+scan and the review-cost gate first, then the whole-tree format and markdown
+checks, the sub-agent, portability, skills and repo validators, shell lint,
+the schema-drift check, then codegen, build, type-check, lint, unit, E2E and
+UI tests, dependency-cruiser, knip and the encoding check.
+The pull request's checks run the rest (the widget and accessibility
+suites, CodeQL, Sonar, the Windows and browser jobs). So never run these
+gates before, beside or after a commit or push (owner, 2026-09-14, verbatim
+in the commit skill: "the commit triggers the gates, there is no point and a
+fair amount of cost running the gates separately as well, never, ever do
+that"). Running one test file while a change is red is development, not a
+gate run; the ban is on running the suites the hooks run. The list below
+names the commands, for reading a failure and for curing one: a command
+marked "cure" mutates the tree and is run only when a hook has refused and
+named it, never as a gate. A cloud profile follows
+`cloud-environment-routing.md`. Some gates trigger earlier ones and caching
+prevents duplicate work: see @docs/engineering/build-system.md and ADR-065.
 
 ```bash
-# From repo root, one at a time
-pnpm sdk-codegen        # Makes changes
-pnpm build              # Makes changes
-pnpm type-check
-pnpm lint:fix           # Makes changes
-pnpm format:root        # Makes changes
-pnpm markdownlint:root  # Makes changes
-pnpm subagents:check    # After sub-agent definition changes
-pnpm portability:check  # After platform surface or hook changes
-pnpm repo-validators:check  # Workspace-owned repo validators
-pnpm test
-pnpm test:widget
-pnpm test:e2e
-pnpm test:ui
-pnpm test:a11y
-pnpm test:widget:ui
-pnpm test:widget:a11y
+# For reference: the commit and push hooks run the gates; never run them separately.
+pnpm sdk-codegen        # push hook; regenerates the SDK
+pnpm build              # both hooks
+pnpm type-check         # both hooks
+pnpm lint:fix           # cure: when the lint gate refuses
+pnpm format:root        # cure: when the format gate refuses
+pnpm markdownlint:root  # cure: when the markdown gate refuses
+pnpm subagents:check    # push hook
+pnpm portability:check  # push hook
+pnpm repo-validators:check  # both hooks
+pnpm test               # both hooks
+pnpm test:e2e           # push hook
+pnpm test:ui            # push hook
+pnpm test:widget        # pull request checks
+pnpm test:a11y          # pull request checks
+pnpm test:widget:ui     # pull request checks
+pnpm test:widget:a11y   # pull request checks
 
 # Practice health — three-zone model, ADR-144
 pnpm practice:fitness:informational  # Four-zone report (always exit 0)

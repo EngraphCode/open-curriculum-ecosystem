@@ -47,10 +47,10 @@ moved to `.agent/plans/exploring-open-education-resources/external-knowledge-sou
 
 - **Internal Oak resources** (Oak's own knowledge graph plus Oak's
   other repos) live in the sibling thread `connecting-oak-resources/`
-  — `.agent/memory/operational/threads/connecting-oak-resources.next-session.md`.
+  — `.agent/memory/operational/threads/paused/connecting-oak-resources.next-session.md`.
 - **EEF** (a specific external open-education resource) lives in
   its own subthread under sector-engagement —
-  `.agent/memory/operational/threads/eef.next-session.md`. EEF
+  `.agent/memory/operational/threads/paused/eef.next-session.md`. EEF
   predates this thread and is not migrated.
 - **Sector-engagement** parent thread retains
   `knowledge-graph-adoption/`, `castr/`, `ooc-api-wishlist/`,
@@ -70,5 +70,5 @@ priorities:
 ## References
 
 - Plans directory: `.agent/plans/exploring-open-education-resources/external-knowledge-sources/`
-- Sibling thread: `.agent/memory/operational/threads/connecting-oak-resources.next-session.md`
+- Sibling thread: `.agent/memory/operational/threads/paused/connecting-oak-resources.next-session.md`
 - Predecessor home: was `sector-engagement/external-knowledge-sources/` (now empty / removed).

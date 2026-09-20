@@ -197,6 +197,7 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
   },
   rules: {
     '@oaknational/no-eslint-disable': 'error',
+    '@oaknational/no-conditional-tests': 'error',
     '@oaknational/no-dynamic-import': 'error',
     // Architectural boundary: application code must not READ the `.agent/`
     // knowledge substrate at runtime (fs reads / `new URL` into `.agent/`).

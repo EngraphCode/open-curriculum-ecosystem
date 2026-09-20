@@ -8,10 +8,27 @@ Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/archi
 
 A conditional test is any test whose registration, execution, or assertion depends on a runtime condition. Tests must be deterministic across all environments in which the suite runs.
 
+## Enforcement
+
+`skipIf` and `runIf` are enforced at the lint gate by
+`@oaknational/no-conditional-tests` (added 2026-09-11), alongside
+`vitest/no-disabled-tests` for `.skip` and `vitest/no-focused-tests` for `.only`.
+
+Until that rule existed this clause was prose only, and the gap had a cost: a
+succession record instructed a seat to mark four tests
+`it.skipIf(process.platform === 'win32')` so a host-dependent expectation would
+not run on Windows, and nothing at the gate would have refused it. Proven with a
+negative control at the time — `it.skip(...)` failed lint, the identical
+`it.skipIf(...)` passed. The remaining forbidden mechanisms below (conditional
+registration, runtime branching, conditional assertions and fixtures,
+assertion-swallowing try/catch) are still reviewer-enforced, because their shapes
+are not mechanically distinguishable from legitimate test-internal control flow;
+`test-expert` carries them.
+
 ## Forbidden mechanisms
 
-- **`it.skipIf(cond)` / `describe.skipIf(cond)`** — vitest skip-when API.
-- **`it.runIf(cond)` / `describe.runIf(cond)`** — vitest run-when API.
+- **`it.skipIf(cond)` / `describe.skipIf(cond)`** — vitest skip-when API. *Lint-enforced.*
+- **`it.runIf(cond)` / `describe.runIf(cond)`** — vitest run-when API. *Lint-enforced.*
 - **Conditional registration** — wrapping `it(...)` or `describe(...)` in `if`/`switch`/ternary so the test body only registers under some conditions.
 - **Runtime branching inside the test body** — `if (cond) { ... } else { return; }` patterns that change what the test asserts based on ambient state.
 - **Conditional assertions** — `if (env === 'X') expect(...).toBe(...)` or `expect(actual)[isProd ? 'toBe' : 'toEqual'](expected)`.

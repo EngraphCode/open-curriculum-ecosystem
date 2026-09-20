@@ -213,6 +213,20 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-09-17 — the manifest arm finds Claude plugin manifests only (found at the 1.185.0
+  sync).** Arm (ii-b) admits the parent directory of every tracked
+  `.claude-plugin/plugin.json`, and `agent-tools/src/workspace-census/subjects.ts` encodes the
+  same single suffix. The tree now also carries `plugins/oak-open-curriculum-chatgpt/`, whose
+  manifest is `.codex-plugin/plugin.json` (ADR-125's 2026-09-08 amendment), so that plugin
+  surface is never a census subject and the subject count under-reads by one. Widening the arm
+  and the rule is a code change in its own lane; this entry records the gap so the count is read
+  with it until then.
+- **2026-09-07 — admission mechanics of a top-level tier homed here from ADR-041 (measured
+  2026-09-06 on a refuted fork-only tier).** Admission requires upstream-owned edits: the census root constant, two dependency-cruiser
+  regexes, the workspace list and a row in ADR-041. A two-level workspace glob is invisible to
+  the single-level isolation validator; the census vocabulary has no class for a fork-owned
+  subject; `depcruise <root>` fails loudly, not silently, on a missing root. The ADR states the admission contract self-contained
+  and names no plan (no-moving-targets); this trail carries the measured instance.
 - **2026-08-30 — retired runnable research workspace reflected; subject set 45→43.** Owner
   direction moved the web-app-deconstruction's retained analysis/examples into the canonical
   `.agent/research/` tier and retired its accidental top-level runnable harness. The mechanical

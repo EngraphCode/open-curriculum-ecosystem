@@ -129,6 +129,48 @@ the governing principle for a masking override is
 [`no-warning-toleration.md`](no-warning-toleration.md), not scope
 discipline.
 
+## Configuring a check to express the architecture is not disabling it
+
+When a check flags a legitimate design as a violation — an ESLint boundary
+rule, a tier matrix, a config gate — hold two hypotheses, never one: (a)
+the design is wrong; (b) the check's configuration is wrong for this case.
+Test the configuration against the actual architectural intent (the ADRs,
+the tier's purpose) before choosing. The current config is a hypothesis
+about the right design, never the verdict — blindly obeying it is the same
+failure class as treating precedent as correctness. Worked instance
+(2026-07-08): the lib-tier boundary rule ("an adapter must not depend on
+another adapter") was read as immutable, so a framework was judged unable
+to consume the Sentry-backed logging adapter and an injection workaround was
+proposed; the owner corrected that apps taking adapters backed by services
+IS the intended architecture — "I wonder if you took the current eslint
+boundary rules and tried to obey them rather than configure them
+appropriately." Reconfiguring a rule so it permits a legitimate dependency
+and still fires on real violations is correct and is not a disable; an
+`eslint-disable`, a skip, or a workaround designed around a wrong
+configuration is the forbidden shape.
+
+## A warranted exemption is an alarm bell, never a resting state
+
+Owner, 2026-08-11, on a dependency-cruiser exemption for a `libs` to `sdks`
+import: "warranted exemption is a huge alarm bell, either we need to change
+policy, or fix the problem. Strict, everywhere, all the time, is not for
+fun, it is for survival of a complex system in the face of entropy and
+time." And in the same message: "if things are at error they need fixing."
+An exemption inside an enforcement configuration (a `pathNot`, an eslint
+disable, a census row, an allowlist entry) is a bypass surface where entropy
+compounds silently while the gate reads green; a dated warrant makes it
+legible, not acceptable, and "warranted and routed" is a queue entry, never
+a disposition. The moment an exemption enters any gate it is a live work
+item with exactly two exits, fix the violation or change the policy at its
+owning level; route the fork immediately with a clock, and the exemption
+dies in the cure PR. Never present a warranted exemption to the owner as a
+settled state. The vocabulary is part of the alarm: "standing cure",
+"standing workaround", "honest bypass" and "live with it for now" are
+the acceptance-shaped euphemisms `no-hedging-vocabulary` bans, and their
+harm is memetic (owner, 2026-08-12: "once those cognitive shapes are in the
+team they will propagate to other decisions"); a mitigation is lawful only
+spoken with its owning ticket and retirement condition in the same breath.
+
 ## Definition of "check" / "gate"
 
 For this rule, a check or gate is any of:

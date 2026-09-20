@@ -91,6 +91,23 @@ instrument, never the milestone.
   legitimately-oversized validate splits into candidate-subset runs via the resume mechanism.
 - Voter cost calibration: ~50k tokens/voter at high effort over grounding-heavy prompts
   (`OBSERVED_VALIDATE_TOKENS_PER_VOTER`, `run-orchestration.ts`).
+- Spend expectation per candidate: validate ran at about 92k subagent tokens per candidate
+  on both longitudinal runs (7.4M over 80 candidates on 2026-08-07; 4.77M over 52 on
+  2026-09-02). Voter loops terminate early, so the measured per-candidate actual, not the
+  five-voter ceiling arithmetic, is the expected-spend figure for a spend card (about 4.8M
+  expected against the 16.25M ceiling on 2026-09-02); the ceiling passed as `--ceiling`
+  (candidates × 5 × ~50k × 1.25) stays the abort bound.
+- Leg health during a run: the 2026-09-02 reduce leg wrote its first transcript line about
+  six minutes after dispatch and its structured output about two minutes later. The health
+  check that run used was a freeze detector keyed on the leg's transcript mtime (warn at 15
+  minutes without a write, stop at 30), never process liveness — a wedged leg keeps its
+  process alive while its transcript freezes; the warn threshold sits above the observed
+  first-write latency.
+- Voter free-text rationales are not captured: the voter contract records only the four-test
+  verdict grid (`judgment-schemas.ts` has no rationale field) and the workflow transcripts'
+  thinking blocks were empty on the 2026-09-02 run. A report's kill reasons are the seat's
+  reading of the committed per-voter grid and the candidate text, labelled as such; a
+  rationale field on the voter contract is the cure if a pass needs contestable reasons.
 
 ## Runbook — since-marker run (first used 2026-09-02)
 

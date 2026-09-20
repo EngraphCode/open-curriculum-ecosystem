@@ -47,13 +47,21 @@ function legLine(leg: ReviewerLeg): string {
 }
 
 // SKILL item 4: the quiet window anchors on the latest LANDED review binding
-// the tip — excluding PENDING drafts and signed self-authored replies; on a
-// tip where every leg settled via SKIPPED (no tip-bound review), it anchors
-// on checks-green.
+// the tip — excluding PENDING drafts, signed self-authored replies, and EMPTY
+// bodies. The window is a proxy for "a reviewer may still be composing", so it
+// must measure REVIEWER activity; an empty-bodied review is the thread-reply
+// artefact (the API creates one per reply under the replier's identity), and
+// anchoring on it measures the seat's own dispositioning instead. Worked
+// instance 2026-09-15 (#147): the anchor sat on the seat's own reply at
+// 15:44:32Z, seven minutes after the round's last real review — the exclusion
+// of signed self-replies did not catch it, because an empty body carries no
+// signature to detect. On a tip where every leg settled via SKIPPED (no
+// tip-bound review), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBound = reading.reviews
     .filter((review) => review.commitOid === reading.headRefOid)
-    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body));
+    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
+    .filter((review) => review.body.trim() !== '');
   // An eligible review whose submittedAt gh omitted could be NEWER than
   // every timestamped one — anchoring past it would settle inside its
   // window, so the anchor is unknowable (null routes to the held-open path).
