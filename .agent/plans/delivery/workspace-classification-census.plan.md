@@ -217,7 +217,7 @@ open holding state.
 
 - **2026-09-20 — the manifest arm widened to a second manifest format; subject set 43→44.** Arm (ii-b)
   now admits the parent directory of a tracked `.claude-plugin/plugin.json` or
-  `.codex-plugin/plugin.json` (the format the ChatGPT and Codex hosts read), held by tests. The owner's card of
+  `.codex-plugin/plugin.json` (the Codex manifest format; the OpenAI portal builds from its own steps and never reads it), held by tests. The owner's card of
   2026-09-20 ("Cure here only what misleads operators") sent this cure to this line as ledger
   item A5 of the 1.185.0 integration. `plugins/oak-open-curriculum-chatgpt` gains its row
   (oak-leaf, the sibling's licence set); `facts.json` and `matrix.md` are regenerated, which also
