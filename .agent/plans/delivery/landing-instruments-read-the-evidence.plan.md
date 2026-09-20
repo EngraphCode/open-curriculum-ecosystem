@@ -3,17 +3,17 @@ id: landing-instruments-read-the-evidence
 node_type: delivery
 name: "Landing instruments: read the evidence that exists, and ask when nobody has"
 overview: "The merge door and the review-cost gate verdict on the evidence the surfaces actually produce, refuse loudly on evidence they cannot type, and request a review nobody has asked for."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-20
+ratified_where: "Owner card answer of 2026-09-20 ~13:35Z in the session of Dynamo turns Temper (2a4c8a): the card \"Which of these do you ratify now?\" with all four options selected, among them this node's; recorded in that seat's handoff record and on the pull request that carries this stamp"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-16
+last_updated: 2026-09-20
 ---
 
 # Landing instruments: read the evidence that exists, and ask when nobody has

@@ -14,6 +14,11 @@ verifies each item reproduces at the cited tip before opening its lane.
 
 ## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
+**Owner ruling, 2026-09-20 (card answer, verbatim label: "Cure here only what misleads
+operators").** Items A2, A5 and A15 are cured on this line, one pull request each. Every other
+item in this section is held for the Oak line and arrives here through a later carrier, because
+each cure made here edits a file the Oak line authored and becomes a conflict at the next sync.
+
 The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
 (`git diff d9138c8b9 -- <file>` leaves the cited passage untouched; one file, `deployment-architecture.md`, carries this line's deploy-config-gate text elsewhere), so by the owner's constraint it
@@ -100,6 +105,16 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     (consistent with A8). Reported, not reproduced by this seat; the reader reproduces before
     opening the lane. (Copilot's second point, an "incomplete" phrase, is its own masking of the
     words "Bearer token"; the file's text is complete.) Standard: §Misleading docs are blocking.
+
+15. `apps/oak-curriculum-mcp-streamable-http/src/no-html-surface.integration.test.ts` lines 74–80
+    (identical on the Oak line's tip; raised by Copilot on the carrier, round four): the test
+    "serves no document at the root even to a client that asks for nothing else" asserts the
+    status `404` only. With no `/` route and no terminal 404 middleware, the framework's default
+    final handler answers that request with an HTML `Cannot GET /` document, so the application
+    still serves HTML at the root while the test named for the no-HTML contract passes. The
+    sibling test above it asserts an empty body; this one does not. Standard:
+    `testing-strategy.md` (a test proves the behaviour its name states); §Misleading docs are
+    blocking, for the test's name and comment.
 
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
