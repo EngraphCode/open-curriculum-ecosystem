@@ -15,7 +15,7 @@ tickets:
 depends_on:
   - plan: survey-machinery-deconstruction
     kind: beneficial
-last_updated: 2026-08-30
+last_updated: 2026-09-20
 ---
 
 # Workspace classification census
@@ -78,8 +78,10 @@ with a delta section, so its consumers stop reading a stale map.
 **Census subjects, defined mechanically:** the union of (i) every pnpm
 workspace member (per `pnpm-workspace.yaml`); (ii) the parent directory of
 every tracked `package.json` outside the member set; (ii-b) the parent
-directory of every tracked `.claude-plugin/plugin.json` manifest outside
-the member set (the owner-approved manifest arm, 2026-08-14 — plugin
+directory of every tracked plugin manifest (`.claude-plugin/plugin.json`
+or `.codex-plugin/plugin.json`, one suffix per manifest format) outside
+the member set (the owner-approved manifest arm, 2026-08-14, widened
+2026-09-20 — plugin
 surfaces such as `plugins/oak-open-curriculum/` carry no `package.json`
 and no code-extension files); (iii) every top-level path segment of
 `git ls-files` holding files in a stated code-extension set (declared in
@@ -213,6 +215,13 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-09-20 — the manifest arm widened to a second manifest format; subject set 43→44.** Arm (ii-b)
+  now admits the parent directory of a tracked `.claude-plugin/plugin.json` or
+  `.codex-plugin/plugin.json` (the Codex manifest format; the OpenAI portal builds from its own steps and never reads it), held by tests. The owner's card of
+  2026-09-20 ("Cure here only what misleads operators") sent this cure to this line as ledger
+  item A5 of the 1.185.0 integration. `plugins/oak-open-curriculum-chatgpt` gains its row
+  (oak-leaf, the sibling's licence set); `facts.json` and `matrix.md` are regenerated, which also
+  clears the 20 stale facts entries the check reported on `engraph` at `93c35f285`.
 - **2026-09-17 — the manifest arm finds Claude plugin manifests only (found at the 1.185.0
   sync).** Arm (ii-b) admits the parent directory of every tracked
   `.claude-plugin/plugin.json`, and `agent-tools/src/workspace-census/subjects.ts` encodes the

@@ -58,7 +58,21 @@ landing-defect cures, else a fresh leg on the new head (owner ruling
 set never merges. A review with an EMPTY body satisfies no leg and never
 anchors the quiet window — the API creates one per thread reply, so a pull
 request whose author dispositioned findings carries its own — and the leg's
-detail counts the empties it ignored.
+detail counts the empties it ignored. A reviewer's result has two
+transports and the tool reads both: the review object, and a completion
+comment on the conversation naming the commit reviewed (the Codex
+connector's zero-findings transport; a positive result by the owner's
+ruling of 2026-09-16). A declared reviewer's comment that fails a
+precondition on a leg the tip has not answered — edited, naming no
+reviewed commit or more than one, naming a prefix that matches no commit
+of the pull request or more than one, or naming a commit that is not the
+tip — refuses as `UNCLASSIFIED-EVIDENCE` with the precondition named and
+the comment quoted, never as silence; the cure is a fresh result on the
+tip. On a leg the tip satisfies, such a comment is a past round and is not
+reported. The refusal is the verdict when the round is otherwise settled or
+when it belongs to the blocking reviewer; a refusal on another reviewer rides
+in the evidence beside the blocking leg's own state, and a live run outranks
+it.
 The tool verifies only the vendor legs declared to it and refuses
 an empty set: the availability rule and the posted subagent leg are the
 merging seat's own recomputation, recorded on the landing premises (a

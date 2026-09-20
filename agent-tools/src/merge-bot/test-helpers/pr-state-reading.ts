@@ -38,6 +38,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
         submittedAt: '2026-08-06T08:05:00Z',
       },
     ],
+    completionComments: { reviews: [], refused: [] },
     reviewRuns: { kind: 'read', runs: [] },
     ...overrides,
   };

@@ -72,20 +72,20 @@ then posted a disposition reply un-gated on its own verification — a false cla
 into the permanent record):
 
 - **Every comment is a claim entitled to full epistemics** — verify, adjudicate,
-  integrate or refute with evidence. *Resolved* is the outcome of that
+  integrate or refute with evidence. _Resolved_ is the outcome of that
   treatment, never the goal; racing resolution inverts the artefact.
 - **While a PR is open, the conversation IS the work.** A reviewer finding is a
   bug report against the proposal — session priority #1, ahead of new work. A
   push changes the proposal, so the entire review surface is stale the moment
   it lands: re-harvest and disposition before reporting anything.
 - **The record outlives the merge.** Description + threads + dispositions are
-  how future readers (and agents answering from PR history) recover *why* the
+  how future readers (and agents answering from PR history) recover _why_ the
   change is what it is. A false disposition reply poisons that well permanently
   — gate every reply on its own verification, and VERIFY description edits
   actually stuck (bot summary re-appends can silently mask a failed edit).
 - **"Mergeable" is a git-graph fact about ancestry, not readiness.** Readiness
   is a property of the conversation: every thread dispositioned with evidence,
-  every check green, the description true of the *current* diff, the record
+  every check green, the description true of the _current_ diff, the record
   coherent for a reader who was not there. Report in those terms.
 - **The PR exists to structure shared attention** so nobody has to chase state;
   making the owner chase threads defeats the artefact even when the diff is
@@ -346,7 +346,7 @@ actually present**:
   first written (a "Phase 4" that is step 8, "the existing smoke suites" that is one suite,
   and `request(app)` relabelled as an E2E check), each caught by that check or by a reviewer.
 
-Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
+Worked failure (2026-07-26, PR #557): a PR titled _"action pin bumps"_ carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two
 majors, one on a required status check, one on an alert path `if: failure()`
 that no CI run exercises. The diff was correct and the pins were genuine; the
@@ -407,7 +407,7 @@ live tickets where the platform is in use.
    DIFFERENT file than the anchored line — reply with the actual fix
    location and resolve manually, or it reads unaddressed forever.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
-   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
+   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
    the root to chase: a 20-second `install` failure cascades into skipped
    builds and a failed deployment — fix the root, not the echoes. CodeQL
    alert reads are ref-scoped: the per-number GET returns `state=null` when
@@ -436,10 +436,10 @@ live tickets where the platform is in use.
 
 - **The triage ruling** (owner, 2026-07-27, verbatim, a SEAT-LEVEL
   obligation applied at the moment each comment is read — never deferred to
-  Director discretion): *"We do NOT have to address every comment, we have
+  Director discretion): _"We do NOT have to address every comment, we have
   to TRIAGE every comment, if it is incorrect reject it, if it is correct,
   relevant and proportionate address it, if it is anything else raise a
-  ticket, tell the Director, and close the comment."*
+  ticket, tell the Director, and close the comment."_
 - **Separate the observation from the remedy, and test scope before correctness.** A
   finding arrives as an observation bundled with a proposed change, and the change is where
   scope expands: reviewers — bots above all — grade the diff's text against the widest
@@ -500,7 +500,7 @@ live tickets where the platform is in use.
   this ruling landed). Underlying principles:
   `concept-exploration` §Loop Dynamics; sizing gate: `proportionality`.
 - **A sampling finder has no fixed point — cure the CLASS, not the instance.**
-  A bot reviewer over a large, dense diff *samples* it differently each pass
+  A bot reviewer over a large, dense diff _samples_ it differently each pass
   rather than converging: measured suppressed-finding counts across one arc ran
   5, 5, 2, 4, 3, 3, and round 10 flagged two surfaces that had been unchanged
   since round 1. Waiting for such a loop to reach zero is waiting on a process
@@ -512,8 +512,8 @@ live tickets where the platform is in use.
   - **Tally-then-step-back at ~4 settled rounds**, with the materiality line
     stated: cure correctness-class findings, disposition polish with a verified
     failure scenario, make every item visibly adjudicated on the PR, and give any
-    routed residue a named carrier. Convergence then means *the loop closed
-    honestly*, not *the finder went quiet*.
+    routed residue a named carrier. Convergence then means _the loop closed
+    honestly_, not _the finder went quiet_.
 - **A growing round is a routing failure.** If the surface under review expands
   between rounds, the loop cannot converge by construction — freeze the text and
   route the additions, rather than reviewing a moving target (worked instance: a
@@ -778,8 +778,8 @@ disposition carries and which it predates.
    `headRefOid` (the current tip every review binding is compared
    against) + `mergeStateStatus` + unresolved `reviewThreads` count +
    `statusCheckRollup` + `latestReviews(first:20){totalCount
-   pageInfo{hasNextPage endCursor} nodes{author{login} commit{oid} state
-   submittedAt body}}` — the per-author latest-review connection, verified
+pageInfo{hasNextPage endCursor} nodes{author{login} commit{oid} state
+submittedAt body}}` — the per-author latest-review connection, verified
    live on PR #391, 2026-07-16 (the leg added 2026-07-16, PR #390). A
    bounded `reviews(last:20)` read is WRONG here: a long review history
    pushes an earlier bot's latest review out of the window (#390 exceeded
@@ -792,7 +792,7 @@ disposition carries and which it predates.
    reconstruct round history — rows vanish from the connection whenever a
    reviewer posts again.
 2. **The tally store.** One row per settled round, `{round commit SHA,
-   raised count, cure-worthy count}` — the raised count is every finding
+raised count, cure-worthy count}` — the raised count is every finding
    in reviews bound to that commit (the sampler record); the cure-worthy
    count is the subset that cleared the PDR-140 worthiness bar, and it
    is the count `c[n]`, the terminal-zero test, and both step-back arms
@@ -855,19 +855,19 @@ disposition carries and which it predates.
    and can falsely trigger, or mask, non-convergence). Convergence is the
    per-round count strictly decreasing (under PDR-140 triage, read on
    the cure-worthy count per the firing-gate block above). The
-born-sketch plan-PR convergence cap (owner ruling 2026-07-25) is
-subsumed by PDR-140's intake contract. The cap's terms — after round 4,
-disposition to named homes unless a finding shows an actual falsehood;
-merge at any settle-green tip whose deltas are cap-dispositions or
-falsehood-cures; hard-stop only for new owner parameters — now read
-through the bar: for plan-class artefacts the verification point is
-pickup, so a falsehood earns a cure only if it would mislead before
-pickup (PR #32, 2026-08-31: reading every technical falsehood as
-cure-worthy ran the loop to eleven waves; the bar reading is what lets
-the loop terminate). The cap's four-round full-engagement grace is
-deliberately gone — triage binds from wave one. **The step-back trigger is
+   born-sketch plan-PR convergence cap (owner ruling 2026-07-25) is
+   subsumed by PDR-140's intake contract. The cap's terms — after round 4,
+   disposition to named homes unless a finding shows an actual falsehood;
+   merge at any settle-green tip whose deltas are cap-dispositions or
+   falsehood-cures; hard-stop only for new owner parameters — now read
+   through the bar: for plan-class artefacts the verification point is
+   pickup, so a falsehood earns a cure only if it would mislead before
+   pickup (PR #32, 2026-08-31: reading every technical falsehood as
+   cure-worthy ran the loop to eleven waves; the bar reading is what lets
+   the loop terminate). The cap's four-round full-engagement grace is
+   deliberately gone — triage binds from wave one. **The step-back trigger is
    mechanical, with the exact predicate `c[n] >= c[n-1] AND
-   c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
+c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    three settled counts) OR 4 total settled rounds in the epoch — and
    EITHER ARM FIRES ONLY WHILE the latest settled round's count is
    non-zero**: a zero-finding settled round is the terminal SUCCESS state
@@ -1042,7 +1042,25 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    dispositioning (2026-09-15, #147: the anchor sat on the
    seat's own reply, seven minutes after the round's last real review; the
    signed-self-reply exclusion did not catch it, because an empty body
-   carries no signature to detect).
+   carries no signature to detect). A reviewer's reported result has TWO
+   transports, and the leg reads both: the review object, and a completion
+   comment on the conversation — the Codex connector's transport for a
+   zero-findings run ("Didn't find any major issues", naming the commit it
+   read), which by the owner's ruling of 2026-09-16 is a positive result,
+   not missing evidence (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`).
+   Such a comment SATISFIES the leg when its author is an expected reviewer,
+   it is unedited, and the commit prefix it names resolves to exactly one
+   commit of the pull request, that commit being the current tip; the
+   evidence names the transport. An expected reviewer's comment that fails a
+   precondition, on a leg the tip does not otherwise satisfy, is never read
+   as no comment: the verdict is `UNCLASSIFIED-EVIDENCE`, naming the
+   precondition and quoting the comment (a near-miss that reads as silence
+   puts the reader back where they started); the door refuses it by name,
+   and the cure is a fresh result on the tip (an `@codex review` comment),
+   never an edit. The refusal decides the verdict when the round is
+   otherwise settled or when it is the blocking reviewer's; a live run
+   outranks it, and a refusal on another reviewer rides in the evidence
+   beside the blocking leg's own state.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
@@ -1133,7 +1151,7 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    owner named it at 08:3xZ). A fresh pull request, where one is opened
    for any reason, needs a NEW branch name because the platform refuses a
    second open pull request on a branch that already has one (`gh pr
-   create` on such a branch exits non-zero with "a pull request for branch …
+create` on such a branch exits non-zero with "a pull request for branch …
    already exists" and the EXISTING pull request's address inside that error
    text, gh 2.97.0; a script that keeps the output and drops the exit status
    reads that address as a new pull request), and closes
@@ -1197,7 +1215,7 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
    satisfies. The Copilot leg is the bot's own to obtain: `POST
-   repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
+repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    `reviewers[]=copilot-pull-request-reviewer[bot]` under the
    pull-request-work token returns 201 and the timeline shows
    `review_requested Copilot` within seconds (first-hand on #108, #109,
@@ -1339,7 +1357,7 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   fragment; REST `requested_reviewers` and `gh pr view` omit them.
 - **Run the merge-base deletion sweep before ANY merge**:
   `git diff "$(git merge-base origin/<base> HEAD)" -- <touched paths> |
-  grep -E "^-" | grep -v "^---"` and read every printed line — each is an
+grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   intended deletion or a silent revert. A stale whole-file capture
   produces a clean, conflict-free overwrite that every gate in the chain
   is structurally blind to (worked instance 2026-07-28: a green docs PR
@@ -1393,7 +1411,7 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
   enumerates review runs (`--json id,name,createdAt,completedAt`;
   `completedAt` null = in flight) and `gh agent-task view <session-id>
-  --json` maps a run to its PR (the list JSON carries no PR number; the
+--json` maps a run to its PR (the list JSON carries no PR number; the
   PR-number positional is interactive-only — vendor shapes verified
   2026-07-21). Run-in-flight, run-never-started, and run-dead are now
   distinguishable states; a wait on a review whose run never started is

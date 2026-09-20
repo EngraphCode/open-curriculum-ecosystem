@@ -27,6 +27,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [],
+    completionComments: { reviews: [], refused: [] },
     reviewRuns: { kind: 'read', runs: [] },
     ...overrides,
   };

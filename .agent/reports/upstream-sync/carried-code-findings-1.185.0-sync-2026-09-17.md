@@ -14,11 +14,16 @@ verifies each item reproduces at the cited tip before opening its lane.
 
 ## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
+**Owner ruling, 2026-09-20 (card answer, verbatim label: "Cure here only what misleads
+operators").** Items A2, A5 and A15 are routed for cure on this line, one pull request each: A2 landed (#162), A5 landed (#163), A15 landed (#166). Every other
+item in this section is held for the Oak line and arrives here through a later carrier, because
+each cure made here edits a file the Oak line authored and becomes a conflict at the next sync.
+
 The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
 (`git diff d9138c8b9 -- <file>` leaves the cited passage untouched; one file, `deployment-architecture.md`, carries this line's deploy-config-gate text elsewhere), so by the owner's constraint it
-is cured on this line in its own PR, never on the sync, and the two lines carry the cure together
-when they rejoin (owner, 2026-09-17: one repository temporarily diverged). Prose authored on this
+is cured in its own PR, never on the sync. Which line makes the cure is the ruling above: A2 on
+this line, A1 and A3 on the Oak line (A4 moved to C2 and was cured on the carrier). Prose authored on this
 line about the same subject was re-trued on the carrier. Standard for all of A1–A4: principles
 §Misleading docs are blocking; §Target-architecture wording needs consuming-runtime evidence.
 
@@ -63,6 +68,10 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    "Portable skill, command, and rule adapters" and omits the new `.agents/plugins/marketplace.json`
    (Oak #968). Minor. Standard: §Documentation Is Infrastructure (stable indexes point and must not
    drift).
+10. `.github/actions/setup/action.yml` line 13 (identical on the Oak line's tip): `pnpm/action-setup` pinned
+    at v6.0.9 while Oak bumped its own `ci.yml` to v6.1.0 (#980) and left the composite action
+    behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
+    dependency-currency lane's SHA-pinned-actions leg.
 11. The Oak line's ADR-125 amendments of 2026-09-08 and its ChatGPT package README qualify
     `plugins/oak-open-curriculum/` as "(Claude Code)" and call the ChatGPT package's source "the
     Claude plugin". Owner ruling on this line (2026-09-17, verbatim): "it is a Claude plugin, it
@@ -70,10 +79,6 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     ("never write 'Claude Code plugin' for the Oak plugin") stands; Oak's qualifier is the
     misstatement, and prose on this line never copies it (two rehearsal edits that had were corrected).
     Standard: §Consistent Naming (one concept, one name); §Misleading docs are blocking.
-10. `.github/actions/setup/action.yml` line 13 (identical on the Oak line's tip): `pnpm/action-setup` pinned
-    at v6.0.9 while Oak bumped its own `ci.yml` to v6.1.0 (#980) and left the composite action
-    behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
-    dependency-currency lane's SHA-pinned-actions leg.
 
 12. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 73–127 (identical
     on the Oak line's tip; raised by Copilot on the carrier, round one): the numbered chain above
@@ -100,6 +105,38 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     (consistent with A8). Reported, not reproduced by this seat; the reader reproduces before
     opening the lane. (Copilot's second point, an "incomplete" phrase, is its own masking of the
     words "Bearer token"; the file's text is complete.) Standard: §Misleading docs are blocking.
+
+15. `apps/oak-curriculum-mcp-streamable-http/src/no-html-surface.integration.test.ts` lines 74–80
+    (identical on the Oak line's tip; raised by Copilot on the carrier, round four): the test
+    "serves no document at the root even to a client that asks for nothing else" asserts the
+    status `404` only. With no `/` route and no terminal 404 middleware, the framework's default
+    final handler answers that request with an HTML `Cannot GET /` document, so the application
+    still serves HTML at the root while the test named for the no-HTML contract passes. The
+    sibling test above it asserts an empty body; this one does not. Standard:
+    `testing-strategy.md` (a test proves the behaviour its name states); §Misleading docs are
+    blocking, for the test's name and comment.
+
+16. `apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/server-json.ts` lines 82–86
+    (identical on the Oak line's tip; found by this seat on 2026-09-20 while removing a leftover
+    build directory at the owner's word): the docstring says the artefact is written "under the
+    gitignored `.generated/` directory, alongside the baked landing page", and
+    `SERVER_JSON_ARTEFACT_RELATIVE_PATH` is `.generated/server.json`. No ignore rule covers that
+    directory (`git check-ignore` on the path matches nothing, on this line and on the Oak line's
+    tip), and the landing page no longer exists: its teardown took the ignore entry with it. A
+    build that emits `server.json` leaves an untracked file in the tree. Standard: §Misleading
+    docs are blocking.
+
+17. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 68, 120–121, 246,
+    270, 305, 329, 372–374 and 402, and `src/app/health-endpoints.ts` lines 22, 32 and 36 (both
+    identical on the Oak line's tip; found on 2026-09-20 by a context-free claim pass on the A2
+    cure, verified by this seat with `git grep -i landing`): the document still describes a live
+    "Landing Page Handler" at `/` (A12 covers only the robots branch of the same document), and
+    the source comment says the root landing page is mounted in `static-content.ts` and that a
+    probe could be handed the landing page. Standard: §Misleading docs are blocking.
+    Addendum (2026-09-20, from the code review of A15's cure): when the document is rewritten,
+    its chain gains one terminal phase, a JSON 404 for every request that reaches the end of the
+    chain, after the diagnostic routes and before the error handlers; today it lists no terminal
+    phase and its `GET /` diagram ends in HTML.
 
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
@@ -224,9 +261,42 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    requests into the default branch a carrier, or a duplicate, on a later page is not seen.
    Raised by Copilot on pull request 158, round seven, as an observation on unchanged code.
    Standard: principles §Strict and Complete (a guard that silently reads part of its set).
-   Own pull request: `--paginate` with a slurped filter.
+   Own pull request: `--paginate` with a slurped filter. Cured on this line in #165
+   (2026-09-20): `--paginate --slurp` piped to `jq`, because gh refuses `--slurp` beside `--jq`.
 9. **Stale build inputs left by the landing-page teardown** (identical on the Oak line's tip;
    raised by the integration code review, 2026-09-20): `turbo.json`'s `test:ui` and `test:a11y`
    tasks list `playwright.config.ts` as an input, and `.prettierignore` line 78 ignores the MCP
    application's `.generated/` directory; the application has neither since #928. Harmless to a
    gate; a stale pointer. Standard: principles §No unused code. Own pull request, with A10.
+
+10. **The workspace census's `check` is in no gate, and its artefacts drift by construction**
+    (found 2026-09-20 on #163 by this seat and Copilot): `facts.json` counts each subject's
+    tracked files and Oak-marker hits, so any commit that changes those counts under `.agent/`
+    or `agent-tools/` stales it (it failed on
+    `engraph` at `93c35f285` with 20 stale entries and again after each of #163's base moves),
+    and `rows.json` restates numbers that `facts.json` recomputes (the `.agent`, `agent-tools`
+    and `plugins/oak-open-curriculum` rows carry counts now stale). Standard:
+    `validators-must-recompute-not-just-record`. Own lane: a row cites the fact by key and never
+    restates it; the check either enters a gate or its facts stop counting files.
+
+11. **`DELETE /mcp` draws the terminal 404** (observed 2026-09-20 by the mcp-expert consult on
+    A15's cure, landed in #166; a bare `DELETE` meets the accept gate's 406 first, one with a
+    conforming `Accept` reaches the 404): no handler registers `DELETE /mcp`. MCP 2025-11-25
+    Transports §Session Management, item 5, says a server that assigns session ids MAY answer
+    such a `DELETE` with `405 Method Not Allowed` when it does not allow client-initiated
+    termination (the `Allow` header is RFC 9110's rule for a 405); this app assigns no session
+    (`core-endpoints.ts`, `sessionIdGenerator: undefined`), so the clause's precondition is
+    absent. Two records disagree with each other on the point: the trailing-slash
+    characterisation of 2026-08-06 recorded the fall-through to the framework's 404 as
+    unprobed, and ADR-229 line 263 says the app answers `DELETE` with 405 today, which it does
+    not. Own small lane: decide the answer (405 with `Allow`, or the 404 as the stated
+    behaviour), re-true ADR-229, and a test without IO.
+
+12. **Authored refusal bodies outside the content audit** (observed 2026-09-20 by Codex on #166,
+    P3): the audit's boundary (`.agent/reports/mcp-agent-facing-content-audit/report.md` §2)
+    counts authored refusal copy that reaches an agent, and the 403 `{ error: 'Forbidden' }` has
+    a registry item, yet the two 406 bodies in `mcp-middleware.ts` (one for an `Accept` without
+    `text/event-stream`, one for an `Accept` without `application/json`) and the 404 body in
+    `not-found.ts` are recorded as implementation-only in the current-source truth set. Own small lane in the
+    audit: one registry item per authored refusal body (three), and their review entries turned
+    from `excluded` to `reviewed` with the item ids.

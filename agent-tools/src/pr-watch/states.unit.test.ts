@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { PR_VERDICT_STATES } from './state-types.js';
-import type { PrStateReading } from './state-types.js';
+import { COPILOT, LATE_NOW, OLD_TIP, settledReading, TIP } from './state-reading-fixture.js';
 import { computePrVerdict } from './states.js';
 
 /**
@@ -11,47 +11,6 @@ import { computePrVerdict } from './states.js';
  * fixture, plus the r2 classes: per-reviewer legs (never collapsed), the more-than-10
  * min quiet window, and the latestReviews backwards-pointer.
  */
-
-const TIP = 'a'.repeat(40);
-const OLD_TIP = 'b'.repeat(40);
-const COPILOT = 'copilot-pull-request-reviewer';
-/** A now safely past every fixture timestamp's quiet window. */
-const LATE_NOW = '2026-07-21T13:00:00Z';
-
-function settledReading(overrides: Partial<PrStateReading> = {}): PrStateReading {
-  return {
-    number: 999,
-    url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/999',
-    state: 'OPEN',
-    isDraft: false,
-    mergeable: 'MERGEABLE',
-    mergeStateStatus: 'BLOCKED',
-    headRefOid: TIP,
-    checks: { total: 3, passed: 3, failed: 0, pending: 0 },
-    namedChecks: [
-      { name: 'secret-scan', bucket: 'passed' },
-      { name: 'SonarCloud Code Analysis', bucket: 'passed' },
-      { name: 'CI / static-checks', bucket: 'passed' },
-    ],
-    checksGreenAt: '2026-07-21T12:00:00Z',
-    reviewThreads: { total: 4, unresolved: 0 },
-    autoMergeArmed: false,
-    reviewRequests: [],
-    expectedReviewers: [COPILOT],
-    expectedDeclared: true,
-    reviews: [
-      {
-        author: COPILOT,
-        state: 'COMMENTED',
-        body: 'Reviewed 2 of 2 files.',
-        commitOid: TIP,
-        submittedAt: '2026-07-21T12:05:00Z',
-      },
-    ],
-    reviewRuns: { kind: 'read', runs: [] },
-    ...overrides,
-  };
-}
 
 describe('PR_VERDICT_STATES', () => {
   it('is the closed set from the plan plus the typed extensions', () => {
@@ -72,6 +31,7 @@ describe('PR_VERDICT_STATES', () => {
         'ARMED-BEHIND-RED',
         'QUOTA-SKIPPED',
         'SETTLED-NO-REVIEW',
+        'UNCLASSIFIED-EVIDENCE',
         'MERGED',
         'CLOSED',
         'CONFLICT-DIRTY',
@@ -560,6 +520,23 @@ describe('computePrVerdict — round-4 residual classes (2026-07-21)', () => {
       LATE_NOW,
     );
     expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
+  });
+
+  it("an EMPTY review with no submittedAt neither anchors nor holds open the quiet window: the round settles on the real review's time (#149 round two)", () => {
+    // Literal-input case: the empties exclusion runs first, so a thread-reply
+    // artefact whose timestamp gh omitted neither anchors the window nor
+    // holds it open — the round settles on the real review's own time.
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          ...settledReading().reviews,
+          { author: COPILOT, state: 'COMMENTED', body: '', commitOid: TIP, submittedAt: '' },
+        ],
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence.join('\n')).toContain('1 tip-bound empty-bodied review ignored');
   });
 
   it('a TRUNCATED run list never asserts deadness — the requested owed leg reads RUNS-UNREADABLE (r5 regression)', () => {

@@ -106,7 +106,7 @@ second opinion.
    sentence. Falsifier: the next such change whose brief carries the list still runs two or
    more rounds of race findings. Lane: fast (operational).
 2. **The commit-message hook fails on commitlint warnings.** Warrant: two pushed messages with
-   the same warning an hour apart (`67330f696`, `e1fe4438b`), the second after the lesson was
+   the same warning fourteen minutes apart (`67330f696`, `e1fe4438b`), the second after the lesson was
    written down; a note did not bind, and `no-warning-toleration` already says a warning is
    fixed or made an error. Falsifier: a legitimate message the stricter hook refuses that
    rewording cannot satisfy. Lane: fast; its own small pull request.
@@ -134,9 +134,8 @@ the carrier's closeout, it is a eulogy.
 
 ## State of this record
 
-Written 2026-09-20, untracked in the primary checkout. It is not safe until it is committed,
-pushed and on a pull request; it rides the coordination branch's commit queue with this seat's
-landing records, at the curator seat's word.
+Written 2026-09-20 and landed on `engraph` the same day by the coordination fold (#156); its
+correction and addendum are carried by the author's records pull request (#161).
 
 ## Addendum, 2026-09-20 11:35Z — the record's own lesson did not bind its author
 
@@ -169,3 +168,18 @@ cure pushes against a declared two, then a sixth under a budget the owner raised
 - **Credit the loop anyway.** Severity fell every round (races, then ordering, then wording,
   then one safety clause, then observations only), and the final tip drew no findings from
   either reviewer.
+
+## Addendum, 2026-09-20 13:45Z — a correction, and the proposals' routing
+
+- **Correction.** Proposal 2 first said the two warning commits were "an hour apart". They were
+  fourteen minutes apart (`67330f696` 20:50 and `e1fe4438b` 21:04 local, 2026-09-19), read from
+  the commits by a context-free claim pass on the hook's own lane. The sentence is corrected in
+  place because a false count in a record is cited as hard as a true one.
+- **Routing.** The owner ratified by card on 2026-09-20: the commit-message hook fails on
+  warnings (pull request 160); the claim pass runs before every publish (it caught eight true
+  errors on the carrier before any reviewer saw them); the merge door reads a vendor's clean
+  comment (the node `landing-instruments-read-the-evidence`, stamped the same day, which is
+  the sketch proposal 3 calls unratified). These are proposal 2, the addendum's re-scoped
+  proposal 1 and proposal 3. Ratified and routed is what the evidence supports at this writing:
+  pull request 160 is open and the merge door's change is not built. Proposal 1's original
+  sentence form (the writers' list in a brief) is routed nowhere.

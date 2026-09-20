@@ -22,7 +22,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/bootstrap-finalize.ts': excluded(
-    '35db06b7e8a8eef7d9c768aa76addc8e99fa36dc2b974ef18e3e173404735293',
+    '1b00309dc856dd1a04a86144771fafd5587e280f09a064a80c396aba1350166b',
     IMPLEMENTATION_ONLY,
   ),
   // Landing-page removal: the DNS-rebinding phase leaves with the two HTML
