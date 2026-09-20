@@ -295,7 +295,8 @@ line about the same subject was re-trued on the carrier. Standard for all of A1โ
 12. **Authored refusal bodies outside the content audit** (observed 2026-09-20 by Codex on #166,
     P3): the audit's boundary (`.agent/reports/mcp-agent-facing-content-audit/report.md` ยง2)
     counts authored refusal copy that reaches an agent, and the 403 `{ error: 'Forbidden' }` has
-    a registry item, yet the 406 body in `mcp-middleware.ts` and the 404 body in `not-found.ts`
-    are recorded as implementation-only in the current-source truth set. Own small lane in the
-    audit: one registry item per authored refusal body, and their review entries turned from
-    `excluded` to `reviewed` with the item ids.
+    a registry item, yet the two 406 bodies in `mcp-middleware.ts` (one for an `Accept` without
+    `text/event-stream`, one for an `Accept` without `application/json`) and the 404 body in
+    `not-found.ts` are recorded as implementation-only in the current-source truth set. Own small lane in the
+    audit: one registry item per authored refusal body (three), and their review entries turned
+    from `excluded` to `reviewed` with the item ids.
