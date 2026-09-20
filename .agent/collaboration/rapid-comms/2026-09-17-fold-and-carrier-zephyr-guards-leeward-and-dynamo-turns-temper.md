@@ -703,3 +703,9 @@ One commit through the ceremony, then one push. Seventeen curated, twenty left l
 One commit through the ceremony, then one push. This is the last file of the active set; eighteen curated, twenty left live. What remains for the goal: the continuity record's own landed history (§Session history), then the report.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:54:13Z — gate run starts NOW on the primary: the continuity record's session history collapsed to its landed drains
+
+One commit through the ceremony, then one push. This is the last file of the large-file set: nineteen curated, twenty left live. The report to the owner follows the push.
+
+— Zephyr guards Leeward (281e44)
