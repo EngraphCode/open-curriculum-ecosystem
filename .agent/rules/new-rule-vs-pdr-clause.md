@@ -87,6 +87,18 @@ were the substance: read the stream to its END before a liveness statement;
 land a lane from its own sibling worktree; keep long event bodies out of
 shell heredocs.
 
+An amendment to a rule that operationalises a decision record is written
+with that record open. Second instance, 2026-09-19 to 2026-09-20: from one
+incident (six directives read during a fold's waits) a seat added "the read
+is budgeted too" to `directive-file-context-budget` without reading PDR-052,
+which lists "Reading a directive as input to other work" as outside
+directive-file work; the next day the seat declined a directive read the
+owner's own skill directed, citing its clause, and carried the same gate onto
+memory files it never named. Owner, verbatim: "you are taking the 30% too
+literally and too strictly, if I give you a skill to read then read it". The
+instance-scoped cure was the substance: read the meter again before the
+first directive edit.
+
 Then apply the structure test before writing the lesson down at all (owner
 reframing, 2026-09-11: "you've described mechanical fixes, but what you have
 implemented is prose … We are using lower powered models now, so we need to

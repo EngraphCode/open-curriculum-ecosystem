@@ -341,6 +341,10 @@ actually present**:
   residue in the next rings (a reviewer template, two ADR bodies, four docs, a rule), found one
   ring per round. Falsifier: a changeset that ran the sweep still draws two rounds of
   residue-class findings.
+  A cure is a new claim and gets the same check at source as the text it replaces, before
+  its commit runs: on the same fold three of the author's cure sentences were wrong when
+  first written (a "Phase 4" that is step 8, "the existing smoke suites" that is one suite,
+  and `request(app)` relabelled as an E2E check), each caught by that check or by a reviewer.
 
 Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
 `github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two

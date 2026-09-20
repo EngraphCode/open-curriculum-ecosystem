@@ -84,7 +84,11 @@ again.**
    worktrees, 2026-09-06). The bound belongs at the gate's spawn path — a
    host-wide semaphore the full local gate acquires, limit 2, hard ceiling
    3, with a test — never a comms announcement, a claim role, or a
-   declared window. The general move: when a coordination mechanism
+   declared window. Owner ruling (2026-09-20, verbatim): "two parallel
+   gate runs are fine as long as they are in different work trees". So
+   seats on one host run their gates side by side, each in its own
+   worktree, up to this item's bound; inside one worktree gate runs are
+   sequential. The general move: when a coordination mechanism
    serialises the wrong resource, ask which resource is actually scarce
    and bound that.
 

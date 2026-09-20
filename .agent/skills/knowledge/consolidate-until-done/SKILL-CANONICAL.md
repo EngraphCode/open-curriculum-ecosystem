@@ -129,6 +129,12 @@ Before substantive work:
    record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
    stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
    reads still stops mid-surface for lack of headroom.
+   A price is set against the figure of the context that will pay it, so a plan carried
+   across a compaction is priced again at resume before it is repeated to the owner. The
+   30 % gate prices directive edits only; a memory file needs headroom to be read whole,
+   and nothing more. Worked instance (2026-09-20): a plan written at 65 % ("each large
+   record needs a context of its own") was told to the owner as a blocker at 40 % of a
+   million-token window, with about 600,000 tokens free, and the owner corrected it.
    **Reserve the last step's price.** Directive work is the pass's final step and the one the
    30 % gate closes on, so its cost is set aside at open (the bytes of the directives to be
    read whole, over four, plus the edits), and an earlier stage stops when the headroom
@@ -149,8 +155,10 @@ Before substantive work:
    step 7 reserves, so each of these is decided here and loaded only when it fires:
    - *Other seats live?* If the claims registry or the stream shows one, apply
      [`start-right-team`](../../start-right-team/SKILL-CANONICAL.md) (watcher first) in
-     place of the solo grounding; a shared host also means one gate run at a time, agreed on
-     the seats' channel.
+     place of the solo grounding; on a shared host each seat's gate runs stay inside its own
+     worktree, at most two side by side
+     ([`no-unbounded-host-load`](../../../rules/no-unbounded-host-load.md) item 6), and a
+     seat says on the seats' channel when one starts.
    - *A retrospective first?* Only when an arc has finished since the last consolidation
      and its cost or shape surprised; otherwise it follows the pass, at the owner's word.
    - *Parallax?* At screening depth, at a real fork whose frames differ; where each lesson

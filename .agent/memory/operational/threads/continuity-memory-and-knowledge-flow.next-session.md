@@ -156,7 +156,21 @@ names are right for the whole Practice ecosystem, decided once and then standard
 Practice repository (not one repository conforming to PDR-008, nor the Core dropping a clause).
 The seat's verdict is in the F-189 entry for the owner to ratify: PDR-008 without its Rule 4
 (`check` verifies, `fix` mutates, `check:ci` retired), and this repository renames its three
-Rule 1 breaches. Decided and no longer open: the fsmonitor daemon (F-195: measured and cured
+Rule 1 breaches. (2) The context-loop experiment of 2026-09-19 (a five-minute check that runs
+the compaction preparation at 70 %): the owner's rule restarts it after each compaction; this
+seat did not re-create it after the compaction of 2026-09-20 and did not ask, so it is the
+owner's to restart or end. Its findings and the design of a better run are tracked in
+`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`. (3) A
+candidate, to be put to the owner once this consolidation is done and not before: a
+consolidation fold cures what blocks the merge and lists the rest as a work list for its own
+lane, as the owner's carrier rule of 2026-09-19 already does for the integration lane. Frame: a
+consolidation's doctrine edits incur an estate-wide consistency bill, and no boundary says which
+part of it is the consolidation's; the fluent answer (open the pass with an estate-wide residue
+sweep, landed in `pr-lifecycle` on 2026-09-20) makes the consolidation larger. Warrant: #156,
+where 22 residue findings were cured in the review loop across two settlement pushes while the
+job stood still. Falsifier: a fold run that way leaves a contradiction a reader acts on before
+the work list is cured. Unresolved: how it sits with "misleading docs are blocking". Decided
+and no longer open: the fsmonitor daemon (F-195: measured and cured
 on 2026-09-19 by Dynamo turns Temper at the owner's word; the monitor is unset for the clone); the upstream-sync naming lane (2026-09-17: rename
 both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,
 verbatim in the cross-fork skill: blocked by errors, fix them on the carrier; not blocked but
@@ -229,7 +243,8 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    record is about 55,000 tokens to read (its last 280 lines alone are 27,000), the
    estate-coordination record about 75,000 and the frictions register about 90,000. Each is
    priced against the headroom the context has at that moment (the window is a million
-   tokens) and read whole before anything moves.4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
+   tokens) and read whole before anything moves.
+4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
    (`lsof`, `ps`), a configuration cure in its own lane; and the Claude per-user RESUME HEADS
    pointers, re-trued at each wrap.
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3

@@ -654,7 +654,10 @@ Before opening the four-move protocol above:
    Do NOT pre-prime the turbo cache by running `bash .husky/pre-commit`
    either, and never pre-run one of the hook's instruments (Prettier,
    markdownlint) on the staged files. When the hook refuses, fix what
-   the refusal names and commit again.
+   the refusal names and commit again. After an interrupted or refused
+   ceremony, read `git log -1` before the next act: a commit that an
+   interrupt appeared to stop had landed, and the re-run ceremony was
+   refused by the queue for an empty bundle (2026-09-20).
 3. Stage selectively — never blindly `git add .`. Skip `.env`,
    credentials, `bulk-downloads/`. The `commit-queue` enqueue +
    guard chain in move 2 enforces explicit pathspecs by design.

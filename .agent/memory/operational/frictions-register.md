@@ -4596,3 +4596,17 @@ commit SHA and the closing plan reference.
   beside the claim's, or the heartbeat command bumps both). The seat-side cure is already
   practice: a seat that holds a claim runs `claims heartbeat` on it
   (`liveness-heartbeat-cron`). One instance.
+
+### F-197 — a smoke check's ten-second wall-clock wait failed a push on a loaded host
+
+- **Observed**: 2026-09-20 ~13:4xZ (Zephyr guards Leeward, `281e44`). A push's gates ran beside
+  another seat's push gates on the same host, and `smoke:comms-watch-coordination-home` failed
+  with "watcher did not exit within 10 seconds"; it passed alone a minute later and the push
+  passed on retry. The bound is a `setTimeout` of `10_000` and a `Date.now() + 10_000`
+  deadline in `agent-tools/smoke-tests/comms-watch-coordination-home.smoke.ts`.
+- **Expected**: `testing-strategy.md` §Smoke Checks has a smoke check prove completion by
+  events. With two gate runs side by side now the owner's ruled shape
+  (`no-unbounded-host-load` item 6), a fixed wall-clock wait inside a gate is a source of
+  phantom reds.
+- **Route**: an agent-tools candidate (wait on the watcher's exit event, with a bound sized as
+  a hang detector and not as an expected duration). One instance.

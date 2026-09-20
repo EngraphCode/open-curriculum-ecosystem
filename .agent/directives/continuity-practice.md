@@ -84,7 +84,9 @@ work this content describes?". Two dispositions:
    archive (where the finished ranges are not contiguous, the archive is a
    snapshot of the whole pre-curation file, proven byte-identical to its
    committed blob, and the live file is then curated); and the live surface
-   keeps only the live state and a one-line pointer to the archive. Git retains the literal record either way; the
+   keeps only the live state and a one-line pointer to the archive (the path
+   written inline as code: the link validator's target set excludes archive
+   directories, and the commit gate refuses a markdown link into one). Git retains the literal record either way; the
    archive keeps it readable without a checkout of history.
 
 **Archiving happens only after full processing, never as a means to tick a
