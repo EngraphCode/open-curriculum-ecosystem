@@ -15,7 +15,7 @@ verifies each item reproduces at the cited tip before opening its lane.
 ## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
 **Owner ruling, 2026-09-20 (card answer, verbatim label: "Cure here only what misleads
-operators").** Items A2, A5 and A15 are routed for cure on this line, one pull request each: A2 landed (#162), A5 landed (#163), A15 is in its lane. Every other
+operators").** Items A2, A5 and A15 are routed for cure on this line, one pull request each: A2 landed (#162), A5 landed (#163), A15 landed (#166). Every other
 item in this section is held for the Oak line and arrives here through a later carrier, because
 each cure made here edits a file the Oak line authored and becomes a conflict at the next sync.
 
@@ -133,6 +133,10 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     "Landing Page Handler" at `/` (A12 covers only the robots branch of the same document), and
     the source comment says the root landing page is mounted in `static-content.ts` and that a
     probe could be handed the landing page. Standard: §Misleading docs are blocking.
+    Addendum (2026-09-20, from the code review of A15's cure): when the document is rewritten,
+    its chain gains one terminal phase, a JSON 404 for every request that reaches the end of the
+    chain, after the diagnostic routes and before the error handlers; today it lists no terminal
+    phase and its `GET /` diagram ends in HTML.
 
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
@@ -257,9 +261,33 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    requests into the default branch a carrier, or a duplicate, on a later page is not seen.
    Raised by Copilot on pull request 158, round seven, as an observation on unchanged code.
    Standard: principles §Strict and Complete (a guard that silently reads part of its set).
-   Own pull request: `--paginate` with a slurped filter.
+   Own pull request: `--paginate` with a slurped filter. Cured on this line in #165
+   (2026-09-20): `--paginate --slurp` piped to `jq`, because gh refuses `--slurp` beside `--jq`.
 9. **Stale build inputs left by the landing-page teardown** (identical on the Oak line's tip;
    raised by the integration code review, 2026-09-20): `turbo.json`'s `test:ui` and `test:a11y`
    tasks list `playwright.config.ts` as an input, and `.prettierignore` line 78 ignores the MCP
    application's `.generated/` directory; the application has neither since #928. Harmless to a
    gate; a stale pointer. Standard: principles §No unused code. Own pull request, with A10.
+
+10. **The workspace census's `check` is in no gate, and its artefacts drift by construction**
+    (found 2026-09-20 on #163 by this seat and Copilot): `facts.json` counts tracked files under
+    every subject, so any commit under `.agent/` or `agent-tools/` stales it (it failed on
+    `engraph` at `93c35f285` with 20 stale entries and again after each of #163's base moves),
+    and `rows.json` restates numbers that `facts.json` recomputes (the `.agent`, `agent-tools`
+    and `plugins/oak-open-curriculum` rows carry counts now stale). Standard:
+    `validators-must-recompute-not-just-record`. Own lane: a row cites the fact by key and never
+    restates it; the check either enters a gate or its facts stop counting files.
+
+11. **`DELETE /mcp` draws the terminal 404** (observed 2026-09-20 by the mcp-expert consult on
+    A15's cure, landed in #166): MCP 2025-11-25 Transports §Session Management prefers `405
+    Method Not Allowed` with `Allow: POST` where a server does not support client-initiated
+    session termination. Own small lane: an explicit 405 on `DELETE /mcp`, with the `Allow`
+    header, and a test without IO.
+
+12. **Authored refusal bodies outside the content audit** (observed 2026-09-20 by Codex on #166,
+    P3): the audit's boundary (`.agent/reports/mcp-agent-facing-content-audit/report.md` §2)
+    counts authored refusal copy that reaches an agent, and the 403 `{ error: 'Forbidden' }` has
+    a registry item, yet the 406 body in `mcp-middleware.ts` and the 404 body in `not-found.ts`
+    are recorded as implementation-only in the current-source truth set. Own small lane in the
+    audit: one registry item per authored refusal body, and their review entries turned from
+    `excluded` to `reviewed` with the item ids.
