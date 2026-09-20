@@ -1,14 +1,17 @@
 import { quoteOf } from './completion-comments.js';
+import { normaliseLogin } from './reviewer-legs.js';
 import type { HarvestedReview, ReviewerLeg } from './reviewer-legs.js';
 import type { PrStateReading } from './state-types.js';
 
 /**
  * How the settlement half reads the completion-comment transport: the union
- * of both transports the legs compute over, the evidence naming which
- * transport bound the tip, and the refusals — a declared reviewer's comment
- * that fails a precondition, or binds a commit that is not the tip, while
- * that reviewer's leg is unsatisfied (`landing-instruments-read-the-evidence`,
- * slice 1; decision note 2026-09-16: a near-miss never reads as silence).
+ * of both transports the legs compute over, one evidence line per result
+ * that arrived by comment (a review-object result is the leg's default and
+ * carries no transport line), and the refusals — an expected reviewer's
+ * comment that fails a precondition, or binds a commit that is not the tip,
+ * while that reviewer's leg is unsatisfied
+ * (`landing-instruments-read-the-evidence`, slice 1; decision note
+ * 2026-09-16: a near-miss never reads as silence).
  */
 
 /** Both transports of a reviewer's reported result, as the legs read them. */
@@ -24,10 +27,6 @@ export function completionTransportEvidence(reading: PrStateReading): string[] {
       (review) =>
         `${review.author}: completion comment ${review.id} at ${review.submittedAt} read as a review of the tip (transport: completion-comment)`,
     );
-}
-
-function normaliseLogin(login: string): string {
-  return login.toLowerCase().replace(/\[bot\]$/, '');
 }
 
 /**

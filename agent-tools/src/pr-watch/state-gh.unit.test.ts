@@ -605,6 +605,7 @@ describe('readPrStateReading', () => {
       statusCheckRollup: [],
       autoMergeRequest: null,
       reviewRequests: [],
+      comments: [],
       commits: [{ oid: HEAD }],
     });
     const reading = readPrStateReading({

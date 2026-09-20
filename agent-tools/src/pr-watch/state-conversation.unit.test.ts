@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseConversation, PR_STATE_CONVERSATION_JSON_FIELDS } from './state-conversation.js';
+import { parseConversation } from './state-conversation.js';
 
 /**
  * The conversation legs of the `pr state` view: the top-level comments (the
  * surface a reviewer's completion comment lands on) and the pull request's
- * commits. Shapes mirror `gh pr view --json comments,commits` read live on
- * 2026-09-20 (pull request 167).
+ * commits. Shapes follow `gh pr view --json comments,commits` on pull
+ * request 167 (2026-09-20; that pull request's description records the
+ * read).
  */
 
 const HEAD = '15d88db6315dae84917d00d0ec7b9b7c6d7e7cd6';
@@ -43,10 +44,6 @@ function livePayload(comments: readonly LiveComment[] = [CODEX_COMMENT]): unknow
 }
 
 describe('parseConversation', () => {
-  it('names the two view fields it reads', () => {
-    expect(PR_STATE_CONVERSATION_JSON_FIELDS).toStrictEqual(['comments', 'commits']);
-  });
-
   it('reads the comments as completion-comment candidates and the commits as their oids', () => {
     expect(parseConversation(livePayload())).toStrictEqual({
       comments: [
@@ -70,7 +67,7 @@ describe('parseConversation', () => {
     expect(parsed.comments[0]?.edited).toBe(true);
   });
 
-  it("names a deleted account's comment as by 'unknown', a login no reviewer set holds", () => {
+  it("names a deleted account's comment as by 'unknown'", () => {
     const parsed = parseConversation(livePayload([{ ...CODEX_COMMENT, author: null }]));
 
     expect(parsed.comments[0]?.author).toBe('unknown');
@@ -80,7 +77,8 @@ describe('parseConversation', () => {
     expect(parseConversation(livePayload([])).comments).toStrictEqual([]);
   });
 
-  it('fails loud when the commits leg is missing: a named prefix could then resolve nowhere', () => {
+  it('fails loud when either leg is missing or null: a misshapen payload is never an empty one', () => {
     expect(() => parseConversation({ number: 167, comments: [] })).toThrow();
+    expect(() => parseConversation({ number: 167, comments: null, commits: COMMITS })).toThrow();
   });
 });

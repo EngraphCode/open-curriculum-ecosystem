@@ -6,8 +6,9 @@ import type { GhCommandExecutor } from './gh.js';
 /**
  * The gh seam reads the second transport of a reviewer's reported result: a
  * completion comment on the conversation, bound to the commit it names.
- * Injected executor, no real gh; the view shape mirrors `gh pr view --json`
- * read live on 2026-09-20 (pull request 167).
+ * Injected executor, no real gh; the view carries only the fields the
+ * parsers read, shaped as `gh pr view --json` emits them on pull request 167
+ * (2026-09-20; that pull request's description records the read).
  */
 
 const HEAD = 'f'.repeat(40);
@@ -24,7 +25,12 @@ const CODEX_CLEAN_COMMENT = {
   includesCreatedEdit: false,
 };
 
-function viewPayload(comments: readonly unknown[]): string {
+interface ViewShape {
+  readonly comments: readonly unknown[];
+  readonly commits: readonly { readonly oid: string }[];
+}
+
+function viewPayload(view: ViewShape): string {
   return JSON.stringify({
     number: 461,
     url: 'https://github.com/acme/widgets/pull/461',
@@ -36,8 +42,7 @@ function viewPayload(comments: readonly unknown[]): string {
     statusCheckRollup: [],
     autoMergeRequest: null,
     reviewRequests: [{ __typename: 'User', login: 'copilot-pull-request-reviewer' }],
-    comments,
-    commits: [{ oid: 'e'.repeat(40) }, { oid: HEAD }],
+    ...view,
   });
 }
 
@@ -47,12 +52,12 @@ function emptyPage(connection: string): string {
   ]);
 }
 
-// Every leg answers empty except the view, which carries the given comments.
-function executor(comments: readonly unknown[], calls: string[][]): GhCommandExecutor {
+// Every leg answers empty except the view, which carries the given shape.
+function executor(view: ViewShape, calls: string[][]): GhCommandExecutor {
   return (_file, args) => {
     calls.push([...args]);
     if (args[0] === 'pr') {
-      return viewPayload(comments);
+      return viewPayload(view);
     }
     if (args[0] === 'agent-task') {
       return JSON.stringify([]);
@@ -63,60 +68,79 @@ function executor(comments: readonly unknown[], calls: string[][]): GhCommandExe
 }
 
 const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
+const WITH_TIP: ViewShape = {
+  comments: [CODEX_CLEAN_COMMENT],
+  commits: [{ oid: 'e'.repeat(40) }, { oid: HEAD }],
+};
+const BOUND_TO_HEAD = {
+  id: 'IC_1',
+  author: CODEX,
+  state: 'COMMENTED',
+  body: CODEX_BODY,
+  commitOid: HEAD,
+  submittedAt: '2026-07-21T12:10:00Z',
+  transport: 'completion-comment',
+};
 
 describe('readPrStateReading — the completion-comment transport', () => {
-  it("requests the conversation legs and reads a declared reviewer's completion comment as a review bound to the commit it names", () => {
+  it("requests the conversation legs and reads an expected reviewer's completion comment as a review bound to the commit it names", () => {
     const calls: string[][] = [];
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
       expectedReviewers: [CODEX],
-      execFileSync: executor([CODEX_CLEAN_COMMENT], calls),
+      execFileSync: executor(WITH_TIP, calls),
     });
 
     const prView = calls.find((args) => args[0] === 'pr' && args[1] === 'view');
     expect(prView?.at(-1)).toMatch(/,comments,commits$/u);
-    expect(reading.completionComments).toStrictEqual({
-      reviews: [
-        {
-          id: 'IC_1',
-          author: CODEX,
-          state: 'COMMENTED',
-          body: CODEX_BODY,
-          commitOid: HEAD,
-          submittedAt: '2026-07-21T12:10:00Z',
-          transport: 'completion-comment',
-        },
-      ],
-      refused: [],
-    });
+    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 
-  it("carries a declared reviewer's edited comment as a refusal, never as silence", () => {
+  it("a comment naming the tip binds it even when the view's commit list stops short of the tip (gh lists a pull request's first hundred)", () => {
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
       expectedReviewers: [CODEX],
-      execFileSync: executor([{ ...CODEX_CLEAN_COMMENT, includesCreatedEdit: true }], []),
+      execFileSync: executor(
+        { comments: [CODEX_CLEAN_COMMENT], commits: [{ oid: 'e'.repeat(40) }] },
+        [],
+      ),
     });
 
-    expect(reading.completionComments.reviews).toStrictEqual([]);
-    expect(reading.completionComments.refused).toStrictEqual([
-      {
-        id: 'IC_1',
-        author: CODEX,
-        createdAt: '2026-07-21T12:10:00Z',
-        precondition: 'edited after creation',
-        quote: "Codex Review: Didn't find any major issues.",
-      },
-    ]);
+    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 
-  it("a completion comment never widens a DEFAULTED expected set: an unrequested author's comment reads as none", () => {
+  it("carries an expected reviewer's edited comment as a refusal, never as silence", () => {
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
-      execFileSync: executor([CODEX_CLEAN_COMMENT], []),
+      expectedReviewers: [CODEX],
+      execFileSync: executor(
+        { ...WITH_TIP, comments: [{ ...CODEX_CLEAN_COMMENT, includesCreatedEdit: true }] },
+        [],
+      ),
+    });
+
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [],
+      refused: [
+        {
+          id: 'IC_1',
+          author: CODEX,
+          createdAt: '2026-07-21T12:10:00Z',
+          precondition: 'edited after creation',
+          quote: "Codex Review: Didn't find any major issues.",
+        },
+      ],
+    });
+  });
+
+  it('a completion comment never widens a DEFAULTED expected set: a comment by an author outside it reads as none', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: executor(WITH_TIP, []),
     });
 
     expect(reading.expectedDeclared).toBe(false);

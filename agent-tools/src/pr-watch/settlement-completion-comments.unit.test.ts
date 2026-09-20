@@ -14,8 +14,11 @@ import { computePrVerdict } from './states.js';
  */
 
 const CODEX = 'chatgpt-codex-connector';
-const CODEX_BODY =
-  "Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** `aaaaaaaaaa`\n";
+// The body names the commit the review is bound to, as the parser would
+// have read it.
+function codexBody(commitOid: string): string {
+  return `Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** \`${commitOid.slice(0, 10)}\`\n`;
+}
 
 function codexClean(
   commitOid: string,
@@ -25,7 +28,7 @@ function codexClean(
     id: 'IC_1',
     author: CODEX,
     state: 'COMMENTED',
-    body: CODEX_BODY,
+    body: codexBody(commitOid),
     commitOid,
     submittedAt,
     transport: 'completion-comment',

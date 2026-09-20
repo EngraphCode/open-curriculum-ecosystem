@@ -128,9 +128,13 @@ function readReviewsHarvest(input: {
   }
 }
 
-// The expected set resolves first (declared, else the observed surface), and
-// the completion comments are read against it: a comment widens no defaulted
-// set, so an undeclared, unrequested author's comment reads as no review.
+// The expected set resolves first (declared, else the observed surface:
+// outstanding requests and the authors of landed non-empty reviews), and the
+// completion comments are read against it: a comment widens no defaulted
+// set, so a comment by an author outside it reads as no review. The tip is
+// put beside the view's commit list because gh bounds that list at the pull
+// request's first hundred commits: a result naming the tip of a longer pull
+// request must still bind, and the tip is the one commit the reading knows.
 function composeReading(input: {
   readonly view: ParsedStateView;
   readonly conversation: ParsedConversation;
@@ -148,7 +152,10 @@ function composeReading(input: {
     reviewThreads: input.reviewThreads,
     reviews: input.reviews,
     completionComments: readCompletionComments({
-      ...input.conversation,
+      comments: input.conversation.comments,
+      commits: input.conversation.commits.includes(input.view.headRefOid)
+        ? input.conversation.commits
+        : [...input.conversation.commits, input.view.headRefOid],
       reviewers: expectedReviewers,
     }),
     reviewRuns: input.reviewRuns,
