@@ -7,10 +7,9 @@ import type { GhCommandExecutor } from './gh.js';
  * The gh seam reads the second transport of a reviewer's reported result: a
  * completion comment on the conversation, bound to the commit it names.
  * Four parsers compose through the gh seam with an injected executor and no
- * real gh; the view carries only the fields the parsers read, shaped as
- * `gh pr view --json` emits them on pull request 167 (2026-09-20; that pull
- * request's description records the read), and the commits arrive as the
- * slurped pages of the paginated harvest.
+ * real gh; the comments and the commits arrive as the slurped pages of their
+ * paginated harvests, shaped as read on pull request 168 (2026-09-20; that
+ * pull request's description records the reads).
  */
 
 const HEAD = 'f'.repeat(40);
@@ -25,10 +24,11 @@ const CODEX_CLEAN_COMMENT = {
   author: { login: CODEX },
   body: CODEX_BODY,
   createdAt: '2026-07-21T12:10:00Z',
-  includesCreatedEdit: false,
+  lastEditedAt: null,
 };
 
 interface Surfaces {
+  /** The comments harvest, as one page. */
   readonly comments: readonly unknown[];
   /** The commits harvest, one inner list per page. */
   readonly commitPages: readonly (readonly string[])[];
@@ -49,7 +49,6 @@ function viewPayload(surfaces: Surfaces): string {
     reviewRequests: surfaces.reviewRequests ?? [
       { __typename: 'User', login: 'copilot-pull-request-reviewer' },
     ],
-    comments: surfaces.comments,
   });
 }
 
@@ -71,8 +70,8 @@ function commitsPages(pages: readonly (readonly string[])[]): string {
   );
 }
 
-// Every leg answers empty except the view and the commits harvest, which
-// carry the given surfaces.
+// Every leg answers empty except the view, the comments harvest and the
+// commits harvest, which carry the given surfaces.
 function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
   return (_file, args) => {
     calls.push([...args]);
@@ -85,6 +84,11 @@ function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
     const query = args.find((arg) => arg.startsWith('query=')) ?? '';
     if (query.includes('reviewThreads')) {
       return emptyPage('reviewThreads');
+    }
+    if (query.includes('comments(')) {
+      return JSON.stringify([
+        { data: { repository: { pullRequest: { comments: { nodes: surfaces.comments } } } } },
+      ]);
     }
     if (query.includes('commits(')) {
       return commitsPages(surfaces.commitPages);
@@ -106,22 +110,23 @@ const BOUND_TO_HEAD = {
 };
 
 describe('readPrStateReading — the completion-comment transport', () => {
-  it('the view request names the comments leg and the commits are harvested by a paginated read', () => {
-    const calls: string[][] = [];
-    readPrStateReading({
-      target: { number: 461 },
-      ...ghSeam,
-      expectedReviewers: [CODEX],
-      execFileSync: executor(WITH_TIP, calls),
-    });
+  it.each(['comments(', 'commits('])(
+    'the %s connection is harvested by a paginated read',
+    (connection) => {
+      const calls: string[][] = [];
+      readPrStateReading({
+        target: { number: 461 },
+        ...ghSeam,
+        expectedReviewers: [CODEX],
+        execFileSync: executor(WITH_TIP, calls),
+      });
 
-    const prView = calls.find((args) => args[0] === 'pr' && args[1] === 'view');
-    expect(prView?.at(-1)?.split(',')).toEqual(expect.arrayContaining(['comments']));
-    const commitsRead = calls.find((args) =>
-      args.some((arg) => arg.startsWith('query=') && arg.includes('commits(')),
-    );
-    expect(commitsRead).toEqual(expect.arrayContaining(['--paginate', '--slurp']));
-  });
+      const read = calls.find((args) =>
+        args.some((arg) => arg.startsWith('query=') && arg.includes(connection)),
+      );
+      expect(read).toEqual(expect.arrayContaining(['--paginate', '--slurp']));
+    },
+  );
 
   it("reads an expected reviewer's completion comment as a review bound to the commit it names", () => {
     const reading = readPrStateReading({
@@ -168,7 +173,10 @@ describe('readPrStateReading — the completion-comment transport', () => {
       ...ghSeam,
       expectedReviewers: [CODEX],
       execFileSync: executor(
-        { ...WITH_TIP, comments: [{ ...CODEX_CLEAN_COMMENT, includesCreatedEdit: true }] },
+        {
+          ...WITH_TIP,
+          comments: [{ ...CODEX_CLEAN_COMMENT, lastEditedAt: '2026-07-21T12:11:00Z' }],
+        },
         [],
       ),
     });

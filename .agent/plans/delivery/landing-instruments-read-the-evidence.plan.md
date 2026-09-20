@@ -225,7 +225,8 @@ for taking the remaining half now: on 2026-09-20 alone this seat landed eight pu
 (#160 to #167) each on a "Landing premises" comment recomputing the Codex leg by hand on the
 same four preconditions; the comments are on those pull requests. The
 implementation reads the transport in its own modules rather than retyping the leg:
-`pr-watch/state-conversation.ts` parses `comments` and `commits` from the `pr state` view;
+`pr-watch/state-conversation.ts` parses the comments and the commits, each harvested in full by
+a paginated GraphQL read (`pr-watch/harvests.ts`, beside the reviews query);
 `pr-watch/completion-comments.ts` reads a declared reviewer's comment as a review bound to the
 one commit it names, or as a REFUSAL naming the failed precondition and quoting the comment;
 `pr-watch/completion-evidence.ts` gives the settlement half the union of both transports, the

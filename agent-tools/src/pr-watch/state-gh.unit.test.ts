@@ -14,7 +14,6 @@ const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pul
 
 function viewPayload(oid: string = HEAD): string {
   return JSON.stringify({
-    comments: [],
     number: 461,
     url: PR_URL,
     state: 'OPEN',
@@ -84,7 +83,6 @@ interface ExecutorScript {
   readonly agentTaskViews?: Readonly<Record<string, string>>;
 }
 
-/** Build the view script from (id, view) pairs without `Object.*` (typescript-practice). */
 function viewsOf(entries: readonly (readonly [string, string])[]): Record<string, string> {
   const views: Record<string, string> = {};
   for (const [id, view] of entries) {
@@ -112,6 +110,9 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
 function graphqlPayload(query: string | undefined): string {
   if (query?.includes('reviewThreads') === true) {
     return threadsPayload();
+  }
+  if (query?.includes('comments(') === true) {
+    return JSON.stringify([{ data: { repository: { pullRequest: { comments: { nodes: [] } } } } }]);
   }
   return query?.includes('commits(') === true ? commitsPayload() : reviewsPayload();
 }
@@ -615,7 +616,6 @@ describe('readPrStateReading', () => {
       statusCheckRollup: [],
       autoMergeRequest: null,
       reviewRequests: [],
-      comments: [],
     });
     const reading = readPrStateReading({
       target: { number: 461 },

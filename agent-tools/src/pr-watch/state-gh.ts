@@ -10,16 +10,12 @@ import {
   type PrTarget,
 } from './gh.js';
 import { readCompletionComments } from './completion-comments.js';
+import type { CompletionComment } from './completion-comments.js';
 import { defaultExpectedReviewers } from './expected-reviewers.js';
-import { COMMITS_QUERY, harvestArgs, REVIEWS_QUERY } from './harvests.js';
+import { COMMENTS_QUERY, COMMITS_QUERY, harvestArgs, REVIEWS_QUERY } from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
 import { readReviewRunsLeg } from './review-runs.js';
-import {
-  parseCommitsHarvest,
-  parseConversation,
-  PR_STATE_CONVERSATION_JSON_FIELDS,
-  type ParsedConversation,
-} from './state-conversation.js';
+import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
 import {
   parseReviewsHarvest,
   parseStateView,
@@ -30,10 +26,10 @@ import type { PrStateReading } from './state-types.js';
 
 /**
  * The gh IO composition for `pr state`: one extended `pr view` call, the
- * review-threads GraphQL slurp (shared with `pr-watch`), the FULL paginated
- * `reviews` harvest (the reviewer-leg source — never the `latestReviews`
- * pointer), and the `gh agent-task` review-run legs, composed into one
- * {@link PrStateReading}.
+ * review-threads GraphQL slurp (shared with `pr-watch`), three FULL paginated
+ * harvests — `reviews` (the reviewer-leg source, never the `latestReviews`
+ * pointer), `comments` and `commits` (the completion-comment sources) — and
+ * the `gh agent-task` review-run legs, composed into one {@link PrStateReading}.
  *
  * The expected reviewer set is a DECLARED input (`expectedReviewers`); when
  * undeclared it defaults to the observed surface (requests ∪ harvest authors)
@@ -56,16 +52,16 @@ export interface ReadPrStateOptions {
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
 // documented transient computed over seconds, so an immediate retry is a
 // no-op. Fail loud once rather than let a green reading settle over an
-// uncomputed conflict state. The one payload carries the state view and the
-// conversation's comments; both parse from it.
+// uncomputed conflict state.
 function readMergeabilityComputedView(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly viewArgs: readonly string[];
   readonly prNumber: string;
 }) {
-  const raw = parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view');
-  const view = parseStateView(raw);
+  const view = parseStateView(
+    parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
+  );
   // The refusal binds OPEN PRs only: GitHub stops computing (and commonly
   // returns UNKNOWN for) merged/closed PRs, whose terminal verdicts must
   // remain reachable — including a PR that closes mid-compound-read.
@@ -74,57 +70,63 @@ function readMergeabilityComputedView(input: {
       `PR #${input.prNumber}: mergeability not yet computed (mergeable=UNKNOWN) — re-run in a few seconds`,
     );
   }
-  return { view, conversation: parseConversation(raw) };
+  return view;
 }
 
-// Wrap the harvest failure with operator-grade evidence: a nonexistent or
-// inaccessible PR surfaces as a null pullRequest deep in the GraphQL payload.
-function readReviewsHarvest(input: {
+// One paginated harvest, its failure wrapped with operator-grade evidence: a
+// nonexistent or inaccessible PR surfaces as a null pullRequest deep in the
+// GraphQL payload.
+function readHarvest<Parsed>(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly prNumber: string;
   readonly repo: string | undefined;
-}) {
+  readonly query: string;
+  readonly label: string;
+  readonly parse: (raw: unknown) => Parsed;
+}): Parsed {
   try {
-    return parseReviewsHarvest(
+    return input.parse(
       parseGhJson(
-        input.run(
-          input.gh,
-          harvestArgs(REVIEWS_QUERY, input.prNumber, input.repo),
-          GH_EXEC_OPTIONS,
-        ),
-        'api graphql reviews',
+        input.run(input.gh, harvestArgs(input.query, input.prNumber, input.repo), GH_EXEC_OPTIONS),
+        `api graphql ${input.label}`,
       ),
     );
   } catch (cause) {
     throw new Error(
-      `PR #${input.prNumber}: reviews harvest failed — does the PR exist and is it accessible?`,
+      `PR #${input.prNumber}: ${input.label} harvest failed — does the PR exist and is it accessible?`,
       { cause },
     );
   }
 }
 
-// The full commits harvest, wrapped like the reviews harvest.
-function readCommitsHarvest(input: {
+// The three full-history harvests the reading composes from.
+function readHarvests(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly prNumber: string;
   readonly repo: string | undefined;
-}): string[] {
-  try {
-    return parseCommitsHarvest(
-      parseGhJson(
-        input.run(
-          input.gh,
-          harvestArgs(COMMITS_QUERY, input.prNumber, input.repo),
-          GH_EXEC_OPTIONS,
-        ),
-        'api graphql commits',
-      ),
-    );
-  } catch (cause) {
-    throw new Error(`PR #${input.prNumber}: commits harvest failed`, { cause });
-  }
+}) {
+  return {
+    reviews: readHarvest({
+      ...input,
+      query: REVIEWS_QUERY,
+      label: 'reviews',
+      parse: parseReviewsHarvest,
+    }),
+    comments: readHarvest({
+      ...input,
+      query: COMMENTS_QUERY,
+      label: 'comments',
+      parse: parseCommentsHarvest,
+    }),
+    commits: readHarvest({
+      ...input,
+      query: COMMITS_QUERY,
+      label: 'commits',
+      parse: parseCommitsHarvest,
+    }),
+  };
 }
 
 // The expected set resolves first (declared, else the observed surface:
@@ -133,7 +135,7 @@ function readCommitsHarvest(input: {
 // set, so a comment by an author outside it reads as no review.
 function composeReading(input: {
   readonly view: ParsedStateView;
-  readonly conversation: ParsedConversation;
+  readonly comments: readonly CompletionComment[];
   readonly commits: readonly string[];
   readonly reviewThreads: PrStateReading['reviewThreads'];
   readonly reviews: PrStateReading['reviews'];
@@ -149,7 +151,7 @@ function composeReading(input: {
     reviewThreads: input.reviewThreads,
     reviews: input.reviews,
     completionComments: readCompletionComments({
-      comments: input.conversation.comments,
+      comments: input.comments,
       commits: input.commits,
       reviewers: expectedReviewers,
     }),
@@ -162,9 +164,9 @@ function composeReading(input: {
 /**
  * Fetch the `pr state` gh surfaces and compose the compound reading.
  *
- * @throws when the primary `pr view`, review-threads, or reviews-harvest legs
- *   fail (a verdict without them would be a guess); only the agent-task leg
- *   degrades typed.
+ * @throws when the primary `pr view`, review-threads, or any of the reviews,
+ *   comments or commits harvests fail (a verdict without them would be a
+ *   guess); only the agent-task leg degrades typed.
  */
 // The compound reading must bind ONE tip: a push landing between the view
 // snapshot and the later legs lets an old-tip review match the stored SHA
@@ -179,13 +181,12 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
   const { number, repo } = options.target;
   const prNumber = String(number);
 
-  const viewFields = [...PR_STATE_VIEW_JSON_FIELDS, ...PR_STATE_CONVERSATION_JSON_FIELDS];
-  const viewArgs = ['pr', 'view', prNumber, '--json', viewFields.join(',')];
+  const viewArgs = ['pr', 'view', prNumber, '--json', PR_STATE_VIEW_JSON_FIELDS.join(',')];
   if (repo !== undefined) {
     viewArgs.push('--repo', repo);
   }
 
-  let { view } = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
+  let view = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
   for (let attempt = 0; attempt < TIP_CONSISTENT_ATTEMPTS; attempt += 1) {
     const reviewThreads = parseReviewThreadPages(
       parseGhJson(
@@ -193,15 +194,15 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         'api graphql reviewThreads',
       ),
     );
-    const reviews = readReviewsHarvest({ run, gh, prNumber, repo });
-    const commits = readCommitsHarvest({ run, gh, prNumber, repo });
+    const { reviews, comments, commits } = readHarvests({ run, gh, prNumber, repo });
     const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number, prUrl: view.url });
     // The confirm read closes the race window; on a match it is also the
     // freshest same-tip snapshot, so the reading composes from it.
     const confirm = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
-    if (confirm.view.headRefOid === view.headRefOid) {
+    if (confirm.headRefOid === view.headRefOid) {
       return composeReading({
-        ...confirm,
+        view: confirm,
+        comments,
         commits,
         reviewThreads,
         reviews,
@@ -209,7 +210,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         declared: options.expectedReviewers ?? [],
       });
     }
-    view = confirm.view;
+    view = confirm;
   }
   throw new Error(
     `PR #${prNumber}: head moved during the compound read on consecutive attempts — the reading cannot bind one tip; re-run when the PR is quiet`,

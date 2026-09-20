@@ -18,6 +18,22 @@ export const REVIEWS_QUERY = `query($owner: String!, $name: String!, $number: In
   }
 }`;
 
+/**
+ * The full `comments` connection: the surface a completion comment lands on.
+ * `lastEditedAt` is null until the comment is edited; a null is read here as
+ * the ruling's "updated timestamp equals created timestamp".
+ */
+export const COMMENTS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      comments(first: 100, after: $endCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes { id author { login } body createdAt lastEditedAt }
+      }
+    }
+  }
+}`;
+
 /** The full `commits` connection: the set a completion comment's named prefix resolves within. */
 export const COMMITS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
   repository(owner: $owner, name: $name) {

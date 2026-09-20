@@ -1,41 +1,35 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseCommitsHarvest, parseConversation } from './state-conversation.js';
+import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
 
 /**
- * The conversation legs of the `pr state` view: the top-level comments (the
- * surface a reviewer's completion comment lands on) and the pull request's
- * commits. Shapes follow `gh pr view --json comments,commits` on pull
- * request 167 (2026-09-20; that pull request's description records the
- * read).
+ * The conversation legs of `pr state`, each the slurped pages of a paginated
+ * GraphQL harvest: the top-level comments (the surface a reviewer's
+ * completion comment lands on) with their edit timestamp, and the pull
+ * request's commits. Shapes follow the reads on pull request 168
+ * (2026-09-20; that pull request's description records them).
  */
 
-const HEAD = '15d88db6315dae84917d00d0ec7b9b7c6d7e7cd6';
+const HEAD = '7a9cd61414f0e2b7c6d5a4b3c2d1e0f9a8b7c6d5';
 
-interface LiveComment {
+interface CommentNode {
   readonly id: string;
   readonly author: { readonly login: string } | null;
-  readonly authorAssociation: string;
   readonly body: string;
   readonly createdAt: string;
-  readonly includesCreatedEdit: boolean;
-  readonly isMinimized: boolean;
-  readonly url: string;
+  readonly lastEditedAt: string | null | undefined;
 }
 
-const CODEX_COMMENT: LiveComment = {
-  id: 'IC_kwDORdPTys8AAAABVs5rKA',
+const CODEX_NODE: CommentNode = {
+  id: 'IC_kwDORdPTys8AAAABVt01ww',
   author: { login: 'chatgpt-codex-connector' },
-  authorAssociation: 'NONE',
-  body: "Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** `15d88db631`\n",
-  createdAt: '2026-09-20T17:13:17Z',
-  includesCreatedEdit: false,
-  isMinimized: false,
-  url: 'https://github.com/acme/widgets/pull/167#issuecomment-5751335720',
+  body: "Codex Review: Didn't find any major issues. :rocket:\n\n**Reviewed commit:** `7a9cd61414`\n",
+  createdAt: '2026-09-20T20:02:19Z',
+  lastEditedAt: null,
 };
 
-function livePayload(comments: readonly LiveComment[] = [CODEX_COMMENT]): unknown {
-  return { number: 167, comments };
+function commentsPage(nodes: readonly CommentNode[]): unknown {
+  return { data: { repository: { pullRequest: { comments: { nodes } } } } };
 }
 
 function commitsPage(oids: readonly string[]): unknown {
@@ -48,60 +42,63 @@ function commitsPage(oids: readonly string[]): unknown {
   };
 }
 
-describe('parseConversation', () => {
-  it('reads the comments as completion-comment candidates and the commits as their oids', () => {
-    expect(parseConversation(livePayload())).toStrictEqual({
-      comments: [
-        {
-          id: 'IC_kwDORdPTys8AAAABVs5rKA',
-          author: 'chatgpt-codex-connector',
-          body: "Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** `15d88db631`\n",
-          createdAt: '2026-09-20T17:13:17Z',
-          edited: false,
-        },
-      ],
-    });
+describe('parseCommentsHarvest', () => {
+  it('reads the pages as completion-comment candidates in the connection order', () => {
+    const earlier = { ...CODEX_NODE, id: 'IC_1', createdAt: '2026-09-20T19:46:32Z' };
+
+    expect(
+      parseCommentsHarvest([commentsPage([earlier]), commentsPage([CODEX_NODE])]),
+    ).toStrictEqual([
+      {
+        id: 'IC_1',
+        author: 'chatgpt-codex-connector',
+        body: CODEX_NODE.body,
+        createdAt: '2026-09-20T19:46:32Z',
+        edited: false,
+      },
+      {
+        id: 'IC_kwDORdPTys8AAAABVt01ww',
+        author: 'chatgpt-codex-connector',
+        body: CODEX_NODE.body,
+        createdAt: '2026-09-20T20:02:19Z',
+        edited: false,
+      },
+    ]);
   });
 
-  it('reads an edited comment as edited', () => {
-    const parsed = parseConversation(
-      livePayload([{ ...CODEX_COMMENT, includesCreatedEdit: true }]),
-    );
+  it('reads a comment with an edit timestamp as edited', () => {
+    const parsed = parseCommentsHarvest([
+      commentsPage([{ ...CODEX_NODE, lastEditedAt: '2026-09-20T20:05:00Z' }]),
+    ]);
 
-    expect(parsed.comments[0]?.edited).toBe(true);
+    expect(parsed[0]?.edited).toBe(true);
   });
 
   it("names a deleted account's comment as by 'unknown'", () => {
-    const parsed = parseConversation(livePayload([{ ...CODEX_COMMENT, author: null }]));
+    const parsed = parseCommentsHarvest([commentsPage([{ ...CODEX_NODE, author: null }])]);
 
-    expect(parsed.comments[0]?.author).toBe('unknown');
+    expect(parsed[0]?.author).toBe('unknown');
   });
 
-  it('reads no comments from a view that carries none', () => {
-    expect(parseConversation(livePayload([])).comments).toStrictEqual([]);
+  it('reads no comments from a harvest of one empty page', () => {
+    expect(parseCommentsHarvest([commentsPage([])])).toStrictEqual([]);
   });
 
   it.each([
-    ['a null comments leg', { number: 167, comments: null }, /comments/u],
+    ['an empty page array', [], /too small/iu],
     [
-      'a comment without its edited flag',
-      {
-        number: 167,
-        comments: [{ ...CODEX_COMMENT, includesCreatedEdit: undefined }],
-      },
-      /includesCreatedEdit/u,
+      'a node without its edit timestamp',
+      [commentsPage([{ ...CODEX_NODE, lastEditedAt: undefined }])],
+      /lastEditedAt/u,
     ],
-  ])(
-    'fails loud naming the leg on %s: a misshapen payload is never an empty one',
-    (_name, payload, leg) => {
-      expect(() => parseConversation(payload)).toThrow(leg);
-    },
-  );
+  ])('fails loud on %s: a misshapen harvest is never an empty one', (_name, payload, leg) => {
+    expect(() => parseCommentsHarvest(payload)).toThrow(leg);
+  });
 });
 
 describe('parseCommitsHarvest', () => {
   it('flattens the slurped pages into the full SHAs in the connection order', () => {
-    const older = '51f81abea574121babf5f82ea8b2205304238b7b';
+    const older = '2f98940b8c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f';
 
     expect(parseCommitsHarvest([commitsPage([older]), commitsPage([HEAD])])).toStrictEqual([
       older,
@@ -110,6 +107,6 @@ describe('parseCommitsHarvest', () => {
   });
 
   it('fails loud on an empty page array: an empty harvest must be a real empty page', () => {
-    expect(() => parseCommitsHarvest([])).toThrow();
+    expect(() => parseCommitsHarvest([])).toThrow(/too small/iu);
   });
 });

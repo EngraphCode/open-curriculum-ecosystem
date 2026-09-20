@@ -23,7 +23,7 @@ import { sanitiseTerminalLine } from '../core/terminal-output.js';
 import { normaliseLogin } from './reviewer-legs.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 
-/** A conversation comment as the view carries it. */
+/** A conversation comment as the paginated `comments` harvest carries it. */
 export interface CompletionComment {
   readonly id: string;
   readonly author: string;
