@@ -326,11 +326,14 @@ record keeps the pause banner, the open items at the pause in the record's words
 decisions, the identity table and the links). Read and left live, whole: `statusline-enhancements`
 (a pickup record whose sections are open state and which says "Do NOT archive this record") and
 `typescript-estate-consolidation-review` (standing decisions, falsifiers and a resume order for a
-lane that reactivates at the owner's word). Analyses written and not yet acted on, in the seat's
-scratchpad: `upstream-api-alignment` (`uaa-piece-1.md`) and
-`codex-to-codex-hook-review-experiment` (`cch-piece-1.md`); their archive snapshots are on disk
-untracked, hash-matched to `SHA:c5e49a10b`. Next: those two verdicts, then the remaining
-twenty-one paused records (all under 300 lines), then this record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+lane that reactivates at the owner's word), and `codex-to-codex-hook-review-experiment` (sixteen of
+its eighteen sections are the experiment's frozen evidence, verdict and negative knowledge, which
+is the record's job; the retired lane's home is the research report it names). One analysis
+written and not yet acted on, in the seat's scratchpad: `upstream-api-alignment`
+(`uaa-piece-1.md`; eight of fourteen sections read as finished, the 2026-07-27 and 2026-08-03/04
+lane closes; its archive snapshot is on disk untracked, hash-matched to `SHA:c5e49a10b`). Next:
+that verdict, then the remaining twenty-one paused records (all under 300 lines), then this
+record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
 theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
