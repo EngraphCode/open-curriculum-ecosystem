@@ -104,3 +104,41 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   by iterating; (2) the rule to measure vendor call shapes at plan time existed and the D8 plan
   still recommended a shape gh refuses (`--slurp` with `--jq`); the measurement happened at
   implementation, which is late but before the push.
+
+## Zephyr guards Leeward (281e44) — 2026-09-20 19:4xZ, wrap before a compaction at ~56 %
+
+- **The measure.** Register 0 due; distilled 0; open questions 0; the napkin holds Dynamo turns
+  Temper's 15:0xZ block (theirs) and this block; oversized files curated this context: the
+  design-system-integration record, `mcp-submission-drive`, `workspace-config-isolation`,
+  `strategy-and-plan-estate-holistic-review` and `eef` (eleven of the named set in all), plus
+  `statusline-enhancements` and `typescript-estate-consolidation-review` read whole and left
+  live. Analyses for `upstream-api-alignment` and the codex hook experiment are on disk unacted;
+  twenty-one paused records under 300 lines remain, then the continuity record's own history.
+- **Metacognition.** The split method ran four times this context (nine, two, two, two, then
+  one analyst per file) and cost the seat about 25 % of context for five curations, most of it
+  the analyses and the re-emitted kept text. Two refusals were the seat's: MD018 on a wrapped
+  line beginning `#865` (the pattern's instance 5 recurring on its recorder: the hook is the
+  cure, and grepping `^#[0-9]` before the ceremony is the cheaper one, now done); and two
+  ceremonies lost the `.git/index.lock` race to a periodic git process on the primary — the
+  register already names the class, and the cure was to run the ceremony alone. The
+  identity-naming ratchet refused a byte-identical archive because the census keys occurrences
+  by path; the director-handoff archive of 2026-09-08 had the same shape and the same cure
+  (re-point the row), which the commit skill's archive step could state.
+- **Free play, one time-box.** Kept: a paused record that says "do not archive me" is right
+  when its sections are open state, and the lifecycle's "leave-if-live" already says so; the
+  analyst's per-section STATE column is a cheap first read of that. Kept: the join between a
+  lane's record and its plan is where the record's "next step" lives on, so a curated record
+  points at the plan and never restates the sequence. Discarded: a generic "paused records
+  archive by default" rule — two of seven were live.
+- **Concept exploration, compact.** Frame: a curation's cost has two parts, reading (paid by
+  analysts) and re-emitting (paid by the seat), and the method halves only the first. Warrant:
+  eef's 130-line identity table was read once and written once. Falsifier: an Edit that removes
+  the finished range without the seat holding it — the tool refuses that by design, so the cost
+  is inherent, and the only lever is choosing Write when kept < removed and Edit otherwise.
+- **Loss scan.** Conserved: five archives with proofs (`SHA:52c376002`, `SHA:c5e49a10b`,
+  `SHA:561a0ee36`); the `signal-read-as-fact` pattern's n = 2; the continuity record's resume
+  point; the machine-local handoff on claim `48a715a4`. Promises: the two unacted analyses
+  (scratchpad, machine-local — the archives are untracked but re-derivable by `cp`); the
+  twenty-one small paused records. Blind spot: the census re-point is the only archive-time
+  step the lifecycle text does not name; a candidate sentence for `continuity-practice.md`
+  §Disposition at a context below 30 %.
