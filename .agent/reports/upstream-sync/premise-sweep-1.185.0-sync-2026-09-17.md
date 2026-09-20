@@ -25,9 +25,12 @@ an addendum at most.
 1. MCP host landing page removed (Oak line #928, #987): no HTML on any host, `GET /` 404, no
    `/mcp` HTML negotiation, no `getLandingPageHtml`, `dnsRebindingProtection` on no route.
 2. `robots.txt` served by the MCP host (MCP-703).
-3. Agent-discovery `Link` header on the responses that reach post-auth routing (MCP-734). The
-   Oak line's own docstring says every response; handlers mounted earlier (robots, the domain
-   challenge, OAuth) answer first and do not carry it (Copilot, carrier round two; ledger A13).
+3. Agent-discovery `Link` header (MCP-734), stated as the property the source gives: it is
+   `app.use` middleware mounted at `application.ts` line 92, so it rides the response of every
+   route registered after that point and the default 404, and no response that a handler
+   registered earlier ends. The Oak line's docstring says "every response" (ledger A13). Stated
+   as a property after two reviewer rounds each found another earlier route; this record
+   enumerates none.
 4. Server instructions gain the routing paragraph, addition A012, twelve governed additions
    (MCP-421).
 5. A second plugin package `plugins/oak-open-curriculum-chatgpt/` and `.agents/plugins/

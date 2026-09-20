@@ -83,12 +83,14 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     blocking.
 
 13. `apps/oak-curriculum-mcp-streamable-http/src/app/agent-discovery-link-header.ts` line 51
-    (identical on the Oak line's tip; raised by Copilot on the carrier, round two): the docstring
-    says the header "rides every response", but `application.ts` mounts it in
-    `setupPostAuthPhases` (line 92), after the handlers that can terminate a request first
-    (`robots.txt`, the domain-verification challenge, the OAuth routes), so those responses do not
-    carry it. Mount order read at source; the missing header on those routes was not exercised.
-    Standard: §Target-architecture wording needs consuming-runtime evidence.
+    (identical on the Oak line's tip; raised by Copilot and then Codex on the carrier, rounds two
+    and three): the docstring says the header "is set before routing and therefore rides every
+    response". It is `app.use` middleware mounted at `application.ts` line 92, inside
+    `setupPostAuthPhases` and after `initializeCoreEndpoints`, so by Express's registration order
+    it rides only responses from routes registered after it and the default 404. The reviewers
+    named `robots.txt`, the domain-verification challenge, the health routes and the signed
+    asset-download route as earlier handlers; read at source for the mount order, not exercised
+    per route. Standard: §Target-architecture wording needs consuming-runtime evidence.
 14. `docs/architecture/architectural-decisions/122-permissive-cors-for-oauth-protected-mcp.md`
     lines 68–70 (identical on the Oak line's tip; raised by Copilot on the carrier, round two):
     the paragraph says the authenticated `/mcp` endpoint is Host-validated in the auth layer and a
