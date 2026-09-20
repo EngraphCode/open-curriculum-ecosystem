@@ -44,7 +44,12 @@ resides on the coordination branch).
    source change is code-class and stays on the review-round state machine, no intake. It
    expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
    committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
-   took a day.
+   took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
+   rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
+   large, the lifetime rule forced the next before the consolidation's own work could start,
+   and the last fold's whole content was records about the fold before it (twenty-three
+   findings, all true). A consolidation's doctrine edits are a work product with their own
+   review contract.
 
 ## Ceremony
 
@@ -130,7 +135,13 @@ resides on the coordination branch).
     record is finer grain a successor elsewhere cannot read (a reviewer
     found the pickup map unreachable when the journal had stopped two days
     earlier, 2026-09-08); broadcast the rotation on the canonical comms
-    stream so every seat re-homes.
+    stream so every seat re-homes. A fold entry is a few lines of state (the
+    merge sha, the successor's name, the gravity line), never a narrative of
+    the fold: every sentence written here is a claim the next fold's reviewers
+    price. A broadcast filled from a template by substitution is re-read whole
+    before posting, not only at its placeholders; a template keeps every
+    sentence that was true when it was written ("one review round" survived
+    into a fold that took three, caught before posting, 2026-09-17).
 
 ## Wrap-not-closeout
 

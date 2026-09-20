@@ -99,6 +99,13 @@ Agents should:
   look at the commit history"; thirty owner-authored, owner-merged PRs
   with the rulings in their subjects were the record three "questions"
   had ignored)
+- **report the job's own measure first**: when the owner has given one job,
+  every report opens with that job's measure (for a buffer drain, the
+  entries still undrained), and work that did not move it is named as not
+  moving it; merges, cured findings and folded branches are not progress on
+  a job they do not advance (owner, 2026-09-19, verbatim: "how is it, when
+  the only job I gave you was to drain the buffers, they are still critical
+  2 days later?"; eleven entries at the start, twelve after four folds)
 
 Overrides are rare. The normal posture is shared reasoning: make the concern
 visible, explain why it matters, and let the owner decide with the real trade-off

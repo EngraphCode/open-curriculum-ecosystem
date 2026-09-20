@@ -1,3 +1,13 @@
+---
+fitness_line_target: 200
+fitness_line_limit: 300
+fitness_char_limit: 60000
+fitness_line_length: 100
+fitness_content_role: reference
+overflow_disposition: 'every row is live while the gate''s weights are calibrated against it; rows older than the last weights change graduate into that change''s row, then archive to a dated file proven byte-identical (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: mostly-append-register
+---
+
 # Review Cost Ledger
 
 The record the review cost gate is calibrated against (`agent-tools review-cost`,
@@ -45,6 +55,7 @@ before it (`early`), or after it (`late`).
 | 2026-09-17 | #152 | 0 | 0 / 40 | within | no review round yet: the draft carrying the 2026-09-16 coordination branch (the dedicated consolidation's first half) | agreed — within at the pre-push gate for each of its pushes | open, draft, `CLEAN` at `da479374f`; the branch is DUE at the 2026-09-17 rollover, and readying it is the next session's first act |
 | 2026-09-17 | #152 | 3 | 52.93 / 40 | exhausted | after settlement push 2 (as declared). Before publication a context-free claim pass over 34 files raised 31 claim errors, all true, cured in the opening push `fd82a7e4e`. Round one raised 6 (5 over-bar, cured in `6d07d7f5d`), round two 8 (6 cured in `979abe968`, one below-bar typo cured with them, one rejected), round three 7, dispositioned without a cure and its true findings routed to the successor branch (cured in `49b6c3ae9`) | agreed — exhausted at the stop; both declared pushes were spent, and round three took no push | merged `cd847a2b3` through the front door at 15:09:09Z. The opening round priced 28.83 and uncharged; the settlement rounds cost 32.37 and 20.56. For pr-lifecycle's claim-table prediction: claim-class findings did not become rare in round one after the pass (three of round one's five over-bar findings were the cured-text consistency class) |
 | 2026-09-17 | #153 | 3 | 32.75 / 40 | warn | after settlement push 2 (as declared). Before publication a context-free claim pass raised 33 claim errors, all true, cured in the opening push `56f42807e`. Round one raised 4 (all cured in `a1aa47c6b`); round two raised 3 distinct findings from 4 items, one of them suppressed and one raised by both reviewers (two cured in `8e7d37824`, one dispositioned: a folding branch's pickup cannot record its own landing); round three raised 6 (1 Codex thread and 5 Copilot suppressed items, two of them one stale-index-cell class), all true, dispositioned without a cure and cured on the successor's first records commit. Thirteen distinct findings in all: six cured, one dispositioned, six routed | agreed — warn at the stop; both declared pushes were spent, and round three took no push | merged `b5b0e70cd` through the front door at 20:17:05Z, folded on its cut date at the owner's word. The opening round priced 17.06 and uncharged; the settlement rounds cost 12.44 and 20.31. For the claim-table prediction: round one's four findings were all cured-text consistency or mechanism-claim classes the pass had not reached (a decision's surviving phrase, a gates comment over a mixed list, a directive contradicting a ruling, a plan criterion over an excluded query) |
+| 2026-09-19 | #155 | 3 | 33.73 / 40 | warn | after settlement push 2 (as declared). Before publication two context-free verifiers raised 15 findings (11 distinct), all true, cured in the opening push `af3869774`. Round one raised 4 (all cured in `060d7f521`), round two 3 (two cured in `a9f92ddd5`, one in the description), round three 1, true, dispositioned without a cure and cured in the successor's rotation records commit | agreed — warn at the stop; both declared pushes were spent, and round three took no push | merged `65a929d9a` through the front door at 11:30:24Z, a day past the branch's DUE. The opening round priced 9.39 and uncharged; the settlement rounds cost 21.88 and 11.85. Four of the eight round findings were on one Core decision (PDR-141 decision 11), each round's cure drawing the next finding: a sentence amended three times in two days is a sign to re-read the whole decision against its mechanism before the next edit |
 
 Reading of the first six: the gate agrees with the seat's stop round on five and fires late
 on one, #136. That is one row, not a class: one policy prices every pull request, and the

@@ -31,45 +31,44 @@ seam, extract a pure function, inject a dependency).
 
 ## Side-Effect Immediate Fails
 
-4. **Unit test triggers any IO.** Unit tests are for pure functions
-   only — no filesystem reads/writes, no network calls, no child
-   process spawning, no timers that interact with the runtime, no
-   SDK init calls with side effects. ONE named sanctioned shape
-   (owner-carded ruling 2026-08-02; tier wording generalised with the
-   2026-08-03 owner ratification of source-derived expectations — the
-   carve-out's own rationale is tier-agnostic): an in-process test
-   (`.unit.test.ts` or `.integration.test.ts`) MAY read COMMITTED
-   repo artefacts through an owned `test-helpers/` fixture surface
-   anchored at `import.meta.dirname` (the
-   `mcp-conformance/test-helpers/fixture-loader.ts` precedent; the
-   sdk-codegen `mcp-tools/test-helpers/schema-cache-reader.ts` worked
-   instance) — committed bytes are fixtures by provenance, not
-   runtime IO; the helper must exist to pin real committed fixtures
-   at their canonical paths (never to make the test runnable — item
-   2's complex-helper prohibition still binds), and the
-   classification axis stays the boundary, never the mechanism.
-5. **Any test (unit/integration/E2E in-process) touches
-   `process.env`.** Reading OR writing `process.env` is prohibited.
+4. **Any test triggers any IO.** No filesystem reads/writes, no
+   network calls, no sockets (loopback included), no child process
+   spawning, no timers that interact with the runtime, no SDK init
+   calls with side effects, in the test or in any helper it imports.
+   This is the absolute invariant of `testing-strategy.md`
+   §Philosophy (owner, 2026-09-14 and 2026-09-15: no allowlist, no
+   exemption, no carve-out). The sanctioned shape this item carried
+   from 2026-08-02 (an owned `test-helpers/` surface reading COMMITTED
+   artefacts from disk at `import.meta.dirname`) is withdrawn by that
+   ruling: a filesystem read is IO whatever the provenance of the
+   bytes. Committed fixtures enter a test as imported modules or as
+   literal values; the existing fixture-reading helpers
+   (`mcp-conformance/test-helpers/fixture-loader.ts`, the sdk-codegen
+   `schema-cache-reader.ts`) are pre-invariant estate for
+   `no-io-test-boundary-and-di-recovery.plan.md`, never a precedent
+   ([PDR-091](../practice-core/decision-records/PDR-091-precedence-is-not-approval.md)).
+5. **Any test (unit or integration) touches `process.env`.** Reading OR writing `process.env` is prohibited.
    Pass literal inputs; do not inherit from shell state.
-6. **Any in-process test touches `process.cwd()`.** Anchor file
-   paths at `import.meta.dirname`, not the caller's cwd.
-7. **Any in-process test reads from `.env` / `.env.local` / any
+6. **Any test touches `process.cwd()`.** A test has no file path to
+   anchor (item 4); a path the unit needs is passed in as a literal.
+7. **Any test reads from `.env` / `.env.local` / any
    runtime environment file.** Tests construct config literals
    directly; they do not route through loaders that read disk.
-8. **Any in-process test spawns a child process, fork, or
-   test-authored worker.** Covered by `testing-strategy.md §No
-   process spawning in in-process tests`, which also carries the ONE
-   named sanctioned shape (the spawn-topology contract test,
-   recorded 2026-08-07 with the F-112 push-path landing) — the
-   directive is the authority; this item only points at it.
-9. **Any test makes a real network call beyond its tier's protocol
-   channel.** Two channels are calling mechanics, not violations:
-   an E2E test's exchange with the separately running system under
-   test, and a harness's loopback exchange with an app the test
-   itself imported and booted in-process (owner-ratified
-   2026-07-29). All other real network IO is smoke-tier only;
-   smoke tests run on-demand per
-   [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md).
+8. **Any test spawns a child process, fork, or test-authored
+   worker.** Covered by `testing-strategy.md` §Rules, "No process spawning
+   in tests". There is no sanctioned shape: the
+   spawn-topology contract test recorded 2026-08-07 is withdrawn by
+   the 2026-09-14 ruling, and that proof is an observation or a
+   validator's self-proof. The directive is the authority; this item
+   only points at it.
+9. **Any test makes a real network or socket call.** The two
+   "calling mechanics" channels this item admitted from 2026-07-29
+   are withdrawn: driving a separately running system is an E2E
+   check (a validation surface, not a test), and a harness's loopback
+   listener for an imported app is a socket, so the integration test
+   uses the handler seam instead. Where network reach lives (the
+   deploy pipeline, validation checks, operator context) is
+   [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md)'s.
 
 ## Mock/Stub Immediate Fails
 
@@ -94,8 +93,8 @@ seam, extract a pure function, inject a dependency).
     setup in a test function = test code testing itself. ONE named
     sanctioned shape (owner-ratified 2026-08-03, the meta-examples
     round-trip rework): a test MAY author a small derivation helper
-    that projects EXPECTATIONS from a committed fixture read via item
-    4's sanctioned surface, when the projection models a DOCUMENTED
+    that projects EXPECTATIONS from a committed fixture (imported as
+    a module, per item 4), when the projection models a DOCUMENTED
     product contract named in a comment — deriving expectations from
     the owning source is the ratified alternative to pinning copies
     of upstream content, which stays admissible only as a designed
@@ -126,19 +125,17 @@ seam, extract a pure function, inject a dependency).
 ## Pipeline Immediate Fails
 
 20. **Test category does not match its file name.** A
-    `*.unit.test.ts` that touches IO is a category error — either
-    rename or redesign. Per `testing-strategy.md`, naming IS the
-    category. The one exception is item 4's sanctioned shape:
-    helper-mediated reads of COMMITTED artefacts via an owned
-    `test-helpers/` fixture surface remain `.unit` — renaming such a
-    test to `.integration` cures nothing, since integration also
-    forbids filesystem IO.
-21. **Test is named `*.integration.test.ts` but hits network beyond
-    a harness's loopback exchange with an app the test itself
-    imported and booted in-process, or spawns processes.** Classify
-    by the boundary, then cure: a genuine separately-running-system
-    exchange belongs at E2E/smoke tier; outbound IO from imported
-    code is a missing DI seam to fix, never a rename.
+    `*.unit.test.ts` that exercises several units working together is an
+    integration test under the wrong name: rename it. Per `testing-strategy.md`, naming IS the
+    category. A test that touches IO is a different defect (item 4):
+    renaming it to `.integration` cures nothing,
+    since no test tier admits IO; the cure is an injected seam or a
+    move to validation.
+21. **Test is named `*.integration.test.ts` but opens a socket, hits
+    the network, or spawns processes.** Classify by the boundary,
+    then cure: a genuine separately-running-system exchange is an
+    E2E or smoke check outside the test suites; outbound IO from
+    imported code is a missing DI seam to fix, never a rename.
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
     self-contained.

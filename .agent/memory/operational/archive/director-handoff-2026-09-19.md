@@ -307,9 +307,12 @@ authored on fresh context (owner-directed), with PDR-117 as the surface to amend
 These are tooling gaps, not doctrine gaps — they belong in the agent-tooling
 backlog (`.agent/memory/operational/frictions-register.md`), named here only so a
 successor recognises them rather than rediscovers them. Register state below is
-first-hand as of 2026-06-25. (`claims adopt`, `claims set-handoff` and the watcher-presence
-gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
+first-hand as of 2026-06-25.
 
+- **FIXED (PR #225, `e95fb9594`) — `claims adopt` + `claims set-handoff` (F-94) and the
+  watcher-presence fail-fast gate (F-95, move-1 `comms assert-watcher-live` + `claims open`
+  blind-write backstop, solo-exempt) now exist.** The PDR-063 handoff primitives and the mechanical
+  backing for "arm the watcher as move 1" are available — use them; no workaround needed.
 - **Continuity-buffer handoff commit blocked by markdownlint** — a mid-arc handoff
   commit can hit a markdownlint wall on shared multi-agent buffers; the interim
   cure is the dedicated consolidation pass (rotate + lint, then commit), but a
@@ -327,19 +330,27 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
-> **§FOLD, 2026-09-19 (Zephyr guards Leeward, `281e44`, curator; no Director seated) — supersedes the
-> 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
-> `archive/director-handoff-2026-09-19.md` and narrated in the estate-coordination thread record
-> §2026-09-12 FOLD LANDED.** The last fold is #155 (SHA:65a929d9a, 2026-09-19 11:30Z); the live branch
-> is `coordination/2026-09-19-65a929`, draft #156, which by the owner's word of 2026-09-19 folds once,
-> when the dedicated consolidation's drain is done. _moved for teachers:_ nothing. _moved for the
-> Practice:_ the twelve directive-bound graduations, the graduate-then-archive lifecycle and its trigger.
+> **§FOLD, 2026-09-12 (Nettle guards Pistil, `2de368`, Director) — THIS SUPERSEDES THE 2026-09-10 02:0xZ
+> FOLD BLOCK (git retains it).** `coordination/2026-09-11-f6d7db` folds to `engraph` via PR **#135**, cut
+> 2026-09-11 and DUE under the 24-hour rule; the fold carries the owner's retention decision (recorded and
+> closed), the second seat's exploration report, compaction boundary 7, the owner's note of 2026-09-12, two
+> verified frictions (F-181, F-182) and this settlement. Landed between the cuts, each by the front door as
+> the bot: #130 SHA:0d6a9769c and #131 SHA:ad64f3cd5 (the two upstream sync workflows, dispatched green by
+> the bot), #132 SHA:14d9938c2 (owner-only mode verification and IO-free tests), #133 SHA:f4897e38c
+> (continuity), #134 SHA:f262a5b6b (the 2026-09-11 records). Open pull requests reached zero at #134; this
+> fold is the one open pull request at its own landing. Review on #135: three Codex rounds and two Copilot
+> rounds, threads raised 4, 5, 3; PDR-132's budget exceeded; settled under PDR-140 clause 9 in one
+> rebudgeted push after the intake declaration owed at open was posted late and said so. Product-gravity
+> line: _moved for teachers:_ nothing in the fold's own commits — the day's product movement rode `engraph`
+> through the sync workflows (#131). _moved for the Practice:_ the mode verification (#132), the sync
+> workflows (#131), the retention decision (option C, redact at the boundary, no `.env` file touched), the
+> exploration report, F-181 and F-182.
 
 ---
 
-> **§LIVE SNAPSHOT, 2026-09-19 ~19:5xZ (Zephyr guards Leeward, `281e44`, inside the owner-directed
-> consolidation; first written 2026-09-16) — replaces the 2026-09-17 snapshot in place (verbatim in
-> `archive/director-handoff-2026-09-19.md`).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
+> **§LIVE SNAPSHOT, 2026-09-17 (Zephyr guards Leeward, `281e44`, at the fold of the owner-directed
+> consolidation's second half; first written 2026-09-16 at the compaction boundary before that
+> session) — replaces the 2026-09-12 snapshot in place (git retains it).** THE BOARD IS NEVER READ FROM THIS SNAPSHOT: the open set and each pull request's
 > head, state and threads are computed from the repository service at the moment of reading; this
 > snapshot records what LANDED and who holds which LANE.
 >
@@ -347,9 +358,8 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > Leeward (the dedicated consolidation; its curator claim moves with each fold and is read from
 > the claims registry, on `coordination/2026-09-19-65a929` from 2026-09-19 11:3xZ) and Dynamo
 > turns Temper (`2a4c8a`, the owner-approved Oak integration lane, claim `35006027`, carrier draft
-> #154), whose landing slot opened when #153 merged at 20:17Z; that seat resumed at the owner's
-> word on 2026-09-19 (team-start 19:48Z: the two sync-machinery lanes, then the carrier, each in
-> its own worktree; it also measured and cured F-195, the git file monitor). The two seats coordinate on the ARC channel
+> #154), whose landing slot opened when #153 merged at 20:17Z; that seat is paused at the owner's
+> word since 16:1xZ. The two seats coordinate on the ARC channel
 > `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:**
@@ -370,9 +380,8 @@ gate on `claims open` exist since PR #225: frictions F-94 and F-95.)
 >   `coordination/2026-09-17-b5b0e7`, which carried the fold's records;
 > - #155, that successor's fold, `65a929d9a` (2026-09-19 11:30Z, front door, a pre-publication
 >   claim pass and three rounds, a day past its DUE). The successor is
->   `coordination/2026-09-19-65a929`. On it, not yet on `engraph` (draft #156): the consolidation's
->   directive pass and buffer drain of 2026-09-19 (`SHA:668d75378`, `SHA:f6ce4d0c3`, `SHA:28e8b73be`,
->   `SHA:d3c81c0b2`); the four drainable buffers read empty.
+>   `coordination/2026-09-19-65a929`; the consolidation's directive pass runs on it in a fresh
+>   context (the owner's word, 2026-09-19).
 >
 > **Owner-held,** carried from the 2026-09-12 snapshot and not re-verified at this boundary: the four
 > sync-workflow findings, to be cured in ONE lane; the mirror-provenance route, the owner's choice; the

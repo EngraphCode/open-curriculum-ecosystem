@@ -1,3 +1,12 @@
+---
+fitness_line_target: 700
+fitness_line_limit: 1100
+fitness_char_limit: 70000
+fitness_line_length: 100
+fitness_content_role: reference
+overflow_disposition: 'leave-if-live; else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: index-narrative-tables
+---
 # Next-Session Record — `continuity-memory-and-knowledge-flow`
 
 Thread identity: **`continuity-memory-and-knowledge-flow`** — the knowledge-flow
@@ -121,9 +130,12 @@ folded #153 (`SHA:b5b0e70cd`) after three rounds, cut `coordination/2026-09-17-b
 routed round-three findings and wrote the rotation records there (`SHA:84d7bc441`), and wrapped
 (`SHA:0731703d7`) when the meter read 51 % at the directive step.
 
-**Buffers.** `open-questions.md` and `distilled.md` are empty. `pending-graduations.md` holds twelve
-directive-bound entries: the eleven carried, and the owner's lifecycle decision below. The napkin
-was rotated (`2c81c5d22`) and holds the second, third and fourth contexts' wraps. Of the
+**Buffers (2026-09-19, the fifth context).** All four drainable buffers read empty:
+`open-questions.md`, `distilled.md`, the napkin (its four blocks graduated to their homes and
+rotated to `archive/napkin-2026-09-19.md`, `SHA:668d75378`) and `pending-graduations.md` (its
+twelve directive-bound entries graduated in `SHA:f6ce4d0c3`, `SHA:28e8b73be` and the commit
+carrying this paragraph; the context read 18.7 % before the first directive read and 32.4 %
+before the last four entries, which ran on the owner's express override of the 30 % rule). Of the
 other assistants' memory, read on 2026-09-16: the Claude per-user buffer holds five strictly local
 entries, Cursor is unchanged since 2026-06-04, Gemini has none, and Codex's `MEMORY.md` OCE groups
 were read with no recorded disposition, which the next pass confirms first-hand.
@@ -131,16 +143,43 @@ were read with no recorded disposition, which the next pass confirms first-hand.
 **Owner decision taken, 2026-09-17.** Finished history in continuity records and registers is
 graduated, then archived ("Graduate, then archive"), like the napkin: behaviour-changing entries
 graduate first, finished history moves to a dated archive proven byte-identical, live state stays,
-a named skill step triggers it, and every growing surface carries fitness coverage. Registered as
-a due entry in `pending-graduations.md`, because `continuity-practice.md` still says "never
-archive" until its directive text changes.
+a named skill step triggers it, and every growing surface carries fitness coverage. Landed
+2026-09-19: `continuity-practice.md` §Disposition of Continuity Surfaces (the four-part
+lifecycle), `consolidate-docs` step 6b (the trigger), PDR-011 and ADR-150 amendments, the
+`overflow_disposition` notes, fitness frontmatter on the thread records and registers that
+lacked it, and the pattern `memory-surface-four-part-lifecycle` (a candidate concept). The
+owner's guard on it, the same day, verbatim: "archiving happens ONLY after full processing, not
+as a means to tick a box".
 
 **Owner decisions open.** (1) F-189, as the owner reframed it on 2026-09-17: which gate-script
 names are right for the whole Practice ecosystem, decided once and then standardised in every
 Practice repository (not one repository conforming to PDR-008, nor the Core dropping a clause).
-(2) How a carrier's round tally treats a carried-code finding it may not cure, before #154's
-rounds (the cross-fork skill's 2026-09-17 sentence). Decided on 2026-09-17 and no longer open:
-the upstream-sync naming lane (rename both, after #154 lands; repo-continuity pickup item 3).
+The seat's verdict is in the F-189 entry for the owner to ratify: PDR-008 without its Rule 4
+(`check` verifies, `fix` mutates, `check:ci` retired), and this repository renames its three
+Rule 1 breaches. Decided and no longer open: the fsmonitor daemon (F-195: measured and cured
+on 2026-09-19 by Dynamo turns Temper at the owner's word; the monitor is unset for the clone); the upstream-sync naming lane (2026-09-17: rename
+both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,
+verbatim in the cross-fork skill: blocked by errors, fix them on the carrier; not blocked but
+issues visible, merge and fix in a separate pull request).
+
+**The owner's order for the fifth context (2026-09-19, verbatim).** "drain the buffers to zero,
+do not mess about with coordination branches, just drain the buffers, start with the most raw,
+end with the most refined." The owner chose, by card, to stay on
+`coordination/2026-09-19-65a929` (no new branch, no fold or rotation until the drain is done;
+draft #156 is merged once at the end) and to include the large memory files after the four
+buffers, before development work. The measure stated first in every report is the register's
+count and the buffers' undrained items; a fold, a review round or a record that does not move
+it is named as not moving it. The general lesson the step-back drew (a consolidation's doctrine
+is a work product with its own review contract) is in `coordination-fold` precondition 3; this
+context's single-branch shape is the owner's specific word for this session.
+
+**The owner's next order (2026-09-19 ~19:5xZ, verbatim).** "once the buffers are fully drained,
+and the work is pushed and merged, please run a full and deep retro" (metacognition, free play,
+concept exploration, reason, retrospective, in that order). The buffers read empty and the work
+is pushed (`SHA:d3c81c0b2` and after); the merge is draft #156's one fold through the front
+door, which Dynamo turns Temper's landings will first put BEHIND (sync once, at the fold). The
+retrospective's arc is the whole dedicated consolidation, 2026-09-16 to its merge: five contexts,
+four folds that did not move the register, then one context that emptied it.
 
 **A second seat and a sequencing constraint.** Dynamo turns Temper (2a4c8a, claim `35006027`) runs
 the Oak integration lane (owner-approved 2026-09-17): a fresh carrier of Oak main into `engraph`
@@ -155,38 +194,63 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    `SHA:56f42807e`) and three rounds (thirteen distinct findings, all true: six cured in `SHA:a1aa47c6b`
    and `SHA:8e7d37824`, one dispositioned on its thread, six routed to the successor and cured in
    its first records commit). The
-   successor `coordination/2026-09-17-b5b0e7` is cut and the primary resides there; Dynamo turns
+   successor `coordination/2026-09-17-b5b0e7` was cut and has since folded (item 2); Dynamo turns
    Temper's slot is open and they were told on the ARC channel and in the rotation broadcast.
-2. The directive pass, in a FRESH context (the owner's word, 2026-09-19, after the fourth
-   context's meter read 51 % of the 1M window at the directive step; it had read 13.3 % at its
-   open, and the fold's rounds plus the directive reads made during the fold's waits spent the
-   headroom). The fourth context folds the DUE successor `coordination/2026-09-17-b5b0e7` before
-   it stops, so the fresh context opens on a clean successor at the directive step. Its plan,
-   the draft texts and the re-verified cheap-defect list are conserved in the machine-local
-   handoff record `.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`
-   (claim `62a5dfd0`'s `handoff_record_path`), with the drafts in `instruments-281e44/` beside
-   it. The twelve entries in `pending-graduations.md` land in three commits: testing-strategy and
-   validation-strategy (the IO invariant with its echoes in tdd-as-design, principles §Testing,
-   test-immediate-fails items 8 and 9, ADR-161 and the recovery plan's end-state note; the
-   observation instrument; visibility-before-validation; counters as configuration echoes;
-   growth at two sizes); then principles, orientation, editorial-tone and the directives
-   review's cheap defects; then continuity-practice's lifecycle section, the consolidate-docs
-   trigger step and the frontmatter sweep. The meter is read BEFORE the first directive read,
-   not only before the edit: `agent-tools session-metadata --vendor claude --model
-   claude-opus-4-8[1m] --session-id <id>` (the same-size entry stands in until F-191's
-   window-registry lane lands); a reading at or above 30 % stops the pass before it starts.
-3. Memory files to an optimised soft, once the lifecycle's directive text and trigger step have
-   landed: graduate, then archive, the finished history of `repo-continuity.md`, the
-   agentic-engineering-enhancements and estate-coordination thread records,
-   `director-handoff.md`, the paused mcp-submission-drive record and `frictions-register.md`.
+2. LANDED 2026-09-19 in the fifth context: the directive pass. The fourth context had folded
+   the DUE successor as #155 (`SHA:65a929d9a`) and stopped at 51 %; the fifth opened after a
+   compaction at 11 %, drained the napkin first, then landed the twelve entries from the
+   drafts in the machine-local handoff record. One reading beyond the drafts, made at the
+   edit and open to the owner's correction: `test-immediate-fails` item 4's sanctioned
+   committed-fixture disk read is withdrawn with the other carve-outs, since the ruling admits
+   no filesystem IO and no helper exemption.
+3. IN PROGRESS: memory files, by graduate, then archive (`consolidate-docs` step 6b), each
+   read whole before anything moves. Done: `repo-continuity.md` (snapshot
+   `archive/repo-continuity-2026-09-19.md`) and `director-handoff.md` (snapshot
+   `archive/director-handoff-2026-09-19.md`; verdict on reading it whole: the Brief is live
+   role procedure and stays, its size is its function; only the superseded 2026-09-12 fold
+   block and one fixed-friction bullet were finished). Next by traffic: the
+   agentic-engineering-enhancements record, `collaboration-state-conventions.md`, the
+   estate-coordination record, `frictions-register.md` (its settled entries), this record's
+   own landed history above, the design-system-integration record, then the paused thread
+   records. A reading past a limit on any of them is the signal to read it, never a reason
+   to move it unread. Sizing, measured 2026-09-19: the agentic-engineering-enhancements
+   record is about 55,000 tokens to read (its last 280 lines alone are 27,000), the
+   estate-coordination record about 75,000 and the frictions register about 90,000, so each
+   of the three needs a context of its own, opened below 30 %. The first 740 lines of the
+   agentic-engineering-enhancements record were read and NOT curated (nothing moved, by the
+   owner's rule): they are nine EXECUTED consolidation and doctrine logs whose homes are
+   their commits, beside three live lanes that stay (the inter-Practice exchange's standing
+   follow-ups and the resonance offers, the corpus-generalisation Phase 0 restart brief, the
+   mutation-testing re-baseline); the logs' "named next-pass" items each need a home check
+   before the logs move.
 4. Carried from the first context and not yet homed: knip's "Remove from ignoreBinaries" hints
    (`lsof`, `ps`), a configuration cure in its own lane; and the Claude per-user RESUME HEADS
    pointers, re-trued at each wrap.
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
    work list, TypeScript strictness).
 
-Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the successor
-is stamped 2026-09-17 and falls due at 2026-09-18 00:00Z); the commit is the gate.
+**Resume order after the 2026-09-20 compaction.** (a) `date -u`, re-arm the comms watcher, read
+the stream and the ARC channel from 2026-09-19 20:2xZ (the watcher was down by declared choice
+while the seat idled). (b) Fold draft #156: the branch is DUE since 2026-09-20 00:00Z; merge
+`origin/engraph` in once (Dynamo turns Temper's landings put it BEHIND), announce the gate run
+on the ARC channel, then ready, reviews under the budget, the front door, the successor cut
+with a few lines of state. The fold tests a prediction recorded before the fact (the
+retrospective's proposal 4): #156 carries doctrine on the coordination branch, so it draws
+twenty or more findings across its pre-publication pass and review; ten or fewer refutes it.
+Declare its class in the description, expect its rounds, and write the count on its ledger
+row either way. (c) The three large records, each in its own context, priced first.
+The retrospective on the consolidation's arc is landed:
+`.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
+instruments chosen once), one is a slow-lane row (review 2026-12-20), one is the fold's
+prediction above. It also reads the launch prompt against the arc; the owner adopted its
+four-line prompt the same day
+(`.agent/prompts/agentic-engineering/dedicated-consolidation-session.md`), ending in the
+owner's words: "This job is higher priority than the daily branch fold."
+
+Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (this branch
+is stamped 2026-09-19 and fell due at 2026-09-20 00:00Z; by the owner's word it folds once,
+when the drain is done); the commit is the gate; archiving happens only after full processing.
 
 ## Standing decisions this thread carries forward
 

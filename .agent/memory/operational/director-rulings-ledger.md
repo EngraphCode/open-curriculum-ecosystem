@@ -79,7 +79,7 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | R19 | lane handovers get wrap-grade ceremony | owner-verbatim | PDR-063 + session-handoff/wrap skills |
 | R20 | every consumed value from the design system | owner-verbatim | rule `design-values-come-from-the-system` |
 | R21 | milestones simple, completable, visible | owner-verbatim | ticket-management skill (milestone rulings) |
-| R22 | no change freezes | owner-verbatim | `pending-graduations.md` entry "No change freezes" (target principles.md, due) |
+| R22 | no change freezes | owner-verbatim | `principles.md` §Strict and Complete, the "No change freezes" paragraph |
 | R23 | structure over vigilance | owner-verbatim | `.agent/rules/verify-dont-trust.md`, the "Cost, not correctness, decides whether a check runs" clause |
 | R24 | falsifiable structure at the surface | owner-verbatim | PDR-026 §Owner endorsement of surfaced falsifiable structure |
 | R27 | cricket duos → superseded by quartet | owner-verbatim | per-user memory `cricket-two-ab-pairs` (current form) |
