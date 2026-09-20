@@ -243,8 +243,10 @@ The retrospective on the consolidation's arc is landed:
 `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
 Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
 instruments chosen once), one is a slow-lane row (review 2026-12-20), one is the fold's
-prediction above. It also reads the launch prompt against the arc and proposes a four-line
-prompt; the prompt file is the owner's scratchpad and was left as the owner had it.
+prediction above. It also reads the launch prompt against the arc; the owner adopted its
+four-line prompt the same day
+(`.agent/prompts/agentic-engineering/dedicated-consolidation-session.md`), ending in the
+owner's words: "This job is higher priority than the daily branch fold."
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (this branch
 is stamped 2026-09-19 and fell due at 2026-09-20 00:00Z; by the owner's word it folds once,

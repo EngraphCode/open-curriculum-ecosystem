@@ -200,6 +200,12 @@ instruction of 2026-09-19 did what the full prompt had not. Falsifier: a consoli
 from the short prompt misses something the long one would have supplied; that thing then
 belongs in the skill, and the prompt stays short.
 
+**Addendum, 2026-09-20, later the same day.** The owner adopted the short prompt and had this
+seat write it into the file, with the last sentence in the owner's own words: "This job is
+higher priority than the daily branch fold." That is a standing answer, given in advance, to
+the collision proposal 3 names; the sentences above saying the file was left as the owner had
+it describe the record's first writing.
+
 ## Success test
 
 The causal stack names a mechanism the estate had no words for (clocked obligations starve
