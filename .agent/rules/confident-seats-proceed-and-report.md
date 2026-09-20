@@ -31,8 +31,8 @@ ruling its own analysis already supported, re-pinging into a dead session.
 The grant covers in-lane decisions: scope calls, review triage under the pr-lifecycle triage
 rule, base updates, sequencing within the seat's own claim, tooling choices. It does NOT cover:
 
-- **freeze-bound surfaces** (served surface, auth path, landing page — these take the Director
-  or owner word whoever executes);
+- **freeze-bound surfaces** (served surface, auth path — these take the Director or owner word
+  whoever executes);
 - **merge execution** at settled follows the standing merge doctrine, not this rule's grant.
   That doctrine (owner verbatim, 2026-07-26/29, superseding the earlier word/key-turn
   topology this bullet once recorded): a green and clean PR — CI passing, no unresolved
