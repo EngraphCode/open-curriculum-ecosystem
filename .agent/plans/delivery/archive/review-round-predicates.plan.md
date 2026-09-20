@@ -3,8 +3,7 @@ id: review-round-predicates
 node_type: delivery
 name: "review-round predicates — a round is any declared reviewer's structured review of a head; a leg needs a body"
 overview: "Two predicate fixes in the review instruments, each closed on a recorded harvest: the tally and the cost gate count a round when a declared reviewer's structured findings bind a head by any shape GitHub delivers (a review, or an issue comment whose findings link the head), and the merge door's reviewer leg is satisfied only by a review with a body."
-status: superseded
-superseded_by: landing-instruments-read-the-evidence
+status: archived
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -21,10 +20,12 @@ last_updated: 2026-09-20
 
 # review-round predicates — a round is any declared reviewer's structured review of a head; a leg needs a body
 
-> **Superseded (2026-09-20).** Both defects below are slices 1 and 2 of
-> `landing-instruments-read-the-evidence`, which the owner ratified on 2026-09-20. That
-> ratification retired this node, which was never ratified and never governed work. This text
-> stands as the fuller statement of the two defects and their fixtures.
+## Disposition (archived 2026-09-20)
+
+Archived as an abandoned sketch, never ratified: both defects below became slices 1 and 2 of
+`landing-instruments-read-the-evidence`, which the owner ratified on 2026-09-20, so nothing
+here is left to govern. The text stands as the fuller statement of the two defects and their
+fixtures.
 
 ## Goal
 

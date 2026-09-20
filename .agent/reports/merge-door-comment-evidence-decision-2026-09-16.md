@@ -97,7 +97,7 @@ reframing intact).
 
 - `.agent/plans/delivery/landing-instruments-read-the-evidence.plan.md` — the sketch node
   carrying the implementation; unratified, governs no work.
-- `.agent/plans/delivery/review-round-predicates.plan.md` — the earlier sketch whose
+- `.agent/plans/delivery/archive/review-round-predicates.plan.md` — the earlier sketch whose
   out-of-scope line prompted the consultation.
 - `.agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md` — item 3, the canonical
   reviewer-leg definition.
