@@ -69,6 +69,14 @@ Reading of the 2026-09-14 rows: four agree at the seat's stop (#137, #144, #145,
 defect the 2026-09-13 row already named. #144 is one observation (n = 1) of the gate pricing a
 CI cure as a settlement round: PDR-140 clause 4 lists a CI cure beside a sync as outside the
 budget, and #146 exempted syncs only. No weight changes; the CI-cure reading waits for rows.
+| 2026-09-20 | #160 | 4 | 18.1 / 40 | within | after settlement push 2 (Codex's true P2 on status 1, then Copilot's usage-text observation; round three clean; the fourth round is the sync merge) | agreed | a claim pass before each push; the sync round is the queue cost (Dynamo turns Temper, 2a4c8a) |
+| 2026-09-20 | #161 | 5 | 31.83 / 40 | warn | after settlement push 2 (a schema-violating transition in push 1, the ruling contradiction in push 2); round four's four findings were routed to #164 because the budget was spent, and the gate's warn matched the seat's reading | agreed | two of five rounds are syncs at 0; the routed findings cost one more PR (2a4c8a) |
+| 2026-09-20 | #162 | 1 | 0 / 20 | within | at open; one-sentence cure, clean on both legs | agreed | (2a4c8a) |
+| 2026-09-20 | #163 | 3 | 9.07 / 40 | within | after settlement push 2 (two low wordings); the facts regenerations after each base move were sync completions, not settlements | agreed | the census's facts stale on every base move; D10 (2a4c8a) |
+| 2026-09-20 | #164 | 4 | 16.02 / 40 | within | after settlement push 2 (a description-versus-tree contradiction, then a state that went false when #163 landed under the sync) | agreed | both findings were records going false in the gap between commit and read; see the boundary's concept-exploration pass (2a4c8a) |
+| 2026-09-20 | #165 | 4 | 27.65 / 40 | warn | after settlement push 2 (two wordings on one plan row, one per round); the gate's warn is fair: two rounds on the same row is one round too many, the seat should have re-read the whole row at push 1 | agreed | the vendor shape (`--slurp` with `--jq`) was measured at implementation, not plan time (2a4c8a) |
+| 2026-09-20 | #166 | 3 | 21.26 / 40 | warn | after settlement push 2 (round one: the new tests created IO against an absolute directive, a real defect; round two: three wordings); the seat's reading is that push 1 was owed and push 2 half-owed (the arity test was implementation-shaped) | agreed | a consult's licence lost to the directive; the observation-at-cure-time route was used for the loopback proof (2a4c8a) |
+| 2026-09-20 | #167 | 3 | 30.6 / 40 | warn | after settlement push 2; push 1 carried corrections the claim pass had already named because the edit failed silently before the commit, so round one was a wasted round of the seat's own making | agreed; would have fired early had push 1 been read | the silent-edit lesson is on the napkin (2a4c8a) |
 
 ## Weight changes
 

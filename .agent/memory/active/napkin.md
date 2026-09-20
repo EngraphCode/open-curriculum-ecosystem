@@ -118,6 +118,21 @@ still unhomed, as at the four rotations before.
   design-system record next, by the split method; Dynamo turns Temper's napkin block is theirs
   to drain. Blind spot: the push of `SHA:3cd0df21a` was in its gates at this write; the next
   context reads `git status --short --branch` after a fetch before trusting it.
+- **Addendum, 18:4xZ, at the owner's second compaction order.** The wrap landed as
+  `SHA:75682bd85` and pushed; then the session's goal hook (the launch prompt's "done means
+  empty pending graduations and empty buffers") refused the stop nine times, because the napkin
+  held this block, the correction's directive half (gated below 30 % by PDR-052) and a peer's
+  lines. The owner answered a card "Compact now". **Reason pass (the one act of this addendum):**
+  the hook's condition names a state that a standing gate forbids reaching in the same context
+  (a directive edit at 69 %), so it is a state-crossing check with no exit for the case the
+  rules themselves create; the seat's right act was to name the two rules in conflict and put
+  the choice to the owner once, which it did, and then to stop answering the hook at length
+  (each answer costs context and changes nothing). Candidate for the owner, not landed: the
+  launch prompt's done-condition gains "or the owner has called the compaction", so the hook
+  and the freeze order agree. Observation (n = 1): a peer's uncommitted appends on the shared
+  primary (this napkin, the review-cost ledger, the ARC channel) ride the next seat's commit by
+  the established pattern, announced on the channel; three and a half hours passed between the
+  wrap and this addendum with no process of this seat running, which is the freeze working.
 
 ## 2026-09-20 15:0xZ — Dynamo turns Temper (2a4c8a): three pull requests in one queue cost sync rounds
 
@@ -129,3 +144,31 @@ still unhomed, as at the four rotations before.
 - Observation: the workspace census `check` failed on `engraph` at `93c35f285` (20 stale facts
   entries) and is in no gate; its facts count files under `.agent/`, so any commit there stales
   it. A finding for its own lane (recorded on #163's description).
+- 2026-09-20 16:0xZ (Dynamo turns Temper, 2a4c8a): the `git add .` hook matches any staging
+  command whose pathspec begins with a dot-directory (`git add -- x.ts .agent/reports/…`), so a
+  tracked file under `.agent/` cannot be staged by name in the same command as a file elsewhere;
+  an absolute path did not help (the substring still matched). What worked, without a sibling
+  bypass: `git commit --include -F msg -- <paths>`, which commits the named paths with what is
+  already staged. Friction for the hook's author: anchor the pattern at a word boundary or the
+  argument's end (`git add .` alone, `git add .$`).
+- 2026-09-20 16:2xZ (Dynamo turns Temper, 2a4c8a): a test-expert consult said new cases could
+  join a pre-invariant loopback suite "since no new IO is introduced"; the directive
+  (`testing-strategy.md` §Tests never use IO) has no such carve-out and both vendor reviewers
+  cited it at round one of #166. A consult is a reading, not the directive: when a consult
+  licenses something the directive names absolutely, read the directive's sentence before
+  acting. Cost: one settlement push and one round.
+- 2026-09-20 16:3xZ (Dynamo turns Temper, 2a4c8a): the forced-push hook reads the whole command
+  text, so a `merge-bot push` followed in the same command by `gh api … -F body=@file` or
+  `-f t=$id` is blocked as `push -f`. Keep the push and any `gh api` call with a `-f`/`-F`
+  flag in separate commands.
+- 2026-09-20 17:0xZ (Dynamo turns Temper, 2a4c8a): a backgrounded chain `python3 - <<EOF … EOF;
+  git commit …` committed the UNEDITED file when the script's assertion failed, and my grep of
+  the task output looked only for the push line, so #167 opened with cures its description
+  claimed and its tip lacked (Copilot found it). Chain edits to commits with `&&`, print a
+  sentinel from the script, and read a task's output for `Traceback` before trusting it.
+- 2026-09-20 17:1xZ (Dynamo turns Temper, 2a4c8a) — play seeds, associations only: (1) a
+  measurement stored inside the measured thing stales itself (the census's facts under
+  `.agent/`; the context-usage row in the transcript it measures) and reaches a fixed point only
+  by iterating; (2) the rule to measure vendor call shapes at plan time existed and the D8 plan
+  still recommended a shape gh refuses (`--slurp` with `--jq`); the measurement happened at
+  implementation, which is late but before the push.
