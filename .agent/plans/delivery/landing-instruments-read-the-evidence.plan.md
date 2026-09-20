@@ -20,8 +20,7 @@ last_updated: 2026-09-20
 
 This node absorbs the sketch `review-round-predicates` (2026-09-13, unratified): its two
 defects are slices 1 and 2 here, restated with their fixtures. This node's ratification on
-2026-09-20 retired that one, which now reads
-`superseded_by: landing-instruments-read-the-evidence`. The `agent-tools-watch-commands` node
+2026-09-20 retired that one; it is archived as an abandoned sketch with a disposition note. The `agent-tools-watch-commands` node
 keeps the command-surface candidates in its own disposition ledger (the session-script
 commands, the deletion-sweep integration); this node owns the readings and the one act.
 
