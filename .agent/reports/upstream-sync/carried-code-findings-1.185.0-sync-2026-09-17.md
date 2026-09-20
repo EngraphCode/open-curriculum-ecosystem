@@ -15,7 +15,7 @@ verifies each item reproduces at the cited tip before opening its lane.
 ## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
 **Owner ruling, 2026-09-20 (card answer, verbatim label: "Cure here only what misleads
-operators").** Items A2, A5 and A15 are cured on this line, one pull request each: A2 landed (#162), A5 is open (#163), A15 is not started. Every other
+operators").** Items A2, A5 and A15 are routed for cure on this line, one pull request each: A2 landed (#162), A5 is open (#163), A15 is not started. Every other
 item in this section is held for the Oak line and arrives here through a later carrier, because
 each cure made here edits a file the Oak line authored and becomes a conflict at the next sync.
 
