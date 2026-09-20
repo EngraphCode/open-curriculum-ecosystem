@@ -59,7 +59,8 @@ Message intake (mirrors \`git commit\`):
 \`-m\` and \`-F\` are mutually exclusive (matches \`git commit\`).
 
 Exit codes:
-  0  conforms; 1  violates; 2  invalid usage.`;
+  0  conforms; 1  violates (a commitlint warning is a violation);
+  2  invalid usage, unreadable input, or no commitlint verdict.`;
 
 /** Parsed command-line intent, or a usage error to report on stderr. */
 export type ParsedArgs =

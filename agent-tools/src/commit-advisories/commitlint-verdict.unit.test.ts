@@ -7,8 +7,9 @@ describe('exitCodeForCommitlintStatus', () => {
     expect(exitCodeForCommitlintStatus(0)).toBe(0);
   });
 
-  it('reads a strict-mode warning as a violation, never as invalid usage', () => {
-    // commitlint --strict exits 2 for warnings; this tool reserves 2 for bad usage.
+  it("reads a strict-mode warning as a violation, never as this tool's own exit 2", () => {
+    // commitlint --strict exits 2 for warnings; this tool's 2 means bad usage,
+    // unreadable input or no verdict.
     expect(exitCodeForCommitlintStatus(2)).toBe(1);
   });
 
@@ -17,8 +18,9 @@ describe('exitCodeForCommitlintStatus', () => {
   });
 
   it('reads status 1 as no verdict: under strict mode it is never a lint result', () => {
-    // Strict mode gives every lint result 2 or 3, so 1 is an operational
-    // failure (no input, an unreadable message file, a broken runner).
+    // Strict mode exits 0 for a clean message, 2 for warnings and 3 for
+    // errors, so 1 is an operational failure (an unreadable message file,
+    // a broken runner).
     expect(exitCodeForCommitlintStatus(1)).toBe(2);
   });
 
