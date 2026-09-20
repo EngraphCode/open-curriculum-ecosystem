@@ -623,7 +623,13 @@ the slicing was wrong.
   - E2E checks live in the `e2e-tests` directory. They drive a running
     *system* rather than importing product code, so they do not
     co-locate with any product file. The current files end in
-    `*.e2e.test.ts` (pre-invariant naming, for the recovery plan)
+    `*.e2e.test.ts` (pre-invariant naming, for the recovery plan).
+    Until that plan moves the estate, a new E2E check is authored
+    where the workspace's live `test:e2e` runner reaches it, because
+    a check that no CI-gated task runs is the worse defect (the
+    reachability rule of §Smoke Checks). The directory and the suffix
+    are names the plan retires; they never make the check a test, and
+    none of a test's allowances or a check's IO passes between them
 
 ## When Behaviour Changes
 

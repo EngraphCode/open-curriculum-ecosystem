@@ -139,7 +139,7 @@ The following patterns are **prohibited** in all test and setup files, at every 
 | `vi.doMock('module', ...)`    | Manipulates module cache, subtle race conditions | Inject module exports as dependencies |
 | `globalThis.X = 'value'`      | Mutates global state                             | Pass as parameter                     |
 
-**In-process app pattern**: Tests that create the app in-process (e.g. `createApp()` + supertest) must build an explicit runtime config and pass it through DI:
+**In-process app pattern**: Code that creates the app in-process via `createApp()` must build an explicit runtime config and pass it through DI. The example below constructs the app and stops there: a test then calls the handler or middleware under test directly, and never drives the constructed app with supertest (the 2026-09-19 amendment above):
 
 ```typescript
 import { createApp } from '../src/application.js';

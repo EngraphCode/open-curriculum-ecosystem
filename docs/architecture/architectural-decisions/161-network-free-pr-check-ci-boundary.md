@@ -214,10 +214,13 @@ lockstep, as consequence #5 requires.
    scopes by reusability, not diff size"
    (`patterns/adr-by-reusability-not-diff-size.md`).
 4. **Permit E2E tests to reach the network as long as they are
-   marked `@slow`.** Rejected: `testing-strategy.md` already names
-   E2E as stdio-only. Remarking an E2E test as `@slow` reopens the
-   IO boundary and collides with the existing taxonomy. The correct
-   move is to name it a smoke test.
+   marked `@slow`.** Rejected: when this was written
+   `testing-strategy.md` named E2E as stdio-only; under the
+   2026-09-19 amendment an E2E check drives a running system over
+   its own protocol channel and never a third-party network, so the
+   rejection stands. Marking one `@slow` reopens the network boundary
+   and collides with the taxonomy. The correct move is to name it a
+   network-reaching smoke check.
 
 ## Enforcement
 

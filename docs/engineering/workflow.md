@@ -36,7 +36,11 @@ When changing system behaviour, update tests at the same level first:
 | ----------------------- | ------------------------------------------- |
 | Pure function behaviour | Unit tests (`*.unit.test.ts`)               |
 | Integration behaviour   | Integration tests (`*.integration.test.ts`) |
-| System behaviour        | E2E checks (files named `*.e2e.test.ts`)    |
+| System behaviour        | E2E checks (validators, not tests)          |
+
+An E2E check today is a `*.e2e.test.ts` file that the `test:e2e` runner reaches. Both
+names are pre-invariant estate that the recovery plan retires; until it does, a new
+check goes where that live runner sees it.
 
 See [Testing Strategy](../../.agent/directives/testing-strategy.md) for full details.
 

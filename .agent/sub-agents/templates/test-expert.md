@@ -11,7 +11,7 @@ friction without paying their way in design value.
 
 ### Triggering Scenarios
 
-- A new test file (`*.unit.test.ts`, `*.integration.test.ts`, `*.e2e.test.ts`) is created or any existing test is modified
+- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
 - A test suite audit is requested for skipped tests, conditional execution, global state reads or manipulation, complex mocks, or tests that audit rather than describe
 - Tests are failing in CI and the failure mode suggests structural or design problems (flaky integration tests due to process-spawning, mocks bleeding between tests, conditional gating)
 - A pull request adds product code without corresponding test changes — the atomic-landing invariant has been violated and a TDD compliance check is needed
@@ -111,8 +111,10 @@ For each test file:
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
   `*.integration.test.ts`). An existing `*.e2e.test.ts` file is pre-invariant
   estate for the recovery plan, never a naming mismatch to flag; a NEW E2E or
-  smoke check is a validator reachable from a CI-gated task and is never
-  required to carry a test suffix.
+  smoke check must be reachable from a CI-gated task, and where the
+  workspace's live runner glob still wants the old suffix, the suffix is a
+  name and never a classification (`testing-strategy.md` §Development
+  Workflow).
 - Flag any mismatch as an immediate-fail (per `test-immediate-fails.md`
   §Pipeline).
 
@@ -239,7 +241,7 @@ file names below is pre-invariant naming.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | Existing files: `*.e2e.test.ts` (pre-invariant); no test suffix is required of a new check |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` where the live runner's glob wants it (a pre-invariant name, never a classification) |
 | **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
