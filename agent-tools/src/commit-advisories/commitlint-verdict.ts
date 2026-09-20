@@ -18,9 +18,11 @@ const COMMITLINT_VIOLATION_STATUSES: readonly number[] = [2, 3];
  * @remarks
  * Strict mode exits 2 for warnings and 3 for errors. This tool reserves 2 for
  * "no verdict", so a lint verdict maps to 1, and anything that is not a verdict
- * maps to 2: a commitlint that never ran (`null`), a missing config (9), and
- * status 1, which strict mode never gives a lint result and so marks an
- * operational failure (no input, an unreadable message file, a broken runner).
+ * maps to 2: a commitlint that never ran (`null`), and any other status,
+ * among them 1, which strict mode never gives a lint result and so marks an
+ * operational failure (an unreadable message file, a broken runner). One case
+ * this mapping cannot see: with no rules configured, commitlint reports an
+ * `empty-rules` error, and strict mode exits 3 for it like any rule error.
  */
 export function exitCodeForCommitlintStatus(status: number | null): 0 | 1 | 2 {
   if (status === 0) {

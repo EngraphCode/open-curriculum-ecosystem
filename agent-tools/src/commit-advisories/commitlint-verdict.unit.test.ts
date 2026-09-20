@@ -27,7 +27,7 @@ describe('exitCodeForCommitlintStatus', () => {
   });
 
   it('reads a status outside the lint range as no verdict, never as a violation', () => {
-    // commitlint exits 9 when it finds no configuration.
+    // commitlint exits 9 for an invalid argument.
     expect(exitCodeForCommitlintStatus(9)).toBe(2);
   });
 });
