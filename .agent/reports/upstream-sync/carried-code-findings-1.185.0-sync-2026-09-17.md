@@ -68,6 +68,10 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    "Portable skill, command, and rule adapters" and omits the new `.agents/plugins/marketplace.json`
    (Oak #968). Minor. Standard: §Documentation Is Infrastructure (stable indexes point and must not
    drift).
+10. `.github/actions/setup/action.yml` line 13 (identical on the Oak line's tip): `pnpm/action-setup` pinned
+    at v6.0.9 while Oak bumped its own `ci.yml` to v6.1.0 (#980) and left the composite action
+    behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
+    dependency-currency lane's SHA-pinned-actions leg.
 11. The Oak line's ADR-125 amendments of 2026-09-08 and its ChatGPT package README qualify
     `plugins/oak-open-curriculum/` as "(Claude Code)" and call the ChatGPT package's source "the
     Claude plugin". Owner ruling on this line (2026-09-17, verbatim): "it is a Claude plugin, it
@@ -75,10 +79,6 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     ("never write 'Claude Code plugin' for the Oak plugin") stands; Oak's qualifier is the
     misstatement, and prose on this line never copies it (two rehearsal edits that had were corrected).
     Standard: §Consistent Naming (one concept, one name); §Misleading docs are blocking.
-10. `.github/actions/setup/action.yml` line 13 (identical on the Oak line's tip): `pnpm/action-setup` pinned
-    at v6.0.9 while Oak bumped its own `ci.yml` to v6.1.0 (#980) and left the composite action
-    behind. Standard: principles §Consistent Naming's one-concept-one-value spirit for pins; the
-    dependency-currency lane's SHA-pinned-actions leg.
 
 12. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 73–127 (identical
     on the Oak line's tip; raised by Copilot on the carrier, round one): the numbered chain above
@@ -270,8 +270,9 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
    gate; a stale pointer. Standard: principles §No unused code. Own pull request, with A10.
 
 10. **The workspace census's `check` is in no gate, and its artefacts drift by construction**
-    (found 2026-09-20 on #163 by this seat and Copilot): `facts.json` counts tracked files under
-    every subject, so any commit under `.agent/` or `agent-tools/` stales it (it failed on
+    (found 2026-09-20 on #163 by this seat and Copilot): `facts.json` counts each subject's
+    tracked files and Oak-marker hits, so any commit that changes those counts under `.agent/`
+    or `agent-tools/` stales it (it failed on
     `engraph` at `93c35f285` with 20 stale entries and again after each of #163's base moves),
     and `rows.json` restates numbers that `facts.json` recomputes (the `.agent`, `agent-tools`
     and `plugins/oak-open-curriculum` rows carry counts now stale). Standard:
@@ -279,10 +280,17 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     restates it; the check either enters a gate or its facts stop counting files.
 
 11. **`DELETE /mcp` draws the terminal 404** (observed 2026-09-20 by the mcp-expert consult on
-    A15's cure, landed in #166): MCP 2025-11-25 Transports §Session Management prefers `405
-    Method Not Allowed` with `Allow: POST` where a server does not support client-initiated
-    session termination. Own small lane: an explicit 405 on `DELETE /mcp`, with the `Allow`
-    header, and a test without IO.
+    A15's cure, landed in #166; a bare `DELETE` meets the accept gate's 406 first, one with a
+    conforming `Accept` reaches the 404): no handler registers `DELETE /mcp`. MCP 2025-11-25
+    Transports §Session Management, item 5, says a server that assigns session ids MAY answer
+    such a `DELETE` with `405 Method Not Allowed` when it does not allow client-initiated
+    termination (the `Allow` header is RFC 9110's rule for a 405); this app assigns no session
+    (`core-endpoints.ts`, `sessionIdGenerator: undefined`), so the clause's precondition is
+    absent. Two records disagree with each other on the point: the trailing-slash
+    characterisation of 2026-08-06 recorded the fall-through to the framework's 404 as
+    unprobed, and ADR-229 line 263 says the app answers `DELETE` with 405 today, which it does
+    not. Own small lane: decide the answer (405 with `Allow`, or the 404 as the stated
+    behaviour), re-true ADR-229, and a test without IO.
 
 12. **Authored refusal bodies outside the content audit** (observed 2026-09-20 by Codex on #166,
     P3): the audit's boundary (`.agent/reports/mcp-agent-facing-content-audit/report.md` §2)
