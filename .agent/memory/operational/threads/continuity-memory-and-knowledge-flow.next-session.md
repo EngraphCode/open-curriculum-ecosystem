@@ -297,6 +297,18 @@ four-line prompt the same day
 (`.agent/prompts/agentic-engineering/dedicated-consolidation-session.md`), ending in the
 owner's words: "This job is higher priority than the daily branch fold."
 
+**Resume point, 2026-09-20 ~15:1xZ, after the frictions register.** The owner's correction of
+15:0xZ governs every large read from here: "Do not fill up the context pointlessly with giant
+files, pick one file, split it, analyse the pieces separately, then analyse the analyses to
+find what was lost by splitting, repeat" (the method is in `consolidate-until-done` step 7;
+its directive half, `continuity-practice.md` §Runbook step 1, is owed at a context below 30 %
+and is the napkin's open item). Done this context: the estate-coordination record, the
+collaboration-state conventions, the frictions register. Next, by the split method from the
+first read: the design-system-integration thread record (3,901 lines; index its second-level
+headings by grep, one analyst per run of sections, analyses to files, join by grep), then the paused
+thread records, then this record's own landed history above. The napkin also carries Dynamo
+turns Temper's 15:0xZ observations, theirs to drain.
+
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
 branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the
 memory-file pass, no doctrine); the commit is the gate; archiving happens only after full processing.

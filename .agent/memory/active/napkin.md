@@ -78,6 +78,47 @@ still unhomed, as at the four rotations before.
 - **Home**: `consolidate-until-done` step 7 (the pricing paragraph gains the split method) and
   `continuity-practice.md` §Runbook step 1 (a directive; edited at a context below 30 %).
 
+## Zephyr guards Leeward (281e44) — 2026-09-20 ~15:1xZ, wrap before a compaction at 66 %
+
+- **The measure.** Register 0 due; distilled 0; open questions 0; the napkin holds this seat's
+  correction block (its skill half landed in `SHA:3cd0df21a`, its directive half waits for a
+  context below 30 %), this wrap block, and Dynamo turns Temper's 15:0xZ observations (theirs);
+  oversized files curated this context: three (the estate-coordination record, blob
+  `4ca3b11df`; `collaboration-state-conventions.md`, read whole and left live; the frictions
+  register, blob `42b7d373d`, 29 settled entries archived with an index row each). Six done
+  of the named set; next the design-system-integration record (3,901 lines), then the paused
+  thread records, then this record's own landed history.
+- **Metacognition.** The split method worked on its first run: nine analysts, about 1.06M
+  subagent tokens in seven minutes, cost this seat about 20,000 tokens of analyses against the
+  86,000 the whole read had cost. Its yield was not only the classification; the join found
+  three facts no piece could see (F-108 cured without an entry; F-81 and F-171 heading none;
+  F-132 and F-139 superseded by a sentence in F-169 and in the commit skill). The analysts'
+  classes were right where a Status line existed and needed my reading where none did (eleven
+  entries), and every "cured" I moved was checked at the code first; one (F-80) rests on the
+  parser's positional machinery plus the named pull request, not on a line I read. The
+  mistake of the context stands: two whole reads before the correction, about 160,000 tokens,
+  which is why this wrap comes at 66 % with one file's worth of work still fitting.
+- **Free play (one short time-box).** Kept: the archived-entry index row is a forwarding
+  address, and a forwarding address is what lets a home move without breaking the citers,
+  which is the same job the `SHA:` prefix and the F-id do for shas and frictions. Kept: an
+  analyst reading one piece is a reader with no history, and the notes they wrote about what
+  their piece could not tell them were the best map of where the file's structure carries
+  meaning. Discarded, visibly: "the register should be split into files by status", which is
+  the sharding the lifecycle forbids.
+- **Concept exploration, compact.** Frame: a whole-read obligation can be met by a seat or by
+  a set of readers, and the two differ only at the join. The join is a named, checkable step
+  (cross-references resolve; ids occur once; a status stated elsewhere agrees), so the
+  obligation is met when the join checks pass, not when one context has held every line. That
+  is the sentence the directive half of the correction wants (`continuity-practice.md` §Runbook
+  step 1). Falsifier: a split read whose join checks pass and whose curation still moves an
+  entry that another entry's text kept live.
+- **Loss scan.** Conserved: the archive and the index (`SHA:3cd0df21a`); the method in the
+  skill; the verdicts in the continuity thread record; the machine-local handoff record on
+  claim `48a715a4`. Promises: the directive half of the correction (below 30 %); the
+  design-system record next, by the split method; Dynamo turns Temper's napkin block is theirs
+  to drain. Blind spot: the push of `SHA:3cd0df21a` was in its gates at this write; the next
+  context reads `git status --short --branch` after a fetch before trusting it.
+
 ## 2026-09-20 15:0xZ — Dynamo turns Temper (2a4c8a): three pull requests in one queue cost sync rounds
 
 - Observation: with #160, #161 and #162 all settled at once, each landing put the other two
