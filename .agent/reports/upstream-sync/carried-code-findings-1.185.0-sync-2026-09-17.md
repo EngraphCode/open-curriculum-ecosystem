@@ -14,11 +14,16 @@ verifies each item reproduces at the cited tip before opening its lane.
 
 ## A. Code and prose authored on the Oak line: quality findings (cure in their own PRs, never on the carrier)
 
+**Owner ruling, 2026-09-20 (card answer, verbatim label: "Cure here only what misleads
+operators").** Items A2, A5 and A15 are cured on this line, one pull request each. Every other
+item in this section is held for the Oak line and arrives here through a later carrier, because
+each cure made here edits a file the Oak line authored and becomes a conflict at the next sync.
+
 The Oak line's landing-page teardown (#928, release 1.181.4) removed the page and left the repository's
 own documentation describing it. Each passage below is byte-identical to the Oak line's tip
 (`git diff d9138c8b9 -- <file>` leaves the cited passage untouched; one file, `deployment-architecture.md`, carries this line's deploy-config-gate text elsewhere), so by the owner's constraint it
-is cured on this line in its own PR, never on the sync, and the two lines carry the cure together
-when they rejoin (owner, 2026-09-17: one repository temporarily diverged). Prose authored on this
+is cured in its own PR, never on the sync. Which line makes the cure is the ruling above: A2 on
+this line, A1 and A3 on the Oak line (A4 moved to C2 and was cured on the carrier). Prose authored on this
 line about the same subject was re-trued on the carrier. Standard for all of A1–A4: principles
 §Misleading docs are blocking; §Target-architecture wording needs consuming-runtime evidence.
 
@@ -100,6 +105,34 @@ line about the same subject was re-trued on the carrier. Standard for all of A1�
     (consistent with A8). Reported, not reproduced by this seat; the reader reproduces before
     opening the lane. (Copilot's second point, an "incomplete" phrase, is its own masking of the
     words "Bearer token"; the file's text is complete.) Standard: §Misleading docs are blocking.
+
+15. `apps/oak-curriculum-mcp-streamable-http/src/no-html-surface.integration.test.ts` lines 74–80
+    (identical on the Oak line's tip; raised by Copilot on the carrier, round four): the test
+    "serves no document at the root even to a client that asks for nothing else" asserts the
+    status `404` only. With no `/` route and no terminal 404 middleware, the framework's default
+    final handler answers that request with an HTML `Cannot GET /` document, so the application
+    still serves HTML at the root while the test named for the no-HTML contract passes. The
+    sibling test above it asserts an empty body; this one does not. Standard:
+    `testing-strategy.md` (a test proves the behaviour its name states); §Misleading docs are
+    blocking, for the test's name and comment.
+
+16. `apps/oak-curriculum-mcp-streamable-http/src/mcp-registry/server-json.ts` lines 82–86
+    (identical on the Oak line's tip; found by this seat on 2026-09-20 while removing a leftover
+    build directory at the owner's word): the docstring says the artefact is written "under the
+    gitignored `.generated/` directory, alongside the baked landing page", and
+    `SERVER_JSON_ARTEFACT_RELATIVE_PATH` is `.generated/server.json`. No ignore rule covers that
+    directory (`git check-ignore` on the path matches nothing, on this line and on the Oak line's
+    tip), and the landing page no longer exists: its teardown took the ignore entry with it. A
+    build that emits `server.json` leaves an untracked file in the tree. Standard: §Misleading
+    docs are blocking.
+
+17. `apps/oak-curriculum-mcp-streamable-http/docs/middleware-chain.md` lines 68, 120–121, 246,
+    270, 305, 329, 372–374 and 402, and `src/app/health-endpoints.ts` lines 22, 32 and 36 (both
+    identical on the Oak line's tip; found on 2026-09-20 by a context-free claim pass on the A2
+    cure, verified by this seat with `git grep -i landing`): the document still describes a live
+    "Landing Page Handler" at `/` (A12 covers only the robots branch of the same document), and
+    the source comment says the root landing page is mounted in `static-content.ts` and that a
+    probe could be handed the landing page. Standard: §Misleading docs are blocking.
 
 ## B. Gate-forced cures made on the carrier (owner constraint 4)
 
