@@ -169,7 +169,14 @@ part of it is the consolidation's; the fluent answer (open the pass with an esta
 sweep, landed in `pr-lifecycle` on 2026-09-20) makes the consolidation larger. Warrant: #156,
 where 22 residue findings were cured in the review loop across two settlement pushes while the
 job stood still. Falsifier: a fold run that way leaves a contradiction a reader acts on before
-the work list is cured. Unresolved: how it sits with "misleading docs are blocking". Decided
+the work list is cured. Unresolved: how it sits with "misleading docs are blocking". (4) The
+launch prompt's done-condition ("done means empty pending graduations and empty buffers")
+names a state that the 30 % directive gate (PDR-052) forbids reaching in the context that is
+running, when the last buffer item is a directive edit: on 2026-09-20 the goal hook refused
+the stop nine times at 69 % with exactly that item open, and the owner answered a card
+"Compact now". Candidate: the done-condition gains "or the owner has called the compaction",
+so the hook and the freeze order agree; the seat's part is to name the two rules in conflict
+and put the choice to the owner once, then answer the hook in one line. Decided
 and no longer open: the fsmonitor daemon (F-195: measured and cured
 on 2026-09-19 by Dynamo turns Temper at the owner's word; the monitor is unset for the clone); the upstream-sync naming lane (2026-09-17: rename
 both, after #154 lands; repo-continuity pickup item 3); what a carrier fixes (2026-09-19,
@@ -301,13 +308,15 @@ owner's words: "This job is higher priority than the daily branch fold."
 15:0xZ governs every large read from here: "Do not fill up the context pointlessly with giant
 files, pick one file, split it, analyse the pieces separately, then analyse the analyses to
 find what was lost by splitting, repeat" (the method is in `consolidate-until-done` step 7;
-its directive half, `continuity-practice.md` §Runbook step 1, is owed at a context below 30 %
-and is the napkin's open item). Done this context: the estate-coordination record, the
-collaboration-state conventions, the frictions register. Next, by the split method from the
-first read: the design-system-integration thread record (3,901 lines; index its second-level
-headings by grep, one analyst per run of sections, analyses to files, join by grep), then the paused
-thread records, then this record's own landed history above. The napkin also carries Dynamo
-turns Temper's 15:0xZ observations, theirs to drain.
+its directive half, `continuity-practice.md` §Runbook step 1, landed after the owner's second
+compaction of 2026-09-20 at a context of 11 %, and this seat's two napkin blocks of the day
+were drained to `archive/napkin-2026-09-20b.md` in the same commit). Done this context: the
+estate-coordination record, the collaboration-state conventions, the frictions register.
+Next, by the split method from the first read: the design-system-integration thread record
+(3,901 lines; index its second-level headings by grep, one analyst per run of sections,
+analyses to files, join by grep), then the paused thread records, then this record's own
+landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
 branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the

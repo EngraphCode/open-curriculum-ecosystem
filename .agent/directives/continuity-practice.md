@@ -119,6 +119,13 @@ embedded here in the doctrine it enacts; indexed in
 [`docs/operations/README.md`](../../docs/operations/README.md) §Runbook Index):
 
 1. **Per entry, ask "live or finished?"** — never infer from age or fitness status.
+   Every entry is read before anything moves. The reading may be done by the curating
+   seat or by a set of readers over pieces of the surface, and the two differ only at
+   the join, so the obligation is met when the join checks pass (every cross-reference
+   resolves, every id occurs once, a status stated in another entry agrees), not when
+   one context has held every line (owner, 2026-09-20; the split method and its checks
+   are `consolidate-until-done` step 7). Each reader's claim that bears on a move is
+   verified at its source by the seat before that entry moves.
 2. **Route by disposition.** Finished and insight-homed → the entry joins the range to
    archive, but *verify the home holds it first* (the `verify-dont-trust` rule; "it's
    all homed" is a convenient claim to check, not trust). Finished and un-homed → route
