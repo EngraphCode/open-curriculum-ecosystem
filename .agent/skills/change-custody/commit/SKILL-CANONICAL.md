@@ -107,7 +107,8 @@ These scripts make this skill actionable end-to-end:
 - **`pnpm agent-tools:check-commit-message`** — validates a commit message against
   this repo's commitlint config in isolation from the rest of the pre-commit /
   commit-msg hook chain. Mirrors `git commit` message intake (`-m` repeats,
-  `-F`, `-F -`, stdin). Exit 0 conforms, 1 violates, 2 invalid usage. Catches
+  `-F`, `-F -`, stdin). Exit 0 conforms, 1 violates (a commitlint WARNING is a
+  violation: strict mode, as in the hook), 2 invalid usage or no verdict. Catches
   `header-max-length`, `body-max-line-length`, and case violations in ~1s
   before the ~34s pre-commit cycle. The orchestrator above invokes this
   script as the third (message) gate; call it directly only when iterating
@@ -206,15 +207,20 @@ Run these steps **before** formulating the commit message.
    **Second shape, created by WRAPPING (bisected 2026-08-05):** a body line
    that BEGINS `<word>:` — one ordinary word plus a colon — also parses as a
    footer token and fires the same rule. This one is nastier than the
-   `token #ref` shape for three reasons: the wrap creates it rather than
+   `token #ref` shape for these reasons (the third is history since strict mode): the wrap creates it rather than
    anything you wrote (the same sentence on one line is fine); any plausible
    mid-sentence word triggers it (`fixed:`, `note:`, `result:`, `evidence:`,
-   `cure:`), so a 100-char wrap can push one to a line start; and it only
-   WARNS, so the commit lands and `check-commit-message` exits 0 on it — you
-   discover it in the hook output of a commit that has already succeeded.
-   **Cure: after wrapping a body, scan line STARTS for `^\w+:` and reword or
-   rewrap.** `no-warning-toleration` has no carve-out for "it only warned", so
-   an unpushed commit carrying it is amended (which the safety rules permit)
+   `cure:`), so a 100-char wrap can push one to a line start; and the preset
+   rates it a WARNING. Until 2026-09-20 that meant the commit landed and
+   `check-commit-message` exited 0 on it. Since then the `commit-msg` hook and
+   `check-commit-message` both run commitlint in strict mode, so a warning
+   (this rule or `body-leading-blank`, the preset's other one) refuses the commit
+   and the tool exits 1: the structural cure, made after one
+   seat pushed two such messages fourteen minutes apart with this paragraph already
+   written. **Cure for the message: scan line STARTS for `^\w+:` after
+   wrapping, and reword or rewrap.** For a commit made before strict mode that
+   carries the warning, `no-warning-toleration` has no carve-out for "it only
+   warned", so an unpushed one is amended (which the safety rules permit)
    — but read the amend precondition below before doing so: a pushed commit is
    never amended to clear a cosmetic warning, and one seat inverted exactly
    that proportion under this pressure. The permission is that narrow: a
