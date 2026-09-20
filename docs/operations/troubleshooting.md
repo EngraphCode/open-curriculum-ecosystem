@@ -305,8 +305,9 @@ has removed it, so the job fails with ENOENT while every test passes. The
 discriminator: the failing step is lint, the path it names is a
 `tsup.config.bundled_*.mjs` file, and the same job passes on re-run with no
 tree change; a real lint failure names a source file and fails again. Remedy:
-re-run the failed job under the checkout's own `gh` auth (the merge-bot token
-cannot re-run jobs); a chain waiting on the PR resumes when the re-run clears.
+re-run the failed job as the bot under the merge-bot's `workflow-dispatch` scope
+(`docs/engineering/merge-bot.md`); a chain waiting on the PR resumes when the
+re-run clears.
 The structural cure is in the package, not the branch: exclude
 `**/tsup.config.bundled_*.mjs` from its lint inputs or order lint after build in
 the job.

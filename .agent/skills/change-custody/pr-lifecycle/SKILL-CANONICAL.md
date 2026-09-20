@@ -645,11 +645,11 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 - **A red required check with an external cause is re-run after the cause
   settles, never answered with a push** — an apt mirror returning "Hash Sum
   mismatch" at the Playwright install step failed three runs in sixteen
-  minutes (2026-09-09). The App installation token cannot re-run a workflow
-  job ("Resource not accessible by integration"), so the bot-legitimate
-  re-trigger is the empty-commit push, which sits outside the review budget
-  and carries nothing else; granting the App the Actions write permission is
-  the owner's call.
+  minutes (2026-09-09). The bot re-runs the failed job under its
+  `workflow-dispatch` scope (the installation holds Actions write, read from
+  the installations endpoint on 2026-09-11; two bot re-runs on 2026-09-12 are cited in
+  `docs/engineering/merge-bot.md`), so no push is made: an empty-commit
+  re-trigger was the route only while the App lacked that permission.
 
 ## The review-round state machine (single definition)
 
