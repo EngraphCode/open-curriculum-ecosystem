@@ -461,10 +461,11 @@ tool retires them.
   idle notification** (2026-09-09, four of five reviewers): put a scratchpad
   path in the original brief and ask for the report on disk plus a one-line
   pointer; a follow-up message asking for the file worked first time.
-- **The merge-bot App's installation token cannot re-run a workflow job**
-  (`Resource not accessible by integration`; 2026-09-08 and 2026-09-09): the
-  bot-legitimate re-trigger is an empty-commit push, outside the review budget;
-  the Actions write permission is the owner's grant.
+- **The merge-bot App re-runs a failed workflow job under its `workflow-dispatch`
+  scope** (Actions write, read as held on 2026-09-11; `docs/engineering/merge-bot.md`
+  cites two bot re-runs of 2026-09-12). Before that grant the token answered
+  `Resource not accessible by integration` (2026-09-08 and 2026-09-09) and the
+  re-trigger was an empty-commit push; that route is retired.
 - **`apt` fetching Google's chrome-stable index returned "Hash Sum mismatch" at
   the Playwright install step** — three consecutive `browser-tests` reds in
   sixteen minutes (2026-09-09): an external-mirror class; re-run after it

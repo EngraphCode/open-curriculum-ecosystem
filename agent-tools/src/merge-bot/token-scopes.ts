@@ -130,6 +130,14 @@ export const TOKEN_SCOPES = {
    * business also starting arbitrary runs for the fifty-minute life of a merge
    * poll, and a seat that needs one dispatch has no business holding contents
    * write. GitHub keeps them as separate permissions and so does this table.
+   * NOT for the upstream mirror: its run writes with the dispatcher's
+   * ceiling, so a dispatch under this scope fails its reference update (run
+   * 35240876819, 2026-09-17) — mint `upstream-mirror-dispatch` for that one
+   * workflow. This scope stays actions-only for the carrier dispatch and for
+   * re-running a failed job (two re-runs on 2026-09-12, CodeQL run
+   * 34748348080 and CI run 34748348052, both green on the second attempt; a
+   * re-run keeps the original run's context, so the cap below does not
+   * apply to it).
    *
    * ## Provenance, 2026-09-11
    *
@@ -148,6 +156,40 @@ export const TOKEN_SCOPES = {
    */
   'workflow-dispatch': {
     actions: 'write',
+  },
+
+  /**
+   * Dispatching the upstream-mirror workflow, whose RUN moves the mirror
+   * branch. `contents: write` is here for that run, not for the dispatch call.
+   *
+   * ## Provenance, 2026-09-17: the dispatched run inherits this token's ceiling
+   *
+   * A workflow run that the bot dispatches gets a `GITHUB_TOKEN` capped at the
+   * permissions of the token that dispatched it, in addition to the job's own
+   * `permissions:` block. GitHub's token documentation, read 2026-09-17,
+   * states no such rule; the measurement is the warrant. Observed on the
+   * upstream-mirror workflow:
+   * every scheduled run fast-forwards the mirror branch (run 35212280055 moved
+   * 57 commits at 10:47Z), and the first bot-dispatched run that reached the
+   * same `PATCH git/refs` step (run 35240876819, dispatched under
+   * `workflow-dispatch`, which carries `actions: write` alone) answered 403
+   * `Resource not accessible by integration` at that step while its read
+   * steps succeeded; `main` carries no ruleset and no branch protection, and
+   * the job declares `contents: write`. Under a token carrying both
+   * permissions, run 35241924531 fast-forwarded `main` by 19 commits.
+   *
+   * The MIRROR writes through the run's own token by design (its node's
+   * decision 7: a reference the run token moves triggers no workflow, which
+   * keeps CI off the mirror branch), so the token that dispatches it must
+   * carry what the run writes with. The CARRIER workflow writes through an
+   * App token it mints in the run, so its dispatch needs nothing beyond
+   * `actions` and stays on `workflow-dispatch`. Named for the act that
+   * writes, so no other dispatch holds a push-capable token for an hour it
+   * never uses.
+   */
+  'upstream-mirror-dispatch': {
+    actions: 'write',
+    contents: 'write',
   },
 } as const satisfies Readonly<Record<string, TokenPermissionSet>>;
 

@@ -19,6 +19,14 @@ name: Upstream mirror
 # The compare endpoint reports status, ahead_by and behind_by from the HEAD
 # side, so `ahead` means the PARENT is ahead and `behind` means THIS mirror
 # is ahead.
+#
+# A dispatched run's own token is capped at the permissions of the token that
+# dispatched it, in addition to the job's own `permissions:` block: a dispatch
+# under a token carrying `actions: write` alone ran the compare and then
+# failed the reference update with 403 (run 35240876819, 2026-09-17), while
+# the same step succeeds on every scheduled run. Dispatch with a token that
+# also carries `contents: write` (in this estate, the bot's
+# `upstream-mirror-dispatch` scope, named for this act).
 
 on:
   schedule:
