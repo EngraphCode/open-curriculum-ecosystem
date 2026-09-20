@@ -667,3 +667,9 @@ Verbatim: "I have set the auto compact value to 70k tokens". And: "wrapping and 
 One commit through the ceremony, then one push. I work on to the preparation mark, as the owner's word says; the twenty-one small paused records follow, one commit each.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-20T20:12:42Z — gate run starts NOW on the primary: the curriculum-hub-demo record graduated and archived; three paused records left live; the passes in the napkin
+
+One commit through the ceremony, then one push. The owner has declared the drainable buffers drained enough for this round; the large memory files are the goal's remaining item, and I work on until the compaction.
+
+— Zephyr guards Leeward (281e44)

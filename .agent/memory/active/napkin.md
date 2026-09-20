@@ -153,3 +153,34 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   Home: `consolidate-until-done` step 7 (the pricing paragraph: the budget of a context runs to
   the preparation threshold, never to a wrap the seat chooses early). The done-condition
   candidate of the continuity record's item 4 stands.
+- **Owner declaration, 2026-09-20 ~20:1xZ:** the drainable buffers are drained enough for this
+  round; the large memory files are the only remaining item for the goal, and they need
+  knowledge curation and appropriate handling. The measure from here is the large-file set:
+  twelve curated, five read whole and left live, three analyses pending (`mcp-agent-facing-content`,
+  `orientation-skills-family`, `curriculum-hub-demo`), sixteen paused records under 300 lines
+  unread, and the active set (`repo-continuity.md` 695 lines, `agentic-engineering-enhancements`
+  568, the continuity record 492, `director-handoff.md` 428, `open-surface-zero` 346, and the
+  frictions register's 3,937 live lines).
+- **Metacognition at the declaration.** What held: the split method's per-section STATE column
+  turned out to be the cheapest instrument for the lifecycle's first question ("live or
+  finished?") — five of the seventeen records read today were left live on it, and each verdict
+  cost a grep of the analysis, not a read of the file. What did not: this seat spent seven
+  turns holding for a compaction it cannot trigger (owner-corrected above); it also re-emitted
+  every kept line of each curated record, which is where most of this context's 50 % went.
+  The mistake shape both times was treating a rule's letter as its reason — the freeze order
+  and the "read whole" obligation — and the owner's two corrections today were both the
+  reason restated.
+- **Free play (one time-box).** Kept: "appropriate handling" has three outcomes, not one —
+  curated, left live with the verdict recorded, or found homed elsewhere and archived whole —
+  and a report that names which outcome each file got is the honest measure, where a count of
+  files "done" is not. Kept: the fitness signal's line-width criticals are all in records
+  already left live or curated; that signal is now noise for this job. Discarded, visibly:
+  curating the frictions register's live entries for size — they are live, and the owner's
+  word is that fitness numbers are never the goal.
+- **Concept exploration, compact.** Frame: a large memory file is "handled" when a seat has
+  answered the lifecycle's question for every section and left a proof (an archive blob, a
+  recorded verdict, or a named home). Warrant: the five records left live today each have a
+  section-level analysis on disk and a one-line verdict in the continuity record; a reader can
+  check the verdict against the analysis without re-reading the file. Falsifier: a record
+  left live whose next reader finds a finished range the analysis marked live — then the
+  instrument, not the reader, is wrong, and the brief's STATE rule gets the correction.

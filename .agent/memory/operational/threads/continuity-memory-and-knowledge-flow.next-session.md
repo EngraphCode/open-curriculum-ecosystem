@@ -328,12 +328,20 @@ decisions, the identity table and the links). Read and left live, whole: `status
 `typescript-estate-consolidation-review` (standing decisions, falsifiers and a resume order for a
 lane that reactivates at the owner's word), and `codex-to-codex-hook-review-experiment` (sixteen of
 its eighteen sections are the experiment's frozen evidence, verdict and negative knowledge, which
-is the record's job; the retired lane's home is the research report it names). One analysis
-written and not yet acted on, in the seat's scratchpad: `upstream-api-alignment`
-(`uaa-piece-1.md`; eight of fourteen sections read as finished, the 2026-07-27 and 2026-08-03/04
-lane closes; its archive snapshot is on disk untracked, hash-matched to `SHA:c5e49a10b`). Next:
-that verdict, then the remaining twenty-one paused records (all under 300 lines), then this
-record's own landed history above. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
+is the record's job; the retired lane's home is the research report it names). Then, after the
+owner's correction that a seat never wraps early and holds ("wrapping and pushing is no use
+whatsoever if you can't trigger your own compaction"; `consolidate-until-done` step 7):
+`upstream-api-alignment` curated (archive `archive/upstream-api-alignment-thread-2026-09-20.md`)
+and `curriculum-hub-demo` curated (archive `archive/curriculum-hub-demo-thread-2026-09-20.md`);
+`sector-engagement`, `main-sonar-ai-profile-to-zero` and `mcp-agent-facing-content` read whole
+and left live (pickup state). The owner declared the drainable buffers drained enough for this
+round at ~20:1xZ; the large memory files are the goal's remaining item. Owed next:
+`orientation-skills-family` (analysis `osf-piece-1.md` in the seat's scratchpad; four finished
+sections, the dev guide and the under-the-hood reframe, about 150 lines; its snapshot on disk
+untracked, hash-matched), then the fifteen unread paused records under 300 lines, then the
+active set (`repo-continuity.md`, `agentic-engineering-enhancements`, `director-handoff.md`,
+`open-surface-zero`, this record's own landed history above); the frictions register's
+remaining lines are live entries and stay. The napkin also carries Dynamo turns Temper's 15:0xZ observations,
 theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
