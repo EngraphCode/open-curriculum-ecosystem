@@ -12,9 +12,14 @@ describe('exitCodeForCommitlintStatus', () => {
     expect(exitCodeForCommitlintStatus(2)).toBe(1);
   });
 
-  it('reads a rule error as a violation', () => {
+  it('reads a strict-mode rule error as a violation', () => {
     expect(exitCodeForCommitlintStatus(3)).toBe(1);
-    expect(exitCodeForCommitlintStatus(1)).toBe(1);
+  });
+
+  it('reads status 1 as no verdict: under strict mode it is never a lint result', () => {
+    // Strict mode gives every lint result 2 or 3, so 1 is an operational
+    // failure (no input, an unreadable message file, a broken runner).
+    expect(exitCodeForCommitlintStatus(1)).toBe(2);
   });
 
   it('reads a commitlint that never ran as no verdict', () => {
