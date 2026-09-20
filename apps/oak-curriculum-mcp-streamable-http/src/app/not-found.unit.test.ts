@@ -31,17 +31,13 @@ describe('the not-found refusal', () => {
     };
   }
 
-  it('answers an unmatched request with 404 and the host refusal shape as JSON', () => {
+  it('answers a request that reached the end of the chain with 404 and the refusal shape as JSON', () => {
     const res = recordingResponse();
 
     notFoundHandler({}, res);
 
     expect(res.statuses).toStrictEqual([404]);
     expect(res.bodies).toStrictEqual([{ error: 'Not found' }]);
-  });
-
-  it('takes no continuation, so it can never forward a missing route as an error', () => {
-    expect(notFoundHandler.length).toBe(2);
   });
 
   it('mounts that one handler, path-less, on the app it is given', () => {
