@@ -229,8 +229,17 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 5. The remaining pickups in repo-continuity (slice 1's other half, the owed PRs and the 1.181.3
    work list, TypeScript strictness).
 
+**Resume order after the 2026-09-20 compaction.** (a) `date -u`, re-arm the comms watcher, read
+the stream and the ARC channel from 2026-09-19 20:2xZ (the watcher was down by declared choice
+while the seat idled). (b) Fold draft #156: the branch is DUE since 2026-09-20 00:00Z; merge
+`origin/engraph` in once (Dynamo turns Temper's landings put it BEHIND), announce the gate run
+on the ARC channel, then ready, reviews under the budget, the front door, the successor cut
+with a few lines of state. (c) The three large records, each in its own context, priced first.
+The retrospective on the consolidation's arc is landed (see
+`.agent/reports/agentic-engineering/`, dated 2026-09-20); its routed proposals are in it.
+
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (this branch
-is stamped 2026-09-19 and falls due at 2026-09-20 00:00Z; by the owner's word it folds once,
+is stamped 2026-09-19 and fell due at 2026-09-20 00:00Z; by the owner's word it folds once,
 when the drain is done); the commit is the gate; archiving happens only after full processing.
 
 ## Standing decisions this thread carries forward

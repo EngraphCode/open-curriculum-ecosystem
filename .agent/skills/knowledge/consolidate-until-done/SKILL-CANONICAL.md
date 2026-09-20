@@ -119,6 +119,16 @@ Before substantive work:
    naming work that does not move it as not moving it. Falsifier for these: a pass that
    does both still reaches its directive step over the line, or still reports folds as
    progress while the register's count stands.
+   **Price the pass at open, not only the level.** A context figure says where the seat
+   is; it does not say whether the next step fits. Every surface the pass must read whole
+   is sized before the plan is staked (`wc -c`, bytes over four is a fair token estimate;
+   a reader that refuses a read has priced it for you), and the sum is set against the
+   headroom. A surface that does not fit is given a context of its own at the outset, never
+   started and abandoned: a half-read surface cannot be curated or archived. Worked
+   instance (2026-09-19): "the large memory files" was planned as one step; the first big
+   record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
+   stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
+   reads still stops mid-surface for lack of headroom.
 
 ## Completion Contract
 
