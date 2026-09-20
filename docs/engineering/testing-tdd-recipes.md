@@ -37,7 +37,9 @@ unit, integration, and E2E levels.
 
 ## TDD At All Levels
 
-TDD applies to unit, integration, and E2E tests. Each level specifies the
+TDD applies to unit tests, integration tests and E2E checks (an E2E check
+drives a running system and is a validation surface, not a test; where this
+file says "E2E test", read E2E check). Each level specifies the
 desired behaviour before implementation changes at that same level.
 
 ### Unit Test TDD
@@ -160,8 +162,11 @@ If tests lag behind code at any level, TDD was not followed at that level.
 
 ## Red Specs And File Naming
 
-Write red-phase specs that describe not-yet-implemented system behaviour in
-`*.e2e.test.ts` files, not `*.unit.test.ts` files. The pre-commit hook runs
+Write red-phase specs that describe not-yet-implemented system behaviour as
+E2E checks, not in `*.unit.test.ts` files. Today an E2E check is a
+`*.e2e.test.ts` file that the `test:e2e` runner reaches: both names are
+pre-invariant estate the recovery plan retires, and until it does a new check
+goes where that live runner sees it (testing-strategy.md §Development Workflow). The pre-commit hook runs
 type-check, lint, and the `test` task, so red in-process specs block commits
 until they go green. E2E specs are outside pre-commit, but pre-push and CI run
 `test:e2e`; they must be green before push/merge unless the owner explicitly

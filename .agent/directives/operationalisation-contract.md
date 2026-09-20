@@ -102,9 +102,8 @@ to its candidate parent. Below either threshold, inline is fine.
 | Level 3 | <80 lines | 120 | One scenario per file |
 
 Limits are advisory targets for the contract. Per-file fitness
-frontmatter is the binding mechanism; setting frontmatter on each
-file is its own graduation pass tracked under the fitness-frontmatter
-manifest sweep work.
+frontmatter is the binding mechanism, and every file in the directives
+tier carries it (completed 2026-09-19).
 
 ## Index Discipline
 

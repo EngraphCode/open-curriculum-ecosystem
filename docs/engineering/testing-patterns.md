@@ -21,21 +21,30 @@ For worked Red/Green/Refactor examples, see
 
 ---
 
-## In-Process App Tests with Dependency Injection
+## In-Process App Construction with Dependency Injection
 
-Tests that create the application in-process (via `createApp()`)
-must configure it through dependency injection with explicit runtime-config
+Code that creates the application in-process (via `createApp()`), whether a
+test or an E2E check's harness, must configure it through dependency injection with explicit runtime-config
 objects or hermetic test helpers, never by reading or mutating `process.env`.
 Do not import production config loaders unless the test is directly proving
 the loader; they may read `.env` files as part of the production pipeline.
-Supertest classification follows the boundary, not the tool — see
+
+`request(app)` opens a loopback listener, and a socket is IO. By the owner's
+2026-09-14 ruling (tests never use or create IO;
+[testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy),
+`request(app)` against an imported app is no compliant shape at all: it is not a
+test and not an E2E check (an E2E check drives a separately
+running system, and this app is constructed in the driving process). The suites
+that do it are pre-invariant estate for
+`no-io-test-boundary-and-di-recovery.plan.md`, and the pattern below no longer
+shows it. The configuration discipline this section teaches (steps 1 and 2)
+binds whatever constructs the app. See
 [Test File Classification](#test-file-classification).
 
 ### The Pattern
 
 ```typescript
 import { createApp } from '../src/application.js';
-import request from 'supertest';
 import { createMockObservability, createMockRuntimeConfig } from './helpers/test-config.js';
 
 // 1. Build an explicit runtime config — never read or mutate process.env
@@ -50,9 +59,10 @@ const app = await createApp({
   observability: createMockObservability(runtimeConfig),
 });
 
-// 3. Test with supertest — no external network IO
-const response = await request(app).get('/healthz');
-expect(response.status).toBe(200);
+// 3. Prove behaviour without a listener: call the handler or middleware under
+//    test directly (an integration test), or boot the built app as a separate
+//    process and drive it over its protocol channel (an E2E check). Never
+//    `request(app)` here: it opens a loopback socket in this process.
 ```
 
 ### Key Rules
@@ -66,22 +76,26 @@ expect(response.status).toBe(200);
 - Functions like `enableAuthBypass()` that mutate `process.env`
   must not exist. Use the isolated env pattern instead.
 
-### Subprocess-Spawned Tests
+### Subprocess-Spawned Checks
 
-Tests that spawn the application as a **separate process** (e.g.
-smoke tests using `spawn('node', [entryPoint], { env })`) may pass
+Checks that spawn the application as a **separate process** (e.g.
+smoke checks using `spawn('node', [entryPoint], { env })`) are
+validation surfaces, never tests. They may pass
 environment variables via the spawn `env` option. This is safe
 because the variables are scoped to the child process and cannot
-leak into the test runner.
+leak into the runner.
 
-Vitest smoke suites may load ambient environment in the runner config
-composition root, validate it, and pass the resulting object through
-`test.provide` / `inject`. Test files and setup files must consume the
+A smoke or E2E check's composition root (its entry script, or the runner
+config of a check suite that a CI-gated task runs apart from the in-process
+test suites) may load ambient environment, validate it, and inject the
+resulting object; the Oak Search CLI's smoke suite does this through
+Vitest's `test.provide` / `inject` (`vitest.smoke.config.ts`). A check's files and setup files consume the
 injected object; they must not read or write `process.env`.
 
 ### Reference Implementations
 
-Compliant tests to use as templates:
+Templates for the configuration discipline (steps 1 and 2). Their `request(app)`
+driving line is pre-invariant estate, as above:
 
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/auth-bypass.e2e.test.ts`
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/web-security-selective.e2e.test.ts`
@@ -106,8 +120,8 @@ a dependency-injection seam (ADR-078):
   extract the core with the service injected + a `createHandler(fn)` factory).
   "Tests would be audit-shaped" is a signal to inspect the product code's
   injectability, never merely a reason to skip.
-- **A unit or integration test that seems to need real IO** beyond the
-  loopback harness exchange with an imported app (see [Test File
+- **A unit or integration test that seems to need real IO** of any kind,
+  a loopback listener included (see [Test File
   Classification](#test-file-classification)). The fix is to refactor the
   product to be testable (route the read/write through an injectable
   dependency, as sibling modules already do) and inject an in-memory fake —
@@ -134,32 +148,38 @@ Test classification is based on what the test actually does,
 not what the author intends:
 
 - **Module-level state = integration**: any test that touches
-  module-level singletons with IO must be
-  `*.integration.test.ts`, even if it injects DI fakes for
-  the new behaviour.
-- **Supertest classifies by boundary, not tool** (owner-ratified
-  2026-07-29): `request(app)` against an imported, in-process app
-  is an integration test — the harness's loopback socket is tool
-  mechanics, not a system boundary. Supertest driven at a
-  separately running black-box system over a network interface
-  is E2E.
-- **Middleware proofs mount the middleware alone**: mount the
-  middleware on a bare `express()` app with one probe route and
-  drive it with `request(app)`; never boot the full application to
-  prove one middleware decision (review lens Q3/Q4). Worked
-  example:
-  `apps/oak-curriculum-mcp-streamable-http/src/correlation/middleware.integration.test.ts`.
+  module-level singletons must be `*.integration.test.ts`, even
+  if it injects DI fakes for the new behaviour. A singleton that
+  performs IO is a product DI defect (above): no test tier admits
+  IO, so the file name cures nothing.
+- **Classify by boundary, not tool** (owner, 2026-07-29): code
+  imported into the test process is under the integration rule;
+  a harness driving a separately running black-box system over a
+  network interface is an E2E check. The same day's reading that
+  `request(app)`'s loopback socket was "tool mechanics" is withdrawn
+  by the 2026-09-14 ruling: a socket is IO, so `request(app)` in a
+  `*.integration.test.ts` file is pre-invariant estate.
+- **Middleware proofs exercise the middleware alone**: a middleware
+  is a function of `(req, res, next)`; call it directly with literal
+  request and response values and a captured `next`, and never boot
+  the full application to prove one middleware decision (review lens
+  Q3/Q4). The existing example,
+  `apps/oak-curriculum-mcp-streamable-http/src/correlation/middleware.integration.test.ts`,
+  mounts the middleware on a bare `express()` app and drives it with
+  `request(app)`; its scoping is the lesson, its listener is
+  pre-invariant estate.
 
 ## Composition Testing
 
-Unit + E2E tests can all pass while the integrated product
-fails. For features spanning multiple modules (MCP tool →
-SDK → host), add a **composition test** that exercises the
+Unit tests and E2E checks can all pass while the integrated
+product fails. For features spanning multiple modules (MCP tool →
+SDK → host), add a **composition proof** that exercises the
 integration seam.
 
-Example: `mcp-app-composition.e2e.test.ts` caught
-knip/depcruise cleanup that broke the UI — the composition
-test IS the enforcement for multi-module integration.
+Example: `mcp-app-composition.e2e.test.ts` (an E2E check under its
+pre-invariant file name) caught knip/depcruise cleanup that broke
+the UI — the composition proof IS the enforcement for multi-module
+integration.
 
 ## MCP Transport Layer Testing
 
@@ -168,7 +188,7 @@ serialisation. For MCP servers, the transport layer IS part
 of the product contract — `_meta` fields, session lifecycle,
 and event streaming all happen there. Use MCP client SDK
 (`Client` + `StreamableHTTPClientTransport`) for
-full-fidelity E2E tests alongside supertest.
+full-fidelity E2E checks alongside supertest.
 
 ## Rendered-Output Assertions
 
@@ -264,11 +284,12 @@ ambient overrides — see `no-global-state-in-tests`.
   `tsconfig.lint.json`. Files must be included in both for linting to work.
 - Stale vitest include globs are silent because of `passWithNoTests: true` — remove
   dead globs promptly after file moves.
-- `resolveEnv` integration tests that need `.env` file isolation: use `'/tmp'` as
-  `startDir` to prevent ambient `.env` files from satisfying schema requirements.
+- `resolveEnv` suites that pass `'/tmp'` as `startDir`, to stop ambient `.env` files
+  satisfying schema requirements, read the filesystem: pre-invariant estate for
+  `no-io-test-boundary-and-di-recovery.plan.md`, which establishes the replacement.
 - After refactoring entry points (removing `dotenv`, changing `loadRuntimeConfig`
-  signature), check E2E tests that launch the process directly — they break when the
-  entry-point contract changes.
+  signature), check the E2E checks that launch the process directly — they break when
+  the entry-point contract changes.
 - Removing a test (e.g. deleting an audit-shaped constant assertion) can orphan the
   export it referenced — knip then blocks the commit. Un-export or delete the orphan
   in the same change.
@@ -290,7 +311,8 @@ tripwire.
 
 ## Test Isolation
 
-- Replace Express `_router` access with supertest HTTP assertions.
+- Replace Express `_router` access with a direct call of the handler or middleware
+  under test; assertions over HTTP belong to an E2E check.
 - Extract repeated setup into scoped helpers inside `describe`.
 - Bulk factories accept `startIndex`; do not mutate readonly `_id`.
 

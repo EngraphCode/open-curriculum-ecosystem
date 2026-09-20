@@ -43,6 +43,12 @@ The absolute stays absolute; its domain becomes explicit. Same move as
 `Result<T, E>` over throwing — stating the axis makes the rule total over a
 named domain.
 
+The first of those restatements was itself withdrawn on 2026-09-14, when the
+owner made "tests never use or create IO" an absolute invariant
+(`testing-strategy.md` §Philosophy). The axis that carries it is the taxonomy's
+own: a test, or a validation check that drives a running system. A loopback
+exchange belongs to the second and is never an allowance inside the first.
+
 Authoring discipline: hunt your own "every", "all", "never", "regardless",
 and "without exception" before a reviewer does; the strong-sounding claim is
 the weak one, and the claim that survives review is the one that names its

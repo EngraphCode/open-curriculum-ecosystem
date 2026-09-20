@@ -4,6 +4,16 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-19 — PDR-011: graduate, then archive; the four-part surface lifecycle
+
+- PDR-011 Amendment Log, dated 2026-09-17 (the owner's decision) and landed
+  2026-09-19: the finished disposition for continuity-surface content becomes
+  graduate, then archive to a dated file proven byte-identical, replacing
+  curate-and-delete. A memory surface is curated only when it has a role, a
+  disposition, a trigger (a named workflow step) and a proof; the 2026-06-08
+  disposition lacked a trigger and the surfaces grew. Archiving happens only
+  after full processing, never to change a fitness category.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-17 — PDR-117 and PDR-141 amendments from the dedicated consolidation
 
 - PDR-117 §Takeover verification, with a dated amendment: neither the claims

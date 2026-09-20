@@ -1,3 +1,12 @@
+---
+fitness_line_target: 700
+fitness_line_limit: 1100
+fitness_char_limit: 70000
+fitness_line_length: 100
+fitness_content_role: reference
+overflow_disposition: 'leave-if-live; else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: index-narrative-tables
+---
 # Next-Session Record — estate-coordination (the Director lane)
 
 The Director lane's thread record: journal, lane state, and seat chain for
@@ -3714,3 +3723,32 @@ runs in a fresh context on the branch cut after it, then the graduate-then-archi
 the large memory files. An open doctrine question raised by this fold's round three, for the owner
 before #154's rounds: how a carrier's round tally treats a carried-code finding it may not cure
 (the cross-fork skill now says the carrier stops at that round pending the `pr-tally` decision).
+
+### 2026-09-19 11:30Z — the 2026-09-17 successor folded as #155 (Zephyr guards Leeward, 281e44, curator at n = 2)
+
+`coordination/2026-09-17-b5b0e7` landed through the front door as `SHA:65a929d9a` at 11:30:24Z,
+a day past its DUE: the owner's answer to the seat's 2026-09-17 card (a fresh context for the
+directive pass) arrived on 2026-09-19 ~10:3xZ, and the same seat folded the branch so that the
+pass opens on a clean successor. The successor is `coordination/2026-09-19-65a929`, cut from the
+merge with the coordination tool; the primary resides there.
+
+moved for teachers: nothing / moved for the Practice: #153's routed round-three findings cured
+(a Core decision over-claiming a mechanism, a carrier rule that could not settle, an analyser
+route the policy withdrew, an incomplete hook inventory), F-189 re-worded to the owner's
+correction, frictions F-192 to F-194 filed, and the directive pass handed to a fresh context
+with its plan and drafts conserved.
+
+Review: two context-free verifiers raised fifteen findings before publication (eleven
+distinct), all cured in `SHA:af3869774`; three rounds then raised eight, all true at source.
+Settlement pushes 2 of 2 (`SHA:060d7f521`, `SHA:a9f92ddd5`) cured seven, one of them in the
+pull request description; round three's one
+(PDR-141 decisions 11 and 14 over-tightened to "the only two git operations") was dispositioned
+and cured in the successor's rotation records commit. Review-cost ledger: 33.73 of 40, warn.
+
+Board: `engraph` at SHA:65a929d9a. Open: draft #154, Dynamo turns Temper's carrier (slot open
+since 2026-09-17 20:17Z; that seat paused at the owner's word, claim `35006027` stale since
+2026-09-17 23:31Z); the successor's draft pull request. Next, this seat, in a FRESH context: the
+directive pass from the machine-local handoff record
+`.agent/state/collaboration/handoffs/281e44-zephyr-guards-leeward-directive-pass-handoff-2026-09-19.md`.
+Open for the owner: F-189's ecosystem-wide gate names; the carrier round-tally question, which
+wants an answer before the rounds of #154.

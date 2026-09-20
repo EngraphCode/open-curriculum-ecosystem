@@ -64,10 +64,13 @@ The lens catches recurring shapes that quietly accumulate around a feature:
   chain + OAuth + MCP server to exercise a branch of a pure function that maps
   `(uri → bypass | enforce)` is Q3 + Q4 failing together. Demote to a unit
   test on the function with the URI table.
-- **Supertest classification (owner-ratified 2026-07-29).** The classifier
-  is the **boundary, not the tool**: `request(app)` against an imported,
-  in-process app is integration; supertest driven at a separately running
-  black-box system over a network interface is E2E — see
+- **Supertest classification (owner-ratified 2026-07-29; the in-process
+  half withdrawn by the 2026-09-14 IO ruling).** The classifier
+  is the **boundary, not the tool**: code imported into the test process is
+  under the integration rule, and `request(app)` against it opens a loopback
+  socket, which is IO, so such a suite is pre-invariant estate cured by
+  calling the handler directly; supertest driven at a separately running
+  black-box system over a network interface is an E2E check — see
   [`testing-strategy.md` §Test Types](../../../directives/testing-strategy.md#test-types)
   and
   [`testing-patterns.md` §Test File

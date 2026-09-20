@@ -55,7 +55,8 @@ no conception of meaning."
   they go to Oak when the fork syncs back, not before."). In this skill,
   "upstream" names the Oak fork as the source of a sync, never an authority.
   A reviewer finding on code that arrived with a sync is cure-worthy on this
-  fork: cure it in its own lane, and the merge-back delivers it. Nothing is
+  fork: cure it in its own lane (on the carrier only where it blocks the
+  merge; step 8's carrier rule), and the merge-back delivers it. Nothing is
   ever sent to the other fork's maintainers. Ask, of any finding: whose code is
   this, and where does a fix travel?
 - **History is never rewritten across the forks** (owner, 2026-09-10,
@@ -339,21 +340,15 @@ without tracking shows none — either way the closeout's `git branch
 A fresh worktree needs its workspaces built before the pre-push gates pass
 (the standards ESLint plugin's `dist/` for lint; the agent-tools `dist/` for
 the CLI itself). Undraft; declare the review tally at open (pr-lifecycle
-§review-round state machine); harvest every thread. Findings about the sync
-itself are cured on the carrier. Findings about carried code are cure-worthy on
-this fork too, but not in the carrier's rounds: each is recorded, with its
-file and line, on a local work list and cured in its own lane, and the thread's
-disposition names that list. What no longer holds is a count of zero by
-construction: a true carried-code finding is over the bar for this fork. How the
-carrier's round tally carries it is open: the tally reads the bar marker, so
-the finding counts as cure-worthy in the round that raised it, the carrier
-cannot cure it, and terminal success needs a cure-worthy count of zero. Until
-the `pr-tally` node's row decides the question, a carrier round holding such a
-finding is not read as terminal zero and does not settle by its budget either:
-the carrier stops at that round, with each finding dispositioned on its thread
-to the local work list, and the decision is raised to the owner before the
-carrier's next round (2026-09-17: a fold review found the earlier "settles by
-its budget" wording could not reach the terminal zero pr-lifecycle requires). Three carriers routed every carried-code finding away under the
+§review-round state machine); harvest every thread. What a carrier fixes is
+the owner's rule (2026-09-19, verbatim): "If the merge to the engraph branch is
+blocked by errors, fix them, if it is not blocked but we can see issues then
+merge and we fix in a separate PR." So an error that blocks the merge (a
+conflict, a failing required check, a broken gate), whether the sync or the
+carried code causes it, is fixed on the carrier. An issue that does not block
+the merge is recorded, with its file and line, on a local work list and fixed in
+a separate pull request; its thread's disposition names that list, and it
+neither holds the carrier's landing nor counts against its review rounds. Three carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list
@@ -463,7 +458,8 @@ seat's worktree, branch or claim (2026-09-09, the #88 follow-up).
 - Trusting GitHub's dirty verdict over a clean local merge-tree, or the reverse
   without saying which was read.
 - Routing a finding on carried code to the other fork instead of curing it
-  here in its own lane, or curing it inside the carrier's rounds.
+  here in its own lane, or curing inside the carrier's rounds a finding that
+  does not block the merge.
 - Regenerating one page by hand because "only the excerpt changed".
 - Merging a memory file on the conflict count.
 - Plans and reports left asserting the state before the sync — the class this

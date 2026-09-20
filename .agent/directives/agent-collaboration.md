@@ -195,14 +195,14 @@ Four foundational rules, named here as load-bearing principles:
 
 ### a. Don't Break the Build Without a Fix Plan
 
-The active
-`gate-recovery-cadence.plan.md`
-names the non-negotiable invariant verbatim:
+The rule
+[`dont-break-build-without-fix-plan`](../rules/dont-break-build-without-fix-plan.md)
+owns the non-negotiable invariant:
 
-> Restore the invariant that build, type-check, lint, format, markdown,
-> depcruise, knip, and static checks stay green even during TDD. RED is
-> allowed only as intentional failing behavioural tests, not as missing
-> imports, broken types, lint warnings, or build failures.
+> Build, type-check, lint, format, markdown, depcruise, knip, and static
+> checks stay green even during TDD. RED is allowed only as intentional
+> failing behavioural tests — never as missing imports, broken types, lint
+> warnings, or build failures.
 
 A peer agent's pristine staged work depends on the same gates passing on
 the same working tree. Breaking the build without a fix plan converts a

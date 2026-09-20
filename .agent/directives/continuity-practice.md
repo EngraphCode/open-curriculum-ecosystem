@@ -3,13 +3,10 @@ fitness_line_target: 200
 fitness_line_limit: 270
 fitness_char_limit: 16000
 fitness_line_length: 100
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see §Disposition of Continuity Surfaces)'
 ---
 
 # Continuity Practice
-
-**Last Updated**: 2026-04-24
-**Status**: Active guidance
 
 Continuity is an engineering property: the next session can recover
 orientation quickly and truthfully after interruption, handoff,
@@ -56,7 +53,10 @@ table: `.agent/memory/README.md` §Tracking Tiers.
 ## Disposition of Continuity Surfaces
 
 This section is scoped to the **continuity surfaces** —
-`repo-continuity.md` and `threads/<slug>.next-session.md`. Other surface
+`repo-continuity.md` and `threads/<slug>.next-session.md` — and to the
+journal-shaped records and registers beside them that accumulate finished
+history (`director-handoff.md`, `frictions-register.md`,
+`review-cost-ledger.md`). Other surface
 types (the napkin, distilled, buffers) have their own disposition notes
 and lifecycles; nothing here changes them or the fitness apparatus.
 
@@ -70,20 +70,44 @@ work this content describes?". Two dispositions:
 1. **The work is live** — it still needs doing. The content **stays in
    place**, verbatim, however large. A truthful record of live work is
    worth more than a tidy file.
-2. **The work is finished** — landed, abandoned, or superseded. **Curate
-   it**: conserve the durable *insight* into its permanent home (ADR,
-   PDR, governance doc, plan, pattern, rule, or — for still-live
-   operational facts — the compact current-state surface), then **delete
-   the curated residue** from the continuity surface. Git retains the
-   literal record; the live surface carries only what the next session
-   needs.
+2. **The work is finished** — landed, abandoned, or superseded.
+   **Graduate, then archive** (owner decision, 2026-09-17): first, every
+   entry that would change a reader's behaviour is written into its
+   permanent home (ADR, PDR, governance doc, plan, pattern, rule, or — for
+   a still-live operational fact — the compact current-state surface), and
+   the home is read back to confirm it holds the substance; then the
+   finished history moves whole to a dated archive beside the surface
+   (`archive/<surface>-YYYY-MM-DD.md`; a second archive of one surface on one
+   day takes a letter suffix, `-YYYY-MM-DDb.md`, and an existing archive is
+   never overwritten), proven byte-identical to the moved
+   range against the committed blob, as the napkin rotation proves its
+   archive (where the finished ranges are not contiguous, the archive is a
+   snapshot of the whole pre-curation file, proven byte-identical to its
+   committed blob, and the live file is then curated); and the live surface
+   keeps only the live state and a one-line pointer to the archive. Git retains the literal record either way; the
+   archive keeps it readable without a checkout of history.
 
-For a continuity surface these are the two dispositions: do not relieve
-its fitness pressure by splitting it across files, rotating it, sharding
-it, or renaming it for score. Moving its content elsewhere is not the
-same as conserving its insight. Each continuity surface's
-`overflow_disposition` frontmatter field points here; this section is the
-canonical statement for that surface type.
+**Archiving happens only after full processing, never as a means to tick a
+box** (owner, 2026-09-19, verbatim: "archiving happens ONLY after full
+processing, not as a means to tick a box"). The archive is the lifecycle's
+last step, taken once every entry in the range has been read and its
+behaviour-changing substance is proven in its home. It is never a parking
+place for uncurated content, and a surface whose entries are not all
+processed stays where it is, whatever its fitness readout says.
+
+A memory surface's lifecycle has four parts, and a surface is curated only
+when it has all four: a **role** (what it is for), a **disposition** for
+finished content (the two above), a **trigger** (the moment and the skill
+step that run the disposition: the `consolidate-docs` skill's continuity
+step, beside napkin rotation), and a **proof** that nothing was lost (the
+byte-identity check, and the runbook's token and neighbour checks below).
+Until 2026-09-17 only the napkin had all four; the continuity surfaces had
+a disposition and a runbook that no skill step invoked, so they grew. Every
+surface that grows carries fitness frontmatter, and every continuity
+surface's `overflow_disposition` note points here; this section is the
+canonical statement for that surface type. Splitting, sharding or renaming
+a surface for score is still not a disposition: moving content elsewhere is
+not the same as conserving its insight.
 
 ### Runbook — curating a continuity surface
 
@@ -93,18 +117,24 @@ embedded here in the doctrine it enacts; indexed in
 [`docs/operations/README.md`](../../docs/operations/README.md) §Runbook Index):
 
 1. **Per entry, ask "live or finished?"** — never infer from age or fitness status.
-2. **Route by disposition.** Finished and insight-homed → delete the residue, but
-   *verify the home holds it first* (`ground-convenient-claims`; "it's all homed" is a
-   convenient claim to check, not trust). Finished and un-homed → route the insight to
-   its permanent home, *then* delete. Live → keep, compacted (a compact pointer, not the
-   landing narrative). Compact bloated index-table cells to the index shape — lane state
+2. **Route by disposition.** Finished and insight-homed → the entry joins the range to
+   archive, but *verify the home holds it first* (the `verify-dont-trust` rule; "it's
+   all homed" is a convenient claim to check, not trust). Finished and un-homed → route
+   the insight to its permanent home, *then* add it to the range. Live → keep,
+   compacted (a compact pointer, not the landing narrative). Compact bloated index-table cells to the index shape — lane state
    lives in the thread record, not here.
-3. **Verify losslessness mechanically** (after the rewrite, before committing): every
-   live-pointer token from the pre-curation file still appears (`grep -F` each); the
+3. **Verify losslessness mechanically** (after the rewrite, before committing): the
+   archive file's blob equals the moved range's bytes (for a whole-file snapshot, the
+   pre-curation file's committed blob); every live-pointer token from
+   the pre-curation file still appears in the live surface (`grep -F` each); every
+   curated passage's statement about a neighbour is re-read against the neighbour (a
+   passage saying an "UNCOMMITTED" block had since been committed was the only place
+   that fact lived, 2026-09-17; a token grep cannot see it); the
    index-table row count is unchanged; the link-reference count is unchanged;
    `markdownlint` is clean. An *empty dropped-token set is the proof* — the "I kept
    everything" assertion is not (the loss-detector mirrors the `semantic-merge` skill
-   §Verify and [PDR-119](../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)).
+   §Verify and
+   [PDR-119](../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)).
 
 ## Continuity Questions
 

@@ -108,6 +108,54 @@ Before substantive work:
    step loaded, a consolidation with directive-bound entries names its
    contexts at open and finishes its directive entries in a planned context;
    falsifier: the next such pass discovers the split at its end again.
+   The falsifier fired (2026-09-17 to 2026-09-19): the same seat named the shape at
+   open at 13 %, then spent the headroom on a fold's three review rounds and on reading
+   six directives during the fold's waits, and stood at 51 % with no directive edited;
+   across four contexts and four folds no register entry left (eleven, then twelve). Naming
+   the shape at open is not enough. Two further requirements: read the figure again
+   after any fold's last push and before the first directive read
+   (`directive-file-context-budget` §Sequencing), and state the pass's own measure (the
+   register's count, the buffers' undrained items) first in every report to the owner,
+   naming work that does not move it as not moving it. Falsifier for these: a pass that
+   does both still reaches its directive step over the line, or still reports folds as
+   progress while the register's count stands.
+   **Price the pass at open, not only the level.** A context figure says where the seat
+   is; it does not say whether the next step fits. Every surface the pass must read whole
+   is sized before the plan is staked (`wc -c`, bytes over four is a fair token estimate;
+   a reader that refuses a read has priced it for you), and the sum is set against the
+   headroom. A surface that does not fit is given a context of its own at the outset, never
+   started and abandoned: a half-read surface cannot be curated or archived. Worked
+   instance (2026-09-19): "the large memory files" was planned as one step; the first big
+   record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
+   stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
+   reads still stops mid-surface for lack of headroom.
+   **Reserve the last step's price.** Directive work is the pass's final step and the one the
+   30 % gate closes on, so its cost is set aside at open (the bytes of the directives to be
+   read whole, over four, plus the edits), and an earlier stage stops when the headroom
+   reaches that reservation, however unfinished it is. Where a standing rule with a deadline
+   (a DUE branch fold) would spend the reservation, that collision is put to the owner once,
+   as a question about which gives way for this job, at its first occurrence. Source: the
+   retrospective
+   `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+   Falsifier: a pass that reserved still reaches its directive step over the line.
+
+8. **Choose the instruments once, at open; the launch prompt need not.** This skill is the
+   whole procedure, so a launch prompt can be one line naming it, the owner's measure and
+   anything specific to the day. Loading several skill bodies at open spends the headroom
+   step 7 reserves, so each of these is decided here and loaded only when it fires:
+   - *Other seats live?* If the claims registry or the stream shows one, apply
+     [`start-right-team`](../../start-right-team/SKILL-CANONICAL.md) (watcher first) in
+     place of the solo grounding; a shared host also means one gate run at a time, agreed on
+     the seats' channel.
+   - *A retrospective first?* Only when an arc has finished since the last consolidation
+     and its cost or shape surprised; otherwise it follows the pass, at the owner's word.
+   - *Parallax?* At screening depth, at a real fork whose frames differ; where each lesson
+     belongs is decided by reading the target, not by an inquiry.
+   - *Metacognition, free play, concept exploration?* At boundaries (a stage's end, the
+     wrap), written to the napkin as they are done; a proposal they produce is landed in its
+     home in the same commit when it is small.
+   - *Tombstones* found or made along the way are removed as met
+     ([`no-tombstones-for-removed-ideas`](../../../rules/no-tombstones-for-removed-ideas.md)).
 
 ## Completion Contract
 
@@ -133,7 +181,7 @@ current session:
    surface to do its job for the next reader, **not** because a count fell. For a
    continuity/narrative file, judge the content against the file's own
    `overflow_disposition` / `continuity-practice` §Disposition (leave-if-live; else
-   conserve-insight-and-delete). Never trim understanding or raise a limit to change
+   graduate, then archive, and only after full processing). Never trim understanding or raise a limit to change
    a report: both optimise the proxy and leave the impact untouched (and
    [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
    forbids the report-gaming).
@@ -218,7 +266,12 @@ Repeat this loop until the completion contract is met:
    comms only when those surfaces are in scope. For platform-owned files, inventory the learning items and
    record knowledge disposition without taking over file rotation, archival, or
    deletion; if a required platform surface is absent or inaccessible, record
-   that as an explicit inventory disposition.
+   that as an explicit inventory disposition. The inventory also settles, in the
+   owner's words, which surfaces "empty" covers, and any owner decision that gates a
+   bulk act (an archive lifecycle, a frontmatter sweep) is asked before the act
+   (2026-09-17: the owner widened the target from the register to "buffers to EMPTY,
+   then memory files to an optimised soft" and ruled "Graduate, then archive" only
+   because the seat asked before moving anything).
 2. **Choose the next real item.** The organising axis is the **knowledge flow**
    (sources → napkin → distilled → pending-graduations → permanent homes;
    PDR-046's staircase, walked **bottom-up**), NOT the fitness report's

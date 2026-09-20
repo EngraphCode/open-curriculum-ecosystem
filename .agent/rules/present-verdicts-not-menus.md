@@ -148,6 +148,16 @@ surface.
 Options that fail these screens are not respectful alternatives. They are
 anti-shapes offered as owner work.
 
+A wording screen on whatever survives: a question that can only be asked in
+the process's own vocabulary (tallies, legs, rounds, settings) is a question
+about the means, and the means are the agent's. Restate it in the owner's
+terms, by the end it serves, or answer it. Worked instance, 2026-09-19: three
+of four cards in one sitting failed this screen — a menu of naming schemes
+where the owner had asked for the right names, a carrier question wrapped in
+review-tally terms ("The jargon is inpenetrable"), and a git setting offered
+without its cause ("Why is it happening, what is the cause"). The owner's
+one-sentence answer to the carrier question replaced ten lines of skill text.
+
 The form for what survives: once something IS a genuine owner decision,
 pose it as an explicit question (AskUserQuestion) with the recommended
 option first and the analysis attached — never as a recommendation

@@ -613,6 +613,22 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     `pdr_kind: pattern` for ecosystem-agnostic abstractions), rules, skills,
     or permanent docs. Source archived napkins are evidence; do not rewrite
     them.
+6b. **Archive finished continuity history (graduate, then archive).** For each
+    continuity surface, journal-shaped record or register that carries finished
+    history above its live state, run `continuity-practice.md` §Disposition of
+    Continuity Surfaces: per entry, live or finished; the behaviour-changing
+    finished entries graduated and their homes read back; the finished range
+    moved whole to `archive/<surface>-YYYY-MM-DD.md` beside the surface (a
+    letter suffix for a second archive that day; never overwrite one) and
+    proven byte-identical against the committed blob (finished ranges that are
+    not contiguous: a snapshot of the whole pre-curation file, proven the same
+    way, then the live file curated); the runbook's token and
+    neighbour checks run; the live surface left with its live state and a
+    one-line pointer. This is the trigger the continuity surfaces lacked
+    until 2026-09-17, when only the napkin had one. Archiving happens only after
+    full processing, never as a means to tick a box (owner, 2026-09-19): never
+    archive uncurated content, never shard, and a fitness readout is a reason
+    to read the surface, never a reason to move it.
 7. **Graduate settled content.** This is the "enforce" edge of the knowledge flow (ADR-131 §Interaction Points, ADR-150 §Decision §5 — capture → distil → **graduate → enforce**). Treat it as a structural step, not a pass-through.
 
    **Graduating a learned lesson into its doctrine home is non-deferrable — it is the point of the pass.** Learning from a captured note (a Director brief's standing lessons, a session's distilled entry, a curator-pass finding) and writing it into its permanent home (rule / PDR / ADR / pattern / governance doc) IS consolidation; "owner-routed", "owner-gated", or "deferred to a future/synthesis session" is valid *only* for a genuinely owner-constitutive **decision** (a verdict, a product-scope call) — never for the **homing** of an already-settled lesson. Do not let an adjacent owner-gated decision's gating bleed onto a graduation: the model *verdict* may be owner-routed while the *craft lessons* graduate now. The one legitimate graduation-time deferral is **collision avoidance** — when the home is owned by an *active mid-flight thread* (see 7b), defer to that thread rather than author a colliding standalone artefact; a stable doctrine surface (a PDR, a governance doc) is never "mid-flight", so that exemption does not license parking a homing there. Deferring a homing as "owner-routed" when the home is a stable surface is the deferral-dressed-as-deference failure (`patterns/legitimate-principle-as-avoidance-cover.md`).
@@ -902,7 +918,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    to relocate to where it fires; completed or already-homed narrative diluting a
    live surface (drain it to free the surface for the next reader, judged against
    the file's `overflow_disposition` / `continuity-practice` §Disposition:
-   leave-if-live, else conserve-insight-and-delete); or genuinely dense live content
+   leave-if-live, else graduate, then archive, step 6b); or genuinely dense live content
    earning its place. A verdict resting only on size, role, or a limit ("legit
    growth", "big continuity file", "over/under the limit", "owner-routed") is
    forbidden — it answers the proxy, not the impact question.

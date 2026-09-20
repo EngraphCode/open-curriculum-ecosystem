@@ -34,8 +34,10 @@ fast-path. In a coordinated multi-agent session the two first-class seats —
 and **Implementer** (ephemeral, owns one bounded lane) — are defined by
 [PDR-117](../practice-core/decision-records/PDR-117-director-and-implementer-roles.md).
 
-For planning work, read [metacognition.md](./metacognition.md) and follow its
-reflection discipline before finalising a plan.
+Read [metacognition.md](./metacognition.md) and apply it: its generative mode
+is the default for any non-trivial work, and its retrospective mode runs on
+every correction signal, wherever in the work it arrives, not only when a plan
+is being finalised.
 
 ## The Practice
 

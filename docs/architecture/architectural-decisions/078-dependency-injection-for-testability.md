@@ -3,7 +3,8 @@
 **Status**: Accepted  
 **Date**: 2025-12-14  
 **Deciders**: Engineering Team  
-**Related**: [Testing Strategy](../../../.agent/directives/testing-strategy.md), [Rules](../../../.agent/directives/principles.md)
+**Related**: [Testing Strategy](../../../.agent/directives/testing-strategy.md), [Rules](../../../.agent/directives/principles.md)  
+**Amended**: 2026-09-19, for the testing taxonomy's IO invariant (owner, 2026-09-14: tests never use or create IO). Wherever this ADR says "smoke tests" or "smoke suites", read smoke **checks**, which are validation surfaces outside the test suites. In the in-process app pattern, `createApp()` with injected configuration stands; driving the imported app with supertest opens a loopback socket in the test process, which is neither a test nor an E2E check (an E2E check drives a separately running system), and the suites that do it are pre-invariant estate for `no-io-test-boundary-and-di-recovery.plan.md`. The DI decision is unchanged.
 
 ## Context
 
@@ -138,7 +139,7 @@ The following patterns are **prohibited** in all test and setup files, at every 
 | `vi.doMock('module', ...)`    | Manipulates module cache, subtle race conditions | Inject module exports as dependencies |
 | `globalThis.X = 'value'`      | Mutates global state                             | Pass as parameter                     |
 
-**In-process app pattern**: Tests that create the app in-process (e.g. `createApp()` + supertest) must build an explicit runtime config and pass it through DI:
+**In-process app pattern**: Code that creates the app in-process via `createApp()` must build an explicit runtime config and pass it through DI. The example below constructs the app and stops there: a test then calls the handler or middleware under test directly, and never drives the constructed app with supertest (the 2026-09-19 amendment above):
 
 ```typescript
 import { createApp } from '../src/application.js';

@@ -116,6 +116,19 @@ risk-of-loss operations (`never-use-git-to-remove-work` §A Safety Proof
 Never Licenses the Class): a discipline's value is that it holds
 precisely when a locally-sound argument says it could bend.
 
+**No change freezes.** Owner, 2026-07-30, on submission day, declining a
+proposed merge freeze, verbatim: "we don't do change freezes, we do absolutely
+world class observability and the ability to respond quickly and safely to
+issues." The freeze instinct treats change as the risk; this estate treats
+blindness and slow response as the risk. A freeze buys nothing a well-observed,
+fast-response system lacks, costs throughput, and normalises fear of the deploy
+path on the day confidence matters. Never propose a change freeze, code freeze
+or merge moratorium as a risk control, on launch days included; when the
+instinct fires, the question is whether the surface's observability is
+world-class and whether a break can be answered quickly and safely, and a "no"
+there is the work to surface. Full-condition gates on every merge stay: that is
+structure, not a freeze.
+
 ## Architectural Excellence Over Expediency
 
 We **always, ALWAYS** choose long-term architectural excellence
@@ -230,6 +243,20 @@ architecture keeps it extractable. A component whose licence cannot
 be named in one word is one where general mechanism and Oak identity
 cohabit.
 
+Open source and public is the Oak and UK Government standard (owner,
+2026-08-12, verbatim, on a proposal that framed opening a private Oak
+repository as a licensing cost: "open source and public is the Oak and UK Gov
+standard, forcing that change is actually a huge positive"). This is Oak
+policy as the owner states it. Its external root is the Government Service
+Standard's point 12,
+[Make new source code open](https://www.gov.uk/service-manual/service-standard/point-12-make-new-source-code-open),
+which binds the services in that standard's scope and names its own exceptions;
+Oak, a public body, holds the same default for its own surfaces. So a proposal
+that makes a private Oak surface public is aligned with standing policy, and
+the framing burden is on staying private. File the open-sourcing itself under
+benefits and policy alignment; only the transitional work (a security review
+before exposure, secrets-in-history hygiene) is a cost.
+
 A mechanism built to prove a capability is a consumer of the
 framework, never the framework: check its warrant when it outlives its
 demonstration. An identity built as an override sheet to prove live
@@ -306,8 +333,10 @@ this way produces cleaner boundaries and simpler classification.
 
 ### Code Design and Architectural Principles
 
-- **TDD** - ALWAYS use TDD at ALL levels — unit, integration, AND
-  E2E. Test and product code are two halves of one act of design;
+- **TDD** - ALWAYS use TDD at ALL levels — unit and integration
+  tests, AND the E2E checks that describe the running system (a
+  validation surface, written first like a test;
+  [testing-strategy.md](testing-strategy.md)). Test and product code are two halves of one act of design;
   they land together as one atomic commit. See
   [tdd-as-design.md](tdd-as-design.md) for the foundational
   definition and atomic-landing invariant.
@@ -508,7 +537,7 @@ shared bases — they do not replace them. This applies to
 `tsconfig.json` `extends` chains are the one root-anchored
 convention that remains (an `extends` reference is not a module
 import). Deviations cause silent quality-gate leaks (e.g. E2E
-tests running under `pnpm test`, disabled lint rules, weakened
+checks running under `pnpm test`, disabled lint rules, weakened
 type-checking). See [Testing Strategy: Canonical Vitest
 Configuration][vitest-config] for vitest-specific patterns. E2E
 vitest configs may be workspace-specific when base defaults (include
@@ -540,7 +569,7 @@ paths, setup files) don't apply.
   exploration, exercise, review, external comment — is not resolved
   until a check of the appropriate kind exists that would catch the
   instance AND its class. The kind fits the class: behaviour → a
-  unit/integration/E2E test; types → the type-check gate or a
+  unit or integration test, or an E2E check; types → the type-check gate or a
   `satisfies` anchor; structural → an ESLint/boundary rule;
   process/CI coverage → a required status check or validator;
   content-quality invariant → construction plus human review, never
@@ -670,14 +699,21 @@ Universal testing principles:
 - each proof happens once and must prove product code;
 - unit tests are pure, in-process, and mock-free;
 - integration tests import code directly and use only simple DI fakes;
-- E2E tests prove running-system behaviour;
-- smoke tests prove the built artefact is viable in its shipped form (invoked as
-  production invokes it, no loaders); every built binary carries at least one —
-  new ones at landing, the pre-existing gap as recorded debt;
+- tests never use or create IO, of any kind, at any level, and no helper a test
+  imports does (owner, 2026-09-14: an absolute invariant); what needs a running
+  system, a filesystem or a process is a validation surface, never a test
+  ([testing-strategy.md](testing-strategy.md) §Philosophy;
+  [validation-strategy.md](validation-strategy.md));
+- E2E checks prove running-system behaviour, as validation surfaces;
+- smoke checks prove the built artefact is viable in its shipped form (invoked as
+  production invokes it, no loaders), as validators reachable from a CI-gated
+  task; every built binary carries at least one — new ones at landing, the
+  pre-existing gap as recorded debt;
 - tests must never read or mutate `process.env`, global objects, module cache,
-  ambient env files, or `process.cwd()` — smoke composition roots only;
+  ambient env files, or `process.cwd()`; a validation check's composition root
+  may read ambient env and inject it;
 - no skipped tests, no conditional tests, no complex mocks, no complex test
-  logic, no process spawning in in-process tests. Conditional tests are an
+  logic, no process spawning in tests. Conditional tests are an
   architectural-failure symptom — remove them, fix the ambiguity in product
   code, write deterministic behaviour-proving tests.
 

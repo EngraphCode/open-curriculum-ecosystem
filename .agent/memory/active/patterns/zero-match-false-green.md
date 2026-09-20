@@ -68,3 +68,12 @@ minutes while the checks moved from none to nineteen passing (frictions F-164). 
 for every leg, and a verdict that names whether it concluded from PRESENCE or
 from ABSENCE (the `landing-instruments-read-the-evidence` node carries the
 door's form).
+
+The authored form (2026-09-17, two instances in one fold's pre-publication
+pass): a seat's own absence claim in a record is a zero-match reading too. A
+friction entry said no instrument reads a session's context usage, and
+`agent-tools session-metadata` does; a disposition policy said no path
+exclusion exists, and one did. In both the seat had searched one tool or one
+file, not the surface the claim covered (the CLI's command list, the whole
+configuration). Cure: an absence claim carries its search beside it, the
+command and its scope, so a reader can see what "none" was measured over.
