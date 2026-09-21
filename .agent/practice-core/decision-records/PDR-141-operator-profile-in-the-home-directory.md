@@ -129,15 +129,17 @@ scopes by repository identity instead.
    without `.git`:
 
    ```bash
-   # The check emits the documents it validated from the same reads it checked,
-   # so nothing reopens a path after the check (amended 2026-09-21: a file
-   # replaced by a link between a check and a read would otherwise enter the
-   # session unread; a named document that is absent prints nothing).
+   # The host's profile check — named in its Practice index; the Core names no
+   # host tool (decision 9) — is asked to EMIT the documents it validated, from
+   # the same reads it checked, so nothing reopens a path after the check
+   # (amended 2026-09-21: a file replaced by a link between a check and a read
+   # would otherwise enter the session unread; a named document that is absent
+   # prints nothing, and nothing prints unless every document conformed).
    SCOPE="$(git remote get-url origin 2>/dev/null \
      | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
      | tr '[:upper:]' '[:lower:]')"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-   pnpm profile:check --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md"
+   <the host's profile check> --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md"
    ```
 
 8. **Checkout-local profile tiers are retired.** A host that kept a
