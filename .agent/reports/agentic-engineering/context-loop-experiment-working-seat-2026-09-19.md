@@ -102,6 +102,7 @@ from a tool result; a time the seat could not read is marked as bounded.
 | 2026-09-21T17:49:32Z | 391,795 | 39.2% | +33,567 | three long peer entries read; the fold landed through the front door; the successor cut and its first commit. The row was written after the push exited: a tick that lands during a push's whole-tree checks cannot write a tracked file without racing them |
 
 | 2026-09-21T18:12:22Z | 523,499 | 52.3% | +131,704 | 23 minutes of one continuous working turn: a two-seat definition exercise carried on a shared channel (long peer entries read in full, three versions of a shared text, two replies composed), two conscience checks, a fold landed and its successor cut, one mis-bounded read that re-printed the seat's own entry. The 50 % line was crossed inside the turn and surfaced to the owner at this tick |
+| 2026-09-21T18:21:51Z | 564,604 | 56.5% | +41,105 | a peer seat's seven comms events read in full and a tracked record written of them; a whole-file echo after a shell append (the harness re-prints a file changed outside its editing tools, so appending by shell costs the file's size in context); an outside verdict dispositioned and a fourth version of the shared text posted as replacement lines, never retyped |
 
 Findings of this run, each one instance:
 
