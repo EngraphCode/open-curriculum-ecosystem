@@ -263,37 +263,15 @@ describe('resolveProfileRoot', () => {
   const home = path.join('srv', 'operator-home');
   const homeProfile = path.join(home, '.practice', 'profile');
 
-  it('prefers --root, then PRACTICE_HOME, then the home fallback', () => {
+  it('prefers the parsed --root value, then PRACTICE_HOME, then the home fallback', () => {
     const explicit = path.join('srv', 'elsewhere', 'profile');
-    expect(unwrap(resolveProfileRoot(['--root', explicit], {}, home))).toBe(path.resolve(explicit));
+    expect(resolveProfileRoot(explicit, {}, home)).toBe(path.resolve(explicit));
     const practiceHome = path.join('opt', 'practice');
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: practiceHome }, home))).toBe(
+    expect(resolveProfileRoot(undefined, { PRACTICE_HOME: practiceHome }, home)).toBe(
       path.join(practiceHome, 'profile'),
     );
-    expect(unwrap(resolveProfileRoot([], {}, home))).toBe(homeProfile);
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '' }, home))).toBe(homeProfile);
-  });
-
-  it('refuses a --root flag without a directory argument', () => {
-    expect(resolveProfileRoot(['--root'], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
-    expect(resolveProfileRoot(['--root', '--json'], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
-  });
-
-  it('treats an empty or blank --root value as a missing argument, never as the current directory', () => {
-    expect(resolveProfileRoot(['--root', ''], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
-    expect(resolveProfileRoot(['--root', '   '], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
+    expect(resolveProfileRoot(undefined, {}, home)).toBe(homeProfile);
+    expect(resolveProfileRoot(undefined, { PRACTICE_HOME: '' }, home)).toBe(homeProfile);
   });
 });
 

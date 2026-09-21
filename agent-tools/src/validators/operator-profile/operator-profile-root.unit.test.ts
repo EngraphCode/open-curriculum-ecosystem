@@ -7,12 +7,14 @@ import { VALID_INDEX_DOCUMENT } from './operator-profile-fixtures.js';
 import {
   type DocumentHandle,
   entryKind,
+  isGitRepository,
   listEntries,
   type Presence,
   presence,
   type PresenceProbe,
   type ProfileFileSystem,
   readDocument,
+  type StatProbe,
 } from './operator-profile-fs.js';
 import { type ProfileEntry } from './operator-profile-layout.js';
 import { existingProfilePaths, readProfileReport } from './operator-profile-root.js';
@@ -153,10 +155,42 @@ function fakeFileSystem(
       reads.push(absolute);
       return Promise.resolve(ok(text));
     },
-    isGitRepository: () => Promise.resolve(false),
+    isGitRepository: () => Promise.resolve(ok(false)),
   };
   return { fs, reads };
 }
+
+describe('isGitRepository — read without following links', () => {
+  const stats =
+    (kind: 'directory' | 'file' | 'symlink'): StatProbe =>
+    (): ReturnType<StatProbe> =>
+      Promise.resolve({
+        isDirectory: () => kind === 'directory',
+        isSymbolicLink: () => kind === 'symlink',
+      });
+
+  it('reports a .git directory and a worktree .git file as a repository', async () => {
+    expect(await isGitRepository(ROOT, stats('directory'))).toEqual(ok(true));
+    expect(await isGitRepository(ROOT, stats('file'))).toEqual(ok(true));
+  });
+
+  it('refuses a symlinked .git by name, never following it into another repository', async () => {
+    expect(await isGitRepository(ROOT, stats('symlink'))).toEqual(
+      err(`${path.join(ROOT, '.git')} is a symlink — the profile repository is never followed`),
+    );
+  });
+
+  it('reads absence as not a repository and a refused probe as the failure it is', async () => {
+    const absent: StatProbe = () =>
+      Promise.reject(Object.assign(new Error('gone'), { code: 'ENOENT' }));
+    expect(await isGitRepository(ROOT, absent)).toEqual(ok(false));
+    const sealed: StatProbe = () =>
+      Promise.reject(Object.assign(new Error('no'), { code: 'EACCES' }));
+    expect(await isGitRepository(ROOT, sealed)).toEqual(
+      err(`cannot read ${path.join(ROOT, '.git')} (EACCES)`),
+    );
+  });
+});
 
 describe('readProfileReport — entries that are not regular files', () => {
   it('reads a regular index.md and reports it as one conforming document, carrying the text it read', async () => {

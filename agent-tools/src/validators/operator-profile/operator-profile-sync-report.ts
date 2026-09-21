@@ -39,9 +39,11 @@ export async function syncReport(
   root: string,
   fs: ProfileFileSystem,
 ): Promise<Result<SyncReport, string>> {
-  const state = (await fs.isGitRepository(root))
-    ? readSyncState(createGitRunner(root))
-    : ok(NOT_A_REPOSITORY);
+  const repository = await fs.isGitRepository(root);
+  if (!repository.ok) {
+    return err(`the sync state of ${root} is unreadable — ${repository.error}`);
+  }
+  const state = repository.value ? readSyncState(createGitRunner(root)) : ok(NOT_A_REPOSITORY);
   if (!state.ok) {
     return err(`the sync state of ${root} is unreadable — ${state.error}`);
   }

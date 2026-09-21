@@ -54,30 +54,24 @@ export interface ProfileReport {
  * argument, never the current directory: `--root "$UNSET"` must not act on
  * whatever checkout the shell happens to be in.
  *
- * @param argv - process arguments after the script path
+ * @param rootArg - the `--root` value the CLI's grammar parsed, or undefined when the
+ *   environment decides (the grammar has already refused a blank or missing value)
  * @param env - the process environment
  * @param home - the user's home directory
- * @returns the absolute profile root, or a usage error
+ * @returns the absolute profile root
  */
 export function resolveProfileRoot(
-  argv: readonly string[],
+  rootArg: string | undefined,
   env: Readonly<Record<string, string | undefined>>,
   home: string,
-): Result<string, string> {
-  const rootFlag = argv.indexOf('--root');
-  if (rootFlag === -1) {
-    const practiceHome = env['PRACTICE_HOME'];
-    const base =
-      practiceHome === undefined || practiceHome === ''
-        ? path.join(home, '.practice')
-        : practiceHome;
-    return ok(path.join(base, 'profile'));
+): string {
+  if (rootArg !== undefined) {
+    return path.resolve(rootArg);
   }
-  const value = argv[rootFlag + 1];
-  if (value === undefined || value.trim() === '' || value.startsWith('--')) {
-    return err('--root needs a directory argument');
-  }
-  return ok(path.resolve(value));
+  const practiceHome = env['PRACTICE_HOME'];
+  const base =
+    practiceHome === undefined || practiceHome === '' ? path.join(home, '.practice') : practiceHome;
+  return path.join(base, 'profile');
 }
 
 async function listProfileEntries(

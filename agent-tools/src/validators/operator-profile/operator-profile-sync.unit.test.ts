@@ -439,18 +439,24 @@ describe('pushProfile', () => {
 
 describe('parseSyncArgs', () => {
   it('accepts pull, and push with a message', () => {
-    expect(unwrap(parseSyncArgs(['pull']))).toEqual({ kind: 'pull' });
+    expect(unwrap(parseSyncArgs(['pull']))).toEqual({ kind: 'pull', root: undefined });
     expect(unwrap(parseSyncArgs(['push', '--message', 'seat: fact']))).toEqual({
       kind: 'push',
       message: 'seat: fact',
+      root: undefined,
     });
   });
 
-  it('accepts --root on either command, in any option order', () => {
-    expect(unwrap(parseSyncArgs(['pull', '--root', '/srv/profile']))).toEqual({ kind: 'pull' });
+  it('accepts --root on either command, in any option order, and carries its value once', () => {
+    expect(unwrap(parseSyncArgs(['pull', '--root', '/srv/profile']))).toEqual({
+      kind: 'pull',
+      root: '/srv/profile',
+    });
     expect(
       unwrap(parseSyncArgs(['push', '--root', '/srv/profile', '--message', 'seat: fact'])),
-    ).toEqual({ kind: 'push', message: 'seat: fact' });
+    ).toEqual({ kind: 'push', message: 'seat: fact', root: '/srv/profile' });
+    expect(failure(parseSyncArgs(['pull', '--root', '']))).toContain('--root needs a value');
+    expect(failure(parseSyncArgs(['pull', '--root', '   ']))).toContain('--root needs a value');
   });
 
   it('refuses push without a message, and an unknown command', () => {

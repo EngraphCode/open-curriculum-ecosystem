@@ -8,6 +8,8 @@
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { valueAfter } from './operator-profile-argv.js';
+
 const CHECK_USAGE = 'usage: validate-operator-profile [--root <dir>] [--emit <relPath>]...';
 
 export interface CheckArgs {
@@ -15,12 +17,6 @@ export interface CheckArgs {
   readonly root: string | undefined;
   /** The documents to print after a conforming check, in argument order. */
   readonly emit: readonly string[];
-}
-
-/** The value after a flag; undefined when absent, blank, or itself a flag. */
-function valueAfter(argv: readonly string[], index: number): string | undefined {
-  const value = argv[index];
-  return value === undefined || value.trim() === '' || value.startsWith('--') ? undefined : value;
 }
 
 /**

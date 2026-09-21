@@ -7,7 +7,7 @@
  */
 
 import { constants, type Dirent, type Stats } from 'node:fs';
-import { type FileHandle, lstat, open, readdir, stat } from 'node:fs/promises';
+import { type FileHandle, lstat, open, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
@@ -128,14 +128,29 @@ export async function listEntries(
   }
 }
 
-/** Whether the root is a git repository (a `.git` directory or file). */
-export async function isGitRepository(root: string): Promise<boolean> {
-  try {
-    await stat(path.join(root, '.git'));
-    return true;
-  } catch {
-    return false;
+/**
+ * Whether the root is a git repository (a `.git` directory, or a worktree's
+ * `.git` file), read WITHOUT following links: a symlinked `.git` is refused,
+ * never followed into another repository's git directory, and a probe the
+ * platform refuses is the error it is, never "not a repository".
+ *
+ * @param root - the profile root
+ * @param probe - the stat to ask (`lstat` by default; tests inject a fake)
+ * @returns whether a repository is there, or the refusal or failure
+ */
+export async function isGitRepository(
+  root: string,
+  probe: StatProbe = lstat,
+): Promise<Result<boolean, string>> {
+  const gitDir = path.join(root, '.git');
+  const there = await presence(gitDir, probe);
+  if (!there.ok) {
+    return there;
   }
+  if (there.value === 'symlink') {
+    return err(`${gitDir} is a symlink — the profile repository is never followed`);
+  }
+  return ok(there.value !== 'absent');
 }
 
 /**
@@ -179,13 +194,19 @@ export async function readDocument(
   let handle: DocumentHandle | undefined;
   try {
     handle = await openDocument(absolute, DOCUMENT_OPEN_FLAGS);
-    return ok(await handle.readFile('utf8'));
+    const text = await handle.readFile('utf8');
+    // The close is inside the boundary: a close the platform refuses is this
+    // read's failure, returned as a value, never a rejection that escapes it.
+    await handle.close();
+    handle = undefined;
+    return ok(text);
   } catch (cause) {
+    // A failed open, read or close: the handle, if any, is released on a
+    // best-effort basis and the first failure is the one reported.
+    await handle?.close().catch(() => undefined);
     return err(
       `cannot read the document (${errorCode(cause)}) — a symlink or an unreadable file is never a profile document`,
     );
-  } finally {
-    await handle?.close();
   }
 }
 
@@ -197,12 +218,13 @@ export interface ProfileFileSystem {
     dirName: string | undefined,
   ) => Promise<Result<ProfileEntry[], string>>;
   readonly readDocument: (absolute: string) => Promise<Result<string, string>>;
-  readonly isGitRepository: (root: string) => Promise<boolean>;
+  readonly isGitRepository: (root: string) => Promise<Result<boolean, string>>;
 }
 
+/** The real filesystem behind every probe, lister and reader; the default of `readProfileReport`. */
 export const REAL_PROFILE_FILE_SYSTEM: ProfileFileSystem = {
   presence: (target) => presence(target),
   listEntries: (root, dirName) => listEntries(root, dirName),
   readDocument: (absolute) => readDocument(absolute),
-  isGitRepository,
+  isGitRepository: (root) => isGitRepository(root),
 };

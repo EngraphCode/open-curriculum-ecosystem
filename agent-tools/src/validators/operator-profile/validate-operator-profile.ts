@@ -130,14 +130,10 @@ async function main(argv: readonly string[]): Promise<number> {
     writeErrorLine(`✗ ${args.error}`);
     return 2;
   }
-  const root = resolveProfileRoot(argv, process.env, homedir());
-  if (!root.ok) {
-    writeErrorLine(`✗ ${root.error}`);
-    return 1;
-  }
+  const root = resolveProfileRoot(args.value.root, process.env, homedir());
   writeLine('\nOperator Profile Check (family 1)');
   writeLine('═════════════════════════════════\n');
-  return checkRoot(root.value, args.value.emit);
+  return checkRoot(root, args.value.emit);
 }
 
 const currentFilePath = fileURLToPath(import.meta.url);

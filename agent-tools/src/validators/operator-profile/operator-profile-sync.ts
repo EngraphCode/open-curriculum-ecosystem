@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
+import { valueAfter } from './operator-profile-argv.js';
 import { isGitRepository, presence, type PresenceProbe } from './operator-profile-fs.js';
 import {
   createGitRunner,
@@ -33,8 +34,11 @@ import {
   readProfileReport,
   resolveProfileRoot,
 } from './operator-profile-root.js';
+import { SYNC_REL_PATH } from './operator-profile-sync-report.js';
 
-type Command = { readonly kind: 'pull' } | { readonly kind: 'push'; readonly message: string };
+type Command =
+  | { readonly kind: 'pull'; readonly root: string | undefined }
+  | { readonly kind: 'push'; readonly message: string; readonly root: string | undefined };
 
 const USAGE = 'usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]';
 
@@ -49,12 +53,6 @@ type Option = (typeof OPTIONS)[Command['kind']][number];
 /** Zero-widening membership: the literal grammar decides, never a `string` view of it. */
 function isOption(kind: Command['kind'], flag: string): flag is Option {
   return OPTIONS[kind].some((option) => option === flag);
-}
-
-/** The value after a flag; undefined when absent, blank, or itself a flag. */
-function valueAfter(rest: readonly string[], index: number): string | undefined {
-  const value = rest[index];
-  return value === undefined || value.trim() === '' || value.startsWith('--') ? undefined : value;
 }
 
 /**
@@ -100,14 +98,15 @@ export function parseSyncArgs(argv: readonly string[]): Result<Command, string> 
   if (!options.ok) {
     return options;
   }
+  const root = options.value.get('--root');
   if (command === 'pull') {
-    return ok({ kind: 'pull' });
+    return ok({ kind: 'pull', root });
   }
   const message = options.value.get('--message');
   if (message === undefined) {
     return err('push needs --message "<seat>: <the fact>"');
   }
-  return ok({ kind: 'push', message });
+  return ok({ kind: 'push', message, root });
 }
 
 /** Document failures only: the sync leg is what a push is about to cure. */
@@ -119,7 +118,7 @@ async function nonConformingDocuments(root: string): Promise<Result<number, stri
   if (report.value === 'absent') {
     return ok(0);
   }
-  return ok(report.value.failures.filter((failure) => failure.relPath !== '(sync)').length);
+  return ok(report.value.failures.filter((failure) => failure.relPath !== SYNC_REL_PATH).length);
 }
 
 function report(outcome: Result<string, string>): number {
@@ -151,12 +150,33 @@ async function runPush(root: string, run: GitRunner, message: string): Promise<n
 }
 
 /**
+ * Whether the root is a directory holding a git repository, classified
+ * WITHOUT following links: a symlinked `--root` is refused before any git
+ * runner exists for it, so the pull never runs in the link's target — the
+ * same refusal the profile reader makes, at the sync's own boundary.
+ */
+async function isRepositoryRoot(
+  root: string,
+  probe: PresenceProbe,
+): Promise<Result<boolean, string>> {
+  const there = await probe(root);
+  if (!there.ok) {
+    return there;
+  }
+  if (there.value === 'symlink') {
+    return err(`${root} is a symlink — the profile root is never followed`);
+  }
+  if (there.value !== 'directory') {
+    return ok(false);
+  }
+  return isGitRepository(root);
+}
+
+/**
  * The runner for a root that is a repository with a remote; a message for the
  * two first-class states with nothing to sync; an error when git cannot read
- * the repository (never mistaken for "no remote"). The root is classified
- * WITHOUT following links first: a symlinked `--root` is refused before any
- * git runner exists for it, so the pull never runs in the link's target — the
- * same refusal the profile reader makes, at the sync's own boundary.
+ * the repository (never mistaken for "no remote") or the root cannot be
+ * classified.
  *
  * @param root - the profile root
  * @param probe - the presence probe (the filesystem, without following links, by default)
@@ -166,14 +186,11 @@ export async function syncTarget(
   root: string,
   probe: PresenceProbe = presence,
 ): Promise<Result<GitRunner | string, string>> {
-  const there = await probe(root);
-  if (!there.ok) {
-    return there;
+  const repository = await isRepositoryRoot(root, probe);
+  if (!repository.ok) {
+    return repository;
   }
-  if (there.value === 'symlink') {
-    return err(`${root} is a symlink — the profile root is never followed`);
-  }
-  if (there.value !== 'directory' || !(await isGitRepository(root))) {
+  if (!repository.value) {
     return ok(`profile at ${root} is absent or not a git repository — nothing to sync`);
   }
   const run = createGitRunner(root);
@@ -189,13 +206,12 @@ export async function syncTarget(
 
 async function main(argv: readonly string[]): Promise<number> {
   const command = parseSyncArgs(argv);
-  const root = resolveProfileRoot(argv, process.env, homedir());
-  if (!command.ok || !root.ok) {
-    const usage = [command, root].flatMap((parsed) => (parsed.ok ? [] : [parsed.error]));
-    writeErrorLine(`✗ ${usage.join('; ')}`);
+  if (!command.ok) {
+    writeErrorLine(`✗ ${command.error}`);
     return 2;
   }
-  const target = await syncTarget(root.value);
+  const root = resolveProfileRoot(command.value.root, process.env, homedir());
+  const target = await syncTarget(root);
   if (!target.ok) {
     writeErrorLine(`✗ ${target.error}`);
     return 1;
@@ -207,7 +223,7 @@ async function main(argv: readonly string[]): Promise<number> {
   if (command.value.kind === 'pull') {
     return report(pullProfile(target.value));
   }
-  return runPush(root.value, target.value, command.value.message);
+  return runPush(root, target.value, command.value.message);
 }
 
 const currentFilePath = fileURLToPath(import.meta.url);
