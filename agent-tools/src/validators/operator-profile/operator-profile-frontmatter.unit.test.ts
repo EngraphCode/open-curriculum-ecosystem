@@ -15,6 +15,7 @@ import {
   deriveScopeKey,
   findCredentialLikeLines,
   machineKeyFromRelPath,
+  type CredentialVocabulary,
   scopeKeyFromRelPath,
 } from './operator-profile-keys.js';
 import { classifyProfileEntries } from './operator-profile-layout.js';
@@ -157,112 +158,103 @@ describe('parseOperatorProfileDocument', () => {
   });
 });
 
-describe('findCredentialLikeLines', () => {
-  it('flags private-key headers, GitHub, OpenAI-style, Slack and AWS token shapes', () => {
-    const content = [
-      'clean line',
-      '-----BEGIN RSA PRIVATE KEY-----',
-      `github_pat_${'b'.repeat(24)}`,
-      `sk-${'c'.repeat(20)}`,
-      `xoxb-${'1'.repeat(12)}`,
-      'AKIAABCDEFGHIJKLMNOP',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([2, 3, 4, 5, 6]);
+// The tripwire's engine is proven against three injected words. The production
+// lists are configuration; that they are wired in is proven through the real
+// call site, by the document tests above that refuse a token by line number.
+const VOCABULARY: CredentialVocabulary = {
+  tokenShapes: [/-TOK-\d{4}/],
+  labels: ['pass word'],
+  bearerLabels: ['authorization'],
+  variableWords: ['TOKEN'],
+};
+
+describe('findCredentialLikeLines — token shapes, labels and table rows', () => {
+  it('flags a token shape on the line as written, its leading marks included', () => {
+    expect(findCredentialLikeLines('clean\n-TOK-1234', VOCABULARY)).toEqual([2]);
   });
 
-  it('passes a key path, which names a location, not a credential', () => {
-    expect(findCredentialLikeLines('key at ~/.config/el-graphael/private-key.pem')).toEqual([]);
+  it('flags a label bound to a value', () => {
+    expect(findCredentialLikeLines('password: x', VOCABULARY)).toEqual([1]);
   });
 
-  it('flags labelled generic credentials given as a YAML key, an assignment or a bearer header', () => {
-    const content = [
-      'password: hunter2',
-      '  passwd = hunter2',
-      '- secret: "s3cr3t"',
-      'api_key: abc',
-      '"apiKey": abc',
-      'token: abc',
-      'ACCESS_TOKEN=abc',
-      'Authorization: Bearer abc.def',
-      'clean line',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  it('reads a label whatever its case, quoting or joining, on both sides', () => {
+    expect(findCredentialLikeLines('"Pass_word" = x', VOCABULARY)).toEqual([1]);
   });
 
-  it('flags a spaced label and a label whose value sits on the next line, both lines', () => {
-    const content = [
-      'API key: correct-horse-battery-staple',
-      'Password:',
-      'correct-horse-battery-staple',
-      'Authorization:',
-      '',
-      'Bearer correct-horse-battery-staple',
-      'clean line',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 6]);
+  it('reads a label through Markdown furniture', () => {
+    expect(findCredentialLikeLines('> - **Password:** x', VOCABULARY)).toEqual([1]);
   });
 
-  it('flags Markdown-formatted labels, table rows and environment-variable names bound to values', () => {
-    const content = [
-      '**Password:** hunter2',
-      '| Password | hunter2 |',
-      '- **API key**: correct-horse-battery-staple',
-      '`token`: abc',
-      'AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI',
-      'export GITHUB_TOKEN="abc"',
-      'NPM_TOKEN: abc',
-      '## Secret: abc',
-      'clean line',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  it('passes prose that mentions a label without being one', () => {
+    expect(findCredentialLikeLines('password managers: use one', VOCABULARY)).toEqual([]);
   });
 
-  it('passes table headers, bold labels without values and environment-variable names alone', () => {
-    const content = [
-      '| Password | Where it lives |',
-      '| --- | --- |',
-      '**Password:**',
-      'the keychain',
-      'AWS_SECRET_ACCESS_KEY is set by the launcher',
-      'GITHUB_TOKEN=',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([]);
+  it('flags a value that opens with a mark', () => {
+    expect(findCredentialLikeLines('password: _x', VOCABULARY)).toEqual([1]);
   });
 
-  it('reads a label after a long run of list marks or emphasis in one pass', () => {
-    const content = [
-      `${'*'.repeat(64)} Password: hunter2`,
-      `${'**'.repeat(32)}token: abc`,
-      `${'-'.repeat(48)} clean line`,
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([1, 2]);
+  it('passes a closing mark alone, which is not a value', () => {
+    expect(findCredentialLikeLines('**Password:** **', VOCABULARY)).toEqual([]);
   });
 
-  it('flags a value whose first character is a marker, as the plain matcher did', () => {
-    const content = [
-      'password: _secret',
-      '| Password | *secret |',
-      'GITHUB_TOKEN=_secret',
-      '**Password:** **',
-      'token: __',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3]);
+  it('flags a table row that binds a label to one token', () => {
+    expect(findCredentialLikeLines('| Password | x |', VOCABULARY)).toEqual([1]);
   });
 
-  it('passes a bare label with no line after it to bind', () => {
-    expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
+  it('passes a table row whose label cell is followed by several words', () => {
+    expect(findCredentialLikeLines('| Password | Where it lives |', VOCABULARY)).toEqual([]);
   });
 
-  it('passes prose that mentions a credential label without binding a value to it', () => {
-    const content = [
-      'password managers: 1Password',
-      'the token budget is 200',
-      'token:',
-      'secrets live in the keychain, never here',
-      'Bearer tokens are minted by the gateway',
-      'Ask for the API key: the operator holds it',
-    ].join('\n');
-    expect(findCredentialLikeLines(content)).toEqual([]);
+  it('passes a table row whose first cell is no label', () => {
+    expect(findCredentialLikeLines('| Name | x |', VOCABULARY)).toEqual([]);
+  });
+});
+
+describe('findCredentialLikeLines — variables, bearer headers and wrapped values', () => {
+  it('flags a variable that carries a credential word, bound to a value', () => {
+    expect(findCredentialLikeLines('MY_TOKEN=x', VOCABULARY)).toEqual([1]);
+  });
+
+  it('flags an exported variable whose name is the credential word', () => {
+    expect(findCredentialLikeLines('export TOKEN="x"', VOCABULARY)).toEqual([1]);
+  });
+
+  it('passes a variable that carries no credential word', () => {
+    expect(findCredentialLikeLines('MY_PATH=x', VOCABULARY)).toEqual([]);
+  });
+
+  it('passes a variable that merely begins with the word', () => {
+    expect(findCredentialLikeLines('TOKENIZER=x', VOCABULARY)).toEqual([]);
+  });
+
+  it('passes a credential variable named in prose', () => {
+    expect(findCredentialLikeLines('MY_TOKEN is set by the launcher', VOCABULARY)).toEqual([]);
+  });
+
+  it('passes a credential variable bound to nothing', () => {
+    expect(findCredentialLikeLines('MY_TOKEN=', VOCABULARY)).toEqual([]);
+  });
+
+  it('flags a bearer header only when it carries a bearer pair', () => {
+    const content = 'Authorization: Bearer x\nAuthorization: basic';
+    expect(findCredentialLikeLines(content, VOCABULARY)).toEqual([1]);
+  });
+
+  it('flags a bare label and the value on the next non-blank line, both lines', () => {
+    expect(findCredentialLikeLines('Password:\n\nx', VOCABULARY)).toEqual([1, 3]);
+  });
+
+  it('flags a bare bearer header and the bearer pair on the next line', () => {
+    expect(findCredentialLikeLines('Authorization:\nBearer x', VOCABULARY)).toEqual([1, 2]);
+  });
+
+  it('passes a bare label followed by a sentence', () => {
+    const content = 'Password:\nit lives in the keychain';
+    expect(findCredentialLikeLines(content, VOCABULARY)).toEqual([]);
+  });
+
+  it('passes a bare label with only blank lines after it', () => {
+    expect(findCredentialLikeLines('Password:\n\n', VOCABULARY)).toEqual([]);
   });
 });
 
