@@ -10,7 +10,7 @@
  * block. The portable CONTRACT for that block is the Core-carried JSON
  * Schema at `.agent/practice-core/schemas/operator-profile.schema.json`;
  * this module is the estate's ENFORCEMENT surface, a strict zod mirror, and
- * the `validate-operator-profile-contract` smoke proves the two agree on
+ * the `operator-profile-contract.smoke.ts` smoke proves the two agree on
  * every fixture so drift red-gates.
  */
 

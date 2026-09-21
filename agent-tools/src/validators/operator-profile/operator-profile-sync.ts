@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
+import { isGitRepository } from './operator-profile-fs.js';
 import {
   createGitRunner,
   pullProfile,
@@ -29,33 +30,77 @@ import {
 import { pushProfile } from './operator-profile-git-push.js';
 import {
   existingProfilePaths,
-  isGitRepository,
   readProfileReport,
   resolveProfileRoot,
 } from './operator-profile-root.js';
 
 type Command = { readonly kind: 'pull' } | { readonly kind: 'push'; readonly message: string };
 
+const USAGE = 'usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]';
+
+/** The options each command admits; every option takes exactly one value. */
+const OPTIONS: Readonly<Record<Command['kind'], ReadonlySet<string>>> = {
+  pull: new Set(['--root']),
+  push: new Set(['--root', '--message']),
+};
+
+/** The value after a flag; undefined when absent, blank, or itself a flag. */
+function valueAfter(rest: readonly string[], index: number): string | undefined {
+  const value = rest[index];
+  return value === undefined || value.trim() === '' || value.startsWith('--') ? undefined : value;
+}
+
 /**
- * Parse the sync command line.
+ * The options as one exhaustive grammar: `--flag value` pairs only, each
+ * flag known to the command and given once. An argument the grammar does
+ * not name is refused by name, never skipped — a typo such as `--rot` must
+ * not fall back to the real home profile.
+ */
+function parseOptions(
+  kind: Command['kind'],
+  rest: readonly string[],
+): Result<ReadonlyMap<string, string>, string> {
+  const seen = new Map<string, string>();
+  for (let index = 0; index < rest.length; index += 2) {
+    const flag = rest[index] ?? '';
+    if (!OPTIONS[kind].has(flag)) {
+      return err(`unknown argument "${flag}" — ${USAGE}`);
+    }
+    if (seen.has(flag)) {
+      return err(`${flag} given more than once — ${USAGE}`);
+    }
+    const value = valueAfter(rest, index + 1);
+    if (value === undefined) {
+      return err(`${flag} needs a value — ${USAGE}`);
+    }
+    seen.set(flag, value);
+  }
+  return ok(seen);
+}
+
+/**
+ * Parse the sync command line: the command, then its options, nothing else.
  *
  * @param argv - arguments after the script path
- * @returns the command, or a usage error
+ * @returns the command, or a usage error naming what was refused
  */
 export function parseSyncArgs(argv: readonly string[]): Result<Command, string> {
-  const [command] = argv;
+  const [command, ...rest] = argv;
+  if (command !== 'pull' && command !== 'push') {
+    return err(USAGE);
+  }
+  const options = parseOptions(command, rest);
+  if (!options.ok) {
+    return options;
+  }
   if (command === 'pull') {
     return ok({ kind: 'pull' });
   }
-  if (command === 'push') {
-    const flag = argv.indexOf('--message');
-    const message = flag === -1 ? undefined : argv[flag + 1];
-    if (message === undefined || message === '' || message.startsWith('--')) {
-      return err('push needs --message "<seat>: <the fact>"');
-    }
-    return ok({ kind: 'push', message });
+  const message = options.value.get('--message');
+  if (message === undefined) {
+    return err('push needs --message "<seat>: <the fact>"');
   }
-  return err('usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]');
+  return ok({ kind: 'push', message });
 }
 
 /** Document failures only: the sync leg is what a push is about to cure. */
@@ -144,6 +189,8 @@ async function main(argv: readonly string[]): Promise<number> {
 const currentFilePath = fileURLToPath(import.meta.url);
 
 if (process.argv[1] === currentFilePath) {
-  const exitCode = await main(process.argv.slice(2));
-  process.exit(exitCode);
+  // process.exitCode, never process.exit(): exit() can terminate before
+  // piped stdout/stderr flush, truncating the output a caller captures.
+  // Nothing runs after this assignment; the process ends when the loop drains.
+  process.exitCode = await main(process.argv.slice(2));
 }

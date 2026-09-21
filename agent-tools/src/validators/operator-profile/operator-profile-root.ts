@@ -5,12 +5,20 @@
  * error; an unreadable root is an error, never absence.
  */
 
-import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 import { collect, err, ok, type Result } from '@oaknational/result';
 
-import { parseOperatorProfileDocument } from './operator-profile-document.js';
+import {
+  parseOperatorProfileDocument,
+  type ProfileDocumentExpectation,
+} from './operator-profile-document.js';
+import {
+  presence,
+  type PresenceProbe,
+  type ProfileFileSystem,
+  REAL_PROFILE_FILE_SYSTEM,
+} from './operator-profile-fs.js';
 import { createGitRunner, readSyncState } from './operator-profile-git.js';
 import {
   classifyProfileEntries,
@@ -34,7 +42,9 @@ export interface ProfileReport {
 
 /**
  * Resolve the profile root: `--root <dir>` wins, then `$PRACTICE_HOME/profile`,
- * then `~/.practice/profile`.
+ * then `~/.practice/profile`. An empty or blank `--root` value is a missing
+ * argument, never the current directory: `--root "$UNSET"` must not act on
+ * whatever checkout the shell happens to be in.
  *
  * @param argv - process arguments after the script path
  * @param env - the process environment
@@ -56,76 +66,29 @@ export function resolveProfileRoot(
     return ok(path.join(base, 'profile'));
   }
   const value = argv[rootFlag + 1];
-  if (value === undefined || value.startsWith('--')) {
+  if (value === undefined || value.trim() === '' || value.startsWith('--')) {
     return err('--root needs a directory argument');
   }
   return ok(path.resolve(value));
 }
 
-type Presence = 'directory' | 'absent' | 'not-a-directory';
-
-/** Reports what is at a path; the filesystem one is the default, tests inject a fake. */
-export type PresenceProbe = (target: string) => Promise<Result<Presence, string>>;
-
-/**
- * Whether a path is a directory, distinguishing genuine absence (ENOENT,
- * the expected condition) from an operational failure such as EACCES, which
- * is never reported as absence.
- */
-async function presence(target: string): Promise<Result<Presence, string>> {
-  try {
-    return ok((await stat(target)).isDirectory() ? 'directory' : 'not-a-directory');
-  } catch (cause) {
-    const code = cause instanceof Error && 'code' in cause ? String(cause.code) : 'unknown';
-    if (code === 'ENOENT') {
-      return ok('absent');
-    }
-    return err(`cannot read ${target} (${code})`);
-  }
-}
-
-/** Whether the root is a git repository (a `.git` directory or file). */
-export async function isGitRepository(root: string): Promise<boolean> {
-  try {
-    await stat(path.join(root, '.git'));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function listEntries(
+async function listProfileEntries(
   root: string,
-  dirName: string | undefined,
-): Promise<Result<ProfileEntry[], string>> {
-  const dir = dirName === undefined ? root : path.join(root, dirName);
-  const there = await presence(dir);
-  if (!there.ok) {
-    return there;
-  }
-  if (there.value !== 'directory') {
-    return ok([]);
-  }
-  const prefix = dirName === undefined ? '' : `${dirName}/`;
-  return ok(
-    (await readdir(dir, { withFileTypes: true })).map((entry) => ({
-      relPath: `${prefix}${entry.name}`,
-      isDirectory: entry.isDirectory(),
-    })),
-  );
-}
-
-async function listProfileEntries(root: string): Promise<Result<readonly ProfileEntry[], string>> {
+  fs: ProfileFileSystem,
+): Promise<Result<readonly ProfileEntry[], string>> {
   const levels = await Promise.all(
-    [undefined, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map((dirName) => listEntries(root, dirName)),
+    [undefined, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map((dirName) => fs.listEntries(root, dirName)),
   );
   const collected = collect(levels);
   return collected.ok ? ok(collected.value.flat()) : collected;
 }
 
 /** The root's entries, or `absent`, or the operational failure to report. */
-async function readRoot(root: string): Promise<Result<readonly ProfileEntry[] | 'absent', string>> {
-  const there = await presence(root);
+async function readRoot(
+  root: string,
+  fs: ProfileFileSystem,
+): Promise<Result<readonly ProfileEntry[] | 'absent', string>> {
+  const there = await fs.presence(root);
   if (!there.ok) {
     return err(`${there.error} — an unreadable profile root is a failure, never absence`);
   }
@@ -135,21 +98,50 @@ async function readRoot(root: string): Promise<Result<readonly ProfileEntry[] | 
   if (there.value === 'not-a-directory') {
     return err(`${root} exists but is not a directory`);
   }
-  return listProfileEntries(root);
+  return listProfileEntries(root, fs);
 }
 
-async function documentFailures(root: string, layout: ProfileLayout): Promise<DocumentFailure[]> {
-  const failures: DocumentFailure[] = layout.unexpected.map((relPath) => ({
-    relPath,
-    messages: [
-      'not part of the profile layout (index.md, repos/<scope-key>.md, machines/<machine-key>.md and git furniture only)',
-    ],
-  }));
+/** The findings the layout makes before any document is read. */
+function layoutFailures(layout: ProfileLayout): DocumentFailure[] {
+  return [
+    ...layout.notRegular.map((relPath) => ({
+      relPath,
+      messages: [
+        `${relPath} is not a regular file or directory (a symlink or a special entry) — never read as part of the profile`,
+      ],
+    })),
+    ...layout.unexpected.map((relPath) => ({
+      relPath,
+      messages: [
+        'not part of the profile layout (index.md, repos/<scope-key>.md, machines/<machine-key>.md and git furniture only)',
+      ],
+    })),
+  ];
+}
+
+async function documentFailure(
+  root: string,
+  expectation: ProfileDocumentExpectation,
+  fs: ProfileFileSystem,
+): Promise<DocumentFailure | undefined> {
+  const content = await fs.readDocument(path.join(root, expectation.relPath));
+  if (!content.ok) {
+    return { relPath: expectation.relPath, messages: [content.error] };
+  }
+  const parsed = parseOperatorProfileDocument(expectation, content.value);
+  return parsed.ok ? undefined : { relPath: expectation.relPath, messages: parsed.error };
+}
+
+async function documentFailures(
+  root: string,
+  layout: ProfileLayout,
+  fs: ProfileFileSystem,
+): Promise<DocumentFailure[]> {
+  const failures = layoutFailures(layout);
   for (const expectation of layout.documents) {
-    const content = await readFile(path.join(root, expectation.relPath), 'utf8');
-    const parsed = parseOperatorProfileDocument(expectation, content);
-    if (!parsed.ok) {
-      failures.push({ relPath: expectation.relPath, messages: parsed.error });
+    const failure = await documentFailure(root, expectation, fs);
+    if (failure !== undefined) {
+      failures.push(failure);
     }
   }
   return failures;
@@ -193,13 +185,14 @@ const NOT_A_REPOSITORY: SyncStateInput = {
  */
 async function syncReport(
   root: string,
+  fs: ProfileFileSystem,
 ): Promise<
   Result<
     { readonly failures: readonly DocumentFailure[]; readonly info: readonly string[] },
     string
   >
 > {
-  const state = (await isGitRepository(root))
+  const state = (await fs.isGitRepository(root))
     ? readSyncState(createGitRunner(root))
     : ok(NOT_A_REPOSITORY);
   if (!state.ok) {
@@ -215,12 +208,14 @@ async function syncReport(
  * Read a profile root in full: layout, documents and sync state.
  *
  * @param root - the profile root
+ * @param fs - the filesystem to read through (the real one by default)
  * @returns `absent`, or the report, or the operational error that stopped the read
  */
 export async function readProfileReport(
   root: string,
+  fs: ProfileFileSystem = REAL_PROFILE_FILE_SYSTEM,
 ): Promise<Result<ProfileReport | 'absent', string>> {
-  const entries = await readRoot(root);
+  const entries = await readRoot(root, fs);
   if (!entries.ok) {
     return entries;
   }
@@ -228,8 +223,8 @@ export async function readProfileReport(
     return ok('absent');
   }
   const layout = classifyProfileEntries(entries.value);
-  const documents = await documentFailures(root, layout);
-  const sync = await syncReport(root);
+  const documents = await documentFailures(root, layout, fs);
+  const sync = await syncReport(root, fs);
   if (!sync.ok) {
     return sync;
   }

@@ -106,7 +106,7 @@ export function readSyncState(run: GitRunner): Result<SyncStateInput, string> {
     return remotes;
   }
   const upstream = hasUpstream(run);
-  const status = run(['status', '--porcelain']);
+  const status = run(['status', '--porcelain', '-z']);
   if (!status.ok) {
     return err(gitFailure('git status', status));
   }

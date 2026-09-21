@@ -148,7 +148,7 @@ fi
 ```
 
 A present profile that fails the check is fixed at once, never read around:
-the contract is `practice-core/schemas/operator-profile.schema.json`. When a
+the contract is `.agent/practice-core/schemas/operator-profile.schema.json`. When a
 session writes the profile on the operator's word, it runs the host's
 profile sync, push side, in the same breath (PDR-141 decisions 13 to 16;
 the Practice index names the command once the host binds one): the check

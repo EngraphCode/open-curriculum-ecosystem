@@ -7,11 +7,17 @@ import { type ProfileDocumentExpectation } from './operator-profile-document.js'
 import { machineKeyFromRelPath, scopeKeyFromRelPath } from './operator-profile-keys.js';
 import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
 
+/**
+ * What a listing entry is, read without following links: a symlink is a
+ * symlink, never the file or directory it points at.
+ */
+export type ProfileEntryKind = 'file' | 'directory' | 'symlink' | 'other';
+
 /** One entry of a profile root listing, as the CLI reads it. */
 export interface ProfileEntry {
   /** Path relative to the profile root, `/`-separated. */
   readonly relPath: string;
-  readonly isDirectory: boolean;
+  readonly kind: ProfileEntryKind;
 }
 
 export interface ProfileLayout {
@@ -19,6 +25,8 @@ export interface ProfileLayout {
   readonly documents: readonly ProfileDocumentExpectation[];
   /** Entries the layout does not name (a finding each). */
   readonly unexpected: readonly string[];
+  /** Symlinks and special entries: never a document, never read (a finding each). */
+  readonly notRegular: readonly string[];
 }
 
 /**
@@ -33,7 +41,8 @@ const SCOPED_DIRS: ReadonlySet<string> = new Set([SCOPES_DIR_NAME, MACHINES_DIR_
 type EntryClass =
   | { readonly kind: 'document'; readonly expectation: ProfileDocumentExpectation }
   | { readonly kind: 'furniture' }
-  | { readonly kind: 'unexpected' };
+  | { readonly kind: 'unexpected' }
+  | { readonly kind: 'not-regular' };
 
 function classifyDirectory(relPath: string): EntryClass {
   return SCOPED_DIRS.has(relPath) || GIT_FURNITURE.has(relPath)
@@ -65,28 +74,42 @@ function classifyFile(relPath: string): EntryClass {
   return { kind: 'unexpected' };
 }
 
+/** Only a regular file or directory is classified by name; anything else is refused by kind. */
+function classifyEntry(entry: ProfileEntry): EntryClass {
+  if (entry.kind === 'directory') {
+    return classifyDirectory(entry.relPath);
+  }
+  if (entry.kind === 'file') {
+    return classifyFile(entry.relPath);
+  }
+  return { kind: 'not-regular' };
+}
+
 /**
  * Classify a profile root listing against the layout the PDR names:
  * `index.md`, `repos/<scope-key>.md` and `machines/<machine-key>.md`, plus
- * the git furniture a synced root carries. Anything else is unexpected. The
+ * the git furniture a synced root carries. Anything else is unexpected, and
+ * a symlink or special entry at any position is not regular: it is never a
+ * document, whatever its name, so nothing is ever read through it. The
  * listing is shallow for the root and one level deep for `repos/` and
  * `machines/`; the caller supplies every level.
  *
  * @param entries - the root's entries and the scoped directories' entries, relative paths
- * @returns the documents to validate and the unexpected entries
+ * @returns the documents to validate, the unexpected entries and the entries that are not regular
  */
 export function classifyProfileEntries(entries: readonly ProfileEntry[]): ProfileLayout {
   const documents: ProfileDocumentExpectation[] = [];
   const unexpected: string[] = [];
+  const notRegular: string[] = [];
   for (const entry of entries) {
-    const classified = entry.isDirectory
-      ? classifyDirectory(entry.relPath)
-      : classifyFile(entry.relPath);
+    const classified = classifyEntry(entry);
     if (classified.kind === 'document') {
       documents.push(classified.expectation);
     } else if (classified.kind === 'unexpected') {
       unexpected.push(entry.relPath);
+    } else if (classified.kind === 'not-regular') {
+      notRegular.push(entry.relPath);
     }
   }
-  return { documents, unexpected };
+  return { documents, unexpected, notRegular };
 }

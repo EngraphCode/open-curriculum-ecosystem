@@ -119,6 +119,8 @@ async function main(argv: readonly string[]): Promise<number> {
 const currentFilePath = fileURLToPath(import.meta.url);
 
 if (process.argv[1] === currentFilePath) {
-  const exitCode = await main(process.argv.slice(2));
-  process.exit(exitCode);
+  // process.exitCode, never process.exit(): exit() can terminate before
+  // piped stdout/stderr flush, truncating the output a caller captures.
+  // Nothing runs after this assignment; the process ends when the loop drains.
+  process.exitCode = await main(process.argv.slice(2));
 }

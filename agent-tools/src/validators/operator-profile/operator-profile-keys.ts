@@ -61,6 +61,12 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
   /\bxox[abpr]-[A-Za-z0-9-]{10,}/,
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
   /\bAKIA[0-9A-Z]{16}\b/,
+  // A labelled generic credential: the label at the start of a line (indented
+  // or as a list item), optionally quoted, then `:` or `=` and a non-empty
+  // value — the YAML-key and assignment shapes. Prose that mentions a label
+  // without binding a value (`password managers`, `the token budget`) passes.
+  /^\s*(?:-\s+)?["']?(?:password|passwd|secret|api[_-]?key|token|access[_-]?token|auth[_-]?token)["']?\s*[:=]\s*\S+/i,
+  /^\s*(?:-\s+)?["']?authorization["']?\s*[:=]\s*["']?bearer\s+\S+/i,
 ];
 
 /**

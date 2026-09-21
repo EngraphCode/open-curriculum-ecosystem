@@ -4,7 +4,7 @@
  *
  * The Core-carried JSON Schema
  * (`.agent/practice-core/schemas/operator-profile.schema.json`) is the
- * portable CONTRACT; the zod schema in `operator-profile-frontmatter.ts` is
+ * portable CONTRACT; the zod schema in `operator-profile-schema.ts` is
  * this estate's ENFORCEMENT surface. Unit tests exercise the zod surface on
  * shared fixtures without IO; this smoke reads the contract document as data,
  * compiles it strictly, and proves both surfaces return the same verdict on
@@ -21,7 +21,7 @@ import { parse as parseYaml } from 'yaml';
 
 import { isJsonObject } from '../../core/json.js';
 import { writeLine } from '../../core/terminal-output.js';
-import { extractFrontmatter } from '../portability/portability-fs.js';
+import { splitProfileFrontmatter } from './operator-profile-document.js';
 import { PROFILE_FIXTURES } from './operator-profile-fixtures.js';
 import {
   OPERATOR_PROFILE_CONTRACT_REL_PATH,
@@ -68,9 +68,9 @@ const validateDocument: ValidateFunction = consumerAjv.compile(publishedSchema);
 
 let checked = 0;
 for (const fixture of PROFILE_FIXTURES) {
-  const frontmatter = extractFrontmatter(fixture.content);
-  assert.ok(frontmatter !== null, `${fixture.name}: fixture has a frontmatter block`);
-  const mapping: unknown = parseYaml(frontmatter);
+  const split = splitProfileFrontmatter(fixture.content);
+  assert.ok(split !== null, `${fixture.name}: fixture has a frontmatter block`);
+  const mapping: unknown = parseYaml(split.frontmatter);
   const shapesVerdict = validateShapes(mapping) === true;
   const documentVerdict = validateDocument(mapping) === true;
   const enforcementVerdict = operatorProfileFrontmatterSchema.safeParse(mapping).success;

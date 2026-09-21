@@ -5,9 +5,9 @@
 
 import { err, ok, type Result } from '@oaknational/result';
 import { parse as parseYaml } from 'yaml';
+import { type z } from 'zod';
 
 import { isJsonObject } from '../../core/json.js';
-import { extractFrontmatter } from '../portability/portability-fs.js';
 import { findCredentialLikeLines } from './operator-profile-keys.js';
 import {
   type OperatorProfileFrontmatter,
@@ -29,13 +29,40 @@ export interface ParsedProfileDocument {
   readonly frontmatter: OperatorProfileFrontmatter;
 }
 
-const FRONTMATTER_BLOCK = /^---\r?\n[\s\S]*?\r?\n---\r?\n?/;
+/** A document split at its frontmatter block. */
+export interface FrontmatterSplit {
+  /** The text between the delimiters. */
+  readonly frontmatter: string;
+  /** Everything after the closing delimiter's line. */
+  readonly body: string;
+}
 
-function parseFrontmatterMapping(content: string): Result<unknown, string> {
-  const frontmatter = extractFrontmatter(content);
-  if (frontmatter === null) {
-    return err('no YAML frontmatter block (every operator-profile document opens with one)');
+/**
+ * The frontmatter block: `---` alone on the first line, the block, then
+ * `---` alone on its own line (a trailing `\r` allowed). A closing line such
+ * as `---junk` closes nothing.
+ */
+const FRONTMATTER_BLOCK = /^---\r?\n([\s\S]*?)\r?\n---\r?(?:\n|$)/;
+
+const NO_FRONTMATTER = 'no YAML frontmatter block (every operator-profile document opens with one)';
+
+/**
+ * Split a document at its frontmatter block with one strict whole-line
+ * delimiter match, which serves the parse and the body alike.
+ *
+ * @param content - the whole document text
+ * @returns the block's text and the body after it, or null when there is no block
+ */
+export function splitProfileFrontmatter(content: string): FrontmatterSplit | null {
+  const match = FRONTMATTER_BLOCK.exec(content);
+  const frontmatter = match?.[1];
+  if (match === null || frontmatter === undefined) {
+    return null;
   }
+  return { frontmatter, body: content.slice(match[0].length) };
+}
+
+function parseFrontmatterMapping(frontmatter: string): Result<unknown, string> {
   let parsed: unknown;
   try {
     parsed = parseYaml(frontmatter);
@@ -49,20 +76,29 @@ function parseFrontmatterMapping(content: string): Result<unknown, string> {
   return isJsonObject(parsed) ? ok(parsed) : err('frontmatter is not a YAML mapping');
 }
 
-function parseFrontmatter(content: string): Result<OperatorProfileFrontmatter, readonly string[]> {
-  const mapping = parseFrontmatterMapping(content);
+/**
+ * One schema issue as a message. An unrecognised key's name is withheld: the
+ * key can be the credential-shaped token this validator exists to keep out of
+ * every output, so the message carries the count and the path only.
+ */
+function issueMessage(issue: z.core.$ZodIssue): string {
+  const at = issue.path.map(String).join('.') || '(root)';
+  if (issue.code === 'unrecognized_keys') {
+    const count = issue.keys.length;
+    return `frontmatter ${at}: ${count} unrecognized key${count === 1 ? '' : 's'} (the key names are not echoed; the contract lists the family's keys)`;
+  }
+  return `frontmatter ${at}: ${issue.message}`;
+}
+
+function parseFrontmatter(
+  frontmatter: string,
+): Result<OperatorProfileFrontmatter, readonly string[]> {
+  const mapping = parseFrontmatterMapping(frontmatter);
   if (!mapping.ok) {
     return err([mapping.error]);
   }
   const parsed = operatorProfileFrontmatterSchema.safeParse(mapping.value);
-  if (parsed.success) {
-    return ok(parsed.data);
-  }
-  return err(
-    parsed.error.issues.map(
-      (issue) => `frontmatter ${issue.path.map(String).join('.') || '(root)'}: ${issue.message}`,
-    ),
-  );
+  return parsed.success ? ok(parsed.data) : err(parsed.error.issues.map(issueMessage));
 }
 
 /** The key a scope or machine document carries; undefined for the index. */
@@ -98,8 +134,7 @@ function positionMessages(
   ];
 }
 
-function bodyMessages(content: string): readonly string[] {
-  const body = content.replace(FRONTMATTER_BLOCK, '');
+function bodyMessages(body: string): readonly string[] {
   return body.trim() === '' ? ['the body below the frontmatter is empty'] : [];
 }
 
@@ -128,13 +163,17 @@ export function parseOperatorProfileDocument(
   content: string,
 ): Result<ParsedProfileDocument, readonly string[]> {
   const credentials = credentialMessages(content);
-  const frontmatter = parseFrontmatter(content);
+  const split = splitProfileFrontmatter(content);
+  if (split === null) {
+    return err([NO_FRONTMATTER, ...credentials]);
+  }
+  const frontmatter = parseFrontmatter(split.frontmatter);
   if (!frontmatter.ok) {
     return err([...frontmatter.error, ...credentials]);
   }
   const messages = [
     ...positionMessages(expectation, frontmatter.value),
-    ...bodyMessages(content),
+    ...bodyMessages(split.body),
     ...credentials,
   ];
   if (messages.length > 0) {
