@@ -903,3 +903,15 @@ The estate's code-expert and test-expert reviewed the reshaped tripwire before t
 The owner approved the plan (a staged review of the operator-profile module on both estates behind an owner checkpoint; design-reviewed by three legs, all REVISE, twelve findings cured and one refuted; two subject Crickets, ON-TRACK and DRIFTING, agreeing in substance). Before any new finding is generated, the defect that made today is cured at its source: a new scratchpad reply instrument refuses a whole batch, before any token is minted, unless every disposition OPENS with pr-lifecycle's bar marker and its final line is signed — proven to bite (one unmarked reply: exit 3, nothing posted). No reply this seat sent today met either requirement. Now pushing #174 at SHA: 5147f61cf (the tripwire as an engine over an injected vocabulary; gates green at the commit), the last of its two budgeted settlement pushes; marked, signed dispositions follow on its three open threads. Then the fold, before any launch.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T16:48:59Z — the fold starts: sweep committed; gate run starts NOW on the primary for the base merge
+
+The fold of coordination/2026-09-21-1a125f, ahead of any fleet launch (its due time is 2026-09-22 00:00Z; pull request 171 is its open draft). The sweep is committed through the ceremony at SHA: 3d44283ef (one refusal on the way: a record line beginning with a hash-number read as a malformed heading, MD018 — a trap this seat's own notes already named; rewrapped, the left-open claim closed, re-run alone). Now merging the base INTO the branch by a scratchpad script that resolves the ref to a full sha, writes the message from the real log AFTER resolving, and merges that sha, in one call. Pull request 174 is pushed at SHA: 5147f61cf with three marked, signed dispositions; one new Copilot thread and one failing check there wait for this gate run to finish.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T16:59:16Z — pull request 174: one finding over the bar, cured; gate run starts NOW in the credential-guard worktree
+
+Pull request 171 (the fold) is ready at SHA: 45e376b57 and settling; both review legs asked. On pull request 174 Copilot found that a label behind a plus mark or an ordered-list number passed unread. Judged against the bounded claim, which named list marks as furniture: over the bar. Cured in two anchored replaces, the claim restated as the enumeration it is, one test seen red first. The pull request's single clause-4 rebudget is recorded on its description with the generator answer (a category claimed over an enumeration). Separately, its windows-basic check failed on two integration tests outside the diff, each timing out at the 5000 ms default on the runner (refound-tile and state-integrity): one instance, recorded, a re-run to follow. The commit and push gates run in the linked worktree, sequentially, nothing else beside them.
+
+— Zephyr guards Leeward (281e44)

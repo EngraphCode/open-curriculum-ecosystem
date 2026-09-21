@@ -334,7 +334,8 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 >
 > **Landed since the 2026-09-12 snapshot:** the folds #137, #148, #150, #152, #153, #155, #156
 > #159, #169 and #170 (`1a125f65d`, 2026-09-21 10:12Z; successor `coordination/2026-09-21-1a125f`) and the
-> lanes #139, #143–#147, #149, #157, #158 and #160–#168. Each is in the estate-coordination record's
+> lanes #139, #143–#147, #149, #157, #158, #160–#168 and the operator-profile twin, pull request
+> 172 (`272910f1d`, 2026-09-21 14:45Z). Each is in the estate-coordination record's
 > journal by merge commit, and in git; the list as it stood is in
 > `archive/director-handoff-2026-09-20.md`.
 >

@@ -296,11 +296,33 @@ this section when it lands or the owner closes it.
    Node has no openat-style read relative to a directory descriptor — falsifier: such a
    primitive in the runtime. Still open from the sibling's 138 record: the start-right sed
    scope parser accepts nested and local-path remotes; ff-only merge failures read as
-   divergence. Next small lane, `their-lane-owns-coordinate` until twinned from the sibling's
-   `6b642551`: the credential-guard extension (bold labels, table rows, upper-case env names
-   carrying SECRET, TOKEN, PASSWORD, API_KEY, PRIVATE_KEY or ACCESS_KEY; negative controls).
-   The `$comment_contract` contradiction and PDR-141's host-local "for this line" scope key
-   remain one Core-text PR at source, both estates re-twinning.
+   divergence. Both follow-on lanes are LIVE, neither is "next" (read each pull request for its
+   tip). The credential guard is pull request 174: not the direct twin of the sibling's
+   `6b642551` first planned, but, at the owner's word, an engine over an injected vocabulary
+   whose named shapes are its bounded claim; no seat restarts the direct twin. The
+   `$comment_contract` contradiction and PDR-141's host-local scope key are pull request 173,
+   the Core-text cures at source, HELD for the owner's disposition of two findings; both
+   estates re-twin at its landing.
+   The owner approved (2026-09-21) a STAGED review of the operator-profile module on both
+   estates, not yet run. Its load-bearing content is here, so no seat depends on the
+   originating seat's per-user plan file. Objects: this estate's module at pull request 174's
+   tip and the Core text at pull request 173's tip; the sibling's module, read only by
+   `git show` at a sha pinned at launch and posted on the exchange channel; the operator's real
+   profile is read by no agent (file metadata and the host check's facts only). No swarm: every
+   shared file diverges, measured by numstat. Step A, about 100k tokens: the seat's own
+   observation of the built check, sync and push over a disposable `PRACTICE_HOME` and a
+   throwaway remote in five states (no profile; a conforming one; a credential-shaped line; a
+   file swapped for a symlink between check and read; a dirty tree with unpushed commits); one
+   frame-challenger on every candidate control point, inside the module or outside it; one
+   cross-vendor dialogue. Then an OWNER CHECKPOINT by one card: retire, reshape at the root,
+   or keep and name Step B's legs. Step B, at most about 250k and only on that word: up to
+   three of a cross-estate contract reviewer, an adversary on the sync (presumptive first), a
+   security reviewer, a test-doctrine reviewer and an operator-onboarding reviewer. Every leg
+   names its model tier, takes an explicit file list, returns at most three ranked findings,
+   evaluates PDR-141's falsifier and reopen conditions, and carries no bar field. The seat
+   records a bar verdict for every returned finding before any is absorbed; the output is one
+   numbered decision list of about ten items that can say retire, then two closing conscience
+   checks and a launch record of measured tokens against estimate.
 5. **Altair spins Umbra's follow-ups from #116** (2026-09-10; pointers, not specs; Altair's
    record names them): the
    policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
@@ -559,8 +581,10 @@ owner's second rebudget (five cures this estate's own code-expert review found a
 legs bound; Codex clean, Copilot two: the accepted lstat→readdir residual and one true finding);
 settlement 5 under the owner's third rebudget (the one test that cure lacked). Generator, both
 owner rebudgets: the estate's own code-expert and test-expert pass ran after the vendors rather
-than before ready; the cure at source is to run it first. Twenty findings, seventeen cured, two
-rejected with rationale (the same residual twice), one routed (the orientation row). Lane item
+than before ready; the cure at source is to run it first. Seventeen findings raised on the pull
+request (eleven by the vendor legs, five by the code-expert review, one by the test-expert):
+fourteen cured, two rejected with rationale (the same residual twice), one routed (the
+orientation row). The sibling's seven round-two findings are counted on the sibling's side. Lane item
 4 records the twin's lineage, the residual, and the next lane; the #172 row of
 `review-cost-ledger.md` prices it. Seat error on the way, recorded on the ARC channel: a
 scratchpad thread-resolver resolved every open thread when called for one; the true finding's

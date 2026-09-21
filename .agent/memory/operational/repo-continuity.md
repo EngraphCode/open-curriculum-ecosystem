@@ -294,9 +294,14 @@ for anything later): pull request 172, the twin of the sibling's cures, is on `e
 findings awaiting the owner's disposition; its one records-class rebudget is spent (PDR-140
 clause 9b). Pull request 174, the credential tripwire as an engine over an injected vocabulary,
 is at `SHA:5147f61cf`, its settlement budget spent, awaiting its review legs. The owner approved a STAGED review of the operator-profile
-module on both estates behind an owner checkpoint; the approved plan is in the seat's per-user
-plan file (`~/.claude/plans/jolly-exploring-yeti.md`) and is copied onto its own lane before any
-other seat implements it. The seat's replies go out only through a scratchpad instrument that
+module on both estates behind an owner checkpoint, not yet run; its load-bearing content
+(objects, stages, the checkpoint, the caps) is on the board, lane item 4 of
+`threads/estate-coordination.next-session.md`, and no per-user file is a dependency. Owed on
+the successor branch's first records commit, routed from pull request 171 as below its bar:
+the Director handoff's pointer to the archived 2026-09-12 fold section; this file's Active
+Threads index, which names a folded branch and joins the successor cut's surface refresh; and
+"three rounds" against four reviewed heads for pull request 170, in four records with a
+correction appended to the fold channel. The seat's replies go out only through a scratchpad instrument that
 refuses a disposition without pr-lifecycle's bar marker and signature.
 
 1. the three-estate Practice exchange (this estate, the sibling personal-site estate, castr),
@@ -308,9 +313,7 @@ refuses a disposition without pr-lifecycle's bar marker and signature.
    sibling's pull request 139, its rows dispositioned from this side on the channel. Owed HERE,
    each its own lane off engraph, never the coordination branch: the declaration generators
    landed in slices (J1, the frontmatter on 126 rules); the merge door learning the docs-only
-   bot-authored class (lane item 8, three instances today); the operator-profile schema's
-   `$comment_contract` contradiction with PDR-141 decisions 11 and 14, at the Core source; the
-   twin of the sibling's thirteen operator-profile cures when their SHA lands; castr's
+   bot-authored class (lane item 8, three instances today); castr's
    semantic-merge driver (C1); the seven rules of J9 by one records PR; the pr-watch
    reconvergence (two windows). The owner-word rows O1–O3 are PDR clauses and ride their own lane
    with the owner's word recorded;
