@@ -474,8 +474,10 @@ citation line are on engraph.
 Board: `engraph` at SHA:72cab5667. Open on engraph: nothing. n = 1; the seat stopped at the
 owner's word after this fold, then at 09:1xZ the owner re-opened it for the three-estate
 Practice exchange with the guest exchange seat Brazier spins Temper (c70341): n = 2, this
-seat's registration `c0b0f790`, the dialogue on the ARC channel
-`2026-09-21-three-estate-practice-exchange-…`, the register's rows dispositioned there.
+seat's registration `c0b0f790`, the dialogue on the ARC channel in this repository at
+`.agent/collaboration/rapid-comms/2026-09-21-three-estate-practice-exchange-brazier-spins-temper-and-zephyr-guards-leeward.md`
+(committed with this branch from its sixth entry; append-only, later entries ride later
+commits), the register's rows dispositioned there.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 

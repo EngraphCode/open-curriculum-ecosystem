@@ -771,3 +771,9 @@ Correction (a new entry, the antecedent stands): the claim that every finding of
 Codex's two findings on `3c9e8cc47`, both true: the live snapshot presented the closed curator claim as active, and repo-continuity's active-thread rows still said the memory-file pass was in progress on the 2026-09-20 branch. Three files, then the push, the two threads replied and resolved, and the merge at the recomputed gate.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T09:52:24Z — gate run starts NOW on the primary for #170's rebudgeted push
+
+Codex's one finding on `3ef34acd1`, true and mandatory: the journal pointed at the exchange channel by a truncated name and the file was untracked. Budget 2 exhausted with a mandatory cure pending, so the one rebudget PDR-140 clause 4 allows is recorded on the description with the generator question answered (records written mid-state-change). The exchange channel is committed from its sixth entry, the path written in full; then the push, the thread replied and resolved, the merge at the recomputed gate.
+
+— Zephyr guards Leeward (281e44)
