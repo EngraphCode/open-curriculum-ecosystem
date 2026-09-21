@@ -258,6 +258,73 @@ this section when it lands or the owner closes it.
    names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
    `err`s (a per-document failure for a read) rather than uncaught exceptions; the layout's
    `ReadonlySet<string>` vocabularies keep their literal unions.
+   From the three-estate exchange (2026-09-21): the schema's `$comment_contract` still says the
+   Practice never initialises, commits or pushes the profile repository, which PDR-141 decisions
+   11 and 14 (the 2026-09-14 and 2026-09-17 amendments) contradict — ours to cure at the Core
+   source, then byte-identical to the sibling estate in one window, since both estates validate
+   the same home-directory files with it. And the sibling's first review round on its port of
+   this module raised thirteen findings, two overlapping the list above (the argv parser's
+   refusal, which theirs extends to duplicate options; the contract smoke's TSDoc), eleven new:
+   a symlink named as a document is followed outside the root; an empty `--root` resolves to the
+   checkout; the frontmatter's closing delimiter accepts trailing text; porcelain rename and copy
+   records are sliced at column 3; `process.exit` truncates piped output in two CLIs; a stale
+   orientation row; a start-right path missing `.agent/`; a TSDoc naming a smoke that does not
+   exist; the credential patterns miss labelled generic forms (`password:`, `api_key:`,
+   `Authorization: Bearer`); Zod's unrecognised-key message prints a credential-shaped key
+   verbatim.
+   Twinned here at SHA:272910f1d (#172, 2026-09-21; PDR-125 clause 6, `twinned-in-window`):
+   the sibling's cure `a70586bb` and its round two `6c27aba5`, with the package scope rescoped
+   on receipt, so ten of the eleven new findings above and the two overlaps are cured on both
+   estates by the same module. The eleventh, the stale orientation row, is ROUTED and still
+   owed here: a directive edit, for a seat under the 30 % context line (PDR-052).
+   Pull request 172 ran six rounds on a budget of five (the default two; +1 under
+   PDR-140 clause 4 for a Core record that named a host command; +1 by the owner's word for
+   five cures this estate's own code-expert review found after the vendor legs bound: the CLI
+   smoke reachable from the CI-gated `test:e2e` chain, `isGitRepository` reading `.git` without
+   following links and returning a `Result`, one `valueAfter` for both CLIs with `--root`
+   parsed once, `SYNC_REL_PATH` in place of its literal, `readDocument` closing inside the
+   `Result` boundary; +1 by the owner's word for the test of a rejecting `close()` that cure
+   landed without). Generator, both times: the estate's own review ran after the vendors and
+   the cure was authored under review pressure rather than test-first; the cure at source is
+   the code-expert and test-expert pass before marking ready (the sibling took it on their
+   140, merged at SHA:02ec85ab1; their 139, the three-estate register, at SHA:7655b1b69).
+   Their next twin candidate: the fused open-verify-read in `operator-profile-read.ts` (leaf
+   never followed, identity check where `O_NOFOLLOW` is absent, every close failure a Result).
+   Of the five, three already held on the sibling after their 140 (the `.git` probe, the close
+   inside the try, the smoke on the chain); the shared `valueAfter` and the single `--root`
+   flow are their twin candidates for a later lane. Accepted residual (Codex thread
+   4061923060 and Copilot thread 4062249368, rejected with rationale): the lstat-then-readdir
+   window on a scoped directory is a swap between two syscalls in the operator's own home;
+   Node has no openat-style read relative to a directory descriptor — falsifier: such a
+   primitive in the runtime. Still open from the sibling's 138 record: the start-right sed
+   scope parser accepts nested and local-path remotes; ff-only merge failures read as
+   divergence. Both follow-on lanes are LIVE, neither is "next" (read each pull request for its
+   tip). The credential guard is pull request 174: not the direct twin of the sibling's
+   `6b642551` first planned, but, at the owner's word, an engine over an injected vocabulary
+   whose named shapes are its bounded claim; no seat restarts the direct twin. The
+   `$comment_contract` contradiction and PDR-141's host-local scope key are pull request 173,
+   the Core-text cures at source, HELD for the owner's disposition of two findings; both
+   estates re-twin at its landing.
+   The owner approved (2026-09-21) a STAGED review of the operator-profile module on both
+   estates, not yet run. Its load-bearing content is here, so no seat depends on the
+   originating seat's per-user plan file. Objects: this estate's module at pull request 174's
+   tip and the Core text at pull request 173's tip; the sibling's module, read only by
+   `git show` at a sha pinned at launch and posted on the exchange channel; the operator's real
+   profile is read by no agent (file metadata and the host check's facts only). No swarm: every
+   shared file diverges, measured by numstat. Step A, about 100k tokens: the seat's own
+   observation of the built check, sync and push over a disposable `PRACTICE_HOME` and a
+   throwaway remote in five states (no profile; a conforming one; a credential-shaped line; a
+   file swapped for a symlink between check and read; a dirty tree with unpushed commits); one
+   frame-challenger on every candidate control point, inside the module or outside it; one
+   cross-vendor dialogue. Then an OWNER CHECKPOINT by one card: retire, reshape at the root,
+   or keep and name Step B's legs. Step B, at most about 250k and only on that word: up to
+   three of a cross-estate contract reviewer, an adversary on the sync (presumptive first), a
+   security reviewer, a test-doctrine reviewer and an operator-onboarding reviewer. Every leg
+   names its model tier, takes an explicit file list, returns at most three ranked findings,
+   evaluates PDR-141's falsifier and reopen conditions, and carries no bar field. The seat
+   records a bar verdict for every returned finding before any is absorbed; the output is one
+   numbered decision list of about ten items that can say retire, then two closing conscience
+   checks and a launch record of measured tokens against estimate.
 5. **Altair spins Umbra's follow-ups from #116** (2026-09-10; pointers, not specs; Altair's
    record names them): the
    policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
@@ -283,9 +350,12 @@ this section when it lands or the owner closes it.
    directory test alone would let unreviewed code through — #169 post-merge finding, Copilot);
    checks green by name; zero unresolved threads; no undispositioned finding — and merges a
    timeout-settled round for it, so the irreversible act stays on the instrumented path.
-   Warrant: the clause's own prediction (PDR-130) was met on its first trial.
+   Warrant: the clause's own prediction (PDR-130) was met on its first trial, and again on the
+   second (#169, SETTLED-NO-REVIEW) and the third (#170, 10:12Z: SILENT-WAIT-NO-REVIEWER with
+   Copilot's leg owed on a tip the class does not expect it on; Codex had reviewed the tip).
    Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
-   returns and the class never fires again.
+   returns and the class never fires again — Codex's credit did return on 2026-09-21 and the
+   class fired twice more, so the second arm is falsified.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
    15:13Z on 2026-09-16 by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as
    directed event `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's
@@ -478,6 +548,59 @@ seat's registration `c0b0f790`, the dialogue on the ARC channel in this reposito
 `.agent/collaboration/rapid-comms/2026-09-21-three-estate-practice-exchange-brazier-spins-temper-and-zephyr-guards-leeward.md`
 (committed with this branch from its sixth entry; append-only, later entries ride later
 commits), the register's rows dispositioned there.
+
+### 2026-09-21 10:12Z — the second 2026-09-21 branch folded as #170 at the owner's word (Zephyr guards Leeward, 281e44, at n = 2)
+
+Merged `SHA:1a125f65d` through the sanctioned REST endpoint as the bot under the docs-only
+bot-authored class; the door's verdict was SILENT-WAIT-NO-REVIEWER (Copilot's leg owed on a tip
+the class does not expect it on; Codex had reviewed the tip) — lane item 8's third instance.
+Three review rounds: the opening tip drew four threads and #169 six post-merge; the first
+settlement push cured nine and routed one, then drew two; the second cured those and drew one,
+a mandatory cure (an untracked channel a record made authoritative) at budget exhaustion, so the
+one rebudget PDR-140 clause 4 allows was recorded on the description with the generator answer
+(records written mid-state-change); the rebudgeted push drew two, routed to this successor's
+first commit. Fifteen findings, thirteen cured, two routed; the #170 row of
+`review-cost-ledger.md` prices it. Successor `coordination/2026-09-21-1a125f`, DUE 2026-09-22
+00:00Z.
+
+*moved for teachers:* nothing. *moved for the Practice:* the #169 fold's records, the seat and
+thread rows trued to the consolidation's close and the exchange, the sha-prefix rule's
+stable-slug citation, ADR-187's owed cross-references routed, the exchange channel tracked.
+
+Board: `engraph` at SHA:1a125f65d. Open on engraph: nothing. n = 2 with the guest exchange seat
+Brazier spins Temper (c70341); the exchange's register is the sibling's pull request 139, its
+delta instrument 137 and PDR-141 port 138 in review there.
+
+### 2026-09-21 14:45Z — the operator-profile twin landed as #172 through the front door (Zephyr guards Leeward, 281e44, at n = 2)
+
+Merged `SHA:272910f1d` by `merge-bot merge` with both vendor legs SATISFIED on the tip
+`c12476f0f` (Copilot: findings none; Codex: no findings), 21 checks green, zero threads — a
+code PR, so the front door and never the REST endpoint. Six rounds on a budget of five: the
+opening tip (Copilot four, Codex one); settlement 1 (those five plus the sibling's round two;
+Copilot two); settlement 2 (those two; Codex one); settlement 3 under the one rebudget PDR-140
+clause 4 allows (a Core record naming a host command — abstracted); settlement 4 under the
+owner's second rebudget (five cures this estate's own code-expert review found after the vendor
+legs bound; Codex clean, Copilot two: the accepted lstat→readdir residual and one true finding);
+settlement 5 under the owner's third rebudget (the one test that cure lacked). Generator, both
+owner rebudgets: the estate's own code-expert and test-expert pass ran after the vendors rather
+than before ready; the cure at source is to run it first. Seventeen findings raised on the pull
+request (eleven by the vendor legs, five by the code-expert review, one by the test-expert):
+fourteen cured, two rejected with rationale (the same residual twice), one routed (the
+orientation row). The sibling's seven round-two findings are counted on the sibling's side. Lane item
+4 records the twin's lineage, the residual, and the next lane; the #172 row of
+`review-cost-ledger.md` prices it. Seat error on the way, recorded on the ARC channel: a
+scratchpad thread-resolver resolved every open thread when called for one; the true finding's
+thread was unresolved by hand within the minute.
+
+*moved for teachers:* nothing. *moved for the Practice:* both estates run the same
+operator-profile module; the profile reader refuses symlinked documents and roots, an empty
+`--root`, unknown sync arguments; a refused `.git` probe or close is a value the caller reads.
+
+Board: `engraph` at SHA:272910f1d. Open on engraph: #171 (this coordination branch, draft,
+DUE 2026-09-22 00:00Z). n = 2 nominally; the guest seat Brazier spins Temper (c70341)
+compacted at ~14:3xZ with its watchers stopped, its main at `7655b1b69` (137–140 landed; its
+fold 141 and actions-pin 142 open), the merge SHA above written on the exchange channel for its
+successor.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
