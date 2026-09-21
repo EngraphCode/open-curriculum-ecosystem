@@ -293,8 +293,9 @@ operator runs. Later amendments test against it: anything that would move
 the canonical copy out of the operator's control, or that would let a
 Practice write it on anything but the operator's word, breaks the
 sovereignty the surface exists to give (decisions 11 and 14 pass that test:
-the operator initialises the repository and ratifies every write; the
-Practice syncs under the operator's own identity and never rewrites).
+the operator initialises the repository and every write is made on the
+operator's word; the Practice syncs under the operator's own identity and
+never rewrites).
 
 ## Provenance
 
