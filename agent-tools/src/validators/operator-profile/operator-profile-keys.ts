@@ -61,7 +61,41 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
   /\bxox[abpr]-[A-Za-z0-9-]{10,}/,
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
   /\bAKIA[0-9A-Z]{16}\b/,
+  // A labelled generic credential: the label at the start of a line (indented
+  // or as a list item), optionally quoted, spaced or joined (`API key`,
+  // `api_key`, `apiKey`), then `:` or `=` and a non-empty value — the
+  // YAML-key and assignment shapes. Prose that mentions a label without
+  // binding a value (`password managers`, `the token budget`) passes.
+  /^\s*(?:-\s+)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?\s*[:=]\s*\S+/i,
+  /^\s*(?:-\s+)?["']?authorization["']?\s*[:=]\s*["']?bearer\s+\S+/i,
 ];
+
+/**
+ * A credential label with nothing after the colon or equals sign: in
+ * Markdown the value often sits on the next line (`Password:` then the
+ * secret, `Authorization:` then `Bearer …`). Such a line binds the next
+ * non-blank line as its value when that line is a value and nothing else.
+ */
+const LABEL_ONLY_LINE =
+  /^\s*(?:-\s+)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token|authorization)["']?\s*[:=]\s*$/i;
+
+/**
+ * A line that is a value and nothing else: one token, optionally quoted, or
+ * a `Bearer <token>` pair. A sentence after a bare label is prose, not a
+ * wrapped value (`token:` then `secrets live in the keychain` passes).
+ */
+const VALUE_ONLY_LINE = /^\s*(?:["']?[^\s"']+["']?|bearer\s+\S+)\s*$/i;
+
+/** The index of the next non-blank line after `from` when it is a value line, or -1. */
+function wrappedValueLine(lines: readonly string[], from: number): number {
+  for (let index = from + 1; index < lines.length; index += 1) {
+    const line = lines[index] ?? '';
+    if (line.trim() !== '') {
+      return VALUE_ONLY_LINE.test(line) ? index : -1;
+    }
+  }
+  return -1;
+}
 
 /**
  * Line numbers (1-based) of credential-shaped lines in a document.
@@ -70,10 +104,19 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
  * @returns the offending line numbers, empty when clean
  */
 export function findCredentialLikeLines(content: string): readonly number[] {
-  return content
-    .split('\n')
-    .map((line, index) =>
-      CREDENTIAL_LIKE_PATTERNS.some((pattern) => pattern.test(line)) ? index + 1 : 0,
-    )
-    .filter((lineNumber) => lineNumber > 0);
+  const lines = content.split('\n');
+  const flagged = new Set<number>();
+  lines.forEach((line, index) => {
+    if (CREDENTIAL_LIKE_PATTERNS.some((pattern) => pattern.test(line))) {
+      flagged.add(index + 1);
+    }
+    if (LABEL_ONLY_LINE.test(line)) {
+      const value = wrappedValueLine(lines, index);
+      if (value !== -1) {
+        flagged.add(index + 1);
+        flagged.add(value + 1);
+      }
+    }
+  });
+  return [...flagged].sort((a, b) => a - b);
 }

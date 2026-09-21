@@ -115,11 +115,11 @@ repository, linked worktree and clone on the machine, and it may be a git
 repository the operator syncs between machines. Pull the profile first,
 then run the check — it exits 0 and says so when nothing is there, and it
 refuses a document carrying a credential-shaped line before anything is
-read into the session — then read the index, the current repository's
-scope file (keyed by the
-`origin` remote's owner and name in any of its https, scp-style or ssh
-forms, never a path), then this machine's file (keyed by the short host
-name):
+read into the session — asking it to emit the index, the current
+repository's scope file (keyed by the `origin` remote's owner and name in
+any of its https, scp-style or ssh forms, never a path) and this machine's
+file (keyed by the short host name); a named document that is absent
+prints nothing, and nothing prints unless every document conformed:
 
 The check and the sync need the host's tooling (agent-tools, installed and
 built): on a cold clone run this step after the install and build below,
@@ -131,24 +131,19 @@ never before; the grounding never blocks on the profile.
 # with a remote. A refused pull (a conflict, no network) is surfaced and the
 # grounding continues; the check below then reports the sync state.
 pnpm profile:sync pull || echo "profile not pulled: read the line above — a conflict is the operator's to resolve by union (PDR-141 decision 15); the check still runs"
-if pnpm profile:check; then
-  PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
-  [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
-  SCOPE="$(git remote get-url origin 2>/dev/null \
-    | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
-    | tr '[:upper:]' '[:lower:]')"
-  [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
-    && cat "$PROFILE_ROOT/repos/$SCOPE.md"
-  MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-  [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
-    && cat "$PROFILE_ROOT/machines/$MACHINE.md"
-else
-  echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
-fi
+# The check prints the documents it validated from the same reads it checked
+# (--emit), so nothing reopens a path after the check: a file replaced by a
+# link between a check and a read would otherwise enter the session unread.
+SCOPE="$(git remote get-url origin 2>/dev/null \
+  | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
+  | tr '[:upper:]' '[:lower:]')"
+MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+pnpm profile:check --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md" \
+  || echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
 ```
 
 A present profile that fails the check is fixed at once, never read around:
-the contract is `practice-core/schemas/operator-profile.schema.json`. When a
+the contract is `.agent/practice-core/schemas/operator-profile.schema.json`. When a
 session writes the profile on the operator's word, it runs the host's
 profile sync, push side, in the same breath (PDR-141 decisions 13 to 16;
 the Practice index names the command once the host binds one): the check

@@ -16,7 +16,7 @@ export interface SyncStateInput {
   readonly hasRemote: boolean;
   /** The current branch tracks an upstream. */
   readonly hasUpstream: boolean;
-  /** `git status --porcelain`, verbatim. */
+  /** `git status --porcelain -z`, verbatim: NUL-delimited records. */
   readonly porcelain: string;
   /** Commits on the branch the upstream lacks. */
   readonly ahead: number;
@@ -44,13 +44,36 @@ export function isProfileDocumentPath(relPath: string): boolean {
   );
 }
 
-/** Non-empty porcelain lines: the dirty paths. */
+/** A rename or copy record (`R` or `C` in either status column) is followed by its source path. */
+function isTwoPathRecord(record: string): boolean {
+  const status = record.slice(0, 2);
+  return status.includes('R') || status.includes('C');
+}
+
+/**
+ * The dirty paths of NUL-delimited porcelain. Each record is `XY path`; a
+ * rename or copy record is followed by a second record holding the source
+ * path, and both paths are dirty. Paths are exact: `-z` neither quotes nor
+ * escapes them.
+ *
+ * @param porcelain - `git status --porcelain -z`, verbatim
+ * @returns every dirty path, in git's order
+ */
 export function dirtyPaths(porcelain: string): readonly string[] {
-  return porcelain
-    .split('\n')
-    .map((line) => line.trimEnd())
-    .filter((line) => line.length > 0)
-    .map((line) => line.slice(3));
+  const records = porcelain.split('\0').filter((record) => record.length > 0);
+  const paths: string[] = [];
+  for (let index = 0; index < records.length; index += 1) {
+    const record = records[index] ?? '';
+    paths.push(record.slice(3));
+    if (isTwoPathRecord(record)) {
+      index += 1;
+      const source = records[index];
+      if (source !== undefined) {
+        paths.push(source);
+      }
+    }
+  }
+  return paths;
 }
 
 function count(value: number, noun: string): string {
