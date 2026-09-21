@@ -93,15 +93,16 @@ const CREDENTIAL_VOCABULARY: CredentialVocabulary = {
 };
 
 /**
- * The line without its Markdown furniture: the leading run of list, heading
- * and quote marks, and every bold or code mark. The furniture is removed
- * once, here, so every reading below stays simple and linear. A single `*` or
- * `_` inside a value stays, so a value that opens with one is still a value;
- * a bold or code closer alone leaves nothing.
+ * The line without its Markdown furniture, which is exactly: the leading run
+ * of whitespace and the marks `>`, `#`, `*`, `-`, `+`; then one ordered-list
+ * number (`1.` or `1)`); and every bold or code mark. Removed once, here, so
+ * every reading below stays linear. A single `*` or `_` inside a value stays,
+ * so a value that opens with one is still a value; a closer alone is nothing.
  */
 function withoutFurniture(line: string): string {
   return line
-    .replace(/^[\s>#*-]+/, '')
+    .replace(/^[\s>#*+-]+/, '')
+    .replace(/^\d{1,9}[.)]\s+/, '')
     .replaceAll(/\*\*|__|`/g, '')
     .trim();
 }

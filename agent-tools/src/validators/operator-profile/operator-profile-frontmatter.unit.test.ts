@@ -185,6 +185,11 @@ describe('findCredentialLikeLines — token shapes, labels and table rows', () =
     expect(findCredentialLikeLines('> - **Password:** x', VOCABULARY)).toEqual([1]);
   });
 
+  it('reads a label through a plus mark and an ordered-list number', () => {
+    const listed = '+ password: x\n1. password: y\n  2) password: z';
+    expect(findCredentialLikeLines(listed, VOCABULARY)).toEqual([1, 2, 3]);
+  });
+
   it('passes prose that mentions a label without being one', () => {
     expect(findCredentialLikeLines('password managers: use one', VOCABULARY)).toEqual([]);
   });
