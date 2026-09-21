@@ -100,12 +100,13 @@ from a tool result; a time the seat could not read is marked as bounded.
 | 2026-09-21T17:35:14Z | 338,667 | 33.9% | +180,289 | a re-grounding at the owner's word (five long skill and directive files read end to end), then the opening of a two-seat definition exercise |
 | 2026-09-21T17:39:54Z | 358,228 | 35.8% | +19,561 | two conscience-check verdicts received and posted verbatim with dispositions; one peer message; a watcher re-armed |
 | 2026-09-21T17:49:32Z | 391,795 | 39.2% | +33,567 | three long peer entries read; the fold landed through the front door; the successor cut and its first commit. The row was written after the push exited: a tick that lands during a push's whole-tree checks cannot write a tracked file without racing them |
-
 | 2026-09-21T18:12:22Z | 523,499 | 52.3% | +131,704 | 23 minutes of one continuous working turn: a two-seat definition exercise carried on a shared channel (long peer entries read in full, three versions of a shared text, two replies composed), two conscience checks, a fold landed and its successor cut, one mis-bounded read that re-printed the seat's own entry. The 50 % line was crossed inside the turn and surfaced to the owner at this tick |
 | 2026-09-21T18:21:51Z | 564,604 | 56.5% | +41,105 | a peer seat's seven comms events read in full and a tracked record written of them; a whole-file echo after a shell append (the harness re-prints a file changed outside its editing tools, so appending by shell costs the file's size in context); an outside verdict dispositioned and a fourth version of the shared text posted as replacement lines, never retyped |
 | 2026-09-21T18:27:49Z | 584,832 | 58.5% | +20,228 | a co-authored report checked by search instead of read; an echo of about a hundred lines when a peer edited a tracked file on disk; a commit message corrected before use |
 | 2026-09-21T18:34:24Z | 623,536 | 62.4% | +38,704 | the compaction preparation, called by the OWNER and never by the loop: the owner read 65 % on their own meter while this instrument read 58 to 62 %. So far: three skills read (free-play, wrap, the handoff's loss-scan step by range), work safety verified per branch, a ledger row, the napkin's reflection, harvest, exploration and loss scan, and a boundary block in the continuity record |
 | 2026-09-21T18:42:01Z | 655,773 | 65.6% | +32,237 | the rest of the preparation: a formation letter; the boundary commit and push; a fifth version of the shared text read whole by commit and signed with two changes; pause notices to the peer seat, the channel and the canonical stream; a retired Copilot seat's handoff and letter checked by search and landed for it. The preparation cost 70,941 tokens from its start at 58.5 %, against the earlier design's estimate of 45,000 with a retrospective: work that ARRIVES during a preparation (a peer's version to sign, a retiring seat's records to land) is priced into it, and cannot be refused at a boundary that precedes days of absence. The loop is complete until after the compaction |
+| between 18:42:01Z and 18:57:23Z | | | | the context was compacted a second time; the seat resumed from a summary. The level at which it happened and what triggered it were not read, so neither is stated |
+| 2026-09-21T18:57:23Z | 132,185 | 13.2% | −523,588 against the last reading | the loop's first tick after the second compaction, fired by the surviving schedule at the seat's first idle moment. All of the work since the resume sits inside this figure: a refused commit diagnosed (six source files read in part, the queue's record read, a traced copy of the ceremony), two commits, a push, the closing report to the owner. The floor straight after the compaction was never read; it is bounded above by this figure. No re-grounding was run, because none was called and a pause follows |
 
 Findings of this run, each one instance:
 
@@ -155,3 +156,23 @@ Findings of this run, each one instance:
    design estimated about 16,000 for the preparation and 45,000 with a retrospective; a
    preparation ahead of a pause of days sits at the upper figure, because the record must
    serve a reader who was never here.
+9. **The loop survived the second compaction, which contradicts finding 1.** At 18:57Z the
+   scheduler still listed the same job, and it fired without being re-created. After the first
+   compaction of the day it listed none. Two compactions, two outcomes, and the seat read how
+   neither was triggered, so the difference is unexplained. Finding 1 stands as what happened
+   once; it is not a rule that a schedule dies with a compaction, and this seat had begun to
+   carry it as one. A hook on session resume is still the instrument that does not depend on
+   which outcome occurs.
+10. **The first tick after a compaction arrives after the resumed seat's first turn, never
+    during it.** The schedule fires only when the session is idle (finding 4), and a resumed
+    seat starts working at once. Here that turn spent at most 132,185 tokens, which is small;
+    the reading that would matter most, the floor straight after the compaction, is exactly
+    the one an idle-gated schedule cannot take.
+11. **Finding 3 read again for the second compaction.** The resumed seat continued the
+    interrupted diagnosis with no owner prompt, closed the claim the summary named, and did
+    not retry the refused commit blindly, all from the summary alone: state carried well.
+    Every standing constraint it worked under also came from the summary, with no governing
+    text re-read. Two lapses followed: an exit status read after a pipe, and an inference
+    about an outside index writer written into a commit message and a channel entry before a
+    trace refuted it, corrected in the next commit. Neither can be attributed to the
+    compaction from one run; both are recorded so a later run can be compared.
