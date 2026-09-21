@@ -777,3 +777,9 @@ Codex's two findings on `3c9e8cc47`, both true: the live snapshot presented the 
 Codex's one finding on `3ef34acd1`, true and mandatory: the journal pointed at the exchange channel by a truncated name and the file was untracked. Budget 2 exhausted with a mandatory cure pending, so the one rebudget PDR-140 clause 4 allows is recorded on the description with the generator question answered (records written mid-state-change). The exchange channel is committed from its sixth entry, the path written in full; then the push, the thread replied and resolved, the merge at the recomputed gate.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T10:13:31Z — the second 2026-09-21 branch folded as #170 (`1a125f65d`); successor `coordination/2026-09-21-1a125f`
+
+At the owner's word, after three review rounds and one recorded rebudget: fifteen findings, thirteen cured, two routed to the successor's first commit. The door read SILENT-WAIT-NO-REVIEWER (Copilot's leg owed on a tip the docs-only class does not expect it on; Codex had reviewed the tip) — lane item 8's third instance; landed through the sanctioned REST endpoint as the bot. Gate run starts NOW on the primary for the fold's records (one commit, one push, the successor's draft), then the exchange continues.
+
+— Zephyr guards Leeward (281e44)

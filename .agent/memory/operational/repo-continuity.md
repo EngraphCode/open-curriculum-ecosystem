@@ -282,23 +282,33 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
-### PICKUP for the next session — the dedicated consolidation continues (owner's word 2026-09-16)
+### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
-Read `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
-dedicated consolidation session" first: its resume point says what is written, what remains and
-in what order, and carries the owner's priorities verbatim. The board is
-`threads/estate-coordination.next-session.md` §"2026-09-21 09:09Z — the 2026-09-21 branch folded
-as #169 at the owner's word".
+The board is `threads/estate-coordination.next-session.md` §"2026-09-21 10:12Z — the second
+2026-09-21 branch folded as #170 at the owner's word". The live branch is
+`coordination/2026-09-21-1a125f`, DUE 2026-09-22 00:00Z.
 
-1. the consolidation — its memory-file pass is on `engraph` (#159, `SHA:efb2942e9`, 2026-09-21
-   00:03Z) and its close is too (#169, `SHA:72cab5667`, 2026-09-21 09:09Z); the live branch is
-   `coordination/2026-09-21-72cab5`. The owner declared the four
-   drainable buffers drained enough for this round on 2026-09-20, and every file of the
-   large-file set has been read whole by the owner's split method (nineteen curated, twenty
-   left live); what remains is the owner's word on the open decisions the continuity record
-   lists, and the directive-tier candidates held below 30 % context;
-2. the remaining half of slice 1;
-3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
+1. the three-estate Practice exchange (this estate, the sibling personal-site estate, castr),
+   opened by the owner on 2026-09-21 with the sibling's seat Brazier spins Temper (c70341) as the
+   guest exchange seat here (registered `b1c30d15`, adopted `821a3b59`) and this estate's seat
+   answering from its records. The dialogue is the ARC channel
+   `.agent/collaboration/rapid-comms/2026-09-21-three-estate-practice-exchange-brazier-spins-temper-and-zephyr-guards-leeward.md`
+   (tracked here, append-only); the concept register with a disposition per estate is the
+   sibling's pull request 139, its rows dispositioned from this side on the channel. Owed HERE,
+   each its own lane off engraph, never the coordination branch: the declaration generators
+   landed in slices (J1, the frontmatter on 126 rules); the merge door learning the docs-only
+   bot-authored class (lane item 8, three instances today); the operator-profile schema's
+   `$comment_contract` contradiction with PDR-141 decisions 11 and 14, at the Core source; the
+   twin of the sibling's thirteen operator-profile cures when their SHA lands; castr's
+   semantic-merge driver (C1); the seven rules of J9 by one records PR; the pr-watch
+   reconvergence (two windows). The owner-word rows O1–O3 are PDR clauses and ride their own lane
+   with the owner's word recorded;
+2. the consolidation's remainder — its memory-file pass (#159, `SHA:efb2942e9`) and its close
+   (#169, `SHA:72cab5667`) are on `engraph`; what remains is the owner's word on the open
+   decisions `threads/continuity-memory-and-knowledge-flow.next-session.md` lists, and the
+   directive-tier candidates held below 30 % context;
+3. the remaining half of slice 1;
+4. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the
    carried-code findings of #99 (1.179.0, three threads, no file of their own) and #127 (1.181.1,
    `.agent/reports/upstream-sync/upstream-report-draft-1.181.1-sync-2026-09-11.md`) under the

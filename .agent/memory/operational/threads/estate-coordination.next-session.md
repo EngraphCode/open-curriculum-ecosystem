@@ -258,6 +258,21 @@ this section when it lands or the owner closes it.
    names `operator-profile-schema.ts`; `readdir` and `readFile` rejections become contextual
    `err`s (a per-document failure for a read) rather than uncaught exceptions; the layout's
    `ReadonlySet<string>` vocabularies keep their literal unions.
+   From the three-estate exchange (2026-09-21): the schema's `$comment_contract` still says the
+   Practice never initialises, commits or pushes the profile repository, which PDR-141 decisions
+   11 and 14 (the 2026-09-14 and 2026-09-17 amendments) contradict — ours to cure at the Core
+   source, then byte-identical to the sibling estate in one window, since both estates validate
+   the same home-directory files with it. And the sibling's first review round on its port of
+   this module raised thirteen findings, two overlapping the list above (the argv parser's
+   refusal, which theirs extends to duplicate options; the contract smoke's TSDoc), eleven new:
+   a symlink named as a document is followed outside the root; an empty `--root` resolves to the
+   checkout; the frontmatter's closing delimiter accepts trailing text; porcelain rename and copy
+   records are sliced at column 3; `process.exit` truncates piped output in two CLIs; a stale
+   orientation row; a start-right path missing `.agent/`; a TSDoc naming a smoke that does not
+   exist; the credential patterns miss labelled generic forms (`password:`, `api_key:`,
+   `Authorization: Bearer`); Zod's unrecognised-key message prints a credential-shaped key
+   verbatim. Disposition `their-lane-owns-coordinate` until the sibling's cure SHA lands, then
+   twinned here as one pull request taking that diff with its tests.
 5. **Altair spins Umbra's follow-ups from #116** (2026-09-10; pointers, not specs; Altair's
    record names them): the
    policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
@@ -283,9 +298,12 @@ this section when it lands or the owner closes it.
    directory test alone would let unreviewed code through — #169 post-merge finding, Copilot);
    checks green by name; zero unresolved threads; no undispositioned finding — and merges a
    timeout-settled round for it, so the irreversible act stays on the instrumented path.
-   Warrant: the clause's own prediction (PDR-130) was met on its first trial.
+   Warrant: the clause's own prediction (PDR-130) was met on its first trial, and again on the
+   second (#169, SETTLED-NO-REVIEW) and the third (#170, 10:12Z: SILENT-WAIT-NO-REVIEWER with
+   Copilot's leg owed on a tip the class does not expect it on; Codex had reviewed the tip).
    Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
-   returns and the class never fires again.
+   returns and the class never fires again — Codex's credit did return on 2026-09-21 and the
+   class fired twice more, so the second arm is falsified.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
    15:13Z on 2026-09-16 by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as
    directed event `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's
@@ -478,6 +496,28 @@ seat's registration `c0b0f790`, the dialogue on the ARC channel in this reposito
 `.agent/collaboration/rapid-comms/2026-09-21-three-estate-practice-exchange-brazier-spins-temper-and-zephyr-guards-leeward.md`
 (committed with this branch from its sixth entry; append-only, later entries ride later
 commits), the register's rows dispositioned there.
+
+### 2026-09-21 10:12Z — the second 2026-09-21 branch folded as #170 at the owner's word (Zephyr guards Leeward, 281e44, at n = 2)
+
+Merged `SHA:1a125f65d` through the sanctioned REST endpoint as the bot under the docs-only
+bot-authored class; the door's verdict was SILENT-WAIT-NO-REVIEWER (Copilot's leg owed on a tip
+the class does not expect it on; Codex had reviewed the tip) — lane item 8's third instance.
+Three review rounds: the opening tip drew four threads and #169 six post-merge; the first
+settlement push cured nine and routed one, then drew two; the second cured those and drew one,
+a mandatory cure (an untracked channel a record made authoritative) at budget exhaustion, so the
+one rebudget PDR-140 clause 4 allows was recorded on the description with the generator answer
+(records written mid-state-change); the rebudgeted push drew two, routed to this successor's
+first commit. Fifteen findings, thirteen cured, two routed; the #170 row of
+`review-cost-ledger.md` prices it. Successor `coordination/2026-09-21-1a125f`, DUE 2026-09-22
+00:00Z.
+
+*moved for teachers:* nothing. *moved for the Practice:* the #169 fold's records, the seat and
+thread rows trued to the consolidation's close and the exchange, the sha-prefix rule's
+stable-slug citation, ADR-187's owed cross-references routed, the exchange channel tracked.
+
+Board: `engraph` at SHA:1a125f65d. Open on engraph: nothing. n = 2 with the guest exchange seat
+Brazier spins Temper (c70341); the exchange's register is the sibling's pull request 139, its
+delta instrument 137 and PDR-141 port 138 in review there.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
