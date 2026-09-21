@@ -107,6 +107,12 @@ from a tool result; a time the seat could not read is marked as bounded.
 | 2026-09-21T18:42:01Z | 655,773 | 65.6% | +32,237 | the rest of the preparation: a formation letter; the boundary commit and push; a fifth version of the shared text read whole by commit and signed with two changes; pause notices to the peer seat, the channel and the canonical stream; a retired Copilot seat's handoff and letter checked by search and landed for it. The preparation cost 70,941 tokens from its start at 58.5 %, against the earlier design's estimate of 45,000 with a retrospective: work that ARRIVES during a preparation (a peer's version to sign, a retiring seat's records to land) is priced into it, and cannot be refused at a boundary that precedes days of absence. The loop is complete until after the compaction |
 | between 18:42:01Z and 18:57:23Z | | | | the context was compacted a second time; the seat resumed from a summary. The level at which it happened and what triggered it were not read, so neither is stated |
 | 2026-09-21T18:57:23Z | 132,185 | 13.2% | −523,588 against the last reading | the loop's first tick after the second compaction, fired by the surviving schedule at the seat's first idle moment. All of the work since the resume sits inside this figure: a refused commit diagnosed (six source files read in part, the queue's record read, a traced copy of the ceremony), two commits, a push, the closing report to the owner. The floor straight after the compaction was never read; it is bounded above by this figure. No re-grounding was run, because none was called and a pause follows |
+| 2026-09-21T19:02:20Z | 145,015 | 14.5% | +12,830 | nothing but the recording of the tick above: the report edit, a gate-run notice on the channel, a commit and a push. Counted as changed |
+| 2026-09-21T19:07:05Z | 146,446 | 14.6% | +1,431 | idle: the check's own cost. Unchanged, one of five |
+| 2026-09-21T19:11:50Z | 147,175 | 14.7% | +729 | idle. Unchanged, two of five |
+| 2026-09-21T19:16:36Z | 147,936 | 14.8% | +761 | idle. Unchanged, three of five |
+| 2026-09-21T19:21:22Z | 148,740 | 14.9% | +804 | idle. Unchanged, four of five |
+| 2026-09-21T19:26:07Z | 149,655 | 15.0% | +915 | idle. Unchanged, five of five: the safety valve fired and the loop exited. These six rows were held in the conversation and written here in one commit at the exit |
 
 Findings of this run, each one instance:
 
@@ -176,3 +182,17 @@ Findings of this run, each one instance:
     about an outside index writer written into a commit message and a channel entry before a
     trace refuted it, corrected in the next commit. Neither can be attributed to the
     compaction from one run; both are recorded so a later run can be compared.
+12. **Recording each tick in a tracked file defeats the loop's own safety valve.** One tracked
+    row cost 12,830 tokens and a gate run (the edit, a channel notice, a commit, a push),
+    against 729 to 1,431 tokens for a bare check. A tick that is recorded that way always
+    shows a change at the next tick, so "no change for five checks" can never be met while
+    the seat obeys "keep records". The seat changed its record-keeping and said so to the
+    owner at the time: idle ticks were held in the conversation and written once, at the
+    exit, accepting the loss of at most five readings if the session died first. "Unchanged"
+    was read as growth of no more than the check's own cost, since the count itself never
+    stands still. A hook that writes its readings to an untracked log, with the tracked
+    report written once per run, would not have this conflict.
+13. **The safety valve fired as designed once the recording stopped feeding it.** Five idle
+    checks at five-minute spacing, 19:07Z to 19:26Z, cost 4,640 tokens in all. An idle seat
+    holding a schedule open costs about 900 tokens every five minutes, which is a little
+    over one per cent of the window per hour; the valve is what bounds that across a pause.
