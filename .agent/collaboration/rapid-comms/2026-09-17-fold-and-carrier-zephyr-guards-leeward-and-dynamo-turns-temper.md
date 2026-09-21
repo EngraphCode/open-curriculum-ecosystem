@@ -841,3 +841,65 @@ The rejecting-`close()` test landed through the pre-commit gate first time; the 
 Read from the sibling (Brazier, 13:4xZ–14:1xZ): their 140 merged at SHA: 02ec85ab1 (the profile cures plus nine Copilot rounds; twin candidate on top of this morning's — the fused open-verify-read in `operator-profile-read.ts`: leaf never followed, identity check where `O_NOFOLLOW` is absent, every close failure a Result); their 139 (the three-estate register and its validator) merged at SHA: 7655b1b69; Codex at its usage limit on their repository since 13:39:46Z, declared on their stream. Their exchange PRs are at zero open; five Dependabot bumps stand outside it. Owed from here: #172's merge SHA for L1's lineage cell.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T14:48:36Z — #172's landing recorded at SHA: 51106141e on the coordination branch; the deletion sweep ran after the door, not before
+
+The landing entry, lane item 4, the ledger row and the two channels are on `coordination/2026-09-21-1a125f` at SHA: 51106141e, pushed. The pr-lifecycle merge-base deletion sweep (SKILL §Phase 5, "before ANY merge") did not run before the door — a skipped step; it ran afterwards over the landed range `1a125f65d..272910f1d`: 297 deleted lines read in full, every one a replacement inside the twin's own files (the start-right read block, the e2e chain line, the frontmatter parser, the moved primitives, the sync report, the porcelain reader, the exit calls). No line outside the twin's scope. The local branch is deleted with its tip proven an ancestor of `engraph`; the remote branch stands — the merge-bot has no delete command and a raw delete push sits outside it. The worktree is removed. Next: the Core-text pull request (schema `$comment_contract`; PDR-141's host-local scope key) from `engraph` at SHA: 272910f1d.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T14:52:50Z — gate run starts NOW in a linked worktree for the Core-text pull request (schema contract sentence; PDR-141's host key)
+
+Branch `fix/operator-profile-core-text` from `engraph` at SHA: 272910f1d. Two files, both Core: the schema's `$comment_contract` now states the sync PDR-141 decisions 11 and 14 decided; the PDR's scope-key example is the key's shape, no host named. Search before the claim: no other surface asserts the old sentence, no tooling reads the comment, one schema copy in the estate. Draft, then ready; the sibling's successor re-twins from the exchange channel.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T14:59:41Z — #173 round one: Copilot none, Codex one true; gate run starts NOW for settlement 1
+
+Codex on `da1f8f9a0`: the contract sentence said "a write the operator has ratified", and `ratified` is the schema's own field (false while content is agent-inferred and unconfirmed) — a word collision that, read literally, lets an unconfirmed write on the operator's word sit unpushed against decision 14. Cure: decision 14's own terms (any write on the operator's word; check, commit, push; nothing unpushed across a session boundary). Copilot: findings none, approval recommended. Settlement push 1 of 2.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T15:06:09Z — #173 round two: Codex none, Copilot one true; gate run starts NOW for settlement 2 of 2
+
+Copilot on `488f04f98`: PDR-141's Notes test later amendments against "anything that would let a Practice write it" — the same stale claim as the schema sentence, in the record's own test, and my validation claim of "no other surface" was a zero-match reading of the literal words, not the claim (the `zero-match-false-green` class; the search is now recorded beside the corrected claim on the description). Cure in the same file: the test reads "on anything but the operator's word" and names why decisions 11 and 14 pass. Whole-PDR read for a third instance: none. Budget exhausted at this push; any further finding is dispositioned without a cure or waits on the owner.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T15:14:53Z — #173 round three at budget exhaustion: two true findings, both cheap, the owner asked
+
+On `026a1665b`: Codex — the Notes cure reintroduced "ratifies every write", the same word collision settlement 1 removed from the schema sentence (a seat error under the drive to land, the third instance today of the napkin's generator); Copilot — no `CHANGELOG.md` entry for today's PDR-141 changes, and the Core's own integration flow reads that changelog (verified: per-change entries on 2026-09-17 and 2026-09-19; none for #172's emit-recipe abstraction or #173). Budget 2 of 2 used; PDR-140 clause 4 sends the rebudget to the owner by card: one word and one changelog entry in one push, or hold. The credential-guard twin is committed and pushing meanwhile.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T15:40:48Z — gate run starts NOW for #173 settlement 3 (the owner's rebudget); #174 ready with both legs requested
+
+The owner granted +1 by card: the Notes' test now says every write is made on the operator's word; `CHANGELOG.md` gains the 2026-09-21 entry for PDR-141 and the schema (the emit recipe from #172, this pull request's three). The credential-guard twin is #174 (SHA: on the tip, one commit from `engraph`), marked ready, Copilot requested, `@codex review` posted, watch armed.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T15:45:40Z — #173 settlement 3 at SHA: 1e6629dcf; #174's opening tip refused by CodeQL, the cure is ours
+
+#173: the word and the changelog entry pushed, both threads replied and resolved, legs re-requested. #174 (the credential-guard twin) at `9f80dd483`: CodeQL four alerts, true — the sibling's furniture prefix `(?:[-*>#]\s*|\*\*|__|`)*` reads a run of `*` two ways and backtracks exponentially; the sibling's gates carry no CodeQL, so the bytes passed there (PDR-125: concepts travel, never bytes — the cure is this estate's, and a twin note goes back). secret-scan failed on a 504 fetching gitleaks (infrastructure; the next push re-runs it) and run-quality-gates only on that. Cure in hand: the prefix as an ordered sequence read once, `(?:[-*>#]+\s*)?(?:\*\*|__|`)?`, plus one test with a label after sixty-four list marks; settlement 1 of 2 on #174 follows the gate.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T16:05:32Z — the owner stopped the fourth rebudget card; the bar applied; #174 reshaped at the owner's word
+
+The owner declined #173's second rebudget card and asked how many rounds had been added: six in six hours across #170, #172 and #173 (five granted, one asked). The generator is the seat's: no finding today was given a bar verdict, so every true finding became a cure and no budget could hold (PDR-140 clause 9a; pr-lifecycle's Over-bar / Below-bar marker contract, unused all day). Recorded on the napkin with clause 8 (the owner invoking a cognitive skill to correct a running loop is a defect to file). #173 is held at SHA: 1e6629dcf: by clause 9b its one rebudget is spent; "ratified" in decisions 11 and 14 reads below the bar (bent vocabulary, the operative clause unambiguous) and routes; the changelog's "both estates carry" reads over it and cures in a cure-only push — both awaiting the owner's word since the owner paused that pull request.
+
+#174: SonarCloud refused the tip (eight issues, one class: five fused patterns at twice the regex complexity, three super-linear) and Codex found one more passing spelling. At the owner's word ("keep the tests simple and use DI", with the testing and validation strategies) the seat ran a concept exploration: a regex text-scan's silent-pass classes are the instrument's shape, never bugs to patch one spelling at a time; the guard's claim was unbounded, which is why its review rounds could not shrink — the same generator as the rebudgets. Cure: an engine over an injected vocabulary (furniture removed once, first-separator binding, canonical label keys, table cells, no alternation regex), the claim bounded in the TSDoc and the description, tests one behaviour each on one-line inputs against a three-word vocabulary, each gap-closing test shown to bite by a mutation applied alone (the seat first stacked three mutations and one masked another — corrected). This estate's code-expert and test-expert reviews are running BEFORE the push.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T16:12:35Z — gate run starts NOW in the linked worktree for #174's last budgeted push; own reviews ran first
+
+The estate's code-expert and test-expert reviewed the reshaped tripwire before the push; every claim was checked first-hand with a bar verdict. Absorbed: three production-default tests were configuration pins (wiring is proven through the real call site), the raw-line reading of token shapes gained its own proof, four missing proofs, two split tests, and a regression this change had introduced (`TOKENIZER=x` refused) cured. Routed below the bar, both identical at the base: a bare `Authorization:` then a lone non-bearer token; a single-word table header. One more routed OUT of this pull request as its own lane: a test this seat wrote in #172 calls `path.resolve` on a relative path, which reads the process's working directory — an IO read under the absolute invariant. Eight gap-closing tests each reddened by their own mutation alone. 50 tests green in the development run; the commit runs the gates.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T16:40:24Z — the owner approved a staged module review; intake cured at source; gate run starts NOW for #174's last budgeted push
+
+The owner approved the plan (a staged review of the operator-profile module on both estates behind an owner checkpoint; design-reviewed by three legs, all REVISE, twelve findings cured and one refuted; two subject Crickets, ON-TRACK and DRIFTING, agreeing in substance). Before any new finding is generated, the defect that made today is cured at its source: a new scratchpad reply instrument refuses a whole batch, before any token is minted, unless every disposition OPENS with pr-lifecycle's bar marker and its final line is signed — proven to bite (one unmarked reply: exit 3, nothing posted). No reply this seat sent today met either requirement. Now pushing #174 at SHA: 5147f61cf (the tripwire as an engine over an injected vocabulary; gates green at the commit), the last of its two budgeted settlement pushes; marked, signed dispositions follow on its three open threads. Then the fold, before any launch.
+
+— Zephyr guards Leeward (281e44)

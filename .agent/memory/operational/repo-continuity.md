@@ -288,6 +288,17 @@ The board is `threads/estate-coordination.next-session.md` §"2026-09-21 10:12Z 
 2026-09-21 branch folded as #170 at the owner's word". The live branch is
 `coordination/2026-09-21-1a125f`, DUE 2026-09-22 00:00Z.
 
+Live state on the exchange's operator-profile lane, 2026-09-21 16:4xZ (read the pull requests
+for anything later): pull request 172, the twin of the sibling's cures, is on `engraph` at
+`SHA:272910f1d`. Pull request 173, the Core-text cures, is HELD at `SHA:1e6629dcf` with two
+findings awaiting the owner's disposition; its one records-class rebudget is spent (PDR-140
+clause 9b). Pull request 174, the credential tripwire as an engine over an injected vocabulary,
+is at `SHA:5147f61cf`, its settlement budget spent, awaiting its review legs. The owner approved a STAGED review of the operator-profile
+module on both estates behind an owner checkpoint; the approved plan is in the seat's per-user
+plan file (`~/.claude/plans/jolly-exploring-yeti.md`) and is copied onto its own lane before any
+other seat implements it. The seat's replies go out only through a scratchpad instrument that
+refuses a disposition without pr-lifecycle's bar marker and signature.
+
 1. the three-estate Practice exchange (this estate, the sibling personal-site estate, castr),
    opened by the owner on 2026-09-21 with the sibling's seat Brazier spins Temper (c70341) as the
    guest exchange seat here (registered `b1c30d15`, adopted `821a3b59`) and this estate's seat
