@@ -362,7 +362,14 @@ instrument in the estate's tooling is an offer under the shared text, and a lane
 wording in PDR-117; and a measurement for the third estate that the relayed ruling probably
 supersedes. To the Copilot seat Whippoorwill holds Frost: its observation of whether a
 waiter's exit wakes its idle session, added to its report under
-`.agent/reports/agentic-engineering/` when it sends it.
+`.agent/reports/agentic-engineering/` when it sends it. That seat retired at the owner's word
+on 2026-09-21 and, holding no commit authority, left a terminal handoff under
+`.agent/collaboration/handoffs/` and a formation letter in the experience tier; this seat
+landed both as they stood. The handoff's directory is NEW: this estate's handoff tier is under
+`.agent/state/collaboration/`, which is untracked by design. Whether a retiring seat's handoff
+belongs in a tracked home is a question for the Copilot support encoding, not yet judged.
+The shared text reached version five, signed by both seats with two changes of this seat's
+applied, and the sibling seat has put it to the owner for ratification.
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
 fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d` (draft pull
