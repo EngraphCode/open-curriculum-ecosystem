@@ -229,6 +229,15 @@ describe('findCredentialLikeLines', () => {
     expect(findCredentialLikeLines(content)).toEqual([]);
   });
 
+  it('reads a label after a long run of list marks or emphasis in one pass', () => {
+    const content = [
+      `${'*'.repeat(64)} Password: hunter2`,
+      `${'**'.repeat(32)}token: abc`,
+      `${'-'.repeat(48)} clean line`,
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2]);
+  });
+
   it('passes a bare label with no line after it to bind', () => {
     expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
   });
