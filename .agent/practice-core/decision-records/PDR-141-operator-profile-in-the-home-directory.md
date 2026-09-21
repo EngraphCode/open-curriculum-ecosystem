@@ -86,7 +86,8 @@ scopes by repository identity instead.
    (decision 10).
 3. **The scope key** is the repository's identity, never its path: the
    `origin` remote's owner and repository name, lowercased, joined with
-   `--` (for this line, `engraphcode--open-curriculum-ecosystem`). A fork
+   `--` (`<owner>--<repository>`; a host's own key is a fact of that host,
+   never named in this record). A fork
    and its upstream therefore hold separate scope files, which is correct:
    the facts differ by line. A repository with no `origin` remote has no
    scope file until it has one; readers proceed on the shared index.
