@@ -274,8 +274,10 @@ this section when it lands or the owner closes it.
    verbatim.
    Twinned here at SHA:272910f1d (#172, 2026-09-21; PDR-125 clause 6, `twinned-in-window`):
    the sibling's cure `a70586bb` and its round two `6c27aba5`, with the package scope rescoped
-   on receipt, so the eleven new findings above and the two overlaps are cured on both estates
-   by the same module. #172 ran six rounds on a budget of five (the default two; +1 under
+   on receipt, so ten of the eleven new findings above and the two overlaps are cured on both
+   estates by the same module. The eleventh, the stale orientation row, is ROUTED and still
+   owed here: a directive edit, for a seat under the 30 % context line (PDR-052).
+   Pull request 172 ran six rounds on a budget of five (the default two; +1 under
    PDR-140 clause 4 for a Core record that named a host command; +1 by the owner's word for
    five cures this estate's own code-expert review found after the vendor legs bound: the CLI
    smoke reachable from the CI-gated `test:e2e` chain, `isGitRepository` reading `.git` without

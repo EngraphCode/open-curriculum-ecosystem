@@ -313,7 +313,11 @@ refuses a disposition without pr-lifecycle's bar marker and signature.
    sibling's pull request 139, its rows dispositioned from this side on the channel. Owed HERE,
    each its own lane off engraph, never the coordination branch: the declaration generators
    landed in slices (J1, the frontmatter on 126 rules); the merge door learning the docs-only
-   bot-authored class (lane item 8, three instances today); castr's
+   bot-authored class (lane item 8, three instances today); a no-IO defect in a test this
+   seat wrote in pull request 172 (`operator-profile-frontmatter.unit.test.ts`, the
+   `resolveProfileRoot` test calls `path.resolve` on a relative path, which reads the
+   process working directory), found by the estate's own test-expert and present on `engraph`;
+   the orientation row routed from pull request 172 (lane item 4 of the board); castr's
    semantic-merge driver (C1); the seven rules of J9 by one records PR; the pr-watch
    reconvergence (two windows). The owner-word rows O1–O3 are PDR clauses and ride their own lane
    with the owner's word recorded;
