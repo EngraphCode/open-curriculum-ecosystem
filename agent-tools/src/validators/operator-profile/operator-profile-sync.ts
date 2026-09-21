@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
-import { isGitRepository } from './operator-profile-fs.js';
+import { isGitRepository, presence, type PresenceProbe } from './operator-profile-fs.js';
 import {
   createGitRunner,
   pullProfile,
@@ -153,10 +153,27 @@ async function runPush(root: string, run: GitRunner, message: string): Promise<n
 /**
  * The runner for a root that is a repository with a remote; a message for the
  * two first-class states with nothing to sync; an error when git cannot read
- * the repository (never mistaken for "no remote").
+ * the repository (never mistaken for "no remote"). The root is classified
+ * WITHOUT following links first: a symlinked `--root` is refused before any
+ * git runner exists for it, so the pull never runs in the link's target — the
+ * same refusal the profile reader makes, at the sync's own boundary.
+ *
+ * @param root - the profile root
+ * @param probe - the presence probe (the filesystem, without following links, by default)
+ * @returns the runner, a nothing-to-sync message, or the refusal
  */
-async function syncTarget(root: string): Promise<Result<GitRunner | string, string>> {
-  if (!(await isGitRepository(root))) {
+export async function syncTarget(
+  root: string,
+  probe: PresenceProbe = presence,
+): Promise<Result<GitRunner | string, string>> {
+  const there = await probe(root);
+  if (!there.ok) {
+    return there;
+  }
+  if (there.value === 'symlink') {
+    return err(`${root} is a symlink — the profile root is never followed`);
+  }
+  if (there.value !== 'directory' || !(await isGitRepository(root))) {
     return ok(`profile at ${root} is absent or not a git repository — nothing to sync`);
   }
   const run = createGitRunner(root);

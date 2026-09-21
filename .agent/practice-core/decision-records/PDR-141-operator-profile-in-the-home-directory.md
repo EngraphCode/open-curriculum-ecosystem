@@ -129,16 +129,15 @@ scopes by repository identity instead.
    without `.git`:
 
    ```bash
-   PROFILE_ROOT="${PRACTICE_HOME:-$HOME/.practice}/profile"
-   [ -f "$PROFILE_ROOT/index.md" ] && cat "$PROFILE_ROOT/index.md"
+   # The check emits the documents it validated from the same reads it checked,
+   # so nothing reopens a path after the check (amended 2026-09-21: a file
+   # replaced by a link between a check and a read would otherwise enter the
+   # session unread; a named document that is absent prints nothing).
    SCOPE="$(git remote get-url origin 2>/dev/null \
      | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
      | tr '[:upper:]' '[:lower:]')"
-   [ -n "$SCOPE" ] && [ -f "$PROFILE_ROOT/repos/$SCOPE.md" ] \
-     && cat "$PROFILE_ROOT/repos/$SCOPE.md"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-   [ -f "$PROFILE_ROOT/machines/$MACHINE.md" ] \
-     && cat "$PROFILE_ROOT/machines/$MACHINE.md"
+   pnpm profile:check --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md"
    ```
 
 8. **Checkout-local profile tiers are retired.** A host that kept a

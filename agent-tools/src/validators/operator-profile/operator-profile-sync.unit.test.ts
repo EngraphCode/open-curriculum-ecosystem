@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { pullProfile, readSyncState, type GitRunner } from './operator-profile-git.js';
 import { pushProfile } from './operator-profile-git-push.js';
-import { parseSyncArgs } from './operator-profile-sync.js';
+import { parseSyncArgs, syncTarget } from './operator-profile-sync.js';
 import {
   assessSyncState,
   dirtyPaths,
@@ -26,6 +26,35 @@ const CLEAN = {
   ahead: 0,
   behind: 0,
 } as const;
+
+describe('syncTarget', () => {
+  it('refuses a symlinked root before any git runner exists for it', async () => {
+    const target = await syncTarget('/profile-link', () =>
+      Promise.resolve({ ok: true, value: 'symlink' }),
+    );
+    expect(target).toEqual({
+      ok: false,
+      error: '/profile-link is a symlink — the profile root is never followed',
+    });
+  });
+
+  it('reports an absent root as nothing to sync, never as an error', async () => {
+    const target = await syncTarget('/no-profile', () =>
+      Promise.resolve({ ok: true, value: 'absent' }),
+    );
+    expect(target).toEqual({
+      ok: true,
+      value: 'profile at /no-profile is absent or not a git repository — nothing to sync',
+    });
+  });
+
+  it('surfaces a root the probe cannot read as the failure it is', async () => {
+    const target = await syncTarget('/sealed', () =>
+      Promise.resolve({ ok: false, error: 'cannot read /sealed (EACCES)' }),
+    );
+    expect(target).toEqual({ ok: false, error: 'cannot read /sealed (EACCES)' });
+  });
+});
 
 describe('assessSyncState', () => {
   it('treats a non-repository and a repository without a remote as information, never findings', () => {
