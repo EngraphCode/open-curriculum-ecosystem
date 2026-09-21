@@ -99,6 +99,7 @@ from a tool result; a time the seat could not read is marked as bounded.
 | 17:13Z | 158,378 | 15.8% | about −473,000 | post-compaction work: two cures, two pushes, seven dispositions |
 | 2026-09-21T17:35:14Z | 338,667 | 33.9% | +180,289 | a re-grounding at the owner's word (five long skill and directive files read end to end), then the opening of a two-seat definition exercise |
 | 2026-09-21T17:39:54Z | 358,228 | 35.8% | +19,561 | two conscience-check verdicts received and posted verbatim with dispositions; one peer message; a watcher re-armed |
+| 2026-09-21T17:49:32Z | 391,795 | 39.2% | +33,567 | three long peer entries read; the fold landed through the front door; the successor cut and its first commit. The row was written after the push exited: a tick that lands during a push's whole-tree checks cannot write a tracked file without racing them |
 
 Findings of this run, each one instance:
 

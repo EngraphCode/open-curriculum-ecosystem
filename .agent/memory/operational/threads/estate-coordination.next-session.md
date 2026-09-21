@@ -354,8 +354,11 @@ this section when it lands or the owner closes it.
    second (#169, SETTLED-NO-REVIEW) and the third (#170, 10:12Z: SILENT-WAIT-NO-REVIEWER with
    Copilot's leg owed on a tip the class does not expect it on; Codex had reviewed the tip).
    Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
-   returns and the class never fires again — Codex's credit did return on 2026-09-21 and the
-   class fired twice more, so the second arm is falsified.
+   returns and the class never fires again. Trials since: the class fired on #170 with Codex
+   present on the tip (Copilot's leg was the absent one), and did NOT fire on #171 (17:45Z),
+   the first trial with both legs present on the tip, which the door landed itself. So the
+   class turns on any absent leg, never on Codex's credit alone; the second arm as worded is
+   neither met nor falsified, and the lane's warrant rests on the absent-leg cases.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
    15:13Z on 2026-09-16 by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as
    directed event `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's
@@ -554,13 +557,13 @@ commits), the register's rows dispositioned there.
 Merged `SHA:1a125f65d` through the sanctioned REST endpoint as the bot under the docs-only
 bot-authored class; the door's verdict was SILENT-WAIT-NO-REVIEWER (Copilot's leg owed on a tip
 the class does not expect it on; Codex had reviewed the tip) — lane item 8's third instance.
-Three review rounds: the opening tip drew four threads and #169 six post-merge; the first
+Four reviewed heads: the opening tip drew four threads and #169 six post-merge; the first
 settlement push cured nine and routed one, then drew two; the second cured those and drew one,
 a mandatory cure (an untracked channel a record made authoritative) at budget exhaustion, so the
 one rebudget PDR-140 clause 4 allows was recorded on the description with the generator answer
 (records written mid-state-change); the rebudgeted push drew two, routed to this successor's
-first commit. Fifteen findings, thirteen cured, two routed; the #170 row of
-`review-cost-ledger.md` prices it. Successor `coordination/2026-09-21-1a125f`, DUE 2026-09-22
+first commit. The totals live in one place, the #170 row of `review-cost-ledger.md`, which
+also prices it. Successor `coordination/2026-09-21-1a125f`, DUE 2026-09-22
 00:00Z.
 
 *moved for teachers:* nothing. *moved for the Practice:* the #169 fold's records, the seat and
@@ -583,12 +586,10 @@ owner's second rebudget (five cures this estate's own code-expert review found a
 legs bound; Codex clean, Copilot two: the accepted lstat→readdir residual and one true finding);
 settlement 5 under the owner's third rebudget (the one test that cure lacked). Generator, both
 owner rebudgets: the estate's own code-expert and test-expert pass ran after the vendors rather
-than before ready; the cure at source is to run it first. Seventeen findings raised on the pull
-request (eleven by the vendor legs, five by the code-expert review, one by the test-expert):
-fourteen cured, two rejected with rationale (the same residual twice), one routed (the
-orientation row). The sibling's seven round-two findings are counted on the sibling's side. Lane item
-4 records the twin's lineage, the residual, and the next lane; the #172 row of
-`review-cost-ledger.md` prices it. Seat error on the way, recorded on the ARC channel: a
+than before ready; the cure at source is to run it first. The findings by source and their
+dispositions live in one place, the #172 row of `review-cost-ledger.md`, which also prices it;
+the one routed finding is the orientation row. Lane item 4 records the twin's lineage, the
+residual, and the next lane. Seat error on the way, recorded on the ARC channel: a
 scratchpad thread-resolver resolved every open thread when called for one; the true finding's
 thread was unresolved by hand within the minute.
 
@@ -601,6 +602,23 @@ DUE 2026-09-22 00:00Z). n = 2 nominally; the guest seat Brazier spins Temper (c7
 compacted at ~14:3xZ with its watchers stopped, its main at `7655b1b69` (137–140 landed; its
 fold 141 and actions-pin 142 open), the merge SHA above written on the exchange channel for its
 successor.
+
+### 2026-09-21 17:45Z — the third 2026-09-21 branch folded as #171, by the merge door itself (Zephyr guards Leeward, 281e44, at n = 2)
+
+Merged `SHA:56bd4de6a` through the front door with both review legs bound to the tip: the
+first docs-only fold the door landed itself, where the three before it needed the sanctioned
+REST endpoint (lane item 8 carries what that tells the class). The merge-base deletion sweep
+ran BEFORE the merge and was clean. Two settlement pushes of two, no rebudget, and every
+finding given a bar verdict before any cure (PDR-140 clause 9a), each reply marked and signed
+through the instrument that refuses otherwise; the #171 row of `review-cost-ledger.md` holds
+the findings, the dispositions and the price. Generator of most of its findings, recorded on
+the napkin: live state restated across five records. This fold's cures remove restatements
+where they correct them. Successor `coordination/2026-09-21-56bd4d` (draft pull request 175),
+DUE 2026-09-22 17:45Z.
+
+*moved for teachers:* nothing. *moved for the Practice:* the #170 fold's records; the
+operator-profile twin's landing; the first day of the three-estate exchange, including the
+owner's word that both exchange seats define "the best of each Practice" together.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
