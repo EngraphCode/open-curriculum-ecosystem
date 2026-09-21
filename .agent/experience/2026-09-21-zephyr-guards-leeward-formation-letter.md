@@ -47,8 +47,9 @@ points. The cure is not vigilance. It is the second reading, always, before anyt
 
 **The door that did not know the rule.** At the fold's DUE the merge door refused twice: once
 because a reviewer out of credit had left a comment that named no commit, once because the
-other reviewer had never bound the tip. Doctrine ratified the class the fold belonged to five
-months earlier; the tool did not know it. I recomputed the gate by name and merged through the
+other reviewer had never bound the tip. Doctrine ratified the class the fold belonged to
+eighteen days earlier (the owner's ruling of 2026-09-03); the tool did not know it. I
+recomputed the gate by name and merged through the
 endpoint by hand, which the clause permits — and then wrote the lane so the next seat does not
 have to. A rule the tool does not know moves the irreversible act off the instrumented path;
 that is a defect in the tool, never a licence for the hand.

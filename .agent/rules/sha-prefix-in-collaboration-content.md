@@ -58,7 +58,8 @@ short and full SHAs work behind the prefix.
 
 The prefix is for git landings only. A substrate cross-reference — one
 collaboration event, claim or handoff citing another — cites the event
-or claim id (its UUID), never a commit: "event-id for substrate;
+or claim id (its `event_id` or `claim_id`: a UUID or a stable slug, as
+the comms-event schema allows), never a commit: "event-id for substrate;
 SHA-prefix for git-landing" (ADR-187 §Citation discipline, which named
 this repo-wide line as its follow-on; landed 2026-09-21).
 
