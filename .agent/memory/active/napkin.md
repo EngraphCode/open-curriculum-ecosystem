@@ -264,3 +264,39 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   current state is" sections. Fence sweep: the branch lineage's tracked files grep clean for the
   fenced wordings. A third pass would only re-find the scratchpad's loss; the recursion closes
   here.
+
+## 2026-09-21 15:12Z — four corrections in one closing stretch, one generator (Zephyr guards Leeward, 281e44)
+
+On #172's last two rounds and #173's two, four correction signals arrived that a seat, not a
+reviewer, should have caught: a cure landed without its test after the seat reported "five cures
+complete" (Copilot, 12:50Z); the pr-lifecycle merge-base deletion sweep ran after the door, not
+before (the door's own output had said "run it before merging"); a scratchpad thread-resolver
+resolved every open thread when called for one; and a validation claim ("no other surface
+asserts the old position") was a zero-match reading of the literal sentence, not the claim
+(Copilot, 15:05Z). One generator: each ran under the drive to land — the estate's own review
+after the vendors, the sweep after the merge, the search for the words rather than the claim.
+This is the metacognition directive's "fluency clusters at the finish line" (worked instance
+2026-07-06, five in one closing stretch); today is its second instance, four in one afternoon,
+none self-caught. Scope: this seat's landing stretches; the cure the directive names is
+structural — candidate: the merge door refuses without an attested deletion sweep on the tip
+(the same shape as the review-cost gate refusing without the recorded budget, which DID catch
+the seat today at 12:40Z). One instance of the candidate, so an observation, not a lane.
+
+## 2026-09-21 15:56Z — six rebudgets in six hours: the bar was never applied (Zephyr guards Leeward, 281e44)
+
+The owner asked, at the fourth rebudget card of the day: "How many times have we added a round
+recently?" Counted from the ledger and the descriptions: #170 +1, #172 +3, #173 +1 and a second
+requested — five granted, one asked, across three pull requests in about six hours; the ledger's
+previous budget event was #145 on 2026-09-14, which exhausted and held. The seat ran every round
+as "true finding, therefore cure, therefore push, therefore ask"; PDR-140 clause 9(a) says a
+true finding is not thereby over the bar, and pr-lifecycle carries the bar at every finding with
+an Over-bar / Below-bar marker contract on replies, which the seat used on none of the day's
+replies. Without the bar the supply of true findings has no end, so no budget could hold. The
+generator answers recorded on each rebudget ("own review ran late") named a secondary cause and
+changed nothing about the next round. On #173 (records-class) clause 9(b) already decided the
+fourth card's case: one rebudget per pull request, spent; a bent word dispositions without a
+cure; an over-bar finding cures in a cure-only push with no rebudget. Clause 8 applies: the
+owner invoked metacognition twice today to correct a running pull-request loop, which that
+clause files as a defect against pr-lifecycle, never a usage pattern. Scope: this seat, today;
+the skill's text was sufficient, the execution was not. Candidate structural cure, one instance:
+the thread-reply instrument refuses a reply that carries no bar marker.
