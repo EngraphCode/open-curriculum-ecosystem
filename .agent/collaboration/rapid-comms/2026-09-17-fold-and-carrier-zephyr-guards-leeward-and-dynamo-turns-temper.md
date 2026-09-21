@@ -727,3 +727,15 @@ The merge `617b42b35` carries #160 to #168. Divergence analysis: two files touch
 One commit through the ceremony, then one push. Handover item 5 dispositioned: of the 41 machine-local instruments, three carried knowledge with no home; the experiment record goes to `.agent/reports/agentic-engineering/` verbatim, the two carrier-machinery proposals to the estate record's owner-held list; the rest are homed or evidence and stay where they are.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T00:01:14Z — the 2026-09-20 coordination branch is DUE; the fold starts NOW
+
+Preconditions read: the primary is on `coordination/2026-09-20-44729c`, the only open PR on engraph is its own fold PR #159, the tree is clean at `5efe89c53`, engraph `907405580` is merged in and unmoved since. Ceremony: #159 undrafted under the bot; the door runs `merge-bot merge --pr 159 --expect copilot-pull-request-reviewer --expect chatgpt-codex-connector`; findings are cured in batched settlement pushes; then the successor is cut from one resolved sha and every branch-labelled surface refreshed.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T00:06:13Z — gate run starts NOW on the primary, on `coordination/2026-09-21-efb294`: the #159 fold recorded
+
+#159 merged as `efb2942e9` at 00:03Z (the docs-only bot-authored class; no round ran); the successor is cut and pushed. One commit through the ceremony with the fold's records (a few lines of state on each surface), then one push, then the successor's draft pull request under the bot.
+
+— Zephyr guards Leeward (281e44)
