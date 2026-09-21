@@ -192,6 +192,15 @@ this section when it lands or the owner closes it.
    has to attach to a frequent action, and the frequent action here is the front door's read.
    *Falsifier*: an existing mechanism that evaluates a threshold crossing without an action or a
    clock running it. Two candidates were checked and are not that; the search was not exhaustive.
+7. **ADR-187's outbound cross-references — the WS-8 residue** (found by #169's post-merge
+   review, 2026-09-21). The ratified reviewer synthesis (git `SHA:f5426cba7`, deleted at
+   `a7c3035e5`) required, in DIVERGENT-D and architectural condition 10, that ADR-187 cite a
+   start-right-team section "Cross-Platform Routing Posture" and a new `.agent/rules/README.md`
+   documenting the forwarder pattern. Neither exists: the routing posture lives in start-right-team
+   §Environment Classification, and the forwarder pattern is named only in `read-agent-md.md`.
+   Owed: one dated amendment to ADR-187 citing the homes that exist, and a decision whether the
+   forwarder pattern needs a README of its own; an ADR amendment has its own review contract, so
+   it rides its own lane, never the coordination branch.
 
 ### Tool and code lanes owed
 
@@ -268,10 +277,13 @@ this section when it lands or the owner closes it.
    SETTLED-NO-REVIEW with Copilot alone, which never reviewed the tip), and the seat landed the
    merge by hand through the REST endpoint under pr-lifecycle §merge boundary item 5 — the
    consequence that clause itself names ("if one waits on a reviewer leg again, the merge tool
-   learns the class"). Lane: the door computes the class (bot author; every changed path under
-   `.agent/` or `docs/`; checks green by name; zero unresolved threads; no undispositioned
-   finding) and merges a timeout-settled round for it, so the irreversible act stays on the
-   instrumented path. Warrant: the clause's own prediction (PDR-130) was met on its first trial.
+   learns the class"). Lane: the door computes the class as pr-lifecycle defines it — bot
+   author; every changed path a documentation or Practice surface, prose under `.agent/` or
+   `docs/`, never a hook, script, schema or tooling file (`.agent/` holds executables too, so a
+   directory test alone would let unreviewed code through — #169 post-merge finding, Copilot);
+   checks green by name; zero unresolved threads; no undispositioned finding — and merges a
+   timeout-settled round for it, so the irreversible act stays on the instrumented path.
+   Warrant: the clause's own prediction (PDR-130) was met on its first trial.
    Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
    returns and the class never fires again.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
@@ -447,7 +459,14 @@ bot-authored class; the door's verdict was again SETTLED-NO-REVIEW (both legs ti
 quiet window after checks green, 06:46Z) — the second instance lane item 8 predicted. Successor
 `coordination/2026-09-21-72cab5`, DUE 2026-09-22 00:00Z. The branch carried the #159 fold's
 records, the WS-8 synthesis processed and deleted with the citation line landing in the
-sha-prefix rule, and the curator seat's terminal wrap. No review round ran; no finding.
+sha-prefix rule, and the curator seat's terminal wrap. No review round ran before the merge;
+after it, Copilot (09:12Z) and Codex (09:14Z) left six threads on the merged tip, all true:
+lane item 8's directory test broadened the docs-only class (cured in item 8); the WS-8 deletion
+dropped DIVERGENT-D and condition 10's cross-reference residue (routed, §Doctrine and records
+owed item 7); the formation letter's "five months" was eighteen days (cured); the continuity
+record's resume point kept stale instructions and a stale live-branch line (cured); the
+sha-prefix rule's "its UUID" excluded stable-slug ids the schema allows (cured). The cures
+landed on #170's settlement push.
 
 *moved for teachers:* nothing. *moved for the Practice:* the consolidation's close and the
 citation line are on engraph.
@@ -482,7 +501,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed. Director from 2026-09-06 12:5xZ (owner-named; claim 8109015d) to 2026-09-09 15:11:49Z, when the seat passed at PDR-064 Moment 2 to Nettle guards Pistil (2de368); closed out 15:13Z, no claim retained | 2026-09-03 | 2026-09-09 |
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20 | 2026-09-14 | 2026-09-20 |
+| claude-code | claude-opus-5[1m] | 281e44 | Zephyr guards Leeward | sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-21 |
 
 Prior Director seats predate this record; their identities and tenures are
 carried in the seat chain above, and their full identity tuples in the

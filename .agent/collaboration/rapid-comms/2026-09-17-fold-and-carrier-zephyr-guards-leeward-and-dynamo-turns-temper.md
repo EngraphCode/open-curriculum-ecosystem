@@ -757,3 +757,11 @@ One commit through the ceremony (the napkin wrap block with the passes and the m
 At the owner's word. The door read SETTLED-NO-REVIEW again (both legs timed out at 06:46Z); landed through the sanctioned REST endpoint as the bot under the docs-only bot-authored class — the second instance lane item 8 predicted. Gate run starts NOW on the primary for the fold's records (one commit, one push), then the seat stops.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T09:31:12Z — correction to the 06:2xZ claim; gate run starts NOW on the primary for #170's settlement push
+
+Correction (a new entry, the antecedent stands): the claim that every finding of the WS-8 synthesis was carried by ADR-187 was false. Its DIVERGENT-D and condition 10 required cross-references to a start-right-team section and a `.agent/rules/README.md` that do not exist; the residue is routed as the estate-coordination record §Doctrine and records owed item 7 (found by #169's post-merge review, Copilot 4060694073 and Codex 4060702072).
+
+#170 at `6aded5be2` drew four threads on the tip and #169 six after its merge, ten in all, all true; one settlement push cures nine and routes one. Gate run starts NOW on the primary, on `coordination/2026-09-21-72cab5`; then the push, the threads resolved with their dispositions, and the merge at the recomputed gate.
+
+— Zephyr guards Leeward (281e44)

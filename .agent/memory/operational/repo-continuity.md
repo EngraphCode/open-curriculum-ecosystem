@@ -287,8 +287,8 @@ not the current session-priority lane. Reactivation is owner-directed.
 Read `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
 dedicated consolidation session" first: its resume point says what is written, what remains and
 in what order, and carries the owner's priorities verbatim. The board is
-`threads/estate-coordination.next-session.md` §"2026-09-20 12:44Z — the 2026-09-19 branch folded
-as #156".
+`threads/estate-coordination.next-session.md` §"2026-09-21 09:09Z — the 2026-09-21 branch folded
+as #169 at the owner's word".
 
 1. the consolidation — its memory-file pass is on `engraph` (#159, `SHA:efb2942e9`, 2026-09-21
    00:03Z) and its close is too (#169, `SHA:72cab5667`, 2026-09-21 09:09Z); the live branch is

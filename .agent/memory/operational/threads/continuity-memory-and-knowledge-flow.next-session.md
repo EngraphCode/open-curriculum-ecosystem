@@ -298,17 +298,20 @@ owner's word on 2026-09-21 the stray file in the active buffer directory,
 `ws-8-ratification-reviewer-synthesis-2026-05-24.md` (a May reviewer synthesis, not a buffer), was
 read whole, its findings verified as carried by ADR-187, its one owed residue (the event-id versus
 SHA-prefix citation line) landed in the `sha-prefix-in-collaboration-content` rule, and the file
-deleted; git holds it at `SHA:f5426cba7`. The prediction recorded before the fact (the retrospective's
+deleted; git holds it at `SHA:f5426cba7`. One residue was missed at the deletion and found by the
+post-merge review of #169: its DIVERGENT-D and architectural condition 10 required outbound
+cross-references from ADR-187 to a start-right-team section and a `.agent/rules/README.md` that
+do not exist; routed to the estate-coordination record §Doctrine and records owed, item 7.
+The prediction recorded before the fact (the retrospective's
 proposal 4: doctrine on the coordination branch draws twenty or more findings; ten or fewer
 refutes) held: 36 in the pre-publication pass, then 23, 6 and 5 in three rounds; the #156 row
 of `review-cost-ledger.md` has the reading. The owner's correction at the 14:3xZ wrap, verbatim: "you are supposed to analyse the buffers,
 preserve the knowledge, then analyse and preserve the knowledge in the oversized memory files,
-nothing else". So the next context does two things only, in this order, and opens every report
-with the four buffer counts and the number of oversized files curated: (1) drain the napkin's
-four blocks of 2026-09-20 into their homes and rotate it; (2) the oversized memory files (item
-3 above), one at a time, each priced against the headroom at hand and read whole, the
-estate-coordination record next. Anything else (a review finding outside that, a peer's queue
-item, a branch fold that is not blocking) is named in the report as not the job and left.
+nothing else". Both of those things are done (superseded 2026-09-21): the napkin's blocks of
+2026-09-20 were homed and the owner declared the buffers drained enough for this round; the
+oversized memory files were read whole, nineteen curated and twenty left live. What remains is
+the owner-held decisions (1)–(5) below and the directive-tier candidates held below 30 % context;
+the resume point of 2026-09-20 after the fold, above, governs.
 The retrospective on the consolidation's arc is landed:
 `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
 Two proposals landed in `consolidate-until-done` (step 7's pricing and reservation; step 8's
@@ -375,8 +378,9 @@ register's remaining lines are live entries and stay. Dynamo turns Temper closed
 committed with this branch, and this seat's passes block.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
-branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the
-memory-file pass, no doctrine); the commit is the gate; archiving happens only after full processing.
+branch is the one the resume point above names and falls due at 00:00Z the day after its stamp;
+it carries records, never doctrine); the commit is the gate; archiving happens only after full
+processing.
 
 ## Standing decisions this thread carries forward
 
@@ -452,7 +456,7 @@ first-hand and the fact is surfaced to the owner (2026-07-05).
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| Zephyr guards Leeward | claude-code | claude-opus-5 (was claude-fable-5-1 until 2026-09-15) | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded; then the owner-launched dedicated consolidation of 2026-09-16/17 (curator claim c16450da): the raw sources and the whole napkin read first-hand, three governing texts cured and the graduations landed (`63b544464`), the napkin rotated (`8c48a6669`), the directive and Core passes queued for a fresh context | 2026-09-14 | 2026-09-17 |
+| Zephyr guards Leeward | claude-code | claude-opus-5 (was claude-fable-5-1 until 2026-09-15) | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded; then the owner-launched dedicated consolidation of 2026-09-16/17 (curator claim c16450da): the raw sources and the whole napkin read first-hand, three governing texts cured and the graduations landed (`63b544464`), the napkin rotated (`8c48a6669`), the directive and Core passes queued for a fresh context; the memory-file pass and the wrap of 2026-09-20/21; the #169 fold's records and their post-merge cures, 2026-09-21 | 2026-09-14 | 2026-09-21 |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
 | Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |
