@@ -471,8 +471,11 @@ landed on #170's settlement push.
 *moved for teachers:* nothing. *moved for the Practice:* the consolidation's close and the
 citation line are on engraph.
 
-Board: `engraph` at SHA:72cab5667. Open on engraph: nothing. n = 1; the seat stops at the
-owner's word after this fold.
+Board: `engraph` at SHA:72cab5667. Open on engraph: nothing. n = 1; the seat stopped at the
+owner's word after this fold, then at 09:1xZ the owner re-opened it for the three-estate
+Practice exchange with the guest exchange seat Brazier spins Temper (c70341): n = 2, this
+seat's registration `c0b0f790`, the dialogue on the ARC channel
+`2026-09-21-three-estate-practice-exchange-…`, the register's rows dispositioned there.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 

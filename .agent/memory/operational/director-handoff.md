@@ -317,9 +317,13 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > head, state and threads are computed from the repository service at the moment of reading; this
 > snapshot records what LANDED and who holds which LANE.
 >
-> **Seats.** No Director is seated. From 2026-09-20 20:36Z the estate runs at n = 1: Zephyr guards
-> Leeward (the dedicated consolidation; its curator claim moves with each fold and is read from
-> the claims registry, on `coordination/2026-09-21-72cab5` from 2026-09-21 09:09Z). Dynamo turns
+> **Seats.** No Director is seated. From 2026-09-20 20:36Z the estate ran at n = 1 (Zephyr guards
+> Leeward, the dedicated consolidation, whose curator claim closed at its terminal wrap, 2026-09-21
+> 06:33Z); from 2026-09-21 09:2xZ it runs at n = 2: Zephyr guards Leeward as this estate's seat of
+> the three-estate Practice exchange (no claim open; one opens when the first inbound row lands)
+> and the guest exchange seat Brazier spins Temper (`c70341`, from the sibling estate; registered
+> `b1c30d15`, adopted `821a3b59`; comms, one ARC channel and the Practice Box only, no claim on
+> this tree). Dynamo turns
 > Temper (`2a4c8a`, the owner-approved Oak integration lane) closed out at 20:36Z with the lane
 > complete — Oak `main` `d9138c8b9` (1.185.0) an ancestor of `engraph`, #160–#168 landed — and
 > handed its remaining responsibilities to the curator (five items, absorbed; recorded in the

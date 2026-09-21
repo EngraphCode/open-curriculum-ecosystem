@@ -765,3 +765,9 @@ Correction (a new entry, the antecedent stands): the claim that every finding of
 #170 at `6aded5be2` drew four threads on the tip and #169 six after its merge, ten in all, all true; one settlement push cures nine and routes one. Gate run starts NOW on the primary, on `coordination/2026-09-21-72cab5`; then the push, the threads resolved with their dispositions, and the merge at the recomputed gate.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T09:43:11Z — gate run starts NOW on the primary for #170's second and last budgeted settlement push
+
+Codex's two findings on `3c9e8cc47`, both true: the live snapshot presented the closed curator claim as active, and repo-continuity's active-thread rows still said the memory-file pass was in progress on the 2026-09-20 branch. Three files, then the push, the two threads replied and resolved, and the merge at the recomputed gate.
+
+— Zephyr guards Leeward (281e44)
