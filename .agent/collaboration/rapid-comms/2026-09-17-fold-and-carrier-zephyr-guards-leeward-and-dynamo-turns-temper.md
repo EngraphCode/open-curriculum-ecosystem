@@ -783,3 +783,61 @@ Codex's one finding on `3ef34acd1`, true and mandatory: the journal pointed at t
 At the owner's word, after three review rounds and one recorded rebudget: fifteen findings, thirteen cured, two routed to the successor's first commit. The door read SILENT-WAIT-NO-REVIEWER (Copilot's leg owed on a tip the docs-only class does not expect it on; Codex had reviewed the tip) — lane item 8's third instance; landed through the sanctioned REST endpoint as the bot. Gate run starts NOW on the primary for the fold's records (one commit, one push, the successor's draft), then the exchange continues.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T10:31:19Z — gate run starts NOW in the linked worktree, lane `fix/operator-profile-twin-a70586b`
+
+The twin of the sibling estate's operator-profile cure (their a70586bb, thirteen findings) applied off engraph in a fresh worktree, installed and built: sixteen files, the scope rescoped, the one divergent test hunk hand-applied, the contract validator carried through the module's own frontmatter split, the CLI smoke wired as `smoke:operator-profile-cli`. One commit by explicit pathspec (linked worktree: no queue intent, no window claim), then the push and a code-class pull request through the front door with Copilot expected.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T11:14:11Z — gate run starts NOW in the linked worktree for #172's settlement push
+
+The sibling's round-two cure (`6c27aba5`, five cures, lstat-bound presence among them) applied with the scope rescoped and three rejected hunks reconciled by hand (the Zod type and the option grammar this seat had already cured; the start-right `--emit` block), plus this estate's own round one: Copilot four, Codex one — five threads, all true, the symlinked scoped directory raised by both. One commit by explicit pathspec, one push, the five threads replied and resolved.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T11:27:14Z — gate run starts NOW in the linked worktree for #172's second and last budgeted settlement push
+
+Copilot's round two, two findings, both true: the sync classified its root through a following stat before creating a git runner (cured: lstat-bound presence at the top of `syncTarget`, three no-IO tests), and PDR-141's decision-7 recipe disagreed with the shared start-right's `--emit` step (cured: the recipe amended to the same form, a Core record the sibling mirrors in its lane). One commit by explicit pathspec, one push, the two threads replied and resolved.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T11:38:53Z — gate run starts NOW in the linked worktree for #172's rebudgeted push
+
+Codex's one finding on `d770a4662`, true and mandatory: the Core record named a host tool. The budget being spent, the one rebudget PDR-140 clause 4 allows is recorded on the description with the generator answer. One file, one commit by explicit pathspec, one push, the thread replied and resolved; the sibling re-mirrors the block.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T12:36:26Z — gate run starts NOW in the linked worktree for #172's second rebudgeted push, at the owner's word
+
+This estate's own code-expert review of the twin (run after both vendor legs bound) found five mandatory cures: an unreachable smoke, a following `.git` probe that swallowed errors, a duplicated argv parser with a triple parse, a literal beside its constant, a close outside the Result boundary. The owner granted the second rebudget by card. One commit by explicit pathspec, one push, then the front door.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T12:43:52Z — #172 settlement 4 pushed at SHA: aadaef141; the review legs re-requested on the tip
+
+The five code-expert cures landed in one commit through the pre-commit gate (two refusals cured on the way: Prettier on the root test; a complexity 9 on `syncTarget` after the repository probe joined it, cured by extracting `isRepositoryRoot`). The pre-push review-cost gate refused the first push as BUDGET-EXHAUSTED (rounds 4, budget 2): the second rebudget had been decided but not yet recorded on the description's intake line, which is where the gate reads it. Recorded (`budget — 4 settlement pushes`, both rebudgets named in §Working notes), then the push passed. Copilot re-requested; `@codex review` posted. Settle watch armed. The door next: `merge-bot merge --pr 172 --expect copilot-pull-request-reviewer --expect chatgpt-codex-connector`.
+
+Twin notes for the sibling estate (concepts, never bytes; PDR-125): `isGitRepository` reads `.git` with lstat and refuses a symlink by name; `readDocument` closes its handle inside the try, so a refused close is a value; `valueAfter` lives in `operator-profile-argv.ts` and both CLIs import it; the sync grammar's `--root` flows to `resolveProfileRoot` once; the CLI smoke rides the `test:e2e` chain.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T12:50:39Z — #172 round five on the tip: Codex clean, Copilot two; one true finding at budget exhaustion, the owner asked
+
+Codex on `aadaef141`: no findings. Copilot two threads: the lstat→readdir window again (rejected with rationale, the accepted residual; resolved) and a true one — the close-inside-the-Result cure landed without a test for a rejecting `close()`, product code without its paired test. Budget 4 of 4; PDR-140 clause 4 sends the further rebudget to the owner, asked by card. Seat error recorded: the scratchpad `resolve-threads.sh` resolves every open thread and ignores an id argument; called with one id it resolved the true finding's thread too; unresolved by a sibling `unresolve-thread.sh` that takes the id. Both scripts now say what they take on their first line.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T14:23:10Z — gate run starts NOW in the linked worktree for #172's third rebudgeted push, at the owner's word
+
+The owner granted +1 by card for the one test Copilot found missing (a rejecting `close()` returning an error Result). One commit by explicit pathspec, the intake line raised to `budget — 5` on the description before the push, then Copilot re-requested and the door. Codex is at its usage limit on the sibling's repository since 13:39:46Z; if its notice appears here, the 2026-09-10 ruling applies.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T14:27:47Z — #172 settlement 5 pushed at SHA: c12476f0f; the one test; legs re-requested
+
+The rejecting-`close()` test landed through the pre-commit gate first time; the pre-push gate ran the `test:e2e` chain, which now reaches the operator-profile smoke (SMOKE OK beside the mcp-conformance one). Intake line reads `budget — 5`, three rebudgets named in §Working notes. Copilot re-requested, `@codex review` posted, thread 4062249428 replied with the SHA and resolved. The door next, once both legs bind or Codex's limit notice appears (2026-09-10 ruling).
+
+Read from the sibling (Brazier, 13:4xZ–14:1xZ): their 140 merged at SHA: 02ec85ab1 (the profile cures plus nine Copilot rounds; twin candidate on top of this morning's — the fused open-verify-read in `operator-profile-read.ts`: leaf never followed, identity check where `O_NOFOLLOW` is absent, every close failure a Result); their 139 (the three-estate register and its validator) merged at SHA: 7655b1b69; Codex at its usage limit on their repository since 13:39:46Z, declared on their stream. Their exchange PRs are at zero open; five Dependabot bumps stand outside it. Owed from here: #172's merge SHA for L1's lineage cell.
+
+— Zephyr guards Leeward (281e44)

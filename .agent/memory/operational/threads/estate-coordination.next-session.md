@@ -271,8 +271,36 @@ this section when it lands or the owner closes it.
    orientation row; a start-right path missing `.agent/`; a TSDoc naming a smoke that does not
    exist; the credential patterns miss labelled generic forms (`password:`, `api_key:`,
    `Authorization: Bearer`); Zod's unrecognised-key message prints a credential-shaped key
-   verbatim. Disposition `their-lane-owns-coordinate` until the sibling's cure SHA lands, then
-   twinned here as one pull request taking that diff with its tests.
+   verbatim.
+   Twinned here at SHA:272910f1d (#172, 2026-09-21; PDR-125 clause 6, `twinned-in-window`):
+   the sibling's cure `a70586bb` and its round two `6c27aba5`, with the package scope rescoped
+   on receipt, so the eleven new findings above and the two overlaps are cured on both estates
+   by the same module. #172 ran six rounds on a budget of five (the default two; +1 under
+   PDR-140 clause 4 for a Core record that named a host command; +1 by the owner's word for
+   five cures this estate's own code-expert review found after the vendor legs bound: the CLI
+   smoke reachable from the CI-gated `test:e2e` chain, `isGitRepository` reading `.git` without
+   following links and returning a `Result`, one `valueAfter` for both CLIs with `--root`
+   parsed once, `SYNC_REL_PATH` in place of its literal, `readDocument` closing inside the
+   `Result` boundary; +1 by the owner's word for the test of a rejecting `close()` that cure
+   landed without). Generator, both times: the estate's own review ran after the vendors and
+   the cure was authored under review pressure rather than test-first; the cure at source is
+   the code-expert and test-expert pass before marking ready (the sibling took it on their
+   140, merged at SHA:02ec85ab1; their 139, the three-estate register, at SHA:7655b1b69).
+   Their next twin candidate: the fused open-verify-read in `operator-profile-read.ts` (leaf
+   never followed, identity check where `O_NOFOLLOW` is absent, every close failure a Result).
+   Of the five, three already held on the sibling after their 140 (the `.git` probe, the close
+   inside the try, the smoke on the chain); the shared `valueAfter` and the single `--root`
+   flow are their twin candidates for a later lane. Accepted residual (Codex thread
+   4061923060 and Copilot thread 4062249368, rejected with rationale): the lstat-then-readdir
+   window on a scoped directory is a swap between two syscalls in the operator's own home;
+   Node has no openat-style read relative to a directory descriptor — falsifier: such a
+   primitive in the runtime. Still open from the sibling's 138 record: the start-right sed
+   scope parser accepts nested and local-path remotes; ff-only merge failures read as
+   divergence. Next small lane, `their-lane-owns-coordinate` until twinned from the sibling's
+   `6b642551`: the credential-guard extension (bold labels, table rows, upper-case env names
+   carrying SECRET, TOKEN, PASSWORD, API_KEY, PRIVATE_KEY or ACCESS_KEY; negative controls).
+   The `$comment_contract` contradiction and PDR-141's host-local "for this line" scope key
+   remain one Core-text PR at source, both estates re-twinning.
 5. **Altair spins Umbra's follow-ups from #116** (2026-09-10; pointers, not specs; Altair's
    record names them): the
    policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an
@@ -518,6 +546,35 @@ stable-slug citation, ADR-187's owed cross-references routed, the exchange chann
 Board: `engraph` at SHA:1a125f65d. Open on engraph: nothing. n = 2 with the guest exchange seat
 Brazier spins Temper (c70341); the exchange's register is the sibling's pull request 139, its
 delta instrument 137 and PDR-141 port 138 in review there.
+
+### 2026-09-21 14:45Z — the operator-profile twin landed as #172 through the front door (Zephyr guards Leeward, 281e44, at n = 2)
+
+Merged `SHA:272910f1d` by `merge-bot merge` with both vendor legs SATISFIED on the tip
+`c12476f0f` (Copilot: findings none; Codex: no findings), 21 checks green, zero threads — a
+code PR, so the front door and never the REST endpoint. Six rounds on a budget of five: the
+opening tip (Copilot four, Codex one); settlement 1 (those five plus the sibling's round two;
+Copilot two); settlement 2 (those two; Codex one); settlement 3 under the one rebudget PDR-140
+clause 4 allows (a Core record naming a host command — abstracted); settlement 4 under the
+owner's second rebudget (five cures this estate's own code-expert review found after the vendor
+legs bound; Codex clean, Copilot two: the accepted lstat→readdir residual and one true finding);
+settlement 5 under the owner's third rebudget (the one test that cure lacked). Generator, both
+owner rebudgets: the estate's own code-expert and test-expert pass ran after the vendors rather
+than before ready; the cure at source is to run it first. Twenty findings, seventeen cured, two
+rejected with rationale (the same residual twice), one routed (the orientation row). Lane item
+4 records the twin's lineage, the residual, and the next lane; the #172 row of
+`review-cost-ledger.md` prices it. Seat error on the way, recorded on the ARC channel: a
+scratchpad thread-resolver resolved every open thread when called for one; the true finding's
+thread was unresolved by hand within the minute.
+
+*moved for teachers:* nothing. *moved for the Practice:* both estates run the same
+operator-profile module; the profile reader refuses symlinked documents and roots, an empty
+`--root`, unknown sync arguments; a refused `.git` probe or close is a value the caller reads.
+
+Board: `engraph` at SHA:272910f1d. Open on engraph: #171 (this coordination branch, draft,
+DUE 2026-09-22 00:00Z). n = 2 nominally; the guest seat Brazier spins Temper (c70341)
+compacted at ~14:3xZ with its watchers stopped, its main at `7655b1b69` (137–140 landed; its
+fold 141 and actions-pin 142 open), the merge SHA above written on the exchange channel for its
+successor.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
