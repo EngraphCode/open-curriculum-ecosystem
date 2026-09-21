@@ -291,7 +291,10 @@ repository line, a machine), each typed by the contract, versioned in a
 repository the operator alone controls, and read by every Practice the
 operator runs. Later amendments test against it: anything that would move
 the canonical copy out of the operator's control, or that would let a
-Practice write it, breaks the sovereignty the surface exists to give.
+Practice write it on anything but the operator's word, breaks the
+sovereignty the surface exists to give (decisions 11 and 14 pass that test:
+the operator initialises the repository and ratifies every write; the
+Practice syncs under the operator's own identity and never rewrites).
 
 ## Provenance
 
