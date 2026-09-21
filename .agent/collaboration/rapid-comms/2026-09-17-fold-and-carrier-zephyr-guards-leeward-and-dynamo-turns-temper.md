@@ -745,3 +745,9 @@ Preconditions read: the primary is on `coordination/2026-09-20-44729c`, the only
 One commit through the ceremony, then one push. The synthesis's findings are all in ADR-187; its one owed residue (the event-id versus SHA-prefix citation line) lands in the sha-prefix rule; the file is deleted.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T06:29:44Z — gate run starts NOW on the primary, on `coordination/2026-09-21-efb294`: the curator seat's terminal wrap
+
+One commit through the ceremony (the napkin wrap block with the passes and the metaloss scan, the trued #159 ledger row, the estate record's lane item 8, the formation letter), then one push, then the closeout broadcast; the seat ends there at the owner's word.
+
+— Zephyr guards Leeward (281e44)

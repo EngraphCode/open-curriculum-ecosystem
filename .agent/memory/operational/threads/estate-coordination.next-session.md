@@ -262,6 +262,18 @@ this section when it lands or the owner closes it.
    (one vendor request on the verdict tip; its findings replies-only).
 6. **The transplant source lane** (rows T01, T02, T07, T13, T21 of the register below), the
    PDR-008 records lane (T12), and the `-s` → `--silent` sweep at the pnpm major bump (T16).
+8. **The merge door learns the docs-only bot-authored class** (from the #159 fold, 2026-09-21
+   00:0xZ, by the curator seat's concept-exploration pass at its wrap). `merge-bot merge` refused
+   the fold twice (UNCLASSIFIED-EVIDENCE with Codex declared while Codex was out of credit;
+   SETTLED-NO-REVIEW with Copilot alone, which never reviewed the tip), and the seat landed the
+   merge by hand through the REST endpoint under pr-lifecycle §merge boundary item 5 — the
+   consequence that clause itself names ("if one waits on a reviewer leg again, the merge tool
+   learns the class"). Lane: the door computes the class (bot author; every changed path under
+   `.agent/` or `docs/`; checks green by name; zero unresolved threads; no undispositioned
+   finding) and merges a timeout-settled round for it, so the irreversible act stays on the
+   instrumented path. Warrant: the clause's own prediction (PDR-130) was met on its first trial.
+   Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
+   returns and the class never fires again.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
    15:13Z on 2026-09-16 by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as
    directed event `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's
