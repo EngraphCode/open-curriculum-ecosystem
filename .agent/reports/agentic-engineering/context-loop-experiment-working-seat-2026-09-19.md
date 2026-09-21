@@ -86,3 +86,37 @@ safety valve). Auto-compact was set at 80 %.
 | 2026-09-20T10:53:09Z | 622,289 | 62.2% | +16,440 | the preparation | |
 | 2026-09-20T11:00:27Z | 650,885 | 65.1% | +28,596 | the retrospective | |
 | 2026-09-20T11:01:25Z | 656,313 | 65.6% | +5,428 | the second wrap | |
+
+## The 2026-09-21 run (Zephyr guards Leeward, 281e44): a compaction crossed with the loop running
+
+The column the earlier design asked for (item 7) is kept here. Times are read from the clock or
+from a tool result; a time the seat could not read is marked as bounded.
+
+| Time (UTC) | Context tokens | Of 1M | Delta | What happened in the interval |
+| --- | --- | --- | --- | --- |
+| about 16:44Z (recorded before the compaction; the exact read did not survive it) | about 631,000 | 63.1% | | a day of pull-request rounds, a plan, a three-leg design review |
+| between 16:44Z and 16:55Z | | | | the context was compacted; the seat resumed from a summary |
+| 17:13Z | 158,378 | 15.8% | about −473,000 | post-compaction work: two cures, two pushes, seven dispositions |
+| 2026-09-21T17:35:14Z | 338,667 | 33.9% | +180,289 | a re-grounding at the owner's word (five long skill and directive files read end to end), then the opening of a two-seat definition exercise |
+| 2026-09-21T17:39:54Z | 358,228 | 35.8% | +19,561 | two conscience-check verdicts received and posted verbatim with dispositions; one peer message; a watcher re-armed |
+
+Findings of this run, each one instance:
+
+1. **The loop did not survive the compaction.** Its schedule is session-only state; after the
+   compaction the scheduler listed no jobs, and nothing re-armed it. The seat re-created it
+   between 17:16Z and 17:17Z (bounded by the tool results either side, not read from a clock),
+   some twenty minutes after resuming, only because it happened to list the jobs. The loop's own text
+   says it "must start again" after a compaction; nothing makes that happen. A hook on
+   session resume is the candidate instrument, which is what this experiment exists to inform.
+2. **Re-grounding is the largest single cost after a compaction**: about 180,000 tokens in 22
+   minutes, most of it four files read whole (the team start skill is over a thousand lines).
+   A compaction that frees 470,000 tokens and a re-grounding that spends 180,000 of them is a
+   net of 290,000. The trigger's arithmetic should price the re-grounding, not only the
+   preparation.
+3. **The outcome the earlier design pre-registered (item 5) can be read for this run.** The
+   resumed seat's first acts were right on mechanical state (the fold, the two pull requests)
+   with no owner prompt. They were NOT right on the governing text: the seat applied PDR-140's
+   clauses from the summary for half an hour, recording a rebudget, until the owner invoked
+   the team start and metacognition skills; re-reading the clause then showed the generator
+   question had been run over one finding where the text says the full raised set. A summary
+   carries state well and doctrine badly.

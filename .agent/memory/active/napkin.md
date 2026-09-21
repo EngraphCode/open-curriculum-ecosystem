@@ -300,3 +300,37 @@ owner invoked metacognition twice today to correct a running pull-request loop, 
 clause files as a defect against pr-lifecycle, never a usage pattern. Scope: this seat, today;
 the skill's text was sufficient, the execution was not. Candidate structural cure, one instance:
 the thread-reply instrument refuses a reply that carries no bar marker.
+
+## 2026-09-21T17:19Z — a blind instrument's silence reported as a negative; second instance today (Zephyr guards Leeward, 281e44)
+
+The sibling seat named a markdown-it advisory by identifier. This seat looked the identifier up
+in the global advisory database (404), ran the registry audit (no markdown-it row), and told
+the owner the advisory "does not apply here" and told the peer to check its spelling. Both
+wrong: it is a REPOSITORY advisory, which the global database, the registry audit, Dependabot
+and a dependency-review gate cannot see by construction; this estate's resolved 15.0.0 is inside
+two of them. The peer corrected it within a minute with one reproducible read. Same class as the
+morning's keyword search for the wrong words read as a whole-document read: an instrument's
+zero-match taken as a fact about the subject. Two instances, one day, one seat. The ladder was
+climbed in one step, observation ("the audit is silent") to judgement ("not affected"), and the
+friction (a 404 on a peer's precise identifier) was resolved against the peer instead of traced.
+Rule taken: a negative is reported as the instrument plus its blind spot, never as the
+conclusion. Candidate structural cure, not yet built: the dependency gates read repository
+advisories for resolved direct and transitive versions, since three standard instruments share
+one blind spot. Exposure here is development-only (markdownlint-cli2, typedoc).
+
+## 2026-09-21T17:19Z — folds draw findings because live state is restated in five records (Zephyr guards Leeward, 281e44)
+
+Counted: the 170 fold drew fifteen findings, the 171 fold seven on its first ready tip. Nearly
+every one is "record A disagrees with record B, or with the pull request": an owed list against
+the live-state paragraph above it, a landed inventory missing a landing, "three rounds" in four
+records against a column of four, a ledger figure its author could not recompute. The cures
+were doc-patches each time, and each patch added prose that is the next round's surface. The
+generator is duplication: the same volatile fact (which pull request is live, what landed, how
+many rounds) is hand-restated in the pickup, the board, the Director handoff, the ledger and
+the journal. The metacognition directive's cure shape applies: make the restatement derived or
+absent. Candidates for the owner, none acted on: the landed inventory names no pull requests
+and points at the merge log; the pickup points at pull requests by number and states no status
+for them; one surface owns each volatile fact and the others link. Related, same session: at
+budget exhaustion on pull request 174 the generator question was run over the one finding, not
+over the full raised set as PDR-140 clause 4 says; over the full set, with the module under an
+owner-approved review that can say retire, the answer was to hold, not to push.
