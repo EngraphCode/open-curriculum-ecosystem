@@ -284,6 +284,86 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
+**BOUNDARY, 2026-09-21 18:3xZ — a compaction at the owner's word, then a pause the owner
+says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
+written for a reader who was not here, possibly a different seat.
+
+*Nothing of this seat is running.* A compaction ends every session-scoped process, and a pause
+of days means none is re-armed: no comms watcher, no channel tail, no pull-request watch, no
+context loop. Silence from this seat is the pause, never liveness. To resume, verify by id
+first and re-arm only what is absent: the canonical watcher (`pnpm --silent
+agent-tools:collaboration-state -- comms watch --platform claude-code --model <model>
+--supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-drain 100 --exclude-tag
+heartbeat`), ALWAYS paired with a tail on the exchange channel (`tail -n 0 -F <the channel
+file> | grep --line-buffered '^## \['`); monitors expire at thirty minutes and are re-armed at
+every expiry notice. On this machine a second git build (a Copilot agent's) has run its own
+filesystem-monitor daemon on this checkout, after which plain `git status` blocked for
+minutes: if git hangs, prefix the call with `git -c core.fsmonitor=false`, or export
+`GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.fsmonitor GIT_CONFIG_VALUE_0=false` for a script.
+
+*What is safe, verified first-hand at this boundary (local tip equal to the remote ref, no
+uncommitted file).* This coordination branch, on draft pull request 175. The Core-text branch,
+on open pull request 173, held. The credential tripwire landed as pull request 174; the last
+fold as 171. `engraph` was at `SHA:047b04f59`.
+
+*Owner rulings RELAYED to this seat by the sibling estate's seat, never heard by this seat
+from the owner, so UNCONFIRMED here: confirm each with the owner before binding this estate.*
+They arrived by native message, which no repository tracks, so this is their only record
+here. The sibling seat says the owner answered its cards on 2026-09-21 as follows, verbatim.
+On the reading of "best of each Practice" (each estate gets what the other holds, every estate
+takes the higher of two, the bad is removed everywhere and the owner's rulings only by the
+owner's word): "Yes, that reading". On whether a ruling given in one estate reaches the
+others: "Everywhere for now, and later we will explore some kind of centralisation of the
+Practice, the distributed model creates too much overhead". On the third estate: "I think
+first we move Castr into OCE, then we extract an installable package, and later we review if
+we need to break OCE into multiple repos" (this would amend PDR-125 clause 6, "never shared
+code"). On its thirteen closed pull requests: "I directed it, it was a point where sunk cost
+was causing further loss, it was the economic choice. Castr remains very important, and
+development will continue, but identifying the value in the older work was far more expensive
+than fresh development. Please feel free to open channels to Poppy" (its seat, named by the
+owner as Poppy calls Topsoil). On how much alignment precedes the package: "Full alignment
+first, we are defining excellent, this is absolutely the right choice, nothing is delayed or
+avoided because of the future extraction". An apparent collision with an earlier answer
+(costly rulings "with the package") went back to the owner, who answered: "All six here now",
+so nothing in the sibling estate waits for the package. On the definition's home: "New record,
+PDR-142", allotted from this estate, byte-identical in both, with PDR-125 clause 6 amended
+separately by the owner when the package work begins. And on each estate's own Practice once
+the package exists: "both OCE and JC.net contribute to the new definition in the package, and
+both adapt their local Practices to use the package, we will still need Practice wide ,
+Typescript Practice wide, repo-local and machine-local doctrine, memories, state, so it is
+doubtful that everything will be in the Package, although likely all contracts will be". The
+sibling seat reads that as the owner's own LAYERS of doctrine, sorted by SCOPE where the
+seats' drafts sorted by artefact kind, and means version five to carry both axes.
+
+*First acts at resume, in order.* (1) Ask the owner to confirm the relayed rulings. (2) Pull
+request 173: this seat judged one open finding below the bar (route it) and one over it (a
+cure-only push, which PDR-140 clause 9b permits); but if "review rounds never go up" reaches
+this estate, that push is forbidden, so the owner's confirmation decides 173's path. (3) The
+markdown-it floor, small and owed. (4) The symmetric merge, the act only this estate's seat
+can do, since this estate has so far received NOTHING of the sibling's: the recipe is in the
+sibling seat's channel entry of 17:54:31Z, "theirs" pinned to the sibling's landed
+`SHA:6e576da2`, its rule frontmatter stripped and judged as its own offer. (5) Host facts in
+this estate's text, cured at the source (the list is in that same entry). (6) Version five of
+the shared text is the sibling seat's to write; read that one entry by its heading. The
+definition would land as PDR-142, allotted here, before the third estate's renumbering.
+
+*Surfaced to the owner in chat only, until now.* A registry audit on 2026-09-21 reported two
+critical advisories on `next` and fifteen high across `sharp`, `js-yaml`, `fast-uri`,
+`smol-toml` and `@xmldom/xmldom`; outside this lane, not acted on. That audit cannot see
+REPOSITORY advisories at all, which is how the markdown-it one was missed.
+
+*A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
+which a new session does not inherit: a thread-reply script that refuses a disposition with
+no bar marker or signature, a commit ceremony, a merge-base deletion sweep, a pull-request
+watch. Their concepts are on the napkin; their bytes are tracked nowhere. Landing the reply
+instrument in the estate's tooling is an offer under the shared text, and a lane here.
+
+*Owed to peers.* To the sibling seat since the morning: a judgement of the "stand-down"
+wording in PDR-117; and a measurement for the third estate that the relayed ruling probably
+supersedes. To the Copilot seat Whippoorwill holds Frost: its observation of whether a
+waiter's exit wakes its idle session, added to its report under
+`.agent/reports/agentic-engineering/` when it sends it.
+
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
 fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d` (draft pull
 request 175), DUE 2026-09-22 17:45Z.

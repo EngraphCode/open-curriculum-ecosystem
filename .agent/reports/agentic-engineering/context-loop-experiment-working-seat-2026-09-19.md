@@ -103,6 +103,8 @@ from a tool result; a time the seat could not read is marked as bounded.
 
 | 2026-09-21T18:12:22Z | 523,499 | 52.3% | +131,704 | 23 minutes of one continuous working turn: a two-seat definition exercise carried on a shared channel (long peer entries read in full, three versions of a shared text, two replies composed), two conscience checks, a fold landed and its successor cut, one mis-bounded read that re-printed the seat's own entry. The 50 % line was crossed inside the turn and surfaced to the owner at this tick |
 | 2026-09-21T18:21:51Z | 564,604 | 56.5% | +41,105 | a peer seat's seven comms events read in full and a tracked record written of them; a whole-file echo after a shell append (the harness re-prints a file changed outside its editing tools, so appending by shell costs the file's size in context); an outside verdict dispositioned and a fourth version of the shared text posted as replacement lines, never retyped |
+| 2026-09-21T18:27:49Z | 584,832 | 58.5% | +20,228 | a co-authored report checked by search instead of read; an echo of about a hundred lines when a peer edited a tracked file on disk; a commit message corrected before use |
+| 2026-09-21T18:34:24Z | 623,536 | 62.4% | +38,704 | the compaction preparation, called by the OWNER and never by the loop: the owner read 65 % on their own meter while this instrument read 58 to 62 %. So far: three skills read (free-play, wrap, the handoff's loss-scan step by range), work safety verified per branch, a ledger row, the napkin's reflection, harvest, exploration and loss scan, and a boundary block in the continuity record |
 
 Findings of this run, each one instance:
 
@@ -136,3 +138,19 @@ Findings of this run, each one instance:
    lines; each is read in full because the exercise is about agreeing on words. A collaboration
    surface that both seats must read whole is a context cost that scales with the peer's
    output, which no budget of the seat's own controls.
+6. **The trigger never fired; the owner did.** The loop's line was 70 %. The owner called the
+   preparation when their meter read 65 % and this instrument read under 60 %, because a pause
+   of several days was coming, which no context measurement can know. A level is one reason to
+   prepare; an approaching absence is another, and only the owner holds it. The two meters
+   also disagreed by some five points at the same moment, so a trigger built on one of them
+   inherits an error of that size.
+7. **Any file a peer edits while this seat holds it in context is re-printed into this
+   context.** The harness echoed a co-authored report back twice, in part, when the other seat
+   wrote to it on disk, and once in full when this seat appended to it by shell. A shared file
+   costs context on every peer write, not only on this seat's reads; and an append made outside
+   the editing tools costs the file's whole size.
+8. **The preparation's price, measured by its own firing:** 38,704 tokens from its start to the
+   boundary block, before the formation letter, the commit and the closing report. The earlier
+   design estimated about 16,000 for the preparation and 45,000 with a retrospective; a
+   preparation ahead of a pause of days sits at the upper figure, because the record must
+   serve a reader who was never here.
