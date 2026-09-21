@@ -127,6 +127,34 @@ describe('parseOperatorProfileDocument', () => {
     ).toBe(true);
     expect(messages.join('\n')).not.toContain('ghp_');
   });
+
+  it('refuses a closing delimiter that does not end its line as no frontmatter block at all', () => {
+    const unclosed = '---\npractice_profile: operator-profile\n---junk\n\n# body\n';
+    expect(messagesOf(parseOperatorProfileDocument(INDEX_POSITION, unclosed))).toEqual([
+      'no YAML frontmatter block (every operator-profile document opens with one)',
+    ]);
+  });
+
+  it('accepts a CRLF document and reads its body from the same delimiter match', () => {
+    const crlf = VALID_INDEX_DOCUMENT.replaceAll('\n', '\r\n');
+    expect(parseOperatorProfileDocument(INDEX_POSITION, crlf).ok).toBe(true);
+    const emptyBody = `${VALID_INDEX_DOCUMENT.split('---\n\n')[0]}---\r\n\r\n`;
+    expect(messagesOf(parseOperatorProfileDocument(INDEX_POSITION, emptyBody))).toContain(
+      'the body below the frontmatter is empty',
+    );
+  });
+
+  it('withholds the name of an unrecognised frontmatter key, which may be credential-shaped', () => {
+    const withUnknownKey = VALID_INDEX_DOCUMENT.replace(
+      'ratified: false\n',
+      `ratified: false\nsk-${'q'.repeat(20)}: present\n`,
+    );
+    const messages = messagesOf(parseOperatorProfileDocument(INDEX_POSITION, withUnknownKey));
+    expect(messages).toContain(
+      "frontmatter (root): 1 unrecognized key (the key names are not echoed; the contract lists the family's keys)",
+    );
+    expect(messages.join('\n')).not.toContain('sk-');
+  });
 });
 
 describe('findCredentialLikeLines', () => {
@@ -144,6 +172,50 @@ describe('findCredentialLikeLines', () => {
 
   it('passes a key path, which names a location, not a credential', () => {
     expect(findCredentialLikeLines('key at ~/.config/el-graphael/private-key.pem')).toEqual([]);
+  });
+
+  it('flags labelled generic credentials given as a YAML key, an assignment or a bearer header', () => {
+    const content = [
+      'password: hunter2',
+      '  passwd = hunter2',
+      '- secret: "s3cr3t"',
+      'api_key: abc',
+      '"apiKey": abc',
+      'token: abc',
+      'ACCESS_TOKEN=abc',
+      'Authorization: Bearer abc.def',
+      'clean line',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it('flags a spaced label and a label whose value sits on the next line, both lines', () => {
+    const content = [
+      'API key: correct-horse-battery-staple',
+      'Password:',
+      'correct-horse-battery-staple',
+      'Authorization:',
+      '',
+      'Bearer correct-horse-battery-staple',
+      'clean line',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 6]);
+  });
+
+  it('passes a bare label with no line after it to bind', () => {
+    expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
+  });
+
+  it('passes prose that mentions a credential label without binding a value to it', () => {
+    const content = [
+      'password managers: 1Password',
+      'the token budget is 200',
+      'token:',
+      'secrets live in the keychain, never here',
+      'Bearer tokens are minted by the gateway',
+      'Ask for the API key: the operator holds it',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([]);
   });
 });
 
@@ -191,49 +263,56 @@ describe('resolveProfileRoot', () => {
   const home = path.join('srv', 'operator-home');
   const homeProfile = path.join(home, '.practice', 'profile');
 
-  it('prefers --root, then PRACTICE_HOME, then the home fallback', () => {
+  it('prefers the parsed --root value, then PRACTICE_HOME, then the home fallback', () => {
     const explicit = path.join('srv', 'elsewhere', 'profile');
-    expect(unwrap(resolveProfileRoot(['--root', explicit], {}, home))).toBe(path.resolve(explicit));
+    expect(resolveProfileRoot(explicit, {}, home)).toBe(path.resolve(explicit));
     const practiceHome = path.join('opt', 'practice');
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: practiceHome }, home))).toBe(
+    expect(resolveProfileRoot(undefined, { PRACTICE_HOME: practiceHome }, home)).toBe(
       path.join(practiceHome, 'profile'),
     );
-    expect(unwrap(resolveProfileRoot([], {}, home))).toBe(homeProfile);
-    expect(unwrap(resolveProfileRoot([], { PRACTICE_HOME: '' }, home))).toBe(homeProfile);
-  });
-
-  it('refuses a --root flag without a directory argument', () => {
-    expect(resolveProfileRoot(['--root'], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
-    expect(resolveProfileRoot(['--root', '--json'], {}, home)).toEqual({
-      ok: false,
-      error: '--root needs a directory argument',
-    });
+    expect(resolveProfileRoot(undefined, {}, home)).toBe(homeProfile);
+    expect(resolveProfileRoot(undefined, { PRACTICE_HOME: '' }, home)).toBe(homeProfile);
   });
 });
 
 describe('classifyProfileEntries', () => {
   it('maps the named layout to expectations, tolerates git furniture, and reports everything else', () => {
     const layout = classifyProfileEntries([
-      { relPath: 'index.md', isDirectory: false },
-      { relPath: '.git', isDirectory: true },
-      { relPath: '.gitignore', isDirectory: false },
-      { relPath: 'repos', isDirectory: true },
-      { relPath: 'repos/engraphcode--open-curriculum-ecosystem.md', isDirectory: false },
-      { relPath: 'machines', isDirectory: true },
-      { relPath: 'machines/studio-laptop.md', isDirectory: false },
-      { relPath: 'notes.md', isDirectory: false },
-      { relPath: 'repos/stray.txt', isDirectory: false },
-      { relPath: 'index.md.bak', isDirectory: false },
-      { relPath: 'drafts', isDirectory: true },
+      { relPath: 'index.md', kind: 'file' },
+      { relPath: '.git', kind: 'directory' },
+      { relPath: '.gitignore', kind: 'file' },
+      { relPath: 'repos', kind: 'directory' },
+      { relPath: 'repos/engraphcode--open-curriculum-ecosystem.md', kind: 'file' },
+      { relPath: 'machines', kind: 'directory' },
+      { relPath: 'machines/studio-laptop.md', kind: 'file' },
+      { relPath: 'notes.md', kind: 'file' },
+      { relPath: 'repos/stray.txt', kind: 'file' },
+      { relPath: 'index.md.bak', kind: 'file' },
+      { relPath: 'drafts', kind: 'directory' },
     ]);
     expect(layout.documents).toEqual([INDEX_POSITION, SCOPE_POSITION, MACHINE_POSITION]);
     expect(layout.unexpected).toEqual(['notes.md', 'repos/stray.txt', 'index.md.bak', 'drafts']);
+    expect(layout.notRegular).toEqual([]);
+  });
+
+  it('refuses a symlink or special entry at any position as not regular, never as a document', () => {
+    const layout = classifyProfileEntries([
+      { relPath: 'index.md', kind: 'symlink' },
+      { relPath: 'repos', kind: 'symlink' },
+      { relPath: 'machines/studio-laptop.md', kind: 'other' },
+      { relPath: '.gitignore', kind: 'symlink' },
+    ]);
+    expect(layout.documents).toEqual([]);
+    expect(layout.unexpected).toEqual([]);
+    expect(layout.notRegular).toEqual([
+      'index.md',
+      'repos',
+      'machines/studio-laptop.md',
+      '.gitignore',
+    ]);
   });
 
   it('treats an empty root as a layout with nothing to validate', () => {
-    expect(classifyProfileEntries([])).toEqual({ documents: [], unexpected: [] });
+    expect(classifyProfileEntries([])).toEqual({ documents: [], unexpected: [], notRegular: [] });
   });
 });

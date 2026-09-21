@@ -20,6 +20,8 @@ import { fileURLToPath } from 'node:url';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
+import { valueAfter } from './operator-profile-argv.js';
+import { isGitRepository, presence, type PresenceProbe } from './operator-profile-fs.js';
 import {
   createGitRunner,
   pullProfile,
@@ -29,33 +31,82 @@ import {
 import { pushProfile } from './operator-profile-git-push.js';
 import {
   existingProfilePaths,
-  isGitRepository,
   readProfileReport,
   resolveProfileRoot,
 } from './operator-profile-root.js';
+import { SYNC_REL_PATH } from './operator-profile-sync-report.js';
 
-type Command = { readonly kind: 'pull' } | { readonly kind: 'push'; readonly message: string };
+type Command =
+  | { readonly kind: 'pull'; readonly root: string | undefined }
+  | { readonly kind: 'push'; readonly message: string; readonly root: string | undefined };
+
+const USAGE = 'usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]';
+
+/** The options each command admits; every option takes exactly one value. */
+const OPTIONS = {
+  pull: ['--root'],
+  push: ['--root', '--message'],
+} as const satisfies Readonly<Record<Command['kind'], readonly string[]>>;
+
+type Option = (typeof OPTIONS)[Command['kind']][number];
+
+/** Zero-widening membership: the literal grammar decides, never a `string` view of it. */
+function isOption(kind: Command['kind'], flag: string): flag is Option {
+  return OPTIONS[kind].some((option) => option === flag);
+}
 
 /**
- * Parse the sync command line.
+ * The options as one exhaustive grammar: `--flag value` pairs only, each
+ * flag known to the command and given once. An argument the grammar does
+ * not name is refused by name, never skipped — a typo such as `--rot` must
+ * not fall back to the real home profile.
+ */
+function parseOptions(
+  kind: Command['kind'],
+  rest: readonly string[],
+): Result<ReadonlyMap<Option, string>, string> {
+  const seen = new Map<Option, string>();
+  for (let index = 0; index < rest.length; index += 2) {
+    const flag = rest[index] ?? '';
+    if (!isOption(kind, flag)) {
+      return err(`unknown argument "${flag}" — ${USAGE}`);
+    }
+    if (seen.has(flag)) {
+      return err(`${flag} given more than once — ${USAGE}`);
+    }
+    const value = valueAfter(rest, index + 1);
+    if (value === undefined) {
+      return err(`${flag} needs a value — ${USAGE}`);
+    }
+    seen.set(flag, value);
+  }
+  return ok(seen);
+}
+
+/**
+ * Parse the sync command line: the command, then its options, nothing else.
  *
  * @param argv - arguments after the script path
- * @returns the command, or a usage error
+ * @returns the command, or a usage error naming what was refused
  */
 export function parseSyncArgs(argv: readonly string[]): Result<Command, string> {
-  const [command] = argv;
+  const [command, ...rest] = argv;
+  if (command !== 'pull' && command !== 'push') {
+    return err(USAGE);
+  }
+  const options = parseOptions(command, rest);
+  if (!options.ok) {
+    return options;
+  }
+  const root = options.value.get('--root');
   if (command === 'pull') {
-    return ok({ kind: 'pull' });
+    return ok({ kind: 'pull', root });
   }
-  if (command === 'push') {
-    const flag = argv.indexOf('--message');
-    const message = flag === -1 ? undefined : argv[flag + 1];
-    if (message === undefined || message === '' || message.startsWith('--')) {
-      return err('push needs --message "<seat>: <the fact>"');
-    }
-    return ok({ kind: 'push', message });
+  const message = options.value.get('--message');
+  if (message === undefined) {
+    return err('push needs --message "<seat>: <the fact>"');
   }
-  return err('usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]');
+  return ok({ kind: 'push', message, root });
 }
 
 /** Document failures only: the sync leg is what a push is about to cure. */
@@ -67,7 +118,7 @@ async function nonConformingDocuments(root: string): Promise<Result<number, stri
   if (report.value === 'absent') {
     return ok(0);
   }
-  return ok(report.value.failures.filter((failure) => failure.relPath !== '(sync)').length);
+  return ok(report.value.failures.filter((failure) => failure.relPath !== SYNC_REL_PATH).length);
 }
 
 function report(outcome: Result<string, string>): number {
@@ -99,12 +150,47 @@ async function runPush(root: string, run: GitRunner, message: string): Promise<n
 }
 
 /**
+ * Whether the root is a directory holding a git repository, classified
+ * WITHOUT following links: a symlinked `--root` is refused before any git
+ * runner exists for it, so the pull never runs in the link's target — the
+ * same refusal the profile reader makes, at the sync's own boundary.
+ */
+async function isRepositoryRoot(
+  root: string,
+  probe: PresenceProbe,
+): Promise<Result<boolean, string>> {
+  const there = await probe(root);
+  if (!there.ok) {
+    return there;
+  }
+  if (there.value === 'symlink') {
+    return err(`${root} is a symlink — the profile root is never followed`);
+  }
+  if (there.value !== 'directory') {
+    return ok(false);
+  }
+  return isGitRepository(root);
+}
+
+/**
  * The runner for a root that is a repository with a remote; a message for the
  * two first-class states with nothing to sync; an error when git cannot read
- * the repository (never mistaken for "no remote").
+ * the repository (never mistaken for "no remote") or the root cannot be
+ * classified.
+ *
+ * @param root - the profile root
+ * @param probe - the presence probe (the filesystem, without following links, by default)
+ * @returns the runner, a nothing-to-sync message, or the refusal
  */
-async function syncTarget(root: string): Promise<Result<GitRunner | string, string>> {
-  if (!(await isGitRepository(root))) {
+export async function syncTarget(
+  root: string,
+  probe: PresenceProbe = presence,
+): Promise<Result<GitRunner | string, string>> {
+  const repository = await isRepositoryRoot(root, probe);
+  if (!repository.ok) {
+    return repository;
+  }
+  if (!repository.value) {
     return ok(`profile at ${root} is absent or not a git repository — nothing to sync`);
   }
   const run = createGitRunner(root);
@@ -120,13 +206,12 @@ async function syncTarget(root: string): Promise<Result<GitRunner | string, stri
 
 async function main(argv: readonly string[]): Promise<number> {
   const command = parseSyncArgs(argv);
-  const root = resolveProfileRoot(argv, process.env, homedir());
-  if (!command.ok || !root.ok) {
-    const usage = [command, root].flatMap((parsed) => (parsed.ok ? [] : [parsed.error]));
-    writeErrorLine(`✗ ${usage.join('; ')}`);
+  if (!command.ok) {
+    writeErrorLine(`✗ ${command.error}`);
     return 2;
   }
-  const target = await syncTarget(root.value);
+  const root = resolveProfileRoot(command.value.root, process.env, homedir());
+  const target = await syncTarget(root);
   if (!target.ok) {
     writeErrorLine(`✗ ${target.error}`);
     return 1;
@@ -138,12 +223,14 @@ async function main(argv: readonly string[]): Promise<number> {
   if (command.value.kind === 'pull') {
     return report(pullProfile(target.value));
   }
-  return runPush(root.value, target.value, command.value.message);
+  return runPush(root, target.value, command.value.message);
 }
 
 const currentFilePath = fileURLToPath(import.meta.url);
 
 if (process.argv[1] === currentFilePath) {
-  const exitCode = await main(process.argv.slice(2));
-  process.exit(exitCode);
+  // process.exitCode, never process.exit(): exit() can terminate before
+  // piped stdout/stderr flush, truncating the output a caller captures.
+  // Nothing runs after this assignment; the process ends when the loop drains.
+  process.exitCode = await main(process.argv.slice(2));
 }

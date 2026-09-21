@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { pullProfile, readSyncState, type GitRunner } from './operator-profile-git.js';
 import { pushProfile } from './operator-profile-git-push.js';
-import { parseSyncArgs } from './operator-profile-sync.js';
+import { parseSyncArgs, syncTarget } from './operator-profile-sync.js';
 import {
   assessSyncState,
   dirtyPaths,
@@ -27,6 +27,35 @@ const CLEAN = {
   behind: 0,
 } as const;
 
+describe('syncTarget', () => {
+  it('refuses a symlinked root before any git runner exists for it', async () => {
+    const target = await syncTarget('/profile-link', () =>
+      Promise.resolve({ ok: true, value: 'symlink' }),
+    );
+    expect(target).toEqual({
+      ok: false,
+      error: '/profile-link is a symlink — the profile root is never followed',
+    });
+  });
+
+  it('reports an absent root as nothing to sync, never as an error', async () => {
+    const target = await syncTarget('/no-profile', () =>
+      Promise.resolve({ ok: true, value: 'absent' }),
+    );
+    expect(target).toEqual({
+      ok: true,
+      value: 'profile at /no-profile is absent or not a git repository — nothing to sync',
+    });
+  });
+
+  it('surfaces a root the probe cannot read as the failure it is', async () => {
+    const target = await syncTarget('/sealed', () =>
+      Promise.resolve({ ok: false, error: 'cannot read /sealed (EACCES)' }),
+    );
+    expect(target).toEqual({ ok: false, error: 'cannot read /sealed (EACCES)' });
+  });
+});
+
 describe('assessSyncState', () => {
   it('treats a non-repository and a repository without a remote as information, never findings', () => {
     expect(assessSyncState({ ...CLEAN, isRepository: false }).findings).toEqual([]);
@@ -42,7 +71,7 @@ describe('assessSyncState', () => {
   it('names dirty paths, unpushed commits and a behind branch, each with its cure', () => {
     const assessment = assessSyncState({
       ...CLEAN,
-      porcelain: ' M index.md\n?? machines/new.md\n',
+      porcelain: ' M index.md\0?? machines/new.md\0',
       ahead: 2,
       behind: 1,
     });
@@ -61,7 +90,7 @@ describe('assessSyncState', () => {
   });
 
   it('gives dirty git furniture its own cure, since a push cannot stage it', () => {
-    const assessment = assessSyncState({ ...CLEAN, porcelain: ' M .gitignore\n M index.md\n' });
+    const assessment = assessSyncState({ ...CLEAN, porcelain: ' M .gitignore\0 M index.md\0' });
     expect(assessment.findings).toHaveLength(2);
     expect(assessment.findings[0]).toContain('1 uncommitted change (index.md)');
     expect(assessment.findings[1]).toContain('outside the profile documents (.gitignore)');
@@ -80,9 +109,25 @@ describe('isProfileDocumentPath', () => {
 });
 
 describe('dirtyPaths', () => {
-  it('reads the paths off porcelain lines and ignores blanks', () => {
-    expect(dirtyPaths(' M a.md\n\n?? b/c.md\n')).toEqual(['a.md', 'b/c.md']);
+  it('reads the paths off NUL-delimited porcelain records and ignores empty records', () => {
+    expect(dirtyPaths(' M a.md\0\0?? b/c.md\0')).toEqual(['a.md', 'b/c.md']);
     expect(dirtyPaths('')).toEqual([]);
+  });
+
+  it('reads both paths of a rename or copy record instead of slicing the pair as one path', () => {
+    expect(dirtyPaths('R  repos/new--name.md\0repos/old--name.md\0 M index.md\0')).toEqual([
+      'repos/new--name.md',
+      'repos/old--name.md',
+      'index.md',
+    ]);
+    expect(dirtyPaths(' C machines/copy.md\0machines/host.md\0')).toEqual([
+      'machines/copy.md',
+      'machines/host.md',
+    ]);
+  });
+
+  it('keeps a path with spaces or an arrow intact, since -z neither quotes nor escapes', () => {
+    expect(dirtyPaths(' M repos/a -> b.md\0')).toEqual(['repos/a -> b.md']);
   });
 });
 
@@ -113,21 +158,22 @@ function scripted(
 }
 
 describe('readSyncState', () => {
-  it('reads remote, upstream, porcelain and the left-right count', () => {
-    const { run } = scripted([
+  it('reads remote, upstream, NUL-delimited porcelain and the left-right count', () => {
+    const { run, calls } = scripted([
       { prefix: ['remote'], stdout: 'origin' },
       { prefix: ['rev-parse', '--abbrev-ref'], stdout: 'origin/main' },
-      { prefix: ['status', '--porcelain'], stdout: ' M index.md' },
+      { prefix: ['status', '--porcelain'], stdout: ' M index.md\0' },
       { prefix: ['rev-list', '--left-right'], stdout: '1\t2' },
     ]);
     expect(unwrap(readSyncState(run))).toEqual({
       isRepository: true,
       hasRemote: true,
       hasUpstream: true,
-      porcelain: ' M index.md',
+      porcelain: ' M index.md\0',
       ahead: 2,
       behind: 1,
     });
+    expect(calls).toContainEqual(['status', '--porcelain', '-z']);
   });
 
   it('does not count when there is no upstream', () => {
@@ -393,11 +439,24 @@ describe('pushProfile', () => {
 
 describe('parseSyncArgs', () => {
   it('accepts pull, and push with a message', () => {
-    expect(unwrap(parseSyncArgs(['pull']))).toEqual({ kind: 'pull' });
+    expect(unwrap(parseSyncArgs(['pull']))).toEqual({ kind: 'pull', root: undefined });
     expect(unwrap(parseSyncArgs(['push', '--message', 'seat: fact']))).toEqual({
       kind: 'push',
       message: 'seat: fact',
+      root: undefined,
     });
+  });
+
+  it('accepts --root on either command, in any option order, and carries its value once', () => {
+    expect(unwrap(parseSyncArgs(['pull', '--root', '/srv/profile']))).toEqual({
+      kind: 'pull',
+      root: '/srv/profile',
+    });
+    expect(
+      unwrap(parseSyncArgs(['push', '--root', '/srv/profile', '--message', 'seat: fact'])),
+    ).toEqual({ kind: 'push', message: 'seat: fact', root: '/srv/profile' });
+    expect(failure(parseSyncArgs(['pull', '--root', '']))).toContain('--root needs a value');
+    expect(failure(parseSyncArgs(['pull', '--root', '   ']))).toContain('--root needs a value');
   });
 
   it('refuses push without a message, and an unknown command', () => {
@@ -405,5 +464,26 @@ describe('parseSyncArgs', () => {
     expect(parseSyncArgs(['push', '--message', '--root']).ok).toBe(false);
     expect(parseSyncArgs(['sync']).ok).toBe(false);
     expect(parseSyncArgs([]).ok).toBe(false);
+  });
+
+  it('refuses an argument the grammar does not name, naming it, so a typo never falls back to the home profile', () => {
+    expect(failure(parseSyncArgs(['pull', '--rot', '/srv/profile']))).toContain(
+      'unknown argument "--rot"',
+    );
+    expect(failure(parseSyncArgs(['pull', 'extra']))).toContain('unknown argument "extra"');
+    expect(failure(parseSyncArgs(['pull', '--message', 'seat: fact']))).toContain(
+      'unknown argument "--message"',
+    );
+  });
+
+  it('refuses a duplicate option and an option without a value', () => {
+    expect(failure(parseSyncArgs(['pull', '--root', 'a', '--root', 'b']))).toContain(
+      '--root given more than once',
+    );
+    expect(failure(parseSyncArgs(['pull', '--root']))).toContain('--root needs a value');
+    expect(failure(parseSyncArgs(['pull', '--root', '']))).toContain('--root needs a value');
+    expect(failure(parseSyncArgs(['push', '--message', '   ']))).toContain(
+      '--message needs a value',
+    );
   });
 });
