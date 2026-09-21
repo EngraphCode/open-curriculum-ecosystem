@@ -214,3 +214,53 @@ commit. Dynamo turns Temper's block below stays, theirs to drain.
   snapshot. One refusal: a ceremony run lost its staging before the guard (the staged set did
   not match the intent) with no lock file involved — closed the claim, abandoned the intent,
   re-ran alone; one instance, an observation.
+
+## Zephyr guards Leeward (281e44) — 2026-09-21 06:3xZ, the terminal wrap at the owner's word
+
+- **The measure at the wrap.** Pending graduations 0 (five PDR-130 slow-lane rows under their
+  review dates); distilled 0; open questions 0; this napkin: the day's records and this block.
+  The large-file set: nineteen curated, twenty left live; the 2026-09-20 branch folded as #159
+  (`SHA:efb2942e9`); the WS-8 synthesis processed into ADR-187 and the sha-prefix rule, deleted
+  (`SHA:a7c3035e5`).
+- **Metacognition (retrospective, on the day's corrections).** Inherited: a done-condition the
+  30 % gate could forbid, and a seat that read "wrap" as "stop". What changed the model: the
+  budget is the harness's, not the seat's — a context runs to the compaction it cannot call,
+  in pieces whose product lands as it is made; "left live" is a verdict with a proof, not a
+  deferral; and a class that doctrine ratifies but the tool does not know moves the
+  irreversible act off the instrumented path (the #159 merge by hand). The bridge to impact: the
+  owner's impact is knowledge that fires at pickup; every curated record now says where the
+  current state is and names its archive. Falsifier: a successor opens a curated record and
+  cannot find the state — then that section, not the successor, failed. The reliability rung
+  for "all findings of the WS-8 synthesis are in ADR-187": interpretation from phrase hits, not
+  a clause-by-clause read; recorded as such.
+- **Free play, one time-box.** Kept: the paused records read as strata — each "READ FIRST"
+  banner a newer layer over the last, and the split method's newest-first rule is a core
+  sample read from the top; this reminded me of stratigraphy, and it is why a section's next
+  step resolves in the section above it (a play seed for the paused-record brief: name the
+  strata). Kept as association only: Dynamo's "a report reads as an end to its writer" beside
+  this seat's seven one-line answers to the Stop hook — the same shape from both sides of the
+  table. Discarded, visibly: the door's "names no reviewed commit" on a quota notice as a new
+  instance of `signal-read-as-fact` — forced; the door read the signal correctly and refused.
+- **Concept exploration, compact.** Frame: the fold's merge went by hand because the door does
+  not know a class doctrine ratified on 2026-09-03; the problem is the gap between the two, not
+  the by-hand path. Proposal, routed: the estate record §Tool and code lanes owed item 8 (the
+  door learns the docs-only bot-authored class), warrant the clause's own PDR-130 prediction met
+  on its first trial, falsifier the owner's preference or Codex's credit returning. Unresolved
+  evidence: whether the door's SKIPPED reading of Copilot at 21:37Z (checks green while the PR
+  was still a draft) would have bound a review had the undraft come before the checks.
+- **Metaloss recursion (wrap step 7).** Compressed reasoning: the per-record verdicts collapsed
+  to "left live"; each has its analysis in the scratchpad, which dies with the session — the
+  decision-sufficient residue is the STATE rule in the paused brief and the verdict in the
+  continuity record; recorded there. Promises: Dynamo's five items and the addendum, absorbed
+  and homed; the retrospective offer, made in the report; the ARC notices, all posted; nothing
+  dropped. Attribution inferences flagged: "Copilot never reviewed the tip" and "Codex out of
+  credit" are the door's and Codex's own words (observations); "the owner's 70k is the
+  remaining-tokens buffer" is Dynamo's inference, not verified. Blind-spot bounds: thirty
+  analyst transcripts and their scratchpad outputs are unreadable after this session; the
+  watcher excludes heartbeat-tagged events; the archived napkins of the day were not re-read.
+  Index of homes: the continuity record's resume point and `repo-continuity.md` §PICKUP (both
+  tracked), and the machine-local handoff record. External bound: the two specialist reads of
+  #168 caught what both seats missed; point outside eyes at the curated records' "where the
+  current state is" sections. Fence sweep: the branch lineage's tracked files grep clean for the
+  fenced wordings. A third pass would only re-find the scratchpad's loss; the recursion closes
+  here.

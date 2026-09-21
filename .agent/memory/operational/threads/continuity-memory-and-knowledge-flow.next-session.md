@@ -290,8 +290,14 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
    is not grep-able (F-154), so other passages of this arc's doctrine are unread for it.
 
 **Resume point, 2026-09-20 after the fold.** The drain is on `engraph`: #156 merged as
-`SHA:44729c98c` at 12:44Z through the front door; the live branch is
-`coordination/2026-09-20-44729c`. The prediction recorded before the fact (the retrospective's
+`SHA:44729c98c` at 12:44Z through the front door; the live branch was
+`coordination/2026-09-20-44729c`, itself folded as #159 (`SHA:efb2942e9`, 2026-09-21 00:03Z,
+the memory-file pass on `engraph`); the live branch is `coordination/2026-09-21-efb294`. At the
+owner's word on 2026-09-21 the stray file in the active buffer directory,
+`ws-8-ratification-reviewer-synthesis-2026-05-24.md` (a May reviewer synthesis, not a buffer), was
+read whole, its findings verified as carried by ADR-187, its one owed residue (the event-id versus
+SHA-prefix citation line) landed in the `sha-prefix-in-collaboration-content` rule, and the file
+deleted; git holds it at `SHA:f5426cba7`. The prediction recorded before the fact (the retrospective's
 proposal 4: doctrine on the coordination branch draws twenty or more findings; ten or fewer
 refutes) held: 36 in the pre-publication pass, then 23, 6 and 5 in three rounds; the #156 row
 of `review-cost-ledger.md` has the reading. The owner's correction at the 14:3xZ wrap, verbatim: "you are supposed to analyse the buffers,

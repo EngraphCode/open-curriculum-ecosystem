@@ -290,12 +290,12 @@ in what order, and carries the owner's priorities verbatim. The board is
 `threads/estate-coordination.next-session.md` §"2026-09-20 12:44Z — the 2026-09-19 branch folded
 as #156".
 
-1. the consolidation — IN PROGRESS on `coordination/2026-09-20-44729c`, cut from #156's merge
-   (`SHA:44729c98c`, 2026-09-20 12:44Z). The owner declared the four drainable buffers drained
-   enough for this round on 2026-09-20; the graduate-then-archive curation of the large memory
-   files (`continuity-practice.md` §Disposition; `consolidate-docs` step 6b) is the remaining
-   item, and its state is the continuity record's resume point. Each file is read whole, by the
-   owner's split method, before anything moves;
+1. the consolidation — its memory-file pass is on `engraph` (#159, `SHA:efb2942e9`, 2026-09-21
+   00:03Z); the live branch is `coordination/2026-09-21-efb294`. The owner declared the four
+   drainable buffers drained enough for this round on 2026-09-20, and every file of the
+   large-file set has been read whole by the owner's split method (nineteen curated, twenty
+   left live); what remains is the owner's word on the open decisions the continuity record
+   lists, and the directive-tier candidates held below 30 % context;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the

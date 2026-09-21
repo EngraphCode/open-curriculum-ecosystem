@@ -262,6 +262,18 @@ this section when it lands or the owner closes it.
    (one vendor request on the verdict tip; its findings replies-only).
 6. **The transplant source lane** (rows T01, T02, T07, T13, T21 of the register below), the
    PDR-008 records lane (T12), and the `-s` → `--silent` sweep at the pnpm major bump (T16).
+8. **The merge door learns the docs-only bot-authored class** (from the #159 fold, 2026-09-21
+   00:0xZ, by the curator seat's concept-exploration pass at its wrap). `merge-bot merge` refused
+   the fold twice (UNCLASSIFIED-EVIDENCE with Codex declared while Codex was out of credit;
+   SETTLED-NO-REVIEW with Copilot alone, which never reviewed the tip), and the seat landed the
+   merge by hand through the REST endpoint under pr-lifecycle §merge boundary item 5 — the
+   consequence that clause itself names ("if one waits on a reviewer leg again, the merge tool
+   learns the class"). Lane: the door computes the class (bot author; every changed path under
+   `.agent/` or `docs/`; checks green by name; zero unresolved threads; no undispositioned
+   finding) and merges a timeout-settled round for it, so the irreversible act stays on the
+   instrumented path. Warrant: the clause's own prediction (PDR-130) was met on its first trial.
+   Falsifier: the owner prefers the class to remain a seat's recomputation, or Codex's credit
+   returns and the class never fires again.
 7. **Scheduled maintenance: TypeScript strictness to the target set.** Owner direction, relayed at
    15:13Z on 2026-09-16 by Cauldron herds Lustre (880ff9, the jimcresswell.net Director) as
    directed event `42fe1d6f-7d2a-4fe8-9f9d-f36bc7ea2928` in that repository's stream. The owner's
@@ -408,6 +420,25 @@ merge-door slice); the next carrier opens itself when the Oak line moves.
 Board at 13:55Z: `engraph` at SHA:93c35f285; this branch carries it (merge `SHA:3005d3c26`).
 Open drafts: #159 (this branch), #160 and #161 (Dynamo turns Temper, paused at a compaction
 boundary).
+
+### 2026-09-21 00:03Z — the 2026-09-20 branch folded as #159 (Zephyr guards Leeward, 281e44, curator at n = 1)
+
+Merged `SHA:efb2942e9` at the branch's DUE through the sanctioned REST endpoint as the bot, under
+the docs-only bot-authored class (pr-lifecycle §merge boundary item 5): the door's verdict was
+SETTLED-NO-REVIEW — Copilot never reviewed the tip and Codex answered with its usage-limit
+notice — which that class makes merge-eligible at checks green by name, zero threads and no
+undispositioned finding. Successor `coordination/2026-09-21-efb294`, DUE 2026-09-22 00:00Z.
+The branch carried the #156 fold's records, the memory-file pass (nineteen files curated, twenty
+left live, each with a dated archive), engraph `907405580` merged in, and Dynamo turns Temper's
+closeout handover (recorded above). No review round ran; the #159 row of `review-cost-ledger.md`
+says so.
+
+*moved for teachers:* nothing. *moved for the Practice:* every large memory file says where its
+current state is and names its landed arcs by merge commit, with its narrative whole in a dated
+archive.
+
+Board: `engraph` at SHA:efb2942e9. Open on engraph: nothing. Dynamo turns Temper closed out at
+2026-09-20 20:36Z; n = 1. Codex reviews are out of credit on this repository at this write.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
