@@ -284,4 +284,18 @@ describe('readDocument — reading without following a symlink', () => {
         'cannot read the document (ELOOP) — a symlink or an unreadable file is never a profile document',
     });
   });
+
+  it('turns a close the platform refuses into a message, never a rejection that escapes', async () => {
+    const refusal = Object.assign(new Error('EIO: i/o error, close'), { code: 'EIO' });
+    const closing: DocumentHandle = {
+      readFile: () => Promise.resolve('text'),
+      close: () => Promise.reject(refusal),
+    };
+    const read = await readDocument('index.md', () => Promise.resolve(closing));
+    expect(read).toEqual({
+      ok: false,
+      error:
+        'cannot read the document (EIO) — a symlink or an unreadable file is never a profile document',
+    });
+  });
 });
