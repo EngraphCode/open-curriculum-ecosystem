@@ -739,3 +739,9 @@ Preconditions read: the primary is on `coordination/2026-09-20-44729c`, the only
 #159 merged as `efb2942e9` at 00:03Z (the docs-only bot-authored class; no round ran); the successor is cut and pushed. One commit through the ceremony with the fold's records (a few lines of state on each surface), then one push, then the successor's draft pull request under the bot.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T06:16:17Z — gate run starts NOW on the primary, on `coordination/2026-09-21-efb294`: the WS-8 reviewer synthesis processed and deleted at the owner's word
+
+One commit through the ceremony, then one push. The synthesis's findings are all in ADR-187; its one owed residue (the event-id versus SHA-prefix citation line) lands in the sha-prefix rule; the file is deleted.
+
+— Zephyr guards Leeward (281e44)
