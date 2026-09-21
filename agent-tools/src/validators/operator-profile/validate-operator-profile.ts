@@ -19,6 +19,12 @@
  * profile, and nothing may fail or warn on it. A PRESENT profile must
  * conform: exit 1 names every document and every failure.
  *
+ * `--emit <relPath>` (repeatable) prints a named document after a conforming
+ * check, from the same read the check validated, so a caller never reopens
+ * a path after the check (a file replaced by a link in between would
+ * otherwise enter the session unread). A named document that is absent
+ * prints nothing; nothing prints unless every document conformed.
+ *
  * This check is not part of the commit or push gates by design — the
  * profile is per person, and nothing in the repository may depend on it.
  * Run it at session open (the start-right grounding names it) and after
@@ -29,18 +35,19 @@ import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
+import { parseCheckArgs } from './operator-profile-check-args.js';
 import {
+  type ConformingDocument,
+  type DocumentFailure,
   readProfileReport,
   resolveProfileRoot,
-  type DocumentFailure,
 } from './operator-profile-root.js';
 import { OPERATOR_PROFILE_CONTRACT_REL_PATH } from './operator-profile-schema.js';
+import { SYNC_REL_PATH } from './operator-profile-sync-report.js';
 
 function plural(count: number, noun: string): string {
   return `${count} ${noun}${count === 1 ? '' : 's'}`;
 }
-
-const SYNC_REL_PATH = '(sync)';
 
 // Plain text throughout: `writeLine` sanitises escape characters by design,
 // so ANSI styling would render as literal fragments.
@@ -81,7 +88,18 @@ function reportFailures(root: string, failures: readonly DocumentFailure[]): voi
   }
 }
 
-async function checkRoot(root: string): Promise<number> {
+/** Print the named conforming documents, in the order asked, from the check's own reads. */
+function emitDocuments(documents: readonly ConformingDocument[], emit: readonly string[]): void {
+  for (const relPath of emit) {
+    const document = documents.find((candidate) => candidate.relPath === relPath);
+    if (document !== undefined) {
+      writeLine(`=== ${relPath} ===`);
+      writeLine(document.content);
+    }
+  }
+}
+
+async function checkRoot(root: string, emit: readonly string[]): Promise<number> {
   const report = await readProfileReport(root);
   if (!report.ok) {
     writeErrorLine(`✗ ${report.error}`);
@@ -102,10 +120,16 @@ async function checkRoot(root: string): Promise<number> {
   writeLine(
     `✓ ${plural(count, 'document')} at ${root} conform${count === 1 ? 's' : ''} to the family-1 schema.\n`,
   );
+  emitDocuments(report.value.documents, emit);
   return 0;
 }
 
 async function main(argv: readonly string[]): Promise<number> {
+  const args = parseCheckArgs(argv);
+  if (!args.ok) {
+    writeErrorLine(`✗ ${args.error}`);
+    return 2;
+  }
   const root = resolveProfileRoot(argv, process.env, homedir());
   if (!root.ok) {
     writeErrorLine(`✗ ${root.error}`);
@@ -113,7 +137,7 @@ async function main(argv: readonly string[]): Promise<number> {
   }
   writeLine('\nOperator Profile Check (family 1)');
   writeLine('═════════════════════════════════\n');
-  return checkRoot(root.value);
+  return checkRoot(root.value, args.value.emit);
 }
 
 const currentFilePath = fileURLToPath(import.meta.url);

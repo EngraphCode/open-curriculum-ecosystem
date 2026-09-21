@@ -2,7 +2,8 @@
  * Operator profile — reading a profile root. The IO layer shared by the
  * check CLI and the sync tool: root resolution, presence, listing, document
  * validation and the sync leg. Absence is a first-class outcome, never an
- * error; an unreadable root is an error, never absence.
+ * error; an unreadable root is an error, never absence; a symlinked root is
+ * refused, never followed.
  */
 
 import path from 'node:path';
@@ -19,23 +20,30 @@ import {
   type ProfileFileSystem,
   REAL_PROFILE_FILE_SYSTEM,
 } from './operator-profile-fs.js';
-import { createGitRunner, readSyncState } from './operator-profile-git.js';
 import {
   classifyProfileEntries,
   type ProfileEntry,
   type ProfileLayout,
 } from './operator-profile-layout.js';
 import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
-import { assessSyncState, type SyncStateInput } from './operator-profile-sync-state.js';
+import { syncReport } from './operator-profile-sync-report.js';
 
 export interface DocumentFailure {
   readonly relPath: string;
   readonly messages: readonly string[];
 }
 
-/** What a present root reports: its document count, failures and information. */
+/** A document that conformed, with the text the check read: the one read the emit mode prints from. */
+export interface ConformingDocument {
+  readonly relPath: string;
+  readonly content: string;
+}
+
+/** What a present root reports: its documents, failures and information. */
 export interface ProfileReport {
   readonly documentCount: number;
+  /** Every conforming document, in layout order, with the text as read. */
+  readonly documents: readonly ConformingDocument[];
   readonly failures: readonly DocumentFailure[];
   readonly info: readonly string[];
 }
@@ -92,13 +100,16 @@ async function readRoot(
   if (!there.ok) {
     return err(`${there.error} — an unreadable profile root is a failure, never absence`);
   }
-  if (there.value === 'absent') {
-    return ok('absent');
+  switch (there.value) {
+    case 'absent':
+      return ok('absent');
+    case 'symlink':
+      return err(`${root} is a symlink — the profile root is never followed`);
+    case 'not-a-directory':
+      return err(`${root} exists but is not a directory`);
+    default:
+      return listProfileEntries(root, fs);
   }
-  if (there.value === 'not-a-directory') {
-    return err(`${root} exists but is not a directory`);
-  }
-  return listProfileEntries(root, fs);
 }
 
 /** The findings the layout makes before any document is read. */
@@ -119,37 +130,30 @@ function layoutFailures(layout: ProfileLayout): DocumentFailure[] {
   ];
 }
 
-async function documentFailure(
+type DocumentOutcome =
+  | { readonly kind: 'conforming'; readonly document: ConformingDocument }
+  | { readonly kind: 'failed'; readonly failure: DocumentFailure };
+
+async function documentOutcome(
   root: string,
   expectation: ProfileDocumentExpectation,
   fs: ProfileFileSystem,
-): Promise<DocumentFailure | undefined> {
-  const content = await fs.readDocument(path.join(root, expectation.relPath));
+): Promise<DocumentOutcome> {
+  const { relPath } = expectation;
+  const content = await fs.readDocument(path.join(root, relPath));
   if (!content.ok) {
-    return { relPath: expectation.relPath, messages: [content.error] };
+    return { kind: 'failed', failure: { relPath, messages: [content.error] } };
   }
   const parsed = parseOperatorProfileDocument(expectation, content.value);
-  return parsed.ok ? undefined : { relPath: expectation.relPath, messages: parsed.error };
-}
-
-async function documentFailures(
-  root: string,
-  layout: ProfileLayout,
-  fs: ProfileFileSystem,
-): Promise<DocumentFailure[]> {
-  const failures = layoutFailures(layout);
-  for (const expectation of layout.documents) {
-    const failure = await documentFailure(root, expectation, fs);
-    if (failure !== undefined) {
-      failures.push(failure);
-    }
+  if (!parsed.ok) {
+    return { kind: 'failed', failure: { relPath, messages: parsed.error } };
   }
-  return failures;
+  return { kind: 'conforming', document: { relPath, content: content.value } };
 }
 
 /**
  * The document paths a push can stage that exist in the root; an unreadable
- * one is an error, never treated as absent.
+ * one is an error, never treated as absent, and a symlink is refused.
  *
  * @param root - the profile root
  * @param probe - what is at a path (the filesystem by default)
@@ -162,46 +166,17 @@ export async function existingProfilePaths(
   const present = await Promise.all(
     [INDEX_FILE_NAME, SCOPES_DIR_NAME, MACHINES_DIR_NAME].map(async (relPath) => {
       const there = await probe(path.join(root, relPath));
-      return there.ok ? ok(there.value === 'absent' ? [] : [relPath]) : there;
+      if (!there.ok) {
+        return there;
+      }
+      if (there.value === 'symlink') {
+        return err(`${relPath} at ${root} is a symlink — never staged as part of the profile`);
+      }
+      return ok(there.value === 'absent' ? [] : [relPath]);
     }),
   );
   const collected = collect(present);
   return collected.ok ? ok(collected.value.flat()) : collected;
-}
-
-const NOT_A_REPOSITORY: SyncStateInput = {
-  isRepository: false,
-  hasRemote: false,
-  hasUpstream: false,
-  porcelain: '',
-  ahead: 0,
-  behind: 0,
-};
-
-/**
- * The sync leg: findings only for a repository with a remote, information
- * for the other first-class states (PDR decision 16); a git read that fails
- * is an operational error, never a clean state.
- */
-async function syncReport(
-  root: string,
-  fs: ProfileFileSystem,
-): Promise<
-  Result<
-    { readonly failures: readonly DocumentFailure[]; readonly info: readonly string[] },
-    string
-  >
-> {
-  const state = (await fs.isGitRepository(root))
-    ? readSyncState(createGitRunner(root))
-    : ok(NOT_A_REPOSITORY);
-  if (!state.ok) {
-    return err(`the sync state of ${root} is unreadable — ${state.error}`);
-  }
-  const assessment = assessSyncState(state.value);
-  const failures =
-    assessment.findings.length === 0 ? [] : [{ relPath: '(sync)', messages: assessment.findings }];
-  return ok({ failures, info: assessment.info });
 }
 
 /**
@@ -223,14 +198,24 @@ export async function readProfileReport(
     return ok('absent');
   }
   const layout = classifyProfileEntries(entries.value);
-  const documents = await documentFailures(root, layout, fs);
+  const failures = layoutFailures(layout);
+  const documents: ConformingDocument[] = [];
+  for (const expectation of layout.documents) {
+    const outcome = await documentOutcome(root, expectation, fs);
+    if (outcome.kind === 'conforming') {
+      documents.push(outcome.document);
+    } else {
+      failures.push(outcome.failure);
+    }
+  }
   const sync = await syncReport(root, fs);
   if (!sync.ok) {
     return sync;
   }
   return ok({
     documentCount: layout.documents.length,
-    failures: [...documents, ...sync.value.failures],
+    documents,
+    failures: [...failures, ...sync.value.failures],
     info: sync.value.info,
   });
 }

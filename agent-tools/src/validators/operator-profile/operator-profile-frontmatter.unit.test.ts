@@ -189,6 +189,23 @@ describe('findCredentialLikeLines', () => {
     expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
+  it('flags a spaced label and a label whose value sits on the next line, both lines', () => {
+    const content = [
+      'API key: correct-horse-battery-staple',
+      'Password:',
+      'correct-horse-battery-staple',
+      'Authorization:',
+      '',
+      'Bearer correct-horse-battery-staple',
+      'clean line',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 6]);
+  });
+
+  it('passes a bare label with no line after it to bind', () => {
+    expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
+  });
+
   it('passes prose that mentions a credential label without binding a value to it', () => {
     const content = [
       'password managers: 1Password',

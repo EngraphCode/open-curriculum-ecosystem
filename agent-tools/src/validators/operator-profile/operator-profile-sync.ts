@@ -39,10 +39,17 @@ type Command = { readonly kind: 'pull' } | { readonly kind: 'push'; readonly mes
 const USAGE = 'usage: operator-profile-sync <pull | push --message "<text>"> [--root <dir>]';
 
 /** The options each command admits; every option takes exactly one value. */
-const OPTIONS: Readonly<Record<Command['kind'], ReadonlySet<string>>> = {
-  pull: new Set(['--root']),
-  push: new Set(['--root', '--message']),
-};
+const OPTIONS = {
+  pull: ['--root'],
+  push: ['--root', '--message'],
+} as const satisfies Readonly<Record<Command['kind'], readonly string[]>>;
+
+type Option = (typeof OPTIONS)[Command['kind']][number];
+
+/** Zero-widening membership: the literal grammar decides, never a `string` view of it. */
+function isOption(kind: Command['kind'], flag: string): flag is Option {
+  return OPTIONS[kind].some((option) => option === flag);
+}
 
 /** The value after a flag; undefined when absent, blank, or itself a flag. */
 function valueAfter(rest: readonly string[], index: number): string | undefined {
@@ -59,11 +66,11 @@ function valueAfter(rest: readonly string[], index: number): string | undefined 
 function parseOptions(
   kind: Command['kind'],
   rest: readonly string[],
-): Result<ReadonlyMap<string, string>, string> {
-  const seen = new Map<string, string>();
+): Result<ReadonlyMap<Option, string>, string> {
+  const seen = new Map<Option, string>();
   for (let index = 0; index < rest.length; index += 2) {
     const flag = rest[index] ?? '';
-    if (!OPTIONS[kind].has(flag)) {
+    if (!isOption(kind, flag)) {
       return err(`unknown argument "${flag}" — ${USAGE}`);
     }
     if (seen.has(flag)) {

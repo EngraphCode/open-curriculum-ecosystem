@@ -7,7 +7,9 @@ import { VALID_INDEX_DOCUMENT } from './operator-profile-fixtures.js';
 import {
   type DocumentHandle,
   entryKind,
+  listEntries,
   type Presence,
+  presence,
   type PresenceProbe,
   type ProfileFileSystem,
   readDocument,
@@ -45,6 +47,12 @@ describe('existingProfilePaths — the document paths a push may stage', () => {
     ]);
   });
 
+  it('refuses a symlinked document path rather than staging it', async () => {
+    const probe = probeOf({ 'index.md': 'symlink' });
+    const result = await existingProfilePaths(ROOT, probe);
+    expect(result.ok ? '' : result.error).toContain('index.md at profile-root is a symlink');
+  });
+
   it('reports an unreadable path as an error, never as absent', async () => {
     const probe: PresenceProbe = (target) =>
       Promise.resolve(
@@ -53,6 +61,67 @@ describe('existingProfilePaths — the document paths a push may stage', () => {
     const result = await existingProfilePaths(ROOT, probe);
     expect(result.ok).toBe(false);
     expect(result.ok ? '' : result.error).toContain('EACCES');
+  });
+});
+
+describe('presence — what is at a path, never following a link', () => {
+  const statOf = (symlink: boolean, directory: boolean) => () =>
+    Promise.resolve({ isSymbolicLink: () => symlink, isDirectory: () => directory });
+
+  it('reports a symlink as a symlink even when it points at a directory', async () => {
+    expect(unwrap(await presence('repos', statOf(true, true)))).toBe('symlink');
+    expect(unwrap(await presence('repos', statOf(false, true)))).toBe('directory');
+    expect(unwrap(await presence('index.md', statOf(false, false)))).toBe('not-a-directory');
+  });
+
+  it('reads ENOENT as absence and any other failure as an error', async () => {
+    const enoent = Object.assign(new Error('missing'), { code: 'ENOENT' });
+    expect(unwrap(await presence('nowhere', () => Promise.reject(enoent)))).toBe('absent');
+    const eacces = Object.assign(new Error('denied'), { code: 'EACCES' });
+    const denied = await presence('locked', () => Promise.reject(eacces));
+    expect(denied).toEqual({ ok: false, error: 'cannot read locked (EACCES)' });
+  });
+});
+
+describe('listEntries — one level, never through a link, never a thrown error', () => {
+  const directory: PresenceProbe = () => Promise.resolve(ok('directory'));
+
+  it('lists a scoped directory that is a symlink as empty, so nothing behind it is ever read', async () => {
+    const linked: PresenceProbe = () => Promise.resolve(ok('symlink'));
+    const reads: string[] = [];
+    const lister = (dir: string) => {
+      reads.push(dir);
+      return Promise.resolve([]);
+    };
+    expect(unwrap(await listEntries(ROOT, 'repos', linked, lister))).toEqual([]);
+    expect(reads).toEqual([]);
+  });
+
+  it('turns a listing the platform refuses after the probe into an error, never a throw', async () => {
+    const eacces = Object.assign(new Error('denied'), { code: 'EACCES' });
+    const listed = await listEntries(ROOT, 'repos', directory, () => Promise.reject(eacces));
+    expect(listed).toEqual({
+      ok: false,
+      error: `cannot list ${path.join(ROOT, 'repos')} (EACCES)`,
+    });
+  });
+
+  it("prefixes scoped entries with their directory and keeps each entry's kind", async () => {
+    const lister = () =>
+      Promise.resolve([
+        {
+          name: 'a--b.md',
+          type: { isSymbolicLink: () => false, isDirectory: () => false, isFile: () => true },
+        },
+        {
+          name: 'link.md',
+          type: { isSymbolicLink: () => true, isDirectory: () => false, isFile: () => false },
+        },
+      ]);
+    expect(unwrap(await listEntries(ROOT, 'repos', directory, lister))).toEqual([
+      { relPath: 'repos/a--b.md', kind: 'file' },
+      { relPath: 'repos/link.md', kind: 'symlink' },
+    ]);
   });
 });
 
@@ -90,16 +159,31 @@ function fakeFileSystem(
 }
 
 describe('readProfileReport — entries that are not regular files', () => {
-  it('reads a regular index.md and reports it as one conforming document', async () => {
+  it('reads a regular index.md and reports it as one conforming document, carrying the text it read', async () => {
     const { fs, reads } = fakeFileSystem(
       [{ relPath: 'index.md', kind: 'file' }],
       VALID_INDEX_DOCUMENT,
     );
     expect(unwrap(await readProfileReport(ROOT, fs))).toMatchObject({
       documentCount: 1,
+      documents: [{ relPath: 'index.md', content: VALID_INDEX_DOCUMENT }],
       failures: [],
     });
     expect(reads).toEqual([path.join(ROOT, 'index.md')]);
+  });
+
+  it('refuses a profile root that is a symlink, never following it', async () => {
+    const { fs, reads } = fakeFileSystem(
+      [{ relPath: 'index.md', kind: 'file' }],
+      VALID_INDEX_DOCUMENT,
+    );
+    const linkedRoot: ProfileFileSystem = { ...fs, presence: () => Promise.resolve(ok('symlink')) };
+    const report = await readProfileReport(ROOT, linkedRoot);
+    expect(report).toEqual({
+      ok: false,
+      error: `${ROOT} is a symlink — the profile root is never followed`,
+    });
+    expect(reads).toEqual([]);
   });
 
   it('refuses a symlinked index.md as not a regular file and never reads through it', async () => {

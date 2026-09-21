@@ -5,7 +5,10 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { writeErrorLine, writeLine } from '../src/core/terminal-output.js';
-import { VALID_INDEX_DOCUMENT } from '../src/validators/operator-profile/operator-profile-fixtures.js';
+import {
+  VALID_INDEX_DOCUMENT,
+  VALID_SCOPE_DOCUMENT,
+} from '../src/validators/operator-profile/operator-profile-fixtures.js';
 import { OPERATOR_PROFILE_CONTRACT_REL_PATH } from '../src/validators/operator-profile/operator-profile-schema.js';
 
 /**
@@ -21,6 +24,12 @@ import { OPERATOR_PROFILE_CONTRACT_REL_PATH } from '../src/validators/operator-p
  *    process before piped stdout has flushed.
  * 3. An absent root exits 0 with its one line, and an empty `--root` is a
  *    usage error, never the current checkout.
+ * 4. A symlinked `repos/` directory is refused as not regular and never
+ *    descended: a conforming document behind it is never named or counted.
+ * 5. `--emit` prints a named conforming document from the check's own read
+ *    after a conforming check, prints nothing for an absent name, and prints
+ *    nothing at all when the check refused; an argument the grammar does not
+ *    name is refused with exit 2.
  */
 
 const smokeDir = fileURLToPath(new URL('.', import.meta.url));
@@ -100,8 +109,64 @@ try {
 
   const blank = runCheck(['--root', '']);
   check(
-    blank.status === 1 && blank.stderr.includes('--root needs a directory argument'),
+    blank.status === 2 && blank.stderr.includes('--root needs a value'),
     `an empty --root expected a usage error, got ${String(blank.status)}\n${blank.stdout}${blank.stderr}`,
+  );
+
+  const typo = runCheck(['--rot', profile]);
+  check(
+    typo.status === 2 && typo.stderr.includes('unknown argument "--rot"'),
+    `an unknown argument expected exit 2 naming it, got ${String(typo.status)}\n${typo.stderr}`,
+  );
+
+  const emitOnRefused = runCheck(['--root', profile, '--emit', 'index.md']);
+  check(
+    emitOnRefused.status === 1 && !emitOnRefused.stdout.includes('=== index.md ==='),
+    'a refused check must print no document, whatever --emit names',
+  );
+
+  // A conforming root: index.md regular, repos/ a symlink to a directory
+  // outside the root that holds a conforming scope document.
+  const conforming = join(root, 'conforming');
+  mkdirSync(conforming, { recursive: true });
+  writeFileSync(join(conforming, 'index.md'), VALID_INDEX_DOCUMENT, 'utf8');
+  const outsideRepos = join(root, 'outside-repos');
+  mkdirSync(outsideRepos, { recursive: true });
+  writeFileSync(join(outsideRepos, 'owner--repo.md'), VALID_SCOPE_DOCUMENT, 'utf8');
+  symlinkSync(outsideRepos, join(conforming, 'repos'));
+
+  const linkedDir = runCheck(['--root', conforming, '--emit', 'index.md']);
+  check(
+    linkedDir.status === 1 && linkedDir.stdout.includes('repos is not a regular file or directory'),
+    `a symlinked repos/ expected a refusal naming it, got ${String(linkedDir.status)}\n${linkedDir.stdout}`,
+  );
+  check(
+    !linkedDir.stdout.includes('owner--repo'),
+    'the document behind the symlinked repos/ was listed or read: the link was descended',
+  );
+  check(
+    !linkedDir.stdout.includes('=== index.md ==='),
+    'a refused check printed a document through --emit',
+  );
+
+  rmSync(join(conforming, 'repos'));
+  const emitted = runCheck([
+    '--root',
+    conforming,
+    '--emit',
+    'index.md',
+    '--emit',
+    'repos/absent--scope.md',
+  ]);
+  check(
+    emitted.status === 0 &&
+      emitted.stdout.includes('=== index.md ===') &&
+      emitted.stdout.includes(VALID_INDEX_DOCUMENT.trim()),
+    `--emit index.md on a conforming root expected the document, got ${String(emitted.status)}\n${emitted.stdout}${emitted.stderr}`,
+  );
+  check(
+    !emitted.stdout.includes('=== repos/absent--scope.md ==='),
+    'an absent named document printed a header',
   );
 } finally {
   rmSync(root, { recursive: true, force: true });
@@ -114,6 +179,6 @@ if (failures.length > 0) {
   process.exitCode = 1;
 } else {
   writeLine(
-    `operator-profile CLI smoke OK: symlinked index.md refused unread, ${REFUSED_DOCUMENT_COUNT + 1} refusals arrived whole through a pipe, absent root exit 0, empty --root refused`,
+    `operator-profile CLI smoke OK: symlinked index.md refused unread, ${REFUSED_DOCUMENT_COUNT + 1} refusals arrived whole through a pipe, absent root exit 0, empty --root and an unknown argument refused, a symlinked repos/ never descended, --emit printed the conforming index only`,
   );
 }

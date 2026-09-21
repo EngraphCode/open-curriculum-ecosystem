@@ -34,9 +34,18 @@ export interface ProfileLayout {
  * The Practice never creates them; it only refrains from calling them
  * unexpected.
  */
-const GIT_FURNITURE: ReadonlySet<string> = new Set(['.git', '.gitignore', '.gitattributes']);
+const GIT_FURNITURE = ['.git', '.gitignore', '.gitattributes'] as const;
 
-const SCOPED_DIRS: ReadonlySet<string> = new Set([SCOPES_DIR_NAME, MACHINES_DIR_NAME]);
+const SCOPED_DIRS = [SCOPES_DIR_NAME, MACHINES_DIR_NAME] as const;
+
+/** Zero-widening membership: the literal vocabulary decides, never a `string` view of it. */
+function isGitFurniture(relPath: string): relPath is (typeof GIT_FURNITURE)[number] {
+  return GIT_FURNITURE.some((name) => name === relPath);
+}
+
+function isScopedDir(relPath: string): relPath is (typeof SCOPED_DIRS)[number] {
+  return SCOPED_DIRS.some((name) => name === relPath);
+}
 
 type EntryClass =
   | { readonly kind: 'document'; readonly expectation: ProfileDocumentExpectation }
@@ -45,7 +54,7 @@ type EntryClass =
   | { readonly kind: 'not-regular' };
 
 function classifyDirectory(relPath: string): EntryClass {
-  return SCOPED_DIRS.has(relPath) || GIT_FURNITURE.has(relPath)
+  return isScopedDir(relPath) || isGitFurniture(relPath)
     ? { kind: 'furniture' }
     : { kind: 'unexpected' };
 }
@@ -54,7 +63,7 @@ function classifyFile(relPath: string): EntryClass {
   if (relPath === INDEX_FILE_NAME) {
     return { kind: 'document', expectation: { relPath, expectedKind: 'index' } };
   }
-  if (GIT_FURNITURE.has(relPath)) {
+  if (isGitFurniture(relPath)) {
     return { kind: 'furniture' };
   }
   const scopeKey = scopeKeyFromRelPath(relPath);

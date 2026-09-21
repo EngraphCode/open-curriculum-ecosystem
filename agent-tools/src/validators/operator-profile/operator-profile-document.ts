@@ -5,7 +5,7 @@
 
 import { err, ok, type Result } from '@oaknational/result';
 import { parse as parseYaml } from 'yaml';
-import { type z } from 'zod';
+import type { ZodError } from 'zod';
 
 import { isJsonObject } from '../../core/json.js';
 import { findCredentialLikeLines } from './operator-profile-keys.js';
@@ -81,7 +81,7 @@ function parseFrontmatterMapping(frontmatter: string): Result<unknown, string> {
  * key can be the credential-shaped token this validator exists to keep out of
  * every output, so the message carries the count and the path only.
  */
-function issueMessage(issue: z.core.$ZodIssue): string {
+function issueMessage(issue: ZodError['issues'][number]): string {
   const at = issue.path.map(String).join('.') || '(root)';
   if (issue.code === 'unrecognized_keys') {
     const count = issue.keys.length;
