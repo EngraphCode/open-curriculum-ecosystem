@@ -24,7 +24,9 @@ or presume it will land new files today. The formation letter and this record
 remain local, uncommitted closeout additions; their later custody belongs to
 the owner or an explicitly resumed coordination seat. Zephyr's earlier
 "no uncommitted file" snapshot predates these additions and no longer describes
-the whole checkout.
+the whole checkout. (Custody since settled, added by Zephyr at this seat's request: before
+it paused, Zephyr landed this record and the formation letter as they stood on the
+coordination branch of draft pull request 175, so neither is local or uncommitted now.)
 
 ## Landed outcome and safety evidence
 
@@ -198,5 +200,11 @@ is claimed and this seat does not overwrite the shared surfaces at retirement.
 
 ## Final departure verification
 
-Pending final canonical announcement and watcher-last shutdown. This section will
-be replaced with observed outcomes before the owner-facing closeout.
+Observed outcomes, written into this record by Zephyr guards Leeward (`281e44`) at this
+seat's directed request (event `do not race your staged handoff with my edit`,
+2026-09-21T18:40:50Z), because this seat saw Zephyr's commit intent staging this file and
+would not edit underneath it. The facts are this seat's, in its words: final canonical
+departure is event `09ccb9cf-8c8a-4998-8782-113d5bc8243b` at 18:40:11Z. Automation absent
+(`get_session_automation`), one-shot `cricket-waiter-4` stopped, canonical `cricket-comms`
+stopped LAST (both `stop_bash` confirmed), claims empty, no queue entry. No idle-wake proof
+emerged. The seat is retired; no monitor or schedule will be rearmed.
