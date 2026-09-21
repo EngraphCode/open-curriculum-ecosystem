@@ -160,10 +160,7 @@ Rule 1 breaches. (2) The context-loop experiment of 2026-09-19 (a five-minute ch
 the compaction preparation at 70 %): the owner's rule restarts it after each compaction; this
 seat did not re-create it after the compaction of 2026-09-20 and did not ask, so it is the
 owner's to restart or end. Its findings and the design of a better run are tracked in
-`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`; Dynamo
-turns Temper's own run, with its log and closing note, is beside it verbatim as
-`context-loop-experiment-dynamo-turns-temper-2026-09-19.md` (graduated from their machine-local
-instruments at their closeout, 2026-09-20). (3) A
+`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`. (3) A
 candidate, to be put to the owner once this consolidation is done and not before: a
 consolidation fold cures what blocks the merge and lists the rest as a work list for its own
 lane, as the owner's carrier rule of 2026-09-19 already does for the integration lane. Frame: a
@@ -350,22 +347,15 @@ curated (archive `archive/skills-estate-organisation-thread-2026-09-20.md`; PRs 
 verified merged, which closes the record's 2026-08-03 cure list); `agent-naming`,
 `agent-operability`, `architectural-budget-system` and `branch-fitness-and-push-cadence` read
 whole and left live (pickup state or the design substance itself, open at the owner's word).
-Then the ten remaining paused records read whole and left live (pickup state at the owner's
-word): `cloudflare-mcp-security-and-token-economy-plans`, `connecting-oak-resources`,
-`exploring-open-education-resources`, `first-class-copilot-cli-practice`,
-`itf-knowledge-graph-spike`, `mcp-product-analytics`, `oak-kg-ontology-planning-review`,
-`observability-sentry-otel`, `school-data-search`, `semantic-search`. Then the active set:
-`repo-continuity.md` re-trued as an index by an index-record brief (archive
-`archive/repo-continuity-2026-09-20.md`), `open-surface-zero` curated (archive
-`archive/open-surface-zero-thread-2026-09-20.md`), `director-handoff.md`'s homed lessons,
-stale frictions and landed list re-pointed (archive `archive/director-handoff-2026-09-20.md`),
-and this record's own session history collapsed to its landed drains by commit (archive
-`archive/continuity-memory-and-knowledge-flow-thread-2026-09-20.md`);
-`agentic-engineering-enhancements` was curated earlier today. With that, every file of the
-large-file set has been read whole: nineteen curated, twenty left live. The frictions
-register's remaining lines are live entries and stay. Dynamo turns Temper closed out at 20:36Z
-(their handover absorbed, comms event `63305b31`); the napkin carries their observations,
-committed with this branch, and this seat's passes block.
+Owed next: the ten unread paused records (`cloudflare-mcp-security-and-token-economy-plans`,
+`connecting-oak-resources`, `exploring-open-education-resources`,
+`first-class-copilot-cli-practice`, `itf-knowledge-graph-spike`, `mcp-product-analytics`,
+`oak-kg-ontology-planning-review`, `observability-sentry-otel`, `school-data-search`,
+`semantic-search`), then the active set (`repo-continuity.md` by an index-record brief,
+`director-handoff.md`, `open-surface-zero`, this record's own landed history above;
+`agentic-engineering-enhancements` was curated earlier today); the frictions register's
+remaining lines are live entries and stay. The napkin also carries Dynamo turns Temper's 15:0xZ
+observations, theirs to drain.
 
 Rulings that hold: directive edits below 30 % context; the 24-hour branch lifetime (the live
 branch is stamped 2026-09-20 and falls due at 2026-09-21 00:00Z; it carries records and the
@@ -409,37 +399,119 @@ memory-file pass, no doctrine); the commit is the gate; archiving happens only a
 
 ## Session history
 
-Landed drains, by commit (each verified in this repository on 2026-09-20); the entries as they
-were written, with their batch counts, reviewer notes and coordination detail, are preserved at
-`.agent/memory/operational/archive/continuity-memory-and-knowledge-flow-thread-2026-09-20.md`
-(blob `5349e3aaf`, byte-identical to the record at `SHA:aff0c2c7a`).
+- **2026-09-14 — Zephyr guards Leeward (claude-code / claude-fable-5-1 / 281e44), THE SECOND
+  DEDICATED DRAIN OF THE CLAUDE BUFFER, COMPLETE** (owner's ask: load the full Claude memory,
+  disposition it to permanent cross-vendor homes, leave only what strictly belongs local; n=1,
+  no Director seated). Corpus: 495 files, 1.5 MB, read first-hand in ten batches; nine Sonnet
+  general-purpose mappers wrote per-batch corroboration reports and one Fable validator
+  resampled 25 files against them (the owner's mid-turn addition). Dispositions: graduated
+  (a clause written into an existing home), already carried (home verified, file retired),
+  refuted (stale, e.g. the lifted Linear write freeze; the worktree-entry grant contradicted by
+  `worktree-residency`), strictly local (owner-sensitive), directive-bound (queued). Landed:
+  `f24683337` (Kinkajou's docs-only block swept at the owner's word, attributed) and
+  `0e4173b43` (62 files: 33 rules, PDR-026/027/117, owner-signal-interpretation, seven skills,
+  six docs, two plans, the ledger, frictions F-184, six pending-graduations entries,
+  repo-continuity's no-throw and October rulings, two new files — the Workflow tool operating
+  notes and Forge's delight reflection). Buffer side: 488 files retired after the commit; the
+  index rewritten to seven survivors; the resume-heads file reduced to pointers (its 205 KB of
+  TAIL blocks were handovers already in thread records; full text in the backup tarball); the
+  operator profile seeded at `.agent/operator-local/profile.md`, untracked, every item marked
+  inferred for ratification. Held in the buffer by design: the first-major-release T0 rulings,
+  the fork-naming ruling, the progression strand, the licensing handling residue, and the
+  verified-correct memory until PR #143 lands. Next: a fresh seat under the 30% budget lands
+  the six due entries in pending-graduations (editorial-tone, principles ×2, testing-strategy
+  ×2, validation-strategy); the owner ratifies or amends the profile; at #143's landing the
+  last held memory is deleted.
+- **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM D COMPLETE —
+  DRAIN COMPLETE, PLAN ARCHIVED** (second session at this seat, post-compaction head): the full
+  Stratum D queue landed in five commits. `7f4988c63` — user-collaboration split_strategy
+  executed (owner-signal-interpretation.md is the new executive-memory companion carrying
+  hedged-statement, demonstrated-action, and the full depth of direction-is-a-stream +
+  direction-scope) plus the three deferred folds; `b10d90dc0` — principles.md §Decision Lenses
+  either/or coda; `35cf09bf9` — design-from-impact-not-the-cowpath rule authored (four-entry
+  design-agency unit + adapters + RULES_INDEX; the owner-named term "cowpath" carried; the rule
+  NAME is open to owner re-ratification); `b839fe03d` — the intent-and-mechanism doctrine
+  (mechanism-without-legible-intent pattern with the eight assertions as ADR-200 seed; PDR-038
+  §Un-communicated intent bidirectional amendment; owner-working-style.md RETIRED per the
+  owner's reframe — the home pre-decision resolved by dissolution; user-collaboration §Owner
+  Signals Express Practice Intent carries the interpretive residue); `7d424cc9d` — crosswalk +
+  derive-controlled-surface patterns, build_vs_buy into plan-skill §Build-vs-Buy Before
+  Build-Shape + invoke-code-experts reviewer-scheduling, graphs_as_method into ADR-173 §The
+  estate is plural by design (OQ-10 cites it). Final census exact (three marker generations;
+  zero unmarked; index at zero lines). Batches 1-2 docs-adr-expert-reviewed; the reviewer died
+  on the org monthly spend limit at batch 3 — batches 3-4 grounded first-hand per the
+  classifier-unavailable clause. PDR-105 reference-direction validator caught one
+  doctrine→ephemeral link pre-commit (cure: cite the durable home). Plan archived to
+  `archive/completed/` with the closeout verdict: complete.
+- **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM C COMPLETE**:
+  the completion goal landed. All 212 `feedback_*` files dispositioned first-hand across the
+  session's 12 commits (`b21bafa39` head fold; `7920215df`…`d3e1b6fed` C-2..C-15;
+  `e8b3eb986` the nine PDR-052-deferred directive folds at the post-compaction fresh
+  boundary; `74eaecd6b`…`46b50e24e` C-16..C-25 plus the waypoint refreshes). Index at 12
+  live-only lines mapping ONE-TO-ONE to the ROUTED-TO-D/DEFERRED files; final orphan
+  reconciliation exact; every batch docs-adr-expert-reviewed pre-commit except C-25, whose
+  reviewer died on the org monthly spend limit carrying the classifier-unavailable note —
+  per the just-folded doctrine its partial verdict was not folded, every claim was
+  independently grounded first-hand, and its one recovered finding was confirmed and
+  applied. Spend-limit fact surfaced to the owner. The owner-working-style extraction's
+  home choice (executive memory vs per-user) remains surfaced as a reversible
+  pre-decision. Stratum D queue and the deferred directive folds are the Next safe step
+  above.
+- **2026-07-04 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), MID-SESSION WAYPOINT 2
+  (post-compaction; session continues)**: Stratum C completion seat. Landed: the session-head
+  principles.md unless-tell fold (`b21bafa39`), loops C-2…C-15 (`7920215df`…`d3e1b6fed`, 107
+  entries), then post-compaction ALL NINE PDR-052-deferred directive folds executed at the
+  fresh boundary (`e8b3eb986` — metacognition §Stance Under Correction; user-collaboration
+  gained four folds with §Owner Working Style extracted to
+  `.agent/memory/executive/owner-working-style.md` (home choice surfaced to the owner as a
+  reversible pre-decision per the decomposition plan's flagged M2 call); agent-collaboration
+  claims-model residual; repo-continuity repoint; channels-card platform-orchestrator handoff
+  with Cursor 3.2 re-verification) plus loops C-16…C-21 (`74eaecd6b`, `d39bd05bc`,
+  `04fe9944c`, `5447a3e82`, `3ec41b8ed`, `aba5b72cd`), 41 more entries dispositioned
+  first-hand; index at 62 lines; **52 `feedback_*` files remain unmarked** — resume at the
+  alphabetically-first unmarked file (work-list = disk scan for files without
+  LINE-ANCHORED case-insensitive markers `^\*\*(disposition|duplicate|rejected|routed-to-d|`
+  `graduated|deferred)` — a bare-word grep false-matches prose and under-counts).
+  Docs-adr-expert reviewed every batch pre-commit. **Routing constraints**:
+  user-collaboration.md sits 7 content-lines under its fitness hard limit — the NEXT fold
+  targeting it executes its split_strategy first; deferred-to-that-fold-set entries (DEFERRED
+  markers, lines live): no_ritual_framing, owner_direction_is_a_stream,
+  owner_direction_scope. **Stratum-D queue** (ROUTED-TO-D markers, lines live): build_vs_buy;
+  the cowpath + design_from_substrate + inherited_separation rule unit; crosswalk pattern;
+  derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10 markdown-to-graph
+  inversion ADR). Coordination: solo window, curator claim open (refresh if past its
+  fresh_until), watcher live (re-armed twice at the 3600s backstop, same seen-file;
+  re-verify with assert-watcher-live after any boundary), heartbeat under the PDR-078 s4
+  consumer-absent exemption.
 
-- 2026-07-03, Sardine spins Estuary (69af8c): thread opened; PDR-124, the agent-description
-  convergence and the lifecycle amendment; the drain plan authored; Stratum A drained.
-- 2026-07-03, Ginger guards Xylem (563bfb): Stratum B — the 28 project and reference entries
-  dispositioned; six dangling memory pointers repaired; 27 entries retired.
-- 2026-07-04, Mistral holds Cumulus (3cfe8f): Stratum C opened; the PDR-052 pillars fold
-  (`SHA:46ff52892`); batch C-1 (`SHA:8f788c837`).
-- 2026-07-04/05, Hedgehog stirs Rime (da727a): Stratum C complete — all 212 `feedback_*` files
-  dispositioned across twelve commits (`SHA:b21bafa39` head fold; the nine PDR-052-deferred
-  directive folds at the post-compaction boundary, `SHA:e8b3eb986`); Stratum D complete in five
-  commits (`SHA:7f4988c63` the user-collaboration split with owner-signal-interpretation as the
-  executive-memory companion; `SHA:b10d90dc0`; `SHA:35cf09bf9` the design-from-impact rule;
-  `SHA:b839fe03d` the intent-and-mechanism doctrine, owner-working-style retired by the owner's
-  reframe; `SHA:7d424cc9d` the crosswalk and derive-controlled-surface patterns); the drain plan
-  archived complete.
-- 2026-09-14, Zephyr guards Leeward (281e44): the second dedicated drain of the Claude buffer —
-  495 files read first-hand; `SHA:f24683337` and `SHA:0e4173b43` (62 files); 488 files retired;
-  the operator profile seeded (PDR-141). What stayed held by design is named in the buffer's
-  own index.
-
-Lessons from those drains with no other home (the record's words): a peer's live commit-intent
-naming a path is a hold on new edits to that path; an intent file-list built from `git status`
-does not re-check content arriving before `git add` — re-diff `--cached` on shared docs between
-add and record-staged (2026-07-04). A work list built by grep uses line-anchored markers — a
-bare-word grep false-matches prose and under-counts (2026-07-04). A reviewer that dies on the
-organisation's spend limit leaves a partial verdict that is not folded; every claim is grounded
-first-hand and the fact is surfaced to the owner (2026-07-05).
+- **2026-07-04 — Mistral holds Cumulus (claude-code / fable-5 / 3cfe8f)**:
+  Stratum C opened (n=2 window with Otter hunts Jetty on the disjoint ws1d
+  tier-E lane, sharing the branch). PDR-052 pillars fold executed as first
+  post-grounding action (`46ff52892`); batch C-1 dispositioned 12 entries
+  (`8f788c837`; one clause landed via the peer's `558f046af`). Coordination
+  notes for successors: a peer's live commit-intent naming a path is a hold
+  on new edits to that path; an intent file-list built from `git status`
+  does not re-check content arriving before `git add` (re-diff `--cached`
+  on shared docs between add and record-staged); one transient `index.lock`
+  cleared itself under the no-contact posture.
+- **2026-07-03 — Ginger guards Xylem (claude-code / fable-5 / 563bfb)**:
+  Stratum B executed (n=2 window with Gust hunts Headwind on the disjoint
+  salvage lane; Gust closed out mid-session at `2b57fff52`). All 28
+  project_*/reference_* entries read and dispositioned first-hand; 8
+  repo-side enrichments/re-homes landed in one batch commit; 6 live
+  dangling memory-pointer references repaired (repo-continuity, AEE record,
+  eef record, main-sonar record, two plans); 27 memory entries + index
+  lines retired after the commit; pillars entry deliberately kept live
+  (PDR-052 gate).
+- **2026-07-03 — Sardine spins Estuary (claude-code / fable-5 / 69af8c)**:
+  thread opened. PDR-124 + agent-description convergence + lifecycle
+  amendment; drain plan authored (plan-mode + assumptions-expert readiness
+  review, 17-orphan blocker caught and cured); Loop 0 (reconciliation +
+  verified inventory: Codex/Cursor/Gemini surfaces present, owner-scoped out;
+  both registers verified empty); F-112 surfaced → fix plan authored →
+  fixed by peers; no-fallback owner correction reconciled into the commit
+  skill + F-112 register entry; Stratum A drained (n=2 window with Gust hunts
+  Headwind, memory-side only).
 
 ## Participating agent identities
 

@@ -60,8 +60,167 @@ dedicated plan that this entry points to.
 ## Friction Entries
 
 Status lines are the disposition source of truth. Entries remain in this
-section until a consolidation pass moves them; §Settled entries, archived, below, keeps one
-index row per moved id so citations resolve, and the archive keeps the text.
+section until a consolidation pass moves them; the addressed/mitigated section
+below is a cross-reference index, not a second source of truth.
+
+### F-01 — `comms send` rejects `--agent-name`
+
+- **Source**: napkin 2026-05-05 (Deciduous Budding Stamen, `512682`)
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms send`
+- **Observed**: First invocation failed with `unknown option:
+  --agent-name`; identity for writes uses env
+  (`PRACTICE_AGENT_SESSION_ID_CURSOR`, `OAK_AGENT_IDENTITY_OVERRIDE`) plus
+  `--platform` and `--model`. Discoverability gap: agents reach for
+  `--agent-name` because it is the human-meaningful field.
+- **Expected**: Either accept `--agent-name` (resolve to seed/prefix) or
+  print full help on the unknown flag naming the supported identity inputs.
+- **Candidate cure**: Print full help on unknown flag (composes with F-09)
+  AND name the supported identity inputs in the help text; consider
+  accepting `--agent-name` as an alias resolved against the wordlist.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree. `comms send` help now
+  names `PRACTICE_AGENT_SESSION_ID_CURSOR` and
+  `OAK_AGENT_IDENTITY_OVERRIDE`, and unsupported identity-name flags
+  return command help plus the specific unknown-option error.
+- **Owner direction**: standing (full-help-on-invalid-flags, F-09)
+
+### F-02 — `claims close` requires `--summary` not `--closure-summary`
+
+- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (d);
+  comms event `a1cf45a2` 2026-05-05
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`
+- **Observed**: Required flag is `--summary`. Agents reach for
+  `--closure-summary` (a more semantic name) and fail. Discoverability
+  required source-grep to find.
+- **Expected**: Help text exposes the canonical flag prominently; either
+  rename to `--closure-summary` (more semantic) or accept both names.
+- **Candidate cure**: Accept `--closure-summary` as an alias for
+  `--summary`; full-help-on-invalid-flag (F-09) ensures next agent
+  discovers the canonical name immediately.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree. `claims close` accepts
+  `--closure-summary` as an alias for `--summary`, and help documents
+  the alias.
+
+### F-03 — `claims close` error names wrong option as missing
+
+- **Source**: napkin 2026-05-05 (Dawnlit, `0ddc89`) Observation 4
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`
+- **Observed**: First attempt failed with "missing required option
+  --active" while passing `--active`; the actual culprit was the
+  un-recognised `--kind closed` argument (closure kind is hardcoded to
+  'explicit' in the implementation, not a CLI param). The error message
+  named the wrong option as missing rather than naming the unknown
+  option.
+- **Expected**: Error message names the actually-unrecognised flag (e.g.
+  *"unknown option: --kind"*) rather than reporting a downstream
+  required-option failure.
+- **Candidate cure**: CLI parser surfaces unknown-flag errors before
+  required-flag-validation errors; full-help-on-invalid-flag (F-09)
+  composes with this.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-options.ts`
+  or shared CLI parser layer
+- **Status**: addressed-in-existing-cli-validation
+- **Review 2026-05-10**: addressed for the reported shape. The current
+  parser rejects globally unknown flags before required-option validation,
+  and `runCollaborationStateCli` has regression coverage for unknown
+  options before missing required options.
+
+### F-04 — `claims open` `--file` vs `--area-pattern` ambiguity
+
+- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (e)
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
+- **Observed**: `--file` (singular, repeatable) vs `--area-pattern`
+  (singular, only-when-no-files) shape is unclear from the help text
+  alone; agents have to source-grep to understand the constraint.
+- **Expected**: Help text states the cardinality and mutual-exclusion
+  constraints in a single line per flag; an example shows both shapes.
+- **Candidate cure**: Help-text amendment with cardinality, repeatability,
+  and mutual-exclusion clearly stated; add canonical examples.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
+  - `agent-tools/README.md`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree. Command help states
+  repeatability and mutual exclusion for `--file` and `--area-pattern`;
+  `agent-tools/README.md` now includes canonical `claims open --file`
+  and `claims open --area-pattern` examples.
+
+### F-05 — `comms render` chokes on a single malformed event JSON
+
+- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (f);
+  observed during Gnarled's escape-sequence bug blocking
+  `shared-comms-log.md` regeneration repo-wide
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms render`
+- **Observed**: A single malformed `comms-events/*.json` file aborts the
+  entire render, blocking shared-comms-log.md regeneration for every
+  agent in the repo.
+- **Expected**: Per-file recovery — log the malformed file, skip it, and
+  render the rest; emit a non-zero exit with a clear error summary so the
+  fault is visible without blocking the substrate.
+- **Candidate cure** (revised 2026-06-01, owner direction): the original
+  `--skip-malformed` direction is **rejected** — tolerating corruption on read is
+  not a fix. The cure is prevention at the write (serialize via `JSON.stringify`
+  only, validate the serialized string round-trips and conforms, write atomically
+  via temp + rename) plus a loud, hard read-side failure that names the offending
+  file, plus a one-time repair of existing corruption and a gate-wired regression
+  guard.
+- **Target surface**: `agent-tools/src/collaboration-state/state-io.ts` (write
+  path) and `cli-comms-commands.ts` (render/read).
+- **Status**: addressed-in-working-tree-2026-06-01 —
+  [`agent-tooling/current/comms-event-write-integrity.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/comms-event-write-integrity.plan.md)
+  (one-time repair + absolute prevention + loud read + gate guard). Comms event
+  writes now parse-back, schema-validate, and publish via a synced same-directory
+  atomic writer before the target file appears; readers hard-fail with the bad
+  path named; `comms validate` scans true-JSON collaboration state; and
+  `repo-validators:check` runs the same validator.
+- **Review 2026-05-10**: still open. `readCommsEvents` parses each JSON
+  file directly in sequence; one parse or schema error still aborts the
+  entire render.
+- **Review 2026-05-11**: current B-10 compatibility slice fixed two live
+  legacy-schema blockers discovered in the repo event directory:
+  narrative `addressed_to` agent-reference objects now normalize to the
+  referenced `agent_name`, and `in_response_to: null` / `in_reply_to: null`
+  are treated as absent. `comms render` also now accepts and documents the
+  required post-R1.b `--lifecycle-dir` and `--messages-dir` options. Live
+  render against the repo's three comms directories exits 0 to a temp output.
+  The broader F-05 contract remains open: one truly malformed file should be
+  skipped/reported without blocking the rest of the rendered log.
+- **Review 2026-06-01** (Windswept Floating Summit): fresh worked instance. Three
+  legacy events (`625fb072`, `76ede08d`, `a15363e5`) had bodies truncated
+  mid-sentence into unterminated JSON; one aborted `comms render` repo-wide — the
+  exact F-05 blocker. Manually repaired all three (terminated the strings,
+  preserving surviving content, with a `[body truncated by comms-CLI write bug;
+  JSON repaired]` marker); render now exits 0. F-05's core contract (skip + report
+  one malformed file without aborting the whole render) is still open and
+  re-confirmed high-severity.
+- **Write-side gap surfaced 2026-06-01 (candidate for its own entry):** these
+  files prove the *write* path can persist truncated/malformed JSON, not only that
+  the render is fragile. `comms append`/`send`/`direct` should validate that the
+  assembled event parses and write atomically (temp file + rename) so a failed
+  write never leaves a malformed event behind. `--body-file` (shipped) is the
+  operator-side cure for shell-quoting hazards but does not by itself guarantee
+  validated, atomic persistence.
+- **Implementation review 2026-06-01** (Tempestuous Gliding Falcon): implemented
+  the revised owner-directed cure. The live validator reports
+  `collaboration-state validate: OK (2824 JSON file(s) checked)`, and the root
+  repo validator now includes that check. The older `skip + report` expected shape
+  above is retained only as historical capture; the current accepted contract is
+  prevention at write plus loud, path-named failure on any external corruption.
+- **Severity**: high (substrate-wide blocker when triggered)
+- **Related shape**: 2026-05-06 (Hidden Slipping Moth, `4be7b5`) —
+  `comms send` succeeded in writing the new event but then failed
+  rendering because one older event
+  (`cd25a954-f569-4f7b-8d1e-f1fe9eed5dd7.json`) used top-level
+  identity fields instead of the current `author` object shape. This
+  is the *legacy-schema* sibling of the malformed-JSON case: the
+  file parses as JSON but does not conform to the current event
+  schema. The plan's validation covers both — parse failures and
+  schema-shape mismatches are caught at the write (rejected before
+  the file is created) and surfaced loudly at read, with the
+  offending event path named. Manual repair of the legacy event file
+  unblocked this instance.
 
 ### F-06 — Build-on-each-CLI-invocation causes identity drift mid-session
 
@@ -287,6 +446,150 @@ index row per moved id so citations resolve, and the archive keeps the text.
   exist for `claims mine`; no broader documented pair-key routing model
   has landed here.
 - **Owner direction**: standing
+
+### F-11 — No `commit-queue list/show` CLIs
+
+- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (c);
+  comms event `a1cf45a2`
+- **Surface**: `agent-tools/src/commit-queue/cli.ts`
+- **Observed**: Agents need to inspect queue entries by agent or status
+  to coordinate around the index/head commit window; no CLI affordance
+  exists for this.
+- **Expected**:
+  - `commit-queue list [--prefix <p>]
+    [--phase <queued|staging|pre_commit|abandoned>]
+    [--agent-name <agent-name-prefix>]
+    [--queue-status <active|expired|abandoned>]`
+  - `commit-queue show --intent-id <intent-id>`
+  - Completed intents leave the active queue and are not filterable by
+    lifecycle phase.
+- **Candidate cure**: Add the two commands above.
+- **Target surface**: `agent-tools/src/commit-queue/cli.ts`
+- **Status**: fixed-2026-05-11-commit-e298723c
+- **Review 2026-05-10**: `commit-queue status` exists and emits the
+  machine-readable queue with entries. Dedicated `list` / `show`
+  commands and `--prefix` / `--phase` filters are still absent.
+- **Review 2026-05-11**: fixed at `e298723c`. `commit-queue list`
+  emits filtered queue entries with `--prefix`, `--phase`,
+  `--agent-name`, and `--queue-status` filters, while
+  `commit-queue show --intent-id <id>` emits one exact entry and fails
+  clearly for an unknown intent. `commit-queue status` remains the
+  aggregate view.
+
+### F-12 — `claims open --area-kind` accepted values not discoverable
+
+- **Source**: napkin 2026-05-05 (Deep Rolling Archipelago, `02f5f5`) Surprise
+  on PR-93 PR-description claim attempt with `--area-kind external`; second
+  worked instance Riverine Fishing Rudder (`b89da0`) 2026-05-05 reaching for
+  `--area-kind file` (singular) before discovering the canonical value is
+  `files` (plural)
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
+- **Observed**: Help text shows `--area-kind <kind>` without enumerating the
+  accepted values. Agents reach for intuitive shapes (`external`, `file`,
+  `shared-state`) and hit `unsupported area kind: <value>` without any hint
+  of the canonical set. Discovery requires source-grep against
+  `parseAreaKind` in
+  `agent-tools/src/collaboration-state/cli-claim-commands.ts`. The accepted
+  set is `files | workspace | plan | adr | git`.
+- **Expected**: Help text enumerates accepted `--area-kind` values inline.
+  Error path on unsupported value lists the accepted set.
+  Full-help-on-invalid-flag (F-09) composes with this.
+- **Candidate cure**: Inline enumeration in CLI help (e.g.
+  `--area-kind <files|workspace|plan|adr|git>`) AND on-error message that
+  lists accepted values. Same pattern applies to other closed enums in
+  `cli-options.ts` — generalise as a discoverability convention.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
+  and `cli-options.ts`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree. `claims open` help now
+  enumerates `--area-kind <files|workspace|plan|adr|git>`, and the
+  unsupported-kind error lists the accepted values.
+- **Owner direction**: standing (full-help-on-invalid-flags, F-09)
+
+### F-13 — `comms send` does not print event-id and path on success
+
+- **Source**: comms event `bdf1c973` (Vining Growing Meadow, `92cb10`,
+  2026-05-05 session-close note); reaffirmed 2026-05-05 by
+  Riverine Fishing Rudder (`b89da0`) needing `ls -lt comms-events/` to
+  confirm landing
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms send`
+- **Observed**: Successful invocation produces no observable confirmation
+  that the event was written or where. Agents fall back to listing the
+  events directory by mtime to verify the write landed. Failure messages
+  are also frequently truncated by the shell pipeline (echo of long --body
+  argument visually consumes the error tail).
+- **Expected**: A single line on success printing the event id and the
+  written path, e.g. `Wrote event <event_id> to <events_dir>/<event_id>.json`.
+  Owner-flagged shape suggested at session close: discoverability of write
+  outcome should be loop-closing.
+- **Candidate cure**: Print the success line. Composes with F-09 (full
+  help on invalid flags) and the broader CLI-discoverability theme.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree. `sendComms` returns
+  structured JSON containing `event_id`, `event_path`, and
+  `shared_log_path`.
+
+### F-14 — `claims open` silently overwrites repeated `--area-pattern`
+
+- **Source**: napkin 2026-05-06 (Masked Stalking Veil, `019dfc`);
+  owner correction after session closeout: manual claim edits are tooling
+  friction and need preservation.
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
+- **Observed**: A closeout claim was opened with six repeated
+  `--area-pattern` flags. The command succeeded and printed a claim, but
+  the authored claim retained only the final pattern
+  (`.agent/state/collaboration/comms-events`). The earlier five patterns
+  were silently overwritten, so the coordination record understated the
+  files being touched. I manually edited `active-claims.json` to restore
+  the intended pattern list before proceeding.
+- **Why it happened**: the CLI presents `--area-pattern <pattern>` as an
+  option but does not make its cardinality explicit. I assumed it behaved
+  like other repeatable path flags (`--file`). The option parser appears
+  to store `area-pattern` as a scalar value, so repeated occurrences use
+  last-write-wins semantics rather than accumulating. Because the command
+  exits 0, this is easy to miss unless the agent inspects the emitted JSON.
+- **Expected**: Either repeated `--area-pattern` accumulates all supplied
+  patterns, or the CLI rejects multiple occurrences with an explicit error
+  and help text. Silent last-write-wins is the unsafe shape because it
+  produces plausible but incomplete coordination state.
+- **Candidate cure**: Treat `--area-pattern` as repeatable in the parser
+  and tests, mirroring `--file`; update help text to state cardinality
+  (`repeatable`) and include a multi-pattern example. If single-pattern is
+  intentional, add duplicate-flag detection that exits non-zero and prints
+  the supported shape. Add a regression test asserting multi-pattern claim
+  creation preserves every supplied pattern.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-options.ts`;
+  `agent-tools/src/collaboration-state/cli-claim-commands.ts`;
+  `agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts`
+- **Status**: addressed-in-working-tree-2026-05-10
+- **Review 2026-05-10**: fixed in working tree by adding repeatable
+  `areaPatterns` parsing, exact-one validation for `--file` vs
+  `--area-pattern`, help text that states repeatability/mutual exclusion,
+  and regression coverage for both repeated-pattern preservation and mixed
+  source rejection. `agent-tools/README.md` now includes a multi-pattern
+  `--area-pattern` example.
+- **Landing trigger**: after commit, replace this working-tree status with
+  `addressed-in-<commit-sha>`.
+- **Owner direction**: standing (agent-tooling friction is first-class user
+  feedback)
+- **Recurrence**: 2026-05-06 (Clouded Lifting Aerie, `1e2244`) — same
+  shape reproduced cleanly. Six `--area-pattern` flags supplied to
+  `claims open`; the persisted claim retained only the final pattern
+  (`.agent/state/collaboration/**`). The first five patterns were
+  silently overwritten. Manual edit of `active-claims.json` restored
+  the intended pattern list. Confirms F-14 is still unmitigated; the
+  cure ("treat `--area-pattern` as repeatable, mirroring `--file`")
+  remains the right shape and is worth prioritising — every
+  multi-area claim opener pays the manual-repair tax.
+- **Recurrence**: 2026-05-07 (Embered Roasting Flame, `019e03`) —
+  reproduced again while opening the Sonar remediation claim. Four
+  repeated `--area-pattern` flags were supplied; the persisted claim
+  retained only the final pattern (`.agent/state/collaboration/**`).
+  Manual edit of `active-claims.json` restored the missing
+  `packages/sdks/oak-sdk-codegen/**`, `packages/core/oak-eslint/**`,
+  and thread-record patterns. Owner direction in-session: log this as a
+  bug to fix.
 
 ### F-15 — Commit-queue fingerprint recursion when claim file is in staged set
 
@@ -803,6 +1106,44 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Status**: open
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback).
+
+### F-35 — `comms append`/`send --help` hides the `--tag heartbeat` typed-arg mode
+
+- **Source**: Windward Gliding Squall (`ab2bcd`) 2026-06-04 broadcast comms
+  event `fa7eb7df`; owner-relayed in-session.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms append --help`
+  (and the mirrored `comms send` path).
+- **Observed**: The `--help` usage line lists `(--body | --body-file)` as
+  required and `--tag` as accepting `[failure-mode, behaviour-note, heartbeat]`,
+  but does NOT surface that `--tag heartbeat` switches modes: it REJECTS
+  `--body`/`--body-file` and instead REQUIRES the typed state args
+  `--claim-id --intent-id --branch --current-cycle-label`. A heartbeat Monitor
+  built from `--help` plus the `liveness-heartbeat-cron` rule prose passed
+  `--body` and failed every cycle (exit 2) until the agent ran it manually to
+  read the (excellent) runtime error. The exact flag names lived only in the
+  runtime error, not in `--help`.
+- **Expected**: `comms append --help` reveals the heartbeat-mode flag set so an
+  agent building a heartbeat loop from `--help` alone composes a valid
+  invocation first time.
+- **Candidate cure**: document the heartbeat mode inline in the `comms append`
+  AND `comms send` help strings (both route `--tag heartbeat` through the same
+  typed-state body composer in `comms-heartbeat-cli.ts`). A static inline note
+  beats a dynamic branch — an agent reading `--help` with no flags sees both
+  modes.
+- **Target surface**:
+  `agent-tools/src/collaboration-state/cli-specs.ts` (help wiring) →
+  help strings extracted to
+  `agent-tools/src/collaboration-state/cli-spec-help.ts`;
+  regression tests in
+  `agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts`.
+- **Status**: addressed-in-working-tree-2026-06-04 (Fiery Forging Ash) —
+  `comms append`/`send --help` now document `HEARTBEAT MODE` with the typed
+  state args and the `--body`/`--body-file` rejection; help text extracted to a
+  dedicated module so the spec table stays under its `max-lines` ceiling as
+  help text grows; CLI-level help tests assert both commands. Pending commit;
+  replace with `addressed-in-<commit-sha>` after landing.
+- **Owner direction status**: standing (F-09 discoverability family —
+  agent-observed tooling friction is first-class user feedback).
 
 ### F-36 — `pnpm agent-tools:*` wrapper preamble pollutes captured stdout
 
@@ -1450,6 +1791,17 @@ index row per moved id so citations resolve, and the archive keeps the text.
 
 ---
 
+### F-70 — `comms list` has no time/`--since` filter, and there is no `comms recent`
+
+- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms list`.
+- **Observed**: To read events since session-open I reached for `comms recent --limit N` (does not exist) then `comms list --since <iso>` (`unknown option for comms list: --since`). The only narrowing knob is `--tail <n>`, so situational catch-up is "tail a guessed N and eyeball timestamps". For a session opening hours into a thread, the natural query is "everything since `<iso>`", which the CLI cannot express.
+- **Expected**: A `--since <iso>` (and/or `--until`) filter on `comms list`, or a `comms recent` alias, so an agent can read exactly the window between session-open and watcher-arm without over-/under-reading.
+- **Candidate cure**: Add `--since`/`--until` ISO filters to `comms list`; optionally a `comms recent` alias for `list --since <session-open>`.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
+- **Status**: ADDRESSED 2026-06-28 (PR #278, merge commit `04fc5c8d9`; feature `b820711d0` "generic no-events message for empty dir with --since"). `comms list` now accepts the `--since <iso>` filter.
+- **Owner direction status**: standing (owner 2026-06-19: "keep a clear record of all comms issues and other tooling frustrations so that we can fix them"; reinforces Pelagic `2dbd74f6`).
+
 ### F-71 — `pnpm agent-tools:*` wrapper buries the CLI's own error behind `ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL`
 
 - **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
@@ -1459,6 +1811,33 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Candidate cure**: Have the `agent-tools:*` package scripts exec the bin without pnpm's recursive-run wrapper (direct `node …` in the script), or document the direct-`node` invocation as the canonical interactive form for read commands.
 - **Target surface**: `agent-tools/package.json` scripts; `use-built-agent-tools-cli` rule / `comms-all-channels-watcher` rule docs.
 - **Status**: open.
+- **Owner direction status**: standing (owner 2026-06-19, as F-70).
+
+### F-72 — `claims active-agents` requires an explicit `--active <path>` to the canonical claims file
+
+- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
+- **Surface**: `collaboration-state claims active-agents`.
+- **Observed**: Run without args it errors `missing required option --active`; the agent must pass `--active .agent/state/collaboration/active-claims.json` — the single canonical, well-known location every other reader already assumes. The required-flag forces the agent to know and re-type the path that the tool could default to.
+- **Expected**: `--active` defaults to `.agent/state/collaboration/active-claims.json` (overridable), matching how the watcher/inbox default their comms-dir from convention.
+- **Candidate cure**: Default `--active` (and the optional `--closed`) to the canonical paths; keep the flags as overrides.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claims-commands.ts`.
+- **Status**: CLOSED-BY-F-85 2026-06-28 (PR #274, squash-merged `c4d2b6902`). F-85's `withResolvedActive` wrapper covers `claims active-agents` and the change added `repo-root` to its option-set, so `--active` now defaults to the coordination home — exactly F-72's expected cure (verified first-hand by the implementer). The optional `--closed` default named in the candidate cure is the `--closed`-sibling friction (O2 follow-on), captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
+- **Owner direction status**: standing (owner 2026-06-19, as F-70).
+
+### F-73 — Heartbeat mode requires a claim, so pre-claim roles (successor-in-waiting / standby / scout) cannot emit a liveness heartbeat
+
+- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
+- **Surface**: `collaboration-state comms send --tag heartbeat` (and `comms append`).
+- **Observed**: Heartbeat mode rejects `--body` and *requires* `--claim-id --intent-id --branch --current-cycle-label`. A `start-right-team` agent in a legitimate pre-claim state — successor-in-waiting (this session), `standby`, or `scout` per the skill's own role vocabulary — has no claim/intent/branch yet, so it cannot emit a typed heartbeat to signal "alive, not yet on a lane". The only liveness signals available pre-claim are a narrative broadcast and owner chat-visibility; the typed heartbeat surface is closed to exactly the roles whose presence is least otherwise visible.
+- **Expected**: A pre-claim agent can emit a heartbeat with an honest no-claim lane label (e.g. `cycle=successor-in-waiting` / `standby`), without inventing a claim.
+- **Candidate cure**: Allow `--tag heartbeat` with a lane/cycle label but no claim-id when the agent has no open claim (typed state becomes `{cycle: <label>, claim: none}`); or document that pre-claim liveness uses a narrative event and the consumer-absent exemption, so the gap is intentional rather than a discoverability trap.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; `liveness-heartbeat-cron` rule.
+- **Status**: doc-cure met 2026-06-29 (Quoll consolidation; Director-agreed). The
+  `liveness-heartbeat-cron` §Exemptions consumer-absent bullet now documents the standby contract as
+  a worked instance of the existing PDR-078 §4 exemption — a standby holds no claim → no consumer →
+  consumer-absent → it needn't (and can't) heartbeat; the gap is **intentional**. The alternative
+  "allow pre-claim heartbeats" cure is therefore unnecessary; no code change required. Closes the
+  documentation branch of the candidate cure.
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-74 — A full `pnpm build` in a fresh worktree fetches live upstream OpenAPI schema and dirties generated SDK files
@@ -1512,6 +1891,25 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
+### F-77 — `comms reply` cannot reference a broadcast/narrative event; no way to set `in_response_to` on an `append`
+
+- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
+- **Surface**: `agent-tools collaboration-state comms reply` / `comms append`.
+- **Observed**: PDR-064 Moment 2 (coordinator active-acknowledgement) should reference the Moment-1
+  pre-positioning event via `in_response_to`. The pre-positioning is a `narrative` broadcast, but
+  `comms reply --to-event-id <broadcast-id>` failed `directed message not found` — `reply` only
+  resolves `directed` events. There is no `--in-response-to` option on `comms append`, so a
+  broadcast acknowledgement can only reference its antecedent in prose (title/body), losing the
+  machine-readable edge.
+- **Expected**: A clean way to set `in_response_to` when acknowledging a broadcast — either let
+  `comms reply` reference any event kind, or add `--in-response-to <id>` to `comms append`.
+- **Candidate cure**: Add `--in-response-to <id>` to `comms append` (broadest fix; serves PDR-064
+  Moment 2 and any broadcast→broadcast threading).
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; interacts with
+  PDR-064.
+- **Status**: ADDRESSED 2026-06-28 (PR #279, merge commit `13ce23cca` "comms append --in-response-to"). `comms append` now accepts `--in-response-to <id>` — the broadest fix named in the candidate cure.
+- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
+
 ### F-78 — `check-commit-message` is not an `agent-tools` subcommand; only reachable via the pnpm script
 
 - **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
@@ -1528,6 +1926,35 @@ index row per moved id so citations resolve, and the archive keeps the text.
   `agent-tools` subcommands alongside `commit-queue`.
 - **Target surface**: `agent-tools/src/bin/agent-tools.ts` topic registry.
 - **Status**: open.
+- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
+
+### F-79 — `comms list` rejects `--now`; option surface inconsistent across comms subcommands
+
+- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
+- **Surface**: `agent-tools collaboration-state comms list`.
+- **Observed**: `comms list --now <iso>` failed `unknown option for comms list: --now`, although
+  `--now` is required on `comms append`/`reply`. An agent carrying a `$NOW` from prior comms calls
+  naturally passes it and hits a hard error on a read-only command.
+- **Expected**: Read-only subcommands accept-and-ignore `--now` (or the option surface is documented
+  per-subcommand at a glance).
+- **Candidate cure**: Accept-and-ignore `--now` on read-only comms subcommands; composes with F-09
+  (full help on invalid flag).
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
+- **Status**: ADDRESSED 2026-06-28 (PR #281, merge commit `80e1ebc85` "comms list accept-and-ignore --now"). Read-only `comms list` now accepts-and-ignores `--now`.
+- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
+
+### F-80 — `comms show` needs `--event-id <id>`, not a positional id, while `comms list` prints bare ids
+
+- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
+- **Surface**: `agent-tools collaboration-state comms show`.
+- **Observed**: `comms list` prints bare event ids per line, inviting `comms show <id>`, but
+  `comms show <id>` fails `unknown argument: <id>` — the id must be passed as `--event-id <id>`.
+  Small but a repeated stumble when triaging events from a `list` output.
+- **Expected**: `comms show` accepts a positional event-id (the obvious shape given `list`'s output),
+  or errors with "did you mean --event-id?".
+- **Candidate cure**: Accept a positional event-id on `comms show` as an alias for `--event-id`.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
+- **Status**: ADDRESSED 2026-06-28 (PR #283, merge commit `33f7bc4a2`; feature `5a57026a2` "accept event id as positional on comms show"). `comms show <id>` now accepts a positional event-id.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ---
@@ -1558,6 +1985,29 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ---
+
+### F-84 — pending-graduations decision-debt count reads 0 regardless of live items (fenced entries are stripped before counting)
+
+- **Source**: Petrel stirs Wingspan, 2026-06-22 dedicated-consolidation first-hand loss-scan — observed the fitness report show `Live decision-debt: 0` while two `status: pending` items were live in the register.
+- **Surface**: `agent-tools/src/practice-fitness/item-count.ts` (`stripFencedBlocks` + `parseRegisterItems`) vs the entry format in `.agent/memory/operational/pending-graduations.md`.
+- **Observed** (regex read first-hand): the canonical entry format is **unambiguous** in the code — `INLINE_ENTRY = /` + "`" +`\[(captured:…)\]`+ "`" + `/g`, i.e. a **backtick-wrapped square-bracket inline block** `` `[captured: … | status: …]` `` placed in prose. The parser also calls `stripFencedBlocks` (removes ` ``` `/`~~~` fenced blocks by design, so a documented schema *example* is not miscounted). The register's live entries drifted to a **` ```text `-fenced, bare pipe-field** shape (no backtick-bracket wrapper; the convention its own header wrongly documents as "a fenced bracket"). These conform to *neither* matcher: they are stripped as fences AND lack the `` `[…]` `` wrapper. So they are invisible → decision-debt reads **0 while live items exist** — a **false-green** on the buffer's *primary* health signal and the `consolidate-until-done` completion gate. The non-conformance is **silent**: the only malformed-detector (`LEGACY_BLOCK_MARKER`) catches the OLD multi-bullet shape, not the fenced-pipe-field shape, so these entries raise no finding. The same parse failure also disabled the **dwell** anti-starvation signal: `oldestLiveItemAgeDays` operates on parsed items, so it read null — the bug killed *both* the decision-debt count AND the oldest-undecided-item alarm, leaving a live item with no surfacing at all (both signals returned the moment the entries were reformatted to canonical form).
+- **Expected**: a non-conforming entry-shaped block raises a loud `malformed` finding (as the legacy shape does) instead of being silently uncounted; the documented entry format and the parser agree.
+- **Diagnosis (bug, not interpretation)**: the count of 0 is "correct" for zero *conforming* entries — the validator computes correctly, but the input does not conform and the non-conformance is silent. The only interpretive call ("which format is canonical?") is settled by the regex (inline `` `[…]` ``); the header is simply wrong, and making the validator count fenced blocks instead would reintroduce the schema-example miscount the fence-strip exists to prevent.
+- **Cure** (two parts): (1) **data/doc** — reformat the live entries to the canonical inline `` `[captured: … | status: …]` `` and fix the header instruction; this alone makes the count correct. (2) **TDD validator hardening** (the recurrence-proof, architecturally-right cure per `verify-gate-fails-on-known-bad` + metacognition §Cure-Shape): add malformed-detection for an entry-shaped block (carries `captured:` … `| status:`) that is fenced or otherwise not in canonical form — RED (a fenced entry yields no finding today) → GREEN (it yields a `malformed` finding), mirroring `LEGACY_BLOCK_MARKER`. Converts the silent false-green into a loud conformance failure.
+- **Target surface**: `agent-tools/src/practice-fitness/item-count.ts` (the malformed-detector); `.agent/memory/operational/pending-graduations.md` header + entry format; the `pending-graduations-schema-and-count-fitness` plan.
+- **Status**: ADDRESSED (2026-06-22) — `validateRegisterItems` now flags an entry-shaped block lacking the canonical `[…]` wrapper as `malformed` (commit `f056285fb`, TDD), so the silent miscount is a loud `⚠ non-conformant entries` report line; the two live register entries were reformatted to canonical wrapped-inline form, and the count now reads 2 (soft) — the true decision-debt — instead of a false 0. The recurrence-proof cure (the detector) and the data fix both landed.
+- **Owner direction status**: unsolicited (surfaced by the loss-scan; record-all-frictions standing).
+
+### F-85 — `claims` commands need an explicit `--active` and do not resolve the coordination home (fragment from worktrees)
+
+- **Source**: Snowdrop calls Topsoil (`f07539`), 2026-06-24 worktree-pilot bootstrap
+- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`, `cli-specs.ts`
+- **Observed**: `claims open|close|list|heartbeat` take a **required** `--active <path>` with no default and no `--repo-root` option. `comms` subcommands auto-resolve the coordination home to the primary checkout via `resolveCoordinationHome`; claims do not. From a linked worktree a relative `--active` writes a worktree-local `active-claims.json` invisible to peers — coordination silently fragments (the F-41 failure mode, but for claims rather than comms).
+- **Expected**: claims resolve the same shared primary home as comms with no per-call ceremony, so a worktree-isolated agent's claims are visible to the team by default.
+- **Candidate cure**: wire `resolveCoordinationHome(cwd)` as the `--active` default (with `--repo-root`/`--active` as the explicit escape hatch), mirroring `cli-comms-send.ts` / `cli-comms-validate.ts`.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (+ option defaulting)
+- **Status**: ADDRESSED 2026-06-28 (PR #274 `feat(agent-tools): claims active-path defaults to coordination home`, squash-merged `c4d2b6902`). New `claim-active-path.ts` (`resolveActivePath` / `withActiveDefault` / `withResolvedActive`) wraps all 11 `claims` handlers so `--active` defaults to the coordination home (resolved via `git worktree list`), with a `--repo-root` escape hatch — cures the F-41-class claim fragmentation from worktrees. code-expert + test-expert approved first-hand; full agent-tools suite 1590 green. Also CLOSES F-72 (`active-agents` covered by the same wrapper). **NARROW** — the sibling `--closed` registry default (`claims close` / `archive-stale` / `active-agents`) is the same F-41 class, captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-86 — pnpm script wrapper echoes `$ …` command lines to stdout, unusable for a Monitor watcher
 
@@ -1591,6 +2041,17 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Not a per-agent hot-patch** (2026-06-27, Oyster spins Coral, first-hand): switching one agent's file to kebab breaks only that agent, because peers' live watchers + the F-95/`claims open` gates all key on the spaced `agent_name` form right now — which is itself the proof the entrenched convention cannot be opted out of per-agent. Needs the structural CLI fix landed with a dual-read backward-compat migration of the 88 existing files, when the multi-agent window is quiet.
 - **Target surface**: `agent-tools` comms-seen path derivation (the `commsSeenFileForCodename` derivation point) / `comms-all-channels-watcher` rule convention text
 - **Status**: open
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
+
+### F-89 — `claims open` requires `--now`; inconsistent timestamp-defaulting across the CLI
+
+- **Source**: Snowdrop calls Topsoil (`f07539`), 2026-06-24 worktree-pilot bootstrap
+- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (`claims open`)
+- **Observed**: `claims open` fails with `missing required option --now`, forcing a `date -u` substitution on every call. Timestamp-defaulting is inconsistent across the CLI (cf. F-79 where `comms list` *rejects* `--now`).
+- **Expected**: interactive invocations default `--now` to the current time, with the explicit flag retained for deterministic/replay use.
+- **Candidate cure**: default `--now` to `new Date().toISOString()` at the composition edge when the flag is absent; keep it overridable. Audit the whole CLI for one consistent timestamp-defaulting policy.
+- **Target surface**: `agent-tools/src/collaboration-state/` command option defaulting (CLI-wide)
+- **Status**: ADDRESSED 2026-06-28 (PR #276 `feat(agent-tools): claims open defaults --now to current time`, squash-merged `afcc6bbed`). New `claim-now-default.ts` seam defaults `--now` to the current ISO time when omitted on `claims open`, with the explicit flag retained for deterministic/replay use; TDD red-first (TS2307) → green, run-the-thing proof that `claims open` without `--now` stamps a valid current ISO. code-expert + test-expert + type-expert assessed first-hand (a code-expert/test-expert contradiction on F-85 test-coverage was resolved first-hand — F-85 *is* tested). **NARROW** — only `claims open` gained the default; the CLI-wide timestamp-defaulting audit remains open, and its siblings ship as the O2 tail (F-70 `comms list --since`, F-77 `comms append --in-response-to`, F-79 `comms list` accept-ignore `--now`, F-80 `comms show` positional id), each a separate entry. F-79 (`comms list` *rejects* `--now`) is the deliberate inverse and is NOT closed by this.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-90 — fresh git worktree has no `node_modules` / `agent-tools/dist`; gates and the CLI cannot run there until bring-up
@@ -1637,6 +2098,28 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Candidate cure**: allow `--body-file` from an ephemeral coordination scratch location for `directed` events, or raise the directed-event ceiling above broadcast (directed steers are point-to-point, not stream-scannability-sensitive in the same way).
 - **Target surface**: `agent-tools` comms-send body-length policy / directed-event handling
 - **Status**: open (low severity; by-design tension)
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
+
+### F-94 — `claims` CLI has no adopt/transfer and cannot set `handoff_record_path`
+
+- **Source**: Director-handoff "Known friction" (`.agent/memory/operational/director-handoff.md`), 2026-06-25 worktree-pilot Director succession (PDR-063 mid-cycle handoff).
+- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (`claims open|close|list|heartbeat`); no `claims adopt` / `claims set-handoff` subcommand.
+- **Observed**: a PDR-063 mid-cycle handoff requires the outgoing Director to retain a claim for the successor and the successor to adopt it, but the CLI has no `claims adopt --claim-id <id>` (transfer ownership of an existing claim) and no `claims set-handoff --claim-id <id> --path <path>` (record the `handoff_record_path` on a claim). Worked instance 2026-06-25: reusing `--claim-id` on `claims open` to "transfer" a claim created a DUPLICATE active-claims row (two rows sharing one `claim_id`) rather than transferring ownership — recovery was to close all rows and open fresh (`f2a17e85` → `d8533d0d`). Hand-editing `active-claims.json` to set the handoff path or transfer ownership is unsafe in a busy multi-writer window.
+- **Expected**: an outgoing role-holder can hand a claim to a successor and set its handoff-record path through the CLI, without duplicate rows or hand-edits.
+- **Candidate cure**: add `claims adopt --claim-id <id>` (rewrites the holding agent identity on an existing row, no new row) and `claims set-handoff --claim-id <id> --path <path>` subcommands; the PDR-063 substrate is the sibling design (ADR-182).
+- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`, `cli-specs.ts`; PDR-063 / ADR-182.
+- **Status**: fixed-2026-06-25-commit-e95fb9594 — `claims adopt` + `claims set-handoff` landed (PR #225); no duplicate-row workaround.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
+
+### F-95 — No start-right watcher-presence fail-fast gate
+
+- **Source**: Director-handoff "Known friction" (`.agent/memory/operational/director-handoff.md`), 2026-06-25 worktree-pilot session.
+- **Surface**: session-open / `start-right-team` (`oak-start-right-team`); `.agent/rules/comms-all-channels-watcher.md` (prose rule only).
+- **Observed**: the "arm the all-channels comms watcher as move 1" rule is prose, backed by agent diligence rather than a mechanical gate. Worked instance 2026-06-25: an implementer skipped arming the watcher under ceremony-aversion ("read-only / n=2 / minimal"), went blind to a simultaneous identical-branch claim, and never re-armed. Nothing failed fast to catch the missing watcher.
+- **Expected**: starting team work without a live comms watcher fails fast at session-open, so the constitutive team-visibility rule is enforced mechanically rather than relied on as diligence.
+- **Candidate cure**: a session-open / `start-right-team` check that detects no live comms watcher (no fresh `*.heartbeat.json` for this session's watcher under `.agent/state/collaboration/comms-seen/`) and fails fast / refuses to proceed until one is armed. Distinct from F-69's session-open stale-state *sweep* — this is a watcher-presence *gate*.
+- **Target surface**: `oak-start-right-team` skill / a session-open check; `.agent/rules/comms-all-channels-watcher.md` (prose → backed by a gate). Relates to F-69 (adjacent session-open hook).
+- **Status**: fixed-2026-06-25-commit-e95fb9594 — watcher-presence gate landed (PR #225): `comms assert-watcher-live` move-1 check (A) + `claims open` blind-write backstop (B), solo-exempt. Broader than the original candidate cure (move-1 check only).
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-96 — Continuity-buffer handoff commit blocked by markdownlint
@@ -1940,6 +2423,55 @@ index row per moved id so citations resolve, and the archive keeps the text.
   non-empty file.
 - **Status**: open (documentation-level; behaviour is the platform's).
 
+### F-112 — `commit-queue -- commit` spawned `git commit` dies at the depcruise→turbo stream handover; the proper commit path is broken
+
+- **Source**: first observed 2026-06-17; reproduced twice 2026-07-03 (Sardine spins
+  Estuary) — once with the hook streaming live, once with the parent command's
+  stdout/stderr redirected to a file, so the redirect does NOT cure the spawned-child
+  case. `bash .husky/pre-commit` exits 0 standalone each time: the gates are green and
+  the failure is the workflow's child-process stream handling, not the hooks.
+- **Surface**: every `pnpm agent-tools:commit-queue -- commit` invocation from a
+  Claude Code session — the move-3 landing step of the commit skill's four-move
+  protocol.
+- **Observed**: the internally-spawned `git commit` exits 1 with output truncated at
+  the `depcruise → turbo` handover; no commit lands; the workflow's verify-staged
+  bookends and auto-complete never run.
+- **Expected**: the workflow lands the commit, or fails with the child's real error.
+- **Posture (owner directive 2026-07-03, "no fallbacks, ever — do it properly or
+  error"; `principles.md` §Strict and Complete, "No shims, no hacks, no workarounds —
+  do it properly or do not")**: the workflow's failure is an ERROR to stop on and
+  surface — never a trigger for an equivalent-effect route (direct `git commit`,
+  manual staging surgery). The commit skill's former fallback guidance is withdrawn
+  (amended same commit as this entry).
+- **Candidate cure**: fix the spawned-process stdio handling in the agent-tools
+  commit-queue workflow (likely backpressure on the live-piped child stream at the
+  point turbo takes over the tty; capture the child's output to a buffer/file and
+  replay, rather than live-piping). TDD cycle against a long-output child process.
+- **Status**: fixed 2026-07-03 at `b2ae96898` (per
+  `f-112-commit-workflow-stream-truncation-fix.plan.md`). Mechanism pinned by
+  instrumented runs: Node's child-stdio pipes are libuv socketpairs; one on the spawned
+  git's stderr poisons the hook chain (hook shell takes SIGPIPE at the depcruise→turbo
+  handover; `set -e` exits 1 silently). Cure: `runInheritedProcess` gives children
+  file-backed stdio and replays the conserved streams on completion, reporting exit code
+  and signal distinctly. Proof: the blocked reconciliation bundle landed through the
+  workflow (`c14866649`), then the fix commit itself (`b2ae96898`, exit 0, hook output
+  conserved end-to-end); two real gate failures during landing surfaced with full
+  output — the truncation used to swallow exactly these. Queue-workflow commits from
+  Claude Code are unblocked, including the memory-drain plan's loop commits.
+- **Second instance (push path), observed and cured 2026-08-07 (Saffron guards
+  Hedgerow)**: `merge-bot push`'s `streamingGitCall` still spawned git with pipe
+  stdio, so the class recurred one wrapper over — reproduced four times first-hand:
+  the pre-push chain's knip child died with empty output at the depcruise→knip
+  handover, an instrumented diagnosis line written to stderr was ITSELF eaten by the
+  poisoned stream, and git's exit code arrived null (reported as `-1`), while the
+  identical hook chain run directly (`sh .husky/pre-push` to a file) passed green.
+  Cure: the runner moved to its shared home `agent-tools/src/core/file-backed-child.ts`
+  (third consumer) and the push executor consumes it; `GitCommandResult` and
+  `RepoCheckCommandResult` now carry the killing signal distinctly; the knip gate
+  prints a crash-class diagnosis line on the SURVIVING stream (stdout) when the child
+  dies without a verdict. Corollary pinned by the eaten-diagnosis observation:
+  diagnosis must never ride only the channel whose failure it reports.
+
 ### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
 
 - **Source**: napkin 2026-07-03 (Mistral seeks Jetstream, F-112 execution session) — each
@@ -2127,6 +2659,38 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Target surface**: `agent-tools/src/pr-watch/`.
 - **Status**: open.
 
+### F-163 — abandoned commit-queue intents have no drain; active-claims.json is 4.4MB
+
+- **Source**: owner question 2026-08-17 ("why are there 4MB of active
+  claims?").
+- **Surface**: `.agent/state/collaboration/active-claims.json`; the
+  `commit-queue` CLI topic.
+- **Observed** (measured): 4,388,290 bytes, of which 4,338,153 is the
+  `commit_queue` array — 227 entries, 226 `abandoned` (2026-07-03 →
+  2026-08-14, ~19KB each: full staged-file listings and fingerprints
+  ride every entry). Live claims: 4 rows, 3,655 bytes. Claims have an
+  archive surface (`closed-claims.archive.json`, `claims
+  archive-stale`); the queue has NONE — the topic ships
+  enqueue/commit/status/list/show only, so abandoned intents accumulate
+  forever, and every claims/comms CLI invocation re-reads the full file
+  per call.
+- **Expected**: an archive action symmetric with claims —
+  `commit-queue archive [--phase abandoned] [--before <iso>]` moving
+  entries loss-free to a dated archive beside the claims archive, with
+  the same recompute-don't-just-record validation the estate expects.
+- **Candidate cure**: build the action (MCP-609-shape micro-lane:
+  TDD, reviews, small PR); wire the warden-hygiene duty to run it at
+  fold boundaries so the drain is a ceremony step, not vigilance.
+- **Status**: SUPERSEDED same day by the owner's QUEUE-LOCAL ruling
+  (rulings ledger): no archive action — the queue leaves the flat file
+  entirely (per-intent event files like comms, 1-hour TTL, list as a
+  view, machine-local never-in-VC). Interim split executed 2026-08-17
+  (live file 4.4MB→4KB; the legacy blob retained loss-free in the
+  gitignored local archive until the MCP-612 landing's verification
+  read, then owner-disposed); the re-shape is plan
+  `commit-queue-local-ephemera` / MCP-612.
+- **Target surface**: `agent-tools/src/commit-queue/`.
+
 ### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
 
 - **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
@@ -2228,51 +2792,11 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Owner direction status**: standing (bot identity for all pushes, PRs and comments;
   reaching for the operator's credential outside the action map's rows is never permitted)
 
-## Settled entries, archived
+## Mitigated / Addressed Frictions
 
-Every settled entry (cured, or superseded by an owner ruling) was graduated, then archived on
-2026-09-20 by the lifecycle in `continuity-practice.md` §Disposition of Continuity Surfaces:
-each was read whole, its cure verified at the source it names, and any lesson it carried
-checked for a home before the move. The full pre-curation register, byte-identical to the file
-at `SHA:d1564cff9`, is `.agent/memory/operational/archive/frictions-register-2026-09-20.md`
-(blob `42b7d373d`); the entry text lives there. The rows below keep every archived id
-resolvable from this file, because doctrine cites frictions by id.
-
-| Id | Title | Disposition, as verified 2026-09-20 |
-| --- | --- | --- |
-| F-01 | `comms send` rejects `--agent-name` | cured: the help names the identity env inputs (`cli-spec-help.ts`) |
-| F-02 | `claims close` `--closure-summary` alias | cured: alias accepted and documented |
-| F-03 | `claims close` error named the wrong option | cured: unknown options are refused before required-option checks (unit test) |
-| F-04 | `claims open` `--file` vs `--area-pattern` | cured: help states repeatability and mutual exclusion |
-| F-05 | `comms render` aborted on one malformed event | cured: validated atomic writes, loud path-named read failure, `comms validate` (`cli-comms-validate.ts`) |
-| F-11 | no `commit-queue list/show` | cured 2026-05-11 (`e298723c`): both commands with filters |
-| F-12 | `--area-kind` values undiscoverable | cured: enumerated in help and in the error |
-| F-13 | `comms send` printed no event id | cured: `event_id` and `event_path` returned |
-| F-14 | repeated `--area-pattern` overwritten | cured: `areaPatterns` repeatable, with regression coverage |
-| F-35 | heartbeat mode hidden from `--help` | cured: `HEARTBEAT MODE` documented in `cli-spec-help.ts` |
-| F-70 | no `comms list --since` | cured 2026-06-28 (PR #278) |
-| F-72 | `claims active-agents` required `--active` | cured by F-85's coordination-home default (PR #274) |
-| F-73 | heartbeat mode requires a claim | cured as documentation: the standby contract is PDR-078 §4's consumer-absent exemption (`liveness-heartbeat-cron` §Exemptions) |
-| F-77 | `comms append` could not thread a broadcast | cured 2026-06-28 (PR #279): `--in-response-to` |
-| F-79 | `comms list` rejected `--now` | cured 2026-06-28 (PR #281): accepted and ignored (`cli-specs.ts`) |
-| F-80 | `comms show` needed `--event-id` | cured 2026-06-28 (PR #283): positional id accepted |
-| F-84 | decision-debt count read 0 with live items | cured 2026-06-22 (`f056285fb`): non-canonical entries reported as malformed (`item-count.ts`) |
-| F-85 | `claims` commands required `--active` | cured 2026-06-28 (PR #274): `claim-active-path.ts` defaults to the coordination home |
-| F-89 | `claims open` required `--now` | cured 2026-06-28 (PR #276): `claim-now-default.ts`; the CLI-wide defaulting audit is F-109's |
-| F-94 | no `claims adopt` or `set-handoff` | cured 2026-06-25 (`e95fb9594`, PR #225) |
-| F-95 | no watcher-presence gate | cured 2026-06-25 (`e95fb9594`, PR #225): `comms assert-watcher-live` and the `claims open` backstop; F-104 and F-174 record the gate's own defects |
-| F-108 | `--closed` had no coordination-home default | cured 2026-06-28 (PR #285, `7d8a1db3a`); this id was assigned inside F-72 and F-85 and never had an entry of its own |
-| F-112 | `commit-queue commit` died at the depcruise→turbo handover | cured 2026-07-03 (`b2ae96898`) and, on the push path, 2026-08-07: file-backed child stdio (`agent-tools/src/core/file-backed-child.ts`; pattern `file-backed-stdio-for-spawned-gate-children`) |
-| F-132 | guard rejected `git:index/head@<worktree>` | superseded by scope (owner ruling 2026-09-07: worktree lanes do not use the queue; the commit skill carries it) |
-| F-139 | guard rejected the `index/head@<worktree>` pattern | superseded by scope, as F-132 |
-| F-146 | `comms watch` had no heartbeat exclusion | cured 2026-07-20: `--exclude-tag` (`cli-options.ts`; the watcher rule §Sanctioned tag exclusion) |
-| F-147 | the knip leg passed when knip crashed | cured 2026-07-21: both hooks call `pnpm knip:gate` and fail closed |
-| F-156 | `merge-bot merge` injected the app token into the OAuth-only probe | cured 2026-08-08 (PR #823): the read path runs token-free (`merge.ts`) |
-| F-163 | abandoned commit-queue intents had no drain | superseded 2026-08-17 by the owner's QUEUE-LOCAL ruling: the per-intent `commit-queue/` store (MCP-612) |
-| F-169 | the queue serialised commit windows across worktrees | superseded by scope (owner ruling 2026-09-07); the host bound on concurrent full gates is `no-unbounded-host-load` item 6 |
-
-Ids that head no entry: F-81 (a napkin candidate of 2026-06-21, cited by F-82 and theme 6, never
-registered) and F-171 (never assigned).
+- F-03 — addressed by current CLI validation ordering.
+- F-14 — addressed in the 2026-05-10 working tree; replace with commit
+  SHA after landing.
 
 ---
 
@@ -2603,6 +3127,30 @@ commit SHA and the closing plan reference.
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
 
+### F-132 — `commit-queue guard` rejects the worktree-scoped `git:index/head@<worktree>` claim spelling
+
+- **Source**: R0a tranche-1 landing 2026-07-06 (Stoat rides Gloaming, 432a41), formally
+  registered 2026-07-07 (Leopard spins Moonrise, b07d1d) per execution-record §5.7; the
+  mechanism was first conserved on abandoned commit-queue intent `258714ba`/`e38f8da0` notes.
+- **Observed**: a PDR-117 worktree seat opens its commit-window claim as
+  `git:index/head@<worktree-name>` (the spelling the commit skill's merge-commit section
+  itself prescribes for worktree seats); `commit-queue guard` matches only the bare
+  `index/head` pattern and rejects the worktree-scoped spelling, so the queue ceremony
+  refuses a correctly-claimed worktree commit window.
+- **Expected**: the guard recognises worktree-scoped commit-window claims as valid for a
+  bundle staged in that same worktree.
+- **Candidate cure**: teach the guard the `index/head@<worktree>` pattern family and match
+  claim scope to the invoking tree (same-tree claims gate; other-tree claims do not).
+- **Target surface**: `agent-tools/src/collaboration-state` claims/guard matching + the
+  commit-queue guard.
+- **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
+  `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
+  Recurred 2026-09-06 at two seats (Finch binds Sundog 47f9d2, 13:5xZ; Juno seeks Apogee
+  a693fb, 14:0xZ): the bare `index/head` opened from the worktree is the working shape and
+  the queue ceremony then runs end to end; the commit skill's merge-commit section still
+  prescribes the rejected spelling (skills-lane true-up named at the consolidation).
+- **Owner direction status**: standing (record-all-frictions).
+
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
 
 - **Source**: R0a tranche-1 landing 2026-07-06 (Stoat rides Gloaming, 432a41), formally
@@ -2776,6 +3324,30 @@ commit SHA and the closing plan reference.
   `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
+
+### F-139 — commit-queue guard rejects the `index/head@<worktree>` claim pattern
+
+- **Source**: the F-138 repair lane's live ceremony, 2026-07-14 (intent `d2ed19ef`
+  abandoned; claim `180670a3` closed with the failure reason)
+- **Surface**: `agent-tools commit-queue guard` claim matching
+  (`agent-tools/src/commit-queue/guard.ts` — the matcher requires a `git` area pattern
+  exactly equal to `index/head`)
+- **Observed**: the commit skill's merge-commit section (SKILL-CANONICAL §Merge commits)
+  prescribes per-working-tree commit-window claims as `git:index/head@<worktree-name>`
+  for worktree seats, but `guard` rejects an intent whose claim carries the suffixed
+  pattern: "is not an active git:index/head claim". The worktree seat must open a bare
+  `index/head` claim to pass guard, collapsing the per-tree claim scoping the skill
+  doctrine names.
+- **Expected**: guard recognises `index/head@<worktree>` patterns as git commit-window
+  claims (per-tree scoping preserved), or the skill doctrine and the guard matcher are
+  reconciled to one spelling.
+- **Candidate cure**: extend the guard matcher to accept `index/head` with an optional
+  `@<worktree>` suffix; add the same recognition anywhere else the composed label is
+  parsed.
+- **Target surface**: `agent-tools/src/commit-queue/guard.ts` + commit skill canonical.
+- **Status**: open. Workaround: open the commit-window claim with the bare `index/head`
+  pattern and name the worktree in the claim's `intent` text.
+- **Owner direction status**: standing (record-all-frictions).
 
 ### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
 
@@ -2967,6 +3539,54 @@ commit SHA and the closing plan reference.
   schema; `never-use-git-to-remove-work.md` §Block-Is-a-Question gains the valve's usage note.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-146 — `comms watch` has no heartbeat-exclusion flag, so awareness seats absorb the heartbeat firehose
+
+- **Source**: Galago stirs Grotto (`60d988`), 2026-07-20 Director tenure, first-hand.
+- **Observed**: a 3-implementer team at the PDR-078 ≤4-min cadence generates ~45 heartbeat
+  events/hour; the all-channels watcher (correctly, per `comms-all-channels-watcher.md` —
+  self-exclusion only, triage in reasoning) delivers every one as a wake to the Director
+  seat, each costing a no-op turn against the tenure the seat exists to maximise. The
+  director-handoff brief's standing lesson names reserve-seat heartbeat filtering
+  ("the Lane-C `--exclude-tag heartbeat` work") as load-bearing economics, but the flag is
+  absent from the `comms watch` CLI (verified 2026-07-20: only
+  seen-file/poll/step-timeout/heartbeat/supervisor options exist), and hand-rolled
+  suppression at the watcher boundary is rule-forbidden (and twice bitten: the 2026-06-10
+  muting-filter and 2026-07-02 mute/leak instances).
+- **Expected**: a sanctioned, tested exclusion surface for tag-classed traffic, composable
+  with the F-75 `comms peer-liveness` poll as the retirement-detection consumer (absence
+  detection, which event-watching structurally cannot do).
+- **Candidate cure**: an `--exclude-tag <tag>` (repeatable) option on `comms watch`,
+  excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
+  pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
+  configuration alongside a mandatory peer-liveness poll.
+- **Status**: CURED (2026-07-20, verified on the reconciled tree 2026-07-21): `--exclude-tag`
+  is implemented and boundary-validated (`agent-tools/src/collaboration-state/cli-options.ts`)
+  with the tested guarantees documented in `comms-all-channels-watcher.md` §Sanctioned tag
+  exclusion, incl. the mandatory F-75 peer-liveness pairing.
+
+### F-147 — the pre-commit knip leg reports success when knip CRASHES (not when it finds issues)
+
+- **Source**: Director-delegate worktree agent (routed by Galago stirs Grotto `60d988`),
+  2026-07-20, PR #419 cure commit, first-hand.
+- **Observed**: in a fresh agent worktree, knip errored during pre-commit —
+  `Error loading apps/oak-search-cli/vitest.smoke.config.ts (No "exports" main defined in
+  apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)` — yet the
+  hook chain continued and reported "Pre-commit checks completed!", and the commit landed.
+  A validator that CRASHES is being treated as a validator that PASSES. The proximate
+  trigger is the known fresh-worktree unbuilt-package class (the exports map resolves to
+  an unbuilt `dist/` — start-right §8), but the gate-integrity defect is independent of
+  the trigger: any knip crash class would slip commits the same way.
+- **Expected**: a gate leg distinguishes three outcomes — pass, findings (blocking), and
+  crash (blocking, loudly) — per no-warning-toleration and never-disable-checks; a crash
+  can never read as a pass.
+- **Candidate cure**: make the pre-commit knip invocation propagate non-zero on load/crash
+  errors (capture its exit code in-band, not the wrapper's), with a test that a
+  deliberately-broken config fails the hook; audit sibling hook legs for the same
+  crash-swallowing shape.
+- **Status**: CURED (verified on the reconciled tree 2026-07-21): both hooks call
+  `pnpm knip:gate` and fail closed (`.husky/pre-commit`, `.husky/pre-push`) — a knip
+  crash now fails the hook rather than reading as a pass.
 
 ### F-150 — `pnpm install --ignore-scripts` in a fresh worktree silently disarms ALL git hooks
 
@@ -3180,6 +3800,40 @@ commit SHA and the closing plan reference.
 - **Status**: OPEN. Interim practice: carry foreign headings unaltered; the pass
   that processes them re-titles or drains them (the 2026-08-06 reconciliation's
   own convention).
+
+### F-156 — merge-bot merge injects the minted app token into the OAuth-only review-run probe
+
+- **Source**: Civet spins Cavern (`054f5e`), 2026-08-07 ~20:58Z, first live
+  firing of the MCP-508 merge arm (#821/#822 merge attempts), first-hand.
+- **Observed**: `merge-bot merge` wraps EVERY gh invocation in the
+  tokenised executor (`merge.ts` — GH_TOKEN = minted installation token,
+  injected last by design). The review-run liveness probe
+  (`gh agent-task list`, `review-runs.ts`) runs under that same env and
+  gh refuses: "this command requires an OAuth token" — installation tokens
+  cannot use the agent-task surface. The leg degrades typed and
+  `decideMergeAction` refuses with "review-run liveness unavailable"
+  (exit 3). Reproduced: the identical command succeeds under the ambient
+  keyring OAuth auth.
+- **Expected**: reads ride the keyring path, writes ride the minted token
+  (the estate's standing split — handoff §6, bot-identity rules). The
+  liveness probe is a READ; it should execute under the base env, not the
+  tokenised executor.
+- **Candidate cure / promotion trigger**: route the agent-task probe (and
+  any other read-only leg) through the untokenised base executor inside
+  `merge-bot merge`, with a test pinning the env split. Promotes when a
+  seat takes the merge-bot lane (natural window: alongside the #820 F-112
+  cure family, same module). Related-but-distinct design question routed
+  to the owner's morning: whether QUOTA-SKIPPED (owner-ruled settled,
+  2026-07-21) should ever be COMMAND-merge-eligible — tonight it is
+  handled by per-PR Director grants on the manual REST shape, the
+  instrument untouched.
+- **Status**: CURED — PR #823 (merge commit 2fc5eae83, head 89ec41860,
+  2026-08-08): the read path runs on a pinned token-free environment
+  (keyring-deterministic, host pinned, enterprise fallbacks stripped) while
+  the merge PUT keeps the minted token via fetch; the env split is pinned by
+  `readEnv` unit tests AND a real-child contract test that kills the
+  env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
+  design question remains SEPARATE, on the Director's morning board.
 
 ### F-157 — commit-queue inner pathspec commit dropped four staged-new files from a 118-path intent
 
@@ -3458,6 +4112,27 @@ commit SHA and the closing plan reference.
   monitor, or takes a `--wait-for-reviewer` mode that polls SILENT-WAIT too.
 - **Route**: merge-bot documentation; the landing-loop shape in the
   pr-lifecycle skill.
+
+### F-169 — the commit queue serialises commit windows ACROSS worktrees even with disjoint files
+
+- **Observed**: 2026-09-05 (Flounder turns Estuary, c5cc2c, the #41/#42
+  landing arc). `commit-queue guard` refuses a fresh intent ahead of yours
+  even when its files are disjoint and it was enqueued from another
+  worktree, so parallel lanes commit in sequence and publish in parallel.
+- **Expected**: the guard scopes contention to the invoking tree (F-132's
+  same-tree reading) or to overlapping files; the commit skill states the
+  same-tree reading as the design intent on the queued and merge paths.
+- **Route**: SUPERSEDED by scope, 2026-09-07 — the owner's ruling (~12:24Z,
+  relayed by the Director in 4c19ff3c and 1fd65378): the queue exists to stop
+  git operations colliding in the shared primary and is not used for work in
+  separate worktrees, which commit by plain pathspec with an audit line; the
+  cross-worktree ordering this row observed is therefore never exercised. The
+  guard's estate-wide freshness key remains the shared primary's contract; the
+  Director's decision-matrix finding on it (2026-09-06, 81234225: coarser than
+  the per-tree invariant; cure a claim-scope-keyed guard, owner-gated on the
+  2026-08-17 'legacy-use' word) stands there. The separate host bound (two, at
+  most three, simultaneous full local gates, engineered as a semaphore) is its
+  own lane. The commit skill true-up carries F-132/F-139/F-169 as superseded.
 
 ### F-170 — the liveness heartbeat loop has no consumer-absence exit
 

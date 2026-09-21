@@ -23,8 +23,8 @@ mapped onto this estate's skill roster.
   summons modes at its judgement moments and may summon sibling workflows
   for sub-purposes.
 - **Programmes** — compositions that loop workflows toward a declared
-  end-state across sittings: `wrap` (deep closeout to the metaloss fixed
-  point), `consolidate-until-done` (grounding + consolidation passes until
+  end-state across sittings: `wrap` (the close of every session, to the
+  metaloss fixed point), `consolidate-until-done` (grounding + consolidation passes until
   every buffer is drained), `fidelity-review` (capture/diff/disposition
   rounds), and the session-boot compositions (`start-right-*`) and cadence
   harness (`go`) that structure a whole session's execution. A programme

@@ -84,12 +84,16 @@ forward-asks remain.
   and the decisions register; read them first, this row is a pointer.
 - **CRICKET CONSCIENCE-CHECK SUBSTRATE — live, owner-mandated, platform panels.**
   Every active agent invokes its platform panel twice at real cycle boundaries:
-  STANCE normal and adversarial; between owner interactions the cadence is
-  event-driven, not a bare timer (owner answer 2026-07-30). The cricket skill
-  (`.agent/skills/cognition/cricket/`) owns the live roster, invocation contract
-  and on-demand triggers; the historical model-labelled tallies are in the
-  operating record
-  ([`cricket-quartet-tally-2026-07-29.md`](../../reports/agentic-engineering/cricket-quartet-tally-2026-07-29.md)).
+  STANCE normal and adversarial. Between owner interactions the cadence is
+  event-driven, not a bare timer (owner answer 2026-07-30). Claude exposes
+  judgement-low/medium/high plus procedure-xhigh; Codex exposes
+  judgement-low/medium plus procedure-xhigh. Cursor's four stable adapters are
+  template-only. `$oak-cricket` owns the live roster, invocation contract, and
+  on-demand triggers for second opinions, rubber-ducking, and design partnership.
+  Historical model-labelled runs remain in the operating record:
+  [`cricket-quartet-tally-2026-07-29.md`](../../reports/agentic-engineering/cricket-quartet-tally-2026-07-29.md)
+  (pair-era calibration carried as baseline from
+  [`cricket-two-pair-tally-2026-07-26.md`](../../reports/agentic-engineering/cricket-two-pair-tally-2026-07-26.md)).
   Rule portability and PDR-127 alignment remain metagovernance candidates.
 - **Architectural fitness + mutation testing — decision-ready, reports landed
   (2026-07-15); owner ratification pending.** Report-only validator direction
@@ -105,9 +109,12 @@ forward-asks remain.
   [AEE thread record](threads/agentic-engineering-enhancements.next-session.md).
   Standing: the untwinned PDR-063/064/125 truings re-twin at the next exchange
   window; frictions F-120 (`git merge` stale-dist guard-brick) structural cure
-  unbuilt. The Practice Box was cleared on 2026-09-17 at the owner's word; the
-  bundle's carries (castr-bound items for the next window; the four design-shape
-  offers for the owner-scoped cross-estate integration session) live in the AEE
+  unbuilt. Practice Box dispositioned 2026-07-23 (owner card): three
+  integrated files cleared, the research-programme guide re-homed to
+  `reference/`, the outbound bundle held (castr-bound items forward at the
+  next window; the four design-shape offers queue for the cross-estate
+  integration session, owner-scoped). The Practice Box was cleared on
+  2026-09-17 at the owner's word; the bundle's carries now live in the AEE
   thread record's "Offered by resonance on 2026-07-08" block.
 - **Curriculum Hub — PAUSED 2026-09-06 (no fork lane).** Merged 2026-07-06; the remainder
   (§J deploy, the fidelity-register judgments, follow-ups, the ESLint 10 defect) lives
@@ -165,13 +172,23 @@ forward-asks remain.
   code-class follow-on (TDD cycles, never a sweep sed). **Open action:**
   `docs/graph-team-direction-2026-06-10` carries two unmerged commits (`ae5372e2c`, `c9ff6bb49`);
   merging it is an open owner/Director action (reconcile the napkin/eef-record content on merge).
-- **MCP product analytics — PAUSED 2026-09-06 (fork ruling).** The submission-blocking
-  PostHog sink and `@posthog/mcp` integration proceed from the ratified MCP-63 plan (PR #568,
-  merge `ccd1c410f`, 2026-07-26) under the owner's PR1-settled → PR2-settled → PR3 order;
-  the PR state, the succession and the causal record live in the
-  [thread record][mcp-analytics] and the
-  [permanent dated record](../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md).
-  MCP-173 separately gates October public-beta enablement.
+- **MCP product analytics — ACTIVE.** The submission-blocking PostHog sink and
+  `@posthog/mcp` integration proceed from the ratified MCP-63 plan, landed on
+  main via PR #568 (merge `ccd1c410f`, 2026-07-26); implementation runs on a
+  dedicated branch/worktree. Focused PR1 is local commit `ae25b10c9`, unpushed
+  with no PR, one ahead and nine behind main. PR2 remains dirty and local:
+  PostHog adapter, oak-eslint boundary registration, workspace registration,
+  and pnpm-generated lock entries only. Its final-wire production-composition
+  blocker is cured; no app source has been edited. The owner requires
+  PR1-settled → PR2-settled → PR3. Succession from Kite seeks Crosswind to
+  Cutter hunts Lagoon is complete; Cutter holds the seven implementation
+  claims and Kite retired. The canonical watcher is not treated as cognition;
+  the separate full-stream ten-minute foreground monitor remains the awareness
+  path until the user stops it. The
+  [permanent dated record](../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+  holds the self-contained causal and historical understanding. MCP-173
+  separately gates October public-beta enablement; `pnpm-lock.yaml` remains
+  pnpm-generated only.
 - **Other decision-complete plans awaiting execution routing.** MCP output
   contracts: owned since 2026-08-19 by the `mcp-output-contracts` strategic
   node + `mcp-served-surface-truth` / `mcp-output-contracts-implementation`
@@ -218,7 +235,9 @@ forward-asks remain.
   `.agent/plans-backlog-2026-07/agentic-engineering-enhancements/current/fitness-system-closure-and-role-routing.findings.md`
   and the `.plan.md` beside it.
 - **Collaboration-state lifecycle**: `.agent/state/` files are live signal sources, not long-term
-  documentation. **Live tooling gap**: 1,346
+  documentation. The 2026-07-23 dedicated pass ran the class-tiered
+  archive-move (3,618 routine events; provenance + byte-preservation gates
+  green) and the stale-claims sweep (23 archived). **Live tooling gap**: 1,346
   coordination-class events await a curator-disposition INPUT CHANNEL in the
   mover (their knowledge is absorbed; the recording mechanism doesn't exist
   yet) — routed with the comms-watch-storage-redesign lane, which also owns
@@ -250,7 +269,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 | --- | --- | --- | --- |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools; moved from Active 2026-07-30 (no identity touch since 2026-06-08); reactivation is owner-directed via §Next Safe Steps. | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088) and drive the warnings to zero; RESHAPED survey-first (four conversions landed) and paused for the strategy thread (moved from Active 2026-07-30); the agent-tools warning residue belongs here. | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
-| `codex-to-codex-hook-review-experiment` | **RETIRED at owner ruling (2026-08-02).** Fresh-process hook lane RED on configured latency; PR #403 closed unmerged with its state preserved, preservation PR #705 closed, the branch deleted; the record holds the frozen evidence and negative results. | [record](threads/paused/codex-to-codex-hook-review-experiment.next-session.md) | codex / GPT-5 / Lupin herds Bark / closeout owner — full pause handoff, mixed-index state and failed attachment captured / 2026-07-16 ← Zephyr turns Crosswind / terminal handoff / 2026-07-16 |
+| `codex-to-codex-hook-review-experiment` | **PAUSED, PENDING.** Fresh-process hook lane RED on configured latency; a later project-local attempt unreviewed and not working; the working-tree state preserved at `SHA:c4fae0b83` on draft PR #403 (2026-07-16). Detail in the record. | [record](threads/paused/codex-to-codex-hook-review-experiment.next-session.md) | codex / GPT-5 / Lupin herds Bark / closeout owner — full pause handoff, mixed-index state and failed attachment captured / 2026-07-16 ← Zephyr turns Crosswind / terminal handoff / 2026-07-16 |
 | `itf-knowledge-graph-spike` | The Inclusive Teaching Framework (Ambition Institute 2026) as a knowledge graph in the graph-corpus design grammar — a candidate data source. Spike COMPLETE, preserved on draft [PR #401](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/401) (HOLD: the owner's TS-promotion gate); knowledge surfaces conserved on main 2026-07-17. | [record](threads/paused/itf-knowledge-graph-spike.next-session.md) | claude-code / claude-fable-5 / Fern spins Taproot / implementer (solo) — spike landed, full preservation set + closeout / 2026-07-07 |
 | `eef` | EEF graph-tooling rebuild — D0–D7 delivered & shipped (v1.16.0); D7 proof dropped as overkill (paused 2026-06-19) | [record][eef] | claude / Fable 5 / Thyme wakes Canopy / record-condensation / 2026-06-12 (prior identities, 30+ seats: thread record) |
 | `data-sources-governance` | Author `docs/governance/DATA-SOURCES.md` (suitability / last-reviewed / removal criteria) — **owner-gated**: new governance policy, an owner decision, not agent-resolvable; gates the under-the-hood/explain user-exposure surface | [record](threads/data-sources-governance.next-session.md) | claude / Opus 4.8 / Ferret weaves Nightfall / thread-opener-brief-only / 2026-06-25 |
@@ -278,24 +297,32 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `orientation-skills-family` | PAUSED 2026-09-06 — fork ruling 2026-09-06: no Oak-surface access. Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-under-the-hood`) across the PDR-112 portability seam | [record][orientation] | claude-code / claude-fable-5 / Juniper holds Tendril (3dfd3b) / implementer — dev-facing guide arc, PRs #603 + #604 owner-merged / 2026-07-28 ← claude-code / Opus 4.8 (1M) / Clover mends Hedgerow / **reframe `/oak-explain`→`/oak-under-the-hood` + MCP pointer projection MERGED via PR #243 (`a0a85f60c`, 2026-06-27); ADR-202 + ADR-205. `oak-under-the-hood.plan.md` DONE→archive; MCP-surfaced discoverability follow-on owned by `current/mcp-tool-taxonomy-and-orientation.plan.md` (decision-incomplete, WS0 not started)** / 2026-06-28 (prior: Zenith lifts Firmament — unification `ca40d98ce`; Swordfish/Seal — reframe build; Skipper tracks Reef, Orbit rides Horizon, Bora lifts Downdraft) |
 | `main-sonar-ai-profile-to-zero` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. Drive `main`'s Sonar AI quality-profile backlog to zero under the owner-ratified disposition bar (fix at source by default); Phases 1–3 + 5A merged, Phase 5B on PR #308; the next batches doctrine-first. Detail in the record. | [record][main-sonar-zero] | claude-code / claude-fable-5 / Katydid seeks Moonbeam / implementer — Phase 5B + the ADR-153 guard arc; PR #308 at the code-owner gate / 2026-07-06; Zenith wakes Perigee (8897eb) / curator — drift-guard follow-on noted in the record / 2026-07-06 (prior: Alder tracks Topsoil #242, Gull tracks Eyrie #246/#249, Junk tracks Moorings #223, Thyme lifts Compost, Aspen tracks Root) |
 | `curriculum-hub-demo` | PAUSED 2026-09-06 — no fork lane; identity row stale. Reproduce the Oak Curriculum Hub from the Claude Design canonical export (DoD §A–J); build complete, MERGED 2026-07-06; the live remainder in §Current State and the record. | [record](threads/paused/curriculum-hub-demo.next-session.md) | claude-code / claude-fable-5 / Thyme weaves Hedgerow (762020) / MCP-372 hub-conformance carrier / 2026-07-30 (lane state on the design-system-integration record; prior cast: thread record) |
-| `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
+| `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair pending / 2026-08-03 |
 
 ## Next Safe Steps
 
 ### PICKUP for the next session — the dedicated consolidation continues (owner's word 2026-09-16)
 
+The owner's priorities for it, verbatim, 2026-09-17: *"the priorities are drainable buffers to
+EMPTY, then memory files to an optimised soft"*; *"Directives and other doctrine documents I am
+less concerned about, and they need very careful analysis anyway"*; *"the goal is always to
+preserve knowledge, never to move towards numerical targets"*.
+
 Read `threads/continuity-memory-and-knowledge-flow.next-session.md` §"2026-09-16 — the owner's
-dedicated consolidation session" first: its resume point says what is written, what remains and
-in what order, and carries the owner's priorities verbatim. The board is
-`threads/estate-coordination.next-session.md` §"2026-09-20 12:44Z — the 2026-09-19 branch folded
-as #156".
+dedicated consolidation session" first: it says what is written, what remains and in what order.
+The board is `threads/estate-coordination.next-session.md` §"2026-09-20 12:44Z — the 2026-09-19
+branch folded as #156".
 
 1. the consolidation — IN PROGRESS on `coordination/2026-09-20-44729c`, cut from #156's merge
-   (`SHA:44729c98c`, 2026-09-20 12:44Z). The owner declared the four drainable buffers drained
-   enough for this round on 2026-09-20; the graduate-then-archive curation of the large memory
-   files (`continuity-practice.md` §Disposition; `consolidate-docs` step 6b) is the remaining
-   item, and its state is the continuity record's resume point. Each file is read whole, by the
-   owner's split method, before anything moves;
+   (`SHA:44729c98c`, 2026-09-20 12:44Z). The drain is on `engraph`: the four drainable buffers
+   read empty on 2026-09-19 (the napkin rotated, `SHA:668d75378`; the register's twelve
+   directive entries graduated, `SHA:f6ce4d0c3`, `SHA:28e8b73be`, `SHA:d3c81c0b2`).
+   What remains is the graduate-then-archive curation of the large memory files
+   (`continuity-practice.md` §Disposition; `consolidate-docs` step 6b): this file and
+   `director-handoff.md` are done; next, one at a time and each priced first, are the
+   agentic-engineering-enhancements record, the estate-coordination record and the frictions
+   register, then `collaboration-state-conventions.md` and the paused thread records. Each
+   is read whole before anything moves;
 2. the remaining half of slice 1;
 3. the still-owed items: the operator-profile follow-up PR, the owed-items records PR, and the seven
    local defects from the 1.181.3 sync. Two more belong with that work list. First, re-read the
@@ -331,9 +358,11 @@ not happened yet, but it will, we have a replacement concept that is far more ef
 useful". Read what follows as the concept's standing record until that removal lands; do not
 build on it, and do not name or infer the replacement concept from here.
 
-The 2026-09-14 rulings (an owner-directed docs-only session) were committed the same day in
-`f24683337`; the surfaces they touched are listed in the paused [budget thread
-record][budget] §2026-09-14. Still open from that note: deleting the
+The 2026-09-14 rulings (an owner-directed docs-only session, Kinkajou binds Lair, e17ab4)
+were committed the same day in `f24683337`; the surfaces they touched are listed in the
+paused [budget thread record][budget] §2026-09-14 (the commit also carries the foundations
+bundle's two binding sentences, the July backlog child plan's supersession note and the
+graph-and-queue node's new dependency). Still open from that note: deleting the
 unregistered `max-files-per-dir` ESLint rule is the delivery node's first slice, a source
 change with gates, not a docs sweep; and no existing core workspace is a reference for the
 class.
@@ -374,12 +403,16 @@ pre-push gate (~4–6 min): batch cures, one push per adjudicated round.
 Capture-branch hazard: marker-probe captured files against current main before
 any merge (stale-capture-wins — see `distilled.md` 2026-07-17).
 
-### Codex-to-Codex hook review — RETIRED at owner ruling (2026-08-02)
+### Codex-to-Codex hook review — paused; explicit resume required (2026-07-16)
 
-The lane is retired: PR #403 closed unmerged (2026-07-20) with its state preserved on the pushed
-branch, preservation PR #705 closed and the branch deleted; the report and corpora are landed.
-The [thread record](threads/paused/codex-to-codex-hook-review-experiment.next-session.md) holds
-the experiment's frozen evidence, verdict and negative results; nothing resumes from here.
+Read the [thread record](threads/paused/codex-to-codex-hook-review-experiment.next-session.md) before
+touching the sibling feature worktree. Do not resume automatically. The reviewed reduced bundle and
+the later unreviewed three-file hook attempt are separate decisions; config parsing and valid
+fail-open output do not prove the nested reviewer ran. On explicit resume, first re-verify both
+checkout states and diagnose the content-free `reviewer exit: 1`; only then review the new slice,
+start a fresh trusted Codex session, and attempt one controlled `apply_patch`. (Durability trued
+2026-07-17: the closeout and working-tree state ARE now preserved — commit `SHA:c4fae0b83` on
+draft PR #403; activation remains unproven.)
 
 ### Source integration workspaces — ready, sequenced after the P0 audit (2026-07-15)
 
@@ -403,8 +436,11 @@ owner-directed promotion trigger only.
 
 ### agent-tools architecture — plan authored; commit + standard deferred (2026-06-29)
 
-`check-encoding` (the permanent UTF-8/encoding scanner) is landed and wired into `pnpm check`
-and pre-push. The deferred architectural excellence is a strategic brief —
+`check-encoding` (the new permanent UTF-8/encoding scanner) is **verified-green on its own files**
+(`pnpm encoding:check` 0 critical; type-check / lint / 1748 tests / knip / depcruise / prettier clean,
+after removing 2 knip-flagged dead exports) and consistent with the `skills:check` precedent
+(`pnpm encoding:check`, wired into `pnpm check` + pre-push; canonical `@oaknational/result`).
+The deferred architectural excellence is now a strategic brief —
 [`agent-tools-architecture-standard.plan.md`](../../plans-backlog-2026-07/agent-tooling/future/agent-tools-architecture-standard.plan.md)
 (WS0 the execution-model fork → ADR + enforcement + encoding-engine→`packages/core` + the
 where-supported Write/Edit hook + convergence) — with the analysis at
@@ -472,9 +508,10 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. Corpus generalisation: Phase 0 paused at a stable point (2026-07-05/06). The
-   self-contained restart brief, with the branch-and-merge sequencing, is the AEE thread
-   record §CORPUS GENERALISATION (its PHASE 0 block).
+0. **Full processing DONE 2026-07-04; Phase 0 design PAUSED at a stable point 2026-07-06.
+   NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
+   landing set) — see the §Current State corpus-generalisation entry; the self-contained
+   restart brief is the AEE thread record §PHASE 0.
 0a. **Deep-consolidation carried work (the only part a next curator needs).** The
    ordinary triggers govern when the next pass fires; there is no inherited debt
    beyond these named items:
@@ -542,8 +579,7 @@ F-41 CLI tail).
 
 ### Connecting-Oak / PR History
 
-The [thread record][connecting] holds the lane's standing decisions and grounding. Before
-resuming paused graph-substrate work, re-check current PR, CI, Sonar,
+Before resuming paused graph-substrate work, re-check current PR, CI, Sonar,
 CodeQL, active claims, commit queue, and git state. Do not rely on historical
 issue counts in archived prose.
 

@@ -113,7 +113,7 @@ Before substantive work:
    six directives during the fold's waits, and stood at 51 % with no directive edited;
    across four contexts and four folds no register entry left (eleven, then twelve). Naming
    the shape at open is not enough. Two further requirements: read the figure again
-   after any fold's last push and before the first directive read
+   after any fold's last push and before the first directive edit
    (`directive-file-context-budget` §Sequencing), and state the pass's own measure (the
    register's count, the buffers' undrained items) first in every report to the owner,
    naming work that does not move it as not moving it. Falsifier for these: a pass that
@@ -129,12 +129,41 @@ Before substantive work:
    record cost 55,000 tokens to read, the next two 75,000 and 90,000, and the seat
    stopped 740 lines into the first with nothing moved. Falsifier: a pass that priced its
    reads still stops mid-surface for lack of headroom.
+   A surface larger than a few thousand tokens is read by SPLITTING it, never whole into the
+   curating seat's context (owner, 2026-09-20: "Do not fill up the context pointlessly with
+   giant files, pick one file, split it, analyse the pieces separately, then analyse the
+   analyses to find what was lost by splitting, repeat"): split at entry or section
+   boundaries; one analyst per piece reports per entry (the status line verbatim, its class,
+   its cross-references, the cure surface it names) to a file; the seat reads the analyses and
+   then runs the join checks over the whole file by grep (every cross-reference resolves, every
+   id occurs once, a status stated in another entry agrees), because the join is where a split
+   loses information; and every analyst claim that bears on a move is verified first-hand at
+   its source before that entry moves. Worked instance (2026-09-20): two records of 3,794 and
+   4,612 lines read whole into one context cost about 160,000 tokens; the same reading by
+   pieces costs the seat the analyses alone.
+   A context's budget for the job runs to the compaction-preparation threshold, never to a wrap
+   the seat chooses early: a seat cannot trigger its own compaction, so a wrap followed by
+   "holding for the compaction" only stops the job (owner, 2026-09-20: "wrapping and pushing is
+   no use whatsoever if you can't trigger your own compaction, which you can't, all you are
+   achieving is stopping"). Past the meter's peak the seat keeps working in bounded pieces (one
+   record, one commit) and wraps once, at the threshold; an owner's freeze order governs only
+   the compaction it names.
+   A price is set against the figure of the context that will pay it, so a plan carried
+   across a compaction is priced again at resume before it is repeated to the owner. The
+   30 % gate prices directive edits only; a memory file needs headroom to be read whole,
+   and nothing more. Worked instance (2026-09-20): a plan written at 65 % ("each large
+   record needs a context of its own") was told to the owner as a blocker at 40 % of a
+   million-token window, with about 600,000 tokens free, and the owner corrected it.
    **Reserve the last step's price.** Directive work is the pass's final step and the one the
    30 % gate closes on, so its cost is set aside at open (the bytes of the directives to be
    read whole, over four, plus the edits), and an earlier stage stops when the headroom
    reaches that reservation, however unfinished it is. Where a standing rule with a deadline
    (a DUE branch fold) would spend the reservation, that collision is put to the owner once,
-   as a question about which gives way for this job, at its first occurrence. Source: the
+   as a question about which gives way for this job, at its first occurrence. Where the
+   owner's launch prompt already answers it (the dedicated-consolidation prompt ranks the
+   job above the daily fold), that answer holds for the session the prompt launched and
+   no other, and the seat records on the branch's pull request that the fold is late by
+   the owner's word. Source: the
    retrospective
    `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
    Falsifier: a pass that reserved still reaches its directive step over the line.
@@ -145,8 +174,10 @@ Before substantive work:
    step 7 reserves, so each of these is decided here and loaded only when it fires:
    - *Other seats live?* If the claims registry or the stream shows one, apply
      [`start-right-team`](../../start-right-team/SKILL-CANONICAL.md) (watcher first) in
-     place of the solo grounding; a shared host also means one gate run at a time, agreed on
-     the seats' channel.
+     place of the solo grounding; on a shared host each seat's gate runs stay inside its own
+     worktree, at most two side by side
+     ([`no-unbounded-host-load`](../../../rules/no-unbounded-host-load.md) item 6), and a
+     seat says on the seats' channel when one starts.
    - *A retrospective first?* Only when an arc has finished since the last consolidation
      and its cost or shape surprised; otherwise it follows the pass, at the owner's word.
    - *Parallax?* At screening depth, at a real fork whose frames differ; where each lesson

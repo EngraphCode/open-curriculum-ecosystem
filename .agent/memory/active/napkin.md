@@ -20,115 +20,197 @@ sentence; only owner-ratified doctrine gets the imperative. On this shared surfa
 exact-match anchor or append-only — never rewrite from a positional marker (truncate-race,
 2026-07-28).
 
-## Napkin rotated (2026-09-19 15:46Z, Zephyr guards Leeward, 281e44, sole operator)
+## Napkin rotated (2026-09-20 14:4xZ, Zephyr guards Leeward, 281e44)
 
-Rotated below the line threshold at the owner's word of 2026-09-19, verbatim: "drain the
-buffers to zero … start with the most raw, end with the most refined", and "archiving happens
-ONLY after full processing, not as a means to tick a box". The window (the 2026-09-17 rotation
-record through the 2026-09-19 blocks of the dedicated consolidation's second to fifth contexts)
-is preserved in `archive/napkin-2026-09-19.md`, byte-identical to the napkin committed at
-`SHA:67b4f1ae7` (blob `a126c9b9d` at both paths).
+Rotated below the line threshold at the owner's word of 2026-09-20, verbatim: "you are supposed
+to analyse the buffers, preserve the knowledge, then analyse and preserve the knowledge in the
+oversized memory files, nothing else". The window (the 2026-09-19 rotation record and this
+seat's three blocks of 2026-09-20) is preserved in `archive/napkin-2026-09-20.md`,
+byte-identical to the napkin committed at `SHA:28c5dd11d` (blob `3c2c8aedd` at both paths).
 
 Every entry was read and placed before the move. Written into homes in the same commit: the
-budgeted directive read and the meter command (`directive-file-context-budget`, F-191); the
-consolidation's falsified prediction, the measure-first report and the ask-before-a-bulk-act
-line (`consolidate-until-done`); the amendment's-neighbours and mechanism-claim lenses, the
-third-amendment stop, and the outward sweep binding authored re-truings (`pr-lifecycle`); the
-second doctrine-on-the-branch instance, the few-lines fold entry and the whole-body template
-re-read (`coordination-fold`); the wording screen (`present-verdicts-not-menus`); the pause
-notice naming time-bound edges (`owner-attention-at-action-moments`); the authored absence
-claim (`zero-match-false-green`); and the owner's measure-first correction
-(`user-collaboration`). Found already homed: the clock read before a typed time
-(`records-are-technical-not-emotional`), the fsmonitor hang (F-195), the model relabel (F-192),
-and the four-part lifecycle (its register entry, for the directive pass). Left in the archive
-as single observations no home needs yet: a reviewer's sha naming a discarded merge-preview
-commit, a hung `git add` reading as progress from outside, and the free-play associations.
+read of HEAD after an interrupted or refused ceremony (the `commit` skill's process step 2);
+the owner's ruling on side-by-side gate runs in separate worktrees (`no-unbounded-host-load`
+item 6, and `consolidate-until-done` step 8 stated to match); a plan priced again at resume,
+and the 30 % gate pricing directive edits only (`consolidate-until-done` step 7); a cure checked
+at source like the text it replaces (`pr-lifecycle`); a rule amended with its decision record
+open, with the 30 % read clause as the instance (`new-rule-vs-pdr-clause`); the archive pointer
+written inline (`continuity-practice.md`); a smoke check's wall-clock wait failing a push on a
+loaded host (F-197); the lesson that did not bind its author and the report line that did
+(`passive-guidance-loses-to-artefact-gravity` instance 5, and the 14:3xZ addendum of the
+retrospective report); the context-loop experiment's findings and the design of its next run
+(`.agent/reports/agentic-engineering/context-loop-experiment-working-seat-2026-09-19.md`); and
+two items for the owner (the experiment's restart, the work-list candidate) beside F-189 in the
+continuity thread record. Found already homed: the merge-message ref resolution
+(`coordination-fold` step 4), the corrected-direction residue sweep (`pr-lifecycle`), the
+budget rule's scope, the card answers and the narrowed job (the continuity thread record), the
+whole-read verdict on `director-handoff.md` (the same record, item 3). Left in the archive as
+single observations no home needs yet: the free-play associations of both wraps, and a wrap
+that writes to the napkin it has just drained.
 
-Comms: the stream from the 2026-09-17 rotation to this one held this seat's events and Dynamo
-turns Temper's through 2026-09-17 23:31Z, all read; nothing from any other seat since. The
+Comms: the ARC channel was read to its end at 14:42Z (last entry this seat's 14:29:32Z pause
+notice); Dynamo turns Temper's 14:19Z team-start on the stream was read at the wrap. The
 watermark is not advanced and no archive move has run, because the substantive-event mover is
-still unhomed, as at the three rotations before.
+still unhomed, as at the four rotations before.
 
-## Zephyr guards Leeward (281e44) — 2026-09-20 ~10:5xZ, the wrap of the consolidation's fifth context: the buffers emptied
+## Napkin drained of this seat's blocks (2026-09-20 19:0xZ, Zephyr guards Leeward, 281e44)
 
-- **What happened.** Opened after a compaction at 11 %. At the owner's word ("drain the buffers to
-  zero, do not mess about with coordination branches … start with the most raw, end with the
-  most refined") the seat stayed on one branch and drained in order: the napkin
-  (`SHA:668d75378`), then the register's twelve directive entries (`SHA:f6ce4d0c3`,
-  `SHA:28e8b73be`, `SHA:d3c81c0b2`), the last four at 32 % on the owner's express override of
-  the 30 % rule. Then the first two surfaces under the new lifecycle: `repo-continuity.md`
-  (in `SHA:d3c81c0b2`) and `director-handoff.md` (`SHA:0a4ce83f7`). Dynamo turns Temper resumed mid-session, measured
-  and cured F-195, and the two seats shared the host's gate slot over the ARC channel.
-- **Metacognition (retrospective).** Three things were different from the four contexts that
-  left the register at twelve. The owner removed the competing obligation (no fold). The texts
-  were already drafted, so the context spent itself on reading and checking, not composing. And
-  the count was said first in every report, so a turn that did not move it was visible at once,
-  to the seat as much as to the owner. Slips, each cheap because a check caught it: a wrapped
-  line starting with a pull request number (MD018) for the second time in two days, after
-  writing the first into this napkin; the lesson as text did not fire, the hook did, so the hook
-  is the cure and the text is not. A commit the owner's interrupt appeared to stop had landed;
-  the seat re-ran the ceremony without reading `git log` first and the queue refused the empty
-  bundle. After any interrupted or refused ceremony, read HEAD before the next act.
-- **Metacognition (generative): what changed about the work.** The lifecycle is now doctrine
-  with a trigger and has run twice. Its first finding is the owner's doctrine confirmed from
-  the other side: `director-handoff.md` reads critical and almost nothing in it is finished;
-  its size is its function. A readout pointed at a surface where the right move was to move
-  almost nothing, and only a whole read could say so.
-- **Free play (one time-box; material: the context-loop experiment and the drain).** Kept: the
-  loop's safety valve and the branch's 24-hour rule are one shape, a timer that reads silence
-  as an ending, and both need a second input to tell "done" from "blocked" (the valve nearly
-  ended the loop while the seat waited on a peer's gate run; the lifetime rule forced folds
-  while the register waited). Kept: the reader's refusal of a 27,000-token read was the best
-  sizing instrument of the session; a gate that refuses teaches the size of the thing. Kept:
-  a bare check costs about 900 tokens, the same order as a heartbeat, so PDR-078's economics
-  apply to self-observation. Discarded, visibly: "the cron not firing while busy is a defect";
-  idle is the only moment a scheduler can safely interrupt, and the gap is the design's, to be
-  closed by a different trigger and not by a faster cron.
-- **Concept exploration: the cost of the next act.** Observations: the 30 % rule and the loop
-  both watch the LEVEL of context; the two failures of this consolidation were both about the
-  next act's COST (the fourth context pre-read six directives; this one planned "the large
-  memory files" as one step and found the first big record costs 55,000 tokens to read).
-  Problem frame: a level says where you are, a price says whether the next step fits; a pass
-  over whole files can be priced before it starts (bytes over four). Existing home:
-  consolidate-until-done grounding step 7. Proposal, landed in the same commit as this block:
-  the step prices the pass at open. Warrant: two instances, one seat, one consolidation.
-  Falsifier: a pass that priced its reads still stops mid-surface for lack of headroom.
-- **A better context-loop experiment next time (the owner asked).** This run never reached its
-  trigger, so it measured the observer and not the thing observed. Next time: (1) trigger on
-  turn end or every Nth tool call (a hook), because a cron fires only when the seat is idle,
-  which is when context is not growing; (2) calibrate the transcript figure against the
-  harness's own (the statusline's `used_percentage`) and skip a compaction call's usage line;
-  (3) trigger on level PLUS the projected cost of the preparation, not a fixed 70 %; (4) give
-  the safety valve a second input (a pending-work flag or an open claim); (5) pre-register the
-  outcome that matters, which is not "the preparation ran" but "the resumed seat's first act
-  was right with no owner prompt", against a compaction with no preparation as the control;
-  (6) plan one run that deliberately crosses the trigger, so the preparation's cost and the
-  margin to auto-compact are measured (this wrap's cost is logged in the experiment file as
-  the first such figure); (7) add a column the seat fills saying what happened in each
-  interval, so deltas can be read; (8) put the results in a tracked report, because both
-  seats' records are machine-local and would not survive the machine.
-- **Loss scan and metaloss.** Uncommitted at this block: this block, the pricing step, the ARC
-  churn since `SHA:0a4ce83f7`; the wrap commit carries them, and the retrospective follows in
-  its own commit. Promises: the fold of draft #156 (the branch fell DUE at 2026-09-20 00:00Z;
-  by the owner's word it folds once, after this wrap's compaction), then the three large
-  records, each in its own context (sizes in the continuity thread's resume point). Open to
-  the owner's correction: `test-immediate-fails` item 4 withdrawn beyond the drafts; the
-  fitness limits this seat set on `frictions-register.md` and `review-cost-ledger.md`.
-  Attribution: Dynamo turns Temper's measurements are theirs, read from their events, and the
-  cure was read back first-hand. Blind spot: the comms watcher has been down since about
-  21:00Z on 2026-09-19 by declared choice; the stream and the ARC channel are read at resume.
-  Fence sweep: no Oak surface written. Fixed point: a further pass re-finds only the MD018 slip.
-- **Addendum, 2026-09-20 ~10:5xZ: the retrospective and the second wrap.** At the owner's word
-  the arc's retrospective is
-  `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
-  Its named mechanism: clocked obligations starve unclocked jobs (the fold had a deadline and
-  a ceremony, the register had a count). It routes four proposals (two landed in
-  `consolidate-until-done`, one slow-lane row, one prediction the #156 fold tests) and reads
-  the launch prompt against the arc: the prompt loaded six skill bodies before any work, so
-  the refinement is subtraction, and the procedure it carried now lives in the skill's
-  grounding step 8. Measured for the context-loop experiment: the first preparation
-  (three cognition passes, a wrap, one commit and push) cost 16,440 tokens in about five
-  minutes; the figures for the retrospective and the second wrap are in the experiment file.
-  Second loss scan: nothing new beyond this addendum; Dynamo turns Temper posted on the ARC
-  channel while this seat wrote and #157 merged to `engraph` (`SHA:bdbdda04a`), both read at
-  resume.
+The correction block of 15:0xZ and the wrap block of 15:1xZ with its 18:4xZ addendum are
+preserved in `archive/napkin-2026-09-20b.md`, byte-identical to the napkin committed at
+`SHA:6a9a78092` (blob `69206f15c` at both paths). Every entry was read and placed before the
+move: the split method's skill half was already in `consolidate-until-done` step 7
+(`SHA:3cd0df21a`); its directive half landed in `continuity-practice.md` §Runbook step 1 in
+the commit that carries this record, at a context of 11 % after the owner's second compaction;
+the done-condition candidate of the addendum is item 4 of the continuity thread record's owner
+decisions. Left in the archive as single observations no home needs yet: the forwarding-address
+association, the analysts' notes as a map of structure, and a peer's appends riding a seat's
+commit. Dynamo turns Temper's block below stays, theirs to drain.
+
+## 2026-09-20 15:0xZ — Dynamo turns Temper (2a4c8a): three pull requests in one queue cost sync rounds
+
+- Observation: with #160, #161 and #162 all settled at once, each landing put the other two
+  BEHIND (the door's strict up-to-date base), and each sync push draws a fresh reviewer round
+  over the same tip-plus-merge. Three PRs → two sync rounds after #162, one more after #160.
+  Nothing wrong; the cost is structural. Land in the order the checks finish, and open the next
+  lane's PR only when the queue is short, or accept the rounds.
+- Observation: the workspace census `check` failed on `engraph` at `93c35f285` (20 stale facts
+  entries) and is in no gate; its facts count files under `.agent/`, so any commit there stales
+  it. A finding for its own lane (recorded on #163's description).
+- 2026-09-20 16:0xZ (Dynamo turns Temper, 2a4c8a): the `git add .` hook matches any staging
+  command whose pathspec begins with a dot-directory (`git add -- x.ts .agent/reports/…`), so a
+  tracked file under `.agent/` cannot be staged by name in the same command as a file elsewhere;
+  an absolute path did not help (the substring still matched). What worked, without a sibling
+  bypass: `git commit --include -F msg -- <paths>`, which commits the named paths with what is
+  already staged. Friction for the hook's author: anchor the pattern at a word boundary or the
+  argument's end (`git add .` alone, `git add .$`).
+- 2026-09-20 16:2xZ (Dynamo turns Temper, 2a4c8a): a test-expert consult said new cases could
+  join a pre-invariant loopback suite "since no new IO is introduced"; the directive
+  (`testing-strategy.md` §Tests never use IO) has no such carve-out and both vendor reviewers
+  cited it at round one of #166. A consult is a reading, not the directive: when a consult
+  licenses something the directive names absolutely, read the directive's sentence before
+  acting. Cost: one settlement push and one round.
+- 2026-09-20 16:3xZ (Dynamo turns Temper, 2a4c8a): the forced-push hook reads the whole command
+  text, so a `merge-bot push` followed in the same command by `gh api … -F body=@file` or
+  `-f t=$id` is blocked as `push -f`. Keep the push and any `gh api` call with a `-f`/`-F`
+  flag in separate commands.
+- 2026-09-20 17:0xZ (Dynamo turns Temper, 2a4c8a): a backgrounded chain `python3 - <<EOF … EOF;
+  git commit …` committed the UNEDITED file when the script's assertion failed, and my grep of
+  the task output looked only for the push line, so #167 opened with cures its description
+  claimed and its tip lacked (Copilot found it). Chain edits to commits with `&&`, print a
+  sentinel from the script, and read a task's output for `Traceback` before trusting it.
+- 2026-09-20 17:1xZ (Dynamo turns Temper, 2a4c8a) — play seeds, associations only: (1) a
+  measurement stored inside the measured thing stales itself (the census's facts under
+  `.agent/`; the context-usage row in the transcript it measures) and reaches a fixed point only
+  by iterating; (2) the rule to measure vendor call shapes at plan time existed and the D8 plan
+  still recommended a shape gh refuses (`--slurp` with `--jq`); the measurement happened at
+  implementation, which is late but before the push.
+
+## Zephyr guards Leeward (281e44) — 2026-09-20 19:4xZ, wrap before a compaction at ~56 %
+
+- **The measure.** Register 0 due; distilled 0; open questions 0; the napkin holds Dynamo turns
+  Temper's 15:0xZ block (theirs) and this block; oversized files curated this context: the
+  design-system-integration record, `mcp-submission-drive`, `workspace-config-isolation`,
+  `strategy-and-plan-estate-holistic-review` and `eef` (eleven of the named set in all), plus
+  `statusline-enhancements` and `typescript-estate-consolidation-review` read whole and left
+  live. Analyses for `upstream-api-alignment` and the codex hook experiment are on disk unacted;
+  twenty-one paused records under 300 lines remain, then the continuity record's own history.
+- **Metacognition.** The split method ran four times this context (nine, two, two, two, then
+  one analyst per file) and cost the seat about 25 % of context for five curations, most of it
+  the analyses and the re-emitted kept text. Two refusals were the seat's: MD018 on a wrapped
+  line beginning `#865` (the pattern's instance 5 recurring on its recorder: the hook is the
+  cure, and grepping `^#[0-9]` before the ceremony is the cheaper one, now done); and two
+  ceremonies lost the `.git/index.lock` race to a periodic git process on the primary — the
+  register already names the class, and the cure was to run the ceremony alone. The
+  identity-naming ratchet refused a byte-identical archive because the census keys occurrences
+  by path; the director-handoff archive of 2026-09-08 had the same shape and the same cure
+  (re-point the row), which the commit skill's archive step could state.
+- **Free play, one time-box.** Kept: a paused record that says "do not archive me" is right
+  when its sections are open state, and the lifecycle's "leave-if-live" already says so; the
+  analyst's per-section STATE column is a cheap first read of that. Kept: the join between a
+  lane's record and its plan is where the record's "next step" lives on, so a curated record
+  points at the plan and never restates the sequence. Discarded: a generic "paused records
+  archive by default" rule — two of seven were live.
+- **Concept exploration, compact.** Frame: a curation's cost has two parts, reading (paid by
+  analysts) and re-emitting (paid by the seat), and the method halves only the first. Warrant:
+  eef's 130-line identity table was read once and written once. Falsifier: an Edit that removes
+  the finished range without the seat holding it — the tool refuses that by design, so the cost
+  is inherent, and the only lever is choosing Write when kept < removed and Edit otherwise.
+- **Loss scan.** Conserved: five archives with proofs (`SHA:52c376002`, `SHA:c5e49a10b`,
+  `SHA:561a0ee36`); the `signal-read-as-fact` pattern's n = 2; the continuity record's resume
+  point; the machine-local handoff on claim `48a715a4`. Promises: the two unacted analyses
+  (scratchpad, machine-local — the archives are untracked but re-derivable by `cp`); the
+  twenty-one small paused records. Blind spot: the census re-point is the only archive-time
+  step the lifecycle text does not name; a candidate sentence for `continuity-practice.md`
+  §Disposition at a context below 30 %.
+- **Owner correction, 2026-09-20 ~20:0xZ, verbatim: "wrapping and pushing is no use whatsoever
+  if you can't trigger your own compaction, which you can't, all you are achieving is
+  stopping."** The instance: this seat wrapped at 56 % and answered the goal hook's refusals
+  with "holding for `/compact`" seven times, on the reading that the earlier freeze order
+  ("prepare for compaction and stop all processes") still governed; it did not — that order
+  was for one compaction the owner then ran, and absent a fresh one the seat's compaction is the
+  80 % auto-compaction, with the preparation at 70 %. The cure: a seat past the meter's peak
+  keeps working the job in bounded pieces until the preparation threshold, and wraps then, once.
+  Home: `consolidate-until-done` step 7 (the pricing paragraph: the budget of a context runs to
+  the preparation threshold, never to a wrap the seat chooses early). The done-condition
+  candidate of the continuity record's item 4 stands.
+- **Owner declaration, 2026-09-20 ~20:1xZ:** the drainable buffers are drained enough for this
+  round; the large memory files are the only remaining item for the goal, and they need
+  knowledge curation and appropriate handling. The measure from here is the large-file set:
+  twelve curated, five read whole and left live, three analyses pending (`mcp-agent-facing-content`,
+  `orientation-skills-family`, `curriculum-hub-demo`), sixteen paused records under 300 lines
+  unread, and the active set (`repo-continuity.md` 695 lines, `agentic-engineering-enhancements`
+  568, the continuity record 492, `director-handoff.md` 428, `open-surface-zero` 346, and the
+  frictions register's 3,937 live lines).
+- **Metacognition at the declaration.** What held: the split method's per-section STATE column
+  turned out to be the cheapest instrument for the lifecycle's first question ("live or
+  finished?") — five of the seventeen records read today were left live on it, and each verdict
+  cost a grep of the analysis, not a read of the file. What did not: this seat spent seven
+  turns holding for a compaction it cannot trigger (owner-corrected above); it also re-emitted
+  every kept line of each curated record, which is where most of this context's 50 % went.
+  The mistake shape both times was treating a rule's letter as its reason — the freeze order
+  and the "read whole" obligation — and the owner's two corrections today were both the
+  reason restated.
+- **Free play (one time-box).** Kept: "appropriate handling" has three outcomes, not one —
+  curated, left live with the verdict recorded, or found homed elsewhere and archived whole —
+  and a report that names which outcome each file got is the honest measure, where a count of
+  files "done" is not. Kept: the fitness signal's line-width criticals are all in records
+  already left live or curated; that signal is now noise for this job. Discarded, visibly:
+  curating the frictions register's live entries for size — they are live, and the owner's
+  word is that fitness numbers are never the goal.
+- **Concept exploration, compact.** Frame: a large memory file is "handled" when a seat has
+  answered the lifecycle's question for every section and left a proof (an archive blob, a
+  recorded verdict, or a named home). Warrant: the five records left live today each have a
+  section-level analysis on disk and a one-line verdict in the continuity record; a reader can
+  check the verdict against the analysis without re-reading the file. Falsifier: a record
+  left live whose next reader finds a finished range the analysis marked live — then the
+  instrument, not the reader, is wrong, and the brief's STATE rule gets the correction.
+
+- 2026-09-20 20:3xZ (Dynamo turns Temper, 2a4c8a; play seeds and a rule candidate, on
+  Zephyr's branch by name): the `pr view --json` projection is the state, never the evidence —
+  a merge verdict reads the paginated connection (three instances: `latestReviews`, commits
+  bounded at 100, the comments' edit flag); an UNSUPPORTED claim on a precondition blocks the
+  push until verified live (row 20 predicted Copilot's round-two finding on #168); the
+  connector edits its summary comments and never its clean ones (63 / 0 of 28) — count edited
+  clean comments in the cost survey; the context check should say "unreadable", not
+  "compacted", when the transcript cannot be read.
+- 2026-09-20 20:4xZ (Dynamo turns Temper, 2a4c8a): a seat that cannot trigger its own
+  compaction stops three times at the same mark if each stop is a report — the report reads as
+  an end to its writer. The cure is a named next piece of loss-tolerant work, never "continue".
+
+- **Addendum, 2026-09-20 20:5xZ (Zephyr guards Leeward, 281e44) — the large-file set is read
+  whole.** After the third compaction of the day (the meter's second reading 10.7 %; the first,
+  66.5 %, was the stale one — the register's own note): nineteen files curated (this context:
+  `orientation-skills-family`, `skills-estate-organisation`, `repo-continuity.md` by an
+  index-record brief, `open-surface-zero`, `director-handoff.md`, the continuity record's own
+  session history) and twenty read whole and left live, every one with a section-level analysis
+  in the scratchpad and a verdict in the continuity record's resume point. Counts at this
+  write: pending graduations 0; register 0 due; distilled 0; open questions 0; napkin: two
+  records and Dynamo's blocks, plus this block. What the day taught about the method, kept
+  here as one seat's observation: the split method scales to a whole tier when the analysts
+  answer one cheap question per section (STATE: live or finished, with the sentence) and the
+  seat verifies only the claims that bear on a move at their commits — thirty analysts over
+  thirty-nine files, every merge sha checked with `git cat-file` or the merge-commit grep; a
+  verdict of "left live" is as much a result as a curation and costs one `rm` of the
+  snapshot. One refusal: a ceremony run lost its staging before the guard (the staged set did
+  not match the intent) with no lock file involved — closed the claim, abandoned the intent,
+  re-ran alone; one instance, an observation.

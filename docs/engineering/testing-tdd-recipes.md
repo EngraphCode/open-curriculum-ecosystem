@@ -25,7 +25,7 @@ unit, integration, and E2E levels.
 - [TDD At All Levels](#tdd-at-all-levels)
   - [Unit Test TDD](#unit-test-tdd)
   - [Integration Test TDD](#integration-test-tdd)
-  - [E2E Test TDD](#e2e-test-tdd)
+  - [E2E Check TDD](#e2e-check-tdd)
 - [Rule Summary](#rule-summary)
 - [Red Specs And File Naming](#red-specs-and-file-naming)
   - [Validate Test Discovery](#validate-test-discovery)
@@ -109,24 +109,31 @@ export function createSearchWorkflow(options: SearchWorkflowOptions) {
 // Run test -> passes.
 ```
 
-### E2E Test TDD
+### E2E Check TDD
 
-E2E tests specify system behaviour. When system behaviour changes, update the
-E2E test first and run it against the old system to prove the red phase.
+E2E checks specify system behaviour. When system behaviour changes, update the
+E2E check first and run it against the old system to prove the red phase.
+
+An E2E check drives a **separately running** system over its protocol channel.
+In the example, `baseUrl` is the address of a server the check's harness booted
+as its own process; passing an imported app or server object to `request` would
+open a loopback listener inside the check's process, which is no compliant
+shape (testing-patterns.md §In-Process App Construction).
 
 Example:
 
 ```typescript
 // Scenario: all MCP methods should require auth.
+// baseUrl: the address of the separately booted server, injected by the harness.
 describe('MCP Server E2E', () => {
   it('returns 401 for tools/list without authentication', async () => {
-    const response = await request(server).post('/mcp').send({ method: 'tools/list' });
+    const response = await request(baseUrl).post('/mcp').send({ method: 'tools/list' });
 
     expect(response.status).toBe(401);
   });
 
   it('returns 401 for tools/call without authentication', async () => {
-    const response = await request(server)
+    const response = await request(baseUrl)
       .post('/mcp')
       .send({
         method: 'tools/call',
@@ -136,7 +143,7 @@ describe('MCP Server E2E', () => {
     expect(response.status).toBe(401);
   });
 });
-// Run E2E test -> fails while the old system allows unauthenticated discovery.
+// Run the E2E check -> fails while the old system allows unauthenticated discovery.
 // Implement the router and middleware changes, then rerun -> passes.
 ```
 

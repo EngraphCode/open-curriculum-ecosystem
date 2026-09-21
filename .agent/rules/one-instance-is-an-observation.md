@@ -12,7 +12,9 @@ pull request comment, a decision record — names a pattern, class, tendency,
 category or rule derived from observations, the same sentence states the number
 of independent instances and the comparator. Fewer than three independent
 instances is recorded as an observation, in the words of what was seen, and no
-class or category is introduced from it.
+class or category is introduced from it. The rule binds the record that
+introduces or infers the claim; a reference to an established pattern (an index
+entry, a citation, a cross-reference) introduces nothing and carries no count.
 
 ## Rule
 

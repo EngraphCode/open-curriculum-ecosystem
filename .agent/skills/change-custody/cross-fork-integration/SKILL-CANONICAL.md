@@ -348,7 +348,10 @@ conflict, a failing required check, a broken gate), whether the sync or the
 carried code causes it, is fixed on the carrier. An issue that does not block
 the merge is recorded, with its file and line, on a local work list and fixed in
 a separate pull request; its thread's disposition names that list, and it
-neither holds the carrier's landing nor counts against its review rounds. Three carriers routed every carried-code finding away under the
+neither holds the carrier's landing nor counts against its review rounds. A row
+on that list records terminal facts (a landed SHA, a pull request number) and
+its routing, never a pull request's transient state (2026-09-20). Three
+carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
 (1.181.3); the 1.181.3 set is the local work list

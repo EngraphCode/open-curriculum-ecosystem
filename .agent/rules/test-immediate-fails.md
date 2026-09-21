@@ -31,21 +31,18 @@ seam, extract a pure function, inject a dependency).
 
 ## Side-Effect Immediate Fails
 
-4. **Any test triggers any IO.** No filesystem reads/writes, no
-   network calls, no sockets (loopback included), no child process
-   spawning, no timers that interact with the runtime, no SDK init
-   calls with side effects, in the test or in any helper it imports.
-   This is the absolute invariant of `testing-strategy.md`
-   §Philosophy (owner, 2026-09-14 and 2026-09-15: no allowlist, no
-   exemption, no carve-out). The sanctioned shape this item carried
-   from 2026-08-02 (an owned `test-helpers/` surface reading COMMITTED
-   artefacts from disk at `import.meta.dirname`) is withdrawn by that
-   ruling: a filesystem read is IO whatever the provenance of the
-   bytes. Committed fixtures enter a test as imported modules or as
-   literal values; the existing fixture-reading helpers
-   (`mcp-conformance/test-helpers/fixture-loader.ts`, the sdk-codegen
-   `schema-cache-reader.ts`) are pre-invariant estate for
-   `no-io-test-boundary-and-di-recovery.plan.md`, never a precedent
+4. **Any test triggers any IO.** IO is a filesystem read or write, a
+   network call, a socket (loopback included), a child process, a
+   timer that interacts with the runtime, or an SDK init call with
+   side effects, in the test or in any helper it imports. This is
+   the absolute invariant of `testing-strategy.md` §Philosophy
+   (owner, 2026-09-14 and 2026-09-15). A filesystem read is IO
+   whatever the provenance of the bytes: committed fixtures enter a
+   test as imported modules or as literal values. The
+   fixture-reading helpers (`mcp-conformance/test-helpers/fixture-loader.ts`,
+   the sdk-codegen `schema-cache-reader.ts`) are pre-invariant estate
+   for `no-io-test-boundary-and-di-recovery.plan.md`; existing code
+   is evidence of the estate and carries no approval
    ([PDR-091](../practice-core/decision-records/PDR-091-precedence-is-not-approval.md)).
 5. **Any test (unit or integration) touches `process.env`.** Reading OR writing `process.env` is prohibited.
    Pass literal inputs; do not inherit from shell state.
@@ -56,17 +53,15 @@ seam, extract a pure function, inject a dependency).
    directly; they do not route through loaders that read disk.
 8. **Any test spawns a child process, fork, or test-authored
    worker.** Covered by `testing-strategy.md` §Rules, "No process spawning
-   in tests". There is no sanctioned shape: the
-   spawn-topology contract test recorded 2026-08-07 is withdrawn by
-   the 2026-09-14 ruling, and that proof is an observation or a
-   validator's self-proof. The directive is the authority; this item
-   only points at it.
-9. **Any test makes a real network or socket call.** The two
-   "calling mechanics" channels this item admitted from 2026-07-29
-   are withdrawn: driving a separately running system is an E2E
-   check (a validation surface, not a test), and a harness's loopback
-   listener for an imported app is a socket, so the integration test
-   uses the handler seam instead. Where network reach lives (the
+   in tests". A proof that needs a real child process (a child's stdio
+   topology, its exit and signal fidelity) is an observation made
+   once and recorded, or a validator's self-proof outside the test
+   suites. The directive is the authority; this item points at it.
+9. **Any test makes a real network or socket call.** Driving a
+   separately running system is an E2E check, a validation surface.
+   Code imported into the test process is proven at the handler
+   seam, called directly: a harness's loopback listener is a socket.
+   Where network reach lives (the
    deploy pipeline, validation checks, operator context) is
    [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md)'s.
 
@@ -126,16 +121,15 @@ seam, extract a pure function, inject a dependency).
 
 20. **Test category does not match its file name.** A
     `*.unit.test.ts` that exercises several units working together is an
-    integration test under the wrong name: rename it. Per `testing-strategy.md`, naming IS the
-    category. A test that touches IO is a different defect (item 4):
-    renaming it to `.integration` cures nothing,
-    since no test tier admits IO; the cure is an injected seam or a
-    move to validation.
+    integration test under the wrong name: rename it. Per
+    `testing-strategy.md`, naming IS the category. A test that touches
+    IO is item 4's defect under any name; its cure is an injected seam
+    or a move to validation.
 21. **Test is named `*.integration.test.ts` but opens a socket, hits
     the network, or spawns processes.** Classify by the boundary,
     then cure: a genuine separately-running-system exchange is an
     E2E or smoke check outside the test suites; outbound IO from
-    imported code is a missing DI seam to fix, never a rename.
+    imported code is a missing DI seam to fix.
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
     self-contained.

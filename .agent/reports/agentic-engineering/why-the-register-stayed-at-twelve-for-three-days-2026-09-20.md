@@ -214,3 +214,32 @@ unclocked jobs) and distinguishes it from the cover pattern it sits under. Two p
 landed, one is registered with a prediction and a review date, and one is a dated prediction the
 next fold confirms or refutes. If proposal 3's row is untouched at its review and proposal 4's
 result is never written on the ledger, this record was a eulogy.
+
+**Addendum, 2026-09-20 ~12:5xZ: proposal 4's result.** #156 folded as `SHA:44729c98c`. The
+prediction held: a pre-publication pass of 36 findings, then 23, 6 and 5 in three review rounds
+(34 in review; the threshold was twenty). The result is written on the #156 row of
+`review-cost-ledger.md`. What the count adds to the causal stack: 22 of the 34 were one class,
+siblings of the testing taxonomy's re-truing that the change had not reached, so the cost
+followed the doctrine's reach across the estate and not the size of its diff.
+
+**Addendum, 2026-09-20 ~14:3xZ: the mechanism recurred on its author the same day.** The context
+that wrote this record opened at 11 % and stood at 65 % at its wrap, and about one twentieth of
+that spend was the job (one oversized memory file curated; the napkin left at four blocks). The
+rest was the fold of #156 and its review rounds, two owner corrections of this seat's doctrine
+wording, a peer's landing records and tombstone cures: each had a clock, a thread or a queue,
+and the job had none. The owner's correction, verbatim: "you are supposed to analyse the
+buffers, preserve the knowledge, then analyse and preserve the knowledge in the oversized memory
+files, nothing else". Two things this adds to the causal stack. First, the lesson held as a
+sentence did not bind within hours of being written; what the owner had already built to bind it
+is the launch prompt's line "say those counts first in every report", which this seat skipped in
+most reports of that context, and the one report that opened with the counts showed at once
+that the napkin was not empty (instance 5 of
+[`passive-guidance-loses-to-artefact-gravity`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)).
+Second, the job's own outputs made the displacing work: twelve graduations took forty minutes,
+and making the estate consistent with them took most of a context, because each true review
+finding was treated as this seat's to cure at once. Preserving the knowledge (write it to its
+home, read the home back) and making the estate consistent with it are two jobs of different
+sizes, and only the first is the consolidation. A candidate follows from that and is the
+owner's to decide once the consolidation is done; it is listed with the owner's open items in
+the continuity thread record
+(`.agent/memory/operational/threads/continuity-memory-and-knowledge-flow.next-session.md`).

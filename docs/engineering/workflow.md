@@ -124,8 +124,8 @@ reference table.
 indicates an environmental or configuration issue, not a missing check. Both
 surfaces cover secrets, build, formatting, markdown, sub-agents, portability,
 knip (unused code detection), depcruise (circular deps, orphans, layer
-violations), workspace-owned repo validators, lint, type-check, unit tests,
-E2E, UI, and smoke tests. `pnpm check` adds widget tests, a11y tests,
+violations), workspace-owned repo validators, lint, type-check, unit and
+integration tests, and the E2E, UI and smoke checks. `pnpm check` adds widget tests, a11y tests,
 clean rebuild, and fix-mode commands.
 
 ## 8. AI Sub-Agent Review
