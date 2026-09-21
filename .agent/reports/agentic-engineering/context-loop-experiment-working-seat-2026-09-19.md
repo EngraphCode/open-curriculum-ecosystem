@@ -101,6 +101,8 @@ from a tool result; a time the seat could not read is marked as bounded.
 | 2026-09-21T17:39:54Z | 358,228 | 35.8% | +19,561 | two conscience-check verdicts received and posted verbatim with dispositions; one peer message; a watcher re-armed |
 | 2026-09-21T17:49:32Z | 391,795 | 39.2% | +33,567 | three long peer entries read; the fold landed through the front door; the successor cut and its first commit. The row was written after the push exited: a tick that lands during a push's whole-tree checks cannot write a tracked file without racing them |
 
+| 2026-09-21T18:12:22Z | 523,499 | 52.3% | +131,704 | 23 minutes of one continuous working turn: a two-seat definition exercise carried on a shared channel (long peer entries read in full, three versions of a shared text, two replies composed), two conscience checks, a fold landed and its successor cut, one mis-bounded read that re-printed the seat's own entry. The 50 % line was crossed inside the turn and surfaced to the owner at this tick |
+
 Findings of this run, each one instance:
 
 1. **The loop did not survive the compaction.** Its schedule is session-only state; after the
@@ -121,3 +123,15 @@ Findings of this run, each one instance:
    the team start and metacognition skills; re-reading the clause then showed the generator
    question had been run over one finding where the text says the full raised set. A summary
    carries state well and doctrine badly.
+4. **A scheduled loop is blind during exactly the turns that matter.** Scheduled jobs fire
+   only while the session is idle. Between the 17:49Z and 18:12Z ticks the seat was in one
+   continuous turn, so four ticks never ran, and in that gap the context grew by 131,704
+   tokens and crossed the 50 % handover line unobserved. The fastest growth happens inside
+   long working turns, which is where an idle-gated schedule cannot look. An instrument that
+   fires on tool use (a hook) has no such gap; an idle-gated one can only ever report the
+   crossing after the fact.
+5. **Growth is driven by reading a peer, not by the seat's own work.** The 23-minute interval
+   was dominated by a shared channel that two seats append to in whole entries of 40 to 90
+   lines; each is read in full because the exercise is about agreeing on words. A collaboration
+   surface that both seats must read whole is a context cost that scales with the peer's
+   output, which no budget of the seat's own controls.

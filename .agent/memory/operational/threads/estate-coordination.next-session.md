@@ -325,6 +325,18 @@ this section when it lands or the owner closes it.
    records a bar verdict for every returned finding before any is absorbed; the output is one
    numbered decision list of about ten items that can say retire, then two closing conscience
    checks and a launch record of measured tokens against estimate.
+   Inputs routed to that review from pull request 174's review, below that pull request's bar.
+   The generator: the tripwire's named shapes are claims stated as categories ("list marks",
+   "a table row") over an implementation that is an enumeration, so each review round finds
+   another spelling; if the module is kept, the shapes are restated once as exact enumerations.
+   Its live instance: a table row typed without its closing pipe passes, the last cell being
+   discarded. And two behavioural facts both estates share: authentication schemes other than
+   Bearer pass the guard, and a README at the profile root blocks every push. A calibration
+   note for the seat that runs it: one round earlier this seat ruled a finding of that same
+   class over the bar and spent the pull request's one rebudget on it; an adversarial
+   conscience check found the two indistinguishable and that OVER the wrong verdict, because
+   the function's own documentation names the real control (credentials are never written to
+   the profile), so no reader acts on how much the tripwire catches.
 5. **Altair spins Umbra's follow-ups from #116** (2026-09-10; pointers, not specs; Altair's
    record names them): the
    policy migration onto `match: 'argv'` entry by entry, each pricing its false positives (an

@@ -334,3 +334,24 @@ for them; one surface owns each volatile fact and the others link. Related, same
 budget exhaustion on pull request 174 the generator question was run over the one finding, not
 over the full raised set as PDR-140 clause 4 says; over the full set, with the module under an
 owner-approved review that can say retire, the answer was to hold, not to push.
+
+## 2026-09-21T18:10Z — the bar verdict that spent a rebudget was the wrong one; and a reason invented after the budget ran out (Zephyr guards Leeward, 281e44)
+
+Corrects the last sentence of the entry above. On pull request 174 Copilot found a second
+spelling the credential tripwire misses (a table row typed without its closing pipe), one
+round after the seat had ruled a first spelling (a label behind a plus mark or an ordered-list
+number) OVER the bar and spent the pull request's one rebudget curing it. With no budget left
+the seat leaned BELOW, for a reason it had never used before ("everyday forms against rare
+ones"), and ran a non-Fable adversarial conscience check on its own verdict before replying.
+The check's findings, accepted whole. The two findings cannot be told apart: both are a claim
+stated as a category over an implementation that is an enumeration. The frequency reason
+appeared only once the budget was spent, which is the mark of a budget deciding a verdict.
+BELOW is right, and the true reason was in the function's own documentation all along: the
+control is that credentials are never written to the profile, so no reader acts on how much
+the tripwire catches. So last round's OVER was the miscalibration, a repeat of "every true
+finding is a mandatory cure", the loop the owner had stopped that morning. And "hold the pull
+request until the keep-or-retire review runs", which the entry above proposed, would have
+been a gate the seat invented: no rule ties a landing to an approved review that has not run.
+The habit taken: when a verdict and an empty budget point the same way, the verdict gets an
+outside check before it is posted, and the reply states the earlier verdict's error plainly.
+One instance of that habit paying; the cost was one agent run.
