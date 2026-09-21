@@ -69,14 +69,14 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
   // `:` or `=` and a non-empty value — the YAML-key, assignment and bold-label
   // shapes. Prose that mentions a label without binding a value (`password
   // managers`, `the token budget`) passes.
-  /^\s*(?:[-*>#]+\s*)?(?:\*\*|__|`)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*[:=]\s*(?:\*\*|__|`)?\s*[^\s*_`]/i,
+  /^\s*(?:[-*>#]+\s*)?(?:\*\*|__|`)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*[:=](?=.*[^\s*_`])\s*\S/i,
   /^\s*(?:[-*>#]+\s*)?(?:\*\*|__|`)?["']?authorization["']?(?:\*\*|__|`)?\s*[:=]\s*["'`]?bearer\s+\S+/i,
   // A table row binding a label to one token (`| Password | hunter2 |`); a
   // header cell followed by prose (`| Password | Where it lives |`) passes.
-  /^\s*\|\s*(?:\*\*|__|`)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*\|\s*(?:\*\*|__|`)?[^\s|*_`]+(?:\*\*|__|`)?\s*\|/i,
+  /^\s*\|\s*(?:\*\*|__|`)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*\|\s*(?=[^|]*[^\s|*_`])[^\s|]+\s*\|/i,
   // An environment-variable credential name bound to a value:
   // `AWS_SECRET_ACCESS_KEY=…`, `export GITHUB_TOKEN=…`, `NPM_TOKEN: …`.
-  /^\s*(?:[-*>#]+\s*)?(?:\*\*|__|`)?(?:export\s+)?[A-Z][A-Z0-9_]*(?:SECRET|TOKEN|PASSWORD|PASSWD|API_KEY|APIKEY|PRIVATE_KEY|ACCESS_KEY)[A-Z0-9_]*(?:\*\*|__|`)?\s*[:=]\s*(?:\*\*|__|`)?\s*[^\s*_`]/,
+  /^\s*(?:[-*>#]+\s*)?(?:\*\*|__|`)?(?:export\s+)?[A-Z][A-Z0-9_]*(?:SECRET|TOKEN|PASSWORD|PASSWD|API_KEY|APIKEY|PRIVATE_KEY|ACCESS_KEY)[A-Z0-9_]*(?:\*\*|__|`)?\s*[:=](?=.*[^\s*_`])\s*\S/,
 ];
 
 /**

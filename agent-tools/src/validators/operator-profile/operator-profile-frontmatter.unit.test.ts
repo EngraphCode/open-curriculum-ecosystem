@@ -238,6 +238,17 @@ describe('findCredentialLikeLines', () => {
     expect(findCredentialLikeLines(content)).toEqual([1, 2]);
   });
 
+  it('flags a value whose first character is a marker, as the plain matcher did', () => {
+    const content = [
+      'password: _secret',
+      '| Password | *secret |',
+      'GITHUB_TOKEN=_secret',
+      '**Password:** **',
+      'token: __',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3]);
+  });
+
   it('passes a bare label with no line after it to bind', () => {
     expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
   });
