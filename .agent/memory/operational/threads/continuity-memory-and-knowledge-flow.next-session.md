@@ -292,7 +292,8 @@ merges nothing until this consolidation's `coordination/2026-09-17-cd847a` fold 
 **Resume point, 2026-09-20 after the fold.** The drain is on `engraph`: #156 merged as
 `SHA:44729c98c` at 12:44Z through the front door; the live branch was
 `coordination/2026-09-20-44729c`, itself folded as #159 (`SHA:efb2942e9`, 2026-09-21 00:03Z,
-the memory-file pass on `engraph`); the live branch is `coordination/2026-09-21-efb294`. At the
+the memory-file pass on `engraph`), and that branch folded as #169 (`SHA:72cab5667`, 2026-09-21
+09:09Z, at the owner's word); the live branch is `coordination/2026-09-21-72cab5`. At the
 owner's word on 2026-09-21 the stray file in the active buffer directory,
 `ws-8-ratification-reviewer-synthesis-2026-05-24.md` (a May reviewer synthesis, not a buffer), was
 read whole, its findings verified as carried by ADR-187, its one owed residue (the event-id versus

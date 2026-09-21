@@ -291,7 +291,8 @@ in what order, and carries the owner's priorities verbatim. The board is
 as #156".
 
 1. the consolidation — its memory-file pass is on `engraph` (#159, `SHA:efb2942e9`, 2026-09-21
-   00:03Z); the live branch is `coordination/2026-09-21-efb294`. The owner declared the four
+   00:03Z) and its close is too (#169, `SHA:72cab5667`, 2026-09-21 09:09Z); the live branch is
+   `coordination/2026-09-21-72cab5`. The owner declared the four
    drainable buffers drained enough for this round on 2026-09-20, and every file of the
    large-file set has been read whole by the owner's split method (nineteen curated, twenty
    left live); what remains is the owner's word on the open decisions the continuity record

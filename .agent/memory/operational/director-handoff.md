@@ -299,13 +299,15 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > **§FOLD, 2026-09-19 (Zephyr guards Leeward, `281e44`, curator; no Director seated) — supersedes the
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
 > `archive/director-handoff-2026-09-19.md` and narrated in the estate-coordination thread record
-> §2026-09-12 FOLD LANDED.** The last fold is #159 (SHA:efb2942e9, 2026-09-21 00:03Z), the
-> 2026-09-20 branch, folded at its DUE under the docs-only bot-authored class (the door read
-> SETTLED-NO-REVIEW: Copilot never reviewed the tip, Codex is out of credit); the live branch is
-> `coordination/2026-09-21-efb294`, DUE 2026-09-22 00:00Z. _moved for teachers:_ nothing. _moved for the
-> Practice:_ the memory-file pass — every large memory file says where its current state is, with
-> its narrative whole in a dated archive. The fold before it, #156 (SHA:44729c98c, 2026-09-20
-> 12:44Z), carried the twelve directive-bound graduations and the graduate-then-archive lifecycle.
+> §2026-09-12 FOLD LANDED.** The last fold is #169 (SHA:72cab5667, 2026-09-21 09:09Z), the
+> 2026-09-21 branch, folded at the owner's word under the docs-only bot-authored class (the door
+> read SETTLED-NO-REVIEW again: both legs timed out); the live branch is
+> `coordination/2026-09-21-72cab5`, DUE 2026-09-22 00:00Z. _moved for teachers:_ nothing. _moved
+> for the Practice:_ the consolidation's close and the citation line are on engraph. The folds
+> before it: #159 (SHA:efb2942e9, 2026-09-21 00:03Z), the memory-file pass — every large memory
+> file says where its current state is, with its narrative whole in a dated archive; #156
+> (SHA:44729c98c, 2026-09-20 12:44Z), the twelve directive-bound graduations and the
+> graduate-then-archive lifecycle.
 
 ---
 
@@ -317,7 +319,7 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 >
 > **Seats.** No Director is seated. From 2026-09-20 20:36Z the estate runs at n = 1: Zephyr guards
 > Leeward (the dedicated consolidation; its curator claim moves with each fold and is read from
-> the claims registry, on `coordination/2026-09-21-efb294` from 2026-09-21 00:0xZ). Dynamo turns
+> the claims registry, on `coordination/2026-09-21-72cab5` from 2026-09-21 09:09Z). Dynamo turns
 > Temper (`2a4c8a`, the owner-approved Oak integration lane) closed out at 20:36Z with the lane
 > complete — Oak `main` `d9138c8b9` (1.185.0) an ancestor of `engraph`, #160–#168 landed — and
 > handed its remaining responsibilities to the curator (five items, absorbed; recorded in the
@@ -325,7 +327,7 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:** the folds #137, #148, #150, #152, #153, #155, #156
-> and #159 (`efb2942e9`, 2026-09-21 00:03Z; successor `coordination/2026-09-21-efb294`) and the
+> #159 and #169 (`72cab5667`, 2026-09-21 09:09Z; successor `coordination/2026-09-21-72cab5`) and the
 > lanes #139, #143–#147, #149, #157, #158 and #160–#168. Each is in the estate-coordination record's
 > journal by merge commit, and in git; the list as it stood is in
 > `archive/director-handoff-2026-09-20.md`.

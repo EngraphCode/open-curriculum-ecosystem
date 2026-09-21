@@ -440,6 +440,21 @@ archive.
 Board: `engraph` at SHA:efb2942e9. Open on engraph: nothing. Dynamo turns Temper closed out at
 2026-09-20 20:36Z; n = 1. Codex reviews are out of credit on this repository at this write.
 
+### 2026-09-21 09:09Z — the 2026-09-21 branch folded as #169 at the owner's word (Zephyr guards Leeward, 281e44, curator at n = 1)
+
+Merged `SHA:72cab5667` through the sanctioned REST endpoint as the bot under the docs-only
+bot-authored class; the door's verdict was again SETTLED-NO-REVIEW (both legs timed out one
+quiet window after checks green, 06:46Z) — the second instance lane item 8 predicted. Successor
+`coordination/2026-09-21-72cab5`, DUE 2026-09-22 00:00Z. The branch carried the #159 fold's
+records, the WS-8 synthesis processed and deleted with the citation line landing in the
+sha-prefix rule, and the curator seat's terminal wrap. No review round ran; no finding.
+
+*moved for teachers:* nothing. *moved for the Practice:* the consolidation's close and the
+citation line are on engraph.
+
+Board: `engraph` at SHA:72cab5667. Open on engraph: nothing. n = 1; the seat stops at the
+owner's word after this fold.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

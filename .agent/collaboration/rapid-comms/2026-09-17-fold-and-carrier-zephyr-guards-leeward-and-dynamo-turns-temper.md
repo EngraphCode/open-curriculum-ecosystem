@@ -751,3 +751,9 @@ One commit through the ceremony, then one push. The synthesis's findings are all
 One commit through the ceremony (the napkin wrap block with the passes and the metaloss scan, the trued #159 ledger row, the estate record's lane item 8, the formation letter), then one push, then the closeout broadcast; the seat ends there at the owner's word.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-21T09:09:35Z — the 2026-09-21 branch folded as #169 (`72cab5667`); successor `coordination/2026-09-21-72cab5`
+
+At the owner's word. The door read SETTLED-NO-REVIEW again (both legs timed out at 06:46Z); landed through the sanctioned REST endpoint as the bot under the docs-only bot-authored class — the second instance lane item 8 predicted. Gate run starts NOW on the primary for the fold's records (one commit, one push), then the seat stops.
+
+— Zephyr guards Leeward (281e44)
