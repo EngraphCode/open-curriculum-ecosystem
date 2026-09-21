@@ -61,13 +61,20 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
   /\bxox[abpr]-[A-Za-z0-9-]{10,}/,
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
   /\bAKIA[0-9A-Z]{16}\b/,
-  // A labelled generic credential: the label at the start of a line (indented
-  // or as a list item), optionally quoted, spaced or joined (`API key`,
-  // `api_key`, `apiKey`), then `:` or `=` and a non-empty value — the
-  // YAML-key and assignment shapes. Prose that mentions a label without
+  // A labelled generic credential: the label at the start of a line after any
+  // Markdown furniture (a list marker, a heading mark, a quote mark, bold or
+  // code marks), optionally quoted, spaced or joined (`API key`, `api_key`,
+  // `apiKey`), then `:` or `=` and a non-empty value — the YAML-key,
+  // assignment and bold-label shapes. Prose that mentions a label without
   // binding a value (`password managers`, `the token budget`) passes.
-  /^\s*(?:-\s+)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?\s*[:=]\s*\S+/i,
-  /^\s*(?:-\s+)?["']?authorization["']?\s*[:=]\s*["']?bearer\s+\S+/i,
+  /^\s*(?:[-*>#]\s*|\*\*|__|`)*["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*[:=]\s*(?:\*\*|__|`)?\s*[^\s*_`]/i,
+  /^\s*(?:[-*>#]\s*|\*\*|__|`)*["']?authorization["']?(?:\*\*|__|`)?\s*[:=]\s*["'`]?bearer\s+\S+/i,
+  // A table row binding a label to one token (`| Password | hunter2 |`); a
+  // header cell followed by prose (`| Password | Where it lives |`) passes.
+  /^\s*\|\s*(?:\*\*|__|`)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token)["']?(?:\*\*|__|`)?\s*\|\s*(?:\*\*|__|`)?[^\s|*_`]+(?:\*\*|__|`)?\s*\|/i,
+  // An environment-variable credential name bound to a value:
+  // `AWS_SECRET_ACCESS_KEY=…`, `export GITHUB_TOKEN=…`, `NPM_TOKEN: …`.
+  /^\s*(?:[-*>#]\s*|\*\*|__|`)*(?:export\s+)?[A-Z][A-Z0-9_]*(?:SECRET|TOKEN|PASSWORD|PASSWD|API_KEY|APIKEY|PRIVATE_KEY|ACCESS_KEY)[A-Z0-9_]*(?:\*\*|__|`)?\s*[:=]\s*(?:\*\*|__|`)?\s*[^\s*_`]/,
 ];
 
 /**
@@ -77,7 +84,7 @@ const CREDENTIAL_LIKE_PATTERNS: readonly RegExp[] = [
  * non-blank line as its value when that line is a value and nothing else.
  */
 const LABEL_ONLY_LINE =
-  /^\s*(?:-\s+)?["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token|authorization)["']?\s*[:=]\s*$/i;
+  /^\s*(?:[-*>#]\s*|\*\*|__|`)*["']?(?:password|passwd|secret|api[ _-]?key|token|access[ _-]?token|auth[ _-]?token|authorization)["']?(?:\*\*|__|`)?\s*[:=]\s*(?:\*\*|__|`)?\s*$/i;
 
 /**
  * A line that is a value and nothing else: one token, optionally quoted, or

@@ -202,6 +202,33 @@ describe('findCredentialLikeLines', () => {
     expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 6]);
   });
 
+  it('flags Markdown-formatted labels, table rows and environment-variable names bound to values', () => {
+    const content = [
+      '**Password:** hunter2',
+      '| Password | hunter2 |',
+      '- **API key**: correct-horse-battery-staple',
+      '`token`: abc',
+      'AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI',
+      'export GITHUB_TOKEN="abc"',
+      'NPM_TOKEN: abc',
+      '## Secret: abc',
+      'clean line',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it('passes table headers, bold labels without values and environment-variable names alone', () => {
+    const content = [
+      '| Password | Where it lives |',
+      '| --- | --- |',
+      '**Password:**',
+      'the keychain',
+      'AWS_SECRET_ACCESS_KEY is set by the launcher',
+      'GITHUB_TOKEN=',
+    ].join('\n');
+    expect(findCredentialLikeLines(content)).toEqual([]);
+  });
+
   it('passes a bare label with no line after it to bind', () => {
     expect(findCredentialLikeLines('notes\nPassword:\n\n')).toEqual([]);
   });
