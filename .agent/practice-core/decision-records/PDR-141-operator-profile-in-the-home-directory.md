@@ -86,7 +86,8 @@ scopes by repository identity instead.
    (decision 10).
 3. **The scope key** is the repository's identity, never its path: the
    `origin` remote's owner and repository name, lowercased, joined with
-   `--` (for this line, `engraphcode--open-curriculum-ecosystem`). A fork
+   `--` (`<owner>--<repository>`; a host's own key is a fact of that host,
+   never named in this record). A fork
    and its upstream therefore hold separate scope files, which is correct:
    the facts differ by line. A repository with no `origin` remote has no
    scope file until it has one; readers proceed on the shared index.
@@ -182,7 +183,7 @@ between machines, provided the estate stays machine-agnostic.
     The Practice reads the repository and validates it; it never
     initialises it. Decision 14 names the two sync moments at which it
     changes the repository: a fetch and fast-forward (or plain merge) at
-    session open, and, after a write the operator has ratified, a commit and
+    session open, and, after any write made on the operator's word, a commit and
     push of that write, each with the staging and the reads that serve it. Its check
     refuses a document
     carrying a credential-shaped line before anything is read into a
@@ -220,7 +221,7 @@ applies only to a root that is a git repository with a remote.
     across a session boundary. Never force, never rewrite history, never
     stage by wildcard. Decision 11 says the same from its side: initialising
     stays the operator's act; the session-open fetch and merge, and the
-    commit and push of the operator's own ratified writes, are the
+    commit and push of every write made on the operator's word, are the
     Practice's, with the supporting reads and staging those moments need;
     the prohibitions are the ones named here and in decision 11.
 15. **Conflicts resolve by union.** One author, pull-before-write and
@@ -290,7 +291,11 @@ repository line, a machine), each typed by the contract, versioned in a
 repository the operator alone controls, and read by every Practice the
 operator runs. Later amendments test against it: anything that would move
 the canonical copy out of the operator's control, or that would let a
-Practice write it, breaks the sovereignty the surface exists to give.
+Practice write it on anything but the operator's word, breaks the
+sovereignty the surface exists to give (decisions 11 and 14 pass that test:
+the operator initialises the repository and every write is made on the
+operator's word; the Practice syncs under the operator's own identity and
+never rewrites).
 
 ## Provenance
 
