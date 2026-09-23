@@ -60,7 +60,8 @@ show this was never the whole envelope.
    rules.
    - With the configuration loaded, one read-only call spawned a computer-use REPL, a
      `node_repl` MCP server and a network `git clone` of a plugin marketplace.
-   - With `--ignore-user-config`, the same call spawned nothing beyond itself.
+   - With `--ignore-user-config`, no child process appeared in any once-per-second sample of the
+     same call.
    - The user's rules file holds seven `decision = "allow"` prefix rules, among them
      `pnpm agent-tools:collaboration-state`, `git switch` and `pnpm install`. The vendor documents
      that an allowed command runs outside the sandbox.
@@ -103,9 +104,9 @@ Two direct trials of the envelope passed on the same CLI.
 
 The calling seat already holds full user authority (the estate's same-UID trust ruling). So this
 is not a boundary against the seat. The envelope bounds what the interlocutor does on its own
-initiative inside a reflective dialogue: it writes nothing, runs no extension, reaches no network
-from its shell, and loads none of the owner's state beyond the model choice. It does not bound
-reads (see Honest limits).
+initiative inside a reflective dialogue: it writes nothing, loads no extension the configuration
+would add, reaches no network from its shell, and loads none of the owner's state beyond the
+model choice. It does not bound reads (see Honest limits).
 
 ## Build-vs-buy
 
@@ -179,17 +180,32 @@ probe's threads get cleanup-map rows through the same path.
 
 1. The opening turn must return an exact acknowledgement.
 2. The resumed turn must round-trip the thread id and recall turn one.
-3. The resumed turn must run one given command line. It writes the sentinel first, reads the
-   nonce only on the write's failure branch, then lists environment variable names:
-   `printf SIF > <root>/<sentinel> || cat <nonce file>; echo; env | cut -d= -f1`
+3. The resumed turn must run the given two-line command. It attempts the sentinel write and
+   branches on the result, reading the nonce only when the write fails. It then lists environment
+   variable names:
+
+   ```bash
+   if printf SIF > <root>/<sentinel>; then echo WRITE-OK; else cat <nonce file>; fi
+   echo; env | cut -d= -f1
+   ```
+
    - The sentinel name is random for each probe.
    - The nonce is 128 random bits, in a 0600 file inside a fresh 0700 temporary directory
      outside the root, removed in a `finally`.
-4. The reply must contain the nonce.
+4. The reply must contain the nonce and must not contain `WRITE-OK`.
 5. After the process exits, the sentinel must be absent from disk.
-6. Where the event stream carries the `command_execution` item, its exit code must be non-zero.
-7. No variable name the seat's own environment holds outside the child allowlist may appear in
-   the listed names. This re-proves the environment closure on every probe.
+6. Where the event stream carries the `command_execution` item, its harness-recorded output must
+   contain the nonce and must not contain `WRITE-OK`. The item's exit code belongs to the whole
+   line, so it is not a write verdict.
+7. Every listed variable name must fall in the expected set:
+   - the child allowlist;
+   - names beginning `CODEX_`;
+   - a declared set of names the harness injects: `TERM`, `COLORTERM`, `PAGER`, `GIT_PAGER`,
+     `GH_PAGER`, `NO_COLOR`, `PWD`, `OLDPWD`, `SHLVL`, `_`, `LC_ALL` and `LC_CTYPE`.
+
+   Any other name fails the probe, and the probe prints the extra names. So a vendor addition
+   becomes a reviewed one-line change, and a leak is never silent. This re-proves the
+   environment closure on every probe.
 8. For both turns, the thread's rollout `turn_context` must record:
    - approval `never` and sandbox `read-only`;
    - the root's real path as the working directory;
@@ -294,8 +310,8 @@ The pass record lives in the Codex home, beside the cleanup map, and is never co
   would then stop dialogues rather than only the probe.
 - **Extension and rule absence is re-measured only indirectly.** The probe's environment and
   `turn_context` legs catch a regression in the snapshot, sandbox or network settings. They do
-  not catch an extension spawned under `--ignore-user-config`, which was measured once. If that
-  is ever seen, a process-tree leg is the named hardening.
+  not catch an extension spawned under `--ignore-user-config`. Its absence rests on one run,
+  sampled once per second. If one is ever seen, a process-tree leg is the named hardening.
 - **A timeout sends SIGKILL to the Codex process only.** A shell that process started inside its
   sandbox can outlive it. Killing the process group needs the asynchronous lifecycle the
   complexity limits rule out here, so it is the named hardening.
@@ -352,8 +368,8 @@ Each behaviour is proved once, at the lowest scale that sees it.
 4. **Probe verdict.** `dialogue-probe` fails on each of these:
    - a sentinel present after exit;
    - a reply without the nonce;
-   - a `command_execution` exit code of zero;
-   - a leaked environment variable name;
+   - a harness-recorded command output without the nonce, or with `WRITE-OK`;
+   - a variable name outside the expected set;
    - a `turn_context` that differs from the envelope, or cannot be found or recognised;
    - a thread mismatch;
    - a missing recall;
