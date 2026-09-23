@@ -1,12 +1,7 @@
 import { err, type Result } from '@oaknational/result';
 
-import {
-  buildOpenArgv,
-  buildResumeArgv,
-  type ChildEnv,
-  type ModelPins,
-  type ThreadId,
-} from './envelope.js';
+import { buildOpenArgv, buildResumeArgv, type ChildEnv, type ThreadId } from './envelope.js';
+import type { ModelPins } from './model-pins.js';
 import { judgeTurn, type CodexRun, type TurnFailure, type TurnOutcome } from './turn-verdict.js';
 
 /**

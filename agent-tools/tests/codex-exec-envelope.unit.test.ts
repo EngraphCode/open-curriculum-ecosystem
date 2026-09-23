@@ -1,13 +1,14 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
-  parseModelPins,
   parseThreadId,
+  type ChildEnv,
   type ThreadId,
 } from '../src/codex-exec/envelope';
+import { parseModelPins } from '../src/codex-exec/model-pins';
 
 describe('parseThreadId', () => {
   it('accepts a lowercase UUID of any version, the v7 thread ids included', () => {
@@ -57,14 +58,28 @@ describe('parseModelPins', () => {
     expect(result).toStrictEqual({ ok: false, error: { kind: 'unparseable-config' } });
   });
 
+  it('reads the lowest effort, none, as a pin', () => {
+    expect(parseModelPins('model_reasoning_effort = "none"')).toStrictEqual({
+      ok: true,
+      value: { effort: 'none' },
+    });
+  });
+
   it.each([
-    ['a model with a quote', String.raw`model = "gpt\"; rm"`],
-    ['a model starting with a dash', 'model = "-m"'],
-    ['a model that is not a string', 'model = 6'],
-    ['an effort outside the closed set', 'model_reasoning_effort = "extreme"'],
-    ['an effort that is not a string', 'model_reasoning_effort = true'],
-  ])('fails closed on %s', (_label, text) => {
-    expect(parseModelPins(text)).toStrictEqual({ ok: false, error: { kind: 'invalid-model-pin' } });
+    ['a model with a quote', String.raw`model = "gpt\"; rm"`, 'model'],
+    ['a model starting with a dash', 'model = "-m"', 'model'],
+    ['a model that is not a string', 'model = 6', 'model'],
+    [
+      'an effort outside the closed set',
+      'model_reasoning_effort = "extreme"',
+      'model_reasoning_effort',
+    ],
+    ['an effort that is not a string', 'model_reasoning_effort = true', 'model_reasoning_effort'],
+  ])('fails closed on %s, naming the key', (_label, text, key) => {
+    expect(parseModelPins(text)).toStrictEqual({
+      ok: false,
+      error: { kind: 'invalid-model-pin', key },
+    });
   });
 });
 
@@ -158,5 +173,9 @@ describe('the dialogue call envelope (designed sentinel)', () => {
       PATH: '/usr/bin:/bin:/usr/sbin:/sbin',
       CODEX_HOME: '/codex-home-slot',
     });
+  });
+
+  it('types the child environment so a spawn accepts it as its process environment', () => {
+    expectTypeOf<ChildEnv>().toExtend<NodeJS.ProcessEnv>();
   });
 });

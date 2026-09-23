@@ -5,6 +5,11 @@ import { readTurnEvents } from './parse-events.js';
 import type { CommandExecution, TurnEvents } from './types.js';
 
 /**
+ * Why a run was killed before it exited by itself.
+ */
+type KillReason = 'timeout' | 'signal' | 'overflow';
+
+/**
  * What one `codex` process did, as plain data: the runner maps the process
  * result into this shape, so the verdict never touches a process handle.
  */
@@ -15,11 +20,7 @@ export type CodexRun =
       readonly stdout: string;
       readonly stderr: string;
     }
-  | {
-      readonly kind: 'killed';
-      readonly reason: 'timeout' | 'signal' | 'overflow';
-      readonly stderr: string;
-    }
+  | { readonly kind: 'killed'; readonly reason: KillReason; readonly stderr: string }
   | { readonly kind: 'unlaunchable'; readonly message: string };
 
 /**
@@ -40,17 +41,14 @@ export interface TurnOutcome {
  */
 export type TurnFailure =
   | { readonly kind: 'unlaunchable'; readonly message: string }
-  | { readonly kind: 'killed'; readonly reason: 'timeout' | 'signal' | 'overflow' }
+  | { readonly kind: 'killed'; readonly reason: KillReason; readonly stderrTail: string }
   | { readonly kind: 'nonzero-exit'; readonly code: number; readonly stderrTail: string }
+  | { readonly kind: 'turn-failed'; readonly code: number; readonly messages: readonly string[] }
   | { readonly kind: 'unparseable-output'; readonly lines: number }
-  | { readonly kind: 'turn-failed'; readonly messages: readonly string[] }
   | { readonly kind: 'no-thread-id' }
+  | { readonly kind: 'multiple-thread-ids'; readonly count: number }
   | { readonly kind: 'invalid-thread-id' }
-  | {
-      readonly kind: 'thread-mismatch';
-      readonly expected: ThreadId | undefined;
-      readonly actual: readonly string[];
-    }
+  | { readonly kind: 'thread-mismatch'; readonly expected: ThreadId; readonly actual: ThreadId }
   | { readonly kind: 'no-agent-message' };
 
 export type TurnVerdict = Result<TurnOutcome, TurnFailure>;
@@ -60,6 +58,10 @@ const STDERR_TAIL_LENGTH = 500;
 /**
  * Judge one run of `codex exec` or `codex exec resume`.
  *
+ * A failed turn's own reason, from its event stream, is reported ahead of a
+ * bare non-zero exit code, because under `--json` the stderr carries almost
+ * nothing.
+ *
  * @param run - What the process did.
  * @param requested - The thread a resumed turn must continue; undefined when opening.
  */
@@ -68,24 +70,21 @@ export function judgeTurn(run: CodexRun, requested: ThreadId | undefined): TurnV
     return err({ kind: 'unlaunchable', message: run.message });
   }
   if (run.kind === 'killed') {
-    return err({ kind: 'killed', reason: run.reason });
+    return err({ kind: 'killed', reason: run.reason, stderrTail: tail(run.stderr) });
+  }
+  const events = readTurnEvents(run.stdout.split('\n'));
+  if (events.failures.length > 0) {
+    return err({ kind: 'turn-failed', code: run.code, messages: events.failures });
   }
   if (run.code !== 0) {
-    return err({
-      kind: 'nonzero-exit',
-      code: run.code,
-      stderrTail: run.stderr.slice(-STDERR_TAIL_LENGTH),
-    });
+    return err({ kind: 'nonzero-exit', code: run.code, stderrTail: tail(run.stderr) });
   }
-  return judgeEvents(readTurnEvents(run.stdout.split('\n')), requested);
+  return judgeEvents(events, requested);
 }
 
 function judgeEvents(events: TurnEvents, requested: ThreadId | undefined): TurnVerdict {
   if (events.unparseableLines > 0) {
     return err({ kind: 'unparseable-output', lines: events.unparseableLines });
-  }
-  if (events.failures.length > 0) {
-    return err({ kind: 'turn-failed', messages: events.failures });
   }
   const thread = judgeThread(events.threadIds, requested);
   if (!thread.ok) {
@@ -104,21 +103,30 @@ function judgeEvents(events: TurnEvents, requested: ThreadId | undefined): TurnV
 }
 
 /**
- * A turn names exactly one thread; a resumed turn names the requested one.
+ * A turn starts exactly one thread, whose id is a UUID; a resumed turn
+ * starts the requested one.
  */
 function judgeThread(
   threadIds: readonly string[],
   requested: ThreadId | undefined,
 ): Result<ThreadId, TurnFailure> {
-  const distinct = [...new Set(threadIds)];
-  const [only] = distinct;
+  const only = threadIds.at(0);
   if (only === undefined) {
     return err({ kind: 'no-thread-id' });
   }
-  const mismatched = distinct.length > 1 || (requested !== undefined && only !== requested);
-  if (mismatched) {
-    return err({ kind: 'thread-mismatch', expected: requested, actual: distinct });
+  if (threadIds.length > 1) {
+    return err({ kind: 'multiple-thread-ids', count: threadIds.length });
   }
   const parsed = parseThreadId(only);
-  return parsed.ok ? ok(parsed.value) : err({ kind: 'invalid-thread-id' });
+  if (!parsed.ok) {
+    return err({ kind: 'invalid-thread-id' });
+  }
+  if (requested !== undefined && parsed.value !== requested) {
+    return err({ kind: 'thread-mismatch', expected: requested, actual: parsed.value });
+  }
+  return ok(parsed.value);
+}
+
+function tail(text: string): string {
+  return text.slice(-STDERR_TAIL_LENGTH);
 }

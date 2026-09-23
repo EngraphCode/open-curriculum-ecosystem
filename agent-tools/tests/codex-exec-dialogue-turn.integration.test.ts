@@ -112,6 +112,9 @@ describe('executeTurn', () => {
   it('returns the verdict of a run that failed', () => {
     const ports = portsReturning({ kind: 'killed', reason: 'timeout', stderr: '' });
     const verdict = executeTurn(opening, context, ports);
-    expect(verdict).toStrictEqual({ ok: false, error: { kind: 'killed', reason: 'timeout' } });
+    expect(verdict).toStrictEqual({
+      ok: false,
+      error: { kind: 'killed', reason: 'timeout', stderrTail: '' },
+    });
   });
 });

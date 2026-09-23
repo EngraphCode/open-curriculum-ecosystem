@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { parseThreadId, type ThreadId } from '../src/codex-exec/envelope';
-import { judgeTurn, type CodexRun } from '../src/codex-exec/turn-verdict';
+import { judgeTurn, type CodexRun, type TurnFailure } from '../src/codex-exec/turn-verdict';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 const OTHER_THREAD = '01a0cfc3-0f0d-7980-bded-63fabd607a2f';
@@ -62,7 +62,7 @@ describe('judgeTurn', () => {
     });
   });
 
-  it.each<[string, CodexRun, ThreadId | undefined, object]>([
+  it.each<[string, CodexRun, ThreadId | undefined, TurnFailure]>([
     [
       'a Codex that could not be launched',
       { kind: 'unlaunchable', message: 'ENOENT' },
@@ -71,9 +71,9 @@ describe('judgeTurn', () => {
     ],
     [
       'a run killed at its timeout',
-      { kind: 'killed', reason: 'timeout', stderr: '' },
+      { kind: 'killed', reason: 'timeout', stderr: 'partial' },
       undefined,
-      { kind: 'killed', reason: 'timeout' },
+      { kind: 'killed', reason: 'timeout', stderrTail: 'partial' },
     ],
     [
       'a non-zero exit',
@@ -91,7 +91,18 @@ describe('judgeTurn', () => {
       'a failed turn',
       exited(jsonl(started(THREAD), { type: 'turn.failed', error: { message: 'quota' } })),
       undefined,
-      { kind: 'turn-failed', messages: ['quota'] },
+      { kind: 'turn-failed', code: 0, messages: ['quota'] },
+    ],
+    [
+      'a failed turn that also exits non-zero, keeping the reason from its event stream',
+      {
+        kind: 'exited',
+        code: 1,
+        stdout: jsonl(started(THREAD), { type: 'turn.failed', error: { message: 'quota' } }),
+        stderr: 'Reading additional input from stdin...\n',
+      },
+      undefined,
+      { kind: 'turn-failed', code: 1, messages: ['quota'] },
     ],
     ['no thread id', exited(jsonl(message('ACK'))), undefined, { kind: 'no-thread-id' }],
     [
@@ -104,13 +115,25 @@ describe('judgeTurn', () => {
       'a resumed turn on another thread',
       exited(jsonl(started(OTHER_THREAD), message('ACK'))),
       threadId(THREAD),
-      { kind: 'thread-mismatch', expected: THREAD, actual: [OTHER_THREAD] },
+      { kind: 'thread-mismatch', expected: threadId(THREAD), actual: threadId(OTHER_THREAD) },
+    ],
+    [
+      'a resumed turn whose thread id is not a UUID, judged before any comparison',
+      exited(jsonl(started('--x'), message('ACK'))),
+      threadId(THREAD),
+      { kind: 'invalid-thread-id' },
     ],
     [
       'two thread ids in one turn',
       exited(jsonl(started(THREAD), started(OTHER_THREAD), message('ACK'))),
       undefined,
-      { kind: 'thread-mismatch', expected: undefined, actual: [THREAD, OTHER_THREAD] },
+      { kind: 'multiple-thread-ids', count: 2 },
+    ],
+    [
+      'the same thread id started twice in one turn',
+      exited(jsonl(started(THREAD), started(THREAD), message('ACK'))),
+      undefined,
+      { kind: 'multiple-thread-ids', count: 2 },
     ],
     [
       'no agent message',

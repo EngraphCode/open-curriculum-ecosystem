@@ -132,6 +132,10 @@ function foldEvent(lists: TurnEventLists, event: CodexExecEvent): void {
       return;
     case 'other':
       return;
+    default: {
+      const unhandled: never = event;
+      return unhandled;
+    }
   }
 }
 
