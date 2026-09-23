@@ -61,8 +61,9 @@ estate moves into the lineage's repository; an installable package is extracted,
 estate contributes and to which every estate adapts its local Practice; and whether that
 repository is later split is reviewed then.
 
-Within the alignment, the ORDER is the bet. Text travels by bytes and is judged AS it travels,
-in the one full read each merged file already gets: waiting has a measured, compounding price,
+Within the alignment, the ORDER is the bet. Text travels by bytes where they carry the concept
+(PDR-142) and is judged AS it travels, in the one full read each merged file already gets:
+waiting has a measured, compounding price,
 and so does spreading what does not pay. The section both seats wrote twice goes first. The
 owner's rulings reach every estate, so the standards that waiting files name are raised now, in
 the estate that lacks them, the expensive ones included: judge first, then build. Offers are

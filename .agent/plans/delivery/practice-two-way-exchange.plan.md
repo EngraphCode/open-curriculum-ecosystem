@@ -47,9 +47,18 @@ entries composed whole and appended in one write.
 
 ## Acceptance criteria
 
-- Each ratified exchange text is on `engraph`, or it is named in the second estate's record
-  as not taken, with its reason. Proof (repo-safe): the merged pull request, and for bytes, a
-  `git hash-object` match with the second estate's blob, recorded in the pull request body.
+Each text the owner ratifies in the exchange ends in exactly one of three outcomes. Every proof
+is `owner-held`, because the second estate's copy lies outside this repository:
+
+- **Taken by bytes.** This estate's file is byte-identical to the second estate's. Proof
+  (owner-held): the landing seat records both `git hash-object` results in the landing pull
+  request's body, and the second estate's seat confirms the same hash in its own landing.
+- **Written in this estate's words.** The landing pull request names the part of this estate's
+  context that the second estate's bytes did not fit (PDR-142's third reason). Proof
+  (owner-held): that pull request's body, read by the second estate's seat before it signs.
+- **Not taken.** The reason is recorded in this estate's changelog entry or continuity record,
+  and sent to the second estate's seat. Proof (owner-held): the second estate's seat
+  acknowledges it in the exchange channel.
 
 ## Out of scope
 
