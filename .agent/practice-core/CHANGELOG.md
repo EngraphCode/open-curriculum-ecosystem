@@ -4,6 +4,15 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-141: the record says when and by whose word its writes widened
+
+- PDR-141 gains the amendment section its 2026-09-23 cure lacked: decisions
+  11 and 14 push every write made on the operator's word, not only ratified
+  writes; the sovereignty test says the same; decision 3's example scope key
+  is the general form. The section names the owner's card in each estate.
+  The second estate's review found the gap; both estates carry the section
+  in the same words. The decision-record index marks PDR-141's amendments.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142: the best of each Practice
 
 - PDR-142 (Accepted, owner-ratified 2026-09-21 by card; the owner confirmed
