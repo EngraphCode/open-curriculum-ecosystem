@@ -61,8 +61,9 @@ estate moves into the lineage's repository; an installable package is extracted,
 estate contributes and to which every estate adapts its local Practice; and whether that
 repository is later split is reviewed then.
 
-Within the alignment, the ORDER is the bet. Text travels by bytes and is judged AS it travels,
-in the one full read each merged file already gets: waiting has a measured, compounding price,
+Within the alignment, the ORDER is the bet. Text travels by bytes where they carry the concept
+(PDR-142) and is judged AS it travels, in the one full read each merged file already gets:
+waiting has a measured, compounding price,
 and so does spreading what does not pay. The section both seats wrote twice goes first. The
 owner's rulings reach every estate, so the standards that waiting files name are raised now, in
 the estate that lacks them, the expensive ones included: judge first, then build. Offers are
@@ -95,7 +96,4 @@ method that is not converging goes to the owner with its numbers; the seats do n
 ## Delivery
 
 Delivery plans serving this node declare `serves` and are found by search, never by a kept
-list. Numbers live in state lines and pull requests, never here. The seats keep in touch by a
-state line at every landing, every block, and every thirty minutes of work on this plan; a
-native message for anything another seat must act on; channel entries composed whole and
-appended in one write.
+list. Numbers live in state lines and pull requests, never here.
