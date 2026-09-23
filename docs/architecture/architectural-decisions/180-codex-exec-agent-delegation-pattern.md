@@ -7,6 +7,11 @@
 additional composition boundaries: the Codex SDK, the `codex mcp-server`
 command with its experimental protocol, and experimental App Server. The
 preference for `codex exec` as the smallest scripted boundary remains.
+**Amended**: 2026-09-23 — the Codex CLI removed `codex mcp-server`; the vendor names App
+Server as the migration target for integrations built on it. The topic gains the Codex
+dialogues' call binding, a single-consumer surface with a fixed authority envelope (§6).
+Its evidence is §2.8 of the dated
+[research note](../../../.agent/research/agentic-engineering/codex-support-concept-exploration-2026-09-23.md).
 **Related**:
 [ADR-125](125-agent-artefact-portability.md) — agent artefact portability;
 the `codex-helper` skill and its adapters follow ADR-125 conventions;
@@ -63,11 +68,10 @@ tested TypeScript inside `agent-tools`.
 ### 1. `codex exec` is the preferred invocation surface for scripted delegation
 
 For programmatic delegation from Claude Code or shell scripts, use `codex exec`
-rather than adding a richer protocol by default. Use `codex mcp-server` only
-when an MCP/Agents SDK orchestrator should own specialist selection and
-continuation and its experimental protocol is an intentional dependency; use
-the SDK when an application needs richer thread control; use App Server only
-when its experimental protocol is an intentional dependency.
+rather than adding a richer protocol by default. Use the SDK when an
+application needs richer thread control; use App Server only when its
+experimental protocol is an intentional dependency. (2026-09-23: `codex
+mcp-server`, once listed here as a third choice, no longer exists in the CLI.)
 
 ### 2. A minimal `codex-exec` CLI topic in agent-tools ships now; richer surface deferred
 
@@ -114,6 +118,32 @@ asymmetric by design: each platform's strengths compensate for the other's
 blind spots. This ADR endorses the pattern; the `codex-helper` skill provides
 the templates.
 
+### 6. The dialogue instrument's call envelope is fixed in code
+
+The Codex dialogues call Codex as a read-only interlocutor through two subcommands
+of this topic, `dialogue-turn` and `dialogue-probe`. The outcome the binding must
+reach:
+
+- **The interlocutor reads and reasons, and does nothing else on its own
+  initiative.** It writes nothing and reaches no network from its shell. It loads
+  no extension, rule, memory or shell environment of the owner's, and it takes the
+  owner's model choice and nothing else from the owner's configuration.
+- **Authority is fixed where it is enforced.** The call's argv and environment
+  come from one module that no caller argument can alter. A change to either is
+  a change to this decision, and it is re-adjudicated here before the module's
+  designed-sentinel tests change.
+- **The read-only sandbox is not the whole envelope.** The user configuration,
+  exec-policy rules, the shell snapshot and memories each reach past it, so the
+  envelope closes each one, and the instrument runs in homes of its own.
+- **Evidence follows the runtime.** A dialogue opens only on a Codex executable
+  this machine has probed with the current envelope. No version is pinned in the
+  repository.
+- **Reads are not bounded.** Anything the owner's account can read can reach the
+  vendor. The packet a seat composes is the minimisation rule.
+
+This binding is not the deferred `run` subcommand of §2: it has one consumer and
+passes no flag through, so the deep-dive plan's promotion trigger is not met.
+
 ## Consequences
 
 **Positive:**
@@ -148,8 +178,8 @@ the templates.
 **Use only the legacy/external MCP wrapper (`mcp__codex__codex`)**: rejected
 for local scripted delegation because that wrapper integration provides no
 streaming, timeout control, or cross-platform abstraction for JSONL
-extraction. Native `codex mcp-server` remains a supported choice when an MCP
-orchestrator intentionally owns delegation and continuation.
+extraction. (2026-09-23: native `codex mcp-server`, once named here as a
+supported choice for MCP orchestrators, was removed from the CLI.)
 
 **Raw shell with `jq` and `timeout`**: rejected because `timeout` is absent
 on macOS, `jq` field paths are fragile against API evolution, and shell logic
