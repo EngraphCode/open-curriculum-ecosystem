@@ -6,7 +6,9 @@ pdr_kind: governance
 
 **Status**: Accepted (owner-ratified 2026-09-21, in-session, by card: "Ratify
 both texts"; the definition below and its plan were authored jointly by the
-two exchange seats and signed by both before the card)
+two exchange seats and signed by both before the card). Amended 2026-09-23 on
+the owner's word that concept transfer is the goal and identical bytes only a
+means (the Decision's clause on concepts and bytes; the Amendment Log)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
@@ -104,9 +106,11 @@ the owner's word. What is removed is removed in every estate that carries it.
 
 ### How each kind travels
 
-- **Core decision records:** bytes, identical, naming no host.
+- **Core decision records:** bytes, identical, naming no host (read through "Concepts travel"
+  below).
 - **Text the estates held at the copy point:** the donor's BYTES, by three-way merge from that
-  point. One side moved: the evolved text is the candidate, never the verdict; newer is not
+  point, where they carry the concept (read through "Concepts travel" below). One side moved:
+  the evolved text is the candidate, never the verdict; newer is not
   better. Both moved: joint judgement, file by file. The receiver never re-authors it (one
   instance: twins of one section, written separately, multiplied the conflict hunks between two
   estates within a day). The receiver's full read of each merged file asks two questions in one
@@ -133,7 +137,30 @@ owner confirms it in that seat's own session.
 **Arrived** means: for text, the instances merge clean and read true in each estate; for a
 standard, where an observation exists, each estate passes it; for a capability, its
 demonstration runs in the estate that adopted it; for a removal, it has been carried out.
-Landed is not arrived.
+Landed is not arrived. (For text, read through "Concepts travel" below: what must hold in each
+estate is the concept; a clean merge is its evidence where bytes are the means.)
+
+### Concepts travel; bytes where they carry the concept (amended 2026-09-23)
+
+The owner, 2026-09-23, verbatim: "the shared concepts are the thing it is important to share,
+if that happens to be by exact bytes that is fine... the tension is my poor wording, byte for
+byte transfer is never the goal, concept transfer is, but where byte for byte transfer achieves
+concept transfer (and whether it does or not depends on the rest of the Practice context in that
+repo) then there is no problem".
+
+What travels is the concept. Identical bytes are a means, never the goal. They are the right
+means wherever the receiving estate's Practice context makes them carry the concept, and whether
+they do is judged in that context, in the one full read each merged file already gets. Where
+they do, the receiver takes the donor's bytes unchanged, because separately written twins of
+one text multiply merge conflicts (the instance above). Where they do not, the reason is one of
+three, in this order: the receiver lacks a standard the text assumes, which is raised in the
+receiver; the text carries a fact of the donor's own repository, which is cured at its source;
+or the receiver's context differs in a way neither of those would remove, and only then the
+receiver does not take the bytes and writes the concept in its own context, naming in the
+landing which part of that context the donor's bytes did not fit. The rules above that say
+"bytes" read through this clause: a Core record stays byte-identical wherever its Practice-wide
+text carries its concept in every estate, which is the normal case; the donor's bytes are the
+default for shared text, never its test.
 
 ### What this adds, and what it does not
 
@@ -176,3 +203,23 @@ seats' own model family and one from another vendor's model (Whippoorwill
 holds Frost, 1e8a53), five versions, both signatures. Numbering allotted
 from the lineage estate, where PDR numbers are canonical; taken before the
 third estate's colliding records renumber above 141.
+
+## Amendment Log
+
+### 2026-09-23 — concepts travel; bytes where they carry the concept
+
+**Context.** The review that landed this record in the second estate found its rule that shared
+text travels as the donor's bytes in conflict with PDR-125 clause 7, which says concepts
+travel, never bytes, and normalises format on receipt. A seat could not follow both. Asked by
+card which record governs, the owner answered with the words the new clause quotes; asked
+whether both records should be amended, the owner answered "Amend both (Recommended)".
+
+**Decision.** The clause "Concepts travel; bytes where they carry the concept" in the Decision,
+and one-line pointers to it in the three places whose unqualified "bytes" would otherwise
+contradict it (Core decision records; text held at the copy point; Arrived). PDR-125 clause 7
+is amended in the same window, in both estates.
+
+**Falsifier.** A receiver writes a shared text in its own words under the third reason, naming
+the context difference, and a later fold's dry-run merge shows conflict hunks rising on that
+file, or the concept stops reading true in either estate. One such instance reopens this clause
+with the owner, and this log says so.
