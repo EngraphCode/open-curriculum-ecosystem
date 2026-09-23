@@ -53,6 +53,84 @@ For a latest-release-sensitive App Server client, OpenAI documents
 matches the CLI version that generated it. That offers a candidate way to inspect protocol drift
 at the point of use, but schema compatibility alone would not prove dialogue semantics.
 
+## Follow-up: four `codex exec` envelope questions (2026-09-23)
+
+Blazar lifts Corona observed one `codex exec` run per arm on CLI 0.156.1. With the user's
+configuration loaded, the read-only, approval-`never` invocation started `node_repl`, `cua-repl`,
+a SkyComputerUse client, and a plugin-marketplace `git clone`; with `--ignore-user-config`, it
+started no child processes in that run. Both arms returned the requested `ACK-1`. This is a
+bounded observation, not a documented contract or proof of the cause of each child process.
+The questions below answer what the official documentation actually promises.
+
+### (a) What does `--ignore-user-config` drop?
+
+**Documented:** It prevents loading `$CODEX_HOME/config.toml`; authentication still uses
+`CODEX_HOME`. `--ignore-rules` is a separate flag for user and project execution-policy `.rules`
+files ([non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode#permissions-and-safety),
+[CLI reference](https://learn.chatgpt.com/docs/developer-commands#codex-exec)). The documented
+[configuration order](https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence)
+has project, profile, cloud-managed, system, and built-in layers besides the user file.
+
+| Surface asked about | Answer from the documentation |
+| --- | --- |
+| `~/.codex/AGENTS.md` | **Not documented as dropped.** Global `AGENTS.md` and `AGENTS.override.md` have their own instruction-discovery path ([AGENTS.md guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md)). |
+| Hooks | Inline hooks defined only in the skipped user `config.toml` lose that source **by inference**. Hooks also live in `~/.codex/hooks.json`, project files, and enabled plugins; the flag is **not documented as disabling those** ([hooks](https://learn.chatgpt.com/docs/hooks#where-codex-looks-for-hooks)). |
+| Plugins and marketplace sync | User-file marketplace/plugin entries lose that config source **by inference**, but marketplaces may be defined by system, cloud-managed, or trusted-project config. Plugin refresh may install or refresh even a configured disabled plugin. A blanket suppression of installed plugins or startup sync is **not documented** ([config basics](https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence), [config reference](https://learn.chatgpt.com/docs/config-file/config-reference)). |
+| MCP servers | Direct MCP registrations in the skipped user file lose that source **by inference**. Trusted-project config and enabled plugins can also supply servers, so disabling all MCP is **not documented** ([MCP](https://learn.chatgpt.com/docs/extend/mcp#connect-codex-to-an-mcp-server), [plugin-provided MCP](https://learn.chatgpt.com/docs/extend/mcp#plugin-provided-mcp-servers)). |
+| `notify` | A `notify` value defined only in the skipped user file loses that source **by inference**. Whether a value from another active layer remains is governed by config precedence; the flag is **not documented as a general notification switch** ([advanced config](https://learn.chatgpt.com/docs/config-file/config-advanced#notifications), [config basics](https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence)). |
+
+### (b) Do shell sandbox and approval `never` bind MCP and plugin calls?
+
+**No blanket guarantee is documented.** OpenAI describes `sandbox_mode` as the technical
+boundary for *model-generated commands* and `approval_policy` as when the agent asks before an
+action. App and MCP tools have their own approval behaviour; a destructive annotation can require
+approval even without a shell command or file edit
+([agent approvals and security](https://learn.chatgpt.com/docs/agent-approvals-security#sandbox-and-approvals),
+[MCP tool approval settings](https://learn.chatgpt.com/docs/config-file/config-reference)).
+The [command network proxy boundary](https://learn.chatgpt.com/docs/agent-approvals-security#traffic-outside-the-command-network-proxy)
+explicitly excludes app/connector calls, MCP server connections, browser and Computer Use activity.
+That is a statement about **network filtering**, not proof that every local MCP process or file
+action escapes every OS sandbox. The universal result of `approval_policy="never"` for every MCP
+or plugin tool, and the exact placement of a given plugin's startup processes, are **not
+documented** here. The one-run child-process observation above is evidence for that tested setup
+only; it does not establish a general shell-only sandbox model.
+
+### (c) What settings apply to `codex exec resume <id>`?
+
+**Not documented for the exact effective working directory, sandbox, or approval policy.** The
+[non-interactive guide](https://learn.chatgpt.com/docs/non-interactive-mode#resume-a-non-interactive-session)
+documents selecting a session by ID, while the
+[CLI reference](https://learn.chatgpt.com/docs/developer-commands#codex-exec) says `--last`
+selects from the current working directory unless `--all` is passed. Neither says whether an
+explicit-ID resumed turn runs in the resuming process's directory or the recorded directory, or
+whether fresh sandbox/approval values replace recorded thread settings. The installed CLI
+0.156.1 `codex exec resume --help` accepts `-c` and `--ignore-user-config` but does not list
+`-C` or `--sandbox` on that subcommand; this is version-specific help, not a documented
+precedence rule. General [`-c` precedence](https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence)
+does not settle how saved thread state interacts with the resumed turn. Restating the desired
+values with `-c` and observing the resumed turn's effective context is therefore a **proposed
+verification**, not a promised fix.
+
+### (d) Is there one documented `-c` switch for every plugin and MCP server?
+
+**Not documented.** The [config reference](https://learn.chatgpt.com/docs/config-file/config-reference)
+documents per-server `mcp_servers.<id>.enabled=false`, per-plugin
+`plugins.<plugin>.enabled=false`, and per-plugin-server disablement.
+`features.remote_plugin=false` switches off the *remote plugin catalog*, not all plugins.
+`features.plugins` appears in the reference's **administrator requirements** keys, where it
+pins availability for managed users; it is not documented there as an ordinary one-off `-c`
+blanket kill switch. Per-plugin disablement also does not override workspace-managed enabled
+states, and marketplace refresh can still occur while a plugin is disabled. Enumerating known
+servers/plugins may narrow a run, but no documented wildcard `-c` value guarantees that every
+configuration layer and plugin-provided tool is off. `--ignore-user-config` removes only the
+named user file, so it does not supply that guarantee either.
+
+**Conceptual result for the rebind:** `--ignore-user-config` is a supported way to remove one
+important source of ambient behaviour. Treating that single flag, or read-only/approval-`never`,
+as proof of a closed tool environment would cross the documentation's evidence boundary. The
+remaining testable question is which instruction, hook, plugin, MCP, and notification surfaces
+actually load in the intended `exec` and `exec resume` processes on the selected release.
+
 ## Free-play harvest — associations, not findings
 
 The entry material was the merged experiment record alongside the official documentation
@@ -160,8 +238,10 @@ of a documented API.
   contract, including atomic reservation and turn-local authority, or should it remain only a
   role-semantics observation? Is its experimental status proportionate for that job?
 - Which Codex action paths that matter to this repository fall outside `PreToolUse`?
-- What authentication, MCP/plugin access, model and effort defaults change when a bounded
-  `codex exec` invocation ignores user configuration and execution-policy rules?
+- After the documented user-config and rules files are skipped, which authentication,
+  instruction, hook, MCP/plugin, notification, model and effort settings are **actually
+  effective** in the intended `exec` and resumed turns? The four-question follow-up above
+  establishes the documented boundary, not this release-specific inventory.
 
 Primary documentation reviewed: [MCP server removal](https://learn.chatgpt.com/docs/mcp-server),
 [non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode),
