@@ -37,7 +37,13 @@ this estate with no live peer seat; re-twin queued for the next
 exchange window with twin disposition `their-lane-owns-coordinate`;
 per-item dispositions in this estate's Practice-Core changelog. The
 2026-07-08 diff-proof describes that window's landed text, not the
-2026-07-13 or 2026-08-01 amendments.
+2026-07-13 or 2026-08-01 amendments. Amended 2026-09-23 (clause 7's
+receipt sentence, on the owner's word that "byte for byte transfer is
+never the goal, concept transfer is": identical bytes are fine where
+they carry the concept in the receiving repo's context, and a receipt
+is finished when the concept reads true there): twinned in both estates
+in one window by the two exchange seats, with the matching amendment to
+PDR-142, which carries the owner's words in full.
 **Date**: 2026-07-06
 **Related**: PDR-005 (transplantation and provenance), PDR-024
 (vital integration surfaces and outbound routing), PDR-027 (identity
@@ -294,11 +300,14 @@ below serves one of those three.
    host rule families (SHA-required in collaboration content;
    SHA-forbidden in permanent docs) are this one layering rule seen
    from its two sides. **Format-normalise on receipt**: inbound
-   material is normalised to the RECEIVING repo's format — markdown
-   conventions, heading shapes, gate-satisfying style — with the
-   normalisation declared in the integrating commit body; concepts
-   travel, never bytes, and a receipt that preserves foreign
-   formatting verbatim is an integration not yet finished.
+   material is normalised to the RECEIVING repo's format where that
+   repo's conventions or gates differ — markdown conventions, heading
+   shapes, gate-satisfying style — with the normalisation declared in
+   the integrating commit body. Concepts travel; identical bytes are
+   fine wherever they carry the concept in the receiving repo's
+   Practice context, and a receipt is finished when the concept reads
+   true there, whether or not its bytes changed (amended 2026-09-23;
+   the owner's words and their reading are in PDR-142).
    **Corrections are new events**: an exchange artefact or lifecycle
    event is never rewritten in place — a correction is a NEW event (or
    a new box delivery) threading to its antecedent, so both estates'
