@@ -121,7 +121,8 @@ the owner's word. What is removed is removed in every estate that carries it.
   reader who holds the receiver's whole doctrine (one instance: a review bot with the repository
   in view found such files where the merging seat's full read had not). A sentence false in the
   receiver is never edited there. It names something to do: a standard to raise in the receiver,
-  or a repo-local fact to cure at the source. That file waits for it.
+  a repo-local fact to cure at the source, or a contradiction the donor carries too, cured jointly
+  at the source in every estate that carries it. That file waits for it.
 - **Text one estate holds alone:** an offer.
 - **Code:** does not travel by COPY. One contract, held as executable observations each
   implementation must pass; a defect crosses as a failing observation, never a patch; the
@@ -158,9 +159,11 @@ receiver; the text carries a fact of the donor's own repository, which is cured 
 or the receiver's context differs in a way neither of those would remove, and only then the
 receiver does not take the bytes and writes the concept in its own context, naming in the
 landing which part of that context the donor's bytes did not fit. The rules above that say
-"bytes" read through this clause: a Core record stays byte-identical wherever its Practice-wide
-text carries its concept in every estate, which is the normal case; the donor's bytes are the
-default for shared text, never its test.
+"bytes" or "never re-authors" read through this clause, and a rendition written under the third
+reason is made at receipt and named in the landing, never as an edit of a line already merged
+(§Boundaries): a Core record stays byte-identical wherever its Practice-wide text carries its
+concept in every estate, which is the normal case; the donor's bytes are the default for shared
+text, never its test.
 
 ### What this adds, and what it does not
 
@@ -223,3 +226,18 @@ is amended in the same window, in both estates.
 the context difference, and a later fold's dry-run merge shows conflict hunks rising on that
 file, or the concept stops reading true in either estate. One such instance reopens this clause
 with the owner, and this log says so.
+
+### 2026-09-23 — the read-through and a third remedy (the owner's card)
+
+**Context.** The reviews that landed the entry above in both estates found the third reason
+beside two categorical sentences ("The receiver never re-authors it"; "it is never edited where
+it is read"). The same day's joint cures found merged text false in the receiver because the
+donor carried the same contradiction.
+
+**Decision.** The read-through names "never re-authors" and places the third reason's rendition
+at receipt. The merged-text bullet names a third remedy: a contradiction the donor carries too,
+cured jointly at the source.
+
+**Falsifier.** The waiting files of the next folds all resolve as a missing standard in the
+receiver or a donor's repo-local fact. Then the third remedy was not needed, and this log says
+so.

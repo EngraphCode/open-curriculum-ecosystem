@@ -20,6 +20,12 @@ Practice Core package.
   differs from the second estate's in one host line only. PDR-141 needed no
   change here: both estates' copies are now the same. The decision-record
   index marks both amendments, with PDR-125's two earlier ones.
+- The same day, on a second owner card, PDR-142's read-through also names
+  "never re-authors" and places a rendition under the third reason at
+  receipt, never as an edit of a merged line (§Boundaries). Its merged-text
+  bullet names a third remedy: a contradiction the donor carries too, cured
+  jointly at the source in every estate that carries it. A second Amendment
+  Log entry records both, with its falsifier.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142: the best of each Practice
 
