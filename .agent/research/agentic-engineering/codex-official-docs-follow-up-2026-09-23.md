@@ -13,7 +13,7 @@
 
 | Practice job | Documented surface | Meaning for the existing proposals | Limit |
 | --- | --- | --- | --- |
-| One-shot or resumable dialogue | [`codex exec`](https://learn.chatgpt.com/docs/non-interactive-mode), including `exec resume <SESSION_ID>`, JSON events and schema-constrained final output | The merged note's `exec`/`resume` proposal has a documented CLI carrier. Explicit sandbox and approval settings still belong in every invocation. | The documentation does not prove the Sif dialogue contract or authority on a future latest release. |
+| One-shot or resumable dialogue | [`codex exec`](https://learn.chatgpt.com/docs/non-interactive-mode), including `exec resume <SESSION_ID>`, JSON events and schema-constrained final output | The merged note's `exec`/`resume` proposal has a documented CLI carrier. The invocation needs an explicit authority and configuration envelope. | The documentation does not prove the Sif dialogue contract or authority on a future latest release. |
 | Application-controlled automation | [Codex SDK](https://learn.chatgpt.com/docs/codex-sdk) | The TypeScript SDK can start, continue and resume local threads; OpenAI recommends SDK for automation and CI. It deserves a comparison with direct `exec` when the dialogue binding is designed. | A recommendation is not evidence that the SDK is the smallest or safest carrier for this estate. |
 | Custom client with auth, history, approvals and events | [App Server](https://learn.chatgpt.com/docs/app-server) | This is the documented migration target for integrations built on the removed Codex MCP server. It is JSON-RPC, not MCP. | The command and WebSocket transport are experimental and unsupported for production; deeper integration has a higher maintenance cost. |
 | Idle-seat notice | Local `codex queue` experiment in [the merged note](codex-support-concept-exploration-2026-09-23.md#24-codex-queue-starts-a-turn-on-an-idle-interactive-session) | One idle session woke; one active turn queued a later user-role turn; one queued message survived clean exit until explicit resume. | The official pages examined here did not establish a CLI queue contract, cross-machine delivery, crash recovery, or typing priority. Keep those as experimental unknowns. |
@@ -26,7 +26,7 @@ servers**. The break is in presenting Codex itself as an MCP server, which is ex
 dialogues binding that failed in the merged note. The App Server uses its own JSON-RPC protocol;
 renaming the command would not repair an MCP client.
 
-### Two configuration traps to carry into any later probe
+### Three configuration traps to carry into any later probe
 
 1. In [App Server](https://learn.chatgpt.com/docs/app-server), per-turn model, working directory,
    effort and sandbox overrides become defaults for later turns on the thread. The [Python
@@ -39,6 +39,14 @@ renaming the command would not repair an MCP client.
    adopting the latest *SDK release* satisfy that preference, or must the carrier run the
    latest *standalone CLI executable*? The answer is not supplied by either source. It belongs
    in the carrier decision, not in an implicit package choice.
+3. A read-only sandbox and approval `never` do not describe the entire configuration envelope.
+   OpenAI documents [`--ignore-user-config` and `--ignore-rules`](https://learn.chatgpt.com/docs/non-interactive-mode)
+   for controlled `exec` runs. Its [sandbox guide](https://learn.chatgpt.com/docs/sandboxing)
+   says execution-policy rules can allow command prefixes outside the sandbox. Therefore, the
+   merged note's refused write demonstrates that one attempted command under that session's
+   settings; it does not prove that every configured tool or allowed command was read-only.
+   A later probe should record loaded configuration and rules, authentication, model and effort,
+   enabled tool surfaces, and the effective sandbox before calling the carrier bounded.
 
 For a latest-release-sensitive App Server client, OpenAI documents
 [`generate-ts` and `generate-json-schema`](https://learn.chatgpt.com/docs/app-server); each output
@@ -47,8 +55,8 @@ at the point of use, but schema compatibility alone would not prove dialogue sem
 
 ## Free-play harvest — associations, not findings
 
-The entry material was the merged experiment record alongside the five official documentation
-pages above. The time-box was this documentation pass; this note is the capture surface.
+The entry material was the merged experiment record alongside the official documentation
+linked in this note. The time-box was this documentation pass; this note is the capture surface.
 
 - **Kept:** The removed MCP server and the surviving external-MCP client look like a reversal of
   direction. It suggested drawing the direction of every connection before selecting a carrier.
@@ -121,10 +129,11 @@ of safe role, authority, liveness or release behaviour.
    any required action travels through a documented uncovered path; the existing identity hook
    is no proof of command guard coverage.
 5. **Record effective version and authority at every point-of-use probe.** Check the running
-   executable, its generated protocol schema where relevant, thread configuration, and observed
-   denied write. This fits the owner's latest-runtime preference while keeping evidence tied to
-   what actually ran. It fails if a probe's passing result can no longer be attributed to the
-   executable and settings used for the real call.
+   executable, its generated protocol schema where relevant, loaded user configuration and
+   rules, model and effort, enabled tools, thread settings, and observed denied write. This fits
+   the owner's latest-runtime preference while keeping evidence tied to what actually ran. It
+   fails if a probe's passing result can no longer be attributed to the executable and settings
+   used for the real call.
 
 These are candidate investigations. This pass performed no new Codex runtime experiment and
 made no change to the Sif binding, watcher, hooks, or review gates. The next implementation
@@ -140,9 +149,12 @@ of a documented API.
 - Would App Server's tool-output path actually meet the Practice wake and event-authorship
   contract, and is its experimental status proportionate for that job?
 - Which Codex action paths that matter to this repository fall outside `PreToolUse`?
+- What authentication, MCP/plugin access, model and effort defaults change when a bounded
+  `codex exec` invocation ignores user configuration and execution-policy rules?
 
 Primary documentation reviewed: [MCP server removal](https://learn.chatgpt.com/docs/mcp-server),
 [non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode),
+[sandboxing and rules](https://learn.chatgpt.com/docs/sandboxing),
 [Codex SDK](https://learn.chatgpt.com/docs/codex-sdk),
 [App Server](https://learn.chatgpt.com/docs/app-server), and
 [hooks](https://learn.chatgpt.com/docs/hooks).
