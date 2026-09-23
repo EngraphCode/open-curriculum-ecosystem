@@ -3,7 +3,8 @@ import { Readable } from 'node:stream';
 import { describe, expect, it } from 'vitest';
 
 import { runCodexExecCli } from './cli.js';
-import { extractLastAgentMessage, parseCodexExecEvent, readTurnEvents } from './parse-events.js';
+import { parseCodexExecEvent } from './parse-events.js';
+import { extractLastAgentMessage, readTurnEvents } from './turn-events.js';
 
 describe('parseCodexExecEvent', () => {
   it('reads thread.started as the thread id', () => {
@@ -62,10 +63,26 @@ describe('parseCodexExecEvent', () => {
     expect(parseCodexExecEvent(JSON.stringify({ type, usage: {} }))).toStrictEqual(event);
   });
 
-  it.each(['item.started', 'item.updated'])('reads %s as item progress', (type) => {
-    const line = JSON.stringify({ type, item: { type: 'mcp_tool_call', status: 'in_progress' } });
+  it.each(['item.started', 'item.updated'])('reads %s of a known item as item progress', (type) => {
+    const line = JSON.stringify({
+      type,
+      item: { type: 'command_execution', status: 'in_progress' },
+    });
     expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'item-progress' });
   });
+
+  it.each([
+    ['item.started', 'mcp_tool_call'],
+    ['item.updated', 'web_search'],
+    ['item.started', 'file_change'],
+    ['item.started', 'a_future_item'],
+  ])(
+    'reads %s of a %s item as unexpected, so an unfinished call still counts',
+    (type, itemType) => {
+      const line = JSON.stringify({ type, item: { type: itemType, status: 'in_progress' } });
+      expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'unexpected-item', itemType });
+    },
+  );
 
   it.each(['reasoning', 'todo_list', 'error'])(
     'reads a completed %s item as a known item the verdict does not use',
@@ -94,6 +111,7 @@ describe('parseCodexExecEvent', () => {
     ).toBeUndefined();
     expect(parseCodexExecEvent('{"type":"turn.failed"}')).toBeUndefined();
     expect(parseCodexExecEvent('{"type":"item.started"}')).toBeUndefined();
+    expect(parseCodexExecEvent('{"type":"item.started","item":{}}')).toBeUndefined();
     expect(parseCodexExecEvent('{"type":"item.completed","item":{}}')).toBeUndefined();
   });
 
@@ -136,8 +154,9 @@ describe('readTurnEvents', () => {
     });
   });
 
-  it('records unexpected items by their type', () => {
+  it('records each unexpected item type once, in the order first seen', () => {
     const lines = [
+      JSON.stringify({ type: 'item.started', item: { type: 'web_search' } }),
       JSON.stringify({ type: 'item.completed', item: { type: 'web_search' } }),
       JSON.stringify({ type: 'item.completed', item: { type: 'file_change' } }),
     ];

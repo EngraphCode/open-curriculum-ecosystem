@@ -1,7 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { parseThreadId, type ThreadId } from './envelope.js';
-import { readTurnEvents } from './parse-events.js';
+import { readTurnEvents } from './turn-events.js';
 import type { CommandExecution, TurnEvents } from './types.js';
 
 /**
@@ -104,7 +104,7 @@ function judgeEvents(events: TurnEvents, requested: ThreadId | undefined): TurnV
     return thread;
   }
   const message = events.agentMessages.at(-1);
-  if (message === undefined || !message.trim()) {
+  if (!message?.trim()) {
     return err({ kind: 'no-agent-message' });
   }
   return ok({

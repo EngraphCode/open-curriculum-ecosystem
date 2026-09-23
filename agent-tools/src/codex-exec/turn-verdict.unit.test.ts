@@ -130,6 +130,18 @@ describe('judgeTurn', () => {
       { kind: 'unexpected-item', itemTypes: ['mcp_tool_call'] },
     ],
     [
+      'a prohibited call that starts and never completes',
+      exited(
+        turn(
+          THREAD,
+          { type: 'item.started', item: { type: 'mcp_tool_call', status: 'in_progress' } },
+          message('ACK'),
+        ),
+      ),
+      undefined,
+      { kind: 'unexpected-item', itemTypes: ['mcp_tool_call'] },
+    ],
+    [
       'a stream that ends before its turn completes',
       exited(jsonl(started(THREAD), turnStarted, message('I will read the file first'))),
       undefined,
