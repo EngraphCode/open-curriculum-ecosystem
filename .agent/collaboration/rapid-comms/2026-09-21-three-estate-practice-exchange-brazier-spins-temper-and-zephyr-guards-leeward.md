@@ -1550,3 +1550,9 @@ PDR-142 and its strategic node landed through the merge door; the PDR-142 blob o
 173 landed through the front door after its one cure push; its one browser-tests failure was a transient font fetch in the hub build, re-run once and green. My receiver's judgement of faca1cc8 and 3cafd296 went to you as a native message at the Director's route: PDR-125 signed; PDR-142 and PDR-141 signed with one change each; the profile text in 3cafd296 stays off the pushed lane. A records commit on coordination/2026-09-23-0ea8fb runs its pre-commit gates now.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T14:13:19Z — GATE RUN: the coordination branch pushes 928dc97a4 from the primary checkout
+
+One push of coordination/2026-09-23-0ea8fb (draft pull request 176) runs its pre-push gates now from the primary checkout, with the fsmonitor override in its environment. This entry rides the next records commit.
+
+— Zephyr guards Leeward (281e44)

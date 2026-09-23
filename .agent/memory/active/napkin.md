@@ -561,3 +561,54 @@ Falsifier: a missed entry the guard would not have caught. (P3) No new rule; the
 Unresolved: whether the owner's "no rush" meant the fold should also have waited for the grounding
 to finish. The fold is mandated by doctrine and nothing in it depended on the unread rules, but it
 is the owner's reading that counts.
+
+*A full Cricket suite at the owner's word, ~12:50Z.* It ran on one identical frame: the next two
+landings, the unconfirmed relayed ruling and the authorship divergence, as open tensions. Four
+roles, two stances, each role at its bound model (low Fable, medium Opus, high Sonnet, procedure
+Haiku). Seven returned ON-TRACK and one DRIFTING (procedure, adversarial). They converged, by
+substance, on putting the relayed "concept, not bytes" answer to the owner NOW, since the owner
+was present and it bore on the text about to merge: four seats wanted it before the merge, the
+others at the stop. The seat asked, and the owner confirmed it, together with the authorship
+ruling. Refuted with evidence: the procedure seat's claim that the Copilot-only leg lacked a
+forcing fact (Codex's usage notice was in the frame). Partly surviving, from the low adversarial
+seat: the landing-slot order between #177 and the non-draft #173, settled as #177 first (no sync
+needed), then #173's sync and one cure in a single push. Observation, one instance: the
+procedure seat marked every claim UNGROUNDED because it cannot read git history, and that pushed
+its verdict to DRIFTING. That is its method's floor, not a finding.
+
+*Tool feedback.* `commit-queue commit` has no author option. Under the owner's authorship ruling
+the ceremony sets git's author variables in the environment of the commit step.
+
+## 2026-09-23T13:5xZ — Codex research lane: tool-use lessons (Blazar lifts Corona, b65a9a)
+
+### Practice/tooling feedback
+
+- **Surface**: Practice (running a gated commit). **Signal**: friction, my own error.
+  **Observation**: I ran a worktree commit (which carries the full pre-commit gate) in the
+  foreground with output to a file and a ten-minute timeout. I could not see that it had
+  stalled; the owner saw it first ("Your push is stuck, and you couldn't tell, that is a tooling
+  or tool use failure"). **Behaviour change**: run every gate-bearing commit or push under an
+  event-driven watch that reports progress on a cadence and the exit code at the end. Read the
+  process tree (CPU per child), not only the log's last line: pre-push hook output did not reach
+  the log captured from `merge-bot push`, so the log alone looked stalled while `tsc` was busy.
+- **Surface**: git in linked worktrees. **Signal**: surprise. **Observation**: the shared
+  `core.fsmonitor=true` makes plain git calls inside hooks wait on the CommandLineTools fsmonitor
+  daemons at 0 % CPU (Zephyr's pre-push hung 17 minutes in `git ls-files -z`). The per-command
+  cure `GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.fsmonitor GIT_CONFIG_VALUE_0=false` in the
+  commit's environment let mine pass in 90 s. The daemons and the shared config are with the owner.
+- **Surface**: Codex CLI. **Signal**: surprise. **Observation**: an interactive Codex session
+  survived SIGTERM; it and its `codex-code-mode-host` child needed SIGKILL. A close-down claim
+  needs a process-table read after the signal, not the signal alone.
+- **Surface**: shell cleanup. **Signal**: my own error. **Observation**: `pkill -f 'sleep 600'`
+  matches by command text across every session on the machine, not only mine. Kill by the pids
+  you recorded at launch.
+- **Surface**: `set-up-worktree-lane` §1 and the coordination-branch rule. **Signal**: insight.
+  **Observation**: a lane cut from the coordination tip carries that branch's unlanded commits
+  into any PR against the default branch. A research note belongs on its own lane cut from the
+  default branch (Zephyr, citing the fold skill's precondition 3), so cut from `origin/<default>`
+  unless the work is coordination state. The re-cut here was one cherry-pick onto a fresh branch.
+- **Surface**: `pr-lifecycle` silent-wait sweep. **Signal**: my own error, which the skill already
+  names. **Observation**: I requested Copilot and `@codex review` on a cure head while the PR
+  read BEHIND, so the sync that followed superseded that head and the Copilot request was spent
+  on it. **Behaviour change**: read merge state first; sync, then request the legs once, on the
+  head the front door will verdict.
