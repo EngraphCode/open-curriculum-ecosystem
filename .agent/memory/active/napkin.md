@@ -517,3 +517,47 @@ been built on the unconfirmed rulings.
 *Tool feedback.* `session-metadata` has no window registered for `claude-opus-5-5[1m]`; the
 reading used the 1M stand-in again. The owed lane that registers the Opus 5 and Fable 5.1 windows
 should add this one too.
+
+## 2026-09-23 — metacognition and concept exploration at the resume (owner-invoked), Zephyr guards Leeward (281e44)
+
+*Movement 1, the observations.* In the first hour after the model change, three claims written to
+durable or broadcast surfaces were wrong or overstated. (a) The wrap's "the pause held nothing"
+(the previous hour, the same seat): an absence observed at a read, written after the surface had
+moved. (b) The team-start event's "overrides PDR-140's one rebudget (PDR-142 says so)": taken from
+a peer's draft frame, which its author changed within fifteen minutes; the owner's own words
+("I don't want the number of rounds of PRs to go up") say no such thing. (c) The pickup's wording
+of the rounds ruling: three versions in ten minutes (a peer's memory paraphrase, then the peer's
+tracked plan wording, then the owner's verbatim words from the record where the ruling was given).
+Beside them: a tool assumption (the edit tool drops trailing whitespace from a replacement), caught
+by the ceremony failing fast; and last week's five hand-kept counts, one inferred cause and one
+schedule "rule" drawn from one instance.
+
+*Movement 2, the problem.* The kind of thing is a recurring defect in this seat's WRITES, not in its
+reading: a claim derived from a proxy (a peer's text, an earlier read, memory, a timestamp) goes
+into a surface that cannot be amended (comms events, commit messages, channel entries) without the
+proxy being checked against the source at the moment of the write. The harm: correction pairs pile
+up on append-only surfaces, a peer may act on the wrong claim before the correction, and the
+owner's attention pays for both. The doctrine already names the class (verify-dont-trust;
+timing-artefact-read-as-state; one-instance-is-an-observation). So the gap is not missing doctrine.
+It is a write moment with no active check.
+
+*Movement 3, the solutions.* The fluent first answer is "be more careful", which is vigilance, and
+the metacognition directive rules it out: passive guidance loses to momentum. The second fluent
+answer is a tool that checks every claim, which is out of proportion. What the observations
+actually show: two of the three wrong claims were EXTRAS. A team-start's job is presence and
+boundary, and it carried a ruling's consequence. A wrap notice's job is the boundary, and it
+carried an absence claim. Neither function needed the claim that went wrong. The owner had said
+"take your time", and the seat broadcast within fifteen minutes of resuming, before it had read the
+sources behind the claims it made.
+
+*Movement 4, the synthesis.* Reframing: the cure is to say less, not to verify more. A broadcast or
+record carries the minimum its function needs; any claim beyond that names its source and when the
+source was read, or waits. Proposals: (P1, behaviour, now) every durable write is checked once for
+extras, and each extra either names its source and read time or is cut. Warrant: two of three
+errors today were extras. Falsifier: a wrong claim in a write whose function required that claim.
+(P2, tool, routed as a lane) the channel append takes an expected last heading and refuses when the
+channel has moved: a compare-and-swap on the file. Warrant: the wrap's miss is exactly that race.
+Falsifier: a missed entry the guard would not have caught. (P3) No new rule; the class is homed.
+Unresolved: whether the owner's "no rush" meant the fold should also have waited for the grounding
+to finish. The fold is mandated by doctrine and nothing in it depended on the unread rules, but it
+is the owner's reading that counts.

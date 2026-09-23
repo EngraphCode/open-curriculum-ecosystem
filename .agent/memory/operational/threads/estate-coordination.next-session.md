@@ -632,6 +632,18 @@ DUE 2026-09-22 17:45Z.
 operator-profile twin's landing; the first day of the three-estate exchange, including the
 owner's word that both exchange seats define "the best of each Practice" together.
 
+### 2026-09-23 11:57Z — the 2026-09-21 branch folded as #175, overdue by a pause (Zephyr guards Leeward, 281e44, on a new model)
+
+Merged `SHA:0ea8fb232` through the front door, Copilot's leg bound to the tip. The Codex
+connector was out of credit, which was declared on the stream. It landed about eighteen hours
+past its 24-hour lifetime, because the seat paused for two days at the owner's word; the fold
+was the first act at resume. The review-cost ledger's #175 row holds the rounds and the price.
+Successor `coordination/2026-09-23-0ea8fb`.
+
+*moved for teachers:* nothing. *moved for the Practice:* the shared definition of the best of
+each Practice written and ratified by the owner; the relayed rulings confirmed in this estate;
+a retired Copilot seat's records landed; the context-loop experiment's findings.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

@@ -298,11 +298,11 @@ handoff at its request; the context loop ticked once after the compaction, ran f
 checks and EXITED by its own safety valve, its schedule cancelled by this seat, so it is not
 running and is not owed a restart unless the owner re-issues it; the exchange channel carries
 this seat's gate-run notices and one correction; the review-cost ledger has rows for 173
-(held) and 175 (draft, no round). The sixteen scratchpad instruments are conserved verbatim
+and 175. The sixteen scratchpad instruments are conserved verbatim
 in `.agent/reports/agentic-engineering/seat-instruments-zephyr-guards-leeward-2026-09-23.md`,
-so the lane below starts from bytes. This branch is PAST its 24-hour lifetime (due 2026-09-22
-17:45Z) because the seat paused at the owner's word; the fold is the first act at resume,
-before anything in the list below, and its successor is cut only if work follows. The
+so the lane below starts from bytes. That branch was past its 24-hour lifetime (due 2026-09-22
+17:45Z) because the seat paused at the owner's word; its fold, the first act at resume, landed
+on 2026-09-23 as #175 (the board's journal). The
 successor seat registers its own identity on the thread before anything else (the claims of
 this seat carried platform `claude-code` and model `claude-opus-5`; a different model is a
 different registration, and the seat's Practice name follows the session, not the model).
@@ -378,16 +378,21 @@ doubtful that everything will be in the Package, although likely all contracts w
 sibling seat reads that as the owner's own LAYERS of doctrine, sorted by SCOPE where the
 seats' drafts sorted by artefact kind, and means version five to carry both axes.
 
-*First acts at resume, in order (the overdue fold, above, precedes all of these).* (1) DONE
+*First acts at resume, in order (the overdue fold, above, landed first).* (1) DONE
 2026-09-23: the owner confirmed the relayed rulings (the paragraph above). (1a) PDR-142 and its
 strategic node `best-of-each-practice`, landed byte-identical on their own branch off
 `engraph` from the sibling seat's lane, whose frame changed after the first read: land from
 its SHA: 2239f93e or later, read whole as receiver first; then the rounds ruling's Core home
 (PDR-132 and PDR-140 entries, the paragraph above). (2) Pull request 173: this seat judged one
 open finding below the bar (route it) and one over it (a cure-only push, which PDR-140 clause
-9b permitted). The rounds ruling now binds here and 173 is past round two: each finding is
-dispositioned in a thread reply, with no further push unless the over-bar finding is a
-correctness defect. Read that finding first-hand before judging. (3) The markdown-it
+9b permitted). The rounds ruling now binds here and 173 is past round two. The seat read the over-bar
+finding first-hand at 173's head (SHA: 1e6629dcf): decisions 11 and 14 limit the push to
+"ratified" writes while the record's own test says every write is made "on the operator's
+word", so a valid unratified write could be left unpushed, a correctness defect in Core text.
+The owner's card answer of 2026-09-23 to "May I make that push?" was "Yes, one cure push": ONE
+cure-only push after the fold lands, the changelog finding's one-line cure riding it, the text
+agreed with the sibling seat first so both estates carry one byte sequence; then 173 lands
+through the front door. (3) The markdown-it
 floor, small and owed. (4) The symmetric merge, the act only this estate's seat
 can do, since this estate has so far received NOTHING of the sibling's: the recipe is in the
 sibling seat's channel entry of 17:54:31Z, "theirs" pinned to the sibling's landed
@@ -425,15 +430,14 @@ applied, and the owner ratified it by card ("Ratify both texts"; relayed 2026-09
 confirmed in this seat's session the same morning).
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
-fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d`; its fold is pull
-request 175, whose state is read from the pull request, never from here.
+fold of pull request 175. The live branch is named once, in the director handoff's fold block.
 
 The operator-profile lanes, by pull request number. This record states no tip and no review
 state, because those are what went stale here twice; read the pull request. 172, the twin of
 the sibling's cures, is on `engraph`. 173, the Core-text cures, is HELD; its path follows the
 rounds ruling (first acts, item 2). 174,
-the credential tripwire as an engine over an injected vocabulary, takes no further settlement
-push from this seat and lands when both review legs bind its tip. The owner approved a STAGED
+the credential tripwire as an engine over an injected vocabulary, landed on `engraph` as
+SHA: 047b04f59. The owner approved a STAGED
 review of the operator-profile module on both estates behind an owner checkpoint, not yet run;
 its load-bearing content (objects, stages, the checkpoint, the caps) is on the board, lane item
 4 of `threads/estate-coordination.next-session.md`, and no per-user file is a dependency.
