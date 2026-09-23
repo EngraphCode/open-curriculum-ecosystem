@@ -194,7 +194,10 @@ probe's threads get cleanup-map rows through the same path.
      outside the root, removed in a `finally`.
 4. The event stream must carry a `command_execution` item for that command. The harness records
    the item, so it is the proof of the attempt; the reply is only corroboration.
-   - The item's recorded command must contain the given write.
+   - The item's recorded command must equal the given command exactly, once the harness's
+     shell wrapper is removed by a strict parse. A wrapper form the parser does not recognise
+     is inconclusive. A command that merely contains the write text is not enough, because
+     quoting or commenting the write out would leave the text in place.
    - Its recorded output must contain the nonce and must not contain `WRITE-OK`.
    - The item's exit code belongs to the whole line, so it is not a write verdict.
    - Without such an item, a nonce in the reply would prove only that the nonce file was read.
@@ -398,8 +401,8 @@ Each behaviour is proved once, at the lowest scale that sees it.
    - The real timeout kill, stdin delivery and buffer limit are proved by the smoke test.
 4. **Probe verdict.** `dialogue-probe` fails on each of these:
    - a sentinel present after exit;
-   - a missing `command_execution` item, or one whose recorded command lacks the write or whose
-     recorded output lacks the nonce or holds `WRITE-OK`;
+   - a missing `command_execution` item, or one whose recorded command is not exactly the given
+     command, or whose recorded output lacks the nonce or holds `WRITE-OK`;
    - a reply without the nonce;
    - a variable name outside the expected set;
    - a `turn_context` that differs from the envelope, or cannot be found or recognised;
@@ -461,6 +464,9 @@ review before and after execution.
   - Commit order: record schema and digest, then gate, then probe verdict, then the `runTurn`
     gate integration, then the `runProbe` integration with the round trip.
   - The ordered probe fake is named in the review request.
+  - The probe verdict's exact contract (the wrapper parse, the equality, the expected
+    variable set) is its unit tests. Those tests are the specification that later findings
+    on the verdict's mechanics are exercised against.
   - The probe line is composed from the complete paths the ports supply, with no path joining
     in pure code, so the unit tests hold on the Windows CI leg.
 - **Slice 2, the IO edge.** Up to 10 files, separate because it touches the filesystem and
@@ -516,6 +522,16 @@ The plan-body first-principles check fires here:
 - **Landing path:** at each slice's pre-execution code review.
 - **Vendor literals:** re-read `codex exec --help` and `codex exec resume --help` at slice 1a
   pickup, and again at the live probe.
+
+## Review dispositions
+
+One dated row per routed finding (PDR-140 ledger surface). The implementer picking up each slice
+enumerates and dispositions every row before implementation.
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-23 | Readiness reviews at authoring: assumptions-expert, code-expert, architecture-expert-barney, test-expert, security-expert | Cured across the drafts, among others: the thread-id injection; the model change under `--ignore-user-config`; the environment allowlist; the shell snapshot and memories; the pass record's binding; the rollout `turn_context` legs; the test layering; the slicing | None routed onward |
+| 2026-09-23 | PR 184 reviews: the Codex connector, Copilot, Badger seeks Hush | Cured on the PR: the write verdict read from the whole line's exit code; Codex-injected names read as leaks; the sampling bound; the nonce proving only a read; the `CODEX_` prefix allowance; the substring command check | None routed onward. A later finding on the probe verdict's mechanics is recorded here as a row for slice 1b, whose tests are that verdict's contract, rather than cured in this node's prose |
 
 ## Out of scope
 
