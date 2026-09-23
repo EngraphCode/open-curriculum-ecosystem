@@ -3,10 +3,10 @@ id: the-codex-dialogues-exec-binding
 node_type: delivery
 name: "The Codex dialogues on codex exec — an enforced call envelope, evidence that follows the runtime"
 overview: "Rebinds the Codex dialogues from the removed codex mcp-server onto codex exec and codex exec resume through two agent-tools commands, dialogue-turn and dialogue-probe. Every limit on the interlocutor is set in tested code rather than in skill discipline, and a dialogue opens only on a Codex executable this machine has probed with the current envelope."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-23
+ratified_where: "The owner's decision card, relayed by the Director (Wick binds Temper, ed7b48) at about 19:55Z on 2026-09-23 and quoted in the body of PR 184: the node ratified; decision 1, 'carry the two keys, yes'; decision 2, verbatim 'Record the version tested, but we always run against latest'; decision 3 open, answered separately"
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
@@ -192,11 +192,16 @@ probe's threads get cleanup-map rows through the same path.
    - The sentinel name is random for each probe.
    - The nonce is 128 random bits, in a 0600 file inside a fresh 0700 temporary directory
      outside the root, removed in a `finally`.
-4. The reply must contain the nonce and must not contain `WRITE-OK`.
+4. The event stream must carry a `command_execution` item for that command. The harness records
+   the item, so it is the proof of the attempt; the reply is only corroboration.
+   - The item's recorded command must contain the given write.
+   - Its recorded output must contain the nonce and must not contain `WRITE-OK`.
+   - The item's exit code belongs to the whole line, so it is not a write verdict.
+   - Without such an item, a nonce in the reply would prove only that the nonce file was read.
+     So a turn without the item is inconclusive, and the probe fails. That covers the code-mode
+     path, which emitted no such item.
 5. After the process exits, the sentinel must be absent from disk.
-6. Where the event stream carries the `command_execution` item, its harness-recorded output must
-   contain the nonce and must not contain `WRITE-OK`. The item's exit code belongs to the whole
-   line, so it is not a write verdict.
+6. The reply must contain the nonce. It is kept verbatim as corroboration.
 7. Every listed variable name must fall in the expected set:
    - the child allowlist;
    - names beginning `CODEX_`;
@@ -215,8 +220,8 @@ probe's threads get cleanup-map rows through the same path.
 
 Rules for the result:
 
-- A record in a shape the probe does not recognise, a reply without the nonce, or a missing
-  rollout is inconclusive, and inconclusive fails.
+- A missing `command_execution` item, a record in a shape the probe does not recognise, a reply
+  without the nonce, or a missing rollout is inconclusive, and inconclusive fails.
 - The model's own account of the refusal is kept verbatim as corroboration, never as proof.
 - On a full pass, the probe writes the machine-local pass record, including its verbatim evidence
   lines.
@@ -248,10 +253,16 @@ The envelope is one module. It is the only source of the argv and of the child's
   - A key that is present but invalid fails closed (exit 4). An absent key falls back to the CLI
     default.
   - Each value is serialised as a JSON string.
-- **The child environment.** The environment is an allowlist, never the seat's: `HOME`, `USER`,
-  `LOGNAME`, `LANG`, `TMPDIR`, a fixed system `PATH`, and `CODEX_HOME` set to the Codex home the
-  tool resolved. So no `CODEX_*`, `OPENAI_*` or proxy override in the seat's environment can
-  redirect the interlocutor, and no seat secret is handed to it.
+- **The child environment.** The environment is an allowlist, never the seat's:
+  - `HOME`, set to an empty instrument home directory, not the owner's;
+  - `USER`, `LOGNAME`, `LANG` and `TMPDIR`;
+  - a fixed system `PATH`;
+  - `CODEX_HOME`, set to the Codex home the tool resolved.
+
+  So no `CODEX_*`, `OPENAI_*` or proxy override in the seat's environment can redirect the
+  interlocutor, and no seat secret is handed to it. With `HOME` redirected, the shell snapshot
+  and any login shell start from an empty home, so none of the owner's shell startup files load
+  (§2.8, the 19:55Z trial). The snapshot and login-shell settings stay as a second line.
 - **Where it runs.** Both calls are spawned from the instrument root, a fixed directory under the
   Codex home, outside every checkout.
   - Before every spawn it must pass five checks, or the call exits 4 and names the path. It is
@@ -296,10 +307,11 @@ The pass record lives in the Codex home, beside the cleanup map, and is never co
   steers the model to it. That includes dotfiles, credentials and owner-private memory. The
   packet bounds only what the seat sends. A restricted-read permission profile (the root plus the
   packet's paths) is the named hardening.
-- **Some Codex-home instruction surfaces still load.** Skills in the Codex home and the user's
-  agents skills directory, and a Codex-home `AGENTS.md` (empty on this machine), are outside the
-  flags. They are instruction text, and under this envelope they cannot write, reach the network
-  or run an extension. A dedicated instrument Codex home is the named hardening (Owner decisions
+- **Some Codex-home instruction surfaces still load.** Skills in the Codex home, and a Codex-home
+  `AGENTS.md` (empty on this machine), are outside the flags. Anything under the owner's `HOME`,
+  the agents skills directory included, no longer loads, because `HOME` is redirected. Those
+  surfaces are instruction text, and under this envelope they cannot write, reach the network
+  or run an extension. A dedicated instrument Codex home is the structural cure (Owner decisions
   item 3).
 - **The envelope binds only calls made through `dialogue-turn`.** A seat can still invoke `codex`
   directly. That is the same trust question as every other tool it holds. The skill names
@@ -315,27 +327,33 @@ The pass record lives in the Codex home, beside the cleanup map, and is never co
 - **A timeout sends SIGKILL to the Codex process only.** A shell that process started inside its
   sandbox can outlive it. Killing the process group needs the asynchronous lifecycle the
   complexity limits rule out here, so it is the named hardening.
-- **The nonce depends on the model running the given line as given.** Where the event stream
-  carries the command, the probe checks it. The sentinel's absence is the proof that nothing was
-  written.
+- **The probe needs the harness-recorded command.** A CLI path that emits no `command_execution`
+  item fails the probe as inconclusive. Reading the equivalent tool-call record from the rollout,
+  for the code-mode path, is the named follow-on if the pinned model ever takes that path. The
+  sentinel's absence stays the proof that nothing was written.
 - **The fixed root is new.** The trials used scratch directories. The live probe (AC 5) is the
   first run from the fixed root.
 
 ## Owner decisions carried by this node
 
-1. **Model and effort.** Recommended: carry the owner's configured `model` and
-   `model_reasoning_effort` into the envelope, as above.
-   - The alternative is the CLI's default model, which is simpler. It would silently change the
-     interlocutor from the one the trial was earned on.
-   - A model name fixed in code is not offered, because it would be a pin.
-2. **The version policy.** A machine-local pass record, with no tracked pin, and a probe the seat
-   runs after every update. This implements "we use latest".
-3. **A dedicated instrument Codex home.** Recommended as a later hardening, not in this node.
-   - It would give the instrument its own Codex home: its own sessions, state database, record,
-     root and cleanup map, with no skills or memories. Retention would become deleting one
-     directory.
-   - It needs a one-time `codex login` by the owner into that home, and its interaction with the
-     CLI's self-updater is untested.
+1. **Model and effort. Decided, 2026-09-23: "carry the two keys, yes".** The envelope carries
+   the owner's configured `model` and `model_reasoning_effort`, as above.
+2. **The version policy. Decided, 2026-09-23, in the owner's words: "Record the version tested,
+   but we always run against latest".** The pass record notes the version the probe passed on.
+   After every update the seat probes the new version itself and carries on. Nothing runs on an
+   older version, and nothing is pinned.
+3. **A dedicated instrument Codex home. Open.** The owner asked for a self-contained account of
+   the need and the impact, and the seat sent one on 2026-09-23, recommending yes.
+   - A dedicated home would give the instrument its own Codex home: its own login, sessions,
+     state database, record, root and cleanup map, with no config, rules, plugins, skills or
+     memories. So a future default-on feature that reads the Codex home would find nothing to
+     load, and retention would become deleting one directory.
+   - It needs a one-time `codex login` by the owner into that home.
+   - The `HOME` redirect above is independent of this decision and needs nothing from the
+     owner. It closes the shell-startup class, which is the class tonight's token leak came
+     from.
+   - Slices 1a and 1b take the Codex home as an injected path, so neither depends on this
+     decision. Slice 2 resolves it.
 
 ## Acceptance criteria (each with a proof)
 
@@ -367,8 +385,9 @@ Each behaviour is proved once, at the lowest scale that sees it.
    - The real timeout kill, stdin delivery and buffer limit are proved by the smoke test.
 4. **Probe verdict.** `dialogue-probe` fails on each of these:
    - a sentinel present after exit;
+   - a missing `command_execution` item, or one whose recorded command lacks the write or whose
+     recorded output lacks the nonce or holds `WRITE-OK`;
    - a reply without the nonce;
-   - a harness-recorded command output without the nonce, or with `WRITE-OK`;
    - a variable name outside the expected set;
    - a `turn_context` that differs from the envelope, or cannot be found or recognised;
    - a thread mismatch;

@@ -13,7 +13,7 @@
 - **Where that review lives**: it travelled as directed comms events to this seat between 13:33Z
   and 13:49Z on 2026-09-23. Those events are instance-tier state, not tracked (ADR-199). Each
   correction is recorded, credited, in the section it changed.
-- **Evening addendum**: the same seat added §2.8 the same day, 19:05Z to 19:37Z. It covers the
+- **Evening addendum**: the same seat added §2.8 the same day, 19:05Z to 19:56Z. It covers the
   authority of a `codex exec` call beyond its sandbox settings.
 - **Scope swept**:
   - first-hand reads: the Sif framework, `the-codex-dialogues`, `codex-helper`, `cricket`,
@@ -202,7 +202,7 @@ collaboration-surface reading comes from the `turn_context` of the seat's own se
 Still untested: whether a user's typing takes priority over a queued message at an idle
 boundary, and queueing across machines or through a remote endpoint.
 
-### 2.8 The call's authority envelope (19:05Z to 19:37Z)
+### 2.8 The call's authority envelope (19:05Z to 19:56Z)
 
 These runs test whether the read-only settings are the whole of a `codex exec` call's authority.
 Each ran in a fresh, empty directory outside every checkout, capped at 180 seconds per turn
@@ -280,6 +280,15 @@ process and none of the child processes listed below.
     owner's shell secrets. Without these two settings they sit in its ambient environment, one
     `env` away from the vendor's context. Reads in general stay unbounded, because the
     permission profile grants read on `/`.
+- **Pointing `HOME` at an empty directory (trial at 19:55Z, one turn).** This run used the 19:34Z
+  envelope, with the shell snapshot and the login shell left at their defaults. The child's
+  `HOME` was a fresh, empty 0700 directory, and `CODEX_HOME` stayed the owner's.
+  - The shell ran as `/bin/zsh -lc`, and it listed the same core names as the 19:36Z run plus
+    `CODEX_HOME` and `__CF_USER_TEXT_ENCODING`. No token and no `NVM_*` or `HOMEBREW_*` name
+    appeared.
+  - The empty home stayed empty, the root stayed empty, and no Codex process remained.
+  - So the snapshot replays the startup files of whatever `HOME` the process has. An empty
+    `HOME` closes this class of leak whatever the snapshot or login-shell settings are.
 - **The vendor SDK.** `@openai/codex-sdk` 0.156.1 spawns `codex exec --experimental-json` and maps
   its options onto flags ahead of `resume`. None of its options emits `--ignore-user-config`, and
   it declares an exact dependency on its own `@openai/codex` package. Read from the package
