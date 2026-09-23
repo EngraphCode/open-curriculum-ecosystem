@@ -205,9 +205,12 @@ the first comms write, claim, or registration).
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
    **Normalise on receipt**: integrate inbound material in the
-   RECEIVING repo's format (markdown conventions, heading shapes,
-   gate-satisfying style), declaring the normalisation in the
-   integrating commit body — concepts travel, never bytes.
+   RECEIVING repo's format where that repo's conventions or gates
+   differ (markdown conventions, heading shapes, gate-satisfying
+   style), declaring the normalisation in the integrating commit body.
+   Concepts travel; identical bytes are fine wherever they carry the
+   concept in the receiving repo's Practice context, and a receipt is
+   finished when the concept reads true there (PDR-125 clause 7).
    **Corrections are new events** threading to their antecedent;
    never rewrite an exchange artefact or lifecycle event in place.
 8. **Verify, never trust** (the host's adversarial-verification
