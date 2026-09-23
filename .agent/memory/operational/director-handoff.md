@@ -298,16 +298,22 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 > **§FOLD, 2026-09-19 (Zephyr guards Leeward, `281e44`, curator; no Director seated) — supersedes the
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
-> `archive/director-handoff-2026-09-19.md` and narrated in the estate-coordination thread record
-> §2026-09-12 FOLD LANDED.** The last fold is #169 (SHA:72cab5667, 2026-09-21 09:09Z), the
-> 2026-09-21 branch, folded at the owner's word under the docs-only bot-authored class (the door
-> read SETTLED-NO-REVIEW again: both legs timed out); the live branch is
-> `coordination/2026-09-21-72cab5`, DUE 2026-09-22 00:00Z. _moved for teachers:_ nothing. _moved
-> for the Practice:_ the consolidation's close and the citation line are on engraph. The folds
-> before it: #159 (SHA:efb2942e9, 2026-09-21 00:03Z), the memory-file pass — every large memory
-> file says where its current state is, with its narrative whole in a dated archive; #156
-> (SHA:44729c98c, 2026-09-20 12:44Z), the twelve directive-bound graduations and the
-> graduate-then-archive lifecycle.
+> `archive/director-handoff-2026-09-19.md` and narrated in the archived thread record
+> `archive/estate-coordination-thread-2026-09-20.md`, under its heading "2026-09-12 12:5xZ — FOLD
+> LANDED".** The last fold is #171 (SHA:56bd4de6a, 2026-09-21 17:45Z), the third 2026-09-21
+> branch, landed by the merge door itself with both review legs bound to the tip; the live branch
+> is `coordination/2026-09-21-56bd4d`, which was DUE 2026-09-22 17:45Z and is OVERDUE since the
+> seat paused at the owner's word (2026-09-21 19:27Z to 2026-09-23); the fold is the first act at
+> resume, and the second boundary block in `repo-continuity.md` says why. A fold's rounds, findings and price
+> live in the estate-coordination record's journal and the review-cost ledger, never in this
+> block. _moved for teachers:_ nothing. _moved for the Practice:_ the #170 fold's records, the
+> operator-profile twin's landing, the first day of the three-estate exchange. The folds before
+> it: #170 (SHA:1a125f65d, 2026-09-21 10:12Z), the #169 fold's records and the exchange channel
+> tracked; #169
+> (SHA:72cab5667, 2026-09-21 09:09Z), the consolidation's close and the citation line; #159
+> (SHA:efb2942e9, 2026-09-21 00:03Z), the memory-file pass — every large memory file says where its
+> current state is, with its narrative whole in a dated archive; #156 (SHA:44729c98c, 2026-09-20
+> 12:44Z), the twelve directive-bound graduations and the graduate-then-archive lifecycle.
 
 ---
 
@@ -331,8 +337,9 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > `.agent/collaboration/rapid-comms/2026-09-17-fold-and-carrier-zephyr-guards-leeward-and-dynamo-turns-temper.md`.
 >
 > **Landed since the 2026-09-12 snapshot:** the folds #137, #148, #150, #152, #153, #155, #156
-> #159 and #169 (`72cab5667`, 2026-09-21 09:09Z; successor `coordination/2026-09-21-72cab5`) and the
-> lanes #139, #143–#147, #149, #157, #158 and #160–#168. Each is in the estate-coordination record's
+> #159, #169, #170 and #171 (`56bd4de6a`, 2026-09-21 17:45Z; successor `coordination/2026-09-21-56bd4d`) and the
+> lanes #139, #143–#147, #149, #157, #158, #160–#168 and the operator-profile twin, pull request
+> 172 (`272910f1d`, 2026-09-21 14:45Z). Each is in the estate-coordination record's
 > journal by merge commit, and in git; the list as it stood is in
 > `archive/director-handoff-2026-09-20.md`.
 >
