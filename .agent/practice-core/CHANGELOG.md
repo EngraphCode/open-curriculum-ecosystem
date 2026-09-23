@@ -4,6 +4,19 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142: the best of each Practice
+
+- PDR-142 (Accepted, owner-ratified 2026-09-21 by card; the owner confirmed
+  the ratification in this estate on 2026-09-23) added: how the Practice's
+  instances are aligned, judged and pruned. Its decision is the definition the
+  two exchange seats authored jointly and both signed: union upward, the
+  higher of two, the bad removed everywhere; the owner's scope layers; how
+  each kind of surface travels; and that a ruling about the Practice given in
+  one estate reaches every estate, for now. Numbered here, where PDR numbers
+  are canonical, ahead of the third estate's renumbering above 141. Taken
+  byte-identical from the second estate's landing, the identity checked by
+  hash before commit.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-19 — PDR-011: graduate, then archive; the four-part surface lifecycle
 
 - PDR-011 Amendment Log, dated 2026-09-17 (the owner's decision) and landed
