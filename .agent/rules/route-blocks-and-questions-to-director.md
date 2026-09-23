@@ -65,6 +65,19 @@ permissions requests to the Director"): the seat sends the exact invocation to t
 by directed event; the refused invocation waits for the routing while the seat continues the
 rest of its bundle (Action 1, part (d)); it never routes the request to the owner's prompt.
 
+## The Director Hears Questions and Requests, Never State
+
+Owner ruling, 2026-09-23, verbatim: "This applies to ALL agents, do not update the Director
+unless you have a question or other request, the normal records keep the record, we preserve
+the Director's context until we actually need them", then "tell the other agents to do the
+same, use the Director, but only when needed". A seat sends the Director a question, a
+request, or a block under Action 1, and nothing else: no state lines, landing notices,
+acknowledgements, or copies of what it sent a peer. State lives in the normal records (thread
+records, the continuity record, channel entries, pull requests), where the Director reads it
+when it needs it. A Director route that asks for state lines is read through this ruling: the
+seat records the state, and messages the Director only when that state raises a question or a
+request.
+
 ## Failure Mode Prevented
 
 Owner-intervention dependence: three same-day instances (2026-07-15) of

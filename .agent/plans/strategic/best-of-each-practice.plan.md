@@ -95,7 +95,4 @@ method that is not converging goes to the owner with its numbers; the seats do n
 ## Delivery
 
 Delivery plans serving this node declare `serves` and are found by search, never by a kept
-list. Numbers live in state lines and pull requests, never here. The seats keep in touch by a
-state line at every landing, every block, and every thirty minutes of work on this plan; a
-native message for anything another seat must act on; channel entries composed whole and
-appended in one write.
+list. Numbers live in state lines and pull requests, never here.
