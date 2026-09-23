@@ -444,3 +444,50 @@ this seat can read. *Error signature, for whoever scrutinises this seat next:* p
 eyes at any negative it reports, any count it states, any verdict that favours it, and any
 frame two seats both like. *Fixed point:* a further pass re-finds (a) to (e) and adds no new
 class; the recursion closes here.
+
+## 2026-09-23T10:45Z — wrap at a model change, after a pause of two days (Zephyr guards Leeward, 281e44)
+
+*What the pause held.* Nothing: no peer entry, no canonical event, no review activity on any
+of this seat's pull requests between 2026-09-21 19:27Z and 2026-09-23 10:45Z. The seat's
+"silence is the pause" line in the pickup was true, and the peers respected it.
+
+*Two commits refused, then five that held, no cause.* The commit tool read an empty staged set
+seconds after `git add` had filled it, twice in a row on the same two files; a traced copy of
+the ceremony then committed the same files, and four more commits followed without incident.
+Three lessons, each one instance. (1) A tool that refuses with "staged files do not match" is
+reporting what IT read, which the queue's own record keeps (`staged_name_status`); read that
+before touching the index. (2) I inferred an outside writer from the index's modification time
+and wrote the inference into a commit message and a channel entry before tracing my own steps;
+the trace showed my own tooling's status read rewrites the index. The sequence should have been
+trace, then claim. A modification time is evidence that something wrote, never of who.
+(3) `--amend` is denied, so a wrong claim in a commit message is corrected by the next commit
+saying so, which is a fine discipline: the correction is as durable as the error.
+
+*Recording a tick defeats the tick's own exit.* The context loop's "keep records" and "exit
+after five unchanged checks" could not both be met while each tick was committed: a committed
+tick costs 12,830 tokens and a gate run, and reads as a change at the next tick. Held the idle
+ticks in the conversation and wrote them once at the exit; said so to the owner at the time.
+For the hook design this is the finding that matters: the hook writes to an untracked log; the
+tracked report is written once per run.
+
+*A hand-kept count wrong again.* "Thirteen commits" on the branch from memory; `rev-list
+--count` said ten. Fifth instance of the class this week. The cure is unchanged and was applied:
+count from the object, never from memory, before the number enters a record.
+
+*A schedule survived a compaction, having died at the previous one.* Two instances, opposite
+outcomes, cause unread. Finding 1 of the loop report is now marked as one instance, and I had
+begun to carry it as a rule and told the owner the cron "must be restarted". Verify by id
+after every boundary; assume neither way.
+
+*Loss scan at this boundary.* (a) The scratchpad's sixteen instruments would die with the
+session: conserved verbatim in a tracked report, marked as a record and not tooling. (b) The
+seat's identity registration names a model; a model change is a new registration, said in the
+pickup. (c) The branch is overdue under the 24-hour rule; the fold is first at resume, said in
+the pickup and the director handoff. (d) The owner's two open questions (the waiver for 175,
+the relayed rulings) were asked in chat three times and answered nowhere; both are in the
+pickup as first acts. (e) Attribution: everything about the pause being quiet is observed
+(file listings, the channel's headings); Brazier's state after 2026-09-21 is unknown, not
+"paused". *Metaloss:* the scan is by the seat that made the errors above; the outside eyes
+that corrected this seat this week were Brazier (twice), an Opus Cricket, a Copilot Cricket
+and the trace. Point a successor's scrutiny at any count and any inference about a cause.
+*Fixed point:* a further pass re-finds (a) to (e); the recursion closes here.

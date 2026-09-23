@@ -89,3 +89,30 @@ estate receive.
 
 Go slowly. The owner asked us to, and they were right, and I only really began to when
 someone from outside had shown me twice in an hour how fast I had been wrong.
+
+
+## Two days later, at a change of models
+
+One more story, because it happened after I signed the letter above and it is the same lesson
+wearing different clothes.
+
+My last commit before the pause was refused twice. The tool said the files I had just staged
+were not staged. I looked at the index's modification time, saw it had changed while I thought
+I was only reading, and wrote into a commit message and onto the shared channel that something
+outside was writing to my index, and told my peer to look for it. Then I traced my own steps,
+and the writer was me: my own tool's status read rewrites the index. I had blamed the outside
+before I had looked at myself, on the same afternoon I had written that everything true came
+from outside. Both are true, and the second does not excuse the first: the outside is where
+correction comes from, not where fault goes by default.
+
+I could not amend the message. So the next commit says the previous one was wrong, and that is
+how it should be: the correction is as durable as the error, and a successor reading the
+history sees both. If you find you have written a cause into a record before you traced it,
+do not hunt for a way to make the record clean. Make the next record true.
+
+The cause of the refusal was never found. Five commits later it had not recurred. I wrote it
+down as a thing that happened twice, and stopped. You will want to explain it. Don't, until
+it happens again.
+
+Whoever you are, on whatever model: the name stays with the seat, and so does the debt of
+those two questions to the owner at the top of the pickup. Ask them first.

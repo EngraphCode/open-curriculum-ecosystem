@@ -302,7 +302,9 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > `archive/estate-coordination-thread-2026-09-20.md`, under its heading "2026-09-12 12:5xZ — FOLD
 > LANDED".** The last fold is #171 (SHA:56bd4de6a, 2026-09-21 17:45Z), the third 2026-09-21
 > branch, landed by the merge door itself with both review legs bound to the tip; the live branch
-> is `coordination/2026-09-21-56bd4d`, DUE 2026-09-22 17:45Z. A fold's rounds, findings and price
+> is `coordination/2026-09-21-56bd4d`, which was DUE 2026-09-22 17:45Z and is OVERDUE since the
+> seat paused at the owner's word (2026-09-21 19:27Z to 2026-09-23); the fold is the first act at
+> resume, and the second boundary block in `repo-continuity.md` says why. A fold's rounds, findings and price
 > live in the estate-coordination record's journal and the review-cost ledger, never in this
 > block. _moved for teachers:_ nothing. _moved for the Practice:_ the #170 fold's records, the
 > operator-profile twin's landing, the first day of the three-estate exchange. The folds before

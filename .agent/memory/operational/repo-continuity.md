@@ -288,6 +288,29 @@ not the current session-priority lane. Reactivation is owner-directed.
 says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
 written for a reader who was not here, possibly a different seat.
 
+**SECOND BOUNDARY, 2026-09-23 10:45Z — the owner changes models.** The pause lasted from
+2026-09-21 19:27Z to 2026-09-23 10:45Z with nothing from any peer on the channel or the
+canonical stream. What changed since the first boundary, all of it landed on this branch and
+verified pushed: the retired Copilot seat's final departure facts were written into its
+handoff at its request; the context loop ticked once after the compaction, ran five idle
+checks and EXITED by its own safety valve, its schedule cancelled by this seat, so it is not
+running and is not owed a restart unless the owner re-issues it; the exchange channel carries
+this seat's gate-run notices and one correction; the review-cost ledger has rows for 173
+(held) and 175 (draft, no round). The sixteen scratchpad instruments are conserved verbatim
+in `.agent/reports/agentic-engineering/seat-instruments-zephyr-guards-leeward-2026-09-23.md`,
+so the lane below starts from bytes. This branch is PAST its 24-hour lifetime (due 2026-09-22
+17:45Z) because the seat paused at the owner's word; the fold is the first act at resume,
+before anything in the list below, and its successor is cut only if work follows. The
+successor seat registers its own identity on the thread before anything else (the claims of
+this seat carried platform `claude-code` and model `claude-opus-5`; a different model is a
+different registration, and the seat's Practice name follows the session, not the model).
+One observation with no cause, twice in five runs on 2026-09-21: the commit tool refused a
+commit because the staged set it read was empty seconds after `git add` had filled it; the
+same files and steps then committed on the next run. If it recurs, the queue's own record
+(`commit-queue -- list`, the `staged_name_status` field) shows what the tool read; do not
+retry blindly, and do not infer an outside writer from the index's modification time, which
+the tool's own status read rewrites.
+
 *Nothing of this seat is running.* A compaction ends every session-scoped process, and a pause
 of days means none is re-armed: no comms watcher, no channel tail, no pull-request watch, no
 context loop. Silence from this seat is the pause, never liveness. To resume, verify by id
@@ -335,7 +358,8 @@ doubtful that everything will be in the Package, although likely all contracts w
 sibling seat reads that as the owner's own LAYERS of doctrine, sorted by SCOPE where the
 seats' drafts sorted by artefact kind, and means version five to carry both axes.
 
-*First acts at resume, in order.* (1) Ask the owner to confirm the relayed rulings. (2) Pull
+*First acts at resume, in order (the overdue fold, above, precedes all of these).* (1) Ask
+the owner to confirm the relayed rulings. (2) Pull
 request 173: this seat judged one open finding below the bar (route it) and one over it (a
 cure-only push, which PDR-140 clause 9b permits); but if "review rounds never go up" reaches
 this estate, that push is forbidden, so the owner's confirmation decides 173's path. (3) The
@@ -355,8 +379,9 @@ REPOSITORY advisories at all, which is how the markdown-it one was missed.
 *A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
 which a new session does not inherit: a thread-reply script that refuses a disposition with
 no bar marker or signature, a commit ceremony, a merge-base deletion sweep, a pull-request
-watch. Their concepts are on the napkin; their bytes are tracked nowhere. Landing the reply
-instrument in the estate's tooling is an offer under the shared text, and a lane here.
+watch. Their concepts are on the napkin; their bytes are in the instruments record named in
+the second boundary. Landing the reply instrument in the estate's tooling is an offer under
+the shared text, and a lane here.
 
 *Owed to peers.* To the sibling seat since the morning: a judgement of the "stand-down"
 wording in PDR-117; and a measurement for the third estate that the relayed ruling probably
@@ -373,7 +398,7 @@ applied, and the sibling seat has put it to the owner for ratification.
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
 fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d` (draft pull
-request 175), DUE 2026-09-22 17:45Z.
+request 175), which was DUE 2026-09-22 17:45Z and is overdue at the second boundary.
 
 The operator-profile lanes, by pull request number. This record states no tip and no review
 state, because those are what went stale here twice; read the pull request. 172, the twin of
