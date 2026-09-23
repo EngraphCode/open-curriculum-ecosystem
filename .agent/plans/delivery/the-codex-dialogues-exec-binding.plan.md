@@ -457,8 +457,7 @@ review before and after execution.
 - **Slice 1b, the gate and the probe logic.** About 8 files, each module with its tests:
   - the pass-record schema, the binding digest and the gate decision;
   - the rollout `turn_context` parse and its check against the envelope;
-  - the probe verdict, including the environment-leak check, which compares the listed names
-    with the seat's own variable names outside the allowlist;
+  - the probe verdict, including the environment check against rule 7's closed expected set;
   - `runTurn` (the gate, then `executeTurn`) and `runProbe`;
   - the cleanup-map row through a port.
   - Commit order: record schema and digest, then gate, then probe verdict, then the `runTurn`
@@ -531,7 +530,8 @@ enumerates and dispositions every row before implementation.
 | Date | Source | Finding | Routing |
 | --- | --- | --- | --- |
 | 2026-09-23 | Readiness reviews at authoring: assumptions-expert, code-expert, architecture-expert-barney, test-expert, security-expert | Cured across the drafts, among others: the thread-id injection; the model change under `--ignore-user-config`; the environment allowlist; the shell snapshot and memories; the pass record's binding; the rollout `turn_context` legs; the test layering; the slicing | None routed onward |
-| 2026-09-23 | PR 184 reviews: the Codex connector, Copilot, Badger seeks Hush | Cured on the PR: the write verdict read from the whole line's exit code; Codex-injected names read as leaks; the sampling bound; the nonce proving only a read; the `CODEX_` prefix allowance; the substring command check | None routed onward. A later finding on the probe verdict's mechanics is recorded here as a row for slice 1b, whose tests are that verdict's contract, rather than cured in this node's prose |
+| 2026-09-23 | PR 184 reviews: the Codex connector, Copilot, Badger seeks Hush | Cured on the PR: the write verdict read from the whole line's exit code; Codex-injected names read as leaks; the sampling bound; the nonce proving only a read; the `CODEX_` prefix allowance; the substring command check; the slice 1b todo's stale environment algorithm | None routed onward. A later finding on the probe verdict's mechanics is recorded here as a row for slice 1b, whose tests are that verdict's contract, rather than cured in this node's prose |
+| 2026-09-23 | PR 184, the Codex connector at c29088f0b | Extra command executions bypass the probe in a writable sandbox. The interlocutor could create the sentinel path as a directory, run the exact probe command so that it prints the nonce, then remove the directory. The required `command_execution` item and the post-exit sentinel check would both pass | Slice 1b: the probe verdict requires the expected command to be the only `command_execution` in the probe turn. Any other execution is inconclusive and fails, and a unit test proves it |
 
 ## Out of scope
 
