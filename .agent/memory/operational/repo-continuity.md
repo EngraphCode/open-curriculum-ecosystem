@@ -383,7 +383,27 @@ seats' drafts sorted by artefact kind, and means version five to carry both axes
 strategic node `best-of-each-practice`, landed byte-identical on their own branch off
 `engraph` from the sibling seat's lane, whose frame changed after the first read: land from
 its SHA: 2239f93e or later, read whole as receiver first; then the rounds ruling's Core home
-(PDR-132 and PDR-140 entries, the paragraph above). (2) Pull request 173: this seat judged one
+(PDR-132 and PDR-140 entries, the paragraph above). LANDED as pull request 177 (SHA:
+138e0128f; one round, no push; the committed PDR-142 blob equals the second estate's merged
+blob). Two owner card answers in this
+seat's session, 2026-09-23 ~13:0xZ. First, "Yes, confirmed": the answer the sibling seat relayed
+binds here, verbatim: "the shared concepts are the thing it is important to share, if that
+happens to be by exact bytes that is fine... byte for byte transfer is never the goal, concept
+transfer is, but where byte for byte transfer achieves concept transfer (and whether it does or
+not depends on the rest of the Practice context in that repo) then there is no problem". PDR-142
+still lands as identical bytes, because its Practice-wide text carries the concept here, and
+PDR-142 ("bytes, identical"; "never re-authors") and PDR-125 ("never bytes") each get one dated
+amendment carrying those words, drafted by the sibling seat (SHA: faca1cc8, local on its lane)
+and judged here at the Director's route, 2026-09-23 ~14:08Z: PDR-125 signed; PDR-142 signed
+with one change (its falsifier's consequence reopens the clause with the owner, never restores a
+bytes rule); PDR-141 signed with one change (take the lineage's other two hunks from 173, so the
+record is byte-identical). The owner ratifies through the Director; this estate's twin is then a
+lane. Second, "You as author": from 2026-09-23 this seat's commits carry the owner as author and
+the bot as committer, per the bot-identity rule. The commit queue's commit command has no author
+option, so the ceremony sets git's author variables in the environment of the commit step (tool
+feedback). (2) Pull request 173: LANDED as SHA: 685ad538c, 2026-09-23 14:02:25Z, after its one
+cure push (SHA: 514343b59); its one browser-tests failure was a transient font fetch in the hub
+build (the same run's build job compiled the same turbo hash), re-run once as the bot, green. This seat judged one
 open finding below the bar (route it) and one over it (a cure-only push, which PDR-140 clause
 9b permitted). The rounds ruling now binds here and 173 is past round two. The seat read the over-bar
 finding first-hand at 173's head (SHA: 1e6629dcf): decisions 11 and 14 limit the push to
