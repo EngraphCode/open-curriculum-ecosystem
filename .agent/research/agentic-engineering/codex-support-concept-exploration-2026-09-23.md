@@ -244,8 +244,10 @@ boundary, and queueing across machines or through a remote endpoint.
   runtime probe of 0.156.1.
 - **`codex-helper`** carries `-m "codex-auto"` (unverified), names `mcp__codex__codex`, and writes
   `/oak-start-right-quick` where Codex takes `$oak-...`. Its grounded template has the invoked
-  Codex run start-right and commit, which contradicts Sif's rule that an invoked Codex "never
-  registers identity, opens claims" (`sif/SKILL-CANONICAL.md`, "Instrument, not citizen").
+  Codex run start-right, whose foundation registers an identity and a claim before the first
+  edit. That contradicts Sif's rule that an invoked Codex "never registers identity, opens
+  claims" (`sif/SKILL-CANONICAL.md`, "Instrument, not citizen"). The template's commit guidance
+  is conditional: it sets the footer for any commit the agent makes, and requires none.
 - **Cricket.** The Claude panel is four Claude roles and the Codex panel runs only on Codex hosts
   (`cricket/SKILL-CANONICAL.md`). Sif's cell map files "Cricket Codex legs" as cross-vendor one-shot,
   but from a Claude seat Cricket is same-vendor only.
@@ -339,8 +341,10 @@ why the seats stopped is still open (§6). The invoked tools were unused and the
    candidate model is that an invoked Codex does not claim or commit, and its output is a patch
    that the invoking seat lands.
    - *Warrant:* the conflict recorded in §4. `codex-helper`'s grounded template has the invoked
-     Codex run start-right and commit, while Sif says an invoked Codex "never registers identity,
-     opens claims". One of the two has to give way.
+     Codex run start-right, which registers an identity and a claim, while Sif says an invoked
+     Codex "never registers identity, opens claims"; one of the two has to give way. The
+     template's commit guidance is conditional, so commit custody is unsettled rather than
+     contradicted.
    - *Wrong if:* the owner wants invoked Codex implementers that commit. That would need an
      authority ruling before either model is adopted.
 7. **Give Codex membership a worked citizenship programme** following the Copilot CLI instance:
