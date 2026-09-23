@@ -398,18 +398,43 @@ and judged here at the Director's route, 2026-09-23 ~14:08Z: PDR-125 signed; PDR
 with one change (its falsifier's consequence reopens the clause with the owner, never restores a
 bytes rule); PDR-141 signed with one change (take the lineage's other two hunks from 173, so the
 record is byte-identical). The owner ratified by card at the Director's seat (~14:5xZ); the
-sibling took both changes (SHA: 2185dc9f, its PR 155). This estate's twin is IN REVIEW as pull
-request 180 (branch docs/concept-over-bytes-amendments, worktree oce-wt-pdr-142). The joint
-texts (start-right §3a, cures A, B, B2, B3 and D, E's keep-in-touch sentence moved to a new
-sketch delivery node practice-two-way-exchange, and the owner's Director ruling in
-route-blocks-and-questions-to-director) are on docs/exchange-joint-texts (worktree
-oce-wt-core-text), IN REVIEW as pull request 181. Both are in round two, each after its one
-cure push. #180 took PDR-142 at the second estate's blob 732632fb (the owner's second card: the
-read-through names "never re-authors"; a third remedy for merged text). Its format-normalisation
-finding against ratified text is ROUTED to the owner through the Director, not cured, because
-ratified text is the owner's (PDR-142 §Boundaries). OWED: the profile-sync TSDoc says "ratified
-writes" (operator-profile-git-push.ts and operator-profile-sync.ts), against the PDR-141 cure, in
-its own small change. OWED: cure C, the continuity-practice directive's
+sibling took both changes (SHA: 2185dc9f, its PR 155, merged). This estate's twin LANDED as
+pull request 180 (SHA: 3a1d47873; two rounds; PDR-142 at the second estate's blob 732632fb,
+carrying the owner's second card: the read-through names "never re-authors", and merged text
+gets a third remedy). The joint texts (start-right §3a, cures A, B, B2, B3 and D, E's
+keep-in-touch sentence moved to a new sketch delivery node practice-two-way-exchange, and the
+owner's Director ruling in route-blocks-and-questions-to-director) are pull request 181 (worktree
+oce-wt-core-text), LANDED as SHA: 98e059ac5 at 20:30:55Z after three rounds (the third for one correctness defect: the Director section's acknowledgement clash) and two syncs.
+THIRD LANE, draft pull request 183 (branch docs/exchange-followups, worktree
+oce-wt-credential-guard-twin). It carries PDR-141's missing amendment section (blob 50e3f729,
+taken by the second estate) and B5 (start-right-thorough's solo fast path). Still to add: B4
+(agent-collaboration.md §Bootstrap Fast-Path) and cure C, both directives, so under the 30%
+budget; the practice-two-way-exchange node's mechanism naming all three outcomes, its bound
+to this exchange window, and "Not taken" scoped to offered texts only, never to an
+owner-ratified one (181's round-two and round-three findings); B6, start-right-quick's register paragraph
+("log "no other agents present" through an immutable comms event"), proposed to the sibling
+in B's wording; and the follow-up blobs the owner RATIFIED on the Director's card ("the
+follow-up wording cures at 2ed0cf71 are ratified; both estates land the same blobs"): from the
+sibling's SHA: 2ed0cf71 (PDR-142 superseded by 4bf9b95d at its SHA: 3262d12e, the seats' wording cures and the tie-break grounded in the owner's word, signed by both), PDR-125 e22c7b4b, and the inter-practice-collaboration
+skill 80cf1069, taken by bytes with this estate's own changelog entry, after syncing 183 with
+engraph. Only then is 183 made ready. Agreed with the sibling in advance: if a reviewer reads
+PDR-142's "one of three" as missing a fourth case (the shared contradiction), the answer is
+Below-bar and rejected. The three are reasons the bytes fail to carry the concept; a
+contradiction both carry is a faithfully carried concept, false in both, which the merged-text
+bullet governs; and renumbering would break "the third reason" in both logs. NEXT JOINT SET (the sibling drafts, this estate signs):
+F, the gate-runner singleton ("one runner per coordination window" in
+check-singleton-per-window, agent-state-observable §Holding the gate-runner role and
+session-handoff), likely "per working tree"; and G, start-right-team's "AND informs the
+Director", against the owner's Director ruling, joined by PDR-117's "deep handoffs" to the
+Director (lines 160-167, Core, joint), which #181's review found on the same ground. The Director's routing change on the owner's
+word, 2026-09-23 ~20:0xZ (verbatim: "Use the decision matrix, ONLY ask questions that survive
+that"): a question to the Director carries the seat's own verdict under the five lenses. The
+Director decides and records it as a Director verdict. Wording that implements a ruling the owner
+already gave is the seats' work under PR review, never a card. A ruling relayed from the
+sibling estate is confirmed by the Director, not re-carded to the owner. OWED: the profile-sync TSDoc
+says "ratified writes" (operator-profile-git-push.ts and operator-profile-sync.ts), against the
+PDR-141 cure, in its own small change. OWED: review-cost ledger rows for pull requests 177,
+180 and 181, their per-head prices read from each push's review-cost gate output. OWED: cure C, the continuity-practice directive's
 scope sentence, to read "(`director-handoff.md`, `frictions-register.md` and
 `review-cost-ledger.md`, where the estate keeps them)"; it waits for a session under the 30%
 directive budget. The owner, 2026-09-23 evening: fsmonitor OFF (`core.fsmonitor=false` in the
