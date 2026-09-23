@@ -335,10 +335,14 @@ why the seats stopped is still open (§6). The invoked tools were unused and the
    runtime instead of gating on a remembered version.
    - *Warrant:* the owner's ruling (§1), and the version-binding distinction (§4).
    - *Wrong if:* a silent vendor change passes the re-probe and harms a dialogue.
-6. **At `codex-helper`'s migration to Sif, which is already scheduled, make custody explicit.** An
-   invoked Codex never claims or commits; its output is a patch that the invoking seat lands.
-   - *Wrong if:* the owner wants invoked Codex implementers that commit. That needs an authority
-     ruling first.
+6. **At `codex-helper`'s migration to Sif, which is already scheduled, settle custody.** One
+   candidate model is that an invoked Codex does not claim or commit, and its output is a patch
+   that the invoking seat lands.
+   - *Warrant:* the conflict recorded in §4. `codex-helper`'s grounded template has the invoked
+     Codex run start-right and commit, while Sif says an invoked Codex "never registers identity,
+     opens claims". One of the two has to give way.
+   - *Wrong if:* the owner wants invoked Codex implementers that commit. That would need an
+     authority ruling before either model is adopted.
 7. **Give Codex membership a worked citizenship programme** following the Copilot CLI instance:
    success criteria plus a live acceptance seat.
    - *Warrant:* the node's own bet: "First-class citizenship is behavioural".
