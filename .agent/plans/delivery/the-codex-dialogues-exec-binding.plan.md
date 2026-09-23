@@ -6,7 +6,7 @@ overview: "Rebinds the Codex dialogues from the removed codex mcp-server onto co
 status: ratified
 ratified_by: Jim Cresswell (owner)
 ratified_date: 2026-09-23
-ratified_where: "The owner's decision card, relayed by the Director (Wick binds Temper, ed7b48) at about 19:55Z on 2026-09-23 and quoted in the body of PR 184: the node ratified; decision 1, 'carry the two keys, yes'; decision 2, verbatim 'Record the version tested, but we always run against latest'; decision 3 open, answered separately"
+ratified_where: "The owner's decision card, relayed by the Director (Wick binds Temper, ed7b48) at about 19:55Z on 2026-09-23 and quoted in the body of PR 184: the node ratified; decision 1, 'carry the two keys, yes'; decision 2, verbatim 'Record the version tested, but we always run against latest'; decision 3, a dedicated Codex home, decided yes by the Director at about 20:03Z under the owner's delegation"
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
@@ -203,10 +203,15 @@ probe's threads get cleanup-map rows through the same path.
 5. After the process exits, the sentinel must be absent from disk.
 6. The reply must contain the nonce. It is kept verbatim as corroboration.
 7. Every listed variable name must fall in the expected set:
-   - the child allowlist;
-   - names beginning `CODEX_`;
-   - a declared set of names the harness injects: `TERM`, `COLORTERM`, `PAGER`, `GIT_PAGER`,
-     `GH_PAGER`, `NO_COLOR`, `PWD`, `OLDPWD`, `SHLVL`, `_`, `LC_ALL` and `LC_CTYPE`.
+   - the child allowlist, `CODEX_HOME` included;
+   - a declared set of names the harness injects, each named, with no prefix wildcard:
+     - `CODEX_CI`, `CODEX_SANDBOX`, `CODEX_SANDBOX_NETWORK_DISABLED`, `CODEX_SESSION_ID`,
+       `CODEX_THREAD_ID` and `CODEX_VERSION`;
+     - `TERM`, `COLORTERM`, `PAGER`, `GIT_PAGER`, `GH_PAGER`, `NO_COLOR`, `PWD`, `OLDPWD`, `SHLVL`,
+       `_`, `LC_ALL` and `LC_CTYPE`;
+     - `__CF_USER_TEXT_ENCODING`, which macOS adds.
+
+   A name that only shares a prefix, such as a replayed `CODEX_API_KEY`, is a leak.
 
    Any other name fails the probe, and the probe prints the extra names. So a vendor addition
    becomes a reviewed one-line change, and a leak is never silent. This re-proves the
@@ -254,17 +259,18 @@ The envelope is one module. It is the only source of the argv and of the child's
     default.
   - Each value is serialised as a JSON string.
 - **The child environment.** The environment is an allowlist, never the seat's:
-  - `HOME`, set to an empty instrument home directory, not the owner's;
+  - `HOME`, set to the instrument's home directory, not the owner's;
   - `USER`, `LOGNAME`, `LANG` and `TMPDIR`;
   - a fixed system `PATH`;
-  - `CODEX_HOME`, set to the Codex home the tool resolved.
+  - `CODEX_HOME`, set to the instrument's own Codex home, not the owner's (Owner decisions
+    item 3).
 
   So no `CODEX_*`, `OPENAI_*` or proxy override in the seat's environment can redirect the
   interlocutor, and no seat secret is handed to it. With `HOME` redirected, the shell snapshot
   and any login shell start from an empty home, so none of the owner's shell startup files load
   (§2.8, the 19:55Z trial). The snapshot and login-shell settings stay as a second line.
 - **Where it runs.** Both calls are spawned from the instrument root, a fixed directory under the
-  Codex home, outside every checkout.
+  instrument's Codex home, outside every checkout.
   - Before every spawn it must pass five checks, or the call exits 4 and names the path. It is
     never cleaned silently. The checks:
     - not a symlink;
@@ -281,7 +287,20 @@ The envelope is one module. It is the only source of the argv and of the child's
 
 ### Where the state lives
 
-The pass record lives in the Codex home, beside the cleanup map, and is never committed.
+The instrument has a home of its own. It is one fixed directory in the owner's home, created by
+the tool at mode 0700. The instrument's Codex home sits inside it, and slice 2 names both paths.
+The instrument's Codex home holds:
+
+- the instrument's own login, from one `codex login` the owner runs once;
+- its sessions and state database;
+- the pass record, the cleanup map and the root.
+
+It holds no config, rules, plugins, skills or memories, so nothing of the owner's Codex setup can
+load. Retention becomes deleting one directory. Deleting it also removes the instrument's login
+from the machine; `codex logout` there, run first, also ends the session. The trial's four existing cleanup-map rows stay in the owner's Codex home for the trial
+close-out.
+
+The pass record is never committed. Its terms:
 
 - **Contents:**
   - the CLI version;
@@ -307,12 +326,10 @@ The pass record lives in the Codex home, beside the cleanup map, and is never co
   steers the model to it. That includes dotfiles, credentials and owner-private memory. The
   packet bounds only what the seat sends. A restricted-read permission profile (the root plus the
   packet's paths) is the named hardening.
-- **Some Codex-home instruction surfaces still load.** Skills in the Codex home, and a Codex-home
-  `AGENTS.md` (empty on this machine), are outside the flags. Anything under the owner's `HOME`,
-  the agents skills directory included, no longer loads, because `HOME` is redirected. Those
-  surfaces are instruction text, and under this envelope they cannot write, reach the network
-  or run an extension. A dedicated instrument Codex home is the structural cure (Owner decisions
-  item 3).
+- **The instrument's homes start empty but do not stay empty.** Nothing of the owner's loads from
+  either home. Codex writes its own state into the instrument's Codex home (the login, sessions,
+  the state database and caches), and whatever a future CLI adds there becomes part of that
+  state. The probe does not audit that directory's contents.
 - **The envelope binds only calls made through `dialogue-turn`.** A seat can still invoke `codex`
   directly. That is the same trust question as every other tool it holds. The skill names
   `dialogue-turn` as the only contract-conformant route.
@@ -342,18 +359,14 @@ The pass record lives in the Codex home, beside the cleanup map, and is never co
    but we always run against latest".** The pass record notes the version the probe passed on.
    After every update the seat probes the new version itself and carries on. Nothing runs on an
    older version, and nothing is pinned.
-3. **A dedicated instrument Codex home. Open.** The owner asked for a self-contained account of
-   the need and the impact, and the seat sent one on 2026-09-23, recommending yes.
-   - A dedicated home would give the instrument its own Codex home: its own login, sessions,
-     state database, record, root and cleanup map, with no config, rules, plugins, skills or
-     memories. So a future default-on feature that reads the Codex home would find nothing to
-     load, and retention would become deleting one directory.
-   - It needs a one-time `codex login` by the owner into that home.
-   - The `HOME` redirect above is independent of this decision and needs nothing from the
-     owner. It closes the shell-startup class, which is the class tonight's token leak came
-     from.
-   - Slices 1a and 1b take the Codex home as an injected path, so neither depends on this
-     decision. Slice 2 resolves it.
+3. **A dedicated instrument Codex home. Decided, 2026-09-23: yes.** The Director decided it at
+   about 20:03Z under the owner's delegation. The grounds were long-term architectural excellence
+   and the estate's preference for a structural cure over a per-instance one.
+   - The instrument's own Codex home means that a future default-on feature reading the Codex
+     home finds nothing of the owner's to load. The flags stay as a second line.
+   - The owner's one action is a single `codex login` into that home. It goes to the owner as an
+     owner-run action card, with the exact command, when slice 2 reaches that step.
+   - Slices 1a and 1b take both homes as injected paths, so neither depends on the location.
 
 ## Acceptance criteria (each with a proof)
 
@@ -401,7 +414,8 @@ Each behaviour is proved once, at the lowest scale that sees it.
      and never reads its arguments. It shows a single failing row leaves no record.
    - The probe reaches `executeTurn` directly. The gate is never bypassed through an option on
      `runTurn`.
-5. **Live probe.** `dialogue-probe` passes against the installed latest CLI, from the fixed root.
+5. **Live probe.** `dialogue-probe` passes against the installed latest CLI, from the fixed root,
+   under the instrument's own Codex home after the owner's one login.
    Every Codex process it started is proven closed by a process-table read.
    - The probe run's `turn_context` legs and the environment leg pass, and the Codex home gains
      no memory entry from the probe threads.
@@ -454,7 +468,10 @@ review before and after execution.
   - the `spawnSync` runner;
   - node adapters, free of logic: the record, root, nonce, sentinel, cleanup map, rollout read,
     prompt read, config read, clock and binary resolution;
-  - a pure `resolveCodexHome(env, homedir)`, called once at the composition root;
+  - a pure resolver, called once at the composition root. It gives the owner's Codex home,
+    read only for the two model keys, and the instrument's home and Codex home;
+  - creating the instrument's homes at mode 0700. The owner-run login card goes to the Director
+    with the exact command when this step is reached;
   - strict argument parsing;
   - CLI wiring at the composition root;
   - their tests;
@@ -513,7 +530,6 @@ The plan-body first-principles check fires here:
 - **The Annex B reverse binding and the conduit wrapper.** Their own evidence gates stand.
 - **The named hardenings in Honest limits:**
   - a restricted-read profile;
-  - a dedicated Codex home;
   - per-turn `turn_context` assertion;
   - a process-tree leg;
   - process-group kill.
