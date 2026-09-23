@@ -191,8 +191,9 @@ collaboration-surface reading comes from the `turn_context` of the seat's own se
   The running task completed at 13:44:58.374Z, and a separate queued user-role turn started at
   13:44:58.454Z, replying `ACTIVE-QUEUE-OK` at 13:45:00.815Z.
 - **Queue to an exited session.** `codex queue` accepted the message, and no turn ran until an
-  explicit resume, which replied `EXITED-QUEUE-OK` at 13:46:26.680Z. The queue holds messages
-  across the session's exit.
+  explicit resume, which replied `EXITED-QUEUE-OK` at 13:46:26.680Z. This is one run: the message
+  survived the clean exit of session `01a0ce81-…` in a disposable Codex home. Other exit modes (a
+  killed or crashed process), longer gaps, and other session states were not exercised.
 - **Not run:** `exec resume` without the sandbox pin. Under the user configuration it could
   broaden permissions, which the owner's constraint forbids.
 
@@ -320,8 +321,10 @@ why the seats stopped is still open (§6). The invoked tools were unused and the
      seat reading the event through its own canonical comms read.
    - *Warrant:* §2.4, and the owner's goal of 2026-07-31.
    - *Wrong if:* a queued notice overrides a user's typing at an idle boundary (untested). The
-     active-turn and exited-session cases hold (§2.7): a notice waits behind a running turn and
-     survives the session's exit. Badger seeks Hush raised the trust qualification in review.
+     active-turn and exited-session runs in §2.7 held once each: a notice waited behind a running
+     turn, and one survived a single clean exit. That is not yet a persistence contract. Recovery
+     designed around it needs the untested exit modes probed first. Badger seeks Hush raised the
+     trust qualification in review.
 4. **Once proposal 2 has reported, decide whether Claude's Cricket panel gains one Codex leg**
    (`codex exec --output-schema`, read-only, ephemeral).
    - *Warrant:* assumption 4, so the different view rides the challenge tool seats already use.
