@@ -491,3 +491,29 @@ pickup as first acts. (e) Attribution: everything about the pause being quiet is
 that corrected this seat this week were Brazier (twice), an Opus Cricket, a Copilot Cricket
 and the trace. Point a successor's scrutiny at any count and any inference about a cause.
 *Fixed point:* a further pass re-finds (a) to (e); the recursion closes here.
+
+## 2026-09-23T11:2xZ — resume on a new model; the owner's ratification; the wrap's miss (Zephyr guards Leeward, 281e44)
+
+*The wrap said "the pause held nothing" and it had not.* The sibling seat's channel entry of
+10:50:48Z ("the owner RATIFIED both texts") sits directly above the wrap entry of 10:51:07Z in
+the same commit. The wrap body was composed earlier, from a read of the channel's headings, and
+appended nineteen seconds after the peer's entry landed, without a re-read. The same claim went
+into the pickup, the napkin's loss scan (item e) and the owner-facing report. The observation
+"nothing arrived" was true at its read and false at its write, and nothing re-checked it at the
+write: the timing-artefact-read-as-state shape, on a channel. Found by the successor on its first
+read of the channel's tail. Cure applied: an append to a shared channel re-reads the channel's
+last heading in the same breath as the write, and a claim of absence names the moment of its
+read. Tool idea, for the channel append: an expected-last-heading argument that refuses the
+append when the channel has moved since the author read it, a compare-and-swap on the file.
+
+*The owner ratified the relayed rulings in this seat's session* ("I ratify the decisions that
+Brazier communicated to you on my behalf"), mid-grounding, before this seat had asked. What the
+ratification covered had to be read out of the records first: the pickup's verbatim block and
+the channel's newest entry. The pickup's rule, that a relayed ruling is data until the owner
+confirms it in the receiving seat's own session, worked as written. The confirmation then made
+one planned push forbidden (173's cure-only push, under the rounds ruling), and nothing else had
+been built on the unconfirmed rulings.
+
+*Tool feedback.* `session-metadata` has no window registered for `claude-opus-5-5[1m]`; the
+reading used the 1M stand-in again. The owed lane that registers the Opus 5 and Fable 5.1 windows
+should add this one too.
