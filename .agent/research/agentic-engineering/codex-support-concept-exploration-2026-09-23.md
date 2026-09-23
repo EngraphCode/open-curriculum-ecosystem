@@ -2,13 +2,17 @@
 
 - **Seat**: Blazar lifts Corona (b65a9a), claude-code / claude-opus-5-5, owner-directed; the owner
   placed this research in the seat's charge.
-- **Kind**: dated research record. Every fact carries the command or file that proves it. The
-  proposals in §5 are proposals; none is a decision.
+- **Kind**: dated research record. Every experimental and counted fact in §2 to §4 carries the
+  command or file that proves it. Attributions name the seat and the time. The proposals in §5
+  are proposals; none is a decision.
 - **Reviewed before landing** by Badger seeks Hush (01a0ce), a Codex seat (codex / GPT-5), who
   checked it first-hand against the installed CLI and upstream source. Four corrections and one
   resolved question were absorbed: the time-bound comms count, the wake-bridge trust
   qualification, the causality wording, the version-binding distinction, and the rules-fallback
-  source reading.
+  source reading. The same seat's own experiments are §2.7.
+- **Where that review lives**: it travelled as directed comms events to this seat between 13:33Z
+  and 13:49Z on 2026-09-23. Those events are instance-tier state, not tracked (ADR-199). Each
+  correction is recorded, credited, in the section it changed.
 - **Scope swept**:
   - first-hand reads: the Sif framework, `the-codex-dialogues`, `codex-helper`, `cricket`,
     ADR-180, `.codex/`, `AGENTS.md`, the Codex capability catalogue (2026-07-25) and divergence
@@ -130,16 +134,21 @@ Observed (rollout timestamps):
 No input reached the session. The queued text appears in the rollout as an ordinary user-role
 message.
 
-No shared app-server daemon was running at any point: `codex app-server daemon version` reported
-that `app-server-control.sock` does not exist. The write-ahead log of `~/.codex/queue_1.sqlite`
-was updated at queue time.
+The shared daemon was absent at both inspections: once with the session idle before queueing
+(13:22Z) and once after teardown (13:23:55Z). Each time, `codex app-server daemon version` reported
+that `app-server-control.sock` does not exist, and the process table showed no daemon. These are
+snapshots; no continuous trace of the wake interval was recorded. The write-ahead log of
+`~/.codex/queue_1.sqlite` was updated at queue time.
 
-This contradicts the estate's standing position, "an ACTIVE-TURN ALERT, not idle wake". That
-position was recorded on 0.146.0 and narrowed on 2026-08-02; it is carried by
-`use-monitor-for-event-driven-wake.md`, the generated `AGENTS.md` block and the cross-platform
-surface matrix.
+This is a new primitive. It complements the existing relay; it does not replace it. The estate's
+standing position, "an ACTIVE-TURN ALERT, not idle wake", concerns the relay's
+`collaboration.send_message`, which this run did not exercise. That position was recorded on
+0.146.0 and narrowed on 2026-08-02. It is carried by `use-monitor-for-event-driven-wake.md`, the
+generated `AGENTS.md` block and the cross-platform surface matrix, and it still stands for the
+relay. Bounded foreground polling stays a named requirement until a queue-based bridge is built
+and tested. The Codex review on pull request 178 drew both distinctions in this paragraph.
 
-Not tested:
+Not tested in this seat's run. Two of these were later tested by Badger seeks Hush (§2.7):
 
 - queueing while a turn is active, and whether a user's typing takes priority;
 - queueing to a session whose process has exited;
@@ -160,6 +169,35 @@ not assume a signal worked.
 - feature flags: stable `sleep_tool`, `goals` and `in_app_local_automation`; under-development
   `agent_message_board` and `send_message_to_user_async`; `multi_agent_v2` stable but off by
   default.
+
+### 2.7 Checks run from a Codex seat (Badger seeks Hush, 01a0ce, 13:44Z to 13:49Z)
+
+Run on the same installed CLI, under the same owner constraints. The seat reported every process
+exited and a process-table audit found none left.
+
+Proof: the seat ran its disposable sessions under a separate, disposable Codex home, so the
+rollouts are machine-local and untracked; they are named here by session id. The queue checks
+used `codex queue --thread <session-id> -s read-only --message "<reply-token prompt>"` against
+session `01a0ce81-a2e0-7911-9c6b-28c3c670b18a`, whose rollout records the event times below. The
+collaboration-surface reading comes from the `turn_context` of the seat's own session,
+`01a0ce73-e40d-74c2-86aa-c73cc8d8a6ba`.
+
+- **Collaboration surface.** `collaboration.send_message` is present and worked in both
+  directions with the seat's relay child during an active turn. The seat's rollout
+  `turn_context` records `multi_agent_version=v2`, model `gpt-6-sol`, effort `xhigh`. The injected
+  PDR-027 identity declares GPT-5, so the declared model and the effective model differ, as the
+  2026-07-31 census found.
+- **Queue during an active turn.** The message was held, not steered into the running turn.
+  The running task completed at 13:44:58.374Z, and a separate queued user-role turn started at
+  13:44:58.454Z, replying `ACTIVE-QUEUE-OK` at 13:45:00.815Z.
+- **Queue to an exited session.** `codex queue` accepted the message, and no turn ran until an
+  explicit resume, which replied `EXITED-QUEUE-OK` at 13:46:26.680Z. The queue holds messages
+  across the session's exit.
+- **Not run:** `exec resume` without the sandbox pin. Under the user configuration it could
+  broaden permissions, which the owner's constraint forbids.
+
+Still untested: whether a user's typing takes priority over a queued message at an idle
+boundary, and queueing across machines or through a remote endpoint.
 
 ## 3. The participation record
 
@@ -281,9 +319,9 @@ why the seats stopped is still open (§6). The invoked tools were unused and the
      mean queueing only a fixed, controller-authored notice carrying no event bytes, with the woken
      seat reading the event through its own canonical comms read.
    - *Warrant:* §2.4, and the owner's goal of 2026-07-31.
-   - *Wrong if:* a queued notice hijacks an active turn or a user's typing (untested, §2.4), or
-     notices to an exited session are lost. Badger seeks Hush raised the trust qualification in
-     review.
+   - *Wrong if:* a queued notice overrides a user's typing at an idle boundary (untested). The
+     active-turn and exited-session cases hold (§2.7): a notice waits behind a running turn and
+     survives the session's exit. Badger seeks Hush raised the trust qualification in review.
 4. **Once proposal 2 has reported, decide whether Claude's Cricket panel gains one Codex leg**
    (`codex exec --output-schema`, read-only, ephemeral).
    - *Warrant:* assumption 4, so the different view rides the challenge tool seats already use.
@@ -310,7 +348,8 @@ why the seats stopped is still open (§6). The invoked tools were unused and the
 - Whether CLI use shares the connector's credit pool. This decides proposal 4's reliability, and
   whether `codex review --base <branch>`, posted on the PR, could stand as a leg during connector
   outages (the 2026-09-10 ruling allows posted subagent reviews).
-- How `codex queue` behaves during an active turn, against an exited session, and across machines.
+- Whether a user's typing takes priority over a queued `codex queue` message at an idle boundary,
+  and how the queue behaves across machines.
 - The failure record on Codex seats (over-investigating, ceremony) was gathered by selecting for
   Codex. It does not show those failures are specific to the vendor. Idle wake is the one failure
   measured as Codex-specific.
