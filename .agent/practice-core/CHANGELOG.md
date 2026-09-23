@@ -17,8 +17,8 @@ Practice Core package.
   names the check; the Core says `<the host's profile check>`); decision 3's
   scope-key example is the key's shape, no host's own key; the Notes'
   sovereignty test admits the sync the decisions made ("on anything but the
-  operator's word"). Found through the three-estate Practice exchange; both
-  estates carry the files byte-identical.
+  operator's word"). Found through the three-estate Practice exchange;
+  offered to the second estate, whose seat lands it under its own gates.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-19 — PDR-011: graduate, then archive; the four-part surface lifecycle
 

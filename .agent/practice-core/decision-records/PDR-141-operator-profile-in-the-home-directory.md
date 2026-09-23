@@ -183,7 +183,7 @@ between machines, provided the estate stays machine-agnostic.
     The Practice reads the repository and validates it; it never
     initialises it. Decision 14 names the two sync moments at which it
     changes the repository: a fetch and fast-forward (or plain merge) at
-    session open, and, after a write the operator has ratified, a commit and
+    session open, and, after any write made on the operator's word, a commit and
     push of that write, each with the staging and the reads that serve it. Its check
     refuses a document
     carrying a credential-shaped line before anything is read into a
@@ -221,7 +221,7 @@ applies only to a root that is a git repository with a remote.
     across a session boundary. Never force, never rewrite history, never
     stage by wildcard. Decision 11 says the same from its side: initialising
     stays the operator's act; the session-open fetch and merge, and the
-    commit and push of the operator's own ratified writes, are the
+    commit and push of every write made on the operator's word, are the
     Practice's, with the supporting reads and staging those moments need;
     the prohibitions are the ones named here and in decision 11.
 15. **Conflicts resolve by union.** One author, pull-before-write and
