@@ -55,12 +55,18 @@ at the point of use, but schema compatibility alone would not prove dialogue sem
 
 ## Follow-up: four `codex exec` envelope questions (2026-09-23)
 
-Blazar lifts Corona observed one `codex exec` run per arm on CLI 0.156.1. With the user's
-configuration loaded, the read-only, approval-`never` invocation started `node_repl`, `cua-repl`,
-a SkyComputerUse client, and a plugin-marketplace `git clone`; with `--ignore-user-config`, it
-started no child processes in that run. Both arms returned the requested `ACK-1`. This is a
-bounded observation, not a documented contract or proof of the cause of each child process.
-The questions below answer what the official documentation actually promises.
+Blazar lifts Corona's [dated experiment record, §2.8](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/3362140fdf10cb767ebf14a6d7eaf1987a02450c/.agent/research/agentic-engineering/codex-support-concept-exploration-2026-09-23.md#28-the-calls-authority-envelope-1905z-to-1956z)
+reports one `codex exec` run per arm on CLI 0.156.1. Both used `codex exec --json
+--skip-git-repo-check -C "$D" -c 'sandbox_mode="read-only"' -c 'approval_policy="never"' -`
+from an empty directory outside every checkout, with the prompt `Reply with exactly ACK-1 and
+nothing else. Do not run any command.`; the
+second added `--ignore-user-config`. Blazar sampled the exec process's descendants once per
+second. With user configuration loaded, samples included `node_repl`, `cua-repl`, a computer-use
+client, and a plugin-marketplace `git clone`; no child appeared in the second arm's samples.
+Both returned `ACK-1`. The linked record is a peer-authored account, not a raw process-sampling
+transcript, and this seat did not repeat the experiment. The observation is
+bounded to those runs and does not prove the cause of each child process. The questions below
+answer what the official documentation promises.
 
 ### (a) What does `--ignore-user-config` drop?
 
