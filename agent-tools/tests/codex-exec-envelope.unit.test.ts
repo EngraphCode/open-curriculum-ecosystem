@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseModelPins, parseThreadId } from '../src/codex-exec/envelope';
+import {
+  buildChildEnv,
+  buildOpenArgv,
+  buildResumeArgv,
+  parseModelPins,
+  parseThreadId,
+  type ThreadId,
+} from '../src/codex-exec/envelope';
 
 describe('parseThreadId', () => {
   it('accepts a lowercase UUID of any version, the v7 thread ids included', () => {
@@ -58,5 +65,98 @@ describe('parseModelPins', () => {
     ['an effort that is not a string', 'model_reasoning_effort = true'],
   ])('fails closed on %s', (_label, text) => {
     expect(parseModelPins(text)).toStrictEqual({ ok: false, error: { kind: 'invalid-model-pin' } });
+  });
+});
+
+const SENTINEL =
+  'The dialogue call envelope changed. Re-adjudicate the authority envelope ' +
+  '(ADR-180 §6) before changing this expectation.';
+
+const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
+
+function threadId(): ThreadId {
+  const parsed = parseThreadId(THREAD);
+  if (!parsed.ok) {
+    return expect.unreachable('fixture thread id must parse');
+  }
+  return parsed.value;
+}
+
+const FLAGS = [
+  '--json',
+  '--ignore-user-config',
+  '--ignore-rules',
+  '--skip-git-repo-check',
+  '--disable',
+  'memories',
+  '--disable',
+  'shell_snapshot',
+];
+
+const SETTINGS = [
+  '-c',
+  'sandbox_mode="read-only"',
+  '-c',
+  'approval_policy="never"',
+  '-c',
+  'web_search="disabled"',
+  '-c',
+  'project_root_markers=[]',
+  '-c',
+  'shell_environment_policy.inherit="core"',
+  '-c',
+  'allow_login_shell=false',
+];
+
+const PINS_SLOT = ['-c', 'model="model-slot"', '-c', 'model_reasoning_effort="high"'];
+
+describe('the dialogue call envelope (designed sentinel)', () => {
+  it.each([
+    ['with model pins', { model: 'model-slot', effort: 'high' } as const, PINS_SLOT],
+    ['without model pins', {}, []],
+  ])('builds the open argv exactly, %s', (_label, pins, pinArgs) => {
+    expect(buildOpenArgv('/root-slot', pins), SENTINEL).toStrictEqual([
+      'exec',
+      ...FLAGS,
+      '-C',
+      '/root-slot',
+      ...SETTINGS,
+      ...pinArgs,
+      '-',
+    ]);
+  });
+
+  it.each([
+    ['with model pins', { model: 'model-slot', effort: 'high' } as const, PINS_SLOT],
+    ['without model pins', {}, []],
+  ])('builds the resume argv exactly, %s', (_label, pins, pinArgs) => {
+    expect(buildResumeArgv(threadId(), pins), SENTINEL).toStrictEqual([
+      'exec',
+      'resume',
+      THREAD,
+      ...FLAGS,
+      ...SETTINGS,
+      ...pinArgs,
+      '-',
+    ]);
+  });
+
+  it('builds the child environment exactly, with both homes belonging to the instrument', () => {
+    const env = buildChildEnv({
+      instrumentHome: '/home-slot',
+      instrumentCodexHome: '/codex-home-slot',
+      user: 'user-slot',
+      lang: 'lang-slot',
+      tmpdir: '/tmp-slot',
+    });
+    expect(env, SENTINEL).toStrictEqual({
+      HOME: '/home-slot',
+      USER: 'user-slot',
+      LOGNAME: 'user-slot',
+      LANG: 'lang-slot',
+      TMPDIR: '/tmp-slot',
+      PATH: '/usr/bin:/bin:/usr/sbin:/sbin',
+      CODEX_HOME: '/codex-home-slot',
+    });
   });
 });

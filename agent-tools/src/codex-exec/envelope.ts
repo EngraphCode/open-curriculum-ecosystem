@@ -116,3 +116,128 @@ function readPin<T>(
   const valid = state.kind === 'string' ? validate(state.value) : undefined;
   return valid === undefined ? err('invalid') : ok(valid);
 }
+
+/**
+ * Flags every dialogue call carries, on open and on resume. Each one closes
+ * an authority channel the read-only sandbox does not govern. Re-adjudicate
+ * the authority envelope (ADR-180 §6) before changing any of them.
+ */
+const ENVELOPE_FLAGS = [
+  '--json',
+  '--ignore-user-config',
+  '--ignore-rules',
+  '--skip-git-repo-check',
+  '--disable',
+  'memories',
+  '--disable',
+  'shell_snapshot',
+] as const;
+
+/**
+ * Settings every dialogue call restates on every turn, because a resumed
+ * turn takes no `--sandbox` or `--cd` and per-turn overrides can carry over.
+ */
+const ENVELOPE_SETTINGS = [
+  '-c',
+  'sandbox_mode="read-only"',
+  '-c',
+  'approval_policy="never"',
+  '-c',
+  'web_search="disabled"',
+  '-c',
+  'project_root_markers=[]',
+  '-c',
+  'shell_environment_policy.inherit="core"',
+  '-c',
+  'allow_login_shell=false',
+] as const;
+
+function modelPinArgs(pins: ModelPins): readonly string[] {
+  return [
+    ...(pins.model === undefined ? [] : ['-c', `model=${JSON.stringify(pins.model)}`]),
+    ...(pins.effort === undefined
+      ? []
+      : ['-c', `model_reasoning_effort=${JSON.stringify(pins.effort)}`]),
+  ];
+}
+
+/**
+ * The argv that opens a dialogue thread. The prompt goes on stdin (`-`), and
+ * no caller argument can add to or alter the envelope.
+ *
+ * @param instrumentRoot - The instrument's empty working root, also the spawn's cwd.
+ */
+export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
+  return [
+    'exec',
+    ...ENVELOPE_FLAGS,
+    '-C',
+    instrumentRoot,
+    ...ENVELOPE_SETTINGS,
+    ...modelPinArgs(pins),
+    '-',
+  ];
+}
+
+/**
+ * The argv that continues an existing dialogue thread. `resume` takes no
+ * `-C`, so the spawn's cwd must be the same instrument root.
+ */
+export function buildResumeArgv(threadId: ThreadId, pins: ModelPins): readonly string[] {
+  return [
+    'exec',
+    'resume',
+    threadId,
+    ...ENVELOPE_FLAGS,
+    ...ENVELOPE_SETTINGS,
+    ...modelPinArgs(pins),
+    '-',
+  ];
+}
+
+/**
+ * The fixed system PATH the child sees, so no seat PATH entry can steer
+ * which programs the interlocutor's shell finds.
+ */
+const CHILD_PATH = '/usr/bin:/bin:/usr/sbin:/sbin';
+
+/**
+ * The child's whole environment, as a closed shape: never the seat's.
+ */
+export interface ChildEnv {
+  readonly HOME: string;
+  readonly USER: string;
+  readonly LOGNAME: string;
+  readonly LANG: string;
+  readonly TMPDIR: string;
+  readonly PATH: string;
+  readonly CODEX_HOME: string;
+}
+
+/**
+ * What the composition root resolves for the child environment.
+ */
+export interface ChildEnvInputs {
+  readonly instrumentHome: string;
+  readonly instrumentCodexHome: string;
+  readonly user: string;
+  readonly lang: string;
+  readonly tmpdir: string;
+}
+
+/**
+ * Build the child environment from an allowlist. Both homes are the
+ * instrument's own, so none of the owner's shell startup files or Codex
+ * setup can load, and no seat `CODEX_*`, `OPENAI_*` or proxy variable passes.
+ */
+export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
+  return {
+    HOME: inputs.instrumentHome,
+    USER: inputs.user,
+    LOGNAME: inputs.user,
+    LANG: inputs.lang,
+    TMPDIR: inputs.tmpdir,
+    PATH: CHILD_PATH,
+    CODEX_HOME: inputs.instrumentCodexHome,
+  };
+}
