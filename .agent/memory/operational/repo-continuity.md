@@ -405,8 +405,9 @@ REPOSITORY advisories at all, which is how the markdown-it one was missed.
 *A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
 which a new session does not inherit: a thread-reply script that refuses a disposition with
 no bar marker or signature, a commit ceremony, a merge-base deletion sweep, a pull-request
-watch. Their concepts are on the napkin; their bytes are in the instruments record named in
-the second boundary. Landing the reply instrument in the estate's tooling is an offer under
+watch. Their concepts are on the napkin. The bytes of the first two are in the instruments record
+named in the second boundary; the deletion sweep and the pull-request watch were never scripts
+in that record, so only their concepts survive. Landing the reply instrument in the estate's tooling is an offer under
 the shared text, and a lane here.
 
 *Owed to peers.* To the sibling seat since the morning: a judgement of the "stand-down"
@@ -424,13 +425,13 @@ applied, and the owner ratified it by card ("Ratify both texts"; relayed 2026-09
 confirmed in this seat's session the same morning).
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
-fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d` (draft pull
-request 175), which was DUE 2026-09-22 17:45Z and is overdue at the second boundary.
+fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d`; its fold is pull
+request 175, whose state is read from the pull request, never from here.
 
 The operator-profile lanes, by pull request number. This record states no tip and no review
 state, because those are what went stale here twice; read the pull request. 172, the twin of
-the sibling's cures, is on `engraph`. 173, the Core-text cures, is HELD for the owner's
-disposition of two findings; its one records-class rebudget is spent (PDR-140 clause 9b). 174,
+the sibling's cures, is on `engraph`. 173, the Core-text cures, is HELD; its path follows the
+rounds ruling (first acts, item 2). 174,
 the credential tripwire as an engine over an injected vocabulary, takes no further settlement
 push from this seat and lands when both review legs bind its tip. The owner approved a STAGED
 review of the operator-profile module on both estates behind an owner checkpoint, not yet run;
