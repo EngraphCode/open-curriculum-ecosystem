@@ -163,9 +163,8 @@ Before substantive work:
    owner's launch prompt already answers it (the dedicated-consolidation prompt ranks the
    job above the daily fold), that answer holds for the session the prompt launched and
    no other, and the seat records on the branch's pull request that the fold is late by
-   the owner's word. Source: the
-   retrospective
-   `.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`.
+   the owner's word. Source: the lineage estate's retrospective of 2026-09-20 on why
+   its register stayed at twelve for three days.
    Falsifier: a pass that reserved still reaches its directive step over the line.
 
 8. **Choose the instruments once, at open; the launch prompt need not.** This skill is the
