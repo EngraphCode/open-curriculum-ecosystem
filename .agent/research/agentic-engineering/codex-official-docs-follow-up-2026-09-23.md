@@ -119,17 +119,24 @@ verification**, not a promised fix.
 
 ### (d) Is there one documented `-c` switch for every plugin and MCP server?
 
-**Not documented.** The [config reference](https://learn.chatgpt.com/docs/config-file/config-reference)
-documents per-server `mcp_servers.<id>.enabled=false`, per-plugin
-`plugins.<plugin>.enabled=false`, and per-plugin-server disablement.
-`features.remote_plugin=false` switches off the *remote plugin catalog*, not all plugins.
-`features.plugins` appears in the reference's **administrator requirements** keys, where it
-pins availability for managed users; it is not documented there as an ordinary one-off `-c`
-blanket kill switch. Per-plugin disablement also does not override workspace-managed enabled
-states, and marketplace refresh can still occur while a plugin is disabled. Enumerating known
-servers/plugins may narrow a run, but no documented wildcard `-c` value guarantees that every
-configuration layer and plugin-provided tool is off. `--ignore-user-config` removes only the
-named user file, so it does not supply that guarantee either.
+**For plugins, there is a general invocation switch; for all plugins *and* all MCP servers
+together, not documented.** The [CLI reference](https://learn.chatgpt.com/docs/developer-commands)
+documents repeatable `--disable <feature>` as `-c features.<name>=false` and
+`codex features list` as the way to see known flags. The installed CLI 0.156.1 lists `plugins`
+as a stable, enabled feature, so `--disable plugins` / `-c features.plugins=false` is a
+supported one-off **plugin-feature** override on that version. The
+[config reference](https://learn.chatgpt.com/docs/config-file/config-reference) separately
+documents `features.remote_plugin=false` for the remote catalog,
+`plugins.<plugin>.enabled=false` for a named local-marketplace plugin,
+`plugins.<plugin>.mcp_servers.<server>.enabled=false` for a bundled server, and
+`mcp_servers.<id>.enabled=false` for a named direct server. The same reference lists
+`features.plugins` under administrator requirements to pin managed availability; that placement
+does not negate the generic CLI feature override. The documentation reviewed does not specify
+that the one-off plugin flag prevents marketplace refresh, overrides workspace-managed plugin
+state, or disables direct MCP servers. Per-plugin disablement does not override
+workspace-managed enabled states, and marketplace refresh can still occur while a named plugin
+is disabled. No documented single `-c` wildcard guarantees that every plugin and direct MCP
+server from every layer is off. `--ignore-user-config` also removes only the named user file.
 
 **Conceptual result for the rebind:** `--ignore-user-config` is a supported way to remove one
 important source of ambient behaviour. Treating that single flag, or read-only/approval-`never`,
