@@ -98,10 +98,15 @@ of safe role, authority, liveness or release behaviour.
   the observed queue primitive. It is a **proposal**, not a proven bridge.
 - [App Server `turn/start.toolOutput`](https://learn.chatgpt.com/docs/app-server) persists output
   as `functionCallOutput`, and queues it for an active turn. That is a possible role-preserving
-  event carrier. The docs do not show that it wakes an idle TUI, survives exit, preserves the
-  Practice's event provenance, or is available to this seat. `thread/inject_items` persists
-  items without starting a user turn; it is not itself a wake claim. `turn/steer` applies only to
-  an active turn and appends **user** input.
+  event carrier for a custom client, not an established idle-wake carrier. The docs do not show
+  that it wakes an idle TUI, survives exit, preserves the Practice's event provenance, or is
+  available to this seat. The [deferred idle-wake sketch](../../plans/delivery/codex-app-server-idle-wake.plan.md)
+  explicitly rejects public `turn/start` for automatic wake: a concurrent owner submission can
+  turn the wake into same-turn steering. It requires an atomic idle reservation, owner-priority
+  fence and capability profile confined to that one wake turn. This sketch is not a ratified
+  implementation mandate, but its failure analysis is relevant to every wake candidate.
+  `thread/inject_items` persists items without starting a user turn; it is not itself a wake
+  claim. `turn/steer` applies only to an active turn and appends **user** input.
 - Hooks offer a candidate local guard for supported tool calls. Their documented coverage makes
   a blanket "Codex guard complete" claim false even if such a hook is installed.
 
@@ -114,15 +119,20 @@ of safe role, authority, liveness or release behaviour.
    identity/custody, and a stable output record on the installed latest release.
 2. **Keep a wake probe separate from an event-provenance probe.** For `codex queue`, test a fixed
    controller-authored notice with no peer text, then read the canonical comms event in the
-   awakened seat. Test typing priority, crash/forced-exit recovery and remote routing before
-   depending on them. The bridge fails if a peer event appears as user-role input, a queued
-   notice overtakes owner input, or an expected alert is silently lost.
-3. **Consider App Server tool output only if the richer client is justified.** A small read-only
-   probe could check whether `turn/start.toolOutput` starts an idle turn as documented, how it
+   awakened seat. Test atomic owner priority at an idle boundary, what happens throughout an
+   automatic wake turn if the owner submits input, capability confinement, crash/forced-exit
+   recovery and remote routing before depending on it. The bridge fails if a peer event appears
+   as user-role input, an owner submission is steered into the wake turn, wake capabilities
+   persist into the owner's turn, or an expected alert is silently lost.
+3. **Treat App Server tool output as a role probe only.** If a richer client is justified, a
+   small read-only probe could check whether `turn/start.toolOutput` starts an idle turn, how it
    behaves during an active turn, and whether the event retains a tool-output role through
-   resume. It fails as a Practice bridge if role, provenance, liveness or authority cannot be
-   demonstrated. The experimental support status remains a product risk after a successful
-   probe.
+   resume. A passing role probe would not qualify it for automatic wake: the deferred wake
+   sketch rejects public `turn/start`, and a qualifying carrier would also need atomic idle
+   reservation with owner priority throughout the wake turn and a non-sticky, turn-local
+   capability profile. Without a supported way to establish those properties, this candidate
+   stops at transport characterization. The App Server's experimental support status remains a
+   product risk even if a later mechanism meets the wake contract.
 4. **Treat a Codex `PreToolUse` guard as a bounded coverage improvement.** First map required
    command/content rules to the documented interceptable tools, then probe deny, rewrite,
    failure and continuation behaviour on the latest runtime. It fails as a complete guard if
@@ -147,7 +157,8 @@ of a documented API.
 - Does `codex queue` expose a documented supported contract beyond the observed 0.156.1
   behaviour? In particular, what happens across a crash, a remote endpoint, and owner typing?
 - Would App Server's tool-output path actually meet the Practice wake and event-authorship
-  contract, and is its experimental status proportionate for that job?
+  contract, including atomic reservation and turn-local authority, or should it remain only a
+  role-semantics observation? Is its experimental status proportionate for that job?
 - Which Codex action paths that matter to this repository fall outside `PreToolUse`?
 - What authentication, MCP/plugin access, model and effort defaults change when a bounded
   `codex exec` invocation ignores user configuration and execution-policy rules?
