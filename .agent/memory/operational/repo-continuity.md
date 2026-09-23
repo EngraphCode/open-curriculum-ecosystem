@@ -337,9 +337,9 @@ Brazier communicated to you on my behalf". They bind this estate from that word.
 confirmation covers the card answers below and the owner's later card answer "Ratify both
 texts" (the shared definition and plan), which the sibling seat relayed on the exchange channel
 at 2026-09-23T10:50:48Z. That entry sits directly above this seat's wrap entry of 10:51:07Z,
-which, like the second boundary block above, says the pause held nothing from any peer. Both
-are wrong: the wrap was composed without re-reading the channel and was appended nineteen
-seconds after that entry. Among the six rulings that "Everywhere for now" carries here is
+which says the pause held nothing from any peer. That was wrong: the wrap was composed without
+re-reading the channel and was appended nineteen seconds after that entry (the second boundary
+block above now says what arrived). Among the six rulings that "Everywhere for now" carries here is
 the rounds ruling, given in the sibling estate on 2026-09-14 at 15:15Z, verbatim: "I don't want
 the number of rounds of PRs to go up." The sibling's PDR-132 Amendment Log (read first-hand at
 its main, SHA: 6e576da2) records how it applies there: PDR-132's two rounds bind; after round
