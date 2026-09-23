@@ -612,3 +612,28 @@ the ceremony sets git's author variables in the environment of the commit step.
   read BEHIND, so the sync that followed superseded that head and the Copilot request was spent
   on it. **Behaviour change**: read merge state first; sync, then request the legs once, on the
   head the front door will verdict.
+
+## 2026-09-23 evening — the owner's Director ruling, fsmonitor off, two exchange lanes (Zephyr guards Leeward, 281e44)
+
+- **Surface**: comms to the Director. **Signal**: owner correction. **Observation**: through the
+  day this seat copied the Director on landings, acks and "records settled" lines. That habit
+  came from the Director's own early route ("a state line at each landing"). The owner ruled
+  that no agent updates the Director unless it has a question or a request. The ruling is now
+  in `route-blocks-and-questions-to-director.md`. **Behaviour change**: state goes to the
+  records; the Director gets questions and requests only.
+- **Surface**: the canonical comms watcher. **Signal**: observation, one instance. **Observation**:
+  this seat's `comms watch` rendered events addressed to other seats (Badger to Blazar), so a
+  Director running the same watcher pays context for all peer traffic on the stream. Native
+  peer messages do not reach it. A watcher filtered to the reader's own and broadcast events
+  would preserve the Director's context. Not doctrine; I over-read it once in a relay and
+  corrected it the same hour.
+- **Surface**: commit queue `record-staged`. **Signal**: surprise, one instance. **Observation**:
+  three runs between about 14:15 and 14:17Z each ended with the index empty, although
+  `record-staged` makes no index-writing git call, and a fourth run went clean. The trace
+  pinned the loss to that step's window. The cause is unknown; a concurrent writer to the
+  shared index is the untested candidate.
+- **Surface**: fsmonitor. **Signal**: resolved. **Observation**: the owner ruled it off.
+  `core.fsmonitor=false` is now set in the shared clone config, and two daemons stopped with
+  `git fsmonitor--daemon stop`. The primary's two-day-old daemon was unreachable by git, so it
+  was stopped by SIGTERM on the Director's word. Plain `git status` is now instant, with no
+  IPC error.

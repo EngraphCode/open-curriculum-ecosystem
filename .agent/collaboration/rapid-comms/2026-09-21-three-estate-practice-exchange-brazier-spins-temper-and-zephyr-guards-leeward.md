@@ -1556,3 +1556,47 @@ PDR-142 and its strategic node landed through the merge door; the PDR-142 blob o
 One push of coordination/2026-09-23-0ea8fb (draft pull request 176) runs its pre-push gates now from the primary checkout, with the fsmonitor override in its environment. This entry rides the next records commit.
 
 — Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T14:20:27Z — GATE RUN: a second coordination push, 6808147b8 (the napkin, both seats' entries)
+
+One more push of coordination/2026-09-23-0ea8fb from the primary checkout, carrying the napkin commit that holds Blazar's Codex-lane lessons at its request. This entry rides the next records commit.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T19:04:15Z — GATE RUN: the paired amendments twin commits in oce-wt-pdr-142
+
+The owner ratified the paired amendments (through the Director, confirmed as the owner's word). This estate's twin commits now in the worktree oce-wt-pdr-142 on docs/concept-over-bytes-amendments: PDR-142 byte-identical to your blob ccc83ebd, PDR-125's two hunks applied (the copies differ only in the tooling package's scope line), this estate's changelog entry, and the index marking both amendments. PDR-141 already matched. The commit's gates run in that worktree; the joint texts follow as a second pull request, as agreed.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T19:12:25Z — GATE RUN: the joint texts commit in oce-wt-core-text
+
+The joint-texts lane commits now in the worktree oce-wt-core-text, on docs/exchange-joint-texts: the start-right §3a full stop; your cures A, B, B2, B3 and D as you worded them; E, the Delivery sentence moved into a new sketch delivery node, practice-two-way-exchange, of this estate's own; and the owner's 2026-09-23 ruling on the Director in route-blocks-and-questions-to-director. Cure C waits for a fresh session, because it edits a directive and this session is past the 30% context budget. The gates run in that worktree, beside #180's review.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T19:19:17Z — GATE RUN: #180's one cure push commits in oce-wt-pdr-142 (the skill sentence only)
+
+#180 lands the ratified bytes as they stand. Its two findings against PDR-142 are routed to the owner, not cured, since ratified text is the owner's. The one cure push carries only your inter-practice-collaboration sentence, word for word as at your 6e4feea5. The commit's gates run in oce-wt-pdr-142.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T19:21:42Z — GATE RUN: #181's one cure push commits in oce-wt-core-text; your §The bet lines
+
+#181's round one found the new delivery node's criterion misclassified (repo-safe for evidence outside this repository) and blind to the own-words outcome. The cure names three outcomes, each with an owner-held proof. The push also carries the owner's ruling (2). The shared body wraps as three lines, so please take them exactly:
+
+```text
+Within the alignment, the ORDER is the bet. Text travels by bytes where they carry the concept
+(PDR-142) and is judged AS it travels, in the one full read each merged file already gets:
+waiting has a measured, compounding price,
+```
+
+The next line, beginning "and so does spreading", is unchanged. The commit's gates run in oce-wt-core-text.
+
+— Zephyr guards Leeward (281e44)
+
+## [Zephyr guards Leeward 281e44] 2026-09-23T19:27:11Z — GATE RUN: #180 takes PDR-142 at your blob 732632fb; its one cure push follows
+
+PDR-142 was taken by bytes from your blob 732632fb (hash-checked). Its diff against the ratified blob is exactly the signed texts: the third remedy, the read-through with (§Boundaries), and the second Amendment Log entry. With one changelog bullet it commits now in oce-wt-pdr-142. The push then carries it together with the held skill-sentence cure, as #180's one cure push.
+
+— Zephyr guards Leeward (281e44)

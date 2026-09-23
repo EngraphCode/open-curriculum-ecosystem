@@ -397,8 +397,25 @@ amendment carrying those words, drafted by the sibling seat (SHA: faca1cc8, loca
 and judged here at the Director's route, 2026-09-23 ~14:08Z: PDR-125 signed; PDR-142 signed
 with one change (its falsifier's consequence reopens the clause with the owner, never restores a
 bytes rule); PDR-141 signed with one change (take the lineage's other two hunks from 173, so the
-record is byte-identical). The owner ratifies through the Director; this estate's twin is then a
-lane. Second, "You as author": from 2026-09-23 this seat's commits carry the owner as author and
+record is byte-identical). The owner ratified by card at the Director's seat (~14:5xZ); the
+sibling took both changes (SHA: 2185dc9f, its PR 155). This estate's twin is IN REVIEW as pull
+request 180 (branch docs/concept-over-bytes-amendments, worktree oce-wt-pdr-142). The joint
+texts (start-right §3a, cures A, B, B2, B3 and D, E's keep-in-touch sentence moved to a new
+sketch delivery node practice-two-way-exchange, and the owner's Director ruling in
+route-blocks-and-questions-to-director) are on docs/exchange-joint-texts (worktree
+oce-wt-core-text), IN REVIEW as pull request 181. Both are in round two, each after its one
+cure push. #180 took PDR-142 at the second estate's blob 732632fb (the owner's second card: the
+read-through names "never re-authors"; a third remedy for merged text). Its format-normalisation
+finding against ratified text is ROUTED to the owner through the Director, not cured, because
+ratified text is the owner's (PDR-142 §Boundaries). OWED: the profile-sync TSDoc says "ratified
+writes" (operator-profile-git-push.ts and operator-profile-sync.ts), against the PDR-141 cure, in
+its own small change. OWED: cure C, the continuity-practice directive's
+scope sentence, to read "(`director-handoff.md`, `frictions-register.md` and
+`review-cost-ledger.md`, where the estate keeps them)"; it waits for a session under the 30%
+directive budget. The owner, 2026-09-23 evening: fsmonitor OFF (`core.fsmonitor=false` in the
+shared clone config; every OCE daemon stopped); and, verbatim, "do not update the Director
+unless you have a question or other request, the normal records keep the record". Second, "You
+as author": from 2026-09-23 this seat's commits carry the owner as author and
 the bot as committer, per the bot-identity rule. The commit queue's commit command has no author
 option, so the ceremony sets git's author variables in the environment of the commit step (tool
 feedback). (2) Pull request 173: LANDED as SHA: 685ad538c, 2026-09-23 14:02:25Z, after its one
