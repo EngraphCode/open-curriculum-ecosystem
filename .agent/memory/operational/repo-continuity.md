@@ -233,7 +233,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the 2026-09-21 branch as #169 (`SHA:72cab5667`), successor `coordination/2026-09-21-72cab5`; from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
+| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1, then claude-opus-5-5 from 2026-09-23 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the three 2026-09-21 branches as #169, #170 and #171 (the live branch is named once, in Next Safe Steps below, never in this row); from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
@@ -284,25 +284,175 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
-The board is `threads/estate-coordination.next-session.md` §"2026-09-21 10:12Z — the second
-2026-09-21 branch folded as #170 at the owner's word". The live branch is
-`coordination/2026-09-21-1a125f`, DUE 2026-09-22 00:00Z.
+**BOUNDARY, 2026-09-21 18:3xZ — a compaction at the owner's word, then a pause the owner
+says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
+written for a reader who was not here, possibly a different seat.
 
-Live state on the exchange's operator-profile lane, 2026-09-21 16:4xZ (read the pull requests
-for anything later): pull request 172, the twin of the sibling's cures, is on `engraph` at
-`SHA:272910f1d`. Pull request 173, the Core-text cures, is HELD at `SHA:1e6629dcf` with two
-findings awaiting the owner's disposition; its one records-class rebudget is spent (PDR-140
-clause 9b). Pull request 174, the credential tripwire as an engine over an injected vocabulary,
-is at `SHA:5147f61cf`, its settlement budget spent, awaiting its review legs. The owner approved a STAGED review of the operator-profile
-module on both estates behind an owner checkpoint, not yet run; its load-bearing content
-(objects, stages, the checkpoint, the caps) is on the board, lane item 4 of
-`threads/estate-coordination.next-session.md`, and no per-user file is a dependency. Owed on
-the successor branch's first records commit, routed from pull request 171 as below its bar:
-the Director handoff's pointer to the archived 2026-09-12 fold section; this file's Active
-Threads index, which names a folded branch and joins the successor cut's surface refresh; and
-"three rounds" against four reviewed heads for pull request 170, in four records with a
-correction appended to the fold channel. The seat's replies go out only through a scratchpad instrument that
-refuses a disposition without pr-lifecycle's bar marker and signature.
+**SECOND BOUNDARY, 2026-09-23 10:45Z — the owner changes models.** The pause lasted from
+2026-09-21 19:27Z to 2026-09-23 10:45Z with nothing from any peer on the canonical stream. On
+the channel, one entry from the sibling seat (2026-09-23T10:50:48Z: the owner ratified both
+texts) arrived seconds before this seat's wrap entry, which missed it; the relayed-rulings
+paragraph below records it. What changed since the first boundary, all of it landed on this branch and
+verified pushed: the retired Copilot seat's final departure facts were written into its
+handoff at its request; the context loop ticked once after the compaction, ran five idle
+checks and EXITED by its own safety valve, its schedule cancelled by this seat, so it is not
+running and is not owed a restart unless the owner re-issues it; the exchange channel carries
+this seat's gate-run notices and one correction; the review-cost ledger has rows for 173
+(held) and 175 (draft, no round). The sixteen scratchpad instruments are conserved verbatim
+in `.agent/reports/agentic-engineering/seat-instruments-zephyr-guards-leeward-2026-09-23.md`,
+so the lane below starts from bytes. This branch is PAST its 24-hour lifetime (due 2026-09-22
+17:45Z) because the seat paused at the owner's word; the fold is the first act at resume,
+before anything in the list below, and its successor is cut only if work follows. The
+successor seat registers its own identity on the thread before anything else (the claims of
+this seat carried platform `claude-code` and model `claude-opus-5`; a different model is a
+different registration, and the seat's Practice name follows the session, not the model).
+One observation with no cause, twice in five runs on 2026-09-21: the commit tool refused a
+commit because the staged set it read was empty seconds after `git add` had filled it; the
+same files and steps then committed on the next run. If it recurs, the queue's own record
+(`commit-queue -- list`, the `staged_name_status` field) shows what the tool read; do not
+retry blindly, and do not infer an outside writer from the index's modification time, which
+the tool's own status read rewrites.
+
+*Nothing of this seat is running.* A compaction ends every session-scoped process, and a pause
+of days means none is re-armed: no comms watcher, no channel tail, no pull-request watch, no
+context loop. Silence from this seat is the pause, never liveness. To resume, verify by id
+first and re-arm only what is absent: the canonical watcher (`pnpm --silent
+agent-tools:collaboration-state -- comms watch --platform claude-code --model <model>
+--supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-drain 100 --exclude-tag
+heartbeat`), ALWAYS paired with a tail on the exchange channel (`tail -n 0 -F <the channel
+file> | grep --line-buffered '^## \['`); monitors expire at thirty minutes and are re-armed at
+every expiry notice. On this machine a second git build (a Copilot agent's) has run its own
+filesystem-monitor daemon on this checkout, after which plain `git status` blocked for
+minutes: if git hangs, prefix the call with `git -c core.fsmonitor=false`, or export
+`GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.fsmonitor GIT_CONFIG_VALUE_0=false` for a script.
+
+*What is safe, verified first-hand at this boundary (local tip equal to the remote ref, no
+uncommitted file).* This coordination branch, on draft pull request 175. The Core-text branch,
+on open pull request 173, held. The credential tripwire landed as pull request 174; the last
+fold as 171. `engraph` was at `SHA:047b04f59`.
+
+*Owner rulings RELAYED to this seat by the sibling estate's seat, CONFIRMED by the owner in this
+seat's session on 2026-09-23 (received at about 11:00Z), verbatim: "I ratify the decisions that
+Brazier communicated to you on my behalf". They bind this estate from that word.* The
+confirmation covers the card answers below and the owner's later card answer "Ratify both
+texts" (the shared definition and plan), which the sibling seat relayed on the exchange channel
+at 2026-09-23T10:50:48Z. That entry sits directly above this seat's wrap entry of 10:51:07Z,
+which says the pause held nothing from any peer. That was wrong: the wrap was composed without
+re-reading the channel and was appended nineteen seconds after that entry (the second boundary
+block above now says what arrived). Among the six rulings that "Everywhere for now" carries here is
+the rounds ruling, given in the sibling estate on 2026-09-14 at 15:15Z, verbatim: "I don't want
+the number of rounds of PRs to go up." The sibling's PDR-132 Amendment Log (read first-hand at
+its main, SHA: 6e576da2) records how it applies there: PDR-132's two rounds bind; after round
+two every remaining finding is dispositioned in the same slot turn as the last push (a trivial
+cure rides that push, everything else is a signed Rejected line with its rationale or routed
+home); a round three is a correctness-defect call only. It nearly coincides with PDR-140 clause
+9(b), which it does not simply override; the differences are who decides and 9(b)'s ledger
+writes. Its Core home here is owed and judged jointly: proposed as one host-free dated entry in
+PDR-132 plus a note in PDR-140 on how clause 4 reads under it, drafted by the sibling seat after
+PDR-142 lands, and put to the owner if the reading cannot be made to agree with the owner's
+words. The rulings arrived by native message, which
+no repository tracks, so this is their only record here. The sibling seat says the owner
+answered its cards on 2026-09-21 as follows, verbatim.
+On the reading of "best of each Practice" (each estate gets what the other holds, every estate
+takes the higher of two, the bad is removed everywhere and the owner's rulings only by the
+owner's word): "Yes, that reading". On whether a ruling given in one estate reaches the
+others: "Everywhere for now, and later we will explore some kind of centralisation of the
+Practice, the distributed model creates too much overhead". On the third estate: "I think
+first we move Castr into OCE, then we extract an installable package, and later we review if
+we need to break OCE into multiple repos" (this would amend PDR-125 clause 6, "never shared
+code"). On its thirteen closed pull requests: "I directed it, it was a point where sunk cost
+was causing further loss, it was the economic choice. Castr remains very important, and
+development will continue, but identifying the value in the older work was far more expensive
+than fresh development. Please feel free to open channels to Poppy" (its seat, named by the
+owner as Poppy calls Topsoil). On how much alignment precedes the package: "Full alignment
+first, we are defining excellent, this is absolutely the right choice, nothing is delayed or
+avoided because of the future extraction". An apparent collision with an earlier answer
+(costly rulings "with the package") went back to the owner, who answered: "All six here now",
+so nothing in the sibling estate waits for the package. On the definition's home: "New record,
+PDR-142", allotted from this estate, byte-identical in both, with PDR-125 clause 6 amended
+separately by the owner when the package work begins. And on each estate's own Practice once
+the package exists: "both OCE and JC.net contribute to the new definition in the package, and
+both adapt their local Practices to use the package, we will still need Practice wide ,
+Typescript Practice wide, repo-local and machine-local doctrine, memories, state, so it is
+doubtful that everything will be in the Package, although likely all contracts will be". The
+sibling seat reads that as the owner's own LAYERS of doctrine, sorted by SCOPE where the
+seats' drafts sorted by artefact kind, and means version five to carry both axes.
+
+*First acts at resume, in order (the overdue fold, above, precedes all of these).* (1) DONE
+2026-09-23: the owner confirmed the relayed rulings (the paragraph above). (1a) PDR-142 and its
+strategic node `best-of-each-practice`, landed byte-identical on their own branch off
+`engraph` from the sibling seat's lane, whose frame changed after the first read: land from
+its SHA: 2239f93e or later, read whole as receiver first; then the rounds ruling's Core home
+(PDR-132 and PDR-140 entries, the paragraph above). (2) Pull request 173: this seat judged one
+open finding below the bar (route it) and one over it (a cure-only push, which PDR-140 clause
+9b permitted). The rounds ruling now binds here and 173 is past round two: each finding is
+dispositioned in a thread reply, with no further push unless the over-bar finding is a
+correctness defect. Read that finding first-hand before judging. (3) The markdown-it
+floor, small and owed. (4) The symmetric merge, the act only this estate's seat
+can do, since this estate has so far received NOTHING of the sibling's: the recipe is in the
+sibling seat's channel entry of 17:54:31Z, "theirs" pinned to the sibling's landed
+`SHA:6e576da2`, its rule frontmatter stripped and judged as its own offer. (5) Host facts in
+this estate's text, cured at the source (the list is in that same entry). (6) Version five of
+the shared text was ratified by the owner ("Ratify both texts"); it lands as item (1a) above,
+PDR-142 allotted here before the third estate's renumbering. The note to Poppy calls Topsoil
+(castr's seat) is owed once PDR-142 has landed; either exchange seat may send it.
+
+*Surfaced to the owner in chat only, until now.* A registry audit on 2026-09-21 reported two
+critical advisories on `next` and fifteen high across `sharp`, `js-yaml`, `fast-uri`,
+`smol-toml` and `@xmldom/xmldom`; outside this lane, not acted on. That audit cannot see
+REPOSITORY advisories at all, which is how the markdown-it one was missed.
+
+*A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
+which a new session does not inherit: a thread-reply script that refuses a disposition with
+no bar marker or signature, a commit ceremony, a merge-base deletion sweep, a pull-request
+watch. Their concepts are on the napkin. The bytes of the first two are in the instruments record
+named in the second boundary; the deletion sweep and the pull-request watch were never scripts
+in that record, so only their concepts survive. Landing the reply instrument in the estate's tooling is an offer under
+the shared text, and a lane here.
+
+*Owed to peers.* To the sibling seat since the morning: a judgement of the "stand-down"
+wording in PDR-117; and a measurement for the third estate that the relayed ruling probably
+supersedes. To the Copilot seat Whippoorwill holds Frost: its observation of whether a
+waiter's exit wakes its idle session, added to its report under
+`.agent/reports/agentic-engineering/` when it sends it. That seat retired at the owner's word
+on 2026-09-21 and, holding no commit authority, left a terminal handoff under
+`.agent/collaboration/handoffs/` and a formation letter in the experience tier; this seat
+landed both as they stood. The handoff's directory is NEW: this estate's handoff tier is under
+`.agent/state/collaboration/`, which is untracked by design. Whether a retiring seat's handoff
+belongs in a tracked home is a question for the Copilot support encoding, not yet judged.
+The shared text reached version five, signed by both seats with two changes of this seat's
+applied, and the owner ratified it by card ("Ratify both texts"; relayed 2026-09-23 10:50:48Z,
+confirmed in this seat's session the same morning).
+
+The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
+fold of pull request 171. The live branch is `coordination/2026-09-21-56bd4d`; its fold is pull
+request 175, whose state is read from the pull request, never from here.
+
+The operator-profile lanes, by pull request number. This record states no tip and no review
+state, because those are what went stale here twice; read the pull request. 172, the twin of
+the sibling's cures, is on `engraph`. 173, the Core-text cures, is HELD; its path follows the
+rounds ruling (first acts, item 2). 174,
+the credential tripwire as an engine over an injected vocabulary, takes no further settlement
+push from this seat and lands when both review legs bind its tip. The owner approved a STAGED
+review of the operator-profile module on both estates behind an owner checkpoint, not yet run;
+its load-bearing content (objects, stages, the checkpoint, the caps) is on the board, lane item
+4 of `threads/estate-coordination.next-session.md`, and no per-user file is a dependency.
+
+The owner's word to both exchange seats, 2026-09-21 17:2xZ: decide TOGETHER what "best of each
+Practice" means, with one shared definition and one shared plan, slowly, alignment before
+speed. The work is on the exchange channel, from the entries headed INDEPENDENT DRAFT onward.
+The text went through five versions there and the owner ratified the fifth; it lands as
+PDR-142 and the strategic node `best-of-each-practice` (first acts, item 1a). Two lanes are
+owed HERE from that work, each its own branch off `engraph`,
+their inputs in the sibling seat's channel entry of 17:54:31Z: the symmetric three-way merge of
+the sibling's post-pin rule and skill text into this estate (the recipe is there; the
+sibling's rule frontmatter is an offer, judged as its own row, never merged in silently); and
+the host facts in this estate's rule and skill text, cured at the source and stated host-free
+(the list by file is there, with seven review findings against this estate's text). Also owed,
+small and soon: a markdown-it floor. This estate resolves 15.0.0, which sits inside two
+REPOSITORY advisories that no registry audit or dependency gate can see; the sibling's floor is
+merged. The seat's replies go out only through a scratchpad instrument that refuses a
+disposition without pr-lifecycle's bar marker and signature.
 
 1. the three-estate Practice exchange (this estate, the sibling personal-site estate, castr),
    opened by the owner on 2026-09-21 with the sibling's seat Brazier spins Temper (c70341) as the

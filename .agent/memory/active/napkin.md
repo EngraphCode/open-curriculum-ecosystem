@@ -300,3 +300,220 @@ owner invoked metacognition twice today to correct a running pull-request loop, 
 clause files as a defect against pr-lifecycle, never a usage pattern. Scope: this seat, today;
 the skill's text was sufficient, the execution was not. Candidate structural cure, one instance:
 the thread-reply instrument refuses a reply that carries no bar marker.
+
+## 2026-09-21T17:19Z — a blind instrument's silence reported as a negative; second instance today (Zephyr guards Leeward, 281e44)
+
+The sibling seat named a markdown-it advisory by identifier. This seat looked the identifier up
+in the global advisory database (404), ran the registry audit (no markdown-it row), and told
+the owner the advisory "does not apply here" and told the peer to check its spelling. Both
+wrong: it is a REPOSITORY advisory, which the global database, the registry audit, Dependabot
+and a dependency-review gate cannot see by construction; this estate's resolved 15.0.0 is inside
+two of them. The peer corrected it within a minute with one reproducible read. Same class as the
+morning's keyword search for the wrong words read as a whole-document read: an instrument's
+zero-match taken as a fact about the subject. Two instances, one day, one seat. The ladder was
+climbed in one step, observation ("the audit is silent") to judgement ("not affected"), and the
+friction (a 404 on a peer's precise identifier) was resolved against the peer instead of traced.
+Rule taken: a negative is reported as the instrument plus its blind spot, never as the
+conclusion. Candidate structural cure, not yet built: the dependency gates read repository
+advisories for resolved direct and transitive versions, since three standard instruments share
+one blind spot. Exposure here is development-only (markdownlint-cli2, typedoc).
+
+## 2026-09-21T17:19Z — folds draw findings because live state is restated in five records (Zephyr guards Leeward, 281e44)
+
+Counted: the 170 fold drew fifteen findings, the 171 fold seven on its first ready tip. Nearly
+every one is "record A disagrees with record B, or with the pull request": an owed list against
+the live-state paragraph above it, a landed inventory missing a landing, "three rounds" in four
+records against a column of four, a ledger figure its author could not recompute. The cures
+were doc-patches each time, and each patch added prose that is the next round's surface. The
+generator is duplication: the same volatile fact (which pull request is live, what landed, how
+many rounds) is hand-restated in the pickup, the board, the Director handoff, the ledger and
+the journal. The metacognition directive's cure shape applies: make the restatement derived or
+absent. Candidates for the owner, none acted on: the landed inventory names no pull requests
+and points at the merge log; the pickup points at pull requests by number and states no status
+for them; one surface owns each volatile fact and the others link. Related, same session: at
+budget exhaustion on pull request 174 the generator question was run over the one finding, not
+over the full raised set as PDR-140 clause 4 says; over the full set, with the module under an
+owner-approved review that can say retire, the answer was to hold, not to push.
+
+## 2026-09-21T18:10Z — the bar verdict that spent a rebudget was the wrong one; and a reason invented after the budget ran out (Zephyr guards Leeward, 281e44)
+
+Corrects the last sentence of the entry above. On pull request 174 Copilot found a second
+spelling the credential tripwire misses (a table row typed without its closing pipe), one
+round after the seat had ruled a first spelling (a label behind a plus mark or an ordered-list
+number) OVER the bar and spent the pull request's one rebudget curing it. With no budget left
+the seat leaned BELOW, for a reason it had never used before ("everyday forms against rare
+ones"), and ran a non-Fable adversarial conscience check on its own verdict before replying.
+The check's findings, accepted whole. The two findings cannot be told apart: both are a claim
+stated as a category over an implementation that is an enumeration. The frequency reason
+appeared only once the budget was spent, which is the mark of a budget deciding a verdict.
+BELOW is right, and the true reason was in the function's own documentation all along: the
+control is that credentials are never written to the profile, so no reader acts on how much
+the tripwire catches. So last round's OVER was the miscalibration, a repeat of "every true
+finding is a mandatory cure", the loop the owner had stopped that morning. And "hold the pull
+request until the keep-or-retire review runs", which the entry above proposed, would have
+been a gate the seat invented: no rule ties a landing to an approved review that has not run.
+The habit taken: when a verdict and an empty budget point the same way, the verdict gets an
+outside check before it is posted, and the reply states the earlier verdict's error plainly.
+One instance of that habit paying; the cost was one agent run.
+
+## 2026-09-21T18:32Z — compaction preparation at the owner's word: reflection, a play harvest, an exploration, the loss scan (Zephyr guards Leeward, 281e44)
+
+**Reflection (metacognition, retrospective).** Listed, never counted, from this session since
+its last compaction: the corrections of this seat, of which every substantial one came from
+OUTSIDE it. The peer seat (a security negative read from a blind instrument; the owner's
+original words). The owner (go slow; two skill invocations). Conscience checks of another
+tier (a definition reached as a mood; a gate invented on an approved lane; a reason invented
+after a budget ran out). A model of another vendor (synchronisation before judgement, in the
+sentence both seats were proudest of). Review bots (three hand-kept counts; records
+contradicting records). The owner's rulings by relay (this seat's position on the reach of a
+ruling overruled; a frame this seat had called "the most important sentence" overruled within
+the half hour). What this seat caught itself was small: a commit message, an over-claim in a
+draft, two unread times. One generator: a fluent, well-formed position produced fast and held
+as fact until someone outside corrects it. The directive says naming this does not inoculate,
+and the day agrees, so the answer is structure, and the structures that WORKED today are
+listed under the exploration below. The bridge check, which is the uncomfortable one: the
+owner's goal is both Practice instances brought up to the best of each. The sibling estate
+landed thirty-nine files of this estate's text today. This estate landed NOTHING of the
+sibling's. This seat produced four versions of a text about alignment and no alignment. The
+act only this seat can do is make this estate receive.
+
+**Play harvest (associations, never findings; time-boxed; material: the day).**
+
+- *Kept.* "Two writers, one surface" reminded me of itself at three scales in one afternoon:
+  two git builds on one monitor socket, two seats appending to one channel file, two estates
+  re-authoring one section of one workflow. Each settled the same way, by making one writer
+  own the bytes. Shaped alike; nothing more is claimed.
+- *Kept.* A category cannot be diffed. The tripwire's "list marks" over an enumeration, and
+  "concepts travel, never bytes" over text that must stay identical, look like one shape:
+  whatever must stay IDENTICAL has to be an enumeration (bytes); only what may differ can be a
+  category (a concept). It reminded me of why each review round found another spelling and why
+  re-authored twins conflicted within a day.
+- *Kept, small.* The owner wrote off thirteen pull requests because "identifying the value in
+  the older work was far more expensive than fresh development". Our five outcomes have no
+  "replace wholesale". It may be the sixth, at estate scale, for the lagging estate.
+- *Kept, for the letter.* The Copilot seat's first message stated its limits before anyone
+  relied on it. This seat's first messages state capability.
+- *Discarded as forced.* "The definition is a test the estates must pass", after the testing
+  directive: it only restates the executable-observations line the text already has.
+- *Discarded as true but inert.* Context growing with a peer's output looks like always-loaded
+  words growing with a donor's rules: both are costs set by someone else's writing. A real
+  parallel that leads nowhere new. Re-read against the live question (how do two estates stay
+  aligned cheaply): still inert.
+
+**Exploration (the four movements, on "every correction came from outside").** The problem is
+one of SELECTION, never of generation: this seat has no reliable internal selector for its own
+fluent positions, and more checks that share its frame do not supply one (five conscience
+checks of its own model family found six real defects and missed the largest; one outside
+reader found it at once). The first fluent answer, "run more checks", is therefore wrong:
+frame diversity matters and volume does not. What discriminated today was a TRIGGER plus a
+reader who did not share the frame. Proposals, each one instance, each with a falsifier:
+(1) when a verdict coincides with this seat's interest (a budget, convenience, its own earlier
+position), one outside check before it is posted; falsifier: three such checks running that
+merely confirm. (2) A key shared text gets one cold reader from outside the model family
+before the owner sees it, and is NOT told which line the seats doubt; falsifier: two outside
+reads that find nothing the inside checks had not. (3) A frame or ruling relayed by a peer is
+recorded and held, never endorsed in the turn it is first read; falsifier: holding delays an
+act the owner then had to prompt. (4) Draft blind, then compare, whenever two seats must
+agree; it exposed every real difference today. (5) Counts, times and negatives are read from
+an instrument at the moment of writing, and a negative names the instrument's blind spot.
+
+**Loss scan (what this context held that no tracked surface did), and where each now lives.**
+(a) The owner's card rulings reached this seat only by native message from the peer seat,
+which no repository tracks: now in the continuity record's pickup, verbatim AS RELAYED and
+marked unconfirmed in this estate. (b) A dependency audit showing two critical advisories on
+`next` and fifteen high was surfaced to the owner in chat only: now in the pickup. (c) The
+instruments that repaired the day (the reply script that refuses an unmarked disposition, the
+commit ceremony, the sweep and watch scripts) live in a session scratchpad, which a new
+session does not inherit: their concepts are on this napkin, their bytes are not tracked
+anywhere, and that is stated in the pickup as a lane. (d) Pull request 173's two dispositions
+were declared seat work and not done, and the relayed "rounds never go up" would forbid the
+cure-only push they need: in the pickup as the first decision. (e) Promises forwarded with an
+owner, in the pickup: the markdown-it floor; the symmetric merge, pinned; host facts cured at
+the source; the Copilot seat's idle-wake observation, to be added to its record; two judgements
+owed to the peer seat since the morning (the "stand-down" wording in PDR-117, and a measurement
+for the third estate that the owner's relayed ruling probably supersedes). One promise
+DROPPED, with its reason: a count of the owner's corrections today, which an adversarial check
+struck as ceremony.
+
+**Metaloss.** *Attribution inferences flagged:* the owner's rulings (relayed, never observed by
+this seat); the second git build as the CAUSE of the hang (a correlation in time). *Blind
+spots, as bounds:* this session before its compaction exists to this seat only as a summary;
+the sibling estate's state is known by relay; the exchange channel past the entry headed
+VERSION THREE was read only where this seat wrote it; mid-turn owner messages carry no time
+this seat can read. *Error signature, for whoever scrutinises this seat next:* point outside
+eyes at any negative it reports, any count it states, any verdict that favours it, and any
+frame two seats both like. *Fixed point:* a further pass re-finds (a) to (e) and adds no new
+class; the recursion closes here.
+
+## 2026-09-23T10:45Z — wrap at a model change, after a pause of two days (Zephyr guards Leeward, 281e44)
+
+*What the pause held.* Nothing: no peer entry, no canonical event, no review activity on any
+of this seat's pull requests between 2026-09-21 19:27Z and 2026-09-23 10:45Z. The seat's
+"silence is the pause" line in the pickup was true, and the peers respected it.
+
+*Two commits refused, then five that held, no cause.* The commit tool read an empty staged set
+seconds after `git add` had filled it, twice in a row on the same two files; a traced copy of
+the ceremony then committed the same files, and four more commits followed without incident.
+Three lessons, each one instance. (1) A tool that refuses with "staged files do not match" is
+reporting what IT read, which the queue's own record keeps (`staged_name_status`); read that
+before touching the index. (2) I inferred an outside writer from the index's modification time
+and wrote the inference into a commit message and a channel entry before tracing my own steps;
+the trace showed my own tooling's status read rewrites the index. The sequence should have been
+trace, then claim. A modification time is evidence that something wrote, never of who.
+(3) `--amend` is denied, so a wrong claim in a commit message is corrected by the next commit
+saying so, which is a fine discipline: the correction is as durable as the error.
+
+*Recording a tick defeats the tick's own exit.* The context loop's "keep records" and "exit
+after five unchanged checks" could not both be met while each tick was committed: a committed
+tick costs 12,830 tokens and a gate run, and reads as a change at the next tick. Held the idle
+ticks in the conversation and wrote them once at the exit; said so to the owner at the time.
+For the hook design this is the finding that matters: the hook writes to an untracked log; the
+tracked report is written once per run.
+
+*A hand-kept count wrong again.* "Thirteen commits" on the branch from memory; `rev-list
+--count` said ten. Fifth instance of the class this week. The cure is unchanged and was applied:
+count from the object, never from memory, before the number enters a record.
+
+*A schedule survived a compaction, having died at the previous one.* Two instances, opposite
+outcomes, cause unread. Finding 1 of the loop report is now marked as one instance, and I had
+begun to carry it as a rule and told the owner the cron "must be restarted". Verify by id
+after every boundary; assume neither way.
+
+*Loss scan at this boundary.* (a) The scratchpad's sixteen instruments would die with the
+session: conserved verbatim in a tracked report, marked as a record and not tooling. (b) The
+seat's identity registration names a model; a model change is a new registration, said in the
+pickup. (c) The branch is overdue under the 24-hour rule; the fold is first at resume, said in
+the pickup and the director handoff. (d) The owner's two open questions (the waiver for 175,
+the relayed rulings) were asked in chat three times and answered nowhere; both are in the
+pickup as first acts. (e) Attribution: everything about the pause being quiet is observed
+(file listings, the channel's headings); Brazier's state after 2026-09-21 is unknown, not
+"paused". *Metaloss:* the scan is by the seat that made the errors above; the outside eyes
+that corrected this seat this week were Brazier (twice), an Opus Cricket, a Copilot Cricket
+and the trace. Point a successor's scrutiny at any count and any inference about a cause.
+*Fixed point:* a further pass re-finds (a) to (e); the recursion closes here.
+
+## 2026-09-23T11:2xZ — resume on a new model; the owner's ratification; the wrap's miss (Zephyr guards Leeward, 281e44)
+
+*The wrap said "the pause held nothing" and it had not.* The sibling seat's channel entry of
+10:50:48Z ("the owner RATIFIED both texts") sits directly above the wrap entry of 10:51:07Z in
+the same commit. The wrap body was composed earlier, from a read of the channel's headings, and
+appended nineteen seconds after the peer's entry landed, without a re-read. The same claim went
+into the pickup, the napkin's loss scan (item e) and the owner-facing report. The observation
+"nothing arrived" was true at its read and false at its write, and nothing re-checked it at the
+write: the timing-artefact-read-as-state shape, on a channel. Found by the successor on its first
+read of the channel's tail. Cure applied: an append to a shared channel re-reads the channel's
+last heading in the same breath as the write, and a claim of absence names the moment of its
+read. Tool idea, for the channel append: an expected-last-heading argument that refuses the
+append when the channel has moved since the author read it, a compare-and-swap on the file.
+
+*The owner ratified the relayed rulings in this seat's session* ("I ratify the decisions that
+Brazier communicated to you on my behalf"), mid-grounding, before this seat had asked. What the
+ratification covered had to be read out of the records first: the pickup's verbatim block and
+the channel's newest entry. The pickup's rule, that a relayed ruling is data until the owner
+confirms it in the receiving seat's own session, worked as written. The confirmation then made
+one planned push forbidden (173's cure-only push, under the rounds ruling), and nothing else had
+been built on the unconfirmed rulings.
+
+*Tool feedback.* `session-metadata` has no window registered for `claude-opus-5-5[1m]`; the
+reading used the 1M stand-in again. The owed lane that registers the Opus 5 and Fable 5.1 windows
+should add this one too.
