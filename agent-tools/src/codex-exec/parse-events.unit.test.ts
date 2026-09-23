@@ -2,12 +2,8 @@ import { Readable } from 'node:stream';
 
 import { describe, expect, it } from 'vitest';
 
-import { runCodexExecCli } from '../src/codex-exec/cli';
-import {
-  extractLastAgentMessage,
-  parseCodexExecEvent,
-  readTurnEvents,
-} from '../src/codex-exec/parse-events';
+import { runCodexExecCli } from './cli.js';
+import { extractLastAgentMessage, parseCodexExecEvent, readTurnEvents } from './parse-events.js';
 
 describe('parseCodexExecEvent', () => {
   it('reads thread.started as the thread id', () => {
@@ -59,19 +55,36 @@ describe('parseCodexExecEvent', () => {
     });
   });
 
-  it('reads an error item inside a turn as a non-fatal other event', () => {
-    const line = JSON.stringify({
-      type: 'item.completed',
-      item: { id: 'item_2', type: 'error', message: 'recoverable' },
-    });
-    expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'other', type: 'item.completed' });
+  it.each([
+    ['turn.started', { kind: 'turn-started' }],
+    ['turn.completed', { kind: 'turn-completed' }],
+  ])('reads %s as a turn boundary', (type, event) => {
+    expect(parseCodexExecEvent(JSON.stringify({ type, usage: {} }))).toStrictEqual(event);
   });
 
-  it('reads any other typed event as other', () => {
-    expect(parseCodexExecEvent('{"type":"turn.started"}')).toStrictEqual({
-      kind: 'other',
-      type: 'turn.started',
-    });
+  it.each(['item.started', 'item.updated'])('reads %s as item progress', (type) => {
+    const line = JSON.stringify({ type, item: { type: 'mcp_tool_call', status: 'in_progress' } });
+    expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'item-progress' });
+  });
+
+  it.each(['reasoning', 'todo_list', 'error'])(
+    'reads a completed %s item as a known item the verdict does not use',
+    (itemType) => {
+      const line = JSON.stringify({ type: 'item.completed', item: { type: itemType } });
+      expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'unused-item', itemType });
+    },
+  );
+
+  it.each(['file_change', 'mcp_tool_call', 'web_search', 'a_future_item'])(
+    'reads a completed %s item as unexpected under the envelope',
+    (itemType) => {
+      const line = JSON.stringify({ type: 'item.completed', item: { type: itemType } });
+      expect(parseCodexExecEvent(line)).toStrictEqual({ kind: 'unexpected-item', itemType });
+    },
+  );
+
+  it('returns undefined for a top-level event type outside the documented set', () => {
+    expect(parseCodexExecEvent('{"type":"turn.interrupted"}')).toBeUndefined();
   });
 
   it('returns undefined when a recognised event lacks its required field', () => {
@@ -80,6 +93,8 @@ describe('parseCodexExecEvent', () => {
       parseCodexExecEvent('{"type":"item.completed","item":{"type":"agent_message"}}'),
     ).toBeUndefined();
     expect(parseCodexExecEvent('{"type":"turn.failed"}')).toBeUndefined();
+    expect(parseCodexExecEvent('{"type":"item.started"}')).toBeUndefined();
+    expect(parseCodexExecEvent('{"type":"item.completed","item":{}}')).toBeUndefined();
   });
 
   it('returns undefined for a malformed JSON line', () => {
@@ -113,8 +128,36 @@ describe('readTurnEvents', () => {
       agentMessages: ['Preamble', 'Final'],
       commandExecutions: [{ command: 'c', output: 'o', exitCode: 0 }],
       failures: [],
-      unparseableLines: 0,
+      unexpectedItems: [],
+      turnStarts: 1,
+      turnCompletions: 1,
+      endsWithCompletion: true,
+      unrecognisedLines: 0,
     });
+  });
+
+  it('records unexpected items by their type', () => {
+    const lines = [
+      JSON.stringify({ type: 'item.completed', item: { type: 'web_search' } }),
+      JSON.stringify({ type: 'item.completed', item: { type: 'file_change' } }),
+    ];
+    expect(readTurnEvents(lines).unexpectedItems).toStrictEqual(['web_search', 'file_change']);
+  });
+
+  it('counts turn boundaries, and records whether the stream ends on a completion', () => {
+    const lines = [
+      JSON.stringify({ type: 'turn.started' }),
+      JSON.stringify({ type: 'turn.completed' }),
+      JSON.stringify({ type: 'turn.started' }),
+      JSON.stringify({ type: 'turn.completed' }),
+      JSON.stringify({ type: 'item.completed', item: { type: 'agent_message', text: 'late' } }),
+    ];
+    const events = readTurnEvents(lines);
+    expect([events.turnStarts, events.turnCompletions, events.endsWithCompletion]).toStrictEqual([
+      2,
+      2,
+      false,
+    ]);
   });
 
   it('collects turn failures and stream errors as failures', () => {
@@ -125,9 +168,9 @@ describe('readTurnEvents', () => {
     expect(readTurnEvents(lines).failures).toStrictEqual(['quota', 'stream broke']);
   });
 
-  it('counts non-blank lines it cannot parse, and ignores blank ones', () => {
-    const lines = ['', '   ', '{bad json', '{"type":"thread.started"}'];
-    expect(readTurnEvents(lines).unparseableLines).toBe(2);
+  it('counts non-blank lines it does not recognise, and ignores blank ones', () => {
+    const lines = ['', '   ', '{bad json', '{"type":"thread.started"}', '{"type":"turn.aborted"}'];
+    expect(readTurnEvents(lines).unrecognisedLines).toBe(3);
   });
 });
 

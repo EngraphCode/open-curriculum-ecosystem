@@ -1,6 +1,13 @@
 import { err, type Result } from '@oaknational/result';
 
-import { buildOpenArgv, buildResumeArgv, type ChildEnv, type ThreadId } from './envelope.js';
+import {
+  buildChildEnv,
+  buildOpenArgv,
+  buildResumeArgv,
+  type ChildEnv,
+  type ChildEnvInputs,
+  type ThreadId,
+} from './envelope.js';
 import type { ModelPins } from './model-pins.js';
 import { judgeTurn, type CodexRun, type TurnFailure, type TurnOutcome } from './turn-verdict.js';
 
@@ -25,7 +32,11 @@ export interface TurnContext {
   readonly codexExecutable: string;
   /** The instrument's empty working root, the cwd of every spawn. */
   readonly instrumentRoot: string;
-  readonly childEnv: ChildEnv;
+  /**
+   * What the child environment is built from. The turn builds the
+   * environment itself, so no caller can hand a spawn any other.
+   */
+  readonly childEnvInputs: ChildEnvInputs;
   readonly modelPins: ModelPins;
 }
 
@@ -33,8 +44,9 @@ export interface TurnContext {
  * The effects a turn needs, injected.
  */
 export interface TurnPorts {
-  /** Confirms the instrument root is fit for a spawn, or says why not. */
-  readonly checkRoot: () => Result<void, string>;
+  /** Confirms the given instrument root is fit for a spawn, or says why not. */
+  readonly checkRoot: (root: string) => Result<void, string>;
+  /** Runs one call to completion, synchronously, and reports what the process did. */
   readonly runCodex: (call: CodexCall) => CodexRun;
 }
 
@@ -54,16 +66,17 @@ export interface TurnRequest {
 export type TurnError = TurnFailure | { readonly kind: 'root-not-ready'; readonly reason: string };
 
 /**
- * Run one dialogue turn inside the fixed call envelope and judge it. No field
- * of the request reaches the argv except the prompt (on stdin) and a thread
- * id already parsed as a UUID.
+ * Run one dialogue turn inside the fixed call envelope and judge it. The root
+ * checked is the root the spawn runs in. Of the request, only the thread id,
+ * already parsed as a UUID, reaches the argv; the prompt goes on stdin and
+ * the timeout to the runner.
  */
 export function executeTurn(
   request: TurnRequest,
   context: TurnContext,
   ports: TurnPorts,
 ): Result<TurnOutcome, TurnError> {
-  const root = ports.checkRoot();
+  const root = ports.checkRoot(context.instrumentRoot);
   if (!root.ok) {
     return err({ kind: 'root-not-ready', reason: root.error });
   }
@@ -75,7 +88,7 @@ export function executeTurn(
     executable: context.codexExecutable,
     argv,
     cwd: context.instrumentRoot,
-    env: context.childEnv,
+    env: buildChildEnv(context.childEnvInputs),
     stdin: request.prompt,
     timeoutMs: request.timeoutMs,
   });

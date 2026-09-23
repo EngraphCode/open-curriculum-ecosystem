@@ -1,4 +1,10 @@
-import type { CodexExecEvent, CommandExecution, LastMessageOutcome, TurnEvents } from './types.js';
+import type {
+  CodexExecEvent,
+  CommandExecution,
+  LastMessageOutcome,
+  TurnEvents,
+  UnusedItemType,
+} from './types.js';
 
 type JsonPrimitive = string | number | boolean | null;
 type JsonValue = JsonPrimitive | JsonObject | readonly JsonValue[];
@@ -10,9 +16,10 @@ interface JsonObject {
 /**
  * Parse one JSONL line into a closed `CodexExecEvent`.
  *
- * Returns undefined for a blank or malformed line, and for a recognised event
- * that lacks its required field, so a vendor shape change surfaces as an
- * unparseable line rather than as a silently empty event.
+ * Returns undefined for a blank or malformed line, for a top-level type
+ * outside the documented set, and for a recognised event that lacks its
+ * required field. So a vendor addition or shape change surfaces as an
+ * unrecognised line, never as a silently ignored or empty event.
  */
 export function parseCodexExecEvent(line: string): CodexExecEvent | undefined {
   const trimmed = line.trim();
@@ -30,19 +37,35 @@ export function parseCodexExecEvent(line: string): CodexExecEvent | undefined {
   return parseTypedEvent(type, parsed);
 }
 
+type EventParser = (event: JsonObject) => CodexExecEvent | undefined;
+
+/**
+ * One parser for each documented top-level type; any other type is
+ * unrecognised.
+ */
+const EVENT_PARSERS: ReadonlyMap<string, EventParser> = new Map<string, EventParser>([
+  [
+    'thread.started',
+    (event) => withString(event['thread_id'], (threadId) => ({ kind: 'thread-started', threadId })),
+  ],
+  ['turn.started', () => ({ kind: 'turn-started' })],
+  ['turn.completed', () => ({ kind: 'turn-completed' })],
+  ['turn.failed', (event) => parseTurnFailed(event)],
+  [
+    'error',
+    (event) => withString(event['message'], (message) => ({ kind: 'stream-error', message })),
+  ],
+  ['item.started', (event) => parseItemProgress(event)],
+  ['item.updated', (event) => parseItemProgress(event)],
+  ['item.completed', (event) => parseCompletedItem(event['item'])],
+]);
+
 function parseTypedEvent(type: string, event: JsonObject): CodexExecEvent | undefined {
-  switch (type) {
-    case 'thread.started':
-      return withString(event['thread_id'], (threadId) => ({ kind: 'thread-started', threadId }));
-    case 'turn.failed':
-      return parseTurnFailed(event);
-    case 'error':
-      return withString(event['message'], (message) => ({ kind: 'stream-error', message }));
-    case 'item.completed':
-      return parseCompletedItem(event['item']);
-    default:
-      return { kind: 'other', type };
-  }
+  return EVENT_PARSERS.get(type)?.(event);
+}
+
+function parseItemProgress(event: JsonObject): CodexExecEvent | undefined {
+  return isJsonObject(event['item']) ? { kind: 'item-progress' } : undefined;
 }
 
 function parseTurnFailed(event: JsonObject): CodexExecEvent | undefined {
@@ -53,17 +76,26 @@ function parseTurnFailed(event: JsonObject): CodexExecEvent | undefined {
   return withString(error['message'], (message) => ({ kind: 'turn-failed', message }));
 }
 
+const UNUSED_ITEM_TYPES: readonly UnusedItemType[] = ['reasoning', 'todo_list', 'error'];
+
 function parseCompletedItem(item: JsonValue | undefined): CodexExecEvent | undefined {
   if (!isJsonObject(item)) {
     return undefined;
   }
-  if (item['type'] === 'agent_message') {
+  const itemType = item['type'];
+  if (typeof itemType !== 'string') {
+    return undefined;
+  }
+  if (itemType === 'agent_message') {
     return withString(item['text'], (text) => ({ kind: 'agent-message', text }));
   }
-  if (item['type'] === 'command_execution') {
+  if (itemType === 'command_execution') {
     return parseCommandExecution(item);
   }
-  return { kind: 'other', type: 'item.completed' };
+  const unused = UNUSED_ITEM_TYPES.find((candidate) => candidate === itemType);
+  return unused === undefined
+    ? { kind: 'unexpected-item', itemType }
+    : { kind: 'unused-item', itemType: unused };
 }
 
 function parseCommandExecution(item: JsonObject): CodexExecEvent | undefined {
@@ -85,52 +117,89 @@ function parseCommandExecution(item: JsonObject): CodexExecEvent | undefined {
  * Fold one turn's JSONL lines, in order, into what the turn said.
  */
 export function readTurnEvents(lines: readonly string[]): TurnEvents {
-  const threadIds: string[] = [];
-  const agentMessages: string[] = [];
-  const commandExecutions: CommandExecution[] = [];
-  const failures: string[] = [];
-  let unparseableLines = 0;
+  const fold: TurnFold = {
+    threadIds: [],
+    agentMessages: [],
+    commandExecutions: [],
+    failures: [],
+    unexpectedItems: [],
+    turnStarts: 0,
+    turnCompletions: 0,
+    endsWithCompletion: false,
+    unrecognisedLines: 0,
+  };
   for (const line of lines) {
     if (!line.trim()) {
       continue;
     }
     const event = parseCodexExecEvent(line);
     if (event === undefined) {
-      unparseableLines += 1;
+      fold.unrecognisedLines += 1;
       continue;
     }
-    foldEvent({ threadIds, agentMessages, commandExecutions, failures }, event);
+    foldEvent(fold, event);
+    fold.endsWithCompletion = event.kind === 'turn-completed';
   }
-  return { threadIds, agentMessages, commandExecutions, failures, unparseableLines };
+  return fold;
 }
 
-interface TurnEventLists {
+interface TurnFold {
   readonly threadIds: string[];
   readonly agentMessages: string[];
   readonly commandExecutions: CommandExecution[];
   readonly failures: string[];
+  readonly unexpectedItems: string[];
+  turnStarts: number;
+  turnCompletions: number;
+  endsWithCompletion: boolean;
+  unrecognisedLines: number;
 }
 
-function foldEvent(lists: TurnEventLists, event: CodexExecEvent): void {
+type ItemEvent = Extract<
+  CodexExecEvent,
+  {
+    readonly kind:
+      'item-progress' | 'agent-message' | 'command-execution' | 'unused-item' | 'unexpected-item';
+  }
+>;
+
+function foldEvent(fold: TurnFold, event: CodexExecEvent): void {
   switch (event.kind) {
     case 'thread-started':
-      lists.threadIds.push(event.threadId);
+      fold.threadIds.push(event.threadId);
       return;
+    case 'turn-started':
+      fold.turnStarts += 1;
+      return;
+    case 'turn-completed':
+      fold.turnCompletions += 1;
+      return;
+    case 'turn-failed':
+    case 'stream-error':
+      fold.failures.push(event.message);
+      return;
+    default:
+      foldItemEvent(fold, event);
+  }
+}
+
+function foldItemEvent(fold: TurnFold, event: ItemEvent): void {
+  switch (event.kind) {
     case 'agent-message':
-      lists.agentMessages.push(event.text);
+      fold.agentMessages.push(event.text);
       return;
     case 'command-execution':
-      lists.commandExecutions.push({
+      fold.commandExecutions.push({
         command: event.command,
         output: event.output,
         exitCode: event.exitCode,
       });
       return;
-    case 'turn-failed':
-    case 'stream-error':
-      lists.failures.push(event.message);
+    case 'unexpected-item':
+      fold.unexpectedItems.push(event.itemType);
       return;
-    case 'other':
+    case 'item-progress':
+    case 'unused-item':
       return;
     default: {
       const unhandled: never = event;

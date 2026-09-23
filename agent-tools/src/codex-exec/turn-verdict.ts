@@ -44,13 +44,23 @@ export type TurnFailure =
   | { readonly kind: 'killed'; readonly reason: KillReason; readonly stderrTail: string }
   | { readonly kind: 'nonzero-exit'; readonly code: number; readonly stderrTail: string }
   | { readonly kind: 'turn-failed'; readonly code: number; readonly messages: readonly string[] }
-  | { readonly kind: 'unparseable-output'; readonly lines: number }
+  | { readonly kind: 'unrecognised-output'; readonly lines: number }
+  | { readonly kind: 'unexpected-item'; readonly itemTypes: readonly string[] }
+  | {
+      readonly kind: 'malformed-turn';
+      readonly turnStarts: number;
+      readonly turnCompletions: number;
+      readonly endsWithCompletion: boolean;
+    }
   | { readonly kind: 'no-thread-id' }
   | { readonly kind: 'multiple-thread-ids'; readonly count: number }
   | { readonly kind: 'invalid-thread-id' }
   | { readonly kind: 'thread-mismatch'; readonly expected: ThreadId; readonly actual: ThreadId }
   | { readonly kind: 'no-agent-message' };
 
+/**
+ * A turn that counts, or the one reason it does not.
+ */
 export type TurnVerdict = Result<TurnOutcome, TurnFailure>;
 
 const STDERR_TAIL_LENGTH = 500;
@@ -60,7 +70,9 @@ const STDERR_TAIL_LENGTH = 500;
  *
  * A failed turn's own reason, from its event stream, is reported ahead of a
  * bare non-zero exit code, because under `--json` the stderr carries almost
- * nothing.
+ * nothing. Otherwise the stream must be exactly one turn, of recognised
+ * events only, completed last, with no item the envelope should make
+ * impossible.
  *
  * @param run - What the process did.
  * @param requested - The thread a resumed turn must continue; undefined when opening.
@@ -83,15 +95,16 @@ export function judgeTurn(run: CodexRun, requested: ThreadId | undefined): TurnV
 }
 
 function judgeEvents(events: TurnEvents, requested: ThreadId | undefined): TurnVerdict {
-  if (events.unparseableLines > 0) {
-    return err({ kind: 'unparseable-output', lines: events.unparseableLines });
+  const shape = judgeShape(events);
+  if (!shape.ok) {
+    return shape;
   }
   const thread = judgeThread(events.threadIds, requested);
   if (!thread.ok) {
     return thread;
   }
   const message = events.agentMessages.at(-1);
-  if (message === undefined) {
+  if (message === undefined || !message.trim()) {
     return err({ kind: 'no-agent-message' });
   }
   return ok({
@@ -100,6 +113,24 @@ function judgeEvents(events: TurnEvents, requested: ThreadId | undefined): TurnV
     messages: events.agentMessages,
     commandExecutions: events.commandExecutions,
   });
+}
+
+/**
+ * The stream holds only recognised events and no unexpected item, and is
+ * exactly one turn, completed last.
+ */
+function judgeShape(events: TurnEvents): Result<void, TurnFailure> {
+  if (events.unrecognisedLines > 0) {
+    return err({ kind: 'unrecognised-output', lines: events.unrecognisedLines });
+  }
+  if (events.unexpectedItems.length > 0) {
+    return err({ kind: 'unexpected-item', itemTypes: events.unexpectedItems });
+  }
+  const { turnStarts, turnCompletions, endsWithCompletion } = events;
+  if (turnStarts !== 1 || turnCompletions !== 1 || !endsWithCompletion) {
+    return err({ kind: 'malformed-turn', turnStarts, turnCompletions, endsWithCompletion });
+  }
+  return ok(undefined);
 }
 
 /**

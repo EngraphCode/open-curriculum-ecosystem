@@ -6,8 +6,10 @@ import {
 } from '../core/toml-top-level-basic-string.js';
 
 /**
- * The reasoning efforts the CLI accepts, as a closed set; an effort outside
- * it fails closed rather than reaching the argv.
+ * The reasoning efforts the CLI accepted when tested (codex-cli 0.156.1), as
+ * a closed set. An effort outside it fails closed rather than reaching the
+ * argv, so a new vendor effort in the owner's configuration stops dialogues
+ * until it is added here.
  */
 const REASONING_EFFORTS = [
   'none',

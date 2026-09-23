@@ -26,9 +26,13 @@ export function parseThreadId(raw: string): Result<ThreadId, string> {
 }
 
 /**
- * Flags every dialogue call carries, on open and on resume. Each one closes
- * an authority channel the read-only sandbox does not govern. Re-adjudicate
- * the authority envelope (ADR-180 §6) before changing any of them.
+ * Flags every dialogue call carries, on open and on resume. `--json` selects
+ * the event stream the verdict reads. `--skip-git-repo-check` relaxes the
+ * CLI's git-repository guard, deliberately, so the call can run from the
+ * empty root, which is not a repository. Each of the others closes an
+ * authority channel the read-only sandbox does not govern: the owner's Codex
+ * configuration, the exec-policy rules, memories and the shell snapshot.
+ * Re-adjudicate the authority envelope (ADR-180 §6) before changing any.
  */
 const ENVELOPE_FLAGS = [
   '--json',
@@ -74,7 +78,8 @@ function modelPinArgs(pins: ModelPins): readonly string[] {
  * The argv that opens a dialogue thread. The prompt goes on stdin (`-`), and
  * no caller argument can add to or alter the envelope.
  *
- * @param instrumentRoot - The instrument's empty working root, also the spawn's cwd.
+ * @param instrumentRoot - The instrument's empty working root, which must also be the spawn's cwd.
+ * @param pins - The validated model pins, each carried as one `-c` value.
  */
 export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
   return [
@@ -91,6 +96,9 @@ export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly
 /**
  * The argv that continues an existing dialogue thread. `resume` takes no
  * `-C`, so the spawn's cwd must be the same instrument root.
+ *
+ * @param threadId - The thread to continue, already parsed as a UUID.
+ * @param pins - The validated model pins, each carried as one `-c` value.
  */
 export function buildResumeArgv(threadId: ThreadId, pins: ModelPins): readonly string[] {
   return [
@@ -114,8 +122,9 @@ const CHILD_PATH = '/usr/bin:/bin:/usr/sbin:/sbin';
 type ChildEnvKey = 'HOME' | 'USER' | 'LOGNAME' | 'LANG' | 'TMPDIR' | 'PATH' | 'CODEX_HOME';
 
 /**
- * The child's whole environment, as a closed shape: never the seat's. A
- * keyed record rather than an interface, so it is assignable to the
+ * The child's whole environment: exactly these names, never the seat's.
+ * `executeTurn` builds it from its inputs, so no caller hands a spawn any
+ * other. A keyed record rather than an interface, so it is assignable to the
  * process environment a spawn takes.
  */
 export type ChildEnv = Readonly<Record<ChildEnvKey, string>>;
@@ -132,10 +141,11 @@ export interface ChildEnvInputs {
 }
 
 /**
- * Build the child environment from an allowlist. Both homes are the
- * instrument's own, so none of the owner's shell startup files or Codex
- * setup can load, and no seat `CODEX_*`, `OPENAI_*` or proxy variable passes.
- * Re-adjudicate the authority envelope (ADR-180 §6) before changing it.
+ * Build the child environment from an allowlist. The caller supplies the
+ * instrument's own homes, so none of the owner's shell startup files or
+ * Codex setup can load. No seat `CODEX_*`, `OPENAI_*` or proxy variable
+ * passes. Re-adjudicate the authority envelope (ADR-180 §6) before changing
+ * it.
  */
 export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
   return {

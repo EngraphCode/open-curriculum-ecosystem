@@ -1,26 +1,31 @@
-import { describe, expect, expectTypeOf, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
   parseThreadId,
-  type ChildEnv,
   type ThreadId,
-} from '../src/codex-exec/envelope';
-import { parseModelPins } from '../src/codex-exec/model-pins';
+} from './envelope.js';
+import { parseModelPins } from './model-pins.js';
+
+const V7_ID = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 
 describe('parseThreadId', () => {
-  it('accepts a lowercase UUID of any version, the v7 thread ids included', () => {
-    const id = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
+  it.each([
+    ['a v7 id, the form Codex thread ids take', V7_ID],
+    ['a v4 id', '3f2b8c1e-9d4a-4e6b-8a7c-1b2d3e4f5a6b'],
+  ])('accepts %s', (_label, id) => {
     expect(parseThreadId(id)).toStrictEqual({ ok: true, value: id });
   });
 
   it.each([
     ['an option-shaped value', '--dangerously-bypass-approvals-and-sandbox'],
     ['a thread name', 'my-dialogue'],
-    ['an uppercase UUID', '01A0CFAF-7914-72E2-AFE7-FB2D0938EB94'],
-    ['a UUID with surrounding space', ' 01a0cfaf-7914-72e2-afe7-fb2d0938eb94'],
+    ['an uppercase UUID', V7_ID.toUpperCase()],
+    ['a UUID with a leading space', ` ${V7_ID}`],
+    ['a UUID with a trailing space', `${V7_ID} `],
+    ['a UUID with an option appended', `${V7_ID}--x`],
     ['an empty value', ''],
   ])('refuses %s', (_label, raw) => {
     expect(parseThreadId(raw).ok).toBe(false);
@@ -58,6 +63,11 @@ describe('parseModelPins', () => {
     expect(result).toStrictEqual({ ok: false, error: { kind: 'unparseable-config' } });
   });
 
+  it('accepts a model name of 64 characters, the longest allowed', () => {
+    const model = 'a'.repeat(64);
+    expect(parseModelPins(`model = "${model}"`)).toStrictEqual({ ok: true, value: { model } });
+  });
+
   it('reads the lowest effort, none, as a pin', () => {
     expect(parseModelPins('model_reasoning_effort = "none"')).toStrictEqual({
       ok: true,
@@ -68,6 +78,7 @@ describe('parseModelPins', () => {
   it.each([
     ['a model with a quote', String.raw`model = "gpt\"; rm"`, 'model'],
     ['a model starting with a dash', 'model = "-m"', 'model'],
+    ['a model of 65 characters', `model = "${'a'.repeat(65)}"`, 'model'],
     ['a model that is not a string', 'model = 6', 'model'],
     [
       'an effort outside the closed set',
@@ -87,7 +98,7 @@ const SENTINEL =
   'The dialogue call envelope changed. Re-adjudicate the authority envelope ' +
   '(ADR-180 §6) before changing this expectation.';
 
-const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
+const THREAD = V7_ID;
 
 function threadId(): ThreadId {
   const parsed = parseThreadId(THREAD);
@@ -173,9 +184,5 @@ describe('the dialogue call envelope (designed sentinel)', () => {
       PATH: '/usr/bin:/bin:/usr/sbin:/sbin',
       CODEX_HOME: '/codex-home-slot',
     });
-  });
-
-  it('types the child environment so a spawn accepts it as its process environment', () => {
-    expectTypeOf<ChildEnv>().toExtend<NodeJS.ProcessEnv>();
   });
 });
