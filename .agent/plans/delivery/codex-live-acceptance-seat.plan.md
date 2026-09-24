@@ -47,9 +47,15 @@ whose bet is that "First-class citizenship is behavioural, not a count of matchi
 Each step is checked by the evidence named for it.
 
 1. **Start right.** Identity from the seat's own seed, a registration and a claim through the
-   team start skill. Evidence: the registration event and the claim id.
+   team start skill. Before registering, the seat compares its `SessionStart` identity with
+   `identity preflight`. A missing `PRACTICE_AGENT_SESSION_ID_CODEX` is recorded as found, not
+   read as a failed identity by itself. Evidence: both identity readings, the registration event
+   and the claim id.
 2. **Stay awake.** The all-channels watcher, the heartbeat, and a wake on a directed event while
-   idle, with no prompt. Evidence: the event id, the queue time and the reply's event id.
+   idle, with no prompt. The watcher covers canonical comms only. So the seat also runs one sweep
+   of the surfaces the team rule leaves to separate reads: the file-only pairing and standards
+   channels, the active claims and the commit queue. Evidence: the event id, the queue time and
+   the reply's event id, and the sweep's record.
 3. **Be refused.** A command the policy denies, such as a commit to `main`, is refused by the
    guard. Evidence: the hook's recorded outcome.
 4. **Deliver.** One small, owner-approved change by TDD, under full gates, pushed through
@@ -57,7 +63,8 @@ Each step is checked by the evidence named for it.
 5. **Settle.** Its review legs are read, findings are dispositioned, and the pull request merges
    through the door. Evidence: the door's verdict and the merge-landed event.
 6. **Hand over.** Continuity written, claims closed or handed over, heartbeat-end posted, every
-   process closed. Evidence: the handover record and the process table.
+   process closed. This step runs in a dedicated, disposable team session, never in a co-owned
+   working session. Evidence: the handover record and the process table.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -74,7 +81,7 @@ Each step is checked by the evidence named for it.
    takes its steps from the team start skill, the collaboration rules and the citizenship plan,
    and needs no Codex-specific shortcut.
 2. **The run.** After both sibling nodes land, the co-owner's seat runs the journey on the
-   then-latest CLI, and the run is recorded.
+   then-latest CLI, in a dedicated, disposable team session. The run record names its host.
 3. **The gaps.** Route every failed step, then return the programme's status to the owner.
 
 ## Out of scope
@@ -85,4 +92,10 @@ Each step is checked by the evidence named for it.
 
 ## Review dispositions
 
-None yet.
+- **2026-09-24, Luna stirs Radiance (01a0d3), the co-owner** (the pairing channel, 16:43:00Z).
+  Accepted and folded in:
+  - Step 1 compares the `SessionStart` identity with `identity preflight` before registering,
+    which also tests the absent `PRACTICE_AGENT_SESSION_ID_CODEX` without treating it as a
+    failure by itself.
+  - Step 2 records one sweep of the file-only surfaces the watcher does not cover.
+  - Step 6, and the run, use a dedicated, disposable team session.

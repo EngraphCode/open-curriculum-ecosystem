@@ -85,8 +85,11 @@ turns into a silent allow. This is the second step of the Codex membership progr
    structural parser. Any other tool is out of the guard's matchers.
 3. **A thin Codex hook adapter,** under `.codex/hooks/`, rooted at the repository top the way
    the `SessionStart` hook is. It routes through the same fail-closed shim logic: a built but
-   broken guard blocks, and a guard that is not built fails open, loudly, into
-   `.codex/logs/hook-errors.log` (ADR-167).
+   broken guard blocks, and a guard that is not built fails open into
+   `.codex/logs/hook-errors.log` (ADR-167). That fail-open is visible only through the log write.
+   The shim swallows a failed log write so the verdict never changes, and a host may hide stderr
+   on exit 0. So a not-built guard whose log write also fails is an unobserved allow. The node
+   names that residual rather than claiming every not-built allow is observable.
 4. **The wiring.** `[[hooks.PreToolUse]]` entries in `.codex/config.toml` with matchers `Bash`
    and `Edit|Write`, which select `apply_patch` through its aliases, as synchronous handlers.
    The routing validator (`validate-pretooluse-guard-routing`) extends to `.codex/config.toml`,
@@ -94,29 +97,36 @@ turns into a silent allow. This is the second step of the Codex membership progr
 
 ## Acceptance criteria (each with a proof — required)
 
-- **A refused command is refused on Codex.** A command the policy denies, such as a commit to
-  `main`, is blocked on a Codex seat with the policy's reason. Proof: `repo-safe`, renderer and
-  adapter tests over literal Codex payloads and decisions; `owner-held`, a dated live run on the
-  then-latest CLI.
+- **A refused command is refused on Codex, on each host.** A command the policy denies, such as
+  a commit to `main`, is blocked on a Codex seat with the policy's reason. Proof: `repo-safe`,
+  renderer and adapter tests over literal Codex payloads and decisions; `owner-held`, a dated
+  live run on the then-latest CLI, recorded separately for the ChatGPT desktop app and for a TUI
+  in an editor terminal.
 - **An allowed call runs, and logs no hook failure.** Proof: `repo-safe`, the renderer's allow
   output is empty; `owner-held`, the live run's hook status reads completed, not failed.
-- **No failure is a silent allow.** A degraded guard denies on Codex; a broken built guard
-  blocks; a guard that is not built fails open with a log line. Proof: `repo-safe` tests over
-  each path.
+- **No failure is a silent allow, except the one residual named.** A degraded guard denies on
+  Codex; a broken built guard blocks; a guard that is not built fails open with a log line.
+  Proof: `repo-safe` tests over each path, the normal log path included. The residual, a
+  not-built guard whose log write fails, is stated in the node and the guard's doctrine.
 - **File edits are guarded.** An `apply_patch` the content policy refuses is blocked. Proof:
   `repo-safe` tests over literal patch documents; `owner-held`, the live run.
-- **Code mode is guarded, or the gap is named.** Proof: `owner-held`, a live run in which a code
-  mode program makes a refused shell call, recorded with the hook's outcome. If the call is not
-  guarded, Honest limits says so and the node returns to the owner.
+- **Code mode is guarded, or the gap is named, on each host.** Proof: `owner-held`, a live run
+  on each host that supports code mode, in which a code-mode program makes a refused shell call,
+  recorded with the hook's outcome. If a path bypasses the hook, the parity claim is bounded to
+  the paths shown, and the node returns to the owner before any wiring.
 - **The wiring cannot drift.** Proof: `repo-safe`, the routing validator over `.codex/config.toml`.
 
 ## Todos
 
-1. **Probe the contract**, under the owner's standing permission for Codex experiments, in an
-   isolated session: read-only sandbox, never unlimited permissions, every process closed, the
-   CLI version recorded. A logging hook records Codex's real payloads for `Bash`, `apply_patch`
-   and a code-mode nested shell call. The findings are a dated addendum to the Codex support
-   concept note. If code mode bypasses the hook, the node returns to the owner before slice 2.
+1. **Probe the contract on each host**, under the owner's standing permission for Codex
+   experiments: a disposable, read-only session per host, never unlimited permissions, every
+   process closed, the CLI version recorded. The hosts are the ChatGPT desktop app and a TUI in an
+   editor terminal. The 0.156.1 source's registry path does not show how the desktop host routes
+   its calls. On each host, a logging hook records Codex's real payloads for `Bash`,
+   `apply_patch` and a code-mode nested shell call where the host supports one, and a harmless
+   refused command and a refused patch are recorded with the hook's outcome. The findings are a
+   dated addendum to the Codex support concept note. If a path bypasses the hook, the parity claim
+   is bounded and the node returns to the owner before slice 2.
 2. **The Codex renderer and input adapter**, test-first, over the probe's recorded payload
    shapes. Reviews: code-expert before and after; test-expert and security-expert, focused.
 3. **The hook adapter, the wiring and the validator**, with the live run recorded. The guard
@@ -131,4 +141,12 @@ turns into a silent allow. This is the second step of the Codex membership progr
 
 ## Review dispositions
 
-None yet.
+- **2026-09-24, Luna stirs Radiance (01a0d3), the co-owner** (the pairing channel, 16:43:00Z).
+  The shared policy with a Codex renderer was confirmed as the right mechanism. Accepted and
+  folded in:
+  - Each host is probed and proven separately. The live Codex seat runs its shell through code
+    mode (`functions.exec` wrapping `exec_command`). The CLI source does not prove the desktop
+    host routes those calls through `PreToolUse`. Folded into todo 1 and two acceptance
+    criteria.
+  - The not-built fail-open depends on a durable log write that the shim may swallow, and on
+    stderr a host may hide. It is named as a residual in mechanism 3 and the acceptance criteria.

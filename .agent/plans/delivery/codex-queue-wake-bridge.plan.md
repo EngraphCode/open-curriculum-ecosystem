@@ -88,10 +88,12 @@ and in the lived record of that day.
 5. **Degraded paths stay named.** Where the bridge cannot run, because the subcommand is missing,
    the thread id is unknown or the queue call fails, the watcher reports that visibly. Bounded
    foreground polling stays the fallback, as the operating rule states today.
-6. **A seen cursor is not a delivery.** The watcher advances its seen cursor when it drains, before
-   the queue call runs. A failed call, or a watcher that exits between the drain and the call,
-   must leave the drained event ids visible to the fallback, and no watcher line may claim the
-   seat was woken.
+6. **A seen cursor is not a delivery.** The watcher's pass runs drain, emit, then mark seen, and
+   it marks events seen only after their emit succeeds (`comms-watch-iteration.ts`). The wake
+   runs inside the pass, before the events are marked seen. So a failed queue call, or a watcher
+   that dies between the drain and the call, leaves those event ids unseen for the existing paced
+   replay, and no watcher line may claim the seat was woken. The wake sink stays out of the
+   generic watcher error-line path, so a failed wake never triggers another wake.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -183,3 +185,8 @@ Each slice is one story, within the default round budget.
     acceptance criterion "Each host wakes".
   - The fixed notice and the exact-self thread binding were confirmed as the right trust
     boundary.
+- **2026-09-24, Luna stirs Radiance, a delivery note under the stamped shape** (the pairing
+  channel, 16:48:29Z). The watcher marks events seen only after their emit succeeds, so placing
+  the wake inside the pass, before mark-seen, keeps a failed wake's events unseen for replay. The
+  wake sink stays out of the generic error-line path so a failed wake cannot recurse. Mechanism 6
+  is worded to match; the acceptance criterion "A failed wake loses no event" is unchanged.
