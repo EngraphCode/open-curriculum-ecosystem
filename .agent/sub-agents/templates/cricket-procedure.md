@@ -79,7 +79,7 @@ block only: one item per clause of a quoted owner sentence that states a goal, a
 a hold, or who owns or receives the work, quoted exactly (a sentence carrying two goals is
 two items), and one per
 quoted todo that no source states done. Step 3b's omission audit covers this list; its contradiction audit reads the whole
-`SOURCES:` block, done todos included, and neither reads anything else.
+`SOURCES:` block, done todos included, and neither reads anything else but the `READING:` block it audits.
 
 **Step 3 — The four questions.** Answer each PASS / FAIL / UNVERIFIABLE with a one-line
 justification that QUOTES at least one exact phrase from the supplied context. A
@@ -117,7 +117,7 @@ this sweep is skipped.
 
 **Step 3b — Frame audit.** The four questions judge the work inside the frame; this step
 judges the frame (the owner's word of 2026-09-24: "Crickets judge in the frame provided, we need them to also judge the frame itself").
-Using only the `SOURCES:` block and the Step-2 SOURCES list:
+Using only the `SOURCES:` block, the Step-2 SOURCES list and the `READING:` block:
 
 - **No sources**: if no `SOURCES:` block is supplied, or the Step-2 SOURCES list is
   empty, write `FRAME: NO VERBATIM SOURCE`; the invoker's reading is then the only record
