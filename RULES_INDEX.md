@@ -199,6 +199,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/read-before-asking.md`                                       | core           | —                                                                                                 |
 | `.agent/rules/read-diagnostic-artefacts-in-full.md`                        | core           | —                                                                                                 |
 | `.agent/rules/read-nextjs-docs-before-coding.md`                           | situational    | surface:nextjs — Next.js work (routes, layouts, proxy, config, rendering/caching)                 |
+| `.agent/rules/record-generalisation-moves.md`                              | situational    | surface:practice-substrate ∪ ceremony:commit                                                      |
 | `.agent/rules/records-are-technical-not-emotional.md`                      | core           | —                                                                                                 |
 | `.agent/rules/register-active-areas-at-session-open.md`                    | core           | —                                                                                                 |
 | `.agent/rules/register-identity-on-thread-join.md`                         | core           | —                                                                                                 |

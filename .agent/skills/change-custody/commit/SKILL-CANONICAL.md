@@ -738,6 +738,10 @@ Use imperative voice.
 Co-Authored-By: <name> <email>
 ```
 
+When the change is a generalisation move
+([`record-generalisation-moves`](../../../rules/record-generalisation-moves.md)),
+add its `Practice-Generalisation:` trailer beside `Co-Authored-By`.
+
 Use a HEREDOC to preserve multi-line formatting:
 
 ```bash
