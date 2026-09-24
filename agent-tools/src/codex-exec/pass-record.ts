@@ -56,6 +56,18 @@ export interface PassRecordInvalid {
  * @param value - The parsed contents of the record file, of unknown shape.
  */
 export function parsePassRecord(value: unknown): Result<PassRecord, PassRecordInvalid> {
+  if (hasOwnPrototypeKey(value)) {
+    return err({ kind: 'invalid' });
+  }
   const parsed = passRecordSchema.safeParse(value);
   return parsed.success ? ok(parsed.data) : err({ kind: 'invalid' });
+}
+
+/**
+ * `JSON.parse` keeps a `"__proto__"` key as an own field, which the schema
+ * would drop without a word. The record defines no such field, so a value
+ * carrying one is refused.
+ */
+function hasOwnPrototypeKey(value: unknown): boolean {
+  return typeof value === 'object' && value !== null && Object.hasOwn(value, '__proto__');
 }

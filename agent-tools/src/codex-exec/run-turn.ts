@@ -31,8 +31,12 @@ export interface BinaryUnresolved {
  * record read and the binary resolution the gate needs.
  */
 export interface GatedTurnPorts extends TurnPorts {
-  /** Reports what is where the pass record lives. */
-  readonly readPassRecord: () => PassRecordRead;
+  /**
+   * Reports what is where the pass record lives in the given instrument
+   * Codex home, the home the spawn's `CODEX_HOME` names, so a record from one
+   * home never opens a turn in another.
+   */
+  readonly readPassRecord: (codexHome: string) => PassRecordRead;
   /** Resolves `codex` to its real path, and reads the version it reports. */
   readonly resolveBinary: () => Result<ResolvedBinary, BinaryUnresolved>;
 }
@@ -58,7 +62,7 @@ export function runTurn(
   context: TurnContext,
   ports: GatedTurnPorts,
 ): Result<TurnOutcome, GatedTurnError> {
-  const record = admitRecord(ports.readPassRecord());
+  const record = admitRecord(ports.readPassRecord(context.childEnvInputs.instrumentCodexHome));
   if (!record.ok) {
     return err(record.error);
   }

@@ -8,11 +8,18 @@ import { BINDING_FIELDS, parsePassRecord, type Binding, type PassRecord } from '
  * the file, and the file holds the interlocutor's untrusted evidence.
  */
 export type PassRecordRejection =
-  'not-a-regular-file' | 'not-owned-by-user' | 'writable-by-others' | 'over-size-cap' | 'not-json';
+  | 'not-a-regular-file'
+  | 'not-owned-by-user'
+  | 'writable-by-others'
+  | 'over-size-cap'
+  | 'not-json'
+  | 'unreadable';
 
 /**
  * What the IO edge found where the pass record lives: nothing, a file it
- * would not read, or the parsed contents of one it did.
+ * would not read, or the parsed contents of one it did. A present value
+ * carries the record's evidence, untrusted interlocutor text, so a read is
+ * never logged.
  */
 export type PassRecordRead =
   | { readonly kind: 'absent' }

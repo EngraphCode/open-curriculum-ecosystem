@@ -39,6 +39,7 @@ describe('admitRecord', () => {
     'writable-by-others',
     'over-size-cap',
     'not-json',
+    'unreadable',
   ] satisfies readonly PassRecordRejection[])(
     'refuses a record file the edge would not read (%s), and says why in its own terms',
     (reason) => {

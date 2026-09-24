@@ -60,11 +60,16 @@ const replied: CodexRun = {
 function ports(
   read: PassRecordRead,
   resolved: Result<ResolvedBinary, BinaryUnresolved> = ok(binary),
-): GatedTurnPorts & { readonly calls: CodexCall[] } {
+): GatedTurnPorts & { readonly calls: CodexCall[]; readonly homesRead: string[] } {
   const calls: CodexCall[] = [];
+  const homesRead: string[] = [];
   return {
     calls,
-    readPassRecord: () => read,
+    homesRead,
+    readPassRecord: (codexHome) => {
+      homesRead.push(codexHome);
+      return read;
+    },
     resolveBinary: () => resolved,
     checkRoot: () => ok(undefined),
     runCodex: (call) => {
@@ -82,6 +87,7 @@ describe('runTurn', () => {
       value: { threadId: THREAD, message: 'reply', messages: ['reply'], commandExecutions: [] },
     });
     expect(turnPorts.calls.map((call) => call.executable)).toStrictEqual([binary.executablePath]);
+    expect(turnPorts.homesRead).toStrictEqual([context.childEnvInputs.instrumentCodexHome]);
   });
 
   it('starts no turn without a pass record, though the turn would succeed', () => {

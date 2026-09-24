@@ -82,7 +82,7 @@ function modelPinArgs(pins: ModelPins): readonly string[] {
  * never given raw input, since the brand is what keeps a thread value from
  * becoming an option.
  */
-function resumeArgv(thread: string, pins: ModelPins): readonly string[] {
+function resumeArgv(thread: ThreadId | typeof SLOTS.thread, pins: ModelPins): readonly string[] {
   return [
     'exec',
     'resume',
@@ -204,7 +204,9 @@ const SLOTS = {
  * built by the same builders every spawn uses with each call's own values
  * replaced by fixed markers. So any change to a flag, a setting, a model pin
  * or an environment name changes the digest by construction, and a pass
- * record written under one envelope never opens a dialogue under another.
+ * record written under one envelope never opens a dialogue under another
+ * envelope shape. The values in its slots are each call's own; the gate ties
+ * the record to the Codex home the spawn uses.
  * The serialisation is JSON, which keeps element boundaries, so no two
  * different envelopes serialise alike.
  *

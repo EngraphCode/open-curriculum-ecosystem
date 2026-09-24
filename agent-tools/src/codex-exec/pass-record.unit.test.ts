@@ -20,6 +20,11 @@ describe('parsePassRecord', () => {
     expect(parsePassRecord(value)).toStrictEqual({ ok: false, error: { kind: 'invalid' } });
   });
 
+  it('refuses a record whose JSON carries its own __proto__ key', () => {
+    const parsed: unknown = JSON.parse(`{"__proto__":{},${JSON.stringify(record).slice(1)}`);
+    expect(parsePassRecord(parsed)).toStrictEqual({ ok: false, error: { kind: 'invalid' } });
+  });
+
   it('refuses a record carrying a field the record does not define', () => {
     expect(parsePassRecord({ ...record, pinned: true })).toStrictEqual({
       ok: false,
