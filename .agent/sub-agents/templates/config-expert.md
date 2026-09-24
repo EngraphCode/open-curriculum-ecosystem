@@ -74,10 +74,28 @@ Scan for:
 
 - `eslint-disable` comments in config files or source code
 - `@ts-ignore` or `@ts-expect-error` in config files
-- Skipped tests via configuration
-- Bypassed git hooks
+- Tests skipped or excluded by configuration; an `include` that silently drops a test
+  category
+- Bypassed git hooks (`--no-verify`, a hook that returns early)
+- A `pnpm check` leg removed or reordered without the CI-parity validator seeing it
 
-### Step 4: Report Findings with Inheritance Analysis
+### Step 4: Check Scripts, Environment and Runtime Toggles
+
+- Every added or renamed script follows the canonical names (PDR-008, the root `package.json`
+  and the gates skill): the root owns `check`, `fix`, `check:docs`, `fix:docs`,
+  `format-check:root`, `format:root`, `markdownlint-check:root`, `markdownlint:root` and the
+  validator aggregates; a workspace carries only the task gates the root pipeline runs and
+  tools named `<subject>:<verb>`. No hidden `test:ci` duplicates, no workspace copies of root
+  gates.
+- Every cited script exists; `package.json` entries reference files that exist and create no
+  circular `pnpm check` loop.
+- Environment variables are read through the env helpers, never mutated at runtime.
+- Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
+  deliberate, documented and aligned with the directives.
+- Config changes still trigger the right validators: `pnpm check` picks up a new script, and
+  every E2E, smoke or visual gate still ties into the pipeline.
+
+### Step 5: Report Findings with Inheritance Analysis
 
 Produce the structured output below. Include a per-workspace inheritance analysis table.
 
@@ -234,6 +252,7 @@ When configuration issues affect code quality, architecture, or type safety, thi
 
 ### Quality Gate Alignment
 
+- [ ] Every verifying `pnpm check` leg runs in CI (`validate-check-ci-parity`)
 - [ ] All workspaces pass `pnpm type-check`
 - [ ] All workspaces pass `pnpm lint`
 - [ ] All workspaces pass `pnpm test`

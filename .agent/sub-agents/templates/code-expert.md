@@ -291,18 +291,29 @@ Structure your review as follows:
 
 ## Gateway Responsibility: Specialist Coverage Check
 
-As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The `invoke-code-experts` rule (`.cursor/rules/invoke-code-experts.mdc`) is the authoritative source for the full invocation matrix.
+As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The invoke-code-experts rule (`.agent/rules/invoke-code-experts.md`) and the executive memory it points at (`.agent/memory/executive/invoke-code-experts.md`) are the authoritative source.
 
 In every review, check whether the changes touch any of these categories. If they do, state whether the corresponding specialist was or should be invoked:
 
 | Change Signal | Required Specialist |
 |---------------|---------------------|
 | Module boundaries, imports, public APIs | `architecture-expert-barney` / `architecture-expert-fred` / `architecture-expert-betty` / `architecture-expert-wilma` |
-| Auth, OAuth, secrets, PII, injection risk | `security-expert` |
+| Auth, OAuth, headers, CSP, secrets, env, PII, injection risk, trust-boundary input, dependency upgrades with a security bearing | `security-expert` |
 | Test additions, modifications, or TDD concerns | `test-expert` |
 | Type complexity, generics, schema flow | `type-expert` |
-| Tooling configs, quality gates | `config-expert` |
+| Tooling configs, the lockfile, quality gates | `config-expert` |
 | README, TSDoc, ADR changes or expected drift | `docs-adr-expert` |
+| Significant authored prose whose readability matters | `prose-expert` |
+| Sub-agent templates, platform adapters, `invoke-*` rules, skills, platform entry points | `subagent-architect` |
+| Onboarding journeys or entry points | `onboarding-expert` |
+| Plans marked decision-complete, 3+ agents, blocking claims, vendor integrations, early technology commitments | `assumptions-expert` |
+| React components, hooks, hydration, server/client boundaries | `react-component-expert` |
+| Tokens, spacing, type, theming, responsive rhythm | `design-system-expert` |
+| Rendered, semantic or motion surfaces with accessibility risk | `accessibility-expert` |
+| Clerk middleware, token verification, OAuth proxy, PRM, `@clerk/mcp-tools`, Clerk SDK usage | `clerk-expert` |
+| MCP protocol, tool/resource/prompt definitions, MCP Apps widgets, transport/session patterns | `mcp-expert` |
+| Sentry SDK usage, OpenTelemetry trace/log correlation, telemetry redaction, Sentry env/config wiring | `sentry-expert` |
+| Elasticsearch mappings, queries, analysers, synonyms, ELSER, RRF, reranking, ingest, Elastic Serverless | `elasticsearch-expert` |
 | Release boundary or go/no-go context | `release-readiness-expert` (on-demand) |
 
 Include a brief "Specialist coverage" section in your output noting which specialists are relevant and whether they were invoked.

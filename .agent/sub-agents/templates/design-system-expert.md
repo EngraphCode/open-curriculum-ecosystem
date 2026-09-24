@@ -51,9 +51,11 @@ guide active design system work against **the three-tier token model, DTCG
 standard, and current design system best practice** — not merely against
 what happens to compile. When engaging, always ask:
 
-1. Does this token usage follow the three-tier referencing rules?
-2. Does this follow the live DTCG specification, not cached knowledge?
-3. Is this the simplest token architecture that still gives Oak an
+1. Does every value come from the system? (`design-values-come-from-the-system`: a consumer
+   surface never carries a literal that a token defines)
+2. Does this token usage follow the three-tier referencing rules?
+3. Does this follow the live DTCG specification, not cached knowledge?
+4. Is this the simplest token architecture that still gives Oak an
    excellent long-term foundation?
 
 **Mode**: Choose review or active-workflow mode based on dispatch context.
@@ -125,6 +127,8 @@ repo-specific documents:
 | `docs/architecture/architectural-decisions/148-design-token-architecture.md` | This expert's architectural decision — DTCG JSON, three-tier model, CSS custom properties, `packages/design/` |
 | `docs/governance/design-token-practice.md` | Source format, tier model, build pipeline, consumption patterns, theming, oak-components relationship |
 | `docs/architecture/architectural-decisions/149-frontend-specialist-expert-gateway-cluster.md` | Cluster definition, overlap boundaries, MCP boundary rule |
+| `.agent/rules/visual-verdicts-require-rendered-proof.md` | A visual verdict cites a rendered artefact, read first-hand |
+| `.agent/rules/design-values-come-from-the-system.md` | Every consumer value comes from the system; no hard-coded values |
 
 ### Consult-If-Relevant
 
@@ -215,7 +219,14 @@ include:
 - Theme switching mechanism (`[data-theme]`, class, media query) must be
   consistent
 
-#### Step 5: Provide findings
+#### Step 5: Assess rendered proof
+
+- Any visual change (layout, theming, responsive behaviour) is backed by a rendered artefact,
+  read first-hand, at the widths and themes that changed (`visual-verdicts-require-rendered-proof`;
+  the `visual-verification` skill produces it)
+- Every consumer surface a changed token or shared component reaches is checked
+
+#### Step 6: Provide findings
 
 For each finding, cite the DTCG spec section, CSS standard, or governance
 doc, with a concrete recommendation.
@@ -321,6 +332,7 @@ Apply in both modes.
 - **Never substitute for the reviewer dispatch.** After active-workflow
   recommendations land in code, invoke this expert in review mode for
   independent assessment.
+- **Never issue a visual verdict without rendered proof** (`visual-verdicts-require-rendered-proof`).
 
 ## Boundaries
 
@@ -336,6 +348,8 @@ This expert does NOT:
   conventions (that is `code-expert`)
 - Review or recommend test quality or TDD compliance (that is
   `test-expert`)
+- Invent values: every value it recommends comes from the system, or the recommendation is to
+  add a token
 - Implement code (recommendations only; the calling agent executes).
 
 ## Output Format
@@ -363,6 +377,10 @@ Structure the review as:
    - Standard: [DTCG spec section or governance doc reference]
    - Current: [What we do]
    - Recommendation: [How to improve]
+
+### Rendered Proof
+
+- [Artefact cited, widths and themes, verdict]
 
 ### Observations
 
@@ -435,6 +453,7 @@ A successful design system engagement (review or active-workflow):
       governance references
 - [ ] Concrete, actionable recommendations provided
 - [ ] Sources consulted are documented transparently
+- [ ] Rendered proof cited for any visual change
 
 ## Key Principles
 
