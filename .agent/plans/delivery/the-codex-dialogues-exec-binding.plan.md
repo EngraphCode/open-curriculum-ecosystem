@@ -150,9 +150,12 @@ usage error, exit 2.
   - `--timeout-seconds` is an integer within fixed bounds.
   - The prompt file must be a regular file under a size cap, in strict UTF-8. It is read once and
     sent on stdin.
-- On open, it appends one row to the dialogues' local cleanup map:
-  `{dialogue_id, thread_id, created_at}`. The row is serialised with `JSON.stringify`, appended
-  only, and the file is kept at mode 0600.
+- On open, it appends one row to the dialogues' local cleanup map for each thread the turn
+  started: `{dialogue_id, thread_id, created_at}`. The rows are written before the turn is
+  judged, whatever the verdict, so a failed or killed open leaves no thread without a row. The
+  row is serialised with `JSON.stringify`, appended only, and the file is kept at mode 0600. A
+  resume writes no row: in codex-cli 0.156.1 a resume by thread id never creates a thread, and a
+  stray thread fails the turn as a thread-id mismatch.
 - It prints one JSON line, `{"threadId","message","messages"}`, and exits 0. `message` is the last
   agent message; `messages` lists every agent message, for the record. Both are the
   interlocutor's words, so the seat treats them as untrusted input.
@@ -173,7 +176,9 @@ usage error, exit 2.
   - a `codex` that cannot be resolved;
   - a version that cannot be read;
   - an instrument root that fails its checks;
-  - a Codex configuration whose model keys cannot be read or fail validation.
+  - a Codex configuration whose model keys cannot be read or fail validation;
+  - a cleanup-map row that cannot be written. This fails even a turn that counted, and the
+    output names every thread whose row was not written, for cleanup by hand.
 
 **`dialogue-probe [--timeout-seconds <n>]`** tests the envelope. It runs two turns through the
 same execution path as `dialogue-turn`, bypassing only the gate the probe itself feeds, and then
@@ -570,10 +575,11 @@ review before and after execution.
   type-expert gives a focused review.
 - **Slice 1b, the gate and the probe logic.** Five pull requests, each one story, sliced after the
   pre-execution code-expert review of 2026-09-24:
-  1. **1b-0, this node.** The probe's threat model and its three legs (the Director's verdict),
-     this slicing, and the dated ledger row. Reviews: security-expert and docs-adr-expert,
-     focused.
-  2. **1b-i, the gate.** The pass-record schema, the envelope's digest, the gate and `runTurn`.
+  1. **1b-0, this node. Landed as PR 188 (`fcbaa9bf5`).** The probe's threat model and its three
+     legs (the Director's verdict), this slicing, and the dated ledger row. Reviews:
+     security-expert and docs-adr-expert, focused.
+  2. **1b-i, the gate. Landed as PR 189 (`a0a2fead4`).** The pass-record schema, the envelope's
+     digest, the gate and `runTurn`.
      - The gate admits the record first and matches the binding only after the binary is
        resolved. The turn spawns the executable at the resolved path the gate matched.
      - Commit order: the record schema; the digest; the gate; the `runTurn` integration,
@@ -581,7 +587,11 @@ review before and after execution.
      - Reviews: type-expert, test-expert and security-expert, focused.
   3. **1b-ii, the cleanup-map row on the shared turn path.** The row is written when a thread is
      created, whatever the turn's verdict, so a failed open or a failed probe leaves no thread
-     without a row. Reviews: test-expert, focused.
+     without a row.
+     - Commit order: the dialogue id; the threads a run started, with a killed run's partial
+       output; the rows on the turn path, with the refused-row failure; this node's edit.
+     - Reviews: test-expert, focused; security-expert, focused, for the slug, the rows as the
+       input to a later deletion, and the fail-closed append.
   4. **1b-iii, the rollout reader,** a module of its own under
      `agent-tools/src/codex-exec/rollout/`, owned by a Codex seat.
      - It reads the `turn_context` records, the tool-call output records and the
@@ -683,6 +693,7 @@ enumerates and dispositions every row before implementation.
 | 2026-09-24 | The pre-execution code-expert review of slice 1b | Slice 1b as one pull request held several stories past the size warnings. Its gate could not hold "record first, then binary" once the binding had to be resolved before the decision, and the executable could split between the gate and the spawn. A digest without the model pins would let a pass on one model open another. A cleanup row written only on success would orphan a failed open's thread. The planned leg 1 had no work named for it | Slice 1b, as five pull requests. 1b-i: the gate's two phases, record first, the binding matched only after the binary is resolved, and the turn spawned at the matched path; the digest covers the model pins. 1b-ii: the cleanup row written when a thread is created. 1b-iv: rule 9's runs through a port of their own |
 | 2026-09-24 | security-expert and docs-adr-expert on the 1b-0 draft; a Codex seat's cross-vendor read | The draft overclaimed what the legs establish. Its residual left out writes through a tool the probe line does not use (`apply_patch` on 0.156.1), paths the probe's turn did not take, and turns that did not run the line as given. Rule 9 had no control run, so a renamed field that fell back to a default policy, or containment that stacks, could pass it. Rule 7 could pass on an empty listing when code mode splits calls | Cured in 1b-0: the residual stated exactly, rule 9's control run, rule 7's non-empty listing in each nonce-bearing record, the closed set of output records, and the evidence moved to research note §2.9. Slice 1b-iii's pickup: confirm from a rollout whether `apply_patch` is offered under the envelope; if it is, slice 1b-iv adds a second write leg through it (a second random sentinel, which must be absent, and output records showing the patch refused). Slice 1b-iv: a probe-contract version in the pass record that the gate matches, so a fix to the verdict invalidates records written under the old one. Slice 2: the host check for system and managed configuration layers also covers `codex sandbox`, which loads them and has no `--ignore-user-config` |
 | 2026-09-24 | Slice 1b-i's reviews: security-expert; Forge herds Vapor's cross-vendor read. Slice 1b-iii's pickup on `apply_patch`, by the same seat | The binding does not see behaviour the vendor changes server-side under the same version, and the pass time is no expiry. `executeTurn` is exported without the gate, and nothing limits its importers. `ThreadId` is a compile-time brand, and `codex exec resume` also takes a thread name or `--last`. The observed rollouts carry no tool inventory, so they cannot show whether `apply_patch` is offered; the 0.156.1 source registers it when the model's information names a patch tool type | Honest limits names the server-side gap (1b-0). Slice 1b-iv: a pass-record age limit as a named hardening; a `no-restricted-imports` allowlist for `executeTurn`, naming `run-turn.ts` and the probe module; settle whether `apply_patch` is offered by attempting a patch under the exact envelope, since a rollout shows the tools called and never the tools offered, before deciding its second write leg. Slice 2: the intake test feeds a raw `--last` and a thread name and sees each refused |
+| 2026-09-24 | Slice 1b-ii's pre-execution reviews: code-expert and test-expert | Both asked that `--dialogue-id` also ride on resume, so that a stray thread a resume started would get a row. A killed run carried no output, so a thread it started before the kill had no row. A refused append had no defined outcome. A test that recorded the port's calls would pin the implementation | The request to put `--dialogue-id` on resume is REJECTED, on codex-cli 0.156.1 source: `exec/src/lib.rs` `resolve_resume_thread_id` passes a UUID through as given, and the app server's `thread_resume_inner` errors when `read_stored_thread_for_resume` finds no stored thread. So a resume by thread id never creates a thread, a stray thread fails the turn as `thread-mismatch` carrying its id, and the CLI's "exactly one of `--dialogue-id` and `--thread`" stands. Cured in 1b-ii: a killed run keeps its partial output; the rows are written on open, before the verdict, whatever it is; a refused row fails the turn as `cleanup-row-unwritten` (exit 4), after every row is tried, naming only the unwritten threads. The tests assert an in-memory cleanup map's contents, never its calls, under the owner's 2026-09-24 test ruling |
 
 ## Out of scope
 
