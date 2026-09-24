@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { admitRecord, matchBinding, type Binding } from './gate.js';
+import { admitRecord, matchBinding, type Binding, type PassRecordRejection } from './gate.js';
 import type { PassRecord } from './pass-record.js';
 
 const record: PassRecord = {
@@ -20,25 +20,39 @@ const binding: Binding = {
 
 describe('admitRecord', () => {
   it('admits a record that is present and well formed', () => {
-    expect(admitRecord({ kind: 'present', value: record })).toEqual({ ok: true, value: record });
+    expect(admitRecord({ kind: 'present', value: record })).toStrictEqual({
+      ok: true,
+      value: record,
+    });
   });
 
   it('refuses when no record exists, so the seat is told to probe', () => {
-    expect(admitRecord({ kind: 'absent' })).toEqual({
+    expect(admitRecord({ kind: 'absent' })).toStrictEqual({
       ok: false,
       error: { kind: 'no-pass-record' },
     });
   });
 
-  it('refuses a record file the edge would not read, and says why', () => {
-    expect(admitRecord({ kind: 'rejected', reason: 'the record is group-writable' })).toEqual({
-      ok: false,
-      error: { kind: 'pass-record-rejected', reason: 'the record is group-writable' },
-    });
-  });
+  it.each([
+    'not-a-regular-file',
+    'not-owned-by-user',
+    'writable-by-others',
+    'over-size-cap',
+    'not-json',
+  ] satisfies readonly PassRecordRejection[])(
+    'refuses a record file the edge would not read (%s), and says why in its own terms',
+    (reason) => {
+      expect(admitRecord({ kind: 'rejected', reason })).toStrictEqual({
+        ok: false,
+        error: { kind: 'pass-record-rejected', reason },
+      });
+    },
+  );
 
   it('refuses a record that is not a pass record', () => {
-    expect(admitRecord({ kind: 'present', value: { ...record, envelopeDigest: 'x' } })).toEqual({
+    expect(
+      admitRecord({ kind: 'present', value: { ...record, envelopeDigest: 'x' } }),
+    ).toStrictEqual({
       ok: false,
       error: { kind: 'invalid-pass-record' },
     });
@@ -47,7 +61,7 @@ describe('admitRecord', () => {
 
 describe('matchBinding', () => {
   it('opens when the version, the path and the envelope all match the record', () => {
-    expect(matchBinding(record, binding)).toEqual({ ok: true, value: undefined });
+    expect(matchBinding(record, binding)).toStrictEqual({ ok: true, value: undefined });
   });
 
   it.each([
@@ -60,7 +74,7 @@ describe('matchBinding', () => {
       ['cliVersion', 'executablePath'],
     ],
   ] as const)('refuses after %s, naming each field that differs', (_label, change, fields) => {
-    expect(matchBinding(record, { ...binding, ...change })).toEqual({
+    expect(matchBinding(record, { ...binding, ...change })).toStrictEqual({
       ok: false,
       error: { kind: 'binding-mismatch', fields },
     });
