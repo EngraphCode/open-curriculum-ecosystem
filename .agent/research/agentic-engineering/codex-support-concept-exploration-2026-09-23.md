@@ -15,6 +15,8 @@
   correction is recorded, credited, in the section it changed.
 - **Evening addendum**: the same seat added §2.8 the same day, 19:05Z to 19:56Z. It covers the
   authority of a `codex exec` call beyond its sandbox settings.
+- **Addendum of 2026-09-24**: the same seat added §2.9, on code mode and the sandbox tested with
+  no model, with runtime reads from Forge herds Vapor (01a0d2), a Codex seat.
 - **Scope swept**:
   - first-hand reads: the Sif framework, `the-codex-dialogues`, `codex-helper`, `cricket`,
     ADR-180, `.codex/`, `AGENTS.md`, the Codex capability catalogue (2026-07-25) and divergence
@@ -293,6 +295,68 @@ process and none of the child processes listed below.
   its options onto flags ahead of `resume`. None of its options emits `--ignore-user-config`, and
   it declares an exact dependency on its own `@openai/codex` package. Read from the package
   tarball.
+
+### 2.9 Code mode, and the sandbox tested with no model (2026-09-23 19:12Z to 2026-09-24 11:00Z)
+
+Added on 2026-09-24 by the same seat, with runtime reads from Forge herds Vapor (01a0d2), a Codex
+seat. These runs settle two questions: how the harness records a shell run, and whether the
+sandbox can be tested with no model at all. Each fact below was read from the named rollout's
+records or observed in the named run.
+
+- **Every shell run went through code mode, on both models.** In the five threads of these
+  trials, each shell run was recorded as a `custom_tool_call` named `exec`. Its input is a
+  JavaScript program that calls `tools.exec_command`, so one program can make any number of calls.
+  The output, with its own nested exit code, is in the matching `custom_tool_call_output`.
+  - The owner's model ran this way. That is `gpt-6-sol` at effort `xhigh`, in threads `01a0cfc3`,
+    `01a0cfc4` and `01a0cfd6` (19:34Z to 19:55Z) and `01a0d039` (21:44Z).
+  - So did the CLI's default model, `gpt-6-astra` with no effort set, under `--ignore-user-config`
+    without pins (thread `01a0cfaf`, 19:12Z).
+  - The event stream's `command_execution` item appeared in three of the five threads (`01a0cfc3`,
+    `01a0cfc4` and `01a0cfd6`), and not in the other two.
+- **A recorded exit is not a write verdict.**
+  - In `01a0cfc3`, the probe line's code-mode output carried a nested `exit_code` of 0. In the same
+    output record it printed `zsh:1: operation not permitted` for the sentinel, then the nonce,
+    then the environment names.
+  - In `01a0cfaf`, a line that only wrote exited 1 with the same denial.
+  - The denial came from `zsh`, in lower case.
+- **Code mode cannot be turned off.** With `--disable code_mode_host` (thread `01a0d039`), both of
+  the model's tool calls returned "code-mode host is disabled", and the model could run nothing.
+- **`codex sandbox` tests the sandbox with no model** (21:57Z; an empty `CODEX_HOME`, a fake `HOME`
+  and an empty root; no thread started).
+  - It requires `--permission-profile <NAME>`. The built-in names are `:read-only`, `:workspace`,
+    `:minimal` and `:protocol`.
+  - Under `:read-only`, `printf SIF > <root>/<sentinel>` exited 1 with "Operation not permitted" and
+    left no sentinel.
+  - Under `:workspace` the same write succeeded, and so did a write under the system temporary
+    directory.
+- **The policy a turn recorded can be run directly.**
+  - `--sandbox-state-json` takes the camelCase `SandboxState` that
+    `codex-rs/cli/src/debug_sandbox.rs` reads at 0.156.1: `permissionProfile`,
+    `codexLinuxSandboxExe`, `sandboxCwd` and `useLegacyLandlock`.
+  - A raw `permission_profile` object is refused.
+  - `sandboxCwd` is a file URI, and it sets the working directory. `-C` beside
+    `--sandbox-state-json` exits 2.
+  - Source read and parser runs by Forge herds Vapor.
+- **From inside another sandbox, `codex sandbox` cannot apply one.** Forge herds Vapor's process
+  runs under the macOS sandbox. From there, the run exited 71 (`sandbox_apply: Operation not
+  permitted`) without starting the shell.
+- **The recorded policy refuses the write, with no model** (about 11:00Z, from this Claude seat,
+  outside the macOS sandbox).
+  - The state was `{"permissionProfile": <profile>, "sandboxCwd": "file://<root>"}`. The profile was
+    copied from thread `01a0cfc3`'s `turn_context`: managed, file-system `read` on the root path
+    `/`, network `restricted`.
+  - The call was `codex sandbox --sandbox-state-json <state> -- /bin/sh -c <probe line>`, from the
+    resolved real path. `codex sandbox` runs its command's arguments as given, so the shell is
+    named.
+  - The run took an `env -i` allowlist with an empty `CODEX_HOME`.
+  - The two-branch probe line printed `/bin/sh: …: Operation not permitted`, then the nonce once
+    and no `WRITE-OK`. The root stayed empty, and the whole line exited 0.
+  - Under `--permission-profile :workspace` as the control, the sentinel was written, `WRITE-OK`
+    printed and no nonce came back.
+  - The shell's environment names were `CODEX_SANDBOX`, `CODEX_SANDBOX_NETWORK_DISABLED`,
+    `CODEX_HOME`, `TMPDIR`, `USER`, `__CF_USER_TEXT_ENCODING`, `PATH`, `PWD`, `LANG`, `SHLVL`,
+    `HOME`, `LOGNAME` and `_`.
+  - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
 ## 3. The participation record
 
