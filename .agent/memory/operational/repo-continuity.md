@@ -337,25 +337,33 @@ ran on its declared default while the word waited, and the Director recorded tha
 The Director confirmed the resume at about 18:40Z, when this session read 12% after
 compaction.
 
-- **State at 20:10Z, context 52.5%:**
-  - **Landed:** PR 197 (`628f5d0f7`, 19:09Z), and PR 198, batch two part one, the Cricket
-    frame verdict (`715c6aee8`, 19:44Z). Both harvests were clean and the worktrees pruned.
-  - **PR 199** (batch two part two: PDR-008, 082, 132 and 027, plus entry paths) holds the
-    slot. Both settlement pushes are spent. Its PDR bodies now state current truth, per
-    `no-tombstones-for-removed-ideas`.
-  - **PR 200** (batch two part three: four reviewer templates) is open behind it.
-  - **Held:** branch `feat/claude-code-session-id-seed` (`94f788900`, pushed, no pull
-    request): `CLAUDE_CODE_SESSION_ID` as a seed source. Its code review found that
-    subagents would write as their parent and that a nested Codex seat takes the Claude id.
-    The question to Siren is out; the cure planned for the nested case is a Claude-platform
-    gate.
-  - **Claims:** a63a7df8 (test-doctrine), 0df38940 and 1846c431 and 974d5d17 (PR 199),
-    1c8d5a3e (PR 200) and 141892a7 (the seed branch).
+- **State at 21:40Z, context about 31%:**
+  - **Landed:** PR 197 (`628f5d0f7`), PR 198 (`715c6aee8`), PR 199 (`da160992d`, 20:29Z) and
+    PR 200 (`f1b99ec79`, 21:08Z), so batch two is complete. PR 201, the K Core (joint sets K1
+    to K3(e) and the PDR-009 inline-prompt check), merged as `c4174a8cc` at 21:34Z. Its
+    "exception" wording was restated as the rule's domain under `rules-have-no-exceptions`,
+    and the exact text went to Siren (2a62905f, receipt 21:3xZ); Siren's wording wins if they
+    sign other text. Worktrees for 200 and 201 are pruned.
+  - **Batch four, J4 in flight as three stacked pull requests** (claim 8b37f3d1):
+    - A, PR 202 (`refactor/shared-tracked-path-set`, worktree `oce-wt-b4-j4`): one tracked-path
+      set in agent-tools core, which changes no behaviour. It holds the landing slot.
+    - B (`feat/repository-paths-git-seam`, worktree `oce-wt-b4-j4b`): one injected git runner
+      returning Results for the listing and the `check-ignore` probe. An implementer is at
+      work on the brief the pre-execution review shaped.
+    - C: the substrate classifier and readers. The brief is drafted.
+    - A sketch plan, `tracked-listing-consolidation`, names the three private `ls-files`
+      copies left, notion-fence first.
+  - **Batch four, the rest:** J18 (the PreCompact observer; OCE runs hooks from `dist` through
+    `.mjs` shims, so the source-run design is a choice to review), J2 (six validators on the
+    shared read) and J3 (tracked-tree lint and shellcheck). J3's shellcheck leg puts an
+    installer step in front of every seat's next commit, so its rollout needs the Director.
+  - **Held:** the seed branch (claim 141892a7, question to Siren open) and the test-doctrine
+    intake (claim a63a7df8; it waits on Siren's K4 draft).
 - **The order** from the card:
   1. PR 197.
   2. Batch two, which the owner named for this seat.
-  3. Batch four.
-  4. The K Core pull request.
+  3. The K Core pull request (landed 21:34Z).
+  4. Batch four.
   5. Then the handover list's remaining items: C2, D, the test-doctrine intake, G, E and F,
      batch three, and batch five. Batch five (J13, J14, J11) was delivered at 18:03Z and
      acknowledged at 18:4xZ.

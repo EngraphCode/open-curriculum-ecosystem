@@ -1090,6 +1090,30 @@ the ceremony sets git's author variables in the environment of the commit step.
   It surfaced only when a code-expert triage row being written for part three named the rule.
   PR 198's merge was held past its quiet window until both returned. The code-expert triage
   table now carries the pairing as a row, so the gateway reviewer names it.
+- *The full SHA composed by hand again (~21:08Z), so it is now a pattern.* PR 200's merge
+  passed `--match-head-commit` a 40-character SHA built from `341d2ee88`. The pin refused it
+  ("Head branch was modified"), and the retry read `headRefOid` from the API first. Two
+  instances in one session mean the discipline alone does not hold. The structural cure is a
+  merge form that reads the head SHA itself in the same command, such as
+  `H=$(gh pr view N --json headRefOid --jq .headRefOid)` followed by the merge pinned to `$H`.
+  PR 201's merge used it. A merge-bot subcommand that does both is the durable home.
+- *Commits authored as the bot (~21:05Z).* This checkout's git user is the bot, so a commit
+  without `--author` names the bot as author. Two local commits on the K Core branch did.
+  They were re-recorded before the push with identical trees (both trees compared equal). Git's
+  own `author.name` and `author.email` settings set the author apart from the committer. A
+  repository-level setting would make the owner's standing author rule structural; it touches
+  every seat's commits, so it is the Director's to decide.
+- *A claim opened after the first source edit (~21:35Z).* J4 PR-A's edits began in a fresh
+  worktree at about 21:25Z; claim 8b37f3d1 opened at 21:35Z, after `register-active-areas`
+  asks for it. The move: create the worktree and open the claim in one step.
+- *Tool feedback: `session-metadata` knows no window for `claude-opus-5-5`.* It answers
+  "unknown model: claude-opus-5-5[1m] (no window size registered)". The reading was taken
+  through the registered `claude-opus-4-8[1m]` entry, which has the same one-million-token
+  window. The registry needs the new model id.
+- *A brief that quotes the session scratchpad path is refused at write time.* That path
+  embeds the flattened home directory, which the machine-local-path guard matches. Give a
+  sub-agent its scratch location in the dispatch prompt, or tell it to use `mktemp -d`, rather
+  than writing the path into a file.
 
 ## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
 
