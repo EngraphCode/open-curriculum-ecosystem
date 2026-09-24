@@ -19,6 +19,7 @@ import path from 'node:path';
 
 import { err, flatMap, map, ok, type Result } from '@oaknational/result';
 
+import { failureAsError } from './failure-as-error.js';
 import { resolveTrustedGit } from './trusted-git.js';
 
 /** Null byte: the record separator of git's `-z` output. */
@@ -157,6 +158,17 @@ function gitFailed(output: GitRunOutput): GitReadFailure {
 }
 
 /**
+ * The failure for a git the trusted resolver could not find: its refusal
+ * message, carried verbatim.
+ *
+ * @param thrown - What {@link resolveTrustedGit} threw.
+ * @returns The `git-unavailable` failure.
+ */
+export function gitUnavailable(thrown: unknown): GitReadFailure {
+  return { kind: 'git-unavailable', message: failureAsError(thrown, 'resolveTrustedGit').message };
+}
+
+/**
  * The live runner: git by its trusted absolute path, from `repoRoot`, no shell.
  * A missing trusted git is the resolver's refusal, carried verbatim, never
  * rebranded ({@link resolveTrustedGit}).
@@ -166,7 +178,7 @@ function gitRunAt(repoRoot: string): Result<GitRun, GitReadFailure> {
   try {
     git = resolveTrustedGit();
   } catch (error) {
-    return err({ kind: 'git-unavailable', message: String(error) });
+    return err(gitUnavailable(error));
   }
   const options = { cwd: repoRoot, encoding: 'utf8', maxBuffer: MAX_GIT_OUTPUT_BYTES } as const;
   return ok((args) => toGitRunOutput(spawnSync(git, args, options)));
