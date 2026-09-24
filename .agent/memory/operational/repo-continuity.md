@@ -423,20 +423,16 @@ Below-bar and rejected. The three are reasons the bytes fail to carry the concep
 contradiction both carry is a faithfully carried concept, false in both, which the merged-text
 bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
 2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
-owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`.
-Pull request 179, the carrier of the Oak line's 1.185.1 (four files: two version bumps, two changelog lines;
-premise sweep clean), carries its slot merge `SHA:00867e531` in the worktree
-oce-wt-carrier-1-185-1 (tree `e0f78b3ab`, equal to the merge-tree preview against engraph
-`SHA:0d6924427`). Read the pull request for its state. If the merge is not on it, push it with
-`pnpm --dir <that worktree> agent-tools merge-bot push --branch <the carrier branch>`, mark it
-ready, and request both reviewers. Two rounds, then the merge door, by merge commit. If engraph
-has moved, merge the new tip on top and never remove the earlier merge (cross-fork-integration
-step 3). Owed, each from a word already given: the host-free adapter line's joint cure
+owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. Owed, each from a word already given: the host-free adapter line's joint cure
 (`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
 prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context
 under 30%, declared on #183; the practice-two-way-exchange node naming PDR-142's interim debt
-landing (routed from #183's second round) at its next edit. The sibling's three pull requests were signed by this estate
+landing (routed from #183's second round) at its next edit. And the owner's test words of 2026-09-24, signed as a joint text by both
+exchange seats with this seat's boundary gloss (the exact bytes are on the second estate's
+test-doctrine alignment pull request), for testing-strategy §Philosophy: a directive edit, for
+a context under 30%. The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
 with a dated PDR-117 amendment section; 161, H and I. H and I landed here in #183, except the
 directive hunk named above. Forwarded to the set after: PDR-063 §Step 4's
