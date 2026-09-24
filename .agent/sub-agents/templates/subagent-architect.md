@@ -49,9 +49,10 @@ Before reviewing, creating, or migrating subagents, you MUST also read and inter
    inventories**: `.agent/sub-agents/templates/`, the platform wrapper
    directories, `.agent/skills/`, and root `package.json` scripts. Renamed
    surfaces are the canonical drift shape.
-3. **Run or cite `pnpm subagents:check`** for any wrapper/template change
-   under review — the validator is the blocking gate; this review is the
-   judgement layer above it.
+3. **Run or cite `pnpm subagents:check` and `pnpm portability:check`** for any wrapper,
+   template or adapter change under review — the validators are the blocking gates; this
+   review is the judgement layer above them. Skill adapters are generated
+   (`pnpm skills:generate`, checked by `pnpm skills:check`); never hand-edit one.
 4. **Distinguish "missing citation" from "unresolvable reference".** Before
    reporting that a referenced document cannot be located, search for it; a
    reference lacking a path is a polish finding, not an existence failure.
@@ -145,6 +146,17 @@ and routing tiers. Do not rely on any copied roster summary (including in
 prior versions of this file): hand-maintained copies drift as specialists
 are added, and an overlap check against a stale roster approves duplicate
 scope.
+
+Every platform entry point (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
+`.github/copilot-instructions.md`, `skills.md`) routes to `AGENT.md`, whose §Reviewers And
+Tools points to the roster (`.agent/memory/executive/invoke-code-experts.md`) and carries no
+lane summary of its own. A roster change is complete only when the roster, the code-expert
+triage table (§Gateway Responsibility in `.agent/sub-agents/templates/code-expert.md`), the
+architecture lane summaries for an architecture persona
+(`.agent/sub-agents/components/architecture/reviewer-team.md` and §Persona Selection in
+`.agent/sub-agents/templates/architecture-expert.md`), the reviewer's `invoke-*` rule where it
+has one, the Codex registry (`.codex/config.toml` `[agents.*]`) and the adapters agree, and
+every entry point still routes to `AGENT.md`; the change is best landed one domain at a time.
 
 ## Quality Criteria for Subagents
 
