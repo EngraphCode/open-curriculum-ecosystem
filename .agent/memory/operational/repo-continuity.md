@@ -354,7 +354,8 @@ on this machine only.
      default, the same bytes as the second estate's. Until it lands, mint the bot token by
      hand on every GitHub write; this host's default `gh` credential is the owner's.
   6. PRs E and F: the PDR citation text and its check.
-  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, K2(c), and K3(a) to K3(d), all signed. Plus K2(a)'s adapter check
+  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, K2(c), and K3(a) to K3(e), all signed (K3(e), the third
+     adapter-contract anchor at `practice-bootstrap.md` line 352, signed 17:4xZ). Plus K2(a)'s adapter check
      for the three corpus adapters.
   8. Batch two (three parts) and batch three (two code concepts), both acknowledged and not
      integrated.
