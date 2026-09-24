@@ -8,18 +8,22 @@ import {
   type TurnRequest,
 } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
-import { admitRecord, matchBinding, type GateRefusal, type PassRecordRead } from './gate.js';
+import {
+  admitRecord,
+  matchBinding,
+  type Binding,
+  type GateRefusal,
+  type PassRecordRead,
+} from './gate.js';
 import type { TurnOutcome } from './turn-verdict.js';
 
 /**
- * The `codex` binary as resolved once for this call: its real path and the
- * version it reports. One resolution serves the gate and the spawn, so an
- * updater swapping the release link mid-call cannot split them.
+ * The `codex` binary as resolved once for this call: the version it reports
+ * and its real path, named as the pass record names them. One resolution
+ * serves the gate and the spawn, so an updater swapping the release link
+ * mid-call cannot split them.
  */
-export interface ResolvedBinary {
-  readonly realPath: string;
-  readonly version: string;
-}
+export type ResolvedBinary = Pick<Binding, 'cliVersion' | 'executablePath'>;
 
 /**
  * Why the binary could not be resolved: no `codex` to be found, or a
@@ -29,12 +33,6 @@ export interface BinaryUnresolved {
   readonly kind: 'binary-unresolved';
   readonly reason: 'not-found' | 'version-unreadable';
 }
-
-/**
- * What a gated turn needs from the composition root. It carries no
- * executable: the gate's own resolution supplies that.
- */
-export type GatedTurnContext = Omit<TurnContext, 'codexExecutable'>;
 
 /**
  * The effects a gated turn needs, injected: the turn's own, plus the pass
@@ -53,15 +51,19 @@ export interface GatedTurnPorts extends TurnPorts {
 export type GatedTurnError = GateRefusal | BinaryUnresolved | TurnError;
 
 /**
- * Run one dialogue turn, but only on a binding a probe has passed. The pass
- * record is admitted first, so an empty instrument home asks for a probe
- * before anything about the binary is known. Then the binary is resolved
- * once, the binding is matched against the record, and the turn spawns that
- * same resolved path.
+ * Run one dialogue turn, but only on a binding a probe has passed: the gated
+ * core of `dialogue-turn`. The pass record is admitted first, so an empty
+ * instrument home asks for a probe before anything about the binary is
+ * known. Then the binary is resolved once, the binding is matched against
+ * the record, and the turn spawns that same resolved path.
+ *
+ * @param request - The turn: its prompt, its thread (undefined to open one) and its timeout.
+ * @param context - What the composition root resolved once for every turn.
+ * @param ports - The turn's own ports, plus the record read and the binary resolution.
  */
 export function runTurn(
   request: TurnRequest,
-  context: GatedTurnContext,
+  context: TurnContext,
   ports: GatedTurnPorts,
 ): Result<TurnOutcome, GatedTurnError> {
   const record = admitRecord(ports.readPassRecord());
@@ -73,12 +75,12 @@ export function runTurn(
     return err(binary.error);
   }
   const match = matchBinding(record.value, {
-    cliVersion: binary.value.version,
-    executablePath: binary.value.realPath,
+    cliVersion: binary.value.cliVersion,
+    executablePath: binary.value.executablePath,
     envelopeDigest: envelopeDigest(context.modelPins),
   });
   if (!match.ok) {
     return err(match.error);
   }
-  return executeTurn(request, { ...context, codexExecutable: binary.value.realPath }, ports);
+  return executeTurn(request, context, binary.value.executablePath, ports);
 }

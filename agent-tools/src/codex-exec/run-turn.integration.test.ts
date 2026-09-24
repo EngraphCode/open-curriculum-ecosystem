@@ -1,14 +1,13 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import type { CodexCall, TurnRequest } from './dialogue-turn.js';
+import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
 import type { PassRecordRead } from './gate.js';
 import type { PassRecord } from './pass-record.js';
 import {
   runTurn,
   type BinaryUnresolved,
-  type GatedTurnContext,
   type GatedTurnPorts,
   type ResolvedBinary,
 } from './run-turn.js';
@@ -16,7 +15,7 @@ import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 
-const context: GatedTurnContext = {
+const context: TurnContext = {
   instrumentRoot: '/root-slot',
   childEnvInputs: {
     instrumentHome: '/home-slot',
@@ -29,14 +28,14 @@ const context: GatedTurnContext = {
 };
 
 const binary: ResolvedBinary = {
-  realPath: '/opt/codex/releases/0.156.1/bin/codex',
-  version: '0.156.1',
+  cliVersion: '0.156.1',
+  executablePath: '/opt/codex/releases/0.156.1/bin/codex',
 };
 
 /** The record a probe that passed on this binding writes. */
 const record: PassRecord = {
-  cliVersion: binary.version,
-  executablePath: binary.realPath,
+  cliVersion: binary.cliVersion,
+  executablePath: binary.executablePath,
   envelopeDigest: envelopeDigest(context.modelPins),
   passedAt: '2026-09-24T11:00:00Z',
   evidence: ['rule 9: the nonce, no WRITE-OK'],
@@ -87,7 +86,7 @@ describe('runTurn', () => {
       ok: true,
       value: { threadId: THREAD, message: 'reply', messages: ['reply'], commandExecutions: [] },
     });
-    expect(turnPorts.calls.map((call) => call.executable)).toStrictEqual([binary.realPath]);
+    expect(turnPorts.calls.map((call) => call.executable)).toStrictEqual([binary.executablePath]);
   });
 
   it('starts no turn without a pass record, though the turn would succeed', () => {
@@ -123,9 +122,15 @@ describe('runTurn', () => {
   it.each([
     [
       'the CLI has updated since the probe',
-      { ...binary, version: '0.157.0' },
+      { ...binary, cliVersion: '0.157.0' },
       context,
       ['cliVersion'],
+    ],
+    [
+      'a different codex binary answers to the name',
+      { ...binary, executablePath: '/usr/local/bin/codex' },
+      context,
+      ['executablePath'],
     ],
     [
       'the model pins have changed since the probe',
