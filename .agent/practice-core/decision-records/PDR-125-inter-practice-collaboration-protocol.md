@@ -43,7 +43,11 @@ never the goal, concept transfer is": identical bytes are fine where
 they carry the concept in the receiving repo's context, and a receipt
 is finished when the concept reads true there): twinned in both estates
 in one window by the two exchange seats, with the matching amendment to
-PDR-142, which carries the owner's words in full.
+PDR-142, which carries the owner's words in full. Amended again
+2026-09-23 on the owner's card (clause 7's format sentence: a receiver's
+convention or gate that refuses the donor's bytes is aligned across the
+estates, and a change made meanwhile is a declared debt to that
+alignment), with the matching sentence in PDR-142.
 **Date**: 2026-07-06
 **Related**: PDR-005 (transplantation and provenance), PDR-024
 (vital integration surfaces and outbound routing), PDR-027 (identity
@@ -299,11 +303,13 @@ below serves one of those three.
    integration ledger joins file ↔ event ↔ execution-time pin. The two
    host rule families (SHA-required in collaboration content;
    SHA-forbidden in permanent docs) are this one layering rule seen
-   from its two sides. **Format-normalise on receipt**: inbound
-   material is normalised to the RECEIVING repo's format where that
-   repo's conventions or gates differ — markdown conventions, heading
-   shapes, gate-satisfying style — with the normalisation declared in
-   the integrating commit body. Concepts travel; identical bytes are
+   from its two sides. **Format on receipt**: where the receiving
+   repo's conventions or gates refuse the donor's bytes (markdown
+   conventions, heading shapes, gate-satisfying style), the estates
+   align that convention or gate so the bytes stay identical
+   (PDR-142); until they do, the receiver changes only what its gate
+   refuses, declaring each change in the integrating commit body as a
+   debt to that alignment. Concepts travel; identical bytes are
    fine wherever they carry the concept in the receiving repo's
    Practice context, and a receipt is finished when the concept reads
    true there, whether or not its bytes changed (amended 2026-09-23;
