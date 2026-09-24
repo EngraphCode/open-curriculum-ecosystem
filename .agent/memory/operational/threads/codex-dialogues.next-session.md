@@ -36,8 +36,23 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 - **Completed**: slice 0, PR 184 (`507d13931`); slice 1a, PR 186 (`418671f16`); slice 1b-0,
   the node's threat model and slicing, PR 188 (`fcbaa9bf5`, merged 2026-09-24 13:22Z through the
   merge door); slice 1b-i, the gate, PR 189 (`a0a2fead4`, merged 2026-09-24 14:59:44Z through
-  the merge door, merge-landed event `4b4a0cab`). The node's Todos do not yet mark 1b-0 or 1b-i
-  landed; that edit rides the next node-touching pull request (1b-ii's).
+  the merge door, merge-landed event `4b4a0cab`); slice 1b-iii, the rollout reader, PR 190
+  (`45c838297`, merged 2026-09-24 about 17:14Z through the merge door, both legs SATISFIED on
+  the synced head `17cd699a1`; 2 rounds, 0 settlement pushes). The node's Todos do not yet mark
+  1b-0, 1b-i or 1b-iii landed. The first two ride PR 196's node edit; add 1b-iii there at its sync.
+- **NEXT FOR THE SUCCESSOR (the handover default, 17:08Z)**: PR 196 (1b-ii) is a draft at
+  `f06807bb9` on origin. Steps:
+  1. sync it once past `engraph`, with the owner as author, at its landing slot, after
+     Marten's PRs 195 and 197;
+  2. add "Landed as PR 190" to 1b-iii's todo in the node;
+  3. push through `merge-bot push`;
+  4. mark it ready;
+  5. request Copilot (`requested_reviewers` as the bot) and post `@codex review`;
+  6. read both legs on that head;
+  7. take the door.
+  Then comes the Cricket-clause edit (the Director's assignment). After both PRs have merged,
+  the wake bridge's todo 1 opens: per-host probes with Luna stirs Radiance, in isolated
+  sessions.
 - **STRATEGIC FOCUS SWITCHED at the owner's word, about 15:27Z on 2026-09-24**, verbatim: "Finish
   the inflight work, but switch strategic focus to making Codex a first class peer in the
   Practice". The Director was told as the downward-direction rule requires. Consequences:
@@ -85,6 +100,9 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     - 1b-ii's draft PR needs no landing slot;
     - the Codex-specific gap count is 5, not 7;
     - frames cite quotes as `git show <sha>:<path>`.
+  - **HANDED OVER AT REST at about 17:27Z by the default below.** No owner word had arrived by the
+    harvest. The seat's lane claim `372ac08b` carries the handover record. Heartbeat-end follows
+    this commit.
   - **DECLARED HANDOVER DEFAULT (the Director, 17:08Z, under PDR-063)**: context was 54.6% at
     17:05:06Z. After PR 190 lands, if no owner word has reached this seat, it hands over AT
     REST, with PR 196 (1b-ii) in the successor's queue. The owner has the choice on a card
@@ -153,7 +171,14 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   `docs/codex-dialogue-probe-threat-model` were deleted as the bot; both worktrees and local
   branches removed after a content check (both tips ancestors of `origin/engraph`).
 
-### Lane: 1b-iii, the rollout reader — PR 190, active, draft, pre-ready cure in flight
+### Lane: 1b-iii, the rollout reader — PR 190, LANDED 2026-09-24 about 17:14Z as `45c838297`
+
+- Cleanup done at 17:16Z: the remote branch was deleted as the bot, and Forge herds Vapor's
+  temp worktree and the local branch were removed after a content check (tip `17cd699a1` is an
+  ancestor of `engraph`). Claim `2368c96b` is closed. The post-merge harvest at 17:25:13Z was
+  clear: no late reviews or comments, and 0 unresolved threads. `engraph` CI on `45c838297` was
+  in progress then (CodeQL and Code Quality green); the successor reads its result. The history
+  below is kept for the record.
 
 - **Branch**: `feat/codex-dialogue-rollout-reader`, on origin at `5a0a8d189` (Luna stirs
   Radiance's cure, pushed by Luna through `merge-bot push` at the pause's delegation; verified by
@@ -233,7 +258,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   committed. Forge's pickup index (comms broadcast, 13:34Z) names them for local
   re-verification.
 
-### Lane: 1b-ii, the cleanup row — ACTIVE, all four steps committed, post-execution reviews running
+### Lane: 1b-ii, the cleanup row — PR 196, a draft at `f06807bb9`, cured, next to land (see NEXT FOR THE SUCCESSOR)
 
 - **Where**: worktree `oce-wt-codex-dialogue-cleanup-row` beside the primary checkout, branch
   `feat/codex-dialogue-cleanup-row`, off `engraph` at `a0a2fead4`. Built and installed. No PR yet;

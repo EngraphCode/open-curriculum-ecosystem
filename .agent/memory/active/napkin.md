@@ -1282,3 +1282,16 @@ first-class peer. It paused again at 49.8% context.
   worktree, and loopback slots the kernel releases on death. It reaches this estate through the
   exchange's batch three. The move: "not built" is a claim about one estate; check the sibling
   estate before calling a ruled mechanism missing.
+- **Handover at rest (~17:27Z): what the last hour taught.**
+  - A heartbeat label baked into the loop goes stale while the state moves on. A peer, Luna
+    stirs Radiance, read the stale label as a possible unread direction. Read the label from a
+    file each tick, or restart the loop at every state change.
+  - A landing slot needs a named keeper, not just a next PR. With two seats handing over within
+    thirty minutes of each other, the merge-landed event named the gap and asked the Director
+    for a keeper.
+  - The Director gave "hand over or continue at the owner's word" a default (PDR-063: when the
+    owner is silent, a declared deadline and a default). A hold with no default is a stall
+    waiting to happen.
+  - The door's round one came back clean from both legs. The reviews that did the work came
+    before external review (the code-expert, then the test-expert and security-expert
+    re-reads). The Codex seat cured both rounds under the Claude custodian's dispositions.
