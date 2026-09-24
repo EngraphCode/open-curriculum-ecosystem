@@ -3935,3 +3935,27 @@ commit SHA and the closing plan reference.
   phantom reds.
 - **Route**: an agent-tools candidate (wait on the watcher's exit event, with a bound sized as
   a hang detector and not as an expected duration). One instance.
+- **Recurred** 2026-09-24, four more instances. The first was #179's first push (Zephyr guards
+  Leeward, `281e44`). Three were pre-push runs by Blazar lifts Corona (`b65a9a`): PR 188's first
+  settlement push, and PR 189's sync push twice. Every run failed with the same message while
+  the host's one-minute load average stood above 20, and each passed alone (3 of 3) or on a
+  retry once the load fell below 12. PR 179 changed nothing under `agent-tools`. With five
+  instances across two seats, this is a pattern.
+
+### F-198 — the merge door does not read the Codex connector's summary comment or its reaction
+
+- **Observed**: 2026-09-24 ~12:45Z (Blazar lifts Corona, `b65a9a`), PR 189. The Codex connector
+  reported a clean review of the tip `ebe3123` through two transports. It edited its
+  `codex-pull-request-review-summary` comment to "✅ Completed" with the commit in a table cell,
+  and it put a 👍 reaction on the pull request. `merge-bot merge` refused with
+  UNCLASSIFIED-EVIDENCE: the summary comment was "edited after creation", and the connector's
+  quota comment "names no reviewed commit". The documented cure, a fresh `@codex review`, then
+  bounced on the usage limit, as a comment. A quota notice counts as SKIPPED only when posted
+  as a tip-bound review, so both PR 188 and PR 189 stayed held on a vendor quota. The Director
+  ruled to hold them rather than merge outside the door.
+- **Expected**: the door reads each reporting transport a configured reviewer uses, under the
+  owner's 2026-09-16 comment-evidence ruling. It reads the summary comment's commit and status
+  cells as a tip-bound result, and a quota notice posted as a comment as the same
+  scope-declared SKIPPED marker it honours as a review.
+- **Route**: a merge-bot candidate. The door is shared by both estates, so the cure is portable.
+  One instance.
