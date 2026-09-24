@@ -10,7 +10,7 @@ interface InlinePromptFiles {
 
 /**
  * Run both PDR-009 inline-prompt checks: every Claude adapter either points to
- * a template or belongs to a role whose template has a System prompt section,
+ * templates that exist or belongs to a role whose template has a System prompt section,
  * and every such template's block is copied into its Claude adapter verbatim.
  *
  * @returns Every issue found, in adapter order and then template order.
@@ -25,6 +25,7 @@ export async function collectInlinePromptIssues(input: {
   const { files } = input;
   const readIfPresent = async (relPath: string): Promise<string | undefined> =>
     (await files.exists(relPath)) ? files.readText(relPath) : undefined;
+  const knownTemplates: ReadonlySet<string> = new Set(input.templateFiles);
   const issues: string[] = [];
 
   for (const adapterPath of input.claudeWrapperFiles) {
@@ -35,6 +36,7 @@ export async function collectInlinePromptIssues(input: {
         adapter: await files.readText(adapterPath),
         templatePath,
         template: await readIfPresent(templatePath),
+        knownTemplates,
       }),
     );
   }

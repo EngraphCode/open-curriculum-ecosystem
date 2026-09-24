@@ -17,7 +17,7 @@
  */
 
 const SYSTEM_PROMPT_HEADING = /^## system prompt\s*$/iu;
-const NEXT_SECTION_HEADING = /^## /u;
+const NEXT_SECTION_PREFIX = '## ';
 const QUOTE_LINE = /^ {0,3}> ?/u;
 const FRONTMATTER = /^---\n[\s\S]*?\n---\n/u;
 const PAIRING_COMMENT = /<!--\s*Paired with the canonical definition in[\s\S]*?-->/u;
@@ -45,7 +45,7 @@ function systemPromptSection(template: string): SystemPromptSection {
     return { kind: 'absent' };
   }
   const section = lines.slice(start + 1);
-  const end = section.findIndex((line) => NEXT_SECTION_HEADING.test(line));
+  const end = section.findIndex((line) => line.startsWith(NEXT_SECTION_PREFIX));
   const body = end === -1 ? section : section.slice(0, end);
   const first = body.findIndex((line) => QUOTE_LINE.test(line));
   if (first === -1) {
@@ -107,32 +107,61 @@ export function inlinePromptParityIssues(input: {
   return [];
 }
 
-const HTML_COMMENT = /<!--[\s\S]*?-->/gu;
 const TEMPLATE_DIR_PREFIX = '.agent/sub-agents/templates/';
+const TEMPLATE_POINTER = /\.agent\/sub-agents\/templates\/[\w.-]+\.md/gu;
+const COMMENT_OPEN = '<!--';
+const COMMENT_CLOSE = '-->';
 
 /**
- * The scope issue for one Claude adapter: an adapter that does not point to a
- * template (a template path named outside any comment) must belong to a role
- * whose template has a System prompt section, so a template that loses its
- * section cannot leave an inline copy unchecked.
+ * The text outside HTML comments. A comment left open runs to the end of the
+ * text, as it does in HTML, so nothing after an unclosed `<!--` counts.
+ */
+function textOutsideComments(text: string): string {
+  const parts: string[] = [];
+  let from = 0;
+  while (from < text.length) {
+    const open = text.indexOf(COMMENT_OPEN, from);
+    if (open === -1) {
+      parts.push(text.slice(from));
+      break;
+    }
+    parts.push(text.slice(from, open));
+    const close = text.indexOf(COMMENT_CLOSE, open + COMMENT_OPEN.length);
+    from = close === -1 ? text.length : close + COMMENT_CLOSE.length;
+  }
+  return parts.join('');
+}
+
+/**
+ * The scope issues for one Claude adapter. An adapter that names template
+ * paths outside any comment points to its template, and every path it names
+ * must be a template file that exists. An adapter that names none must belong
+ * to a role whose template has a System prompt section, so a template that
+ * loses its section cannot leave an inline copy unchecked.
  *
- * @param input - The adapter's path and Markdown, and its template's path and
- * Markdown or `undefined` when no template file exists.
- * @returns One message when the adapter is neither a pointer nor an inline
- * copy in scope; empty otherwise.
+ * @param input - The adapter's path and Markdown, its template's path and
+ * Markdown or `undefined` when no template file exists, and the template files
+ * that exist.
+ * @returns One message per pointer to a missing template, or one message when
+ * the adapter is neither a pointer nor an inline copy in scope; empty
+ * otherwise.
  */
 export function claudeAdapterScopeIssues(input: {
   readonly adapterPath: string;
   readonly adapter: string;
   readonly templatePath: string;
   readonly template: string | undefined;
+  readonly knownTemplates: ReadonlySet<string>;
 }): readonly string[] {
-  const body = input.adapter
-    .replaceAll(CRLF, '\n')
-    .replace(FRONTMATTER, '')
-    .replaceAll(HTML_COMMENT, '');
-  if (body.includes(TEMPLATE_DIR_PREFIX)) {
-    return [];
+  const body = textOutsideComments(input.adapter.replaceAll(CRLF, '\n').replace(FRONTMATTER, ''));
+  const pointers = body.match(TEMPLATE_POINTER) ?? [];
+  if (pointers.length > 0) {
+    return pointers
+      .filter((pointer) => !input.knownTemplates.has(pointer))
+      .map(
+        (pointer) =>
+          `${input.adapterPath}: points to ${pointer}, which is not a template file in ${TEMPLATE_DIR_PREFIX}`,
+      );
   }
   if (input.template !== undefined && systemPromptSection(input.template).kind === 'present') {
     return [];

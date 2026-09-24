@@ -168,24 +168,54 @@ describe('claudeAdapterScopeIssues', () => {
     adapterPath: '.claude/agents/prose-expert.md',
     templatePath: '.agent/sub-agents/templates/prose-expert.md',
   };
+  const knownTemplates: ReadonlySet<string> = new Set([
+    '.agent/sub-agents/templates/prose-expert.md',
+    '.agent/sub-agents/templates/architecture-expert.md',
+    '.agent/sub-agents/templates/corpus-voter.md',
+  ]);
 
   it('passes an adapter that points to a template with another name', () => {
     const persona = pointer.replace('prose-expert.md`', 'architecture-expert.md`');
 
     expect(
-      claudeAdapterScopeIssues({ ...pointerPaths, adapter: persona, template: undefined }),
+      claudeAdapterScopeIssues({
+        ...pointerPaths,
+        adapter: persona,
+        template: undefined,
+        knownTemplates,
+      }),
     ).toStrictEqual([]);
   });
 
   it('passes an adapter that points to its template', () => {
     expect(
-      claudeAdapterScopeIssues({ ...pointerPaths, adapter: pointer, template: '# Prose' }),
+      claudeAdapterScopeIssues({
+        ...pointerPaths,
+        adapter: pointer,
+        template: '# Prose',
+        knownTemplates,
+      }),
     ).toStrictEqual([]);
+  });
+
+  it('reports a pointer to a template file that does not exist', () => {
+    const typo = pointer.replace('prose-expert.md`', 'prose-expertt.md`');
+
+    expect(
+      claudeAdapterScopeIssues({
+        ...pointerPaths,
+        adapter: typo,
+        template: '# Prose',
+        knownTemplates,
+      }),
+    ).toStrictEqual([
+      '.claude/agents/prose-expert.md: points to .agent/sub-agents/templates/prose-expertt.md, which is not a template file in .agent/sub-agents/templates/',
+    ]);
   });
 
   it('passes an adapter that carries the prompt of a role with a System prompt section', () => {
     expect(
-      claudeAdapterScopeIssues({ ...paths, adapter: matchingAdapter, template }),
+      claudeAdapterScopeIssues({ ...paths, adapter: matchingAdapter, template, knownTemplates }),
     ).toStrictEqual([]);
   });
 
@@ -193,13 +223,41 @@ describe('claudeAdapterScopeIssues', () => {
     const plainTemplate = '# Corpus Voter\n\n## Purpose\n';
 
     expect(
-      claudeAdapterScopeIssues({ ...paths, adapter: matchingAdapter, template: plainTemplate }),
+      claudeAdapterScopeIssues({
+        ...paths,
+        adapter: matchingAdapter,
+        template: plainTemplate,
+        knownTemplates,
+      }),
     ).toStrictEqual([scopeIssue]);
   });
 
   it('does not count a template path named only inside a comment as a pointer', () => {
     expect(
-      claudeAdapterScopeIssues({ ...paths, adapter: matchingAdapter, template: undefined }),
+      claudeAdapterScopeIssues({
+        ...paths,
+        adapter: matchingAdapter,
+        template: undefined,
+        knownTemplates,
+      }),
     ).toStrictEqual([scopeIssue]);
+  });
+
+  it('reads an unterminated comment as running to the end of the adapter', () => {
+    const unterminated = pointer.replace(
+      'Read and follow',
+      '<!-- A note. -->\nSee below.\n<!-- Read and follow',
+    );
+
+    expect(
+      claudeAdapterScopeIssues({
+        ...pointerPaths,
+        adapter: unterminated,
+        template: '# Prose',
+        knownTemplates,
+      }),
+    ).toStrictEqual([
+      '.claude/agents/prose-expert.md: neither points to a template in .agent/sub-agents/templates/ nor belongs to a role whose template has a System prompt section (PDR-009 inline-prompt role)',
+    ]);
   });
 });
