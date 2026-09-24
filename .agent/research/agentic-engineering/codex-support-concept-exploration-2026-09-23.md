@@ -345,6 +345,9 @@ records or observed in the named run.
   - The state was `{"permissionProfile": <profile>, "sandboxCwd": "file://<root>"}`. The profile was
     copied from thread `01a0cfc3`'s `turn_context`: managed, file-system `read` on the root path
     `/`, network `restricted`.
+  - The call was `codex sandbox --sandbox-state-json <state> -- /bin/sh -c <probe line>`, from the
+    resolved real path. `codex sandbox` runs its command's arguments as given, so the shell is
+    named.
   - The run took an `env -i` allowlist with an empty `CODEX_HOME`.
   - The two-branch probe line printed `/bin/sh: …: Operation not permitted`, then the nonce once
     and no `WRITE-OK`. The root stayed empty, and the whole line exited 0.

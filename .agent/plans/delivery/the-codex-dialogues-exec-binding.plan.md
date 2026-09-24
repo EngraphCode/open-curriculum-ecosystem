@@ -249,8 +249,9 @@ records of what the model ran, so it holds for a cooperative interlocutor and no
    - network `restricted`;
    - no writable file-system entry;
    - the pinned model and effort, when pinned.
-9. With no model, the probe runs the same two-line command under `codex sandbox`, from the same
-   resolved binary as the two turns, with a nonce and a sentinel of its own:
+9. With no model, the probe runs the same two-line command under `codex sandbox`, through
+   `/bin/sh -c` (see The envelope), from the same resolved binary as the two turns, with a nonce
+   and a sentinel of its own:
    - the sandbox state is `{"permissionProfile": <profile>, "sandboxCwd": <the root's file URI>}`,
      where the profile is the `permission_profile` the resumed turn recorded. `sandboxCwd` also sets
      the working directory, and the CLI refuses `-C` beside `--sandbox-state-json`. The Linux-only
@@ -296,8 +297,10 @@ The envelope is one module. It is the only source of the argv and of the child's
 
 - **Open:** `codex exec --json <flags> -C <instrument root> <settings> -`
 - **Resume:** `codex exec resume <uuid> --json <flags> <settings> -`
-- **Rule 9's run:** `codex sandbox --sandbox-state-json <state> -- <probe line>`, with the
-  envelope's child environment.
+- **Rule 9's run:** `codex sandbox --sandbox-state-json <state> -- /bin/sh -c <probe line>`,
+  with the probe line as one argument and the envelope's child environment. `codex sandbox` runs
+  its command's arguments as given and parses no shell syntax, so the shell is named; this is the
+  shape the trial ran (research note §2.9).
 - **Flags:**
   - `--ignore-user-config --ignore-rules --skip-git-repo-check`
   - `--disable memories --disable shell_snapshot`
