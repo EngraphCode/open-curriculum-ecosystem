@@ -3,7 +3,8 @@ id: codex-app-server-idle-wake
 node_type: delivery
 name: "Codex native idle wake — one seat, host driven"
 overview: "Wake a Codex team seat from canonical comms through an atomic native Codex extension while it is idle, without another model seat or a perpetual model-side polling loop."
-status: sketch
+status: superseded
+superseded_by: codex-queue-wake-bridge
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -13,7 +14,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-01
+last_updated: 2026-09-24
 ---
 
 # Codex native idle wake — one seat, host driven

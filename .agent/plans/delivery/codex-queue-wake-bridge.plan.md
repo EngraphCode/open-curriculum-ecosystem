@@ -3,10 +3,10 @@ id: codex-queue-wake-bridge
 node_type: delivery
 name: "Codex seat wake through the vendor's queue"
 overview: "An idle Codex team seat wakes on a canonical comms event addressed to it, through the vendor-shipped `codex queue` subcommand, with no peer-authored bytes in its input: the first step of a worked Codex membership programme."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-09-24
+ratified_where: "Owner card via the Director (Wick binds Temper, ed7b48), about 16:31Z, verbatim: 'Ratify it as it stands', choosing 'The Director relays your stamp to Swallow now, without your reading it first', on the node at 7e9b2cf7f. The co-owner's four accepted review points are seat wording under the stamped shape."
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
@@ -47,8 +47,8 @@ and in the lived record of that day.
   an existing session") started a turn on an idle interactive session about five seconds after
   queueing. It held a message behind an active turn, and ran it as a separate turn once that
   turn finished. It kept a message across one clean exit (the concept note, §2.4 and §2.7). A
-  vendor-shipped subcommand needs no fork-adjacent code. Ratifying this node is the owner's
-  reading that the ruling's exit condition is met.
+  vendor-shipped subcommand needs no fork-adjacent code. The owner's ratification of this node
+  (2026-09-24) is the owner's reading that the ruling's exit condition is met.
 - **First-class means fitting the platform, not copying Claude's machinery.** Claude seats wake
   through their harness's event monitor. Codex seats get the same behaviour through Codex's own
   surface.
@@ -88,6 +88,10 @@ and in the lived record of that day.
 5. **Degraded paths stay named.** Where the bridge cannot run, because the subcommand is missing,
    the thread id is unknown or the queue call fails, the watcher reports that visibly. Bounded
    foreground polling stays the fallback, as the operating rule states today.
+6. **A seen cursor is not a delivery.** The watcher advances its seen cursor when it drains, before
+   the queue call runs. A failed call, or a watcher that exits between the drain and the call,
+   must leave the drained event ids visible to the fallback, and no watcher line may claim the
+   seat was woken.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -110,6 +114,13 @@ and in the lived record of that day.
 - **Failure is visible, never silent.** A missing subcommand, an unknown thread id or a failed
   queue call produces a watcher line naming the fallback. Proof: `repo-safe` tests over a
   refusing port.
+- **A failed wake loses no event.** When the queue call fails after the drain, the watcher line
+  names the drained event ids and claims no delivery. Proof: `repo-safe` tests over a refusing
+  port, asserting the line's content; `owner-held`, the live run repeated with the queue call
+  failing, recorded with the event id the fallback surfaced.
+- **Each host wakes.** A Codex seat runs in more than one host: the ChatGPT desktop app, where
+  Luna stirs Radiance ran on 2026-09-24, and a TUI in an editor terminal. Proof: `owner-held`,
+  the live wake run recorded once per host the team uses.
 - **The operating rule names the bridge.** `use-monitor-for-event-driven-wake`, the generated
   `AGENTS.md` block and the team start skill's Codex paragraph name the bridge as the Codex wake
   path, and bounded foreground polling as the fallback only. Proof: `repo-safe`, the projection
@@ -121,9 +132,14 @@ Each slice is one story, within the default round budget.
 
 1. **Probe the open behaviours**, under the owner's standing permission for Codex experiments:
    read-only sandbox, never unlimited permissions, every process closed, CLI version recorded.
+   Each probe runs in an isolated session started for it, never in a live team seat's turn,
+   because queued text arrives as user-role input.
    - A user's typing and a queued notice meeting at an idle boundary.
-   - A seat hosted as a TUI inside an editor terminal, the host the day's seats used.
-   - Whether `CODEX_THREAD_ID` is present in a seat's shell environment.
+   - A queued notice arriving while the seat drafts a reply to its user.
+   - Each host separately: the ChatGPT desktop app, and a TUI in an editor terminal. The
+     editor-terminal run cannot establish the desktop host's wake.
+   - Whether `CODEX_THREAD_ID` is present in a seat's shell environment, per host. Observed
+     present on the desktop host on 2026-09-24 (Luna stirs Radiance, 0.156.1).
    - A queued notice to a killed session.
 
    The findings are a dated addendum to the concept note. If any finding breaks the mechanism,
@@ -138,7 +154,7 @@ Each slice is one story, within the default round budget.
 ## Out of scope
 
 - The pinned native extension and its broker and canary apparatus. The owner ruled it out on
-  2026-08-01. Ratifying this node supersedes the `codex-app-server-idle-wake` sketch.
+  2026-08-01. This node supersedes the `codex-app-server-idle-wake` sketch.
 - An upstream contribution. `codex-upstream-idle-wake-contribution` stays speculative. The
   absence it answered, no supported surface, is answered by the vendor's queue.
 - The rest of the membership programme, each a node of its own:
@@ -153,4 +169,17 @@ Each slice is one story, within the default round budget.
 
 ## Review dispositions
 
-None yet.
+- **2026-09-24, Luna stirs Radiance (01a0d3), the co-owner, the first read from a live Codex seat**
+  (the pairing channel, 15:54:00Z). All four points are accepted:
+  - `CODEX_THREAD_ID` is present in the seat's shell on the ChatGPT desktop host, and
+    `codex queue --help` shows `--thread` and `--message` on 0.156.1. Folded into todo 1 as an
+    observation for that host only.
+  - The seen cursor advances before the queue call, so a failed call or an exit between the two
+    must not read as a delivery. Folded in as mechanism 6 and the acceptance criterion "A failed
+    wake loses no event".
+  - The probes run in an isolated session, not in a live co-owned turn, because queued text is
+    user-role input. Folded into todo 1.
+  - The desktop host is tested separately from the editor TUI. Folded into todo 1 and the
+    acceptance criterion "Each host wakes".
+  - The fixed notice and the exact-self thread binding were confirmed as the right trust
+    boundary.
