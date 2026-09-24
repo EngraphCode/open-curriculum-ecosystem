@@ -8,7 +8,8 @@ pdr_kind: governance
 both texts"; the definition below and its plan were authored jointly by the
 two exchange seats and signed by both before the card). Amended 2026-09-23 on
 the owner's word that concept transfer is the goal and identical bytes only a
-means (the Decision's clause on concepts and bytes; the Amendment Log)
+means (the Decision's clause on concepts and bytes and its merged-text bullet; the Amendment
+Log), and again the same day on the owner's card on format at receipt (the same clause)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
@@ -122,7 +123,10 @@ the owner's word. What is removed is removed in every estate that carries it.
   in view found such files where the merging seat's full read had not). A sentence false in the
   receiver is never edited there. It names something to do: a standard to raise in the receiver,
   a repo-local fact to cure at the source, or a contradiction the donor carries too, cured jointly
-  at the source in every estate that carries it. That file waits for it.
+  at the source: one text, signed by the seats, that reaches every estate carrying the
+  contradiction as the same bytes. That file waits for it. Where none of the three applies and
+  only the receiver's context differs, the receiver writes the concept in its own words under
+  "Concepts travel" below.
 - **Text one estate holds alone:** an offer.
 - **Code:** does not travel by COPY. One contract, held as executable observations each
   implementation must pass; a defect crosses as a failing observation, never a patch; the
@@ -153,17 +157,25 @@ What travels is the concept. Identical bytes are a means, never the goal. They a
 means wherever the receiving estate's Practice context makes them carry the concept, and whether
 they do is judged in that context, in the one full read each merged file already gets. Where
 they do, the receiver takes the donor's bytes unchanged, because separately written twins of
-one text multiply merge conflicts (the instance above). Where they do not, the reason is one of
-three, in this order: the receiver lacks a standard the text assumes, which is raised in the
-receiver; the text carries a fact of the donor's own repository, which is cured at its source;
-or the receiver's context differs in a way neither of those would remove, and only then the
-receiver does not take the bytes and writes the concept in its own context, naming in the
-landing which part of that context the donor's bytes did not fit. The rules above that say
-"bytes" or "never re-authors" read through this clause, and a rendition written under the third
-reason is made at receipt and named in the landing, never as an edit of a line already merged
-(§Boundaries): a Core record stays byte-identical wherever its Practice-wide text carries its
+one text multiply merge conflicts (the instance above) and every difference is a cost the
+eventual package must reconcile. A convention or gate of the receiver's that refuses those
+bytes is a standard the estates align, the higher of the two taken by both (§How we judge).
+For format that judgement already has its first ground, the owner's word: one shared form is
+higher than two. So where nothing else shows either form higher, the estates take the donor's.
+Until it is aligned, the receiver changes only what its gate refuses and declares each change in
+the integrating commit as a debt to that alignment (PDR-125 clause 7). Where the bytes do not
+carry the concept, the reason is one of three, in this order: the receiver lacks a standard
+the text assumes, which is raised in the receiver; the text carries a fact of the donor's own
+repository, which is cured at its source; or the receiver's context differs in a way neither of
+those, nor a joint cure of a contradiction the donor carries too (the merged-text bullet above),
+would remove, and only then the receiver does not take the bytes and writes the concept in its
+own context, naming in the landing which part of that context the donor's bytes did not fit.
+The rules above that say "bytes" or "never re-authors" read through this clause: a Core record
+stays byte-identical, save a declared format debt, wherever its Practice-wide text carries its
 concept in every estate, which is the normal case; the donor's bytes are the default for shared
-text, never its test.
+text, never its test. A rendition written under the third reason is written before the file's
+landing merges in the receiver and is named in that landing; a line already landed is never
+rewritten into one (§Boundaries).
 
 ### What this adds, and what it does not
 
@@ -180,7 +192,10 @@ security floor.
   lands in a later record of its own.
 - Nothing in it licenses a seat to edit ratified text, a merged line, or
   another estate's tree. A false-here sentence names work; it is never
-  edited where it is read.
+  edited where it is read. A joint cure is not such an edit: it arrives in
+  every estate that carries the contradiction as the same bytes, as a
+  donor's text does. Where the contradiction lies in ratified text, the
+  joint cure waits for the owner's word.
 
 ## Prediction and falsifier
 
@@ -241,3 +256,29 @@ cured jointly at the source.
 **Falsifier.** The waiting files of the next folds all resolve as a missing standard in the
 receiver or a donor's repo-local fact. Then the third remedy was not needed, and this log says
 so.
+
+### 2026-09-23 — a receiver's format gate, and the review's cures (the owner's card)
+
+**Context.** Asked how a receiver treats a donor's bytes that its own format gate refuses, with
+option 1 a sentence letting each receiver normalise to its own format, the owner answered: "We
+are standardising the Practice between [the lineage] and [the second estate]. broadly I agree
+with option 1, but in this case we are also trying minimise the cost of the eventual extraction
+and replacement of the Practice". The seats' narrower words went back to the owner and were
+ratified by card. The final reviews of the entry above, in both estates, found its wording
+unclear in four places. The merged-text bullet and this clause listed different third items.
+"At receipt" and "a line already merged" each carried two senses. The joint cure sat against
+§Boundaries. Its falsifier concluded from the remedy's absence that it was not needed.
+
+**Decision.** A receiver's convention or gate that refuses the donor's bytes is a standard the
+estates align. The owner's word makes one shared form higher than two, so where nothing else
+shows either form higher, the estates take the donor's. A change made meanwhile is a declared
+debt to that alignment; PDR-125 clause 7 is narrowed to match. The bullet and the
+clause now point at each other. A rendition is written before the file's landing merges. A
+joint cure is one signed text that reaches every estate carrying the contradiction as the same
+bytes. §Boundaries says that is not an edit where the text is read, and that a joint cure of
+ratified text waits for the owner's word. This entry's falsifier replaces the one above.
+
+**Falsifier.** A contradiction cured jointly at the source is found again in either estate at a
+later fold, or a declared format debt is still open two folds after it was declared; the seats
+that run each fold read the integrating commits for both. One such instance reopens the
+matching sentence with the owner, and this log says so.

@@ -632,6 +632,36 @@ DUE 2026-09-22 17:45Z.
 operator-profile twin's landing; the first day of the three-estate exchange, including the
 owner's word that both exchange seats define "the best of each Practice" together.
 
+### 2026-09-23 11:57Z — the 2026-09-21 branch folded as #175, overdue by a pause (Zephyr guards Leeward, 281e44, on a new model)
+
+Merged `SHA:0ea8fb232` through the front door, Copilot's leg bound to the tip. The Codex
+connector was out of credit, which was declared on the stream. It landed about eighteen hours
+past its 24-hour lifetime, because the seat paused for two days at the owner's word; the fold
+was the first act at resume. The review-cost ledger's #175 row holds the rounds and the price.
+Successor `coordination/2026-09-23-0ea8fb`.
+
+*moved for teachers:* nothing. *moved for the Practice:* the shared definition of the best of
+each Practice written and ratified by the owner; the relayed rulings confirmed in this estate;
+a retired Copilot seat's records landed; the context-loop experiment's findings.
+
+### 2026-09-23 20:03Z to 20:31Z — the exchange's amendments land; the Director hears questions only (Zephyr guards Leeward, 281e44)
+
+PDR-142 landed as #177. #173 landed as `SHA:685ad538c`, with its browser-tests failure
+diagnosed as a transient font fetch and re-run once. The paired amendments (concepts travel;
+bytes where they carry the concept) landed as #180 (`SHA:3a1d47873`): PDR-142 byte-identical to
+the second estate's copy, and PDR-125 and the inter-Practice skill carrying the same amendment
+text while keeping this estate's host lines (its package name, its skill adapter's path). The joint texts landed as #181 (`SHA:98e059ac5`) after a third round for one correctness defect and two syncs. The
+exchange's remaining texts wait in draft #183, which the continuity record names in full.
+fsmonitor is off in the shared clone config at the owner's word. The owner ruled that no agent
+updates the Director unless it has a question or a request; the ruling is recorded in
+route-blocks-and-questions-to-director (in #181). The lesson that cost most: ratified text is
+the owner's. This seat first planned to cure review findings in text the owner had just ratified,
+and the second estate's seat caught it (PDR-142 §Boundaries).
+
+*moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142 byte for
+byte, and the same amendment texts in PDR-125, and one rule for format on receipt (PDR-141's
+twin follows in #183); the Director's context is protected by rule.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

@@ -258,6 +258,23 @@ the surviving phrase on 2026-09-17), and it states what the push leg checks:
 the working tree, not the content of the commits pushed (a second fold review
 the same day found the over-claim against the mechanism's source).
 
+## Amendment 2026-09-23 — every write made on the operator's word is pushed
+
+Decisions 11 and 14 limited the Practice's commit and push to writes the
+operator "has ratified", while the record's own test says every write is
+made on the operator's word. A write the operator asked for, whose content
+was still marked inferred, could therefore be left unpushed, against
+decision 14's rule that no write sits unpushed across a session boundary (a
+review of the lineage's Core text found it). Both sentences now name every
+write made on the operator's word. The sovereignty test in the Notes says the
+same from its side: the Practice writes only on that word, under the
+operator's own identity, and never rewrites. Decision 3's example scope key
+is now the general form, `<owner>--<repository>`, because a host's own key is
+a fact of that host. The lineage made these changes in one pull request, its
+decisions 11 and 14 sentences under the owner's card of 2026-09-23 ("Yes, one
+cure push"); the second estate took all four under the owner's card of the
+same day, where they arrived as the lineage's cure.
+
 ## Boundaries
 
 - This PDR licenses one surface. A second home-directory surface (a cache,
