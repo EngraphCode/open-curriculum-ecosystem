@@ -12,6 +12,10 @@ import {
 } from './rollout-types.js';
 import { readResponse } from './response-reader.js';
 
+function matchesThreadId(payload: JsonRecord, state: ReaderState): boolean {
+  return typeof payload['thread_id'] === 'string' && payload['thread_id'] === state.threadId;
+}
+
 function readSession(
   payload: JsonRecord,
   state: ReaderState,
@@ -59,7 +63,7 @@ function readCommandExecution(
   if (hasTruncationMarker(output)) {
     return err({ kind: 'truncated-output', line });
   }
-  if (payload['thread_id'] !== state.threadId) {
+  if (!matchesThreadId(payload, state)) {
     return err({ kind: 'command-thread-id-mismatch', line });
   }
   if (activeTurnWithContext(state)?.turnId !== payload['turn_id']) {
@@ -151,6 +155,10 @@ const RECORD_HANDLERS: ReadonlyMap<string, RecordHandler> = new Map([
   ['response_item', readResponse],
 ]);
 
+function isUnknownRecordType(type: string, handler: RecordHandler | undefined): boolean {
+  return handler === undefined && type !== 'world_state' && type !== 'token_usage_record';
+}
+
 /** Fold one validated JSON object into the private two-turn reader state. */
 export function readRecord(
   record: JsonRecord,
@@ -161,8 +169,11 @@ export function readRecord(
   if (typeof type !== 'string') {
     return invalidRecord(line, 'record.type is missing');
   }
+  if (state.threadId === undefined && type !== 'session_meta') {
+    return invalidTurnOrder(line, 'record precedes session_meta');
+  }
   const handler = RECORD_HANDLERS.get(type);
-  if (handler === undefined && type !== 'world_state' && type !== 'token_usage_record') {
+  if (isUnknownRecordType(type, handler)) {
     return unknownRecord(line, type);
   }
   const payload = record['payload'];

@@ -71,7 +71,7 @@ export function readThreadSettings(
   state: ReaderState,
   line: number,
 ): Result<void, RolloutReadError> {
-  if (payload['thread_id'] !== state.threadId) {
+  if (typeof payload['thread_id'] !== 'string' || payload['thread_id'] !== state.threadId) {
     return err({ kind: 'settings-thread-id-mismatch', line });
   }
   if (state.turns.length !== 1 || !state.active?.complete) {

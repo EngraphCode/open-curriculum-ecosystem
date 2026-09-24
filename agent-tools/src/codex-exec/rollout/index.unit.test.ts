@@ -139,6 +139,27 @@ describe('readRollout', () => {
     });
   });
 
+  it.each([
+    {
+      record: { type: 'event_msg', payload: { type: 'future_event' } },
+      recordType: 'event_msg.future_event',
+    },
+    {
+      record: {
+        type: 'event_msg',
+        payload: { type: 'item_completed', item: { type: 'FutureItem' } },
+      },
+      recordType: 'event_msg.item_completed.FutureItem',
+    },
+  ])('rejects unknown nested type $recordType', ({ record, recordType }) => {
+    const candidate = records('observed-code-mode');
+    candidate.splice(8, 0, record);
+    expect(readRollout(lines(candidate))).toEqual({
+      ok: false,
+      error: { kind: 'unknown-record-type', line: 9, recordType },
+    });
+  });
+
   it('reports invalid JSON and a repeated session header', () => {
     const malformed = lines(records('observed-code-mode'));
     malformed.splice(1, 0, '{invalid');
@@ -152,6 +173,17 @@ describe('readRollout', () => {
     expect(readRollout(lines(repeated))).toEqual({
       ok: false,
       error: { kind: 'invalid-session-count', count: 2 },
+    });
+  });
+
+  it('rejects a session header after the first event', () => {
+    const late = records('observed-code-mode');
+    const session = late.shift();
+    assert(session);
+    late.splice(1, 0, session);
+    expect(readRollout(lines(late))).toMatchObject({
+      ok: false,
+      error: { kind: 'invalid-turn-order', line: 1 },
     });
   });
 
@@ -193,7 +225,13 @@ describe('readRollout', () => {
     const completion = source.findIndex(
       (record) => record.type === 'event_msg' && record.payload['type'] === 'task_complete',
     );
-    source.splice(completion, 0, call, output);
+    const firstCommand = structuredClone(commandEvent(records('observed-code-mode')));
+    firstCommand.payload['thread_id'] = select(source, 'session_meta').payload['id'];
+    firstCommand.payload['turn_id'] = select(source, 'event_msg', 'task_started').payload[
+      'turn_id'
+    ];
+    object(firstCommand.payload['item'])['aggregated_output'] = 'first-command-only';
+    source.splice(completion, 0, call, output, firstCommand);
     expect(expectRead(source).resumedOutputTexts).toEqual([shortShellText]);
   });
 
@@ -221,6 +259,48 @@ describe('readRollout', () => {
     });
     expect(evidence.turns[1].approvalPolicy).toBe('on-request');
     expect(evidence.turns[1].sandboxPolicy.type).toBe('workspace-write');
+  });
+
+  it.each([
+    { profile: { type: 'disabled' } },
+    { profile: { type: 'managed', file_system: { type: 'unrestricted' }, network: 'enabled' } },
+    { profile: { type: 'external', network: 'enabled' } },
+  ])('preserves permissive profile $profile.type', ({ profile }) => {
+    const candidate = records('observed-code-mode');
+    resumedContext(candidate)['permission_profile'] = profile;
+    for (const record of candidate.filter(
+      (entry) => entry.payload['type'] === 'thread_settings_applied',
+    )) {
+      object(record.payload['thread_settings'])['permission_profile'] = structuredClone(profile);
+    }
+    expect(expectRead(candidate).turns[1].permissionProfile).toEqual(profile);
+  });
+
+  it('preserves the danger-full-access sandbox policy', () => {
+    const candidate = records('observed-code-mode');
+    const policy = { type: 'danger-full-access' };
+    resumedContext(candidate)['sandbox_policy'] = policy;
+    expect(expectRead(candidate).turns[1].sandboxPolicy).toEqual(policy);
+  });
+
+  it('preserves a writable unknown special path when settings and context agree', () => {
+    const candidate = records('observed-code-mode');
+    const context = resumedContext(candidate);
+    const profile = object(structuredClone(context['permission_profile']));
+    const fileSystem = object(profile['file_system']);
+    const entries = fileSystem['entries'];
+    assert(Array.isArray(entries));
+    entries.push({
+      path: { type: 'special', value: { kind: 'unknown', path: 'cache', subpath: 'logs' } },
+      access: 'write',
+    });
+    context['permission_profile'] = profile;
+    for (const record of candidate.filter(
+      (entry) => entry.payload['type'] === 'thread_settings_applied',
+    )) {
+      object(record.payload['thread_settings'])['permission_profile'] = structuredClone(profile);
+    }
+    expect(expectRead(candidate).turns[1].permissionProfile).toEqual(profile);
   });
 
   it('rejects mismatched or missing applied settings', () => {
@@ -254,8 +334,17 @@ describe('readRollout', () => {
       ok: false,
       error: { kind: 'settings-thread-id-mismatch' },
     });
-  });
 
+    const missingThread = records('observed-code-mode');
+    delete select(missingThread, 'event_msg', 'thread_settings_applied').payload['thread_id'];
+    expect(readRollout(lines(missingThread))).toMatchObject({
+      ok: false,
+      error: { kind: 'settings-thread-id-mismatch' },
+    });
+  });
+});
+
+describe('readRollout order and output validation', () => {
   it('rejects a duplicate turn context and a command from another thread', () => {
     const duplicate = records('observed-code-mode');
     const firstContext = select(duplicate, 'turn_context');
@@ -273,6 +362,84 @@ describe('readRollout', () => {
     expect(readRollout(lines(foreignCommand))).toMatchObject({
       ok: false,
       error: { kind: 'command-thread-id-mismatch' },
+    });
+
+    const missingThread = records('observed-code-mode');
+    delete commandEvent(missingThread).payload['thread_id'];
+    expect(readRollout(lines(missingThread))).toMatchObject({
+      ok: false,
+      error: { kind: 'command-thread-id-mismatch' },
+    });
+  });
+
+  it('rejects a turn context whose id differs from the active turn', () => {
+    const candidate = records('observed-code-mode');
+    select(candidate, 'turn_context').payload['turn_id'] = '44444444-4444-4444-8444-444444444444';
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-turn-order',
+        reason: 'turn_context turn id differs from task_started',
+      },
+    });
+  });
+
+  it('rejects a CommandExecution after its turn completes', () => {
+    const candidate = records('observed-code-mode');
+    const event = commandEvent(candidate);
+    candidate.splice(candidate.indexOf(event), 1);
+    candidate.push(event);
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-turn-order',
+        reason: 'CommandExecution has no matching active context',
+      },
+    });
+  });
+
+  it('rejects settings applied outside the gap between turns', () => {
+    const candidate = records('observed-code-mode');
+    candidate.push(structuredClone(select(candidate, 'event_msg', 'thread_settings_applied')));
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-turn-order',
+        reason: 'thread settings were not applied between turns',
+      },
+    });
+  });
+
+  it('rejects a turn starting while another is active', () => {
+    const candidate = records('observed-code-mode');
+    const started = structuredClone(select(candidate, 'event_msg', 'task_started'));
+    started.payload['turn_id'] = '44444444-4444-4444-8444-444444444444';
+    candidate.splice(2, 0, started);
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: { kind: 'invalid-turn-order', reason: 'a turn is already active' },
+    });
+  });
+
+  it('rejects a repeated turn id', () => {
+    const candidate = records('observed-code-mode');
+    const firstId = select(candidate, 'event_msg', 'task_started').payload['turn_id'];
+    const starts = candidate.filter((record) => record.payload['type'] === 'task_started');
+    assert.equal(starts.length, 2);
+    starts[1].payload['turn_id'] = firstId;
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: { kind: 'invalid-turn-order', reason: 'task_started repeats a turn id' },
+    });
+  });
+
+  it('rejects a repeated pending call id', () => {
+    const candidate = records('observed-code-mode-only');
+    const call = select(candidate, 'response_item', 'custom_tool_call');
+    candidate.splice(candidate.indexOf(call) + 1, 0, structuredClone(call));
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: { kind: 'invalid-turn-order', reason: 'custom tool call repeats a pending call id' },
     });
   });
 
@@ -370,6 +537,16 @@ describe('readRollout', () => {
       error: { kind: 'invalid-record' },
     });
 
+    const changedPreamble = records('observed-code-mode-only');
+    const changedParts = textParts(
+      select(changedPreamble, 'response_item', 'custom_tool_call_output').payload['output'],
+    );
+    changedParts[0].text = 'a different preamble';
+    expect(readRollout(lines(changedPreamble))).toMatchObject({
+      ok: false,
+      error: { kind: 'invalid-record' },
+    });
+
     const multiple = records('observed-code-mode-only');
     const output = select(multiple, 'response_item', 'custom_tool_call_output').payload;
     const results = textParts(output['output']);
@@ -381,20 +558,21 @@ describe('readRollout', () => {
     expect(expectRead(multiple).resumedOutputTexts).toEqual([shortShellText, 'second-output']);
   });
 
-  it.each(['Warning: truncated output', 'Total output lines: 200'])(
-    'treats event marker %s as inconclusive',
-    (marker) => {
-      const candidate = records('observed-code-mode');
-      const event = commandEvent(candidate).payload;
-      object(event['item'])['aggregated_output'] = marker;
-      expect(readRollout(lines(candidate))).toMatchObject({
-        ok: false,
-        error: { kind: 'truncated-output' },
-      });
-    },
-  );
+  it.each([
+    'Warning: truncated output',
+    'Total output lines: 200',
+    '... 2097152 bytes omitted ...',
+  ])('treats event marker %s as inconclusive', (marker) => {
+    const candidate = records('observed-code-mode');
+    const event = commandEvent(candidate).payload;
+    object(event['item'])['aggregated_output'] = marker;
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: { kind: 'truncated-output' },
+    });
+  });
 
-  it.each(['…153 tokens truncated…', '…153 chars truncated…'])(
+  it.each(['…153 tokens truncated…', '…153 chars truncated…', '... 2097152 bytes omitted ...'])(
     'treats nested marker %s as inconclusive',
     (marker) => {
       const candidate = records('observed-code-mode-only');

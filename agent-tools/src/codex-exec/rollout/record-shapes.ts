@@ -29,6 +29,7 @@ const specialPathSchema = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('tmpdir') }),
   z.strictObject({ kind: z.literal('slash_tmp') }),
   z.strictObject({ kind: z.literal('project_roots'), subpath: z.string().optional() }),
+  z.strictObject({ kind: z.literal('unknown'), path: z.string(), subpath: z.string().optional() }),
 ]);
 const fileSystemPathSchema = z.discriminatedUnion('type', [
   z.strictObject({ type: z.literal('special'), value: specialPathSchema }),
@@ -67,8 +68,8 @@ const granularApprovalSchema = z.strictObject({
     mcp_elicitations: z.boolean(),
   }),
 });
-// Codex 0.156.1 accepts `on-failure` as a legacy input alias for `on-request`,
-// but serializes the latter in rollout records. See codex-rs/protocol/src/protocol.rs.
+/** Codex 0.156.1 accepts `on-failure` as an input alias for `on-request`,
+ * but serializes the latter. See codex-rs/protocol/src/protocol.rs. */
 const approvalPolicySchema = z.union([
   z.enum(['never', 'on-request', 'untrusted']),
   granularApprovalSchema,
@@ -124,7 +125,7 @@ const nestedExecResultSchema = z.strictObject({
 });
 const completedPreamble = /^Script completed\nWall time \d+(?:\.\d+)? seconds\nOutput:\n$/u;
 const truncationMarker =
-  /Warning: truncated output|Total output lines: \d+|…\d+ (?:tokens|chars) truncated…/u;
+  /Warning: truncated output|Total output lines: \d+|…\d+ (?:tokens|chars) truncated…|\.\.\. \d+ bytes omitted \.\.\./u;
 
 /** Recognised permission-profile structures from codex-cli 0.156.1. */
 type RecordedPermissionProfile = z.infer<typeof permissionProfileSchema>;
