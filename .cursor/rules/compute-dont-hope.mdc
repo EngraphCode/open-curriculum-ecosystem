@@ -1,0 +1,6 @@
+---
+description: Never keep a list by hand; compute it from its source or gate it with a validator that recomputes it (owner ruling 2026-09-13)
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/compute-dont-hope.md`.
