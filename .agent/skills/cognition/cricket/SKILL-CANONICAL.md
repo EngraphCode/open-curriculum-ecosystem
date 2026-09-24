@@ -135,6 +135,15 @@ On Claude, run the four registered Cricket roles as a panel:
 4. Collect all eight returns. A missing return is `UNDELIVERED`; do not replace it with a
    generic agent or a differently pinned role.
 
+Label every dispatch and every tally row by the dual scale, so a reader sees that effort climbs
+as model power descends (owner ruling 2026-09-13): `Cricket judgement: highest power, low
+effort, <stance> frame` (fable), `high power, medium effort` (opus), `mid power, high effort`
+(sonnet), and `Cricket procedure: lowest power, xhigh effort, compiled procedure, <stance>
+frame` (haiku). The labelling was first written in the jimcresswell.net Practice's
+[cricket skill](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/skills/cognition/cricket/SKILL-CANONICAL.md),
+where the owner gave the ruling, and came here through the Practice Box exchange of
+2026-09-24 unchanged.
+
 ## Codex dispatch
 
 Oak adapts [OpenAI's Codex subagent workflow](https://learn.chatgpt.com/docs/agent-configuration/subagents)
@@ -152,6 +161,11 @@ On Codex, root plus the three Cricket roles fills the four-seat concurrency limi
    `STANCE: adversarial` changed.
 4. Collect all six returns. A missing return is `UNDELIVERED`; do not re-adjudicate the same
    frame through a generic fallback.
+
+Labels follow the same dual scale with Codex's three seats: `Cricket judgement: highest
+power, low effort, <stance> frame` (Sol), `mid power, medium effort` (Terra), and `Cricket
+procedure: lowest power, xhigh effort, compiled procedure, <stance> frame` (Luna); there is no
+high-effort seat to label.
 
 After role definitions change, a fresh trusted-project Codex session is the reload boundary.
 If Luna/xhigh is rejected despite the refreshed role appearing in the spawn schema, record a
@@ -172,7 +186,7 @@ On Cursor, run the four stable template adapters as a panel:
 
 Cursor adapters preserve the methods and stable role names, but Cursor does not pin their model
 or effort. Record Cursor results as template-adapter evidence, not model-plus-effort experiment
-data.
+data, and label them by stable role with power and effort marked `unpinned`.
 
 ## Adjudicate the panel
 
