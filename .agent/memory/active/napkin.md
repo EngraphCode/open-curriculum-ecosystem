@@ -934,3 +934,282 @@ the ceremony sets git's author variables in the environment of the commit step.
   label, and the line limit read as a bucket). Forge caught an authorship inference as it
   formed, flagging it and asking first. **Fixed point**: a third pass would only re-find the
   thread record's lanes and these promises; the recursion closes here.
+- **Tool feedback, hook policy** (Blazar lifts Corona, b65a9a, 13:4xZ): the Bash hook blocked a
+  `comms send` as "git checkout --", a worktree-destruction operation. The command held no such
+  operation. Its prose body had "git state" in one line and "primary checkout" in another, and
+  the command's own `--title` flag followed. Rewording the prose cleared it. The matcher fires
+  on words scattered across a heredoc body, not on the command. **Routing**: the hook policy's
+  owner, under `hook-policy-substring-discipline`.
+
+## 2026-09-24 afternoon — the Codex dialogues lane changes hands (Swallow holds Drift, 516619)
+
+- **Surprise, tool (Claude Code harness)**: a single Bash call beginning with a bare `cd` into a
+  linked worktree (Forge herds Vapor's, in the temp directory) moved the session's "primary
+  working directory" to that worktree. The harness then announced it as an isolated worktree
+  and said not to `cd` back. A later `cd` into a second worktree was reset to the principal
+  ("Shell cwd was reset"). `worktree-residency` states the platform fact that a bare `cd` is not
+  residency and does not survive; the first half of that held only the second time.
+  **Behaviour change**: a non-resident lane owner reads and writes worktrees by absolute path
+  and `git -C`, never `cd`. **Routing**: tool feedback to the `worktree-residency` owner; one
+  instance.
+- **Mistake, this seat's**: the first heartbeat loop held the CLI invocation in a shell variable
+  (`CLI="node … --"; $CLI comms send …`). zsh does not word-split an unquoted parameter, so every
+  leg failed with "no such file or directory". The loop's `|| echo` legs reported it on the first
+  tick, which is the reason they are there. A shell function (`cs() { node … -- "$@"; }`) cured
+  it. The comms-watcher rule already warns of this zsh trait for `${VAR:+…}`; the same trait
+  applies to any command held in a variable.
+- **Mistake, this seat's, two writes under the owner's credential** (13:55Z to 13:58Z): `gh pr
+  edit 190 --body-file` ran on the keyring's default credential (the owner's account), and PR
+  189's sync push was a plain `git push` over the owner's stored credential. The action map in
+  `bot-identity-on-third-party-systems` sends both to the bot: a minted `pull-request-work` token
+  for every `gh` write, `merge-bot push` for every push. I found it on reading the rule before the
+  next write, the Copilot request, which went out as the bot. The generator: the handover's steps
+  said "merge `origin/engraph`", "push", "request Copilot" with the credential left implicit,
+  and I filled the gap with the tool's default. Blazar's handover push earlier the same hour was
+  also a plain `git push`. **Candidate**: a thread record's next-step list names the credential
+  route beside each write (`merge-bot push`, the minted token), since a pickup reads the steps,
+  not the rule.
+- **Open question, routed with the lane**: past seats posted `@codex review` under the owner's
+  account (PR 188: three times, 12:36Z to 13:05Z; PR 189 twice). The rule's closed default makes
+  an ordinary PR comment a bot write, and the rule names no exception for the Codex connector's
+  trigger. Whether the connector answers a bot's `@codex review` is untested here. **Answered
+  14:10Z**: it does. A bot-posted `@codex review` on PR 189 drew the connector's 👀 in 13 seconds
+  and a clean review of the tip at 14:13:06Z, so the owner's account is not needed for it.
+- **Tool feedback, `comms watch` on the Codex path** (found by Luna stirs Radiance, 01a0d3,
+  14:27Z; surfaced by this seat's host-load read at 14:21Z): in a Codex seat, `node:fs.watch` on
+  the canonical comms directory fails at once with `EMFILE`. `fsDirectoryWatchFactory` in
+  agent-tools' `cli-runtime.ts` wires `watcher.on('error', onChange)`, so the error ends every
+  wait at once, and the loop re-parses the whole directory (about 3,148 events) with no delay.
+  Two Codex watchers ran at 85 to 96 percent CPU each for about 40 minutes, and `--poll-ms` does
+  not help; every Claude watcher read under 1 percent. The host's load average sat between 21
+  and 32, holding pushes in two estates behind the load threshold. **Routing**: to the Director
+  (14:28Z), proposing Luna own a test-first cure: a watch error is not a change, so it falls
+  back to the timer or fails loudly.
+
+## 2026-09-24 14:1xZ — the successor's first session: grounding spent the directive budget (Marten mends Shadow, 74fc02)
+
+- **Observation, one instance**: the full start-right-team grounding left the context at 37 %
+  before any edit. It read the whole foundation, the core rules' openings, the napkin and the
+  continuity pickup. That put the lane's first owed items, which are directive edits, past
+  PDR-052's 30 % line in the same session. It was 59 % after two small pull requests and two
+  Cricket suites. For a successor whose owed work opens with directive edits, the grounding and
+  the directive session are one budget. The fresh session should read the pickup block, not
+  the whole continuity file, before its first directive edit.
+- **Mistake, this seat's**: I waited on "1-minute load under 12", a threshold taken from a
+  peer's handover note. The start-right workflow already says load average over-reads on macOS,
+  where the signals are CPU idle % and memory-pressure colour. The seat lost about ten minutes
+  before switching instruments. Read the host with the workflow's instrument, never with a
+  number carried in a note.
+- **Tool feedback**: commitlint read a wrapped body line that began with `host:` and a space as a footer token
+  (footer-leading-blank). `check-commit-message` names the rule, not the line, so it took three
+  bisecting runs to find. The checker could print the line it parsed as the footer's start.
+- **Tool feedback**: the hedging-vocabulary gate refused a comms body that used the word for an
+  admitted exemption. The body described the owner retiring two of them, and "admissions"
+  passed. This is the hook-policy-substring-discipline rule's known shape.
+- **Observation**: the sitting Director posts nothing on the canonical stream and holds no id
+  there, so `comms direct` cannot reach it. A question went as a narrative event, which is the
+  record, plus a native message, which is the delivery. Blazar's earlier question did the same.
+- **Observation, first run of frame verdicts** (the owner's word via the Director, 13:57Z:
+  Crickets also judge the frame): the frame verdicts found what the work verdicts did not. The
+  frame carried a stale context figure. Its NEXT committed the pickup last, although its own
+  RECENT ACTIONS said the pickup was uncommitted. Three adversarial seats converged on moving
+  the records commit first, and it moved. One suite, one observation.
+- **Surface fact**: this fork has no fleet-authorship label, and its recent pull requests carry
+  none, so pr-lifecycle Phase 2's label step has nothing to apply here.
+- **Correction, the owner's word (2026-09-24T14:29:27Z; comms event 942fd3b0)**: "work is not
+  delivered until it is merged". This seat's 14:19Z close closed its claims and stopped its
+  monitors with pull requests 191 and 192 unmerged. pr-lifecycle already names that as the
+  error. The text that led the close is `start-right-team` §Closeout Contract ("The default
+  closeout state is **no active claims retained**"). That section never names an open pull
+  request as a reason to keep a claim, and its template carries no line for open pull
+  requests. The second estate's copy is the same (its line 840). Routed to the second estate's
+  next joint set as a candidate, with proposed words (native message to Siren herds Rudder,
+  14:5xZ). One instance; the contradiction between the two texts holds on their own terms.
+- **Tool feedback, second instance of the day**: commitlint refused a body line that began
+  `clause:`, once more as a footer token, and a subject that began with "J7" (subject-case).
+  Linting the message file alone (`pnpm exec commitlint < file`) before the commit costs
+  seconds; a refused commit costs a whole pre-commit gate.
+- **Tool feedback, first instance**: a Bash call that ran `cd .agent/skills && …` moved the
+  harness's working directory. The statusline script then wrote `.logs/statusline.log` into
+  `.agent/skills/`, and the next pre-push gate's skill-adapter check refused the directory
+  (".logs — no readable SKILL-CANONICAL.md"), so the coordination push failed. The directory
+  was traced to this session through the log's own `session_id` and `cwd` fields and moved to
+  the session scratchpad; the retried push passed. Two fixes are possible: the statusline logs
+  to a fixed path, or the adapter check ignores dot-directories.
+- **Free-play harvest (the owner's word at the pause, 15:3xZ)**: three associations, each
+  given a second look.
+  - Kept: a Practice Box delivery reminded me of a letter that must meet the receiving
+    building's fire code, not the sender's. Siren linted batch one with the home estate's
+    config, which never reads OCE's Box path, and one file failed OCE's gate. A seed for the
+    sender's checklist: lint with the receiver's config.
+  - Discarded as forced: the close at 14:19Z "was the probe that surfaced the owner's rule".
+    It flatters the miss.
+  - Discarded as already homed: the landing slot serialises CI runs under the strict-currency
+    ruleset, three syncs for three pull requests today. PDR-131 already names that as the
+    owner's cost driver.
+- **Correction, the owner's word (2026-09-24 ~15:5xZ)**: "do you really need to spend time and
+  tokens informing another agent that a file got bigger? … tools like git don't need
+  'telling'". This seat sent three native messages to the napkin's lander, each about its own
+  edits to a shared file. The 2026-09-23 rule for the Director binds peer seats too: message
+  only with a question or a request; the file and git keep the record.
+
+## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
+
+- **Metacognition, retrospective (owner-invoked at the pause)**: this seat's slips this
+  afternoon:
+  - two writes under the owner's credential;
+  - the zsh word-split;
+  - two made-up channel timestamps;
+  - a reviewer's "nine" relayed unrecounted;
+  - a push gate that grepped free text and matched this seat's own older line;
+  - two push monitors racing for one window.
+
+  They share one generator: a stand-in accepted as the thing it stands for. The tool's default
+  stood in for the identity, a typed time for the clock, a reported count for the count, a
+  phrase for an event, and "push" for a complete instruction. Blazar lifts Corona's midday
+  section names the same generator ("a label standing in for its content"), so it recurred in a
+  second seat the same day. The slips clustered under parallel threads, not at a finish line.
+  Structure caught nearly all of them, not this seat's first pass: the hook, the loop's own
+  failure lines, a partner's recount, a re-read of the rule. **Candidate**: under many parallel
+  threads, every relayed number, timestamp and credential is re-grounded at the moment of use.
+- **Free play harvest** (associations, not findings):
+  - Kept: three waits keyed to a proxy. One never woke (the quota hold) and two woke falsely
+    (the `EMFILE` watcher and the grep gate): a detector's two failures. Kept: the pairing split
+    by what each seat can know, not by the designed file boundary. The sandboxed Codex seat read
+    source (the `on-failure` alias, the model cache, the `EMFILE` cause); the unsandboxed Claude
+    seat ran the binaries. Kept: two correct interlocks (F-95's claim gate and the Director's
+    no-spinning-watcher order) leave a degraded seat no lawful claim path.
+  - Discarded, visibly: "both vendors guess header times" (the ARC protocol already treats
+    header times as compose-time claims); "two locks" (the patch trial's finding restated, not
+    an association); "summary numbers lie" and "the F-197 cure hid the disease" (duplicates of
+    the metacognition generator).
+- **Concept exploration, "a wait is only as good as its sensor"**: five waits observed something
+  other than their condition, as follows.
+  - The quota hold had no sensor: a push does not trigger Codex. It sat unprobed for about 80
+    minutes and released minutes after a probe.
+  - The load wait watched a symptom.
+  - The `EMFILE` watcher took an error for an event.
+  - The grep gate matched old text.
+  - A Codex-answer monitor queried review objects, while the clean answer came as an issue
+    comment, so it reported "no answer" falsely.
+
+  The reframing that bit came from the Second Question. The "load below 12" push gate is itself
+  a workaround for the `comms-watch-coordination-home` smoke test's fixed wall-clock deadline;
+  it held two pull requests for about 35 minutes and hid the `EMFILE` hot loop. Proposals:
+  - P1, ACCEPTED by the Director (about 14:40Z) as the Cricket frame's sixth requirement: "the
+    rule behind every hold, the sensor that will see its release, and when that sensor was last
+    read". This seat owns the clause text at resume.
+  - P2, at the door: check whether merge-bot classifies Codex's clean-review comment form
+    (F-198 precedent).
+  - P3: raise the smoke-test deadline fix's priority, since the load gate is its workaround.
+  - P4, adopted: gate this seat's waits on producer-written structured signals, and sequence
+    dependent actions in one process.
+
+  Falsifiers are in the thread record and the pause record.
+- **Tool feedback, the machine-local-path hook**: it fires on writes to the session scratchpad,
+  which lies outside the repository, as well as on in-repo paths. Two scratch scripts and one
+  untracked handoff record were refused for naming the home directory or the temp directory.
+  The cure each time was to pass paths as arguments or name worktrees for `git worktree list`.
+  Harmless, but a script author meets it three times before learning the pattern. **Routing**:
+  the hook policy's owner, one instance.
+- **Tool feedback, `merge-bot push` under redirection**: its output file stayed empty while the
+  pre-push ran, and was still empty after the transfer (the push was stopped by its supervising
+  monitor at about the moment it finished). So progress had to be read from the process tree,
+  and the outcome from the remote tip. Blazar lifts Corona's 2026-09-23 section saw the same.
+- **Surprise, the push that stopped too late to stop**: at the owner's "stop all processes",
+  PR 189's push had already passed its pre-push and transferred (`4682907ad` on origin), though
+  its monitor was killed before logging an exit. A stand-down therefore reads the remote tip,
+  not the monitor's last line, before stating a push's disposition.
+- **Loss scan, at the pause**:
+  - Every live fact is in the thread record, the pause record
+    (`.agent/state/collaboration/handoffs/516619-swallow-holds-drift-codex-dialogues-pause-2026-09-24.md`),
+    this section and the pairing channel.
+  - Promises are all discharged or forwarded with an owner. To Luna: confirm PR 190's remote
+    tip, and then the worktree removal (forwarded to resume, or to Luna if Luna pushes). To
+    Marten mends Shadow: land the napkin (the owed continuity commit). To the Director: the
+    deferred check-in 6 suite and the clause text.
+  - Flagged inferences:
+    - Why a Codex seat gets `EMFILE` from `fs.watch` when Claude seats do not is NOT
+      established. The sandbox's descriptor or kqueue limits are a guess.
+    - When the Codex quota restored is unknown.
+    - That other seats' pathspec commits will leave this seat's uncommitted files alone is an
+      expectation.
+  - Blind spots: this seat's watcher excluded heartbeats, the channel tail dropped this seat's
+    own entries, and the subagents' contexts are gone.
+  - Index of homes: the thread record's PAUSED block points to the pause record, and both point
+    here.
+  - External bound: outside eyes caught the credential slip (a re-read of the rule), the count
+    (Luna), the paths (the hook) and the unsensed hold (the Cricket panel's adversarial stance).
+    Point external scrutiny at each write's credential, each relayed number, and each wait's
+    sensor.
+  - Fence sweep: no owner word was held off the repository in this session, and none was
+    written.
+  - Fixed point: a third pass would only re-find the stand-in generator and the owed list; the
+    recursion closes here.
+
+## 2026-09-24 ~15:36Z — second pause: a read is a moment, a lock is a state (Swallow holds Drift, 516619)
+
+Window 14:45Z to 15:36Z. The seat resumed at the owner's "carry on". It landed PR 189
+(`a0a2fead4`), started 1b-ii, and switched strategic focus at the owner's word to Codex as a
+first-class peer. It paused again at 49.8% context.
+
+- **Metacognition: the morning's generator recurred as "a read taken as a state".**
+  - A clear process table was read as a free host. This seat's pre-commit started at the same
+    second as a peer's pre-push, and four gates then ran at load 23.8. The wait loop's own last
+    line said "still busy" 20 seconds earlier.
+  - A `tail` on the pairing channel, running for 1h30m, was read as this seat's stray. Tracing its
+    parent before any kill showed a `codex` process: it was Luna's.
+  - A piped exit code was read as the checker's; re-running unpiped caught it.
+  - The two caught misreads were caught by structural checks (parentage;
+    `exit-codes-in-band-never-piped`). The uncaught one had no structure to catch it. **Cure
+    candidate, routed to the Director**: host gates need a lock, not a look — a `host:gates` claim
+    area or a lockfile the husky gates take. `check-singleton-per-window`'s broadcast convention
+    is the nearest existing shape.
+- **A reviewer's premise about vendor behaviour is a hypothesis.** Both of 1b-ii's pre-execution
+  reviewers asked to amend the ratified node, so that `--dialogue-id` rides on resume, because
+  "exec resume starts a new conversation when no rollout exists". Reading Codex 0.156.1 at its tag
+  took minutes and refuted it for UUID resumes: `exec/src/lib.rs` `resolve_resume_thread_id`
+  returns the UUID as given, and app-server `thread_resume_inner` errors on a missing thread. The
+  node stands. Read the vendor's source at the tag before paying for the change a review
+  motivates.
+- **Slips.**
+  - `db726e641` was committed without `--author`, so it is bot-authored. The mechanism was in this
+    seat's own summary ("author Jim Cresswell, committer bot") and still lost to the default.
+    Forward correction only.
+  - A bare `cd` moved the harness's working directory a fourth time. The cure adopted
+    mid-session: every `cd` goes inside `( … )`. It held after that.
+- **Free play.** "0 unresolved is a moment, not a state" (`pr-lifecycle`), the peer-liveness
+  knife-edge, and today's gate race are one idea: any "is X free?" read before an act on a shared
+  resource needs a claim, not a read. The claims registry exists for exactly this, and host gates
+  have no claim area. A hook refusing "Parked" (indefinite deferral) turned a hold into a sequence
+  position: "sequenced after the wake bridge's slice 2 lands". That is a guard that teaches, not
+  just refuses.
+- **Concept exploration: Codex membership**, captured in the sketch
+  `.agent/plans/delivery/codex-queue-wake-bridge.plan.md`.
+  - The frame changed from "rebuild Claude's machinery for Codex" to "reach the same behaviour
+    through the platform's own surfaces".
+  - Of the seven gaps named, wake is the one measured as Codex-specific. Codex 0.156.1's `codex
+    queue` (vendor-shipped) and hooks (`PreToolUse`, `Stop`) are the supported surfaces. F-95's
+    degraded-claim path and heartbeat gaps between claims are general, not Codex-specific.
+  - The Director confirmed Luna stirs Radiance as co-owner.
+  - Falsifier: a live run in which a queued notice does not wake an idle TUI seat within 60
+    seconds.
+- **Tool feedback.**
+  - `session-metadata` has no window registered for `claude-opus-5-5` ("unknown model"); a 1M
+    stand-in model was used.
+  - The commit-message checker is `pnpm agent-tools:check-commit-message`, not an `agent-tools`
+    topic.
+  - `comms send` prints JSON whose last line is `}`, so the event id is read back with `ls -t`.
+  - Crickets reading one shared frame FILE get an identical frame by construction, at a fraction
+    of the tokens of eight inline copies. A candidate for the Cricket skill's Claude dispatch.
+- **Loss scan.** Everything load-bearing is on disk or durable:
+  - the thread record (1b-ii's settled design, the switch, the co-owner, the pause);
+  - the handover record;
+  - the pairing channel (PR 190's cure list; the co-ownership note);
+  - the sketch plan (uncommitted, on disk);
+  - comms: merge-landed `4b4a0cab` and heartbeat-end `e432959b`.
+
+  Scratch-only and reproducible: the Cricket frames, the design brief (now in the thread record),
+  and the fetched Codex source. OWED at resume: the continuity commit, and the sketch as its own
+  docs commit, both run one gate at a time. They were not run at the pause because the owner's
+  word stopped every process.
