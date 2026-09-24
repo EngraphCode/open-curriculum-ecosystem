@@ -328,6 +328,40 @@ closeout, and the member closeout templates gain an "Open pull requests owned" l
 - **Unowned.** This estate's governing node, `practice-two-way-exchange.plan.md`, is a sketch
   with no todo list. The fresh session raises that with the Director as a request.
 
+*Handover, 2026-09-24 ~17:45Z: Marten mends Shadow (74fc02) hands the exchange seat on at the
+owner's two cards' limit.* The cards were "Marten continues past the line" (~15:33Z, batch one)
+and "Marten takes it past the line" (~16:31Z, the test-doctrine intake), both relayed by the
+Director. Context was 61.2% at 17:23:01Z. The in-flight detail is in the local handover record
+`.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-exchange-seat-handover-2026-09-24.md`,
+on this machine only.
+
+- **Landed:** PR 191 (joint set F, `813406e3f`), PR 192 (joint set G, `5de481360`) and
+  PR 194 (`compute-dont-hope`, and `documentation-hygiene` loading as core, `ce5b66249`).
+- **Open, green, in the landing slot:**
+  - PR 195 (`record-generalisation-moves`). Its merge commit must carry the
+    `Practice-Generalisation:` trailer through the REST call's `commit_message`, which is the
+    accepted cure for its one finding.
+  - PR 197 (Cricket dual-scale labels, the channel choice's cost side). It syncs after 195.
+- **Committed, not a PR:** the test-doctrine intake, branch `docs/intake-test-doctrine`
+  (`d62e56e27`), the joint text merged three-way. Two reviews found it not landable. Its
+  shared-text cures are joint set K4, which the second estate drafts in a fresh session
+  (event `06cdeaaa`). Its local cures are in the handover record. It lands after K4 is signed.
+- **The queue, in order:**
+  1. PR 195, then PR 197.
+  2. PR C2: the three channel hunks. The Director read the owner's words on ARC as reading A.
+  3. PR D: the `.todo` lint gate.
+  4. The test-doctrine intake, after K4.
+  5. PR G, the `gh` write guard, redesigned as a segment-aware match kind with a closed
+     default, the same bytes as the second estate's. Until it lands, mint the bot token by
+     hand on every GitHub write; this host's default `gh` credential is the owner's.
+  6. PRs E and F: the PDR citation text and its check.
+  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, and K2(c). Plus K2(a)'s adapter check
+     for the three corpus adapters.
+  8. Batch two (three parts) and batch three (two code concepts), both acknowledged and not
+     integrated.
+- **Numbers**, at register `85d60f27`: to OCE 0 of 21, to jcnet 5 of 28. Row J9, batch one's
+  doctrine, counts once 195, 197, C2 and D have merged.
+
 *Boundary, 2026-09-24 ~15:38Z: a compaction at the owner's word, then this seat resumes.*
 The owner's word to this seat, verbatim: "please prepare for compaction and stop all
 processes". The owner then chose on the Director's card, about 15:33Z, verbatim: "Marten
