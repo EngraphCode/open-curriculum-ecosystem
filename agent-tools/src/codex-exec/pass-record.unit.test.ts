@@ -13,15 +13,15 @@ const record = {
 
 describe('parsePassRecord', () => {
   it('accepts the record a passing probe writes', () => {
-    expect(parsePassRecord(record)).toEqual({ ok: true, value: record });
+    expect(parsePassRecord(record)).toStrictEqual({ ok: true, value: record });
   });
 
   it.each([null, 'a record', [record], 42])('refuses %j, which is not a record', (value) => {
-    expect(parsePassRecord(value)).toEqual({ ok: false, error: { kind: 'invalid' } });
+    expect(parsePassRecord(value)).toStrictEqual({ ok: false, error: { kind: 'invalid' } });
   });
 
   it('refuses a record carrying a field the record does not define', () => {
-    expect(parsePassRecord({ ...record, pinned: true })).toEqual({
+    expect(parsePassRecord({ ...record, pinned: true })).toStrictEqual({
       ok: false,
       error: { kind: 'invalid' },
     });
@@ -29,7 +29,7 @@ describe('parsePassRecord', () => {
 
   it.each(Object.keys(record))('refuses a record without %s', (field) => {
     const partial = Object.fromEntries(Object.entries(record).filter(([key]) => key !== field));
-    expect(parsePassRecord(partial)).toEqual({ ok: false, error: { kind: 'invalid' } });
+    expect(parsePassRecord(partial)).toStrictEqual({ ok: false, error: { kind: 'invalid' } });
   });
 
   it.each([
@@ -37,12 +37,14 @@ describe('parsePassRecord', () => {
     ['an empty path', { executablePath: '' }],
     ['an upper-case digest', { envelopeDigest: 'A'.repeat(64) }],
     ['a short digest', { envelopeDigest: 'a'.repeat(63) }],
+    ['a long digest', { envelopeDigest: 'a'.repeat(65) }],
+    ['a digest behind a prefix', { envelopeDigest: `x${'a'.repeat(64)}` }],
     ['a non-hex digest', { envelopeDigest: 'g'.repeat(64) }],
     ['a time that is not an ISO date-time', { passedAt: 'yesterday' }],
     ['no evidence', { evidence: [] }],
     ['evidence that is not text', { evidence: [7] }],
   ])('refuses %s', (_label, change) => {
-    expect(parsePassRecord({ ...record, ...change })).toEqual({
+    expect(parsePassRecord({ ...record, ...change })).toStrictEqual({
       ok: false,
       error: { kind: 'invalid' },
     });

@@ -1,13 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
-/**
- * The machine-local record a passing probe writes: which Codex binary, on
- * which version, passed with which envelope, when, and the verbatim
- * evidence. The gate opens a dialogue only on a record matching the current
- * binding. It guards against drift, not attack: any process running as the
- * user can write it.
- */
+/** The exact shape of a pass record: every field required, no other field allowed. */
 const passRecordSchema = z.strictObject({
   /** The version the probe passed on, as the binary reports it. */
   cliVersion: z.string().min(1),
@@ -18,13 +12,17 @@ const passRecordSchema = z.strictObject({
   /** When the probe passed, as an ISO 8601 date-time. */
   passedAt: z.iso.datetime(),
   /** The probe's verbatim evidence lines. Untrusted text, for the record only. */
-  evidence: z.array(z.string()).min(1),
+  evidence: z.array(z.string()).min(1).readonly(),
 });
 
 /**
- * A pass record, known to match the record schema exactly.
+ * The machine-local record a passing probe writes: which Codex binary, on
+ * which version, passed with which envelope, when, and the verbatim
+ * evidence. The gate opens a dialogue only on a record matching the current
+ * binding. It guards against drift, not attack: any process running as the
+ * user can write it.
  */
-export type PassRecord = z.infer<typeof passRecordSchema>;
+export type PassRecord = Readonly<z.infer<typeof passRecordSchema>>;
 
 /**
  * Why a value is not a pass record. It carries no detail, because the
