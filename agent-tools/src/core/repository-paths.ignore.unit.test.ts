@@ -30,12 +30,12 @@ describe('parseIgnoredPaths', () => {
 
   it('matches a candidate only by its exact string, never by a listed path that extends it', () => {
     expect(
-      parseIgnoredPaths(['comms', 'state/'], {
+      parseIgnoredPaths(['comms', 'state/', 'ignored.json'], {
         status: 0,
-        stdout: 'comms/a.json\u0000state/a.json\u0000',
+        stdout: 'comms/a.json\u0000state/a.json\u0000ignored.json\u0000',
         stderr: '',
       }),
-    ).toStrictEqual({ ok: true, value: new Set() });
+    ).toStrictEqual({ ok: true, value: new Set(['ignored.json']) });
   });
 
   it('reads no candidate as ignored when git exits 1', () => {
@@ -50,6 +50,16 @@ describe('parseIgnoredPaths', () => {
       ok: false,
       error: { kind: 'git-failed', status: 128, stderr },
     });
+  });
+
+  it('refuses a probe whose exit 0 lists none of the candidates sent', () => {
+    expect(parseIgnoredPaths(['README.md'], { status: 0, stdout: '', stderr: '' })).toStrictEqual({
+      ok: false,
+      error: { kind: 'git-failed', status: 0, stderr: '' },
+    });
+    expect(
+      parseIgnoredPaths(['README.md'], { status: 0, stdout: 'other.json\u0000', stderr: '' }),
+    ).toStrictEqual({ ok: false, error: { kind: 'git-failed', status: 0, stderr: '' } });
   });
 
   it('refuses a probe from a git that exited without a status', () => {

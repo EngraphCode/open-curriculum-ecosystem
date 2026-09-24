@@ -127,7 +127,8 @@ export function ignoreProbeInput(candidates: readonly string[]): string {
 /**
  * Read what `git check-ignore -z --stdin` gave back: the candidates it lists,
  * matched by the exact strings sent, since git echoes them verbatim. Status 1
- * means none; any other status but 0, or none, is a failure.
+ * means none; a status 0 that lists no candidate sent, any other status, or
+ * none, is a failure.
  */
 export function parseIgnoredPaths(
   candidates: readonly string[],
@@ -140,7 +141,8 @@ export function parseIgnoredPaths(
     return err(gitFailed(output));
   }
   const listed = new Set(splitNul(output.stdout));
-  return ok(new Set(candidates.filter((candidate) => listed.has(candidate))));
+  const ignored = new Set(candidates.filter((candidate) => listed.has(candidate)));
+  return ignored.size === 0 ? err(gitFailed(output)) : ok(ignored);
 }
 
 /**
