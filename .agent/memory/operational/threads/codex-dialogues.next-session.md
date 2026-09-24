@@ -50,9 +50,10 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   5. request Copilot (`requested_reviewers` as the bot) and post `@codex review`;
   6. read both legs on that head;
   7. take the door.
-  Then comes the Cricket-clause edit (the Director's assignment). After both PRs have merged,
-  the wake bridge's todo 1 opens: per-host probes with Luna stirs Radiance, in isolated
-  sessions.
+  **The wake bridge's todo 1 opens at PR 196's merge-landed** (PR 190 has already merged): per-host
+  probes with Luna stirs Radiance, in isolated sessions. Nothing else gates it. Separately, and
+  NOT a gate on the bridge, the successor also owes the Cricket-clause edit, the Director's
+  assignment, which was due once PR 190 landed.
 - **STRATEGIC FOCUS SWITCHED at the owner's word, about 15:27Z on 2026-09-24**, verbatim: "Finish
   the inflight work, but switch strategic focus to making Codex a first class peer in the
   Practice". The Director was told as the downward-direction rule requires. Consequences:
