@@ -22,9 +22,10 @@ Codex sessions with `CODEX_THREAD_ID` available must derive a named
 `Codex` / `unknown`.
 
 - **(a-1) Registry empty (bootstrap fast-path)** — the registry has no
-  entries other than your own. Append a single comms event noting
-  `"no other agents present"` and register your claim. The rendered
-  shared-log entry is the artefact.
+  entries other than your own and the comms log shows no live peer: the
+  session is solo. Register your claim and proceed without broadcasts
+  (`use-agent-comms-log` §Scale ceremony to the audience). The claim is
+  the artefact.
 - **(a-2) Registry populated but no overlap** — other agents have active
   claims, but none of their `areas` intersect yours. Register your own
   claim with a `notes` value summarising the scan, e.g.
@@ -210,8 +211,10 @@ gradient as a refinement amendment.
 
 ## Bootstrap fast-path
 
-If `active-claims.json` contains no entries other than your own, append a
-single comms event noting *"no other agents present"* and proceed.
+If `active-claims.json` contains no entries other than your own and the
+comms log shows no live peer, the session is solo: record your claim and
+proceed without broadcasts (`use-agent-comms-log` §Scale ceremony to the
+audience).
 Solo sessions pay the protocol's minimum overhead — one read, one write —
 not the full coordination cycle.
 

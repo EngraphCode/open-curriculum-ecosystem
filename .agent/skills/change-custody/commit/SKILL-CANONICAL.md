@@ -290,8 +290,10 @@ the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
 commit records a deletion only for a path it names — after a `git mv`, list the
 old path as well as the new one or the move never lands. The separate host bound
 — two, at most three, simultaneous full local gates — is engineered as a
-semaphore, not declared; until it lands, a seat runs one full gate at a time and
-starts no second while a peer's runs.
+semaphore, not declared (`no-unbounded-host-load` item 6); until it lands, seats
+run full gates side by side only in different worktrees, at most two at once, and
+inside one worktree gate runs are sequential (owner, 2026-09-20: "two parallel
+gate runs are fine as long as they are in different work trees").
 
 ### Intent-Scoped End-to-End (2026-05-22 cure)
 

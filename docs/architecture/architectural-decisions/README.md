@@ -241,7 +241,9 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   2026-05-11; Accepted 2026-05-11)
 - [ADR-180: Codex-Exec Agent Delegation Pattern](180-codex-exec-agent-delegation-pattern.md)
   (`codex exec` is the preferred scripted delegation surface; `read-only` is
-  the default sandbox; Accepted 2026-05-12)
+  the default sandbox; Accepted 2026-05-12; amended 2026-09-23 — §6 fixes the
+  Codex dialogues' call envelope in code; `codex mcp-server` removed from the
+  CLI)
 - [ADR-181: Agent Team Start Ritual and Action-Trace Surface](181-agent-team-start-and-action-log.md)
   (`start-right-team`, emergent temporary responsibilities, team handoff
   routing, and future action-trace event surface; Proposed)
