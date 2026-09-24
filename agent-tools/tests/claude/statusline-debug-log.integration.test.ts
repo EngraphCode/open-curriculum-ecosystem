@@ -1,10 +1,8 @@
 import { err } from '@oaknational/result';
 
 import { appendDebugLogEntry, debugLogLine } from '../../src/claude/statusline-debug-log';
-import {
-  FAKE_OWNER_UID,
-  inMemoryFileSystem,
-} from '../../src/core/test-helpers/in-memory-owner-only-append-fs';
+import { FAKE_OWNER_UID } from '../../src/core/test-helpers/in-memory-fs-state';
+import { inMemoryFileSystem } from '../../src/core/test-helpers/in-memory-owner-only-append-fs';
 
 /**
  * The statusline's wiring: its line lands through the owner-only append,

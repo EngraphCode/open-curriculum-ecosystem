@@ -3,83 +3,62 @@
  *
  * @remarks
  * Tests read its resulting state (modes, bytes, descriptors left open), never
- * the calls it received. It models the POSIX contract the append relies on
- * and nothing more:
+ * the calls it received. It models the POSIX contract the append relies on,
+ * and nothing more, identically on every platform:
  *
- * - `mkdir` (recursive) creates an absent directory, leaves an existing
- *   directory (or a symlink to one) alone, returns ENOENT for a dangling
- *   symlink and EEXIST for anything else, as Node does;
- * - a parent path follows a symlink; `open` honours `O_NOFOLLOW` at the leaf
- *   (ELOOP), `O_NONBLOCK` for a FIFO with no reader (ENXIO), `O_CREAT` and
- *   `O_APPEND`, and a write without `O_APPEND` lands at the descriptor's
- *   offset. An open without `O_WRONLY`, or with any flag it does not model,
- *   returns EINVAL, so a flag change the fake cannot honour fails loudly
- *   rather than passing unobserved;
- * - `fstat` reports the entry's kind, owner and link count, where a hard link
- *   is one entry object held at several paths.
+ * - paths are absolute POSIX strings, walked as `in-memory-fs-state.ts`
+ *   describes; every ancestor of a given entry exists as a directory (0o755);
+ * - `mkdir` is recursive: it creates each absent directory on the way, leaves
+ *   an existing directory (or a symlink to one) alone, and fails as Node does
+ *   (ENOTDIR for a non-directory ancestor, EEXIST for a non-directory at the
+ *   final component, ENOENT for a dangling symlink);
+ * - `open` and its flags are modelled in `in-memory-fs-open.ts`;
+ * - `fstat` reports the descriptor's kind, owner, link count and identity,
+ *   and `lstat` a path's own entry, where a hard link is one entry object held
+ *   at several paths and so shares one inode.
  *
- * Symlinks resolve one hop. It lives under `test-helpers/` because it reads
- * the flag values from `node:fs` constants; it performs no IO.
+ * Symlinks resolve one hop. It performs no IO.
  *
  * @packageDocumentation
  */
 
-import { constants } from 'node:fs';
-import { basename, dirname, join } from 'node:path';
-
 import { err, ok, type Result } from '@oaknational/result';
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
-import type { DescriptorFacts, FsFailure, OwnerOnlyAppendFs } from '../owner-only-append-fs.js';
+import type {
+  DescriptorFacts,
+  FsFailure,
+  OwnerOnlyAppendFs,
+  PathEntryFacts,
+} from '../owner-only-append-fs.js';
+import { fakeOpen, fakeOpenFlags } from './in-memory-fs-open.js';
+import {
+  FAKE_DEVICE,
+  FAKE_OWNER_UID,
+  inodeOf,
+  namedEntryPath,
+  walkDirectory,
+  type FakeEntry,
+  type FakeState,
+} from './in-memory-fs-state.js';
 
-/** The uid the fake file system runs as. */
-export const FAKE_OWNER_UID = 501;
-
-/** One entry in the fake file system. */
-export type FakeEntry =
-  | { readonly kind: 'directory'; mode: number; readonly uid: number }
-  | { readonly kind: 'file'; mode: number; readonly uid: number; bytes: Buffer }
-  | {
-      readonly kind: 'fifo';
-      mode: number;
-      readonly uid: number;
-      readonly hasReader: boolean;
-      bytes: Buffer;
-    }
-  | { readonly kind: 'symlink'; readonly target: string };
+/** How the fake platform differs from the default. */
+export interface InMemoryFileSystemOptions {
+  /** False models a platform without no-follow (Windows); true by default. */
+  readonly hasNoFollow?: boolean;
+}
 
 /** The fake's port, and the state a test reads after acting through it. */
 export interface InMemoryFileSystem {
   readonly fs: OwnerOnlyAppendFs;
-  /** Every entry by absolute path. */
+  /** Every entry by absolute POSIX path. */
   readonly entries: ReadonlyMap<string, FakeEntry>;
   /** The descriptors opened and not yet closed, with the path each resolved to. */
   readonly openDescriptors: ReadonlyMap<number, { readonly path: string }>;
 }
 
-interface Descriptor {
-  readonly path: string;
-  readonly append: boolean;
-  offset: number;
-}
-
-interface FakeState {
-  readonly entries: Map<string, FakeEntry>;
-  readonly descriptors: Map<number, Descriptor>;
-  nextFd: number;
-}
-
 type ByteEntry = Extract<FakeEntry, { bytes: Buffer }>;
 type ModeEntry = Exclude<FakeEntry, { kind: 'symlink' }>;
-
-function hasFlag(flags: number, flag: number): boolean {
-  return (flags & flag) === flag;
-}
-
-function followLink(state: FakeState, path: string): string {
-  const entry = state.entries.get(path);
-  return entry?.kind === 'symlink' ? entry.target : path;
-}
 
 function modeBearing(entry: FakeEntry | undefined): ModeEntry | undefined {
   return entry === undefined || entry.kind === 'symlink' ? undefined : entry;
@@ -89,80 +68,14 @@ function byteBearing(entry: FakeEntry | undefined): ByteEntry | undefined {
   return entry?.kind === 'file' || entry?.kind === 'fifo' ? entry : undefined;
 }
 
-/**
- * A recursive mkdir: an absent directory is created; an existing one, or a
- * link to one, is left alone; a dangling link is ENOENT; anything else is
- * EEXIST.
- */
-function fakeMkdir(state: FakeState, path: string, mode: number): Result<void, FsFailure> {
-  if (!state.entries.has(path)) {
-    state.entries.set(path, { kind: 'directory', mode, uid: FAKE_OWNER_UID });
-    return ok(undefined);
-  }
-  const existing = state.entries.get(followLink(state, path));
-  if (existing === undefined) {
-    return err({ code: 'ENOENT' });
-  }
-  return existing.kind === 'directory' ? ok(undefined) : err({ code: 'EEXIST' });
-}
-
-/** The open flags this fake honours; any other flag is refused as EINVAL. */
-const MODELLED_OPEN_FLAGS =
-  constants.O_WRONLY |
-  constants.O_APPEND |
-  constants.O_CREAT |
-  constants.O_NOFOLLOW |
-  constants.O_NONBLOCK;
-
-/** EINVAL for an open the fake cannot honour: no `O_WRONLY`, or a flag it does not model. */
-function refusalOfFlags(flags: number): FsFailure | undefined {
-  const unmodelled = (flags & ~MODELLED_OPEN_FLAGS) !== 0;
-  return unmodelled || !hasFlag(flags, constants.O_WRONLY) ? { code: 'EINVAL' } : undefined;
-}
-
-/** Why an open of the resolved entry refuses under these flags, if it does. */
-function refusalAtOpen(entry: FakeEntry | undefined, flags: number): FsFailure | undefined {
-  if (entry === undefined) {
-    return hasFlag(flags, constants.O_CREAT) ? undefined : { code: 'ENOENT' };
-  }
-  const readerless = entry.kind === 'fifo' && !entry.hasReader;
-  return readerless && hasFlag(flags, constants.O_NONBLOCK) ? { code: 'ENXIO' } : undefined;
-}
-
-function fakeOpen(
-  state: FakeState,
-  path: string,
-  flags: number,
-  mode: number,
-): Result<number, FsFailure> {
-  const invalid = refusalOfFlags(flags);
-  if (invalid !== undefined) {
-    return err(invalid);
-  }
-  const named = join(followLink(state, dirname(path)), basename(path));
-  if (state.entries.get(named)?.kind === 'symlink' && hasFlag(flags, constants.O_NOFOLLOW)) {
-    return err({ code: 'ELOOP' });
-  }
-  const resolved = followLink(state, named);
-  const entry = state.entries.get(resolved);
-  const refusal = refusalAtOpen(entry, flags);
-  if (refusal !== undefined) {
-    return err(refusal);
-  }
-  if (entry === undefined) {
-    const created: FakeEntry = { kind: 'file', mode, uid: FAKE_OWNER_UID, bytes: Buffer.alloc(0) };
-    state.entries.set(resolved, created);
-  }
-  const fd = state.nextFd;
-  state.nextFd += 1;
-  const append = hasFlag(flags, constants.O_APPEND);
-  state.descriptors.set(fd, { path: resolved, append, offset: 0 });
-  return ok(fd);
-}
-
 function describedEntry(state: FakeState, fd: number): FakeEntry | undefined {
   const descriptor = state.descriptors.get(fd);
   return descriptor === undefined ? undefined : state.entries.get(descriptor.path);
+}
+
+function fakeMkdir(state: FakeState, path: string, mode: number): Result<void, FsFailure> {
+  const walked = walkDirectory(state, path, mode);
+  return walked.ok ? ok(undefined) : walked;
 }
 
 /** A hard link is one entry at several paths, so the link count is the paths holding it. */
@@ -175,19 +88,21 @@ function fakeFstat(state: FakeState, fd: number): Result<DescriptorFacts, FsFail
   if (entry === undefined) {
     return err({ code: 'EBADF' });
   }
-  return ok({ isFile: entry.kind === 'file', uid: entry.uid, nlink: linkCount(state, entry) });
+  const nlink = linkCount(state, entry);
+  const ino = inodeOf(state, entry);
+  return ok({ isFile: entry.kind === 'file', uid: entry.uid, nlink, dev: FAKE_DEVICE, ino });
 }
 
-/** Copy each entry once, so an entry given at several paths stays one entry: a hard link. */
-function copiedEntries(initial: Readonly<Record<string, FakeEntry>>): Map<string, FakeEntry> {
-  const copies = new Map<FakeEntry, FakeEntry>();
-  return new Map(
-    typeSafeEntries(initial).map(([path, entry]) => {
-      const copy = copies.get(entry) ?? { ...entry };
-      copies.set(entry, copy);
-      return [path, copy];
-    }),
-  );
+function fakeLstat(state: FakeState, path: string): Result<PathEntryFacts, FsFailure> {
+  const named = namedEntryPath(state, path);
+  if (!named.ok) {
+    return named;
+  }
+  const entry = state.entries.get(named.value);
+  if (entry === undefined) {
+    return err({ code: 'ENOENT' });
+  }
+  return ok({ isFile: entry.kind === 'file', dev: FAKE_DEVICE, ino: inodeOf(state, entry) });
 }
 
 function fakeFchmod(state: FakeState, fd: number, mode: number): Result<void, FsFailure> {
@@ -219,28 +134,61 @@ function fakeClose(state: FakeState, fd: number): Result<void, FsFailure> {
   return state.descriptors.delete(fd) ? ok(undefined) : err({ code: 'EBADF' });
 }
 
+/** The proper ancestors of an absolute POSIX path, root excluded: `/a/b/c` gives `/a`, `/a/b`. */
+function ancestorsOf(path: string): string[] {
+  const components = path.split('/').filter((component) => component.length > 0);
+  return components.slice(0, -1).map((_, index) => `/${components.slice(0, index + 1).join('/')}`);
+}
+
+/**
+ * Copy each entry once, so an entry given at several paths stays one entry (a
+ * hard link), and give every entry's absent ancestors a directory (0o755).
+ */
+function initialEntries(initial: Readonly<Record<string, FakeEntry>>): Map<string, FakeEntry> {
+  const copies = new Map<FakeEntry, FakeEntry>();
+  const entries = new Map<string, FakeEntry>();
+  for (const [path, entry] of typeSafeEntries(initial)) {
+    const copy = copies.get(entry) ?? { ...entry };
+    copies.set(entry, copy);
+    entries.set(path, copy);
+  }
+  for (const ancestor of [...entries.keys()].flatMap(ancestorsOf)) {
+    if (!entries.has(ancestor)) {
+      entries.set(ancestor, { kind: 'directory', mode: 0o755, uid: FAKE_OWNER_UID });
+    }
+  }
+  return entries;
+}
+
 /**
  * Build a fake file system holding copies of the given entries, running as
  * {@link FAKE_OWNER_UID}.
  *
- * @param initial - Entries by absolute path; copied, so an expectation built
- * from the same literal never moves with the fake's state. One entry object
- * given at two paths is one entry with two links.
+ * @param initial - Entries by absolute POSIX path; copied, so an expectation
+ * built from the same literal never moves with the fake's state. One entry
+ * object given at two paths is one entry with two links.
+ * @param options - How the fake platform differs from the default.
  * @returns The port and its readable state.
  */
 export function inMemoryFileSystem(
   initial: Readonly<Record<string, FakeEntry>> = {},
+  options: InMemoryFileSystemOptions = {},
 ): InMemoryFileSystem {
   const state: FakeState = {
-    entries: copiedEntries(initial),
+    entries: initialEntries(initial),
     descriptors: new Map(),
+    inodes: new WeakMap(),
+    openFlags: fakeOpenFlags(options.hasNoFollow ?? true),
     nextFd: 10,
+    nextInode: 100n,
   };
   const fs: OwnerOnlyAppendFs = {
     uid: FAKE_OWNER_UID,
+    openFlags: state.openFlags,
     mkdir: (path, mode) => fakeMkdir(state, path, mode),
     open: (path, flags, mode) => fakeOpen(state, path, flags, mode),
     fstat: (fd) => fakeFstat(state, fd),
+    lstat: (path) => fakeLstat(state, path),
     fchmod: (fd, mode) => fakeFchmod(state, fd, mode),
     write: (fd, data, offset, length) =>
       fakeWrite(state, fd, data.subarray(offset, offset + length)),

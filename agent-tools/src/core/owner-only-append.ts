@@ -13,8 +13,8 @@
  * 1. `mkdir` — create the directory recursively at 0o700 if it is absent. The
  *    mode applies only to a directory it creates: an existing directory, or a
  *    symlink to one, is left as it was;
- * 2. `open` — open the file through {@link OWNER_ONLY_APPEND_OPEN_FLAGS},
- *    creating it at 0o600;
+ * 2. `open` — open the file through {@link appendOpenFlags}, creating it at
+ *    0o600;
  * 3. `fstat` — refuse the descriptor unless it is a regular file, owned by the
  *    invoking user, with exactly one link. A second link is another name for
  *    the same bytes, in a place and under a mode the caller did not choose.
@@ -22,9 +22,16 @@
  *    has none (the port's `uid` is `undefined`, as on Windows, where POSIX
  *    modes are advisory too), the owner check alone is skipped, and the
  *    regular-file and single-link checks still hold;
- * 4. `fchmod` — set the file to 0o600, retightening a file an earlier writer
+ * 4. `lstat` — refuse unless the path's own entry, not following a symlink,
+ *    is a regular file with the descriptor's device and inode. This holds on
+ *    every platform: where the platform has no no-follow flag (Windows), the
+ *    open follows a symlink at the name, and only this check refuses it, as
+ *    `skills-adapter-generate/read-regular-file.ts` does. It also refuses a
+ *    name swapped since the open. No-follow stays as defence in depth where
+ *    it exists;
+ * 5. `fchmod` — set the file to 0o600, retightening a file an earlier writer
  *    left readable by others;
- * 5. `write` — write every byte, then `close` the descriptor, which is closed
+ * 6. `write` — write every byte, then `close` the descriptor, which is closed
  *    on every path after a successful open.
  *
  * The outcome is a Result (ADR-088). A failure names the step and a code:
@@ -32,7 +39,8 @@
  * - the errno code of a failed call, or `UNKNOWN` when the failure carried no
  *   error-code identifier;
  * - or one of the refusals `NOT_REGULAR_FILE`, `NOT_OWNER` and `HARD_LINKED`
- *   (all at `fstat`) and `NO_PROGRESS` (at `write`).
+ *   (all at `fstat`), `NOT_SAME_FILE` (at `lstat`) and `NO_PROGRESS` (at
+ *   `write`).
  *
  * It never carries a path or an error message, which can name one, so a
  * caller can show it anywhere.
@@ -40,15 +48,20 @@
  * @packageDocumentation
  */
 
-import { constants } from 'node:fs';
 import { dirname } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import type { DescriptorFacts, FsFailure, OwnerOnlyAppendFs } from './owner-only-append-fs.js';
+import type {
+  DescriptorFacts,
+  FsFailure,
+  OwnerOnlyAppendFs,
+  OwnerOnlyOpenFlags,
+  PathEntryFacts,
+} from './owner-only-append-fs.js';
 
 /** The step of an owner-only append that failed, named for its call. */
-type OwnerOnlyStep = 'mkdir' | 'open' | 'fstat' | 'fchmod' | 'write' | 'close';
+type OwnerOnlyStep = 'mkdir' | 'open' | 'fstat' | 'lstat' | 'fchmod' | 'write' | 'close';
 
 /**
  * Why an owner-only append failed: the step, and an error code or refusal
@@ -63,18 +76,17 @@ const DIRECTORY_MODE = 0o700;
 const FILE_MODE = 0o600;
 
 /**
- * The destination-boundary contract, as flags: write-only append,
- * create-if-absent, `O_NOFOLLOW` so a pre-placed symlink at the destination
- * refuses to open (ELOOP), and `O_NONBLOCK` so a reader-less FIFO at the
- * destination fails fast (ENXIO) instead of hanging the caller. Regular-file
- * writes are unaffected by the nonblocking flag.
+ * The destination-boundary contract, as flags from the port: write-only
+ * append, create-if-absent, no-follow so a pre-placed symlink at the
+ * destination refuses to open (ELOOP), and nonblocking so a reader-less FIFO
+ * at the destination fails fast (ENXIO) instead of hanging the caller. A flag
+ * the platform lacks is left out (Windows has neither of the last two).
  */
-const OWNER_ONLY_APPEND_OPEN_FLAGS: number =
-  constants.O_WRONLY |
-  constants.O_APPEND |
-  constants.O_CREAT |
-  constants.O_NOFOLLOW |
-  constants.O_NONBLOCK;
+function appendOpenFlags(flags: OwnerOnlyOpenFlags): number {
+  return (
+    flags.writeOnly | flags.append | flags.create | (flags.noFollow ?? 0) | (flags.nonBlock ?? 0)
+  );
+}
 
 /**
  * Append text to a file held at 0o600, creating its directory at 0o700 if it
@@ -103,20 +115,22 @@ export function appendOwnerOnly(
   if (!created.ok) {
     return created;
   }
-  const opened = at('open', fs.open(filePath, OWNER_ONLY_APPEND_OPEN_FLAGS, FILE_MODE));
+  const opened = at('open', fs.open(filePath, appendOpenFlags(fs.openFlags), FILE_MODE));
   if (!opened.ok) {
     return opened;
   }
-  const appended = appendThroughDescriptor(opened.value, bytes, fs);
+  const appended = appendThroughDescriptor(filePath, opened.value, bytes, fs);
   const closed = at('close', fs.close(opened.value));
   return appended.ok ? closed : appended;
 }
 
 /**
- * Refuse the open descriptor unless {@link refusalOfDescriptor} finds nothing,
- * set it to {@link FILE_MODE}, then write every byte. The caller closes it.
+ * Refuse the open descriptor unless {@link refusalOfDescriptor} finds nothing
+ * and the name still holds it, set it to {@link FILE_MODE}, then write every
+ * byte. The caller closes it.
  */
 function appendThroughDescriptor(
+  filePath: string,
   fd: number,
   bytes: Buffer,
   fs: OwnerOnlyAppendFs,
@@ -128,6 +142,13 @@ function appendThroughDescriptor(
   const refusal = refusalOfDescriptor(inspected.value, fs.uid);
   if (refusal !== undefined) {
     return err({ step: 'fstat', code: refusal });
+  }
+  const named = at('lstat', fs.lstat(filePath));
+  if (!named.ok) {
+    return named;
+  }
+  if (!isSameRegularFile(named.value, inspected.value)) {
+    return err({ step: 'lstat', code: 'NOT_SAME_FILE' });
   }
   const tightened = at('fchmod', fs.fchmod(fd, FILE_MODE));
   if (!tightened.ok) {
@@ -152,6 +173,14 @@ function refusalOfDescriptor(
     return 'NOT_OWNER';
   }
   return facts.nlink === 1 ? undefined : 'HARD_LINKED';
+}
+
+/**
+ * Whether the path's own entry is a regular file (so not a symlink) and is the
+ * very file the descriptor holds: the same device and inode.
+ */
+function isSameRegularFile(named: PathEntryFacts, opened: DescriptorFacts): boolean {
+  return named.isFile && named.dev === opened.dev && named.ino === opened.ino;
 }
 
 /**

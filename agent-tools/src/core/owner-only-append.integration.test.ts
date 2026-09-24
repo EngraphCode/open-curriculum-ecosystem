@@ -1,15 +1,10 @@
-import { join } from 'node:path';
-
 import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { appendOwnerOnly } from './owner-only-append.js';
 import type { OwnerOnlyAppendFs } from './owner-only-append-fs.js';
-import {
-  FAKE_OWNER_UID,
-  inMemoryFileSystem,
-  type FakeEntry,
-} from './test-helpers/in-memory-owner-only-append-fs.js';
+import { FAKE_OWNER_UID, type FakeEntry } from './test-helpers/in-memory-fs-state.js';
+import { inMemoryFileSystem } from './test-helpers/in-memory-owner-only-append-fs.js';
 
 /**
  * The owner-only append, proven against an in-memory file system whose
@@ -23,7 +18,7 @@ import {
 const STRANGER_UID = 0;
 
 const DIRECTORY = '/srv/estate/logs';
-const FILE = join(DIRECTORY, 'observations.jsonl');
+const FILE = `${DIRECTORY}/observations.jsonl`;
 const ELSEWHERE = '/srv/elsewhere';
 
 function file(mode: number, text: string, uid: number = FAKE_OWNER_UID): FakeEntry {
@@ -38,7 +33,7 @@ function fifo(hasReader: boolean): FakeEntry {
   return { kind: 'fifo', mode: 0o644, uid: FAKE_OWNER_UID, hasReader, bytes: Buffer.alloc(0) };
 }
 
-describe('appendOwnerOnly', () => {
+describe('appendOwnerOnly: directories and appending', () => {
   it('creates an absent directory at 0o700 and the file at 0o600 holding exactly the text', () => {
     const world = inMemoryFileSystem();
     const result = appendOwnerOnly(FILE, '{"a":1}\n', world.fs);
@@ -83,11 +78,62 @@ describe('appendOwnerOnly', () => {
     const result = appendOwnerOnly(FILE, 'line\n', world.fs);
     expect(result).toEqual(ok(undefined));
     expect(world.entries.get(ELSEWHERE)).toEqual(directory(0o755));
-    expect(world.entries.get(join(ELSEWHERE, 'observations.jsonl'))).toEqual(file(0o600, 'line\n'));
+    expect(world.entries.get(`${ELSEWHERE}/observations.jsonl`)).toEqual(file(0o600, 'line\n'));
   });
 
+  it('creates a missing directory under the target of a symlinked ancestor, and appends there', () => {
+    const world = inMemoryFileSystem({
+      '/srv/estate': { kind: 'symlink', target: '/data' },
+      '/data': directory(0o755),
+    });
+    const result = appendOwnerOnly(FILE, 'line\n', world.fs);
+    expect(result).toEqual(ok(undefined));
+    expect(world.entries.get('/data/logs')).toEqual(directory(0o700));
+    expect(world.entries.get('/data/logs/observations.jsonl')).toEqual(file(0o600, 'line\n'));
+    expect(world.entries.has(DIRECTORY)).toBe(false);
+  });
+
+  it('writes the whole text through short writes', () => {
+    const world = inMemoryFileSystem();
+    const threeBytesAtATime: OwnerOnlyAppendFs = {
+      ...world.fs,
+      write: (fd, data, offset, length) => world.fs.write(fd, data, offset, Math.min(3, length)),
+    };
+    const result = appendOwnerOnly(FILE, '{"a":1}\n', threeBytesAtATime);
+    expect(result).toEqual(ok(undefined));
+    expect(world.entries.get(FILE)).toEqual(file(0o600, '{"a":1}\n'));
+  });
+});
+
+describe('appendOwnerOnly: mkdir failures', () => {
+  it('returns the mkdir step and EEXIST when a file stands where the directory should be, leaving the file as it was', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: file(0o644, 'not a directory\n') });
+    const result = appendOwnerOnly(FILE, 'line\n', world.fs);
+    expect(result).toEqual(err({ step: 'mkdir', code: 'EEXIST' }));
+    expect(world.entries.get(DIRECTORY)).toEqual(file(0o644, 'not a directory\n'));
+    expect(world.entries.has(FILE)).toBe(false);
+  });
+
+  it('returns the mkdir step and ENOTDIR when a file stands where an ancestor directory should be, creating nothing', () => {
+    const world = inMemoryFileSystem({ '/srv': file(0o644, 'not a directory\n') });
+    const result = appendOwnerOnly(FILE, 'line\n', world.fs);
+    expect(result).toEqual(err({ step: 'mkdir', code: 'ENOTDIR' }));
+    expect([...world.entries.keys()]).toEqual(['/srv']);
+    expect(world.entries.get('/srv')).toEqual(file(0o644, 'not a directory\n'));
+  });
+
+  it('returns the mkdir step and ENOENT when the directory is a dangling symlink, creating nothing', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: { kind: 'symlink', target: ELSEWHERE } });
+    const before = [...world.entries.keys()];
+    const result = appendOwnerOnly(FILE, 'line\n', world.fs);
+    expect(result).toEqual(err({ step: 'mkdir', code: 'ENOENT' }));
+    expect([...world.entries.keys()]).toEqual(before);
+  });
+});
+
+describe('appendOwnerOnly: open and descriptor refusals', () => {
   it('refuses a symlink at the file name at the open step with ELOOP; its target is untouched', () => {
-    const target = join(ELSEWHERE, 'target.log');
+    const target = `${ELSEWHERE}/target.log`;
     const world = inMemoryFileSystem({
       [DIRECTORY]: directory(0o700),
       [FILE]: { kind: 'symlink', target },
@@ -125,7 +171,7 @@ describe('appendOwnerOnly', () => {
   });
 
   it('refuses a file with a second hard link at the fstat step; nothing is written through either name', () => {
-    const elsewhereName = join(ELSEWHERE, 'theirs.log');
+    const elsewhereName = `${ELSEWHERE}/theirs.log`;
     const linked = file(0o644, 'theirs\n');
     const world = inMemoryFileSystem({
       [DIRECTORY]: directory(0o700),
@@ -150,7 +196,7 @@ describe('appendOwnerOnly', () => {
   });
 
   it('with no platform uid, still refuses a hard-linked file at the fstat step', () => {
-    const elsewhereName = join(ELSEWHERE, 'theirs.log');
+    const elsewhereName = `${ELSEWHERE}/theirs.log`;
     const linked = file(0o644, 'theirs\n');
     const world = inMemoryFileSystem({
       [DIRECTORY]: directory(0o700),
@@ -161,22 +207,81 @@ describe('appendOwnerOnly', () => {
     expect(result).toEqual(err({ step: 'fstat', code: 'HARD_LINKED' }));
     expect(world.entries.get(elsewhereName)).toEqual(file(0o644, 'theirs\n'));
   });
+});
 
-  it('returns the mkdir step and EEXIST when a file stands where the directory should be, leaving the file as it was', () => {
-    const world = inMemoryFileSystem({ [DIRECTORY]: file(0o644, 'not a directory\n') });
+describe('appendOwnerOnly: the name still holds the opened file', () => {
+  it('on a platform without no-follow, refuses a symlink at the file name at the lstat step; its target is untouched', () => {
+    // Windows has no O_NOFOLLOW: the open follows the link, and only the
+    // identity check between the name and the descriptor catches it.
+    const target = `${ELSEWHERE}/target.log`;
+    const world = inMemoryFileSystem(
+      {
+        [DIRECTORY]: directory(0o700),
+        [FILE]: { kind: 'symlink', target },
+        [target]: file(0o644, 'theirs\n'),
+      },
+      { hasNoFollow: false },
+    );
     const result = appendOwnerOnly(FILE, 'line\n', world.fs);
-    expect(result).toEqual(err({ step: 'mkdir', code: 'EEXIST' }));
-    expect(world.entries.get(DIRECTORY)).toEqual(file(0o644, 'not a directory\n'));
-    expect(world.entries.has(FILE)).toBe(false);
+    expect(result).toEqual(err({ step: 'lstat', code: 'NOT_SAME_FILE' }));
+    expect(world.entries.get(target)).toEqual(file(0o644, 'theirs\n'));
+    expect(world.openDescriptors.size).toBe(0);
   });
 
-  it('returns the mkdir step and ENOENT when the directory is a dangling symlink, creating nothing', () => {
-    const world = inMemoryFileSystem({ [DIRECTORY]: { kind: 'symlink', target: ELSEWHERE } });
-    const result = appendOwnerOnly(FILE, 'line\n', world.fs);
-    expect(result).toEqual(err({ step: 'mkdir', code: 'ENOENT' }));
-    expect([...world.entries.keys()]).toEqual([DIRECTORY]);
+  it('refuses at the lstat step when the name holds a different inode from the opened file', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: directory(0o700), [FILE]: file(0o644, 'x\n') });
+    const swapped: OwnerOnlyAppendFs = {
+      ...world.fs,
+      lstat: (path) => {
+        const named = world.fs.lstat(path);
+        return named.ok ? ok({ ...named.value, ino: named.value.ino + 1n }) : named;
+      },
+    };
+    const result = appendOwnerOnly(FILE, 'line\n', swapped);
+    expect(result).toEqual(err({ step: 'lstat', code: 'NOT_SAME_FILE' }));
+    expect(world.entries.get(FILE)).toEqual(file(0o644, 'x\n'));
+    expect(world.openDescriptors.size).toBe(0);
   });
 
+  it('refuses at the lstat step when the name is on a different device from the opened file', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: directory(0o700), [FILE]: file(0o644, 'x\n') });
+    const elsewhere: OwnerOnlyAppendFs = {
+      ...world.fs,
+      lstat: (path) => {
+        const named = world.fs.lstat(path);
+        return named.ok ? ok({ ...named.value, dev: named.value.dev + 1n }) : named;
+      },
+    };
+    const result = appendOwnerOnly(FILE, 'line\n', elsewhere);
+    expect(result).toEqual(err({ step: 'lstat', code: 'NOT_SAME_FILE' }));
+    expect(world.entries.get(FILE)).toEqual(file(0o644, 'x\n'));
+  });
+
+  it('refuses at the lstat step when the name is not a regular file, even with the same identity', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: directory(0o700), [FILE]: file(0o644, 'x\n') });
+    const notRegular: OwnerOnlyAppendFs = {
+      ...world.fs,
+      lstat: (path) => {
+        const named = world.fs.lstat(path);
+        return named.ok ? ok({ ...named.value, isFile: false }) : named;
+      },
+    };
+    const result = appendOwnerOnly(FILE, 'line\n', notRegular);
+    expect(result).toEqual(err({ step: 'lstat', code: 'NOT_SAME_FILE' }));
+    expect(world.entries.get(FILE)).toEqual(file(0o644, 'x\n'));
+  });
+
+  it('returns the lstat step and its code when the name cannot be read back, before any fchmod or write', () => {
+    const world = inMemoryFileSystem({ [DIRECTORY]: directory(0o700), [FILE]: file(0o644, 'x\n') });
+    const vanished: OwnerOnlyAppendFs = { ...world.fs, lstat: () => err({ code: 'ENOENT' }) };
+    const result = appendOwnerOnly(FILE, 'line\n', vanished);
+    expect(result).toEqual(err({ step: 'lstat', code: 'ENOENT' }));
+    expect(world.entries.get(FILE)).toEqual(file(0o644, 'x\n'));
+    expect(world.openDescriptors.size).toBe(0);
+  });
+});
+
+describe('appendOwnerOnly: failures after the checks', () => {
   it('returns the fchmod step and its code when the file cannot be retightened; its bytes are unchanged and its descriptor closed', () => {
     const world = inMemoryFileSystem({
       [DIRECTORY]: directory(0o700),
@@ -190,17 +295,6 @@ describe('appendOwnerOnly', () => {
     expect(result).toEqual(err({ step: 'fchmod', code: 'EPERM' }));
     expect(world.entries.get(FILE)).toEqual(file(0o644, 'earlier\n'));
     expect(world.openDescriptors.size).toBe(0);
-  });
-
-  it('writes the whole text through short writes', () => {
-    const world = inMemoryFileSystem();
-    const threeBytesAtATime: OwnerOnlyAppendFs = {
-      ...world.fs,
-      write: (fd, data, offset, length) => world.fs.write(fd, data, offset, Math.min(3, length)),
-    };
-    const result = appendOwnerOnly(FILE, '{"a":1}\n', threeBytesAtATime);
-    expect(result).toEqual(ok(undefined));
-    expect(world.entries.get(FILE)).toEqual(file(0o600, '{"a":1}\n'));
   });
 
   it('returns the write step and its code when the write fails, and closes the descriptor', () => {

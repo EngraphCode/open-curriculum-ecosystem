@@ -7,12 +7,22 @@
  * in-memory fake (ADR-078). The port returns Results;
  * {@link nodeOwnerOnlyAppendFs} is the single edge where `node:fs` throws
  * become them (ADR-088), keeping each failure's code and dropping its
- * message, which names the path.
+ * message, which names the path. The port also supplies the open flags, so
+ * the append never reads `node:fs` constants and a fake can model its own.
  *
  * @packageDocumentation
  */
 
-import { closeSync, fchmodSync, fstatSync, mkdirSync, openSync, writeSync } from 'node:fs';
+import {
+  closeSync,
+  constants,
+  fchmodSync,
+  fstatSync,
+  lstatSync,
+  mkdirSync,
+  openSync,
+  writeSync,
+} from 'node:fs';
 
 import { err, ok, type Result } from '@oaknational/result';
 
@@ -23,11 +33,38 @@ export interface FsFailure {
   readonly code: string;
 }
 
-/** What `fstat` reports of an open descriptor: its kind, owner and link count. */
+/**
+ * What `fstat` reports of an open descriptor: its kind, owner, link count,
+ * and identity (device and inode, exact as bigints).
+ */
 export interface DescriptorFacts {
   readonly isFile: boolean;
   readonly uid: number;
   readonly nlink: number;
+  readonly dev: bigint;
+  readonly ino: bigint;
+}
+
+/**
+ * What `lstat` reports of a path's own entry, not following a symlink: whether
+ * it is a regular file (a symlink is not), and its identity.
+ */
+export interface PathEntryFacts {
+  readonly isFile: boolean;
+  readonly dev: bigint;
+  readonly ino: bigint;
+}
+
+/**
+ * The open flags the platform provides. `noFollow` and `nonBlock` are
+ * `undefined` where the platform has no such flag (Windows has neither).
+ */
+export interface OwnerOnlyOpenFlags {
+  readonly writeOnly: number;
+  readonly append: number;
+  readonly create: number;
+  readonly noFollow: number | undefined;
+  readonly nonBlock: number | undefined;
 }
 
 /**
@@ -44,10 +81,14 @@ export interface OwnerOnlyAppendFs {
    * owner check is skipped and the other file checks still hold.
    */
   readonly uid: number | undefined;
+  /** The open flags this file system honours. */
+  readonly openFlags: OwnerOnlyOpenFlags;
   /** Create the directory and any missing parents at the given mode. */
   mkdir(path: string, mode: number): Result<void, FsFailure>;
   open(path: string, flags: number, mode: number): Result<number, FsFailure>;
   fstat(fd: number): Result<DescriptorFacts, FsFailure>;
+  /** Stat the path's own entry, not following a symlink. */
+  lstat(path: string): Result<PathEntryFacts, FsFailure>;
   fchmod(fd: number, mode: number): Result<void, FsFailure>;
   /** Write from `data[offset]` for `length` bytes; returns the bytes consumed. */
   write(fd: number, data: Buffer, offset: number, length: number): Result<number, FsFailure>;
@@ -96,13 +137,31 @@ export function attempt<T>(call: () => T): Result<T, FsFailure> {
 }
 
 /**
+ * `node:fs` declares every flag on every platform, but on Windows
+ * `O_NOFOLLOW` and `O_NONBLOCK` are absent at runtime. This models that truth
+ * in the type, as `skills-adapter-generate/read-regular-file.ts` does.
+ */
+const hostOptionalFlags: Partial<Record<'O_NOFOLLOW' | 'O_NONBLOCK', number>> = {
+  O_NOFOLLOW: constants.O_NOFOLLOW,
+  O_NONBLOCK: constants.O_NONBLOCK,
+};
+
+/**
  * The real binding: synchronous `node:fs` calls, each throw translated by
- * {@link fsFailureOf}, and the process's uid, read when it is asked for,
- * never at import.
+ * {@link fsFailureOf}; the host's open flags; and the process's uid, read
+ * when it is asked for, never at import. Stats are read as bigints so that
+ * device and inode compare exactly on every platform.
  */
 export const nodeOwnerOnlyAppendFs: OwnerOnlyAppendFs = {
   get uid() {
     return process.getuid?.();
+  },
+  openFlags: {
+    writeOnly: constants.O_WRONLY,
+    append: constants.O_APPEND,
+    create: constants.O_CREAT,
+    noFollow: hostOptionalFlags.O_NOFOLLOW,
+    nonBlock: hostOptionalFlags.O_NONBLOCK,
   },
   mkdir: (path, mode) =>
     attempt(() => {
@@ -111,8 +170,20 @@ export const nodeOwnerOnlyAppendFs: OwnerOnlyAppendFs = {
   open: (path, flags, mode) => attempt(() => openSync(path, flags, mode)),
   fstat: (fd) =>
     attempt(() => {
-      const stats = fstatSync(fd);
-      return { isFile: stats.isFile(), uid: stats.uid, nlink: stats.nlink };
+      const stats = fstatSync(fd, { bigint: true });
+      const { dev, ino } = stats;
+      return {
+        isFile: stats.isFile(),
+        uid: Number(stats.uid),
+        nlink: Number(stats.nlink),
+        dev,
+        ino,
+      };
+    }),
+  lstat: (path) =>
+    attempt(() => {
+      const stats = lstatSync(path, { bigint: true });
+      return { isFile: stats.isFile(), dev: stats.dev, ino: stats.ino };
     }),
   fchmod: (fd, mode) =>
     attempt(() => {
