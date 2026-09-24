@@ -173,7 +173,8 @@ export function parseStateView(raw: unknown): ParsedStateView {
   };
 }
 
-const authorLogin = z
+/** A GraphQL author, or null for a deleted account, as a login ('unknown' when null). */
+export const authorLogin = z
   .object({ login: z.string() })
   .nullish()
   .transform((value) => value?.login ?? 'unknown');

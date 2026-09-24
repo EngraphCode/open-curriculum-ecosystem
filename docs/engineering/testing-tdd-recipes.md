@@ -25,7 +25,7 @@ unit, integration, and E2E levels.
 - [TDD At All Levels](#tdd-at-all-levels)
   - [Unit Test TDD](#unit-test-tdd)
   - [Integration Test TDD](#integration-test-tdd)
-  - [E2E Test TDD](#e2e-test-tdd)
+  - [E2E Check TDD](#e2e-check-tdd)
 - [Rule Summary](#rule-summary)
 - [Red Specs And File Naming](#red-specs-and-file-naming)
   - [Validate Test Discovery](#validate-test-discovery)
@@ -37,7 +37,9 @@ unit, integration, and E2E levels.
 
 ## TDD At All Levels
 
-TDD applies to unit, integration, and E2E tests. Each level specifies the
+TDD applies to unit tests, integration tests and E2E checks (an E2E check
+drives a running system and is a validation surface, not a test; where this
+file says "E2E test", read E2E check). Each level specifies the
 desired behaviour before implementation changes at that same level.
 
 ### Unit Test TDD
@@ -107,24 +109,31 @@ export function createSearchWorkflow(options: SearchWorkflowOptions) {
 // Run test -> passes.
 ```
 
-### E2E Test TDD
+### E2E Check TDD
 
-E2E tests specify system behaviour. When system behaviour changes, update the
-E2E test first and run it against the old system to prove the red phase.
+E2E checks specify system behaviour. When system behaviour changes, update the
+E2E check first and run it against the old system to prove the red phase.
+
+An E2E check drives a **separately running** system over its protocol channel.
+In the example, `baseUrl` is the address of a server the check's harness booted
+as its own process; passing an imported app or server object to `request` would
+open a loopback listener inside the check's process, which is no compliant
+shape (testing-patterns.md §In-Process App Construction).
 
 Example:
 
 ```typescript
 // Scenario: all MCP methods should require auth.
+// baseUrl: the address of the separately booted server, injected by the harness.
 describe('MCP Server E2E', () => {
   it('returns 401 for tools/list without authentication', async () => {
-    const response = await request(server).post('/mcp').send({ method: 'tools/list' });
+    const response = await request(baseUrl).post('/mcp').send({ method: 'tools/list' });
 
     expect(response.status).toBe(401);
   });
 
   it('returns 401 for tools/call without authentication', async () => {
-    const response = await request(server)
+    const response = await request(baseUrl)
       .post('/mcp')
       .send({
         method: 'tools/call',
@@ -134,7 +143,7 @@ describe('MCP Server E2E', () => {
     expect(response.status).toBe(401);
   });
 });
-// Run E2E test -> fails while the old system allows unauthenticated discovery.
+// Run the E2E check -> fails while the old system allows unauthenticated discovery.
 // Implement the router and middleware changes, then rerun -> passes.
 ```
 
@@ -160,8 +169,11 @@ If tests lag behind code at any level, TDD was not followed at that level.
 
 ## Red Specs And File Naming
 
-Write red-phase specs that describe not-yet-implemented system behaviour in
-`*.e2e.test.ts` files, not `*.unit.test.ts` files. The pre-commit hook runs
+Write red-phase specs that describe not-yet-implemented system behaviour as
+E2E checks, not in `*.unit.test.ts` files. Today an E2E check is a
+`*.e2e.test.ts` file that the `test:e2e` runner reaches: both names are
+pre-invariant estate the recovery plan retires, and until it does a new check
+goes where that live runner sees it (testing-strategy.md §Development Workflow). The pre-commit hook runs
 type-check, lint, and the `test` task, so red in-process specs block commits
 until they go green. E2E specs are outside pre-commit, but pre-push and CI run
 `test:e2e`; they must be green before push/merge unless the owner explicitly

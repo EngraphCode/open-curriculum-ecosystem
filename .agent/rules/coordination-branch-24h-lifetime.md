@@ -53,7 +53,34 @@ stamp the lifetime) and at session-open (to check it).
    start in worktrees on their own branches per
    [`worktree-hygiene`](worktree-hygiene.md) and the owner's standing
    word (2026-07-28: work in worktrees where reasonable). A coordination
-   branch that accumulates work products cannot converge in a day.
+   branch that accumulates work products cannot converge in a day. And
+   CODE never rides it directly at all: source, workflows, hooks,
+   config-as-code, anything executable or CI-affecting enters the
+   repository only on a branch through a pull request with review before
+   merge, however small and however well the author verified it (owner,
+   2026-07-25, after dependency pin bumps were evaluated first-hand and
+   committed straight to the coordination branch: "that's not a cure,
+   that's papering over a fuck up. Do not allow code into this repo
+   without a first hand review, not ever"; cured the same hour by a revert
+   and a real pull request). Self-review is structurally blind and a
+   direct commit forecloses every reviewer; the test is "is this code?",
+   never "am I confident?". Direct commits here remain correct only for
+   fleet state and knowledge surfaces.
+5. **Keep the branch reasonably clean between rotations** (owner,
+   2026-07-25: "periodic commits, not too many, just don't let things
+   build up"): the accruing shared-state surfaces (memory, handoff maps,
+   tally ledgers) commit periodically in sensible batches under the bot
+   identity by explicit pathspec — each a continuity-only commit, never
+   bundled with a cycle commit, so the orphan boundary of
+   [`continuity-surface-commits-as-orphans`](continuity-surface-commits-as-orphans.md)
+   holds at every one of them — and the default branch merges in at quiet
+   windows so the gap stays small. Uncommitted state on the shared
+   primary is absent from the branch every other seat reads, invisible to
+   peers, and blocks other seats' operations on that tree (a merge or a
+   branch switch refuses over it). And the coordination branch IS the primary
+   checkout's own branch, always — never a snapshot worktree (owner,
+   2026-08-06, verbatim: "the coordination branch shouldn't be a
+   worktree, it should be the branch in the primary checkout, always").
 
 ## Why This Rule Exists (Worked Instance)
 

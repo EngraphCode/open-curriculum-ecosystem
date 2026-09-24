@@ -21,7 +21,8 @@ silently choosing one.
 
 This directive is grown by the `multi-agent-collaboration-protocol`. It
 installs vocabulary, the shared log, claims, schemas, durable closure history,
-short-lived `git` claims, advisory `commit_queue` order, sidebars, owner
+short-lived `git` claims, advisory commit-queue order (a per-intent,
+machine-local store beside the claims file), sidebars, owner
 escalations, joint decisions, and WS5 evidence harvest. Details live in
 [`collaboration-state-conventions.md`](../memory/operational/collaboration-state-conventions.md).
 
@@ -121,7 +122,7 @@ The role is a *commitment to coordinate*, not a new primitive. Any
 agent observing the chain claims it by posting a shared-comms-log
 entry naming the role and the chain symptom. Authority is bounded:
 pause peers via canonical comms events with deadlines, queue commits via
-`commit_queue`, resume once the chain clears. Conflicts between two
+commit-queue intents, resume once the chain clears. Conflicts between two
 claimants resolve by sidebar. Termination is automatic — when the
 chain clears the role dissolves; the opening shared-comms-log entry
 is the durable record.
@@ -194,14 +195,14 @@ Four foundational rules, named here as load-bearing principles:
 
 ### a. Don't Break the Build Without a Fix Plan
 
-The active
-`gate-recovery-cadence.plan.md`
-names the non-negotiable invariant verbatim:
+The rule
+[`dont-break-build-without-fix-plan`](../rules/dont-break-build-without-fix-plan.md)
+owns the non-negotiable invariant:
 
-> Restore the invariant that build, type-check, lint, format, markdown,
-> depcruise, knip, and static checks stay green even during TDD. RED is
-> allowed only as intentional failing behavioural tests, not as missing
-> imports, broken types, lint warnings, or build failures.
+> Build, type-check, lint, format, markdown, depcruise, knip, and static
+> checks stay green even during TDD. RED is allowed only as intentional
+> failing behavioural tests — never as missing imports, broken types, lint
+> warnings, or build failures.
 
 A peer agent's pristine staged work depends on the same gates passing on
 the same working tree. Breaking the build without a fix plan converts a
@@ -359,8 +360,10 @@ derive from work-state and role, never from holding a claim. Recipes live in
 
 The single-agent case (no other agents present) pays the protocol's
 **minimum overhead — one read, one write**: read active claims and the
-shared log, log *"no other agents present"*, register the session claim,
-and proceed. The single write is load-bearing: it is the discovery seed for
+shared log; if no entries other than your own exist and the comms log shows
+no live peer, the session is solo: register the session claim and proceed
+without broadcasts (`use-agent-comms-log` §Scale ceremony to the audience).
+The single write, the claim, is load-bearing: it is the discovery seed for
 whatever sequential agent comes next. The
 [`register-active-areas-at-session-open`](../rules/register-active-areas-at-session-open.md)
 rule operationalises this early-return.

@@ -1,7 +1,11 @@
 ---
 title: "Validation Strategy"
 status: seeded-stub
-last_updated: 2026-08-10
+last_updated: 2026-09-19
+fitness_line_target: 180
+fitness_line_limit: 240
+fitness_char_limit: 14000
+fitness_line_length: 100
 ---
 
 # Validation Strategy
@@ -51,7 +55,7 @@ passed on a runtime fact the real build path could not satisfy, because
 Vite resolves workspace packages and `tsx esbuild.config.ts` does not — the
 green unit test "proved" a resolution the shipped artefact lacked. When a
 claim is about a RUNTIME or BUILD property, the check must run on that
-runtime or build path (a smoke test on the built artefact, not a unit test
+runtime or build path (a smoke check on the built artefact, not a unit test
 on the source graph). Composes with the
 `green-parts-red-composition` pattern: per-path checks compose no better
 than per-part ones.
@@ -69,6 +73,21 @@ path idioms, comment-stripping bypasses) are the instrument's shape,
 not bugs to patch one spelling at a time. This generalises the section
 above — prefer the instrument that exercises the property's real path
 over a textual shadow of it.
+
+**An observation is an instrument** (owner, 2026-09-14, verbatim: "sometimes
+you don't need an automated check @validation-strategy.md sometimes you need
+an observation"). Where the property's real machinery cannot run inside a
+test (git's own merge semantics, a filesystem, a running vendor, a spawned
+process), because tests never use or create IO
+([testing-strategy.md](testing-strategy.md) §Philosophy), the property is
+exercised once at cure time by hand and the run is recorded on the pull
+request and in the records: the commands, the inputs, what was seen. An
+observation is dated, first-hand and reproducible from its record; it is
+never narrated as a suite's proof, and a suite is never built to replace it
+with IO. Worked instance: the review-cost gate's sync predicate, proven by
+unit tests over injected git output plus one recorded run of the real git on
+PR #146 (2026-09-14), a scratch repository exercising the admitted and
+refused merge shapes by hand.
 
 The module-system policy those rules enforce (owner ruling
 2026-08-09): this estate is **strictly ESM — zero `require`
@@ -101,6 +120,19 @@ install layout as a defect tolerated only via a homegrown lock
 exemption; cured by recognising Practice projections through their
 recorded derivation and leaving everything else untouched (ADR-125
 §Skill classes and validation jurisdiction).
+
+## Visibility precedes validation
+
+A validator over a shape nobody has ratified promotes the accidental to the
+canonical (owner correction, 2026-07-09, on an audit of agent-facing content
+that had evolved organically: "a validator at this time might accidentally
+lock in shapes that evolved organically and without intention or oversight").
+Before proposing any validator, guard or eval gate, ask whether the surface's
+shape has been ratified from first principles. If not, the sequence is: make
+the shape visible and reviewable (a registry, a report), let the right people
+judge it, ratify the intended shape, and only then guard it. The
+guard-drift-when-you-find-it reflex presupposes that the current shape is
+intended.
 
 ## Eval home
 

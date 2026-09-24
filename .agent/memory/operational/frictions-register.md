@@ -1,3 +1,19 @@
+---
+fitness_line_target: 1200
+fitness_line_limit: 1800
+fitness_char_limit: 130000
+fitness_line_length: 100
+fitness_content_role: reference
+fitness_rationale: >-
+  Set 2026-09-19 with the four-part lifecycle (continuity-practice.md §Disposition of
+  Continuity Surfaces). The limits describe the register's function, a working list of
+  OPEN frictions plus the recently settled, not its size on the day (4,545 lines, most of
+  them settled entries that no consolidation step had ever moved). A reading past the
+  limit is the signal that settled entries await the graduate-then-archive step.
+overflow_disposition: 'leave-if-live (open, partially addressed, or cited by a live lane); else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: mostly-append-register
+---
+
 # Agent Tooling Frictions Register
 
 Live capture of frictions, gaps, and observed failures in the agent tooling
@@ -44,167 +60,8 @@ dedicated plan that this entry points to.
 ## Friction Entries
 
 Status lines are the disposition source of truth. Entries remain in this
-section until a consolidation pass moves them; the addressed/mitigated section
-below is a cross-reference index, not a second source of truth.
-
-### F-01 — `comms send` rejects `--agent-name`
-
-- **Source**: napkin 2026-05-05 (Deciduous Budding Stamen, `512682`)
-- **Surface**: `pnpm agent-tools:collaboration-state -- comms send`
-- **Observed**: First invocation failed with `unknown option:
-  --agent-name`; identity for writes uses env
-  (`PRACTICE_AGENT_SESSION_ID_CURSOR`, `OAK_AGENT_IDENTITY_OVERRIDE`) plus
-  `--platform` and `--model`. Discoverability gap: agents reach for
-  `--agent-name` because it is the human-meaningful field.
-- **Expected**: Either accept `--agent-name` (resolve to seed/prefix) or
-  print full help on the unknown flag naming the supported identity inputs.
-- **Candidate cure**: Print full help on unknown flag (composes with F-09)
-  AND name the supported identity inputs in the help text; consider
-  accepting `--agent-name` as an alias resolved against the wordlist.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree. `comms send` help now
-  names `PRACTICE_AGENT_SESSION_ID_CURSOR` and
-  `OAK_AGENT_IDENTITY_OVERRIDE`, and unsupported identity-name flags
-  return command help plus the specific unknown-option error.
-- **Owner direction**: standing (full-help-on-invalid-flags, F-09)
-
-### F-02 — `claims close` requires `--summary` not `--closure-summary`
-
-- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (d);
-  comms event `a1cf45a2` 2026-05-05
-- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`
-- **Observed**: Required flag is `--summary`. Agents reach for
-  `--closure-summary` (a more semantic name) and fail. Discoverability
-  required source-grep to find.
-- **Expected**: Help text exposes the canonical flag prominently; either
-  rename to `--closure-summary` (more semantic) or accept both names.
-- **Candidate cure**: Accept `--closure-summary` as an alias for
-  `--summary`; full-help-on-invalid-flag (F-09) ensures next agent
-  discovers the canonical name immediately.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree. `claims close` accepts
-  `--closure-summary` as an alias for `--summary`, and help documents
-  the alias.
-
-### F-03 — `claims close` error names wrong option as missing
-
-- **Source**: napkin 2026-05-05 (Dawnlit, `0ddc89`) Observation 4
-- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`
-- **Observed**: First attempt failed with "missing required option
-  --active" while passing `--active`; the actual culprit was the
-  un-recognised `--kind closed` argument (closure kind is hardcoded to
-  'explicit' in the implementation, not a CLI param). The error message
-  named the wrong option as missing rather than naming the unknown
-  option.
-- **Expected**: Error message names the actually-unrecognised flag (e.g.
-  *"unknown option: --kind"*) rather than reporting a downstream
-  required-option failure.
-- **Candidate cure**: CLI parser surfaces unknown-flag errors before
-  required-flag-validation errors; full-help-on-invalid-flag (F-09)
-  composes with this.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-options.ts`
-  or shared CLI parser layer
-- **Status**: addressed-in-existing-cli-validation
-- **Review 2026-05-10**: addressed for the reported shape. The current
-  parser rejects globally unknown flags before required-option validation,
-  and `runCollaborationStateCli` has regression coverage for unknown
-  options before missing required options.
-
-### F-04 — `claims open` `--file` vs `--area-pattern` ambiguity
-
-- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (e)
-- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
-- **Observed**: `--file` (singular, repeatable) vs `--area-pattern`
-  (singular, only-when-no-files) shape is unclear from the help text
-  alone; agents have to source-grep to understand the constraint.
-- **Expected**: Help text states the cardinality and mutual-exclusion
-  constraints in a single line per flag; an example shows both shapes.
-- **Candidate cure**: Help-text amendment with cardinality, repeatability,
-  and mutual-exclusion clearly stated; add canonical examples.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
-  - `agent-tools/README.md`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree. Command help states
-  repeatability and mutual exclusion for `--file` and `--area-pattern`;
-  `agent-tools/README.md` now includes canonical `claims open --file`
-  and `claims open --area-pattern` examples.
-
-### F-05 — `comms render` chokes on a single malformed event JSON
-
-- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (f);
-  observed during Gnarled's escape-sequence bug blocking
-  `shared-comms-log.md` regeneration repo-wide
-- **Surface**: `pnpm agent-tools:collaboration-state -- comms render`
-- **Observed**: A single malformed `comms-events/*.json` file aborts the
-  entire render, blocking shared-comms-log.md regeneration for every
-  agent in the repo.
-- **Expected**: Per-file recovery — log the malformed file, skip it, and
-  render the rest; emit a non-zero exit with a clear error summary so the
-  fault is visible without blocking the substrate.
-- **Candidate cure** (revised 2026-06-01, owner direction): the original
-  `--skip-malformed` direction is **rejected** — tolerating corruption on read is
-  not a fix. The cure is prevention at the write (serialize via `JSON.stringify`
-  only, validate the serialized string round-trips and conforms, write atomically
-  via temp + rename) plus a loud, hard read-side failure that names the offending
-  file, plus a one-time repair of existing corruption and a gate-wired regression
-  guard.
-- **Target surface**: `agent-tools/src/collaboration-state/state-io.ts` (write
-  path) and `cli-comms-commands.ts` (render/read).
-- **Status**: addressed-in-working-tree-2026-06-01 —
-  [`agent-tooling/current/comms-event-write-integrity.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/comms-event-write-integrity.plan.md)
-  (one-time repair + absolute prevention + loud read + gate guard). Comms event
-  writes now parse-back, schema-validate, and publish via a synced same-directory
-  atomic writer before the target file appears; readers hard-fail with the bad
-  path named; `comms validate` scans true-JSON collaboration state; and
-  `repo-validators:check` runs the same validator.
-- **Review 2026-05-10**: still open. `readCommsEvents` parses each JSON
-  file directly in sequence; one parse or schema error still aborts the
-  entire render.
-- **Review 2026-05-11**: current B-10 compatibility slice fixed two live
-  legacy-schema blockers discovered in the repo event directory:
-  narrative `addressed_to` agent-reference objects now normalize to the
-  referenced `agent_name`, and `in_response_to: null` / `in_reply_to: null`
-  are treated as absent. `comms render` also now accepts and documents the
-  required post-R1.b `--lifecycle-dir` and `--messages-dir` options. Live
-  render against the repo's three comms directories exits 0 to a temp output.
-  The broader F-05 contract remains open: one truly malformed file should be
-  skipped/reported without blocking the rest of the rendered log.
-- **Review 2026-06-01** (Windswept Floating Summit): fresh worked instance. Three
-  legacy events (`625fb072`, `76ede08d`, `a15363e5`) had bodies truncated
-  mid-sentence into unterminated JSON; one aborted `comms render` repo-wide — the
-  exact F-05 blocker. Manually repaired all three (terminated the strings,
-  preserving surviving content, with a `[body truncated by comms-CLI write bug;
-  JSON repaired]` marker); render now exits 0. F-05's core contract (skip + report
-  one malformed file without aborting the whole render) is still open and
-  re-confirmed high-severity.
-- **Write-side gap surfaced 2026-06-01 (candidate for its own entry):** these
-  files prove the *write* path can persist truncated/malformed JSON, not only that
-  the render is fragile. `comms append`/`send`/`direct` should validate that the
-  assembled event parses and write atomically (temp file + rename) so a failed
-  write never leaves a malformed event behind. `--body-file` (shipped) is the
-  operator-side cure for shell-quoting hazards but does not by itself guarantee
-  validated, atomic persistence.
-- **Implementation review 2026-06-01** (Tempestuous Gliding Falcon): implemented
-  the revised owner-directed cure. The live validator reports
-  `collaboration-state validate: OK (2824 JSON file(s) checked)`, and the root
-  repo validator now includes that check. The older `skip + report` expected shape
-  above is retained only as historical capture; the current accepted contract is
-  prevention at write plus loud, path-named failure on any external corruption.
-- **Severity**: high (substrate-wide blocker when triggered)
-- **Related shape**: 2026-05-06 (Hidden Slipping Moth, `4be7b5`) —
-  `comms send` succeeded in writing the new event but then failed
-  rendering because one older event
-  (`cd25a954-f569-4f7b-8d1e-f1fe9eed5dd7.json`) used top-level
-  identity fields instead of the current `author` object shape. This
-  is the *legacy-schema* sibling of the malformed-JSON case: the
-  file parses as JSON but does not conform to the current event
-  schema. The plan's validation covers both — parse failures and
-  schema-shape mismatches are caught at the write (rejected before
-  the file is created) and surfaced loudly at read, with the
-  offending event path named. Manual repair of the legacy event file
-  unblocked this instance.
+section until a consolidation pass moves them; §Settled entries, archived, below, keeps one
+index row per moved id so citations resolve, and the archive keeps the text.
 
 ### F-06 — Build-on-each-CLI-invocation causes identity drift mid-session
 
@@ -350,7 +207,7 @@ below is a cross-reference index, not a second source of truth.
   with a write-freeze or isolation rule for repo-tracked coordination artefacts
   during a peer's commit attempt; pair with B-02/B-03 build-prelude decoupling
   and B-11 directed-message authoring to reduce hand-authored file churn.
-- **Target surface**: commit protocol docs / `.agent/skills/commit/` /
+- **Target surface**: commit protocol docs / `.agent/skills/change-custody/commit/` /
   collaboration-state comms tooling / possible PDR-059 follow-on.
 - **Status**: open — evidence captured; no cure landed.
 - **Owner direction**: standing.
@@ -431,150 +288,6 @@ below is a cross-reference index, not a second source of truth.
   has landed here.
 - **Owner direction**: standing
 
-### F-11 — No `commit-queue list/show` CLIs
-
-- **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (c);
-  comms event `a1cf45a2`
-- **Surface**: `agent-tools/src/commit-queue/cli.ts`
-- **Observed**: Agents need to inspect queue entries by agent or status
-  to coordinate around the index/head commit window; no CLI affordance
-  exists for this.
-- **Expected**:
-  - `commit-queue list [--prefix <p>]
-    [--phase <queued|staging|pre_commit|abandoned>]
-    [--agent-name <agent-name-prefix>]
-    [--queue-status <active|expired|abandoned>]`
-  - `commit-queue show --intent-id <intent-id>`
-  - Completed intents leave the active queue and are not filterable by
-    lifecycle phase.
-- **Candidate cure**: Add the two commands above.
-- **Target surface**: `agent-tools/src/commit-queue/cli.ts`
-- **Status**: fixed-2026-05-11-commit-e298723c
-- **Review 2026-05-10**: `commit-queue status` exists and emits the
-  machine-readable queue with entries. Dedicated `list` / `show`
-  commands and `--prefix` / `--phase` filters are still absent.
-- **Review 2026-05-11**: fixed at `e298723c`. `commit-queue list`
-  emits filtered queue entries with `--prefix`, `--phase`,
-  `--agent-name`, and `--queue-status` filters, while
-  `commit-queue show --intent-id <id>` emits one exact entry and fails
-  clearly for an unknown intent. `commit-queue status` remains the
-  aggregate view.
-
-### F-12 — `claims open --area-kind` accepted values not discoverable
-
-- **Source**: napkin 2026-05-05 (Deep Rolling Archipelago, `02f5f5`) Surprise
-  on PR-93 PR-description claim attempt with `--area-kind external`; second
-  worked instance Riverine Fishing Rudder (`b89da0`) 2026-05-05 reaching for
-  `--area-kind file` (singular) before discovering the canonical value is
-  `files` (plural)
-- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
-- **Observed**: Help text shows `--area-kind <kind>` without enumerating the
-  accepted values. Agents reach for intuitive shapes (`external`, `file`,
-  `shared-state`) and hit `unsupported area kind: <value>` without any hint
-  of the canonical set. Discovery requires source-grep against
-  `parseAreaKind` in
-  `agent-tools/src/collaboration-state/cli-claim-commands.ts`. The accepted
-  set is `files | workspace | plan | adr | git`.
-- **Expected**: Help text enumerates accepted `--area-kind` values inline.
-  Error path on unsupported value lists the accepted set.
-  Full-help-on-invalid-flag (F-09) composes with this.
-- **Candidate cure**: Inline enumeration in CLI help (e.g.
-  `--area-kind <files|workspace|plan|adr|git>`) AND on-error message that
-  lists accepted values. Same pattern applies to other closed enums in
-  `cli-options.ts` — generalise as a discoverability convention.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`
-  and `cli-options.ts`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree. `claims open` help now
-  enumerates `--area-kind <files|workspace|plan|adr|git>`, and the
-  unsupported-kind error lists the accepted values.
-- **Owner direction**: standing (full-help-on-invalid-flags, F-09)
-
-### F-13 — `comms send` does not print event-id and path on success
-
-- **Source**: comms event `bdf1c973` (Vining Growing Meadow, `92cb10`,
-  2026-05-05 session-close note); reaffirmed 2026-05-05 by
-  Riverine Fishing Rudder (`b89da0`) needing `ls -lt comms-events/` to
-  confirm landing
-- **Surface**: `pnpm agent-tools:collaboration-state -- comms send`
-- **Observed**: Successful invocation produces no observable confirmation
-  that the event was written or where. Agents fall back to listing the
-  events directory by mtime to verify the write landed. Failure messages
-  are also frequently truncated by the shell pipeline (echo of long --body
-  argument visually consumes the error tail).
-- **Expected**: A single line on success printing the event id and the
-  written path, e.g. `Wrote event <event_id> to <events_dir>/<event_id>.json`.
-  Owner-flagged shape suggested at session close: discoverability of write
-  outcome should be loop-closing.
-- **Candidate cure**: Print the success line. Composes with F-09 (full
-  help on invalid flags) and the broader CLI-discoverability theme.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree. `sendComms` returns
-  structured JSON containing `event_id`, `event_path`, and
-  `shared_log_path`.
-
-### F-14 — `claims open` silently overwrites repeated `--area-pattern`
-
-- **Source**: napkin 2026-05-06 (Masked Stalking Veil, `019dfc`);
-  owner correction after session closeout: manual claim edits are tooling
-  friction and need preservation.
-- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`
-- **Observed**: A closeout claim was opened with six repeated
-  `--area-pattern` flags. The command succeeded and printed a claim, but
-  the authored claim retained only the final pattern
-  (`.agent/state/collaboration/comms-events`). The earlier five patterns
-  were silently overwritten, so the coordination record understated the
-  files being touched. I manually edited `active-claims.json` to restore
-  the intended pattern list before proceeding.
-- **Why it happened**: the CLI presents `--area-pattern <pattern>` as an
-  option but does not make its cardinality explicit. I assumed it behaved
-  like other repeatable path flags (`--file`). The option parser appears
-  to store `area-pattern` as a scalar value, so repeated occurrences use
-  last-write-wins semantics rather than accumulating. Because the command
-  exits 0, this is easy to miss unless the agent inspects the emitted JSON.
-- **Expected**: Either repeated `--area-pattern` accumulates all supplied
-  patterns, or the CLI rejects multiple occurrences with an explicit error
-  and help text. Silent last-write-wins is the unsafe shape because it
-  produces plausible but incomplete coordination state.
-- **Candidate cure**: Treat `--area-pattern` as repeatable in the parser
-  and tests, mirroring `--file`; update help text to state cardinality
-  (`repeatable`) and include a multi-pattern example. If single-pattern is
-  intentional, add duplicate-flag detection that exits non-zero and prints
-  the supported shape. Add a regression test asserting multi-pattern claim
-  creation preserves every supplied pattern.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-options.ts`;
-  `agent-tools/src/collaboration-state/cli-claim-commands.ts`;
-  `agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts`
-- **Status**: addressed-in-working-tree-2026-05-10
-- **Review 2026-05-10**: fixed in working tree by adding repeatable
-  `areaPatterns` parsing, exact-one validation for `--file` vs
-  `--area-pattern`, help text that states repeatability/mutual exclusion,
-  and regression coverage for both repeated-pattern preservation and mixed
-  source rejection. `agent-tools/README.md` now includes a multi-pattern
-  `--area-pattern` example.
-- **Landing trigger**: after commit, replace this working-tree status with
-  `addressed-in-<commit-sha>`.
-- **Owner direction**: standing (agent-tooling friction is first-class user
-  feedback)
-- **Recurrence**: 2026-05-06 (Clouded Lifting Aerie, `1e2244`) — same
-  shape reproduced cleanly. Six `--area-pattern` flags supplied to
-  `claims open`; the persisted claim retained only the final pattern
-  (`.agent/state/collaboration/**`). The first five patterns were
-  silently overwritten. Manual edit of `active-claims.json` restored
-  the intended pattern list. Confirms F-14 is still unmitigated; the
-  cure ("treat `--area-pattern` as repeatable, mirroring `--file`")
-  remains the right shape and is worth prioritising — every
-  multi-area claim opener pays the manual-repair tax.
-- **Recurrence**: 2026-05-07 (Embered Roasting Flame, `019e03`) —
-  reproduced again while opening the Sonar remediation claim. Four
-  repeated `--area-pattern` flags were supplied; the persisted claim
-  retained only the final pattern (`.agent/state/collaboration/**`).
-  Manual edit of `active-claims.json` restored the missing
-  `packages/sdks/oak-sdk-codegen/**`, `packages/core/oak-eslint/**`,
-  and thread-record patterns. Owner direction in-session: log this as a
-  bug to fix.
-
 ### F-15 — Commit-queue fingerprint recursion when claim file is in staged set
 
 - **Source**: napkin 2026-05-06 (Hidden Slipping Moth, `4be7b5`),
@@ -615,11 +328,11 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: (a) refactor fingerprint storage to a sibling
   file (`active-claims.fingerprint`) that is gitignored or carries
   its own claim-window discipline; (b) failing that, add explicit
-  protocol documentation in `.agent/skills/commit/SKILL-CANONICAL.md`
+  protocol documentation in `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`
   Pre-Commit Validation section and a CLI warning in `verify-staged`
   if active-claims.json shows `MM` after `record-staged`.
 - **Target surface**: `agent-tools/src/commit-queue/`;
-  `.agent/skills/commit/SKILL-CANONICAL.md`; commit-queue CLI help
+  `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`; commit-queue CLI help
   text.
 - **Review 2026-05-10**: still open. `record-staged` still writes the
   fingerprint into the registry entry and `verify-staged` still verifies
@@ -1091,44 +804,6 @@ below is a cross-reference index, not a second source of truth.
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback).
 
-### F-35 — `comms append`/`send --help` hides the `--tag heartbeat` typed-arg mode
-
-- **Source**: Windward Gliding Squall (`ab2bcd`) 2026-06-04 broadcast comms
-  event `fa7eb7df`; owner-relayed in-session.
-- **Surface**: `pnpm agent-tools:collaboration-state -- comms append --help`
-  (and the mirrored `comms send` path).
-- **Observed**: The `--help` usage line lists `(--body | --body-file)` as
-  required and `--tag` as accepting `[failure-mode, behaviour-note, heartbeat]`,
-  but does NOT surface that `--tag heartbeat` switches modes: it REJECTS
-  `--body`/`--body-file` and instead REQUIRES the typed state args
-  `--claim-id --intent-id --branch --current-cycle-label`. A heartbeat Monitor
-  built from `--help` plus the `liveness-heartbeat-cron` rule prose passed
-  `--body` and failed every cycle (exit 2) until the agent ran it manually to
-  read the (excellent) runtime error. The exact flag names lived only in the
-  runtime error, not in `--help`.
-- **Expected**: `comms append --help` reveals the heartbeat-mode flag set so an
-  agent building a heartbeat loop from `--help` alone composes a valid
-  invocation first time.
-- **Candidate cure**: document the heartbeat mode inline in the `comms append`
-  AND `comms send` help strings (both route `--tag heartbeat` through the same
-  typed-state body composer in `comms-heartbeat-cli.ts`). A static inline note
-  beats a dynamic branch — an agent reading `--help` with no flags sees both
-  modes.
-- **Target surface**:
-  `agent-tools/src/collaboration-state/cli-specs.ts` (help wiring) →
-  help strings extracted to
-  `agent-tools/src/collaboration-state/cli-spec-help.ts`;
-  regression tests in
-  `agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts`.
-- **Status**: addressed-in-working-tree-2026-06-04 (Fiery Forging Ash) —
-  `comms append`/`send --help` now document `HEARTBEAT MODE` with the typed
-  state args and the `--body`/`--body-file` rejection; help text extracted to a
-  dedicated module so the spec table stays under its `max-lines` ceiling as
-  help text grows; CLI-level help tests assert both commands. Pending commit;
-  replace with `addressed-in-<commit-sha>` after landing.
-- **Owner direction status**: standing (F-09 discoverability family —
-  agent-observed tooling friction is first-class user feedback).
-
 ### F-36 — `pnpm agent-tools:*` wrapper preamble pollutes captured stdout
 
 - **Source**: Windward Gliding Squall (`ab2bcd`) 2026-06-04 consolidated
@@ -1182,6 +857,14 @@ below is a cross-reference index, not a second source of truth.
   (§Reality Reconciliation); generator + validator.
 - **Status**: recorded — review deferred to a later session (owner direction
   2026-06-14). Gap ledger lives in the owning plan's §Reality Reconciliation.
+  Partially addressed 2026-09-09 on the Oak line (MCP-706, ADR-125 amendment of
+  2026-09-09), carried in at the 1.185.0 sync of 2026-09-17: the spec-portable
+  fields `license`, `compatibility`, `metadata` and `allowed-tools` pass through,
+  quoted, to both adapter surfaces, and a malformed spec field refuses the
+  canonical; the prefix applies to every canonical, so `metadata.owned` (quoted
+  `"true"`) is declared metadata rather than the trigger. Still open from the
+  2026-06-14 observation: the owned/ingested consistency check and `claude-*`
+  hoisting.
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback); review-timing session-scoped (deferred 2026-06-14).
 
@@ -1767,17 +1450,6 @@ below is a cross-reference index, not a second source of truth.
 
 ---
 
-### F-70 — `comms list` has no time/`--since` filter, and there is no `comms recent`
-
-- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
-- **Surface**: `pnpm agent-tools:collaboration-state -- comms list`.
-- **Observed**: To read events since session-open I reached for `comms recent --limit N` (does not exist) then `comms list --since <iso>` (`unknown option for comms list: --since`). The only narrowing knob is `--tail <n>`, so situational catch-up is "tail a guessed N and eyeball timestamps". For a session opening hours into a thread, the natural query is "everything since `<iso>`", which the CLI cannot express.
-- **Expected**: A `--since <iso>` (and/or `--until`) filter on `comms list`, or a `comms recent` alias, so an agent can read exactly the window between session-open and watcher-arm without over-/under-reading.
-- **Candidate cure**: Add `--since`/`--until` ISO filters to `comms list`; optionally a `comms recent` alias for `list --since <session-open>`.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: ADDRESSED 2026-06-28 (PR #278, merge commit `04fc5c8d9`; feature `b820711d0` "generic no-events message for empty dir with --since"). `comms list` now accepts the `--since <iso>` filter.
-- **Owner direction status**: standing (owner 2026-06-19: "keep a clear record of all comms issues and other tooling frustrations so that we can fix them"; reinforces Pelagic `2dbd74f6`).
-
 ### F-71 — `pnpm agent-tools:*` wrapper buries the CLI's own error behind `ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL`
 
 - **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
@@ -1787,33 +1459,6 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: Have the `agent-tools:*` package scripts exec the bin without pnpm's recursive-run wrapper (direct `node …` in the script), or document the direct-`node` invocation as the canonical interactive form for read commands.
 - **Target surface**: `agent-tools/package.json` scripts; `use-built-agent-tools-cli` rule / `comms-all-channels-watcher` rule docs.
 - **Status**: open.
-- **Owner direction status**: standing (owner 2026-06-19, as F-70).
-
-### F-72 — `claims active-agents` requires an explicit `--active <path>` to the canonical claims file
-
-- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
-- **Surface**: `collaboration-state claims active-agents`.
-- **Observed**: Run without args it errors `missing required option --active`; the agent must pass `--active .agent/state/collaboration/active-claims.json` — the single canonical, well-known location every other reader already assumes. The required-flag forces the agent to know and re-type the path that the tool could default to.
-- **Expected**: `--active` defaults to `.agent/state/collaboration/active-claims.json` (overridable), matching how the watcher/inbox default their comms-dir from convention.
-- **Candidate cure**: Default `--active` (and the optional `--closed`) to the canonical paths; keep the flags as overrides.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claims-commands.ts`.
-- **Status**: CLOSED-BY-F-85 2026-06-28 (PR #274, squash-merged `c4d2b6902`). F-85's `withResolvedActive` wrapper covers `claims active-agents` and the change added `repo-root` to its option-set, so `--active` now defaults to the coordination home — exactly F-72's expected cure (verified first-hand by the implementer). The optional `--closed` default named in the candidate cure is the `--closed`-sibling friction (O2 follow-on), captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
-- **Owner direction status**: standing (owner 2026-06-19, as F-70).
-
-### F-73 — Heartbeat mode requires a claim, so pre-claim roles (successor-in-waiting / standby / scout) cannot emit a liveness heartbeat
-
-- **Source**: this session (Merlin spins Cirrus, `5e7419`), 2026-06-19.
-- **Surface**: `collaboration-state comms send --tag heartbeat` (and `comms append`).
-- **Observed**: Heartbeat mode rejects `--body` and *requires* `--claim-id --intent-id --branch --current-cycle-label`. A `start-right-team` agent in a legitimate pre-claim state — successor-in-waiting (this session), `standby`, or `scout` per the skill's own role vocabulary — has no claim/intent/branch yet, so it cannot emit a typed heartbeat to signal "alive, not yet on a lane". The only liveness signals available pre-claim are a narrative broadcast and owner chat-visibility; the typed heartbeat surface is closed to exactly the roles whose presence is least otherwise visible.
-- **Expected**: A pre-claim agent can emit a heartbeat with an honest no-claim lane label (e.g. `cycle=successor-in-waiting` / `standby`), without inventing a claim.
-- **Candidate cure**: Allow `--tag heartbeat` with a lane/cycle label but no claim-id when the agent has no open claim (typed state becomes `{cycle: <label>, claim: none}`); or document that pre-claim liveness uses a narrative event and the consumer-absent exemption, so the gap is intentional rather than a discoverability trap.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; `liveness-heartbeat-cron` rule.
-- **Status**: doc-cure met 2026-06-29 (Quoll consolidation; Director-agreed). The
-  `liveness-heartbeat-cron` §Exemptions consumer-absent bullet now documents the standby contract as
-  a worked instance of the existing PDR-078 §4 exemption — a standby holds no claim → no consumer →
-  consumer-absent → it needn't (and can't) heartbeat; the gap is **intentional**. The alternative
-  "allow pre-claim heartbeats" cure is therefore unnecessary; no code change required. Closes the
-  documentation branch of the candidate cure.
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-74 — A full `pnpm build` in a fresh worktree fetches live upstream OpenAPI schema and dirties generated SDK files
@@ -1867,25 +1512,6 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
-### F-77 — `comms reply` cannot reference a broadcast/narrative event; no way to set `in_response_to` on an `append`
-
-- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
-- **Surface**: `agent-tools collaboration-state comms reply` / `comms append`.
-- **Observed**: PDR-064 Moment 2 (coordinator active-acknowledgement) should reference the Moment-1
-  pre-positioning event via `in_response_to`. The pre-positioning is a `narrative` broadcast, but
-  `comms reply --to-event-id <broadcast-id>` failed `directed message not found` — `reply` only
-  resolves `directed` events. There is no `--in-response-to` option on `comms append`, so a
-  broadcast acknowledgement can only reference its antecedent in prose (title/body), losing the
-  machine-readable edge.
-- **Expected**: A clean way to set `in_response_to` when acknowledging a broadcast — either let
-  `comms reply` reference any event kind, or add `--in-response-to <id>` to `comms append`.
-- **Candidate cure**: Add `--in-response-to <id>` to `comms append` (broadest fix; serves PDR-064
-  Moment 2 and any broadcast→broadcast threading).
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; interacts with
-  PDR-064.
-- **Status**: ADDRESSED 2026-06-28 (PR #279, merge commit `13ce23cca` "comms append --in-response-to"). `comms append` now accepts `--in-response-to <id>` — the broadest fix named in the candidate cure.
-- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
-
 ### F-78 — `check-commit-message` is not an `agent-tools` subcommand; only reachable via the pnpm script
 
 - **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
@@ -1902,35 +1528,6 @@ below is a cross-reference index, not a second source of truth.
   `agent-tools` subcommands alongside `commit-queue`.
 - **Target surface**: `agent-tools/src/bin/agent-tools.ts` topic registry.
 - **Status**: open.
-- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
-
-### F-79 — `comms list` rejects `--now`; option surface inconsistent across comms subcommands
-
-- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
-- **Surface**: `agent-tools collaboration-state comms list`.
-- **Observed**: `comms list --now <iso>` failed `unknown option for comms list: --now`, although
-  `--now` is required on `comms append`/`reply`. An agent carrying a `$NOW` from prior comms calls
-  naturally passes it and hits a hard error on a read-only command.
-- **Expected**: Read-only subcommands accept-and-ignore `--now` (or the option surface is documented
-  per-subcommand at a glance).
-- **Candidate cure**: Accept-and-ignore `--now` on read-only comms subcommands; composes with F-09
-  (full help on invalid flag).
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: ADDRESSED 2026-06-28 (PR #281, merge commit `80e1ebc85` "comms list accept-and-ignore --now"). Read-only `comms list` now accepts-and-ignores `--now`.
-- **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
-
-### F-80 — `comms show` needs `--event-id <id>`, not a positional id, while `comms list` prints bare ids
-
-- **Source**: Vesuvius calls Quench (`92cefc`), 2026-06-21 director session.
-- **Surface**: `agent-tools collaboration-state comms show`.
-- **Observed**: `comms list` prints bare event ids per line, inviting `comms show <id>`, but
-  `comms show <id>` fails `unknown argument: <id>` — the id must be passed as `--event-id <id>`.
-  Small but a repeated stumble when triaging events from a `list` output.
-- **Expected**: `comms show` accepts a positional event-id (the obvious shape given `list`'s output),
-  or errors with "did you mean --event-id?".
-- **Candidate cure**: Accept a positional event-id on `comms show` as an alias for `--event-id`.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: ADDRESSED 2026-06-28 (PR #283, merge commit `33f7bc4a2`; feature `5a57026a2` "accept event id as positional on comms show"). `comms show <id>` now accepts a positional event-id.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ---
@@ -1961,29 +1558,6 @@ below is a cross-reference index, not a second source of truth.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ---
-
-### F-84 — pending-graduations decision-debt count reads 0 regardless of live items (fenced entries are stripped before counting)
-
-- **Source**: Petrel stirs Wingspan, 2026-06-22 dedicated-consolidation first-hand loss-scan — observed the fitness report show `Live decision-debt: 0` while two `status: pending` items were live in the register.
-- **Surface**: `agent-tools/src/practice-fitness/item-count.ts` (`stripFencedBlocks` + `parseRegisterItems`) vs the entry format in `.agent/memory/operational/pending-graduations.md`.
-- **Observed** (regex read first-hand): the canonical entry format is **unambiguous** in the code — `INLINE_ENTRY = /` + "`" +`\[(captured:…)\]`+ "`" + `/g`, i.e. a **backtick-wrapped square-bracket inline block** `` `[captured: … | status: …]` `` placed in prose. The parser also calls `stripFencedBlocks` (removes ` ``` `/`~~~` fenced blocks by design, so a documented schema *example* is not miscounted). The register's live entries drifted to a **` ```text `-fenced, bare pipe-field** shape (no backtick-bracket wrapper; the convention its own header wrongly documents as "a fenced bracket"). These conform to *neither* matcher: they are stripped as fences AND lack the `` `[…]` `` wrapper. So they are invisible → decision-debt reads **0 while live items exist** — a **false-green** on the buffer's *primary* health signal and the `consolidate-until-done` completion gate. The non-conformance is **silent**: the only malformed-detector (`LEGACY_BLOCK_MARKER`) catches the OLD multi-bullet shape, not the fenced-pipe-field shape, so these entries raise no finding. The same parse failure also disabled the **dwell** anti-starvation signal: `oldestLiveItemAgeDays` operates on parsed items, so it read null — the bug killed *both* the decision-debt count AND the oldest-undecided-item alarm, leaving a live item with no surfacing at all (both signals returned the moment the entries were reformatted to canonical form).
-- **Expected**: a non-conforming entry-shaped block raises a loud `malformed` finding (as the legacy shape does) instead of being silently uncounted; the documented entry format and the parser agree.
-- **Diagnosis (bug, not interpretation)**: the count of 0 is "correct" for zero *conforming* entries — the validator computes correctly, but the input does not conform and the non-conformance is silent. The only interpretive call ("which format is canonical?") is settled by the regex (inline `` `[…]` ``); the header is simply wrong, and making the validator count fenced blocks instead would reintroduce the schema-example miscount the fence-strip exists to prevent.
-- **Cure** (two parts): (1) **data/doc** — reformat the live entries to the canonical inline `` `[captured: … | status: …]` `` and fix the header instruction; this alone makes the count correct. (2) **TDD validator hardening** (the recurrence-proof, architecturally-right cure per `verify-gate-fails-on-known-bad` + metacognition §Cure-Shape): add malformed-detection for an entry-shaped block (carries `captured:` … `| status:`) that is fenced or otherwise not in canonical form — RED (a fenced entry yields no finding today) → GREEN (it yields a `malformed` finding), mirroring `LEGACY_BLOCK_MARKER`. Converts the silent false-green into a loud conformance failure.
-- **Target surface**: `agent-tools/src/practice-fitness/item-count.ts` (the malformed-detector); `.agent/memory/operational/pending-graduations.md` header + entry format; the `pending-graduations-schema-and-count-fitness` plan.
-- **Status**: ADDRESSED (2026-06-22) — `validateRegisterItems` now flags an entry-shaped block lacking the canonical `[…]` wrapper as `malformed` (commit `f056285fb`, TDD), so the silent miscount is a loud `⚠ non-conformant entries` report line; the two live register entries were reformatted to canonical wrapped-inline form, and the count now reads 2 (soft) — the true decision-debt — instead of a false 0. The recurrence-proof cure (the detector) and the data fix both landed.
-- **Owner direction status**: unsolicited (surfaced by the loss-scan; record-all-frictions standing).
-
-### F-85 — `claims` commands need an explicit `--active` and do not resolve the coordination home (fragment from worktrees)
-
-- **Source**: Snowdrop calls Topsoil (`f07539`), 2026-06-24 worktree-pilot bootstrap
-- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`, `cli-specs.ts`
-- **Observed**: `claims open|close|list|heartbeat` take a **required** `--active <path>` with no default and no `--repo-root` option. `comms` subcommands auto-resolve the coordination home to the primary checkout via `resolveCoordinationHome`; claims do not. From a linked worktree a relative `--active` writes a worktree-local `active-claims.json` invisible to peers — coordination silently fragments (the F-41 failure mode, but for claims rather than comms).
-- **Expected**: claims resolve the same shared primary home as comms with no per-call ceremony, so a worktree-isolated agent's claims are visible to the team by default.
-- **Candidate cure**: wire `resolveCoordinationHome(cwd)` as the `--active` default (with `--repo-root`/`--active` as the explicit escape hatch), mirroring `cli-comms-send.ts` / `cli-comms-validate.ts`.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (+ option defaulting)
-- **Status**: ADDRESSED 2026-06-28 (PR #274 `feat(agent-tools): claims active-path defaults to coordination home`, squash-merged `c4d2b6902`). New `claim-active-path.ts` (`resolveActivePath` / `withActiveDefault` / `withResolvedActive`) wraps all 11 `claims` handlers so `--active` defaults to the coordination home (resolved via `git worktree list`), with a `--repo-root` escape hatch — cures the F-41-class claim fragmentation from worktrees. code-expert + test-expert approved first-hand; full agent-tools suite 1590 green. Also CLOSES F-72 (`active-agents` covered by the same wrapper). **NARROW** — the sibling `--closed` registry default (`claims close` / `archive-stale` / `active-agents`) is the same F-41 class, captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
-- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-86 — pnpm script wrapper echoes `$ …` command lines to stdout, unusable for a Monitor watcher
 
@@ -2017,17 +1591,6 @@ below is a cross-reference index, not a second source of truth.
 - **Not a per-agent hot-patch** (2026-06-27, Oyster spins Coral, first-hand): switching one agent's file to kebab breaks only that agent, because peers' live watchers + the F-95/`claims open` gates all key on the spaced `agent_name` form right now — which is itself the proof the entrenched convention cannot be opted out of per-agent. Needs the structural CLI fix landed with a dual-read backward-compat migration of the 88 existing files, when the multi-agent window is quiet.
 - **Target surface**: `agent-tools` comms-seen path derivation (the `commsSeenFileForCodename` derivation point) / `comms-all-channels-watcher` rule convention text
 - **Status**: open
-- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
-
-### F-89 — `claims open` requires `--now`; inconsistent timestamp-defaulting across the CLI
-
-- **Source**: Snowdrop calls Topsoil (`f07539`), 2026-06-24 worktree-pilot bootstrap
-- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (`claims open`)
-- **Observed**: `claims open` fails with `missing required option --now`, forcing a `date -u` substitution on every call. Timestamp-defaulting is inconsistent across the CLI (cf. F-79 where `comms list` *rejects* `--now`).
-- **Expected**: interactive invocations default `--now` to the current time, with the explicit flag retained for deterministic/replay use.
-- **Candidate cure**: default `--now` to `new Date().toISOString()` at the composition edge when the flag is absent; keep it overridable. Audit the whole CLI for one consistent timestamp-defaulting policy.
-- **Target surface**: `agent-tools/src/collaboration-state/` command option defaulting (CLI-wide)
-- **Status**: ADDRESSED 2026-06-28 (PR #276 `feat(agent-tools): claims open defaults --now to current time`, squash-merged `afcc6bbed`). New `claim-now-default.ts` seam defaults `--now` to the current ISO time when omitted on `claims open`, with the explicit flag retained for deterministic/replay use; TDD red-first (TS2307) → green, run-the-thing proof that `claims open` without `--now` stamps a valid current ISO. code-expert + test-expert + type-expert assessed first-hand (a code-expert/test-expert contradiction on F-85 test-coverage was resolved first-hand — F-85 *is* tested). **NARROW** — only `claims open` gained the default; the CLI-wide timestamp-defaulting audit remains open, and its siblings ship as the O2 tail (F-70 `comms list --since`, F-77 `comms append --in-response-to`, F-79 `comms list` accept-ignore `--now`, F-80 `comms show` positional id), each a separate entry. F-79 (`comms list` *rejects* `--now`) is the deliberate inverse and is NOT closed by this.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-90 — fresh git worktree has no `node_modules` / `agent-tools/dist`; gates and the CLI cannot run there until bring-up
@@ -2074,28 +1637,6 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: allow `--body-file` from an ephemeral coordination scratch location for `directed` events, or raise the directed-event ceiling above broadcast (directed steers are point-to-point, not stream-scannability-sensitive in the same way).
 - **Target surface**: `agent-tools` comms-send body-length policy / directed-event handling
 - **Status**: open (low severity; by-design tension)
-- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
-
-### F-94 — `claims` CLI has no adopt/transfer and cannot set `handoff_record_path`
-
-- **Source**: Director-handoff "Known friction" (`.agent/memory/operational/director-handoff.md`), 2026-06-25 worktree-pilot Director succession (PDR-063 mid-cycle handoff).
-- **Surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (`claims open|close|list|heartbeat`); no `claims adopt` / `claims set-handoff` subcommand.
-- **Observed**: a PDR-063 mid-cycle handoff requires the outgoing Director to retain a claim for the successor and the successor to adopt it, but the CLI has no `claims adopt --claim-id <id>` (transfer ownership of an existing claim) and no `claims set-handoff --claim-id <id> --path <path>` (record the `handoff_record_path` on a claim). Worked instance 2026-06-25: reusing `--claim-id` on `claims open` to "transfer" a claim created a DUPLICATE active-claims row (two rows sharing one `claim_id`) rather than transferring ownership — recovery was to close all rows and open fresh (`f2a17e85` → `d8533d0d`). Hand-editing `active-claims.json` to set the handoff path or transfer ownership is unsafe in a busy multi-writer window.
-- **Expected**: an outgoing role-holder can hand a claim to a successor and set its handoff-record path through the CLI, without duplicate rows or hand-edits.
-- **Candidate cure**: add `claims adopt --claim-id <id>` (rewrites the holding agent identity on an existing row, no new row) and `claims set-handoff --claim-id <id> --path <path>` subcommands; the PDR-063 substrate is the sibling design (ADR-182).
-- **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts`, `cli-specs.ts`; PDR-063 / ADR-182.
-- **Status**: fixed-2026-06-25-commit-e95fb9594 — `claims adopt` + `claims set-handoff` landed (PR #225); no duplicate-row workaround.
-- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
-
-### F-95 — No start-right watcher-presence fail-fast gate
-
-- **Source**: Director-handoff "Known friction" (`.agent/memory/operational/director-handoff.md`), 2026-06-25 worktree-pilot session.
-- **Surface**: session-open / `start-right-team` (`oak-start-right-team`); `.agent/rules/comms-all-channels-watcher.md` (prose rule only).
-- **Observed**: the "arm the all-channels comms watcher as move 1" rule is prose, backed by agent diligence rather than a mechanical gate. Worked instance 2026-06-25: an implementer skipped arming the watcher under ceremony-aversion ("read-only / n=2 / minimal"), went blind to a simultaneous identical-branch claim, and never re-armed. Nothing failed fast to catch the missing watcher.
-- **Expected**: starting team work without a live comms watcher fails fast at session-open, so the constitutive team-visibility rule is enforced mechanically rather than relied on as diligence.
-- **Candidate cure**: a session-open / `start-right-team` check that detects no live comms watcher (no fresh `*.heartbeat.json` for this session's watcher under `.agent/state/collaboration/comms-seen/`) and fails fast / refuses to proceed until one is armed. Distinct from F-69's session-open stale-state *sweep* — this is a watcher-presence *gate*.
-- **Target surface**: `oak-start-right-team` skill / a session-open check; `.agent/rules/comms-all-channels-watcher.md` (prose → backed by a gate). Relates to F-69 (adjacent session-open hook).
-- **Status**: fixed-2026-06-25-commit-e95fb9594 — watcher-presence gate landed (PR #225): `comms assert-watcher-live` move-1 check (A) + `claims open` blind-write backstop (B), solo-exempt. Broader than the original candidate cure (move-1 check only).
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-96 — Continuity-buffer handoff commit blocked by markdownlint
@@ -2399,55 +1940,6 @@ below is a cross-reference index, not a second source of truth.
   non-empty file.
 - **Status**: open (documentation-level; behaviour is the platform's).
 
-### F-112 — `commit-queue -- commit` spawned `git commit` dies at the depcruise→turbo stream handover; the proper commit path is broken
-
-- **Source**: first observed 2026-06-17; reproduced twice 2026-07-03 (Sardine spins
-  Estuary) — once with the hook streaming live, once with the parent command's
-  stdout/stderr redirected to a file, so the redirect does NOT cure the spawned-child
-  case. `bash .husky/pre-commit` exits 0 standalone each time: the gates are green and
-  the failure is the workflow's child-process stream handling, not the hooks.
-- **Surface**: every `pnpm agent-tools:commit-queue -- commit` invocation from a
-  Claude Code session — the move-3 landing step of the commit skill's four-move
-  protocol.
-- **Observed**: the internally-spawned `git commit` exits 1 with output truncated at
-  the `depcruise → turbo` handover; no commit lands; the workflow's verify-staged
-  bookends and auto-complete never run.
-- **Expected**: the workflow lands the commit, or fails with the child's real error.
-- **Posture (owner directive 2026-07-03, "no fallbacks, ever — do it properly or
-  error"; `principles.md` §Strict and Complete, "No shims, no hacks, no workarounds —
-  do it properly or do not")**: the workflow's failure is an ERROR to stop on and
-  surface — never a trigger for an equivalent-effect route (direct `git commit`,
-  manual staging surgery). The commit skill's former fallback guidance is withdrawn
-  (amended same commit as this entry).
-- **Candidate cure**: fix the spawned-process stdio handling in the agent-tools
-  commit-queue workflow (likely backpressure on the live-piped child stream at the
-  point turbo takes over the tty; capture the child's output to a buffer/file and
-  replay, rather than live-piping). TDD cycle against a long-output child process.
-- **Status**: fixed 2026-07-03 at `b2ae96898` (per
-  `f-112-commit-workflow-stream-truncation-fix.plan.md`). Mechanism pinned by
-  instrumented runs: Node's child-stdio pipes are libuv socketpairs; one on the spawned
-  git's stderr poisons the hook chain (hook shell takes SIGPIPE at the depcruise→turbo
-  handover; `set -e` exits 1 silently). Cure: `runInheritedProcess` gives children
-  file-backed stdio and replays the conserved streams on completion, reporting exit code
-  and signal distinctly. Proof: the blocked reconciliation bundle landed through the
-  workflow (`c14866649`), then the fix commit itself (`b2ae96898`, exit 0, hook output
-  conserved end-to-end); two real gate failures during landing surfaced with full
-  output — the truncation used to swallow exactly these. Queue-workflow commits from
-  Claude Code are unblocked, including the memory-drain plan's loop commits.
-- **Second instance (push path), observed and cured 2026-08-07 (Saffron guards
-  Hedgerow)**: `merge-bot push`'s `streamingGitCall` still spawned git with pipe
-  stdio, so the class recurred one wrapper over — reproduced four times first-hand:
-  the pre-push chain's knip child died with empty output at the depcruise→knip
-  handover, an instrumented diagnosis line written to stderr was ITSELF eaten by the
-  poisoned stream, and git's exit code arrived null (reported as `-1`), while the
-  identical hook chain run directly (`sh .husky/pre-push` to a file) passed green.
-  Cure: the runner moved to its shared home `agent-tools/src/core/file-backed-child.ts`
-  (third consumer) and the push executor consumes it; `GitCommandResult` and
-  `RepoCheckCommandResult` now carry the killing signal distinctly; the knip gate
-  prints a crash-class diagnosis line on the SURVIVING stream (stdout) when the child
-  dies without a verdict. Corollary pinned by the eaten-diagnosis observation:
-  diagnosis must never ride only the channel whose failure it reports.
-
 ### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
 
 - **Source**: napkin 2026-07-03 (Mistral seeks Jetstream, F-112 execution session) — each
@@ -2519,6 +2011,12 @@ below is a cross-reference index, not a second source of truth.
   exactly `index/head`; a claim opened with `--area-pattern "git:index/head"` (the label the
   commit skill's prose uses throughout) fails with "is not an active git:index/head claim" —
   the error repeats the very label that caused the mismatch.
+- **Second facet (2026-08-03 on the primary; 2026-09-07 in a worktree)**: the guard also
+  refuses an intent enqueued under a files/lane claim, or under a window claim scoped
+  `index/head@<worktree>`, with the same message, because it requires an ACTIVE claim on
+  the bare `git:index/head` label OWNED by the enqueuer; on the shared primary the working
+  flow is request the window, `claims adopt` at the grant, then enqueue. Under the owner's
+  2026-09-07 ruling worktree lanes do not use the queue at all (F-169).
 - **Expected**: either the guard accepts the composed `git:index/head` spelling, or
   `claims open` normalises it, or the error names the cure ("open the claim with
   --area-kind git --area-pattern index/head").
@@ -2629,43 +2127,152 @@ below is a cross-reference index, not a second source of truth.
 - **Target surface**: `agent-tools/src/pr-watch/`.
 - **Status**: open.
 
-### F-163 — abandoned commit-queue intents have no drain; active-claims.json is 4.4MB
+### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
 
-- **Source**: owner question 2026-08-17 ("why are there 4MB of active
-  claims?").
-- **Surface**: `.agent/state/collaboration/active-claims.json`; the
-  `commit-queue` CLI topic.
-- **Observed** (measured): 4,388,290 bytes, of which 4,338,153 is the
-  `commit_queue` array — 227 entries, 226 `abandoned` (2026-07-03 →
-  2026-08-14, ~19KB each: full staged-file listings and fingerprints
-  ride every entry). Live claims: 4 rows, 3,655 bytes. Claims have an
-  archive surface (`closed-claims.archive.json`, `claims
-  archive-stale`); the queue has NONE — the topic ships
-  enqueue/commit/status/list/show only, so abandoned intents accumulate
-  forever, and every claims/comms CLI invocation re-reads the full file
-  per call.
-- **Expected**: an archive action symmetric with claims —
-  `commit-queue archive [--phase abandoned] [--before <iso>]` moving
-  entries loss-free to a dated archive beside the claims archive, with
-  the same recompute-don't-just-record validation the estate expects.
-- **Candidate cure**: build the action (MCP-609-shape micro-lane:
-  TDD, reviews, small PR); wire the warden-hygiene duty to run it at
-  fold boundaries so the drain is a ceremony step, not vigilance.
-- **Status**: SUPERSEDED same day by the owner's QUEUE-LOCAL ruling
-  (rulings ledger): no archive action — the queue leaves the flat file
-  entirely (per-intent event files like comms, 1-hour TTL, list as a
-  view, machine-local never-in-VC). Interim split executed 2026-08-17
-  (live file 4.4MB→4KB; the legacy blob retained loss-free in the
-  gitignored local archive until the MCP-612 landing's verification
-  read, then owner-disposed); the re-shape is plan
-  `commit-queue-local-ephemera` / MCP-612.
-- **Target surface**: `agent-tools/src/commit-queue/`.
+- **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
+  over the session's own material, then verified first-hand
+- **Surface**: `.claude/settings.local.json` env block →
+  `.claude/scripts/statusline-identity.mjs` → the agent-tools statusline adapter
+- **Observed**: the variable is set to the RELATIVE path `.logs/statusline.log`,
+  so it resolves against whatever cwd the statusline child inherits rather than
+  against the project. Two foreign checkouts received it in one morning: a
+  third-party clone in a session scratchpad, and — the one that matters —
+  `visitors/pedagogy-library`, which is a SATELLITE REPOSITORY WITH ITS OWN GIT
+  AND ITS OWN REMOTE. That repo does not ignore the path: `git -C
+  visitors/pedagogy-library status --short` reports `?? .logs/`, and
+  `check-ignore` exits non-zero. The file there is 12,080 bytes written
+  2026-09-12 08:53–08:54 by session `2de3685d`, and each line is a raw
+  statusline payload carrying an absolute home path, a transcript path, and
+  cost and rate-limit telemetry.
+- **Expected**: session instrumentation writes inside the project that owns the
+  session, never into a directory the seat merely visited. A satellite repo's
+  working tree is another repository's surface.
+- **Why it matters beyond tidiness**: the payload content is exactly the class
+  `no-machine-local-paths` exists to keep out of version control (absolute
+  `/Users/<name>/…` paths are PII by that rule's own reasoning), and the
+  estate's validator cannot see it — `validate-no-machine-local-paths` scans
+  THIS repository's tracked files, so a sibling repo's untracked working tree is
+  structurally outside its reach. One `git add -A` in the visitor commits
+  another session's telemetry to a different remote.
+- **Candidate cure**: make the path absolute at its source — resolve it from
+  `CLAUDE_PROJECT_DIR` (already used by the shim two lines above) or from the
+  `project_dir` the statusline payload itself carries, rather than leaving a
+  bare relative path in the env block. Unsetting it is the zero-cost
+  alternative; it is an opt-in diagnostic, not a required surface.
+- **Target surface**: the statusline log-path resolution (adapter), plus the
+  machine-local settings entry that supplies it
+- **Status**: open — the settings file is machine-local and untracked, so the
+  one-line change is the OWNER'S to make deliberately; this row is the
+  disposition, not a request
+- **Owner direction status**: unsolicited
 
-## Mitigated / Addressed Frictions
+### F-182 — instruments that answer about themselves rather than about their input
 
-- F-03 — addressed by current CLI validation ordering.
-- F-14 — addressed in the 2026-05-10 working tree; replace with commit
-  SHA after landing.
+- **Source**: Nettle guards Pistil (`2de368`) and Sandpiper weaves Updraft
+  (`a96287`), 2026-09-12; the owed row recorded on pull request 135 as issue
+  comment 5644730066 and landed here
+- **Surface**: `prettier --check` (the trigger instance), with two siblings
+  named below
+- **Observed**: over a path `.prettierignore` excludes, `prettier --check`
+  prints `All matched files use Prettier code style!` **while matching zero
+  files**. The success sentence is byte-identical to a real pass and nothing in
+  it distinguishes a clean input set from an empty one. Two seats read that line
+  and believed it the same day; `prettier --file-info <path>` answers truthfully
+  (`{"ignored": true, "inferredParser": null}`).
+- **The class, which is the point of the row**: the same shape fired twice more
+  within about 48 hours on unrelated tools — BSD `xargs` silently rejecting `-a`
+  so a zero-hit sweep read as a clean sweep (2026-09-10), and a `comms send
+  --body` whose backtick spans were eaten by the shell while the command still
+  reported success (2026-09-12, corrected as comms event `5b58b189`). In each
+  case the instrument reported on ITSELF — it ran, it exited zero, it printed
+  its success string — and said nothing about whether its input reached it.
+- **Expected**: a seat can tell, from a check's own output, whether the check
+  had anything to check.
+- **Candidate cure**: no new rule (`rules-have-no-exceptions`,
+  `new-rule-vs-pdr-clause`). The portable discipline is to pair any
+  zero-or-green result with a known-hit control before believing it, and to
+  prefer the interrogating form of a tool where one exists (`--file-info` over
+  `--check`; reading a written record back over trusting a write's exit code).
+  Where a gate in this estate reports over a possibly-empty set, printing the
+  matched-file COUNT alongside the verdict converts the vacuous pass into a
+  visible one.
+- **Target surface**: rule or doctrine home for the discipline; individually,
+  any estate-owned check that can report success over an empty input set
+- **Status**: open
+- **Owner direction status**: standing (agent-observed tooling friction is
+  first-class user feedback, Pelagic event `2dbd74f6`)
+
+### F-183 — a peer seat reached the owner's GitHub credential for pull-request writes
+
+- **Source**: Nettle guards Pistil (`2de368`), 2026-09-12, reading pull request 135's
+  comment authorship and review-request timeline after the second seat's handback
+- **Surface**: `gh` under the keyring credential; the bot-identity rule's row for PR
+  comments and review requests
+- **Observed**: two issue comments (5644831605, the handback; 5644834828, its correction)
+  and one Copilot review request (08:41:59Z) on pull request 135 are attributed to the
+  owner's GitHub account. The text of both comments self-identifies as the agent, so the
+  shared-credential rule is met; the bot route (`merge-bot mint-token --scope
+  pull-request-work`, exported as `GH_TOKEN` before the `gh` call) was not taken. The
+  seat's own handback names none of this. Whether the bot path was unavailable to that
+  seat (no `.github/merge-bot.json` at its checkout, an unreadable key) or simply untaken
+  is not known; the seat had closed before the question could be put.
+- **Expected**: every pull-request write from a seat displays as the bot; a seat that
+  cannot mint stops and says so, rather than falling through to the human credential.
+- **Candidate cure**: none new — the rule already carries the assign-first form and the
+  tripwires. The gap is observational: nothing at the seat's boundary told it which
+  identity a `gh` write would carry. The interrogating form exists (`GH_TOKEN="" gh auth
+  status` names the human); pairing it with the mint at session open is the discipline.
+- **Target surface**: `bot-identity-on-third-party-systems` (the arming-time check), and
+  the second seat's own record if it resumes
+- **Status**: open
+- **Owner direction status**: standing (bot identity for all pushes, PRs and comments;
+  reaching for the operator's credential outside the action map's rows is never permitted)
+
+## Settled entries, archived
+
+Every settled entry (cured, or superseded by an owner ruling) was graduated, then archived on
+2026-09-20 by the lifecycle in `continuity-practice.md` §Disposition of Continuity Surfaces:
+each was read whole, its cure verified at the source it names, and any lesson it carried
+checked for a home before the move. The full pre-curation register, byte-identical to the file
+at `SHA:d1564cff9`, is `.agent/memory/operational/archive/frictions-register-2026-09-20.md`
+(blob `42b7d373d`); the entry text lives there. The rows below keep every archived id
+resolvable from this file, because doctrine cites frictions by id.
+
+| Id | Title | Disposition, as verified 2026-09-20 |
+| --- | --- | --- |
+| F-01 | `comms send` rejects `--agent-name` | cured: the help names the identity env inputs (`cli-spec-help.ts`) |
+| F-02 | `claims close` `--closure-summary` alias | cured: alias accepted and documented |
+| F-03 | `claims close` error named the wrong option | cured: unknown options are refused before required-option checks (unit test) |
+| F-04 | `claims open` `--file` vs `--area-pattern` | cured: help states repeatability and mutual exclusion |
+| F-05 | `comms render` aborted on one malformed event | cured: validated atomic writes, loud path-named read failure, `comms validate` (`cli-comms-validate.ts`) |
+| F-11 | no `commit-queue list/show` | cured 2026-05-11 (`e298723c`): both commands with filters |
+| F-12 | `--area-kind` values undiscoverable | cured: enumerated in help and in the error |
+| F-13 | `comms send` printed no event id | cured: `event_id` and `event_path` returned |
+| F-14 | repeated `--area-pattern` overwritten | cured: `areaPatterns` repeatable, with regression coverage |
+| F-35 | heartbeat mode hidden from `--help` | cured: `HEARTBEAT MODE` documented in `cli-spec-help.ts` |
+| F-70 | no `comms list --since` | cured 2026-06-28 (PR #278) |
+| F-72 | `claims active-agents` required `--active` | cured by F-85's coordination-home default (PR #274) |
+| F-73 | heartbeat mode requires a claim | cured as documentation: the standby contract is PDR-078 §4's consumer-absent exemption (`liveness-heartbeat-cron` §Exemptions) |
+| F-77 | `comms append` could not thread a broadcast | cured 2026-06-28 (PR #279): `--in-response-to` |
+| F-79 | `comms list` rejected `--now` | cured 2026-06-28 (PR #281): accepted and ignored (`cli-specs.ts`) |
+| F-80 | `comms show` needed `--event-id` | cured 2026-06-28 (PR #283): positional id accepted |
+| F-84 | decision-debt count read 0 with live items | cured 2026-06-22 (`f056285fb`): non-canonical entries reported as malformed (`item-count.ts`) |
+| F-85 | `claims` commands required `--active` | cured 2026-06-28 (PR #274): `claim-active-path.ts` defaults to the coordination home |
+| F-89 | `claims open` required `--now` | cured 2026-06-28 (PR #276): `claim-now-default.ts`; the CLI-wide defaulting audit is F-109's |
+| F-94 | no `claims adopt` or `set-handoff` | cured 2026-06-25 (`e95fb9594`, PR #225) |
+| F-95 | no watcher-presence gate | cured 2026-06-25 (`e95fb9594`, PR #225): `comms assert-watcher-live` and the `claims open` backstop; F-104 and F-174 record the gate's own defects |
+| F-108 | `--closed` had no coordination-home default | cured 2026-06-28 (PR #285, `7d8a1db3a`); this id was assigned inside F-72 and F-85 and never had an entry of its own |
+| F-112 | `commit-queue commit` died at the depcruise→turbo handover | cured 2026-07-03 (`b2ae96898`) and, on the push path, 2026-08-07: file-backed child stdio (`agent-tools/src/core/file-backed-child.ts`; pattern `file-backed-stdio-for-spawned-gate-children`) |
+| F-132 | guard rejected `git:index/head@<worktree>` | superseded by scope (owner ruling 2026-09-07: worktree lanes do not use the queue; the commit skill carries it) |
+| F-139 | guard rejected the `index/head@<worktree>` pattern | superseded by scope, as F-132 |
+| F-146 | `comms watch` had no heartbeat exclusion | cured 2026-07-20: `--exclude-tag` (`cli-options.ts`; the watcher rule §Sanctioned tag exclusion) |
+| F-147 | the knip leg passed when knip crashed | cured 2026-07-21: both hooks call `pnpm knip:gate` and fail closed |
+| F-156 | `merge-bot merge` injected the app token into the OAuth-only probe | cured 2026-08-08 (PR #823): the read path runs token-free (`merge.ts`) |
+| F-163 | abandoned commit-queue intents had no drain | superseded 2026-08-17 by the owner's QUEUE-LOCAL ruling: the per-intent `commit-queue/` store (MCP-612) |
+| F-169 | the queue serialised commit windows across worktrees | superseded by scope (owner ruling 2026-09-07); the host bound on concurrent full gates is `no-unbounded-host-load` item 6 |
+
+Ids that head no entry: F-81 (a napkin candidate of 2026-06-21, cited by F-82 and theme 6, never
+registered) and F-171 (never assigned).
 
 ---
 
@@ -2991,30 +2598,10 @@ commit SHA and the closing plan reference.
   supervisor-pid pattern the comms watcher already uses) so an interrupted commit reaps its
   tree; (c) the load-check-before-heavy-chain step from the cross-estate one-heavy-chain
   agreement becomes a commit-skill preflight.
-- **Target surface**: `.agent/skills/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
+- **Target surface**: `.agent/skills/change-custody/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
   spawn path (`runInheritedProcess`).
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
-
-### F-132 — `commit-queue guard` rejects the worktree-scoped `git:index/head@<worktree>` claim spelling
-
-- **Source**: R0a tranche-1 landing 2026-07-06 (Stoat rides Gloaming, 432a41), formally
-  registered 2026-07-07 (Leopard spins Moonrise, b07d1d) per execution-record §5.7; the
-  mechanism was first conserved on abandoned commit-queue intent `258714ba`/`e38f8da0` notes.
-- **Observed**: a PDR-117 worktree seat opens its commit-window claim as
-  `git:index/head@<worktree-name>` (the spelling the commit skill's merge-commit section
-  itself prescribes for worktree seats); `commit-queue guard` matches only the bare
-  `index/head` pattern and rejects the worktree-scoped spelling, so the queue ceremony
-  refuses a correctly-claimed worktree commit window.
-- **Expected**: the guard recognises worktree-scoped commit-window claims as valid for a
-  bundle staged in that same worktree.
-- **Candidate cure**: teach the guard the `index/head@<worktree>` pattern family and match
-  claim scope to the invoking tree (same-tree claims gate; other-tree claims do not).
-- **Target surface**: `agent-tools/src/collaboration-state` claims/guard matching + the
-  commit-queue guard.
-- **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
-  `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
-- **Owner direction status**: standing (record-all-frictions).
 
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
 
@@ -3073,7 +2660,11 @@ commit SHA and the closing plan reference.
   CLI-ergonomics plan (`agent-tools-cli-ergonomics.plan.md`) — this friction is that
   plan's highest-priority item by owner direction.
 - **Target surface**: `agent-tools/src/collaboration-state/` (inbox command).
-- **Status**: open — OWNER PRIORITY.
+- **Status**: open — OWNER PRIORITY. Second instance 2026-09-03 (Buzzard lifts
+  Eyrie, 326bcb, relayed at a boundary): the post-arm gap sweep had to read the
+  whole inbox or rely on the seen-file cursor; the ask now includes
+  `comms list --since` parity (folded here from a duplicate entry at the
+  2026-09-06 consolidation).
 - **Owner direction status**: owner-directed 2026-07-08.
 
 ### F-136 — practice-core CONTENT has no portability scanner (`portability:check` covers adapters only)
@@ -3185,30 +2776,6 @@ commit SHA and the closing plan reference.
   `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
-
-### F-139 — commit-queue guard rejects the `index/head@<worktree>` claim pattern
-
-- **Source**: the F-138 repair lane's live ceremony, 2026-07-14 (intent `d2ed19ef`
-  abandoned; claim `180670a3` closed with the failure reason)
-- **Surface**: `agent-tools commit-queue guard` claim matching
-  (`agent-tools/src/commit-queue/guard.ts` — the matcher requires a `git` area pattern
-  exactly equal to `index/head`)
-- **Observed**: the commit skill's merge-commit section (SKILL-CANONICAL §Merge commits)
-  prescribes per-working-tree commit-window claims as `git:index/head@<worktree-name>`
-  for worktree seats, but `guard` rejects an intent whose claim carries the suffixed
-  pattern: "is not an active git:index/head claim". The worktree seat must open a bare
-  `index/head` claim to pass guard, collapsing the per-tree claim scoping the skill
-  doctrine names.
-- **Expected**: guard recognises `index/head@<worktree>` patterns as git commit-window
-  claims (per-tree scoping preserved), or the skill doctrine and the guard matcher are
-  reconciled to one spelling.
-- **Candidate cure**: extend the guard matcher to accept `index/head` with an optional
-  `@<worktree>` suffix; add the same recognition anywhere else the composed label is
-  parsed.
-- **Target surface**: `agent-tools/src/commit-queue/guard.ts` + commit skill canonical.
-- **Status**: open. Workaround: open the commit-window claim with the bare `index/head`
-  pattern and name the worktree in the claim's `intent` text.
-- **Owner direction status**: standing (record-all-frictions).
 
 ### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
 
@@ -3401,54 +2968,6 @@ commit SHA and the closing plan reference.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
 
-### F-146 — `comms watch` has no heartbeat-exclusion flag, so awareness seats absorb the heartbeat firehose
-
-- **Source**: Galago stirs Grotto (`60d988`), 2026-07-20 Director tenure, first-hand.
-- **Observed**: a 3-implementer team at the PDR-078 ≤4-min cadence generates ~45 heartbeat
-  events/hour; the all-channels watcher (correctly, per `comms-all-channels-watcher.md` —
-  self-exclusion only, triage in reasoning) delivers every one as a wake to the Director
-  seat, each costing a no-op turn against the tenure the seat exists to maximise. The
-  director-handoff brief's standing lesson names reserve-seat heartbeat filtering
-  ("the Lane-C `--exclude-tag heartbeat` work") as load-bearing economics, but the flag is
-  absent from the `comms watch` CLI (verified 2026-07-20: only
-  seen-file/poll/step-timeout/heartbeat/supervisor options exist), and hand-rolled
-  suppression at the watcher boundary is rule-forbidden (and twice bitten: the 2026-06-10
-  muting-filter and 2026-07-02 mute/leak instances).
-- **Expected**: a sanctioned, tested exclusion surface for tag-classed traffic, composable
-  with the F-75 `comms peer-liveness` poll as the retirement-detection consumer (absence
-  detection, which event-watching structurally cannot do).
-- **Candidate cure**: an `--exclude-tag <tag>` (repeatable) option on `comms watch`,
-  excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
-  pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
-  configuration alongside a mandatory peer-liveness poll.
-- **Status**: CURED (2026-07-20, verified on the reconciled tree 2026-07-21): `--exclude-tag`
-  is implemented and boundary-validated (`agent-tools/src/collaboration-state/cli-options.ts`)
-  with the tested guarantees documented in `comms-all-channels-watcher.md` §Sanctioned tag
-  exclusion, incl. the mandatory F-75 peer-liveness pairing.
-
-### F-147 — the pre-commit knip leg reports success when knip CRASHES (not when it finds issues)
-
-- **Source**: Director-delegate worktree agent (routed by Galago stirs Grotto `60d988`),
-  2026-07-20, PR #419 cure commit, first-hand.
-- **Observed**: in a fresh agent worktree, knip errored during pre-commit —
-  `Error loading apps/oak-search-cli/vitest.smoke.config.ts (No "exports" main defined in
-  apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)` — yet the
-  hook chain continued and reported "Pre-commit checks completed!", and the commit landed.
-  A validator that CRASHES is being treated as a validator that PASSES. The proximate
-  trigger is the known fresh-worktree unbuilt-package class (the exports map resolves to
-  an unbuilt `dist/` — start-right §8), but the gate-integrity defect is independent of
-  the trigger: any knip crash class would slip commits the same way.
-- **Expected**: a gate leg distinguishes three outcomes — pass, findings (blocking), and
-  crash (blocking, loudly) — per no-warning-toleration and never-disable-checks; a crash
-  can never read as a pass.
-- **Candidate cure**: make the pre-commit knip invocation propagate non-zero on load/crash
-  errors (capture its exit code in-band, not the wrapper's), with a test that a
-  deliberately-broken config fails the hook; audit sibling hook legs for the same
-  crash-swallowing shape.
-- **Status**: CURED (verified on the reconciled tree 2026-07-21): both hooks call
-  `pnpm knip:gate` and fail closed (`.husky/pre-commit`, `.husky/pre-push`) — a knip
-  crash now fails the hook rather than reading as a pass.
-
 ### F-150 — `pnpm install --ignore-scripts` in a fresh worktree silently disarms ALL git hooks
 
 - **Source**: Forge rides Brimstone's unit-1 delegate (AIP-159 fix-forward worktree),
@@ -3507,8 +3026,17 @@ commit SHA and the closing plan reference.
   of downstream), and prints the written `event_id` on every send path
   (`comms direct` currently prints none).
 
-### F-150 — `turbo run lint` returns a cached green that never ran the new linter
+### F-186 — `turbo run lint` returns a cached green that never ran the new linter
 
+- **Id note (2026-09-16)**: filed as F-150 on 2026-07-25, a number the
+  `pnpm install --ignore-scripts` friction above already held; the collision
+  was noticed on 2026-07-30 and left. Renumbered to the next free id at the
+  2026-09-16 dedicated consolidation. Dated records that cite "F-150" for the
+  turbo-lint cache (the 2026-07-31 corpus data under
+  `.agent/reports/agentic-engineering/comms-corpus-knowledge-transfer/data/`)
+  mean this entry; the 2026-07-23 napkin's F-150 is the `--ignore-scripts`
+  entry, which keeps the number, and the 2026-07-30 records cite the collision
+  itself.
 - **Source**: Cygnus weaves Vastness (41a8c5), MCP-151 majors sweep 2026-07-25,
   bumping `eslint-plugin-unicorn` 70 → 72 (PR #550).
 - **Observed**: after the bump, `pnpm exec turbo run lint` reported
@@ -3653,40 +3181,6 @@ commit SHA and the closing plan reference.
   that processes them re-titles or drains them (the 2026-08-06 reconciliation's
   own convention).
 
-### F-156 — merge-bot merge injects the minted app token into the OAuth-only review-run probe
-
-- **Source**: Civet spins Cavern (`054f5e`), 2026-08-07 ~20:58Z, first live
-  firing of the MCP-508 merge arm (#821/#822 merge attempts), first-hand.
-- **Observed**: `merge-bot merge` wraps EVERY gh invocation in the
-  tokenised executor (`merge.ts` — GH_TOKEN = minted installation token,
-  injected last by design). The review-run liveness probe
-  (`gh agent-task list`, `review-runs.ts`) runs under that same env and
-  gh refuses: "this command requires an OAuth token" — installation tokens
-  cannot use the agent-task surface. The leg degrades typed and
-  `decideMergeAction` refuses with "review-run liveness unavailable"
-  (exit 3). Reproduced: the identical command succeeds under the ambient
-  keyring OAuth auth.
-- **Expected**: reads ride the keyring path, writes ride the minted token
-  (the estate's standing split — handoff §6, bot-identity rules). The
-  liveness probe is a READ; it should execute under the base env, not the
-  tokenised executor.
-- **Candidate cure / promotion trigger**: route the agent-task probe (and
-  any other read-only leg) through the untokenised base executor inside
-  `merge-bot merge`, with a test pinning the env split. Promotes when a
-  seat takes the merge-bot lane (natural window: alongside the #820 F-112
-  cure family, same module). Related-but-distinct design question routed
-  to the owner's morning: whether QUOTA-SKIPPED (owner-ruled settled,
-  2026-07-21) should ever be COMMAND-merge-eligible — tonight it is
-  handled by per-PR Director grants on the manual REST shape, the
-  instrument untouched.
-- **Status**: CURED — PR #823 (merge commit 2fc5eae83, head 89ec41860,
-  2026-08-08): the read path runs on a pinned token-free environment
-  (keyring-deterministic, host pinned, enterprise fallbacks stripped) while
-  the merge PUT keeps the minted token via fetch; the env split is pinned by
-  `readEnv` unit tests AND a real-child contract test that kills the
-  env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
-  design question remains SEPARATE, on the Director's morning board.
-
 ### F-157 — commit-queue inner pathspec commit dropped four staged-new files from a 118-path intent
 
 - **Source**: Wren calls Downdraft (6b29b5) 2026-08-09 ~12:5xZ, PR #836
@@ -3806,7 +3300,23 @@ commit SHA and the closing plan reference.
   (~30 minutes); its silence was indistinguishable from "no change", and a
   60 s `gh pr view` poll emitting only on reviewDecision / mergeStateStatus
   / head change, terminating on MERGED/CLOSED, caught the owner's merge
-  within a minute.
+  within a minute. 2026-09-06 (Finch binds Sundog, 47f9d2): `pr-watch 58
+  --watch --interval 60` under a Monitor emitted nothing for 33 minutes
+  across three reviewer submissions, six threads and two failing checks;
+  replaced by a direct `gh` read poll. The consolidation seat the same day
+  armed a 60 s change-emitting `gh` poll from the start (head, merge state,
+  review decision, check rollup, unresolved-thread count) and never the
+  tool. 2026-09-16 (Zephyr guards Leeward, 281e44), a fourth instance:
+  `pnpm --silent agent-tools:pr-watch 149 --watch --interval 60` under a
+  Monitor, piped through `grep --line-buffered`, emitted only pnpm's echo line
+  for ten minutes while the checks moved from 0 to 19 passing. The silence was
+  read as "still waiting" until a blocking wait timed out and a one-shot
+  `pr-watch 149` showed 19 passed, 1 pending, 0 failed. Replaced by a
+  background `gh pr checks 149 --watch --interval 60`, which ends with the
+  checks and returns their exit code. The pr-lifecycle SKILL prescribed the
+  `--watch` form as the supervised watch until the 2026-09-16 consolidation
+  (`63b544464`) replaced it with a compound GraphQL watch loop that ends only
+  on MERGED or CLOSED; the tool still wants correcting.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -3818,7 +3328,10 @@ commit SHA and the closing plan reference.
 - **Observed**: 2026-09-02 (Luna seeks Twilight, 5c0ddc): a claim's areas
   named a run-record path that broke the archive's filename convention
   (`YYYY-MM-DD-<target>.md`); the only honest cure was close + reopen,
-  recorded in the closure summary.
+  recorded in the closure summary. 2026-09-06 (Juno seeks Apogee, a693fb): a
+  Director-approved extension of a consolidation claim to four more paths
+  was close + reopen again (38ec1aaf → bf754a27), the handoff record
+  re-attached by hand and the heartbeat loop restarted on the new id.
 - **Expected**: `claims amend --area` (or an equivalent single-row edit)
   that preserves the claim id and history.
 - **Route**: agent-tooling backlog.
@@ -3888,3 +3401,537 @@ commit SHA and the closing plan reference.
   the coordination successor-branch name"). Renumbered to F-166 at the
   convergence merge. The collision is itself an instance of the staleness
   this register exists to catch.
+
+### F-185 — `merge-bot merge` cannot read review-run liveness and degrades the verdict to SILENT-WAIT
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908 on the
+  canonical line; conserved as received); reproduced 2026-09-06 (Juno seeks
+  Apogee, a693fb, PRs #59, #60 and #61 on this line). The review-run leg
+  reads `gh agent-task view … --json id,completedAt,pullRequestNumber,pullRequestUrl`
+  through the boundary parser in `agent-task-fields.ts`; when the view
+  returns `pullRequestNumber` and `pullRequestUrl` as null the parse fails
+  and the leg degrades to a typed `unavailable` (the verdict evidence
+  carries `review-run liveness unavailable: … expected number, received
+  null`), so WAITING-REVIEW-RUN-LIVE is unreachable. With the runs
+  unreadable the most-blocking leg reads SILENT-WAIT-RUNS-UNREADABLE for a
+  reviewer that was requested and SILENT-WAIT-NO-REVIEWER for one that was
+  not (the docs-only class requests none — the state these instances saw);
+  the tool polls neither, so the seat retries by hand.
+- **Expected**: the view parser tolerates null `pullRequestNumber` /
+  `pullRequestUrl` (a run not yet bound to a pull request is a live run, not
+  an unreadable surface), so a running reviewer reaches the wait-class
+  verdict the tool polls; the cure sits in `agent-task-fields.ts`, not in a
+  new hosting-service integration.
+- **Route**: agent-tooling backlog (pr-watch review-runs leg, consumed by
+  merge-bot).
+- **Id note (2026-09-15)**: filed as F-166 on this line; renumbered to F-185 at the upstream
+  sync of `c67d33c`, where the upstream line's F-166 (the PDR-078 §4 re-arm trigger, above)
+  holds the number.
+
+### F-167 — Copilot's automatic review does not bind a tip that is only a merge commit of the base
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908; conserved
+  as received, not reproduced). After a "merge base in, then land" push,
+  Copilot posted no review on the merge-only tip, so the Copilot leg read
+  OWED until it was requested explicitly. The 2026-08-11 finding "Copilot
+  does not auto-re-review on push" is the sibling; this narrows it to
+  merge-only tips.
+- **Expected**: the landing chain's docs-only class (pr-lifecycle item 5)
+  expects no Copilot leg by repository configuration; on other classes the
+  expected set still comes from that configuration, so after an update
+  merge the chain requests the configured review explicitly, or the
+  quiet-window timeout settles the leg as the settlement contract provides
+  — a merge-only tip never removes a configured reviewer from the set.
+- **Route**: pr-lifecycle worked instance.
+
+### F-168 — `merge-bot merge`'s 45-minute poll budget outlives a 10-minute background-shell bound
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4; the 2026-08-12 entry
+  "merge-bot polls outlive the Bash default" is the earlier form); met by
+  design 2026-09-06 (Juno seeks Apogee, a693fb): the chains run under a
+  persistent monitor with a retry loop. The tool's poll loop (30 s × 90)
+  outlives a harness background task's maximum bound, so a chain started as
+  a background shell is killed before the tool's own budget ends; the
+  tool's non-wait refusals (SILENT-WAIT, THREADS-OPEN) also return at once,
+  so a landing needs an outer loop.
+- **Expected**: the tool documents that it must run under a session-length
+  monitor, or takes a `--wait-for-reviewer` mode that polls SILENT-WAIT too.
+- **Route**: merge-bot documentation; the landing-loop shape in the
+  pr-lifecycle skill.
+
+### F-170 — the liveness heartbeat loop has no consumer-absence exit
+
+- **Observed**: 2026-09-05/06 (Finch binds Sundog, 47f9d2: about 240
+  heartbeat events overnight with no consumer after the lead closed at
+  16:40Z; Buzzard lifts Eyrie, 326bcb, the same night's seed). The two-leg
+  loop beats every four minutes until a seat stops it by hand; the registry
+  already shows when the seat is alone (one claim), which is PDR-078 §4's
+  consumer-absent condition.
+- **Expected**: the loop reads the registry each tick and, after N
+  consecutive ticks with no other live claim, SUSPENDS emission (with a
+  heartbeat-end event) while keeping its registry read alive as a
+  lightweight detector, resuming emission the tick a consuming peer's
+  claim appears — PDR-078 §4's consumer-absent exemption is self-healing by
+  contract, so an exit that leaves no detector would show the new peer a
+  silent active seat and open the retirement protocol at ten minutes. A
+  seat beating for an owner watching the stream is not a consumer by the
+  exemption's own text.
+- **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
+  exemption already names the condition.
+
+### F-172 — a failed pre-commit step leaves a fresh intent that blocks the next enqueue
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb). A guard refusal
+  (the window claim opened under the wrong label, F-132) left the enqueued
+  intent fresh; the retry's guard then refused on "multiple fresh matching
+  commit-queue intents" until both were moved to `abandoned` by hand with
+  `phase --intent-id … --phase abandoned`. There is no `abandon` verb and
+  the ceremony had no failure branch that abandoned its own intent.
+- **Expected**: `guard` failure abandons the intent it was guarding (or a
+  documented `abandon` verb exists), and the ceremony's failure branches
+  call it.
+- **Route**: agent-tooling backlog (commit-queue); the commit skill's
+  ceremony text.
+
+### F-173 — the liveness readers cannot see a paused seat: retired at ten minutes, claim swept at freshness expiry
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb; raised by the Codex
+  connector on the rules PR and verified in the tree). `peer-liveness.ts`
+  classifies from heartbeat events only (retired at or above ten minutes)
+  and never reads a heartbeat-end that names an owner-word stand-down; the
+  stale-claim sweep archives a retained claim once `freshness_seconds`
+  (four hours by default) expires. Two claims whose last heartbeat fell on
+  the declared sleep day of 2026-08-19 were archived as `stale` by the
+  2026-09-02 fold, handoff records intact. The liveness rule's paused-seat
+  bullet now states this; the promise "no reader retires a paused seat"
+  holds for peers reading the stream, not for the tools.
+- **Expected**: a machine-readable paused state — a claim field set by the
+  stand-down (with the owner-word event id) that the liveness classifier
+  reports as `paused` and the stale sweep skips until the claim's own
+  declared resume horizon, or until the seat closes it.
+- **Route**: agent-tools backlog (collaboration-state: claims + peer-liveness),
+  beside F-170.
+
+### F-174 — `assert-watcher-live` keys on the display name alone
+
+- **Observed**: 2026-09-02 (Kiln holds Slag, 1447f4; verified in
+  `cli-comms-assert-watcher-live.ts`: `codename = self.agent_name`, platform
+  and model never compared). A watcher armed as `claude / claude-fable-5`
+  against a registry row of `claude-code / claude-fable-5-1` asserted green;
+  the first `comms send` under the shorter tuple was refused. The F-95 gate
+  accepted a lookalike key.
+- **Expected**: the move-1 assert checks the full identity tuple against the
+  registry row; an arm whose platform/model has no row is refused.
+- **Route**: agent-tooling backlog (collaboration-state), beside F-95; the
+  watcher rule's arm template derives arm and assert from one
+  `identity preflight` read.
+
+### F-175 — content-audit review modules can pin one path twice; the last spread wins silently
+
+- **Observed**: 2026-09-02 ~18:4xZ (the pagination-echo lane's second
+  catch-up merge). After the merge two review modules pinned
+  `mcp-tools/runtime/execute.ts` with different hashes;
+  `CURRENT_SOURCE_DELTA_REVIEWS` spreads the modules in order, so the later
+  pin won, the earlier was dead code and the validator stayed green. Cured
+  by one owner per path (the generated-runtime module).
+- **Expected**: the aggregator refuses a path pinned in more than one
+  module, as the truth-set builder's `requireNoDuplicates` refuses
+  duplicate ids.
+- **Route**: agent-tooling backlog (content-audit); until then a merge that
+  touches two review modules greps the pinned paths for duplicates before
+  trusting a green validator.
+
+### F-176 — workflow fan-outs launch without a per-stage budget or a pilot measurement
+
+- **Observed**: 2026-09-03 (the wrap workflow's dedupe barrier over 160 raw
+  learnings was still generating after fourteen minutes and would have fed
+  about 300 verification agents; the lead stopped the run and synthesised by
+  hand, so the verify and synthesis stages never ran). 2026-09-06/07 (Juno
+  seeks Apogee, a693fb): two mapping fleets of 110 planned legs spent about
+  8.1M tokens at 82k–171k per leg, with a verify phase of 41 legs returning
+  one result; the fleet-design rule's design-review threshold bound nothing
+  at launch.
+- **Expected**: a launch carries a pilot-measured per-leg cost times N and a
+  stage budget the script enforces (the workflow API's `budget`); a stage
+  whose fan-out depends on an earlier stage's output caps that output
+  before it fans out.
+- **Route**: the fleet-design rule (cost model, pilot as step 0, yield
+  sample; the 2026-09-07 napkin block carries the full defect list); the
+  wrap skill's workflow template carries a stage budget.
+
+### F-177 — pr-lifecycle's in-loop step-back did not fire on a prose-class PR; corrected out of band
+
+- **Observed**: 2026-09-03 (PR #50, a prose-class report): eleven review
+  rounds, 28 findings each cured in its own push with a fresh monitor; the
+  shepherd's own round-four step-back comment did not stop the curing; the
+  owner's manual invocation of the pr-lifecycle, proportionality and
+  metacognition skills did. Filed under PDR-140 clause 8: an out-of-band
+  cognitive-skill invocation correcting a running PR loop is a defect
+  against pr-lifecycle.
+- **Observed AGAIN**: 2026-09-11 (PR #132, a mixed code/records changeset;
+  Nettle guards Pistil, 2de368). Five-plus settled rounds, sixteen findings,
+  every one read as cure-worthy and cured in its own push; PDR-132's
+  two-round budget passed without the budget-exceeded record or the
+  generator question; the step-back's four-round arm true throughout and
+  never evaluated. The correction was again the owner's manual invocation —
+  `metacognition`, `pr-lifecycle`, `proportionality`, `plan`, the same set
+  as 2026-09-03 plus one. No tally existed either time.
+- **Expected**: the tally built at PR-open reads step-back-mandatory at the
+  fourth settled round and the settlement budget refuses a fifth cure push.
+- **Why the first filing did not cure it, and THE CURE IS ALREADY RATIFIED.** The
+  expectation above presupposes a tally, and nothing makes one exist: item 2 says
+  "build the tally, or the trigger cannot fire", which is advice, and advice is what
+  fails under load — the same generator this estate has been curing everywhere else
+  by building gates. Twice now the shepherd was mid-loop, each finding individually
+  valid, with no artefact counting anything.
+
+  The instrument that would end it is
+  [`pr-tally`](../../plans/delivery/pr-tally.plan.md), owner-ratified 2026-09-08
+  ("pr-tally, ratified") and NOT BUILT: `pnpm agent-tools pr-tally --pr <n>`, building
+  the tally by the commit each review binds to, printing one row per settled round with
+  raised and cure-worthy counts and the mechanical step-back verdict. The plan already
+  cites the 2026-09-08 instance of this friction as its own motivation. So this entry
+  adds nothing to the design and points at it: what the recurrence contributes is
+  EVIDENCE OF PRIORITY — the plan has now been ratified and unbuilt through two full
+  recurrences, on 2026-09-03 and 2026-09-11.
+
+  Recorded because the wrong turn is itself an instance of the register's subject: the
+  first version of this bullet specified a rival `pr rounds` command with a different
+  data flow, written without checking whether the estate had already planned the work.
+  It had, and the ratified plan is more complete — body findings, Codex badge blocks,
+  signed machine-readable bar markers for dispositions, the reviewer-leg predicate. Two
+  incompatible specifications for one job is worse than none (Copilot, PR #134).
+
+- **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
+  4), under the skills claim; the build routes to the ratified `pr-tally` plan.
+
+### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
+
+- **Observed**: 2026-09-06 (Flounder turns Estuary, c5cc2c; the standing
+  prune under worktree-hygiene §6). Seventy-eight merged local branches
+  deleted with plain `-d`; two merged into HEAD refused —
+  `sync/upstream-2026-09-02` on its upstream (git's `-d` test is merge into
+  the configured upstream, HEAD only when none is set) and `heads/pr834head`
+  on its name (message unrecorded).
+- **Expected**: the rule's proof (ancestor of the freshly fetched base)
+  deletes the branch.
+- **Route**: worktree-hygiene §6 prune paragraph — after the ancestry
+  proof, `git branch --unset-upstream <branch>` then `-d`; the name case
+  recorded verbatim at the next prune; never `-D`.
+
+### F-179 — sub-agent reports truncate in transit when the return payload is large
+
+- **Observed**: 2026-09-06 ~13:4xZ (Juno seeks Apogee, a693fb; three Sonnet
+  extractors over ~58k-byte comms windows): one report arrived whole, two
+  arrived cut in the tool result with no marker separating a short report
+  from a truncated one.
+- **Expected**: a report arrives whole or fails loudly.
+- **Route**: dispatch briefs name a scratchpad file as the deliverable and
+  return its path; the dispatcher reads the file and spot-reads every kept
+  leaf against the source (the owner's method word, 2026-09-06: write
+  intermediate findings to disk).
+
+### F-180 — the heartbeat cannot tell "alive and turning" from "alive but stalled": absorption-dark seats read green
+
+- **Observed**: 2026-09-06 (Finch binds Sundog 17:25–19:23Z and
+  19:53–20:40Z; Juno seeks Apogee 20:13–20:39Z) and 2026-09-07 (Juno: a
+  Director directed event of 12:37Z read at 16:1xZ). Heartbeat fresh, cycle
+  label unchanged, no event: the seat's background-shell watcher wrote the
+  events to a file and no harness turn ran. The Director's detector
+  (heartbeat-fresh, cycle-unchanged, no-event) found each case by hand.
+- **Expected**: the heartbeat carries the seat's last TURN time, written by
+  the turn and not by the loop, so "emit fresh, turn old" reads on the
+  stream within one cadence; the watcher runs in the Monitor shape that
+  wakes the seat per event (the use-monitor rule), never as a background
+  shell.
+- **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
+  F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
+  watcher rule names the background-shell watcher as the anti-pattern.
+
+### F-184 — the root `test` task's inputs omit the root registry files its tests read, so the pre-push cache replays a stale pass
+
+- **Observed**: 2026-09-07 (a693fb). An edit to `RULES_INDEX.md` (an
+  explaining cell on a new core row) passed every local gate — the pre-push
+  log read `@oaknational/agent-tools:test: cache hit, replaying logs` —
+  then failed CI's `rules-index-classification` test cold; one CI cycle and
+  one extra push on a terminal PR. The task declares only package-local
+  inputs (`$TURBO_DEFAULT$`, `**/*.ts`, `vitest.config.ts`).
+- **Expected**: every root file a package's tests read is declared among
+  that task's inputs (`$TURBO_ROOT$/RULES_INDEX.md`, the form
+  `tsconfig.base.json` already uses), so a root-file edit invalidates the
+  cache and the classification test runs on push.
+- **Route**: a one-line `turbo.json` change per root file the tests read,
+  as its own config change with the classification test as proof;
+  `build-system.md` §Caching carries the interim discipline (run the
+  dedicated test directory before pushing an edited registry file).
+
+### F-187 — three identity and link-validator defects a transplant seat found, verified and never cured
+
+- **Observed**: reported 2026-09-12 by Cauldron herds Lustre (880ff9) from
+  the `jimcresswell.net` transplant, verified the same day by Nettle guards
+  Pistil (2de368), and re-verified at source on 2026-09-16 at the dedicated
+  consolidation, all three still present:
+  1. `agent-tools/src/claude/session-identity-hook.ts` builds
+     `additionalContext` (whose text says "PRACTICE_AGENT_SESSION_ID_CLAUDE is
+     set in $CLAUDE_ENV_FILE") before the `envFile === undefined` early return,
+     so a session with no env file is told the variable is set.
+  2. `agent-tools/src/collaboration-state/collaboration-seed.ts` reads no
+     `CLAUDE_CODE_SESSION_ID`, which every Claude Code Bash shell carries and
+     which equals the seed; the harness-native source list goes from
+     `CLAUDE_CODE_REMOTE_SESSION_ID` to `CODEX_THREAD_ID` (PDR-027's source
+     list would change with it).
+  3. `agent-tools/src/validators/markdown-links/validate-markdown-links.ts`
+     ignores only the root-anchored `.agent/reference-local/**`, so a nested
+     private checkout under another `reference-local/` directory is walked as a
+     link source.
+- **Expected**: the hook claims only what it wrote; a Claude seat resolves its
+  seed without a hook artefact; every `reference-local/` directory is outside
+  the validator's sources.
+- **Route**: one small source lane, TDD per defect, reviewed by code-expert;
+  it was routed on 2026-09-12 as "a small source lane after #136/#138" and no
+  seat took it. The same lane carries two more uncured rows of the transplant
+  findings register (estate-coordination thread record, §"2026-09-13 10:0xZ"),
+  both still present on 2026-09-17: T13, the bare `readFile` of
+  `docs/strategy/README.md` in `validate-plan-corpus.ts` (ENOENT instead of the
+  fail-closed message), and T21, the env-file line appended on every
+  SessionStart with no presence check (`session-identity-hook.ts` plans it,
+  `.claude/hooks/practice-session-identity.mjs` appends it).
+
+### F-188 — no check refuses a drain tombstone left in a drainable buffer
+
+- **Observed**: 2026-09-16 dedicated consolidation. `pending-graduations.md`
+  carried five HTML comments of the form "Register drained to empty at the …
+  consolidation … The commits and the homes are the record" (drains of
+  2026-07-20, 08-07, 08-14, 09-06, 09-09), although
+  `permanent-doc-is-the-consolidation-record` names that form a tombstone and
+  a seat had removed the same form from `distilled.md` on 2026-09-10 after two
+  review rounds (#111, #115). The class recurred in a sibling buffer despite its
+  home.
+- **Expected**: a drained buffer carries its header prose and nothing else,
+  and a check says so at commit time rather than a reviewer at round three.
+- **Route**: the practice-fitness validator is the candidate home, keyed on
+  the `fitness_content_role: drainable-buffer` designation the four live
+  buffers carry (`napkin.md`, `distilled.md`, `open-questions.md`,
+  `pending-graduations.md`) — not `item-count.ts`, which parses only the
+  concept-counted register (`fitness_item_count: required`, today
+  `pending-graduations.md` alone) and so would miss the `distilled.md`
+  instance; a refusal of a drain-comment shape there is the candidate cure. Falsifier: if
+  no such comment is written in the three months after the five are removed,
+  the check is dead weight.
+
+### F-189 — this repository's gate-script names and PDR-008's differ, item 9 of the Practice verification fails on it, and the right names for the ecosystem are undecided
+
+- **Observed**: 2026-09-12 (a peer's report, checked with `jq`), re-read on 2026-09-17 at the
+  dedicated consolidation. PDR-008 (Accepted 2026-04-18) fixes the aggregate gate names: bare
+  names verify, `:fix` applies, `check` is the one exception as the mutating alias of
+  `check:fix`, and `check:ci` is the non-mutating CI form; §Per-ecosystem adaptation says names
+  travel verbatim, "not `format-check`". `practice-verification.md` item 9 checks for that set.
+  The root `package.json` here defines `check` as the non-mutating aggregate and `fix` as the
+  mutating one, has no `check:fix` and no `check:ci`, spells `type-check` for `typecheck`, and
+  runs mutating commands under bare names (`format:root` writes, `markdownlint:root` runs
+  `--fix`) beside `format-check:root`. The divergence is wider than `check`.
+- **Expected**: PDR-008 §Accepted cost: "Existing repos that use non-canonical names pay a
+  one-time rename cost." (Its "flagged as deviations needing rationale" clause covers names a
+  repository adds later, not existing ones.) The two name sets differ and nothing has been
+  renamed; whether PDR-008's set or another is the one every repository should carry is the
+  owner's open decision (the Reading below).
+- **Reading, corrected by the owner (2026-09-17)**: the Core text is not stale; item 9 failing
+  here is the check doing its job. The first framing of this entry ("this host never adopted
+  PDR-008's names; this host renames, or the Core drops its exception") was wrong, the owner
+  said: this repository's `package.json` names have not changed in a very long time, and the
+  question is not one of consolidation or of one repository conforming. The question is which
+  names are RIGHT for the Practice ecosystem as a whole, decided once, and then standardised
+  across every Practice repository; this repository's long-stable names are one input to that
+  decision, PDR-008's tables are another. A rename's footprint, wherever it lands, is read at
+  decision time with `git grep -lP 'pnpm check(?![:\w-])' HEAD`, never from a count carried
+  here. At the #153 tip (2026-09-17) the CI workflow, PR template, directives, skills and docs
+  held 33 files; the name also runs through rules, the hook policy, the root README,
+  CONTRIBUTING and SECURITY, app and package docs, Cursor rules, PDR-082, and typed agent-tools
+  source and tests (`repo-check`, the check/CI parity validator); records under memory, plans
+  and reports name it hundreds of times more and stay as history.
+- **The seat's verdict through the decision lenses (2026-09-19, at the owner's word "run it
+  through the decision matrix"; for the owner to ratify)**: both sides move. PDR-008's Rule 1
+  (a bare name verifies; mutation carries `:fix`) is the strict, safe rule. Its Rule 4 makes
+  `check` a mutating alias and gives one warrant, that the aggregate is "typed tens of times
+  per day"; the owner's 2026-09-14 ruling (the commit runs the gates; never run them separately)
+  removed that warrant, and an exception whose reason is gone is an escape hatch the strict lens
+  removes. So the ecosystem set is PDR-008 without Rule 4: `check` verifies, `fix` mutates, and
+  `check:ci` goes, since `check` is already CI-safe (one name, one concept; simpler). That is
+  this repository's existing `check` and `fix`. This repository breaks Rule 1 in three other
+  places and renames them: `format:root` writes and `markdownlint:root` fixes under bare names
+  beside `format-check:root` and `markdownlint-check:root`, and `type-check` is spelled against
+  the Core's `typecheck`. The direction is the safe one: a mutating `check` that becomes a
+  verifying one fails loudly, never silently changes a tree. Limit: only this repository's
+  scripts were read; a Practice repository whose hooks rely on `check` mutating needs its own
+  look before the amendment lands. Falsifier: such a repository exists and the change breaks it
+  silently.
+- **Route**: the owner ratifies or corrects the verdict; then the Core exchange amends PDR-008
+  (Rule 4 withdrawn, `check:ci` retired, the tables re-read), and a standardisation lane runs
+  in each Practice repository whose names differ, this one included.
+
+### F-190 — the client-side guards name `main` and `master`; this fork's default branch is `engraph`
+
+- **Observed**: 2026-09-17, truing #152's description. `.husky/refuse-commit-on-main.sh`
+  refuses a commit only on `main`, and `agent-tools/src/merge-bot/push-cli.ts`
+  (`DEFAULT_BRANCH_NAMES`) refuses a push to `main` and `master` by name. This fork's default branch is `engraph`, so neither refuses a
+  local commit or a bot push aimed at it. The remote covers the push: `engraph`'s branch rules
+  carry `pull_request`, `non_fast_forward`, `deletion`, `required_status_checks` and
+  `copilot_code_review` (read 2026-09-17).
+- **Expected**: the guards read the repository's default branch rather than a literal name, so
+  a local commit on the default branch is refused before it has to be undone.
+- **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
+  the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
+  configuration, with a unit test on each.
+
+### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
+
+- **Observed**: 2026-09-17, the dedicated consolidation's second context. The
+  `directive-file-context-budget` rule gates directive edits on context usage below 30 %, and
+  the seat had to decide whether the directive pass fitted after a fold's review rounds. It
+  looked for a reading, found `agent-tools context-cost` (which estimates a fileset, not a
+  session) and the transcript's bytes (3.47 MB since the compaction boundary, dominated by
+  metadata and persisted tool output), estimated from what it had loaded, and moved the pass to
+  a fresh context. An instrument existed that it did not find: `agent-tools session-metadata
+  --vendor claude --model <id> --session-id <id>` reads a session's context occupancy from the
+  vendor transcript, and the Claude statusline already reads the platform's
+  `context_window.used_percentage`. The #153 pre-publication pass found both. The command
+  refuses this seat's model id (`unknown model: claude-opus-5[1m] (no window size registered)`,
+  `agent-tools/src/session-metadata/window-registry.ts`); read against the same-size
+  `claude-opus-4-8[1m]` entry after the compaction it gave 29.5 % used.
+- **Expected**: the budget a rule gates on is readable at the moment the rule fires, from the
+  rule's own text, so the decision rests on a reading, not a guess in either direction.
+- **Route**: a small source lane registering the Opus 5 window sizes (the bare id and its
+  `[1m]` variant) and `claude-fable-5-1` (this seat's model from 2026-09-17 18:3xZ, also
+  refused: `unknown model: claude-fable-5-1`; the owner's word the same day is that its window
+  is 1M) in `window-registry.ts`. The rule now names the command
+  (`directive-file-context-budget` §Reading the Figure, 2026-09-19) and consolidate-until-done's
+  step 7 cites the rule (its §Sequencing); the registry lane stands.
+- **Second observation, 2026-09-19 15:41Z**: the first reading after a compaction gave 69 %
+  and the next, one turn later, 11 %. `usage.ts` `parseLatestUsage` returns the latest
+  transcript line carrying a usage object, and straight after a compaction that line is the
+  compaction call itself, which carried the whole pre-compaction context. Expected: the
+  reading names the turn it came from, or skips a compaction call's usage line, so a seat
+  gating on the figure does not hand off on a stale one. It rides the same source lane.
+
+### F-192 — a mid-session model change collides with the seat's live identity in the comms route
+
+- **Observed**: 2026-09-17 ~18:36Z. The owner switched this seat's model from Opus 5 to
+  Fable 5.1 at a compaction boundary. `identity preflight` resolves the same agent id under
+  both labels (the id is seeded from the session, not the model), and `comms watch` and
+  `assert-watcher-live` accepted the new label, but `comms append --model claude-fable-5-1`
+  was refused: "identity route Zephyr guards Leeward / id:5180aeb6… collides with live
+  identity Zephyr guards Leeward / claude-code / claude-opus-5 / 281e44-031 / id:5180aeb6…".
+  The seat kept the old label for its comms, claims and commit ceremony for the rest of the
+  session, so every record of the session names Opus 5 while the model was Fable 5.1.
+- **Expected**: one seat, one identity; the model label is a fact about the seat that may
+  change within a session, and the collision check keys on the id, so a label change under the
+  same id is a relabel, not a second identity. The route accepts it and the later events carry
+  the new label.
+- **Route**: the shared guard (`assertNoLiveIdentityRoutingCollision` in
+  `agent-tools/src/collaboration-state/active-agents.ts`, called by the identity write guard
+  behind the comms and identity commands and by the `claims open` gate; it routes on the id and
+  refuses when the model strings differ) treats a matching id with a
+  different model label as the same identity (a relabel event on the stream, not a refusal);
+  the claims rows and the heartbeat file carry the current label. Until then a seat whose model
+  changes mid-session keeps its opening label on the coordination surfaces and records the
+  change in its records, as this seat did.
+
+### F-193 — the operator-profile push leg checks the working tree, not the commits it pushes
+
+- **Observed**: 2026-09-17, raised by Codex at #153's round three and verified at source.
+  `operator-profile-sync.ts` `nonConformingDocuments()` reads the profile report over the
+  current documents; `operator-profile-git-push.ts` `pushAhead()` pushes every commit the branch
+  is ahead by, and `pushFirst()` (the no-upstream case) pushes `HEAD` the same way. An earlier
+  unpushed commit that carried a credential-shaped line, since removed
+  from the working tree, passes the check and is pushed with its history. PDR-141 decision 11
+  claimed the refusal covered anything pushed; the decision is narrowed to what the mechanism
+  delivers in the successor's first records commit.
+- **Expected**: the push leg refuses when any commit it is about to push carries a
+  credential-shaped line (the pushed-commit secret scan the repository's pre-push hook runs is
+  the shape), so the profile repository's history never carries one.
+- **Route**: a code lane in `agent-tools` (TDD over injected git output, with cases for both
+  push paths, `pushAhead()` and the no-upstream `pushFirst()`: every commit the outgoing ref
+  introduces is scanned before the push, and the refusal names the commit); then PDR-141
+  decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
+  host's tracker for the lane.
+
+### F-195 — git hung three times on the fsmonitor socket on 2026-09-17; the cause is supported, not proven
+
+- **Observed**: 2026-09-17 ~15:59Z to ~16:13Z, three git commands slept on the fsmonitor
+  daemon's unix socket on this machine: a commit in a trial worktree (twelve minutes), this
+  seat's `git add` on the primary (ten minutes, holding `.git/index.lock`), and a `git status`
+  on the primary ("could not read IPC response"). `core.fsmonitor` and `core.untrackedcache`
+  are true in this clone's local `.git/config`; no tracked file or commit sets them, and git
+  keeps no history of its config, so who enabled them and when is unknown. What changed that
+  day: four linked worktrees were created between 15:36Z and 15:49Z (their directory birth
+  times), each starting its own daemon (five are running, one per worktree), each followed by a
+  dependency install writing a very large `node_modules` tree inside the watched root. All three
+  hangs fell within twenty-five minutes of that; this seat saw none in the three days before,
+  with one worktree and one daemon.
+- **Reading**: an install floods the daemon with file events (FSEvents reports ignored paths
+  too), and a git command waiting on the daemon's socket blocks until it catches up. This fits
+  the timing and known daemon behaviour under heavy ignored-directory churn. It has not been
+  reproduced here: two processes sleeping in one window name no cause.
+- **Route**: one bounded observation at the next worktree install: time `git status` with and
+  without `-c core.fsmonitor=false` while the install runs, and record it. If the daemon is the
+  cause, the cure is the owner's choice between disabling it for this clone and keeping
+  installs out of watched roots; until then every ceremony stages with
+  `git -c core.fsmonitor=false`.
+- **Cured 2026-09-19 ~19:42Z** by Dynamo turns Temper (2a4c8a) at the owner's word, after a
+  lens pass and a second opinion (comms events `a924faaf`, `c82ce1de`): the monitor unset in
+  the clone's shared configuration, five daemons stopped, none respawned on the next status
+  (0.04 s). Read back by this seat at 19:4xZ (`git config --local --get core.fsmonitor`
+  returns nothing; `pgrep` finds no daemon). The measurement that settled it: bursts of files
+  in an ignored directory block a read-only `git status` for as long as the burst lasts (9.8 s
+  at 100,000 files, up to 24.5 s at 400,000), never more than 0.15 s with the monitor off, and
+  with no load the monitor saves nothing (0.04 to 0.11 s without it). Added datum, the same
+  day: this seat's read-only `git diff --cached` on the primary slept ten minutes while the
+  churn ran in a DIFFERENT worktree, so the event backlog is host-wide. The per-call flag is
+  retired from the ceremonies. The guard (one assertion in the commit queue's guard step, one
+  line in the worktree-lane skill) and a bounded enumeration of other unwarranted ambient
+  settings are the sketch node `warranted-means-in-the-operating-environment`.
+- **Status**: cured on this host; the guard is open.
+
+### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
+
+- **Observed**: 2026-09-19, raised by Codex at #155's round two. `sha-prefix-in-collaboration-content`
+  requires `SHA:` before every commit sha written into the napkin, the thread records and
+  `repo-continuity.md`. At the #155 tip those surfaces held about 285 backticked bare shas
+  beside about 130 prefixed ones (read with `grep -oE` over the four files), including every
+  fold entry this seat wrote on 2026-09-16 and 17. No gate reads the rule: the gitleaks
+  allowlist it exists for matches `<word>: <40-hex>`, which a backticked short sha never trips,
+  so nothing refuses the bare form. The shas #155 introduced were prefixed in its second
+  settlement push; the older ones stand.
+- **Expected**: a rule that says MUST is read by something at write time, or it says SHOULD.
+- **Route**: a validator row (the markdown records' sha form) in the repo validators, with the
+  existing bare shas converted in one mechanical sweep in the same lane; until then a seat
+  writing a sha into these surfaces prefixes it.
+
+### F-196 — the stale-claims sweep reads a live seat as stale when its loop bumps comms only
+
+- **Observed**: 2026-07-23, in a dedicated consolidation's stale-claims sweep (Magma mends
+  Sulphur, `639530`); registered 2026-09-20 when the thread record that was its only home was
+  curated. `claims archive-stale` judges liveness by the claim's own `heartbeat_at`, or
+  `claimed_at` where there is none (`isClaimStale`, `collaboration-state/claims.ts`). A live
+  Director seat whose cadence loop posted comms heartbeats but never ran `claims heartbeat`
+  read as stale, and the sweep offered its claim for archiving.
+- **Expected**: one liveness reading per seat. A seat that is visibly live on the comms stream
+  is live to the claims sweep as well, or the sweep says which signal it read.
+- **Route**: a claims-tooling candidate (the sweep consults the seat's newest comms heartbeat
+  beside the claim's, or the heartbeat command bumps both). The seat-side cure is already
+  practice: a seat that holds a claim runs `claims heartbeat` on it
+  (`liveness-heartbeat-cron`). One instance.
+
+### F-197 — a smoke check's ten-second wall-clock wait failed a push on a loaded host
+
+- **Observed**: 2026-09-20 ~13:4xZ (Zephyr guards Leeward, `281e44`). A push's gates ran beside
+  another seat's push gates on the same host, and `smoke:comms-watch-coordination-home` failed
+  with "watcher did not exit within 10 seconds"; it passed alone a minute later and the push
+  passed on retry. The bound is a `setTimeout` of `10_000` and a `Date.now() + 10_000`
+  deadline in `agent-tools/smoke-tests/comms-watch-coordination-home.smoke.ts`.
+- **Expected**: `testing-strategy.md` §Smoke Checks has a smoke check prove completion by
+  events. With two gate runs side by side now the owner's ruled shape
+  (`no-unbounded-host-load` item 6), a fixed wall-clock wait inside a gate is a source of
+  phantom reds.
+- **Route**: an agent-tools candidate (wait on the watcher's exit event, with a bound sized as
+  a hang detector and not as an expected duration). One instance.

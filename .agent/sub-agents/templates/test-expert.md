@@ -11,7 +11,7 @@ friction without paying their way in design value.
 
 ### Triggering Scenarios
 
-- A new test file (`*.unit.test.ts`, `*.integration.test.ts`, `*.e2e.test.ts`) is created or any existing test is modified
+- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
 - A test suite audit is requested for skipped tests, conditional execution, global state reads or manipulation, complex mocks, or tests that audit rather than describe
 - Tests are failing in CI and the failure mode suggests structural or design problems (flaky integration tests due to process-spawning, mocks bleeding between tests, conditional gating)
 - A pull request adds product code without corresponding test changes — the atomic-landing invariant has been violated and a TDD compliance check is needed
@@ -82,7 +82,7 @@ are an admission you did not read them.
 
 1. **Prefer pure functions and unit tests** — fastest, narrowest, most specific.
 2. **Prefer unit tests over integration tests** — simpler, more focused.
-3. **Prefer integration tests over E2E tests** — faster, more deterministic.
+3. **Prefer integration tests over E2E checks** — faster, more deterministic.
 
 But the hierarchy is *complementary*, not *substitutional*. A unit test is
 never enough on its own to show that value is delivered. The doctrine is
@@ -104,11 +104,17 @@ never enough on its own to show that value is delivered. The doctrine is
 
 For each test file:
 
-- Classify as unit, integration, or E2E based on **what it actually does**
+- Classify as a unit test, an integration test, or an E2E check (a
+  validation surface, not a test) based on **what it actually does**
   (does it import product code? does it spawn processes? does it exchange
   protocol with a separate running system?), not just its name.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
-  `*.integration.test.ts`, `*.e2e.test.ts`).
+  `*.integration.test.ts`). An existing `*.e2e.test.ts` file is pre-invariant
+  estate for the recovery plan, never a naming mismatch to flag; a NEW E2E or
+  smoke check must be reachable from a CI-gated task, and where the
+  workspace's live runner glob still wants the old suffix, the suffix is a
+  name and never a classification (`testing-strategy.md` §Development
+  Workflow).
 - Flag any mismatch as an immediate-fail (per `test-immediate-fails.md`
   §Pipeline).
 
@@ -179,9 +185,9 @@ The atomic-landing invariant from `tdd-as-design.md`:
 - **For behaviour changes**, the test at the affected scale is updated
   *first* (within the same commit) — pure-function changes update unit
   tests; integration changes update integration tests; system-behaviour
-  changes update E2E tests; and where a higher-scale test requires
-  several lower-scale changes first, the lower-scale cycles sequence
-  ahead, finishing with the commit that greens the higher-scale test.
+  changes update E2E checks; and where a higher-scale test or check
+  requires several lower-scale changes first, the lower-scale cycles
+  sequence ahead, finishing with the commit that greens the higher scale.
 
 ### Step 6: Apply the Mock-Quality Check
 
@@ -226,19 +232,23 @@ Integration tests include MCP protocol compliance testing. They import
 and test code directly — they never spawn processes, make network calls,
 or test deployed systems.
 
-### Out-of-Process Tests
+### Out-of-Process Checks
 
-Tests that validate a running system in a separate process.
+Checks that drive a running system in a separate process. They are
+validation surfaces, never tests: tests never use or create IO
+(`testing-strategy.md` §Philosophy, owner, 2026-09-14). The `test` in the
+file names below is pre-invariant naming.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E** | Running system behaviour | Minimal, largely around network IO | STDIO only, NOT filesystem or network | `*.e2e.test.ts` |
-| **Smoke** | Deployed system verification | NONE | All types | `*.smoke.test.ts` or standalone scripts |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` where the live runner's glob wants it (a pre-invariant name, never a classification) |
+| **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
 
 ```typescript
-// THIS IS NOT AN INTEGRATION TEST — it is an E2E test
+// THIS IS NOT AN INTEGRATION TEST — it drives a running system, so it is
+// an E2E check, and as a test it is an error (network IO)
 describe('API Integration Test', () => {
   it('should call the deployed API', async () => {
     const response = await fetch('http://localhost:3000/api/users');
@@ -295,16 +305,16 @@ CORRECT SEQUENCE
             (the cycle is the atomic landing)
 ```
 
-### Violation 3: Updating E2E tests after implementation
+### Violation 3: Updating E2E checks after implementation
 
 ```text
 WRONG SEQUENCE
   1. Implement new feature
-  2. E2E tests fail (old spec)
-  3. Update E2E tests to match implementation
+  2. E2E checks fail (old spec)
+  3. Update E2E checks to match implementation
 
 CORRECT SEQUENCE (in one commit, or sequenced lower-scale cycles first)
-  1. Update E2E test to specify NEW behaviour (RED, in the commit)
+  1. Update the E2E check to specify NEW behaviour (RED, in the commit)
   2. Implement feature in the same commit (GREEN)
   3. Refactor in the same commit (still GREEN)
 ```
@@ -391,9 +401,9 @@ need for product code refactoring and cites the relevant specialist.
 
 ### Structural
 
-- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts`,
-      `*.e2e.test.ts`
-- [ ] Tests live next to code (except E2E in `e2e-tests/`)
+- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (an
+      existing `*.e2e.test.ts` is pre-invariant estate, not a mismatch)
+- [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
 - [ ] No conditional execution (`skipIf`, `runIf`, runtime branching,

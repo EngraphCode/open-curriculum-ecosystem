@@ -1,6 +1,6 @@
 import { createInterface } from 'node:readline';
 
-import { extractLastAgentMessage } from './parse-events.js';
+import { extractLastAgentMessage } from './turn-events.js';
 import type { CodexExecCliInput, OutputFormat } from './types.js';
 
 export async function runCodexExecCli(input: CodexExecCliInput): Promise<number> {

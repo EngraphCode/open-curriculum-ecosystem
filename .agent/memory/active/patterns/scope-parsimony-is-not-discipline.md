@@ -61,6 +61,7 @@ simpler if the system changed?) before fitting the work to it.
   landed shape *because it landed*; scope-parsimony refuses a right shape *because the
   narrower one is defensible*. Both substitute procedural legitimacy for
   principle-compliance.
-- `configure-checks-not-blindly-obey` (napkin lesson, 2026-07-08) — the boundary-config
-  instance of the same regime at lint altitude; this pattern generalises it to plans,
+- [`never-disable-checks`](../../../rules/never-disable-checks.md) §Configuring a check
+  to express the architecture is not disabling it — the boundary-config instance of the
+  same regime at lint altitude (2026-07-08); this pattern generalises it to plans,
   workspaces, and auth surfaces.

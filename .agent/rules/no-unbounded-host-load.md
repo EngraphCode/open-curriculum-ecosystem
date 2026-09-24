@@ -72,6 +72,26 @@ again.**
      turbo gate, producing a phantom red on a one-line commit. Diagnose
      kill-collateral before treating any post-kill red as real.
 
+6. **Concurrent full local gates are bounded at two, ceiling three — by a
+   mechanism, never a declaration.** Owner ruling (2026-09-07, verbatim):
+   "the local machine can only support two, max three simultaneous full
+   local gates because they are compute intensive. None of this is about
+   ceremony or declarations, it is ALL about engineering." The commit
+   queue exists to stop git operations colliding on one index, which
+   separate worktrees do not need; the scarce resource its estate-wide
+   FIFO was accidentally protecting is the host's capacity for concurrent
+   full gates (four refusals and a sixteen-minute stall across three
+   worktrees, 2026-09-06). The bound belongs at the gate's spawn path — a
+   host-wide semaphore the full local gate acquires, limit 2, hard ceiling
+   3, with a test — never a comms announcement, a claim role, or a
+   declared window. Owner ruling (2026-09-20, verbatim): "two parallel
+   gate runs are fine as long as they are in different work trees". So
+   seats on one host run their gates side by side, each in its own
+   worktree, up to this item's bound; inside one worktree gate runs are
+   sequential. The general move: when a coordination mechanism
+   serialises the wrong resource, ask which resource is actually scarce
+   and bound that.
+
 ## Worked Instance (founding)
 
 2026-06-11: an agent investigating a timer-race flake spawned 14 per-core

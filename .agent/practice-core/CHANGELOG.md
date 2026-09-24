@@ -4,6 +4,189 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-142, PDR-125 and the inter-Practice skill: format on receipt aligns the estates
+
+- The follow-up wording cures the owner ratified on the Director's card of
+  2026-09-23 ("both estates land the same blobs"), taken from the second
+  estate's landed text. PDR-142 is byte-identical to the second estate's
+  copy: a new log entry that names no host, and the format tie-break grounded
+  in the owner's word as the first ground of judging.
+- PDR-125 clause 7 and the inter-Practice skill's receipt step now say
+  "format on receipt": where the receiver's conventions or gates refuse the
+  donor's bytes, the estates align that convention or gate so the bytes stay
+  identical, and until they do the receiver changes only what its gate
+  refuses, each change declared as a debt to that alignment. The skill
+  carries PDR-142's ordered remedies for a donor text that is false here.
+- Both files take the second estate's bytes except one host line each.
+  PDR-125's phenotype note names this estate's agent-tools package, as the
+  PDR gives each estate's copy its own phenotype note. The skill's adapter
+  path is written host-free (`<prefix>-inter-practice-collaboration`), a
+  wording both exchange seats signed; the second estate takes this blob, so
+  the skill becomes one file in both estates.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-141: the record says when and by whose word its writes widened
+
+- PDR-141 gains the amendment section its 2026-09-23 cure lacked: decisions
+  11 and 14 push every write made on the operator's word, not only ratified
+  writes; the sovereignty test says the same; decision 3's example scope key
+  is the general form. The section names the owner's card in each estate.
+  The second estate's review found the gap; both estates carry the section
+  in the same words. The decision-record index marks PDR-141's amendments.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142 and PDR-125: concepts travel; bytes where they carry the concept
+
+- PDR-142 amended on the owner's word that concept transfer is the goal and
+  byte-for-byte transfer never is: identical bytes are the means wherever they
+  carry the concept in the receiving estate's Practice context; where they do
+  not, a missing standard is raised in the receiver, a donor's host fact is
+  cured at its source, and only a context difference neither would remove lets
+  the receiver write the concept in its own words, naming the difference. Its
+  Amendment Log's falsifier reopens the clause with the owner. PDR-125 clause
+  7's receipt sentence and its status line amended to match.
+- Both owner-ratified 2026-09-23 by card. Drafted by the second estate's seat,
+  judged here as receiver, and taken from its lane: PDR-142 byte-identical,
+  checked by hash; PDR-125's two hunks applied to this estate's copy, which
+  differs from the second estate's in one host line only. PDR-141 needed no
+  change here: both estates' copies are now the same. The decision-record
+  index marks both amendments, with PDR-125's two earlier ones.
+- The same day, on a second owner card, PDR-142's read-through also names
+  "never re-authors" and places a rendition under the third reason at
+  receipt, never as an edit of a merged line (§Boundaries). Its merged-text
+  bullet names a third remedy: a contradiction the donor carries too, cured
+  jointly at the source in every estate that carries it. A second Amendment
+  Log entry records both, with its falsifier.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142: the best of each Practice
+
+- PDR-142 (Accepted, owner-ratified 2026-09-21 by card; the owner confirmed
+  the ratification in this estate on 2026-09-23) added: how the Practice's
+  instances are aligned, judged and pruned. Its decision is the definition the
+  two exchange seats authored jointly and both signed: union upward, the
+  higher of two, the bad removed everywhere; the owner's scope layers; how
+  each kind of surface travels; and that a ruling about the Practice given in
+  one estate reaches every estate, for now. Numbered here, where PDR numbers
+  are canonical, ahead of the third estate's renumbering above 141. Taken
+  byte-identical from the second estate's landing, the identity checked by
+  hash before commit.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-21 — the operator-profile contract and PDR-141 say who syncs, and name no host
+
+- `schemas/operator-profile.schema.json` `$comment_contract`: the sentence that
+  said the Practice never initialises, commits or pushes the profile repository
+  now states PDR-141 decisions 11 and 14 — initialising is the operator's act;
+  immediately after any write made on the operator's word the Practice runs the
+  check, commits and pushes under the operator's own identity, never a force, a
+  rewrite or a wildcard stage. A comment-text change; no shape change, the
+  version family unchanged.
+- PDR-141 decision 7's emit recipe names no host tool (the host's Practice index
+  names the check; the Core says `<the host's profile check>`); decision 3's
+  scope-key example is the key's shape, no host's own key; the Notes'
+  sovereignty test admits the sync the decisions made ("on anything but the
+  operator's word"). Found through the three-estate Practice exchange;
+  offered to the second estate, whose seat lands it under its own gates.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-19 — PDR-011: graduate, then archive; the four-part surface lifecycle
+
+- PDR-011 Amendment Log, dated 2026-09-17 (the owner's decision) and landed
+  2026-09-19: the finished disposition for continuity-surface content becomes
+  graduate, then archive to a dated file proven byte-identical, replacing
+  curate-and-delete. A memory surface is curated only when it has a role, a
+  disposition, a trigger (a named workflow step) and a proof; the 2026-06-08
+  disposition lacked a trigger and the surfaces grew. Archiving happens only
+  after full processing, never to change a fitness category.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-17 — PDR-117 and PDR-141 amendments from the dedicated consolidation
+
+- PDR-117 §Takeover verification, with a dated amendment: neither the claims
+  registry nor the heartbeat stream licenses a Director takeover. Moment 2
+  rests on the outgoing Director's explicit written stand-down or the owner's
+  word; a row that licenses nothing when stale licenses nothing when fresh,
+  and the two reads guard only against taking the seat over a live Director.
+- PDR-141 decision 7, with a dated amendment: the order at session open is
+  decision 14's sync (where the profile root is a repository with a remote),
+  then the profile check, then the reads, where decision 7 had said the check
+  runs "FIRST"; decision 11's "before anything is synced" now reads before
+  anything is read into a session, the same order, and names what the push
+  leg checks (the working tree, not the pushed commits' content).
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — PDR-141: the operator profile lives in the home directory
+
+- New PDR-141 (Accepted: owner-ratified 2026-09-14 with the same day's
+  amendment; owner-directed core): the operator profile — which
+  identity acts where, how the operator wants to be written to and for,
+  personal operating preferences — moves out of the checkout
+  (`.agent/operator-local/profile.md`) to `~/.practice/profile/index.md`
+  with repository-scoped files under `repos/<scope-key>.md`, keyed by the
+  origin remote's owner and name rather than a path. Strictly optional,
+  below every tracked surface, no credentials, nothing load-bearing. Names
+  `~/.practice/` as the Practice's home-directory root, the first surface
+  the Practice creates and consumes outside a repository; any further such
+  surface needs its own decision.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-14 — operator-profile schema: the Core-carried contract for the home-directory profile
+
+- New `schemas/operator-profile.schema.json` (family 1.0.0): the frontmatter
+  contract for the operator profile, the Practice's one surface outside a
+  repository (`~/.practice/profile/`, per the estate's operator-profile PDR,
+  numbered locally). Three document kinds — `index` (the operator
+  everywhere), `scope` (one repository line, keyed by the origin remote's
+  owner and name), `machine` (one machine, keyed by the short host name) —
+  so the root can be an optional private git repository the operator syncs
+  between machines without the estate assuming any machine. Strict shapes,
+  additive-optional minors, MAJOR for a breaking change. The host binds it
+  to its enforcement validator with a conformance smoke, as the wire
+  contract is bound.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-027 open question: which model name wins when four disagree
+
+- PDR-027 §Notes gains a dated open question, re-homed from the host's
+  open-questions register at the 2026-09-09 dedicated consolidation: the
+  identity tuple's `model` field can be declared, reported, observed and
+  configured to four different values (a July 2026 Codex config named a
+  model the CLI silently overrode), and no clause names which wins. The
+  question carries its resolution path (the field's consumers — the naming
+  registry, the Cricket tally, the identity preflight — are read first) and
+  a candidate precedence for that lane to test, not a decision.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-09 — PDR-131 amendment: the landing slot under a strict-currency ruleset
+
+- PDR-131 gains an Amendment Log entry: where the owner keeps the
+  strict-currency ruleset policy (decision 5), the `pr-lifecycle` skill's
+  Phase 7 landing slot — one PR syncs at the slot word, the rest gather
+  reviews and wait — is that policy's cost made orderly, not a return of
+  the one-at-a-time grants decision 3 retired; the Director still grants
+  eligibility, never position, and the slot lapses the day the policy is
+  dropped. Measured 2026-09-08/09 on the fork's default branch (eleven,
+  then seven serial landings under `strict_required_status_checks_policy`).
+  Written when a reviewer read the skill's slot clause and decision 3 as a
+  contradiction.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-07 — PDR-140 records-class reading; one rebudget per PR; residue homes
+
+- PDR-140 amended — new Decision clause 9, with the Amendment Log entry
+  of 2026-09-07 as the revision record: on a records-class
+  artefact whose verification point is merge, clause 2's
+  merge-verification sentence reads through prong one as written — a
+  falsehood clears the bar when a reader acting on the artefact would be
+  misled by it; a statement wrong under a rule today is not over-bar per
+  se. Clause 4's rebudget is granted once per PR and its push carries
+  over-bar cures and queued ledger writes only; a later over-bar finding
+  still cures, in a push carrying nothing beyond that cure and any queued
+  ledger writes; a routed finding's durable write rides the next push that
+  lands or lands alone as the final settlement push; post-final-head
+  route writes land together in at most one ledger push, a later route's
+  write on the seat's napkin or a records PR already open, never by
+  reopening the reviewed PR; each control carries its own falsifier. A
+  routed residue's
+  named home is an existing
+  register row or a PR already open for its own story, never a PR opened
+  to carry residue; a residue PR that exists anyway has a settlement
+  budget of one push. Measured on five records-class PRs (seventeen
+  rounds, fifty-three cures) ended by the owner's wordless out-of-band
+  skill invocation — clause 8's anti-pattern recurring. Falsifier: one
+  below-bar disposition that misleads a reader before the next records
+  pass reverts the reading by dated amendment.
+
 ## [oak-open-curriculum-ecosystem] 2026-08-13 — provider-independent capability composition
 
 - New PDR-139, status Proposed: separates provider-independent semantic

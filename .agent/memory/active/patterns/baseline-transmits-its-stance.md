@@ -46,6 +46,15 @@ Deference contamination is anchor propagation one level up.
 - **Centre the question, never the predecessor.** The brief states the
   question and the evidence bar; a prior document enters as ONE candidate
   among others, never as the frame.
+- **A consultation transmits the asker's frame the same way.** A second
+  opinion asked as "may weaker evidence settle a merge gate?" returns a
+  well-reasoned answer to that question, and two agents in one frame reinforce
+  each other while it feels like diligence (2026-09-16; the owner's reframe,
+  "No findings means no problems, that IS a result", came from outside the
+  frame). State the frame as
+  a question beside the question ("am I asking about evidence strength, or
+  about what a result is?"), because a peer cannot supply a position the
+  asking has already excluded.
 - **When the owner reopens a space, forbid deference inside it.** "The
   original target architecture was WRONG" strips authority from every
   prior ruling in the reopened space; briefs say so explicitly, admit only

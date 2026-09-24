@@ -3,7 +3,10 @@ id: reliable-atoms-programme
 node_type: strategic
 name: "Reliable atoms — the estate's fundamental building blocks at engineering excellence"
 overview: "Factor the estate's fundamental code, data structures, algorithms, and patterns into small single-responsibility core modules with strict public APIs, extensive TSDoc carrying positive and negative examples, behavioural and performance test suites — utterly reliable atoms, brought to true engineering and developer-experience excellence."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-09-08
+ratified_where: "Owner cards 2026-09-08 via the Director seat (Flounder turns Estuary, c5cc2c): 'Ratify all six' over the six strategic sketches, then the owner's word 'land the reliable atom ratification in it's own PR, now' — both quoted in the body of the pull request from docs/reliable-atoms-ratification-2026-09-08 to engraph"
 serves: TOOLS-2
 impact_areas:
   - practice-and-estate
@@ -13,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-08-17
+last_updated: 2026-09-14
 ---
 
 # Reliable atoms programme
@@ -35,6 +38,92 @@ the excellence bar below, provable by a conformance instrument, and
 every candidate not yet at the bar is a named register row with a
 disposition — never an unrecorded aspiration.
 
+### Owner direction — 8 September 2026 amendment
+
+The owner established the implementation-origin policy for graph and
+non-graph algorithms and data structures: author our own SMALL Reliable
+Atoms and meaningful layers of composition, learning from the best openly
+licensed examples. [ADR-230](../../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md)
+records the decision; the [governing development policy](../../../docs/architecture/foundations/algorithms-and-data-structures-governance-2026-09-08.md)
+owns its scope, reference-research method and relationship to qualification.
+This dated amendment refines how the ratified programme develops its
+foundations. The owner requested documentation and a draft PR on the same
+date; implementation and qualification remain delivery work.
+
+### Owner direction — 14 September 2026 amendment
+
+The owner bound the SHAPE of the workspaces that hold Reliable Atoms,
+verbatim: "I want the workspaces containing the Reliable Atoms to be
+subject to the max number of files per directory validator … I was
+thinking max 5 typescript files per directory, max 7 files of any
+kind, and probably some tweaks as we discover edge cases … I am not
+expecting one 'Reliable Atoms' workspace, I am expecting that to be a
+class of workspace, and to have some sensible grouping of Atoms with a
+given workspace." The same day: "I want the other length and
+complexity constraints _stricter_ for Reliable Atoms than for other
+code, and if there are other type[s] of length or complexity or clarity
+or related constraints we could add, I want them added"; and, on the
+mechanism, "we decided NOT to do it with ESLint, it clearly should be a
+validator, and the unused ESLint rule should be deleted … this is not a
+job for a test, and therefore not a job for Vitest."
+
+Four consequences, each recorded in its durable home:
+
+- **A declared workspace class.** Workspaces holding Reliable Atoms are
+  a class — several workspaces, each grouping atoms by cohesion (the
+  architecture's §9 rule: boundaries follow cohesion, explicit
+  dependencies, platform needs, release responsibility and useful
+  consumption; one atom per package is not a default). Membership is
+  declared on the workspace, never inferred from a name or a path
+  (validation-strategy §Validation jurisdiction).
+- **Directory cardinality is a blocking budget for the class.** The
+  check is a repository validator in the estate's validator framework,
+  recomputed from the tracked tree — never an ESLint rule (a per-file
+  AST rule is the wrong instrument for repository topology) and never a
+  test (a test proves product behaviour; a validator proves a
+  structural invariant of the repository). The unregistered ESLint rule
+  is deleted. [ADR-166](../../../docs/architecture/architectural-decisions/166-architectural-budget-system-across-scales.md)
+  §2026-09-14 amendment records the scale's owner and enforcement
+  state; the initial values and their edge-case calibration ledger live
+  in the delivery node that builds the validator (enumerate by
+  `serves:`), per ADR-166's rule that thresholds live in executable
+  configuration or calibrated child plans, never in doctrine.
+- **Every length, complexity and clarity budget binds stricter for the
+  class than for the rest of the estate**, and constraints of that kind
+  the estate does not yet carry are added for the class first. Bar
+  element 10 below names the classes of constraint; the delivery node
+  carries the values and the instruments.
+- **This binds the container, not the atom's definition.** R01 stays a
+  responsibility judgement, never a line count; the caps bound the
+  workspace's directories and files so that an atom's home stays small
+  enough to read whole. §The bet's location-independence holds: the
+  class says nothing about WHERE atom workspaces sit in the tree, only
+  what shape they have.
+
+The class is designed to fit its parameters from its first workspace.
+No workspace outside the class is a reference population for it: an
+existing `packages/core/*` member that does not fit the starting
+parameters is, by that fact, not a Reliable Atoms workspace — a special
+case recorded as that workspace's own register row, never as an edge
+case of the class and never as a reason to loosen a value. Edge cases
+are discovered while building atom workspaces and recorded in the
+delivery node's ledger at that moment (owner correction 2026-09-14,
+after a seat measured a non-atom core workspace against the caps and
+began to declare its root an exception). The exploration that produced
+this framing is
+`.agent/research/reliable-atoms-workspace-shape-exploration-2026-09-14.md`.
+
+## User groups and value
+
+Engineers and agents consuming the foundations gain small, explicit public
+contracts, executable examples and evidence they can use without recovering
+private implementation assumptions. Maintainers gain identifiable invariant
+owners and focused change boundaries. Capability authors gain reusable
+graph and non-graph mechanisms that can compose into new offerings. These
+are the programme's offered benefits; their realised value and whole-life
+effort savings are assessed through delivered capabilities and subsequent
+changes.
+
 ## The bet
 
 Reliability compounds at the atom tier: the frame's own law is that a
@@ -50,8 +139,10 @@ This drive is deliberately tangential to the workspace-basis and
 reorganisation questions (the owner's words: "creating utterly reliable
 atoms, rather than designing the conceptual space") — an atom's
 excellence is location-independent, and this node is robust to any
-basis ruling: atoms land in today's `packages/core/` strata and move
-wholesale if the conceptual space later renames their home.
+basis ruling: atoms are authored and qualified wherever their contract
+lives, are placed in today's `packages/core/` strata by the promotion
+decision (the ten-gate test under §Mechanism), and move wholesale if
+the conceptual space later renames their home.
 
 ## The bar
 
@@ -122,12 +213,29 @@ there). The extensions, each with its enforcing instrument:
    generated or surface-diffed elsewhere. Cross-platform proof runs
    as a conditional CI matrix leg for register-flagged
    platform-sensitive atoms only.
+10. **Structural budgets on the workspace class** (owner direction,
+    2026-09-14 amendment above). Every workspace declaring the class is
+    bounded on four axes, each with its instrument: directory
+    cardinality — TypeScript files and files of any kind per directory,
+    and directory depth — recomputed from the tracked tree by a
+    repository validator, blocking; every length, complexity and clarity
+    budget the estate lints, at stricter values for the class, plus the
+    clarity constraints the estate does not yet lint (naming, explicit
+    types on every function, exhaustiveness, readonly by default, no
+    magic numbers), at the class's lint tier; a stricter compiler profile
+    (indexed-access, optional-property and declaration strictness); and
+    mutation-score and coverage thresholds that break. The values and
+    the instruments live in the delivery node that builds them, per
+    ADR-166's rule that thresholds live in executable configuration or
+    calibrated child plans; the doctrine here is the axes and the
+    direction of strictness.
 
 ## Mechanism
 
 - **Atom register first**: candidates enumerated from the existing
   `packages/core/*` members (brought up to the bar, not grandfathered),
-  the census's generic-foundation rows, measured independent clusters
+  owner-directed new capabilities, the census's generic-foundation rows,
+  measured independent clusters
   (e.g. the pure image-mathematics slice), and — when the
   machinery-deconstruction ledger (MCP-603) lands — its
   construct-scale `generalises-to` rows. The register is a committed
@@ -138,13 +246,27 @@ there). The extensions, each with its enforcing instrument:
   conformance instrument at check time, never a stored column — and
   the register doubles as the agent discovery index, so "does an atom
   for this exist" is one read.
+- **Discovery, qualification and package promotion have distinct
+  decisions**: owner-directed capability and its offered value establish
+  candidate scope, including innovation before existing consumers use it.
+  The excellence bar governs qualification. The frame's ten-gate test
+  governs promotion into a shared core package, including its consumer and
+  release obligations. A package-promotion blocker is recorded against that
+  decision while the candidate's authorised design and qualification work
+  proceed. Placement follows the repository's dependency and workspace
+  rules; the register distinguishes these facts.
 - **Gates hold; the directive sets ambition**: the frame's ten-gate
   promotion test still filters what becomes core. Where a would-be
   atom fails a gate today (typically the multiple-real-consumers
-  gate), it is registered as a candidate-in-waiting and the batch's
-  gate conflicts route to the owner at a card — the standing direction
-  is read as raising priority and the excellence bar, never as
-  deleting the gates. The owner may override per batch.
+  gate), it is registered as a candidate-in-waiting — the
+  package-promotion blocker recorded above is that row, naming the
+  gate it fails — and the batch's gate conflicts route to the owner at
+  a card at the batch's promotion moment; the standing direction is
+  read as raising priority and the excellence bar, never as deleting
+  the gates. The owner may override per batch. The three decisions
+  above and this bullet are different things and both hold: the first
+  says which decision each fact belongs to, this one governs the
+  promotion decision (owner's reading, 2026-09-09).
 - **Conformance instrument at tranche one**: a validator that
   RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
   presence, export-surface strictness, packed smoke — so atom status
@@ -163,7 +285,13 @@ there). The extensions, each with its enforcing instrument:
 - The conformance instrument is green over every at-bar row, and its
   checks are recomputed, not recorded.
 - Every existing `packages/core/*` member either meets the bar or
-  holds a register row naming exactly what it lacks.
+  holds a register row naming exactly what it lacks — including, since
+  2026-09-14, whether it fits the workspace class's shape; one that
+  does not is outside the class until reshaped, and is never evidence
+  about the class.
+- Every workspace declaring the class passes the class validator and
+  lints, compiles and mutates at the class tier; the delivery node's
+  edge-case ledger holds only cases met inside the class.
 - Not claimed: performance optimisation beyond budget fences; any
   workspace-architecture outcome (the basis drive owns that space);
   extraction completeness — the register grows as the ledger and the

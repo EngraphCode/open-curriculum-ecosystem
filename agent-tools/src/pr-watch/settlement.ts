@@ -5,23 +5,25 @@ import {
   mostBlockingLeg,
   QUIET_WINDOW_MS,
 } from './reviewer-legs.js';
-import type { ReviewerLeg } from './reviewer-legs.js';
+import type { BlockingLegVerdict, ReviewerLeg } from './reviewer-legs.js';
+import {
+  allReviews,
+  completionRefusals,
+  completionTransportEvidence,
+  refusalDecides,
+} from './completion-evidence.js';
+import type { CompletionRefusal } from './completion-evidence.js';
+import { liveRunReviewers, runsEvidence, unmappedLiveRunEvidence } from './run-evidence.js';
 import type { PrStateReading, PrVerdict } from './state-types.js';
 
 /**
  * The reviewer-leg and settlement half of the `pr state` verdict (SKILL items
- * 3–4): per-expected-reviewer legs over the full harvest, the most-blocking
+ * 3–4): per-expected-reviewer legs over BOTH transports of a reviewer's
+ * result (the review object and the completion comment), the most-blocking
  * OWED leg, and the settled path with its quiet window (more than 10 minutes
  * since the latest tip-bound review — declaring SETTLE-READY inside the
  * window recreates the bot-round-still-composing hole).
  */
-
-function runsEvidence(reading: PrStateReading): string[] {
-  if (reading.reviewRuns.kind === 'unavailable') {
-    return [`review-run liveness unavailable: ${reading.reviewRuns.reason}`];
-  }
-  return reading.reviewRuns.note === undefined ? [] : [reading.reviewRuns.note];
-}
 
 function expectedSetEvidence(reading: PrStateReading): string[] {
   return reading.expectedDeclared
@@ -31,29 +33,26 @@ function expectedSetEvidence(reading: PrStateReading): string[] {
       ];
 }
 
-// Bounded vendor mapping: `gh agent-task` runs carry no reviewer identity, so
-// a live PR-scoped run backs the legs of reviewers with an OUTSTANDING
-// request (the run IS the requested round in flight); it cannot distinguish
-// which of several requested reviewers it serves.
-function liveRunReviewers(reading: PrStateReading): readonly string[] {
-  const hasLiveRun =
-    reading.reviewRuns.kind === 'read' &&
-    reading.reviewRuns.runs.some((run) => run.completedAt === null);
-  return hasLiveRun ? reading.reviewRequests : [];
-}
-
 function legLine(leg: ReviewerLeg): string {
   return `${leg.reviewer}: ${leg.state} — ${leg.detail}`;
 }
 
 // SKILL item 4: the quiet window anchors on the latest LANDED review binding
-// the tip — excluding PENDING drafts and signed self-authored replies; on a
-// tip where every leg settled via SKIPPED (no tip-bound review), it anchors
-// on checks-green.
+// the tip — excluding PENDING drafts, signed self-authored replies, and EMPTY
+// bodies. The window is a proxy for "a reviewer may still be composing", so it
+// must measure REVIEWER activity; an empty-bodied review is the thread-reply
+// artefact (the API creates one per reply under the replier's identity), and
+// anchoring on it measures the seat's own dispositioning instead. Worked
+// instance 2026-09-15 (#147): the anchor sat on the seat's own reply at
+// 15:44:32Z, seven minutes after the round's last real review — the exclusion
+// of signed self-replies did not catch it, because an empty body carries no
+// signature to detect. On a tip where every leg settled via SKIPPED (no
+// tip-bound review), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
-  const tipBound = reading.reviews
+  const tipBound = allReviews(reading)
     .filter((review) => review.commitOid === reading.headRefOid)
-    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body));
+    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
+    .filter((review) => review.body.trim() !== '');
   // An eligible review whose submittedAt gh omitted could be NEWER than
   // every timestamped one — anchoring past it would settle inside its
   // window, so the anchor is unknowable (null routes to the held-open path).
@@ -73,6 +72,8 @@ function quietWindowAnchor(reading: PrStateReading): string | null {
 // summary body — refusing settlement on body PRESENCE would deadlock every
 // landing), so settlement stays leg-driven and the evidence hands the reader
 // the exact body-tally inputs instead.
+// Findings arrive on the review object; a completion comment is a
+// zero-findings result and has nothing to tally.
 function bodyTallyEvidence(reading: PrStateReading): string[] {
   return reading.reviews
     .filter((review) => review.commitOid === reading.headRefOid)
@@ -92,6 +93,7 @@ function settledVerdict(input: {
   const { reading, legs, now } = input;
   const shared = [
     ...legs.map((leg) => legLine(leg)),
+    ...completionTransportEvidence(reading),
     ...bodyTallyEvidence(reading),
     ...expectedSetEvidence(reading),
     ...runsEvidence(reading),
@@ -168,19 +170,6 @@ function emptyExpectedSetVerdict(reading: PrStateReading): PrVerdict {
   };
 }
 
-// A live run that maps to no outstanding request (app-style reviews) cannot
-// back a leg; name it so SILENT-WAIT never reads as "nothing is happening".
-function unmappedLiveRunEvidence(reading: PrStateReading, blockingKind: string): string[] {
-  const hasUnmappedLiveRun =
-    blockingKind === 'SILENT-WAIT-NO-REVIEWER' &&
-    liveRunReviewers(reading).length === 0 &&
-    reading.reviewRuns.kind === 'read' &&
-    reading.reviewRuns.runs.some((run) => run.completedAt === null);
-  return hasUnmappedLiveRun
-    ? ['note: a review run IS live for this PR, unmapped to any request']
-    : [];
-}
-
 /** Resolve the reviewer-leg half of the verdict for an otherwise-green PR. */
 export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerdict {
   if (reading.expectedReviewers.length === 0) {
@@ -189,7 +178,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
   const legs = computeReviewerLegs({
     headRefOid: reading.headRefOid,
     expectedReviewers: reading.expectedReviewers,
-    reviews: reading.reviews,
+    reviews: allReviews(reading),
     reviewRequests: reading.reviewRequests,
     checksGreenAt: reading.checksGreenAt,
     now,
@@ -203,15 +192,51 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     // liveRunReviewers above).
     runsReadable: reading.reviewRuns.kind === 'read' && reading.reviewRuns.truncated !== true,
   });
+  // An expected reviewer's comment that fails a precondition, on a leg the
+  // tip has not answered, is a near-miss the verdict quotes rather than
+  // reading as silence. It decides the verdict when the round is otherwise
+  // settled or when it is the blocking reviewer's; a live run outranks it.
+  const refusals = completionRefusals(reading, legs);
+  if (refusalDecides(blocking, refusals)) {
+    return unclassifiedVerdict(reading, legs, refusals);
+  }
   if (blocking.kind === 'settled') {
     return settledVerdict({ reading, legs, now });
   }
-  const legDetail = legs.filter((leg) => leg.state === 'OWED').map((leg) => legLine(leg));
+  return blockedVerdict({ reading, legs, blocking, refusals });
+}
+
+function unclassifiedVerdict(
+  reading: PrStateReading,
+  legs: readonly ReviewerLeg[],
+  refusals: readonly CompletionRefusal[],
+): PrVerdict {
+  return {
+    state: 'UNCLASSIFIED-EVIDENCE',
+    evidence: [
+      ...refusals.map((refusal) => refusal.line),
+      ...legs.map((leg) => legLine(leg)),
+      ...completionTransportEvidence(reading),
+      ...expectedSetEvidence(reading),
+      ...runsEvidence(reading),
+    ],
+  };
+}
+
+function blockedVerdict(input: {
+  readonly reading: PrStateReading;
+  readonly legs: readonly ReviewerLeg[];
+  readonly blocking: Exclude<BlockingLegVerdict, { kind: 'settled' }>;
+  readonly refusals: readonly CompletionRefusal[];
+}): PrVerdict {
+  const { reading, legs, blocking, refusals } = input;
   return {
     state: blocking.kind,
     evidence: [
       `most blocking reviewer leg: ${blocking.reviewer}`,
-      ...legDetail,
+      ...legs.filter((leg) => leg.state === 'OWED').map((leg) => legLine(leg)),
+      ...completionTransportEvidence(reading),
+      ...refusals.map((refusal) => refusal.line),
       ...unmappedLiveRunEvidence(reading, blocking.kind),
       ...expectedSetEvidence(reading),
       ...runsEvidence(reading),

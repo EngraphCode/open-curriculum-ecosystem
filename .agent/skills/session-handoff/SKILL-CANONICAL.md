@@ -470,6 +470,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      AGENT.md pointer to its rules-index references the way Claude
      Code does, so the rules-index pointer is part of the AGENTS.md
      contract.
+   - `AGENTS.md` also carries a `## Code review` section: the review
+     contract the Codex connector reads from the head branch, mirrored for
+     Copilot in `.github/copilot-instructions.md` (landed with #136 on
+     2026-09-12, extended by #140). It is deliberate reviewer context, not
+     drift.
    - `skills.md` extends the default with the same rules-index line.
      This is the entry point for
      [Linear coding sessions](https://linear.app/docs/coding-sessions);
@@ -477,6 +482,16 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      `skills.md` as supplementary guidance, so the non-loader
      rules-index pointer is part of the `skills.md` contract for the
      same reason as `AGENTS.md`.
+   - `AGENTS.md` also carries the generator-fenced Codex team-session
+     alert bootstrap block (between the `CODEX_TEAM_ALERT_BOOTSTRAP_GENERATED`
+     start and end markers). It is generator-owned, regenerated and never
+     hand-edited, so it is an extension, not drift; a wrap reports it as
+     drift only when the generator's own check refuses the file — a
+     marker missing, duplicated, out of order or not on its own line, or
+     the fenced content differing from the render (the generator is the
+     test; the wrap runs it rather than re-deriving its rules) (decided at
+     the 2026-09-09 consolidation after every wrap since 2026-09-07 had
+     reported it).
 
    Anything beyond the default (or beyond a named extension) is
    **drift**: an instruction, fact, preference, or operational note
@@ -736,14 +751,33 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     - If `oak-consolidate-docs` runs now, refresh `Deep consolidation status`
       to `completed this handoff — <reason>`.
 
-11. **Verify the `pnpm check` cleanliness gate.** A sole-contributor session
-    or team handoff-owner closeout cannot be marked complete while
-    `pnpm check` is red or carries warnings. Run `pnpm check` from the repo
-    root before declaring handoff complete. The outcome routes one of three
-    ways:
+11. **Verify the cleanliness gate — from the commit, never a separate run.**
+    A sole-contributor session or team handoff-owner closeout cannot be
+    marked complete while the gate is red or carries warnings. The local
+    gate evidence is the landed commit's own pre-commit run: the hook runs
+    Prettier and markdownlint on the staged files, the repo validators, the
+    shell lint, and the whole-tree build, type-check, lint and unit tests
+    (`.turbo/last-gate.log`). The wider suites that `pnpm check` also
+    aggregates (widget, e2e, ui and a11y) run on the pull request's checks,
+    which the front door verdicts before any merge. Owner ruling,
+    2026-09-14, verbatim: "the commit triggers the gates, there is no point
+    and a fair amount of cost running the gates separately as well, never,
+    ever do that." So a closing seat never runs `pnpm check` (or any
+    whole-repo gate) after or beside a commit: read the commit's gate log
+    and the commit's landing, note that the pull request's checks carry the
+    rest, and record that. Pending pull-request checks are named in the
+    handover with their owner, and a red one blocks the close: a handoff
+    never reads green over a suite that has not finished. A session that
+    landed no commit has nothing to gate.
+    The outcome routes one of three ways:
 
     - **Green** — handoff may complete. Record the green run in the landed
       outcome or as a no-landing-session closeout artefact.
+    - **Pending on the pull request** — the landed commit's local gate is
+      green, and pull-request checks are still running. The handoff may
+      complete, naming each pending check and its owner, and records the
+      outcome as pending, never green. The owner reads the checks when they
+      finish and routes a red one to its lane.
     - **Red on this session's work** — fix before declaring complete. The
       [`local-broken-code-never-leaves`](../../rules/local-broken-code-never-leaves.md)
       rule applies; the
@@ -755,16 +789,22 @@ no retrospective memos; those are close-out work, this skill's §Steps.
       evidence and stop. Do not bundle handoff over a red gate.
 
     Owner-stated standing 2026-05-14 (carried by
-    [`gates/SKILL-CANONICAL.md`](../gates/SKILL-CANONICAL.md) and
+    [`gates/SKILL-CANONICAL.md`](../change-custody/gates/SKILL-CANONICAL.md) and
     [`build-system.md`](../../../docs/engineering/build-system.md)
     § `pnpm check` - Canonical full gate): session-handoff is not complete
-    in the individual-contributor or handoff-owner sense unless `pnpm check`
-    completes with no errors or warnings. This step makes that standing
-    direction structurally enforced rather than agent-recalled.
+    in the individual-contributor or handoff-owner sense unless the full
+    gate completes with no errors or warnings. Since the owner's ruling of
+    2026-09-14, that evidence is the landed commit's own hook run, never a
+    separate `pnpm check`. The suites the hook does not run are the pull
+    request's checks: one still running at the close does not hold it, and
+    is named with its owner under the Pending outcome above; one already red
+    blocks it. This step makes the standing direction structurally enforced
+    rather than agent-recalled.
 
-    **Singleton in multi-agent windows.** When two or more agents are
-    closing concurrently, only **one** of them runs the whole-repo
-    `pnpm check`. Apply the
+    **Singleton in multi-agent windows.** Where a whole-repo gate run is
+    warranted at all (it never is beside a commit, per the ruling above),
+    and two or more agents are closing concurrently, only **one** of them
+    runs it. Apply the
     [`check-singleton-per-window`](../../rules/check-singleton-per-window.md)
     rule: before invoking `pnpm check`, broadcast on the comms stream
     *"Lane &lt;name&gt; running pnpm check, ETA ~30s, will broadcast

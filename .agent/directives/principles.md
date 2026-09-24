@@ -9,7 +9,10 @@ fitness_rationale: >-
   grew legitimately; trimming substance was explicitly forbidden ("do not chase the
   fitness number"). This is a "for now" raise — a deliberate substance-led
   refinement (graduate elaborated guidance to governance docs per split_strategy,
-  never the principles themselves) remains the proper long-term move.
+  never the principles themselves) remains the proper long-term move. Measured
+  2026-09-09 at ≈41.9k chars / 760 lines, past the limits; the owner ruled the
+  same day that a dedicated curation lane graduates elaborated guidance later and
+  that no landing trims substance to fit ("we can always iterate later").
 split_strategy: "This file is the source of truth for all principles. Extract only elaborated guidance to governance docs, never the principles themselves. The principles are operationalised through several mechanisms, including rules, sub-agents, and tooling."
 ---
 
@@ -112,6 +115,19 @@ rush-assumption this estate rejects. The same absoluteness governs
 risk-of-loss operations (`never-use-git-to-remove-work` §A Safety Proof
 Never Licenses the Class): a discipline's value is that it holds
 precisely when a locally-sound argument says it could bend.
+
+**No change freezes.** Owner, 2026-07-30, on submission day, declining a
+proposed merge freeze, verbatim: "we don't do change freezes, we do absolutely
+world class observability and the ability to respond quickly and safely to
+issues." The freeze instinct treats change as the risk; this estate treats
+blindness and slow response as the risk. A freeze buys nothing a well-observed,
+fast-response system lacks, costs throughput, and normalises fear of the deploy
+path on the day confidence matters. Never propose a change freeze, code freeze
+or merge moratorium as a risk control, on launch days included; when the
+instinct fires, the question is whether the surface's observability is
+world-class and whether a break can be answered quickly and safely, and a "no"
+there is the work to surface. Full-condition gates on every merge stay: that is
+structure, not a freeze.
 
 ## Architectural Excellence Over Expediency
 
@@ -227,6 +243,28 @@ architecture keeps it extractable. A component whose licence cannot
 be named in one word is one where general mechanism and Oak identity
 cohabit.
 
+Open source and public is the Oak and UK Government standard (owner,
+2026-08-12, verbatim, on a proposal that framed opening a private Oak
+repository as a licensing cost: "open source and public is the Oak and UK Gov
+standard, forcing that change is actually a huge positive"). This is Oak
+policy as the owner states it. Its external root is the Government Service
+Standard's point 12,
+[Make new source code open](https://www.gov.uk/service-manual/service-standard/point-12-make-new-source-code-open),
+which binds the services in that standard's scope and names its own exceptions;
+Oak, a public body, holds the same default for its own surfaces. So a proposal
+that makes a private Oak surface public is aligned with standing policy, and
+the framing burden is on staying private. File the open-sourcing itself under
+benefits and policy alignment; only the transitional work (a security review
+before exposure, secrets-in-history hygiene) is a cost.
+
+A mechanism built to prove a capability is a consumer of the
+framework, never the framework: check its warrant when it outlives its
+demonstration. An identity built as an override sheet to prove live
+switching quietly became the architecture until the owner read the
+substitution off the page's own badges (2026-08-18); the day's defect
+ledger argued for self-containment, and the demonstration instrument
+was retired with its demo.
+
 ### Context Specificity Gradient
 
 Every capability decomposes by context specificity. Push functionality
@@ -248,8 +286,24 @@ canonical form already exists — an industry contract, a mature library —
 adopt it behind a thin conformance check rather than re-derive it
 in-estate; own only concepts with no external canonical form, or small
 enough that a finished owned module costs less than curating a
-dependency. Both directions stay falsifiable by measured cost. A thin
-highest-specificity layer is also a detachable one (owner-directed
+dependency. Both directions stay falsifiable by measured cost. Which
+canonical form is adopted is a different question from where an owned
+implementation originates, and for algorithm and data-structure
+foundations the owner decided the second for the whole class
+(owner-directed 2026-09-08,
+[ADR-230](../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md);
+scope confirmed 2026-09-09 as that class, not the estate): "select the
+best, permissively licenced libraries, and use their code as inspiration
+to create Reliable Atoms and composition layers tailored to our needs and
+created to our deliberately very high quality standards" — the estate
+authors them. The governing policy ADR-230 cites bounds the class
+(language/runtime, protocol, storage, transport and platform capabilities
+and standards conformance stay under the sentence above), owns the
+provenance discipline that keeps learning distinct from adapting, and
+keeps the class's whole-life effort saving an empirical hypothesis
+measured through delivered capabilities and their later changes; what
+that measurement reopens is the owner's decision, never a seat's.
+A thin highest-specificity layer is also a detachable one (owner-directed
 2026-08-19): an Oak product surface built as configuration, styling, and
 experience tuning on general machinery can be handed off to a product
 squad — extracted to its own home — without dragging the lever machinery
@@ -279,8 +333,10 @@ this way produces cleaner boundaries and simpler classification.
 
 ### Code Design and Architectural Principles
 
-- **TDD** - ALWAYS use TDD at ALL levels — unit, integration, AND
-  E2E. Test and product code are two halves of one act of design;
+- **TDD** - ALWAYS use TDD at ALL levels — unit and integration
+  tests, AND the E2E checks that describe the running system (a
+  validation surface, written first like a test;
+  [testing-strategy.md](testing-strategy.md)). Test and product code are two halves of one act of design;
   they land together as one atomic commit. See
   [tdd-as-design.md](tdd-as-design.md) for the foundational
   definition and atomic-landing invariant.
@@ -308,6 +364,28 @@ this way produces cleaner boundaries and simpler classification.
   command MUST target the canonical surface and fail loudly when that
   surface is absent or invalid; it must not quietly scan an old location,
   skip a missing canonical directory, or keep a migration path alive.
+- **No timing dependence** - nothing we build relies on timing, ordering
+  luck, or a race being unlikely (owner principle, 2026-08-17, verbatim:
+  "nothing we do should ever, ever rely on timing or races, we build
+  things so they WORK" — "an important principle of fleet mechanics, and
+  also in general"). Eliminate the shared mutable resource instead of
+  shrinking its window; make the correct order structural (a render-time
+  latch, a declarative guard, a per-seat directory) instead of scheduled;
+  in review, a correctness argument that contains "the window is small",
+  "usually", or an ordering assumption names a defect. The worked shapes
+  are the anti-pattern `timing-derived-state-is-the-defect`; its
+  read-side dual is the pattern `timing-artefact-read-as-state`.
+- **At most one holder, and for continuously owned authority exactly
+  one** - a singleton-authority state never has two holders. A
+  continuously owned authority (a coordinator role, a document root's
+  theme, a shared index between windows' owner) has exactly one holder at
+  all times, never zero; a windowed authority (a commit window on
+  `git:index/head`) has one holder while it is open and none between
+  windows, by design. Ownership is decided by context up front, never
+  negotiated at runtime between two well-meaning holders — two theme holds
+  on one root corrected each other forever until context (standalone: the
+  page; framed: the parent) chose the owner (2026-08-19); the coordinator
+  two-moments invariant of PDR-064 is the same rule for roles.
 - **Pure functions first** - Use TDD to design (*test first*, red,
   green, refactor), no side effects, no I/O
 - **Consistent Naming** - Use consistent naming conventions for
@@ -398,6 +476,16 @@ this way produces cleaner boundaries and simpler classification.
   of responsibility, keeping boundaries and public API clear with
   index.ts files, using TDD. Run lint after every substantive edit
   to catch violations early.
+- **Never trim documentation to fit a limit** — size and complexity
+  limits exist for developer experience, and documentation IS
+  developer experience; a file over its limit is a signal of an
+  unsplit seam, never of excess explanation. Split at a meaningful
+  responsibility seam with each half fully documented; never
+  condense TSDoc, comments or docs to satisfy the number (owner,
+  2026-08-03: "we never trim to hit complexity limits … the
+  approved approach is to split files by identifying fundamentally
+  meaningful seams"; 2026-09-01: "we do not trim information to
+  meet targets, we maximise developer experience").
 - **Splitting long functions** - If a function exceeds 50 lines
   (`max-lines-per-function`), split it into smaller, pure functions
   with a single responsibility, using TDD. Extract conditional
@@ -449,7 +537,7 @@ shared bases — they do not replace them. This applies to
 `tsconfig.json` `extends` chains are the one root-anchored
 convention that remains (an `extends` reference is not a module
 import). Deviations cause silent quality-gate leaks (e.g. E2E
-tests running under `pnpm test`, disabled lint rules, weakened
+checks running under `pnpm test`, disabled lint rules, weakened
 type-checking). See [Testing Strategy: Canonical Vitest
 Configuration][vitest-config] for vitest-specific patterns. E2E
 vitest configs may be workspace-specific when base defaults (include
@@ -481,7 +569,7 @@ paths, setup files) don't apply.
   exploration, exercise, review, external comment — is not resolved
   until a check of the appropriate kind exists that would catch the
   instance AND its class. The kind fits the class: behaviour → a
-  unit/integration/E2E test; types → the type-check gate or a
+  unit or integration test, or an E2E check; types → the type-check gate or a
   `satisfies` anchor; structural → an ESLint/boundary rule;
   process/CI coverage → a required status check or validator;
   content-quality invariant → construction plus human review, never
@@ -611,14 +699,21 @@ Universal testing principles:
 - each proof happens once and must prove product code;
 - unit tests are pure, in-process, and mock-free;
 - integration tests import code directly and use only simple DI fakes;
-- E2E tests prove running-system behaviour;
-- smoke tests prove the built artefact is viable in its shipped form (invoked as
-  production invokes it, no loaders); every built binary carries at least one —
-  new ones at landing, the pre-existing gap as recorded debt;
+- tests never use or create IO, of any kind, at any level, and no helper a test
+  imports does (owner, 2026-09-14: an absolute invariant); what needs a running
+  system, a filesystem or a process is a validation surface, never a test
+  ([testing-strategy.md](testing-strategy.md) §Philosophy;
+  [validation-strategy.md](validation-strategy.md));
+- E2E checks prove running-system behaviour, as validation surfaces;
+- smoke checks prove the built artefact is viable in its shipped form (invoked as
+  production invokes it, no loaders), as validators reachable from a CI-gated
+  task; every built binary carries at least one — new ones at landing, the
+  pre-existing gap as recorded debt;
 - tests must never read or mutate `process.env`, global objects, module cache,
-  ambient env files, or `process.cwd()` — smoke composition roots only;
+  ambient env files, or `process.cwd()`; a validation check's composition root
+  may read ambient env and inject it;
 - no skipped tests, no conditional tests, no complex mocks, no complex test
-  logic, no process spawning in in-process tests. Conditional tests are an
+  logic, no process spawning in tests. Conditional tests are an
   architectural-failure symptom — remove them, fix the ambiguity in product
   code, write deterministic behaviour-proving tests.
 
