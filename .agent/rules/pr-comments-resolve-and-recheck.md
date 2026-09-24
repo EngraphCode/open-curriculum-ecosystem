@@ -46,7 +46,7 @@ The loop is:
 1. Pull all comments (every surface above).
 2. For each: fix in code, or reject explicitly with verified rationale, or — per the
    pr-lifecycle Phase 4 three-way ruling — ticket-and-close a correct-but-out-of-story
-   finding (Director notified, ticket referenced in the reply); reply; resolve the
+   finding (the ticket, referenced in the reply, tells the Director); reply; resolve the
    thread. PDR-140's pickup-home ROUTE disposition additionally exists only in its
    lane — bot-reviewed findings on prose-class artefacts; excluded lanes keep exactly
    the Phase 4 dispositions, with no pickup routing.

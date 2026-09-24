@@ -161,15 +161,37 @@ export type DirectoryWatchFactory = (
   onChange: () => void,
 ) => { readonly close: () => void } | null;
 
-const fsDirectoryWatchFactory: DirectoryWatchFactory = (directory, onChange) => {
-  try {
-    const watcher = watch(directory, { persistent: false }, onChange);
-    watcher.on('error', onChange);
-    return watcher;
-  } catch {
-    return null;
-  }
-};
+type FsWatch = (
+  directory: string,
+  options: { readonly persistent: false },
+  onChange: () => void,
+) => { readonly close: () => void; readonly on: (event: 'error', listener: () => void) => unknown };
+
+/** Build the production watch adapter while keeping its error path testable without filesystem IO. */
+export function createFsDirectoryWatchFactory(
+  watchDirectory: FsWatch = watch,
+): DirectoryWatchFactory {
+  return (directory, onChange) => {
+    try {
+      const watcher = watchDirectory(directory, { persistent: false }, onChange);
+      let closed = false;
+      const close = (): void => {
+        if (!closed) {
+          closed = true;
+          watcher.close();
+        }
+      };
+      // An fs.watch error is not a directory change. Let the poll timer wake
+      // the loop at its configured pace after closing the failed handle.
+      watcher.on('error', close);
+      return { close };
+    } catch {
+      return null;
+    }
+  };
+}
+
+const fsDirectoryWatchFactory = createFsDirectoryWatchFactory();
 
 /**
  * Resolve when ANY watched directory changes — OR after `pollMs`, whichever

@@ -4,10 +4,13 @@ import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
+  digestTemplate,
+  envelopeDigest,
   parseThreadId,
+  type EnvelopeTemplate,
   type ThreadId,
 } from './envelope.js';
-import { parseModelPins } from './model-pins.js';
+import { parseModelPins, type ModelPins } from './model-pins.js';
 
 const V7_ID = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 
@@ -185,4 +188,54 @@ describe('the dialogue call envelope (designed sentinel)', () => {
       CODEX_HOME: '/codex-home-slot',
     });
   });
+});
+
+describe('envelopeDigest', () => {
+  const pinned: ModelPins = { model: 'gpt-6-sol', effort: 'xhigh' };
+
+  it('gives the same envelope the same digest every time', () => {
+    expect(envelopeDigest(pinned)).toBe(envelopeDigest({ ...pinned }));
+  });
+
+  it.each([
+    ['another model', { ...pinned, model: 'gpt-6-terra' }],
+    ['another effort', { ...pinned, effort: 'high' }],
+    ['no model pin', { effort: pinned.effort }],
+    ['no effort pin', { model: pinned.model }],
+    ['no pins at all', {}],
+  ] satisfies readonly (readonly [string, ModelPins])[])(
+    'gives an envelope with %s a different digest, so a pass on one model is no pass on another',
+    (_label, other) => {
+      expect(envelopeDigest(other)).not.toBe(envelopeDigest(pinned));
+    },
+  );
+});
+
+describe('digestTemplate', () => {
+  const template: EnvelopeTemplate = {
+    open: ['exec', '-'],
+    resume: ['exec', 'resume', '-'],
+    childEnv: buildChildEnv({
+      instrumentHome: '/home-slot',
+      instrumentCodexHome: '/codex-home-slot',
+      user: 'user-slot',
+      lang: 'lang-slot',
+      tmpdir: '/tmp-slot',
+    }),
+  };
+
+  it('gives the same template the same digest every time', () => {
+    expect(digestTemplate({ ...template })).toBe(digestTemplate(template));
+  });
+
+  it.each([
+    ['open argv', { ...template, open: ['exec', '--other', '-'] }],
+    ['resume argv', { ...template, resume: ['exec', 'resume', '--other', '-'] }],
+    ['child environment', { ...template, childEnv: { ...template.childEnv, PATH: '/other' } }],
+  ] satisfies readonly (readonly [string, EnvelopeTemplate])[])(
+    'gives a template that differs only in its %s a different digest, so the hash covers every part',
+    (_label, other) => {
+      expect(digestTemplate(other)).not.toBe(digestTemplate(template));
+    },
+  );
 });

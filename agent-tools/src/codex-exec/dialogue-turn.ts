@@ -8,6 +8,7 @@ import {
   type ChildEnvInputs,
   type ThreadId,
 } from './envelope.js';
+import type { ResolvedBinary } from './gate.js';
 import type { ModelPins } from './model-pins.js';
 import { judgeTurn, type CodexRun, type TurnFailure, type TurnOutcome } from './turn-verdict.js';
 
@@ -28,8 +29,6 @@ export interface CodexCall {
  * What the composition root resolves once and every turn uses.
  */
 export interface TurnContext {
-  /** The resolved real path of the `codex` executable. */
-  readonly codexExecutable: string;
   /** The instrument's empty working root, the cwd of every spawn. */
   readonly instrumentRoot: string;
   /**
@@ -66,14 +65,21 @@ export interface TurnRequest {
 export type TurnError = TurnFailure | { readonly kind: 'root-not-ready'; readonly reason: string };
 
 /**
- * Run one dialogue turn inside the fixed call envelope and judge it. The root
- * checked is the root the spawn runs in. Of the request, only the thread id,
- * already parsed as a UUID, reaches the argv; the prompt goes on stdin and
- * the timeout to the runner.
+ * Run one dialogue turn inside the fixed call envelope and judge it, with no
+ * gate: `runTurn` is the gated route, and the probe reaches this directly.
+ * The root checked is the root the spawn runs in. Of the request, only the
+ * thread id, already parsed as a UUID, reaches the argv; the prompt goes on
+ * stdin and the timeout to the runner.
+ *
+ * @param request - The turn: its prompt, its thread (undefined to open one) and its timeout.
+ * @param context - What the composition root resolved once for every turn.
+ * @param binary - The `codex` binary as resolved once; the turn spawns its real path.
+ * @param ports - The root check and the runner.
  */
 export function executeTurn(
   request: TurnRequest,
   context: TurnContext,
+  binary: ResolvedBinary,
   ports: TurnPorts,
 ): Result<TurnOutcome, TurnError> {
   const root = ports.checkRoot(context.instrumentRoot);
@@ -85,7 +91,7 @@ export function executeTurn(
       ? buildOpenArgv(context.instrumentRoot, context.modelPins)
       : buildResumeArgv(request.thread, context.modelPins);
   const run = ports.runCodex({
-    executable: context.codexExecutable,
+    executable: binary.executablePath,
     argv,
     cwd: context.instrumentRoot,
     env: buildChildEnv(context.childEnvInputs),

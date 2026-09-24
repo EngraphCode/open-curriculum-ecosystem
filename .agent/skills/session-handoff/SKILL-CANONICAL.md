@@ -801,17 +801,21 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     blocks it. This step makes the standing direction structurally enforced
     rather than agent-recalled.
 
-    **Singleton in multi-agent windows.** Where a whole-repo gate run is
-    warranted at all (it never is beside a commit, per the ruling above),
-    and two or more agents are closing concurrently, only **one** of them
-    runs it. Apply the
+    **Singleton per working tree in multi-agent windows.** Where a
+    whole-repo gate run is warranted at all (it never is beside a commit,
+    per the ruling above), and two or more agents in one working tree are
+    closing concurrently, only **one** of them runs it; seats closing in
+    separate worktrees each may run their own under
+    [`no-unbounded-host-load`](../../rules/no-unbounded-host-load.md)
+    item 6. Apply the
     [`check-singleton-per-window`](../../rules/check-singleton-per-window.md)
     rule: before invoking `pnpm check`, broadcast on the comms stream
-    *"Lane &lt;name&gt; running pnpm check, ETA ~30s, will broadcast
-    result"*, observe peers' in-flight broadcasts and defer if one is
-    live, and broadcast the result event (green or red with first
-    blocker) carrying the HEAD SHA at run time. Peers consume the
-    result; do not duplicate the run.
+    *"Lane &lt;name&gt; running pnpm check in &lt;worktree&gt;, ETA ~30s,
+    will broadcast result"*, observe in-flight broadcasts that name the
+    same working tree and defer if one is live, and broadcast the result
+    event (green or red with first blocker) naming the tree and carrying
+    the HEAD SHA at run time. Peers in that tree consume the result; do
+    not duplicate the run.
 
 11a. **Dispatch PENDING reviewers if the session touched a plan body.**
     If a thread record's plan carries PENDING reviewer markers AND this
