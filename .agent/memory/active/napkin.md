@@ -1050,8 +1050,28 @@ the ceremony sets git's author variables in the environment of the commit step.
 - **Correction, the owner's word (2026-09-24 ~15:5xZ)**: "do you really need to spend time and
   tokens informing another agent that a file got bigger? … tools like git don't need
   'telling'". This seat sent three native messages to the napkin's lander, each about its own
-  edits to a shared file. The 2026-09-23 rule for the Director binds peer seats too: message
-  only with a question or a request; the file and git keep the record.
+  edits to a shared file. The owner's refinement, the same minutes, verbatim: "it is also
+  reasonable to send information to a fellow agent, sometimes that is important and is neither
+  a question not a request, but it should be useful information". The test for a peer message
+  is usefulness to the receiver: it changes what they would do, or tells them something the
+  artefact does not already show. Git and the file already record edits to a shared file.
+- **Owner credential on a GitHub write, after the compaction (2026-09-24 15:54:40Z)**: PR
+  191's landing premises went up through bare `gh pr comment`, and this environment's default
+  `gh` credential is the owner's. The merge a minute later minted its own token; the comment
+  did not. It is the rule's own named failure: the trigger is the write, never the tool
+  category. Cure: reposted as the bot (`pull-request-work` scope) at 15:54:59Z; the bodies
+  compared identical; the owner-attributed copy deleted. This is the third owner-credential
+  write in this estate today (#189's row names two). Could a lower-powered seat comply without
+  recalling the rule? Not today. A PreToolUse guard that refuses a `gh` write (`pr comment`,
+  `pr create`, `pr edit`, `api -X POST/PUT/PATCH/DELETE`) with no `GH_TOKEN` in the command is
+  the structural cure. Candidate for the Director's routing.
+- *Tool feedback, zsh.* `[ "$a" \> "$b" ]` is a zsh error ("condition expected"), not a string
+  compare, so an `until` loop on it spins forever and never fires; compare numerically
+  (`[ $(date -u +%H%M%S) -ge 160530 ]`). `set -- $pair` does not split either. Second and
+  third zsh word-splitting instances in this seat's tenure.
+- *Before moving a file, read its age.* A `cd` into the comms directory left `.logs/` there. It
+  was not this session's: it dated from 2026-08-12, ignored and 6 MB. It was moved to the
+  scratchpad and restored within a minute.
 
 ## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
 
@@ -1213,3 +1233,40 @@ first-class peer. It paused again at 49.8% context.
   and the fetched Codex source. OWED at resume: the continuity commit, and the sketch as its own
   docs commit, both run one gate at a time. They were not run at the pause because the owner's
   word stopped every process.
+
+- **Correction at resume (~15:58Z): the gate cure candidate above was the wrong shape.** The
+  owner has already ruled the cure. `no-unbounded-host-load` item 6 (2026-09-07): concurrent
+  full local gates are bounded at two, ceiling three, "by a mechanism, never a declaration": a
+  host-wide semaphore the gate's spawn path acquires, with a test. A `host:gates` claim area is
+  a declaration, the shape that ruling rejects. The owner, 2026-09-20: "two parallel gate runs
+  are fine as long as they are in different work trees". So the four-gate instance at load
+  23.8 broke item 6's ceiling. At 15:52Z this seat's pre-commit ran beside Luna stirs
+  Radiance's, two gates in two worktrees, which is within the bound. The semaphore is not built:
+  the husky gates acquire nothing, and no plan node owns it (the 2026-09-20 frictions archive
+  calls it "its own lane"). The question of who owns it goes to the Director. The move under
+  it: read the rule a candidate would amend before routing the candidate.
+
+## 2026-09-24 ~16:30Z — after the resume: sensors a rule already names (Swallow holds Drift, 516619)
+
+- **The load average was the wrong sensor, and the rule said so.** Check-in 8's frame held every
+  push on "load 29.16". `no-unbounded-host-load` item 4 says macOS load averages over-read and
+  names CPU idle and memory pressure instead; item 6's release is the gate count. Two Crickets
+  read the cited rule and caught it. At the re-read, 0 gates were running, CPU was 37.6% idle and
+  memory 42% free. Eight seconds later two gates had started, and the push script's own count
+  check held the push. The move: a hold's sensor comes from the rule the hold cites, and the
+  check runs inside the act, not before it.
+- **A landing-slot handoff raced.** Luna handed the slot to PR 190 at 16:25:40Z. Marten claimed
+  it for PR 194 at 16:26:10Z, because PR 194 was the one non-draft PR behind `engraph`. PR 190
+  still needed its first review round, so yielding cost nothing: its legs run while PR 194
+  lands. The slot follows readiness, not a queue order written earlier. A draft is not in the
+  queue until its legs can bind.
+- **Read-only Crickets check citations against the working tree.** The frame quoted the node at
+  `git show 813406e3f:`. One Cricket read the primary checkout's older copy on the coordination
+  branch, found 561 lines, and called the citation false. The quoted text was right, but a
+  role with only `Read` cannot resolve a git ref. Cure for the next frame: say the quote is from
+  `git show <sha>:<path>`, or copy that file into scratch and cite the scratch path.
+- **Codex 0.156.1's `PreToolUse` contract, read from source** (for
+  `codex-pretooluse-guard-parity`): `permissionDecision: "ask"` and a bare `"allow"` are both
+  refused as unsupported, and the tool then runs. So the Claude renderer's allow and the
+  degraded state's ask would each fail open on Codex. A Codex renderer allows with empty output
+  and denies where Claude asks.

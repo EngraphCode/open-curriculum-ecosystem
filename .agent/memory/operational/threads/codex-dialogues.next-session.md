@@ -60,13 +60,28 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 - **Team expectation**: the lane owner is a Claude seat. A Codex seat takes code cures on
   1b-iii when one is live. Questions go to the Director (Wick binds Temper, `ed7b48`) with a
   lens verdict, question first. Do not update the Director except with a question or request.
-- **PAUSED AGAIN at the owner's word, about 15:36Z on 2026-09-24** ("prepare for compaction and stop
-  all processes"). Heartbeat-end `e432959b`. All four monitors are stopped, and a parentage check
-  of the process table found nothing of this seat's left. Claims are kept, with the handover record
-  attached. Check-in 7's Cricket suite finished before the pause: all eight delivered, seven
-  ON-TRACK and one DRIFTING (mild, accepted and already absorbed). Context was 49.8% at 15:34:39Z,
-  so at resume the owner may call a handover rather than a continuation. Re-arm with the recipe
-  below.
+- **Paused again at the owner's word about 15:36Z on 2026-09-24; resumed at the owner's "carry
+  on" at 15:42Z** after compaction, re-armed in the recipe's order by 15:44Z. Since then:
+  - The continuity commit `f45c8c7d1` and the sketch's own commit `7e9b2cf7f` landed on the
+    coordination branch, pushed at 15:47Z.
+  - 1b-ii steps 2 to 4 were committed (see its lane).
+  - Luna stirs Radiance reviewed the wake sketch (the pairing channel, 15:54:00Z); all four points
+    were accepted and folded in, uncommitted.
+  - The host gate question was settled by the Director at about 16:00Z. The cure is
+    `no-unbounded-host-load` item 6's semaphore, ruled by the owner on 2026-09-07 and not yet
+    built. Siren herds Rudder authors it in jimcresswell.net, and a seat for it goes on the
+    owner's next card. Nothing more is owed from this seat on it.
+  - The Director's check-in 8 (16:18Z) was answered at 16:21Z. Its Cricket suite: all eight
+    delivered, seven ON-TRACK and one DRIFTING (medium, adversarial). That verdict was on the
+    load-average sensor, which `no-unbounded-host-load` item 4 disowns on macOS. It was accepted
+    and acted on: holds now read the husky gate count, CPU idle and memory pressure. The frame
+    verdicts also accepted:
+    - 1b-ii's draft PR needs no landing slot;
+    - the Codex-specific gap count is 5, not 7;
+    - frames cite quotes as `git show <sha>:<path>`.
+  - The second membership node, `codex-pretooluse-guard-parity`, is a sketch file in the
+    primary checkout, uncommitted. It was read from 0.156.1 hook source: `ask` and a bare `allow`
+    both fail open on Codex, so a Codex renderer is required.
 - **Paused at the owner's word about 14:33Z on 2026-09-24 ("prepare for compaction and stop all
   processes"); resumed at the owner's "carry on" about 14:45Z**, re-armed in the order below by
   14:48Z. Swallow holds Drift holds claims `372ac08b` and `2368c96b`; the pause record
@@ -176,24 +191,46 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     the turn context, and the reason strings as a closed union. The full list, with file:line
     and vendor-source lines, is on the pairing channel at 15:05:36Z, offered to Luna stirs
     Radiance under `dc7c5491`.
-- **Next safe step**: when Luna names the cure commit, read it, confirm the push through `merge-bot
-  push` landed, and record the dispositions in PR 190's body (a bot `gh` write). Then mark the
-  pull request ready, request Copilot and post `@codex review` as the bot, and read both legs.
-  The door waits for the landing slot, which Marten mends Shadow holds for PRs 192 and then 191.
+- **The cure commit is `5a695f0f2`** (Luna, named at 15:55:40Z, parent `5a0a8d189`). The lane
+  owner verified it at about 16:00Z against all nine items, each with its test, from the shared
+  object store. It is bot-authored with no body. Luna's first push failed on one flaky
+  `agent-tools#test:e2e` task that passed on its own rerun; the retry follows PR 193's sync.
+- **READY since 16:27:11Z.** The dispositions are recorded in the body (a bot write, about
+  16:10Z). Copilot was requested automatically when the PR went ready (timeline, 16:27:13Z), so
+  the explicit request returned HTTP 422. `@codex review` was posted as the bot at 16:27Z. Both
+  legs bind `5a695f0f2`; all its checks are green.
+- **Slot order**: PR 193 merged at 16:25:00Z (`07d80ec02`). Marten took the slot for PR 194 at
+  16:26:10Z, and this seat yielded, because PR 190 still needed its first review round. A local
+  sync merge, `f2cd4797d` in the rollout worktree, is held unpushed; PR 194's landing makes it
+  stale.
+- **Next safe step**: on PR 194's merge-landed, merge `engraph` into the branch again, with the
+  owner as author, and push once through `merge-bot push`, carrying any round-one cure in the
+  same push. Re-request both legs on that tip; the door binds legs to the exact head
+  (`pr-watch/reviewer-legs.ts` `bindsTip`). Then take the door with `--expect
+  copilot-pull-request-reviewer --expect chatgpt-codex-connector`.
 - **Do not publish** the original rollouts behind the fixtures; only redacted projections are
   committed. Forge's pickup index (comms broadcast, 13:34Z) names them for local
   re-verification.
 
-### Lane: 1b-ii, the cleanup row — ACTIVE, step 1 of 4 committed
+### Lane: 1b-ii, the cleanup row — ACTIVE, all four steps committed, post-execution reviews running
 
 - **Where**: worktree `oce-wt-codex-dialogue-cleanup-row` beside the primary checkout, branch
   `feat/codex-dialogue-cleanup-row`, off `engraph` at `a0a2fead4`. Built and installed. No PR yet;
-  the draft PR opens with the first push, through `merge-bot push`.
+  the draft PR opens with the first push, through `merge-bot push`. The branch is behind `engraph`
+  (PRs 191 and 192 landed since); it syncs at its landing slot, after PR 190.
 - **Step 1 committed**: `db726e641`, "a dialogue id is a bounded lowercase slug". It adds
   `cleanup-row.ts` (`DialogueId`, `parseDialogueId`) and 16 tests. Slip: it was committed without
   `--author`, so it is bot-authored. The rule calls that outcome fail-safe, and it is corrected
   forward: every later commit passes `--author="Jim Cresswell
   <1314980+jimCresswell@users.noreply.github.com>"`, the value read from `4682907ad`'s author.
+- **Steps 2 to 4 committed, owner-authored**, each through the full pre-commit:
+  - `10f77553c`: `threadsCreated(run)` and `CodexRun.killed.stdout`, plus killed-stays-killed.
+  - `a34b104e6`: the rows on the turn path, including the refused-row failure. It was planned as a
+    fourth step, and lands here because no commit may ignore the append's `Result`.
+  - `6b5bd7955`: the node edit (the cleanup paragraph, exit 4, 1b-0 and 1b-i landed, the ledger
+    row for the rejected resume request).
+  - 198 codex-exec tests pass. The post-execution code-expert, test-expert (focused) and
+    security-expert (focused) reviews were launched at about 16:05Z.
 - **The design, settled by the pre-execution code-expert and test-expert (2026-09-24 ~15:15Z)**:
   - **The rule.** On OPEN only, every distinct thread id named by `thread.started` that parses as
     a `ThreadId` gets one row, whatever the verdict. `unlaunchable` writes none, and an invalid id
