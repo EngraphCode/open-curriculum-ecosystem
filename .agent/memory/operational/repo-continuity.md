@@ -284,6 +284,12 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
+**SUCCESSOR, 2026-09-24 — the owner names Marten mends Shadow (74fc02) as this lane's next
+seat.** Zephyr guards Leeward (281e44) wrapped at 12:40Z; it holds no claim and runs no
+process. The current pickup is the paragraph below that begins "The 2026-09-23 branch folded
+as #176": its owed list is the work, and the second estate's pull requests 170 and 171 carry
+the joint bytes. The two boundary blocks that follow are earlier.
+
 **BOUNDARY, 2026-09-21 18:3xZ — a compaction at the owner's word, then a pause the owner
 says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
 written for a reader who was not here, possibly a different seat.

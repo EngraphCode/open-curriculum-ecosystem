@@ -696,7 +696,8 @@ the 2026-09-02 fold) → [no Director seated 2026-09-02 to 2026-09-06; Finch cal
 (c91bd4) and Chinook seeks Cloud (661556) worked at the owner's direct word] → Flounder turns
 Estuary (c5cc2c, 2026-09-06 12:5xZ) → Nettle guards Pistil (2de368, Moment 2 2026-09-09
 15:11:49Z; sole operator from 2026-09-12; closed 2026-09-13) → Zephyr guards Leeward (281e44,
-sole operator then curator, from 2026-09-14). Numbered owner-ruling series
+sole operator then curator, from 2026-09-14; wrapped 2026-09-24 12:40Z) → Marten mends Shadow
+(74fc02, named successor at the owner's word, 2026-09-24). Numbered owner-ruling series
 ran continuously across tenures (1–42 Falcon-era, 43–51 Spark-era) — the
 instinct the rulings ledger (plan S2) formalises.
 
