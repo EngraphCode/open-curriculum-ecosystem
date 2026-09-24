@@ -86,13 +86,14 @@ Scan for:
   root pipeline runs. No hidden `test:ci` duplicates, no workspace copies of root gates.
 - Every cited script exists; `package.json` entries reference files that exist and create no
   circular `pnpm check` loop.
-- Environment variables are read through `resolveEnv` (`packages/libs/env-resolution`,
-  ADR-116) against the schemas in `packages/core/env`; `process.env` is never mutated.
+- Application environment is read through `resolveEnv` (`packages/libs/env-resolution`,
+  ADR-116) against the schemas in `packages/core/env`, or at a composition root's single
+  documented boundary read passed into typed factories; `process.env` is never mutated.
 - Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
   deliberate, documented and aligned with the directives.
-- Config changes still trigger the right validators: `pnpm check` picks up a new script, and
-  every E2E and visual gate that `pnpm check` runs still runs there. Smoke suites stay outside
-  `check` by design (`docs/engineering/build-system.md`).
+- Config changes still trigger the right validators: `pnpm check` picks up a new verify-type
+  gate or validator, and every E2E and visual gate that `pnpm check` runs still runs there.
+  Smoke suites stay outside `check` by design (`docs/engineering/build-system.md`).
 
 ### Step 5: Report Findings with Inheritance Analysis
 

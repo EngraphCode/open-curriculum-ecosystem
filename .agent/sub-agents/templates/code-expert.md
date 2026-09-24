@@ -306,7 +306,7 @@ In every review, check whether the changes touch any of these categories. If the
 | Outward-facing copy (`VISION.md`, strategy, public README narrative) or significant authored prose | `prose-expert` |
 | Sub-agent definition design or migration: templates, platform adapters, `invoke-*` rules | `subagent-architect` (on-demand) |
 | Onboarding flows, start-right entry points, ADR discoverability | `onboarding-expert` |
-| A new ADR, PDR, rule or governance doc, a doctrine rename, or any significant Practice change | `docs-adr-expert` and `onboarding-expert` together (`invoke-doc-and-onboarding-experts-on-significant-changes`) |
+| Significant documentation work, or any change that mutates a Practice surface (typo fixes and frontmatter-only edits excepted) | `docs-adr-expert` and `onboarding-expert` together (`invoke-doc-and-onboarding-experts-on-significant-changes`) |
 | Plans marked decision-complete, 3+ agents, asserted blocking relationships, technology commitments before research | `assumptions-expert` |
 | Rendered UI, CSS, design tokens, React components | UI/Frontend cluster: `accessibility-expert`, `design-system-expert`, `react-component-expert` |
 | Clerk middleware, token verification, OAuth proxy, PRM, `@clerk/mcp-tools`, Clerk SDK usage | `clerk-expert` |
