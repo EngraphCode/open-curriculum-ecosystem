@@ -1,6 +1,6 @@
 # PDR-008: Canonical Quality-Gate Naming
 
-**Status**: Accepted
+**Status**: Accepted (amended 2026-09-24 — see Amendment Log)
 **Date**: 2026-04-18
 **Related**:
 [PDR-006](PDR-006-dev-tooling-per-ecosystem.md)
@@ -74,6 +74,10 @@ ecosystem.**
 
 ### The canonical minimum set
 
+> **Amended 2026-09-24** (see Amendment Log): `check` applies no fixes, `fix` is the
+> mutating aggregate, and there is no `check:fix` or `check:ci`. Where this section names
+> those forms or calls `check` mutating, it describes the earlier model.
+
 Every repo provides these named scripts:
 
 | Name | Mutating | Role |
@@ -93,6 +97,10 @@ Every repo provides these named scripts:
 | `fix` | yes | Aggregate apply: runs every `:fix` sub-gate so a developer can bring the repo into a state that `check:ci` passes. At minimum runs `format:fix` + `lint:fix`; ecosystem-appropriate additions welcome (e.g. `markdownlint:fix`, `knip:fix`). |
 
 ### Convention rules
+
+> **Amended 2026-09-24** (see Amendment Log): `check` applies no fixes, `fix` is the
+> mutating aggregate, and there is no `check:fix` or `check:ci`. Where this section names
+> those forms or calls `check` mutating, it describes the earlier model.
 
 Five rules govern the naming:
 
@@ -167,6 +175,10 @@ The adaptation obligation is:
   not propagate as canonical.
 
 ### The aggregate gate semantics
+
+> **Amended 2026-09-24** (see Amendment Log): `check` applies no fixes, `fix` is the
+> mutating aggregate, and there is no `check:fix` or `check:ci`. Where this section names
+> those forms or calls `check` mutating, it describes the earlier model.
 
 `check` / `check:fix`, `check:ci`, and `fix` have specific
 coverage requirements:
@@ -257,7 +269,9 @@ introducing unfamiliar patterns.
   to underlying commands — in its `docs/dev-tooling.md` (or
   discoverable equivalent per PDR-006).
 - CI configurations MUST invoke `check:ci` (or `check` if no
-  CI-specific tuning is needed) as the aggregate gate.
+  CI-specific tuning is needed) as the aggregate gate. (Amended
+  2026-09-24: CI runs every leg of `check` as its own step, under
+  a parity check; see Amendment Log.)
   Hand-rolled CI sequences that duplicate what the aggregate
   should cover are a drift vector and MUST be consolidated into
   the script.
@@ -267,6 +281,10 @@ introducing unfamiliar patterns.
   network.
 
 ### Forbidden
+
+> **Amended 2026-09-24** (see Amendment Log): `check` applies no fixes, `fix` is the
+> mutating aggregate, and there is no `check:fix` or `check:ci`. Where this section names
+> those forms or calls `check` mutating, it describes the earlier model.
 
 - Using canonical names with non-canonical semantics. A `lint`
   script that applies fixes is a contract violation; rename to
@@ -335,17 +353,21 @@ The distilled-memory rule "the quality-gate criterion is always
 `pnpm check` from the repo root, with no filtering, green"
 carries forward in substance. Under PDR-008 the phrasing sharpens:
 
-- Local authors type `pnpm check` (the read-only aggregate, as
-  amended 2026-09-24); its clean exit proves the repo is in a
-  state where CI would also pass.
-- CI invokes the same legs as `check`, one run step per leg, under
-  a parity validator; there is no separate `:ci` form.
+- Local authors type `pnpm check` (the aggregate that applies no
+  fixes, as amended 2026-09-24); its clean exit proves the repo is
+  in a state where CI would also pass.
+- CI runs every leg of `check` as its own step, under a parity
+  validator; there is no separate `:ci` form.
 
 The merge criterion is `check` green, locally and in CI. A repair
 is always an explicit `fix` (or `fix:docs`), followed by `check`
 again; a mutating command is never the proof.
 
 ### Why verify-by-default matters (and why `check` breaks it)
+
+> **Amended 2026-09-24** (see Amendment Log): `check` applies no fixes, `fix` is the
+> mutating aggregate, and there is no `check:fix` or `check:ci`. Where this section names
+> those forms or calls `check` mutating, it describes the earlier model.
 
 A contributor new to a repo, an agent hydrating for the first
 time, or an automation tool running `pnpm <something>` without
@@ -369,15 +391,19 @@ to add further aliases.
 
 ## Amendment Log
 
-### 2026-09-24 — the live convention supersedes the `check`-mutates model
+### 2026-09-24 — the aggregate that applies no fixes supersedes the `check`-mutates model
 
 Brought from JC.net's Practice through the exchange (its own entry of 2026-09-12 made the same
-correction there). This estate's root scripts already run the convention the tables above
-predate. `check` is the read-only aggregate. `fix` is the mutating aggregate. `check:docs` and
-`fix:docs` are the documentation subset. There is no `:ci` form: CI runs the same legs as
-`check`, one run step per leg, and `validate-check-ci-parity` refuses drift between the two,
-which is the guarantee the `:ci` suffix was for. The `check`-as-alias-of-`check:fix` exception
-above is retired. Validators are grouped under `docs-validators:check` and
-`repo-validators:check`, both legs of `check`. The live sets are enumerated by the root
-`package.json` and the gates skill, never restated here. The tables and rules above describe
-the earlier model and are read through this entry.
+correction there). The convention that the tables and rules above predate:
+
+- `check` is the aggregate gate, and it applies no fixes. `fix` is the mutating aggregate.
+  `check:docs` and `fix:docs` are the documentation subset.
+- There is no `check:fix` and no `:ci` form. CI runs every leg of `check` as its own step, and
+  a parity validator fails any leg of `check` that has no CI step. That is the guarantee the
+  `:ci` suffix was for.
+- The `check`-as-alias-of-`check:fix` exception is retired.
+- A host repository enumerates its live gate and validator sets in its own scripts and gates
+  skill, never here.
+
+Where a section above names `check:fix` or `check:ci`, or calls `check` mutating, this entry
+governs.

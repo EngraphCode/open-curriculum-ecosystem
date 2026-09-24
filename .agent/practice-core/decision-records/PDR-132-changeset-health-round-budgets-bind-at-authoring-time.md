@@ -2,7 +2,8 @@
 
 **Status**: Accepted (owner-commissioned fast-lane 2026-07-20; the owner's
 framing: the shaping principle must reach work at planning time, because at
-PR time "that is too late to plan work").
+PR time "that is too late to plan work"; amended 2026-09-24 — see Amendment
+Log).
 
 ## Context
 
@@ -110,7 +111,7 @@ amendment.
 
 Brought from JC.net's Practice through the exchange, where the owner's word of 2026-09-14 was
 "I don't want the number of rounds of PRs to go up". The two-round budget of §Decision item 1
-binds as written. After round two, every remaining finding is dispositioned in the same slot turn as
-the last push: a trivial cure rides that push; everything else is a signed Rejected line
-carrying its rationale or its routed home; a round three is a Director call on a correctness
-defect only.
+binds as written. After round two, every remaining finding is dispositioned in the same turn as
+the last push: over-bar cures ride that push, and the rest are signed `Rejected` or
+`Routed to <home>` lines. A further push opens only through PDR-140's doors: clause 4's
+rebudget by recorded decision, or clause 9(b)'s late over-bar cure.

@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-082: n=2 Collaboration Mode (Lightweight Protocol for Two-Agent Teams)
 
-**Status**: Adopted
+**Status**: Adopted (amended 2026-09-24 — see Amendment Log)
 **Date**: 2026-05-25
 **Adopted**: 2026-06-15
 **Related**:
@@ -121,6 +121,8 @@ below the overhead cost:
 - **Liveness ≡ owner-chat responsiveness.** The heartbeat substrate
   is replaced by the agent's chat responsiveness. An agent silent
   in chat is presumed unavailable; the owner observes directly.
+  (Amended 2026-09-24: during a long turn, a partner's silence past
+  the state-line interval is unknown state; see Amendment Log.)
 - **Coordination surface ≡ owner-chat + minimal comms events.**
   Cross-agent gates (tree-green, push-landed, gate-state) remain on
   comms. Substantive owner-class direction (verdict surfacing,
@@ -140,13 +142,6 @@ below the overhead cost:
   **retains** substantive cross-agent broadcasts (tree-green, push-landed,
   gate-state, merge-ready, blocker) because they carry information the
   owner-chat does not — the refined retain-set supersedes that raw point.
-- **Dialogue channel ≡ native session messaging where both seats can use it**
-  (amended 2026-09-24, from the exchange). The pairwise dialogue this mode
-  routed through an ARC channel travels by the harness's session-to-session
-  send when both seats are on one machine and platform; ARC keeps its place
-  for cross-platform pairs and for a dialogue whose transcript is itself the
-  record. What must still land on comms — the retain-set above — is unchanged;
-  the channel choice lives in the `comms-channels` skill.
 
 ### Trigger / exit
 
@@ -368,11 +363,13 @@ described under Adoption.
 ### 2026-09-24 — the 120-second state line is the n=2 liveness convention
 
 Brought from JC.net's Practice through the exchange (an owner card of 2026-09-14 there).
-§What drops at n=2 still drops the team-cadence message sweep and the heartbeat substrate;
-the seat's own outgoing progress report is not dropped with them. During a long turn each
-seat sends its partner one state line at least every 120 seconds, on the dialogue channel
-above; the line names the current state, any blocker and the next action. The lead reads
-silence past that interval as unknown state, never as work in progress, and answers it with
-the native liveness probe and a ping (`ping-before-escalate`), never an escalation to the
-owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
+§What drops at n=2 still drops the team-cadence message sweep and the heartbeat substrate,
+which read and broadcast state; the seat's own outgoing progress report to its partner is not
+dropped with them. During a long turn each seat sends its partner one state line at least
+every 120 seconds, on the pair's dialogue channel; the line names the current state, any
+blocker and the next action. State lines are not comms events, so they sit outside the budget
+of three inter-agent comms events above. A seat reads its partner's silence past that interval
+as unknown state, never as work in progress and never as a block. It answers with a ping on
+the dialogue channel after `ping-before-escalate`'s cross-check, never with an escalation to
+the owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
 escalated; it was fine.
