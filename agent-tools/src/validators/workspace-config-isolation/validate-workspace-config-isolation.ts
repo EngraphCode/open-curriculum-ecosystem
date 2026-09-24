@@ -35,7 +35,7 @@ import { parse as parseYaml } from 'yaml';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
-import { listTrackedFiles } from '../../core/tracked-file-scan.js';
+import { listTrackedFiles } from '../../core/repository-paths.js';
 
 import { findConfigEscapes, type EscapeFinding, type UnanalysableFinding } from './containment.js';
 import { scanTurboRootInputs } from './turbo-inputs.js';

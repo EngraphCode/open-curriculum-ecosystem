@@ -36,7 +36,8 @@ import path from 'node:path';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
-import { listTrackedFiles, readScanFiles } from '../../core/tracked-file-scan.js';
+import { listTrackedFiles } from '../../core/repository-paths.js';
+import { readScanFiles } from '../../core/tracked-file-scan.js';
 
 import {
   CENSUS_PATH,
