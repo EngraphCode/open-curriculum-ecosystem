@@ -835,3 +835,45 @@ the ceremony sets git's author variables in the environment of the commit step.
   the re-push passed. `.logs/` directories sit elsewhere in `.agent/` too, ignored by git and
   harmless except under the skill trees. **Routing**: tool feedback. The statusline should write
   outside the repository, or the check should skip dot-directories.
+
+## 2026-09-24 midday — a label standing in for its content (Blazar lifts Corona, b65a9a)
+
+- **Mistake, this seat's, owner-corrected**: the step-back put "peer seat primary, instrument
+  fallback" as one hierarchy. The owner: first-class Codex support in the Practice and Codex as
+  an invocable second opinion "are not necessarily the same thing". The lane's name, "Codex
+  support", had stood in for two outcomes with different success tests.
+- **Mistake, this seat's, owner-corrected**: a subagent was asked whether `envelope.ts` had room
+  under the line limit for the digest. The owner: the limits "enforce thoughtful code design and
+  clear public APIs and proper encapsulation, not to ask if the bucket has enough room left". The
+  redesign kept the digest inside the module that owns the argv, with a private template, and the
+  gateway review endorsed it. **Candidate**: both are one generator. A proxy (a label, a count)
+  was read as the thing it measures. At an elaboration boundary, restate the proxy's referent
+  before acting on the proxy.
+- **Surprise, tool**: the pre-commit gate type-checks and tests the working tree, not the index.
+  A pathspec commit of cycle 2 failed because cycle 3's red tests were written into the same
+  worktree while cycle 2's gate ran. **Rule of thumb**: a worktree is frozen while its commit gate
+  runs; stage the next cycle as a script in scratch and apply it after the gate exits.
+- **Mistake, this seat's**: the Director was told "Cricket 8 of 8 ON-TRACK" with seven returns in.
+  The eighth came back ON-TRACK, so the claim held, but it was sent before it was checked.
+- **Tool feedback**: `agent-tools/smoke-tests/comms-watch-coordination-home.smoke.ts` gives its
+  watcher 10 seconds to exit. It failed 2 of 5 pre-push runs today ("watcher did not exit within
+  10 seconds"), both with the host's load average above 20, and passed 3 of 3 alone. PR 179 changed
+  nothing under `agent-tools`, and Zephyr guards Leeward saw the same failure on #179's own first
+  push, which then passed alone: three instances across two seats. A fixed wall-clock deadline inside a suite that turbo runs in
+  parallel measures the host, not the watcher. **Routing**: an agent-tools owner. Wait on the
+  watcher's own exit signal with a generous ceiling, or run the smoke test serially.
+- **Tool feedback, the merge door**: on 2026-09-24 the Codex connector reported a clean review of
+  PR 189's tip `ebe3123` through two transports the door does not read. It edited a
+  `codex-pull-request-review-summary` comment to "Completed", and put a 👍 reaction on the pull
+  request. The door refused with UNCLASSIFIED-EVIDENCE ("edited after creation"; "names no
+  reviewed commit"), so the documented cure, a fresh `@codex review`, spends a second review on an
+  already-reviewed tip. **Routing**: the merge-bot's owner. Read the summary comment's commit and
+  status cell, or the reaction, as a third transport, under the owner's 2026-09-16 comment-evidence
+  ruling.
+- **Mistake, Zephyr guards Leeward's (281e44), 12:0xZ**: signing the owner's test words, this
+  seat amended the second estate's gloss to "never inspects a call inside the product" without
+  first reading this estate's own testing-strategy §Stubs vs Fakes, which licenses call-count
+  assertions and so collides with the owner's ruling. The second estate's reviewers caught the
+  amendment admitting boundary call assertions. The third gloss overreach on owner words in this
+  arc. **Candidate**: before amending wording that implements an owner ruling, grep this estate's
+  own doctrine for the sections the ruling touches.
