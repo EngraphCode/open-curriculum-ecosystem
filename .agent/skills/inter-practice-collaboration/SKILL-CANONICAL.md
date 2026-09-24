@@ -207,9 +207,14 @@ the first comms write, claim, or registration).
    **Format on receipt**: where the RECEIVING repo's conventions or
    gates refuse the donor's bytes (markdown conventions, heading
    shapes, gate-satisfying style), the estates align that convention or
-   gate so the bytes stay identical; until they do, change only what
-   the gate refuses and declare each change in the integrating commit
-   body as a debt to that alignment. Where the donor's text is false
+   gate so the bytes stay identical, taking the higher of the two forms
+   (a form is higher on the owner's word, or on a recorded failure it
+   prevents together with that form shown firing; PDR-142 §How we
+   judge) and, where nothing else shows either higher, the donor's,
+   because by the owner's word one shared form is higher than two;
+   until they do, change only what the gate refuses and
+   declare each change in the integrating commit body as a debt to that
+   alignment. Where the donor's text is false
    here, take the remedies in PDR-142's order: raise the standard the
    receiver lacks, cure a donor-local fact at its source, cure a shared
    contradiction jointly, and write the concept in the receiver's words
