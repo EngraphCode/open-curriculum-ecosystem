@@ -2,6 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { readRecord } from './record-reader.js';
 import { isRecord, type RecordedTurnContext } from './record-shapes.js';
+export type { RecordedTurnContext } from './record-shapes.js';
 import type { ReaderState, TurnState } from './reader-state.js';
 import type { RolloutEvidence, RolloutReadError } from './rollout-types.js';
 

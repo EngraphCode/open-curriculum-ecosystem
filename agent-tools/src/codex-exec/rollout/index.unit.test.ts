@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 
 import { describe, expect, it } from 'vitest';
 
-import { readRollout, type RolloutEvidence } from './index.js';
+import { readRollout, type RecordedTurnContext, type RolloutEvidence } from './index.js';
 import codeMode from './fixtures/observed-code-mode.json';
 import codeModeOnly from './fixtures/observed-code-mode-only.json';
 
@@ -33,9 +33,8 @@ function textParts(value: unknown): { type: string; text: string }[] {
 }
 
 /**
- * Redacted JSON projections of observed codex-cli 0.156.1 JSONL lines:
- * 2026-09-23 20:34:22, lines 1, 2, 8, 15-18, 21, 28, 30, 31, 39;
- * 2026-09-23 20:12:58, lines 1, 2, 8, 15-18, 19, 24, 26, 32.
+ * Redacted JSON projections sampled from codex-cli 0.156.1 rollouts recorded
+ * on 2026-09-23 at 20:34:22 and 20:12:58.
  * IDs, paths, prompts, output values and unrelated payload fields were replaced
  * or removed. The record nesting, types, and ordering used by this reader remain.
  */
@@ -53,6 +52,18 @@ function select(recordsToRead: readonly TestRecord[], type: string, subtype?: st
       candidate.type === type && (subtype === undefined || candidate.payload['type'] === subtype),
   );
   assert(record, `missing ${type}.${subtype ?? '*'}`);
+  return record;
+}
+
+function commandEvent(recordsToRead: readonly TestRecord[]): TestRecord {
+  const record = recordsToRead.find(
+    (candidate) =>
+      candidate.type === 'event_msg' &&
+      candidate.payload['type'] === 'item_completed' &&
+      isObject(candidate.payload['item']) &&
+      candidate.payload['item']['type'] === 'CommandExecution',
+  );
+  assert(record, 'missing CommandExecution item_completed event');
   return record;
 }
 
@@ -89,12 +100,13 @@ const shortShellText = 'operation not permitted\nnonce-example';
 describe('readRollout', () => {
   it('reads the two turn contexts and every resumed output, excluding program input', () => {
     const evidence = expectRead(records('observed-code-mode'));
+    const resumed: RecordedTurnContext = evidence.turns[1];
     expect(evidence.threadId).toBe('11111111-1111-4111-8111-111111111111');
     expect(evidence.turns.map((turn) => turn.turnId)).toEqual([
       '22222222-2222-4222-8222-222222222222',
       '33333333-3333-4333-8333-333333333333',
     ]);
-    expect(evidence.turns[1].permissionProfile).toEqual({
+    expect(resumed.permissionProfile).toEqual({
       type: 'managed',
       file_system: {
         type: 'restricted',
@@ -127,6 +139,22 @@ describe('readRollout', () => {
     });
   });
 
+  it('reports invalid JSON and a repeated session header', () => {
+    const malformed = lines(records('observed-code-mode'));
+    malformed.splice(1, 0, '{invalid');
+    expect(readRollout(malformed)).toEqual({
+      ok: false,
+      error: { kind: 'invalid-json', line: 2 },
+    });
+
+    const repeated = records('observed-code-mode');
+    repeated.push(structuredClone(select(repeated, 'session_meta')));
+    expect(readRollout(lines(repeated))).toEqual({
+      ok: false,
+      error: { kind: 'invalid-session-count', count: 2 },
+    });
+  });
+
   it('rejects missing or unknown context and output fields', () => {
     const missingProfile = records('observed-code-mode');
     delete resumedContext(missingProfile)['permission_profile'];
@@ -144,7 +172,7 @@ describe('readRollout', () => {
     });
 
     const missingEventOutput = records('observed-code-mode');
-    const event = select(missingEventOutput, 'event_msg', 'item_completed').payload;
+    const event = commandEvent(missingEventOutput).payload;
     delete object(event['item'])['aggregated_output'];
     expect(readRollout(lines(missingEventOutput))).toMatchObject({
       ok: false,
@@ -204,8 +232,7 @@ describe('readRollout', () => {
     expect(readRollout(lines(mismatch))).toMatchObject({
       ok: false,
       error: {
-        kind: 'invalid-turn-order',
-        reason: 'resumed turn_context differs from applied thread settings',
+        kind: 'applied-settings-mismatch',
       },
     });
 
@@ -216,7 +243,7 @@ describe('readRollout', () => {
       ok: false,
       error: {
         kind: 'invalid-turn-order',
-        reason: 'resumed turn_context differs from applied thread settings',
+        reason: 'resumed turn_context lacks applied thread settings',
       },
     });
 
@@ -225,7 +252,27 @@ describe('readRollout', () => {
       '99999999-9999-4999-8999-999999999999';
     expect(readRollout(lines(foreignThread))).toMatchObject({
       ok: false,
-      error: { kind: 'invalid-turn-order', reason: 'thread settings id differs from session_meta' },
+      error: { kind: 'settings-thread-id-mismatch' },
+    });
+  });
+
+  it('rejects a duplicate turn context and a command from another thread', () => {
+    const duplicate = records('observed-code-mode');
+    const firstContext = select(duplicate, 'turn_context');
+    duplicate.splice(duplicate.indexOf(firstContext) + 1, 0, structuredClone(firstContext));
+    expect(readRollout(lines(duplicate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-turn-order',
+        reason: 'turn_context has no active turn or is duplicated',
+      },
+    });
+
+    const foreignCommand = records('observed-code-mode');
+    commandEvent(foreignCommand).payload['thread_id'] = '99999999-9999-4999-8999-999999999999';
+    expect(readRollout(lines(foreignCommand))).toMatchObject({
+      ok: false,
+      error: { kind: 'command-thread-id-mismatch' },
     });
   });
 
@@ -334,26 +381,30 @@ describe('readRollout', () => {
     expect(expectRead(multiple).resumedOutputTexts).toEqual([shortShellText, 'second-output']);
   });
 
-  it.each([
-    ['Warning: truncated output', 'event'],
-    ['Total output lines: 200', 'event'],
-    ['…153 tokens truncated…', 'nested'],
-    ['…153 chars truncated…', 'nested'],
-  ])('treats %s as inconclusive', (marker, source) => {
-    const candidate = records(
-      source === 'event' ? 'observed-code-mode' : 'observed-code-mode-only',
-    );
-    if (source === 'event') {
-      const event = select(candidate, 'event_msg', 'item_completed').payload;
+  it.each(['Warning: truncated output', 'Total output lines: 200'])(
+    'treats event marker %s as inconclusive',
+    (marker) => {
+      const candidate = records('observed-code-mode');
+      const event = commandEvent(candidate).payload;
       object(event['item'])['aggregated_output'] = marker;
-    } else {
+      expect(readRollout(lines(candidate))).toMatchObject({
+        ok: false,
+        error: { kind: 'truncated-output' },
+      });
+    },
+  );
+
+  it.each(['…153 tokens truncated…', '…153 chars truncated…'])(
+    'treats nested marker %s as inconclusive',
+    (marker) => {
+      const candidate = records('observed-code-mode-only');
       const nested = nestedResult(candidate);
       nested.result['output'] = marker;
       nested.save();
-    }
-    expect(readRollout(lines(candidate))).toMatchObject({
-      ok: false,
-      error: { kind: 'truncated-output' },
-    });
-  });
+      expect(readRollout(lines(candidate))).toMatchObject({
+        ok: false,
+        error: { kind: 'truncated-output' },
+      });
+    },
+  );
 });

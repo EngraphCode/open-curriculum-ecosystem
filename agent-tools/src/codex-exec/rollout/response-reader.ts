@@ -2,7 +2,12 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { parseToolOutput, type JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState } from './reader-state.js';
-import { invalid, order, unknown, type RolloutReadError } from './rollout-types.js';
+import {
+  invalidRecord,
+  invalidTurnOrder,
+  unknownRecord,
+  type RolloutReadError,
+} from './rollout-types.js';
 
 function readCustomToolOutput(
   payload: JsonRecord,
@@ -11,18 +16,18 @@ function readCustomToolOutput(
 ): Result<void, RolloutReadError> {
   const callId = payload['call_id'];
   if (typeof callId !== 'string' || callId.length === 0) {
-    return invalid(line, 'custom_tool_call_output.call_id is missing');
+    return invalidRecord(line, 'custom_tool_call_output.call_id is missing');
   }
   const active = activeTurnWithContext(state);
   if (active === undefined) {
-    return order(line, 'tool output has no active context');
+    return invalidTurnOrder(line, 'tool output has no active context');
   }
   if (!active.pendingCallIds.has(callId)) {
-    return order(line, 'tool output has no matching custom tool call');
+    return invalidTurnOrder(line, 'tool output has no matching custom tool call');
   }
   const parsed = parseToolOutput(payload['output']);
   if (parsed.kind === 'invalid') {
-    return invalid(line, 'custom_tool_call_output.output has unknown shape');
+    return invalidRecord(line, 'custom_tool_call_output.output has unknown shape');
   }
   if (parsed.kind === 'truncated') {
     return err({ kind: 'truncated-output', line });
@@ -47,19 +52,20 @@ function readCustomToolCall(
     typeof callId !== 'string' ||
     callId.length === 0
   ) {
-    return invalid(line, 'custom_tool_call is not a completed exec call');
+    return invalidRecord(line, 'custom_tool_call is not a completed exec call');
   }
   const active = activeTurnWithContext(state);
   if (active === undefined) {
-    return order(line, 'custom tool call has no active context');
+    return invalidTurnOrder(line, 'custom tool call has no active context');
   }
   if (active.pendingCallIds.has(callId)) {
-    return order(line, 'custom tool call repeats a pending call id');
+    return invalidTurnOrder(line, 'custom tool call repeats a pending call id');
   }
   active.pendingCallIds.add(callId);
   return ok(undefined);
 }
 
+/** Fold one response item while matching completed tool calls to their output. */
 export function readResponse(
   payload: JsonRecord,
   state: ReaderState,
@@ -67,7 +73,7 @@ export function readResponse(
 ): Result<void, RolloutReadError> {
   const type = payload['type'];
   if (typeof type !== 'string') {
-    return invalid(line, 'response_item.type is missing');
+    return invalidRecord(line, 'response_item.type is missing');
   }
   if (type === 'custom_tool_call_output') {
     return readCustomToolOutput(payload, state, line);
@@ -78,5 +84,5 @@ export function readResponse(
   if (['message', 'reasoning'].includes(type)) {
     return ok(undefined);
   }
-  return unknown(line, `response_item.${type}`);
+  return unknownRecord(line, `response_item.${type}`);
 }

@@ -18,17 +18,23 @@ export type RolloutReadError =
   | { readonly kind: 'invalid-record'; readonly line: number; readonly reason: string }
   | { readonly kind: 'truncated-output'; readonly line: number }
   | { readonly kind: 'invalid-turn-order'; readonly line: number; readonly reason: string }
+  | { readonly kind: 'settings-thread-id-mismatch'; readonly line: number }
+  | { readonly kind: 'command-thread-id-mismatch'; readonly line: number }
+  | { readonly kind: 'applied-settings-mismatch'; readonly line: number }
   | { readonly kind: 'invalid-turn-count'; readonly count: number }
   | { readonly kind: 'invalid-session-count'; readonly count: number };
 
-export function invalid(line: number, reason: string): Result<void, RolloutReadError> {
+/** Reject a recognised record whose required content is malformed. */
+export function invalidRecord(line: number, reason: string): Result<void, RolloutReadError> {
   return err({ kind: 'invalid-record', line, reason });
 }
 
-export function order(line: number, reason: string): Result<void, RolloutReadError> {
+/** Reject a record that cannot occur at this point in a two-turn rollout. */
+export function invalidTurnOrder(line: number, reason: string): Result<void, RolloutReadError> {
   return err({ kind: 'invalid-turn-order', line, reason });
 }
 
-export function unknown(line: number, recordType: string): Result<void, RolloutReadError> {
+/** Reject a record type outside the observed, closed reader vocabulary. */
+export function unknownRecord(line: number, recordType: string): Result<void, RolloutReadError> {
   return err({ kind: 'unknown-record-type', line, recordType });
 }

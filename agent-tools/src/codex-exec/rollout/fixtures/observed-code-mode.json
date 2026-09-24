@@ -13,6 +13,14 @@
     }
   },
   {
+    "type": "response_item",
+    "payload": { "type": "message" }
+  },
+  {
+    "type": "world_state",
+    "payload": {}
+  },
+  {
     "type": "turn_context",
     "payload": {
       "turn_id": "22222222-2222-4222-8222-222222222222",
@@ -44,6 +52,22 @@
       "approvals_reviewer": "user",
       "workspace_roots": ["/fixture/instrument-root"]
     }
+  },
+  {
+    "type": "event_msg",
+    "payload": { "type": "item_completed", "item": { "type": "UserMessage" } }
+  },
+  {
+    "type": "event_msg",
+    "payload": { "type": "item_completed", "item": { "type": "AgentMessage" } }
+  },
+  {
+    "type": "token_usage_record",
+    "payload": {}
+  },
+  {
+    "type": "event_msg",
+    "payload": { "type": "token_count" }
   },
   {
     "type": "event_msg",
@@ -157,6 +181,14 @@
       "approvals_reviewer": "user",
       "workspace_roots": ["/fixture/instrument-root"]
     }
+  },
+  {
+    "type": "event_msg",
+    "payload": { "type": "item_completed", "item": { "type": "Reasoning" } }
+  },
+  {
+    "type": "response_item",
+    "payload": { "type": "reasoning" }
   },
   {
     "type": "response_item",

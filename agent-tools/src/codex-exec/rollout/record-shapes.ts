@@ -67,6 +67,8 @@ const granularApprovalSchema = z.strictObject({
     mcp_elicitations: z.boolean(),
   }),
 });
+// Codex 0.156.1 accepts `on-failure` as a legacy input alias for `on-request`,
+// but serializes the latter in rollout records. See codex-rs/protocol/src/protocol.rs.
 const approvalPolicySchema = z.union([
   z.enum(['never', 'on-request', 'untrusted']),
   granularApprovalSchema,
@@ -145,6 +147,7 @@ export interface RecordedTurnContext {
   readonly workspaceRoots: readonly string[];
 }
 
+/** Applied thread settings reported by an event, projected onto compared fields. */
 export interface RecordedThreadSettings {
   readonly cwd: string;
   readonly model: string;
@@ -179,6 +182,7 @@ export function parseTurnContext(value: unknown): RecordedTurnContext | undefine
   };
 }
 
+/** Validate an applied settings event and project the fields compared with a turn. */
 export function parseThreadSettings(value: unknown): RecordedThreadSettings | undefined {
   const parsed = threadSettingsSchema.safeParse(value);
   if (!parsed.success) {
@@ -195,6 +199,7 @@ export function parseThreadSettings(value: unknown): RecordedThreadSettings | un
   };
 }
 
+/** Parsing outcome for a code-mode tool output, including truncation evidence. */
 export type ToolOutputRead =
   | { readonly kind: 'parsed'; readonly outputs: readonly string[] }
   | { readonly kind: 'invalid' }
