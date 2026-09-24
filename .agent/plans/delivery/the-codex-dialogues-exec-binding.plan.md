@@ -41,7 +41,8 @@ registered launch cannot start.
   - The instrument has been unusable since the CLI dropped the binding.
 - **The owner.**
   - The interlocutor's authority becomes what the doctrine says it is. The code enforces it, and
-    a probe re-proves it after every CLI update.
+    after every CLI update a probe re-tests its write boundary and its shell's environment, and
+    checks the rest of its policy by the harness's record.
   - There is no tracked version pin to re-ratify, which honours the ruling: "we will not pin
     versions, we use latest".
 
@@ -174,14 +175,16 @@ usage error, exit 2.
   - an instrument root that fails its checks;
   - a Codex configuration whose model keys cannot be read or fail validation.
 
-**`dialogue-probe [--timeout-seconds <n>]`** proves the envelope. It runs two turns through the
+**`dialogue-probe [--timeout-seconds <n>]`** tests the envelope. It runs two turns through the
 same execution path as `dialogue-turn`, bypassing only the gate the probe itself feeds, and then
 runs with no model at all. The probe's threads get cleanup-map rows through the same path.
 
 **What the probe defends against.** A vendor or configuration regression: a CLI update, a renamed
-setting or a changed default that loosens the envelope while the interlocutor is cooperative,
-meaning it runs the given line as given. The cases this leaves uncovered are named in Honest
-limits (the Director's verdict of 2026-09-24). The design and its trials ran on codex-cli 0.156.1,
+setting or a changed default that loosens the envelope's write boundary or the environment its
+shell sees, while the interlocutor is cooperative, meaning it runs the given line as given. The
+rest of the policy, network restriction and approval included, it checks by the harness's record
+alone. The cases this leaves uncovered are named in Honest limits (the Director's verdict of
+2026-09-24). The design and its trials ran on codex-cli 0.156.1,
 where every shell run in the trials went through code mode, on the owner's model and on the CLI's
 default alike (research note §2.9).
 
@@ -409,16 +412,22 @@ The pass record is never committed. Its terms:
   once per binding. Asserting the rollout `turn_context` on every dialogue turn is the named
   hardening. It is not built, because the rollout format is internal and every format change
   would then stop dialogues rather than only the probe.
+- **Network enforcement is read, not tested.** Rule 8 reads `network: restricted` from each
+  turn's record, and no leg attempts a connection. So a regression that ignores the restriction
+  while still recording it goes unseen, and, with reads unbounded, a later dialogue's shell could
+  send what it reads. A network leg, a connection attempt that must fail beside a control that
+  succeeds, is the named hardening.
 - **Extension and rule absence is re-measured only indirectly.** The probe's environment and
-  `turn_context` legs catch a regression in the snapshot, sandbox or network settings. They do
-  not catch an extension spawned under `--ignore-user-config`. Its absence rests on one run,
-  sampled once per second. If one is ever seen, a process-tree leg is the named hardening.
+  `turn_context` legs catch a regression in the recorded snapshot, sandbox or network settings.
+  They do not catch an extension spawned under `--ignore-user-config`. Its absence rests on one
+  run, sampled once per second. If one is ever seen, a process-tree leg is the named hardening.
 - **A timeout sends SIGKILL to the Codex process only.** A shell that process started inside its
   sandbox can outlive it. Killing the process group needs the asynchronous lifecycle the
   complexity limits rule out here, so it is the named hardening.
 - **A regression confined to one tool's path is seen only on the path the probe's resumed turn
   took, and only when the interlocutor ran the line as given.** Rule 8 shows the policy each turn
-  was configured with, and rule 9 shows that `codex sandbox` enforces it. Neither sees how a tool
+  was configured with, and rule 9 shows that `codex sandbox` enforces its write refusal. Neither
+  sees how a tool
   hands that policy to the sandbox, so three cases are not seen:
   - a write through a tool the probe line does not use. On 0.156.1 that includes `apply_patch`,
     the file-edit tool, which has a runtime of its own;
@@ -688,6 +697,7 @@ enumerates and dispositions every row before implementation.
 - **The Annex B reverse binding and the conduit wrapper.** Their own evidence gates stand.
 - **The named hardenings in Honest limits:**
   - a restricted-read profile;
+  - a network leg;
   - per-turn `turn_context` assertion;
   - a process-tree leg;
   - process-group kill.
