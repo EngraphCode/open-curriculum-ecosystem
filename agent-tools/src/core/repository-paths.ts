@@ -41,9 +41,9 @@ export interface GitRunOutput {
 export interface SpawnedGit {
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
-  readonly error?: Error | undefined;
-  readonly stdout?: string | null | undefined;
-  readonly stderr?: string | null | undefined;
+  readonly error?: Error;
+  readonly stdout?: string | null;
+  readonly stderr?: string | null;
 }
 
 /** Run git with `args`: the one runner every read here goes through. */
