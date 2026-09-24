@@ -108,7 +108,9 @@ templates/           Templates are platform-agnostic assembled workflows.
     v
 wrappers             Thin, platform-specific shells that load a template as
                      their FIRST action: .claude/agents/*.md,
-                     .cursor/agents/*.md, .codex/agents/*.toml
+                     .cursor/agents/*.md, .codex/agents/*.toml (an
+                     inline-prompt role's Claude adapter copies its
+                     template's System prompt block instead, PDR-009)
 ```
 
 ### Dependency Rules
@@ -129,7 +131,7 @@ Before finalising any template or wrapper change, verify every item:
 - [ ] Legacy generic agent names are not used in active guidance (e.g. `architecture-expert` without a persona suffix)
 - [ ] Architecture reviewer wrapper descriptions are distinct and lens-specific
 - [ ] Standard quality roster and specialist on-demand roster are clearly separated in coordination docs
-- [ ] Consumer wrappers keep template loading as the first action
+- [ ] Consumer wrappers keep template loading as the first action; an inline-prompt role's Claude adapter (PDR-009) carries its template's System prompt block instead (compared by `pnpm subagents:check`)
 - [ ] Components remain leaf nodes and templates remain the composition layer
 
 ## Current Agent Ecosystem

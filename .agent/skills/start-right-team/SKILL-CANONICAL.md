@@ -859,7 +859,7 @@ Team member closeout:
 - Outcome:
 - Evidence:
 - Claims / queue / git state:
-- Open pull requests owned (each merged, or its claim retained with the next step named):
+- Open pull requests owned (each merged, or its claim retained with its next step and the seat that takes it named):
 - Session complete announcement:
 - Retained claims, if any, and handoff reason:
 - Pickup notification required for follow-on agent:

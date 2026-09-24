@@ -4,16 +4,16 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
-## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 exception and its check, lint before delivery, an open PR keeps its claim
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
 
-- PDR-009 gains the exception both estates' exchange seats signed as joint
-  set K2(a): a role that cannot read files, or whose bounded turns belong to
+- PDR-009 gains the inline-prompt role both estates' exchange seats signed as
+  joint set K2(a), stated as the adapter rule's domain: a role that cannot read files, or whose bounded turns belong to
   its task, carries its template's System prompt block in its adapter, and a
-  check compares every copy with its template. `pnpm subagents:check` is that
-  check here: it reads the scope from the templates with a `## System prompt`
+  check compares every copy with its template. This estate's sub-agent
+  validator is that check: it reads the scope from the templates with a `## System prompt`
   section and compares each Claude adapter's body word for word.
   `practice-bootstrap.md` (three anchors) and `practice-verification.md`
-  item 11 name the exception (K3(b), K3(c), K3(e)).
+  item 11 name the inline-prompt role (K3(b), K3(c), K3(e)).
 - PDR-125 clause 7 gains lint before delivery (K2(b)): the donor runs the
   receiver's own formatting and lint configurations over every box file, so a
   delivery never fails the receiver's formatting and lint gates. Its Status

@@ -314,7 +314,7 @@ below serves one of those three.
    and lint configurations over every box file before delivery and
    delivers only bytes they pass, so a delivery never fails the
    receiver's formatting and lint gates (worked instance 2026-09-24: a cover note that
-   passed the donor's lint failed the receiver's MD032 and broke every
+   passed the donor's lint failed the receiver's list-spacing lint rule and broke every
    pre-push gate in the receiver's primary checkout).
    **Format on receipt**: where the receiving
    repo's conventions or gates refuse the donor's bytes (markdown

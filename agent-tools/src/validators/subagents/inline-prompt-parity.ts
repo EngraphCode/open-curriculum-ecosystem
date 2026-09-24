@@ -1,5 +1,5 @@
 /**
- * The PDR-009 exception's check: a role whose Claude adapter carries its
+ * The PDR-009 inline-prompt check: a role whose Claude adapter carries its
  * prompt in place of a pointer keeps that copy verbatim.
  *
  * @remarks
@@ -8,19 +8,25 @@
  * 2026-09-24). The template stays the prompt's one home, so the scope is read
  * from the templates: every template with a `## System prompt` section is
  * such a role, and its Claude adapter's body must equal the block word for
- * word, with nothing else substantive beside it. Line wrapping is not
- * compared: the template's quote markers shift its wrap, and a formatter may
- * rewrap either file.
+ * word, with nothing beside it but the one pairing comment. Line wrapping and
+ * paragraph breaks are not compared: the template's quote markers shift its
+ * wrap, and a formatter may rewrap either file. A changed or added word, an
+ * extra comment, and a pointer in place of the copy are all caught.
  *
  * @packageDocumentation
  */
 
-const SYSTEM_PROMPT_HEADING = /^## System prompt\s*$/u;
+const SYSTEM_PROMPT_HEADING = /^## system prompt\s*$/iu;
 const NEXT_SECTION_HEADING = /^## /u;
-const QUOTE_LINE = /^>(?: |$)/u;
+const QUOTE_LINE = /^ {0,3}> ?/u;
 const FRONTMATTER = /^---\n[\s\S]*?\n---\n/u;
-const HTML_COMMENT = /<!--[\s\S]*?-->/gu;
+const PAIRING_COMMENT = /<!--\s*Paired with the canonical definition in[\s\S]*?-->/u;
 const WHITESPACE_RUN = /\s+/gu;
+const CRLF = /\r\n/gu;
+
+/** The System prompt section of a template, when it has one. */
+type SystemPromptSection =
+  { readonly kind: 'absent' } | { readonly kind: 'present'; readonly block: string };
 
 /** The text's words, one space apart: a comparison that ignores wrapping. */
 function words(text: string): string {
@@ -28,34 +34,42 @@ function words(text: string): string {
 }
 
 /**
- * The System prompt block of a template: the blockquote under its
- * `## System prompt` heading, with the quote markers removed.
- *
- * @param template - The template's Markdown.
- * @returns The block's text, or `undefined` when the template has no such
- * section or the section quotes nothing.
+ * The System prompt section of a template: `absent` when there is no such
+ * heading, otherwise the first run of consecutive quoted lines under it with
+ * the quote markers removed (an empty block when it quotes nothing).
  */
-function systemPromptBlock(template: string): string | undefined {
-  const lines = template.split('\n');
+function systemPromptSection(template: string): SystemPromptSection {
+  const lines = template.replaceAll(CRLF, '\n').split('\n');
   const start = lines.findIndex((line) => SYSTEM_PROMPT_HEADING.test(line));
   if (start === -1) {
-    return undefined;
+    return { kind: 'absent' };
   }
   const section = lines.slice(start + 1);
   const end = section.findIndex((line) => NEXT_SECTION_HEADING.test(line));
-  const quoted = (end === -1 ? section : section.slice(0, end))
-    .filter((line) => QUOTE_LINE.test(line))
-    .map((line) => line.replace(QUOTE_LINE, ''));
-  const block = quoted.join('\n').trim();
-  return block === '' ? undefined : block;
+  const body = end === -1 ? section : section.slice(0, end);
+  const first = body.findIndex((line) => QUOTE_LINE.test(line));
+  if (first === -1) {
+    return { kind: 'present', block: '' };
+  }
+  const run = body.slice(first);
+  const stop = run.findIndex((line) => !QUOTE_LINE.test(line));
+  const quoted = (stop === -1 ? run : run.slice(0, stop)).map((line) =>
+    line.replace(QUOTE_LINE, ''),
+  );
+  return { kind: 'present', block: quoted.join('\n').trim() };
 }
 
 /**
  * The substantive body of a Claude adapter: its text after the frontmatter,
- * with HTML comments (the pairing note) removed and outer whitespace trimmed.
+ * with the one pairing comment removed and outer whitespace trimmed. Any other
+ * comment stays in the body, so it fails the comparison.
  */
 function claudeAdapterBody(adapter: string): string {
-  return adapter.replace(FRONTMATTER, '').replaceAll(HTML_COMMENT, '').trim();
+  return adapter
+    .replaceAll(CRLF, '\n')
+    .replace(FRONTMATTER, '')
+    .replace(PAIRING_COMMENT, '')
+    .trim();
 }
 
 /**
@@ -65,7 +79,7 @@ function claudeAdapterBody(adapter: string): string {
  * template's Markdown, and the adapter's Markdown or `undefined` when no
  * adapter file exists.
  * @returns One message per defect; empty when the template has no System
- * prompt block or the adapter's body is that block word for word.
+ * prompt section or the adapter's body is its block word for word.
  */
 export function inlinePromptParityIssues(input: {
   readonly templatePath: string;
@@ -73,19 +87,57 @@ export function inlinePromptParityIssues(input: {
   readonly adapterPath: string;
   readonly adapter: string | undefined;
 }): readonly string[] {
-  const block = systemPromptBlock(input.template);
-  if (block === undefined) {
+  const section = systemPromptSection(input.template);
+  if (section.kind === 'absent') {
     return [];
+  }
+  if (section.block === '') {
+    return [`${input.templatePath}: has a System prompt heading but no quoted block under it`];
   }
   if (input.adapter === undefined) {
     return [
       `${input.templatePath}: has a System prompt block but no Claude adapter at ${input.adapterPath} to carry it`,
     ];
   }
-  if (words(claudeAdapterBody(input.adapter)) !== words(block)) {
+  if (words(claudeAdapterBody(input.adapter)) !== words(section.block)) {
     return [
-      `${input.adapterPath}: its prompt is not a verbatim copy of the System prompt block in ${input.templatePath} (PDR-009 exception)`,
+      `${input.adapterPath}: its prompt is not a verbatim copy of the System prompt block in ${input.templatePath} (PDR-009 inline-prompt role); copy the template block into the adapter and put nothing else outside the pairing comment`,
     ];
   }
   return [];
+}
+
+const HTML_COMMENT = /<!--[\s\S]*?-->/gu;
+const TEMPLATE_DIR_PREFIX = '.agent/sub-agents/templates/';
+
+/**
+ * The scope issue for one Claude adapter: an adapter that does not point to a
+ * template (a template path named outside any comment) must belong to a role
+ * whose template has a System prompt section, so a template that loses its
+ * section cannot leave an inline copy unchecked.
+ *
+ * @param input - The adapter's path and Markdown, and its template's path and
+ * Markdown or `undefined` when no template file exists.
+ * @returns One message when the adapter is neither a pointer nor an inline
+ * copy in scope; empty otherwise.
+ */
+export function claudeAdapterScopeIssues(input: {
+  readonly adapterPath: string;
+  readonly adapter: string;
+  readonly templatePath: string;
+  readonly template: string | undefined;
+}): readonly string[] {
+  const body = input.adapter
+    .replaceAll(CRLF, '\n')
+    .replace(FRONTMATTER, '')
+    .replaceAll(HTML_COMMENT, '');
+  if (body.includes(TEMPLATE_DIR_PREFIX)) {
+    return [];
+  }
+  if (input.template !== undefined && systemPromptSection(input.template).kind === 'present') {
+    return [];
+  }
+  return [
+    `${input.adapterPath}: neither points to a template in ${TEMPLATE_DIR_PREFIX} nor belongs to a role whose template has a System prompt section (PDR-009 inline-prompt role)`,
+  ];
 }
