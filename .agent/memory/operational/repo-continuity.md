@@ -285,11 +285,82 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
-**SUCCESSOR, 2026-09-24 — the owner names Marten mends Shadow (74fc02) as this lane's next
-seat.** Zephyr guards Leeward (281e44) wrapped at 12:40Z; it holds no claim and runs no
-process. The current pickup is the paragraph below that begins "The 2026-09-23 branch folded
-as #176": its owed list is the work, and the second estate's pull requests 170 and 171 carry
-the joint bytes. The two boundary blocks that follow are earlier.
+**CURRENT PICKUP, 2026-09-24 ~14:0xZ — Marten mends Shadow (74fc02), the owner's named
+successor to Zephyr guards Leeward (281e44) on this lane.** Read this block first; the
+paragraph below that begins "The 2026-09-23 branch folded as #176" is the older owed list,
+still true where this block does not supersede it.
+
+*Order of the work.* The owner's order, as Brazier spins Temper (c70341) relayed it at about
+13:30Z, verbatim: "Our purpose here is to first make sure that all of our Practice innovations
+are integrated into the OCE Practice, our second goal is to bring our Practice up to speed with
+their innovations", and "the memories and records of this repo are local to this repo, but the
+lessons learned from them are not". Its provenance, in the Director's words: relayed by
+Brazier, recorded by the Director (the second estate's Director handoff, `SHA:a57c3a01`),
+consistent with the owner's direct words; not confirmed first-hand in this estate. The second
+estate's exchange seat is now Siren herds Rudder (158275), from about 13:50Z.
+
+*In flight from this session, each in its own worktree off `engraph`, the pull request
+the source of truth for its state:* joint set F (branch `docs/joint-set-f-gate-singleton`,
+worktree `oce-wt-joint-set-f`, claim `c29beed0`) and joint set G with the second estate's
+pull request 171 items (branch `docs/joint-set-g-director-state`, worktree
+`oce-wt-joint-set-g`, claim `ecd88867`).
+
+*First acts of the fresh session, in order.* PDR-052 moved (1) and (2) out of this session:
+it measured 37 % context after grounding, and both edit directive files. The Director
+confirmed the placement. The method: `agent-tools session-metadata --vendor claude` with
+`claude-opus-4-8[1m]` standing in for `claude-opus-5-5[1m]`, which has no registered window;
+both are 1M windows, and the tokens are read from the transcript. The readings were 37.3 % at
+13:36Z and 59.3 % at 14:03Z.
+(1) The test-doctrine intake. It precedes the J rows because it carries the owner's own
+2026-09-24 test ruling, which binds this estate from the word (the "Everywhere for now"
+ruling). This estate's §Stubs vs Fakes still licenses call-count assertions, which contradicts
+that ruling, so seats here can act on doctrine the owner has overruled until it lands. Take the concept hunks as receiver from the second estate's main
+at `SHA:e0e79c07` (its pull request 170, head `SHA:5ce5918f`), never the files whole: the
+estates' copies differ far beyond the joint text. Host lines to leave behind: the site's
+`jcdotnet/e2e/` paths and suffixes, its recovery node, its testing-patterns examples. The
+hunks: testing-strategy §Philosophy (the owner's 2026-09-24 words bullet; the recovery plan's
+name out, "existing code that breaks the invariant is a defect" in); §Rules ("Prove
+behaviour, never config or content" and "Pinning an absence" lose the designed-sentinel
+admission; "a check that needs an external resource"); §Stubs vs Fakes (fakes are simple
+functions or objects; which calls were made, how often or in what order is never asserted);
+test-immediate-fails item 12 (the same call line), item 4's clock read and item 14's sanctioned
+shape retired; the test-expert template's Step 6; tdd-as-design's UI scale and §Why Scales Are
+Complementary. The Director confirmed on 2026-09-24 (comms event `6161e95d`) that the owner's
+"no excemptions" retires both 2026-08-03 admissions, and the commit names both dates so the
+owner can overturn it by a word. The consequence: the Codex dialogues lane's designed-sentinel
+tests (Swallow holds Drift, 516619) become defects to cure by mechanism tests once this lands.
+Five further gaps were still moving in the second estate at 13:4xZ; take them if landed: the
+levels table and cycle text calling E2E a test level; validation-strategy's claim for the
+`test` command; no-global-state-in-tests' globs missing smoke locations; the test-expert
+template's Step 2 smoke discriminator; the recovery node's import boundary.
+(2) H's `agent-collaboration` hunk ("two reads, one write"), the debt declared on #183.
+(3) The intake of the second estate's outbound set. Siren herds Rudder delivers it into the
+Practice Box after the join ceremony, as untracked files in the primary checkout's
+`.agent/practice-core/incoming/` that this estate's seat commits: one file per concept row, text concepts first, code
+concepts after, the lessons sweep last. Each file is self-contained, with inline text, and
+names Siren's reading of where it lands in this estate, to verify at receipt. The batch's
+paired event carries each file's blob ids for the diff proof. Siren measured 21 concept rows
+owed (J1 to J23, J12 declined as site-only) plus eight newer concepts. PDR-117's amendment is
+already covered by G. With it comes the owner's word to the Director at 13:5xZ, verbatim: "the
+labelling of Cricket agents is better in JC.net than in OCE: make sure the Cricket
+implementations and other sub-agent details are compared between the repos". A second word
+of the same minutes, also to the Director, verbatim: "Crickets judge in the frame provided, we
+need them to also judge the frame itself"; Siren carries the wording (the cricket skill and
+both base templates gain a frame verdict beside the work verdict). This estate takes those
+bytes as receiver. Until they land, a suite run here asks each role to judge the frame as an
+artefact as well.
+
+The Practice Box was empty at 13:5xZ.
+
+*The Director's check-ins (owner's cadence, 2026-09-24).* The Director, Wick binds Temper
+(ed7b48), checks in with every seat every 45 minutes. Each check-in asks for one state line
+(lane, the owner's last word, on track or in a hole, the governing node's todo status
+verbatim) and a full Cricket suite: every registered role, normal then adversarial, on one
+six-field frame, each role returning a frame verdict beside the work verdict. Act on the
+verdicts yourself, and send the Director only a DRIFTING or WRONG-PRIORITY verdict you do not
+accept, or a question. From check-in 6 each exchange seat's reply carries a number per
+direction, recomputed from source: the second estate's owed rows landed at this estate's head
+over their total, and this estate's rows landed in the second estate over their total.
 
 **BOUNDARY, 2026-09-21 18:3xZ — a compaction at the owner's word, then a pause the owner
 says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
