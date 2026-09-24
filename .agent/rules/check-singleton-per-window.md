@@ -6,7 +6,8 @@ coordination window. Multiple parallel runs in one tree duplicate ~30s+
 of work per run, produce no marginal signal, and can collide on
 advisory-orchestrator file outputs. The sharpest hazard: a whole-repo
 sweep rebuilds the tree's shared build output (e.g. `agent-tools/dist/`)
-under every concurrent peer in that tree, and where the `check` script
+under every concurrent session that reads it (a session working a sibling
+worktree from the primary checkout among them), and where the `check` script
 runs a `clean` step it deletes that output first — the peers' CLIs
 (heartbeats, comms, marshal commands) and watchers then die for the
 rebuild window (~90s). A whole-repo sweep is a shared-substrate
@@ -65,8 +66,10 @@ either retired or stalled.
 
 ## When the Rule Fires
 
-- Multi-agent sessions where two or more agents share one working tree
-  (≥2 agents visible in active-claims or comms).
+- Multi-agent sessions where two or more agents share one working tree, or read its build output
+  (≥2 agents visible in active-claims or comms). A sweep in the primary checkout counts every
+  live seat of the estate as a reader: no surface records where a session was launched, and a
+  session launched in the primary checkout reads that build through its hooks.
 - Any session-handoff window where two or more agents in one working
   tree are closing concurrently.
 - Any time the agent reflexively reaches for `pnpm check` without

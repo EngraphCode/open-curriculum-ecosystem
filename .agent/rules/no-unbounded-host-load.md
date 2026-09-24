@@ -57,8 +57,8 @@ again.**
 
 5. **Heavy chains on a shared host: read before starting, two
    consecutive readings, diagnose kill-collateral.** When a seat starts a
-   heavy gate chain beside peer chains on one host (item 6 bounds how many
-   run at once):
+   heavy gate chain beside peer chains on one host (item 6 sets how many
+   may run at once):
    - The load read must COMPLETE before the chain starts or any message
      states the host's load — read-then-act, never act-then-read (a
      window-OPEN posted in the same turn as the `uptime` call read back
