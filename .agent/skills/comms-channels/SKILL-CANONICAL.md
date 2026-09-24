@@ -61,6 +61,27 @@ When in doubt the content is knowledge-bearing. Prediction (PDR-130): with this 
 SHA-bearing fact or ruling relay travels s2s-only within the review window; if a later seat has
 to reconstruct one from a peer's transcript, the test is not biting and the s2s row narrows.
 
+The cost side of the same choice (owner direction 2026-09-13, verbatim: "native s2s comms are
+much, much faster and cheaper and efficient that Practice comms for communication, Practice
+comms on the other hand preserve history and knowledge and institutional understanding which
+is bought with expensive ceremony, Arc channel comms are in-between but really only have the
+advantage in n=2 sessions. So, when do we use native comms and when Practice comms? Optimise
+for efficiency where appropriate but make sure that we do not lose the history of _why_ we do
+things"). Before a send, name the message's **audience** (the one live peer, or also a third
+seat, the owner, or a successor who was not there), its **lifetime** (spent once acted on, or
+to be found later) and its **consumer** (a mechanism that reads it: the claims registry, the
+commit queue, the liveness poll). A message with one reader, no life past the moment and no
+consumer, between two live Claude seats, is s2s; sent as a stream event it reaches every
+watching seat's context for a signal one seat needed. The same message to a non-Claude seat,
+which has no s2s, goes where that seat reads (§Non-Claude seats are first-class). A message with a wider audience, a longer life or a consumer goes where that
+audience or mechanism reads, at occurrence (behaviour 2). Two sends that look like dialogue
+are knowledge-bearing: the reason an idea was rejected, and a lane assignment, whose first act
+on receipt is the claim. The owner gave this direction in the jimcresswell.net Practice, whose
+[`channel-by-audience-lifetime-and-consumer`](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/rules/channel-by-audience-lifetime-and-consumer.md)
+rule first named the three selectors. The paragraph came here through the Practice Box exchange
+of 2026-09-24. It keeps this skill's timing (at occurrence) where that rule says "at the moment
+it is acted on".
+
 The split, in one line each:
 
 - **s2s is the interrupt line.** Seconds latency, wakes the receiver;
