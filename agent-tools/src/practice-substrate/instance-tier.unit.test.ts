@@ -17,14 +17,10 @@ const REGISTRY = '.agent/state/collaboration/active-claims.json';
 const GIT_STDERR = 'fatal: not a git repository (or any of the parent directories): .git\n';
 const GIT_FAILURE = { kind: 'git-failed', status: 128, stderr: GIT_STDERR } as const;
 
-const IGNORED_UNTRACKED: InstanceTierProbe = ok({
-  tracked: new Set(['.agent/state/collaboration/.gitignore']),
-  ignored: new Set([REGISTRY]),
-});
-const NOT_IGNORED: InstanceTierProbe = ok({
-  tracked: new Set(['.agent/state/collaboration/.gitignore']),
-  ignored: new Set(),
-});
+/** git lists the registry: its rules ignore it, and it tracks none of it. */
+const IGNORED_UNTRACKED: InstanceTierProbe = ok(new Set([REGISTRY]));
+/** git lists nothing: no rule matches, or git tracks what one does. */
+const NOT_IGNORED: InstanceTierProbe = ok(new Set());
 
 describe('classifySurfacePresence', () => {
   const probes: readonly (readonly [string, InstanceTierProbe])[] = [

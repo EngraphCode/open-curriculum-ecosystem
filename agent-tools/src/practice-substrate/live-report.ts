@@ -1,7 +1,4 @@
-import { flatMap, map } from '@oaknational/result';
-
-import { listIgnoredPaths } from '../core/ignore-probe.js';
-import { listTrackedPathSet } from '../core/repository-paths.js';
+import { listIgnoredPaths } from '../core/repository-paths.js';
 import { type InstanceTierProbe } from './instance-tier.js';
 import { evaluateLegacyEventsRoot, evaluateOptionalGitTopology } from './live-files.js';
 import { evaluateLiveOpenQuestions } from './live-open-questions.js';
@@ -67,14 +64,12 @@ export async function createLivePracticeSubstrateReport(
 }
 
 /**
- * The repository's own answer, read once per report: its tracked tree and what
- * its ignore rules say of the classified surfaces. A git failure is carried,
- * not thrown, and fails only a surface that turns out to be absent.
+ * The repository's own answer, read once per report: which classified surfaces
+ * git keeps out of every checkout. A git failure is carried, not thrown, and
+ * fails only a surface that turns out to be absent.
  */
 function readInstanceTierProbe(repoRoot: string): InstanceTierProbe {
-  return flatMap(listTrackedPathSet(repoRoot), (tracked) =>
-    map(listIgnoredPaths(repoRoot, CLASSIFIED_SURFACES), (ignored) => ({ tracked, ignored })),
-  );
+  return listIgnoredPaths(repoRoot, CLASSIFIED_SURFACES);
 }
 
 async function safeReadManifest(repoRoot: string): Promise<{

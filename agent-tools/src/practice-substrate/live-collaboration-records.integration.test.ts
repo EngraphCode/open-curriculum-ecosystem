@@ -46,10 +46,7 @@ function inMemoryReads(
 }
 
 function ignoring(ignored: readonly string[]): InstanceTierProbe {
-  return ok({
-    tracked: new Set(['.agent/state/collaboration/.gitignore']),
-    ignored: new Set(ignored),
-  });
+  return ok(new Set(ignored));
 }
 
 describe('evaluateCollaborationRecords', () => {

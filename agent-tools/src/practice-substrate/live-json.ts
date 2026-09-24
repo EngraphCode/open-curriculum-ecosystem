@@ -1,7 +1,5 @@
 import { readFile } from 'node:fs/promises';
 
-import { ok } from '@oaknational/result';
-
 import { type InstanceTierProbe } from './instance-tier.js';
 import { evaluateCollaborationRecords } from './live-collaboration-records.js';
 import { readCommsEventFiles } from './live-comms-events.js';
@@ -23,13 +21,6 @@ import {
 } from './live-json-support.js';
 import { evaluateMigrationLedgerSnapshot, type JsonFieldMap } from './report-evaluators.js';
 import { type SubstrateFinding } from './types.js';
-
-/**
- * The probe of a caller that brings none: it declares no path instance tier,
- * so an absent registry reads as missing and blocks. Absence fails closed; the
- * report's composition root always brings the repository's own probe.
- */
-const NO_INSTANCE_TIER: InstanceTierProbe = ok({ tracked: new Set(), ignored: new Set() });
 
 export async function readManifest(repoRoot: string): Promise<ManifestReadResult> {
   const manifestJson = await readJsonFile(repoRoot, MANIFEST_PATH, 'substrate-inventory');
@@ -87,7 +78,7 @@ export async function evaluateMigrationLedgers(
  */
 export async function evaluateCollaborationJsonSurfaces(
   repoRoot: string,
-  probe: InstanceTierProbe = NO_INSTANCE_TIER,
+  probe: InstanceTierProbe,
 ): Promise<readonly SubstrateFinding[]> {
   return [
     ...(await evaluateCollaborationRecords({

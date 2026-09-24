@@ -4,25 +4,28 @@
  *
  * @remarks
  * A surface is instance tier exactly when the repository's ignore rules ignore
- * it and git does not track it ({@link isInstanceTier}); a fresh checkout, a
- * worktree and CI carry none of it. The disk is asked first: a surface the
- * read found is present and validated in full whatever the rules say, so the
- * tier never excuses content. Only an absent surface consults the probe. A
- * probe git could not answer fails closed: every absent surface then earns a
- * blocking finding of its own, and no other reader's findings are hidden.
+ * it and git does not track it, which is what `listIgnoredPaths` in
+ * `core/repository-paths.ts` asks git; a fresh checkout, a worktree and CI
+ * carry none of it. The disk is asked first: a surface the read found is
+ * present and validated in full whatever the rules say, so the tier never
+ * excuses content. Only an absent surface consults the probe. A probe git
+ * could not answer fails closed: every absent surface then earns a blocking
+ * finding of its own, and no other reader's findings are hidden.
  *
  * @packageDocumentation
  */
 
 import { map, ok, type Result } from '@oaknational/result';
 
-import { isInstanceTier, type InstanceTierEvidence } from '../core/ignore-probe.js';
 import { describeGitReadFailure, type GitReadFailure } from '../core/repository-paths.js';
 import { finding } from './finding.js';
 import { type SubstrateFinding } from './types.js';
 
-/** The repository's evidence for the surfaces the audit classifies, or why git gave none. */
-export type InstanceTierProbe = Result<InstanceTierEvidence, GitReadFailure>;
+/**
+ * The classified surfaces git keeps out of every checkout (ignored and
+ * untracked), or why git gave no answer.
+ */
+export type InstanceTierProbe = Result<ReadonlySet<string>, GitReadFailure>;
 
 /**
  * Where one surface stands: on disk (`present`); absent, and the repository
@@ -43,8 +46,8 @@ export function classifySurfacePresence(input: {
   if (input.found) {
     return ok('present');
   }
-  return map(input.probe, (evidence) =>
-    isInstanceTier(input.path, evidence) ? 'absent-by-design' : 'absent',
+  return map(input.probe, (instanceTier) =>
+    instanceTier.has(input.path) ? 'absent-by-design' : 'absent',
   );
 }
 

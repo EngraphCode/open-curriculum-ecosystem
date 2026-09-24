@@ -15,14 +15,8 @@ const LOG = '.agent/state/collaboration/shared-comms-log.md';
 const HEADER_ONLY = '# Shared log\n\n';
 const WITH_EVENT = '# Shared log\n\n## One event\n';
 
-const IGNORED: InstanceTierProbe = ok({
-  tracked: new Set(['.agent/state/collaboration/.gitignore']),
-  ignored: new Set([LOG]),
-});
-const NOT_IGNORED: InstanceTierProbe = ok({
-  tracked: new Set(['.agent/state/collaboration/.gitignore']),
-  ignored: new Set(),
-});
+const IGNORED: InstanceTierProbe = ok(new Set([LOG]));
+const NOT_IGNORED: InstanceTierProbe = ok(new Set());
 
 describe('evaluateSharedCommsLogSnapshot', () => {
   it('reports the absent, ignored render as informational when there are no events to render', () => {
