@@ -10,12 +10,13 @@
  * module. Splitting here keeps each half fully documented within the
  * repository's file-size limit without trimming either.
  *
- * Seed precedence (PDR-027 §Seed precedence, 2026-08-24 amendment): the
- * explicit Practice seeds in platform order, then the cloud seat's ambient
- * platform session id with its type tag stripped, then the harness-native
- * fallbacks (`CODEX_THREAD_ID`, Antigravity `conversationId`). Every explicit
- * Practice seed outranks the ambient cloud id — they are the operator's
- * stated contract.
+ * Seed precedence (PDR-027 §Seed precedence, 2026-08-24 and 2026-09-24
+ * amendments): the explicit Practice seeds in platform order, then the cloud
+ * seat's ambient platform session id with its type tag stripped, then the
+ * Claude Code CLI session id, then the harness-native fallbacks
+ * (`CODEX_THREAD_ID`, Antigravity `conversationId`). Every explicit Practice
+ * seed outranks both ambient Claude ids — they are the operator's stated
+ * contract.
  *
  * @packageDocumentation
  */
@@ -60,6 +61,11 @@ export function resolveCollaborationSeed(
       source: 'CLAUDE_CODE_REMOTE_SESSION_ID',
       value: stripSessionIdTagIfPresent(env.CLAUDE_CODE_REMOTE_SESSION_ID),
     },
+    // Claude Code CLI session id (PDR-027, 2026-09-24): the harness exports it
+    // into every Bash tool shell, and it is the value the SessionStart hook
+    // writes as the Claude seed, so a seat whose hook wrote nothing still
+    // resolves the same tuple.
+    { source: 'CLAUDE_CODE_SESSION_ID', value: env.CLAUDE_CODE_SESSION_ID },
     { source: 'CODEX_THREAD_ID', value: env.CODEX_THREAD_ID },
     { source: 'conversationId', value: env.conversationId },
     {
@@ -73,9 +79,9 @@ export function resolveCollaborationSeed(
  * The fail-fast message for a seat with no resolvable seed: names the seeds
  * an operator can set — the four Practice variables and the harness-native
  * fallbacks — and, where the platform is known, the primary Practice seed
- * for that platform. The cloud seat's ambient `CLAUDE_CODE_REMOTE_SESSION_ID`
- * is supplied by the harness, never set by hand, so the hint does not name
- * it.
+ * for that platform. The ambient `CLAUDE_CODE_REMOTE_SESSION_ID` and
+ * `CLAUDE_CODE_SESSION_ID` are supplied by the harness, never set by hand, so
+ * the hint does not name them.
  *
  * @param platform - The seat's platform label (e.g. `claude`, `codex`), used
  * only to point at the right variable in the hint.

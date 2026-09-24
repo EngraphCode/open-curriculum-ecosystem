@@ -31,6 +31,19 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-09-24 — the Claude Code CLI session id accepted as a seed source.**
+  Claude Code exports the harness session id into every Bash tool shell as
+  `CLAUDE_CODE_SESSION_ID`. The seed CLIs read it after the explicit
+  `PRACTICE_AGENT_SESSION_ID_*` values and the cloud seat's
+  `CLAUDE_CODE_REMOTE_SESSION_ID`, and before `CODEX_THREAD_ID` — the same
+  shape as the 2026-04-27 Codex entry. It is the value the `SessionStart`
+  hook writes as the Claude seed on a CLI seat, so the derived tuple is
+  identical whichever source resolves. The measured failure (in JC.net's
+  Practice, brought through the exchange): a seat whose startup hook wrote
+  nothing and whose compaction-time write landed after the persistent shell
+  existed lost every collaboration write for a session while the native id
+  sat in that shell throughout.
+
 - **2026-08-24 — cloud seats seed from the platform session id; hooks never
   pin a display name.** On a cloud seat two ids coexist: the harness-internal
   session id and the platform session id. The platform id is the durable,
@@ -449,7 +462,8 @@ order (`PRACTICE_AGENT_SESSION_ID_CLAUDE`, `PRACTICE_AGENT_SESSION_ID_CURSOR`,
 `PRACTICE_AGENT_SESSION_ID_GEMINI`, `PRACTICE_AGENT_SESSION_ID_CODEX`), then
 `CLAUDE_CODE_REMOTE_SESSION_ID` (cloud seats — type tag stripped; every
 explicit Practice seed outranks this ambient id, per the 2026-08-24
-amendment), then `CODEX_THREAD_ID`; missing seed is a
+amendment), then `CLAUDE_CODE_SESSION_ID` (Claude Code CLI shells, per the
+2026-09-24 amendment), then `CODEX_THREAD_ID`; missing seed is a
 bad-usage error. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
 only when a seed is also available; it is not itself a seed, and no hook
 writes it (2026-08-24 amendment). There is no

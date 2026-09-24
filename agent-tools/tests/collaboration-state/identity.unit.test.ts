@@ -295,3 +295,65 @@ describe('every explicit Practice seed outranks the ambient platform session id'
     expect(identity.seed_source).toBe('CLAUDE_CODE_REMOTE_SESSION_ID');
   });
 });
+
+describe('Claude Code CLI session id seed (PDR-027, 2026-09-24)', () => {
+  const cliSessionId = '74fc02f6-0615-464a-a5d2-daa7d85a2334';
+
+  it('resolves the harness session id when no Practice seed or cloud id is set', () => {
+    const identity = deriveCollaborationIdentity({
+      platform: 'claude-code',
+      model: 'claude',
+      env: { CLAUDE_CODE_SESSION_ID: cliSessionId },
+    });
+
+    expect(identity.seed_source).toBe('CLAUDE_CODE_SESSION_ID');
+    expect(identity.agentId.session_id_prefix).toBe('74fc02');
+  });
+
+  it('derives the same tuple as the seed the SessionStart hook writes', () => {
+    const fromHarness = deriveCollaborationIdentity({
+      platform: 'claude-code',
+      model: 'claude',
+      env: { CLAUDE_CODE_SESSION_ID: cliSessionId },
+    });
+    const fromHook = deriveCollaborationIdentity({
+      platform: 'claude-code',
+      model: 'claude',
+      env: { PRACTICE_AGENT_SESSION_ID_CLAUDE: cliSessionId },
+    });
+
+    expect(fromHarness.agentId).toStrictEqual(fromHook.agentId);
+  });
+
+  it.each([
+    ['PRACTICE_AGENT_SESSION_ID_CLAUDE', { PRACTICE_AGENT_SESSION_ID_CLAUDE: 'claude-seed' }],
+    ['PRACTICE_AGENT_SESSION_ID_CURSOR', { PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-seed' }],
+    ['PRACTICE_AGENT_SESSION_ID_GEMINI', { PRACTICE_AGENT_SESSION_ID_GEMINI: 'gemini-seed' }],
+    ['PRACTICE_AGENT_SESSION_ID_CODEX', { PRACTICE_AGENT_SESSION_ID_CODEX: 'codex-seed' }],
+    [
+      'CLAUDE_CODE_REMOTE_SESSION_ID',
+      { CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72' },
+    ],
+  ])('%s outranks the harness session id', (source, env) => {
+    const identity = deriveCollaborationIdentity({
+      platform: 'claude-code',
+      model: 'claude',
+      env: { ...env, CLAUDE_CODE_SESSION_ID: cliSessionId },
+    });
+
+    expect(identity.seed_source).toBe(source);
+  });
+
+  it('outranks the Codex thread id', () => {
+    const identity = deriveCollaborationIdentity({
+      platform: 'claude-code',
+      model: 'claude',
+      env: {
+        CODEX_THREAD_ID: '019dd34d-cb6a-74e0-a29d-6cb8a65ea14b',
+        CLAUDE_CODE_SESSION_ID: cliSessionId,
+      },
+    });
+
+    expect(identity.seed_source).toBe('CLAUDE_CODE_SESSION_ID');
+  });
+});

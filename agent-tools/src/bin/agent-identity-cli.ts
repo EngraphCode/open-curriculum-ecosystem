@@ -27,6 +27,8 @@ export interface AgentIdentityCliEnvironment {
   readonly PRACTICE_AGENT_SESSION_ID_CLAUDE?: string;
   /** Cloud-seat platform session id (`cse_`-tagged); untagged payload is the PDR-027 seed there. */
   readonly CLAUDE_CODE_REMOTE_SESSION_ID?: string;
+  /** Claude Code CLI session id, exported into every Bash tool shell; equals the SessionStart seed. */
+  readonly CLAUDE_CODE_SESSION_ID?: string;
   /** Cursor composer session id, written by the Practice Cursor `sessionStart` hook. */
   readonly PRACTICE_AGENT_SESSION_ID_CURSOR?: string;
   /** Antigravity/Gemini conversation id surfaced through the Practice seed convention. */
@@ -76,6 +78,7 @@ export const HELP_TEXT = `Usage: agent-identity [--seed <seed>] [--format <kebab
                       $PRACTICE_AGENT_SESSION_ID_GEMINI,
                       $PRACTICE_AGENT_SESSION_ID_CODEX,
                       $CLAUDE_CODE_REMOTE_SESSION_ID (cloud seats; type tag stripped),
+                      $CLAUDE_CODE_SESSION_ID (Claude Code CLI shells),
                       then platform-native stable fallbacks:
                       $CODEX_THREAD_ID (Codex) and Antigravity conversationId.
   --format <fmt>      Output format. kebab (default) | display | json.
@@ -135,6 +138,7 @@ function resolveSeed(seed: string | undefined, env: AgentIdentityCliEnvironment)
     nonEmptyEnvironmentValue(env.PRACTICE_AGENT_SESSION_ID_GEMINI),
     nonEmptyEnvironmentValue(env.PRACTICE_AGENT_SESSION_ID_CODEX),
     stripSessionIdTagIfPresent(env.CLAUDE_CODE_REMOTE_SESSION_ID),
+    nonEmptyEnvironmentValue(env.CLAUDE_CODE_SESSION_ID),
     nonEmptyEnvironmentValue(env.CODEX_THREAD_ID),
     nonEmptyEnvironmentValue(env.conversationId),
     antigravitySourceMetadataConversationId(env.ANTIGRAVITY_SOURCE_METADATA),

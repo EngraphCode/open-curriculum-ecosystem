@@ -273,12 +273,58 @@ describe('agent identity CLI planning', () => {
       agentIdentityCliEnvironmentFromProcessEnv({
         PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-session-seed',
         PRACTICE_AGENT_SESSION_ID_GEMINI: 'gemini-session-seed',
+        CLAUDE_CODE_SESSION_ID: 'claude-cli-session-seed',
         OAK_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
       }),
     ).toStrictEqual({
       PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-session-seed',
       PRACTICE_AGENT_SESSION_ID_GEMINI: 'gemini-session-seed',
+      CLAUDE_CODE_SESSION_ID: 'claude-cli-session-seed',
       OAK_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
+    });
+  });
+});
+
+describe('agent identity CLI: the Claude Code CLI session id seed (PDR-027, 2026-09-24)', () => {
+  it('resolves the Claude Code CLI session id when no Practice or cloud seed is set', () => {
+    const result = runAgentIdentityCli({
+      argv: ['--format', 'json'],
+      env: { CLAUDE_CODE_SESSION_ID: '74fc02f6-0615-464a-a5d2-daa7d85a2334' },
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      seedDigest: createHash('sha256').update('74fc02f6-0615-464a-a5d2-daa7d85a2334').digest('hex'),
+    });
+  });
+
+  it('lets the cloud platform session id outrank the CLI session id', () => {
+    const result = runAgentIdentityCli({
+      argv: ['--format', 'json'],
+      env: {
+        CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+        CLAUDE_CODE_SESSION_ID: '74fc02f6-0615-464a-a5d2-daa7d85a2334',
+      },
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      seedDigest: createHash('sha256').update('01FV6rZz5BjSkApAUL6FAj72').digest('hex'),
+    });
+  });
+
+  it('lets the CLI session id outrank the Codex thread id', () => {
+    const result = runAgentIdentityCli({
+      argv: ['--format', 'json'],
+      env: {
+        CODEX_THREAD_ID: 'codex-thread-seed',
+        CLAUDE_CODE_SESSION_ID: '74fc02f6-0615-464a-a5d2-daa7d85a2334',
+      },
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      seedDigest: createHash('sha256').update('74fc02f6-0615-464a-a5d2-daa7d85a2334').digest('hex'),
     });
   });
 });
