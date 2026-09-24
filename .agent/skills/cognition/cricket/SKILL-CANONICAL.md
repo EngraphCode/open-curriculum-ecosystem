@@ -18,6 +18,14 @@ lens on METHOD or EVIDENCE PROVENANCE: three ON-TRACK verdicts spanned a window 
 every owner correction concerned which tool was used and where the evidence had come from
 (2026-09-02) — point that scrutiny at reviewers and first-hand reads, never at the panel.
 
+Every seat returns two verdicts: one on the work inside the frame (ON-TRACK, DRIFTING or
+WRONG-PRIORITY) and one on the frame itself (SOUND, NARROWED or CONTRADICTED). A frame the
+invoker writes carries the invoker's model of the goal, and a panel that judges only inside
+it cannot see a goal read in the wrong direction (owner word, 2026-09-24: "Crickets judge in the frame provided, we need them to also judge the frame itself";
+worked instance the same day: a seat's eight-leg suites every forty-five minutes returned 19
+ON-TRACK of 24 while it worked one direction of a two-way goal, and every DRIFTING reordered
+work inside the seat's own frame).
+
 Typing `$oak-cricket` asks the current seat to run the whole panel for its platform. The invoker
 builds the frame from live context and starts immediately; missing information is labelled
 `MISSING`, not silently invented.
@@ -28,7 +36,8 @@ The standing active-seat trigger is a real cycle or action boundary. Run both st
 
 - **normal** — judge the supplied frame directly;
 - **adversarial** — try to refute that the current work is the right priority, then concede
-  `ON-TRACK` if the refutation fails.
+  `ON-TRACK` if the refutation fails; likewise try to refute that the frame carries its
+  sources, then concede `SOUND`.
 
 Between owner interactions, use event-driven boundaries rather than a bare timer. Also call the
 panel on demand when:
@@ -96,7 +105,15 @@ record Cursor runs as template-adapter evidence, not model-plus-effort experimen
 
 Supply every role with the same six fields:
 
-1. **OBJECTIVE FRAME** — the controlling objective and its source.
+1. **OBJECTIVE FRAME** — the controlling objective, in two labelled blocks: `SOURCES:`,
+   the owner's latest words on it and the governing plan node's todo lines, quoted verbatim
+   with the file and commit they were read at, with a todo's status only where a source
+   states it, attributed to that source (a plan node stores no execution state); and
+   `READING:`, the invoker's reading of them (the goal; one measure per direction or part of
+   the goal, each with its method line; each owner word mapped to its owning todo, status
+   and receiver; the order, the holds, the status it acts on). The work verdict judges
+   against `READING:`; the frame verdict judges `READING:` against `SOURCES:`, so the
+   invoker never paraphrases a source.
 2. **CRITICAL-PATH OWNER** — the seat or person driving it and their last known status.
 3. **INTENT** — what the invoker believes it is doing.
 4. **RECENT ACTIONS** — the last few concrete actions.
@@ -159,6 +176,9 @@ data.
 
 ## Adjudicate the panel
 
+- Read the frame verdicts first. A NARROWED or CONTRADICTED frame verdict that quotes its
+  source phrase is acted on before any work verdict: an ON-TRACK inside a frame that dropped
+  part of its sources says nothing about the dropped part.
 - Compare substance, not severity labels. The compiled procedure and judgement prompt may encode
   the same concern differently.
 - Consensus is not truth, and dissent is not a command. Verify load-bearing claims against
@@ -170,7 +190,7 @@ data.
 - Finish with a concise synthesis: convergence, divergence, accepted redirection, rejected
   findings with reasons, and anything still ungrounded.
 
-For experiment or tally data, record the platform, model, effort, stable role, stance, and panel
+For experiment or tally data, record the platform, model, effort, stable role, stance, both verdicts, and panel
 shape, and — per the 2026-08-01 ruling — per-leg tokens and runtime. Historical records retain
 their historical vendor-labelled role names.
 
