@@ -4,6 +4,26 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-142, PDR-125 and the inter-Practice skill: format on receipt aligns the estates
+
+- The follow-up wording cures the owner ratified on the Director's card of
+  2026-09-23 ("both estates land the same blobs"), taken from the second
+  estate's landed text. PDR-142 is byte-identical to the second estate's
+  copy: a new log entry that names no host, and the format tie-break grounded
+  in the owner's word as the first ground of judging.
+- PDR-125 clause 7 and the inter-Practice skill's receipt step now say
+  "format on receipt": where the receiver's conventions or gates refuse the
+  donor's bytes, the estates align that convention or gate so the bytes stay
+  identical, and until they do the receiver changes only what its gate
+  refuses, each change declared as a debt to that alignment. The skill
+  carries PDR-142's ordered remedies for a donor text that is false here.
+- Both files take the second estate's bytes except one host line each.
+  PDR-125's phenotype note names this estate's agent-tools package, as the
+  PDR gives each estate's copy its own phenotype note. The skill's adapter
+  path is written host-free (`<prefix>-inter-practice-collaboration`), a
+  wording both exchange seats signed; the second estate takes this blob, so
+  the skill becomes one file in both estates.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-141: the record says when and by whose word its writes widened
 
 - PDR-141 gains the amendment section its 2026-09-23 cure lacked: decisions

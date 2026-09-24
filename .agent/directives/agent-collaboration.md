@@ -360,8 +360,10 @@ derive from work-state and role, never from holding a claim. Recipes live in
 
 The single-agent case (no other agents present) pays the protocol's
 **minimum overhead — one read, one write**: read active claims and the
-shared log, log *"no other agents present"*, register the session claim,
-and proceed. The single write is load-bearing: it is the discovery seed for
+shared log; if no entries other than your own exist and the comms log shows
+no live peer, the session is solo: register the session claim and proceed
+without broadcasts (`use-agent-comms-log` §Scale ceremony to the audience).
+The single write, the claim, is load-bearing: it is the discovery seed for
 whatever sequential agent comes next. The
 [`register-active-areas-at-session-open`](../rules/register-active-areas-at-session-open.md)
 rule operationalises this early-return.

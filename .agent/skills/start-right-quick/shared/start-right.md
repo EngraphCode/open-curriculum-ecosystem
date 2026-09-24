@@ -202,8 +202,9 @@ consulted. When the session is playing a named coordination role
 `--role <role>` on `claims open` so peers and glance surfaces (such as
 the statusline session-shape indicators) can resolve the team shape from
 the registry; the vocabulary is open and honest-by-convention. If no
-entries other than your own exist, log "no other agents
-present" through an immutable comms event and proceed (bootstrap fast-path).
+entries other than your own exist and the comms log shows no live peer,
+the session is solo: record your claim and proceed without broadcasts
+(`use-agent-comms-log` §Scale ceremony to the audience; bootstrap fast-path).
 On overlap, consult the shared communication log and any
 open decision-thread and escalation files before deciding whether to
 proceed, ping, append a decision thread, request a sidebar, record a
