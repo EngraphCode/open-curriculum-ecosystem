@@ -460,7 +460,7 @@ change the additive-identity rule, the identity key, or the historical record.
 
 (Per the 2026-07-23 amendment.) A session fork, a harness-restart
 duplicate, or any process that inherits another seat's full context is a
-NEW identity the moment it exists. Four binding rules:
+NEW identity the moment it exists. Six binding rules:
 
 1. **First act: derive identity from your own session id**, before any
    comms or collaboration-state write. The inherited environment
