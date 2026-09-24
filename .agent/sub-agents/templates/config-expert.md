@@ -77,19 +77,20 @@ Scan for:
 - Tests skipped or excluded by configuration; an `include` that silently drops a test
   category
 - Bypassed git hooks (`--no-verify`, a hook that returns early)
-- A `pnpm check` leg removed or reordered without the CI-parity validator seeing it
+- A leg removed from or reordered in `pnpm check` (the parity validator sees neither)
 
 ### Step 4: Check Scripts, Environment and Runtime Toggles
 
-- Every added or renamed script follows the canonical names (PDR-008, the root `package.json`
-  and the gates skill): the root owns `check`, `fix`, `check:docs`, `fix:docs`,
+- Every added or renamed script follows this repository's gate names, which the root
+  `package.json` and the gates skill enumerate (PDR-008 defines what `check`, `fix`,
+  `check:docs` and `fix:docs` mean): the root owns `check`, `fix`, `check:docs`, `fix:docs`,
   `format-check:root`, `format:root`, `markdownlint-check:root`, `markdownlint:root` and the
-  validator aggregates; a workspace carries only the task gates the root pipeline runs and
-  tools named `<subject>:<verb>`. No hidden `test:ci` duplicates, no workspace copies of root
-  gates.
+  validator aggregates, and a workspace carries only the task gates the root pipeline runs.
+  No hidden `test:ci` duplicates, no workspace copies of root gates.
 - Every cited script exists; `package.json` entries reference files that exist and create no
   circular `pnpm check` loop.
-- Environment variables are read through the env helpers, never mutated at runtime.
+- Environment variables are read through the env helpers (`packages/core/env`), never mutated
+  at runtime.
 - Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
   deliberate, documented and aligned with the directives.
 - Config changes still trigger the right validators: `pnpm check` picks up a new script, and

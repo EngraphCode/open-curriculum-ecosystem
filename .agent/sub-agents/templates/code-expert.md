@@ -301,19 +301,19 @@ In every review, check whether the changes touch any of these categories. If the
 | Auth, OAuth, headers, CSP, secrets, env, PII, injection risk, trust-boundary input, dependency upgrades with a security bearing | `security-expert` |
 | Test additions, modifications, or TDD concerns | `test-expert` |
 | Type complexity, generics, schema flow | `type-expert` |
-| Tooling configs, the lockfile, quality gates | `config-expert` |
+| Tooling configs, quality gates | `config-expert` |
 | README, TSDoc, ADR changes or expected drift | `docs-adr-expert` |
-| Significant authored prose whose readability matters | `prose-expert` |
-| Sub-agent templates, platform adapters, `invoke-*` rules, skills, platform entry points | `subagent-architect` |
-| Onboarding journeys or entry points | `onboarding-expert` |
-| Plans marked decision-complete, 3+ agents, blocking claims, vendor integrations, early technology commitments | `assumptions-expert` |
-| React components, hooks, hydration, server/client boundaries | `react-component-expert` |
-| Tokens, spacing, type, theming, responsive rhythm | `design-system-expert` |
-| Rendered, semantic or motion surfaces with accessibility risk | `accessibility-expert` |
+| Outward-facing copy (`VISION.md`, strategy, public README narrative) or significant authored prose | `prose-expert` |
+| Sub-agent definition design or migration: templates, platform adapters, `invoke-*` rules | `subagent-architect` (on-demand) |
+| Onboarding flows, start-right entry points, ADR discoverability | `onboarding-expert` |
+| A new ADR, PDR, rule or governance doc, a doctrine rename, or any significant Practice change | `docs-adr-expert` and `onboarding-expert` together (`invoke-doc-and-onboarding-experts-on-significant-changes`) |
+| Plans marked decision-complete, 3+ agents, asserted blocking relationships, technology commitments before research | `assumptions-expert` |
+| Rendered UI, CSS, design tokens, React components | UI/Frontend cluster: `accessibility-expert`, `design-system-expert`, `react-component-expert` |
 | Clerk middleware, token verification, OAuth proxy, PRM, `@clerk/mcp-tools`, Clerk SDK usage | `clerk-expert` |
-| MCP protocol, tool/resource/prompt definitions, MCP Apps widgets, transport/session patterns | `mcp-expert` |
-| Sentry SDK usage, OpenTelemetry trace/log correlation, telemetry redaction, Sentry env/config wiring | `sentry-expert` |
+| MCP protocol, tool/resource/prompt definitions, MCP Apps widgets, transport/session patterns, MCP Apps migration work | `mcp-expert` |
+| Sentry SDK usage, OpenTelemetry trace/log correlation, telemetry redaction, MCP Insights, Sentry env/config wiring | `sentry-expert` |
 | Elasticsearch mappings, queries, analysers, synonyms, ELSER, RRF, reranking, ingest, Elastic Serverless | `elasticsearch-expert` |
+| Semantic-search ground-truth design or review | `ground-truth-designer` (on-demand) |
 | Release boundary or go/no-go context | `release-readiness-expert` (on-demand) |
 
 Include a brief "Specialist coverage" section in your output noting which specialists are relevant and whether they were invoked.

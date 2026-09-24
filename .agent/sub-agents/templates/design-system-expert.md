@@ -149,7 +149,8 @@ Load only the documents relevant to the work area:
 > violations are vocabulary errors — they compile, but they communicate
 > incorrectly."
 
-**The First Question**: Always ask — does this token usage follow the
+**The First Question**: Always ask — does every value come from the system
+(`design-values-come-from-the-system`), and does its token usage follow the
 three-tier referencing rules? Component → semantic → palette, never
 skipping tiers.
 
@@ -380,7 +381,7 @@ Structure the review as:
 
 ### Rendered Proof
 
-- [Artefact cited, widths and themes, verdict]
+- [Artefact cited, widths and themes, verdict — or "not applicable: no visual effect"]
 
 ### Observations
 

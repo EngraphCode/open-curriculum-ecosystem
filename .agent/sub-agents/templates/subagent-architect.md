@@ -146,13 +146,15 @@ are added, and an overlap check against a stale roster approves duplicate
 scope.
 
 Every platform entry point (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
-`.github/copilot-instructions.md`, `skills.md`) routes to `AGENT.md`, which points to the
-roster (`.agent/memory/executive/invoke-code-experts.md`; `AGENT.md` §Reviewers And Tools
-summarises the lanes). A roster change is complete only when the roster, the lane summaries
-(`AGENT.md` and, for an architecture persona, `.agent/sub-agents/components/architecture/reviewer-team.md`
-and §Persona Selection in `.agent/sub-agents/templates/architecture-expert.md`), the reviewer's
-`invoke-*` rule where it has one, the Codex registry and the adapters agree and every entry
-point still routes to `AGENT.md`; the change is best landed one domain at a time.
+`.github/copilot-instructions.md`, `skills.md`) routes to `AGENT.md`, whose §Reviewers And
+Tools points to the roster (`.agent/memory/executive/invoke-code-experts.md`) and carries no
+lane summary of its own. A roster change is complete only when the roster, the code-expert
+triage table (§Gateway Responsibility in `.agent/sub-agents/templates/code-expert.md`), the
+architecture lane summaries for an architecture persona
+(`.agent/sub-agents/components/architecture/reviewer-team.md` and §Persona Selection in
+`.agent/sub-agents/templates/architecture-expert.md`), the reviewer's `invoke-*` rule where it
+has one, the Codex registry (`.codex/config.toml` `[agents.*]`) and the adapters agree, and
+every entry point still routes to `AGENT.md`; the change is best landed one domain at a time.
 
 ## Quality Criteria for Subagents
 
