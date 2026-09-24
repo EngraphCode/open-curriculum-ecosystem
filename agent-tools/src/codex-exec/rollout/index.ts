@@ -1,15 +1,11 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { readRecord, type ReaderState, type TurnState } from './record-reader.js';
-import { isRecord } from './record-shapes.js';
-import type { RecordedTurnContext, RolloutEvidence, RolloutReadError } from './rollout-types.js';
+import { readRecord } from './record-reader.js';
+import { isRecord, type RecordedTurnContext } from './record-shapes.js';
+import type { ReaderState, TurnState } from './reader-state.js';
+import type { RolloutEvidence, RolloutReadError } from './rollout-types.js';
 
-export type {
-  RecordedPermissionProfile,
-  RecordedTurnContext,
-  RolloutEvidence,
-  RolloutReadError,
-} from './rollout-types.js';
+export type { RolloutEvidence, RolloutReadError } from './rollout-types.js';
 
 function readLine(text: string, state: ReaderState, line: number): Result<void, RolloutReadError> {
   let parsed: unknown;
@@ -57,7 +53,7 @@ function finishRollout(
  * owns file access; this reader fails closed when Codex changes a record shape.
  */
 export function readRollout(lines: readonly string[]): Result<RolloutEvidence, RolloutReadError> {
-  const state: ReaderState = { sessionCount: 0, turns: [], outputTexts: [] };
+  const state: ReaderState = { sessionCount: 0, turns: [], outputTexts: [], resumedSettings: [] };
   for (const [index, line] of lines.entries()) {
     if (line.trim().length === 0) {
       continue;

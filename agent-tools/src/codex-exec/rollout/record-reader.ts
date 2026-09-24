@@ -1,33 +1,12 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { isRecord, parseToolOutput, parseTurnContext, type JsonRecord } from './record-shapes.js';
-import type { RecordedTurnContext, RolloutReadError } from './rollout-types.js';
-
-export interface TurnState {
-  readonly turnId: string;
-  context?: RecordedTurnContext;
-  complete: boolean;
-}
-
-export interface ReaderState {
-  threadId?: string;
-  sessionCount: number;
-  readonly turns: TurnState[];
-  active?: TurnState;
-  readonly outputTexts: string[];
-}
-
-function invalid(line: number, reason: string): Result<void, RolloutReadError> {
-  return err({ kind: 'invalid-record', line, reason });
-}
-
-function order(line: number, reason: string): Result<void, RolloutReadError> {
-  return err({ kind: 'invalid-turn-order', line, reason });
-}
-
-function unknown(line: number, recordType: string): Result<void, RolloutReadError> {
-  return err({ kind: 'unknown-record-type', line, recordType });
-}
+import { parseThreadId } from '../envelope.js';
+import { hasTruncationMarker, isRecord, type JsonRecord } from './record-shapes.js';
+import { activeTurnWithContext, type ReaderState, type TurnState } from './reader-state.js';
+import { readContext, readThreadSettings } from './context-reader.js';
+import { invalid, order, unknown } from './reader-errors.js';
+import { readResponse } from './response-reader.js';
+import type { RolloutReadError } from './rollout-types.js';
 
 function readSession(
   payload: JsonRecord,
@@ -37,28 +16,12 @@ function readSession(
   if (typeof payload['id'] !== 'string' || payload['id'].length === 0) {
     return invalid(line, 'session_meta.id is missing');
   }
+  const threadId = parseThreadId(payload['id']);
+  if (!threadId.ok) {
+    return invalid(line, 'session_meta.id is not a thread UUID');
+  }
   state.sessionCount += 1;
-  state.threadId = payload['id'];
-  return ok(undefined);
-}
-
-function readContext(
-  payload: JsonRecord,
-  state: ReaderState,
-  line: number,
-): Result<void, RolloutReadError> {
-  const context = parseTurnContext(payload);
-  if (context === undefined) {
-    return invalid(line, 'turn_context has an unknown or missing required field');
-  }
-  const active = state.active;
-  if (active === undefined || active.complete || active.context !== undefined) {
-    return order(line, 'turn_context has no active turn or is duplicated');
-  }
-  if (context.turnId !== active.turnId) {
-    return order(line, 'turn_context turn id differs from task_started');
-  }
-  active.context = context;
+  state.threadId = threadId.value;
   return ok(undefined);
 }
 
@@ -85,18 +48,21 @@ function readCommandExecution(
   state: ReaderState,
   line: number,
 ): Result<void, RolloutReadError> {
-  if (typeof item['aggregated_output'] !== 'string' || typeof payload['turn_id'] !== 'string') {
+  const output = item['aggregated_output'];
+  if (typeof output !== 'string' || typeof payload['turn_id'] !== 'string') {
     return invalid(line, 'CommandExecution output or turn id is missing');
   }
-  if (
-    state.active?.turnId !== payload['turn_id'] ||
-    state.active.complete ||
-    !state.active.context
-  ) {
+  if (hasTruncationMarker(output)) {
+    return err({ kind: 'truncated-output', line });
+  }
+  if (payload['thread_id'] !== state.threadId) {
+    return order(line, 'CommandExecution thread id differs from session_meta');
+  }
+  if (activeTurnWithContext(state)?.turnId !== payload['turn_id']) {
     return order(line, 'CommandExecution has no matching active context');
   }
   if (state.turns.length === 2) {
-    state.outputTexts.push(item['aggregated_output']);
+    state.outputTexts.push(output);
   }
   return ok(undefined);
 }
@@ -113,7 +79,10 @@ function startTurn(
   if (state.active !== undefined && !state.active.complete) {
     return order(line, 'a turn is already active');
   }
-  const turn: TurnState = { turnId, complete: false };
+  if (state.turns.some((turn) => turn.turnId === turnId)) {
+    return order(line, 'task_started repeats a turn id');
+  }
+  const turn: TurnState = { turnId, complete: false, pendingCallIds: new Set() };
   state.turns.push(turn);
   state.active = turn;
   return ok(undefined);
@@ -127,14 +96,14 @@ function completeTurn(
   if (typeof payload['turn_id'] !== 'string') {
     return invalid(line, 'task_complete.turn_id is missing');
   }
-  if (
-    state.active?.turnId !== payload['turn_id'] ||
-    state.active.complete ||
-    !state.active.context
-  ) {
+  const active = activeTurnWithContext(state);
+  if (active?.turnId !== payload['turn_id']) {
     return order(line, 'task_complete has no matching active context');
   }
-  state.active.complete = true;
+  if (active.pendingCallIds.size > 0) {
+    return order(line, 'task_complete has unanswered custom tool calls');
+  }
+  active.complete = true;
   return ok(undefined);
 }
 
@@ -156,52 +125,13 @@ function readEvent(
   if (type === 'item_completed') {
     return readItemCompleted(payload, state, line);
   }
-  if (['token_count', 'thread_settings_applied'].includes(type)) {
+  if (type === 'thread_settings_applied') {
+    return readThreadSettings(payload, state, line);
+  }
+  if (type === 'token_count') {
     return ok(undefined);
   }
   return unknown(line, `event_msg.${type}`);
-}
-
-function readCustomToolOutput(
-  payload: JsonRecord,
-  state: ReaderState,
-  line: number,
-): Result<void, RolloutReadError> {
-  const texts = parseToolOutput(payload['output']);
-  if (texts === undefined) {
-    return invalid(line, 'custom_tool_call_output.output has unknown shape');
-  }
-  if (state.active === undefined || state.active.complete || !state.active.context) {
-    return order(line, 'tool output has no active context');
-  }
-  if (state.turns.length === 2) {
-    state.outputTexts.push(...texts);
-  }
-  return ok(undefined);
-}
-
-function readResponse(
-  payload: JsonRecord,
-  state: ReaderState,
-  line: number,
-): Result<void, RolloutReadError> {
-  const type = payload['type'];
-  if (typeof type !== 'string') {
-    return invalid(line, 'response_item.type is missing');
-  }
-  if (type === 'custom_tool_call_output') {
-    return readCustomToolOutput(payload, state, line);
-  }
-  if (type === 'custom_tool_call') {
-    if (typeof payload['input'] !== 'string') {
-      return invalid(line, 'custom_tool_call.input is missing');
-    }
-    return ok(undefined);
-  }
-  if (['message', 'reasoning'].includes(type)) {
-    return ok(undefined);
-  }
-  return unknown(line, `response_item.${type}`);
 }
 
 type RecordHandler = (
@@ -217,6 +147,7 @@ const RECORD_HANDLERS: ReadonlyMap<string, RecordHandler> = new Map([
   ['response_item', readResponse],
 ]);
 
+/** Fold one validated JSON object into the private two-turn reader state. */
 export function readRecord(
   record: JsonRecord,
   state: ReaderState,
@@ -226,16 +157,16 @@ export function readRecord(
   if (typeof type !== 'string') {
     return invalid(line, 'record.type is missing');
   }
+  const handler = RECORD_HANDLERS.get(type);
+  if (handler === undefined && type !== 'world_state' && type !== 'token_usage_record') {
+    return unknown(line, type);
+  }
   const payload = record['payload'];
   if (!isRecord(payload)) {
     return invalid(line, `${type}.payload is missing`);
   }
-  const handler = RECORD_HANDLERS.get(type);
   if (handler !== undefined) {
     return handler(payload, state, line);
   }
-  if (type === 'world_state' || type === 'token_usage_record') {
-    return ok(undefined);
-  }
-  return unknown(line, type);
+  return ok(undefined);
 }
