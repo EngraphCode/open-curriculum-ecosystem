@@ -337,9 +337,20 @@ ran on its declared default while the word waited, and the Director recorded tha
 The Director confirmed the resume at about 18:40Z, when this session read 12% after
 compaction.
 
-- **Claims** bf89153a and a63a7df8 are re-adopted by this seat.
-- **PR 197** holds the landing slot. It was synced once to engraph `7409e5100` as `a65512892`,
-  its second and last settlement push.
+- **State at 20:10Z, context 52.5%:**
+  - **Landed:** PR 197 (`628f5d0f7`, 19:09Z), and PR 198, batch two part one, the Cricket
+    frame verdict (`715c6aee8`, 19:44Z). Both harvests were clean and the worktrees pruned.
+  - **PR 199** (batch two part two: PDR-008, 082, 132 and 027, plus entry paths) holds the
+    slot. Both settlement pushes are spent. Its PDR bodies now state current truth, per
+    `no-tombstones-for-removed-ideas`.
+  - **PR 200** (batch two part three: four reviewer templates) is open behind it.
+  - **Held:** branch `feat/claude-code-session-id-seed` (`94f788900`, pushed, no pull
+    request): `CLAUDE_CODE_SESSION_ID` as a seed source. Its code review found that
+    subagents would write as their parent and that a nested Codex seat takes the Claude id.
+    The question to Siren is out; the cure planned for the nested case is a Claude-platform
+    gate.
+  - **Claims:** a63a7df8 (test-doctrine), 0df38940 and 1846c431 and 974d5d17 (PR 199),
+    1c8d5a3e (PR 200) and 141892a7 (the seed branch).
 - **The order** from the card:
   1. PR 197.
   2. Batch two, which the owner named for this seat.

@@ -1078,6 +1078,18 @@ the ceremony sets git's author variables in the environment of the commit step.
   `author.id`; the event's own id is `event_id`, which is also the filename. Both were resent
   on the right threads. The structural cure: `--in-response-to` refuses an id that names no
   event in the comms directory.
+- *A full SHA extended by hand from its abbreviation (2026-09-24 ~19:08Z).* PR 197's REST
+  merge was called with a 40-character SHA built from the short `a65512892`, never read. The
+  head pin refused it (409, "Head branch was modified"), so the guard worked; the retry read
+  `.head.sha` from the API and checked its length before the call. Read a full SHA; never
+  compose one.
+- *The docs-and-onboarding pairing missed on three Practice pull requests (~19:37Z).* PRs 198
+  and 199 and the reviewer-template gains each had one specialist review (subagent-architect
+  or docs-adr-expert). `invoke-doc-and-onboarding-experts-on-significant-changes` requires
+  both `docs-adr-expert` and `onboarding-expert` on any change that mutates Practice surfaces.
+  It surfaced only when a code-expert triage row being written for part three named the rule.
+  PR 198's merge was held past its quiet window until both returned. The code-expert triage
+  table now carries the pairing as a row, so the gateway reviewer names it.
 
 ## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
 
