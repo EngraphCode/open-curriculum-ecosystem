@@ -298,7 +298,7 @@ In every review, check whether the changes touch any of these categories. If the
 | Change Signal | Required Specialist |
 |---------------|---------------------|
 | Module boundaries, imports, public APIs | `architecture-expert-barney` / `architecture-expert-fred` / `architecture-expert-betty` / `architecture-expert-wilma` |
-| Auth, OAuth, headers, CSP, secrets, env, PII, injection risk, trust-boundary input, dependency upgrades with a security bearing | `security-expert` |
+| Auth/authz, OAuth, secrets, PII, injection, security-sensitive logic | `security-expert` |
 | Test additions, modifications, or TDD concerns | `test-expert` |
 | Type complexity, generics, schema flow | `type-expert` |
 | Tooling configs, quality gates | `config-expert` |

@@ -81,20 +81,18 @@ Scan for:
 
 ### Step 4: Check Scripts, Environment and Runtime Toggles
 
-- Every added or renamed script follows this repository's gate names, which the root
-  `package.json` and the gates skill enumerate (PDR-008 defines what `check`, `fix`,
-  `check:docs` and `fix:docs` mean): the root owns `check`, `fix`, `check:docs`, `fix:docs`,
-  `format-check:root`, `format:root`, `markdownlint-check:root`, `markdownlint:root` and the
-  validator aggregates, and a workspace carries only the task gates the root pipeline runs.
-  No hidden `test:ci` duplicates, no workspace copies of root gates.
+- Every added or renamed script follows PDR-008's naming rules. The root `package.json` and
+  the gates skill enumerate the live gate set; a workspace carries only the task gates the
+  root pipeline runs. No hidden `test:ci` duplicates, no workspace copies of root gates.
 - Every cited script exists; `package.json` entries reference files that exist and create no
   circular `pnpm check` loop.
-- Environment variables are read through the env helpers (`packages/core/env`), never mutated
-  at runtime.
+- Environment variables are read through `resolveEnv` (`packages/libs/env-resolution`,
+  ADR-116) against the schemas in `packages/core/env`; `process.env` is never mutated.
 - Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
   deliberate, documented and aligned with the directives.
 - Config changes still trigger the right validators: `pnpm check` picks up a new script, and
-  every E2E, smoke or visual gate still ties into the pipeline.
+  every E2E and visual gate that `pnpm check` runs still runs there. Smoke suites stay outside
+  `check` by design (`docs/engineering/build-system.md`).
 
 ### Step 5: Report Findings with Inheritance Analysis
 

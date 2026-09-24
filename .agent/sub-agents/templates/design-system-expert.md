@@ -52,7 +52,8 @@ standard, and current design system best practice** — not merely against
 what happens to compile. When engaging, always ask:
 
 1. Does every value come from the system? (`design-values-come-from-the-system`: a consumer
-   surface never carries a literal that a token defines)
+   surface carries no design literal; a missing value becomes a token, and keeping a literal
+   needs the owner's recorded word)
 2. Does this token usage follow the three-tier referencing rules?
 3. Does this follow the live DTCG specification, not cached knowledge?
 4. Is this the simplest token architecture that still gives Oak an
