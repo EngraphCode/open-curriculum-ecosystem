@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 import { glob } from 'tinyglobby';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
-import { resolveTrustedGit } from '../../core/trusted-git.js';
+import { listTrackedPathSet } from '../../core/repository-paths.js';
 import { readText } from '../portability/portability-fs.js';
 import { writeLine } from '../../core/terminal-output.js';
 
@@ -40,9 +39,6 @@ import { findBrokenLinks } from './validate-markdown-links-report.js';
  */
 
 const repoRoot = resolveRepoRoot(import.meta.url);
-
-/** Null byte: the unambiguous `git ls-files -z` record separator. */
-const NUL = '\u0000';
 
 /** Glob patterns for every policed live Markdown source in the repository. */
 const SCAN_GLOBS = ['**/*.md'] as const;
@@ -115,31 +111,6 @@ async function collectRepoPaths(): Promise<string[]> {
     .filter((p) => !isExcludedPath(p));
 }
 
-/**
- * List versioned paths plus their implied directories.
- *
- * Git tracks files rather than directories, but a directory link travels with
- * the referrer when at least one tracked entry keeps that directory present.
- */
-function collectTrackedPaths(): ReadonlySet<string> {
-  const stdout = execFileSync(resolveTrustedGit(), ['ls-files', '-z'], {
-    cwd: repoRoot,
-    encoding: 'utf8',
-    maxBuffer: 64 * 1024 * 1024,
-  });
-  const tracked = new Set<string>();
-  for (const entry of stdout.split(NUL).filter((item) => item.length > 0)) {
-    const repoPath = entry.split(path.sep).join('/');
-    tracked.add(repoPath);
-    let parent = path.posix.dirname(repoPath);
-    while (parent !== '.') {
-      tracked.add(parent);
-      parent = path.posix.dirname(parent);
-    }
-  }
-  return tracked;
-}
-
 /** Read the scan-source files into memory as {@link ScanFile} records. */
 async function readScanFiles(relPaths: readonly string[]): Promise<ScanFile[]> {
   const files: ScanFile[] = [];
@@ -188,7 +159,7 @@ async function main(): Promise<void> {
   // The target inventory is broader than the Markdown source set: every
   // present internal file or directory can be a valid Markdown dependency.
   const repoPaths = await collectRepoPaths();
-  const trackedPaths = collectTrackedPaths();
+  const trackedPaths = listTrackedPathSet(repoRoot);
   const files = await readScanFiles(scanPaths);
 
   const report = findBrokenLinks(files, repoPaths, trackedPaths);
