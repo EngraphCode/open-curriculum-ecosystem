@@ -1,0 +1,50 @@
+import { describe, expect, it } from 'vitest';
+
+import { parsePassRecord } from './pass-record.js';
+
+/** A record in the shape a passing probe writes. */
+const record = {
+  cliVersion: '0.156.1',
+  executablePath: '/opt/codex/releases/0.156.1/bin/codex',
+  envelopeDigest: 'a'.repeat(64),
+  passedAt: '2026-09-24T11:00:00Z',
+  evidence: ['rule 4: the nonce, no WRITE-OK', 'rule 9: the nonce, no WRITE-OK'],
+} as const;
+
+describe('parsePassRecord', () => {
+  it('accepts the record a passing probe writes', () => {
+    expect(parsePassRecord(record)).toEqual({ ok: true, value: record });
+  });
+
+  it.each([null, 'a record', [record], 42])('refuses %j, which is not a record', (value) => {
+    expect(parsePassRecord(value)).toEqual({ ok: false, error: { kind: 'invalid' } });
+  });
+
+  it('refuses a record carrying a field the record does not define', () => {
+    expect(parsePassRecord({ ...record, pinned: true })).toEqual({
+      ok: false,
+      error: { kind: 'invalid' },
+    });
+  });
+
+  it.each(Object.keys(record))('refuses a record without %s', (field) => {
+    const partial = Object.fromEntries(Object.entries(record).filter(([key]) => key !== field));
+    expect(parsePassRecord(partial)).toEqual({ ok: false, error: { kind: 'invalid' } });
+  });
+
+  it.each([
+    ['an empty version', { cliVersion: '' }],
+    ['an empty path', { executablePath: '' }],
+    ['an upper-case digest', { envelopeDigest: 'A'.repeat(64) }],
+    ['a short digest', { envelopeDigest: 'a'.repeat(63) }],
+    ['a non-hex digest', { envelopeDigest: 'g'.repeat(64) }],
+    ['a time that is not an ISO date-time', { passedAt: 'yesterday' }],
+    ['no evidence', { evidence: [] }],
+    ['evidence that is not text', { evidence: [7] }],
+  ])('refuses %s', (_label, change) => {
+    expect(parsePassRecord({ ...record, ...change })).toEqual({
+      ok: false,
+      error: { kind: 'invalid' },
+    });
+  });
+});
