@@ -248,7 +248,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-122](PDR-122-agentic-judgment-pipelines.md) | Agentic Judgment Pipelines — Atomic Judgment, Deterministic Aggregation, Conserve-by-Default Routing | Accepted |
 | [PDR-123](PDR-123-agentic-design-panel-protocol.md) | Agentic Design Panels — Independent Generators, a Diverse-Lens Critic Ensemble, Orchestrator Synthesis | Accepted |
 | [PDR-124](PDR-124-definition-surface-context-economy.md) | Definition-Surface Context Economy — Session-Injected Surfaces Carry a Budget; Depth Lives at Invocation Time | Accepted |
-| [PDR-125](PDR-125-inter-practice-collaboration-protocol.md) | The Inter-Practice Collaboration Protocol | Accepted (amended 2026-07-13, 2026-08-01, 2026-09-23) |
+| [PDR-125](PDR-125-inter-practice-collaboration-protocol.md) | The Inter-Practice Collaboration Protocol | Accepted (amended 2026-07-08, 2026-07-13, 2026-08-01, 2026-09-23) |
 | [PDR-126](PDR-126-gates-land-strict-in-one-landing.md) | Gates Land Strict, in One Landing — Never at Warn Over an Allowlist | Accepted |
 | [PDR-127](PDR-127-team-branch-coordination-protocol.md) | The Team-Branch Coordination Protocol | Accepted |
 | [PDR-128](PDR-128-review-conversations-are-first-class.md) | Review Conversations Are First-Class — a PR Is the Structured Earning of Shared Truth | Accepted |
