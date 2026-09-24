@@ -71,8 +71,9 @@ things"). Before a send, name the message's **audience** (the one live peer, or 
 seat, the owner, or a successor who was not there), its **lifetime** (spent once acted on, or
 to be found later) and its **consumer** (a mechanism that reads it: the claims registry, the
 commit queue, the liveness poll). A message with one reader, no life past the moment and no
-consumer is s2s; sent as a stream event it reaches every watching seat's context for a signal
-one seat needed. A message with a wider audience, a longer life or a consumer goes where that
+consumer, between two live Claude seats, is s2s; sent as a stream event it reaches every
+watching seat's context for a signal one seat needed. The same message to a non-Claude seat,
+which has no s2s, goes where that seat reads (§Non-Claude seats are first-class). A message with a wider audience, a longer life or a consumer goes where that
 audience or mechanism reads, at occurrence (behaviour 2). Two sends that look like dialogue
 are knowledge-bearing: the reason an idea was rejected, and a lane assignment, whose first act
 on receipt is the claim. The owner gave this direction in the jimcresswell.net Practice, whose
