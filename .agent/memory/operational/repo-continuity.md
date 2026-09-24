@@ -300,10 +300,14 @@ consistent with the owner's direct words; not confirmed first-hand in this estat
 estate's exchange seat is now Siren herds Rudder (158275), from about 13:50Z.
 
 *In flight from this session, each in its own worktree off `engraph`, the pull request
-the source of truth for its state:* joint set F (branch `docs/joint-set-f-gate-singleton`,
-worktree `oce-wt-joint-set-f`, claim `c29beed0`) and joint set G with the second estate's
-pull request 171 items (branch `docs/joint-set-g-director-state`, worktree
-`oce-wt-joint-set-g`, claim `ecd88867`).
+the source of truth for its state:* joint set F, draft pull request 191 (branch
+`docs/joint-set-f-gate-singleton`, worktree `oce-wt-joint-set-f`), and joint set G with the
+second estate's pull request 171 items, draft pull request 192 (branch
+`docs/joint-set-g-director-state`, worktree `oce-wt-joint-set-g`). Both are drafts with no
+review leg requested yet. The fresh session makes each ready in turn under the landing-slot
+contract, harvests the vendor legs and lands it through the door. Their claims closed at this
+seat's wrap. Two shared-text findings on F from this estate's docs review went to the second
+estate's next joint set, and Siren accepted both.
 
 *First acts of the fresh session, in order.* PDR-052 moved (1) and (2) out of this session:
 it measured 37 % context after grounding, and both edit directive files. The Director
