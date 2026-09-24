@@ -134,6 +134,18 @@ steps, or logic that does not exist in the canonical source. The
 canonical content describes **what** to do; the wrapper describes
 **how** to invoke it on a specific platform.
 
+An adapter carries what its role needs to reach the canonical prompt.
+For a role that reads files and has turns to spare, that is a pointer.
+A role that cannot read files, or whose turns are bounded and belong
+to its task, is an inline-prompt role: the first cannot follow a
+pointer, and the second would spend on it the turns its task needs,
+so its adapter carries the prompt. The prompt's one home stays the
+canonical template. The adapter copies the template's System prompt
+block verbatim, nothing else in the adapter is substantive, and a
+check compares every copy with its template; a generator that writes
+the copy from the template is that check. The ~10-line red flag below
+measures what an adapter adds, so it does not count the copied block.
+
 Concretely: a wrapper file longer than ~10 content lines (excluding
 frontmatter) is a red flag that substance has leaked into the wrapper.
 
@@ -146,7 +158,8 @@ copy with a thin wrapper.
 
 Validation must be bidirectional: every canonical artefact has the
 required adapters, and every platform adapter points back to an
-existing canonical artefact. It must also validate wrapper form, not
+existing canonical artefact or, for an inline-prompt role, is compared
+with it. It must also validate wrapper form, not
 only presence. Existence-only checks allow full-content drift to hide
 inside platform directories.
 
@@ -307,9 +320,10 @@ Layer-2 artefact types.
   policy file.
 - Portability validation (automated) checks: (a) every canonical
   artefact has the required adapters; (b) every adapter is thin
-  (content-line count under the threshold; no substantive prose);
-  (c) every platform adapter points back to an existing canonical
-  artefact; (d) every platform's tracked configuration grants the
+  (content-line count under the threshold; no substantive prose), or
+  carries exactly its template's System prompt block and is compared
+  with it; (c) every platform adapter points back to, or is compared
+  with, an existing canonical artefact; (d) every platform's tracked configuration grants the
   permissions wrappers need to activate.
 - Cross-platform probes use platform-neutral inputs by default, or
   explicitly provide parity across the platforms they claim to verify.
@@ -398,6 +412,20 @@ hydrations, the graduation would mark this PDR as `Superseded by
 <Core section>` and retain it as provenance.
 
 ## Amendment Log
+
+### 2026-09-24 — A role that cannot read files, or whose bounded turns belong to its task, carries its template's prompt
+
+A review of the corpus-analysis adapters found the thin-wrapper rule
+silent on two cases: a role with no file access, and a role whose
+bounded turns belong to its task. A pointer to its template is an
+instruction the first cannot follow and the second would spend its
+turns on, so both estates' adapters for those roles already carried
+the prompt inline: one set generated, one
+kept by hand under a "keep both in sync" note. The inline-prompt role
+above, joint set K2, is signed by both estates' exchange seats. It names the
+case and keeps the canonical-first decision: the template stays the
+prompt's one home, and a check (a generator, or a comparison of each
+hand-kept copy with its template) keeps every copy true.
 
 ### 2026-04-24 — Cross-platform standard directories are adapters
 

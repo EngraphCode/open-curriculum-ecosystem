@@ -42,6 +42,9 @@ cannot record that a move has since been offered. The list is computed where it 
 git log --format='%as %h %(trailers:key=Practice-Generalisation,valueonly,unfold,separator=; )' | awk 'NF > 2'
 ```
 
+An estate that kept a register before the trailer closes it and keeps its rows. Its full list
+is those rows, then the trailer query over the commits after the register closed.
+
 What a sibling estate has been offered or has taken is exchange state; the exchange's own
 records hold it, and the trailer never does.
 
@@ -55,8 +58,8 @@ generalisation move and carries no trailer.
 ## Provenance
 
 The owner's direction and the rule were first written in the jimcresswell.net Practice on
-2026-09-13, at
-[`.agent/rules/record-generalisation-moves.md`](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/rules/record-generalisation-moves.md).
+2026-09-13, in a register form: `.agent/rules/record-generalisation-moves.md` as that
+repository's history holds it before 2026-09-24.
 The open-curriculum-ecosystem Practice took it through the Practice Box exchange of
 2026-09-24 (batch one). The adaptation: the note moves from an append-only register file into
 a commit trailer, and the list is computed from git history. The register form stopped
