@@ -113,5 +113,6 @@ Brought from JC.net's Practice through the exchange, where the owner's word of 2
 "I don't want the number of rounds of PRs to go up". The two-round budget of §Decision item 1
 binds as written. After round two, every remaining finding is dispositioned in the same turn as
 the last push: over-bar cures ride that push, and the rest are signed `Rejected` or
-`Routed to <home>` lines. A further push opens only through PDR-140's doors: clause 4's
-rebudget by recorded decision, or clause 9(b)'s late over-bar cure.
+`Routed to <home>` lines. On prose-class changesets a further push opens only through
+PDR-140's doors: clause 4's rebudget by recorded decision, or clause 9(b)'s late over-bar
+cure. Code-class changesets keep the review-round state machine's budget and step-back arms.

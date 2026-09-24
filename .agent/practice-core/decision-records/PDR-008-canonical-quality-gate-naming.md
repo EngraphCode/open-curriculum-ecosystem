@@ -270,8 +270,9 @@ introducing unfamiliar patterns.
   discoverable equivalent per PDR-006).
 - CI configurations MUST invoke `check:ci` (or `check` if no
   CI-specific tuning is needed) as the aggregate gate. (Amended
-  2026-09-24: CI runs every leg of `check` as its own step, under
-  a parity check; see Amendment Log.)
+  2026-09-24: CI runs every verifying leg of `check` under a parity
+  check, and the consolidation requirement below is retired; see
+  Amendment Log.)
   Hand-rolled CI sequences that duplicate what the aggregate
   should cover are a drift vector and MUST be consolidated into
   the script.
@@ -356,7 +357,7 @@ carries forward in substance. Under PDR-008 the phrasing sharpens:
 - Local authors type `pnpm check` (the aggregate that applies no
   fixes, as amended 2026-09-24); its clean exit proves the repo is
   in a state where CI would also pass.
-- CI runs every leg of `check` as its own step, under a parity
+- CI runs every verifying leg of `check`, under a parity
   validator; there is no separate `:ci` form.
 
 The merge criterion is `check` green, locally and in CI. A repair
@@ -398,9 +399,10 @@ correction there). The convention that the tables and rules above predate:
 
 - `check` is the aggregate gate, and it applies no fixes. `fix` is the mutating aggregate.
   `check:docs` and `fix:docs` are the documentation subset.
-- There is no `check:fix` and no `:ci` form. CI runs every leg of `check` as its own step, and
-  a parity validator fails any leg of `check` that has no CI step. That is the guarantee the
-  `:ci` suffix was for.
+- There is no `check:fix` and no `:ci` form. CI runs every verifying leg of `check`, and a
+  parity validator fails a verifying leg of `check` that CI does not run. That is the guarantee
+  the `:ci` suffix was for. The requirement to consolidate CI into one aggregate script is
+  retired with it.
 - The `check`-as-alias-of-`check:fix` exception is retired.
 - A host repository enumerates its live gate and validator sets in its own scripts and gates
   skill, never here.
