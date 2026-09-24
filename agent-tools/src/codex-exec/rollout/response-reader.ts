@@ -2,8 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { parseToolOutput, type JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState } from './reader-state.js';
-import { invalid, order, unknown } from './reader-errors.js';
-import type { RolloutReadError } from './rollout-types.js';
+import { invalid, order, unknown, type RolloutReadError } from './rollout-types.js';
 
 function readCustomToolOutput(
   payload: JsonRecord,

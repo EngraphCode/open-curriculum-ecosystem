@@ -4,9 +4,8 @@ import { parseThreadId } from '../envelope.js';
 import { hasTruncationMarker, isRecord, type JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState, type TurnState } from './reader-state.js';
 import { readContext, readThreadSettings } from './context-reader.js';
-import { invalid, order, unknown } from './reader-errors.js';
+import { invalid, order, unknown, type RolloutReadError } from './rollout-types.js';
 import { readResponse } from './response-reader.js';
-import type { RolloutReadError } from './rollout-types.js';
 
 function readSession(
   payload: JsonRecord,

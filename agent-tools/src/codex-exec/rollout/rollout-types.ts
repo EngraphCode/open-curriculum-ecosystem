@@ -1,3 +1,5 @@
+import { err, type Result } from '@oaknational/result';
+
 import type { ThreadId } from '../envelope.js';
 import type { RecordedTurnContext } from './record-shapes.js';
 
@@ -18,3 +20,15 @@ export type RolloutReadError =
   | { readonly kind: 'invalid-turn-order'; readonly line: number; readonly reason: string }
   | { readonly kind: 'invalid-turn-count'; readonly count: number }
   | { readonly kind: 'invalid-session-count'; readonly count: number };
+
+export function invalid(line: number, reason: string): Result<void, RolloutReadError> {
+  return err({ kind: 'invalid-record', line, reason });
+}
+
+export function order(line: number, reason: string): Result<void, RolloutReadError> {
+  return err({ kind: 'invalid-turn-order', line, reason });
+}
+
+export function unknown(line: number, recordType: string): Result<void, RolloutReadError> {
+  return err({ kind: 'unknown-record-type', line, recordType });
+}

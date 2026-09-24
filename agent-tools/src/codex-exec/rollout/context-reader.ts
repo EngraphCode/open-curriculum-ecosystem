@@ -8,8 +8,7 @@ import {
   type RecordedTurnContext,
 } from './record-shapes.js';
 import type { ReaderState } from './reader-state.js';
-import { invalid, order } from './reader-errors.js';
-import type { RolloutReadError } from './rollout-types.js';
+import { invalid, order, type RolloutReadError } from './rollout-types.js';
 
 function settingsMatchContext(state: ReaderState, context: RecordedTurnContext): boolean {
   const comparable = {
