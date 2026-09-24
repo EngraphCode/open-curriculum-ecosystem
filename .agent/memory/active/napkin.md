@@ -1072,6 +1072,12 @@ the ceremony sets git's author variables in the environment of the commit step.
 - *Before moving a file, read its age.* A `cd` into the comms directory left `.logs/` there. It
   was not this session's: it dated from 2026-08-12, ignored and 6 MB. It was moved to the
   scratchpad and restored within a minute.
+- *Tool feedback, `comms send --in-response-to`.* It accepted `author.id` (the sender's
+  identity) as an antecedent, so two replies (K3(e)'s signature, batch four's receipt,
+  ~17:5xZ) threaded to a person, not an event. The first `"id"` in an event file is
+  `author.id`; the event's own id is `event_id`, which is also the filename. Both were resent
+  on the right threads. The structural cure: `--in-response-to` refuses an id that names no
+  event in the comms directory.
 
 ## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
 
