@@ -31,6 +31,16 @@ describes it). Rollout sequencing:
 ## Philosophy
 
 - ALWAYS test behaviour, NEVER test implementation
+- **Tests prove the behaviour of product code, and must never be used to
+  constrain configuration or implementation** (owner, 2026-09-24,
+  verbatim: "tests prove behaviour of product code, they must never, ever
+  be used to constrain configuration or implementation", and of its
+  reach: "no excemptions, strict, everywhere, all of the time"). A test
+  reads what the product returns, writes or leaves behind at its
+  boundary; it never asserts which calls the product made, how often or
+  in what order, never pins a configuration value and never asserts an
+  implementation shape. Configuration is guaranteed by construction or
+  by a validator.
 - Prefer pure functions and unit tests
 - Always use TDD at ALL levels (unit and integration tests; an E2E check is
   written first in the same way)
@@ -51,9 +61,9 @@ describes it). Rollout sequencing:
   by non-test validation kept to a minimum (a validator script's own
   self-proof, run by a CI-gated task) or by an observation made once at cure
   time and recorded ([validation-strategy.md](validation-strategy.md) §Right
-  tool). The existing estate does not yet conform; its recovery runs under
-  `no-io-test-boundary-and-di-recovery.plan.md`: offenders are moved to
-  validation or cured by injection, never exempted.
+  tool). Existing code that breaks the invariant is a defect: it is cured by
+  injection or moved to validation, never exempted, and its presence
+  licenses nothing.
 - NEVER create complex mocks, use simple mocks passed as arguments
   to the function under test. Complex mocks result in testing the
   mocks, and indicate that product code needs refactoring and
@@ -120,15 +130,10 @@ describes it). Rollout sequencing:
   antithesis — it pins bytes, proves no behaviour, fails loud on a
   harmless change; and the cure for a **content-quality invariant**
   (a firewall, e.g. "no curriculum data in this prose") is NOT a
-  grep test but **construction plus human review**. The
-  **designed-sentinel carve-out** (owner doctrine 2026-08-03): a
-  literal content pin is admissible only when a named decision
-  attaches to the value changing and the failure message instructs
-  re-adjudication of that decision, never removal-on-sight —
-  correction-layer override sentinels qualify; example-value pins
-  do not, and their cure is a source-anchored test of the
-  generating mechanism, red only when the mechanism breaks and
-  silent on upstream content drift (trigger artefact: the MCP-462
+  grep test but **construction plus human review**. A literal content
+  pin is never admissible: the cure for a pinned value is a test of
+  the mechanism that generates it, red only when the mechanism breaks
+  and silent on upstream content drift (trigger artefact: the MCP-462
   differential examples test that replaced three value-pinned
   tests).
 - **Pinning an absence is not proof** (owner doctrine 2026-08-19,
@@ -137,9 +142,7 @@ describes it). Rollout sequencing:
   field, property, or capability is ABSENT from a configuration or
   registration object (`not.toHaveProperty`, negative config pins)
   proves no behaviour and blocks the surface's deliberate evolution.
-  The designed-sentinel carve-out does not extend to absence — a
-  sentinel attaches a named decision to a VALUE changing, never to a
-  key not existing. A deliberate absence is recorded in the owning
+  A deliberate absence is recorded in the owning
   ADR or plan; where the absence has observable consequences, prove
   those consequences behaviourally through the public boundary.
   Negative-space tests that DRIVE the boundary and observe an
@@ -191,8 +194,8 @@ describes it). Rollout sequencing:
   back and simplify the code or our approach.
 - **No skipped tests** - Fix it or delete it. Skipping mechanisms
   (`it.skip`, `describe.skip`, `test.todo`, `it.todo`, `xit`,
-  `xdescribe`) are forbidden outright. External-resource tests must
-  fail fast with a helpful error, never silently skip. Validation
+  `xdescribe`) are forbidden outright. A check that needs an external
+  resource fails fast with a helpful error, never silently skips. Validation
   scripts requiring external resources are standalone scripts, not
   tests. Operationalises [ADR-011 (Use Vitest for
   Testing)][adr-011-noskip] and [ADR-121 (Quality Gate
@@ -238,9 +241,9 @@ describes it). Rollout sequencing:
   `vi.doMock`. If a function needs configuration, refactor it to
   accept config as a parameter. See [ADR-078][di].
   A validation check's composition root (a smoke or E2E check's runner
-  config or entry script) may read ambient env, validate it, and inject
-  the result. Test files and setup files must not read or mutate
-  `process.env`.
+  config, global setup or entry script) may read ambient env, validate
+  it, and inject the result. Test files and other setup files must not read
+  or mutate `process.env`.
 
 [di]: ../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md
 [testing-patterns-value-proxies]: ../../docs/engineering/testing-patterns.md#acceptance-value-proxies
@@ -256,13 +259,13 @@ describes it). Rollout sequencing:
   the right tool: ESLint for boundary enforcement, Playwright for
   browser testing, vitest for runtime logic.
   A child's stdio topology or exit and signal fidelity is real process
-  IO; where no injection seam below it can carry the proof (a fake
-  would model libuv engine semantics, the "double models the engine"
-  trap), the proof is an observation made once at cure time and
-  recorded, or a validator's self-proof outside the test suites (the
+  IO; where no injection seam below it can carry the proof (a fake would
+  model libuv engine semantics, the "double models the engine" trap), the
+  proof is an observation made once at cure time and recorded, or a
+  validator's self-proof outside the test suites (the
   `file-backed-stdio-for-spawned-gate-children` pattern describes the
-  shape being proven). The spawning suites under `agent-tools/tests/`
-  are pre-invariant estate for the recovery plan.
+  shape being proven). An existing suite that spawns is a defect under
+  this rule, cured the same way.
   `test-immediate-fails.md` item 8 points here.
 
 - **No reading the `.agent/` knowledge substrate in tests** - Tests MUST
@@ -313,7 +316,7 @@ A fake that models a vendor SDK's INTERNALS is wrong twice over: it encodes
 guesses about the engine (wrong twice in two rounds on PR #618), and its
 green proves conformance to the guess, not the behaviour. Fakes assert only
 the handler's own observable behaviour at its boundary; composition with
-the real engine is proven by real-SDK integration tests. Related trap: an
+the real engine is proven by a validation check against the real SDK. Related trap: an
 `isError`-shaped assertion is unfalsifiable as a liveness check when
 unmatched anchors return well-formed empty envelopes — assert on content,
 not on error-shape absence.
@@ -335,8 +338,7 @@ not on error-shape absence.
   `*.integration.test.ts`.
 - System: The complete MCP server exposed via stdio transport.
   Systems have E2E checks (validation, not tests; see §Out-of-process
-  checks). The `*.e2e.test.ts` naming convention is pre-invariant
-  estate.
+  checks).
 
 ### Test Types
 
@@ -359,16 +361,13 @@ about testing CODE, not testing RUNNING SYSTEMS.
   outside the test process, and can contain SIMPLE fakes which must
   be injected as arguments to the function under test. Integration
   tests are automatically run in CI/CD and include MCP protocol
-  compliance testing over in-process calls. **Important**:
-  Integration tests are NOT about testing a deployed or running
-  system - they test how multiple code units integrate when imported
-  and called directly. An HTTP surface is exercised below the
-  listener, at a handler or middleware function called directly with
-  request and response values: a loopback socket is IO, whatever tool
-  opens it. The existing `supertest(app)` suites are pre-invariant
-  estate, the worked recipe for the handler seam is the recovery
-  plan's to establish, and every new HTTP-surface test is written at
-  that seam. Every upstream dependency is an injected simple fake.
+  compliance testing over in-process calls. **Important**: Integration
+  tests are NOT about testing a deployed or running system - they test
+  how multiple code units integrate when imported and called directly.
+  An HTTP surface is exercised below the listener, at a handler or
+  middleware function called directly with request and response values:
+  a loopback socket is IO, whatever tool opens it. Every upstream
+  dependency is an injected simple fake.
 
 #### Out-of-process checks
 
@@ -376,7 +375,7 @@ Out-of-process checks validate a running *system*: the check and the
 system run in *separate processes*. Driving a system over a protocol
 channel, booting a built artefact, opening a socket, reading a
 filesystem: each is IO, so an out-of-process check is not a test and
-never lives in a test suite. It is a **validation surface**
+never lives in the in-process test run. It is a **validation surface**
 ([validation-strategy.md](validation-strategy.md)): a validator script
 with its own minimal self-proof, reachable from a CI-gated task, or an
 observation recorded once. They are slower and less specific in the
@@ -396,12 +395,12 @@ the questions they name stay:
   filename says — see
   [`testing-patterns.md` §Test File
   Classification](../../docs/engineering/testing-patterns.md#test-file-classification).
+  A file named as an E2E check that imports product code and runs it
+  in the test process is an integration test under the wrong name
+  (`test-immediate-fails` item 20), whatever its suffix or directory.
   An HTTP harness exercises the HTTP/JSON-RPC exchange but not SSE
   transport serialisation; keep MCP-client-SDK E2E checks alongside it
-  for transport fidelity. The `.e2e.test.ts` suffix, the `e2e-tests`
-  directories and the `test:e2e` scripts are pre-invariant estate; the
-  recovery plan moves them to validation or cures them by injection,
-  never exempts them.
+  for transport fidelity.
 
 - **Smoke check**: proves the SHIPPED FORM of a system is viable — the
   built artefact, invoked exactly as production invokes it (plain
@@ -457,9 +456,11 @@ exchange is permitted, loopback included (§Test Types).
 - **Runtime stubs**: plain functions that live in the SDK and are used in
   product code stub mode (e.g. `createStubRetrievalService`). They return
   canned data and have no test framework dependency.
-- **Test fakes**: `vi.fn()` wrappers that live in `test-helpers/` directories
-  and are used only in tests. They enable assertions on call counts, arguments,
-  and return values.
+- **Test fakes**: simple functions or objects that live in `test-helpers/`
+  directories and are used only in tests. They stand in for a dependency so
+  the code under test can run. A fake may hold a record of what the product
+  sent out through it, which the test reads as output; which calls were made,
+  how often or in what order is never asserted (§Philosophy).
 
 Do not conflate the two. Runtime stubs are product code; test fakes are test
 infrastructure.
@@ -615,16 +616,12 @@ the slicing was wrong.
   - Integration tests live next to the integration point file
     containing the integration points they test. They MUST end in
     `*.integration.test.ts`
-  - E2E checks live in the `e2e-tests` directory. They drive a running
-    *system* rather than importing product code, so they do not
-    co-locate with any product file. The current files end in
-    `*.e2e.test.ts` (pre-invariant naming, for the recovery plan).
-    Until that plan moves the estate, a new E2E check is authored
-    where the workspace's live `test:e2e` runner reaches it, because
-    a check that no CI-gated task runs is the worse defect (the
-    reachability rule of §Smoke Checks). The directory and the suffix
-    are names the plan retires; they never make the check a test, and
-    none of a test's allowances or a check's IO passes between them
+  - E2E checks live apart from product code, because they drive a
+    running *system* rather than importing it: a workspace's
+    `e2e-tests/` directory, named `*.e2e.test.ts` and run by the
+    workspace's `test:e2e`. A check is reachable from a CI-gated task,
+    because a check that nothing runs is the worse defect (the
+    reachability rule of §Smoke Checks)
 
 ## When Behaviour Changes
 
@@ -708,9 +705,10 @@ locally).
 Workspaces with `*.e2e.test.ts` files MUST also have
 `vitest.e2e.config.ts` (extending `baseE2EConfig` from
 `@oaknational/workspace-config/vitest-e2e`, or workspace-specific)
-and a `test:e2e` script in `package.json`. These names describe the
-estate as it stands; the files they govern are E2E checks
-(§Out-of-process checks), and the `exclude` keeps them out of the
+and a `test:e2e` script in `package.json`. A file they govern that drives a separately
+running system is an E2E check (§Out-of-process checks); one that
+imports product code is an integration test under the wrong name
+(`test-immediate-fails` item 20). The `exclude` keeps them out of the
 in-process test run, which admits no IO.
 
 ## Test Assertion Placement

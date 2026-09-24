@@ -64,7 +64,8 @@ suggestions concrete.
 | Document | Purpose |
 |----------|---------|
 | `.agent/directives/tdd-as-design.md` | **THE FOUNDATIONAL DEFINITION** — what TDD is, why it exists, and the atomic-landing invariant |
-| `.agent/directives/testing-strategy.md` | Test-type taxonomy and shape rules (unit / integration / E2E / smoke) |
+| `.agent/directives/testing-strategy.md` | Test-type taxonomy and shape rules (unit / integration tests; E2E / smoke checks) |
+| `.agent/directives/validation-strategy.md` | Where a proof that needs IO lives: validators, checks and recorded observations |
 | `.agent/rules/test-immediate-fails.md` | **IMMEDIATE-FAIL CHECKLIST** — first-pass screen; any single hit rejects the test |
 | `.agent/rules/no-conditional-tests.md` | Conditional-execution prohibition (architectural-failure signal) |
 | `.agent/rules/no-global-state-in-tests.md` | Global state and module cache prohibitions |
@@ -109,12 +110,11 @@ For each test file:
   (does it import product code? does it spawn processes? does it exchange
   protocol with a separate running system?), not just its name.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
-  `*.integration.test.ts`). An existing `*.e2e.test.ts` file is pre-invariant
-  estate for the recovery plan, never a naming mismatch to flag; a NEW E2E or
-  smoke check must be reachable from a CI-gated task, and where the
-  workspace's live runner glob still wants the old suffix, the suffix is a
-  name and never a classification (`testing-strategy.md` §Development
-  Workflow).
+  `*.integration.test.ts`). A file named as an E2E check that imports product
+  code and runs it in the test process is an integration test under the wrong
+  name (`test-immediate-fails.md` item 20): flag it. An E2E or smoke check must
+  be reachable from a CI-gated task, and its suffix is a name, never a
+  classification (`testing-strategy.md` §Out-of-process checks).
 - Flag any mismatch as an immediate-fail (per `test-immediate-fails.md`
   §Pipeline).
 
@@ -192,8 +192,10 @@ The atomic-landing invariant from `tdd-as-design.md`:
 ### Step 6: Apply the Mock-Quality Check
 
 - **Unit tests have NO mocks** (parameters in, result out).
-- **Integration tests have only SIMPLE mocks** — constant returns,
-  captured calls. No branching, no state machines, no string
+- **Integration tests have only SIMPLE mocks** — constant returns, or a
+  record of what the product sent out through the port, read as output;
+  which calls were made, how often or in what order is never asserted. No
+  branching, no state machines, no string
   interpolation of inputs.
 - **All mocks injected as parameters** (DI, per ADR-078). No
   `vi.mock`, `vi.doMock`, `vi.stubGlobal`. No `process.env` reads or
@@ -237,11 +239,11 @@ or test deployed systems.
 Checks that drive a running system in a separate process. They are
 validation surfaces, never tests: tests never use or create IO
 (`testing-strategy.md` §Philosophy, owner, 2026-09-14). The `test` in the
-file names below is pre-invariant naming.
+file names below is a name, never a classification.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` where the live runner's glob wants it (a pre-invariant name, never a classification) |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` in a workspace's `e2e-tests/`; a name, never a classification |
 | **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
@@ -401,15 +403,15 @@ need for product code refactoring and cites the relevant specialist.
 
 ### Structural
 
-- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (an
-      existing `*.e2e.test.ts` is pre-invariant estate, not a mismatch)
+- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (a file named
+      as an E2E check that imports product code is an integration test: flag it)
 - [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
 - [ ] No conditional execution (`skipIf`, `runIf`, runtime branching,
       conditional assertions, conditional fixtures)
-- [ ] If a test cannot run (e.g., missing API key), it MUST fail fast
-      with a helpful error message — never silently skip
+- [ ] A check that needs an external resource (e.g., an API key) fails
+      fast with a helpful error message — never silently skips
 - [ ] Validation scripts requiring external resources are standalone
       scripts, NOT tests
 - [ ] No complex logic in tests
