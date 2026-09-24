@@ -21,8 +21,8 @@ import { err, flatMap, map, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from './trusted-git.js';
 
-/** Null byte: the record separator of git's `-z` output. */
-const NUL = '\u0000';
+/** Null byte: the record separator of git's `-z` input and output. */
+export const NUL = '\u0000';
 
 /** Room for the whole listing of a large repository in one read. */
 const MAX_GIT_OUTPUT_BYTES = 64 * 1024 * 1024;
@@ -45,8 +45,8 @@ export interface SpawnedGit {
   readonly stderr?: string | null | undefined;
 }
 
-/** Run git with `args`: the one runner every read here goes through. */
-type GitRun = (args: readonly string[]) => GitRunOutput;
+/** Run git with `args` and `input` on its stdin: the one runner every read here goes through. */
+type GitRun = (args: readonly string[], input: string) => GitRunOutput;
 
 /**
  * Why a git read gave no usable answer: no trusted git (`git-unavailable`, the
@@ -99,7 +99,7 @@ export function parseTrackedFiles(output: GitRunOutput): Result<readonly string[
 
 /** List every tracked file, binaries included, of the repository at `repoRoot`. */
 export function listTrackedFiles(repoRoot: string): Result<readonly string[], GitReadFailure> {
-  return flatMap(gitRunAt(repoRoot), (run) => parseTrackedFiles(run(['ls-files', '-z'])));
+  return flatMap(gitRunAt(repoRoot), (run) => parseTrackedFiles(run(['ls-files', '-z'], '')));
 }
 
 /**
@@ -148,11 +148,12 @@ export function toGitRunOutput(spawned: SpawnedGit): GitRunOutput {
 }
 
 /** The NUL-separated records of git's `-z` output, without the empty tail. */
-function splitNul(text: string): string[] {
+export function splitNul(text: string): string[] {
   return text.split(NUL).filter((entry) => entry.length > 0);
 }
 
-function gitFailed(output: GitRunOutput): GitReadFailure {
+/** The failure a git run gave: its status, or none, and git's own standard error. */
+export function gitFailed(output: GitRunOutput): GitReadFailure {
   return { kind: 'git-failed', status: output.status, stderr: output.stderr };
 }
 
@@ -161,7 +162,7 @@ function gitFailed(output: GitRunOutput): GitReadFailure {
  * A missing trusted git is the resolver's refusal, carried verbatim, never
  * rebranded ({@link resolveTrustedGit}).
  */
-function gitRunAt(repoRoot: string): Result<GitRun, GitReadFailure> {
+export function gitRunAt(repoRoot: string): Result<GitRun, GitReadFailure> {
   let git: string;
   try {
     git = resolveTrustedGit();
@@ -169,5 +170,5 @@ function gitRunAt(repoRoot: string): Result<GitRun, GitReadFailure> {
     return err({ kind: 'git-unavailable', message: String(error) });
   }
   const options = { cwd: repoRoot, encoding: 'utf8', maxBuffer: MAX_GIT_OUTPUT_BYTES } as const;
-  return ok((args) => toGitRunOutput(spawnSync(git, args, options)));
+  return ok((args, input) => toGitRunOutput(spawnSync(git, args, { ...options, input })));
 }
