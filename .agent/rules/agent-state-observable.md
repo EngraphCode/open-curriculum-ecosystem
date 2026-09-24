@@ -52,7 +52,7 @@ stale"; the ask is visibility, explicitly not speed
 
 ### Holding the gate-runner role
 
-Per the check-singleton-per-window invariant: when agent A is running `pnpm check` (or another whole-repo gate sweep) in a working tree other agents share, or whose build output they read, A emits a broadcast naming the gate, the working tree, the started-at timestamp, and the expected finish window. Those agents observe and do not start a parallel run; seats in separate worktrees run their own gates under `no-unbounded-host-load` item 6.
+Per the check-singleton-per-window invariant: when agent A is running `pnpm check` (or another whole-repo gate sweep) in a working tree other agents share, or whose build output they read, A emits a broadcast naming the gate, the working tree, the started-at timestamp, and the expected finish window. Agents in that tree observe and do not start a parallel run there; an agent that reads its build output from another worktree observes too (its CLIs and hooks fail for the rebuild window) and, like every seat in a separate worktree, runs its own gates under `no-unbounded-host-load` item 6.
 
 ## Forbidden shapes
 

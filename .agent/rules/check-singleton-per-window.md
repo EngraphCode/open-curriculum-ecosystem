@@ -58,7 +58,9 @@ ETA, result), which a static role field cannot:
    `"red <gate>:<file:line>"`), carrying the HEAD SHA at run time.
 3. Other agents in the same working tree observing the in-flight
    broadcast **defer** their own check run and consume the result event
-   when it arrives.
+   when it arrives. An agent that reads the tree's build output from
+   another worktree observes the broadcast (its CLIs and hooks fail for
+   the rebuild window) and runs its own worktree's gates.
 
 If the result event has not arrived within ~2× the announced ETA, a
 peer may take over with a fresh broadcast — the prior agent is
