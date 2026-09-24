@@ -109,7 +109,8 @@ amendment.
 
 ### 2026-09-24 — the number of review rounds per pull request does not go up
 
-Brought from JC.net's Practice through the exchange, where the owner's word of 2026-09-14 was
+Brought from the second estate's Practice through the inter-Practice exchange (PDR-125), where
+the owner's word of 2026-09-14 was
 "I don't want the number of rounds of PRs to go up". The two-round budget of §Decision item 1
 binds as written. After round two, every remaining finding is dispositioned in the same turn as
 the last push: over-bar cures ride that push, and the rest are signed `Rejected` or

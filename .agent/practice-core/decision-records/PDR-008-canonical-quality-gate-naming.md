@@ -268,14 +268,9 @@ introducing unfamiliar patterns.
   its ecosystem adaptation — the mapping from canonical names
   to underlying commands — in its `docs/dev-tooling.md` (or
   discoverable equivalent per PDR-006).
-- CI configurations MUST invoke `check:ci` (or `check` if no
-  CI-specific tuning is needed) as the aggregate gate. (Amended
-  2026-09-24: CI runs every verifying leg of `check` under a parity
-  check, and the consolidation requirement below is retired; see
-  Amendment Log.)
-  Hand-rolled CI sequences that duplicate what the aggregate
-  should cover are a drift vector and MUST be consolidated into
-  the script.
+- CI configurations MUST run every verifying leg of `check`, and a
+  parity validator MUST fail a verifying leg that CI does not run
+  (amended 2026-09-24; see Amendment Log).
 - Reviewer prompts, automation tools, git hooks, and
   documentation that reference quality gates MUST use the
   canonical names. This preserves portability across the
@@ -394,8 +389,9 @@ to add further aliases.
 
 ### 2026-09-24 — the aggregate that applies no fixes supersedes the `check`-mutates model
 
-Brought from JC.net's Practice through the exchange (its own entry of 2026-09-12 made the same
-correction there). The convention that the tables and rules above predate:
+Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; its
+own entry of 2026-09-12 made the same correction there). The convention that the tables and
+rules above predate:
 
 - `check` is the aggregate gate, and it applies no fixes. `fix` is the mutating aggregate.
   `check:docs` and `fix:docs` are the documentation subset.

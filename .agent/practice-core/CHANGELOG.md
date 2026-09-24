@@ -4,6 +4,26 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-008, PDR-082, PDR-132 and PDR-027 take the exchange's amendments
+
+- PDR-008: the aggregate `check` applies no fixes, `fix` is the mutating
+  aggregate, and `check:fix` and `check:ci` are retired. CI runs every
+  verifying leg of `check` under a parity check. Each section naming the
+  retired forms carries a marker, and the Required CI consolidation clause is
+  retired. `practice-verification.md` item 9 and one-line references in
+  PDR-022 and PDR-024 follow it.
+- PDR-082: during a long turn at n=2, each seat sends its partner a state line
+  at least every 120 seconds; silence past that is unknown state, answered by
+  a ping, never an escalation. The `start-right-team` retain list names it.
+- PDR-132: the owner's word "I don't want the number of rounds of PRs to go
+  up" binds the two-round budget; a further push opens only through PDR-140's
+  doors on prose-class changesets.
+- PDR-027: the fork-rules lead-in counts six rules.
+- The decision-record index marks the three amendments and corrects PDR-082's
+  status to Adopted.
+- Brought from the second estate's Practice through the inter-Practice
+  exchange (PDR-125), batch two part two, checked clause by clause here.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-117: the Director hears questions and requests, never state
 
 - PDR-117, on the owner's ruling of 2026-09-23 for all agents ("do not update

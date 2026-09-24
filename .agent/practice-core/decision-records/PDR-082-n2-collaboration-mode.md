@@ -362,14 +362,15 @@ described under Adoption.
 
 ### 2026-09-24 — the 120-second state line is the n=2 liveness convention
 
-Brought from JC.net's Practice through the exchange (an owner card of 2026-09-14 there).
+Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; an
+owner card of 2026-09-14 there).
 §What drops at n=2 still drops the team-cadence message sweep and the heartbeat substrate,
 which read and broadcast state; the seat's own outgoing progress report to its partner is not
 dropped with them. During a long turn each seat sends its partner one state line at least
-every 120 seconds, on the pair's dialogue channel; the line names the current state, any
-blocker and the next action. State lines are not comms events, so they sit outside the budget
+every 120 seconds, by the channel the `comms-channels` skill names for a message to one
+live reader; the line names the current state, any blocker and the next action. State lines are not comms events, so they sit outside the budget
 of three inter-agent comms events above. A seat reads its partner's silence past that interval
-as unknown state, never as work in progress and never as a block. It answers with a ping on
-the dialogue channel after `ping-before-escalate`'s cross-check, never with an escalation to
-the owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
+as unknown state, never as work in progress and never as a block. It answers with a ping by
+that same channel after `ping-before-escalate`'s cross-check, never with an escalation to the
+owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
 escalated; it was fine.
