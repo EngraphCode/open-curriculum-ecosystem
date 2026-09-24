@@ -355,7 +355,9 @@ on this machine only.
      hand on every GitHub write; this host's default `gh` credential is the owner's.
   6. PRs E and F: the PDR citation text and its check.
   7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, K2(c), and K3(a) to K3(e), all signed (K3(e), the third
-     adapter-contract anchor at `practice-bootstrap.md` line 352, signed 17:4xZ). Plus K2(a)'s adapter check
+     adapter-contract anchor at `practice-bootstrap.md` line 352, signed 17:4xZ), and the two
+     `record-generalisation-moves` amendments from JC.net PR 185 (signed ~17:58Z; the text is
+     in the handover record). Plus K2(a)'s adapter check
      for the three corpus adapters.
   8. Batch two (three parts) and batch three (two code concepts), both acknowledged and not
      integrated.
