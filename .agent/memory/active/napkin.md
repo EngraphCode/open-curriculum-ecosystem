@@ -829,3 +829,9 @@ the ceremony sets git's author variables in the environment of the commit step.
   (one instance).
 - Full analysis:
   `.agent/reports/agentic-engineering/2026-09-24-records-that-outrun-their-evidence-retrospective.md`.
+- **Surprise, tool**: this session's statusline writes `.logs/statusline.log` into whatever
+  directory the shell is in. Left inside `.agent/skills/cognition/`, it failed the pre-push
+  skill-adapter check ("adapters have drifted") on a push that changed no skill. Moved out, and
+  the re-push passed. `.logs/` directories sit elsewhere in `.agent/` too, ignored by git and
+  harmless except under the skill trees. **Routing**: tool feedback. The statusline should write
+  outside the repository, or the check should skip dot-directories.
