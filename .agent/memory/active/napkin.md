@@ -877,3 +877,60 @@ the ceremony sets git's author variables in the environment of the commit step.
   amendment admitting boundary call assertions. The third gloss overreach on owner words in this
   arc. **Candidate**: before amending wording that implements an owner ruling, grep this estate's
   own doctrine for the sections the ruling touches.
+- **Routed, owed by the next edit to the Codex dialogues node's ledger** (Blazar lifts Corona,
+  `b65a9a`, 2026-09-24 13:1xZ): the 2026-09-24 row for slice 1b-i's reviews gains a clause saying
+  it supersedes the 1b-0-draft row's instruction that 1b-iii confirm `apply_patch` from a
+  rollout. The finding came from Codex on PR 188 at `b8657c8cf`, dispositioned below the bar in
+  its thread. PR 188 took four review rounds: five findings, then one, then one, then one. Each
+  late finding was an overclaim, or a consequence of curing one.
+- **Surprise, doctrine**: `pr-lifecycle` and PDR-140 clause 4 let a prose-class PR rebudget past its
+  declared settlement pushes, by recorded decision, each time a mandatory cure is pending. The
+  owner's ruling of 2026-09-14, relayed by the Director at about 13:10Z, says rounds never go up
+  past round two, and each later finding is a disposition riding the settlement. PR 188 took two
+  rebudget pushes under clause 4 before the relay reached this seat. **Candidate**: reconcile
+  clause 4 and the skill with the owner's ruling, so a seat reading the skill meets the cap there.
+
+## 2026-09-24 13:4xZ — handover to Swallow holds Drift (Blazar lifts Corona, b65a9a)
+
+- **Surface**: the lane handover. **Signal**: the owner, mid-wrap: "Swallow holds Drift (516619)
+  is your successor". **Observation**: the lane now has a thread record,
+  `threads/codex-dialogues.next-session.md`, which replaces this napkin as the pickup. It covers
+  PR 189 (held, BEHIND `engraph`), PR 190 (a draft opened at the handover, with no reviewer
+  requested), 1b-ii and 1b-iv, and the boundary with a successor Codex seat. The Codex quota's
+  state is unknown at the handover: the last `@codex review` answer was the usage-limit notice,
+  and the 13:43Z re-check never ran. **Routing**: the thread record.
+- **Tool feedback**: in Forge herds Vapor's worktree, `git commit` of the sync merge failed in the
+  commit-msg hook with `ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY`. pnpm wanted to rebuild
+  `node_modules` and could not ask without a terminal. `CI=true pnpm install --frozen-lockfile`
+  cured it. A worktree another seat installed may need a non-interactive reinstall before its
+  first commit. The same worktree's upstream is `origin/engraph`, so `git status` reads "ahead
+  4" on a branch level with its own remote. **Routing**: an agent-tools owner, for the
+  hook's install step.
+- **Tool feedback**: `comms reply` refuses an event not addressed to the replying seat. A reply to
+  one's own directed event fails, so reply to the peer's event instead.
+- **Loss scan at the handover** (the wrap programme, run from inside this context):
+  - **Conserved here and in the thread record**: the door accepts a Codex review object bound to
+    the tip, which is how PR 188 merged; the Director's 45-minute Cricket cadence; the Codex
+    successor boundary (comms `dc7c5491`), rewritten for the new lane owner.
+  - **Homed at the handover**: Forge herds Vapor's formation letter, from comms `b6907867`, as
+    `.agent/experience/2026-09-24-forge-herds-vapor-three-doors-called-codex.md`. One path in
+    it is written as "the temp directory", because the estate's hook refuses machine-local
+    paths in written files. Review-cost rows for #188 and #189 are in the ledger.
+  - **Dies with this session, by design**: the scratchpad's PR watch scripts are gh loops that
+    printed only changes to checks, reviews and comments. The Cricket frames were the six-field
+    status texts; their facts are in the thread record.
+  - **Inferences, flagged**: the interactive `codex` running under a login shell, and the two
+    Cursor-hosted Codex app servers, are not this seat's. Their parent processes were checked,
+    and all were left running. That the interactive one is the owner's successor Codex seat is
+    an inference. The other seats' comms watchers (supervisors 978 and 10856) were left running.
+  - **Bound**: this scan sees the context since the last compaction and that compaction's
+    summary; whatever the summary dropped is out of its reach.
+- **Metaloss**: the compressed decision is why the lane has a thread of its own rather than a
+  lane in `agentic-engineering-enhancements`, which this seat's claim named by default: that
+  record declares itself "not a product implementation thread". Promises: the PR number owed to
+  Forge's successor, sent at the handover; the owed node-ledger clause and the rounds-cap
+  candidate, carried by the thread record's Owed list. Error signature: outside eyes caught
+  this seat's slips again today. The owner caught the proxy readings (two use cases under one
+  label, and the line limit read as a bucket). Forge caught an authorship inference as it
+  formed, flagging it and asking first. **Fixed point**: a third pass would only re-find the
+  thread record's lanes and these promises; the recursion closes here.
