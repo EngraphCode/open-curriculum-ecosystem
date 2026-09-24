@@ -648,8 +648,9 @@ a retired Copilot seat's records landed; the context-loop experiment's findings.
 
 PDR-142 landed as #177. #173 landed as `SHA:685ad538c`, with its browser-tests failure
 diagnosed as a transient font fetch and re-run once. The paired amendments (concepts travel;
-bytes where they carry the concept) landed as #180 (`SHA:3a1d47873`), byte-identical to the
-second estate's copy. The joint texts landed as #181 (`SHA:98e059ac5`) after a third round for one correctness defect and two syncs. The
+bytes where they carry the concept) landed as #180 (`SHA:3a1d47873`): PDR-142 byte-identical to
+the second estate's copy, and PDR-125 and the inter-Practice skill carrying the same amendment
+text while keeping this estate's host lines (its package name, its skill adapter's path). The joint texts landed as #181 (`SHA:98e059ac5`) after a third round for one correctness defect and two syncs. The
 exchange's remaining texts wait in draft #183, which the continuity record names in full.
 fsmonitor is off in the shared clone config at the owner's word. The owner ruled that no agent
 updates the Director unless it has a question or a request; the ruling is recorded in
@@ -657,9 +658,9 @@ route-blocks-and-questions-to-director (in #181). The lesson that cost most: rat
 the owner's. This seat first planned to cure review findings in text the owner had just ratified,
 and the second estate's seat caught it (PDR-142 §Boundaries).
 
-*moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142, PDR-125
-and PDR-141, byte for byte, and one rule for format on receipt; the Director's context is
-protected by rule.
+*moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142 byte for
+byte, and the same amendment texts in PDR-125, and one rule for format on receipt (PDR-141's
+twin follows in #183); the Director's context is protected by rule.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 

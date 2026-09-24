@@ -480,6 +480,12 @@ critical advisories on `next` and fifteen high across `sharp`, `js-yaml`, `fast-
 `smol-toml` and `@xmldom/xmldom`; outside this lane, not acted on. That audit cannot see
 REPOSITORY advisories at all, which is how the markdown-it one was missed.
 
+*The Codex dialogues rebinding* (node `the-codex-dialogues-exec-binding`). Slices 0 and 1a
+landed as #184 and #186. Slice 1b is Blazar lifts Corona's (b65a9a), with Forge herds Vapor
+(01a0d2) as the Codex seat on the runtime evidence. Its pickup is the napkin section "2026-09-24
+wrap — the Codex dialogues lane" and the node's review-dispositions ledger. No thread record yet;
+the seat that registers on the lane opens one if the lane warrants it.
+
 *A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
 which a new session does not inherit: a thread-reply script that refuses a disposition with
 no bar marker or signature, a commit ceremony, a merge-base deletion sweep, a pull-request
