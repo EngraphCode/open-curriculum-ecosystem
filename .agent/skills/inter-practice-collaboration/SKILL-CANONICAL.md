@@ -204,6 +204,11 @@ the first comms write, claim, or registration).
    exchange turn.
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
+   **Lint before delivery**: a box file lands in the receiver's
+   working tree, where its whole-tree gates read it before any
+   receipt, so the donor runs the receiver's own formatting and lint
+   configurations over every box file and delivers only bytes they
+   pass (PDR-125 clause 7).
    **Format on receipt**: where the RECEIVING repo's conventions or
    gates refuse the donor's bytes (markdown conventions, heading
    shapes, gate-satisfying style), the estates align that convention or

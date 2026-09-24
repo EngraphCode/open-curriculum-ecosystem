@@ -8,6 +8,7 @@ import { parse as parseYaml } from 'yaml';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
 import { frontmatterName, validateFrontmatter } from './frontmatter-schema.js';
+import { inlinePromptParityIssues } from './inline-prompt-parity.js';
 import {
   CODEX_CONFIG_PATH,
   type CodexRegistration,
@@ -218,6 +219,16 @@ for (const templateFile of templateFiles) {
     addIssue(
       `${templateFile}: no adapter in ${CODEX_ADAPTER_DIR} currently references this template`,
     );
+  }
+
+  const claudeAdapterPath = path.posix.join(CLAUDE_WRAPPER_DIR, path.posix.basename(templateFile));
+  for (const issue of inlinePromptParityIssues({
+    templatePath: templateFile,
+    template: content,
+    adapterPath: claudeAdapterPath,
+    adapter: (await exists(claudeAdapterPath)) ? await readText(claudeAdapterPath) : undefined,
+  })) {
+    addIssue(issue);
   }
 }
 

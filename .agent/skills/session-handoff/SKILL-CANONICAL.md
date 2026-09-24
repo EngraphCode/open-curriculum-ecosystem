@@ -127,13 +127,16 @@ Team member closeout:
 - Outcome:
 - Evidence:
 - Claims / queue / git state:
+- Open pull requests owned (each merged, or its claim retained with the next step named):
 - Surprise or changed understanding:
 - Blockers or risks:
 - Handoff needed:
 ```
 
-Then clean up any claims, queue entries, or comms obligations you own. Stop
-there unless the owner or closeout owner gives a further assignment.
+Then clean up any claims, queue entries, or comms obligations you own, except the
+claim of an open pull request, which `start-right-team` §Closeout Contract
+retains until the pull request merges. Stop there unless the owner or closeout
+owner gives a further assignment.
 
 ## Mid-Session Light Update (distinct, lighter cadence)
 
