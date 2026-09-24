@@ -60,7 +60,9 @@ rule. Also scan `.agent/state/collaboration/shared-comms-log.md`, any open
 `.agent/state/collaboration/conversations/*.json` files, and any active
 `.agent/state/collaboration/escalations/*.json` files for the thread
 or areas you will touch. Bootstrap fast-path: if no entries other than
-your own exist, append a "no other agents present" comms event and proceed.
+your own exist and the comms log shows no live peer, the session is solo:
+record your claim and proceed without broadcasts (`use-agent-comms-log`
+§Scale ceremony to the audience).
 On overlap, consult the generated log and decision
 threads before deciding how to coordinate (proceed with caution, ping,
 append/open a decision thread, request a sidebar, record a joint
