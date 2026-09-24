@@ -38,8 +38,13 @@ export type PassRecord = Readonly<z.infer<typeof passRecordSchema>>;
  */
 export type Binding = Readonly<z.infer<typeof bindingSchema>>;
 
-/** The fields the gate compares, exactly those the binding schema defines. */
-export const BINDING_FIELDS = bindingSchema.keyof().options;
+/**
+ * The fields the gate compares, exactly those the binding schema defines.
+ * The gate trusts this list as the whole comparison, so it is a frozen copy,
+ * readonly in type: zod types an enum's `options` as a mutable array, and an
+ * importer that shortened it would open the gate on any record.
+ */
+export const BINDING_FIELDS = Object.freeze([...bindingSchema.keyof().options]);
 
 /**
  * Why a value is not a pass record. It carries no detail, because the
