@@ -290,6 +290,44 @@ successor to Zephyr guards Leeward (281e44) on this lane.** Read this block firs
 paragraph below that begins "The 2026-09-23 branch folded as #176" is the older owed list,
 still true where this block does not supersede it.
 
+*Update, 2026-09-24 15:3xZ, the same seat after the owner reopened it (supersedes the
+paragraphs below where they differ).* The owner's word to this seat at 14:29:27Z (comms event
+942fd3b0), verbatim: "Standing rule, with aim for zero open PRs on balance … work is not
+delivered until it is merged". It followed this seat's 14:19Z close, which had left PRs 191
+and 192 unmerged. The claim-retention fix is K1 and K1(c), signed in cc11b042 and b5c4c077.
+They land with the second estate's next joint set: an open pull request keeps its claim at
+closeout, and the member closeout templates gain an "Open pull requests owned" line.
+
+- **Landed.** PR 192, joint set G plus the daily prompt's clause, merged as 5de481360 at
+  15:19:37Z. The Director ruled that the daily clause is seat work.
+- **In flight.** PR 191 holds the landing slot at 0936f14d6, synced to engraph 5de481360. It
+  carries joint set F plus J1 to J8 (signed in 00f70644, 47609bab and 0e12282f). Every thread
+  is resolved. This seat lands it under the docs-only class and then broadcasts.
+- **Read PR 191's state first.** If it is still open, it is the fresh session's first act, and
+  claim 43dbafee (still held) is handed on:
+  1. recompute the gate by name;
+  2. post the premises, prepared in the same form as PR 192's comment;
+  3. merge as the bot through the REST endpoint, with a merge commit and the head pinned;
+  4. broadcast, and pass the slot to PR 193.
+- **The fresh session's order, after PR 191.**
+  1. The test-doctrine intake, as described below. It carries the owner's own ruling (6161e95d),
+     which binds from the word.
+  2. The second estate's batch one. Ten files sit untracked in
+     `.agent/practice-core/incoming/jcnet-batch-1/`, acknowledged in ebfe86d8, with every blob
+     id listed there. Siren's delivery event, 3727b85b, gives the heads read and each file's
+     proposed landing. `pdr-adr-citations.md` comes first, and each file is receipted as
+     integrated or rejected with its reason.
+  3. H's hunk.
+  4. K, when Siren sends it.
+- **The exchange count.** Siren and this seat agreed the counting predicate at 15:1xZ, and it
+  rides Siren's next exchange PR into the register's §Disposition vocabulary. A row is owed to
+  estate E when it sits in the other estate's delta table and its E cell does not begin with
+  decline, graduated into, origin, none, local, or records, not portable. It is landed when E
+  has a Landings row that is not PARTIAL. At jcnet main 52ad23c902 (register at 43b03b52af):
+  0 of 21 owed to OCE are landed, and 5 of 28 owed to jcnet.
+- **Unowned.** This estate's governing node, `practice-two-way-exchange.plan.md`, is a sketch
+  with no todo list. The fresh session raises that with the Director as a request.
+
 *Order of the work.* The owner's order, as Brazier spins Temper (c70341) relayed it at about
 13:30Z, verbatim: "Our purpose here is to first make sure that all of our Practice innovations
 are integrated into the OCE Practice, our second goal is to bring our Practice up to speed with
