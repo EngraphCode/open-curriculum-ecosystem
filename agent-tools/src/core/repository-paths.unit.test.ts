@@ -10,10 +10,12 @@ import { describe, expect, it } from 'vitest';
 
 import {
   describeGitReadFailure,
+  gitUnavailable,
   parseTrackedFiles,
   toGitRunOutput,
   withImpliedDirectories,
 } from './repository-paths.js';
+import { TrustedGitResolutionError } from './trusted-git.js';
 
 describe('withImpliedDirectories', () => {
   it('adds every ancestor directory of a tracked file', () => {
@@ -131,6 +133,19 @@ describe('parseTrackedFiles', () => {
     expect(parseTrackedFiles({ status: 0, stdout: '', stderr: '' })).toStrictEqual({
       ok: false,
       error: { kind: 'empty-listing' },
+    });
+  });
+});
+
+describe('gitUnavailable', () => {
+  it("carries the resolver's own message, without the error's class name", () => {
+    const refusal = new TrustedGitResolutionError(
+      'No trusted git binary found. Searched: /usr/bin/git, /bin/git',
+    );
+
+    expect(gitUnavailable(refusal)).toStrictEqual({
+      kind: 'git-unavailable',
+      message: 'No trusted git binary found. Searched: /usr/bin/git, /bin/git',
     });
   });
 });
