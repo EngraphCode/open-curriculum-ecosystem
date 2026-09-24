@@ -328,6 +328,58 @@ closeout, and the member closeout templates gain an "Open pull requests owned" l
 - **Unowned.** This estate's governing node, `practice-two-way-exchange.plan.md`, is a sketch
   with no todo list. The fresh session raises that with the Director as a request.
 
+*Boundary, 2026-09-24 ~15:38Z: a compaction at the owner's word, then this seat resumes.*
+The owner's word to this seat, verbatim: "please prepare for compaction and stop all
+processes". The owner then chose on the Director's card, about 15:33Z, verbatim: "Marten
+continues past the line". So the seat that resumes after compaction is this same seat, not a
+fresh session, and it runs batch one's intake itself once PR 191 lands. That word covers this
+intake and not a further unit, so the seat keeps measuring and names the context reading in
+its records.
+
+At the pause:
+
+- PR 191 is open at 0936f14d6, BLOCKED only on its last check (unit-tests). Its threads are all
+  resolved. Claim 43dbafee is RETAINED.
+- The landing slot yields to PR 193 (Luna stirs Radiance) for the pause. PR 191 syncs again at
+  its next slot.
+- The coordination branch carries b5d32c95c and this block's commit, and both are pushed.
+- Batch one's cover note was re-delivered as blob 324e0fab (correction event 92475eee). All
+  ten Box files now pass this estate's markdownlint.
+- Both review-cost ledger rows are owed at PR 191's landing, and they cover both pull
+  requests.
+
+Nothing survives compaction, so the resume verifies first and re-arms only what is absent:
+
+- Verify: `TaskList` (or the task table), then `claims list` for 43dbafee.
+- Re-arm, in this order:
+  1. The watcher: `pnpm --silent agent-tools:collaboration-state -- comms watch --platform
+     claude-code --model claude-opus-5-5 --supervisor-pid "$PPID" --step-timeout-ms 120000
+     --max-events-per-drain 100` under Monitor, 30-minute expiry, re-armed at each expiry.
+  2. The heartbeat, a 240 s loop under Monitor, with two legs for claim 43dbafee:
+     `comms send --tag heartbeat --title … --claim-id <id> --intent-id joint-sets-f-g-land
+     --branch docs/joint-set-f-gate-singleton --current-cycle-label …`, and
+     `claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id
+     <id> --now <iso>`, each failing loud.
+  3. A compound watch on PR 191: one GraphQL read every 60 s (state, mergeStateStatus, head,
+     rollup, unresolved threads, tip reviews) that prints only on change.
+- Then land PR 191 as PR 192 landed:
+  1. Sync at the slot word.
+  2. Run the deletion sweep.
+  3. Recompute the gate by name.
+  4. Post the premises (draft at the session scratch path `premises-191.md`; rewrite it if
+     that path is gone).
+  5. Merge through the REST endpoint with the pull-request-merge scope and the head pinned.
+  6. Broadcast, then run one post-merge harvest.
+- After that: prune both worktrees under the standing prune policy; then batch one's intake.
+
+The order changes from the fresh-session list above:
+
+- The test-doctrine intake edits directive files, and PDR-052 bars directive edits at or
+  above 30% context. This seat read 49.6% at 15:30:04Z, so that intake stays with a session
+  that starts under 30%.
+- Any batch-one file whose landing would edit a directive file waits for that session too.
+- The rest of batch one is this seat's, under the owner's card.
+
 *Order of the work.* The owner's order, as Brazier spins Temper (c70341) relayed it at about
 13:30Z, verbatim: "Our purpose here is to first make sure that all of our Practice innovations
 are integrated into the OCE Practice, our second goal is to bring our Practice up to speed with
