@@ -8,6 +8,7 @@ import {
   type ChildEnvInputs,
   type ThreadId,
 } from './envelope.js';
+import type { ResolvedBinary } from './gate.js';
 import type { ModelPins } from './model-pins.js';
 import { judgeTurn, type CodexRun, type TurnFailure, type TurnOutcome } from './turn-verdict.js';
 
@@ -72,13 +73,13 @@ export type TurnError = TurnFailure | { readonly kind: 'root-not-ready'; readonl
  *
  * @param request - The turn: its prompt, its thread (undefined to open one) and its timeout.
  * @param context - What the composition root resolved once for every turn.
- * @param executablePath - The resolved real path of the `codex` binary this turn spawns.
+ * @param binary - The `codex` binary as resolved once; the turn spawns its real path.
  * @param ports - The root check and the runner.
  */
 export function executeTurn(
   request: TurnRequest,
   context: TurnContext,
-  executablePath: string,
+  binary: ResolvedBinary,
   ports: TurnPorts,
 ): Result<TurnOutcome, TurnError> {
   const root = ports.checkRoot(context.instrumentRoot);
@@ -90,7 +91,7 @@ export function executeTurn(
       ? buildOpenArgv(context.instrumentRoot, context.modelPins)
       : buildResumeArgv(request.thread, context.modelPins);
   const run = ports.runCodex({
-    executable: executablePath,
+    executable: binary.executablePath,
     argv,
     cwd: context.instrumentRoot,
     env: buildChildEnv(context.childEnvInputs),

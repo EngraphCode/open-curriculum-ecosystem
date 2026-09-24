@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { admitRecord, matchBinding, type Binding, type PassRecordRejection } from './gate.js';
-import type { PassRecord } from './pass-record.js';
+import { admitRecord, matchBinding, type PassRecordRejection } from './gate.js';
+import type { Binding, PassRecord } from './pass-record.js';
 
 const record: PassRecord = {
   cliVersion: '0.156.1',
@@ -62,6 +62,15 @@ describe('admitRecord', () => {
 describe('matchBinding', () => {
   it('opens when the version, the path and the envelope all match the record', () => {
     expect(matchBinding(record, binding)).toStrictEqual({ ok: true, value: undefined });
+  });
+
+  it('opens on a record passed at another time with other evidence, which bind nothing', () => {
+    const later: PassRecord = {
+      ...record,
+      passedAt: '2026-09-25T09:00:00Z',
+      evidence: ['another probe run'],
+    };
+    expect(matchBinding(later, binding)).toStrictEqual({ ok: true, value: undefined });
   });
 
   it.each([

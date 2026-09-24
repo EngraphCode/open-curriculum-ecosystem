@@ -9,6 +9,7 @@ import {
   type TurnPorts,
   type TurnRequest,
 } from './dialogue-turn.js';
+import type { ResolvedBinary } from './gate.js';
 import {
   buildChildEnv,
   buildOpenArgv,
@@ -29,8 +30,8 @@ function threadId(): ThreadId {
   return parsed.value;
 }
 
-/** The resolved executable path, which the caller hands each turn. */
-const EXECUTABLE = '/codex-slot';
+/** The binary as the caller resolved it: its version and real path. */
+const BINARY: ResolvedBinary = { cliVersion: '0.156.1', executablePath: '/codex-slot' };
 
 const context: TurnContext = {
   instrumentRoot: '/root-slot',
@@ -103,11 +104,11 @@ describe('executeTurn', () => {
     '%s inside the envelope, from the checked instrument root, with the prompt on stdin',
     (_label, request, argv) => {
       const ports = portsReturning(repliedOn(THREAD));
-      const verdict = executeTurn(request, context, EXECUTABLE, ports);
+      const verdict = executeTurn(request, context, BINARY, ports);
       expect(ports.checkedRoots).toStrictEqual(['/root-slot']);
       expect(ports.calls).toStrictEqual([
         {
-          executable: EXECUTABLE,
+          executable: BINARY.executablePath,
           argv,
           cwd: '/root-slot',
           env: buildChildEnv(context.childEnvInputs),
@@ -127,7 +128,7 @@ describe('executeTurn', () => {
     const verdict = executeTurn(
       { prompt: 'next', thread: threadId(), timeoutMs: 5000 },
       context,
-      EXECUTABLE,
+      BINARY,
       ports,
     );
     expect(verdict).toMatchObject({ ok: false, error: { kind: 'thread-mismatch' } });
@@ -138,7 +139,7 @@ describe('executeTurn', () => {
     const verdict = executeTurn(
       { prompt: 'packet', thread: undefined, timeoutMs: 5000 },
       context,
-      EXECUTABLE,
+      BINARY,
       ports,
     );
     const notReady: TurnError = { kind: 'root-not-ready', reason: 'root holds an entry: .logs' };

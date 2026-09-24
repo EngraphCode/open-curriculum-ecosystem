@@ -1,14 +1,22 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
-/** The exact shape of a pass record: every field required, no other field allowed. */
-const passRecordSchema = z.strictObject({
+/**
+ * The fields a pass record shares with the binding. A field defined here is
+ * one the gate compares; a field only the record carries belongs in the
+ * record's extension below, so where a field is defined decides its role.
+ */
+const bindingSchema = z.strictObject({
   /** The version the probe passed on, as the binary reports it. */
   cliVersion: z.string().min(1),
   /** The resolved real path of the binary the probe passed on. */
   executablePath: z.string().min(1),
   /** The envelope's digest when the probe passed: 64 lowercase hex characters. */
   envelopeDigest: z.string().regex(/^[0-9a-f]{64}$/),
+});
+
+/** The exact shape of a pass record: the binding, plus what only the record carries. */
+const passRecordSchema = bindingSchema.extend({
   /** When the probe passed, as an ISO 8601 date-time. */
   passedAt: z.iso.datetime(),
   /** The probe's verbatim evidence lines. Untrusted text, for the record only. */
@@ -23,6 +31,15 @@ const passRecordSchema = z.strictObject({
  * user can write it.
  */
 export type PassRecord = Readonly<z.infer<typeof passRecordSchema>>;
+
+/**
+ * The binding a dialogue would run on now: the resolved binary's version and
+ * real path, and the current envelope's digest.
+ */
+export type Binding = Readonly<z.infer<typeof bindingSchema>>;
+
+/** The fields the gate compares, exactly those the binding schema defines. */
+export const BINDING_FIELDS = bindingSchema.keyof().options;
 
 /**
  * Why a value is not a pass record. It carries no detail, because the

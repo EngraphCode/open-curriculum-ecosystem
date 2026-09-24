@@ -3,14 +3,9 @@ import { describe, expect, it } from 'vitest';
 
 import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
-import type { PassRecordRead } from './gate.js';
+import type { PassRecordRead, ResolvedBinary } from './gate.js';
 import type { PassRecord } from './pass-record.js';
-import {
-  runTurn,
-  type BinaryUnresolved,
-  type GatedTurnPorts,
-  type ResolvedBinary,
-} from './run-turn.js';
+import { runTurn, type BinaryUnresolved, type GatedTurnPorts } from './run-turn.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';

@@ -11,19 +11,11 @@ import { envelopeDigest } from './envelope.js';
 import {
   admitRecord,
   matchBinding,
-  type Binding,
   type GateRefusal,
   type PassRecordRead,
+  type ResolvedBinary,
 } from './gate.js';
 import type { TurnOutcome } from './turn-verdict.js';
-
-/**
- * The `codex` binary as resolved once for this call: the version it reports
- * and its real path, named as the pass record names them. One resolution
- * serves the gate and the spawn, so an updater swapping the release link
- * mid-call cannot split them.
- */
-export type ResolvedBinary = Pick<Binding, 'cliVersion' | 'executablePath'>;
 
 /**
  * Why the binary could not be resolved: no `codex` to be found, or a
@@ -82,5 +74,5 @@ export function runTurn(
   if (!match.ok) {
     return err(match.error);
   }
-  return executeTurn(request, context, binary.value.executablePath, ports);
+  return executeTurn(request, context, binary.value, ports);
 }
