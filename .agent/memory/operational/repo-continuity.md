@@ -328,6 +328,27 @@ closeout, and the member closeout templates gain an "Open pull requests owned" l
 - **Unowned.** This estate's governing node, `practice-two-way-exchange.plan.md`, is a sketch
   with no todo list. The fresh session raises that with the Director as a request.
 
+*Resume, 2026-09-24 ~18:36Z: the same seat keeps the lane (supersedes the handover paragraph
+below where they differ).* The owner's word came by card, relayed by the Director (Wick binds
+Temper, ed7b48) at about 18:35Z: "Marten continues past its handover point", described as
+"Marten keeps the OCE lane past 65% and lands batch two itself, naming the reading at each
+step". The card had held the Director's turn open since about 17:08Z. So the handover below
+ran on its declared default while the word waited, and the Director recorded that as its slip.
+The Director confirmed the resume at about 18:40Z, when this session read 12% after
+compaction.
+
+- **Claims** bf89153a and a63a7df8 are re-adopted by this seat.
+- **PR 197** holds the landing slot. It was synced once to engraph `7409e5100` as `a65512892`,
+  its second and last settlement push.
+- **The order** from the card:
+  1. PR 197.
+  2. Batch two, which the owner named for this seat.
+  3. Batch four.
+  4. The K Core pull request.
+  5. Then the handover list's remaining items: C2, D, the test-doctrine intake, G, E and F,
+     batch three, and batch five. Batch five (J13, J14, J11) was delivered at 18:03Z and
+     acknowledged at 18:4xZ.
+
 *Handover, 2026-09-24 ~17:45Z: Marten mends Shadow (74fc02) hands the exchange seat on at the
 owner's two cards' limit.* The cards were "Marten continues past the line" (~15:33Z, batch one)
 and "Marten takes it past the line" (~16:31Z, the test-doctrine intake), both relayed by the
