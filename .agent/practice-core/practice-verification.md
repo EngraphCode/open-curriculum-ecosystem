@@ -60,7 +60,9 @@ After creating all files, validate:
 11. **Artefact portability** (per PDR-009): canonical skills,
     commands, rules, and sub-agents live in `.agent/`; all platform
     adapters are thin wrappers with activation metadata + pointer +
-    invocation syntax only. Validate adapter-to-canonical consistency
+    invocation syntax only; an inline-prompt role's adapter (PDR-009)
+    carries its template's System prompt block verbatim and is compared
+    with it. Validate adapter-to-canonical consistency
     AND authorisation parity in tracked project config — a portability
     check (per PDR-022 scanner discipline) that walks every canonical
     surface and confirms platform coverage.

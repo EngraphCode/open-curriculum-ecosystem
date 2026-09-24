@@ -837,7 +837,10 @@ claim the session opened before leaving. Keep a claim active only when there is
 a specific handoff reason for a follow-on agent, and make that reason explicit
 in the closeout message: which claim remains, what boundary it protects, who or
 what session should pick it up, and when it should be released if the follow-on
-does not arrive.
+does not arrive. An open pull request the session opened or shepherds is such a
+reason until it merges: its claim stays active, and the closeout names the pull
+request, its next step and the seat that takes it (`pr-lifecycle`: a PR is done
+when it is live).
 
 When a later agent picks up a session, claim, or boundary that was retained for
 handoff, they must notify the other agents before acting. The pickup message
@@ -860,6 +863,7 @@ Team member closeout:
 - Outcome:
 - Evidence:
 - Claims / queue / git state:
+- Open pull requests owned (each merged, or its claim retained with its next step and the seat that takes it named):
 - Session complete announcement:
 - Retained claims, if any, and handoff reason:
 - Pickup notification required for follow-on agent:

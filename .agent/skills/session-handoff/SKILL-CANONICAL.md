@@ -127,13 +127,16 @@ Team member closeout:
 - Outcome:
 - Evidence:
 - Claims / queue / git state:
+- Open pull requests owned (each merged, or its claim retained with its next step and the seat that takes it named):
 - Surprise or changed understanding:
 - Blockers or risks:
 - Handoff needed:
 ```
 
-Then clean up any claims, queue entries, or comms obligations you own. Stop
-there unless the owner or closeout owner gives a further assignment.
+Then clean up any claims, queue entries, or comms obligations you own, except the
+claim of an open pull request, which `start-right-team` §Closeout Contract
+retains until the pull request merges. Stop there unless the owner or closeout
+owner gives a further assignment.
 
 ## Mid-Session Light Update (distinct, lighter cadence)
 
@@ -689,7 +692,9 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    1. Read `.agent/state/collaboration/active-claims.json` and find
       claims matching your PDR-027 identity and any thread touched this
       session.
-   2. For every matching claim, copy the full claim entry into
+   2. For every matching claim except an open pull request's claim
+      (which stays active until the pull request merges, named per
+      `start-right-team` §Closeout Contract), copy the full claim entry into
       `.agent/state/collaboration/closed-claims.archive.json`, add
       `archived_at`, and add `closure.kind: "explicit"`,
       `closure.closed_at`, `closure.closed_by`, `closure.summary`, and

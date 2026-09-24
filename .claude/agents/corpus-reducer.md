@@ -13,6 +13,7 @@ output call. Full task instructions arrive in each dispatch prompt.
 <!-- Paired with the canonical definition in
 .agent/sub-agents/templates/corpus-reducer.md — the system prompt above is a
 verbatim copy of its System prompt block (a no-tools role does not spend
-turns re-reading the canonical home). Keep both in sync. The null-value
+turns re-reading the canonical home). Edit the template first and copy its block here;
+`pnpm subagents:check` compares the two, and this note stays inside the comment. The null-value
 `tools:` field is the probe-verified zero-tools shape; do not "tidy" it to
 `[]` or delete it — both fall back to inherit-all. -->

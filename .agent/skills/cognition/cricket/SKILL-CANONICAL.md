@@ -118,7 +118,9 @@ Supply every role with the same six fields:
 3. **INTENT** — what the invoker believes it is doing.
 4. **RECENT ACTIONS** — the last few concrete actions.
 5. **NEXT** — the next planned action or actions.
-6. **STANCE** — `normal` or `adversarial`.
+6. **STANCE** — `normal` or `adversarial`, written into each dispatch prompt. A frame file that
+   the dispatches share carries fields 1 to 5 and no stance slot, so no role reads an unfilled
+   placeholder.
 
 Quote forcing facts. Give owner rulings their author, date, and event id when available. Put the
 verification method beside any load-bearing conclusion. Keep `ABSORBED` and `ROUTED-AWAY`
