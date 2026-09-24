@@ -5,7 +5,7 @@ import path from 'node:path';
 import { glob } from 'tinyglobby';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
-import { listTrackedPathSet } from '../../core/repository-paths.js';
+import { describeGitReadFailure, listTrackedPathSet } from '../../core/repository-paths.js';
 import { readText } from '../portability/portability-fs.js';
 import { writeLine } from '../../core/terminal-output.js';
 
@@ -29,7 +29,9 @@ import { findBrokenLinks } from './validate-markdown-links-report.js';
  * NOT modify Markdown.
  *
  * Broken links fail the gate. The validator became blocking after the
- * repository-wide broken-link backlog was repaired.
+ * repository-wide broken-link backlog was repaired. A tracked-path listing git
+ * could not give fails it too: without the listing the untracked-target rule
+ * cannot be judged.
  *
  * Cross-file fragment validation (does a `#section` exist in the *target* file)
  * is a documented future enhancement and is out of scope here — markdownlint
@@ -155,14 +157,22 @@ function reportBrokenLinks(report: MarkdownLinkReport): void {
 }
 
 async function main(): Promise<void> {
+  const trackedPaths = listTrackedPathSet(repoRoot);
+  if (!trackedPaths.ok) {
+    writeLine(
+      `validate-markdown-links: cannot list tracked paths — ` +
+        `${describeGitReadFailure(trackedPaths.error)}. BLOCKING.`,
+    );
+    process.exitCode = 1;
+    return;
+  }
   const scanPaths = await collectMarkdownPaths(SCAN_GLOBS, SOURCE_IGNORE_GLOBS);
   // The target inventory is broader than the Markdown source set: every
   // present internal file or directory can be a valid Markdown dependency.
   const repoPaths = await collectRepoPaths();
-  const trackedPaths = listTrackedPathSet(repoRoot);
   const files = await readScanFiles(scanPaths);
 
-  const report = findBrokenLinks(files, repoPaths, trackedPaths);
+  const report = findBrokenLinks(files, repoPaths, trackedPaths.value);
 
   if (report.totals.brokenLinks === 0) {
     writeLine('validate-markdown-links: OK (no broken internal links in scanned surfaces).');
