@@ -1099,10 +1099,12 @@ the ceremony sets git's author variables in the environment of the commit step.
   PR 201's merge used it. A merge-bot subcommand that does both is the durable home.
 - *Commits authored as the bot (~21:05Z).* This checkout's git user is the bot, so a commit
   without `--author` names the bot as author. Two local commits on the K Core branch did.
-  They were re-recorded before the push with identical trees (both trees compared equal). Git's
-  own `author.name` and `author.email` settings set the author apart from the committer. A
-  repository-level setting would make the owner's standing author rule structural; it touches
-  every seat's commits, so it is the Director's to decide.
+  They were re-recorded before the push with identical trees (both trees compared equal). That
+  is the fail-safe working as designed: `bot-identity-on-third-party-systems` keeps `user.*` as
+  the bot so a forgotten `--author` stays visible and never silently credits the owner with
+  agent work. A repository `author.*` setting would defeat that ruling; this seat proposed it,
+  the Director said yes without the rule in view, and the proposal was withdrawn (~22:30Z). Read
+  the rule that owns an act class before proposing a mechanism for it.
 - *A claim opened after the first source edit (~21:35Z).* J4 PR-A's edits began in a fresh
   worktree at about 21:25Z; claim 8b37f3d1 opened at 21:35Z, after `register-active-areas`
   asks for it. The move: create the worktree and open the claim in one step.
