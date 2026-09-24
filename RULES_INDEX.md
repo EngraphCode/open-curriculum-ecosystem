@@ -117,6 +117,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/closed-shape-design-optionality.md`                          | core           | —                                                                                                 |
 | `.agent/rules/collaboration-is-value-contingent.md`                        | core           | —                                                                                                 |
 | `.agent/rules/comms-all-channels-watcher.md`                               | situational    | session:team — Team session bootstrap                                                             |
+| `.agent/rules/compute-dont-hope.md`                                        | core           | —                                                                                                 |
 | `.agent/rules/confident-seats-proceed-and-report.md`                       | core           | —                                                                                                 |
 | `.agent/rules/consolidate-at-second-consumer.md`                           | core           | —                                                                                                 |
 | `.agent/rules/continuity-surface-commits-as-orphans.md`                    | situational    | ceremony:commit                                                                                   |
@@ -198,6 +199,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/read-before-asking.md`                                       | core           | —                                                                                                 |
 | `.agent/rules/read-diagnostic-artefacts-in-full.md`                        | core           | —                                                                                                 |
 | `.agent/rules/read-nextjs-docs-before-coding.md`                           | situational    | surface:nextjs — Next.js work (routes, layouts, proxy, config, rendering/caching)                 |
+| `.agent/rules/record-generalisation-moves.md`                              | situational    | surface:practice-substrate ∪ ceremony:commit                                                      |
 | `.agent/rules/records-are-technical-not-emotional.md`                      | core           | —                                                                                                 |
 | `.agent/rules/register-active-areas-at-session-open.md`                    | core           | —                                                                                                 |
 | `.agent/rules/register-identity-on-thread-join.md`                         | core           | —                                                                                                 |
