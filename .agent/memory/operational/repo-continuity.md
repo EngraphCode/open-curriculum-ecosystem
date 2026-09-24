@@ -459,6 +459,15 @@ PDR-011's "conserve-insight-and-delete", a joint amendment. (4) Its pull request
 strict-validation-at-boundary admits "a path-only stale-invocation allowlist", and the
 stale-script validator's list names two files that exist on engraph, so removing the list
 surfaces findings to cure. (5) The 126 outbound files, above.
+After this seat's wrap the second estate's seat sent additions, again by native message on
+2026-09-24; its open pull requests 170 (the test doctrine) and 171 (the small conflicts) carry
+the bytes, so take the joint text from there, never from this record's earlier summary. Item 12,
+test-expert Step 6 and §Stubs vs Fakes now say which calls were made, "how often or in what
+order is never asserted", matching §Philosophy, and §Stubs vs Fakes no longer calls fakes
+"vi.fn() wrappers"; this estate's exchange seat did not object, so these are the joint bytes.
+tdd-as-design §Why Scales Are Complementary is reworded to match its UI row. PDR-117's
+2026-09-23 amendment ("The Director hears questions and requests, never state") is in the
+second estate and missing from engraph. Its PDR index is now byte-identical to engraph's.
 The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
 with a dated PDR-117 amendment section; 161, H and I. H and I landed here in #183, except the
