@@ -421,12 +421,13 @@ engraph. Only then is 183 made ready. Agreed with the sibling in advance: if a r
 PDR-142's "one of three" as missing a fourth case (the shared contradiction), the answer is
 Below-bar and rejected. The three are reasons the bytes fail to carry the concept; a
 contradiction both carry is a faithfully carried concept, false in both, which the merged-text
-bullet governs; and renumbering would break "the third reason" in both logs. FIRST ACT of the successor: fold coordination/2026-09-23-0ea8fb (cut ~11:57Z 2026-09-23, its
-24-hour lifetime ends ~11:57Z 2026-09-24). THE SIBLING'S THREE PULL REQUESTS WAIT ON THIS
-ESTATE'S SIGNATURE (its seat's channel entries of 21:03:20Z and 21:35:50Z, "FOR THE LINEAGE'S
-SUCCESSOR SEAT"; read each by SHA from the sibling's checkout): 159, F (SHA: afcc895f); 160, G
-with a dated PDR-117 amendment section (SHA: 02926393); 161, H and I (SHA: a7a0190b). Sign or
-change each, then land the same texts here. Forwarded to the set after: PDR-063 §Step 4's
+bullet governs; and renumbering would break "the third reason" in both logs. The fold of coordination/2026-09-23-0ea8fb is pull request
+176; the live branch is the one the director handoff's fold block names, and if 176 has not
+landed, landing it comes first. The sibling's three pull requests were signed by this estate
+without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
+with a dated PDR-117 amendment section; 161, H and I. H and I land here in #183; F and G land
+here in their own pull request; H's agent-collaboration hunk waits for a context under the
+directive budget. Forwarded to the set after: PDR-063 §Step 4's
 directed mid-cycle handoff; the gate broadcast naming the worktree by path; the interim gate
 limit of two. Inbound to the sibling: this estate's 2026-09-14 ruling ("the commit triggers the
 gates"). Also for the owner, through the Director with the seats' verdict: PDR-142's "A seat

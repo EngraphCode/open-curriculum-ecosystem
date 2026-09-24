@@ -644,7 +644,7 @@ Successor `coordination/2026-09-23-0ea8fb`.
 each Practice written and ratified by the owner; the relayed rulings confirmed in this estate;
 a retired Copilot seat's records landed; the context-loop experiment's findings.
 
-### 2026-09-23 20:03Z — the exchange's amendments land; the Director hears questions only (Zephyr guards Leeward, 281e44)
+### 2026-09-23 20:03Z to 20:31Z — the exchange's amendments land; the Director hears questions only (Zephyr guards Leeward, 281e44)
 
 PDR-142 landed as #177. #173 landed as `SHA:685ad538c`, with its browser-tests failure
 diagnosed as a transient font fetch and re-run once. The paired amendments (concepts travel;
