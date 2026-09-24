@@ -119,9 +119,12 @@ this sweep is skipped.
 judges the frame (the owner's word of 2026-09-24: "Crickets judge in the frame provided, we need them to also judge the frame itself").
 Using only the `SOURCES:` block, the Step-2 SOURCES list and the `READING:` block:
 
-- **No sources**: if no `SOURCES:` block is supplied, or the Step-2 SOURCES list is
-  empty, write `FRAME: NO VERBATIM SOURCE`; the invoker's reading is then the only record
-  of the goal.
+- **No sources**: if no `SOURCES:` block is supplied, or it quotes nothing, write
+  `FRAME: NO VERBATIM SOURCE`; the invoker's reading is then the only record of the goal.
+- **No open item**: if the `SOURCES:` block quotes text but the Step-2 SOURCES list is
+  empty (every quoted todo is stated done, and no quoted clause states an open goal, order,
+  hold or party), write `FRAME: NO OPEN SOURCE ITEM` and run only the contradiction audit
+  below. A completion boundary is a valid frame, not a missing one.
 - **Each item**: for every SOURCES item, quote the phrase in `READING:` that addresses
   it and write `ADDRESSED: "<source phrase>" ← "<reading phrase>"`, or
   write `OMITTED:` with the source phrase quoted. An item the reading ranks below where
@@ -159,7 +162,8 @@ every input lands on exactly one row (first match wins).
 
 1. Any `CONTRADICTED:` line → CONTRADICTED.
 2. `FRAME: NO VERBATIM SOURCE`, or any `OMITTED:` line → NARROWED.
-3. Every SOURCES item has an `ADDRESSED:` line → SOUND.
+3. `FRAME: NO OPEN SOURCE ITEM`, or a non-empty SOURCES list whose every item has an
+   `ADDRESSED:` line → SOUND.
 4. Otherwise → NARROWED, and each SOURCES item with no line is written `UNAUDITED:` with
    its source phrase quoted (the audit did not run on it).
 
@@ -216,7 +220,7 @@ the single highest-value change implied by the FIRST matching row above — or "
 - `FRAME VERDICT:` SOUND | NARROWED | CONTRADICTED, from Step 4b
 - `FRAME EVIDENCE:` up to 2 Step-3b lines verbatim, findings first (`CONTRADICTED:`,
   `OMITTED:`, `UNAUDITED:` or `FRAME: NO VERBATIM SOURCE`); on SOUND, `AUDITED: <N> items` and one
-  `ADDRESSED:` line
+  `ADDRESSED:` line, or the `FRAME: NO OPEN SOURCE ITEM` line
 - `REDIRECTION:` from Step 5 — or "none"
 - `UNGROUNDED:` the Step-2 MISSING items, the Step-2 on-trust claims inside supplied
   fields, and the Step-3 UNVERIFIABLE questions, verbatim
