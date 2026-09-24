@@ -226,7 +226,8 @@ include:
 - Any visual change (layout, theming, responsive behaviour) is backed by a rendered artefact,
   read first-hand, at the widths and themes that changed (`visual-verdicts-require-rendered-proof`;
   the `visual-verification` skill produces it)
-- Every consumer surface a changed token or shared component reaches is checked
+- The consumer surfaces the change materially affects are checked, at the widths and themes the
+  claim implicates
 
 #### Step 6: Provide findings
 

@@ -81,7 +81,7 @@ Scan for:
 
 ### Step 4: Check Scripts, Environment and Runtime Toggles
 
-- Every added or renamed script follows PDR-008's naming rules. The root `package.json` and
+- Every added or renamed quality-gate script follows PDR-008's naming rules. The root `package.json` and
   the gates skill enumerate the live gate set; a workspace carries only the task gates the
   root pipeline runs. No hidden `test:ci` duplicates, no workspace copies of root gates.
 - Every cited script exists; `package.json` entries reference files that exist and create no
