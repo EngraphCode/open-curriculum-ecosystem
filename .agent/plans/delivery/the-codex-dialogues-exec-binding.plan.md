@@ -344,7 +344,10 @@ The envelope is one module. It is the only source of the argv and of the child's
 - **The digest.** The envelope module computes it from the argv and the child environment its
   own builders produce, with each call's values replaced by fixed markers. So it covers the flags,
   the settings, the model pins and the environment's names by construction, and no other module
-  learns the argv's shape. A pass on one model is no evidence for another.
+  learns the argv's shape. A typed template names each part it hashes, so a part left out fails
+  to compile. A pass on one model is no evidence for another. The call's assembly in
+  `executeTurn`, its working directory and the prompt on stdin, lies outside the builders; its
+  integration test pins it, and a change there does not by itself demand a fresh probe.
 
 ### Where the state lives
 
@@ -472,9 +475,9 @@ Each behaviour is proved once, at the lowest scale that sees it.
    - One integration test uses a `runCodex` fake that would return a full success, so exit 3
      alone shows the gate held.
    - The envelope's digest covers every flag, setting and environment name by construction (see
-     The envelope). It is tested by relation through the envelope's public surface (equal pins give
-     equal digests; a changed or absent pin gives a different one), never against a copied
-     literal.
+     The envelope), and its typed template makes a dropped part a compile error. It is tested by
+     relation through the envelope's public surface (equal pins give equal digests; a changed or
+     absent pin gives a different one), never against a copied literal.
    - The positive case is a round trip: the record a passing `runProbe` writes opens `runTurn`.
 3. **Failure reasons.** Every failure listed under Mechanism maps to its exit code.
    - Proof: `repo-safe`. Each failure reason is proved once, in unit tests on the turn verdict.
