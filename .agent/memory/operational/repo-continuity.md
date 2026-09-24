@@ -335,19 +335,18 @@ Director. Context was 61.2% at 17:23:01Z. The in-flight detail is in the local h
 `.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-exchange-seat-handover-2026-09-24.md`,
 on this machine only.
 
-- **Landed:** PR 191 (joint set F, `813406e3f`), PR 192 (joint set G, `5de481360`) and
-  PR 194 (`compute-dont-hope`, and `documentation-hygiene` loading as core, `ce5b66249`).
-- **Open, green, in the landing slot:**
-  - PR 195 (`record-generalisation-moves`). Its merge commit must carry the
-    `Practice-Generalisation:` trailer through the REST call's `commit_message`, which is the
-    accepted cure for its one finding.
-  - PR 197 (Cricket dual-scale labels, the channel choice's cost side). It syncs after 195.
+- **Landed:** PR 191 (joint set F, `813406e3f`), PR 192 (joint set G, `5de481360`), PR 194
+  (`compute-dont-hope`, and `documentation-hygiene` loading as core, `ce5b66249`) and PR 195
+  (`record-generalisation-moves`, `7409e5100`, 17:42:47Z). PR 195's merge commit carries the
+  rule's first `Practice-Generalisation:` trailer.
+- **Open, green, BEHIND:** PR 197 (Cricket dual-scale labels, the channel choice's cost side,
+  at `af9e11799`, one settlement push spent). It syncs once at the successor's slot word.
 - **Committed, not a PR:** the test-doctrine intake, branch `docs/intake-test-doctrine`
   (`d62e56e27`), the joint text merged three-way. Two reviews found it not landable. Its
   shared-text cures are joint set K4, which the second estate drafts in a fresh session
   (event `06cdeaaa`). Its local cures are in the handover record. It lands after K4 is signed.
 - **The queue, in order:**
-  1. PR 195, then PR 197.
+  1. PR 197, and PR 195's post-merge harvest if it did not run before the handover.
   2. PR C2: the three channel hunks. The Director read the owner's words on ARC as reading A.
   3. PR D: the `.todo` lint gate.
   4. The test-doctrine intake, after K4.
@@ -355,7 +354,7 @@ on this machine only.
      default, the same bytes as the second estate's. Until it lands, mint the bot token by
      hand on every GitHub write; this host's default `gh` credential is the owner's.
   6. PRs E and F: the PDR citation text and its check.
-  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, and K2(c). Plus K2(a)'s adapter check
+  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, K2(c), and K3(a) to K3(d), all signed. Plus K2(a)'s adapter check
      for the three corpus adapters.
   8. Batch two (three parts) and batch three (two code concepts), both acknowledged and not
      integrated.
