@@ -101,6 +101,19 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     - 1b-ii's draft PR needs no landing slot;
     - the Codex-specific gap count is 5, not 7;
     - frames cite quotes as `git show <sha>:<path>`.
+  - **REOPENED at the owner's word at 18:36Z.** The owner's card via the Director, answered
+    before 18:35Z (the card held the Director's turn from about 17:08Z), verbatim: "Swallow
+    continues past the line", described as "Swallow lands PR 190 and PR 196 in this session and
+    starts the bridge's first step with Luna, naming the reading at each step". The default below
+    had already run; the owner's word overrides it. Claim `372ac08b` was still fresh. Reading:
+    65.7% at 18:36:28Z ("mistake-prone" zone).
+    - **PAUSED FOR COMPACTION at about 18:38Z**, at the owner's word relayed by the Director:
+      "Tell everyone who is over the context limit to prepare for compaction, you all know the
+      drill, you've seen it a hundred time". Nothing new started. The four monitors were
+      stopped, this record committed, and heartbeat-end posted with claim `372ac08b` retained.
+      After the compaction, the card word applies to the resumed session: PR 196 first (sync
+      past `engraph` `7409e5100`, add "Landed as PR 190" to 1b-iii's todo, ready, both legs,
+      door), then the bridge's todo 1 with Luna stirs Radiance, naming the reading at each step.
   - **HANDED OVER AT REST at about 17:27Z by the default below.** No owner word had arrived by the
     harvest. The seat's lane claim `372ac08b` carries the handover record. Heartbeat-end follows
     this commit.
