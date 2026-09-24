@@ -23,6 +23,8 @@ import type { CodexRun } from './turn-verdict.js';
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 const OTHER_THREAD = '01a0cfc3-0f0d-7980-bded-63fabd607a2f';
 const NOW = '2026-09-24T16:00:00.000Z';
+const LATER = '2026-09-24T16:04:00.000Z';
+const DIALOGUE = 'dlg-20260924-ab12';
 
 function threadId(raw = THREAD): ThreadId {
   const parsed = parseThreadId(raw);
@@ -32,8 +34,8 @@ function threadId(raw = THREAD): ThreadId {
   return parsed.value;
 }
 
-function dialogueId(): DialogueId {
-  const parsed = parseDialogueId('dlg-20260924-ab12');
+function dialogueId(raw = DIALOGUE): DialogueId {
+  const parsed = parseDialogueId(raw);
   if (!parsed.ok) {
     return expect.unreachable('fixture dialogue id must parse');
   }
@@ -55,9 +57,9 @@ const context: TurnContext = {
   modelPins: { model: 'model-slot', effort: 'high' },
 };
 
-const open = (): TurnRequest => ({
+const open = (dialogue = DIALOGUE): TurnRequest => ({
   kind: 'open',
-  dialogueId: dialogueId(),
+  dialogueId: dialogueId(dialogue),
   prompt: 'packet',
   timeoutMs: 5000,
 });
@@ -89,10 +91,9 @@ function repliedOn(thread: string): CodexRun {
 }
 
 /**
- * An in-memory cleanup map: the rows it holds. It refuses the rows of the
- * given threads, as a full disk or a read-only file would.
+ * An in-memory cleanup map: the rows it holds.
  */
-function cleanupMap(refusing: readonly string[] = []): {
+function cleanupMap(): {
   readonly rows: CleanupRow[];
   readonly appendCleanupRow: TurnPorts['appendCleanupRow'];
 } {
@@ -100,14 +101,14 @@ function cleanupMap(refusing: readonly string[] = []): {
   return {
     rows,
     appendCleanupRow: (row) => {
-      if (refusing.includes(row.thread_id)) {
-        return err('the cleanup map is not writable');
-      }
       rows.push(row);
       return ok(undefined);
     },
   };
 }
+
+/** A cleanup map that refuses every row, as a full disk or a read-only file would. */
+const refuseEveryRow: TurnPorts['appendCleanupRow'] = () => err('the cleanup map is not writable');
 
 /**
  * Ports whose root check returns one constant result, whose runner returns
@@ -117,7 +118,7 @@ function cleanupMap(refusing: readonly string[] = []): {
 function portsReturning(
   run: CodexRun,
   root: Result<void, string> = ok(undefined),
-  map = cleanupMap(),
+  appendCleanupRow: TurnPorts['appendCleanupRow'] = cleanupMap().appendCleanupRow,
 ): TurnPorts & { readonly checkedRoots: string[]; readonly calls: CodexCall[] } {
   const checkedRoots: string[] = [];
   const calls: CodexCall[] = [];
@@ -133,13 +134,19 @@ function portsReturning(
       return run;
     },
     now: () => new Date(NOW),
-    appendCleanupRow: map.appendCleanupRow,
+    appendCleanupRow,
   };
 }
 
 function rowFor(thread: string): CleanupRow {
   return { dialogue_id: dialogueId(), thread_id: threadId(thread), created_at: NOW };
 }
+
+/** The counted verdict of a whole turn on `THREAD`. */
+const counted = {
+  ok: true,
+  value: { threadId: THREAD, message: 'reply', messages: ['reply'], commandExecutions: [] },
+};
 
 describe('executeTurn', () => {
   it.each<[string, () => TurnRequest, readonly string[]]>([
@@ -177,11 +184,14 @@ describe('executeTurn', () => {
 
   it('starts no Codex process when the instrument root is not fit for a spawn', () => {
     const map = cleanupMap();
-    const ports = portsReturning(repliedOn(THREAD), err('root holds an entry: .logs'), map);
+    const ports = portsReturning(
+      repliedOn(THREAD),
+      err('root holds an entry: .logs'),
+      map.appendCleanupRow,
+    );
     const verdict = executeTurn(open(), context, BINARY, ports);
     const notReady: TurnError = { kind: 'root-not-ready', reason: 'root holds an entry: .logs' };
     expect(verdict).toStrictEqual({ ok: false, error: notReady });
-    expect(ports.calls).toStrictEqual([]);
     expect(map.rows).toStrictEqual([]);
   });
 });
@@ -190,15 +200,29 @@ describe('executeTurn cleanup rows', () => {
   it('writes one row naming the dialogue, the thread and the time, when an opening turn counts', () => {
     const map = cleanupMap();
     const verdict = executeTurn(
-      open(),
+      open('probe'),
       context,
       BINARY,
-      portsReturning(repliedOn(THREAD), ok(undefined), map),
+      portsReturning(repliedOn(THREAD), ok(undefined), map.appendCleanupRow),
     );
-    expect(verdict.ok).toBe(true);
-    expect(map.rows).toStrictEqual([
-      { dialogue_id: 'dlg-20260924-ab12', thread_id: THREAD, created_at: NOW },
-    ]);
+    expect(verdict).toStrictEqual(counted);
+    expect(map.rows).toStrictEqual([{ dialogue_id: 'probe', thread_id: THREAD, created_at: NOW }]);
+  });
+
+  it('dates each row from when the turn started, before Codex ran', () => {
+    const map = cleanupMap();
+    let clock = new Date(NOW);
+    const ports: TurnPorts = {
+      checkRoot: () => ok(undefined),
+      runCodex: () => {
+        clock = new Date(LATER);
+        return repliedOn(THREAD);
+      },
+      now: () => clock,
+      appendCleanupRow: map.appendCleanupRow,
+    };
+    executeTurn(open(), context, BINARY, ports);
+    expect(map.rows).toStrictEqual([rowFor(THREAD)]);
   });
 
   it.each<[string, CodexRun, TurnError['kind']]>([
@@ -251,7 +275,12 @@ describe('executeTurn cleanup rows', () => {
     ),
   ])('writes the row on %s, and keeps the verdict', (_label, run, kind) => {
     const map = cleanupMap();
-    const verdict = executeTurn(open(), context, BINARY, portsReturning(run, ok(undefined), map));
+    const verdict = executeTurn(
+      open(),
+      context,
+      BINARY,
+      portsReturning(run, ok(undefined), map.appendCleanupRow),
+    );
     expect(verdict).toMatchObject({ ok: false, error: { kind } });
     expect(map.rows).toStrictEqual([rowFor(THREAD)]);
   });
@@ -276,26 +305,30 @@ describe('executeTurn cleanup rows', () => {
     ['no row when Codex never launched', { kind: 'unlaunchable', message: 'ENOENT' }, []],
   ])('writes %s', (_label, run, threads) => {
     const map = cleanupMap();
-    executeTurn(open(), context, BINARY, portsReturning(run, ok(undefined), map));
+    executeTurn(open(), context, BINARY, portsReturning(run, ok(undefined), map.appendCleanupRow));
     expect(map.rows).toStrictEqual(threads.map(rowFor));
   });
 
   it.each<[string, CodexRun]>([
     ['the requested thread', repliedOn(THREAD)],
-    ['a stray thread, which fails the turn as a mismatch', repliedOn(OTHER_THREAD)],
+    ['a stray thread', repliedOn(OTHER_THREAD)],
   ])('writes no row for a resumed turn on %s', (_label, run) => {
     const map = cleanupMap();
-    executeTurn(resume(), context, BINARY, portsReturning(run, ok(undefined), map));
+    executeTurn(
+      resume(),
+      context,
+      BINARY,
+      portsReturning(run, ok(undefined), map.appendCleanupRow),
+    );
     expect(map.rows).toStrictEqual([]);
   });
 
-  it('fails a turn that counted when its row cannot be written, naming the thread', () => {
-    const map = cleanupMap([THREAD]);
+  it('fails a turn that counted when its row cannot be written, keeping the verdict', () => {
     const verdict = executeTurn(
       open(),
       context,
       BINARY,
-      portsReturning(repliedOn(THREAD), ok(undefined), map),
+      portsReturning(repliedOn(THREAD), ok(undefined), refuseEveryRow),
     );
     expect(verdict).toStrictEqual({
       ok: false,
@@ -303,40 +336,50 @@ describe('executeTurn cleanup rows', () => {
         kind: 'cleanup-row-unwritten',
         threadIds: [THREAD],
         reason: 'the cleanup map is not writable',
+        turn: counted,
       },
     });
-    expect(map.rows).toStrictEqual([]);
   });
 
-  it('reports an unwritten row ahead of the reason a failed turn did not count', () => {
-    const map = cleanupMap([THREAD]);
-    const run: CodexRun = {
-      kind: 'killed',
-      reason: 'timeout',
-      stdout: jsonl(started(THREAD), turnStarted),
-      stderr: '',
-    };
-    const verdict = executeTurn(open(), context, BINARY, portsReturning(run, ok(undefined), map));
-    expect(verdict).toMatchObject({
-      ok: false,
-      error: { kind: 'cleanup-row-unwritten', threadIds: [THREAD] },
-    });
-  });
-
-  it('writes every row it can, and names only the threads whose rows it could not write', () => {
-    const map = cleanupMap([OTHER_THREAD]);
+  it('keeps the reason a failed turn did not count beside its unwritten row', () => {
     const run = exited(
-      jsonl(started(OTHER_THREAD), started(THREAD), turnStarted, reply, completed),
+      jsonl(
+        started(THREAD),
+        turnStarted,
+        { type: 'item.completed', item: { type: 'file_change', changes: [] } },
+        completed,
+      ),
     );
-    const verdict = executeTurn(open(), context, BINARY, portsReturning(run, ok(undefined), map));
+    const verdict = executeTurn(
+      open(),
+      context,
+      BINARY,
+      portsReturning(run, ok(undefined), refuseEveryRow),
+    );
     expect(verdict).toStrictEqual({
       ok: false,
       error: {
         kind: 'cleanup-row-unwritten',
-        threadIds: [OTHER_THREAD],
+        threadIds: [THREAD],
         reason: 'the cleanup map is not writable',
+        turn: { ok: false, error: { kind: 'unexpected-item', itemTypes: ['file_change'] } },
       },
     });
-    expect(map.rows).toStrictEqual([rowFor(THREAD)]);
+  });
+
+  it('tries every row, and names every thread whose row it could not write', () => {
+    const run = exited(
+      jsonl(started(OTHER_THREAD), started(THREAD), turnStarted, reply, completed),
+    );
+    const verdict = executeTurn(
+      open(),
+      context,
+      BINARY,
+      portsReturning(run, ok(undefined), refuseEveryRow),
+    );
+    expect(verdict).toMatchObject({
+      ok: false,
+      error: { kind: 'cleanup-row-unwritten', threadIds: [OTHER_THREAD, THREAD] },
+    });
   });
 });

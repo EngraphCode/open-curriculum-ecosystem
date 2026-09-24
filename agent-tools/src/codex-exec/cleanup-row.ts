@@ -33,16 +33,15 @@ export function parseDialogueId(raw: string): Result<DialogueId, string> {
 }
 
 /**
- * The threads a run started: each distinct id a `thread.started` event names
- * that parses as a thread id, in the order they started, whatever the turn's
- * verdict. A killed run's partial output counts. A run that never launched
- * started none.
+ * The threads a run's output names: each distinct id a `thread.started` event
+ * names that parses as a thread id, in the order they started, whatever the
+ * turn's verdict. A killed run's partial output counts. A run that never
+ * launched names none. A thread whose event never reached the output, or
+ * whose id does not parse, is not among them.
  *
- * Read this only for an opening turn. A resume by thread id never creates a
- * thread in Codex 0.156.1: the CLI passes the id through as given, and the
- * app server refuses a resume whose stored thread it cannot find. A stray
- * thread on resume therefore fails the turn as `thread-mismatch`, carrying
- * its id.
+ * Read this only for an opening turn. In codex-cli 0.156.1 a resume by thread
+ * id never creates a thread: the CLI passes the id through as given, and the
+ * app server refuses a resume whose stored thread it cannot find.
  */
 export function threadsCreated(run: CodexRun): readonly ThreadId[] {
   if (run.kind === 'unlaunchable') {
@@ -57,8 +56,9 @@ export function threadsCreated(run: CodexRun): readonly ThreadId[] {
 
 /**
  * One line of the dialogues' cleanup map: a thread an opening turn started,
- * the dialogue it belongs to, and when the turn ran, as an ISO 8601 UTC
- * instant. The map is the owner's record of which threads to delete.
+ * the dialogue it belongs to, and when the turn started, as an ISO 8601 UTC
+ * instant read before Codex was spawned, so the thread was created at or
+ * after it. The map is the owner's record of which threads to delete.
  */
 export interface CleanupRow {
   readonly dialogue_id: DialogueId;
@@ -67,16 +67,38 @@ export interface CleanupRow {
 }
 
 /**
- * Threads a turn started whose cleanup rows could not be written. It fails
- * the turn, even one that counted, so no thread is left without a row
- * unnoticed; the caller reports the ids for cleanup by hand.
+ * What appending one thread's row did.
  */
-export interface CleanupRowUnwritten {
-  readonly kind: 'cleanup-row-unwritten';
-  /** Only the threads whose rows were not written. */
+export interface RowOutcome {
+  readonly threadId: ThreadId;
+  readonly appended: Result<void, string>;
+}
+
+/**
+ * The threads whose cleanup rows could not be written.
+ */
+export interface UnwrittenRows {
+  /** Only the threads whose rows were refused, in order. */
   readonly threadIds: readonly [ThreadId, ...ThreadId[]];
-  /** Why the first unwritten row was refused. */
+  /** Why the first refused row was refused. */
   readonly reason: string;
+}
+
+/**
+ * Find the rows that were not written among one turn's append outcomes.
+ */
+export function unwrittenRows(outcomes: readonly RowOutcome[]): Result<void, UnwrittenRows> {
+  const refused = outcomes.flatMap(({ threadId, appended }) =>
+    appended.ok ? [] : [{ threadId, reason: appended.error }],
+  );
+  const [first, ...rest] = refused;
+  if (first === undefined) {
+    return ok(undefined);
+  }
+  return err({
+    threadIds: [first.threadId, ...rest.map((row) => row.threadId)],
+    reason: first.reason,
+  });
 }
 
 /**
@@ -84,8 +106,8 @@ export interface CleanupRowUnwritten {
  * one is refused.
  *
  * @param dialogueId - The dialogue the threads belong to.
- * @param threadIds - The threads the turn started.
- * @param createdAt - When the turn ran, as an ISO 8601 UTC instant.
+ * @param threadIds - The threads the turn's output names.
+ * @param createdAt - When the turn started, as an ISO 8601 UTC instant.
  * @param appendCleanupRow - Appends one row to the cleanup map, or says why not.
  */
 export function appendCleanupRows(
@@ -93,22 +115,15 @@ export function appendCleanupRows(
   threadIds: readonly ThreadId[],
   createdAt: string,
   appendCleanupRow: (row: CleanupRow) => Result<void, string>,
-): Result<void, CleanupRowUnwritten> {
-  const refused = threadIds.flatMap((threadId) => {
-    const appended = appendCleanupRow({
-      dialogue_id: dialogueId,
-      thread_id: threadId,
-      created_at: createdAt,
-    });
-    return appended.ok ? [] : [{ threadId, reason: appended.error }];
-  });
-  const [first, ...rest] = refused;
-  if (first === undefined) {
-    return ok(undefined);
-  }
-  return err({
-    kind: 'cleanup-row-unwritten',
-    threadIds: [first.threadId, ...rest.map((row) => row.threadId)],
-    reason: first.reason,
-  });
+): Result<void, UnwrittenRows> {
+  return unwrittenRows(
+    threadIds.map((threadId) => ({
+      threadId,
+      appended: appendCleanupRow({
+        dialogue_id: dialogueId,
+        thread_id: threadId,
+        created_at: createdAt,
+      }),
+    })),
+  );
 }

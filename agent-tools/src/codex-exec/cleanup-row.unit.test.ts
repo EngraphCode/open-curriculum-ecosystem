@@ -1,10 +1,21 @@
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { parseDialogueId, threadsCreated } from './cleanup-row.js';
+import { parseDialogueId, threadsCreated, unwrittenRows } from './cleanup-row.js';
+import { parseThreadId, type ThreadId } from './envelope.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 const OTHER_THREAD = '01a0cfc3-0f0d-7980-bded-63fabd607a2f';
+const THIRD_THREAD = '01a0d3c8-5b1e-7d02-9c4f-2e6a8b0d1f37';
+
+function threadId(raw: string): ThreadId {
+  const parsed = parseThreadId(raw);
+  if (!parsed.ok) {
+    return expect.unreachable('fixture thread id must parse');
+  }
+  return parsed.value;
+}
 
 function jsonl(...events: readonly object[]): string {
   return `${events.map((event) => JSON.stringify(event)).join('\n')}\n`;
@@ -90,5 +101,28 @@ describe('threadsCreated', () => {
     ['no thread from a Codex that never launched', { kind: 'unlaunchable', message: 'ENOENT' }, []],
   ])('reads %s', (_label, run, threads) => {
     expect(threadsCreated(run)).toStrictEqual(threads);
+  });
+});
+
+describe('unwrittenRows', () => {
+  it.each([
+    ['every row appended', [THREAD, OTHER_THREAD]],
+    ['no rows to append', []],
+  ])('finds none unwritten when %s', (_label, threads) => {
+    const outcomes = threads.map((raw) => ({ threadId: threadId(raw), appended: ok(undefined) }));
+    expect(unwrittenRows(outcomes)).toStrictEqual({ ok: true, value: undefined });
+  });
+
+  it('names only the refused threads, in order, with the first refusal as the reason', () => {
+    expect(
+      unwrittenRows([
+        { threadId: threadId(THREAD), appended: err('the disk is full') },
+        { threadId: threadId(OTHER_THREAD), appended: ok(undefined) },
+        { threadId: threadId(THIRD_THREAD), appended: err('the file is read-only') },
+      ]),
+    ).toStrictEqual({
+      ok: false,
+      error: { threadIds: [THREAD, THIRD_THREAD], reason: 'the disk is full' },
+    });
   });
 });
