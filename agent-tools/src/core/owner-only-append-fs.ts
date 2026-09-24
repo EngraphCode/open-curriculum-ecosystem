@@ -131,8 +131,8 @@ export function fsFailureOf(failure: unknown): FsFailure {
 export function attempt<T>(call: () => T): Result<T, FsFailure> {
   try {
     return ok(call());
-  } catch (failure) {
-    return err(fsFailureOf(failure));
+  } catch (error) {
+    return err(fsFailureOf(error));
   }
 }
 
