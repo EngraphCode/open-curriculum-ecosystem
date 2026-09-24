@@ -103,3 +103,14 @@ amendment.
 - `start-right-team` SKILL: this record joins the foundation reading.
 - The falsifier's measurement is the corpus-methodology re-run above; the
   register's added dimensions are the standing instrument once landed.
+
+## Amendment Log
+
+### 2026-09-24 — the number of review rounds per pull request does not go up
+
+Brought from JC.net's Practice through the exchange, where the owner's word of 2026-09-14 was
+"I don't want the number of rounds of PRs to go up". The two-round budget of §Decision item 1
+binds as written. After round two, every remaining finding is dispositioned in the same slot turn as
+the last push: a trivial cure rides that push; everything else is a signed Rejected line
+carrying its rationale or its routed home; a round three is a Director call on a correctness
+defect only.

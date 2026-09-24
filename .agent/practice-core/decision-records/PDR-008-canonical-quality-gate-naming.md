@@ -335,16 +335,15 @@ The distilled-memory rule "the quality-gate criterion is always
 `pnpm check` from the repo root, with no filtering, green"
 carries forward in substance. Under PDR-008 the phrasing sharpens:
 
-- Local authors type `pnpm check` (the short, mutating-aggregate
-  alias); its clean exit proves the repo is in a state where
-  CI would also pass.
-- CI invokes `pnpm check:ci` (the non-mutating CI form); its
-  clean exit is the authoritative merge gate.
+- Local authors type `pnpm check` (the read-only aggregate, as
+  amended 2026-09-24); its clean exit proves the repo is in a
+  state where CI would also pass.
+- CI invokes the same legs as `check`, one run step per leg, under
+  a parity validator; there is no separate `:ci` form.
 
-Both forms share verify coverage. The distinction is mutation
-scope: local form may auto-correct; CI form leaves the tree
-unchanged. The merge criterion is `check:ci` green; the local
-proof-of-merge-readiness is `check` (= `check:fix`) green.
+The merge criterion is `check` green, locally and in CI. A repair
+is always an explicit `fix` (or `fix:docs`), followed by `check`
+again; a mutating command is never the proof.
 
 ### Why verify-by-default matters (and why `check` breaks it)
 
@@ -367,3 +366,18 @@ always run by someone who understands they are running the
 local gate, and the CI-safe form (`check:ci`) remains one suffix
 away. The exception is worth its cost; it is not an invitation
 to add further aliases.
+
+## Amendment Log
+
+### 2026-09-24 — the live convention supersedes the `check`-mutates model
+
+Brought from JC.net's Practice through the exchange (its own entry of 2026-09-12 made the same
+correction there). This estate's root scripts already run the convention the tables above
+predate. `check` is the read-only aggregate. `fix` is the mutating aggregate. `check:docs` and
+`fix:docs` are the documentation subset. There is no `:ci` form: CI runs the same legs as
+`check`, one run step per leg, and `validate-check-ci-parity` refuses drift between the two,
+which is the guarantee the `:ci` suffix was for. The `check`-as-alias-of-`check:fix` exception
+above is retired. Validators are grouped under `docs-validators:check` and
+`repo-validators:check`, both legs of `check`. The live sets are enumerated by the root
+`package.json` and the gates skill, never restated here. The tables and rules above describe
+the earlier model and are read through this entry.

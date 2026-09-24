@@ -140,6 +140,13 @@ below the overhead cost:
   **retains** substantive cross-agent broadcasts (tree-green, push-landed,
   gate-state, merge-ready, blocker) because they carry information the
   owner-chat does not — the refined retain-set supersedes that raw point.
+- **Dialogue channel ≡ native session messaging where both seats can use it**
+  (amended 2026-09-24, from the exchange). The pairwise dialogue this mode
+  routed through an ARC channel travels by the harness's session-to-session
+  send when both seats are on one machine and platform; ARC keeps its place
+  for cross-platform pairs and for a dialogue whose transcript is itself the
+  record. What must still land on comms — the retain-set above — is unchanged;
+  the channel choice lives in the `comms-channels` skill.
 
 ### Trigger / exit
 
@@ -355,3 +362,17 @@ pending-graduations — is the substrate-preservation surface. The
 falsifiability section above recorded the second-instance trigger; the
 consumer-presence generalisation reached two instances and graduated as
 described under Adoption.
+
+## Amendment Log
+
+### 2026-09-24 — the 120-second state line is the n=2 liveness convention
+
+Brought from JC.net's Practice through the exchange (an owner card of 2026-09-14 there).
+§What drops at n=2 still drops the team-cadence message sweep and the heartbeat substrate;
+the seat's own outgoing progress report is not dropped with them. During a long turn each
+seat sends its partner one state line at least every 120 seconds, on the dialogue channel
+above; the line names the current state, any blocker and the next action. The lead reads
+silence past that interval as unknown state, never as work in progress, and answers it with
+the native liveness probe and a ping (`ping-before-escalate`), never an escalation to the
+owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
+escalated; it was fine.
