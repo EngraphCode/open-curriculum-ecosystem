@@ -6,17 +6,19 @@ Practice Core package.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-008, PDR-082, PDR-132 and PDR-027 take the exchange's amendments
 
-- PDR-008: the aggregate `check` applies no fixes, `fix` is the mutating
-  aggregate, and `check:fix` and `check:ci` are retired. CI runs every
-  verifying leg of `check` under a parity check. Each section naming the
-  retired forms carries a marker, and the Required CI consolidation clause is
-  retired. `practice-verification.md` item 9 and one-line references in
-  PDR-022 and PDR-024 follow it.
-- PDR-082: during a long turn at n=2, each seat sends its partner a state line
-  at least every 120 seconds; silence past that is unknown state, answered by
-  a ping, never an escalation. The `start-right-team` retain list names it.
-- PDR-132: the owner's word "I don't want the number of rounds of PRs to go
-  up" binds the two-round budget; a further push opens only through PDR-140's
+- PDR-008: the body now states that the aggregate `check` applies no fixes,
+  `fix` is the mutating aggregate, and CI runs every verifying leg of `check`
+  under a parity check. `check:fix`, `check:ci` and the CI consolidation
+  clause are retired, and the Amendment Log records the change.
+  `practice-verification.md` item 9 and one-line references in PDR-022 and
+  PDR-024 follow it.
+- PDR-082: §What changes at n=2 gains the state line. During a long turn each
+  seat sends its partner a state line at least every 120 seconds; silence past
+  that is unknown state, answered by a ping, never an escalation. The
+  `start-right-team` retain list names it.
+- PDR-132: §Decision item 1 gains the owner's word "I don't want the number of
+  rounds of PRs to go up". After round two, findings are dispositioned in the
+  same turn as the last push, and a further push opens only through PDR-140's
   doors on prose-class changesets.
 - PDR-027: the fork-rules lead-in counts six rules.
 - The decision-record index marks the three amendments and corrects PDR-082's

@@ -48,7 +48,15 @@ shaped.
    archival exemption below narrows only the size warnings.** When a third
    round opens on any PR, the shepherd records budget-exceeded and runs
    the generator question THEN — ahead of the state machine's mechanical
-   step-back arms, which remain the failure backstop.
+   step-back arms, which remain the failure backstop. After round two,
+   every remaining finding is dispositioned in the same turn as the last
+   push: over-bar cures ride that push, and the rest are signed
+   `Rejected` or `Routed to <home>` lines. On prose-class changesets a
+   further push opens only through PDR-140's doors (clause 4's rebudget
+   by recorded decision, or clause 9(b)'s late over-bar cure); code-class
+   changesets keep the review-round state machine's budget and step-back
+   arms. The owner's word of 2026-09-14: "I don't want the number of
+   rounds of PRs to go up".
 2. **Size thresholds are authoring-time warnings, never blocks**: more than
    ~300 added lines or more than ~8 changed files each predict a heavy
    review (a changeset's final commit count is the outcome proxy itself,
@@ -109,11 +117,7 @@ amendment.
 
 ### 2026-09-24 — the number of review rounds per pull request does not go up
 
-Brought from the second estate's Practice through the inter-Practice exchange (PDR-125), where
-the owner's word of 2026-09-14 was
-"I don't want the number of rounds of PRs to go up". The two-round budget of §Decision item 1
-binds as written. After round two, every remaining finding is dispositioned in the same turn as
-the last push: over-bar cures ride that push, and the rest are signed `Rejected` or
-`Routed to <home>` lines. On prose-class changesets a further push opens only through
-PDR-140's doors: clause 4's rebudget by recorded decision, or clause 9(b)'s late over-bar
-cure. Code-class changesets keep the review-round state machine's budget and step-back arms.
+Brought from the second estate's Practice through the inter-Practice exchange (PDR-125),
+where the owner's word of 2026-09-14 made the two-round budget an operating rule. §Decision
+item 1 gained the same-turn disposition after round two and the doors a further push opens
+through.

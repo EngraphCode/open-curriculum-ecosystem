@@ -72,8 +72,8 @@ push-landed, gate-state, merge-ready, blocker), mid-cycle retirement,
 closeout broadcasts, and your own state line to your partner: at least every
 120 s during a long turn, one line naming the state, any blocker and the next
 action, by the channel `comms-channels` names for one live reader. Silence past
-that interval is unknown state: ping, never escalate (PDR-082 Amendment Log,
-2026-09-24). A third agent joining re-activates the full protocol
+that interval is unknown state: ping, never escalate (PDR-082 §What changes at
+n=2). A third agent joining re-activates the full protocol
 atomically; declare the mode in your team-start broadcast. The n=2 lead is
 accountable for the second seat's judgement, not only for the split of work
 (owner to the lead, 2026-09-03: "You are the lead, you are responsible for

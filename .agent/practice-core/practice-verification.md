@@ -51,9 +51,9 @@ After creating all files, validate:
    `clean`, `build`, `dev`, `format`, `format:fix`, `lint`, `lint:fix`,
    `typecheck`, `test`, `check` (the aggregate, which applies no
    fixes), `fix` (the mutating aggregate), and the documentation subset
-   `check:docs` and `fix:docs`. Semantics follow PDR-008 as amended
-   2026-09-24: bare = verify, `:fix` = apply, and CI runs every
-   verifying leg of `check` under a parity check, with no `:ci` form.
+   `check:docs` and `fix:docs`. Semantics follow PDR-008: bare =
+   verify, `:fix` = apply, and CI runs every verifying leg of `check`
+   under a parity check.
    Per-ecosystem adaptations wrap the ecosystem's idiomatic invocations
    under these canonical names.
 10. The project builds.

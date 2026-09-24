@@ -118,11 +118,20 @@ below the overhead cost:
 
 ### What changes at n=2
 
-- **Liveness ≡ owner-chat responsiveness.** The heartbeat substrate
-  is replaced by the agent's chat responsiveness. An agent silent
-  in chat is presumed unavailable; the owner observes directly.
-  (Amended 2026-09-24: during a long turn, a partner's silence past
-  the state-line interval is unknown state; see Amendment Log.)
+- **Liveness ≡ owner-chat responsiveness and the state line.** The
+  heartbeat substrate is replaced by the agent's chat responsiveness,
+  which the owner observes directly. During a long turn each seat
+  sends its partner one state line at least every 120 seconds, by
+  the channel the `comms-channels` skill names for a message to one
+  live reader; the line names the current state, any blocker and the
+  next action. State lines are liveness, not coordination, so the
+  comms-event budget below does not count them. The team-cadence sweep that §What
+  drops at n=2 removes read and broadcast state; a seat's own report
+  to its partner is not part of it. A seat reads its partner's
+  silence past that interval as unknown state, never as work in
+  progress and never as a block, and answers with a ping by the same
+  channel after `ping-before-escalate`'s cross-check, never with an
+  escalation to the owner.
 - **Coordination surface ≡ owner-chat + minimal comms events.**
   Cross-agent gates (tree-green, push-landed, gate-state) remain on
   comms. Substantive owner-class direction (verdict surfacing,
@@ -360,17 +369,9 @@ described under Adoption.
 
 ## Amendment Log
 
-### 2026-09-24 — the 120-second state line is the n=2 liveness convention
+### 2026-09-24 — the 120-second state line
 
 Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; an
-owner card of 2026-09-14 there).
-§What drops at n=2 still drops the team-cadence message sweep and the heartbeat substrate,
-which read and broadcast state; the seat's own outgoing progress report to its partner is not
-dropped with them. During a long turn each seat sends its partner one state line at least
-every 120 seconds, by the channel the `comms-channels` skill names for a message to one
-live reader; the line names the current state, any blocker and the next action. State lines are not comms events, so they sit outside the budget
-of three inter-agent comms events above. A seat reads its partner's silence past that interval
-as unknown state, never as work in progress and never as a block. It answers with a ping by
-that same channel after `ping-before-escalate`'s cross-check, never with an escalation to the
-owner. Worked instance: a seat silent for 80 minutes in a long turn was read as blocked and
-escalated; it was fine.
+owner card of 2026-09-14 there). §What changes at n=2's liveness bullet gained the state line
+and the reading of a partner's silence as unknown state. Worked instance: a seat silent for 80
+minutes in a long turn was read as blocked and escalated; it was fine.
