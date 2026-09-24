@@ -337,28 +337,58 @@ ran on its declared default while the word waited, and the Director recorded tha
 The Director confirmed the resume at about 18:40Z, when this session read 12% after
 compaction.
 
-- **State at 21:40Z, context about 31%:**
-  - **Landed:** PR 197 (`628f5d0f7`), PR 198 (`715c6aee8`), PR 199 (`da160992d`, 20:29Z) and
-    PR 200 (`f1b99ec79`, 21:08Z), so batch two is complete. PR 201, the K Core (joint sets K1
-    to K3(e) and the PDR-009 inline-prompt check), merged as `c4174a8cc` at 21:34Z. Its
-    "exception" wording was restated as the rule's domain under `rules-have-no-exceptions`,
-    and the exact text went to Siren (2a62905f, receipt 21:3xZ); Siren's wording wins if they
-    sign other text. Worktrees for 200 and 201 are pruned.
-  - **Batch four, J4 in flight as three stacked pull requests** (claim 8b37f3d1):
-    - A, PR 202 (`refactor/shared-tracked-path-set`, worktree `oce-wt-b4-j4`): one tracked-path
-      set in agent-tools core, which changes no behaviour. It holds the landing slot.
-    - B (`feat/repository-paths-git-seam`, worktree `oce-wt-b4-j4b`): one injected git runner
-      returning Results for the listing and the `check-ignore` probe. An implementer is at
-      work on the brief the pre-execution review shaped.
-    - C: the substrate classifier and readers. The brief is drafted.
-    - A sketch plan, `tracked-listing-consolidation`, names the three private `ls-files`
-      copies left, notion-fence first.
-  - **Batch four, the rest:** J18 (the PreCompact observer; OCE runs hooks from `dist` through
-    `.mjs` shims, so the source-run design is a choice to review), J2 (six validators on the
-    shared read) and J3 (tracked-tree lint and shellcheck). J3's shellcheck leg puts an
-    installer step in front of every seat's next commit, so its rollout needs the Director.
-  - **Held:** the seed branch (claim 141892a7, question to Siren open) and the test-doctrine
-    intake (claim a63a7df8; it waits on Siren's K4 draft).
+- **State at 23:45Z, context about 62%:**
+  - **Landed today:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`),
+    and J4 parts A and B: PR 202 (`9b67670fe`, one tracked-path set in core) and PR 203
+    (`27a8a8e12`, one git seam whose listing returns a Result). Their worktrees are pruned. The
+    K amendment (2a62905f: the PDR-009 clause as the rule's domain) waits on Siren's twin.
+  - **Open:**
+    - PR 204, J18 part A (`refactor/owner-only-append`, worktree `oce-wt-b4-j18a`): one
+      owner-only append in core, used by the statusline debug log. It holds the slot; both
+      settlement pushes are spent (Windows fix `28ab8dc64`, Sonar S7718 after it).
+    - PR 205, J4 part C (`feat/substrate-instance-tier`, worktree `oce-wt-b4-j4c`): the
+      substrate audit reads absent instance-tier surfaces as informational. On a fresh
+      worktree it now exits 0. Its probe is git's index-aware `check-ignore`, a departure from
+      the note's `--no-index` design that goes back to Siren as a gain. Its body names six
+      follow-ups; wiring the audit into `repo-validators:check` is the first.
+  - **J18 part B, the observer (claim 3a3a9280).** Plan and pre-execution review at 21:50Z.
+    The decided design:
+    - Run from built `dist` through `log-hook-errors.sh`, never from TypeScript source. The
+      estate keeps source-run modules dependency-free, and the note's option would change emit
+      for the whole workspace.
+    - Answer with top-level `continue` and `systemMessage` only (no `hookSpecificOutput`).
+      Read stdin as a Buffer that does not swallow a read error, count bytes, and set
+      `process.exitCode` rather than calling `process.exit`.
+    - Hold `.claude/logs` at 0o700 with a directory hold on its own port: open the directory
+      with `O_RDONLY|O_DIRECTORY|O_NOFOLLOW`, fstat it for type, uid and mode, fchmod the
+      descriptor, then close. That removes the window between an lstat and a path chmod.
+      Refuse a symlink, a foreign owner, or a sticky directory. The observer skips its append
+      whenever the hold fails. Add `umask 077` near the top of `log-hook-errors.sh`.
+    - Extract the orchestration with injected stdin, stat, readdir, append, clock and UUID, so
+      integration tests use constant fakes. The smoke covers the bare `/compact` payload and
+      unreadable stdin only; it is wired as `smoke:pre-compact-observe` into `test:e2e`, and
+      `.claude/settings.json` and the wrapper join the turbo inputs.
+    - Record the activation in the same PR: `.agent/hooks/README.md`, `policy.json`'s Claude
+      notes, the surface matrix's Hooks row and §Hook Support (keep the detection tokens), and
+      ADR-167 §Limitations 6 as the third exit-0 writer. Record the observed contract after the
+      first real compaction. Gateway specialists: security (deep), test, config, docs, Barney.
+  - **J2, six validators on the shared read (not started):**
+    - A path-free refusal redactor at the four sites that print an absolute path, plus
+      `describeGitReadFailure` (PR 203's gateway review found git's stderr can carry one).
+    - Root-anchored scope entries, with the policy file's exemption anchored.
+    - The authored-surfaces walker, with stale-script-invocations moved onto it.
+    - Cited paths, and cited scripts: each runs over this tree and its findings are cured
+      before it is wired.
+    - Lineage names. Ask the owner which names to declare first, under the fork-naming rules.
+  - **J3, tracked-tree lint and shellcheck (not started).** The Director's verdict (22:2xZ): its
+    own pull request, with a merge-landed broadcast naming the one install command. Every seat's
+    next commit needs the installer once. 29 tracked shell scripts come to green in the same
+    change.
+  - **C7 (not started).** The owner ratified "Ratify the concept": bring by default becomes
+    PDR-005's default disposition. This seat and Siren author the amendment text, under review,
+    in its own lane, and land it in both estates in one window.
+  - **Held:** the seed branch (claim 141892a7; the question to Siren is open) and the
+    test-doctrine intake (claim a63a7df8; it waits on Siren's K4 draft).
 - **The order** from the card:
   1. PR 197.
   2. Batch two, which the owner named for this seat.
