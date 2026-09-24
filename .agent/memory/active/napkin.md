@@ -1270,3 +1270,15 @@ first-class peer. It paused again at 49.8% context.
   refused as unsupported, and the tool then runs. So the Claude renderer's allow and the
   degraded state's ask would each fail open on Codex. A Codex renderer allows with empty output
   and denies where Claude asks.
+- **Tool feedback: `agent-tools:check-commit-message` passed a subject that commitlint refused.**
+  "chore(continuity): Swallow holds Drift after the resume; ..." passed the checker (exit 0),
+  then failed the commit-msg hook on `subject-case`, and on `header-max-length` at 102
+  characters. The checker is advisory prose linting, not commitlint. Before a queued background
+  commit, run `pnpm exec commitlint --edit <message-file>` as well, so the failure surfaces in
+  the foreground rather than in a background task's tail.
+- **Correction (~16:47Z): the gate semaphore is built, in the other estate.** The line above
+  says "The semaphore is not built". That was true only of this estate. jimcresswell.net built
+  it that morning (PR 162): pre-push gate slots, host bound 2 and ceiling 3, one gate per
+  worktree, and loopback slots the kernel releases on death. It reaches this estate through the
+  exchange's batch three. The move: "not built" is a claim about one estate; check the sibling
+  estate before calling a ruled mechanism missing.

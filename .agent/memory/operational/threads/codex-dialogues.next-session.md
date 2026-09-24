@@ -42,7 +42,9 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   the inflight work, but switch strategic focus to making Codex a first class peer in the
   Practice". The Director was told as the downward-direction rule requires. Consequences:
   - **In-flight, to finish to merged**: 1b-ii, PR 190 (1b-iii), and Luna's PR 193.
-  - **Sequenced after the wake bridge's slice 2 lands**, unless the owner re-sequences them:
+  - **Sequenced after the wake bridge's slice 2 lands**, by this seat's reading of the owner's
+    focus switch (the sequencing is the seat's, not the owner's words), unless the owner
+    re-sequences them:
     1b-iv, slice 2, slice 3 and the trial close-out.
   - **The new strategic work**: a worked Codex membership programme under
     `agent-platform-citizenship`. Its first step is the sketch
@@ -68,9 +70,13 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - Luna stirs Radiance reviewed the wake sketch (the pairing channel, 15:54:00Z); all four points
     were accepted and folded in, uncommitted.
   - The host gate question was settled by the Director at about 16:00Z. The cure is
-    `no-unbounded-host-load` item 6's semaphore, ruled by the owner on 2026-09-07 and not yet
-    built. Siren herds Rudder authors it in jimcresswell.net, and a seat for it goes on the
-    owner's next card. Nothing more is owed from this seat on it.
+    `no-unbounded-host-load` item 6's semaphore, ruled by the owner on 2026-09-07. Corrected at
+    about 16:47Z (the Director, from Siren's first-hand read): it is BUILT in jimcresswell.net by
+    that morning's PR 162. It gives pre-push gate slots, host bound 2 and ceiling 3, one gate per
+    worktree, and loopback slots the kernel releases on death, with tests. The pre-commit slot is
+    PR D of the ratified node `commit-as-the-full-local-gate`. This estate carries none of it at
+    `engraph` `07d80ec02`; it arrives through Siren herds Rudder's batch three. Nothing is owed
+    from this seat on it.
   - The Director's check-in 8 (16:18Z) was answered at 16:21Z. Its Cricket suite: all eight
     delivered, seven ON-TRACK and one DRIFTING (medium, adversarial). That verdict was on the
     load-average sensor, which `no-unbounded-host-load` item 4 disowns on macOS. It was accepted
@@ -79,6 +85,10 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     - 1b-ii's draft PR needs no landing slot;
     - the Codex-specific gap count is 5, not 7;
     - frames cite quotes as `git show <sha>:<path>`.
+  - **DECLARED HANDOVER DEFAULT (the Director, 17:08Z, under PDR-063)**: context was 54.6% at
+    17:05:06Z. After PR 190 lands, if no owner word has reached this seat, it hands over AT
+    REST, with PR 196 (1b-ii) in the successor's queue. The owner has the choice on a card
+    beside Marten's successor. An owner word to continue overrides the default.
   - The second membership node, `codex-pretooluse-guard-parity`, is a sketch file in the
     primary checkout, uncommitted. It was read from 0.156.1 hook source: `ask` and a bare `allow`
     both fail open on Codex, so a Codex renderer is required.
@@ -199,6 +209,17 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   16:10Z). Copilot was requested automatically when the PR went ready (timeline, 16:27:13Z), so
   the explicit request returned HTTP 422. `@codex review` was posted as the bot at 16:27Z. Both
   legs bind `5a695f0f2`; all its checks are green.
+- **Round one**: Copilot's review 16:31:03Z on `5a695f0f2`, "Approval recommended", with one
+  Observation (thread `4095991046`, `response-reader.ts:64`). A `call_id` can be reused after
+  `readCustomToolOutput` consumes it. Dispositioned as an observation, priced, with no change:
+  no fixture or test exercises reuse, and whether codex-cli reuses a `call_id` across a
+  rollout's turns is unrecorded. A whole-rollout seen-set would make a legitimate rollout
+  inconclusive. ROUTED to slice 1b-iv, where the verdict consumes the reader, gated on a
+  recorded rollout showing whether ids repeat. It is owed as a node ledger row at the next node
+  edit; it went into PR #196's node row as `f06807bb9`. The bot replied (`4096113093`) and
+  resolved the thread. The Codex connector's leg: "Didn't find any major issues" at 16:30:11Z,
+  on `5a695f0f2`. Round one is clean on both legs. Rounds used: 1; settlement pushes used: 0 of
+  2.
 - **Slot order**: PR 193 merged at 16:25:00Z (`07d80ec02`). Marten took the slot for PR 194 at
   16:26:10Z, and this seat yielded, because PR 190 still needed its first review round. A local
   sync merge, `f2cd4797d` in the rollout worktree, is held unpushed; PR 194's landing makes it
