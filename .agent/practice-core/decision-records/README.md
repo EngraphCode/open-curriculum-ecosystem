@@ -131,7 +131,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-005](PDR-005-wholesale-practice-transplantation.md) | Wholesale Practice Transplantation as a Third Genesis Scenario | Accepted |
 | [PDR-006](PDR-006-dev-tooling-per-ecosystem.md) | Dev Tooling Per Ecosystem — Leading-Edge Reference Repos | Accepted |
 | [PDR-007](PDR-007-promoting-pdrs-and-patterns-to-first-class-core.md) | Promoting PDRs and Universal Patterns to First-Class Core Infrastructure | Accepted |
-| [PDR-008](PDR-008-canonical-quality-gate-naming.md) | Canonical Quality-Gate Naming | Accepted |
+| [PDR-008](PDR-008-canonical-quality-gate-naming.md) | Canonical Quality-Gate Naming | Accepted (amended 2026-09-24) |
 | [PDR-009](PDR-009-canonical-first-cross-platform-architecture.md) | Canonical-First Cross-Platform Architecture for Agent Artefacts | Accepted |
 | [PDR-010](PDR-010-domain-specialist-capability-pattern.md) | Domain Specialist Capability Pattern — Adding New Expertise to the Agent Ecosystem | Accepted |
 | [PDR-011](PDR-011-continuity-surfaces-and-surprise-pipeline.md) | Continuity Surfaces and the Surprise Pipeline | Accepted (amended 2026-04-21) |
@@ -207,7 +207,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-079](PDR-079-pdr-vs-adr-portability-distinction.md) | PDR-vs-ADR Portability Distinction | Accepted |
 | [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md) | Coordination-Event Absorption Is Signal-Driven | Accepted |
 | [PDR-081](PDR-081-curator-role-and-substrate-care-lane.md) | Curator Role and Substrate-Care Lane | Proposed |
-| [PDR-082](PDR-082-n2-collaboration-mode.md) | n=2 Collaboration Mode | Proposed |
+| [PDR-082](PDR-082-n2-collaboration-mode.md) | n=2 Collaboration Mode | Adopted (amended 2026-09-24) |
 | [PDR-083](PDR-083-director-pure-direction-only-boundary.md) | Director Pure-Direction-Only Boundary | Accepted |
 | [PDR-084](PDR-084-owner-action-is-not-a-cure.md) | Owner Action Is Not a Cure | Accepted |
 | [PDR-085](PDR-085-definition-of-delivery.md) | Definition of Delivery | Accepted |
@@ -255,7 +255,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-129](PDR-129-diagnosis-reads-whole-surfaces-catalogues-are-open-sets.md) | Diagnosis Reads Whole Surfaces First; Failure Catalogues Are Open Sets | Accepted |
 | [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
 | [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
-| [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted |
+| [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted (amended 2026-09-24) |
 | [PDR-133](PDR-133-liveness-classes-and-platform-declaration.md) | Liveness Classes and the Platform Liveness Declaration | Proposed |
 | [PDR-134](PDR-134-knowledge-strata-carriers-and-the-concept-layer.md) | Knowledge Strata, Carriers, and the Concept Layer | Accepted |
 | [PDR-135](PDR-135-cost-of-change-gradient.md) | The Cost-of-Change Gradient — General Mechanism Below, Specific Value Above | Proposed |

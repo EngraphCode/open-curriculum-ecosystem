@@ -7,11 +7,12 @@ Practice Core package.
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
 
 - PDR-009 gains the inline-prompt role both estates' exchange seats signed as
-  joint set K2(a), stated as the adapter rule's domain: a role that cannot read files, or whose bounded turns belong to
-  its task, carries its template's System prompt block in its adapter, and a
-  check compares every copy with its template. This estate's sub-agent
-  validator is that check: it reads the scope from the templates with a `## System prompt`
-  section and compares each Claude adapter's body word for word.
+  joint set K2(a), stated as the adapter rule's domain: a role that cannot
+  read files, or whose bounded turns belong to its task, carries its
+  template's System prompt block in its adapter, and a check compares every
+  copy with its template. This estate's sub-agent validator is that check: it
+  reads the scope from the templates with a `## System prompt` section and
+  compares each Claude adapter's body word for word.
   `practice-bootstrap.md` (three anchors) and `practice-verification.md`
   item 11 name the inline-prompt role (K3(b), K3(c), K3(e)).
 - PDR-125 clause 7 gains lint before delivery (K2(b)): the donor runs the
@@ -23,6 +24,28 @@ Practice Core package.
   closeout (K1, K1(c)); a Cricket dispatch carries its stance in the prompt
   (K3(a)); and `record-generalisation-moves` gains the second estate's two
   amendments.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-008, PDR-082, PDR-132 and PDR-027 take the exchange's amendments
+
+- PDR-008: the body now states that the aggregate `check` applies no fixes,
+  `fix` is the mutating aggregate, and CI runs every verifying leg of `check`
+  under a parity check. `check:fix`, `check:ci` and the CI consolidation
+  clause are retired, and the Amendment Log records the change.
+  `practice-verification.md` item 9 and one-line references in PDR-022 and
+  PDR-024 follow it.
+- PDR-082: §What changes at n=2 gains the state line. During a long turn each
+  seat sends its partner a state line at least every 120 seconds; silence past
+  that is unknown state, answered by a ping, never an escalation. The
+  `start-right-team` retain list names it.
+- PDR-132: §Decision item 1 gains the owner's word "I don't want the number of
+  rounds of PRs to go up". After round two, findings are dispositioned in the
+  same turn as the last push, and a further push opens only through PDR-140's
+  doors on prose-class changesets.
+- PDR-027: the fork-rules lead-in counts six rules.
+- The decision-record index marks the three amendments and corrects PDR-082's
+  status to Adopted.
+- Brought from the second estate's Practice through the inter-Practice
+  exchange (PDR-125), batch two part two, checked clause by clause here.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-117: the Director hears questions and requests, never state
 
