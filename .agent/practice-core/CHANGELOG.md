@@ -4,6 +4,22 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-117: the Director hears questions and requests, never state
+
+- PDR-117, on the owner's ruling of 2026-09-23 for all agents ("do not update
+  the Director unless you have a question or other request, the normal records
+  keep the record"): the Implementer's compressed verdicts and deep handoff go
+  to the normal records, where the Director reads them when it needs them. The
+  routing contract's owner-ratified asymmetry clause keeps its words and gains
+  a reading through the ruling. A dated amendment section records the change.
+  The record is the second estate's bytes (joint set G, its pull request 160),
+  so PDR-117 stays one file in both estates.
+- The decision-record index adds PDR-125's 2026-07-08 amendment, which the
+  record carries, matching the second estate's index.
+- The inter-Practice skill's adapter path is corrected to the form both
+  exchange seats signed, `<prefix>inter-practice-collaboration`, where the
+  prefix is the estate's configured skill prefix.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-142, PDR-125 and the inter-Practice skill: format on receipt aligns the estates
 
 - The follow-up wording cures the owner ratified on the Director's card of

@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { err, ok, type Result } from '@oaknational/result';
 
 import type { ModelPins } from './model-pins.js';
@@ -75,6 +77,24 @@ function modelPinArgs(pins: ModelPins): readonly string[] {
 }
 
 /**
+ * The resume argv for any thread value. Only two values reach it: a parsed
+ * `ThreadId`, from `buildResumeArgv`, and the digest's fixed marker. It is
+ * never given raw input, since the brand is what keeps a thread value from
+ * becoming an option.
+ */
+function resumeArgv(thread: ThreadId | typeof SLOTS.thread, pins: ModelPins): readonly string[] {
+  return [
+    'exec',
+    'resume',
+    thread,
+    ...ENVELOPE_FLAGS,
+    ...ENVELOPE_SETTINGS,
+    ...modelPinArgs(pins),
+    '-',
+  ];
+}
+
+/**
  * The argv that opens a dialogue thread. The prompt goes on stdin (`-`), and
  * no caller argument can add to or alter the envelope.
  *
@@ -101,15 +121,7 @@ export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly
  * @param pins - The validated model pins, each carried as one `-c` value.
  */
 export function buildResumeArgv(threadId: ThreadId, pins: ModelPins): readonly string[] {
-  return [
-    'exec',
-    'resume',
-    threadId,
-    ...ENVELOPE_FLAGS,
-    ...ENVELOPE_SETTINGS,
-    ...modelPinArgs(pins),
-    '-',
-  ];
+  return resumeArgv(threadId, pins);
 }
 
 /**
@@ -157,4 +169,62 @@ export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
     PATH: CHILD_PATH,
     CODEX_HOME: inputs.instrumentCodexHome,
   };
+}
+
+/**
+ * Every part of a call the envelope fixes. A template missing a part fails to
+ * compile, and `digestTemplate` hashes the whole of it; a new builder the
+ * spawn uses joins this interface, and so the digest.
+ */
+export interface EnvelopeTemplate {
+  readonly open: readonly string[];
+  readonly resume: readonly string[];
+  readonly childEnv: ChildEnv;
+}
+
+/**
+ * The values each call supplies, replaced by fixed markers, so the digest
+ * sees the envelope and not the machine it runs on.
+ */
+const SLOTS = {
+  instrumentRoot: '<instrument-root>',
+  thread: '<thread>',
+  childEnvInputs: {
+    instrumentHome: '<instrument-home>',
+    instrumentCodexHome: '<instrument-codex-home>',
+    user: '<user>',
+    lang: '<lang>',
+    tmpdir: '<tmpdir>',
+  },
+} as const;
+
+/**
+ * The envelope's identity: a SHA-256 digest, as 64 lowercase hex
+ * characters, of the open argv, the resume argv and the child environment,
+ * built by the same builders every spawn uses with each call's own values
+ * replaced by fixed markers. So any change to a flag, a setting, a model pin
+ * or an environment name changes the digest by construction, and a pass
+ * record written under one envelope never opens a dialogue under another
+ * envelope shape. The values in its slots are each call's own; the gate ties
+ * the record to the Codex home the spawn uses.
+ *
+ * @param pins - The model pins the dialogue runs with; a pass on one model is no pass on another.
+ */
+export function envelopeDigest(pins: ModelPins): string {
+  return digestTemplate({
+    open: buildOpenArgv(SLOTS.instrumentRoot, pins),
+    resume: resumeArgv(SLOTS.thread, pins),
+    childEnv: buildChildEnv(SLOTS.childEnvInputs),
+  });
+}
+
+/**
+ * Hash a whole envelope template: SHA-256 over its JSON, as 64 lowercase hex
+ * characters. JSON keeps element boundaries, so no two different templates
+ * serialise alike.
+ *
+ * @param template - Every part of a call the envelope fixes.
+ */
+export function digestTemplate(template: EnvelopeTemplate): string {
+  return createHash('sha256').update(JSON.stringify(template)).digest('hex');
 }

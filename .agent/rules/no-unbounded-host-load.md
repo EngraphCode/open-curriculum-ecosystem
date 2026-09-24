@@ -55,18 +55,18 @@ again.**
    symptom — watcher drain-step deaths in a busy multi-agent window — is
    comms-volume cost, not host starvation.
 
-5. **Heavy-chain windows on a shared host: read-then-announce, two
-   consecutive readings, diagnose kill-collateral.** When peers serialise
-   heavy gate chains through announced windows (the one-heavy-chain-at-a-time
-   shape):
-   - The load read must COMPLETE before the window-OPEN broadcast is
-     composed — announce-after-read, never announce-then-read (a window-OPEN
-     posted in the same turn as the `uptime` call read back 26.5 on 8 cores
-     and needed a retraction).
+5. **Heavy chains on a shared host: read before starting, two
+   consecutive readings, diagnose kill-collateral.** When a seat starts a
+   heavy gate chain beside peer chains on one host (item 6 sets how many
+   may run at once):
+   - The load read must COMPLETE before the chain starts or any message
+     states the host's load — read-then-act, never act-then-read (a
+     window-OPEN posted in the same turn as the `uptime` call read back
+     26.5 on 8 cores and needed a retraction).
    - A single low reading rebounds under active peer chains: require TWO
-     consecutive sub-threshold readings ~30 s apart before opening a window
-     (three worked instances across two seats, 2026-07-07 — oscillation at
-     the bar is real).
+     consecutive sub-threshold readings ~30 s apart before starting the
+     chain (three worked instances across two seats, 2026-07-07 —
+     oscillation at the bar is real).
    - Killing a shared-host chain kills OTHER chains' gate legs: a directed
      `pkill -f "turbo run"` also killed an innocent in-flight pre-commit's
      turbo gate, producing a phantom red on a one-line commit. Diagnose

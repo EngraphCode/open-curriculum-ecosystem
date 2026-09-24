@@ -674,7 +674,7 @@ defined in full by
 the **Director** (long-lived, minimum-action, the single owner-interface
 and cross-session awareness carrier — routes, does not execute) and the
 **Implementer** (ephemeral, owns one bounded lane in its own worktree,
-runs its own gates, reports compressed verdicts, retires with a handoff).
+runs its own gates, records compressed verdicts, retires with a handoff).
 One idea in two layers: **isolate the doing (Implementers); centralise the
 awareness (Director).** Every other label in this section stays a
 session-local example; these two are doctrine.
@@ -696,6 +696,12 @@ owner's (PDR-074 P2). Three points keep this honest:
   only. The owner may direct any agent _directly_ downward
   (owner-direction-beats-plan); a directly-directed Implementer follows it
   AND informs the Director so the map stays current.
+  Read through the owner's ruling for all agents (2026-09-23, verbatim: "do
+  not update the Director unless you have a question or other request, the
+  normal records keep the record"), the Implementer informs the Director by
+  recording the direction in its thread record, where the Director reads the
+  map when it needs it, and messages the Director only when the direction
+  raises a question or a request.
 - **Multiply-directed coordination.** When the owner issues the _same_
   directive to more than one Implementer, "who executes" is itself an
   upward coordination question that routes to the Director; an Implementer
