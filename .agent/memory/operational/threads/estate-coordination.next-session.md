@@ -662,6 +662,17 @@ and the second estate's seat caught it (PDR-142 §Boundaries).
 byte, and the same amendment texts in PDR-125, and one rule for format on receipt (PDR-141's
 twin follows in #183); the Director's context is protected by rule.
 
+### 2026-09-24 11:05Z — the 2026-09-23 branch folded as #176 (Zephyr guards Leeward, 281e44)
+
+Merged `SHA:f66fd033f` through the front door, both review legs bound to the tip, before the
+branch's 24-hour mark. The review-cost ledger's #176 row holds the rounds and the price.
+Successor `coordination/2026-09-24-f66fd0`. The same hour this estate signed the second
+estate's joint sets F to I (159 to 161), and a retrospective on the arc was recorded:
+`.agent/reports/agentic-engineering/2026-09-24-records-that-outrun-their-evidence-retrospective.md`.
+
+*moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142 byte for
+byte and the same amendment texts in PDR-125; four joint sets signed across the estates.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

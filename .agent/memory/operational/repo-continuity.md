@@ -421,9 +421,12 @@ engraph. Only then is 183 made ready. Agreed with the sibling in advance: if a r
 PDR-142's "one of three" as missing a fourth case (the shared contradiction), the answer is
 Below-bar and rejected. The three are reasons the bytes fail to carry the concept; a
 contradiction both carry is a faithfully carried concept, false in both, which the merged-text
-bullet governs; and renumbering would break "the third reason" in both logs. The fold of coordination/2026-09-23-0ea8fb is pull request
-176; the live branch is the one the director handoff's fold block names, and if 176 has not
-landed, landing it comes first. The sibling's three pull requests were signed by this estate
+bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
+2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. Owed from
+the owner's word of 2026-09-24 ("three open PRs to deal with"), read each pull request for its
+state: #183, the exchange follow-ups; #179, the carrier of the Oak line's 1.185.1 (four files,
+its merge previewed clean against `SHA:418671f16` and its premise sweep clean), whose merge is
+made at its slot in the worktree oce-wt-carrier-1-185-1. The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
 with a dated PDR-117 amendment section; 161, H and I. H and I land here in #183; F and G land
 here in their own pull request; H's agent-collaboration hunk waits for a context under the
@@ -510,7 +513,7 @@ applied, and the owner ratified it by card ("Ratify both texts"; relayed 2026-09
 confirmed in this seat's session the same morning).
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
-fold of pull request 175. The live branch is named once, in the director handoff's fold block.
+fold of pull request 176. The live branch is named once, in the director handoff's fold block.
 
 The operator-profile lanes, by pull request number. This record states no tip and no review
 state, because those are what went stale here twice; read the pull request. 172, the twin of

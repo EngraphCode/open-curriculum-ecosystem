@@ -806,3 +806,26 @@ the ceremony sets git's author variables in the environment of the commit step.
   30-minute cap cost one agent turn per re-arm, about 24 turns in total. The stream was checked
   directly every 90 minutes, and each check matched the silence. **Routing**: none yet; one
   night is an observation.
+
+## 2026-09-24 — records that outrun their evidence (Zephyr guards Leeward, 281e44)
+
+- **Mistake, this seat's**: the 2026-09-23 journal and the wrap report to the owner said the
+  paired amendments were byte-identical in both estates. Only PDR-142 was: PDR-125 and the
+  inter-Practice skill each differ by one host line. Caught by `git diff --no-index` while
+  taking the owner-ratified blobs, and corrected before review. The claim crossed a compaction
+  as a category word. **Candidate**: write set claims as per-member checks (hashes), never as
+  category words. A second instance of #174's "categories over an enumeration" generator.
+- **Candidate**: a change never narrates its own state in the files it carries. Four of #176's
+  six findings were statements the change itself made false. Self-description belongs in the
+  pull request body.
+- **Candidate**: before a budget-gated edit, read every pending input that touches the same
+  passage. B4 was edited at 25% of context; pull request 161 rewrote the same paragraph, read at
+  37%. The debt is declared on #183.
+- **Tool feedback**: the scratchpad PR instruments must run from the repository root (one exited
+  1 silently from another directory). The canonical watcher renders events addressed to other
+  seats in full, which costs a bystander's context.
+- **Play seeds**: a phenotype note and a placeholder are two ways to hold a difference inside
+  identical bytes. Two of three accepted Cricket redirections came from the adversarial stance
+  (one instance).
+- Full analysis:
+  `.agent/reports/agentic-engineering/2026-09-24-records-that-outrun-their-evidence-retrospective.md`.
