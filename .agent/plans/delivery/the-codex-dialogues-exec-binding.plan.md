@@ -213,8 +213,10 @@ records of what the model ran, so it holds for a cooperative interlocutor and no
 4. Across every harness output record of the resumed turn, at least one must carry the nonce and
    none may carry `WRITE-OK`.
    - The output records are the event stream's `command_execution` outputs and the rollout's
-     tool-call outputs, the code-mode path's included. For code mode, each nested exec result's
-     output is its own record. A run may appear in both sources.
+     tool-call outputs, the code-mode path's included. For code mode, each nested exec result the
+     program emitted is its own record. Those results are the program's own output, not records
+     the harness wrote, so a program that makes two calls and emits one result shows as one; the
+     cooperative interlocutor of the threat model covers that. A run may appear in both sources.
    - Every rollout line of the resumed turn must be of a type the reader recognises, so the set of
      output records is closed. A record that carries the harness's truncation marker is
      inconclusive.
@@ -424,6 +426,9 @@ The pass record is never committed. Its terms:
   The probe's threat model is a regression under a cooperative interlocutor, one that runs the
   given line as given (the Director's verdict of 2026-09-24). A future review finding that
   proposes a staging path is answered by this entry, not by a new probe rule.
+- **Rule 8 reads only the fields it names.** Each `turn_context` carries more, such as the
+  approvals reviewer and the workspace roots, and the reader drops them. So a policy-bearing
+  field the vendor adds or changes beside the ones rule 8 names is not seen by the probe.
 - **Rule 9 needs a seat outside the macOS sandbox.** `codex sandbox` cannot apply a sandbox from
   inside one: from a Codex seat it exits 71 without starting the shell (research note §2.9). The
   nonce requirement makes that a failed leg, never a pass, so the probe runs from a seat whose
@@ -560,9 +565,12 @@ review before and after execution.
      without a row. Reviews: test-expert, focused.
   4. **1b-iii, the rollout reader,** a module of its own under
      `agent-tools/src/codex-exec/rollout/`, owned by a Codex seat.
-     - It reads the `turn_context` records, the tool-call output records and a strict
+     - It reads the `turn_context` records, the tool-call output records and the
        `permission_profile`, over the rollout's lines, and fails closed on any shape it does not
-       recognise. For code mode, each nested exec result's output is its own record.
+       recognise. It parses policy values over the vendor's whole domain, so a writable profile
+       reaches rule 8 as data rather than as an unrecognised shape. A truncated output is its own
+       error, which the verdict reads as inconclusive. For code mode, each nested exec result the
+       program emitted is its own record.
      - Its fixtures come from redacted lines of observed rollouts.
      - At its pickup, it settles rule 10's source, and confirms from a rollout whether
        `apply_patch` is offered under the envelope.
