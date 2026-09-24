@@ -159,9 +159,9 @@ exact staged-bundle verification is the final guard before durable history.
 ## Bootstrap fast-path
 
 If `active-claims.json` has no entries other than yours and the shared
-communication log has no recent (≤ 24 hour) entries from other agents, log
-"no other agents present" as a comms event and proceed
-without further coordination overhead.
+communication log has no recent (≤ 24 hour) entries from other agents, the
+session is solo: proceed without broadcasts or further coordination overhead
+(`use-agent-comms-log` §Scale ceremony to the audience).
 
 ## Cross-references
 

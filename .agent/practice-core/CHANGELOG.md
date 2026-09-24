@@ -4,6 +4,58 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142 and PDR-125: concepts travel; bytes where they carry the concept
+
+- PDR-142 amended on the owner's word that concept transfer is the goal and
+  byte-for-byte transfer never is: identical bytes are the means wherever they
+  carry the concept in the receiving estate's Practice context; where they do
+  not, a missing standard is raised in the receiver, a donor's host fact is
+  cured at its source, and only a context difference neither would remove lets
+  the receiver write the concept in its own words, naming the difference. Its
+  Amendment Log's falsifier reopens the clause with the owner. PDR-125 clause
+  7's receipt sentence and its status line amended to match.
+- Both owner-ratified 2026-09-23 by card. Drafted by the second estate's seat,
+  judged here as receiver, and taken from its lane: PDR-142 byte-identical,
+  checked by hash; PDR-125's two hunks applied to this estate's copy, which
+  differs from the second estate's in one host line only. PDR-141 needed no
+  change here: both estates' copies are now the same. The decision-record
+  index marks both amendments, with PDR-125's two earlier ones.
+- The same day, on a second owner card, PDR-142's read-through also names
+  "never re-authors" and places a rendition under the third reason at
+  receipt, never as an edit of a merged line (§Boundaries). Its merged-text
+  bullet names a third remedy: a contradiction the donor carries too, cured
+  jointly at the source in every estate that carries it. A second Amendment
+  Log entry records both, with its falsifier.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142: the best of each Practice
+
+- PDR-142 (Accepted, owner-ratified 2026-09-21 by card; the owner confirmed
+  the ratification in this estate on 2026-09-23) added: how the Practice's
+  instances are aligned, judged and pruned. Its decision is the definition the
+  two exchange seats authored jointly and both signed: union upward, the
+  higher of two, the bad removed everywhere; the owner's scope layers; how
+  each kind of surface travels; and that a ruling about the Practice given in
+  one estate reaches every estate, for now. Numbered here, where PDR numbers
+  are canonical, ahead of the third estate's renumbering above 141. Taken
+  byte-identical from the second estate's landing, the identity checked by
+  hash before commit.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-21 — the operator-profile contract and PDR-141 say who syncs, and name no host
+
+- `schemas/operator-profile.schema.json` `$comment_contract`: the sentence that
+  said the Practice never initialises, commits or pushes the profile repository
+  now states PDR-141 decisions 11 and 14 — initialising is the operator's act;
+  immediately after any write made on the operator's word the Practice runs the
+  check, commits and pushes under the operator's own identity, never a force, a
+  rewrite or a wildcard stage. A comment-text change; no shape change, the
+  version family unchanged.
+- PDR-141 decision 7's emit recipe names no host tool (the host's Practice index
+  names the check; the Core says `<the host's profile check>`); decision 3's
+  scope-key example is the key's shape, no host's own key; the Notes'
+  sovereignty test admits the sync the decisions made ("on anything but the
+  operator's word"). Found through the three-estate Practice exchange;
+  offered to the second estate, whose seat lands it under its own gates.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-19 — PDR-011: graduate, then archive; the four-part surface lifecycle
 
 - PDR-011 Amendment Log, dated 2026-09-17 (the owner's decision) and landed
