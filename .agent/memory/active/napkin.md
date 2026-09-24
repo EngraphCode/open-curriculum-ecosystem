@@ -637,3 +637,172 @@ the ceremony sets git's author variables in the environment of the commit step.
   `git fsmonitor--daemon stop`. The primary's two-day-old daemon was unreachable by git, so it
   was stopped by SIGTERM on the Director's word. Plain `git status` is now instant, with no
   IPC error.
+
+## 2026-09-23 evening — PR 184 routed finding for slice 1b (Blazar lifts Corona, b65a9a)
+
+- **Surface**: `the-codex-dialogues-exec-binding` probe verdict. **Signal**: a routed review
+  finding (Codex connector on PR 184 at c29088f0b, thread PRRT_kwDORdPTys6lUjys). **Observation**:
+  in a writable sandbox the interlocutor could run extra commands: create the sentinel path as a
+  directory, run the exact probe command so that it prints the nonce, then remove the directory.
+  The required `command_execution` item and the post-exit sentinel check would both pass.
+  **Routing**: landed as a `## Review dispositions` row for slice 1b at 1daff4fe7. The next
+  Codex round (at 1daff4fe7, thread PRRT_kwDORdPTys6lVUHz) showed that the row's rule, only one
+  `command_execution`, misses code-mode runs, which the event stream omits and the rollout
+  records. A second row (push 6) states the condition as a property: every execution in the
+  probe turn must be accounted for by a harness record, the rollout's tool-call records
+  included, or the probe fails as inconclusive.
+- **Surface**: review loop on a verifier specified in plan prose. **Signal**: observation, one
+  PR. **Observation**: four successive Codex rounds on PR 184 each found a new gap in the
+  probe's proof of the write attempt: the exit code, the missing item, the substring, and now
+  extra executions. The shared cause was specifying a security-critical verifier in prose. The
+  cure was to name the verdict's unit tests as its contract and to route later mechanics
+  findings to that slice's ledger. A fifth round then found a gap in the routed row itself,
+  because the row still prescribed a mechanism. A routing row that states the property to
+  establish, and fails closed where it cannot be established, covers the next variant; a row
+  that names one mechanism invites the next bypass.
+- **Surface**: slice 1b probe design, codex-cli 0.156.1 with the owner's model. **Signal**:
+  first-hand trial (21:44Z, thread 01a0d039) plus two rollouts read (01a0cfaf, 01a0cfc3).
+  **Observation**: every shell run in the trials went through code mode. The rollout records
+  it as a `custom_tool_call` named `exec` whose input is a JavaScript program calling
+  `tools.exec_command({cmd: …})`, with the output and its `exit_code` in the matching
+  `custom_tool_call_output`. One program can make any number of calls, so a code-mode record
+  does not account for individual executions. The stream's `command_execution` item appeared
+  for one of the two code-mode runs and not the other. `--disable code_mode_host` is not a
+  cure: the CLI fails closed ("Code Mode is unavailable because code-mode host is disabled"),
+  and the model can then run nothing. **Routing**: slice 1b pickup. The CLI has
+  `codex sandbox [-c …] -- <cmd>`, which runs a command under the Codex seatbelt with no
+  model. It is a candidate model-free enforcement leg: the rollout `turn_context` proves each
+  turn's policy, and `codex sandbox` proves that policy's enforcement. That would take the
+  write proof out of the interlocutor's hands. The candidate goes to slice 1b's pre-execution
+  review, and to the Director with a lens verdict if it changes the node's probe rules.
+- **Surface**: the same slice 1b candidate, trialled model-free at 21:57Z on codex-cli 0.156.1.
+  **Signal**: first-hand runs with an empty `CODEX_HOME`, a fake `HOME` and an empty root.
+  **Observation**: `codex sandbox` requires `--permission-profile <NAME>`. The built-in names
+  in the binary are `:read-only`, `:workspace`, `:minimal` and `:protocol`; a bare `read-only`
+  asks for a `[permissions]` table. `codex sandbox --permission-profile :read-only -C <root>
+  -- /bin/sh -c 'printf SIF > <root>/<sentinel>'` exits 1 with "Operation not permitted" and
+  leaves no sentinel. The same write under `:workspace` succeeds, so the refusal is the
+  sandbox's. A write to a path under the system temporary directory (`$TMPDIR`) also succeeded under `:workspace`, as that
+  profile's writable roots include the temporary directory. **Routing**: slice 1b's
+  pre-execution review. The open question is whether `:read-only` resolves to the same
+  policy the turn records in its rollout `turn_context` (`permission_profile`: managed, read
+  on the root, network restricted). If it does, the pair gives a write leg that no model
+  output can stage.
+
+## 2026-09-23 late — the wrap: tiers of attention, glosses, a cure-class check (Zephyr guards Leeward, 281e44)
+
+- **Surface**: authority over ratified text. **Signal**: my own error, caught by a peer.
+  **Observation**: I planned to cure round-one findings in owner-ratified PDR-142 inside #180's
+  push. The sibling's seat stopped it (PDR-142 §Boundaries). Later, the Director's routing on the
+  owner's word drew the line: a change of concept is the owner's, and wording that implements the
+  owner's concept is the seats' work under review. It is the day's own subject, concept over bytes,
+  applied to authority. **Behaviour change**: before curing a finding, check the artefact's
+  authority class and whether the cure changes the concept or only the wording.
+- **Surface**: owner rulings recorded in rules. **Signal**: my own error, twice, each caught by
+  another seat. **Observation**: my glosses on the owner's verbatim words overreached twice in one
+  evening. A relay added "comms-stream events count too". The rule text's "no acknowledgements"
+  clashed with `directed-routing-requires-absorption-ack`, which Codex caught. The owner's words
+  were never the defect. **Pattern candidate** (two instances): quote verbatim, gloss minimally,
+  and before committing, search the rules for obligations the gloss might contradict.
+- **Surface**: commit messages under husky. **Signal**: friction, three times. **Observation**:
+  the commit-msg hook runs after the pre-commit gates. So a subject that commitlint refuses (a
+  118-character header; "PDR-141 …" read as sentence case; "#180" in a body read as a footer)
+  costs a whole gate run. **Tool feedback**: lint the message before the commit starts.
+- **Surface**: the landing slot. **Signal**: friction. **Observation**: #181 needed two syncs
+  outside the budget, because other pull requests merged while its checks ran. Asking the next
+  seat to hold its merge settled it. The one-at-a-time contract is a convention with no instrument.
+- **Play seeds** (associations, never findings): the wedged fsmonitor daemon reminded me of a
+  Director's inbox: a central observer of every event becomes what every event waits on. Checked
+  against the process table, the Director runs no comms watcher, so the seed did not mature. Kept,
+  small: the surface-pattern readers (commitlint, the hedge hook) were right about meaning once and
+  wrong once. Discarded: a genetics analogy for byte-identical twins, which was decorative.
+
+## 2026-09-24 wrap — the Codex dialogues lane (Blazar lifts Corona, b65a9a)
+
+- **Surface**: lane state and pickup index for `the-codex-dialogues-exec-binding`. **Signal**:
+  wrap at the owner's word before compaction. **Observation**: slice 0 landed as PR 184
+  (`507d13931`) and slice 1a as PR 186 (`418671f16`). The node's slice 1a todo is not marked
+  landed, because the node lives on the base branch and every edit to it is a PR; slice 1b's
+  first commit marks it. No thread record carries this lane, and `repo-continuity.md` does not
+  list it. The homes a successor reads, in order:
+  1. the node, `.agent/plans/delivery/the-codex-dialogues-exec-binding.plan.md`, its Todos and
+     its `## Review dispositions` ledger (every routed finding, per slice);
+  2. ADR-180 §6 (the envelope's outcomes) and research note §2.8 (the trials);
+  3. this napkin's 2026-09-23 evening section and this section (the slice 1b design finding);
+  4. `review-cost-ledger.md` rows #178, #184 and #186.
+
+  **Routing**: the coordination successor decides whether the lane gets a thread record. The
+  forwarded promises: (a) the owner-run login card with the exact command goes to the Director
+  (Wick binds Temper) only when slice 2 reaches that step; (b) the slice 1b design question
+  below goes to the Director with a lens verdict; (c) slice 2 cites Badger seeks Hush's
+  official-docs follow-up answers (a) to (d).
+- **Surface**: slice 1b, where the probe's write proof lives (concept exploration at wrap).
+  **Signal**: five Codex rounds on PR 184, the code-mode rollouts, and the two trials above.
+  **Observation**:
+  - **Frame.** The binding needs a warranted belief that a turn cannot write, reach the
+    network or load owner state. The node's write leg asks the interlocutor to attempt the
+    write and proves the attempt from harness records. Each Codex round found another way the
+    interlocutor could stage that proof. On code mode, the harness records a program, not the
+    commands, so the proof cannot be completed through the model at all.
+  - **Changed assumptions.** The node never states the probe's threat model. The review loop
+    supplied one, an adversarial interlocutor, and each cure answered it. The risk the probe
+    exists for is a vendor or configuration regression under a cooperative interlocutor.
+    End-to-end realism routed the proof through the one party whose behaviour it bounds.
+  - **Proposals.** P1: state the threat model in the node at slice 1b pickup, through the
+    Director with a lens verdict, since it changes ratified probe rules. Warrant: the five
+    rounds. Falsifier: the Director or owner holds adversarial staging in scope, in which
+    case the write proof must be fully model-free and the code-mode path named unproven.
+    P2: prove enforcement model-free — `codex sandbox` under the policy the turn recorded, plus
+    the rollout `turn_context` legs — and keep the model's write attempt as corroboration
+    only. Warrant: the 21:57Z trial. Falsifier: `--sandbox-state-json` does not accept the
+    recorded state and `:read-only` cannot be shown equal to it, so the leg proves only the
+    profile class. P3: mutation-test the probe verdict (the repo already runs Stryker), since
+    its unit tests are its contract. Warrant: slice 1a's test review found eleven surviving
+    mutants by hand. Falsifier: a Stryker run on the verdict module is too slow for the
+    agent-tools gate.
+  - **Unresolved evidence.** Whether the code-mode host applies the seatbelt (three trials say
+    the write was refused on that path); the `--sandbox-state-json` shape; how stable the
+    `turn_context` `permission_profile` shape is across releases.
+
+  **Routing**: slice 1b's pre-execution review, then the Director.
+- **Surface**: free play over the session's material, harvested at wrap. **Signal**: play seeds,
+  associations only. **Observation**: kept: (1) the probe reminded me of an audit that asks the
+  audited party to count the vault — auditor independence looks like the right frame for P2;
+  (2) `turn_context` plus `codex sandbox` looks shaped like the estate's
+  `validators-must-recompute-not-just-record` rule, a record paired with a recomputation;
+  (3) "the verdict's tests are its contract" sat beside "eleven mutants survived" and
+  suggested mutation testing as the contract's own check (now P3). Discarded, visibly: "detect
+  staging instead of preventing it" — forced, since detection needs the same per-command
+  records code mode lacks; "prose verifiers and code-mode programs are shaped alike" — the
+  likeness was verbal, both being "programs", with no shared mechanism; "two instruments
+  disagree on what a round is" — not new, it is the #143 predicate defect. **Routing**: seeds 1
+  and 2 fed the concept exploration above; the discards stay here.
+- **Surface**: loss scan and metaloss at wrap. **Signal**: the wrap programme's passes.
+  **Observation**:
+  - **Trial close-out list.** The trial rollouts in the owner's Codex home still hold the probe
+    prompts and paths. The threads to close out: `01a0cfa9-6ad8…` and `01a0cfa9-8469…` (the
+    authority probe), `01a0cfaf…`, `01a0cfc3…`, `01a0cfc4…`, `01a0cfd6…` (the envelope trials)
+    and `01a0d039…` (21:44Z, `--disable code_mode_host`). The `codex sandbox` trial started no
+    thread.
+  - **Error signature.** Outside eyes caught what this seat's own verification missed, every
+    time: the security review found the verdict failing open, the test review found eleven
+    surviving mutants, the Codex connector found five probe bypasses and one progress-event
+    gap, and the docs review found nineteen ADR and TSDoc defects. Point external scrutiny at
+    verdict and validator code first.
+  - **Process slips.** The merge-base deletion sweep did not run before PR 184's merge; it ran
+    after, clean. The gateway cures of slice 1a were not red-first; the specialist cures were.
+  - **Inferences, flagged.** That Brazier spins Temper (`c70341`) holds the coordination
+    succession is an inference from the rapid-comms text, not an observation. The two comms
+    watchers still running at wrap belong to other sessions (checked by model and supervisor
+    id).
+  - **Bound.** This scan sees only the post-compaction context and the summary before it; what
+    the summary dropped about PR 178's rounds is out of its reach.
+  - **Fixed point.** A third pass would only re-find the lane index and the forwarded promises
+    above; the recursion closes here.
+
+  **Routing**: the close-out list goes to whoever runs the trial close-out, which the node owes.
+- **Surface**: the all-channels watcher on an idle seat. **Signal**: observation, one night.
+  **Observation**: from 21:10Z to 09:45Z the stream carried no event, and the Monitor's
+  30-minute cap cost one agent turn per re-arm, about 24 turns in total. The stream was checked
+  directly every 90 minutes, and each check matched the silence. **Routing**: none yet; one
+  night is an observation.

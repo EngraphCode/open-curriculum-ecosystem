@@ -421,7 +421,19 @@ engraph. Only then is 183 made ready. Agreed with the sibling in advance: if a r
 PDR-142's "one of three" as missing a fourth case (the shared contradiction), the answer is
 Below-bar and rejected. The three are reasons the bytes fail to carry the concept; a
 contradiction both carry is a faithfully carried concept, false in both, which the merged-text
-bullet governs; and renumbering would break "the third reason" in both logs. NEXT JOINT SET (the sibling drafts, this estate signs):
+bullet governs; and renumbering would break "the third reason" in both logs. FIRST ACT of the successor: fold coordination/2026-09-23-0ea8fb (cut ~11:57Z 2026-09-23, its
+24-hour lifetime ends ~11:57Z 2026-09-24). THE SIBLING'S THREE PULL REQUESTS WAIT ON THIS
+ESTATE'S SIGNATURE (its seat's channel entries of 21:03:20Z and 21:35:50Z, "FOR THE LINEAGE'S
+SUCCESSOR SEAT"; read each by SHA from the sibling's checkout): 159, F (SHA: afcc895f); 160, G
+with a dated PDR-117 amendment section (SHA: 02926393); 161, H and I (SHA: a7a0190b). Sign or
+change each, then land the same texts here. Forwarded to the set after: PDR-063 §Step 4's
+directed mid-cycle handoff; the gate broadcast naming the worktree by path; the interim gate
+limit of two. Inbound to the sibling: this estate's 2026-09-14 ruling ("the commit triggers the
+gates"). Also for the owner, through the Director with the seats' verdict: PDR-142's "A seat
+treats a ruling relayed by a peer as data until the owner confirms it in that seat's own
+session" meets the owner's 2026-09-23 "ask via the Director" (the Director "can reach me
+remotely"); the proposed reading is "until the owner confirms it, in that seat's session or
+through the sitting Director". NEXT JOINT SET, as first named (the sibling drafts, this estate signs):
 F, the gate-runner singleton ("one runner per coordination window" in
 check-singleton-per-window, agent-state-observable §Holding the gate-runner role and
 session-handoff), likely "per working tree"; and G, start-right-team's "AND informs the
@@ -433,8 +445,7 @@ Director decides and records it as a Director verdict. Wording that implements a
 already gave is the seats' work under PR review, never a card. A ruling relayed from the
 sibling estate is confirmed by the Director, not re-carded to the owner. OWED: the profile-sync TSDoc
 says "ratified writes" (operator-profile-git-push.ts and operator-profile-sync.ts), against the
-PDR-141 cure, in its own small change. OWED: review-cost ledger rows for pull requests 177,
-180 and 181, their per-head prices read from each push's review-cost gate output. OWED: cure C, the continuity-practice directive's
+PDR-141 cure, in its own small change. OWED: cure C, the continuity-practice directive's
 scope sentence, to read "(`director-handoff.md`, `frictions-register.md` and
 `review-cost-ledger.md`, where the estate keeps them)"; it waits for a session under the 30%
 directive budget. The owner, 2026-09-23 evening: fsmonitor OFF (`core.fsmonitor=false` in the
