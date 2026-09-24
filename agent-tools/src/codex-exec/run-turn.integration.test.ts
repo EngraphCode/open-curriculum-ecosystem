@@ -1,6 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { parseDialogueId, type DialogueId } from './cleanup-row.js';
 import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
 import type { PassRecordRead, ResolvedBinary } from './gate.js';
@@ -36,7 +37,20 @@ const record: PassRecord = {
   evidence: ['rule 9: the nonce, no WRITE-OK'],
 };
 
-const request: TurnRequest = { prompt: 'packet', thread: undefined, timeoutMs: 5000 };
+function dialogueId(): DialogueId {
+  const parsed = parseDialogueId('dlg-20260924-ab12');
+  if (!parsed.ok) {
+    return expect.unreachable('fixture dialogue id must parse');
+  }
+  return parsed.value;
+}
+
+const request: TurnRequest = {
+  kind: 'open',
+  dialogueId: dialogueId(),
+  prompt: 'packet',
+  timeoutMs: 5000,
+};
 
 /** A whole turn, as `codex exec --json` emits it: a full success. */
 const replied: CodexRun = {
@@ -88,6 +102,8 @@ function ports(
       calls.push(call);
       return replied;
     },
+    now: () => new Date('2026-09-24T16:00:00.000Z'),
+    appendCleanupRow: () => ok(undefined),
   };
 }
 

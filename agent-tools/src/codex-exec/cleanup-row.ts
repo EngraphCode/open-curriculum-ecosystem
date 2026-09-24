@@ -54,3 +54,61 @@ export function threadsCreated(run: CodexRun): readonly ThreadId[] {
   });
   return [...new Set(threadIds)];
 }
+
+/**
+ * One line of the dialogues' cleanup map: a thread an opening turn started,
+ * the dialogue it belongs to, and when the turn ran, as an ISO 8601 UTC
+ * instant. The map is the owner's record of which threads to delete.
+ */
+export interface CleanupRow {
+  readonly dialogue_id: DialogueId;
+  readonly thread_id: ThreadId;
+  readonly created_at: string;
+}
+
+/**
+ * Threads a turn started whose cleanup rows could not be written. It fails
+ * the turn, even one that counted, so no thread is left without a row
+ * unnoticed; the caller reports the ids for cleanup by hand.
+ */
+export interface CleanupRowUnwritten {
+  readonly kind: 'cleanup-row-unwritten';
+  /** Only the threads whose rows were not written. */
+  readonly threadIds: readonly [ThreadId, ...ThreadId[]];
+  /** Why the first unwritten row was refused. */
+  readonly reason: string;
+}
+
+/**
+ * Append one row per thread to the cleanup map, trying every row even after
+ * one is refused.
+ *
+ * @param dialogueId - The dialogue the threads belong to.
+ * @param threadIds - The threads the turn started.
+ * @param createdAt - When the turn ran, as an ISO 8601 UTC instant.
+ * @param appendCleanupRow - Appends one row to the cleanup map, or says why not.
+ */
+export function appendCleanupRows(
+  dialogueId: DialogueId,
+  threadIds: readonly ThreadId[],
+  createdAt: string,
+  appendCleanupRow: (row: CleanupRow) => Result<void, string>,
+): Result<void, CleanupRowUnwritten> {
+  const refused = threadIds.flatMap((threadId) => {
+    const appended = appendCleanupRow({
+      dialogue_id: dialogueId,
+      thread_id: threadId,
+      created_at: createdAt,
+    });
+    return appended.ok ? [] : [{ threadId, reason: appended.error }];
+  });
+  const [first, ...rest] = refused;
+  if (first === undefined) {
+    return ok(undefined);
+  }
+  return err({
+    kind: 'cleanup-row-unwritten',
+    threadIds: [first.threadId, ...rest.map((row) => row.threadId)],
+    reason: first.reason,
+  });
+}

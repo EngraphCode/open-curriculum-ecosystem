@@ -1,6 +1,13 @@
 import { err, type Result } from '@oaknational/result';
 
 import {
+  appendCleanupRows,
+  threadsCreated,
+  type CleanupRow,
+  type CleanupRowUnwritten,
+  type DialogueId,
+} from './cleanup-row.js';
+import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
@@ -47,22 +54,38 @@ export interface TurnPorts {
   readonly checkRoot: (root: string) => Result<void, string>;
   /** Runs one call to completion, synchronously, and reports what the process did. */
   readonly runCodex: (call: CodexCall) => CodexRun;
+  /** Reads the clock, for the time a cleanup row records. */
+  readonly now: () => Date;
+  /** Appends one row to the dialogues' cleanup map, or says why not. */
+  readonly appendCleanupRow: (row: CleanupRow) => Result<void, string>;
 }
 
 /**
- * One dialogue turn: open a thread when `thread` is undefined, else resume it.
+ * One dialogue turn. An opening turn names its dialogue, so each thread it
+ * starts gets a cleanup row; a resumed turn names the thread it continues,
+ * and starts none.
  */
-export interface TurnRequest {
-  readonly prompt: string;
-  readonly thread: ThreadId | undefined;
-  readonly timeoutMs: number;
-}
+export type TurnRequest =
+  | {
+      readonly kind: 'open';
+      readonly dialogueId: DialogueId;
+      readonly prompt: string;
+      readonly timeoutMs: number;
+    }
+  | {
+      readonly kind: 'resume';
+      readonly thread: ThreadId;
+      readonly prompt: string;
+      readonly timeoutMs: number;
+    };
 
 /**
- * A turn's failure: the verdict's reasons, plus an instrument root that is
- * not fit for a spawn, which stops the turn before Codex starts.
+ * A turn's failure: the verdict's reasons, an instrument root that is not
+ * fit for a spawn, which stops the turn before Codex starts, and a thread
+ * whose cleanup row could not be written.
  */
-export type TurnError = TurnFailure | { readonly kind: 'root-not-ready'; readonly reason: string };
+export type TurnError =
+  TurnFailure | { readonly kind: 'root-not-ready'; readonly reason: string } | CleanupRowUnwritten;
 
 /**
  * Run one dialogue turn inside the fixed call envelope and judge it, with no
@@ -71,10 +94,14 @@ export type TurnError = TurnFailure | { readonly kind: 'root-not-ready'; readonl
  * thread id, already parsed as a UUID, reaches the argv; the prompt goes on
  * stdin and the timeout to the runner.
  *
- * @param request - The turn: its prompt, its thread (undefined to open one) and its timeout.
+ * An opening turn writes a cleanup row for every thread it started before
+ * the turn is judged, so a turn that fails or is killed leaves no thread
+ * without a row. A row that cannot be written fails the turn.
+ *
+ * @param request - The turn: open a dialogue's thread, or resume one.
  * @param context - What the composition root resolved once for every turn.
  * @param binary - The `codex` binary as resolved once; the turn spawns its real path.
- * @param ports - The root check and the runner.
+ * @param ports - The root check, the runner, the clock and the cleanup map.
  */
 export function executeTurn(
   request: TurnRequest,
@@ -87,7 +114,7 @@ export function executeTurn(
     return err({ kind: 'root-not-ready', reason: root.error });
   }
   const argv =
-    request.thread === undefined
+    request.kind === 'open'
       ? buildOpenArgv(context.instrumentRoot, context.modelPins)
       : buildResumeArgv(request.thread, context.modelPins);
   const run = ports.runCodex({
@@ -98,5 +125,17 @@ export function executeTurn(
     stdin: request.prompt,
     timeoutMs: request.timeoutMs,
   });
-  return judgeTurn(run, request.thread);
+  if (request.kind === 'resume') {
+    return judgeTurn(run, request.thread);
+  }
+  const rows = appendCleanupRows(
+    request.dialogueId,
+    threadsCreated(run),
+    ports.now().toISOString(),
+    ports.appendCleanupRow,
+  );
+  if (!rows.ok) {
+    return err(rows.error);
+  }
+  return judgeTurn(run, undefined);
 }

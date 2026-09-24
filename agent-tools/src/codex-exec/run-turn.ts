@@ -53,7 +53,7 @@ export type GatedTurnError = GateRefusal | BinaryUnresolved | TurnError;
  * known. Then the binary is resolved once, the binding is matched against
  * the record, and the turn spawns that same resolved path.
  *
- * @param request - The turn: its prompt, its thread (undefined to open one) and its timeout.
+ * @param request - The turn: open a dialogue's thread, or resume one.
  * @param context - What the composition root resolved once for every turn.
  * @param ports - The turn's own ports, plus the record read and the binary resolution.
  */
