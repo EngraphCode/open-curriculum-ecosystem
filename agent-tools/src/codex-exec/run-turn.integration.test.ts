@@ -57,20 +57,32 @@ const replied: CodexRun = {
  * Ports whose record read, binary resolution and runner each return one
  * constant; the runner would always succeed, and records what it was given.
  */
+/** The gated ports, plus what each one was asked. */
+type RecordingPorts = GatedTurnPorts & {
+  readonly calls: CodexCall[];
+  readonly homesRead: string[];
+  readonly resolutions: Result<ResolvedBinary, BinaryUnresolved>[];
+};
+
 function ports(
   read: PassRecordRead,
   resolved: Result<ResolvedBinary, BinaryUnresolved> = ok(binary),
-): GatedTurnPorts & { readonly calls: CodexCall[]; readonly homesRead: string[] } {
+): RecordingPorts {
   const calls: CodexCall[] = [];
   const homesRead: string[] = [];
+  const resolutions: Result<ResolvedBinary, BinaryUnresolved>[] = [];
   return {
     calls,
     homesRead,
+    resolutions,
     readPassRecord: (codexHome) => {
       homesRead.push(codexHome);
       return read;
     },
-    resolveBinary: () => resolved,
+    resolveBinary: () => {
+      resolutions.push(resolved);
+      return resolved;
+    },
     checkRoot: () => ok(undefined),
     runCodex: (call) => {
       calls.push(call);
@@ -88,6 +100,7 @@ describe('runTurn', () => {
     });
     expect(turnPorts.calls.map((call) => call.executable)).toStrictEqual([binary.executablePath]);
     expect(turnPorts.homesRead).toStrictEqual([context.childEnvInputs.instrumentCodexHome]);
+    expect(turnPorts.resolutions).toStrictEqual([ok(binary)]);
   });
 
   it('starts no turn without a pass record, though the turn would succeed', () => {
@@ -108,6 +121,7 @@ describe('runTurn', () => {
       ok: false,
       error: { kind: 'no-pass-record' },
     });
+    expect(turnPorts.resolutions).toStrictEqual([]);
   });
 
   it('starts no turn when the binary cannot be resolved', () => {

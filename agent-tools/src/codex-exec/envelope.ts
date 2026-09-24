@@ -172,11 +172,11 @@ export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
 }
 
 /**
- * Every part of a call the envelope fixes. The digest hashes all of it, so a
- * part left out fails to compile; a new builder the spawn uses joins this
- * interface, and so the digest.
+ * Every part of a call the envelope fixes. A template missing a part fails to
+ * compile, and `digestTemplate` hashes the whole of it; a new builder the
+ * spawn uses joins this interface, and so the digest.
  */
-interface EnvelopeTemplate {
+export interface EnvelopeTemplate {
   readonly open: readonly string[];
   readonly resume: readonly string[];
   readonly childEnv: ChildEnv;
@@ -207,16 +207,24 @@ const SLOTS = {
  * record written under one envelope never opens a dialogue under another
  * envelope shape. The values in its slots are each call's own; the gate ties
  * the record to the Codex home the spawn uses.
- * The serialisation is JSON, which keeps element boundaries, so no two
- * different envelopes serialise alike.
  *
  * @param pins - The model pins the dialogue runs with; a pass on one model is no pass on another.
  */
 export function envelopeDigest(pins: ModelPins): string {
-  const template: EnvelopeTemplate = {
+  return digestTemplate({
     open: buildOpenArgv(SLOTS.instrumentRoot, pins),
     resume: resumeArgv(SLOTS.thread, pins),
     childEnv: buildChildEnv(SLOTS.childEnvInputs),
-  };
+  });
+}
+
+/**
+ * Hash a whole envelope template: SHA-256 over its JSON, as 64 lowercase hex
+ * characters. JSON keeps element boundaries, so no two different templates
+ * serialise alike.
+ *
+ * @param template - Every part of a call the envelope fixes.
+ */
+export function digestTemplate(template: EnvelopeTemplate): string {
   return createHash('sha256').update(JSON.stringify(template)).digest('hex');
 }

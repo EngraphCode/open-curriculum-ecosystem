@@ -4,8 +4,10 @@ import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
+  digestTemplate,
   envelopeDigest,
   parseThreadId,
+  type EnvelopeTemplate,
   type ThreadId,
 } from './envelope.js';
 import { parseModelPins, type ModelPins } from './model-pins.js';
@@ -205,6 +207,35 @@ describe('envelopeDigest', () => {
     'gives an envelope with %s a different digest, so a pass on one model is no pass on another',
     (_label, other) => {
       expect(envelopeDigest(other)).not.toBe(envelopeDigest(pinned));
+    },
+  );
+});
+
+describe('digestTemplate', () => {
+  const template: EnvelopeTemplate = {
+    open: ['exec', '-'],
+    resume: ['exec', 'resume', '-'],
+    childEnv: buildChildEnv({
+      instrumentHome: '/home-slot',
+      instrumentCodexHome: '/codex-home-slot',
+      user: 'user-slot',
+      lang: 'lang-slot',
+      tmpdir: '/tmp-slot',
+    }),
+  };
+
+  it('gives the same template the same digest every time', () => {
+    expect(digestTemplate({ ...template })).toBe(digestTemplate(template));
+  });
+
+  it.each([
+    ['open argv', { ...template, open: ['exec', '--other', '-'] }],
+    ['resume argv', { ...template, resume: ['exec', 'resume', '--other', '-'] }],
+    ['child environment', { ...template, childEnv: { ...template.childEnv, PATH: '/other' } }],
+  ] satisfies readonly (readonly [string, EnvelopeTemplate])[])(
+    'gives a template that differs only in its %s a different digest, so the hash covers every part',
+    (_label, other) => {
+      expect(digestTemplate(other)).not.toBe(digestTemplate(template));
     },
   );
 });
