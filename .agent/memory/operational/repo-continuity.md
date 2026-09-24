@@ -430,9 +430,16 @@ prefix), signed by both exchange seats, and joint sets F and G, both landing her
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context
 under 30%, declared on #183; the practice-two-way-exchange node naming PDR-142's interim debt
 landing (routed from #183's second round) at its next edit. And the owner's test words of 2026-09-24, signed as a joint text by both
-exchange seats with this seat's boundary gloss (the exact bytes are on the second estate's
-test-doctrine alignment pull request), for testing-strategy §Philosophy: a directive edit, for
-a context under 30%. The sibling's three pull requests were signed by this estate
+exchange seats in the second estate's revision of 12:20Z (a record of what the product sends
+out through a port is output; which calls it made is never asserted; the exact bytes are on the
+second estate's test-doctrine alignment pull request), for testing-strategy §Philosophy, with
+the same line in test-immediate-fails item 12 and the test-expert template's Step 6. In this
+estate the ruling also contradicts testing-strategy §Stubs vs Fakes ("enable assertions on call
+counts, arguments"), which the cure must reach. The second estate's review found five more
+defects in these bytes: the plan named in §Philosophy, no clock read in item 4's IO list,
+"External-resource tests must fail fast", tdd-as-design calling the UI scale a check, and
+PDR-027's "Four binding rules" over six items. All are directive or Core edits for a context
+under 30%. The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
 with a dated PDR-117 amendment section; 161, H and I. H and I landed here in #183, except the
 directive hunk named above. Forwarded to the set after: PDR-063 §Step 4's
