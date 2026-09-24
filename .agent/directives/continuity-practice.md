@@ -55,8 +55,8 @@ table: `.agent/memory/README.md` §Tracking Tiers.
 This section is scoped to the **continuity surfaces** —
 `repo-continuity.md` and `threads/<slug>.next-session.md` — and to the
 journal-shaped records and registers beside them that accumulate finished
-history (`director-handoff.md`, `frictions-register.md`,
-`review-cost-ledger.md`). Other surface
+history (`director-handoff.md`, `frictions-register.md` and
+`review-cost-ledger.md`, where the estate keeps them). Other surface
 types (the napkin, distilled, buffers) have their own disposition notes
 and lifecycles; nothing here changes them or the fitness apparatus.
 

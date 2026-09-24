@@ -300,15 +300,16 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
 > `archive/director-handoff-2026-09-19.md` and narrated in the archived thread record
 > `archive/estate-coordination-thread-2026-09-20.md`, under its heading "2026-09-12 12:5xZ — FOLD
-> LANDED".** The last fold is #171 (SHA:56bd4de6a, 2026-09-21 17:45Z), the third 2026-09-21
-> branch, landed by the merge door itself with both review legs bound to the tip; the live branch
-> is `coordination/2026-09-21-56bd4d`, which was DUE 2026-09-22 17:45Z and is OVERDUE since the
-> seat paused at the owner's word (2026-09-21 19:27Z to 2026-09-23); the fold is the first act at
-> resume, and the second boundary block in `repo-continuity.md` says why. A fold's rounds, findings and price
-> live in the estate-coordination record's journal and the review-cost ledger, never in this
-> block. _moved for teachers:_ nothing. _moved for the Practice:_ the #170 fold's records, the
-> operator-profile twin's landing, the first day of the three-estate exchange. The folds before
-> it: #170 (SHA:1a125f65d, 2026-09-21 10:12Z), the #169 fold's records and the exchange channel
+> LANDED".** The last fold is #175 (SHA:0ea8fb232, 2026-09-23 11:57Z), the 2026-09-21 branch
+> cut from #171, landed by the merge door with Copilot's leg bound to the tip, about eighteen
+> hours past its lifetime because the seat paused at the owner's word; the live branch is
+> `coordination/2026-09-23-0ea8fb`. A fold's rounds, findings and price live in the
+> estate-coordination record's journal and the review-cost ledger, never in this block. _moved
+> for teachers:_ nothing. _moved for the Practice:_ the shared definition of the best of each
+> Practice written and ratified; the relayed rulings confirmed in this estate; a retired Copilot
+> seat's records landed; the context-loop experiment's findings. The folds before it: #171
+> (SHA:56bd4de6a, 2026-09-21 17:45Z), the #170 fold's records, the operator-profile twin's
+> landing and the first day of the three-estate exchange; #170 (SHA:1a125f65d, 2026-09-21 10:12Z), the #169 fold's records and the exchange channel
 > tracked; #169
 > (SHA:72cab5667, 2026-09-21 09:09Z), the consolidation's close and the citation line; #159
 > (SHA:efb2942e9, 2026-09-21 00:03Z), the memory-file pass — every large memory file says where its
