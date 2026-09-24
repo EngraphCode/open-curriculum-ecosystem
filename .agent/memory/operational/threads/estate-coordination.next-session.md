@@ -673,6 +673,17 @@ estate's joint sets F to I (159 to 161), and a retrospective on the arc was reco
 *moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142 byte for
 byte and the same amendment texts in PDR-125; four joint sets signed across the estates.
 
+### 2026-09-24 11:53Z — #183 and #179 landed; the owner's three pull requests are done (Zephyr guards Leeward, 281e44)
+
+Pull request 183 (the exchange follow-ups) landed as `SHA:0d6924427` at 11:24:52Z, and #179
+(the Oak line's 1.185.1) as `SHA:fc6aec21a` at 11:53:38Z. The review-cost ledger holds their
+rows. The owed work that follows them, each item from a word already given, is in the
+continuity record's pickup. Much of it is directive or Core edits for a context under 30%, and
+the intake of the second estate's 126 outbound files is named there as this estate's.
+
+*moved for teachers:* nothing. *moved for the Practice:* the fork carries the Oak line's
+1.185.1; the exchange's texts converge in both estates.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

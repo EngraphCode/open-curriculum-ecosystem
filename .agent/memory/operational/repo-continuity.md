@@ -439,7 +439,27 @@ counts, arguments"), which the cure must reach. The second estate's review found
 defects in these bytes: the plan named in §Philosophy, no clock read in item 4's IO list,
 "External-resource tests must fail fast", tdd-as-design calling the UI scale a check, and
 PDR-027's "Four binding rules" over six items. All are directive or Core edits for a context
-under 30%. The sibling's three pull requests were signed by this estate
+under 30%. And the intake of the second estate's outbound set: its exchange seat has
+classified 126 Practice files as outbound to this estate (the Director's check-in of
+2026-09-24), and no seat here has named their intake. It is this estate's work, beside the
+symmetric merge in the first acts. Each file is read whole as receiver and landed by bytes where
+the bytes carry the concept here (PDR-142).
+The second estate's seat sent its consolidated outbound list by native message on 2026-09-24,
+which no repository tracks, so this is its record here. Each item is in engraph's bytes too.
+(1) Test doctrine, its slice three: the signed call line in item 12, test-expert Step 6 and
+§Stubs vs Fakes; the plan name out of §Philosophy; the clock read in item 4; "a check that
+needs an external resource"; tdd-as-design's UI scale (component tests are integration, UI at
+check scale is browser journeys); and, relayed as the Director's verdict (confirm with the
+Director before acting), the owner's "no excemptions" retiring both 2026-08-03 carve-outs: the
+designed sentinel in "Prove behaviour, never config or content" and item 14's "one named
+sanctioned shape", with both dates declared in the commit so the owner can overturn it. (2) Its
+pull request 167: three over-width prose lines in metacognition reflowed to 100 characters,
+words unchanged. (3) Its pull request 168: PDR-027's "Four binding rules" over six items, and
+PDR-011's "conserve-insight-and-delete", a joint amendment. (4) Its pull request 166:
+strict-validation-at-boundary admits "a path-only stale-invocation allowlist", and the
+stale-script validator's list names two files that exist on engraph, so removing the list
+surfaces findings to cure. (5) The 126 outbound files, above.
+The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
 with a dated PDR-117 amendment section; 161, H and I. H and I landed here in #183, except the
 directive hunk named above. Forwarded to the set after: PDR-063 §Step 4's
