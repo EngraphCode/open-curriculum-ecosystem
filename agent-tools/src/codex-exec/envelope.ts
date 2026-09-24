@@ -76,18 +76,12 @@ function modelPinArgs(pins: ModelPins): readonly string[] {
   ];
 }
 
-function openArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
-  return [
-    'exec',
-    ...ENVELOPE_FLAGS,
-    '-C',
-    instrumentRoot,
-    ...ENVELOPE_SETTINGS,
-    ...modelPinArgs(pins),
-    '-',
-  ];
-}
-
+/**
+ * The resume argv for any thread value. Only two values reach it: a parsed
+ * `ThreadId`, from `buildResumeArgv`, and the digest's fixed marker. It is
+ * never given raw input, since the brand is what keeps a thread value from
+ * becoming an option.
+ */
 function resumeArgv(thread: string, pins: ModelPins): readonly string[] {
   return [
     'exec',
@@ -108,7 +102,15 @@ function resumeArgv(thread: string, pins: ModelPins): readonly string[] {
  * @param pins - The validated model pins, each carried as one `-c` value.
  */
 export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
-  return openArgv(instrumentRoot, pins);
+  return [
+    'exec',
+    ...ENVELOPE_FLAGS,
+    '-C',
+    instrumentRoot,
+    ...ENVELOPE_SETTINGS,
+    ...modelPinArgs(pins),
+    '-',
+  ];
 }
 
 /**
@@ -170,6 +172,17 @@ export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
 }
 
 /**
+ * Every part of a call the envelope fixes. The digest hashes all of it, so a
+ * part left out fails to compile; a new builder the spawn uses joins this
+ * interface, and so the digest.
+ */
+interface EnvelopeTemplate {
+  readonly open: readonly string[];
+  readonly resume: readonly string[];
+  readonly childEnv: ChildEnv;
+}
+
+/**
  * The values each call supplies, replaced by fixed markers, so the digest
  * sees the envelope and not the machine it runs on.
  */
@@ -198,10 +211,10 @@ const SLOTS = {
  * @param pins - The model pins the dialogue runs with; a pass on one model is no pass on another.
  */
 export function envelopeDigest(pins: ModelPins): string {
-  const envelope = {
-    open: openArgv(SLOTS.instrumentRoot, pins),
+  const template: EnvelopeTemplate = {
+    open: buildOpenArgv(SLOTS.instrumentRoot, pins),
     resume: resumeArgv(SLOTS.thread, pins),
     childEnv: buildChildEnv(SLOTS.childEnvInputs),
   };
-  return createHash('sha256').update(JSON.stringify(envelope)).digest('hex');
+  return createHash('sha256').update(JSON.stringify(template)).digest('hex');
 }
