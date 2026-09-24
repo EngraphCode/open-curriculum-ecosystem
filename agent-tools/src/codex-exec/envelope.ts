@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { err, ok, type Result } from '@oaknational/result';
 
 import type { ModelPins } from './model-pins.js';
@@ -74,14 +76,7 @@ function modelPinArgs(pins: ModelPins): readonly string[] {
   ];
 }
 
-/**
- * The argv that opens a dialogue thread. The prompt goes on stdin (`-`), and
- * no caller argument can add to or alter the envelope.
- *
- * @param instrumentRoot - The instrument's empty working root, which must also be the spawn's cwd.
- * @param pins - The validated model pins, each carried as one `-c` value.
- */
-export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
+function openArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
   return [
     'exec',
     ...ENVELOPE_FLAGS,
@@ -93,6 +88,29 @@ export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly
   ];
 }
 
+function resumeArgv(thread: string, pins: ModelPins): readonly string[] {
+  return [
+    'exec',
+    'resume',
+    thread,
+    ...ENVELOPE_FLAGS,
+    ...ENVELOPE_SETTINGS,
+    ...modelPinArgs(pins),
+    '-',
+  ];
+}
+
+/**
+ * The argv that opens a dialogue thread. The prompt goes on stdin (`-`), and
+ * no caller argument can add to or alter the envelope.
+ *
+ * @param instrumentRoot - The instrument's empty working root, which must also be the spawn's cwd.
+ * @param pins - The validated model pins, each carried as one `-c` value.
+ */
+export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly string[] {
+  return openArgv(instrumentRoot, pins);
+}
+
 /**
  * The argv that continues an existing dialogue thread. `resume` takes no
  * `-C`, so the spawn's cwd must be the same instrument root.
@@ -101,15 +119,7 @@ export function buildOpenArgv(instrumentRoot: string, pins: ModelPins): readonly
  * @param pins - The validated model pins, each carried as one `-c` value.
  */
 export function buildResumeArgv(threadId: ThreadId, pins: ModelPins): readonly string[] {
-  return [
-    'exec',
-    'resume',
-    threadId,
-    ...ENVELOPE_FLAGS,
-    ...ENVELOPE_SETTINGS,
-    ...modelPinArgs(pins),
-    '-',
-  ];
+  return resumeArgv(threadId, pins);
 }
 
 /**
@@ -157,4 +167,41 @@ export function buildChildEnv(inputs: ChildEnvInputs): ChildEnv {
     PATH: CHILD_PATH,
     CODEX_HOME: inputs.instrumentCodexHome,
   };
+}
+
+/**
+ * The values each call supplies, replaced by fixed markers, so the digest
+ * sees the envelope and not the machine it runs on.
+ */
+const SLOTS = {
+  instrumentRoot: '<instrument-root>',
+  thread: '<thread>',
+  childEnvInputs: {
+    instrumentHome: '<instrument-home>',
+    instrumentCodexHome: '<instrument-codex-home>',
+    user: '<user>',
+    lang: '<lang>',
+    tmpdir: '<tmpdir>',
+  },
+} as const;
+
+/**
+ * The envelope's identity: a SHA-256 digest, as 64 lowercase hex
+ * characters, of the open argv, the resume argv and the child environment,
+ * built by the same builders every spawn uses with each call's own values
+ * replaced by fixed markers. So any change to a flag, a setting, a model pin
+ * or an environment name changes the digest by construction, and a pass
+ * record written under one envelope never opens a dialogue under another.
+ * The serialisation is JSON, which keeps element boundaries, so no two
+ * different envelopes serialise alike.
+ *
+ * @param pins - The model pins the dialogue runs with; a pass on one model is no pass on another.
+ */
+export function envelopeDigest(pins: ModelPins): string {
+  const envelope = {
+    open: openArgv(SLOTS.instrumentRoot, pins),
+    resume: resumeArgv(SLOTS.thread, pins),
+    childEnv: buildChildEnv(SLOTS.childEnvInputs),
+  };
+  return createHash('sha256').update(JSON.stringify(envelope)).digest('hex');
 }

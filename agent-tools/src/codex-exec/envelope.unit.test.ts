@@ -4,10 +4,12 @@ import {
   buildChildEnv,
   buildOpenArgv,
   buildResumeArgv,
+  envelopeDigest,
   parseThreadId,
   type ThreadId,
 } from './envelope.js';
-import { parseModelPins } from './model-pins.js';
+import { parseModelPins, type ModelPins } from './model-pins.js';
+import { parsePassRecord } from './pass-record.js';
 
 const V7_ID = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
 
@@ -185,4 +187,36 @@ describe('the dialogue call envelope (designed sentinel)', () => {
       CODEX_HOME: '/codex-home-slot',
     });
   });
+});
+
+describe('envelopeDigest', () => {
+  const pinned: ModelPins = { model: 'gpt-6-sol', effort: 'xhigh' };
+
+  it('gives the same envelope the same digest every time', () => {
+    expect(envelopeDigest(pinned)).toBe(envelopeDigest({ ...pinned }));
+  });
+
+  it('gives a digest the pass record accepts', () => {
+    const passRecord = {
+      cliVersion: '0.156.1',
+      executablePath: '/opt/codex/bin/codex',
+      envelopeDigest: envelopeDigest(pinned),
+      passedAt: '2026-09-24T11:00:00Z',
+      evidence: ['rule 9: the nonce, no WRITE-OK'],
+    };
+    expect(parsePassRecord(passRecord).ok).toBe(true);
+  });
+
+  it.each([
+    ['another model', { ...pinned, model: 'gpt-6-terra' }],
+    ['another effort', { ...pinned, effort: 'high' }],
+    ['no model pin', { effort: pinned.effort }],
+    ['no effort pin', { model: pinned.model }],
+    ['no pins at all', {}],
+  ] satisfies readonly (readonly [string, ModelPins])[])(
+    'gives an envelope with %s a different digest, so a pass on one model is no pass on another',
+    (_label, other) => {
+      expect(envelopeDigest(other)).not.toBe(envelopeDigest(pinned));
+    },
+  );
 });
