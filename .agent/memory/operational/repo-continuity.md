@@ -435,6 +435,29 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **21:4xZ to 22:0xZ:** PR 227 merged 185c15d2b at 21:46Z (batch six's first landing, row
+  J15; receipt to Siren; claim closed; worktree and branch gone); the slot yielded to Swallow's
+  PR 233. Check-in 22 answered and the Director's order absorbed: 233, 242, 241, 226, B0, then
+  this seat's list (229, 231, 232, 234, 235, 236, 238, 218, 220, 221, 240, 217, 237, 216, 243),
+  twenty-odd serial turns at about twenty minutes each under the up-to-date ruleset; the
+  curator-passes retirement PR stays in tonight's order after batch six, amended by the
+  recommendations suite (cure the generator in the same PR: the skill's line that sends
+  substance to the directory and the README's contract; re-home the carry-forward items from
+  the eight files that carry them first; no PDR-081 status-line edit, its Amendment Log of
+  2026-06-14 already records the supersession; same bytes to the second estate where the skill
+  exists there); a read-only verification of every carry-forward item is delegated. The
+  second estate merged its PR 208 (57592003) on the bot-identity core at 4fd5b7f5, then routed
+  two final-tip findings as joint cures; both applied here before PR 216's commit (the review
+  row defined by the review-submission operation, REST or GraphQL; the identify-as-agent Why
+  section says which credential hides the actor), so PR 216 is pushed and ready at 166bdb9b2
+  with bot-identity 493fa7c2 and identify-as-agent 69bcb9f1 (Action 444a8141, Why 5e911174)
+  for the second estate to take by bytes. PR 243 opened (the e2e task's nine root inputs).
+  Round-two cures pushed and resolved: PR 240 (c312a6930), PR 221 (f4441ba00, the first pass
+  writes the heartbeat, the second estate's wording), PR 229 (cabf4fcb9, the quick-start names
+  what a receiver copies). Settled with both legs and zero threads: 242, 226, 231, 232, 234,
+  235, 236, 238, 218, 220, 240, 243, 217 (237 after 217). The operator profile's OCE scope
+  file took the owner's author value (inferred, for ratification) and was committed and pushed
+  by the sync tool at 149a5e5 on Siren's request, so her scope write follows.
 - **21:1xZ to 21:4xZ:** the owner's words of 21:41Z (relayed 21:43Z): zero open PRs on both
   repositories tonight through the proper quality and merge processes; the Codex seat restarts
   in the morning (PR 211's push and PR 241's live proof wait for it, nothing else); push and
