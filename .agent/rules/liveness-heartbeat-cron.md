@@ -542,9 +542,10 @@ not a retirement signal:
   `silence-is-never-liveness`: the stand-down is announced before it
   begins, which is what makes it not silence. The seat states the estate
   names, for the record: active; standby (no claim, watcher only); paused
-  at owner word (claim held, monitors down); retiring mid-cycle on a
-  measured budget signal (PDR-063); dissolved into a peer by owner-directed
-  succession (PDR-063 §Deliberate succession); closed.
+  at owner word (claim held, monitors down; the compaction drill is one);
+  handing off mid-cycle at the owner's call (PDR-063); dissolved into a
+  peer by owner-directed succession (PDR-063 §Deliberate succession);
+  closed.
 
 ## Worked Instance
 

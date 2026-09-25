@@ -48,9 +48,9 @@ Every session closes with wrap, ordinary or deep (owner ruling 2026-07-28)
 
 For a mid-session capture WITHOUT closing, summon
 [`knowledge-safety-sweep`](../knowledge/knowledge-safety-sweep/SKILL-CANONICAL.md)
-directly instead — the seat stays live there; wrap is for ends. A
-mid-cycle retirement under budget pressure additionally follows PDR-063's
-five-step protocol; wrap supplies the depth of the record it freezes.
+directly instead — the seat stays live there; wrap is for ends. An
+owner-called mid-cycle handoff additionally follows PDR-063's five-step
+protocol; wrap supplies the depth of the record it freezes.
 
 A freeze order binds until the owner discharges it. After "prepare for
 compaction and stop all processes", the owner's follow-on questions reopen

@@ -141,13 +141,14 @@ Before substantive work:
    its source before that entry moves. Worked instance (2026-09-20): two records of 3,794 and
    4,612 lines read whole into one context cost about 160,000 tokens; the same reading by
    pieces costs the seat the analyses alone.
-   A context's budget for the job runs to the compaction-preparation threshold, never to a wrap
-   the seat chooses early: a seat cannot trigger its own compaction, so a wrap followed by
+   A context's budget for the job runs to the compaction itself, never to a wrap the seat
+   chooses early: a seat cannot trigger its own compaction, so a wrap followed by
    "holding for the compaction" only stops the job (owner, 2026-09-20: "wrapping and pushing is
    no use whatsoever if you can't trigger your own compaction, which you can't, all you are
    achieving is stopping"). Past the meter's peak the seat keeps working in bounded pieces (one
-   record, one commit) and wraps once, at the threshold; an owner's freeze order governs only
-   the compaction it names.
+   record, one commit) with its records current, and runs the compaction drill when the owner
+   calls a compaction (PDR-063 §Context readings never stop a seat); an owner's freeze order
+   governs only the compaction it names.
    A price is set against the figure of the context that will pay it, so a plan carried
    across a compaction is priced again at resume before it is repeated to the owner. The
    30 % gate prices directive edits only; a memory file needs headroom to be read whole,
