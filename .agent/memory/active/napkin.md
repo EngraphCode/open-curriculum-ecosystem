@@ -166,3 +166,23 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   unused-export check failed the pre-commit gate. A type that only shapes a module's own
   signatures stays module-local, and the exported union that includes it still type-checks and
   builds declarations.
+
+## 2026-09-25 ~20:40Z — sync authorship, review re-requests and the Codex rule matcher (Swallow holds Drift, 516619)
+
+- **A sync merge takes the owner as author through the environment.** `git merge` has no
+  `--author`, and the harness refuses `--amend`, so PR 222's sync went in authored by the bot.
+  PR 228's sync used `GIT_AUTHOR_NAME` and `GIT_AUTHOR_EMAIL` on the merge command. That set the
+  author to the owner and left the committer as the bot, which matches the commit convention.
+- **The REST reviewer endpoint refuses Copilot.** `POST pulls/N/requested_reviewers` with
+  `copilot-pull-request-reviewer` answers 422 ("not a collaborator"). `gh pr edit N
+  --add-reviewer copilot-pull-request-reviewer` re-requests it, including on a PR that Copilot
+  has already reviewed.
+- **A Codex allow rule matched any path to a binary of that name.** At runtime, Codex resolves
+  host executables and falls back to the basename, so `./git` or a planted `pnpm` matched the
+  allow rules. `codex execpolicy check` without `--resolve-host-executables` never showed it.
+  `host_executable(name = …, paths = [])` confines a rule to the bare name. Run the transcript
+  with the flag Codex uses at runtime, and keep a control run against the unpinned file.
+- **A review that lands during a usage-limit pause is lost, not queued.** Three post-execution
+  reviews of PR 239 died with the session limit and had to be relaunched after the reset. The
+  heartbeat lapsed for 33 minutes in the same window. After any pause, the first moves are the
+  heartbeat, the watchers, and a check of which background agents actually finished.

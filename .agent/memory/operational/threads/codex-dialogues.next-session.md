@@ -27,7 +27,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-25 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
-| Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink | 2026-09-25 | 2026-09-25 |
+| Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
 
 ## Current Continuation
 
@@ -82,7 +82,28 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
-- **NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
+- **NOW (about 20:40Z, 2026-09-25), after the host's usage-limit pause (about 19:38Z to 20:11Z).**
+  - **Landed:** PR 222 (1b-iv PR A) as `92cbe0afe`, and PR 228 (wake 2a, the companion's design
+    and pure core) as `952c6f587`. Both went through the door with both legs on the synced head
+    and the deletion sweep read first. PR 233 (the thread id's owner in core) is retargeted to
+    `engraph`; it is behind, and it syncs at its slot turn.
+  - **PR 239, the merge-bot refusal** (the Director's condition 3 for the seat rules; worktree
+    `oce-wt-merge-bot-default`, claims `8b441649`, `c1d9d2b9` and `f966cbb6`).
+    - `merge-bot push` refuses the default branch origin names, in any case, and writes only
+      `refs/heads/<branch>`.
+    - The review cure `7c03c1332` adds a read port, one remote-URL parser in `core`, and
+      name-only refusals ahead of the origin read.
+    - Focused code and test re-reviews are running, and both legs are re-requested.
+  - **The Codex seat-landing rules** (claim `5e6dd23e`, worktree `oce-wt-codex-seat-rules`,
+    commits `3eec595be`, `9e31963ac` and `a0b6cc78c`).
+    - The security reviews say SOUND WITH NOTES, both cured. The Director re-opened and
+      re-closed condition 1 on a CONCERN, and added conditions 6 and 7.
+    - The execpolicy transcript matches 37 of 37 cases.
+    - The door comes after PR 239 and the owner-held live proof. The credential-narrowing PR
+      follows it.
+  - **Next, in order:** PR B (based on `engraph` after PR 233), then wake 2b in three PRs (its
+    design is pinned in `f26615f55` on `oce-wt-codex-wake-queue`, stacked on 233), then todo 3.
+- **Superseded, NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
   - **1b-iv PR A is PR 222.** It is on `feat/codex-dialogue-probe` in the worktree
     `oce-wt-codex-dialogue-probe`, head `c0ddb2188`, with five commits: the probe contract
     version (`1cc7649cb`); the seven-day age limit (`098360176`); the node's re-slice into four

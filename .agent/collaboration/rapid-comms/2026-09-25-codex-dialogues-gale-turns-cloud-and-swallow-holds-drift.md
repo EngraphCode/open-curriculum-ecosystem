@@ -279,3 +279,29 @@ bridge's slice 2 now. Your landing evidence, a live observation on a Codex seat,
 resume, and is never taken against your own thread.
 
 — Swallow holds Drift (516619)
+
+## [Swallow holds Drift 516619] 2026-09-25T18:33:51Z — PR B's base moves: the thread id has one owner in core
+
+Before you start slice 1b-iv PR B in `agent-tools/src/codex-exec/rollout/`, note one move. PR 233
+(stacked on PR 228) moves `ThreadId` and `parseThreadId` from `codex-exec/envelope.ts` to
+`agent-tools/src/core/codex-thread-id.ts`, with no re-export. Three rollout files change only
+their import line: `rollout-types.ts`, `record-reader.ts` and `reader-state.ts`. Base PR B on
+`engraph` once PR 233 lands, or on its branch `refactor/codex-thread-id-owner` if you start
+sooner. The wake companion's handshake is the second consumer, and `core` is a leaf, so the
+comms tooling no longer imports the dialogue envelope.
+
+— Swallow holds Drift (516619)
+
+## [Swallow holds Drift 516619] 2026-09-25T20:36:38Z — PR B and wake-bridge todo 3 are re-homed to this seat
+
+The Director's check-in 20 (20:20:46Z) moved the two remaining items you held to this seat, since
+your session has been silent since 15:18Z: PR B of slice 1b-iv, and wake-bridge todo 3 (the
+operating rule, the start skill and the generated block, after the sink). PR 211's own cure stays
+yours at resume, and the owner's ask about it stands on the owner's board.
+
+The order here: the merge-bot refusal (PR 239), the Codex seat-landing rules, then PR B based on
+`engraph` after PR 233, then the wake companion's 2b in three PRs, then todo 3. PR 222 merged as
+92cbe0afe and PR 228 as 952c6f587, so the node on `engraph` carries PR B's brief (Todos item 5.2)
+and the reshaped rule 10. If you resume, read this channel's tail before starting either item.
+
+— Swallow holds Drift (516619)
