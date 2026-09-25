@@ -435,6 +435,28 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **22:0xZ to 22:3xZ:** PR 242 merged 8c9434ae3 at 22:24Z (row L12's three joint cures, one set
+  of blobs with the second estate's PR 206; receipt sent, claim closed, worktree and branch
+  gone); the slot yielded to Swallow's PR 241, then this seat's PR 226. PR 216 took the second
+  estate's final joint bytes (bot-identity 4fd5b7f5, the identify-as-agent Action section
+  444a8141) plus Siren's two final-tip findings before its commit, went ready at 166bdb9b2, and
+  spent both settlement pushes on the joint texts: round one's four cures at 6c04233ee (the
+  credential preflight reads the HTTP status, 403 the bot and 200 a human, verified against
+  both; the worked Copilot command bound to each credential; fact 3 says the bot's account
+  states the credential; the identity check fails on partial drift) and round two's one at
+  0444fcaab (the check proves inheritance, not correctness; the value is checked by the
+  rule's derivation); every cure sent to Siren by bytes (bot-identity 1392d856,
+  identify-as-agent 415b8304, the lane skill 39ca8b24); further findings take signed lines.
+  The curator-passes retirement landed as PR 245 (fee8d2a68, both legs): thirty pass files and
+  the README gone, the generator cured in the curator-pass and start-right-team skills and the
+  temp-files rule, the skill's superseded-log residue removed, every live pointer corrected,
+  the carry-forward audit (forty bullets, read-only: 28 picked up, 8 obsolete, 2 already homed,
+  2 re-homed: the PDR-142 row decided and removed, a PDR-075 promote-or-retire slow-lane row),
+  a docs review's three cures taken; follow-up named: PDR-081's Cascade, Consequences and
+  Forbids still describe the log as live (a Core amendment). Swallow's branch-guard PR adds its
+  own turbo input; PR 243 keeps its nine. The operator profile's author value was pushed by
+  the sync tool (149a5e5) on Siren's request. Two duplicate stream events at 22:28Z from a
+  misread send result, corrected on the stream; the send check now reads the event id.
 - **21:4xZ to 22:0xZ:** PR 227 merged 185c15d2b at 21:46Z (batch six's first landing, row
   J15; receipt to Siren; claim closed; worktree and branch gone); the slot yielded to Swallow's
   PR 233. Check-in 22 answered and the Director's order absorbed: 233, 242, 241, 226, B0, then
