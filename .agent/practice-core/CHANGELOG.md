@@ -17,7 +17,7 @@ Practice Core package.
   standing move at estate scale, a relayed frame held as a relayed ruling,
   a cold reader from outside the seats' model family) add concepts to the
   record and wait for the owner's word. The second estate carries the same
-  blob (its PR 198), so the record stays one blob in both estates.
+  blob, so the record stays one blob in both estates.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009's Forbidden bullet names an adapter's own content plainly
 
