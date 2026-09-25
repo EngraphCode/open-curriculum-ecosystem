@@ -22,7 +22,8 @@ describe('fsFailureOf', () => {
     expect(fsFailureOf(thrown)).toEqual({ code: 'ELOOP' });
   });
 
-  it('withholds a code that is not an errno identifier, so no path can ride in on it', () => {
+  it('withholds a code that is not shaped as an error code, so no path can ride in on it', () => {
+    // Which codes are shaped as error codes is proven at `errorCodeOf`.
     const thrown = errnoError('write failed', "EACCES '/srv/estate/logs/x.jsonl'");
     expect(fsFailureOf(thrown)).toEqual({ code: 'UNKNOWN' });
   });
