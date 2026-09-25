@@ -115,8 +115,7 @@ report. This job is higher priority than the daily branch fold."
 rows written by this pass and held by PDR-052, plus the comms-table unit and the PDR-142 rows;
 the six PDR-130 slow-lane rows are not due before 2026-10-01 and are not in that six); distilled
 0; open questions 0; napkin rotated (the 2026-09-20 to 2026-09-25 window, 1,578 lines, archived
-byte-identical as `archive/napkin-2026-09-25.md`). The pass record is
-`curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolidation.md`; the decision tables
+byte-identical as `archive/napkin-2026-09-25.md`). The pass's record is the commits that homed its substance; the decision tables
 and analyses are at `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/` (tracked); the analyst outputs and briefs are in the ignored instance tier
 `.agent/state/collaboration/comms-analysis-2026-09-25/`.
 
