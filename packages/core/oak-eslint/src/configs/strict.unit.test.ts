@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { Linter } from '@typescript-eslint/utils/ts-eslint';
 import type { TSESLint } from '@typescript-eslint/utils';
 import { strict } from './strict.js';
+import { testRules } from '../shared.js';
 
 /**
  * Behavioural tests for the strict config exported by
@@ -18,8 +19,9 @@ import { strict } from './strict.js';
  * Per `principles.md` §Code Quality (no skipped tests) and §Testing —
  * skipping mechanisms (`it.skip`, `describe.skip`, `it.only`,
  * `describe.only`, `it.todo`, `xit`, `xdescribe`) are forbidden outright.
- * The vitest plugin rules `vitest/no-disabled-tests` and
- * `vitest/no-focused-tests` enforce this at the lint surface.
+ * The vitest plugin rules `vitest/no-disabled-tests`,
+ * `vitest/no-focused-tests` and `vitest/warn-todo` enforce this at the
+ * lint surface.
  *
  * Worked example: a regression on this surface would silently allow a
  * future commit to reintroduce `it.skip(...)` six months after the binary
@@ -103,7 +105,7 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
     expect(ruleIds).toContain('vitest/no-disabled-tests');
   });
 
-  it('reports no-restricted-properties for it.todo(...)', () => {
+  it('reports vitest/warn-todo for it.todo(...)', () => {
     const code = [
       "import { describe, it } from 'vitest';",
       "describe('suite', () => {",
@@ -114,10 +116,10 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
 
     const { ruleIds } = lint(code, 'fixture.test.ts');
 
-    expect(ruleIds).toContain('no-restricted-properties');
+    expect(ruleIds).toContain('vitest/warn-todo');
   });
 
-  it('reports no-restricted-properties for test.todo(...)', () => {
+  it('reports vitest/warn-todo for test.todo(...)', () => {
     const code = [
       "import { describe, test } from 'vitest';",
       "describe('suite', () => {",
@@ -128,10 +130,10 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
 
     const { ruleIds } = lint(code, 'fixture.test.ts');
 
-    expect(ruleIds).toContain('no-restricted-properties');
+    expect(ruleIds).toContain('vitest/warn-todo');
   });
 
-  it('reports no-restricted-properties for describe.todo(...)', () => {
+  it('reports vitest/warn-todo for describe.todo(...)', () => {
     const code = [
       "import { describe } from 'vitest';",
       "describe.todo('suite to write');",
@@ -140,7 +142,43 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
 
     const { ruleIds } = lint(code, 'fixture.test.ts');
 
-    expect(ruleIds).toContain('no-restricted-properties');
+    expect(ruleIds).toContain('vitest/warn-todo');
+  });
+
+  it('still reports vitest/warn-todo when a workspace layers testRules on test files', () => {
+    const code = [
+      "import { describe, it } from 'vitest';",
+      "describe('suite', () => {",
+      "  it.todo('case to write');",
+      '});',
+      'export {};',
+    ].join('\n');
+    const config: TSESLint.FlatConfig.ConfigArray = [
+      ...strict,
+      { files: ['**/*.test.ts'], rules: testRules },
+      TYPED_RULES_OVERRIDE,
+    ];
+
+    const ruleIds = linter
+      .verify(code, config, { filename: 'fixture.test.ts' })
+      .map((message) => message.ruleId)
+      .filter((value): value is string => value !== null && value !== undefined);
+
+    expect(ruleIds).toContain('vitest/warn-todo');
+  });
+
+  it('does not report vitest/warn-todo for it.each(...)', () => {
+    const code = [
+      "import { describe, it } from 'vitest';",
+      "describe('suite', () => {",
+      "  it.each([[1]])('case', () => {});",
+      '});',
+      'export {};',
+    ].join('\n');
+
+    const { ruleIds } = lint(code, 'fixture.test.ts');
+
+    expect(ruleIds).not.toContain('vitest/warn-todo');
   });
 
   it('reports vitest/no-focused-tests for it.only(...)', () => {
