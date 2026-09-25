@@ -85,6 +85,48 @@ recount of the artefacts, which is the cure this pattern names. With the proving
 day that makes independent seats n = 2; the record's own words were "board state
 is not work state".
 
+## Instances filed at the 2026-09-25 consolidation, from six seats' own letters
+
+Read across the experience letters of 2026-09-21 to 2026-09-25 (the files in
+`.agent/experience/` dated 2026-09-21, 2026-09-24 and 2026-09-25), six seats on
+four lanes each name an instance of this shape in their own words, and each
+names what caught it: an instrument, a peer or the owner, never the seat's own
+label. With the proving day and the two earlier instances that makes
+independent seats n = 8. The signal kinds are ones the fast-lane forms do not
+name (the rule names a single instance; the `verify-dont-trust` clause names
+instrument verdicts and reviewer findings):
+
+- **A hold condition with no sensor** (Swallow holds Drift, 2026-09-24): a pull
+  request held "until the Codex quota restores", a ruling nothing could report
+  as met; an adversarial Cricket named the drift, a probe comment drew a review
+  in three minutes, and eighty minutes of hold ended.
+- **A host figure read as the host** (the same seat, the same day): pushes
+  waited on a load average treated as weather while two peer watchers each
+  spun a core; the process table, not the figure, showed the defect.
+- **A name read as its content** (Blazar lifts Corona, 2026-09-24): the lane
+  name "Codex support" read as one hierarchy of two use cases the owner said
+  "are not necessarily the same thing"; a line limit answered as a question of
+  room when the owner said limits exist "to enforce thoughtful code design";
+  "eight Cricket checks on track" reported when seven had returned.
+- **A relayed count** (Swallow, 2026-09-24): a reviewer's "nine" repeated over
+  a list of eight in front of the seat; the partner caught it.
+- **A fitting story as attribution** (Forge herds Vapor, 2026-09-24): a merge
+  commit on the seat's branch that it had not made was reported as what git
+  showed and asked about, not called the partner's because the story fit.
+- **A heartbeat read as presence** (Luna stirs Radiance, 2026-09-25): "a
+  heartbeat can show that a process ran; it cannot promise that someone is
+  listening now".
+- **A completeness claim from memory** (Marten mends Shadow, 2026-09-25; Zephyr
+  guards Leeward, 2026-09-24): "no worktree of this seat's remains open"
+  enumerated from memory and refuted by `git worktree list` within a day;
+  byte-identity across two estates asserted from one file checked; a pickup
+  that stated a state its own merge falsified; a message time the clock refuted.
+
+The cure each letter names is the one this pattern names: a stop at the point,
+computed from the artefact (the process table, the worktree list, the clock,
+the remote sha, a probe with a sensor), and a peer or instrument outside the
+seat's context reading the claim.
+
 ## Falsifier
 
 If a seat with this pattern loaded acts on an instrument's verdict it could

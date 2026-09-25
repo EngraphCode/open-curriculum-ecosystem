@@ -6,7 +6,8 @@ import { join } from 'node:path';
 
 import { resolveTrustedGit } from '../src/core/trusted-git';
 import { realGitExecutor } from '../src/merge-bot/git-executor';
-import { pushHead, resolveGitContext } from '../src/merge-bot/push-git';
+import { gitReadsFrom, pushHead, resolveGitContext } from '../src/merge-bot/push-git';
+import { settleTargetBranch } from '../src/merge-bot/push-target-branch';
 
 import { trustedShellPath } from './trusted-shell-directories';
 
@@ -20,11 +21,13 @@ import { trustedShellPath } from './trusted-shell-directories';
  * Node pipe (F-112) — and the only way to know that is to put more than a
  * buffer's worth through it and watch.
  *
- * Two legs. The first drives twice the measured corpus through the executor
+ * Three legs. The first drives twice the measured corpus through the executor
  * itself; the second is the live fire (R8): a real repository, a real bare
  * remote, a real `pre-push` hook that out-talks every buffer, and the landed
  * ref read back off the remote afterwards. Seven static instruments passed a
- * push command that could not push; one execution found it in minutes.
+ * push command that could not push; one execution found it in minutes. The
+ * third asks the real git binary the questions the push settles its target
+ * with, in a repository where a tag shares the branch's name.
  *
  * Real IO makes this a smoke; `test:e2e` gates it.
  */
@@ -145,6 +148,10 @@ function makeRepoWithLoudHook(root: string): { work: string; remote: string } {
 async function landsARealPushThroughALoudHook(): Promise<void> {
   const outcome = await withTempDir(async (root) => {
     const { work, remote } = makeRepoWithLoudHook(root);
+    // A configuration that would carry an annotated tag along with any push:
+    // the push must still write exactly one ref, the branch.
+    execFileSync(GIT, ['config', 'push.followTags', 'true'], { cwd: work, env: hermeticEnv(root) });
+    execFileSync(GIT, ['tag', '-a', 'v1', '-m', 'v1'], { cwd: work, env: hermeticEnv(root) });
     const git = resolveGitContext({});
     assert.ok(git.ok, 'no trusted git binary to run the live fire against');
     let received = 0;
@@ -163,7 +170,12 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
       encoding: 'utf8',
       env: hermeticEnv(root),
     }).trim();
-    return { pushed, received, landed };
+    const remoteTags = execFileSync(GIT, ['tag', '--list'], {
+      cwd: remote,
+      encoding: 'utf8',
+      env: hermeticEnv(root),
+    }).trim();
+    return { pushed, received, landed, remoteTags };
   });
 
   assert.ok(outcome.pushed.ok, 'the push seam refused before reaching git');
@@ -174,14 +186,55 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
   );
   // The push LANDED — the state a buffer death silently failed to produce.
   assert.match(outcome.landed, /^[0-9a-f]{40}$/u, 'the ref never reached the remote');
+  assert.equal(outcome.remoteTags, '', 'a tag rode along with the branch push');
   assert.ok(
     outcome.received >= DRIVE_BYTES,
     `expected the hook's ${DRIVE_BYTES} bytes to reach the sink, saw ${outcome.received}`,
   );
 }
 
+/**
+ * Leg 3: the reads the push settles its target with, answered by real git. A
+ * tag named like the branch makes `rev-parse --abbrev-ref HEAD` print
+ * `heads/<name>`; the read must still name the branch whole, so the default
+ * branch origin names is refused and any other branch is not.
+ */
+async function settlesTheTargetFromRealGitAnswers(): Promise<void> {
+  const settled = await withTempDir(async (root) => {
+    const { work } = makeRepoWithLoudHook(root);
+    const env = hermeticEnv(root);
+    const git = (args: readonly string[]): void => {
+      execFileSync(GIT, [...args], { cwd: work, env, stdio: 'ignore' });
+    };
+    git(['tag', 'lane']);
+    git(['remote', 'add', 'origin', 'https://github.com/acme/widgets.git']);
+    git(['update-ref', 'refs/remotes/origin/lane', 'HEAD']);
+    git(['remote', 'set-head', 'origin', 'lane']);
+    const context = resolveGitContext({});
+    assert.ok(context.ok, 'no trusted git binary to read against');
+    const reads = gitReadsFrom(context.value, { cwd: work, env });
+    const repository = { owner: 'acme', repoName: 'widgets' };
+    return {
+      current: (await reads.currentBranch()).stdout.trim(),
+      onDefault: await settleTargetBranch(undefined, reads, repository),
+      onFeature: await settleTargetBranch('feat/example', reads, repository),
+    };
+  });
+
+  assert.equal(settled.current, 'lane', 'the current-branch read did not name the branch whole');
+  assert.ok(
+    settled.onDefault.ok && settled.onDefault.value.kind === 'refused',
+    'HEAD on the default branch origin names was not refused',
+  );
+  assert.deepEqual(settled.onFeature, {
+    ok: true,
+    value: { kind: 'target', branch: 'feat/example' },
+  });
+}
+
 await drivesTwiceTheMeasuredCorpus();
 await landsARealPushThroughALoudHook();
+await settlesTheTargetFromRealGitAnswers();
 process.stdout.write(
-  `merge-bot push output smoke: OK (streamed ≥ ${DRIVE_BYTES} bytes on both legs)\n`,
+  `merge-bot push output smoke: OK (streamed ≥ ${DRIVE_BYTES} bytes on both output legs; the target settled from real git)\n`,
 );

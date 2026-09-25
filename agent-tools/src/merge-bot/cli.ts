@@ -9,7 +9,8 @@ import { mintForConfig, type MintedToken } from './mint-for-config.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
 import type { GitExecutor } from './git-executor.js';
-import type { TokenFileStore } from './push-git.js';
+import type { PushGitReads, TokenFileStore } from './push-git.js';
+import type { RefFormatOracle } from './ref-format.js';
 import type { GitRunner } from '../collaboration-state/coordination-home.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
@@ -79,6 +80,10 @@ export interface MergeBotCliInput {
   readonly gitPath?: string;
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
   readonly tokenFiles?: TokenFileStore;
+  /** Push seam: git's answers about HEAD and origin. */
+  readonly gitReads?: PushGitReads;
+  /** Push seam: branch-name legality for --branch. */
+  readonly refFormatOracle?: RefFormatOracle;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -141,6 +146,8 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     gitPath: input.gitPath,
     baseEnv: input.baseEnv,
     tokenFiles: input.tokenFiles,
+    gitReads: input.gitReads,
+    refFormatOracle: input.refFormatOracle,
   };
 }
 
