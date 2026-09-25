@@ -24,7 +24,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | --- | --- | --- | --- | --- | --- | --- |
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
-| Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`) | 2026-09-24 | 2026-09-24 |
+| Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-25 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
 | Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink | 2026-09-25 | 2026-09-25 |
@@ -63,7 +63,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   joint-cure row (`c17c34d7`), accepted by Siren (JC.net drafts it) and by Myrtle turns Canopy,
   this estate's exchange seat from 14:53Z (it takes the bytes after the twin lands). The fold
   (PR 187) was pushed at `bdb4b49c6`, and it carries this seat's four records commits.
-- **The wake bridge's slice 2 GATE FIRED (15:57Z), owner's word pending.** code-expert's
+- **The wake bridge's slice 2 gate fired (15:57Z), and the owner RELEASED it at about 17:2xZ**
+  (verbatim "1. Approve", relayed by the Director as `281b584b`). code-expert's
   pre-execution review and a read of codex-cli 0.157.0 source found three things:
   - Codex deliberately denies every sandbox below full-disk write any file or Unix-socket access
     to the app-server daemon's socket directory (`/tmp/codex-daemon-<uid>`):
@@ -81,14 +82,28 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
-- **NOW: dialogues slice 1b-iv, the probe** (the Director accepted this at 15:58:54Z, under claim
-  `372ac08b`). The worktree `oce-wt-codex-dialogue-probe` is on `feat/codex-dialogue-probe` from
-  engraph `0a816621e`. The pre-execution code-expert review is running on the design in this
-  session's scratch. The sink's review resumes at 1b-iv's next boundary, once the owner's word
-  arrives.
+- **NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
+  - **1b-iv PR A is PR 222.** It is on `feat/codex-dialogue-probe` in the worktree
+    `oce-wt-codex-dialogue-probe`, head `c0ddb2188`, with five commits: the probe contract
+    version (`1cc7649cb`); the seven-day age limit (`098360176`); the node's re-slice into four
+    PRs (`635eacff5`); and the cures of four focused reviews, code (`aba24a08e`) then the node
+    with research note §2.10 (`c0ddb2188`). Copilot and Codex are clean on the final head, and
+    settlement push 1 of 2 is spent. The Director confirmed this seat's rule 10 tightening: a
+    disabled name missing from `features list`, or listed `removed`, fails the probe. PR 222
+    queues for the slot after PR 219, Myrtle's drafts and PR 211. Run the deletion sweep BEFORE
+    the door.
+  - **PR B is Gale's** (the reader's closed reasons, `turn_context.network`, a reused
+    `call_id`). C follows B, and D follows A and C.
+  - **The wake bridge's slice 2**, claim `278e98ea`, worktree `oce-wt-codex-wake-sink` on
+    `feat/codex-wake-sink` from engraph `7497696fe`. Its node edit is uncommitted there:
+    mechanism 1 to 8 rewritten to the companion, the acceptance criteria, todo 2 released, and
+    the 2026-09-25 dispositions. Pre-execution code-expert and security-expert reviews are
+    running. It edits none of the watcher files under Myrtle's claim `dc3bcace`.
 - **Gale turns Cloud (01a0d9)** holds `be006748` at an approval hold (15:18Z): the PR 211
   metadata cure `00a23728b` (this seat's read: sound) waits on the owner's explicit approval in
-  Gale's session, because Codex's automatic approval reviewer refused the push. Record:
+  Gale's session, because Codex's automatic approval reviewer refused the push. The owner's
+  approval was relayed by the Director (`281b584b`) and mirrored into the pairing channel
+  (`6761dced7`); it reaches Gale at resume. Record:
   `.agent/state/collaboration/handoffs/be006748-gale-approval-hold-2026-09-25.md`.
 - **OVERRULED BY THE OWNER at about 13:00Z, 2026-09-25**, verbatim: "ALL seats need to STOP
   stopping mid session because of some ambiguous and made up "rules" about context. ALL you

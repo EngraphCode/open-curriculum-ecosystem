@@ -150,3 +150,19 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   the mechanism moved into the estate's own rule (J14). A donor citation to a section this
   estate holds under another heading was left as the donor's bytes and named as a cure for the
   intake's local list, not edited at receipt.
+
+## 2026-09-25 ~17:35Z — two gate refusals and one wait-loop lapse on 1b-iv's PR A (Swallow holds Drift, 516619)
+
+- **A commit went in with three husky gates running, over the host bound of two.** It was
+  `ae0581e26`, on the coordination branch, reported to the Director at the time. Every commit and
+  push since then waits in a loop until
+  `ps -eo command | grep -cE '^sh -e \.husky/pre-(commit|push)'` reads below two. The bound is
+  only as good as the habit of checking it first.
+- **The commit-msg hook refused a body line that began "integer:".** commitlint parsed it as a
+  footer token, and the blank-line rule before footers failed. `pnpm exec commitlint --strict`
+  on the message file, before `git commit`, catches this without spending a gate run.
+- **Knip refused an exported type with no importer.** A narrower `AgeRefusal` union, exported
+  from `gate.ts` for the type review's finding, had no consumer outside its module. Knip's
+  unused-export check failed the pre-commit gate. A type that only shapes a module's own
+  signatures stays module-local, and the exported union that includes it still type-checks and
+  builds declarations.
