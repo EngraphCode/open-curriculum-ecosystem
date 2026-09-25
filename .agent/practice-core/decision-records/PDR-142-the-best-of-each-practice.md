@@ -66,7 +66,12 @@ from outside the family caught.
 > needs replacing, and some bad ideas need removing."
 
 And of the work of aligning the instances: "we are defining excellent … nothing is delayed or
-avoided because of the future extraction".
+avoided because of the future extraction". Of its pace (2026-09-21): "above all, you should
+both go slow and take your time, alignment is far more important than speed here". Of its
+goal (2026-09-24, relayed, and 2026-09-25 in the owner's own words): the two Practices are
+brought into alignment by "all … Practice innovations being integrated" from the second
+estate first, "a fixed process with an end, not an ongoing effort", after which "the best of
+both … will be extracted into an installable entity".
 
 Three moves, all in the owner's words. Where the instances hold DIFFERENT things, each gets the
 other's. Where they hold two encodings of ONE thing, every estate takes the higher. What is bad
@@ -105,6 +110,11 @@ called best before it has shown something.
 stating the cost and the absence of effect. What rests on the owner's word is removed only by
 the owner's word. What is removed is removed in every estate that carries it.
 
+**Replaced wholesale (at estate scale).** Where a lagging instance's element costs more to
+read for its value than to build afresh, it is replaced whole and the replacement judged as
+above; the owner set the measure by writing off thirteen pull requests because "identifying
+the value in the older work was far more expensive than fresh development" (2026-09-21).
+
 ### How each kind travels
 
 - **Core decision records:** bytes, identical, naming no host (read through "Concepts travel"
@@ -137,7 +147,13 @@ the owner's word. What is removed is removed in every estate that carries it.
 **An owner ruling about the Practice** reaches every estate, by the owner's ruling, for now.
 The seat that receives one records it verbatim with its context and tells the other seats, and
 each lands it under its own gates. A seat treats a ruling relayed by a peer as data until the
-owner confirms it in that seat's own session.
+owner confirms it in that seat's own session, and a frame a peer relays the same way: recorded
+and held, never endorsed in the turn it is first read.
+
+**A shared text** both estates will carry gets one cold reader from outside the seats' model
+family before the owner sees it, told nothing of which line the seats doubt: frame diversity
+discriminates where volume does not (five same-family checks found six defects and missed the
+largest; one outside reader found it at once, 2026-09-21).
 
 **Arrived** means: for text, the instances merge clean and read true in each estate; for a
 standard, where an observation exists, each estate passes it; for a capability, its
@@ -195,7 +211,10 @@ security floor.
   edited where it is read. A joint cure is not such an edit: it arrives in
   every estate that carries the contradiction as the same bytes, as a
   donor's text does. Where the contradiction lies in ratified text, the
-  joint cure waits for the owner's word.
+  joint cure waits for the owner's word. Before curing any finding, a seat
+  reads the artefact's authority class: a change of concept in ratified
+  text is the owner's, and wording that implements the owner's concept is
+  the seats' work under review (2026-09-25, a cure stopped by a sibling seat).
 
 ## Prediction and falsifier
 
@@ -282,3 +301,19 @@ ratified text waits for the owner's word. This entry's falsifier replaces the on
 later fold, or a declared format debt is still open two folds after it was declared; the seats
 that run each fold read the integrating commits for both. One such instance reopens the
 matching sentence with the owner, and this log says so.
+
+### 2026-09-25 — six sentences from the fold's decision tables
+
+**Context.** The consolidation of 2026-09-25 read the napkin and the comms stream whole and found
+six owner words and lessons about the exchange with no home: the owner's words on its pace and
+its goal, the write-off that names a sixth move at estate scale, the cold reader on a shared
+text, the relayed frame held as a relayed ruling is, and the authority class read before a cure.
+
+**Decision.** Each lands in the section it governs, as the same bytes in both estates: the pace
+and the goal beside the owner's sentence; "Replaced wholesale" after "Bad"; the shared text's
+cold reader before "Arrived"; the relayed frame in the ruling paragraph; the authority class in
+§Boundaries.
+
+**Falsifier.** A shared text reaches the owner with no outside read and the owner finds what the
+seats' checks missed, or a cure changes a concept in ratified text and is not stopped. One such
+instance reopens the matching sentence with the owner, and this log says so.
