@@ -7,6 +7,7 @@ const record = {
   cliVersion: '0.156.1',
   executablePath: '/opt/codex/releases/0.156.1/bin/codex',
   envelopeDigest: 'a'.repeat(64),
+  probeContractVersion: 1,
   passedAt: '2026-09-24T11:00:00Z',
   evidence: ['rule 4: the nonce, no WRITE-OK', 'rule 9: the nonce, no WRITE-OK'],
 } as const;
@@ -45,6 +46,9 @@ describe('parsePassRecord', () => {
     ['a long digest', { envelopeDigest: 'a'.repeat(65) }],
     ['a digest behind a prefix', { envelopeDigest: `x${'a'.repeat(64)}` }],
     ['a non-hex digest', { envelopeDigest: 'g'.repeat(64) }],
+    ['a probe contract version of zero', { probeContractVersion: 0 }],
+    ['a fractional probe contract version', { probeContractVersion: 1.5 }],
+    ['a probe contract version written as text', { probeContractVersion: '1' }],
     ['a time that is not an ISO date-time', { passedAt: 'yesterday' }],
     ['no evidence', { evidence: [] }],
     ['evidence that is not text', { evidence: [7] }],
