@@ -435,6 +435,137 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **21:0xZ to 21:1xZ:** PR 225 merged 619ca82b8 at 21:07Z (the door on 6e1809f70; PDR-142 at
+  blob fe6ee7ad, one blob with the second estate's PR 205 at 4eee5d05); slot released, the
+  receipt sent to Siren, claim cee32199 closed, the worktree and remote branch removed. Swallow
+  took the slot for PR 239 at 21:08Z; this seat yields until the release. PR 218's cure (the
+  gate's own unit test, 15 cases; the start skill lists every seed) committed d02ae040c, synced
+  to 14c1f5fff and pushed; both Copilot threads answered and resolved, both legs re-requested.
+  PR 226's two accepted cures applied (the Cursor adapter's description says cold; the recipe
+  passes `--ignore-scripts`), commit and push queued. F-208 written in the frictions register
+  (the hub's Turbopack font-build failure: one instance, PR 225's run 36185664112 attempt 1;
+  the PR 216 run failed for another cause, a refused connection in the hub's tests); the
+  Director's correction of 21:12:59Z withdrew the cure PR under one-instance-is-an-observation
+  and F-208's status says so. Check-in 21 answered. Settled and waiting for the slot: PR 227
+  (both legs, zero threads, ten behind) and PR 242 (both legs on 6b7018e94, zero threads; the
+  second estate's twin PR 206 merged 086f39de on the same blobs). Open findings to triage: PR
+  229 (two, the persona components' consumption and the README copy sentence), 231 (one, the
+  body's Scope names two files and the diff touches three), 232 (two, the `unwrapOrThrow` row
+  documents an argument the function lacks), 235 (one, the e2e inputs claim against the codex
+  smoke's read of AGENTS.md), 237 (two, sequencing behind PR 217's doctrine change).
+- **20:5xZ:** PRs 232, 234 and 235 pushed and ready with both legs; PRs 236, 237, 238 and 240
+  synced by merge, pushes queued. PR 225 synced 6e1809f70, pushed, both legs re-requested, the
+  door armed behind its checks. The second estate's third L12 joint cure ("When a written
+  record", not "durable", in the rule body and the Cursor adapter's description) taken in PR 242;
+  its commit and push queued; the rule's blob becomes c5f90b1e.
+- **20:47Z:** PR 225's CI re-run passed (28 polls); the door then refused BEHIND-BASE (PR 228
+  merged after the 20:19Z sync). Synced by merge to 6e1809f70 (no conflict, the same four
+  removals), the push queued second in the gate queue, legs to re-request on that head, the door
+  after; a slot status broadcast at 20:48Z. Lesson: at the slot, sync last, right before the
+  door, and expect a re-sync whenever another seat's door settles in between.
+- **20:46Z:** PR 242 opened ready with both legs (the L12 joint cures, d8fcb69f5; the rule's blob
+  cffc37df sent to the second estate to take, the research blob 12f2aa43 matching theirs). PR 231
+  ready with both legs. PRs 232, 234 and 235 synced by merge, sweeps sized (9, 0, 0 removed
+  lines), pushes queued; ready and legs follow each push.
+- **20:4xZ:** PRs 226, 227 and 229 synced, pushed, marked ready with both legs. The second
+  estate's L12 intake (its PR 206) offered two joint cures, both taken in one lane
+  (`docs/exchange-l12-joint-cures`, worktree oce-wt-l12-cures, claim b0023ff8): the
+  statistical-rigour foundations' fifteen blanks escaped (blob 12f2aa43, byte-identical to theirs)
+  and the one-instance rule's Operationalises paragraph citing the patterns README's "Prevents a
+  recurring mistake" criterion (§Barrier to Entry) and PDR-100 through it, in place of crediting
+  PDR-100 with a sentence it does not carry; commit and push queued behind PR 231's push. PR
+  225's CI re-run: the build passed on the second run (the flake confirmed); the door runs on
+  completion.
+- **20:3xZ:** PR 228 (Swallow) merged 952c6f587 and released the slot; this seat took it for PR
+  225 at 20:33Z; the door refused CHECKS-RED: CI's build job failed in the hub demo
+  (`@oaknational/oak-curriculum-hub`, "Module not found: '@vercel/turbopack-next/internal/font/
+  google/font'"), the same failure PR 216's 15:5xZ run showed, on a docs-only head; engraph's own
+  CI is green, so it is a CI flake of the demo's Turbopack font resolution. The bot cannot re-run
+  workflows ("Resource not accessible by integration"); the re-run went under the session's own
+  credentials. An observation for the Director's board: two hub-build flakes in one day; a
+  re-run path the bot can use, or the demo build out of the PR-blocking set, is the cure. PR 218
+  pushed 53ec09ac5, marked ready, both legs requested. PRs 226 and 227 pre-synced to engraph by
+  merge, sweeps read, pushes queued. The second estate's PR 205 merged 4eee5d05 on blob fe6ee7ad.
+- **20:26Z:** PR 218's third gate refusal was knip (two names exported from the new gate module
+  but used only inside it); un-exported, the knip gate check run by hand, re-queued. The pre-commit
+  check list a code lane runs before queuing its commit, learned the hard way: prettier, the
+  workspace's own lint script, tsc, the touched suites, and `pnpm agent-tools:repo-check
+  knip-gate`. PR 225's last push c9d9b51f4 landed 20:25Z; legs re-requested once; the two
+  round-three threads answered and resolved; check-in 20 answered; the blob confirmed to the
+  second estate.
+- **20:2xZ:** PR 225 round four: Codex read the event id in the PDR as non-portable and the
+  changelog's second-estate PR number likewise; the second estate's seat confirmed PDR-079 §PDR
+  Portability Rule forbids event and session identifiers in a PDR body, and the Director ruled at
+  20:19:53Z (PDR-079 wins; the concept stays; the joint bytes "the owner's words as recorded by
+  the seat they were spoken to"). The branch synced by merge to engraph (eec6fa3c7; a CHANGELOG
+  conflict with PR 230's entry kept both entries), the second estate's exact five lines applied
+  (blob fe6ee7ad, verified byte-identical), the changelog's PR number dropped, committed
+  c9d9b51f4 as the last push under check-in 20's two-round word: dispositions only from here.
+  PR 218: two more gate refusals (an index-signature style in the new gate module; one statement
+  over in the CLI test's first block) cured, the workspace lint run as the gate runs it before
+  re-queuing (twenty-one files).
+- **20:1xZ:** PR 218's re-queued commit failed again on lint limits (the CLI resolver's
+  complexity, two files over 250 lines); the cure is the consolidation the code review named:
+  the identity CLI composes over `resolveCollaborationSeed` (one precedence list) and the gate's
+  helpers live in `collaboration-state/platform-gate.ts` with their own unit test; the Cursor
+  session-cache test names its platform. 1,118 tests pass across the identity, collaboration-state
+  and hook suites; twenty files; commit and push re-queued, the runner restarted. Lesson for the
+  queue: a commit entry is queued only after eslint and tsc on the touched files pass, never on
+  the test run alone.
+- **19:13Z to 20:11Z, a pause:** this seat held on a harness usage limit and resumed at 20:11Z; no
+  stream event arrived for it meanwhile. Landed before and during: PR 230 merged 6a0045eb7 at
+  19:13Z (the door settled unattended; the slot release was announced late at 20:12Z, saying so;
+  the PDR-009 integrated receipt sent; worktree and remote branch removed); PR 225's provenance
+  cure b8143c5df (blob ce8a40fa) pushed 19:15Z, the Codex thread answered with the ruled cure,
+  both legs re-requested at 20:12Z, the blob sent to the second estate for its PR 205; PR 240
+  opened (the ARC routing clause, f315fbdb7). PR 218's queued commit failed its gate at 19:19Z
+  because the flagless CLI tests predated the required flag; the queue emptied and the runner
+  exited. The three PR 218 reviews (code, test, security) agreed the CLI's open default was a
+  bypass: `--platform` is now required without `--seed`, the missing-seed error names gated
+  seeds, the hint reads every Claude label, PDR-027 carries the 2026-09-25 amendment, the two
+  CLI docs, three hook hints and six Practice instruction sites state the flag; 18 files, 315
+  tests passing, commit and push re-queued and the runner restarted. The heartbeat loop's claim
+  filter compared the agent_id object to a string, so claim heartbeats never went out until
+  20:1xZ (`.agent_id.id` is the field); fixed. Swallow took the slot for PR 228 at 20:13Z.
+- **19:1xZ:** PR 222 (Swallow) merged 92cbe0afe and released the slot; this seat took it for PR 230
+  (synced 49ab1645e by merge, sweep read, push queued; legs re-request and door follow). PR 225's
+  round three: Codex read "in the owner's own words" as upgrading relayed provenance; the second
+  estate's seat concurred (its twin PR 205 at blob 4cde49d7 waits on the cure); the Director ruled
+  at 19:09Z: cite Geyser rides Pewter's event 777320b2 beside the quote, nothing pending
+  ratification. Cure applied in the worktree, commit and push queued behind PR 230's push; the
+  new blob id goes to the second estate on the push. PR 238 opened (the ESLint plugin lane,
+  961864d85; its pre-commit gate linted every workspace with the preset at error and passed).
+  The gate queue's reorders twice lost an entry (the runner reads line one before it waits and
+  drops line one after the run): a reorder must keep the running entry first and re-check every
+  label after; the ARC-clause commit was re-inserted.
+- **19:0xZ:** PR 225's round-two cure landed as 4ab1e332e (PDR-142 blob 4cde49d7, the
+  decision-records README blob ad7e2897); the three threads replied and resolved, both legs
+  re-requested, the joint-cure blob ids sent to the second estate's seat at 18:59Z. Drafts opened:
+  PR 236 (the watcher smoke ETIMEDOUT lane, 424089a35), PR 237 (the ADR follow-up, 4384ba801).
+  PR 218's platform gate built test-first in oce-wt-seed-source (claim 7c8dcb7d for the parser and
+  identity.ts beside claim 141892a7): `isClaudePlatform`, `resolveCollaborationSeed(env,
+  platform)`, the CLI's `--platform <label>` (every seed counts without it, as the help says);
+  ten new tests red then green, 63 passing in the two files; code-, test- and security-expert
+  reviews running; commit and push queued after the plugin and ARC-clause lanes. CI reads: PR
+  216 fails on the hub demo's build at its 15:5xZ base (engraph's CI is green since), PR 218's
+  windows-basic times out two collaboration-state integration tests unrelated to its change;
+  both re-run at their slot syncs.
+- **18:5xZ:** records commit f81be6b88 landed and the coordination branch pushed (the second
+  ceremony run, after the stale lock). PR 225's legs returned three threads: Codex and Copilot
+  both read the owner's goal words as still spliced (the "then we review" stage missing, the
+  opening paraphrased) and Copilot noted the Status line and the index row lack the 2026-09-25
+  amendment. Cure applied in the worktree: the sentence whole with the two estates as bracketed
+  roles (the record's convention at its 2026-09-24 quote), the Status line and the index row
+  carrying the amendment; commit and push queued ahead of the other lanes; on the push the
+  threads take their replies, the legs are re-requested and the second estate's seat receives
+  the new blob ids to take (a joint cure). The config-expert's review of the ESLint plugin lane:
+  mechanics sound; three documentation misstatements cured (the two vendor rules are on at
+  error through `vendorBoundaryRules` in strict; the rule's TSDoc; the IO rule's owner named as
+  the `no-io-test-boundary-and-di-recovery` plan), the sixteen override comments name the
+  `no-throw-remediation` plan, the count left the permanent comment, and that plan records the
+  owner's ruling; twenty files, queued. The ARC reference follow-up (one clause, worktree
+  oce-wt-c2-relationship, branch docs/exchange-c2-arc-relationship-clause) queued. Heartbeat
+  loop re-armed without `--body` (heartbeat-tagged events refuse a body).
 - **18:4xZ landings and rulings:** PR 215 merged db7517e1e at 18:43Z (Copilot's first finding cured
   in 4f3710140; its second-pass observation, that the ARC reference's §Relationship sentence routes
   ARC against a durable sidebar with no s2s condition, priced below bar for the PR and taken as a

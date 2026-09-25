@@ -4105,4 +4105,36 @@ commit SHA and the closing plan reference.
   argv), never substrings of heredoc bodies or quoted arguments; a heredoc body is content, not
   command.
 - **Route**: `agent-tools/src/hook-policy/` (the argv matcher, `argv-nested.ts`,
-  `shell-words.ts`). Two instances, two seats, one day.
+  `shell-words.ts`). Four instances, two seats, one day: the third and fourth at 21:1xZ,
+  two commands whose prose or queue text said "push" and which later carried a bare `-f`
+  on a process lookup (`pgrep -f`), each refused as a forced push (Myrtle turns Canopy,
+  `bf4957`). The matcher pairs the word with any later bare `-f` token in the command,
+  whatever its host; the substitution is a script file for the edit and no bare `-f`
+  after the word.
+
+### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
+
+- **Source**: check-in 21 (Director, 2026-09-25); PR 225's CI run `36185664112`.
+- **Surface**: the `CI` workflow's `build` job, step "Build (sdk-codegen + build)", running
+  `pnpm run build` in `demos/oak-curriculum-hub` (Next.js with Turbopack).
+- **Observed**: 2026-09-25 20:25Z, PR 225's push (head `6e1809f70`, a docs-only sync merge)
+  failed the `build` job with "Module not found: Can't resolve
+  '@vercel/turbopack-next/internal/font/google/font'"; `run-quality-gates` went red behind it.
+  The same run's attempt 2, re-run at 20:47Z under the operator's own `gh` auth, passed with no
+  change to the tree. The bot (`el-graphael[bot]`) cannot re-run a workflow: the re-run call
+  returns "Resource not accessible by integration", so a flaked run costs a seat the operator's
+  credentials or a no-op push. One instance today; a second run on the same step is the trigger
+  for a cure lane.
+- **Expected**: a build of an unchanged tree is deterministic; a docs-only push never reaches a
+  font-module resolution failure, and a seat can re-run a flaked job under the bot's identity.
+- **Candidate cure**: pin the hub demo's font loading so the Turbopack internal module is not
+  resolved at build (the `next/font/google` import path, or the demo's build flag), and give
+  the bot app the `actions: write` permission so `merge-bot` can re-run a failed job.
+- **Target surface**: `demos/oak-curriculum-hub` (its font import and build config); the
+  GitHub App's permissions; `agent-tools` merge-bot (a `rerun` verb once the permission exists).
+- **Status**: open, an observation (recorded 2026-09-25). One instance: under
+  `one-instance-is-an-observation` no cure lane opens on it (the Director's correction to
+  check-in 21 withdrew the cure PR). A second failure of the same step is the trigger that
+  reopens this entry as a defect and the cure as a small PR.
+- **Owner direction status**: session-scoped (the Director's assignment to record it; the
+  App permission is the owner's).
