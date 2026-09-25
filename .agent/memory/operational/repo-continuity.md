@@ -370,10 +370,10 @@ compaction.
       found no such mount in use. Its reviewed shape, if built: one probe in core shared with
       the conformance writer; the port's `fchmod` returns the mode read back; the probe mode is
       0o200, so a stranded probe never locks a persistent log; four docs list the refusal.
-    - **B2a, with an implementer:** the pure modules under
+    - **B2a, PR 207, merged as `96d49318b` (01:47Z):** the pure modules under
       `agent-tools/src/claude/pre-compact-observe/` (payload read, observation build with the
       byte count, environment snapshot, sibling selection, the two answers), with unit tests.
-      Worktree `oce-wt-b4-j18b2a`.
+      The build takes raw measurements and derives the rest. Its worktree is pruned.
     - **B2b:** the orchestration (injected stdin, lstat-based transcript reads, append, clock,
       UUID, env, cwd, argv) and the thin entry, run from built `dist`. The entry takes no
       `failureAsError`, and it tolerates EPIPE on stdout. It writes into its own subdirectory,
@@ -389,6 +389,24 @@ compaction.
       ADR-167 §Limitations 6.
     - Dropped: the directory hold, its port and fake, and `umask 077` in the wrapper, which moves
       to its own lane under ADR-167.
+    - **Progress at 03:00Z:**
+      - B2b, PR 208, merged as `2f2060ab2`. It brought `errorCodeOf` and `invokingUid` into
+        core. Its worktree is pruned.
+      - B2c is PR 209 (`7442a4990`, worktree `oce-wt-b4-j18b2c`), in CI. It passed two review
+        rounds (code, test, security, config, docs), and its smoke passes 4 of 4 with eleven
+        mutations caught. When it merges, J18 is landed in full: close claims 3a3a9280 and
+        44431f81.
+    - **Follow-ups the J18 reviews recorded, not yet claimed:**
+      - quote the two older wrapper entries in `.claude/settings.json`, the wrapper's usage
+        comment, and ADR-167's reference instance (a space in the project path makes the shell
+        exit 127, and the secrets scan silently stops);
+      - write the observed PreCompact contract into the surface matrix's §Hook Support after the
+        first real compaction, with the harness version;
+      - move `compareUtf16` from `typescript-estate/` to `core/` (17 importers; a mechanical PR);
+      - B1b, the mode read-back probe;
+      - one build instead of six in agent-tools' `test:e2e` chain;
+      - the wrapper follows a symlinked `hook-errors.log` with `touch` and `>>`;
+      - a test for the `process.stdin` hazard (a late-writing harness gives `EAGAIN`).
   - **J2, six validators on the shared read (not started):**
     - A path-free refusal redactor at the four sites that print an absolute path, plus
       `describeGitReadFailure` (PR 203's gateway review found git's stderr can carry one).

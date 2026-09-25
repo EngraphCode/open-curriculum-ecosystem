@@ -1126,6 +1126,12 @@ the ceremony sets git's author variables in the environment of the commit step.
   inventory `worktree-hygiene` asks for. The earlier prunes had shown only build output and
   regenerable assets, and the implementer reported its scratch deleted, so nothing is known
   lost. The move: the inventory runs in the same command as the removal, every time.
+- *A sync merge authored as the bot (2026-09-25 ~02:56Z).* `git merge -m` has no `--author`,
+  so the J18 B2c slot sync was recorded as `el-graphael[bot]`. The fail-safe did its job: the
+  bot author was visible before the push. It was re-recorded with an identical tree through
+  `git commit-tree` and `git update-ref`. The move: `git merge --no-commit origin/engraph`, then
+  `git commit --author=... -F <message>`, so every sync goes through the same author and
+  commitlint path as any other commit.
 - *Commitlint's footer-token trap, twice (~21:15Z, ~23:15Z).* A body line that opens with a word
   and a colon ("cleanly:", "sides:") reads as a footer, and `footer-leading-blank` fails the
   commit hook. `pnpm exec commitlint --edit <file>` before each commit catches it in the
