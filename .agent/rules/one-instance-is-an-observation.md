@@ -2,10 +2,13 @@
 
 Operationalises
 [PDR-130](../practice-core/decision-records/PDR-130-two-speed-learning.md)
-(every graduation carries its prediction and its falsifier) and
+(every graduation carries its prediction and its falsifier) and the
+patterns README's "Prevents a recurring mistake" criterion
+([§Barrier to Entry](../memory/active/patterns/README.md#barrier-to-entry):
+a single-instance lesson graduates when the decision lenses give a clear
+answer, never on a second instance, which the criterion grounds in
 [PDR-100](../practice-core/decision-records/PDR-100-decision-debt-as-a-first-class-pillar.md)
-(a single-instance lesson graduates on the decision lenses, never on a
-second instance — which is why a cure is not a distribution).
+— which is why a cure is not a distribution).
 
 When a durable record — a ledger row, a plan, a memory, a thread record, a
 pull request comment, a decision record — names a pattern, class, tendency,
