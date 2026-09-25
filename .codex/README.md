@@ -14,15 +14,16 @@ tracked Oak activation.
 
 ## Current activation
 
-| Capability      | Tracked activation                                | Current local posture                                                                                     |
-| --------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Instructions    | `AGENTS.md` → `.agent/directives/AGENT.md`        | Thin entry point; canonical policy stays in `.agent/`                                                     |
-| Skills          | `.agents/skills/oak-*/SKILL.md`                   | Native Codex skills selected with `/skills` or `$skill-name`                                              |
-| Subagents       | `[agents]` in `config.toml` → `agents/*.toml`     | Project roles may pin model and effort, then add policy and canonical instructions                        |
-| Hooks           | `[features].hooks` plus `[[hooks.SessionStart]]`  | Trusted-project identity context plus a team-alert pointer; canonical `PreToolUse` guard is not yet wired |
-| MCP             | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                                           |
-| Sandbox         | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence                                   |
-| Command network | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                                     |
+| Capability        | Tracked activation                                | Current local posture                                                                                     |
+| ----------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Instructions      | `AGENTS.md` → `.agent/directives/AGENT.md`        | Thin entry point; canonical policy stays in `.agent/`                                                     |
+| Skills            | `.agents/skills/oak-*/SKILL.md`                   | Native Codex skills selected with `/skills` or `$skill-name`                                              |
+| Subagents         | `[agents]` in `config.toml` → `agents/*.toml`     | Project roles may pin model and effort, then add policy and canonical instructions                        |
+| Hooks             | `[features].hooks` plus `[[hooks.SessionStart]]`  | Trusted-project identity context plus a team-alert pointer; canonical `PreToolUse` guard is not yet wired |
+| MCP               | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                                           |
+| Sandbox           | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence                                   |
+| Command network   | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                                     |
+| Exec-policy rules | `rules/seat-landing.rules`                        | Seats commit, push through the merge bot and open pull requests with no prompt, in a trusted project      |
 
 This is not the complete Codex CLI capability set. The
 [capability catalogue][catalogue] records the broader runtime and user-level
@@ -56,6 +57,59 @@ the project layer participates at all. See the official
 
 Project adapters may activate canonical behaviour. They must not become a
 second copy of its substance.
+
+## Seat landing without an owner prompt
+
+The owner's requirement (2026-09-25): "I absolutely need all seats to be able
+to push without me". Workspace-write keeps `.git` read-only inside every
+writable root, and in a linked worktree the git dir sits outside every
+writable root, so no git write succeeds inside the sandbox. Making `.git`
+writable would let sandboxed code plant hooks that later run outside it, so
+the config adds no writable root for it.
+
+Instead, `rules/seat-landing.rules` allows the landing commands outright:
+`pnpm agent-tools merge-bot push`, `git add`, `git commit`, `git fetch`,
+`git merge`, `git worktree add` and `gh pr create`. It forbids raw
+`git push`. An allowed command skips approval and runs outside the sandbox,
+the posture a Claude seat's shell already has; the Director ruled it parity
+on 2026-09-25. Everything else keeps the sandbox and the approval flow.
+
+Run each landing command as one plain command, or Codex does not match it:
+
+- use the tool's working directory, not `cd … &&`;
+- pass a commit message with `-F <file>`;
+- take `GH_TOKEN` from the environment, never as an inline prefix;
+- write no `$`, redirection, heredoc or subshell into the command.
+
+The rules cannot carry everything, so this doctrine stands beside them:
+
+- push only through the merge bot, which refuses force, `--no-verify`, unknown
+  flags and the default branch; never `git -C … push`;
+- never `git commit --no-verify`, and never amend a pushed commit: both match
+  the commit rule's prefix;
+- never commit a prohibited payload, such as a captured rollout.
+
+`approvals_reviewer` is each seat's own choice in its user config, and the
+repository sets none. The landing commands bypass it because they are allowed
+outright, which is why a seat using `auto_review` is not refused a push; the
+reviewer still sees every other escalation. Codex reads rules at session
+start, so restart a seat after the rules change.
+
+## Machine-local seat setup
+
+These stay in `$CODEX_HOME/config.toml` and never in the repository:
+
+- the trust entry, `[projects."<main checkout path>"] trust_level = "trusted"`;
+  one entry covers every linked worktree, and without it no project config,
+  hook or rule loads;
+- the SessionStart hook's trusted hash, set through `/hooks`;
+- `approvals_reviewer` and the launch mode: attended seats take the default;
+  an unattended seat launches with `-a never`, which the sandbox still bounds;
+- tokens, such as the merge bot's app key and `GH_TOKEN`.
+
+Codex appends each "always allow" approval to `$CODEX_HOME/rules/default.rules`.
+Check that file holds no `git push` allow. Never run `/import` in this
+repository: it rewrites the project config whole.
 
 ## Skills and custom workflows
 
