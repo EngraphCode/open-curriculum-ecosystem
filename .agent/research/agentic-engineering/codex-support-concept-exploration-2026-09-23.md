@@ -358,9 +358,10 @@ records or observed in the named run.
     `HOME`, `LOGNAME` and `_`.
   - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
-### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 12:26Z)
+### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 12:59Z)
 
-This is one local run of the TUI client in a `tmux` pseudo-terminal, with `--no-daemon`.
+The queue evidence below is one local run of the TUI client in a `tmux`
+pseudo-terminal, with `--no-daemon`.
 It does **not** establish behaviour with the managed app-server used by a live CLI seat. The
 installed `codex 0.157.0` matched the latest official release at the start of the run
 ([`rust-v0.157.0`](https://github.com/openai/codex/releases/tag/rust-v0.157.0)).
@@ -399,6 +400,43 @@ Observed boundaries, using UTC on 2026-09-25:
   read-only resume, a turn began 11:23:28.655 and completed 11:23:32.591 with
   `KILLED-QUEUE-OK-5`. The notice survived this killed-process gap and ran on resume.
   No continuous process trace was recorded; this one run is not a persistence guarantee.
+
+**Retained event projection.** Before the disposable rollout was deleted, this seat
+extracted every `task_started` and `task_complete` row for the thread above. The
+contemporaneous tool output survives in this seat's Codex session
+`01a0d829-572f-7572-9731-1552a220eb3f`; its redacted projection is retained here.
+Each row keeps the source UTC timestamp and task id. Completion text is reduced to its
+fixed reply marker; paths, prompt bodies, auth material and other event types are omitted.
+The raw rollout and its hash were not retained, so this projection cannot support a
+claim about any omitted field. The `codex queue` command outputs recorded acceptance
+for this same thread at about 11:18:31Z (`01a0d849-e1c1-7cb3-b6a4-e2d1b90880e9`),
+11:19:25Z (`01a0d84a-a2dd-7fa3-9767-624dca194ccb`), 11:20:48–49Z
+(`01a0d84b-eb4a-7db0-8042-18a7e62c74f0`) and 11:22:21Z
+(`01a0d84d-52ee-7d62-a588-765450666c2c`). The kill command returned 0 at
+11:21:55Z. The projection shows all task boundaries from launch through explicit
+resume, including the absence of a task between 11:21:12.458Z and 11:23:28.655Z.
+
+```text
+UTC timestamp                 event          task id                               reply marker
+2026-09-25T11:17:33.461Z      task_started   01a0d848-ee88-7c20-a610-cb82d706c475  —
+2026-09-25T11:17:49.380Z      task_complete  01a0d848-ee88-7c20-a610-cb82d706c475  READY-TUI-1
+2026-09-25T11:18:42.620Z      task_started   01a0d849-fca8-7c83-895a-5a92d9afc36a  —
+2026-09-25T11:18:44.464Z      task_complete  01a0d849-fca8-7c83-895a-5a92d9afc36a  WAKE-TUI-1
+2026-09-25T11:19:25.252Z      task_started   01a0d84a-a331-7ce0-8024-a33df66cb6cd  —
+2026-09-25T11:19:27.448Z      task_complete  01a0d84a-a331-7ce0-8024-a33df66cb6cd  TYPED-OK-2
+2026-09-25T11:19:27.459Z      task_started   01a0d84a-abdb-7822-96bc-241a72119574  —
+2026-09-25T11:19:29.470Z      task_complete  01a0d84a-abdb-7822-96bc-241a72119574  QUEUED-OK-2
+2026-09-25T11:20:04.005Z      task_started   01a0d84b-3a46-72c1-8f92-7ece077f22cf  —
+2026-09-25T11:20:18.509Z      task_complete  01a0d84b-3a46-72c1-8f92-7ece077f22cf  ACTIVE-START-3
+2026-09-25T11:20:18.513Z      task_started   01a0d84b-734f-7ac3-b322-803c0058b222  —
+2026-09-25T11:20:22.199Z      task_complete  01a0d84b-734f-7ac3-b322-803c0058b222  ACTIVE-QUEUE-OK-3
+2026-09-25T11:20:34.668Z      task_started   01a0d84b-b261-75a3-ae48-22538cf9592c  —
+2026-09-25T11:21:08.419Z      task_complete  01a0d84b-b261-75a3-ae48-22538cf9592c  ACTIVE-START-4
+2026-09-25T11:21:08.422Z      task_started   01a0d84c-3644-7073-b8ec-22dfbdf3f4fa  —
+2026-09-25T11:21:12.458Z      task_complete  01a0d84c-3644-7073-b8ec-22dfbdf3f4fa  ACTIVE-QUEUE-OK-4
+2026-09-25T11:23:28.655Z      task_started   01a0d84e-5a0d-7a83-9be1-244190eae296  —
+2026-09-25T11:23:32.591Z      task_complete  01a0d84e-5a0d-7a83-9be1-244190eae296  KILLED-QUEUE-OK-5
+```
 
 **Design inference, not a probe observation:** queue acceptance while the target was dead
 does not mean the target was woken. A watcher that marked events seen on queue success
@@ -463,17 +501,41 @@ pre-existing `codex` processes remained. The auth symlink was unlinked without t
 the owner's mode-0600 auth file. The remaining disposable home and logs stayed in that
 seat's scratch directory; no credential bytes were copied into this note.
 
-Taken together, the two startup observations are consistent with the `ps` denial being
-specific to Titan's Codex sandbox; Swallow's shell could start the daemon. They do
-**not** establish
-managed-daemon queue behaviour: the second TUI exited before a thread existed. A
-subsequent captured-output launch would be a separate run under its own bound.
+**Captured one-launch follow-up.** At the Director's 12:49:18Z route, Titan made one
+more isolated attempt, starting at 12:56:28Z. A fresh mode-0700 home linked to the
+owner's own `auth.json`; its checked config set read-only sandbox, approval `never`,
+plugins off and scratch trust. Its MCP list was `[]`. The launch in the empty scratch
+directory used `CODEX_HOME=<probe-home> script -q <capture-log> codex --no-alt-screen
+'<fixed READY-D2 prompt>'`, without command-line configuration overrides. This host
+launch was elevated so the daemon's startup `ps` call could run; the Codex session's
+sandbox and approval settings remained read-only and `never`.
 
-The ratified `codex-queue-wake-bridge.plan.md` todo 1 was updated in commit `f8816970e`
-on `coordination/2026-09-24-f66fd0` after the owner correction. It names the CLI TUI
-with its managed app-server and `codex exec`. The managed-daemon queue behaviour and a
-new `codex exec` queue probe were not observed in this addendum. The no-daemon TUI run
-therefore does not satisfy the updated acceptance criterion that the seat's own host wakes.
+The TUI output was captured (3,239 bytes; SHA-256
+`4492fcba82f8f7dd83c471177c34df7f9d0f5b0cd7d2f263282a2ce1572ae05b`). Its
+ANSI-stripped projection is: `OpenAI Codex (v0.157.0)`, `Installing daemon from CLI
+version 0.157.0 into <probe-home>/packages/app-server-daemon...`, then `Shutting down...`
+after Titan sent Ctrl-C at 12:59:01Z. It contained no exit error. During the run, a
+daemon PID file and two new app-server processes appeared, but no control socket,
+rollout or recorded thread id appeared at inspection. The TUI remained at the loading
+screen for about two minutes. No queue call was possible or made. Both daemon stderr
+files were empty. This is a startup stall in one captured run, not a queue result.
+
+Ctrl-C closed the TUI and capture process. SIGTERM ended one daemon process; the other
+required SIGKILL. The final process audit found none of the four probe processes and
+all six pre-existing `codex` processes. Titan unlinked only the auth symlink and
+verified the owner's auth file remained present, mode 0600. No auth bytes were copied
+into this note. The private capture was kept through transcription; the short excerpt
+and its hash are retained here.
+
+The first launch's `ps` denial did not recur in Swallow's shell or in Titan's elevated
+captured launch. Neither later launch reached a queue call, for different startup
+reasons, so managed-daemon queue behaviour remains unobserved.
+
+The ratified [wake-bridge plan at `f8816970e`](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/f8816970ecb9f04833b85d60095e1b9cee21d8a9/.agent/plans/delivery/codex-queue-wake-bridge.plan.md#L123-L125)
+is reachable on the coordination branch and states the corrected host-wake criterion.
+Its todo 1 names the CLI TUI with its managed app-server and `codex exec`. No managed-daemon
+queue behaviour or new `codex exec` queue probe was observed in this addendum. The
+no-daemon TUI run therefore does not satisfy the criterion that the seat's own host wakes.
 
 ## 3. The participation record
 
