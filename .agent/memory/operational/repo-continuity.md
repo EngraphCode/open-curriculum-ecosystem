@@ -763,7 +763,7 @@ contradiction both carry is a faithfully carried concept, false in both, which t
 bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
 2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
 owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
-and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. Owed, each from a word already given: the host-free adapter line's joint cure
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). Owed, each from a word already given: the host-free adapter line's joint cure
 (`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
 prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context
