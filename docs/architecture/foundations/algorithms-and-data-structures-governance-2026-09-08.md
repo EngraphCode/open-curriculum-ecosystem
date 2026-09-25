@@ -3,22 +3,30 @@ boundary: B2-Architecture
 doc_role: policy
 authority: own-built-foundations-development-policy
 status: active
-last_reviewed: 2026-09-09
+last_reviewed: 2026-09-25
 ---
 
 # Algorithms and data structures: governing development policy
 
-8 September 2026 · revision 1 · owner-established working policy
+25 September 2026 · revision 2 · owner-established working policy
 
 ## 1. Decision and intended value
 
-**We author and maintain our own algorithms and data structures, including graph and non-graph capabilities, as SMALL Reliable Atoms and meaningful layers of composition. We survey the best openly licensed examples and use what they teach us to design the atoms, algorithms, contracts, representations, structures and compositions.**
+**We author and maintain our own algorithms and data structures, including graph and non-graph capabilities, as Capability Foundations: small completed Primitives and meaningful Components and Subsystems. We survey the best openly licensed examples and use what they teach us to design the capabilities, algorithms, contracts, representations, structures and compositions.**
 
 The repository owner established this direction on 8 September 2026 and requested its documentation. It is the current implementation-origin policy. The precise mechanisms and decomposition remain design decisions governed by the requirements and evidence below. A future change of acquisition policy is an owner decision; elapsed time does not expire this one.
 
 The intended value is a coherent foundation whose behaviour can be understood, comprehensively assured, composed and changed within the estate. Research reuses accumulated engineering knowledge: established mechanisms, explanations, contract distinctions, counterexamples and experience. Our ability to evolve those foundations coherently is an architectural objective. Net effort savings are an empirical hypothesis to assess over delivered capabilities and subsequent changes.
 
 ## 2. Scope and authority
+
+The owner accepts substantial upfront definition, proof, implementation and assurance
+cost so complete supported capabilities can be finished and reused permanently.
+New functionality defines a new scope; defects reopen affected claims. The
+[adoption profile](capability-foundations-adoption.md) owns the concrete completion
+criteria and first-build contracts. Consumer count is not an admission,
+qualification, publication or retention criterion. Package decisions still account
+for cohesion, actual dependencies, platform and release responsibility.
 
 This policy governs algorithm and data-structure implementation within the foundations programme, from local mechanisms through reusable compositions. It includes graph construction, identity and incidence structures, graph operations and applicable query/numerical mechanisms; and non-graph collections, ordering, selection, indexing, checked arithmetic, intervals, buffers, windows and related algorithms. It applies to new capability and to deliberate replacement or reconstruction within that scope.
 
