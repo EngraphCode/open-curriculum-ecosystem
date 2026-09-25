@@ -104,6 +104,54 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `git:index/head` claim from the corpus-salvage lane (shared branch) before
   staging.
 
+### 2026-09-25 — the dedicated consolidation of Myrtle turns Canopy (bf4957): the pickup block
+
+Read this block, not the section below it, before the first act. The owner's launch word
+(2026-09-25, native chat), verbatim: "The goal is knowledge curation, never fitness numbers.
+Done means empty pending graduations and empty buffers: say those counts first in every
+report. This job is higher priority than the daily branch fold."
+
+**Counts at the close of the pass**: pending graduations 6 pending, 0 due (four directive-bound
+rows written by this pass and held by PDR-052, plus the comms-table unit and the PDR-142 rows;
+the six PDR-130 slow-lane rows are not due before 2026-10-01 and are not in that six); distilled
+0; open questions 0; napkin rotated (the 2026-09-20 to 2026-09-25 window, 1,578 lines, archived
+byte-identical as `archive/napkin-2026-09-25.md`). The pass record is
+`curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolidation.md`; the decision tables
+and analyses are at `~/.practice/consolidation/2026-09-25-oce/` (a per-user surface, because
+they quote the stream verbatim).
+
+**Landed**: `c76f93eb6` (the napkin's graduations: eight skills, twenty-three rules, four
+patterns and one new pattern, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
+heartbeat cadence reference, the experience audit); `3c1fe1a18` (F-199); the buffers commit
+that carries this block (register F-191 and F-200 to F-207, pending-graduations, the rotation,
+the pass record); the comms archive move after it (non-heartbeat events swept through
+2026-09-25T11:17:35Z, disposition `absorbed`).
+
+**First acts of the successor, in the Director's order (Wick binds Temper, 13:2xZ)**: (1) in a
+fresh context below 30 % (PDR-052), land the four directive-bound rows in pending-graduations
+(continuity-practice, metacognition, principles, agent-collaboration); (2) then take the
+lineage's exchange seat with no closeout between (Marten mends Shadow's handoff record and
+Geyser rides Pewter's note carry the seat's state; the owner's 11:00Z decision lands the test
+retirement now, alone; JC.net's joint cure for the Cricket templates' no-inferred-gender line is
+queued to that seat). The doctrine batches that remain go to a lane branch cut from engraph in a
+worktree with its own draft PR, never the successor coordination branch (the Director's routing
+of 13:1xZ, coordination-branch-24h-lifetime clause 4): first the six post-snapshot homes in
+`~/.practice/consolidation/2026-09-25-oce/lane-doctrine.patch` (101 lines; the commit skill's
+index-lock read after a push, hook-policy-substring-discipline's second instance, the five-word
+grep in records-are-technical, the unassigned-executor and owner-test lines in
+handoff-messages-self-contained, two zsh and pnpm facts in harness-shell-and-commit-edge-cases,
+PDR-063's O1 clause), then the comms table's twenty-two accepted A rows and its B, C and D
+sections, each move verified at the event file before the edit, then the PDR-142 rows.
+
+**Facts that shape the work**: the window registry has no row for `claude-fable-5-1` (F-191);
+the nearest row is 200,000 tokens, and this pass read its usage from the transcript's last
+usage line. The queue's own `commit` drops `--author` (F-199); the ceremony script in the commit
+skill's move 3 is the substitute. `pnpm --silent` leaves the nested filter script's banner on
+stdout, so a pipeline into `jq` drops lines that open with a dollar sign first. A prose heredoc
+that names git commands trips the argv matcher (F-207): edit scripts go to scratch and run by
+path. The `claims open` refusal "blind to comms" is transient while a gate loads the host: the
+watcher heartbeat lags past 90 seconds; re-run after the gate.
+
 ### 2026-09-16 — the owner's dedicated consolidation session, IN PROGRESS: the resume point
 
 Zephyr guards Leeward (281e44), mode dedicated-knowledge-curation; curator claim `47cfcbeb` in the
