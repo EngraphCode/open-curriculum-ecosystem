@@ -14,15 +14,25 @@
  * amendments): the explicit Practice seeds in platform order, then the cloud
  * seat's ambient platform session id with its type tag stripped, then the
  * Claude Code CLI session id, then the harness-native fallbacks
- * (`CODEX_THREAD_ID`, Antigravity `conversationId`). Every explicit Practice
- * seed outranks both ambient Claude ids — they are the operator's stated
- * contract.
+ * (`CODEX_THREAD_ID`, Antigravity `conversationId`). On a Claude platform every
+ * explicit Practice seed outranks both ambient Claude ids — they are the
+ * operator's stated contract.
+ *
+ * The platform gate (a joint cure with the second estate, 2026-09-25): the
+ * three Claude seeds (`PRACTICE_AGENT_SESSION_ID_CLAUDE`,
+ * `CLAUDE_CODE_REMOTE_SESSION_ID`, `CLAUDE_CODE_SESSION_ID`) count only when
+ * the seat's platform is a Claude platform. Claude Code exports its session
+ * id into every Bash shell and its SessionStart hook appends the Practice
+ * seed to the env file every later shell reads, so a Codex or Cursor seat
+ * opened from a Claude shell sees all three and, ungated, would take the
+ * Claude seat's identity.
  *
  * @packageDocumentation
  */
 
 import { stripSessionIdTagIfPresent } from '../core/agent-identity/session-seed.js';
 
+import { gatedSeedsSentence, isClaudePlatform } from './platform-gate.js';
 import { type CollaborationStateEnvironment } from './types.js';
 
 /**
@@ -40,15 +50,22 @@ interface SeedCandidate {
  *
  * @param env - The collaboration-state environment (the subset of process
  * env the identity contract reads).
+ * @param platform - The seat's platform label; the three Claude seeds count
+ * only when `isClaudePlatform` (see `platform-gate.ts`) holds for it.
  * @returns The first non-blank candidate with its source name, or
  * `undefined` when no seed is present — the caller decides how to fail
  * (see {@link missingCollaborationIdentitySeedMessage}).
  */
 export function resolveCollaborationSeed(
   env: CollaborationStateEnvironment,
+  platform: string,
 ): SeedCandidate | undefined {
+  const claudeSeeds = isClaudePlatform(platform);
   return firstSeed([
-    { source: 'PRACTICE_AGENT_SESSION_ID_CLAUDE', value: env.PRACTICE_AGENT_SESSION_ID_CLAUDE },
+    {
+      source: 'PRACTICE_AGENT_SESSION_ID_CLAUDE',
+      value: claudeSeeds ? env.PRACTICE_AGENT_SESSION_ID_CLAUDE : undefined,
+    },
     { source: 'PRACTICE_AGENT_SESSION_ID_CURSOR', value: env.PRACTICE_AGENT_SESSION_ID_CURSOR },
     { source: 'PRACTICE_AGENT_SESSION_ID_GEMINI', value: env.PRACTICE_AGENT_SESSION_ID_GEMINI },
     { source: 'PRACTICE_AGENT_SESSION_ID_CODEX', value: env.PRACTICE_AGENT_SESSION_ID_CODEX },
@@ -59,13 +76,18 @@ export function resolveCollaborationSeed(
     // contract — while it outranks the harness-native fallbacks below.
     {
       source: 'CLAUDE_CODE_REMOTE_SESSION_ID',
-      value: stripSessionIdTagIfPresent(env.CLAUDE_CODE_REMOTE_SESSION_ID),
+      value: claudeSeeds
+        ? stripSessionIdTagIfPresent(env.CLAUDE_CODE_REMOTE_SESSION_ID)
+        : undefined,
     },
     // Claude Code CLI session id (PDR-027, 2026-09-24): the harness exports it
     // into every Bash tool shell, and it is the value the SessionStart hook
     // writes as the Claude seed, so a seat whose hook wrote nothing still
     // resolves the same tuple.
-    { source: 'CLAUDE_CODE_SESSION_ID', value: env.CLAUDE_CODE_SESSION_ID },
+    {
+      source: 'CLAUDE_CODE_SESSION_ID',
+      value: claudeSeeds ? env.CLAUDE_CODE_SESSION_ID : undefined,
+    },
     { source: 'CODEX_THREAD_ID', value: env.CODEX_THREAD_ID },
     { source: 'conversationId', value: env.conversationId },
     {
@@ -83,10 +105,16 @@ export function resolveCollaborationSeed(
  * `CLAUDE_CODE_SESSION_ID` are supplied by the harness, never set by hand, so
  * the hint does not name them.
  *
- * @param platform - The seat's platform label (e.g. `claude`, `codex`), used
- * only to point at the right variable in the hint.
+ * @param platform - The seat's platform label (e.g. `claude-code`, `codex`),
+ * used to point at the right variable in the hint.
+ * @param gated - The Claude seeds present but excluded by the platform gate
+ * (see `gatedClaudeSeedsPresent` in `platform-gate.ts`); named so the operator learns why a
+ * variable they can see did not count.
  */
-export function missingCollaborationIdentitySeedMessage(platform: string): string {
+export function missingCollaborationIdentitySeedMessage(
+  platform: string,
+  gated: readonly string[] = [],
+): string {
   const platformPracticeVar = practiceSessionVarForPlatform(platform);
   const platformHint =
     platformPracticeVar === undefined
@@ -98,7 +126,8 @@ export function missingCollaborationIdentitySeedMessage(platform: string): strin
     'PRACTICE_AGENT_SESSION_ID_CLAUDE, PRACTICE_AGENT_SESSION_ID_CURSOR, ' +
     'PRACTICE_AGENT_SESSION_ID_GEMINI, PRACTICE_AGENT_SESSION_ID_CODEX, ' +
     'CODEX_THREAD_ID, or Antigravity conversationId.' +
-    platformHint
+    platformHint +
+    gatedSeedsSentence(gated, platform)
   );
 }
 
@@ -107,9 +136,10 @@ export function missingCollaborationIdentitySeedMessage(platform: string): strin
  * missing-seed hint; `undefined` for a platform the contract does not name.
  */
 function practiceSessionVarForPlatform(platform: string): string | undefined {
-  switch (platform.toLowerCase()) {
-    case 'claude':
-      return 'PRACTICE_AGENT_SESSION_ID_CLAUDE';
+  if (isClaudePlatform(platform)) {
+    return 'PRACTICE_AGENT_SESSION_ID_CLAUDE';
+  }
+  switch (platform.trim().toLowerCase()) {
     case 'cursor':
       return 'PRACTICE_AGENT_SESSION_ID_CURSOR';
     case 'gemini':

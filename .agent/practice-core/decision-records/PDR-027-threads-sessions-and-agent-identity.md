@@ -44,6 +44,24 @@ discipline binds to this PDR's tuple format).
   existed lost every collaboration write for a session while the native id
   sat in that shell throughout.
 
+- **2026-09-25 — the three Claude seeds count only on a Claude platform.**
+  Claude Code exports `CLAUDE_CODE_SESSION_ID` into every Bash tool shell and
+  its `SessionStart` hook appends `PRACTICE_AGENT_SESSION_ID_CLAUDE` to the
+  env file every later shell reads, so a Codex or Cursor seat opened from a
+  Claude shell saw all three Claude seeds ahead of its own and took the Claude
+  seat's identity: its writes carried that seat's name, and the id-only routing
+  of comms and claims read the two seats as one. Both resolvers now read the
+  seat's platform, the collaboration seed from its caller and the identity CLI
+  from `--platform <label>`, required whenever `--seed` is absent. On a
+  non-Claude platform the three Claude seeds do not count and the missing-seed
+  error names any that were set. The order is otherwise unchanged and an
+  explicit seed wins everywhere. The platform label is the seat's own
+  assertion: the gate guards accident, not intent, and deliberate identity
+  assumption stays available by design through `--seed`, `--agent-name` and a
+  hand-set Practice variable. The general form, that the seeds a seat reads
+  are its platform's own, waits on a second nesting instance. A joint cure
+  with the second estate (its answer of 2026-09-25), the same design in both.
+
 - **2026-08-24 — cloud seats seed from the platform session id; hooks never
   pin a display name.** On a cloud seat two ids coexist: the harness-internal
   session id and the platform session id. The platform id is the durable,
@@ -464,7 +482,11 @@ order (`PRACTICE_AGENT_SESSION_ID_CLAUDE`, `PRACTICE_AGENT_SESSION_ID_CURSOR`,
 explicit Practice seed outranks this ambient id, per the 2026-08-24
 amendment), then `CLAUDE_CODE_SESSION_ID` (Claude Code CLI shells, per the
 2026-09-24 amendment), then `CODEX_THREAD_ID`; missing seed is a
-bad-usage error. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
+bad-usage error. The three Claude seeds (`PRACTICE_AGENT_SESSION_ID_CLAUDE`,
+`CLAUDE_CODE_REMOTE_SESSION_ID`, `CLAUDE_CODE_SESSION_ID`) count only when the
+seat's platform is a Claude platform (2026-09-25 amendment); the identity CLI
+learns the platform from `--platform <label>`, required unless `--seed` is
+given. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
 only when a seed is also available; it is not itself a seed, and no hook
 writes it (2026-08-24 amendment). There is no
 personal-email fallback. The derived value helps fill `agent_name`; it does not

@@ -243,12 +243,16 @@ pnpm agent-tools:smoke:collaboration-tui
 
 ## `agent-identity` quick reference
 
-- `--seed <seed>` — explicit stable seed. If omitted, the CLI reads
-  `PRACTICE_AGENT_SESSION_ID_CLAUDE`, then
+- `--seed <seed>` — explicit stable seed. If omitted, `--platform <label>` is
+  required and the CLI reads `PRACTICE_AGENT_SESSION_ID_CLAUDE`, then
   `PRACTICE_AGENT_SESSION_ID_CURSOR`, then
   `PRACTICE_AGENT_SESSION_ID_GEMINI`, then
-  `PRACTICE_AGENT_SESSION_ID_CODEX`, then `CODEX_THREAD_ID`, then
-  Antigravity's stable `conversationId` surfaces.
+  `PRACTICE_AGENT_SESSION_ID_CODEX`, then `CLAUDE_CODE_REMOTE_SESSION_ID`,
+  then `CLAUDE_CODE_SESSION_ID`, then `CODEX_THREAD_ID`, then Antigravity's
+  stable `conversationId` surfaces.
+- `--platform <label>` — the seat's platform (`claude-code`, `cursor`, `codex`
+  or `gemini`). The three Claude seeds count only on a Claude platform, so a
+  seat opened from a Claude shell keeps its own identity.
 - `--format kebab|display|json` — output slug, display name, or full result.
 - `OAK_AGENT_IDENTITY_OVERRIDE` — bypasses wordlist derivation with a
   type-total override result.
