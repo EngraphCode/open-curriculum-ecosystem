@@ -4,6 +4,14 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009's Forbidden bullet names an adapter's own content plainly
+
+- One line: "Substantive content that is an adapter's own, in platform
+  adapter directories" replaces "Substantive content of an adapter's own
+  in platform adapter directories", the wording a review of PR 213 found
+  incomplete. The second estate carries the same blob (its PR 198), so the
+  record stays one blob in both estates.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009 takes the joint cure of its substance prohibitions
 
 - PDR-009's thin-wrapper rule and its Forbidden item now forbid substance

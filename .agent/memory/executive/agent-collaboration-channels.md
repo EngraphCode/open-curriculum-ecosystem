@@ -35,8 +35,8 @@ accelerates channel 2, never substitutes for any surface here), **ARC**
 (rapid-comms channel files — operationally a standalone
 file-backed sidebar beside channel 4: choose a decision thread when the
 exchange must be durable and structured from the start, ARC when
-latency and bandwidth dominate and the substance is conserved at
-close), and **Slack-via-Watcher** (the
+s2s cannot reach both seats or the transcript is itself the record,
+and the substance is conserved at close), and **Slack-via-Watcher** (the
 [`talk-to-slack-watcher`](../../skills/talk-to-slack-watcher/SKILL-CANONICAL.md)
 skill — the human-native bridge for traffic whose audience is the
 owner or humans on the Practice Slack channel; minutes latency at the
