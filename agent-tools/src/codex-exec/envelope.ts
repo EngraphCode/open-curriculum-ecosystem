@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { isLowercaseUuid } from '../core/lowercase-uuid.js';
 import type { ModelPins } from './model-pins.js';
 
 declare const threadIdBrand: unique symbol;
@@ -14,10 +15,8 @@ declare const threadIdBrand: unique symbol;
  */
 export type ThreadId = string & { readonly [threadIdBrand]: true };
 
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
 function isThreadId(value: string): value is ThreadId {
-  return UUID_PATTERN.test(value);
+  return isLowercaseUuid(value);
 }
 
 /**

@@ -26,6 +26,11 @@ barrier:
 - **zsh does not word-split an unquoted `$var`** (`cat $files` passes one
   joined string → "No such file") and lacks `local -n` namerefs — use zsh
   arrays and `${(P)name}`.
+- **`[ "$a" \> "$b" ]` is a zsh error ("condition expected"), not a string
+  compare**, so an `until` loop on it spins forever; compare numerically.
+  `set -- $pair` does not word-split either (2026-09-24).
+- **The edit tool drops trailing whitespace from a replacement** (2026-09-23;
+  caught by the commit ceremony failing fast).
 - **`rg -r` is replace, not line numbers** — `-n` is line numbers; the two
   are one typo apart and `-r` silently rewrites the match in the output.
 - **A custom `Merge origin/...` header fails commitlint** — only

@@ -24,9 +24,9 @@ heartbeat cron, before team-start broadcast, before any source claim.
 
 ## Action
 
-Run one event-driven watcher over the full
-`.agent/state/collaboration/comms/` directory, emitting one notification
-per new event, with **self-exclusion plus, where the seat's economics
+Run one watcher over the full
+`.agent/state/collaboration/comms/` directory, polling it every
+`--poll-ms` and emitting one notification per new event, with **self-exclusion plus, where the seat's economics
 justify it, the sanctioned `--exclude-tag` mechanism** (§"Sanctioned
 tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
@@ -56,13 +56,13 @@ into context, and the owner asked for "just enough for the Director to wake
 you"). The shape that satisfied both this rule and the economy:
 
 - `comms watch --exclude-tag heartbeat` — `directed` and `group` always surface
-  whatever their tags, so an activation still arrives instantly; and
+  whatever their tags, so an activation still arrives on the next pass; and
 - the mandatory F-75 pairing run as a **diff-only anomaly poll**: peer-liveness
   every ~10 minutes with its **baseline seeded at arm time**, so already-retired
   seats never emit and only *newly* degraded peers do.
 
 Measured result: zero empty ticks, and a directed activation reached the seat
-immediately. Falsifier for the configuration: a quiet-configured standby that
+on the watcher's next pass. Falsifier for the configuration: a quiet-configured standby that
 misses coordination a full watcher would have delivered — the exposure is
 heartbeat-borne information only, which the poll covers by construction. Reserve-
 seat freshness is load-bearing economics, not a nicety: a standby that burns
@@ -122,7 +122,9 @@ heartbeat:
 
 - **`--supervisor-pid "$PPID"`** (the F-101 cure) — the watcher checks the
   supervising process (the agent session that spawned it; `$PPID` at the
-  invocation) once per poll cycle and self-exits within one cycle of that pid
+  invocation, read from the live shell's parent chain at each re-arm and never
+  from a pid in a record, because a compaction gives the seat a new pid: 23808
+  became 45379 across one, 2026-09-25) once per poll cycle and self-exits within one cycle of that pid
   disappearing. This closes the crash / SIGKILL orphan path that a process-group
   kill-tree misses: GNU `timeout` isolates the watcher in its own process group,
   so on a harsh agent death no signal reaches the watcher — but the pid probe
@@ -235,13 +237,11 @@ The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
 and `markSeen` step runs under a per-step deadline (`--step-timeout-ms`,
 default 60 s); a step that exceeds it emits a `kind=timeout` WATCHER ERROR
 line and the watcher exits non-zero, so the supervising Monitor/cron sees the
-death and can restart it. The directory-change wait (the loop's `waitForChange`
-step) carries no deadline — it is poll-bounded by construction: a
-`setTimeout(pollMs)` fallback runs alongside
-the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
-by at most `pollMs` instead of stalling forever. The liveness self-check below
-covers any residual hang path that a deadline cannot reach (a hung process
-cannot exit-non-zero if the hang sits where no deadline is armed).
+death and can restart it. The wait between passes (the loop's `waitForChange`
+step) carries no deadline — it is poll-bounded by construction: the watcher
+polls every `pollMs` on a plain `setTimeout(pollMs)`. The liveness self-check
+below covers any residual hang path that a deadline cannot reach (a hung
+process cannot exit-non-zero if the hang sits where no deadline is armed).
 
 Under load the deaths concentrate at the drain step, and raising
 `--step-timeout-ms` does not converge — 60s/180s/300s/540s budgets all died

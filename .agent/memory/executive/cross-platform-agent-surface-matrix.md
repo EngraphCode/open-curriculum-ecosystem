@@ -68,7 +68,7 @@ for execution state and sensitive details.
 | **Commands**   | retired; workflows use `.agents/skills/` | retired; workflows use `.claude/skills/` | `review-*.toml` transitional reviewer adapters only; workflows use `.agents/skills/` | no separate command projection | built-in slash commands; repo workflows use skills | repo workflows use `.agents/skills/oak-*/` |
 | **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | full canonical rule chain via `AGENT.md`; supplemental modular projection target | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
 | **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/config.toml` → `.codex/agents/*.toml`             | unsupported            |
-| **Hooks**      | canonical policy guard unsupported; `.cursor/hooks.json` has tracked soft `sessionStart` identity | `.claude/settings.json` (tracked soft `SessionStart` identity plus `PreToolUse` guards) | supported upstream; no project-local hook wired | native hooks documented; Copilot-only adapters target unwired; content policy uses inherited activation | tracked project `SessionStart`; no `PreToolUse` guard | unsupported |
+| **Hooks**      | canonical policy guard unsupported; `.cursor/hooks.json` has tracked soft `sessionStart` identity | `.claude/settings.json` (tracked soft `SessionStart` identity plus `PreToolUse` guards and a `PreCompact` observer) | supported upstream; no project-local hook wired | native hooks documented; Copilot-only adapters target unwired; content policy uses inherited activation | tracked project `SessionStart`; no `PreToolUse` guard | unsupported |
 | **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | two tracked project servers in `.codex/config.toml`       | `.agents/mcp_config.json` target |
 
 ## Hook Support
@@ -82,14 +82,22 @@ shared by all three matchers, invoked through the verdict shim
 `.claude/hooks/run-pretooluse-guard.mjs` so a built-but-broken artefact blocks
 the tool call (exit 2), while a not-built artefact fails open (exit 0) with a
 loud, logged warning so a fresh checkout is not bricked — well within the
-per-tool-call hook timeout. Local additive overrides, when needed, live in
-`.claude/settings.local.json`.
+per-tool-call hook timeout. The same file registers a `PreCompact` observer
+(`agent-tools/dist/src/bin/claude-pre-compact-observe-hook.js`, through the
+`.claude/hooks/_lib/log-hook-errors.sh` wrapper). It is an observer, not a
+guard: it has no key in the canonical policy, never blocks a compaction, and
+appends what the harness sends at each compaction to a machine-local,
+owner-only log, `.claude/logs/pre-compact-observe/observations.jsonl`. The
+contract it records is written here, with the harness version, after the
+first real compaction it observes. Local additive overrides, when needed,
+live in `.claude/settings.local.json`.
 
 Status by platform:
 
 - **Claude Code**: tracked project `.claude/settings.json` activates a soft
   `SessionStart` identity adapter and `PreToolUse` command/content guards for
-  Bash, Edit, and Write through the single dispatcher artefact.
+  Bash, Edit, and Write through the single dispatcher artefact, and registers
+  the `PreCompact` observer.
 - **Cursor**: tracked project `.cursor/hooks.json` activates a soft
   `sessionStart` identity adapter. The canonical command/content policy is not
   activated for Cursor, and this Codex-focused research pass did not reassess
