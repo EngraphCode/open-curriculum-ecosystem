@@ -300,14 +300,15 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
 > `archive/director-handoff-2026-09-19.md` and narrated in the archived thread record
 > `archive/estate-coordination-thread-2026-09-20.md`, under its heading "2026-09-12 12:5xZ — FOLD
-> LANDED".** The last fold is #175 (SHA:0ea8fb232, 2026-09-23 11:57Z), the 2026-09-21 branch
-> cut from #171, landed by the merge door with Copilot's leg bound to the tip, about eighteen
-> hours past its lifetime because the seat paused at the owner's word; the live branch is
-> `coordination/2026-09-23-0ea8fb`. A fold's rounds, findings and price live in the
+> LANDED".** The last fold is #176 (SHA:f66fd033f, 2026-09-24 11:05Z), the 2026-09-23 branch
+> cut from #175, landed by the merge door with both review legs bound to the tip; the live branch
+> is `coordination/2026-09-24-f66fd0`. A fold's rounds, findings and price live in the
 > estate-coordination record's journal and the review-cost ledger, never in this block. _moved
-> for teachers:_ nothing. _moved for the Practice:_ the shared definition of the best of each
-> Practice written and ratified; the relayed rulings confirmed in this estate; a retired Copilot
-> seat's records landed; the context-loop experiment's findings. The folds before it: #171
+> for teachers:_ nothing. _moved for the Practice:_ both estates hold one PDR-142 byte for byte
+> and the same amendment texts in PDR-125; the owner's Director ruling recorded as a rule. The
+> folds before it: #175 (SHA:0ea8fb232, 2026-09-23 11:57Z), about eighteen hours past its
+> lifetime because the seat paused at the owner's word; the shared definition of the best of
+> each Practice written and ratified. #171
 > (SHA:56bd4de6a, 2026-09-21 17:45Z), the #170 fold's records, the operator-profile twin's
 > landing and the first day of the three-estate exchange; #170 (SHA:1a125f65d, 2026-09-21 10:12Z), the #169 fold's records and the exchange channel
 > tracked; #169

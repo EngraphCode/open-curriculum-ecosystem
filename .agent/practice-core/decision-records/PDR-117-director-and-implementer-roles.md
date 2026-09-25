@@ -4,7 +4,8 @@ pdr_kind: governance
 
 # PDR-117: Director and Implementer Roles (the Two First-Class Seats of the Many-Agent Model)
 
-**Status**: Proposed
+**Status**: Proposed (amended 2026-09-25 — context readings never retire a
+seat or route its work to a successor, per PDR-063)
 **Date**: 2026-06-24
 **Related**:
 [PDR-064](PDR-064-coordinator-handoff-two-moments.md)
@@ -38,7 +39,7 @@ author-agnostic substrate. In that model two needs pull in opposite
 directions:
 
 - **The doing must be intense and isolated.** An agent that touches source,
-  runs gates, and iterates spends context fast and retires young. Several
+  runs gates, and iterates spends context fast and compacts often. Several
   such agents working in parallel must not collide on one working tree or
   index.
 - **The awareness must persist.** The live map — what is decided, what is in
@@ -92,7 +93,7 @@ the awareness (Director, minimum action).**
   (its claim freshness via the liveness tool), not state from minutes prior; a
   reversal-in-minutes and a finding routed to an agent that retired a second later
   both came from routing on stale state. Route **nothing** to an agent that has
-  been told to close out or is high-context — route to its successor.
+  been told to close out — route to its successor.
 - **Single owner-interface; lens-resolve before escalate.** Implementers route
   questions to the Director; the Director answers what it can, runs anything
   ambiguous through the decision lenses (`principles.md` §Decision Lenses), and
@@ -163,9 +164,10 @@ the awareness (Director, minimum action).**
   Director only with a question, a request, a block, or an acknowledgement
   a route asks for (2026-09-23 amendment) — this is what keeps the
   Director's metabolism slow.
-- **Retires with a handoff (PDR-063).** At the natural boundary or under
-  context-budget pressure, freezes work-in-progress to its PDR-063 handoff
-  record, where the Director reads it when it needs it. Routes durable,
+- **Retires with a record.** At the natural boundary it closes out per the
+  start-right-team Closeout Contract. When the owner calls its handoff
+  mid-cycle, it freezes work-in-progress to its PDR-063 handoff record,
+  where the Director reads it when it needs it. Routes durable,
   repo-wide substance **up to the Director** rather than editing repo-wide
   surfaces from a feature-branch worktree (which would diverge them).
 - **Routes questions to the Director** (single owner-interface), not the owner
@@ -323,9 +325,11 @@ instruction for the Implementer role.** Its operational home is the
   is the benefit this PDR claims, pending second-instance evidence
   (§Falsifiability assertion 3).
 - **Why minimum action for the Director.** Continuity is the scarce good in a
-  rotating-cast model. An agent's lifespan is bounded by context budget; the
-  proposed way one seat outlasts many is to spend context slowly — verdicts not
-  artefacts, externalise the map not the reasoning.
+  many-agent model. A seat keeps its lane through compactions, and each
+  compaction costs it detail it held only in context; the way a Director keeps
+  the map whole is to spend context slowly — verdicts not artefacts,
+  externalise the map not the reasoning — so compactions come rarely and lose
+  nothing the records do not hold.
 - **Why route-don't-execute.** A Director that self-dispatches work is
   unavailable for routing for that duration, silently re-creating the
   coordinator-less window. The cost of delegating is one routing event; the
@@ -499,8 +503,8 @@ sharpen §The Director role:
    sub-agents on a double relay; one collided with a peer's still-live slice
    and left a type-breaking orphan.
 2. **Don't retire or park an implementer lane mid-session for seat-cost.**
-   Drive-to-completion beats seat-cost optimisation; a context-limited lane
-   relays to an IMMEDIATELY-active successor (the lane never idles), never
+   Drive-to-completion beats seat-cost optimisation; a lane the owner hands
+   over relays to an IMMEDIATELY-active successor (the lane never idles), never
    parks until next session. Completion must be crisply defined in the guiding
    plan — if missing, the Director authors it.
 3. **Decide-and-drive; idling for owner input is worse than deciding and
