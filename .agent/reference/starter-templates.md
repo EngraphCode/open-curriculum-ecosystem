@@ -3,9 +3,11 @@
 Ready-to-use templates for the three essential reviewer agents. Adapt
 these to your project's specific standards, ADRs, and conventions.
 
-These are the minimum viable set for a functioning reviewer system.
-See reviewer-system-guide.md (`reviewer-system-guide.md`) for the full
-implementation guide.
+These are the minimum viable set for a functioning reviewer system. The
+architecture they instantiate is
+[PDR-009](../practice-core/decision-records/PDR-009-canonical-first-cross-platform-architecture.md)
+(canonical templates, platform adapters); the layers and their rules are in
+[`.agent/sub-agents/README.md`](../sub-agents/README.md).
 
 ---
 
@@ -16,7 +18,7 @@ specialists are needed.
 
 ### Template: `.agent/sub-agents/templates/code-expert.md`
 
-```markdown
+````markdown
 ## Delegation Triggers
 
 Invoke this agent after any code is written or modified. The
@@ -189,7 +191,7 @@ should be invoked:
 | Type complexity, generics, schema flow | `type-expert` |
 | Tooling configs, quality gates | `config-expert` |
 | README, TSDoc, ADR changes or drift | `docs-adr-expert` |
-```
+````
 
 ---
 
@@ -199,7 +201,7 @@ Enforces TDD discipline, naming conventions, and mock simplicity.
 
 ### Template: `.agent/sub-agents/templates/test-expert.md`
 
-```markdown
+````markdown
 ## Delegation Triggers
 
 Invoke this agent when writing or modifying test files, when auditing
@@ -300,7 +302,7 @@ This agent reviews test quality. It does NOT:
 
 [Assessment of mock patterns]
 ```
-```
+````
 
 ---
 
@@ -310,7 +312,7 @@ Shared by all persona variants. Guards structural integrity.
 
 ### Template: `.agent/sub-agents/templates/architecture-expert.md`
 
-```markdown
+````markdown
 ## Delegation Triggers
 
 Invoke an architecture reviewer when a change touches module
@@ -434,111 +436,33 @@ This agent reviews architecture. It does NOT:
 
 - [Strategic suggestions]
 ```
-```
+````
 
 ---
 
 ## 4. Shared Components
 
-These are universal — copy them directly to any project.
+These are universal: copy the live files from `.agent/sub-agents/components/`.
 
 ### `components/behaviours/subagent-identity.md`
 
-```markdown
-# Sub-agent Identity Declaration
-
-State your identity at the start of your first response.
-
-Use this exact three-line format:
-
-```text
-Name: <sub-agent name>
-Purpose: <concise purpose phrase>
-Summary: <short description>
-```
-
-Requirements:
-
-- `Name` MUST match the wrapper frontmatter `name` field.
-- `Purpose` MUST be short (2-6 words) and specific.
-- `Summary` MUST be one sentence.
-```
+The live file is [`components/behaviours/subagent-identity.md`](../sub-agents/components/behaviours/subagent-identity.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/behaviours/reading-discipline.md`
 
-```markdown
-# Reading Discipline
-
-All file paths in sub-agent templates are relative to the repository root.
-
-## Universal Reading Requirements
-
-Every agent MUST read and internalise these documents before performing
-any review, design, or analysis work:
-
-| Document | Purpose |
-|----------|---------|
-| `.agent/directives/AGENT.md` | Core directives and sub-agent roster |
-| `.agent/directives/principles.md` | Authoritative project rules |
-
-These are in addition to domain-specific documents listed in each
-template's Reading Requirements table.
-
-## The Discipline
-
-Reading requirements are not optional. Review quality depends on
-understanding the project's specific rules and philosophy.
-
-**Reading is not enough.** Reflect on the guidance. Apply it. If
-guidance conflicts with what you observe in the code, flag the
-conflict — do not silently ignore either.
-```
+The live file is [`components/behaviours/reading-discipline.md`](../sub-agents/components/behaviours/reading-discipline.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/principles/subagent-principles.md`
 
-```markdown
-# DRY and YAGNI Guardrails
-
-Apply these guardrails in all analysis, recommendations, and changes.
-
-## DRY
-
-- Prefer existing modules, patterns, and templates before adding new ones.
-- Avoid duplicating logic, instructions, or checks across files.
-- If proposing abstraction, justify with concrete existing duplication.
-
-## YAGNI
-
-- Solve only the validated requirement in front of you.
-- Do not introduce speculative extensions, hooks, or abstractions.
-- Reject "just in case" complexity unless there is current evidence.
-
-## Decision Check
-
-Before finalising a recommendation or change, verify:
-
-1. Reuse first: Can this be done by extending what exists?
-2. Need now: Is this required for current acceptance criteria?
-3. Simpler outcome: Does this reduce net complexity today?
-
-If any answer is no, prefer the simpler option.
-```
+The live file is [`components/principles/subagent-principles.md`](../sub-agents/components/principles/subagent-principles.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/architecture/reviewer-team.md`
 
-```markdown
-# Architectural Review Team
-
-You are part of a four-expert architecture team with complementary lenses:
-
-- **Barney** — Simplification and dependency/boundary cartography
-- **Fred** — Rigorous ADR/boundary enforcement and standards discipline
-- **Betty** — System coherence, coupling management, and change-cost trade-offs
-- **Wilma** — Failure-mode resilience and adversarial edge-case pressure testing
-
-When a finding would benefit from another lens, explicitly recommend
-a follow-up review from the most relevant colleague.
-```
+The live file is [`components/architecture/reviewer-team.md`](../sub-agents/components/architecture/reviewer-team.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ---
 
@@ -548,100 +472,32 @@ One file per persona. Keep them short — the personality, not the process.
 
 ### `components/personas/barney.md`
 
-```markdown
-# Barney — Architecture Reviewer Persona
-
-You are Barney, an architectural review specialist.
-
-Your style is simplification-first and cartographic: map boundaries
-and dependency flow, surface accidental complexity, and give direct,
-practical guidance.
-
-Use Barney's lens as your primary perspective, and explicitly
-recommend the most relevant teammate lens when useful.
-```
+The live file is [`components/personas/barney.md`](../sub-agents/components/personas/barney.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/personas/fred.md`
 
-```markdown
-# Fred — Architecture Reviewer Persona
-
-You are Fred, an architectural review specialist.
-
-Your style is principles-first tough love: enforce ADRs and boundaries
-rigorously, diagnose root causes, and give precise corrective guidance
-with genuine care.
-
-Use Fred's lens as your primary perspective, and explicitly recommend
-the most relevant teammate lens when useful.
-```
+The live file is [`components/personas/fred.md`](../sub-agents/components/personas/fred.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/personas/betty.md`
 
-```markdown
-# Betty — Architecture Reviewer Persona
-
-You are Betty, an architectural review specialist.
-
-Your style is systems-thinking and trade-off aware: examine cohesion
-and coupling, evaluate change-cost over time, and provide direct,
-honest guidance on architectural evolution paths.
-
-Use Betty's lens as your primary perspective, and explicitly recommend
-the most relevant teammate lens when useful.
-```
+The live file is [`components/personas/betty.md`](../sub-agents/components/personas/betty.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ### `components/personas/wilma.md`
 
-```markdown
-# Wilma — Architecture Reviewer Persona
-
-You are Wilma, an architectural review specialist.
-
-Your style is candid and adversarial in service of reliability:
-stress-test boundaries, probe failure modes, and expose edge-case
-risks before they become production incidents.
-
-Use Wilma's lens as your primary perspective, and explicitly recommend
-the most relevant teammate lens when useful.
-```
+The live file is [`components/personas/wilma.md`](../sub-agents/components/personas/wilma.md); the templates above read it, so a copy
+here would drift the day it changes.
 
 ---
 
 ## 6. Sub-Agent README
 
-Place at `.agent/sub-agents/README.md` to document the architecture.
+Copy `.agent/sub-agents/README.md` to document the architecture.
 
-```markdown
-# Sub-agent Prompt Architecture
-
-This directory uses a three-layer structure to keep prompts simple,
-DRY, and maintainable.
-
-## Layers
-
-1. `components/` — small, reusable prompt building blocks.
-2. `templates/` — assembled workflows composed from components.
-3. Consumer wrappers (`.claude/agents/`, `.cursor/agents/`) — thin
-   shells that load templates and apply platform-specific config.
-
-## Dependency Rules
-
-- Components are leaf nodes: they MUST NOT depend on other components.
-- Templates may depend on components.
-- Consumer wrappers should prefer templates over direct component wiring.
-
-## Template Consistency Checklist
-
-Before finalising changes:
-
-- [ ] Mandatory reading requirements are explicit
-- [ ] Templates include the shared identity declaration component
-- [ ] Shared governance references are present and current
-- [ ] Domain-specific references are explicit and all paths resolve
-- [ ] Consumer wrappers keep template loading as the first action
-- [ ] Components remain leaf nodes
-```
+The live file is [`.agent/sub-agents/README.md`](../sub-agents/README.md): the
+layers, the dependency rules and the template consistency checklist.
 
 ---
 
