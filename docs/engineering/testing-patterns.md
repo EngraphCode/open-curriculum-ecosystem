@@ -21,11 +21,11 @@ For worked Red/Green/Refactor examples, see
 
 ---
 
-## In-Process App Construction with Dependency Injection
+## In-Process Tests with Dependency Injection
 
-Code that creates the application in-process (via `createApp()`) configures it
-through dependency injection, with explicit runtime-config objects or hermetic
-test helpers; `process.env` stays untouched. A test never imports a production config loader that
+An in-process test configures the unit it drives through dependency injection,
+with explicit runtime-config objects or hermetic test helpers; `process.env`
+stays untouched. A test never imports a production config loader that
 reads files or the environment. The loader's parsing and validation are proven
 as a pure function over an injected input (the file's text, or an environment
 record passed in). The loader's own read of the file or environment is never
@@ -33,10 +33,13 @@ exercised by a test: it is proven by non-test validation (a validator script's
 own self-proof, run by a CI-gated task) or by an observation made once at cure
 time and recorded (`testing-strategy.md` §Philosophy).
 
-An app constructed this way is proven in one of two ways. An integration test
-calls the handler or middleware under test directly, with literal request and
-response values. An E2E check boots the built app as a separate process and
-drives it over its protocol channel. Tests use and create no IO
+The application itself is proven in one of two ways, and neither builds it
+inside a test: an integration test calls the handler or middleware under test
+directly, with literal request and response values; an E2E check boots the
+built app as a separate process and drives it over its protocol channel. An app
+bootstrapper that reads configuration or the clock is never imported into a
+test ([`test-immediate-fails`](../../.agent/rules/test-immediate-fails.md)
+item 1). Tests use and create no IO
 ([testing-strategy.md](../../.agent/directives/testing-strategy.md) §Philosophy),
 and a listener is a socket, so the listener lives in the separately running
 system. The suites that call `request(app)` on an imported app break that
@@ -46,9 +49,11 @@ exempted. See
 
 ### The Pattern
 
+Two recipes, one per proof. The integration test drives the handler seam:
+
 ```typescript
-import { createApp } from '../src/application.js';
-import { createMockObservability, createMockRuntimeConfig } from './helpers/test-config.js';
+import { createMockRuntimeConfig } from './helpers/test-config.js';
+import { createHealthHandler } from '../src/handlers/health.js';
 
 // 1. Build an explicit runtime config from literals
 const runtimeConfig = createMockRuntimeConfig({
@@ -56,16 +61,21 @@ const runtimeConfig = createMockRuntimeConfig({
   env: { OAK_API_KEY: 'test-api-key' },
 });
 
-// 2. Create the app with DI — zero global side effects
-const app = await createApp({
-  runtimeConfig,
-  observability: createMockObservability(runtimeConfig),
-});
+// 2. Build the unit under test with DI — zero global side effects, no app
+const handler = createHealthHandler({ runtimeConfig });
 
-// 3. Prove behaviour: call the handler or middleware under test directly (an
-//    integration test), or boot the built app as a separate process and drive
-//    it over its protocol channel (an E2E check).
+// 3. Prove behaviour through the unit's public result, with literal values
+const response = await handler({ method: 'GET', path: '/health' });
+expect(response.status).toBe(200);
 ```
+
+The E2E check's harness owns the other proof. Its composition root (the
+runner's global setup or entry script) reads and validates the ambient
+environment once, boots the BUILT app as a separate process with that
+environment, and provides the address; the check files drive the process
+over its protocol channel and never construct, import or listen on the app
+(§Subprocess-Spawned Checks, and `testing-tdd-recipes.md` §Red Specs for the
+`baseUrl` form).
 
 ### Key Rules
 
@@ -97,8 +107,10 @@ The check's other files consume the injected object; they never read or write
 
 ### Reference Implementations
 
-Templates for the configuration discipline (steps 1 and 2). Their `request(app)`
-driving line is a defect, as above:
+Templates for the configuration discipline (steps 1 and 2 of the handler-seam
+recipe). Each still constructs the app in the test and drives it with
+`request(app)`, a defect as above, cured in the recovery lane that follows the
+doctrine intake:
 
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/auth-bypass.e2e.test.ts`
 - `apps/oak-curriculum-mcp-streamable-http/e2e-tests/web-security-selective.e2e.test.ts`
@@ -171,11 +183,11 @@ not what the author intends:
 
 Unit tests and E2E checks can all pass while the integrated product fails. For
 features spanning multiple modules (MCP tool → SDK → host), add a **composition check** that
-exercises the integration seam. Worked instance: `mcp-app-composition.e2e.test.ts`
-caught a knip/depcruise cleanup that broke the UI. A
-composition check IS the enforcement for multi-module integration — it is what
-catches a knip or depcruise cleanup that removed a module every unit test had
-already stopped exercising.
+exercises the integration seam from outside the process, as an E2E check
+(§In-Process Tests with Dependency Injection: no in-process app, no listener,
+no sentinel). A composition check IS the enforcement for multi-module
+integration: it is what catches a knip or depcruise cleanup that removed a
+module every unit test had already stopped exercising.
 
 ## MCP Transport Layer Testing
 
