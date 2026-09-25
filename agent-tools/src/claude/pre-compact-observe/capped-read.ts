@@ -18,10 +18,23 @@ import type { StdinRead } from './payload.js';
 /** The most stdin bytes the observer keeps: 1 MiB. */
 export const STDIN_CAP_BYTES = 1_048_576;
 
+/**
+ * The chunks kept so far, latest first: each link holds one copied chunk and
+ * the links before it. Folding a chunk adds one link and copies nothing
+ * earlier, so a stdin delivered in many small chunks costs linear time.
+ */
+export interface KeptChunks {
+  readonly chunk: Buffer;
+  readonly earlier: KeptChunks | undefined;
+}
+
 /** A capped read in progress: the bytes kept so far, and how many were dropped. */
 export interface CappedRead {
-  /** The chunks kept, in order: copies, together at most {@link STDIN_CAP_BYTES} bytes. */
-  readonly kept: readonly Buffer[];
+  /**
+   * The chunks kept, latest first (see {@link KeptChunks}): copies, together
+   * at most {@link STDIN_CAP_BYTES} bytes; `undefined` before the first.
+   */
+  readonly kept: KeptChunks | undefined;
   /** How many bytes the kept chunks hold. */
   readonly keptBytes: number;
   /** How many bytes arrived past the cap and were not kept. */
@@ -29,7 +42,7 @@ export interface CappedRead {
 }
 
 /** The read before its first chunk: nothing kept, nothing dropped. */
-export const EMPTY_CAPPED_READ: CappedRead = { kept: [], keptBytes: 0, droppedBytes: 0 };
+export const EMPTY_CAPPED_READ: CappedRead = { kept: undefined, keptBytes: 0, droppedBytes: 0 };
 
 /**
  * Fold one chunk into the read.
@@ -43,7 +56,10 @@ export const EMPTY_CAPPED_READ: CappedRead = { kept: [], keptBytes: 0, droppedBy
 export function keepWithinCap(read: CappedRead, chunk: Uint8Array): CappedRead {
   const keptLength = Math.min(chunk.length, STDIN_CAP_BYTES - read.keptBytes);
   return {
-    kept: keptLength === 0 ? read.kept : [...read.kept, Buffer.from(chunk.subarray(0, keptLength))],
+    kept:
+      keptLength === 0
+        ? read.kept
+        : { chunk: Buffer.from(chunk.subarray(0, keptLength)), earlier: read.kept },
     keptBytes: read.keptBytes + keptLength,
     droppedBytes: read.droppedBytes + chunk.length - keptLength,
   };
@@ -64,11 +80,20 @@ export function keepWithinCap(read: CappedRead, chunk: Uint8Array): CappedRead {
  * @returns The text, with `droppedBytes` only when a byte was dropped.
  */
 export function finishCappedRead(read: CappedRead): StdinRead {
-  const kept = Buffer.concat(read.kept, read.keptBytes);
+  const kept = Buffer.concat(inReadOrder(read.kept), read.keptBytes);
   const textLength = read.droppedBytes === 0 ? kept.length : wholeCharactersLength(kept);
   const droppedBytes = read.droppedBytes + kept.length - textLength;
   const text = kept.subarray(0, textLength).toString('utf8');
   return droppedBytes === 0 ? { kind: 'read', text } : { kind: 'read', text, droppedBytes };
+}
+
+/** The kept chunks in the order they were read, from the latest-first chain. */
+function inReadOrder(latest: KeptChunks | undefined): Buffer[] {
+  const chunks: Buffer[] = [];
+  for (let link = latest; link !== undefined; link = link.earlier) {
+    chunks.push(link.chunk);
+  }
+  return chunks.toReversed();
 }
 
 /** The longest UTF-8 sequence: a lead byte and up to three continuation bytes. */
