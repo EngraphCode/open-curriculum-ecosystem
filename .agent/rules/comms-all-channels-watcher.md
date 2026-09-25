@@ -27,8 +27,9 @@ heartbeat cron, before team-start broadcast, before any source claim.
 Run one watcher over the full
 `.agent/state/collaboration/comms/` directory, polling it in passes and
 waiting one `--poll-ms` interval after each pass (500 ms by default; the
-canonical invocation keeps the default), and emitting one notification per
-new event, with **self-exclusion plus, where the seat's economics
+canonical invocation keeps the default), and emitting each pass's new events
+as one bounded batch (at most `--max-events-per-drain` events, in one stdout
+write), with **self-exclusion plus, where the seat's economics
 justify it, the sanctioned `--exclude-tag` mechanism** (§"Sanctioned
 tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
@@ -398,7 +399,9 @@ before treating any check here as proof a seat is reachable.
 ### Liveness self-check (cycle boundaries)
 
 The watcher writes a liveness heartbeat **on by default** at
-`<seen-file>.heartbeat.json` (every 30 s); `--heartbeat-file` relocates it
+`<seen-file>.heartbeat.json` after its first pass, then on the first pass that
+ends at least 30 s after the previous write (a long pass delays it);
+`--heartbeat-file` relocates it
 and `--no-heartbeat` disables it. The heartbeat records `last_drain_at`,
 `last_emit_at`, `last_error_at`, `emitted_count`, `pid`, and the lexically
 absolute `watched_comms_dir` it actually drains. At cycle boundaries, classify

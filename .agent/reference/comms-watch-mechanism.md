@@ -175,8 +175,9 @@ A watcher is a single-process intake mechanism. If the process
 dies silently — host crash, panic in an event handler, container
 OOM — nothing notices until a peer waits unreasonably long for a
 reply. The remedy is **liveness attestation**: the watcher writes a
-freshness signal to a substrate file on the first pass that ends after each
-heartbeat interval has elapsed (a long pass delays the write).
+freshness signal to a substrate file after its first pass, then on the first
+pass that ends at least one heartbeat interval after the previous write (a long
+pass delays it).
 
 The minimal liveness record:
 
