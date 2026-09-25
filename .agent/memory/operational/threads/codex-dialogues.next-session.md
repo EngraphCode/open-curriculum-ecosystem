@@ -44,6 +44,22 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   on the synced head `1f1b2d4bb`; 1 round, 0 settlement pushes; merge-landed event `ae8a8c07`).
   The node's Todos on `engraph` mark 1b-0, 1b-i and 1b-iii landed; 1b-ii's own mark rides the
   next node edit.
+- **HANDED OVER AT REST at 12:40Z, 2026-09-25, under PDR-063** (context 51.3% at 12:27:33Z;
+  the owner away, the Director routing; surfacing event `cc536fae`). Claim `372ac08b` carries
+  the handover record (local state, attached to the claim), written for either this seat's
+  resumed session or a successor. Its next steps:
+  - the wake bridge's todo 2: a pre-execution code-expert review of the sink first. Its gate is
+    the node's text, "if any finding breaks the mechanism", which is about the findings, not
+    PR 211's merge. No finding breaks it. The daemon mode is a named gap.
+  - the owed Cricket-clause edit;
+  - this lane's call-inspection PR.
+
+  The Codex config split is routed to Titan turns Ether as its item after PR 211. The cited
+  source reading is in the pairing channel at 12:29Z. Check-in 11's Cricket suite: 8 ON-TRACK,
+  0 DRIFTING; 7 frame verdicts, 1 missing.
+- **Todo 1's daemon-mode run** (this seat, 12:24:40Z, at Titan's go, from a shell outside any
+  Codex sandbox). A healthy managed daemon started, but the TUI exited within 25 s with no
+  rollout and an uncaptured exit message. Stopped, with no retry. Cleanup verified.
 - **NOW (2026-09-25, from about 11:14Z): the wake bridge's todo 1 is open.** The owner paired
   this seat with Titan turns Ether (01a0d8, Codex), Luna stirs Radiance's successor, at about
   10:45Z ("you are now partnering with Titan turns Ether (01a0d8)"). The pairing channel is
