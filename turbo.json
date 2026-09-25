@@ -496,6 +496,8 @@
         "e2e-tests/**/*.ts",
         "vitest.e2e.config.ts",
         "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs",
+        "$TURBO_ROOT$/.claude/settings.json",
+        "$TURBO_ROOT$/.claude/hooks/_lib/log-hook-errors.sh",
         "$TURBO_ROOT$/package.json",
         "$TURBO_ROOT$/runtime-only-scripts/**"
       ]

@@ -282,6 +282,18 @@
           }
         ]
       }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}/.claude/hooks/_lib/log-hook-errors.sh\" node \"${CLAUDE_PROJECT_DIR}/agent-tools/dist/src/bin/claude-pre-compact-observe-hook.js\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
