@@ -361,7 +361,7 @@ records or observed in the named run.
 ### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 11:33Z)
 
 This is one local run of the TUI client in a `tmux` pseudo-terminal, with `--no-daemon`.
-It does **not** establish behaviour in an editor terminal or the ChatGPT desktop app. The
+It does **not** establish behaviour with the managed app-server used by a live CLI seat. The
 installed `codex 0.157.0` matched the latest official release at the start of the run
 ([`rust-v0.157.0`](https://github.com/openai/codex/releases/tag/rust-v0.157.0)).
 The disposable, mode-0700 `CODEX_HOME` held a symlink to the
@@ -418,11 +418,34 @@ the killed TUI was not present at the first post-kill audit; its continuous life
 not measured. The disposable home and its auth symlink were then removed without
 following the link.
 
-The per-host desktop and editor-terminal typing, active-reply, wake and shell-environment
-checks remain for the owner-held host run in the ratified
-`codex-queue-wake-bridge.plan.md` todo 1 (on the coordination branch at `0730de7fd`,
-not yet in this note's base branch). The local TUI findings above do not satisfy the
-plan's "Each host wakes" acceptance criterion.
+**Scope correction and active-seat shell.** At about 11:40Z on 2026-09-25, the owner told
+the Director that the interest was the Codex CLI and corrected the premise that the two
+seats had been started in the ChatGPT desktop app. Swallow holds Drift relayed those words
+in the pairing channel at 11:43:41Z and checked this seat's process parentage: it is a
+`codex` TUI in an editor terminal, with its own managed app-server. The desktop host is
+outside the corrected todo 1. In this active seat's tool shell, a presence-only check
+found `CODEX_THREAD_ID` set and `PRACTICE_AGENT_SESSION_ID_CODEX` absent; both-present-and-equal
+was false. No identifier value was printed. This is the tool-shell environment of the
+editor-terminal seat, not a reading of the disposable TUI process's environment.
+
+**Managed-daemon startup gap.** A second disposable home used the same owner login, an empty
+scratch directory, read-only sandbox and approval `never`. Its first TUI launch omitted
+`--no-daemon` but kept `-c` and `--disable`; the TUI warned that CLI configuration overrides
+force embedded mode, so no daemon-mode queue call was made. After closing it, the settings
+were placed in the disposable config file. Readback showed plugins disabled and no MCP
+servers. A new launch without CLI configuration overrides tried to install the managed
+daemon, then exited before a rollout: its `ps` call to record the daemon PID was denied
+with `Operation not permitted` by the outer host sandbox. No daemon socket existed. The
+named daemon PID was absent on audit, and only pre-existing Codex processes remained.
+The disposable home and its auth symlink were removed without following the link. This
+is a startup limitation, **not** a negative result for `codex queue` in daemon mode.
+
+The ratified `codex-queue-wake-bridge.plan.md` todo 1 was updated on the coordination
+branch after the owner correction; it names the CLI TUI with its managed app-server and
+`codex exec`. The managed-daemon queue behaviour and a new `codex exec` queue probe were
+not observed in this addendum. The no-daemon TUI run therefore does not satisfy the
+updated acceptance criterion that the seat's own host wakes. The managed-daemon check
+needs a host where its PID-recording `ps` call can run, under the same read-only bounds.
 
 ## 3. The participation record
 
