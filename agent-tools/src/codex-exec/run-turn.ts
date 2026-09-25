@@ -15,6 +15,7 @@ import {
   type PassRecordRead,
   type ResolvedBinary,
 } from './gate.js';
+import { PROBE_CONTRACT_VERSION } from './probe-contract.js';
 import type { TurnOutcome } from './turn-verdict.js';
 
 /**
@@ -48,10 +49,11 @@ export type GatedTurnError = GateRefusal | BinaryUnresolved | TurnError;
 
 /**
  * Run one dialogue turn, but only on a binding a probe has passed: the gated
- * core of `dialogue-turn`. The pass record is admitted first, so an empty
- * instrument home asks for a probe before anything about the binary is
- * known. Then the binary is resolved once, the binding is matched against
- * the record, and the turn spawns that same resolved path.
+ * core of `dialogue-turn`. The pass record is admitted first, measured
+ * against the clock, so an empty instrument home or a record past its age
+ * asks for a probe before anything about the binary is known. Then the
+ * binary is resolved once, the binding is matched against the record, and
+ * the turn spawns that same resolved path.
  *
  * @param request - The turn: open a dialogue's thread, or resume one.
  * @param context - What the composition root resolved once for every turn.
@@ -62,7 +64,10 @@ export function runTurn(
   context: TurnContext,
   ports: GatedTurnPorts,
 ): Result<TurnOutcome, GatedTurnError> {
-  const record = admitRecord(ports.readPassRecord(context.childEnvInputs.instrumentCodexHome));
+  const record = admitRecord(
+    ports.readPassRecord(context.childEnvInputs.instrumentCodexHome),
+    ports.now(),
+  );
   if (!record.ok) {
     return err(record.error);
   }
@@ -74,6 +79,7 @@ export function runTurn(
     cliVersion: binary.value.cliVersion,
     executablePath: binary.value.executablePath,
     envelopeDigest: envelopeDigest(context.modelPins),
+    probeContractVersion: PROBE_CONTRACT_VERSION,
   });
   if (!match.ok) {
     return err(match.error);
