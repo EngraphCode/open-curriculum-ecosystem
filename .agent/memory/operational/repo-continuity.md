@@ -350,6 +350,33 @@ contract, its §Recount run at 14:58Z and matching.
   `jimcresswell/design-plan-ratification-and-truings` is superseded too: its report landed on
   engraph 2026-08-05 (33599297d) and grew through three later commits, so the conservation lane
   opened at 17:10Z was unwound without a commit (reading corrected to the Director 17:2xZ).
+- **The owner's word on the branches (native chat to the Director, 17:2xZ, relayed 17:20:21Z,
+  verbatim): "1. Approve 2. Delete all 3. Try passing my approval to Gale and see if that does
+  the job, I absolutely need all seats to be able to push without me".** Item 2 is this card.
+  Done at 17:2xZ: the remote `jimcresswell/design-plan-ratification-and-truings` deleted as the
+  bot (REST DELETE, read back 404; tip 4e030a535). Refused: this seat's harness denied
+  `git branch -D` for the eight local branches, and the Director deleted them by its own hand at
+  17:25:41Z (its broadcast of 17:25:54Z); their tips, for the reflog and this record:
+  `docs/codex-support-concept-exploration` 327ef6abb, `docs/copilot-cli-practice-citizenship`
+  f96149836, `docs/first-class-copilot-agent-support` 4ead1345b, `fix/claude-hook-hardening`
+  c4fae0b83, `jimcresswell/mcp-372-hub-demo-conformance-true-up-re-point-the-token-audit-at-the`
+  30d0e81c5, `jimcresswell/mcp-487-sanitise-numeric-input` 9b6da6178,
+  `jimcresswell/mcp-506-sdk-v2-spike-plan` cdf422566, and the local copy of the design-plan
+  branch 4e030a535. `claude/objective-nightingale-b4ba25` is not on the card.
+- **Batch six (the second estate's delivery of 17:25:04Z, 22 files in `jcnet-batch-6`, every blob id
+  verified, acknowledged as 8cc5ef38):** 21 notes read whole. Nine land as small PRs this seat runs
+  in order after the drafts clear the door (lockfile §Action, the two riders, starter templates,
+  the build-system caching paragraph, eleven polarity headers, the result package, the ESLint
+  plugin's comments and README, the max-files-per-dir deletion, the recipes' four cures after
+  PR 217). Twelve are code lanes for fresh contexts (declaration generators for rules then
+  sub-agents, the secrets hooks with the fixture union, hook logs with the settings quoting
+  check, the discovered smoke runner with two smoke cures and the undeclared-read check, the
+  derived install-time closure, the unreadable-file describer twin, the corpus workflow's eight
+  invariants with eight findings for the corpus plan, the merge door's measured settlement and
+  suppressed-findings hold, the four tsconfig flags with ADR-168, warnings failing every gate
+  measured then sliced; the hook path scope rides batch four's lane). Per-file receipts
+  (integrated or rejected) follow each landing. Still owed by the second estate: the lessons
+  batch, arc-metrics, J18's observer compare.
 - **The seed branch's design (the second estate's answer of 15:45Z to 9f9e7b8f, accepted by
   this seat at 15:48Z):** a subagent's collaboration write is its parent's, by design in both
   estates; the platform gate is a joint cure in the wider form, the three Claude seeds counting
