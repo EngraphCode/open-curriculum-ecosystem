@@ -38,7 +38,7 @@ seat takes the exchange seat only after this session completes.
 
 ## Routed where
 
-- Homes: `c76f93eb6` (eight skills, twenty-three rules, four patterns and one new pattern,
+- Homes: `c76f93eb6` (ten skills, twenty rules, three patterns, one new pattern and the pattern index,
   PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the heartbeat cadence reference,
   the experience audit on `signal-read-as-fact`); `3c1fe1a18` (F-199, the commit skill's move 3);
   the rotation commit (F-191, F-200 to F-207, the napkin archive, this record). The six

@@ -34,8 +34,33 @@ rides Pewter 12:10Z) were read first-hand; their moves (the commit skill, three 
 pattern, PDR-063's O1 clause) are conserved as a patch at
 `~/.practice/consolidation/2026-09-25-oce/lane-doctrine.patch` for a lane branch cut from
 engraph after the rotation broadcast, at the Director's routing of 13:1xZ (consolidation
-doctrine edits are a work product with their own review contract). Landed: `c76f93eb6` (the homes: eight skills, twenty-three rules, patterns, PDR-140,
+doctrine edits are a work product with their own review contract). Landed: `c76f93eb6` (the homes: ten skills, twenty rules, patterns, PDR-140,
 PDR-063, the ARC protocol) and the commit that carries this record (the frictions register, the
 rotation, the pass record). Held in `pending-graduations.md`: four directive-bound rows
 (PDR-052) and the PDR-142 rows that wait for the fold. Nothing in the window was left unread; the
 pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolidation.md`.
+
+## 2026-09-25 ~13:25Z — the comms watcher's drain stalled and the claim tool read the seat as blind (Myrtle turns Canopy, bf4957)
+
+- **Observed**: the all-channels watcher armed at 12:56Z wrote its last drain at 13:13:57Z and
+  wrote nothing for eight minutes while its processes stayed alive; `claims open` then refused
+  a commit window ("blind to comms: watcher heartbeat aged out"). Stopping the Monitor and
+  re-arming the watcher cured it in one cycle; the ceremony landed at 13:24Z. Earlier the same
+  refusal fired twice while a peer's gate loaded the host (12:39Z, 13:24Z) with the watcher
+  alive and only lagging past the 90-second bound. One stall, three refusals, one seat: an
+  observation. Candidate: the ceremony re-reads the heartbeat file and waits one interval before
+  the window claim, and the watcher emits its own stall line when a drain exceeds the bound.
+- **Fact**: `.agent/state/collaboration/comms/` and `comms-archive/manifest.jsonl` are ignored
+  by git, so an archive move (939 events at 13:24Z) needs no commit; the pass record and the
+  manifest are the record.
+
+## 2026-09-25 ~13:42Z — three counts written from memory an hour after landing "a count comes from the object" (Myrtle turns Canopy, bf4957)
+
+- **Mistake, this seat's**: the pass record, the rotation record and the pickup block said
+  `c76f93eb6` carried "eight skills, twenty-three rules, four patterns and one new pattern";
+  the object says ten skills, twenty rules, three patterns plus one new pattern and the index
+  (38 files). The numbers were the edit script's operation counts and a remembered figure, not
+  a read of the commit. Caught by the adversarial medium Cricket ("39 files, but the frame says
+  37"). Corrected here from `git show --name-only`. Instance for
+  `records-are-technical-not-emotional` §A count comes from the object (the sixth in eight
+  days, and the seat that filed the rule's fifth).

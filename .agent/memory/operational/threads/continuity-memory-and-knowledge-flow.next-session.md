@@ -120,8 +120,7 @@ byte-identical as `archive/napkin-2026-09-25.md`). The pass record is
 and analyses are at `~/.practice/consolidation/2026-09-25-oce/` (a per-user surface, because
 they quote the stream verbatim).
 
-**Landed**: `c76f93eb6` (the napkin's graduations: eight skills, twenty-three rules, four
-patterns and one new pattern, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
+**Landed**: `c76f93eb6` (the napkin's graduations: ten skills, twenty rules, three patterns, one new pattern and the pattern index, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
 heartbeat cadence reference, the experience audit); `3c1fe1a18` (F-199); the buffers commit
 that carries this block (register F-191 and F-200 to F-207, pending-graduations, the rotation,
 the pass record); the comms archive move after it (non-heartbeat events swept through
