@@ -4,7 +4,8 @@ pdr_kind: contract
 
 # PDR-078: Liveness-Heartbeat Contract
 
-**Status**: Accepted
+**Status**: Accepted (amended 2026-09-25 — §3 recovers a silent seat's
+claims without PDR-063's five steps, which start only on the owner's call)
 **Date**: 2026-05-24
 **Adopted**: 2026-05-25
 **Related**:
@@ -13,9 +14,9 @@ pdr_kind: contract
 line carries the identity tuple this PDR's identity-rendering
 discipline binds to);
 [PDR-063](PDR-063-mid-cycle-retirement-protocol.md)
-(mid-cycle retirement protocol — the retirement-threshold this
-contract names triggers the per-cycle handoff protocol when a
-heartbeat-emitting role retires under token pressure);
+(mid-cycle retirement protocol — an owner-called handoff of a
+heartbeat-emitting role uses its per-cycle handoff substrate; this
+contract's retirement threshold detects a silent retirement);
 [PDR-064](PDR-064-coordinator-handoff-two-moments.md)
 (coordinator handoff two-moments — the coordinator-handoff grace
 window is one of the named heartbeat-exemption classes; the
@@ -126,9 +127,12 @@ the former text remains above for the record.
 A role that has emitted no event (heartbeat or substantive) for
 a threshold-class window exceeding ten minutes is treated by
 peers as **retired-pending-confirmation**. The team's next move
-is the standard mid-cycle retirement protocol per PDR-063: any
-open claim is captured into a handoff record; the role-class
-authority transfers per its own role-transition shape (per
+is silent-seat recovery: any open claim is disposed per the host
+liveness rule's per-claim disposition (a claim carrying a handoff
+record goes to the agent it names; one without is orphan-class and
+routed). PDR-063's five steps do not run, because no live seat is
+there to run them. The role-class authority transfers per its own
+role-transition shape (per
 PDR-064 for coordinator class; per the marshal cycle-discipline
 PDR for marshal class; ad hoc otherwise).
 
@@ -506,8 +510,8 @@ not free-form content.
 ## Owner direction (source-of-record)
 
 The heartbeat-cadence rules emerged from multi-agent windows
-where role-retirement under context-budget pressure produced
-silent-failure observations: roles whose identity authority
+where role-retirement (at the time, often on a context reading)
+produced silent-failure observations: roles whose identity authority
 persisted in claim state past the role's effective retirement,
 peers acting on stale role-status, owner intervention required
 to surface the retirement and re-route work. The contract
