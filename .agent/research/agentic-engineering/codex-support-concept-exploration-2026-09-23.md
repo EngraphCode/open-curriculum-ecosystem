@@ -510,22 +510,32 @@ directory used `CODEX_HOME=<probe-home> script -q <capture-log> codex --no-alt-s
 launch was elevated so the daemon's startup `ps` call could run; the Codex session's
 sandbox and approval settings remained read-only and `never`.
 
-The TUI output was captured (3,239 bytes; SHA-256
-`4492fcba82f8f7dd83c471177c34df7f9d0f5b0cd7d2f263282a2ce1572ae05b`). Its
-ANSI-stripped projection is: `OpenAI Codex (v0.157.0)`, `Installing daemon from CLI
-version 0.157.0 into <probe-home>/packages/app-server-daemon...`, then `Shutting down...`
-after Titan sent Ctrl-C at 12:59:01Z. It contained no exit error. During the run, a
-daemon PID file and two new app-server processes appeared, but no control socket,
-rollout or recorded thread id appeared at inspection. The TUI remained at the loading
-screen for about two minutes. No queue call was possible or made. Both daemon stderr
-files were empty. This is a startup stall in one captured run, not a queue result.
+The raw TUI capture remains in this local instance at
+`.agent/state/collaboration/_tmp-codex-queue-probe-2026-09-25-01a0d8/tui-capture.log`;
+it is not part of this PR. It has 3,239 bytes and SHA-256
+`4492fcba82f8f7dd83c471177c34df7f9d0f5b0cd7d2f263282a2ce1572ae05b`
+(recomputed by Gale turns Cloud and independently confirmed by Swallow holds Drift in
+the pairing channel at 15:06:17Z on 2026-09-25). The run spanned the 12:56:28Z launch
+to Titan's Ctrl-C at 12:59:01Z on CLI 0.157.0; its command shape was
+`CODEX_HOME=<probe-home> script -q <capture-log> codex --no-alt-screen
+'<fixed READY-D2 prompt>'`. Its ANSI-stripped projection is `OpenAI Codex (v0.157.0)`,
+`Installing daemon from CLI version 0.157.0 into
+<probe-home>/packages/app-server-daemon...`, then `Shutting down...` after Ctrl-C.
+No exit error appears in the captured output. Titan's contemporaneous process and file
+inspection separately recorded a daemon PID file and two new app-server processes, but
+no control socket,
+rollout or thread id. The TUI remained at the loading screen for about two minutes.
+No queue call was possible or made. Both daemon stderr files were empty. This is a
+startup stall in one captured run, not a queue result.
 
 Ctrl-C closed the TUI and capture process. SIGTERM ended one daemon process; the other
 required SIGKILL. The final process audit found none of the four probe processes and
 all six pre-existing `codex` processes. Titan unlinked only the auth symlink and
 verified the owner's auth file remained present, mode 0600. No auth bytes were copied
-into this note. The private capture was kept through transcription; the short excerpt
-and its hash are retained here.
+into this note. The capture contains terminal control bytes and local paths, so the
+file and process observations above are a prose projection, not a publicly replayable
+transcript. The hash identifies the local capture for a reader who has that file; it
+does not independently prove the process observations or the cause of the stall.
 
 The first launch's `ps` denial did not recur in Swallow's shell or in Titan's elevated
 captured launch. Neither later launch reached a queue call, for different startup
