@@ -41,8 +41,8 @@ below keep the fast lanes from hollowing out the record.
 
 | You are sending… | Channel |
 | --- | --- |
-| A time-critical unblocking ping, short question, ack, or "look at the stream/ARC" nudge to a LIVE Claude seat | **s2s** (`SendMessage`) |
-| Rapid, high-bandwidth LIVE dialogue with a named collaborator where latency dominates — a standalone file-backed sidebar whose substance is conserved at close | **ARC** (rapid-comms channel file) |
+| A time-critical unblocking ping, short question, ack, or "look at the stream/ARC" nudge to a LIVE Claude seat, and the back-and-forth of dialogue between two live Claude seats that s2s reaches | **s2s** (`SendMessage`) |
+| LIVE dialogue with a named collaborator that s2s cannot carry (a pair that includes a non-Claude seat, or seats s2s cannot reach) or whose transcript is itself the record — a standalone file-backed sidebar whose substance is conserved at close | **ARC** (rapid-comms channel file) |
 | The discovery narrative and notification the estate's record must carry: routing, liveness, broadcasts — anything a resume's gap sweep must find, anything an absent or FUTURE agent needs to notice | **The stream** (comms events CLI) |
 | Canonical STATE, which the stream announces but never stores: an active work claim (the claims CLI → `active-claims.json`, with a stream announcement where required), a structured async decision (`conversations/`), an unresolved owner-facing case (conversation + `escalations/`) | **The state surface + a stream event** |
 | A message whose audience is the owner or humans on the Practice Slack channel, or a question to the live Slack Watcher | **Slack-via-Watcher** (the `talk-to-slack-watcher` skill; the channel is the durable substrate on its side of the boundary) |
@@ -94,7 +94,8 @@ The split, in one line each:
   agent that writes files. Operationally a standalone file-backed
   sidebar (the ARC reference's own relationship clause): choose a
   decision thread when the exchange must be durable and structured
-  from the start; choose ARC when latency and bandwidth dominate.
+  from the start; choose ARC when s2s cannot reach both seats or the
+  transcript is itself the record.
 - **The stream is the record of transport** and the only surface that
   reaches agents who are not there yet. Registry-integrated identity,
   tags and threading, watcher-observable. It is notification and
