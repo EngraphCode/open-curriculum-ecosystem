@@ -20,7 +20,8 @@ import {
  * harness's completed-script preamble and then whatever the model's own
  * program printed, so the reader validates the preamble item and pairs the
  * output with its call, but never takes the printed output as evidence: the
- * evidence is the harness's command records (the node's rule 4).
+ * evidence is `RolloutEvidence.resumedCommandOutputs`, the harness's command
+ * records.
  */
 
 /** The resumed turn's code-mode outputs, in order. */
@@ -103,7 +104,23 @@ describe('code-mode output: the wrapper', () => {
       ok: false,
       error: {
         kind: 'invalid-record',
-        reason: 'custom_tool_call_output.output does not open with an input_text item',
+        reason: "custom_tool_call_output.output does not open with the harness's input_text item",
+      },
+    });
+  });
+
+  it('rejects a preamble item carrying a field the harness does not write', () => {
+    const candidate = records();
+    const output = firstResumedOutput(candidate);
+    const [preamble] = textParts(output.payload['output']);
+    assert(preamble);
+    output.payload['output'] = [{ ...preamble, future_field: true }];
+
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-record',
+        reason: "custom_tool_call_output.output does not open with the harness's input_text item",
       },
     });
   });
@@ -116,7 +133,7 @@ describe('code-mode output: the wrapper', () => {
       ok: false,
       error: {
         kind: 'invalid-record',
-        reason: 'custom_tool_call_output.output does not open with an input_text item',
+        reason: "custom_tool_call_output.output does not open with the harness's input_text item",
       },
     });
   });

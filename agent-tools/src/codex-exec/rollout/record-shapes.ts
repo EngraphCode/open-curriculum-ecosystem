@@ -149,11 +149,20 @@ export interface RecordedThreadSettings {
 }
 
 /**
- * Detect the harness's explicit truncation markers: the unified-exec output
- * cap's `... N bytes omitted ...`, which a `CommandExecution` item's
- * `aggregated_output` carries (codex-cli 0.157.0), and the markers of the
- * harness's model-facing truncation. A command output carrying any of them
- * reads as inconclusive.
+ * Detect the harness's explicit truncation markers in a `CommandExecution`
+ * item's `aggregated_output`. Each has a path into that field on codex-cli
+ * 0.157.0 (paths under `codex-rs/`):
+ * - `... N bytes omitted ...`: the unified-exec output cap
+ *   (`core/src/unified_exec/mod.rs`, the head/tail buffer);
+ * - `…N tokens truncated…` and `…N chars truncated…`: a refused call's
+ *   message, truncated and written as a declined item's output
+ *   (`core/src/tools/events.rs`, `truncate_rejection_message`);
+ * - `Warning: truncated output` and `Total output lines: N`: the formatter
+ *   behind a sandbox denial's message (`core/src/unified_exec/process.rs`,
+ *   `formatted_truncate_text`); a failed command's record appends its failure
+ *   message to its output (`core/src/unified_exec/async_watcher.rs`).
+ *
+ * A command output carrying any of them reads as inconclusive.
  */
 export function hasTruncationMarker(value: string): boolean {
   return truncationMarker.test(value);

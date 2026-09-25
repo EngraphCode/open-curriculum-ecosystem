@@ -1,6 +1,6 @@
 import { ok, type Result } from '@oaknational/result';
 
-import { codeModeOutputRefusal } from './code-mode-output.js';
+import { checkCodeModeOutput } from './code-mode-output.js';
 import type { JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState } from './reader-state.js';
 import {
@@ -26,9 +26,9 @@ function readCustomToolOutput(
   if (!active.pendingCallIds.has(callId)) {
     return invalidTurnOrder(line, 'tool output has no matching custom tool call');
   }
-  const refusal = codeModeOutputRefusal(payload['output']);
-  if (refusal !== undefined) {
-    return invalidRecord(line, refusal);
+  const wrapper = checkCodeModeOutput(payload['output']);
+  if (!wrapper.ok) {
+    return invalidRecord(line, wrapper.error);
   }
   active.pendingCallIds.delete(callId);
   return ok(undefined);

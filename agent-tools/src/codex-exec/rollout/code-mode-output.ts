@@ -1,6 +1,6 @@
-import { z } from 'zod';
-
 /**
+ * @packageDocumentation
+ *
  * A code-mode tool output, as the rollout records it: the harness's preamble
  * for the script's status, then whatever the model's own program printed. The
  * program chooses what it prints (such as a result object, one field of it,
@@ -8,6 +8,9 @@ import { z } from 'zod';
  * evidence; the harness's `CommandExecution` item carries each command's
  * output instead. The reader checks only the preamble item the harness writes.
  */
+
+import { err, ok, type Result } from '@oaknational/result';
+import { z } from 'zod';
 
 /** The harness's preamble item first; the program's items after it are not parsed. */
 const outputSchema = z
@@ -25,23 +28,23 @@ const completedPreamble = /^Script completed\nWall time \d+(?:\.\d+)? seconds\nO
 
 /** Why a code-mode output's wrapper is not the one the harness writes. */
 export type CodeModeOutputRefusal =
-  | 'custom_tool_call_output.output does not open with an input_text item'
+  | "custom_tool_call_output.output does not open with the harness's input_text item"
   | 'custom_tool_call_output.output has no completed-script preamble';
 
 /**
- * The refusal for a code-mode output's wrapper, or undefined when it is the
- * harness's: the first item is input text holding the completed-script
- * preamble.
+ * Check a code-mode output's wrapper: the first item is the harness's input
+ * text item, with no other field, holding the completed-script preamble.
  *
  * @param value - The output record's `output` field.
+ * @returns ok when the wrapper is the harness's, else the refusal.
  */
-export function codeModeOutputRefusal(value: unknown): CodeModeOutputRefusal | undefined {
+export function checkCodeModeOutput(value: unknown): Result<void, CodeModeOutputRefusal> {
   const parsed = outputSchema.safeParse(value);
   if (!parsed.success) {
-    return 'custom_tool_call_output.output does not open with an input_text item';
+    return err("custom_tool_call_output.output does not open with the harness's input_text item");
   }
   const [preamble] = parsed.data;
   return completedPreamble.test(preamble.text)
-    ? undefined
-    : 'custom_tool_call_output.output has no completed-script preamble';
+    ? ok(undefined)
+    : err('custom_tool_call_output.output has no completed-script preamble');
 }
