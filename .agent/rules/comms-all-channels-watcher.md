@@ -25,8 +25,10 @@ heartbeat cron, before team-start broadcast, before any source claim.
 ## Action
 
 Run one watcher over the full
-`.agent/state/collaboration/comms/` directory, polling it every
-`--poll-ms` and emitting one notification per new event, with **self-exclusion plus, where the seat's economics
+`.agent/state/collaboration/comms/` directory, polling it in passes and
+waiting one `--poll-ms` interval after each pass (500 ms by default; the
+canonical invocation keeps the default), and emitting one notification per
+new event, with **self-exclusion plus, where the seat's economics
 justify it, the sanctioned `--exclude-tag` mechanism** (§"Sanctioned
 tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
@@ -235,9 +237,9 @@ The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
 and `markSeen` step runs under a per-step deadline (`--step-timeout-ms`,
 default 60 s); a step that exceeds it emits a `kind=timeout` WATCHER ERROR
 line and the watcher exits non-zero, so the supervising Monitor/cron sees the
-death and can restart it. The wait between passes (the loop's `waitForChange`
-step) carries no deadline — it is poll-bounded by construction: the watcher
-polls every `pollMs` on a plain `setTimeout(pollMs)`. The liveness self-check
+death and can restart it. The wait between passes carries no deadline — it is
+bounded by construction: the watcher waits one `--poll-ms` interval between
+passes on a plain timer. The liveness self-check
 below covers any residual hang path that a deadline cannot reach (a hung
 process cannot exit-non-zero if the hang sits where no deadline is armed).
 
