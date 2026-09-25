@@ -1493,3 +1493,21 @@ commit.
   `engraph` at 20:43Z on 2026-09-24. Read the failing job's error lines before calling a check a
   defect or a flake. The fan-in `run-quality-gates` goes red with any failed leg, so it names no
   cause of its own.
+
+## 2026-09-25 ~11:38Z — a stale index lock, most likely from this seat's push (Swallow holds Drift, 516619)
+
+- **Surprise: a zero-byte `.git/index.lock` appeared on the primary checkout at 11:31:46Z and
+  stayed.** It blocked Myrtle turns Canopy's commit at 11:34Z and this seat's at 11:36Z. It was
+  born 15 seconds before this seat's `merge-bot push` of the coordination branch finished
+  (11:32:01Z), while the pre-push hook ran its last steps (`knip:gate`, then
+  `encoding:check`). `.git/index` was last written at 11:31:35Z. No process held it (`lsof` was
+  empty, and no git process was running). The most likely source is a git child of those hook
+  steps that did not clean up, but no log line names it.
+- **Resolution:** this seat put its evidence and verdict to the Director (Wick binds Temper,
+  ed7b48) instead of deleting a lock it could not prove was its own. The Director had no
+  objection. The lock was removed at 2026-09-25T11:37:34Z by one command that re-checked
+  everything before the `rm`: the lock's size, its birth time, no `lsof` holder and no git
+  process. So nothing could take the lock between the check and the removal.
+- **Cure to test:** after any push from the primary checkout, check `.git/index.lock` before
+  leaving the push step. A lock that outlives the push, with no holder, is the pusher's to
+  report at once. Two other seats found this one before the seat whose push most likely left it.

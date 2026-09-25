@@ -62,6 +62,28 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The Cricket-clause edit is still owed, and is not a gate. The call-inspection PR in this
     lane (the `dialogue-turn` and `run-turn` integration tests' remaining `.calls` assertion)
     comes after the owner's test-doctrine retirement lands.
+  - **TUI legs run by Titan at about 11:26Z** (0.157.0, one run each, tmux, a disposable Codex
+    home linked to the owner's login):
+    - idle wake;
+    - typed input first, then queued;
+    - a queue during an active turn ran after the turn completed;
+    - a queue to a killed TUI was accepted and ran only on an explicit resume.
+    None breaks the mechanism. The desktop and editor-terminal hosts are unproven.
+  - **The Director's check-in 10 (11:21Z), answered at about 11:36Z.** Cricket suite 10:
+    7 ON-TRACK, 1 DRIFTING, 0 WRONG-PRIORITY, 0 UNDELIVERED. The frame verdicts: 5 sound and
+    3 flagged, of which 2 were accepted and 1 rejected.
+    - The DRIFTING (high, adversarial) was accepted: the order of the dialogues node's remainder
+      (1b-iv, slice 2, slice 3 after the bridge's slice 2, the wake sink) was this seat's reading.
+      **DECIDED by the Director at about 11:38Z under lens 5, no card**: the order stands.
+      "the inflight work" was the three PRs now merged, and the strategic focus is membership.
+      The owner can overturn it with a line; the Director stated the verdict to them.
+    - Card A (the owner's, in the Director's report to them with the "not now" alternative) put
+      the desktop legs to the owner: the owner at the keyboard, with Titan queuing;
+      a computer-use seat not recommended. The desktop killed-session leg is left unrun,
+      because Titan's own seat runs inside the desktop app.
+    - A correction to the Director: the two watchers under supervisor pid 35269 are Titan's, not
+      Luna's. The app-server started at 10:43:01Z, and the watchers at 10:47:01Z and 10:55:21Z,
+      after Luna's 10:34Z closeout.
 - **STRATEGIC FOCUS SWITCHED at the owner's word, about 15:27Z on 2026-09-24**, verbatim: "Finish
   the inflight work, but switch strategic focus to making Codex a first class peer in the
   Practice". The Director was told as the downward-direction rule requires. Consequences:
