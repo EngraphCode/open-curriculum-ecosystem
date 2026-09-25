@@ -285,6 +285,39 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
+**CURRENT PICKUP, 2026-09-25 ~15:05Z — Myrtle turns Canopy (bf4957), the exchange seat at the
+owner's word.** Read this block first; the 2026-09-24 block below it is the older owed list, still
+true where this block does not supersede it, and Marten mends Shadow's handoff record of
+2026-09-25 (the handoffs directory of the collaboration state, this machine only) is the pickup
+contract, its §Recount run at 14:58Z and matching.
+
+- **The owner's ruling on the exchange (2026-09-25 ~11:00Z, recorded by Geyser rides Pewter),
+  verbatim:** "We are prioritising all JC.net Practice innovations being integrated into OCE,
+  then we review. This is a fixed process with an end, not an ongoing effort. Once the Practice
+  contains the best of both it will be extracted into an installable entity." Where they differ,
+  it supersedes the 2026-09-21 framing (three estates, rows owed each way). The delivery node
+  `practice-two-way-exchange.plan.md` carries it in the node's own words. The owner's word to
+  this seat (about 14:53Z, native), verbatim: "you are now responsible for managing the flow of
+  Practice enhancements from JC.net to OCE". The Director's routing of 15:02Z: this seat is the
+  receiver for the second estate's rows (Siren's trigger-amendment twin, batch six, the F-200 to
+  F-207 twins); rows this estate sends go to that estate's seat, Siren herds Rudder (158275).
+- **Claims:** a63a7df8 (the test-doctrine intake) and 141892a7 (the seed branch) adopted from
+  Marten mends Shadow at 15:0xZ, premises recomputed live; 9549aec5 opened for the PDR-009 row.
+- **In flight:** the PDR-009 joint cure taken by bytes (the second estate's blob bc4612df; its
+  event 1592fa3d, this seat's receipt daaa5224): branch `docs/exchange-pdr-009-joint-cure` in
+  worktree `oce-wt-pdr-009-joint-cure`, draft PR #213. It merges behind the Director's
+  slot order of 15:02Z (PR 212, the watcher twin, the fold 187, PR 211; no lane syncs to engraph
+  while another holds the slot). The landed receipt on the stream closes the row.
+- **Next:** joint set K4 merged in the second estate at 15:01Z (its merge c523ba81; Siren's
+  event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
+  those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
+  (the Director's ruling of 15:04Z: PDR-052's 30 % floor is a deferral, never a stop), the seven
+  other files and Marten's local cure list (his 2026-09-24 record) proceed. Then Marten's
+  proposal order, recounted at each step: PR G, J2 (ask the owner A3 first), J3, C7, PR 205's
+  follow-ups, batches three and five, batch four's J2 and J3 receipts, the seed branch. Inbound
+  and waited for: the trigger-amendment twin, batch six, the F-200 to F-207 twins, the Cricket
+  no-inferred-gender line (lands in the second estate first).
+
 **CURRENT PICKUP, 2026-09-24 ~14:0xZ — Marten mends Shadow (74fc02), the owner's named
 successor to Zephyr guards Leeward (281e44) on this lane.** Read this block first; the
 paragraph below that begins "The 2026-09-23 branch folded as #176" is the older owed list,

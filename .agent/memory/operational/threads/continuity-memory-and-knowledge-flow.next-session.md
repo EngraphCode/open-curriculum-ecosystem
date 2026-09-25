@@ -126,6 +126,15 @@ that carries this block (register F-191 and F-200 to F-207, pending-graduations,
 the pass record); the comms archive move after it (non-heartbeat events swept through
 2026-09-25T11:17:35Z, disposition `absorbed`).
 
+*Update, 2026-09-25 ~15:05Z, the same seat after its compaction (supersedes the paragraph below
+where they differ).* The owner's word at about 14:53Z, verbatim: "you are now responsible for
+managing the flow of Practice enhancements from JC.net to OCE". So this seat took the exchange
+seat first, in this context (the pickup is in `repo-continuity.md` §PICKUP for the exchange);
+the four directive-bound rows wait for this seat's next compaction, not for a fresh seat: the
+Director's ruling of 15:04Z reads PDR-052's 30 % floor as a deferral that a compaction
+satisfies, never a stop. The lane-doctrine patch, the comms table's rows and the PDR-142 rows
+stay owed to a curator context as the paragraph below says.
+
 **First acts of the successor, in the Director's order (Wick binds Temper, 13:2xZ)**: (1) in a
 fresh context below 30 % (PDR-052), land the four directive-bound rows in pending-graduations
 (continuity-practice, metacognition, principles, agent-collaboration); (2) then take the
