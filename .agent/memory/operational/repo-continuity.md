@@ -339,6 +339,8 @@ compaction.
 
 - **State at 2026-09-25 00:25Z, context about 68%; the seat is at rest.** The handover record
   is `.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-batch-four-handover-2026-09-25.md`.
+  **Resumed at 00:35Z** after compaction, at 10% context, under the owner's batch-four word.
+  J18 part B is redesigned below.
   - **Landed:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`), J4 in
     three parts, and J18 part A. The K amendment (2a62905f: the PDR-009 clause as the rule's
     domain) waits on Siren's twin.
@@ -352,31 +354,41 @@ compaction.
     - J18 part A: PR 204 (`d0fb0aced`), one owner-only append in core, used by the
       statusline debug log.
     - Every worktree for these is pruned.
-  - **J18 part B, the observer (claim 3a3a9280).** Plan and pre-execution review at 21:50Z.
-    The decided design:
-    - Run from built `dist` through `log-hook-errors.sh`, never from TypeScript source. The
-      estate keeps source-run modules dependency-free, and the note's option would change emit
-      for the whole workspace.
-    - Answer with top-level `continue` and `systemMessage` only (no `hookSpecificOutput`).
-      Read stdin as a Buffer that does not swallow a read error, count bytes, and set
-      `process.exitCode` rather than calling `process.exit`.
-    - Hold `.claude/logs` at 0o700 with a directory hold on its own port: open the directory
-      with `O_RDONLY|O_DIRECTORY|O_NOFOLLOW`, fstat it for type, uid and mode, fchmod the
-      descriptor, then close. That removes the window between an lstat and a path chmod.
-      Refuse a symlink, a foreign owner, or a sticky directory. The observer skips its append
-      whenever the hold fails. Add `umask 077` near the top of `log-hook-errors.sh`.
-    - Make `appendOwnerOnly` refuse on a platform without POSIX ownership (no uid), before
-      writing. PR 204 skips only the owner check there, but `fchmod` cannot make a Windows
-      file owner-only, and `mcp-conformance/owner-only-write.ts` already refuses (Codex P2 on
-      PR 204, recorded as an observation because that PR's budget was spent).
-    - Extract the orchestration with injected stdin, stat, readdir, append, clock and UUID, so
-      integration tests use constant fakes. The smoke covers the bare `/compact` payload and
-      unreadable stdin only; it is wired as `smoke:pre-compact-observe` into `test:e2e`, and
-      `.claude/settings.json` and the wrapper join the turbo inputs.
-    - Record the activation in the same PR: `.agent/hooks/README.md`, `policy.json`'s Claude
-      notes, the surface matrix's Hooks row and §Hook Support (keep the detection tokens), and
-      ADR-167 §Limitations 6 as the third exit-0 writer. Record the observed contract after the
-      first real compaction. Gateway specialists: security (deep), test, config, docs, Barney.
+  - **J18 part B, the observer (claims 3a3a9280 and 44431f81), redesigned 00:50Z.** The
+    B2 pre-execution review asked for changes, and an assumptions review dropped the directory
+    hold as disproportionate: the file's own 0o600 mode, owner, link and identity checks protect
+    its contents at any directory mode, and only a principal who could already read the log
+    could swap the directory. Five pull requests, in order:
+    - **B1, PR 206, merged as `b653e3688` (00:59Z):** `appendOwnerOnly` refuses with
+      `uid`/`NO_POSIX_OWNERSHIP` before touching anything when Node gives no uid (Windows,
+      Android). Codex's P2 on PR 204. Its worktree is pruned.
+    - **B1b, a follow-up, not a prerequisite (the seat's decision, 01:00Z):** read the mode
+      back after `fchmod`, with the two-reading probe. Security asked for it before the
+      observer (WSL with the checkout under `/mnt/c`, CIFS, vfat). The seat's reasons for not
+      waiting on it: on such a mount the checkout's own untracked secrets are already exposed to
+      the same principals; the observer's log adds low-sensitivity content; and assumptions
+      found no such mount in use. Its reviewed shape, if built: one probe in core shared with
+      the conformance writer; the port's `fchmod` returns the mode read back; the probe mode is
+      0o200, so a stranded probe never locks a persistent log; four docs list the refusal.
+    - **B2a, with an implementer:** the pure modules under
+      `agent-tools/src/claude/pre-compact-observe/` (payload read, observation build with the
+      byte count, environment snapshot, sibling selection, the two answers), with unit tests.
+      Worktree `oce-wt-b4-j18b2a`.
+    - **B2b:** the orchestration (injected stdin, lstat-based transcript reads, append, clock,
+      UUID, env, cwd, argv) and the thin entry, run from built `dist`. The entry takes no
+      `failureAsError`, and it tolerates EPIPE on stdout. It writes into its own subdirectory,
+      `.claude/logs/pre-compact-observe/observations.jsonl`, which the append's `mkdir` creates
+      at 0o700 (a departure from the note's path). An empty or relative `CLAUDE_PROJECT_DIR` is
+      unset. ADR-167 rule 1: a recording failure also appends a payload-free line (step and
+      code) to `.claude/logs/hook-errors.log`.
+    - **B2c:** the registration (`PreCompact`, matcher `*`, timeout 10, both paths quoted,
+      because a shell syntax error exits 2, which blocks a compaction); the smoke, symlinking
+      `.claude/hooks` and `agent-tools` into a `mkdtemp` project directory whose name holds a
+      space, cleaned with `fs.rm`; the turbo inputs; and the activation docs: the hooks README,
+      `policy.json`'s notes only, the surface matrix (keep the Hooks row's token order), and
+      ADR-167 §Limitations 6.
+    - Dropped: the directory hold, its port and fake, and `umask 077` in the wrapper, which moves
+      to its own lane under ADR-167.
   - **J2, six validators on the shared read (not started):**
     - A path-free refusal redactor at the four sites that print an absolute path, plus
       `describeGitReadFailure` (PR 203's gateway review found git's stderr can carry one).
