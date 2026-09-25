@@ -358,7 +358,7 @@ records or observed in the named run.
     `HOME`, `LOGNAME` and `_`.
   - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
-### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 11:33Z)
+### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 12:26Z)
 
 This is one local run of the TUI client in a `tmux` pseudo-terminal, with `--no-daemon`.
 It does **not** establish behaviour with the managed app-server used by a live CLI seat. The
@@ -419,11 +419,14 @@ not measured. The disposable home and its auth symlink were then removed without
 following the link.
 
 **Scope correction and active-seat shell.** At about 11:40Z on 2026-09-25, the owner told
-the Director that the interest was the Codex CLI and corrected the premise that the two
-seats had been started in the ChatGPT desktop app. Swallow holds Drift relayed those words
-in the pairing channel at 11:43:41Z and checked this seat's process parentage: it is a
-`codex` TUI in an editor terminal, with its own managed app-server. The desktop host is
-outside the corrected todo 1. In this active seat's tool shell, a presence-only check
+the Director, "why do we need the ChatGPT desktop host? My interest is Codex CLI", and
+corrected the premise about the two seats: "nope! They were both started via the terminal
+with `codex`". These owner words reached this note through the Director's relay to
+Swallow holds Drift, recorded in the pairing channel at 11:43:41Z. At about 11:43Z,
+Swallow read this seat's process parentage first-hand from the process table: its managed
+app-server was spawned by a `codex` TUI, under a shell in the editor's terminal host.
+The desktop host is outside the corrected todo 1. In this active seat's tool shell, a
+presence-only check
 found `CODEX_THREAD_ID` set and `PRACTICE_AGENT_SESSION_ID_CODEX` absent; both-present-and-equal
 was false. No identifier value was printed. This is the tool-shell environment of the
 editor-terminal seat, not a reading of the disposable TUI process's environment.
@@ -440,12 +443,37 @@ named daemon PID was absent on audit, and only pre-existing Codex processes rema
 The disposable home and its auth symlink were removed without following the link. This
 is a startup limitation, **not** a negative result for `codex queue` in daemon mode.
 
-The ratified `codex-queue-wake-bridge.plan.md` todo 1 was updated on the coordination
-branch after the owner correction; it names the CLI TUI with its managed app-server and
-`codex exec`. The managed-daemon queue behaviour and a new `codex exec` queue probe were
-not observed in this addendum. The no-daemon TUI run therefore does not satisfy the
-updated acceptance criterion that the seat's own host wakes. The managed-daemon check
-needs a host where its PID-recording `ps` call can run, under the same read-only bounds.
+**Second seat's managed-daemon attempt.** Swallow holds Drift reported one run in the
+pairing channel at 12:26:16Z. This account is attributed to that seat's process and log
+inspection, not a first-hand observation by Titan. Swallow used CLI 0.157.0 from a shell
+outside a Codex sandbox. A disposable mode-0700 `CODEX_HOME` linked to the owner's own
+`auth.json`; its config set read-only sandbox, approval `never`, plugins off, update check
+off, and trust for an empty scratch directory. Its MCP list was `[]`. At 12:24:40Z,
+Swallow launched `cd <scratch> && CODEX_HOME=<probe-home> codex --no-alt-screen
+'<fixed READY-D1 prompt>'` in `tmux`, without command-line configuration overrides.
+
+At 12:24:43Z, the managed daemon started, re-parented to PID 1, and created its control
+socket and PID file. Its log showed config loading and a model-list request with auth
+attached; its stderr log was empty. The TUI exited within about 25 seconds, before
+12:25:08Z, with no rollout or thread id. The pane closed before its exit message was
+captured, so the cause is unknown. No queue call or wake leg ran. Swallow stopped under
+the one-launch protocol, made no repair or retry, and audited the process set: after a
+second SIGKILL took effect on the probe daemon, no probe processes remained and all six
+pre-existing `codex` processes remained. The auth symlink was unlinked without touching
+the owner's mode-0600 auth file. The remaining disposable home and logs stayed in that
+seat's scratch directory; no credential bytes were copied into this note.
+
+Taken together, the two startup observations are consistent with the `ps` denial being
+specific to Titan's Codex sandbox; Swallow's shell could start the daemon. They do
+**not** establish
+managed-daemon queue behaviour: the second TUI exited before a thread existed. A
+subsequent captured-output launch would be a separate run under its own bound.
+
+The ratified `codex-queue-wake-bridge.plan.md` todo 1 was updated in commit `f8816970e`
+on `coordination/2026-09-24-f66fd0` after the owner correction. It names the CLI TUI
+with its managed app-server and `codex exec`. The managed-daemon queue behaviour and a
+new `codex exec` queue probe were not observed in this addendum. The no-daemon TUI run
+therefore does not satisfy the updated acceptance criterion that the seat's own host wakes.
 
 ## 3. The participation record
 
