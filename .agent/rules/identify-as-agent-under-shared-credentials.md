@@ -51,7 +51,8 @@ marker MUST state three things:
 1. that the content is **agent-authored** (not a human-authored message);
 2. the agent's **PDR-027 display identity** (the session agent name);
 3. **which shared credential** posted it: the human account's, or the team
-   bot's.
+   bot's. Under the team bot the account itself states this, so the marker
+   need not repeat it; under a human account the marker must.
 
 Canonical form under a human account — a trailer at the end of the artefact:
 

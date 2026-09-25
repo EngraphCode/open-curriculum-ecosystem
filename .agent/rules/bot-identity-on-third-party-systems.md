@@ -237,10 +237,13 @@ the first hop. Confirm the id from the API, never from prose:
   2. **Guard the token by LENGTH, not exit code** (`[ ${#token} -ge 20 ]`)
      — an empty read is a failure whatever the exit code.
   3. **Prove the credential before the first write** — a read-only
-     `GH_TOKEN="$token" gh api user`. An installation token answers 403
-     ("Resource not accessible by integration"), and a human credential
-     answers with its login, so an answer that names anyone is a stop
-     (both verified 2026-09-25). An empty `GH_TOKEN` is invisible at the
+     status read, `status=$(GH_TOKEN="$token" gh api -i user 2>/dev/null | head -1 | awk '{print $2}')`,
+     then `[ "$status" = 403 ] || exit 1`. An installation token answers 403
+     ("Resource not accessible by integration"), a human credential
+     answers 200 with its login, and an empty or broken token answers 401
+     or nothing, so only the 403 lets the sequence continue; the bare
+     call's exit code cannot tell these apart (both answers verified
+     2026-09-25). An empty `GH_TOKEN` is invisible at the
      call site; the preflight turns a silent misattribution into a stop
      before anything is written. A read of the author after the write
      detects and cures nothing: a PR created under the ambient owner
@@ -388,10 +391,17 @@ carry.
   the timeline, and the requested-reviewers list never shows the bot
   reviewer). Where the host's merge-bot reference records that an
   installation's request does not register, this grant is the route, and the
-  operator's credential makes the same call. The worked command:
+  operator's credential makes the same call. The worked commands, each
+  bound to its credential (a bare `gh api` would take whatever the keyring
+  holds):
 
   ```bash
-  gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
+  # As the bot, after tripwire 3's preflight on $token:
+  GH_TOKEN="$token" gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
+    -f "reviewers[]=copilot-pull-request-reviewer[bot]"
+  # Under the grant, where the host's merge-bot reference records that the
+  # bot's request does not register:
+  GH_TOKEN="$(gh auth token)" gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
     -f "reviewers[]=copilot-pull-request-reviewer[bot]"
   ```
 

@@ -97,15 +97,21 @@ primary:
 
 ```bash
 PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+ok=1
 for key in user.name user.email; do
   want="$(git -C "$PRIMARY" config "$key")"
-  [ -n "$want" ] && [ "$(git -C <path> config "$key")" = "$want" ] \
-    && echo "$key inherited: $want"
+  if [ -n "$want" ] && [ "$(git -C <path> config "$key")" = "$want" ]; then
+    echo "$key inherited: $want"
+  else
+    echo "$key: not inherited from the primary"; ok=0
+  fi
 done
+[ "$ok" = 1 ]
 ```
 
-Both lines must print, and both values must be the identity the estate's committer
-identity rule names. If either differs, is absent, or names another identity, fix
+Both keys must report inherited (the check exits non-zero otherwise), and both
+values must be the identity the estate's committer identity rule names. If
+either differs, is absent, or names another identity, fix
 the SHARED config once, as that rule directs. Never patch this worktree: a
 `--worktree` override is a second copy that outlives the next correction and
 reintroduces the exact drift this step exists to catch.
