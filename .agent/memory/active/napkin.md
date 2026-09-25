@@ -1425,3 +1425,71 @@ first-class peer. It paused again at 49.8% context.
     the fork's name on Oak surfaces. Nothing was found.
   - *Fixed point.* A third pass would only find the survey blind spot and the monitor
     observation again. The recursion closes here.
+
+## 2026-09-25 ~10:50Z — handoff to another seat: assumptions surfaced (Marten mends Shadow, 74fc02)
+
+This entry is uncommitted at the owner's word ("do not commit or push"). The handoff record
+`74fc02-marten-mends-shadow-exchange-lane-handoff-2026-09-25.md` hands it to the next seat to
+commit.
+
+- **Correction: this seat's wrap enumerated work safety from memory.** The 10:40Z wrap reported
+  three branches. `git worktree list`, with a status check on each worktree, found two more of
+  this seat's:
+  - `oce-wt-gh-write-guard`: PR G, four uncommitted files, never pushed, since about 16:51Z on
+    2026-09-24;
+  - `oce-wt-intake-b2-b`: PR 199, merged, not pruned.
+
+  The 04:15Z record's "no worktree of this seat's remains open except the two held branches" was
+  false in the same way. Take the enumeration from the structural source, and let the check read
+  every worktree. PR G's work now has a patch copy beside the handoff record.
+- **Surprise: landed on engraph is not present where seats run.** The primary checkout runs the
+  coordination branch, which was cut from engraph at `f66fd033f` (11:04Z on 2026-09-24). It does
+  not carry PR 209's `PreCompact` registration or its built hook, so the observer did not run at
+  this session's 10:24Z compaction. PR 209's own "every compaction in this repository" claim
+  holds only for checkouts based on engraph. The sketch plan
+  `.agent/plans/delivery/tracked-listing-consolidation.plan.md` is on engraph only, too. So a rule,
+  hook or plan landed today reaches seats in the primary checkout only after the fold re-cuts the
+  coordination branch and `dist` is rebuilt.
+- **Tool gap: `session-metadata --model 'claude-opus-5-5[1m]'` answers "unknown model … (no window
+  size registered)".** This seat read its context with `claude-opus-4-8[1m]` as a stand-in for
+  the 1M window, and its records carried the command without the reason.
+- **Observation: the partner seat has been silent since 18:03:36Z on 2026-09-24.** That is Siren
+  herds Rudder (158275). Four of this seat's events have no reply, and three lanes wait on the
+  partner. A lane waiting on a peer needs a release condition, and this seat's two retained claims
+  had none until the handoff record proposed one.
+- **Metaloss for this pass:**
+  - *Compressed reasoning:* the claims are kept for handoff, with the reason and a proposed release
+    condition in the record.
+  - *Promises:* J2's owner question and the Director's ruling on the branches without a PR go to
+    the next seat.
+  - *Inferences, flagged:*
+    - who owns `oce-wt-core-text` and `oce-wt-pdr-142`;
+    - that the partner seat's session has ended;
+    - that the 10:24Z compaction was automatic.
+  - *Bounds:* the verbatim reviewer outputs for PR G and the intake did not survive.
+  - *External bound:* no outside check of the handoff record was possible under the owner's
+    stop, and the record says so.
+  - *Fixed point:* a further pass would only find the locality of the untracked surfaces and
+    the gap between landed and live again. The recursion closes here.
+
+## 2026-09-25 ~11:00Z — resumed after compaction, paired with a new Codex seat (Swallow holds Drift, 516619)
+
+- **Mistake: my whole-file write replaced the partner's channel header.** Titan turns Ether (01a0d8)
+  and I opened the same pairing file within seconds of each other. Their three-line header was
+  on disk before my write, and the write replaced it. The editor's unread-file guard did not stop
+  it, because the file appeared after the guard's check. Nothing unique was lost; Titan confirmed.
+  Cure: open a shared channel by appending (`>>`), never by writing the whole file, whenever a
+  partner is live and may open it too.
+- **Recurrence: I typed an ARC header time by hand, and it was 3 minutes in the future**
+  (10:52:00Z written at 10:48:41Z). The protocol already says headers come from `date -u`. I
+  corrected it with a new entry. Every header since is built by `date -u` inside the append
+  command itself, so no typed time can reach the file.
+- **Surprise: after the compaction the seat's process had a new pid** (23808 before, 45379
+  after). The watcher's `--supervisor-pid` and the heartbeat loop's `kill -0` guard must come from
+  walking the shell's parent chain to `claude` at each re-arm, never from a pid in a record.
+- **Surprise: the red checks a partner reported were a known flake, not the diff.** PR 196's
+  `knip-depcruise` failure on `f06807bb9` was the `oak-curriculum-hub` Turbopack Google-font
+  loader ("next/font/google queries have exactly one entry"). Marten recorded the same flake on
+  `engraph` at 20:43Z on 2026-09-24. Read the failing job's error lines before calling a check a
+  defect or a flake. The fan-in `run-quality-gates` goes red with any failed leg, so it names no
+  cause of its own.

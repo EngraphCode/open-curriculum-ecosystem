@@ -26,6 +26,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
 | Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`) | 2026-09-24 | 2026-09-24 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
+| Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift | 2026-09-25 | 2026-09-25 |
 
 ## Current Continuation
 
@@ -38,22 +39,29 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   merge door); slice 1b-i, the gate, PR 189 (`a0a2fead4`, merged 2026-09-24 14:59:44Z through
   the merge door, merge-landed event `4b4a0cab`); slice 1b-iii, the rollout reader, PR 190
   (`45c838297`, merged 2026-09-24 about 17:14Z through the merge door, both legs SATISFIED on
-  the synced head `17cd699a1`; 2 rounds, 0 settlement pushes). The node's Todos do not yet mark
-  1b-0, 1b-i or 1b-iii landed. The first two ride PR 196's node edit; add 1b-iii there at its sync.
-- **NEXT FOR THE SUCCESSOR (the handover default, 17:08Z)**: PR 196 (1b-ii) is a draft at
-  `f06807bb9` on origin. Steps:
-  1. sync it once past `engraph`, with the owner as author, at its landing slot, after
-     Marten's PRs 195 and 197;
-  2. add "Landed as PR 190" to 1b-iii's todo in the node;
-  3. push through `merge-bot push`;
-  4. mark it ready;
-  5. request Copilot (`requested_reviewers` as the bot) and post `@codex review`;
-  6. read both legs on that head;
-  7. take the door.
-  **The wake bridge's todo 1 opens at PR 196's merge-landed** (PR 190 has already merged): per-host
-  probes with Luna stirs Radiance, in isolated sessions. Nothing else gates it. Separately, and
-  NOT a gate on the bridge, the successor also owes the Cricket-clause edit, the Director's
-  assignment, which was due once PR 190 landed.
+  the synced head `17cd699a1`; 2 rounds, 0 settlement pushes); slice 1b-ii, the cleanup row,
+  PR 196 (`1a4450a69`, merged 2026-09-25 about 11:14Z through the merge door, both legs SATISFIED
+  on the synced head `1f1b2d4bb`; 1 round, 0 settlement pushes; merge-landed event `ae8a8c07`).
+  The node's Todos on `engraph` mark 1b-0, 1b-i and 1b-iii landed; 1b-ii's own mark rides the
+  next node edit.
+- **NOW (2026-09-25, from about 11:14Z): the wake bridge's todo 1 is open.** The owner paired
+  this seat with Titan turns Ether (01a0d8, Codex), Luna stirs Radiance's successor, at about
+  10:45Z ("you are now partnering with Titan turns Ether (01a0d8)"). The pairing channel is
+  `.agent/collaboration/rapid-comms/2026-09-25-codex-dialogues-swallow-holds-drift-and-titan-turns-ether.md`.
+  The probe protocol agreed there:
+  - Titan runs the TUI legs, driven through a terminal multiplexer, in the owner's Codex home. A
+    fresh disposable home reports "Not logged in" on 0.157.0. The session gets a scratch cwd,
+    read-only sandbox, approval `never`, `--no-daemon`, plugins off and the user MCP servers
+    overridden off. Cleanup compares process sets taken before and after the run.
+  - The tmux run is recorded as the TUI client only. The editor-terminal host stays unproven
+    until the owner-held acceptance run.
+  - The desktop legs need an owner step (the owner at the keyboard, or the owner's word for a
+    computer-use seat), which this seat puts to the owner.
+  - The findings are a dated addendum to the concept note, in a small PR of Titan's under
+    Titan's claim, reviewed by this seat.
+  - The Cricket-clause edit is still owed, and is not a gate. The call-inspection PR in this
+    lane (the `dialogue-turn` and `run-turn` integration tests' remaining `.calls` assertion)
+    comes after the owner's test-doctrine retirement lands.
 - **STRATEGIC FOCUS SWITCHED at the owner's word, about 15:27Z on 2026-09-24**, verbatim: "Finish
   the inflight work, but switch strategic focus to making Codex a first class peer in the
   Practice". The Director was told as the downward-direction rule requires. Consequences:
@@ -272,7 +280,15 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   committed. Forge's pickup index (comms broadcast, 13:34Z) names them for local
   re-verification.
 
-### Lane: 1b-ii, the cleanup row — PR 196, a draft at `f06807bb9`, cured, next to land (see NEXT FOR THE SUCCESSOR)
+### Lane: 1b-ii, the cleanup row — PR 196, LANDED 2026-09-25 about 11:14Z as `1a4450a69`
+
+- **Landed**: synced once past `engraph` `f08201ab0` (merge `cd8466380`, owner-authored), then
+  the node edit `1f1b2d4bb`, pushed through the bot, marked ready at 10:57Z. Both legs came back
+  on that head by 11:00Z: Copilot recommended approval with no findings, and the Codex
+  connector found no major issues. CI passed 21 of 21. The merge-base deletion sweep was read
+  before the door. The remote branch was deleted as the bot, and the worktree and local branch
+  were removed after a content check (the tip is an ancestor of `origin/engraph`). The history
+  below is kept as the record.
 
 - **Where**: worktree `oce-wt-codex-dialogue-cleanup-row` beside the primary checkout, branch
   `feat/codex-dialogue-cleanup-row`, off `engraph` at `a0a2fead4`. Built and installed. No PR yet;
