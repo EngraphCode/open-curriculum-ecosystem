@@ -235,6 +235,37 @@ bricked by a missing optional tool. That is a broader fail-open posture than the
 dangerous-command/content guards above: those fail open *only* for the not-built
 case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 
+## Quoted wrapper paths
+
+Every entry that `.claude/settings.json` registers through
+`.claude/hooks/_lib/log-hook-errors.sh` quotes both `${CLAUDE_PROJECT_DIR}`
+paths, the wrapper's and the wrapped command's (ADR-167 §Reference instance).
+Quoting is right under both ways the harness can run the text:
+
+- **The shell expands the variable.** An unquoted path holding a space splits,
+  and the shell exits 127 before the wrapper starts, so nothing is logged and
+  the hook silently stops running.
+- **The harness pastes the path into the command text before the shell
+  runs.** Shell syntax in an unquoted path is a syntax error, exit 2, which
+  blocks the call: the read on `PreToolUse:Read`, the prompt on
+  `UserPromptSubmit`.
+
+Recorded, not built for: under a harness paste, a `"`, `$` or backtick in the
+project path breaks even the quoted form. Most such paths exit 127 and fail
+open silently. A few shapes, such as a lone `$(`, exit 2 and block every read
+and prompt. A `$(...)` or a backtick pair in a directory name runs as code,
+as it would unquoted.
+
+`agent-tools/smoke-tests/hook-wrapper-quoting.smoke.ts` runs the Read and
+`UserPromptSubmit` secrets-scan entries in a throwaway project whose name holds
+a space, with a stub `sonar` on `PATH` that reports either a clean scan or a
+secret. It fails unless each entry exits 0 through the wrapper, with the
+script's decision (none, the deny, or the block) on stdout and no failure
+logged. `.agent/reference/shell-and-tooling-gotchas.md` records one observed
+`sonar auth login` run, on the CLI's login and integrate path, that rewrote
+those two lines in place and dropped the wrapper; the smoke fails on such a
+rewrite.
+
 ## PreCompact observer
 
 The `PreCompact` entry in `.claude/settings.json` registers an observer, not a
@@ -266,14 +297,10 @@ decides. It records the harness's compaction contract (what Claude Code sends a
   with exit 1, which the wrapper logs. No path exits 2.
 - **Missing `dist`.** When the entry is not built, `node` exits 1, the
   `log-hook-errors.sh` wrapper logs it, and the compaction continues.
-- **Quoted paths.** The command quotes both `${CLAUDE_PROJECT_DIR}` paths. If
-  the shell expands the variable, an unquoted path with a space splits and
-  exits 127. If the harness pastes the value into the command text before the
-  shell runs, an unquoted path holding shell syntax is a syntax error, which
-  exits 2 and blocks the compaction. Quoting is right under both. Recorded,
-  not built for: a `"`, `$` or backtick in the project path breaks even the
-  quoted form if the harness pastes the text. The older wrapper entries are
-  unquoted and stay as they are.
+- **Quoted paths.** The command quotes both `${CLAUDE_PROJECT_DIR}` paths, as
+  every wrapper entry does; [Quoted wrapper paths](#quoted-wrapper-paths)
+  gives the reasons and the residual caveat. Here, an exit 2 would block the
+  compaction.
 - **Departures from the concept note.** The observer came from a concept
   note from the second estate's Practice, and departs from it in three ways.
   It runs from the built `dist`, like the `PreToolUse` dispatcher, not from

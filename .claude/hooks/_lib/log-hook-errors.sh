@@ -7,9 +7,10 @@
 # wrapper makes those failures auditable by appending to .claude/logs/hook-errors.log
 # whenever the wrapped command exits non-zero.
 #
-# Usage in settings.json:
-#   "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/_lib/log-hook-errors.sh \
-#               ${CLAUDE_PROJECT_DIR}/.claude/hooks/<your>/<script>.sh"
+# Usage in settings.json (quote both paths, so a project path with a space
+# cannot split them):
+#   "command": "\"${CLAUDE_PROJECT_DIR}/.claude/hooks/_lib/log-hook-errors.sh\" \
+#               \"${CLAUDE_PROJECT_DIR}/.claude/hooks/<your>/<script>.sh\""
 #
 # Stdin (the hook payload from Claude Code) is passed through unchanged.
 # Stdout (any hook decision JSON) is passed through unchanged.
@@ -23,6 +24,7 @@ log_dir="${project_dir}/.claude/logs"
 log_file="${log_dir}/hook-errors.log"
 
 mkdir -p "$log_dir"
+# agent-tools/smoke-tests/hook-wrapper-quoting.smoke.ts reads this empty log as proof the wrapper ran.
 touch "$log_file"
 
 stderr_capture="$(mktemp)"

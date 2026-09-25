@@ -498,6 +498,7 @@
         "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs",
         "$TURBO_ROOT$/.claude/settings.json",
         "$TURBO_ROOT$/.claude/hooks/_lib/log-hook-errors.sh",
+        "$TURBO_ROOT$/.claude/hooks/sonar-secrets/**",
         "$TURBO_ROOT$/package.json",
         "$TURBO_ROOT$/runtime-only-scripts/**"
       ]
