@@ -263,8 +263,10 @@ Each slice is one story, within the default round budget.
       ack time and the clock are plain inputs to the core. Reviews: test-expert, focused;
       security-expert, focused on the handshake parse.
    2. **2a-ii, the Codex thread id's owner.** `ThreadId` and `parseThreadId` move from
-      `codex-exec/envelope.ts` to a Codex-wide module, with every import updated and no
+      `codex-exec/envelope.ts` to `core/codex-thread-id.ts`, with every import updated and no
       re-export. That removes 2a's import of the dialogues' envelope from `collaboration-state`.
+      The owner is `core`, a leaf, rather than `codex/`, which already imports from
+      `collaboration-state` (architecture-expert-barney's pre-execution read).
       The rollout reader is among the importers, so it is sequenced with the Codex seat's
       slice 1b-iv PR B. Reviews: code-expert; architecture-expert-barney, focused.
    3. **2b, the ports and the loop.** The queue port, with the notice constants and the pure argv
