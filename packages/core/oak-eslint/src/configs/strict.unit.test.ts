@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { Linter } from '@typescript-eslint/utils/ts-eslint';
 import type { TSESLint } from '@typescript-eslint/utils';
 import { strict } from './strict.js';
-import { testRules } from '../shared.js';
+import { testRules } from '../test-rules.js';
 
 /**
  * Behavioural tests for the strict config exported by
@@ -145,10 +145,26 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
     expect(ruleIds).toContain('vitest/warn-todo');
   });
 
-  it('still reports vitest/warn-todo when a workspace layers testRules on test files', () => {
+  it('reports vitest/warn-todo for a test marked with the todo option', () => {
     const code = [
       "import { describe, it } from 'vitest';",
       "describe('suite', () => {",
+      "  it('case to write', { todo: true }, () => {});",
+      '});',
+      'export {};',
+    ].join('\n');
+
+    const { ruleIds } = lint(code, 'fixture.test.ts');
+
+    expect(ruleIds).toContain('vitest/warn-todo');
+  });
+
+  it('still reports the three test-shape rules when a workspace layers testRules on test files', () => {
+    const code = [
+      "import { describe, it } from 'vitest';",
+      "describe('suite', () => {",
+      "  it.skip('skipped case', () => {});",
+      "  it.only('focused case', () => {});",
       "  it.todo('case to write');",
       '});',
       'export {};',
@@ -164,6 +180,8 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
       .map((message) => message.ruleId)
       .filter((value): value is string => value !== null && value !== undefined);
 
+    expect(ruleIds).toContain('vitest/no-disabled-tests');
+    expect(ruleIds).toContain('vitest/no-focused-tests');
     expect(ruleIds).toContain('vitest/warn-todo');
   });
 
