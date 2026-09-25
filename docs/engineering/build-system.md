@@ -667,11 +667,12 @@ reader a broken `pnpm build`.
 
 ## Linting and Auto-Fix Safety
 
-- **`lint:fix` can silently revert manual edits**: `pnpm check`
-  runs `lint:fix` internally. If an edit introduces code that
-  the linter "fixes" back, the edit is lost mid-pipeline. Always
-  verify the edited file AFTER the full `pnpm check`, not just
-  after a single gate.
+- **`lint:fix` can silently revert manual edits**: `pnpm make`
+  and `pnpm fix` run `lint:fix` internally. If an edit introduces
+  code that the linter "fixes" back, the edit is lost
+  mid-pipeline. Always verify the edited file AFTER the full
+  `pnpm make` or `pnpm fix`, not just after a single gate.
+  `pnpm check` applies no fixes.
 - **Reviewer fixes must exist on disk**: a disposition recorded in a
   napkin, summary, or review thread is not evidence. Open or search the
   target file after applying the fix, especially after auto-fix gates.

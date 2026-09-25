@@ -68,8 +68,12 @@ the 120s message-sweep, and the multi-section team-start ceremony (one concise
 registration broadcast suffices); **retain** identity preflight, the
 all-channels comms watcher, claims on substantive source/doctrine edits,
 commit-queue intents, the substantive cross-agent broadcasts (tree-green,
-push-landed, gate-state, merge-ready, blocker), mid-cycle retirement, and
-closeout broadcasts. A third agent joining re-activates the full protocol
+push-landed, gate-state, merge-ready, blocker), mid-cycle retirement,
+closeout broadcasts, and your own state line to your partner: at least every
+120 s during a long turn, one line naming the state, any blocker and the next
+action, by the channel `comms-channels` names for one live reader. Silence past
+that interval is unknown state: ping, never escalate (PDR-082 §What changes at
+n=2). A third agent joining re-activates the full protocol
 atomically; declare the mode in your team-start broadcast. The n=2 lead is
 accountable for the second seat's judgement, not only for the split of work
 (owner to the lead, 2026-09-03: "You are the lead, you are responsible for
@@ -674,7 +678,7 @@ defined in full by
 the **Director** (long-lived, minimum-action, the single owner-interface
 and cross-session awareness carrier — routes, does not execute) and the
 **Implementer** (ephemeral, owns one bounded lane in its own worktree,
-runs its own gates, reports compressed verdicts, retires with a handoff).
+runs its own gates, records compressed verdicts, retires with a handoff).
 One idea in two layers: **isolate the doing (Implementers); centralise the
 awareness (Director).** Every other label in this section stays a
 session-local example; these two are doctrine.
@@ -696,6 +700,12 @@ owner's (PDR-074 P2). Three points keep this honest:
   only. The owner may direct any agent _directly_ downward
   (owner-direction-beats-plan); a directly-directed Implementer follows it
   AND informs the Director so the map stays current.
+  Read through the owner's ruling for all agents (2026-09-23, verbatim: "do
+  not update the Director unless you have a question or other request, the
+  normal records keep the record"), the Implementer informs the Director by
+  recording the direction in its thread record, where the Director reads the
+  map when it needs it, and messages the Director only when the direction
+  raises a question or a request.
 - **Multiply-directed coordination.** When the owner issues the _same_
   directive to more than one Implementer, "who executes" is itself an
   upward coordination question that routes to the Director; an Implementer
@@ -827,7 +837,10 @@ claim the session opened before leaving. Keep a claim active only when there is
 a specific handoff reason for a follow-on agent, and make that reason explicit
 in the closeout message: which claim remains, what boundary it protects, who or
 what session should pick it up, and when it should be released if the follow-on
-does not arrive.
+does not arrive. An open pull request the session opened or shepherds is such a
+reason until it merges: its claim stays active, and the closeout names the pull
+request, its next step and the seat that takes it (`pr-lifecycle`: a PR is done
+when it is live).
 
 When a later agent picks up a session, claim, or boundary that was retained for
 handoff, they must notify the other agents before acting. The pickup message
@@ -850,6 +863,7 @@ Team member closeout:
 - Outcome:
 - Evidence:
 - Claims / queue / git state:
+- Open pull requests owned (each merged, or its claim retained with its next step and the seat that takes it named):
 - Session complete announcement:
 - Retained claims, if any, and handoff reason:
 - Pickup notification required for follow-on agent:

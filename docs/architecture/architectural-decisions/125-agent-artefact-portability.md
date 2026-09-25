@@ -234,6 +234,8 @@ A thin wrapper contains ONLY:
 
 A thin wrapper MUST NOT contain substantive instructions, workflow steps, or logic that does not exist in the canonical source. The canonical content describes **what** to do; the wrapper describes **how** to invoke it on a specific platform.
 
+An inline-prompt role's adapter (PDR-009: the role cannot read files, or its bounded turns belong to its task) carries its template's System prompt block verbatim in place of the pointer, and `pnpm subagents:check` compares the copy with the template.
+
 ### Owned-Skill Naming Convention
 
 Every canonical under `.agent/skills/` is a Practice-class skill, and its

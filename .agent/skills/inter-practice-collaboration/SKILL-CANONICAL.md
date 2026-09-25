@@ -187,6 +187,13 @@ the first comms write, claim, or registration).
    SELF-CONTAINED concept payloads (no SHAs, no dereferences, no
    moving targets); the paired comms event carries the time-bound
    layer (provenance pins, identity, sequencing, the box path).
+   **Lint before delivery**: a box file lands in the receiver's
+   working tree, where its whole-tree gates read it before any
+   receipt, so the donor runs the receiver's own formatting and lint
+   configurations over every box file and delivers only bytes they
+   pass (PDR-125 clause 7). Run the receiver's format check and
+   markdown lint, with the receiver's configuration files, over the
+   box paths before posting the delivery event.
    When a ported artefact is a DETECTOR (a validator, a conformance
    twin, a gate), its first live run on the receiving estate is a
    detector test: porting ports the authoring estate's lexical
@@ -232,7 +239,8 @@ the first comms write, claim, or registration).
 
 ## Leaving
 
-Close claims you opened, stand the watcher down cleanly (a
+Close claims you opened (an open pull request's claim stays active until
+it merges), stand the watcher down cleanly (a
 final-heartbeat-end event, so the home team reads intent rather than
 silence), and leave a closeout event naming what remains and where the
 lane resumes. An orphaned guest watcher emits false liveness into a
@@ -254,6 +262,6 @@ equivalent) so it dies with your session.
 ## Platform Adapters
 
 The generated Claude Code adapter lives at
-`.claude/skills/<prefix>-inter-practice-collaboration/SKILL.md`, where `<prefix>` is the estate's skill prefix.
+`.claude/skills/<prefix>inter-practice-collaboration/SKILL.md`, where `<prefix>` is the estate's configured skill prefix.
 Regenerate with
 `pnpm skills:generate` and verify with `pnpm skills:check`.

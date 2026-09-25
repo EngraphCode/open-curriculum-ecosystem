@@ -1,4 +1,5 @@
 import {
+  debugLogLine,
   invalidConfigWarningLine,
   resolveDebugLogConfig,
 } from '../../src/claude/statusline-debug-log';
@@ -63,5 +64,29 @@ describe('invalidConfigWarningLine', () => {
       ),
     ).toBe('');
     expect(invalidConfigWarningLine(resolveDebugLogConfig({}), ansi)).toBe('');
+  });
+});
+
+describe('debugLogLine', () => {
+  const now = '2026-08-07T15:00:00.000Z';
+
+  it('is one line: the timestamp, a space, the payload, a newline', () => {
+    expect(debugLogLine('{"a":1}', now)).toBe(`${now} {"a":1}\n`);
+  });
+
+  it('collapses line breaks so one invocation is one greppable line', () => {
+    expect(debugLogLine('{\n"a": 1\n}', now)).toBe(`${now} { "a": 1 }\n`);
+  });
+
+  it('trims the trailing newline the harness sends, keeping the entry one line', () => {
+    expect(debugLogLine('{"a":1}\n', now)).toBe(`${now} {"a":1}\n`);
+  });
+
+  it('preserves internal whitespace — the logged payload stays faithful to what arrived', () => {
+    expect(debugLogLine('{"cwd":"/a  b/c"}', now)).toBe(`${now} {"cwd":"/a  b/c"}\n`);
+  });
+
+  it('preserves leading and trailing non-linebreak whitespace — only line breaks are transformed', () => {
+    expect(debugLogLine('  {"a":1}\t \n', now)).toBe(`${now}   {"a":1}\t \n`);
   });
 });
