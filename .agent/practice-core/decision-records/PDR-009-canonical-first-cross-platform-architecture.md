@@ -129,9 +129,10 @@ containing thin wrappers. A thin wrapper contains ONLY:
   cannot express a platform's native mechanism (e.g. `@file` mentions,
   argument-substitution placeholders, skill-invocation syntax).
 
-A thin wrapper MUST NOT contain substantive instructions, workflow
-steps, or logic that does not exist in the canonical source. The
-canonical content describes **what** to do; the wrapper describes
+A thin wrapper MUST NOT add substantive instructions, workflow steps,
+or logic of its own: whatever substance it carries is the canonical
+source's text, as an inline-prompt role's compared copy (below) is.
+The canonical content describes **what** to do; the wrapper describes
 **how** to invoke it on a specific platform.
 
 An adapter carries what its role needs to reach the canonical prompt.
@@ -320,11 +321,12 @@ Layer-2 artefact types.
   policy file.
 - Portability validation (automated) checks: (a) every canonical
   artefact has the required adapters; (b) every adapter is thin
-  (content-line count under the threshold; no substantive prose), or
-  carries exactly its template's System prompt block and is compared
-  with it; (c) every platform adapter points back to, or is compared
-  with, an existing canonical artefact; (d) every platform's tracked configuration grants the
-  permissions wrappers need to activate.
+  (content-line count under the threshold; no substantive prose), or,
+  for an inline-prompt role, carries exactly its template's System
+  prompt block and is compared with it; (c) every platform adapter
+  points back to an existing canonical artefact or, for an
+  inline-prompt role, is compared with it; (d) every platform's tracked
+  configuration grants the permissions wrappers need to activate.
 - Cross-platform probes use platform-neutral inputs by default, or
   explicitly provide parity across the platforms they claim to verify.
 - Tripwire installs should include at least one self-applying
@@ -334,9 +336,11 @@ Layer-2 artefact types.
 
 ### Forbidden
 
-- Substantive content in platform adapter directories. Policy
-  prose, workflow steps, or decision logic in a wrapper is a
-  contract violation.
+- Substantive content that is an adapter's own, in platform adapter
+  directories. Policy prose, workflow steps, or decision logic that
+  a wrapper adds is a contract violation; an inline-prompt role's
+  System prompt block is its template's text, copied verbatim and
+  compared with it.
 - Canonical rules that duplicate authoritative-source content rather
   than pointing at it. A canonical rule is itself a pointer layer in
   the three-layer model; its own substance should be minimal.

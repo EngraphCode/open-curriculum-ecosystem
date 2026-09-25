@@ -4,6 +4,54 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009's Forbidden bullet names an adapter's own content plainly
+
+- One line: "Substantive content that is an adapter's own, in platform
+  adapter directories" replaces "Substantive content of an adapter's own
+  in platform adapter directories", the wording a review of PR 213 found
+  incomplete. The second estate carries the same blob (its PR 198), so the
+  record stays one blob in both estates.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009 takes the joint cure of its substance prohibitions
+
+- PDR-009's thin-wrapper rule and its Forbidden item now forbid substance
+  that an adapter ADDS, and validator clauses (b) and (c) admit a compared
+  copy only for an inline-prompt role. Before the cure the rule and the list
+  forbade any substantive content in an adapter while the inline-prompt
+  paragraph (K2(a)) requires one; a review of the second estate's twin found
+  the contradiction, its exchange seat sent the cure, and this seat took it by
+  receipt. The three passages are the second estate's bytes, so the record is
+  one blob in both estates again (PDR-142: a Core decision record stays
+  byte-identical).
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — context readings never stop a seat (the trigger amendment twin)
+
+- PDR-063 gains §Context readings never stop a seat, on the owner's word to
+  every seat: no context reading stops a seat, hands its work over or starts
+  a succession, and a seat keeps its records current as it goes. An
+  owner-called compaction gets the compaction drill, and the same session
+  resumes on the owner's word. A platform compaction gets no drill: the seat
+  re-arms and carries on. After either, the seat validates against its own
+  continuity record. The effectiveness calibration stays, as the reason to
+  keep records current.
+- PDR-063's five steps now start only on the owner's call (Step 1), and every
+  succession of a live seat is deliberate; a standing owner naming counts as
+  the call. §Retirement authority keeps the no-recipient broadcast and
+  owner-mediated instantiation. The rationale, forbidden list, accepted cost,
+  open questions and §Handover timing follow.
+- Withdrawn with the context triggers: the owner-absent autonomous handoff at
+  a declared deadline, the post-commit budget floor, and a coordinator's
+  authority to call a succession.
+- PDR-052's floor for directive-file edits stands: at or above 30% the edit
+  waits for the next compaction, and the seat carries on with other work.
+- PDR-078 §3 recovers a silent seat's claims without PDR-063's five steps.
+  PDR-064's intersection and forced exception, PDR-077's marshal
+  intersection and PDR-117's implementer handoff start on the owner's call.
+  PDR-075's rationale drops the trigger.
+- The second estate drafted the amendment on the owner's word to every seat and
+  the Director's rulings; these are its bytes where the files matched by blob,
+  and the same hunks placed by hand where this estate's files differ.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
 
 - PDR-009 gains the inline-prompt role both estates' exchange seats signed as

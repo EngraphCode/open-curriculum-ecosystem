@@ -53,9 +53,9 @@ The cost shape was O(session) per handoff: each outgoing Director
 synthesised the entire window's substrate at the boundary, into a
 one-off prose document that the incoming Director then re-read
 end-to-end. Under rotating-cast Director operation, this cost
-concentrates at exactly the moment of context-budget pressure
-(PDR-063 trigger), making the synthesis adversarial to the role it
-is supposed to serve.
+concentrated at the handoff, where the seat's context was fullest,
+making the synthesis adversarial to the role it is supposed to
+serve.
 
 The architectural alternative: enrich the comms-event stream DURING
 the window so the substrate is generated incrementally on the
@@ -171,9 +171,8 @@ emission.** The Director who absorbs substrate-worthy observations
 into agent-private notes through the window, then synthesises a
 comprehensive handoff record at closeout, has:
 
-- concentrated O(session) authoring cost at exactly the boundary
-  where context-budget pressure is highest (the PDR-063 trigger
-  surface);
+- concentrated O(session) authoring cost at the handoff boundary,
+  where the seat's context is fullest;
 - deprived peers of real-time substrate visibility
   (broad-awareness-as-substrate-cognition per PDR-074 cannot
   operate on substrate the Director is hoarding);
