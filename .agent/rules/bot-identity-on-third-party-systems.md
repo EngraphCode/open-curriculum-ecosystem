@@ -90,6 +90,38 @@ Vercel maps commit email → GitHub user → Vercel account and the chain broke 
 the first hop. Confirm the id from the API, never from prose:
 `gh api "users/jimbot-oakington-iii%5Bbot%5D" --jq .id`.
 
+The shared config is written once, at the clone's primary checkout, from the
+derivation below; a worktree only checks that it inherited the result (the
+`set-up-worktree-lane` skill, step 2):
+
+```bash
+# The merge-bot config is per-checkout and never tracked, so it lives only at
+# the clone's primary checkout; a linked worktree holds no copy of it. Every
+# derivation is checked before the shared identity is written: an empty slug
+# or id would otherwise land as "[bot]" while the block exits clean.
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+CONFIG="$PRIMARY/.github/merge-bot.json"
+[ -n "$PRIMARY" ] && [ -f "$CONFIG" ] \
+  || { echo "no per-checkout config at $CONFIG (copy .github/merge-bot.json.example there)"; exit 1; }
+BOT_SLUG=$(jq -r .appSlug "$CONFIG")
+[ -n "$BOT_SLUG" ] && [ "$BOT_SLUG" != null ] \
+  || { echo "appSlug missing from $CONFIG"; exit 1; }
+BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
+[ -n "$BOT_ID" ] && [ "$BOT_ID" != null ] \
+  || { echo "no bot user id for ${BOT_SLUG}[bot] from the GitHub API"; exit 1; }
+
+git config user.name  "${BOT_SLUG}[bot]"
+git config user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"
+```
+
+Derive the id, never transcribe it — the address embeds the **bot user id**, not the
+app id, the two sit near each other in the docs, and the wrong one produces an
+address that resolves to no GitHub user at all. A literal id copied into a document
+is a second copy of a fact that already lives somewhere authoritative, and the copy
+is the one that goes stale: the identity produced by this sequence is correct by
+construction, one transcribed by hand was wrong for days. Because there is exactly
+one copy, fixing it cures every worktree at once.
+
 - **Commits — author and committer are DIFFERENT identities** (owner ruling
   2026-08-04). Git separates them precisely so a commit can say who
   _authorised_ the work and who _performed_ it, and collapsing both onto the
