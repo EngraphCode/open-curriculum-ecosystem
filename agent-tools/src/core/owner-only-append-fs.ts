@@ -26,6 +26,7 @@ import {
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { errorCodeOf } from './error-code.js';
 import { failureAsError } from './failure-as-error.js';
 
 /** A file-system call's failure: its error code, and nothing else. */
@@ -95,25 +96,21 @@ export interface OwnerOnlyAppendFs {
   close(fd: number): Result<void, FsFailure>;
 }
 
-/** An errno or Node error code, such as `ELOOP` or `ERR_INVALID_ARG_TYPE`. */
-const ERROR_CODE_SHAPE = /^[A-Z][A-Z0-9_]*$/u;
-
 /**
  * Translate a thrown `node:fs` failure to its code alone.
  *
  * @remarks
  * A `node:fs` error's message names the path it failed on, so only the code
- * crosses; a code that is not an error-code identifier is withheld as
- * `UNKNOWN`, as is a missing one. A non-Error throwable is a defect and
- * crashes (see {@link failureAsError}).
+ * crosses, as {@link errorCodeOf} (`error-code.ts`) shapes it; a code of any
+ * other shape is withheld as `UNKNOWN`, as is a missing one. A non-Error
+ * throwable is a defect and crashes (see {@link failureAsError}).
  *
  * @param failure - The value a `node:fs` call threw.
  * @returns The failure's code, or `UNKNOWN`.
  */
 export function fsFailureOf(failure: unknown): FsFailure {
   const error = failureAsError(failure, 'the owner-only append fs boundary');
-  const code = 'code' in error ? error.code : undefined;
-  return { code: typeof code === 'string' && ERROR_CODE_SHAPE.test(code) ? code : 'UNKNOWN' };
+  return { code: errorCodeOf(error) ?? 'UNKNOWN' };
 }
 
 /**

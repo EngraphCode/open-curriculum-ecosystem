@@ -78,6 +78,24 @@ export interface OwnerOnlyFailure {
   readonly code: string;
 }
 
+/**
+ * The invoking user's uid, or the refusal on a platform without POSIX
+ * ownership, where Node gives the process none.
+ *
+ * @remarks
+ * The one statement of the rule "no uid, no owner-only write" (see the module
+ * remarks, step 1). {@link appendOwnerOnly} applies it first; a caller that
+ * must refuse before any other work, such as measuring a host path, asks it
+ * too, so the two can never disagree.
+ *
+ * @param fs - The file-system surface; only its uid is read.
+ * @returns The uid, or the `uid` step with `NO_POSIX_OWNERSHIP`.
+ */
+export function invokingUid(fs: Pick<OwnerOnlyAppendFs, 'uid'>): Result<number, OwnerOnlyFailure> {
+  const uid = fs.uid;
+  return uid === undefined ? err({ step: 'uid', code: 'NO_POSIX_OWNERSHIP' }) : ok(uid);
+}
+
 const DIRECTORY_MODE = 0o700;
 const FILE_MODE = 0o600;
 
@@ -117,9 +135,9 @@ export function appendOwnerOnly(
   text: string,
   fs: OwnerOnlyAppendFs,
 ): Result<void, OwnerOnlyFailure> {
-  const uid = fs.uid;
-  if (uid === undefined) {
-    return err({ step: 'uid', code: 'NO_POSIX_OWNERSHIP' });
+  const uid = invokingUid(fs);
+  if (!uid.ok) {
+    return uid;
   }
   const bytes = Buffer.from(text, 'utf8');
   const created = at('mkdir', fs.mkdir(dirname(filePath), DIRECTORY_MODE));
@@ -130,7 +148,7 @@ export function appendOwnerOnly(
   if (!opened.ok) {
     return opened;
   }
-  const appended = appendThroughDescriptor(filePath, opened.value, bytes, uid, fs);
+  const appended = appendThroughDescriptor(filePath, opened.value, bytes, uid.value, fs);
   const closed = at('close', fs.close(opened.value));
   return appended.ok ? closed : appended;
 }
