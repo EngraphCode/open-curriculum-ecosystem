@@ -248,8 +248,8 @@ This ADR is honest about what it does and does not cover:
    does not trigger the log. The contract is "non-zero exit is
    visible", not "every form of misbehaviour is visible". Output-shape
    validation belongs in the hook protocol layer, not the wrapper.
-   Two complementary exit-0 writers exist by design, both for exit-0
-   outcomes this wrapper is structurally blind to, and both writing a
+   Three complementary exit-0 writers exist by design, all for exit-0
+   outcomes this wrapper is structurally blind to, and all writing a
    deliberately simpler line format than this ADR's fixed block schema
    (which governs the wrapper's entries only):
 
@@ -265,6 +265,23 @@ This ADR is honest about what it does and does not cover:
      it exits 0 so its `additionalContext` diagnostic reaches the
      session, which this wrapper's non-zero-exit contract would
      swallow.
+   - The PreCompact observer
+     (`agent-tools/src/claude/pre-compact-observe/`, recorded
+     2026-09-25) appends a payload-free
+     `[<ISO timestamp>] pre-compact-observe fail-open` block, with
+     `step:` and `code:` lines naming the failed step and its error or
+     refusal code, when its own owner-only append of an observation
+     fails. It exits 0 and answers `continue: true`, naming the failure
+     in its `systemMessage`, because exit 2 would block the compaction.
+     The block goes through the same owner-only append, which holds
+     this log at 0o600. A thrown Error after its modules load writes
+     no hook-errors block, so its reason reaches only the transcript,
+     through the fail-open `systemMessage`. Throws are narrowed through
+     `failureAsError` (owner ruling, 2026-07-20). A non-Error narrowed
+     at an inner boundary (the stdin read, the append's file-system
+     edge) reaches the entry as a TypeError and is answered fail-open.
+     One that reaches the entry's catch un-narrowed crashes the hook
+     with exit 1, which the wrapper logs. No path exits 2.
 
 7. **`mkdir -p` of the log directory runs unconditionally on every
    hook firing.** Idempotent and cheap, but it does mean

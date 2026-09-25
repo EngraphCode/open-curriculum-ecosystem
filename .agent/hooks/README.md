@@ -7,7 +7,8 @@ and thin native activation lives in platform config.
 
 ## Current Status
 
-**Guardrail-and-identity only**: the hook layer is intentionally narrow.
+**Guardrails, identity, and an observer**: the hook layer is intentionally
+narrow.
 
 - `preToolUse` — natively enforced for Claude Code Bash calls by invoking the
   single prebuilt policy dispatcher
@@ -21,6 +22,9 @@ and thin native activation lives in platform config.
   routes each payload by shape to the Bash or content policy); blocks the
   path-agnostic owner-approval marker and path-scoped doctrine block groups
   (see "Content guard: concept-grouped doctrine blocks" below)
+- `PreCompact` observer — natively registered for Claude Code compactions; an
+  observer, not a guard, with no key in `policy.json` (see "PreCompact
+  observer" below)
 - Codex identity context — a separate native `SessionStart` surface activated
   through the thin `.codex/hooks/practice-session-identity.mjs` adapter; it
   injects the PDR-027 identity block and remains soft/fail-open
@@ -43,7 +47,12 @@ The hook layer follows a small Policy Spine. The layers are not peers.
 2. **Native activation** — platform config such as `.claude/settings.json` or
    `.codex/config.toml`
    Tracked project config may activate only supported canonical policy. It
-   does not redefine the policy.
+   does not redefine the policy. Hooks that activate no policy are
+   registered here without a policy key: the `SessionStart` identity
+   adapters (Claude Code, Codex and Cursor) and the Claude Code plan-gate
+   drift alert, which add session context; the Read and `UserPromptSubmit`
+   secrets scans, which block a read or a prompt that holds a secret; and
+   the `PreCompact` observer, which observes and never decides.
 3. **Workspace-owned runtime** — the single prebuilt
    `agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` dispatcher
    artefact, shared by the Bash, Edit, and Write matchers and invoked through
@@ -180,8 +189,11 @@ runtime safety net if one is ever absent.
 The native activation invokes a **prebuilt** artefact
 (`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` — one dispatcher
 serving the Bash, Edit, and Write matchers), not the
-TypeScript source. `dist/` is gitignored, so the artefact is materialised by the
-build, and its freshness is guaranteed at two points:
+TypeScript source. The PreCompact observer
+(`agent-tools/dist/src/bin/claude-pre-compact-observe-hook.js`) is a second
+prebuilt artefact under the same two freshness points. `dist/` is gitignored,
+so each artefact is materialised by the build, and its freshness is
+guaranteed at two points:
 
 - **Install** — the root `package.json` `postinstall` builds `agent-tools`, so a
   fresh clone has the artefact before the first agent session.
@@ -189,9 +201,11 @@ build, and its freshness is guaranteed at two points:
   guard source is unchanged), so committed guard-source changes are compiled.
 
 **Invariant:** after editing a hook-guard source file
-(`agent-tools/src/hook-policy/*.ts` or `policy-loader.ts`), run a build
+(`agent-tools/src/hook-policy/*.ts` or `policy-loader.ts`) or the observer's
+source (`agent-tools/src/claude/pre-compact-observe/` or
+`agent-tools/src/bin/claude-pre-compact-observe-hook.ts`), run a build
 (`pnpm --filter @oaknational/agent-tools build` or any `turbo build`) before
-relying on the guard in the active session — until then the running hook
+relying on the hook in the active session — until then the running hook
 executes the previously-compiled artefact. The failure direction is safe: a
 stale guard still blocks every already-published pattern; only a *newly added*
 pattern is unenforced until the next build.
@@ -221,11 +235,64 @@ bricked by a missing optional tool. That is a broader fail-open posture than the
 dangerous-command/content guards above: those fail open *only* for the not-built
 case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 
+## PreCompact observer
+
+The `PreCompact` entry in `.claude/settings.json` registers an observer, not a
+guard. It is one of layer 2's registrations without a policy key: it has no key
+in `policy.json`, activates no canonical policy, and observes and never
+decides. It records the harness's compaction contract (what Claude Code sends a
+`PreCompact` hook, and what it does with the answer), so that a later
+`PreCompact` gate is built on observed facts rather than on the documentation.
+
+- **Runtime.** The built entry
+  `agent-tools/dist/src/bin/claude-pre-compact-observe-hook.js` (source in
+  `agent-tools/src/bin/` and `agent-tools/src/claude/pre-compact-observe/`)
+  appends one JSON line per compaction to
+  `.claude/logs/pre-compact-observe/observations.jsonl`. The line carries the
+  raw payload, so the log is owner-only: the observer creates its directory
+  at 0o700 and holds the file at 0o600, retightening it on every append. It
+  answers `{"continue":true,"systemMessage":"[pre-compact-observe] <marker>"}`,
+  and the marker pairs the answer in the transcript with its log line.
+- **It never blocks.** Every path it controls answers `continue: true` and
+  exits 0; it never exits 2, the one code on which the harness blocks a
+  compaction. A failure to record answers
+  `[pre-compact-observe] observation failed: <reason>`, and a failed append
+  also writes a payload-free block to `.claude/logs/hook-errors.log`
+  (ADR-167 §Limitations 6). A thrown Error is answered fail-open with its
+  reason. Throws are narrowed through `failureAsError` (owner ruling,
+  2026-07-20). A non-Error narrowed at an inner boundary (the stdin read, the
+  append's file-system edge) reaches the entry as a TypeError and is answered
+  fail-open. One that reaches the entry's catch un-narrowed crashes the hook
+  with exit 1, which the wrapper logs. No path exits 2.
+- **Missing `dist`.** When the entry is not built, `node` exits 1, the
+  `log-hook-errors.sh` wrapper logs it, and the compaction continues.
+- **Quoted paths.** The command quotes both `${CLAUDE_PROJECT_DIR}` paths. If
+  the shell expands the variable, an unquoted path with a space splits and
+  exits 127. If the harness pastes the value into the command text before the
+  shell runs, an unquoted path holding shell syntax is a syntax error, which
+  exits 2 and blocks the compaction. Quoting is right under both. Recorded,
+  not built for: a `"`, `$` or backtick in the project path breaks even the
+  quoted form if the harness pastes the text. The older wrapper entries are
+  unquoted and stay as they are.
+- **Departures from the concept note.** The observer came from a concept
+  note from the second estate's Practice, and departs from it in three ways.
+  It runs from the built `dist`, like the `PreToolUse` dispatcher, not from
+  TypeScript source. It writes to its own subdirectory,
+  `.claude/logs/pre-compact-observe/`, not to a file directly under
+  `.claude/logs/`. And its smoke drops the note's unparseable-stdin case,
+  because the parse result is feature behaviour, proven in
+  `agent-tools/src/claude/pre-compact-observe/payload.unit.test.ts`.
+- **Proof.** `agent-tools/smoke-tests/pre-compact-observe.smoke.ts` runs the
+  registered command through `/bin/sh -c`, as the harness does, against a
+  throwaway project whose name holds a space, under plain Node.
+- **Retirement.** Its `systemMessage` shows on every compaction it answers,
+  so it retires when a `PreCompact` gate replaces it.
+
 ## Platform Support
 
 | Platform | Upstream hook surface | Repo activation |
 | --- | --- | --- |
-| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context plus `PreToolUse` command/content guards in tracked `.claude/settings.json` |
+| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context plus `PreToolUse` command/content guards and a `PreCompact` observer in tracked `.claude/settings.json` |
 | Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
 | Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | Soft `sessionStart` identity context in tracked `.cursor/hooks.json`; no canonical policy activation |
 | Gemini / Antigravity CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
