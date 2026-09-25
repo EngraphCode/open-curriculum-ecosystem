@@ -9,7 +9,7 @@ import { realGitExecutor } from '../src/merge-bot/git-executor';
 import { gitReadsFrom, pushHead, resolveGitContext } from '../src/merge-bot/push-git';
 import { settleTargetBranch } from '../src/merge-bot/push-target-branch';
 
-import { trustedShellPath } from './trusted-shell-directories';
+import { hermeticGitEnv } from './hermetic-git-env';
 
 /**
  * The `merge-bot push` output seam under real volume, against real binaries.
@@ -58,22 +58,6 @@ const EMITTER = [
 
 const GIT = resolveTrustedGit();
 
-/**
- * A literal child environment. `PATH` is here because git's hook runner needs
- * a shell on it; everything else is addressed absolutely. `HOME` points into
- * the throwaway root and the two `GIT_CONFIG_*` variables silence the
- * machine's real git configuration, so this smoke cannot be steered — or
- * broken — by whoever is running it.
- */
-function hermeticEnv(home: string): Record<string, string> {
-  return {
-    PATH: trustedShellPath(),
-    HOME: home,
-    GIT_CONFIG_GLOBAL: '/dev/null',
-    GIT_CONFIG_SYSTEM: '/dev/null',
-  };
-}
-
 /** Awaits the work BEFORE removing the directory. */
 async function withTempDir<T>(run: (dir: string) => Promise<T>): Promise<T> {
   const dir = mkdtempSync(join(tmpdir(), 'merge-bot-push-output-'));
@@ -91,7 +75,7 @@ async function drivesTwiceTheMeasuredCorpus(): Promise<void> {
   const result = await withTempDir(async (cwd) =>
     realGitExecutor()(process.execPath, ['-e', EMITTER], {
       cwd,
-      env: hermeticEnv(cwd),
+      env: hermeticGitEnv(cwd),
       onOutput: (chunk) => {
         received += Buffer.byteLength(chunk);
         sawStderr ||= chunk.includes('emitter done');
@@ -114,7 +98,7 @@ async function drivesTwiceTheMeasuredCorpus(): Promise<void> {
 function makeRepoWithLoudHook(root: string): { work: string; remote: string } {
   const remote = join(root, 'remote.git');
   const work = join(root, 'work');
-  const env = hermeticEnv(root);
+  const env = hermeticGitEnv(root);
   const git = (cwd: string, args: readonly string[]): void => {
     execFileSync(GIT, [...args], { cwd, env, stdio: 'ignore' });
   };
@@ -150,8 +134,11 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
     const { work, remote } = makeRepoWithLoudHook(root);
     // A configuration that would carry an annotated tag along with any push:
     // the push must still write exactly one ref, the branch.
-    execFileSync(GIT, ['config', 'push.followTags', 'true'], { cwd: work, env: hermeticEnv(root) });
-    execFileSync(GIT, ['tag', '-a', 'v1', '-m', 'v1'], { cwd: work, env: hermeticEnv(root) });
+    execFileSync(GIT, ['config', 'push.followTags', 'true'], {
+      cwd: work,
+      env: hermeticGitEnv(root),
+    });
+    execFileSync(GIT, ['tag', '-a', 'v1', '-m', 'v1'], { cwd: work, env: hermeticGitEnv(root) });
     const git = resolveGitContext({});
     assert.ok(git.ok, 'no trusted git binary to run the live fire against');
     let received = 0;
@@ -160,7 +147,7 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
       branch: 'lane',
       cwd: work,
       token: 'unused-for-a-local-remote',
-      baseEnv: hermeticEnv(root),
+      baseEnv: hermeticGitEnv(root),
       onOutput: (chunk) => {
         received += Buffer.byteLength(chunk);
       },
@@ -168,12 +155,12 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
     const landed = execFileSync(GIT, ['rev-parse', 'lane'], {
       cwd: remote,
       encoding: 'utf8',
-      env: hermeticEnv(root),
+      env: hermeticGitEnv(root),
     }).trim();
     const remoteTags = execFileSync(GIT, ['tag', '--list'], {
       cwd: remote,
       encoding: 'utf8',
-      env: hermeticEnv(root),
+      env: hermeticGitEnv(root),
     }).trim();
     return { pushed, received, landed, remoteTags };
   });
@@ -202,7 +189,7 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
 async function settlesTheTargetFromRealGitAnswers(): Promise<void> {
   const settled = await withTempDir(async (root) => {
     const { work } = makeRepoWithLoudHook(root);
-    const env = hermeticEnv(root);
+    const env = hermeticGitEnv(root);
     const git = (args: readonly string[]): void => {
       execFileSync(GIT, [...args], { cwd: work, env, stdio: 'ignore' });
     };

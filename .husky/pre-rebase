@@ -5,7 +5,7 @@
 # absent when rebasing the checked-out branch. Mechanics live in the shared
 # guard (never-commit-to-main rule).
 GUARD_BRANCH="${2:-}"
-GUARD_HINT="Rebase on a branch instead — main advances only via pull requests."
+GUARD_HINT="Rebase on a branch instead — a default branch advances only via pull requests."
 . .husky/refuse-commit-on-main.sh
 
 # Also refuse when main points INTO the range being rewritten ($1..tip):

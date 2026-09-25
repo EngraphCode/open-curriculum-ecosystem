@@ -40,7 +40,9 @@ pull request to resolve.
 Mechanical for every commit-creating or ref-rewriting path git exposes a
 usable hook for; the shared guard `.husky/refuse-commit-on-main.sh` is
 sourced by five hooks, each covering the path git actually routes it
-through:
+through. The guard refuses `main` and `master` by name, in any case, and the
+default branch `refs/remotes/origin/HEAD` names, so a repository whose
+default branch has another name is guarded too:
 
 - `pre-commit` — plain `git commit` and `git commit --amend`;
 - `pre-merge-commit` — clean merges, including a reflexive `git pull` on a
