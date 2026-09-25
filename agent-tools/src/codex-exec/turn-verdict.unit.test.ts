@@ -81,9 +81,15 @@ describe('judgeTurn', () => {
     ],
     [
       'a run killed for overflowing its output buffer',
-      { kind: 'killed', reason: 'overflow', stderr: 'partial' },
+      { kind: 'killed', reason: 'overflow', stdout: '', stderr: 'partial' },
       undefined,
       { kind: 'killed', reason: 'overflow', stderrTail: 'partial' },
+    ],
+    [
+      'a killed run whose partial stream reads as a whole reply',
+      { kind: 'killed', reason: 'signal', stdout: turn(THREAD, message('ACK')), stderr: '' },
+      undefined,
+      { kind: 'killed', reason: 'signal', stderrTail: '' },
     ],
     [
       'a non-zero exit',
@@ -210,7 +216,7 @@ describe('judgeTurn', () => {
 
   it.each<[string, (stderr: string) => CodexRun]>([
     ['a non-zero exit', (stderr) => ({ kind: 'exited', code: 2, stdout: '', stderr })],
-    ['a killed run', (stderr) => ({ kind: 'killed', reason: 'timeout', stderr })],
+    ['a killed run', (stderr) => ({ kind: 'killed', reason: 'timeout', stdout: '', stderr })],
   ])('keeps the end of a long stderr and drops its start, on %s', (_label, runWith) => {
     const stderr = `HEAD${'x'.repeat(10_000)}END`;
     const stderrTail = stderrTailOf(judgeTurn(runWith(stderr), undefined));
