@@ -327,5 +327,9 @@ statement in `agent-tools/src/merge-bot/push-token-file.ts` — 0600 applies
 on POSIX), and hands the transfer to the git binary with a
 static credential helper reading that file — the child environment names
 only the file's path. Never argv, no force flags, no `--no-verify`, and
-pushes to the default branch refuse by name (see
+the destination is always the full ref `refs/heads/<branch>`. Pushes to
+the default branch refuse: `main` and `master` by name, and whatever branch
+`refs/remotes/origin/HEAD` names, read only when `origin` is the repository
+the push goes to; an unreadable default branch fails the push rather than
+guessing (see
 [`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).

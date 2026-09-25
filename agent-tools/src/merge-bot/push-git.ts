@@ -98,7 +98,9 @@ function pushEnv(
  * must never answer for the bot), then the one static helper — last, so the
  * clear it follows cannot disarm it. The token is NOT here — argv is visible
  * in the process list to anything that can read it — and neither is any
- * bypass: no force flag, no `--no-verify`.
+ * bypass: no force flag, no `--no-verify`. The destination is always the full
+ * branch ref, so git infers nothing from the name and the refusals in
+ * `push-target-branch.ts` compare exactly the branch that is written.
  */
 function pushArgv(remote: string, branch: string): readonly string[] {
   return [
@@ -107,7 +109,7 @@ function pushArgv(remote: string, branch: string): readonly string[] {
     `credential.helper=${CREDENTIAL_HELPER}`,
     'push',
     remote,
-    `HEAD:${branch}`,
+    `HEAD:refs/heads/${branch}`,
   ];
 }
 

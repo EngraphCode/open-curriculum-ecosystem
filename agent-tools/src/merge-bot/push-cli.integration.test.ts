@@ -55,8 +55,18 @@ interface GitCall {
   readonly env: Readonly<Record<string, string | undefined>>;
 }
 
+/** The default branch `origin` names in these fixtures: neither main nor master. */
+const DEFAULT_BRANCH = 'trunk';
+
 /** Value-returning git seam (ADR-088): a non-zero exit is a RESULT, never a throw. */
-function gitFake(overrides: { revParse?: GitCommandResult; push?: GitCommandResult } = {}): {
+function gitFake(
+  overrides: {
+    revParse?: GitCommandResult;
+    originUrl?: GitCommandResult;
+    originHead?: GitCommandResult;
+    push?: GitCommandResult;
+  } = {},
+): {
   gitExecutor: GitExecutor;
   calls: GitCall[];
 } {
@@ -65,6 +75,19 @@ function gitFake(overrides: { revParse?: GitCommandResult; push?: GitCommandResu
     calls.push({ file, args, cwd: options.cwd, env: options.env });
     if (args[0] === 'rev-parse') {
       return overrides.revParse ?? { status: 0, signal: null, stdout: `${BRANCH}\n`, stderr: '' };
+    }
+    if (args[0] === 'config') {
+      return overrides.originUrl ?? { status: 0, signal: null, stdout: `${REMOTE}\n`, stderr: '' };
+    }
+    if (args[0] === 'symbolic-ref') {
+      return (
+        overrides.originHead ?? {
+          status: 0,
+          signal: null,
+          stdout: `refs/remotes/origin/${DEFAULT_BRANCH}\n`,
+          stderr: '',
+        }
+      );
     }
     return overrides.push ?? { status: 0, signal: null, stdout: '', stderr: TRANSFER };
   };
@@ -93,6 +116,16 @@ function mintFetch(token = TOKEN): {
     });
   };
   return { fetchImpl, urls, bodies };
+}
+
+/**
+ * A mint that always fails, so a run that reaches it exits 1. A refusal exits
+ * 3, so the exit code alone shows the refusal came before any mint.
+ */
+function failingMint(): ReturnType<typeof mintFetch> {
+  const fetchImpl: GithubApiFetch = () =>
+    Promise.resolve({ status: 500, json: () => Promise.resolve({}) });
+  return { fetchImpl, urls: [], bodies: [] };
 }
 
 const BASE_ENV = { PATH: '/usr/bin', HOME: '/test-home' } as const;
@@ -238,7 +271,7 @@ describe('merge-bot push credential discipline', () => {
       'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
       'push',
       REMOTE,
-      `HEAD:${BRANCH}`,
+      `HEAD:refs/heads/${BRANCH}`,
     ]);
     expect(push?.args.join(' ')).not.toContain(TOKEN);
     expect(push?.args).not.toContain('--no-verify');
@@ -322,7 +355,7 @@ describe('merge-bot push credential discipline', () => {
       'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
     );
     // The hostile name lands ONLY as data inside the refspec argv element.
-    expect(push?.args.at(-1)).toBe(`HEAD:${hostile}`);
+    expect(push?.args.at(-1)).toBe(`HEAD:refs/heads/${hostile}`);
   });
 
   it('a token-staging failure is an operational failure: exit 1, no push, the half-staged directory removed', async () => {
@@ -429,11 +462,72 @@ describe('merge-bot push outcomes and refusals', () => {
   });
 
   it('pushes an explicitly named branch without asking git which branch HEAD is on', async () => {
-    const run = runPush({ args: ['--branch', 'other-lane'] });
+    const run = runPush({
+      args: ['--branch', 'other-lane', '--json'],
+      git: gitFake({
+        revParse: { status: 128, signal: null, stdout: '', stderr: 'fatal: not on a branch\n' },
+      }),
+    });
 
     expect(await run.exit).toBe(0);
-    expect(run.calls.map((call) => call.args[0])).toEqual(['-c']);
-    expect(pushCall(run.calls)?.args.at(-1)).toBe('HEAD:other-lane');
+    expect(JSON.parse(run.out())).toEqual({ kind: 'pushed', branch: 'other-lane', remote: REMOTE });
+  });
+
+  it('refuses the default branch origin names, before minting anything', async () => {
+    const run = runPush({ args: ['--branch', DEFAULT_BRANCH], fetch: failingMint() });
+
+    expect(await run.exit).toBe(3);
+    expect(run.errText()).toContain(DEFAULT_BRANCH);
+    expect(run.errText()).toContain('pull request');
+  });
+
+  it('refuses the default branch when HEAD is on it', async () => {
+    const run = runPush({
+      git: gitFake({
+        revParse: { status: 0, signal: null, stdout: `${DEFAULT_BRANCH}\n`, stderr: '' },
+      }),
+      fetch: failingMint(),
+    });
+
+    expect(await run.exit).toBe(3);
+    expect(run.errText()).toContain(DEFAULT_BRANCH);
+  });
+
+  it('refuses a branch named as a full ref, so no name can resolve to another branch', async () => {
+    const run = runPush({
+      args: ['--branch', `refs/heads/${DEFAULT_BRANCH}`],
+      fetch: failingMint(),
+    });
+
+    expect(await run.exit).toBe(3);
+    expect(run.errText()).toContain('refs/');
+  });
+
+  it('fails when origin names another repository, since its default branch cannot be trusted', async () => {
+    const run = runPush({
+      git: gitFake({
+        originUrl: {
+          status: 0,
+          signal: null,
+          stdout: 'https://github.com/someone-else/widgets.git\n',
+          stderr: '',
+        },
+      }),
+      fetch: failingMint(),
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('cannot trust');
+  });
+
+  it('fails when the default branch cannot be read, naming the cure', async () => {
+    const run = runPush({
+      git: gitFake({ originHead: { status: 1, signal: null, stdout: '', stderr: '' } }),
+      fetch: failingMint(),
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('git remote set-head origin --auto');
   });
 
   it('emits EXACTLY the outcome object on stdout under --json, transfer output on stderr', async () => {

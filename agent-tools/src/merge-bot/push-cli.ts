@@ -4,6 +4,7 @@ import type { GitExecutor } from './git-executor.js';
 import { mintForConfig, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
+import { readDefaultBranch, refuseTargetBranch } from './push-target-branch.js';
 import { RefFormatOracleUnavailableError } from './ref-format.js';
 import {
   currentBranch,
@@ -33,9 +34,6 @@ import {
  * refusals. Which is also why there is no force flag and no `--no-verify`
  * pass-through: a bypass would be built value, and this one is never built.
  */
-
-/** Branch names that never take a direct push; the never-commit-to-main rule as behaviour. */
-const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 
 /** The action's composition surface; cli.ts forwards its own injection seams. */
 export interface PushActionInput {
@@ -86,17 +84,6 @@ function mintSeamsFrom(input: PushActionInput): MintSeams {
   };
 }
 
-/** The typed refusals, by target branch name — whether the name came from git or from --branch. */
-function refuseTargetBranch(branch: string): string | undefined {
-  if (branch === 'HEAD') {
-    return 'HEAD is detached — there is no branch to push; check a branch out, or name the target with --branch';
-  }
-  if (DEFAULT_BRANCH_NAMES.has(branch)) {
-    return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
-  }
-  return undefined;
-}
-
 /**
  * Identity, git, and the target branch — all of it BEFORE the mint, so a
  * refusal never mints a token it will not use.
@@ -114,7 +101,16 @@ async function prepare(parsed: PushArgs, input: PushActionInput): Promise<Prepar
   if (!branch.ok) {
     return { kind: 'failed', exit: 1, message: branch.error.message };
   }
-  const refusal = refuseTargetBranch(branch.value);
+  const defaultBranch = await readDefaultBranch(git.value, {
+    cwd: input.repoRoot,
+    env: input.baseEnv ?? process.env,
+    owner: identity.value.owner,
+    repoName: identity.value.repoName,
+  });
+  if (!defaultBranch.ok) {
+    return { kind: 'failed', exit: 1, message: defaultBranch.error.message };
+  }
+  const refusal = refuseTargetBranch(branch.value, defaultBranch.value);
   return refusal === undefined
     ? { kind: 'ready', identity: identity.value, git: git.value, branch: branch.value }
     : { kind: 'refused', reason: refusal };
