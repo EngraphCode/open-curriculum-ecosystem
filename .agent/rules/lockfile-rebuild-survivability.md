@@ -32,7 +32,7 @@ declarations resolved cold picked up five in-range releases).
 scratch="$(mktemp -d)"                         # empty: no install state to seed from
 git ls-files -z -- package.json '*/package.json' pnpm-workspace.yaml \
   | xargs -0 tar -cf - | tar -xf - -C "$scratch"
-pnpm --dir "$scratch" install --lockfile-only   # resolve from declarations alone
+pnpm --dir "$scratch" install --lockfile-only --ignore-scripts   # resolve from declarations alone; no lifecycle scripts
 ```
 
 Then assert all four, and read each result rather than the exit code alone.
