@@ -65,7 +65,10 @@ mechanism did not fire at either action moment — recurrence despite a verified
 ## The Index Is What Ships — Verify It, and Re-stage After Every Cure
 
 The pre-commit gate reads the WORKING TREE; the commit captures the
-INDEX. Four seats paid for that gap in one window (2026-08-14 →
+INDEX. And the gate reads the whole working tree while it runs: a worktree is
+frozen for the duration of its commit gate, so the next cycle's edits are
+staged as a script in scratch and applied after the gate exits (a later cycle's
+red tests failed the earlier cycle's gate, 2026-09-24). Four seats paid for that gap in one window (2026-08-14 →
 2026-09-02): a `git mv` staged the pre-cure blobs and left later
 Edit-tool edits unstaged at the destination paths, so the first commit
 shipped stale archive copies and thread replies cited cures the commit

@@ -9,7 +9,11 @@ An agent working a worktree lane RESIDES in that worktree: its working
 directory, its doctrine load, and the arm-time context of everything it
 starts all point at the worktree. Residency is established by a
 session-level mechanism, never by shell `cd` — on this platform a bare
-`cd` between checkouts is not residency and does not survive.
+`cd` between checkouts is not residency, and whether it survives is not
+assumed: four times in one day a bare `cd` moved the harness's working
+directory to a worktree (2026-09-24), so a non-resident lane owner reads and
+writes worktrees by absolute path and `git -C`, and any `cd` runs inside a
+subshell.
 
 ## Trigger
 

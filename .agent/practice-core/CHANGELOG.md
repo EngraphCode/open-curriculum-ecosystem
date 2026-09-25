@@ -16,6 +16,34 @@ Practice Core package.
   one blob in both estates again (PDR-142: a Core decision record stays
   byte-identical).
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — context readings never stop a seat (the trigger amendment twin)
+
+- PDR-063 gains §Context readings never stop a seat, on the owner's word to
+  every seat: no context reading stops a seat, hands its work over or starts
+  a succession, and a seat keeps its records current as it goes. An
+  owner-called compaction gets the compaction drill, and the same session
+  resumes on the owner's word. A platform compaction gets no drill: the seat
+  re-arms and carries on. After either, the seat validates against its own
+  continuity record. The effectiveness calibration stays, as the reason to
+  keep records current.
+- PDR-063's five steps now start only on the owner's call (Step 1), and every
+  succession of a live seat is deliberate; a standing owner naming counts as
+  the call. §Retirement authority keeps the no-recipient broadcast and
+  owner-mediated instantiation. The rationale, forbidden list, accepted cost,
+  open questions and §Handover timing follow.
+- Withdrawn with the context triggers: the owner-absent autonomous handoff at
+  a declared deadline, the post-commit budget floor, and a coordinator's
+  authority to call a succession.
+- PDR-052's floor for directive-file edits stands: at or above 30% the edit
+  waits for the next compaction, and the seat carries on with other work.
+- PDR-078 §3 recovers a silent seat's claims without PDR-063's five steps.
+  PDR-064's intersection and forced exception, PDR-077's marshal
+  intersection and PDR-117's implementer handoff start on the owner's call.
+  PDR-075's rationale drops the trigger.
+- The second estate drafted the amendment on the owner's word to every seat and
+  the Director's rulings; these are its bytes where the files matched by blob,
+  and the same hunks placed by hand where this estate's files differ.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
 
 - PDR-009 gains the inline-prompt role both estates' exchange seats signed as

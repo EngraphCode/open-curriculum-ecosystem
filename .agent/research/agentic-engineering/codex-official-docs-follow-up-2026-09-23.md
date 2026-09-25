@@ -191,7 +191,7 @@ of safe role, authority, liveness or release behaviour.
   as `functionCallOutput`, and queues it for an active turn. That is a possible role-preserving
   event carrier for a custom client, not an established idle-wake carrier. The docs do not show
   that it wakes an idle TUI, survives exit, preserves the Practice's event provenance, or is
-  available to this seat. The [deferred idle-wake sketch](../../plans/delivery/codex-app-server-idle-wake.plan.md)
+  available to this seat. The deferred idle-wake sketch (`codex-app-server-idle-wake`, archived 2026-09-25)
   explicitly rejects public `turn/start` for automatic wake: a concurrent owner submission can
   turn the wake into same-turn steering. It requires an atomic idle reservation, owner-priority
   fence and capability profile confined to that one wake turn. This sketch is not a ratified

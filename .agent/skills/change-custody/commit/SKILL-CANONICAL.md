@@ -283,7 +283,11 @@ checkout only. A lane in its own worktree (PDR-117) commits by plain pathspec �
 rule requires: the worktree's `user.*` is the bot, so an omitted flag yields a
 bot-authored commit — hooks running, the owner as author and the bot as
 committer, with an audit line in the message
-naming the worktree and that the queue was not used; it opens no queue intent and
+naming the worktree and that the queue was not used, and validating the message
+file with `pnpm agent-tools:check-commit-message` (commitlint) before `git commit`:
+the commit-msg hook runs after the whole pre-commit gate, so a refused subject or
+a body line that opens `word:` (read as a footer) costs a full gate run (five
+refusals across two seats, 2026-09-23 to 2026-09-25); it opens no queue intent and
 no window claim (F-132, F-139 and F-169 are superseded by scope). Two mechanics of
 the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
 `index/head` label (a scoped `index/head@<worktree>` is refused), and a pathspec
@@ -461,6 +465,15 @@ direct CLI commands for inspection and recovery.
      --message-file "$MSGFILE"
    ```
 
+   The queue's `commit` command passes no `--author`, so a commit made through
+   it is bot-authored, against the author-and-committer split the
+   bot-identity rule requires (F-199, 2026-09-25: one such commit by the
+   documented ceremony). Until the command carries the flag, on the shared
+   primary run the same bookends by hand: `verify-staged --intent-id <id>
+   --commit-subject "<subject>"`, then
+   `git commit --author="<owner name> <owner noreply email>" -F "$MSGFILE" -- <paths>`,
+   then `complete --intent-id <id>`; the hooks stay the gate.
+
    The two verify-staged checks book-end the advisory orchestrator so
    tree-widening during the advisory pass is caught before history is
    written. Any failure between intent-load and successful `git
@@ -566,6 +579,12 @@ the owner authorises it after you have proved no git process is active.
 
 ### Merge commits — the queue workflow does not apply
 
+`git merge -m` takes no `--author`, so a sync merge recorded with it is
+bot-authored (one was re-recorded with an identical tree before its push,
+2026-09-25); the form that carries the owner as author and runs the same
+commitlint path as any other commit is `git merge --no-commit origin/<base>`,
+then `git commit --author="<owner name> <owner noreply email>" -F <message>`.
+
 Merge commits CANNOT ride the `commit-queue -- commit` workflow: a
 pathspec-scoped `git commit` is illegal mid-merge, and the queue's inner
 commit is pathspec-scoped by design. This is a structural mismatch, not a
@@ -633,6 +652,12 @@ catastrophic shape. A foreign lock means another agent is mid-commit:
    wait-vs-handoff options. The owner decides; the agent never loops on the
    lock file.
 
+The common holder on the shared primary is a peer's running `git commit`, whose
+hooks run for minutes: wait on the process table (that `git commit` exiting),
+never on the lock file, then re-run the ceremony alone (two ceremonies lost the
+race to a periodic git process, 2026-09-20; two lost it to peers' commits,
+2026-09-25).
+
 The advisory commit queue, `git:index/head` active claim, and shared-log
 entry are the coordination surfaces; the lock file is never one of them.
 
@@ -665,7 +690,17 @@ Before opening the four-move protocol above:
    the refusal names and commit again. After an interrupted or refused
    ceremony, read `git log -1` before the next act: a commit that an
    interrupt appeared to stop had landed, and the re-run ceremony was
-   refused by the queue for an empty bundle (2026-09-20).
+   refused by the queue for an empty bundle (2026-09-20). The commit tool read
+   an empty staged set seconds after `git add` had filled it on three dates
+   (2026-09-20, 2026-09-21, 2026-09-23; cause unread, a concurrent writer to
+   the shared index the untested candidate; F-200): a refusal "staged files do
+   not match" reports what the tool READ, which the queue's own record keeps
+   (`staged_name_status`), so read that record before touching the index. A
+   gate-bearing commit or push runs under an event-driven watch that reports
+   progress on a cadence and the exit code at the end; its captured log can
+   stay empty while the pre-push runs (`merge-bot push` under redirection,
+   2026-09-23 and 2026-09-24; F-202), so progress is read from the process
+   tree (CPU per child) and the outcome from the remote tip.
 3. Stage selectively — never blindly `git add .`. Skip `.env`,
    credentials, `bulk-downloads/`. The `commit-queue` enqueue +
    guard chain in move 2 enforces explicit pathspecs by design.
