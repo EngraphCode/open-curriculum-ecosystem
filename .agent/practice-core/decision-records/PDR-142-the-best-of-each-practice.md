@@ -9,7 +9,9 @@ both texts"; the definition below and its plan were authored jointly by the
 two exchange seats and signed by both before the card). Amended 2026-09-23 on
 the owner's word that concept transfer is the goal and identical bytes only a
 means (the Decision's clause on concepts and bytes and its merged-text bullet; the Amendment
-Log), and again the same day on the owner's card on format at receipt (the same clause)
+Log), and again the same day on the owner's card on format at receipt (the same clause), and
+2026-09-25 on the owner's words on pace and goal and the authority class before a cure (the
+same section and §Boundaries; the Amendment Log)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
@@ -68,10 +70,11 @@ from outside the family caught.
 And of the work of aligning the instances: "we are defining excellent … nothing is delayed or
 avoided because of the future extraction". Of its pace (2026-09-21): "above all, you should
 both go slow and take your time, alignment is far more important than speed here". Of its
-goal (2026-09-24, relayed, and 2026-09-25 in the owner's own words): the two Practices are
-brought into alignment by "all … Practice innovations being integrated" from the second
-estate first, "a fixed process with an end, not an ongoing effort", and "Once the Practice
-contains the best of both it will be extracted into an installable entity".
+goal (2026-09-24, relayed, and 2026-09-25 in the owner's own words, the estates given as
+roles): "We are prioritising all [the second estate's] Practice innovations being
+integrated into [the lineage], then we review. This is a fixed process with an end, not
+an ongoing effort. Once the Practice contains the best of both it will be extracted into
+an installable entity."
 
 Three moves, all in the owner's words. Where the instances hold DIFFERENT things, each gets the
 other's. Where they hold two encodings of ONE thing, every estate takes the higher. What is bad
