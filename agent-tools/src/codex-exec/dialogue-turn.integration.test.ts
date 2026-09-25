@@ -1,6 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { parseThreadId, type ThreadId } from '../core/codex-thread-id.js';
 import { parseDialogueId, type CleanupRow, type DialogueId } from './cleanup-row.js';
 import {
   executeTurn,
@@ -11,13 +12,7 @@ import {
   type TurnRequest,
 } from './dialogue-turn.js';
 import type { ResolvedBinary } from './gate.js';
-import {
-  buildChildEnv,
-  buildOpenArgv,
-  buildResumeArgv,
-  parseThreadId,
-  type ThreadId,
-} from './envelope.js';
+import { buildChildEnv, buildOpenArgv, buildResumeArgv } from './envelope.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';

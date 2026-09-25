@@ -3797,6 +3797,10 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
   the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
   configuration, with a unit test on each.
+- **Status**: partially-addressed — the push half is cured: `merge-bot push`
+  (`agent-tools/src/merge-bot/push-target-branch.ts`) refuses the branch `origin/HEAD` names, in
+  any case, as well as `main` and `master`, and writes only `refs/heads/<branch>`. The commit
+  guard's half stays open: `.husky/refuse-commit-on-main.sh` still names only `main`.
 
 ### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
 
