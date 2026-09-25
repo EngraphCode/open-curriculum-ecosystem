@@ -319,6 +319,43 @@ contract, its §Recount run at 14:58Z and matching.
   browser, adapters regenerated. Each merges at its slot after the fold; each gets its
   integrated receipt to the second estate's seat at the merge. Claims 9549aec5 (PDR-009),
   ee17a29e (C2), 7d380d17 and 4d955339 (J14) are this seat's.
+- **Landed on lane branches (15:4xZ to 16:0xZ):** draft PR 217 (`docs/intake-test-doctrine`) and
+  draft PR 218 (`feat/claude-code-session-id-seed`, worktree `oce-wt-seed-source`) on the
+  Director's A4 ruling of 15:44Z (both held branches get drafts; J2's names default stands with
+  no card). Draft PR 219 (`docs/exchange-trigger-amendment-twin`, worktree
+  `oce-wt-exchange-trigger-twin`, claim 8e571f5b) is the trigger amendment twin of the second
+  estate's PR 192 (merged 1708982f): 21 files, seventeen as its hunks stand, four hand-placed
+  and named in the body. Draft PR #220 (`fix/exchange-d-no-todo-tests`, worktree
+  `oce-wt-exchange-d`, claim aafb10d9) is batch one's PR D: `it.todo`, `test.todo` and
+  `describe.todo` fail the strict config, test-first, with code, test and config reviews.
+- **Landed on lane branches (16:0xZ to 16:4xZ):** PR 220 took three commits: the concept note's
+  shape, then its three pre-commit reviews' cure (the plugin's `vitest/warn-todo` in the first
+  strict block, since every workspace's `testRules` layer replaces a `no-restricted-properties`
+  list on test files), then the second estate's review gains (the todo option as a fourth form,
+  the layered case over all three test-shape rules, `testRules` in an IO-free module); the
+  second estate's PR 196 (merged 2c6e47ec) is its twin. Draft PR 221
+  (`docs/exchange-watcher-cadence-wording`, worktree `oce-wt-exchange-watcher-docs`, claim
+  dc3bcace) is the docs half of the joint watcher cures, the second estate's PR 194 (a831be86)
+  by bytes; its code half (their PR 195) and the three final-tip sentences need no landing here.
+  The fold's four refused threads routed to this seat are cured in 6d78f21c8 (PDR-140 clause 4's
+  late-cure route, the lane skill's F-26 note as evidence not cure, the cadence table on one
+  recounted population, the letter's count). `copilot/remove-erroneous-commits` was deleted as
+  the bot (tree identical to engraph).
+- **The seven local-only branches (the Director's check-in 16, readings sent 16:37Z):** three
+  superseded (`docs/codex-support-concept-exploration` by PR 211's lane;
+  `docs/copilot-cli-practice-citizenship` by its own account; `jimcresswell/mcp-506-sdk-v2-spike-plan`
+  byte-identical on engraph), two surviving only there (`docs/first-class-copilot-agent-support`,
+  `fix/claude-hook-hardening`), two Oak-line ticket branches (`jimcresswell/mcp-372-…`,
+  `jimcresswell/mcp-487-sanitise-numeric-input`); none deleted, the owner's card decides, and
+  `jimcresswell/design-plan-ratification-and-truings` is superseded too: its report landed on
+  engraph 2026-08-05 (33599297d) and grew through three later commits, so the conservation lane
+  opened at 17:10Z was unwound without a commit (reading corrected to the Director 17:2xZ).
+- **The seed branch's design (the second estate's answer of 15:45Z to 9f9e7b8f, accepted by
+  this seat at 15:48Z):** a subagent's collaboration write is its parent's, by design in both
+  estates; the platform gate is a joint cure in the wider form, the three Claude seeds counting
+  only when the seat's platform is a Claude platform, in both resolvers. PR 218 carries the gate
+  test-first, then code, test and security reviews, then ready; the second estate takes the same
+  design after it settles. Two PDR-052 additions come from the second estate as their own row.
 - **Next:** joint set K4 merged in the second estate at 15:01Z (its merge c523ba81; Siren's
   event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
   those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
@@ -807,7 +844,7 @@ contradiction both carry is a faithfully carried concept, false in both, which t
 bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
 2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
 owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
-and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). Owed, each from a word already given: the host-free adapter line's joint cure
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). The 2026-09-24 coordination branch folded as #187 (`SHA:7497696fe`, 2026-09-25 17:04Z, three review rounds, every finding cured by its author); the live branch is `coordination/2026-09-25-749769`, cut from that merge. Owed, each from a word already given: the host-free adapter line's joint cure
 (`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
 prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context

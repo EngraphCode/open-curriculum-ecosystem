@@ -136,6 +136,13 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   owed (`pnpm store path` in both trees). This seat did not run that diagnosis on any of the
   five; F-26 stays open. The install brought `agent-tools/dist` with it, so no separate build
   was needed for the commit gate.
+- **J14's lesson fired on this seat's own lane an hour after landing it.** PR D's first push
+  from a fresh worktree failed the pre-push gate in the design showcase's browser suite with
+  42 lines of `Executable doesn't exist ... chromium_headless_shell-1234`; the per-user
+  Playwright cache lacked the lockfile's revision. One `playwright install
+  chromium-headless-shell` in that workspace, run from the worktree, and the same push passed.
+  The lane skill's new step 3 line (PR 216) is the cure; this seat had cut five worktrees
+  without it. A gate that fails there is the step missed, not a flake.
 - **PDR-142 in practice, four times in one hour.** Core record by bytes (PDR-009, one blob in
   both estates after PR 213); a joint set by three-way merge with four hand-merged hunks, one
   bullet kept in this estate's words for a repo-local path (K4, d6744ed6f); a concept note's
