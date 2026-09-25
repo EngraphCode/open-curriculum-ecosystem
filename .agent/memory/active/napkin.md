@@ -1359,3 +1359,69 @@ first-class peer. It paused again at 49.8% context.
   - The door's round one came back clean from both legs. The reviews that did the work came
     before external review (the code-expert, then the test-expert and security-expert
     re-reads). The Codex seat cured both rounds under the Claude custodian's dispositions.
+
+## 2026-09-25 ~10:40Z — wrap across a compaction, then stop (Marten mends Shadow, 74fc02)
+
+- **Observation (one instance): the compaction did not end the monitors.** An automatic
+  compaction landed at 10:24:25Z during this seat's wrap. The watcher, armed at 09:56:47Z, was
+  still alive after the boundary, and the heartbeat loop sent a beat at 10:26:04Z. The watcher
+  then expired at the Monitor tool's 30-minute cap, which reads "no events delivered". The task
+  output files the harness named for both monitors were absent after the boundary, though both
+  processes ran. The wrap skill says a compaction ends every session-scoped process. This
+  instance contradicts it, for this harness build. The rule in the skill still held: verify by
+  id, re-arm only what is absent. That rule was correct both times.
+- **Surprise: the compaction outran the wrap.** The first `/oak-wrap prepare for compaction`
+  began past 60% context, and the compaction landed while the seat was still reading the
+  skills. Nothing was lost, because the handover record and the continuity block had been
+  committed at 04:15Z. The order that made that safe: write the durable records at the lane
+  boundary, and treat the wrap as the reading-and-verifying pass over records that already exist.
+- **Repeated: the review-cost survey cannot see a settlement push that no reviewer reviewed.**
+  8 of this session's 14 pull requests have such pushes, priced at 0: #198, #199, #200, #201,
+  #203, #204, #205 and #208. #185's ledger row recorded the first instance. On #203 and #208
+  the body's declared budget was spent in full, and the gate reads 0. So the pre-push gate would
+  pass a third push after two unreviewed ones, and budget enforcement fails open.
+  candidate: the gate counts pushes to the pull request after open, not only reviewed heads.
+  It is routed to the review-cost gate's owner through this entry and the ledger rows.
+- **Loss scan, from inside this context:**
+  - The reason the monitors are stopped, not re-armed: the owner's word "then stop". It is
+    recorded in the continuity block and the handover record.
+  - The ledger rows for #197 to #200 were rebuilt after compaction, from the survey and the
+    commit subjects, not from live readings. The rows say so.
+  - The seat's state at the stop, 8% context, is recorded in the continuity block.
+- **Metaloss passes:**
+  - *Compressed reasoning.* "Then stop" is read as: stop the watcher and the heartbeat loop,
+    and leave the two claims attached to the handover record rather than closing them. The
+    lanes they hold, the seed branch and the test-doctrine intake, wait on Siren. Closing them
+    would drop the ownership record, and the Director can adopt them from the handover record.
+  - *Promises.*
+    - The Director: a ruling on the two held branches without a draft PR, named in the
+      handover record.
+    - The owner: which lineage names J2 declares, first in the owed list.
+    - Siren: no reply is owed either way.
+    - No promise is dropped silently.
+  - *Attribution inferences.*
+    - That the 10:24Z compaction was automatic is inferred from a boundary that landed
+      mid-turn. It was not observed.
+    - The rows for #197 to #200 name only commit subjects. They make no claim about which
+      finding each push cured.
+  - *Blind-spot bounds.*
+    - The watcher was down from its expiry at about 10:26:47Z to the re-arm at about 10:29Z,
+      and is down from the stop onward. A resuming seat reads the comms log directly for those
+      windows.
+    - The survey's blind spot, above.
+    - The J18 reviewers' contexts are gone. Their findings live in PR bodies 204 to 210.
+  - *Index of homes.* The continuity block names the handover record's path. The handover
+    record holds the owed list, the claims and the re-arm recipe. The ledger holds the rows.
+    This entry holds the scan.
+  - *External bound.* This scan cannot certify its own completeness. This session's error
+    signature: outside reviewers caught what the seat's reviews missed, and each time at an IO
+    boundary:
+    - Codex's P2s on #204 (no uid) and #209 (`fchmod` does not revoke an open descriptor);
+    - CodeQL's file-system race on #209's smoke;
+    - Sonar's S4782, S7718 and S6353.
+
+    Point outside scrutiny at descriptor lifetimes and file races.
+  - *Fence sweep.* This wrap's tracked lines were grepped for the fenced partner-estate name and
+    the fork's name on Oak surfaces. Nothing was found.
+  - *Fixed point.* A third pass would only find the survey blind spot and the monitor
+    observation again. The recursion closes here.
