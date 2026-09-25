@@ -72,8 +72,10 @@ show this was never the whole envelope.
    owner's configured model at `xhigh` effort. Without it, the call ran the CLI's default model at
    default effort. The trial's results were earned on the configured model. Model and effort
    come from each run's rollout `turn_context`.
-3. **Default-on features still reach the owner's state and secrets.** Both are stable and on by
-   default, so `--ignore-user-config` alone leaves them on.
+3. **Default-on features still reach the owner's state and secrets.** The shell snapshot is
+   stable and on by default, so `--ignore-user-config` alone leaves it on. Codex memories is off
+   by vendor default on 0.156.1 and 0.157.0, but on in the owner's configuration. The envelope
+   disables both, whatever the defaults.
    - **The shell snapshot.** It replays the owner's interactive shell environment into every
      command. That shell environment includes tokens exported in `~/.zshrc`.
      - The interlocutor's shell listed `GITHUB_PERSONAL_ACCESS_TOKEN` and `GITHUB_MCP_TOKEN`
@@ -282,9 +284,20 @@ records of what the model ran, so it holds for a cooperative interlocutor and no
    refusing, such as Landlock on Linux, would refuse the write without this sandbox; only the
    control run tells the two apart. The leg was trialled at 0.156.1 from a seat outside the macOS
    sandbox, with a control (research note §2.9).
-10. The features enabled under the envelope must fall in a closed expected set, so a vendor
-    addition becomes a reviewed change, as the 2026-09-23 ledger row on a lapsing envelope routes.
-    Its source is settled at slice 1b-iii's pickup.
+10. No feature the envelope disables may be reported enabled.
+    - The probe reads the enabled features with `codex features list`. It spawns that from the
+      root, under the instrument's Codex home, with the envelope's settings and `--disable` flags.
+    - Any other enabled feature is an observation, not a verdict:
+      - the probe diffs the enabled set against the previous pass record's;
+      - it prints the names that are new;
+      - it carries the set in the record it writes.
+    - The seat's post-probe step posts the new names for triage. Triage asks one question:
+      does this feature need a `--disable`? A `--disable` is an ADR-180 §6 envelope change,
+      trialled first. A machine's first probe reports the whole set once.
+    - So a release that turns a feature on by default is recorded, never read as a failure that
+      stops the dialogues. That is Owner decision 2: the seat "probes the new version itself and
+      carries on". The envelope's disable set is the only denylist (the Director's ruling of
+      2026-09-25).
 
 Rules for the result:
 
@@ -310,8 +323,14 @@ The envelope is one module. It is the only source of the argv and of the child's
   with the probe line as one argument and the envelope's child environment. `codex sandbox` runs
   its command's arguments as given and parses no shell syntax, so the shell is named; this is the
   shape the trial ran (research note §2.9).
+- **Rule 10's read:** `codex features list` with the envelope's `-c` settings and `--disable`
+  flags, spawned from the root with the envelope's child environment. `features list` takes no
+  `--json`, `--ignore-user-config`, `--ignore-rules` or `--skip-git-repo-check`.
 - **Flags:**
-  - `--ignore-user-config --ignore-rules --skip-git-repo-check`
+  - `--ignore-user-config --ignore-rules --skip-git-repo-check --strict-config`. With
+    `--strict-config`, a call refuses an unknown configuration key before it starts. On 0.157.0
+    a misspelt `-c` key was otherwise accepted silently. The Director granted the ADR-180 §6
+    re-adjudication on 2026-09-25, and the flag lands in slice 1b-iv's PR D.
   - `--disable memories --disable shell_snapshot`
 - **Settings,** each a `-c`:
   - `sandbox_mode="read-only"` and `approval_policy="never"`;
@@ -374,10 +393,13 @@ The instrument's Codex home holds:
 - its sessions and state database;
 - the pass record, the cleanup map and the root.
 
-It holds no config, rules, plugins, skills or memories, so nothing of the owner's Codex setup can
-load. Retention becomes deleting one directory. Deleting it also removes the instrument's login
-from the machine; `codex logout` there, run first, also ends the session. The trial's four existing cleanup-map rows stay in the owner's Codex home for the trial
-close-out.
+It starts with no config, rules, plugins, skills or memories, so nothing of the owner's Codex
+setup can load. Codex adds its own once a call runs. On 0.157.0, one logged-out run into an
+empty home installed six vendor system skills under `skills/.system/`, a memories database and
+shell snapshots (Honest limits: the homes start empty but do not stay empty). Retention becomes
+deleting one directory. Deleting it also removes the instrument's login from the machine;
+`codex logout` there, run first, also ends the session. The trial's four existing cleanup-map
+rows stay in the owner's Codex home for the trial close-out.
 
 The pass record is never committed. Its terms:
 
@@ -385,16 +407,19 @@ The pass record is never committed. Its terms:
   - the CLI version;
   - the resolved real path;
   - the envelope digest;
+  - the probe contract version that judged it;
   - the time;
+  - the enabled features the probe observed, which the next probe diffs against;
   - the verbatim evidence.
 - **Writing.** It is written through a temporary file and a rename, at mode 0600.
 - **Reading.** A read requires a regular file owned by the user, not group- or world-writable,
   under a size cap, matching an exact-key schema. The evidence lines are treated as untrusted
   text.
-- **What it guards.** A dialogue opens only when version, path and digest all match. So a CLI
-  update, a different `codex`, a changed model pin or an envelope change each demands a fresh
-  probe. The record guards against drift, not attack: any process running as the user can write
-  it.
+- **What it guards.** A dialogue opens only when version, path, digest and probe contract
+  version all match, and the record is at most seven days old and not dated after now. So a
+  CLI update, a different `codex`, a changed model pin, an envelope change, a new probe
+  contract or the passing week each demands a fresh probe. The record guards against drift, not
+  attack: any process running as the user can write it.
 - **Who runs the probe.** The seat runs it itself, with no owner gate, from a process outside the
   macOS sandbox (Honest limits).
 - **The tracked evidence record** changes only when the envelope changes or a probe fails, never
@@ -435,8 +460,12 @@ The pass record is never committed. Its terms:
   was configured with, and rule 9 shows that `codex sandbox` enforces its write refusal. Neither
   sees how a tool
   hands that policy to the sandbox, so three cases are not seen:
-  - a write through a tool the probe line does not use. On 0.156.1 that includes `apply_patch`,
-    the file-edit tool, which has a runtime of its own;
+  - a write through a tool the probe line does not use. On 0.156.1 and 0.157.0 that includes
+    `apply_patch`, the file-edit tool, which has a runtime of its own. The pinned model is
+    offered it through code mode. Under approval `never`, Codex refuses it in a policy check that
+    runs before any process and leaves no harness record, so no probe leg can read that
+    refusal. A leg that carries its verdict on a nonce waits on a recorded live observation (the
+    Director's ruling of 2026-09-25);
   - a regression on a path the probe's turn did not take, which a later dialogue turn can take, by
     the model's own choice or steered by injected text in a file it reads;
   - a probe turn that did not run the line as given, whether by staging, a rewrite or a declined
@@ -454,27 +483,38 @@ The pass record is never committed. Its terms:
   nonce requirement makes that a failed leg, never a pass, so the probe runs from a seat whose
   process is not already sandboxed. Containment that stacks rather than refusing is caught by rule
   9's control run, not by the nonce.
-- **A fix to the probe's own logic does not invalidate existing pass records.** The record binds
-  the version, the path and the envelope, not the probe's code. So a record written under a
-  flawed verdict keeps opening dialogues until the next CLI update forces a fresh probe, a window
-  the estate does not control. A probe-contract version that the gate matches would close it
-  structurally; that is routed to slice 1b-iv.
 - **The binding does not see the vendor's server side.** A record keeps opening dialogues while
   the version, the path and the digest match. A behaviour the vendor changes on its own side
   under the same version, such as a feature enabled remotely, goes unseen until something in the
-  binding changes. The record's pass time is kept, not enforced. A pass-record age limit is the
-  named hardening, routed to slice 1b-iv.
+  binding changes or the record passes its seven-day age limit. A fix to the probe that did
+  not raise its contract version is bounded by the same limit.
 - **A cleanup row exists only for a thread the run's output names.** Three cases leave a thread
   without one: a kill that lands after a thread is created but before its `thread.started`
   event reaches the pipe; an id that does not parse as a thread id; and a thread named only
   inside an item, such as a spawned sub-agent's, which also fails the turn. Reconciling the
   instrument's Codex home's stored threads against the map is the named structural cure, routed
   to slice 2 and the trial close-out.
-- **No row on resume rests on one version's source.** In codex-cli 0.156.1 a resume by thread id
-  never creates a thread. A later CLI that starts one is caught only when the turn otherwise
-  counts, as a thread-id mismatch naming it; beside the requested thread it fails as more than
-  one thread, and a failed or killed resume names no thread at all. A probe leg that resumes a
-  fresh random id is the named re-proof, routed to slice 1b-iv.
+- **No row on resume rests on the vendor's source.** In codex-cli 0.156.1 and 0.157.0, a resume
+  by thread id never creates a thread. A later CLI that starts one is caught only when the turn
+  otherwise counts, as a thread-id mismatch naming it; beside the requested thread it fails as
+  more than one thread, and a failed or killed resume names no thread at all. No probe leg
+  re-proves the premise, because it guards retention rather than the interlocutor. Its structural
+  cure is the reconciliation in the entry above (the Director's ruling of 2026-09-25).
+- **A newly enabled feature runs until its triage.** A release that turns a feature on by
+  default is an observation, not a failure (rule 10). Until triage, dialogues run with it on,
+  and the write, environment and policy legs must still pass. So a new tool with a runtime of
+  its own, or a new network or process capability, goes unseen until triage adds a `--disable`.
+- **Sub-agent spawning is within the enabled set.** `multi_agent` is stable and on by default
+  on 0.156.1 and 0.157.0.
+  - The turn verdict fails a turn whose output names a sub-agent's thread (the cleanup-row
+    entry above).
+  - The envelope does not disable it, because nothing observed shows harm. A
+    `--disable multi_agent` comes only with an observation that does (the Director's ruling of
+    2026-09-25).
+- **`features list` reads configuration that `exec` does not.** It loads
+  `$CODEX_HOME/config.toml` and the working directory's project layers, while `exec` runs
+  with `--ignore-user-config`. The two agree while the instrument's Codex home holds no
+  `config.toml`, and AC 5's live probe records that it holds none.
 - **The fixed root is new.** The trials used scratch directories. The live probe (AC 5) is the
   first run from the fixed root.
 
@@ -511,7 +551,9 @@ Each behaviour is proved once, at the lowest scale that sees it.
        envelope to be re-adjudicated.
      - The refusals are parser behaviour tests, not absence pins.
 2. **Version gate.** `dialogue-turn` exits 3, without starting a turn, when the pass record is
-   absent, fails its schema, or differs from the current binding on version, path or digest.
+   absent or fails its schema. It also exits 3 when the record is past its seven-day age limit,
+   is dated after now, or differs from the current binding on version, path, digest or probe
+   contract version.
    - Proof: `repo-safe`. Unit tests cover the gate decision.
    - One integration test uses a `runCodex` fake that would return a full success, so exit 3
      alone shows the gate held.
@@ -532,7 +574,7 @@ Each behaviour is proved once, at the lowest scale that sees it.
    - a variable name outside the expected set, or a nonce-bearing output record with no name
      listing;
    - an output record or `permission_profile` in a shape the probe does not recognise;
-   - an enabled feature outside the closed expected set;
+   - a feature the envelope disables that is reported enabled;
    - a `turn_context` that differs from the envelope, or cannot be found or recognised;
    - a thread mismatch;
    - a missing recall;
@@ -542,15 +584,16 @@ Each behaviour is proved once, at the lowest scale that sees it.
    It writes the pass record only on a full pass.
    - Proof: `repo-safe`, unit tests on the probe verdict.
    - One integration test uses an ordered fake that returns the open and then the resume result
-     and never reads its arguments. It shows a single failing row leaves no record. Rule 9 runs
-     through a port of its own, so the ordered fake stays two results long.
+     and never reads its arguments. It shows a single failing row leaves no record. Rule 9's runs
+     and the features read each go through a port of their own, so the ordered fake stays two
+     results long.
    - The probe reaches `executeTurn` directly. The gate is never bypassed through an option on
      `runTurn`.
 5. **Live probe.** `dialogue-probe` passes against the installed latest CLI, from the fixed root
    and a process outside the macOS sandbox, under the instrument's own Codex home after the
    owner's one login. Every Codex process it started is proven closed by a process-table read.
    - The probe run's `turn_context` legs, its environment leg and rule 9's model-free run pass,
-     and the Codex home gains no memory entry from the probe threads.
+     and the Codex home gains no memory entry from the probe threads and holds no `config.toml`.
    - Proof: `owner-held`. The implementing seat runs it on the owner's machine under the owner's
      standing permission for Codex experiments.
    - The observation is recorded in slice 2's PR description and in the tracked evidence record
@@ -615,19 +658,53 @@ review before and after execution.
      - Its fixtures come from redacted lines of observed rollouts.
      - At its pickup, it settles rule 10's source. Whether `apply_patch` is offered under the
        envelope is not a rollout question: a rollout shows the tools a turn called, never the ones
-       it was offered. Slice 1b-iv settles it by attempting a patch under the exact envelope.
+       it was offered. Honest limits names it, and no probe leg attempts a patch (the
+       Director's ruling of 2026-09-25).
      - Reviews: type-expert, test-expert and security-expert, focused, and a cross-vendor read by
        the Claude seat.
-  5. **1b-iv, the probe.** The verdict over rules 1 to 10, pure over one record of observations;
-     rule 9's runs through a port of their own; `runProbe`; and the round trip, in which the record
-     a passing `runProbe` writes opens `runTurn`.
-     - The verdict's unit tests are its contract. Later findings on its mechanics are exercised
-       against them.
-     - The ordered probe fake is named in the review request.
-     - The probe line is composed from the complete paths the ports supply, with no path joining
-       in pure code, so the unit tests hold on the Windows CI leg.
-     - Reviews: security-expert and test-expert, deep; type-expert, focused; and a cross-vendor
-       read by the Codex seat.
+  5. **1b-iv, the probe.** Four pull requests. They were sliced after the pre-execution
+     code-expert review and an assumptions-expert review of 2026-09-25, and the Director accepted
+     the slicing that day.
+     1. **A: the gate's contract version and age limit.**
+        - The pass record's binding gains `probeContractVersion`.
+        - The gate's first phase refuses a record past seven days, or one dated after now.
+        - A also carries this node's edit for the re-slice.
+        - Reviews: security-expert and type-expert, focused.
+     2. **B: what the rollout reader gives the verdict.**
+        - Its reasons as a closed union.
+        - The top-level `turn_context.network` exposed, so rule 8 can require it absent.
+        - Whether a reused `call_id` makes the probe inconclusive, decided on a recorded
+          rollout.
+        - The Codex seat's module.
+        - Reviews: type-expert and test-expert, focused; a cross-vendor read.
+     3. **C: the pure verdict over rules 1 to 10, and the features-list parser.**
+        - Rule 8 checks the passing shape itself: a managed profile, a restricted file system
+          whose entries are all read or deny, network restricted, a read-only sandbox policy
+          without network access, and no top-level network field.
+        - Rule 9 counts only when its profile passed rule 8.
+        - Rule 10 is as reshaped.
+        - The verdict's unit tests are its contract.
+        - If its non-test code passes about 300 lines, it splits between the turn legs (rules 1
+          to 8) and the model-free legs (rules 9 and 10).
+        - Reviews: test-expert, deep; type-expert, focused; security-expert, focused on rule 10;
+          a cross-vendor read.
+     4. **D: `runProbe`, its ports and the round trip.**
+        - The two model turns go through `runCodex`. Rule 9's runs, their control and the
+          features read each go through a port of their own, so the ordered fake stays two
+          results long.
+        - The probe's dialogue id is fresh on every probe.
+        - The pass record gains the enabled features the probe observed, and the probe prints
+          the names new since the previous record.
+        - A sentinel found in the root is reported, never removed. The `finally` removes only
+          what the probe created outside the root.
+        - `--strict-config` joins the envelope, with the ADR-180 amendment.
+        - The `executeTurn` import allowlist.
+        - Reviews: architecture-expert first, on splitting the envelope module; then
+          security-expert and test-expert, deep; config-expert, focused.
+
+     The probe line is composed from the complete paths the ports supply, with no path joining
+     in pure code, so the unit tests hold on the Windows CI leg. A and B run in parallel. C
+     follows B, and D follows A and C.
 
   1b-0 and 1b-i run in parallel; 1b-ii follows 1b-i, 1b-iii follows 1b-0, and 1b-iv comes last.
 - **Slice 2, the IO edge.** Up to 10 files, separate because it touches the filesystem and
@@ -689,6 +766,16 @@ The plan-body first-principles check fires here:
 One dated row per routed finding (PDR-140 ledger surface). The implementer picking up each slice
 enumerates and dispositions every row before implementation.
 
+A finding becomes probe code only when two things hold:
+
+- it falls inside the probe's threat model, a vendor or configuration regression under a
+  cooperative interlocutor;
+- its check does not bind to vendor state that changes with each release, such as feature
+  defaults or message text.
+
+Otherwise it is answered by an Honest-limits line that names its hardening (the assumptions-expert
+review of 2026-09-25).
+
 | Date | Source | Finding | Routing |
 | --- | --- | --- | --- |
 | 2026-09-23 | Readiness reviews at authoring: assumptions-expert, code-expert, architecture-expert-barney, test-expert, security-expert | Cured across the drafts, among others: the thread-id injection; the model change under `--ignore-user-config`; the environment allowlist; the shell snapshot and memories; the pass record's binding; the rollout `turn_context` legs; the test layering; the slicing | None routed onward |
@@ -708,6 +795,8 @@ enumerates and dispositions every row before implementation.
 | 2026-09-24 | Slice 1b-ii's pre-execution reviews: code-expert and test-expert | Both asked that `--dialogue-id` also ride on resume, so that a stray thread a resume started would get a row. A killed run carried no output, so a thread it started before the kill had no row. A refused append had no defined outcome. A test that recorded the port's calls would pin the implementation | The request to put `--dialogue-id` on resume is REJECTED, on codex-cli 0.156.1 source: `exec/src/lib.rs` `resolve_resume_thread_id` passes a UUID through as given, and the app server's `thread_resume_inner` errors when `read_stored_thread_for_resume` finds no stored thread. So a resume by thread id never creates a thread on that version, and the CLI's "exactly one of `--dialogue-id` and `--thread`" stands. Honest limits names the premise's reach. Cured in 1b-ii: a killed run keeps its partial output; the rows are written on open, before the verdict, whatever it is; a refused row fails the turn as `cleanup-row-unwritten` (exit 4), after every row is tried, naming only the unwritten threads. The tests assert an in-memory cleanup map's contents, never its calls, under the owner's 2026-09-24 test ruling |
 | 2026-09-24 | Slice 1b-ii's post-execution reviews: code-expert, test-expert, security-expert | Claims stronger than the mechanism: "no thread without a row" (a row exists only for a thread the output names) and "a stray thread on resume fails as `thread-mismatch`" (only when the turn otherwise counts). `created_at` was read after the run. A refused row hid the turn's own failure, an envelope breach included. The refusing fake branched on its input, and three mutants survived (the second refused thread, the first reason, a hardcoded dialogue id). The map is future deletion input that any process of the user's can write. The recorders in the turn and gate integration tests inspect calls | Cured in 1b-ii: the claims scoped, with both residuals in Honest limits; the clock read before the spawn; the verdict carried in `cleanup-row-unwritten`; a pure fold of append outcomes, unit-tested, and a constant refusing fake; a second dialogue id. Slice 1b-iv: a model-free probe leg that resumes a fresh random id and passes only on a non-zero exit with no `thread.started`; confirm sub-agent spawning is outside the closed feature set. Slice 2: the CLI prints a mismatched resume's thread as unrecorded; the adapter writes each row as one `JSON.stringify(row) + '\n'` append, refuses a file that does not end in a newline, a symlink, or a file not owned by the user at 0600, and refuses a dialogue id already in the map; the runner's contract test keeps partial stdout on a timeout and on `ENOBUFS`; the CLI intake parses `--dialogue-id` with `parseDialogueId`. The trial close-out: deletion takes the Codex home from the map's own location, re-parses every line strictly and stops at the first malformed one, checks each thread's stored metadata (an exec thread, the expected root, a UUIDv7 time inside the turn's window), and lists the threads for the owner first. This lane, as one small pull request before slice 2: the call-recording tests in `dialogue-turn` and `run-turn` become return-value tests of a pure call builder and verdict-only assertions, under the owner's 2026-09-24 test ruling |
 | 2026-09-24 | Slice 1b-iii's reviews on PR 190: the pickup, the security-expert's re-read, and Copilot's round one (thread `4095991046`) | The reader does not settle rule 10's source, the closed set of enabled features. `network` in the turn context and the reader's reason strings are consumed by the verdict, not the reader. A `call_id` can be reused once its output consumes it, and no fixture or test exercises that; whether codex-cli reuses a `call_id` across a rollout's turns is unrecorded | Slice 1b-iv: rule 10's source (under the envelope, `apply_patch` is offered to the pinned model through code mode and refused by Codex's policy check, and the rollout records no tool inventory); `network` in the turn context; the reason strings as a closed union; whether a reused `call_id` makes the probe inconclusive, decided once a recorded rollout shows whether ids repeat |
+| 2026-09-25 | Slice 1b-iv's pre-execution code-expert review, on codex-cli 0.157.0 source | The design drafted a single PR, then two. Its findings: rule 9's runs, the features read and a fresh-id resume went through `runCodex`, which would make the ordered fake longer than two results; the fresh-id leg could pass on an empty-stdin exit before any resume; rule 8 accepted `disabled`, `external` and `unrestricted` profiles as data, and `codex sandbox` quietly turns an external profile into read-only; the `apply_patch` refusal is a policy check that leaves no harness record, and an uncaught refusal fails a code-mode script, which fails the rollout read closed; a fixed probe dialogue id would be refused by slice 2's adapter on a second probe; a sentinel found in the root would have been removed; and one PR was over the size limits. On 0.157.0, `SessionMeta` gained two creator ids, and feature defaults moved | Slice 1b-iv as four PRs, A to D (see Todos). Separate ports for rule 9, its control and the features read; a fresh dialogue id per probe; a sentinel in the root reported, never removed; rule 8's passing shape stated directly, with rule 9 counting only on a profile that passed rule 8. Fixtures captured on 0.157.0 redact both creator ids. The `apply_patch` leg, the fresh-id leg and rule 10's closed set go to the row below |
+| 2026-09-25 | assumptions-expert on the probe's solution class; the Director's rulings (16:23:39Z and 16:40:22Z) | The probe-and-gate class is proportionate, and rules 1 to 9 each rest on a measured fact. The drift was at two edges. Rule 10's closed allowlist acted as a per-release pin: the enabled set changed at every observed update (0.153.4 to 0.156.1, five on; 0.156.1 to 0.157.0, two on). The fresh-id leg guards retention, not the interlocutor. Measured: a misspelt `-c` key is accepted silently without `--strict-config`. The node's fact 3 was wrong about memories, and its claim that the Codex home holds no skills was too strong | Rule 10 reshaped (only a disabled feature reported enabled fails; the rest is an observation diffed against the previous pass record). `--strict-config` joins the envelope in PR D. The fresh-id leg dropped, its premise pointing at slice 2's reconciliation. `apply_patch` and `multi_agent` named under Honest limits. The age limit is seven days, and a record dated in the future is refused. The routing test at the head of this ledger. Fact 3 and the state section corrected. No owner question: nothing leaves the ratified baseline |
 
 ## Out of scope
 
