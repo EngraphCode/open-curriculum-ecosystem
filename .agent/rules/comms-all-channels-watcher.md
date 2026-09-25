@@ -125,7 +125,9 @@ heartbeat:
 
 - **`--supervisor-pid "$PPID"`** (the F-101 cure) — the watcher checks the
   supervising process (the agent session that spawned it; `$PPID` at the
-  invocation) once per poll cycle and self-exits within one cycle of that pid
+  invocation, read from the live shell's parent chain at each re-arm and never
+  from a pid in a record, because a compaction gives the seat a new pid: 23808
+  became 45379 across one, 2026-09-25) once per poll cycle and self-exits within one cycle of that pid
   disappearing. This closes the crash / SIGKILL orphan path that a process-group
   kill-tree misses: GNU `timeout` isolates the watcher in its own process group,
   so on a harsh agent death no signal reaches the watcher — but the pid probe

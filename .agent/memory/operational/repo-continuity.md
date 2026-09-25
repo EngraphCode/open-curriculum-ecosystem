@@ -233,13 +233,14 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1, then claude-opus-5-5 from 2026-09-23 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the three 2026-09-21 branches as #169, #170 and #171 (the live branch is named once, in Next Safe Steps below, never in this row); from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
+| `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-opus-5-5 / Marten mends Shadow (74fc02) / this estate's exchange seat, stopped at rest at the owner's word / 2026-09-25, claude-code / claude-opus-5 then claude-fable-5-1, then claude-opus-5-5 from 2026-09-23 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the three 2026-09-21 branches as #169, #170 and #171 (the live branch is named once, in Next Safe Steps below, never in this row); from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread; this row is the index pointer only. Lane history, the identity table and the latest lane (the 2026-09-02 napkin-only dedicated consolidation and its step-6a synthesis, Kiln holds Slag) live in the record. | [record][agentic] | claude-code / claude-fable-5-1 / Kiln holds Slag (1447f4) / curator — napkin-only dedicated consolidation and the step-6a synthesis / 2026-09-02 (prior lanes: thread record) |
 | `oak-slack-assistants` | Internal agentic Slack assistants over Oak's MCPs (Ask Oisín M1; future Ask Oak). 🟢 DECISION-COMPLETE, plan merged 2026-07-08; next: execute (WS-E1 first). Detail: [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md) + the record. | [record](threads/oak-slack-assistants.next-session.md) | claude-code / claude-fable-5 / Salamander weaves Warmth (`4960fe`) / deep review — decision-complete rework / 2026-07-08 (chain: thread record) |
 | `continuity-memory-and-knowledge-flow` | Memory/context substrate (PDR-124 landed; the 2026-07-05 per-user buffer drain complete, plan archived; the second dedicated drain complete 2026-09-14 — 495 Claude buffer entries dispositioned, graduation commit `0e4173b43`, 488 retired, the operator profile seeded). PDR-141 (Accepted, owner-ratified 2026-09-14) moves the operator profile to `~/.practice/profile/`; the seeded profile is ratified. The register's twelve directive-bound entries graduated on 2026-09-19 and the four drainable buffers read empty; the graduate-then-archive pass over the large memory files is complete (nineteen curated with dated archives, twenty read whole and left live; on engraph as #159 and #169); what remains is the owner-held decisions the record lists and the directive-tier candidates held below 30 % context; buffer lifecycle continues under `per-user-memory-is-a-buffer` | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude-code / claude-opus-5 then claude-fable-5-1 / Zephyr guards Leeward (281e44) / curator — the dedicated consolidation's second half folded as #153 (`SHA:b5b0e70cd`); its successor folded as #155 (`SHA:65a929d9a`); the buffers drained to empty and that drain folded as #156 (`SHA:44729c98c`); the memory-file pass folded as #159 (`SHA:efb2942e9`) and the consolidation's close as #169 (`SHA:72cab5667`) / 2026-09-21 ← the same seat / curator — second dedicated drain complete / 2026-09-14 |
 | `slack-watcher-estate-review` | Owner-commissioned review (2026-08-24) of the Slack Watcher organ — COMPLETE the same day, all six proposals owner-adopted and P1–P5 landed; shepherded 2026-08-25 (OCE PR #17 `c40a4287`, castr PR #53 `e62891ee`); plan archived; report at `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`. The remaining probe and two recorded deferrals live in the record. | [record](threads/slack-watcher-estate-review.next-session.md) | claude-code (cloud) / claude-fable-5 / Raven stirs Murmur (c4031b) / reviewing + executing seat / 2026-08-24 (prior: Buzzard weaves Airstream 01e90b, plan author) |
+| `codex-dialogues` | Codex as an invocable second opinion: the Codex dialogues rebound onto `codex exec` and `codex exec resume` under the node `the-codex-dialogues-exec-binding`. Slices 0, 1a and 1b-0 landed (#184, #186, #188); 1b-i (#189, held on the Codex quota) and 1b-iii (#190, draft) are open. Distinct from first-class Codex support in the Practice, the Director track | [record](threads/codex-dialogues.next-session.md) | platform unknown until it registers / Swallow holds Drift (516619) / successor lane owner, named 2026-09-24 ← claude-code / claude-opus-5-5 / Blazar lifts Corona (b65a9a) / lane owner / 2026-09-24 |
 
 ## Paused Threads
 
@@ -283,6 +284,388 @@ not the current session-priority lane. Reactivation is owner-directed.
 ## Next Safe Steps
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
+
+**CURRENT PICKUP, 2026-09-25 ~15:05Z — Myrtle turns Canopy (bf4957), the exchange seat at the
+owner's word.** Read this block first; the 2026-09-24 block below it is the older owed list, still
+true where this block does not supersede it, and Marten mends Shadow's handoff record of
+2026-09-25 (the handoffs directory of the collaboration state, this machine only) is the pickup
+contract, its §Recount run at 14:58Z and matching.
+
+- **The owner's ruling on the exchange (2026-09-25 ~11:00Z, recorded by Geyser rides Pewter),
+  verbatim:** "We are prioritising all JC.net Practice innovations being integrated into OCE,
+  then we review. This is a fixed process with an end, not an ongoing effort. Once the Practice
+  contains the best of both it will be extracted into an installable entity." Where they differ,
+  it supersedes the 2026-09-21 framing (three estates, rows owed each way). The delivery node
+  `practice-two-way-exchange.plan.md` carries it in the node's own words. The owner's word to
+  this seat (about 14:53Z, native), verbatim: "you are now responsible for managing the flow of
+  Practice enhancements from JC.net to OCE". The Director's routing of 15:02Z: this seat is the
+  receiver for the second estate's rows (Siren's trigger-amendment twin, batch six, the F-200 to
+  F-207 twins); rows this estate sends go to that estate's seat, Siren herds Rudder (158275).
+- **Claims:** a63a7df8 (the test-doctrine intake) and 141892a7 (the seed branch) adopted from
+  Marten mends Shadow at 15:0xZ, premises recomputed live; 9549aec5 opened for the PDR-009 row.
+- **In flight:** the PDR-009 joint cure taken by bytes (the second estate's blob bc4612df; its
+  event 1592fa3d, this seat's receipt daaa5224): branch `docs/exchange-pdr-009-joint-cure` in
+  worktree `oce-wt-pdr-009-joint-cure`, draft PR #213. It merges behind the Director's
+  slot order of 15:02Z (PR 212, the watcher twin, the fold 187, PR 211; no lane syncs to engraph
+  while another holds the slot). The landed receipt on the stream closes the row.
+- **Landed on lane branches since (15:2xZ to 15:4xZ):** `d6744ed6f` on `docs/intake-test-doctrine`
+  takes K4's seven non-directive files (three clean, four hand-merged; one checklist bullet kept
+  in this estate's words for its E2E path; K4's citation of a testing-patterns section this
+  estate holds under another heading is a named cure for the intake's local list, not an edit).
+  Draft PR 215 (`docs/exchange-c2-arc-hunks`, worktree `oce-wt-exchange-c2`) is batch one's PR
+  C2, the three ARC hunks under the Director's reading A. Draft PR #216 (`docs/exchange-j14-lane-skill-leaks`,
+  worktree `oce-wt-exchange-j14`) is batch five's J14: the lane skill names the committer
+  identity rule, the id derivation moves into the bot-identity rule, step 3 installs the
+  browser, adapters regenerated. Each merges at its slot after the fold; each gets its
+  integrated receipt to the second estate's seat at the merge. Claims 9549aec5 (PDR-009),
+  ee17a29e (C2), 7d380d17 and 4d955339 (J14) are this seat's.
+- **Next:** joint set K4 merged in the second estate at 15:01Z (its merge c523ba81; Siren's
+  event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
+  those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
+  (the Director's ruling of 15:04Z: PDR-052's 30 % floor is a deferral, never a stop), the seven
+  other files are taken (above) and Marten's local cure list (his 2026-09-24 record) proceeds. Then Marten's
+  proposal order, recounted at each step: PR G, J2 (ask the owner A3 first), J3, C7, PR 205's
+  follow-ups, batches three and five, batch four's J2 and J3 receipts, the seed branch. Inbound
+  and waited for: the trigger-amendment twin, batch six, the F-200 to F-207 twins, the Cricket
+  no-inferred-gender line (lands in the second estate first).
+
+**CURRENT PICKUP, 2026-09-24 ~14:0xZ — Marten mends Shadow (74fc02), the owner's named
+successor to Zephyr guards Leeward (281e44) on this lane.** Read this block first; the
+paragraph below that begins "The 2026-09-23 branch folded as #176" is the older owed list,
+still true where this block does not supersede it.
+
+*Update, 2026-09-24 15:3xZ, the same seat after the owner reopened it (supersedes the
+paragraphs below where they differ).* The owner's word to this seat at 14:29:27Z (comms event
+942fd3b0), verbatim: "Standing rule, with aim for zero open PRs on balance … work is not
+delivered until it is merged". It followed this seat's 14:19Z close, which had left PRs 191
+and 192 unmerged. The claim-retention fix is K1 and K1(c), signed in cc11b042 and b5c4c077.
+They land with the second estate's next joint set: an open pull request keeps its claim at
+closeout, and the member closeout templates gain an "Open pull requests owned" line.
+
+- **Landed.** PR 192, joint set G plus the daily prompt's clause, merged as 5de481360 at
+  15:19:37Z. The Director ruled that the daily clause is seat work.
+- **In flight.** PR 191 holds the landing slot at 0936f14d6, synced to engraph 5de481360. It
+  carries joint set F plus J1 to J8 (signed in 00f70644, 47609bab and 0e12282f). Every thread
+  is resolved. This seat lands it under the docs-only class and then broadcasts.
+- **Read PR 191's state first.** If it is still open, it is the fresh session's first act, and
+  claim 43dbafee (still held) is handed on:
+  1. recompute the gate by name;
+  2. post the premises, prepared in the same form as PR 192's comment;
+  3. merge as the bot through the REST endpoint, with a merge commit and the head pinned;
+  4. broadcast, and pass the slot to PR 193.
+- **The fresh session's order, after PR 191.**
+  1. The test-doctrine intake, as described below. It carries the owner's own ruling (6161e95d),
+     which binds from the word.
+  2. The second estate's batch one. Ten files sit untracked in
+     `.agent/practice-core/incoming/jcnet-batch-1/`, acknowledged in ebfe86d8, with every blob
+     id listed there. Siren's delivery event, 3727b85b, gives the heads read and each file's
+     proposed landing. `pdr-adr-citations.md` comes first, and each file is receipted as
+     integrated or rejected with its reason.
+  3. H's hunk.
+  4. K, when Siren sends it.
+- **The exchange count.** Siren and this seat agreed the counting predicate at 15:1xZ, and it
+  rides Siren's next exchange PR into the register's §Disposition vocabulary. A row is owed to
+  estate E when it sits in the other estate's delta table and its E cell does not begin with
+  decline, graduated into, origin, none, local, or records, not portable. It is landed when E
+  has a Landings row that is not PARTIAL. At jcnet main 52ad23c902 (register at 43b03b52af):
+  0 of 21 owed to OCE are landed, and 5 of 28 owed to jcnet.
+- **Unowned.** This estate's governing node, `practice-two-way-exchange.plan.md`, is a sketch
+  with no todo list. The fresh session raises that with the Director as a request.
+
+*Resume, 2026-09-24 ~18:36Z: the same seat keeps the lane (supersedes the handover paragraph
+below where they differ).* The owner's word came by card, relayed by the Director (Wick binds
+Temper, ed7b48) at about 18:35Z: "Marten continues past its handover point", described as
+"Marten keeps the OCE lane past 65% and lands batch two itself, naming the reading at each
+step". The card had held the Director's turn open since about 17:08Z. So the handover below
+ran on its declared default while the word waited, and the Director recorded that as its slip.
+The Director confirmed the resume at about 18:40Z, when this session read 12% after
+compaction.
+
+- **Stopped at 2026-09-25 ~10:40Z at the owner's word, "prepare for compaction then stop".**
+  A compaction landed at 10:24Z while the wrap was running. The wrap finished after it, at 8%
+  context. Nothing moved after 04:15Z except the wrap's records, including the review-cost
+  ledger rows for PRs 197 to 210. The watcher and the heartbeat loop are stopped. Claims
+  141892a7 and a63a7df8 therefore age from their last heartbeat, and they stay attached to the
+  handover record. The seat resumes only at the owner's word, re-arming by the recipe in that
+  record. The consolidation gate fires, and the Director schedules it:
+  - J4 and J18 are closed;
+  - the napkin is at 1,361 lines;
+  - batches three and five are unprocessed in the Practice Box.
+- **State at 2026-09-25 00:25Z, context about 68%; the seat is at rest.** The handover record
+  is `.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-batch-four-handover-2026-09-25.md`.
+  **Resumed at 00:35Z** after compaction, at 10% context, under the owner's batch-four word.
+  **At rest again at 04:15Z, at 61.8% context (past peak), at a lane boundary.** J18 is landed
+  in full (PRs 206 to 209), and so is its hook-quoting follow-up (PR 210, `f08201ab0`). The
+  handover record lists what is owed, in order: J2, J3, C7, PR 205's follow-ups, the
+  tracked-listing consolidation, and the J18 follow-ups below. Claims 141892a7 and a63a7df8 are
+  attached to the handover record. The J18 part B design follows, as record.
+  - **Landed:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`), J4 in
+    three parts, and J18 part A. The K amendment (2a62905f: the PDR-009 clause as the rule's
+    domain) waits on Siren's twin.
+    - J4: PR 202 (`9b67670fe`, one tracked-path set in core), PR 203 (`27a8a8e12`, one git
+      seam whose listing returns a Result) and PR 205 (`71e822570`). PR 205 makes the
+      substrate audit read absent instance-tier surfaces as informational, so a fresh
+      worktree exits 0. Its probe is git's index-aware `check-ignore`, a departure from the
+      note's `--no-index` design that goes back to Siren as a gain. Its body names six
+      follow-ups; wiring the audit into `repo-validators:check` is the first. Claim 8b37f3d1
+      is closed.
+    - J18 part A: PR 204 (`d0fb0aced`), one owner-only append in core, used by the
+      statusline debug log.
+    - Every worktree for these is pruned.
+  - **J18 part B, the observer (claims 3a3a9280 and 44431f81), redesigned 00:50Z.** The
+    B2 pre-execution review asked for changes, and an assumptions review dropped the directory
+    hold as disproportionate: the file's own 0o600 mode, owner, link and identity checks protect
+    its contents at any directory mode, and only a principal who could already read the log
+    could swap the directory. Five pull requests, in order:
+    - **B1, PR 206, merged as `b653e3688` (00:59Z):** `appendOwnerOnly` refuses with
+      `uid`/`NO_POSIX_OWNERSHIP` before touching anything when Node gives no uid (Windows,
+      Android). Codex's P2 on PR 204. Its worktree is pruned.
+    - **B1b, a follow-up, not a prerequisite (the seat's decision, 01:00Z):** read the mode
+      back after `fchmod`, with the two-reading probe. Security asked for it before the
+      observer (WSL with the checkout under `/mnt/c`, CIFS, vfat). The seat's reasons for not
+      waiting on it: on such a mount the checkout's own untracked secrets are already exposed to
+      the same principals; the observer's log adds low-sensitivity content; and assumptions
+      found no such mount in use. Its reviewed shape, if built: one probe in core shared with
+      the conformance writer; the port's `fchmod` returns the mode read back; the probe mode is
+      0o200, so a stranded probe never locks a persistent log; four docs list the refusal.
+    - **B2a, PR 207, merged as `96d49318b` (01:47Z):** the pure modules under
+      `agent-tools/src/claude/pre-compact-observe/` (payload read, observation build with the
+      byte count, environment snapshot, sibling selection, the two answers), with unit tests.
+      The build takes raw measurements and derives the rest. Its worktree is pruned.
+    - **B2b:** the orchestration (injected stdin, lstat-based transcript reads, append, clock,
+      UUID, env, cwd, argv) and the thin entry, run from built `dist`. The entry takes no
+      `failureAsError`, and it tolerates EPIPE on stdout. It writes into its own subdirectory,
+      `.claude/logs/pre-compact-observe/observations.jsonl`, which the append's `mkdir` creates
+      at 0o700 (a departure from the note's path). An empty or relative `CLAUDE_PROJECT_DIR` is
+      unset. ADR-167 rule 1: a recording failure also appends a payload-free line (step and
+      code) to `.claude/logs/hook-errors.log`.
+    - **B2c:** the registration (`PreCompact`, matcher `*`, timeout 10, both paths quoted,
+      because a shell syntax error exits 2, which blocks a compaction); the smoke, symlinking
+      `.claude/hooks` and `agent-tools` into a `mkdtemp` project directory whose name holds a
+      space, cleaned with `fs.rm`; the turbo inputs; and the activation docs: the hooks README,
+      `policy.json`'s notes only, the surface matrix (keep the Hooks row's token order), and
+      ADR-167 §Limitations 6.
+    - Dropped: the directory hold, its port and fake, and `umask 077` in the wrapper, which moves
+      to its own lane under ADR-167.
+    - **J18 is landed in full (03:24Z).**
+      - B2b, PR 208, merged as `2f2060ab2`. It brought `errorCodeOf` and `invokingUid` into
+        core.
+      - B2c, PR 209, merged as `17d030cb0`: the entry, the Node bindings, the smoke, the
+        `PreCompact` registration and the docs.
+      - Claims 3a3a9280 and 44431f81 are closed, and every worktree is pruned.
+      - Siren has the landing, the three departures and Codex's re-tighten finding (event
+        `2a33cf89`).
+    - **Follow-ups the J18 reviews recorded, not yet claimed:**
+      - quote the two older wrapper entries in `.claude/settings.json`: done, PR 210
+        (`f08201ab0`), with a regression smoke that uses a stub `sonar`;
+      - defects in the Sonar-owned secrets scripts, which the Sonar CLI overwrites, so report
+        them upstream or wrap them:
+        - `prompt-secrets.sh`: `trap "rm -f $temp_file" EXIT` splits on a space in `TMPDIR`,
+          leaving the prompt copy on disk;
+        - `pretool-secrets.sh`: its `sed` field extraction fails open on a path holding `"` or
+          `\`;
+      - write the observed PreCompact contract into the surface matrix's §Hook Support after the
+        first real compaction, with the harness version;
+      - move `compareUtf16` from `typescript-estate/` to `core/` (17 importers; a mechanical PR);
+      - owner-only-append hardening, one lane with two parts:
+        - B1b, the mode read-back probe;
+        - Codex's P2 on PR 209: refuse, or replace, a pre-existing file whose mode admits
+          another account, before any byte is written, because `fchmod` does not revoke a
+          descriptor already open.
+
+        It changes the statusline debug log's documented retighten contract too;
+      - one build instead of six in agent-tools' `test:e2e` chain;
+      - the wrapper follows a symlinked `hook-errors.log` with `touch` and `>>`;
+      - a test for the `process.stdin` hazard (a late-writing harness gives `EAGAIN`).
+  - **J2, six validators on the shared read (not started):**
+    - A path-free refusal redactor at the four sites that print an absolute path, plus
+      `describeGitReadFailure` (PR 203's gateway review found git's stderr can carry one).
+    - Root-anchored scope entries, with the policy file's exemption anchored.
+    - The authored-surfaces walker, with stale-script-invocations moved onto it.
+    - Cited paths, and cited scripts: each runs over this tree and its findings are cured
+      before it is wired.
+    - Lineage names. Ask the owner which names to declare first, under the fork-naming rules.
+  - **J3, tracked-tree lint and shellcheck (not started).** The Director's verdict (22:2xZ): its
+    own pull request, with a merge-landed broadcast naming the one install command. Every seat's
+    next commit needs the installer once. 29 tracked shell scripts come to green in the same
+    change.
+  - **C7 (not started).** The owner ratified "Ratify the concept": bring by default becomes
+    PDR-005's default disposition. This seat and Siren author the amendment text, under review,
+    in its own lane, and land it in both estates in one window.
+  - **Held:** the seed branch (claim 141892a7; the question to Siren is open) and the
+    test-doctrine intake (claim a63a7df8; it waits on Siren's K4 draft).
+- **The order** from the card:
+  1. PR 197.
+  2. Batch two, which the owner named for this seat.
+  3. The K Core pull request (landed 21:34Z).
+  4. Batch four.
+  5. Then the handover list's remaining items: C2, D, the test-doctrine intake, G, E and F,
+     batch three, and batch five. Batch five (J13, J14, J11) was delivered at 18:03Z and
+     acknowledged at 18:4xZ.
+
+*Handover, 2026-09-24 ~17:45Z: Marten mends Shadow (74fc02) hands the exchange seat on at the
+owner's two cards' limit.* The cards were "Marten continues past the line" (~15:33Z, batch one)
+and "Marten takes it past the line" (~16:31Z, the test-doctrine intake), both relayed by the
+Director. Context was 61.2% at 17:23:01Z. The in-flight detail is in the local handover record
+`.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-exchange-seat-handover-2026-09-24.md`,
+on this machine only.
+
+- **Landed:** PR 191 (joint set F, `813406e3f`), PR 192 (joint set G, `5de481360`), PR 194
+  (`compute-dont-hope`, and `documentation-hygiene` loading as core, `ce5b66249`) and PR 195
+  (`record-generalisation-moves`, `7409e5100`, 17:42:47Z). PR 195's merge commit carries the
+  rule's first `Practice-Generalisation:` trailer.
+- **Open, green, BEHIND:** PR 197 (Cricket dual-scale labels, the channel choice's cost side,
+  at `af9e11799`, one settlement push spent). It syncs once at the successor's slot word.
+- **Committed, not a PR:** the test-doctrine intake, branch `docs/intake-test-doctrine`
+  (`d62e56e27`), the joint text merged three-way. Two reviews found it not landable. Its
+  shared-text cures are joint set K4, which the second estate drafts in a fresh session
+  (event `06cdeaaa`). Its local cures are in the handover record. It lands after K4 is signed.
+- **The queue, in order:**
+  1. PR 197, and PR 195's post-merge harvest if it did not run before the handover.
+  2. PR C2: the three channel hunks. The Director read the owner's words on ARC as reading A.
+  3. PR D: the `.todo` lint gate.
+  4. The test-doctrine intake, after K4.
+  5. PR G, the `gh` write guard, redesigned as a segment-aware match kind with a closed
+     default, the same bytes as the second estate's. Until it lands, mint the bot token by
+     hand on every GitHub write; this host's default `gh` credential is the owner's.
+  6. PRs E and F: the PDR citation text and its check.
+  7. K: K1, K1(c), K2(a) as amended, K2(b) as narrowed, K2(c), and K3(a) to K3(e), all signed (K3(e), the third
+     adapter-contract anchor at `practice-bootstrap.md` line 352, signed 17:4xZ), and the two
+     `record-generalisation-moves` amendments from JC.net PR 185 (signed ~17:58Z; the text is
+     in the handover record). Plus K2(a)'s adapter check
+     for the three corpus adapters.
+  8. Batch two (three parts) and batch three (two code concepts), both acknowledged and not
+     integrated.
+- **Numbers**, at register `85d60f27`: to OCE 0 of 21, to jcnet 5 of 28. Row J9, batch one's
+  doctrine, counts once 195, 197, C2 and D have merged.
+
+*Boundary, 2026-09-24 ~15:38Z: a compaction at the owner's word, then this seat resumes.*
+The owner's word to this seat, verbatim: "please prepare for compaction and stop all
+processes". The owner then chose on the Director's card, about 15:33Z, verbatim: "Marten
+continues past the line". So the seat that resumes after compaction is this same seat, not a
+fresh session, and it runs batch one's intake itself once PR 191 lands. That word covers this
+intake and not a further unit, so the seat keeps measuring and names the context reading in
+its records.
+
+At the pause:
+
+- PR 191 is open at 0936f14d6, BLOCKED only on its last check (unit-tests). Its threads are all
+  resolved. Claim 43dbafee is RETAINED.
+- The landing slot yields to PR 193 (Luna stirs Radiance) for the pause. PR 191 syncs again at
+  its next slot.
+- The coordination branch carries b5d32c95c and this block's commit, and both are pushed.
+- Batch one's cover note was re-delivered as blob 324e0fab (correction event 92475eee). All
+  ten Box files now pass this estate's markdownlint.
+- Both review-cost ledger rows are owed at PR 191's landing, and they cover both pull
+  requests.
+
+Nothing survives compaction, so the resume verifies first and re-arms only what is absent:
+
+- Verify: `TaskList` (or the task table), then `claims list` for 43dbafee.
+- Re-arm, in this order:
+  1. The watcher: `pnpm --silent agent-tools:collaboration-state -- comms watch --platform
+     claude-code --model claude-opus-5-5 --supervisor-pid "$PPID" --step-timeout-ms 120000
+     --max-events-per-drain 100` under Monitor, 30-minute expiry, re-armed at each expiry.
+  2. The heartbeat, a 240 s loop under Monitor, with two legs for claim 43dbafee:
+     `comms send --tag heartbeat --title … --claim-id <id> --intent-id joint-sets-f-g-land
+     --branch docs/joint-set-f-gate-singleton --current-cycle-label …`, and
+     `claims heartbeat --active .agent/state/collaboration/active-claims.json --claim-id
+     <id> --now <iso>`, each failing loud.
+  3. A compound watch on PR 191: one GraphQL read every 60 s (state, mergeStateStatus, head,
+     rollup, unresolved threads, tip reviews) that prints only on change.
+- Then land PR 191 as PR 192 landed:
+  1. Sync at the slot word.
+  2. Run the deletion sweep.
+  3. Recompute the gate by name.
+  4. Post the premises (draft at the session scratch path `premises-191.md`; rewrite it if
+     that path is gone).
+  5. Merge through the REST endpoint with the pull-request-merge scope and the head pinned.
+  6. Broadcast, then run one post-merge harvest.
+- After that: prune both worktrees under the standing prune policy; then batch one's intake.
+
+The order changes from the fresh-session list above:
+
+- The test-doctrine intake edits directive files, and PDR-052 bars directive edits at or
+  above 30% context. This seat read 49.6% at 15:30:04Z, so that intake stays with a session
+  that starts under 30%.
+- Any batch-one file whose landing would edit a directive file waits for that session too.
+- The rest of batch one is this seat's, under the owner's card.
+
+*Order of the work.* The owner's order, as Brazier spins Temper (c70341) relayed it at about
+13:30Z, verbatim: "Our purpose here is to first make sure that all of our Practice innovations
+are integrated into the OCE Practice, our second goal is to bring our Practice up to speed with
+their innovations", and "the memories and records of this repo are local to this repo, but the
+lessons learned from them are not". Its provenance, in the Director's words: relayed by
+Brazier, recorded by the Director (the second estate's Director handoff, `SHA:a57c3a01`),
+consistent with the owner's direct words; not confirmed first-hand in this estate. The second
+estate's exchange seat is now Siren herds Rudder (158275), from about 13:50Z.
+
+*In flight from this session, each in its own worktree off `engraph`, the pull request
+the source of truth for its state:* joint set F, draft pull request 191 (branch
+`docs/joint-set-f-gate-singleton`, worktree `oce-wt-joint-set-f`), and joint set G with the
+second estate's pull request 171 items, draft pull request 192 (branch
+`docs/joint-set-g-director-state`, worktree `oce-wt-joint-set-g`). Both are drafts with no
+review leg requested yet. The fresh session makes each ready in turn under the landing-slot
+contract, harvests the vendor legs and lands it through the door. Their claims closed at this
+seat's wrap. Two shared-text findings on F from this estate's docs review went to the second
+estate's next joint set, and Siren accepted both.
+
+*First acts of the fresh session, in order.* PDR-052 moved (1) and (2) out of this session:
+it measured 37 % context after grounding, and both edit directive files. The Director
+confirmed the placement. The method: `agent-tools session-metadata --vendor claude` with
+`claude-opus-4-8[1m]` standing in for `claude-opus-5-5[1m]`, which has no registered window;
+both are 1M windows, and the tokens are read from the transcript. The readings were 37.3 % at
+13:36Z and 59.3 % at 14:03Z.
+(1) The test-doctrine intake. It precedes the J rows because it carries the owner's own
+2026-09-24 test ruling, which binds this estate from the word (the "Everywhere for now"
+ruling). This estate's §Stubs vs Fakes still licenses call-count assertions, which contradicts
+that ruling, so seats here can act on doctrine the owner has overruled until it lands. Take the concept hunks as receiver from the second estate's main
+at `SHA:e0e79c07` (its pull request 170, head `SHA:5ce5918f`), never the files whole: the
+estates' copies differ far beyond the joint text. Host lines to leave behind: the site's
+`jcdotnet/e2e/` paths and suffixes, its recovery node, its testing-patterns examples. The
+hunks: testing-strategy §Philosophy (the owner's 2026-09-24 words bullet; the recovery plan's
+name out, "existing code that breaks the invariant is a defect" in); §Rules ("Prove
+behaviour, never config or content" and "Pinning an absence" lose the designed-sentinel
+admission; "a check that needs an external resource"); §Stubs vs Fakes (fakes are simple
+functions or objects; which calls were made, how often or in what order is never asserted);
+test-immediate-fails item 12 (the same call line), item 4's clock read and item 14's sanctioned
+shape retired; the test-expert template's Step 6; tdd-as-design's UI scale and §Why Scales Are
+Complementary. The Director confirmed on 2026-09-24 (comms event `6161e95d`) that the owner's
+"no excemptions" retires both 2026-08-03 admissions, and the commit names both dates so the
+owner can overturn it by a word. The consequence: the Codex dialogues lane's designed-sentinel
+tests (Swallow holds Drift, 516619) become defects to cure by mechanism tests once this lands.
+Five further gaps were still moving in the second estate at 13:4xZ; take them if landed: the
+levels table and cycle text calling E2E a test level; validation-strategy's claim for the
+`test` command; no-global-state-in-tests' globs missing smoke locations; the test-expert
+template's Step 2 smoke discriminator; the recovery node's import boundary.
+(2) H's `agent-collaboration` hunk ("two reads, one write"), the debt declared on #183.
+(3) The intake of the second estate's outbound set. Siren herds Rudder delivers it into the
+Practice Box after the join ceremony, as untracked files in the primary checkout's
+`.agent/practice-core/incoming/` that this estate's seat commits: one file per concept row, text concepts first, code
+concepts after, the lessons sweep last. Each file is self-contained, with inline text, and
+names Siren's reading of where it lands in this estate, to verify at receipt. The batch's
+paired event carries each file's blob ids for the diff proof. Siren measured 21 concept rows
+owed (J1 to J23, J12 declined as site-only) plus eight newer concepts. PDR-117's amendment is
+already covered by G. With it comes the owner's word to the Director at 13:5xZ, verbatim: "the
+labelling of Cricket agents is better in JC.net than in OCE: make sure the Cricket
+implementations and other sub-agent details are compared between the repos". A second word
+of the same minutes, also to the Director, verbatim: "Crickets judge in the frame provided, we
+need them to also judge the frame itself"; Siren carries the wording (the cricket skill and
+both base templates gain a frame verdict beside the work verdict). This estate takes those
+bytes as receiver. Until they land, a suite run here asks each role to judge the frame as an
+artefact as well.
+
+The Practice Box was empty at 13:5xZ.
+
+*The Director's check-ins (owner's cadence, 2026-09-24).* The Director, Wick binds Temper
+(ed7b48), checks in with every seat every 45 minutes. Each check-in asks for one state line
+(lane, the owner's last word, on track or in a hole, the governing node's todo status
+verbatim) and a full Cricket suite: every registered role, normal then adversarial, on one
+six-field frame, each role returning a frame verdict beside the work verdict. Act on the
+verdicts yourself, and send the Director only a DRIFTING or WRONG-PRIORITY verdict you do not
+accept, or a question. From check-in 6 each exchange seat's reply carries a number per
+direction, recomputed from source: the second estate's owed rows landed at this estate's head
+over their total, and this estate's rows landed in the second estate over their total.
 
 **BOUNDARY, 2026-09-21 18:3xZ — a compaction at the owner's word, then a pause the owner
 says may last several days (Zephyr guards Leeward, 281e44).** Read this block first; it is
@@ -421,13 +804,57 @@ engraph. Only then is 183 made ready. Agreed with the sibling in advance: if a r
 PDR-142's "one of three" as missing a fourth case (the shared contradiction), the answer is
 Below-bar and rejected. The three are reasons the bytes fail to carry the concept; a
 contradiction both carry is a faithfully carried concept, false in both, which the merged-text
-bullet governs; and renumbering would break "the third reason" in both logs. The fold of coordination/2026-09-23-0ea8fb is pull request
-176; the live branch is the one the director handoff's fold block names, and if 176 has not
-landed, landing it comes first. The sibling's three pull requests were signed by this estate
+bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
+2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
+owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). Owed, each from a word already given: the host-free adapter line's joint cure
+(`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
+prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
+request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context
+under 30%, declared on #183; the practice-two-way-exchange node naming PDR-142's interim debt
+landing (routed from #183's second round) at its next edit. And the owner's test words of 2026-09-24, signed as a joint text by both
+exchange seats in the second estate's revision of 12:20Z (a record of what the product sends
+out through a port is output; which calls it made is never asserted; the exact bytes are on the
+second estate's test-doctrine alignment pull request), for testing-strategy §Philosophy, with
+the same line in test-immediate-fails item 12 and the test-expert template's Step 6. In this
+estate the ruling also contradicts testing-strategy §Stubs vs Fakes ("enable assertions on call
+counts, arguments"), which the cure must reach. The second estate's review found five more
+defects in these bytes: the plan named in §Philosophy, no clock read in item 4's IO list,
+"External-resource tests must fail fast", tdd-as-design calling the UI scale a check, and
+PDR-027's "Four binding rules" over six items. All are directive or Core edits for a context
+under 30%. And the intake of the second estate's outbound set: its exchange seat has
+classified 126 Practice files as outbound to this estate (the Director's check-in of
+2026-09-24), and no seat here has named their intake. It is this estate's work, beside the
+symmetric merge in the first acts. Each file is read whole as receiver and landed by bytes where
+the bytes carry the concept here (PDR-142).
+The second estate's seat sent its consolidated outbound list by native message on 2026-09-24,
+which no repository tracks, so this is its record here. Each item is in engraph's bytes too.
+(1) Test doctrine, its slice three: the signed call line in item 12, test-expert Step 6 and
+§Stubs vs Fakes; the plan name out of §Philosophy; the clock read in item 4; "a check that
+needs an external resource"; tdd-as-design's UI scale (component tests are integration, UI at
+check scale is browser journeys); and, relayed as the Director's verdict (confirm with the
+Director before acting), the owner's "no excemptions" retiring both 2026-08-03 carve-outs: the
+designed sentinel in "Prove behaviour, never config or content" and item 14's "one named
+sanctioned shape", with both dates declared in the commit so the owner can overturn it. (2) Its
+pull request 167: three over-width prose lines in metacognition reflowed to 100 characters,
+words unchanged. (3) Its pull request 168: PDR-027's "Four binding rules" over six items, and
+PDR-011's "conserve-insight-and-delete", a joint amendment. (4) Its pull request 166:
+strict-validation-at-boundary admits "a path-only stale-invocation allowlist", and the
+stale-script validator's list names two files that exist on engraph, so removing the list
+surfaces findings to cure. (5) The 126 outbound files, above.
+After this seat's wrap the second estate's seat sent additions, again by native message on
+2026-09-24; its open pull requests 170 (the test doctrine) and 171 (the small conflicts) carry
+the bytes, so take the joint text from there, never from this record's earlier summary. Item 12,
+test-expert Step 6 and §Stubs vs Fakes now say which calls were made, "how often or in what
+order is never asserted", matching §Philosophy, and §Stubs vs Fakes no longer calls fakes
+"vi.fn() wrappers"; this estate's exchange seat did not object, so these are the joint bytes.
+tdd-as-design §Why Scales Are Complementary is reworded to match its UI row. PDR-117's
+2026-09-23 amendment ("The Director hears questions and requests, never state") is in the
+second estate and missing from engraph. Its PDR index is now byte-identical to engraph's.
+The sibling's three pull requests were signed by this estate
 without change on 2026-09-24 (the exchange channel, 10:36:24Z) and merged there: 159, F; 160, G
-with a dated PDR-117 amendment section; 161, H and I. H and I land here in #183; F and G land
-here in their own pull request; H's agent-collaboration hunk waits for a context under the
-directive budget. Forwarded to the set after: PDR-063 §Step 4's
+with a dated PDR-117 amendment section; 161, H and I. H and I landed here in #183, except the
+directive hunk named above. Forwarded to the set after: PDR-063 §Step 4's
 directed mid-cycle handoff; the gate broadcast naming the worktree by path; the interim gate
 limit of two. Inbound to the sibling: this estate's 2026-09-14 ruling ("the commit triggers the
 gates"). Also for the owner, through the Director with the seats' verdict: PDR-142's "A seat
@@ -484,8 +911,9 @@ REPOSITORY advisories at all, which is how the markdown-it one was missed.
 *The Codex dialogues rebinding* (node `the-codex-dialogues-exec-binding`). Slices 0 and 1a
 landed as #184 and #186. Slice 1b is Blazar lifts Corona's (b65a9a), with Forge herds Vapor
 (01a0d2) as the Codex seat on the runtime evidence. Its pickup is the napkin section "2026-09-24
-wrap — the Codex dialogues lane" and the node's review-dispositions ledger. No thread record yet;
-the seat that registers on the lane opens one if the lane warrants it.
+wrap — the Codex dialogues lane" and the node's review-dispositions ledger. Since the 2026-09-24
+handover to Swallow holds Drift (516619), the pickup is the thread record
+[`codex-dialogues`](threads/codex-dialogues.next-session.md).
 
 *A lane nobody holds.* The instruments that repaired 2026-09-21 live in a session scratchpad,
 which a new session does not inherit: a thread-reply script that refuses a disposition with
@@ -510,7 +938,7 @@ applied, and the owner ratified it by card ("Ratify both texts"; relayed 2026-09
 confirmed in this seat's session the same morning).
 
 The board is `threads/estate-coordination.next-session.md`; its journal's newest entry is the
-fold of pull request 175. The live branch is named once, in the director handoff's fold block.
+fold of pull request 176. The live branch is named once, in the director handoff's fold block.
 
 The operator-profile lanes, by pull request number. This record states no tip and no review
 state, because those are what went stale here twice; read the pull request. 172, the twin of

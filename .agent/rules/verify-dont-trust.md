@@ -442,7 +442,15 @@ observe the emission** — a plan's envelope doctrine survived every document
 check and died on one live `tools/call` (three envelope shapes, not one);
 **a universal negative needs its published enumeration** — "no
 registration site carries X" is evidence only when the leg lists the sites
-it searched; and **a reviewer is rejected only against the primary source**
+it searched; **a negative is reported as the instrument plus its blind spot,
+never as the conclusion** — an audit tool's silence on a package was read as
+"not affected", and a 404 on a peer's identifier was resolved against the peer
+instead of traced (two instances, 2026-09-21); **a modification time is
+evidence that something wrote, never of who** — trace, then claim (an outside
+writer inferred from an index mtime was the seat's own status read,
+2026-09-21); **a set claim is a per-member check, never a category word** —
+"byte-identical in both estates" held for one file of three (2026-09-23); and
+**a reviewer is rejected only against the primary source**
 — a re-derivation from memory with a wrong region order nearly rejected a
 CORRECT finding, and the falsifier for any reject-verdict is the artefact's
 own tuple. Ask for probes explicitly in reviewer dispatches: a gateway that

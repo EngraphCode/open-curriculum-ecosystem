@@ -186,7 +186,9 @@ Four disciplines keep the heartbeat loop honest; each cures a recorded
 failure instance from the 2026-06-11 team window:
 
 - **Relabel at lane transitions.** A fixed-label loop goes stale by
-  construction: its title and typed state args are frozen at start, so a
+  construction (read the label from a file each tick, or restart the loop at
+  every state change; a peer read a stale label as a possible unread
+  direction, 2026-09-24): its title and typed state args are frozen at start, so a
   claim open, lane-terminal event, or cycle advance leaves the loop
   asserting a lane the agent no longer occupies (worked instance: a
   PDR-078 stall ping fired on a seat that was actively working, three
@@ -426,12 +428,14 @@ event-emitting comms watcher, so it is kept a separate thin consumer).
   silence it is environmental — no retirement broadcasts, re-arm and move on.
   The host power-management posture (caffeinate/pmset during fleet windows) is
   an owner-level decision, not agent-side retry logic.
-- **A compaction ends every session-scoped process, as a platform process
-  restart does** (measured 2026-09-09 at two seats: a Director resumed from
+- **A compaction may end every session-scoped process, as a platform process
+  restart does, and may not** (measured 2026-09-09 at two seats: a Director resumed from
   `/compact` to an empty cron list and no watcher, poll or loop in the process
   table; a second seat with a watcher, four monitors and a cron armed found
   none alive — the 2026-07-30 reading that monitors survive compaction did
-  not hold). The restart signature is vanished tasks ("no completion record")
+  not hold; then a schedule survived a compaction on 2026-09-23 and a watcher
+  and a heartbeat loop survived an automatic one on 2026-09-25, so neither
+  outcome is assumed). The restart signature is vanished tasks ("no completion record")
   plus MCP servers reconnecting; on either boundary verify by id (the task
   list, the cron list, the process table), re-arm only what is absent, and
   run the foreground gap sweep; never trust a monitor's apparent continuity.
@@ -542,9 +546,10 @@ not a retirement signal:
   `silence-is-never-liveness`: the stand-down is announced before it
   begins, which is what makes it not silence. The seat states the estate
   names, for the record: active; standby (no claim, watcher only); paused
-  at owner word (claim held, monitors down); retiring mid-cycle on a
-  measured budget signal (PDR-063); dissolved into a peer by owner-directed
-  succession (PDR-063 §Deliberate succession); closed.
+  at owner word (claim held, monitors down; the compaction drill is one);
+  handing off mid-cycle at the owner's call (PDR-063); dissolved into a
+  peer by owner-directed succession (PDR-063 §Deliberate succession);
+  closed.
 
 ## Worked Instance
 

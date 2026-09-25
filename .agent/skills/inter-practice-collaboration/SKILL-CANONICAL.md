@@ -193,7 +193,8 @@ the first comms write, claim, or registration).
    configurations over every box file and delivers only bytes they
    pass (PDR-125 clause 7). Run the receiver's format check and
    markdown lint, with the receiver's configuration files, over the
-   box paths before posting the delivery event.
+   box paths before posting the delivery event (one file linted with
+   the home estate's config failed the receiver's gate, 2026-09-24).
    When a ported artefact is a DETECTOR (a validator, a conformance
    twin, a gate), its first live run on the receiving estate is a
    detector test: porting ports the authoring estate's lexical

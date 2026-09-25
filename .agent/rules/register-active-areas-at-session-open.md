@@ -9,7 +9,8 @@ post-hoc; an unwritten consultation is indistinguishable from no
 consultation at all):
 
 **The first edit of a session that opened as pure reading is a second firing
-moment for this rule.** Registration is skipped most often not at session
+moment for this rule.** A lane in a fresh worktree opens its claim in the same
+step as the worktree (edits began ten minutes before the claim, 2026-09-24). Registration is skipped most often not at session
 open but at the silent transition where a light audit or review session grows
 into substantive edits — nothing at that moment forces the registration the
 session-open moment would have produced (corpus-proven recurrence,

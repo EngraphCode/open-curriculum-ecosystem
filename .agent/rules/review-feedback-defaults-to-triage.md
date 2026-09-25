@@ -30,7 +30,13 @@ finding's remedy; the observation still passes step 1.
 
 1. **Verify first-hand**, per `pr-comments-resolve-and-recheck` — a
    concrete failure scenario or its verified absence, never
-   compensating-layer reasoning. A rejection survives only as long as
+   compensating-layer reasoning. A reviewer's premise about vendor behaviour
+   is a hypothesis: read the vendor's source at the tag before paying for the
+   change a review motivates (two reviewers' premise about resume was refuted
+   in minutes at the tag, 2026-09-24). A thread earns a cure only when it
+   names a defect the tree can falsify — wrong behaviour, a wrong permanent
+   statement, a gate-changer; everything else is a disposition with evidence
+   (Director steer, 2026-09-04). A rejection survives only as long as
    its premise: when the same finding returns with new sites, re-derive
    the premise instead of re-issuing the rejection (2026-08-19: a
    round-3 rejection of a conditional-guard class rested on "the expect
