@@ -72,23 +72,28 @@ as its narrowest prefix:
 
 - `pnpm agent-tools merge-bot push`;
 - `git add`, `git commit`, `git fetch origin` and `git worktree add`;
-- `git merge --no-edit origin/HEAD`, the sync with origin's default branch;
-- `gh pr create --head`, which stops gh pushing the branch itself.
+- `git merge --no-edit refs/remotes/origin/HEAD`, the sync with origin's
+  default branch, and `git merge --abort` to back a conflicted sync out;
+- `gh pr create --head <branch>`, which stops gh pushing the branch itself.
 
 It forbids raw `git push`, `git commit --amend`, `--no-verify` or `-n`, and
 `git add -A`, `--all` or `.`. The rules match bare program names only
 (`host_executable` with no paths), so `./git` or any other path to a binary of
-that name matches nothing. An allowed command skips approval and runs outside
-the sandbox; everything else keeps the sandbox and the approval flow.
+that name matches nothing, forbidden rules included: `/usr/bin/git push` gets
+the default flow, as `git -C … push` does. An allowed command skips approval
+and runs outside the sandbox; everything else keeps the sandbox and the
+approval flow.
 
 The residual: an allowed command can run code written inside the sandbox. The
 hooks run from `.husky/` in the working tree, `pnpm agent-tools` runs the root
 `package.json` script and the built `agent-tools/dist`, and a merge brings in
-whatever `.husky/` changes the merged branch carries. The Director ruled this
-parity with a Claude seat's shell on 2026-09-25. The boundary against a push to
-the default branch is GitHub's ruleset, which the merge bot does not bypass
-(see [the merge bot](../docs/engineering/merge-bot.md)); the bot's own refusals
-are the first line.
+whatever `.husky/` changes the merged branch carries. That code runs as the
+signed-in user, with that user's own git and gh credentials. The Director ruled
+this parity with a Claude seat's shell on 2026-09-25. GitHub's ruleset on the
+default branch binds every push through the merge bot, which does not bypass it
+(see [the merge bot](../docs/engineering/merge-bot.md)), and the bot's own
+refusals are the first line; the ruleset does not bind a push made under a
+credential that can bypass it.
 
 Run each landing command as one plain command, or Codex does not match it:
 
@@ -97,9 +102,11 @@ Run each landing command as one plain command, or Codex does not match it:
 - take `GH_TOKEN` from the environment, never as an inline prefix;
 - write no `$`, redirection, heredoc or subshell into the command.
 
-A forbidden flag matches only in the position right after the subcommand, as
-in a Claude seat's deny list, so `git commit -F m --no-verify` is still
-allowed by prefix. The doctrine stands beside the rules:
+The forbidden rules are guardrails, as a Claude seat's deny list is: a flag
+matches only in the position right after the subcommand and only as spelled,
+so `git commit -F m --no-verify`, an abbreviation such as `--no-verif` or a
+bundled `-nF m` is still allowed by prefix. The doctrine stands beside the
+rules:
 [`no-verify-requires-fresh-authorisation`](../.agent/rules/no-verify-requires-fresh-authorisation.md),
 the [commit](../.agent/skills/change-custody/commit/SKILL-CANONICAL.md) and
 [pull request](../.agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md)
@@ -116,7 +123,9 @@ on strict auto-review. The reviewer still sees every other escalation.
 
 Codex reads rules from the checkout the seat launched in, at session start. A
 seat launched from a checkout without this file gets no rules: sync that
-checkout, then restart the seat.
+checkout, then restart the seat. With the `shell_zsh_fork` feature on (it is
+off by default), Codex matches each command by its absolute path, so no landing
+command matches and every one takes the default flow.
 
 ## Machine-local seat setup
 
@@ -130,7 +139,10 @@ These are machine-local and never in the repository:
 - the launch mode: attended seats take the default; an unattended seat
   launches with `-a never`, and the sandbox bounds every command except the
   landing commands;
-- tokens, such as the merge bot's app key and `GH_TOKEN`, from the environment.
+- tokens, such as the merge bot's app key and `GH_TOKEN`, from the environment;
+- a `PATH` with no relative or sandbox-writable entry (`.`, `node_modules/.bin`,
+  `/tmp`, `$TMPDIR`) ahead of git, gh and pnpm, since the rules trust the bare
+  names that `PATH` resolves.
 
 Codex appends each "always allow" approval to `$CODEX_HOME/rules/default.rules`.
 Check that file holds no `git push` allow. Never run `/import` in this

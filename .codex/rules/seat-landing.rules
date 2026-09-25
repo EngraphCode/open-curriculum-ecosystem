@@ -20,7 +20,8 @@
 
 # Bare program names only: with no listed path, a command naming any path to a
 # binary called git, gh or pnpm (`./git`, `/tmp/x/pnpm`) matches no rule here,
-# so a binary written inside the sandbox never runs outside it by name.
+# forbidden rules included, so a binary written inside the sandbox never runs
+# outside it by name.
 host_executable(name = "git", paths = [])
 host_executable(name = "gh", paths = [])
 host_executable(name = "pnpm", paths = [])
@@ -95,14 +96,24 @@ prefix_rule(
 )
 
 prefix_rule(
-    pattern = ["git", "merge", "--no-edit", "origin/HEAD"],
+    pattern = ["git", "merge", "--no-edit", "refs/remotes/origin/HEAD"],
     decision = "allow",
-    justification = "A pull request syncs with origin's default branch by a merge, never a rebase.",
+    justification = "A pull request syncs with origin's default branch by a merge, never a rebase; the full ref cannot be shadowed by a local branch.",
     match = [
-        ["git", "merge", "--no-edit", "origin/HEAD"],
+        ["git", "merge", "--no-edit", "refs/remotes/origin/HEAD"],
     ],
     not_match = [
+        ["git", "merge", "--no-edit", "origin/HEAD"],
         ["git", "merge", "--no-edit", "origin/feat/other"],
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "merge", "--abort"],
+    decision = "allow",
+    justification = "A conflicted sync can be backed out; an unattended seat has no other way to.",
+    match = [
+        ["git", "merge", "--abort"],
     ],
 )
 
@@ -111,7 +122,7 @@ prefix_rule(
     decision = "allow",
     justification = "Implementation work starts in a fresh worktree, never on the primary checkout.",
     match = [
-        ["git", "worktree", "add", "-b", "feat/example", "../example", "origin/HEAD"],
+        ["git", "worktree", "add", "-b", "feat/example", "../example", "refs/remotes/origin/HEAD"],
     ],
     not_match = [
         ["git", "worktree", "remove", "../example"],
@@ -127,6 +138,7 @@ prefix_rule(
     ],
     not_match = [
         ["gh", "pr", "create", "--draft"],
+        ["gh", "pr", "create", "-H", "feat/example"],
         ["gh", "pr", "merge", "1"],
     ],
 )
