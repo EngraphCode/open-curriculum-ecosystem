@@ -4,6 +4,21 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-142 takes the owner's words on pace and goal, and the authority class before a cure
+
+- The owner's words on the exchange's pace ("above all, you should both go
+  slow and take your time, alignment is far more important than speed
+  here", 2026-09-21) and on its goal (2026-09-24 relayed; 2026-09-25 in the
+  owner's own words, quoted whole) sit beside the owner's sentence.
+  §Boundaries names the authority class a seat reads before curing any
+  finding: a change of concept in ratified text is the owner's, and
+  wording that implements the owner's concept is the seats' work under
+  review. Three further sentences the consolidation of 2026-09-25 found (a
+  standing move at estate scale, a relayed frame held as a relayed ruling,
+  a cold reader from outside the seats' model family) add concepts to the
+  record and wait for the owner's word. The second estate carries the same
+  blob, so the record stays one blob in both estates.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009's Forbidden bullet names an adapter's own content plainly
 
 - One line: "Substantive content that is an adapter's own, in platform
