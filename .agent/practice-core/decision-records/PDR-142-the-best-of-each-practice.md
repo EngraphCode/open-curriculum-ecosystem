@@ -9,7 +9,9 @@ both texts"; the definition below and its plan were authored jointly by the
 two exchange seats and signed by both before the card). Amended 2026-09-23 on
 the owner's word that concept transfer is the goal and identical bytes only a
 means (the Decision's clause on concepts and bytes and its merged-text bullet; the Amendment
-Log), and again the same day on the owner's card on format at receipt (the same clause)
+Log), and again the same day on the owner's card on format at receipt (the same clause), and
+2026-09-25 on the owner's words on pace and goal and the authority class before a cure (the
+same section and §Boundaries; the Amendment Log)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
@@ -66,7 +68,13 @@ from outside the family caught.
 > needs replacing, and some bad ideas need removing."
 
 And of the work of aligning the instances: "we are defining excellent … nothing is delayed or
-avoided because of the future extraction".
+avoided because of the future extraction". Of its pace (2026-09-21): "above all, you should
+both go slow and take your time, alignment is far more important than speed here". Of its
+goal (2026-09-24, relayed; 2026-09-25, the owner's words as recorded by the seat they were
+spoken to; the estates given as roles): "We are prioritising all [the second estate's]
+Practice innovations being integrated into [the lineage], then we review. This is a fixed
+process with an end, not an ongoing effort. Once the Practice contains the best of both it
+will be extracted into an installable entity."
 
 Three moves, all in the owner's words. Where the instances hold DIFFERENT things, each gets the
 other's. Where they hold two encodings of ONE thing, every estate takes the higher. What is bad
@@ -195,7 +203,10 @@ security floor.
   edited where it is read. A joint cure is not such an edit: it arrives in
   every estate that carries the contradiction as the same bytes, as a
   donor's text does. Where the contradiction lies in ratified text, the
-  joint cure waits for the owner's word.
+  joint cure waits for the owner's word. Before curing any finding, a seat
+  reads the artefact's authority class: a change of concept in ratified
+  text is the owner's, and wording that implements the owner's concept is
+  the seats' work under review (2026-09-25, a cure stopped by a sibling seat).
 
 ## Prediction and falsifier
 
@@ -282,3 +293,20 @@ ratified text waits for the owner's word. This entry's falsifier replaces the on
 later fold, or a declared format debt is still open two folds after it was declared; the seats
 that run each fold read the integrating commits for both. One such instance reopens the
 matching sentence with the owner, and this log says so.
+
+### 2026-09-25 — the owner's words on pace and goal, and the authority class before a cure
+
+**Context.** The consolidation of 2026-09-25 read the napkin and the comms stream whole and
+found owner words and lessons about the exchange with no home. Two are wording that
+implements the owner's own rulings, so they land as seat work under review; three add a
+concept to this ratified text (a standing move at estate scale, a relayed frame held as a
+relayed ruling, a cold reader from outside the seats' model family) and wait for the
+owner's word as one card (the Director's ruling, 2026-09-25).
+
+**Decision.** The owner's words on the exchange's pace and its goal sit beside the owner's
+sentence, quoted whole. §Boundaries names the authority class a seat reads before curing any
+finding: a change of concept in ratified text is the owner's, and wording that implements the
+owner's concept is the seats' work under review. Both land as the same bytes in both estates.
+
+**Falsifier.** A cure changes a concept in ratified text and is not stopped before it lands.
+One such instance reopens the sentence with the owner, and this log says so.
