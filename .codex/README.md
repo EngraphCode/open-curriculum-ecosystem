@@ -23,7 +23,7 @@ tracked Oak activation.
 | MCP               | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                                           |
 | Sandbox           | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence                                   |
 | Command network   | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                                     |
-| Exec-policy rules | `rules/seat-landing.rules`                        | Seats commit, push through the merge bot and open pull requests with no prompt, in a trusted project      |
+| Exec-policy rules | `rules/seat-landing.rules`                        | Seats commit and push through the merge bot with no prompt, in a trusted project                          |
 
 This is not the complete Codex CLI capability set. The
 [capability catalogue][catalogue] records the broader runtime and user-level
@@ -73,8 +73,12 @@ as its narrowest prefix:
 - `pnpm agent-tools merge-bot push`;
 - `git add`, `git commit`, `git fetch origin` and `git worktree add`;
 - `git merge --no-edit refs/remotes/origin/HEAD`, the sync with origin's
-  default branch, and `git merge --abort` to back a conflicted sync out;
-- `gh pr create --head <branch>`, which stops gh pushing the branch itself.
+  default branch, and `git merge --abort` to back a conflicted sync out.
+
+Opening a pull request is not among them. `gh` acts as the signed-in user
+whenever `GH_TOKEN` is unset, so an allowed `gh pr create` could write under
+that user's own login to any repository it reaches. It takes the default flow
+until the merge bot opens pull requests under its own repository-scoped token.
 
 It forbids raw `git push`, `git commit --amend`, `--no-verify` or `-n`, and
 `git add -A`, `--all` or `.`. The rules match bare program names only
@@ -99,7 +103,6 @@ Run each landing command as one plain command, or Codex does not match it:
 
 - use the tool's working directory, never `cd … &&` or `git -C …`;
 - pass a commit message with `-F <file>`;
-- take `GH_TOKEN` from the environment, never as an inline prefix;
 - write no `$`, redirection, heredoc or subshell into the command.
 
 The forbidden rules are guardrails, as a Claude seat's deny list is: a flag
@@ -112,9 +115,6 @@ the [commit](../.agent/skills/change-custody/commit/SKILL-CANONICAL.md) and
 [pull request](../.agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md)
 workflows.
 
-`gh` acts as the signed-in human when `GH_TOKEN` is unset. The merge bot's
-token is scoped to this one repository, so `--repo` reaches no other.
-
 `approvals_reviewer` is each seat's own choice in its user config, and the
 repository sets none. The landing commands bypass the reviewer because they are
 allowed outright, which is why a seat using `auto_review` is not refused a
@@ -123,7 +123,10 @@ on strict auto-review. The reviewer still sees every other escalation.
 
 Codex reads rules from the checkout the seat launched in, at session start. A
 seat launched from a checkout without this file gets no rules: sync that
-checkout, then restart the seat. With the `shell_zsh_fork` feature on (it is
+checkout, then restart the seat. The same checkout is writable through the
+allowed commands, so a seat that rewrote this file and restarted would run its
+own policy. The rules guard a cooperative seat, as a Claude seat's settings in
+its checkout do; they are not a boundary against a seat that rewrites them. With the `shell_zsh_fork` feature on (it is
 off by default), Codex matches each command by its absolute path, so no landing
 command matches and every one takes the default flow.
 
@@ -141,7 +144,7 @@ These are machine-local and never in the repository:
   landing commands;
 - tokens, such as the merge bot's app key and `GH_TOKEN`, from the environment;
 - a `PATH` with no relative or sandbox-writable entry (`.`, `node_modules/.bin`,
-  `/tmp`, `$TMPDIR`) ahead of git, gh and pnpm, since the rules trust the bare
+  `/tmp`, `$TMPDIR`) ahead of git and pnpm, since the rules trust the bare
   names that `PATH` resolves.
 
 Codex appends each "always allow" approval to `$CODEX_HOME/rules/default.rules`.

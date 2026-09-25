@@ -1,7 +1,8 @@
 # Exec-policy rules for Codex team seats in this repository: the landing path
-# (commit, push through the merge bot, open a pull request) runs with no
-# approval prompt, as the owner requires: "I absolutely need all seats to be
-# able to push without me" (2026-09-25).
+# (commit, sync, push through the merge bot) runs with no approval prompt, as
+# the owner requires: "I absolutely need all seats to be able to push without
+# me" (2026-09-25). Opening a pull request is left to the default flow (see
+# README.md).
 #
 # Why rules and not a writable root: workspace-write keeps `.git` read-only, and
 # in a linked worktree the git dir sits outside every writable root, so no git
@@ -19,11 +20,10 @@
 # that fails to parse drops every user and project rule.
 
 # Bare program names only: with no listed path, a command naming any path to a
-# binary called git, gh or pnpm (`./git`, `/tmp/x/pnpm`) matches no rule here,
+# binary called git or pnpm (`./git`, `/tmp/x/pnpm`) matches no rule here,
 # forbidden rules included, so a binary written inside the sandbox never runs
 # outside it by name.
 host_executable(name = "git", paths = [])
-host_executable(name = "gh", paths = [])
 host_executable(name = "pnpm", paths = [])
 
 prefix_rule(
@@ -126,20 +126,6 @@ prefix_rule(
     ],
     not_match = [
         ["git", "worktree", "remove", "../example"],
-    ],
-)
-
-prefix_rule(
-    pattern = ["gh", "pr", "create", "--head"],
-    decision = "allow",
-    justification = "Opening the pull request for a branch the merge bot pushed; --head stops gh pushing it.",
-    match = [
-        ["gh", "pr", "create", "--head", "feat/example", "--draft"],
-    ],
-    not_match = [
-        ["gh", "pr", "create", "--draft"],
-        ["gh", "pr", "create", "-H", "feat/example"],
-        ["gh", "pr", "merge", "1"],
     ],
 )
 
