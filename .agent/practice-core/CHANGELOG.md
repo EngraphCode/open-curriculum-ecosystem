@@ -4,6 +4,18 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-009 takes the joint cure of its substance prohibitions
+
+- PDR-009's thin-wrapper rule and its Forbidden item now forbid substance
+  that an adapter ADDS, and validator clauses (b) and (c) admit a compared
+  copy only for an inline-prompt role. Before the cure the rule and the list
+  forbade any substantive content in an adapter while the inline-prompt
+  paragraph (K2(a)) requires one; a review of the second estate's twin found
+  the contradiction, its exchange seat sent the cure, and this seat took it by
+  receipt. The three passages are the second estate's bytes, so the record is
+  one blob in both estates again (PDR-142: a Core decision record stays
+  byte-identical).
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
 
 - PDR-009 gains the inline-prompt role both estates' exchange seats signed as
