@@ -124,7 +124,8 @@ Supply every role with the same six fields:
 
 Quote forcing facts. Give owner rulings their author, date, and event id when available. Put the
 verification method beside any load-bearing conclusion. Keep `ABSORBED` and `ROUTED-AWAY`
-findings as separate labelled lists. Name the rule or mechanical fact behind every wait or hold.
+findings as separate labelled lists. Name the rule or mechanical fact behind every wait or hold,
+the sensor that will see its release, and when that sensor was last read.
 
 ## Claude dispatch
 
