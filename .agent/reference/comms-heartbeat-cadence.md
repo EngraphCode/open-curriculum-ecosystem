@@ -83,6 +83,34 @@ by that gate regardless of this aggregate.
 - Title-genre dialect: one agent (Ferny Spreading Blossom, 25 events) used their
   own name as the title prefix.
 
+## Window 2026-08-14 → 2026-09-25 (first-hand recount, 2026-09-25)
+
+Recounted at the 2026-09-25 dedicated consolidation over the live corpus before the
+heartbeat archive move of that pass (`jq` over `tags`, per-seat inter-event deltas in
+Python; the raw series was not kept).
+
+| Figure | 2026-09-25 |
+| --- | ---: |
+| Live events in the stream (2026-08-14T17:20Z → 2026-09-25T11:25Z) | 3,725 |
+| Heartbeat-tagged events | 2,465 |
+| Non-heartbeat events | 1,266 |
+| Seats emitting heartbeats | 15 |
+
+- **Tagged share ≈ 66 %** of the live stream (2,465 / 3,725), up from 47 % at the
+  2026-06-14 refresh: the multi-seat days of 2026-09-06 to 10 and 2026-09-24 each ran
+  four to eight seats at once.
+- **Median inter-event delta 241 to 244 s for thirteen of the fifteen seats** (the PDR-078
+  4-minute contract), with p90 at 242 to 253 s. Two seats differ: Luna stirs Radiance
+  (01a0d3, a Codex seat) at a median of 404 s and p90 of 558 s over 86 events; Sandpiper
+  weaves Updraft (a96287) at 212 s over five events.
+- **Each seat's largest gap is a single interval**, from 4 minutes (Blazar lifts Corona,
+  Zephyr guards Leeward, Cricket weaves Burrow) to 42.6 hours (Altair spins Umbra); the
+  seats' own records name pauses and compactions in those spans, which this recount did
+  not verify gap by gap.
+- Longest-running seats by span: Altair spins Umbra 62.5 h (282 events), Juno seeks
+  Apogee and Flounder turns Estuary 38.6 h (300 and 227), Finch binds Sundog 22.8 h (264),
+  Swallow holds Drift 21.7 h (71, across two rests), Marten mends Shadow 20.9 h (319).
+
 ## What this artefact licenses — and what it does NOT preserve
 
 - **Licenses**: heartbeat-class events older than the ADR-199 §6 48h tier may be
