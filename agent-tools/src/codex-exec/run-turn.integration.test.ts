@@ -4,13 +4,16 @@ import { describe, expect, it } from 'vitest';
 import { parseDialogueId, type DialogueId } from './cleanup-row.js';
 import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
-import type { PassRecordRead, ResolvedBinary } from './gate.js';
+import { PASS_RECORD_MAX_AGE_MS, type PassRecordRead, type ResolvedBinary } from './gate.js';
 import type { PassRecord } from './pass-record.js';
 import { PROBE_CONTRACT_VERSION } from './probe-contract.js';
 import { runTurn, type BinaryUnresolved, type GatedTurnPorts } from './run-turn.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
+
+/** The clock every turn in this file reads. */
+const NOW = '2026-09-24T16:00:00.000Z';
 
 const context: TurnContext = {
   instrumentRoot: '/root-slot',
@@ -104,7 +107,7 @@ function ports(
       calls.push(call);
       return replied;
     },
-    now: () => new Date('2026-09-24T16:00:00.000Z'),
+    now: () => new Date(NOW),
     appendCleanupRow: () => ok(undefined),
   };
 }
@@ -190,6 +193,17 @@ describe('runTurn', () => {
     ).toStrictEqual({
       ok: false,
       error: { kind: 'binding-mismatch', fields: ['probeContractVersion'] },
+    });
+  });
+
+  it('starts no turn on a record past its age limit', () => {
+    const stale: PassRecord = {
+      ...record,
+      passedAt: new Date(Date.parse(NOW) - PASS_RECORD_MAX_AGE_MS - 1).toISOString(),
+    };
+    expect(runTurn(request, context, ports({ kind: 'present', value: stale }))).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-expired' },
     });
   });
 });

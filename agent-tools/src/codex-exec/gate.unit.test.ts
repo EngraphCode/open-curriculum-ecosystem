@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { admitRecord, matchBinding, type PassRecordRejection } from './gate.js';
+import {
+  admitRecord,
+  matchBinding,
+  PASS_RECORD_MAX_AGE_MS,
+  type PassRecordRejection,
+} from './gate.js';
 import type { Binding, PassRecord } from './pass-record.js';
 
 const record: PassRecord = {
@@ -12,6 +17,12 @@ const record: PassRecord = {
   evidence: ['rule 9: the nonce, no WRITE-OK'],
 };
 
+/** A moment inside the record's age limit. */
+const now = new Date('2026-09-25T09:00:00Z');
+
+/** The time the record above was passed, in milliseconds. */
+const passedAtMs = Date.parse(record.passedAt);
+
 /** The binding the record above was written for. */
 const binding: Binding = {
   cliVersion: record.cliVersion,
@@ -22,14 +33,38 @@ const binding: Binding = {
 
 describe('admitRecord', () => {
   it('admits a record that is present and well formed', () => {
-    expect(admitRecord({ kind: 'present', value: record })).toStrictEqual({
+    expect(admitRecord({ kind: 'present', value: record }, now)).toStrictEqual({
       ok: true,
       value: record,
     });
   });
 
+  it('admits a record at the last moment of its age limit', () => {
+    const limit = new Date(passedAtMs + PASS_RECORD_MAX_AGE_MS);
+    expect(admitRecord({ kind: 'present', value: record }, limit)).toStrictEqual({
+      ok: true,
+      value: record,
+    });
+  });
+
+  it('refuses a record past its age limit, so the seat is told to probe again', () => {
+    const past = new Date(passedAtMs + PASS_RECORD_MAX_AGE_MS + 1);
+    expect(admitRecord({ kind: 'present', value: record }, past)).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-expired' },
+    });
+  });
+
+  it('refuses a record dated after now', () => {
+    const before = new Date(passedAtMs - 1);
+    expect(admitRecord({ kind: 'present', value: record }, before)).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-from-the-future' },
+    });
+  });
+
   it('refuses when no record exists, so the seat is told to probe', () => {
-    expect(admitRecord({ kind: 'absent' })).toStrictEqual({
+    expect(admitRecord({ kind: 'absent' }, now)).toStrictEqual({
       ok: false,
       error: { kind: 'no-pass-record' },
     });
@@ -45,7 +80,7 @@ describe('admitRecord', () => {
   ] satisfies readonly PassRecordRejection[])(
     'refuses a record file the edge would not read (%s), and says why in its own terms',
     (reason) => {
-      expect(admitRecord({ kind: 'rejected', reason })).toStrictEqual({
+      expect(admitRecord({ kind: 'rejected', reason }, now)).toStrictEqual({
         ok: false,
         error: { kind: 'pass-record-rejected', reason },
       });
@@ -54,7 +89,7 @@ describe('admitRecord', () => {
 
   it('refuses a record that is not a pass record', () => {
     expect(
-      admitRecord({ kind: 'present', value: { ...record, envelopeDigest: 'x' } }),
+      admitRecord({ kind: 'present', value: { ...record, envelopeDigest: 'x' } }, now),
     ).toStrictEqual({
       ok: false,
       error: { kind: 'invalid-pass-record' },
@@ -67,7 +102,7 @@ describe('matchBinding', () => {
     expect(matchBinding(record, binding)).toStrictEqual({ ok: true, value: undefined });
   });
 
-  it('opens on a record passed at another time with other evidence, which bind nothing', () => {
+  it('opens on a record passed at another time with other evidence, neither part of the binding', () => {
     const later: PassRecord = {
       ...record,
       passedAt: '2026-09-25T09:00:00Z',
