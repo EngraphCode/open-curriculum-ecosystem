@@ -136,7 +136,7 @@ function sequenceLength(lead: number): number {
 }
 
 /** An error's name as an identifier: a letter, then letters, digits or underscores. */
-const ERROR_NAME_SHAPE = /^[A-Za-z][A-Za-z0-9_]*$/u;
+const ERROR_NAME_SHAPE = /^[A-Za-z]\w*$/u;
 
 /** The reason for an error that neither a code nor a name identifies. */
 const UNIDENTIFIED_REASON = 'UNIDENTIFIED_ERROR';
