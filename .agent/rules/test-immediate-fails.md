@@ -16,7 +16,8 @@ seam, extract a pure function, inject a dependency).
    Tests must import only the unit they are testing. A production
    factory or loader that reads configuration or does IO
    (`createHttpObservabilityOrThrow`, `loadRuntimeConfig`,
-   `initialiseSentry`, app bootstrappers) is never imported into a
+   `initialiseTelemetry`, an app bootstrapper that reads configuration
+   or the clock) is never imported into a
    test, whether or not the test sets out to prove it. The unit that
    needs it takes a fake injected via DI; any parsing or validation it
    does is proven as a pure function over an injected input; its IO
@@ -33,7 +34,8 @@ seam, extract a pure function, inject a dependency).
    that does IO, whether or not it asserts on that object's
    behaviour: the object's pure logic (an adapter's mapping) is
    tested, and its IO is proven by validation, never by a test. A
-   real object without IO that the test does not assert on is
+   real object without IO is part of the composition the test proves
+   when the asserted result depends on its behaviour; any other is
    replaced with a fake.
 
 ## Side-Effect Immediate Fails
@@ -42,7 +44,9 @@ seam, extract a pure function, inject a dependency).
    network call, a socket (loopback included), a child process, a
    clock read (`Date.now()`, `new Date()`, `performance.now()`), a
    timer that interacts with the runtime, or an SDK init call with
-   side effects, in the test or in any helper it imports. This is
+   side effects, in the test, in any helper it imports, or in the
+   product code it runs; the cure for a clock read is an injected
+   clock. This is
    the absolute invariant of `testing-strategy.md` §Philosophy
    (owner, 2026-09-14 and 2026-09-15). A filesystem read is IO
    whatever the provenance of the bytes: committed fixtures enter a
@@ -64,8 +68,9 @@ seam, extract a pure function, inject a dependency).
    worker.** Covered by `testing-strategy.md` §Rules, "No process spawning
    in tests". A proof that needs a real child process (a child's stdio
    topology, its exit and signal fidelity) is an observation made
-   once and recorded, or a validator's self-proof outside the test
-   suites. The directive is the authority; this item points at it.
+   once and recorded, or a validator's self-proof outside the
+   in-process test run. The directive is the authority; this item
+   points at it.
 9. **Any test makes a real network or socket call.** Driving a
    separately running system is an E2E check, a validation surface.
    Code imported into the test process is proven at the handler
@@ -76,17 +81,20 @@ seam, extract a pure function, inject a dependency).
 
 ## Mock/Stub Immediate Fails
 
-10. **Test uses `vi.stubGlobal`, `vi.mock`, `vi.doMock`.** Global
-    state manipulation; prohibited outright. Use DI.
+10. **Test uses `vi.stubGlobal`, `vi.mock`, `vi.doMock`,
+    `vi.useFakeTimers` or `vi.setSystemTime`.** Global state
+    manipulation; prohibited outright. Use DI: a clock or scheduler
+    is injected.
 11. **Unit test contains any mock.** Unit tests are pure — no mocks,
     fakes, or stubs of any kind. Parameters in, result out.
-12. **Integration test contains a mock with logic.** Integration
-    mocks are *simple* fakes — constant returns, or a record of what
-    the product sent out through the port, read as output; which calls
-    were made, how often or in what order is never asserted. No
-    branching, no state machines, no string interpolation of inputs.
-    Complexity signals product-code needs refactoring for
-    testability.
+12. **Integration test contains a mock with branching or state.** Integration
+    mocks are *simple* fakes — constant returns, a record of what the
+    product sends through an output port, read as a value
+    (`testing-strategy.md` §Stubs vs Fakes), or a parametric fake. No
+    branching and no state machines; a fake whose answer depends on its
+    inputs is a parametric fake and meets all five conditions of
+    `testing-strategy.md` §Philosophy. Complexity signals product-code
+    needs refactoring for testability.
 13. **Test passes anything other than a fake or constant into the
     unit under test (unit test).** If the unit needs a real object
     to run, the unit is not isolated.
@@ -112,9 +120,13 @@ seam, extract a pure function, inject a dependency).
 17. **Test does not use DI where DI is possible.** If the unit
     supports a dependency parameter, the test must use it. Do not
     reach past the seam to a module-level singleton.
-18. **Test asserts on spies against private/internal methods.**
-    Couples the test to implementation; breaks on refactor. Assert
-    on return values or public behaviour.
+18. **Test asserts on the product's queries or internal calls.** A
+    spy on a private or internal method, or an assertion on which
+    queries the product made of a collaborator it asks (an input
+    port), how often or in what order, couples the test to
+    implementation and breaks on refactor. Assert on return values,
+    public behaviour, or an output port's record read as a value
+    (`testing-strategy.md` §Stubs vs Fakes).
 19. **Test proves something about the test scaffolding, not the
     product code.** E.g. asserts that a mock returned the value it
     was configured to return; asserts on types only; tautologies
@@ -132,7 +144,7 @@ seam, extract a pure function, inject a dependency).
 21. **Test is named `*.integration.test.ts` but opens a socket, hits
     the network, or spawns processes.** Classify by the boundary,
     then cure: a genuine separately-running-system exchange is an
-    E2E or smoke check outside the test suites; outbound IO from
+    E2E or smoke check outside the in-process test run; outbound IO from
     imported code is a missing DI seam to fix.
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
@@ -163,7 +175,7 @@ The test-expert flags the symptom. The fix is usually upstream.
 
 - `.agent/rules/no-global-state-in-tests.md` — specific prohibition
   on `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`,
-  `vi.doMock`.
+  `vi.doMock`, `vi.useFakeTimers` and `vi.setSystemTime`.
 - `.agent/directives/testing-strategy.md` §Rules — the skip-mechanism
   prohibition (no-skipped-tests bullet).
 - `.agent/rules/no-conditional-tests.md` — prohibition on conditional

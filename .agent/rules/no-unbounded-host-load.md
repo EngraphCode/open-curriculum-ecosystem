@@ -13,7 +13,8 @@ again.**
 
 1. **No experiment gets host-level load by default.** Before spawning ANY
    synthetic load, ask whether the effect can be provoked in-process —
-   fake timers, deterministic interleaving, injected delays. For timer
+   an injected clock or scheduler, deterministic interleaving, injected
+   delays. For timer
    races and scheduling flakes the in-process route almost always
    suffices; ambient host load is the wrong instrument and was not shown
    necessary even in the founding instance.

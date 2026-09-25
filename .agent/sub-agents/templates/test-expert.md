@@ -160,8 +160,8 @@ the design intent.
 - The test name mirrors the function name rather than the behaviour
   (`it('calls fetchUsers')` vs. `it('returns the active users for the
   current organisation')`).
-- The test asserts on intermediate state, private fields, or collaborator
-  call counts rather than on observable return values.
+- The test asserts on intermediate state, private fields, or input-port
+  query counts rather than on observable return values.
 - The test would pass against a stub implementation that returns the
   hard-coded value the test expects, indicating the test does not
   describe the function — it describes a fixture.
@@ -192,14 +192,19 @@ The atomic-landing invariant from `tdd-as-design.md`:
 ### Step 6: Apply the Mock-Quality Check
 
 - **Unit tests have NO mocks** (parameters in, result out).
-- **Integration tests have only SIMPLE mocks** — constant returns, or a
-  record of what the product sent out through the port, read as output;
-  which calls were made, how often or in what order is never asserted. No
-  branching, no state machines, no string
-  interpolation of inputs.
-- **All mocks injected as parameters** (DI, per ADR-078). No
-  `vi.mock`, `vi.doMock`, `vi.stubGlobal`. No `process.env` reads or
-  writes.
+- **Integration tests have only SIMPLE mocks** — constant returns, a
+  record of what the product sends through an output port, read as a value
+  (`testing-strategy.md` §Stubs vs Fakes), or a parametric fake. No
+  branching and no state machines; a fake whose answer depends on its
+  inputs is a parametric fake and meets all five conditions of
+  `testing-strategy.md` §Philosophy.
+- **No assertion on the product's queries or internal calls**
+  (immediate-fail item 18): no spy on a private or internal method, and no
+  assertion on which queries the product made of a collaborator it asks
+  (an input port), how often or in what order.
+- **All mocks injected as parameters** (DI, per `no-global-state-in-tests`). No
+  `vi.mock`, `vi.doMock`, `vi.stubGlobal`, `vi.useFakeTimers`,
+  `vi.setSystemTime`. No `process.env` reads or writes.
 
 ### Step 7: Apply the Suggestion Mode
 
@@ -367,6 +372,9 @@ vi.stubGlobal('fetch', mockFetch);
 // PROHIBITED — manipulates module cache
 vi.mock('module', () => ({ ... }));
 vi.doMock('module', () => ({ ... }));
+// PROHIBITED — replaces the global clock and timers
+vi.useFakeTimers();
+vi.setSystemTime(new Date('2026-01-01'));
 ```
 
 ### Required: Dependency Injection
@@ -404,7 +412,8 @@ need for product code refactoring and cites the relevant specialist.
 ### Structural
 
 - [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (a file named
-      as an E2E check that imports product code is an integration test: flag it)
+      as an E2E check that imports product code and runs it in the test
+      process is an integration test: flag it)
 - [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
@@ -423,7 +432,7 @@ need for product code refactoring and cites the relevant specialist.
 - [ ] All mocks injected as parameters
 - [ ] No global state reads or manipulation
 - [ ] No `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`,
-      `vi.doMock`
+      `vi.doMock`, `vi.useFakeTimers`, `vi.setSystemTime`
 
 ### Test Value
 

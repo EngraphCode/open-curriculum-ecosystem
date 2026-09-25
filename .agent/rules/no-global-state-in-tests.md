@@ -9,6 +9,9 @@ or smoke check (its composition root, below, is where ambient state enters):
 - `vi.stubGlobal('fetch', ...)` — mutates global objects
 - `vi.mock('module', ...)` — manipulates module cache, leaks between files
 - `vi.doMock('module', ...)` — manipulates module cache, subtle race conditions
+- `vi.useFakeTimers()` and `vi.setSystemTime(...)` — replace the global clock and
+  timers; a unit that reads the time or schedules work takes an injected
+  clock or scheduler
 
 Tests also must not touch ambient `.env` files or `process.cwd()`.
 Pass configuration as explicit function parameters. Simple fakes are injected
