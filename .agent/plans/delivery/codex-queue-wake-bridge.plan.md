@@ -68,61 +68,137 @@ and in the lived record of that day.
 
 ## Mechanism
 
-1. **The seat's own watcher is the sensor.** The all-channels canonical watcher already runs
-   beside every team seat, under the seat's root identity. PR 193 cures its `EMFILE` hot loop on
-   Codex; this node builds on that cure.
-2. **A wake sink on the watcher.** When a drain delivers at least one eligible event, the sink
-   runs `codex queue --thread <this seat's thread id> --message <notice>` once for that drain. An
-   eligible event is one addressed to this seat's exact identity, not a heartbeat, and not
-   self-authored. Several events in one drain produce one notice. The thread id comes from the
-   seat's own environment (`CODEX_THREAD_ID`, already an identity seed), never from a lookup of
-   recent threads.
-3. **The notice carries no event bytes.** It is fixed controller-authored text. It says
-   coordination events are waiting, and names the canonical command that reads them. Queued text
-   arrives as a user-role message, so no peer-authored text may enter it. The woken turn reads
-   the events through the canonical comms read, as every seat does, and treats their text as
-   untrusted data.
-4. **The pure core is testable without IO.** Deciding which drained events wake, coalescing
-   them and composing the notice are pure. The queue call is a port whose runner belongs to the
-   IO edge.
-5. **Degraded paths stay named.** Where the bridge cannot run, because the subcommand is missing,
-   the thread id is unknown or the queue call fails, the watcher reports that visibly. Bounded
-   foreground polling stays the fallback, as the operating rule states today.
-6. **A seen cursor is not a delivery.** The watcher's pass runs drain, emit, then mark seen, and
-   it marks events seen only after their emit succeeds (`comms-watch-iteration.ts`). The wake
-   runs inside the pass, before the events are marked seen. So a failed queue call, or a watcher
-   that dies between the drain and the call, leaves those event ids unseen for the existing paced
-   replay, and no watcher line may claim the seat was woken. The wake sink stays out of the
-   generic watcher error-line path, so a failed wake never triggers another wake.
+1. **A wake companion beside the seat is the sensor.** On codex-cli 0.157.0 Codex denies the
+   app-server daemon's socket to every sandbox below full-disk write, so no process a seat starts
+   from its own shell can queue into its own thread (the 2026-09-25 review dispositions). The
+   terminal command that starts a Codex seat therefore also starts the seat's wake companion,
+   outside any Codex sandbox, as the TUI itself is. The companion runs no model and executes no
+   peer text. Its one act is queueing a fixed notice into the seat's own thread, and it runs
+   only while the TUI's process runs. The seat keeps its own all-channels watcher for delivery
+   and its heartbeat; the companion only wakes. The owner approved this on 2026-09-25.
+2. **A handshake binds the companion to the seat's own thread.**
+   - The launch command creates a fresh directory for this launch under the user's home, at mode
+     0700, and grants the seat write access to it with `--add-dir`. It gives the seat the
+     directory's path through a channel of this launch alone, never an environment variable: in
+     daemon mode a seat's shell environment comes from the one daemon that every seat under a
+     `CODEX_HOME` shares, so a variable set for one launch can reach another seat. Todo 1 probes
+     both.
+   - At session start the seat writes its own `CODEX_THREAD_ID` there, atomically, and only when
+     its own identity comes from `CODEX_THREAD_ID` rather than a higher-ranked seed (todo 3).
+   - The companion opens the file without following links, checks the open file is a regular
+     file owned by the user, not writable by group or others, and at most 128 bytes, and reads it
+     once from that handle. It arms only on exactly one lowercase UUID in the 8-4-4-4-12 form.
+     The pattern is load-bearing: `codex queue` takes a value that is not a UUID as a session
+     name, and looks it up across all active sessions.
+   - It never rebinds. A later change to the file writes a tamper line to its status.
+   - It derives the seat's identity from the thread id alone, as platform `codex`, through the
+     estate's single identity derivation. Nothing looks up recent threads.
+3. **Only addressing wakes.** An event wakes the seat only when the canonical classifier puts it
+   in the seat's directed or group view: addressed to the seat's exact identity, and not
+   self-authored. Broadcasts, observed events, lifecycle events and heartbeats never wake. So a
+   routing meant to wake a Codex seat goes by `comms direct` (todo 3).
+4. **The notice carries no event bytes.** It is a constant with no parameters, so its type
+   admits no event bytes. It says coordination events are waiting, names the canonical command
+   that reads them, and asks the seat to acknowledge the wake as its start skill describes.
+   Queued text arrives as a user-role message. The woken turn reads the events through the
+   canonical comms read, as every seat does, and treats their text as untrusted data. The argv
+   is `queue`, `--thread=<uuid>` and `--message=<notice>`, in the `=` form so that no value is
+   read as a flag. It carries no configuration flags, which would force an embedded server that
+   the vendor refuses while a daemon runs.
+5. **The companion runs with the least it needs.**
+   - It spawns `codex` by an absolute path resolved once at arm, whose file and directory are
+     owned by the user or root and not writable by group or others.
+   - It spawns it with a fixed environment (`HOME`, the TUI's `CODEX_HOME`, `PATH` set to
+     `/usr/bin:/bin`, `LANG`), no shell, a timeout that ends in `SIGKILL`, and capped output.
+   - Its working directory is its own 0700 state directory, never the repository, so no project
+     configuration layer loads.
+   - It reads no file an event names, writes only its cursor and its status, runs nothing but
+     `codex queue`, and passes no `-c`, `--remote` or `--profile`.
+6. **Waking never takes a delivery, and nothing is read twice.**
+   - The companion keeps its own cursor, keyed by the thread id under
+     `.agent/state/collaboration/comms-wake/`, which git ignores. It is seeded at arm, so only
+     later events count.
+   - It never touches the seat's seen file or heartbeat file. So the seat's watcher delivers every
+     event, and the claim tool's live-watcher check reads only the seat's own watcher.
+   - It marks every examined event that cannot wake at once, and an eligible event only once a
+     notice for it has been queued. A held or failed event stays unmarked and is examined again
+     on the next pass. So a wake debt never blocks newer events, and it survives a restart.
+7. **Wakes are bounded.**
+   - Several eligible events in one pass produce one notice.
+   - At most one notice is outstanding. The seat acknowledges a wake by touching an `ack` file in
+     its handshake directory, which no peer can write. A modification time after the notice
+     releases the latch. Comms authorship is self-declared, so no comms event releases it.
+   - Without an ack, a second notice may go after a capped interval. After two unacknowledged
+     notices, or past a budget of four an hour, the companion stops queueing and writes the
+     fallback to its status. The vendor holds up to 100 queued messages for a thread that is not
+     running, so the bound matters.
+   - A failed queue call writes one WAKE FAILED line naming the event ids, and the wake is
+     retried on a capped backoff. A call counts as queued only when `codex queue` exits 0.
+8. **The pure core is testable without IO.** Selection, coalescing, the latch, the budget, the
+   backoff and the notice are pure. The queue call, the handshake read, the ack read and the
+   clock are ports whose runners belong to the IO edge.
+9. **Status is written where the seat can read it.** The companion writes a status file in the
+   handshake directory: armed, or degraded with its reason, and the last WAKE FAILED line. Its
+   own output goes to a log, never to the TUI's terminal. When it cannot arm, its status names
+   the fallback, bounded foreground polling, as the operating rule states today.
+10. **Stopping is local and visible.**
+    - Only the TUI exiting, a signal from the launch shell, or a failure to arm stops the
+      companion. No comms content stops it, and a malformed event never crashes it.
+    - When it stops while the TUI still runs, it queues a fixed exit notice, once.
+    - After the TUI has gone it queues nothing, since an exited session would run the notice at
+      its next resume.
+    - It never restarts itself.
+11. **The companion is not the trust boundary.** Within one `CODEX_HOME` any thread id names a
+    valid target. Any unsandboxed process running as the user can already queue any text into
+    any Codex seat. The companion opens no path for peer text; it does not close that existing
+    one.
 
 ## Acceptance criteria (each with a proof — required)
 
 - **An idle Codex seat wakes on a directed event.** The seat sits idle in its interactive session.
   An external seat sends one directed canonical event to it, and the seat starts a turn and
   replies on comms, with no prompt and no poll, within 60 seconds. Proof:
-  - `repo-safe`: the sink's tests, with an in-memory queue port whose recorded notices are
+  - `repo-safe`: the companion's tests, with an in-memory queue port whose recorded notices are
     asserted as state;
   - `owner-held`: a dated live run on the then-latest CLI, recorded with the event id, the queue
     time, the turn's start and the reply's event id, and observed by the owner or a seat at the
     owner's word.
-- **No peer-authored bytes reach the seat's input through the bridge.** The notice is the same
-  for any eligible event body, title or author. Proof: `repo-safe`, a property test over
-  generated events asserting one invariant notice.
-- **Only eligible events wake the seat.** Heartbeats, self-authored events, events addressed to
-  another seat, and malformed events never produce a notice. Proof: `repo-safe`, table tests over
-  literal events.
+- **No peer-authored bytes reach the seat's input through the bridge.** The notice is a constant
+  with no parameters, and the argv holds only the thread id beside it. Proof: `repo-safe`, table
+  tests over events that vary in body, title and author, each producing the one notice; and a
+  return-value test of the pure argv builder.
+- **Only eligible events wake the seat.** Broadcasts, observed and lifecycle events, heartbeats,
+  self-authored events, events addressed to another seat, and malformed events never produce a
+  notice. Proof: `repo-safe`, table tests over literal events.
+- **The companion wakes only the thread its seat named.** It does not arm on a missing handshake;
+  on a value that is not exactly one lowercase UUID, including the braced, URN and simple forms;
+  on a link; or on a file over 128 bytes, not owned by the user, or writable by others. Proof:
+  `repo-safe` tests over the handshake parse and a handshake port.
+- **Waking never takes a delivery.** After the companion wakes for an event, the seat's own
+  watcher still delivers it. Proof: `repo-safe`, one integration test over an in-memory comms
+  store.
+- **Wakes are bounded.** Eligible events arriving while a notice is outstanding queue no second
+  notice until the seat's ack or the capped interval. A seat-authored comms event releases
+  nothing. After two unacknowledged notices, or past the hourly budget, the companion stops
+  queueing and its status names the fallback. Proof: `repo-safe` tests over the pure core.
+- **Failure is visible, never silent.** A missing subcommand, an unknown thread id or a failed
+  queue call writes a status line naming the fallback. Proof: `repo-safe` tests over a refusing
+  port.
+- **A failed wake is named and retried.** When the queue call fails, one WAKE FAILED line names
+  the event ids and claims no delivery, and the wake is retried on a capped backoff. Proof:
+  `repo-safe` tests over a refusing port, asserting the line's content and the retry;
+  `owner-held`, the live run repeated with the queue call failing, recorded with the event id
+  the line named.
+- **The seat learns its sensor stopped, and only while it runs.** A companion that stops while
+  the TUI runs queues the fixed exit notice once; one that stops after the TUI has gone queues
+  nothing. Proof: `repo-safe` tests over the queue port and a liveness port.
 - **A queued notice never steers an active turn.** Proof: `owner-held`, the §2.7 active-turn run
   repeated on the then-latest CLI and recorded.
-- **Failure is visible, never silent.** A missing subcommand, an unknown thread id or a failed
-  queue call produces a watcher line naming the fallback. Proof: `repo-safe` tests over a
-  refusing port.
-- **A failed wake loses no event.** When the queue call fails after the drain, the watcher line
-  names the drained event ids and claims no delivery. Proof: `repo-safe` tests over a refusing
-  port, asserting the line's content; `owner-held`, the live run repeated with the queue call
-  failing, recorded with the event id the fallback surfaced.
 - **The seat's own host wakes.** Codex seats run as a `codex` TUI in a terminal, with the
   managed app-server the TUI spawns (the owner, 2026-09-25: "They were both started via the
-  terminal with `codex`"). Proof: `owner-held`, the live wake run recorded on that host.
+  terminal with `codex`"). The launch command starts the TUI and its companion together.
+  Proof: `owner-held`, the live wake run recorded on that host, on a Codex seat that is not the
+  observing seat's own thread.
 - **The operating rule names the bridge.** `use-monitor-for-event-driven-wake`, the generated
   `AGENTS.md` block and the team start skill's Codex paragraph name the bridge as the Codex wake
   path, and bounded foreground polling as the fallback only. Proof: `repo-safe`, the projection
@@ -144,12 +220,36 @@ Each slice is one story, within the default round budget.
    - Whether `CODEX_THREAD_ID` is present in a seat's shell environment. Observed present on
      2026-09-24 (Luna stirs Radiance, 0.156.1, a terminal `codex` seat).
    - A queued notice to a killed session.
+   - Whether a variable set by one launch reaches a second seat's shell while a daemon already
+     runs (mechanism 2).
+   - Whether `--add-dir` still grants the seat write access to the handshake directory in daemon
+     mode (mechanism 2).
+   - The launch channel that gives the seat its handshake path, such as the TUI's first prompt.
 
    The findings are a dated addendum to the concept note. If any finding breaks the mechanism,
-   this node returns to the owner before slice 2.
-2. **The wake sink**, test-first. The pure eligibility, coalescing and notice core, the queue
-   port, and the watcher option that arms it. Reviews: code-expert before and after execution;
-   test-expert and security-expert, focused.
+   this node returns to the owner before slice 2. Slice 2's code needs none of the last three,
+   which shape the launch command in todo 3.
+2. **The wake companion**, test-first, as three pull requests after the pre-execution reviews
+   of 2026-09-25. None edits a file of the seat's own watcher. The companion composes the
+   exported watch loop, `watchCommsLoop`, with injected functions of its own: `drain` selects,
+   decides and queues; `emit` writes the companion's status, never the queue, since the loop's
+   error and exit lines pass through `emit`; `markSeen` writes the companion's cursor; there is
+   no heartbeat tick.
+   1. **2a, the pure core.** Selection, coalescing, the latch, the budget, the backoff and the
+      notice constant; the handshake parse; this node's edit. Commit order, each a failing test
+      then the code: the selection table; the decisions (a burst, a hold, the ack release, no
+      release on a comms event, the interval, the budget, the backoff, one WAKE FAILED line per
+      attempt); the notice; the handshake parse. Reviews: test-expert, focused; security-expert,
+      focused on the handshake parse.
+   2. **2b, the ports and the loop.** The queue port and its pure argv and environment builder;
+      the handshake, ack and liveness runners; the companion's composition of the watch loop;
+      the integration test that the seat's watcher still delivers; the `comms-wake/` ignore
+      line. Reviews: security-expert, deep; test-expert, focused.
+   3. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
+      a module of its own, since the shared help module is at its line limit. Reviews:
+      code-expert; config-expert if a lint or knip entry changes.
+
+   Every pull request gets a code-expert review before and after execution.
 
    **HELD, 2026-09-25: slice 2 is back with the owner.** Its pre-execution review found a fact
    that breaks the mechanism (comms `dbb48c46`, absorbed by the Director at 15:58:13Z). On
@@ -161,7 +261,20 @@ Each slice is one story, within the default round budget.
    seat's launch command starts a wake companion beside the TUI, outside the sandbox, bound by a
    thread-id handshake file the seat writes. The companion's one act is the fixed notice. Nothing
    is built until the owner's word.
-3. **The operating rule, the start skill and the generated block**, with the live run recorded.
+
+   **RELEASED, 2026-09-25.** The owner approved the cure, verbatim "1. Approve", relayed by the
+   Director as `281b584b` at 17:20:21Z. The mechanism above now describes the companion.
+3. **The launch command, the operating rule, the start skill and the generated block**, with the
+   live run recorded.
+   - The launch command creates the handshake directory, grants it with `--add-dir`, gives the
+     seat its path through the channel todo 1 settles, and starts the companion under an empty
+     environment with an absolute `node`. It binds the companion to the TUI's process, and stops
+     it when the TUI exits.
+   - The start skill's Codex paragraph has the seat check that its identity comes from
+     `CODEX_THREAD_ID`, then write its handshake, and touch the `ack` file after reading a wake.
+     It also has the seat read the companion's status at start.
+   - A sender clause: a routing meant to wake a Codex seat goes by `comms direct`.
+
    Citizenship text is shared Practice text, so this slice's doctrine lands as the same bytes in
    the second estate, carried as an exchange row.
 
@@ -212,3 +325,69 @@ Each slice is one story, within the default round budget.
   run it with the managed app-server it spawns, and `codex exec`. The desktop legs are out of
   scope and are not run. This is shared citizenship text, so the same bytes are owed to the
   second estate as an exchange row.
+- **2026-09-25, slice 2's pre-execution review** (code-expert, then Swallow holds Drift, 516619,
+  reading the codex-cli 0.157.0 source), sent to the Director as `dbb48c46` and absorbed at
+  15:58:13Z. The Director asked the owner.
+  - **The finding that broke the mechanism.** Codex denies file and Unix-socket access to the
+    app-server daemon's socket directory, `/tmp/codex-daemon-<uid>`, for every sandbox below
+    full-disk write. This is deliberate:
+    - `sandboxing/src/seatbelt.rs`, about lines 1063-1068;
+    - the vendor's test `daemon_sockets_are_denied_despite_network_and_tmp_write_grants`, which
+      asserts it under a `workspace_write` policy.
+
+    `codex queue` also refuses `--no-daemon`, and refuses an embedded server while a daemon runs
+    (`tui/src/session_queue_commands.rs`, about lines 31-50). So a watcher the seat starts from
+    its own shell can never queue into its own thread.
+  - **Retired from source.** A queued message carries text only
+    (`app-server-protocol/src/protocol/v2/thread.rs:901-914`), and the turn runs under the
+    thread's own loaded config (`app-server/src/request_processors/thread_queue_processor.rs`).
+    So the queue argv carries no configuration flags (mechanism 4).
+  - **Taken into the mechanism:**
+    - eligibility on structured addressing only (mechanism 3), with todo 3's sender clause. Every
+      routing sent to a Codex seat on 2026-09-24 was a titled broadcast with no addressing field,
+      so none would have woken one;
+    - a failed wake retried on a capped backoff, so it is neither replayed every pass nor able
+      to block newer events. As first written, a failed wake would have replayed the same batch
+      every pass (mechanisms 6 and 7);
+    - at most one notice outstanding (mechanism 7);
+    - the arm-time binding check (mechanism 2);
+    - the exit notice (mechanism 10).
+- **2026-09-25, the owner, relayed by the Director (Wick binds Temper, ed7b48) as `281b584b` at
+  17:20:21Z.** Verbatim: "1. Approve". The wake companion beside the seat replaces mechanism 1's
+  in-seat watcher. With the companion, the seat's own watcher is untouched: the companion keeps a
+  cursor of its own (mechanism 6), so the earlier question of when a seen cursor marks a delivery
+  no longer arises for the wake. The launch command moves into todo 3.
+- **2026-09-25, the pre-execution reviews of the companion** (code-expert and security-expert, on
+  the node edit before any code; the security review read the codex-cli 0.157.0 source). Taken
+  into the mechanism:
+  - The identity. The seat's identity comes from the highest-ranked seed in its environment, and
+    `CODEX_THREAD_ID` ranks below the Practice session seeds. So the seat writes its handshake only
+    when its identity comes from that id, and the companion derives it from the id alone
+    (mechanism 2).
+  - The cursor marks every examined event, so a pass does not re-read the whole store. The
+    comms directory held 1,327 events. Only eligible events wait for a queued notice
+    (mechanism 6).
+  - The exit notice goes only while the TUI runs, since an exited session would run it at its
+    next resume (mechanism 10).
+  - The status file, since the companion's output would otherwise print into the TUI's terminal
+    (mechanism 9).
+  - The launch path and environment. A `codex` found through a `PATH` that starts in the
+    repository could be a peer's shim, run unsandboxed. So the path is absolute and checked, the
+    environment is fixed, and the working directory is the companion's own (mechanism 5).
+  - The handshake channel. In daemon mode a seat's shell environment is the shared daemon's, so a
+    launch variable can reach another seat. The path goes through a channel of the launch alone
+    (mechanism 2, todo 1).
+  - The handshake location and read. A file in the repository, `/tmp` or `$TMPDIR` is writable by
+    every sandboxed peer, and only the sandbox tells same-user processes apart. So the directory
+    sits under the home at 0700, granted with `--add-dir`, and the file is read once without
+    following links. The strict UUID pattern stops `codex queue` falling through to a session-name
+    lookup (mechanism 2).
+  - The latch. Comms authorship is self-declared, and heartbeats arrive whether or not the seat
+    runs a turn, so a seat-authored event cannot release it. The seat-only `ack` file does, with
+    a budget, because the vendor holds up to 100 queued messages for a thread that is not running
+    (mechanism 7).
+  - The residual trust statement (mechanism 11).
+
+  Slice 2 becomes three pull requests, composing the exported watch loop rather than a second
+  loop, with no edit to the watcher files under another seat's claim (todo 2). The property test
+  becomes a table test, since no workspace package carries a property-testing library.
