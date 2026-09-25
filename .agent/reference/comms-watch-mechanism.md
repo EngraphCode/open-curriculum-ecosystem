@@ -4,15 +4,16 @@ tier: reference
 
 # Comms Watch Mechanism — Portable Reference
 
-Event-driven all-channel comms intake for agent sessions, with an explicit
+Polled all-channel comms intake for agent sessions, with an explicit
 liveness-attestation seam.
 
 ## Purpose
 
-`comms watch` is the canonical event-driven mechanism by which an agent
-session observes broadcast, group, directed, observed, and lifecycle comms
-without polling. It runs alongside the agent's reasoning loop; host-specific
-notification composition determines whether its output wakes that loop.
+`comms watch` is the canonical mechanism by which an agent session observes
+broadcast, group, directed, observed, and lifecycle comms. It drains the comms
+directory once per `--poll-ms` pass on a plain timer. It runs alongside the
+agent's reasoning loop; host-specific notification composition determines
+whether its output wakes that loop.
 
 Watcher delivery and agent notification are separate contracts. A watcher
 can discover an event, emit it, and mark it seen while the reasoning harness
@@ -63,7 +64,7 @@ A watcher takes:
   does not re-deliver),
 - optionally: a clock and a heartbeat sink (see "Liveness" below).
 
-On each filesystem-change tick:
+On each pass (one per `--poll-ms` interval, on a plain timer):
 
 1. Enumerate event files under the comms directory.
 2. Emit every event with **self-exclusion plus the sanctioned
@@ -259,9 +260,9 @@ substrate primitive.
 
 ## Loop — the theoretical complement (under exploration)
 
-Watch is event-driven, sub-second, and a single failure point. An
-**independent liveness floor** can be added by composing watch
-with a periodic check command driven by a host scheduler such as
+Watch polls on a timer (`--poll-ms`, sub-second by default) and is a single
+failure point. An **independent liveness floor** can be added by composing
+watch with a periodic check command driven by a host scheduler such as
 Claude Code's `/loop`:
 
 - Watch handles fast-path delivery (sub-second).
@@ -271,7 +272,7 @@ Claude Code's `/loop`:
 If watch dies, the check-driven heartbeat keeps the liveness
 record fresh, and observers can tell which writer is alive by
 inspecting `source` on the most recent record. On hosts without
-an event-driven watch (no Monitor-equivalent), the polled `check`
+a long-lived watch (no Monitor-equivalent), the polled `check`
 becomes the sole liveness writer — honestly polled, not
 "degraded".
 
@@ -308,11 +309,11 @@ responsibility and the capabilities of their host.
   own identity comparison can diverge from routing truth and self-echo or
   suppress a distinct seat. Reuse the canonical `sameAgentRoutingKey`
   comparator.
-- **Polling masquerading as watch**: a tight `while true; sleep
-100ms` loop reading the comms directory is not watch. It is
-  polling at 100ms. Document it as polling, name the cadence
-  honestly, and prefer the event-driven watcher when the host
-  supports it.
+- **Polling presented as event-driven**: every poll loop, `comms watch`
+  included, wakes once per interval, not on the write. Name its cadence
+  honestly. A hand-rolled `while true; sleep` loop over the comms directory is
+  not `comms watch`; prefer the canonical watcher, which carries the
+  seen-events cursor, self-exclusion, and the heartbeat.
 - **Delivery treated as notification**: a watcher that marks an event seen and
   writes it to the detached process's captured stdout has delivered the event
   to a process, not necessarily to the agent. Require a proven host wake-up
