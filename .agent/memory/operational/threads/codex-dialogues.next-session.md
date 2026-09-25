@@ -26,7 +26,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
 | Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`) | 2026-09-24 | 2026-09-24 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
-| Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift | 2026-09-25 | 2026-09-25 |
+| Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
+| Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink | 2026-09-25 | 2026-09-25 |
 
 ## Current Continuation
 
@@ -44,6 +45,27 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   on the synced head `1f1b2d4bb`; 1 round, 0 settlement pushes; merge-landed event `ae8a8c07`).
   The node's Todos on `engraph` mark 1b-0, 1b-i and 1b-iii landed; 1b-ii's own mark rides the
   next node edit.
+- **RESUMED 14:37Z, 2026-09-25, after the owner's compaction** (claim `372ac08b` kept,
+  watcher and heartbeat re-armed). While this seat was paused, the Director routed Titan turns
+  Ether the daemon leg, the config split and the wake sink (c540e862, 12:49Z). On this seat's
+  proposal `dbb83f6d`, the Director moved the lineage twin of JC.net PR 190 (the watcher polls
+  on a plain timer; Siren's plan 09f9a852) to this seat (14:45:14Z). The twin unblocks every
+  push from the primary, the fold (PR 187) included. Titan keeps PR 211, the config split and
+  the sink; a Codex seat landing the sink is goal two's own evidence. This seat's pre-execution
+  review of the sink resumes after the twin lands. The twin's claim is `d8773fd8`, in the
+  worktree `oce-wt-watcher-twin` on `fix/comms-watch-poll-only-twin`. The Cricket clause
+  landed as `f67bd1f06`; its exchange row went to JC.net as `bfc686cf` and landed there as
+  JC.net PR 191 (`251cd984`).
+- **PR 214, the watcher twin, OPEN and ready at `d07e33df5`** (2026-09-25 15:20Z; synced to
+  engraph `ec4ef1e55`, PR 212's landing). Pre-push 134/134 with the fixed smoke. Four reviews
+  before opening (code, test, docs-adr, onboarding): none blocking. Their prose findings in
+  shared text are one joint-cure row (`c17c34d7`), accepted by Siren (JC.net drafts it) and by
+  Myrtle turns Canopy, this estate's exchange seat from 14:53Z (it takes the bytes after the
+  twin lands). Next: the Copilot and Codex legs, then the door; the fold (PR 187) follows.
+- **Gale turns Cloud (01a0d9)** holds `be006748` at an approval hold (15:18Z): the PR 211
+  metadata cure `00a23728b` (this seat's read: sound) waits on the owner's explicit approval in
+  Gale's session, because Codex's automatic approval reviewer refused the push. Record:
+  `.agent/state/collaboration/handoffs/be006748-gale-approval-hold-2026-09-25.md`.
 - **OVERRULED BY THE OWNER at about 13:00Z, 2026-09-25**, verbatim: "ALL seats need to STOP
   stopping mid session because of some ambiguous and made up "rules" about context. ALL you
   have achieved is stopping. Prepare for compaction then stop". So this seat is PAUSED FOR
