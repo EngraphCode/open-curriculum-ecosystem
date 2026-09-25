@@ -271,6 +271,20 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
 
 ## `collaboration-state` quick reference
 
+- **Every entry point that reads the claims file is a migration trigger.**
+  `claims`, `comms append` / `comms send`, and the audits all read the
+  active-claims file through the migrating reader, so the first such call
+  after a rebuild that ships a newer registry schema runs the one-time
+  migration — and the migration archives nothing by design (the operator
+  conserves the blob). A comms broadcast is therefore a transactional touch,
+  not a read: on 2026-09-04 the 1.3.0 → 1.4.0 queue split ran under a
+  merge-landed broadcast seconds after the primary's dist was rebuilt and
+  before the planned by-hand archive copy, so no pre-migration copy of that
+  day's file exists. When a landing changes a state-file schema, sequence it
+  as archive copy → rebuild → first write, and use absolute paths in every
+  shell call on this repo (the shell's working directory persists between
+  calls; one `cd` into a subdirectory made later relative paths read as
+  "file missing").
 - `identity preflight` — emit the collaboration-state identity block with
   `agent_name`, `platform`, `model`, `session_id_prefix`, and seed source.
 - `comms watch` / `comms inbox` / `comms list` headings and summary lines,
@@ -419,12 +433,13 @@ pnpm agent-tools commit-queue status
   `abandoned`.
 - `record-staged` / `verify-staged` — capture and verify the exact staged
   bundle before committing.
-- `complete` — remove a landed intent and clear the owning claim pointer.
-- `status` — print queued, active, expired, and abandoned entries as JSON
-  without parsing `active-claims.json` manually.
+- `complete` — remove a landed intent.
+- `status` — print the live entries as JSON from the per-intent store,
+  counted as active or abandoned (a TTL-expired file reads as absent, so it
+  never appears in any view).
 - `list [--prefix <intent-prefix>]
 [--phase <queued|staging|pre_commit|abandoned>]
-[--agent-name <prefix>] [--queue-status <active|expired|abandoned>]` —
+[--agent-name <prefix>] [--queue-status <active|abandoned>]` —
   print matching queue entries only.
 - `show --intent-id <uuid>` — print one exact queue entry.
 
@@ -473,8 +488,9 @@ context/usage percentages, and git location. Environment controls:
   statusline warning, including on payloads that otherwise render
   nothing. The
   destination is a boundary: symlinks refuse to open, non-regular files
-  never receive a write, and a pre-existing file is retightened to
-  owner-only before each append. Write refusals are swallowed — the
+  never receive a write, a pre-existing file is retightened to
+  owner-only before each append, and native Windows, where file modes
+  cannot make a file owner-only, gets no log. Write refusals are swallowed — the
   statusline never breaks for its own
   diagnostics. The log grows unbounded and carries session ids and
   paths: delete it after the diagnosis.

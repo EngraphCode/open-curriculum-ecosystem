@@ -1,3 +1,4 @@
+import type { CompletionCommentReading } from './completion-comments.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
 import type { HarvestedReview } from './reviewer-legs.js';
@@ -31,12 +32,16 @@ export type ReviewRunsLeg =
       readonly kind: 'read';
       readonly runs: readonly ReviewRun[];
       /**
-       * True when the vendor list filled its window — older runs are
-       * unobserved, so run-ABSENCE conclusions (deadness) are unsupported;
-       * run PRESENCE (mapped live runs) remains evidence.
+       * True when a run may have gone unobserved: the vendor list filled its
+       * window (older runs unobserved), or a LIVE run's view could not be
+       * read. Run-ABSENCE conclusions (deadness) are then unsupported; run
+       * PRESENCE (mapped live runs) remains evidence.
        */
       readonly truncated?: boolean;
-      /** Human-readable truncation note for evidence lines. */
+      /**
+       * Human-readable gap note for evidence lines: the list truncation, the
+       * unreadable run views (with the first cause), or both.
+       */
       readonly note?: string;
     }
   | { readonly kind: 'unavailable'; readonly reason: string };
@@ -74,6 +79,14 @@ export interface PrStateReading {
   readonly expectedDeclared: boolean;
   /** The FULL paginated review harvest — never the latestReviews pointer. */
   readonly reviews: readonly HarvestedReview[];
+  /**
+   * The second transport of a reviewer's reported result: an expected
+   * reviewer's completion comments, each read as a review bound to the one
+   * commit it names or refused by name (`completion-comments.ts`). The legs
+   * read both transports; a refusal is quoted in the verdict when that
+   * reviewer's leg is OWED or timed out.
+   */
+  readonly completionComments: CompletionCommentReading;
   readonly reviewRuns: ReviewRunsLeg;
 }
 
@@ -93,6 +106,7 @@ export const PR_VERDICT_STATES = [
   'ARMED-BEHIND-RED',
   'QUOTA-SKIPPED',
   'SETTLED-NO-REVIEW',
+  'UNCLASSIFIED-EVIDENCE',
   'MERGED',
   'CLOSED',
   'CONFLICT-DIRTY',

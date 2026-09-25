@@ -49,7 +49,7 @@ describe('computeReviewerLegs', () => {
       {
         reviewer: 'copilot-pull-request-reviewer',
         state: 'SATISFIED',
-        detail: 'review binds current tip',
+        detail: 'substantive review binds current tip',
       },
     ]);
   });
@@ -275,6 +275,71 @@ describe('computeReviewerLegs — explicit non-quota skip markers (r5 regression
     });
     expect(legs[0]?.state).toBe('SATISFIED');
     expect(legs[1]?.state).toBe('SKIPPED');
+  });
+});
+
+// Replying to a review thread through the API creates a review with an EMPTY
+// body under the replier's identity, so a pull request whose author has
+// dispositioned findings carries tip-bound empty reviews of its own. Such a
+// review says NOTHING — it is the reply's artefact, not a round — so it can
+// neither satisfy a leg (SATISFIED would assert a review that never happened)
+// nor mask the timeout arm. Recorded instances: #142's tip 92018c1f1 (seven
+// empties beside Copilot's markers, 2026-09-12) and #147's tip 15de4bc69
+// (seven, 2026-09-15). The empties are COUNTED in the detail rather than
+// dropped silently: a reader must see what the instrument discarded.
+describe('computeReviewerLegs — empty-bodied reviews (the thread-reply artefact)', () => {
+  it('a tip-bound landed review with an EMPTY body never satisfies a leg, and the detail counts the empties', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:56:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ body: '' }), review({ body: '   \n  ' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]?.state).toBe('OWED');
+    expect(legs[0]?.detail).toContain('2');
+    expect(legs[0]?.detail).toContain('empty');
+  });
+
+  it('a substantive review beside the empties still satisfies the leg, and the detail counts them', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ body: '' }), review({ body: 'Reviewed 2 of 2 files.' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:06:00Z',
+    });
+    expect(legs[0]?.state).toBe('SATISFIED');
+    expect(legs[0]?.detail).toContain('1 tip-bound empty-bodied review ignored');
+  });
+
+  it('a quota marker beside an empty still skips on quota, and the detail counts the empty', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      expectedReviewers: ['claude'],
+      reviews: [
+        review({ author: 'claude', body: '' }),
+        review({ author: 'claude', body: '⚠️ Code review skipped — overage spend limit reached.' }),
+      ],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]).toMatchObject({ state: 'SKIPPED', skipReason: 'quota' });
+    expect(legs[0]?.detail).toContain('1 tip-bound empty-bodied review ignored');
+  });
+
+  it('empties alone resolve via the timeout arm once the window elapses, never SATISFIED', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:40:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ body: '' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]).toMatchObject({ state: 'SKIPPED', skipReason: 'timeout' });
+    expect(legs[0]?.detail).toContain('empty');
   });
 });
 

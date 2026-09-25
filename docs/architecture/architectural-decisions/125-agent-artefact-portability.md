@@ -234,6 +234,8 @@ A thin wrapper contains ONLY:
 
 A thin wrapper MUST NOT contain substantive instructions, workflow steps, or logic that does not exist in the canonical source. The canonical content describes **what** to do; the wrapper describes **how** to invoke it on a specific platform.
 
+An inline-prompt role's adapter (PDR-009: the role cannot read files, or its bounded turns belong to its task) carries its template's System prompt block verbatim in place of the pointer, and `pnpm subagents:check` compares the copy with the template.
+
 ### Owned-Skill Naming Convention
 
 Every canonical under `.agent/skills/` is a Practice-class skill, and its
@@ -731,8 +733,16 @@ platforms.
 ### 2026-07-24 — Local Copilot CLI adapter family
 
 The owner ratified local GitHub Copilot CLI as an equal first-class citizen of
-the repository Practice. The adapter family follows the existing
-canonical-first boundary:
+the repository Practice. Citizenship never varies by integration depth (owner,
+2026-07-24, verbatim: "Codex and Antigravity and Claude and Copilot are all
+first class citizens, although the integration into the agent tools and the
+Practice and rules and skills etc is more complete for some than for others"):
+a thinner-integrated platform's agent is never a lesser class of fleet member,
+work routes to any platform's agent on capability and remit, and where the
+tooling does not yet reach a platform the gap is named as integration debt —
+bridged by proxy through the Director, with remits recorded and the platform's
+native surface as its voice — never as a status tier. The adapter family
+follows the existing canonical-first boundary:
 
 - `.agent/` remains the source of doctrine and behaviour;
 - `.agents/skills/` remains the selected Copilot skill home under GitHub's

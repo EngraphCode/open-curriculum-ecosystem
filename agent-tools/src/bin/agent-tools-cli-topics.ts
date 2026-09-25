@@ -1,6 +1,9 @@
 import { runBranchTouchedFilesCli } from '../branch-touched-files/cli.js';
 import { runCodexExecCli } from '../codex-exec/cli.js';
-import { resolveCoordinationHome } from '../collaboration-state/coordination-home.js';
+import {
+  defaultRunGit,
+  resolveCoordinationHome,
+} from '../collaboration-state/coordination-home.js';
 import {
   parseCommitQueueArgs,
   resolveInvokingGitRoot,
@@ -12,6 +15,7 @@ import { repoRoot } from '../core/runtime.js';
 import { runMergeBotCli } from '../merge-bot/cli.js';
 import { runPrWatchCli } from '../pr-watch/cli.js';
 import { runPrStateCli } from '../pr-watch/state-cli.js';
+import { runReviewCostCli } from '../review-cost/cli.js';
 import { runSessionMetadataCli } from '../session-metadata/cli.js';
 import { runSpawnCli } from '../spawn/cli.js';
 import type { AgentToolsCliInput, AgentToolsCliResult } from './agent-tools-cli-types.js';
@@ -146,6 +150,16 @@ export async function runPrWatchTopic(
   return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
 }
 
+export function runReviewCostTopic(
+  _input: AgentToolsCliInput,
+  args: readonly string[],
+): AgentToolsCliResult {
+  const stdout = new OutputBuffer();
+  const stderr = new OutputBuffer();
+  const exitCode = runReviewCostCli({ args, stdout, stderr });
+  return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
+}
+
 export function runPrTopic(
   _input: AgentToolsCliInput,
   args: readonly string[],
@@ -167,9 +181,11 @@ export async function runMergeBotTopic(
   const buffer = new OutputBuffer();
   const stdout = input.stdout ?? buffer;
   const stderr = new OutputBuffer();
-  // The authority file lives at the INVOKING repo's root, not the cwd — a
-  // subdirectory invocation must still find it, and a cwd inside another
-  // repo must resolve THAT repo deliberately, never accidentally.
+  // The INVOKING repo's root is the cwd every git call runs in, and the
+  // start point from which the per-checkout authority file is resolved to
+  // the clone's primary checkout (resolve-identity.ts) — a subdirectory
+  // invocation must still find it, and a cwd inside another repo must
+  // resolve THAT repo deliberately, never accidentally.
   let root: string;
   try {
     root = input.repoRoot ?? repoRoot();
@@ -177,7 +193,14 @@ export async function runMergeBotTopic(
     const message = cause instanceof Error ? cause.message : String(cause);
     return { exitCode: 2, stdout: '', stderr: `merge-bot: ${message}\n` };
   }
-  const exitCode = await runMergeBotCli({ args, env: input.env, repoRoot: root, stdout, stderr });
+  const exitCode = await runMergeBotCli({
+    args,
+    env: input.env,
+    repoRoot: root,
+    runGitImpl: defaultRunGit,
+    stdout,
+    stderr,
+  });
   return { exitCode, stdout: buffer.text(), stderr: stderr.text() };
 }
 

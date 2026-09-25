@@ -32,21 +32,71 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
+3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
+   memory surfaces, the class
+   [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
+   clause 4 names. At the DUE check, read the commits since the cut: a work product with its
+   own review contract (a report, a source change, a plan under active edit) belongs on its
+   own lane, and the Director routes a seat there at claim time. One found already on the
+   branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
+   PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
+   and carries the intake (a served document: records-class, verification point merge); a
+   source change is code-class and stays on the review-round state machine, no intake. It
+   expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
+   committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
+   took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
+   rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
+   large, the lifetime rule forced the next before the consolidation's own work could start,
+   and the last fold's whole content was records about the fold before it (twenty-three
+   findings, all true). A consolidation's doctrine edits are a work product with their own
+   review contract.
 
 ## Ceremony
 
 3. Commit by explicit pathspec (`stage-by-explicit-pathspec`);
    lowercase-start subjects (commitlint).
 4. `git fetch origin main`, then merge `origin/main` INTO the branch.
+   Resolve the ref to a full sha in the same shell call as the merge, merge
+   that sha, and write the merge message AFTER resolving, from
+   `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
+   seat fetches, so a message written from an earlier reading names the wrong
+   tip and the wrong content (two seats made this slip on one day, 2026-09-20;
+   one merge message named #157 while the merge also carried #158).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
    files against main) before pushing.
+   The napkin resolves as a union of both sides' blocks in time order — unless
+   the target branch's napkin was ROTATED since the snapshot, in which case keep
+   the rotated file and run the semantic-merge skill's archive-coverage check
+   (its step 10): diff every incoming block heading against the rotated napkin
+   AND the rotation archive, content-grep before declaring a gap, and carry every
+   genuinely absent block under a dated union note. Never filter by timestamp
+   alone: the rotation's watermark commit is where to start looking, not the
+   test, since a block authored on a third branch before the watermark and
+   merged after it would be lost (2026-09-07). Two instrument defects caught at the
+   2026-09-07 fold: a time key that failed on a heading written "16:xxZ" and
+   sorted that block last (a tolerant key cures it), and a dropped blank line at
+   one block joint that the markdownlint hook refused (MD032/MD022) — read the
+   printed order before committing. Continuity records are edited on the primary
+   by every seat while the fold snapshots them: each later edit re-dirties the
+   primary, and the post-merge fast-forward of the primary succeeds only when its
+   record files are byte-identical to the branch's blobs (`git cat-file` plus
+   `cmp`; a DIFFERS line before the fast-forward is the tell), so the closing seat
+   commits the continuity records LAST and mirrors any later edit by hand — two
+   folds converged that way on 2026-09-06. A settings file the harness rewrites is
+   held out of the sweep until its contract is verified or the owner rules on it;
+   each hold is its own — a later harness rewrite is a new hold, never a
+   continuation of an earlier one — and the hold's outcome (verified, or ruled and
+   landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
 6. Open the fold PR under BOT identity (mint per merge-bot discipline).
    The body carries the **product-gravity line** (rule Action 3):
    `moved for teachers: … / moved for the Practice: …` — honest, no
-   quota, drift made glanceable.
+   quota, drift made glanceable. The description uses the template's §Scope
+   with the records-class intake declared
+   ([`pr-lifecycle`](../change-custody/pr-lifecycle/SKILL-CANONICAL.md) §Phase 2);
+   cures batch into the declared settlement pushes, never one push per finding.
 7. Arm a settle watch (Monitor) whose filter is loud on EVERY terminal
    state (`silence-is-never-liveness`). Full condition = the four
    required checks BY NAME (CodeQL, SonarCloud Code Analysis,
@@ -85,9 +135,19 @@ resides on the coordination branch).
    drift).
 10. **Refresh every branch-labelled surface**: stop and re-arm the
     heartbeat loop with the new `--branch` label; append the fold entry
-    (with the same product-gravity line) to the Director seated block;
-    broadcast the rotation on the canonical comms stream so every seat
-    re-homes.
+    (with the same product-gravity line) to the Director seated block AND
+    as a dated tenure entry on the tracked estate-coordination thread
+    record — the pickup path for any checkout, since the machine-local
+    record is finer grain a successor elsewhere cannot read (a reviewer
+    found the pickup map unreachable when the journal had stopped two days
+    earlier, 2026-09-08); broadcast the rotation on the canonical comms
+    stream so every seat re-homes. A fold entry is a few lines of state (the
+    merge sha, the successor's name, the gravity line), never a narrative of
+    the fold: every sentence written here is a claim the next fold's reviewers
+    price. A broadcast filled from a template by substitution is re-read whole
+    before posting, not only at its placeholders; a template keeps every
+    sentence that was true when it was written ("one review round" survived
+    into a fold that took three, caught before posting, 2026-09-17).
 
 ## Wrap-not-closeout
 

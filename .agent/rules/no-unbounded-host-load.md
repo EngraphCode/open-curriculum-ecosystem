@@ -55,22 +55,42 @@ again.**
    symptom — watcher drain-step deaths in a busy multi-agent window — is
    comms-volume cost, not host starvation.
 
-5. **Heavy-chain windows on a shared host: read-then-announce, two
-   consecutive readings, diagnose kill-collateral.** When peers serialise
-   heavy gate chains through announced windows (the one-heavy-chain-at-a-time
-   shape):
-   - The load read must COMPLETE before the window-OPEN broadcast is
-     composed — announce-after-read, never announce-then-read (a window-OPEN
-     posted in the same turn as the `uptime` call read back 26.5 on 8 cores
-     and needed a retraction).
+5. **Heavy chains on a shared host: read before starting, two
+   consecutive readings, diagnose kill-collateral.** When a seat starts a
+   heavy gate chain beside peer chains on one host (item 6 sets how many
+   may run at once):
+   - The load read must COMPLETE before the chain starts or any message
+     states the host's load — read-then-act, never act-then-read (a
+     window-OPEN posted in the same turn as the `uptime` call read back
+     26.5 on 8 cores and needed a retraction).
    - A single low reading rebounds under active peer chains: require TWO
-     consecutive sub-threshold readings ~30 s apart before opening a window
-     (three worked instances across two seats, 2026-07-07 — oscillation at
-     the bar is real).
+     consecutive sub-threshold readings ~30 s apart before starting the
+     chain (three worked instances across two seats, 2026-07-07 —
+     oscillation at the bar is real).
    - Killing a shared-host chain kills OTHER chains' gate legs: a directed
      `pkill -f "turbo run"` also killed an innocent in-flight pre-commit's
      turbo gate, producing a phantom red on a one-line commit. Diagnose
      kill-collateral before treating any post-kill red as real.
+
+6. **Concurrent full local gates are bounded at two, ceiling three — by a
+   mechanism, never a declaration.** Owner ruling (2026-09-07, verbatim):
+   "the local machine can only support two, max three simultaneous full
+   local gates because they are compute intensive. None of this is about
+   ceremony or declarations, it is ALL about engineering." The commit
+   queue exists to stop git operations colliding on one index, which
+   separate worktrees do not need; the scarce resource its estate-wide
+   FIFO was accidentally protecting is the host's capacity for concurrent
+   full gates (four refusals and a sixteen-minute stall across three
+   worktrees, 2026-09-06). The bound belongs at the gate's spawn path — a
+   host-wide semaphore the full local gate acquires, limit 2, hard ceiling
+   3, with a test — never a comms announcement, a claim role, or a
+   declared window. Owner ruling (2026-09-20, verbatim): "two parallel
+   gate runs are fine as long as they are in different work trees". So
+   seats on one host run their gates side by side, each in its own
+   worktree, up to this item's bound; inside one worktree gate runs are
+   sequential. The general move: when a coordination mechanism
+   serialises the wrong resource, ask which resource is actually scarce
+   and bound that.
 
 ## Worked Instance (founding)
 

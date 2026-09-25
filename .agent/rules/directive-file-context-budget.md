@@ -47,6 +47,29 @@ first; if the agent reaches the directive boundary at or above 30%
 context, finish the in-flight step, write a handoff, and queue
 the directive edits for a fresh session.
 
+The gate covers directive-file work as PDR-052 defines it: direct editing of a
+directive's content, restructuring its sections or cross-references, and
+authoring new sections (owner, 2026-09-20: "don't attempt to rewrite directives
+with low context"). Reading a directive as input to other work, citation
+updates and frontmatter-only edits are ordinary work at any figure; a directive
+does its job by being read.
+
+A context that carries other heavy work first (a branch fold with review rounds,
+a long raw-source read) reads the figure again after that work's last step and
+before its first directive edit; at or above the line, the edits belong to the
+next context. Worked instance (2026-09-17 to 2026-09-19): one seat read 13 % at
+open, declared "fold here, directives here", and stood at 51 % at the directive
+step with no edit made; the edits landed in a later context opened at 11 %.
+
+## Reading the Figure
+
+`pnpm --silent agent-tools session-metadata --vendor <vendor> --model <id>
+--session-id <id>` reads the latest assistant turn's occupancy from the
+session transcript, so the rule gates on a reading, not an estimate. The first
+reading after a compaction can be the compaction call's own usage line (69 %
+read, then 11 % one turn later, 2026-09-19); read it again after one more turn
+before acting on it.
+
 ## The 30% Threshold Is Load-Bearing
 
 30% is not a tidy number; it is the headroom required for:
@@ -76,7 +99,6 @@ rule.
 
 ## Doctrinal Anchors
 
-- per-user feedback memory: `feedback_30_percent_context_for_directives`
 - principles.md §Owner Direction Beats Plan (conflict surfacing)
 - pattern: `eager-rounding-off-on-partial-structures`
 - Owner-stated standing authority: *"this is always true"* (2026-05-05)

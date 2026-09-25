@@ -1,3 +1,10 @@
+---
+fitness_line_target: 220
+fitness_line_limit: 280
+fitness_char_limit: 16000
+fitness_line_length: 100
+---
+
 # Metacognition
 
 Read the following, and reflect on all of it.

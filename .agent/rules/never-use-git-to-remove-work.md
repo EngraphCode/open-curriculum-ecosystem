@@ -82,6 +82,39 @@ Three reasons, in increasing order of consequence:
 | "Delete the needless complexity" | `git checkout HEAD -- .` | `rm` the files that should not exist; `Edit` the files that should exist but in simpler form; capture the realisation in the napkin |
 | "I went down a wrong path; reset" | `git reset --hard HEAD` | `Edit` the files back toward where you want them; this is slower and that is the point — slow is the rate at which the realisation travels with the action |
 
+The `rm` in that table is scoped to YOUR OWN deliberate drafts of this
+session — files you created on purpose and now judge needless. It does not
+extend to an unintended or unexplained artefact: an errant tool probe's
+write, a stray output, a file in the wrong tree. Owner ruling (2026-07-15,
+after a session proposed `rm -rf` on a 1.4 MB artefact its own probe had
+written, framed as "my own accidental write, safe to remove"): **file
+deletion is only allowed in exceptional circumstances** — provenance does
+not confer deletion rights, and an agent tidying away the evidence of its
+own mistake is a completion-drive reflex, not hygiene. For any such
+artefact, surface it — exact path, size, provenance, why it is wrong — and
+ask for disposition; never `rm` it unprompted, even when it is untracked,
+seconds old and self-made. The artefact plus the report of how it got there
+IS the record; disposal is the owner's call.
+
+## Standard Git Only — No Improvised Mechanics
+
+The safety rules above never license inventing parallel mechanics around
+git. Owner, twice in one closing hour (2026-07-16/17): "I am not okay with
+untracked or unpushed content being 'secured', use standard git workflows"
+— and, offered a relocate-and-overwrite-from-main clearing sequence with an
+owner-run stash alternative, "I told you, that was not acceptable."
+Quarantine relocations, copy-then-overwrite dances and convention-only
+untracked files are exactly the non-standard state that made the 2026-07-16
+estate audit necessary. So: every file is either tracked and committed on a
+pushed branch or matched by an explicit ignore rule — no third state; never
+propose or perform a relocate, quarantine or copy-back sequence as a
+substitute for a git operation; the one sanctioned rolling coordination
+branch is the standard home for live coordination surfaces; and when a
+dirty tree blocks a standard operation, the options presented are standard
+git ones, with the genuinely risk-class step (clearing a dirty shared
+checkout) routed to the owner to run, surfaced once, never an agent
+workaround.
+
 ## A Block Is a Question, Never a Detour
 
 When the hook blocks — or would block — one of these commands, do NOT
@@ -117,7 +150,12 @@ is the thing that removes the check, so the check is unconditional.
 
 No local proof of safety — a byte-identical duplicate elsewhere, a clean
 `diff`, a verified ancestor relationship — licenses a risk-of-loss
-operation (`stash`, `checkout`, `reset`, or kin). The owner ruled this
+operation (`stash`, `checkout`, `reset`, or kin): a git-side discard of
+working-tree content. The class this section bans is the discard, whatever
+its proof. A forward write of content proven present elsewhere is a
+different act — it removes nothing that is not already conserved — and the
+standing grant below scopes exactly that act; it licenses no member of the
+banned class. The owner ruled this
 against a PROVEN-duplicate `git stash push` proposal (2026-07-15):
 *"no operations that might risk a loss of work; relaxing that discipline
 is what caused these problems in the first place."* The doctrine point is
@@ -130,9 +168,50 @@ never a self-served exception. This coheres with the no-escape-hatches
 principle (`principles.md` §First Principle): the impulse to construct a
 sanctioned bypass is itself the signal to examine.
 
+**Standing grant for proven paths (owner-ruled 2026-09-08, card answer
+verbatim: "Standing grant for proven paths") — a scoping of the class,
+never an exception to it (`rules-have-no-exceptions`).** A path whose content is
+PROVEN on the freshly fetched `origin/<base>` — identical there; landed
+there and since revised; or conserved in a tracked home — with the proof
+recorded per path in a surfaced table, MAY be cleared by the seat. The
+grant is one invariant, not a list of cases: **the working tree and the
+index for that path are brought to what HEAD records — content, type
+and mode — by forward writes only, and the clearing is proven by
+`git status --porcelain -- <path>` reading empty afterwards.** The
+forward writes are: content from `git show HEAD:<path>` written to a NEW
+file beside the path and renamed over it — for a path that is a regular
+file and not a symlink (`! test -L <path> && test -f <path>`), allocate a
+fresh sibling in the same directory with `mktemp "$(dirname <path>)/.proven.XXXXXX"`,
+write `git show HEAD:<path>` into it, then `mv` it over the path (never a
+fixed sibling name, which a redirect would truncate if a file already
+sat there) — never a redirect into the existing path, which writes
+through its inode and overwrites any second hard link inside or outside
+the worktree while the status still reads empty; type and mode from
+`git ls-tree HEAD -- <path>` (a symlink
+recreated with `ln -sfn` to HEAD's target, never written through; the
+executable bit set or cleared with `chmod` to the recorded `100755` or
+`100644`); the index brought to match with `git add <path>` (the single-path
+form; `-A`, `--all` and `.` stay blocked); a path HEAD does not hold — a
+staged addition or an untracked file — dropped from the index with
+`git rm --cached <path>` where staged and MOVED to the session scratchpad,
+never deleted in place. Any path the forward writes do not bring to an
+empty status — a type change the seat would have to write through, a
+state this paragraph does not name — is SURFACED with its proof, never
+improvised. The proof is the licence and it is per path: one unproven
+path keeps the whole worktree outside the grant, and the blocked command
+forms (`restore`, `checkout --`, `reset`, `stash drop`, `clean`) stay
+blocked with the hook policy unchanged — the grant is a write of proven
+content, never a git-side discard. The grant exists so that a worktree
+whose every dirty path is already conserved can be retired by the seat
+under `worktree-hygiene` §6 without a per-instance ask; anything short of
+a recorded per-path proof falls back to the absolute clause above.
+
 ## Exceptions
 
-There are none for working-tree edits. Once a change is committed, the
+There are none for working-tree edits: the standing grant for proven paths
+above is a scoping of the banned class (a discard), not an exception to it —
+a forward write of proven content is outside the class by construction.
+Once a change is committed, the
 normal git tools (revert, reset on a private branch you own) become
 available as forward-going operations because they create new commits
 that record the change. Those are not in scope of this rule.

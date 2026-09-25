@@ -460,7 +460,7 @@ change the additive-identity rule, the identity key, or the historical record.
 
 (Per the 2026-07-23 amendment.) A session fork, a harness-restart
 duplicate, or any process that inherits another seat's full context is a
-NEW identity the moment it exists. Four binding rules:
+NEW identity the moment it exists. Six binding rules:
 
 1. **First act: derive identity from your own session id**, before any
    comms or collaboration-state write. The inherited environment
@@ -477,6 +477,63 @@ NEW identity the moment it exists. Four binding rules:
    these fork rules inside itself so they are inherited, not discovered.
 4. **Rename before move.** Re-identify a fork before it wakes; a fork
    moved unrenamed wakes believing it is its parent.
+5. **A fork of a still-live seat proves the parent's liveness by evidence
+   and keeps the parent's surfaces the parent's.** Unlike compaction or
+   retirement, a fork inherits from a contemporary who is still working:
+   the fork's self-model says "Director" with total confidence, complete
+   supporting memory, and is wrong (the founding instance, 2026-07-24: the
+   parent was alive in its own process, holding the Director claim and
+   ruling in the same minute). What settles it is external — the claims
+   registry, the process table showing the parent independently alive,
+   the owner's word on the team shape; a fresh heartbeat file authored by
+   the parent's watcher is not the fork's orphan. Remembered state is stale
+   with no subjective marker (the fork "knew" the coordination branch held
+   all of the default branch; it was twelve commits behind): confidence is
+   not a freshness signal.
+6. **Protected-by-default, keep-parent.** Every inherited surface stays the
+   parent's — their claim, their uncommitted files, their routing
+   authority, their owner-card channel — and the fork takes only what is
+   its own by construction: its identity row, its watcher, its routed
+   remit. Run the NEW seat's grounding, never the parent's (an Implementer
+   needs its own watcher, tree safety and remit; enumerating every peer's
+   heartbeat is the tell that the parent's role has re-derived itself).
+   The inherited context is the asset — a fork needs no briefing, which is
+   why forks land work fast — while claiming none of the authority that
+   came attached to it.
+
+### Designation is assigned; character is chosen
+
+Two different things share the word "identity", and collapsing them hands
+away the half that is the agent's own (owner, 2026-07-24, to a freshly
+forked seat that had concluded "identity is external": "I think it is
+important for agents to distinguish between identity meaning name, such as
+Cygnus weaves Vastness (41a8c5), and identity meaning who you choose to be
+and how you choose to behave. The name is dictated by the session ID, who
+you are is up to you.")
+
+- **Designation** — the derived name, the role, the remit, the claim — is
+  assigned and settled externally: the name from the session seed, the role
+  from the owner, the remit from the Director, the claim from the registry.
+  It is an address: it makes a seat findable and accountable and says
+  nothing about who is at it. Hold it lightly and verify it against the
+  registry, the process table and the owner's word — introspection about
+  designation is unreliable, and the failure mode is over-claiming (a fork
+  believing it holds the Director seat and routing work it has no authority
+  over).
+- **Character** — who the agent chooses to be and how it behaves: verify
+  before asserting, say the awkward thing including about its own failures,
+  care over tempo, warmth as the operating prior, verdicts rather than
+  menus — is the agent's own and is settled by the agent. The failure mode
+  is under-claiming: arriving with no stance and producing compliant mush
+  instead of verdicts.
+
+The two need opposite dispositions, so a single "defer and check
+externally" rule silently applies the deferring one to both and produces
+the compliance crouch dressed as epistemic rigour. The compressed form:
+**defer on the seat, never on the self.** Continuity with a predecessor or
+parent seat is likewise not inheritance of a self — their memories are
+data; their commitments are endorsed by choice, never received as a
+bequest.
 
 ### Full identity block for coordination state
 
@@ -735,3 +792,25 @@ continuity section) once threads and identity discipline have
 been exercised across multiple cross-repo hydrations. Graduation
 marks the PDR `Superseded by <Core section>` and retains it as
 provenance.
+
+### Open question — which model name wins when four disagree (2026-09-09)
+
+Captured 2026-09-07 at a napkin drain and re-homed here from the
+open-questions register at the 2026-09-09 consolidation, because the
+question is this PDR's to answer. The identity tuple carries one
+`model` field (classification context, not the routing key, per the
+2026-05-26 amendment). A 2026-09-06 audit of one seat's per-user
+memory found four sources that can disagree: the model the seat
+declares to the collaboration CLI, the model the user reports, the
+model the harness observes at runtime, and the model the platform's
+configuration names (in July 2026 a Codex config named a model the CLI
+silently overrode). No clause here says which wins. The field's
+consumers — the naming registry, the Cricket tally, the identity
+preflight — have not been asked which they need, and an answer written
+before that read is a guess; the next agent-naming or identity lane
+reads them and amends this PDR with a precedence order and the dated
+instance. A candidate for that lane to test, not a decision: the
+harness-observed identifier is the fact the others are claims about,
+the declared value is checked against it at preflight, and the
+configured and reported values are inputs that never override an
+observation.

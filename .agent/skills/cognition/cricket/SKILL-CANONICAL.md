@@ -18,6 +18,14 @@ lens on METHOD or EVIDENCE PROVENANCE: three ON-TRACK verdicts spanned a window 
 every owner correction concerned which tool was used and where the evidence had come from
 (2026-09-02) — point that scrutiny at reviewers and first-hand reads, never at the panel.
 
+Every seat returns two verdicts: one on the work inside the frame (ON-TRACK, DRIFTING or
+WRONG-PRIORITY) and one on the frame itself (SOUND, NARROWED or CONTRADICTED). A frame the
+invoker writes carries the invoker's model of the goal, and a panel that judges only inside
+it cannot see a goal read in the wrong direction (owner word, 2026-09-24: "Crickets judge in the frame provided, we need them to also judge the frame itself";
+worked instance the same day: a seat's eight-leg suites every forty-five minutes returned 19
+ON-TRACK of 24 while it worked one direction of a two-way goal, and every DRIFTING reordered
+work inside the seat's own frame).
+
 Typing `$oak-cricket` asks the current seat to run the whole panel for its platform. The invoker
 builds the frame from live context and starts immediately; missing information is labelled
 `MISSING`, not silently invented.
@@ -28,7 +36,8 @@ The standing active-seat trigger is a real cycle or action boundary. Run both st
 
 - **normal** — judge the supplied frame directly;
 - **adversarial** — try to refute that the current work is the right priority, then concede
-  `ON-TRACK` if the refutation fails.
+  `ON-TRACK` if the refutation fails; likewise try to refute that the frame carries its
+  sources, then concede `SOUND`.
 
 Between owner interactions, use event-driven boundaries rather than a bare timer. Also call the
 panel on demand when:
@@ -96,12 +105,22 @@ record Cursor runs as template-adapter evidence, not model-plus-effort experimen
 
 Supply every role with the same six fields:
 
-1. **OBJECTIVE FRAME** — the controlling objective and its source.
+1. **OBJECTIVE FRAME** — the controlling objective, in two labelled blocks: `SOURCES:`,
+   the owner's latest words on it and the governing plan node's todo lines, quoted verbatim
+   with the file and commit they were read at, with a todo's status only where a source
+   states it, attributed to that source (a plan node stores no execution state); and
+   `READING:`, the invoker's reading of them (the goal; one measure per direction or part of
+   the goal, each with its method line; each owner word mapped to its owning todo, status
+   and receiver; the order, the holds, the status it acts on). The work verdict judges
+   against `READING:`; the frame verdict judges `READING:` against `SOURCES:`, so the
+   invoker never paraphrases a source.
 2. **CRITICAL-PATH OWNER** — the seat or person driving it and their last known status.
 3. **INTENT** — what the invoker believes it is doing.
 4. **RECENT ACTIONS** — the last few concrete actions.
 5. **NEXT** — the next planned action or actions.
-6. **STANCE** — `normal` or `adversarial`.
+6. **STANCE** — `normal` or `adversarial`, written into each dispatch prompt. A frame file that
+   the dispatches share carries fields 1 to 5 and no stance slot, so no role reads an unfilled
+   placeholder.
 
 Quote forcing facts. Give owner rulings their author, date, and event id when available. Put the
 verification method beside any load-bearing conclusion. Keep `ABSORBED` and `ROUTED-AWAY`
@@ -117,6 +136,15 @@ On Claude, run the four registered Cricket roles as a panel:
    changed.
 4. Collect all eight returns. A missing return is `UNDELIVERED`; do not replace it with a
    generic agent or a differently pinned role.
+
+Label every dispatch and every tally row by the dual scale, so a reader sees that effort climbs
+as model power descends (owner ruling 2026-09-13): `Cricket judgement: highest power, low
+effort, <stance> frame` (fable), `high power, medium effort` (opus), `mid power, high effort`
+(sonnet), and `Cricket procedure: lowest power, xhigh effort, compiled procedure, <stance>
+frame` (haiku). The labelling was first written in the jimcresswell.net Practice's
+[cricket skill](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/skills/cognition/cricket/SKILL-CANONICAL.md),
+where the owner gave the ruling, and came here through the Practice Box exchange of
+2026-09-24 unchanged.
 
 ## Codex dispatch
 
@@ -135,6 +163,11 @@ On Codex, root plus the three Cricket roles fills the four-seat concurrency limi
    `STANCE: adversarial` changed.
 4. Collect all six returns. A missing return is `UNDELIVERED`; do not re-adjudicate the same
    frame through a generic fallback.
+
+Labels follow the same dual scale with Codex's three seats: `Cricket judgement: highest
+power, low effort, <stance> frame` (Sol), `mid power, medium effort` (Terra), and `Cricket
+procedure: lowest power, xhigh effort, compiled procedure, <stance> frame` (Luna); there is no
+high-effort seat to label.
 
 After role definitions change, a fresh trusted-project Codex session is the reload boundary.
 If Luna/xhigh is rejected despite the refreshed role appearing in the spawn schema, record a
@@ -155,10 +188,13 @@ On Cursor, run the four stable template adapters as a panel:
 
 Cursor adapters preserve the methods and stable role names, but Cursor does not pin their model
 or effort. Record Cursor results as template-adapter evidence, not model-plus-effort experiment
-data.
+data, and label them by stable role with power and effort marked `unpinned`.
 
 ## Adjudicate the panel
 
+- Read the frame verdicts first. A NARROWED or CONTRADICTED frame verdict that quotes its
+  source phrase is acted on before any work verdict: an ON-TRACK inside a frame that dropped
+  part of its sources says nothing about the dropped part.
 - Compare substance, not severity labels. The compiled procedure and judgement prompt may encode
   the same concern differently.
 - Consensus is not truth, and dissent is not a command. Verify load-bearing claims against
@@ -170,5 +206,15 @@ data.
 - Finish with a concise synthesis: convergence, divergence, accepted redirection, rejected
   findings with reasons, and anything still ungrounded.
 
-For experiment or tally data, record the platform, model, effort, stable role, stance, and panel
-shape. Historical records retain their historical vendor-labelled role names.
+For experiment or tally data, record the platform, model, effort, stable role, stance, both verdicts, and panel
+shape, and — per the 2026-08-01 ruling — per-leg tokens and runtime. Historical records retain
+their historical vendor-labelled role names.
+
+## The procedure seat stays inside the read-only lens
+
+Every seat on the panel judges; none acts. The compiled-procedure seat in particular stays
+inside the read-only lens: no messaging peers, no drafting, no write-access requests. Both
+owner-invoked suites of 2026-09-03 recorded it stepping from judging into doing (messaging the
+PR B subagent; drafting the ADR and asking for write access) — a recurring instrument defect,
+so a run whose procedure seat acted is recorded in the tally's behaviour-note column and its
+verdict weighed accordingly.

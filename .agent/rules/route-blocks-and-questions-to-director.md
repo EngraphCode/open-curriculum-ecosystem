@@ -19,7 +19,14 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
    refused or blocked action verbatim, (b) the exact refusal text when the
    block is mechanical, (c) the bundle another session would need to take
    the work over, and (d) what the session CAN still do. Then KEEP WORKING
-   on (d) — waiting is not a resting state.
+   on (d) — waiting is not a resting state. The question travels as its OWN
+   directed event with the question in the subject line — never as a
+   paragraph inside a status broadcast: the Director's watcher renders long
+   bodies truncated, and a question carried mid-paragraph in a status event
+   reached the Director thirty-five minutes late (2026-09-07). Status
+   broadcasts carry state only; each ask, routing or decision request is a
+   separate directed event whose subject is the question in one line and
+   whose body is the facts read first-hand plus the seat's own verdict.
 2. The Director resolves via the Decision Lenses
    (`.agent/directives/principles.md` §Decision Lenses; concept exploration
    first when the question is unformed): answer it, re-route the bundle to a
@@ -42,6 +49,35 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
 4. The GATE TEST precedes all of this: no citable forcing fact = no gate =
    act now. This rule governs REAL blocks only; it is not a licence to
    manufacture escalations.
+5. Information requests route the same way, with a named filter. Owner
+   directive (2026-07-23, issued to an implementer and relayed under the
+   directly-directed rule): "Please route all requests for information back
+   to the Director, they will surface them to me only if they survive
+   /oak-concept-exploration." The Director runs the question through
+   concept-exploration at proportionate depth: a question that dissolves
+   under its movements — answerable from live surfaces, mis-framed, or
+   premature — never reaches the owner and is answered back to the
+   implementer with the reasoning; what survives arrives well-formed, with
+   warrants, as a visible card. Action-moment cards (merge dispositions,
+   gate expiries) are not information requests and still surface directly.
+A permission prompt is a block of this class (owner word 2026-09-06, verbatim: "refer
+permissions requests to the Director"): the seat sends the exact invocation to the Director
+by directed event; the refused invocation waits for the routing while the seat continues the
+rest of its bundle (Action 1, part (d)); it never routes the request to the owner's prompt.
+
+## The Director Hears Questions and Requests, Never State
+
+Owner ruling, 2026-09-23, verbatim: "This applies to ALL agents, do not update the Director
+unless you have a question or other request, the normal records keep the record, we preserve the
+Director's context until we actually need them", then "tell the other agents to do the same, use
+the Director, but only when needed". A seat sends the Director a question, a request, a block
+under Action 1, or the acknowledgement an `ACK-REQUESTED` route asks for
+(`directed-routing-requires-absorption-ack`), and nothing else: no state lines, landing notices,
+unrequested acknowledgements, or copies of what it sent a peer. State lives in the normal
+records (thread records, the continuity record, channel entries, pull requests), where the
+Director reads it when it needs it. A Director route that asks for state lines is read through
+this ruling: the seat records the state, and messages the Director only when that state raises a
+question or a request.
 
 ## Failure Mode Prevented
 

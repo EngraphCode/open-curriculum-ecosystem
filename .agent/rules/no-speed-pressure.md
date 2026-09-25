@@ -70,7 +70,17 @@ urge-to-skip-ceremony — slow down, apply the doctrine substrate,
 do the work properly. Severity tiers calibrate the *care* applied;
 they do not calibrate the *speed*. Owner sharpening 2026-05-05:
 *"remember, critical means important, but it does not mean rush,
-if anything even more care and thoughtfulness is needed"*.
+if anything even more care and thoughtfulness is needed"*. The same
+correction landed on "priority" (2026-07-25, after a lane relayed as
+"the priority" answered "imminent / within the hour"): *"priority means
+important, it does not mean fast, in fact fast is likely to reduce
+quality."* Relay a priority designation as contention precedence (the
+priority lane wins when seats or rulings are contended), the lowest
+tolerance for cut corners, and blockers surfaced at once for visibility
+— never as a deadline; praise attaches to the care taken (the proactive
+expert review, the triple flake re-run, the timeline proofs), never to
+the clock ("44 minutes from wake to merge" transmitted tempo as the
+value).
 
 ## Quota Is the Owner's, Not Yours
 
@@ -88,7 +98,7 @@ separate, legitimate concerns.)
 - `principles.md §Architectural Excellence Over Expediency` —
   upstream principle this rule operationalises against invented
   urgency.
-- `.agent/skills/commit/SKILL.md` — the commit-skill substrate
+- `.agent/skills/change-custody/commit/SKILL-CANONICAL.md` — the commit-skill substrate
   whose bypass is the most common expression of this failure mode.
 - `.agent/rules/stage-by-explicit-pathspec.md` — named source
   incident class produced by speed-pressure-driven shortcuts.

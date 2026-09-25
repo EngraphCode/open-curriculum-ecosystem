@@ -7,17 +7,17 @@ overview: >-
   durably with traceable authority, the volatile handoff section reduced to one
   live pointer-biased block, Director journalling moved to a thread record, and
   the accretion generator structurally cured.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell (owner)
+ratified_date: 2026-09-08
+ratified_where: "PR #85 (2026-09-08), whose body quotes the owner's card answer verbatim: 'Ratify 22, 23 and 25; hold 21 and 24'"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-13
+last_updated: 2026-09-08
 ---
 
 # Director continuity-surface redesign

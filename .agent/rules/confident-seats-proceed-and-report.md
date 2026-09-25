@@ -17,14 +17,22 @@ ruling its own analysis already supported, re-pinging into a dead session.
 - **A wrong confident call is a capture, not a sin.** Blocking-by-default is the defect this
   rule removes; a reasoned proceed that gets redirected produced information. Capture it and
   move.
+- **Commits inside the claimed boundary are pre-authorised.** Owner standing grant
+  (2026-07-15, verbatim: "you have permission to commit — all agents ALL ALWAYS have
+  permission to commit"), given after a lane sat idle ~25 minutes awaiting per-commit word
+  that had come from a Director relay, not the owner; the idle time was the failure, not the
+  commit risk. Never hold a lane for per-commit authorisation. If the platform permission layer
+  refuses a commit action, surface it once and keep doing every commit-independent piece of
+  work meanwhile (drafts, briefs, verification prep) — blocked at one step never means blocked
+  entirely.
 
 ## The boundary (owner-confirmed 2026-07-27)
 
 The grant covers in-lane decisions: scope calls, review triage under the pr-lifecycle triage
 rule, base updates, sequencing within the seat's own claim, tooling choices. It does NOT cover:
 
-- **freeze-bound surfaces** (served surface, auth path, landing page — these take the Director
-  or owner word whoever executes);
+- **freeze-bound surfaces** (served surface, auth path — these take the Director or owner word
+  whoever executes);
 - **merge execution** at settled follows the standing merge doctrine, not this rule's grant.
   That doctrine (owner verbatim, 2026-07-26/29, superseding the earlier word/key-turn
   topology this bullet once recorded): a green and clean PR — CI passing, no unresolved
