@@ -95,3 +95,47 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
 - **Discarded, visibly**: "the ceremony's six refusals share one generator, a layer's idea of
   quiet". Forced; the refusals had four unrelated causes (a flag, a banner, a lagging
   heartbeat, a peer's staged merge), and the sentence was pretty before it was true.
+
+## 2026-09-25 ~15:38Z — the watcher twin's landing: a sweep run late, a staged prefix, a lone 403 (Swallow holds Drift, 516619)
+
+- **Mistake: the merge-base deletion sweep ran after the merge, not before.** pr-lifecycle says
+  "Run the merge-base deletion sweep before ANY merge", and the door prints "the pr-lifecycle
+  merge-base deletion sweep is NOT discharged by this command" — but it prints that line in the
+  same output that reports the merge. Read after the fact, it came too late to act on. The sweep
+  over `ec4ef1e55..d07e33df5` found every deleted line intended, so nothing was lost; the order
+  was wrong. Reflex to change: run the sweep when the legs settle, before starting the door, and
+  record its result in the landing event.
+- **Surprise: a staged file with a temp-directory prefix blocks every seat's commit on the
+  primary**, because the machine-local-paths validator reads tracked files, and a newly staged
+  file counts. The Gale pairing channel carried the prefix three times: twice in Gale's entries
+  and once in mine. That includes a line of mine quoting the prefix to explain the redaction.
+  Cure: replace the prefix with a placeholder, and describe the prefix in words.
+- **One observation, not a pattern: a `merge-bot push` refused with a 403** ("Permission ...
+  denied to el-graphael[bot]") at 15:10:05Z, before any hook ran. The branch had no ruleset, and
+  a fresh mint succeeded. The unchanged retry at 15:12:20Z pushed. Announced on comms (`72b9c0b5`)
+  so another seat that sees it knows one retry is the evidence so far.
+
+## 2026-09-25 ~15:40Z — the exchange seat's first hour: two refusals from the message check, one from the shell (Myrtle turns Canopy, bf4957)
+
+- **A body line that begins `word:` is a footer to the commit-message check.** Two messages
+  were refused with `footer must have leading blank line` (a warning, which the check counts as
+  a failure): one body line began `item: K4's diagnosis 2 cites`, another `contract: step 2
+  expected`. The check reads any body line starting with a bare token and a colon as a trailer.
+  The cure is a comma or semicolon in place of the colon, found each time by
+  `grep -n -E '^[A-Za-z-]+(: | #)'` over the message file before the commit. Two instances in
+  one hour, one seat; the first refusal (subject-case, a subject beginning with an upper-case
+  record name) makes three refusals on message form in one session.
+- **The shared-primary ceremony script is bash, not sh.** Launched under the system `sh`
+  (bash 3.2 in POSIX mode) it stopped at `mapfile: command not found` before any queue or git
+  act; relaunched under the Homebrew bash 5 it ran whole. The script's shebang says bash; the
+  launch line must say it too when the script is run by path.
+- **A worktree cut from engraph needs `CI=true pnpm install --frozen-lockfile` before its first
+  commit** (the lane skill's F-26 note held for three worktrees today); the install brought
+  `agent-tools/dist` with it, so no separate build was needed for the commit gate.
+- **PDR-142 in practice, four times in one hour.** Core record by bytes (PDR-009, one blob in
+  both estates after PR 213); a joint set by three-way merge with four hand-merged hunks, one
+  bullet kept in this estate's words for a repo-local path (K4, d6744ed6f); a concept note's
+  hunks under a Director reading (C2, PR 215); a shared skill de-leaked to a concept name with
+  the mechanism moved into the estate's own rule (J14). A donor citation to a section this
+  estate holds under another heading was left as the donor's bytes and named as a cure for the
+  intake's local list, not edited at receipt.

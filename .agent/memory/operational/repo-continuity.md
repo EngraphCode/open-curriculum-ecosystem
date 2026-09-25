@@ -308,11 +308,22 @@ contract, its §Recount run at 14:58Z and matching.
   worktree `oce-wt-pdr-009-joint-cure`, draft PR #213. It merges behind the Director's
   slot order of 15:02Z (PR 212, the watcher twin, the fold 187, PR 211; no lane syncs to engraph
   while another holds the slot). The landed receipt on the stream closes the row.
+- **Landed on lane branches since (15:2xZ to 15:4xZ):** `d6744ed6f` on `docs/intake-test-doctrine`
+  takes K4's seven non-directive files (three clean, four hand-merged; one checklist bullet kept
+  in this estate's words for its E2E path; K4's citation of a testing-patterns section this
+  estate holds under another heading is a named cure for the intake's local list, not an edit).
+  Draft PR 215 (`docs/exchange-c2-arc-hunks`, worktree `oce-wt-exchange-c2`) is batch one's PR
+  C2, the three ARC hunks under the Director's reading A. Draft PR #216 (`docs/exchange-j14-lane-skill-leaks`,
+  worktree `oce-wt-exchange-j14`) is batch five's J14: the lane skill names the committer
+  identity rule, the id derivation moves into the bot-identity rule, step 3 installs the
+  browser, adapters regenerated. Each merges at its slot after the fold; each gets its
+  integrated receipt to the second estate's seat at the merge. Claims 9549aec5 (PDR-009),
+  ee17a29e (C2), 7d380d17 and 4d955339 (J14) are this seat's.
 - **Next:** joint set K4 merged in the second estate at 15:01Z (its merge c523ba81; Siren's
   event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
   those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
   (the Director's ruling of 15:04Z: PDR-052's 30 % floor is a deferral, never a stop), the seven
-  other files and Marten's local cure list (his 2026-09-24 record) proceed. Then Marten's
+  other files are taken (above) and Marten's local cure list (his 2026-09-24 record) proceeds. Then Marten's
   proposal order, recounted at each step: PR G, J2 (ask the owner A3 first), J3, C7, PR 205's
   follow-ups, batches three and five, batch four's J2 and J3 receipts, the seed branch. Inbound
   and waited for: the trigger-amendment twin, batch six, the F-200 to F-207 twins, the Cricket
