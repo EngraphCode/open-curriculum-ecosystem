@@ -63,49 +63,74 @@ second copy of its substance.
 The owner's requirement (2026-09-25): "I absolutely need all seats to be able
 to push without me". Workspace-write keeps `.git` read-only inside every
 writable root, and in a linked worktree the git dir sits outside every
-writable root, so no git write succeeds inside the sandbox. Making `.git`
-writable would let sandboxed code plant hooks that later run outside it, so
-the config adds no writable root for it.
+writable root, so no git write succeeds inside the sandbox. A writable `.git`
+would let any sandboxed command rewrite refs, history and git config for every
+later git command, so the config adds no writable root for it.
 
-Instead, `rules/seat-landing.rules` allows the landing commands outright:
-`pnpm agent-tools merge-bot push`, `git add`, `git commit`, `git fetch`,
-`git merge`, `git worktree add` and `gh pr create`. It forbids raw
-`git push`. An allowed command skips approval and runs outside the sandbox,
-the posture a Claude seat's shell already has; the Director ruled it parity
-on 2026-09-25. Everything else keeps the sandbox and the approval flow.
+Instead, `rules/seat-landing.rules` allows the landing commands outright, each
+as its narrowest prefix:
+
+- `pnpm agent-tools merge-bot push`;
+- `git add`, `git commit`, `git fetch origin` and `git worktree add`;
+- `git merge --no-edit origin/HEAD`, the sync with origin's default branch;
+- `gh pr create --head`, which stops gh pushing the branch itself.
+
+It forbids raw `git push`, `git commit --amend`, `--no-verify` or `-n`, and
+`git add -A`, `--all` or `.`. The rules match bare program names only
+(`host_executable` with no paths), so `./git` or any other path to a binary of
+that name matches nothing. An allowed command skips approval and runs outside
+the sandbox; everything else keeps the sandbox and the approval flow.
+
+The residual: an allowed command can run code written inside the sandbox. The
+hooks run from `.husky/` in the working tree, `pnpm agent-tools` runs the root
+`package.json` script and the built `agent-tools/dist`, and a merge brings in
+whatever `.husky/` changes the merged branch carries. The Director ruled this
+parity with a Claude seat's shell on 2026-09-25. The boundary against a push to
+the default branch is GitHub's ruleset, which the merge bot does not bypass
+(see [the merge bot](../docs/engineering/merge-bot.md)); the bot's own refusals
+are the first line.
 
 Run each landing command as one plain command, or Codex does not match it:
 
-- use the tool's working directory, not `cd … &&`;
+- use the tool's working directory, never `cd … &&` or `git -C …`;
 - pass a commit message with `-F <file>`;
 - take `GH_TOKEN` from the environment, never as an inline prefix;
 - write no `$`, redirection, heredoc or subshell into the command.
 
-The rules cannot carry everything, so this doctrine stands beside them:
+A forbidden flag matches only in the position right after the subcommand, as
+in a Claude seat's deny list, so `git commit -F m --no-verify` is still
+allowed by prefix. The doctrine stands beside the rules:
+[`no-verify-requires-fresh-authorisation`](../.agent/rules/no-verify-requires-fresh-authorisation.md),
+the [commit](../.agent/skills/change-custody/commit/SKILL-CANONICAL.md) and
+[pull request](../.agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md)
+workflows.
 
-- push only through the merge bot, which refuses force, `--no-verify`, unknown
-  flags and the default branch; never `git -C … push`;
-- never `git commit --no-verify`, and never amend a pushed commit: both match
-  the commit rule's prefix;
-- never commit a prohibited payload, such as a captured rollout.
+`gh` acts as the signed-in human when `GH_TOKEN` is unset. The merge bot's
+token is scoped to this one repository, so `--repo` reaches no other.
 
 `approvals_reviewer` is each seat's own choice in its user config, and the
-repository sets none. The landing commands bypass it because they are allowed
-outright, which is why a seat using `auto_review` is not refused a push; the
-reviewer still sees every other escalation. Codex reads rules at session
-start, so restart a seat after the rules change.
+repository sets none. The landing commands bypass the reviewer because they are
+allowed outright, which is why a seat using `auto_review` is not refused a
+push. The exception is a turn in which a granted permission request switched
+on strict auto-review. The reviewer still sees every other escalation.
+
+Codex reads rules from the checkout the seat launched in, at session start. A
+seat launched from a checkout without this file gets no rules: sync that
+checkout, then restart the seat.
 
 ## Machine-local seat setup
 
-These stay in `$CODEX_HOME/config.toml` and never in the repository:
+These are machine-local and never in the repository:
 
-- the trust entry, `[projects."<main checkout path>"] trust_level = "trusted"`;
-  one entry covers every linked worktree, and without it no project config,
-  hook or rule loads;
+- the trust entry, `[projects."<main checkout path>"] trust_level = "trusted"`
+  in `$CODEX_HOME/config.toml`; one entry covers every linked worktree, and
+  without it no project config, hook or rule loads;
 - the SessionStart hook's trusted hash, set through `/hooks`;
-- `approvals_reviewer` and the launch mode: attended seats take the default;
-  an unattended seat launches with `-a never`, which the sandbox still bounds;
-- tokens, such as the merge bot's app key and `GH_TOKEN`.
+- `approvals_reviewer` in `$CODEX_HOME/config.toml`;
+- the launch mode: attended seats take the default; an unattended seat
+  launches with `-a never`, and the sandbox bounds every command except the
+  landing commands;
+- tokens, such as the merge bot's app key and `GH_TOKEN`, from the environment.
 
 Codex appends each "always allow" approval to `$CODEX_HOME/rules/default.rules`.
 Check that file holds no `git push` allow. Never run `/import` in this
@@ -140,6 +165,8 @@ documentation.
 .codex/
 ├── config.toml           # Trusted-project policy, hooks, agents, and MCP
 ├── README.md             # This file
+├── rules/
+│   └── seat-landing.rules  # Exec-policy rules for the landing commands
 ├── hooks/
 │   └── practice-session-identity.mjs  # Thin SessionStart adapter
 └── agents/               # Thin per-role adapter TOMLs
