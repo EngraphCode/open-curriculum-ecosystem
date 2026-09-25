@@ -111,7 +111,7 @@ const value = unwrapOr(result, 0);
 - `unwrapErr<T, E>(result)` - Get error or throw (unwrap's inverse, for expected failures)
 - `unwrapOr<T, E>(result, defaultValue)` - Get value or default
 - `unwrapOrElse<T, E>(result, fn)` - Get value or compute default
-- `unwrapOrThrow<T, E>(result, toError)` - Get value or throw the error `toError` builds from the Err
+- `unwrapOrThrow<T>(result)` - Get value or throw the Err's own `Error` object unchanged (the Err payload must be an `Error`)
 
 ### Exhaustiveness
 
