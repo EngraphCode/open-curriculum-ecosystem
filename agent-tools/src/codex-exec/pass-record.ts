@@ -13,6 +13,8 @@ const bindingSchema = z.strictObject({
   executablePath: z.string().min(1),
   /** The envelope's digest when the probe passed: 64 lowercase hex characters. */
   envelopeDigest: z.string().regex(/^[0-9a-f]{64}$/),
+  /** The version of the probe's contract that judged the binding. */
+  probeContractVersion: z.number().int().positive(),
 });
 
 /** The exact shape of a pass record: the binding, plus what only the record carries. */
@@ -25,16 +27,17 @@ const passRecordSchema = bindingSchema.extend({
 
 /**
  * The machine-local record a passing probe writes: which Codex binary, on
- * which version, passed with which envelope, when, and the verbatim
- * evidence. The gate opens a dialogue only on a record matching the current
- * binding. It guards against drift, not attack: any process running as the
+ * which version, passed with which envelope, judged by which version of the
+ * probe's contract, when, and the verbatim evidence. The gate opens a
+ * dialogue only on a record matching the current binding and inside its age
+ * limit. It guards against drift, not attack: any process running as the
  * user can write it.
  */
 export type PassRecord = Readonly<z.infer<typeof passRecordSchema>>;
 
 /**
  * The binding a dialogue would run on now: the resolved binary's version and
- * real path, and the current envelope's digest.
+ * real path, the current envelope's digest, and the current probe contract.
  */
 export type Binding = Readonly<z.infer<typeof bindingSchema>>;
 
