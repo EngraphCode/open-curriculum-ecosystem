@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-24
+last_updated: 2026-09-25
 ---
 
 # The Codex dialogues on codex exec — an enforced call envelope, evidence that follows the runtime
@@ -604,7 +604,7 @@ review before and after execution.
        output; the rows on the turn path, with the refused-row failure; this node's edit.
      - Reviews: test-expert, focused; security-expert, focused, for the slug, the rows as the
        input to a later deletion, and the fail-closed append.
-  4. **1b-iii, the rollout reader,** a module of its own under
+  4. **1b-iii, the rollout reader. Landed as PR 190 (`45c838297`).** A module of its own under
      `agent-tools/src/codex-exec/rollout/`, owned by a Codex seat.
      - It reads the `turn_context` records, the tool-call output records and the
        `permission_profile`, over the rollout's lines, and fails closed on any shape it does not
