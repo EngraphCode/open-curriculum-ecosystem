@@ -3959,3 +3959,22 @@ commit SHA and the closing plan reference.
   scope-declared SKIPPED marker it honours as a review.
 - **Route**: a merge-bot candidate. The door is shared by both estates, so the cure is portable.
   One instance.
+
+### F-199 — the commit queue's `commit` command runs `git commit` without `--author`, so a ceremony commit on the primary is bot-authored
+
+- **Observed**: 2026-09-25 ~11:44Z (Myrtle turns Canopy, `bf4957`), commit `SHA:c34823b5d` on
+  the primary checkout, made by `commit-queue -- commit --intent-id … --message-file …` exactly
+  as the commit skill's move 3 prescribes. The landed commit's author is the bot, and so is its
+  committer. The bot-identity rule requires `--author="Jim Cresswell <…>"` on every commit
+  (author the owner's authority, committer the acting bot), and the skill's linked-worktree
+  path states the flag; the queue's commit command has no author option and passes none
+  (`agent-tools/src/commit-queue/`, no author in its git call). Three commits by another seat
+  on 2026-09-24/25 were bot-authored because the flag was forgotten by hand (the napkin's
+  2026-09-24 and 2026-09-25 entries); this one followed the documented primary-checkout
+  ceremony and could not have carried it.
+- **Expected**: the queue's commit command takes `--author`, so the ceremony the skill
+  prescribes produces the author and committer split the rule requires; until it does, the
+  skill's move 3 names the substitute (`verify-staged`, then
+  `git commit --author=… -F <message> -- <paths>`, then `complete`).
+- **Route**: a small agent-tools code cure, and one sentence in the commit skill's move 3. One
+  instance by the ceremony path; four bot-authored commits in two days across two seats.

@@ -461,6 +461,15 @@ direct CLI commands for inspection and recovery.
      --message-file "$MSGFILE"
    ```
 
+   The queue's `commit` command passes no `--author`, so a commit made through
+   it is bot-authored, against the author-and-committer split the
+   bot-identity rule requires (F-199, 2026-09-25: one such commit by the
+   documented ceremony). Until the command carries the flag, on the shared
+   primary run the same bookends by hand: `verify-staged --intent-id <id>
+   --commit-subject "<subject>"`, then
+   `git commit --author="<owner name> <owner noreply email>" -F "$MSGFILE" -- <paths>`,
+   then `complete --intent-id <id>`; the hooks stay the gate.
+
    The two verify-staged checks book-end the advisory orchestrator so
    tree-widening during the advisory pass is caught before history is
    written. Any failure between intent-load and successful `git
