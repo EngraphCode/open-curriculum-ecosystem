@@ -442,7 +442,8 @@ This agent reviews architecture. It does NOT:
 
 ## 4. Shared Components
 
-These are universal: copy the live files from `.agent/sub-agents/components/`.
+These are universal; the live files are under `.agent/sub-agents/components/` and
+each pointer below names one.
 
 ### `components/behaviours/subagent-identity.md`
 
@@ -472,29 +473,31 @@ One file per persona. Keep them short — the personality, not the process.
 
 ### `components/personas/barney.md`
 
-The live file is [`components/personas/barney.md`](../sub-agents/components/personas/barney.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is [`components/personas/barney.md`](../sub-agents/components/personas/barney.md); the four
+architecture-expert definitions generated from the template above direct the reviewer
+to read it, so a copy here would drift the day it changes.
 
 ### `components/personas/fred.md`
 
-The live file is [`components/personas/fred.md`](../sub-agents/components/personas/fred.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is [`components/personas/fred.md`](../sub-agents/components/personas/fred.md); the four
+architecture-expert definitions generated from the template above direct the reviewer
+to read it, so a copy here would drift the day it changes.
 
 ### `components/personas/betty.md`
 
-The live file is [`components/personas/betty.md`](../sub-agents/components/personas/betty.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is [`components/personas/betty.md`](../sub-agents/components/personas/betty.md); the four
+architecture-expert definitions generated from the template above direct the reviewer
+to read it, so a copy here would drift the day it changes.
 
 ### `components/personas/wilma.md`
 
-The live file is [`components/personas/wilma.md`](../sub-agents/components/personas/wilma.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is [`components/personas/wilma.md`](../sub-agents/components/personas/wilma.md); the four
+architecture-expert definitions generated from the template above direct the reviewer
+to read it, so a copy here would drift the day it changes.
 
 ---
 
 ## 6. Sub-Agent README
-
-Copy `.agent/sub-agents/README.md` to document the architecture.
 
 The live file is [`.agent/sub-agents/README.md`](../sub-agents/README.md): the
 layers, the dependency rules and the template consistency checklist.
