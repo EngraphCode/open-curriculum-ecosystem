@@ -25,6 +25,9 @@ describe('parseHandshake', () => {
     ['a carriage return', `${THREAD_ID}\r\n`],
     ['a session name', 'my-codex-session'],
     ['an option', `--thread=${THREAD_ID}`],
+    ['a NUL', `${THREAD_ID}\u0000`],
+    ['a fullwidth digit', `\uFF10${THREAD_ID.slice(1)}`],
+    ['a line separator', `${THREAD_ID}\u2028`],
   ])('refuses %s, so codex queue never looks the value up as a session name', (_name, content) => {
     expect(parseHandshake(content)).toStrictEqual({
       ok: false,

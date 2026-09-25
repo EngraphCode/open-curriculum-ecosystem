@@ -8,6 +8,7 @@
  *
  * @packageDocumentation
  */
+import { isLowercaseUuid } from '../core/lowercase-uuid.js';
 
 /** How long an unacknowledged notice holds the next one back. */
 export const WAKE_RELEASE_INTERVAL_MS = 10 * 60 * 1000;
@@ -27,10 +28,30 @@ export const WAKE_BACKOFF_BASE_MS = 30 * 1000;
 /** The longest wait after failed queue calls, however many come in a row. */
 export const WAKE_BACKOFF_CAP_MS = 10 * 60 * 1000;
 
+/**
+ * How far ahead of now an ack's time may be and still count, for clocks and
+ * file times that disagree by a moment. An ack dated later is ignored, so a
+ * file time set in the future cannot release every later notice.
+ */
+export const WAKE_ACK_SKEW_MS = 5 * 1000;
+
+/** The most event ids one line names; the rest are counted. */
+export const WAKE_LINE_MAX_IDS = 5;
+
 /** Why queueing has stopped until the seat acknowledges or the window rolls. */
 type WakeStopReason = 'unacknowledged' | 'budget';
 
-/** Why a queue call failed, in the companion's own terms. Never the call's output. */
+/**
+ * Why a queue call failed, in the companion's own terms, never the call's
+ * output:
+ * - `timeout`: the call ran past its deadline and was killed;
+ * - `exit-non-zero`: `codex queue` ran and exited non-zero;
+ * - `not-found`: no `codex` binary was found to run;
+ * - `spawn-failed`: the process could not be started.
+ *
+ * The first two may still have delivered the notice, so they count against
+ * the budget; the last two prove nothing was delivered.
+ */
 type QueueFailure = 'timeout' | 'exit-non-zero' | 'not-found' | 'spawn-failed';
 
 /**
@@ -77,8 +98,9 @@ type WakeStep =
 
 /**
  * Decide what a pass does with the events that wake the seat. An ack after
- * the latest notice clears the count of unacknowledged notices first, and
- * notices older than the budget window stop counting against it.
+ * the latest notice, and not dated after now, clears the count of
+ * unacknowledged notices first, and notices older than the budget window
+ * stop counting against it. Settle the pass with the state this returns.
  *
  * @param input - The state, the pass's waking events, the time now, and
  * when the seat last acknowledged a wake, if it has.
@@ -89,7 +111,7 @@ export function decideWake(input: {
   readonly now: number;
   readonly lastAckAt: number | undefined;
 }): { readonly decision: WakeDecision; readonly state: WakeState } {
-  const state = withinWindow(acknowledged(input.state, input.lastAckAt), input.now);
+  const state = withinWindow(acknowledged(input.state, input.lastAckAt, input.now), input.now);
   return { decision: decision(state, input.wake, input.now), state };
 }
 
@@ -122,18 +144,14 @@ function outstanding(state: WakeState, now: number): boolean {
   );
 }
 
-function acknowledged(state: WakeState, lastAckAt: number | undefined): WakeState {
+function acknowledged(state: WakeState, lastAckAt: number | undefined, now: number): WakeState {
   if (lastAckAt === undefined || state.lastQueuedAt === undefined) {
     return state;
   }
-  if (lastAckAt <= state.lastQueuedAt) {
+  if (lastAckAt <= state.lastQueuedAt || lastAckAt > now + WAKE_ACK_SKEW_MS) {
     return state;
   }
-  return {
-    ...state,
-    unacknowledged: 0,
-    stopped: state.stopped === 'unacknowledged' ? undefined : state.stopped,
-  };
+  return { ...state, unacknowledged: 0 };
 }
 
 function withinWindow(state: WakeState, now: number): WakeState {
@@ -184,10 +202,16 @@ export function settleWake(input: {
     return {
       lines: [
         `WAKE FAILED (${step.reason}, attempt ${state.failures + 1}) for ${named(wake)}. ` +
-          'No delivery is claimed; the wake is retried after its backoff.',
+          'No delivery is claimed; the wake is retried after its backoff. ' +
+          'Fallback: bounded foreground polling.',
       ],
       marked: [],
-      state: { ...state, failures: state.failures + 1, lastFailureAt: now },
+      state: {
+        ...state,
+        queuedAt: mayHaveDelivered(step.reason) ? [...state.queuedAt, now] : state.queuedAt,
+        failures: state.failures + 1,
+        lastFailureAt: now,
+      },
     };
   }
   if (step.kind === 'stop' && state.stopped !== step.reason) {
@@ -208,12 +232,19 @@ function stopLine(reason: WakeStopReason): string {
   return `WAKE STOPPED: ${cause}. Fallback: bounded foreground polling.`;
 }
 
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+/** A failed call that may still have queued the notice, which the budget must count. */
+function mayHaveDelivered(reason: QueueFailure): boolean {
+  return reason === 'timeout' || reason === 'exit-non-zero';
+}
 
 /**
- * Name the events for a line. An event id is peer-written text, so only an
- * id that is a UUID is named; any other is withheld.
+ * Name the events for a line: an event id is peer-written, so only a UUID is
+ * named. At most {@link WAKE_LINE_MAX_IDS} are named, and the rest counted.
  */
 function named(ids: readonly string[]): string {
-  return ids.map((id) => (UUID_PATTERN.test(id) ? id : '<an id that is not a UUID>')).join(', ');
+  const shown = ids
+    .slice(0, WAKE_LINE_MAX_IDS)
+    .map((id) => (isLowercaseUuid(id) ? id : '<an id that is not a UUID>'));
+  const rest = ids.length - shown.length;
+  return rest > 0 ? `${shown.join(', ')} and ${rest} more` : shown.join(', ');
 }

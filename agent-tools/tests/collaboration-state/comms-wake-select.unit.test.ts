@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { selectWakeEvents } from '../../src/collaboration-state/comms-wake-core';
+import { selectWakeEvents } from '../../src/collaboration-state/comms-wake-select';
 import {
   type CollaborationAgentId,
   type CommsEvent,
@@ -60,6 +60,7 @@ function narrative(
   addressing: {
     readonly addressedTo?: CollaborationAgentId;
     readonly audience?: readonly CollaborationAgentId[];
+    readonly tags?: readonly string[];
   } = {},
 ): NarrativeCommsEvent {
   return {
@@ -72,6 +73,7 @@ function narrative(
     body: 'a body',
     ...(addressing.addressedTo === undefined ? {} : { addressed_to: addressing.addressedTo }),
     ...(addressing.audience === undefined ? {} : { audience: addressing.audience }),
+    ...(addressing.tags === undefined ? {} : { tags: addressing.tags }),
   };
 }
 
@@ -123,6 +125,10 @@ describe('selectWakeEvents', () => {
     ['a lifecycle event', lifecycle('e-lifecycle', peer)],
     ['an event the seat sent itself', directed('e-self', seat, seat)],
     ['a directed heartbeat', directed('e-heartbeat', peer, seat, ['heartbeat'])],
+    [
+      'a heartbeat to an audience that includes the seat',
+      narrative('e-group-heartbeat', peer, { audience: [seat], tags: ['heartbeat'] }),
+    ],
   ])('never wakes the seat for %s', (_name, event) => {
     expect(selectWakeEvents([event], seat)).toStrictEqual({
       wake: [],
@@ -141,6 +147,14 @@ describe('selectWakeEvents', () => {
       wake: ['e-2', 'e-4'],
       never: ['e-1', 'e-3'],
     });
+  });
+
+  it('keeps a wake when another event borrows its id, so the borrowed id cannot cancel it', () => {
+    const events: readonly CommsEvent[] = [
+      directed('e-shared', peer, seat),
+      narrative('e-shared', peer),
+    ];
+    expect(selectWakeEvents(events, seat)).toStrictEqual({ wake: ['e-shared'], never: [] });
   });
 
   it('wakes for nothing in an empty batch', () => {
