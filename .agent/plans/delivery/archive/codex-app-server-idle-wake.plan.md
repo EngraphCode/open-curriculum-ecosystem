@@ -3,8 +3,7 @@ id: codex-app-server-idle-wake
 node_type: delivery
 name: "Codex native idle wake — one seat, host driven"
 overview: "Wake a Codex team seat from canonical comms through an atomic native Codex extension while it is idle, without another model seat or a perpetual model-side polling loop."
-status: superseded
-superseded_by: codex-queue-wake-bridge
+status: archived
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -14,10 +13,18 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-24
+last_updated: 2026-09-25
 ---
 
 # Codex native idle wake — one seat, host driven
+
+## Disposition (archived 2026-09-25)
+
+Abandoned as a sketch; it was never ratified. The owner ruled its core out on 2026-08-01
+("Pinned native extension: NO"). The ratified node `codex-queue-wake-bridge` (2026-09-24) now
+pursues the goal through the vendor's `codex queue` subcommand. An earlier edit (`0d31f7466`)
+marked this sketch `superseded`, but the plan schema allows that status only for a ratified node,
+so it is archived instead (PR 187 review, thread 4106252530).
 
 ## Owner rulings (2026-08-01, decision cards, Director session 52841f)
 
@@ -34,7 +41,7 @@ Both former owner gates are RULED, not expired:
    supported upstream surface exists or the wake need outgrows the
    working degraded paths (relay child + bounded foreground polling).
    The owner-commissioned successor exploration is
-   [`codex-upstream-idle-wake-contribution`](codex-upstream-idle-wake-contribution.plan.md)
+   [`codex-upstream-idle-wake-contribution`](../codex-upstream-idle-wake-contribution.plan.md)
    — the wake capability as a PR into the Codex codebase, including the
    Codex-native loop assessment; that plan's creation was the
    commissioned deliverable and further work from it needs fresh owner
