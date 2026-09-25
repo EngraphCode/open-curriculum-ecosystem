@@ -279,5 +279,6 @@ In the routing card
 ARC sits beside channel 4 (sidebars): it is operationally a standalone,
 rapid, file-backed sidebar. Use a decision thread / sidebar when the
 exchange must be durable and structured from the start; use ARC when
-latency and bandwidth dominate and the substance will be conserved at
+s2s cannot reach both seats or the transcript is itself the record,
+latency and bandwidth dominate, and the substance will be conserved at
 close.
