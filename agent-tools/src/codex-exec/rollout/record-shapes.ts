@@ -148,7 +148,13 @@ export interface RecordedThreadSettings {
   readonly workspaceRoots: readonly string[];
 }
 
-/** Detect the explicit output truncation markers observed in command output. */
+/**
+ * Detect the harness's explicit truncation markers: the unified-exec output
+ * cap's `... N bytes omitted ...`, which a `CommandExecution` item's
+ * `aggregated_output` carries (codex-cli 0.157.0), and the markers of the
+ * harness's model-facing truncation. A command output carrying any of them
+ * reads as inconclusive.
+ */
 export function hasTruncationMarker(value: string): boolean {
   return truncationMarker.test(value);
 }

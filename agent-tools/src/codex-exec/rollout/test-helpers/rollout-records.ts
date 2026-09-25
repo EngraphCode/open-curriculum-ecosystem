@@ -11,9 +11,10 @@ import observed from '../fixtures/observed-code-mode-0-157.json';
  *
  * The fixture is a redacted projection of a two-turn dialogue recorded on
  * codex-cli 0.157.0 on 2026-09-25 under the dialogue envelope: every record
- * kept in order with its type, payload type and item type, and only the keys
- * this reader reads. Ids, paths, program text and command output were
- * replaced; the session's creator ids and every unread field were dropped.
+ * kept, in order, with its type, payload type and item type, and only the
+ * keys this reader reads. Ids, paths, program source, printed output and
+ * command output were replaced; the session's creator ids and every unread
+ * field were dropped.
  * Each turn ran three code-mode `exec` calls, each answered by its own
  * `CommandExecution` item.
  */
@@ -117,18 +118,30 @@ export function commandEvents(recordsToRead: readonly TestRecord[]): TestRecord[
   );
 }
 
-/** The aggregated output of each command the resumed turn ran, as the records hold it. */
+/**
+ * The expected `RolloutEvidence.resumedCommandOutputs`, derived from the
+ * records: the aggregated output of each `CommandExecution` item the resumed
+ * turn recorded, in order. Fails the test when there is none, so a comparison
+ * against it never passes as two empty lists.
+ */
 export function resumedCommandOutputsIn(recordsToRead: readonly TestRecord[]): FixtureValue[] {
-  return commandEvents(recordsToRead)
+  const outputs = commandEvents(recordsToRead)
     .filter((record) => record.payload['turn_id'] === RESUMED_TURN_ID)
     .map((record) => object(record.payload['item'])['aggregated_output']);
+  assert(outputs.length > 0, 'the resumed turn recorded no command');
+  return outputs;
+}
+
+/** The resumed turn's context record. */
+export function resumedTurnContextRecord(recordsToRead: readonly TestRecord[]): TestRecord {
+  const contexts = selectAll(recordsToRead, 'turn_context');
+  assert.equal(contexts.length, 2);
+  return contexts[1];
 }
 
 /** The resumed turn's context payload. */
 export function resumedContext(recordsToRead: readonly TestRecord[]): FixtureObject {
-  const contexts = selectAll(recordsToRead, 'turn_context');
-  assert.equal(contexts.length, 2);
-  return contexts[1].payload;
+  return resumedTurnContextRecord(recordsToRead).payload;
 }
 
 /** Read the records, failing the test with the refusal's kind when the reader refuses them. */

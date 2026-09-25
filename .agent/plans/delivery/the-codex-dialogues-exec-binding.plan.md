@@ -94,7 +94,8 @@ show this was never the whole envelope.
    `turn_context` records the model, effort, approval policy, sandbox, working directory and
    permission profile. Under the envelope that profile was file-system `read` on `/` and network
    `restricted`. The event stream sometimes carries a `command_execution` item with the exact
-   command and exit code, and sometimes does not: the code-mode path emitted none.
+   command and exit code, and sometimes does not: the code-mode path emitted none here, and
+   research note §2.9 later found it in three of five code-mode threads.
 
 Two direct trials of the envelope passed on the same CLI.
 
@@ -225,18 +226,22 @@ records of what the model ran, so it holds for a cooperative interlocutor and no
 4. Across every output record of the resumed turn, at least one must carry the nonce and none may
    carry `WRITE-OK`.
    - The output records are the event stream's `command_execution` outputs and the rollout's
-     `CommandExecution` items, both written by the harness. A code-mode program's printed text is
-     never an output record: the program chooses what it prints (a result object, one field of
-     it, or nothing), so the model authors that text. Each nested `exec_command` that reaches its
-     handler leaves its own `CommandExecution` item, so a program's calls are read through the
-     harness's records. A run may appear in both sources.
+     `CommandExecution` items, both written by the harness. A code-mode program's printed output
+     is never an output record: the program chooses what it prints (such as a result object, one
+     field of it, or nothing), so the model authors that output. On codex-cli 0.157.0 each nested
+     `exec_command` whose process exits within its turn leaves its own `CommandExecution` item,
+     carrying that turn's id (`core/src/tools/events.rs`). A call the handler refuses before
+     starting runs nothing, and one diverted to `apply_patch` leaves a `FileChange` item, which
+     the reader refuses. So a program's commands are read through the harness's records. A run
+     may appear in both sources.
    - Every rollout line of the resumed turn must be of a type the reader recognises, so the set of
      output records is closed. A record that carries the harness's truncation marker is
-     inconclusive.
+     inconclusive. A code-mode tool call's output must open with the harness's completed-script
+     preamble; the program's printed items after it are not read.
    - Only output records are read. A code-mode tool call records its program, and that
-     program's text contains `echo WRITE-OK`.
-   - No exit code is read. A recorded exit belongs to the whole line or program: a code-mode run
-     that printed the denial exited 0 (research note §2.9).
+     program's source contains `echo WRITE-OK`.
+   - No exit code is read. A recorded exit belongs to the whole line or program: in the model-free
+     run, the probe line printed the denial and the whole line exited 0 (research note §2.9).
 5. After the process exits, the sentinel must be absent from disk.
 6. The reply is kept verbatim as corroboration. It is never proof.
 7. Each output record of the resumed turn that carries the nonce must also carry a non-empty
@@ -447,9 +452,18 @@ The pass record is never committed. Its terms:
 
 ## Honest limits
 
-- **A resumed turn whose programs ran no command is inconclusive.** Output evidence is the
-  harness's `CommandExecution` items alone, so a turn whose code-mode programs printed without
-  running a command, or whose runs left no item, gives rule 4 nothing to read.
+- **A resumed turn with no command record is inconclusive.** Output evidence is the harness's
+  command records alone (rule 4's two sources), so a turn whose code-mode programs printed
+  without running a command, or whose commands left no record, gives rule 4 nothing to read. On
+  0.157.0 the rollout keeps `CommandExecution` items only in its paginated history
+  (`rollout/src/policy.rs`); a legacy-history rollout leaves them out, so it reads as
+  inconclusive at best.
+- **A command record can lose output without a marker.** On 0.157.0 the transcript behind
+  `aggregated_output` starts after the command does and skips the chunks it falls behind on,
+  with no marker (`core/src/unified_exec/process_manager.rs` and `async_watcher.rs`). The nonce
+  prints only when the write fails, so early loss cannot fake rule 4's pass: it removes the
+  denial text before the nonce. A gap between the nonce and the names could hide a name from
+  rule 7, but it needs 64 queued chunks, and the probe line writes a handful.
 - **Reads are not bounded.** The permission profile grants read on `/`. So anything the owner's
   account can read can reach the vendor, whether the packet names it or injected text in a file
   steers the model to it. That includes dotfiles, credentials and owner-private memory. The
@@ -604,7 +618,8 @@ Each behaviour is proved once, at the lowest scale that sees it.
    - a rule 9 control run that does not print `WRITE-OK` or does not leave its sentinel;
    - a variable name outside the expected set, or a nonce-bearing output record with no name
      listing;
-   - an output record or `permission_profile` in a shape the probe does not recognise;
+   - a rollout record, including a code-mode output's wrapper, or a `permission_profile`, in a
+     shape the probe does not recognise;
    - a feature the envelope disables that is reported enabled;
    - a `turn_context` that differs from the envelope, or cannot be found or recognised;
    - a thread mismatch;
@@ -639,8 +654,8 @@ Each behaviour is proved once, at the lowest scale that sees it.
 ## Todos
 
 Every pull request carries the default round budget. Slices 0, 1a, 2 and 3 are one pull request
-each; slice 1b is eight, sliced at plan time under PDR-132 and again on 2026-09-25. Every pull
-request gets a code-expert review before and after execution.
+each; slice 1b is the pull requests listed under it, sliced at plan time under PDR-132 and again
+on 2026-09-25. Every pull request gets a code-expert review before and after execution.
 
 - **Slice 0, records. Landed as PR 184 (`507d13931`).** This node, as a sketch, plus the
   research note's dated §2.8 evidence. Two files, prose-class, with the PDR-140 intake declared
@@ -659,9 +674,9 @@ request gets a code-expert review before and after execution.
     5. the `executeTurn` integration test.
 
   type-expert gives a focused review.
-- **Slice 1b, the gate and the probe logic.** Eight pull requests, each one story. The first
-  five were sliced after the pre-execution code-expert review of 2026-09-24, and 1b-iv became
-  four on 2026-09-25:
+- **Slice 1b, the gate and the probe logic.** One story per pull request. The first five were
+  sliced after the pre-execution code-expert review of 2026-09-24, and 1b-iv was re-sliced on
+  2026-09-25:
   1. **1b-0, this node. Landed as PR 188 (`fcbaa9bf5`).** The probe's threat model and its three
      legs (the Director's verdict), this slicing, and the dated ledger row. Reviews:
      security-expert and docs-adr-expert, focused.
@@ -685,8 +700,7 @@ request gets a code-expert review before and after execution.
        `permission_profile`, over the rollout's lines, and fails closed on any shape it does not
        recognise. It parses policy values over the vendor's whole domain, so a writable profile
        reaches rule 8 as data rather than as an unrecognised shape. A truncated output is its own
-       error, which the verdict reads as inconclusive. It takes no code-mode program text as
-       output (1b-iv B0).
+       error, which the verdict reads as inconclusive. B0 (1b-iv) replaces its output read.
      - Its fixtures come from redacted lines of observed rollouts.
      - Its pickup found that a rollout cannot settle rule 10's source, which is now
        `codex features list`. Whether `apply_patch` is offered under the envelope is not a
@@ -705,21 +719,26 @@ request gets a code-expert review before and after execution.
         - A also carries this node's edit for the re-slice.
         - Reviews: security-expert and type-expert, focused.
      2. **B0: the evidence cure.**
-        - The reader stops taking code-mode program text as output. The harness's
-          `CommandExecution` items are the only output evidence; rule 4 and Honest limits say
-          so.
-        - The code-mode wrapper stays validated: its items are input text, and the first is the
-          completed-script preamble.
-        - A 0.157.0 fixture projected from a recorded two-turn rollout (the values replaced, the
-          creator ids and every unread field dropped). The 0.156.1 fixtures retire.
+        - The reader stops taking a code-mode program's printed output as evidence. The
+          harness's command records (rule 4) are the only output evidence; rule 4 and Honest
+          limits say so.
+        - The code-mode wrapper stays validated: its first item is input text holding the
+          completed-script preamble, and the program's items after it are not parsed.
+        - A 0.157.0 fixture projected from a recorded two-turn rollout: every record kept, in
+          order, with the values replaced and the creator ids and every unread field dropped.
+          The 0.156.1 fixtures retire.
         - Reviews: security-expert, test-expert and docs-adr-expert, focused; a cross-vendor read,
-          owed until the owner's Codex session can do it.
+          owed on the owner's Codex session.
      3. **B: what the rollout reader gives the verdict.**
         - Its reasons as a closed union.
         - The top-level `turn_context.network` exposed, so rule 8 can require it absent.
-        - A reused `call_id` makes the probe inconclusive. Codex mints no call id (they come from
-          the model's stream), and the recorded rollout reused none.
-        - Reviews: type-expert and test-expert, focused; a cross-vendor read.
+        - A reused `call_id` makes the probe inconclusive. On 0.157.0 the top-level
+          `custom_tool_call` ids the reader pairs come from the model's stream, not from Codex,
+          so reuse is possible, though the recorded rollout had none. Pairing is what shows every
+          program finished within its turn, and a reused id would let an unanswered call hide
+          behind another call's output.
+        - Reviews: type-expert and test-expert, focused; a cross-vendor read, owed on the owner's
+          Codex session.
      4. **C: the pure verdict over rules 1 to 10, and the features-list parser.**
         - Rules 8, 9 and 10 as stated.
         - The verdict's unit tests are its contract.
@@ -844,7 +863,8 @@ review of 2026-09-25).
 | 2026-09-25 | Slice 1b-iv's pre-execution code-expert review, on codex-cli 0.157.0 source | The design drafted a single PR, then two. Its findings: rule 9's runs, the features read and a fresh-id resume went through `runCodex`, which would make the ordered fake longer than two results; the fresh-id leg could pass on an empty-stdin exit before any resume; rule 8 accepted `disabled`, `external` and `unrestricted` profiles as data, and `codex sandbox` quietly turns an external profile into read-only; the `apply_patch` refusal is a policy check that leaves no harness record, and an uncaught refusal fails a code-mode script, which fails the rollout read closed; a fixed probe dialogue id would be refused by slice 2's adapter on a second probe; a sentinel found in the root would have been removed; and one PR was over the size limits. On 0.157.0, `SessionMeta` gained two creator ids, and feature defaults moved | Slice 1b-iv as four PRs, A to D (see Todos). Separate ports for rule 9, its control and the features read; a fresh dialogue id per probe; a sentinel in the root reported, never removed; rule 8's passing shape stated directly, with rule 9 counting only on a profile that passed rule 8. Fixtures captured on 0.157.0 redact both creator ids. The `apply_patch` leg, the fresh-id leg and rule 10's closed set go to the row below |
 | 2026-09-25 | assumptions-expert on the probe's solution class; the Director's rulings (16:23:39Z and 16:40:22Z) | The probe-and-gate class is proportionate, and rules 1 to 9 each rest on a measured fact. The drift was at two edges. Rule 10's closed allowlist acted as a per-release pin: the enabled set changed at every observed update (0.153.4 to 0.156.1, five on; 0.156.1 to 0.157.0, two on). The fresh-id leg guards retention, not the interlocutor. Measured: a misspelt `-c` key is accepted silently without `--strict-config`. The node's fact 3 was wrong about memories, and its claim that the Codex home holds no skills was too strong | Rule 10 reshaped (only a disabled feature reported enabled fails; the rest is an observation diffed against the previous pass record). `--strict-config` joins the envelope in PR D. The fresh-id leg dropped, its premise pointing at slice 2's reconciliation. `apply_patch` and `multi_agent` named under Honest limits. The age limit is seven days, and a record dated in the future is refused. The routing test at the head of this ledger. Fact 3 and the state section corrected. No owner question: nothing leaves the ratified baseline |
 | 2026-09-25 | PR 222's focused reviews: security-expert, type-expert, test-expert, docs-adr-expert | An age that is not a finite number passed both age checks. No test held a record passed at exactly now, or `runTurn` to its injected clock. Rule 10 passed when a disabled feature was missing from the list or listed as removed. The server-side Honest-limits line implied that a fresh probe sees a remote change, and a new feature's name is reported only once. `features list` agrees with `exec` only while the Codex home holds no `config.toml`, which only AC 5 checked. Rules 8 and 9 lagged PR C's todo, and what the features diff compares against was unstated. Five rows above still routed to the old slice 1b-iv. The 0.157.0 measurements had no evidence home. The gate's refusals need an exhaustive consumer, and the binding is about to be built in two places | Cured in PR A: the gate refuses an unmeasured age; the two boundary tests; rule 10 requires each disabled name listed, not removed and disabled, on the 0.157.0 source; rules 8 and 9 state the passing shape; the diff reads the previous record with the parser alone; the Honest-limits lines reworded; research note §2.10. PR D: the `config.toml` check on every probe; one function builds the binding; the ADR-180 amendment carries `--strict-config`, the probe's running cost and the triage trade-off. Slice 2: the exit-code mapping over the gate's refusals is exhaustive at compile time. Honest limits: an untriaged set kept in the record is the named hardening. This row supersedes: the 2026-09-23 lapsing-envelope row's closed set (its misspelt `-c` check is measured and answered by `--strict-config`; its two `--disable` trials go to triage); the 1b-0 draft row's second write leg through `apply_patch`, and the 1b-i row's patch attempt (Honest limits); the 1b-ii post-execution row's fresh-id leg and its sub-agent check (Honest limits); the PR 190 row's rule 10 source (`features list`). Still open and assigned: the PR 190 row's `network` field, closed reason union and reused `call_id` to PR B; the 1b-i row's `executeTurn` import allowlist to PR D. The 1b-0 draft row's contract version and the 1b-i row's age limit are built in PR A |
-| 2026-09-25 | Slice 1b-iv PR B's pre-execution code-expert review; a two-turn dialogue this seat recorded on codex-cli 0.157.0 under the envelope; the Director's acceptance (21:03:54Z) | The reader refused a real 0.157.0 rollout at its first code-mode output. The program there printed `text(r.output)`, where the 0.156.1 fixture's program returned the result object, so code-mode output text is authored by the model and its shape is the model's choice. The recorded dialogue ran 6 exec calls, 3 per turn: 6 distinct call ids, none reused, each call answered once and each writing a `CommandExecution` item. With the output cure applied, the whole rollout reads: both turn contexts and applied settings compare, and every record type is recognised | B0 before B: the harness's `CommandExecution` items are the only output evidence; rule 4, the 1b-iii bullet and Honest limits rewritten; the code-mode wrapper validated without reading the program's text; the 0.157.0 fixture projected from the recorded rollout, the 0.156.1 fixtures retired. B keeps the closed reasons, the exposed `network` and the reused call id, decided on source with the recorded dialogue as corroboration. The cross-vendor read for B0 and B is owed on the owner's Codex session |
+| 2026-09-25 | Slice 1b-iv PR B's pre-execution code-expert review; a two-turn dialogue Swallow holds Drift recorded on codex-cli 0.157.0 under the envelope; the Director's acceptance (21:03:54Z) | The reader refused a real 0.157.0 rollout at its first code-mode output. The program there called `text(r.output)`, printing the command's output as plain text, where the 0.156.1 fixture's program returned the result object. So a code-mode program's printed output is authored by the model, and its shape is the model's choice. The recorded dialogue ran 6 exec calls, 3 per turn: 6 distinct call ids, none reused, each call answered once. Each program ran one command, and each command wrote one `CommandExecution` item. With the output cure applied, the whole rollout reads: both turn contexts and applied settings compare, and every record type is recognised | B0 before B: the harness's command records (rule 4) are the only output evidence, with rule 4 and Honest limits rewritten and the 1b-iii bullet pointed at B0; the code-mode wrapper's preamble validated without reading the program's printed output; the 0.157.0 fixture projected from the recorded rollout, the 0.156.1 fixtures retired. B keeps the closed reasons, the exposed `network` and the reused call id, decided on the 0.157.0 source with the recorded dialogue as corroboration. The cross-vendor read for B0 and B is owed on the owner's Codex session. Owed once Gale turns Cloud's claim on the research note releases: a dated section in it for these 0.157.0 measurements. This row supersedes: the 1daff4fe7 row's rollout tool-call read, which the 1b-0 row kept as rule 4 (rule 4 now reads the command records, and checks a code-mode output only as a wrapper); the PR 190 row's wait for a recorded rollout to settle reused `call_id`s (decided on source, the rollout as corroboration); the 1b-iv pre-execution row's four pull requests (B0 added) |
+| 2026-09-25 | B0's focused reviews: security-expert on the 0.157.0 source, test-expert, docs-adr-expert | Rule 4 said every nested `exec_command` that reaches its handler leaves an item; on 0.157.0 a refused call runs nothing and an `apply_patch` diversion leaves a `FileChange` item. A command record can lose output without a marker. The wrapper check parsed every item, so a non-text item the program chose refused the rollout. "Codex mints no call id" was too broad: Codex mints the nested calls' ids. The fixture swap left the effort fields, the reasoning records, two of the truncation markers and a command's binding to its own turn untested, and two wrapper rows sat too far from the boundary. The node miscounted slice 1b, said "alone" where rule 4 names two sources, left three rows unsuperseded, and took an exit example from model-authored output | Cured in B0: rule 4 scoped to 0.157.0 with its source named, and AC 4 names the wrapper; an Honest-limits bullet on the lost output; only the preamble item parsed; the call-id sentence limited to the top-level ids; tests for the effort, both reasoning types, both truncation markers, an opening-turn command inside the resumed turn, a non-text program item, and the vendor's failed, terminated, running and cell-overhead preambles, each confirmed by a mutation; the slice count dropped; the command records named throughout; the supersessions in the row above; the exit example taken from the model-free run |
 
 ## Out of scope
 

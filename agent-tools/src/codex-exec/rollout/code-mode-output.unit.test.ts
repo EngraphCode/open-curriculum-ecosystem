@@ -18,9 +18,9 @@ import {
 /**
  * The code-mode calls and their outputs. A code-mode output holds the
  * harness's completed-script preamble and then whatever the model's own
- * program printed, so the reader validates the wrapper and pairs it with its
- * call, but never takes the program's text as evidence: the evidence is the
- * harness's `CommandExecution` output alone.
+ * program printed, so the reader validates the preamble item and pairs the
+ * output with its call, but never takes the printed output as evidence: the
+ * evidence is the harness's command records (the node's rule 4).
  */
 
 /** The resumed turn's code-mode outputs, in order. */
@@ -43,7 +43,7 @@ function firstResumedOutput(recordsToRead: readonly TestRecord[]): TestRecord {
 }
 
 describe('code-mode output: never evidence', () => {
-  it('keeps text only the program printed out of the evidence', () => {
+  it('a nonce the program printed without running a command is not evidence', () => {
     const sentinel = 'printed-by-the-program-only';
     const candidate = records();
     const [, printed] = textParts(firstResumedOutput(candidate).payload['output']);
@@ -56,9 +56,12 @@ describe('code-mode output: never evidence', () => {
   });
 
   it.each([
-    { name: 'a JSON exec result the program returned', text: '{"exit_code":0,"output":"x"}' },
+    {
+      name: 'the exec result object the program returned',
+      text: '{"chunk_id":"a1b2c3","wall_time_seconds":0.1,"exit_code":0,"original_token_count":1,"output":"x"}',
+    },
     { name: 'a truncation marker the program printed', text: '…153 tokens truncated…' },
-  ])('accepts $name as program text, still not evidence', ({ text }) => {
+  ])('accepts $name as printed output, still not evidence', ({ text }) => {
     const candidate = records();
     const [, printed] = textParts(firstResumedOutput(candidate).payload['output']);
     assert(printed);
@@ -67,17 +70,30 @@ describe('code-mode output: never evidence', () => {
     expect(expectRead(candidate).resumedCommandOutputs).toEqual(resumedCommandOutputsIn(candidate));
   });
 
-  it('accepts a program that printed nothing', () => {
+  it('keeps a command output in the evidence when the program printed none of it', () => {
     const candidate = records();
     const output = firstResumedOutput(candidate);
     output.payload['output'] = textParts(output.payload['output']).slice(0, 1);
 
     expect(expectRead(candidate).resumedCommandOutputs).toEqual(resumedCommandOutputsIn(candidate));
   });
+
+  it('accepts an item the program emitted that is not text', () => {
+    const candidate = records();
+    const output = firstResumedOutput(candidate);
+    const [preamble] = textParts(output.payload['output']);
+    assert(preamble);
+    output.payload['output'] = [
+      preamble,
+      { type: 'input_image', image_url: 'data:image/png;base64,AA==' },
+    ];
+
+    expect(expectRead(candidate).resumedCommandOutputs).toEqual(resumedCommandOutputsIn(candidate));
+  });
 });
 
 describe('code-mode output: the wrapper', () => {
-  it('rejects an output whose items are not input text', () => {
+  it('rejects an output whose first item is not input text', () => {
     const candidate = records();
     const [preamble] = textParts(firstResumedOutput(candidate).payload['output']);
     assert(preamble);
@@ -87,20 +103,43 @@ describe('code-mode output: the wrapper', () => {
       ok: false,
       error: {
         kind: 'invalid-record',
-        reason: 'custom_tool_call_output.output items are not input_text',
+        reason: 'custom_tool_call_output.output does not open with an input_text item',
+      },
+    });
+  });
+
+  it('rejects an output with no items at all', () => {
+    const candidate = records();
+    firstResumedOutput(candidate).payload['output'] = [];
+
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-record',
+        reason: 'custom_tool_call_output.output does not open with an input_text item',
       },
     });
   });
 
   it.each([
+    { name: 'a script that failed', text: 'Script failed\nWall time 0.1 seconds\nOutput:\n' },
     {
-      name: 'a different preamble',
-      output: [{ type: 'input_text', text: 'a different preamble' }],
+      name: 'a script that was terminated',
+      text: 'Script terminated\nWall time 0.1 seconds\nOutput:\n',
     },
-    { name: 'no items at all', output: [] },
-  ])('rejects an output with $name', ({ output }) => {
+    {
+      name: 'a script still running',
+      text: 'Script running with cell ID 1\nWall time 0.1 seconds\nOutput:\n',
+    },
+    {
+      name: 'the cell-overhead variant',
+      text: 'Script completed\nWall time 0.123 seconds (code-mode 0.100 seconds; overhead 0.023 seconds)\nOutput:\n',
+    },
+  ])('rejects the preamble of $name', ({ text }) => {
     const candidate = records();
-    firstResumedOutput(candidate).payload['output'] = output;
+    const [preamble] = textParts(firstResumedOutput(candidate).payload['output']);
+    assert(preamble);
+    preamble.text = text;
 
     expect(readRollout(lines(candidate))).toMatchObject({
       ok: false,
@@ -108,16 +147,6 @@ describe('code-mode output: the wrapper', () => {
         kind: 'invalid-record',
         reason: 'custom_tool_call_output.output has no completed-script preamble',
       },
-    });
-  });
-
-  it('rejects an output of an unknown type', () => {
-    const candidate = records();
-    select(candidate, 'response_item', 'custom_tool_call_output').payload['type'] = 'future_output';
-
-    expect(readRollout(lines(candidate))).toMatchObject({
-      ok: false,
-      error: { kind: 'unknown-record-type', recordType: 'response_item.future_output' },
     });
   });
 });

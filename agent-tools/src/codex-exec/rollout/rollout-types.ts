@@ -8,8 +8,8 @@ export interface RolloutEvidence {
   readonly threadId: ThreadId;
   readonly turns: readonly [RecordedTurnContext, RecordedTurnContext];
   /**
-   * The aggregated output of each command the harness ran in the resumed
-   * turn, in order, from its `CommandExecution` items. Text the model's own
+   * The aggregated output of each command whose `CommandExecution` item the
+   * resumed turn recorded, in completion order. Text the model's own
    * code-mode program printed is never evidence.
    */
   readonly resumedCommandOutputs: readonly string[];

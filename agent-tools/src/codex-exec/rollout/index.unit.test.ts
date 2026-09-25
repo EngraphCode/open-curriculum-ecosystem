@@ -11,6 +11,7 @@ import {
   records,
   resumedCommandOutputsIn,
   resumedContext,
+  resumedTurnContextRecord,
   RESUMED_TURN_ID,
   select,
   selectAll,
@@ -39,11 +40,30 @@ describe('readRollout', () => {
   });
 
   it('reads a resumed turn whose program ran no command as holding no command output', () => {
-    const recorded = records().filter(
-      (record) =>
-        !commandEvents([record]).some((event) => event.payload['turn_id'] === RESUMED_TURN_ID),
+    const recorded = records();
+    const resumedCommands = new Set(
+      commandEvents(recorded).filter((event) => event.payload['turn_id'] === RESUMED_TURN_ID),
     );
-    expect(expectRead(recorded).resumedCommandOutputs).toEqual([]);
+    const withoutResumedCommands = recorded.filter((record) => !resumedCommands.has(record));
+    expect(expectRead(withoutResumedCommands).resumedCommandOutputs).toEqual([]);
+  });
+
+  it.each<{ record: TestRecord; recordType: string }>([
+    {
+      record: {
+        type: 'event_msg',
+        payload: { type: 'item_completed', item: { type: 'Reasoning' } },
+      },
+      recordType: 'event_msg.item_completed.Reasoning',
+    },
+    {
+      record: { type: 'response_item', payload: { type: 'reasoning' } },
+      recordType: 'response_item.reasoning',
+    },
+  ])('accepts $recordType, a recorded type this run did not emit', ({ record }) => {
+    const candidate = records();
+    candidate.splice(candidate.indexOf(resumedTurnContextRecord(candidate)) + 1, 0, record);
+    expect(expectRead(candidate).resumedCommandOutputs).toEqual(resumedCommandOutputsIn(candidate));
   });
 
   it('rejects an unknown top-level type and an invalid session id', () => {
@@ -73,6 +93,10 @@ describe('readRollout', () => {
         payload: { type: 'item_completed', item: { type: 'FutureItem' } },
       },
       recordType: 'event_msg.item_completed.FutureItem',
+    },
+    {
+      record: { type: 'response_item', payload: { type: 'future_output' } },
+      recordType: 'response_item.future_output',
     },
   ])('rejects unknown nested type $recordType', ({ record, recordType }) => {
     const candidate = records();
@@ -150,6 +174,15 @@ describe('readRollout', () => {
     });
     expect(evidence.turns[1].approvalPolicy).toBe('on-request');
     expect(evidence.turns[1].sandboxPolicy.type).toBe('workspace-write');
+  });
+
+  it('records the reasoning effort when settings and turn context agree', () => {
+    const candidate = records();
+    resumedContext(candidate)['effort'] = 'xhigh';
+    for (const record of selectAll(candidate, 'event_msg', 'thread_settings_applied')) {
+      object(record.payload['thread_settings'])['reasoning_effort'] = 'xhigh';
+    }
+    expect(expectRead(candidate).turns[1].effort).toBe('xhigh');
   });
 
   it.each<{ profile: FixtureObject }>([
@@ -288,6 +321,21 @@ describe('readRollout order', () => {
     });
   });
 
+  it('rejects an opening-turn CommandExecution that lands inside the resumed turn', () => {
+    const candidate = records();
+    const [opening] = commandEvents(candidate);
+    assert(opening);
+    candidate.splice(candidate.indexOf(opening), 1);
+    candidate.splice(candidate.indexOf(resumedTurnContextRecord(candidate)) + 1, 0, opening);
+    expect(readRollout(lines(candidate))).toMatchObject({
+      ok: false,
+      error: {
+        kind: 'invalid-turn-order',
+        reason: 'CommandExecution has no matching active context',
+      },
+    });
+  });
+
   it('rejects settings applied outside the gap between turns', () => {
     const candidate = records();
     candidate.push(structuredClone(select(candidate, 'event_msg', 'thread_settings_applied')));
@@ -365,6 +413,8 @@ describe('readRollout order', () => {
     'Warning: truncated output',
     'Total output lines: 200',
     '... 2097152 bytes omitted ...',
+    '…153 tokens truncated…',
+    '…153 chars truncated…',
   ])('treats command-output marker %s as inconclusive', (marker) => {
     const candidate = records();
     const [event] = commandEvents(candidate);
