@@ -44,7 +44,14 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   on the synced head `1f1b2d4bb`; 1 round, 0 settlement pushes; merge-landed event `ae8a8c07`).
   The node's Todos on `engraph` mark 1b-0, 1b-i and 1b-iii landed; 1b-ii's own mark rides the
   next node edit.
-- **HANDED OVER AT REST at 12:40Z, 2026-09-25, under PDR-063** (context 51.3% at 12:27:33Z;
+- **OVERRULED BY THE OWNER at about 13:00Z, 2026-09-25**, verbatim: "ALL seats need to STOP
+  stopping mid session because of some ambiguous and made up "rules" about context. ALL you
+  have achieved is stopping. Prepare for compaction then stop". So this seat is PAUSED FOR
+  COMPACTION, not handed over. After the compaction it RESUMES this lane in the same session,
+  claim `372ac08b`, with the next steps below, and it never stops again on a context threshold.
+  The owner's word went to all seats (comms `6292fda0`) and to the Director, for the doctrine
+  amendment (PDR-063's triggers and the start-right-team retirement triggers).
+- **Superseded: "HANDED OVER AT REST at 12:40Z, 2026-09-25, under PDR-063"** (context 51.3% at 12:27:33Z;
   the owner away, the Director routing; surfacing event `cc536fae`). Claim `372ac08b` carries
   the handover record (local state, attached to the claim), written for either this seat's
   resumed session or a successor. Its next steps:
