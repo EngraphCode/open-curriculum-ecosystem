@@ -248,18 +248,18 @@ Each slice is one story, within the default round budget.
    error and exit lines pass through `emit`; `markSeen` writes the companion's cursor; there is
    no heartbeat tick. The loop marks events only for a pass with output, so every decision that
    queues also returns a line.
-   1. **2a, the pure core.** Selection, coalescing, the latch, the budget, the backoff and the
-      notice constant; the handshake parse; this node's edit. Commit order, each a failing test
-      then the code: the selection table; the decisions (a burst, a hold, the ack release, no
-      release on a comms event, the interval, the budget and its rolling hour, a later ack
-      resuming, the backoff, one WAKE FAILED line per attempt, and a line with every queue); the
-      notice; the handshake parse. The ack time and the clock are plain inputs to the core.
-      Reviews: test-expert, focused; security-expert, focused on the handshake parse.
-   2. **2b, the ports and the loop.** The queue port and its pure argv and environment builder;
-      the handshake, ack, liveness and state-file runners, none following a link; the
-      companion's composition of the watch loop; the integration tests that the seat's watcher
-      still delivers and that no write follows a link. Reviews: security-expert, deep;
-      test-expert, focused.
+   1. **2a, the pure core.** Selection, coalescing, the latch, the budget and the backoff; the
+      handshake parse; this node's edit. Commit order, each a failing test then the code: the
+      selection table; the decisions (a burst, a hold, the ack release, no release on a comms
+      event, the interval, the budget and its rolling hour, a later ack resuming, the backoff,
+      one WAKE FAILED line per attempt, and a line with every queue); the handshake parse. The
+      ack time and the clock are plain inputs to the core. Reviews: test-expert, focused;
+      security-expert, focused on the handshake parse.
+   2. **2b, the ports and the loop.** The queue port, with the notice constants and the pure argv
+      and environment builder that is their first consumer; the handshake, ack, liveness and
+      state-file runners, none following a link; the companion's composition of the watch loop;
+      the integration tests that the seat's watcher still delivers and that no write follows a
+      link. Reviews: security-expert, deep; test-expert, focused.
    3. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
       a module of its own, since the shared help module is at its line limit. Reviews:
       code-expert; config-expert if a lint or knip entry changes.
