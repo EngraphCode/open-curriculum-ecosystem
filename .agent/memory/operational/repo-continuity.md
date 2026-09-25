@@ -389,13 +389,14 @@ compaction.
       ADR-167 §Limitations 6.
     - Dropped: the directory hold, its port and fake, and `umask 077` in the wrapper, which moves
       to its own lane under ADR-167.
-    - **Progress at 03:00Z:**
+    - **J18 is landed in full (03:24Z).**
       - B2b, PR 208, merged as `2f2060ab2`. It brought `errorCodeOf` and `invokingUid` into
-        core. Its worktree is pruned.
-      - B2c is PR 209 (`7442a4990`, worktree `oce-wt-b4-j18b2c`), in CI. It passed two review
-        rounds (code, test, security, config, docs), and its smoke passes 4 of 4 with eleven
-        mutations caught. When it merges, J18 is landed in full: close claims 3a3a9280 and
-        44431f81.
+        core.
+      - B2c, PR 209, merged as `17d030cb0`: the entry, the Node bindings, the smoke, the
+        `PreCompact` registration and the docs.
+      - Claims 3a3a9280 and 44431f81 are closed, and every worktree is pruned.
+      - Siren has the landing, the three departures and Codex's re-tighten finding (event
+        `2a33cf89`).
     - **Follow-ups the J18 reviews recorded, not yet claimed:**
       - quote the two older wrapper entries in `.claude/settings.json`, the wrapper's usage
         comment, and ADR-167's reference instance (a space in the project path makes the shell
@@ -403,7 +404,13 @@ compaction.
       - write the observed PreCompact contract into the surface matrix's §Hook Support after the
         first real compaction, with the harness version;
       - move `compareUtf16` from `typescript-estate/` to `core/` (17 importers; a mechanical PR);
-      - B1b, the mode read-back probe;
+      - owner-only-append hardening, one lane with two parts:
+        - B1b, the mode read-back probe;
+        - Codex's P2 on PR 209: refuse, or replace, a pre-existing file whose mode admits
+          another account, before any byte is written, because `fchmod` does not revoke a
+          descriptor already open.
+
+        It changes the statusline debug log's documented retighten contract too;
       - one build instead of six in agent-tools' `test:e2e` chain;
       - the wrapper follows a symlinked `hook-errors.log` with `touch` and `>>`;
       - a test for the `process.stdin` hazard (a late-writing harness gives `EAGAIN`).
