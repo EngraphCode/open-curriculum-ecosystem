@@ -175,7 +175,7 @@ it.
 - Route findings surfaced but out of scope (a blind gate, a stale include,
   an architecture question) to the napkin and the plan — never widen the
   lane.
-- Run the full aggregate gate (`pnpm check` / `pnpm check:ci`), push, and
+- Run the full aggregate gate (`pnpm check`), push, and
   land via PR. Work is not safe until pushed and on a PR.
 
 ## Failure handling

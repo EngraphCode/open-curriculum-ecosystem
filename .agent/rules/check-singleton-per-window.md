@@ -1,18 +1,21 @@
-# Check-Runner Singleton Per Coordination Window
+# Check-Runner Singleton Per Working Tree, Per Coordination Window
 
 Only **one** agent runs a whole-repo gate sweep (`pnpm check`,
-`pnpm test`, large `turbo` invocations) per coordination window.
-Multiple parallel runs duplicate ~30s+ of work per run, produce no
-marginal signal, and can collide on advisory-orchestrator file
-outputs. The sharpest hazard: `pnpm check`'s opening `clean` step
-deletes shared build output (e.g. `agent-tools/dist/`) from under
-every concurrent peer — their CLIs (heartbeats, comms, marshal
-commands) and watchers die for the rebuild window (~90s). A
-whole-repo sweep is a shared-substrate mutation, not a private read.
+`pnpm test`, large `turbo` invocations) in one working tree per
+coordination window. Multiple parallel runs in one tree duplicate ~30s+
+of work per run, produce no marginal signal, and can collide on
+advisory-orchestrator file outputs. The sharpest hazard: a whole-repo
+sweep rebuilds the tree's shared build output (e.g. `agent-tools/dist/`)
+under every concurrent session that reads it (a session working a sibling
+worktree from the primary checkout among them), and where the `check` script
+runs a `clean` step it deletes that output first — the peers' CLIs
+(heartbeats, comms, marshal commands) and watchers then die for the
+rebuild window (~90s). A whole-repo sweep is a shared-substrate
+mutation, not a private read.
 
 This rule complements `session-handoff` step §11 by adding an N-agent
-constraint: the *team* runs a whole-repo gate at most once per window,
-not N times. The stronger constraint sits above it: the commit ceremony's
+constraint: the *team* in one working tree runs a whole-repo gate at most
+once per window, not N times. The stronger constraint sits above it: the commit ceremony's
 pre-commit hook already runs the local gates (the validators, build,
 type-check, lint and unit tests) and the pull request's checks run the
 wider suites, so a gate run beside or after a commit is never warranted
@@ -26,9 +29,12 @@ commit triggers.
 
 Per any single coordination window (the period bounded by the most
 recent commit-window claim, comms-stream activity, or active source
-claim overlap), **at most one agent** runs the whole-repo gate sweep.
-The result of that run binds for the window; other agents observe
-the result and defer their own run.
+claim overlap), **at most one agent** runs the whole-repo gate sweep
+in any one working tree. The result of that run binds that tree for
+the window; other agents in the tree observe the result and defer
+their own run. Seats in separate worktrees run their own sweeps side
+by side, within the host bound of
+[`no-unbounded-host-load`](no-unbounded-host-load.md) item 6.
 
 ## Observable Surface
 
@@ -36,20 +42,25 @@ Two surfaces compose. The **registry surface**: the check-runner's
 active claim carries `role` (e.g. `--role marshal` on `claims open`),
 the optional claim-schema field landed 2026-06-12 as the structural
 cure for singleton-role visibility — peers and glance surfaces resolve
-who holds the runner role per window from `active-claims.json` alone.
+who holds the runner role per window from `active-claims.json`. A claim
+records no working tree, so the broadcast, which names the tree, binds
+that role to its tree.
 The **broadcast convention** signals the in-flight run itself (start,
 ETA, result), which a static role field cannot:
 
 1. **Before** invoking `pnpm check` (or equivalent whole-repo gate),
    the agent broadcasts a comms event of the shape
-   `"Lane <name> running pnpm check, ETA ~30s, will broadcast
-   result"`.
+   `"Lane <name> running pnpm check in <worktree>, ETA ~30s, will
+   broadcast result"`, where `<worktree>` is the working tree's directory
+   name, so a peer can tell whether the run is in its own tree.
 2. **After** the run completes, the agent broadcasts a result event:
-   `"Lane <name> pnpm check: green"` (or `"red <gate>:<file:line>"`),
-   carrying the HEAD SHA at run time.
-3. Other agents in the window observing the in-flight broadcast
-   **defer** their own check run and consume the result event when
-   it arrives.
+   `"Lane <name> pnpm check in <worktree>: green"` (or
+   `"red <gate>:<file:line>"`), carrying the HEAD SHA at run time.
+3. Other agents in the same working tree observing the in-flight
+   broadcast **defer** their own check run and consume the result event
+   when it arrives. An agent that reads the tree's build output from
+   another worktree observes the broadcast (its CLIs and hooks fail for
+   the rebuild window) and runs its own worktree's gates.
 
 If the result event has not arrived within ~2× the announced ETA, a
 peer may take over with a fresh broadcast — the prior agent is
@@ -57,9 +68,12 @@ either retired or stalled.
 
 ## When the Rule Fires
 
-- Multi-agent sessions (≥2 agents visible in active-claims or comms).
-- Any session-handoff window where two or more agents are closing
-  concurrently.
+- Multi-agent sessions where two or more agents share one working tree, or read its build output
+  (≥2 agents visible in active-claims or comms). A sweep in the primary checkout counts every
+  live seat of the estate as a reader: no surface records where a session was launched, and a
+  session launched in the primary checkout reads that build through its hooks.
+- Any session-handoff window where two or more agents in one working
+  tree are closing concurrently.
 - Any time the agent reflexively reaches for `pnpm check` without
   observing the comms stream for a recent in-flight broadcast.
 
@@ -82,6 +96,12 @@ kind of record of who is running check when"*. The friction this
 rule prevents is duplicate ~30s+ work across N agents at session
 close, plus the advisory-orchestrator file-collision risk when two
 runs overlap.
+
+Read through the owner's 2026-09-20 ruling (verbatim: "two parallel gate
+runs are fine as long as they are in different work trees"), the
+invariant above binds one working tree: seats in separate worktrees run
+their own sweeps under
+[`no-unbounded-host-load`](no-unbounded-host-load.md) item 6.
 
 ## Composition
 
@@ -114,7 +134,8 @@ The structural claim-schema cure pending since 2026-05-22 landed
 claims — an open-vocabulary session-role marker rather than the
 originally predicted `area-kind: gate-sweep`. The check-runner opens
 its claim with `--role marshal` (or another agreed runner label), so
-the singleton holder is observable through the registry. The broadcast
+the singleton holder is observable through the registry, and its
+broadcast names the working tree it holds the seat for. The broadcast
 convention remains the in-flight signal: roles answer *who holds the
 runner seat this window*; broadcasts answer *is a sweep running right
 now and what did it conclude*.

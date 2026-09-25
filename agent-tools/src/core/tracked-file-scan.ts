@@ -4,12 +4,13 @@
  * @remarks
  * Two gates enforce an invariant over EVERY git-tracked file — the
  * machine-local-path gate and the identity-naming gate — and both need the
- * same three things: the tracked-path list, one tracked path's scannable text,
- * and the binary/generated skip policy deciding which paths carry scannable
- * content at all. That plumbing was duplicated across the two entry files;
- * it is single-sourced here (`consolidate-at-second-consumer`). Validators are
- * the security-critical floor, and a skip set that drifts between two gates is
- * a silent hole in whichever one falls behind.
+ * same two things: one tracked path's scannable text, and the binary/generated
+ * skip policy deciding which paths carry scannable content at all. The
+ * tracked-path list itself comes from `repository-paths.ts`. That plumbing was
+ * duplicated across the two entry files; it is single-sourced here
+ * (`consolidate-at-second-consumer`). Validators are the security-critical
+ * floor, and a skip set that drifts between two gates is a silent hole in
+ * whichever one falls behind.
  *
  * The unreadable-tracked-file POSTURE is deliberately not decided here. A
  * tracked file the scan cannot read could hide exactly what a gate exists to
@@ -21,15 +22,12 @@
  * @packageDocumentation
  */
 
-import { execFileSync } from 'node:child_process';
 import { readFileSync, readlinkSync } from 'node:fs';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { resolveTrustedGit } from './trusted-git.js';
-
-/** Null byte: the `git ls-files -z` record separator, and the binary-content marker. */
+/** Null byte: the marker of binary content. */
 const NUL = '\u0000';
 
 /**
@@ -88,21 +86,6 @@ export interface UnreadableTrackedFile {
   readonly relativePath: string;
   /** The error thrown by the read attempt. */
   readonly cause: unknown;
-}
-
-/**
- * List every tracked file, NUL-delimited so paths with spaces survive.
- *
- * @param repoRoot - Absolute path to the repository root.
- * @returns Every tracked repo-relative path, including binaries.
- */
-export function listTrackedFiles(repoRoot: string): string[] {
-  const stdout = execFileSync(resolveTrustedGit(), ['ls-files', '-z'], {
-    cwd: repoRoot,
-    encoding: 'utf8',
-    maxBuffer: 64 * 1024 * 1024,
-  });
-  return stdout.split(NUL).filter((entry) => entry.length > 0);
 }
 
 /**

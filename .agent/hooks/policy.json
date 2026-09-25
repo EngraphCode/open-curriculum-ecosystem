@@ -431,7 +431,7 @@
     "claude_code": {
       "status": "supported",
       "native_surface": ".claude/settings.json hooks.PreToolUse (Bash, Edit, and Write matchers via the verdict shim .claude/hooks/run-pretooluse-guard.mjs)",
-      "notes": "The Bash command guard and the Edit/Write content guard (owner-approval marker plus concept-grouped doctrine blocks) are natively activated through the shared prebuilt dispatcher artefact. Read and UserPromptSubmit run separate best-effort secrets scans. sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows.",
+      "notes": "The Bash command guard and the Edit/Write content guard (owner-approval marker plus concept-grouped doctrine blocks) are natively activated through the shared prebuilt dispatcher artefact. Read and UserPromptSubmit run separate best-effort secrets scans. PreCompact registers an observer, not a guard: it has no key under hooks, answers continue on every path it controls, and records the compaction payload to a machine-local owner-only log (see .agent/hooks/README.md, PreCompact observer). sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows.",
       "grounded_at": "2026-08-03",
       "pin": {
         "kind": "pinned",

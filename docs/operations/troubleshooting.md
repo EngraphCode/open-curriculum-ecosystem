@@ -439,10 +439,12 @@ Reading the outcomes honestly:
   returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
   A current adapter can also produce no-file-and-no-warning when the
   destination refuses (unwritable parent, a symlink or non-regular file
-  at the path, a file the invoking user cannot own, denied append) —
-  refusals are deliberately swallowed, so check the destination is a
-  creatable, writable, regular file owned by you before concluding the
-  payload never arrived.
+  at the path, a file the invoking user cannot own, denied append) or
+  the platform has no POSIX ownership (native Windows, where the log is
+  never written: run under WSL, with the log on WSL's own filesystem,
+  not under `/mnt/c`) — refusals are deliberately
+  swallowed, so check the destination is a creatable, writable, regular
+  file owned by you before concluding the payload never arrived.
 - **Hygiene**: the log grows unbounded (one line per refresh) and
   carries session ids and project paths. The destination is a boundary
   (symlinks refuse to open, non-regular files never receive a write, a

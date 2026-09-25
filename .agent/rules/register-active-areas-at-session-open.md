@@ -22,13 +22,14 @@ Codex sessions with `CODEX_THREAD_ID` available must derive a named
 `agent_name` and `session_id_prefix`; new Codex claim writes must not use
 `Codex` / `unknown`.
 
-- **(a-1) Registry empty (bootstrap fast-path)** — the registry has no
+- **(a-1) Solo (bootstrap fast-path)** — the registry has no
   entries other than your own and the comms log shows no live peer: the
   session is solo. Register your claim and proceed without broadcasts
   (`use-agent-comms-log` §Scale ceremony to the audience). The claim is
   the artefact.
-- **(a-2) Registry populated but no overlap** — other agents have active
-  claims, but none of their `areas` intersect yours. Register your own
+- **(a-2) Peers present, no overlap** — other agents have active claims
+  or the comms log shows a live peer, and no other claim's `areas`
+  intersect yours. Register your own
   claim with a `notes` value summarising the scan, e.g.
   `"scanned registry: <N> active claims, no overlap with my areas"`.
   The `notes` value is the artefact.
@@ -126,7 +127,10 @@ pnpm agent-tools:collaboration-state -- claims open|heartbeat|close|archive-stal
 
 ## At session close
 
-Write durable closure history, then remove your active entry:
+The claim of an open pull request the session opened or shepherds stays
+active until the pull request merges (`start-right-team` §Closeout
+Contract). For every other claim, write durable closure history, then
+remove your active entry:
 
 1. Copy the active claim into `closed-claims.archive.json`.
 2. Add `archived_at` plus `closure.kind: "explicit"`,
@@ -216,8 +220,9 @@ If `active-claims.json` contains no entries other than your own and the
 comms log shows no live peer, the session is solo: record your claim and
 proceed without broadcasts (`use-agent-comms-log` §Scale ceremony to the
 audience).
-Solo sessions pay the protocol's minimum overhead — one read, one write —
-not the full coordination cycle.
+Solo sessions pay the protocol's minimum overhead — two reads (the
+registry and the comms log), one write (the claim) — not the full
+coordination cycle.
 
 ## Self-application
 

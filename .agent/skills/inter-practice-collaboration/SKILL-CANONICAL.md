@@ -186,10 +186,15 @@ the first comms write, claim, or registration).
 7. **Exchange by the two-layer handshake.** Box files carry
    SELF-CONTAINED concept payloads (no SHAs, no dereferences, no
    moving targets); the paired comms event carries the time-bound
-   layer (provenance pins, identity, sequencing, the box path). A delivery meets the receiver's gates, not the
-   sender's: lint each Box file with the receiving estate's configuration before
-   sending (one file linted with the home estate's config failed the receiver's
-   gate, 2026-09-24).
+   layer (provenance pins, identity, sequencing, the box path).
+   **Lint before delivery**: a box file lands in the receiver's
+   working tree, where its whole-tree gates read it before any
+   receipt, so the donor runs the receiver's own formatting and lint
+   configurations over every box file and delivers only bytes they
+   pass (PDR-125 clause 7). Run the receiver's format check and
+   markdown lint, with the receiver's configuration files, over the
+   box paths before posting the delivery event (one file linted with
+   the home estate's config failed the receiver's gate, 2026-09-24).
    When a ported artefact is a DETECTOR (a validator, a conformance
    twin, a gate), its first live run on the receiving estate is a
    detector test: porting ports the authoring estate's lexical
@@ -207,10 +212,21 @@ the first comms write, claim, or registration).
    exchange turn.
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
-   **Normalise on receipt**: integrate inbound material in the
-   RECEIVING repo's format where that repo's conventions or gates
-   differ (markdown conventions, heading shapes, gate-satisfying
-   style), declaring the normalisation in the integrating commit body.
+   **Format on receipt**: where the RECEIVING repo's conventions or
+   gates refuse the donor's bytes (markdown conventions, heading
+   shapes, gate-satisfying style), the estates align that convention or
+   gate so the bytes stay identical, taking the higher of the two forms
+   (a form is higher on the owner's word, or on a recorded failure it
+   prevents together with that form shown firing; PDR-142 §How we
+   judge) and, where nothing else shows either higher, the donor's,
+   because by the owner's word one shared form is higher than two;
+   until they do, change only what the gate refuses and
+   declare each change in the integrating commit body as a debt to that
+   alignment. Where the donor's text is false
+   here, take the remedies in PDR-142's order: raise the standard the
+   receiver lacks, cure a donor-local fact at its source, cure a shared
+   contradiction jointly, and write the concept in the receiver's words
+   only for a context difference none of those removes.
    Concepts travel; identical bytes are fine wherever they carry the
    concept in the receiving repo's Practice context, and a receipt is
    finished when the concept reads true there (PDR-125 clause 7).
@@ -224,7 +240,8 @@ the first comms write, claim, or registration).
 
 ## Leaving
 
-Close claims you opened, stand the watcher down cleanly (a
+Close claims you opened (an open pull request's claim stays active until
+it merges), stand the watcher down cleanly (a
 final-heartbeat-end event, so the home team reads intent rather than
 silence), and leave a closeout event naming what remains and where the
 lane resumes. An orphaned guest watcher emits false liveness into a
@@ -246,6 +263,6 @@ equivalent) so it dies with your session.
 ## Platform Adapters
 
 The generated Claude Code adapter lives at
-`.claude/skills/oak-inter-practice-collaboration/SKILL.md`.
+`.claude/skills/<prefix>inter-practice-collaboration/SKILL.md`, where `<prefix>` is the estate's configured skill prefix.
 Regenerate with
 `pnpm skills:generate` and verify with `pnpm skills:check`.

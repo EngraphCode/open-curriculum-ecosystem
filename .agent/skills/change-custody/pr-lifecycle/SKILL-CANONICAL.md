@@ -442,6 +442,11 @@ live tickets where the platform is in use.
   to TRIAGE every comment, if it is incorrect reject it, if it is correct,
   relevant and proportionate address it, if it is anything else raise a
   ticket, tell the Director, and close the comment."_
+  Read through the owner's later ruling for all agents (2026-09-23,
+  verbatim: "do not update the Director unless you have a question or other
+  request, the normal records keep the record"), the ticket is how the
+  Director is told, and a finding that raises a question or a request goes
+  to the Director as its own message.
 - **Separate the observation from the remedy, and test scope before correctness.** A
   finding arrives as an observation bundled with a proposed change, and the change is where
   scope expands: reviewers — bots above all — grade the diff's text against the widest
@@ -490,9 +495,10 @@ live tickets where the platform is in use.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
-     spec), notify the Director, reply with the ticket reference, and
-     RESOLVE the thread. The closure is deliberate doctrine — a ticketed
-     finding left unresolved re-creates the divergent loop this rule ends.
+     spec), which tells the Director (the reading above), reply with the
+     ticket reference, and RESOLVE the thread. The closure is deliberate
+     doctrine — a ticketed finding left unresolved re-creates the divergent
+     loop this rule ends.
 - **Convergence is the test of the loop**, not only the correctness of each
   round: rounds should shrink; a cure not required by the ticket's story is
   a ticket, not a commit; unrequested hardening built mid-review has a

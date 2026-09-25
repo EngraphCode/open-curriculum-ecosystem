@@ -4,6 +4,94 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — joint sets K1 to K3: the PDR-009 inline-prompt role and its check, lint before delivery, an open PR keeps its claim
+
+- PDR-009 gains the inline-prompt role both estates' exchange seats signed as
+  joint set K2(a), stated as the adapter rule's domain: a role that cannot
+  read files, or whose bounded turns belong to its task, carries its
+  template's System prompt block in its adapter, and a check compares every
+  copy with its template. This estate's sub-agent validator is that check: it
+  reads the scope from the templates with a `## System prompt` section and
+  compares each Claude adapter's body word for word.
+  `practice-bootstrap.md` (three anchors) and `practice-verification.md`
+  item 11 name the inline-prompt role (K3(b), K3(c), K3(e)).
+- PDR-125 clause 7 gains lint before delivery (K2(b)): the donor runs the
+  receiver's own formatting and lint configurations over every box file, so a
+  delivery never fails the receiver's formatting and lint gates. Its Status
+  paragraph and index row record the amendment (K3(d)); the
+  `inter-practice-collaboration` skill's step 7 carries the line (K2(c)).
+- Outside the Core, in the same unit: an open pull request keeps its claim at
+  closeout (K1, K1(c)); a Cricket dispatch carries its stance in the prompt
+  (K3(a)); and `record-generalisation-moves` gains the second estate's two
+  amendments.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-008, PDR-082, PDR-132 and PDR-027 take the exchange's amendments
+
+- PDR-008: the body now states that the aggregate `check` applies no fixes,
+  `fix` is the mutating aggregate, and CI runs every verifying leg of `check`
+  under a parity check. `check:fix`, `check:ci` and the CI consolidation
+  clause are retired, and the Amendment Log records the change.
+  `practice-verification.md` item 9 and one-line references in PDR-022 and
+  PDR-024 follow it.
+- PDR-082: §What changes at n=2 gains the state line. During a long turn each
+  seat sends its partner a state line at least every 120 seconds; silence past
+  that is unknown state, answered by a ping, never an escalation. The
+  `start-right-team` retain list names it.
+- PDR-132: §Decision item 1 gains the owner's word "I don't want the number of
+  rounds of PRs to go up". After round two, findings are dispositioned in the
+  same turn as the last push, and a further push opens only through PDR-140's
+  doors on prose-class changesets.
+- PDR-027: the fork-rules lead-in counts six rules.
+- The decision-record index marks the three amendments and corrects PDR-082's
+  status to Adopted.
+- Brought from the second estate's Practice through the inter-Practice
+  exchange (PDR-125), batch two part two, checked clause by clause here.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-117: the Director hears questions and requests, never state
+
+- PDR-117, on the owner's ruling of 2026-09-23 for all agents ("do not update
+  the Director unless you have a question or other request, the normal records
+  keep the record"): the Implementer's compressed verdicts and deep handoff go
+  to the normal records, where the Director reads them when it needs them. The
+  routing contract's owner-ratified asymmetry clause keeps its words and gains
+  a reading through the ruling. A dated amendment section records the change.
+  The record is the second estate's bytes (joint set G, its pull request 160),
+  so PDR-117 stays one file in both estates.
+- The decision-record index adds PDR-125's 2026-07-08 amendment, which the
+  record carries, matching the second estate's index.
+- The inter-Practice skill's adapter path is corrected to the form both
+  exchange seats signed, `<prefix>inter-practice-collaboration`, where the
+  prefix is the estate's configured skill prefix.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-24 — PDR-142, PDR-125 and the inter-Practice skill: format on receipt aligns the estates
+
+- The follow-up wording cures the owner ratified on the Director's card of
+  2026-09-23 ("both estates land the same blobs"), taken from the second
+  estate's landed text. PDR-142 is byte-identical to the second estate's
+  copy: a new log entry that names no host, and the format tie-break grounded
+  in the owner's word as the first ground of judging.
+- PDR-125 clause 7 and the inter-Practice skill's receipt step now say
+  "format on receipt": where the receiver's conventions or gates refuse the
+  donor's bytes, the estates align that convention or gate so the bytes stay
+  identical, and until they do the receiver changes only what its gate
+  refuses, each change declared as a debt to that alignment. The skill
+  carries PDR-142's ordered remedies for a donor text that is false here.
+- Both files take the second estate's bytes except one host line each.
+  PDR-125's phenotype note names this estate's agent-tools package, as the
+  PDR gives each estate's copy its own phenotype note. The skill's adapter
+  path is written host-free (`<prefix>-inter-practice-collaboration`), a
+  wording both exchange seats signed; the second estate takes this blob, so
+  the skill becomes one file in both estates.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-141: the record says when and by whose word its writes widened
+
+- PDR-141 gains the amendment section its 2026-09-23 cure lacked: decisions
+  11 and 14 push every write made on the operator's word, not only ratified
+  writes; the sovereignty test says the same; decision 3's example scope key
+  is the general form. The section names the owner's card in each estate.
+  The second estate's review found the gap; both estates carry the section
+  in the same words. The decision-record index marks PDR-141's amendments.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-23 — PDR-142 and PDR-125: concepts travel; bytes where they carry the concept
 
 - PDR-142 amended on the owner's word that concept transfer is the goal and
