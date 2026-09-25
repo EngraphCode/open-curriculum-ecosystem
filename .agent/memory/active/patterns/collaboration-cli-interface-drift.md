@@ -12,6 +12,12 @@ barrier:
   stable: true
 ---
 
+> **POLARITY: ANTI-PATTERN.** This entry names a *failure mode to avoid*,
+> not a shape to repeat.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern)
+> for the polarity discipline.
+
 # Collaboration-CLI interface drift
 
 The collaboration CLI's documented interface — help text, and the invocation
