@@ -336,7 +336,7 @@ Layer-2 artefact types.
 
 ### Forbidden
 
-- Substantive content of an adapter's own in platform adapter
+- Substantive content that is an adapter's own, in platform adapter
   directories. Policy prose, workflow steps, or decision logic that
   a wrapper adds is a contract violation; an inline-prompt role's
   System prompt block is its template's text, copied verbatim and
