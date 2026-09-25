@@ -92,8 +92,8 @@ The residual: an allowed command can run code written inside the sandbox. The
 hooks run from `.husky/` in the working tree, `pnpm agent-tools` runs the root
 `package.json` script and the built `agent-tools/dist`, and a merge brings in
 whatever `.husky/` changes the merged branch carries. That code runs as the
-signed-in user, with that user's own git and gh credentials. The Director ruled
-this parity with a Claude seat's shell on 2026-09-25. GitHub's ruleset on the
+signed-in user, with that user's own git and gh credentials. The same residual
+exists on Claude seats and is unowned in both. GitHub's ruleset on the
 default branch binds every push through the merge bot, which does not bypass it
 (see [the merge bot](../docs/engineering/merge-bot.md)), and the bot's own
 refusals are the first line; the ruleset does not bind a push made under a

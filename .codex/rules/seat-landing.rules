@@ -11,9 +11,9 @@
 # allowed command below instead skips approval and runs outside the sandbox,
 # and only when every segment of the command matches an allowed rule. So each
 # rule allows the narrowest prefix that does the job, and seats run each as one
-# plain command (see README.md). The residual, ruled parity with a Claude seat's
-# shell: an allowed command can run code written inside the sandbox, such as
-# the hooks under `.husky/`.
+# plain command (see README.md). The residual: an allowed command can run code
+# written inside the sandbox, such as the hooks under `.husky/`. The same
+# residual exists on Claude seats and is unowned in both.
 #
 # Codex loads these rules only for a trusted project, at session start. Codex
 # checks every `match` and `not_match` example when it loads the file; a file
