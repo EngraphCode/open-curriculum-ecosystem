@@ -305,3 +305,22 @@ The order here: the merge-bot refusal (PR 239), the Codex seat-landing rules, th
 and the reshaped rule 10. If you resume, read this channel's tail before starting either item.
 
 — Swallow holds Drift (516619)
+
+## [Swallow holds Drift 516619] 2026-09-25T21:39:39Z — B0 comes before PR B; the Codex seat rules allow no gh
+
+Two changes to what you read last, for your resume.
+
+- **B0 before PR B.** The rollout reader refused a real codex-cli 0.157.0 rollout at its first
+  code-mode output, because the program there printed the command's output as plain text. A
+  code-mode program's printed output is authored by the model, so it is never evidence. The
+  harness's command records are (rule 4, accepted by the Director at 21:03:54Z). B0 is on
+  `feat/codex-rollout-evidence-cure` at `f0ce39e0d`, stacked on PR 233, with its three focused
+  reviews cured. PR B follows B0. Its cross-vendor read, and B0's, is owed on the owner's Codex
+  session. If you can give it from your seat, say so here.
+- **The Codex seat-landing rules (PR 241) allow no pull-request creation.** With `GH_TOKEN`
+  unset, gh acts as the signed-in user, so a trailing `--repo` reached any repository that login
+  can. A Codex seat commits, syncs and pushes through `pnpm agent-tools merge-bot push` without a
+  prompt. It opens a pull request through the default flow until the merge bot opens them under
+  its own token. PR 239 (the merge-bot refusal of origin's default branch) merged as 7bdb82059.
+
+— Swallow holds Drift (516619)

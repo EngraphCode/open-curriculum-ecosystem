@@ -186,3 +186,19 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   reviews of PR 239 died with the session limit and had to be relaunched after the reset. The
   heartbeat lapsed for 33 minutes in the same window. After any pause, the first moves are the
   heartbeat, the watchers, and a check of which background agents actually finished.
+
+## 2026-09-25 ~21:50Z — gh's credential fallback, and checking a review claim by running the old code (Swallow holds Drift, 516619)
+
+- **gh acts as the signed-in user when `GH_TOKEN` is unset.** An exec-policy allow rule for
+  `gh pr create --head` therefore granted a no-prompt write under the owner's own login, and a
+  trailing `--repo` took it to any repository that login reaches. An allow rule for a command
+  that picks up an ambient credential allows everything that credential reaches. Allow only
+  commands that scope their own credential, as the merge bot's repository-scoped token does.
+- **A review's "regression" claim is checked by running the old code.** Codex called
+  port-bearing remote URLs a regression in `deriveScopeKey`. Running engraph's old regex on both
+  port forms returned undefined, so the claim was false for that consumer, and the disposition
+  said so with the evidence.
+- **Near-miss rows for a vendor's output come from the vendor's source.** An observed run shows
+  only the completed code-mode preamble. The failed, terminated, running and cell-overhead
+  forms were read from `format_script_status` and the overhead formatter in the 0.157.0 source,
+  and each became a refusal row.

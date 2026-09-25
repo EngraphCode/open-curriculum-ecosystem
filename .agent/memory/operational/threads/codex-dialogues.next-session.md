@@ -82,27 +82,38 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
-- **NOW (about 20:40Z, 2026-09-25), after the host's usage-limit pause (about 19:38Z to 20:11Z).**
-  - **Landed:** PR 222 (1b-iv PR A) as `92cbe0afe`, and PR 228 (wake 2a, the companion's design
-    and pure core) as `952c6f587`. Both went through the door with both legs on the synced head
-    and the deletion sweep read first. PR 233 (the thread id's owner in core) is retargeted to
-    `engraph`; it is behind, and it syncs at its slot turn.
-  - **PR 239, the merge-bot refusal** (the Director's condition 3 for the seat rules; worktree
-    `oce-wt-merge-bot-default`, claims `8b441649`, `c1d9d2b9` and `f966cbb6`).
-    - `merge-bot push` refuses the default branch origin names, in any case, and writes only
-      `refs/heads/<branch>`.
-    - The review cure `7c03c1332` adds a read port, one remote-URL parser in `core`, and
-      name-only refusals ahead of the origin read.
-    - Focused code and test re-reviews are running, and both legs are re-requested.
-  - **The Codex seat-landing rules** (claim `5e6dd23e`, worktree `oce-wt-codex-seat-rules`,
-    commits `3eec595be`, `9e31963ac` and `a0b6cc78c`).
-    - The security reviews say SOUND WITH NOTES, both cured. The Director re-opened and
-      re-closed condition 1 on a CONCERN, and added conditions 6 and 7.
-    - The execpolicy transcript matches 37 of 37 cases.
-    - The door comes after PR 239 and the owner-held live proof. The credential-narrowing PR
-      follows it.
-  - **Next, in order:** PR B (based on `engraph` after PR 233), then wake 2b in three PRs (its
-    design is pinned in `f26615f55` on `oce-wt-codex-wake-queue`, stacked on 233), then todo 3.
+- **NOW (about 21:50Z, 2026-09-25).**
+  - **Landed:** PR 222 (1b-iv PR A) as `92cbe0afe`; PR 228 (wake 2a, the companion's design and
+    pure core) as `952c6f587`; PR 239 (the merge-bot refusal, the Director's condition 3 for the
+    seat rules) as `7bdb82059`. Each went through the door with both legs on the synced head and
+    the deletion sweep read first. PR 239's last round was one Codex P2, port-bearing remote
+    URLs, settled by disposition once both settlement pushes were spent: the old parser refused
+    ports too, the push fails closed with its cure named, and default ports go to the
+    credential-narrowing PR. Its claims are closed.
+  - **PR 241, the Codex seat-landing rules** (claim `5e6dd23e`, worktree
+    `oce-wt-codex-seat-rules`, head `64a84876c`).
+    - Round 1 is cured by removing the `gh pr create` rule. With `GH_TOKEN` unset, gh acts as the
+      signed-in user, so a trailing `--repo` reached any repository that login can. Pull
+      requests take the default flow until the merge bot opens them under its own token. The
+      self-edit residual is stated in the README.
+    - The execpolicy transcript matches 38 of 38 cases. Both legs are re-requested on
+      `64a84876c`; settlement push 1 of 2 is spent.
+    - The door waits only on condition 5, the owner-held live proof on a Codex seat.
+  - **B0, the evidence cure** (claims `de2e9f7a` and `8d0c0bbe`, worktree
+    `oce-wt-codex-rollout-inputs`, branch `feat/codex-rollout-evidence-cure`, head `f0ce39e0d`,
+    stacked on PR 233).
+    - The reader stops taking a code-mode program's printed output as evidence. The harness's
+      command records are the evidence (rule 4, accepted by the Director at 21:03:54Z).
+    - The three focused reviews are cured in `f0ce39e0d`, each new test confirmed by a mutation.
+      The PR opens against `engraph` once PR 233 merges. Its cross-vendor read is owed on the
+      owner's Codex session.
+  - **PR 233** waits for the readiness slot (Myrtle turns Canopy holds it for PR 227). It then
+    syncs (38 behind) and goes through the door.
+  - **Next, in order:** PR 233's door; B0's PR; PR B; wake 2b in three PRs (its design is pinned
+    in `f26615f55` on `oce-wt-codex-wake-queue`, stacked on 233); todo 3; the
+    credential-narrowing PR (the Director's condition 7, with the authoritative default-branch
+    read, default ports, the helper smoke, the `mintFetch` debt and pull-request creation
+    through the merge bot).
 - **Superseded, NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
   - **1b-iv PR A is PR 222.** It is on `feat/codex-dialogue-probe` in the worktree
     `oce-wt-codex-dialogue-probe`, head `c0ddb2188`, with five commits: the probe contract
