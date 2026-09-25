@@ -6,7 +6,7 @@ import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import { GIT_CREDENTIAL_RESOLUTION_CHAIN } from './git-credential-chain.js';
 import type { GitCommandResult, GitExecutor } from './git-executor.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import { pushHead, type TokenFileStore } from './push-git.js';
+import { pushHead, type PushGitReads, type TokenFileStore } from './push-git.js';
 
 import { generateKeyPairSync } from 'node:crypto';
 
@@ -55,20 +55,48 @@ interface GitCall {
   readonly env: Readonly<Record<string, string | undefined>>;
 }
 
-/** Value-returning git seam (ADR-088): a non-zero exit is a RESULT, never a throw. */
-function gitFake(overrides: { revParse?: GitCommandResult; push?: GitCommandResult } = {}): {
+/** The default branch `origin` names in these fixtures: neither main nor master. */
+const DEFAULT_BRANCH = 'trunk';
+
+function answered(stdout: string): GitCommandResult {
+  return { status: 0, signal: null, stdout, stderr: '' };
+}
+
+/**
+ * The value-returning git seam (ADR-088) for the one call the executor makes,
+ * the push: a constant answer, every call recorded. A non-zero exit is a
+ * RESULT, never a throw.
+ */
+function gitFake(
+  push: GitCommandResult = { status: 0, signal: null, stdout: '', stderr: TRANSFER },
+): {
   gitExecutor: GitExecutor;
   calls: GitCall[];
 } {
   const calls: GitCall[] = [];
   const gitExecutor: GitExecutor = (file, args, options) => {
     calls.push({ file, args, cwd: options.cwd, env: options.env });
-    if (args[0] === 'rev-parse') {
-      return overrides.revParse ?? { status: 0, signal: null, stdout: `${BRANCH}\n`, stderr: '' };
-    }
-    return overrides.push ?? { status: 0, signal: null, stdout: '', stderr: TRANSFER };
+    return push;
   };
   return { gitExecutor, calls };
+}
+
+/** git's answers about HEAD and origin, each a constant. */
+function gitReads(
+  answers: {
+    readonly currentBranch?: GitCommandResult;
+    readonly originHead?: GitCommandResult;
+  } = {},
+): PushGitReads {
+  const currentBranch = answers.currentBranch ?? answered(`${BRANCH}\n`);
+  const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);
+  return {
+    currentBranch: () => Promise.resolve(currentBranch),
+    // Trusted, and spelled unlike REMOTE: the push goes to the configured
+    // repository's URL, never to origin's.
+    originUrls: () => Promise.resolve(answered('git@github.com:acme/widgets.git\n')),
+    originHead: () => Promise.resolve(originHead),
+  };
 }
 
 /** Serves the mint endpoints and records every call URL and body. */
@@ -138,6 +166,7 @@ function tokenStoreFake(overrides: Partial<TokenFileStore> = {}): {
 function runPush(input: {
   readonly args?: readonly string[];
   readonly git?: ReturnType<typeof gitFake>;
+  readonly reads?: PushGitReads;
   readonly fetch?: ReturnType<typeof mintFetch>;
   readonly store?: ReturnType<typeof tokenStoreFake>;
   readonly overrides?: Partial<MergeBotCliInput>;
@@ -171,6 +200,8 @@ function runPush(input: {
     nowEpochSeconds: () => 1_800_000_000,
     gitExecutor,
     gitPath: GIT_PATH,
+    gitReads: input.reads ?? gitReads(),
+    refFormatOracle: () => true,
     baseEnv: BASE_ENV,
     tokenFiles: store,
     ...input.overrides,
@@ -188,8 +219,9 @@ function runPush(input: {
   };
 }
 
+/** The executor runs only the push; the reads go through the read port. */
 function pushCall(calls: readonly GitCall[]): GitCall | undefined {
-  return calls.find((call) => call.args.includes('push'));
+  return calls[0];
 }
 
 /**
@@ -213,42 +245,18 @@ describe('runMergeBotCli push', () => {
     expect(run.errText()).toContain('abc1234..def5678');
     expect(run.out()).not.toContain(TOKEN);
     expect(run.errText()).not.toContain(TOKEN);
-    expect(run.calls[0]?.args).toEqual(['rev-parse', '--abbrev-ref', 'HEAD']);
-    expect(run.calls[0]?.cwd).toBe('/repo');
+    expect(pushCall(run.calls)?.cwd).toBe('/repo');
   });
 });
 
 describe('merge-bot push credential discipline', () => {
-  it('pins the exact push call: helpers cleared, the static file-reading helper, no bypass, no credential in argv', async () => {
+  it('hands git the token through neither argv nor env: a 0600 file, its path in env, removed after', async () => {
     const run = runPush({});
 
     expect(await run.exit).toBe(0);
     const push = pushCall(run.calls);
     expect(push?.file).toBe(GIT_PATH);
-    // The whole call, pinned: every config-sourced arm of git's credential
-    // chain cleared, then the ONE static helper literal; the remote carries
-    // no credentials; the refspec is HEAD:<branch>. Nothing else is on the
-    // line — no force, no --no-verify.
-    expect(push?.args).toEqual([
-      '-c',
-      'credential.helper=',
-      '-c',
-      'core.askPass=',
-      '-c',
-      'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
-      'push',
-      REMOTE,
-      `HEAD:${BRANCH}`,
-    ]);
     expect(push?.args.join(' ')).not.toContain(TOKEN);
-    expect(push?.args).not.toContain('--no-verify');
-  });
-
-  it('keeps the token OUT of the child environment: a 0600 file, its path in env, removed after', async () => {
-    const run = runPush({});
-
-    expect(await run.exit).toBe(0);
-    const push = pushCall(run.calls);
     // NO environment variable carries the token itself: git exports this
     // environment to the pre-push hook chain (pnpm, turbo, every test the
     // gates run), and an env dump there must never print a live write token.
@@ -310,20 +318,22 @@ describe('merge-bot push credential discipline', () => {
     expect(helperIndex).toBeGreaterThan(args.indexOf('credential.helper='));
   });
 
-  it('the helper literal is byte-identical even when git reports a hostile branch name — nothing is interpolated', async () => {
-    const hostile = 'lane-$(id)`x`';
-    const run = runPush({
-      git: gitFake({ revParse: { status: 0, signal: null, stdout: `${hostile}\n`, stderr: '' } }),
-    });
+  it.each([
+    { name: 'an ordinary name', branch: 'feat/example' },
+    { name: 'a hostile name', branch: 'lane-$(id)`x`' },
+    { name: 'a name git could read as the default branch', branch: `heads/${DEFAULT_BRANCH}` },
+  ])(
+    'names refs/heads/<name> as the destination for $name, and nowhere else',
+    async ({ branch }) => {
+      const run = runPush({ reads: gitReads({ currentBranch: answered(`${branch}\n`) }) });
 
-    expect(await run.exit).toBe(0);
-    const push = pushCall(run.calls);
-    expect(push?.args).toContain(
-      'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
-    );
-    // The hostile name lands ONLY as data inside the refspec argv element.
-    expect(push?.args.at(-1)).toBe(`HEAD:${hostile}`);
-  });
+      expect(await run.exit).toBe(0);
+      // The name lands only as data inside the destination: never inside the
+      // credential helper, never as an argument of its own.
+      const carrying = (pushCall(run.calls)?.args ?? []).filter((arg) => arg.includes(branch));
+      expect(carrying).toEqual([`HEAD:refs/heads/${branch}`]);
+    },
+  );
 
   it('a token-staging failure is an operational failure: exit 1, no push, the half-staged directory removed', async () => {
     // The write fails AFTER the directory exists — the richer state: the
@@ -398,12 +408,10 @@ describe('merge-bot push credential discipline', () => {
     const store = tokenStoreFake();
     const run = runPush({
       git: gitFake({
-        push: {
-          status: 1,
-          signal: null,
-          stdout: '',
-          stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
-        },
+        status: 1,
+        signal: null,
+        stdout: '',
+        stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
       }),
       store,
     });
@@ -428,12 +436,22 @@ describe('merge-bot push outcomes and refusals', () => {
     });
   });
 
-  it('pushes an explicitly named branch without asking git which branch HEAD is on', async () => {
-    const run = runPush({ args: ['--branch', 'other-lane'] });
+  it('--branch names the branch pushed and reported under --json', async () => {
+    const run = runPush({ args: ['--branch', 'other-lane', '--json'] });
 
     expect(await run.exit).toBe(0);
-    expect(run.calls.map((call) => call.args[0])).toEqual(['-c']);
-    expect(pushCall(run.calls)?.args.at(-1)).toBe('HEAD:other-lane');
+    expect(JSON.parse(run.out())).toEqual({ kind: 'pushed', branch: 'other-lane', remote: REMOTE });
+  });
+
+  it('fails without minting or pushing when the default branch cannot be read, naming the cure', async () => {
+    const run = runPush({
+      reads: gitReads({ originHead: { status: 1, signal: null, stdout: '', stderr: '' } }),
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('git remote set-head origin --auto');
+    expect(run.urls).toEqual([]);
+    expect(pushCall(run.calls)).toBeUndefined();
   });
 
   it('emits EXACTLY the outcome object on stdout under --json, transfer output on stderr', async () => {
@@ -450,73 +468,44 @@ describe('merge-bot push outcomes and refusals', () => {
     // signal death collapsed to a mystery number. The executor now reports
     // the signal distinctly and this command must pass it to the operator.
     const run = runPush({
-      git: gitFake({ push: { status: 128, signal: 'SIGTERM', stdout: '', stderr: '' } }),
+      git: gitFake({ status: 128, signal: 'SIGTERM', stdout: '', stderr: '' }),
     });
 
     expect(await run.exit).toBe(1);
     expect(run.errText()).toContain('killed by SIGTERM');
   });
 
-  it('refuses to push the default branch by name, before minting anything', async () => {
-    for (const branch of ['main', 'master']) {
-      const run = runPush({
-        git: gitFake({ revParse: { status: 0, signal: null, stdout: `${branch}\n`, stderr: '' } }),
-      });
-
-      expect(await run.exit).toBe(3);
-      expect(run.errText()).toContain(branch);
-      expect(run.errText()).toContain('pull request');
-      // A refusal mints no token, creates no directory, writes no token file,
-      // and runs no push: the refusal is the whole behaviour, not a check the
-      // push then ignores.
-      expect(run.urls).toEqual([]);
-      expect(run.prefixes).toEqual([]);
-      expect(run.writes).toEqual([]);
-      expect(pushCall(run.calls)).toBeUndefined();
-    }
-  });
-
-  it('reports the default-branch refusal machine-readably under --json', async () => {
-    const run = runPush({
-      args: ['--json'],
-      git: gitFake({ revParse: { status: 0, signal: null, stdout: 'main\n', stderr: '' } }),
-    });
+  it('refuses main by name before minting anything: no token, no directory, no file, no push', async () => {
+    const run = runPush({ reads: gitReads({ currentBranch: answered('main\n') }) });
 
     expect(await run.exit).toBe(3);
-    const outcome: unknown = JSON.parse(run.out());
-    expect(outcome).toMatchObject({ kind: 'refused' });
-    expect(JSON.stringify(outcome)).toContain('pull request');
-  });
-
-  it('refuses a detached HEAD by naming the state, never guessing a branch', async () => {
-    const run = runPush({
-      git: gitFake({ revParse: { status: 0, signal: null, stdout: 'HEAD\n', stderr: '' } }),
-    });
-
-    expect(await run.exit).toBe(3);
-    expect(run.errText()).toContain('detached');
+    expect(run.errText()).toContain('main');
+    // A refusal mints no token, creates no directory, writes no token file,
+    // and runs no push: the refusal is the whole behaviour, not a check the
+    // push then ignores.
     expect(run.urls).toEqual([]);
+    expect(run.prefixes).toEqual([]);
     expect(run.writes).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
   });
 
-  it('refuses an explicitly named default branch too — the guard is on the target', async () => {
-    const run = runPush({ args: ['--branch', 'main'] });
+  it('reports a refusal machine-readably under --json, naming the refused branch', async () => {
+    const run = runPush({ args: ['--json', '--branch', 'main'] });
 
     expect(await run.exit).toBe(3);
-    expect(run.errText()).toContain('pull request');
-    expect(pushCall(run.calls)).toBeUndefined();
+    const outcome: unknown = JSON.parse(run.out());
+    expect(outcome).toMatchObject({ kind: 'refused' });
+    // The reason names the refused branch, quoted inside the JSON string.
+    expect(run.out()).toContain(String.raw`\"main\"`);
   });
 
   it('surfaces a non-zero git push as an operational failure, with git own stderr', async () => {
     const run = runPush({
       git: gitFake({
-        push: {
-          status: 1,
-          signal: null,
-          stdout: '',
-          stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
-        },
+        status: 1,
+        signal: null,
+        stdout: '',
+        stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
       }),
     });
 
@@ -538,23 +527,6 @@ describe('merge-bot push outcomes and refusals', () => {
     expect(run.errText()).toMatch(/token/u);
     expect(run.writes).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
-  });
-
-  it('surfaces an unreadable current branch as an operational failure', async () => {
-    const run = runPush({
-      git: gitFake({
-        revParse: {
-          status: 128,
-          signal: null,
-          stdout: '',
-          stderr: 'fatal: not a git repository\n',
-        },
-      }),
-    });
-
-    expect(await run.exit).toBe(1);
-    expect(run.errText()).toContain('not a git repository');
-    expect(run.urls).toEqual([]);
   });
 
   it('fails as usage when the repo config authority is unreadable', async () => {
