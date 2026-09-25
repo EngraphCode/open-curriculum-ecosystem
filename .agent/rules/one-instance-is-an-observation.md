@@ -10,7 +10,7 @@ answer, never on a second instance, which the criterion grounds in
 [PDR-100](../practice-core/decision-records/PDR-100-decision-debt-as-a-first-class-pillar.md)
 — which is why a cure is not a distribution).
 
-When a durable record — a ledger row, a plan, a memory, a thread record, a
+When a written record — a ledger row, a plan, a memory, a thread record, a
 pull request comment, a decision record — names a pattern, class, tendency,
 category or rule derived from observations, the same sentence states the number
 of independent instances and the comparator. Fewer than three independent
