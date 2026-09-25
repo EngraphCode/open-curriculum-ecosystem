@@ -150,6 +150,17 @@ Each slice is one story, within the default round budget.
 2. **The wake sink**, test-first. The pure eligibility, coalescing and notice core, the queue
    port, and the watcher option that arms it. Reviews: code-expert before and after execution;
    test-expert and security-expert, focused.
+
+   **HELD, 2026-09-25: slice 2 is back with the owner.** Its pre-execution review found a fact
+   that breaks the mechanism (comms `dbb48c46`, absorbed by the Director at 15:58:13Z). On
+   codex-cli 0.157.0, Codex denies every sandbox below full-disk write any access to the
+   app-server daemon's socket directory (`sandboxing/src/seatbelt.rs`, and the vendor's test
+   `daemon_sockets_are_denied_despite_network_and_tmp_write_grants`). `codex queue` has no
+   no-daemon or embedded-server route while a daemon runs. So a watcher the seat starts from its
+   own shell cannot queue into its own thread. The recommended cure, for the owner's word: the
+   seat's launch command starts a wake companion beside the TUI, outside the sandbox, bound by a
+   thread-id handshake file the seat writes. The companion's one act is the fixed notice. Nothing
+   is built until the owner's word.
 3. **The operating rule, the start skill and the generated block**, with the live run recorded.
    Citizenship text is shared Practice text, so this slice's doctrine lands as the same bytes in
    the second estate, carried as an exchange row.
