@@ -1116,6 +1116,20 @@ the ceremony sets git's author variables in the environment of the commit step.
   embeds the flattened home directory, which the machine-local-path guard matches. Give a
   sub-agent its scratch location in the dispatch prompt, or tell it to use `mktemp -d`, rather
   than writing the path into a file.
+- *Tool feedback: the force-push guard matched across two commands (~23:55Z).* One Bash call ran
+  `git push origin feat/substrate-instance-tier` and, later, `gh api … -F body=@…`. The guard
+  refused it as `git push -f`, matching "git push" and the far-off `-F` together. The
+  workaround: run a push in its own call. The guard's pattern should anchor the flag to the
+  push's own arguments (`hook-policy-substring-discipline`).
+- *A worktree pruned without the ignored-path inventory (~00:00Z).* The J18 part A worktree was
+  removed after the clean and ancestor proofs, but without the `status --porcelain --ignored`
+  inventory `worktree-hygiene` asks for. The earlier prunes had shown only build output and
+  regenerable assets, and the implementer reported its scratch deleted, so nothing is known
+  lost. The move: the inventory runs in the same command as the removal, every time.
+- *Commitlint's footer-token trap, twice (~21:15Z, ~23:15Z).* A body line that opens with a word
+  and a colon ("cleanly:", "sides:") reads as a footer, and `footer-leading-blank` fails the
+  commit hook. `pnpm exec commitlint --edit <file>` before each commit catches it in the
+  foreground.
 
 ## 2026-09-24 ~14:40Z — pause for compaction: reflection harvest and loss scan (Swallow holds Drift, 516619)
 

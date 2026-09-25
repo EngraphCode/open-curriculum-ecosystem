@@ -337,20 +337,21 @@ ran on its declared default while the word waited, and the Director recorded tha
 The Director confirmed the resume at about 18:40Z, when this session read 12% after
 compaction.
 
-- **State at 23:45Z, context about 62%:**
-  - **Landed today:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`),
-    and J4 parts A and B: PR 202 (`9b67670fe`, one tracked-path set in core) and PR 203
-    (`27a8a8e12`, one git seam whose listing returns a Result). Their worktrees are pruned. The
-    K amendment (2a62905f: the PDR-009 clause as the rule's domain) waits on Siren's twin.
-  - **Open:**
-    - PR 204, J18 part A (`refactor/owner-only-append`, worktree `oce-wt-b4-j18a`): one
-      owner-only append in core, used by the statusline debug log. It holds the slot; both
-      settlement pushes are spent (Windows fix `28ab8dc64`, Sonar S7718 after it).
-    - PR 205, J4 part C (`feat/substrate-instance-tier`, worktree `oce-wt-b4-j4c`): the
-      substrate audit reads absent instance-tier surfaces as informational. On a fresh
-      worktree it now exits 0. Its probe is git's index-aware `check-ignore`, a departure from
-      the note's `--no-index` design that goes back to Siren as a gain. Its body names six
-      follow-ups; wiring the audit into `repo-validators:check` is the first.
+- **State at 2026-09-25 00:25Z, context about 68%; the seat is at rest.** The handover record
+  is `.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-batch-four-handover-2026-09-25.md`.
+  - **Landed:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`), J4 in
+    three parts, and J18 part A. The K amendment (2a62905f: the PDR-009 clause as the rule's
+    domain) waits on Siren's twin.
+    - J4: PR 202 (`9b67670fe`, one tracked-path set in core), PR 203 (`27a8a8e12`, one git
+      seam whose listing returns a Result) and PR 205 (`71e822570`). PR 205 makes the
+      substrate audit read absent instance-tier surfaces as informational, so a fresh
+      worktree exits 0. Its probe is git's index-aware `check-ignore`, a departure from the
+      note's `--no-index` design that goes back to Siren as a gain. Its body names six
+      follow-ups; wiring the audit into `repo-validators:check` is the first. Claim 8b37f3d1
+      is closed.
+    - J18 part A: PR 204 (`d0fb0aced`), one owner-only append in core, used by the
+      statusline debug log.
+    - Every worktree for these is pruned.
   - **J18 part B, the observer (claim 3a3a9280).** Plan and pre-execution review at 21:50Z.
     The decided design:
     - Run from built `dist` through `log-hook-errors.sh`, never from TypeScript source. The
@@ -364,6 +365,10 @@ compaction.
       descriptor, then close. That removes the window between an lstat and a path chmod.
       Refuse a symlink, a foreign owner, or a sticky directory. The observer skips its append
       whenever the hold fails. Add `umask 077` near the top of `log-hook-errors.sh`.
+    - Make `appendOwnerOnly` refuse on a platform without POSIX ownership (no uid), before
+      writing. PR 204 skips only the owner check there, but `fchmod` cannot make a Windows
+      file owner-only, and `mcp-conformance/owner-only-write.ts` already refuses (Codex P2 on
+      PR 204, recorded as an observation because that PR's budget was spent).
     - Extract the orchestration with injected stdin, stat, readdir, append, clock and UUID, so
       integration tests use constant fakes. The smoke covers the bare `/compact` payload and
       unreadable stdin only; it is wired as `smoke:pre-compact-observe` into `test:e2e`, and
