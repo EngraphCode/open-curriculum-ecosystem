@@ -358,6 +358,72 @@ records or observed in the named run.
     `HOME`, `LOGNAME` and `_`.
   - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
+### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 11:33Z)
+
+This is one local run of the TUI client in a `tmux` pseudo-terminal, with `--no-daemon`.
+It does **not** establish behaviour in an editor terminal or the ChatGPT desktop app. The
+installed `codex 0.157.0` matched the latest official release at the start of the run
+([`rust-v0.157.0`](https://github.com/openai/codex/releases/tag/rust-v0.157.0)).
+The disposable, mode-0700 `CODEX_HOME` held a symlink to the
+owner's existing `auth.json`: these sessions ran using the owner's own Codex login. No
+credential bytes were copied into this record. In that home, `codex --disable plugins mcp
+list --json` returned `[]`. The work directory was a separate empty scratch directory.
+
+The launch shape was `CODEX_HOME=<probe-home> script -q <tui-log> codex --no-daemon
+--disable plugins --no-alt-screen -C <scratch> -s read-only -a never -c
+'projects={ "<scratch>" = { trust_level = "trusted" } }' <fixed prompt>`, inside `tmux`.
+Every queue call used the same home, `--disable plugins --thread <thread-id> -s
+read-only --message <fixed notice>`. The thread was
+`01a0d848-ee61-7871-bd83-15badd16c0d5`. Its untracked rollout supplied the UTC
+event times below and was removed with the disposable home after extraction. Queue
+calls reported acceptance with a message id, not delivery.
+
+Observed boundaries, using UTC on 2026-09-25:
+
+- **Idle.** Queue accepted message `01a0d849-e1c1-7cb3-b6a4-e2d1b90880e9` at about
+  11:18:31. A separate turn started 11:18:42.620 and completed 11:18:44.464 with
+  `WAKE-TUI-1`. The idle TUI woke without a manually submitted prompt.
+- **Typed draft at idle.** The unsent `TYPED-TUI-2` draft was visible when queue
+  accepted `01a0d84a-a2dd-7fa3-9767-624dca194ccb` at about 11:19:25. Return was
+  then sent. The typed turn ran 11:19:25.252–11:19:27.448 (`TYPED-OK-2`); the queued
+  turn ran 11:19:27.459–11:19:29.470 (`QUEUED-OK-2`). Both messages ran as separate
+  turns, typed first. This does not prove priority for every race timing.
+- **Active reply.** An active turn was confirmed started at 11:20:34.668. Queue
+  accepted `01a0d84b-eb4a-7db0-8042-18a7e62c74f0` at about 11:20:48–49. The
+  active turn completed 11:21:08.419; the queued turn began 11:21:08.422 and completed
+  11:21:12.458 with `ACTIVE-QUEUE-OK-4`. The notice waited and then started its own
+  turn. An earlier attempt had insufficient queue/start ordering evidence.
+- **Killed process.** The probe's Codex PID was killed at 11:21:55; its child was absent
+  at the first process audit. Queue accepted `01a0d84d-52ee-7d62-a588-765450666c2c`
+  at 11:22:21. No new rollout turn appeared while the process was dead. After explicit
+  read-only resume, a turn began 11:23:28.655 and completed 11:23:32.591 with
+  `KILLED-QUEUE-OK-5`. The notice survived this killed-process gap and ran on resume.
+  No continuous process trace was recorded; this one run is not a persistence guarantee.
+
+**Design inference, not a probe observation:** queue acceptance while the target was dead
+does not mean the target was woken. A watcher that marked events seen on queue success
+could therefore miss a wake if it outlived its target. Swallow holds Drift's pairing
+note of 11:35:36Z says the current watcher runs under the seat's supervisor, so a
+killed seat would stop that watcher too. This run does not establish a bridge defect
+or prove the later acceptance criterion that a failed wake loses no event.
+
+The initial TUI environment-presence request produced no boolean result: its nested local
+shell failed with `sandbox-exec: sandbox_apply: Operation not permitted`. A separate
+read-only TUI attempt outside that outer sandbox stayed on its startup screen, created no
+rollout, and was terminated. Therefore `CODEX_THREAD_ID` and
+`PRACTICE_AGENT_SESSION_ID_CODEX` presence and equality remain **unobserved** here.
+The resumed TUI exited; the stalled retry received SIGTERM. A final process-name audit
+showed only the pre-existing `codex` and `codex-code-mode-host` processes. The child of
+the killed TUI was not present at the first post-kill audit; its continuous lifetime was
+not measured. The disposable home and its auth symlink were then removed without
+following the link.
+
+The per-host desktop and editor-terminal typing, active-reply, wake and shell-environment
+checks remain for the owner-held host run in the ratified
+`codex-queue-wake-bridge.plan.md` todo 1 (on the coordination branch at `0730de7fd`,
+not yet in this note's base branch). The local TUI findings above do not satisfy the
+plan's "Each host wakes" acceptance criterion.
+
 ## 3. The participation record
 
 - **Claims.** The claims archive holds 378 Codex claims out of 1,709: July 331, August 46,
