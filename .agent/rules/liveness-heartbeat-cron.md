@@ -407,8 +407,8 @@ spaces, so a positional `awk` field split is wrong).
 
 The standalone command is the read-model; the poll-recipe is the alert. Wiring
 the same classifier into `comms watch` as an `--alert-stale-peers` mode is a
-recorded follow-on (it would couple an absence/timer concern into the
-event-driven watcher, so it is kept a separate thin consumer).
+recorded follow-on (it would couple an absence concern into the
+event-emitting comms watcher, so it is kept a separate thin consumer).
 
 ### Reading calibrations (consolidated 2026-07-30, all measured)
 
