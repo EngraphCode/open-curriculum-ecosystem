@@ -6,7 +6,7 @@ platform: claude-code
 model: claude-fable-5-1
 session_id_prefix: "bf4957"
 mode: dedicated-knowledge-curation
-report: none; the decision tables and analyses are conserved at ~/.practice/consolidation/2026-09-25-oce/
+report: none; the decision tables and the doctrine patch are tracked at .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/
 ---
 
 # Curator Pass — Dedicated Consolidation, 2026-09-25
@@ -43,7 +43,7 @@ seat takes the exchange seat only after this session completes.
   the experience audit on `signal-read-as-fact`); `3c1fe1a18` (F-199, the commit skill's move 3);
   the rotation commit (F-191, F-200 to F-207, the napkin archive, this record). The six
   post-snapshot homes (the commit skill, three rules, one pattern, the O1 clause in PDR-063)
-  are conserved as `~/.practice/consolidation/2026-09-25-oce/lane-doctrine.patch` for a lane
+  are conserved as `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/lane-doctrine.patch` for a lane
   branch cut from engraph after the rotation broadcast (the Director's routing of 13:1xZ,
   coordination-branch-24h-lifetime clause 4).
 - Held: `pending-graduations.md`, six rows (four directive-bound, the comms table's B, C and D,

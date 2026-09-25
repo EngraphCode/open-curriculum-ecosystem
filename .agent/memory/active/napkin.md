@@ -32,7 +32,7 @@ at" claim verified by grep at source; every accepted row's source wording read f
 seat); the three entries added after the snapshot (Swallow holds Drift 11:38Z and 12:05Z, Geyser
 rides Pewter 12:10Z) were read first-hand; their moves (the commit skill, three rules, one
 pattern, PDR-063's O1 clause) are conserved as a patch at
-`~/.practice/consolidation/2026-09-25-oce/lane-doctrine.patch` for a lane branch cut from
+`.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/lane-doctrine.patch` for a lane branch cut from
 engraph after the rotation broadcast, at the Director's routing of 13:1xZ (consolidation
 doctrine edits are a work product with their own review contract). Landed: `c76f93eb6` (the homes: ten skills, twenty rules, patterns, PDR-140,
 PDR-063, the ARC protocol) and the commit that carries this record (the frictions register, the

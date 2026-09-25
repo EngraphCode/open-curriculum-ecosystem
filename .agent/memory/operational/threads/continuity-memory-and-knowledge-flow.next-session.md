@@ -117,8 +117,8 @@ the six PDR-130 slow-lane rows are not due before 2026-10-01 and are not in that
 0; open questions 0; napkin rotated (the 2026-09-20 to 2026-09-25 window, 1,578 lines, archived
 byte-identical as `archive/napkin-2026-09-25.md`). The pass record is
 `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolidation.md`; the decision tables
-and analyses are at `~/.practice/consolidation/2026-09-25-oce/` (a per-user surface, because
-they quote the stream verbatim).
+and analyses are at `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/` (tracked); the analyst outputs and briefs are in the ignored instance tier
+`.agent/state/collaboration/comms-analysis-2026-09-25/`.
 
 **Landed**: `c76f93eb6` (the napkin's graduations: ten skills, twenty rules, three patterns, one new pattern and the pattern index, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
 heartbeat cadence reference, the experience audit); `3c1fe1a18` (F-199); the buffers commit
@@ -135,7 +135,7 @@ retirement now, alone; JC.net's joint cure for the Cricket templates' no-inferre
 queued to that seat). The doctrine batches that remain go to a lane branch cut from engraph in a
 worktree with its own draft PR, never the successor coordination branch (the Director's routing
 of 13:1xZ, coordination-branch-24h-lifetime clause 4): first the six post-snapshot homes in
-`~/.practice/consolidation/2026-09-25-oce/lane-doctrine.patch` (101 lines; the commit skill's
+`.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/lane-doctrine.patch` (101 lines; the commit skill's
 index-lock read after a push, hook-policy-substring-discipline's second instance, the five-word
 grep in records-are-technical, the unassigned-executor and owner-test lines in
 handoff-messages-self-contained, two zsh and pnpm facts in harness-shell-and-commit-edge-cases,
