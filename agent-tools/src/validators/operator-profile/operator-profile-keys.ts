@@ -18,7 +18,7 @@ export function deriveScopeKey(originUrl: string): string | undefined {
   if (remote === undefined) {
     return undefined;
   }
-  const key = `${remote.owner}--${remote.repo}`.toLowerCase();
+  const key = `${remote.owner}--${remote.repoName}`.toLowerCase();
   return SCOPE_KEY_PATTERN.test(key) ? key : undefined;
 }
 

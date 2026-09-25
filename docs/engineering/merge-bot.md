@@ -333,7 +333,8 @@ case: `main` and `master` by name, then whatever branch
 `refs/remotes/origin/HEAD` names, read only when `origin` has one URL and
 it is the repository the push goes to. That read is a snapshot a fetch
 does not move, so after the repository's default branch changes, run
-`git remote set-head origin --auto`; GitHub's ruleset on the default
-branch refuses a direct push either way. An unreadable default branch
+`git remote set-head origin --auto`. Where the configured repository's
+ruleset on the default branch binds the bot, as this repository's does,
+GitHub refuses a direct push either way. An unreadable default branch
 fails the push rather than guessing (see
 [`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).
