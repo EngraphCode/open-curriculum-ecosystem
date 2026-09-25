@@ -55,6 +55,20 @@ describe('admitRecord', () => {
     });
   });
 
+  it('admits a record passed at this very moment', () => {
+    expect(admitRecord({ kind: 'present', value: record }, new Date(passedAtMs))).toStrictEqual({
+      ok: true,
+      value: record,
+    });
+  });
+
+  it('refuses a record whose age cannot be measured against an invalid clock', () => {
+    expect(admitRecord({ kind: 'present', value: record }, new Date(Number.NaN))).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-age-unmeasured' },
+    });
+  });
+
   it('refuses a record dated after now', () => {
     const before = new Date(passedAtMs - 1);
     expect(admitRecord({ kind: 'present', value: record }, before)).toStrictEqual({
@@ -98,7 +112,7 @@ describe('admitRecord', () => {
 });
 
 describe('matchBinding', () => {
-  it('opens when the version, the path and the envelope all match the record', () => {
+  it('opens when the version, the path, the envelope and the probe contract all match the record', () => {
     expect(matchBinding(record, binding)).toStrictEqual({ ok: true, value: undefined });
   });
 

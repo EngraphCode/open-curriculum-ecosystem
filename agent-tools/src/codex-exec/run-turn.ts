@@ -51,8 +51,9 @@ export type GatedTurnError = GateRefusal | BinaryUnresolved | TurnError;
  * Run one dialogue turn, but only on a binding a probe has passed: the gated
  * core of `dialogue-turn`. The pass record is admitted first, measured
  * against the clock, so an empty instrument home or a record past its age
- * asks for a probe before anything about the binary is known. Then the binary is resolved once, the binding is matched against
- * the record, and the turn spawns that same resolved path.
+ * asks for a probe before anything about the binary is known. Then the
+ * binary is resolved once, the binding is matched against the record, and
+ * the turn spawns that same resolved path.
  *
  * @param request - The turn: open a dialogue's thread, or resume one.
  * @param context - What the composition root resolved once for every turn.

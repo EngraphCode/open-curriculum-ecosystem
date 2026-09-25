@@ -206,4 +206,15 @@ describe('runTurn', () => {
       error: { kind: 'pass-record-expired' },
     });
   });
+
+  it('starts no turn on a record dated after its own clock', () => {
+    const early: PassRecord = {
+      ...record,
+      passedAt: new Date(Date.parse(NOW) + 1).toISOString(),
+    };
+    expect(runTurn(request, context, ports({ kind: 'present', value: early }))).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-from-the-future' },
+    });
+  });
 });

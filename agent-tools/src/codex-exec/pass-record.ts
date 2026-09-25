@@ -27,9 +27,10 @@ const passRecordSchema = bindingSchema.extend({
 
 /**
  * The machine-local record a passing probe writes: which Codex binary, on
- * which version, passed with which envelope, when, and the verbatim
- * evidence. The gate opens a dialogue only on a record matching the current
- * binding. It guards against drift, not attack: any process running as the
+ * which version, passed with which envelope, judged by which version of the
+ * probe's contract, when, and the verbatim evidence. The gate opens a
+ * dialogue only on a record matching the current binding and inside its age
+ * limit. It guards against drift, not attack: any process running as the
  * user can write it.
  */
 export type PassRecord = Readonly<z.infer<typeof passRecordSchema>>;

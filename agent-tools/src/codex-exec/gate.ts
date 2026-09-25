@@ -45,16 +45,25 @@ export type ResolvedBinary = Pick<Binding, 'cliVersion' | 'executablePath'>;
 export const PASS_RECORD_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
 /**
+ * Why a well-formed record is outside its age limit: past it, dated after
+ * now, or of an age that could not be measured, such as against a clock that
+ * reads as an invalid date.
+ */
+type AgeRefusal =
+  | { readonly kind: 'pass-record-expired' }
+  | { readonly kind: 'pass-record-from-the-future' }
+  | { readonly kind: 'pass-record-age-unmeasured' };
+
+/**
  * Why the gate's first phase refused: no record, a record file the edge
  * would not read, a value that is not a pass record, or a record outside its
- * age limit: past it, or dated after now.
+ * age limit.
  */
 export type RecordRefusal =
   | { readonly kind: 'no-pass-record' }
   | { readonly kind: 'pass-record-rejected'; readonly reason: PassRecordRejection }
   | { readonly kind: 'invalid-pass-record' }
-  | { readonly kind: 'pass-record-expired' }
-  | { readonly kind: 'pass-record-from-the-future' };
+  | AgeRefusal;
 
 /**
  * Why the gate's second phase refused: the record was written for another
@@ -95,10 +104,14 @@ export function admitRecord(read: PassRecordRead, now: Date): Result<PassRecord,
 
 /**
  * Admit a record only inside its age limit: passed no later than now, and
- * no longer ago than the limit.
+ * no longer ago than the limit. An age that is not a finite number is
+ * refused, since neither comparison below would hold for it.
  */
-function withinAgeLimit(record: PassRecord, now: Date): Result<PassRecord, RecordRefusal> {
+function withinAgeLimit(record: PassRecord, now: Date): Result<PassRecord, AgeRefusal> {
   const age = now.getTime() - Date.parse(record.passedAt);
+  if (!Number.isFinite(age)) {
+    return err({ kind: 'pass-record-age-unmeasured' });
+  }
   if (age < 0) {
     return err({ kind: 'pass-record-from-the-future' });
   }
