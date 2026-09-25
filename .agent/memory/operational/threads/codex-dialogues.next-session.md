@@ -81,6 +81,17 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
       the desktop legs to the owner: the owner at the keyboard, with Titan queuing;
       a computer-use seat not recommended. The desktop killed-session leg is left unrun,
       because Titan's own seat runs inside the desktop app.
+    - **Card A CLOSED by the owner's word, about 11:40Z** (relayed by the Director), verbatim:
+      "why do we need the ChatGPT desktop host? My interest is Codex CLI". Also, verbatim: "nope!
+      They were both started via the terminal with `codex`". So todo 1 is scoped to the Codex
+      CLI, and the desktop legs are not run. This seat's claim that Titan runs inside the desktop
+      app was an inference from a process name, and it was wrong. First-hand parentage: the
+      app-server (pid 35269) was spawned by a `codex` TUI (35243) under zsh in Cursor's terminal
+      pty-host. The bridge node's todo 1 and its acceptance criterion are amended to the CLI,
+      with a dated disposition. The exchange row to the second estate is owed; the exchange
+      seat is unheld until Myrtle turns Canopy takes it. Titan was asked to repeat the
+      idle-wake and active-turn legs in the mode seats run, the TUI with its managed
+      app-server, because the first legs used `--no-daemon`.
     - A correction to the Director: the two watchers under supervisor pid 35269 are Titan's, not
       Luna's. The app-server started at 10:43:01Z, and the watchers at 10:47:01Z and 10:55:21Z,
       after Luna's 10:34Z closeout.
