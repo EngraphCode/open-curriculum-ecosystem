@@ -96,7 +96,9 @@ and in the lived record of that day.
 3. **Only addressing wakes.** An event wakes the seat only when the canonical classifier puts it
    in the seat's directed or group view: addressed to the seat's exact identity, and not
    self-authored. Broadcasts, observed events, lifecycle events and heartbeats never wake. So a
-   routing meant to wake a Codex seat goes by `comms direct` (todo 3).
+   routing meant to wake a Codex seat goes by `comms direct` (todo 3). An event id is
+   peer-written, so an id that wakes the seat is never marked as not waking, even when another
+   event carries it too.
 4. **The notice carries no event bytes.** It is a constant with no parameters, so its type
    admits no event bytes. It says coordination events are waiting, names the canonical command
    that reads them, and asks the seat to acknowledge the wake as its start skill describes.
@@ -139,8 +141,12 @@ and in the lived record of that day.
      writes the fallback to its status. A later ack resets the count, and queueing resumes. The
      vendor holds up to 100 queued messages for a thread that is not running, so the bound
      matters. The exit notice sits outside the budget, since it goes at most once per launch.
-   - A failed queue call writes one WAKE FAILED line naming the event ids, and the wake is
-     retried on a capped backoff. A call counts as queued only when `codex queue` exits 0.
+   - A failed queue call writes one WAKE FAILED line naming the event ids and the fallback, and
+     the wake is retried on a capped backoff. A call counts as queued only when `codex queue`
+     exits 0. A timeout or a non-zero exit may still have delivered the notice, so each counts
+     against the budget.
+   - An ack dated later than now, beyond a few seconds' skew, is ignored, so a file time set in
+     the future cannot release every later notice.
 8. **The pure core is testable without IO.** Selection, coalescing, the latch, the budget, the
    backoff and the notice are pure. The queue call, the handshake read, the ack read and the
    clock are ports whose runners belong to the IO edge.
@@ -149,7 +155,8 @@ and in the lived record of that day.
    the last WAKE FAILED line. Its own output goes to a log, never to the TUI's terminal. When it
    cannot arm, its status names the fallback, bounded foreground polling, as the operating rule
    states today. Its lines carry no peer text: an event id is written by a peer, so a line names
-   one only when it is a UUID.
+   one only when it is a UUID, and at most five, counting the rest. That holds for the watch
+   loop's own error and exit lines too, which pass through the same status (todo 2).
 10. **Stopping is local and visible.**
     - Only the TUI exiting, a signal from the launch shell, or a failure to arm stops the
       companion. No comms content stops it, and a malformed event never crashes it.
@@ -255,12 +262,28 @@ Each slice is one story, within the default round budget.
       one WAKE FAILED line per attempt, and a line with every queue); the handshake parse. The
       ack time and the clock are plain inputs to the core. Reviews: test-expert, focused;
       security-expert, focused on the handshake parse.
-   2. **2b, the ports and the loop.** The queue port, with the notice constants and the pure argv
+   2. **2a-ii, the Codex thread id's owner.** `ThreadId` and `parseThreadId` move from
+      `codex-exec/envelope.ts` to a Codex-wide module, with every import updated and no
+      re-export. That removes 2a's import of the dialogues' envelope from `collaboration-state`.
+      The rollout reader is among the importers, so it is sequenced with the Codex seat's
+      slice 1b-iv PR B. Reviews: code-expert; architecture-expert-barney, focused.
+   3. **2b, the ports and the loop.** The queue port, with the notice constants and the pure argv
       and environment builder that is their first consumer; the handshake, ack, liveness and
       state-file runners, none following a link; the companion's composition of the watch loop;
       the integration tests that the seat's watcher still delivers and that no write follows a
-      link. Reviews: security-expert, deep; test-expert, focused.
-   3. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
+      link. Pinned by 2a's reviews:
+      - the companion's `emit` rewrites the loop's own error and exit lines to closed kinds, and
+        names ids only through the same UUID-only namer, since those lines carry a raw message
+        and raw ids;
+      - the drain reads each comms file on its own, skips a malformed one and reports only a
+        count, so one bad file cannot stop every wake, and refuses a file whose event id differs
+        from its file name;
+      - `settleWake` takes the state `decideWake` returned, and the time read after the call;
+      - the batch limit applies after every event that cannot wake is marked;
+      - a status write that fails after a queued notice is tested.
+
+      Reviews: security-expert, deep; test-expert, focused.
+   4. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
       a module of its own, since the shared help module is at its line limit. Reviews:
       code-expert; config-expert if a lint or knip entry changes.
 
@@ -420,3 +443,21 @@ Each slice is one story, within the default round budget.
   directory, every write goes through an exclusive temporary file and a rename, and "No
   companion write follows a link" is an acceptance criterion. Todo 3 gains liveness bound to the
   TUI's process identity, and a launch command that never passes `--no-daemon` or `-c`.
+- **2026-09-25, 2a's post-execution reviews on PR 228** (code-expert, test-expert,
+  security-expert). Cured in 2a:
+  - one lowercase-UUID predicate in `core`, used by the thread id, the runtime session id and the
+    wake lines, where three copies of the pattern had been;
+  - the shared heartbeat predicate in place of a copy;
+  - selection renamed `comms-wake-select`;
+  - a borrowed event id can no longer cancel a pending wake;
+  - timeouts and non-zero exits count against the budget;
+  - a future-dated ack is ignored;
+  - a line names at most five ids;
+  - the WAKE FAILED line names the fallback;
+  - the ack no longer clears a stop, since that branch changed nothing a test could see;
+  - the tests the mutants showed missing: both sides of the rolling window, the backoff and its
+    cap, failures in a row, a stop named once per stop, the stop ahead of the hold, a heartbeat to
+    an audience, and UUID-shaped peer text.
+
+  Routed: the thread id's owner to 2a-ii, and the loop's raw error lines, the per-file drain, the
+  file-name check and the settle-state rule to 2b (todo 2).
