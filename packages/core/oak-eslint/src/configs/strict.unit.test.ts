@@ -103,6 +103,46 @@ describe('@oaknational/eslint-plugin-standards strict config: vitest test-disabl
     expect(ruleIds).toContain('vitest/no-disabled-tests');
   });
 
+  it('reports no-restricted-properties for it.todo(...)', () => {
+    const code = [
+      "import { describe, it } from 'vitest';",
+      "describe('suite', () => {",
+      "  it.todo('case to write');",
+      '});',
+      'export {};',
+    ].join('\n');
+
+    const { ruleIds } = lint(code, 'fixture.test.ts');
+
+    expect(ruleIds).toContain('no-restricted-properties');
+  });
+
+  it('reports no-restricted-properties for test.todo(...)', () => {
+    const code = [
+      "import { describe, test } from 'vitest';",
+      "describe('suite', () => {",
+      "  test.todo('case to write');",
+      '});',
+      'export {};',
+    ].join('\n');
+
+    const { ruleIds } = lint(code, 'fixture.test.ts');
+
+    expect(ruleIds).toContain('no-restricted-properties');
+  });
+
+  it('reports no-restricted-properties for describe.todo(...)', () => {
+    const code = [
+      "import { describe } from 'vitest';",
+      "describe.todo('suite to write');",
+      'export {};',
+    ].join('\n');
+
+    const { ruleIds } = lint(code, 'fixture.test.ts');
+
+    expect(ruleIds).toContain('no-restricted-properties');
+  });
+
   it('reports vitest/no-focused-tests for it.only(...)', () => {
     const code = [
       "import { describe, it } from 'vitest';",

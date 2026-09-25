@@ -137,6 +137,24 @@ const strictExtensions: TSESLint.FlatConfig.ConfigArray = defineConfig(
           property: 'setPrototypeOf',
           message: 'Avoid Reflect.setPrototypeOf; prefer type-safe alternatives.',
         },
+        {
+          object: 'it',
+          property: 'todo',
+          message:
+            'it.todo leaves a test that never runs and still passes the gate: write the test or delete it.',
+        },
+        {
+          object: 'test',
+          property: 'todo',
+          message:
+            'test.todo leaves a test that never runs and still passes the gate: write the test or delete it.',
+        },
+        {
+          object: 'describe',
+          property: 'todo',
+          message:
+            'describe.todo leaves a test that never runs and still passes the gate: write the test or delete it.',
+        },
       ],
       '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/no-restricted-types': [
