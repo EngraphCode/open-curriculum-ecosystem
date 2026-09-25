@@ -435,6 +435,33 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **21:1xZ to 21:4xZ:** the owner's words of 21:41Z (relayed 21:43Z): zero open PRs on both
+  repositories tonight through the proper quality and merge processes; the Codex seat restarts
+  in the morning (PR 211's push and PR 241's live proof wait for it, nothing else); push and
+  land everything else in lane order under the two-gate bound; name by check-in 22 any PR that
+  cannot reach the door. The engraph ruleset requires an up-to-date branch, so each door is a
+  sync, a push, both legs on the synced head and a full CI run, serial across seats. Swallow's
+  PR 239 merged 7bdb82059 at 21:28Z; this seat took the slot for PR 227 (synced fd1bc548f,
+  pushed, both legs, one round-two Codex finding dispositioned, the door armed 21:37Z). The
+  Director ruled 21:39Z that permanent-doc-is-the-consolidation-record retires the
+  curator-passes metadata record: a small PR of this seat's after batch six routes carry-forward
+  items, removes the directory and README, amends the skill's clause and PDR-081's status line,
+  with the Practice-Generalisation trailer and the same bytes to the second estate. Siren's
+  joint text for row L12's third rule (bot-identity-on-third-party-systems portable core, draft
+  PR 208): taken at blob 78d43e1b into PR 216's worktree with two host-side cures (the lane
+  skill's step 2 states this estate's contract with the owner's 2026-08-04 word; the merge-bot
+  reference records that the bot's Copilot request registers) and the joint adapter
+  description; the owner's author address moved to the operator profile's scope file (inferred,
+  for the owner to ratify); Siren's round one then moved the blob to 3f1694d4 (four changes), so
+  PR 216's commit waits for that push. Cures pushed and threads resolved: PR 232 (732d774c7,
+  the unwrapOrThrow row), PR 235 (0ecf0772a, the inputs paragraph names the gap), PR 229
+  (8bad317dc); PR 231's scope corrected; PR 237's two observations dispositioned as sequencing
+  behind PR 217; PR 240's routing sentence cured locally (queued). PRs 220 and 221 synced,
+  pushed and readied with both legs. A new lane, `fix/e2e-task-declares-agents-md`: the
+  agent-tools end-to-end task declares the nine root files its script reads (the config review
+  found eight beyond the AGENTS.md PR 235's review named); validator 52 positive root inputs.
+  F-208's status says one instance, no cure lane; F-207 holds four instances (the matcher pairs
+  the word with any later bare `-f`).
 - **21:0xZ to 21:1xZ:** PR 225 merged 619ca82b8 at 21:07Z (the door on 6e1809f70; PDR-142 at
   blob fe6ee7ad, one blob with the second estate's PR 205 at 4eee5d05); slot released, the
   receipt sent to Siren, claim cee32199 closed, the worktree and remote branch removed. Swallow
