@@ -1,6 +1,10 @@
 sandbox_mode = "workspace-write"
+approval_policy = "on-request"
 
 project_doc_fallback_filenames = ["RULES_INDEX.md"]
+
+[sandbox_workspace_write]
+network_access = true
 
 [features]
 hooks = true
@@ -134,9 +138,6 @@ config_file = "agents/corpus-voter.toml"
 [agents."corpus-meta"]
 description = "Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage; judges per-baseline matches and verifies corroboration paths, emitting per-item judgments only."
 config_file = "agents/corpus-meta.toml"
-
-[sandbox_workspace_write]
-network_access = true
 
 [mcp_servers.codex-sentry-ooc-mcp]
 url = "https://mcp.sentry.dev/mcp/oak-national-academy/oak-open-curriculum-mcp"
