@@ -377,6 +377,93 @@ contract, its §Recount run at 14:58Z and matching.
   measured then sliced; the hook path scope rides batch four's lane). Per-file receipts
   (integrated or rejected) follow each landing. Still owed by the second estate: the lessons
   batch, arc-metrics, J18's observer compare.
+- **The door (17:4xZ):** PR 219 merged e3cf59330 at 17:40:51Z by the bot (Copilot's one
+  observation below-bar, the 390-line sweep read whole); receipt sent as 8c202f56 with the
+  PDR-063 stall sentence offered to the second estate as a joint cure; worktree and remote
+  branch removed, the merged local branch waits for the fold. PR 213 synced (3274e122e), ready,
+  legs requested, sweep read (the three replaced PDR-009 passages), the door polling. PR 217
+  ready (K4's directive hunks 4028c26f5; the testing-patterns recast 1f4858e20; the sub-agent
+  validator green); its ADR follow-up is named in its body. Two new lanes: PDR-142's six
+  sentences as a joint cure (`docs/exchange-pdr-142-six-sentences`, worktree
+  `oce-wt-pdr-142-six`, ffa99a3c8, the second estate to take the bytes) and batch six's
+  lockfile cure (`docs/exchange-b6-lockfile-cold-rebuild`, worktree `oce-wt-b6-lockfile`;
+  both override directions measured on pnpm 11.20.0: a moved override fails loudly, a moved
+  manifest passes silently). The stale worktree of merged PR 180 was removed.
+- **Batch six lanes drafted (17:5xZ to 18:0xZ):** PDR-142's joint cure is draft PR 225 (ffa99a3c8,
+  blob e9bd0e38; the second estate asked for the same bytes or a refusal, cc46369e); the lockfile
+  cure is draft PR 226 (a6d579a2f); the two riders (`docs/exchange-b6-two-riders`, worktree
+  `oce-wt-b6-riders`, 2163be8a2) and the starter-templates recast
+  (`docs/exchange-b6-starter-templates-point`, worktree `oce-wt-b6-starter`) are committed and
+  on their way to draft PRs. PR 213 at the door: Copilot's one wording observation on the joint
+  cure's bytes dispositioned below-bar (a one-clause candidate for the second estate rides its
+  receipt); Codex clean; the merge tool polling.
+- **18:0xZ to 18:2xZ:** PR 213 merged 94a8fba90 at 18:02:10Z (receipt 28f1a1bf with the wording
+  candidate; worktree and remote branch removed). The Director's ruling of 17:58:44Z narrows
+  PR 225 to seat work (the owner's words on pace and goal quoted whole, the authority class, the
+  log entry; fd3e32271, blob c1aff627, sent as 6095350d); the three concept sentences (replaced
+  wholesale, a relayed frame, the cold reader) stay in the register for the owner's card. The
+  second estate's PR 195 merged 6868ad85: PR 221 takes its batch and first-write wording as the
+  same bytes (a second commit), and its ETIMEDOUT smoke cure is queued for this estate's watcher
+  smoke as its own small lane. Batch six drafts: PR 227 (two riders), PR 229 (starter templates);
+  the polarity headers (`oce-wt-b6-polarity`) and the build-system paragraph
+  (`oce-wt-b6-build-system`) applied, committing next. PR 215 synced (its merge commit stays bot-authored: the harness's classifier refused the
+  amend, as it refused git branch -D; the lane's content commit is the owner's), pushing next,
+  then ready, legs, sweep, door.
+- **18:1xZ:** the second estate's PR 198 (head 9ec8ee25) carries PDR-063 fe5fcf75 and PDR-142
+  c1aff627 as this side's bytes, so PR 225 merges on that receipt after PR 215; it also carries
+  PDR-009 as 47ee8c92 with the one-line wording from PR 213's receipt, which this side takes as a
+  one-line lane (`docs/exchange-pdr-009-adapter-own-wording`, worktree `oce-wt-pdr-009-wording`;
+  the candidate hashes to 47ee8c92). PR 215 ready, legs requested, sweep read (the C2 hunks' own
+  replaced lines), the door polling. Batch six: the result package cure and the max-files-per-dir
+  deletion applied in `oce-wt-b6-result` and `oce-wt-b6-maxfiles` (35 and 435 tests green),
+  committing as gate room allows under the two-gate host bound.
+- **18:1xZ to 18:2xZ:** the second estate's PR 198 merged 3fe1a325 (PDR-063 fe5fcf75, PDR-142
+  c1aff627, PDR-009 47ee8c92 on their main). The PDR-009 wording lane is draft PR 230 (12c8b15d1,
+  blob 47ee8c92; its changelog entry queued). PR 215's Copilot round found the team opener
+  omitting the transcript-as-record case the other three surfaces carry: cured in the opener
+  (a one-clause commit, queued), Codex clean. A gate queue runner in the seat's scratch runs
+  the pending lane commits and pushes one at a time under the two-gate host bound: the
+  max-files-per-dir deletion (with the 2026-07-15 report's two links unlinked), the result
+  package, the polarity headers, the build-system paragraph, the two changelog entries, PR
+  225's sync, then this records commit.
+- **Two more lanes cut at 18:2xZ:** the watcher smoke's ETIMEDOUT cure (the second estate's PR 195
+  round two, in this estate's code: `describeSpawnFailure` in `agent-tools/src/core` with three
+  unit cases, the smoke reads a coded timeout as the hang backstop and any other error as a launch
+  failure; `fix/exchange-watcher-smoke-etimedout`, worktree `oce-wt-smoke-etimedout`), and PR
+  217's follow-up (ADRs 141, 180 and 229 take an amendment line on the retired designed-sentinel
+  shape; `workflow.md` and the Sentry CLI page stop calling the E2E naming pre-invariant estate;
+  `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
+  the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
+  file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **18:4xZ landings and rulings:** PR 215 merged db7517e1e at 18:43Z (Copilot's first finding cured
+  in 4f3710140; its second-pass observation, that the ARC reference's §Relationship sentence routes
+  ARC against a durable sidebar with no s2s condition, priced below bar for the PR and taken as a
+  one-clause follow-up lane); the c2 integrated receipt sent; claim ee17a29e closed; worktree and
+  remote branch removed. Batch-six drafts opened: PR 232 (result, d9069fb07), PR 234 (polarity,
+  e2dd87ab7), PR 235 (build-system, b37786931); PR 230 ready with both legs (9c27a7e8e, changelog
+  entry); PR 225 synced (afaa62e62), changelog entry eee1a8361, ready with both legs, sweep read
+  (two intended removals). The Director's 18:44Z ruling: the merge slot goes by readiness, one
+  turn then yield, announced as "slot taken: PR N" before the door and "slot released: PR N merged
+  as SHA" after; 215 released 18:44Z, 222 (Swallow) took it 18:45Z, then whichever of 225 or 233 is
+  settled. Check-in 19 answered 18:43Z. The ESLint plugin lane (worktree oce-wt-b6-eslint-plugin,
+  branch fix/exchange-b6-eslint-plugin-says-what-it-enforces, claim on 18 files): the preset's
+  substrate rule to error, no-throw to error with the owner's 2026-09-08 ruling quoted whole and
+  `off` in the sixteen debt workspaces, the no-real-io comment told as PDR-126 transition debt, the
+  README's ten-rule table; config-expert pre-review running, commit and push queued behind it.
+  Host note: a stale `.git/index.lock` in the primary (created 18:33:58Z, no holder) failed the
+  first records ceremony at 18:44Z (intent abandoned, window closed); removed at 18:46Z and the
+  ceremony re-queued.
+- **Measured from the pre-push gate log of 18:1xZ (for batch six's ESLint plugin and warnings
+  notes):** `no-throw-statement` prints 1,232 warnings across 16 workspaces (agent-tools 386,
+  sdk-codegen 299, search-cli 169, the MCP app 164, curriculum-sdk 78, oak-search-sdk 37,
+  sentry-node 21, oak-design-tokens 17, graph-core 15, logger 12, graph-corpus-sdk 11,
+  design-tokens-core 11, env-resolution 4, observability 3, env 3, safe-path 2); the owner's
+  2026-09-08 ruling (off where the debt lives, error everywhere else and for every new
+  workspace) is the binary split still to implement, a config lane across those files with a
+  config-expert review. `no-real-io-in-tests` prints 7 warnings outside its allowlist, the
+  recovery lane's. The plugin lane this seat runs next: the README's ten-rule table, the
+  severity comments told as PDR-126 transition debt, `no-agent-substrate-access` to error if
+  its surface measures empty.
 - **The seed branch's design (the second estate's answer of 15:45Z to 9f9e7b8f, accepted by
   this seat at 15:48Z):** a subagent's collaboration write is its parent's, by design in both
   estates; the platform gate is a joint cure in the wider form, the three Claude seeds counting
