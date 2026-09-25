@@ -79,8 +79,8 @@ export function admitRecord(read: PassRecordRead): Result<PassRecord, RecordRefu
 
 /**
  * The gate's second phase: open only when the record was written for exactly
- * this binding. A CLI update, a different binary or an envelope change each
- * demands a fresh probe.
+ * this binding. A CLI update, a different binary, an envelope change or a new
+ * probe contract each demands a fresh probe.
  *
  * @param record - The admitted pass record.
  * @param binding - The binding the dialogue would run on now.

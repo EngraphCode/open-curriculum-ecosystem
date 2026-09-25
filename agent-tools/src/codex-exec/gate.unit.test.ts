@@ -7,6 +7,7 @@ const record: PassRecord = {
   cliVersion: '0.156.1',
   executablePath: '/opt/codex/releases/0.156.1/bin/codex',
   envelopeDigest: 'a'.repeat(64),
+  probeContractVersion: 1,
   passedAt: '2026-09-24T11:00:00Z',
   evidence: ['rule 9: the nonce, no WRITE-OK'],
 };
@@ -16,6 +17,7 @@ const binding: Binding = {
   cliVersion: record.cliVersion,
   executablePath: record.executablePath,
   envelopeDigest: record.envelopeDigest,
+  probeContractVersion: record.probeContractVersion,
 };
 
 describe('admitRecord', () => {
@@ -78,6 +80,11 @@ describe('matchBinding', () => {
     ['a CLI update', { cliVersion: '0.157.0' }, ['cliVersion']],
     ['a different codex binary', { executablePath: '/usr/local/bin/codex' }, ['executablePath']],
     ['an envelope change', { envelopeDigest: 'b'.repeat(64) }, ['envelopeDigest']],
+    [
+      'a change to the probe that judges a binding',
+      { probeContractVersion: 2 },
+      ['probeContractVersion'],
+    ],
     [
       'a CLI update that also moved the binary',
       { cliVersion: '0.157.0', executablePath: '/opt/codex/releases/0.157.0/bin/codex' },

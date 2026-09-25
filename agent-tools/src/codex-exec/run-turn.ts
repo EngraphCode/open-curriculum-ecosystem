@@ -15,6 +15,7 @@ import {
   type PassRecordRead,
   type ResolvedBinary,
 } from './gate.js';
+import { PROBE_CONTRACT_VERSION } from './probe-contract.js';
 import type { TurnOutcome } from './turn-verdict.js';
 
 /**
@@ -74,6 +75,7 @@ export function runTurn(
     cliVersion: binary.value.cliVersion,
     executablePath: binary.value.executablePath,
     envelopeDigest: envelopeDigest(context.modelPins),
+    probeContractVersion: PROBE_CONTRACT_VERSION,
   });
   if (!match.ok) {
     return err(match.error);

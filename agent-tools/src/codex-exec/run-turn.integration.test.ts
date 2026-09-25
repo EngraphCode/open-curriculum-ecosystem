@@ -6,6 +6,7 @@ import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
 import type { PassRecordRead, ResolvedBinary } from './gate.js';
 import type { PassRecord } from './pass-record.js';
+import { PROBE_CONTRACT_VERSION } from './probe-contract.js';
 import { runTurn, type BinaryUnresolved, type GatedTurnPorts } from './run-turn.js';
 import type { CodexRun } from './turn-verdict.js';
 
@@ -33,6 +34,7 @@ const record: PassRecord = {
   cliVersion: binary.cliVersion,
   executablePath: binary.executablePath,
   envelopeDigest: envelopeDigest(context.modelPins),
+  probeContractVersion: PROBE_CONTRACT_VERSION,
   passedAt: '2026-09-24T11:00:00Z',
   evidence: ['rule 9: the nonce, no WRITE-OK'],
 };
@@ -176,5 +178,18 @@ describe('runTurn', () => {
       error: { kind: 'binding-mismatch', fields },
     });
     expect(turnPorts.calls).toStrictEqual([]);
+  });
+
+  it('starts no turn on a record that another version of the probe judged', () => {
+    const judgedElsewhere: PassRecord = {
+      ...record,
+      probeContractVersion: PROBE_CONTRACT_VERSION + 1,
+    };
+    expect(
+      runTurn(request, context, ports({ kind: 'present', value: judgedElsewhere })),
+    ).toStrictEqual({
+      ok: false,
+      error: { kind: 'binding-mismatch', fields: ['probeContractVersion'] },
+    });
   });
 });
