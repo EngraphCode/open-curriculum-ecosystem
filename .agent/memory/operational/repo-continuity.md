@@ -340,7 +340,11 @@ compaction.
 - **State at 2026-09-25 00:25Z, context about 68%; the seat is at rest.** The handover record
   is `.agent/state/collaboration/handoffs/74fc02-marten-mends-shadow-batch-four-handover-2026-09-25.md`.
   **Resumed at 00:35Z** after compaction, at 10% context, under the owner's batch-four word.
-  J18 part B is redesigned below.
+  **At rest again at 04:15Z, at 61.8% context (past peak), at a lane boundary.** J18 is landed
+  in full (PRs 206 to 209), and so is its hook-quoting follow-up (PR 210, `f08201ab0`). The
+  handover record lists what is owed, in order: J2, J3, C7, PR 205's follow-ups, the
+  tracked-listing consolidation, and the J18 follow-ups below. Claims 141892a7 and a63a7df8 are
+  attached to the handover record. The J18 part B design follows, as record.
   - **Landed:** PRs 197 to 200 (batch two complete), PR 201 (the K Core, `c4174a8cc`), J4 in
     three parts, and J18 part A. The K amendment (2a62905f: the PDR-009 clause as the rule's
     domain) waits on Siren's twin.
@@ -398,9 +402,14 @@ compaction.
       - Siren has the landing, the three departures and Codex's re-tighten finding (event
         `2a33cf89`).
     - **Follow-ups the J18 reviews recorded, not yet claimed:**
-      - quote the two older wrapper entries in `.claude/settings.json`, the wrapper's usage
-        comment, and ADR-167's reference instance (a space in the project path makes the shell
-        exit 127, and the secrets scan silently stops);
+      - quote the two older wrapper entries in `.claude/settings.json`: done, PR 210
+        (`f08201ab0`), with a regression smoke that uses a stub `sonar`;
+      - defects in the Sonar-owned secrets scripts, which the Sonar CLI overwrites, so report
+        them upstream or wrap them:
+        - `prompt-secrets.sh`: `trap "rm -f $temp_file" EXIT` splits on a space in `TMPDIR`,
+          leaving the prompt copy on disk;
+        - `pretool-secrets.sh`: its `sed` field extraction fails open on a path holding `"` or
+          `\`;
       - write the observed PreCompact contract into the surface matrix's §Hook Support after the
         first real compaction, with the harness version;
       - move `compareUtf16` from `typescript-estate/` to `core/` (17 importers; a mechanical PR);
