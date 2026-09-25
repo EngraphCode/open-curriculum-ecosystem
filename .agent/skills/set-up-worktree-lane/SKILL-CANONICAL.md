@@ -85,10 +85,15 @@ This step applies to standard and separately provisioned profiles only. In a
 detected ChatGPT Work cloud session, step 0 replaces it completely.
 
 The identity lives once in the clone's shared local config and every worktree
-inherits it. Who commits, and on whose authority, is the estate's committer
-identity rule; this skill names no identity and holds no value of one. A new
-worktree therefore needs no identity step at all — only a check that what it
-inherited matches the primary:
+inherits it. This estate's identity contract, set by the owner's word of
+2026-08-04 ("we need to tell Vercel on whose authority this work was done";
+"keep the bot identity locally shared, not in version control"): the team
+bot the clone's merge-bot config names is the committer and the push
+transport, and the human on whose authority the work is done is the author,
+passed per commit. The mechanics are the estate's committer identity rule;
+this skill holds no value of an identity. A new worktree therefore needs no
+identity step at all — only a check that what it inherited matches the
+primary:
 
 ```bash
 PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"

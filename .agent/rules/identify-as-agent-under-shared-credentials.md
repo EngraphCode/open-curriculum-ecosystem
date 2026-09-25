@@ -50,9 +50,10 @@ marker MUST state three things:
 
 1. that the content is **agent-authored** (not a human-authored message);
 2. the agent's **PDR-027 display identity** (the session agent name);
-3. that it was posted **via the human account's shared credentials**.
+3. **which shared credential** posted it: the human account's, or the team
+   bot's.
 
-Canonical form — a trailer at the end of the artefact:
+Canonical form under a human account — a trailer at the end of the artefact:
 
 ```text
 ---
@@ -61,6 +62,13 @@ Agent-authored on behalf of `<account>` by <agent-name> (<platform>, <model>)
 Example:
 Agent-authored on behalf of `jimCresswell` by Inferno holds Tongs (Claude Code, Opus 4.8 1M)
 ```
+
+Under the team bot, the account already shows that an agent posted and names
+no human, so the marker names the agent: a last line that begins with an em
+dash and ends with the seat's PDR-027 session prefix, `— <agent-name> (<prefix>)`,
+with words between them allowed (`— <agent-name>, <role>, an agent (<prefix>)`).
+Never the human-account trailer: "on behalf of `<account>`" under the bot's
+token attributes the post to a human who did not make it.
 
 A clearly-visible leading blockquote carrying the same three facts is an
 acceptable alternative when a trailer would be missed (e.g. a long PR body). Do
@@ -73,9 +81,12 @@ marker as soon as the omission is noticed; do not leave it standing.
 
 ## Why
 
-The session shares the owner's `gh` auth, so GitHub records every agent action
-under the owner's login (see the agent-collaboration directive on identity vs
-liveness, and PDR-027 on agent identity). The actor is hidden by construction.
+Where a write goes out under a human account's credential (the review rows of
+the committer identity rule's map, and the operator rows of an estate's
+identity contract), GitHub records the agent's action under that human's login
+(see the agent-collaboration directive on identity vs liveness, and PDR-027 on
+agent identity); under the team bot's token it records a bot that names no
+seat. Either way the actor is hidden by construction.
 This rule restores honest attribution at the only point that can carry it — the
 content itself. It protects:
 
