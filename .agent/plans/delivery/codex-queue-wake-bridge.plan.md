@@ -106,18 +106,24 @@ and in the lived record of that day.
    read as a flag. It carries no configuration flags, which would force an embedded server that
    the vendor refuses while a daemon runs.
 5. **The companion runs with the least it needs.**
-   - It spawns `codex` by an absolute path resolved once at arm, whose file and directory are
-     owned by the user or root and not writable by group or others.
+   - It keeps its own state, its cursor included, in a directory of its own under the user's
+     home at mode 0700, which no sandboxed seat can write.
+   - It spawns `codex` by a path resolved once at arm to its real path, since the installed
+     `codex` is a native binary behind links. The checks run on that real path: the file and
+     its directory are owned by the user or root and not writable by group or others.
    - It spawns it with a fixed environment (`HOME`, the TUI's `CODEX_HOME`, `PATH` set to
      `/usr/bin:/bin`, `LANG`), no shell, a timeout that ends in `SIGKILL`, and capped output.
-   - Its working directory is its own 0700 state directory, never the repository, so no project
-     configuration layer loads.
+     The spawned `codex` runs from the companion's state directory, never the repository, so no
+     project configuration layer loads.
    - It reads no file an event names, writes only its cursor and its status, runs nothing but
      `codex queue`, and passes no `-c`, `--remote` or `--profile`.
+   - No write of the companion's follows a link. Each write goes to a new temporary file, created
+     exclusively without following links, then renamed over its target, since a rename replaces
+     a link rather than following it. It reads the `ack` file's time without following a link,
+     and a comms file only when it is a regular file under a size cap.
 6. **Waking never takes a delivery, and nothing is read twice.**
-   - The companion keeps its own cursor, keyed by the thread id under
-     `.agent/state/collaboration/comms-wake/`, which git ignores. It is seeded at arm, so only
-     later events count.
+   - The companion keeps its own cursor, keyed by the thread id, in its state directory. It is
+     seeded at arm, so only later events count.
    - It never touches the seat's seen file or heartbeat file. So the seat's watcher delivers every
      event, and the claim tool's live-watcher check reads only the seat's own watcher.
    - It marks every examined event that cannot wake at once, and an eligible event only once a
@@ -129,18 +135,20 @@ and in the lived record of that day.
      its handshake directory, which no peer can write. A modification time after the notice
      releases the latch. Comms authorship is self-declared, so no comms event releases it.
    - Without an ack, a second notice may go after a capped interval. After two unacknowledged
-     notices, or past a budget of four an hour, the companion stops queueing and writes the
-     fallback to its status. The vendor holds up to 100 queued messages for a thread that is not
-     running, so the bound matters.
+     notices, or past a budget of four in any rolling hour, the companion stops queueing and
+     writes the fallback to its status. A later ack resets the count, and queueing resumes. The
+     vendor holds up to 100 queued messages for a thread that is not running, so the bound
+     matters. The exit notice sits outside the budget, since it goes at most once per launch.
    - A failed queue call writes one WAKE FAILED line naming the event ids, and the wake is
      retried on a capped backoff. A call counts as queued only when `codex queue` exits 0.
 8. **The pure core is testable without IO.** Selection, coalescing, the latch, the budget, the
    backoff and the notice are pure. The queue call, the handshake read, the ack read and the
    clock are ports whose runners belong to the IO edge.
 9. **Status is written where the seat can read it.** The companion writes a status file in the
-   handshake directory: armed, or degraded with its reason, and the last WAKE FAILED line. Its
-   own output goes to a log, never to the TUI's terminal. When it cannot arm, its status names
-   the fallback, bounded foreground polling, as the operating rule states today.
+   handshake directory, by the rename of mechanism 5: armed, or degraded with its reason, and
+   the last WAKE FAILED line. Its own output goes to a log, never to the TUI's terminal. When it
+   cannot arm, its status names the fallback, bounded foreground polling, as the operating rule
+   states today.
 10. **Stopping is local and visible.**
     - Only the TUI exiting, a signal from the launch shell, or a failure to arm stops the
       companion. No comms content stops it, and a malformed event never crashes it.
@@ -174,6 +182,9 @@ and in the lived record of that day.
   on a value that is not exactly one lowercase UUID, including the braced, URN and simple forms;
   on a link; or on a file over 128 bytes, not owned by the user, or writable by others. Proof:
   `repo-safe` tests over the handshake parse and a handshake port.
+- **No companion write follows a link.** A link planted where the companion writes its status
+  is replaced, not followed, and a link at the `ack` path or in the comms store is never
+  followed. Proof: `repo-safe`, integration tests over a temporary directory.
 - **Waking never takes a delivery.** After the companion wakes for an event, the seat's own
   watcher still delivers it. Proof: `repo-safe`, one integration test over an in-memory comms
   store.
@@ -234,17 +245,20 @@ Each slice is one story, within the default round budget.
    exported watch loop, `watchCommsLoop`, with injected functions of its own: `drain` selects,
    decides and queues; `emit` writes the companion's status, never the queue, since the loop's
    error and exit lines pass through `emit`; `markSeen` writes the companion's cursor; there is
-   no heartbeat tick.
+   no heartbeat tick. The loop marks events only for a pass with output, so every decision that
+   queues also returns a line.
    1. **2a, the pure core.** Selection, coalescing, the latch, the budget, the backoff and the
       notice constant; the handshake parse; this node's edit. Commit order, each a failing test
       then the code: the selection table; the decisions (a burst, a hold, the ack release, no
-      release on a comms event, the interval, the budget, the backoff, one WAKE FAILED line per
-      attempt); the notice; the handshake parse. Reviews: test-expert, focused; security-expert,
-      focused on the handshake parse.
+      release on a comms event, the interval, the budget and its rolling hour, a later ack
+      resuming, the backoff, one WAKE FAILED line per attempt, and a line with every queue); the
+      notice; the handshake parse. The ack time and the clock are plain inputs to the core.
+      Reviews: test-expert, focused; security-expert, focused on the handshake parse.
    2. **2b, the ports and the loop.** The queue port and its pure argv and environment builder;
-      the handshake, ack and liveness runners; the companion's composition of the watch loop;
-      the integration test that the seat's watcher still delivers; the `comms-wake/` ignore
-      line. Reviews: security-expert, deep; test-expert, focused.
+      the handshake, ack, liveness and state-file runners, none following a link; the
+      companion's composition of the watch loop; the integration tests that the seat's watcher
+      still delivers and that no write follows a link. Reviews: security-expert, deep;
+      test-expert, focused.
    3. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
       a module of its own, since the shared help module is at its line limit. Reviews:
       code-expert; config-expert if a lint or knip entry changes.
@@ -268,8 +282,11 @@ Each slice is one story, within the default round budget.
    live run recorded.
    - The launch command creates the handshake directory, grants it with `--add-dir`, gives the
      seat its path through the channel todo 1 settles, and starts the companion under an empty
-     environment with an absolute `node`. It binds the companion to the TUI's process, and stops
-     it when the TUI exits.
+     environment with an absolute `node`. It binds the companion to the TUI's process by the
+     process's identity, such as waiting on it or a pipe that closes when it exits, never a bare
+     process id that can be reused, and stops the companion when the TUI exits.
+   - The launch command never passes `--no-daemon` or `-c` to the TUI. Either puts the TUI on an
+     embedded server, where no queued notice reaches its thread.
    - The start skill's Codex paragraph has the seat check that its identity comes from
      `CODEX_THREAD_ID`, then write its handshake, and touch the `ack` file after reading a wake.
      It also has the seat read the companion's status at start.
@@ -391,3 +408,14 @@ Each slice is one story, within the default round budget.
   Slice 2 becomes three pull requests, composing the exported watch loop rather than a second
   loop, with no edit to the watcher files under another seat's claim (todo 2). The property test
   becomes a table test, since no workspace package carries a property-testing library.
+- **2026-09-25, the reviewers' confirmation of the revision.** Both confirmed each finding taken
+  in. code-expert asked five points pinned, now in mechanisms 5 and 7 and todo 2: a later ack
+  resumes queueing, and the budget is a rolling hour; every queueing decision returns a line,
+  since the watch loop marks events only for a pass with output; the working directory named is
+  the spawned `codex`'s; the exit notice sits outside the budget; the path checks run on the
+  resolved real path. security-expert found one new issue, blocking 2b: a cursor under the
+  repository, or a status file in the seat-writable handshake directory, lets a planted link
+  steer a write of the unsandboxed companion. The cursor moves to the companion's own 0700 state
+  directory, every write goes through an exclusive temporary file and a rename, and "No
+  companion write follows a link" is an acceptance criterion. Todo 3 gains liveness bound to the
+  TUI's process identity, and a launch command that never passes `--no-daemon` or `-c`.
