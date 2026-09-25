@@ -14,13 +14,15 @@ import { dirname, join } from 'node:path';
 import {
   assertObservedRun,
   compactPayload,
-  inThrowawayProject,
   OBSERVATION_DIRECTORY,
   OBSERVATION_LOG,
-  registeredPreCompactCommand,
-  runRegisteredCommand,
   type LoggedObservation,
 } from './pre-compact-observe-fixture.js';
+import {
+  inThrowawayProject,
+  registeredHookCommand,
+  runRegisteredCommand,
+} from './registered-hook-command-fixture.js';
 
 /**
  * Production-shaped smoke for the `PreCompact` observer hook. Each case runs
@@ -28,7 +30,8 @@ import {
  * `/bin/sh -c`, as the harness does, in a throwaway project whose name holds
  * a space (so an unquoted path would split and exit 127), through the
  * committed wrapper, its exec bit and the built `dist`
- * (`pre-compact-observe-fixture.ts` builds the project and the run).
+ * (`registered-hook-command-fixture.ts` builds the project and the run;
+ * `pre-compact-observe-fixture.ts` holds the payload and the assertions).
  *
  * It asserts only what a real descriptor decides: the exit code, the one
  * stdout line, the one log line, its mode and shared marker, and what only
@@ -162,7 +165,7 @@ async function proveTranscriptUnderMissingDirectory(command: string): Promise<vo
   });
 }
 
-const preCompactCommand = registeredPreCompactCommand();
+const preCompactCommand = registeredHookCommand('PreCompact');
 await proveBareCompactPayload(preCompactCommand);
 await proveUnreadableStdin(preCompactCommand);
 await proveLongPayloadOverDirectoryTranscript(preCompactCommand);
