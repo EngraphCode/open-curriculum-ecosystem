@@ -46,6 +46,9 @@ the dated record
   team-coordination events that bootstrap the session all live on the
   canonical stream, and an agent watching only ARC is blind to them. The
   two watchers are paired, always.
+- **Where both seats can use s2s, that is the dialogue channel** (owner-directed 2026-09-13;
+  the `comms-channels` skill). ARC keeps its place for a pair s2s cannot reach and for a
+  dialogue whose transcript is itself the record; the mirroring obligation applies on both.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash
