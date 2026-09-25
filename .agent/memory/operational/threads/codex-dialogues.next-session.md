@@ -56,12 +56,36 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   worktree `oce-wt-watcher-twin` on `fix/comms-watch-poll-only-twin`. The Cricket clause
   landed as `f67bd1f06`; its exchange row went to JC.net as `bfc686cf` and landed there as
   JC.net PR 191 (`251cd984`).
-- **PR 214, the watcher twin, OPEN and ready at `d07e33df5`** (2026-09-25 15:20Z; synced to
-  engraph `ec4ef1e55`, PR 212's landing). Pre-push 134/134 with the fixed smoke. Four reviews
-  before opening (code, test, docs-adr, onboarding): none blocking. Their prose findings in
-  shared text are one joint-cure row (`c17c34d7`), accepted by Siren (JC.net drafts it) and by
-  Myrtle turns Canopy, this estate's exchange seat from 14:53Z (it takes the bytes after the
-  twin lands). Next: the Copilot and Codex legs, then the door; the fold (PR 187) follows.
+- **PR 214, the watcher twin, LANDED** about 15:35Z as `0a816621e` (head `d07e33df5`; both legs
+  SATISFIED; 1 round, 0 findings; branch, worktree and claim `d8773fd8` closed). The deletion
+  sweep ran after the merge instead of before it (napkin, 15:38Z). Four reviews before opening
+  (code, test, docs-adr, onboarding): none blocking. Their prose findings in shared text are one
+  joint-cure row (`c17c34d7`), accepted by Siren (JC.net drafts it) and by Myrtle turns Canopy,
+  this estate's exchange seat from 14:53Z (it takes the bytes after the twin lands). The fold
+  (PR 187) was pushed at `bdb4b49c6`, and it carries this seat's four records commits.
+- **The wake bridge's slice 2 GATE FIRED (15:57Z), owner's word pending.** code-expert's
+  pre-execution review and a read of codex-cli 0.157.0 source found three things:
+  - Codex deliberately denies every sandbox below full-disk write any file or Unix-socket access
+    to the app-server daemon's socket directory (`/tmp/codex-daemon-<uid>`):
+    `sandboxing/src/seatbelt.rs` about 1063-1068, and the vendor test
+    `daemon_sockets_are_denied_despite_network_and_tmp_write_grants`.
+  - `codex queue` refuses `--no-daemon`, and refuses an embedded server while a daemon runs.
+  - So a watcher the seat starts from its own shell can never queue into its own thread. That is
+    mechanism-breaking, and returns the node to the owner.
+
+  Also from source, R2 is retired: a queued message carries text only, and the thread's own
+  config runs the turn; so the sink's argv carries no config flags.
+  - The Director absorbed it (15:58:13Z) and asked the owner, recommending this seat's cure: a
+    wake companion started beside the TUI by the seat's launch command, outside the sandbox,
+    bound to a seat-authored thread-id handshake file. Until the word, nothing is built.
+  - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
+    eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
+    apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **NOW: dialogues slice 1b-iv, the probe** (the Director accepted this at 15:58:54Z, under claim
+  `372ac08b`). The worktree `oce-wt-codex-dialogue-probe` is on `feat/codex-dialogue-probe` from
+  engraph `0a816621e`. The pre-execution code-expert review is running on the design in this
+  session's scratch. The sink's review resumes at 1b-iv's next boundary, once the owner's word
+  arrives.
 - **Gale turns Cloud (01a0d9)** holds `be006748` at an approval hold (15:18Z): the PR 211
   metadata cure `00a23728b` (this seat's read: sound) waits on the owner's explicit approval in
   Gale's session, because Codex's automatic approval reviewer refused the push. Record:
