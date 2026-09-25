@@ -37,17 +37,19 @@ describes it). Rollout sequencing:
   be used to constrain configuration or implementation", and of its
   reach: "no excemptions, strict, everywhere, all of the time"). A test
   reads what the product returns, writes or leaves behind at its
-  boundary; it never asserts which calls the product made, how often or
-  in what order, never pins a configuration value and never asserts an
-  implementation shape. Configuration is guaranteed by construction or
-  by a validator.
+  boundary; what the product sends through an output port is something
+  it writes (§Stubs vs Fakes). A test never asserts which queries the
+  product made of a collaborator, how often or in what order, never pins
+  a configuration value and never asserts an implementation shape.
+  Configuration is guaranteed by construction or by a validator.
 - Prefer pure functions and unit tests
 - Always use TDD at ALL levels (unit and integration tests; an E2E check is
   written first in the same way)
 - Prefer unit tests over integration tests
 - Prefer integration tests over E2E checks
 - **Tests never, under any circumstances, use or create IO.** Every test of
-  every kind, and every helper a test imports: no filesystem, no network, no
+  every kind, every helper a test imports, and the product code a test runs:
+  no filesystem, no network, no
   socket (loopback included), no process spawn, no clock, no environment
   read. This is an absolute invariant, not a matter of degree (owner,
   2026-09-14 and 2026-09-15); a test that uses or creates IO is an error
@@ -76,7 +78,8 @@ describes it). Rollout sequencing:
   internal; (b) the fake models the collaborator's DOCUMENTED
   semantics, stated in a comment; (c) it is a single branch-free pure
   expression of its params; (d) assertions stay output-shaped — never
-  call-inspection; (e) fixtures are sized to discriminate.
+  an inspection of the queries it answered; (e) fixtures are sized to
+  discriminate.
   Argument-reflector fakes are admissible only where the seam's
   contract IS forwarding. Collaborator semantics that would need a
   BRANCH in the fake belong to a higher test scale, not a cleverer
@@ -87,8 +90,10 @@ describes it). Rollout sequencing:
 - Always ask what a test is proving - it should prove something useful about the code under test
 - Each proof should happen ONCE - repeated proofs are fragile and waste resources
 - NEVER manipulate global state in tests - no `process.env` reads
-  or mutations, no `vi.stubGlobal`, no `vi.mock`, no `vi.doMock`.
-  Product code must accept configuration as parameters. See
+  or mutations, no `vi.stubGlobal`, no `vi.mock`, no `vi.doMock`, no
+  `vi.useFakeTimers` or `vi.setSystemTime`.
+  Product code must accept configuration, and a clock or scheduler, as
+  parameters. See
   [ADR-078][di]. For React components that fetch or derive async
   state, the DI seam that makes this holdable is the view-binder
   split — views take state as props, a two-line binder owns the
@@ -132,10 +137,13 @@ describes it). Rollout sequencing:
   (a firewall, e.g. "no curriculum data in this prose") is NOT a
   grep test but **construction plus human review**. A literal content
   pin is never admissible: the cure for a pinned value is a test of
-  the mechanism that generates it, red only when the mechanism breaks
-  and silent on upstream content drift (trigger artefact: the MCP-462
+  the mechanism that generates it, asserting relations to the inputs
+  the test injects, so it is red only when the mechanism breaks and
+  silent on upstream content drift (trigger artefact: the MCP-462
   differential examples test that replaced three value-pinned
-  tests).
+  tests). A value that carries a decision is recorded in its owning
+  ADR and guaranteed by construction (one exported source) or by a
+  validator, never by a test.
 - **Pinning an absence is not proof** (owner doctrine 2026-08-19,
   verbatim: "tests should prove behaviour, not configuration, pinning
   a lack of something does not provide value"): an assertion that a
@@ -154,9 +162,9 @@ describes it). Rollout sequencing:
   config.)
 - **Counters and reported stats are configuration echoes** (owner,
   2026-08-13, mid-review: "you are still testing configuration, not
-  behaviour"): a test asserting an exclusion counter, a stat field or a
-  call argument asserts what the configuration echoes back, not whether
-  the restricted content flowed. The cure is a sentinel-content assertion
+  behaviour"): a test asserting an exclusion counter, a stat field or the
+  argument of a query the product made asserts what the configuration
+  echoes back, not whether the restricted content flowed. The cure is a sentinel-content assertion
   through the public result: the hidden lesson's keyword appears only
   when the switch admits it. The generator to watch is testing at the
   seam where the wiring is visible instead of the surface where the
@@ -237,9 +245,11 @@ describes it). Rollout sequencing:
 [no-cond]: ../rules/no-conditional-tests.md
 
 - **No ambient global state access** - Tests MUST NOT read or mutate
-  `process.env`, use `vi.stubGlobal`, use `vi.mock`, or use
-  `vi.doMock`. If a function needs configuration, refactor it to
-  accept config as a parameter. See [ADR-078][di].
+  `process.env`, use `vi.stubGlobal`, `vi.mock` or `vi.doMock`, or
+  replace the clock with `vi.useFakeTimers` or `vi.setSystemTime`. If a
+  function needs configuration or the time, refactor it to accept the
+  configuration, or a clock or scheduler, as a parameter. See
+  [ADR-078][di].
   A validation check's composition root (a smoke or E2E check's runner
   config, global setup or entry script) may read ambient env, validate
   it, and inject the result. Test files and other setup files must not read
@@ -262,7 +272,7 @@ describes it). Rollout sequencing:
   IO; where no injection seam below it can carry the proof (a fake would
   model libuv engine semantics, the "double models the engine" trap), the
   proof is an observation made once at cure time and recorded, or a
-  validator's self-proof outside the test suites (the
+  validator's self-proof outside the in-process test run (the
   `file-backed-stdio-for-spawned-gate-children` pattern describes the
   shape being proven). An existing suite that spawns is a defect under
   this rule, cured the same way.
@@ -458,9 +468,17 @@ exchange is permitted, loopback included (§Test Types).
   canned data and have no test framework dependency.
 - **Test fakes**: simple functions or objects that live in `test-helpers/`
   directories and are used only in tests. They stand in for a dependency so
-  the code under test can run. A fake may hold a record of what the product
-  sent out through it, which the test reads as output; which calls were made,
-  how often or in what order is never asserted (§Philosophy).
+  the code under test can run. What the product sends through an output port
+  (a sink, writer or emitter) is its output: the port's fake keeps a record,
+  and the test reads that record as a value, as the port's receiver would.
+  Messages the port's contract makes separate are read with their count and
+  order; a byte or text stream is read as its joined content, because how
+  many writes carry it is buffering. What the product asks of an input port
+  (a collaborator it queries) is never asserted: which queries it made, how
+  often or in what order is implementation (§Philosophy). A collaborator
+  that both answers queries and receives output (a store with get and put)
+  is judged per operation: what it receives is output, and the queries it
+  answers are never asserted.
 
 Do not conflate the two. Runtime stubs are product code; test fakes are test
 infrastructure.
@@ -707,7 +725,8 @@ Workspaces with `*.e2e.test.ts` files MUST also have
 `@oaknational/workspace-config/vitest-e2e`, or workspace-specific)
 and a `test:e2e` script in `package.json`. A file they govern that drives a separately
 running system is an E2E check (§Out-of-process checks); one that
-imports product code is an integration test under the wrong name
+imports product code and runs it in the test process is an integration
+test under the wrong name
 (`test-immediate-fails` item 20). The `exclude` keeps them out of the
 in-process test run, which admits no IO.
 
