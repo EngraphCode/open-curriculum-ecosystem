@@ -420,9 +420,12 @@ caught it before the push. Two disciplines follow:
 
 The rule behind both disciplines, held with the second estate: **a task is
 cached only on inputs that cover every file it reads.** Where a task's reads
-can be listed, they are declared (the agent-tools end-to-end task declares
-the hook scripts, `.claude/settings.json` and the root manifest its smokes
-read) and a check fails when the list is wrong. Today the
+can be listed, they are declared and a check fails when the list is wrong.
+The agent-tools end-to-end task declares the hook scripts,
+`.claude/settings.json` and the root manifest its smokes read; the root
+`AGENTS.md`, which its Codex session-alert smoke also reads, is not yet among
+its inputs, so an `AGENTS.md`-only change can replay a cached pass until that
+one-line input lands as its own config change. Today the
 workspace-config-isolation validator's `turbo-inputs` check refuses a
 `$TURBO_ROOT$` input that matches no tracked file; the other direction, a
 read the inputs do not declare, has no check yet and is the one to build.
