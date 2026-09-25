@@ -110,7 +110,11 @@ done
 ```
 
 Both keys must report inherited (the check exits non-zero otherwise), and both
-values must be the identity the estate's committer identity rule names. If
+values must be the identity the estate's committer identity rule names. The
+check proves inheritance, not correctness: a worktree inherits the primary's
+error too (the app-id address of 2026-08-04 would pass on both sides), so where
+that rule derives the value, run its derivation (for a bot committer, the
+merge-bot config and the API) and compare it with `want`. If
 either differs, is absent, or names another identity, fix
 the SHARED config once, as that rule directs. Never patch this worktree: a
 `--worktree` override is a second copy that outlives the next correction and
