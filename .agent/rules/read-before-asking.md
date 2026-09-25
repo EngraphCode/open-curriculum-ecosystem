@@ -50,6 +50,15 @@ what the owner wanted while an earlier plan of his already stated it;
 recurrence 2026-09-01). Read the ratified record first; if it is silent,
 ask him directly, in one card.
 
+Read the text that owns a subject before amending it or proposing for it. An
+amendment to wording that implements an owner ruling is preceded by a grep of
+this estate's own doctrine for the sections the ruling touches (a signed
+cross-estate gloss collided with the testing directive's §Stubs vs Fakes,
+2026-09-24), and a mechanism proposed for an act class is preceded by reading
+the rule that owns that class (a repository `author.*` setting was proposed
+against the rule that keeps the author explicit, 2026-09-24; five instances
+across three seats in four days).
+
 ## Two Structural Guards
 
 Both guards are non-negotiable. A version of this rule that lacks

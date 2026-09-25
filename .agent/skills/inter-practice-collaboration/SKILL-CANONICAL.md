@@ -186,7 +186,10 @@ the first comms write, claim, or registration).
 7. **Exchange by the two-layer handshake.** Box files carry
    SELF-CONTAINED concept payloads (no SHAs, no dereferences, no
    moving targets); the paired comms event carries the time-bound
-   layer (provenance pins, identity, sequencing, the box path).
+   layer (provenance pins, identity, sequencing, the box path). A delivery meets the receiver's gates, not the
+   sender's: lint each Box file with the receiving estate's configuration before
+   sending (one file linted with the home estate's config failed the receiver's
+   gate, 2026-09-24).
    When a ported artefact is a DETECTOR (a validator, a conformance
    twin, a gate), its first live run on the receiving estate is a
    detector test: porting ports the authoring estate's lexical
