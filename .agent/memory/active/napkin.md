@@ -82,3 +82,16 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
 - **Doctrine to amend** (routed to the Director): PDR-063's effectiveness-window and ceiling
   triggers, and the start-right-team skill's mid-cycle retirement triggers. They teach the stop
   the owner has now ruled out.
+
+## 2026-09-25 ~14:42Z — play seeds at the wrap (Myrtle turns Canopy, bf4957)
+
+- **Play seed**: the claims tool read this seat's watcher as dead exactly while this seat's
+  own commit gate loaded the host; the diligence produced the silence. This reminded me of a
+  runner whose heart-rate strap drops out at the sprint. Association, not a finding; the
+  observation is in the 13:2xZ entry above.
+- **Play seed**: 939 comms events moved to the archive with no git trace, because the stream
+  directory is ignored; it looked shaped like moving books between shelves in a library whose
+  catalogue lists only the shelf. Association only; the manifest is the catalogue.
+- **Discarded, visibly**: "the ceremony's six refusals share one generator, a layer's idea of
+  quiet". Forced; the refusals had four unrelated causes (a flag, a banner, a lagging
+  heartbeat, a peer's staged merge), and the sentence was pretty before it was true.
