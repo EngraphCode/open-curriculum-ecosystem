@@ -49,7 +49,7 @@ wording read first-hand. Not one accepted row turned out to be a paraphrase of s
 already in its home; twelve citations were bare filenames I had to re-resolve; the method
 paid for itself in the first hour. Watching thirty-eight files of doctrine land in one
 commit, each sentence traceable to a dated observation by a named seat, was the best
-feeling of the day. The comms table's eighty-seven owner-word rows, read whole, are a
+feeling of the day. The comms table's ninety-three owner-word rows, read whole, are a
 history of this estate in the owner's own voice; most of it was already homed, which is
 its own kind of good news.
 

@@ -91,12 +91,19 @@ Python; the raw series was not kept).
 
 | Figure | 2026-09-25 |
 | --- | ---: |
-| Live events in the stream (2026-08-14T17:20Z → 2026-09-25T11:25Z) | 3,725 |
-| Heartbeat-tagged events | 2,465 |
-| Non-heartbeat events | 1,266 |
-| Seats emitting heartbeats | 15 |
+| Events in the stream and the archive together (2026-08-14T06:38:22Z → 2026-09-25T11:17:35Z) | 4,844 |
+| Heartbeat-tagged events | 3,559 |
+| Non-heartbeat events | 1,285 |
+| Seats emitting tagged heartbeats | 25 |
 
-- **Tagged share ≈ 66 %** of the live stream (2,465 / 3,725), up from 47 % at the
+- One window and one population: the four figures above come from one count over the
+  stream and the archive together, heartbeat meaning the tag, recomputed 2026-09-25 16:1xZ
+  after a fold review found the earlier row's parts not summing to its total. The earlier
+  row counted the live stream alone at 11:25Z, a snapshot the harness's 48-hour heartbeat
+  archiving and the day's sweep have since moved, so it cannot be re-taken; the consolidation
+  pass's 1,266 non-heartbeat corpus was that live selection at 11:17Z. The share is higher than
+  the live-only reading because archived heartbeats are in the population.
+- **Tagged share ≈ 73 %** of the stream and the archive together (3,559 / 4,844), up from 47 % at the
   2026-06-14 refresh: the multi-seat days of 2026-09-06 to 10 and 2026-09-24 each ran
   four to eight seats at once.
 - **Median inter-event delta 241 to 244 s for thirteen of the fifteen seats** (the PDR-078

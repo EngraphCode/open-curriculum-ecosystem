@@ -129,9 +129,13 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   (bash 3.2 in POSIX mode) it stopped at `mapfile: command not found` before any queue or git
   act; relaunched under the Homebrew bash 5 it ran whole. The script's shebang says bash; the
   launch line must say it too when the script is run by path.
-- **A worktree cut from engraph needs `CI=true pnpm install --frozen-lockfile` before its first
-  commit** (the lane skill's F-26 note held for three worktrees today); the install brought
-  `agent-tools/dist` with it, so no separate build was needed for the commit gate.
+- **Five worktrees cut from engraph today were installed with `CI=true pnpm install
+  --frozen-lockfile`**, the bypass the lane skill names (owner ruling 2026-08-04), on the
+  skill's own F-26 note; a fold review the same afternoon (Codex on PR 187) read that note as
+  prescribing the bypass, and the note now records the instance as evidence with the diagnosis
+  owed (`pnpm store path` in both trees). This seat did not run that diagnosis on any of the
+  five; F-26 stays open. The install brought `agent-tools/dist` with it, so no separate build
+  was needed for the commit gate.
 - **PDR-142 in practice, four times in one hour.** Core record by bytes (PDR-009, one blob in
   both estates after PR 213); a joint set by three-way merge with four hand-merged hunks, one
   bullet kept in this estate's words for a repo-local path (K4, d6744ed6f); a concept note's

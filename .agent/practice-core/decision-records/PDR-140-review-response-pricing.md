@@ -162,9 +162,13 @@ scope widens by dated amendment, never by improvisation.
    of 2026-09-14, verbatim "I don't want the number of rounds of PRs to go
    up": the rebudget licenses the one settlement push that carries the
    pending mandatory cure and the dispositions, never a further cure round
-   after it; past round two each later finding is a disposition riding the
-   settlement (a prose-class pull request took two rebudget pushes under
-   this clause before the ruling reached its seat, 2026-09-24).
+   after it; past round two each later below-bar finding is a disposition
+   riding the settlement (a prose-class pull request took two rebudget
+   pushes under this clause before the ruling reached its seat, 2026-09-24).
+   An over-bar finding found after that push keeps the cure path clauses 2
+   and 5 give it, because the cure obligation survives budget exhaustion:
+   one late-cure push carrying that cure and its disposition line, with no
+   further round of review requests.
 
 5. **Age-out, scoped to below-bar findings.** A below-bar finding that
    binds to text unchanged since the last reviewed head reveals the
