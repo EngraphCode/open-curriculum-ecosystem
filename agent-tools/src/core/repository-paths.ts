@@ -1,13 +1,14 @@
 /**
- * The repository's own record of what exists: git's tracked paths, never a walk
- * of the disk.
+ * The repository's own record of what exists: git's tracked paths, and which
+ * paths its ignore rules keep out of git, never a walk of the disk.
  *
  * @remarks
  * A working disk also carries instance-tier state (comms events, claims, build
  * output, scratch) that a fresh checkout and CI never hold, so a gate that reads
  * the disk proves only its own machine. The tracked set answers whether a path
- * travels with a checkout; it reads git's index, so a staged file counts as
- * tracked on the machine that staged it. Every git read goes through one runner
+ * travels with a checkout; the ignore probe answers whether a path is instance
+ * tier: ignored by this clone's rules and untracked. Both read git's index, so a
+ * staged file counts as tracked on the machine that staged it. Every git read goes through one private runner
  * and returns a `Result` (ADR-088), never a throw: pure cores read what git gave
  * back, and each caller translates a failure by its own contract.
  *
@@ -22,7 +23,7 @@ import { err, flatMap, map, ok, type Result } from '@oaknational/result';
 import { failureAsError } from './failure-as-error.js';
 import { resolveTrustedGit } from './trusted-git.js';
 
-/** Null byte: the record separator of git's `-z` output. */
+/** Null byte: the record separator of git's `-z` input and output. */
 const NUL = '\u0000';
 
 /** Room for the whole listing of a large repository in one read. */
@@ -46,8 +47,8 @@ export interface SpawnedGit {
   readonly stderr?: string | null;
 }
 
-/** Run git with `args`: the one runner every read here goes through. */
-type GitRun = (args: readonly string[]) => GitRunOutput;
+/** Run git with `args` and `input` on its stdin: the one runner every read here goes through. */
+type GitRun = (args: readonly string[], input: string) => GitRunOutput;
 
 /**
  * Why a git read gave no usable answer: no trusted git (`git-unavailable`, the
@@ -100,7 +101,7 @@ export function parseTrackedFiles(output: GitRunOutput): Result<readonly string[
 
 /** List every tracked file, binaries included, of the repository at `repoRoot`. */
 export function listTrackedFiles(repoRoot: string): Result<readonly string[], GitReadFailure> {
-  return flatMap(gitRunAt(repoRoot), (run) => parseTrackedFiles(run(['ls-files', '-z'])));
+  return flatMap(gitRunAt(repoRoot), (run) => parseTrackedFiles(run(['ls-files', '-z'], '')));
 }
 
 /**
@@ -109,6 +110,69 @@ export function listTrackedFiles(repoRoot: string): Result<readonly string[], Gi
  */
 export function listTrackedPathSet(repoRoot: string): Result<ReadonlySet<string>, GitReadFailure> {
   return map(listTrackedFiles(repoRoot), withImpliedDirectories);
+}
+
+/**
+ * The ignore probe's git arguments: ask this clone's ignore rules, never the
+ * developer's global excludes file, about NUL-terminated stdin, reading the
+ * index, so git itself leaves out whatever it tracks.
+ */
+const PROBE_ARGS = ['-c', 'core.excludesFile=/dev/null', 'check-ignore', '-z', '--stdin'] as const;
+
+/** The stdin the ignore probe sends: each candidate exactly as written, NUL-terminated. */
+export function ignoreProbeInput(candidates: readonly string[]): string {
+  return candidates.map((candidate) => candidate + NUL).join('');
+}
+
+/**
+ * Read what `git check-ignore -z --stdin` gave back: the candidates it lists,
+ * matched by the exact strings sent, since git echoes them verbatim. Status 1
+ * means none; a status 0 that lists no candidate sent, any other status, or
+ * none, is a failure.
+ */
+export function parseIgnoredPaths(
+  candidates: readonly string[],
+  output: GitRunOutput,
+): Result<ReadonlySet<string>, GitReadFailure> {
+  if (output.status === 1) {
+    return ok(new Set());
+  }
+  if (output.status !== 0) {
+    return err(gitFailed(output));
+  }
+  const listed = new Set(splitNul(output.stdout));
+  const ignored = new Set(candidates.filter((candidate) => listed.has(candidate)));
+  return ignored.size === 0 ? err(gitFailed(output)) : ok(ignored);
+}
+
+/**
+ * The candidates (repo-relative, `/`-separated; a directory ends in `/`) that
+ * the clone at `repoRoot` keeps out of git: its ignore rules ignore them and
+ * git tracks none of them, which makes them instance tier.
+ *
+ * @remarks
+ * git reads the index, so it leaves out a tracked path a rule matches, and a
+ * directory that holds a tracked file. The rules are this clone's as they
+ * stand on disk (`.gitignore` files, edited or untracked ones included, and
+ * `.git/info/exclude`), so a local pattern can ignore a path the committed
+ * rules do not. The trailing `/` is the candidate's contract, as it is the
+ * rules' own: a directory written without it never matches a rule that ignores
+ * only its contents (`name/*`), and an absent one is asked about as a file, so
+ * a directory-only rule (`name/`) misses it too. Each candidate is a pathspec
+ * matched against the index, so a glob character in it (`*`, `?`, `[`) can
+ * match a tracked path and read the candidate as not ignored. A candidate that
+ * passes through a symlink, or carries pathspec magic other than `:/`, makes
+ * git refuse the whole batch (status 128). Those edges read as not ignored or
+ * as a failure, never as ignored; a `:/` candidate is read from the repository
+ * top, not from `repoRoot`, so it is outside this contract.
+ */
+export function listIgnoredPaths(
+  repoRoot: string,
+  candidates: readonly string[],
+): Result<ReadonlySet<string>, GitReadFailure> {
+  return flatMap(gitRunAt(repoRoot), (run) =>
+    parseIgnoredPaths(candidates, run(PROBE_ARGS, ignoreProbeInput(candidates))),
+  );
 }
 
 /**
@@ -153,6 +217,7 @@ function splitNul(text: string): string[] {
   return text.split(NUL).filter((entry) => entry.length > 0);
 }
 
+/** The failure a git run gave: its status, or none, and git's own standard error. */
 function gitFailed(output: GitRunOutput): GitReadFailure {
   return { kind: 'git-failed', status: output.status, stderr: output.stderr };
 }
@@ -181,5 +246,5 @@ function gitRunAt(repoRoot: string): Result<GitRun, GitReadFailure> {
     return err(gitUnavailable(error));
   }
   const options = { cwd: repoRoot, encoding: 'utf8', maxBuffer: MAX_GIT_OUTPUT_BYTES } as const;
-  return ok((args) => toGitRunOutput(spawnSync(git, args, options)));
+  return ok((args, input) => toGitRunOutput(spawnSync(git, args, { ...options, input })));
 }
