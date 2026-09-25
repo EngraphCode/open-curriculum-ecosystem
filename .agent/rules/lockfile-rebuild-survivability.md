@@ -21,15 +21,24 @@ gets mistaken for "the constraint is expressed".
 ## Action
 
 Run the rebuild; do not reason about it. Reasoning cannot see an incidental
-pin.
+pin. Run it cold, in an empty directory: pnpm with no lockfile seeds its
+resolution from `node_modules/.pnpm/lock.yaml`, so a rebuild beside the
+checkout's `node_modules` writes the old lockfile back when the declarations
+match the last install, and nothing was resolved (the second estate measured
+it on pnpm 12.4.2, under 30 ms, with and without `--lockfile-only`; the same
+declarations resolved cold picked up five in-range releases).
 
 ```bash
-cp pnpm-lock.yaml /tmp/lock-committed.yaml   # forward-going copy, never a git removal
-rm pnpm-lock.yaml
-pnpm install                                  # rebuild from declarations alone
+scratch="$(mktemp -d)"                         # empty: no install state to seed from
+git ls-files -z -- package.json '*/package.json' pnpm-workspace.yaml \
+  | xargs -0 tar -cf - | tar -xf - -C "$scratch"
+pnpm --dir "$scratch" install --lockfile-only   # resolve from declarations alone
 ```
 
-Then assert all four, and read each result rather than the exit code alone:
+Then assert all four, and read each result rather than the exit code alone.
+The first three read `"$scratch/pnpm-lock.yaml"` and run
+`pnpm --dir "$scratch" audit`; the fourth runs in the checkout against the
+lockfile to be committed, once the cold result is that lockfile:
 
 1. **Floors** — every advisory-carrying package resolves at or above its fixed
    version.
@@ -42,12 +51,13 @@ Then assert all four, and read each result rather than the exit code alone:
    the only residue.
 4. **Frozen install** — `CI=true pnpm install --frozen-lockfile` exits 0.
 
-Restore by copying the backup back if the rebuild is not the state you want to
-commit.
+The committed lockfile is untouched until the cold result is the state to
+commit; copy it in then, never before.
 
-**A byte-identical rebuild is the strongest pass.** A rebuild that merely
+**A byte-identical cold rebuild is the strongest pass.** A rebuild that merely
 satisfies all four assertions is still a pass: newly-published in-range
-versions are legitimate drift, not a violation. A rebuild that drops a floor,
+versions are legitimate drift, not a violation. A byte-identical result
+beside `node_modules` proves nothing: it is the seeded lockfile written back. A rebuild that drops a floor,
 crosses a hold, or fails the frozen install means the constraint was never
 declared — fix the declaration, never re-pin by hand.
 
@@ -64,6 +74,14 @@ sees it, failing with `ERR_PNPM_OUTDATED_LOCKFILE` and taking `install`,
 `secret-scan` and `run-quality-gates` down with it.
 
 Keep override and manifest specifiers aligned whenever a sweep moves either.
+The two drift directions differ, measured on this estate's pnpm 11.20.0
+(2026-09-25, the frozen lockfile check with `--lockfile-only` over a copy of
+the tracked manifests and lockfile): an override changed without regenerating
+the lockfile fails loudly (`ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`); a manifest
+raised under a standing override passes silently, because the override still
+rewrites the specifier. So a moved override is caught at the first frozen
+install, and a moved manifest is caught by nothing: an override's comment names
+the manifests it rewrites, and they move together in one change.
 
 ## Worked instances
 
@@ -71,6 +89,9 @@ Keep override and manifest specifiers aligned whenever a sweep moves either.
   the estate-wide drift sweep (#531) were each tested by full delete-and-rebuild
   and came back **byte-identical** — every floor, both major holds, and the
   audit state proven declaration-derived rather than lockfile-retained.
+  Nobody recorded where those rebuilds ran; beside `node_modules` a
+  byte-identical result is the seeded lockfile written back (§Action), so the
+  proof stands only for a cold run.
 - **The corollary, same lane**: the sweep moved `@types/node` manifests to
   `^24.13.3` while its override still read `^24.13.2`, producing exactly the
   `ERR_PNPM_OUTDATED_LOCKFILE` desync above. Cured by aligning the override —
