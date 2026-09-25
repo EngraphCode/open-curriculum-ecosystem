@@ -78,7 +78,7 @@ export interface OwnerOnlyAppendFs {
   /**
    * The invoking user's uid, against which the append checks the file's
    * owner; `undefined` on a platform without POSIX ownership, where the
-   * owner check is skipped and the other file checks still hold.
+   * append refuses before touching anything.
    */
   readonly uid: number | undefined;
   /** The open flags this file system honours. */

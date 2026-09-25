@@ -6,8 +6,8 @@
  * The fake defines its own fixed flag values ({@link FAKE_OPEN_FLAGS}) and
  * supplies them through the port, so it behaves identically on every
  * platform and never reads `node:fs` constants. It can also model a platform
- * without no-follow (Windows), where the flag is absent and a symlink at the
- * file name is followed.
+ * without no-follow, where the flag is absent and a symlink at the file name
+ * is followed.
  *
  * `open` walks the file's directory (see `in-memory-fs-state.ts`), then:
  *
