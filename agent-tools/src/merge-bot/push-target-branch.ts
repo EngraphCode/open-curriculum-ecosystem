@@ -1,118 +1,167 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { describeGitChildEnd, type GitContext } from './push-git.js';
+import { parseGitRemoteUrl } from '../core/git-remote-url.js';
+import type { GitCommandResult } from './git-executor.js';
+import { describeGitChildEnd, type PushGitReads } from './push-git.js';
 
 /**
- * Which branches `merge-bot push` refuses to write. Changes reach a default
- * branch through a pull request, never a direct push: `main` and `master`
- * refuse by name, and so does the repository's own default branch, read from
- * `refs/remotes/origin/HEAD`, which a clone sets and every worktree shares.
- * That read is trusted only when `origin` names the repository the push goes
- * to, since the push itself goes to the configured repository's URL, never to
- * `origin`. Anything unreadable fails the push rather than guessing.
+ * Which branch `merge-bot push` writes, and which it refuses. Changes reach a
+ * default branch through a pull request, never a direct push: `main` and
+ * `master` refuse by name, and so does the repository's own default branch,
+ * read from `refs/remotes/origin/HEAD`, which a clone sets and every worktree
+ * shares. Names compare without case, since a branch differing only in case
+ * from the default one breaks every fetch on a case-insensitive disk.
+ *
+ * The origin read is trusted only when origin names the repository the push
+ * goes to, since the push itself goes to the configured repository's URL,
+ * never to `origin`. It is a snapshot: a fetch does not move an existing
+ * `origin/HEAD`, so after the repository's default branch changes,
+ * `git remote set-head origin --auto` refreshes it. GitHub's ruleset on the
+ * default branch, which the bot does not bypass, refuses a direct push either
+ * way. Anything unreadable fails the push rather than guessing.
  */
 
 /** Branch names that never take a direct push; the never-commit-to-main rule as behaviour. */
 const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 
-/**
- * The typed refusal for a target branch, whether the name came from git or
- * from --branch, or undefined when the push may go ahead.
- *
- * @param branch - The branch the push would write, as `refs/heads/<branch>`.
- * @param defaultBranch - The repository's default branch, from {@link readDefaultBranch}.
- */
-export function refuseTargetBranch(branch: string, defaultBranch: string): string | undefined {
+const ORIGIN_HEAD_PREFIX = 'refs/remotes/origin/';
+
+const SET_HEAD_CURE = 'run `git remote set-head origin --auto`';
+
+const DETACHED_HEAD =
+  'HEAD is detached — there is no branch to push; check a branch out, or name the target with --branch';
+
+/** The branch to push, or the typed refusal. */
+export type TargetBranch =
+  | { readonly kind: 'target'; readonly branch: string }
+  | { readonly kind: 'refused'; readonly reason: string };
+
+/** The configured repository the push goes to. */
+interface Repository {
+  readonly owner: string;
+  readonly repoName: string;
+}
+
+function refused(reason: string): TargetBranch {
+  return { kind: 'refused', reason };
+}
+
+function defaultBranchRefusal(branch: string): string {
+  return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
+}
+
+/** The refusals that need only the name, decided before any read of origin. */
+function refuseBranchName(branch: string): string | undefined {
   if (branch === 'HEAD') {
-    return 'HEAD is detached — there is no branch to push; check a branch out, or name the target with --branch';
+    return DETACHED_HEAD;
   }
   if (branch.startsWith('refs/')) {
     return `"${branch}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
   }
-  if (DEFAULT_BRANCH_NAMES.has(branch) || branch === defaultBranch) {
-    return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
-  }
-  return undefined;
+  return DEFAULT_BRANCH_NAMES.has(branch.toLowerCase()) ? defaultBranchRefusal(branch) : undefined;
 }
 
-const ORIGIN_HEAD_PREFIX = 'refs/remotes/origin/';
-
-/**
- * The branch `refs/remotes/origin/HEAD` points at, from `git symbolic-ref`'s
- * full output, or undefined when the answer is not an origin branch.
- *
- * @param stdout - What `git symbolic-ref --quiet refs/remotes/origin/HEAD` printed.
- */
-export function parseOriginHead(stdout: string): string | undefined {
-  const ref = stdout.trim();
-  return ref.startsWith(ORIGIN_HEAD_PREFIX) && ref.length > ORIGIN_HEAD_PREFIX.length
-    ? ref.slice(ORIGIN_HEAD_PREFIX.length)
-    : undefined;
-}
-
-const GITHUB_REMOTE =
-  /^(?:https:\/\/github\.com\/|git@github\.com:|ssh:\/\/git@github\.com\/)([^/]+)\/([^/]+?)(?:\.git)?$/;
-
-/**
- * Whether a remote URL names exactly the GitHub repository `owner/repoName`,
- * in its HTTPS or SSH form. GitHub names are case-insensitive.
- *
- * @param url - The remote's URL, as `git config --get remote.origin.url` printed it.
- * @param owner - The configured repository's owner.
- * @param repoName - The configured repository's name.
- */
-export function originNamesRepository(url: string, owner: string, repoName: string): boolean {
-  const match = GITHUB_REMOTE.exec(url);
-  return (
-    match?.[1]?.toLowerCase() === owner.toLowerCase() &&
-    match[2]?.toLowerCase() === repoName.toLowerCase()
-  );
-}
-
-/**
- * Read the default branch of the configured repository from `origin`, or
- * fail with the cure named. Two git reads, no network.
- *
- * @param git - The resolved git binary and its executor.
- * @param options - The working directory, the child environment, and the
- * configured repository the push goes to.
- */
-export async function readDefaultBranch(
-  git: GitContext,
-  options: {
-    readonly cwd: string;
-    readonly env: Readonly<Record<string, string | undefined>>;
-    readonly owner: string;
-    readonly repoName: string;
-  },
-): Promise<Result<string, Error>> {
-  const where = { cwd: options.cwd, env: options.env };
-  const url = await git.exec(git.file, ['config', '--get', 'remote.origin.url'], where);
-  if (url.status !== 0) {
+/** The branch HEAD is on, or undefined for a detached HEAD. */
+function currentBranchFrom(result: GitCommandResult): Result<string | undefined, Error> {
+  if (result.status !== 0) {
     return err(
       new Error(
-        `cannot read the default branch: origin has no URL (git config ${describeGitChildEnd(url)})`,
+        `cannot read the current branch (git branch ${describeGitChildEnd(result)}): ${result.stderr.trim()}`,
       ),
     );
   }
-  if (!originNamesRepository(url.stdout.trim(), options.owner, options.repoName)) {
+  const branch = result.stdout.trim();
+  return ok(branch === '' ? undefined : branch);
+}
+
+/** Whether origin's one URL names the configured repository on github.com. */
+function trustOrigin(result: GitCommandResult, repository: Repository): Result<undefined, Error> {
+  const repo = `github.com/${repository.owner}/${repository.repoName}`;
+  const cure = `point origin at https://${repo}.git, then ${SET_HEAD_CURE}`;
+  if (result.status !== 0) {
     return err(
       new Error(
-        `cannot trust origin's default branch: origin is not github.com/${options.owner}/${options.repoName}, the repository the push goes to`,
+        `cannot read the default branch: origin has no URL (git remote ${describeGitChildEnd(result)}); ${cure}`,
       ),
     );
   }
-  const head = await git.exec(
-    git.file,
-    ['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD'],
-    where,
-  );
-  const branch = head.status === 0 ? parseOriginHead(head.stdout) : undefined;
-  return branch === undefined
-    ? err(
+  const urls = result.stdout.split('\n').filter((line) => line.trim() !== '');
+  const remote = urls.length === 1 ? parseGitRemoteUrl(urls[0] ?? '') : undefined;
+  const names =
+    remote?.host.toLowerCase() === 'github.com' &&
+    remote.owner.toLowerCase() === repository.owner.toLowerCase() &&
+    remote.repo.toLowerCase() === repository.repoName.toLowerCase();
+  return names
+    ? ok(undefined)
+    : err(
         new Error(
-          'cannot read the default branch: refs/remotes/origin/HEAD is unset; run `git remote set-head origin --auto`',
+          `cannot trust origin's default branch: origin is not ${repo} alone, the repository the push goes to; ${cure}`,
         ),
-      )
-    : ok(branch);
+      );
+}
+
+/** The branch `refs/remotes/origin/HEAD` points at, with the cure for each way it cannot be read. */
+function defaultBranchFrom(result: GitCommandResult): Result<string, Error> {
+  if (result.status === 1 && result.signal === null) {
+    return err(
+      new Error(
+        `cannot read the default branch: refs/remotes/origin/HEAD is unset; ${SET_HEAD_CURE}`,
+      ),
+    );
+  }
+  if (result.status !== 0) {
+    return err(
+      new Error(
+        `cannot read the default branch (git symbolic-ref ${describeGitChildEnd(result)}): ${result.stderr.trim()}`,
+      ),
+    );
+  }
+  const ref = result.stdout.trim();
+  return ref.startsWith(ORIGIN_HEAD_PREFIX) && ref.length > ORIGIN_HEAD_PREFIX.length
+    ? ok(ref.slice(ORIGIN_HEAD_PREFIX.length))
+    : err(
+        new Error(
+          `cannot read the default branch: refs/remotes/origin/HEAD does not name an origin branch; ${SET_HEAD_CURE}`,
+        ),
+      );
+}
+
+/**
+ * Settle the branch a push writes: the one named, or the one HEAD is on;
+ * refused by name first, then against the default branch origin names.
+ *
+ * @param named - The branch given with `--branch`, or undefined for HEAD's branch.
+ * @param reads - git's answers about HEAD and origin.
+ * @param repository - The configured repository the push goes to.
+ */
+export async function settleTargetBranch(
+  named: string | undefined,
+  reads: PushGitReads,
+  repository: Repository,
+): Promise<Result<TargetBranch, Error>> {
+  const current = named === undefined ? currentBranchFrom(await reads.currentBranch()) : ok(named);
+  if (!current.ok) {
+    return current;
+  }
+  const branch = current.value;
+  if (branch === undefined) {
+    return ok(refused(DETACHED_HEAD));
+  }
+  const byName = refuseBranchName(branch);
+  if (byName !== undefined) {
+    return ok(refused(byName));
+  }
+  const trusted = trustOrigin(await reads.originUrls(), repository);
+  if (!trusted.ok) {
+    return trusted;
+  }
+  const defaultBranch = defaultBranchFrom(await reads.originHead());
+  if (!defaultBranch.ok) {
+    return defaultBranch;
+  }
+  return ok(
+    branch.toLowerCase() === defaultBranch.value.toLowerCase()
+      ? refused(defaultBranchRefusal(branch))
+      : { kind: 'target', branch },
+  );
 }

@@ -32,12 +32,12 @@ still is so is a tree diff, never an ancestry test. Git proves that the text of
 two histories combines. It has no conception of meaning, and an integration
 changes meaning in four places git cannot see:
 
-| Layer | What changes | What proves it | Who does it |
-| --- | --- | --- | --- |
-| Code | signatures, contracts, imports | type-check, tests, the required checks on a combined candidate | the gates |
-| Generated surfaces | anchored excerpts, adapters, corpora, codegen | each generator's own check (byte equality, `--check`) | the generators |
-| Memory and state files | narratives, registers, thread records with a `merge_class` | concept-level reconciliation | semantic-merge |
-| Documents and plans | premises stated as fact | a premise sweep by reading | this skill, §6 |
+| Layer                  | What changes                                               | What proves it                                                 | Who does it    |
+| ---------------------- | ---------------------------------------------------------- | -------------------------------------------------------------- | -------------- |
+| Code                   | signatures, contracts, imports                             | type-check, tests, the required checks on a combined candidate | the gates      |
+| Generated surfaces     | anchored excerpts, adapters, corpora, codegen              | each generator's own check (byte equality, `--check`)          | the generators |
+| Memory and state files | narratives, registers, thread records with a `merge_class` | concept-level reconciliation                                   | semantic-merge |
+| Documents and plans    | premises stated as fact                                    | a premise sweep by reading                                     | this skill, §6 |
 
 The fourth row is the one this skill adds. On 2026-09-09 an upstream change
 that touched no plan file left three delivery plans and one research record on
@@ -126,7 +126,7 @@ carrier merge and landing proof names the first.
   step 2's recompute and step 3's worktree; neither step fetches it again.
 - The carrier: exactly one open sync pull request, filtered server-side by
   head branch (`gh pr list --repo <fork> --state open --head <carrier>
-  --json number`); a `--search` head-name query returns nothing, silently,
+--json number`); a `--search` head-name query returns nothing, silently,
   and any listing read as "the full open list" carries an explicit
   `--limit`, because the default page is thirty. A second carrier for the same
   lineage is a defect; close it on the record. A carrier the mirror has moved past is
@@ -332,7 +332,7 @@ worktree as the working directory (the entry point exactly as it runs;
 branch by name, the bot identity over a file-backed token that is never in
 argv, hooks running, no force flag; a rejected non-fast-forward is answered by
 merging, never by overwriting. It never touches branch tracking (its git argv
-is `push <remote> HEAD:<branch>`): a lane branch cut with `-b <name>
+is `push <remote> HEAD:refs/heads/<branch>`): a lane branch cut with `-b <name>
 origin/<fork-default>` keeps tracking the default, so `git status -sb` reads
 ahead/behind against the DEFAULT, never the pushed branch, and a branch cut
 without tracking shows none — either way the closeout's `git branch

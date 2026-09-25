@@ -48,8 +48,8 @@ export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
   Exit map: 0 pushed, 1 operational failure (git's own non-zero exit, its
   stderr surfaced; or origin's default branch unreadable, or origin not the
   repository the push goes to), 2 usage, 3 typed refusal — main, master and
-  the default branch origin names refuse, because changes reach the default
-  branch through pull requests.
+  the default branch origin names refuse in any case, because changes reach
+  the default branch through pull requests.
 `;
 
 /**

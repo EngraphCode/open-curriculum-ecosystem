@@ -1,76 +1,224 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  originNamesRepository,
-  parseOriginHead,
-  refuseTargetBranch,
-} from './push-target-branch.js';
+import type { GitCommandResult } from './git-executor.js';
+import type { PushGitReads } from './push-git.js';
+import { settleTargetBranch } from './push-target-branch.js';
 
-describe('parseOriginHead', () => {
-  it.each([
-    ['refs/remotes/origin/engraph\n', 'engraph'],
-    ['refs/remotes/origin/main', 'main'],
-    ['refs/remotes/origin/release/2026', 'release/2026'],
-  ])('reads the default branch from %j', (stdout, branch) => {
-    expect(parseOriginHead(stdout)).toBe(branch);
+const REPOSITORY = { owner: 'acme', repoName: 'widgets' } as const;
+const ORIGIN = 'https://github.com/acme/widgets.git';
+const DEFAULT_BRANCH = 'engraph';
+
+function answered(stdout: string): GitCommandResult {
+  return { status: 0, signal: null, stdout, stderr: '' };
+}
+
+function failed(status: number, stderr = ''): GitCommandResult {
+  return { status, signal: null, stdout: '', stderr };
+}
+
+/** git's answers, each a constant; a test overrides only the one it is about. */
+function reads(
+  answers: {
+    readonly currentBranch?: GitCommandResult;
+    readonly originUrls?: GitCommandResult;
+    readonly originHead?: GitCommandResult;
+  } = {},
+): PushGitReads {
+  const currentBranch = answers.currentBranch ?? answered('feat/example\n');
+  const originUrls = answers.originUrls ?? answered(`${ORIGIN}\n`);
+  const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);
+  return {
+    currentBranch: () => Promise.resolve(currentBranch),
+    originUrls: () => Promise.resolve(originUrls),
+    originHead: () => Promise.resolve(originHead),
+  };
+}
+
+describe('settleTargetBranch: the branch a push writes', () => {
+  it('pushes the branch HEAD is on', async () => {
+    expect(await settleTargetBranch(undefined, reads(), REPOSITORY)).toEqual({
+      ok: true,
+      value: { kind: 'target', branch: 'feat/example' },
+    });
+  });
+
+  it('pushes the named branch even when git cannot name the branch HEAD is on', async () => {
+    const settled = await settleTargetBranch(
+      'other-lane',
+      reads({ currentBranch: failed(128, 'fatal: not a git repository\n') }),
+      REPOSITORY,
+    );
+
+    expect(settled).toEqual({ ok: true, value: { kind: 'target', branch: 'other-lane' } });
   });
 
   it.each([
-    ['an empty answer', ''],
-    ['the bare prefix', 'refs/remotes/origin/'],
-    ['another remote', 'refs/remotes/upstream/main'],
-    ['the short form', 'origin/main'],
-    ['a local branch', 'refs/heads/main'],
-  ])('reads no default branch from %s', (_name, stdout) => {
-    expect(parseOriginHead(stdout)).toBeUndefined();
+    { name: 'a branch the default branch prefixes', branch: `${DEFAULT_BRANCH}-docs` },
+    { name: 'a branch whose default is nested', branch: 'release/2026-docs' },
+  ])('pushes $name', async ({ branch }) => {
+    expect(await settleTargetBranch(branch, reads(), REPOSITORY)).toEqual({
+      ok: true,
+      value: { kind: 'target', branch },
+    });
+  });
+
+  it.each([
+    { url: 'https://github.com/acme/widgets' },
+    { url: 'https://github.com/Acme/Widgets.git' },
+    { url: 'git@github.com:acme/widgets.git' },
+    { url: 'ssh://git@github.com/acme/widgets.git' },
+  ])('trusts origin at $url', async ({ url }) => {
+    const settled = await settleTargetBranch(
+      'feat/example',
+      reads({ originUrls: answered(`${url}\n`) }),
+      REPOSITORY,
+    );
+
+    expect(settled).toEqual({ ok: true, value: { kind: 'target', branch: 'feat/example' } });
   });
 });
 
-describe('originNamesRepository', () => {
+describe('settleTargetBranch: refusals', () => {
   it.each([
-    'https://github.com/acme/widgets.git',
-    'https://github.com/acme/widgets',
-    'https://github.com/Acme/Widgets.git',
-    'git@github.com:acme/widgets.git',
-    'ssh://git@github.com/acme/widgets.git',
-  ])('accepts %s as naming acme/widgets', (url) => {
-    expect(originNamesRepository(url, 'acme', 'widgets')).toBe(true);
+    { branch: 'main' },
+    { branch: 'master' },
+    { branch: 'MAIN' },
+    { branch: DEFAULT_BRANCH },
+    { branch: 'Engraph' },
+  ])('refuses $branch as a default branch', async ({ branch }) => {
+    const settled = await settleTargetBranch(branch, reads(), REPOSITORY);
+
+    expect(settled.ok && settled.value.kind).toBe('refused');
+    expect(settled.ok && settled.value.kind === 'refused' && settled.value.reason).toContain(
+      branch,
+    );
+  });
+
+  it('refuses the default branch when HEAD is on it', async () => {
+    const settled = await settleTargetBranch(
+      undefined,
+      reads({ currentBranch: answered(`${DEFAULT_BRANCH}\n`) }),
+      REPOSITORY,
+    );
+
+    expect(settled.ok && settled.value.kind).toBe('refused');
+  });
+
+  it('refuses the default branch origin names under a nested name', async () => {
+    const settled = await settleTargetBranch(
+      'release/2026',
+      reads({ originHead: answered('refs/remotes/origin/release/2026\n') }),
+      REPOSITORY,
+    );
+
+    expect(settled.ok && settled.value.kind).toBe('refused');
+  });
+
+  it('refuses a full ref name, which the push would nest under refs/heads/', async () => {
+    const settled = await settleTargetBranch('refs/heads/feat/example', reads(), REPOSITORY);
+
+    expect(settled.ok && settled.value.kind === 'refused' && settled.value.reason).toContain(
+      'refs/heads/feat/example',
+    );
   });
 
   it.each([
-    'https://github.com/acme/gadgets.git',
-    'https://github.com/other/widgets.git',
-    'https://gitlab.com/acme/widgets.git',
-    'https://github.com/acme/widgets/extra.git',
-    'https://github.com.evil.example/acme/widgets.git',
-    '/local/mirror/widgets.git',
-    '',
-  ])('refuses %j as naming acme/widgets', (url) => {
-    expect(originNamesRepository(url, 'acme', 'widgets')).toBe(false);
+    { name: 'a detached HEAD', named: undefined, currentBranch: answered('\n') },
+    { name: 'a branch named HEAD', named: 'HEAD', currentBranch: answered('feat/example\n') },
+  ])('refuses $name as detached', async ({ named, currentBranch }) => {
+    const settled = await settleTargetBranch(named, reads({ currentBranch }), REPOSITORY);
+
+    expect(settled.ok && settled.value.kind === 'refused' && settled.value.reason).toContain(
+      'detached',
+    );
   });
+
+  it.each([
+    { name: 'a detached HEAD', named: undefined, currentBranch: answered('') },
+    { name: 'main by name', named: 'main', currentBranch: answered('feat/example\n') },
+  ])(
+    'refuses $name without reading origin, so a clone with no origin HEAD still refuses',
+    async ({ named, currentBranch }) => {
+      const settled = await settleTargetBranch(
+        named,
+        reads({ currentBranch, originUrls: failed(2), originHead: failed(1) }),
+        REPOSITORY,
+      );
+
+      expect(settled.ok && settled.value.kind).toBe('refused');
+    },
+  );
 });
 
-describe('refuseTargetBranch', () => {
-  it.each(['feat/example', 'engraph-docs', 'release/2026'])(
-    'lets %s through when the default branch is engraph',
-    (branch) => {
-      expect(refuseTargetBranch(branch, 'engraph')).toBeUndefined();
+describe('settleTargetBranch: failures, each naming its cure', () => {
+  it('fails when git cannot name the branch HEAD is on, with git own words', async () => {
+    const settled = await settleTargetBranch(
+      undefined,
+      reads({ currentBranch: failed(128, 'fatal: not a git repository\n') }),
+      REPOSITORY,
+    );
+
+    expect(settled.ok).toBe(false);
+    expect(!settled.ok && settled.error.message).toContain('not a git repository');
+  });
+
+  it.each([
+    { name: 'origin has no URL', originUrls: failed(2, "error: No such remote 'origin'\n") },
+    {
+      name: 'origin is another owner',
+      originUrls: answered('https://github.com/other/widgets.git\n'),
+    },
+    {
+      name: 'origin is another repository',
+      originUrls: answered('https://github.com/acme/gadgets.git\n'),
+    },
+    {
+      name: 'origin is on another host',
+      originUrls: answered('https://gitlab.com/acme/widgets.git\n'),
+    },
+    {
+      name: 'origin is a look-alike host',
+      originUrls: answered('https://github.com.evil.example/acme/widgets.git\n'),
+    },
+    { name: 'origin is a host alias', originUrls: answered('git@github-work:acme/widgets.git\n') },
+    { name: 'origin is a local mirror', originUrls: answered('/local/mirror/widgets.git\n') },
+    {
+      name: 'origin has a second URL',
+      originUrls: answered(`${ORIGIN}\nhttps://github.com/other/widgets.git\n`),
+    },
+  ])(
+    'fails when $name, naming the configured repository to point origin at',
+    async ({ originUrls }) => {
+      const settled = await settleTargetBranch('feat/example', reads({ originUrls }), REPOSITORY);
+
+      expect(settled.ok).toBe(false);
+      expect(!settled.ok && settled.error.message).toContain(
+        `https://github.com/${REPOSITORY.owner}/${REPOSITORY.repoName}.git`,
+      );
     },
   );
 
   it.each([
-    ['the default branch origin names', 'engraph'],
-    ['main, by name', 'main'],
-    ['master, by name', 'master'],
-  ])('refuses %s as a default branch', (_name, branch) => {
-    expect(refuseTargetBranch(branch, 'engraph')).toContain('is a default branch');
+    { name: 'origin HEAD is unset', originHead: failed(1) },
+    {
+      name: 'origin HEAD names another remote',
+      originHead: answered('refs/remotes/upstream/main\n'),
+    },
+    { name: 'origin HEAD names no branch', originHead: answered('refs/remotes/origin/\n') },
+  ])('fails when $name, naming set-head as the cure', async ({ originHead }) => {
+    const settled = await settleTargetBranch('feat/example', reads({ originHead }), REPOSITORY);
+
+    expect(settled.ok).toBe(false);
+    expect(!settled.ok && settled.error.message).toContain('git remote set-head origin --auto');
   });
 
-  it('refuses a full ref name, which the push would nest under refs/heads/', () => {
-    expect(refuseTargetBranch('refs/heads/feat/example', 'engraph')).toContain('full ref');
-  });
+  it('fails with git own words when reading origin HEAD fails another way', async () => {
+    const settled = await settleTargetBranch(
+      'feat/example',
+      reads({ originHead: failed(128, 'fatal: bad object\n') }),
+      REPOSITORY,
+    );
 
-  it('refuses a detached HEAD', () => {
-    expect(refuseTargetBranch('HEAD', 'engraph')).toContain('detached');
+    expect(!settled.ok && settled.error.message).toContain('bad object');
   });
 });

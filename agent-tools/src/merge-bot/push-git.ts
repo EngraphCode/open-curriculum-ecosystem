@@ -98,9 +98,11 @@ function pushEnv(
  * must never answer for the bot), then the one static helper — last, so the
  * clear it follows cannot disarm it. The token is NOT here — argv is visible
  * in the process list to anything that can read it — and neither is any
- * bypass: no force flag, no `--no-verify`. The destination is always the full
- * branch ref, so git infers nothing from the name and the refusals in
- * `push-target-branch.ts` compare exactly the branch that is written.
+ * bypass: no force flag, no `--no-verify`. The push writes exactly one ref:
+ * the destination is always the full branch ref, so git infers nothing from
+ * the name and the refusals in `push-target-branch.ts` compare exactly the
+ * branch that is written, and a configured `push.followTags` or submodule
+ * recursion never adds another.
  */
 function pushArgv(remote: string, branch: string): readonly string[] {
   return [
@@ -108,32 +110,44 @@ function pushArgv(remote: string, branch: string): readonly string[] {
     '-c',
     `credential.helper=${CREDENTIAL_HELPER}`,
     'push',
+    '--no-follow-tags',
+    '--recurse-submodules=no',
     remote,
     `HEAD:refs/heads/${branch}`,
   ];
 }
 
 /**
- * Ask git which branch HEAD is on — never inferred from the environment. No
- * output sink: a branch name is output this tool controls, so capturing it is
- * a fact about the call rather than an unexamined buffer.
+ * The reads `merge-bot push` makes before it mints, one per question, each
+ * answering git's raw result so every decision stays in pure code. No output
+ * sink: each answer is output this tool controls, so capturing it is a fact
+ * about the call rather than an unexamined buffer.
  */
-export async function currentBranch(
+export interface PushGitReads {
+  /** The checked-out branch, unabbreviated; empty output when HEAD is detached. */
+  readonly currentBranch: () => Promise<GitCommandResult>;
+  /** Every URL origin fetches from, one per line, with `insteadOf` applied. */
+  readonly originUrls: () => Promise<GitCommandResult>;
+  /** The ref `refs/remotes/origin/HEAD` points at: origin's default branch. */
+  readonly originHead: () => Promise<GitCommandResult>;
+}
+
+/**
+ * The reads, answered by the git binary. `branch --show-current` prints the
+ * branch name whole, where `rev-parse --abbrev-ref` would print
+ * `heads/<name>` when a tag shares the branch's name.
+ */
+export function gitReadsFrom(
   git: GitContext,
   options: { readonly cwd: string; readonly env: Readonly<Record<string, string | undefined>> },
-): Promise<Result<string, Error>> {
-  const result = await git.exec(git.file, ['rev-parse', '--abbrev-ref', 'HEAD'], options);
-  if (result.status !== 0) {
-    return err(
-      new Error(
-        `cannot read the current branch (git rev-parse ${describeGitChildEnd(result)}): ${result.stderr.trim()}`,
-      ),
-    );
-  }
-  const branch = result.stdout.trim();
-  return branch === ''
-    ? err(new Error('cannot read the current branch: git rev-parse printed nothing'))
-    : ok(branch);
+): PushGitReads {
+  const read = (args: readonly string[]) => async (): Promise<GitCommandResult> =>
+    git.exec(git.file, args, options);
+  return {
+    currentBranch: read(['branch', '--show-current']),
+    originUrls: read(['remote', 'get-url', '--all', 'origin']),
+    originHead: read(['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD']),
+  };
 }
 
 /**
