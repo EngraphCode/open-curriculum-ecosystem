@@ -19,7 +19,7 @@ import {
   OBSERVATION_LOG,
   registeredPreCompactCommand,
   runRegisteredCommand,
-  siblingNamed,
+  type LoggedObservation,
 } from './pre-compact-observe-fixture.js';
 
 /**
@@ -46,6 +46,20 @@ import {
  * Nor is the entry's order proven: stdin and stdout are separate sockets here,
  * so touching `process.stdout` before the read would pass.
  */
+
+/**
+ * The listed entry with the given name.
+ *
+ * @param observation - The asserted fields of a log line.
+ * @param name - The entry's name beside the transcript.
+ * @returns The entry, or `undefined` when none has that name.
+ */
+function siblingNamed(
+  observation: LoggedObservation,
+  name: string,
+): LoggedObservation['siblings']['entries'][number] | undefined {
+  return observation.siblings.entries.find((entry) => entry.name === name);
+}
 
 const TRANSCRIPT_NAME = 'session.jsonl';
 const LINK_NAME = 'session-link.jsonl';

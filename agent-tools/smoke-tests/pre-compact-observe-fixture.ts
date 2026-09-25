@@ -9,7 +9,16 @@ import {
   type SpawnSyncOptionsWithStringEncoding,
   type SpawnSyncReturns,
 } from 'node:child_process';
-import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, symlinkSync } from 'node:fs';
+import {
+  closeSync,
+  constants,
+  fstatSync,
+  mkdirSync,
+  mkdtempSync,
+  openSync,
+  readFileSync,
+  symlinkSync,
+} from 'node:fs';
 import { rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { delimiter, join } from 'node:path';
@@ -65,9 +74,6 @@ const observationSchema = z.object({
 
 /** The fields of one log line the smoke asserts. */
 export type LoggedObservation = z.output<typeof observationSchema>;
-
-/** One listed entry beside the transcript, as the log line records it. */
-type LoggedSibling = LoggedObservation['siblings']['entries'][number];
 
 /**
  * The one command `.claude/settings.json` registers for `PreCompact`.
@@ -210,27 +216,33 @@ export function assertObservedRun(
   assert.equal(result.stderr, '', 'expected nothing on stderr');
   const answerLine: unknown = JSON.parse(onlyLine(result.stdout, 'stdout'));
   const answer = answerSchema.parse(answerLine);
-  const logPath = join(project, OBSERVATION_LOG);
-  assert.ok(existsSync(logPath), `no observation log; the answer was: ${answer.systemMessage}`);
-  const logEntry = lstatSync(logPath);
-  assert.ok(logEntry.isFile(), 'the observation log is not a regular file');
-  assert.equal(logEntry.mode & 0o777, 0o600, 'the observation log is not at 0o600');
-  const logLine: unknown = JSON.parse(onlyLine(readFileSync(logPath, 'utf8'), 'the log'));
-  const observation = observationSchema.parse(logLine);
+  const observation = readObservation(join(project, OBSERVATION_LOG), answer.systemMessage);
   assert.equal(answer.systemMessage, `${ANSWER_PREFIX}${observation.marker}`);
   return observation;
 }
 
 /**
- * The listed entry with the given name.
+ * Open the observation log once, never through a symlink at its name, then
+ * check and parse through that one descriptor, closed on every path.
  *
- * @param observation - The asserted fields of a log line.
- * @param name - The entry's name beside the transcript.
- * @returns The entry, or `undefined` when none has that name.
+ * @param logPath - The observation log under the throwaway project.
+ * @param systemMessage - The hook's answer, shown when there is no log.
+ * @returns The asserted fields of the one log line.
  */
-export function siblingNamed(
-  observation: LoggedObservation,
-  name: string,
-): LoggedSibling | undefined {
-  return observation.siblings.entries.find((entry) => entry.name === name);
+function readObservation(logPath: string, systemMessage: string): LoggedObservation {
+  let log: number;
+  try {
+    log = openSync(logPath, constants.O_RDONLY | constants.O_NOFOLLOW);
+  } catch (error) {
+    return assert.fail(`no observation log (${String(error)}); the answer was: ${systemMessage}`);
+  }
+  try {
+    const logEntry = fstatSync(log);
+    assert.ok(logEntry.isFile(), 'the observation log is not a regular file');
+    assert.equal(logEntry.mode & 0o777, 0o600, 'the observation log is not at 0o600');
+    const logLine: unknown = JSON.parse(onlyLine(readFileSync(log, 'utf8'), 'the log'));
+    return observationSchema.parse(logLine);
+  } finally {
+    closeSync(log);
+  }
 }
