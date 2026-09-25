@@ -62,7 +62,13 @@ a long raw-source read) reads the figure again after that work's last step and
 before its first directive edit; at or above the line, the edits belong to the
 next context. Worked instance (2026-09-17 to 2026-09-19): one seat read 13 % at
 open, declared "fold here, directives here", and stood at 51 % at the directive
-step with no edit made; the edits landed in a later context opened at 11 %.
+step with no edit made; the edits landed in a later context opened at 11 %. For a successor whose owed
+work opens with directive edits, the grounding and the directive session are one
+budget: read the pickup block, not the whole continuity file, before the first
+edit (a full team grounding stood at 37 % before any edit, 2026-09-24). Before a
+budget-gated edit, read every pending input that touches the same passage: one
+paragraph edited at 25 % was rewritten by a pull request read at 37 %
+(2026-09-24).
 
 ## Reading the Figure
 

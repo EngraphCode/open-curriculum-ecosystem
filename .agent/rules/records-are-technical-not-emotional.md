@@ -48,6 +48,13 @@ A record's REGISTER encodes its authority, and readers obey the register
   across UTC and local time (2026-09-13), and a coordination branch reported
   due "at 15:14Z" from an event's time when the rule's clock is the branch
   name's date (2026-09-15) each reached a record or the owner.
+- **A count comes from the object, never from memory** ("thirteen commits"
+  from memory when `rev-list --count` said ten, the fifth such count in one
+  week, 2026-09-23; "Cricket 8 of 8" sent with seven returns in, 2026-09-24):
+  the number is read from the instrument before it enters a record. **A record
+  carries the minimum its function needs**: any claim beyond that names its
+  source and when the source was read, or is cut (two of three wrong claims in
+  one wrap were extras its function never needed, 2026-09-23).
 - **A rule that needs repeated shrinking corrections was never
   grounded.** When a constraint contracts correction by correction (a
   full prohibition, then a may-share residue, then coincidence-not-concept,

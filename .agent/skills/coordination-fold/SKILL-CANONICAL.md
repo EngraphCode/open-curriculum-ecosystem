@@ -97,6 +97,11 @@ resides on the coordination branch).
    with the records-class intake declared
    ([`pr-lifecycle`](../change-custody/pr-lifecycle/SKILL-CANONICAL.md) §Phase 2);
    cures batch into the declared settlement pushes, never one push per finding.
+   A change never narrates its own state in the files it carries: the fold's
+   records state what landed, and the branch's own state lives in the PR body,
+   so a reviewer meets no sentence the merge itself made false (four of six
+   findings on one fold, 2026-09-24; a pickup that said "first act: fold this
+   branch" inside the branch whose merge made it false).
 7. Arm a settle watch (Monitor) whose filter is loud on EVERY terminal
    state (`silence-is-never-liveness`). Full condition = the four
    required checks BY NAME (CodeQL, SonarCloud Code Analysis,
@@ -128,7 +133,10 @@ resides on the coordination branch).
    moves again during or just after the ceremony (a lane PR merging
    mid-rotation), merge `origin/main` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
-   pre-merge contract, so every seat's primary-dist tooling (renders,
+   pre-merge contract, and a rule, hook or plan landed on the default branch
+   reaches seats in the primary only after the fold re-cuts the coordination
+   branch and dist is rebuilt (a `PreCompact` hook landed on the default branch
+   was absent from the primary at that day's compaction, 2026-09-25), so every seat's primary-dist tooling (renders,
    watchers, sends) is one contract behind — cosmetic for render-time
    formats, load-bearing the day a change alters event files (worked
    instance 2026-08-01: cross-branch format skew read as read-model

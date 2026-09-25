@@ -149,6 +149,19 @@ Before substantive work:
    record, one commit) with its records current, and runs the compaction drill when the owner
    calls a compaction (PDR-063 §Context readings never stop a seat); an owner's freeze order
    governs only the compaction it names.
+   The job's scope, in the owner's words (2026-09-20): "you are supposed to analyse the
+   buffers, preserve the knowledge, then analyse and preserve the knowledge in the oversized
+   memory files, nothing else". A report reads as an end to its writer, so a seat that cannot
+   trigger its own compaction stops at the same mark as many times as it reports; the piece
+   that follows a report is a named unit of loss-tolerant work, never "continue" (three stops
+   at one mark, 2026-09-20). A curation's cost has two parts: the reading, paid by the
+   analysts, and the re-emission of every kept line, paid by the seat; the split method halves
+   only the first, so the seat chooses Write when the kept text is shorter than the removed
+   range and Edit otherwise (about a quarter of one context went on re-emitted kept lines,
+   2026-09-20). "Left live" is a verdict with a proof, not a deferral: a record is handled when
+   the lifecycle question has been answered for every section and the answer left a proof (an
+   archive blob, a recorded verdict, a named home), and a left-live verdict costs one deleted
+   snapshot.
    A price is set against the figure of the context that will pay it, so a plan carried
    across a compaction is priced again at resume before it is repeated to the owner. The
    30 % gate prices directive edits only; a memory file needs headroom to be read whole,

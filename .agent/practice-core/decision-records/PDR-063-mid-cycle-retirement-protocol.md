@@ -359,6 +359,10 @@ does not depend on imitation:
   seat).
 
 Either pause names its resume trigger (owner word, a deadline, an event).
+A lane waiting on a peer needs the same release condition, and a hold
+with no default is a stall waiting to happen (two retained claims waited
+on a silent partner with no release condition until a handoff record
+proposed one, 2026-09-25).
 The compaction drill (§Context readings never stop a seat) is a cold
 pause whose resume trigger is the owner's word.
 The freeze premise "monitors stay live" is falsifiable by the platform
