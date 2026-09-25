@@ -148,7 +148,8 @@ and in the lived record of that day.
    handshake directory, by the rename of mechanism 5: armed, or degraded with its reason, and
    the last WAKE FAILED line. Its own output goes to a log, never to the TUI's terminal. When it
    cannot arm, its status names the fallback, bounded foreground polling, as the operating rule
-   states today.
+   states today. Its lines carry no peer text: an event id is written by a peer, so a line names
+   one only when it is a UUID.
 10. **Stopping is local and visible.**
     - Only the TUI exiting, a signal from the launch shell, or a failure to arm stops the
       companion. No comms content stops it, and a malformed event never crashes it.
