@@ -73,7 +73,11 @@ Director's context until we actually need them", then "tell the other agents to 
 the Director, but only when needed". A seat sends the Director a question, a request, a block
 under Action 1, or the acknowledgement an `ACK-REQUESTED` route asks for
 (`directed-routing-requires-absorption-ack`), and nothing else: no state lines, landing notices,
-unrequested acknowledgements, or copies of what it sent a peer. State lives in the normal
+unrequested acknowledgements, or copies of what it sent a peer. The owner's refinement of
+2026-09-24, verbatim: "it is also reasonable to send information to a fellow agent, sometimes
+that is important and is neither a question not a request, but it should be useful information";
+the test is whether the message changes what the receiver would do or tells them what the
+artefact does not already show. State lives in the normal
 records (thread records, the continuity record, channel entries, pull requests), where the
 Director reads it when it needs it. A Director route that asks for state lines is read through
 this ruling: the seat records the state, and messages the Director only when that state raises a

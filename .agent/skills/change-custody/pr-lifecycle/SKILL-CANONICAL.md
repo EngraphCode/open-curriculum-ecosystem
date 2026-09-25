@@ -195,7 +195,9 @@ into the permanent record):
 
 ## Phase 2 — Open with a reviewer-facing description
 
-Every PR created under the owner's identity or the fleet bot carries the
+Where the repository's PR label ledger defines no fleet-authorship label, this
+step has nothing to apply (this repository, 2026-09-24). Otherwise every PR
+created under the owner's identity or the fleet bot carries the
 repository's fleet-authorship label at creation (`--label` on the create
 call, or the API equivalent; the label and its meaning are in the PR label
 ledger under `docs/engineering/`). Owner standing word (2026-08-11): "PRs are
@@ -792,7 +794,10 @@ submittedAt body}}` — the per-author latest-review connection, verified
    20 review records), and omitting `body` makes a reviewer's skip marker
    unreadable. Treat `totalCount > 20` as truncation and page before
    concluding a reviewer is absent (re-query with
-   `after: <pageInfo.endCursor>` until `hasNextPage` is false). `latestReviews` serves ONLY the
+   `after: <pageInfo.endCursor>` until `hasNextPage` is false). The `pr view --json` projection is the
+   state, never the evidence: a merge verdict reads the paginated connection
+   (three truncation points: `latestReviews`, commits bounded at 100, the
+   comments' edit flag; 2026-09-20). `latestReviews` serves ONLY the
    reviewer-leg and settled checks (items 3–4, latest review per author);
    never the tally (item 2); it CANNOT
    reconstruct round history — rows vanish from the connection whenever a
@@ -962,7 +967,13 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    the description; pushing anyway is not a move. The tip of the LAST budgeted settlement push — the
    declared budget (two by default, PDR-140 clause 4) plus any rebudget
    recorded when exhaustion left a mandatory cure pending — is the FINAL
-   HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
+   HEAD, named on the PR when that push lands. Read with the owner's ruling of
+   2026-09-14, verbatim "I don't want the number of rounds of PRs to go up": the
+   rebudget licenses the one settlement push that carries the pending mandatory
+   cure and the dispositions, never a further cure round after it; past round
+   two each later finding is a disposition riding the settlement (a prose-class
+   pull request took two rebudget pushes under clause 4 before the ruling reached
+   its seat, 2026-09-24). A binding worth declaring names its exception in advance (a
    statement a rule falsifies, cured with a sweep) or is owner-gated from
    the start: a "no further cure push" declared before reading what the
    next round could hold broke one round later, and on a sibling PR a
@@ -1118,7 +1129,10 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    review in the fourteen minutes before an `@codex review` comment, though
    rounds on #105, #106, #108 and #110 had arrived after pushes — so
    a seat that needs Codex on a new tip requests it with an `@codex review`
-   comment on that tip rather than waiting on a push; while its account
+   comment on that tip rather than waiting on a push, posted as the bot (a
+   bot-posted `@codex review` drew the connector's reaction in thirteen seconds
+   and a clean review three minutes later, 2026-09-24; the owner's account is
+   not needed for it); while its account
    has no credit it posts "Codex usage limits have been reached for code reviews" on
    the pull request instead of a review (first on #116, four seconds after
    its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
@@ -1692,7 +1706,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   and prepares everything that does not depend on the tip — dispositions,
   sweeps, the merge message. Slot order is the Director's call — the default is
   the oldest non-draft PR, and the slot goes to whichever PR is green and
-  clean first rather than being held empty. A holder that has synced and is
+  clean first rather than being held empty. The slot follows readiness, never
+  a queue order written earlier: a draft is not in the queue until its legs
+  can bind, and a slot needs a named keeper, not just a next PR (two
+  handovers thirty minutes apart left it unkept, 2026-09-24). Settle-ready
+  needs a BINDING round: a dismissed round binds nothing and Copilot never
+  approves, so the door's refusal on that is the system working, never a
+  blocker to route around (2026-08-19). A holder that has synced and is
   waiting for a per-tip reviewer leg to bind is NOT an empty slot: nothing else
   lands meanwhile, because every landing knocks the holder BEHIND and voids the
   leg bound to its head, a livelock. A holder yields only when it cannot land

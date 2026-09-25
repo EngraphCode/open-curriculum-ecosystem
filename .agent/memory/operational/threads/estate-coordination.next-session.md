@@ -662,6 +662,28 @@ and the second estate's seat caught it (PDR-142 §Boundaries).
 byte, and the same amendment texts in PDR-125, and one rule for format on receipt (PDR-141's
 twin follows in #183); the Director's context is protected by rule.
 
+### 2026-09-24 11:05Z — the 2026-09-23 branch folded as #176 (Zephyr guards Leeward, 281e44)
+
+Merged `SHA:f66fd033f` through the front door, both review legs bound to the tip, before the
+branch's 24-hour mark. The review-cost ledger's #176 row holds the rounds and the price.
+Successor `coordination/2026-09-24-f66fd0`. The same hour this estate signed the second
+estate's joint sets F to I (159 to 161), and a retrospective on the arc was recorded:
+`.agent/reports/agentic-engineering/2026-09-24-records-that-outrun-their-evidence-retrospective.md`.
+
+*moved for teachers:* nothing. *moved for the Practice:* both estates hold one PDR-142 byte for
+byte and the same amendment texts in PDR-125; four joint sets signed across the estates.
+
+### 2026-09-24 11:53Z — #183 and #179 landed; the owner's three pull requests are done (Zephyr guards Leeward, 281e44)
+
+Pull request 183 (the exchange follow-ups) landed as `SHA:0d6924427` at 11:24:52Z, and #179
+(the Oak line's 1.185.1) as `SHA:fc6aec21a` at 11:53:38Z. The review-cost ledger holds their
+rows. The owed work that follows them, each item from a word already given, is in the
+continuity record's pickup. Much of it is directive or Core edits for a context under 30%, and
+the intake of the second estate's 126 outbound files is named there as this estate's.
+
+*moved for teachers:* nothing. *moved for the Practice:* the fork carries the Oak line's
+1.185.1; the exchange's texts converge in both estates.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
@@ -674,7 +696,8 @@ the 2026-09-02 fold) → [no Director seated 2026-09-02 to 2026-09-06; Finch cal
 (c91bd4) and Chinook seeks Cloud (661556) worked at the owner's direct word] → Flounder turns
 Estuary (c5cc2c, 2026-09-06 12:5xZ) → Nettle guards Pistil (2de368, Moment 2 2026-09-09
 15:11:49Z; sole operator from 2026-09-12; closed 2026-09-13) → Zephyr guards Leeward (281e44,
-sole operator then curator, from 2026-09-14). Numbered owner-ruling series
+sole operator then curator, from 2026-09-14; wrapped 2026-09-24 12:40Z) → Marten mends Shadow
+(74fc02, named successor at the owner's word, 2026-09-24). Numbered owner-ruling series
 ran continuously across tenures (1–42 Falcon-era, 43–51 Spark-era) — the
 instinct the rulings ledger (plan S2) formalises.
 
@@ -690,6 +713,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-opus-5[1m] | 2de368 | Nettle guards Pistil | Director — owner-named successor 2026-09-09 ~15:00Z; standby from the 15:03Z registration; adopted claim 8109015d at Moment 2 15:11:49Z (ack event c3e76199, in response to pre-positioning 67c04dd2); landed #97 and #92, ran the fold of coordination/2026-09-09-f5d02c. Model switched `claude-fable-5-1` → `claude-opus-5[1m]` on 2026-09-11 at the owner's word; one continuous seat, so this row's `model` moves rather than a row being added (PDR-027 Amendment Log, 2026-07-08) | 2026-09-09 | 2026-09-11 |
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-opus-5-5[1m] | 281e44 | Zephyr guards Leeward | Model moved to `claude-opus-5-5[1m]` on 2026-09-23 at the owner's word, from `claude-opus-5[1m]` by way of `claude-fable-5-1` (the continuity lane row records that step); one continuous seat, so the row's `model` moves (PDR-027 Amendment Log, 2026-07-08). Sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-23 |
+| claude-code | claude-opus-5-5[1m] | 74fc02 | Marten mends Shadow | this estate's exchange seat of the three-estate Practice exchange, named at the owner's word as Zephyr guards Leeward's (281e44) successor; implementer of the exchange's owed lanes, each in its own worktree off `engraph` | 2026-09-24 | 2026-09-25 |
 
 Prior Director seats predate this record; their identities and tenures are
 carried in the seat chain above, and their full identity tuples in the

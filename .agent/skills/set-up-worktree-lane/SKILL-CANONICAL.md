@@ -247,7 +247,12 @@ never as a local-gate result.
   creates a second store and rebinds every tree it installs into; every default-env
   pnpm run in such a tree then demands a destructive modules purge
   (`ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY`), and auto-confirming that with
-  `CI=true` is a bypass (owner ruling 2026-08-04). A wrong `PNPM_HOME` is an
+  `CI=true` is a bypass (owner ruling 2026-08-04). The same error appeared with
+  `PNPM_HOME` correct in a worktree another seat had installed (2026-09-24);
+  the seat cleared it with that bypass before its first commit, which is
+  recorded here as evidence that the cause is still open (F-26), never as the
+  cure: read `pnpm store path` in the new tree and the primary, and surface a
+  difference before any purge. A wrong `PNPM_HOME` is an
   environment misconfiguration: surface it to the owner and fix the value itself;
   worked instance 2026-08-04 (two trees rebound to an accidental
   `$PNPM_HOME/store`, a fleet-wide write freeze, and a two-workaround stack that

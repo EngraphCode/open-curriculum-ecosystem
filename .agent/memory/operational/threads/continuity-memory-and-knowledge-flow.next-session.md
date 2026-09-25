@@ -104,6 +104,62 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   `git:index/head` claim from the corpus-salvage lane (shared branch) before
   staging.
 
+### 2026-09-25 — the dedicated consolidation of Myrtle turns Canopy (bf4957): the pickup block
+
+Read this block, not the section below it, before the first act. The owner's launch word
+(2026-09-25, native chat), verbatim: "The goal is knowledge curation, never fitness numbers.
+Done means empty pending graduations and empty buffers: say those counts first in every
+report. This job is higher priority than the daily branch fold."
+
+**Counts at the close of the pass**: pending graduations 6 pending, 0 due (four directive-bound
+rows written by this pass and held by PDR-052, plus the comms-table unit and the PDR-142 rows;
+the six PDR-130 slow-lane rows are not due before 2026-10-01 and are not in that six); distilled
+0; open questions 0; napkin rotated (the 2026-09-20 to 2026-09-25 window, 1,578 lines, archived
+byte-identical as `archive/napkin-2026-09-25.md`). The pass record is
+`curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolidation.md`; the decision tables
+and analyses are at `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/` (tracked); the analyst outputs and briefs are in the ignored instance tier
+`.agent/state/collaboration/comms-analysis-2026-09-25/`.
+
+**Landed**: `c76f93eb6` (the napkin's graduations: ten skills, twenty rules, three patterns, one new pattern and the pattern index, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
+heartbeat cadence reference, the experience audit); `3c1fe1a18` (F-199); the buffers commit
+that carries this block (register F-191 and F-200 to F-207, pending-graduations, the rotation,
+the pass record); the comms archive move after it (non-heartbeat events swept through
+2026-09-25T11:17:35Z, disposition `absorbed`).
+
+*Update, 2026-09-25 ~15:05Z, the same seat after its compaction (supersedes the paragraph below
+where they differ).* The owner's word at about 14:53Z, verbatim: "you are now responsible for
+managing the flow of Practice enhancements from JC.net to OCE". So this seat took the exchange
+seat first, in this context (the pickup is in `repo-continuity.md` §PICKUP for the exchange);
+the four directive-bound rows wait for this seat's next compaction, not for a fresh seat: the
+Director's ruling of 15:04Z reads PDR-052's 30 % floor as a deferral that a compaction
+satisfies, never a stop. The lane-doctrine patch, the comms table's rows and the PDR-142 rows
+stay owed to a curator context as the paragraph below says.
+
+**First acts of the successor, in the Director's order (Wick binds Temper, 13:2xZ)**: (1) in a
+fresh context below 30 % (PDR-052), land the four directive-bound rows in pending-graduations
+(continuity-practice, metacognition, principles, agent-collaboration); (2) then take the
+lineage's exchange seat with no closeout between (Marten mends Shadow's handoff record and
+Geyser rides Pewter's note carry the seat's state; the owner's 11:00Z decision lands the test
+retirement now, alone; JC.net's joint cure for the Cricket templates' no-inferred-gender line is
+queued to that seat). The doctrine batches that remain go to a lane branch cut from engraph in a
+worktree with its own draft PR, never the successor coordination branch (the Director's routing
+of 13:1xZ, coordination-branch-24h-lifetime clause 4): first the six post-snapshot homes in
+`.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/lane-doctrine.patch` (101 lines; the commit skill's
+index-lock read after a push, hook-policy-substring-discipline's second instance, the five-word
+grep in records-are-technical, the unassigned-executor and owner-test lines in
+handoff-messages-self-contained, two zsh and pnpm facts in harness-shell-and-commit-edge-cases,
+PDR-063's O1 clause), then the comms table's twenty-two accepted A rows and its B, C and D
+sections, each move verified at the event file before the edit, then the PDR-142 rows.
+
+**Facts that shape the work**: the window registry has no row for `claude-fable-5-1` (F-191);
+the nearest row is 200,000 tokens, and this pass read its usage from the transcript's last
+usage line. The queue's own `commit` drops `--author` (F-199); the ceremony script in the commit
+skill's move 3 is the substitute. `pnpm --silent` leaves the nested filter script's banner on
+stdout, so a pipeline into `jq` drops lines that open with a dollar sign first. A prose heredoc
+that names git commands trips the argv matcher (F-207): edit scripts go to scratch and run by
+path. The `claims open` refusal "blind to comms" is transient while a gate loads the host: the
+watcher heartbeat lags past 90 seconds; re-run after the gate.
+
 ### 2026-09-16 — the owner's dedicated consolidation session, IN PROGRESS: the resume point
 
 Zephyr guards Leeward (281e44), mode dedicated-knowledge-curation; curator claim `47cfcbeb` in the
@@ -457,6 +513,7 @@ first-hand and the fact is surfaced to the owner (2026-07-05).
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| Myrtle turns Canopy | claude-code | claude-fable-5-1 | bf4957 | curator (claim 4173ed39; team window with Swallow holds Drift, Titan turns Ether, Geyser rides Pewter and JC.net's Siren herds Rudder live) — the owner-launched dedicated consolidation of 2026-09-25, mode dedicated-knowledge-curation: the napkin analysed by nine readers from the committed snapshot and the comms window since the 2026-08-14 watermark by eight, every move verified at source; the owner's word via the Director at 11:35Z: this seat takes the exchange seat at the consolidation's close | 2026-09-25 | 2026-09-25 |
 | Zephyr guards Leeward | claude-code | claude-opus-5 (was claude-fable-5-1 until 2026-09-15) | 281e44 | curator (claim 9119d251; n=1, no Director) — the owner-launched second dedicated drain of the Claude per-user buffer, 2026-09-14: 495 files read first-hand, ten corroborating agents, graduation commit `0e4173b43`, 488 buffer files retired, the operator profile seeded; then the owner-launched dedicated consolidation of 2026-09-16/17 (curator claim c16450da): the raw sources and the whole napkin read first-hand, three governing texts cured and the graduations landed (`63b544464`), the napkin rotated (`8c48a6669`), the directive and Core passes queued for a fresh context; the memory-file pass and the wrap of 2026-09-20/21; the #169 fold's records and their post-merge cures, 2026-09-21 | 2026-09-14 | 2026-09-21 |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
