@@ -70,11 +70,11 @@ from outside the family caught.
 And of the work of aligning the instances: "we are defining excellent … nothing is delayed or
 avoided because of the future extraction". Of its pace (2026-09-21): "above all, you should
 both go slow and take your time, alignment is far more important than speed here". Of its
-goal (2026-09-24, relayed, and 2026-09-25 in the owner's own words, the estates given as
-roles): "We are prioritising all [the second estate's] Practice innovations being
-integrated into [the lineage], then we review. This is a fixed process with an end, not
-an ongoing effort. Once the Practice contains the best of both it will be extracted into
-an installable entity."
+goal (2026-09-24, relayed; 2026-09-25, the owner's words recorded by Geyser rides Pewter
+(eeecbd) in event 777320b2; the estates given as roles): "We are prioritising all [the
+second estate's] Practice innovations being integrated into [the lineage], then we
+review. This is a fixed process with an end, not an ongoing effort. Once the Practice
+contains the best of both it will be extracted into an installable entity."
 
 Three moves, all in the owner's words. Where the instances hold DIFFERENT things, each gets the
 other's. Where they hold two encodings of ONE thing, every estate takes the higher. What is bad
