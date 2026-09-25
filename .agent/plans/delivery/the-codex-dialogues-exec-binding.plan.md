@@ -225,10 +225,11 @@ records of what the model ran, so it holds for a cooperative interlocutor and no
 4. Across every output record of the resumed turn, at least one must carry the nonce and none may
    carry `WRITE-OK`.
    - The output records are the event stream's `command_execution` outputs and the rollout's
-     tool-call outputs, the code-mode path's included. For code mode, each nested exec result the
-     program emitted is its own record. Those results are the program's own output, not records
-     the harness wrote, so a program that makes two calls and emits one result shows as one; the
-     cooperative interlocutor of the threat model covers that. A run may appear in both sources.
+     `CommandExecution` items, both written by the harness. A code-mode program's printed text is
+     never an output record: the program chooses what it prints (a result object, one field of
+     it, or nothing), so the model authors that text. Each nested `exec_command` that reaches its
+     handler leaves its own `CommandExecution` item, so a program's calls are read through the
+     harness's records. A run may appear in both sources.
    - Every rollout line of the resumed turn must be of a type the reader recognises, so the set of
      output records is closed. A record that carries the harness's truncation marker is
      inconclusive.
@@ -446,6 +447,9 @@ The pass record is never committed. Its terms:
 
 ## Honest limits
 
+- **A resumed turn whose programs ran no command is inconclusive.** Output evidence is the
+  harness's `CommandExecution` items alone, so a turn whose code-mode programs printed without
+  running a command, or whose runs left no item, gives rule 4 nothing to read.
 - **Reads are not bounded.** The permission profile grants read on `/`. So anything the owner's
   account can read can reach the vendor, whether the packet names it or injected text in a file
   steers the model to it. That includes dotfiles, credentials and owner-private memory. The
@@ -681,8 +685,8 @@ request gets a code-expert review before and after execution.
        `permission_profile`, over the rollout's lines, and fails closed on any shape it does not
        recognise. It parses policy values over the vendor's whole domain, so a writable profile
        reaches rule 8 as data rather than as an unrecognised shape. A truncated output is its own
-       error, which the verdict reads as inconclusive. For code mode, each nested exec result the
-       program emitted is its own record.
+       error, which the verdict reads as inconclusive. It takes no code-mode program text as
+       output (1b-iv B0).
      - Its fixtures come from redacted lines of observed rollouts.
      - Its pickup found that a rollout cannot settle rule 10's source, which is now
        `codex features list`. Whether `apply_patch` is offered under the envelope is not a
@@ -691,29 +695,39 @@ request gets a code-expert review before and after execution.
        ruling of 2026-09-25).
      - Reviews: type-expert, test-expert and security-expert, focused, and a cross-vendor read by
        the Claude seat.
-  5. **1b-iv, the probe.** Four pull requests. They were sliced after the pre-execution
+  5. **1b-iv, the probe.** Five pull requests. They were sliced after the pre-execution
      code-expert review and an assumptions-expert review of 2026-09-25, and the Director accepted
-     the slicing that day.
+     the slicing that day. B0 was added the same day, after B's pre-execution review, and the
+     Director accepted it with rule 4's rewrite.
      1. **A: the gate's contract version and age limit.**
         - The pass record's binding gains `probeContractVersion`.
         - The gate's first phase refuses a record past seven days, or one dated after now.
         - A also carries this node's edit for the re-slice.
         - Reviews: security-expert and type-expert, focused.
-     2. **B: what the rollout reader gives the verdict.**
+     2. **B0: the evidence cure.**
+        - The reader stops taking code-mode program text as output. The harness's
+          `CommandExecution` items are the only output evidence; rule 4 and Honest limits say
+          so.
+        - The code-mode wrapper stays validated: its items are input text, and the first is the
+          completed-script preamble.
+        - A 0.157.0 fixture projected from a recorded two-turn rollout (the values replaced, the
+          creator ids and every unread field dropped). The 0.156.1 fixtures retire.
+        - Reviews: security-expert, test-expert and docs-adr-expert, focused; a cross-vendor read,
+          owed until the owner's Codex session can do it.
+     3. **B: what the rollout reader gives the verdict.**
         - Its reasons as a closed union.
         - The top-level `turn_context.network` exposed, so rule 8 can require it absent.
-        - Whether a reused `call_id` makes the probe inconclusive, decided on a recorded
-          rollout.
-        - The Codex seat's module.
+        - A reused `call_id` makes the probe inconclusive. Codex mints no call id (they come from
+          the model's stream), and the recorded rollout reused none.
         - Reviews: type-expert and test-expert, focused; a cross-vendor read.
-     3. **C: the pure verdict over rules 1 to 10, and the features-list parser.**
+     4. **C: the pure verdict over rules 1 to 10, and the features-list parser.**
         - Rules 8, 9 and 10 as stated.
         - The verdict's unit tests are its contract.
         - If its non-test code passes 300 lines, it splits between the turn legs (rules 1
           to 8) and the model-free legs (rules 9 and 10).
         - Reviews: test-expert, deep; type-expert, focused; security-expert, focused on rule 10;
           a cross-vendor read.
-     4. **D: `runProbe`, its ports and the round trip.**
+     5. **D: `runProbe`, its ports and the round trip.**
         - The two model turns go through `runCodex`. Rule 9's runs, their control and the
           features read each go through a port of their own, so the ordered fake stays two
           results long.
@@ -734,8 +748,8 @@ request gets a code-expert review before and after execution.
           security-expert and test-expert, deep; config-expert, focused.
 
      The probe line is composed from the complete paths the ports supply, with no path joining
-     in pure code, so the unit tests hold on the Windows CI leg. A and B run in parallel. C
-     follows B, and D follows A and C.
+     in pure code, so the unit tests hold on the Windows CI leg. A and B0 run in parallel, and B
+     follows B0. C follows B, and D follows A and C.
 
   1b-0 and 1b-i run in parallel; 1b-ii follows 1b-i, 1b-iii follows 1b-0, and 1b-iv comes last.
 - **Slice 2, the IO edge.** Up to 10 files, separate because it touches the filesystem and
@@ -830,6 +844,7 @@ review of 2026-09-25).
 | 2026-09-25 | Slice 1b-iv's pre-execution code-expert review, on codex-cli 0.157.0 source | The design drafted a single PR, then two. Its findings: rule 9's runs, the features read and a fresh-id resume went through `runCodex`, which would make the ordered fake longer than two results; the fresh-id leg could pass on an empty-stdin exit before any resume; rule 8 accepted `disabled`, `external` and `unrestricted` profiles as data, and `codex sandbox` quietly turns an external profile into read-only; the `apply_patch` refusal is a policy check that leaves no harness record, and an uncaught refusal fails a code-mode script, which fails the rollout read closed; a fixed probe dialogue id would be refused by slice 2's adapter on a second probe; a sentinel found in the root would have been removed; and one PR was over the size limits. On 0.157.0, `SessionMeta` gained two creator ids, and feature defaults moved | Slice 1b-iv as four PRs, A to D (see Todos). Separate ports for rule 9, its control and the features read; a fresh dialogue id per probe; a sentinel in the root reported, never removed; rule 8's passing shape stated directly, with rule 9 counting only on a profile that passed rule 8. Fixtures captured on 0.157.0 redact both creator ids. The `apply_patch` leg, the fresh-id leg and rule 10's closed set go to the row below |
 | 2026-09-25 | assumptions-expert on the probe's solution class; the Director's rulings (16:23:39Z and 16:40:22Z) | The probe-and-gate class is proportionate, and rules 1 to 9 each rest on a measured fact. The drift was at two edges. Rule 10's closed allowlist acted as a per-release pin: the enabled set changed at every observed update (0.153.4 to 0.156.1, five on; 0.156.1 to 0.157.0, two on). The fresh-id leg guards retention, not the interlocutor. Measured: a misspelt `-c` key is accepted silently without `--strict-config`. The node's fact 3 was wrong about memories, and its claim that the Codex home holds no skills was too strong | Rule 10 reshaped (only a disabled feature reported enabled fails; the rest is an observation diffed against the previous pass record). `--strict-config` joins the envelope in PR D. The fresh-id leg dropped, its premise pointing at slice 2's reconciliation. `apply_patch` and `multi_agent` named under Honest limits. The age limit is seven days, and a record dated in the future is refused. The routing test at the head of this ledger. Fact 3 and the state section corrected. No owner question: nothing leaves the ratified baseline |
 | 2026-09-25 | PR 222's focused reviews: security-expert, type-expert, test-expert, docs-adr-expert | An age that is not a finite number passed both age checks. No test held a record passed at exactly now, or `runTurn` to its injected clock. Rule 10 passed when a disabled feature was missing from the list or listed as removed. The server-side Honest-limits line implied that a fresh probe sees a remote change, and a new feature's name is reported only once. `features list` agrees with `exec` only while the Codex home holds no `config.toml`, which only AC 5 checked. Rules 8 and 9 lagged PR C's todo, and what the features diff compares against was unstated. Five rows above still routed to the old slice 1b-iv. The 0.157.0 measurements had no evidence home. The gate's refusals need an exhaustive consumer, and the binding is about to be built in two places | Cured in PR A: the gate refuses an unmeasured age; the two boundary tests; rule 10 requires each disabled name listed, not removed and disabled, on the 0.157.0 source; rules 8 and 9 state the passing shape; the diff reads the previous record with the parser alone; the Honest-limits lines reworded; research note §2.10. PR D: the `config.toml` check on every probe; one function builds the binding; the ADR-180 amendment carries `--strict-config`, the probe's running cost and the triage trade-off. Slice 2: the exit-code mapping over the gate's refusals is exhaustive at compile time. Honest limits: an untriaged set kept in the record is the named hardening. This row supersedes: the 2026-09-23 lapsing-envelope row's closed set (its misspelt `-c` check is measured and answered by `--strict-config`; its two `--disable` trials go to triage); the 1b-0 draft row's second write leg through `apply_patch`, and the 1b-i row's patch attempt (Honest limits); the 1b-ii post-execution row's fresh-id leg and its sub-agent check (Honest limits); the PR 190 row's rule 10 source (`features list`). Still open and assigned: the PR 190 row's `network` field, closed reason union and reused `call_id` to PR B; the 1b-i row's `executeTurn` import allowlist to PR D. The 1b-0 draft row's contract version and the 1b-i row's age limit are built in PR A |
+| 2026-09-25 | Slice 1b-iv PR B's pre-execution code-expert review; a two-turn dialogue this seat recorded on codex-cli 0.157.0 under the envelope; the Director's acceptance (21:03:54Z) | The reader refused a real 0.157.0 rollout at its first code-mode output. The program there printed `text(r.output)`, where the 0.156.1 fixture's program returned the result object, so code-mode output text is authored by the model and its shape is the model's choice. The recorded dialogue ran 6 exec calls, 3 per turn: 6 distinct call ids, none reused, each call answered once and each writing a `CommandExecution` item. With the output cure applied, the whole rollout reads: both turn contexts and applied settings compare, and every record type is recognised | B0 before B: the harness's `CommandExecution` items are the only output evidence; rule 4, the 1b-iii bullet and Honest limits rewritten; the code-mode wrapper validated without reading the program's text; the 0.157.0 fixture projected from the recorded rollout, the 0.156.1 fixtures retired. B keeps the closed reasons, the exposed `network` and the reused call id, decided on source with the recorded dialogue as corroboration. The cross-vendor read for B0 and B is owed on the owner's Codex session |
 
 ## Out of scope
 

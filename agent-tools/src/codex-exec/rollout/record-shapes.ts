@@ -113,17 +113,6 @@ const threadSettingsSchema = z.object({
   runtime_workspace_roots: z.array(z.string().min(1)),
 });
 
-const toolOutputSchema = z.array(
-  z.strictObject({ type: z.literal('input_text'), text: z.string() }),
-);
-const nestedExecResultSchema = z.strictObject({
-  chunk_id: z.string(),
-  wall_time_seconds: z.number(),
-  exit_code: z.number(),
-  original_token_count: z.number(),
-  output: z.string(),
-});
-const completedPreamble = /^Script completed\nWall time \d+(?:\.\d+)? seconds\nOutput:\n$/u;
 const truncationMarker =
   /Warning: truncated output|Total output lines: \d+|…\d+ (?:tokens|chars) truncated…|\.\.\. \d+ bytes omitted \.\.\./u;
 
@@ -159,7 +148,7 @@ export interface RecordedThreadSettings {
   readonly workspaceRoots: readonly string[];
 }
 
-/** Detect the explicit output truncation markers observed in code-mode results. */
+/** Detect the explicit output truncation markers observed in command output. */
 export function hasTruncationMarker(value: string): boolean {
   return truncationMarker.test(value);
 }
@@ -198,52 +187,4 @@ export function parseThreadSettings(value: unknown): RecordedThreadSettings | un
     effort: parsed.data.reasoning_effort,
     workspaceRoots: parsed.data.runtime_workspace_roots,
   };
-}
-
-/** Parsing outcome for a code-mode tool output, including truncation evidence. */
-export type ToolOutputRead =
-  | { readonly kind: 'parsed'; readonly outputs: readonly string[] }
-  | { readonly kind: 'invalid' }
-  | { readonly kind: 'truncated' };
-
-/** Extract every shell result from the observed code-mode output wrapper. */
-export function parseToolOutput(value: unknown): ToolOutputRead {
-  const parsed = toolOutputSchema.safeParse(value);
-  if (!parsed.success) {
-    return { kind: 'invalid' };
-  }
-  const [preamble, ...results] = parsed.data;
-  if (!preamble || !completedPreamble.test(preamble.text) || results.length === 0) {
-    return { kind: 'invalid' };
-  }
-  const outputs: string[] = [];
-  for (const result of results) {
-    const output = parseNestedExecOutput(result.text);
-    if (output.kind !== 'parsed') {
-      return output;
-    }
-    outputs.push(output.output);
-  }
-  return { kind: 'parsed', outputs };
-}
-
-function parseNestedExecOutput(
-  text: string,
-):
-  | { readonly kind: 'parsed'; readonly output: string }
-  | { readonly kind: 'invalid' }
-  | { readonly kind: 'truncated' } {
-  let nested: unknown;
-  try {
-    nested = JSON.parse(text);
-  } catch {
-    return { kind: 'invalid' };
-  }
-  const parsed = nestedExecResultSchema.safeParse(nested);
-  if (!parsed.success) {
-    return { kind: 'invalid' };
-  }
-  return hasTruncationMarker(parsed.data.output)
-    ? { kind: 'truncated' }
-    : { kind: 'parsed', output: parsed.data.output };
 }
