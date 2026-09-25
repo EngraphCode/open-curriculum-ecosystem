@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-24
+last_updated: 2026-09-25
 ---
 
 # Codex seat wake through the vendor's queue
@@ -120,9 +120,9 @@ and in the lived record of that day.
   names the drained event ids and claims no delivery. Proof: `repo-safe` tests over a refusing
   port, asserting the line's content; `owner-held`, the live run repeated with the queue call
   failing, recorded with the event id the fallback surfaced.
-- **Each host wakes.** A Codex seat runs in more than one host: the ChatGPT desktop app, where
-  Luna stirs Radiance ran on 2026-09-24, and a TUI in an editor terminal. Proof: `owner-held`,
-  the live wake run recorded once per host the team uses.
+- **The seat's own host wakes.** Codex seats run as a `codex` TUI in a terminal, with the
+  managed app-server the TUI spawns (the owner, 2026-09-25: "They were both started via the
+  terminal with `codex`"). Proof: `owner-held`, the live wake run recorded on that host.
 - **The operating rule names the bridge.** `use-monitor-for-event-driven-wake`, the generated
   `AGENTS.md` block and the team start skill's Codex paragraph name the bridge as the Codex wake
   path, and bounded foreground polling as the fallback only. Proof: `repo-safe`, the projection
@@ -138,10 +138,11 @@ Each slice is one story, within the default round budget.
    because queued text arrives as user-role input.
    - A user's typing and a queued notice meeting at an idle boundary.
    - A queued notice arriving while the seat drafts a reply to its user.
-   - Each host separately: the ChatGPT desktop app, and a TUI in an editor terminal. The
-     editor-terminal run cannot establish the desktop host's wake.
-   - Whether `CODEX_THREAD_ID` is present in a seat's shell environment, per host. Observed
-     present on the desktop host on 2026-09-24 (Luna stirs Radiance, 0.156.1).
+   - The Codex CLI only (the owner, 2026-09-25 about 11:40Z: "why do we need the ChatGPT
+     desktop host? My interest is Codex CLI"): the TUI in a terminal, in the mode seats run it,
+     with the managed app-server it spawns; and `codex exec`.
+   - Whether `CODEX_THREAD_ID` is present in a seat's shell environment. Observed present on
+     2026-09-24 (Luna stirs Radiance, 0.156.1, a terminal `codex` seat).
    - A queued notice to a killed session.
 
    The findings are a dated addendum to the concept note. If any finding breaks the mechanism,
@@ -190,3 +191,13 @@ Each slice is one story, within the default round budget.
   the wake inside the pass, before mark-seen, keeps a failed wake's events unseen for replay. The
   wake sink stays out of the generic error-line path so a failed wake cannot recurse. Mechanism 6
   is worded to match; the acceptance criterion "A failed wake loses no event" is unchanged.
+- **2026-09-25, the owner, relayed by the Director (Wick binds Temper, ed7b48), about 11:40Z.**
+  Two words, verbatim. On the desktop-host legs: "why do we need the ChatGPT desktop host? My
+  interest is Codex CLI". On the premise that the Codex seats ran in the desktop app: "nope!
+  They were both started via the terminal with `codex`". So the node's desktop-host premise,
+  taken from the 15:54:00Z read above, was wrong. First-hand parentage agrees: the live Codex
+  seat's app-server was spawned by a `codex` TUI in an editor's integrated terminal. Todo 1 and
+  the acceptance criterion now name the Codex CLI only: the TUI in a terminal, in the mode seats
+  run it with the managed app-server it spawns, and `codex exec`. The desktop legs are out of
+  scope and are not run. This is shared citizenship text, so the same bytes are owed to the
+  second estate as an exchange row.
