@@ -183,35 +183,35 @@ describe('appendOwnerOnly: open and descriptor refusals', () => {
     expect(world.entries.get(elsewhereName)).toEqual(file(0o644, 'theirs\n'));
     expect(world.openDescriptors.size).toBe(0);
   });
+});
 
-  it('with no platform uid, appends to a regular single-link file whatever uid it carries', () => {
-    // Windows has no POSIX owner; refusing every file there would gain nothing.
-    const world = inMemoryFileSystem({
-      [DIRECTORY]: directory(0o700),
-      [FILE]: file(0o644, 'earlier\n', STRANGER_UID),
-    });
-    const result = appendOwnerOnly(FILE, 'next\n', { ...world.fs, uid: undefined });
-    expect(result).toEqual(ok(undefined));
-    expect(world.entries.get(FILE)).toEqual(file(0o600, 'earlier\nnext\n', STRANGER_UID));
+describe('appendOwnerOnly: a platform without POSIX ownership', () => {
+  // Node gives a process no uid on Windows and Android: the owner check cannot
+  // run, and on Windows the modes this append sets cannot make a file
+  // owner-only.
+  it('returns the uid step and NO_POSIX_OWNERSHIP, creating no directory or file', () => {
+    const world = inMemoryFileSystem();
+    const before = [...world.entries.keys()];
+    const result = appendOwnerOnly(FILE, 'line\n', { ...world.fs, uid: undefined });
+    expect(result).toEqual(err({ step: 'uid', code: 'NO_POSIX_OWNERSHIP' }));
+    expect([...world.entries.keys()]).toEqual(before);
   });
 
-  it('with no platform uid, still refuses a hard-linked file at the fstat step', () => {
-    const elsewhereName = `${ELSEWHERE}/theirs.log`;
-    const linked = file(0o644, 'theirs\n');
+  it("leaves an existing file's bytes and mode as they were, with no descriptor left open", () => {
     const world = inMemoryFileSystem({
       [DIRECTORY]: directory(0o700),
-      [FILE]: linked,
-      [elsewhereName]: linked,
+      [FILE]: file(0o644, 'earlier\n'),
     });
-    const result = appendOwnerOnly(FILE, 'line\n', { ...world.fs, uid: undefined });
-    expect(result).toEqual(err({ step: 'fstat', code: 'HARD_LINKED' }));
-    expect(world.entries.get(elsewhereName)).toEqual(file(0o644, 'theirs\n'));
+    const result = appendOwnerOnly(FILE, 'next\n', { ...world.fs, uid: undefined });
+    expect(result).toEqual(err({ step: 'uid', code: 'NO_POSIX_OWNERSHIP' }));
+    expect(world.entries.get(FILE)).toEqual(file(0o644, 'earlier\n'));
+    expect(world.openDescriptors.size).toBe(0);
   });
 });
 
 describe('appendOwnerOnly: the name still holds the opened file', () => {
   it('on a platform without no-follow, refuses a symlink at the file name at the lstat step; its target is untouched', () => {
-    // Windows has no O_NOFOLLOW: the open follows the link, and only the
+    // Where the open has no no-follow flag, it follows the link, and only the
     // identity check between the name and the descriptor catches it.
     const target = `${ELSEWHERE}/target.log`;
     const world = inMemoryFileSystem(

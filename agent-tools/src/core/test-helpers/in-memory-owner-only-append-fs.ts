@@ -44,7 +44,7 @@ import {
 
 /** How the fake platform differs from the default. */
 export interface InMemoryFileSystemOptions {
-  /** False models a platform without no-follow (Windows); true by default. */
+  /** False models a platform without no-follow; true by default. */
   readonly hasNoFollow?: boolean;
 }
 

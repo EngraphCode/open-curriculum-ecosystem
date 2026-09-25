@@ -32,7 +32,9 @@
  * (FIFOs, devices) never receive a write, a file another user owns or with a
  * second hard link refuses rather than leaks (so a root-run statusline will
  * not append to another user's log), and a pre-existing file of the user's
- * own is retightened to owner-only before each append. A directory the path
+ * own is retightened to owner-only before each append. On a platform without
+ * POSIX ownership (native Windows) nothing is written: modes cannot make a
+ * file owner-only there, so the append refuses. A directory the path
  * names that already exists keeps its permissions (mkdir's mode applies at
  * creation only; the statusline never re-modes a directory a user names, so
  * a log under `/tmp` works), and the payload carries session ids and project
@@ -134,9 +136,9 @@ export function debugLogLine(rawPayload: string, nowIso: string): string {
  * The line is {@link debugLogLine}'s. It goes through {@link appendOwnerOnly},
  * which creates an absent directory at 0o700, leaves an existing one as it
  * was, holds the file at 0o600, and refuses a symlink at the destination, a
- * non-regular file, a file another user owns, and a file with a second hard
- * link. Its outcome is discarded — see the module remarks for the split
- * failure posture.
+ * non-regular file, a file another user owns, a file with a second hard
+ * link, and any write on a platform without POSIX ownership. Its outcome is
+ * discarded — see the module remarks for the split failure posture.
  *
  * @param logPath - The `*.log` destination from {@link resolveDebugLogConfig}.
  * @param rawPayload - The stdin payload as received, pre-parse.
