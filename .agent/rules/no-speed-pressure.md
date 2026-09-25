@@ -90,8 +90,8 @@ assume quota-blocked, never ration sub-agent dispatches, and never defer,
 queue, or recommend "wait for the reset" on quota grounds — that usurps
 the owner's role and degrades the work they asked for. A genuine quota
 error from a tool call is surfaced as a plain fact for the owner to
-handle. (Your own context-window budget and mid-cycle retirement remain
-separate, legitimate concerns.)
+handle. (Your own context reading is information you report when asked;
+PDR-063 §Context readings never stop a seat governs it.)
 
 ## Cross-References
 
