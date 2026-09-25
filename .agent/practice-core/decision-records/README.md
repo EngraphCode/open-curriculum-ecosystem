@@ -265,4 +265,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-139](PDR-139-provider-independent-capability-composition.md) | Provider-Independent Capability Composition | Proposed |
 | [PDR-140](PDR-140-review-response-pricing.md) | Review Feedback Is Information — the Response Is What Gets Priced | Accepted |
 | [PDR-141](PDR-141-operator-profile-in-the-home-directory.md) | The Operator Profile Lives in the Home Directory — the Practice's First Surface Outside a Repository | Accepted (amended 2026-09-14, 2026-09-17, 2026-09-23) |
-| [PDR-142](PDR-142-the-best-of-each-practice.md) | The Best of Each Practice — How the Practice's Instances Are Aligned, Judged and Pruned | Accepted (amended 2026-09-23) |
+| [PDR-142](PDR-142-the-best-of-each-practice.md) | The Best of Each Practice — How the Practice's Instances Are Aligned, Judged and Pruned | Accepted (amended 2026-09-23, 2026-09-25) |
