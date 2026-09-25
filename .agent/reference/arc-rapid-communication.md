@@ -163,7 +163,15 @@ are conserved in the evaluation record.
   Conservation, backup, or normalisation passes COPY the channel file
   elsewhere and never rewrite it in place; editing tools that write
   whole files are unsafe on a live channel; corrections are new entries,
-  never edits (compose the timestamp BEFORE the append); keep entries
+  never edits (compose the timestamp BEFORE the append, built from `date -u`
+  inside the append command itself, so no typed time reaches the file: a
+  hand-typed header ran three minutes ahead of the clock, 2026-09-25); a
+  channel is opened by appending too, never by a whole-file write, whenever a
+  partner is live and may open it in the same seconds (one seat's write
+  replaced its partner's header, 2026-09-25); an append re-reads the
+  channel's last heading in the same breath as the write, and a claim of
+  absence names the moment of its read (a wrap appended nineteen seconds
+  after a peer's entry, without a re-read, 2026-09-23); keep entries
   lint-clean at compose time (wrapped lines must not start with a
   list-marker character) so format gates have nothing to fix. The dated
   `rapid-comms/*.md` channel files are excluded from the mutating

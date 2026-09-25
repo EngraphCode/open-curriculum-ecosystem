@@ -27,6 +27,11 @@ discipline held for expensive chains gets skipped.
 - For backgrounded or gated commands, print a named in-band marker
   (`PUSH_EXIT:$?`, `SEND_EXIT:$?`, `WORKFLOW_EXIT:$?`) on its own line
   and READ it before claiming the effect happened.
+- Chain an edit to its commit with `&&`, print a sentinel from the script,
+  and read the task's output for `Traceback` before trusting it: a
+  backgrounded edit script followed by a commit on `;` committed the
+  unedited file when the script's assertion failed, and a grep for the
+  push line alone missed it (2026-09-20).
 - For streamed-side-effect CLIs (comms sends, registry writes), also
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty

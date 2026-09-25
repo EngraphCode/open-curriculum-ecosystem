@@ -132,6 +132,12 @@ resolve it silently toward the weaker protection.
 
 ## Composition With Other Rules
 
+- **The machine-local-path guard fires on the session scratchpad too**, and on
+  any file that names the home or temp directory, in-repo or not: give a
+  subagent its scratch location in the dispatch prompt or by `mktemp -d`, and
+  pass paths as arguments or read them from the working directory rather than
+  writing them into files (three refusals in one seat before the pattern was
+  learned, 2026-09-24; a fourth on an edit script, 2026-09-25).
 - **The no-machine-local-paths principle** (principles.md; shapes in
   safety-and-security.md §Machine-local paths): forbids machine-local
   *paths* (the syntactic class). This rule forbids *durable

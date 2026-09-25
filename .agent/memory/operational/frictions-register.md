@@ -2165,6 +2165,11 @@ index row per moved id so citations resolve, and the archive keeps the text.
   one-line change is the OWNER'S to make deliberately; this row is the
   disposition, not a request
 - **Owner direction status**: unsolicited
+- **Instance, 2026-09-24** (Zephyr guards Leeward, `281e44`; Marten mends Shadow,
+  `74fc02`): the statusline's relative log path wrote `.logs/statusline.log` inside
+  the skill tree and the incoming Box, and the pre-push skill-adapter check refused
+  the push; the two cures stand as written (a fixed log path, or the adapter check
+  skipping dot-directories).
 
 ### F-182 — instruments that answer about themselves rather than about their input
 
@@ -2227,6 +2232,13 @@ index row per moved id so citations resolve, and the archive keeps the text.
 - **Status**: open
 - **Owner direction status**: standing (bot identity for all pushes, PRs and comments;
   reaching for the operator's credential outside the action map's rows is never permitted)
+
+- **Instances, 2026-09-24** (Swallow holds Drift, `516619`; Marten mends Shadow,
+  `74fc02`): three GitHub writes in one day under the owner's default `gh`
+  credential (`gh pr edit --body-file`, a plain `git push`, a bare `gh pr comment`),
+  each cured by re-posting as the bot. The structural cure is a PreToolUse guard that
+  refuses a `gh` write with no `GH_TOKEN` in the command; PR G's redesign
+  (segment-aware match on `shell-words.ts`, closed default) is the Director's verdict.
 
 ## Settled entries, archived
 
@@ -3604,6 +3616,9 @@ commit SHA and the closing plan reference.
 
 - **Route**: `pr-lifecycle` §The review-round state machine (items 2 and
   4), under the skills claim; the build routes to the ratified `pr-tally` plan.
+- **Instance, 2026-09-21** (Zephyr guards Leeward, `281e44`): the owner invoked
+  metacognition twice in one day to correct a running pull-request loop; PDR-140
+  clause 8 files that as a defect against `pr-lifecycle`, never a usage pattern.
 
 ### F-178 — `git branch -d` refuses a branch merged into HEAD when its configured upstream lacks it
 
@@ -3812,6 +3827,14 @@ commit SHA and the closing plan reference.
   compaction call itself, which carried the whole pre-compaction context. Expected: the
   reading names the turn it came from, or skips a compaction call's usage line, so a seat
   gating on the figure does not hand off on a stale one. It rides the same source lane.
+- **Instances, 2026-09-23 to 2026-09-25** (four entries, three seats): the
+  registry has no window for `claude-opus-5-5[1m]` (the seats read the meter with
+  `claude-opus-4-8[1m]` as a stand-in, and their records carried the command without
+  the reason) nor for `claude-fable-5-1` (this pass, which estimated instead). The
+  owed lane registers both; `agent-tools/src/session-metadata/window-registry.ts`.
+  A fifth instance the same day: `session-metadata` exits 2, "unknown model", for
+  `claude-fable-5-1`, so a Fable seat cannot read its own context figure (Geyser rides
+  Pewter, 2026-09-25); the registry's nearest row is `claude-fable-5` at 200,000.
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -3891,6 +3914,12 @@ commit SHA and the closing plan reference.
   line in the worktree-lane skill) and a bounded enumeration of other unwarranted ambient
   settings are the sketch node `warranted-means-in-the-operating-environment`.
 - **Status**: cured on this host; the guard is open.
+- **Recurrence and ruling, 2026-09-23**: a pre-push hung seventeen minutes in
+  `git ls-files -z` at 0 % CPU on the fsmonitor daemon; the per-command cure
+  `GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.fsmonitor GIT_CONFIG_VALUE_0=false` let a
+  commit pass in ninety seconds; that evening the owner ruled fsmonitor OFF for the
+  shared clone (`core.fsmonitor=false` in the clone config, two daemons stopped). Plain
+  `git status` is instant since.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 
@@ -3935,3 +3964,145 @@ commit SHA and the closing plan reference.
   phantom reds.
 - **Route**: an agent-tools candidate (wait on the watcher's exit event, with a bound sized as
   a hang detector and not as an expected duration). One instance.
+- **Recurred** 2026-09-24, four more instances. The first was #179's first push (Zephyr guards
+  Leeward, `281e44`). Three were pre-push runs by Blazar lifts Corona (`b65a9a`): PR 188's first
+  settlement push, and PR 189's sync push twice. Every run failed with the same message while
+  the host's one-minute load average stood above 20, and each passed alone (3 of 3) or on a
+  retry once the load fell below 12. PR 179 changed nothing under `agent-tools`. With five
+  instances across two seats, this is a pattern.
+
+### F-198 — the merge door does not read the Codex connector's summary comment or its reaction
+
+- **Observed**: 2026-09-24 ~12:45Z (Blazar lifts Corona, `b65a9a`), PR 189. The Codex connector
+  reported a clean review of the tip `ebe3123` through two transports. It edited its
+  `codex-pull-request-review-summary` comment to "✅ Completed" with the commit in a table cell,
+  and it put a 👍 reaction on the pull request. `merge-bot merge` refused with
+  UNCLASSIFIED-EVIDENCE: the summary comment was "edited after creation", and the connector's
+  quota comment "names no reviewed commit". The documented cure, a fresh `@codex review`, then
+  bounced on the usage limit, as a comment. A quota notice counts as SKIPPED only when posted
+  as a tip-bound review, so both PR 188 and PR 189 stayed held on a vendor quota. The Director
+  ruled to hold them rather than merge outside the door.
+- **Expected**: the door reads each reporting transport a configured reviewer uses, under the
+  owner's 2026-09-16 comment-evidence ruling. It reads the summary comment's commit and status
+  cells as a tip-bound result, and a quota notice posted as a comment as the same
+  scope-declared SKIPPED marker it honours as a review.
+- **Route**: a merge-bot candidate. The door is shared by both estates, so the cure is portable.
+  One instance.
+
+### F-199 — the commit queue's `commit` command runs `git commit` without `--author`, so a ceremony commit on the primary is bot-authored
+
+- **Observed**: 2026-09-25 ~11:44Z (Myrtle turns Canopy, `bf4957`), commit `SHA:c34823b5d` on
+  the primary checkout, made by `commit-queue -- commit --intent-id … --message-file …` exactly
+  as the commit skill's move 3 prescribes. The landed commit's author is the bot, and so is its
+  committer. The bot-identity rule requires `--author="Jim Cresswell <…>"` on every commit
+  (author the owner's authority, committer the acting bot), and the skill's linked-worktree
+  path states the flag; the queue's commit command has no author option and passes none
+  (`agent-tools/src/commit-queue/`, no author in its git call). Three commits by another seat
+  on 2026-09-24/25 were bot-authored because the flag was forgotten by hand (the napkin's
+  2026-09-24 and 2026-09-25 entries); this one followed the documented primary-checkout
+  ceremony and could not have carried it.
+- **Expected**: the queue's commit command takes `--author`, so the ceremony the skill
+  prescribes produces the author and committer split the rule requires; until it does, the
+  skill's move 3 names the substitute (`verify-staged`, then
+  `git commit --author=… -F <message> -- <paths>`, then `complete`).
+- **Route**: a small agent-tools code cure, and one sentence in the commit skill's move 3. One
+  instance by the ceremony path; four bot-authored commits in two days across two seats.
+
+### F-200 — the commit tool read an empty staged set seconds after `git add` filled it, three dates, cause unread
+
+- **Observed**: 2026-09-20 (a ceremony lost its staging before the guard, no lock
+  file involved), 2026-09-21 (twice in a row on the same two files; a traced copy of
+  the ceremony then committed them) and 2026-09-23 (three runs each ended with the
+  index empty although `record-staged` makes no index-writing git call), all Zephyr
+  guards Leeward (`281e44`) on the primary checkout. The one trace showed the seat's
+  own status read rewriting the index; a concurrent writer to the shared index is the
+  untested candidate for the rest.
+- **Expected**: a refusal "staged files do not match" is read as what the tool READ,
+  which the queue's own record keeps (`staged_name_status`), before anything touches
+  the index; the cause is traced with the commit skill's trace instrument before a
+  writer is named.
+- **Route**: the commit skill names the read (2026-09-25); the trace instrument's
+  bytes are in the seat-instruments report of 2026-09-23. Three instances, one seat.
+
+### F-201 — the merge door does not refuse a merge whose tip lacks an attested deletion sweep
+
+- **Observed**: the merge-base deletion sweep ran after the door, not before, twice
+  (Zephyr guards Leeward, 2026-09-21; Blazar lifts Corona, 2026-09-24), although the
+  door's own output says to run it first. The door prints a note only
+  (`agent-tools/src/merge-bot/merge-cli.ts`).
+- **Expected**: the door refuses without an attested sweep on the tip, the same shape as
+  the review-cost gate refusing at the push without the recorded budget, which did
+  catch a seat the same day.
+- **Route**: a merge-bot candidate. Two instances, two seats.
+
+### F-202 — `merge-bot push` under redirection writes nothing while the pre-push runs
+
+- **Observed**: 2026-09-23 (Blazar lifts Corona) and 2026-09-24 (Swallow holds Drift):
+  the push's output file stayed empty through the pre-push hook and after the transfer,
+  so the log alone read as stalled while `tsc` was busy, and the owner saw the stall
+  before the seat ("Your push is stuck, and you couldn't tell, that is a tooling or
+  tool use failure", 2026-09-23). The pre-push hook's output did not reach the
+  captured log.
+- **Expected**: the push reports progress on a cadence and its exit code in band; until
+  it does, a gate-bearing push runs under an event-driven watch, progress is read from
+  the process tree and the outcome from the remote tip.
+- **Route**: merge-bot; the commit skill names the reading (2026-09-25). Two instances.
+
+### F-203 — the review-cost survey prices an unreviewed settlement push at 0, so the gate fails open
+
+- **Observed**: 2026-09-25 (Marten mends Shadow, `74fc02`): eight of one session's
+  fourteen pull requests carried settlement pushes no reviewer reviewed, priced at 0;
+  on two the declared budget was spent in full and the gate read 0, so a third push
+  after two unreviewed ones would pass. The ledger's column definition counts reviewed
+  heads only.
+- **Expected**: the gate counts pushes to the pull request after open, not only
+  reviewed heads.
+- **Route**: the review-cost gate (agent-tools review-cost); the ledger rows for #197
+  to #210 carry the readings. One session.
+
+### F-204 — the comms archive harness takes no curator disposition for non-heartbeat events
+
+- **Observed**: `comms-archive-move` builds its ledger from the tier policy alone:
+  heartbeats move as `routine`; every other event past its window surfaces as
+  "awaiting curator disposition" with no input by which a pass records one, so the
+  substantive-event move ran as a hand script at each rotation (2026-08-14 and
+  2026-09-25) or not at all (four rotations between).
+- **Expected**: the harness reads a pass's recorded sweep (a "swept through T" line
+  or a disposition file) and moves the covered events under the same provenance gate.
+- **Route**: agent-tools `collaboration-state/archive`; the hand mover's shape is the
+  spec. One class, five rotations.
+
+### F-205 — the workspace census `check` is in no gate and its facts stale on any commit under `.agent/`
+
+- **Observed**: 2026-09-20 (Dynamo turns Temper, `2a4c8a`): the check failed on the
+  default branch with twenty stale facts entries; it runs in no gate, and its facts
+  count files under `.agent/`, so any commit there stales it.
+- **Expected**: the check either runs in a gate over facts that a records commit
+  cannot stale, or its file counts are derived at read time.
+- **Route**: the census plan's own lane. One instance.
+
+### F-206 — a shared channel append has no compare-and-swap on the channel's last heading
+
+- **Observed**: 2026-09-23 (Zephyr guards Leeward): a wrap entry composed from an
+  earlier read was appended nineteen seconds after a peer's entry landed, without a
+  re-read, so a claim of absence went into four records. 2026-09-25 (Swallow holds
+  Drift): a whole-file write replaced a partner's header written seconds earlier.
+- **Expected**: the channel append takes an expected-last-heading argument and refuses
+  when the channel has moved since the author read it; opening is an append.
+- **Route**: agent-tools (the channel append); the ARC protocol names the discipline
+  (2026-09-25). Two instances, two seats.
+
+### F-207 — the PreToolUse policy's argv matcher reads prose inside heredocs and event bodies as git commands
+
+- **Observed**: 2026-09-25, two seats. A comms-event body that advised a peer to "restore the
+  file to the branch's bytes" refused the whole Bash call as a git-restore shape, and neither
+  the event nor the ARC entry went out (Swallow holds Drift, `516619`). A python heredoc that
+  edited rule prose naming `git`, a push and a short flag was refused as a forced push, and a
+  second attempt was refused for a machine-local path in the script text (Myrtle turns Canopy,
+  `bf4957`). The discipline rule (`hook-policy-substring-discipline`) already prices the
+  write-time substitution; the cost today was two lost rounds and one near-miss.
+- **Expected**: the matcher parses command words (the git token and its subcommand as parsed
+  argv), never substrings of heredoc bodies or quoted arguments; a heredoc body is content, not
+  command.
+- **Route**: `agent-tools/src/hook-policy/` (the argv matcher, `argv-nested.ts`,
+  `shell-words.ts`). Two instances, two seats, one day.
