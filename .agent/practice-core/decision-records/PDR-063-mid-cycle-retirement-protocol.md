@@ -330,7 +330,10 @@ replaces it. No other step changes.
    re-entering it would recurse) — never on an unmeasured sense of
    fullness; owner or coordinator word arriving before the deadline
    redirects the seat and EXITS this path instead. The bounded wait
-   can never become an indefinite one. The bound is
+   can never become an indefinite one. A lane waiting on a peer needs the
+   same release condition, and a hold with no default is a stall waiting to
+   happen (two retained claims waited on a silent partner with no release
+   condition until a handoff record proposed one, 2026-09-25). The bound is
    executable, not vibes: the surfacing event MUST declare its
    absolute deadline and the default action that fires at the
    deadline (protocol default when no coordinator SLA applies:

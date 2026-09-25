@@ -9,7 +9,7 @@ impact_areas:
   - practice-and-estate
 tickets: []
 owner_gates: []
-last_updated: 2026-09-24
+last_updated: 2026-09-25
 ---
 
 # The two-way Practice exchange with the second estate
@@ -26,6 +26,19 @@ on 2026-09-23 that these habits move out of the strategic node into the delivery
 exchange, in both estates. The second estate's node of the same name is its own record of the
 exchange, and this node does not copy it: its rulings, rows and history belong to that
 estate's context.
+
+## The owner's ruling of 2026-09-25: the direction, and the end
+
+The owner, 2026-09-25, verbatim: "We are prioritising all [the second estate's] Practice
+innovations being integrated into [this estate], then we review. This is a fixed process with an
+end, not an ongoing effort. Once the Practice contains the best of both it will be extracted into
+an installable entity." Where they differ, this supersedes the 2026-09-21 framing of rows owed
+each way. So the exchange runs in one direction first: every innovation the second estate offers
+lands here as its bytes or in this estate's words, or is declined with the reason sent back, and
+the review of both Practices follows. Rows this estate offers to the second estate are that
+estate's seat's to receive and never gate the intake. The node keeps its end: it closes when
+every offered text is dispositioned, and the installable entity the owner names is cut from the
+aligned Practice afterwards, outside this node.
 
 ## User groups and value
 
