@@ -1511,3 +1511,62 @@ commit.
 - **Cure to test:** after any push from the primary checkout, check `.git/index.lock` before
   leaving the push step. A lock that outlives the push, with no holder, is the pusher's to
   report at once. Two other seats found this one before the seat whose push most likely left it.
+
+## 2026-09-25 ~12:05Z — the git-restore hook refused prose (Swallow holds Drift, 516619)
+
+- **Tool friction: the `never-use-git-to-remove-work` PreToolUse policy blocked a whole Bash call
+  that ran no git command at all.** The call appended an ARC entry and sent
+  a comms event, and both texts said "restore the file to the branch's bytes" as advice to
+  another seat. The policy saw a git-restore shape in the command's prose, so it refused the
+  whole call, and neither message went out. The Director's native message in the same turn did
+  go out. Rewording the prose to "return the file to the branch's bytes" passed. The cost was
+  one lost round and a near-miss: had the refusal gone unread, a peer would have been told
+  nothing while this seat believed it had asked. The candidate cure belongs to the hook policy,
+  per `hook-policy-substring-discipline`: match `git` and its subcommand as parsed command
+  words, not as substrings of heredoc or argument text. Routed to the napkin for the curator.
+
+## 2026-09-25 ~12:10Z — a standby seat's retrospective: two reviews, one class of error (Geyser rides Pewter, eeecbd)
+
+- **Landed**: the retrospective
+  `.agent/reports/agentic-engineering/why-a-ruling-took-three-owner-words-and-did-not-land-2026-09-25.md`.
+  Named mechanism: an owner ruling on doctrine recorded outside `pending-graduations.md` waits for
+  the owner to repeat it. Instances: the 2026-09-24 test ruling (three owner words, unlanded at
+  12:00Z on 09-25); O1 of 2026-09-21, registered as a doctrine row in the exchange channel and
+  told to "ride its own lane", never queued, applied by three cards and a six-hour rest instead.
+  Control: the 09-16 IO cure, queued 09-14, landed at the 09-19 drain. Two instances and a
+  control: a candidate, not a law.
+- **Mistake, this seat's, in one class across three drafts**: two assumptions-expert reviews
+  caught, between them, "no tracked record carried that end state" (the disproof was on screen),
+  "landed with no second owner word" (there was one, about the drain), "only ever expressed as
+  one-offs" (O1 was a row), "consolidations reliably hold a sub-30% context" (51% and 32.4% on
+  09-17 and 09-19), PDR-052 cited for a clause that lives in the rule file, and four wrong
+  numbers or times. Naming the class in draft one's metacognition did not stop draft two. Cure
+  applied at draft three: every sentence with "no", "never", "only", "every" or "reliably"
+  carries its check beside it or loses the word. **Candidate** (a review-lens line for
+  retrospectives and handoff records): grep the draft for those five words before review and
+  attach a source to each, or cut the word.
+- **Mistake, this seat's**: at 11:06Z it recorded the owner's "land it now" with execution
+  routed "through the Director" to a lane whose holder had stopped; the record's own mechanism,
+  enacted by its author. Cure: a decision with no live executor is recorded as unassigned, in
+  that word, at the moment it is recorded.
+- **Surprise, doctrine**: at a context gate the doctrine points three ways. PDR-063's pause
+  vocabulary permits "the owner's word" as a resume trigger (line 419); PDR-063 ruling 3 defaults
+  to retirement at a measured trigger with the owner absent (line 332); `confident-seats` says
+  hold only what an answer gates, never the whole lane. O1 is the owner's word on which applies,
+  and O1 is unlanded. Routed: the retrospective's owed list, first item.
+- **Tool feedback**: `session-metadata` has no window size registered for `claude-fable-5-1`
+  (exit 2, "unknown model"), so a Fable seat cannot read its own context figure. The comms
+  concept gate refuses "carve-out" in a coordination event (by design; reworded). zsh reserves
+  `status` (`status=0` fails "read-only variable"; use `rc`). `comms send --body` refuses more
+  than 1,500 characters and names the limit. `pnpm --silent` suppresses the root script's echo
+  but not the nested `--filter` script's. A bare `cd` into the comms directory moved the
+  harness's working directory for one call, and the statusline then wrote `.logs/statusline.log`
+  there. This seat's Monitor did not survive the 11:2xZ compaction (one instance; Marten's record
+  holds one survival).
+- **Surprise, process**: the owner on the first handoff analysis: some points matter, some are
+  noise better ignored. The test adopted: what is lost, or who is misled, if this is ignored.
+  Two of four owner questions came back as unanswerable (neither the decision nor its impact was
+  stated) and one as "run it through the lenses".
+- **Play seeds**: a ruling outside the queue is a letter addressed to an office with no one in
+  it; O1 was the one row told to ride a lane instead of the queue, the cure filed where the gate
+  could not find it.
