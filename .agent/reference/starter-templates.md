@@ -506,7 +506,9 @@ layers, the dependency rules and the template consistency checklist.
 
 ## Quick Start Checklist
 
-After copying these templates into your repo:
+After copying the live templates and components from `.agent/sub-agents/`
+into your repo (each pointer above names its file, so the copied set
+resolves there as it does here):
 
 - [ ] Adapt the code-expert checklist to your project's standards
 - [ ] Replace `<!-- ADD YOUR ... -->` comments with your actual doc paths
