@@ -3,7 +3,15 @@ import { z } from 'zod';
 
 import { isRecord, type JsonRecord } from '../rollout/record-shapes.js';
 
-import type { CommandRecord, CommandRecordsSummary, Malformed, TurnAccount } from './summary.js';
+import { flagCommand, renderSegment } from './flag-command.js';
+import { shellSegments, type Segment } from './shell-segments.js';
+import type {
+  CommandRecord,
+  CommandRecordsSummary,
+  FlaggedCommand,
+  Malformed,
+  TurnAccount,
+} from './summary.js';
 
 const COMMAND_REASON = 'CommandExecution.command is not a non-empty list of strings';
 
@@ -38,6 +46,7 @@ interface TurnState {
 /** Internal accumulation; only the summary crosses the module boundary. */
 interface ReaderState {
   readonly turns: TurnState[];
+  readonly flagged: FlaggedCommand[];
   readonly recordTypes: Record<string, number>;
   readonly malformed: Malformed[];
   readonly invalidLines: number[];
@@ -46,6 +55,43 @@ interface ReaderState {
 /** A command the harness ran to completion or failure itself, not a refusal or a keystroke. */
 function isExecuted(record: CommandRecord): boolean {
   return record.status !== 'declined' && record.source !== 'unified_exec_interaction';
+}
+
+/**
+ * The commands a record means, for the shapes: a keystroke into a running
+ * process is a command line of its own (its startup argv was recorded, and
+ * scanned, by the startup item); a declined item ran nothing.
+ */
+function segmentsOf(record: CommandRecord): readonly Segment[] {
+  if (record.status === 'declined') {
+    return [];
+  }
+  if (record.source === 'unified_exec_interaction') {
+    return record.interactionInput === undefined
+      ? []
+      : shellSegments(['sh', '-c', record.interactionInput]);
+  }
+  return shellSegments(record.command);
+}
+
+/**
+ * The record as a flagged entry when any of its segments carries a forbidden
+ * shape. Only a segment carrying a shape renders; the others are elided, so a
+ * script's unrelated commands and data never reach the summary.
+ */
+function flag(record: CommandRecord): FlaggedCommand | undefined {
+  const scanned = segmentsOf(record).map((segment) => ({ segment, hits: flagCommand(segment) }));
+  const hits = scanned.flatMap((entry) => entry.hits);
+  if (hits.length === 0) {
+    return undefined;
+  }
+  return {
+    kind: record.source === 'unified_exec_interaction' ? 'interaction' : 'executed',
+    line: record.line,
+    turnId: record.turnId,
+    rendered: scanned.map((entry) => (entry.hits.length > 0 ? renderSegment(entry.segment) : '…')),
+    hits,
+  };
 }
 
 /** The key a record is counted under: its type, then the payload's type when it has one. */
@@ -107,10 +153,14 @@ function readItemCompleted(payload: JsonRecord, state: ReaderState, line: number
     return;
   }
   const read = readCommandItem(item, turnId, line);
-  if (read.ok) {
-    turn.commands.push(read.value);
-  } else {
+  if (!read.ok) {
     state.malformed.push(read.error);
+    return;
+  }
+  turn.commands.push(read.value);
+  const flagged = flag(read.value);
+  if (flagged !== undefined) {
+    state.flagged.push(flagged);
   }
 }
 
@@ -157,11 +207,18 @@ function readLine(text: string, state: ReaderState, line: number): void {
 /**
  * Read a seat's whole rollout as JSONL lines into counts of the commands the
  * harness recorded as run, per turn, with every record type seen and every
- * evidence record that could not be read. Never throws; never keeps the
- * command history beyond the counts it returns.
+ * evidence record that could not be read, and every command that carried a
+ * forbidden shape of the seat rules, rendered by allowlist. Never throws;
+ * never returns the command history: counts, and the flagged entries alone.
  */
 export function readCommandRecords(lines: readonly string[]): CommandRecordsSummary {
-  const state: ReaderState = { turns: [], recordTypes: {}, malformed: [], invalidLines: [] };
+  const state: ReaderState = {
+    turns: [],
+    flagged: [],
+    recordTypes: {},
+    malformed: [],
+    invalidLines: [],
+  };
   for (const [index, text] of lines.entries()) {
     if (text.trim().length > 0) {
       readLine(text, state, index + 1);
@@ -174,6 +231,7 @@ export function readCommandRecords(lines: readonly string[]): CommandRecordsSumm
   return {
     turns: state.turns.length,
     commands: accounts.reduce((sum, account) => sum + account.executed, 0),
+    flagged: state.flagged,
     accounts,
     recordTypes: state.recordTypes,
     malformed: state.malformed,

@@ -2,6 +2,8 @@ import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import type { OutputFormat } from '../types.js';
 
+import { justificationOf, type Hit } from './flag-command.js';
+
 /**
  * One command the harness recorded as run, from its `CommandExecution` item.
  * The status and source sets are codex-cli 0.157.1's closed sets.
@@ -26,6 +28,19 @@ export interface Malformed {
   readonly reason: string;
 }
 
+/**
+ * A command that carried a forbidden shape of the seat rules: one the harness
+ * ran (`executed`) or one typed into a running process (`interaction`).
+ */
+export interface FlaggedCommand {
+  readonly kind: 'executed' | 'interaction';
+  readonly line: number;
+  readonly turnId: string;
+  /** The command by allowlist, one string per shell segment; never the argv. */
+  readonly rendered: readonly string[];
+  readonly hits: readonly Hit[];
+}
+
 /** One turn's counts. */
 export interface TurnAccount {
   readonly turnId: string;
@@ -39,6 +54,8 @@ export interface TurnAccount {
 export interface CommandRecordsSummary {
   readonly turns: number;
   readonly commands: number;
+  /** Every command that carried a forbidden shape, in stream order. */
+  readonly flagged: readonly FlaggedCommand[];
   readonly accounts: readonly TurnAccount[];
   /** Every record type seen, counted; types the reader does not read included. */
   readonly recordTypes: Readonly<Record<string, number>>;
@@ -46,10 +63,17 @@ export interface CommandRecordsSummary {
   readonly invalidLines: readonly number[];
 }
 
+function renderFlagged(entry: FlaggedCommand): string {
+  const shapes = entry.hits.map((hit) => `${hit.kind}: ${justificationOf(hit.kind)}`).join(' ');
+  const command = entry.rendered.join(' ; ');
+  return `flagged: line ${entry.line}: ${entry.kind} in turn ${entry.turnId}: ${command} [${shapes}]`;
+}
+
 function renderText(summary: CommandRecordsSummary): string {
   const lines = [
-    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s)`,
+    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s), ${summary.flagged.length} flagged`,
     ...summary.accounts.map((account) => `turn ${account.turnId}: executed ${account.executed}`),
+    ...summary.flagged.map(renderFlagged),
     `record types: ${typeSafeEntries(summary.recordTypes)
       .map(([type, count]) => `${type}=${count}`)
       .join(' ')}`,

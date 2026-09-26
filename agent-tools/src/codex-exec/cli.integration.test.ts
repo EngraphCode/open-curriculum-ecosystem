@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { runCodexExecCli } from './cli.js';
 import {
+  appendCommandTurn,
   commandItems,
   execRecords,
   turnStarts,
@@ -123,6 +124,25 @@ describe('runCodexExecCli — command-records', () => {
     const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
     expect(code).toBe(1);
     expect(io.stderrText).toContain('1 invalid line(s)');
+  });
+
+  it('exits 1 under --strict when a forbidden shape ran, with the summary still on stdout', async () => {
+    const records = execRecords();
+    appendCommandTurn(records, ['/bin/zsh', '-lc', 'git push origin HEAD']);
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stdoutText).toContain('flagged: line');
+    expect(io.stderrText).toContain('1 forbidden shape(s) ran');
+  });
+
+  it('exits 0 without --strict when a forbidden shape ran, reporting it on stdout', async () => {
+    const records = execRecords();
+    appendCommandTurn(records, ['git', 'add', '-A']);
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: [], ...io });
+    expect(code).toBe(0);
+    expect(io.stdoutText).toContain('stage-whole-tree');
   });
 
   it('exits 1 under --strict when an evidence record could not be read', async () => {

@@ -11,16 +11,11 @@ import {
 } from '../rollout/test-helpers/rollout-records.js';
 
 import { readCommandRecords } from './read-command-records.js';
-import { commandItems, execRecords, turnStarts } from './test-helpers/seat-fixtures.js';
+import { commandItems, execRecords, lineOf, turnStarts } from './test-helpers/seat-fixtures.js';
 
 /** Values no reader message may echo back. */
 const NONCE = 'nonce-7c1e';
 const NUMERIC_NONCE = 424_242;
-
-/** The physical line a record occupies once the records are serialised. */
-function lineOf(records: readonly TestRecord[], record: TestRecord): number {
-  return records.indexOf(record) + 1;
-}
 
 /** The fixture's first command item and its item object, for a test to edit. */
 function firstCommand(records: TestRecord[]): { event: TestRecord; item: FixtureObject } {
@@ -72,6 +67,7 @@ describe('readCommandRecords over the recorded seat rollout', () => {
     expect(readCommandRecords([])).toStrictEqual({
       turns: 0,
       commands: 0,
+      flagged: [],
       accounts: [],
       recordTypes: {},
       malformed: [],

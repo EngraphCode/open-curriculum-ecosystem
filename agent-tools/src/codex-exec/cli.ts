@@ -57,6 +57,9 @@ function strictReasons(summary: CommandRecordsSummary): string[] {
   if (summary.turns === 0) {
     reasons.push('no turn started');
   }
+  if (summary.flagged.length > 0) {
+    reasons.push(`${summary.flagged.length} forbidden shape(s) ran`);
+  }
   if (summary.malformed.length > 0) {
     reasons.push(`${summary.malformed.length} malformed evidence record(s)`);
   }
@@ -142,6 +145,7 @@ function usage(): string {
     '    --strict  Exit 1 if no message is found.',
     '  command-records [--format text|json] [--strict]',
     "    Read a seat's rollout (JSONL) from stdin; summarise the commands the harness ran.",
-    '    --strict  Exit 1 when no turn started, or an evidence record or a line could not be read.',
+    '    --strict  Exit 1 when no turn started, a forbidden shape of the seat rules ran, or an',
+    '              evidence record or a line could not be read.',
   ].join('\n');
 }

@@ -2,8 +2,10 @@ import assert from 'node:assert/strict';
 
 import {
   commandEvents,
+  object,
   recordsOf,
   selectAll,
+  type FixtureObject,
   type TestRecord,
 } from '../../rollout/test-helpers/rollout-records.js';
 import observedExec from '../fixtures/observed-seat-exec-0-157-1.json';
@@ -28,6 +30,14 @@ import observedExec from '../fixtures/observed-seat-exec-0-157-1.json';
  * exercised by edited copies only.
  */
 
+/** A user-home path as a seat might type one; the placeholder form, never a real home. */
+export const HOME_PATH = '/Users/<user>/repo';
+
+/** The physical line a record occupies once the records are serialised. */
+export function lineOf(recordsToRead: readonly TestRecord[], record: TestRecord): number {
+  return recordsToRead.indexOf(record) + 1;
+}
+
 /** A fresh copy of the four-command seat rollout. */
 export function execRecords(): TestRecord[] {
   return recordsOf(observedExec);
@@ -45,4 +55,37 @@ export function commandItems(recordsToRead: readonly TestRecord[]): TestRecord[]
   const items = commandEvents(recordsToRead);
   assert(items.length > 0, 'the fixture recorded no command');
   return items;
+}
+
+/** The turn id of the turn `appendCommandTurn` adds; outside the fixture's ids. */
+export const APPENDED_TURN_ID = '00000002-1111-4000-8000-000000020001';
+
+/**
+ * Append a second turn that runs one command, shaped like the fixture's own
+ * command items with the argv replaced and `item` fields overlaid; returns the
+ * appended command event so a test can find its line.
+ */
+export function appendCommandTurn(
+  recordsToEdit: TestRecord[],
+  command: readonly string[],
+  item: FixtureObject = {},
+): TestRecord {
+  const [start] = turnStarts(recordsToEdit);
+  const [first] = commandItems(recordsToEdit);
+  assert(start);
+  assert(first);
+  recordsToEdit.push({
+    type: start.type,
+    payload: { ...start.payload, turn_id: APPENDED_TURN_ID },
+  });
+  const event: TestRecord = {
+    type: first.type,
+    payload: {
+      ...first.payload,
+      turn_id: APPENDED_TURN_ID,
+      item: { ...object(first.payload['item']), command: [...command], ...item },
+    },
+  };
+  recordsToEdit.push(event);
+  return event;
 }
