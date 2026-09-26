@@ -11,7 +11,7 @@ friction without paying their way in design value.
 
 ### Triggering Scenarios
 
-- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
+- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, a Playwright `*.spec.ts` under the directory the workspace's Playwright config names as its `testDir`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
 - A test suite audit is requested for skipped tests, conditional execution, global state reads or manipulation, complex mocks, or tests that audit rather than describe
 - Tests are failing in CI and the failure mode suggests structural or design problems (flaky integration tests due to process-spawning, mocks bleeding between tests, conditional gating)
 - A pull request adds product code without corresponding test changes — the atomic-landing invariant has been violated and a TDD compliance check is needed
@@ -414,7 +414,9 @@ need for product code refactoring and cites the relevant specialist.
 - [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (a file named
       as an E2E check that imports product code and runs it in the test
       process is an integration test: flag it)
-- [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
+- [ ] Tests live next to code (E2E checks live apart: Vitest protocol and CLI
+      checks in `e2e-tests/`, Playwright UI checks in the directory the
+      workspace's Playwright config names as its `testDir`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
 - [ ] No conditional execution (`skipIf`, `runIf`, runtime branching,

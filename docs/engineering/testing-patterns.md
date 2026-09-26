@@ -50,8 +50,11 @@ exempted. See
 ### The Pattern
 
 Two recipes, one per proof. The integration test drives the unit's seam; this
-one is the shape of `check-mcp-client-auth.di.integration.test.ts` in the MCP
-server workspace's `src/`, and it runs as written there:
+one is the auth-bypass case of `check-mcp-client-auth.di.integration.test.ts` in
+the MCP server workspace's `src/`, and it runs as written in that workspace.
+That file's protected-tool cases still inspect an input port's calls, a defect
+of the recovery lane this change names out of scope; the recipe takes only the
+conformant case:
 
 ```typescript
 import { expect, it } from 'vitest';
