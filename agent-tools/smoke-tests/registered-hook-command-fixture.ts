@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { typeSafeEntries } from '@oaknational/type-helpers';
 import { z } from 'zod';
 
-import { trustedShellPath } from './trusted-shell-directories.js';
+import { trustedShell, trustedShellPath } from './trusted-shell-directories.js';
 
 const repoRoot = fileURLToPath(new URL('../..', import.meta.url));
 
@@ -98,7 +98,7 @@ export async function inThrowawayProject(
 }
 
 /**
- * Run the registered command through `/bin/sh -c`, as the harness does.
+ * Run the registered command through the trusted shell's `-c`, as the harness does.
  *
  * @remarks
  * The environment holds only `CLAUDE_PROJECT_DIR` and `PATH`. `PATH` is the
@@ -117,7 +117,7 @@ export function runRegisteredCommand(
   project: string,
   stdin: Pick<SpawnSyncOptionsWithStringEncoding, 'input' | 'stdio'>,
 ): SpawnSyncReturns<string> {
-  return spawnSync('/bin/sh', ['-c', command], {
+  return spawnSync(trustedShell(), ['-c', command], {
     ...stdin,
     cwd: project,
     env: {

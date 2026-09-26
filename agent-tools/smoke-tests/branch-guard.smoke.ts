@@ -2,12 +2,14 @@ import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { chmodSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { resolveTrustedGit } from '../src/core/trusted-git';
 
+import { gitWithoutShowCurrent } from './git-without-show-current';
 import { hermeticGitEnv } from './hermetic-git-env';
+import { trustedShell } from './trusted-shell-directories';
 
 /**
  * The shared branch guard, `.husky/refuse-commit-on-main.sh`, against real
@@ -16,13 +18,18 @@ import { hermeticGitEnv } from './hermetic-git-env';
  * Every commit-creating hook sources the guard. It refuses `main` and
  * `master` by name, in any case, and the default branch that
  * `refs/remotes/origin/HEAD` names; any other branch, and a detached HEAD,
- * pass. The guard is driven here the way the hooks drive it, sourced under
- * `sh -e` from the working-tree top, and once through a real `git commit`.
+ * pass, and a git that cannot name the current branch is refused. The guard
+ * is driven here the way the hooks drive it, sourced from the working-tree
+ * top by the trusted shell (an absolute path, never a PATH search; `sh.exe`
+ * from Git for Windows on win32), and once through a real `git commit`. It
+ * is sourced under plain `sh`, not `sh -e`: husky's runner adds `-e`, and
+ * the guard must refuse without it.
  *
  * Real IO makes this a smoke; `test:e2e` gates it.
  */
 
 const GIT = resolveTrustedGit();
+const SH = trustedShell();
 const GUARD = fileURLToPath(new URL('../../.husky/refuse-commit-on-main.sh', import.meta.url));
 
 function withTempDir(run: (dir: string) => void): void {
@@ -64,11 +71,23 @@ function onBranch(repository: Repository, branch: string): void {
   repository.git(['symbolic-ref', 'HEAD', `refs/heads/${branch}`]);
 }
 
-/** Source the guard as a hook does; the exit status and the guard's own output. */
-function runGuard(repository: Repository, guardBranch = ''): { status: number; out: string } {
-  const run = spawnSync('/bin/sh', ['-e', '-c', '. "$1"', 'guard', GUARD], {
+/**
+ * Source the guard as a hook does; the exit status and the guard's own output.
+ * `pathPrefix`, when given, is searched before the trusted PATH, so a test
+ * can put its own `git` in front of the real one.
+ */
+function runGuard(
+  repository: Repository,
+  guardBranch = '',
+  pathPrefix?: string,
+): { status: number; out: string } {
+  const path =
+    pathPrefix === undefined
+      ? repository.env.PATH
+      : `${pathPrefix}${delimiter}${repository.env.PATH}`;
+  const run = spawnSync(SH, ['-c', '. "$1"', 'guard', GUARD], {
     cwd: repository.work,
-    env: { ...repository.env, GUARD_BRANCH: guardBranch, GUARD_HINT: '' },
+    env: { ...repository.env, PATH: path, GUARD_BRANCH: guardBranch, GUARD_HINT: '' },
     encoding: 'utf8',
   });
   return { status: run.status ?? -1, out: `${run.stdout}${run.stderr}` };
@@ -156,6 +175,29 @@ function passesWhatIsNotADefaultBranch(): void {
   });
 }
 
+function refusesWhenGitCannotNameTheBranch(): void {
+  withTempDir((root) => {
+    const repository = makeRepository(root);
+    onBranch(repository, 'feat/example');
+    const shims = gitWithoutShowCurrent(root, GIT);
+    const guarded = runGuard(repository, '', shims);
+    assert.equal(
+      guarded.status,
+      1,
+      'a git that cannot name the current branch let a commit through',
+    );
+    assert.ok(
+      guarded.out.includes('could not name the current branch'),
+      'the refusal did not say that git could not name the branch',
+    );
+    assert.equal(
+      runGuard(repository, 'feat/example', shims).status,
+      0,
+      'a branch named through GUARD_BRANCH was refused although git was never asked for it',
+    );
+  });
+}
+
 function refusesARealCommitOnTheDefaultBranch(): void {
   withTempDir((root) => {
     const repository = makeRepository(root, 'trunk');
@@ -183,7 +225,8 @@ refusesTheBranchOriginHeadNames();
 guardsTheBranchARebaseNames();
 refusesANestedDefaultBranchWholeInAnyCase();
 passesWhatIsNotADefaultBranch();
+refusesWhenGitCannotNameTheBranch();
 refusesARealCommitOnTheDefaultBranch();
 process.stdout.write(
-  'branch guard smoke: OK (main and master by name in any case, and the branch origin HEAD names, are refused; other branches and a detached HEAD pass)\n',
+  'branch guard smoke: OK (main and master by name in any case, and the branch origin HEAD names, are refused; other branches and a detached HEAD pass; a git that cannot name the branch is refused)\n',
 );

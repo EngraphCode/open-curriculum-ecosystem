@@ -16,6 +16,12 @@
  * (read-execute only for non-administrators); deriving them from
  * `%ProgramFiles%` would make a fixed path environment-influenced.
  */
+import assert from 'node:assert/strict';
+
+import { isErr } from '@oaknational/result';
+
+import { resolveTrustedShell } from '../src/core/trusted-shell.js';
+
 const TRUSTED_SHELL_DIRECTORIES = {
   posix: ['/usr/bin', '/bin'],
   win32: [String.raw`C:\Program Files\Git\usr\bin`, String.raw`C:\Program Files\Git\bin`],
@@ -35,4 +41,17 @@ export function trustedShellPath(platform: NodeJS.Platform = process.platform): 
     platform === 'win32' ? TRUSTED_SHELL_DIRECTORIES.win32 : TRUSTED_SHELL_DIRECTORIES.posix;
 
   return directories.join(platform === 'win32' ? ';' : ':');
+}
+
+/**
+ * The trusted shell's absolute path for a smoke to spawn, or the smoke fails
+ * at once with the resolver's own message (a smoke has no caller to hand a
+ * `Result` to). Never `sh` by name: see `resolveTrustedShell`.
+ */
+export function trustedShell(): string {
+  const shell = resolveTrustedShell();
+  if (isErr(shell)) {
+    assert.fail(shell.error.message);
+  }
+  return shell.value;
 }

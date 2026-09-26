@@ -24,9 +24,13 @@
 # covered by the rule and by remote branch protection. Being sourced, the
 # guard names its own variables `guard_*`. The current-branch read has no
 # fallback: if git cannot answer (a git older than 2.22 lacks
-# `--show-current`), the `sh -e` runner aborts the hook, so the guard fails
-# closed rather than passing silently.
-guard_current_branch="${GUARD_BRANCH:-$(git branch --show-current)}"
+# `--show-current`), the guard refuses with its own message, so it fails
+# closed under any runner, whether or not that runner aborts on error.
+guard_current_branch="${GUARD_BRANCH:-$(git branch --show-current)}" || {
+  echo "❌ Refusing to commit: git could not name the current branch, so the guard cannot check it."
+  echo "💡 Check that git 2.22 or later is first on PATH: git --version"
+  exit 1
+}
 guard_origin_head="$(git symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null || true)"
 guard_default_branch="${guard_origin_head#refs/remotes/origin/}"
 guard_current_folded="$(printf '%s' "$guard_current_branch" | tr '[:upper:]' '[:lower:]')"
