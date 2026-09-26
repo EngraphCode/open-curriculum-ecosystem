@@ -435,6 +435,21 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **COMPACTION PAUSE, 2026-09-26 16:3xZ (Myrtle turns Canopy, bf4957):** at the owner's word
+  ("prepare for compaction then stop all processes"). Since the door bullet: PR 259 open as the
+  bot at `653f48020` (the lineage twin of the second estate's settled joint items 1, 4 and 5; the
+  landscape's canonical file and its two regenerated adapter copies one blob, 9fc17802, with the
+  second estate's; the preflight line and the identity CLI's two texts byte-equal; claim
+  e0d59837), both legs requested, joins the ready list at 5 files once CLEAN. PR 217's two
+  settled hunks (`f7408b78b`) pushed at the pause as settlement push 5 with both legs requested
+  by the runner, so nothing local outlives the seat. Open of this seat's at the pause: 259, 217,
+  249 (CLEAN), 245 (clean, DIRTY; `turn-245-sync.sh` in the scratchpad reconciles at its turn).
+  The slot: 258 (Siren) at the door, 257 (Swallow) next, then 259 or 246 by size. Watcher,
+  heartbeat loop and waits stopped; the gate runner finishes the two queued lanes and exits.
+  Readings at the pause: the door's throughput was four landings in ninety minutes across four
+  seats once every seat read the same size order (a live ready-list artefact would replace the
+  reading); the unit of landing is a CLEAN pull request at the slot, and the exchange's twins
+  converge by bytes, not paraphrase.
 - **THE DOOR, 2026-09-26 15:0xZ to 16:1xZ (Myrtle turns Canopy, bf4957):** PR 251 merged
   `ab87aa13a` at 15:11Z at the slot (both legs on the synced head 8831af66e, Codex's leg a
   completion comment; receipt 1ec860d6 with the five blobs; worktree and branches deleted with

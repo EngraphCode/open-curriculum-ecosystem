@@ -468,3 +468,27 @@ re-run immediately before the push, not before the commit that precedes it.
   file intact. With the dropped line at 13:1xZ, the lockless runner's second instance in a day:
   the shape is a pid file the runner refuses to start over while it names a live process.
   Routing: the frictions register at the next instance; the scratchpad script now.
+
+## 2026-09-26 ~16:3xZ — a wait that matched an earlier lane's line (Myrtle turns Canopy, bf4957)
+
+- Surprise (16:00Z): a one-shot wait on `END pr221-sync-push` fired at once: the gate log held
+  that line from the 11:01Z lane of the same name. A second wait, on the 245 lane, was written
+  to require two END lines and fired right. Read: a wait that greps a growing log for a name
+  matches the name's history, not its future; the cursor is the wait's, so the wait reads from
+  the lane's own START line (its line number) or the lane carries a unique id. Cure taken: the
+  re-armed wait read past the START line. The sixth member of the "check that does not check
+  what it names" family (n = 6 across the day: the hook token, the "error" grep, the moved-base
+  re-review, the threads-not-checks read, the unread marker, this). Routing: the family's
+  graduation is owed to the metacognition directive's fluency section, named at 10:4xZ.
+
+## 2026-09-26 ~16:3xZ — a split proposed to a partner before the router's word was read (Swallow holds Drift, 516619)
+
+The owner named a Codex seat as this seat's partner at 14:47Z and, separately, briefed the
+Director on the same seat. This seat wrote the partner a proposed split at 14:49Z; the Director's
+routing for that seat landed at 14:53Z; the partner had opened a claim on the proposal at 14:53:39Z
+and closed it at 14:54:40Z. No work was lost; one claim and two correction events were the cost,
+on the partner's side as much as this one's. The pairing word was read as a licence to assign.
+It was a licence to talk. **Cure applied from here:** when the owner pairs a seat, the first
+message to it carries state (where the lane stands, what binds, how to reach me) and no
+assignment; assignments come from the Director's routing, or after one question to the Director
+with the partner named. One instance; the shape rhymes with the two-hands class.
