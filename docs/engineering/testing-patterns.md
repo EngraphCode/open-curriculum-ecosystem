@@ -196,8 +196,11 @@ not what the author intends:
 Unit tests and E2E checks can all pass while the integrated product fails. For
 features spanning multiple modules (MCP tool → SDK → host), add a **composition check** that
 exercises the integration seam from outside the process, as an E2E check
-(§In-Process Tests with Dependency Injection: no in-process app, no listener,
-no sentinel). A composition check IS the enforcement for multi-module
+(§In-Process Tests with Dependency Injection: no in-process app, no listener).
+A composition check that proves content flow asserts a sentinel content item
+through the public result, never a counter or a call argument
+(`testing-strategy.md` §Rules: the hidden lesson's keyword appears only when
+the switch admits it). A composition check IS the enforcement for multi-module
 integration: it is what catches a knip or depcruise cleanup that removed a
 module every unit test had already stopped exercising.
 
