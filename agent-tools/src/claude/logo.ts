@@ -34,7 +34,7 @@
 import { frameIndex } from './statusline-logo-cycle.js';
 
 /** Glyph style used to draw the Oak mark, or `none` to suppress it. */
-export type OakLogoStyle =
+export type LogoStyle =
   'braille-sharp' | 'braille-sharp-compact' | 'braille' | 'quad' | 'sextant' | 'none';
 
 /**
@@ -80,7 +80,7 @@ export const BRAILLE_SHARP_FRAMES = [
  * - `sextant` — Unicode Symbols for Legacy Computing (U+1FB00). Sharpest, but
  *   needs a font with that block; it renders as tofu boxes otherwise.
  */
-export const OAK_LOGO_ROWS: Readonly<Record<Exclude<OakLogoStyle, 'none'>, readonly string[]>> = {
+export const LOGO_ROWS: Readonly<Record<Exclude<LogoStyle, 'none'>, readonly string[]>> = {
   'braille-sharp': BRAILLE_SHARP_FRAMES[0],
   'braille-sharp-compact': ['⠀⢀⣠⣞⣁⠀', '⣼⠋⠘⢧⡉⢷', '⢹⡅⠀⠀⢉⡍', '⠀⠻⣤⣤⠞⠁'],
   braille: ['⠀⢀⣠⣟⣀⠀', '⣼⠋⠘⢧⡉⢷', '⢹⡄⠀⠀⢉⡍', '⠀⠻⣤⣤⠞⠁'],
@@ -89,8 +89,8 @@ export const OAK_LOGO_ROWS: Readonly<Record<Exclude<OakLogoStyle, 'none'>, reado
 };
 
 /**
- * Resolve an {@link OakLogoStyle} from a raw configuration string, such as the
- * `OAK_STATUSLINE_LOGO` environment variable. Unrecognised or absent values
+ * Resolve an {@link LogoStyle} from a raw configuration string, such as the
+ * `PRACTICE_STATUSLINE_LOGO` environment variable. Unrecognised or absent values
  * fall back to the default `braille-sharp`; `braille-sharp-compact`, `braille`,
  * `quad`, and `sextant` are opt-in alternatives, and `none` restores the
  * single-line statusline.
@@ -98,7 +98,7 @@ export const OAK_LOGO_ROWS: Readonly<Record<Exclude<OakLogoStyle, 'none'>, reado
  * @param raw - The raw configuration value, or `undefined` when unset.
  * @returns The resolved logo style.
  */
-export function resolveLogoStyle(raw: string | undefined): OakLogoStyle {
+export function resolveLogoStyle(raw: string | undefined): LogoStyle {
   if (
     raw === 'braille-sharp' ||
     raw === 'braille-sharp-compact' ||
@@ -126,11 +126,11 @@ export function resolveLogoStyle(raw: string | undefined): OakLogoStyle {
  * @returns The mark rows to render.
  */
 export function resolveLogoRows(
-  style: Exclude<OakLogoStyle, 'none'>,
+  style: Exclude<LogoStyle, 'none'>,
   frame: number,
 ): readonly string[] {
   if (style !== 'braille-sharp') {
-    return OAK_LOGO_ROWS[style];
+    return LOGO_ROWS[style];
   }
   return (
     BRAILLE_SHARP_FRAMES[frameIndex(BRAILLE_SHARP_FRAMES.length, frame)] ?? BRAILLE_SHARP_FRAMES[0]

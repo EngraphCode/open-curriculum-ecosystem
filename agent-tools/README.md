@@ -477,13 +477,13 @@ The Claude Code statusline is rendered by the built adapter
 Code passes on stdin and renders identity, coordination glyphs, model,
 context/usage percentages, and git location. Environment controls:
 
-- `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
+- `PRACTICE_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
   `braille-sharp-compact`, `braille`, `quad`, `sextant`, or `none`
   (hides the logo column; every present row still renders).
-- `OAK_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
+- `PRACTICE_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
   `reduce` (case-insensitive) to disable the logo animation cycle;
   other values leave motion on.
-- `OAK_STATUSLINE_LOG_FILE` — diagnosis logging: set to a path ending
+- `PRACTICE_STATUSLINE_LOG_FILE` — diagnosis logging: set to a path ending
   `.log` and the adapter appends one timestamped line per invocation
   carrying the stdin payload as received — terminal line breaks
   stripped, interior line breaks collapsed to spaces, every other
