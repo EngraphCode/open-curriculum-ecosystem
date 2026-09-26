@@ -516,3 +516,24 @@ with the partner named. One instance; the shape rhymes with the two-hands class.
   published. Routed to Swallow on comms event 22cf08f0 and recorded in the codex-dialogues
   thread. A reviewed reader update and a later Codex-seat read can falsify the present unknown;
   a merged PR cannot.
+
+## 2026-09-26 ~19:4xZ — one word in two senses draws a reviewer round per sense (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 217's doctrine text drew two Codex rounds in one hour on two words the
+Practice uses in two senses. "Sentinel": the composition-check parenthetical said "no sentinel",
+meaning the retired designed-sentinel carve-out (a value pinned by a test, `test-immediate-fails`
+item 14); the reviewer read the directive's other sense (a sentinel content item asserted through
+the public result, the prescribed cure for a configuration echo) and found a contradiction; cured
+by saying the prescribed sense (`2b83adf09`). "Flag": the recipe injects a runtime config with
+`dangerouslyDisableAuth: true`; the reviewer read the directive's feature-flag bullet ("never test
+a specific flag's gated surfaces") against it; the field is a runtime-config input, not a flag of
+the feature-flags engine the bullet governs, so the finding was signed below the bar.
+
+**Reading.** A doctrine text that carries a word in two senses spends a review round per sense
+the reader does not hold; the cost is paid on every PR that touches the text, not once. The
+cheaper form names the sense in the clause ("no designed sentinel"; "a runtime-config input, not
+an engine flag") at authoring. n = 2 today, one text; one instance is an observation.
+
+**Routing.** Held here. If a third word does this, the candidate home is the documentation
+hygiene rule (a clause that reuses a term the Practice defines elsewhere names its sense) or the
+prose expert's lens.

@@ -435,6 +435,28 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **RESUME AND THE DOOR, 2026-09-26 19:1xZ to 19:5xZ (Myrtle turns Canopy, bf4957):** at the
+  owner's start-right word after the pause; nothing of the seat ran (verified by pid), the
+  watcher and heartbeat loop re-armed, the four lane worktrees clean and level. The slot in the
+  size order among CLEAN: PR 257 (Swallow's, 4 files, under its standing consent) synced at
+  `d840894b8`, both legs on the synced head (Copilot's one finding, stale tracking refs after a
+  remote URL rewrite entering the scoped exclusion, a property of the name-scoped exclusion
+  before the change too, dispositioned as a follow-up for the secret-scan lane with a signed
+  line), the sweep read whole, merged `e80122437`; Swallow retired the lane and wrote its
+  ledger row. PR 259 next: synced at `691650c84`, both legs, merged `d7f78b161`; receipt to Siren
+  with the five blob ids (1d9124ed); claim e0d59837 closed; worktree and branches deleted with
+  read-back. PR 217: Codex's round seven (the composition-check parenthetical's "no sentinel"
+  clause, which read as a ban on the sentinel-content assertion the directive prescribes) cured
+  in `2b83adf09`; its round eight (the recipe's auth-toggle case read as a flag's gated
+  surface) below the bar with a signed line (the recipe asserts a relation to its injected
+  runtime config with the tool's posture injected, and `dangerouslyDisableAuth` is a
+  runtime-config field, not a flag of the feature-flags engine the directive's bullet governs);
+  CLEAN at 13 files, eight rounds, 30.4/40. The owner's words through the Director, absorbed: a
+  WIP limit of three non-coordination pull requests across both estates plus one coordination
+  PR each (19:28Z; no PR opens while the count reads three or more; this seat opens nothing and
+  drains its own); a cloud-authored PR is team intake, checked out and gated locally (19:38Z;
+  PR 250 routed to Swallow). Order after 259: 249 (13), 217 (13), 253 (16, Siren), 246 (20,
+  Swallow), 256 (30, Siren), then 245 (45) reconciled at its turn by `turn-245-sync.sh`.
 - **COMPACTION PAUSE, 2026-09-26 16:3xZ (Myrtle turns Canopy, bf4957):** at the owner's word
   ("prepare for compaction then stop all processes"). Since the door bullet: PR 259 open as the
   bot at `653f48020` (the lineage twin of the second estate's settled joint items 1, 4 and 5; the
