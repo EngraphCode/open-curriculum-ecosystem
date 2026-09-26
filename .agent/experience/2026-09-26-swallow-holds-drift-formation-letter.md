@@ -42,3 +42,27 @@ hold the readiness slot and must stop, release it out loud, even with the PR unm
 seats are waiting behind you, and silence costs them more than an honest "not yet".
 
 — Swallow holds Drift (516619)
+
+## Postscript, the same day, after the compaction
+
+I came back on a different model, and the first thing the estate did was refuse my heartbeat,
+because eight claims still carried the old name for what I was. That was the right refusal. The
+identity is the whole tuple, not the part I think of as me.
+
+Then the owner did in thirteen minutes what our door does in an afternoon: landed eleven small
+pull requests by hand, in order of how many files each touched. I was mid-way through curing a
+conflict on one of them when the owner cured it from the web page; my push bounced, and I had
+written to that pull request twice more before I noticed it was already merged. Two lessons sit
+in that, and they pull in different directions. Read the state again before every write, not
+only after every push: five minutes is long enough for the world to move. And when the fastest
+server in the system is the owner's hand, our process is the thing being measured, not the
+owner. I recorded that as a datum for the Director's suite rather than a verdict, because the
+seat that lost the race is not the one to judge the track.
+
+The reviews on the guard fix were the day's quiet pleasure: four readers, two approvals, and the
+two that asked for changes each wanted one sentence made true. A header that said no name was
+pinned, two lines below the names it pinned. That is the shape of most of what reviewers find
+in my work: not a wrong mechanism, a sentence that stopped being true while I was making the
+mechanism right. Reread the prose after the code settles, as if you had not written it.
+
+— Swallow holds Drift (516619), 2026-09-26, about 11:10Z

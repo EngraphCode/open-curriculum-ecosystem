@@ -82,6 +82,55 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **COMPACTION BOUNDARY 2 (about 11:20Z, 2026-09-26), at the owner's word "fold the coordination
+  branch, or let the Director do it, then prepare for compaction, and when it makes sense stop all
+  processes".** The Director was compacted at 11:04Z and handed this seat the fold of PR 223 (the
+  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold on the
+  coordination-fold skill; the successor branch's name is in the rotation broadcast on the stream,
+  and this record continues on that branch. Every claim below is read live before any act on
+  resume.
+  - **Landed today:** PR 241 as `fc645531c` (this seat, the Director's ruling); PR 211 as
+    `fae981877`, PR 247 and nine others by the owner's hand under the ruleset bypass.
+  - **Open, this seat's, each with both legs requested on its head:** PR 248 (one file, the
+    exec-binding node's two citations to research §2.11; branch `docs/codex-queue-probe-fix-pointers`
+    in Gale's worktree `oce-wt-codex-queue-probe-01a0d8`, which stays until 248 lands); PR 246
+    (ready; the four focused reviews' cures committed this hour: the guard header, the five hooks'
+    headers, the rule's opening and Enforcement, F-190 partially-addressed, the current-branch read
+    failing closed; worktree `oce-wt-branch-guard`); PR 244 (synced to engraph this hour; 14 files;
+    worktree `oce-wt-codex-rollout-inputs`). The door order among ready PRs is changed-file count
+    ascending; the owner lands small green PRs by hand when it suits ("don't block small green PRs
+    on manual, but do maintain a list", 11:00Z, relayed).
+  - **Claims at the boundary:** closed, since their PRs merged: `5e6dd23e`, `8a0f204e` (241),
+    `278e98ea` (247), `56f6f270` (211). Retained, one set per open PR: `de2e9f7a`, `8d0c0bbe`
+    (244); `d66f85da`, `56e5f0c5`, `8af60aaa` (246); and the claim opened for 248 at the boundary.
+  - **Deletions (the owner's word, ruling 8, this seat's own, as the bot with read-back, 11:1xZ):**
+    the six merged worktrees removed (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`,
+    `oce-wt-codex-wake-sink`, `oce-wt-codex-dialogue-probe`, `oce-wt-codex-wake-queue`,
+    `oce-wt-codex-seat-rules`), their six remote branches deleted (HTTP 204 each, read back
+    absent), their local branches deleted by merge check. REFUSED by the harness's permission gate,
+    not retried: the forced deletes of the capture branch `docs/codex-queue-probe-2026-09-25`
+    (`ae110f662`, never to leave the machine) and of this seat's redundant sync branch
+    `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`). Both stay for the owner's hand.
+  - **Records:** `59b6d95d6` (the resumption); the Parallax audit at
+    `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md`; the sweep event
+    `5cd19684`; the 11:05Z napkin entry rode Myrtle's `fc8745e5a`; the formation letter's postscript.
+  - **Next, in order (the Director's approved plan, 11:04Z):** 244 and 246 through the door at their
+    turns; 248; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
+    sync re-requests nothing; a code PR on the merge bot's readiness reading); then wake 2b and 2c,
+    todo 3, the exec-binding slices, and the landing toolkit (`merge-bot commit` first, to the
+    design in the boundary block below; its first PR also tracks the 38 exec-policy cases and their
+    runner, which today live only in PR 241's body). The JC.net twin of the guard fix goes through
+    Siren herds Rudder once 246 lands. The fourth membership measure (cold Codex start to first
+    landed PR) went to the Director for the wake-bridge node's owner.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` and `heartbeat-label.txt` (`comms send --tag heartbeat` with
+    `--claim-id`, `--intent-id codex-peer-wake`, `--branch`, `--current-cycle-label`, `--platform
+    claude --model claude-fable-5-1`, then `claims heartbeat` per claim, every 240 s); the comms
+    watcher (`comms watch --platform claude --model claude-fable-5-1 --supervisor-pid <this
+    session's Claude pid, read from the live shell> --step-timeout-ms 120000 --max-events-per-drain
+    100 --exclude-tag heartbeat`, under `timeout 3600`). The identity tuple is
+    claude / claude-fable-5-1 / 516619; a model switch needs `claims adopt` on every claim before
+    the first comms write.
 - **RESUMED (about 10:15Z, 2026-09-26) at the owner's team-start word, on claude-fable-5-1** (the
   owner's switch at the compaction; the eight claims were re-taken under the new tuple with
   `claims adopt`, since the comms route refused a mixed one). Monitors: watcher `bol8muoc2`,
@@ -110,6 +159,30 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - **The Director's slot rule (10:21Z):** CLEAN takes the slot; a BLOCKED holder yields; no
     heartbeat for 20 minutes frees it; after 241, age order among CLEAN non-drafts (217 first, the
     exchange seat's), and the live seat at the door lands the next CLEAN PR whatever its lane.
+  - **The owner's hand (10:35Z to 10:48Z), read from commit metadata and the Director's relay:** the
+    owner landed eleven pull requests under the ruleset bypass, among them PR 211 (`fae981877`,
+    10:41:59Z), PR 247 (the wake companion's 2b design) and PR 216. The Director's hold of 10:50Z
+    (no push to any PR or to the coordination branch) lifted at 10:55Z on the owner's "I have
+    finished landing PRs"; the owner's word of 11:00Z, as the Director relayed it: "don't block
+    small green PRs on manual, but do maintain a list so that when I ask you can give me links".
+    The new door order is changed-file count ascending among ready PRs: 221, 234, 224, 217, 244
+    (14 files), 238, 218, 245; PR 246 goes when its reviews run or a posted review stands in lieu.
+    The pointer fix `c7fdf7192` (the exec-binding node's two "§2.10" citations to §2.11, after the
+    owner's resolution renumbered PR 222's section) opens as a one-file docs PR as the bot.
+  - **Records of this resumption:** the records commit `59b6d95d6` (thread record, ledger, register,
+    napkin); the Parallax audit of the lane's findings at
+    `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md` (the landing model
+    at core depth: the wrappers' warrant is the model's fluent reach for a flag under friction, not
+    a boundary; the process and membership findings at screening depth, routed as evidence to the
+    Director's suite and as a fourth membership measure to the wake-bridge node's owner); the
+    knowledge-safety sweep event `5cd19684` on the stream, titled `KNOWLEDGE SAFETY SWEEP`.
+  - **Approved deletions (the owner's word, relayed by the Director at 10:50Z and 11:0xZ), to run as
+    the bot with read-back once the Director's plan event lands:** the six clean worktrees whose
+    tips are ancestors of engraph (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`,
+    `oce-wt-codex-wake-sink`, `oce-wt-codex-dialogue-probe`, `oce-wt-codex-wake-queue`,
+    `oce-wt-codex-seat-rules`), the merged local branches, and the private capture branch
+    `docs/codex-queue-probe-2026-09-25` at `ae110f662`, now that PR 211 is merged. Gale's worktree
+    `oce-wt-codex-queue-probe-01a0d8` stays until the pointer-fix PR lands.
   - **Next, in order:** PR 211's legs and door; PR 244 at its turn (sync if BEHIND, re-request
     Copilot, whose leg is on `62b2d41`; Codex is clean on `bf4ceb23e`); PR 246's four reviews when
     the weekly limit allows (it resets 2026-09-27 02:00 Europe/London), then ready and the door;
