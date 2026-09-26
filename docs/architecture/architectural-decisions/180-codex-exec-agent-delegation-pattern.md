@@ -20,6 +20,7 @@ dialogues always run against the latest CLI.
 the `codex-helper` skill and its adapters follow ADR-125 conventions;
 [ADR-178](178-agent-tools-build-isolation.md) — agent-tools build isolation;
 the `codex-exec` CLI topic follows the build/dist discipline established there.
+**Amended**: 2026-09-25, for the test doctrine intake (owner, 2026-09-24): the designed-sentinel carve-out is retired, so a test that pins a value by a sentinel is a defect under `test-immediate-fails` item 14 and belongs to the recovery lane; the decision this record makes stands, and the value it names is guaranteed by construction or a validator, never by a pinned test.
 
 ## Context
 
