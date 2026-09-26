@@ -1,6 +1,7 @@
-import { err, ok, type Result } from '@oaknational/result';
+import { ok, type Result } from '@oaknational/result';
 
-import { parseToolOutput, type JsonRecord } from './record-shapes.js';
+import { checkCodeModeOutput } from './code-mode-output.js';
+import type { JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState } from './reader-state.js';
 import {
   invalidRecord,
@@ -25,17 +26,11 @@ function readCustomToolOutput(
   if (!active.pendingCallIds.has(callId)) {
     return invalidTurnOrder(line, 'tool output has no matching custom tool call');
   }
-  const parsed = parseToolOutput(payload['output']);
-  if (parsed.kind === 'invalid') {
-    return invalidRecord(line, 'custom_tool_call_output.output has unknown shape');
-  }
-  if (parsed.kind === 'truncated') {
-    return err({ kind: 'truncated-output', line });
+  const wrapper = checkCodeModeOutput(payload['output']);
+  if (!wrapper.ok) {
+    return invalidRecord(line, wrapper.error);
   }
   active.pendingCallIds.delete(callId);
-  if (state.turns.length === 2) {
-    state.outputTexts.push(...parsed.outputs);
-  }
   return ok(undefined);
 }
 

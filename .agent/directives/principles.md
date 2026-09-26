@@ -477,6 +477,11 @@ this way produces cleaner boundaries and simpler classification.
   of responsibility, keeping boundaries and public API clear with
   index.ts files, using TDD. Run lint after every substantive edit
   to catch violations early.
+  The limits exist to "enforce thoughtful code design and clear
+  public APIs and proper encapsulation, not to ask if the bucket
+  has enough room left" (owner, 2026-09-24): a module's room under
+  its limit is never the question, where the responsibility
+  belongs is.
 - **Never trim documentation to fit a limit** — size and complexity
   limits exist for developer experience, and documentation IS
   developer experience; a file over its limit is a signal of an

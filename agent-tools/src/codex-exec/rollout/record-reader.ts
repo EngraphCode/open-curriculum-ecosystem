@@ -70,7 +70,7 @@ function readCommandExecution(
     return invalidTurnOrder(line, 'CommandExecution has no matching active context');
   }
   if (state.turns.length === 2) {
-    state.outputTexts.push(output);
+    state.commandOutputs.push(output);
   }
   return ok(undefined);
 }

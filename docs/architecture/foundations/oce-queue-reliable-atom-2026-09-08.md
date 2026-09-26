@@ -3,18 +3,24 @@ boundary: B2-Architecture
 doc_role: reference
 authority: oce-queue-reliable-atom-specification
 status: active
-last_reviewed: 2026-09-09
+last_reviewed: 2026-09-25
 ---
 
-# OCE queue Reliable Atom
+# OCE stable priority queue Component
 
-8 September 2026 · revision 3 · working design and acceptance specification
+25 September 2026 · revision 4 · working design and acceptance specification
 
 **Purpose:** specify one small, self-contained stable priority queue with a complete behavioural contract and a clear qualification boundary. Its implementation will be authored in the estate, informed by openly licensed references under the [governing development policy](algorithms-and-data-structures-governance-2026-09-08.md).
 
 **Status:** the shared quality requirements are mandatory. The concrete key, API and bound decisions below are **working design choices**, closed for this design baseline and revisable on stated evidence; they are not additional owner mandates. The implementation-origin policy is owner-established; mechanism design and qualification have their own evidence requirements. No queue implementation, executable examples, tests, mutation campaign, benchmark or repository gate is reported as completed here.
 
-The [Reliable Atoms and composition architecture](reliable-atoms-and-composition-architecture-2026-09-08.md) is the normative home for R01–R10, C01–C08, common assurance, documentation and complexity requirements. This document owns queue-specific semantics, acceptance evidence and provenance. [Worked examples](reliable-atoms-worked-examples-2026-09-08.md) illustrate this contract and separately defined compositions; they do not add hidden queue requirements.
+The [Capability Foundations and composition architecture](reliable-atoms-and-composition-architecture-2026-09-08.md) is the normative home for R01–R10, C01–C08, common assurance, documentation and complexity requirements. This document owns queue-specific semantics, acceptance evidence and provenance. [Worked examples](reliable-atoms-worked-examples-2026-09-08.md) illustrate this contract and separately defined compositions; they do not add hidden queue requirements.
+
+This is a **Component/Facility**: it composes heap behaviour, captured numeric
+priority and stable-tie policy, and imports canonical Result. The
+[adoption profile](capability-foundations-adoption.md) owns the preceding
+geometry-to-heap contract; this queue is a later scope. Its concrete behavioural
+laws below remain the candidate contract, not a claim of Primitive independence.
 
 ## 1. Responsibility and design rationale
 
@@ -22,11 +28,11 @@ The [Reliable Atoms and composition architecture](reliable-atoms-and-composition
 
 A successfully enqueued occurrence consists conceptually of a captured priority, a payload and a private arrival ordinal. Equal priorities and repeated references to the same payload remain distinct occurrences. This is a stable priority queue; a plain FIFO queue orders all occurrences by arrival and is a distinct responsibility. Assigning one priority to every occurrence produces FIFO behaviour within this queue's bounds, but does not establish the priority capability is needed by every FIFO consumer.
 
-The selected responsibility uses **finite primitive JavaScript numbers**, captured by value, with minimum priority first. This working choice makes priority meaning and ordering cost explicit. Domain scoring belongs to a separately specified composition; the atom owns captured scalar ordering and occurrence preservation.
+The selected responsibility uses **finite primitive JavaScript numbers**, captured by value, with minimum priority first. This working choice makes priority meaning and ordering cost explicit. Domain scoring belongs to a separately specified composition; the capability owns captured scalar ordering and occurrence preservation.
 
 Domain code establishes what a priority means and whether its numerical precision is appropriate. The queue orders the actual supplied binary64 values; it cannot recover distinctions already lost while calculating a score. It admits finite fractions, negative values, subnormal values and magnitudes outside the safe-integer range as priorities. Safe-integer restrictions apply separately to capacity and ordinals.
 
-A demonstrated need for lexicographic keys, exact integers beyond number precision, a different equality/order domain, or priorities not faithfully representable as finite numbers reopens the key-domain decision. Such a need earns a separately specified responsibility or a deliberate replacement contract with the same assurance bar. There is no comparator option, generic fallback or compatibility branch in this atom.
+A demonstrated need for lexicographic keys, exact integers beyond number precision, a different equality/order domain, or priorities not faithfully representable as finite numbers reopens the key-domain decision. Such a need earns a separately specified responsibility or a deliberate replacement contract with the same assurance bar. There is no comparator option, generic fallback or compatibility branch in this capability.
 
 The queue is synchronous and private to one instance. It owns ordering metadata and storage; it performs no I/O, scheduling, scoring, persistence, retries, cancellation, logging or deduplication. A binary min-heap is the candidate mechanism, with private representation.
 
