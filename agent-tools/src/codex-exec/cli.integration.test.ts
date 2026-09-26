@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import { runCodexExecCli } from './cli.js';
+import {
+  commandItems,
+  execRecords,
+  turnStarts,
+} from './command-records/test-helpers/seat-fixtures.js';
+import { lines, object } from './rollout/test-helpers/rollout-records.js';
 import { makeIo } from './test-helpers/cli-io.js';
 
 /**
@@ -73,12 +79,82 @@ describe('runCodexExecCli — last-message', () => {
   });
 });
 
+describe('runCodexExecCli — command-records', () => {
+  it('summarises a seat rollout as text, naming its turn', async () => {
+    const records = execRecords();
+    const [start] = turnStarts(records);
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: [], ...io });
+    expect(code).toBe(0);
+    expect(io.stdoutText).toContain('command records:');
+    expect(io.stdoutText).toContain(String(start?.payload['turn_id']));
+  });
+
+  it('summarises as JSON when --format json is set', async () => {
+    const records = execRecords();
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({
+      command: 'command-records',
+      args: ['--format', 'json'],
+      ...io,
+    });
+    expect(code).toBe(0);
+    expect(JSON.parse(io.stdoutText)).toMatchObject({ turns: turnStarts(records).length });
+  });
+
+  it('exits 0 on an empty rollout without --strict', async () => {
+    const io = makeIo([]);
+    const code = await runCodexExecCli({ command: 'command-records', args: [], ...io });
+    expect(code).toBe(0);
+    expect(io.stdoutText).toContain('0 turn(s)');
+  });
+
+  it('exits 1 under --strict when no turn started, with the summary still on stdout', async () => {
+    const io = makeIo([]);
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stdoutText).toContain('command records:');
+    expect(io.stderrText).toContain('no turn started');
+  });
+
+  it('exits 1 under --strict when a line could not be read', async () => {
+    const records = execRecords();
+    const io = makeIo([...lines(records), '{bad json']);
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stderrText).toContain('1 invalid line(s)');
+  });
+
+  it('exits 1 under --strict when an evidence record could not be read', async () => {
+    const records = execRecords();
+    const [first] = commandItems(records);
+    object(first?.payload['item'])['status'] = 'nonce-2b90';
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stderrText).toContain('1 malformed evidence record(s)');
+    expect(io.stderrText).not.toContain('nonce-2b90');
+  });
+
+  it('exits 2 when --format has an invalid value', async () => {
+    const io = makeIo(lines(execRecords()));
+    const code = await runCodexExecCli({
+      command: 'command-records',
+      args: ['--format', 'yaml'],
+      ...io,
+    });
+    expect(code).toBe(2);
+    expect(io.stderrText).toContain('--format must be text or json, got: yaml');
+  });
+});
+
 describe('runCodexExecCli — help and errors', () => {
-  it('prints usage for the help command', async () => {
+  it('prints usage naming both commands', async () => {
     const io = makeIo();
     const code = await runCodexExecCli({ command: 'help', args: [], ...io });
     expect(code).toBe(0);
     expect(io.stdoutText).toContain('last-message');
+    expect(io.stdoutText).toContain('command-records');
   });
 
   it('prints usage and exits 0 when command is undefined', async () => {
