@@ -13,7 +13,7 @@ import {
  * Production-shaped smoke for the secrets-scan entries that `.claude/settings.json`
  * registers through the hook-error wrapper (`.claude/hooks/_lib/log-hook-errors.sh`):
  * the `PreToolUse` `Read` entry and the `UserPromptSubmit` entry. Each case runs
- * the registered command through `/bin/sh -c`, as the harness does, in a
+ * the registered command through the trusted shell's `-c`, as the harness does, in a
  * throwaway project whose name holds a space, fed a harness-shaped payload,
  * with a stub `sonar` first on `PATH`.
  *
@@ -34,7 +34,7 @@ import {
  * logged no failure.
  *
  * Not proven here: the real scanner, and a harness that pastes the project
- * path into the command text before the shell runs (`/bin/sh -c` here
+ * path into the command text before the shell runs (the trusted shell's `-c` here
  * expands the variable).
  */
 
