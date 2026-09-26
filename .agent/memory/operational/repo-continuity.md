@@ -435,6 +435,21 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
+  PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
+  synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule
+  (Copilot: the rule's triggers are the cut and session-open while the Director's check-ins are
+  the practised reader of the DUE clock; Codex: reading the cut time from the first own commit
+  can only run late, so the rotation broadcast's created_at is the source), both signed as routed
+  to the exchange under the PR's review focus and accepted by Siren onto the second estate's owed
+  list (20:14Z; the cure lands in the first copy, its twin follows); merged `527eb969c`; receipt
+  ecbed367 with thirteen blob ids; claim 5db88c58 closed; worktree and branches deleted with
+  read-back; 3 rounds, 7.07/40. PR 217 (the test-doctrine intake, 13 files) synced at
+  `c8c43bf2c`, both legs, merged `320c146ea`; receipt 585bfc9e; claims a63a7df8 and 7472b49c
+  closed; worktree and branches deleted with read-back; 9 rounds, 30.4/40, the intake's
+  one follow-up (ADRs 078, 141, 180 and 229 and the "pre-invariant" wording outside this PR's
+  claim) still owed, no PR under the WIP limit. Open of this seat's: 245 alone (45 files, DIRTY;
+  its reconcile scripted, at its turn after 253, 246 and 256). Records `b9f7c43e4` at 20:03Z.
 - **RESUME AND THE DOOR, 2026-09-26 19:1xZ to 19:5xZ (Myrtle turns Canopy, bf4957):** at the
   owner's start-right word after the pause; nothing of the seat ran (verified by pid), the
   watcher and heartbeat loop re-armed, the four lane worktrees clean and level. The slot in the
