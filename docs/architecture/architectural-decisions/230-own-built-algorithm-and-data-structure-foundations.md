@@ -85,8 +85,10 @@ concerns; this ADR owns the repository's decision to follow that policy.
   this implementation-origin policy. Reusable graph foundations may support
   several models; their integration into an existing stack must preserve that
   stack's declared semantic and source-authority contracts.
-- Workspaces that hold Reliable Atoms form a declared class (owner direction,
-  2026-09-14) whose internal shape is budgeted stricter than the rest of the
+- Workspaces that hold Capability Foundations form a declared class,
+  `workspaceClass: capability-foundations` (owner direction, 2026-09-14; the
+  Reliable Atoms programme is the work's historical name), whose internal
+  shape is budgeted stricter than the rest of the
   estate: directory cardinality by a blocking repository validator, and the
   length, complexity and clarity budgets at the class's own lint tier,
   compiler profile and assurance thresholds. ADR-166 §Amendment 2026-09-14
