@@ -4127,6 +4127,13 @@ commit SHA and the closing plan reference.
   push` and, later, `gh api … -F body=@file` was refused as `git push -f`; the matcher reads the
   uppercase `-F` as the flag too, case-folded. The substitution is the push and the replies on
   separate command lines, and `--field` in place of `-F` where a line must also say push.
+  A ninth (2026-09-26 15:03Z, Swallow holds Drift, `516619`), twice in five minutes: a heredoc
+  writing a TypeScript file whose warning text said "git remote add <name> <url>, then git push
+  <name>) to restore the destination-scoped range" was refused as `git restore`, the
+  worktree-destruction class, and the register entry describing that refusal was refused the same
+  way; the words `git` and `restore` on one line of prose are enough. The substitution is the
+  Write and Edit tools for any file content that speaks of git, and prose that keeps the two words
+  apart.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 

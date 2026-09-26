@@ -82,6 +82,71 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **RESUMED (about 14:43Z, 2026-09-26) at the owner's start-right word, after compaction 3.** Read
+  live first: nothing had moved on the stream or the open list during the pause (the other seats'
+  pause events only). Then, in the boundary block's order: the gate notice (`0cba1754`), records
+  `0598b952f` pushed from the primary through `merge-bot push` at 14:46Z (remote and local level),
+  the watcher and the 240 s heartbeat over the three retained claims re-armed and asserted live.
+  - **The owner's word at about 14:47Z: "Phobos wakes Void (01a0de) is your Codex partner."**
+    Phobos is a Codex seat (GPT-5 tuple) in claimless standby (team start `7971fef0`, 14:44Z;
+    bootstrap ready `14:50Z`). The pairing is on the stream as `f7e07e3c`; the dialogue lane is the
+    ARC channel `.agent/collaboration/rapid-comms/2026-09-26-codex-dialogues-swallow-holds-drift-and-phobos-wakes-void.md`
+    (a Codex seat has no s2s; each entry is nudged by a stream event). Proposed split, open for
+    Phobos's answer: Phobos takes the DEGRADED-scan cure in `merge-bot push` as its one directed
+    slice, landing through `merge-bot push` with no prompt, which is condition 5's live proof for
+    PR 241's rules; this seat keeps the door work and runs the reviews Phobos's seat cannot.
+  - **Team shape at 14:51Z:** Myrtle (resumed 14:49Z, drives 251 then 221 after its 245 and 217
+    threads), Siren (resumed 14:51Z, live not paused, keeps 252 at its turn after 251), the
+    Director (busy), Phobos (standby, paired with this seat). Door order by changed files: 251,
+    252, 221, then 246 (this seat), 249, 217; 245 DIRTY; 250 the owner's draft. The slot
+    coordination went to Myrtle by s2s (an offer to run 251's door with consent; default, Myrtle
+    takes it). This seat's door is PR 246 only, after 221; its state read live at 14:52Z: head
+    `aba19edb7`, BEHIND, CI green, the same three threads unresolved, both legs on that head.
+  - **The DEGRADED-scan cure, this seat's, built 14:57Z to 15:15Z** in worktree `oce-wt-scan-scope`
+    (branch `fix/secret-scan-scopes-remote-url-destinations` from engraph `43eb62a55`), claim
+    `25181dfb` (its predecessor `744e4997` was closed by mistake on a ruling the Director had
+    withdrawn twenty-seven seconds earlier; napkin 14:5xZ). Shape, from the pre-execution review
+    (code-expert REVISE, three points folded): the cure lives in the scan, not the push.
+    `configuredRemotes` carries each remote's FETCH URLs (`git remote get-url --all`); a destination
+    URL scopes to every remote that fetches from the repository it names, by `parseGitRemoteUrl`
+    (host, owner, name, case aside), the exclusion accumulating (`--not --remotes=a --remotes=b`);
+    a path or unknown repository stays unscoped and warns. Post-execution: code-expert REVISE on
+    three wording truths (folded), test-expert REVISE on one host-discriminating fixture (added);
+    19 unit tests, prettier, eslint, tsc green. Phobos's P3 (PR 255, one file, head `58581b72c`)
+    pushed through `merge-bot push` with no prompt at 15:0xZ: condition 5's first datum.
+  - **Condition 5 closed by its first clean landing (15:38:20Z).** Phobos wakes Void (01a0de), a
+    Codex seat under PR 241's rules, took PR 255 (the ADR-204 amendment, one file) from an
+    isolated worktree through commit, `merge-bot push` (exit 0, pre-push gates green), a bot-opened
+    PR, both legs, one sync push, a Codex finding disposed with evidence and a signed line, and
+    `merge-bot merge` with both expected legs, to the merge `af49326dd`, the remote branch deleted
+    and read back absent, with no owner prompt at any step (the Director's routing said STOP and
+    post the prompt's text; none was posted). The parallax report's world-return contract asked for
+    the rollout's command records read by PR 244's reader as the second indicator; that datum is
+    asked of Phobos on the ARC channel. This seat's PR 257 (the DEGRADED-scan cure, 4 files, head
+    `18df9cfc0`) is open with CI green and Copilot's round one (one finding, on the fetch-URL read).
+    Phobos closed out at 15:41Z before the ask; the command-record datum waits for the owner's own
+    Codex seat. The Director's check-in 28 (15:48Z): goal two's remaining Codex items stay with
+    this lane unless the owner starts a Codex seat with a longer brief (an owner-card question).
+  - **PR 257, round one (15:24Z to 15:50Z):** Codex clean; Copilot's one finding accepted (git
+    fetches from the first `remote.<name>.url` only, so `get-url --all` over-matched); cured in
+    `b93e59971` as settlement 1 of 2 (`ConfiguredRemote.fetchUrl: string | undefined`, read by
+    `git remote get-url <name>`; one unit case for the unreadable branch; a focused code-expert pass
+    APPROVED before the push); signed reply, thread resolved, body's dispositions, both legs
+    re-requested at 15:51Z. Both of its pushes scanned without a DEGRADED line.
+  - **PR 246, settlement 1 of 2 (15:55Z):** the cure `75c655504` pushed from `oce-wt-branch-guard`
+    (the Director's order lists 246 as joining the ready list when its threads and the cure push
+    settle, so the cure went up before the turn); the three replies posted with the signed line
+    (`4111905017`, `4111905100`, `4111905172`), the three threads resolved, the description's
+    round-one block, both legs re-requested at 15:59Z. The sync merge waits for its slot turn.
+  - **Check-in 28 deletions, done 15:5xZ with read-back (`25ee2511`):** local merged
+    `feat/codex-rollout-reader-verdict-inputs` (`-d`); remote `claude/objective-nightingale-b4ba25`
+    (its one eight-line runner quoted in the event) and remote `docs/codex-queue-probe-2026-09-25`
+    (0 beyond engraph) deleted as the bot. Left for the owner's hand, unmerged and unforced: the
+    local `claude/objective-nightingale-b4ba25`, the local `docs/codex-queue-probe-2026-09-25`
+    (`ae110f662`, the private capture) and `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`,
+    assessed: Gale's ordering of §2.10 and §2.11 against the owner's resolution; nothing wanted).
+  - **Door order at 15:58Z:** 221 (Myrtle, at the slot), then 217, 249, 253, 256; 258 and 257 join
+    at the front when their legs settle; 246 when its legs settle.
 - **COMPACTION BOUNDARY 3 (about 13:15Z, 2026-09-26), at the owner's word "prepare for compaction, and
   then stop all processes".** The seat stopped its monitors, its heartbeat, the door poll and its idle
   review agents; nothing of this seat's runs. Every claim below is read live before any act on resume.

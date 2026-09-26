@@ -441,3 +441,14 @@ event's timestamp. **What worked:** the seat's own hook policy discipline of one
 command line meant the destructive step (removing the worktree) was still pending when the
 withdrawal arrived; the slow path saved the work. Second instance of the read-then-write class
 on this seat today; a rule proposal waits for a third seat's instance.
+
+## 2026-09-26 ~15:16Z — a push gate started against a fresh reading it did not use (Swallow holds Drift, 516619)
+
+The rule is a host gate below two before a gate starts. A background wait loop had exited on
+"below two" at 15:13Z; the commit gate then ran for two minutes; the push command printed the
+host gate as two and pushed anyway, because the read and the push sat on one unconditional
+command line. The gates ran three-wide for the pre-push's first minute. Nothing failed, which is
+the reason to write it down: the rule protects the host from load the seat cannot see, and a
+reading printed for a human to act on is not a reading acted on. **Cure applied from here:** the
+push line is conditional on its own read (`[ "$(count)" -lt 2 ] && push`), and the wait loop is
+re-run immediately before the push, not before the commit that precedes it.
