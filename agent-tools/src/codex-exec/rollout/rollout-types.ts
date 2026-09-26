@@ -1,6 +1,6 @@
 import { err, type Result } from '@oaknational/result';
 
-import type { ThreadId } from '../envelope.js';
+import type { ThreadId } from '../../core/codex-thread-id.js';
 import type { RecordedTurnContext } from './record-shapes.js';
 
 /** Harness evidence needed by the probe's policy and output verdicts. */

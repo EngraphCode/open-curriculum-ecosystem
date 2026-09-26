@@ -126,6 +126,11 @@ it was (our validation was adjudicating an external system, which
 `testing-strategy.md` already forbade). A queue item that defends itself in
 jargon is the self-signal (`no-hedging-vocabulary`).
 
+At an elaboration boundary, restate what a proxy stands for before acting on
+the proxy: a lane name read as one hierarchy of two use cases, a line limit
+read as a question of room, and a count sent before its returns were in were
+one generator (owner-corrected twice, 2026-09-24).
+
 ## Companion Discipline
 
 This rule pairs with `principles.md` §Architectural Excellence Over

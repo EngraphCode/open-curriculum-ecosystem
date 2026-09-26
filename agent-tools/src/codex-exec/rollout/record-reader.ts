@@ -1,6 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parseThreadId } from '../envelope.js';
+import { parseThreadId } from '../../core/codex-thread-id.js';
 import { hasTruncationMarker, isRecord, type JsonRecord } from './record-shapes.js';
 import { activeTurnWithContext, type ReaderState, type TurnState } from './reader-state.js';
 import { readContext, readThreadSettings } from './context-reader.js';

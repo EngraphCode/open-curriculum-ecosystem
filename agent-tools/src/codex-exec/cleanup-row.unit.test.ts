@@ -2,7 +2,7 @@ import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { parseDialogueId, threadsCreated, unwrittenRows } from './cleanup-row.js';
-import { parseThreadId, type ThreadId } from './envelope.js';
+import { parseThreadId, type ThreadId } from '../core/codex-thread-id.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';

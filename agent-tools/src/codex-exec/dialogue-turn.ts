@@ -1,5 +1,6 @@
 import { err, type Result } from '@oaknational/result';
 
+import type { ThreadId } from '../core/codex-thread-id.js';
 import {
   appendCleanupRows,
   threadsCreated,
@@ -13,7 +14,6 @@ import {
   buildResumeArgv,
   type ChildEnv,
   type ChildEnvInputs,
-  type ThreadId,
 } from './envelope.js';
 import type { ResolvedBinary } from './gate.js';
 import type { ModelPins } from './model-pins.js';
