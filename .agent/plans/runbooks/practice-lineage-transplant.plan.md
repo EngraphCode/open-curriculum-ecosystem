@@ -64,8 +64,9 @@ Each item is checkable; the check is named.
    edited since, the host's file is byte-equal to the candidate's — a
    candidate that fails this on many paths is the wrong date. The ancestor
    SHA goes in the manifest; every count in step 1 is measured against it.
-3. **A tagged pre-state.** `git tag transplant/pre-<date>` on the host.
-   Check: the tag exists. Corrections are a corrective pass, never a
+3. **A tagged pre-state.** `git tag transplant/pre-<UTC timestamp>-<short
+   HEAD>` on the host, unique to this run. Check: the tag resolves to the
+   host's HEAD before step 1. Corrections are a corrective pass, never a
    rollback (PDR-005), but the tag makes every audit possible post hoc.
 4. **A clean host tree and a claim.** Check: `git status --short` is empty;
    the transplanting seat's claim names the machinery areas; any other live
@@ -95,8 +96,9 @@ taking one word, declines by item number.
    reference, prompts, executive memory, agent-tools). Record the counts in
    the manifest. This number sizes every later step; a transplant whose
    size is unknown is planned by guess.
-2. **Classify every machinery path three ways** (`agent`, `transplant
-   classify`). Given ancestor, pin and host: **unchanged-in-host** (host
+2. **Classify every machinery path by a three-way comparison** (`agent`,
+   `transplant classify`). Given ancestor, pin and host, each path takes
+   exactly one of five classes: **unchanged-in-host** (host
    equals ancestor: mechanical overwrite from the pin); **theirs-only**
    (new upstream: subject to the drop verdicts); **ours-only** (host-local:
    keep, untouched); **both-changed** (judgement); **upstream-deleted**
@@ -124,13 +126,15 @@ taking one word, declines by item number.
    found the record and the scripts disagreed), and surface the choice as one
    ruling; never keep both conventions side by side, because every
    transplanted skill cites the lineage's names and an alias doubles the
-   citations. Then overwrite unchanged-in-host from
-   the pin; add theirs-only after the drop verdicts; run the org scrub
-   (scope and org name are a `sed`; product-shaped references are excised
-   or judged one by one — rename when the import target exists on the host,
-   excise the importer when it does not, and match import syntax, print the
-   list, then delete); renumber collisions; never rewrite records (napkin,
-   experience, archived plans keep old names).
+   citations. Then apply step 3's renumbering before any copy, moving every
+   reference to a renumbered record in the same change (PDR-049). Then
+   overwrite unchanged-in-host from the pin; add theirs-only after the drop
+   verdicts; run the org scrub (scope and org name are a `sed`;
+   product-shaped references are excised or judged one by one — rename when
+   the import target exists on the host, excise the importer when it does
+   not, and match import syntax, print the list, then delete). The scrub
+   never rewrites records: napkin, experience and archived plans keep their
+   old names.
 6. **Merge the judgement set at content grain** (`agent`). Directives first
    (source structure, host sections at role positions); then rules, triaged
    from the per-rule digest (`transplant digest`: frontmatter, headings,
@@ -159,10 +163,15 @@ taking one word, declines by item number.
    preference. A link whose target is a lineage-only record or surface is
    removed, never re-pointed; a record number that survived the copy is
    checked by title at its target before it is kept.
-10. **Run every root script once** (`agent`). Keep a script when a consumer
-    exists on the host (a hook, a gate, a skill that cites it, a platform in
-    use); retire it when its subject is an upstream artefact, a vendor
-    account the host does not hold, or a product surface.
+10. **Exercise every root script once, reading before running** (`agent`).
+    Read each script's definition first. A script whose effect goes beyond
+    a check is judged from its definition and never run: one that
+    publishes, deploys or releases; writes to a remote or a vendor account;
+    installs, deletes or rewrites files; or starts a long-lived process.
+    Every other script runs once. Keep a script when a consumer exists on
+    the host (a hook, a gate, a skill that cites it, a platform in use);
+    retire it when its subject is an upstream artefact, a vendor account
+    the host does not hold, or a product surface.
 11. **Home the docs layer by role** (`agent`, PDR-014): doctrine into
     directives, recipes and host guides into reference, contracts into
     executive memory, developer narrative into `docs/`; never as a
@@ -203,13 +212,14 @@ the session's transcript at close, which must be zero.
 
 ## Rollback
 
-Steps 5 to 11 change shared state; every one is reversible from the
-pre-state tag and the pinned source (`git show <pin>:<path>` restores any
-drop). The corrective pass is the PDR-005 default: correct forward on the
-manifest, never reset the branch. Step 7 has a specific recovery: if the
-guard locks the session out, restore the policy file with a tool the
-matchers do not name, then re-run the sequence in order. Records written in
-step 12 are never rolled back.
+Steps 5 to 11 change shared state; every one is reversible per path from
+the pre-state tag and the pinned source: `git show <pre-state tag>:<path>`
+restores any host file, and `git -C <source-checkout> show <pin>:<path>`
+restores any drop. The corrective pass is the PDR-005 default: correct
+forward on the manifest, never reset the branch. Step 7 has a specific
+recovery: if the guard locks the session out, restore the policy file with
+a tool the matchers do not name, then re-run the sequence in order. Records
+written in step 12 are never rolled back.
 
 ## Measured per instance
 
