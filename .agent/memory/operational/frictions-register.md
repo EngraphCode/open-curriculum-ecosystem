@@ -4110,7 +4110,11 @@ commit SHA and the closing plan reference.
   on a process lookup (`pgrep -f`), each refused as a forced push (Myrtle turns Canopy,
   `bf4957`). The matcher pairs the word with any later bare `-f` token in the command,
   whatever its host; the substitution is a script file for the edit and no bare `-f`
-  after the word.
+  after the word. The fifth and sixth on 2026-09-26 at about 10:36Z (Swallow holds Drift,
+  `516619`): a `git add -- "$F"` was refused as `git add -A` when a `cat -A` sat later on the
+  same command line, and as `git add .` when a `git diff … -- .` did; the matcher pairs the
+  staging verb with any later `-A` or bare `.` token in the command. The substitution is one git
+  write per command line, with neither token beside it.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 

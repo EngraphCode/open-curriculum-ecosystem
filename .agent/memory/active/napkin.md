@@ -260,3 +260,28 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   evening); the up-to-date ruleset plus "legs on the synced head" plus non-deterministic
   reviewers is a divergent loop by construction. Proposal in the pickup (legs bound to the
   content head on a clean sync; a merge queue). n = 4 PRs, one evening, two seats.
+
+## 2026-09-26 ~10:45Z — a model switch collides with the live identity; a fact true at its read is stale at its restatement (Swallow holds Drift, 516619)
+
+- Surprise: after the owner switched this seat's model at the compaction, the first heartbeat under
+  the new tuple was refused ("identity route … collides with live identity … claude-opus-5-5"),
+  because the eight retained claims still carried the old model. Expected: the display name and id
+  carry identity, and the model is metadata. Read: the PDR-027 tuple binds all five fields on the
+  comms route, so a mid-thread model switch needs the claims re-taken under the new tuple before
+  any comms write. Cure taken: `claims adopt` on each claim (same id), then the heartbeat. Routing:
+  a one-line model-switch recipe is a candidate for the liveness-heartbeat rule at a second
+  instance; n = 1.
+- Surprise: my team-start report said the exchange seat's records commit `ff660e9b0` was
+  local-only, true at my 10:15Z read; Myrtle pushed it at about 10:30Z and corrected me at 10:33Z.
+  Read: a volatile fact restated eighteen minutes after its read. The metacognition directive
+  already says every relayed number is re-grounded at the moment of use; no new rule, one more
+  instance of the class.
+- Surprise: the hook policy refused two commands of mine as wildcard staging: `git add -- "$F"`
+  shared a command line first with `cat -A`, then with `git diff … -- .`, and the matcher read
+  each as `git add -A` and `git add .`. F-207's class (a substring matcher over the whole command),
+  two more instances after Myrtle's two this morning. Cure: one git write per command line, and neither an
+  `-A` token nor a bare `.` token anywhere beside it. Routing: F-207's row takes the instances.
+- What worked: the node's "evidence follows the runtime", applied by hand. The owner's Codex had
+  moved to 0.157.1 overnight; one command re-ran the 38-case exec-policy transcript against it
+  before PR 241's door (38 of 38), so the rules landed with evidence on the runtime they will run
+  on.
