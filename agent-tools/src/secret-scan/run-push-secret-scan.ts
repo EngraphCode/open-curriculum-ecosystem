@@ -51,18 +51,23 @@ function readConfiguredRemotes(): ConfiguredRemote[] {
     // nothing while reporting success.
     return [];
   }
-  return listedLines(names.stdout).map((name) => ({ name, urls: readFetchUrls(git, name) }));
+  return listedLines(names.stdout).map((name) => ({ name, fetchUrl: readFetchUrl(git, name) }));
 }
 
 /**
- * A remote's fetch URLs, `insteadOf` applied, as `git remote get-url --all`
- * prints them. A read that fails leaves the remote scopable by its name only,
- * never by a URL — again the direction that widens the scan rather than
- * narrowing it on a guess.
+ * The one URL a remote fetches from, `insteadOf` applied, as
+ * `git remote get-url <name>` prints it: the first `remote.<name>.url`. Not
+ * `--all`, whose further entries are push targets that populate no tracking
+ * ref, and not `--push`. A read that fails leaves the remote scopable by its
+ * name only, never by a URL — again the direction that widens the scan rather
+ * than narrowing it on a guess.
  */
-function readFetchUrls(git: string, name: string): string[] {
-  const result = spawnSync(git, ['remote', 'get-url', '--all', name], { encoding: 'utf8' });
-  return result.error !== undefined || result.status !== 0 ? [] : listedLines(result.stdout);
+function readFetchUrl(git: string, name: string): string | undefined {
+  const result = spawnSync(git, ['remote', 'get-url', name], { encoding: 'utf8' });
+  if (result.error !== undefined || result.status !== 0) {
+    return undefined;
+  }
+  return listedLines(result.stdout)[0];
 }
 
 /**

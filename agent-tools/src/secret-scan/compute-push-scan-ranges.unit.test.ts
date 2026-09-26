@@ -4,9 +4,9 @@ import { computePushScanRanges, type ConfiguredRemote } from './compute-push-sca
 
 /**
  * The repository's configured remotes, as `git remote` lists them, each with
- * the fetch URLs `git remote get-url --all` prints for it.
+ * the one URL it fetches from as `git remote get-url` prints it.
  */
-const ORIGIN: ConfiguredRemote = { name: 'origin', urls: ['https://github.com/acme/gizmos.git'] };
+const ORIGIN: ConfiguredRemote = { name: 'origin', fetchUrl: 'https://github.com/acme/gizmos.git' };
 const CONFIGURED: readonly ConfiguredRemote[] = [ORIGIN];
 
 const ZERO = '0'.repeat(40);
@@ -67,7 +67,10 @@ describe('computePushScanRanges', () => {
 
   it("scopes to every remote that fetches from the destination's repository", () => {
     const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
-    const mirror: ConfiguredRemote = { name: 'mirror', urls: ['ssh://git@github.com/acme/gizmos'] };
+    const mirror: ConfiguredRemote = {
+      name: 'mirror',
+      fetchUrl: 'ssh://git@github.com/acme/gizmos',
+    };
     expect(
       computePushScanRanges({
         refsText,
@@ -83,7 +86,7 @@ describe('computePushScanRanges', () => {
     const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
     const elsewhere: ConfiguredRemote = {
       name: 'elsewhere',
-      urls: ['https://gitlab.example/acme/gizmos.git'],
+      fetchUrl: 'https://gitlab.example/acme/gizmos.git',
     };
     expect(
       computePushScanRanges({
@@ -92,6 +95,23 @@ describe('computePushScanRanges', () => {
         configuredRemotes: [elsewhere],
       }),
     ).toStrictEqual([`${LOCAL} --not --remotes`]);
+  });
+
+  // A remote whose fetch URL git could not report still scopes by its name,
+  // and never by a URL: nothing says what its tracking refs hold.
+  it('does not scope a URL through a remote whose fetch URL is unknown', () => {
+    const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
+    const unread: ConfiguredRemote = { name: 'origin', fetchUrl: undefined };
+    expect(
+      computePushScanRanges({
+        refsText,
+        remoteName: 'https://github.com/acme/gizmos.git',
+        configuredRemotes: [unread],
+      }),
+    ).toStrictEqual([`${LOCAL} --not --remotes`]);
+    expect(
+      computePushScanRanges({ refsText, remoteName: 'origin', configuredRemotes: [unread] }),
+    ).toStrictEqual([`${LOCAL} --not --remotes=origin`]);
   });
 
   // A URL naming a repository no configured remote fetches from cannot scope

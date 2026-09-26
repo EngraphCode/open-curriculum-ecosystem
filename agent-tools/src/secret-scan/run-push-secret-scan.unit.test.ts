@@ -16,11 +16,11 @@ const LOCAL = '1111111111111111111111111111111111111111';
 const REMOTE = '2222222222222222222222222222222222222222';
 const ZERO = '0000000000000000000000000000000000000000';
 
-/** The configured remotes with the fetch URLs git prints for them. */
+/** The configured remotes, each with the one URL it fetches from. */
 const ORIGIN_URL = 'https://github.com/acme/gizmos.git';
 const CONFIGURED: readonly ConfiguredRemote[] = [
-  { name: 'origin', urls: [ORIGIN_URL] },
-  { name: 'upstream', urls: ['https://github.com/acme-upstream/gizmos.git'] },
+  { name: 'origin', fetchUrl: ORIGIN_URL },
+  { name: 'upstream', fetchUrl: 'https://github.com/acme-upstream/gizmos.git' },
 ];
 
 /**

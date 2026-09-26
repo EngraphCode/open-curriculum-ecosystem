@@ -30,15 +30,17 @@ const UNSCOPED_EXCLUSION = '--not --remotes';
 
 /**
  * A configured remote as git knows it: the name `git remote` lists, and the
- * FETCH URLs `git remote get-url --all <name>` prints for it, `insteadOf`
- * rewriting applied. Fetch URLs, not push URLs, because the remote-tracking
- * refs the exclusion walks are populated by fetching from them: a triangular
- * remote (fetch from one repository, push to another) holds the first
- * repository's commits under its name, not the second's.
+ * one URL git FETCHES from, as `git remote get-url <name>` prints it with
+ * `insteadOf` rewriting applied — the first `remote.<name>.url`; any further
+ * `url` values and every `pushurl` are never fetched from. The fetch URL alone,
+ * because the remote-tracking refs the exclusion walks are populated by
+ * fetching: a triangular remote (fetch from one repository, push to another)
+ * holds the first repository's commits under its name, not the second's.
+ * `undefined` when git could not say, so the remote scopes by name only.
  */
 export interface ConfiguredRemote {
   readonly name: string;
-  readonly urls: readonly string[];
+  readonly fetchUrl: string | undefined;
 }
 
 export interface ComputePushScanRangesInput {
@@ -56,10 +58,10 @@ export interface ComputePushScanRangesInput {
    */
   remoteName: string;
   /**
-   * The repository's configured remotes with their fetch URLs. The destination
-   * is scopable only through them: `--remotes=<glob>` is matched against
-   * `refs/remotes/*`, so a destination that names no remote produces a glob
-   * matching nothing — an exclusion set that excludes nothing.
+   * The repository's configured remotes with the URL each fetches from. The
+   * destination is scopable only through them: `--remotes=<glob>` is matched
+   * against `refs/remotes/*`, so a destination that names no remote produces
+   * a glob matching nothing — an exclusion set that excludes nothing.
    */
   configuredRemotes: readonly ConfiguredRemote[];
 }
@@ -75,17 +77,15 @@ function sameRepository(left: GitRemoteRepository, right: GitRemoteRepository): 
 
 /** Whether a configured remote fetches from the repository the destination names. */
 function fetchesFrom(remote: ConfiguredRemote, destination: GitRemoteRepository): boolean {
-  return remote.urls.some((url) => {
-    const repository = parseGitRemoteUrl(url);
-    return repository !== undefined && sameRepository(repository, destination);
-  });
+  const repository = remote.fetchUrl === undefined ? undefined : parseGitRemoteUrl(remote.fetchUrl);
+  return repository !== undefined && sameRepository(repository, destination);
 }
 
 /**
  * The remotes whose tracking refs hold what is already on the destination. A
  * configured NAME counts by membership and is itself. A URL counts by parsing
  * it to a host repository (`https://`, `ssh://` or `user@host:` form) and
- * matching that against the remotes' fetch URLs: every remote that fetches
+ * matching that against the URL each remote fetches from: every remote that fetches
  * from the same repository (`merge-bot push` pushes to the configured
  * repository's URL, which origin fetches from, so its pushes scope to origin).
  * Anything else scopes nothing: a filesystem path or a `file://` URL parses
