@@ -248,7 +248,7 @@ file names below is a name, never a classification.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` in a workspace's `e2e-tests/`; a name, never a classification |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | Protocol and CLI checks (Vitest): `*.e2e.test.ts` in the workspace's `e2e-tests/`; UI checks (Playwright): `*.spec.ts` in the directory the workspace's Playwright config names as its `testDir`; a name, never a classification |
 | **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
