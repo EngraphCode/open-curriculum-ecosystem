@@ -358,8 +358,196 @@ records or observed in the named run.
     `HOME`, `LOGNAME` and `_`.
   - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
+### 2.10 Queue probe addendum (Titan turns Ether, 2026-09-25 11:17Z to 12:59Z)
 
-### 2.10 codex-cli 0.157.0, for slice 1b-iv (2026-09-25)
+The queue evidence below is one local run of the TUI client in a `tmux`
+pseudo-terminal, with `--no-daemon`.
+It does **not** establish behaviour with the managed app-server used by a live CLI seat. The
+installed `codex 0.157.0` matched the latest official release at the start of the run
+([`rust-v0.157.0`](https://github.com/openai/codex/releases/tag/rust-v0.157.0)).
+The disposable, mode-0700 `CODEX_HOME` held a symlink to the
+owner's existing `auth.json`: these sessions ran using the owner's own Codex login. No
+credential bytes were copied into this record. In that home, `codex --disable plugins mcp
+list --json` returned `[]`. The work directory was a separate empty scratch directory.
+
+The launch shape was `CODEX_HOME=<probe-home> script -q <tui-log> codex --no-daemon
+--disable plugins --no-alt-screen -C <scratch> -s read-only -a never -c
+'projects={ "<scratch>" = { trust_level = "trusted" } }' <fixed prompt>`, inside `tmux`.
+Every queue call used the same home, `--disable plugins --thread <thread-id> -s
+read-only --message <fixed notice>`. The thread was
+`01a0d848-ee61-7871-bd83-15badd16c0d5`. Its untracked rollout supplied the UTC
+event times below and was removed with the disposable home after extraction. Queue
+calls reported acceptance with a message id, not delivery.
+
+Observed boundaries, using UTC on 2026-09-25:
+
+- **Idle.** Queue accepted message `01a0d849-e1c1-7cb3-b6a4-e2d1b90880e9` at about
+  11:18:31. A separate turn started 11:18:42.620 and completed 11:18:44.464 with
+  `WAKE-TUI-1`. The idle TUI woke without a manually submitted prompt.
+- **Typed draft at idle.** The unsent `TYPED-TUI-2` draft was visible when queue
+  accepted `01a0d84a-a2dd-7fa3-9767-624dca194ccb` at about 11:19:25. Return was
+  then sent. The typed turn ran 11:19:25.252–11:19:27.448 (`TYPED-OK-2`); the queued
+  turn ran 11:19:27.459–11:19:29.470 (`QUEUED-OK-2`). Both messages ran as separate
+  turns, typed first. This does not prove priority for every race timing.
+- **Active reply.** An active turn was confirmed started at 11:20:34.668. Queue
+  accepted `01a0d84b-eb4a-7db0-8042-18a7e62c74f0` at about 11:20:48–49. The
+  active turn completed 11:21:08.419; the queued turn began 11:21:08.422 and completed
+  11:21:12.458 with `ACTIVE-QUEUE-OK-4`. The notice waited and then started its own
+  turn. An earlier attempt had insufficient queue/start ordering evidence.
+- **Killed process.** The probe's Codex PID was killed at 11:21:55; its child was absent
+  at the first process audit. Queue accepted `01a0d84d-52ee-7d62-a588-765450666c2c`
+  at 11:22:21. No new rollout turn appeared while the process was dead. After explicit
+  read-only resume, a turn began 11:23:28.655 and completed 11:23:32.591 with
+  `KILLED-QUEUE-OK-5`. The notice survived this killed-process gap and ran on resume.
+  No continuous process trace was recorded; this one run is not a persistence guarantee.
+
+**Retained event projection.** Before the disposable rollout was deleted, this seat
+extracted every `task_started` and `task_complete` row for the thread above. The
+contemporaneous tool output survives in this seat's Codex session
+`01a0d829-572f-7572-9731-1552a220eb3f`; its redacted projection is retained here.
+Each row keeps the source UTC timestamp and task id. Completion text is reduced to its
+fixed reply marker; paths, prompt bodies, auth material and other event types are omitted.
+The raw rollout and its hash were not retained, so this projection cannot support a
+claim about any omitted field. The `codex queue` command outputs recorded acceptance
+for this same thread at about 11:18:31Z (`01a0d849-e1c1-7cb3-b6a4-e2d1b90880e9`),
+11:19:25Z (`01a0d84a-a2dd-7fa3-9767-624dca194ccb`), 11:20:48–49Z
+(`01a0d84b-eb4a-7db0-8042-18a7e62c74f0`) and 11:22:21Z
+(`01a0d84d-52ee-7d62-a588-765450666c2c`). The kill command returned 0 at
+11:21:55Z. The projection shows all task boundaries from launch through explicit
+resume, including the absence of a task between 11:21:12.458Z and 11:23:28.655Z.
+
+```text
+UTC timestamp                 event          task id                               reply marker
+2026-09-25T11:17:33.461Z      task_started   01a0d848-ee88-7c20-a610-cb82d706c475  —
+2026-09-25T11:17:49.380Z      task_complete  01a0d848-ee88-7c20-a610-cb82d706c475  READY-TUI-1
+2026-09-25T11:18:42.620Z      task_started   01a0d849-fca8-7c83-895a-5a92d9afc36a  —
+2026-09-25T11:18:44.464Z      task_complete  01a0d849-fca8-7c83-895a-5a92d9afc36a  WAKE-TUI-1
+2026-09-25T11:19:25.252Z      task_started   01a0d84a-a331-7ce0-8024-a33df66cb6cd  —
+2026-09-25T11:19:27.448Z      task_complete  01a0d84a-a331-7ce0-8024-a33df66cb6cd  TYPED-OK-2
+2026-09-25T11:19:27.459Z      task_started   01a0d84a-abdb-7822-96bc-241a72119574  —
+2026-09-25T11:19:29.470Z      task_complete  01a0d84a-abdb-7822-96bc-241a72119574  QUEUED-OK-2
+2026-09-25T11:20:04.005Z      task_started   01a0d84b-3a46-72c1-8f92-7ece077f22cf  —
+2026-09-25T11:20:18.509Z      task_complete  01a0d84b-3a46-72c1-8f92-7ece077f22cf  ACTIVE-START-3
+2026-09-25T11:20:18.513Z      task_started   01a0d84b-734f-7ac3-b322-803c0058b222  —
+2026-09-25T11:20:22.199Z      task_complete  01a0d84b-734f-7ac3-b322-803c0058b222  ACTIVE-QUEUE-OK-3
+2026-09-25T11:20:34.668Z      task_started   01a0d84b-b261-75a3-ae48-22538cf9592c  —
+2026-09-25T11:21:08.419Z      task_complete  01a0d84b-b261-75a3-ae48-22538cf9592c  ACTIVE-START-4
+2026-09-25T11:21:08.422Z      task_started   01a0d84c-3644-7073-b8ec-22dfbdf3f4fa  —
+2026-09-25T11:21:12.458Z      task_complete  01a0d84c-3644-7073-b8ec-22dfbdf3f4fa  ACTIVE-QUEUE-OK-4
+2026-09-25T11:23:28.655Z      task_started   01a0d84e-5a0d-7a83-9be1-244190eae296  —
+2026-09-25T11:23:32.591Z      task_complete  01a0d84e-5a0d-7a83-9be1-244190eae296  KILLED-QUEUE-OK-5
+```
+
+**Design inference, not a probe observation:** queue acceptance while the target was dead
+does not mean the target was woken. A watcher that marked events seen on queue success
+could therefore miss a wake if it outlived its target. Swallow holds Drift's pairing
+note of 11:35:36Z says the current watcher runs under the seat's supervisor, so a
+killed seat would stop that watcher too. This run does not establish a bridge defect
+or prove the later acceptance criterion that a failed wake loses no event.
+
+The initial TUI environment-presence request produced no boolean result: its nested local
+shell failed with `sandbox-exec: sandbox_apply: Operation not permitted`. A separate
+read-only TUI attempt outside that outer sandbox stayed on its startup screen, created no
+rollout, and was terminated. Therefore `CODEX_THREAD_ID` and
+`PRACTICE_AGENT_SESSION_ID_CODEX` presence and equality remain **unobserved** here.
+The resumed TUI exited; the stalled retry received SIGTERM. A final process-name audit
+showed only the pre-existing `codex` and `codex-code-mode-host` processes. The child of
+the killed TUI was not present at the first post-kill audit; its continuous lifetime was
+not measured. The disposable home and its auth symlink were then removed without
+following the link.
+
+**Scope correction and active-seat shell.** At about 11:40Z on 2026-09-25, the owner told
+the Director, "why do we need the ChatGPT desktop host? My interest is Codex CLI", and
+corrected the premise about the two seats: "nope! They were both started via the terminal
+with `codex`". These owner words reached this note through the Director's relay to
+Swallow holds Drift, recorded in the pairing channel at 11:43:41Z. At about 11:43Z,
+Swallow read this seat's process parentage first-hand from the process table: its managed
+app-server was spawned by a `codex` TUI, under a shell in the editor's terminal host.
+The desktop host is outside the corrected todo 1. In this active seat's tool shell, a
+presence-only check
+found `CODEX_THREAD_ID` set and `PRACTICE_AGENT_SESSION_ID_CODEX` absent; both-present-and-equal
+was false. No identifier value was printed. This is the tool-shell environment of the
+editor-terminal seat, not a reading of the disposable TUI process's environment.
+
+**Managed-daemon startup gap.** A second disposable home used the same owner login, an empty
+scratch directory, read-only sandbox and approval `never`. Its first TUI launch omitted
+`--no-daemon` but kept `-c` and `--disable`; the TUI warned that CLI configuration overrides
+force embedded mode, so no daemon-mode queue call was made. After closing it, the settings
+were placed in the disposable config file. Readback showed plugins disabled and no MCP
+servers. A new launch without CLI configuration overrides tried to install the managed
+daemon, then exited before a rollout: its `ps` call to record the daemon PID was denied
+with `Operation not permitted` by the outer host sandbox. No daemon socket existed. The
+named daemon PID was absent on audit, and only pre-existing Codex processes remained.
+The disposable home and its auth symlink were removed without following the link. This
+is a startup limitation, **not** a negative result for `codex queue` in daemon mode.
+
+**Second seat's managed-daemon attempt.** Swallow holds Drift reported one run in the
+pairing channel at 12:26:16Z. This account is attributed to that seat's process and log
+inspection, not a first-hand observation by Titan. Swallow used CLI 0.157.0 from a shell
+outside a Codex sandbox. A disposable mode-0700 `CODEX_HOME` linked to the owner's own
+`auth.json`; its config set read-only sandbox, approval `never`, plugins off, update check
+off, and trust for an empty scratch directory. Its MCP list was `[]`. At 12:24:40Z,
+Swallow launched `cd <scratch> && CODEX_HOME=<probe-home> codex --no-alt-screen
+'<fixed READY-D1 prompt>'` in `tmux`, without command-line configuration overrides.
+
+At 12:24:43Z, the managed daemon started, re-parented to PID 1, and created its control
+socket and PID file. Its log showed config loading and a model-list request with auth
+attached; its stderr log was empty. The TUI exited within about 25 seconds, before
+12:25:08Z, with no rollout or thread id. The pane closed before its exit message was
+captured, so the cause is unknown. No queue call or wake leg ran. Swallow stopped under
+the one-launch protocol, made no repair or retry, and audited the process set: after a
+second SIGKILL took effect on the probe daemon, no probe processes remained and all six
+pre-existing `codex` processes remained. The auth symlink was unlinked without touching
+the owner's mode-0600 auth file. The remaining disposable home and logs stayed in that
+seat's scratch directory; no credential bytes were copied into this note.
+
+**Captured one-launch follow-up.** At the Director's 12:49:18Z route, Titan made one
+more isolated attempt, starting at 12:56:28Z. A fresh mode-0700 home linked to the
+owner's own `auth.json`; its checked config set read-only sandbox, approval `never`,
+plugins off and scratch trust. Its MCP list was `[]`. The launch in the empty scratch
+directory used `CODEX_HOME=<probe-home> script -q <capture-log> codex --no-alt-screen
+'<fixed READY-D2 prompt>'`, without command-line configuration overrides. This host
+launch was elevated so the daemon's startup `ps` call could run; the Codex session's
+sandbox and approval settings remained read-only and `never`.
+
+The raw TUI capture remains in this local instance at
+`.agent/state/collaboration/_tmp-codex-queue-probe-2026-09-25-01a0d8/tui-capture.log`;
+it is not part of this PR. It has 3,239 bytes and SHA-256
+`4492fcba82f8f7dd83c471177c34df7f9d0f5b0cd7d2f263282a2ce1572ae05b`
+(recomputed by Gale turns Cloud and independently confirmed by Swallow holds Drift in
+the pairing channel at 15:06:17Z on 2026-09-25). The run spanned the 12:56:28Z launch
+to Titan's Ctrl-C at 12:59:01Z on CLI 0.157.0; its command shape was
+`CODEX_HOME=<probe-home> script -q <capture-log> codex --no-alt-screen
+'<fixed READY-D2 prompt>'`. Its ANSI-stripped projection is `OpenAI Codex (v0.157.0)`,
+`Installing daemon from CLI version 0.157.0 into
+<probe-home>/packages/app-server-daemon...`, then `Shutting down...` after Ctrl-C.
+No exit error appears in the captured output. Titan's contemporaneous process and file
+inspection separately recorded a daemon PID file and two new app-server processes, but
+no control socket,
+rollout or thread id. The TUI remained at the loading screen for about two minutes.
+No queue call was possible or made. Both daemon stderr files were empty. This is a
+startup stall in one captured run, not a queue result.
+
+Ctrl-C closed the TUI and capture process. SIGTERM ended one daemon process; the other
+required SIGKILL. The final process audit found none of the four probe processes and
+all six pre-existing `codex` processes. Titan unlinked only the auth symlink and
+verified the owner's auth file remained present, mode 0600. No auth bytes were copied
+into this note. The capture contains terminal control bytes and local paths, so the
+file and process observations above are a prose projection, not a publicly replayable
+transcript. The hash identifies the local capture for a reader who has that file; it
+does not independently prove the process observations or the cause of the stall.
+
+The first launch's `ps` denial did not recur in Swallow's shell or in Titan's elevated
+captured launch. Neither later launch reached a queue call, for different startup
+reasons, so managed-daemon queue behaviour remains unobserved.
+
+The ratified [wake-bridge plan at `f8816970e`](https://github.com/EngraphCode/open-curriculum-ecosystem/blob/f8816970ecb9f04833b85d60095e1b9cee21d8a9/.agent/plans/delivery/codex-queue-wake-bridge.plan.md#L123-L125)
+is reachable on the coordination branch and states the corrected host-wake criterion.
+Its todo 1 names the CLI TUI with its managed app-server and `codex exec`. No managed-daemon
+queue behaviour or new `codex exec` queue probe was observed in this addendum. The
+no-daemon TUI run therefore does not satisfy the criterion that the seat's own host wakes.
+
+### 2.11 codex-cli 0.157.0, for slice 1b-iv (2026-09-25)
 
 Swallow holds Drift (516619), with the pre-execution code-expert review and an assumptions-expert
 review of slice 1b-iv. The source reads are of the 0.157.0 release's `codex-rs` tree.

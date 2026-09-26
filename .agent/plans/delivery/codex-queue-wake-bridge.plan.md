@@ -124,8 +124,12 @@ and in the lived record of that day.
      a link rather than following it. It reads the `ack` file's time without following a link,
      and a comms file only when it is a regular file under a size cap.
 6. **Waking never takes a delivery, and nothing is read twice.**
-   - The companion keeps its own cursor, keyed by the thread id, in its state directory. It is
-     seeded at arm, so only later events count.
+   - The companion keeps its own cursor, keyed by the thread id, in its state directory: one
+     JSON document with a strict parse, never a line-based file, since a peer controls comms
+     file names. It is seeded at arm only when no cursor exists for the thread id, so only later
+     events count and a relaunch keeps what the last launch left unmarked.
+   - The latch, the budget and the backoff live in memory for one launch, since the `ack` file
+     belongs to one launch. A relaunch starts them afresh.
    - It never touches the seat's seen file or heartbeat file. So the seat's watcher delivers every
      event, and the claim tool's live-watcher check reads only the seat's own watcher.
    - It marks every examined event that cannot wake at once, and an eligible event only once a
@@ -143,8 +147,8 @@ and in the lived record of that day.
      matters. The exit notice sits outside the budget, since it goes at most once per launch.
    - A failed queue call writes one WAKE FAILED line naming the event ids and the fallback, and
      the wake is retried on a capped backoff. A call counts as queued only when `codex queue`
-     exits 0. A timeout or a non-zero exit may still have delivered the notice, so each counts
-     against the budget.
+     exits 0. A timeout, a non-zero exit or output past its cap may still have delivered the
+     notice, so each counts against the budget.
    - An ack dated later than now, beyond a few seconds' skew, is ignored, so a file time set in
      the future cannot release every later notice.
 8. **The pure core is testable without IO.** Selection, coalescing, the latch, the budget, the
@@ -158,9 +162,12 @@ and in the lived record of that day.
    one only when it is a UUID, and at most five, counting the rest. That holds for the watch
    loop's own error and exit lines too, which pass through the same status (todo 2).
 10. **Stopping is local and visible.**
-    - Only the TUI exiting, a signal from the launch shell, or a failure to arm stops the
-      companion. No comms content stops it, and a malformed event never crashes it.
-    - When it stops while the TUI still runs, it queues a fixed exit notice, once.
+    - Only the TUI exiting, a signal from the launch shell, a failure to arm, or a pass step
+      past its deadline stops the companion. The watch loop rules a late step fatal, so the
+      step deadline exceeds the queue call's timeout plus the read budget. No comms content
+      stops it, and a malformed event never crashes it.
+    - When it stops while the TUI still runs, it queues a fixed exit notice, once, and only
+      after any queue call still in flight has settled.
     - After the TUI has gone it queues nothing, since an exited session would run the notice at
       its next resume.
     - It never restarts itself.
@@ -192,7 +199,9 @@ and in the lived record of that day.
   `repo-safe` tests over the handshake parse and a handshake port.
 - **No companion write follows a link.** A link planted where the companion writes its status
   is replaced, not followed, and a link at the `ack` path or in the comms store is never
-  followed. Proof: `repo-safe`, integration tests over a temporary directory.
+  followed. Proof: `repo-safe` tests over injected file ports (the flags each call passes, the
+  facts it refuses, a link refused as `ELOOP`), since the testing strategy allows no file
+  system in a test; and a recorded observation of the thin Node bindings at the slice's cure.
 - **Waking never takes a delivery.** After the companion wakes for an event, the seat's own
   watcher still delivers it. Proof: `repo-safe`, one integration test over an in-memory comms
   store.
@@ -269,11 +278,35 @@ Each slice is one story, within the default round budget.
       `collaboration-state` (architecture-expert-barney's pre-execution read).
       The rollout reader is among the importers, so it is sequenced with the Codex seat's
       slice 1b-iv PR B. Reviews: code-expert; architecture-expert-barney, focused.
-   3. **2b, the ports and the loop.** The queue port, with the notice constants and the pure argv
-      and environment builder that is their first consumer; the handshake, ack, liveness and
-      state-file runners, none following a link; the companion's composition of the watch loop;
-      the integration tests that the seat's watcher still delivers and that no write follows a
-      link. Pinned by 2a's reviews:
+   3. **2b, the ports and the loop,** as three pull requests after 2b's pre-execution code-expert
+      review and architecture-expert-barney's read of 2026-09-25. Its files sit flat in
+      `collaboration-state` beside 2a's, since a directory of their own would import
+      `collaboration-state` while the command's dispatch imports it back. They import nothing
+      from `codex-exec`; anything shared goes to `core`. Tests read no clock: the time after a
+      queue call comes from an injected `now()`.
+      1. **2b-i, the queue port.** The notice constants and the pure argv and environment builder
+         that is their first consumer; the pure map from an `execFile` outcome to a queue step
+         (queued only on no error; an output overflow, a timeout, and a non-zero exit or unknown
+         shape count against the budget; `ENOENT` from spawn is not found, after the state
+         directory is checked at arm); the pure trust check of the binary's real path; the thin
+         `execFile` binding. 2a's line namer, `QueueFailure` (gaining the overflow) and `WakeStep`
+         are exported here, at their first consumer.
+      2. **2b-ii, the seat and state files.** The no-follow read that two tools already use moves
+         into `core` behind a port with code-only failures, first for those two, then gaining
+         the mode, size and time facts the handshake and `ack` readers need; the handshake
+         reader; the `ack` reader; the cursor and status writers through the exclusive temporary
+         file and rename.
+      3. **2b-iii, the composition.** The per-file comms reader (a malformed file counted, a
+         file whose id differs from its name refused); `drain` (events that cannot wake marked
+         first, held ids kept in memory so the batch limit bounds new files read per pass, and
+         `settleWake` fed `decideWake`'s state); `emit`, which passes only the text the drain
+         last returned and reduces any other loop line to a closed kind, naming only the ids the
+         companion last marked; the liveness port with a latch set by the exit event, whose
+         binding to the TUI's process belongs to todo 3; and the composition tests (the seat's
+         watcher still delivers; a status write fails after a queued notice; the exit notice
+         once, or not at all).
+
+      Pinned by 2a's reviews:
       - the companion's `emit` rewrites the loop's own error and exit lines to closed kinds, and
         names ids only through the same UUID-only namer, since those lines carry a raw message
         and raw ids;
@@ -284,7 +317,8 @@ Each slice is one story, within the default round budget.
       - the batch limit applies after every event that cannot wake is marked;
       - a status write that fails after a queued notice is tested.
 
-      Reviews: security-expert, deep; test-expert, focused.
+      Reviews: security-expert, deep; test-expert, focused; architecture-expert-barney, focused,
+      on the `core` read port.
    4. **2c, the command.** `comms wake`, with its options, help and dispatch. The help text gets
       a module of its own, since the shared help module is at its line limit. Reviews:
       code-expert; config-expert if a lint or knip entry changes.
@@ -463,3 +497,14 @@ Each slice is one story, within the default round budget.
 
   Routed: the thread id's owner to 2a-ii, and the loop's raw error lines, the per-file drain, the
   file-name check and the settle-state rule to 2b (todo 2).
+- **2026-09-25, 2b's pre-execution reviews** (code-expert; architecture-expert-barney). 2b came to
+  about 24 files, so it becomes three pull requests (todo 2). Pinned before any code:
+  - proofs over injected file ports and a recorded observation of the thin bindings, since the
+    testing strategy allows no file system, spawn or clock in a test;
+  - a cursor seeded only when none exists, as one strictly parsed JSON document;
+  - a late pass step named as a stop cause, with the exit notice after any call in flight;
+  - the liveness binding moved to todo 3;
+  - the batch limit bounding new files read per pass;
+  - an output overflow counted as a possible delivery.
+
+  barney placed 2b flat in `collaboration-state` and the shared no-follow read in `core`.
