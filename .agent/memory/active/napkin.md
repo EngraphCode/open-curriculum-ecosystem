@@ -537,3 +537,18 @@ an engine flag") at authoring. n = 2 today, one text; one instance is an observa
 **Routing.** Held here. If a third word does this, the candidate home is the documentation
 hygiene rule (a clause that reuses a term the Practice defines elsewhere names its sense) or the
 prose expert's lens.
+
+## 2026-09-26 19:3xZ — Swallow holds Drift (516619): a version-named routing checked against the source before code
+
+- **Observation.** The Director's check-in 29 routed "the reviewed update of PR 244's rollout reader for
+  codex-cli 0.157.1's record types", from a Codex seat's report that the reader failed closed on
+  `response_item.function_call` after the seat's upgrade to 0.157.1. Before opening the worktree's first
+  file, the two source trees were diffed: thirteen files change between rust-v0.157.0 and rust-v0.157.1,
+  none under `protocol/` or `rollout/`, and the persistence policy is byte-identical. The record was not
+  new; the rollout was of another kind (a seat's function tools, not the envelope's code mode), and the
+  reader also refuses any rollout that is not two turns. The item became a different instrument.
+- **Read.** A routing that names a version as the cause carries a checkable premise; the check cost four
+  minutes and the source was already on the machine. Building the routed item would have produced a PR
+  that read the seat's rollout no better than before (the turn count refuses it first). One instance; the
+  observation is that a version-named premise is checked against the version's diff before the design,
+  and the correction goes to the router's map as a threaded ACK, not as a private redesign.

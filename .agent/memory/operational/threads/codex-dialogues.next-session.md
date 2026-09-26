@@ -83,6 +83,115 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **RESUMED (about 19:17Z, 2026-09-26) at the owner's start-right word, after compaction 4.** Read
+  live first: nothing had moved on the stream during the pause; the slot was free (Siren's release
+  at 16:39Z named 257 next); PR 257 CLEAN at 4 files; PR 246 carried one new Copilot thread on its
+  final tip (16:34Z). Re-armed in the boundary block's order (watcher, the 240 s heartbeat over the
+  four claims, `assert-watcher-live` green), then the resume report (`f9a46728`). Every peer resumed
+  within the same minutes: Myrtle took 257's door under this seat's standing consent (19:20:23Z);
+  the Director resumed and posted check-in 29 (`218ac865`).
+  - **PR 246 CLEAN at 19:24Z (20 files):** the round-three finding (an origin HEAD hand-written to
+    point outside `refs/remotes/origin/` is not refused) accepted as a follow-up with a signed line
+    (reply `4112482305`), the thread resolved, the body carrying round three; announced (`b3b74dee`).
+    **Follow-up owed, the guard's next change:** fail closed when `refs/remotes/origin/HEAD` names a
+    ref without the `refs/remotes/origin/` prefix, with the smoke case; `push-target-branch.ts`
+    already refuses the shape.
+  - **The reader-update premise refuted, before any code.** Check-in 29 routed "the reviewed update
+    of PR 244's reader for codex-cli 0.157.1's record types". The source says otherwise: the
+    codex-rs diff rust-v0.157.0 to rust-v0.157.1 touches thirteen files, none under `protocol/` or
+    `rollout/`; `rollout/src/policy.rs` is byte-identical; `response_item.function_call` is
+    persisted by both. Phobos's rollout differed in KIND: a seat runs the function tools
+    (`exec_command`, `apply_patch`), persisted as `function_call`, where the dialogue envelope runs
+    code mode (`custom_tool_call` exec); and `readRollout` refuses any rollout not of exactly two
+    turns, so no seat rollout can pass it whatever its record types. The item, re-scoped and on the
+    stream (`73cb2a28`): a seat-rollout command-record reader, `codex-exec command-records`, over the
+    harness's `CommandExecution` items across any turn count, flagging the forbidden shapes of
+    `.codex/rules/seat-landing.rules`, record types counted not refused, malformed evidence failing
+    closed; fixture from this seat's own sandboxed `codex exec` run on 0.157.1, redacted. Design in
+    the scratchpad (`command-records-design.md`), under pre-execution review (code-expert,
+    test-expert). Claim `f7d8f0de`; worktree `oce-wt-command-records` on
+    `feat/codex-rollout-command-records` at `95518f880`. The dialogue reader is untouched.
+  - **OWNER WORD 19:2xZ (relayed by the Director as `65181d0e`, verbatim in the event):** a WIP
+    limit: one coordination PR per repo, and three other open PRs across both estates together (the
+    number of implementer seats); the goal stays zero with value merging; external PRs count and the
+    Director schedules them. Nine open, so no PR opens and no branch pushes without its PR; the
+    reader item waits for a slot, prepared locally only ("WIP slot taken: N of 3" before opening,
+    at the opener's own first-hand read of both estates). The 19:2xZ opening routings withdrawn.
+    This seat's finishing order (the Director by s2s): 246's door at its size turn; the offer to
+    Myrtle on 245 or 217 (answered on the stream 19:28Z, not needed); PR 250's cure.
+  - **PR 250, the owner's draft, readied:** the Director's analysis (`6c3d7736`) named the cure
+    read from run 36243467557: `pnpm skills:check` listed eight missing projections for the new
+    `user-value` skill. In worktree `oce-wt-user-value` on `codex/user-value-across-levels`,
+    `pnpm skills:generate` wrote exactly those eight (`.claude/skills/oak-user-value/`,
+    `.agents/skills/oak-user-value/`) and moved no other projection; commit `52a377a25`
+    (owner-authored, gates green in the hook), pushed through `merge-bot push`, ready-marked as the
+    bot under the PR 224 precedent, both legs requested, a readied-by block appended to the
+    owner's body. Door at its size turn (12 files). Reverse by the owner's word only.
+  - **PR 257 retired on this side (19:4xZ):** merged `e80122437` through Myrtle's door at 19:39:28Z;
+    claim `25181dfb` closed; worktree removed; local branch deleted (merged into origin/engraph); the
+    remote branch read back as deleted (Myrtle's deletion); ledger row written (3 heads, 10.58/40
+    within). Copilot's synced-head follow-up (stale tracking refs after a remote URL rewrite can
+    enter the scoped exclusion) is this lane's. JC.net takes the code by the next carrier.
+  - **OWNER WORD 19:3xZ (relayed as `1448df04`, item 9):** a PR from a non-executing host is team
+    intake: checked out, gated on its head, its own completion list worked as the todo, evaluated as
+    a peer's PR, cured within the round budget or Rejected with reasons, then legs, ready-mark and
+    the door. PR 250 is of the class by its own body. This seat's routing widened to the whole item:
+    the regeneration `52a377a25` pushed (hook gates green on the head, so the full local set ran);
+    evaluation by docs-adr-expert (the skill against `skill-naming-and-description-quality`, the
+    plan-skill and README edits for belonging, the three research notes' home, one story or not) and
+    prose-expert (the skill and its references); no evals runner exists in the estate (the parallax
+    skills carry the same fixture shapes unexecuted; the skill-evals pilot plan owns the runner), so
+    the seven cases and ten triggers are recorded as fixtures, not as an executed evaluation.
+  - **The command-records reader's evidence read first-hand (19:4xZ to 19:5xZ):** two sandboxed
+    `codex exec` runs on 0.157.1, every process closed (`ps` read back), rollouts private, findings in
+    the scratchpad's `command-records-evidence.md`: (1) default exec is code mode even with
+    `--ignore-user-config` (`custom_tool_call` named `exec`), while a TUI seat produces
+    `function_call`; (2) an executed command leaves a CommandExecution item whose `command` is the
+    harness argv `["/bin/zsh","-lc","<cmd>"]`; (3) a command the exec policy REFUSED (`git push`
+    under the seat rules, refused with the rule's own justification) leaves NO CommandExecution
+    item, only the harness's `Rejected("<argv> rejected: <justification>")` message in the tool
+    output; (4) a command the sandbox denied after spawning (`git add` under read-only `.git`, exit
+    128) leaves no item and no harness marker. So the instrument reads three classes from harness
+    records (executed, refused, unaccounted), never a clean zero from absence; design v2 in the
+    scratchpad (`command-records-design-v2.md`) after test-expert's ten findings (REVISE: verify the
+    argv type first, widen redaction, strict fails on an empty rollout, a selecting helper, the flag
+    matrix, turn attribution, relations not strings, a fail-closed matrix, line numbers, the CLI
+    cases as an integration test with a lifted helper). Upstream observation, one instance: a
+    sandbox denial detected after the process exited emits no CommandExecution item on 0.157.1.
+    The seat rules themselves held on the probe: the forbidden push was refused before any process
+    spawned, condition 5's mechanism seen first-hand.
+  - **PR 250 readied under the intake rule (19:5xZ to 20:2xZ).** Two reviews: docs-adr-expert REVISE
+    (blocking: the pr-relationships note, a dated review of a superseded head, filed as research; a
+    handoff section inside the method review; "Clef" named nineteen times on a public surface with two
+    private documents cited by filename and no private-upstream citation; two stories, the skill and
+    the framework proposal); prose-expert REVISE (blocking: two link vocabularies across two
+    references; shoulds: use value defined three ways, user value never reconciled, guarantee and
+    purpose undefined, the opening leading with theory, a passive description with no routing
+    destinations, about forty lines of the canonical restated in the references). The Director's
+    rulings: the private-upstream citation goes in and nothing of the owner's text is redacted (the
+    name's standing is the owner's card line, default kept; 250's door does not open before that
+    word); the pr-relationships note re-homes whole to `.agent/reports/user-value/` with an index row;
+    the method review loses §Completion elsewhere and its baseline SHA; no split (the owner packaged
+    both on purpose; a split opens a PR under the limit for no landing). Cure commit `f41ad8e78`
+    (eighteen files, owner-authored, hook chains green; one link fixed for the moved note's depth
+    after the validator refused the first attempt), pushed through `merge-bot push`; the draft marked
+    ready as the bot under the PR 224 precedent; Copilot's leg requested, Codex's on the ready-mark;
+    the owner's body carries an intake block. The evals fixtures are recorded as not run (no runner
+    in the estate). Post-cure prose check REVISE on small residues (one old-vocabulary sentence, two
+    tables both headed Kind, a semicolon chain, one row typed too narrowly), all applied before the
+    commit. Settlement budget untouched. 250 now reads about twenty-one files, after 246 in the size
+    order. Follow-ups named, no PR under the limit: the research index rows for the two notes are in;
+    the plan skill's routing paragraph placement (nit); no `trigger-train.json` (nit).
+  - **Lane state at 20:2xZ.** Open, this seat's: PR 246 (CLEAN, 20 files, its door at its size turn
+    after 217 and 253, about 21:20Z by the Director's projection; findings on its final tip get signed
+    lines only); PR 250 (readied, about 21 files, after 246; the door waits on the owner's Clef word).
+    Prepared locally, no PR under the limit: the command-records reader (claim `f7d8f0de`, worktree
+    `oce-wt-command-records`, design v3 under pre-execution review by code-expert and test-expert;
+    the two fixtures projected with zero leaks; the consolidation validator for the rules' patterns
+    named as its own lane). Returned to the goal-two ledger by the Director's suite 25: P1, a pure
+    sync push requests no review, timing this seat's after 250's intake and a review-cost survey.
+    Retired: PR 257 (this seat's post-landing duties done). The exec-policy rules held on a live
+    probe (a forbidden push refused with the rule's justification before any process spawned).
 - **COMPACTION BOUNDARY 4 (about 16:35Z, 2026-09-26), at the owner's word "prepare for compaction,
   and then stop all processes, allow subagents to finish and make their work safe, then stop them".**
   The five review agents of this segment had all returned their verdicts (nothing in flight) and are
