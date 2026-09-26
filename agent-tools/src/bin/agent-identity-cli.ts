@@ -88,8 +88,7 @@ export const HELP_TEXT = `Usage: agent-identity [--seed <seed>] [--platform <lab
   --platform <label>  Seat platform (claude-code, cursor, codex, gemini). Required
                       unless --seed is given: the three Claude seeds
                       ($PRACTICE_AGENT_SESSION_ID_CLAUDE, $CLAUDE_CODE_REMOTE_SESSION_ID,
-                      $CLAUDE_CODE_SESSION_ID) count only on a Claude platform, and the
-                      seeds a seat reads are its platform's own.
+                      $CLAUDE_CODE_SESSION_ID) count only on a Claude platform.
   --format <fmt>      Output format. kebab (default) | display | json.
   --help              Print help and exit 0.
 
@@ -99,7 +98,7 @@ Override: $OAK_AGENT_IDENTITY_OVERRIDE bypasses wordlist derivation.`;
  * The bad-usage message when neither `--seed` nor `--platform` is given.
  */
 export const MISSING_PLATFORM_MESSAGE =
-  "missing --platform; without --seed the CLI must know the seat's platform (claude-code, cursor, codex or gemini), since the seeds a seat reads are its platform's own: pass --platform <label> or --seed <seed>";
+  "missing --platform; without --seed the CLI must know the seat's platform (claude-code, cursor, codex or gemini), since the three Claude seeds count only on a Claude platform: pass --platform <label> or --seed <seed>";
 
 /**
  * Execute the CLI as a pure function.
