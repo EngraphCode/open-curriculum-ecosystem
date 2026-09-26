@@ -8,9 +8,6 @@ what they are building. The deliverable is the
 views and evaluation cases, with a routing pointer from planning. This is
 Practice authoring capability, not curriculum content or pedagogy.
 
-Source baseline: Engraph OCE `engraph` at
-`e6cf8ee4c9ac33d00884436e8d08767fc2b36c06`.
-
 Existing planning already asks for users, value, mechanisms and proofs. The
 missing method makes the relationships between purpose, needs, experience,
 capabilities, contracts, implementation and evidence explicit. One focused
@@ -100,26 +97,7 @@ cases and ten trigger examples, including two new cross-level cases; these
 fixtures have not been executed against the revised skill. No effectiveness,
 generalisation or production reliability claim follows from this work.
 
-## Completion elsewhere
-
-The owner explicitly requested opening the unfinished draft PR and will finish
-execution elsewhere. This supersedes the earlier proposal to wait for local
-generation permission. Do not run setup/build here or hand-write projections.
-
-Canonical skill, three references, evaluation cases, planning/discovery links
-and the Claude permission pair are prepared. Remaining work on an authorised
-execution host:
-
-1. Review the broader semantics, especially technical consumers and composition.
-2. Run the standard `pnpm skills:generate` route, including required environment
-   setup, and commit its generated adapters (including changed plan projections).
-3. Exercise the revised skill, especially the new cross-level cases and routing.
-4. Run the repository gates and inspect CI on the final head before merge.
-
-Static content checks do not replace these steps. The draft is not installed
-or merge-ready. No runtime or repository gate was run locally. The host lacks
-`gitleaks`, so manual outgoing-content inspection precedes transfer and any CI
-secret scan is the first automated scan after transfer.
+## Reopening conditions
 
 Reopen if use fabricates evidence, confuses local acceptance with broader value,
 forces one hierarchy onto all systems, erases affected people, or produces

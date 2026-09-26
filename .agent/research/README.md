@@ -161,6 +161,8 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | [graphify-oak-practice-analysis.md](graphify-oak-practice-analysis.md) | Derived graph memory exploration | Navigation layer over the practice estate, explicit attribution requirement |
 | [mcp_agent_guidance_provision.md](mcp_agent_guidance_provision.md) | MCP help-surface design | Start-here resources, help tools, and prompt-oriented discoverability |
 | [openai_claude_gemini_apps_sdk_comparison.md](openai_claude_gemini_apps_sdk_comparison.md) | Cross-vendor app surface comparison | Host/UI surface differences around MCP and embedded experiences |
+| [user-value-method-review-2026-09-26.md](user-value-method-review-2026-09-26.md) | Framing and correction record of the `user-value` skill | The service-first framing corrected to use value across levels; three complementary bases with their bridges and crosswalks; two fresh-context exercises of the earlier draft and the limits of what they show |
+| [comprehensive-specification-framework-2026-09-26.md](comprehensive-specification-framework-2026-09-26.md) | Proposal for a comprehensive specification framework and three specification skills | A small common record, profiles by kind of thing, explicit contracts between things, evidence appropriate to each claim, rules for review and change; an owner-commissioned proposal, not an adopted standard |
 
 ### 🔐 Authentication & Security
 

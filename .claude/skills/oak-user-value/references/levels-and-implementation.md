@@ -1,9 +1,10 @@
 # Use value across levels
 
-Use value is usefulness in a context of use. Identify the consumer, purpose,
-provision, conditions, burdens and evidence. Price, exchange value, popularity,
-delivery effort and conformance can matter without establishing usefulness.
-This is a working design definition, not a complete economic theory of value.
+Use value is defined once, in the skill: what a person or consuming system can
+use a provision to accomplish, under stated conditions, costs and limits.
+Identify the consumer, purpose, provision, conditions, burdens and evidence.
+Price, exchange value, popularity, delivery effort and conformance can matter
+without establishing usefulness.
 
 ## Select views that answer the actual question
 
@@ -27,21 +28,13 @@ From purpose downward, ask what provision could make the intended use possible,
 which guarantees it requires, and what implements them. Keep alternative means
 open. From an existing part upward, identify its actual or proposed consumers,
 their use conditions, and the larger capability it may enable. Unknown
-downstream use is an explicit limit, not a reason to invent a beneficiary.
+downstream use is an explicit limit, not a reason to invent a consumer. A
+consuming system is a role, not a person; the people its use affects still
+count.
 
-For each material connection record its kind:
-
-- **Expression/refinement:** a more specific account of a purpose or obligation;
-  show what meaning is preserved, added or lost.
-- **Realisation/conformance:** an implementation satisfies a declared contract
-  within specified conditions; this alone says nothing about consumer fit.
-- **Enablement/dependency:** a consumer relies on provision; availability and
-  composition assumptions can still fail.
-- **Contribution:** use may lead to an outcome; state mechanism, uncertainty,
-  alternatives and evidence appropriate to that causal claim.
-
-Do not infer a contribution merely because a refinement or dependency link
-exists. Traceability makes the claim inspectable; it does not prove it.
+Type each connection with the relationship table in
+[the value model](value-model.md); its link-kind column says what the link lets
+you claim.
 
 ## Worked example: a stable priority queue
 
@@ -62,10 +55,6 @@ Illustrative proposed use, not an observed deployment:
   people are known and relevant to the decision. Passing queue tests supplies
   no evidence about their experience or population outcomes.
 
-If the queue's purpose and contract are already settled and the task is solely
-implementation, use engineering methods directly. Invoke this skill when the
-consumer, usefulness, guarantee or connection across levels needs defining.
-
 ## Composition and conflict
 
 At each important seam, ask whether a consumer can actually use the guarantee,
@@ -76,6 +65,4 @@ to a consumer's purpose and evidence; do not demand an immediate revenue metric.
 
 Keep conflicts visible: a provider's reduced workload may impose more work on
 users; a fast component may consume resources another part needs. No single
-aggregate score resolves rights, authority or competing purposes. Reopen the
-model when a real consumer cannot make the expected use, a composition fails,
-or the claimed benefit exceeds what the evidence supports.
+aggregate score resolves rights, authority or competing purposes.

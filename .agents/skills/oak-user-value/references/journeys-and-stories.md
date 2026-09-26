@@ -2,7 +2,7 @@
 
 Use this view when human experience or story slicing is relevant. For other
 consumers use the [levels and implementation](levels-and-implementation.md)
-reference; this template is not a required gateway for all user-value work.
+reference; this reference is not a required gateway for all user-value work.
 
 ## Minimum useful journey view
 
@@ -19,7 +19,8 @@ At each material stage connect:
 Only record thoughts, feelings and quotations as observations when a source
 supports them. On a proposed map use questions or clearly marked hypotheses.
 Keep the existing experience distinct from a proposed future state, even when
-one diagram shows both. The artefact is not a diary of the implementation.
+one diagram shows both. The map records the person's experience, not the
+team's build history.
 
 Use a shared spine and variants when differences are local. Split maps when
 stages, responsibilities or consequential experiences differ substantially.
@@ -59,7 +60,8 @@ LLM-mediated behaviour needs defined cases and a credible judgement method;
 one favourable response is not reliable behaviour. Human understanding needs
 appropriate user research; a schema assertion cannot establish it. Educational
 learning, public benefit and causal contribution need their own suitable
-evidence. Keep evaluation design proportionate and route specialist questions.
+evidence. Keep evaluation design proportionate; route specialist questions as
+§6 of the skill directs.
 
 ### Slicing and migration
 
@@ -73,8 +75,7 @@ adverse cases and source limits. Recompute coverage from the actual items.
 
 An API, migration or algorithm task may be enabling work with a developer or
 system consumer. Preserve its own guarantee and link to the wider purpose if
-known. Do not invent a citizen goal or require a service story for every line
-of infrastructure work.
+known.
 
 ## Review questions that can change the result
 

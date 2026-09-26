@@ -1,13 +1,15 @@
 # Value and relationship model
 
 Use only distinctions that change a decision, test or responsibility. These
-are authoring conventions, not a prescribed GDS data schema.
+are authoring conventions, not a prescribed Government Digital Service (GDS)
+data schema.
 
 | Kind | Function | Common category error |
 | --- | --- | --- |
 | Vision | Desired future and direction | Treating aspiration as observed effect |
 | Intended impact | Bounded change for a population and horizon | Treating activity counts as benefit |
-| Use value | What a person or consuming system can accomplish with a provision in context | Equating conformance, price or provider efficiency with usefulness |
+| Purpose | Why a provision exists: the difference its owner or consumer intends it to make | Treating an intended purpose as an observed need |
+| Use value | As the skill defines it: what a person or consuming system can use a provision to accomplish, under stated conditions, costs and limits | Equating conformance, price or provider efficiency with usefulness |
 | Need | Person's goal and reason in context | Restating a requested feature as a need |
 | Commitment | Bounded responsibility a provider takes | Promising an outcome beyond its control |
 | Capability | What a system, person or part enables a consumer to do | Assuming availability establishes usefulness |
@@ -16,25 +18,40 @@ are authoring conventions, not a prescribed GDS data schema.
 | Story | Bounded change enabling a valuable outcome | Treating a broad need as sprint-ready work |
 | Acceptance | Observable conditions for a delivery contract | Treating delivery acceptance as causal impact |
 | Supporting contract | Local behaviour/meaning and obligations | Assuming locally correct parts compose correctly |
+| Guarantee | The offered side of a contract: what a consumer may rely on, under stated conditions | Reading a guarantee as proof that the consumer can make use of it |
 | Theory of change | Mechanism, assumptions and alternatives | Reading a causal diagram as evidence |
 | Evidence | Observation and method bearing on a claim | Treating repeated citations as independent support |
 
 ## Relationships
 
-| Link | Meaning | Required caution |
-| --- | --- | --- |
-| Stage exposes need | The need arises in this context | Proposed occurrence is not observed prevalence |
-| Story addresses need | Change aims to help meet the need | Coverage is not complete satisfaction |
-| Story changes stage | Slice alters part of an experience | Whole-journey completion remains a separate claim |
-| Contract enables story | Supporting guarantee is required | Local proof does not discharge system proof |
-| Implementation realises contract | Mechanism conforms within stated conditions | Conformance does not prove consumer fit |
-| Capability enables use | Provision makes an activity possible | Consumer obligations and composition may prevent actual use |
-| Contract refines commitment | More specific obligations express part of a responsibility | Preserve semantic differences and uncovered obligations |
-| Commitment responds to need | Service takes bounded responsibility | Identify control, dependency and limit |
-| Observation checks acceptance | Result bears on a stated condition | Name the method and what it cannot establish |
-| Outcome contributes to impact | A causal bridge is proposed | Retain mechanism, alternatives and uncertainty |
-| Evidence qualifies claim | Source supports, challenges or limits it | Retain scope, provenance and dependence |
-| Actor may amend/receive/interpret | Specific authority permits an action | A link alone confers no permission |
+This table is the one link vocabulary; type every link with it. The link kind
+says what a link lets you claim:
+
+- expression: a more specific account of a purpose or obligation;
+- realisation: a change or implementation that brings about a declared part of
+  a contract or an experience, within stated conditions;
+- enablement: a consumer relying on a provision;
+- contribution: a proposed causal bridge from use to an outcome;
+- evidence: an observation bearing on a claim;
+- authority: a specific permission.
+
+Do not infer a contribution from an expression, realisation or enablement link:
+traceability makes a claim inspectable, it does not prove it.
+
+| Link | Link kind | Meaning | Required caution |
+| --- | --- | --- | --- |
+| Stage exposes need | expression | The need arises in this context | Proposed occurrence is not observed prevalence |
+| Story addresses need | expression | Change aims to help meet the need | Coverage is not complete satisfaction |
+| Story changes stage | realisation | Slice alters part of an experience | Whole-journey completion remains a separate claim |
+| Contract enables story | enablement | Supporting guarantee is required | Local proof does not discharge system proof |
+| Implementation realises contract | realisation | Mechanism conforms within stated conditions | Conformance does not prove consumer fit |
+| Capability enables use | enablement | Provision makes an activity possible | Consumer obligations and composition may prevent actual use |
+| Contract refines commitment | expression | More specific obligations express part of a responsibility | Preserve semantic differences and uncovered obligations |
+| Commitment responds to need | expression | Service takes bounded responsibility | Identify control, dependency and limit |
+| Observation checks acceptance | evidence | Result bears on a stated condition | Name the method and what it cannot establish |
+| Outcome contributes to impact | contribution | A causal bridge is proposed | Retain mechanism, alternatives and uncertainty |
+| Evidence qualifies claim | evidence | Source supports, challenges or limits it | Retain scope, provenance and dependence |
+| Actor may amend/receive/interpret | authority | Specific authority permits an action | A link alone confers no permission |
 
 For a consequential relation record source and target IDs/versions, meaning,
 conditions, status, warrant and reopening event. One table may be sufficient.
@@ -43,7 +60,7 @@ For non-service uses and cross-level interpretation, consult
 [levels and implementation](levels-and-implementation.md). Human needs and
 technical consumer requirements can be related without treating them as identical.
 
-## Two independent status dimensions
+## Three independent status dimensions
 
 **Knowledge:** assumption, research-supported finding, contested claim or
 superseded claim, with provenance and scope. Use the actual project's terms.
