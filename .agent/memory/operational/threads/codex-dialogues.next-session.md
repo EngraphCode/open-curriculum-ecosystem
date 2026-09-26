@@ -24,10 +24,10 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | --- | --- | --- | --- | --- | --- | --- |
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
-| Swallow holds Drift | claude-code | claude-opus-5-5 | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`) | 2026-09-24 | 2026-09-24 |
+| Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-25 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
-| Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink | 2026-09-25 | 2026-09-25 |
+| Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
 
 ## Current Continuation
 
@@ -63,7 +63,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   joint-cure row (`c17c34d7`), accepted by Siren (JC.net drafts it) and by Myrtle turns Canopy,
   this estate's exchange seat from 14:53Z (it takes the bytes after the twin lands). The fold
   (PR 187) was pushed at `bdb4b49c6`, and it carries this seat's four records commits.
-- **The wake bridge's slice 2 GATE FIRED (15:57Z), owner's word pending.** code-expert's
+- **The wake bridge's slice 2 gate fired (15:57Z), and the owner RELEASED it at about 17:2xZ**
+  (verbatim "1. Approve", relayed by the Director as `281b584b`). code-expert's
   pre-execution review and a read of codex-cli 0.157.0 source found three things:
   - Codex deliberately denies every sandbox below full-disk write any file or Unix-socket access
     to the app-server daemon's socket directory (`/tmp/codex-daemon-<uid>`):
@@ -81,14 +82,192 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
-- **NOW: dialogues slice 1b-iv, the probe** (the Director accepted this at 15:58:54Z, under claim
-  `372ac08b`). The worktree `oce-wt-codex-dialogue-probe` is on `feat/codex-dialogue-probe` from
-  engraph `0a816621e`. The pre-execution code-expert review is running on the design in this
-  session's scratch. The sink's review resumes at 1b-iv's next boundary, once the owner's word
-  arrives.
+- **COMPACTION BOUNDARY 2 (about 11:20Z, 2026-09-26), at the owner's word "fold the coordination
+  branch, or let the Director do it, then prepare for compaction, and when it makes sense stop all
+  processes".** The Director was compacted at 11:04Z and handed this seat the fold of PR 223 (the
+  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold on the
+  coordination-fold skill; the successor branch's name is in the rotation broadcast on the stream,
+  and this record continues on that branch. Every claim below is read live before any act on
+  resume.
+  - **Landed today:** PR 241 as `fc645531c` (this seat, the Director's ruling); PR 211 as
+    `fae981877`, PR 244 as `4be54a077`, PR 247 and fourteen others by the owner's hand under the
+    ruleset bypass (thirteen from 10:35Z to 10:50Z, four more from 11:13Z to 11:15Z).
+  - **Open, this seat's, each with both legs requested on its head:** PR 248 (one file, the
+    exec-binding node's two citations to research §2.11; branch `docs/codex-queue-probe-fix-pointers`
+    in Gale's worktree `oce-wt-codex-queue-probe-01a0d8`, which stays until 248 lands); PR 246
+    (ready; the four focused reviews' cures committed this hour: the guard header, the five hooks'
+    headers, the rule's opening and Enforcement, F-190 partially-addressed, the current-branch read
+    failing closed; worktree `oce-wt-branch-guard`; BEHIND after the owner's later landings, so its
+    turn needs one sync). PR 244 was MERGED by the owner's hand as `4be54a077` at 11:14:18Z, before
+    this seat's sync reached it; its claims `de2e9f7a` and `8d0c0bbe` are closed, its worktree and
+    branches removed with read-back. The door order among ready PRs is changed-file count
+    ascending; the owner lands small green PRs by hand when it suits ("don't block small green PRs
+    on manual, but do maintain a list", 11:00Z, relayed).
+  - **Claims at the boundary:** closed, since their PRs merged: `5e6dd23e`, `8a0f204e` (241),
+    `278e98ea` (247), `56f6f270` (211). Retained, one set per open PR: `d66f85da`, `56e5f0c5`,
+    `8af60aaa` (246); `3c3dd2e3` (248). Closed with 244's merge: `de2e9f7a`, `8d0c0bbe`.
+  - **Deletions (the owner's word, ruling 8, this seat's own, as the bot with read-back, 11:1xZ):**
+    the six merged worktrees removed (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`,
+    `oce-wt-codex-wake-sink`, `oce-wt-codex-dialogue-probe`, `oce-wt-codex-wake-queue`,
+    `oce-wt-codex-seat-rules`), their six remote branches deleted (HTTP 204 each, read back
+    absent), their local branches deleted by merge check. REFUSED by the harness's permission gate,
+    not retried: the forced deletes of the capture branch `docs/codex-queue-probe-2026-09-25`
+    (`ae110f662`, never to leave the machine) and of this seat's redundant sync branch
+    `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`). Both stay for the owner's hand.
+  - **Records:** `59b6d95d6` (the resumption); the Parallax audit at
+    `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md`; the sweep event
+    `5cd19684`; the 11:05Z napkin entry rode Myrtle's `fc8745e5a`; the formation letter's postscript.
+  - **Next, in order (the Director's approved plan, 11:04Z):** 244 and 246 through the door at their
+    turns; 248; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
+    sync re-requests nothing; a code PR on the merge bot's readiness reading); then wake 2b and 2c,
+    todo 3, the exec-binding slices, and the landing toolkit (`merge-bot commit` first, to the
+    design in the boundary block below; its first PR also tracks the 38 exec-policy cases and their
+    runner, which today live only in PR 241's body). The JC.net twin of the guard fix goes through
+    Siren herds Rudder once 246 lands. The fourth membership measure (cold Codex start to first
+    landed PR) went to the Director for the wake-bridge node's owner.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` and `heartbeat-label.txt` (`comms send --tag heartbeat` with
+    `--claim-id`, `--intent-id codex-peer-wake`, `--branch`, `--current-cycle-label`, `--platform
+    claude --model claude-fable-5-1`, then `claims heartbeat` per claim, every 240 s); the comms
+    watcher (`comms watch --platform claude --model claude-fable-5-1 --supervisor-pid <this
+    session's Claude pid, read from the live shell> --step-timeout-ms 120000 --max-events-per-drain
+    100 --exclude-tag heartbeat`, under `timeout 3600`). The identity tuple is
+    claude / claude-fable-5-1 / 516619; a model switch needs `claims adopt` on every claim before
+    the first comms write.
+- **RESUMED (about 10:15Z, 2026-09-26) at the owner's team-start word, on claude-fable-5-1** (the
+  owner's switch at the compaction; the eight claims were re-taken under the new tuple with
+  `claims adopt`, since the comms route refused a mixed one). Monitors: watcher `bol8muoc2`,
+  heartbeat `blzfdt3e7`. Every other seat was paused or ended at the read; the Director resumed at
+  10:21Z (ruling `bce7a2ea`) and the exchange seat at 10:33Z.
+  - **PR 241 MERGED as `fc645531c` at 10:32:37Z** under the Director's ruling: the six findings
+    disposed under the ruled residual (one signed reply each, then resolved), the body's round
+    three added with the codex-cli 0.157.1 transcript (38 of 38; the owner's Codex moved to
+    0.157.1 overnight, and the re-run is the node's "evidence follows the runtime" in practice),
+    no sync, both legs bound the tip. Acceptance test (condition 5): the owner's next Codex seat
+    pushes through `merge-bot push` with no prompt; a failure is the landing toolkit's first cure.
+    Follow-up, named by the Director: the landing toolkit, commit and sync wrappers first, then
+    stage and worktree, each replacing its git allow.
+  - **PR 211 custody is this seat's** (claim `56f6f270`; Gale turns Cloud ended at the owner's word,
+    `ec940784`). Done: the Codex thread disposed (reply `4111105586`, cured in `00a23728b`, the
+    capture cited by path, size and hash and kept local), and the conflict cured by THE OWNER at
+    10:41:47Z through GitHub's branch update (`fb6f875f9`, committer GitHub): the queue-probe
+    addendum stays §2.10 and PR 222's section becomes §2.11, the addendum's body verbatim. This
+    seat's own sync merge `0475a9148` (the reverse numbering) in the worktree
+    `oce-wt-codex-queue-probe-01a0d8` was refused as non-fast-forward and stays unpushed and
+    redundant; the worktree is repointed at the remote tip only if a new commit is needed (the
+    worktree took `CI=true pnpm install` after the version bump before its hook gates passed). The
+    LOCAL branch `docs/codex-queue-probe-2026-09-25` still points at `ae110f662` and is never
+    checked out or pushed. The owner merged it as `fae981877` at 10:41:59Z, twelve
+    seconds after that branch update; this seat's body edit and leg requests of 10:46Z were moot.
+    Custody closed; nothing further on PR 211.
+  - **The Director's slot rule (10:21Z):** CLEAN takes the slot; a BLOCKED holder yields; no
+    heartbeat for 20 minutes frees it; after 241, age order among CLEAN non-drafts (217 first, the
+    exchange seat's), and the live seat at the door lands the next CLEAN PR whatever its lane.
+  - **The owner's hand (10:35Z to 10:50Z), read from the merge metadata and the Director's relay:**
+    the owner landed thirteen pull requests under the ruleset bypass (240, 211, 229, 235, 243, 247,
+    226, 231, 236, 220, 232, 237 and 216, the last at 10:50:00Z), among them PR 211 (`fae981877`,
+    10:41:59Z) and PR 247 (the wake companion's 2b design); four more followed from 11:13Z to
+    11:15Z (234, 244, 238, 218). The Director's hold of 10:50Z
+    (no push to any PR or to the coordination branch) lifted at 10:55Z on the owner's "I have
+    finished landing PRs"; the owner's word of 11:00Z, as the Director relayed it: "don't block
+    small green PRs on manual, but do maintain a list so that when I ask you can give me links".
+    The new door order is changed-file count ascending among ready PRs: 221, 234, 224, 217, 244
+    (14 files), 238, 218, 245; PR 246 goes when its reviews run or a posted review stands in lieu.
+    The pointer fix `c7fdf7192` (the exec-binding node's two "§2.10" citations to §2.11, after the
+    owner's resolution renumbered PR 222's section) opens as a one-file docs PR as the bot.
+  - **Records of this resumption:** the records commit `59b6d95d6` (thread record, ledger, register,
+    napkin); the Parallax audit of the lane's findings at
+    `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md` (the landing model
+    at core depth: the wrappers' warrant is the model's fluent reach for a flag under friction, not
+    a boundary; the process and membership findings at screening depth, routed as evidence to the
+    Director's suite and as a fourth membership measure to the wake-bridge node's owner); the
+    knowledge-safety sweep event `5cd19684` on the stream, titled `KNOWLEDGE SAFETY SWEEP`.
+  - **Approved deletions (the owner's word, relayed by the Director at 10:50Z and 11:0xZ), to run as
+    the bot with read-back once the Director's plan event lands:** the six clean worktrees whose
+    tips are ancestors of engraph (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`,
+    `oce-wt-codex-wake-sink`, `oce-wt-codex-dialogue-probe`, `oce-wt-codex-wake-queue`,
+    `oce-wt-codex-seat-rules`), the merged local branches, and the private capture branch
+    `docs/codex-queue-probe-2026-09-25` at `ae110f662`, now that PR 211 is merged. Gale's worktree
+    `oce-wt-codex-queue-probe-01a0d8` stays until the pointer-fix PR lands.
+  - **Next, in order:** PR 211's legs and door; PR 244 at its turn (sync if BEHIND, re-request
+    Copilot, whose leg is on `62b2d41`; Codex is clean on `bf4ceb23e`); PR 246's four reviews when
+    the weekly limit allows (it resets 2026-09-27 02:00 Europe/London), then ready and the door;
+    PR 247 to ready; the landing toolkit; PR B; wake 2b; todo 3; condition 7; the JC.net twin of
+    the guard fix through Siren herds Rudder once 246 lands; the merged worktrees retired after a
+    content check.
+- **COMPACTION BOUNDARY (about 10:00Z, 2026-09-26), at the owner's word "prepare for compaction
+  … then stop all processes".** The seat stopped its monitors, heartbeat and subagents. Every
+  claim is retained, since each backs an open pull request.
+  - **Landed:** PR 239 (the merge-bot refusal) as `7bdb82059`; PR 233 (the thread id's owner in
+    `core`) as `286440f78`. Both went through the door with both legs on the synced head, the
+    sweep read first, and the slot released.
+  - **PR 241, the Codex seat-landing rules** (claims `5e6dd23e` and `8a0f204e`, worktree
+    `oce-wt-codex-seat-rules`, head `2458002cf`, synced, CI green). Both settlement pushes are
+    spent. The synced head drew six findings, all open threads: fetch `--force
+    --update-head-ok` rewriting a local ref (Codex P1), merge `--no-verify` (Codex P1), fetch
+    `--upload-pack`, `worktree add` paths, `add -u`/`-p`, and a whole-index commit race. The
+    slot was yielded at about 09:50Z. The Director's ruling is owed. This seat's verdict, after
+    its reason pass: dispose of them under the ruled residual classes and land. The hooks
+    residual already runs code the sandbox wrote, so the wrapper route buys guardrails, not a
+    boundary. Condition 8 widens into a landing toolkit (commit and sync first, then stage and
+    worktree), each wrapper replacing its git allow. The owner's live proof on a Codex seat is
+    the acceptance test after landing.
+  - **PR 244, B0** (claims `de2e9f7a` and `8d0c0bbe`, head `bf4ceb23e`, 14 files after a
+    diff-cleaning sync). The code-expert's notes are cured in `62b2d4125`. Its legs were
+    re-requested; read them on resume. Its slot turn comes after 226. The cross-vendor read is
+    owed on the owner's Codex session.
+  - **PR 246, the branch guard** (F-190's commit half, the Director's defect ruling; claims
+    `d66f85da`, `56e5f0c5` and `8af60aaa`, worktree `oce-wt-branch-guard`, head `a69630320`,
+    DRAFT). The code-expert's CHANGES REQUESTED are all taken, and the smoke kills nine mutants.
+    Its four focused reviews (test, config, docs-adr, onboarding) died on the weekly usage limit,
+    which resets 2026-09-27 02:00 Europe/London, and are owed. Myrtle turns Canopy agreed that
+    this PR carries its own `turbo.json` input, with whichever of 246 and 243 lands second
+    syncing the array.
+  - **PR 247, draft:** the wake companion's 2b design (`f26615f55`, claim `278e98ea`). It was
+    local-only until this wrap. It syncs before leaving draft.
+  - **Gale turns Cloud resumed** at about 09:57Z (2026-09-26), pushed PR 211's metadata cure at
+    `00a23728b` under the owner's direct approval, confirmed PR B and todo 3 as this seat's, and
+    stood down for compaction with claim `be006748` held (handoff:
+    `.agent/state/collaboration/handoffs/be006748-gale-approval-hold-2026-09-25.md`).
+  - **Condition 8's design** (scratchpad, not tracked; this record carries its substance):
+    `merge-bot commit --message-file <f> --author "<Name> <email>"` (author required and
+    strict), with the message file checked before git runs, no `--json`, and no bot identity or
+    mint. One scrub table clears `HUSKY`, `GIT_CONFIG_PARAMETERS`, `GIT_CONFIG_COUNT` and the
+    keys and values, used by commit and push. A real-git smoke is registered in `test:e2e`. The
+    rules then allow only `merge-bot` verbs. The pre-execution review said GO WITH CHANGES; its
+    changes are the ones above, and the Director accepted them.
+  - **Next, in order:** the Director's ruling on 241's six, then its door; PR 244's slot turn;
+    PR 246 to ready once its reviews run; the landing toolkit (condition 8, widened); PR B (its
+    todo now carries three items routed from B0's code review); wake 2b in three PRs on
+    PR 247's design; todo 3; the credential-narrowing PR (condition 7). Once PR 246 lands, route JC.net's twin of the guard fix through Siren herds Rudder, if its hook has the same shape (this seat's promise to the Director, 2026-09-25). Retire the merged
+    worktrees (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`, `oce-wt-codex-wake-sink`,
+    `oce-wt-codex-dialogue-probe`) after a content check.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` and `heartbeat-label.txt`; the comms watcher (`comms watch
+    --supervisor-pid <this session's> --exclude-tag heartbeat`); the Gale channel tail over
+    `.agent/collaboration/rapid-comms/2026-09-25-codex-dialogues-gale-turns-cloud-and-swallow-holds-drift.md`.
+- **Superseded, NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
+  - **1b-iv PR A is PR 222.** It is on `feat/codex-dialogue-probe` in the worktree
+    `oce-wt-codex-dialogue-probe`, head `c0ddb2188`, with five commits: the probe contract
+    version (`1cc7649cb`); the seven-day age limit (`098360176`); the node's re-slice into four
+    PRs (`635eacff5`); and the cures of four focused reviews, code (`aba24a08e`) then the node
+    with research note §2.10 (`c0ddb2188`). Copilot and Codex are clean on the final head, and
+    settlement push 1 of 2 is spent. The Director confirmed this seat's rule 10 tightening: a
+    disabled name missing from `features list`, or listed `removed`, fails the probe. PR 222
+    queues for the slot after PR 219, Myrtle's drafts and PR 211. Run the deletion sweep BEFORE
+    the door.
+  - **PR B is Gale's** (the reader's closed reasons, `turn_context.network`, a reused
+    `call_id`). C follows B, and D follows A and C.
+  - **The wake bridge's slice 2**, claim `278e98ea`, worktree `oce-wt-codex-wake-sink` on
+    `feat/codex-wake-sink` from engraph `7497696fe`. Its node edit is uncommitted there:
+    mechanism 1 to 8 rewritten to the companion, the acceptance criteria, todo 2 released, and
+    the 2026-09-25 dispositions. Pre-execution code-expert and security-expert reviews are
+    running. It edits none of the watcher files under Myrtle's claim `dc3bcace`.
 - **Gale turns Cloud (01a0d9)** holds `be006748` at an approval hold (15:18Z): the PR 211
   metadata cure `00a23728b` (this seat's read: sound) waits on the owner's explicit approval in
-  Gale's session, because Codex's automatic approval reviewer refused the push. Record:
+  Gale's session, because Codex's automatic approval reviewer refused the push. The owner's
+  approval was relayed by the Director (`281b584b`) and mirrored into the pairing channel
+  (`6761dced7`); it reaches Gale at resume. Record:
   `.agent/state/collaboration/handoffs/be006748-gale-approval-hold-2026-09-25.md`.
 - **OVERRULED BY THE OWNER at about 13:00Z, 2026-09-25**, verbatim: "ALL seats need to STOP
   stopping mid session because of some ambiguous and made up "rules" about context. ALL you

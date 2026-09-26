@@ -1,8 +1,8 @@
 ---
 id: reliable-atoms-programme
 node_type: strategic
-name: "Reliable atoms — the estate's fundamental building blocks at engineering excellence"
-overview: "Factor the estate's fundamental code, data structures, algorithms, and patterns into small single-responsibility core modules with strict public APIs, extensive TSDoc carrying positive and negative examples, behavioural and performance test suites — utterly reliable atoms, brought to true engineering and developer-experience excellence."
+name: "Capability Foundations — small completed capabilities and purposeful composition"
+overview: "Finish small independent Primitives and compose them into complete Components and Subsystems, with strict public APIs, proof, tests, mutation, performance evidence and documentation for each supported contract."
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-08
@@ -16,10 +16,10 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-14
+last_updated: 2026-09-25
 ---
 
-# Reliable atoms programme
+# Capability Foundations programme
 
 ## Outcome
 
@@ -113,6 +113,17 @@ began to declare its root an exception). The exploration that produced
 this framing is
 `.agent/research/reliable-atoms-workspace-shape-exploration-2026-09-14.md`.
 
+### Owner direction — 25 September 2026 receiving amendment
+
+The outcome and investment commitment remain the ratified programme's purpose.
+The owner's later Capability Foundations decisions refine its taxonomy and
+completion model: independent Primitives, composed Components and Subsystems,
+and named Mechanism/Facility roles. The [common architecture](../../../docs/architecture/foundations/reliable-atoms-and-composition-architecture-2026-09-08.md)
+owns the grades and assurance bar; the [adoption profile](../../../docs/architecture/foundations/capability-foundations-adoption.md)
+owns completion, first-build contracts and data/API criteria. This amendment
+receives those decisions without supplying a new ratification stamp for delivery
+sketches. The stable plan identity remains unchanged.
+
 ## User groups and value
 
 Engineers and agents consuming the foundations gain small, explicit public
@@ -140,9 +151,9 @@ reorganisation questions (the owner's words: "creating utterly reliable
 atoms, rather than designing the conceptual space") — an atom's
 excellence is location-independent, and this node is robust to any
 basis ruling: atoms are authored and qualified wherever their contract
-lives, are placed in today's `packages/core/` strata by the promotion
-decision (the ten-gate test under §Mechanism), and move wholesale if
-the conceptual space later renames their home.
+lives. Package placement follows cohesion, explicit dependencies, platform needs,
+release responsibility and the repository's workspace rules. The architectural
+grade is independent of the physical path; core is not a composition layer.
 
 ## The bar
 
@@ -196,17 +207,18 @@ there). The extensions, each with its enforcing instrument:
    shared-runner noise makes cross-run fences fire falsely and die
    under no-warning-toleration); O(1) wrapper atoms carry none.
    Bench code lives outside the source read path.
-7. **Zero runtime dependencies by default.** Each register row
-   declares its runtime-dependency budget (default: none); the
-   conformance instrument fails on any undeclared runtime dependency
-   — a new dependency at the atom tier is a visible register diff,
-   never a silent manifest edit.
-8. **Structural fences on the core itself**: a grab-bag fence (export
-   count and responsibility-phrase checks against the lodash failure
-   mode), a recomputed consumer count per atom with automatic
-   demotion-to-review at zero fan-out (orphaned-utility fence), and
-   an executable deprecation ladder so removal conditions actually
-   fire (doc-flag → lint-flag → removal across releases).
+7. **Primitive independence; explicit composed dependencies.** Primitives have
+   no peer estate dependency, including type-only or semantic dependencies.
+   Components and Subsystems declare their complete dependency closure. Reuse
+   canonical Result and classify its consumers as composed; do not duplicate it
+   to obtain a Primitive label. Automatic checks cover imports and exposure.
+8. **Structural fences on capability boundaries.** Check the complete public
+   surface, responsibility, ownership and permitted audiences, including the
+   recomputed export-count and responsibility fence. Consumer count is
+   not an admission, qualification, publication or retention gate. Removal follows
+   a declared contract/lifecycle decision with preserved consumer semantics;
+   the executable deprecation ladder makes that decision effective through
+   documentation flags, lint flags and removal across declared releases.
 9. **One retrieval surface per fact.** TSDoc is the single source for
    API and examples; the README hand-authors only what TSDoc cannot
    carry (purpose, placement, troubleshooting, removal condition);
@@ -246,27 +258,15 @@ there). The extensions, each with its enforcing instrument:
   conformance instrument at check time, never a stored column — and
   the register doubles as the agent discovery index, so "does an atom
   for this exist" is one read.
-- **Discovery, qualification and package promotion have distinct
-  decisions**: owner-directed capability and its offered value establish
-  candidate scope, including innovation before existing consumers use it.
-  The excellence bar governs qualification. The frame's ten-gate test
-  governs promotion into a shared core package, including its consumer and
-  release obligations. A package-promotion blocker is recorded against that
-  decision while the candidate's authorised design and qualification work
-  proceed. Placement follows the repository's dependency and workspace
-  rules; the register distinguishes these facts.
-- **Gates hold; the directive sets ambition**: the frame's ten-gate
-  promotion test still filters what becomes core. Where a would-be
-  atom fails a gate today (typically the multiple-real-consumers
-  gate), it is registered as a candidate-in-waiting — the
-  package-promotion blocker recorded above is that row, naming the
-  gate it fails — and the batch's gate conflicts route to the owner at
-  a card at the batch's promotion moment; the standing direction is
-  read as raising priority and the excellence bar, never as deleting
-  the gates. The owner may override per batch. The three decisions
-  above and this bullet are different things and both hold: the first
-  says which decision each fact belongs to, this one governs the
-  promotion decision (owner's reading, 2026-09-09).
+- **Scope, qualification and publication have distinct decisions.** Owner-directed
+  value establishes scope, including completed definitions and provable contracts
+  before application adoption. The full assurance bar establishes qualification.
+  Cohesion, public consumption, dependency closure, platform and release obligations
+  govern package publication. None depends on a second consumer or a fan-out quota.
+- **Finish complete supported contracts.** The initial investment closes definition,
+  implementation and evidence. New functionality is a new scope; defects reopen the
+  affected claim. Reuse completed lower guarantees and valid evidence as composition
+  advances, rather than repeatedly reopening their private mechanisms.
 - **Conformance instrument at tranche one**: a validator that
   RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
   presence, export-surface strictness, packed smoke — so atom status
@@ -281,7 +281,7 @@ there). The extensions, each with its enforcing instrument:
 ## Success looks like
 
 - The atom register exists, is committed, and every row carries a
-  disposition (at-bar / candidate / in-waiting with its gate blocker).
+  disposition (Qualified for its exact scope, or candidate with required obligations open).
 - The conformance instrument is green over every at-bar row, and its
   checks are recomputed, not recorded.
 - Every existing `packages/core/*` member either meets the bar or
@@ -301,8 +301,9 @@ there). The extensions, each with its enforcing instrument:
 
 Delivery plans serving this node declare
 `serves: reliable-atoms-programme` and are authored by their
-implementers at pickup. The first tranche's natural shape: the
-register + the conformance instrument + one exemplar atom brought to
-the full bar (proving the bar is reachable and the instrument honest)
-— the exemplar chosen for high fan-out and small surface. Milestones
-live in Linear; this node points, never mirrors.
+implementers at pickup. BinaryTreeIndices is the first target capability, with
+required admission/outcome prerequisites closed before qualification; the
+composed BinaryHeap is the first useful endpoint. Admission, storage and order
+close their own contracts before repairs rely on them. Data/API deliveries select
+their actual dependency closure rather than treating the entire catalogue as a
+prerequisite. Milestones live in Linear; this node points, never mirrors.

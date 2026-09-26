@@ -84,7 +84,7 @@ pnpm agent-tools:collaboration-state -- identity preflight --platform codex --mo
 ```
 
 For non-Codex platforms or name-only display, use
-`pnpm agent-tools:agent-identity --format display` when a
+`pnpm agent-tools:agent-identity --platform <label> --format display` when a
 `PRACTICE_AGENT_SESSION_ID_*` variable or `CODEX_THREAD_ID` is available; pass
 `--seed "<stable-session-seed>"` explicitly when no platform seed is exposed.
 Do not use personal-email fallback.

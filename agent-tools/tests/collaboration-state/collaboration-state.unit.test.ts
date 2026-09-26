@@ -98,6 +98,21 @@ describe('runCollaborationStateCli', () => {
     expect(result.stdout).toContain('"session_id_prefix": "019dd3"');
   });
 
+  it('a Codex seat preflighting from a Claude shell keeps its thread id: the Claude seeds do not count', async () => {
+    const result = await runCollaborationStateCli({
+      argv: ['identity', 'preflight', '--platform', 'codex', '--model', 'GPT-5'],
+      env: {
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: 'claude-seed-appended-to-the-shared-env-file',
+        CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+        CLAUDE_CODE_SESSION_ID: 'claude-cli-session',
+        CODEX_THREAD_ID: codexThreadId,
+      },
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('"session_id_prefix": "019dd3"');
+  });
+
   it('parses repeated area-pattern flags as an ordered collection', () => {
     const parsed = parseOptions([
       '--',

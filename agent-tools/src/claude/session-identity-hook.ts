@@ -188,7 +188,7 @@ function identityContext(input: { readonly displayName: string; readonly prefix:
     '[Practice agent identity]',
     `Session identity (PDR-027): ${input.displayName}.`,
     `PDR-027 session_id_prefix (first 6 of the PDR-027 seed): ${input.prefix}.`,
-    'PRACTICE_AGENT_SESSION_ID_CLAUDE is set in $CLAUDE_ENV_FILE so shell tools (e.g. `pnpm agent-tools:agent-identity --format display`) resolve the same identity without --seed.',
+    'PRACTICE_AGENT_SESSION_ID_CLAUDE is set in $CLAUDE_ENV_FILE so shell tools (e.g. `pnpm agent-tools:agent-identity --platform claude-code --format display`) resolve the same identity without --seed.',
     `Once the session intent is clear, suggest the user run: /rename ${input.displayName} - <intent>`,
     'so the agent name is the first part of the session title. Do not auto-rename — the user owns the title.',
   ].join('\n');
