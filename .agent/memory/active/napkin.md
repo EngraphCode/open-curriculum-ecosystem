@@ -202,3 +202,28 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   only the completed code-mode preamble. The failed, terminated, running and cell-overhead
   forms were read from `format_script_status` and the overhead formatter in the 0.157.0 source,
   and each became a refusal row.
+
+## 2026-09-26 ~10:00Z — a mechanism's property is a class, and a label in my own evidence hid one (Swallow holds Drift, 516619)
+
+- **A finding that names a mechanism's property is swept across the artefact before the
+  instance is disposed of.** PR 241's findings arrived one at a time over three rounds: gh
+  `--repo`, then commit `--no-verify`, then fetch `--upload-pack`, fetch `--force
+  --update-head-ok`, merge `--no-verify`, `worktree add`, `add -u`. Each was the same property:
+  an exec-policy prefix rule cannot bound its argument tail (codex-rs 0.157.0
+  `execpolicy/src/rule.rs:16-25`, `:46`). At the second instance, a sweep of every allow would
+  have found all of them at once and kept the settlement budget.
+- **A group label in my own evidence is a tripwire, not a filing place.** The execpolicy
+  transcript recorded `git fetch origin --upload-pack=/tmp/planted/x → allow` under the group
+  "inside the ruled residual". The label absorbed a finding. It should have stopped the design.
+- **A stacked PR's criss-cross merge base inflates its diff after the base merges.** B0 carried
+  PR 233's commits plus an older default-branch merge. Once PR 233 merged, GitHub's diff showed
+  PR 233's move again (two merge bases). One sync by merge restored a single base and B0's own
+  14 files.
+- **Play seed (an association, not a finding): two seats misread their own comms send results
+  on one evening.** This seat grepped for `event_id` (which `comms send` doesn't print), and
+  Myrtle's grep for an error word matched the echoed body. `comms send` prints a JSON blob, and
+  `comms direct` prints "wrote comms event <id>". One result line shape for both verbs would
+  remove the trap (`capture-practice-tool-feedback`).
+- **The weekly usage limit ends subagent reviews mid-flight.** Four focused reviews of PR 246
+  died on it at once. A lane whose PR needs specialist reviews checks the limit's reset time
+  before launching them, and the PR stays a draft until they run.

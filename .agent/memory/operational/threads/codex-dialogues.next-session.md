@@ -82,38 +82,57 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
-- **NOW (about 21:50Z, 2026-09-25).**
-  - **Landed:** PR 222 (1b-iv PR A) as `92cbe0afe`; PR 228 (wake 2a, the companion's design and
-    pure core) as `952c6f587`; PR 239 (the merge-bot refusal, the Director's condition 3 for the
-    seat rules) as `7bdb82059`. Each went through the door with both legs on the synced head and
-    the deletion sweep read first. PR 239's last round was one Codex P2, port-bearing remote
-    URLs, settled by disposition once both settlement pushes were spent: the old parser refused
-    ports too, the push fails closed with its cure named, and default ports go to the
-    credential-narrowing PR. Its claims are closed.
-  - **PR 241, the Codex seat-landing rules** (claim `5e6dd23e`, worktree
-    `oce-wt-codex-seat-rules`, head `64a84876c`).
-    - Round 1 is cured by removing the `gh pr create` rule. With `GH_TOKEN` unset, gh acts as the
-      signed-in user, so a trailing `--repo` reached any repository that login can. Pull
-      requests take the default flow until the merge bot opens them under its own token. The
-      self-edit residual is stated in the README.
-    - The execpolicy transcript matches 38 of 38 cases. Both legs are re-requested on
-      `64a84876c`; settlement push 1 of 2 is spent.
-    - The door waits only on condition 5, the owner-held live proof on a Codex seat.
-  - **B0, the evidence cure** (claims `de2e9f7a` and `8d0c0bbe`, worktree
-    `oce-wt-codex-rollout-inputs`, branch `feat/codex-rollout-evidence-cure`, head `f0ce39e0d`,
-    stacked on PR 233).
-    - The reader stops taking a code-mode program's printed output as evidence. The harness's
-      command records are the evidence (rule 4, accepted by the Director at 21:03:54Z).
-    - The three focused reviews are cured in `f0ce39e0d`, each new test confirmed by a mutation.
-      The PR opens against `engraph` once PR 233 merges. Its cross-vendor read is owed on the
-      owner's Codex session.
-  - **PR 233** waits for the readiness slot (Myrtle turns Canopy holds it for PR 227). It then
-    syncs (38 behind) and goes through the door.
-  - **Next, in order:** PR 233's door; B0's PR; PR B; wake 2b in three PRs (its design is pinned
-    in `f26615f55` on `oce-wt-codex-wake-queue`, stacked on 233); todo 3; the
-    credential-narrowing PR (the Director's condition 7, with the authoritative default-branch
-    read, default ports, the helper smoke, the `mintFetch` debt and pull-request creation
-    through the merge bot).
+- **COMPACTION BOUNDARY (about 10:00Z, 2026-09-26), at the owner's word "prepare for compaction
+  … then stop all processes".** The seat stopped its monitors, heartbeat and subagents. Every
+  claim is retained, since each backs an open pull request.
+  - **Landed:** PR 239 (the merge-bot refusal) as `7bdb82059`; PR 233 (the thread id's owner in
+    `core`) as `286440f78`. Both went through the door with both legs on the synced head, the
+    sweep read first, and the slot released.
+  - **PR 241, the Codex seat-landing rules** (claims `5e6dd23e` and `8a0f204e`, worktree
+    `oce-wt-codex-seat-rules`, head `2458002cf`, synced, CI green). Both settlement pushes are
+    spent. The synced head drew six findings, all open threads: fetch `--force
+    --update-head-ok` rewriting a local ref (Codex P1), merge `--no-verify` (Codex P1), fetch
+    `--upload-pack`, `worktree add` paths, `add -u`/`-p`, and a whole-index commit race. The
+    slot was yielded at about 09:50Z. The Director's ruling is owed. This seat's verdict, after
+    its reason pass: dispose of them under the ruled residual classes and land. The hooks
+    residual already runs code the sandbox wrote, so the wrapper route buys guardrails, not a
+    boundary. Condition 8 widens into a landing toolkit (commit and sync first, then stage and
+    worktree), each wrapper replacing its git allow. The owner's live proof on a Codex seat is
+    the acceptance test after landing.
+  - **PR 244, B0** (claims `de2e9f7a` and `8d0c0bbe`, head `bf4ceb23e`, 14 files after a
+    diff-cleaning sync). The code-expert's notes are cured in `62b2d4125`. Its legs were
+    re-requested; read them on resume. Its slot turn comes after 226. The cross-vendor read is
+    owed on the owner's Codex session.
+  - **PR 246, the branch guard** (F-190's commit half, the Director's defect ruling; claims
+    `d66f85da`, `56e5f0c5` and `8af60aaa`, worktree `oce-wt-branch-guard`, head `a69630320`,
+    DRAFT). The code-expert's CHANGES REQUESTED are all taken, and the smoke kills nine mutants.
+    Its four focused reviews (test, config, docs-adr, onboarding) died on the weekly usage limit,
+    which resets 2026-09-27 02:00 Europe/London, and are owed. Myrtle turns Canopy agreed that
+    this PR carries its own `turbo.json` input, with whichever of 246 and 243 lands second
+    syncing the array.
+  - **PR 247, draft:** the wake companion's 2b design (`f26615f55`, claim `278e98ea`). It was
+    local-only until this wrap. It syncs before leaving draft.
+  - **Gale turns Cloud resumed** at about 09:57Z (2026-09-26), pushed PR 211's metadata cure at
+    `00a23728b` under the owner's direct approval, confirmed PR B and todo 3 as this seat's, and
+    stood down for compaction with claim `be006748` held (handoff:
+    `.agent/state/collaboration/handoffs/be006748-gale-approval-hold-2026-09-25.md`).
+  - **Condition 8's design** (scratchpad, not tracked; this record carries its substance):
+    `merge-bot commit --message-file <f> --author "<Name> <email>"` (author required and
+    strict), with the message file checked before git runs, no `--json`, and no bot identity or
+    mint. One scrub table clears `HUSKY`, `GIT_CONFIG_PARAMETERS`, `GIT_CONFIG_COUNT` and the
+    keys and values, used by commit and push. A real-git smoke is registered in `test:e2e`. The
+    rules then allow only `merge-bot` verbs. The pre-execution review said GO WITH CHANGES; its
+    changes are the ones above, and the Director accepted them.
+  - **Next, in order:** the Director's ruling on 241's six, then its door; PR 244's slot turn;
+    PR 246 to ready once its reviews run; the landing toolkit (condition 8, widened); PR B (its
+    todo now carries three items routed from B0's code review); wake 2b in three PRs on
+    PR 247's design; todo 3; the credential-narrowing PR (condition 7). Once PR 246 lands, route JC.net's twin of the guard fix through Siren herds Rudder, if its hook has the same shape (this seat's promise to the Director, 2026-09-25). Retire the merged
+    worktrees (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`, `oce-wt-codex-wake-sink`,
+    `oce-wt-codex-dialogue-probe`) after a content check.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` and `heartbeat-label.txt`; the comms watcher (`comms watch
+    --supervisor-pid <this session's> --exclude-tag heartbeat`); the Gale channel tail over
+    `.agent/collaboration/rapid-comms/2026-09-25-codex-dialogues-gale-turns-cloud-and-swallow-holds-drift.md`.
 - **Superseded, NOW (about 17:35Z, 2026-09-25): two lanes in parallel.**
   - **1b-iv PR A is PR 222.** It is on `feat/codex-dialogue-probe` in the worktree
     `oce-wt-codex-dialogue-probe`, head `c0ddb2188`, with five commits: the probe contract

@@ -4138,3 +4138,24 @@ commit SHA and the closing plan reference.
   reopens this entry as a defect and the cure as a small PR.
 - **Owner direction status**: session-scoped (the Director's assignment to record it; the
   App permission is the owner's).
+
+### F-209 — no CI check runs commitlint over a pull request's commits
+
+- **Source**: the pre-execution code-expert review of the `merge-bot commit` wrapper (PR 241's
+  condition 8), and the Director's ruling (2026-09-25, about 22:05Z).
+- **Surface**: `.github/workflows/`, which runs no commitlint; the commit message is checked
+  only by the local `commit-msg` hook (`commitlint --strict` and the major-version guard).
+- **Observed**: 2026-09-25. A commit made with its hooks skipped reaches a pull request with
+  an unchecked message: a Codex seat's `git commit -F m --no-verify` (allowed by prefix under
+  PR 241's rules until the wrapper lands), or any environment carrying `HUSKY=0` or a
+  `core.hooksPath` set through `GIT_CONFIG_*`. The pre-push chain re-checks the code but not the
+  message, and no CI job does either.
+- **Expected**: a pull request's commit messages are checked where no local environment can
+  skip the check, for every actor.
+- **Candidate cure**: a CI job that runs `commitlint --strict` (and the major-version guard)
+  over the pull request's commit range, as a required status check.
+- **Target surface**: `.github/workflows/` and the default branch's required checks.
+- **Status**: open, an observation (recorded 2026-09-25). The trigger that opens a cure lane:
+  the first commit on the default branch whose message fails `commitlint --strict`, or the
+  wrapper's landing slipping past the Codex seat's first unattended commit.
+- **Owner direction status**: session-scoped (the Director's assignment to record it).
