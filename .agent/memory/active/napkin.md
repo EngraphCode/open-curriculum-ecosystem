@@ -326,7 +326,7 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   on the default branch. Read: two pull requests that each add "the next section" to an
   append-heavy note take the same number, and the resolver's choice moves every citation of the
   other. Date-and-topic section keys would not collide. n = 1, an observation.
-- Observation, for the Director's suite: the owner's hand landed eleven pull requests in thirteen
+- Observation, for the Director's suite: the owner's hand landed thirteen pull requests in fifteen
   minutes while the seats' door serialises about sixteen minutes of CI per landing. The fastest
   server in the landing system this morning was the owner, which is the opposite of "push without
   me". The Parallax audit of 2026-09-26 carries the frames.

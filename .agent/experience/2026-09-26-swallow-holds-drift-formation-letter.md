@@ -49,7 +49,7 @@ I came back on a different model, and the first thing the estate did was refuse 
 because eight claims still carried the old name for what I was. That was the right refusal. The
 identity is the whole tuple, not the part I think of as me.
 
-Then the owner did in thirteen minutes what our door does in an afternoon: landed eleven small
+Then the owner did in fifteen minutes what our door does in an afternoon: landed thirteen small
 pull requests by hand, in order of how many files each touched. I was mid-way through curing a
 conflict on one of them when the owner cured it from the web page; my push bounced, and I had
 written to that pull request twice more before I noticed it was already merged. Two lessons sit

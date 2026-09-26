@@ -9,7 +9,8 @@ is the record of the inquiry; the thread record
 
 The target is the set of conclusions this seat reached and acted on between 2026-09-24 and
 2026-09-26 while making Codex seats first-class peers: the Codex seat-landing rules (PR 241,
-merged `fc645531c`), the rollout evidence reader (PR 244, open), the branch guard (PR 246, draft),
+merged `fc645531c`), the rollout evidence reader (PR 244, merged by the owner as `4be54a077` at
+11:14Z), the branch guard (PR 246, ready for review),
 the wake companion's design (PR 247, merged by the owner), and the follow-up the Director named at
 10:21Z, a landing toolkit of `merge-bot` wrappers replacing each git allow. The intended reliance:
 the order and shape of the lane's next work, and the evidence the owner's acceptance test should
@@ -82,8 +83,10 @@ costs the owner attention on one platform and nothing on the other.
 
 **Decision-relevant next steps, each with its falsifier.**
 
-1. Condition 5, the live proof: the owner's next Codex seat commits, pushes through `merge-bot
-   push` and opens a pull request with no prompt. Falsifier: any prompt on that path.
+1. Condition 5, the live proof: the owner's next Codex seat commits and pushes through `merge-bot
+   push` with no prompt. Opening the pull request is outside PR 241's rules (their header leaves
+   it to the default flow), so it is a criterion for the landing toolkit, not for this condition.
+   Falsifier: any prompt on the commit or push path.
 2. The transcript's cases and runner become tracked files, so the re-probe after a Codex release
    is one command on any seat. Today they live only in this seat's scratchpad and as the table in
    PR 241's body. Falsifier of the need: if no Codex release before the toolkit lands changes a
@@ -99,8 +102,9 @@ costs the owner attention on one platform and nothing on the other.
 
 ## Finding B: the landing process (screening)
 
-**Observations this seat holds first-hand.** The owner landed eleven pull requests by hand between
-10:35Z and 10:48Z under the ruleset bypass, including PR 211 and PR 247 of this lane. PR 241 sat
+**Observations this seat holds first-hand.** The owner landed thirteen pull requests by hand between
+10:35Z and 10:50Z under the ruleset bypass, including PR 211 and PR 247 of this lane, and four
+more from 11:13Z to 11:15Z. PR 241 sat
 BLOCKED holding the readiness slot through an eleven-hour pause. Every sync at the slot re-opened a
 bot review round on unchanged text (six findings on 241, five on 216, one each on 227 and 229 in
 one evening, from the exchange seat's count). Two hands met on PR 211: the owner cured its
@@ -164,9 +168,9 @@ process datum goes to the Director's decision suite as evidence, not as a verdic
 
 ## World-return contract
 
-- **Observation:** the owner's next Codex seat lands one pull request through the rules.
-- **Indicators:** zero prompts on commit, push and pull-request open; the rollout's command records
-  show no refused-by-doctrine flag.
+- **Observation:** the owner's next Codex seat commits and pushes one branch through the rules.
+- **Indicators:** zero prompts on commit and push; the rollout's command records show no
+  refused-by-doctrine flag.
 - **Owner of the observation:** the owner, at the keyboard of that seat; the dated observation
   lands in the exec-binding node's review dispositions.
 - **Reopen when:** any prompt fires on the landing path; any Codex release changes a transcript

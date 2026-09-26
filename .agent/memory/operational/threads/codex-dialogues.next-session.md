@@ -90,19 +90,22 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   and this record continues on that branch. Every claim below is read live before any act on
   resume.
   - **Landed today:** PR 241 as `fc645531c` (this seat, the Director's ruling); PR 211 as
-    `fae981877`, PR 247 and nine others by the owner's hand under the ruleset bypass.
+    `fae981877`, PR 244 as `4be54a077`, PR 247 and fourteen others by the owner's hand under the
+    ruleset bypass (thirteen from 10:35Z to 10:50Z, four more from 11:13Z to 11:15Z).
   - **Open, this seat's, each with both legs requested on its head:** PR 248 (one file, the
     exec-binding node's two citations to research §2.11; branch `docs/codex-queue-probe-fix-pointers`
     in Gale's worktree `oce-wt-codex-queue-probe-01a0d8`, which stays until 248 lands); PR 246
     (ready; the four focused reviews' cures committed this hour: the guard header, the five hooks'
     headers, the rule's opening and Enforcement, F-190 partially-addressed, the current-branch read
-    failing closed; worktree `oce-wt-branch-guard`); PR 244 (synced to engraph this hour; 14 files;
-    worktree `oce-wt-codex-rollout-inputs`). The door order among ready PRs is changed-file count
+    failing closed; worktree `oce-wt-branch-guard`; BEHIND after the owner's later landings, so its
+    turn needs one sync). PR 244 was MERGED by the owner's hand as `4be54a077` at 11:14:18Z, before
+    this seat's sync reached it; its claims `de2e9f7a` and `8d0c0bbe` are closed, its worktree and
+    branches removed with read-back. The door order among ready PRs is changed-file count
     ascending; the owner lands small green PRs by hand when it suits ("don't block small green PRs
     on manual, but do maintain a list", 11:00Z, relayed).
   - **Claims at the boundary:** closed, since their PRs merged: `5e6dd23e`, `8a0f204e` (241),
-    `278e98ea` (247), `56f6f270` (211). Retained, one set per open PR: `de2e9f7a`, `8d0c0bbe`
-    (244); `d66f85da`, `56e5f0c5`, `8af60aaa` (246); and the claim opened for 248 at the boundary.
+    `278e98ea` (247), `56f6f270` (211). Retained, one set per open PR: `d66f85da`, `56e5f0c5`,
+    `8af60aaa` (246); `3c3dd2e3` (248). Closed with 244's merge: `de2e9f7a`, `8d0c0bbe`.
   - **Deletions (the owner's word, ruling 8, this seat's own, as the bot with read-back, 11:1xZ):**
     the six merged worktrees removed (`oce-wt-codex-thread-id`, `oce-wt-merge-bot-default`,
     `oce-wt-codex-wake-sink`, `oce-wt-codex-dialogue-probe`, `oce-wt-codex-wake-queue`,
@@ -154,14 +157,17 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     redundant; the worktree is repointed at the remote tip only if a new commit is needed (the
     worktree took `CI=true pnpm install` after the version bump before its hook gates passed). The
     LOCAL branch `docs/codex-queue-probe-2026-09-25` still points at `ae110f662` and is never
-    checked out or pushed. Next: both legs on `fb6f875f9`, then its door at its age-order turn (it
-    is the oldest open PR).
+    checked out or pushed. The owner merged it as `fae981877` at 10:41:59Z, twelve
+    seconds after that branch update; this seat's body edit and leg requests of 10:46Z were moot.
+    Custody closed; nothing further on PR 211.
   - **The Director's slot rule (10:21Z):** CLEAN takes the slot; a BLOCKED holder yields; no
     heartbeat for 20 minutes frees it; after 241, age order among CLEAN non-drafts (217 first, the
     exchange seat's), and the live seat at the door lands the next CLEAN PR whatever its lane.
-  - **The owner's hand (10:35Z to 10:48Z), read from commit metadata and the Director's relay:** the
-    owner landed eleven pull requests under the ruleset bypass, among them PR 211 (`fae981877`,
-    10:41:59Z), PR 247 (the wake companion's 2b design) and PR 216. The Director's hold of 10:50Z
+  - **The owner's hand (10:35Z to 10:50Z), read from the merge metadata and the Director's relay:**
+    the owner landed thirteen pull requests under the ruleset bypass (240, 211, 229, 235, 243, 247,
+    226, 231, 236, 220, 232, 237 and 216, the last at 10:50:00Z), among them PR 211 (`fae981877`,
+    10:41:59Z) and PR 247 (the wake companion's 2b design); four more followed from 11:13Z to
+    11:15Z (234, 244, 238, 218). The Director's hold of 10:50Z
     (no push to any PR or to the coordination branch) lifted at 10:55Z on the owner's "I have
     finished landing PRs"; the owner's word of 11:00Z, as the Director relayed it: "don't block
     small green PRs on manual, but do maintain a list so that when I ask you can give me links".
