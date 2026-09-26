@@ -18,7 +18,7 @@ runs in CI and at pre-commit.
 ## Before Writing
 
 When use value, needs, capabilities, journeys or delivery boundaries still
-need defining, use [`use-value`](../use-value/SKILL-CANONICAL.md)
+need defining, use [`user-value`](../user-value/SKILL-CANONICAL.md)
 before treating those inputs as settled. It owns their structure and
 traceability; this skill owns implementation planning. Do not require that
 value-definition pass for already-defined work. Use it for local engineering

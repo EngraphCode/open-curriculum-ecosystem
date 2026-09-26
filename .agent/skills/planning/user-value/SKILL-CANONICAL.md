@@ -1,5 +1,5 @@
 ---
-name: use-value
+name: user-value
 classification: active
 description: >-
   Define how use value is expressed, implemented and assessed across purposes,
@@ -171,7 +171,7 @@ Stop when the requested scope has coherent definitions, material relationships,
 explicit gaps and a usable next action. Do not force every uncertainty closed
 or expand the task into implementation or research recruitment. Return:
 
-1. The use-value model, selected levels and authority/evidence limits.
+1. The user-value model, selected levels and authority/evidence limits.
 2. Relevant journeys, usage scenarios, capabilities, contracts or story candidates.
 3. Traceability, migration decisions and uncovered needs.
 4. Acceptance observations, outcome hypotheses and discriminating next research.

@@ -2,7 +2,7 @@
 
 Use this view when human experience or story slicing is relevant. For other
 consumers use the [levels and implementation](levels-and-implementation.md)
-reference; this template is not a required gateway for all use-value work.
+reference; this template is not a required gateway for all user-value work.
 
 ## Minimum useful journey view
 

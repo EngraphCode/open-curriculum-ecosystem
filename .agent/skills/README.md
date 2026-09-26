@@ -29,7 +29,7 @@ or another lever entirely — is decided by
 
 For expressing and implementing use value across needs, journeys, capabilities,
 contracts and delivery work, with evidence appropriate to each level,
-use [`use-value`](planning/use-value/SKILL-CANONICAL.md). It is a
+use [`user-value`](planning/user-value/SKILL-CANONICAL.md). It is a
 Practice authoring method for agents and teams building systems; it supplies
 no learner-facing pedagogy and does not change the curriculum-skills boundary.
 

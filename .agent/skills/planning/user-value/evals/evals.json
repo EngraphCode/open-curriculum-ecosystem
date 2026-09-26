@@ -1,5 +1,5 @@
 {
-  "skill_name": "use-value",
+  "skill_name": "user-value",
   "evals": [
     {
       "id": 1,
@@ -32,7 +32,7 @@
       "prompt": "Implement a stable priority queue over an existing tested binary heap. The behaviour and algorithmic requirements are settled. Write its local contract and tests.",
       "expected_output": "Routes settled implementation to engineering contract and testing methods without inventing human journeys or repeating value definition.",
       "assertions": [
-        "It recognises that settled implementation does not require another use-value definition pass",
+        "It recognises that settled implementation does not require another user-value definition pass",
         "No fictional human service user or national-impact promise is introduced"
       ]
     },
@@ -62,7 +62,7 @@
       "prompt": "We are designing a reusable stable priority queue for scheduling components. Its value and contract are not yet settled. Explain use value at the queue, scheduler and possible application levels. Show what implementation and evidence could establish at each level. We have no chosen human-service application.",
       "expected_output": "Names the scheduler as a technical consumer, defines conditional usefulness and candidate guarantees, distinguishes implementation from consumer fit and wider effects, and keeps unknown application use explicit.",
       "assertions": [
-        "A technical consumer has a legitimate use-value account without a fictional human persona",
+        "A technical consumer has a legitimate user-value account without a fictional human persona",
         "Local ordering correctness is not treated as proof of scheduler fairness or application outcomes",
         "Implementation, contract, capability and use are connected with distinct relationship meanings",
         "Unknown application context stays unknown rather than becoming an invented impact chain"

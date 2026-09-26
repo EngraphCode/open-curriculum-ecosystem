@@ -4,7 +4,7 @@
 
 Help agents express, implement and assess use value at the levels relevant to
 what they are building. The deliverable is the
-[use-value skill](../skills/planning/use-value/SKILL-CANONICAL.md), its reference
+[user-value skill](../skills/planning/user-value/SKILL-CANONICAL.md), its reference
 views and evaluation cases, with a routing pointer from planning. This is
 Practice authoring capability, not curriculum content or pedagogy.
 
@@ -28,7 +28,8 @@ Concept exploration separated usefulness in context from representations of
 it, concrete provision and evidence of effects. Reasoning distinguished
 refinement, realisation, enablement and causal contribution. Proportionality
 kept one method and optional views rather than expanding into a universal
-ontology or implementation framework. The name is now `use-value`.
+ontology or implementation framework. The first broader name was `use-value`; the owner then selected `user-value`
+for clarity. The scope remains use value expressed and implemented across levels.
 
 The correction changes routing: an API or component with unresolved usefulness
 is in scope; a settled algorithm implementation remains outside the definition
@@ -93,7 +94,7 @@ correlated review, not a controlled skill-versus-baseline trial.
 | Council evidence backlog; no research; staff retype uploads | Preserved A/B/C correspondence; separated features, needs and approval; exposed operational burden; named acceptance and dependencies | All six original case-1 assertions supported |
 | Creative exploration; partner host; synthetic demonstration | Preserved offered value and unfinished questions; separated host responsibilities and delivery/experience/outcome evidence | All six original case-2 assertions supported |
 
-Those results apply to the earlier draft. The broader `use-value` revision
+Those results apply to the earlier draft. The broader `user-value` revision
 received same-context conceptual and static review only. It has seven authored
 cases and ten trigger examples, including two new cross-level cases; these
 fixtures have not been executed against the revised skill. No effectiveness,
