@@ -10,6 +10,7 @@ import { gitReadsFrom, pushHead, resolveGitContext } from '../src/merge-bot/push
 import { settleTargetBranch } from '../src/merge-bot/push-target-branch';
 
 import { hermeticGitEnv } from './hermetic-git-env';
+import { shellSafePath } from './trusted-shell-directories';
 
 /**
  * The `merge-bot push` output seam under real volume, against real binaries.
@@ -114,12 +115,11 @@ function makeRepoWithLoudHook(root: string): { work: string; remote: string } {
   const hook = join(work, '.git', 'hooks', 'pre-push');
   // git runs hooks through a shell on every platform (Git for Windows ships
   // its own). The interpreter path must therefore be shell-safe: quoted,
-  // because `C:\Program Files\...` contains spaces, and forward-slashed,
-  // because a backslash is an escape character to `sh` — Windows accepts
-  // either separator. Unquoted, `sh` reads `C:\Program` as the command, the
+  // because `C:\Program Files\...` contains spaces, and forward-slashed
+  // (`shellSafePath`). Unquoted, `sh` reads `C:\Program` as the command, the
   // hook emits an error instead of its payload, and the smoke reports the
   // silence as the output loss it exists to detect.
-  const shellSafeNode = JSON.stringify(process.execPath.replaceAll('\\', '/'));
+  const shellSafeNode = JSON.stringify(shellSafePath(process.execPath));
   writeFileSync(
     hook,
     ['#!/bin/sh', `${shellSafeNode} -e ${JSON.stringify(EMITTER)}`, 'exit 0', ''].join('\n'),

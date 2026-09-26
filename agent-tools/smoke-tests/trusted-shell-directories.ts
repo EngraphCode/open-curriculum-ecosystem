@@ -15,11 +15,16 @@
  * shell and utilities, hard-coded under `Program Files` on the system drive
  * (read-execute only for non-administrators); deriving them from
  * `%ProgramFiles%` would make a fixed path environment-influenced.
+ *
+ * Beside the directories: the shell itself by absolute path (`trustedShell`)
+ * and the form of a file path that shell can open (`shellSafePath`).
  */
 import assert from 'node:assert/strict';
+import { sep } from 'node:path';
 
 import { isErr } from '@oaknational/result';
 
+import { toGitPath } from '../src/core/git-relative-path.js';
 import { resolveTrustedShell } from '../src/core/trusted-shell.js';
 
 const TRUSTED_SHELL_DIRECTORIES = {
@@ -54,4 +59,22 @@ export function trustedShell(): string {
     assert.fail(shell.error.message);
   }
   return shell.value;
+}
+
+/**
+ * A file path as `sh` can open it on every platform. `sh` knows `/` as the
+ * only path separator: a word without one is a command name to look up on
+ * `PATH`, so `.` and `exec` handed a `C:\...` path by Git for Windows' shell
+ * search for a command instead of opening the file, however the word is
+ * quoted. The host separator becomes `/`, which Windows accepts, through the
+ * same separator boundary git paths cross (`toGitPath`); on a POSIX host the
+ * path returns as it is, a backslash there being a legal filename character.
+ * Quoting is the caller's, at the point of embedding, since a path can carry
+ * spaces (`C:\Program Files\...`).
+ *
+ * @param separator - The host separator; defaults to `path.sep`, injectable
+ *   so both branches are provable from any platform.
+ */
+export function shellSafePath(filePath: string, separator: string = sep): string {
+  return toGitPath(filePath, separator);
 }

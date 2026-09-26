@@ -9,7 +9,7 @@ import { resolveTrustedGit } from '../src/core/trusted-git';
 
 import { gitWithoutShowCurrent } from './git-without-show-current';
 import { hermeticGitEnv } from './hermetic-git-env';
-import { trustedShell } from './trusted-shell-directories';
+import { shellSafePath, trustedShell } from './trusted-shell-directories';
 
 /**
  * The shared branch guard, `.husky/refuse-commit-on-main.sh`, against real
@@ -30,7 +30,11 @@ import { trustedShell } from './trusted-shell-directories';
 
 const GIT = resolveTrustedGit();
 const SH = trustedShell();
-const GUARD = fileURLToPath(new URL('../../.husky/refuse-commit-on-main.sh', import.meta.url));
+// Forward-slashed for the shell that sources it, as an argument and inside
+// the hook script below: see `shellSafePath`.
+const GUARD = shellSafePath(
+  fileURLToPath(new URL('../../.husky/refuse-commit-on-main.sh', import.meta.url)),
+);
 
 function withTempDir(run: (dir: string) => void): void {
   const dir = mkdtempSync(join(tmpdir(), 'branch-guard-'));

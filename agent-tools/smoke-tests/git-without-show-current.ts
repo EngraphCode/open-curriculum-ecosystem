@@ -1,6 +1,8 @@
 import { chmodSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { shellSafePath } from './trusted-shell-directories';
+
 /**
  * A `git` that fails any call carrying `--show-current`, as git 2.21 does
  * (`error: unknown option`, exit 129); every other call reaches the real
@@ -23,7 +25,8 @@ export function gitWithoutShowCurrent(root: string, realGit: string): string {
       '    exit 129',
       '  fi',
       'done',
-      `exec ${JSON.stringify(realGit)} "$@"`,
+      // Quoted for the spaces a path can carry, forward-slashed for `sh`.
+      `exec ${JSON.stringify(shellSafePath(realGit))} "$@"`,
       '',
     ].join('\n'),
   );
