@@ -1,4 +1,4 @@
-import type { ThreadId } from '../envelope.js';
+import type { ThreadId } from '../../core/codex-thread-id.js';
 import type { RecordedThreadSettings, RecordedTurnContext } from './record-shapes.js';
 
 /** Internal state while the two-turn JSONL stream is folded. */
