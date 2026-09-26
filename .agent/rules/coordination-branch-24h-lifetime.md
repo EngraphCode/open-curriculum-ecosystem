@@ -7,6 +7,16 @@ the branch via its PR), and a fresh branch is cut. The lifetime is a
 bound on divergence, not a deadline on work: rotating daily keeps the
 convergence merge small enough to be routine.
 
+Amended by the owner's word of 2026-09-26 (card answer to the Director, about
+10:50Z, the selected option verbatim: "Fold them twice a day"; the same
+morning's word, 10:09Z: "work is safe when it is merged, the target number
+of open PRs is always zero"): the coordination drafts count toward the
+standing target of zero open pull requests, and each estate's coordination
+branch folds twice a day, at 12:00Z and at the UTC rollover. The 24-hour
+bound stands as the ceiling; the half-day boundary is the DUE clock. The
+fold is the Director's ceremony and takes the first free landing slot. This
+file keeps its name so every citation of it stays valid.
+
 ## Trigger
 
 Cutting a coordination branch; or opening a session whose primary
@@ -26,12 +36,15 @@ stamp the lifetime) and at session-open (to check it).
    `<YYYY-MM-DD>` segment between `coordination/` and the trailing
    `-<sha6>` (older branches may carry legacy forms such as
    `coordination/estate-<YYYY-MM-DD>`; their date segment is still the
-   stamp). The check is UTC-date rollover: a branch whose stamp date is before the
-   current UTC date is DUE — the stricter reading of "at most 24 hours"
-   (a branch cut late in the day rotates sooner, never later; a
-   date-only stamp cannot express hours, so the day boundary is the
-   clock). When cut-time precision genuinely matters, the branch's
-   first own commit records it. On a DUE branch, surface convergence to
+   stamp). The check is the half-day boundary: a branch is DUE at the
+   first 12:00Z or 00:00Z after its cut, so a branch cut before 12:00Z
+   folds at midday and one cut after 12:00Z folds at the rollover, and a
+   branch whose stamp date is before the current UTC date is DUE
+   regardless (the stricter reading of "at most 24 hours": a branch cut
+   late in the day rotates sooner, never later). A date-only stamp cannot
+   express which half of the day, so on a same-day branch read the cut
+   time from the branch's first own commit or the rotation broadcast
+   against the clock. On a DUE branch, surface convergence to
    the Director (or, at n=1, act on it) before staking new work onto
    the branch. An overdue coordination branch is a defect to route, not
    a home to build on.

@@ -8,7 +8,7 @@
  */
 import { err, type Result } from '@oaknational/result';
 
-import { parseThreadId, type ThreadId } from '../codex-exec/envelope.js';
+import { parseThreadId, type ThreadId } from '../core/codex-thread-id.js';
 
 /**
  * Why the companion will not arm on a handshake's contents. A closed kind,

@@ -50,9 +50,11 @@ marker MUST state three things:
 
 1. that the content is **agent-authored** (not a human-authored message);
 2. the agent's **PDR-027 display identity** (the session agent name);
-3. that it was posted **via the human account's shared credentials**.
+3. **which shared credential** posted it: the human account's, or the team
+   bot's. Under the team bot the account itself states this, so the marker
+   need not repeat it; under a human account the marker must.
 
-Canonical form — a trailer at the end of the artefact:
+Canonical form under a human account — a trailer at the end of the artefact:
 
 ```text
 ---
@@ -61,6 +63,16 @@ Agent-authored on behalf of `<account>` by <agent-name> (<platform>, <model>)
 Example:
 Agent-authored on behalf of `jimCresswell` by Inferno holds Tongs (Claude Code, Opus 4.8 1M)
 ```
+
+Under the team bot, the account shows which credential posted and names no
+human, so the marker names the agent and says it is one: a last line that
+begins with an em dash and ends with the seat's PDR-027 session prefix,
+`— <agent-name>, an agent (<prefix>)`, with words between them allowed
+(`— <agent-name>, <role>, an agent (<prefix>)`). The prefix ends the line
+because tooling that tells a seat's signed reply from a reviewer's reads that
+ending.
+Never the human-account trailer: "on behalf of `<account>`" under the bot's
+token attributes the post to a human who did not make it.
 
 A clearly-visible leading blockquote carrying the same three facts is an
 acceptable alternative when a trailer would be missed (e.g. a long PR body). Do
@@ -73,9 +85,12 @@ marker as soon as the omission is noticed; do not leave it standing.
 
 ## Why
 
-The session shares the owner's `gh` auth, so GitHub records every agent action
-under the owner's login (see the agent-collaboration directive on identity vs
-liveness, and PDR-027 on agent identity). The actor is hidden by construction.
+Where a write goes out under a human account's credential (the review rows of
+the committer identity rule's map, and the operator rows of an estate's
+identity contract), GitHub records the agent's action under that human's login
+(see the agent-collaboration directive on identity vs liveness, and PDR-027 on
+agent identity); under the team bot's token it records a bot that names no
+seat. Either way the actor is hidden by construction.
 This rule restores honest attribution at the only point that can carry it — the
 content itself. It protects:
 
@@ -99,7 +114,8 @@ comms event stream and claim dispositions, never a GitHub actor field
 (`mergedBy`, PR author, commit pusher) — the login identifies the shared
 credential, not the actor (worked instance: PR #160's merge mis-attributed to
 the owner from `mergedBy` alone, 2026-06-10). The same applies to comment
-audits: agent replies render under the human login in watcher streams and
+audits: agent replies render under the shared account's login, the team
+bot's or a human's, in watcher streams and
 comment lists, so when auditing "owner comments" on a PR, filter by the
 agent-identification marker in the body, never by author login. A leading
 `[Agent: …]` prefix is the stronger marker convention for comments — it is
@@ -108,8 +124,8 @@ visible in truncated comment lists where a trailing signature is not
 
 ## Scope Nuance
 
-- **In scope:** outward, human-visible artefacts authored via shared human
-  credentials (above).
+- **In scope:** outward, human-visible artefacts authored via shared
+  credentials, a human account or the team bot (above).
 - **Already covered, do not double-mark:** git commit messages (the
   `Co-Authored-By` trailer is the marker) and internal collaboration-state comms
   (carry PDR-027 name+UUID by construction).

@@ -26,7 +26,7 @@ When no owner-assigned `agent_name` is already available, derive a
 descriptive default with the portable agent-tools CLI:
 
 ```bash
-pnpm agent-tools:agent-identity --format display
+pnpm agent-tools:agent-identity --platform <claude-code|cursor|codex|gemini> --format display
 ```
 
 For Codex thread registration and collaboration-state writes, prefer the
@@ -56,8 +56,9 @@ integrated terminal does not see the Practice variable. A gitignored
 carries the same derived name and a suggested Composer tab title for
 copy/paste — Cursor hooks cannot set the tab label programmatically per
 [Hooks](https://cursor.com/docs/hooks). If the hook is disabled or
-the name line is missing, run `pnpm agent-tools:agent-identity --format display`
-with `--seed` or a Practice session variable, or ask the owner for an override.
+the name line is missing, run `pnpm agent-tools:agent-identity --platform <label>
+--format display` with a Practice session variable, or with `--seed`, or ask the
+owner for an override.
 If the platform does not expose a stable session seed and no hook context is
 present, pass `--seed` explicitly or ask the owner for an override. Do **not**
 fall back to `git config user.email`; personal-email fallback is intentionally
@@ -70,7 +71,7 @@ malformed input intentionally produce no context and do not block startup.
 Treat title/statusline text as an optional display convenience, not the
 identity source of truth.
 
-`OAK_AGENT_IDENTITY_OVERRIDE` remains an explicit operator escape hatch for
+`PRACTICE_AGENT_IDENTITY_OVERRIDE` remains an explicit operator escape hatch for
 memorable owner-assigned names. Derived names from session-id seeds are
 deterministic session display names; persistent PDR-027 identity across
 sessions requires a deliberately persistent seed or explicit override.

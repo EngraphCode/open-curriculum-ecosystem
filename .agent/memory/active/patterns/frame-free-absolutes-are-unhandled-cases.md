@@ -26,6 +26,12 @@ adjacent: >-
   the transmission-side frame-carriage clause.
 ---
 
+> **POLARITY: ANTI-PATTERN.** This entry names a *failure mode to avoid*,
+> not a shape to repeat.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern)
+> for the polarity discipline.
+
 # Frame-Free Absolutes Are Unhandled Cases
 
 A statement true **within a frame**, recorded **without** the frame, is later

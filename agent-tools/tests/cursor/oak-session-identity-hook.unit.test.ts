@@ -100,11 +100,11 @@ describe('cursorSessionIdentityHookEnvironmentFromProcessEnv', () => {
     expect(
       cursorSessionIdentityHookEnvironmentFromProcessEnv({
         CURSOR_PROJECT_DIR: '/repo',
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
       }),
     ).toStrictEqual({
       CURSOR_PROJECT_DIR: '/repo',
-      OAK_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
+      PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
     });
     expect(cursorSessionIdentityHookEnvironmentFromProcessEnv({})).toStrictEqual({});
   });

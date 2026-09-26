@@ -23,14 +23,14 @@ const recipient = {
 } as const;
 
 // Identity emitted by the CLI under the env wiring used in the tests below
-// (PRACTICE_AGENT_SESSION_ID_CLAUDE seed + OAK_AGENT_IDENTITY_OVERRIDE name).
+// (PRACTICE_AGENT_SESSION_ID_CLAUDE seed + PRACTICE_AGENT_IDENTITY_OVERRIDE name).
 // Derived via the same path as production so the assertion remains honest
 // without coupling the test to the v5 namespace constant.
 const senderWithId = deriveCollaborationIdentity({
   platform: sender.platform,
   model: sender.model,
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
     PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
   },
 }).agentId;
@@ -40,7 +40,7 @@ const recipientWithId = deriveCollaborationIdentity({
   platform: recipient.platform,
   model: recipient.model,
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
     CODEX_THREAD_ID: recipientCodexThreadId,
   },
 }).agentId;
@@ -99,7 +99,7 @@ describe('unified comms format CLI behaviour', () => {
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,

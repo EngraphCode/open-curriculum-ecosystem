@@ -1,7 +1,7 @@
 # Never Commit to Main
 
-Local `main` receives no commits, ever. `main` advances only via reviewed
-pull requests. This covers every commit-creating operation — `git commit`,
+Local `main`, and whatever branch `origin/HEAD` names, receives no commits,
+ever. A default branch advances only via reviewed pull requests. This covers every commit-creating operation — `git commit`,
 `git merge`, `git cherry-pick`, `git commit --amend`, and any operation that
 moves the `main` ref (e.g. `git pull --rebase` on a diverged `main`) — run
 while `main` is the checked-out branch, in the primary checkout or any
@@ -40,7 +40,10 @@ pull request to resolve.
 Mechanical for every commit-creating or ref-rewriting path git exposes a
 usable hook for; the shared guard `.husky/refuse-commit-on-main.sh` is
 sourced by five hooks, each covering the path git actually routes it
-through:
+through. The guard refuses `main` and `master` by name, in any case, and the
+default branch `refs/remotes/origin/HEAD` names, so a repository whose
+default branch has another name is guarded too while `origin/HEAD` is set
+(`git clone` sets it; `git remote set-head origin --auto` restores it):
 
 - `pre-commit` — plain `git commit` and `git commit --amend`;
 - `pre-merge-commit` — clean merges, including a reflexive `git pull` on a
@@ -64,8 +67,10 @@ hook aborts non-zero rather than passing silently.
 Residual vectors NO client-side hook can see remain **rule-covered only**:
 a fast-forward merge (a ref update, no commit created — and `git pull` on
 `main` is the legitimate fast-forward from `origin/main`, so no hook could
-distinguish the sanctioned case), and a
-fresh clone before `pnpm install` wires `core.hooksPath`. Remote branch
+distinguish the sanctioned case), a
+fresh clone before `pnpm install` wires `core.hooksPath`, and a clone with no
+`origin/HEAD` (an `-o upstream` clone, or `git init` plus `remote add`), which
+the two names alone guard. Remote branch
 protection (pull requests required, non-fast-forward pushes blocked) is the
 invariant that holds regardless; the guards are local hygiene that fails
 fast.
