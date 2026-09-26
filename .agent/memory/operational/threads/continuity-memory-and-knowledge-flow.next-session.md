@@ -111,7 +111,8 @@ Read this block, not the section below it, before the first act. The owner's lau
 Done means empty pending graduations and empty buffers: say those counts first in every
 report. This job is higher priority than the daily branch fold."
 
-**Counts at the close of the pass**: pending graduations 6 pending, 0 due (four directive-bound
+**Counts at the close of the pass** (the close-of-pass reading; the live count is the
+register's): pending graduations 6 pending, 0 due (four directive-bound
 rows written by this pass and held by PDR-052, plus the comms-table unit and the PDR-142 rows;
 the six PDR-130 slow-lane rows are not due before 2026-10-01 and are not in that six); distilled
 0; open questions 0; napkin rotated (the 2026-09-20 to 2026-09-25 window, 1,578 lines, archived
@@ -131,8 +132,10 @@ managing the flow of Practice enhancements from JC.net to OCE". So this seat too
 seat first, in this context (the pickup is in `repo-continuity.md` §PICKUP for the exchange);
 the four directive-bound rows wait for this seat's next compaction, not for a fresh seat: the
 Director's ruling of 15:04Z reads PDR-052's 30 % floor as a deferral that a compaction
-satisfies, never a stop. The lane-doctrine patch, the comms table's rows and the PDR-142 rows
-stay owed to a curator context as the paragraph below says.
+satisfies, never a stop. The lane-doctrine patch and the comms table's rows stay owed to a
+curator context as the paragraph below says; the PDR-142 row is decided and gone from the
+register (2026-09-26: the owner's words on pace and goal landed on engraph in PR 225, and the
+napkin table's four sentences were read as a seat's inference, so the owner's default stands).
 
 **First acts of the successor, in the Director's order (Wick binds Temper, 13:2xZ)**: (1) in a
 fresh context below 30 % (PDR-052), land the four directive-bound rows in pending-graduations
@@ -148,7 +151,7 @@ index-lock read after a push, hook-policy-substring-discipline's second instance
 grep in records-are-technical, the unassigned-executor and owner-test lines in
 handoff-messages-self-contained, two zsh and pnpm facts in harness-shell-and-commit-edge-cases,
 PDR-063's O1 clause), then the comms table's twenty-two accepted A rows and its B, C and D
-sections, each move verified at the event file before the edit, then the PDR-142 rows.
+sections, each move verified at the event file before the edit.
 
 **Facts that shape the work**: the window registry has no row for `claude-fable-5-1` (F-191);
 the nearest row is 200,000 tokens, and this pass read its usage from the transcript's last

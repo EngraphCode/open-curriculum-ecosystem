@@ -36,9 +36,11 @@ pattern, PDR-063's O1 clause) are conserved as a patch at
 engraph after the rotation broadcast, at the Director's routing of 13:1xZ (consolidation
 doctrine edits are a work product with their own review contract). Landed: `c76f93eb6` (the homes: ten skills, twenty rules, patterns, PDR-140,
 PDR-063, the ARC protocol) and the commit that carries this record (the frictions register, the
-rotation, the pass record). Held in `pending-graduations.md`: four directive-bound rows
-(PDR-052) and the PDR-142 rows that wait for the fold. Nothing in the window was left unread; the
-commits that homed the pass's substance are its record.
+rotation). Held in `pending-graduations.md`: four directive-bound rows (PDR-052); the PDR-142
+row is decided and gone (2026-09-26: the owner's words on pace and goal landed on engraph in
+PR 225, and the napkin table's four sentences were a seat's inference, so the owner's default
+stands). Nothing in the window was left unread; the commits that homed the pass's substance are
+its record.
 
 ## 2026-09-25 ~13:25Z — the comms watcher's drain stalled and the claim tool read the seat as blind (Myrtle turns Canopy, bf4957)
 
