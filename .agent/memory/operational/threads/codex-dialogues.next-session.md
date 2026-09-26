@@ -82,12 +82,35 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **RESUMED (about 11:27Z, 2026-09-26) at the owner's "carry on", after compaction 2.** Read live
+  first: the fold chain had completed (sync merge `86fcf2d57` pushed; PR 223 ready, body and legs at
+  11:24Z), and Myrtle turns Canopy had taken the fold's remainder at 11:25Z, so two hands wrote
+  PR 223 one minute apart (napkin, 12:1xZ). Settled by s2s: Myrtle drives the door, the successor
+  cut and the rotation; this seat disposes threads on its own files. Copilot's and Codex's legs
+  returned eight threads over two heads, all on this seat's records: five stale facts cured in
+  `b8de68b16` (PR 211 shown open, merged `fae981877` at 10:41:59Z; the owner's first batch thirteen
+  PRs from 10:35Z to 10:50Z, not eleven to 10:48Z; condition 5 limited to commit and push, since
+  PR 241's rules leave opening the pull request to the default flow); three PR 244 stalenesses (the
+  ledger row, the next-order list twice) disposed as cured in this commit, with no second push on
+  the fold. PR 223 merged as `b8432103a` at about 12:06Z through Myrtle's door; the successor is
+  `coordination/2026-09-26-b84321`. Also this segment: the emfile worktree and branch removed with read-back
+  (check-in 25, routing 2); PR 248's body reconciled to three citations and its thread resolved,
+  then its slot at 12:07Z, one sync merge of `b8432103a` (one review-ledger row in conflict), pushed
+  with both legs re-requested; PR 246's round one (Copilot and Codex P1: the guard's fail-closed
+  claim leaned on husky's `sh -e`; Codex P2: the smoke's literal `/bin/sh`) cured in `75c655504` in
+  its worktree, unpushed until its turn: the guard's own refusal, a trusted shell resolver
+  (`resolveTrustedShell`, a Result over a fixed allowlist, six unit tests), the smoke under plain
+  `sh` with a git that lacks `--show-current`; code-expert APPROVED after one fix (no `sh` by name,
+  S4036), test-expert APPROVED. The Director's check-in 25 routes PR 224 (the owner's draft) to the
+  first free seat after 248 and 221, this seat if 248 lands first. A design note for the
+  sync-lineage cure (ruling 7) is drafted: a leg binds a head whose patch-id against the default
+  branch equals the reviewed commit's.
 - **COMPACTION BOUNDARY 2 (about 11:20Z, 2026-09-26), at the owner's word "fold the coordination
   branch, or let the Director do it, then prepare for compaction, and when it makes sense stop all
   processes".** The Director was compacted at 11:04Z and handed this seat the fold of PR 223 (the
-  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold on the
-  coordination-fold skill; the successor branch's name is in the rotation broadcast on the stream,
-  and this record continues on that branch. Every claim below is read live before any act on
+  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold's sync and
+  records; Myrtle turns Canopy took the door at this seat's pause: PR 223 merged as `b8432103a`;
+  the successor branch is `coordination/2026-09-26-b84321`, and this record continues on it. Every claim below is read live before any act on
   resume.
   - **Landed today:** PR 241 as `fc645531c` (this seat, the Director's ruling); PR 211 as
     `fae981877`, PR 244 as `4be54a077`, PR 247 and fourteen others by the owner's hand under the
@@ -117,8 +140,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - **Records:** `59b6d95d6` (the resumption); the Parallax audit at
     `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md`; the sweep event
     `5cd19684`; the 11:05Z napkin entry rode Myrtle's `fc8745e5a`; the formation letter's postscript.
-  - **Next, in order (the Director's approved plan, 11:04Z):** 244 and 246 through the door at their
-    turns; 248; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
+  - **Next, in order (the Director's approved plan, 11:04Z; 244 landed by the owner's hand at 11:14Z
+    and leaves this list):** 248 then 246 through the door at their size-order turns; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
     sync re-requests nothing; a code PR on the merge bot's readiness reading); then wake 2b and 2c,
     todo 3, the exec-binding slices, and the landing toolkit (`merge-bot commit` first, to the
     design in the boundary block below; its first PR also tracks the 38 exec-policy cases and their

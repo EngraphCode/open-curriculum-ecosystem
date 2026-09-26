@@ -95,7 +95,7 @@ costs the owner attention on one platform and nothing on the other.
    boundary block, justified by the fluent-reach argument. Falsifier: if Codex seats, over the
    landings the rollout records show, never run a refused-by-doctrine flag, the wrappers are
    tidiness and the sync and stage wrappers can wait.
-4. PR 244's reader measures item 3 after it lands: the command records of a Codex seat's landing
+4. PR 244's reader (merged `4be54a077`) measures item 3: the command records of a Codex seat's landing
    are the evidence, read by the harness's records only.
 
 **Status:** provisional, until condition 5 is observed.
@@ -139,7 +139,7 @@ seat edited PR 211's body and requested its legs five minutes after the owner ha
 
 The wake-bridge node's bet: "first-class citizenship is behavioural, not a count of matching
 files". The lane's three behavioural measures are wake (the design landed with PR 247; the code
-follows), land (PR 241 landed; condition 5 pending) and evidence (PR 244 pending). A counterframe
+follows), land (PR 241 landed; condition 5 pending) and evidence (PR 244 merged `4be54a077` at 11:14Z; its first Codex landing to read is pending). A counterframe
 the nodes do not carry: citizenship is also the owner's experience of a seat. The owner restarts a
 Codex seat and needs it useful within one session. A fourth measure follows: the time from a cold
 Codex start to its first landed pull request, observed by the owner at the acceptance test.
@@ -154,8 +154,8 @@ edit this seat makes.
 - **Shared anchors:** every frame here was written from this seat's own records and transcript.
 - **Competence limits:** no security review of the sandbox model itself; the Bridge Claim in A rests
   on the harness recording every command, which this seat verified for 0.157.0 and 0.157.1 only.
-- **Findings that need empirical validation:** A's fluent-reach measurement (needs PR 244 landed
-  and Codex landings to read); B's cost model (needs the suite's count of real findings).
+- **Findings that need empirical validation:** A's fluent-reach measurement (PR 244 landed as
+  `4be54a077`; needs Codex landings to read); B's cost model (needs the suite's count of real findings).
 - **Overreach risk:** A's third step favours a design this seat authored; the falsifier is stated
   so the design can lose.
 

@@ -332,3 +332,55 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   me". The Parallax audit of 2026-09-26 carries the frames.
 - What worked: stopping the pointer-fix push the moment the Director's hold arrived (the task was
   killed before its push step), and reading the PR's fate first-hand before any further act on it.
+
+## 2026-09-26 ~12:1xZ — a chain that outlived its seat's pause; a fail-closed claim that leaned on the runner (Swallow holds Drift, 516619)
+
+- Observation (11:24Z to 11:26Z): a background chain this seat left running through its compaction
+  pause finished the fold's push and then wrote PR 223's body and legs, one minute before the seat
+  that had taken the fold over wrote the same body and legs. The boundary event named the chain
+  and its remaining writes; the taker-over read it and still met a second hand, because "left
+  running" reads as "will finish on its own", not as "will write to the pull request at an unknown
+  minute". Read: a chain that outlives its seat's pause is a second hand on every surface it will
+  touch; either stop it at the pause or name each remaining write with its surface and the sha it
+  expects, so the taker-over can wait for the chain's own done line. n = 1.
+- Observation (11:2xZ): the branch guard's header said it "fails closed" because the runner adds
+  `-e`; the hooks that source it set no errexit of their own. Two bot reviewers named the gap in
+  one round; the smoke had hidden it by reproducing the runner (`sh -e`) rather than the weakest
+  shell the fragment may meet. Read: a sourced fragment's safety claim must hold under plain `sh`,
+  and its test must use that shell, since the runner is not the fragment's to rely on. Same class
+  as the untrue-sentence finding of 11:10Z: the mechanism was right for the runner it had, and the
+  sentence claimed more. n = 1 for the runner-reliance shape.
+- Observation (12:18Z, from Siren's review on JC.net PR 213): the PR watch's signature reader
+  takes a reply as a seat's signed line only when its LAST line starts with an em dash and ends
+  with the seat's prefix in parentheses (`SIGNATURE_SUFFIX` in `reviewer-legs.ts`). This seat's
+  eight replies today ended with "(Reply posted by an agent, Swallow holds Drift, through the
+  repository's bot.)", so the instrument read them as unsigned bot reviews on the tip: they
+  anchored the quiet window and entered the body tally as reviews, and a survey counts them as
+  rounds until re-read. Read: a format "ratified" in prose is not the format the instrument
+  reads; the reader's regex is the ratification. From this line the seat signs
+  `— Swallow holds Drift, an agent, through the repository's bot (516619)` as the last line. n = 1
+  seat, 8 replies.
+- What worked: asking the taker-over by s2s before touching the threads, and splitting by file
+  ownership (this seat's records, Myrtle's door); the review threads then took one cure commit and
+  three dispositions with no second push on the fold, and the door ran within the hour.
+
+## 2026-09-26 ~12:2xZ — a request that answers 200 and registers nothing; a marker the reader cannot read (Myrtle turns Canopy, bf4957)
+
+- Surprise: the fold's door refused SILENT-WAIT twice because Copilot's leg was owed on the new
+  head, after a Copilot review request as the bot had answered 200. The request never
+  registered; the same request under the seat's own login registered at once and the leg
+  landed in five minutes. Expected: a 200 means the request exists. Read: the installation
+  token cannot request Copilot and GitHub says so with a 200 and an unchanged reviewer list,
+  which the bot-identity rule already records for its host; the seat had not read the reviewer
+  list back after the write. Cure taken: read the requested-reviewers list after every request
+  and request Copilot under the seat's login. Routing: the rule carries the fact; this is the
+  worked instance for its next edit (n = 1 here, the second estate's text names the same).
+- Surprise: the marker form the two exchange seats agreed this morning, "— <agent-name>
+  (<prefix>), an agent", reads as UNSIGNED to the signature reader in reviewer-legs.ts, which
+  wants the prefix at the end of the line; this seat signed every GitHub reply of the day that
+  way. Read: a text agreed between two readers of prose was never run against the machine that
+  reads it; the second estate's reviewer (Wilma) ran it. Cure taken: the sign-off is
+  "— <agent-name>, an agent (<prefix>)" from 12:2xZ, and the joint text says why the prefix
+  ends the line. Routing: the identify-as-agent rule's next joint change carries the form; the
+  general lesson (a convention with a machine reader is tested against the reader before it is
+  agreed) joins the n = 5 "check that does not check" family as its sixth member.
