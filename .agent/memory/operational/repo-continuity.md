@@ -319,6 +319,423 @@ contract, its §Recount run at 14:58Z and matching.
   browser, adapters regenerated. Each merges at its slot after the fold; each gets its
   integrated receipt to the second estate's seat at the merge. Claims 9549aec5 (PDR-009),
   ee17a29e (C2), 7d380d17 and 4d955339 (J14) are this seat's.
+- **Landed on lane branches (15:4xZ to 16:0xZ):** draft PR 217 (`docs/intake-test-doctrine`) and
+  draft PR 218 (`feat/claude-code-session-id-seed`, worktree `oce-wt-seed-source`) on the
+  Director's A4 ruling of 15:44Z (both held branches get drafts; J2's names default stands with
+  no card). Draft PR 219 (`docs/exchange-trigger-amendment-twin`, worktree
+  `oce-wt-exchange-trigger-twin`, claim 8e571f5b) is the trigger amendment twin of the second
+  estate's PR 192 (merged 1708982f): 21 files, seventeen as its hunks stand, four hand-placed
+  and named in the body. Draft PR #220 (`fix/exchange-d-no-todo-tests`, worktree
+  `oce-wt-exchange-d`, claim aafb10d9) is batch one's PR D: `it.todo`, `test.todo` and
+  `describe.todo` fail the strict config, test-first, with code, test and config reviews.
+- **Landed on lane branches (16:0xZ to 16:4xZ):** PR 220 took three commits: the concept note's
+  shape, then its three pre-commit reviews' cure (the plugin's `vitest/warn-todo` in the first
+  strict block, since every workspace's `testRules` layer replaces a `no-restricted-properties`
+  list on test files), then the second estate's review gains (the todo option as a fourth form,
+  the layered case over all three test-shape rules, `testRules` in an IO-free module); the
+  second estate's PR 196 (merged 2c6e47ec) is its twin. Draft PR 221
+  (`docs/exchange-watcher-cadence-wording`, worktree `oce-wt-exchange-watcher-docs`, claim
+  dc3bcace) is the docs half of the joint watcher cures, the second estate's PR 194 (a831be86)
+  by bytes; its code half (their PR 195) and the three final-tip sentences need no landing here.
+  The fold's four refused threads routed to this seat are cured in 6d78f21c8 (PDR-140 clause 4's
+  late-cure route, the lane skill's F-26 note as evidence not cure, the cadence table on one
+  recounted population, the letter's count). `copilot/remove-erroneous-commits` was deleted as
+  the bot (tree identical to engraph).
+- **The seven local-only branches (the Director's check-in 16, readings sent 16:37Z):** three
+  superseded (`docs/codex-support-concept-exploration` by PR 211's lane;
+  `docs/copilot-cli-practice-citizenship` by its own account; `jimcresswell/mcp-506-sdk-v2-spike-plan`
+  byte-identical on engraph), two surviving only there (`docs/first-class-copilot-agent-support`,
+  `fix/claude-hook-hardening`), two Oak-line ticket branches (`jimcresswell/mcp-372-…`,
+  `jimcresswell/mcp-487-sanitise-numeric-input`); none deleted, the owner's card decides, and
+  `jimcresswell/design-plan-ratification-and-truings` is superseded too: its report landed on
+  engraph 2026-08-05 (33599297d) and grew through three later commits, so the conservation lane
+  opened at 17:10Z was unwound without a commit (reading corrected to the Director 17:2xZ).
+- **The owner's word on the branches (native chat to the Director, 17:2xZ, relayed 17:20:21Z,
+  verbatim): "1. Approve 2. Delete all 3. Try passing my approval to Gale and see if that does
+  the job, I absolutely need all seats to be able to push without me".** Item 2 is this card.
+  Done at 17:2xZ: the remote `jimcresswell/design-plan-ratification-and-truings` deleted as the
+  bot (REST DELETE, read back 404; tip 4e030a535). Refused: this seat's harness denied
+  `git branch -D` for the eight local branches, and the Director deleted them by its own hand at
+  17:25:41Z (its broadcast of 17:25:54Z); their tips, for the reflog and this record:
+  `docs/codex-support-concept-exploration` 327ef6abb, `docs/copilot-cli-practice-citizenship`
+  f96149836, `docs/first-class-copilot-agent-support` 4ead1345b, `fix/claude-hook-hardening`
+  c4fae0b83, `jimcresswell/mcp-372-hub-demo-conformance-true-up-re-point-the-token-audit-at-the`
+  30d0e81c5, `jimcresswell/mcp-487-sanitise-numeric-input` 9b6da6178,
+  `jimcresswell/mcp-506-sdk-v2-spike-plan` cdf422566, and the local copy of the design-plan
+  branch 4e030a535. `claude/objective-nightingale-b4ba25` is not on the card.
+- **Batch six (the second estate's delivery of 17:25:04Z, 22 files in `jcnet-batch-6`, every blob id
+  verified, acknowledged as 8cc5ef38):** 21 notes read whole. Nine land as small PRs this seat runs
+  in order after the drafts clear the door (lockfile §Action, the two riders, starter templates,
+  the build-system caching paragraph, eleven polarity headers, the result package, the ESLint
+  plugin's comments and README, the max-files-per-dir deletion, the recipes' four cures after
+  PR 217). Twelve are code lanes for fresh contexts (declaration generators for rules then
+  sub-agents, the secrets hooks with the fixture union, hook logs with the settings quoting
+  check, the discovered smoke runner with two smoke cures and the undeclared-read check, the
+  derived install-time closure, the unreadable-file describer twin, the corpus workflow's eight
+  invariants with eight findings for the corpus plan, the merge door's measured settlement and
+  suppressed-findings hold, the four tsconfig flags with ADR-168, warnings failing every gate
+  measured then sliced; the hook path scope rides batch four's lane). Per-file receipts
+  (integrated or rejected) follow each landing. Still owed by the second estate: the lessons
+  batch, arc-metrics, J18's observer compare.
+- **The door (17:4xZ):** PR 219 merged e3cf59330 at 17:40:51Z by the bot (Copilot's one
+  observation below-bar, the 390-line sweep read whole); receipt sent as 8c202f56 with the
+  PDR-063 stall sentence offered to the second estate as a joint cure; worktree and remote
+  branch removed, the merged local branch waits for the fold. PR 213 synced (3274e122e), ready,
+  legs requested, sweep read (the three replaced PDR-009 passages), the door polling. PR 217
+  ready (K4's directive hunks 4028c26f5; the testing-patterns recast 1f4858e20; the sub-agent
+  validator green); its ADR follow-up is named in its body. Two new lanes: PDR-142's six
+  sentences as a joint cure (`docs/exchange-pdr-142-six-sentences`, worktree
+  `oce-wt-pdr-142-six`, ffa99a3c8, the second estate to take the bytes) and batch six's
+  lockfile cure (`docs/exchange-b6-lockfile-cold-rebuild`, worktree `oce-wt-b6-lockfile`;
+  both override directions measured on pnpm 11.20.0: a moved override fails loudly, a moved
+  manifest passes silently). The stale worktree of merged PR 180 was removed.
+- **Batch six lanes drafted (17:5xZ to 18:0xZ):** PDR-142's joint cure is draft PR 225 (ffa99a3c8,
+  blob e9bd0e38; the second estate asked for the same bytes or a refusal, cc46369e); the lockfile
+  cure is draft PR 226 (a6d579a2f); the two riders (`docs/exchange-b6-two-riders`, worktree
+  `oce-wt-b6-riders`, 2163be8a2) and the starter-templates recast
+  (`docs/exchange-b6-starter-templates-point`, worktree `oce-wt-b6-starter`) are committed and
+  on their way to draft PRs. PR 213 at the door: Copilot's one wording observation on the joint
+  cure's bytes dispositioned below-bar (a one-clause candidate for the second estate rides its
+  receipt); Codex clean; the merge tool polling.
+- **18:0xZ to 18:2xZ:** PR 213 merged 94a8fba90 at 18:02:10Z (receipt 28f1a1bf with the wording
+  candidate; worktree and remote branch removed). The Director's ruling of 17:58:44Z narrows
+  PR 225 to seat work (the owner's words on pace and goal quoted whole, the authority class, the
+  log entry; fd3e32271, blob c1aff627, sent as 6095350d); the three concept sentences (replaced
+  wholesale, a relayed frame, the cold reader) stay in the register for the owner's card. The
+  second estate's PR 195 merged 6868ad85: PR 221 takes its batch and first-write wording as the
+  same bytes (a second commit), and its ETIMEDOUT smoke cure is queued for this estate's watcher
+  smoke as its own small lane. Batch six drafts: PR 227 (two riders), PR 229 (starter templates);
+  the polarity headers (`oce-wt-b6-polarity`) and the build-system paragraph
+  (`oce-wt-b6-build-system`) applied, committing next. PR 215 synced (its merge commit stays bot-authored: the harness's classifier refused the
+  amend, as it refused git branch -D; the lane's content commit is the owner's), pushing next,
+  then ready, legs, sweep, door.
+- **18:1xZ:** the second estate's PR 198 (head 9ec8ee25) carries PDR-063 fe5fcf75 and PDR-142
+  c1aff627 as this side's bytes, so PR 225 merges on that receipt after PR 215; it also carries
+  PDR-009 as 47ee8c92 with the one-line wording from PR 213's receipt, which this side takes as a
+  one-line lane (`docs/exchange-pdr-009-adapter-own-wording`, worktree `oce-wt-pdr-009-wording`;
+  the candidate hashes to 47ee8c92). PR 215 ready, legs requested, sweep read (the C2 hunks' own
+  replaced lines), the door polling. Batch six: the result package cure and the max-files-per-dir
+  deletion applied in `oce-wt-b6-result` and `oce-wt-b6-maxfiles` (35 and 435 tests green),
+  committing as gate room allows under the two-gate host bound.
+- **18:1xZ to 18:2xZ:** the second estate's PR 198 merged 3fe1a325 (PDR-063 fe5fcf75, PDR-142
+  c1aff627, PDR-009 47ee8c92 on their main). The PDR-009 wording lane is draft PR 230 (12c8b15d1,
+  blob 47ee8c92; its changelog entry queued). PR 215's Copilot round found the team opener
+  omitting the transcript-as-record case the other three surfaces carry: cured in the opener
+  (a one-clause commit, queued), Codex clean. A gate queue runner in the seat's scratch runs
+  the pending lane commits and pushes one at a time under the two-gate host bound: the
+  max-files-per-dir deletion (with the 2026-07-15 report's two links unlinked), the result
+  package, the polarity headers, the build-system paragraph, the two changelog entries, PR
+  225's sync, then this records commit.
+- **Two more lanes cut at 18:2xZ:** the watcher smoke's ETIMEDOUT cure (the second estate's PR 195
+  round two, in this estate's code: `describeSpawnFailure` in `agent-tools/src/core` with three
+  unit cases, the smoke reads a coded timeout as the hang backstop and any other error as a launch
+  failure; `fix/exchange-watcher-smoke-etimedout`, worktree `oce-wt-smoke-etimedout`), and PR
+  217's follow-up (ADRs 141, 180 and 229 take an amendment line on the retired designed-sentinel
+  shape; `workflow.md` and the Sentry CLI page stop calling the E2E naming pre-invariant estate;
+  `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
+  the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
+  file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **THE OWNER'S HAND, 2026-09-26 10:32Z to 10:50Z, and the resume (Myrtle turns Canopy, bf4957):**
+  the seat resumed at the owner's word ~10:30Z under a ratified plan (re-arm by id, three cures,
+  the door in the Director's order, leftovers deleted under the owner's standing word of 10:2xZ:
+  useful work is pushed and on a PR or merged, everything else is deleted; engraph is the safe
+  home and main the protected sync destination). The Director resumed at 10:21Z (check-in 24,
+  bce7a2ea): PR 241 lands; CLEAN takes the slot; proposal 3 (a joint text's twin merges only
+  after both copies' legs settle) STANDS for the exchange lanes; proposals 1 and 2 to a decision
+  suite then the owner. Swallow merged 241 as fc645531c at 10:32Z. Then the owner landed the
+  lineage's small PRs by hand under the ruleset bypass, 10:35Z to 10:50Z: 240 (afdfd7479, red on
+  F-208's second instance), 211, 229, 235, 243, 247, 226, 231, 236, 220, 232, 237 (before its
+  parent 217), 216 (81e126e8e, the joint core; its twin JC.net PR 209 merged 0caa0327 at 11:00Z).
+  The owner's words, relayed by the Director: "I can merge small PRs many orders of magnitude
+  faster than an agent can"; "I have finished landing PRs" (~10:55Z); "don't block small green
+  PRs on manual, but do maintain a list so that when I ask you can give me links" (~11:00Z); no
+  intake bound; the daily coordination drafts fold twice a day (midday and rollover); PR 224 is
+  landed by a seat on the owner's word; the deletions list (merged remote and local branches,
+  worktrees on merged branches, Marten's gh-write-guard worktree, the incoming batch
+  directories once their rows land) is approved, executed as the bot with read-back after the
+  Director's plan event. The order among ready PRs from 11:00Z is changed-file count ascending.
+  This seat: PR 245's plan-pointer cure (0de4cc641) and its two round-two cures (70023f0b7, the
+  last settlement push; both threads resolved); PR 217's one Codex finding (the E2E location
+  bullet misdescribed the Playwright suites) cured locally, held under the Director's hold, its
+  branch synced by the owner's hand (c0af32efc) and the cure merged forward (7de43823b), one
+  push at its turn; PR 216's round-three thread resolved on the merged PR; PR 221 in the slot
+  (synced head 29fa55407, legs requested 11:01Z). Eleven claims closed with their merge commits;
+  receipts to Siren for 216 (8cc4d819) and the eight JC.net-sourced rows with file blobs
+  (4ed7831b). The next joint change is agreed with Siren (e315fbaa), six items in the merged
+  bot-identity and identify-as-agent text (the marker's bot form; the preflight variable
+  `status`, which zsh reserves; the empty-token sentence; the rate-limited 403; two human-login
+  passages; the operator-token binding) plus this estate's Cursor adapter description; JC.net
+  drafts the bytes, this seat signs or amends, both copies land under ruling 4. Open of this
+  seat's: 221, 234, 217, 238, 245, 218 (size order). Records this boundary: F-208 at two
+  instances and F-207's seventh (fc8745e5a), the ledger rows below, the napkin's three surprises.
+- **COMPACTION BOUNDARY, 2026-09-26 ~10:0xZ — Myrtle turns Canopy (bf4957) stops at the owner's
+  word** ("prepare for compaction … then stop all processes", 09:48Z, repeated 10:05Z). The
+  harness paused from 22:32Z to 09:49Z; nothing on the stream moved in that window. Landed this
+  seat: PRs 215, 225, 227, 230 and 242 merged (db7517e1e, 619ca82b8, 185c15d2b, 6a0045eb7,
+  8c9434ae3). Open, this seat's, every branch level with its remote (verified by ref at the
+  wrap): settled with both legs and zero threads, waiting for slot turns in the Director's order
+  — 226 (4113ffa10, next), 229 (cabf4fcb9), 231 (a05a3fcc8), 232 (732d774c7), 234 (c7f0b0b71),
+  235 (0ecf0772a), 236 (7a64de6ae), 238 (8516b7594), 218 (14c1f5fff), 220 (d4963dfa2), 221
+  (f4441ba00), 240 (c312a6930), 217 (1f4858e20), 237 (8ed383df3, after 217), 243 (cc451d7ff);
+  216 (0444fcaab, both settlement pushes spent; round three's one finding, that the bot form of
+  the marker should say "an agent", took a signed line and is routed to the second estate as
+  the next joint change to identify-as-agent); 245 (fee8d2a68, one open round-one finding: the
+  parked plan `large-corpus-analysis-runbook-build-and-prove.plan.md` still points at the deleted
+  wren run record; the cure is that plan's pointer line, settlement push 1 on resume). Swallow
+  yielded PR 241's slot at 09:50Z with six findings for a Director ruling; Gale pushed PR 211's
+  cure (00a23728b) and stood down; the Director paused at boundary 5 with the folds (JC.net PR
+  189, this estate's PR 223) as its first act on resume. Every batch-six row is in a PR;
+  batch six's landed rows: J15 (227). Proposals for the Director's ruling, from this seat's
+  exploration at the wrap: (1) a clean sync merge (no diff in the PR's own files) re-runs CI
+  and keeps the legs bound to the content head, since a review's object is the diff and every
+  sync today re-opens a round that raises new findings on unchanged text (241: six, 216: five,
+  227: one, 229: one); (2) a GitHub merge queue on engraph, with merge-bot enqueuing, is the
+  serialiser the readiness slot hand-runs; (3) a joint text's twin does not merge before both
+  copies' legs settle (PR 208 landed at its round two while this copy had no review, and then
+  took three cures by bytes). Records: this seat's formation letter
+  `.agent/experience/2026-09-26-myrtle-turns-canopy-formation-letter.md`; its handoff record
+  `.agent/state/collaboration/handoffs/bf4957-myrtle-turns-canopy-exchange-lane-handoff-2026-09-26.md`
+  (local; the re-arm recipe, the gate queue's mechanics, the claims, the open threads). Claims
+  retained for the open PRs; the seat's own lane claim a63a7df8 retained. Every monitor, the
+  gate-queue runner and the heartbeat loop are stopped at the end of the wrap.
+- **22:0xZ to 22:3xZ:** PR 242 merged 8c9434ae3 at 22:24Z (row L12's three joint cures, one set
+  of blobs with the second estate's PR 206; receipt sent, claim closed, worktree and branch
+  gone); the slot yielded to Swallow's PR 241, then this seat's PR 226. PR 216 took the second
+  estate's final joint bytes (bot-identity 4fd5b7f5, the identify-as-agent Action section
+  444a8141) plus Siren's two final-tip findings before its commit, went ready at 166bdb9b2, and
+  spent both settlement pushes on the joint texts: round one's four cures at 6c04233ee (the
+  credential preflight reads the HTTP status, 403 the bot and 200 a human, verified against
+  both; the worked Copilot command bound to each credential; fact 3 says the bot's account
+  states the credential; the identity check fails on partial drift) and round two's one at
+  0444fcaab (the check proves inheritance, not correctness; the value is checked by the
+  rule's derivation); every cure sent to Siren by bytes (bot-identity 1392d856,
+  identify-as-agent 415b8304, the lane skill 39ca8b24); further findings take signed lines.
+  The curator-passes retirement landed as PR 245 (fee8d2a68, both legs): thirty pass files and
+  the README gone, the generator cured in the curator-pass and start-right-team skills and the
+  temp-files rule, the skill's superseded-log residue removed, every live pointer corrected,
+  the carry-forward audit (forty bullets, read-only: 28 picked up, 8 obsolete, 2 already homed,
+  2 re-homed: the PDR-142 row decided and removed, a PDR-075 promote-or-retire slow-lane row),
+  a docs review's three cures taken; follow-up named: PDR-081's Cascade, Consequences and
+  Forbids still describe the log as live (a Core amendment). Swallow's branch-guard PR adds its
+  own turbo input; PR 243 keeps its nine. The operator profile's author value was pushed by
+  the sync tool (149a5e5) on Siren's request. Two duplicate stream events at 22:28Z from a
+  misread send result, corrected on the stream; the send check now reads the event id.
+- **21:4xZ to 22:0xZ:** PR 227 merged 185c15d2b at 21:46Z (batch six's first landing, row
+  J15; receipt to Siren; claim closed; worktree and branch gone); the slot yielded to Swallow's
+  PR 233. Check-in 22 answered and the Director's order absorbed: 233, 242, 241, 226, B0, then
+  this seat's list (229, 231, 232, 234, 235, 236, 238, 218, 220, 221, 240, 217, 237, 216, 243),
+  twenty-odd serial turns at about twenty minutes each under the up-to-date ruleset; the
+  curator-passes retirement PR stays in tonight's order after batch six, amended by the
+  recommendations suite (cure the generator in the same PR: the skill's line that sends
+  substance to the directory and the README's contract; re-home the carry-forward items from
+  the eight files that carry them first; no PDR-081 status-line edit, its Amendment Log of
+  2026-06-14 already records the supersession; same bytes to the second estate where the skill
+  exists there); a read-only verification of every carry-forward item is delegated. The
+  second estate merged its PR 208 (57592003) on the bot-identity core at 4fd5b7f5, then routed
+  two final-tip findings as joint cures; both applied here before PR 216's commit (the review
+  row defined by the review-submission operation, REST or GraphQL; the identify-as-agent Why
+  section says which credential hides the actor), so PR 216 is pushed and ready at 166bdb9b2
+  with bot-identity 493fa7c2 and identify-as-agent 69bcb9f1 (Action 444a8141, Why 5e911174)
+  for the second estate to take by bytes. PR 243 opened (the e2e task's nine root inputs).
+  Round-two cures pushed and resolved: PR 240 (c312a6930), PR 221 (f4441ba00, the first pass
+  writes the heartbeat, the second estate's wording), PR 229 (cabf4fcb9, the quick-start names
+  what a receiver copies). Settled with both legs and zero threads: 242, 226, 231, 232, 234,
+  235, 236, 238, 218, 220, 240, 243, 217 (237 after 217). The operator profile's OCE scope
+  file took the owner's author value (inferred, for ratification) and was committed and pushed
+  by the sync tool at 149a5e5 on Siren's request, so her scope write follows.
+- **21:1xZ to 21:4xZ:** the owner's words of 21:41Z (relayed 21:43Z): zero open PRs on both
+  repositories tonight through the proper quality and merge processes; the Codex seat restarts
+  in the morning (PR 211's push and PR 241's live proof wait for it, nothing else); push and
+  land everything else in lane order under the two-gate bound; name by check-in 22 any PR that
+  cannot reach the door. The engraph ruleset requires an up-to-date branch, so each door is a
+  sync, a push, both legs on the synced head and a full CI run, serial across seats. Swallow's
+  PR 239 merged 7bdb82059 at 21:28Z; this seat took the slot for PR 227 (synced fd1bc548f,
+  pushed, both legs, one round-two Codex finding dispositioned, the door armed 21:37Z). The
+  Director ruled 21:39Z that permanent-doc-is-the-consolidation-record retires the
+  curator-passes metadata record: a small PR of this seat's after batch six routes carry-forward
+  items, removes the directory and README, amends the skill's clause and PDR-081's status line,
+  with the Practice-Generalisation trailer and the same bytes to the second estate. Siren's
+  joint text for row L12's third rule (bot-identity-on-third-party-systems portable core, draft
+  PR 208): taken at blob 78d43e1b into PR 216's worktree with two host-side cures (the lane
+  skill's step 2 states this estate's contract with the owner's 2026-08-04 word; the merge-bot
+  reference records that the bot's Copilot request registers) and the joint adapter
+  description; the owner's author address moved to the operator profile's scope file (inferred,
+  for the owner to ratify); Siren's round one then moved the blob to 3f1694d4 (four changes), so
+  PR 216's commit waits for that push. Cures pushed and threads resolved: PR 232 (732d774c7,
+  the unwrapOrThrow row), PR 235 (0ecf0772a, the inputs paragraph names the gap), PR 229
+  (8bad317dc); PR 231's scope corrected; PR 237's two observations dispositioned as sequencing
+  behind PR 217; PR 240's routing sentence cured locally (queued). PRs 220 and 221 synced,
+  pushed and readied with both legs. A new lane, `fix/e2e-task-declares-agents-md`: the
+  agent-tools end-to-end task declares the nine root files its script reads (the config review
+  found eight beyond the AGENTS.md PR 235's review named); validator 52 positive root inputs.
+  F-208's status says one instance, no cure lane; F-207 holds four instances (the matcher pairs
+  the word with any later bare `-f`).
+- **21:0xZ to 21:1xZ:** PR 225 merged 619ca82b8 at 21:07Z (the door on 6e1809f70; PDR-142 at
+  blob fe6ee7ad, one blob with the second estate's PR 205 at 4eee5d05); slot released, the
+  receipt sent to Siren, claim cee32199 closed, the worktree and remote branch removed. Swallow
+  took the slot for PR 239 at 21:08Z; this seat yields until the release. PR 218's cure (the
+  gate's own unit test, 15 cases; the start skill lists every seed) committed d02ae040c, synced
+  to 14c1f5fff and pushed; both Copilot threads answered and resolved, both legs re-requested.
+  PR 226's two accepted cures applied (the Cursor adapter's description says cold; the recipe
+  passes `--ignore-scripts`), commit and push queued. F-208 written in the frictions register
+  (the hub's Turbopack font-build failure: one instance, PR 225's run 36185664112 attempt 1;
+  the PR 216 run failed for another cause, a refused connection in the hub's tests); the
+  Director's correction of 21:12:59Z withdrew the cure PR under one-instance-is-an-observation
+  and F-208's status says so. Check-in 21 answered. Settled and waiting for the slot: PR 227
+  (both legs, zero threads, ten behind) and PR 242 (both legs on 6b7018e94, zero threads; the
+  second estate's twin PR 206 merged 086f39de on the same blobs). Open findings to triage: PR
+  229 (two, the persona components' consumption and the README copy sentence), 231 (one, the
+  body's Scope names two files and the diff touches three), 232 (two, the `unwrapOrThrow` row
+  documents an argument the function lacks), 235 (one, the e2e inputs claim against the codex
+  smoke's read of AGENTS.md), 237 (two, sequencing behind PR 217's doctrine change).
+- **20:5xZ:** PRs 232, 234 and 235 pushed and ready with both legs; PRs 236, 237, 238 and 240
+  synced by merge, pushes queued. PR 225 synced 6e1809f70, pushed, both legs re-requested, the
+  door armed behind its checks. The second estate's third L12 joint cure ("When a written
+  record", not "durable", in the rule body and the Cursor adapter's description) taken in PR 242;
+  its commit and push queued; the rule's blob becomes c5f90b1e.
+- **20:47Z:** PR 225's CI re-run passed (28 polls); the door then refused BEHIND-BASE (PR 228
+  merged after the 20:19Z sync). Synced by merge to 6e1809f70 (no conflict, the same four
+  removals), the push queued second in the gate queue, legs to re-request on that head, the door
+  after; a slot status broadcast at 20:48Z. Lesson: at the slot, sync last, right before the
+  door, and expect a re-sync whenever another seat's door settles in between.
+- **20:46Z:** PR 242 opened ready with both legs (the L12 joint cures, d8fcb69f5; the rule's blob
+  cffc37df sent to the second estate to take, the research blob 12f2aa43 matching theirs). PR 231
+  ready with both legs. PRs 232, 234 and 235 synced by merge, sweeps sized (9, 0, 0 removed
+  lines), pushes queued; ready and legs follow each push.
+- **20:4xZ:** PRs 226, 227 and 229 synced, pushed, marked ready with both legs. The second
+  estate's L12 intake (its PR 206) offered two joint cures, both taken in one lane
+  (`docs/exchange-l12-joint-cures`, worktree oce-wt-l12-cures, claim b0023ff8): the
+  statistical-rigour foundations' fifteen blanks escaped (blob 12f2aa43, byte-identical to theirs)
+  and the one-instance rule's Operationalises paragraph citing the patterns README's "Prevents a
+  recurring mistake" criterion (§Barrier to Entry) and PDR-100 through it, in place of crediting
+  PDR-100 with a sentence it does not carry; commit and push queued behind PR 231's push. PR
+  225's CI re-run: the build passed on the second run (the flake confirmed); the door runs on
+  completion.
+- **20:3xZ:** PR 228 (Swallow) merged 952c6f587 and released the slot; this seat took it for PR
+  225 at 20:33Z; the door refused CHECKS-RED: CI's build job failed in the hub demo
+  (`@oaknational/oak-curriculum-hub`, "Module not found: '@vercel/turbopack-next/internal/font/
+  google/font'"), the same failure PR 216's 15:5xZ run showed, on a docs-only head; engraph's own
+  CI is green, so it is a CI flake of the demo's Turbopack font resolution. The bot cannot re-run
+  workflows ("Resource not accessible by integration"); the re-run went under the session's own
+  credentials. An observation for the Director's board: two hub-build flakes in one day; a
+  re-run path the bot can use, or the demo build out of the PR-blocking set, is the cure. PR 218
+  pushed 53ec09ac5, marked ready, both legs requested. PRs 226 and 227 pre-synced to engraph by
+  merge, sweeps read, pushes queued. The second estate's PR 205 merged 4eee5d05 on blob fe6ee7ad.
+- **20:26Z:** PR 218's third gate refusal was knip (two names exported from the new gate module
+  but used only inside it); un-exported, the knip gate check run by hand, re-queued. The pre-commit
+  check list a code lane runs before queuing its commit, learned the hard way: prettier, the
+  workspace's own lint script, tsc, the touched suites, and `pnpm agent-tools:repo-check
+  knip-gate`. PR 225's last push c9d9b51f4 landed 20:25Z; legs re-requested once; the two
+  round-three threads answered and resolved; check-in 20 answered; the blob confirmed to the
+  second estate.
+- **20:2xZ:** PR 225 round four: Codex read the event id in the PDR as non-portable and the
+  changelog's second-estate PR number likewise; the second estate's seat confirmed PDR-079 §PDR
+  Portability Rule forbids event and session identifiers in a PDR body, and the Director ruled at
+  20:19:53Z (PDR-079 wins; the concept stays; the joint bytes "the owner's words as recorded by
+  the seat they were spoken to"). The branch synced by merge to engraph (eec6fa3c7; a CHANGELOG
+  conflict with PR 230's entry kept both entries), the second estate's exact five lines applied
+  (blob fe6ee7ad, verified byte-identical), the changelog's PR number dropped, committed
+  c9d9b51f4 as the last push under check-in 20's two-round word: dispositions only from here.
+  PR 218: two more gate refusals (an index-signature style in the new gate module; one statement
+  over in the CLI test's first block) cured, the workspace lint run as the gate runs it before
+  re-queuing (twenty-one files).
+- **20:1xZ:** PR 218's re-queued commit failed again on lint limits (the CLI resolver's
+  complexity, two files over 250 lines); the cure is the consolidation the code review named:
+  the identity CLI composes over `resolveCollaborationSeed` (one precedence list) and the gate's
+  helpers live in `collaboration-state/platform-gate.ts` with their own unit test; the Cursor
+  session-cache test names its platform. 1,118 tests pass across the identity, collaboration-state
+  and hook suites; twenty files; commit and push re-queued, the runner restarted. Lesson for the
+  queue: a commit entry is queued only after eslint and tsc on the touched files pass, never on
+  the test run alone.
+- **19:13Z to 20:11Z, a pause:** this seat held on a harness usage limit and resumed at 20:11Z; no
+  stream event arrived for it meanwhile. Landed before and during: PR 230 merged 6a0045eb7 at
+  19:13Z (the door settled unattended; the slot release was announced late at 20:12Z, saying so;
+  the PDR-009 integrated receipt sent; worktree and remote branch removed); PR 225's provenance
+  cure b8143c5df (blob ce8a40fa) pushed 19:15Z, the Codex thread answered with the ruled cure,
+  both legs re-requested at 20:12Z, the blob sent to the second estate for its PR 205; PR 240
+  opened (the ARC routing clause, f315fbdb7). PR 218's queued commit failed its gate at 19:19Z
+  because the flagless CLI tests predated the required flag; the queue emptied and the runner
+  exited. The three PR 218 reviews (code, test, security) agreed the CLI's open default was a
+  bypass: `--platform` is now required without `--seed`, the missing-seed error names gated
+  seeds, the hint reads every Claude label, PDR-027 carries the 2026-09-25 amendment, the two
+  CLI docs, three hook hints and six Practice instruction sites state the flag; 18 files, 315
+  tests passing, commit and push re-queued and the runner restarted. The heartbeat loop's claim
+  filter compared the agent_id object to a string, so claim heartbeats never went out until
+  20:1xZ (`.agent_id.id` is the field); fixed. Swallow took the slot for PR 228 at 20:13Z.
+- **19:1xZ:** PR 222 (Swallow) merged 92cbe0afe and released the slot; this seat took it for PR 230
+  (synced 49ab1645e by merge, sweep read, push queued; legs re-request and door follow). PR 225's
+  round three: Codex read "in the owner's own words" as upgrading relayed provenance; the second
+  estate's seat concurred (its twin PR 205 at blob 4cde49d7 waits on the cure); the Director ruled
+  at 19:09Z: cite Geyser rides Pewter's event 777320b2 beside the quote, nothing pending
+  ratification. Cure applied in the worktree, commit and push queued behind PR 230's push; the
+  new blob id goes to the second estate on the push. PR 238 opened (the ESLint plugin lane,
+  961864d85; its pre-commit gate linted every workspace with the preset at error and passed).
+  The gate queue's reorders twice lost an entry (the runner reads line one before it waits and
+  drops line one after the run): a reorder must keep the running entry first and re-check every
+  label after; the ARC-clause commit was re-inserted.
+- **19:0xZ:** PR 225's round-two cure landed as 4ab1e332e (PDR-142 blob 4cde49d7, the
+  decision-records README blob ad7e2897); the three threads replied and resolved, both legs
+  re-requested, the joint-cure blob ids sent to the second estate's seat at 18:59Z. Drafts opened:
+  PR 236 (the watcher smoke ETIMEDOUT lane, 424089a35), PR 237 (the ADR follow-up, 4384ba801).
+  PR 218's platform gate built test-first in oce-wt-seed-source (claim 7c8dcb7d for the parser and
+  identity.ts beside claim 141892a7): `isClaudePlatform`, `resolveCollaborationSeed(env,
+  platform)`, the CLI's `--platform <label>` (every seed counts without it, as the help says);
+  ten new tests red then green, 63 passing in the two files; code-, test- and security-expert
+  reviews running; commit and push queued after the plugin and ARC-clause lanes. CI reads: PR
+  216 fails on the hub demo's build at its 15:5xZ base (engraph's CI is green since), PR 218's
+  windows-basic times out two collaboration-state integration tests unrelated to its change;
+  both re-run at their slot syncs.
+- **18:5xZ:** records commit f81be6b88 landed and the coordination branch pushed (the second
+  ceremony run, after the stale lock). PR 225's legs returned three threads: Codex and Copilot
+  both read the owner's goal words as still spliced (the "then we review" stage missing, the
+  opening paraphrased) and Copilot noted the Status line and the index row lack the 2026-09-25
+  amendment. Cure applied in the worktree: the sentence whole with the two estates as bracketed
+  roles (the record's convention at its 2026-09-24 quote), the Status line and the index row
+  carrying the amendment; commit and push queued ahead of the other lanes; on the push the
+  threads take their replies, the legs are re-requested and the second estate's seat receives
+  the new blob ids to take (a joint cure). The config-expert's review of the ESLint plugin lane:
+  mechanics sound; three documentation misstatements cured (the two vendor rules are on at
+  error through `vendorBoundaryRules` in strict; the rule's TSDoc; the IO rule's owner named as
+  the `no-io-test-boundary-and-di-recovery` plan), the sixteen override comments name the
+  `no-throw-remediation` plan, the count left the permanent comment, and that plan records the
+  owner's ruling; twenty files, queued. The ARC reference follow-up (one clause, worktree
+  oce-wt-c2-relationship, branch docs/exchange-c2-arc-relationship-clause) queued. Heartbeat
+  loop re-armed without `--body` (heartbeat-tagged events refuse a body).
+- **18:4xZ landings and rulings:** PR 215 merged db7517e1e at 18:43Z (Copilot's first finding cured
+  in 4f3710140; its second-pass observation, that the ARC reference's §Relationship sentence routes
+  ARC against a durable sidebar with no s2s condition, priced below bar for the PR and taken as a
+  one-clause follow-up lane); the c2 integrated receipt sent; claim ee17a29e closed; worktree and
+  remote branch removed. Batch-six drafts opened: PR 232 (result, d9069fb07), PR 234 (polarity,
+  e2dd87ab7), PR 235 (build-system, b37786931); PR 230 ready with both legs (9c27a7e8e, changelog
+  entry); PR 225 synced (afaa62e62), changelog entry eee1a8361, ready with both legs, sweep read
+  (two intended removals). The Director's 18:44Z ruling: the merge slot goes by readiness, one
+  turn then yield, announced as "slot taken: PR N" before the door and "slot released: PR N merged
+  as SHA" after; 215 released 18:44Z, 222 (Swallow) took it 18:45Z, then whichever of 225 or 233 is
+  settled. Check-in 19 answered 18:43Z. The ESLint plugin lane (worktree oce-wt-b6-eslint-plugin,
+  branch fix/exchange-b6-eslint-plugin-says-what-it-enforces, claim on 18 files): the preset's
+  substrate rule to error, no-throw to error with the owner's 2026-09-08 ruling quoted whole and
+  `off` in the sixteen debt workspaces, the no-real-io comment told as PDR-126 transition debt, the
+  README's ten-rule table; config-expert pre-review running, commit and push queued behind it.
+  Host note: a stale `.git/index.lock` in the primary (created 18:33:58Z, no holder) failed the
+  first records ceremony at 18:44Z (intent abandoned, window closed); removed at 18:46Z and the
+  ceremony re-queued.
+- **Measured from the pre-push gate log of 18:1xZ (for batch six's ESLint plugin and warnings
+  notes):** `no-throw-statement` prints 1,232 warnings across 16 workspaces (agent-tools 386,
+  sdk-codegen 299, search-cli 169, the MCP app 164, curriculum-sdk 78, oak-search-sdk 37,
+  sentry-node 21, oak-design-tokens 17, graph-core 15, logger 12, graph-corpus-sdk 11,
+  design-tokens-core 11, env-resolution 4, observability 3, env 3, safe-path 2); the owner's
+  2026-09-08 ruling (off where the debt lives, error everywhere else and for every new
+  workspace) is the binary split still to implement, a config lane across those files with a
+  config-expert review. `no-real-io-in-tests` prints 7 warnings outside its allowlist, the
+  recovery lane's. The plugin lane this seat runs next: the README's ten-rule table, the
+  severity comments told as PDR-126 transition debt, `no-agent-substrate-access` to error if
+  its surface measures empty.
+- **The seed branch's design (the second estate's answer of 15:45Z to 9f9e7b8f, accepted by
+  this seat at 15:48Z):** a subagent's collaboration write is its parent's, by design in both
+  estates; the platform gate is a joint cure in the wider form, the three Claude seeds counting
+  only when the seat's platform is a Claude platform, in both resolvers. PR 218 carries the gate
+  test-first, then code, test and security reviews, then ready; the second estate takes the same
+  design after it settles. Two PDR-052 additions come from the second estate as their own row.
 - **Next:** joint set K4 merged in the second estate at 15:01Z (its merge c523ba81; Siren's
   event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
   those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
@@ -807,7 +1224,7 @@ contradiction both carry is a faithfully carried concept, false in both, which t
 bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
 2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
 owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
-and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). Owed, each from a word already given: the host-free adapter line's joint cure
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). The 2026-09-24 coordination branch folded as #187 (`SHA:7497696fe`, 2026-09-25 17:04Z, three review rounds, every finding cured by its author); the live branch is `coordination/2026-09-25-749769`, cut from that merge. Owed, each from a word already given: the host-free adapter line's joint cure
 (`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
 prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context

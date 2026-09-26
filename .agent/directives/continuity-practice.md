@@ -89,6 +89,14 @@ work this content describes?". Two dispositions:
    directories, and the commit gate refuses a markdown link into one). Git retains the literal record either way; the
    archive keeps it readable without a checkout of history.
 
+"Appropriate handling" of a record has three outcomes, not one: curated
+(disposition 2 run to its end), left live with the verdict recorded on the
+surface, or found homed elsewhere and archived whole; a report that names which
+outcome each file got is the honest measure, where a count of files "done" is
+not. A record is handled when the lifecycle question has been answered for every
+section and the answer left a proof (an archive blob, a recorded verdict, a
+named home), never when the file is smaller (2026-09-20 and 2026-09-21).
+
 **Archiving happens only after full processing, never as a means to tick a
 box** (owner, 2026-09-19, verbatim: "archiving happens ONLY after full
 processing, not as a means to tick a box"). The archive is the lifecycle's
@@ -132,6 +140,12 @@ embedded here in the doctrine it enacts; indexed in
    the insight to its permanent home, *then* add it to the range. Live → keep,
    compacted (a compact pointer, not the landing narrative). Compact bloated index-table cells to the index shape — lane state
    lives in the thread record, not here.
+   A curated record points at its plan and never restates the sequence: the join
+   between a lane's record and its plan is where the record's next step lives
+   on. One surface owns each volatile fact (which pull request is live, what
+   landed, how many rounds) and the others link, so a restatement is derived or
+   absent (2026-09-21, one fact hand-restated across five surfaces and
+   drifting).
 3. **Verify losslessness mechanically** (after the rewrite, before committing): the
    archive file's blob equals the moved range's bytes (for a whole-file snapshot, the
    pre-curation file's committed blob); every live-pointer token from
