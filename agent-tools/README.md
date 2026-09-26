@@ -254,7 +254,7 @@ pnpm agent-tools:smoke:collaboration-tui
   or `gemini`). The three Claude seeds count only on a Claude platform, so a
   seat opened from a Claude shell keeps its own identity.
 - `--format kebab|display|json` — output slug, display name, or full result.
-- `OAK_AGENT_IDENTITY_OVERRIDE` — bypasses wordlist derivation with a
+- `PRACTICE_AGENT_IDENTITY_OVERRIDE` — bypasses wordlist derivation with a
   type-total override result.
 
 There is no `git config user.email` fallback. Platform wrappers or harness
@@ -270,7 +270,7 @@ Examples:
 pnpm agent-tools agent-identity --seed example-session-id-001 --format display
 pnpm agent-tools:build
 node agent-tools/dist/src/bin/agent-tools.js agent-identity --seed example-session-id-001 --format json
-OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity --seed any --format display
+PRACTICE_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity --seed any --format display
 ```
 
 ## `collaboration-state` quick reference
