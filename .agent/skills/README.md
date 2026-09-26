@@ -27,6 +27,12 @@ or another lever entirely — is decided by
 
 ## Audience-set registry
 
+For expressing and implementing use value across needs, journeys, capabilities,
+contracts and delivery work, with evidence appropriate to each level,
+use [`use-value`](planning/use-value/SKILL-CANONICAL.md). It is a
+Practice authoring method for agents and teams building systems; it supplies
+no learner-facing pedagogy and does not change the curriculum-skills boundary.
+
 One row per audience set. A capability that fits no existing set
 does not stretch one: a new set lands deliberately, through the
 landing procedure, as a new row here.
