@@ -123,7 +123,7 @@ and analyses are at `.agent/research/agentic-engineering/continuity-memory-and-k
 **Landed**: `c76f93eb6` (the napkin's graduations: ten skills, twenty rules, three patterns, one new pattern and the pattern index, PDR-140 clause 4, PDR-063, the ARC protocol); `c34823b5d` (the
 heartbeat cadence reference, the experience audit); `3c1fe1a18` (F-199); the buffers commit
 that carries this block (register F-191 and F-200 to F-207, pending-graduations, the rotation,
-the pass record); the comms archive move after it (non-heartbeat events swept through
+and a per-pass file since retired with its directory, 2026-09-26); the comms archive move after it (non-heartbeat events swept through
 2026-09-25T11:17:35Z, disposition `absorbed`).
 
 *Update, 2026-09-25 ~15:05Z, the same seat after its compaction (supersedes the paragraph below

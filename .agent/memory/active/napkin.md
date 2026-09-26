@@ -53,8 +53,9 @@ its record.
   observation. Candidate: the ceremony re-reads the heartbeat file and waits one interval before
   the window claim, and the watcher emits its own stall line when a drain exceeds the bound.
 - **Fact**: `.agent/state/collaboration/comms/` and `comms-archive/manifest.jsonl` are ignored
-  by git, so an archive move (939 events at 13:24Z) needs no commit; the pass record and the
-  manifest are the record.
+  by git, so an archive move (939 events at 13:24Z) needs no commit; the manifest and the
+  commits that homed the pass's substance are the record (the per-pass file this entry
+  named is retired, 2026-09-26).
 
 ## 2026-09-25 ~13:42Z — three counts written from memory an hour after landing "a count comes from the object" (Myrtle turns Canopy, bf4957)
 
