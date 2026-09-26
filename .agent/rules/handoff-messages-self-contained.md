@@ -36,6 +36,12 @@ A handoff message MUST name:
 
 A receiver should be able to act WITHOUT a clarifying question back to the sender. If they need to ask, the message was incomplete.
 
+A handoff's next-step list names the credential route beside each write
+(the merge-bot's push command, the minted token), since a pickup reads the
+steps, not the rule: steps that said "merge", "push", "request Copilot" with
+the credential implicit produced three writes under the owner's credential in
+one day (2026-09-24).
+
 ## Forbidden patterns
 
 - *"See our earlier discussion"* — the receiver has no earlier discussion.

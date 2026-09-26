@@ -358,6 +358,39 @@ records or observed in the named run.
     `HOME`, `LOGNAME` and `_`.
   - A process-table read afterwards found no `codex sandbox` or `sandbox-exec` process.
 
+
+### 2.10 codex-cli 0.157.0, for slice 1b-iv (2026-09-25)
+
+Swallow holds Drift (516619), with the pre-execution code-expert review and an assumptions-expert
+review of slice 1b-iv. The source reads are of the 0.157.0 release's `codex-rs` tree.
+
+- **Feature defaults move at each release.** `codex features list`, run with no configuration,
+  enabled five features on 0.156.1 that were off on 0.153.4, and turned two off. On 0.157.0 two
+  more were enabled, `daemon_auto_start` and `guardianv2.thread_context`.
+- **`memories` is off by vendor default** on 0.156.1 and 0.157.0 (`features/src/lib.rs`). It is
+  on in the owner's configuration. `shell_snapshot` and `multi_agent` are stable and on.
+- **A misspelt `-c` key is accepted without a word,** unless `--strict-config` is given.
+- **`--enable` and `--disable` reach every subcommand.** `cli_main` folds them into the root
+  configuration overrides before dispatch, so `exec` and `features list` apply the same flags.
+  An unknown name is refused ("Unknown feature flag"), with or without `--strict-config`. A
+  legacy name, or the name of a removed feature, is accepted (`cli/src/main.rs`,
+  `FeatureToggles::to_overrides` and its tests).
+- **`features list` prints every feature the CLI defines,** with its stage and its effective state
+  under the loaded configuration, which includes `$CODEX_HOME/config.toml`. A removed feature can
+  be listed as enabled: `item_ids` is listed `removed` and `true`.
+- **A first run fills an empty Codex home.** One logged-out `codex exec` into an empty home, whose
+  flags were not recorded, left:
+  - six vendor system skills under `skills/.system/`: imagegen, openai-docs, plugin-creator,
+    review-agent, skill-creator and skill-installer;
+  - a memories database holding no jobs and no outputs;
+  - an empty `shell_snapshots/` directory.
+
+  Its one request to the API was refused as unauthenticated (401), so no model turn ran, and no
+  process was left running.
+- **`apply_patch` is refused before any process.** Under approval `never`, the pinned model is
+  offered `apply_patch` through code mode, and Codex refuses it in a policy check that leaves no
+  harness record.
+
 ## 3. The participation record
 
 - **Claims.** The claims archive holds 378 Codex claims out of 1,709: July 331, August 46,

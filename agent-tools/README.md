@@ -326,8 +326,8 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   defaults to the platform-derived Practice session id (matching `comms send`
   / `comms direct`); explicit `--agent-name` + a REQUIRED non-empty
   `--session-prefix` is available for admin/test overrides (a supplied
-  `--session-prefix` is trimmed and must be non-empty on any path). `watch` uses `fs.watch` with polling
-  fallback and records seen event ids in a durable cursor. Omit
+  `--session-prefix` is trimmed and must be non-empty on any path). `watch` polls the comms
+  directory every `--poll-ms` and records seen event ids in a durable cursor. Omit
   `--comms-dir` and `--seen-file` together to resolve the PRIMARY coordination
   home and derive `comms-seen/<exact display name>.json`; `--repo-root`
   overrides that derived home. Resolution precedence is explicit
@@ -488,8 +488,9 @@ context/usage percentages, and git location. Environment controls:
   statusline warning, including on payloads that otherwise render
   nothing. The
   destination is a boundary: symlinks refuse to open, non-regular files
-  never receive a write, and a pre-existing file is retightened to
-  owner-only before each append. Write refusals are swallowed — the
+  never receive a write, a pre-existing file is retightened to
+  owner-only before each append, and native Windows, where file modes
+  cannot make a file owner-only, gets no log. Write refusals are swallowed — the
   statusline never breaks for its own
   diagnostics. The log grows unbounded and carries session ids and
   paths: delete it after the diagnosis.

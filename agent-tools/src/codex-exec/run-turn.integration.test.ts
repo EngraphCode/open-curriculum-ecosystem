@@ -1,14 +1,19 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { parseDialogueId, type DialogueId } from './cleanup-row.js';
 import type { CodexCall, TurnContext, TurnRequest } from './dialogue-turn.js';
 import { envelopeDigest } from './envelope.js';
-import type { PassRecordRead, ResolvedBinary } from './gate.js';
+import { PASS_RECORD_MAX_AGE_MS, type PassRecordRead, type ResolvedBinary } from './gate.js';
 import type { PassRecord } from './pass-record.js';
+import { PROBE_CONTRACT_VERSION } from './probe-contract.js';
 import { runTurn, type BinaryUnresolved, type GatedTurnPorts } from './run-turn.js';
 import type { CodexRun } from './turn-verdict.js';
 
 const THREAD = '01a0cfaf-7914-72e2-afe7-fb2d0938eb94';
+
+/** The clock every turn in this file reads. */
+const NOW = '2026-09-24T16:00:00.000Z';
 
 const context: TurnContext = {
   instrumentRoot: '/root-slot',
@@ -32,11 +37,25 @@ const record: PassRecord = {
   cliVersion: binary.cliVersion,
   executablePath: binary.executablePath,
   envelopeDigest: envelopeDigest(context.modelPins),
+  probeContractVersion: PROBE_CONTRACT_VERSION,
   passedAt: '2026-09-24T11:00:00Z',
   evidence: ['rule 9: the nonce, no WRITE-OK'],
 };
 
-const request: TurnRequest = { prompt: 'packet', thread: undefined, timeoutMs: 5000 };
+function dialogueId(): DialogueId {
+  const parsed = parseDialogueId('dlg-20260924-ab12');
+  if (!parsed.ok) {
+    return expect.unreachable('fixture dialogue id must parse');
+  }
+  return parsed.value;
+}
+
+const request: TurnRequest = {
+  kind: 'open',
+  dialogueId: dialogueId(),
+  prompt: 'packet',
+  timeoutMs: 5000,
+};
 
 /** A whole turn, as `codex exec --json` emits it: a full success. */
 const replied: CodexRun = {
@@ -88,6 +107,8 @@ function ports(
       calls.push(call);
       return replied;
     },
+    now: () => new Date(NOW),
+    appendCleanupRow: () => ok(undefined),
   };
 }
 
@@ -160,5 +181,40 @@ describe('runTurn', () => {
       error: { kind: 'binding-mismatch', fields },
     });
     expect(turnPorts.calls).toStrictEqual([]);
+  });
+
+  it('starts no turn on a record that another version of the probe judged', () => {
+    const judgedElsewhere: PassRecord = {
+      ...record,
+      probeContractVersion: PROBE_CONTRACT_VERSION + 1,
+    };
+    expect(
+      runTurn(request, context, ports({ kind: 'present', value: judgedElsewhere })),
+    ).toStrictEqual({
+      ok: false,
+      error: { kind: 'binding-mismatch', fields: ['probeContractVersion'] },
+    });
+  });
+
+  it('starts no turn on a record past its age limit', () => {
+    const stale: PassRecord = {
+      ...record,
+      passedAt: new Date(Date.parse(NOW) - PASS_RECORD_MAX_AGE_MS - 1).toISOString(),
+    };
+    expect(runTurn(request, context, ports({ kind: 'present', value: stale }))).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-expired' },
+    });
+  });
+
+  it('starts no turn on a record dated after its own clock', () => {
+    const early: PassRecord = {
+      ...record,
+      passedAt: new Date(Date.parse(NOW) + 1).toISOString(),
+    };
+    expect(runTurn(request, context, ports({ kind: 'present', value: early }))).toStrictEqual({
+      ok: false,
+      error: { kind: 'pass-record-from-the-future' },
+    });
   });
 });

@@ -60,7 +60,7 @@ alternatives non-viable.
 - Asking what to prioritise when the brief already names the priority.
 - Asking permission to EXECUTE work the owner already directed. Directed work
   is self-authorising: the trigger to execute it is the boundary reached
-  (budget spent, work complete, successor pre-positioned), not a fresh go.
+  (work complete, successor pre-positioned), not a fresh go.
   A clear owner directive also covers its sub-cases — apply it; a real
   nuance in a sub-case is worth noting, not gating on a re-confirmation.
   (Applying a directive within its plain scope is this item; a reading

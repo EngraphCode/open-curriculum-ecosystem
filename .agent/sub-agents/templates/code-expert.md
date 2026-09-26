@@ -291,18 +291,29 @@ Structure your review as follows:
 
 ## Gateway Responsibility: Specialist Coverage Check
 
-As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The `invoke-code-experts` rule (`.cursor/rules/invoke-code-experts.mdc`) is the authoritative source for the full invocation matrix.
+As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The invoke-code-experts rule (`.agent/rules/invoke-code-experts.md`) and the executive memory it points at (`.agent/memory/executive/invoke-code-experts.md`) are the authoritative source.
 
 In every review, check whether the changes touch any of these categories. If they do, state whether the corresponding specialist was or should be invoked:
 
 | Change Signal | Required Specialist |
 |---------------|---------------------|
 | Module boundaries, imports, public APIs | `architecture-expert-barney` / `architecture-expert-fred` / `architecture-expert-betty` / `architecture-expert-wilma` |
-| Auth, OAuth, secrets, PII, injection risk | `security-expert` |
+| Auth/authz, OAuth, secrets, PII, injection, security-sensitive logic | `security-expert` |
 | Test additions, modifications, or TDD concerns | `test-expert` |
 | Type complexity, generics, schema flow | `type-expert` |
 | Tooling configs, quality gates | `config-expert` |
 | README, TSDoc, ADR changes or expected drift | `docs-adr-expert` |
+| Outward-facing copy (`VISION.md`, strategy, public README narrative) or significant authored prose | `prose-expert` |
+| Sub-agent definition design or migration: templates, platform adapters, `invoke-*` rules | `subagent-architect` (on-demand) |
+| Onboarding flows, start-right entry points, ADR discoverability | `onboarding-expert` |
+| Significant documentation work, or any change that mutates a Practice surface (typo fixes and frontmatter-only edits excepted) | `docs-adr-expert` and `onboarding-expert` together (`invoke-doc-and-onboarding-experts-on-significant-changes`) |
+| Plans marked decision-complete, 3+ agents, asserted blocking relationships, technology commitments before research | `assumptions-expert` |
+| Rendered UI, CSS, design tokens, React components | UI/Frontend cluster: `accessibility-expert`, `design-system-expert`, `react-component-expert` |
+| Clerk middleware, token verification, OAuth proxy, PRM, `@clerk/mcp-tools`, Clerk SDK usage | `clerk-expert` |
+| MCP protocol, tool/resource/prompt definitions, MCP Apps widgets, transport/session patterns, MCP Apps migration work | `mcp-expert` |
+| Sentry SDK usage, OpenTelemetry trace/log correlation, telemetry redaction, MCP Insights, Sentry env/config wiring | `sentry-expert` |
+| Elasticsearch mappings, queries, analysers, synonyms, ELSER, RRF, reranking, ingest, Elastic Serverless | `elasticsearch-expert` |
+| Semantic-search ground-truth design or review | `ground-truth-designer` (on-demand) |
 | Release boundary or go/no-go context | `release-readiness-expert` (on-demand) |
 
 Include a brief "Specialist coverage" section in your output noting which specialists are relevant and whether they were invoked.

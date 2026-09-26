@@ -47,7 +47,12 @@ again.**
    paging of inactive pages, not memory exhaustion. The macOS-correct saturation
    signals are **CPU idle %** (`top -l1`, Activity Monitor) and the
    **memory-pressure colour** (green / yellow / red) — not load-avg-vs-cores or
-   raw swap-used. Owner-evidenced 2026-06-28: a session-long ~16–22/14 "load" +
+   raw swap-used. Read the host with the workflow's instrument, never with a
+   number carried in a note: a hold on "1-minute load under 12", taken from a
+   handover note, cost ten minutes (2026-09-24), and a frame that held every
+   remote write on "load 29.16" was caught by two Crickets reading this item
+   (2026-09-24); a hold's sensor comes from the rule the hold cites, and the
+   check runs inside the act, not before it. Owner-evidenced 2026-06-28: a session-long ~16–22/14 "load" +
    ~5 GB swap-used, read as host pressure by more than one agent, was shown
    healthy by Activity Monitor (CPU idle 67.7 %, memory-pressure green) — a
    Linux-shaped misread. The founding worked instance below was a *genuine*
@@ -72,6 +77,11 @@ again.**
      `pkill -f "turbo run"` also killed an innocent in-flight pre-commit's
      turbo gate, producing a phantom red on a one-line commit. Diagnose
      kill-collateral before treating any post-kill red as real.
+   - Kill by the pids recorded at launch, never by command text: a
+     process kill matched on the text of a sleep command matches every
+     session on the machine (2026-09-23), and a peer's `tail` read as this
+     seat's stray was a Codex process, found by tracing its parent before
+     any kill (2026-09-24).
 
 6. **Concurrent full local gates are bounded at two, ceiling three — by a
    mechanism, never a declaration.** Owner ruling (2026-09-07, verbatim):

@@ -6,7 +6,7 @@ This directory uses a three-layer structure to keep prompts simple, DRY, and mai
 
 1. `components/` - small, reusable prompt building blocks.
 2. `templates/` - assembled workflows composed from components.
-3. Consumer prompt files (for example `.cursor/agents/*.md`) - thin wrappers that load templates and apply agent-specific persona/lens.
+3. Consumer prompt files (for example `.cursor/agents/*.md`) - thin wrappers that load templates and apply agent-specific persona/lens. An inline-prompt role (PDR-009; its template has a `## System prompt` section) has a Claude adapter that copies that block verbatim instead; `pnpm subagents:check` compares the copy.
 
 ### Components Structure
 
@@ -38,5 +38,5 @@ Before finalising changes to templates or wrappers:
 - [ ] Legacy generic agent names are not used in active guidance (for example, `architecture-expert`).
 - [ ] Architecture reviewer wrapper descriptions are distinct and lens-specific.
 - [ ] Standard quality roster and specialist on-demand roster are clearly separated in coordination docs.
-- [ ] Consumer wrappers keep template loading as the first action.
+- [ ] Consumer wrappers keep template loading as the first action; an inline-prompt role's Claude adapter (PDR-009) carries its template's System prompt block instead.
 - [ ] Components remain leaf nodes and templates remain the composition layer.

@@ -451,7 +451,7 @@ pnpm test:widget:a11y    # Playwright axe-core WCAG 2.2 AA gate
 
 ```bash
 pnpm make           # Full convenience pipeline with auto-fix steps; review file changes afterwards
-pnpm check          # Canonical full verification gate: clean rebuild + tests + docs + formatting/linting fixes
+pnpm check          # Canonical full verification gate: clean rebuild + tests + docs + format/lint verification; applies no fixes (repair with pnpm fix)
 pnpm fix            # Auto-fix: format + markdownlint + lint
 pnpm clean          # Remove build artefacts (dist/, .turbo)
 ```

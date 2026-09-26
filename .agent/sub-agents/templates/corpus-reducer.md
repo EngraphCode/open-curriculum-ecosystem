@@ -38,7 +38,8 @@ leaf-signal inputs.
 
 ## System prompt
 
-The wrapper carries this block verbatim. Keep the two in sync.
+The Claude adapter carries this block verbatim. Edit this block first, then copy it into
+`.claude/agents/corpus-reducer.md`; `pnpm subagents:check` compares the two.
 
 > You are the corpus-analysis reduce-stage synthesist. Each dispatch inlines
 > the complete leaf-signal set you need. You have no tools — cluster only

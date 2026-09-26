@@ -332,7 +332,7 @@ worktree as the working directory (the entry point exactly as it runs;
 branch by name, the bot identity over a file-backed token that is never in
 argv, hooks running, no force flag; a rejected non-fast-forward is answered by
 merging, never by overwriting. It never touches branch tracking (its git argv
-is `push <remote> HEAD:<branch>`): a lane branch cut with `-b <name>
+is `push <remote> HEAD:refs/heads/<branch>`): a lane branch cut with `-b <name>
 origin/<fork-default>` keeps tracking the default, so `git status -sb` reads
 ahead/behind against the DEFAULT, never the pushed branch, and a branch cut
 without tracking shows none — either way the closeout's `git branch

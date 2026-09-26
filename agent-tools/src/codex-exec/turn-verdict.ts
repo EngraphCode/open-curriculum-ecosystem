@@ -1,6 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parseThreadId, type ThreadId } from './envelope.js';
+import { parseThreadId, type ThreadId } from '../core/codex-thread-id.js';
 import { readTurnEvents } from './turn-events.js';
 import type { CommandExecution, TurnEvents } from './types.js';
 
@@ -12,6 +12,10 @@ type KillReason = 'timeout' | 'signal' | 'overflow';
 /**
  * What one `codex` process did, as plain data: the runner maps the process
  * result into this shape, so the verdict never touches a process handle.
+ *
+ * A killed run keeps the partial output the process wrote before it was
+ * killed, because a thread it started still needs its cleanup row. An
+ * unlaunchable run means no process started, so it has no output at all.
  */
 export type CodexRun =
   | {
@@ -20,7 +24,12 @@ export type CodexRun =
       readonly stdout: string;
       readonly stderr: string;
     }
-  | { readonly kind: 'killed'; readonly reason: KillReason; readonly stderr: string }
+  | {
+      readonly kind: 'killed';
+      readonly reason: KillReason;
+      readonly stdout: string;
+      readonly stderr: string;
+    }
   | { readonly kind: 'unlaunchable'; readonly message: string };
 
 /**

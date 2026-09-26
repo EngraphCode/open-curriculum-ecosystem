@@ -11,8 +11,10 @@ import { runFileBackedChild } from '../core/file-backed-child.js';
  * repository's whole pre-push gate chain underneath it. That output is
  * conserved in temporary FILES and replayed to the sink on completion —
  * never carried on Node pipes, which poison the hook chain underneath git
- * (F-112; see `fileBackedGitCall`). `rev-parse --abbrev-ref HEAD` answers
- * with a branch name, which the tool does control, and is captured.
+ * (F-112; see `fileBackedGitCall`). The reads the push settles its target
+ * with (`gitReadsFrom` in `push-git.ts`: `branch --show-current`,
+ * `remote get-url --all origin` and `symbolic-ref` of `origin/HEAD`) answer
+ * with a line or two the tool does control, and are captured.
  */
 
 /** The fields of a completed git invocation the push action reads. */

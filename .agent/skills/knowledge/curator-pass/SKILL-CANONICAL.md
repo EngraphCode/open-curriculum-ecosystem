@@ -124,10 +124,11 @@ of curation work and not records of what graduated, leave them; the
 buffer is allowed to hold trigger-and-home-gated candidates.
 
 Where the buffer carries records of curation work or records of
-what graduated, migrate those out (the buffer is buffer only).
-Substance moves to the curator-passes directory (for curation-work
-records, metadata only) or to the archive (for graduation records,
-preserved as historical capture).
+what graduated, remove them (the buffer is buffer only). The commit
+that routed the substance and the substance's permanent home are the
+record (`permanent-doc-is-the-consolidation-record`), so no file is
+authored to hold a graduation record; a curation-work record keeps
+only its metadata, in the curator-passes directory.
 
 ### Step 7 — Owner-decisions
 

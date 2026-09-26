@@ -139,6 +139,17 @@ form to use rather than a bypass:
   it; a bare `.` in a call that also carries `git` and `add` tokens does.
   Name the destination path instead of `.`, and keep the copy in its own
   call.
+- The same guard matches a pathspec that begins with a dot-directory
+  (a staging call naming `x.ts` and a file under `.agent/reports/` together),
+  so a tracked file under `.agent/` cannot be staged by name beside a file
+  elsewhere in one call, and an absolute path does not help; a commit with
+  `--include` and the named paths after `--` commits them with what is
+  already staged (2026-09-20). The cure at the hook is a pattern anchored at
+  a word boundary or the argument's end (the bare dot alone).
+- A prose script whose body names `git`, a push and a short flag in one
+  heredoc trips the argv matcher as a forced push (2026-09-25): a script
+  whose text describes commands is written to scratch with the file tool
+  and run by path, and its command names stay descriptive where they can.
 - The force-push guard's `push` + `-f` co-occurrence (frictions F-102)
   recurred on a merge-bot push chained with `gh api -f` (2026-09-03). A push
   is its task's final command and stands alone in its own call.

@@ -95,3 +95,13 @@ returns green without having checked. This is the same disease in a *watcher*:
 an observer that reports state without having observed the state that matters.
 The cure rhymes — a control that must fail — because in all three cases the
 failure mode and the success mode are indistinguishable from the output alone.
+
+## Instances filed at the 2026-09-25 consolidation
+
+- A close-down claim needs a process-table read after the signal, not the
+  signal alone: an interactive Codex session survived SIGTERM and needed
+  SIGKILL, with its child (2026-09-23).
+- A stand-down reads the remote tip, not the monitor's last line, before
+  stating a push's disposition: a push stopped at the owner's word had already
+  transferred, though its monitor was killed before it logged an exit
+  (2026-09-24).

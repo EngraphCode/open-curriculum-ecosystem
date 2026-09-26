@@ -49,16 +49,20 @@ After creating all files, validate:
 9. **Canonical quality gates** (per PDR-008) are wired in
    `package.json` (or the host ecosystem's script-layer equivalent):
    `clean`, `build`, `dev`, `format`, `format:fix`, `lint`, `lint:fix`,
-   `typecheck`, `test`, `check` (alias for `check:fix`), `check:fix`,
-   `check:ci`, `fix`. Semantics follow PDR-008: bare = verify, `:fix`
-   = apply, `:ci` = non-mutating CI form. Per-ecosystem adaptations
-   wrap the ecosystem's idiomatic invocations under these canonical
-   names.
+   `typecheck`, `test`, `check` (the aggregate, which applies no
+   fixes), `fix` (the mutating aggregate), and the documentation subset
+   `check:docs` and `fix:docs`. Semantics follow PDR-008: bare =
+   verify, `:fix` = apply, and CI runs every verifying leg of `check`
+   under a parity check.
+   Per-ecosystem adaptations wrap the ecosystem's idiomatic invocations
+   under these canonical names.
 10. The project builds.
 11. **Artefact portability** (per PDR-009): canonical skills,
     commands, rules, and sub-agents live in `.agent/`; all platform
     adapters are thin wrappers with activation metadata + pointer +
-    invocation syntax only. Validate adapter-to-canonical consistency
+    invocation syntax only; an inline-prompt role's adapter (PDR-009)
+    carries its template's System prompt block verbatim and is compared
+    with it. Validate adapter-to-canonical consistency
     AND authorisation parity in tracked project config — a portability
     check (per PDR-022 scanner discipline) that walks every canonical
     surface and confirms platform coverage.

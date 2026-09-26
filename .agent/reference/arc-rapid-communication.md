@@ -46,6 +46,9 @@ the dated record
   team-coordination events that bootstrap the session all live on the
   canonical stream, and an agent watching only ARC is blind to them. The
   two watchers are paired, always.
+- **Where both seats can use s2s, that is the dialogue channel** (owner-directed 2026-09-13;
+  the `comms-channels` skill). ARC keeps its place for a pair s2s cannot reach and for a
+  dialogue whose transcript is itself the record; the mirroring obligation applies on both.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash
@@ -160,7 +163,15 @@ are conserved in the evaluation record.
   Conservation, backup, or normalisation passes COPY the channel file
   elsewhere and never rewrite it in place; editing tools that write
   whole files are unsafe on a live channel; corrections are new entries,
-  never edits (compose the timestamp BEFORE the append); keep entries
+  never edits (compose the timestamp BEFORE the append, built from `date -u`
+  inside the append command itself, so no typed time reaches the file: a
+  hand-typed header ran three minutes ahead of the clock, 2026-09-25); a
+  channel is opened by appending too, never by a whole-file write, whenever a
+  partner is live and may open it in the same seconds (one seat's write
+  replaced its partner's header, 2026-09-25); an append re-reads the
+  channel's last heading in the same breath as the write, and a claim of
+  absence names the moment of its read (a wrap appended nineteen seconds
+  after a peer's entry, without a re-read, 2026-09-23); keep entries
   lint-clean at compose time (wrapped lines must not start with a
   list-marker character) so format gates have nothing to fix. The dated
   `rapid-comms/*.md` channel files are excluded from the mutating
@@ -268,5 +279,7 @@ In the routing card
 ARC sits beside channel 4 (sidebars): it is operationally a standalone,
 rapid, file-backed sidebar. Use a decision thread / sidebar when the
 exchange must be durable and structured from the start; use ARC when
-latency and bandwidth dominate and the substance will be conserved at
-close.
+s2s cannot reach both seats or when the transcript is itself the record.
+Either way the substance is conserved at close, and ARC's rapid
+file-backed shape is what such an exchange needs when latency and
+bandwidth dominate.
