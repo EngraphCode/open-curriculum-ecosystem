@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { computePushScanRanges } from './compute-push-scan-ranges.js';
+import { computePushScanRanges, type ConfiguredRemote } from './compute-push-scan-ranges.js';
 
-/** The repository's configured remotes, as `git remote` would list them. */
-const CONFIGURED = ['origin'] as const;
+/**
+ * The repository's configured remotes, as `git remote` lists them, each with
+ * the fetch URLs `git remote get-url --all` prints for it.
+ */
+const ORIGIN: ConfiguredRemote = { name: 'origin', urls: ['https://github.com/acme/gizmos.git'] };
+const CONFIGURED: readonly ConfiguredRemote[] = [ORIGIN];
 
 const ZERO = '0'.repeat(40);
 const LOCAL = 'a'.repeat(40);
@@ -35,11 +39,66 @@ describe('computePushScanRanges', () => {
   });
 
   // githooks(5): git passes the push destination through verbatim, so a push
-  // to a URL arrives as the URL, never as an empty string. It names no
-  // configured remote, so it cannot scope the exclusion — and scoping to it
-  // anyway would build `--remotes=<URL>`, a glob over refs/remotes/* that
-  // matches nothing and therefore excludes nothing.
-  it('falls back to all remotes for a new ref pushed to a URL destination', () => {
+  // to a URL arrives as the URL, never as an empty string. When the URL names
+  // the repository a configured remote fetches from, that remote's tracking
+  // refs hold what is already on the destination — the shape `merge-bot push`
+  // hands the hook, since it pushes to the configured repository's URL.
+  it("scopes a new ref pushed to a configured remote's URL by that remote's name", () => {
+    const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
+    expect(
+      computePushScanRanges({
+        refsText,
+        remoteName: 'https://github.com/acme/gizmos.git',
+        configuredRemotes: CONFIGURED,
+      }),
+    ).toStrictEqual([`${LOCAL} --not --remotes=origin`]);
+  });
+
+  it('reads the destination URL as the repository it names, whatever its spelling', () => {
+    const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
+    expect(
+      computePushScanRanges({
+        refsText,
+        remoteName: 'git@GitHub.com:Acme/Gizmos',
+        configuredRemotes: CONFIGURED,
+      }),
+    ).toStrictEqual([`${LOCAL} --not --remotes=origin`]);
+  });
+
+  it("scopes to every remote that fetches from the destination's repository", () => {
+    const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
+    const mirror: ConfiguredRemote = { name: 'mirror', urls: ['ssh://git@github.com/acme/gizmos'] };
+    expect(
+      computePushScanRanges({
+        refsText,
+        remoteName: 'https://github.com/acme/gizmos.git',
+        configuredRemotes: [ORIGIN, mirror],
+      }),
+    ).toStrictEqual([`${LOCAL} --not --remotes=origin --remotes=mirror`]);
+  });
+
+  // The same owner and name on another host is another repository: its
+  // remote's tracking refs say nothing about what the destination holds.
+  it('does not scope through a remote that fetches the same owner and name from another host', () => {
+    const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
+    const elsewhere: ConfiguredRemote = {
+      name: 'elsewhere',
+      urls: ['https://gitlab.example/acme/gizmos.git'],
+    };
+    expect(
+      computePushScanRanges({
+        refsText,
+        remoteName: 'https://github.com/acme/gizmos.git',
+        configuredRemotes: [elsewhere],
+      }),
+    ).toStrictEqual([`${LOCAL} --not --remotes`]);
+  });
+
+  // A URL naming a repository no configured remote fetches from cannot scope
+  // the exclusion — and scoping to it anyway would build `--remotes=<URL>`, a
+  // glob over refs/remotes/* that matches nothing and therefore excludes
+  // nothing.
+  it('falls back to all remotes for a new ref pushed to the URL of a repository no remote fetches from', () => {
     const refsText = `refs/heads/x ${LOCAL} refs/heads/x ${ZERO}`;
     expect(
       computePushScanRanges({
