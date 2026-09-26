@@ -285,3 +285,50 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   moved to 0.157.1 overnight; one command re-ran the 38-case exec-policy transcript against it
   before PR 241's door (38 of 38), so the rules landed with evidence on the runtime they will run
   on.
+
+## 2026-09-26 ~10:4xZ — a wrap that read threads, not checks; a claim-open check that could not fail; a loop variable named `path` (Myrtle turns Canopy, bf4957)
+
+- Surprise: PR 240 had been red since 21:50Z the evening before (F-208's class, its second
+  instance) and my wrap recorded it as settled; the Director read it red at 10:10Z. Expected:
+  "settled" means green legs and zero threads on the head. Read: my work-safety recount read
+  thread count and branch level, never the check rollup, so it could not have seen a red PR.
+  Cure taken: the recount is one GraphQL read that carries the rollup; "settled" is said only
+  from that. Routing: the handoff record's scrutiny bound already names this signature.
+- Surprise: my first `claims open` for PR 245 did nothing and my check said nothing, because
+  the check was `grep -o … | head -1 || <fallback>`, and `head` exits 0 with no output. Read:
+  a check whose failure branch cannot fire is not a check. Cure taken: count the registry after
+  the write. With the hook's token match, the send grep, the slot's re-review of a moved base
+  and the wrap's thread count, that is n = 5 of one shape in two days: a check that does not
+  check what it names. Routing: the metacognition directive's fluency section, one line, at
+  the next directive change (candidate already noted at n = 2).
+- Surprise: a `while read -r tid cid path who` loop wiped PATH mid-command, because `path` is
+  zsh's tied array for PATH; every later `tail`, `cut` and `gh` was "command not found" and
+  two thread replies silently did not post. Read: a reserved name in the shell the seat runs
+  (Siren found the sibling the same hour: `status` is read-only in zsh, in the merged
+  bot-identity preflight). Cure taken: no loop or scratch variable named `path`, `status`,
+  `options`, `argv` or `cdpath`; re-verify the registry or the thread state after a write.
+  Routing: a line in the zsh notes of the shell-hygiene page at the second instance across
+  seats (this is the first in this estate; Siren's is the twin's).
+- Observation: F-207 fired a seventh time on resume; the register carries it with the general
+  rule (no bare `-f`, `-A` or `.` after the paired verb).
+
+## 2026-09-26 ~11:05Z — two hands on one pull request; a section number as a shared counter (Swallow holds Drift, 516619)
+
+- Surprise: this seat edited PR 211's body and requested its legs at 10:46Z, five minutes after the
+  owner had merged it (10:41:59Z). The state had been read once, at 10:40Z, as UNKNOWN while GitHub
+  recomputed it, and not again before the writes. Cost: nil (a body edit on a merged PR). Read: a
+  PR's state is re-read immediately before any write to it; `pr-lifecycle` says re-fetch after every
+  push, and the general form (before every write, not only after a push) is a candidate line for
+  it at a second instance.
+- Surprise: the owner cured PR 211's conflict through GitHub's branch update while this seat cured
+  the same conflict locally; the seat's push was refused as non-fast-forward, and the two
+  resolutions numbered the sections the other way round, so a plan node's two citations went stale
+  on the default branch. Read: two pull requests that each add "the next section" to an
+  append-heavy note take the same number, and the resolver's choice moves every citation of the
+  other. Date-and-topic section keys would not collide. n = 1, an observation.
+- Observation, for the Director's suite: the owner's hand landed eleven pull requests in thirteen
+  minutes while the seats' door serialises about sixteen minutes of CI per landing. The fastest
+  server in the landing system this morning was the owner, which is the opposite of "push without
+  me". The Parallax audit of 2026-09-26 carries the frames.
+- What worked: stopping the pointer-fix push the moment the Director's hold arrived (the task was
+  killed before its push step), and reading the PR's fate first-hand before any further act on it.

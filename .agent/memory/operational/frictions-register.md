@@ -4114,7 +4114,11 @@ commit SHA and the closing plan reference.
   `516619`): a `git add -- "$F"` was refused as `git add -A` when a `cat -A` sat later on the
   same command line, and as `git add .` when a `git diff … -- .` did; the matcher pairs the
   staging verb with any later `-A` or bare `.` token in the command. The substitution is one git
-  write per command line, with neither token beside it.
+  write per command line, with neither token beside it. A seventh (2026-09-26 10:3xZ, Myrtle
+  turns Canopy, on resume): a queue-loading command whose text said push and ended with a
+  runner check by `pgrep -f`; the general form of the substitution is a process listing piped
+  to `grep`, and the rule for the hand is no bare `-f`, `-A` or `.` token anywhere after the
+  verb the matcher pairs it with, whatever the tool that takes it.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 
@@ -4136,10 +4140,15 @@ commit SHA and the closing plan reference.
   the bot app the `actions: write` permission so `merge-bot` can re-run a failed job.
 - **Target surface**: `demos/oak-curriculum-hub` (its font import and build config); the
   GitHub App's permissions; `agent-tools` merge-bot (a `rerun` verb once the permission exists).
-- **Status**: open, an observation (recorded 2026-09-25). One instance: under
-  `one-instance-is-an-observation` no cure lane opens on it (the Director's correction to
-  check-in 21 withdrew the cure PR). A second failure of the same step is the trigger that
-  reopens this entry as a defect and the cure as a small PR.
+- **Status**: open, a pattern at two instances (recorded 2026-09-25 as an observation; the
+  second instance read 2026-09-26). The second failure of the same step arrived on PR 240's
+  settlement push `c312a6930` (run `36193715549`, 2026-09-25 21:50Z): the hub build inside
+  the `unit-tests` job failed on the Lexend Google-font module, on a docs-only PR, with no
+  network error, and `run-quality-gates` went red behind it. The trigger this entry named has
+  fired; the cure lane is a Director question (the exchange seat's resume report, event
+  `4a423185`). The owner merged PR 240 red under the ruleset bypass at 10:35Z on 2026-09-26,
+  so engraph's own push CI on the final tip is the check that tells whether the step fails
+  on the default branch; a red run there is the first cure lane.
 - **Owner direction status**: session-scoped (the Director's assignment to record it; the
   App permission is the owner's).
 
