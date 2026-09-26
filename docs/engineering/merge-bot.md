@@ -283,6 +283,14 @@ and are **not used** by this path; you never need to generate the secret.
 
 ## Agent actions run as the bot — attribution by identity
 
+The bot's Copilot review request registers: the REST `requested_reviewers`
+call under the app's pull-request-work token returns 201, `review_requested
+Copilot` fires on the pull request's timeline, and the review arrives
+(verified on four pull requests on 2026-08-06 and on every request of
+2026-09-25). The committer identity rule's Copilot row reads this record: the
+request is the bot's, and the owner's 2026-08-06 grant of the operator
+credential for it has nothing left to license here.
+
 Any PR mutation performed **by an agent** runs under the bot token, so the
 platform record itself says which actions were a human's and which were an
 agent's: opening PRs, editing titles/descriptions, commenting, replying to

@@ -15,7 +15,8 @@ export interface ReaderState {
   sessionCount: number;
   readonly turns: TurnState[];
   active?: TurnState;
-  readonly outputTexts: string[];
+  /** The resumed turn's command outputs, from the harness's `CommandExecution` items. */
+  readonly commandOutputs: string[];
   readonly resumedSettings: RecordedThreadSettings[];
 }
 

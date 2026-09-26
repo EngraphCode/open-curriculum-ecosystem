@@ -7,8 +7,12 @@ import type { RecordedTurnContext } from './record-shapes.js';
 export interface RolloutEvidence {
   readonly threadId: ThreadId;
   readonly turns: readonly [RecordedTurnContext, RecordedTurnContext];
-  /** Output text from resumed rollout records, including program-emitted code-mode content. */
-  readonly resumedOutputTexts: readonly string[];
+  /**
+   * The aggregated output of each command whose `CommandExecution` item the
+   * resumed turn recorded, in completion order. Text the model's own
+   * code-mode program printed is never evidence.
+   */
+  readonly resumedCommandOutputs: readonly string[];
 }
 
 /** Closed reasons a rollout cannot support a pass verdict. */
