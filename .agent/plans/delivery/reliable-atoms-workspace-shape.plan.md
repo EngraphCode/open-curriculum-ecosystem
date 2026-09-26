@@ -1,9 +1,9 @@
 ---
 id: reliable-atoms-workspace-shape
 node_type: delivery
-name: "Reliable Atoms workspace shape — the declared class, its directory-cardinality validator and its stricter tiers"
+name: "Capability Foundations workspace shape — the declared class, its directory-cardinality validator and its stricter tiers"
 overview: >-
-  Give the workspaces that hold Reliable Atoms a declared class, a blocking
+  Give the workspaces that hold Capability Foundations a declared class, a blocking
   repository validator over their directory shape, and lint, compiler and
   assurance tiers stricter than the rest of the estate, with the values in
   one place and an edge-case ledger fed only from inside the class.
@@ -17,14 +17,14 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-14
+last_updated: 2026-09-25
 ---
 
-# Reliable Atoms workspace shape
+# Capability Foundations workspace shape
 
 ## Goal
 
-When this lands, a workspace that holds Reliable Atoms says so on its
+When this lands, a workspace that holds Capability Foundations says so on its
 manifest, a repository validator refuses any directory in it over the class's
 file caps, and its lint, compiler, coverage and mutation tiers are stricter
 than the estate's strict tier — all recomputed, none recorded. The dead
@@ -41,6 +41,11 @@ budgets),
 §Repository interpretation, and the programme node's bar element 10. The
 exploration that produced the framing is
 `.agent/research/reliable-atoms-workspace-shape-exploration-2026-09-14.md`.
+
+The workspace class and configuration names below are proposed implementation
+bindings, not existing executable surfaces. Physical budgets do not establish
+Primitive independence or semantic completion; the common architecture owns those
+requirements. Preserve the existing plan identity and sketch status.
 
 ## User groups and value
 
@@ -60,18 +65,19 @@ A workspace joins the class by one manifest field, read by every class
 instrument (proposed, closed shape — a reviewed diff to change):
 
 ```json
-{ "workspaceClass": "reliable-atoms" }
+{ "workspaceClass": "capability-foundations" }
 ```
 
 Membership is declared, never inferred from a path or a name
 (validation-strategy §Validation jurisdiction). The field carries no estate
 prefix: the toolkit is generic and the class is a toolkit fact. A workspace
-without the field is invisible to every instrument below; a workspace that
-declares it and does not fit fails.
+without the field is outside this class-specific instrument; the architectural
+inventory still classifies all governed code and rejects an unclassified
+foundations capability. A workspace that declares the class and does not fit fails.
 
 No workspace outside the class is evidence about the class. An existing
 `packages/core/*` member that does not fit the starting parameters is, by
-that fact, not a Reliable Atoms workspace: its register row names what it
+that fact, not a Capability Foundations workspace: its register row names what it
 lacks, and it enters the class at the tranche that reshapes it to fit. It is
 never measured to loosen a value.
 
@@ -79,7 +85,7 @@ never measured to loosen a value.
 
 `agent-tools/src/validators/reliable-atoms-workspace-shape/validate-reliable-atoms-workspace-shape.ts`,
 following the framework's shape (an entrypoint, a helpers module, co-located
-unit tests over the pure logic with an injected file system per ADR-078;
+unit tests over pure supplied inventory values with no I/O in tests or helpers;
 `Result` from the estate's result package; non-zero exit naming every
 breach). Registered in the three places the framework requires: a
 `validate-reliable-atoms-workspace-shape` script in `agent-tools/package.json`,
@@ -91,11 +97,11 @@ For every workspace declaring the class, for every directory in it
 index; build output and local artefacts are invisible by construction, so no
 ignore list exists):
 
-| Measure | Initial value | Source |
-| --- | --- | --- |
-| TypeScript files per directory (`.ts`, `.tsx`, `.mts`, `.cts`; `.d.ts` counts) | ≤ 5 | owner, 2026-09-14 |
-| Files of any kind per directory | ≤ 7 | owner, 2026-09-14 |
-| Directory depth below the workspace root | ≤ 2 | proposed, same kind of constraint |
+| Measure                                                                        | Initial value | Source                            |
+| ------------------------------------------------------------------------------ | ------------- | --------------------------------- |
+| TypeScript files per directory (`.ts`, `.tsx`, `.mts`, `.cts`; `.d.ts` counts) | ≤ 5           | owner, 2026-09-14                 |
+| Files of any kind per directory                                                | ≤ 7           | owner, 2026-09-14                 |
+| Directory depth below the workspace root                                       | ≤ 2           | proposed, same kind of constraint |
 
 The validator carries no allowlist, no ignore globs and no per-directory
 exemption. Its only scoping is the class declaration and the git index. A
@@ -110,7 +116,7 @@ proof does not apply (owner ruling 2026-09-14).
 
 ### Axis 2 — length, complexity and clarity (the class's lint tier)
 
-A `reliableAtoms` config in the oak-eslint package, composed over `strict`
+A `capabilityFoundations` config in the oak-eslint package, composed over `strict`
 so the class can only be stricter, selected by each class workspace's
 `eslint.config.ts`. It binds every TypeScript file in the workspace, test
 files included: the estate's shared test relaxations do not apply inside the
@@ -121,15 +127,15 @@ nature — one responsibility, read whole — not from any existing code.
 
 Existing budgets, stricter for the class (estate strict tier → class):
 
-| Rule | Estate | Class |
-| --- | --- | --- |
-| `complexity` | 8 | 4 |
-| `max-depth` | 3 | 2 |
-| `max-statements` | 20 | 10 |
-| `max-lines-per-function` | 50 | 25 |
-| `max-lines` | 250 | 120 |
-| `sonarjs/cognitive-complexity` | 15 | 6 |
-| `sonarjs/no-nested-functions` threshold | 4 | 2 |
+| Rule                                    | Estate | Class |
+| --------------------------------------- | ------ | ----- |
+| `complexity`                            | 8      | 4     |
+| `max-depth`                             | 3      | 2     |
+| `max-statements`                        | 20     | 10    |
+| `max-lines-per-function`                | 50     | 25    |
+| `max-lines`                             | 250    | 120   |
+| `sonarjs/cognitive-complexity`          | 15     | 6     |
+| `sonarjs/no-nested-functions` threshold | 4      | 2     |
 
 Constraints the estate does not yet carry, added for the class (all at
 `error`):
@@ -167,14 +173,20 @@ Constraints the estate does not yet carry, added for the class (all at
 
 ### Axis 3 — the compiler profile
 
-A `tsconfig.reliable-atoms.json` at the repository root extending the base,
-which every class workspace extends. Over the base's `strict`,
+The [adoption profile](../../../docs/architecture/foundations/capability-foundations-adoption.md#typescript-and-node-profile)
+owns the production source, native Node 24 execution and packed-consumption
+contract. A `tsconfig.capability-foundations.json` binds it to the exact pinned
+compiler and source set; inheritance must not add ambient APIs, aliases, framework
+settings or declaration-checking omissions. Preserve the base's `strict`,
 `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns` and
-`noFallthroughCasesInSwitch` it adds `noUncheckedIndexedAccess`,
+`noFallthroughCasesInSwitch`, and add `noUncheckedIndexedAccess`,
 `exactOptionalPropertyTypes`, `noPropertyAccessFromIndexSignature`,
 `noImplicitOverride`, `verbatimModuleSyntax` and `isolatedDeclarations` (an
 explicit type on every export — the clarity constraint that also makes the
-committed API report of bar element 4 a pure projection).
+committed API report of bar element 4 a pure projection). Keep tests/tooling
+configuration separate; source checking, native execution and distribution
+emission require distinct evidence. The profile's options are not a claim that
+the current base already supplies them.
 
 ### Axis 4 — assurance thresholds that break
 
@@ -204,8 +216,9 @@ first atom workspace does.
 1. A workspace declaring the class with one directory over either cap, or
    deeper than the depth cap, fails `repo-validators:check` non-zero naming
    the directory and the measure; a workspace without the declaration is
-   untouched. Proof: `repo-safe` — the validator's unit tests over an
-   injected file system, red first.
+   untouched. Proof: `repo-safe` — the validator's unit tests over
+   supplied inventory values, red first; the real git/filesystem adapter is a
+   separate validation surface.
 2. The validator is reachable from CI. Proof: `repo-safe` — the check-CI
    parity validator green with the new leg present.
 3. The oak-eslint package exports no `max-files-per-dir` rule and carries no
@@ -229,8 +242,9 @@ Slices at pickup, each a single-story PR within the default round budget:
   inventory, the three measures, the three registrations.
 - The class's lint tier, compiler profile and assurance configs, exported
   from the packages that own the estate's shared configuration.
-- The first atom workspace declares the class — the queue atom's home, a
-  slice of `graph-and-queue-foundations-delivery`; its build is the first
+- The first capability workspace declares the class — BinaryTreeIndices and
+  its bound prerequisite contracts, a slice of
+  `graph-and-queue-foundations-delivery`; its build is the first
   test of every value above and the first possible ledger row.
 
 ## Edge-case ledger
