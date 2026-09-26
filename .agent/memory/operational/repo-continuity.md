@@ -435,6 +435,24 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **RESUME at the owner's start-right word, 2026-09-26 14:4xZ to 15:0xZ (Myrtle turns Canopy,
+  bf4957):** the 13:1xZ pause (event 0e96a30f) promised this window's records "before the stop";
+  the usage limit cut that turn, so they land here. Since 12:2xZ: the 214 doctrine twin rides
+  PR 249 at `d36f732b4` with both legs and zero threads; the redundant doctrine lane (its branch,
+  worktree and claim c0f57c21) retired with read-back; dispositions posted and routed (249's
+  "zero target" thread, 217's item-12 thread, 251's preflight finding rejected on a first-hand
+  run under gh 2.97.0; events 06702a23, e19dcb6b); the 217 template row (`372b05aa0`) and 245's
+  two record files (`6d5accf1f`) cured through the gate queue at the pause. On the resume: team
+  start 9167e4ca; claim 9ac28d45 closed stale (its four rows graduated on engraph at `959bad6f9`
+  in the fold); 245's two threads and 217's template thread answered and resolved, both legs
+  requested on 245; PR 251 took the slot (1d9b118c), synced to `8831af66e`, both legs requested,
+  the sweep read clean (every removed line a joint rewrite); Codex's P1 on 217 (the in-process
+  recipe named a handler module no workspace holds, documentation-hygiene item 5's failure)
+  cured as the shape of the MCP server's check-mcp-client-auth DI test, run as a scratch test
+  and type-checked before the edit, settlement push 3 under PDR-140 clause 4. The door's order
+  at 14:5xZ: 251 (this seat), 252 (Siren, live), 221 (this seat), 246 (Swallow), 217 and 249,
+  245 after its reconcile; Phobos wakes Void (01a0de) is the Codex seat, first act P3. Ledger
+  rows for 249, 251, 217, 245 and 221 from the survey.
 - **THE OWNER'S SECOND BATCH BY HAND, 2026-09-26 11:13Z to 11:14Z (Myrtle turns Canopy, bf4957):** 234
   (cf6012ebc), 244 (Swallow's, 4be54a077), 238 (634c5ccde) and 218 (e6cf8ee4c) merged by the
   owner's hand under the ruleset bypass; engraph at e6cf8ee4c. This seat's three closed out: claims

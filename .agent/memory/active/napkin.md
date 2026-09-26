@@ -396,3 +396,48 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   premise on the datum and deferred the build. Read: a cost the seat feels is a hypothesis; the
   survey and the review history are the instrument, and reading them takes one agent-hour less than
   building the cure. n = 1.
+
+## 2026-09-26 ~14:5xZ — a verdict from a sandbox that cannot run the command; a queue with no lock; a recipe written from recall (Myrtle turns Canopy, bf4957)
+
+- Surprise (12:5xZ): Codex's round on PR 251 found the bot-identity preflight wrong (its reading:
+  `gh api -i` writes the status line to stderr, so `head -1 | awk` reads nothing). Run first-hand
+  under gh 2.97.0 with the installation token: on an HTTP error `gh api -i` writes the status line,
+  the headers and the body to stdout; stderr carries the one-line summary; a zero-byte stdout means
+  the call never reached GitHub. Read: the reviewer's sandbox can mint no token and reach no
+  GitHub, so its verdict on what a live command prints is a reading of the manual, not of the
+  command; a verdict about output is evidence only when the reviewer ran it. Cure taken: the
+  finding rejected on the transcript of the run, posted as the disposition. n = 1.
+- Surprise (13:1xZ): the gate-queue runner has no lock; a line appended while it rewrote the queue
+  file in place (tail then mv) was lost, and the lane was re-queued. Read: a file rewritten in
+  place by one writer is a race for a second; the shape is a lock, or an append-only journal with
+  a cursor. Cure taken: append only between entries or after QUEUE-EMPTY (the runner exits on an
+  empty queue), and read `ps` before restarting. Routing: the scratchpad script, not doctrine; a
+  second instance is the frictions register's. n = 1.
+- Surprise (13:17Z): Codex's P1 on PR 217: the in-process recipe this seat wrote on 2026-09-25
+  imported `../src/handlers/health.js` and called `createHealthHandler`; neither exists in any
+  workspace. Read: the recipe was written from recall of a shape, not from a file, the failure
+  documentation-hygiene item 5 names (a runnable example is run or compile-probed before the edit
+  lands); the reviewer's repo-wide search was the probe this seat owed. Cure taken: the recipe is
+  now the shape of the MCP server's `check-mcp-client-auth` DI test, run as a scratch test file
+  and type-checked before the edit. Routing: the rule holds the lesson; this is its worked instance
+  on this seat. n = 1 here.
+
+## 2026-09-26 ~14:5xZ — a ruling acted on twenty-seven seconds after its withdrawal (Swallow holds Drift, 516619)
+
+The Director ruled at 14:57:50Z that the DEGRADED-scan cure moved to the Codex partner, and withdrew
+the ruling at 14:58:21Z because it had crossed the seats' own settlement. This seat read the ruling
+from its watcher, closed its claim, wrote a release event and a hand-over entry, all landing at
+14:58:48Z, without sweeping the stream between reading and writing. The withdrawal had been on the
+stream for twenty-seven seconds. The cost: a closed claim, a successor claim, two correction events
+and one correction entry; no source was touched and the worktree stayed, because the removal was
+queued as its own command and never ran.
+
+The mechanism is the one already on this seat's napkin from PR 211 (a body edited five minutes
+after the owner had merged it): a state was read once and written against later. The interval
+here was under a minute, which says the interval is not the variable. The variable is whether a
+sweep sits between the read and the write. A routing event is a state of the Director's map, and
+the map moves; the sweep before a write that acts on it costs one listing of the stream since the
+event's timestamp. **What worked:** the seat's own hook policy discipline of one git write per
+command line meant the destructive step (removing the worktree) was still pending when the
+withdrawal arrived; the slow path saved the work. Second instance of the read-then-write class
+on this seat today; a rule proposal waits for a third seat's instance.

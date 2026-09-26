@@ -140,21 +140,23 @@ budget, and #146 exempted syncs only. No weight changes; the CI-cure reading wai
 | 2026-09-26 | #242 | 3 | 8.41 / 20 | within | after round one; round two was a sync with no findings | agreed | merged 8c9434ae3; row L12's three joint cures |
 | 2026-09-26 | #216 | 3 | 31.41 / 40 | warn | after settlement push 2 (round one's four joint cures, round two's one); round three's finding takes a signed line | agreed — warn at the declared stop | merged 81e126e8e by the owner's hand 10:50Z; the joint bot-identity core, seven findings on shared bytes across both estates; its twin JC.net PR 209 merged 0caa0327 at 11:00Z |
 | 2026-09-26 | #218 | 2 | 0 / 40 | within | after settlement push 1 (the missing test and the seed list) | agreed | merged e6cf8ee4c by the owner's hand 11:14Z; its four follow-ups stay named in its body |
-| 2026-09-26 | #221 | 2 | 5.92 / 20 | within | after settlement push 1 (the first-pass heartbeat wording) | agreed | open at f4441ba00, settled |
+| 2026-09-26 | #221 | 3 | 5.92 / 20 | within | after settlement push 1 (the first-pass heartbeat wording); the sync merge 29fa55407 priced 0 | agreed | open at 29fa55407, CLEAN; at the door after 252 |
 | 2026-09-26 | #226 | 2 | 4.23 / 40 | within | after settlement push 1 (the cold recipe's --ignore-scripts and the adapter's description) | agreed | merged 10cf025f8 by the owner's hand 10:44Z |
 | 2026-09-26 | #229 | 3 | 16.84 / 40 | within | after settlement push 2; round three's observation dispositioned as ruled (the quick-start's copy target rides the next change) | agreed — within at the stop | merged 4553eb9d9 by the owner's hand 10:42Z |
 | 2026-09-26 | #232 | 2 | 4.64 / 40 | within | after settlement push 1 (the unwrapOrThrow row) | agreed | merged 4d50e3dfd by the owner's hand 10:47Z |
 | 2026-09-26 | #235 | 2 | 3.9 / 40 | within | after settlement push 1 (the inputs paragraph names the gap; the input landed as PR 243) | agreed | merged 770ae4de1 by the owner's hand 10:43Z |
 | 2026-09-26 | #240 | 2 | 3.63 / 20 | within | after settlement push 1 (the routing sentence) | agreed | merged afdfd7479 by the owner's hand 10:35Z, red on F-208's second instance, under the ruleset bypass |
 | 2026-09-26 | #243 | 1 | 0 / 40 | within | after round one (no findings; the config review's eight further inputs taken before the push) | agreed | merged efdfebdb2 by the owner's hand 10:43Z |
-| 2026-09-26 | #245 | 1 | 24.25 / 40 | within | round one carries one open finding at the stop; the seat's reading is after settlement push 1 once it is cured on resume | agreed — within | open at fee8d2a68; the curator-passes retirement, forty files |
+| 2026-09-26 | #245 | 3 | 14.24 / 40 | within | after settlement push 3 (6d5accf1f: the pickup and the napkin stop routing the decided row; pushes 1 and 2 were the plan pointer and the two round-two cures) | agreed | open at 6d5accf1f, both legs requested 14:51Z, two threads answered and resolved; DIRTY against engraph, the reconcile at its turn |
 | 2026-09-26 | #220 | 1 | 0 / 40 | within | after round one (no findings) | agreed | merged 0e2952ccc by the owner's hand 10:47Z; batch one's no-skipped-tests row |
 | 2026-09-26 | #231 | 1 | 0 / 40 | within | after round one (no findings) | agreed | merged a58471b0c by the owner's hand 10:45Z; the dead max-files-per-dir rule deleted |
 | 2026-09-26 | #236 | 1 | 0 / 40 | within | after round one (no findings) | agreed | merged 83e0420d7 by the owner's hand 10:46Z; the watcher smoke's ETIMEDOUT cure |
 | 2026-09-26 | #237 | 1 | 0 / 40 | within | after round one (no findings) | agreed | merged b205be733 by the owner's hand 10:48Z, before its parent 217, by the owner's order |
-| 2026-09-26 | #217 | 2 | 0 / 40 | within | after settlement push 1 (round two's one Codex finding on the synced head: the E2E location bullet scoped per runner), committed under the Director's hold and pushed at its turn | agreed | open; the owner synced its branch by hand (c0af32efc), the cure merged forward on that head |
+| 2026-09-26 | #217 | 4 | 3.88 / 40 | within | after settlement push 3 (the in-process recipe drives a seam that exists, Codex's P1 of 13:17Z; push 2 was the template's E2E row, 372b05aa0, priced 3.88) | agreed | open; the owner synced its branch by hand (c0af32efc), the cure merged forward on that head; legs requested on the push-3 head |
 | 2026-09-26 | #234 | 2 | 0 / 40 | within | after round one (no findings); round two on the synced head found nothing | agreed | merged cf6012ebc by the owner's hand 11:13Z; batch six's row J19, eleven pattern files' polarity headers |
 | 2026-09-26 | #238 | 2 | 0 / 40 | within | after settlement push 1 (the README table and the no-throw split under the owner's ruling) | agreed | merged 634c5ccde by the owner's hand 11:14Z; the eslint-plugin lane |
+| 2026-09-26 | #249 | 2 | 7.07 / 40 | within | after settlement push 1 (d36f732b4: the 214 doctrine twin rides the cost-model twin; the "zero target" thread a signed disposition) | agreed | open at d36f732b4, CLEAN, BEHIND; at the door after 221 |
+| 2026-09-26 | #251 | 1 | 0 / 40 | within | after round one (Codex's preflight finding rejected on a first-hand run: gh api -i writes the status line to stdout; no cure) | agreed | at the slot 14:52Z; synced 8831af66e, both legs requested |
 
 ## Weight changes
 
