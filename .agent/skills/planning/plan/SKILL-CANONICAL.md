@@ -17,6 +17,13 @@ runs in CI and at pre-commit.
 
 ## Before Writing
 
+When use value, needs, capabilities, journeys or delivery boundaries still
+need defining, use [`user-value`](../user-value/SKILL-CANONICAL.md)
+before treating those inputs as settled. It owns their structure and
+traceability; this skill owns implementation planning. Do not require that
+value-definition pass for already-defined work. Use it for local engineering
+contracts when their consumer, usefulness or wider contribution is unresolved.
+
 1. **Design gate**: Has the design intent been explored and confirmed
    with the project owner? If the scope is ambiguous or the approach
    has multiple valid paths, run `oak-metacognition` first to explore
