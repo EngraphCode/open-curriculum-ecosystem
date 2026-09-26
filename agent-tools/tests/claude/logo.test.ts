@@ -1,24 +1,24 @@
 import {
   BRAILLE_SHARP_FRAMES,
-  OAK_LOGO_ROWS,
+  LOGO_ROWS,
   resolveLogoRows,
   resolveLogoStyle,
-} from '../../src/claude/oak-logo';
+} from '../../src/claude/logo';
 
-describe('OAK_LOGO_ROWS', () => {
+describe('LOGO_ROWS', () => {
   it('renders the default braille-sharp as five rows and every other style as four', () => {
-    expect(OAK_LOGO_ROWS['braille-sharp']).toHaveLength(5);
+    expect(LOGO_ROWS['braille-sharp']).toHaveLength(5);
     for (const style of ['braille-sharp-compact', 'braille', 'quad', 'sextant'] as const) {
-      expect(OAK_LOGO_ROWS[style]).toHaveLength(4);
+      expect(LOGO_ROWS[style]).toHaveLength(4);
     }
   });
 
   it('keeps a uniform display width within each style', () => {
-    for (const rows of Object.values(OAK_LOGO_ROWS)) {
+    for (const rows of Object.values(LOGO_ROWS)) {
       // Count Unicode code points (not UTF-16 units: sextant glyphs are astral
       // and would each count as two units). Every row in a style must share one
       // width so the segment column aligns; this assumes single-column glyph
-      // rendering, per the note in oak-logo.ts.
+      // rendering, per the note in logo.ts.
       const widths = rows.map((row) => [...row].length);
       expect(new Set(widths).size).toBe(1);
     }
@@ -27,7 +27,7 @@ describe('OAK_LOGO_ROWS', () => {
 
 describe('BRAILLE_SHARP_FRAMES', () => {
   it('opens the cycle on the active braille-sharp mark', () => {
-    expect(BRAILLE_SHARP_FRAMES[0]).toEqual(OAK_LOGO_ROWS['braille-sharp']);
+    expect(BRAILLE_SHARP_FRAMES[0]).toEqual(LOGO_ROWS['braille-sharp']);
   });
 
   it('makes every frame distinct, so the cycle visibly varies', () => {
@@ -60,7 +60,7 @@ describe('resolveLogoRows', () => {
 
   it('ignores the frame for the single-mark styles', () => {
     for (const style of ['braille-sharp-compact', 'braille', 'quad', 'sextant'] as const) {
-      expect(resolveLogoRows(style, 2)).toEqual(OAK_LOGO_ROWS[style]);
+      expect(resolveLogoRows(style, 2)).toEqual(LOGO_ROWS[style]);
     }
   });
 });

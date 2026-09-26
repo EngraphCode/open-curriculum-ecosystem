@@ -45,16 +45,23 @@ function finishRollout(
   return ok({
     threadId: state.threadId,
     turns: [first.context, second.context],
-    resumedOutputTexts: state.outputTexts,
+    resumedCommandOutputs: state.commandOutputs,
   });
 }
 
 /**
  * Read a whole two-turn thread rollout supplied as JSONL lines. The IO edge
- * owns file access; this reader fails closed when Codex changes a record shape.
+ * owns file access; this reader fails closed when Codex changes a record
+ * shape. It validates the shapes the harness writes and never parses text the
+ * model's own program printed.
  */
 export function readRollout(lines: readonly string[]): Result<RolloutEvidence, RolloutReadError> {
-  const state: ReaderState = { sessionCount: 0, turns: [], outputTexts: [], resumedSettings: [] };
+  const state: ReaderState = {
+    sessionCount: 0,
+    turns: [],
+    commandOutputs: [],
+    resumedSettings: [],
+  };
   for (const [index, line] of lines.entries()) {
     if (line.trim().length === 0) {
       continue;

@@ -15,7 +15,7 @@ const hostForm = (posixPath: string): string => posixPath.split('/').join(sep);
 describe('resolveFrameStateDir', () => {
   it('uses XDG_STATE_HOME when set', () => {
     expect(resolveFrameStateDir({ XDG_STATE_HOME: '/x/state' }, '/workspace/u')).toBe(
-      hostForm('/x/state/oak-statusline-frames'),
+      hostForm('/x/state/practice-statusline-frames'),
     );
   });
 
@@ -23,7 +23,7 @@ describe('resolveFrameStateDir', () => {
     // The security property of the insecure-temporary-file fix: the per-session
     // state resolves under the user's private state home, not the shared temp dir.
     expect(resolveFrameStateDir({}, '/workspace/u')).toBe(
-      hostForm('/workspace/u/.local/state/oak-statusline-frames'),
+      hostForm('/workspace/u/.local/state/practice-statusline-frames'),
     );
   });
 });
