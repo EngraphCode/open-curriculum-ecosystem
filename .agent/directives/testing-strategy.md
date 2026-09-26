@@ -635,9 +635,13 @@ the slicing was wrong.
     containing the integration points they test. They MUST end in
     `*.integration.test.ts`
   - E2E checks live apart from product code, because they drive a
-    running *system* rather than importing it: a workspace's
-    `e2e-tests/` directory, named `*.e2e.test.ts` and run by the
-    workspace's `test:e2e`. A check is reachable from a CI-gated task,
+    running *system* rather than importing it. Protocol and CLI E2E
+    checks (Vitest) live in the workspace's `e2e-tests/` directory,
+    named `*.e2e.test.ts` and run by the workspace's `test:e2e`. UI
+    E2E checks (Playwright) live in the directory the workspace's
+    Playwright config names as its `testDir`, named `*.spec.ts` and
+    run by the Playwright scripts that workspace's `package.json`
+    names. Either way a check is reachable from a CI-gated task,
     because a check that nothing runs is the worse defect (the
     reachability rule of §Smoke Checks)
 
