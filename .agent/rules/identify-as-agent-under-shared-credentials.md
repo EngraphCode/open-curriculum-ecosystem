@@ -64,10 +64,13 @@ Example:
 Agent-authored on behalf of `jimCresswell` by Inferno holds Tongs (Claude Code, Opus 4.8 1M)
 ```
 
-Under the team bot, the account already shows that an agent posted and names
-no human, so the marker names the agent: a last line that begins with an em
-dash and ends with the seat's PDR-027 session prefix, `— <agent-name> (<prefix>)`,
-with words between them allowed (`— <agent-name>, <role>, an agent (<prefix>)`).
+Under the team bot, the account shows which credential posted and names no
+human, so the marker names the agent and says it is one: a last line that
+begins with an em dash and ends with the seat's PDR-027 session prefix,
+`— <agent-name>, an agent (<prefix>)`, with words between them allowed
+(`— <agent-name>, <role>, an agent (<prefix>)`). The prefix ends the line
+because tooling that tells a seat's signed reply from a reviewer's reads that
+ending.
 Never the human-account trailer: "on behalf of `<account>`" under the bot's
 token attributes the post to a human who did not make it.
 
@@ -111,7 +114,8 @@ comms event stream and claim dispositions, never a GitHub actor field
 (`mergedBy`, PR author, commit pusher) — the login identifies the shared
 credential, not the actor (worked instance: PR #160's merge mis-attributed to
 the owner from `mergedBy` alone, 2026-06-10). The same applies to comment
-audits: agent replies render under the human login in watcher streams and
+audits: agent replies render under the shared account's login, the team
+bot's or a human's, in watcher streams and
 comment lists, so when auditing "owner comments" on a PR, filter by the
 agent-identification marker in the body, never by author login. A leading
 `[Agent: …]` prefix is the stronger marker convention for comments — it is
@@ -120,8 +124,8 @@ visible in truncated comment lists where a trailing signature is not
 
 ## Scope Nuance
 
-- **In scope:** outward, human-visible artefacts authored via shared human
-  credentials (above).
+- **In scope:** outward, human-visible artefacts authored via shared
+  credentials, a human account or the team bot (above).
 - **Already covered, do not double-mark:** git commit messages (the
   `Co-Authored-By` trailer is the marker) and internal collaboration-state comms
   (carry PDR-027 name+UUID by construction).

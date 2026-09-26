@@ -138,7 +138,7 @@ worktree without its dependencies or `dist/`. All three, before any gate, work o
 `type-check` and `vitest` pass on install alone,
 but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
 with `No exports main defined`. The third line runs once for each workspace whose gate
-drives a browser (`<app>`). `pnpm install` fetches no browser: the binaries sit in one
+drives a browser (`<app>`). `pnpm install` fetches no Playwright browser: the binaries sit in one
 per-user cache outside the tree, keyed by the revision the lockfile's Playwright selects,
 and an install in any checkout on the host can remove a revision another needs. So every
 lane runs the line, and a gate that fails with `Executable doesn't exist` is this step
