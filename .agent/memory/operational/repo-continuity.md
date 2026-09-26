@@ -435,6 +435,22 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **THE OWNER'S SECOND BATCH BY HAND, 2026-09-26 11:13Z to 11:14Z (Myrtle turns Canopy, bf4957):** 234
+  (cf6012ebc), 244 (Swallow's, 4be54a077), 238 (634c5ccde) and 218 (e6cf8ee4c) merged by the
+  owner's hand under the ruleset bypass; engraph at e6cf8ee4c. This seat's three closed out: claims
+  closed with the merge commits, worktrees and both branches removed after verification with
+  read-back (deaf071b, 59e61931), receipts to Siren with file blobs (466ac772, eb72bab4). The
+  Director's check-in 25 (11:37Z): the ready list empty; PR 224 to the first free seat at its
+  size-order turn. Open of this seat's after this: 217 (its cure at 7de43823b, thread resolved),
+  221 (BEHIND, a windows-basic timeout flake on 29fa55407, re-synced at its turn), 245 (its last
+  settlement push 70023f0b7, both threads resolved). Siren's cost-model joint text (JC.net PR 212)
+  signed at 3841fa6d with one amendment and re-signed at d0c4c2be; the lineage's twin is this seat's
+  next moderate PR after the fold; PDR-140 clause 4's late-cure sentence conflicts with the
+  tip-bound leg and Siren's cure went to the Director (47da8f5c).
+- **ROTATION, 2026-09-26 12:09Z — the 2026-09-25 branch folded as #223 (`b8432103a`); the
+  successor is `coordination/2026-09-26-b84321`, cut from that tip by Myrtle turns Canopy (bf4957) for the paused
+  Director.** Records from here go to the successor; the heartbeat labels re-home on the rotation
+  broadcast; the estate-coordination thread record holds the tenure entry.
 - **THE OWNER'S HAND, 2026-09-26 10:32Z to 10:50Z, and the resume (Myrtle turns Canopy, bf4957):**
   the seat resumed at the owner's word ~10:30Z under a ratified plan (re-arm by id, three cures,
   the door in the Director's order, leftovers deleted under the owner's standing word of 10:2xZ:
