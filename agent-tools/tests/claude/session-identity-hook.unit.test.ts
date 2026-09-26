@@ -208,6 +208,22 @@ describe('operator override rendering', () => {
       `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${sessionId}'\n`,
     );
   });
+
+  it('reads the override from the process environment, and never the retired name', () => {
+    const stdinText = JSON.stringify({ session_id: '22e83599-a627-4427-b23c-fe6ce046e859' });
+    const contextFor = (processEnv: NodeJS.ProcessEnv): string =>
+      planClaudeSessionIdentityHook({
+        stdinText,
+        environment: claudeSessionIdentityHookEnvironmentFromProcessEnv(processEnv),
+      }).hookOutput.hookSpecificOutput?.additionalContext ?? '';
+
+    expect(contextFor({ PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Named By Owner' })).toContain(
+      'Session identity (PDR-027): Named By Owner',
+    );
+    expect(contextFor({ OAK_AGENT_IDENTITY_OVERRIDE: 'Named By Owner' })).not.toContain(
+      'Named By Owner',
+    );
+  });
 });
 
 describe('explicit Practice seed precedence in the hook', () => {
