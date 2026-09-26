@@ -49,24 +49,33 @@ exempted. See
 
 ### The Pattern
 
-Two recipes, one per proof. The integration test drives the handler seam:
+Two recipes, one per proof. The integration test drives the unit's seam; this
+one is the shape of `check-mcp-client-auth.di.integration.test.ts` in the MCP
+server workspace's `src/`, and it runs as written there:
 
 ```typescript
-import { createMockRuntimeConfig } from './helpers/test-config.js';
-import { createHealthHandler } from '../src/handlers/health.js';
+import { expect, it } from 'vitest';
+import { checkMcpClientAuth } from './check-mcp-client-auth.js';
+import { createFakeAuthInfo, createFakeLogger } from './test-helpers/fakes.js';
+import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 
-// 1. Build an explicit runtime config from literals
-const runtimeConfig = createMockRuntimeConfig({
-  dangerouslyDisableAuth: true,
-  env: { OAK_API_KEY: 'test-api-key' },
+it('lets a protected tool through when auth is disabled', () => {
+  // 1. Build an explicit runtime config from literals: no disk, no environment
+  const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
+
+  // 2. Drive the unit through its seam with every dependency injected: no app, no listener
+  const result = checkMcpClientAuth(
+    'get-key-stages',
+    'https://example.com/mcp',
+    createFakeLogger(),
+    runtimeConfig,
+    createFakeAuthInfo(),
+    { toolRequiresAuth: () => true, validateResourceParameter: () => ({ valid: true }) },
+  );
+
+  // 3. Prove behaviour through the unit's public result, with literal values
+  expect(result).toBeUndefined();
 });
-
-// 2. Build the unit under test with DI — zero global side effects, no app
-const handler = createHealthHandler({ runtimeConfig });
-
-// 3. Prove behaviour through the unit's public result, with literal values
-const response = await handler({ method: 'GET', path: '/health' });
-expect(response.status).toBe(200);
 ```
 
 The E2E check's harness owns the other proof. Its composition root (the
