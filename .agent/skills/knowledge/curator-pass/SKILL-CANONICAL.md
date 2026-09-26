@@ -11,7 +11,8 @@ description: Run one curator pass on the repo's knowledge substrate. Use when al
 Run one curator pass under PDR-081: survey the knowledge substrate,
 route durable knowledge to permanent homes, surface home-gaps and
 structural defects as routing events, drain graduation buffers,
-and record the pass via its commit plus a close-of-pass comms broadcast.
+and record the pass in its commit; a close-of-pass comms broadcast
+notifies peers and is never the record.
 
 The canonical role key is `curator`; `Knowledge Curator` is the
 descriptive session label for the same substrate-care responsibility.
