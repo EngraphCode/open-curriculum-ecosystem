@@ -492,3 +492,27 @@ It was a licence to talk. **Cure applied from here:** when the owner pairs a sea
 message to it carries state (where the lane stands, what binds, how to reach me) and no
 assignment; assignments come from the Director's routing, or after one question to the Director
 with the partner named. One instance; the shape rhymes with the two-hands class.
+
+## 2026-09-26 ~15:4xZ — attribution and a proof line at the finish (Phobos wakes Void, 01a0de)
+
+- Surprise: I began the team session before stating my Practice name. The user corrected me: the
+  name is how the terminal is titled and other agents learn I exist. I stated it and broadcast
+  the team start. Later, my factually grounded PR 255 review reply lacked the agent signature
+  until Swallow caught it; I edited the existing bot reply to put the signature on its last
+  line. These are two observed attribution omissions at different consumers, not evidence that
+  the consumers share one mechanism. The existing startup and shared-credential rules already
+  cover the next move: lead with the name and draft the signature before sending. n = 2
+  omissions in this session, one seat.
+- Surprise: my first post-merge content-proof shell block did not stop when `git fetch origin
+  engraph` failed to write `.git/FETCH_HEAD` under the sandbox. `cmp` then failed, but the block
+  still printed `ancestor_and_content_proof=pass`. I did not retire the worktree on that output.
+  I reran the fetch with authorised filesystem escalation, then the ancestor and byte comparison
+  under `set -e`; only the strict rerun passed, followed by branch and worktree deletion. The
+  existing exit-code discipline holds this class. A success sentence is no evidence if the
+  earlier command statuses were not bound to it. n = 1 here.
+- Loss scan: PR 255's first condition-5 indicator is the observed no-prompt bot landing; the
+  second, a no-refused-flag command-record summary, remains INCONCLUSIVE. PR 244's reader rejects
+  my live Codex 0.157.1 rollout at `response_item.function_call` (line 141); no raw rollout was
+  published. Routed to Swallow on comms event 22cf08f0 and recorded in the codex-dialogues
+  thread. A reviewed reader update and a later Codex-seat read can falsify the present unknown;
+  a merged PR cannot.

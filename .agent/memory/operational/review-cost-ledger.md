@@ -157,6 +157,7 @@ budget, and #146 exempted syncs only. No weight changes; the CI-cure reading wai
 | 2026-09-26 | #238 | 2 | 0 / 40 | within | after settlement push 1 (the README table and the no-throw split under the owner's ruling) | agreed | merged 634c5ccde by the owner's hand 11:14Z; the eslint-plugin lane |
 | 2026-09-26 | #249 | 2 | 7.07 / 40 | within | after settlement push 1 (d36f732b4: the 214 doctrine twin rides the cost-model twin; the "zero target" thread a signed disposition) | agreed | open at d36f732b4, CLEAN, BEHIND; at the door after 221 |
 | 2026-09-26 | #251 | 2 | 0 / 40 | within | after round one (Codex's preflight finding rejected on a first-hand run; no cure); the sync merge priced 0 | agreed | merged ab87aa13a at 15:11Z through the door at the slot; the bot-identity core's six joint cures |
+| 2026-09-26 | #255 | 2 | 7.67 / 40 | within | after the synced current head `a7740f7f1`: no substantive cure push; the Codex date finding was rejected against the two GitHub commit records and its thread resolved | agreed on within; the survey prices both reviewed heads, while the sync push's pre-push exemption is a distinct reading | one-file ADR-204 amendment; opening head `58581b72c` cost 3.43, synced head `a7740f7f1` cost 7.67; both bot review legs satisfied, current-head CI green, merged `af49326dd` at 15:38:20Z |
 
 ## Weight changes
 
