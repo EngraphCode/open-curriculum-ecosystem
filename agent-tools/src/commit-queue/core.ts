@@ -12,6 +12,10 @@ import { formatFileList, normalizeFileList } from './path-list.js';
 
 /**
  * Compute the staged-bundle fingerprint used by the commit queue.
+ *
+ * The leading tag is hashed into every fingerprint that `record-staged` stores
+ * in the per-intent store and `verify-staged` recomputes, so changing it refuses
+ * every intent recorded before the change until it is re-recorded.
  */
 export function createStagedBundleFingerprint(input: {
   readonly nameStatus: string;

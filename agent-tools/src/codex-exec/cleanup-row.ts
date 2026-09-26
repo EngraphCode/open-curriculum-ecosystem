@@ -1,6 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parseThreadId, type ThreadId } from './envelope.js';
+import { parseThreadId, type ThreadId } from '../core/codex-thread-id.js';
 import { readTurnEvents } from './turn-events.js';
 import type { CodexRun } from './turn-verdict.js';
 
