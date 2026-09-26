@@ -65,9 +65,11 @@ Each item is checkable; the check is named.
    candidate that fails this on many paths is the wrong date. The ancestor
    SHA goes in the manifest; every count in step 1 is measured against it.
 3. **A tagged pre-state.** `git tag transplant/pre-<UTC timestamp>-<short
-   HEAD>` on the host, unique to this run. Check: the tag resolves to the
-   host's HEAD before step 1. Corrections are a corrective pass, never a
-   rollback (PDR-005), but the tag makes every audit possible post hoc.
+   HEAD>` on the host, unique to this run, pushed to the host's remote, with
+   its SHA recorded in the manifest. Check: the tag resolves to the host's
+   HEAD before step 1, and the remote holds it. Corrections are a
+   corrective pass, never a rollback (PDR-005), but the tag makes every
+   audit possible post hoc, from any clone.
 4. **A clean host tree and a claim.** Check: `git status --short` is empty;
    the transplanting seat's claim names the machinery areas; any other live
    seat on the host has been told the areas.
@@ -76,6 +78,8 @@ Each item is checkable; the check is named.
    sub-agent adapter generator, the rules-index generator, and the
    assertion validators (cited scripts, reference direction, machine-local
    paths, CI parity, markdown links, portability, sub-agents, skills).
+   Each runs against the host tree: from the host checkout, or from the
+   transplanting checkout with the host checkout's path as its argument.
    Check: each is a `package.json` script that runs. A transplant that
    starts without them writes them first and lands them before anything
    else (instance 1 lost two generators to context end).
@@ -124,10 +128,12 @@ taking one word, declines by item number.
    names on the lineage's as practised, read from the lineage's root
    `package.json` at the pin rather than from its naming record (instance 1
    found the record and the scripts disagreed), and surface the choice as one
-   ruling; never keep both conventions side by side, because every
-   transplanted skill cites the lineage's names and an alias doubles the
-   citations. Then apply step 3's renumbering before any copy, moving every
-   reference to a renumbered record in the same change (PDR-049). Then
+   ruling. Every caller of a renamed script (hooks, gates, CI, skills,
+   adapters) moves in the same change (`replace-dont-bridge`); never keep
+   both conventions side by side, because every transplanted skill cites
+   the lineage's names and an alias doubles the citations. Then apply step
+   3's renumbering before any copy, moving every reference to a renumbered
+   record in the same change (PDR-049). Then
    overwrite unchanged-in-host from the pin; add theirs-only after the drop
    verdicts; run the org scrub (scope and org name are a `sed`;
    product-shaped references are excised or judged one by one — rename when
@@ -164,14 +170,16 @@ taking one word, declines by item number.
    removed, never re-pointed; a record number that survived the copy is
    checked by title at its target before it is kept.
 10. **Exercise every root script once, reading before running** (`agent`).
-    Read each script's definition first. A script whose effect goes beyond
-    a check is judged from its definition and never run: one that
-    publishes, deploys or releases; writes to a remote or a vendor account;
-    installs, deletes or rewrites files; or starts a long-lived process.
-    Every other script runs once. Keep a script when a consumer exists on
-    the host (a hook, a gate, a skill that cites it, a platform in use);
-    retire it when its subject is an upstream artefact, a vendor account
-    the host does not hold, or a product surface.
+    Read each script's definition first. The generators and validators that
+    steps 8 and 9 name have already run under those steps, their definitions
+    read there. Any other script whose effect goes beyond a check is judged
+    from its definition and never run: one that publishes, deploys or
+    releases; writes to a remote or a vendor account; installs, deletes or
+    rewrites files; or starts a long-lived process. Every other script runs
+    once. Keep a script when a consumer exists on the host (a hook, a gate,
+    a skill that cites it, a platform in use); retire it when its subject is
+    an upstream artefact, a vendor account the host does not hold, or a
+    product surface.
 11. **Home the docs layer by role** (`agent`, PDR-014): doctrine into
     directives, recipes and host guides into reference, contracts into
     executive memory, developer narrative into `docs/`; never as a
