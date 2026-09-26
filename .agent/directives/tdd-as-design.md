@@ -67,7 +67,8 @@ cycle. If the higher-level proof (an integration test or an E2E check)
 requires several lower-level cycles before it can be greened, sequence
 the lower-level cycles first and finish with the commit that adds the
 final piece that makes the higher-level proof green. Every commit ends
-with all tests and checks passing at every level.
+with every test and check the landing's gates run passing, at every
+level.
 
 **Forbidden shapes** (each is a TDD violation, not merely a process
 slip):

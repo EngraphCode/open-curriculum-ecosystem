@@ -87,7 +87,7 @@ seam, extract a pure function, inject a dependency).
     is injected.
 11. **Unit test contains any mock.** Unit tests are pure — no mocks,
     fakes, or stubs of any kind. Parameters in, result out.
-12. **Integration test contains a mock with branching or state.** Integration
+12. **Integration test contains a mock with branching or a state machine.** Integration
     mocks are *simple* fakes — constant returns, a record of what the
     product sends through an output port, read as a value
     (`testing-strategy.md` §Stubs vs Fakes), or a parametric fake. No
