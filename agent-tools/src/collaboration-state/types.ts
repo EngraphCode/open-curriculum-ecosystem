@@ -15,6 +15,8 @@ export interface CollaborationStateEnvironment {
   readonly PRACTICE_AGENT_SESSION_ID_CLAUDE?: string;
   /** Cloud-seat platform session id (`cse_`-tagged); the untagged payload is the PDR-027 seed there. */
   readonly CLAUDE_CODE_REMOTE_SESSION_ID?: string;
+  /** Claude Code CLI session id, exported into every Bash tool shell; equals the SessionStart seed. */
+  readonly CLAUDE_CODE_SESSION_ID?: string;
   readonly PRACTICE_AGENT_SESSION_ID_CURSOR?: string;
   readonly PRACTICE_AGENT_SESSION_ID_GEMINI?: string;
   readonly PRACTICE_AGENT_SESSION_ID_CODEX?: string;

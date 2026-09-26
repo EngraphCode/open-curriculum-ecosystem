@@ -1,4 +1,4 @@
-import type { ThreadId } from '../envelope.js';
+import type { ThreadId } from '../../core/codex-thread-id.js';
 import type { RecordedThreadSettings, RecordedTurnContext } from './record-shapes.js';
 
 /** Internal state while the two-turn JSONL stream is folded. */
@@ -15,7 +15,8 @@ export interface ReaderState {
   sessionCount: number;
   readonly turns: TurnState[];
   active?: TurnState;
-  readonly outputTexts: string[];
+  /** The resumed turn's command outputs, from the harness's `CommandExecution` items. */
+  readonly commandOutputs: string[];
   readonly resumedSettings: RecordedThreadSettings[];
 }
 

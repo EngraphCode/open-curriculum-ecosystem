@@ -1,31 +1,7 @@
 import { createHash } from 'node:crypto';
 
-import { err, ok, type Result } from '@oaknational/result';
-
+import type { ThreadId } from '../core/codex-thread-id.js';
 import type { ModelPins } from './model-pins.js';
-
-declare const threadIdBrand: unique symbol;
-
-/**
- * A Codex thread id, known to be a lowercase UUID.
- *
- * `codex exec resume` also accepts thread names, so only a UUID-shaped value
- * may reach its argv; anything else could inject an option.
- */
-export type ThreadId = string & { readonly [threadIdBrand]: true };
-
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
-function isThreadId(value: string): value is ThreadId {
-  return UUID_PATTERN.test(value);
-}
-
-/**
- * Accept a thread id only when it is a lowercase UUID of any version.
- */
-export function parseThreadId(raw: string): Result<ThreadId, string> {
-  return isThreadId(raw) ? ok(raw) : err('a thread id must be a lowercase UUID');
-}
 
 /**
  * Flags every dialogue call carries, on open and on resume. `--json` selects

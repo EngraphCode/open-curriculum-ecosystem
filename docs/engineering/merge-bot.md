@@ -283,6 +283,14 @@ and are **not used** by this path; you never need to generate the secret.
 
 ## Agent actions run as the bot — attribution by identity
 
+The bot's Copilot review request registers: the REST `requested_reviewers`
+call under the app's pull-request-work token returns 201, `review_requested
+Copilot` fires on the pull request's timeline, and the review arrives
+(verified on four pull requests on 2026-08-06 and on every request of
+2026-09-25). The committer identity rule's Copilot row reads this record: the
+request is the bot's, and the owner's 2026-08-06 grant of the operator
+credential for it has nothing left to license here.
+
 Any PR mutation performed **by an agent** runs under the bot token, so the
 platform record itself says which actions were a human's and which were an
 agent's: opening PRs, editing titles/descriptions, commenting, replying to
@@ -327,5 +335,14 @@ statement in `agent-tools/src/merge-bot/push-token-file.ts` — 0600 applies
 on POSIX), and hands the transfer to the git binary with a
 static credential helper reading that file — the child environment names
 only the file's path. Never argv, no force flags, no `--no-verify`, and
-pushes to the default branch refuse by name (see
+the push writes exactly one ref, the full `refs/heads/<branch>`: no tag
+or submodule ref follows it. Pushes to the default branch refuse, in any
+case: `main` and `master` by name, then whatever branch
+`refs/remotes/origin/HEAD` names, read only when `origin` has one URL and
+it is the repository the push goes to. That read is a snapshot a fetch
+does not move, so after the repository's default branch changes, run
+`git remote set-head origin --auto`. Where the configured repository's
+ruleset on the default branch binds the bot, as this repository's does,
+GitHub refuses a direct push either way. An unreadable default branch
+fails the push rather than guessing (see
 [`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).

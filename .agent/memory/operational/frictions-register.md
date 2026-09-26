@@ -3797,6 +3797,10 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
   the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
   configuration, with a unit test on each.
+- **Status**: partially-addressed — the push half is cured: `merge-bot push`
+  (`agent-tools/src/merge-bot/push-target-branch.ts`) refuses the branch `origin/HEAD` names, in
+  any case, as well as `main` and `master`, and writes only `refs/heads/<branch>`. The commit
+  guard's half stays open: `.husky/refuse-commit-on-main.sh` still names only `main`.
 
 ### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
 
@@ -4105,4 +4109,70 @@ commit SHA and the closing plan reference.
   argv), never substrings of heredoc bodies or quoted arguments; a heredoc body is content, not
   command.
 - **Route**: `agent-tools/src/hook-policy/` (the argv matcher, `argv-nested.ts`,
-  `shell-words.ts`). Two instances, two seats, one day.
+  `shell-words.ts`). Four instances, two seats, one day: the third and fourth at 21:1xZ,
+  two commands whose prose or queue text said "push" and which later carried a bare `-f`
+  on a process lookup (`pgrep -f`), each refused as a forced push (Myrtle turns Canopy,
+  `bf4957`). The matcher pairs the word with any later bare `-f` token in the command,
+  whatever its host; the substitution is a script file for the edit and no bare `-f`
+  after the word. The fifth and sixth on 2026-09-26 at about 10:36Z (Swallow holds Drift,
+  `516619`): a `git add -- "$F"` was refused as `git add -A` when a `cat -A` sat later on the
+  same command line, and as `git add .` when a `git diff … -- .` did; the matcher pairs the
+  staging verb with any later `-A` or bare `.` token in the command. The substitution is one git
+  write per command line, with neither token beside it. A seventh (2026-09-26 10:3xZ, Myrtle
+  turns Canopy, on resume): a queue-loading command whose text said push and ended with a
+  runner check by `pgrep -f`; the general form of the substitution is a process listing piped
+  to `grep`, and the rule for the hand is no bare `-f`, `-A` or `.` token anywhere after the
+  verb the matcher pairs it with, whatever the tool that takes it.
+
+### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
+
+- **Source**: check-in 21 (Director, 2026-09-25); PR 225's CI run `36185664112`.
+- **Surface**: the `CI` workflow's `build` job, step "Build (sdk-codegen + build)", running
+  `pnpm run build` in `demos/oak-curriculum-hub` (Next.js with Turbopack).
+- **Observed**: 2026-09-25 20:25Z, PR 225's push (head `6e1809f70`, a docs-only sync merge)
+  failed the `build` job with "Module not found: Can't resolve
+  '@vercel/turbopack-next/internal/font/google/font'"; `run-quality-gates` went red behind it.
+  The same run's attempt 2, re-run at 20:47Z under the operator's own `gh` auth, passed with no
+  change to the tree. The bot (`el-graphael[bot]`) cannot re-run a workflow: the re-run call
+  returns "Resource not accessible by integration", so a flaked run costs a seat the operator's
+  credentials or a no-op push. One instance today; a second run on the same step is the trigger
+  for a cure lane.
+- **Expected**: a build of an unchanged tree is deterministic; a docs-only push never reaches a
+  font-module resolution failure, and a seat can re-run a flaked job under the bot's identity.
+- **Candidate cure**: pin the hub demo's font loading so the Turbopack internal module is not
+  resolved at build (the `next/font/google` import path, or the demo's build flag), and give
+  the bot app the `actions: write` permission so `merge-bot` can re-run a failed job.
+- **Target surface**: `demos/oak-curriculum-hub` (its font import and build config); the
+  GitHub App's permissions; `agent-tools` merge-bot (a `rerun` verb once the permission exists).
+- **Status**: open, a pattern at two instances (recorded 2026-09-25 as an observation; the
+  second instance read 2026-09-26). The second failure of the same step arrived on PR 240's
+  settlement push `c312a6930` (run `36193715549`, 2026-09-25 21:50Z): the hub build inside
+  the `unit-tests` job failed on the Lexend Google-font module, on a docs-only PR, with no
+  network error, and `run-quality-gates` went red behind it. The trigger this entry named has
+  fired; the cure lane is a Director question (the exchange seat's resume report, event
+  `4a423185`). The owner merged PR 240 red under the ruleset bypass at 10:35Z on 2026-09-26,
+  so engraph's own push CI on the final tip is the check that tells whether the step fails
+  on the default branch; a red run there is the first cure lane.
+- **Owner direction status**: session-scoped (the Director's assignment to record it; the
+  App permission is the owner's).
+
+### F-209 — no CI check runs commitlint over a pull request's commits
+
+- **Source**: the pre-execution code-expert review of the `merge-bot commit` wrapper (PR 241's
+  condition 8), and the Director's ruling (2026-09-25, about 22:05Z).
+- **Surface**: `.github/workflows/`, which runs no commitlint; the commit message is checked
+  only by the local `commit-msg` hook (`commitlint --strict` and the major-version guard).
+- **Observed**: 2026-09-25. A commit made with its hooks skipped reaches a pull request with
+  an unchecked message: a Codex seat's `git commit -F m --no-verify` (allowed by prefix under
+  PR 241's rules until the wrapper lands), or any environment carrying `HUSKY=0` or a
+  `core.hooksPath` set through `GIT_CONFIG_*`. The pre-push chain re-checks the code but not the
+  message, and no CI job does either.
+- **Expected**: a pull request's commit messages are checked where no local environment can
+  skip the check, for every actor.
+- **Candidate cure**: a CI job that runs `commitlint --strict` (and the major-version guard)
+  over the pull request's commit range, as a required status check.
+- **Target surface**: `.github/workflows/` and the default branch's required checks.
+- **Status**: open, an observation (recorded 2026-09-25). The trigger that opens a cure lane:
+  the first commit on the default branch whose message fails `commitlint --strict`, or the
+  wrapper's landing slipping past the Codex seat's first unattended commit.
+- **Owner direction status**: session-scoped (the Director's assignment to record it).

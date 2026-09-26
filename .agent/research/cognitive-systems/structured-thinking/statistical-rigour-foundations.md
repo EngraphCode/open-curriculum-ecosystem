@@ -230,11 +230,11 @@ The five foundations are useful across these disagreements because they ask ques
 
 For an important quantitative claim, complete these five sentences. Treat each answer as something to substantiate, rather than a box to tick.
 
-1. **Meaning:** “The claim concerns ___, measured as ___, for ___, over ___.”
-2. **Data generation:** “These observations arose through ___; the main omissions, dependencies, and limits to generalisation are ___.”
-3. **Comparison:** “The relevant alternative or baseline is ___; the comparison is justified because ___; the crucial assumptions are ___.”
-4. **Uncertainty:** “The estimated quantity or effect is ___; the analysis supports this range ___; the important unresolved uncertainties are ___.”
-5. **Correction:** “We would revise this conclusion if ___; our procedure could reveal that because ___; the evidence and analytical choices can be inspected at ___.”
+1. **Meaning:** “The claim concerns \_\_\_, measured as \_\_\_, for \_\_\_, over \_\_\_.”
+2. **Data generation:** “These observations arose through \_\_\_; the main omissions, dependencies, and limits to generalisation are \_\_\_.”
+3. **Comparison:** “The relevant alternative or baseline is \_\_\_; the comparison is justified because \_\_\_; the crucial assumptions are \_\_\_.”
+4. **Uncertainty:** “The estimated quantity or effect is \_\_\_; the analysis supports this range \_\_\_; the important unresolved uncertainties are \_\_\_.”
+5. **Correction:** “We would revise this conclusion if \_\_\_; our procedure could reveal that because \_\_\_; the evidence and analytical choices can be inspected at \_\_\_.”
 
 A strong answer can be concise. It may justify a simple comparison, a carefully qualified estimate, or a decision to collect different evidence. Sometimes the rigorous conclusion is that the available data cannot distinguish the alternatives that matter.
 

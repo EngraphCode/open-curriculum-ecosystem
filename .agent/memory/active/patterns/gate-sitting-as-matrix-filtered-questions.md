@@ -12,6 +12,10 @@ barrier:
   stable: true
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 ## The pattern
 
 When a gate sitting or decision packet reaches the owner:
