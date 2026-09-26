@@ -192,6 +192,70 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     sync push requests no review, timing this seat's after 250's intake and a review-cost survey.
     Retired: PR 257 (this seat's post-landing duties done). The exec-policy rules held on a live
     probe (a forbidden push refused with the rule's justification before any process spawned).
+  - **PR 250 returned to the owner (20:24:39Z):** the owner converted it to draft and pushed
+    `9a7ffdbaa`; this seat's read of CLEAN was of `f41ad8e78` (its two commits: the eight
+    projections, then the cure of eighteen files under the docs-adr and prose reviews and the
+    Director's rulings). Correction posted (20:42Z); the Director ruled no seat touches it, then
+    (20:44Z) made it a lane on the owner's Appendix E (four skills with evals as acceptance, draft
+    until complete), routed to Myrtle after 245's door. Myrtle's shape (20:49Z, 20:50Z): the
+    host's eval runner is `claude plugin eval` (claude 2.1.283), verified by a one-case probe;
+    seven commits, evidence per skill. Worktree `oce-wt-user-value` stays as it is; nothing of
+    this seat's is owed on 250. The Suite 26 tally (20:53Z) narrowed the PR 224 answer to 224
+    alone: a cloud-authored PR maps to the 19:3xZ intake word only, and its ready-mark is the
+    owner's or follows the owner's stated acceptance.
+  - **The command-record reader, two commits local, no push (the WIP limit):** cycle 0
+    `ff2f284aa` lifts the `codex-exec` CLI cases into `cli.integration.test.ts` with a shared
+    `makeIo`; cycle 1 `fd3518646` adds `codex-exec command-records` (summary of turns, executed
+    commands per turn, every record type counted, malformed evidence and invalid lines with
+    physical line numbers; `--strict` exits 1; the fixture a redacted projection of this seat's own
+    sandboxed 0.157.1 run, 36 records). Design v4 plus amendments in the scratchpad
+    (`command-records-design-v4.md`, `-amendments.md`), binding for cycles 2 and 3: string carrier
+    for the refusal fixture, anchor after the last `Script error:`, no `denied` class, the
+    `shell_command` alias source-read, classes exclusive and ordered truncated → refused → wrapper,
+    invariant `calls === accounted + refused + unaccounted`. The post-execution review of cycle 1
+    (REVISE, seven shoulds) applied before the commit: `executed` excludes `status: declined` and
+    `source: unified_exec_interaction`; Zod `{ error }` messages carry the reasons (Zod 4.4.3,
+    `issues[0].message`); `readCommandItem` returns `Result`; `parseCommonFlags` shared by both
+    subcommands; tests on `assert` from `node:assert/strict`, `it.each` object rows, numeric nonce.
+    Knip refused three exported types used only in their file (the two unions inlined into
+    `CommandRecord`; `TurnAccount` imported for the accounts annotation; the index exports the
+    summary type only). The refusal fixture (`observed-seat-refusal-0-157-1.json`) is on disk,
+    untracked, for cycle 3. Remaining for the PR: cycle 2 (shell segments, `flag-command` with the
+    rules' patterns verbatim, flagged entries, allowlist redaction), cycle 3 (harness text, the
+    call-id join on `TurnState`, refused and unaccounted accounts, shared `readPreamble`), each
+    under post-execution review; ADR-180 §2 "one tested subcommand" goes stale at landing. The PR
+    opens at a WIP slot only, after a first-hand count on both estates. The consolidation validator
+    for the rules' patterns is a separate lane.
+  - **PR 246's door (21:0xZ), at its turn after Siren's 253 (`3377a3b1c`, released 20:59Z):**
+    slot taken (`78332e80`; the line said 3 files, the PR changes 20). Owner-authored sync merge
+    of `origin/engraph` in `oce-wt-branch-guard`, no conflicts, head `0aa24d1d7`, gates green in
+    the hooks; pushed; both legs re-requested on the synced head (Copilot as reviewer, `@codex
+    review`). Sweep read whole on the synced head: 70 removed lines, every one replaced by the
+    cure (the `main` literal in the guard and the hook comments, the rule text, the frictions row,
+    the `hermeticEnv` moved to `hermetic-git-env.ts`, the `test:e2e` line re-added with the smoke).
+    Both legs answered at 21:10Z with one finding read twice (Copilot thread `PRRT_…mUJtY`, Codex
+    `…mUJ08`): `hermeticGitEnv` hands the smoke's children `PATH` `/usr/bin:/bin` while
+    `resolveTrustedGit` also allows `/opt/homebrew/bin/git` and `/usr/local/bin/git`, so a host
+    with no git under `/usr/bin` or `/bin` fails the smoke's pass cases closed on the guard's own
+    line; where `/usr/bin/git` exists the resolver prefers it and one git runs (CI, this machine).
+    Confirmed first-hand, accepted as a follow-up with signed lines (replies `4112813557`,
+    `4112813612`), both threads resolved, the body carrying round 4. **Follow-up owed, joined with
+    round 3's, one PR (the guard's next change):** the smoke `PATH` gains the resolved trusted
+    git's directory with the injected platform's delimiter; the guard fails closed when
+    `refs/remotes/origin/HEAD` names a ref without the `refs/remotes/origin/` prefix, with the
+    smoke case. Survey before landing: four heads 8.4 / 9.96 / 8.02 / 0, 17.98 / 40 within.
+    Merged `b332041ba` at 21:23:06Z through merge-bot, both legs satisfied on the synced head, CI
+    green; slot released (`ce286fb0`) with the count read at three (245, 250 the lane, 256) and the
+    guard twin routed to Siren, received at 21:23:56Z as Siren took 256's slot. Remote branch
+    deleted as the bot (read-back 404); worktree `oce-wt-branch-guard` and the local branch
+    removed; claims `d66f85da`, `56e5f0c5`, `8af60aaa` closed. Ledger row written at the landing.
+  - **Lane state at 21:2xZ.** Open, this seat's: none. The reader (claim `f7d8f0de`): cycle 1
+    `fd3518646` and cycle 2 (uncommitted, 374 tests green, under post-execution code-expert and
+    test-expert review) local in `oce-wt-command-records`; cycle 3 next; the PR opens at a WIP slot
+    after a first-hand count on both estates (three held: 245, 250 the lane, 256 at Siren's door).
+    PR 250 is Myrtle's lane. Follow-ups owed by this seat: the guard's next change (two items, one
+    PR); the reader's consolidation validator lane; the P1 pure-sync item's timing (goal-two
+    ledger); ADR-180 §2 "one tested subcommand" stale at the reader's landing. Retired: 246, 257.
 - **COMPACTION BOUNDARY 4 (about 16:35Z, 2026-09-26), at the owner's word "prepare for compaction,
   and then stop all processes, allow subagents to finish and make their work safe, then stop them".**
   The five review agents of this segment had all returned their verdicts (nothing in flight) and are
