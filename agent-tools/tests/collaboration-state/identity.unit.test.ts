@@ -192,7 +192,7 @@ describe('naming schema version on the identity tuple', () => {
     const result = deriveCollaborationIdentity({
       platform: 'codex',
       model: 'GPT-5',
-      env: { CODEX_THREAD_ID: codexThreadId, OAK_AGENT_IDENTITY_OVERRIDE: 'Frolicking Toast' },
+      env: { CODEX_THREAD_ID: codexThreadId, PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Frolicking Toast' },
     });
 
     expect(result.agentId.naming_schema_version).toBe('override');

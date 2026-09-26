@@ -236,7 +236,7 @@ discipline binds to this PDR's tuple format).
   2026-08-24 amendment: hooks no longer store the override; the variable is
   an explicit operator control only.)
   Platform session-start hooks may derive an agent display name once from the
-  session id and store that resolved name in `OAK_AGENT_IDENTITY_OVERRIDE`
+  session id and store that resolved name in `PRACTICE_AGENT_IDENTITY_OVERRIDE`
   alongside the relevant Practice session-id seed
   (`PRACTICE_AGENT_SESSION_ID_CLAUDE`, `PRACTICE_AGENT_SESSION_ID_CURSOR`, or
   `PRACTICE_AGENT_SESSION_ID_CODEX`). This is a session cache: it prevents an
@@ -486,7 +486,7 @@ bad-usage error. The three Claude seeds (`PRACTICE_AGENT_SESSION_ID_CLAUDE`,
 `CLAUDE_CODE_REMOTE_SESSION_ID`, `CLAUDE_CODE_SESSION_ID`) count only when the
 seat's platform is a Claude platform (2026-09-25 amendment); the identity CLI
 learns the platform from `--platform <label>`, required unless `--seed` is
-given. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
+given. `PRACTICE_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
 only when a seed is also available; it is not itself a seed, and no hook
 writes it (2026-08-24 amendment). There is no
 personal-email fallback. The derived value helps fill `agent_name`; it does not

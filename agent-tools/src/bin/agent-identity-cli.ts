@@ -46,7 +46,7 @@ export interface AgentIdentityCliEnvironment {
   /** Antigravity per-tool-call metadata JSON; `conversationId` is stable. */
   readonly ANTIGRAVITY_SOURCE_METADATA?: string;
   /** Operator-provided display-name override. */
-  readonly OAK_AGENT_IDENTITY_OVERRIDE?: string;
+  readonly PRACTICE_AGENT_IDENTITY_OVERRIDE?: string;
 }
 
 /**
@@ -93,7 +93,7 @@ export const HELP_TEXT = `Usage: agent-identity [--seed <seed>] [--platform <lab
   --format <fmt>      Output format. kebab (default) | display | json.
   --help              Print help and exit 0.
 
-Override: $OAK_AGENT_IDENTITY_OVERRIDE bypasses wordlist derivation.`;
+Override: $PRACTICE_AGENT_IDENTITY_OVERRIDE bypasses wordlist derivation.`;
 
 /**
  * The bad-usage message when neither `--seed` nor `--platform` is given.
@@ -122,7 +122,7 @@ export function runAgentIdentityCli(input: AgentIdentityCliInput): AgentIdentity
   }
 
   try {
-    const override = nonEmptyEnvironmentValue(input.env.OAK_AGENT_IDENTITY_OVERRIDE);
+    const override = nonEmptyEnvironmentValue(input.env.PRACTICE_AGENT_IDENTITY_OVERRIDE);
 
     return successResult(
       renderIdentityResult(

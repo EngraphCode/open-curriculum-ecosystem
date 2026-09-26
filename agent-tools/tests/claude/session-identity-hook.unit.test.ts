@@ -63,7 +63,7 @@ describe('planClaudeSessionIdentityHook', () => {
 
   it('never pins a display name in the env file (2026-08-24 chimera regression)', () => {
     // One seat produced three identity tuples in one day (measured in the
-    // castr estate) because the hook pinned OAK_AGENT_IDENTITY_OVERRIDE
+    // castr estate) because the hook pinned PRACTICE_AGENT_IDENTITY_OVERRIDE
     // alongside the seed: a later seed change re-derived prefix and uuid
     // while the pinned name stayed. The name must always derive from the
     // live seed at the point of use.
@@ -77,7 +77,7 @@ describe('planClaudeSessionIdentityHook', () => {
       absolutePath: 'mem://claude-env-file-abc',
       appendLine: `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${sessionId}'\n`,
     });
-    expect(plan.envFileWrite?.appendLine).not.toContain('OAK_AGENT_IDENTITY_OVERRIDE');
+    expect(plan.envFileWrite?.appendLine).not.toContain('PRACTICE_AGENT_IDENTITY_OVERRIDE');
   });
 
   it('prefers the stripped platform session id over the harness session id on cloud seats', () => {
@@ -198,7 +198,7 @@ describe('operator override rendering', () => {
       stdinText: JSON.stringify({ session_id: sessionId }),
       environment: {
         CLAUDE_ENV_FILE: 'mem://env-file',
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Named By Owner',
       },
     });
 
