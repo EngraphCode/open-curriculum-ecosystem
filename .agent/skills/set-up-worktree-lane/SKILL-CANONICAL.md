@@ -3,16 +3,15 @@ name: set-up-worktree-lane
 classification: active
 description: >-
   Create and verify a lane worktree: the branch cut explicitly from origin/<base>,
-  the inherited bot identity verified with no worktree-scoped override, deps
-  installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
+  the inherited commit identity verified with no worktree-scoped override, deps
+  and the end-to-end gate's browser installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
   Work cloud host, static branch/base checks only with execution routed to
   draft-PR CI. Use for a new lane or a misbehaving worktree (commits attributed
   to nobody, missing env, hook failures). Not for switching branches in place,
   changing session residency alone, or disposing of a worktree. Wrong looks
   like: EnterWorktree fresh mode basing the branch on the principal's
-  coordination HEAD so the lane PR ships foreign commits; the bot commit email
-  carrying the app id instead of the bot user id, which resolves to no GitHub
-  user.
+  coordination HEAD so the lane PR ships foreign commits; a worktree-scoped
+  identity override that outlives the next correction.
 ---
 
 # Set Up a Worktree Lane
@@ -20,9 +19,9 @@ description: >-
 **Governance**: the procedure that composes three rules at the one moment they all
 apply — [`worktree-residency`](../../rules/worktree-residency.md) (where you work and
 how residency is established), [`worktree-hygiene`](../../rules/worktree-hygiene.md)
-(lane lifecycle, the first-push draft PR, dispositions), and
-[`bot-identity-on-third-party-systems`](../../rules/bot-identity-on-third-party-systems.md)
-(who commits, and under whose authority). Those rules own the doctrine and the
+(lane lifecycle, the first-push draft PR, dispositions), and the estate's
+committer identity rule (who commits, and under whose authority), here
+[`bot-identity-on-third-party-systems`](../../rules/bot-identity-on-third-party-systems.md). Those rules own the doctrine and the
 reasoning; this skill owns the ordered steps and the verification, because every
 defect below was found in a worktree that satisfied each rule read separately.
 
@@ -86,54 +85,40 @@ This step applies to standard and separately provisioned profiles only. In a
 detected ChatGPT Work cloud session, step 0 replaces it completely.
 
 The identity lives once in the clone's shared local config and every worktree
-inherits it (owner ruling 2026-08-04; doctrine in
-[`bot-identity-on-third-party-systems`](../../rules/bot-identity-on-third-party-systems.md)).
-A new worktree therefore needs no identity step at all — only a check that what it
-inherited is right:
+inherits it. This estate's identity contract, set by the owner's word of
+2026-08-04 ("we need to tell Vercel on whose authority this work was done";
+"keep the bot identity locally shared, not in version control"): the team
+bot the clone's merge-bot config names is the committer and the push
+transport, and the human on whose authority the work is done is the author,
+passed per commit. The mechanics are the estate's committer identity rule;
+this skill holds no value of an identity. A new worktree therefore needs no
+identity step at all — only a check that what it inherited matches the
+primary:
 
 ```bash
-git -C <path> config user.email
-# expect: 307435217+jimbot-oakington-iii[bot]@users.noreply.github.com
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+ok=1
+for key in user.name user.email; do
+  want="$(git -C "$PRIMARY" config "$key")"
+  if [ -n "$want" ] && [ "$(git -C <path> config "$key")" = "$want" ]; then
+    echo "$key inherited: $want"
+  else
+    echo "$key: not inherited from the primary"; ok=0
+  fi
+done
+[ "$ok" = 1 ]
 ```
 
-If that is wrong or absent, fix the SHARED config once. Never patch this worktree: a
+Both keys must report inherited (the check exits non-zero otherwise), and both
+values must be the identity the estate's committer identity rule names. The
+check proves inheritance, not correctness: a worktree inherits the primary's
+error too (the app-id address of 2026-08-04 would pass on both sides), so where
+that rule derives the value, run its derivation (for a bot committer, the
+merge-bot config and the API) and compare it with `want`. If
+either differs, is absent, or names another identity, fix
+the SHARED config once, as that rule directs. Never patch this worktree: a
 `--worktree` override is a second copy that outlives the next correction and
 reintroduces the exact drift this step exists to catch.
-
-```bash
-# The merge-bot config is per-checkout and never tracked, so it lives only at
-# the clone's primary checkout; a linked worktree holds no copy of it. Every
-# derivation is checked before the shared identity is written: an empty slug
-# or id would otherwise land as "[bot]" while the block exits clean.
-PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
-CONFIG="$PRIMARY/.github/merge-bot.json"
-[ -n "$PRIMARY" ] && [ -f "$CONFIG" ] \
-  || { echo "no per-checkout config at $CONFIG (copy .github/merge-bot.json.example there)"; exit 1; }
-BOT_SLUG=$(jq -r .appSlug "$CONFIG")
-[ -n "$BOT_SLUG" ] && [ "$BOT_SLUG" != null ] \
-  || { echo "appSlug missing from $CONFIG"; exit 1; }
-BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
-[ -n "$BOT_ID" ] && [ "$BOT_ID" != null ] \
-  || { echo "no bot user id for ${BOT_SLUG}[bot] from the GitHub API"; exit 1; }
-
-git config user.name  "${BOT_SLUG}[bot]"
-git config user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"
-```
-
-Derive the id, never transcribe it — the address embeds the **bot user id**, not the
-app id, the two sit near each other in the docs, and the wrong one produces an
-address that resolves to no GitHub user at all. A literal id copied into a document
-is a second copy of a fact that already lives somewhere authoritative, and the copy
-is the one that goes stale: the identity produced by this sequence is correct by
-construction, one transcribed by hand was wrong for days. Because there is exactly
-one copy, fixing it cures every worktree at once.
-
-Committer and author are different identities by owner ruling: the **committer** is
-the acting agent (the config above); the **author** is the human whose authority the
-work carries, passed per commit —
-`git commit --author="Jim Cresswell <1314980+jimCresswell@users.noreply.github.com>" -F <msg>`.
-The default is deliberately fail-safe: forget the flag and you get a bot-authored
-commit, never a commit that silently credits the owner with agent work.
 
 ### 3. Make the worktree buildable
 
@@ -144,14 +129,20 @@ not trigger provisioning.
 ```bash
 pnpm --dir <path> install
 pnpm --dir <path> build
+pnpm --dir <path> --filter <app> exec playwright install chromium-headless-shell
 ```
 
-Both scoped to the worktree with `--dir`, because this step runs before entry, from the
+All three scoped to the worktree with `--dir`, because this step runs before entry, from the
 principal: an unscoped `pnpm install` there rebuilds the principal and leaves the new
-worktree without its dependencies or `dist/`. Both, before any gate, work or entry:
+worktree without its dependencies or `dist/`. All three, before any gate, work or entry:
 `type-check` and `vitest` pass on install alone,
 but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
-with `No exports main defined`. A fresh worktree has **no `.env.local`** — copy it from
+with `No exports main defined`. The third line runs once for each workspace whose gate
+drives a browser (`<app>`). `pnpm install` fetches no browser: the binaries sit in one
+per-user cache outside the tree, keyed by the revision the lockfile's Playwright selects,
+and an install in any checkout on the host can remove a revision another needs. So every
+lane runs the line, and a gate that fails with `Executable doesn't exist` is this step
+missed, not a flake. A fresh worktree has **no `.env.local`** — copy it from
 a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
 local server). Data directories that are gitignored (bulk downloads) do not travel
 either; fetch them per the owning workflow rather than copying, so their manifest
@@ -193,10 +184,10 @@ local runtime or full-gate claim is made.
 
 | Check | Command | Expected |
 | --- | --- | --- |
-| Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
+| Identity resolves in the worktree | `git -C <path> config user.email` | the primary's address |
 | Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
 | Base is clean | `git -C <path> log --oneline origin/<base>..HEAD` | only this story's commits |
-| Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author human, committer bot |
+| Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author and committer as the estate's committer identity rule sets them |
 
 The second row is not optional, and a green first row cannot stand in for it. A
 `--worktree` override holding the *same* value reads correct today and silently keeps
@@ -265,6 +256,7 @@ never as a local-gate result.
 - [`worktree-hygiene`](../../rules/worktree-hygiene.md) — lane lifecycle, the
   first-push draft PR clause, and §6 dispositions when the lane ends.
 - [`bot-identity-on-third-party-systems`](../../rules/bot-identity-on-third-party-systems.md)
-  — the identity contract this configures, and the author/committer ruling.
+  — the estate's committer identity rule: the identity this skill verifies, and the
+  author and committer ruling.
 - [`never-commit-to-main`](../../rules/never-commit-to-main.md) — why lane work
   starts on its own branch in its own worktree at all.

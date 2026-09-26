@@ -11,6 +11,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { availableParallelism, loadavg } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { describeSpawnFailure } from '../src/core/spawn-failure';
 
 import {
   AGENT_NAME,
@@ -33,12 +34,13 @@ const BIN = join(AGENT_TOOLS_ROOT, 'dist', 'src', 'bin', 'agent-tools.js');
  */
 const WATCHER_HANG_BACKSTOP_MS = 180_000;
 
-function backstopMessage(what: string): string {
+function hostDetail(): string {
   const load = loadavg()[0]?.toFixed(2) ?? 'unknown';
-  return (
-    `${what} within the ${String(WATCHER_HANG_BACKSTOP_MS)} ms hang backstop ` +
-    `(host one-minute load ${load}, ${String(availableParallelism())} cores)`
-  );
+  return `(host one-minute load ${load}, ${String(availableParallelism())} cores)`;
+}
+
+function backstopMessage(what: string): string {
+  return `${what} within the ${String(WATCHER_HANG_BACKSTOP_MS)} ms hang backstop ${hostDetail()}`;
 }
 
 interface WatcherHarness {
@@ -141,8 +143,11 @@ function runCli(
     timeout: WATCHER_HANG_BACKSTOP_MS,
   });
   if (result.error !== undefined) {
-    const what = `collaboration-state ${args.slice(0, 2).join(' ')} did not finish`;
-    assert.fail(`${backstopMessage(what)}: ${result.error.message}\n${result.stderr}`);
+    const what = `collaboration-state ${args.slice(0, 2).join(' ')}`;
+    const error: { code?: string | undefined; message: string } = result.error;
+    assert.fail(
+      `${describeSpawnFailure(what, error, WATCHER_HANG_BACKSTOP_MS)} ${hostDetail()}\n${result.stderr}`,
+    );
   }
   return result;
 }

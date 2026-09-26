@@ -170,7 +170,7 @@ function identityContext(input: {
     `Suggested Composer tab title (Cursor has no hook API to set it automatically): ${input.tabHint}`,
     `PDR-027 session_id_prefix (first 6 of the PDR-027 seed): ${input.prefix}`,
     'PRACTICE_AGENT_SESSION_ID_CURSOR is set from the composer session_id for hook subprocesses in this session.',
-    'From repo root, `pnpm agent-tools:agent-identity --format display` also resolves when PRACTICE_AGENT_SESSION_ID_CURSOR is set in your shell (if Cursor forwards session env to the terminal, it matches).',
+    'From repo root, `pnpm agent-tools:agent-identity --platform cursor --format display` also resolves when PRACTICE_AGENT_SESSION_ID_CURSOR is set in your shell (if Cursor forwards session env to the terminal, it matches).',
   ].join('\n');
 }
 

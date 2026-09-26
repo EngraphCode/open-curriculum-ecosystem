@@ -13,6 +13,10 @@ barrier:
   prevents_recurring_mistake: "Building a crosswalk or mapping layer over a surface you control, institutionalising a self-inflicted mismatch that drifts silently in both directions (data adds a value the crosswalk never exposes; you add a value that maps to nothing)"
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 ## Principle
 
 When a surface **you control** (an enum, a parameter value space, a type)

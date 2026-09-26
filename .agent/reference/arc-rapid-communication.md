@@ -46,6 +46,9 @@ the dated record
   team-coordination events that bootstrap the session all live on the
   canonical stream, and an agent watching only ARC is blind to them. The
   two watchers are paired, always.
+- **Where both seats can use s2s, that is the dialogue channel** (owner-directed 2026-09-13;
+  the `comms-channels` skill). ARC keeps its place for a pair s2s cannot reach and for a
+  dialogue whose transcript is itself the record; the mirroring obligation applies on both.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash
@@ -276,5 +279,7 @@ In the routing card
 ARC sits beside channel 4 (sidebars): it is operationally a standalone,
 rapid, file-backed sidebar. Use a decision thread / sidebar when the
 exchange must be durable and structured from the start; use ARC when
-latency and bandwidth dominate and the substance will be conserved at
-close.
+s2s cannot reach both seats or when the transcript is itself the record.
+Either way the substance is conserved at close, and ARC's rapid
+file-backed shape is what such an exchange needs when latency and
+bandwidth dominate.

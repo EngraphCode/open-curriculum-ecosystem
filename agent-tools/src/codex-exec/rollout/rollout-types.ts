@@ -1,14 +1,18 @@
 import { err, type Result } from '@oaknational/result';
 
-import type { ThreadId } from '../envelope.js';
+import type { ThreadId } from '../../core/codex-thread-id.js';
 import type { RecordedTurnContext } from './record-shapes.js';
 
 /** Harness evidence needed by the probe's policy and output verdicts. */
 export interface RolloutEvidence {
   readonly threadId: ThreadId;
   readonly turns: readonly [RecordedTurnContext, RecordedTurnContext];
-  /** Output text from resumed rollout records, including program-emitted code-mode content. */
-  readonly resumedOutputTexts: readonly string[];
+  /**
+   * The aggregated output of each command whose `CommandExecution` item the
+   * resumed turn recorded, in completion order. Text the model's own
+   * code-mode program printed is never evidence.
+   */
+  readonly resumedCommandOutputs: readonly string[];
 }
 
 /** Closed reasons a rollout cannot support a pass verdict. */
