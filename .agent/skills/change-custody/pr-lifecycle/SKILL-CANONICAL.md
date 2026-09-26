@@ -1730,10 +1730,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   coordination PR per repository. The limit is the number of implementer
   seats (three at its adoption), and no PR opens while the count is at the
   limit or over it. Before opening, the opener reads the count first-hand
-  from the forge for every repository (`gh pr list` on GitHub) and posts
-  "WIP slot taken: N of <limit>" on the coordination stream, the same
-  serialiser as the landing slot. A branch is pushed with its PR, never
-  before: a pushed branch with no PR is unfinished work outside review.
+  from the forge for every repository (`gh pr list --repo <owner>/<name>` on
+  GitHub, the target always named) and posts "WIP slot taken: N of <limit>"
+  on the coordination stream, the same serialiser as the landing slot. A
+  branch's first push is followed at once by its PR, never left standing: a
+  pushed branch with no PR is unfinished work outside review.
   Every PR counts from the moment it opens, external ones included
   (dependency bumps, fork syncs, content) and those authored on a host that
   cannot run code; the Director takes each on at once, analyses it and
@@ -1743,9 +1744,9 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   evaluated as a peer's PR, and it is then worked as normal, except that its
   ready-mark is the owner's or follows the owner's stated acceptance. The
   goal stays zero open PRs while value is still created and merged, and a
-  static zero means no work: while the count is full, a seat prepares its
-  next slice locally, but its landing turns and any cure that frees the
-  count come first.
+  static zero means no useful work is happening. So while the count is full,
+  a seat may prepare its next slice locally, but its landing turns and any
+  cure that frees the count come first.
 - **CI runs the test-merge with CURRENT main.** A mid-round main landing
   that moves a mirrored asset (a kit file vs a tracked copy under
   `public/`, or any tracked parity copy) can red a parity test on your
