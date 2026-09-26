@@ -435,6 +435,39 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **THE OWNER'S HAND, 2026-09-26 10:32Z to 10:50Z, and the resume (Myrtle turns Canopy, bf4957):**
+  the seat resumed at the owner's word ~10:30Z under a ratified plan (re-arm by id, three cures,
+  the door in the Director's order, leftovers deleted under the owner's standing word of 10:2xZ:
+  useful work is pushed and on a PR or merged, everything else is deleted; engraph is the safe
+  home and main the protected sync destination). The Director resumed at 10:21Z (check-in 24,
+  bce7a2ea): PR 241 lands; CLEAN takes the slot; proposal 3 (a joint text's twin merges only
+  after both copies' legs settle) STANDS for the exchange lanes; proposals 1 and 2 to a decision
+  suite then the owner. Swallow merged 241 as fc645531c at 10:32Z. Then the owner landed the
+  lineage's small PRs by hand under the ruleset bypass, 10:35Z to 10:50Z: 240 (afdfd7479, red on
+  F-208's second instance), 211, 229, 235, 243, 247, 226, 231, 236, 220, 232, 237 (before its
+  parent 217), 216 (81e126e8e, the joint core; its twin JC.net PR 209 merged 0caa0327 at 11:00Z).
+  The owner's words, relayed by the Director: "I can merge small PRs many orders of magnitude
+  faster than an agent can"; "I have finished landing PRs" (~10:55Z); "don't block small green
+  PRs on manual, but do maintain a list so that when I ask you can give me links" (~11:00Z); no
+  intake bound; the daily coordination drafts fold twice a day (midday and rollover); PR 224 is
+  landed by a seat on the owner's word; the deletions list (merged remote and local branches,
+  worktrees on merged branches, Marten's gh-write-guard worktree, the incoming batch
+  directories once their rows land) is approved, executed as the bot with read-back after the
+  Director's plan event. The order among ready PRs from 11:00Z is changed-file count ascending.
+  This seat: PR 245's plan-pointer cure (0de4cc641) and its two round-two cures (70023f0b7, the
+  last settlement push; both threads resolved); PR 217's one Codex finding (the E2E location
+  bullet misdescribed the Playwright suites) cured locally, held under the Director's hold, its
+  branch synced by the owner's hand (c0af32efc) and the cure merged forward (7de43823b), one
+  push at its turn; PR 216's round-three thread resolved on the merged PR; PR 221 in the slot
+  (synced head 29fa55407, legs requested 11:01Z). Eleven claims closed with their merge commits;
+  receipts to Siren for 216 (8cc4d819) and the eight JC.net-sourced rows with file blobs
+  (4ed7831b). The next joint change is agreed with Siren (e315fbaa), six items in the merged
+  bot-identity and identify-as-agent text (the marker's bot form; the preflight variable
+  `status`, which zsh reserves; the empty-token sentence; the rate-limited 403; two human-login
+  passages; the operator-token binding) plus this estate's Cursor adapter description; JC.net
+  drafts the bytes, this seat signs or amends, both copies land under ruling 4. Open of this
+  seat's: 221, 234, 217, 238, 245, 218 (size order). Records this boundary: F-208 at two
+  instances and F-207's seventh (fc8745e5a), the ledger rows below, the napkin's three surprises.
 - **COMPACTION BOUNDARY, 2026-09-26 ~10:0xZ — Myrtle turns Canopy (bf4957) stops at the owner's
   word** ("prepare for compaction … then stop all processes", 09:48Z, repeated 10:05Z). The
   harness paused from 22:32Z to 09:49Z; nothing on the stream moved in that window. Landed this
