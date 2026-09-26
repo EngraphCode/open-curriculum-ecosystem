@@ -62,7 +62,8 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   how that skill, the specification-framework proposal and the pull request's changed
   elements relate: ownership, scale and meaning bridges, evidence limits and the completion
   the successor took on; its CI and blob citations are of the head it reviewed, superseded
-  at landing
+  at landing; revision 2 records the later owner ratification, expanded acceptance criteria
+  and reconciled projection/intake state
 
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it

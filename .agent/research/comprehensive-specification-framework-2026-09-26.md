@@ -1,13 +1,13 @@
 ---
 document_id: gds-iai.specification-framework
 document_role: exploratory-framework-proposal
-revision: 3
+revision: 4
 updated: 2026-09-26
-authority: owner-commissioned-proposal-not-adopted-standard
+authority: owner-ratified-skill-delivery-scope-not-adopted-standard
 inquiry_id: SPEC-FRAMEWORK-2026-09-26
 inquiry_revision: 2
-artifact_id: SPEC-FRAMEWORK-D3
-artifact_revision: 3
+artifact_id: SPEC-FRAMEWORK-D4
+artifact_revision: 4
 epistemic_status: provisional
 execution_mode: emulated-reduced
 independence: same-context-self-review
@@ -19,7 +19,9 @@ skill_design_source_revision: 81d61b420404bb2626850779003d372ec6944d4c
 
 **A connected account of purpose, meaning, obligations, authority, evidence and change—from a small engineering operation to a public service.**
 
-26 September 2026 · Proposal v0.2 · Document revision 3
+26 September 2026 · Framework proposal v0.2 · Document revision 4
+
+**Current decision:** the owner ratified `specify`, `specify-connection` and `assess-specification` for complete implementation in PR #250 on 26 September 2026. Appendix E records the binding delivery and evaluation acceptance criteria. Ratification settles the PR's skill scope; empirical effectiveness remains provisional. Earlier inquiry records retain their historical authority limits.
 
 The proposed framework has five parts: a small common record; profiles appropriate to the thing being specified; explicit contracts between those things; evidence appropriate to each claim; and rules for review and change. Together these form a **network of specifications**. That network can begin as linked Markdown and existing schemas. It does not require a graph database, a new language or one central model of everything.
 
@@ -29,7 +31,7 @@ This is an exploratory design proposal informed by GDS guidance, selected OCE me
 
 The scope is deliberately general: public and commercial services, internal platforms, developer tools, libraries, data products, research and other projects. Clef is one demanding application, not the organising ontology. The owner's clarification during drafting explicitly reinforced that boundary. Educational constructs appear only in the educational example; other subjects acquire their own domain profiles and evidence criteria.
 
-**Revision 3 answers the skills question.** The framework can be expressed as three proposed task-focused skills—`specify`, `specify-connection` and `assess-specification`—with shared reference material and conditional handoffs to the existing `user-value`, planning, engineering and Parallax capabilities. Section 13 defines their triggers, procedures, outputs, ownership, evaluation and proposed delivery sequence. These specification skills are designs in this document, not installed capabilities. The renamed `user-value` implementation is [in this repository](../skills/planning/user-value/SKILL-CANONICAL.md). Sections 14–15 preserve the earlier D2 exploration and its evidence limits; Appendix D records the new inquiry revision.
+**Revision 4 ratifies the skill delivery scope.** The framework is to be expressed as three task-focused skills—`specify`, `specify-connection` and `assess-specification`—with shared reference material and conditional handoffs to the existing `user-value`, planning, engineering and Parallax capabilities. Section 13 defines their triggers, procedures, outputs, ownership, evaluation and required delivery sequence. These specification skills are designs in this document, not installed capabilities. The renamed `user-value` implementation is [in this repository](../skills/planning/user-value/SKILL-CANONICAL.md). Sections 14–15 preserve the earlier D2 exploration and its evidence limits; Appendix D records the new inquiry revision.
 
 Publication note: the named Clef research inputs are separate project documents, not bundled repository dependencies. The examples and definitions needed to assess this proposal are included here. Their citations preserve provenance without requiring a reader to have access to that collection. Private-upstream citation (documentation-hygiene, private-upstream clause): the upstream is Clef, the owner's private project; no public upstream URL exists. The sources cited by filename below (`clef-contracts-across-design-domains-2026-09-25.md`, `clef-teacher-set-work-journeys-stories-and-impact-2026-09-25.md`, and the document `clef.service-needs-and-value-model`, revision 1) are that project's own documents at the paths their names give; the exchange vehicle is the owner's hand, carrying this proposal from the non-executing host that drafted it into this repository through pull request 250; the adaptation is that every definition and example this proposal relies on is restated here, so nothing in it requires the upstream to be read.
 
@@ -375,13 +377,13 @@ The inspected OCE sources support much of the method already. The framework shou
 
 The earlier inventory finding was bounded to the then-inspected `engraph` tree. It is superseded for value modelling by the directly inspected [`user-value` source](../skills/planning/user-value/SKILL-CANONICAL.md). Its scope is use value expressed, implemented and assessed across levels, despite its deliberately reader-friendly name. It covers human and technical consumers, optional journeys, conditional guarantees, implementation correspondence and bounded evidence. It does not require an invented human persona for a primitive.
 
-Its three references own value/entity semantics, journeys/stories, and levels/implementation respectively. Seven evaluation cases and ten trigger examples are authored. The method review reports two exercises on the earlier service-focused draft; they are not validation of the renamed, broadened revision. Generated adapters and revised-skill evaluation remain separate completion work. This framework must integrate that capability rather than create a competing service-value method.
+Its three references own value/entity semantics, journeys/stories, and levels/implementation respectively. Seven evaluation cases and ten trigger examples are authored. The method review reports two exercises on the earlier service-focused draft; they are not validation of the renamed, broadened revision. The eight generated user-value adapters were subsequently committed at `52a377a25463019d848ffa3e910ffd94b74b5957`, whose required CI passed. Revised-skill evaluation remains completion work. This framework must integrate that capability rather than create a competing service-value method.
 
 The revision-2 note in Appendix B remains historical provenance. It is not the current name or delivery status. The proposal below uses `user-value` throughout.
 
 ### 13.2 Decision: skills express operations; references express the framework
 
-**Recommendation:** retain one common conceptual framework and expose three distinct operations as skills. Reuse `user-value` for questions of usefulness and `plan` for implementation sequencing. Make lifecycle maintenance a mode of authoring, with connection analysis and readiness reassessment invoked when material. Do not create one skill per profile, altitude, entity or document heading.
+**Ratified delivery decision (26 September 2026):** retain one common conceptual framework and expose all three distinct operations as skills in PR #250. Reuse `user-value` for questions of usefulness and `plan` for implementation sequencing. Make lifecycle maintenance a mode of authoring, with connection analysis and readiness reassessment invoked when material. Do not create one skill per profile, altitude, entity or document heading.
 
 The gap is a repeatable way for authors and reviewers to turn mixed intentions, contracts and evidence into dependable, appropriately sized accounts of reliance. A long reference alone does not tell an agent when to act, how far to go or what a completed result must preserve. Conversely, a skill for every noun would multiply routing ambiguities and duplicate definitions.
 
@@ -390,15 +392,15 @@ The gap is a repeatable way for authors and reviewers to turn mixed intentions, 
 | Reference only, using existing skills | Lowest new routing and maintenance burden | General cognition does not supply a repeatable specification output contract | Keep as baseline comparator and valid small-task route |
 | One large specification skill | One entry point and consistent vocabulary | Authoring, composition and assessment have different inputs, failure modes and edit authority | Retain a light entry route in `specify`; separate the two materially different operations |
 | A skill per profile or altitude | Easy topical discoverability | Confuses subjects with procedures; overlapping triggers, repeated semantics and compulsory-looking stages | Reject as the initial architecture |
-| Three operations plus shared references and existing capabilities | Direct invocation, bounded contracts, reuse and distinct evaluation | Adds handoff and version-management obligations | Preferred hypothesis; trial before adopting the whole family |
+| Three operations plus shared references and existing capabilities | Direct invocation, bounded contracts, reuse and distinct evaluation | Adds handoff and version-management obligations | Owner-ratified implementation scope; evaluate each skill before PR acceptance |
 
-The preferred shape is a design judgement, not a measured optimum. If a single authoring skill with optional modes performs equally well with lower effort, collapse the family. If seam analysis has no useful standalone tasks, fold it into authoring. A separate assessor is justified by a different task and output; a different skill name does not create independent assurance.
+The ratified shape is a design judgement, not a measured optimum. Comparisons with simpler approaches must still be retained. Evidence favouring fewer skills is a reason to propose a later owner-approved scope change, not permission to omit a ratified skill from this PR. A separate assessor is justified by a different task and output; a different skill name does not create independent assurance.
 
 ### 13.3 Skill contracts
 
-Names are proposed canonical names. Repository adapters would acquire the repository's normal prefix through generation. None of these three names is introduced as a live invocation by this document.
+These are the ratified canonical names. Repository adapters acquire the repository's normal prefix through generation. The document itself does not install them or make absent invocations live.
 
-| Proposed skill | Trigger and required input | Procedure and output | Boundary and stop |
+| Ratified skill | Trigger and required input | Procedure and output | Boundary and stop |
 | --- | --- | --- | --- |
 | `specify` | Define, repair or revise the properties, obligations or permitted variation of a named subject; input is scope/purpose, intended use and available authoritative material | Inspect existing representations; choose profiles; write concrete normal/adverse cases; distinguish claim kinds and authorities; specify observable obligations and freedom; attach evidence plans/status; reconcile affected records. Return a bounded specification, changes/correspondence, unresolved issues and eligible handoffs | Does not manufacture value evidence, implement software, approve deployment or require all profiles. Stop when another reader can interpret the named obligations and remaining uncertainty for the requested use |
 | `specify-connection` | Determine whether parties, components, representations or claims can be relied on together; input is identified endpoints, proposed relation, relevant contracts/versions and intended reliance | State both parties' obligations; compare supplied guarantees with required assumptions; inspect meaning, effects, authority, failure and change; expose additional composition obligations. Return a seam contract, compatibility argument, counterexamples, missing evidence and affected endpoints | No silent rewrite of endpoint authority; no inference from local correctness to system success. If an endpoint is unavailable, produce a provisional requirement on it and mark compatibility unassessed |
@@ -471,7 +473,7 @@ This is a proposed layout, not files present in the PR. The whole research repor
 
 The initial audience is the OCE Practice corpus: agents and people building systems. Clef-facing pedagogical skills belong to their own product/curriculum audience and would not be created by this landing. General applicability concerns the method's subjects; it does not erase the repository's audience and distribution boundaries.
 
-Use the existing capability-landing and adapter-generation routes when implementation is commissioned. Generate platform projections from canonicals; do not hand-write them to make a listing look complete. Update discovery and narrowly applicable routes from `user-value` and `plan` only after the target capability exists. Merely discussing the proposal in a report must not produce broken live skill links, permission entries or new mandatory rules.
+Use the existing capability-landing and adapter-generation routes to deliver the ratified scope. Generate platform projections from canonicals; do not hand-write them to make a listing look complete. Update discovery and narrowly applicable routes from `user-value` and `plan` only after the target capability exists. Merely discussing the proposal in a report must not produce broken live skill links, permission entries or new mandatory rules.
 
 No graph database, universal machine schema, new validator, background monitor or custom orchestration engine is required initially. Add a script only for a repeated deterministic operation with a real consumer. Preserve the host's execution restrictions and repository gates.
 
@@ -492,7 +494,7 @@ These are author walkthroughs, not executions of installed specification skills.
 
 The small cases can bypass the family when existing artifacts suffice. The larger cases select several operations because their reliance actually crosses boundaries. That variation is a design requirement, not an exception to completeness.
 
-### 13.8 Evaluation and proposed implementation sequence
+### 13.8 Evaluation and required implementation sequence
 
 The deciding claim is that the skill procedures improve useful precision and defect discovery without disproportionate authoring or maintenance cost. The document does not establish that claim.
 
@@ -502,17 +504,17 @@ The evaluation set should include: a valid tiny specification; deliberately inco
 
 Assess material omissions and false assurances, consumer interpretation, appropriate routing, unnecessary duplication, time/effort, and whether revision reaches affected consumers. Treat invented evidence or authority as substantive failures even if the prose is persuasive. Compare results by case and error type before aggregating. No universal pass percentage or sample size is asserted.
 
-A proposed implementation sequence, for a future authorised delivery pass:
+The implementation sequence for completing the ratified PR scope is:
 
 1. Implement the smallest `specify` procedure and shared references; reuse `user-value` inputs. Evaluate a tiny unit, a cross-boundary service and an exploratory project against the baseline.
-2. Extract `specify-connection` if standalone seam tasks or repeated embedded analysis demonstrate a distinct reusable operation. Test composition failures, including individually valid endpoints.
+2. Implement `specify-connection` as its own skill, reusing shared semantics. Test standalone seam tasks and composition failures, including individually valid endpoints.
 3. Implement `assess-specification` with independently prepared counterexamples and a valid-small-case control. Test its refusal to overclaim readiness or audit independence.
 4. Exercise a material revision across at least two connected artifacts; check identity, evidence freshness and compatibility propagation.
 5. Generate adapters, verify discovery and routing, execute relevant repository checks, and record exact evaluated skill versions before adoption.
 
-The three-skill architecture is the current target, not an instruction to build all three before obtaining discriminating evidence. No additional skill implementation is included in this document-update commission. The live PR already contains the separate `user-value` implementation; its existing completion work remains visible.
+All three specification skills must be implemented properly and evaluated within PR #250; their implementation is an acceptance prerequisite. Complete the existing `user-value` work and evaluate the changed `plan` routing as well. This ratification update records the delivery requirement; it does not claim implementation or evaluation has already occurred. Appendix E defines the required completion evidence.
 
-Reopen the proposal if users cannot select the right entry, handoffs lose claim status, assessment becomes ceremonial, semantic changes escape propagation, or a simpler baseline performs as well with lower effort. Keep an unresolved design question explicit: whether seam analysis deserves its own installed skill is best settled by actual usage rather than taxonomy alone.
+Reopen the design if users cannot select the right entry, handoffs lose claim status, assessment becomes ceremonial, semantic changes escape propagation, or a simpler baseline performs as well with lower effort. Report that evidence to the owner; do not silently reduce the ratified delivery scope. Utility remains a question for actual usage.
 
 ## 14. Parallax exploration and revisions to D2
 
@@ -728,3 +730,35 @@ S5 disposition: **qualified**; epistemic status: **provisional**. The design is 
 For a future adopter, the bounded return is: choose a named evaluator and effort budget; compare the initial authoring candidate with the existing-workflow baseline on the three contrasting cases in §13.8; retain outputs and material-error dispositions; then retain, simplify or reject the shape. The proposed evaluator role is unassigned, not a new commitment imposed on another person. Any invented authority/evidence, unrepresented critical semantic loss, or incompatible interpretation of a core obligation requires revision before consequential reliance. Repeated rerouting or baseline-equivalent quality with higher effort requires simplifying the family.
 
 Practice signal `SPEC-LEARN-02`: the expected gap was several new specification responsibilities; direct inspection showed that renamed `user-value` already owns much of the purpose/experience relationship method. The revision therefore reuses it and concentrates new procedures on obligations, connections and assessment. This is one observed overlap and a provisional design response, not a measured recurrent failure. Its durable carrier is this proposal and the companion PR relationship report; no standing skill or doctrine is silently rewritten.
+
+## Appendix E. Owner ratification and PR acceptance — 26 September 2026
+
+The owner's subsequent instruction was to ratify the skills, require their proper creation as part of this PR's acceptance, and require evals for all skills in the PR. This supersedes the earlier document-only commission and optional/future implementation wording in inquiry revision 2. It authorises the delivery scope below, not merge, deployment, universal adoption of the framework, or a claim that evaluation has passed.
+
+**Acceptance scope:** complete `user-value`, `specify`, `specify-connection` and `assess-specification`; evaluate the materially changed `plan` routing too. Every other skill added or materially changed before merge inherits the same evaluation requirement. Generated host copies are projections of these canonical skills, not separate conceptual skills.
+
+| Skill | Required capability and discriminating evaluation coverage |
+| --- | --- |
+| `user-value` | Human and technical consumers; conditional guarantees; composition; optional journeys; settled-work negative routing. Execute the broadened revision's seven cases and ten trigger examples, extending them where gaps emerge |
+| `specify` | Create, repair and revise bounded obligations; tiny engineering unit, cross-boundary service and exploratory project; preserve unknowns, identifiers, evidence and authority |
+| `specify-connection` | Endpoint assumptions/guarantees, semantic loss, incompatible composition, circular reliance, failure/recovery and change propagation; include locally valid but jointly failing endpoints |
+| `assess-specification` | Assess an exact revision for named reliance; valid-small-case control, seeded defects, stale/missing evidence and unauthorised readiness; distinguish assessment from acceptance and independence |
+| `plan` | Evaluate both conditional handoff for unresolved value/specification and direct implementation planning for settled work; preserve context and avoid mandatory ceremony |
+
+**Proper creation requires all of the following before acceptance:**
+
+1. Complete canonical skill files following the repository's skill conventions: actionable triggers, inputs, procedure, output contract, boundaries and stop conditions. Implement all three operations, with shared references for common semantics and working relative links. Preserve the broad subject range and the division of responsibility in §13.
+2. Integrate discovery, conditional handoffs and permissions where required. Generate host adapters using the repository's normal generator; commit and check the complete output. Do not hand-write projections or add broken live routes to absent capabilities.
+3. Give every in-scope canonical skill a discoverable `evals/evals.json` and any necessary input fixtures. Include normal, adverse/boundary and negative-routing cases, with expected outcomes and substantive assertions. Include a cross-skill exercise through value, specification, connection, assessment and planning that checks preserved claim status and a material revision.
+4. Execute and retain evaluation evidence for the actual skill versions delivered. Record the skill/reference versions, model/runtime configuration, prompts, fixtures, output artifacts, assertion-level results with evidence, and a per-skill result/limitation summary. Keep inputs suitable for repository publication. An authored fixture, author's walkthrough, old-version exercise or CI green result alone cannot close this criterion.
+5. Apply the evaluation method below, review observed failures, improve general instructions and rerun affected cases after material edits. Require all declared critical semantic/authority assertions to pass; unresolved substantive failures block acceptance. Record case coverage and quality/cost trade-offs rather than substituting an arbitrary aggregate threshold. Name the evaluator and human output reviewer when execution begins; unperformed review remains pending.
+6. Reconcile the framework, relationship report and PR description with the implemented estate; retain current evidence links. Required repository checks must pass on the final PR head. Keep the PR draft until implementation, evaluation, review and final-head validation are complete.
+
+**Evaluation method.** Follow [Agent Skills: evaluating skill output quality](https://agentskills.io/skill-creation/evaluating-skills) (accessed 26 September 2026): use realistic varied cases, clean contexts, a with-skill comparison against no skill or an earlier version, retained outputs, evidence-backed assertions, timing/token data where available, and human inspection of outputs alongside scores. Review case-level differences and cost, refine general instructions, and rerun. Document unavailable measurements rather than inventing them; report variability only when repeated runs support it. Early exploratory assertions may be refined transparently before the acceptance run, without silently weakening critical expectations to fit outputs.
+
+The skill-specific coverage, critical-failure rule, integration exercise and final-head requirement above are this PR's acceptance decisions. They are not represented as universal requirements imposed by the external guide. Evaluation can expose reasons to revisit the architecture, but changing this ratified scope requires an explicit owner decision.
+
+**Observed state at ratification.** Head `52a377a25463019d848ffa3e910ffd94b74b5957` contains 20 changed paths: the prior 12 plus eight generated user-value files. All reported checks, including `run-quality-gates`, succeeded on that head. The three specification canonical skills and plan evals are absent; the broadened user-value fixtures have no executed evidence in the inspected PR. CI success establishes that head's repository checks, not fulfilment of these new acceptance criteria. Later commits require their own verdict.
+
+
+Concurrent intake reconciliation: the subsequent `f41ad8e789babdb0d772b4af88b7803ebe0dfd67` source edits and private-upstream citation are preserved in this revision. User-value changed again, so evals must cover that revised source and any later material changes. The reported lack of a fixture runner does not waive acceptance: execute through an appropriate harness or clean sessions and retain evidence.
