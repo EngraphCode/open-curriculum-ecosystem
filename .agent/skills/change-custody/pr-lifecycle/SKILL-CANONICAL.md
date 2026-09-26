@@ -1730,11 +1730,15 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   coordination PR per repository. The limit is the number of implementer
   seats (three at its adoption), and no PR opens while the count is at the
   limit or over it. Before opening, the opener reads the count first-hand
-  from the forge for every repository (`gh pr list --repo <owner>/<name>` on
-  GitHub, the target always named) and posts "WIP slot taken: N of <limit>"
-  on the coordination stream, the same serialiser as the landing slot. A
-  branch's first push is followed at once by its PR, never left standing: a
-  pushed branch with no PR is unfinished work outside review.
+  from the forge for every repository (`gh pr list --repo <owner>/<name>
+  --state open --limit 1000` on GitHub: the target always named, and a limit
+  above the default page of thirty), posts "WIP slot taken: N of <limit>" on
+  the coordination stream, then reads the stream again: where another seat's
+  line for the same slot carries an earlier `created_at`, the later seat
+  yields and waits for the next free slot. The stream is the same serialiser
+  as the landing slot. A branch's first push is followed at once by its PR,
+  never left standing: a pushed branch with no PR is unfinished work outside
+  review.
   Every PR counts from the moment it opens, external ones included
   (dependency bumps, fork syncs, content) and those authored on a host that
   cannot run code; the Director takes each on at once, analyses it and
