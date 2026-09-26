@@ -227,3 +227,36 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
 - **The weekly usage limit ends subagent reviews mid-flight.** Four focused reviews of PR 246
   died on it at once. A lane whose PR needs specialist reviews checks the limit's reset time
   before launching them, and the PR stays a draft until they run.
+
+## 2026-09-26 ~10:05Z — a substring matcher in the guard and one in my own hand; the generator outlives the ruling (Myrtle turns Canopy, bf4957)
+
+- Surprise: the hook policy refused two of my commands as forced pushes because the word
+  "push" in a heredoc's prose sat before a bare `-f` on a process lookup (F-207's third and
+  fourth instances). An hour later my own check for a failed comms send was a grep for the
+  letters "rror", which matched the word "error" in the message's prose that the tool
+  echoes, and I resent the same event twice. Expected: a check I wrote checks what it names.
+  Read: the same defect shape in the estate's guard and in my instrument, on the same day; a
+  probe of my own was never run against its pass case and its fail case before it steered me.
+  Cure taken: the send check reads the tool's event id. Routing: `verify-dont-trust` already
+  says it; the general form (run your own probe against both cases first) is a candidate line
+  for the metacognition directive's fluency section, n = 2 instruments in one day, one seat.
+- Surprise: the curator-passes directory grew for three months after the rule that forbade it
+  and PDR-081's amendment log recorded the supersession (2026-06-14); my own pass record of the
+  morning was file thirty, written because the skill's step 6 still ended "in the
+  curator-passes directory". Read: a ruling recorded in a decision log is not a cure while the
+  sentence that generates the surface stands; the Director's ruling named it ("cure the
+  GENERATOR in the same PR"). Routing: `permanent-doc-is-the-consolidation-record` §Action 2
+  already says the instruction is the anti-pattern; the generalisation (retire a surface by
+  deleting its generating sentence, in the same change) is a candidate for `no-tombstones` or a
+  new rule at the second instance.
+- Surprise: seven real findings on the joint bot-identity text arrived after the second estate
+  had merged it (two from its final-tip review, five from this estate's two rounds), all on
+  shared bytes, so the merged twin must re-take three cures by blob. Read: the protocol both
+  seats agreed ("cured jointly before either copy lands") was broken by the landing, not the
+  reviews; the twin's door should wait for both copies' legs. Routing: PDR-142's next
+  amendment candidate (the Director holds the proposal from the wrap's pickup).
+- Observation, for the Director: every sync merge at the slot re-opens a review round that
+  raises new findings on unchanged text (PR 241 six, 216 five, 227 one, 229 one in one
+  evening); the up-to-date ruleset plus "legs on the synced head" plus non-deterministic
+  reviewers is a divergent loop by construction. Proposal in the pickup (legs bound to the
+  content head on a clean sync; a merge queue). n = 4 PRs, one evening, two seats.

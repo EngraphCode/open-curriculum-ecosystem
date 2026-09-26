@@ -435,6 +435,36 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **COMPACTION BOUNDARY, 2026-09-26 ~10:0xZ — Myrtle turns Canopy (bf4957) stops at the owner's
+  word** ("prepare for compaction … then stop all processes", 09:48Z, repeated 10:05Z). The
+  harness paused from 22:32Z to 09:49Z; nothing on the stream moved in that window. Landed this
+  seat: PRs 215, 225, 227, 230 and 242 merged (db7517e1e, 619ca82b8, 185c15d2b, 6a0045eb7,
+  8c9434ae3). Open, this seat's, every branch level with its remote (verified by ref at the
+  wrap): settled with both legs and zero threads, waiting for slot turns in the Director's order
+  — 226 (4113ffa10, next), 229 (cabf4fcb9), 231 (a05a3fcc8), 232 (732d774c7), 234 (c7f0b0b71),
+  235 (0ecf0772a), 236 (7a64de6ae), 238 (8516b7594), 218 (14c1f5fff), 220 (d4963dfa2), 221
+  (f4441ba00), 240 (c312a6930), 217 (1f4858e20), 237 (8ed383df3, after 217), 243 (cc451d7ff);
+  216 (0444fcaab, both settlement pushes spent; round three's one finding, that the bot form of
+  the marker should say "an agent", took a signed line and is routed to the second estate as
+  the next joint change to identify-as-agent); 245 (fee8d2a68, one open round-one finding: the
+  parked plan `large-corpus-analysis-runbook-build-and-prove.plan.md` still points at the deleted
+  wren run record; the cure is that plan's pointer line, settlement push 1 on resume). Swallow
+  yielded PR 241's slot at 09:50Z with six findings for a Director ruling; Gale pushed PR 211's
+  cure (00a23728b) and stood down; the Director paused at boundary 5 with the folds (JC.net PR
+  189, this estate's PR 223) as its first act on resume. Every batch-six row is in a PR;
+  batch six's landed rows: J15 (227). Proposals for the Director's ruling, from this seat's
+  exploration at the wrap: (1) a clean sync merge (no diff in the PR's own files) re-runs CI
+  and keeps the legs bound to the content head, since a review's object is the diff and every
+  sync today re-opens a round that raises new findings on unchanged text (241: six, 216: five,
+  227: one, 229: one); (2) a GitHub merge queue on engraph, with merge-bot enqueuing, is the
+  serialiser the readiness slot hand-runs; (3) a joint text's twin does not merge before both
+  copies' legs settle (PR 208 landed at its round two while this copy had no review, and then
+  took three cures by bytes). Records: this seat's formation letter
+  `.agent/experience/2026-09-26-myrtle-turns-canopy-formation-letter.md`; its handoff record
+  `.agent/state/collaboration/handoffs/bf4957-myrtle-turns-canopy-exchange-lane-handoff-2026-09-26.md`
+  (local; the re-arm recipe, the gate queue's mechanics, the claims, the open threads). Claims
+  retained for the open PRs; the seat's own lane claim a63a7df8 retained. Every monitor, the
+  gate-queue runner and the heartbeat loop are stopped at the end of the wrap.
 - **22:0xZ to 22:3xZ:** PR 242 merged 8c9434ae3 at 22:24Z (row L12's three joint cures, one set
   of blobs with the second estate's PR 206; receipt sent, claim closed, worktree and branch
   gone); the slot yielded to Swallow's PR 241, then this seat's PR 226. PR 216 took the second

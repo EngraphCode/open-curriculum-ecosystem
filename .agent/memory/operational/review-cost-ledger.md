@@ -130,6 +130,23 @@ budget, and #146 exempted syncs only. No weight changes; the CI-cure reading wai
 | 2026-09-26 | #244 | 1 | 0 / 40 | within | the opening head, pending its legs on the diff-cleaning sync `bf4ceb23e` | agreed — within | open; B0, the rollout evidence cure |
 | 2026-09-26 | #246 | 0 | 0 / 40 | within | draft; four focused reviews owed after the weekly usage limit resets | n/a — no reviewed head yet | open draft; the branch guard, F-190's commit half |
 
+| 2026-09-26 | #211 | 2 | 10.64 / 40 | within | after settlement push 2, `00a23728b`; its review is pending, so this is the stop budget rather than a final review verdict | agreed at the pre-push gate on 2 reviewed heads (opening `20fbdd2eb`, settlement `a623bfddb`); the survey has no reviewed `00a23728b` round yet | open at `00a23728b`, base `engraph`, merge state DIRTY; the metadata-only provenance cure was user-approved and pushed with normal hooks. The review thread `PRRT_kwDORdPTys6mBDWS` remains unresolved. Re-survey after final review or merge; no further cure push is assumed. |
+| 2026-09-26 | #215 | 2 | 6.92 / 20 | within | after settlement push 1 (the wording cure) | agreed — within | merged db7517e1e; the ARC-only-where-s2s-cannot-reach clause |
+| 2026-09-26 | #225 | 5 | 34.91 / 40 | warn | after settlement push 2 (the quote-whole cure); rounds three and four were the Director's provenance rulings and a sync, each with one observation dispositioned | agreed — warn at round four, no refusal | merged 619ca82b8; PDR-142's amendment, one blob in both estates |
+| 2026-09-26 | #227 | 2 | 0 / 40 | within | after round one (no findings); round two's one finding on the sync head dispositioned under a ruling | agreed | merged 185c15d2b; batch six's first landing |
+| 2026-09-26 | #230 | 2 | 0 / 40 | within | after round one | agreed | merged 6a0045eb7; PDR-009's wording, one blob in both estates |
+| 2026-09-26 | #242 | 3 | 8.41 / 20 | within | after round one; round two was a sync with no findings | agreed | merged 8c9434ae3; row L12's three joint cures |
+| 2026-09-26 | #216 | 3 | 31.41 / 40 | warn | after settlement push 2 (round one's four joint cures, round two's one); round three's finding takes a signed line | agreed — warn at the declared stop | open at 0444fcaab; the joint bot-identity core, seven findings on shared bytes across both estates |
+| 2026-09-26 | #218 | 2 | 0 / 40 | within | after settlement push 1 (the missing test and the seed list) | agreed | open at 14c1f5fff, settled |
+| 2026-09-26 | #221 | 2 | 5.92 / 20 | within | after settlement push 1 (the first-pass heartbeat wording) | agreed | open at f4441ba00, settled |
+| 2026-09-26 | #226 | 2 | 4.23 / 40 | within | after settlement push 1 (the cold recipe's --ignore-scripts and the adapter's description) | agreed | open at 4113ffa10, settled |
+| 2026-09-26 | #229 | 3 | 16.84 / 40 | within | after settlement push 2; round three's observation dispositioned as ruled (the quick-start's copy target rides the next change) | agreed — within at the stop | open at cabf4fcb9, settled |
+| 2026-09-26 | #232 | 2 | 4.64 / 40 | within | after settlement push 1 (the unwrapOrThrow row) | agreed | open at 732d774c7, settled |
+| 2026-09-26 | #235 | 2 | 3.9 / 40 | within | after settlement push 1 (the inputs paragraph names the gap; the input landed as PR 243) | agreed | open at 0ecf0772a, settled |
+| 2026-09-26 | #240 | 2 | 3.63 / 20 | within | after settlement push 1 (the routing sentence) | agreed | open at c312a6930, settled |
+| 2026-09-26 | #243 | 1 | 0 / 40 | within | after round one (no findings; the config review's eight further inputs taken before the push) | agreed | open at cc451d7ff, settled |
+| 2026-09-26 | #245 | 1 | 24.25 / 40 | within | round one carries one open finding at the stop; the seat's reading is after settlement push 1 once it is cured on resume | agreed — within | open at fee8d2a68; the curator-passes retirement, forty files |
+
 ## Weight changes
 
 | Date | Change | Against which rows | By |
