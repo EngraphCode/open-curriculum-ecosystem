@@ -4187,3 +4187,24 @@ commit SHA and the closing plan reference.
   the first commit on the default branch whose message fails `commitlint --strict`, or the
   wrapper's landing slipping past the Codex seat's first unattended commit.
 - **Owner direction status**: session-scoped (the Director's assignment to record it).
+
+### F-210 — the search CLI's smoke check is run by no CI task
+
+- **Source**: Codex's review of PR 217 (comment 4111807938, 2026-09-26 15:23Z), reading
+  tdd-as-design's landing sentence literally against the estate's tasks.
+- **Surface**: `apps/oak-search-cli/vitest.smoke.config.ts` (`test:smoke`, which needs
+  `ELASTICSEARCH_URL` and `ELASTICSEARCH_API_KEY`); `.github/workflows/`, which names no smoke
+  task; `turbo.json`, which has no `test:smoke` task.
+- **Observed**: 2026-09-26. `testing-strategy.md` §Smoke Checks says each smoke check is run by
+  a CI-gated task, never by the commit; this one is run by nothing, so the artefact-viability
+  proof it names has no runner, and a reader of the landing sentence meets a check no landing
+  can establish.
+- **Expected**: every smoke check runs in a CI-gated task with its credentials, or is retired
+  with its reason recorded.
+- **Candidate cure**: a workflow job holding the Elasticsearch secrets that runs the search
+  CLI's `test:smoke` on the default branch's push or on a schedule; or the check's retirement.
+- **Target surface**: `.github/workflows/` and `turbo.json`.
+- **Status**: open, an observation (recorded 2026-09-26); a code lane for the Director's
+  routing. The directive sentence itself is joint text, settled through the exchange (the
+  second estate's PR 216, ba177801c) as "every test and check the landing's gates run".
+- **Owner direction status**: session-scoped (this seat's record of a reviewer's finding).

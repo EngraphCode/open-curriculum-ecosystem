@@ -435,6 +435,24 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **THE DOOR, 2026-09-26 15:0xZ to 16:1xZ (Myrtle turns Canopy, bf4957):** PR 251 merged
+  `ab87aa13a` at 15:11Z at the slot (both legs on the synced head 8831af66e, Codex's leg a
+  completion comment; receipt 1ec860d6 with the five blobs; worktree and branches deleted with
+  read-back). PR 221 merged `b5c5d726e` at 16:16Z at the slot (synced head 7ca0fe8ec; the sweep
+  read whole, every removed line a cadence rewording). Between them PR 255 (Phobos wakes Void,
+  one file) and PR 252 (Siren) by the size order. PR 245: Copilot's round on the cure head found
+  three live references to the retired per-pass record (the napkin's 13:25Z entry, the thread
+  record's inventory, three current plans' proof contracts), cured at `70bcad4fe`, threads
+  resolved, both legs clean; its reconcile against engraph (pending-graduations.md, two blocks:
+  both deletions stand, both added table rows stay) is a tested script for its turn. PR 217:
+  Codex's P1 on the recipe cured at `b7be2d0a5` (a real DI seam, probed first); the next round's
+  two (the template's trigger and checklist, the recipe's over-claim) at `6cc06f0c2`; Codex's P2
+  on the joint landing sentence dispositioned as routed. The second estate's joint change (its PR
+  216, ba177801c) settled three items: the item-12 header and the landing sentence sit on 217 as
+  `f7408b78b`, pushed with its sync at its turn; the preflight line rides the next bot-identity
+  change. Claim 9ac28d45 closed stale. Lane 6: seven local merged branches deleted with
+  read-back (a387cf8f). Register: F-210, the search CLI's smoke check run by no CI task. Two
+  runner frictions in the napkin. Records f6af2762d and this commit.
 - **RESUME at the owner's start-right word, 2026-09-26 14:4xZ to 15:0xZ (Myrtle turns Canopy,
   bf4957):** the 13:1xZ pause (event 0e96a30f) promised this window's records "before the stop";
   the usage limit cut that turn, so they land here. Since 12:2xZ: the 214 doctrine twin rides

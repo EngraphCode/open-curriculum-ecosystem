@@ -452,3 +452,19 @@ the reason to write it down: the rule protects the host from load the seat canno
 reading printed for a human to act on is not a reading acted on. **Cure applied from here:** the
 push line is conditional on its own read (`[ "$(count)" -lt 2 ] && push`), and the wait loop is
 re-run immediately before the push, not before the commit that precedes it.
+
+## 2026-09-26 ~15:1xZ — a queue with no lock, twice; a piped exit code in my own hand (Myrtle turns Canopy, bf4957)
+
+- Surprise (15:08Z): `check-commit-message | tail -n 1 && printf ... >> queue` appended a lane
+  line with its commit message unwritten: the pipeline's status was tail's, and an earlier
+  failure in the same command list had already skipped the heredoc that wrote the message. The
+  runner refused the message (rc 91) and nothing landed. Read: exit-codes-in-band-never-piped,
+  in the seat that cites it; cure taken: a prep script per lane with `set -e` and each check's
+  status read in band. n = 1 here; the rule holds the class.
+- Surprise (15:13Z): a second gate runner started past a liveness check that read no runner in
+  the same second the first runner showed in the next listing; it read line 1 (the 245 lane,
+  mid-commit in the first runner) and began a second add and commit in the same worktree;
+  killed with its tree within a minute, the first runner's commit and push unharmed, the queue
+  file intact. With the dropped line at 13:1xZ, the lockless runner's second instance in a day:
+  the shape is a pid file the runner refuses to start over while it names a live process.
+  Routing: the frictions register at the next instance; the scratchpad script now.
