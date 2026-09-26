@@ -384,3 +384,15 @@ pass record is `curator-passes/2026-09-25-myrtle-turns-canopy-dedicated-consolid
   ends the line. Routing: the identify-as-agent rule's next joint change carries the form; the
   general lesson (a convention with a machine reader is tested against the reader before it is
   agreed) joins the n = 5 "check that does not check" family as its sixth member.
+
+## 2026-09-26 ~13:1xZ — a cure designed before its cost was measured (Swallow holds Drift, 516619)
+
+- Observation (12:55Z): this seat designed the sync-lineage cure (a review leg binds a head whose
+  content against the default branch equals the reviewed commit's) from a felt cost, "every sync
+  re-runs both legs on unchanged text", and the pre-execution code-expert review measured it: of
+  seven tip moves across eleven reviewed tips on PRs 241, 216, 227 and 229, one was sync-only; the
+  rest carried content. The mechanism held under the review (verbatim patch-ids, the compare
+  endpoint, an empty diff reads unproven); the yield did not. The Director narrowed ruling 7's
+  premise on the datum and deferred the build. Read: a cost the seat feels is a hypothesis; the
+  survey and the review history are the instrument, and reading them takes one agent-hour less than
+  building the cure. n = 1.

@@ -4123,6 +4123,10 @@ commit SHA and the closing plan reference.
   runner check by `pgrep -f`; the general form of the substitution is a process listing piped
   to `grep`, and the rule for the hand is no bare `-f`, `-A` or `.` token anywhere after the
   verb the matcher pairs it with, whatever the tool that takes it.
+  An eighth (2026-09-26 12:47Z, Swallow holds Drift, `516619`): a command line carrying `merge-bot
+  push` and, later, `gh api … -F body=@file` was refused as `git push -f`; the matcher reads the
+  uppercase `-F` as the flag too, case-folded. The substitution is the push and the replies on
+  separate command lines, and `--field` in place of `-F` where a line must also say push.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 

@@ -82,6 +82,59 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **COMPACTION BOUNDARY 3 (about 13:15Z, 2026-09-26), at the owner's word "prepare for compaction, and
+  then stop all processes".** The seat stopped its monitors, its heartbeat, the door poll and its idle
+  review agents; nothing of this seat's runs. Every claim below is read live before any act on resume.
+  - **Landed this segment:** PR 223, the fold, as `b8432103a` through Myrtle's door (this seat's cures
+    `b8de68b16`); PR 248 as `2c75350a9` through this seat's door at 12:35:57Z (sync `6b638d7c5`);
+    PR 224, the owner's draft, as `43eb62a55` at 13:08:50Z through this seat's door (synced
+    `a04138374`; two Copilot vocabulary contradictions cured in `d30cfde33`, settlement push 1; the
+    second round's two findings disposed with signed lines: the owner's private provenance and the
+    plan's proposed validator names, both owner-card lines).
+  - **Open, this seat's: PR 246** (13 files; the round-one cure `75c655504` committed in worktree
+    `oce-wt-branch-guard`, UNPUSHED). The cure: the guard's own refusal when `git branch
+    --show-current` fails; `resolveTrustedShell` (a Result over a fixed allowlist, six unit tests)
+    and `trustedShell()` beside `trustedShellPath()`; the shim `git-without-show-current.ts`; the
+    smoke under plain `sh`; two smokes' comments made true. code-expert APPROVED after the S4036
+    fix, test-expert APPROVED. Its turn is after PR 221 (Myrtle) in the size order: one sync merge
+    of the default branch in the worktree, then ONE `merge-bot push` carrying cure and sync, then the
+    description's round-one block (three findings and the cure; the draft is re-derivable from the
+    commit message and the three threads `PRRT_kwDORdPTys6mQPNJ`, `…6mQPyD`, `…6mQPyF`), three
+    replies ending with the signed line, resolve, both legs re-requested, the door. Claims retained
+    for it: `d66f85da`, `56e5f0c5`, `8af60aaa`.
+  - **Next code PRs, in the Director's order (12:55Z, and the s2s ruling after):** the DEGRADED-scan
+    cure in `merge-bot push` (it pushes to a URL, so the pre-push secret scan loses its destination
+    scope on every bot push; push to the configured remote by name, or pass the remote name to the
+    scan's range computation; one test: a bot push against a configured remote yields a scoped scan
+    and no DEGRADED line; JC.net takes the code by the next carrier); then the sync-lineage cure (P1)
+    only when the survey shows sync-only tip moves costing rounds. Its revised design is
+    `.agent/reports/agentic-engineering/2026-09-26-sync-lineage-binding-design.md`.
+  - **Records this segment:** `93f1cd0f0` (the cures promised on PR 223, the fold, three napkin
+    observations) and this commit (the ledger rows for 248 and 224, F-207's seventh instance, the
+    design report). Owner-card lines routed through the Director: PR 224's provenance pointer; its
+    proposed validator names; a Codex seat for condition 5 (the Director's queue).
+  - **Deletions, read back on comms:** PR 248's worktree, remote and local branch (the local one from
+    the 224 worktree after unsetting a stale upstream to PR 211's remote branch); the emfile worktree
+    and branch; PR 224's worktree, local and remote branch. Remaining for the owner's hand:
+    `docs/codex-queue-probe-2026-09-25` (`ae110f662`, never pushed) and
+    `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`), forced deletes refused.
+  - **Parallax on this segment, questioned and recorded:** (1) disposing three PR 244 stalenesses
+    on the fold as "cured in the next commit" rather than pushing kept the fold's checks from
+    restarting for six queued PRs, at the cost of three false lines merged for seventeen minutes; the
+    cure landed at 12:26Z as promised; held. (2) Curing two lines of the owner's doctrine in PR 224
+    at the Director's routing sat within the PR's own bar and is reversible, named in the reply and
+    the description; the exposure is the owner's wording preference. (3) The sync-lineage cure was
+    designed from a felt cost before the cost was measured; the pre-execution review measured one
+    sync-only tip move in seven, and the Director narrowed ruling 7's premise. Read: measure the base
+    rate before designing the cure. (4) Eight replies read as unsigned to the instrument (the survey
+    prices 248's sync head at 33.43 partly for that); the signed line is corrected from 12:2xZ. (5) A
+    chain left running through the morning's pause wrote to PR 223 a minute after the taker-over; this
+    pause stops every process.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` (three claims), `heartbeat-label.txt` and `heartbeat-branch.txt`
+    (`coordination/2026-09-26-b84321`); the comms watcher (`comms watch --platform claude --model
+    claude-fable-5-1 --supervisor-pid <this session's pid>`); `comms assert-watcher-live`; then the
+    live state of PRs 246 and 221 before any write.
 - **RESUMED (about 11:27Z, 2026-09-26) at the owner's "carry on", after compaction 2.** Read live
   first: the fold chain had completed (sync merge `86fcf2d57` pushed; PR 223 ready, body and legs at
   11:24Z), and Myrtle turns Canopy had taken the fold's remainder at 11:25Z, so two hands wrote
