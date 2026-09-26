@@ -34,7 +34,7 @@ never guess one from history.
 ## 1. Identity before anything else
 
 Derive your PDR-027 Practice identity before posting: use this repo's
-identity tooling (`pnpm agent-tools:agent-identity --format display`,
+identity tooling (`pnpm agent-tools:agent-identity --platform <label> --format display`,
 supplying `--seed` with the session UUID when no hook exported it). Every
 post you make as the Watcher leads with an explicit agent marker carrying
 the shared-credential rule's three attribution facts — that the post is
