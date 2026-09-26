@@ -44,8 +44,9 @@ block in the ADR index:
   across human-agent systems, inquiry, and the Practice.
 - Algorithm and data-structure foundations (a documented direction; no
   implementation has landed yet): [ADR-230](./architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md)
-  records the owner-established direction to author SMALL Reliable Atoms and
-  meaningful compositions, informed by openly licensed references. The
+  records the owner-established direction to author Capability Foundations:
+  small completed Primitives and meaningful compositions, informed by openly
+  licensed references. The
   [governing policy](./foundations/algorithms-and-data-structures-governance-2026-09-08.md)
   owns scope, research and qualification; the [bundle index](./foundations/foundations-bundle-index-2026-09-08.md)
   locates the graph and non-graph contracts, requirements and worked examples.
