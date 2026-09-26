@@ -4129,6 +4129,17 @@ commit SHA and the closing plan reference.
   runner check by `pgrep -f`; the general form of the substitution is a process listing piped
   to `grep`, and the rule for the hand is no bare `-f`, `-A` or `.` token anywhere after the
   verb the matcher pairs it with, whatever the tool that takes it.
+  An eighth (2026-09-26 12:47Z, Swallow holds Drift, `516619`): a command line carrying `merge-bot
+  push` and, later, `gh api … -F body=@file` was refused as `git push -f`; the matcher reads the
+  uppercase `-F` as the flag too, case-folded. The substitution is the push and the replies on
+  separate command lines, and `--field` in place of `-F` where a line must also say push.
+  A ninth (2026-09-26 15:03Z, Swallow holds Drift, `516619`), twice in five minutes: a heredoc
+  writing a TypeScript file whose warning text said "git remote add <name> <url>, then git push
+  <name>) to restore the destination-scoped range" was refused as `git restore`, the
+  worktree-destruction class, and the register entry describing that refusal was refused the same
+  way; the words `git` and `restore` on one line of prose are enough. The substitution is the
+  Write and Edit tools for any file content that speaks of git, and prose that keeps the two words
+  apart.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 
@@ -4182,3 +4193,24 @@ commit SHA and the closing plan reference.
   the first commit on the default branch whose message fails `commitlint --strict`, or the
   wrapper's landing slipping past the Codex seat's first unattended commit.
 - **Owner direction status**: session-scoped (the Director's assignment to record it).
+
+### F-210 — the search CLI's smoke check is run by no CI task
+
+- **Source**: Codex's review of PR 217 (comment 4111807938, 2026-09-26 15:23Z), reading
+  tdd-as-design's landing sentence literally against the estate's tasks.
+- **Surface**: `apps/oak-search-cli/vitest.smoke.config.ts` (`test:smoke`, which needs
+  `ELASTICSEARCH_URL` and `ELASTICSEARCH_API_KEY`); `.github/workflows/`, which names no smoke
+  task; `turbo.json`, which has no `test:smoke` task.
+- **Observed**: 2026-09-26. `testing-strategy.md` §Smoke Checks says each smoke check is run by
+  a CI-gated task, never by the commit; this one is run by nothing, so the artefact-viability
+  proof it names has no runner, and a reader of the landing sentence meets a check no landing
+  can establish.
+- **Expected**: every smoke check runs in a CI-gated task with its credentials, or is retired
+  with its reason recorded.
+- **Candidate cure**: a workflow job holding the Elasticsearch secrets that runs the search
+  CLI's `test:smoke` on the default branch's push or on a schedule; or the check's retirement.
+- **Target surface**: `.github/workflows/` and `turbo.json`.
+- **Status**: open, an observation (recorded 2026-09-26); a code lane for the Director's
+  routing. The directive sentence itself is joint text, settled through the exchange (the
+  second estate's PR 216, ba177801c) as "every test and check the landing's gates run".
+- **Owner direction status**: session-scoped (this seat's record of a reviewer's finding).

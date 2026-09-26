@@ -435,6 +435,110 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
+  PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
+  synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule
+  (Copilot: the rule's triggers are the cut and session-open while the Director's check-ins are
+  the practised reader of the DUE clock; Codex: reading the cut time from the first own commit
+  can only run late, so the rotation broadcast's created_at is the source), both signed as routed
+  to the exchange under the PR's review focus and accepted by Siren onto the second estate's owed
+  list (20:14Z; the cure lands in the first copy, its twin follows); merged `527eb969c`; receipt
+  ecbed367 with thirteen blob ids; claim 5db88c58 closed; worktree and branches deleted with
+  read-back; 3 rounds, 7.07/40. PR 217 (the test-doctrine intake, 13 files) synced at
+  `c8c43bf2c`, both legs, merged `320c146ea`; receipt 585bfc9e; claims a63a7df8 and 7472b49c
+  closed; worktree and branches deleted with read-back; 9 rounds, 30.4/40, the intake's
+  one follow-up (ADRs 078, 141, 180 and 229 and the "pre-invariant" wording outside this PR's
+  claim) still owed, no PR under the WIP limit. Open of this seat's: 245 alone (45 files, DIRTY;
+  its reconcile scripted, at its turn after 253, 246 and 256). Records `b9f7c43e4` at 20:03Z.
+- **RESUME AND THE DOOR, 2026-09-26 19:1xZ to 19:5xZ (Myrtle turns Canopy, bf4957):** at the
+  owner's start-right word after the pause; nothing of the seat ran (verified by pid), the
+  watcher and heartbeat loop re-armed, the four lane worktrees clean and level. The slot in the
+  size order among CLEAN: PR 257 (Swallow's, 4 files, under its standing consent) synced at
+  `d840894b8`, both legs on the synced head (Copilot's one finding, stale tracking refs after a
+  remote URL rewrite entering the scoped exclusion, a property of the name-scoped exclusion
+  before the change too, dispositioned as a follow-up for the secret-scan lane with a signed
+  line), the sweep read whole, merged `e80122437`; Swallow retired the lane and wrote its
+  ledger row. PR 259 next: synced at `691650c84`, both legs, merged `d7f78b161`; receipt to Siren
+  with the five blob ids (1d9124ed); claim e0d59837 closed; worktree and branches deleted with
+  read-back. PR 217: Codex's round seven (the composition-check parenthetical's "no sentinel"
+  clause, which read as a ban on the sentinel-content assertion the directive prescribes) cured
+  in `2b83adf09`; its round eight (the recipe's auth-toggle case read as a flag's gated
+  surface) below the bar with a signed line (the recipe asserts a relation to its injected
+  runtime config with the tool's posture injected, and `dangerouslyDisableAuth` is a
+  runtime-config field, not a flag of the feature-flags engine the directive's bullet governs);
+  CLEAN at 13 files, eight rounds, 30.4/40. The owner's words through the Director, absorbed: a
+  WIP limit of three non-coordination pull requests across both estates plus one coordination
+  PR each (19:28Z; no PR opens while the count reads three or more; this seat opens nothing and
+  drains its own); a cloud-authored PR is team intake, checked out and gated locally (19:38Z;
+  PR 250 routed to Swallow). Order after 259: 249 (13), 217 (13), 253 (16, Siren), 246 (20,
+  Swallow), 256 (30, Siren), then 245 (45) reconciled at its turn by `turn-245-sync.sh`.
+- **COMPACTION PAUSE, 2026-09-26 16:3xZ (Myrtle turns Canopy, bf4957):** at the owner's word
+  ("prepare for compaction then stop all processes"). Since the door bullet: PR 259 open as the
+  bot at `653f48020` (the lineage twin of the second estate's settled joint items 1, 4 and 5; the
+  landscape's canonical file and its two regenerated adapter copies one blob, 9fc17802, with the
+  second estate's; the preflight line and the identity CLI's two texts byte-equal; claim
+  e0d59837), both legs requested, joins the ready list at 5 files once CLEAN. PR 217's two
+  settled hunks (`f7408b78b`) pushed at the pause as settlement push 5 with both legs requested
+  by the runner, so nothing local outlives the seat. Open of this seat's at the pause: 259, 217,
+  249 (CLEAN), 245 (clean, DIRTY; `turn-245-sync.sh` in the scratchpad reconciles at its turn).
+  The slot: 258 (Siren) at the door, 257 (Swallow) next, then 259 or 246 by size. Watcher,
+  heartbeat loop and waits stopped; the gate runner finishes the two queued lanes and exits.
+  Readings at the pause: the door's throughput was four landings in ninety minutes across four
+  seats once every seat read the same size order (a live ready-list artefact would replace the
+  reading); the unit of landing is a CLEAN pull request at the slot, and the exchange's twins
+  converge by bytes, not paraphrase.
+- **THE DOOR, 2026-09-26 15:0xZ to 16:1xZ (Myrtle turns Canopy, bf4957):** PR 251 merged
+  `ab87aa13a` at 15:11Z at the slot (both legs on the synced head 8831af66e, Codex's leg a
+  completion comment; receipt 1ec860d6 with the five blobs; worktree and branches deleted with
+  read-back). PR 221 merged `b5c5d726e` at 16:16Z at the slot (synced head 7ca0fe8ec; the sweep
+  read whole, every removed line a cadence rewording). Between them PR 255 (Phobos wakes Void,
+  one file) and PR 252 (Siren) by the size order. PR 245: Copilot's round on the cure head found
+  three live references to the retired per-pass record (the napkin's 13:25Z entry, the thread
+  record's inventory, three current plans' proof contracts), cured at `70bcad4fe`, threads
+  resolved, both legs clean; its reconcile against engraph (pending-graduations.md, two blocks:
+  both deletions stand, both added table rows stay) is a tested script for its turn. PR 217:
+  Codex's P1 on the recipe cured at `b7be2d0a5` (a real DI seam, probed first); the next round's
+  two (the template's trigger and checklist, the recipe's over-claim) at `6cc06f0c2`; Codex's P2
+  on the joint landing sentence dispositioned as routed. The second estate's joint change (its PR
+  216, ba177801c) settled three items: the item-12 header and the landing sentence sit on 217 as
+  `f7408b78b`, pushed with its sync at its turn; the preflight line rides the next bot-identity
+  change. Claim 9ac28d45 closed stale. Lane 6: seven local merged branches deleted with
+  read-back (a387cf8f). Register: F-210, the search CLI's smoke check run by no CI task. Two
+  runner frictions in the napkin. Records f6af2762d and this commit.
+- **RESUME at the owner's start-right word, 2026-09-26 14:4xZ to 15:0xZ (Myrtle turns Canopy,
+  bf4957):** the 13:1xZ pause (event 0e96a30f) promised this window's records "before the stop";
+  the usage limit cut that turn, so they land here. Since 12:2xZ: the 214 doctrine twin rides
+  PR 249 at `d36f732b4` with both legs and zero threads; the redundant doctrine lane (its branch,
+  worktree and claim c0f57c21) retired with read-back; dispositions posted and routed (249's
+  "zero target" thread, 217's item-12 thread, 251's preflight finding rejected on a first-hand
+  run under gh 2.97.0; events 06702a23, e19dcb6b); the 217 template row (`372b05aa0`) and 245's
+  two record files (`6d5accf1f`) cured through the gate queue at the pause. On the resume: team
+  start 9167e4ca; claim 9ac28d45 closed stale (its four rows graduated on engraph at `959bad6f9`
+  in the fold); 245's two threads and 217's template thread answered and resolved, both legs
+  requested on 245; PR 251 took the slot (1d9b118c), synced to `8831af66e`, both legs requested,
+  the sweep read clean (every removed line a joint rewrite); Codex's P1 on 217 (the in-process
+  recipe named a handler module no workspace holds, documentation-hygiene item 5's failure)
+  cured as the shape of the MCP server's check-mcp-client-auth DI test, run as a scratch test
+  and type-checked before the edit, settlement push 3 under PDR-140 clause 4. The door's order
+  at 14:5xZ: 251 (this seat), 252 (Siren, live), 221 (this seat), 246 (Swallow), 217 and 249,
+  245 after its reconcile; Phobos wakes Void (01a0de) is the Codex seat, first act P3. Ledger
+  rows for 249, 251, 217, 245 and 221 from the survey.
+- **THE OWNER'S SECOND BATCH BY HAND, 2026-09-26 11:13Z to 11:14Z (Myrtle turns Canopy, bf4957):** 234
+  (cf6012ebc), 244 (Swallow's, 4be54a077), 238 (634c5ccde) and 218 (e6cf8ee4c) merged by the
+  owner's hand under the ruleset bypass; engraph at e6cf8ee4c. This seat's three closed out: claims
+  closed with the merge commits, worktrees and both branches removed after verification with
+  read-back (deaf071b, 59e61931), receipts to Siren with file blobs (466ac772, eb72bab4). The
+  Director's check-in 25 (11:37Z): the ready list empty; PR 224 to the first free seat at its
+  size-order turn. Open of this seat's after this: 217 (its cure at 7de43823b, thread resolved),
+  221 (BEHIND, a windows-basic timeout flake on 29fa55407, re-synced at its turn), 245 (its last
+  settlement push 70023f0b7, both threads resolved). Siren's cost-model joint text (JC.net PR 212)
+  signed at 3841fa6d with one amendment and re-signed at d0c4c2be; the lineage's twin is this seat's
+  next moderate PR after the fold; PDR-140 clause 4's late-cure sentence conflicts with the
+  tip-bound leg and Siren's cure went to the Director (47da8f5c).
+- **ROTATION, 2026-09-26 12:09Z — the 2026-09-25 branch folded as #223 (`b8432103a`); the
+  successor is `coordination/2026-09-26-b84321`, cut from that tip by Myrtle turns Canopy (bf4957) for the paused
+  Director.** Records from here go to the successor; the heartbeat labels re-home on the rotation
+  broadcast; the estate-coordination thread record holds the tenure entry.
 - **THE OWNER'S HAND, 2026-09-26 10:32Z to 10:50Z, and the resume (Myrtle turns Canopy, bf4957):**
   the seat resumed at the owner's word ~10:30Z under a ratified plan (re-arm by id, three cures,
   the door in the Director's order, leftovers deleted under the owner's standing word of 10:2xZ:

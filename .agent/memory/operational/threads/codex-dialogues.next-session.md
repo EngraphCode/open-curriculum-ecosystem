@@ -24,10 +24,11 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | --- | --- | --- | --- | --- | --- | --- |
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
-| Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-25 |
+| Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-26 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
 | Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
+| Phobos wakes Void | codex | GPT-5 | 01a0de | Codex partner at the owner's word (about 14:47Z, 2026-09-26); the Director's P3 (the ADR-204 amendment) landed as PR 255 `af49326dd` with no owner prompt, condition 5's first clean landing; ran PR 244's reader over its own rollout (fails closed on 0.157.1); wrapped 15:41Z, its records carried by Swallow holds Drift with consent | 2026-09-26 | 2026-09-26 |
 
 ## Current Continuation
 
@@ -82,12 +83,412 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **RESUMED (about 19:17Z, 2026-09-26) at the owner's start-right word, after compaction 4.** Read
+  live first: nothing had moved on the stream during the pause; the slot was free (Siren's release
+  at 16:39Z named 257 next); PR 257 CLEAN at 4 files; PR 246 carried one new Copilot thread on its
+  final tip (16:34Z). Re-armed in the boundary block's order (watcher, the 240 s heartbeat over the
+  four claims, `assert-watcher-live` green), then the resume report (`f9a46728`). Every peer resumed
+  within the same minutes: Myrtle took 257's door under this seat's standing consent (19:20:23Z);
+  the Director resumed and posted check-in 29 (`218ac865`).
+  - **PR 246 CLEAN at 19:24Z (20 files):** the round-three finding (an origin HEAD hand-written to
+    point outside `refs/remotes/origin/` is not refused) accepted as a follow-up with a signed line
+    (reply `4112482305`), the thread resolved, the body carrying round three; announced (`b3b74dee`).
+    **Follow-up owed, the guard's next change:** fail closed when `refs/remotes/origin/HEAD` names a
+    ref without the `refs/remotes/origin/` prefix, with the smoke case; `push-target-branch.ts`
+    already refuses the shape.
+  - **The reader-update premise refuted, before any code.** Check-in 29 routed "the reviewed update
+    of PR 244's reader for codex-cli 0.157.1's record types". The source says otherwise: the
+    codex-rs diff rust-v0.157.0 to rust-v0.157.1 touches thirteen files, none under `protocol/` or
+    `rollout/`; `rollout/src/policy.rs` is byte-identical; `response_item.function_call` is
+    persisted by both. Phobos's rollout differed in KIND: a seat runs the function tools
+    (`exec_command`, `apply_patch`), persisted as `function_call`, where the dialogue envelope runs
+    code mode (`custom_tool_call` exec); and `readRollout` refuses any rollout not of exactly two
+    turns, so no seat rollout can pass it whatever its record types. The item, re-scoped and on the
+    stream (`73cb2a28`): a seat-rollout command-record reader, `codex-exec command-records`, over the
+    harness's `CommandExecution` items across any turn count, flagging the forbidden shapes of
+    `.codex/rules/seat-landing.rules`, record types counted not refused, malformed evidence failing
+    closed; fixture from this seat's own sandboxed `codex exec` run on 0.157.1, redacted. Design in
+    the scratchpad (`command-records-design.md`), under pre-execution review (code-expert,
+    test-expert). Claim `f7d8f0de`; worktree `oce-wt-command-records` on
+    `feat/codex-rollout-command-records` at `95518f880`. The dialogue reader is untouched.
+  - **OWNER WORD 19:2xZ (relayed by the Director as `65181d0e`, verbatim in the event):** a WIP
+    limit: one coordination PR per repo, and three other open PRs across both estates together (the
+    number of implementer seats); the goal stays zero with value merging; external PRs count and the
+    Director schedules them. Nine open, so no PR opens and no branch pushes without its PR; the
+    reader item waits for a slot, prepared locally only ("WIP slot taken: N of 3" before opening,
+    at the opener's own first-hand read of both estates). The 19:2xZ opening routings withdrawn.
+    This seat's finishing order (the Director by s2s): 246's door at its size turn; the offer to
+    Myrtle on 245 or 217 (answered on the stream 19:28Z, not needed); PR 250's cure.
+  - **PR 250, the owner's draft, readied:** the Director's analysis (`6c3d7736`) named the cure
+    read from run 36243467557: `pnpm skills:check` listed eight missing projections for the new
+    `user-value` skill. In worktree `oce-wt-user-value` on `codex/user-value-across-levels`,
+    `pnpm skills:generate` wrote exactly those eight (`.claude/skills/oak-user-value/`,
+    `.agents/skills/oak-user-value/`) and moved no other projection; commit `52a377a25`
+    (owner-authored, gates green in the hook), pushed through `merge-bot push`, ready-marked as the
+    bot under the PR 224 precedent, both legs requested, a readied-by block appended to the
+    owner's body. Door at its size turn (12 files). Reverse by the owner's word only.
+  - **PR 257 retired on this side (19:4xZ):** merged `e80122437` through Myrtle's door at 19:39:28Z;
+    claim `25181dfb` closed; worktree removed; local branch deleted (merged into origin/engraph); the
+    remote branch read back as deleted (Myrtle's deletion); ledger row written (3 heads, 10.58/40
+    within). Copilot's synced-head follow-up (stale tracking refs after a remote URL rewrite can
+    enter the scoped exclusion) is this lane's. JC.net takes the code by the next carrier.
+  - **OWNER WORD 19:3xZ (relayed as `1448df04`, item 9):** a PR from a non-executing host is team
+    intake: checked out, gated on its head, its own completion list worked as the todo, evaluated as
+    a peer's PR, cured within the round budget or Rejected with reasons, then legs, ready-mark and
+    the door. PR 250 is of the class by its own body. This seat's routing widened to the whole item:
+    the regeneration `52a377a25` pushed (hook gates green on the head, so the full local set ran);
+    evaluation by docs-adr-expert (the skill against `skill-naming-and-description-quality`, the
+    plan-skill and README edits for belonging, the three research notes' home, one story or not) and
+    prose-expert (the skill and its references); no evals runner exists in the estate (the parallax
+    skills carry the same fixture shapes unexecuted; the skill-evals pilot plan owns the runner), so
+    the seven cases and ten triggers are recorded as fixtures, not as an executed evaluation.
+  - **The command-records reader's evidence read first-hand (19:4xZ to 19:5xZ):** two sandboxed
+    `codex exec` runs on 0.157.1, every process closed (`ps` read back), rollouts private, findings in
+    the scratchpad's `command-records-evidence.md`: (1) default exec is code mode even with
+    `--ignore-user-config` (`custom_tool_call` named `exec`), while a TUI seat produces
+    `function_call`; (2) an executed command leaves a CommandExecution item whose `command` is the
+    harness argv `["/bin/zsh","-lc","<cmd>"]`; (3) a command the exec policy REFUSED (`git push`
+    under the seat rules, refused with the rule's own justification) leaves NO CommandExecution
+    item, only the harness's `Rejected("<argv> rejected: <justification>")` message in the tool
+    output; (4) a command the sandbox denied after spawning (`git add` under read-only `.git`, exit
+    128) leaves no item and no harness marker. So the instrument reads three classes from harness
+    records (executed, refused, unaccounted), never a clean zero from absence; design v2 in the
+    scratchpad (`command-records-design-v2.md`) after test-expert's ten findings (REVISE: verify the
+    argv type first, widen redaction, strict fails on an empty rollout, a selecting helper, the flag
+    matrix, turn attribution, relations not strings, a fail-closed matrix, line numbers, the CLI
+    cases as an integration test with a lifted helper). Upstream observation, one instance: a
+    sandbox denial detected after the process exited emits no CommandExecution item on 0.157.1.
+    The seat rules themselves held on the probe: the forbidden push was refused before any process
+    spawned, condition 5's mechanism seen first-hand.
+  - **PR 250 readied under the intake rule (19:5xZ to 20:2xZ).** Two reviews: docs-adr-expert REVISE
+    (blocking: the pr-relationships note, a dated review of a superseded head, filed as research; a
+    handoff section inside the method review; "Clef" named nineteen times on a public surface with two
+    private documents cited by filename and no private-upstream citation; two stories, the skill and
+    the framework proposal); prose-expert REVISE (blocking: two link vocabularies across two
+    references; shoulds: use value defined three ways, user value never reconciled, guarantee and
+    purpose undefined, the opening leading with theory, a passive description with no routing
+    destinations, about forty lines of the canonical restated in the references). The Director's
+    rulings: the private-upstream citation goes in and nothing of the owner's text is redacted (the
+    name's standing is the owner's card line, default kept; 250's door does not open before that
+    word); the pr-relationships note re-homes whole to `.agent/reports/user-value/` with an index row;
+    the method review loses §Completion elsewhere and its baseline SHA; no split (the owner packaged
+    both on purpose; a split opens a PR under the limit for no landing). Cure commit `f41ad8e78`
+    (eighteen files, owner-authored, hook chains green; one link fixed for the moved note's depth
+    after the validator refused the first attempt), pushed through `merge-bot push`; the draft marked
+    ready as the bot under the PR 224 precedent; Copilot's leg requested, Codex's on the ready-mark;
+    the owner's body carries an intake block. The evals fixtures are recorded as not run (no runner
+    in the estate). Post-cure prose check REVISE on small residues (one old-vocabulary sentence, two
+    tables both headed Kind, a semicolon chain, one row typed too narrowly), all applied before the
+    commit. Settlement budget untouched. 250 now reads about twenty-one files, after 246 in the size
+    order. Follow-ups named, no PR under the limit: the research index rows for the two notes are in;
+    the plan skill's routing paragraph placement (nit); no `trigger-train.json` (nit).
+  - **Lane state at 20:2xZ.** Open, this seat's: PR 246 (CLEAN, 20 files, its door at its size turn
+    after 217 and 253, about 21:20Z by the Director's projection; findings on its final tip get signed
+    lines only); PR 250 (readied, about 21 files, after 246; the door waits on the owner's Clef word).
+    Prepared locally, no PR under the limit: the command-records reader (claim `f7d8f0de`, worktree
+    `oce-wt-command-records`, design v3 under pre-execution review by code-expert and test-expert;
+    the two fixtures projected with zero leaks; the consolidation validator for the rules' patterns
+    named as its own lane). Returned to the goal-two ledger by the Director's suite 25: P1, a pure
+    sync push requests no review, timing this seat's after 250's intake and a review-cost survey.
+    Retired: PR 257 (this seat's post-landing duties done). The exec-policy rules held on a live
+    probe (a forbidden push refused with the rule's justification before any process spawned).
+  - **PR 250 returned to the owner (20:24:39Z):** the owner converted it to draft and pushed
+    `9a7ffdbaa`; this seat's read of CLEAN was of `f41ad8e78` (its two commits: the eight
+    projections, then the cure of eighteen files under the docs-adr and prose reviews and the
+    Director's rulings). Correction posted (20:42Z); the Director ruled no seat touches it, then
+    (20:44Z) made it a lane on the owner's Appendix E (four skills with evals as acceptance, draft
+    until complete), routed to Myrtle after 245's door. Myrtle's shape (20:49Z, 20:50Z): the
+    host's eval runner is `claude plugin eval` (claude 2.1.283), verified by a one-case probe;
+    seven commits, evidence per skill. Worktree `oce-wt-user-value` stays as it is; nothing of
+    this seat's is owed on 250. The Suite 26 tally (20:53Z) narrowed the PR 224 answer to 224
+    alone: a cloud-authored PR maps to the 19:3xZ intake word only, and its ready-mark is the
+    owner's or follows the owner's stated acceptance.
+  - **The command-record reader, two commits local, no push (the WIP limit):** cycle 0
+    `ff2f284aa` lifts the `codex-exec` CLI cases into `cli.integration.test.ts` with a shared
+    `makeIo`; cycle 1 `fd3518646` adds `codex-exec command-records` (summary of turns, executed
+    commands per turn, every record type counted, malformed evidence and invalid lines with
+    physical line numbers; `--strict` exits 1; the fixture a redacted projection of this seat's own
+    sandboxed 0.157.1 run, 36 records). Design v4 plus amendments in the scratchpad
+    (`command-records-design-v4.md`, `-amendments.md`), binding for cycles 2 and 3: string carrier
+    for the refusal fixture, anchor after the last `Script error:`, no `denied` class, the
+    `shell_command` alias source-read, classes exclusive and ordered truncated → refused → wrapper,
+    invariant `calls === accounted + refused + unaccounted`. The post-execution review of cycle 1
+    (REVISE, seven shoulds) applied before the commit: `executed` excludes `status: declined` and
+    `source: unified_exec_interaction`; Zod `{ error }` messages carry the reasons (Zod 4.4.3,
+    `issues[0].message`); `readCommandItem` returns `Result`; `parseCommonFlags` shared by both
+    subcommands; tests on `assert` from `node:assert/strict`, `it.each` object rows, numeric nonce.
+    Knip refused three exported types used only in their file (the two unions inlined into
+    `CommandRecord`; `TurnAccount` imported for the accounts annotation; the index exports the
+    summary type only). The refusal fixture (`observed-seat-refusal-0-157-1.json`) is on disk,
+    untracked, for cycle 3. Remaining for the PR: cycle 2 (shell segments, `flag-command` with the
+    rules' patterns verbatim, flagged entries, allowlist redaction), cycle 3 (harness text, the
+    call-id join on `TurnState`, refused and unaccounted accounts, shared `readPreamble`), each
+    under post-execution review; ADR-180 §2 "one tested subcommand" goes stale at landing. The PR
+    opens at a WIP slot only, after a first-hand count on both estates. The consolidation validator
+    for the rules' patterns is a separate lane.
+  - **PR 246's door (21:0xZ), at its turn after Siren's 253 (`3377a3b1c`, released 20:59Z):**
+    slot taken (`78332e80`; the line said 3 files, the PR changes 20). Owner-authored sync merge
+    of `origin/engraph` in `oce-wt-branch-guard`, no conflicts, head `0aa24d1d7`, gates green in
+    the hooks; pushed; both legs re-requested on the synced head (Copilot as reviewer, `@codex
+    review`). Sweep read whole on the synced head: 70 removed lines, every one replaced by the
+    cure (the `main` literal in the guard and the hook comments, the rule text, the frictions row,
+    the `hermeticEnv` moved to `hermetic-git-env.ts`, the `test:e2e` line re-added with the smoke).
+    Both legs answered at 21:10Z with one finding read twice (Copilot thread `PRRT_…mUJtY`, Codex
+    `…mUJ08`): `hermeticGitEnv` hands the smoke's children `PATH` `/usr/bin:/bin` while
+    `resolveTrustedGit` also allows `/opt/homebrew/bin/git` and `/usr/local/bin/git`, so a host
+    with no git under `/usr/bin` or `/bin` fails the smoke's pass cases closed on the guard's own
+    line; where `/usr/bin/git` exists the resolver prefers it and one git runs (CI, this machine).
+    Confirmed first-hand, accepted as a follow-up with signed lines (replies `4112813557`,
+    `4112813612`), both threads resolved, the body carrying round 4. **Follow-up owed, joined with
+    round 3's, one PR (the guard's next change):** the smoke `PATH` gains the resolved trusted
+    git's directory with the injected platform's delimiter; the guard fails closed when
+    `refs/remotes/origin/HEAD` names a ref without the `refs/remotes/origin/` prefix, with the
+    smoke case. Survey before landing: four heads 8.4 / 9.96 / 8.02 / 0, 17.98 / 40 within.
+    Merged `b332041ba` at 21:23:06Z through merge-bot, both legs satisfied on the synced head, CI
+    green; slot released (`ce286fb0`) with the count read at three (245, 250 the lane, 256) and the
+    guard twin routed to Siren, received at 21:23:56Z as Siren took 256's slot. Remote branch
+    deleted as the bot (read-back 404); worktree `oce-wt-branch-guard` and the local branch
+    removed; claims `d66f85da`, `56e5f0c5`, `8af60aaa` closed. Ledger row written at the landing.
+  - **Lane state at 21:2xZ.** Open, this seat's: none. The reader (claim `f7d8f0de`): cycle 1
+    `fd3518646` and cycle 2 (uncommitted, 374 tests green, under post-execution code-expert and
+    test-expert review) local in `oce-wt-command-records`; cycle 3 next; the PR opens at a WIP slot
+    after a first-hand count on both estates (three held: 245, 250 the lane, 256 at Siren's door).
+    PR 250 is Myrtle's lane. Follow-ups owed by this seat: the guard's next change (two items, one
+    PR); the reader's consolidation validator lane; the P1 pure-sync item's timing (goal-two
+    ledger); ADR-180 §2 "one tested subcommand" stale at the reader's landing. Retired: 246, 257.
+- **COMPACTION BOUNDARY 4 (about 16:35Z, 2026-09-26), at the owner's word "prepare for compaction,
+  and then stop all processes, allow subagents to finish and make their work safe, then stop them".**
+  The five review agents of this segment had all returned their verdicts (nothing in flight) and are
+  stopped; the watcher and the heartbeat stop after the boundary event. This seat holds no slot.
+  Every claim below is read live before any act on resume.
+  - **Open, this seat's, two pull requests; any live seat may run either door under ruling 3, with
+    this seat's consent given here and on the stream for the owner-authored sync merge in its
+    worktree.**
+    - **PR 257** (the DEGRADED-scan cure; `fix/secret-scan-scopes-remote-url-destinations`, worktree
+      `oce-wt-scan-scope`, 4 files, head `b93e59971`): CLEAN since 15:57Z (Codex clean, Copilot no
+      thread, CI green, zero unresolved), BEHIND; next at the slot after Siren's 258 (held from
+      16:17Z). Its door: one sync merge of origin/engraph in the worktree
+      (`GIT_AUTHOR_NAME="Jim Cresswell" GIT_AUTHOR_EMAIL="1314980+jimCresswell@users.noreply.github.com"
+      git merge --no-edit origin/engraph`), one `merge-bot push --json` at a host read below two, both
+      legs re-requested on the synced head, the sweep (read at 16:31Z: 64 removed lines, every one the
+      old name-only scoping or a fixture it replaced), `merge-bot merge --pr 257 --expect
+      copilot-pull-request-reviewer --expect chatgpt-codex-connector --json`, slot released, the
+      remote branch deleted as the bot with read-back, the worktree removed, claim `25181dfb`
+      closed, a ledger row from `review-cost survey`. Two settlement pushes used (`18df9cfc0`,
+      `b93e59971`); findings on a synced head get signed lines only. JC.net takes the same code by
+      the next carrier (Siren's lane).
+    - **PR 246** (the branch guard; `fix/branch-guard-reads-default-branch`, worktree
+      `oce-wt-branch-guard`, 20 files, final tip `2f3c8a4c2`): both settlement pushes spent
+      (`75c655504`, `2f3c8a4c2`); at 16:33Z CI pending, both legs re-requested at 16:29Z, zero
+      unresolved threads. Findings on this tip get signed lines only (body, blank line, then the last
+      line `— Swallow holds Drift, an agent, through the repository's bot (516619)`; another seat
+      signs as itself). Joins the ready list when CLEAN; its door as for 257; on landing, route the
+      JC.net twin of the guard fix to Siren herds Rudder (this seat's promise to the Director,
+      2026-09-25), deletions with read-back, claims `d66f85da`, `56e5f0c5`, `8af60aaa` closed, a
+      ledger row.
+  - **Landed this segment:** PR 255 by Phobos wakes Void (`af49326dd`, 15:38:20Z), condition 5's
+    first clean landing; records `5883cc5c6` (16:02Z) and this commit. Deletions of check-in 28 done
+    with read-back (`25ee2511`); left for the owner's hand, unmerged and unforced: the local
+    `claude/objective-nightingale-b4ba25`, the local `docs/codex-queue-probe-2026-09-25`
+    (`ae110f662`, the private capture, never pushed) and `docs/codex-queue-probe-metadata-01a0d9`
+    (`0475a9148`, nothing wanted).
+  - **Next code items, in order, unchanged:** the sync-lineage cure only when the survey shows
+    sync-only tip moves costing rounds (`.agent/reports/agentic-engineering/2026-09-26-sync-lineage-binding-design.md`);
+    the landing toolkit's first wrapper, `merge-bot commit`, to the reviewed design now conserved at
+    `.agent/reports/agentic-engineering/2026-09-26-merge-bot-commit-wrapper-design.md` (it lived only
+    in this seat's scratchpad until this boundary); then the sync wrapper, stage, worktree; wake 2b's
+    three PRs, 2c, the bridge's todo 3, exec-binding B, C, D and slices 2 and 3, the credential
+    narrowing (condition 7). The Director's check-in 28: these stay with this lane unless the owner
+    starts a Codex seat with a longer brief (an owner-card question, blocking nothing).
+  - **Owner-card lines:** the three local branches above; condition 5's second indicator (the
+    rollout's command records read by PR 244's reader, no refused-by-doctrine flag) is INCONCLUSIVE:
+    Phobos ran the reader over its own rollout after closing out (stream 16:36Z) and it fails closed
+    on codex-cli 0.157.1 with an unknown record type, `response_item.function_call`, so no admissible
+    summary exists; the raw rollout stays private. The reader's closed union of record types was
+    captured on 0.157.0, so this is "evidence follows the runtime" in practice. **The next Codex-lane
+    code item is therefore a reviewed reader update** (list the new record type; decide whether it
+    is a command record or an observation; fixtures captured on 0.157.1 with the creator ids
+    redacted), ahead of the commit wrapper; the indicator is re-read on the owner's next Codex seat
+    after it lands.
+  - **Parallax on this segment, questioned and recorded:** (1) the scan-side placement of the cure
+    was reviewed against the push-side alternative and held (the push contract and `trustOrigin`'s
+    fetch-URL read); its falsifier is a bot push whose origin fetches from another repository, which
+    `trustOrigin` refuses before any push. (2) Proposing a split to the Codex partner at 14:49Z, four
+    minutes before reading the Director's routing for the same seat, cost the partner a claim opened
+    and closed within a minute; the owner had briefed both this seat and the Director. Read: when the
+    owner pairs a seat, the first message to it carries state, and assignments come from the
+    Director's routing or after asking (napkin). (3) A ruling acted on twenty-seven seconds after
+    its withdrawal (napkin 14:5xZ). (4) A push gate started against a host read of two (napkin
+    15:16Z; the push line is conditional since). (5) PR 246's cure went up before its turn under the
+    Director's order (eligibility needs a pushed cure), at the cost of one review round the one-push
+    plan would have saved; held.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` (four claims: `d66f85da`, `56e5f0c5`, `8af60aaa`, `25181dfb`),
+    `heartbeat-label.txt` and `heartbeat-branch.txt` (`coordination/2026-09-26-b84321`); the comms
+    watcher (`comms watch --platform claude --model claude-fable-5-1 --supervisor-pid <this session's
+    pid>`); `comms assert-watcher-live`; then the live state of PRs 257 and 246 and the slot before
+    any write, and a sweep of the stream between every read and the write that acts on it.
+- **RESUMED (about 14:43Z, 2026-09-26) at the owner's start-right word, after compaction 3.** Read
+  live first: nothing had moved on the stream or the open list during the pause (the other seats'
+  pause events only). Then, in the boundary block's order: the gate notice (`0cba1754`), records
+  `0598b952f` pushed from the primary through `merge-bot push` at 14:46Z (remote and local level),
+  the watcher and the 240 s heartbeat over the three retained claims re-armed and asserted live.
+  - **The owner's word at about 14:47Z: "Phobos wakes Void (01a0de) is your Codex partner."**
+    Phobos is a Codex seat (GPT-5 tuple) in claimless standby (team start `7971fef0`, 14:44Z;
+    bootstrap ready `14:50Z`). The pairing is on the stream as `f7e07e3c`; the dialogue lane is the
+    ARC channel `.agent/collaboration/rapid-comms/2026-09-26-codex-dialogues-swallow-holds-drift-and-phobos-wakes-void.md`
+    (a Codex seat has no s2s; each entry is nudged by a stream event). Proposed split, open for
+    Phobos's answer: Phobos takes the DEGRADED-scan cure in `merge-bot push` as its one directed
+    slice, landing through `merge-bot push` with no prompt, which is condition 5's live proof for
+    PR 241's rules; this seat keeps the door work and runs the reviews Phobos's seat cannot.
+  - **Team shape at 14:51Z:** Myrtle (resumed 14:49Z, drives 251 then 221 after its 245 and 217
+    threads), Siren (resumed 14:51Z, live not paused, keeps 252 at its turn after 251), the
+    Director (busy), Phobos (standby, paired with this seat). Door order by changed files: 251,
+    252, 221, then 246 (this seat), 249, 217; 245 DIRTY; 250 the owner's draft. The slot
+    coordination went to Myrtle by s2s (an offer to run 251's door with consent; default, Myrtle
+    takes it). This seat's door is PR 246 only, after 221; its state read live at 14:52Z: head
+    `aba19edb7`, BEHIND, CI green, the same three threads unresolved, both legs on that head.
+  - **The DEGRADED-scan cure, this seat's, built 14:57Z to 15:15Z** in worktree `oce-wt-scan-scope`
+    (branch `fix/secret-scan-scopes-remote-url-destinations` from engraph `43eb62a55`), claim
+    `25181dfb` (its predecessor `744e4997` was closed by mistake on a ruling the Director had
+    withdrawn twenty-seven seconds earlier; napkin 14:5xZ). Shape, from the pre-execution review
+    (code-expert REVISE, three points folded): the cure lives in the scan, not the push.
+    `configuredRemotes` carries each remote's FETCH URLs (`git remote get-url --all`); a destination
+    URL scopes to every remote that fetches from the repository it names, by `parseGitRemoteUrl`
+    (host, owner, name, case aside), the exclusion accumulating (`--not --remotes=a --remotes=b`);
+    a path or unknown repository stays unscoped and warns. Post-execution: code-expert REVISE on
+    three wording truths (folded), test-expert REVISE on one host-discriminating fixture (added);
+    19 unit tests, prettier, eslint, tsc green. Phobos's P3 (PR 255, one file, head `58581b72c`)
+    pushed through `merge-bot push` with no prompt at 15:0xZ: condition 5's first datum.
+  - **Condition 5 closed by its first clean landing (15:38:20Z).** Phobos wakes Void (01a0de), a
+    Codex seat under PR 241's rules, took PR 255 (the ADR-204 amendment, one file) from an
+    isolated worktree through commit, `merge-bot push` (exit 0, pre-push gates green), a bot-opened
+    PR, both legs, one sync push, a Codex finding disposed with evidence and a signed line, and
+    `merge-bot merge` with both expected legs, to the merge `af49326dd`, the remote branch deleted
+    and read back absent, with no owner prompt at any step (the Director's routing said STOP and
+    post the prompt's text; none was posted). The parallax report's world-return contract asked for
+    the rollout's command records read by PR 244's reader as the second indicator; that datum is
+    asked of Phobos on the ARC channel. This seat's PR 257 (the DEGRADED-scan cure, 4 files, head
+    `18df9cfc0`) is open with CI green and Copilot's round one (one finding, on the fetch-URL read).
+    Phobos closed out at 15:41Z before the ask; the command-record datum waits for the owner's own
+    Codex seat. The Director's check-in 28 (15:48Z): goal two's remaining Codex items stay with
+    this lane unless the owner starts a Codex seat with a longer brief (an owner-card question).
+  - **PR 257, round one (15:24Z to 15:50Z):** Codex clean; Copilot's one finding accepted (git
+    fetches from the first `remote.<name>.url` only, so `get-url --all` over-matched); cured in
+    `b93e59971` as settlement 1 of 2 (`ConfiguredRemote.fetchUrl: string | undefined`, read by
+    `git remote get-url <name>`; one unit case for the unreadable branch; a focused code-expert pass
+    APPROVED before the push); signed reply, thread resolved, body's dispositions, both legs
+    re-requested at 15:51Z. Both of its pushes scanned without a DEGRADED line.
+  - **PR 246, settlement 1 of 2 (15:55Z):** the cure `75c655504` pushed from `oce-wt-branch-guard`
+    (the Director's order lists 246 as joining the ready list when its threads and the cure push
+    settle, so the cure went up before the turn); the three replies posted with the signed line
+    (`4111905017`, `4111905100`, `4111905172`), the three threads resolved, the description's
+    round-one block, both legs re-requested at 15:59Z. The sync merge waits for its slot turn.
+  - **Check-in 28 deletions, done 15:5xZ with read-back (`25ee2511`):** local merged
+    `feat/codex-rollout-reader-verdict-inputs` (`-d`); remote `claude/objective-nightingale-b4ba25`
+    (its one eight-line runner quoted in the event) and remote `docs/codex-queue-probe-2026-09-25`
+    (0 beyond engraph) deleted as the bot. Left for the owner's hand, unmerged and unforced: the
+    local `claude/objective-nightingale-b4ba25`, the local `docs/codex-queue-probe-2026-09-25`
+    (`ae110f662`, the private capture) and `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`,
+    assessed: Gale's ordering of §2.10 and §2.11 against the owner's resolution; nothing wanted).
+  - **Door order at 15:58Z:** 221 (Myrtle, at the slot), then 217, 249, 253, 256; 258 and 257 join
+    at the front when their legs settle; 246 when its legs settle.
+  - **PR 246, round two and settlement 2 of 2 (16:01Z to 16:29Z):** Codex clean on `75c655504`;
+    Copilot two findings on the smoke's Windows branch (the guard's backslash path handed to Git for
+    Windows' `sh`; the shim embedding the real git's path), both accepted. Cure `2f3c8a4c2`: a shared
+    `shellSafePath` beside `trustedShell` in `smoke-tests/trusted-shell-directories.ts`, separator-
+    injected through `toGitPath` (identity on POSIX), used by the guard smoke, the git shim and the
+    push-output smoke (the idiom's first, inline consumer). code-expert focused REVISE twice (POSIX
+    identity; the mechanism is `sh`'s separator, not escaping), folded. Replies `4111994505`,
+    `4111994578` signed, threads resolved, body round-two block, both legs re-requested. The budget
+    is spent: findings on the final tip get signed lines only. `windows-basic` CI runs unit tests
+    only, so the win32 smoke rests on reasoning and the resolver's unit tests.
+  - **Records `5883cc5c6`** pushed 16:02Z (the resume, the pairing, 257, 246, condition 5, check-in
+    28; two napkin sections; F-207's ninth; the ARC channel file).
+  - **PR 257 read CLEAN at 16:16Z** on `b93e59971` (Codex clean 15:57Z, Copilot no thread 15:56Z,
+    CI green); announced ready (`567b2722`); takes the slot at Siren's release of 258.
+- **COMPACTION BOUNDARY 3 (about 13:15Z, 2026-09-26), at the owner's word "prepare for compaction, and
+  then stop all processes".** The seat stopped its monitors, its heartbeat, the door poll and its idle
+  review agents; nothing of this seat's runs. Every claim below is read live before any act on resume.
+  - **Landed this segment:** PR 223, the fold, as `b8432103a` through Myrtle's door (this seat's cures
+    `b8de68b16`); PR 248 as `2c75350a9` through this seat's door at 12:35:57Z (sync `6b638d7c5`);
+    PR 224, the owner's draft, as `43eb62a55` at 13:08:50Z through this seat's door (synced
+    `a04138374`; two Copilot vocabulary contradictions cured in `d30cfde33`, settlement push 1; the
+    second round's two findings disposed with signed lines: the owner's private provenance and the
+    plan's proposed validator names, both owner-card lines).
+  - **Open, this seat's: PR 246** (13 files; the round-one cure `75c655504` committed in worktree
+    `oce-wt-branch-guard`, UNPUSHED). The cure: the guard's own refusal when `git branch
+    --show-current` fails; `resolveTrustedShell` (a Result over a fixed allowlist, six unit tests)
+    and `trustedShell()` beside `trustedShellPath()`; the shim `git-without-show-current.ts`; the
+    smoke under plain `sh`; two smokes' comments made true. code-expert APPROVED after the S4036
+    fix, test-expert APPROVED. Its turn is after PR 221 (Myrtle) in the size order: one sync merge
+    of the default branch in the worktree, then ONE `merge-bot push` carrying cure and sync, then the
+    description's round-one block (three findings and the cure; the draft is re-derivable from the
+    commit message and the three threads `PRRT_kwDORdPTys6mQPNJ`, `…6mQPyD`, `…6mQPyF`), three
+    replies ending with the signed line, resolve, both legs re-requested, the door. Claims retained
+    for it: `d66f85da`, `56e5f0c5`, `8af60aaa`.
+  - **Next code PRs, in the Director's order (12:55Z, and the s2s ruling after):** the DEGRADED-scan
+    cure in `merge-bot push` (it pushes to a URL, so the pre-push secret scan loses its destination
+    scope on every bot push; push to the configured remote by name, or pass the remote name to the
+    scan's range computation; one test: a bot push against a configured remote yields a scoped scan
+    and no DEGRADED line; JC.net takes the code by the next carrier); then the sync-lineage cure (P1)
+    only when the survey shows sync-only tip moves costing rounds. Its revised design is
+    `.agent/reports/agentic-engineering/2026-09-26-sync-lineage-binding-design.md`.
+  - **Records this segment:** `93f1cd0f0` (the cures promised on PR 223, the fold, three napkin
+    observations) and this commit (the ledger rows for 248 and 224, F-207's seventh instance, the
+    design report). Owner-card lines routed through the Director: PR 224's provenance pointer; its
+    proposed validator names; a Codex seat for condition 5 (the Director's queue).
+  - **Deletions, read back on comms:** PR 248's worktree, remote and local branch (the local one from
+    the 224 worktree after unsetting a stale upstream to PR 211's remote branch); the emfile worktree
+    and branch; PR 224's worktree, local and remote branch. Remaining for the owner's hand:
+    `docs/codex-queue-probe-2026-09-25` (`ae110f662`, never pushed) and
+    `docs/codex-queue-probe-metadata-01a0d9` (`0475a9148`), forced deletes refused.
+  - **Parallax on this segment, questioned and recorded:** (1) disposing three PR 244 stalenesses
+    on the fold as "cured in the next commit" rather than pushing kept the fold's checks from
+    restarting for six queued PRs, at the cost of three false lines merged for seventeen minutes; the
+    cure landed at 12:26Z as promised; held. (2) Curing two lines of the owner's doctrine in PR 224
+    at the Director's routing sat within the PR's own bar and is reversible, named in the reply and
+    the description; the exposure is the owner's wording preference. (3) The sync-lineage cure was
+    designed from a felt cost before the cost was measured; the pre-execution review measured one
+    sync-only tip move in seven, and the Director narrowed ruling 7's premise. Read: measure the base
+    rate before designing the cure. (4) Eight replies read as unsigned to the instrument (the survey
+    prices 248's sync head at 33.43 partly for that); the signed line is corrected from 12:2xZ. (5) A
+    chain left running through the morning's pause wrote to PR 223 a minute after the taker-over; this
+    pause stops every process.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` (three claims), `heartbeat-label.txt` and `heartbeat-branch.txt`
+    (`coordination/2026-09-26-b84321`); the comms watcher (`comms watch --platform claude --model
+    claude-fable-5-1 --supervisor-pid <this session's pid>`); `comms assert-watcher-live`; then the
+    live state of PRs 246 and 221 before any write.
+- **RESUMED (about 11:27Z, 2026-09-26) at the owner's "carry on", after compaction 2.** Read live
+  first: the fold chain had completed (sync merge `86fcf2d57` pushed; PR 223 ready, body and legs at
+  11:24Z), and Myrtle turns Canopy had taken the fold's remainder at 11:25Z, so two hands wrote
+  PR 223 one minute apart (napkin, 12:1xZ). Settled by s2s: Myrtle drives the door, the successor
+  cut and the rotation; this seat disposes threads on its own files. Copilot's and Codex's legs
+  returned eight threads over two heads, all on this seat's records: five stale facts cured in
+  `b8de68b16` (PR 211 shown open, merged `fae981877` at 10:41:59Z; the owner's first batch thirteen
+  PRs from 10:35Z to 10:50Z, not eleven to 10:48Z; condition 5 limited to commit and push, since
+  PR 241's rules leave opening the pull request to the default flow); three PR 244 stalenesses (the
+  ledger row, the next-order list twice) disposed as cured in this commit, with no second push on
+  the fold. PR 223 merged as `b8432103a` at about 12:06Z through Myrtle's door; the successor is
+  `coordination/2026-09-26-b84321`. Also this segment: the emfile worktree and branch removed with read-back
+  (check-in 25, routing 2); PR 248's body reconciled to three citations and its thread resolved,
+  then its slot at 12:07Z, one sync merge of `b8432103a` (one review-ledger row in conflict), pushed
+  with both legs re-requested; PR 246's round one (Copilot and Codex P1: the guard's fail-closed
+  claim leaned on husky's `sh -e`; Codex P2: the smoke's literal `/bin/sh`) cured in `75c655504` in
+  its worktree, unpushed until its turn: the guard's own refusal, a trusted shell resolver
+  (`resolveTrustedShell`, a Result over a fixed allowlist, six unit tests), the smoke under plain
+  `sh` with a git that lacks `--show-current`; code-expert APPROVED after one fix (no `sh` by name,
+  S4036), test-expert APPROVED. The Director's check-in 25 routes PR 224 (the owner's draft) to the
+  first free seat after 248 and 221, this seat if 248 lands first. A design note for the
+  sync-lineage cure (ruling 7) is drafted: a leg binds a head whose patch-id against the default
+  branch equals the reviewed commit's.
 - **COMPACTION BOUNDARY 2 (about 11:20Z, 2026-09-26), at the owner's word "fold the coordination
   branch, or let the Director do it, then prepare for compaction, and when it makes sense stop all
   processes".** The Director was compacted at 11:04Z and handed this seat the fold of PR 223 (the
-  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold on the
-  coordination-fold skill; the successor branch's name is in the rotation broadcast on the stream,
-  and this record continues on that branch. Every claim below is read live before any act on
+  slot came free when PR 221 went BLOCKED on a windows-basic flake). This seat ran the fold's sync and
+  records; Myrtle turns Canopy took the door at this seat's pause: PR 223 merged as `b8432103a`;
+  the successor branch is `coordination/2026-09-26-b84321`, and this record continues on it. Every claim below is read live before any act on
   resume.
   - **Landed today:** PR 241 as `fc645531c` (this seat, the Director's ruling); PR 211 as
     `fae981877`, PR 244 as `4be54a077`, PR 247 and fourteen others by the owner's hand under the
@@ -117,8 +518,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - **Records:** `59b6d95d6` (the resumption); the Parallax audit at
     `.agent/reports/agentic-engineering/2026-09-26-codex-lane-parallax-audit.md`; the sweep event
     `5cd19684`; the 11:05Z napkin entry rode Myrtle's `fc8745e5a`; the formation letter's postscript.
-  - **Next, in order (the Director's approved plan, 11:04Z):** 244 and 246 through the door at their
-    turns; 248; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
+  - **Next, in order (the Director's approved plan, 11:04Z; 244 landed by the owner's hand at 11:14Z
+    and leaves this list):** 248 then 246 through the door at their size-order turns; the sync-lineage cure (ruling 7: a review leg binds through a pure sync lineage, so a
     sync re-requests nothing; a code PR on the merge bot's readiness reading); then wake 2b and 2c,
     todo 3, the exec-binding slices, and the landing toolkit (`merge-bot commit` first, to the
     design in the boundary block below; its first PR also tracks the 38 exec-policy cases and their
