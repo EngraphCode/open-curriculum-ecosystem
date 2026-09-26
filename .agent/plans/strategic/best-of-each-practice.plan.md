@@ -22,7 +22,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-09-23
+last_updated: 2026-09-26
 ---
 
 # The best of each Practice
@@ -97,3 +97,16 @@ method that is not converging goes to the owner with its numbers; the seats do n
 
 Delivery plans serving this node declare `serves` and are found by search, never by a kept
 list. Numbers live in state lines and pull requests, never here.
+
+The programme's decisions of 2026-09-26, from the owner's words and card answers, carried by the
+Director:
+
+- Small green pull requests are never held for the owner's hand; the Director keeps a list of
+  them, with links, for when the owner asks ("don't block small green PRs on manual, but do
+  maintain a list so that when I ask you can give me links"). Seats land ready pull requests
+  smallest first by changed files, the order the owner landed by hand (the Director's ruling).
+- The coordination drafts count toward zero open pull requests and fold twice a day (card
+  answer: "Fold them twice a day").
+- The exchange's intake has no bound (card answer: "No bound").
+- A pull request's cost has a fixed term, so slices are sized to the optimum, not the minimum
+  (PDR-132 §Decision item 7).
