@@ -40,6 +40,12 @@ adjacent: >-
   PDR-133's liveness classes.
 ---
 
+> **POLARITY: ANTI-PATTERN.** This entry names a *failure mode to avoid*,
+> not a shape to repeat.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern)
+> for the polarity discipline.
+
 # Referent Narrowing
 
 An instrument answers a NARROWER question than the one you asked, truthfully,

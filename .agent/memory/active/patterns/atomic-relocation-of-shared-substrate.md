@@ -12,6 +12,10 @@ barrier:
   stable: true
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 A shared substrate — a comms directory, a claims registry, a workspace a
 built CLI resolves — has live readers the moment it exists. Relocating it
 is not one edit but three coupled ones:

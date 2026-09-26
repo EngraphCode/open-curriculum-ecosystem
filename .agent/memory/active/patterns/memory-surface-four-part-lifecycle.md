@@ -13,6 +13,10 @@ barrier:
 cross_plane: true
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 Concept stage (PDR-134): **candidate**. One estate, one consolidation; promoted to working
 when a second surface class is curated by it without amendment.
 
