@@ -6,7 +6,7 @@
 # names (the repository's default branch), each read the way `merge-bot push`
 # reads it: the current branch through `git branch --show-current`, which a
 # tag of the same name cannot shadow, and the default through the origin HEAD
-# ref. So no branch name is pinned here. A clone with no origin HEAD (`git
+# ref. So no repository's default-branch name is pinned here. A clone with no origin HEAD (`git
 # remote set-head origin --auto` sets it) is guarded by the two names alone.
 # Sourced by the .husky hooks that git routes commit-creating or ref-rewriting
 # operations through — pre-commit (plain/amend commits), pre-merge-commit
@@ -22,8 +22,11 @@
 # mid-rebase replays) resolve no branch name and pass. Residual vectors no
 # client hook can see (fast-forward merges, fresh clones before install) are
 # covered by the rule and by remote branch protection. Being sourced, the
-# guard names its own variables `guard_*`.
-guard_current_branch="${GUARD_BRANCH:-$(git branch --show-current || true)}"
+# guard names its own variables `guard_*`. The current-branch read has no
+# fallback: if git cannot answer (a git older than 2.22 lacks
+# `--show-current`), the `sh -e` runner aborts the hook, so the guard fails
+# closed rather than passing silently.
+guard_current_branch="${GUARD_BRANCH:-$(git branch --show-current)}"
 guard_origin_head="$(git symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null || true)"
 guard_default_branch="${guard_origin_head#refs/remotes/origin/}"
 guard_current_folded="$(printf '%s' "$guard_current_branch" | tr '[:upper:]' '[:lower:]')"
