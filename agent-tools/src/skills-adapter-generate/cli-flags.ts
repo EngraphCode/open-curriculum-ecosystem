@@ -2,10 +2,10 @@
  * Flag parsing for the skills-adapter-generate CLI, extracted so the
  * contract is unit-testable: unknown arguments REFUSE (a typo like
  * `--chekc` must never silently select the destructive generate path),
- * `--help` is first-class, and `--prefix` is required — this estate pins
- * `oak-` via the root `pnpm skills:generate` / `pnpm skills:check`
- * scripts, and an unpinned run would mint a second, unprefixed skill
- * estate the pinned checker never inspects.
+ * `--help` is first-class, and `--prefix` is required — the estate's root
+ * `pnpm skills:generate` / `pnpm skills:check` scripts pin its value, and
+ * an unpinned run would mint a second, unprefixed skill estate the pinned
+ * checker never inspects.
  */
 
 export interface CliFlags {
@@ -21,8 +21,8 @@ export type ParseCliFlagsResult =
 
 export const CLI_USAGE = [
   'Usage: skills-adapter-generate --prefix=<prefix> [--check] [--clear]',
-  '  --prefix=<prefix>  REQUIRED adapter name prefix (this estate pins oak- via',
-  '                     the root `pnpm skills:generate` / `pnpm skills:check`)',
+  "  --prefix=<prefix>  REQUIRED adapter name prefix (the estate's root",
+  '                     `pnpm skills:generate` / `pnpm skills:check` scripts pin it)',
   '  --check            report drift and exit non-zero instead of writing',
   '  --clear            clear generated adapter directories before generating',
   '  --help             show this usage',
@@ -62,8 +62,8 @@ export function parseCliFlags(args: readonly string[]): ParseCliFlagsResult {
 function validatePrefix(prefix: string): string | undefined {
   if (prefix === '') {
     return (
-      '--prefix is required (this estate pins `--prefix=oak-` via the root ' +
-      '`pnpm skills:generate` / `pnpm skills:check` scripts). An unprefixed run would ' +
+      '--prefix is required (the root `pnpm skills:generate` / `pnpm skills:check` ' +
+      "scripts pin the estate's value; run one of them). An unprefixed run would " +
       'mint a second skill estate the pinned checker never inspects.'
     );
   }
