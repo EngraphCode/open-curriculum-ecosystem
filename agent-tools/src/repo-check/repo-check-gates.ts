@@ -92,7 +92,7 @@ export async function runMarkdownlintStaged(
   // explicit staged paths. Without it cli2 would union the staged files with the
   // config globs and re-lint the whole repo on every commit. The config's rules
   // and `ignores` still apply, so an explicitly-staged but excluded file is skipped.
-  return runtime.runInherited('pnpm', ['exec', 'markdownlint-cli2', '--no-globs', ...files]);
+  return runtime.runInherited('pnpm', ['exec', 'markdownlint-cli2', '--no-globs', '--', ...files]);
 }
 
 export async function runPrettierStaged(
@@ -108,6 +108,7 @@ export async function runPrettierStaged(
     'prettier',
     '--check',
     '--ignore-unknown',
+    '--',
     ...files,
   ]);
 }

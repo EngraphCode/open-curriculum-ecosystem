@@ -186,4 +186,19 @@ describe('the tracked gates plan their runs', () => {
     };
     expect(trackedMarkdownlintRuns('check', none, 10)).toStrictEqual([]);
   });
+
+  it('ends the options before the first file, so a file named like an option stays a file', () => {
+    const dashed = {
+      tracked: ['--write', '-x.md'],
+      goneFromWorkingTree: new Set<string>(),
+      symlinks: new Set<string>(),
+    };
+    for (const run of [
+      ...trackedPrettierRuns('check', dashed, 1000),
+      ...trackedMarkdownlintRuns('check', dashed, 1000),
+    ]) {
+      const firstFile = run.findIndex((arg) => arg === '--write' || arg === '-x.md');
+      expect(run.indexOf('--')).toBe(firstFile - 1);
+    }
+  });
 });

@@ -152,7 +152,8 @@ export type PrettierMode = 'check' | 'write';
 /**
  * The `pnpm exec` argv that runs prettier over exactly the given files.
  *
- * `--ignore-unknown` is load-bearing: the tracked universe carries every file
+ * The `--` ends the options, so a tracked file named like one (`--write`) is
+ * still a file. `--ignore-unknown` is load-bearing: the tracked universe carries every file
  * type the repository holds, and prettier must skip what it has no parser for
  * rather than fail. `.prettierignore` still applies to explicitly named
  * paths, so ownership exclusions hold. The write mode keeps prettier's cache;
@@ -164,7 +165,7 @@ export type PrettierMode = 'check' | 'write';
  */
 export function prettierArgs(mode: PrettierMode, files: readonly string[]): readonly string[] {
   const modeArgs = mode === 'check' ? ['--check'] : ['--write', '--cache'];
-  return ['exec', 'prettier', ...modeArgs, '--ignore-unknown', ...files];
+  return ['exec', 'prettier', ...modeArgs, '--ignore-unknown', '--', ...files];
 }
 
 /** markdownlint runs read-only (`check`) or as the repair (`fix`). */
@@ -174,6 +175,8 @@ export type MarkdownlintMode = 'check' | 'fix';
  * The `pnpm exec` argv that runs markdownlint-cli2 over exactly the given
  * files.
  *
+ * The `--` ends the options, so a tracked file named like one is still a
+ * file; the paths after it are still matched against the config's `ignores`.
  * `--no-globs` is load-bearing, not redundant: it tells markdownlint-cli2 to
  * lint ONLY the explicit paths instead of unioning them with a `globs` array
  * from `.markdownlint-cli2.jsonc`. The config's rules and `ignores` still
@@ -188,7 +191,7 @@ export function markdownlintArgs(
   files: readonly string[],
 ): readonly string[] {
   const modeArgs = mode === 'fix' ? ['--fix'] : [];
-  return ['exec', 'markdownlint-cli2', '--no-globs', ...modeArgs, ...files];
+  return ['exec', 'markdownlint-cli2', '--no-globs', ...modeArgs, '--', ...files];
 }
 
 /**
