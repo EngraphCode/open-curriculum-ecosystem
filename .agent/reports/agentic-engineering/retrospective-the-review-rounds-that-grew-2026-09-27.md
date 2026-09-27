@@ -418,3 +418,76 @@ lineage follow-up, before or beside Nova's JC.net twin as the slots free), reser
 pointer in JC.net's agentic-engineering index by the exchange. The addendum for the tail (226's
 settlement push and door; the lineage follow-up) is owed when they land. Proposals 1, 2, 4 and 6
 are fast-lane rows; proposals 3 and 5 go to the PDR-130 register with their review dates.
+
+
+
+## Addendum, 2026-09-27 18:34Z: the tail landed; two routed findings; this record's own rounds
+
+Sources: gh (each PR's commits, reviews, signed lines and merge times, read 18:1xZ to 18:3xZ), both
+comms streams, the JC.net napkin (its check-in 44 block at 17:42Z and suite 39 block at 18:14Z), the
+review-cost gate's output at this record's last push and a re-run at 18:33Z, and the Director's diff
+of the two estates at 17:1xZ. A pre-open documentation pass on this addendum's own draft found
+fifteen findings before its PR opened, five of them sentences a reader would act on that the forge
+contradicts; all are cured in this text. That pass is the first pre-open instance of proposal 2's
+mechanism, on a report rather than rule text; its round-one count is the datum once the PR opens.
+
+- 226 (JC.net, the twin of 263): opened 11:41:01Z at d0d1b9ac2; the round-one cure 8af432a5a at
+  11:48:09Z (Fixed 2); held through the pause and the hold; the sync ab87c2157 at 16:02Z (main at
+  3699c155; no round on it); the settlement push 55d81dc92 (committed 16:08Z, on the forge by
+  16:11Z), which marked the older zero-PR sentence superseded, cured the admission-gate finding
+  (Fixed, 16:10:56Z) and deferred the symlinked-parents finding to the proposed rollback tool
+  (Accepted, 16:10:54Z); a third round on it (Copilot 16:15:27Z, two root threads: the byte-equality
+  claim, Fixed in the PR body with no push at 16:17:26Z; the standing-grant citation, Accepted and
+  deferred to the ledger at 16:17:28Z); merged 16:18:03Z as 02f0ffbd8. Section 9 counts 226 at its
+  16:0xZ state (two heads, four threads, one push, Fixed 2, two unanswered); its whole is three
+  reviewed heads, six root threads, three pushes after opening (one a sync with no round), Fixed 4
+  (one in the PR body), Accepted 2, unanswered 0, so section 9's totals read sixteen heads,
+  forty-two root threads, twelve pushes, Fixed 28, Accepted 10, Rejected 3, Acknowledged 1,
+  unanswered 0 (PR 267 round three, Codex at line 392, routed here).
+- 266 (the lineage follow-up of 226): opened 16:25:31Z at b8d1499f0 with three sections as bytes
+  from 226's merged head (each section's diff empty; no pass before opening); round one on it two
+  Copilot findings; the round-one cure ff330377d at 16:35Z carried those two, the standing-grant
+  point ledgered from 226 (the rollback as an ordinary forward change, not an act under the standing
+  grant), and three more edges found by a pre-push expert review of the new wording (Siren's lines
+  at 16:35:56Z and 16:38Z); round two on it clean on both legs, the arc's second clean round after
+  224's second Copilot pass at 10:15Z; the slot-turn sync d0251962d at 16:42Z drew a third round
+  with one Codex P2 (16:47:51Z, revalidate an expired reservation before opening), Rejected by
+  signed line at 16:56:38Z; merged 16:58:46Z as 96bb08963. So 266 is three reviewed heads and three
+  root threads (Fixed 2; Rejected 1, on the sync), and the sync's round is one more instance for
+  proposal 4.
+- 228 (the JC.net twin of 266): opened 17:02:49Z with two sections as bytes from 96bb08963; one
+  Copilot round, no thread; merged 17:06:19Z as 33514ec19. The runbook's rollback section (27 lines,
+  engraph's lines 232 to 258) and pr-lifecycle's WIP paragraph are byte-identical between JC.net
+  main 33514ec1 and engraph 96bb08963 (the Director's diff, 17:1xZ); the runbook otherwise differs
+  by its provenance paragraph, two report citations in its steps, and the measured-instance section
+  (JC.net carries the first instance's timing table and outcomes, engraph an empty table) and the
+  position of one frontmatter key. Proposal 1's shrink of the rollback to one pointer did not land:
+  the rollback remains a 27-line procedure in both estates, and that procedure drew two more
+  rollback findings on the tail (226's final head, the standing-grant citation, Accepted and
+  deferred on 226 and cured in 266's ff330377d; 266's opening, the symlink mode case, Fixed in
+  ff330377d), which restates the warrant; the falsifier needs the pointer version on a head and is
+  untested.
+- 258's dispositions restated: eleven Fixed, three Accepted and one Rejected, fifteen; section 5's
+  "fourteen cures" reads as the fourteen Fixed and Accepted dispositions (PR 267 round three, Codex
+  at line 263, routed here).
+- This record's own rounds, as proposal 3's data: five reviewed heads (c06667ee9, 8c803cbac,
+  35573e8c0, 5625e022c, 39923bc07) with 2, 1, 3, 1 and 0 root threads, seven findings: five over the
+  bar cured (two in 8c803cbac, one in 35573e8c0, one in 5625e022c, one in 39923bc07), two below the
+  bar routed here; four pushes after opening: three settlement pushes, the third under a rebudget to
+  3 recorded on the PR by decision (PDR-140 clause 4), and one late-cure push under clause 9(b). The
+  gate at the last push (its pre-push output at 17:48Z: rounds 16.43, 23.54 and 15.2, the opening
+  round excluded from the total) read 55.17 of 60; re-run at 18:33Z after round five it reads 69.14
+  of 60, exhausted (rounds 6.47, 16.43, 23.54, 15.58 and 13.59; the fourth round's cost had moved
+  from 15.2 to 15.58 as its replies landed), the tempo section 8(d) describes. The rounds grew from
+  one incomplete cure (a lane corrected in section 7 and not in section 10), the shape section 8(a)
+  names: a reviewer with a memory of one round finds the next edge, and a grep of the record for the
+  same claim would have found it first. Merged 18:13:16Z as 2522b8965 on Copilot's leg: Codex's
+  fifth run completed with no findings and, on this PR, recorded that only by editing its one
+  summary comment (created 17:16:57Z, updated 17:52:18Z) and posting no review object, so the
+  merge-bot read its leg as owed and refused the edited comment as evidence; on 266 the same day
+  Codex posted a fresh comment per clean run, so the tool row is scoped to the edited-comment shape.
+- A cost on the exchange's code rows of a guard scoped wider than its concept (the JC.net napkin,
+  check-in 44 and suite 39): JC.net's content-policy guard, scoped to every path, refused a JC.net
+  seat's write of lineage code (reported in Siren's withdrawal line, 17:32:57Z on the lineage
+  stream); the scope fix is JC.net PR 230 at its rounds; exchange-register row J3 (repo-check over
+  the tracked tree) waits on it, with J2 (the tracked-universe validators) behind J3 in the order.
