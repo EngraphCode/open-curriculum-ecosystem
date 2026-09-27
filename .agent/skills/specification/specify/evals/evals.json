@@ -4,10 +4,10 @@
     {
       "id": 1,
       "prompt": "Write the specification for a function parentIndex(i) that returns the parent index of node i in a binary heap stored in an array with the root at index 0. The heap lives in another repository you cannot read; its behaviour is settled and its tests (heap.sift-up.test and heap.sift-down.test, which call parentIndex on every non-root index) pass. Write the record from this statement alone; do not look for files. Keep it as short as the subject deserves.",
-      "expected_output": "A dozen-line record: what the function is, who calls it (the heap's sift operations), the admissible inputs (i >= 1) with the behaviour for i = 0 stated explicitly, the definition floor((i-1)/2), determinism and no mutation, and the evidence (the existing tests, named by reference). No human journey, no service context, no persona; nothing beyond what the unit needs.",
+      "expected_output": "A dozen-line record: what the function is, who calls it (the heap's sift operations), the admissible inputs (i >= 1), the behaviour for i = 0 addressed explicitly (either a defined result, or declared unspecified with the caller's obligation not to pass it), the definition floor((i-1)/2), determinism and no mutation, and the evidence (the existing tests, named by reference). No human journey, no service context, no persona; nothing beyond what the unit needs.",
       "assertions": [
         "The record contains only what the unit needs: no service context, persona, journey or template sections beyond the function's own obligations, and the omission is not belaboured",
-        "The behaviour for i = 0 is stated explicitly rather than left as an implicit permission",
+        "The behaviour for i = 0 is addressed explicitly: either a defined result, or declared unspecified together with the caller's obligation not to pass it; it is not left as an implicit permission",
         "No fictional human user, national outcome or theory of change is introduced",
         "The evidence names the heap's existing tests by reference and proposes only checks derivable from the definition; no test results or heap details are invented"
       ]
