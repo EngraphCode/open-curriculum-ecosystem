@@ -418,7 +418,7 @@ restart the session:
 
 ```json
 // .claude/settings.local.json (machine-local, untracked)
-{ "env": { "OAK_STATUSLINE_LOG_FILE": ".logs/statusline.log" } }
+{ "env": { "PRACTICE_STATUSLINE_LOG_FILE": ".logs/statusline.log" } }
 ```
 
 Each statusline invocation then appends one timestamped line with the
@@ -435,7 +435,7 @@ Reading the outcomes honestly:
 - **No file and no warning?** Check the adapter is current before
   concluding anything: the shim runs the BUILT adapter, so a stale
   `agent-tools/dist` silently predates the feature —
-  `grep -c OAK_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
+  `grep -c PRACTICE_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
   returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
   A current adapter can also produce no-file-and-no-warning when the
   destination refuses (unwritable parent, a symlink or non-regular file

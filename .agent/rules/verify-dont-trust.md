@@ -61,6 +61,20 @@ yourself and form your own verdicts first — sub-agent reports corroborate or
 challenge your reading, never substitute for it, and the first-hand pass is
 never deferred to "after the agents finish".
 
+A ruling names the primary surface it read. Any routing, acceptance,
+recommendation or ruling that rests on a count, a register row, a ruleset,
+a workflow, a vendor mechanism or a Practice text reads that surface itself
+in one command before it goes out, and names what was read: the file's blob
+at the default branch's tip (never a checkout on a coordination branch), the
+API response, the run list, the vendor's issue and its documentation. A
+seat's line about a surface is a copy of it, and a subagent's "missing" is a
+claim to verify by blob before it becomes a row. Worked instances, 2026-09-25
+and 2026-09-26: nine Director rulings reversed on a first-hand read in two
+days, among them a flake count taken from a summary, a register row, a
+ruleset and its mirror, a vendor mechanism (a merge queue) recommended before
+its open issue was read, and a PDR called stale from a checkout fifty-six
+commits behind the default branch.
+
 Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in
 place has not fixed the defect. Re-read the original offending line or section,

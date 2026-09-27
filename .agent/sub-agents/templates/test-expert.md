@@ -11,7 +11,7 @@ friction without paying their way in design value.
 
 ### Triggering Scenarios
 
-- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
+- A new test file (`*.unit.test.ts`, `*.integration.test.ts`) or a new E2E or smoke check (a file under `e2e-tests/` or `smoke-tests/`, a Playwright `*.spec.ts` under the directory the workspace's Playwright config names as its `testDir`, or a standalone validator script, whatever its suffix) is created, or any existing test or check is modified
 - A test suite audit is requested for skipped tests, conditional execution, global state reads or manipulation, complex mocks, or tests that audit rather than describe
 - Tests are failing in CI and the failure mode suggests structural or design problems (flaky integration tests due to process-spawning, mocks bleeding between tests, conditional gating)
 - A pull request adds product code without corresponding test changes — the atomic-landing invariant has been violated and a TDD compliance check is needed
@@ -64,7 +64,8 @@ suggestions concrete.
 | Document | Purpose |
 |----------|---------|
 | `.agent/directives/tdd-as-design.md` | **THE FOUNDATIONAL DEFINITION** — what TDD is, why it exists, and the atomic-landing invariant |
-| `.agent/directives/testing-strategy.md` | Test-type taxonomy and shape rules (unit / integration / E2E / smoke) |
+| `.agent/directives/testing-strategy.md` | Test-type taxonomy and shape rules (unit / integration tests; E2E / smoke checks) |
+| `.agent/directives/validation-strategy.md` | Where a proof that needs IO lives: validators, checks and recorded observations |
 | `.agent/rules/test-immediate-fails.md` | **IMMEDIATE-FAIL CHECKLIST** — first-pass screen; any single hit rejects the test |
 | `.agent/rules/no-conditional-tests.md` | Conditional-execution prohibition (architectural-failure signal) |
 | `.agent/rules/no-global-state-in-tests.md` | Global state and module cache prohibitions |
@@ -109,12 +110,11 @@ For each test file:
   (does it import product code? does it spawn processes? does it exchange
   protocol with a separate running system?), not just its name.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
-  `*.integration.test.ts`). An existing `*.e2e.test.ts` file is pre-invariant
-  estate for the recovery plan, never a naming mismatch to flag; a NEW E2E or
-  smoke check must be reachable from a CI-gated task, and where the
-  workspace's live runner glob still wants the old suffix, the suffix is a
-  name and never a classification (`testing-strategy.md` §Development
-  Workflow).
+  `*.integration.test.ts`). A file named as an E2E check that imports product
+  code and runs it in the test process is an integration test under the wrong
+  name (`test-immediate-fails.md` item 20): flag it. An E2E or smoke check must
+  be reachable from a CI-gated task, and its suffix is a name, never a
+  classification (`testing-strategy.md` §Out-of-process checks).
 - Flag any mismatch as an immediate-fail (per `test-immediate-fails.md`
   §Pipeline).
 
@@ -160,8 +160,8 @@ the design intent.
 - The test name mirrors the function name rather than the behaviour
   (`it('calls fetchUsers')` vs. `it('returns the active users for the
   current organisation')`).
-- The test asserts on intermediate state, private fields, or collaborator
-  call counts rather than on observable return values.
+- The test asserts on intermediate state, private fields, or input-port
+  query counts rather than on observable return values.
 - The test would pass against a stub implementation that returns the
   hard-coded value the test expects, indicating the test does not
   describe the function — it describes a fixture.
@@ -192,12 +192,19 @@ The atomic-landing invariant from `tdd-as-design.md`:
 ### Step 6: Apply the Mock-Quality Check
 
 - **Unit tests have NO mocks** (parameters in, result out).
-- **Integration tests have only SIMPLE mocks** — constant returns,
-  captured calls. No branching, no state machines, no string
-  interpolation of inputs.
-- **All mocks injected as parameters** (DI, per ADR-078). No
-  `vi.mock`, `vi.doMock`, `vi.stubGlobal`. No `process.env` reads or
-  writes.
+- **Integration tests have only SIMPLE mocks** — constant returns, a
+  record of what the product sends through an output port, read as a value
+  (`testing-strategy.md` §Stubs vs Fakes), or a parametric fake. No
+  branching and no state machines; a fake whose answer depends on its
+  inputs is a parametric fake and meets all five conditions of
+  `testing-strategy.md` §Philosophy.
+- **No assertion on the product's queries or internal calls**
+  (immediate-fail item 18): no spy on a private or internal method, and no
+  assertion on which queries the product made of a collaborator it asks
+  (an input port), how often or in what order.
+- **All mocks injected as parameters** (DI, per `no-global-state-in-tests`). No
+  `vi.mock`, `vi.doMock`, `vi.stubGlobal`, `vi.useFakeTimers`,
+  `vi.setSystemTime`. No `process.env` reads or writes.
 
 ### Step 7: Apply the Suggestion Mode
 
@@ -237,11 +244,11 @@ or test deployed systems.
 Checks that drive a running system in a separate process. They are
 validation surfaces, never tests: tests never use or create IO
 (`testing-strategy.md` §Philosophy, owner, 2026-09-14). The `test` in the
-file names below is pre-invariant naming.
+file names below is a name, never a classification.
 
 | Type | Purpose | Mocks | IO | Naming |
 |------|---------|-------|-----|--------|
-| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | `*.e2e.test.ts` where the live runner's glob wants it (a pre-invariant name, never a classification) |
+| **E2E check** | Running system behaviour | Minimal, largely around network IO | The system's protocol channel (stdio or HTTP for a server; the browser for a UI) | Protocol and CLI checks (Vitest): `*.e2e.test.ts` in the workspace's `e2e-tests/`; UI checks (Playwright): `*.spec.ts` in the directory the workspace's Playwright config names as its `testDir`; a name, never a classification |
 | **Smoke check** | The shipped form is viable | NONE | All types | Files under `smoke-tests/` matching the workspace runner's glob, or standalone scripts |
 
 ### The Critical Distinction
@@ -365,6 +372,9 @@ vi.stubGlobal('fetch', mockFetch);
 // PROHIBITED — manipulates module cache
 vi.mock('module', () => ({ ... }));
 vi.doMock('module', () => ({ ... }));
+// PROHIBITED — replaces the global clock and timers
+vi.useFakeTimers();
+vi.setSystemTime(new Date('2026-01-01'));
 ```
 
 ### Required: Dependency Injection
@@ -401,15 +411,18 @@ need for product code refactoring and cites the relevant specialist.
 
 ### Structural
 
-- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (an
-      existing `*.e2e.test.ts` is pre-invariant estate, not a mismatch)
-- [ ] Tests live next to code (E2E checks live apart, in `e2e-tests/`)
+- [ ] Correct naming: `*.unit.test.ts`, `*.integration.test.ts` (a file named
+      as an E2E check that imports product code and runs it in the test
+      process is an integration test: flag it)
+- [ ] Tests live next to code (E2E checks live apart: Vitest protocol and CLI
+      checks in `e2e-tests/`, Playwright UI checks in the directory the
+      workspace's Playwright config names as its `testDir`)
 - [ ] No skipped tests (`it.skip`, `describe.skip`, `test.todo`,
       `it.todo`, `xit`, `xdescribe`)
 - [ ] No conditional execution (`skipIf`, `runIf`, runtime branching,
       conditional assertions, conditional fixtures)
-- [ ] If a test cannot run (e.g., missing API key), it MUST fail fast
-      with a helpful error message — never silently skip
+- [ ] A check that needs an external resource (e.g., an API key) fails
+      fast with a helpful error message — never silently skips
 - [ ] Validation scripts requiring external resources are standalone
       scripts, NOT tests
 - [ ] No complex logic in tests
@@ -421,7 +434,7 @@ need for product code refactoring and cites the relevant specialist.
 - [ ] All mocks injected as parameters
 - [ ] No global state reads or manipulation
 - [ ] No `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`,
-      `vi.doMock`
+      `vi.doMock`, `vi.useFakeTimers`, `vi.setSystemTime`
 
 ### Test Value
 

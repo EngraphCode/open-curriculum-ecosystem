@@ -55,7 +55,7 @@ export const commsSendHelp =
   '(identity seed: PRACTICE_AGENT_SESSION_ID_CLAUDE, ' +
   'PRACTICE_AGENT_SESSION_ID_CURSOR, PRACTICE_AGENT_SESSION_ID_GEMINI, ' +
   'PRACTICE_AGENT_SESSION_ID_CODEX, CODEX_THREAD_ID, Antigravity conversationId, ' +
-  'or OAK_AGENT_IDENTITY_OVERRIDE)';
+  'or PRACTICE_AGENT_IDENTITY_OVERRIDE)';
 
 export const commsRenderHelp = 'comms render --comms-dir <dir> --output <path>';
 

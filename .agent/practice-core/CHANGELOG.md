@@ -4,6 +4,21 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-26 — PDR-132's cost model; PDR-140's late-cure leg
+
+- PDR-132 §Decision item 7: a pull request pays a flat cost whatever its
+  size, so the optimum slice is well above one line; changes that share a
+  story go as one pull request. The owner's word of 2026-09-26 and the
+  Director's ruling of that hour, joint bytes with the second estate;
+  §Consequences points to `design-work-for-small-prs`, which carries the
+  floor, and an amendment entry records the word. Item 1 names clause 4's
+  late-cure push as the door a further push opens through.
+- PDR-140 clause 4: the late-cure push requests its expected leg so the tip
+  binds for the merge boundary, and that leg's findings are dispositions
+  only (the Director's ruling of 2026-09-26); a new amendment entry records
+  the 2026-09-25 paragraph and the ruling. The record is one blob in both
+  estates.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-25 — PDR-142 takes the owner's words on pace and goal, and the authority class before a cure
 
 - The owner's words on the exchange's pace ("above all, you should both go

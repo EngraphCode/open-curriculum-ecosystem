@@ -71,7 +71,7 @@ malformed input intentionally produce no context and do not block startup.
 Treat title/statusline text as an optional display convenience, not the
 identity source of truth.
 
-`OAK_AGENT_IDENTITY_OVERRIDE` remains an explicit operator escape hatch for
+`PRACTICE_AGENT_IDENTITY_OVERRIDE` remains an explicit operator escape hatch for
 memorable owner-assigned names. Derived names from session-id seeds are
 deterministic session display names; persistent PDR-027 identity across
 sessions requires a deliberately persistent seed or explicit override.

@@ -10,7 +10,8 @@ providing?" and, on the cure direction, "flipping the default action on
 feedback to no action unless action is critically determined as
 worthwhile" — with the explicit constraint that auto-merge is not the
 answer, because "that just ignores feedback"; and, on sufficiency, the
-PR skill must correct its own loops without out-of-band skill pokes).
+PR skill must correct its own loops without out-of-band skill pokes;
+amended 2026-09-07 and 2026-09-26 — see Amendment Log).
 **Date**: 2026-08-31
 
 ## Context
@@ -167,8 +168,11 @@ scope widens by dated amendment, never by improvisation.
    pushes under this clause before the ruling reached its seat, 2026-09-24).
    An over-bar finding found after that push keeps the cure path clauses 2
    and 5 give it, because the cure obligation survives budget exhaustion:
-   one late-cure push carrying that cure and its disposition line, with no
-   further round of review requests.
+   one late-cure push carrying that cure and its disposition line. That
+   push requests the expected leg, so the tip binds for the merge boundary;
+   the leg's findings are dispositions only, in signed lines, and a
+   correctness defect among them opens a further push only through this
+   clause's doors.
 
 5. **Age-out, scoped to below-bar findings.** A below-bar finding that
    binds to text unchanged since the last reviewed head reveals the
@@ -343,3 +347,16 @@ a second rebudget, or a below-bar cure landing on a post-budget push;
 PR, or a routed write found in no napkin, register or PR by the
 seat's session close; 9(d) — a PR whose body carries another PR's
 review residue as its story.
+
+### 2026-09-26 — clause 4 reads its rebudget with the owner's two-round ruling
+
+Clause 4 gained the reading of its rebudget under the owner's ruling of 2026-09-14, verbatim "I
+don't want the number of rounds of PRs to go up": the rebudget licenses the one settlement push
+that carries the pending mandatory cure and the dispositions, never a further cure round; past
+round two a later below-bar finding is a disposition riding the settlement; and an over-bar
+finding found after that push keeps one late-cure push. The lineage wrote the paragraph on
+2026-09-25 with no entry, and this entry records it. On 2026-09-26 the Director's ruling
+replaced the paragraph's "with no further round of review requests": the late-cure push
+requests its expected leg, so the tip binds for the merge boundary (PDR-132 item 6), and that
+leg's findings are dispositions only. A binding leg whose findings cannot be cured is not a
+round; the owner's concept, that the number of rounds does not go up, is kept.
