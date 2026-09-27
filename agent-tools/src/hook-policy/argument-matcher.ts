@@ -1,6 +1,6 @@
-import { GIT_GLOBAL_OPTIONS_WITH_ARGUMENT } from './argument-matcher-tables.js';
+import { GIT_GLOBAL_OPTIONS_WITH_ARGUMENT } from '../shell/git-global-options.js';
 import type { OptionSpec } from './argv-option-spec.js';
-import { basename, interpreterScriptInSegment, substitutionInSegment } from './argv-nested.js';
+import { interpreterScriptInSegment, substitutionInSegment } from './argv-nested.js';
 import { collectPresentOptions } from './argv-options.js';
 import {
   findCommandTable,
@@ -9,7 +9,8 @@ import {
   sameWords,
   type ArgvPatternSpec,
 } from './argv-pattern.js';
-import { segmentCommand, type ShellWord } from './shell-words.js';
+import { basename } from '../shell/interpreter-script.js';
+import { segmentCommand, type ShellWord } from '../shell/shell-words.js';
 
 export { parseArgvPattern } from './argv-pattern.js';
 

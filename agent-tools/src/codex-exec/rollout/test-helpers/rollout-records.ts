@@ -77,9 +77,14 @@ export function textParts(value: unknown): { type: string; text: string }[] {
   return value;
 }
 
+/** A fresh, schema-checked copy of any recorded rollout fixture. */
+export function recordsOf(fixture: unknown): TestRecord[] {
+  return fixtureSchema.parse(structuredClone(fixture));
+}
+
 /** A fresh copy of the recorded rollout. */
 export function records(): TestRecord[] {
-  return fixtureSchema.parse(structuredClone(observed));
+  return recordsOf(observed);
 }
 
 /** The records as the JSONL lines the reader takes. */

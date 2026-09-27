@@ -75,6 +75,7 @@ describe('repo-check staged scanners', () => {
           'prettier',
           '--check',
           '--ignore-unknown',
+          '--',
           'docs/staged-clean.md',
           'agent-tools/src/repo-check/repo-check.ts',
         ],
@@ -115,7 +116,7 @@ describe('repo-check staged scanners', () => {
     expect(inheritedCalls).toStrictEqual([
       {
         command: 'pnpm',
-        args: ['exec', 'prettier', '--check', '--ignore-unknown', 'docs/staged-bad.md'],
+        args: ['exec', 'prettier', '--check', '--ignore-unknown', '--', 'docs/staged-bad.md'],
       },
     ]);
     expect(inheritedCalls[0]?.args).not.toContain(ambientDirtyFile);
@@ -142,7 +143,7 @@ describe('repo-check staged scanners', () => {
     expect(inheritedCalls).toStrictEqual([
       {
         command: 'pnpm',
-        args: ['exec', 'markdownlint-cli2', '--no-globs', 'docs/staged-clean.md'],
+        args: ['exec', 'markdownlint-cli2', '--no-globs', '--', 'docs/staged-clean.md'],
       },
     ]);
     expect(inheritedCalls[0]?.args).not.toContain(ambientDirtyFile);
@@ -170,7 +171,7 @@ describe('repo-check staged scanners', () => {
     expect(inheritedCalls).toStrictEqual([
       {
         command: 'pnpm',
-        args: ['exec', 'markdownlint-cli2', '--no-globs', 'docs/staged-bad.md'],
+        args: ['exec', 'markdownlint-cli2', '--no-globs', '--', 'docs/staged-bad.md'],
       },
     ]);
     expect(inheritedCalls[0]?.args).not.toContain(ambientDirtyFile);

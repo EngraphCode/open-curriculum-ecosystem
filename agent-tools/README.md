@@ -605,6 +605,13 @@ The runner is a per-user install resolved by name on the operator's PATH: the ru
 skills into an agent under `--trust-plugin`, so PATH resolution adds no trust boundary the run does not already cross;
 only suites the repository authored are run.
 
+## `codex-exec` quick reference
+
+- `last-message [--format text|json] [--strict]` — read a `codex exec` JSONL stream from stdin and print the final assistant text
+- `command-records [--format text|json] [--strict]` — read a seat's whole rollout from stdin and summarise what the harness recorded: the commands it ran per turn, every exec call accounted, refused or unaccounted, and every command carrying a forbidden shape of `.codex/rules/seat-landing.rules`, rendered by allowlist; `--strict` exits 1 on a shape that ran, an unaccounted call or unreadable evidence
+
+Both read the harness's own records, never the model's text (ADR-180 §2).
+
 ## Repo gate status
 
 `agent-tools` checks currently run via:
