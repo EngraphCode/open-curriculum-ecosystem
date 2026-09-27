@@ -3,6 +3,13 @@
 Versions are the plugin manifest version. The Claude Code plugin and the
 ChatGPT/Codex package are cut from the same source at the same version.
 
+## 0.1.3 — unreleased
+
+- Claude plugin: adds an icon, a privacy policy link and a README, which the
+  Claude plugin directory asks for.
+- oak-curriculum-principles: the hexagon diagram's path is a Markdown link,
+  not code, so the directory does not hold the plugin for a reviewer.
+
 ## 0.1.2 — 2026-09-17 (repo release v1.182.0)
 
 - Adds the ChatGPT/Codex package: the same skills, with the two workflows
