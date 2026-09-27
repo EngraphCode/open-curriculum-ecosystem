@@ -105,7 +105,7 @@ describe('renderSegment prints a command by allowlist', () => {
       'git@github.com:org/repo.git',
       '~/notes',
     ]);
-    expect(rendered).toBe('git commit -C --cwd -m <arg> --no-verify <arg> <arg>');
+    expect(rendered).toBe('git commit -C --<flag> -m <arg> --no-verify <arg> <arg>');
   });
 
   it('elides an assignment value and a wrapper argument, keeping their names', () => {
@@ -127,7 +127,13 @@ describe('renderSegment prints a command by allowlist', () => {
 
   it('elides the argument of a long wrapper option', () => {
     expect(renderSegment(['sudo', '--user', 'root', 'git', 'push'])).toBe(
-      'sudo --user <arg> git push',
+      'sudo --<flag> <arg> git push',
+    );
+  });
+
+  it('prints a value shaped like a long flag as a flag placeholder, never by name', () => {
+    expect(renderSegment(['git', 'commit', '-m', '--secret-message', '--no-verify'])).toBe(
+      'git commit -m --<flag> --no-verify',
     );
   });
 

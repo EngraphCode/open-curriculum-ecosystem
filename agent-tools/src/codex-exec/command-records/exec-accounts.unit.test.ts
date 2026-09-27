@@ -245,6 +245,28 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
     ]);
   });
 
+  it('reads an exec request with no call id as malformed and unaccounted, never as a stray record', () => {
+    const records = execRecords();
+    const calls = execCalls(records).length;
+    const [start] = turnStarts(records);
+    assert(start);
+    const request: TestRecord = {
+      type: 'response_item',
+      payload: { type: 'custom_tool_call', name: 'exec' },
+    };
+    records.splice(records.indexOf(start) + 1, 0, request);
+    const summary = readCommandRecords(lines(records));
+    expect(onlyAccount(summary)).toMatchObject({
+      calls: calls + 1,
+      accounted: calls,
+      unaccounted: 1,
+    });
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, request), reason: 'exec request has no call id' },
+    ]);
+    expectInvariant(summary);
+  });
+
   it('reads an exec request repeating a pending call id as malformed and unaccounted', () => {
     const records = execRecords();
     const calls = execCalls(records).length;

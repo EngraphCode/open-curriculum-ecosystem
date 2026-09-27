@@ -11,8 +11,10 @@ import {
 } from '../rollout/test-helpers/rollout-records.js';
 
 import { readCommandRecords } from './read-command-records.js';
+import { renderSummary } from './summary.js';
 import {
   commandItems,
+  HOME_PATH,
   execCalls,
   execRecords,
   lineOf,
@@ -76,6 +78,16 @@ describe('readCommandRecords over the recorded seat rollout', () => {
     const summary = readCommandRecords(lines(records));
     expect(summary.recordTypes['nonce_record.later']).toBe(1);
     expect(summary.malformed).toStrictEqual([]);
+  });
+
+  it('counts a record type that is not an identifier as other, so no typed text reaches the summary', () => {
+    const records = execRecords();
+    records.push({ type: `${HOME_PATH}\nnonce`, payload: { type: 'not an identifier' } });
+    const summary = readCommandRecords(lines(records));
+    expect(summary.recordTypes['other.other']).toBe(1);
+    for (const format of ['text', 'json'] as const) {
+      expect(renderSummary(summary, format)).not.toContain(HOME_PATH);
+    }
   });
 
   it('reads an empty rollout as zero of everything, not as an error', () => {

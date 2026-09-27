@@ -30,7 +30,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
         kind: 'executed',
         line: lineOf(records, event),
         turnId: APPENDED_TURN_ID,
-        rendered: ['…', 'git commit --amend --no-edit'],
+        rendered: ['…', 'git commit --amend --<flag>'],
         hits: [{ kind: 'commit-rewrites-or-skips-hooks', token: '--amend' }],
       },
     ]);
@@ -68,6 +68,8 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     },
     { name: 'a shell behind sudo', argv: ['sudo', 'bash', '-c', 'git push origin HEAD'] },
     { name: 'eval reading its operand', argv: ['eval', 'git push origin HEAD'] },
+    { name: 'eval with unquoted operands', argv: ['eval', 'git', 'push', 'origin', 'HEAD'] },
+    { name: 'ssh with unquoted operands', argv: ['ssh', 'host', 'git', 'push', 'origin', 'HEAD'] },
     {
       name: 'a shape before a later interpreter operand',
       argv: ['git', 'push', 'origin', 'HEAD', 'sh', '-c', 'echo a b'],

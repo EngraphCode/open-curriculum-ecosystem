@@ -36,16 +36,20 @@ export type OutputClass =
   | { readonly kind: 'refused'; readonly refusal: Refusal }
   | { readonly kind: 'malformed'; readonly reason: string };
 
-/** The call id when the payload is an exec-family request; undefined otherwise. */
-export function execRequestId(payload: JsonRecord): string | undefined {
+/** An exec-family request; `callId` is undefined when the request carries no usable id. */
+export interface ExecRequest {
+  readonly callId: string | undefined;
+}
+
+/** The exec-family request a payload is, or undefined when it is no such request. */
+export function execRequest(payload: JsonRecord): ExecRequest | undefined {
   const type = typeof payload.type === 'string' ? payload.type : '';
   const names = REQUEST_NAMES.get(type);
   if (names === undefined || typeof payload.name !== 'string' || !names.has(payload.name)) {
     return undefined;
   }
-  return typeof payload.call_id === 'string' && payload.call_id.length > 0
-    ? payload.call_id
-    : undefined;
+  const callId = payload.call_id;
+  return { callId: typeof callId === 'string' && callId.length > 0 ? callId : undefined };
 }
 
 /** The call id when the payload is a tool output; undefined otherwise. */

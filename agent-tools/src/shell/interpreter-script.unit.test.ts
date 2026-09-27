@@ -31,12 +31,12 @@ describe('interpreterScriptWords', () => {
     expect(scriptsOf(line)).toStrictEqual([]);
   });
 
-  it('reads every operand of eval and ssh as a script', () => {
-    expect(scriptsOf("eval 'git push' 'origin HEAD'")).toStrictEqual(['git push', 'origin HEAD']);
-    expect(scriptsOf("ssh -T host 'git push origin HEAD'")).toStrictEqual([
-      'host',
-      'git push origin HEAD',
-    ]);
+  it('joins the operands of eval, and of ssh after its host, into the one command they run', () => {
+    expect(scriptsOf("eval 'git push' 'origin HEAD'")).toStrictEqual(['git push origin HEAD']);
+    expect(scriptsOf('eval git push origin HEAD')).toStrictEqual(['git push origin HEAD']);
+    expect(scriptsOf("ssh -T host 'git push origin HEAD'")).toStrictEqual(['git push origin HEAD']);
+    expect(scriptsOf('ssh host git push origin HEAD')).toStrictEqual(['git push origin HEAD']);
+    expect(scriptsOf('ssh host')).toStrictEqual([]);
   });
 });
 

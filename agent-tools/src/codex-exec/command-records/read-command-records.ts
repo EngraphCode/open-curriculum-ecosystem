@@ -3,11 +3,13 @@ import { isRecord, type JsonRecord } from '../rollout/record-shapes.js';
 import { flagRecord, isExecuted, readCommandItem } from './command-item.js';
 import {
   classifyOutput,
-  execRequestId,
+  execRequest,
   flagRefusal,
   outputCallId,
+  type ExecRequest,
   type OutputClass,
 } from './exec-calls.js';
+import { recordTypeKey } from './record-type-key.js';
 import type {
   CommandRecord,
   CommandRecordsSummary,
@@ -35,16 +37,6 @@ interface ReaderState {
   readonly recordTypes: Record<string, number>;
   readonly malformed: Malformed[];
   readonly invalidLines: number[];
-}
-
-/** The turn a record belongs to: the last one started. */
-function currentTurn(state: ReaderState): TurnState | undefined {
-  return state.turns.at(-1);
-}
-
-/** The key a record is counted under: its type, then the payload's type when it has one. */
-function recordTypeKey(type: string, payload: unknown): string {
-  return isRecord(payload) && typeof payload.type === 'string' ? `${type}.${payload.type}` : type;
 }
 
 /** Open a turn on `task_started`; a repeated or missing id is malformed and opens nothing. */
@@ -97,23 +89,20 @@ function readItemCompleted(payload: JsonRecord, state: ReaderState, line: number
   }
 }
 
-/** Fold an `event_msg` payload by its type; other event types are counted only. */
-function readEvent(payload: JsonRecord, state: ReaderState, line: number): void {
-  if (payload.type === 'task_started') {
-    startTurn(payload, state, line);
-  } else if (payload.type === 'item_completed') {
-    readItemCompleted(payload, state, line);
-  }
-}
-
-/** An exec request opens a pending call on the current turn; one repeating a pending call id is malformed and unaccounted. */
-function readExecRequest(callId: string, state: ReaderState, line: number): void {
-  const turn = currentTurn(state);
+/** An exec request opens a pending call on the current turn; one with no call id, or repeating a pending one, is malformed and unaccounted. */
+function readExecRequest(request: ExecRequest, state: ReaderState, line: number): void {
+  const turn = state.turns.at(-1);
   if (turn === undefined) {
     state.malformed.push({ line, reason: 'exec request precedes its turn' });
     return;
   }
   turn.calls += 1;
+  const { callId } = request;
+  if (callId === undefined) {
+    turn.unaccounted += 1;
+    state.malformed.push({ line, reason: 'exec request has no call id' });
+    return;
+  }
   if (turn.pending.has(callId)) {
     turn.unaccounted += 1;
     state.malformed.push({ line, reason: 'exec request repeats a pending call id' });
@@ -129,7 +118,7 @@ function readExecOutput(
   state: ReaderState,
   line: number,
 ): void {
-  const turn = currentTurn(state);
+  const turn = state.turns.at(-1);
   if (turn === undefined || !turn.pending.has(callId)) {
     return;
   }
@@ -155,14 +144,23 @@ function readExecOutput(
 
 /** Fold a `response_item` payload: an exec request, a tool output, or nothing to read. */
 function readResponseItem(payload: JsonRecord, state: ReaderState, line: number): void {
-  const requestId = execRequestId(payload);
-  if (requestId !== undefined) {
-    readExecRequest(requestId, state, line);
+  const request = execRequest(payload);
+  if (request !== undefined) {
+    readExecRequest(request, state, line);
     return;
   }
   const callId = outputCallId(payload);
   if (callId !== undefined) {
     readExecOutput(payload, callId, state, line);
+  }
+}
+
+/** Fold an `event_msg` payload by its type; other event types are counted only. */
+function readEvent(payload: JsonRecord, state: ReaderState, line: number): void {
+  if (payload.type === 'task_started') {
+    startTurn(payload, state, line);
+  } else if (payload.type === 'item_completed') {
+    readItemCompleted(payload, state, line);
   }
 }
 

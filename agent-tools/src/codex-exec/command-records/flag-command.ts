@@ -175,19 +175,30 @@ function renderLeading(token: string): string {
   return token.startsWith('-') ? renderTrailing(token) : '<arg>';
 }
 
-/** A token after the program: a long flag's name, a short option's letter, or nothing. */
+/** The long flags a summary prints by name: the rules' own tokens and no other. */
+const NAMED_FLAGS: ReadonlySet<string> = new Set(
+  SHAPES.flatMap((shape) => shape.tokens.filter((token) => token.startsWith('--'))),
+);
+
+/** A token after the program: a rule's long flag by name, any other long flag as `--<flag>`, a short option's letter, or nothing. */
 function renderTrailing(token: string): string {
+  if (token === '--') {
+    return token;
+  }
   if (token.startsWith('--')) {
-    return token.split('=')[0] ?? token;
+    const name = token.split('=')[0] ?? token;
+    return NAMED_FLAGS.has(name) ? name : '--<flag>';
   }
   return token.startsWith('-') && token.length > 1 ? token.slice(0, 2) : '<arg>';
 }
 
 /**
- * A segment by allowlist: the program's basename, git's subcommand, long flag
- * names left of `=`, short options as their letter alone, and `<arg>` for
- * every other token, including every token after a bare `--`. No value,
- * path, message or URL a seat typed is printed.
+ * A segment by allowlist: the program's basename, git's subcommand, the
+ * rules' own long flags by name and every other long flag as `--<flag>`,
+ * short options as their letter alone, and `<arg>` for every other token,
+ * including every token after a bare `--`. A value shaped like a flag (a
+ * message beginning `--`) prints as `--<flag>` too. No value, path, message
+ * or URL a seat typed is printed.
  */
 export function renderSegment(segment: Command): string {
   const { program, subcommand } = placesOf(segment);

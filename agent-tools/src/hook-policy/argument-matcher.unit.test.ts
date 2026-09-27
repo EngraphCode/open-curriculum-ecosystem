@@ -222,6 +222,11 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -r>x-f d')).toBe(false);
   });
 
+  it('reads the unquoted operands of eval and ssh as the one command they run', () => {
+    expect(matchesArgvPattern('git reset --hard', 'eval git reset --hard HEAD~1')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'ssh host git reset --hard HEAD~1')).toBe(true);
+  });
+
   it('reads an escaped or quoted operator character as text, so it hides no later option', () => {
     expect(matchesArgvPattern(recursiveForce, String.raw`rm -rf x \>& -i`)).toBe(true);
   });

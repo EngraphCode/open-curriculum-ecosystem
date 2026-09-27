@@ -37,8 +37,9 @@ export function isScriptWord(word: ShellWord): boolean {
 /**
  * The words an interpreter in the segment reads as its script: for the
  * sh-like shells, the first operand after an option cluster carrying `c`
- * (`-c`, `-lc`, `-ec`); for `eval` and `ssh`, every later operand. A path
- * handed to `bash` without `-c` is a file, not source text.
+ * (`-c`, `-lc`, `-ec`); for `eval` and `ssh`, the later operands joined into
+ * the one command they run. A path handed to `bash` without `-c` is a file,
+ * not source text.
  */
 export function interpreterScriptWords(words: readonly ShellWord[]): readonly ShellWord[] {
   const interpreterIndex = words.findIndex((word) => SHELL_INTERPRETERS.has(basename(word.text)));
@@ -46,12 +47,32 @@ export function interpreterScriptWords(words: readonly ShellWord[]): readonly Sh
     return [];
   }
   const rest = words.slice(interpreterIndex + 1);
-  if (SCRIPT_OPERAND_INTERPRETERS.has(basename(words[interpreterIndex]?.text ?? ''))) {
-    return rest.filter((word) => !word.text.startsWith('-'));
+  const interpreter = basename(words[interpreterIndex]?.text ?? '');
+  if (SCRIPT_OPERAND_INTERPRETERS.has(interpreter)) {
+    return joinedOperands(rest, interpreter === 'ssh');
   }
   const commandFlag = rest.findIndex((word) => isCommandFlagCluster(word.text));
   const script = rest.slice(commandFlag + 1).find((word) => !word.text.startsWith('-'));
   return commandFlag === -1 || script === undefined ? [] : [script];
+}
+
+/**
+ * The one script `eval` or `ssh` runs: `eval` joins every operand into one
+ * command; `ssh` joins every operand after the host. Quoted or not, the
+ * operands become one command line, so the words are joined with a blank and
+ * their substitution bodies carried together.
+ */
+function joinedOperands(rest: readonly ShellWord[], skipHost: boolean): readonly ShellWord[] {
+  const operands = rest.filter((word) => !word.text.startsWith('-')).slice(skipHost ? 1 : 0);
+  if (operands.length === 0) {
+    return [];
+  }
+  return [
+    {
+      text: operands.map((word) => word.text).join(' '),
+      nested: operands.flatMap((word) => word.nested),
+    },
+  ];
 }
 
 /** An option cluster of letters carrying `c` (`-c`, `-lc`, `-ec`), read in one pass so its cost is linear in the word. */
