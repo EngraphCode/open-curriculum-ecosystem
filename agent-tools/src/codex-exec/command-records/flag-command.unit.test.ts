@@ -21,6 +21,7 @@ describe('flagCommand finds the forbidden shapes of the seat rules', () => {
     { line: 'git add --all', kind: 'stage-whole-tree' },
     { line: 'git add -An', kind: 'stage-whole-tree' },
     { line: 'git add -- README.md .', kind: 'stage-whole-tree' },
+    { line: 'git add -- .', kind: 'stage-whole-tree' },
     { line: 'git commit --amend --no-edit', kind: 'commit-rewrites-or-skips-hooks' },
     { line: 'git commit --no-verify -F message.txt', kind: 'commit-rewrites-or-skips-hooks' },
     { line: 'git commit -F message.txt --no-verify', kind: 'commit-rewrites-or-skips-hooks' },
@@ -51,6 +52,10 @@ describe('flagCommand finds the forbidden shapes of the seat rules', () => {
 
   it.each([
     { line: 'git add -- README.md' },
+    { line: 'git add -- -A' },
+    { line: 'git add -- --all' },
+    { line: 'git commit -- --amend' },
+    { line: 'git commit -F message.txt -- -n' },
     { line: 'git add -n README.md' },
     { line: 'git add -p' },
     { line: 'git commit -F message.txt' },

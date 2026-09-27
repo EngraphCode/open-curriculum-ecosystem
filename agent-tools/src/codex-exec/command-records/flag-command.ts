@@ -1,3 +1,4 @@
+import { SHAPES, type ForbiddenShape, type ShapeKind } from './forbidden-shapes.js';
 import { basename } from './shell-front-door.js';
 import type { Segment } from './shell-segments.js';
 
@@ -9,20 +10,15 @@ import type { Segment } from './shell-segments.js';
  * pattern as a positional prefix, while this reader finds the program after
  * leading assignments and wrappers (`env`, `sudo`, `command`, `exec`, `nice`,
  * `time`), finds git's subcommand past its own options, and then matches the
- * rule's tokens anywhere after the subcommand, a short-option cluster
- * included (`git commit -F m --no-verify`, `git commit -an`). So a shape that
- * the policy would refuse is found even when it ran in a form the policy's
- * prefix never saw.
- *
- * The three shapes are the rules file's forbidden `prefix_rule`s, carried
- * here verbatim with their justifications. Pairing is by pattern: the rules
- * are anonymous. The consolidation validator asserting the file's forbidden
- * patterns equal this table is its own lane.
+ * rule's tokens after the subcommand, a short-option cluster included
+ * (`git commit -F m --no-verify`, `git commit -an`). So a shape that the
+ * policy would refuse is found even when it ran in a form the policy's
+ * prefix never saw. Git's grammar puts options before a bare `--` and
+ * pathspecs after it, so an option-shaped token is matched before the first
+ * bare `--` only (a pathspec literally named `-A` is a file), while the
+ * whole-tree pathspec `.` is found on either side of it. The shapes
+ * themselves live in the forbidden-shapes module.
  */
-
-/** One forbidden shape, named for the summary. */
-export type ShapeKind =
-  'stage-whole-tree' | 'commit-rewrites-or-skips-hooks' | 'push-outside-the-bot';
 
 /** A shape found in a segment, with the token that matched. */
 export interface Hit {
@@ -30,43 +26,6 @@ export interface Hit {
   /** The rule's own token, a short-option cluster of letters, or the subcommand: never a value. */
   readonly token: string;
 }
-
-interface ForbiddenShape {
-  readonly kind: ShapeKind;
-  /** The rule's pattern: `git`, this subcommand, then any of `tokens`. */
-  readonly subcommand: string;
-  /** The rule's trailing alternatives; empty when the subcommand alone is the shape. */
-  readonly tokens: readonly string[];
-  /** The letter that carries one of `tokens` inside a short-option cluster such as `-an`. */
-  readonly clusterLetter: string | undefined;
-  /** The rule's justification, verbatim. */
-  readonly justification: string;
-}
-
-const SHAPES: readonly ForbiddenShape[] = [
-  {
-    kind: 'stage-whole-tree',
-    subcommand: 'add',
-    tokens: ['-A', '--all', '.'],
-    clusterLetter: 'A',
-    justification: 'Stage by explicit pathspec, never the whole tree.',
-  },
-  {
-    kind: 'commit-rewrites-or-skips-hooks',
-    subcommand: 'commit',
-    tokens: ['--amend', '--no-verify', '-n'],
-    clusterLetter: 'n',
-    justification: 'Never skip the hooks and never rewrite a commit: make a new commit instead.',
-  },
-  {
-    kind: 'push-outside-the-bot',
-    subcommand: 'push',
-    tokens: [],
-    clusterLetter: undefined,
-    justification:
-      'Push with `pnpm agent-tools merge-bot push --branch <branch>`, which refuses force and default branches.',
-  },
-];
 
 const ASSIGNMENT = /^[A-Za-z_][A-Za-z0-9_]*=/;
 const CLUSTER = /^-[A-Za-z]+$/;
@@ -161,12 +120,28 @@ function placesOf(segment: Segment): { program: number; subcommand: number | und
   return { program, subcommand: isGit ? gitSubcommandIndex(segment, program + 1) : undefined };
 }
 
-function matches(shape: ForbiddenShape, token: string): boolean {
-  if (shape.tokens.includes(token)) {
+/** Whether a token is one of the shape's option tokens or a short-option cluster carrying its letter. */
+function matchesOption(shape: ForbiddenShape, token: string): boolean {
+  if (token.startsWith('-') && shape.tokens.includes(token)) {
     return true;
   }
   return (
     shape.clusterLetter !== undefined && CLUSTER.test(token) && token.includes(shape.clusterLetter)
+  );
+}
+
+/** Whether a token is one of the shape's pathspec tokens (the whole tree, `.`). */
+function matchesPathspec(shape: ForbiddenShape, token: string): boolean {
+  return !token.startsWith('-') && shape.tokens.includes(token);
+}
+
+/** The shape's token in the arguments after the subcommand: an option before the first bare `--`, or a pathspec anywhere. */
+function tokenOf(shape: ForbiddenShape, rest: readonly string[]): string | undefined {
+  const dashes = rest.indexOf('--');
+  const options = dashes === -1 ? rest : rest.slice(0, dashes);
+  return (
+    options.find((candidate) => matchesOption(shape, candidate)) ??
+    rest.find((candidate) => matchesPathspec(shape, candidate))
   );
 }
 
@@ -184,13 +159,8 @@ export function flagCommand(segment: Segment): readonly Hit[] {
   if (shape.tokens.length === 0) {
     return [{ kind: shape.kind, token: name }];
   }
-  const token = segment.slice(subcommand + 1).find((candidate) => matches(shape, candidate));
+  const token = tokenOf(shape, segment.slice(subcommand + 1));
   return token === undefined ? [] : [{ kind: shape.kind, token }];
-}
-
-/** The rule's justification for a shape, verbatim. */
-export function justificationOf(kind: ShapeKind): string {
-  return SHAPES.find((shape) => shape.kind === kind)?.justification ?? '';
 }
 
 /** A token before the program: an assignment's name, a wrapper's name, an option's letter, or nothing. */

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import { lines, object, type TestRecord } from '../rollout/test-helpers/rollout-records.js';
 
-import { justificationOf } from './flag-command.js';
+import { justificationOf } from './forbidden-shapes.js';
 import { readCommandRecords } from './read-command-records.js';
 import { renderSummary, type CommandRecordsSummary, type TurnAccount } from './summary.js';
 import {
@@ -90,8 +90,10 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
       .find((line) => line.startsWith(`flagged: line ${lineOf(records, output)}`));
     assert(flaggedLine);
     expect(flaggedLine.split(justificationOf('push-outside-the-bot'))).toHaveLength(2);
+    const typed = 'origin HEAD';
+    expect(lines(records).join('\n')).toContain(typed);
     for (const rendered of [text, renderSummary(summary, 'json')]) {
-      expect(rendered).not.toContain('origin HEAD');
+      expect(rendered).not.toContain(typed);
     }
     expect(summary.malformed).toStrictEqual([]);
   });
@@ -112,6 +114,10 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
       text: `${FAILED}Script error:\n\`git push\` rejected: x\nWarning: truncated output`,
     },
     { name: 'a preamble the harness does not write', text: `${NONCE}\nOutput:\n` },
+    {
+      name: 'a refusal whose judged command line carries a backtick',
+      text: `${FAILED}Script error:\n\`echo \`${NONCE}\`\` rejected: ${NONCE}`,
+    },
   ])('reads $name as one unaccounted call', ({ text }) => {
     const records = execRecords();
     const calls = execCalls(records).length;
@@ -191,7 +197,9 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
     const summary = readCommandRecords(lines(records));
     expect(onlyAccount(summary)).toMatchObject({ calls: calls + 2, refused: 2, accounted: calls });
     expect(summary.flagged.map((entry) => entry.kind)).toStrictEqual(['refused']);
-    expect(renderSummary(summary, 'json')).not.toContain(NONCE);
+    for (const format of ['text', 'json'] as const) {
+      expect(renderSummary(summary, format)).not.toContain(NONCE);
+    }
     expectInvariant(summary);
   });
 

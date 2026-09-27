@@ -9,13 +9,15 @@ import type { FlaggedCommand } from './summary.js';
  * The exec family of tool calls and what their outputs say happened. A
  * request is `response_item.custom_tool_call` named `exec` (code mode) or
  * `response_item.function_call` named `exec_command`, `write_stdin` or
- * `shell_command` (a legacy alias, source-read). Outputs carry no name, so
- * each `custom_tool_call_output` or `function_call_output` joins its request
- * by `call_id` within the turn. Per call the classes are exclusive and decided
- * in this order: a truncated output is unaccounted; a refusal is refused; a
- * completed wrapper is accounted; a failed, terminated, running or absent
- * wrapper is unaccounted; a request unanswered when the rollout ends is
- * unaccounted. Every turn satisfies `calls === accounted + refused + unaccounted`.
+ * `shell_command` (a legacy alias, source-read on codex-cli 0.157.1). Outputs
+ * carry no name, so each `custom_tool_call_output` or `function_call_output`
+ * joins its request by `call_id` within the turn. Per call the classes are
+ * exclusive and decided in this order: an output that is neither text nor
+ * the harness's parts is malformed and unaccounted; a truncated output is
+ * unaccounted; a refusal is refused; a completed wrapper is accounted; a
+ * failed, terminated, running or absent wrapper is unaccounted; a request
+ * unanswered when the rollout ends is unaccounted. Every turn satisfies
+ * `calls === accounted + refused + unaccounted`.
  */
 
 const REQUEST_NAMES: ReadonlyMap<string, ReadonlySet<string>> = new Map([

@@ -54,9 +54,11 @@ function isFinishedStatus(
  */
 export function readPreamble(text: string): Preamble {
   const finished = finishedPreamble.exec(text);
-  const status = finished?.[1];
-  if (finished !== null && isFinishedStatus(status)) {
-    return { status, rest: text.slice(finished[0].length) };
+  if (finished !== null) {
+    const status = finished[1];
+    if (isFinishedStatus(status)) {
+      return { status, rest: text.slice(finished[0].length) };
+    }
   }
   const running = runningPreamble.exec(text);
   if (running !== null) {

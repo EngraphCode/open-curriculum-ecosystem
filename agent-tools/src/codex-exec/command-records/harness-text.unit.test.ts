@@ -17,6 +17,18 @@ function observedRefusalOutput(): string {
 const NONCE = 'nonce-4e21';
 const COMPLETED = 'Script completed\nWall time 0.1 seconds\nOutput:\n';
 const FAILED = 'Script failed\nWall time 0.0 seconds\nOutput:\n';
+const TERMINATED = 'Script terminated\nWall time 3.0 seconds\nOutput:\n';
+const RUNNING = 'Script running with cell ID 7\nWall time 1.0 seconds\nOutput:\n';
+
+/** Every wrapper the preamble settles on its own, crossed with what the program might print first. */
+const SETTLED = [
+  { wrapper: 'completed', preamble: COMPLETED },
+  { wrapper: 'terminated', preamble: TERMINATED },
+  { wrapper: 'running', preamble: RUNNING },
+].flatMap((row) => [
+  { ...row, name: 'bare', lead: '' },
+  { ...row, name: 'after a Script error line the program printed', lead: 'Script error:\n' },
+]);
 
 /** The router's rendering of a refusal, as the code-mode wrapper appends it after `Script error:`. */
 function debugRejected(commandLine: string, justification: string): string {
@@ -67,16 +79,13 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
     expect(read.refusal).toStrictEqual({ commandLine: '' });
   });
 
-  it.each([
-    { name: 'bare', lead: '' },
-    { name: 'after a Script error line the program printed', lead: 'Script error:\n' },
-  ])(
-    'never reads the program’s own text: the same words under a completed script ($name) are no refusal',
-    ({ lead }) => {
-      const printed = `${COMPLETED}${lead}${debugRejected(`git push ${NONCE}`, NONCE)}`;
+  it.each(SETTLED)(
+    'never reads the program’s own text: the same words under a $wrapper wrapper ($name) are no refusal',
+    ({ wrapper, preamble, lead }) => {
+      const printed = `${preamble}${lead}${debugRejected(`git push ${NONCE}`, NONCE)}`;
       const read = readHarnessText(printed);
       assert(read.kind === 'text');
-      expect(read.status).toBe('completed');
+      expect(read.status).toBe(wrapper);
       expect(read.refusal).toBeUndefined();
     },
   );
@@ -95,12 +104,10 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
   it.each([
     { text: `${COMPLETED}{"exit_code":0}`, status: 'completed' },
     { text: `${FAILED}Script error:\nTypeError: x`, status: 'failed' },
-    { text: 'Script terminated\nWall time 3.0 seconds\nOutput:\n', status: 'terminated' },
-    {
-      text: 'Script running with cell ID 7\nWall time 1.0 seconds\nOutput:\npartial',
-      status: 'running',
-    },
+    { text: TERMINATED, status: 'terminated' },
+    { text: `${RUNNING}partial`, status: 'running' },
     { text: `Chunk ID: a1\nProcess exited with code 0\nOutput:\n${NONCE}`, status: 'none' },
+    { text: 'Script running with cell ID 7\npartial', status: 'none' },
   ])('reads the status $status', ({ text, status }) => {
     const read = readHarnessText(text);
     assert(read.kind === 'text');
@@ -119,13 +126,10 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
     expect(read.truncated).toBe(true);
   });
 
-  it.each([
-    { name: 'bare', lead: '' },
-    { name: 'after a Script error line the program printed', lead: 'Script error:\n' },
-  ])(
-    'does not read a truncation marker the program printed under a completed script ($name)',
-    ({ lead }) => {
-      const read = readHarnessText(`${COMPLETED}${lead}…153 tokens truncated…`);
+  it.each(SETTLED)(
+    'does not read a truncation marker the program printed under a $wrapper wrapper ($name)',
+    ({ preamble, lead }) => {
+      const read = readHarnessText(`${preamble}${lead}…153 tokens truncated…`);
       assert(read.kind === 'text');
       expect(read.truncated).toBe(false);
     },

@@ -2,7 +2,8 @@ import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import type { OutputFormat } from '../types.js';
 
-import { justificationOf, type Hit } from './flag-command.js';
+import type { Hit } from './flag-command.js';
+import { justificationOf } from './forbidden-shapes.js';
 
 /**
  * One command the harness recorded as run, from its `CommandExecution` item.

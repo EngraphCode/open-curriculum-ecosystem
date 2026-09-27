@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 
 import { describe, expect, it } from 'vitest';
 
-import { justificationOf } from './flag-command.js';
+import { justificationOf } from './forbidden-shapes.js';
 import { renderSummary, type CommandRecordsSummary } from './summary.js';
 
 const summary: CommandRecordsSummary = {
