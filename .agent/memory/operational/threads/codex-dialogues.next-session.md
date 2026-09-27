@@ -83,6 +83,84 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **COMPACTION BOUNDARY 5 (about 09:15Z, 2026-09-27), at the owner's word "prepare for compaction,
+  and then stop all processes, allow subagents to finish and make their work safely, then stop
+  them".** The word arrived after an overnight pause of the whole team: this seat's last live act
+  was at 21:5xZ on the 26th (the cycle 3 reviews requested), and the wall clock read 09:0xZ on the
+  27th when the seats woke to it (Myrtle ran 245's door on waking, the Director paused at its
+  boundary 9, Siren paused with the slot free). The two cycle 3 review agents are stopped: the test-expert had returned REVISE (two
+  musts, four shoulds, taken before the commit below; its tail past should 6 was truncated and is
+  unread); the code-expert died on the model's usage limit before reading, so cycle 3 has NO
+  post-execution code review yet (owed, first act at resume). The watcher and the heartbeat had
+  reached their caps and are not re-armed under the freeze. This seat holds no slot and no open
+  pull request. Every claim below is read live before any act on resume.
+  - **The reader (claim `f7d8f0de`; worktree `oce-wt-command-records`, branch
+    `feat/codex-rollout-command-records`, 46 behind engraph at the boundary):** four local commits,
+    none pushed under the WIP limit: `ff2f284aa` (cycle 0, the CLI cases lifted), `fd3518646`
+    (cycle 1, the reader over items and turns), `e13c0865e` (cycle 2, the shell reading and the
+    three shapes), `aacd69641` (cycle 3, the exec-call accounting, the harness text, the refusal
+    fixture, `readPreamble` shared with the dialogue reader, and ADR-180 §2 amended for the second
+    tested subcommand). 431 tests in `src/codex-exec` green; eslint, tsc and the build check clean.
+    Design v4 with amendments 1 to 11 and the first-hand evidence are conserved at
+    `.agent/reports/agentic-engineering/2026-09-26-command-records-reader-design.md` (they lived
+    only in this seat's scratchpad until this boundary). **Before the PR opens, in order:** (a) the
+    cycle 3 code-expert review, then the test-expert's unread tail; (b) the cycle 2 reviewer's late
+    nits: `>&`, `<&` and `&>` as word characters (today `2>&1` splits at `&`, so a flag after a
+    redirect is missed), a `#` comment running to the end of its line (an honest comment naming a
+    shape over-flags under `--strict`), the module header naming the unlifted forms (`$'…'`,
+    `xargs`, `find -exec`, a git alias, an abbreviated long option); (c) one owner-authored sync
+    merge of `origin/engraph`; (d) the opening at a WIP slot after the runbook twin (check-in 32's
+    order), with "WIP slot taken: N of 3" after a first-hand count on both estates, the body from
+    the scratchpad draft `pr-command-records-body.md` with its two placeholders filled, both legs,
+    the ADR amendment named for the owner's ratification. The consolidation validator for the
+    rules' patterns is a separate lane. Condition 5's second indicator is read with this reader on
+    the owner's next Codex seat after it lands.
+  - **Landed this segment:** PR 246 as `b332041ba` (21:23Z) through this seat's door after Siren's
+    253; records `2088fd7f4`. Retired: worktree `oce-wt-branch-guard`, its local and remote
+    branches (read-back 404); claims `d66f85da`, `56e5f0c5`, `8af60aaa` closed. **Follow-up owed,
+    one PR, the guard's next change:** the branch-guard smoke's hermetic `PATH` gains the resolved
+    trusted git's directory with the injected platform's delimiter (round 4, read twice by Copilot
+    and Codex on the synced head, confirmed first-hand: a host with no git under `/usr/bin` or
+    `/bin` fails the smoke's pass cases closed); the guard fails closed when
+    `refs/remotes/origin/HEAD` names a ref without the `refs/remotes/origin/` prefix, with the
+    smoke case (round 3). The JC.net twin of the guard fix is routed to Siren (received 21:23:56Z,
+    on Siren's waiting list with both follow-ups).
+  - **PR 250 is Myrtle's lane** (the owner's Appendix E; the Director's ruling 20:44Z). This seat's
+    two intake commits (`52a377a25`, `f41ad8e78`) stand on its branch; the worktree
+    `oce-wt-user-value` is untouched and one behind (the owner's `9a7ffdbaa`); nothing is owed.
+  - **Standing order absorbed (Suite 27, `20ccca33`, ACK `6baa9449`):** goal one's code rows (J6,
+    J7, J8, J16, J20, J18's compare half) come to this seat after the reader lands, one PR per row
+    at a free slot, or to Myrtle after 250, whichever seat frees first; the owner reverses by a
+    word. Check-in 32's slot order after 245 lands: the runbook twin, the reader, the guard twin,
+    the register PR, J2, J3, the code rows; the retrospective's PR behind all of them.
+  - **WIP state at the boundary:** two of three after 245 landed as `a0996ac6b` at 09:06Z on the
+    27th (Myrtle, on waking): 250 the lane and Siren's PR 260 (the WIP-limit clause, opened 21:46Z
+    on the 26th at the slot 256 freed). The door slot is free and Siren said 260 does not take it
+    before the owner's carry-on. By check-in 32's order the free WIP slot goes to the JC.net
+    runbook twin first, then the reader. Landings by others in this segment: 253 (`3377a3b1c`),
+    256 (`d5838af37`), 245 (`a0996ac6b`); Myrtle's records `5b4acabec` (09:11Z, 27th).
+  - **On this machine, not this seat's:** worktree `oce-wt-wip-limit` (Siren's
+    `docs/pr-lifecycle-wip-limit`); three `codex app-server` processes of the Codex desktop app.
+    This seat started no Codex process this segment.
+  - **Parallax on this segment, questioned and recorded:** (1) the slot-taken line for 246 said
+    three files where the PR changed twenty, a number relayed from memory instead of read: the
+    known signature, the counts a seat states; corrected in the release line. (2) Three
+    `claims close` calls printed usage and closed nothing (the platform and model flags missing);
+    the read-back listing caught it, as the read-back rule intends. (3) A review agent started late
+    in the usage window died on the limit with nothing returned; the wrap skill's freeze on
+    starting anything after the compaction word covers the same risk from the other side. (4) The
+    cycle 2 code-expert's tail arrived twice, twenty minutes late and after its second ask; the
+    cycle 3 review was already covering the same tree, so nothing was blocked, but a truncated
+    report's tail is not a report until it arrives. (5) knip refused exported types with one
+    consumer twice in one lane (napkin). (6) The design's "no denied class" (amendment 3) and
+    "declined as its own count" (amendment 11) were both decided at execution against the source
+    and the fixtures, not at plan-author time; recorded in the conserved design.
+  - **Re-arm on resume, verifying by id first:** the heartbeat loop over the scratchpad's
+    `heartbeat-claims.txt` (one claim, `f7d8f0de`), `heartbeat-label.txt` and
+    `heartbeat-branch.txt` (`coordination/2026-09-26-b84321`); the comms watcher (`comms watch
+    --platform claude --model claude-fable-5-1 --supervisor-pid <this session's pid>`);
+    `comms assert-watcher-live`; then the live WIP count on both estates and the slot before any
+    write, and a sweep of the stream between every read and the write that acts on it.
 - **RESUMED (about 19:17Z, 2026-09-26) at the owner's start-right word, after compaction 4.** Read
   live first: nothing had moved on the stream during the pause; the slot was free (Siren's release
   at 16:39Z named 257 next); PR 257 CLEAN at 4 files; PR 246 carried one new Copilot thread on its
