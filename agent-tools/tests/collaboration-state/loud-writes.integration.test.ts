@@ -30,7 +30,7 @@ const sender = {
 } as const;
 
 const senderEnv = {
-  OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+  PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
   PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
 } as const;
 

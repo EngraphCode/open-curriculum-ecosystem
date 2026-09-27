@@ -241,7 +241,7 @@ the first hop. Confirm the id from the API, never from prose:
 
      ```bash
      out=$(GH_TOKEN="$token" gh api -i user 2>/dev/null || true)
-     code=$(printf '%s\n' "$out" | head -1 | awk '{print $2}')
+     code=$(printf '%s\n' "$out" | awk 'NR==1{print $2}')
      [ "$code" = 403 ] || exit 1
      printf '%s' "$out" | grep -q 'Resource not accessible by integration' || exit 1
      ```

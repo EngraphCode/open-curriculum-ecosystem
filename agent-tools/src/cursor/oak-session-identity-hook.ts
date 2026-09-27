@@ -14,7 +14,7 @@ export interface CursorSessionIdentityHookEnvironment {
   readonly CLAUDE_PROJECT_DIR?: string;
   readonly OAK_SKIP_COMPOSER_SESSION_MIRROR?: string;
   /** Explicit operator display-name override — honoured for rendering only, never written back. */
-  readonly OAK_AGENT_IDENTITY_OVERRIDE?: string;
+  readonly PRACTICE_AGENT_IDENTITY_OVERRIDE?: string;
 }
 
 /**
@@ -75,9 +75,9 @@ export function cursorSessionIdentityHookEnvironmentFromProcessEnv(
     ...(env.OAK_SKIP_COMPOSER_SESSION_MIRROR === undefined
       ? {}
       : { OAK_SKIP_COMPOSER_SESSION_MIRROR: env.OAK_SKIP_COMPOSER_SESSION_MIRROR }),
-    ...(env.OAK_AGENT_IDENTITY_OVERRIDE === undefined
+    ...(env.PRACTICE_AGENT_IDENTITY_OVERRIDE === undefined
       ? {}
-      : { OAK_AGENT_IDENTITY_OVERRIDE: env.OAK_AGENT_IDENTITY_OVERRIDE }),
+      : { PRACTICE_AGENT_IDENTITY_OVERRIDE: env.PRACTICE_AGENT_IDENTITY_OVERRIDE }),
   };
 }
 
@@ -94,7 +94,7 @@ export function planCursorSessionIdentityHook(
 
   const projectDir = resolveProjectDir(input.environment, input.fallbackProjectDir);
   const prefix = sessionIdPrefix(sessionId);
-  const override = input.environment.OAK_AGENT_IDENTITY_OVERRIDE?.trim();
+  const override = input.environment.PRACTICE_AGENT_IDENTITY_OVERRIDE?.trim();
   const displayName = deriveIdentity(
     sessionId,
     override === undefined || override.length === 0 ? {} : { override },

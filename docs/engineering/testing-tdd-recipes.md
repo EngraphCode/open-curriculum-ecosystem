@@ -118,7 +118,7 @@ An E2E check drives a **separately running** system over its protocol channel.
 In the example, `baseUrl` is the address of a server the check's harness booted
 as its own process; passing an imported app or server object to `request` would
 open a loopback listener inside the check's process, which is no compliant
-shape (testing-patterns.md §In-Process App Construction).
+shape (testing-patterns.md §In-Process Tests with Dependency Injection).
 
 Example:
 

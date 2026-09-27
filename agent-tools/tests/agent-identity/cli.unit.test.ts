@@ -238,7 +238,7 @@ describe('agent identity CLI planning', () => {
     const result = runAgentIdentityCli({
       argv: ['--seed', 'any', '--format', 'json'],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Frolicking Toast',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Frolicking Toast',
       },
     });
 
@@ -258,7 +258,7 @@ describe('agent identity CLI planning', () => {
       argv: ['--platform', 'claude-code', '--format', 'json'],
       env: {
         PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-session-seed',
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
       },
     });
 
@@ -278,14 +278,30 @@ describe('agent identity CLI planning', () => {
         PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-session-seed',
         PRACTICE_AGENT_SESSION_ID_GEMINI: 'gemini-session-seed',
         CLAUDE_CODE_SESSION_ID: 'claude-cli-session-seed',
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
       }),
     ).toStrictEqual({
       PRACTICE_AGENT_SESSION_ID_CURSOR: 'cursor-session-seed',
       PRACTICE_AGENT_SESSION_ID_GEMINI: 'gemini-session-seed',
       CLAUDE_CODE_SESSION_ID: 'claude-cli-session-seed',
-      OAK_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
+      PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Cached Session Name',
     });
+  });
+});
+
+describe('agent identity CLI: the retired override name has no fallback', () => {
+  it('derives the name from the seed when only the retired override name is set', () => {
+    const argv = ['--seed', 'any', '--format', 'json'];
+    const result = runAgentIdentityCli({
+      argv,
+      env: agentIdentityCliEnvironmentFromProcessEnv({
+        OAK_AGENT_IDENTITY_OVERRIDE: 'Frolicking Toast',
+      }),
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).not.toContain('Frolicking Toast');
+    expect(result.stdout).toBe(runAgentIdentityCli({ argv, env: {} }).stdout);
   });
 });
 

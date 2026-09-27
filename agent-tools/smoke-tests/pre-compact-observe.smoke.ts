@@ -27,7 +27,7 @@ import {
 /**
  * Production-shaped smoke for the `PreCompact` observer hook. Each case runs
  * the command `.claude/settings.json` registers for `PreCompact` through
- * `/bin/sh -c`, as the harness does, in a throwaway project whose name holds
+ * the trusted shell's `-c`, as the harness does, in a throwaway project whose name holds
  * a space (so an unquoted path would split and exit 127), through the
  * committed wrapper, its exec bit and the built `dist`
  * (`registered-hook-command-fixture.ts` builds the project and the run;

@@ -236,7 +236,7 @@ describe('runCollaborationStateCli', () => {
         'GPT-5.5',
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Moonlit Transiting Prism',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Moonlit Transiting Prism',
         PRACTICE_AGENT_SESSION_ID_CURSOR: 'e86710',
       },
     });
@@ -324,7 +324,7 @@ describe('runCollaborationStateCli', () => {
         'GPT-5.5',
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Moonlit Transiting Prism',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Moonlit Transiting Prism',
         PRACTICE_AGENT_SESSION_ID_CURSOR: 'e86710',
       },
     });
@@ -344,7 +344,7 @@ describe('runCollaborationStateCli', () => {
 
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toContain('PRACTICE_AGENT_SESSION_ID_CURSOR');
-    expect(result.stdout).toContain('OAK_AGENT_IDENTITY_OVERRIDE');
+    expect(result.stdout).toContain('PRACTICE_AGENT_IDENTITY_OVERRIDE');
   });
 
   it('documents heartbeat-mode typed state args in comms append help', async () => {

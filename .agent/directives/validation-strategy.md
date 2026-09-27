@@ -1,7 +1,7 @@
 ---
 title: "Validation Strategy"
 status: seeded-stub
-last_updated: 2026-09-19
+last_updated: 2026-09-24
 fitness_line_target: 180
 fitness_line_limit: 240
 fitness_char_limit: 14000
@@ -21,8 +21,9 @@ fitness_line_length: 100
 ## The spine: test / evaluate / assure
 
 - **Test** — *deterministic*. Proves code does what its spec says. Binary,
-  reproducible; unit of truth is the assertion. This is all of
-  [testing-strategy.md](testing-strategy.md). Mutation testing (Stryker) is the
+  reproducible; unit of truth is the assertion, and a test uses no IO.
+  [testing-strategy.md](testing-strategy.md) defines the tests, and the E2E and
+  smoke checks beside them, which are validation surfaces. Mutation testing (Stryker) is the
   meta-quality layer that makes test coverage meaningful.
 - **Evaluate** — *probabilistic*. Measures the value and reliability of a
   judgement-laden capability across realistic inputs, graded relative to a
@@ -130,8 +131,8 @@ lock in shapes that evolved organically and without intention or oversight").
 Before proposing any validator, guard or eval gate, ask whether the surface's
 shape has been ratified from first principles. If not, the sequence is: make
 the shape visible and reviewable (a registry, a report), let the right people
-judge it, ratify the intended shape, and only then guard it. The
-guard-drift-when-you-find-it reflex presupposes that the current shape is
+judge it, ratify the intended shape, and only then guard it. The reflex to
+guard drift the moment it is found presupposes that the current shape is
 intended.
 
 ## Eval home
