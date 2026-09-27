@@ -9,6 +9,7 @@ import {
   type TestRecord,
 } from '../../rollout/test-helpers/rollout-records.js';
 import observedExec from '../fixtures/observed-seat-exec-0-157-1.json';
+import observedRefusal from '../fixtures/observed-seat-refusal-0-157-1.json';
 
 /**
  * A seat-shaped rollout recorded on codex-cli 0.157.1 on 2026-09-26 by one
@@ -41,6 +42,43 @@ export function lineOf(recordsToRead: readonly TestRecord[], record: TestRecord)
 /** A fresh copy of the four-command seat rollout. */
 export function execRecords(): TestRecord[] {
   return recordsOf(observedExec);
+}
+
+/**
+ * A fresh copy of the one-command seat rollout whose command the exec policy
+ * refused: the same run shape on 2026-09-26 in the trusted primary checkout,
+ * one code-mode call asking for `git push origin HEAD`, no `CommandExecution`
+ * item, the harness's `Rejected(…)` message in the tool output's string
+ * carrier after `Script error:`. Projected as the exec fixture is.
+ */
+export function refusalRecords(): TestRecord[] {
+  return recordsOf(observedRefusal);
+}
+
+const EXEC_REQUEST_NAMES: Readonly<Record<string, readonly string[]>> = {
+  custom_tool_call: ['exec'],
+  function_call: ['exec_command', 'write_stdin', 'shell_command'],
+};
+
+/** Every exec-family request (`custom_tool_call` exec, `function_call` exec family), in order; at least one, or the fixture is wrong. */
+export function execCalls(recordsToRead: readonly TestRecord[]): TestRecord[] {
+  const calls = selectAll(recordsToRead, 'response_item').filter((record) => {
+    const names = EXEC_REQUEST_NAMES[String(record.payload['type'])] ?? [];
+    return names.includes(String(record.payload['name']));
+  });
+  assert(calls.length > 0, 'the fixture made no exec call');
+  return calls;
+}
+
+/** The output records answering the exec-family requests, in order; at least one, or the fixture is wrong. */
+export function execOutputs(recordsToRead: readonly TestRecord[]): TestRecord[] {
+  const ids = new Set(execCalls(recordsToRead).map((record) => record.payload['call_id']));
+  const outputs = selectAll(recordsToRead, 'response_item').filter(
+    (record) =>
+      String(record.payload['type']).endsWith('_output') && ids.has(record.payload['call_id']),
+  );
+  assert(outputs.length > 0, 'the fixture answered no exec call');
+  return outputs;
 }
 
 /** Every `task_started` event, in order; at least one, or the fixture is wrong. */

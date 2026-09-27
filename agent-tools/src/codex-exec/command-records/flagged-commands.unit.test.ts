@@ -32,6 +32,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
         turnId: APPENDED_TURN_ID,
         rendered: ['git commit --amend --no-edit'],
         hits: [{ kind: 'commit-rewrites-or-skips-hooks', token: '--amend' }],
+        justification: undefined,
       },
     ]);
     expect(summary.accounts.map((account) => account.executed)).toStrictEqual([base, 1]);
@@ -91,22 +92,37 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
   });
 
-  it('does not scan a declined item: the harness ran nothing', () => {
+  it('reads a declined item carrying a shape as refused, not as a command that ran', () => {
     const records = execRecords();
-    appendCommandTurn(records, ['git', 'push'], { status: 'declined' });
-    expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
+    const event = appendCommandTurn(records, ['git', 'push', 'origin', 'HEAD'], {
+      status: 'declined',
+    });
+    const summary = readCommandRecords(lines(records));
+    expect(summary.flagged).toStrictEqual([
+      {
+        kind: 'refused',
+        line: lineOf(records, event),
+        turnId: APPENDED_TURN_ID,
+        rendered: ['git push <arg> <arg>'],
+        hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
+        justification: undefined,
+      },
+    ]);
+    expect(summary.accounts[1]).toMatchObject({ executed: 0, declined: 1 });
   });
 });
 
 describe('readCommandRecords flags what was typed into a running process', () => {
-  it('does not scan a declined interaction: the harness passed nothing on', () => {
+  it('reads a declined interaction carrying a shape as refused: the harness passed nothing on', () => {
     const records = execRecords();
     appendCommandTurn(records, ['git', 'status'], {
       source: 'unified_exec_interaction',
       status: 'declined',
       interaction_input: 'git push\n',
     });
-    expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
+    expect(readCommandRecords(lines(records)).flagged.map((entry) => entry.kind)).toStrictEqual([
+      'refused',
+    ]);
   });
 
   it('flags the interaction input, not the startup argv it repeats', () => {
@@ -129,6 +145,7 @@ describe('readCommandRecords flags what was typed into a running process', () =>
         turnId: APPENDED_TURN_ID,
         rendered: ['git push <arg> <arg>'],
         hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
+        justification: undefined,
       },
     ]);
     expect(summary.commands).toBe(base);

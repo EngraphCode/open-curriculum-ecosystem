@@ -11,7 +11,13 @@ import {
 } from '../rollout/test-helpers/rollout-records.js';
 
 import { readCommandRecords } from './read-command-records.js';
-import { commandItems, execRecords, lineOf, turnStarts } from './test-helpers/seat-fixtures.js';
+import {
+  commandItems,
+  execCalls,
+  execRecords,
+  lineOf,
+  turnStarts,
+} from './test-helpers/seat-fixtures.js';
 
 /** Values no reader message may echo back. */
 const NONCE = 'nonce-7c1e';
@@ -38,9 +44,18 @@ describe('readCommandRecords over the recorded seat rollout', () => {
     const records = execRecords();
     const [start] = turnStarts(records);
     assert(start);
+    const calls = execCalls(records).length;
     const summary = readCommandRecords(lines(records));
     expect(summary.accounts).toStrictEqual([
-      { turnId: start.payload['turn_id'], executed: commandItems(records).length },
+      {
+        turnId: start.payload['turn_id'],
+        calls,
+        accounted: calls,
+        refused: 0,
+        unaccounted: 0,
+        executed: commandItems(records).length,
+        declined: 0,
+      },
     ]);
   });
 

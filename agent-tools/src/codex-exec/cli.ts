@@ -57,8 +57,13 @@ function strictReasons(summary: CommandRecordsSummary): string[] {
   if (summary.turns === 0) {
     reasons.push('no turn started');
   }
-  if (summary.flagged.length > 0) {
-    reasons.push(`${summary.flagged.length} forbidden shape(s) ran`);
+  const ran = summary.flagged.filter((entry) => entry.kind !== 'refused').length;
+  if (ran > 0) {
+    reasons.push(`${ran} forbidden shape(s) ran`);
+  }
+  const unaccounted = summary.accounts.reduce((sum, account) => sum + account.unaccounted, 0);
+  if (unaccounted > 0) {
+    reasons.push(`${unaccounted} unaccounted exec call(s)`);
   }
   if (summary.malformed.length > 0) {
     reasons.push(`${summary.malformed.length} malformed evidence record(s)`);
@@ -145,7 +150,8 @@ function usage(): string {
     '    --strict  Exit 1 if no message is found.',
     '  command-records [--format text|json] [--strict]',
     "    Read a seat's rollout (JSONL) from stdin; summarise the commands the harness ran.",
-    '    --strict  Exit 1 when no turn started, a forbidden shape of the seat rules ran, or an',
-    '              evidence record or a line could not be read.',
+    '    --strict  Exit 1 when no turn started, a forbidden shape of the seat rules ran, an exec',
+    '              call is unaccounted, or an evidence record or a line could not be read. A',
+    '              refusal alone prints and passes.',
   ].join('\n');
 }

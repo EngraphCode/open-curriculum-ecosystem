@@ -30,21 +30,36 @@ export interface Malformed {
 
 /**
  * A command that carried a forbidden shape of the seat rules: one the harness
- * ran (`executed`) or one typed into a running process (`interaction`).
+ * ran (`executed`), one typed into a running process (`interaction`), or one
+ * the exec policy or the user refused before it ran (`refused`).
  */
 export interface FlaggedCommand {
-  readonly kind: 'executed' | 'interaction';
+  readonly kind: 'executed' | 'interaction' | 'refused';
   readonly line: number;
   readonly turnId: string;
   /** The command by allowlist, one string per shell segment; never the argv. */
   readonly rendered: readonly string[];
   readonly hits: readonly Hit[];
+  /** The policy's reason for a refusal, with any backticked command rendered by allowlist. */
+  readonly justification: string | undefined;
 }
 
-/** One turn's counts. */
+/**
+ * One turn's counts. The exec calls the turn made are each accounted (a
+ * completed wrapper), refused (the exec policy's message) or unaccounted (a
+ * failed, terminated, running or truncated output, a malformed output, or no
+ * output at all): `calls === accounted + refused + unaccounted`. Beside them,
+ * the `CommandExecution` items: the commands the harness ran, and the items
+ * it recorded as declined.
+ */
 export interface TurnAccount {
   readonly turnId: string;
+  readonly calls: number;
+  readonly accounted: number;
+  readonly refused: number;
+  readonly unaccounted: number;
   readonly executed: number;
+  readonly declined: number;
 }
 
 /**
@@ -66,13 +81,20 @@ export interface CommandRecordsSummary {
 function renderFlagged(entry: FlaggedCommand): string {
   const shapes = entry.hits.map((hit) => `${hit.kind}: ${justificationOf(hit.kind)}`).join(' ');
   const command = entry.rendered.join(' ; ');
-  return `flagged: line ${entry.line}: ${entry.kind} in turn ${entry.turnId}: ${command} [${shapes}]`;
+  const reason = entry.justification === undefined ? '' : ` refused: ${entry.justification}`;
+  return `flagged: line ${entry.line}: ${entry.kind} in turn ${entry.turnId}: ${command} [${shapes}]${reason}`;
+}
+
+function renderAccount(account: TurnAccount): string {
+  const calls = `calls ${account.calls}, accounted ${account.accounted}, refused ${account.refused}, unaccounted ${account.unaccounted}`;
+  return `turn ${account.turnId}: ${calls}; executed ${account.executed}, declined ${account.declined}`;
 }
 
 function renderText(summary: CommandRecordsSummary): string {
+  const unaccounted = summary.accounts.reduce((sum, account) => sum + account.unaccounted, 0);
   const lines = [
-    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s), ${summary.flagged.length} flagged`,
-    ...summary.accounts.map((account) => `turn ${account.turnId}: executed ${account.executed}`),
+    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s), ${summary.flagged.length} flagged, ${unaccounted} unaccounted`,
+    ...summary.accounts.map(renderAccount),
     ...summary.flagged.map(renderFlagged),
     `record types: ${typeSafeEntries(summary.recordTypes)
       .map(([type, count]) => `${type}=${count}`)

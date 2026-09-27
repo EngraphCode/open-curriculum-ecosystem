@@ -1,10 +1,13 @@
-import { err, ok, type Result } from '@oaknational/result';
-import { z } from 'zod';
-
 import { isRecord, type JsonRecord } from '../rollout/record-shapes.js';
 
-import { flagCommand, renderSegment } from './flag-command.js';
-import { shellSegments, type Segment } from './shell-segments.js';
+import { flagRecord, isExecuted, readCommandItem } from './command-item.js';
+import {
+  classifyOutput,
+  execRequestId,
+  flagRefusal,
+  outputCallId,
+  type OutputClass,
+} from './exec-calls.js';
 import type {
   CommandRecord,
   CommandRecordsSummary,
@@ -13,34 +16,16 @@ import type {
   TurnAccount,
 } from './summary.js';
 
-const COMMAND_REASON = 'CommandExecution.command is not a non-empty list of strings';
-
-/**
- * A `CommandExecution` item's fields as codex-cli 0.157.1 writes them: the
- * closed status and source sets, the argv, and the two optional fields. Other
- * fields of the item (its id, cwd, outputs, duration) are not read. Each check
- * carries the reason it fails, named by field so no reason echoes a value.
- */
-const commandItemSchema = z.object({
-  command: z
-    .array(z.string({ error: COMMAND_REASON }), { error: COMMAND_REASON })
-    .min(1, { error: COMMAND_REASON }),
-  status: z.enum(['in_progress', 'completed', 'failed', 'declined'], {
-    error: 'CommandExecution.status is outside its closed set',
-  }),
-  source: z.enum(['agent', 'user_shell', 'unified_exec_startup', 'unified_exec_interaction'], {
-    error: 'CommandExecution.source is outside its closed set',
-  }),
-  exit_code: z.number({ error: 'CommandExecution.exit_code is not a number' }).optional(),
-  interaction_input: z
-    .string({ error: 'CommandExecution.interaction_input is not a string' })
-    .optional(),
-});
-
-/** One turn while the stream is folded; later cycles add the tool-call join state. */
+/** One turn while the stream is folded. */
 interface TurnState {
   readonly turnId: string;
   readonly commands: CommandRecord[];
+  /** Exec requests awaiting their output, by call id. */
+  readonly pending: Set<string>;
+  calls: number;
+  accounted: number;
+  refused: number;
+  unaccounted: number;
 }
 
 /** Internal accumulation; only the summary crosses the module boundary. */
@@ -52,46 +37,9 @@ interface ReaderState {
   readonly invalidLines: number[];
 }
 
-/** A command the harness ran to completion or failure itself, not a refusal or a keystroke. */
-function isExecuted(record: CommandRecord): boolean {
-  return record.status !== 'declined' && record.source !== 'unified_exec_interaction';
-}
-
-/**
- * The commands a record means, for the shapes: a keystroke into a running
- * process is a command line of its own (its startup argv was recorded, and
- * scanned, by the startup item); a declined item ran nothing.
- */
-function segmentsOf(record: CommandRecord): readonly Segment[] {
-  if (record.status === 'declined') {
-    return [];
-  }
-  if (record.source === 'unified_exec_interaction') {
-    return record.interactionInput === undefined
-      ? []
-      : shellSegments(['sh', '-c', record.interactionInput]);
-  }
-  return shellSegments(record.command);
-}
-
-/**
- * The record as a flagged entry when any of its segments carries a forbidden
- * shape. Only a segment carrying a shape renders; the others are elided, so a
- * script's unrelated commands and data never reach the summary.
- */
-function flag(record: CommandRecord): FlaggedCommand | undefined {
-  const scanned = segmentsOf(record).map((segment) => ({ segment, hits: flagCommand(segment) }));
-  const hits = scanned.flatMap((entry) => entry.hits);
-  if (hits.length === 0) {
-    return undefined;
-  }
-  return {
-    kind: record.source === 'unified_exec_interaction' ? 'interaction' : 'executed',
-    line: record.line,
-    turnId: record.turnId,
-    rendered: scanned.map((entry) => (entry.hits.length > 0 ? renderSegment(entry.segment) : '…')),
-    hits,
-  };
+/** The turn a record belongs to: the last one started. */
+function currentTurn(state: ReaderState): TurnState | undefined {
+  return state.turns.at(-1);
 }
 
 /** The key a record is counted under: its type, then the payload's type when it has one. */
@@ -110,29 +58,14 @@ function startTurn(payload: JsonRecord, state: ReaderState, line: number): void 
     state.malformed.push({ line, reason: 'task_started repeats a turn id' });
     return;
   }
-  state.turns.push({ turnId, commands: [] });
-}
-
-/** A `CommandExecution` item as a record, or the first failing field's reason. */
-function readCommandItem(
-  item: unknown,
-  turnId: string,
-  line: number,
-): Result<CommandRecord, Malformed> {
-  const parsed = commandItemSchema.safeParse(item);
-  if (!parsed.success) {
-    const reason =
-      parsed.error.issues[0]?.message ?? 'CommandExecution has a field the reader cannot read';
-    return err({ line, reason });
-  }
-  return ok({
-    line,
+  state.turns.push({
     turnId,
-    command: parsed.data.command,
-    status: parsed.data.status,
-    source: parsed.data.source,
-    exitCode: parsed.data.exit_code,
-    interactionInput: parsed.data.interaction_input,
+    commands: [],
+    pending: new Set(),
+    calls: 0,
+    accounted: 0,
+    refused: 0,
+    unaccounted: 0,
   });
 }
 
@@ -158,7 +91,7 @@ function readItemCompleted(payload: JsonRecord, state: ReaderState, line: number
     return;
   }
   turn.commands.push(read.value);
-  const flagged = flag(read.value);
+  const flagged = flagRecord(read.value);
   if (flagged !== undefined) {
     state.flagged.push(flagged);
   }
@@ -173,7 +106,62 @@ function readEvent(payload: JsonRecord, state: ReaderState, line: number): void 
   }
 }
 
-/** Count a record's type, then fold it when it is an event. */
+/** An exec request opens a pending call on the current turn. */
+function readExecRequest(callId: string, state: ReaderState, line: number): void {
+  const turn = currentTurn(state);
+  if (turn === undefined) {
+    state.malformed.push({ line, reason: 'exec request precedes its turn' });
+    return;
+  }
+  turn.calls += 1;
+  turn.pending.add(callId);
+}
+
+/** An output joins its pending call and settles it; an output for no pending exec call is ignored. */
+function readExecOutput(
+  payload: JsonRecord,
+  callId: string,
+  state: ReaderState,
+  line: number,
+): void {
+  const turn = currentTurn(state);
+  if (turn === undefined || !turn.pending.has(callId)) {
+    return;
+  }
+  turn.pending.delete(callId);
+  const outcome: OutputClass = classifyOutput(payload.output);
+  if (outcome.kind === 'accounted') {
+    turn.accounted += 1;
+    return;
+  }
+  if (outcome.kind === 'refused') {
+    turn.refused += 1;
+    const flagged = flagRefusal(outcome.refusal, line, turn.turnId);
+    if (flagged !== undefined) {
+      state.flagged.push(flagged);
+    }
+    return;
+  }
+  turn.unaccounted += 1;
+  if (outcome.kind === 'malformed') {
+    state.malformed.push({ line, reason: outcome.reason });
+  }
+}
+
+/** Fold a `response_item` payload: an exec request, a tool output, or nothing to read. */
+function readResponseItem(payload: JsonRecord, state: ReaderState, line: number): void {
+  const requestId = execRequestId(payload);
+  if (requestId !== undefined) {
+    readExecRequest(requestId, state, line);
+    return;
+  }
+  const callId = outputCallId(payload);
+  if (callId !== undefined) {
+    readExecOutput(payload, callId, state, line);
+  }
+}
+
+/** Count a record's type, then fold it when it is an event or a response item. */
 function readRecord(record: JsonRecord, state: ReaderState, line: number): void {
   const type = record.type;
   if (typeof type !== 'string') {
@@ -183,8 +171,13 @@ function readRecord(record: JsonRecord, state: ReaderState, line: number): void 
   const payload = record.payload;
   const key = recordTypeKey(type, payload);
   state.recordTypes[key] = (state.recordTypes[key] ?? 0) + 1;
-  if (type === 'event_msg' && isRecord(payload)) {
+  if (!isRecord(payload)) {
+    return;
+  }
+  if (type === 'event_msg') {
     readEvent(payload, state, line);
+  } else if (type === 'response_item') {
+    readResponseItem(payload, state, line);
   }
 }
 
@@ -204,12 +197,26 @@ function readLine(text: string, state: ReaderState, line: number): void {
   readRecord(parsed, state, line);
 }
 
+/** A turn's counts once the rollout ends; a request still pending is unaccounted. */
+function accountOf(turn: TurnState): TurnAccount {
+  return {
+    turnId: turn.turnId,
+    calls: turn.calls,
+    accounted: turn.accounted,
+    refused: turn.refused,
+    unaccounted: turn.unaccounted + turn.pending.size,
+    executed: turn.commands.filter(isExecuted).length,
+    declined: turn.commands.filter((command) => command.status === 'declined').length,
+  };
+}
+
 /**
  * Read a seat's whole rollout as JSONL lines into counts of the commands the
- * harness recorded as run, per turn, with every record type seen and every
- * evidence record that could not be read, and every command that carried a
- * forbidden shape of the seat rules, rendered by allowlist. Never throws;
- * never returns the command history: counts, and the flagged entries alone.
+ * harness recorded as run and of the exec calls it accounted, refused or left
+ * unaccounted, per turn, with every record type seen, every evidence record
+ * that could not be read, and every command that carried a forbidden shape of
+ * the seat rules, rendered by allowlist. Never throws; never returns the
+ * command history: counts, and the flagged entries alone.
  */
 export function readCommandRecords(lines: readonly string[]): CommandRecordsSummary {
   const state: ReaderState = {
@@ -224,10 +231,7 @@ export function readCommandRecords(lines: readonly string[]): CommandRecordsSumm
       readLine(text, state, index + 1);
     }
   }
-  const accounts: TurnAccount[] = state.turns.map((turn) => ({
-    turnId: turn.turnId,
-    executed: turn.commands.filter(isExecuted).length,
-  }));
+  const accounts = state.turns.map(accountOf);
   return {
     turns: state.turns.length,
     commands: accounts.reduce((sum, account) => sum + account.executed, 0),

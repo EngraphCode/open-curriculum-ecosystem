@@ -1,10 +1,14 @@
+import assert from 'node:assert/strict';
+
 import { describe, expect, it } from 'vitest';
 
 import { runCodexExecCli } from './cli.js';
 import {
   appendCommandTurn,
   commandItems,
+  execOutputs,
   execRecords,
+  refusalRecords,
   turnStarts,
 } from './command-records/test-helpers/seat-fixtures.js';
 import { lines, object } from './rollout/test-helpers/rollout-records.js';
@@ -143,6 +147,25 @@ describe('runCodexExecCli — command-records', () => {
     const code = await runCodexExecCli({ command: 'command-records', args: [], ...io });
     expect(code).toBe(0);
     expect(io.stdoutText).toContain('stage-whole-tree');
+  });
+
+  it('exits 1 under --strict when an exec call is unaccounted', async () => {
+    const records = execRecords();
+    const [output] = execOutputs(records);
+    assert(output);
+    records.splice(records.indexOf(output), 1);
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stderrText).toContain('1 unaccounted exec call(s)');
+  });
+
+  it('exits 0 under --strict on a rollout whose only shape was refused, reporting it', async () => {
+    const io = makeIo(lines(refusalRecords()));
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(0);
+    expect(io.stdoutText).toContain('refused in turn');
+    expect(io.stderrText).toBe('');
   });
 
   it('exits 1 under --strict when an evidence record could not be read', async () => {
