@@ -15,6 +15,9 @@
  * argv that is not a shell script passes through as one segment.
  */
 
+import { scriptOf } from './shell-front-door.js';
+import { HereDocuments } from './shell-here-document.js';
+
 /** Inside double quotes a backslash escapes these alone; before any other character it stays. */
 const DOUBLE_QUOTE_ESCAPES = '"\\$`';
 const QUOTES: ReadonlySet<string> = new Set(['"', "'"]);
@@ -22,17 +25,8 @@ const BLANKS: ReadonlySet<string> = new Set([' ', '\t']);
 /** `&&` and `||` read as two separators; the empty segment between them opens nothing. */
 const SEPARATORS: ReadonlySet<string> = new Set(['\n', ';', '&', '|', '(', ')']);
 
-import { scriptOf } from './shell-front-door.js';
-
 /** One command of a shell script: its words after quote removal. */
 export type Segment = readonly string[];
-
-/** A here document announced by `<<` or `<<-`, waiting for its body. */
-interface HereDocument {
-  readonly terminator: string;
-  /** `<<-` strips leading tabs from every body line and the terminator. */
-  readonly stripTabs: boolean;
-}
 
 /** Folds one script into words and segments, one character at a time. */
 class Splitter {
@@ -43,12 +37,7 @@ class Splitter {
   private building = false;
   private quote: '"' | "'" | undefined = undefined;
   private escaped = false;
-  /** Here documents announced on the current line, bodies still to come. */
-  private readonly pending: HereDocument[] = [];
-  /** The word after a bare `<<` or `<<-` names the terminator. */
-  private awaitingTerminator: HereDocument | undefined = undefined;
-  /** The body of the first pending here document is being read, line by line. */
-  private bodyLine: string | undefined = undefined;
+  private readonly hereDocuments = new HereDocuments();
   private readonly script: string;
 
   constructor(script: string) {
@@ -65,8 +54,8 @@ class Splitter {
   }
 
   private step(character: string): void {
-    if (this.bodyLine !== undefined) {
-      this.inBody(character);
+    if (this.hereDocuments.inBody) {
+      this.hereDocuments.read(character);
     } else if (this.escaped) {
       this.escapedCharacter(character);
     } else if (this.quote === "'") {
@@ -76,30 +65,6 @@ class Splitter {
     } else {
       this.unquoted(character);
     }
-  }
-
-  /** A here-document body line: data until the terminator line closes it. */
-  private inBody(character: string): void {
-    if (character !== '\n') {
-      this.bodyLine = `${this.bodyLine ?? ''}${character}`;
-      return;
-    }
-    const closed = this.closesHereDocument(this.bodyLine ?? '');
-    this.bodyLine = closed && this.pending.length === 0 ? undefined : '';
-  }
-
-  /** Whether a body line is the first pending here document's terminator; if so, that document is done. */
-  private closesHereDocument(raw: string): boolean {
-    const [current] = this.pending;
-    if (current === undefined) {
-      return false;
-    }
-    const line = current.stripTabs ? raw.replace(/^\t+/, '') : raw;
-    if (line !== current.terminator) {
-      return false;
-    }
-    this.pending.shift();
-    return true;
   }
 
   /** The character after a backslash: a newline is a continuation, the rest is literal. */
@@ -151,8 +116,8 @@ class Splitter {
   private separator(character: string): void {
     this.endWord();
     this.endSegment();
-    if (character === '\n' && this.pending.length > 0) {
-      this.bodyLine = '';
+    if (character === '\n') {
+      this.hereDocuments.openBody();
     }
   }
 
@@ -166,28 +131,9 @@ class Splitter {
       return;
     }
     this.words.push(this.word);
-    this.noteHereDocument(this.word);
+    this.hereDocuments.note(this.word);
     this.word = '';
     this.building = false;
-  }
-
-  /** `<<EOF`, `<<-EOF`, or a bare `<<` whose next word is the terminator. */
-  private noteHereDocument(word: string): void {
-    if (this.awaitingTerminator !== undefined) {
-      this.pending.push({ ...this.awaitingTerminator, terminator: word });
-      this.awaitingTerminator = undefined;
-      return;
-    }
-    if (!word.startsWith('<<')) {
-      return;
-    }
-    const stripTabs = word.startsWith('<<-');
-    const terminator = word.slice(stripTabs ? 3 : 2);
-    if (terminator.length === 0) {
-      this.awaitingTerminator = { terminator: '', stripTabs };
-    } else {
-      this.pending.push({ terminator, stripTabs });
-    }
   }
 
   /** A separator with no words before it (`&&` read as two `&`) opens no segment. */
