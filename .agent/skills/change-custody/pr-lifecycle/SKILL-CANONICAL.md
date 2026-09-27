@@ -1755,14 +1755,15 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   The goal is "aiming for zero while useful value is still created and
   merged", because "a static zero means no useful work is happening". The
   operating steps:
-  - No PR opens while the count is at the limit or over it. The reservation
-    comes first: the opener posts "WIP slot reserved: <owner>/<name>
-    <branch>" on its repository's coordination stream, then reads the count
-    first-hand from the forge for every repository (`gh pr list --repo
-    <owner>/<name> --state open --limit 1000` on GitHub: the target always
-    named, and a limit above the default page of thirty), then reads every
-    repository's stream for reservations posted before its own whose PR is
-    not yet in that list. It opens only while the count plus those earlier
+  - No PR other than a repository's one coordination PR opens while the count
+    is at the limit or over it. The reservation comes first: the opener posts
+    "WIP slot reserved: <owner>/<name> <branch>" on its repository's
+    coordination stream, then reads the count first-hand from the forge for
+    every repository (`gh pr list --repo <owner>/<name> --state open --limit
+    1000` on GitHub: the target always named, and a limit above the default
+    page of thirty), leaving out each repository's coordination PR, then reads
+    every repository's stream for reservations posted before its own whose PR
+    is not yet in that list. It opens only while the count plus those earlier
     reservations is under the limit; otherwise it withdraws its reservation
     on the stream and waits for the next free slot. The streams' order is
     the serialiser, as for the landing slot, and a reservation is followed at
