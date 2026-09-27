@@ -700,6 +700,24 @@ landings and pauses are on the default branch; the graduated directive lines; th
 audit of the Codex lane; three frictions named (F-207 to F-209), two of them at a second
 instance.
 
+### 2026-09-27 10:23Z — the 2026-09-26 branch folded as #254 (Wick binds Temper, ed7b48, at the resume)
+
+Merged `SHA:8af61ab82` through the front door as the bot at 10:23:20Z, both review legs bound to
+the tip `c41d3ab3f`, at the lifetime rule's DUE check run at the resume (the 00:00Z fold moment
+fell inside the overnight pause of the Director and Myrtle); the merge of engraph at
+`a0996ac6b` (fifteen landings since the cut) had no conflict, and only the branch's own twelve
+files differed after it. Two settlement pushes cured seven findings on the three served design
+documents and the codex-dialogues record (the Codex connector's verified holes in the commit
+wrapper's environment scrub, the sync-lineage note's binding mode and its measured cost, the
+reader audit's pending measure, the fold timeline); a third round's two design findings took
+dispositions and ride the successor's first commit. Successor `coordination/2026-09-27-8af61a`,
+DUE at 12:00Z.
+
+*moved for teachers:* nothing. *moved for the Practice:* the day's records of the lineage's drain
+from nine open PRs to two under the owner's WIP limit (fifteen landings, eight of them the drain's
+rows), two frictions named (F-210, F-211), three design documents for the Codex lane's next code
+PRs, and one formation letter.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
