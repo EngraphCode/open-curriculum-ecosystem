@@ -29,7 +29,7 @@
     },
     {
       "id": 3,
-      "prompt": "Implement a stable priority queue over an existing tested binary heap. The behaviour and algorithmic requirements are settled. Write its local contract and tests.",
+      "prompt": "Implement a stable priority queue over an existing tested binary heap. The behaviour and algorithmic requirements are settled. The heap is in another repository you cannot read (its API: push, pop_min, peek, len; min-heap on a comparable key); write the queue's local contract and tests from this statement. Do not look for files.",
       "expected_output": "Routes settled implementation to engineering contract and testing methods without inventing human journeys or repeating value definition.",
       "assertions": [
         "It recognises that settled implementation does not require another user-value definition pass",
