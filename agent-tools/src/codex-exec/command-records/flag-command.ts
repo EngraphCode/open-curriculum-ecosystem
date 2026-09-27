@@ -1,6 +1,7 @@
 import { SHAPES, type ForbiddenShape, type ShapeKind } from './forbidden-shapes.js';
-import { basename } from './shell-front-door.js';
-import type { Segment } from './shell-segments.js';
+import { basename } from '../../shell/interpreter-script.js';
+
+import type { Command } from './shell-commands.js';
 
 /**
  * The forbidden shapes of `.codex/rules/seat-landing.rules`, matched against
@@ -66,7 +67,7 @@ const GIT_VALUE_OPTIONS: ReadonlySet<string> = new Set([
 ]);
 
 /** The index past a wrapper's own options. */
-function afterWrapperOptions(segment: Segment, from: number): number {
+function afterWrapperOptions(segment: Command, from: number): number {
   let index = from;
   while (index < segment.length) {
     const token = segment[index] ?? '';
@@ -82,7 +83,7 @@ function afterWrapperOptions(segment: Segment, from: number): number {
 }
 
 /** The index of the program: past reserved words, leading assignments and wrappers with their options. */
-function programIndex(segment: Segment): number {
+function programIndex(segment: Command): number {
   let index = 0;
   while (index < segment.length) {
     const token = segment[index] ?? '';
@@ -98,7 +99,7 @@ function programIndex(segment: Segment): number {
 }
 
 /** The index of git's subcommand: the first token past git's options that is not an option. */
-function gitSubcommandIndex(segment: Segment, from: number): number | undefined {
+function gitSubcommandIndex(segment: Command, from: number): number | undefined {
   let index = from;
   while (index < segment.length) {
     const token = segment[index] ?? '';
@@ -114,7 +115,7 @@ function gitSubcommandIndex(segment: Segment, from: number): number | undefined 
 }
 
 /** Where the segment's program and, for git, its subcommand sit. */
-function placesOf(segment: Segment): { program: number; subcommand: number | undefined } {
+function placesOf(segment: Command): { program: number; subcommand: number | undefined } {
   const program = programIndex(segment);
   const isGit = basename(segment[program] ?? '') === 'git';
   return { program, subcommand: isGit ? gitSubcommandIndex(segment, program + 1) : undefined };
@@ -146,7 +147,7 @@ function tokenOf(shape: ForbiddenShape, rest: readonly string[]): string | undef
 }
 
 /** The forbidden shape a git segment carries, at most one hit per segment. */
-export function flagCommand(segment: Segment): readonly Hit[] {
+export function flagCommand(segment: Command): readonly Hit[] {
   const { subcommand } = placesOf(segment);
   if (subcommand === undefined) {
     return [];
@@ -188,7 +189,7 @@ function renderTrailing(token: string): string {
  * every other token, including every token after a bare `--`. No value,
  * path, message or URL a seat typed is printed.
  */
-export function renderSegment(segment: Segment): string {
+export function renderSegment(segment: Command): string {
   const { program, subcommand } = placesOf(segment);
   const dash = segment.indexOf('--', program + 1);
   const positional = dash === -1 ? segment.length : dash;

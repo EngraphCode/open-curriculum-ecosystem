@@ -52,6 +52,65 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
   });
 
+  it.each([
+    { name: 'a shell running the script', argv: ['/bin/zsh', '-lc', 'git push origin HEAD'] },
+    {
+      name: 'a shell past its option cluster',
+      argv: ['bash', '-euo', 'pipefail', '-c', 'git push origin HEAD'],
+    },
+    {
+      name: 'a shell nested in a shell',
+      argv: ['/bin/zsh', '-lc', "bash -c 'git push origin HEAD'"],
+    },
+    { name: 'a shell behind sudo', argv: ['sudo', 'bash', '-c', 'git push origin HEAD'] },
+    { name: 'eval reading its operand', argv: ['eval', 'git push origin HEAD'] },
+    { name: 'a command substitution', argv: ['sh', '-c', 'echo $(git push origin HEAD)'] },
+    { name: 'a backtick substitution', argv: ['sh', '-c', 'echo `git push origin HEAD`'] },
+    {
+      name: 'a shape glued to a redirection',
+      argv: ['sh', '-c', 'git add -A>/dev/null 2>&1'],
+    },
+    {
+      name: 'a second command after a separator',
+      argv: ['sh', '-c', 'echo one && git push origin HEAD'],
+    },
+  ])('reads the shape through $name', ({ argv }) => {
+    const records = execRecords();
+    appendCommandTurn(records, argv);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.flagged).toHaveLength(1);
+    expect(summary.flagged[0]?.hits).toHaveLength(1);
+  });
+
+  it.each([
+    { name: 'a here-document body', argv: ['sh', '-c', "cat <<'EOF'\ngit push origin HEAD\nEOF"] },
+    { name: 'a quoted argument', argv: ['sh', '-c', 'git commit -m "git push origin HEAD"'] },
+    { name: 'a script that is only a comment', argv: ['sh', '-c', '# git push origin HEAD'] },
+    { name: 'a script file, not a script', argv: ['bash', 'deploy.sh'] },
+    { name: 'a one-word script operand', argv: ['bash', '-c', 'push'] },
+  ])('reads no shape in $name', ({ argv }) => {
+    const records = execRecords();
+    appendCommandTurn(records, argv);
+    expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
+  });
+
+  it('renders a shape found in a substitution body by allowlist and never the outer command', () => {
+    const records = execRecords();
+    const secret = `token-${Date.now().toString(36)}`;
+    appendCommandTurn(records, [
+      'sh',
+      '-c',
+      `git commit -m "${secret} $(git push origin ${secret})"`,
+    ]);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.flagged.map((entry) => entry.rendered)).toStrictEqual([
+      ['…', 'git push <arg> <arg>'],
+    ]);
+    for (const format of ['text', 'json'] as const) {
+      expect(renderSummary(summary, format)).not.toContain(secret);
+    }
+  });
+
   it('reports two flagged commands in two turns with their lines ascending', () => {
     const records = execRecords();
     const [first] = commandItems(records);

@@ -2,7 +2,7 @@ import type { JsonRecord } from '../rollout/record-shapes.js';
 
 import { flagSegments } from './command-item.js';
 import { readHarnessText, type HarnessText, type Refusal } from './harness-text.js';
-import { shellSegments } from './shell-segments.js';
+import { commandsOfText } from './shell-commands.js';
 import type { FlaggedCommand } from './summary.js';
 
 /**
@@ -80,7 +80,7 @@ export function flagRefusal(
   if (refusal.commandLine.length === 0) {
     return undefined;
   }
-  return flagSegments(shellSegments(['sh', '-c', refusal.commandLine]), {
+  return flagSegments(commandsOfText(refusal.commandLine), {
     kind: 'refused',
     line,
     turnId,

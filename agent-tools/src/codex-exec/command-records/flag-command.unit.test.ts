@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { describe, expect, it } from 'vitest';
 
 import { flagCommand, renderSegment } from './flag-command.js';
-import { shellSegments } from './shell-segments.js';
+import { commandsOfText } from './shell-commands.js';
 import { HOME_PATH } from './test-helpers/seat-fixtures.js';
 
 /** The one segment a single command line yields. */
 function segmentOf(line: string): readonly string[] {
-  const [segment, ...rest] = shellSegments(['sh', '-c', line]);
+  const [segment, ...rest] = commandsOfText(line);
   assert(segment);
   assert(rest.length === 0, 'one command line, one segment');
   return segment;

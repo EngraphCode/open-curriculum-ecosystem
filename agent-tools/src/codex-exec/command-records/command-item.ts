@@ -2,7 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { flagCommand, renderSegment } from './flag-command.js';
-import { shellSegments, type Segment } from './shell-segments.js';
+import { commandsOf, commandsOfText, type Command } from './shell-commands.js';
 import type { CommandRecord, FlaggedCommand, Malformed } from './summary.js';
 
 /**
@@ -67,13 +67,11 @@ export function isExecuted(record: CommandRecord): boolean {
  * process is a command line of its own (its startup argv was recorded, and
  * scanned, by the startup item).
  */
-function segmentsOf(record: CommandRecord): readonly Segment[] {
+function segmentsOf(record: CommandRecord): readonly Command[] {
   if (record.source === 'unified_exec_interaction') {
-    return record.interactionInput === undefined
-      ? []
-      : shellSegments(['sh', '-c', record.interactionInput]);
+    return record.interactionInput === undefined ? [] : commandsOfText(record.interactionInput);
   }
-  return shellSegments(record.command);
+  return commandsOf(record.command);
 }
 
 /** What the record is evidence of: a refusal (declined), a keystroke, or a command that ran. */
@@ -90,7 +88,7 @@ function kindOf(record: CommandRecord): FlaggedCommand['kind'] {
  * unrelated commands and data never reach the summary.
  */
 export function flagSegments(
-  segments: readonly Segment[],
+  segments: readonly Command[],
   entry: Omit<FlaggedCommand, 'rendered' | 'hits'>,
 ): FlaggedCommand | undefined {
   const scanned = segments.map((segment) => ({ segment, hits: flagCommand(segment) }));
