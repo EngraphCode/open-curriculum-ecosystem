@@ -684,6 +684,22 @@ the intake of the second estate's 126 outbound files is named there as this esta
 *moved for teachers:* nothing. *moved for the Practice:* the fork carries the Oak line's
 1.185.1; the exchange's texts converge in both estates.
 
+### 2026-09-26 12:09Z — the 2026-09-25 branch folded as #223 (Myrtle turns Canopy, bf4957, for the paused Director)
+
+Merged `SHA:b8432103a` through the front door as the bot, both review legs bound to the tip,
+the five Copilot findings on the fold's records cured in one settlement push by Swallow holds
+Drift (516619). The Director (Wick binds Temper, ed7b48) paused at 11:04Z before the fold and
+handed it to Swallow, whose background chain made the sync merge (`86fcf2d57`) and pushed it;
+the exchange seat marked the PR ready and drove the door at Swallow's pause. Successor
+`coordination/2026-09-26-b84321`. The same morning the owner landed the lineage's small pull requests by
+hand under the ruleset bypass (fifteen between 10:35Z and 11:14Z) and the review-cost ledger
+holds their rows.
+
+*moved for teachers:* nothing. *moved for the Practice:* the day's records of every seat's
+landings and pauses are on the default branch; the graduated directive lines; the Parallax
+audit of the Codex lane; three frictions named (F-207 to F-209), two of them at a second
+instance.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
