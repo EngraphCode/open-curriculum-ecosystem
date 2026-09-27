@@ -7,8 +7,10 @@
  * whatever this machine happens to carry (a generated read model, an editor's
  * workspace file, build output) and so proves the machine, not the repository:
  * the "green here, red in CI" class. Existence comes from git; ownership (which
- * tracked files a tool formats) stays declared in each tool's own ignore file,
- * which both tools still apply to paths named explicitly.
+ * tracked files a tool formats) stays declared in each tool's own ignore
+ * settings, which both tools still apply to paths named explicitly: prettier's
+ * `.prettierignore` and markdownlint-cli2's `ignores`, and `.gitignore` for
+ * both (prettier reads it by default; the markdownlint config sets `gitignore`).
  *
  * The tracked tree of a large repository does not fit one command line, so the
  * files are run in chunks under a byte budget ({@link argvChunks}).
@@ -142,4 +144,104 @@ export function argvChunks(
  */
 export function combinedExitCode(statuses: readonly number[]): number {
   return statuses.find((status) => status !== 0) ?? 0;
+}
+
+/** Prettier runs read-only (`check`) or as the repair (`write`). */
+export type PrettierMode = 'check' | 'write';
+
+/**
+ * The `pnpm exec` argv that runs prettier over exactly the given files.
+ *
+ * `--ignore-unknown` is load-bearing: the tracked universe carries every file
+ * type the repository holds, and prettier must skip what it has no parser for
+ * rather than fail. `.prettierignore` still applies to explicitly named
+ * paths, so ownership exclusions hold. The write mode keeps prettier's cache;
+ * a check never reads one, so a proof of the tree is never a proof of a cache.
+ *
+ * @param mode - Read-only check or the repair.
+ * @param files - Repo-relative paths to format.
+ * @returns Arguments for `pnpm`.
+ */
+export function prettierArgs(mode: PrettierMode, files: readonly string[]): readonly string[] {
+  const modeArgs = mode === 'check' ? ['--check'] : ['--write', '--cache'];
+  return ['exec', 'prettier', ...modeArgs, '--ignore-unknown', ...files];
+}
+
+/** markdownlint runs read-only (`check`) or as the repair (`fix`). */
+export type MarkdownlintMode = 'check' | 'fix';
+
+/**
+ * The `pnpm exec` argv that runs markdownlint-cli2 over exactly the given
+ * files.
+ *
+ * `--no-globs` is load-bearing, not redundant: it tells markdownlint-cli2 to
+ * lint ONLY the explicit paths instead of unioning them with a `globs` array
+ * from `.markdownlint-cli2.jsonc`. The config's rules and `ignores` still
+ * apply, so an explicitly named but excluded file is skipped.
+ *
+ * @param mode - Read-only check or the repair.
+ * @param files - Repo-relative Markdown paths to lint.
+ * @returns Arguments for `pnpm`.
+ */
+export function markdownlintArgs(
+  mode: MarkdownlintMode,
+  files: readonly string[],
+): readonly string[] {
+  const modeArgs = mode === 'fix' ? ['--fix'] : [];
+  return ['exec', 'markdownlint-cli2', '--no-globs', ...modeArgs, ...files];
+}
+
+/**
+ * The runs the tracked prettier gate makes: prettier over every tracked file
+ * present in the working tree, one run per chunk within the budget.
+ *
+ * @param mode - Read-only check or the repair.
+ * @param reading - What git said about the tracked tree.
+ * @param budgetBytes - The most bytes one run's paths may cost.
+ * @returns Arguments for `pnpm`, one entry per run, in order.
+ */
+export function trackedPrettierRuns(
+  mode: PrettierMode,
+  reading: TrackedTreeReading,
+  budgetBytes: number,
+): readonly (readonly string[])[] {
+  return argvChunks(trackedCheckFiles(reading), budgetBytes).map((chunk) =>
+    prettierArgs(mode, chunk),
+  );
+}
+
+/**
+ * The runs the tracked markdownlint gate makes: markdownlint over every tracked
+ * Markdown file present in the working tree, one run per chunk within the budget.
+ *
+ * @param mode - Read-only check or the repair.
+ * @param reading - What git said about the tracked tree.
+ * @param budgetBytes - The most bytes one run's paths may cost.
+ * @returns Arguments for `pnpm`, one entry per run, in order.
+ */
+export function trackedMarkdownlintRuns(
+  mode: MarkdownlintMode,
+  reading: TrackedTreeReading,
+  budgetBytes: number,
+): readonly (readonly string[])[] {
+  return argvChunks(markdownOnly(trackedCheckFiles(reading)), budgetBytes).map((chunk) =>
+    markdownlintArgs(mode, chunk),
+  );
+}
+
+/** A glob character (a backslash reads as `/`), or a leading `#` or `!` (a comment or a negation). */
+const GLOB_SIGNIFICANT = /[*?[\]{}()\\]|^[#!]/u;
+
+/**
+ * The paths markdownlint-cli2 would read as glob patterns rather than as the
+ * files they name. It takes every argument as a glob, so such a file is
+ * silently skipped, never linted; the gate refuses them by name instead. Its
+ * literal-path prefix is no cure: a literal path escapes the config's
+ * `ignores`, so the exclusions would stop applying.
+ *
+ * @param files - Repo-relative Markdown paths.
+ * @returns The glob-significant paths, in order.
+ */
+export function globSignificantPaths(files: readonly string[]): readonly string[] {
+  return files.filter((file) => GLOB_SIGNIFICANT.test(file));
 }

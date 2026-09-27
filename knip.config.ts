@@ -72,6 +72,17 @@ const config: KnipConfig = {
       // operational notes and platform shims as default source.
       entry: ['package.json'],
       project: [],
+      ignoreDependencies: [
+        // Spawned as `pnpm exec prettier` and `pnpm exec markdownlint-cli2` from
+        // the repo root by agent-tools' repo-check (the format and markdown gates
+        // over the staged set and the tracked tree), never referenced from a root
+        // script knip can parse. They stay root devDependencies because their
+        // configs (`.prettierrc.json`, `.markdownlint-cli2.jsonc`) and their exec
+        // cwd are the root; scoped to this workspace so a stray copy elsewhere is
+        // still reported.
+        'markdownlint-cli2',
+        'prettier',
+      ],
     },
     'agent-tools': {
       // Platform adapters (src/claude/, future src/codex/, src/cursor/) are

@@ -9,10 +9,15 @@ import { describe, expect, it } from 'vitest';
 import {
   argvChunks,
   combinedExitCode,
+  globSignificantPaths,
+  markdownlintArgs,
   markdownOnly,
   parseNulSeparatedPaths,
   parseSymlinkPaths,
+  prettierArgs,
   trackedCheckFiles,
+  trackedMarkdownlintRuns,
+  trackedPrettierRuns,
 } from './repo-check-files.js';
 
 describe('parseNulSeparatedPaths', () => {
@@ -117,5 +122,68 @@ describe('combinedExitCode', () => {
 
   it('passes when nothing ran', () => {
     expect(combinedExitCode([])).toBe(0);
+  });
+});
+
+describe('globSignificantPaths', () => {
+  it('names the paths a glob reader would read as patterns, in order', () => {
+    const paths = [
+      'docs/a.md',
+      'docs/[draft].md',
+      'notes/b{c}.md',
+      'x*.md',
+      'why?.md',
+      String.raw`a\b.md`,
+      '#heading.md',
+      '!negated.md',
+      'group (old).md',
+      'docs/plain-name_1.md',
+    ];
+    expect(globSignificantPaths(paths)).toStrictEqual([
+      'docs/[draft].md',
+      'notes/b{c}.md',
+      'x*.md',
+      'why?.md',
+      String.raw`a\b.md`,
+      '#heading.md',
+      '!negated.md',
+      'group (old).md',
+    ]);
+  });
+
+  it('names none for plain paths', () => {
+    expect(globSignificantPaths(['a.md', 'docs/b-c_d.e.md'])).toStrictEqual([]);
+  });
+});
+
+describe('the tracked gates plan their runs', () => {
+  const reading = {
+    tracked: ['a.md', 'b.ts', 'gone.md', 'link.md', 'c.md'],
+    goneFromWorkingTree: new Set(['gone.md']),
+    symlinks: new Set(['link.md']),
+  };
+
+  it('runs prettier over every tracked file present, in chunks within the budget', () => {
+    // 'a.md', 'b.ts' and 'c.md' each cost 5 bytes, so a 10-byte budget holds two.
+    expect(trackedPrettierRuns('check', reading, 10)).toStrictEqual([
+      prettierArgs('check', ['a.md', 'b.ts']),
+      prettierArgs('check', ['c.md']),
+    ]);
+  });
+
+  it('runs markdownlint over the tracked Markdown files present, in chunks', () => {
+    expect(trackedMarkdownlintRuns('fix', reading, 5)).toStrictEqual([
+      markdownlintArgs('fix', ['a.md']),
+      markdownlintArgs('fix', ['c.md']),
+    ]);
+  });
+
+  it('plans no run when no file qualifies', () => {
+    const none = {
+      tracked: ['b.ts'],
+      goneFromWorkingTree: new Set<string>(),
+      symlinks: new Set<string>(),
+    };
+    expect(trackedMarkdownlintRuns('check', none, 10)).toStrictEqual([]);
   });
 });
