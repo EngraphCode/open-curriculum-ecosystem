@@ -88,10 +88,12 @@ the owner by hand). Read against it:
   258 (seven landings) while fourteen new PRs opened between 09:50Z and 16:31Z (246 to 259:
   twelve by the seats, 250 by the owner, 254 the coordination draft); the count read
   twelve at 15:47Z (check-in 28) and nine at 19:24Z (the owner's word).
-- 19:2xZ: the owner's WIP limit ("three other open PRs each between them", one coordination PR
-  per repository). 19:39Z to 21:45Z: seven landings through three seats and eight slot handovers
-  with no Director word on the order (257, 259, 249, 217, 253, 246, 256); one opening by the
-  rule (260 at 21:49Z, Siren's wording PR); the count three at 21:47Z.
+- 19:2xZ: the owner's WIP limit ("three other open PRs each between them", one coordination PR per
+  repository). 19:39Z to 21:45Z: seven landings through three seats and eight slot handovers with
+  no Director word on the order (257, 259, 249, 217, 253, 246, 256); one opening by the rule (260
+  at 21:49Z, Siren's wording PR); the count three after that opening (nine, minus seven, plus one;
+  check-in 30's gh read at 21:47Z already showed three, two minutes before 260's recorded open
+  time, a straddle recorded as read and not explained).
 - 21:54Z: 245 door-ready at the slot (both legs, CI green); Myrtle's wake on its leg wait was
   lost and the slot sat door-ready until 09:05Z on the 27th (Myrtle's 09:05:49Z line); 245 landed
   at 09:06:12Z, the drain's eighth row; the count two.
@@ -166,11 +168,13 @@ ran on it in one evening with gaps of seven to forty-seven seconds. The WIP limi
 rule and is being worded by PR 260 with its reservation-first serialiser, which suite 28 watched
 work without the Director: Siren reserved, found Swallow's earlier reservation, asked; Swallow
 withdrew; the twin opened. The cost model gained its fixed term. The fold cadence went to twice a
-day and the DUE check carried a fold across a missed moment. The bot merge path (merge-bot
-merge, both legs, the verdicted sha) landed thirty-three PRs on the lineage in two days without
-a squash or an unverdicted merge. And the estate now has words for the mechanism: an unbounded
-intake against a serial door under strict currency, with self-inflicted rounds and a hand-run
-slot as the amplifiers.
+day and the DUE check carried a fold across a missed moment. The bot merge path (merge-bot merge,
+both legs, the verdicted sha) landed thirty-seven PRs on the lineage over the 25th and 26th
+(twenty-one and sixteen by the merged list read from gh at 15:3xZ on the 27th, the two
+coordination folds 187 and 223 among them; the owner's hand landed seventeen more) without a
+squash or an unverdicted merge. And the estate now has words for the mechanism: an unbounded
+intake against a serial door under strict currency, with self-inflicted rounds and a hand-run slot
+as the amplifiers.
 
 ## 6. Proposals, each with its warrant, its falsifier and its PDR-130 lane
 
