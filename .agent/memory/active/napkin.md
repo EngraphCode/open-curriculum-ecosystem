@@ -711,3 +711,18 @@ budget holds, else the next Practice PR on §Phase 7 carries it.
 
 The card queue after the answers: line 9 (the wording PR, open as 260) is the only line left, and
 it is a status, not a question. Zero open owner questions at this boundary.
+
+## 2026-09-27 ~11:1xZ — a local shape grew three cycles before the estate's own was looked for (Swallow holds Drift, 516619)
+
+The command-record reader carried its own POSIX word splitter through cycles 2 to 4 (349 lines,
+39 tests, two split commits to stay under the line budget) while `hook-policy/shell-words.ts`, the
+Bash guard's segmenter with the same contract and a stricter bar, sat two directories away with
+four consumers. Nobody in the lane asked "does the estate already read shell words?" at cycle 1;
+the design named five second-consumer lifts and never the splitter. What found it: the cycle 3
+reviewer counted the ratchet (a splitter added, a file split, more rules and a probable split) and
+asked for a bounded solution-class check; the assumptions-expert found the module in minutes with
+one `grep`. What followed cost one cycle: a pure move to a neutral home, a cure at the owner that
+closed a guard bypass too, the reader consuming it, two commits superseded and deleted. The general
+shape: before a lane writes a parser, a matcher or a validator, search the estate for the noun;
+the cost of the late question here was about two hours of review and two superseded commits, and
+the gain of the early one would have been a smaller PR and a guard cure a day sooner.
