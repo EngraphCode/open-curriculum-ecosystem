@@ -134,17 +134,37 @@ async function evaluateContentRoute(context: PolicyRouteContext): Promise<Policy
       ...change,
       filePath: placePath(change.filePath, cwd),
       priorFilePath: placePath(change.priorFilePath, cwd),
+      movedFromPath: placePath(change.movedFromPath, cwd),
     };
     const { newContent, priorContent } = resolveContentPair(placed, context.readPriorContent);
     return { newContent, priorContent, filePath: placed.filePath };
   });
   const { patterns, blocks } = await resolveContentSections(context);
+  // The disk is asked which repository a file is in only when a block can use the answer.
+  const placedChanges = blocks.some((group) => group.excludes_other_repositories === true)
+    ? changes.map((change) => ({
+        ...change,
+        inOtherRepository: inOtherRepository(change, context),
+      }))
+    : changes;
   // The repo root anchors the blocks' root-anchored scopes; a path still relative here had
   // no working directory to be placed by and claims no anchored exemption (fail closed).
-  return evaluateContentChanges(changes, patterns, blocks, {
+  return evaluateContentChanges(placedChanges, patterns, blocks, {
     repoRoot: REPO_ROOT,
     relativeIsRepoRelative: false,
   });
+}
+
+/**
+ * Whether a change's file is in another repository. Only a placed path has a repository to
+ * ask about; an unplaced one keeps every block.
+ */
+function inOtherRepository(
+  change: { readonly filePath?: string },
+  context: PolicyRouteContext,
+): boolean {
+  const { filePath } = change;
+  return filePath !== undefined && isAbsolute(filePath) && context.isInOtherRepository(filePath);
 }
 
 /** The payload's working directory, when the harness supplies one. */

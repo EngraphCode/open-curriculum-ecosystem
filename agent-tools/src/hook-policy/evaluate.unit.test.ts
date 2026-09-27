@@ -128,6 +128,39 @@ describe('evaluateContentChanges', () => {
     );
   });
 
+  it('drops a block that exempts other repositories only for a change in another repository', () => {
+    const ownOnly: ScopedContentBlockGroup = { ...SCOPED_GROUP, excludes_other_repositories: true };
+    const change = (inOtherRepository: boolean) => [
+      {
+        newContent: 'section removed for brevity here',
+        priorContent: '',
+        filePath: 'docs/example.md',
+        inOtherRepository,
+      },
+    ];
+    expect(evaluateContentChanges(change(true), [], [ownOnly])).toEqual({ kind: 'allow' });
+    expect(evaluateContentChanges(change(false), [], [ownOnly]).kind).toBe('deny-scoped-block');
+    // A block without the flag applies in every repository.
+    expect(evaluateContentChanges(change(true), [], [SCOPED_GROUP]).kind).toBe('deny-scoped-block');
+  });
+
+  it('keeps the flat pattern layer for a change in another repository', () => {
+    const decision = evaluateContentChanges(
+      [
+        {
+          newContent: 'now with OWNER-ONLY-MARKER added',
+          priorContent: '',
+          filePath: 'docs/example.md',
+          inOtherRepository: true,
+        },
+      ],
+      ['OWNER-ONLY-MARKER'],
+      [{ ...SCOPED_GROUP, excludes_other_repositories: true }],
+    );
+
+    expect(decision).toEqual({ kind: 'deny-content-pattern', pattern: 'OWNER-ONLY-MARKER' });
+  });
+
   it('returns allow when the scoped group path scope excludes the change', () => {
     const decision = evaluateContentChanges(
       [

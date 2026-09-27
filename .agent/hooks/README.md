@@ -155,6 +155,7 @@ policy decision taken entry by entry.
     "exclude_paths": ["archive/"], // optional
     "excludes_inline_code": true, // optional; regex groups
     "excludes_lines_with": ["(historical reference)"], // optional; regex groups
+    "excludes_other_repositories": true, // optional; this repository's files only
     "citation": "PDR-044; principles.md §...", // the doctrinal anchor
     "reappraisal": "Re-assess whether the design is uniform ..." // positive direction
   }
@@ -174,6 +175,29 @@ policy decision taken entry by entry.
   `apply_patch` path is relative to the payload's `cwd` and is resolved against
   it before scoping, and without a `cwd` it claims no root-anchored exemption
   either: the anchor fails closed, never open.
+
+  `excludes_other_repositories` is for a concept that governs only this
+  repository's own files: another repository's files may name what this one
+  must not. A repository is known by its common git
+  directory, which every worktree of it shares, so this repository's worktrees
+  stay guarded wherever they sit on disk; two common directories are compared
+  by identity on disk (device and inode), never by spelling. The walk starts
+  where the file really is, following symbolic links, and a git directory
+  counts only when git itself would accept it: a valid `HEAD` of its own, and
+  `objects/` and `refs/` directories git can enter in its common directory.
+  The write-hook drops the group only for a file it positively finds in another
+  repository. Anything else keeps the group
+  (`agent-tools/src/hook-policy/repository-identity.ts`): a file in no
+  repository; a `.git` entry git would not accept, where the climb stops; a
+  `.git` entry or `commondir` it cannot read; a link on the path that leads
+  nowhere yet, since the write lands wherever it points; a file with another
+  hard link, which a path in any repository may share; a path deeper than its
+  climb; a path it could not place; or a session root whose own repository it
+  cannot tell. A move's source, and a Write's prior content, are read only as
+  regular files, never waiting on a pipe, and one request's reads share a byte
+  budget, so no read holds the hook past its timeout. The whole-tree gate
+  reads only this repository's tracked files, so the option never changes what
+  it finds.
 
 **The deny message carries the reappraisal.** When a group fires, the message
 names the concept the matched text is a fingerprint of, states the `reappraisal`
@@ -213,8 +237,9 @@ guaranteed at two points:
   guard source is unchanged), so committed guard-source changes are compiled.
 
 **Invariant:** after editing a hook-guard source file
-(`agent-tools/src/hook-policy/*.ts` or `policy-loader.ts`) or the observer's
-source (`agent-tools/src/claude/pre-compact-observe/` or
+(`agent-tools/src/hook-policy/*.ts`, `policy-loader.ts`, or any other source
+the dispatcher imports, such as `agent-tools/src/core/bounded-read.ts`) or the
+observer's source (`agent-tools/src/claude/pre-compact-observe/` or
 `agent-tools/src/bin/claude-pre-compact-observe-hook.ts`), run a build
 (`pnpm --filter @oaknational/agent-tools build` or any `turbo build`) before
 relying on the hook in the active session — until then the running hook

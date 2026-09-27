@@ -11,6 +11,7 @@ import {
 import type { PolicyRouteContext } from './dispatcher.js';
 import { REPO_ROOT } from './policy-loader.js';
 import type { PolicySnapshot } from './policy-snapshot.js';
+import { posixPath } from './test-helpers/posix-path.js';
 import type { ScopedContentBlockGroup } from './types.js';
 
 /** Names of the production routes whose match predicate accepts the payload. */
@@ -30,9 +31,22 @@ function contextFor(
     contentPatterns: undefined,
     scopedBlocks: undefined,
     readPriorContent: () => null,
+    isInOtherRepository: () => false,
     ...overrides,
   };
 }
+
+/** A block over every path, and the same block exempting files in other repositories. */
+const OWN_MARKER_EVERYWHERE: ScopedContentBlockGroup = {
+  concept: 'own-repository-only',
+  patterns: ['own-marker'],
+  include_paths: [''],
+  citation: 'repository-identity',
+};
+const OWN_REPOSITORY_ONLY: ScopedContentBlockGroup = {
+  ...OWN_MARKER_EVERYWHERE,
+  excludes_other_repositories: true,
+};
 
 /** A fully-populated synthetic snapshot for section-fallback tests. */
 function snapshotWith(overrides: Partial<PolicySnapshot> = {}): PolicySnapshot {
@@ -182,6 +196,40 @@ describe('content route evaluation', () => {
     expect(escaped.kind).toBe('deny-scoped-block');
   });
 
+  it('drops a block that exempts other repositories for the files the seam places in another', async () => {
+    const write = (filePath: string, blocks: readonly ScopedContentBlockGroup[]) =>
+      contextFor(
+        { tool_input: { file_path: filePath, content: 'adds own-marker' } },
+        {
+          contentPatterns: [],
+          scopedBlocks: blocks,
+          isInOtherRepository: (path) => posixPath(path).startsWith('/elsewhere/'),
+        },
+      );
+
+    await expect(
+      claudeContentRoute.evaluate(write('/elsewhere/src/a.ts', [OWN_REPOSITORY_ONLY])),
+    ).resolves.toStrictEqual({ kind: 'allow' });
+    const own = await claudeContentRoute.evaluate(
+      write(`${REPO_ROOT}/src/a.ts`, [OWN_REPOSITORY_ONLY]),
+    );
+    expect(own.kind).toBe('deny-scoped-block');
+    const everywhere = await claudeContentRoute.evaluate(
+      write('/elsewhere/src/a.ts', [OWN_MARKER_EVERYWHERE]),
+    );
+    expect(everywhere.kind).toBe('deny-scoped-block');
+  });
+
+  it('asks the seam nothing for a payload path it could not place', async () => {
+    const patch = '*** Begin Patch\n*** Add File: src/a.ts\n+adds own-marker\n*** End Patch\n';
+    const context = contextFor(
+      { tool_name: 'Edit', tool_input: patch },
+      { contentPatterns: [], scopedBlocks: [OWN_REPOSITORY_ONLY], isInOtherRepository: () => true },
+    );
+
+    expect((await copilotCompatStringRoute.evaluate(context)).kind).toBe('deny-scoped-block');
+  });
+
   it('resolves Write prior content through the injected reader', async () => {
     const context = contextFor(
       { tool_input: { file_path: '/repo/notes.md', content: 'keeps existing-marker intact' } },
@@ -267,6 +315,35 @@ describe('copilot-compat string route evaluation', () => {
     expect((await evaluate()).kind).toBe('deny-scoped-block');
     // A relative cwd has no place of its own and places nothing.
     expect((await evaluate('.')).kind).toBe('deny-scoped-block');
+  });
+
+  it("scans a moved file's whole content as entering its destination", async () => {
+    const move = (hunk: string) =>
+      `*** Begin Patch\n*** Update File: notes/source.md\n*** Move to: docs/moved.md\n${hunk}*** End Patch\n`;
+    const evaluate = (patch: string, cwd?: string) =>
+      copilotCompatStringRoute.evaluate(
+        contextFor(
+          { tool_name: 'Edit', tool_input: patch, ...(cwd === undefined ? {} : { cwd }) },
+          {
+            contentPatterns: [],
+            scopedBlocks: [OWN_MARKER_EVERYWHERE],
+            readPriorContent: (path) =>
+              posixPath(path) === '/repo/notes/source.md' ? 'own-marker one\nown-marker two' : null,
+          },
+        ),
+      );
+
+    expect((await evaluate(move(''), '/repo')).kind).toBe('deny-scoped-block');
+    // Deleting one of two occurrences leaves the other entering the destination.
+    const oneRemoved = await evaluate(move('@@\n-own-marker one\n'), '/repo');
+    expect(oneRemoved.kind).toBe('deny-scoped-block');
+    // The whole source is new at the destination, so even a hunk that removes every
+    // occurrence is refused: the guard never reconstructs a patch to find the marker gone.
+    const allRemoved = await evaluate(move('@@\n-own-marker one\n-own-marker two\n'), '/repo');
+    expect(allRemoved.kind).toBe('deny-scoped-block');
+    // A source that cannot be read, or has no place to be read from, fails closed.
+    await expect(evaluate(move(''), '/elsewhere')).rejects.toThrow('move source');
+    await expect(evaluate(move(''))).rejects.toThrow('move source');
   });
 
   it('places a relative path against an absolute cwd only; a relative cwd leaves it unplaced', () => {
