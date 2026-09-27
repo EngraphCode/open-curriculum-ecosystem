@@ -61,13 +61,33 @@ function climb<T>(start: string, found: (directory: string) => T | undefined): T
   return undefined;
 }
 
-/** The directory where a file really is: its own real path's, or its nearest existing directory's. */
-function realDirectoryOf(filePath: string, probe: RepositoryProbe): string | undefined {
-  const real = probe.realPath(filePath);
+/**
+ * Where a path really is: its real path; `null` when nothing is there; or `undefined` when an
+ * entry is there that leads nowhere (a link to a path not made yet), which places nothing.
+ */
+function placeOf(path: string, probe: RepositoryProbe): string | null | undefined {
+  const real = probe.realPath(path);
   if (real !== null) {
-    return dirname(real);
+    return real;
   }
-  return climb(dirname(filePath), (directory) => probe.realPath(directory) ?? undefined);
+  return probe.entryExists(path) ? undefined : null;
+}
+
+/**
+ * The directory where a file really is: its own real path's, or its nearest existing
+ * directory's. A link on the way that leads nowhere places nothing, since the write would
+ * land wherever the link points once that is made; nor does a file with another hard link,
+ * whose content any of its paths, in any repository, may name.
+ */
+function realDirectoryOf(filePath: string, probe: RepositoryProbe): string | undefined {
+  const place = placeOf(filePath, probe);
+  if (place !== null) {
+    return place === undefined || probe.sharedFile(place) ? undefined : dirname(place);
+  }
+  return climb(dirname(filePath), (directory) => {
+    const found = placeOf(directory, probe);
+    return found === null ? undefined : { found };
+  })?.found;
 }
 
 /** The git directory a pointer file names, or `undefined` when it names none. */

@@ -185,13 +185,19 @@ policy decision taken entry by entry.
   where the file really is, following symbolic links, and a git directory
   counts only when git itself would accept it: a valid `HEAD` of its own, and
   `objects/` and `refs/` directories git can enter in its common directory.
-  The write-hook drops the group only for a
-  file it positively finds in another repository; a file in no repository, a
-  `.git` entry or `commondir` it cannot read, a path deeper than its climb, or
-  a path it could not place keeps the group
-  (`agent-tools/src/hook-policy/repository-identity.ts`). The whole-tree gates
-  read only this repository's tracked files, so the option never changes what
-  they find.
+  The write-hook drops the group only for a file it positively finds in another
+  repository. Anything else keeps the group
+  (`agent-tools/src/hook-policy/repository-identity.ts`): a file in no
+  repository; a `.git` entry git would not accept, where the climb stops; a
+  `.git` entry or `commondir` it cannot read; a link on the path that leads
+  nowhere yet, since the write lands wherever it points; a file with another
+  hard link, which a path in any repository may share; a path deeper than its
+  climb; a path it could not place; or a session root whose own repository it
+  cannot tell. A move's source, and a Write's prior content, are read only as
+  regular files, never waiting on a pipe, and one request's reads share a byte
+  budget, so no read holds the hook past its timeout. The whole-tree gate
+  reads only this repository's tracked files, so the option never changes what
+  it finds.
 
 **The deny message carries the reappraisal.** When a group fires, the message
 names the concept the matched text is a fingerprint of, states the `reappraisal`
@@ -231,8 +237,9 @@ guaranteed at two points:
   guard source is unchanged), so committed guard-source changes are compiled.
 
 **Invariant:** after editing a hook-guard source file
-(`agent-tools/src/hook-policy/*.ts` or `policy-loader.ts`) or the observer's
-source (`agent-tools/src/claude/pre-compact-observe/` or
+(`agent-tools/src/hook-policy/*.ts`, `policy-loader.ts`, or any other source
+the dispatcher imports, such as `agent-tools/src/core/bounded-read.ts`) or the
+observer's source (`agent-tools/src/claude/pre-compact-observe/` or
 `agent-tools/src/bin/claude-pre-compact-observe-hook.ts`), run a build
 (`pnpm --filter @oaknational/agent-tools build` or any `turbo build`) before
 relying on the hook in the active session — until then the running hook

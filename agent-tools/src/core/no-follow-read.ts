@@ -1,7 +1,8 @@
 /**
- * The no-follow open that every descriptor-anchored regular-file read shares:
- * the open flags this host enforces, and the check that stands in for
- * `O_NOFOLLOW` where the host has none.
+ * The no-follow open that the hook's pointer-file reads and the skills-adapter
+ * reader share: the open flags this host enforces, and the check that stands in
+ * for `O_NOFOLLOW` where the host has none; and the non-blocking open of the
+ * hook's prior-content read, which follows links but does not wait on a pipe.
  *
  * @remarks
  * Node's fs constants type declares every flag on every platform, but on
@@ -30,6 +31,9 @@ export const HOST_ENFORCES_NO_FOLLOW = hostFlags.O_NOFOLLOW !== undefined;
 /** Read-only open flags, with no final-link following and no pipe blocking where the host has them. */
 export const NO_FOLLOW_READ_FLAGS =
   constants.O_RDONLY | (hostFlags.O_NOFOLLOW ?? 0) | (hostFlags.O_NONBLOCK ?? 0);
+
+/** Read-only open flags that follow links but do not wait on a pipe, where the host has `O_NONBLOCK`. */
+export const NON_BLOCKING_READ_FLAGS = constants.O_RDONLY | (hostFlags.O_NONBLOCK ?? 0);
 
 /**
  * Whether a path's own entry, read with `lstat` after the open, is the very

@@ -1,9 +1,12 @@
-import { readFileSync } from 'node:fs';
-
 import type { PolicyDecision } from './evaluate.js';
 import { parseHookInput, readStreamText } from './hook-input.js';
 import { POLICY_URL, REPO_ROOT } from './policy-loader.js';
 import { loadPolicySnapshot, type PolicySnapshot } from './policy-snapshot.js';
+import {
+  diskPriorReadEdge,
+  priorContentReader,
+  REQUEST_READ_BUDGET,
+} from './prior-content-read.js';
 import { otherRepositoryTest } from './repository-identity.js';
 import type { RawBlockedPattern, ScopedContentBlockGroup } from './types.js';
 
@@ -90,19 +93,6 @@ export interface RunPreToolUseDispatchOptions {
 }
 
 /**
- * Read prior file content for the real hook adapter — the production default
- * behind the `readPriorContent` seam, identical to the runner default it
- * supersedes.
- */
-function readPriorFileContent(filePath: string): string | null {
-  try {
-    return readFileSync(filePath, 'utf8');
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Apply default seams so the orchestrator stays under the complexity cap.
  */
 function applyDispatchDefaults(options: RunPreToolUseDispatchOptions) {
@@ -114,7 +104,8 @@ function applyDispatchDefaults(options: RunPreToolUseDispatchOptions) {
     bashPatterns: options.bashPatterns,
     contentPatterns: options.contentPatterns,
     scopedBlocks: options.scopedBlocks,
-    readPriorContent: options.readPriorContent ?? readPriorFileContent,
+    readPriorContent:
+      options.readPriorContent ?? priorContentReader(diskPriorReadEdge, REQUEST_READ_BUDGET),
     isInOtherRepository: options.isInOtherRepository ?? otherRepositoryTest(REPO_ROOT),
     loadSnapshot: options.loadSnapshot ?? loadPolicySnapshot,
   };

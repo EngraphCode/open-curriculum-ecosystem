@@ -13,37 +13,44 @@ import {
   repositoryIdentity,
 } from './repository-identity.js';
 import type { RepositoryProbe } from './repository-probe.js';
+import { posixPath } from './test-helpers/posix-path.js';
 
 /**
  * A probe over literal entries: `.git` kinds by directory, file texts, files
  * that exist but cannot be read, real paths (a path maps to itself unless
- * listed; `null` means it does not exist), identities (a directory is its own
- * identity unless listed), and `missing`, the paths that are no searchable
- * directory.
+ * listed; `null` means it does not exist), `dangling`, the paths holding a
+ * link that points nowhere, `shared`, the files with more than one hard link,
+ * identities (a directory is its own identity unless listed), and `missing`,
+ * the paths that are no searchable directory. Each path is read the POSIX way,
+ * so the literals hold on Windows.
  */
 function probeOver(layout: {
   readonly gitEntries: Readonly<Record<string, 'directory' | 'file' | 'unknown'>>;
   readonly texts?: Readonly<Record<string, string>>;
   readonly unreadable?: readonly string[];
   readonly realPaths?: Readonly<Record<string, string | null>>;
+  readonly dangling?: readonly string[];
+  readonly shared?: readonly string[];
   readonly identities?: Readonly<Record<string, string>>;
   readonly missing?: readonly string[];
 }): RepositoryProbe {
   return {
-    gitEntry: (directory) => layout.gitEntries[directory] ?? 'absent',
+    gitEntry: (directory) => layout.gitEntries[posixPath(directory)] ?? 'absent',
     readText: (filePath) => {
-      if (layout.unreadable?.includes(filePath) === true) {
+      if (layout.unreadable?.includes(posixPath(filePath)) === true) {
         return { kind: 'unreadable' };
       }
-      const text = layout.texts?.[filePath];
+      const text = layout.texts?.[posixPath(filePath)];
       return text === undefined ? { kind: 'absent' } : { kind: 'text', text };
     },
     realPath: (filePath) => {
-      const real = layout.realPaths?.[filePath];
+      const real = layout.realPaths?.[posixPath(filePath)];
       return real === undefined ? filePath : real;
     },
-    identity: (directory) => layout.identities?.[directory] ?? directory,
-    searchableDirectory: (directory) => layout.missing?.includes(directory) !== true,
+    entryExists: (filePath) => layout.dangling?.includes(posixPath(filePath)) === true,
+    sharedFile: (filePath) => layout.shared?.includes(posixPath(filePath)) === true,
+    identity: (directory) => layout.identities?.[posixPath(directory)] ?? posixPath(directory),
+    searchableDirectory: (directory) => layout.missing?.includes(posixPath(directory)) !== true,
   };
 }
 
@@ -196,7 +203,9 @@ describe('repositoryIdentity', () => {
       repositoryIdentity('/q/a.md', probeOver({ gitEntries: { '/q': 'unknown' } })),
     ).toBeUndefined();
   });
+});
 
+describe('repositoryIdentity, placing a path where it really is', () => {
   it('follows a symbolic link to where the file really is', () => {
     const linked = probeOver({
       gitEntries: ESTATE_ENTRIES,
@@ -213,6 +222,40 @@ describe('repositoryIdentity', () => {
       realPaths: { '/o/linked/new.md': null, '/o/linked': '/r/docs' },
     });
     expect(repositoryIdentity('/o/linked/new.md', linked)).toBe('/r/.git');
+  });
+
+  it('places nothing at a link that points nowhere, wherever the link sits', () => {
+    // A dangling link in another repository, aimed at a file this one has not made yet:
+    // the write lands where the link points, so the link's own directory names nothing.
+    const dangling = probeOver({
+      gitEntries: ESTATE_ENTRIES,
+      texts: ESTATE_TEXTS,
+      realPaths: { '/o/link.md': null },
+      dangling: ['/o/link.md'],
+    });
+    expect(repositoryIdentity('/o/link.md', dangling)).toBeUndefined();
+    expect(isInOtherRepository('/o/link.md', '/r/.git', dangling)).toBe(false);
+  });
+
+  it('places nothing at a file with another hard link, which may be in any repository', () => {
+    // A hard link in another repository to a file of this one: its real path is its own.
+    const shared = probeOver({
+      gitEntries: ESTATE_ENTRIES,
+      texts: ESTATE_TEXTS,
+      shared: ['/o/hard.md'],
+    });
+    expect(repositoryIdentity('/o/hard.md', shared)).toBeUndefined();
+    expect(isInOtherRepository('/o/hard.md', '/r/.git', shared)).toBe(false);
+  });
+
+  it('places nothing beneath a directory link that points nowhere', () => {
+    const dangling = probeOver({
+      gitEntries: ESTATE_ENTRIES,
+      texts: ESTATE_TEXTS,
+      realPaths: { '/o/linked/new.md': null, '/o/linked': null },
+      dangling: ['/o/linked'],
+    });
+    expect(repositoryIdentity('/o/linked/new.md', dangling)).toBeUndefined();
   });
 
   it('names nothing when no directory on the path exists', () => {

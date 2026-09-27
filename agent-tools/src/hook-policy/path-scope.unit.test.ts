@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { isPathInScope } from './path-scope.js';
 
 /**
- * The path scoping shared by the write-hook and the two whole-tree gates
- * (lineage names, machine-local paths). Three scope forms: a substring, a
- * `**\/*` suffix, and a root-anchored path led by `./` (5c-ii: a substring
- * exclusion let a nested copy of an exempt path bypass the gate).
+ * The path scoping shared by the write-hook and the whole-tree gates that
+ * reuse the policy's blocks. Three scope forms: a substring, a `**\/*`
+ * suffix, and a root-anchored path led by `./` (a substring exclusion let a
+ * nested copy of an exempt path bypass the gate).
  */
 describe('isPathInScope', () => {
   it('a substring scope matches anywhere in the path, a slash-led one included', () => {

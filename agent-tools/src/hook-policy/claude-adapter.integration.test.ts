@@ -11,6 +11,7 @@ import {
 import type { PolicyRouteContext } from './dispatcher.js';
 import { REPO_ROOT } from './policy-loader.js';
 import type { PolicySnapshot } from './policy-snapshot.js';
+import { posixPath } from './test-helpers/posix-path.js';
 import type { ScopedContentBlockGroup } from './types.js';
 
 /** Names of the production routes whose match predicate accepts the payload. */
@@ -202,7 +203,7 @@ describe('content route evaluation', () => {
         {
           contentPatterns: [],
           scopedBlocks: blocks,
-          isInOtherRepository: (path) => path.startsWith('/elsewhere/'),
+          isInOtherRepository: (path) => posixPath(path).startsWith('/elsewhere/'),
         },
       );
 
@@ -327,7 +328,7 @@ describe('copilot-compat string route evaluation', () => {
             contentPatterns: [],
             scopedBlocks: [OWN_MARKER_EVERYWHERE],
             readPriorContent: (path) =>
-              path === '/repo/notes/source.md' ? 'own-marker one\nown-marker two' : null,
+              posixPath(path) === '/repo/notes/source.md' ? 'own-marker one\nown-marker two' : null,
           },
         ),
       );

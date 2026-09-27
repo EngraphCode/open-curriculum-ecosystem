@@ -51,6 +51,10 @@ export interface RepositoryProbe {
   readonly readText: (filePath: string) => FileReading;
   /** A path's real path (links followed, the disk's own letter case), or `null` when it does not exist. */
   readonly realPath: (filePath: string) => string | null;
+  /** Whether anything is at the path itself, a link that leads nowhere included; `true` when unsure. */
+  readonly entryExists: (filePath: string) => boolean;
+  /** Whether a path is a regular file with more than one hard link; `true` when unsure. */
+  readonly sharedFile: (filePath: string) => boolean;
   /** A directory's identity on disk (device and inode), or `null` when it is no directory. */
   readonly identity: (directory: string) => string | null;
   /** Whether a path is a directory git can enter: links followed, and searchable by this process. */
@@ -123,6 +127,21 @@ export const diskRepositoryProbe: RepositoryProbe = {
       return realpathSync.native(filePath);
     } catch {
       return null;
+    }
+  },
+  entryExists: (filePath) => {
+    try {
+      return lstatSync(filePath, { throwIfNoEntry: false }) !== undefined;
+    } catch (error) {
+      return !isMissing(error);
+    }
+  },
+  sharedFile: (filePath) => {
+    try {
+      const stats = lstatSync(filePath);
+      return stats.isFile() && stats.nlink > 1;
+    } catch {
+      return true;
     }
   },
   identity: (directory) => {

@@ -1,7 +1,7 @@
 /**
  * Path scoping for a `ScopedContentBlockGroup`, shared by the write-hook
- * (absolute file paths) and the two whole-tree gates that reuse the policy's
- * blocks (repository-relative paths): lineage names, machine-local paths.
+ * (absolute file paths) and the whole-tree gates that reuse the policy's
+ * blocks (repository-relative paths).
  * The root a root-anchored scope reads against is the caller's: for the hook,
  * the session's project directory; a path outside it matches no anchored
  * scope, so the anchor fails closed, never open. Separators are the host's:
@@ -86,7 +86,7 @@ function underAnchor(relative: string, anchor: string): boolean {
  * beginning with `./` are root-anchored: they match a repository-relative
  * path from its first character (`./.agent/memory/` matches
  * `.agent/memory/x.md`, never `docs/.agent/memory/x.md`), so an exemption
- * cannot be claimed by a nested copy of an exempt path (5c-ii). All other
+ * cannot be claimed by a nested copy of an exempt path. All other
  * entries are treated as substring matches against the file path, which
  * works equivalently for absolute and relative forms because the path
  * always contains its own directory prefix.
