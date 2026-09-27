@@ -1766,10 +1766,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
     1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
-    every repository's stream for reservations posted before its own whose PR
-    is not yet open. It opens only while the count plus those earlier
-    reservations is under the limit; otherwise it withdraws its reservation
-    on the stream and waits for the next free slot. The streams' order is
+    every repository's stream for reservations posted before its own that
+    had not lapsed when it read the count. It opens only while the count
+    plus those earlier reservations is under the limit; otherwise it
+    withdraws its reservation on the stream and waits for the next free
+    slot. The streams' order is
     the serialiser, as for the landing slot, and a reservation is followed at
     once by its PR or its withdrawal. A reservation lapses when its PR opens,
     when its seat withdraws it, or thirty minutes after it was posted, so a
