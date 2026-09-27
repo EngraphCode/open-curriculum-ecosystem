@@ -342,17 +342,22 @@ loop-dynamics principle that the estate can now name and test for (§7).
    paid them. Falsifier: the design's own (a bound review on a synced head lets a semantic change
    through that the exact-oid rule would have caught).
 
-5. **A ruling on a procedure defect asks proportionality's question before the fix-now word**
-   (fast lane; one sentence in the Director's rulings-as-artefacts shape, PDR-117 clause 5, and in
-   the known-broken-code memory's limit: a defect in a procedure the estate has never run, with a
-   recoverable pre-state, is a ledger row at the procedure's first use unless a run is scheduled;
-   a defect in code or in a served surface is fixed now). Warrant: the 10:5xZ ruling spent a
-   ratification (answer 10, 09:1xZ) within two hours of its grant on a procedure with no scheduled
-   run, and the re-ratification has waited on the card since 11:02Z; the growth predates the
-   ruling, so the ruling's cost is the ratification and the twin's tail, not the rounds.
-   Falsifier: the first transplant run hits one of the seven edges with the ledger row in place
-   and the tag's restore does not recover it (then fix-now was right for procedures too, and this
-   sentence comes out); until the rollback runs, the falsifier is unjudgeable and the sentence
+5. **A ruling on a procedure defect asks proportionality's question before the fix-now word** (slow
+   lane, the PDR-130 register, because it changes how a ruling decides between fix-now and the
+   ledger and narrows the owner's fix-now word of 2026-09-16; the row proposes one sentence in the
+   Director's rulings-as-artefacts shape, PDR-117 clause 5, and in the known-broken-code memory's
+   limit: a defect in a procedure the estate has never run, with a recoverable pre-state, is a
+   ledger row at the procedure's first use unless a run is scheduled; a defect in code or in a
+   served surface is fixed now). Prediction: with the sentence, the next procedure defect found in
+   review on a never-run procedure costs a ledger row and no ratification; without it, the next such
+   ruling spends a ratification within the day, as the 10:5xZ ruling did. Review date: the fold of
+   2026-10-04, with the transplant runbook's next touch as the first data. Warrant: the 10:5xZ
+   ruling spent a ratification (answer 10, 09:1xZ) within two hours of its grant on a procedure with
+   no scheduled run, and the re-ratification has waited on the card since 11:02Z; the growth
+   predates the ruling, so the ruling's cost is the ratification and the twin's tail, not the
+   rounds. Falsifier: the first transplant run hits one of the seven edges with the ledger row in
+   place and the tag's restore does not recover it (then fix-now was right for procedures too, and
+   this sentence comes out); until the rollback runs, the falsifier is unjudgeable and the sentence
    stands on the ratification it would have saved.
 
 6. **arc-metrics takes a window** (fast lane; `--since` and `--until` on the tool, JC.net first,
