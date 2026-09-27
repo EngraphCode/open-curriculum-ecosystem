@@ -71,7 +71,9 @@ The table above: every lineage landing from 22:00Z on 2026-09-25 to the drain's 
 the merging hand (`app/el-graphael` is the estate's merge bot, the seats' door; `jimCresswell` is
 the owner by hand). Read against it:
 
-- 2026-09-25, 00:22Z to 22:24Z: twenty-one landings through the door, the last (242) at 22:24Z;
+- 2026-09-25, 00:22Z to 22:24Z: twenty-one landings through the door (the merged list read from gh
+  at 09:5xZ on the 27th; the table above starts at 22:00Z and shows the last two of them, 233 and
+  242), the last (242) at 22:24Z;
   the seats opened faster than the door landed through the evening (the opened list: 55 rows
   created since 2026-09-25 across both days at 09:5xZ on the 27th, read at the same instant).
 - 22:24Z on the 25th to 10:32Z on the 26th: no landing for twelve hours; the harness paused
@@ -223,6 +225,19 @@ slot as the amplifiers.
    turn; review date the fold of 2026-10-04. Falsifier (the plan's own): three seats idle for more
    than one door turn with the count at three, or the count at zero for a full check-in with no
    slice prepared.
+8. **The fold's sweep and the substrate check's second read** (fast lane; the fold skill's step-9
+   sweep sentence and the never-use-git chmod clause, queued in JC.net's napkin at 14:3xZ on the
+   27th for the next Practice PR per estate under a seat's hand, held for a seat by suite 34; the
+   substrate check's re-evaluation and its render lock as a toolkit finding on the same block).
+   Warrant: one fold push from a shared primary on the 27th cost four gate runs, none for the
+   branch's content (a peer's unlinted append; the practice-substrate check's read window against
+   live comms senders, twice; a moved file's relative links), each about two minutes plus a stream
+   line; a sweep that lints every dirty tracked file and renders the comms-log projection before
+   the push, with a check that re-evaluates once before declaring drift, removes the first two
+   causes at the pusher's desk. Falsifier: after the sweep lands, a fold push from a shared
+   primary fails a gate run on a peer's dirty tracked file or on projection drift; two such runs
+   across two folds falsify the claim that the sweep removes them, and the cure moves into the
+   tool (a render lock held for the gate's duration).
 
 ## 7. A bounded free-play pass
 
@@ -258,11 +273,9 @@ Facts read first-hand after the draft's cut, for the final text:
   resolved sha each (coordination/2026-09-27-d6c9e5, draft PR 264; coordination/2026-09-27-3699c1).
 - The push cost of a fold from a shared primary: four gate runs for one push, none for the
   branch's content (a peer's unlinted append on the primary; the practice-substrate check's read
-  window against live comms senders, twice; a moved file's relative links under the
-  markdown-links validator, which scans `unconsolidated/` and not `archive/`). Each run about two
-  minutes plus a stream line. Proposal 8: the fold's sweep lints every dirty tracked file and
-  renders the comms-log projection before the push; the substrate check re-evaluates once before
-  declaring drift; the render takes a lock.
+  window against live comms senders, twice; a moved file's relative links under the markdown-links
+  validator, which scans `unconsolidated/` and not `archive/`). Each run about two minutes plus a
+  stream line. Proposal 8 (§6, with its carrier and falsifier).
 - The WIP serialiser in operation (PR 260's clause): 263 opened under Siren's 10:56Z reservation
   and landed 11:34:36Z; 226 opened under her 11:38Z reservation at 11:41Z; 261 readied at 11:12Z
   behind them; the count read three of three from 10:56Z to the end of the window with no
