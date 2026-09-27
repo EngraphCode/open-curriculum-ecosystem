@@ -18,10 +18,10 @@ import type { FlaggedCommand } from './summary.js';
  * unaccounted. Every turn satisfies `calls === accounted + refused + unaccounted`.
  */
 
-const REQUEST_NAMES: Readonly<Record<string, ReadonlySet<string>>> = {
-  custom_tool_call: new Set(['exec']),
-  function_call: new Set(['exec_command', 'write_stdin', 'shell_command']),
-};
+const REQUEST_NAMES: ReadonlyMap<string, ReadonlySet<string>> = new Map([
+  ['custom_tool_call', new Set(['exec'])],
+  ['function_call', new Set(['exec_command', 'write_stdin', 'shell_command'])],
+]);
 const OUTPUT_TYPES: ReadonlySet<string> = new Set([
   'custom_tool_call_output',
   'function_call_output',
@@ -37,7 +37,7 @@ export type OutputClass =
 /** The call id when the payload is an exec-family request; undefined otherwise. */
 export function execRequestId(payload: JsonRecord): string | undefined {
   const type = typeof payload.type === 'string' ? payload.type : '';
-  const names = REQUEST_NAMES[type];
+  const names = REQUEST_NAMES.get(type);
   if (names === undefined || typeof payload.name !== 'string' || !names.has(payload.name)) {
     return undefined;
   }

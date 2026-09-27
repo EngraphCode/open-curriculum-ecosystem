@@ -26,9 +26,9 @@ const outputSchema = z
  */
 const finishedPreamble =
   /^Script (completed|failed|terminated)\nWall time \d+(?:\.\d+)? seconds\nOutput:\n/u;
-/** The preamble of a script still running in a cell; its output so far follows. */
+/** The preamble of a script still running in a cell: the cell line, the wall time and `Output:`; its output so far follows. */
 const runningPreamble =
-  /^Script running with cell ID [^\n]*\n(?:Wall time [^\n]*\n)?(?:Output:\n)?/u;
+  /^Script running with cell ID [^\n]*\nWall time \d+(?:\.\d+)? seconds\nOutput:\n/u;
 
 /** How the harness's preamble reports the script, or `none` when the text opens with no preamble. */
 export type PreambleStatus = 'completed' | 'failed' | 'terminated' | 'running' | 'none';
@@ -40,12 +40,11 @@ export interface Preamble {
   readonly rest: string;
 }
 
-/** The finished-script status the preamble's first group names. */
-function finishedStatus(group: string | undefined): PreambleStatus {
-  if (group === 'completed' || group === 'failed') {
-    return group;
-  }
-  return 'terminated';
+/** The closed set of statuses a finished script's preamble names. */
+function isFinishedStatus(
+  group: string | undefined,
+): group is 'completed' | 'failed' | 'terminated' {
+  return group === 'completed' || group === 'failed' || group === 'terminated';
 }
 
 /**
@@ -55,8 +54,9 @@ function finishedStatus(group: string | undefined): PreambleStatus {
  */
 export function readPreamble(text: string): Preamble {
   const finished = finishedPreamble.exec(text);
-  if (finished !== null) {
-    return { status: finishedStatus(finished[1]), rest: text.slice(finished[0].length) };
+  const status = finished?.[1];
+  if (finished !== null && isFinishedStatus(status)) {
+    return { status, rest: text.slice(finished[0].length) };
   }
   const running = runningPreamble.exec(text);
   if (running !== null) {

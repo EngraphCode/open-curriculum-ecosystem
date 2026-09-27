@@ -55,15 +55,15 @@ export function refusalRecords(): TestRecord[] {
   return recordsOf(observedRefusal);
 }
 
-const EXEC_REQUEST_NAMES: Readonly<Record<string, readonly string[]>> = {
-  custom_tool_call: ['exec'],
-  function_call: ['exec_command', 'write_stdin', 'shell_command'],
-};
+const EXEC_REQUEST_NAMES: ReadonlyMap<string, readonly string[]> = new Map([
+  ['custom_tool_call', ['exec']],
+  ['function_call', ['exec_command', 'write_stdin', 'shell_command']],
+]);
 
 /** Every exec-family request (`custom_tool_call` exec, `function_call` exec family), in order; at least one, or the fixture is wrong. */
 export function execCalls(recordsToRead: readonly TestRecord[]): TestRecord[] {
   const calls = selectAll(recordsToRead, 'response_item').filter((record) => {
-    const names = EXEC_REQUEST_NAMES[String(record.payload['type'])] ?? [];
+    const names = EXEC_REQUEST_NAMES.get(String(record.payload['type'])) ?? [];
     return names.includes(String(record.payload['name']));
   });
   assert(calls.length > 0, 'the fixture made no exec call');

@@ -92,10 +92,12 @@ use `codex exec` and `codex exec resume` (§6).
   ran per turn, every exec call accounted, refused by the exec policy or left
   unaccounted, and every command that carried a forbidden shape of
   `.codex/rules/seat-landing.rules`, rendered by allowlist so the summary
-  never carries the command history. `--strict` exits 1 when a forbidden
-  shape ran, a call is unaccounted, or the evidence could not be read; a
-  refusal alone passes. It is condition 5's second indicator for a Codex
-  seat's landing path.
+  never carries the command history. Only a code-mode wrapper the harness
+  completed accounts a call; a function-tool output (`exec_command` on a TUI
+  seat) reads as unaccounted, so the indicator reads code-mode seats.
+  `--strict` exits 1 when no turn started, a forbidden shape ran, a call is
+  unaccounted, or the evidence could not be read; a refusal alone passes. It
+  is condition 5's second indicator for a Codex seat's landing path.
 
 The topic lives at `agent-tools/src/codex-exec/` alongside `commit-queue`
 and follows the same dispatcher/topic pattern established in ADR-178.

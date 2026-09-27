@@ -19,6 +19,12 @@ import { hasTruncationMarker } from '../rollout/record-shapes.js';
  * `write_stdin`) the harness's text is the whole text, read from offset 0. A
  * refusal keeps the judged command line alone; the policy's justification is
  * not read, since the rule a shape matches names its own.
+ *
+ * After the last `Script error:` line of a failure that is no refusal stands
+ * the program's own exception text; the refusal patterns are anchored at its
+ * start, and that anchor alone keeps such text unmatched. A judged command
+ * line that itself contains a backtick never matches the policy's pattern and
+ * reads as unaccounted, failing closed: a residual of this reader.
  */
 
 const partsSchema = z.array(z.object({ text: z.string() }));
