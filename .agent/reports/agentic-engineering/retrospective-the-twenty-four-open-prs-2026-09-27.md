@@ -313,3 +313,29 @@ Facts read first-hand after the draft's cut, for the final text:
   resumed it. A boundary of this kind is the seventh interruption class of the arc (after the
   harness pause, the compaction words, the review quota, the owner's hand landings, the reviewer
   race and the gate's live-tree reads).
+
+
+## Addendum, 2026-09-27 18:34Z: the cited path qualified; the comparison window; the sibling record
+
+Two findings from PR 265's round five (Codex, two root threads: the comparison window at line 156
+and the plan report's path at line 17), dispositioned by signed lines on 76195aa19 (16:20:12Z, item
+1 of 2, the window; 16:20:14Z, item 2 of 2, the path), both "Rejected, below the bar", with the
+qualifier routed to the record's next addendum; the PR merged 16:24:59Z as 9b622d827. The Director's
+suite 37 re-read (16:45:09Z, the lineage stream) applied the reader-harm test per finding, reversed
+the path finding (the forge's item 2 of 2; its item 1, the window, stays below) to over the bar, and
+named this addendum as its cure under PDR-140 clause 9(b) (the retrospective skill: new
+understanding amends the record additively).
+
+1. The plan report cited in the sources paragraph,
+   `.agent/reports/agentic-engineering/2026-09-26-the-estates-programme-plan.md`, lives in JC.net
+   (`jimCresswell/jimcresswell.net`), not in this repository; a reader who follows the path here
+   finds nothing. Read the sources paragraph with that qualifier. The signed line read it as a
+   missing qualifier below the bar; the re-read put it over the bar (a reader acting on the record
+   is misled by the path); cured here.
+2. The counterfactual's comparison window pairs the 25th's door-day landings with the evening's
+   openings and calls both "the evening"; the conclusion rests on section 3's measured intervals,
+   and the pairing is two windows, not one. Below the bar on the signed line and on the re-read (no
+   reader acts on the pairing); the rationale restated here.
+
+The sibling record, the retrospective on the review rounds that grew (PRs 258, 260, 263, 224, 226),
+landed on 2026-09-27 at 18:13:16Z as 2522b8965 and carries its own addendum for the arc's tail.
