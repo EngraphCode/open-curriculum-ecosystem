@@ -27,6 +27,19 @@ import {
   type RepoCheckRuntime,
 } from './repo-check-profile.js';
 
+export {
+  runMarkdownlintStaged,
+  runMarkdownlintTracked,
+  runPrettierStaged,
+  runPrettierTracked,
+} from './repo-check-gates.js';
+
+import {
+  runMarkdownlintStaged,
+  runMarkdownlintTracked,
+  runPrettierStaged,
+  runPrettierTracked,
+} from './repo-check-gates.js';
 import { runProfile } from './repo-check-runner.js';
 
 function usage(): string {
@@ -36,91 +49,17 @@ function usage(): string {
     'Commands:',
     '  knip-gate              Run knip; fail loudly when a crash is swallowed behind exit 0 (F-147).',
     '  markdownlint-staged    Run markdownlint on staged Markdown files only.',
+    '  markdownlint-tracked [--fix]',
+    "                         Run markdownlint on every Markdown file in git's index (the root gate);",
+    '                         a staged new file counts, an untracked one does not.',
     '  prettier-staged        Run Prettier on staged files only.',
+    '  prettier-tracked [--write]',
+    "                         Run Prettier on every file in git's index (the root gate);",
+    '                         a staged new file counts, an untracked one does not.',
     '  profile [--dry-run] [--capture-output]',
     '                         Capture the pnpm check Turbo graph and, unless dry-run is set, time pnpm check.',
     '                         --capture-output stores pnpm check stdout/stderr beside the profile artifact.',
   ].join('\n');
-}
-
-function stagedFiles(runtime: RepoCheckRuntime): readonly string[] {
-  const result = runtime.runCaptured('git', [
-    'diff',
-    '--cached',
-    '--name-only',
-    '--diff-filter=ACMR',
-  ]);
-
-  if ((result.status ?? 1) !== 0) {
-    throw new Error(result.stderr.trim() || 'git diff failed while discovering staged files');
-  }
-
-  const names = result.stdout
-    .split(/\r?\n/u)
-    .map((entry) => entry.trim())
-    .filter((entry) => entry.length > 0);
-
-  // Symlink index entries (mode 120000, e.g. the .claude/skills adapters
-  // pointing at .agents/skills external-skill content) carry no formattable
-  // content of their own — the linked target is checked under its real path,
-  // and prettier refuses symlink paths outright.
-  const symlinks = stagedSymlinkPaths(runtime);
-  return names.filter((name) => !symlinks.has(name));
-}
-
-/** Repo-relative paths of staged index entries that are symbolic links. */
-function stagedSymlinkPaths(runtime: RepoCheckRuntime): ReadonlySet<string> {
-  const result = runtime.runCaptured('git', ['ls-files', '--cached', '-s']);
-  if ((result.status ?? 1) !== 0) {
-    return new Set();
-  }
-  const symlinks = new Set<string>();
-  for (const line of result.stdout.split(/\r?\n/u)) {
-    if (line.startsWith('120000 ')) {
-      const path = line.split('\t')[1];
-      if (path !== undefined) {
-        symlinks.add(path);
-      }
-    }
-  }
-  return symlinks;
-}
-
-function stagedMarkdownFiles(runtime: RepoCheckRuntime): readonly string[] {
-  return stagedFiles(runtime).filter((entry) => entry.endsWith('.md'));
-}
-
-export async function runMarkdownlintStaged(
-  runtime: RepoCheckRuntime = defaultRuntime,
-): Promise<number> {
-  const files = stagedMarkdownFiles(runtime);
-  if (files.length === 0) {
-    writeLine('repo-check markdownlint-staged: no staged Markdown files');
-    return 0;
-  }
-  // `--no-globs` is load-bearing, not redundant: it tells markdownlint-cli2 to
-  // ignore the `globs` array in `.markdownlint-cli2.jsonc` and lint ONLY the
-  // explicit staged paths. Without it cli2 would union the staged files with the
-  // config globs and re-lint the whole repo on every commit. The config's rules
-  // and `ignores` still apply, so an explicitly-staged but excluded file is skipped.
-  return runtime.runInherited('pnpm', ['exec', 'markdownlint-cli2', '--no-globs', ...files]);
-}
-
-export async function runPrettierStaged(
-  runtime: RepoCheckRuntime = defaultRuntime,
-): Promise<number> {
-  const files = stagedFiles(runtime);
-  if (files.length === 0) {
-    writeLine('repo-check prettier-staged: no staged files');
-    return 0;
-  }
-  return runtime.runInherited('pnpm', [
-    'exec',
-    'prettier',
-    '--check',
-    '--ignore-unknown',
-    ...files,
-  ]);
 }
 
 // knip reports per-workspace plugin-config load failures via a bare
@@ -196,31 +135,96 @@ export async function runKnipGate(
   return 0;
 }
 
+interface RepoCheckCommand {
+  /** The flags the command understands; anything else is rejected with usage. */
+  readonly flags: ReadonlySet<string>;
+  readonly run: (args: readonly string[]) => Promise<number>;
+}
+
+const NO_FLAGS: ReadonlySet<string> = new Set();
+
+/** The command table: a Map, so a prototype key can never resolve to a non-command. */
+const COMMANDS: ReadonlyMap<string, RepoCheckCommand> = new Map<string, RepoCheckCommand>([
+  ['knip-gate', { flags: NO_FLAGS, run: () => runKnipGate() }],
+  ['markdownlint-staged', { flags: NO_FLAGS, run: () => runMarkdownlintStaged() }],
+  [
+    'markdownlint-tracked',
+    {
+      flags: new Set(['--fix']),
+      run: (args) => runMarkdownlintTracked(args.includes('--fix') ? 'fix' : 'check'),
+    },
+  ],
+  ['prettier-staged', { flags: NO_FLAGS, run: () => runPrettierStaged() }],
+  [
+    'prettier-tracked',
+    {
+      flags: new Set(['--write']),
+      run: (args) => runPrettierTracked(args.includes('--write') ? 'write' : 'check'),
+    },
+  ],
+  // profile reads its own flags; they are listed here too, so a new one needs both.
+  [
+    'profile',
+    { flags: new Set(['--dry-run', '--capture-output']), run: (args) => runProfile(args) },
+  ],
+]);
+
+/**
+ * Resolve argv to a command and its checked arguments, or a usage failure.
+ * An unrecognised flag is refused rather than ignored: a mistyped repair
+ * flag (`--fxi`) must not run the read-only check and report green.
+ */
+function resolveCommand(
+  argv: readonly string[],
+): { readonly run: RepoCheckCommand['run']; readonly args: readonly string[] } | undefined {
+  const [name, ...args] = argv;
+  const command = name === undefined ? undefined : COMMANDS.get(name);
+  if (command === undefined || args.some((arg) => !command.flags.has(arg))) {
+    return undefined;
+  }
+  return { run: command.run, args };
+}
+
+const HELP_FLAGS: ReadonlySet<string> = new Set(['--help', '-h']);
+
+/**
+ * pnpm forwards a `--` separator to this entry unchanged: before the command
+ * (`pnpm agent-tools:repo-check -- <command>`) or after it, when a root script
+ * already names the command (`pnpm check:profile -- --dry-run`). One separator
+ * in either place is dropped; any other is an argument like any other and is
+ * refused with usage.
+ */
+function withoutForwardingSeparators(argv: readonly string[]): readonly string[] {
+  const [first, ...rest] = argv[0] === '--' ? argv.slice(1) : argv;
+  if (first === undefined) {
+    return [];
+  }
+  return [first, ...(rest[0] === '--' ? rest.slice(1) : rest)];
+}
+
 async function main(): Promise<void> {
-  const [command, ...args] = process.argv.slice(2);
-
+  const argv = withoutForwardingSeparators(process.argv.slice(2));
+  if (argv.length === 1 && HELP_FLAGS.has(argv[0] ?? '')) {
+    writeLine(usage());
+    process.exitCode = 0;
+    return;
+  }
+  const resolved = resolveCommand(argv);
+  if (resolved === undefined) {
+    writeErrorLine(usage());
+    process.exitCode = 1;
+    return;
+  }
   // process.exitCode, never process.exit(): exit() can terminate before
-  // piped stdout/stderr flush, truncating the captured output this gate
-  // promises to re-emit.
-  if (command === 'markdownlint-staged') {
-    process.exitCode = await runMarkdownlintStaged();
-    return;
+  // piped stdout/stderr flush, truncating the captured output a gate
+  // promises to re-emit. A gate that throws reports the message and exits 1:
+  // a gate's failure is guidance, never a stack trace.
+  try {
+    process.exitCode = await resolved.run(resolved.args);
+  } catch (error: unknown) {
+    writeErrorLine(`repo-check: ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 1;
   }
-  if (command === 'knip-gate') {
-    process.exitCode = await runKnipGate();
-    return;
-  }
-  if (command === 'prettier-staged') {
-    process.exitCode = await runPrettierStaged();
-    return;
-  }
-  if (command === 'profile') {
-    process.exitCode = await runProfile(args);
-    return;
-  }
-
-  writeErrorLine(usage());
-  process.exitCode = 1;
 }
 
 function isCliEntryPoint(): boolean {
