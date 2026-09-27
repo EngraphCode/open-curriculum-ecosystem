@@ -9,9 +9,17 @@
  * subshell or a `$(…)` substitution. Each segment goes through the front door
  * again, so a shell nested in a shell is lifted too. A separator or a program
  * name inside quotes is one word and never a segment; the body of a here
- * document is data and yields no segment. Nothing is expanded: `$HOME` and a
- * backtick stay as the characters they are, so a shape hidden behind `eval` or
- * inside a backticked command is a residual of this reader, not a segment. An
+ * document is data and yields no segment; a `#` that begins a word starts a
+ * comment dropped to the end of its line. A redirection operator (`>`, `>>`,
+ * `<`, `2>&1`, `>&2`, `&>`) is one word with the digits before it and any
+ * target glued to it, and it delimits the word before it, so `&` separates
+ * only outside an operator and a flag after a redirection is still read.
+ *
+ * Nothing is expanded, and the reader lifts no more than the shell's own
+ * words: `$HOME` and a backtick stay as the characters they are, so a shape
+ * hidden behind `eval` or inside a backticked command, in `$'…'` quoting,
+ * behind `xargs` or `find -exec`, under a git alias, or spelt as an
+ * abbreviated long option is a residual of this reader, not a segment. An
  * argv that is not a shell script passes through as one segment.
  */
 
@@ -23,7 +31,11 @@ const DOUBLE_QUOTE_ESCAPES = '"\\$`';
 const QUOTES: ReadonlySet<string> = new Set(['"', "'"]);
 const BLANKS: ReadonlySet<string> = new Set([' ', '\t']);
 /** `&&` and `||` read as two separators; the empty segment between them opens nothing. */
-const SEPARATORS: ReadonlySet<string> = new Set(['\n', ';', '&', '|', '(', ')']);
+const SEPARATORS: ReadonlySet<string> = new Set(['\n', ';', '|', '(', ')']);
+/** The characters a redirection operator is made of; `&` is also a separator outside one. */
+const OPERATORS: ReadonlySet<string> = new Set(['<', '>', '&']);
+/** A word that `<` or `>` continues: nothing or digits before it, a lone `&`, or an operator so far. */
+const OPERATOR_HEAD = /^(?:\d*|&|.*[<>])$/u;
 
 /** One command of a shell script: its words after quote removal. */
 export type Segment = readonly string[];
@@ -37,6 +49,8 @@ class Splitter {
   private building = false;
   private quote: '"' | "'" | undefined = undefined;
   private escaped = false;
+  /** Inside a `#` comment, dropped to the end of its line. */
+  private comment = false;
   private readonly hereDocuments = new HereDocuments();
   private readonly script: string;
 
@@ -45,17 +59,20 @@ class Splitter {
   }
 
   run(): readonly Segment[] {
-    for (const character of this.script) {
-      this.step(character);
+    const characters = [...this.script];
+    for (const [index, character] of characters.entries()) {
+      this.step(character, characters[index + 1]);
     }
     this.endWord();
     this.endSegment();
     return this.segments;
   }
 
-  private step(character: string): void {
+  private step(character: string, next: string | undefined): void {
     if (this.hereDocuments.inBody) {
       this.hereDocuments.read(character);
+    } else if (this.comment) {
+      this.inComment(character);
     } else if (this.escaped) {
       this.escapedCharacter(character);
     } else if (this.quote === "'") {
@@ -63,7 +80,15 @@ class Splitter {
     } else if (this.quote === '"') {
       this.inDoubleQuotes(character);
     } else {
-      this.unquoted(character);
+      this.unquoted(character, next);
+    }
+  }
+
+  /** A comment runs to the end of its line; the newline then separates as usual. */
+  private inComment(character: string): void {
+    if (character === '\n') {
+      this.comment = false;
+      this.separator('\n');
     }
   }
 
@@ -97,18 +122,52 @@ class Splitter {
     }
   }
 
-  private unquoted(character: string): void {
-    if (character === '\\') {
+  private unquoted(character: string, next: string | undefined): void {
+    if (this.startsComment(character)) {
+      this.comment = true;
+    } else if (character === '\\') {
       this.escaped = true;
     } else if (QUOTES.has(character)) {
       this.quote = character === '"' ? '"' : "'";
       this.building = true;
     } else if (BLANKS.has(character)) {
       this.endWord();
+    } else if (OPERATORS.has(character)) {
+      this.operator(character, next);
     } else if (SEPARATORS.has(character)) {
       this.separator(character);
     } else {
       this.take(character);
+    }
+  }
+
+  /** A `#` begins a comment only where a word would begin. */
+  private startsComment(character: string): boolean {
+    return character === '#' && !this.building;
+  }
+
+  /** `<` or `>` continues an operator word or, after an ordinary word, delimits it and opens one; `&` is read on its own. */
+  private operator(character: string, next: string | undefined): void {
+    if (character === '&') {
+      this.ampersand(next);
+      return;
+    }
+    if (!OPERATOR_HEAD.test(this.word)) {
+      this.endWord();
+    }
+    this.take(character);
+  }
+
+  /** `>&` and `<&` continue an operator, `&>` opens one, and any other `&` separates. */
+  private ampersand(next: string | undefined): void {
+    const last = this.word.at(-1);
+    if (last === '>' || last === '<') {
+      this.take('&');
+    } else if (next === '>') {
+      this.endWord();
+      this.take('&');
+    } else {
+      this.separator('&');
     }
   }
 

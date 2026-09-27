@@ -37,6 +37,21 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     expect(summary.accounts.map((account) => account.executed)).toStrictEqual([base, 1]);
   });
 
+  it('flags a shape that follows a redirection in the same command', () => {
+    const records = execRecords();
+    appendCommandTurn(records, ['/bin/zsh', '-lc', 'git add 2>&1 -A']);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.flagged.map((entry) => entry.hits)).toStrictEqual([
+      [{ kind: 'stage-whole-tree', token: '-A' }],
+    ]);
+  });
+
+  it('does not flag a shape named only in a comment', () => {
+    const records = execRecords();
+    appendCommandTurn(records, ['/bin/zsh', '-lc', 'git commit -m tidy # never --no-verify']);
+    expect(readCommandRecords(lines(records)).flagged).toStrictEqual([]);
+  });
+
   it('reports two flagged commands in two turns with their lines ascending', () => {
     const records = execRecords();
     const [first] = commandItems(records);

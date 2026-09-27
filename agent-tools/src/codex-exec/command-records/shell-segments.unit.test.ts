@@ -126,3 +126,63 @@ describe('shellSegments splits a script at unquoted separators only', () => {
     ]);
   });
 });
+
+describe('shellSegments reads redirections and comments as the shell does', () => {
+  it.each([
+    { script: 'cmd 2>&1', words: ['cmd', '2>&1'] },
+    { script: 'cmd >&2', words: ['cmd', '>&2'] },
+    { script: 'cmd <&0', words: ['cmd', '<&0'] },
+    { script: 'cmd &> out.log', words: ['cmd', '&>', 'out.log'] },
+    { script: 'cmd &>>out.log', words: ['cmd', '&>>out.log'] },
+    { script: 'cmd 1>>out.log', words: ['cmd', '1>>out.log'] },
+  ])('keeps the redirection operator of "$script" inside one command', ({ script, words }) => {
+    expect(shellSegments(['sh', '-c', script])).toStrictEqual([words]);
+  });
+
+  it.each([
+    { script: 'git add -A>/dev/null 2>&1', words: ['git', 'add', '-A', '>/dev/null', '2>&1'] },
+    { script: 'git push>/dev/null', words: ['git', 'push', '>/dev/null'] },
+    { script: 'git push<input', words: ['git', 'push', '<input'] },
+  ])('delimits the word before an unspaced redirection in "$script"', ({ script, words }) => {
+    expect(shellSegments(['sh', '-c', script])).toStrictEqual([words]);
+  });
+
+  it('reads a flag after a redirection as a word of the same command', () => {
+    expect(shellSegments(['sh', '-c', 'git add 2>&1 -A'])).toStrictEqual([
+      ['git', 'add', '2>&1', '-A'],
+    ]);
+  });
+
+  it('redirects a command in the background form without splitting the operator', () => {
+    expect(shellSegments(['sh', '-c', 'a&>b'])).toStrictEqual([['a', '&>b']]);
+  });
+
+  it('drops a comment to the end of its line and reads the next line as a command', () => {
+    expect(shellSegments(['sh', '-c', 'git add -A # stage\ngit push origin HEAD'])).toStrictEqual([
+      ['git', 'add', '-A'],
+      PUSH,
+    ]);
+  });
+
+  it('reads a script that is only a comment as no command', () => {
+    expect(shellSegments(['sh', '-c', '# git push origin HEAD'])).toStrictEqual([]);
+  });
+
+  it('keeps a here-document body as data when a comment follows its announcement', () => {
+    const script = 'cat <<EOF # note\ngit push origin HEAD\nEOF';
+    expect(shellSegments(['sh', '-c', script])).toStrictEqual([['cat', '<<EOF']]);
+  });
+
+  it.each([
+    { script: 'echo a#b', words: ['echo', 'a#b'] },
+    { script: 'echo $#', words: ['echo', '$#'] },
+    { script: "echo '#x'", words: ['echo', '#x'] },
+    { script: 'echo "#x"', words: ['echo', '#x'] },
+    { script: String.raw`echo \#x`, words: ['echo', '#x'] },
+  ])(
+    'keeps a # that does not begin a word as the character it is: "$script"',
+    ({ script, words }) => {
+      expect(shellSegments(['sh', '-c', script])).toStrictEqual([words]);
+    },
+  );
+});
