@@ -11,7 +11,7 @@ import {
 import { hashDirectory, RESULTS_PREFIX, type LoadedSuite } from './plugin.js';
 import { adapterDir } from './plugin-skill.js';
 import type { PluginSkill } from './project.js';
-import type { SkillEvalsSeams } from './seams.js';
+import type { GitState, SkillEvalsSeams } from './seams.js';
 import { RUNNER_COMMAND } from './suite.js';
 
 /**
@@ -21,14 +21,24 @@ import { RUNNER_COMMAND } from './suite.js';
  * @packageDocumentation
  */
 
+/**
+ * The evaluated versions: every carried skill's files by blob id and the
+ * repository state, read once the plugin is staged and before any suite runs,
+ * so an edit made while a suite runs never reaches the manifest.
+ */
+export interface EvaluatedVersions {
+  readonly skill: ManifestSkill;
+  readonly carried: readonly ManifestSkill[];
+  readonly git: GitState;
+}
+
 /** What the manifest is composed from. */
 export interface ManifestContext {
-  readonly repoRoot: string;
   readonly agentToolsVersion: string;
   readonly model: string | undefined;
   readonly judgeModel: string | undefined;
   readonly seams: SkillEvalsSeams;
-  readonly loaded: LoadedSuite;
+  readonly versions: EvaluatedVersions;
   readonly outDir: string;
   readonly startedAt: Date;
   readonly suites: readonly SuiteRecord[];
@@ -61,10 +71,13 @@ function hashSkill(
   });
 }
 
-/** Hash the evaluated versions, read the repository state, and write the manifest. */
-export function writeManifest(context: ManifestContext): Result<void, Error> {
-  const { seams, repoRoot } = context;
-  const { skill, carried } = context.loaded.projection;
+/** Hash the staged versions and read the repository state, before any suite runs. */
+export function captureVersions(
+  repoRoot: string,
+  loaded: LoadedSuite,
+  seams: SkillEvalsSeams,
+): Result<EvaluatedVersions, Error> {
+  const { skill, carried } = loaded.projection;
   const hashed = hashSkill(repoRoot, skill, seams);
   if (!hashed.ok) {
     return hashed;
@@ -74,16 +87,19 @@ export function writeManifest(context: ManifestContext): Result<void, Error> {
     return carriedHashed;
   }
   const git = seams.gitState(repoRoot);
-  if (!git.ok) {
-    return git;
-  }
+  return git.ok ? ok({ skill: hashed.value, carried: carriedHashed.value, git: git.value }) : git;
+}
+
+/** Write the manifest from the versions captured at staging and the suites that ran. */
+export function writeManifest(context: ManifestContext): Result<void, Error> {
+  const { seams, versions } = context;
   const manifest: ManifestInput = {
     startedAt: context.startedAt.toISOString(),
-    repoHead: git.value.head,
-    worktreeClean: git.value.clean,
+    repoHead: versions.git.head,
+    worktreeClean: versions.git.clean,
     agentToolsVersion: context.agentToolsVersion,
-    skill: hashed.value,
-    carried: carriedHashed.value,
+    skill: versions.skill,
+    carried: versions.carried,
     runner: RUNNER_COMMAND,
     model: context.model,
     judgeModel: context.judgeModel,

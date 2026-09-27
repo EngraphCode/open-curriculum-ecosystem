@@ -48,6 +48,8 @@ export interface SkillEvalsSeams {
   readonly writeText: (path: string, content: string, executable: boolean) => Result<void, Error>;
   /** A fresh directory whose path is real (every symlink resolved), so the runner's own record of it scrubs. */
   readonly makeTempDir: (prefix: string) => Result<string, Error>;
+  /** Make `path`, its parents as needed; a refusal when `path` already exists, so no run writes into another's. */
+  readonly makeFreshDir: (path: string) => Result<void, Error>;
   /** Remove a directory tree this tool or the runner made, including one the runner sealed read-only. */
   readonly removeDir: (path: string) => Result<void, Error>;
   /** Run `command` with `args` from `cwd`, its output inherited by the operator's terminal. */
@@ -125,6 +127,16 @@ function writeText(path: string, content: string, executable: boolean): Result<v
 function makeTempDir(prefix: string): Result<string, Error> {
   try {
     return ok(realpathSync(mkdtempSync(join(realpathSync(tmpdir()), prefix))));
+  } catch (error) {
+    return err(asError(error));
+  }
+}
+
+function makeFreshDir(path: string): Result<void, Error> {
+  try {
+    mkdirSync(dirname(path), { recursive: true });
+    mkdirSync(path);
+    return ok(undefined);
   } catch (error) {
     return err(asError(error));
   }
@@ -221,6 +233,7 @@ export function realSkillEvalsSeams(): SkillEvalsSeams {
     listFiles,
     writeText,
     makeTempDir,
+    makeFreshDir,
     removeDir,
     run,
     blobIds,

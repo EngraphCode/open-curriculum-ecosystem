@@ -9,13 +9,13 @@
  * machine-local path scrubbed. No real filesystem, subprocess or clock.
  */
 
-import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
+import { ok, unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 
 import { getJsonValue, isJsonObject, parseJsonText, type JsonObject } from '../core/json.js';
 import { projectSkillEvals, runSkillEvals, type RunOptions } from './run.js';
-import type { GitState } from './seams.js';
+import type { GitState, SkillEvalsSeams } from './seams.js';
 import {
   harness,
   PLUGIN,
@@ -285,6 +285,51 @@ describe('runSkillEvals', () => {
     expect(message).toContain(PLUGIN);
     expect(h.runs).toHaveLength(1);
     expect(h.removed).toEqual([]);
+  });
+
+  it('refuses a --skill outside the repository before reading anything there', () => {
+    const h = harness();
+    // Read, this would fail as a fixture; refused first, it is never read.
+    h.files.set('/outside/evals/evals.json', 'not a fixture');
+    const refusal =
+      "canonical directory '../outside' must be a normalised path relative to the repository root";
+    const outside = { ...options, skill: '../outside' };
+    expect(unwrapErr(runSkillEvals(outside, h.seams)).message).toContain(refusal);
+    expect(
+      unwrapErr(projectSkillEvals({ ...outside, out: '/scratch/inspect' }, h.seams)).message,
+    ).toContain(refusal);
+    expect(h.runs).toEqual([]);
+  });
+
+  it('names in the manifest the versions staged for the run, not an edit made while it ran', () => {
+    const h = harness();
+    const canonical = `${REPO}/.agent/skills/planning/user-value/SKILL-CANONICAL.md`;
+    const staged = h.files.get(canonical) ?? '';
+    let head = 'staged-head';
+    const seams: SkillEvalsSeams = {
+      ...h.seams,
+      gitState: () => ok({ head, clean: true }),
+      run: (command, args, cwd) => {
+        h.files.set(canonical, `${staged}An edit made while the suite ran.\n`);
+        head = 'moved-head';
+        return h.seams.run(command, args, cwd);
+      },
+    };
+    unwrapOrThrow(runSkillEvals(options, seams));
+    const manifest = manifestOf(h.files);
+    expect(getJsonValue(manifest, 'repo_head')).toBe('staged-head');
+    const files = manifestFilesSchema.parse(getJsonValue(manifest, 'canonical_files'));
+    expect(files.find((file) => file.path === 'SKILL-CANONICAL.md')?.blob).toBe(
+      standInBlobId(staged),
+    );
+  });
+
+  it('refuses a second run that starts in the same second, naming its directory, before any runner invocation', () => {
+    const h = harness();
+    unwrapOrThrow(runSkillEvals(options, h.seams));
+    const invoked = h.runs.length;
+    expect(unwrapErr(runSkillEvals(options, h.seams)).message).toContain(OUT);
+    expect(h.runs).toHaveLength(invoked);
   });
 
   it('refuses a skill that declares no evals', () => {

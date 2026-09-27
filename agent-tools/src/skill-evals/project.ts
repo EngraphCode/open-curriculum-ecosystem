@@ -179,7 +179,7 @@ function isNormalisedRelative(dir: string): boolean {
 }
 
 /** Why one carried skill cannot be projected, or undefined when it can. */
-function skillRefusal(skill: PluginSkill): string | undefined {
+export function skillRefusal(skill: PluginSkill): string | undefined {
   if (!HOST_SKILL.test(skill.hostSkill)) {
     return `host skill name '${skill.hostSkill}' is not lower-case letters, digits and hyphens`;
   }

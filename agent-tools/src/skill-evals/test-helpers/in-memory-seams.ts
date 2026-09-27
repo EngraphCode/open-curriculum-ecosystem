@@ -134,6 +134,7 @@ export function harness(runnerExit = 0): Harness {
   const modes = new Map<string, boolean>();
   const runs: RecordedRun[] = [];
   const removed: string[] = [];
+  const dirs = new Set<string>();
   const listFiles = (dir: string): Result<readonly string[], Error> =>
     ok(
       [...files.keys()]
@@ -150,6 +151,13 @@ export function harness(runnerExit = 0): Harness {
       return ok(undefined);
     },
     makeTempDir: () => ok(PLUGIN),
+    makeFreshDir: (path) => {
+      if (dirs.has(path) || [...files.keys()].some((file) => file.startsWith(`${path}/`))) {
+        return err(new Error(`${path} exists`));
+      }
+      dirs.add(path);
+      return ok(undefined);
+    },
     removeDir: (path) => {
       removed.push(path);
       return ok(undefined);
@@ -179,6 +187,7 @@ export function refusingSeams(): SkillEvalsSeams {
     listFiles: refused,
     writeText: refused,
     makeTempDir: refused,
+    makeFreshDir: refused,
     removeDir: refused,
     run: refused,
     blobIds: refused,

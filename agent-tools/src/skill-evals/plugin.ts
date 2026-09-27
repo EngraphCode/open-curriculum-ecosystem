@@ -7,6 +7,7 @@ import { parseSkillEvalsFixture, parseTriggerValidation } from './fixture.js';
 import type { ManifestFile } from './manifest.js';
 import {
   projectSuite,
+  skillRefusal,
   type PluginSkill,
   type ProjectedFile,
   type ProjectionInput,
@@ -80,12 +81,22 @@ function readFixtureTexts(
   return ok({ fixture: fixtureText.value, triggers: triggerText.value });
 }
 
-/** Read and validate the skill's declared evals, then project them. */
+/**
+ * Read and validate the skill's declared evals, then project them. Every
+ * named skill directory is refused before any path is joined to the
+ * repository root, so a selection such as `--skill ../x` reads nothing
+ * outside it.
+ */
 export function loadProjection(
   options: LoadOptions,
   seams: SkillEvalsSeams,
 ): Result<LoadedSuite, Error> {
   const skill = pluginSkillOf(options);
+  const carried = options.also.map(pluginSkillOf);
+  const refused = [skill, ...carried].map(skillRefusal).find((reason) => reason !== undefined);
+  if (refused !== undefined) {
+    return err(new Error(`skill-evals projection refused: ${refused}`));
+  }
   const texts = readFixtureTexts(posix.join(options.repoRoot, skill.canonicalRelativeDir), seams);
   if (!texts.ok) {
     return texts;
@@ -103,7 +114,7 @@ export function loadProjection(
     fixture: fixture.value,
     triggers: triggers.value,
     skill,
-    carried: options.also.map(pluginSkillOf),
+    carried,
     maxTurns: options.maxTurns,
     timeoutSeconds: options.timeoutSeconds,
     triggerMaxTurns: options.triggerMaxTurns,

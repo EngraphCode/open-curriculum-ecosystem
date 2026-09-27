@@ -1,11 +1,11 @@
 import { posix } from 'node:path';
 
-import { collect, ok, type Result } from '@oaknational/result';
+import { collect, err, ok, type Result } from '@oaknational/result';
 
 import type { SuiteSelection } from './args.js';
 import type { PathReplacement } from './evidence.js';
 import type { SuiteRecord } from './manifest.js';
-import { writeManifest } from './manifest-writer.js';
+import { captureVersions, writeManifest, type EvaluatedVersions } from './manifest-writer.js';
 import { planSuites, type PlannedSuite } from './plan.js';
 import {
   loadProjection,
@@ -114,14 +114,29 @@ interface Staged {
   readonly pluginDir: string;
   readonly outDir: string;
   readonly startedAt: Date;
+  readonly versions: EvaluatedVersions;
 }
 
-/** Write the plugin to a fresh temporary directory and fix the evidence directory by the clock. */
+/**
+ * Make the evidence directory, named by the clock, fresh: a run that starts in
+ * the same second as another refuses rather than write into its evidence. Then
+ * write the plugin to a fresh temporary directory and capture the versions it
+ * carries, before any suite runs.
+ */
 function stage(
   options: RunOptions,
   seams: SkillEvalsSeams,
   prepared: Prepared,
 ): Result<Staged, Error> {
+  const startedAt = seams.now();
+  const canonicalDir = prepared.loaded.projection.skill.canonicalRelativeDir;
+  const outDir = posix.join(options.repoRoot, canonicalDir, 'evals', 'results', stamp(startedAt));
+  const fresh = seams.makeFreshDir(outDir);
+  if (!fresh.ok) {
+    return err(
+      new Error(`the evidence directory ${outDir} cannot be made fresh: ${fresh.error.message}`),
+    );
+  }
   const pluginDir = seams.makeTempDir('oce-skill-evals-');
   if (!pluginDir.ok) {
     return pluginDir;
@@ -130,10 +145,10 @@ function stage(
   if (!written.ok) {
     return written;
   }
-  const startedAt = seams.now();
-  const canonicalDir = prepared.loaded.projection.skill.canonicalRelativeDir;
-  const outDir = posix.join(options.repoRoot, canonicalDir, 'evals', 'results', stamp(startedAt));
-  return ok({ pluginDir: pluginDir.value, outDir, startedAt });
+  const versions = captureVersions(options.repoRoot, prepared.loaded, seams);
+  return versions.ok
+    ? ok({ pluginDir: pluginDir.value, outDir, startedAt, versions: versions.value })
+    : versions;
 }
 
 /** Project, run and retain. The temporary plugin is removed unless `keepPlugin`. */
@@ -153,7 +168,7 @@ export function runSkillEvals(
   if (!staged.ok) {
     return staged;
   }
-  const { pluginDir, outDir, startedAt } = staged.value;
+  const { pluginDir, outDir, startedAt, versions } = staged.value;
   const suites = executeSuites(options, seams, planned.value, pluginDir, outDir);
   if (!suites.ok) {
     return suites;
@@ -161,7 +176,7 @@ export function runSkillEvals(
   const manifest = writeManifest({
     ...options,
     seams,
-    loaded: prepared.value.loaded,
+    versions,
     outDir,
     startedAt,
     suites: suites.value,
