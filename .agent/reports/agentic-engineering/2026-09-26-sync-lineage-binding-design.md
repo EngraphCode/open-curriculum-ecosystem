@@ -6,8 +6,10 @@ Swallow holds Drift (516619). Status: ready-to-build, deferred by the Director's
 Problem. `pr-watch` binds a review leg to the head by EXACT commit oid (`reviewer-legs.ts`
 `bindsTip`; `settlement.ts` quietWindowAnchor and bodyTallyEvidence; `completion-evidence.ts`
 filters). Every sync merge moves the head, so a leg that reviewed the content must be re-requested
-and re-run on unchanged content: the self-inflicted rounds (six on 241, five on 216, one each on
-227 and 229 in one evening).
+and re-run on unchanged content. Measured across the reviewed tips of 241, 216, 227 and 229 on
+2026-09-26 (the datum in the status line): one sync-only tip move in seven; 241's sync also carried
+an edit, and 216 and 229 had no sync. So the unchanged-content cost is one round in seven at that
+sample, not every round, which is why the cure is deferred until the survey shows more.
 
 Cure, one behavioural claim. A review binds the head when the head's CONTENT against the default
 branch is the content the reviewer saw. Content = the patch of `merge-base(base, C)..C`, compared
@@ -35,7 +37,8 @@ post COMMENTED reviews, not approvals, so the ruleset is not the binding surface
 Tests describe behaviour: a review at C binds head H after a clean sync merge; does not bind
 after a resolution that changes the PR's diff; does not bind when the reviewed commit is not in
 the clone (UNPROVEN, never a wildcard); the exact-oid path still binds; whitespace-only
-reformatting by the sync does not unbind (stable patch-id). Smoke on real git (test:e2e), unit
+reformatting by the sync UNBINDS under the revision below (`--verbatim` patch-ids; the earlier
+`--stable` reading inverted at the pre-execution review). Smoke on real git (test:e2e), unit
 tests on the pure predicate with fixture patch-ids.
 
 Falsifier for the design. If patch-id equality holds while a semantic change slipped in (a sync

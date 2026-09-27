@@ -86,9 +86,14 @@ merge-bot commit --message-file <path> [--author "<Name> <email>"] [--json]
 
 - **Environment scrub, one table, two consumers.** A `hookSkipEnv` table beside
   `git-credential-chain.ts` sets `HUSKY`, `GIT_CONFIG_PARAMETERS`, `GIT_CONFIG_COUNT` (and every
-  `GIT_CONFIG_KEY_n`/`GIT_CONFIG_VALUE_n` present in the base) to undefined, plus `GIT_DIR`,
-  `GIT_WORK_TREE` and `GIT_INDEX_FILE` for commit (the pre-commit hook's own `env -u`
-  precedent). Its TSDoc cites `no-verify-requires-fresh-authorisation`. `merge-bot push`'s
+  `GIT_CONFIG_KEY_n`/`GIT_CONFIG_VALUE_n` present in the base), `GIT_CONFIG_GLOBAL` and
+  `GIT_CONFIG_SYSTEM` to undefined, plus `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` for
+  commit (the pre-commit hook's own `env -u` precedent). The two config-file variables are in the
+  table because a file named there can set `core.hooksPath=/dev/null` and the commit then runs no
+  hook (the Codex connector verified this with Git 2.43.0 at the fold's review, 2026-09-27); the
+  smoke covers it: a `GIT_CONFIG_GLOBAL` file setting `core.hooksPath=/dev/null` in the caller's
+  environment, and the wrapper's commit still runs an executable pre-commit hook that exits 1,
+  so the commit is refused. Its TSDoc cites `no-verify-requires-fresh-authorisation`. `merge-bot push`'s
   `pushEnv` uses it too (this moves condition 7's `GIT_CONFIG_*` item here).
 - **`--author` required**, given once, strictly `Name <email>` (no newline, no `<`/`>` in the
   name, a non-empty email, no leading `-`), passed as one token `--author=<value>`.

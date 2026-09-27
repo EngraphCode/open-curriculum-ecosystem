@@ -548,10 +548,10 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   PRs from 10:35Z to 10:50Z, not eleven to 10:48Z; condition 5 limited to commit and push, since
   PR 241's rules leave opening the pull request to the default flow); three PR 244 stalenesses (the
   ledger row, the next-order list twice) disposed as cured in this commit, with no second push on
-  the fold. PR 223 merged as `b8432103a` at about 12:06Z through Myrtle's door; the successor is
+  the fold. PR 223 merged as `b8432103a` at 12:09:24Z (the commit's own time) through Myrtle's door; the successor is
   `coordination/2026-09-26-b84321`. Also this segment: the emfile worktree and branch removed with read-back
   (check-in 25, routing 2); PR 248's body reconciled to three citations and its thread resolved,
-  then its slot at 12:07Z, one sync merge of `b8432103a` (one review-ledger row in conflict), pushed
+  then its slot, one sync merge of `b8432103a` at 12:11:53Z (`6b638d7c5`; one review-ledger row in conflict), pushed
   with both legs re-requested; PR 246's round one (Copilot and Codex P1: the guard's fail-closed
   claim leaned on husky's `sh -e`; Codex P2: the smoke's literal `/bin/sh`) cured in `75c655504` in
   its worktree, unpushed until its turn: the guard's own refusal, a trusted shell resolver
