@@ -1,7 +1,7 @@
 /**
  * Operator profile — the filesystem primitives behind the root reader:
  * probing presence without following links, listing a directory without
- * following links, and reading a document without following a symlink.
+ * following links, and the document reader of `operator-profile-read.ts`.
  * Absence is a first-class outcome, never an error; an unreadable path is an
  * error, never absence; a symlink is a symlink, never what it points at.
  */

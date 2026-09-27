@@ -3,6 +3,7 @@ import path from 'node:path';
 import { err, ok, unwrap } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { NON_BLOCKING_READ_FLAGS } from '../../core/no-follow-read.js';
 import { VALID_INDEX_DOCUMENT } from './operator-profile-fixtures.js';
 import {
   entryKind,
@@ -14,7 +15,13 @@ import {
   type ProfileFileSystem,
   type StatProbe,
 } from './operator-profile-fs.js';
-import { type DocumentHandle, type EntryIdentity, readDocument } from './operator-profile-read.js';
+import {
+  type DocumentHandle,
+  type EntryIdentity,
+  type OpenDocument,
+  type ReadProbes,
+  readDocument,
+} from './operator-profile-read.js';
 import { type ProfileEntry } from './operator-profile-layout.js';
 import { existingProfilePaths, readProfileReport } from './operator-profile-root.js';
 
@@ -260,6 +267,13 @@ describe('readProfileReport — entries that are not regular files', () => {
 
 describe('readDocument — reading without following a symlink', () => {
   const regular: EntryIdentity = { isFile: () => true, dev: 1n, ino: 42n };
+  // Every read that reaches the path-entry probe names its host, so no test
+  // takes the runner's own probes: a host with O_NOFOLLOW never stats the
+  // path, and the arm without it is driven by its own test below.
+  const noFollowHost: ReadProbes = {
+    noFollowAtOpen: true,
+    entryStat: () => Promise.reject(new Error('a host with O_NOFOLLOW never stats the path')),
+  };
   const handleOf = (
     text: string,
     closed: string[],
@@ -279,6 +293,25 @@ describe('readDocument — reading without following a symlink', () => {
       Promise.resolve(handleOf('text', closed, { isFile: () => false, dev: 1n, ino: 42n })),
     );
     expect(read).toEqual({
+      ok: false,
+      error:
+        'the path is not a regular file — a directory, a fifo or a special file is never a profile document',
+    });
+    expect(closed).toEqual(['closed']);
+  });
+
+  it('opens a fifo without waiting for a writer, and refuses it before any read', async () => {
+    const closed: string[] = [];
+    // A fifo with no writer: an open that lacks any flag of a non-blocking read
+    // waits, which this fake reports as a refusal a test can see. On a host
+    // without O_NONBLOCK those flags are read-only alone, and there is no fifo.
+    const fifo: OpenDocument = (_absolute, flags) =>
+      (flags & NON_BLOCKING_READ_FLAGS) === NON_BLOCKING_READ_FLAGS
+        ? Promise.resolve(handleOf('', closed, { isFile: () => false, dev: 1n, ino: 42n }))
+        : Promise.reject(
+            Object.assign(new Error('the open waits for a writer'), { code: 'EWAITS' }),
+          );
+    expect(await readDocument('index.md', fifo, noFollowHost)).toEqual({
       ok: false,
       error:
         'the path is not a regular file — a directory, a fifo or a special file is never a profile document',
@@ -327,19 +360,26 @@ describe('readDocument — reading without following a symlink', () => {
 
   it('reads the text through the opened handle and closes it', async () => {
     const closed: string[] = [];
-    const read = await readDocument('index.md', () => Promise.resolve(handleOf('text', closed)));
+    const read = await readDocument(
+      'index.md',
+      () => Promise.resolve(handleOf('text', closed)),
+      noFollowHost,
+    );
     expect(unwrap(read)).toBe('text');
     expect(closed).toEqual(['closed']);
   });
 
   it('names a close the platform refuses after a read as a close failure, never a throw', async () => {
     const refusal = Object.assign(new Error('EIO: i/o error'), { code: 'EIO' });
-    const read = await readDocument('index.md', () =>
-      Promise.resolve({
-        stat: () => Promise.resolve(regular),
-        readFile: () => Promise.resolve('text'),
-        close: () => Promise.reject(refusal),
-      }),
+    const read = await readDocument(
+      'index.md',
+      () =>
+        Promise.resolve({
+          stat: () => Promise.resolve(regular),
+          readFile: () => Promise.resolve('text'),
+          close: () => Promise.reject(refusal),
+        }),
+      noFollowHost,
     );
     expect(read).toEqual({
       ok: false,
@@ -350,14 +390,17 @@ describe('readDocument — reading without following a symlink', () => {
 
   it('contains a close that throws synchronously after a failed read and names both causes', async () => {
     const readRefusal = Object.assign(new Error('EACCES: permission denied'), { code: 'EACCES' });
-    const read = await readDocument('index.md', () =>
-      Promise.resolve({
-        stat: () => Promise.resolve(regular),
-        readFile: () => Promise.reject(readRefusal),
-        close: () => {
-          throw Object.assign(new Error('EBADF: bad file descriptor'), { code: 'EBADF' });
-        },
-      }),
+    const read = await readDocument(
+      'index.md',
+      () =>
+        Promise.resolve({
+          stat: () => Promise.resolve(regular),
+          readFile: () => Promise.reject(readRefusal),
+          close: () => {
+            throw Object.assign(new Error('EBADF: bad file descriptor'), { code: 'EBADF' });
+          },
+        }),
+      noFollowHost,
     );
     expect(read).toEqual({
       ok: false,
@@ -370,15 +413,18 @@ describe('readDocument — reading without following a symlink', () => {
     const readRefusal = Object.assign(new Error('EACCES: permission denied'), { code: 'EACCES' });
     const closeRefusal = Object.assign(new Error('EIO: i/o error'), { code: 'EIO' });
     const closed: string[] = [];
-    const read = await readDocument('index.md', () =>
-      Promise.resolve({
-        stat: () => Promise.resolve(regular),
-        readFile: () => Promise.reject(readRefusal),
-        close: () => {
-          closed.push('closed');
-          return Promise.reject(closeRefusal);
-        },
-      }),
+    const read = await readDocument(
+      'index.md',
+      () =>
+        Promise.resolve({
+          stat: () => Promise.resolve(regular),
+          readFile: () => Promise.reject(readRefusal),
+          close: () => {
+            closed.push('closed');
+            return Promise.reject(closeRefusal);
+          },
+        }),
+      noFollowHost,
     );
     expect(read).toEqual({
       ok: false,
