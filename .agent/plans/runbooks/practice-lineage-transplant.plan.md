@@ -240,17 +240,21 @@ standing grant for proven paths): the content from `git show <pre-state
 tag>:<path>` for a host file, or from `git -C <source-checkout> show
 <pin>:<path>` for a drop, written to a fresh `mktemp` sibling and renamed
 over the path, never redirected into it; a symlink recreated with `ln -sfn`
-to the recorded target; the mode set with `chmod 755` or `chmod 644` to
-match the `100755` or `100644` that `git ls-tree` records. A path whose
-type changed between a file or symlink and a directory is surfaced with its
-proof, as the invariant requires, never written through: a rename or `ln
--sfn` onto a directory lands inside it. A path the transplant added, absent
-from the pre-state, is deleted in the same forward commit. The corrective
-pass is the PDR-005 default: correct forward on the manifest, never reset
-the branch. Step 7 has a specific recovery: if the guard locks the session
-out, restore the policy file with a tool the matchers do not name, then
-re-run the sequence in order. Records written in step 12 are never rolled
-back.
+to the target that the same revision records; the mode set with `chmod 755`
+or `chmod 644` to match the `100755` or `100644` that `git ls-tree` records
+at the same revision as the content (`git ls-tree <pre-state tag> --
+<path>`, or `git -C <source-checkout> ls-tree <pin> -- <path>` for a drop),
+never at `HEAD`, which holds the transplant's state. A path whose type
+differs between the current tree and the restore source (a file, a symlink,
+a directory, or a symlink that resolves to one) is surfaced with its proof,
+as the invariant requires, never written through: a rename or `ln -sfn`
+onto a directory, or through a symlink to one, lands inside it. A path the
+transplant added, absent from the pre-state, is deleted in the same forward
+commit. The corrective pass is the PDR-005 default: correct forward on the
+manifest, never reset the branch. Step 7 has a specific recovery: if the
+guard locks the session out, restore the policy file with a tool the
+matchers do not name, then re-run the sequence in order. Records written in
+step 12 are never rolled back.
 
 ## Measured per instance
 

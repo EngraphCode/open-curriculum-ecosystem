@@ -94,7 +94,11 @@ into the permanent record):
   LANDING** (owner, 2026-09-03, verbatim: "a secondary but important goal is
   always to work to reduce the total number of PRs to zero"; sharpened
   2026-09-06: "this never prevents PRs from being created, but it does mean
-  that landing work that is in a non-draft PR is a priority"). A non-draft
+  that landing work that is in a non-draft PR is a priority"; the first
+  clause of the 2026-09-06 words is superseded by the work-in-progress
+  limit, owner 2026-09-26: no PR other than a repository's coordination PR
+  opens while the count is at the limit, by Phase 7's work-in-progress
+  bullet). A non-draft
   PR is its seat's landing priority over starting the next unit; drafts are
   inventory a seat may hold; the count is reported at every wrap and acted
   on at every boundary — merged when green and clean, closed with its
@@ -1767,7 +1771,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     reservations is under the limit; otherwise it withdraws its reservation
     on the stream and waits for the next free slot. The streams' order is
     the serialiser, as for the landing slot, and a reservation is followed at
-    once by its PR or its withdrawal. A coordination PR takes no reservation.
+    once by its PR or its withdrawal. A reservation lapses when its PR opens,
+    when its seat withdraws it, or thirty minutes after it was posted, so a
+    seat that stops mid-opening holds no slot for long; a seat still gating
+    at thirty minutes posts a fresh reservation and reads the count again. A
+    coordination PR takes no reservation.
   - A branch's first push is followed at once by its PR, never left
     standing: a pushed branch with no PR is unfinished work outside review.
   - The Director routes each external PR into the slot order to a named seat.
