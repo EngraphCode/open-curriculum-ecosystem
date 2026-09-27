@@ -6,9 +6,12 @@ import {
   claudeContentRoute,
   claudePolicyRoutes,
   copilotCompatStringRoute,
+  placePath,
 } from './claude-adapter.js';
 import type { PolicyRouteContext } from './dispatcher.js';
+import { REPO_ROOT } from './policy-loader.js';
 import type { PolicySnapshot } from './policy-snapshot.js';
+import type { ScopedContentBlockGroup } from './types.js';
 
 /** Names of the production routes whose match predicate accepts the payload. */
 function matchedRouteNames(hookInput: unknown): readonly string[] {
@@ -153,6 +156,27 @@ describe('content route evaluation', () => {
     });
   });
 
+  it('anchors a root-anchored exclude at the policy repo root for an absolute Write path', async () => {
+    const group: ScopedContentBlockGroup = {
+      concept: 'anchored-exemption',
+      patterns: ['anchored-marker'],
+      include_paths: [''],
+      exclude_paths: ['./docs/exempt/'],
+      citation: 'path-scope root-anchored form',
+    };
+    const write = (filePath: string) =>
+      contextFor(
+        { tool_input: { file_path: filePath, content: 'adds anchored-marker' } },
+        { contentPatterns: [], scopedBlocks: [group] },
+      );
+
+    await expect(
+      claudeContentRoute.evaluate(write(`${REPO_ROOT}/docs/exempt/x.md`)),
+    ).resolves.toStrictEqual({ kind: 'allow' });
+    const nested = await claudeContentRoute.evaluate(write(`${REPO_ROOT}/nested/docs/exempt/x.md`));
+    expect(nested.kind).toBe('deny-scoped-block');
+  });
+
   it('resolves Write prior content through the injected reader', async () => {
     const context = contextFor(
       { tool_input: { file_path: '/repo/notes.md', content: 'keeps existing-marker intact' } },
@@ -213,6 +237,39 @@ describe('copilot-compat string route evaluation', () => {
       kind: 'deny-content-pattern',
       pattern: 'FORBIDDEN-TEST-MARKER',
     });
+  });
+
+  it('resolves an apply_patch path against the payload cwd before an anchored exemption is read; without a cwd none applies', async () => {
+    const group: ScopedContentBlockGroup = {
+      concept: 'anchored-exemption',
+      patterns: ['anchored-marker'],
+      include_paths: [''],
+      exclude_paths: ['./docs/exempt/'],
+      citation: 'path-scope root-anchored form',
+    };
+    const patch =
+      '*** Begin Patch\n*** Add File: docs/exempt/x.md\n+adds anchored-marker\n*** End Patch\n';
+    const evaluate = (cwd?: string) =>
+      copilotCompatStringRoute.evaluate(
+        contextFor(
+          { tool_name: 'Edit', tool_input: patch, ...(cwd === undefined ? {} : { cwd }) },
+          { contentPatterns: [], scopedBlocks: [group] },
+        ),
+      );
+
+    await expect(evaluate(REPO_ROOT)).resolves.toStrictEqual({ kind: 'allow' });
+    expect((await evaluate(`${REPO_ROOT}/nested`)).kind).toBe('deny-scoped-block');
+    expect((await evaluate()).kind).toBe('deny-scoped-block');
+    // A relative cwd has no place of its own and places nothing.
+    expect((await evaluate('.')).kind).toBe('deny-scoped-block');
+  });
+
+  it('places a relative path against an absolute cwd only; a relative cwd leaves it unplaced', () => {
+    expect(placePath('docs/exempt/x.md', '/repo/nested')).toBe('/repo/nested/docs/exempt/x.md');
+    expect(placePath('docs/exempt/x.md', '.')).toBe('docs/exempt/x.md');
+    expect(placePath('docs/exempt/x.md', undefined)).toBe('docs/exempt/x.md');
+    expect(placePath('/elsewhere/x.md', '/repo')).toBe('/elsewhere/x.md');
+    expect(placePath(undefined, '/repo')).toBeUndefined();
   });
 
   it('rejects a malformed apply_patch program so the dispatcher fails closed', async () => {

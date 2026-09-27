@@ -4,6 +4,7 @@ import {
   findAddedScopedBlock,
   type ScopedBlockMatch,
 } from './matchers.js';
+import type { PathScopeOptions } from './path-scope.js';
 import type { BlockedPatternEntry, RawBlockedPattern, ScopedContentBlockGroup } from './types.js';
 
 /**
@@ -57,6 +58,7 @@ export function evaluateContentChanges(
   changes: readonly ResolvedContentChange[],
   contentPatterns: readonly string[],
   scopedBlocks: readonly ScopedContentBlockGroup[],
+  scope: PathScopeOptions = {},
 ): PolicyDecision {
   for (const { newContent, priorContent, filePath } of changes) {
     const pattern = findAddedBlockedContent(newContent, priorContent, contentPatterns);
@@ -64,7 +66,7 @@ export function evaluateContentChanges(
       return { kind: 'deny-content-pattern', pattern };
     }
 
-    const match = findAddedScopedBlock(newContent, priorContent, filePath, scopedBlocks);
+    const match = findAddedScopedBlock(newContent, priorContent, filePath, scopedBlocks, scope);
     if (match !== null) {
       return { kind: 'deny-scoped-block', match };
     }

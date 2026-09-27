@@ -9,9 +9,9 @@ import {
 import {
   findAddedBlockedContent,
   findAddedScopedBlock,
-  isPathInScope,
   lineIsPredominantlyCodeShaped,
 } from '../../src/hook-policy/matchers.js';
+import { isPathInScope } from '../../src/hook-policy/path-scope.js';
 import {
   parseBlockedContentPolicy,
   parseScopedContentBlocks,
