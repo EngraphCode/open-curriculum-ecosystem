@@ -825,3 +825,14 @@ their parent (its own session pid or its own loop's pid), never by a command-lin
 seat's loop matches. The known signature again, the finish-line burst: the sweep ran under the drive
 to leave nothing behind, and the guard that would have caught it (read the parent before the kill)
 was the one skipped.
+
+**Two more at the retrospective's tail (16:0xZ), written at occurrence.** (1) Two seats on one
+primary checkout: the Director switched the tree to its PR 265 branch between this seat's commit
+(15:56Z) and its push (15:59Z), so the push carried HEAD, the Director's branch, already level with
+its remote; nothing moved, the commit waited on the coordination branch, and a bounded wait pushed
+it at 16:07Z once the tree returned clean. A push reads its branch at the moment of the push, never
+from the commit before it; the two-hands rule reaches the checkout's HEAD. (2) Twice in one close a
+comms line silently failed to send because the command was held in an unquoted shell variable and
+zsh does not word-split it: the standing constraint in this seat's own notes, forgotten under the
+drive to finish. Write the command out, or wrap it in a function; and read the send's output, never
+only grep it.
