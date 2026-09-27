@@ -420,6 +420,7 @@ settlement push and door; the lineage follow-up) is owed when they land. Proposa
 are fast-lane rows; proposals 3 and 5 go to the PDR-130 register with their review dates.
 
 
+
 ## Addendum, 2026-09-27 18:34Z: the tail landed; two routed findings; this record's own rounds
 
 Sources: gh (each PR's commits, reviews, signed lines and merge times, read 18:1xZ to 18:3xZ), both
@@ -474,16 +475,17 @@ mechanism, on a report rather than rule text; its round-one count is the datum o
   bar cured (two in 8c803cbac, one in 35573e8c0, one in 5625e022c, one in 39923bc07), two below the
   bar routed here; four pushes after opening: three settlement pushes, the third under a rebudget to
   3 recorded on the PR by decision (PDR-140 clause 4), and one late-cure push under clause 9(b). The
-  gate at the last push (its pre-push output, 17:48Z) read 55.17 of 60 with four rounds priced;
-  re-run at 18:33Z after round five it reads 69.14 of 60, exhausted (rounds 6.47, 16.43, 23.54,
-  15.58, 13.59), the tempo section 8(d) describes. The rounds grew from one incomplete cure (a lane
-  corrected in section 7 and not in section 10), the shape section 8(a) names: a reviewer with a
-  memory of one round finds the next edge, and a grep of the record for the same claim would have
-  found it first. Merged 18:13:16Z as 2522b8965 on Copilot's leg: Codex's fifth run completed with
-  no findings and, on this PR, recorded that only by editing its one summary comment (created
-  17:16:57Z, updated 17:52:18Z) and posting no review object, so the merge-bot read its leg as owed
-  and refused the edited comment as evidence; on 266 the same day Codex posted a fresh comment per
-  clean run, so the tool row is scoped to the edited-comment shape.
+  gate at the last push (its pre-push output at 17:48Z: rounds 16.43, 23.54 and 15.2, the opening
+  round excluded from the total) read 55.17 of 60; re-run at 18:33Z after round five it reads 69.14
+  of 60, exhausted (rounds 6.47, 16.43, 23.54, 15.58 and 13.59; the fourth round's cost had moved
+  from 15.2 to 15.58 as its replies landed), the tempo section 8(d) describes. The rounds grew from
+  one incomplete cure (a lane corrected in section 7 and not in section 10), the shape section 8(a)
+  names: a reviewer with a memory of one round finds the next edge, and a grep of the record for the
+  same claim would have found it first. Merged 18:13:16Z as 2522b8965 on Copilot's leg: Codex's
+  fifth run completed with no findings and, on this PR, recorded that only by editing its one
+  summary comment (created 17:16:57Z, updated 17:52:18Z) and posting no review object, so the
+  merge-bot read its leg as owed and refused the edited comment as evidence; on 266 the same day
+  Codex posted a fresh comment per clean run, so the tool row is scoped to the edited-comment shape.
 - A cost on the exchange's code rows of a guard scoped wider than its concept (the JC.net napkin,
   check-in 44 and suite 39): JC.net's content-policy guard, scoped to every path, refused a JC.net
   seat's write of lineage code (reported in Siren's withdrawal line, 17:32:57Z on the lineage
