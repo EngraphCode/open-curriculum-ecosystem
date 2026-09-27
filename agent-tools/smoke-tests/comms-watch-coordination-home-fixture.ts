@@ -116,7 +116,7 @@ export function agentEnvironment(): NodeJS.ProcessEnv {
   delete env.conversationId;
   delete env.ANTIGRAVITY_SOURCE_METADATA;
   delete env.PRACTICE_COORDINATION_HOME;
-  env.OAK_AGENT_IDENTITY_OVERRIDE = AGENT_NAME;
+  env.PRACTICE_AGENT_IDENTITY_OVERRIDE = AGENT_NAME;
   env.PRACTICE_AGENT_SESSION_ID_CODEX = SESSION_ID;
   return env;
 }

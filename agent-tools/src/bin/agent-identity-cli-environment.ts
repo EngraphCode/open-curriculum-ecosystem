@@ -28,7 +28,10 @@ export function agentIdentityCliEnvironmentFromProcessEnv(
     ...optionalEnvironmentValue('CODEX_THREAD_ID', env.CODEX_THREAD_ID),
     ...optionalEnvironmentValue('conversationId', env.conversationId),
     ...optionalEnvironmentValue('ANTIGRAVITY_SOURCE_METADATA', env.ANTIGRAVITY_SOURCE_METADATA),
-    ...optionalEnvironmentValue('OAK_AGENT_IDENTITY_OVERRIDE', env.OAK_AGENT_IDENTITY_OVERRIDE),
+    ...optionalEnvironmentValue(
+      'PRACTICE_AGENT_IDENTITY_OVERRIDE',
+      env.PRACTICE_AGENT_IDENTITY_OVERRIDE,
+    ),
   };
 }
 

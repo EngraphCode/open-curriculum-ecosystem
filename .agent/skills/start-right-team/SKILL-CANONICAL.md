@@ -591,11 +591,11 @@ distinct from `consolidator` — consolidator is the session-bounded
 closeout-synthesis owner; curator owns the cross-session, lane-shaped
 substrate-care work
 (routing durable knowledge to permanent homes, draining the
-graduations buffer, surfacing home-gaps as structural-cure proposals,
-maintaining the per-pass curation log). A session may run a curator
-lane in parallel with implementer / reviewer / marshal lanes; the
-curator's traceability surface is the per-pass metadata file under
-the operational-memory curator-passes directory.
+graduations buffer, surfacing home-gaps as structural-cure proposals).
+A session may run a curator lane in parallel with implementer /
+reviewer / marshal lanes; the curator's traceability surface is the
+commit that homed the substance and the substance's permanent home
+(`permanent-doc-is-the-consolidation-record`).
 
 **The `marshal` / commit-warden runs the team's awareness surface.**
 In a multi-agent window only ONE agent owns `git:index/head`, runs the

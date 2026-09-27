@@ -1,5 +1,5 @@
 /**
- * Optional statusline payload logging, enabled by `OAK_STATUSLINE_LOG_FILE`.
+ * Optional statusline payload logging, enabled by `PRACTICE_STATUSLINE_LOG_FILE`.
  *
  * @remarks
  * Diagnostic instrument for the statusline's one blind spot: the adapter can
@@ -68,14 +68,14 @@ export type DebugLogConfig =
 export function resolveDebugLogConfig(
   env: Readonly<Record<string, string | undefined>>,
 ): DebugLogConfig {
-  const value = env.OAK_STATUSLINE_LOG_FILE?.trim();
+  const value = env.PRACTICE_STATUSLINE_LOG_FILE?.trim();
   if (value === undefined || value.length === 0) {
     return { kind: 'disabled' };
   }
   if (!value.endsWith('.log')) {
     return {
       kind: 'invalid',
-      warning: 'OAK_STATUSLINE_LOG_FILE must name a *.log path — logging disabled',
+      warning: 'PRACTICE_STATUSLINE_LOG_FILE must name a *.log path — logging disabled',
     };
   }
   return { kind: 'enabled', path: value };

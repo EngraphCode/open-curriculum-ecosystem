@@ -3797,10 +3797,16 @@ commit SHA and the closing plan reference.
 - **Route**: a small source lane (carried code, cure-worthy here under the peer-fork model):
   the commit guard and the push command's `DEFAULT_BRANCH_NAMES` resolve the default branch from `origin/HEAD` or
   configuration, with a unit test on each.
-- **Status**: partially-addressed — the push half is cured: `merge-bot push`
+- **Status**: partially-addressed — the push half: `merge-bot push`
   (`agent-tools/src/merge-bot/push-target-branch.ts`) refuses the branch `origin/HEAD` names, in
   any case, as well as `main` and `master`, and writes only `refs/heads/<branch>`. The commit
-  guard's half stays open: `.husky/refuse-commit-on-main.sh` still names only `main`.
+  half: `.husky/refuse-commit-on-main.sh` refuses `main` and `master`, in any case, and the
+  branch `origin/HEAD` names, proven by `agent-tools/smoke-tests/branch-guard.smoke.ts` over a
+  real repository. Residual, observed and not cured: `.husky/pre-rebase`'s `--update-refs` range
+  check names only `refs/heads/main`; its smallest cure is to loop that leg over `main`,
+  `master` and the `guard_default_branch` the sourced guard leaves in scope, with a real
+  `git rebase` leg in the smoke, and the commit skill's binding sentence still names `main`
+  alone (both routed to the follow-on, 2026-09-26).
 
 ### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
 
