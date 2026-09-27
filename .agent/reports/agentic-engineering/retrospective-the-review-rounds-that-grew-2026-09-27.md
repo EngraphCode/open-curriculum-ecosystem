@@ -319,15 +319,20 @@ loop-dynamics principle that the estate can now name and test for (§7).
    comes out.
 
 3. **The budget follows the concept across its carriers, not the PR** (slow lane, the PDR-130
-   register: PDR-140 clause 4's per-PR budget gains one clause: a finding carried out of a merged
-   PR is a ledger row at the concept's home, never the opening cure of a new PR on the same text).
-   Prediction: with the clause, a concept's total rounds across its carriers stays at or under the
-   number of its carriers plus one (each opening head draws a round; the clause removes the
-   carried cure's extra rounds); without it, the next carried procedure cure repeats this arc's
-   eleven across four carriers. Review date: the fold of 2026-10-04, with 226's tail and the
-   lineage follow-up as the first data. Falsifier: a carried finding left as a ledger row is hit
-   by a real run before its row is taken up, at a cost above the rounds the clause saved (then the
-   per-PR budget is right and the concept needs the instrument, proposal 1, not a budget rule).
+   register: PDR-140 clause 4's per-PR budget gains one clause: a finding carried out of a merged PR
+   is a ledger row at the concept's home, never the opening cure of a new PR on the same text).
+   Warrant: the two-round rule counted per PR and read four carriers each inside its own budget
+   while the concept spent eleven rounds across them (rival 4's read above); each carried cure
+   opened a fresh PR on the same text, whose opening round the per-PR budget never charged, and
+   258's finding left "Accepted as valid, and not cured on this pull request" at 16:00Z on the 26th
+   returned as 263's round-one finding on the 27th. Prediction: with the clause, a concept's total
+   rounds across its carriers stays at or under the number of its carriers plus one (each opening
+   head draws a round; the clause removes the carried cure's extra rounds); without it, the next
+   carried procedure cure repeats this arc's eleven across four carriers. Review date: the fold of
+   2026-10-04, with 226's tail and the lineage follow-up as the first data. Falsifier: a carried
+   finding left as a ledger row is hit by a real run before its row is taken up, at a cost above the
+   rounds the clause saved (then the per-PR budget is right and the concept needs the instrument,
+   proposal 1, not a budget rule).
 
 4. **The sync-lineage binding, again** (fast lane; the first retrospective's proposal 3, Swallow's
    design note, P1 on the ledger; no new text). Warrant: two of this arc's fifteen reviewed heads
