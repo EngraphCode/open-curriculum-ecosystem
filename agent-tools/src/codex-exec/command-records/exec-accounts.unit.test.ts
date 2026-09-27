@@ -203,6 +203,65 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
     expectInvariant(summary);
   });
 
+  it.each([
+    {
+      name: 'a function-tool output that opens with a completed code-mode preamble',
+      request: { type: 'function_call', name: 'exec_command', call_id: 'fc-1' },
+      output: {
+        type: 'function_call_output',
+        call_id: 'fc-1',
+        output: `Script completed\nWall time 0.1 seconds\nOutput:\n${NONCE}`,
+      },
+    },
+    {
+      name: 'a function-tool output that opens with a failed code-mode preamble and a refusal',
+      request: { type: 'function_call', name: 'exec_command', call_id: 'fc-1' },
+      output: {
+        type: 'function_call_output',
+        call_id: 'fc-1',
+        output: `${FAILED}Script error:\n\`git push ${NONCE}\` rejected: ${NONCE}`,
+      },
+    },
+    {
+      name: 'a code-mode request answered by a function-tool refusal',
+      request: { type: 'custom_tool_call', name: 'exec', call_id: 'x-1' },
+      output: {
+        type: 'function_call_output',
+        call_id: 'x-1',
+        output: `\`git push ${NONCE}\` rejected: ${NONCE}`,
+      },
+    },
+    {
+      name: 'a function-tool request answered by a completed code-mode wrapper',
+      request: { type: 'function_call', name: 'exec_command', call_id: 'x-1' },
+      output: {
+        type: 'custom_tool_call_output',
+        call_id: 'x-1',
+        output: 'Script completed\nWall time 0.1 seconds\nOutput:\n',
+      },
+    },
+  ])('reads $name as unaccounted, never accounted or refused', ({ request, output }) => {
+    const records = execRecords();
+    const calls = execCalls(records).length;
+    const [start] = turnStarts(records);
+    assert(start);
+    records.splice(
+      records.indexOf(start) + 1,
+      0,
+      { type: 'response_item', payload: request },
+      { type: 'response_item', payload: output },
+    );
+    const summary = readCommandRecords(lines(records));
+    expect(onlyAccount(summary)).toMatchObject({
+      calls: calls + 1,
+      accounted: calls,
+      refused: 0,
+      unaccounted: 1,
+    });
+    expect(summary.flagged).toStrictEqual([]);
+    expectInvariant(summary);
+  });
+
   it('ignores a tool call that is not of the exec family, and its output', () => {
     const records = execRecords();
     const calls = execCalls(records).length;

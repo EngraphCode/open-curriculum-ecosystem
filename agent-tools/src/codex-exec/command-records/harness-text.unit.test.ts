@@ -39,7 +39,7 @@ function debugRejected(commandLine: string, justification: string): string {
 
 describe('readHarnessText reads a refusal by the exec policy', () => {
   it('reads the observed refusal: the judged command line alone', () => {
-    const read = readHarnessText(observedRefusalOutput());
+    const read = readHarnessText(observedRefusalOutput(), 'code-mode');
     assert(read.kind === 'text');
     expect(read.status).toBe('failed');
     expect(read.refusal).toStrictEqual({ commandLine: "/bin/zsh -lc 'git push origin HEAD'" });
@@ -58,14 +58,20 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
     },
   ])('reads a code-mode refusal from $name carrier', ({ carry }) => {
     const text = `${FAILED}Script error:\n${debugRejected(`git push ${NONCE}`, `because ${NONCE}`)}`;
-    const read = readHarnessText(carry(text));
+    const read = readHarnessText(carry(text), 'code-mode');
     assert(read.kind === 'text');
     expect(read.refusal).toStrictEqual({ commandLine: `git push ${NONCE}` });
   });
 
   it('reads a function-tool refusal from offset 0, in the bare and the rendered forms', () => {
-    const bare = readHarnessText(`\`git push ${NONCE}\` rejected: because ${NONCE}`);
-    const rendered = readHarnessText(debugRejected(`git push ${NONCE}`, `because ${NONCE}`));
+    const bare = readHarnessText(
+      `\`git push ${NONCE}\` rejected: because ${NONCE}`,
+      'function-tool',
+    );
+    const rendered = readHarnessText(
+      debugRejected(`git push ${NONCE}`, `because ${NONCE}`),
+      'function-tool',
+    );
     for (const read of [bare, rendered]) {
       assert(read.kind === 'text');
       expect(read.status).toBe('none');
@@ -74,16 +80,32 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
   });
 
   it('reads a refused write_stdin as a refusal with no command line', () => {
-    const read = readHarnessText(`write_stdin rejected: ${NONCE}`);
+    const read = readHarnessText(`write_stdin rejected: ${NONCE}`, 'function-tool');
     assert(read.kind === 'text');
     expect(read.refusal).toStrictEqual({ commandLine: '' });
   });
+
+  it.each([
+    { name: 'a completed preamble', text: `${COMPLETED}{"exit_code":0}` },
+    {
+      name: 'a failed preamble with a refusal after its Script error line',
+      text: `${FAILED}Script error:\n${debugRejected(`git push ${NONCE}`, NONCE)}`,
+    },
+  ])(
+    'reads a function-tool output that opens with $name as text with no wrapper and no refusal',
+    ({ text }) => {
+      const read = readHarnessText(text, 'function-tool');
+      assert(read.kind === 'text');
+      expect(read.status).toBe('none');
+      expect(read.refusal).toBeUndefined();
+    },
+  );
 
   it.each(SETTLED)(
     'never reads the program’s own text: the same words under a $wrapper wrapper ($name) are no refusal',
     ({ wrapper, preamble, lead }) => {
       const printed = `${preamble}${lead}${debugRejected(`git push ${NONCE}`, NONCE)}`;
-      const read = readHarnessText(printed);
+      const read = readHarnessText(printed, 'code-mode');
       assert(read.kind === 'text');
       expect(read.status).toBe(wrapper);
       expect(read.refusal).toBeUndefined();
@@ -93,7 +115,7 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
   it('anchors after the last Script error line, not the first thing that looks like one', () => {
     const program = `Script error:\n${debugRejected(`git push ${NONCE}`, NONCE)}\n`;
     const harness = `Script error:\nTypeError: ${NONCE}`;
-    const read = readHarnessText(`${FAILED}${program}${harness}`);
+    const read = readHarnessText(`${FAILED}${program}${harness}`, 'code-mode');
     assert(read.kind === 'text');
     expect(read.status).toBe('failed');
     expect(read.refusal).toBeUndefined();
@@ -109,19 +131,19 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
     { text: `Chunk ID: a1\nProcess exited with code 0\nOutput:\n${NONCE}`, status: 'none' },
     { text: 'Script running with cell ID 7\npartial', status: 'none' },
   ])('reads the status $status', ({ text, status }) => {
-    const read = readHarnessText(text);
+    const read = readHarnessText(text, 'code-mode');
     assert(read.kind === 'text');
     expect(read.status).toBe(status);
   });
 
   it('reads a truncation marker after the anchor as truncated', () => {
-    const read = readHarnessText(`${FAILED}Script error:\n…153 tokens truncated…`);
+    const read = readHarnessText(`${FAILED}Script error:\n…153 tokens truncated…`, 'code-mode');
     assert(read.kind === 'text');
     expect(read.truncated).toBe(true);
   });
 
   it('reads a truncation marker in a function-tool output as truncated', () => {
-    const read = readHarnessText(`${NONCE}\nWarning: truncated output\n`);
+    const read = readHarnessText(`${NONCE}\nWarning: truncated output\n`, 'function-tool');
     assert(read.kind === 'text');
     expect(read.truncated).toBe(true);
   });
@@ -129,7 +151,7 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
   it.each(SETTLED)(
     'does not read a truncation marker the program printed under a $wrapper wrapper ($name)',
     ({ preamble, lead }) => {
-      const read = readHarnessText(`${preamble}${lead}…153 tokens truncated…`);
+      const read = readHarnessText(`${preamble}${lead}…153 tokens truncated…`, 'code-mode');
       assert(read.kind === 'text');
       expect(read.truncated).toBe(false);
     },
@@ -141,7 +163,7 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
     { output: [{ type: 'input_text' }] },
     { output: null },
   ])('reads an output that is neither text nor parts as malformed: $output', ({ output }) => {
-    const read = readHarnessText(output);
+    const read = readHarnessText(output, 'code-mode');
     expect(read.kind).toBe('malformed');
   });
 });

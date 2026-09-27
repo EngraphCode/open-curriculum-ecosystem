@@ -16,7 +16,11 @@ import { hasTruncationMarker } from '../rollout/record-shapes.js';
  * LAST `Script error:` line of a failed script; text before it, and every
  * character under a completed, terminated or running wrapper, is the
  * program's and is never matched. In a function-tool output (`exec_command`,
- * `write_stdin`) the harness's text is the whole text, read from offset 0. A
+ * `write_stdin`) the harness's text is the whole text, read from offset 0 with
+ * no wrapper: a code-mode preamble at its start is read as text, never as a
+ * status, so a function tool's output can neither complete a call nor hide a
+ * refusal behind a `Script error:` line. The output's carrier comes from its
+ * record type (`custom_tool_call_output` or `function_call_output`). A
  * refusal keeps the judged command line alone; the policy's justification is
  * not read, since the rule a shape matches names its own.
  *
@@ -28,6 +32,9 @@ import { hasTruncationMarker } from '../rollout/record-shapes.js';
  */
 
 const partsSchema = z.array(z.object({ text: z.string() }));
+
+/** Which tool wrote an exec output: the code-mode `exec` tool, which wraps its script, or a function tool, which does not. */
+export type OutputCarrier = 'code-mode' | 'function-tool';
 
 /** A command the exec policy refused before any process spawned. */
 export interface Refusal {
@@ -114,15 +121,17 @@ function harnessTextOf(text: string, preamble: Preamble): string {
 
 /**
  * Read an exec tool output's harness text. A carrier that is neither text nor
- * the harness's parts is malformed; otherwise the wrapper status, the refusal
- * the anchored text opens with, and whether the anchored text is truncated.
+ * the harness's parts is malformed; otherwise the wrapper status (always
+ * `none` for a function tool, which writes no wrapper), the refusal the
+ * anchored text opens with, and whether the anchored text is truncated.
  */
-export function readHarnessText(output: unknown): HarnessText {
+export function readHarnessText(output: unknown, carrier: OutputCarrier): HarnessText {
   const text = textOf(output);
   if (text === undefined) {
     return { kind: 'malformed', reason: "exec output is neither text nor the harness's parts" };
   }
-  const preamble: Preamble = readPreamble(text);
+  const preamble: Preamble =
+    carrier === 'code-mode' ? readPreamble(text) : { status: 'none', rest: text };
   const anchored = harnessTextOf(text, preamble);
   return {
     kind: 'text',

@@ -1,4 +1,4 @@
-import { interpreterScriptWords, isScriptWord } from '../../shell/interpreter-script.js';
+import { interpreterScriptWords } from '../../shell/interpreter-script.js';
 import { segmentCommand, type ShellWord } from '../../shell/shell-words.js';
 
 /**
@@ -20,9 +20,11 @@ import { segmentCommand, type ShellWord } from '../../shell/shell-words.js';
  * lifts a command that never ran and fails closed. Only a script word with
  * whitespace in it is re-read, since a one-word script carries no two-word
  * shape. At the depth limit a segment is still a command, flag-scanned as it
- * stands, never dropped. Nothing is expanded: a word an expansion would
- * produce, a shape behind `xargs` or `find -exec`, a git alias and an
- * abbreviated long option are residuals of this reader.
+ * stands, never dropped; each `eval` or `ssh` hop spends a level, so a longer
+ * chain (`eval eval eval 'S'`, `ssh h ssh h ssh h 'S'`) is a residual.
+ * Nothing is expanded: a word an expansion would produce, a shape behind
+ * `xargs` or `find -exec`, a git alias and an abbreviated long option are
+ * residuals of this reader.
  */
 
 /** How deep a nested script or a substitution body is re-read: the argv, its script, a shell inside that script. */
@@ -51,9 +53,9 @@ function commandsOfWords(words: readonly ShellWord[], depth: number): readonly C
   if (depth >= MAX_DEPTH) {
     return [texts];
   }
-  const scripts = interpreterScriptWords(words)
-    .filter(isScriptWord)
-    .flatMap((script) => commandsOfScript(script.text, depth + 1));
+  const scripts = interpreterScriptWords(words).flatMap((script) =>
+    commandsOfScript(script.text, depth + 1),
+  );
   const substituted = words
     .flatMap((word) => word.nested)
     .flatMap((body) => commandsOfScript(body, depth + 1));

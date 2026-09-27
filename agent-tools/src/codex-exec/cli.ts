@@ -57,7 +57,9 @@ function strictReasons(summary: CommandRecordsSummary): string[] {
   if (summary.turns === 0) {
     reasons.push('no turn started');
   }
-  const ran = summary.flagged.filter((entry) => entry.kind !== 'refused').length;
+  const ran = summary.flagged
+    .filter((entry) => entry.kind !== 'refused')
+    .reduce((shapes, entry) => shapes + entry.hits.length, 0);
   if (ran > 0) {
     reasons.push(`${ran} forbidden shape(s) ran`);
   }

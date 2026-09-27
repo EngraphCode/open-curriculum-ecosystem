@@ -1,4 +1,4 @@
-import { interpreterScriptWords, isScriptWord } from '../shell/interpreter-script.js';
+import { interpreterScriptWords } from '../shell/interpreter-script.js';
 import type { ShellWord } from '../shell/shell-words.js';
 
 /**
@@ -36,8 +36,6 @@ export function interpreterScriptInSegment(
 ): boolean {
   return (
     depth < MAX_NESTED_SCAN_DEPTH &&
-    interpreterScriptWords(words).some(
-      (word) => isScriptWord(word) && matches(word.text, depth + 1),
-    )
+    interpreterScriptWords(words).some((word) => matches(word.text, depth + 1))
   );
 }

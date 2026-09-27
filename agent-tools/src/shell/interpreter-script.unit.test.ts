@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { basename, interpreterScriptWords, isScriptWord } from './interpreter-script.js';
+import { basename, interpreterScriptWords } from './interpreter-script.js';
 import { segmentCommand } from './shell-words.js';
 
 /** The script texts an interpreter in the one segment of a command line is given. */
@@ -18,8 +18,47 @@ describe('interpreterScriptWords', () => {
     { line: "bash -euo pipefail -c 'git push origin HEAD'" },
     { line: "bash --norc -c 'git push origin HEAD'" },
     { line: "sudo bash -c 'git push origin HEAD'" },
+    { line: "bash -c -o posix 'git push origin HEAD'" },
+    { line: "bash -c -O extglob 'git push origin HEAD'" },
+    { line: "bash -c +x 'git push origin HEAD'" },
+    { line: "bash +c 'git push origin HEAD'" },
+    { line: "bash +xc 'git push origin HEAD'" },
+    { line: "bash +ec 'git push origin HEAD'" },
+    { line: "ksh -e+c 'git push origin HEAD'" },
+    { line: "GIT_SSH=/usr/bin/ssh bash -c 'git push origin HEAD'" },
+    { line: "nice a=x/bash -c 'git push origin HEAD'" },
+    { line: "exec a=/bin/sh -c 'git push origin HEAD'" },
   ])('reads the script a shell is given past its options in "$line"', ({ line }) => {
     expect(scriptsOf(line)).toStrictEqual(['git push origin HEAD']);
+  });
+
+  it('reads a script that opens with a dash once a bare -- ends the options', () => {
+    expect(scriptsOf("bash -c -- '-x; git push origin HEAD'")).toStrictEqual([
+      '-x; git push origin HEAD',
+    ]);
+  });
+
+  it('reads every script-shaped operand after the -c cluster, a positional one included', () => {
+    expect(scriptsOf(`bash -c 'eval "$1"' _ 'git push origin HEAD'`)).toStrictEqual([
+      'eval "$1"',
+      'git push origin HEAD',
+    ]);
+  });
+
+  it.each([
+    { line: "sudo -u ssh ssh host 'git push origin HEAD'" },
+    { line: "exec -a ssh ssh host 'git push origin HEAD'" },
+  ])(
+    'reads the real ssh as the command when a word before it only carries its name in "$line"',
+    ({ line }) => {
+      expect(scriptsOf(line)).toContain('ssh host git push origin HEAD');
+    },
+  );
+
+  it('reads a shell even when a word before it carries the name of an operand interpreter', () => {
+    expect(scriptsOf("sudo -u ssh bash -c 'git push origin HEAD'")).toContain(
+      'git push origin HEAD',
+    );
   });
 
   it.each([
@@ -27,6 +66,10 @@ describe('interpreterScriptWords', () => {
     { line: 'bash -e deploy.sh' },
     { line: 'git push origin HEAD' },
     { line: 'echo "sh -c x"' },
+    { line: 'bash -c push' },
+    { line: 'eval push' },
+    { line: "bash -ccc1 'git status'" },
+    { line: "SHELL=/bin/bash grep -c 'a b' log" },
   ])('reads no script in "$line"', ({ line }) => {
     expect(scriptsOf(line)).toStrictEqual([]);
   });
@@ -53,13 +96,6 @@ describe('interpreterScriptWords', () => {
   it('reads no command when ssh is given only options and a host', () => {
     expect(scriptsOf('ssh -p 22 host')).toStrictEqual([]);
     expect(scriptsOf('ssh -p 22')).toStrictEqual([]);
-  });
-});
-
-describe('isScriptWord', () => {
-  it('is true only for a word with whitespace in it, which only quoting or an escape can produce', () => {
-    expect(isScriptWord({ text: 'git push', nested: [] })).toBe(true);
-    expect(isScriptWord({ text: 'push', nested: [] })).toBe(false);
   });
 });
 

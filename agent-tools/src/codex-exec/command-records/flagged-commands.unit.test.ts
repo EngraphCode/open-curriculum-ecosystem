@@ -67,6 +67,32 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
       argv: ['sh', '-c', `bash -c "zsh -c 'git push origin HEAD'"`],
     },
     { name: 'a shell behind sudo', argv: ['sudo', 'bash', '-c', 'git push origin HEAD'] },
+    {
+      name: 'a shell option after -c',
+      argv: ['bash', '-c', '-o', 'posix', 'git push origin HEAD'],
+    },
+    { name: 'a plus-signed option after -c', argv: ['bash', '-c', '+x', 'git push origin HEAD'] },
+    { name: 'a plus-signed -c cluster', argv: ['bash', '+xc', 'git push origin HEAD'] },
+    {
+      name: 'a dash-led script after a bare --',
+      argv: ['bash', '-c', '--', '-x; git push origin HEAD'],
+    },
+    {
+      name: 'a positional script the -c script evaluates',
+      argv: ['bash', '-c', 'eval "$1"', '_', 'git push origin HEAD'],
+    },
+    {
+      name: 'ssh after a word that only carries its name',
+      argv: ['/bin/zsh', '-lc', "sudo -u ssh ssh host 'git push origin HEAD'"],
+    },
+    {
+      name: 'ssh after a name exec gives it',
+      argv: ['/bin/zsh', '-lc', "exec -a ssh ssh host 'git push origin HEAD'"],
+    },
+    {
+      name: 'a shell after an assignment naming ssh',
+      argv: ['/bin/zsh', '-lc', "GIT_SSH=/usr/bin/ssh bash -c 'git push origin HEAD'"],
+    },
     { name: 'eval reading its operand', argv: ['eval', 'git push origin HEAD'] },
     { name: 'eval with unquoted operands', argv: ['eval', 'git', 'push', 'origin', 'HEAD'] },
     { name: 'ssh with unquoted operands', argv: ['ssh', 'host', 'git', 'push', 'origin', 'HEAD'] },

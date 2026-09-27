@@ -1,4 +1,4 @@
-import { GIT_GLOBAL_OPTIONS_WITH_ARGUMENT } from './argument-matcher-tables.js';
+import { GIT_GLOBAL_OPTIONS_WITH_ARGUMENT } from '../shell/git-global-options.js';
 import type { OptionSpec } from './argv-option-spec.js';
 import { interpreterScriptInSegment, substitutionInSegment } from './argv-nested.js';
 import { collectPresentOptions } from './argv-options.js';

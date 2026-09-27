@@ -9,7 +9,8 @@ import { endSegment, endWord, type ScanState, type ShellWord } from './scan-stat
 import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.js';
 
 /**
- * Shell-word segmentation for the argument-aware Bash-guard matcher.
+ * Shell-word segmentation for the argument-aware Bash-guard matcher and the
+ * Codex seat-rollout reader.
  *
  * Splits a command line into simple-command segments of words the way a
  * shell would read it far enough for option matching. What the words are:

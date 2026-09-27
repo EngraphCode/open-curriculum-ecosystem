@@ -3,11 +3,13 @@ import { isRecord, type JsonRecord } from '../rollout/record-shapes.js';
 import { flagRecord, isExecuted, readCommandItem } from './command-item.js';
 import {
   classifyOutput,
+  execOutput,
   execRequest,
   flagRefusal,
-  outputCallId,
+  type ExecOutput,
   type ExecRequest,
 } from './exec-calls.js';
+import type { OutputCarrier } from './harness-text.js';
 import { recordTypeKey } from './record-type-key.js';
 import type {
   CommandRecord,
@@ -21,8 +23,8 @@ import type {
 interface TurnState {
   readonly turnId: string;
   readonly commands: CommandRecord[];
-  /** Exec requests awaiting their output, by call id. */
-  readonly pending: Set<string>;
+  /** Exec requests awaiting their output: the tool each named, by call id. */
+  readonly pending: Map<string, OutputCarrier>;
   calls: number;
   accounted: number;
   refused: number;
@@ -55,7 +57,7 @@ function startTurn(payload: JsonRecord, state: ReaderState, line: number): void 
   state.turns.push({
     turnId,
     commands: [],
-    pending: new Set(),
+    pending: new Map(),
     calls: 0,
     accounted: 0,
     refused: 0,
@@ -110,22 +112,18 @@ function readExecRequest(request: ExecRequest, state: ReaderState, line: number)
     state.malformed.push({ line, reason: 'exec request repeats a pending call id' });
     return;
   }
-  turn.pending.add(callId);
+  turn.pending.set(callId, request.carrier);
 }
 
 /** An output joins its pending call and settles it; an output for no pending exec call is ignored. */
-function readExecOutput(
-  payload: JsonRecord,
-  callId: string,
-  state: ReaderState,
-  line: number,
-): void {
+function readExecOutput(output: ExecOutput, state: ReaderState, line: number): void {
   const turn = state.turns.at(-1);
-  if (!turn?.pending.has(callId)) {
+  const requested = turn?.pending.get(output.callId);
+  if (turn === undefined || requested === undefined) {
     return;
   }
-  turn.pending.delete(callId);
-  const outcome = classifyOutput(payload.output);
+  turn.pending.delete(output.callId);
+  const outcome = classifyOutput(output, requested);
   if (outcome.kind === 'accounted') {
     turn.accounted += 1;
     return;
@@ -151,9 +149,9 @@ function readResponseItem(payload: JsonRecord, state: ReaderState, line: number)
     readExecRequest(request, state, line);
     return;
   }
-  const callId = outputCallId(payload);
-  if (callId !== undefined) {
-    readExecOutput(payload, callId, state, line);
+  const output = execOutput(payload);
+  if (output !== undefined) {
+    readExecOutput(output, state, line);
   }
 }
 

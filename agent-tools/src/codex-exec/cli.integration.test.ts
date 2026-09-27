@@ -140,6 +140,15 @@ describe('runCodexExecCli — command-records', () => {
     expect(io.stderrText).toContain('1 forbidden shape(s) ran');
   });
 
+  it('counts every forbidden shape that ran under --strict, two shapes in one record included', async () => {
+    const records = execRecords();
+    appendCommandTurn(records, ['/bin/zsh', '-lc', 'git add -A && git push origin HEAD']);
+    const io = makeIo(lines(records));
+    const code = await runCodexExecCli({ command: 'command-records', args: ['--strict'], ...io });
+    expect(code).toBe(1);
+    expect(io.stderrText).toContain('2 forbidden shape(s) ran');
+  });
+
   it('exits 0 without --strict when a forbidden shape ran, reporting it on stdout', async () => {
     const records = execRecords();
     appendCommandTurn(records, ['git', 'add', '-A']);

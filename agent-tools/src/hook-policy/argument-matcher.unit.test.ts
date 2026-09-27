@@ -453,3 +453,19 @@ describe('matchesArgvPattern — shell shapes', () => {
     expect(matchesArgvPattern('git frobnicate --hard', 'git frobnicate --hard')).toBe(false);
   });
 });
+
+describe('matchesArgvPattern — the script a shell interpreter is given', () => {
+  it.each([
+    { command: "bash -c -o posix 'rm -rf x'" },
+    { command: "bash +xc 'rm -rf x'" },
+    { command: `bash -c 'eval "$1"' _ 'rm -rf x'` },
+    { command: "bash -c -- '-x; rm -rf x'" },
+    { command: "nice a=x/bash -c 'rm -rf x'" },
+  ])('reads the script a shell is given in "$command"', ({ command }) => {
+    expect(matchesArgvPattern('rm -rf', command)).toBe(true);
+  });
+
+  it('reads no script when only an assignment carries a shell name', () => {
+    expect(matchesArgvPattern('rm -rf', "SHELL=/bin/bash grep -c 'rm -rf x' log")).toBe(false);
+  });
+});

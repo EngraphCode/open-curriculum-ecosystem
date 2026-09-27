@@ -51,6 +51,59 @@ describe('flagCommand finds the forbidden shapes of the seat rules', () => {
   });
 
   it.each([
+    { line: '>/dev/null git push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: '> /dev/null git push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: '2>&1 git commit -n', kind: 'commit-rewrites-or-skips-hooks' },
+    { line: '2>/dev/null git add -A', kind: 'stage-whole-tree' },
+    { line: '>& 2 git push', kind: 'push-outside-the-bot' },
+    { line: '&>> log git push', kind: 'push-outside-the-bot' },
+    { line: "<<<'' git push", kind: 'push-outside-the-bot' },
+    { line: "<<'' git push", kind: 'push-outside-the-bot' },
+    { line: '>! git push', kind: 'push-outside-the-bot' },
+    { line: '{fd}>/dev/null git push', kind: 'push-outside-the-bot' },
+    { line: '2<<EOF git push\nbody\nEOF', kind: 'push-outside-the-bot' },
+    { line: 'sudo 2>/dev/null git push', kind: 'push-outside-the-bot' },
+    { line: 'sudo >/dev/null -u root git push', kind: 'push-outside-the-bot' },
+    { line: 'git 2>/dev/null push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: 'git -C . >/dev/null add -A', kind: 'stage-whole-tree' },
+    { line: 'git > out push', kind: 'push-outside-the-bot' },
+    { line: 'git -C 2>/dev/null . push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: 'git -C >/dev/null . add -A', kind: 'stage-whole-tree' },
+    { line: 'git -C > out . push', kind: 'push-outside-the-bot' },
+    { line: 'git -c 2>/dev/null x=y push', kind: 'push-outside-the-bot' },
+    { line: 'git -C 2<<EOF . push\nbody\nEOF', kind: 'push-outside-the-bot' },
+    { line: 'sudo -u >/dev/null root git push', kind: 'push-outside-the-bot' },
+    { line: 'git commit 2> -- -n', kind: 'commit-rewrites-or-skips-hooks' },
+    { line: "git commit -m '>' --amend", kind: 'commit-rewrites-or-skips-hooks' },
+    { line: "git commit -m '>' -- -n", kind: 'commit-rewrites-or-skips-hooks' },
+  ])('flags $line past its redirections', ({ line, kind }) => {
+    expect(flagCommand(segmentOf(line)).map((hit) => hit.kind)).toStrictEqual([kind]);
+  });
+
+  it.each([
+    { line: 'git --config-env core.x=ENV push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: 'git --attr-source HEAD push origin HEAD', kind: 'push-outside-the-bot' },
+    { line: 'git --shallow-file f push', kind: 'push-outside-the-bot' },
+    { line: 'env -P /usr/bin git push', kind: 'push-outside-the-bot' },
+    { line: 'sudo -D /tmp git push', kind: 'push-outside-the-bot' },
+    { line: '/usr/bin/time -o out git push', kind: 'push-outside-the-bot' },
+    { line: 'git --no-pager log --grep push', kind: 'push-outside-the-bot' },
+    { line: 'nice a=x/git push', kind: 'push-outside-the-bot' },
+  ])(
+    'flags $line, reading an option the tables do not know as one that may take a value',
+    ({ line, kind }) => {
+      expect(flagCommand(segmentOf(line)).map((hit) => hit.kind)).toStrictEqual([kind]);
+    },
+  );
+
+  it.each([{ line: '> git.log echo push' }, { line: '2>&1 git status' }])(
+    'leaves $line clear past its redirections',
+    ({ line }) => {
+      expect(flagCommand(segmentOf(line))).toStrictEqual([]);
+    },
+  );
+
+  it.each([
     { line: 'git add -- README.md' },
     { line: 'git add -- -A' },
     { line: 'git add -- --all' },
@@ -121,9 +174,9 @@ describe('renderSegment prints a command by allowlist', () => {
     expect(renderSegment(['git', 'commit', '-an'])).toBe('git commit -<flag>');
   });
 
-  it('prints a program that is not git with every argument elided', () => {
+  it('prints a program that is not git as a placeholder, with every argument elided', () => {
     expect(renderSegment(['pnpm', 'agent-tools', 'merge-bot', 'push'])).toBe(
-      'pnpm <arg> <arg> <arg>',
+      '<arg> <arg> <arg> <arg>',
     );
   });
 
@@ -148,7 +201,60 @@ describe('renderSegment prints a command by allowlist', () => {
     );
   });
 
-  it('elides a git subcommand token that is not shaped like one', () => {
+  it.each([
+    { line: '>/tmp/nonce-5c1e git push', rendered: '<arg> git push' },
+    {
+      line: '> /tmp/nonce-5c1e git push origin main',
+      rendered: '<arg> <arg> git push <arg> <arg>',
+    },
+    { line: 'git >/tmp/nonce-5c1e push origin main', rendered: 'git <arg> push <arg> <arg>' },
+    { line: 'git 2> /tmp/nonce-5c1e push', rendered: 'git <arg> <arg> push' },
+    {
+      line: 'sudo -u >/tmp/nonce-5c1e root git push',
+      rendered: 'sudo -<flag> <arg> <arg> git push',
+    },
+    {
+      line: 'git --attr-source HEAD push origin HEAD',
+      rendered: 'git --<flag> <arg> push <arg> <arg>',
+    },
+  ])(
+    'renders $line with the program and subcommand past its redirections, never their target',
+    ({ line, rendered }) => {
+      expect(renderSegment(segmentOf(line))).toBe(rendered);
+    },
+  );
+
+  it.each([
+    { line: "git '>' push myremote", rendered: 'git <arg> <arg> <arg>' },
+    { line: 'git <<< commit hunterpass --amend', rendered: 'git <arg> <arg> <arg> --amend' },
+    { line: '> FOO_SECRET=abc git push', rendered: '<arg> <arg> git push' },
+    { line: '> /opt/x/env git push', rendered: '<arg> <arg> git push' },
+    { line: '> git -Csecretdir push', rendered: '<arg> <arg> -<flag> <arg>' },
+    { line: '> git --git-dir=/x/secretdir push', rendered: '<arg> <arg> --<flag> <arg>' },
+    { line: 'sudo -D /opt/secretproj git push', rendered: 'sudo -<flag> <arg> <arg> <arg>' },
+    { line: 'exec -a hunterpass git push', rendered: 'exec -<flag> <arg> <arg> <arg>' },
+    {
+      line: '/usr/bin/time -o secret-out.txt git push',
+      rendered: 'time -<flag> <arg> <arg> <arg>',
+    },
+    { line: 'sudo -u c2VjcmV0dG9rZW4= git push', rendered: 'sudo -<flag> <arg> git push' },
+    { line: 'sudo -D FOO_SECRET=abc git push', rendered: 'sudo -<flag> <arg> git push' },
+    { line: 'nice -n hunter2=x git push', rendered: 'nice -n <arg> git push' },
+    { line: 'sudo -u >/dev/null X= git push', rendered: 'sudo -<flag> <arg> <arg> git push' },
+  ])(
+    'renders $line with no value, whichever reading placed the program and subcommand',
+    ({ line, rendered }) => {
+      expect(renderSegment(segmentOf(line))).toBe(rendered);
+    },
+  );
+
+  it("renders a bare -- that is a redirection's target as a flag, not as the end of options", () => {
+    expect(renderSegment(segmentOf('git commit 2> -- -n'))).toBe('git commit <arg> -- -n');
+  });
+
+  it("prints git's subcommand only when it names a forbidden shape", () => {
     expect(renderSegment(['git', 'Deadbeef01', 'status'])).toBe('git <arg> <arg>');
+    expect(renderSegment(['git', 'status'])).toBe('git <arg>');
+    expect(renderSegment(['git', 'push'])).toBe('git push');
   });
 });
