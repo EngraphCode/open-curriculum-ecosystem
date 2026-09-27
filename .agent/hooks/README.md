@@ -155,13 +155,43 @@ policy decision taken entry by entry.
     "exclude_paths": ["archive/"], // optional
     "excludes_inline_code": true, // optional; regex groups
     "excludes_lines_with": ["(historical reference)"], // optional; regex groups
+    "excludes_other_repositories": true, // optional; this repository's files only
     "citation": "PDR-044; principles.md §...", // the doctrinal anchor
     "reappraisal": "Re-assess whether the design is uniform ..." // positive direction
   }
   ```
 
   `kind` and the `excludes_*` options are group-level — every pattern in a group
-  shares them.
+  shares them. A path-scope entry takes one of three forms: a substring of the
+  file path (`archive/`), a `**/*` suffix (`**/*.plan.md`), or a root-anchored
+  path led by `./` (`./.agent/memory/`), which matches from the repository root
+  only, so a nested copy of an exempt path cannot claim its exemption; the
+  whole-tree gate that reuses the scoping (machine-local paths) reads the same
+  forms. For the write-hook the root is the session's project directory
+  (`CLAUDE_PROJECT_DIR` when set, else the policy's own checkout), so a write
+  into another checkout matches no root-anchored exemption and the block fires;
+  an absolute path is read with its `..` segments resolved, so a path that
+  climbs back out of an exempt directory is scoped where it lands; an
+  `apply_patch` path is relative to the payload's `cwd` and is resolved against
+  it before scoping, and without a `cwd` it claims no root-anchored exemption
+  either: the anchor fails closed, never open.
+
+  `excludes_other_repositories` is for a concept that governs only this
+  repository's own files: another repository's files may name what this one
+  must not. A repository is known by its common git
+  directory, which every worktree of it shares, so this repository's worktrees
+  stay guarded wherever they sit on disk; two common directories are compared
+  by identity on disk (device and inode), never by spelling. The walk starts
+  where the file really is, following symbolic links, and a git directory
+  counts only when git itself would accept it: a valid `HEAD` of its own, and
+  `objects/` and `refs/` directories git can enter in its common directory.
+  The write-hook drops the group only for a
+  file it positively finds in another repository; a file in no repository, a
+  `.git` entry or `commondir` it cannot read, a path deeper than its climb, or
+  a path it could not place keeps the group
+  (`agent-tools/src/hook-policy/repository-identity.ts`). The whole-tree gates
+  read only this repository's tracked files, so the option never changes what
+  they find.
 
 **The deny message carries the reappraisal.** When a group fires, the message
 names the concept the matched text is a fingerprint of, states the `reappraisal`
