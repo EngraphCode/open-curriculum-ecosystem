@@ -336,8 +336,9 @@ this way produces cleaner boundaries and simpler classification.
 - **TDD** - ALWAYS use TDD at ALL levels — unit and integration
   tests, AND the E2E checks that describe the running system (a
   validation surface, written first like a test;
-  [testing-strategy.md](testing-strategy.md)). Test and product code are two halves of one act of design;
-  they land together as one atomic commit. See
+  [testing-strategy.md](testing-strategy.md)). Test and product code are
+  two halves of one act of design; they land together as one atomic
+  commit. See
   [tdd-as-design.md](tdd-as-design.md) for the foundational
   definition and atomic-landing invariant.
 - **Keep it simple** - DRY, KISS, YAGNI, SOLID principles

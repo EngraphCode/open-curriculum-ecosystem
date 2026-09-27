@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Refuse plain and --amend commits on main; mechanics and residual-vector
+# Refuse plain and --amend commits on a default branch; mechanics and residual-vector
 # notes live in the shared guard (never-commit-to-main rule). git invokes
 # pre-commit only for `git commit` — merge and sequencer paths are guarded
 # by pre-merge-commit and prepare-commit-msg.

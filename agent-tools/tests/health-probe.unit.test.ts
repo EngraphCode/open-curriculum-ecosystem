@@ -119,6 +119,12 @@ describe('practice box health', () => {
       summary: '2 incoming Practice artefacts are waiting for integration.',
     });
   });
+
+  it('names the consolidate-docs skill by its canonical id, with no adapter prefix', () => {
+    const details = evaluatePracticeBoxState(1).details.join('\n');
+    expect(details).toContain('the consolidate-docs skill');
+    expect(details).not.toMatch(/[a-z]+-consolidate-docs/u);
+  });
 });
 
 describe('health report formatting', () => {
@@ -139,7 +145,7 @@ describe('health report formatting', () => {
           label: 'Practice box state',
           status: 'warn',
           summary: 'Incoming artefacts are waiting.',
-          details: ['Use oak-consolidate-docs.'],
+          details: ['Use the consolidate-docs skill.'],
         },
       ],
     };
@@ -150,6 +156,6 @@ describe('health report formatting', () => {
     expect(output).toContain('Summary');
     expect(output).toContain('Practice box state');
     expect(output).toContain('Details');
-    expect(output).toContain('Use oak-consolidate-docs.');
+    expect(output).toContain('Use the consolidate-docs skill.');
   });
 });

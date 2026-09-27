@@ -90,7 +90,7 @@ export function deriveCollaborationIdentity(input: {
   }
 
   const identity = deriveIdentity(seed.value, {
-    override: nonEmptyValue(input.env.OAK_AGENT_IDENTITY_OVERRIDE),
+    override: nonEmptyValue(input.env.PRACTICE_AGENT_IDENTITY_OVERRIDE),
   });
 
   const agentId: CollaborationAgentIdWrite = {

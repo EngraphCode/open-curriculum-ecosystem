@@ -101,7 +101,7 @@ and `seedDigest`.
 Resolved-name override:
 
 ```bash
-OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" \
+PRACTICE_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" \
   node agent-tools/dist/src/bin/agent-identity.js --seed any --format display
 ```
 
@@ -185,14 +185,14 @@ owner-visible session URL join on one key. CLI seats keep the harness
 ambient platform id — they are the operator's stated contract.
 
 The earlier session-level name cache (hooks storing the derived name in
-`OAK_AGENT_IDENTITY_OVERRIDE`) is retired by the PDR-027 2026-08-24
+`PRACTICE_AGENT_IDENTITY_OVERRIDE`) is retired by the PDR-027 2026-08-24
 amendment: a pinned name surviving a seed change produced a
 mixed-provenance identity tuple (measured in the castr estate,
 2026-08-24). The rename risk it guarded against is cured structurally by
 the digest-pinned naming-schema registry — wordlist edits require a new
 schema version, and identity rows carry `naming_schema_version`.
 
-When both a session seed and `OAK_AGENT_IDENTITY_OVERRIDE` are present, the CLI
+When both a session seed and `PRACTICE_AGENT_IDENTITY_OVERRIDE` are present, the CLI
 uses the seed for `seedDigest` and the override for `displayName` and `slug`.
 The JSON result is `kind: "override"` because the name no longer claims derived
 word slots. The override alone does not satisfy the seed requirement.
@@ -258,7 +258,7 @@ The wiring after activation is:
 
 The adapter is a soft surface: missing input, missing build artefact,
 unparseable JSON, or any spawn failure exits 0 with empty stdout. The
-`OAK_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when present.
+`PRACTICE_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when present.
 
 ### Claude Code statusline wiring
 
@@ -297,7 +297,7 @@ see step 3). The wiring is:
 The adapter is a soft surface: missing or unparseable stdin exits 0 with an
 empty `{}` on stdout. Missing-build and spawn failures never reach the
 adapter — the shim in front of it handles those loudly (see the Claude Code
-`SessionStart` wiring below). The `OAK_AGENT_IDENTITY_OVERRIDE` env var
+`SessionStart` wiring below). The `PRACTICE_AGENT_IDENTITY_OVERRIDE` env var
 still bypasses derivation when present.
 
 Session-id seeds produce deterministic session display identities. Persistent
@@ -346,7 +346,7 @@ The hook remains a soft surface for the session — every failure path exits
 0 — but shim failures are loud, not silent: the diagnostic payload above
 replaces the former empty `{}`. Only missing or unparseable stdin that
 reaches the adapter still yields the adapter's own empty `{}`. The
-`OAK_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when
+`PRACTICE_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when
 present.
 
 ### Codex thread-id wiring
