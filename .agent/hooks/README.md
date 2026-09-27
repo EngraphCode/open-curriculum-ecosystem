@@ -161,7 +161,19 @@ policy decision taken entry by entry.
   ```
 
   `kind` and the `excludes_*` options are group-level — every pattern in a group
-  shares them.
+  shares them. A path-scope entry takes one of three forms: a substring of the
+  file path (`archive/`), a `**/*` suffix (`**/*.plan.md`), or a root-anchored
+  path led by `./` (`./.agent/memory/`), which matches from the repository root
+  only, so a nested copy of an exempt path cannot claim its exemption; the
+  whole-tree gate that reuses the scoping (machine-local paths) reads the same
+  forms. For the write-hook the root is the session's project directory
+  (`CLAUDE_PROJECT_DIR` when set, else the policy's own checkout), so a write
+  into another checkout matches no root-anchored exemption and the block fires;
+  an absolute path is read with its `..` segments resolved, so a path that
+  climbs back out of an exempt directory is scoped where it lands; an
+  `apply_patch` path is relative to the payload's `cwd` and is resolved against
+  it before scoping, and without a `cwd` it claims no root-anchored exemption
+  either: the anchor fails closed, never open.
 
 **The deny message carries the reappraisal.** When a group fires, the message
 names the concept the matched text is a fingerprint of, states the `reappraisal`
