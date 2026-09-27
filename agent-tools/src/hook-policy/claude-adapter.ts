@@ -153,20 +153,25 @@ function payloadCwd(hookInput: unknown): string | undefined {
 }
 
 /**
- * A payload path placed in the file system: an absolute path as given; a relative one (the
- * `apply_patch` program's form) resolved against the payload's working directory when that
- * directory is absolute; otherwise left as it is, for the scoping to read as unplaced. A
- * relative working directory has no place of its own (it would be completed from the hook
- * process's directory, a global read), so it places nothing: fail closed.
+ * A payload path placed in the file system: an absolute path with its `.` and `..` segments
+ * resolved, so the scoping reads it where it lands, never inside a directory it climbs back
+ * out of; a relative one (the `apply_patch` program's form) resolved against the payload's
+ * working directory when that directory is absolute; otherwise left as it is, for the scoping
+ * to read as unplaced. A relative working directory has no place of its own (it would be
+ * completed from the hook process's directory, a global read), so it places nothing: fail
+ * closed.
  */
 export function placePath(
   filePath: string | undefined,
   cwd: string | undefined,
 ): string | undefined {
-  if (filePath === undefined || cwd === undefined || !isAbsolute(cwd) || isAbsolute(filePath)) {
-    return filePath;
+  if (filePath === undefined) {
+    return undefined;
   }
-  return resolve(cwd, filePath);
+  if (isAbsolute(filePath)) {
+    return resolve(filePath);
+  }
+  return cwd === undefined || !isAbsolute(cwd) ? filePath : resolve(cwd, filePath);
 }
 
 /** The Bash blocked-pattern route, covering all four recorded command containers. */

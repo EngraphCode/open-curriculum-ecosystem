@@ -175,6 +175,11 @@ describe('content route evaluation', () => {
     ).resolves.toStrictEqual({ kind: 'allow' });
     const nested = await claudeContentRoute.evaluate(write(`${REPO_ROOT}/nested/docs/exempt/x.md`));
     expect(nested.kind).toBe('deny-scoped-block');
+    // A path that climbs back out of the exempt directory is read where it lands.
+    const escaped = await claudeContentRoute.evaluate(
+      write(`${REPO_ROOT}/docs/exempt/../../src/x.md`),
+    );
+    expect(escaped.kind).toBe('deny-scoped-block');
   });
 
   it('resolves Write prior content through the injected reader', async () => {
@@ -265,13 +270,18 @@ describe('copilot-compat string route evaluation', () => {
   });
 
   it('places a relative path against an absolute cwd only; a relative cwd leaves it unplaced', () => {
-    // On Windows `resolve` places the path on the cwd's drive, so it is compared with `/` separators.
+    // On Windows `resolve` places a path on a drive, so a placed path is compared with `/` separators.
     expect(placePath('docs/exempt/x.md', '/repo/nested')?.replaceAll('\\', '/')).toMatch(
       /^(?:[A-Za-z]:)?\/repo\/nested\/docs\/exempt\/x\.md$/u,
     );
     expect(placePath('docs/exempt/x.md', '.')).toBe('docs/exempt/x.md');
     expect(placePath('docs/exempt/x.md', undefined)).toBe('docs/exempt/x.md');
-    expect(placePath('/elsewhere/x.md', '/repo')).toBe('/elsewhere/x.md');
+    expect(placePath('/elsewhere/x.md', '/repo')?.replaceAll('\\', '/')).toMatch(
+      /^(?:[A-Za-z]:)?\/elsewhere\/x\.md$/u,
+    );
+    expect(placePath('/repo/docs/exempt/../../src/x.md', '/repo')?.replaceAll('\\', '/')).toMatch(
+      /^(?:[A-Za-z]:)?\/repo\/src\/x\.md$/u,
+    );
     expect(placePath(undefined, '/repo')).toBeUndefined();
   });
 
