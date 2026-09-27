@@ -8,11 +8,13 @@ after suite 28's return; the record is dated to the fold moment that satisfies t
 metacognition (retrospective) and reason throughout; a bounded free-play pass at the end.
 
 Home: `.agent/reports/agentic-engineering/` on the lineage; a pointer in JC.net's index. Sources
-are named per line: the GitHub PR list read by `gh pr list --state merged --search
-"merged:>=2026-09-25"` at 09:5xZ on 2026-09-27 (55 rows), the check-in blocks of the Director's
-napkin on JC.net's coordination branches (check-ins 24 to 33), the two estates' comms streams, the
-plan report `.agent/reports/agentic-engineering/2026-09-26-the-estates-programme-plan.md` and its
-two amendment notes, and the owner's words quoted verbatim in those records.
+are named per line: the GitHub PR list read by `gh pr list --state all --limit 300 --json
+number,createdAt` at 09:5xZ on 2026-09-27 (55 rows created from 2026-09-25 to that instant; the
+count recomputed with the explicit limit at 15:5xZ on the 27th, 55 again; the default limit of 30
+would have truncated it), the check-in blocks of the Director's napkin on JC.net's coordination
+branches (check-ins 24 to 33), the two estates' comms streams, the plan report
+`.agent/reports/agentic-engineering/2026-09-26-the-estates-programme-plan.md` and its two
+amendment notes, and the owner's words quoted verbatim in those records.
 
 ## 1. The question
 
@@ -203,14 +205,25 @@ as the amplifiers.
    round of the budget. Falsifier: a bound review on a synced head lets a semantic change through
    that the exact-oid rule would have caught (the design's own residual: patch-id equality with a
    context change; the checks on the new head cover the context).
-4. **The pinging seat takes a freed slot and runs a door-ready holder's door** (fast lane;
-   pr-lifecycle §Phase 7's slot bullet). Warrant: 245 sat door-ready from 21:54Z on the 26th to
-   09:05Z on the 27th with an awake seat pinging at 22:5xZ and the rule already freeing a slot
-   after twenty silent minutes and an unanswered ping; the rule named the release but not the
-   taker, and the awake seat waited ("unsure whether I was waiting correctly or just waiting",
-   Siren's letter). Falsifier: a seat running another seat's door merges a head whose legs were
+4. **The slot's release predicate reads the holder's last state line, and the pinging seat takes
+   the freed slot and runs a door-ready holder's door** (fast lane; pr-lifecycle §Phase 7's slot
+   bullet). Warrant: 245 sat door-ready from 21:54Z on the 26th to 09:05Z on the 27th with an
+   awake seat pinging at 22:5xZ; the holder's monitor kept its heartbeat going every four minutes
+   all night (168 heartbeats from 21:53Z to 09:04Z, the longest gap four minutes, read from the
+   lineage stream at 15:5xZ on the 27th) while its wake on the leg wait was lost, so the rule's
+   release predicate (heartbeat and state lines both silent for twenty minutes before an
+   unanswered ping frees the slot) never fired and the slot was never freed; the rule also named
+   no taker, and the awake seat waited ("unsure whether I was waiting correctly or just waiting",
+   Siren's letter). The cure is the predicate first: a holder's liveness for the slot is the age
+   of its last state line (a gate notice, a slot line, a check-in, any titled line that is not a
+   heartbeat), never its heartbeat, which a monitor emits for a seat whose turn is lost; a state
+   line older than twenty minutes plus a ping unanswered for twenty minutes frees the slot, and
+   the pinging seat takes it and runs the holder's door when the holder's legs and checks are
+   green on its head. Falsifier: a seat running another seat's door merges a head whose legs were
    not on it (the bot refuses an unverdicted merge, so the failure would have to be a wrong
-   reading of the legs; one instance reopens the proposal).
+   reading of the legs; one instance reopens the proposal); or a holder mid-gate loses its slot to
+   the predicate while its gate notice is under twenty minutes old (one instance reopens the
+   predicate's clock).
 5. **A monitor's cap ends with a legible line** (fast lane; the seats' monitor scripts and the
    liveness rule's note). Warrant: the Director's pulse died with its monitor's cap at about
    22:2xZ on the 26th and read as silence until 09:0xZ; Siren's ping got no answer; a peer could
