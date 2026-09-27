@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { posix } from 'node:path';
 
 import { collect, ok, type Result } from '@oaknational/result';
 
@@ -40,13 +40,13 @@ function hashSkill(
   skill: PluginSkill,
   seams: SkillEvalsSeams,
 ): Result<ManifestSkill, Error> {
-  const canonicalDir = join(repoRoot, skill.canonicalRelativeDir);
+  const canonicalDir = posix.join(repoRoot, skill.canonicalRelativeDir);
   const canonicalFiles = hashDirectory(canonicalDir, seams, RESULTS_PREFIX);
   if (!canonicalFiles.ok) {
     return canonicalFiles;
   }
   const adapterFiles = hashDirectory(
-    join(repoRoot, adapterDir(skill.hostSkill)),
+    posix.join(repoRoot, adapterDir(skill.hostSkill)),
     seams,
     RESULTS_PREFIX,
   );
@@ -89,5 +89,9 @@ export function writeManifest(context: ManifestContext): Result<void, Error> {
     judgeModel: context.judgeModel,
     suites: context.suites,
   };
-  return seams.writeText(join(context.outDir, 'manifest.json'), manifestText(manifest), false);
+  return seams.writeText(
+    posix.join(context.outDir, 'manifest.json'),
+    manifestText(manifest),
+    false,
+  );
 }

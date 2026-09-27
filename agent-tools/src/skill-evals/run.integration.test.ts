@@ -21,6 +21,7 @@ import {
   PLUGIN,
   REPO,
   SCAFFOLD,
+  standInBlobId,
   type RecordedRun,
 } from './test-helpers/in-memory-seams.js';
 
@@ -175,6 +176,19 @@ describe('runSkillEvals', () => {
     ]);
     expect(triggerRun?.args).toContain('none');
     expect(triggerRun?.args).toContain('trigger-*');
+  });
+
+  it.each([
+    { key: 'canonical_files', dir: `${REPO}/${options.skill}` },
+    { key: 'adapter_files', dir: `${REPO}/.claude/skills/oak-user-value` },
+  ])('names each file in $key by the blob id git gives it', ({ key, dir }) => {
+    const h = harness();
+    unwrapOrThrow(runSkillEvals(options, h.seams));
+    const files = manifestFilesSchema.parse(getJsonValue(manifestOf(h.files), key));
+    expect(files.length).toBeGreaterThan(0);
+    expect(files.map((file) => file.blob)).toEqual(
+      files.map((file) => standInBlobId(h.files.get(`${dir}/${file.path}`) ?? '')),
+    );
   });
 
   it('retains the scrubbed result, trace and answer, and a manifest naming the evaluated versions', () => {

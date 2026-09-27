@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { posix } from 'node:path';
 
 import { collect, ok, type Result } from '@oaknational/result';
 
@@ -132,7 +132,7 @@ function stage(
   }
   const startedAt = seams.now();
   const canonicalDir = prepared.loaded.projection.skill.canonicalRelativeDir;
-  const outDir = join(options.repoRoot, canonicalDir, 'evals', 'results', stamp(startedAt));
+  const outDir = posix.join(options.repoRoot, canonicalDir, 'evals', 'results', stamp(startedAt));
   return ok({ pluginDir: pluginDir.value, outDir, startedAt });
 }
 

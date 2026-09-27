@@ -20,7 +20,7 @@ import {
   planEvidenceCopies,
   scrubMachinePaths,
 } from './evidence.js';
-import { gitBlobId, manifestText } from './manifest.js';
+import { blobIdsFromHashObject, manifestText } from './manifest.js';
 
 const segments = (...parts: readonly string[]): string => `/${parts.join('/')}`;
 
@@ -124,12 +124,30 @@ describe('finalAnswerOf', () => {
   });
 });
 
-describe('gitBlobId', () => {
-  it('hashes bytes the way git names a blob', () => {
-    // `git hash-object` of the text "hello\n".
-    expect(gitBlobId(new TextEncoder().encode('hello\n'))).toBe(
-      'ce013625030ba8dba906f756967f9e9ca394464a',
-    );
+describe('blobIdsFromHashObject', () => {
+  const first = 'ce013625030ba8dba906f756967f9e9ca394464a';
+  const second = 'e69de29bb2d1d6434b8b29ae775ad8c2e48c5391';
+
+  it.each([
+    { name: 'one per line', stdout: `${first}\n${second}` },
+    { name: 'CRLF line ends', stdout: `${first}\r\n${second}` },
+  ])('reads the ids in path order from $name', ({ stdout }) => {
+    expect(blobIdsFromHashObject(stdout, ['a.md', 'b.md'], 'dir')).toStrictEqual({
+      ok: true,
+      value: [first, second],
+    });
+  });
+
+  it('refuses a count that differs from the paths, naming both counts', () => {
+    const read = blobIdsFromHashObject(first, ['a.md', 'b.md'], 'dir');
+    expect(read.ok).toBe(false);
+    expect(read.ok ? '' : read.error.message).toContain('1 ids for 2 files');
+  });
+
+  it('refuses a line that is no object id, quoting it', () => {
+    const read = blobIdsFromHashObject(`${first}\nfatal: bad`, ['a.md', 'b.md'], 'dir');
+    expect(read.ok).toBe(false);
+    expect(read.ok ? '' : read.error.message).toContain('"fatal: bad"');
   });
 });
 

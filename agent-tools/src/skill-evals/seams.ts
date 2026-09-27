@@ -17,6 +17,8 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
 
+import { blobIdsFromHashObject } from './manifest.js';
+
 /**
  * The seams the skill-evals orchestration runs through: the filesystem, the
  * runner subprocess, git and the clock. Tests inject fakes; the CLI topic
@@ -41,7 +43,6 @@ export interface GitState {
 export interface SkillEvalsSeams {
   /** The file's text, `undefined` iff absent. */
   readonly readText: (path: string) => Result<string | undefined, Error>;
-  readonly readBytes: (path: string) => Result<Uint8Array, Error>;
   /** Regular files below `dir`, as POSIX paths relative to it, in no promised order; a symlink at the root or anywhere below it is a refusal. */
   readonly listFiles: (dir: string) => Result<readonly string[], Error>;
   readonly writeText: (path: string, content: string, executable: boolean) => Result<void, Error>;
@@ -55,6 +56,8 @@ export interface SkillEvalsSeams {
     args: readonly string[],
     cwd: string,
   ) => Result<CommandOutput, Error>;
+  /** The blob id git gives each file below `dir` (paths relative to it), in order; `--no-filters`, so the id is of the bytes as they stand. */
+  readonly blobIds: (dir: string, paths: readonly string[]) => Result<readonly string[], Error>;
   readonly gitState: (repoRoot: string) => Result<GitState, Error>;
   readonly now: () => Date;
 }
@@ -74,14 +77,6 @@ function readText(path: string): Result<string | undefined, Error> {
     return ok(readFileSync(path, 'utf8'));
   } catch (error) {
     return isAbsence(error) ? ok(undefined) : err(asError(error));
-  }
-}
-
-function readBytes(path: string): Result<Uint8Array, Error> {
-  try {
-    return ok(new Uint8Array(readFileSync(path)));
-  } catch (error) {
-    return err(asError(error));
   }
 }
 
@@ -188,6 +183,23 @@ function gitQuery(git: string, repoRoot: string, args: readonly string[]): Resul
   return ok((child.stdout ?? '').trim());
 }
 
+function blobIds(dir: string, paths: readonly string[]): Result<readonly string[], Error> {
+  if (paths.length === 0) {
+    return ok([]);
+  }
+  try {
+    const hashed = gitQuery(resolveTrustedGit(), dir, [
+      'hash-object',
+      '--no-filters',
+      '--',
+      ...paths,
+    ]);
+    return hashed.ok ? blobIdsFromHashObject(hashed.value, paths, dir) : hashed;
+  } catch (error) {
+    return err(asError(error));
+  }
+}
+
 function gitState(repoRoot: string): Result<GitState, Error> {
   try {
     const git = resolveTrustedGit();
@@ -206,12 +218,12 @@ function gitState(repoRoot: string): Result<GitState, Error> {
 export function realSkillEvalsSeams(): SkillEvalsSeams {
   return {
     readText,
-    readBytes,
     listFiles,
     writeText,
     makeTempDir,
     removeDir,
     run,
+    blobIds,
     gitState,
     now: () => new Date(),
   };

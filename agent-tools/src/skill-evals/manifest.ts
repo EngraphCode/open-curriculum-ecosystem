@@ -1,5 +1,3 @@
-import { createHash } from 'node:crypto';
-
 /**
  * The manifest a run writes beside its evidence: what was evaluated, by
  * blob id, and how.
@@ -7,19 +5,39 @@ import { createHash } from 'node:crypto';
  * @remarks
  * Appendix E of the specification framework note asks for retained evidence
  * of the actual skill versions delivered: versions, runtime configuration
- * and the cases that ran. The manifest names files by the blob id git would
- * give them, so a reader can tie a result to a committed version without
- * trusting the run's word for the repository state. Pure.
+ * and the cases that ran. The manifest names files by the blob id git gives
+ * them, computed by git itself through the seams, so a reader can tie a
+ * result to a committed version without trusting the run's word for the
+ * repository state. Pure.
  *
  * @packageDocumentation
  */
 
-/** The blob id git would give these bytes, so a manifest names a file the way the repository does. */
-export function gitBlobId(bytes: Uint8Array): string {
-  const hash = createHash('sha1');
-  hash.update(`blob ${bytes.byteLength}\0`);
-  hash.update(bytes);
-  return hash.digest('hex');
+import { err, ok, type Result } from '@oaknational/result';
+
+/** A git object id: forty hex characters, or sixty-four in a SHA-256 repository. */
+const OBJECT_ID = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/u;
+
+/** The blob ids `git hash-object` printed for `paths` in `dir`, one per line in path order; a count that differs or a line that is no object id is refused. */
+export function blobIdsFromHashObject(
+  stdout: string,
+  paths: readonly string[],
+  dir: string,
+): Result<readonly string[], Error> {
+  const ids = stdout.split(/\r?\n/u);
+  if (ids.length !== paths.length) {
+    return err(
+      new Error(
+        `git hash-object gave ${String(ids.length)} ids for ${String(paths.length)} files in ${dir}`,
+      ),
+    );
+  }
+  const malformed = ids.find((id) => !OBJECT_ID.test(id));
+  return malformed === undefined
+    ? ok(ids)
+    : err(
+        new Error(`git hash-object gave ${JSON.stringify(malformed)}, not an object id, in ${dir}`),
+      );
 }
 
 /** One evaluated file and its blob id. */

@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { posix } from 'node:path';
 
 import { collect, err, ok, type Result } from '@oaknational/result';
 
@@ -22,7 +22,7 @@ import type { SkillEvalsSeams } from './seams.js';
 
 /** The host adapter's directory, relative to the repository root. */
 export function adapterDir(hostSkill: string): string {
-  return join('.claude', 'skills', hostSkill);
+  return posix.join('.claude', 'skills', hostSkill);
 }
 
 /** A file that must exist; one that reads as absent is an error naming it. */
@@ -54,13 +54,13 @@ function inlinedSkillFile(
   seams: SkillEvalsSeams,
 ): Result<string, Error> {
   const adapterLabel = `the adapter .claude/skills/${skill.hostSkill}/SKILL.md`;
-  const adapterPath = join(repoRoot, adapterDir(skill.hostSkill), 'SKILL.md');
+  const adapterPath = posix.join(repoRoot, adapterDir(skill.hostSkill), 'SKILL.md');
   const adapter = readRequired(adapterPath, adapterLabel, seams);
   if (!adapter.ok) {
     return adapter;
   }
   const canonicalLabel = `${skill.canonicalRelativeDir}/SKILL-CANONICAL.md`;
-  const canonicalPath = join(repoRoot, skill.canonicalRelativeDir, 'SKILL-CANONICAL.md');
+  const canonicalPath = posix.join(repoRoot, skill.canonicalRelativeDir, 'SKILL-CANONICAL.md');
   const canonical = readRequired(canonicalPath, canonicalLabel, seams);
   if (!canonical.ok) {
     return canonical;
@@ -80,7 +80,7 @@ function adapterFile(
   path: string,
   seams: SkillEvalsSeams,
 ): Result<ProjectedFile, Error> {
-  const text = readRequired(join(dir, path), `the adapter file ${path}`, seams);
+  const text = readRequired(posix.join(dir, path), `the adapter file ${path}`, seams);
   return text.ok
     ? ok({ path: `skills/${hostSkill}/${path}`, content: text.value, executable: false })
     : text;
@@ -92,7 +92,7 @@ export function pluginSkillFiles(
   skill: PluginSkill,
   seams: SkillEvalsSeams,
 ): Result<readonly ProjectedFile[], Error> {
-  const dir = join(repoRoot, adapterDir(skill.hostSkill));
+  const dir = posix.join(repoRoot, adapterDir(skill.hostSkill));
   const listed = seams.listFiles(dir);
   if (!listed.ok) {
     return listed;

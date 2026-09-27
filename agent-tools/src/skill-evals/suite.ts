@@ -1,4 +1,4 @@
-import { basename, dirname, join } from 'node:path';
+import { basename, dirname, posix } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
@@ -115,7 +115,7 @@ function retainOne(
     return err(new Error(`the runner named a trace that is absent: ${copy.tracePath}`));
   }
   const written = seams.writeText(
-    join(outDir, copy.traceTarget),
+    posix.join(outDir, copy.traceTarget),
     scrubMachinePaths(trace.value, replacements),
     false,
   );
@@ -123,7 +123,7 @@ function retainOne(
     return written;
   }
   const answer = `${scrubMachinePaths(finalAnswerOf(trace.value), replacements)}\n`;
-  const answerWritten = seams.writeText(join(outDir, copy.answerTarget), answer, false);
+  const answerWritten = seams.writeText(posix.join(outDir, copy.answerTarget), answer, false);
   if (!answerWritten.ok) {
     return answerWritten;
   }
@@ -195,18 +195,18 @@ export function executeSuite(input: SuiteRun): Result<SuiteRecord, Error> {
     input.options,
     input.pluginDir,
     input.suite,
-    join(input.pluginDir, resultFile),
+    posix.join(input.pluginDir, resultFile),
   );
   const exitCode = invokeRunner(input, args);
   if (!exitCode.ok) {
     return exitCode;
   }
-  const result = readResult(join(input.pluginDir, resultFile), input.seams);
+  const result = readResult(posix.join(input.pluginDir, resultFile), input.seams);
   if (!result.ok) {
     return result;
   }
   const resultWritten = input.seams.writeText(
-    join(input.outDir, resultFile),
+    posix.join(input.outDir, resultFile),
     scrubMachinePaths(result.value.text, input.replacements),
     false,
   );

@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { err, ok, type Result } from '@oaknational/result';
 
 import type { CommandOutput, SkillEvalsSeams } from '../seams.js';
@@ -19,6 +21,11 @@ export const SCAFFOLD = ['', 'private', 'tmp', 'e-run1'].join('/');
 const WORKSPACE = `${SCAFFOLD}/${['home', 'cwd'].join('/')}`;
 /** The clock every run reads. */
 const NOW = new Date('2026-09-27T11:05:00.500Z');
+
+/** The id the fake git gives a file's text: forty hex characters that change with the bytes, standing in for git's blob id. */
+export function standInBlobId(text: string): string {
+  return createHash('sha256').update(text).digest('hex').slice(0, 40);
+}
 
 /** One recorded runner invocation. */
 export interface RecordedRun {
@@ -136,12 +143,6 @@ export function harness(runnerExit = 0): Harness {
     );
   const seams: SkillEvalsSeams = {
     readText: (path) => ok(files.get(path)),
-    readBytes: (path) => {
-      const text = files.get(path);
-      return text === undefined
-        ? err(new Error(`absent: ${path}`))
-        : ok(new TextEncoder().encode(text));
-    },
     listFiles,
     writeText: (path, content, executable) => {
       files.set(path, content);
@@ -161,6 +162,9 @@ export function harness(runnerExit = 0): Harness {
       );
       return ok({ exitCode: runnerExit });
     },
+    // git's contract: one id per path, in path order.
+    blobIds: (dir, paths) =>
+      ok(paths.map((path) => standInBlobId(files.get(`${dir}/${path}`) ?? ''))),
     gitState: () => ok({ head: 'deadbeef', clean: false }),
     now: () => NOW,
   };
@@ -172,12 +176,12 @@ export function refusingSeams(): SkillEvalsSeams {
   const refused = <T>(): Result<T, Error> => err(new Error('must not run'));
   return {
     readText: refused,
-    readBytes: refused,
     listFiles: refused,
     writeText: refused,
     makeTempDir: refused,
     removeDir: refused,
     run: refused,
+    blobIds: refused,
     gitState: refused,
     now: () => NOW,
   };

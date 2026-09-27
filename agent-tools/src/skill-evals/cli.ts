@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { posix } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
@@ -31,7 +31,7 @@ type Named = SkillEvalsArgs & { readonly skill: string; readonly hostSkill: stri
 
 /** The agent-tools package version, a label beside the repository head the manifest records. */
 function packageVersion(repoRoot: string, seams: SkillEvalsSeams): Result<string, Error> {
-  const path = join(repoRoot, 'agent-tools', 'package.json');
+  const path = posix.join(repoRoot, 'agent-tools', 'package.json');
   const text = seams.readText(path);
   if (!text.ok) {
     return text;

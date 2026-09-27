@@ -1,10 +1,10 @@
-import { join, posix } from 'node:path';
+import { posix } from 'node:path';
 
-import { collect, err, ok, type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 
 import type { SkillSelection } from './args.js';
 import { parseSkillEvalsFixture, parseTriggerValidation } from './fixture.js';
-import { gitBlobId, type ManifestFile } from './manifest.js';
+import type { ManifestFile } from './manifest.js';
 import {
   projectSuite,
   type PluginSkill,
@@ -62,7 +62,7 @@ function readFixtureTexts(
   canonicalSourceDir: string,
   seams: SkillEvalsSeams,
 ): Result<{ readonly fixture: string; readonly triggers: string | undefined }, Error> {
-  const fixtureText = seams.readText(join(canonicalSourceDir, 'evals', 'evals.json'));
+  const fixtureText = seams.readText(posix.join(canonicalSourceDir, 'evals', 'evals.json'));
   if (!fixtureText.ok) {
     return fixtureText;
   }
@@ -71,7 +71,9 @@ function readFixtureTexts(
       new Error(`${canonicalSourceDir}/evals/evals.json is absent; the skill declares no evals`),
     );
   }
-  const triggerText = seams.readText(join(canonicalSourceDir, 'evals', 'trigger-validation.json'));
+  const triggerText = seams.readText(
+    posix.join(canonicalSourceDir, 'evals', 'trigger-validation.json'),
+  );
   if (!triggerText.ok) {
     return triggerText;
   }
@@ -84,7 +86,7 @@ export function loadProjection(
   seams: SkillEvalsSeams,
 ): Result<LoadedSuite, Error> {
   const skill = pluginSkillOf(options);
-  const texts = readFixtureTexts(join(options.repoRoot, skill.canonicalRelativeDir), seams);
+  const texts = readFixtureTexts(posix.join(options.repoRoot, skill.canonicalRelativeDir), seams);
   if (!texts.ok) {
     return texts;
   }
@@ -132,7 +134,7 @@ export function writeAll(
 ): Result<void, Error> {
   for (const projected of files) {
     const written = seams.writeText(
-      join(root, projected.path),
+      posix.join(root, projected.path),
       projected.content,
       projected.executable,
     );
@@ -143,7 +145,7 @@ export function writeAll(
   return ok(undefined);
 }
 
-/** Every regular file below `dir` with its blob id, paths under `exclude` left out. */
+/** Every regular file below `dir` with the blob id git gives it, paths under `exclude` left out. */
 export function hashDirectory(
   dir: string,
   seams: SkillEvalsSeams,
@@ -153,12 +155,17 @@ export function hashDirectory(
   if (!listed.ok) {
     return listed;
   }
-  return collect(
-    listed.value
-      .filter((path) => !path.startsWith(exclude))
-      .map((path) => {
-        const bytes = seams.readBytes(join(dir, path));
-        return bytes.ok ? ok<ManifestFile>({ path, blob: gitBlobId(bytes.value) }) : bytes;
-      }),
-  );
+  const paths = listed.value.filter((path) => !path.startsWith(exclude));
+  const ids = seams.blobIds(dir, paths);
+  if (!ids.ok) {
+    return ids;
+  }
+  const { value } = ids;
+  return value.length === paths.length
+    ? ok(paths.map((path, index): ManifestFile => ({ path, blob: value[index] ?? '' })))
+    : err(
+        new Error(
+          `blob ids for ${String(paths.length)} files in ${dir} came back as ${String(value.length)}`,
+        ),
+      );
 }
