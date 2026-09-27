@@ -33,6 +33,13 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
+   Before the push, run the estate's markdown lint over every dirty
+   tracked file the survey found: the pre-push gate's tracked-files lint
+   reads the working tree, so a peer's uncommitted edit fails any seat's
+   push. A failing file routes to its owner for the cure, never edited
+   or reverted by the folding seat (2026-09-27: a peer's unlinted append
+   to a thread record failed a fold's push on MD032; its owner cured it
+   in eight minutes).
 3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
    memory surfaces, the class
    [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
@@ -129,10 +136,17 @@ resides on the coordination branch).
    Never mint by transcription (the sha6 suffix is deliberate
    collision policy and the tool is its single source; F-161 records
    the break a hand-carried form caused). The cut is tree-preserving —
-   dirty files carry across — and the primary now resides there. GitHub
-   auto-deleting the merged head branch is expected, not loss. If main
-   moves again during or just after the ceremony (a lane PR merging
-   mid-rotation), merge `origin/main` in and rebuild promptly: until
+   dirty files carry across — and the primary now resides there.
+   The successor's draft PR opens only after its first records commit is
+   pushed: GitHub refuses a pull request with no commits ahead of its
+   base (2026-09-27), so the order is commit, push, then open as the
+   bot. The folded branch is deleted at the cut: locally by plain branch
+   deletion once `git merge-base --is-ancestor` reads it merged, and
+   remotely by the bot's API delete, each read back absent. A remote
+   branch is in a PR or deleted, and GitHub's auto-delete of a merged
+   head is not relied on: both folded heads of 2026-09-27 survived their
+   merges. If main moves again during or just after the ceremony (a
+   lane PR merging mid-rotation), merge `origin/main` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
    pre-merge contract, and a rule, hook or plan landed on the default branch
    reaches seats in the primary only after the fold re-cuts the coordination
