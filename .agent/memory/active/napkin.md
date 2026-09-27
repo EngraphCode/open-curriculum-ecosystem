@@ -610,3 +610,62 @@ let the barrel `index.ts` carry only what the CLI imports (cycle 1, two types dr
 Read: export a type where its second consumer is, and never through the barrel for a test's
 convenience. Observed once beside it: `erasableSyntaxOnly` refuses a constructor parameter
 property; a field assigned in the constructor body is the erasable form.
+
+## 2026-09-27T10:4xZ — The owner's thirteen answers of 09:1xZ, recorded on the lineage for the runbook stamps (the Director)
+
+Recorded here so the lineage copy's ratification stamp (ratified_where) resolves inside this
+estate: the section below is verbatim from the JC.net napkin's COMPACTION BOUNDARY 9 block (its
+OWNER ANSWERS section, commit 8c8f6042 on JC.net's coordination/2026-09-26-26ca4d, folded to
+main by PR 215 as cb4644c4). The answers are the owner's; the consequences are the Director's
+reading at the time, with the trigger's consequence under answer 5 superseded at suite 28 (judged at
+a fold moment, 12:00Z or 00:00Z).
+
+OWNER ANSWERS at 09:1xZ on 2026-09-27 (the Director's thirteen questions, three batches, at the
+owner's word "give me all open questions and unknowns as user questions now please"; each answer
+is the selected option or the owner's own text, verbatim), with the consequence and the seat each
+binds at the resume:
+
+1. Clef: "Keep the word Clef out of the repo for now. We can call it Student Support Experiments".
+Consequence: the name is replaced by "Student Support Experiments" in PR 250's two notes on the
+lane (Myrtle, the lane's owner, first commit at the resume; no history rewrite: the earlier
+commits on the public branch keep the word, which the owner's word tolerates "for now"). Card line
+10 closed. 2. 250 and the limit: "It counts, and it is to be treated as a first class PR, not a
+separate blocker, it doesn't constrain the system, it is part of the system". Consequence: the
+reading stands; the intake runs on two slots while 250 is open and no seat treats 250 as a special
+class. Card line 4 closed. 3. The order: "250 first (Recommended)". Consequence: the standing
+order of card line 12 is the owner's: Myrtle takes 250 after 245 (landed 09:06Z); Siren takes J2
+and J3 after the twin and the register PR; the code rows to whichever of Myrtle or Swallow frees
+first. Card line 12 closed. 4. The count's scope: "Three across both (Recommended)". Consequence:
+the reading stands; the wording PR 260 says so. 5. The retrospective trigger's re-anchor: "Ratify
+(Recommended)". Consequence: the condition (the count at or under the limit and the eight drain
+rows landed, judged at a fold moment) is the owner's; it reads met now and is judged at 254's fold
+at the resume. Card line 11 closed. 6. The retrospective's author: "The Director (Recommended)".
+Consequence: the Director authors it as Lane 1's item 7 at the resume after the folds and check-in
+33; its PR opens on the lineage only behind every seat's waiting item; a pointer in JC.net by the
+exchange. 7. The late-cure leg ruling: "Ratify (Recommended)". Consequence: PDR-140 clause 4's
+last sentence as applied on PR 211 is the owner's; the handoff's standing ruling reads ratified.
+Card line 1 closed. 8. PR 224's private citations: "Ratify (Recommended)". Consequence: the seat's
+disposition stands; citations of the owner's private documents by filename are the owner's
+provenance with the private-upstream clause where the hygiene rule asks. Card line 3 closed. 9.
+The three local branches: "Delete all three (Recommended)". Consequence: the owner's explicit word
+is the authorisation the never-use-git-to-remove-work rule needs; the Director runs the three
+local force-deletes at the resume (claude/objective-nightingale-b4ba25;
+docs/codex-queue-probe-2026-09-25 with its private capture commit, never pushed;
+docs/codex-queue-probe-metadata-01a0d9), read back absent, on the lineage stream. Card line 7
+closed. 10. The runbook: "Ratify both (Recommended)". Consequence: both estates' copies go to
+status ratified with ratified_by the owner, ratified_date 2026-09-27 and ratified_where this card;
+Siren's JC.net twin carries its stamp when it opens; the lineage's copy takes a one-file docs PR
+at a free slot (Siren). Card line 8 closed. 11. The statusline key: "The Director renames it
+(Recommended)". DONE at 09:1xZ: line 4 of the operator's ignored lineage
+`.claude/settings.local.json` now reads PRACTICE_STATUSLINE_LOG_FILE, the JSON parses, the file
+still ignored; nothing else in it changed. Card line 5 closed. 12. Goal two's Codex items:
+"Swallow's lane, in order (Recommended)". Consequence: Swallow takes them after the command-record
+reader, one PR per item at free slots, interleaved with the goal-one code rows by the standing
+order. Card line 6 closed. 13. Dependabot: "Team lands green ones (Recommended)". Consequence:
+Dependabot PRs count toward the limit; the Director names each at the check-in that first sees it;
+a seat lands each green bump at its size turn and assesses a red one, cure or close, with a card
+if closing. The rule as operated gains item 10; the wording PR 260 gains one sentence if its round
+budget holds, else the next Practice PR on §Phase 7 carries it.
+
+The card queue after the answers: line 9 (the wording PR, open as 260) is the only line left, and
+it is a status, not a question. Zero open owner questions at this boundary.
