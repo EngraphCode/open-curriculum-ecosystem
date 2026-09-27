@@ -21,6 +21,10 @@ the `codex-helper` skill and its adapters follow ADR-125 conventions;
 [ADR-178](178-agent-tools-build-isolation.md) — agent-tools build isolation;
 the `codex-exec` CLI topic follows the build/dist discipline established there.
 **Amended**: 2026-09-25, for the test doctrine intake (owner, 2026-09-24): the designed-sentinel carve-out is retired, so a test that pins a value by a sentinel is a defect under `test-immediate-fails` item 14 and belongs to the recovery lane; the decision this record makes stands, and the value it names is guaranteed by construction or a validator, never by a pinned test.
+**Amended**: 2026-09-26 — §2 gains a second tested subcommand, `command-records`,
+the seat-rollout command-record reader, by which a Codex seat's landing path is
+judged from the harness's own records rather than the model's text; the `run`
+deferral stands.
 
 ## Context
 
@@ -78,11 +82,24 @@ use `codex exec` and `codex exec resume` (§6).
 ### 2. A minimal `codex-exec` CLI topic in agent-tools ships now; richer surface deferred
 
 `pnpm agent-tools:codex-exec` (topic `codex-exec` in the unified
-`agent-tools` dispatcher) ships with one tested subcommand:
+`agent-tools` dispatcher) ships with two tested subcommands for reading what
+`codex exec` wrote:
 
 - **`last-message`** — reads JSONL from stdin and extracts the final
   `item.completed / agent_message` event text. Typed, tested, no `jq`
   dependency. Flags: `--strict`, `--format text|json`.
+- **`command-records`** (amended 2026-09-26) — reads a seat's whole rollout
+  from stdin and summarises what the harness itself recorded: the commands it
+  ran per turn, every exec call accounted, refused by the exec policy or left
+  unaccounted, and every command that carried a forbidden shape of
+  `.codex/rules/seat-landing.rules`, rendered by allowlist so the summary
+  never carries the command history. Only a code-mode wrapper the harness
+  completed accounts a call; a function-tool output (`exec_command` on a TUI
+  seat) that is no refusal reads as unaccounted, so the reader judges
+  code-mode seats. `--strict` exits 1 when no turn started, a forbidden shape
+  ran, a call is unaccounted, or the evidence could not be read; a refusal
+  alone passes. It is the instrument by which a Codex seat's landing path is
+  judged from the harness's own records rather than the model's text.
 
 The topic lives at `agent-tools/src/codex-exec/` alongside `commit-queue`
 and follows the same dispatcher/topic pattern established in ADR-178.

@@ -3,12 +3,17 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
 
 /**
  * Redirections for the shell-word scanner: the `&` and `|` that belong to a
- * redirection rather than an operator, and here-documents — the `<<` /
- * `<<-` operator with its delimiter word, and the body lines that follow the
- * command line. A here-document body is data the command reads, never
- * commands the shell runs, so it is dropped; the command substitutions an
- * unquoted-delimiter body carries are the one thing the shell does run in
- * it, and those are kept as nested commands.
+ * redirection rather than an operator; the word boundary a redirection
+ * opens after an ordinary word (`-rf>/dev/null` is `-rf` then `>/dev/null`)
+ * and does not open after an IO number, a lone `&` or an operator already
+ * begun; and here-documents — the `<<` / `<<-` operator with its delimiter
+ * word, and the body lines that follow the command line. A here-document
+ * body is data the command reads, never commands the shell runs, so it is
+ * dropped; the command substitutions an unquoted-delimiter body carries are
+ * the one thing the shell does run in it, and those are kept as nested
+ * commands. Once the scanner has made words, a word is read as the
+ * redirection it is, so a reader can find the command the redirections
+ * stand around.
  *
  * @packageDocumentation
  */
@@ -24,6 +29,17 @@ export function isRedirectionPart(command: string, index: number, previous: stri
     return previous === '>' || previous === '<' || command[index + 1] === '>';
   }
   return char === '|' && previous === '>';
+}
+
+/**
+ * Whether an unquoted `<`, `>` or redirection `&` continues the word being
+ * read rather than opening a new one: the word so far is empty or an IO
+ * number (`2>`), a lone `&` (`&>`), or an operator already (`>>`, `<<<`,
+ * `>&`). After an ordinary word the shell reads the redirection as a token of
+ * its own, so `-rf>/dev/null` is `-rf` then `>/dev/null`.
+ */
+export function continuesRedirection(word: string): boolean {
+  return /^(?:\d*|&|.*[<>&])$/u.test(word);
 }
 
 /** One pending here-document, read from its operator until its body is consumed. */
@@ -145,4 +161,46 @@ export function skipHeredocBodies(
     cursor = next;
   }
   return cursor;
+}
+
+/**
+ * What one scanned word is as a redirection: `glued`, a whole redirection
+ * with its target on (`>/dev/null`, `2>&1`, `>&-`, `<<<word`); `operator`,
+ * an operator alone whose target is the next word (`>`, `2>`, `&>>`, `<<<`,
+ * zsh's `>!` and `>>|`); `heredoc`, a here-document operator, which the
+ * scanner hands over with its delimiter glued on (`<<EOF`, and `<<` for an
+ * empty one); or `none`. Words arrive after quote removal, so a quoted `'>'`
+ * reads as an operator here too.
+ */
+export type RedirectionWordKind = 'glued' | 'operator' | 'heredoc' | 'none';
+
+/** A here-document operator at a word's start, after an optional IO number: `<<` or `<<-`, never the `<<<` here-string. */
+const HEREDOC_WORD = /^\d*<<(?!<)/u;
+/** A redirection operator at a word's start: an optional IO number, the operator, and zsh's clobber mark on an output operator. */
+const OPERATOR_WORD = /^\d*(?:(?:&>>|&>|>>&|>&|>>|>)[|!]?|<<<|<>|<&|<)/u;
+
+/** Read one scanned word as the redirection it is. */
+export function redirectionWordKind(word: string): RedirectionWordKind {
+  if (HEREDOC_WORD.test(word)) {
+    return 'heredoc';
+  }
+  const operator = OPERATOR_WORD.exec(word);
+  if (operator === null) {
+    return 'none';
+  }
+  return operator[0].length === word.length ? 'operator' : 'glued';
+}
+
+/** An IO number or a named file descriptor (`{fd}`). */
+const REDIRECTION_PREFIX = /^(?:\d+|\{[A-Za-z_]\w*\})$/u;
+
+/**
+ * Whether a scanned word may be the prefix of the redirection that follows
+ * it, split off by the scanner: a named descriptor (`{fd}>/dev/null` scans as
+ * `{fd}` then `>/dev/null`) or an IO number before a here-document (`2<<EOF`
+ * scans as `2` then `<<EOF`). The same words, spaced, are a command and its
+ * argument, so a reader weighs both.
+ */
+export function mayPrefixRedirection(word: string, next: string): boolean {
+  return REDIRECTION_PREFIX.test(word) && redirectionWordKind(next) !== 'none';
 }

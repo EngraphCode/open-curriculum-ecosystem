@@ -83,19 +83,3 @@ export const ARGV_COMMAND_TABLES: readonly CommandTable[] = [
     ],
   },
 ];
-
-/**
- * Git's own options, which precede the subcommand (`git -C <path> reset`).
- * The matcher skips them to find the subcommand; those listed here take a
- * separate argument when not `=`-joined, so the argument is skipped too.
- */
-export const GIT_GLOBAL_OPTIONS_WITH_ARGUMENT: ReadonlySet<string> = new Set([
-  '-C',
-  '-c',
-  '--git-dir',
-  '--work-tree',
-  '--namespace',
-  '--config-env',
-  '--attr-source',
-  '--list-cmds',
-]);

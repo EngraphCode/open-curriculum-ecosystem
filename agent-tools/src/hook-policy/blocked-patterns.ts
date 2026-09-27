@@ -1,7 +1,7 @@
 import { isJsonObject } from '../core/json.js';
 
 import { matchesArgvPatternInSegments } from './argument-matcher.js';
-import { segmentCommand, type ShellWord } from './shell-words.js';
+import { segmentCommand, type ShellWord } from '../shell/shell-words.js';
 import {
   PRE_TOOL_USE_EVENT_NAME,
   type BlockedPatternEntry,

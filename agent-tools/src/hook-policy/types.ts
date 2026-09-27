@@ -23,7 +23,10 @@ export const PRE_TOOL_USE_EVENT_NAME = 'PreToolUse';
  *   to reappraise, not a word to rephrase.
  *
  * `kind` and the `excludes_*` options are group-level: every pattern in a group
- * shares them.
+ * shares them. `excludes_other_repositories` is for a concept that governs only
+ * this repository's own files: the group is dropped for a file positively found
+ * in another git repository, and kept wherever that is unknown or the file is in
+ * no repository (`repository-identity.ts`).
  *
  * Used at the policy-load trust boundary to parse `.agent/hooks/policy.json`
  * entries into typed, validated groups. `reappraisal` is optional here so a
@@ -44,6 +47,7 @@ export const ScopedContentBlockGroupSchema = z
     exclude_paths: z.array(z.string()).readonly().optional(),
     excludes_inline_code: z.boolean().optional(),
     excludes_lines_with: z.array(z.string()).readonly().optional(),
+    excludes_other_repositories: z.boolean().optional(),
     citation: z.string(),
     reappraisal: z.string().optional(),
   })
@@ -79,6 +83,8 @@ export interface ContentChange {
   readonly priorContent: string;
   readonly filePath?: string;
   readonly priorFilePath?: string;
+  /** An `apply_patch` move's source file, whose whole content enters `filePath`. */
+  readonly movedFromPath?: string;
 }
 
 /**

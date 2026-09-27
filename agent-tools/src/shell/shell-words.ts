@@ -1,10 +1,16 @@
 import { decodeAnsiCQuoted } from './ansi-c-quotes.js';
-import type { Heredoc } from './redirections.js';
-import { isRedirectionPart, readHeredocOperator, skipHeredocBodies } from './redirections.js';
+import {
+  continuesRedirection,
+  isRedirectionPart,
+  readHeredocOperator,
+  skipHeredocBodies,
+} from './redirections.js';
+import { endSegment, endWord, type ScanState, type ShellWord } from './scan-state.js';
 import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.js';
 
 /**
- * Shell-word segmentation for the argument-aware Bash-guard matcher.
+ * Shell-word segmentation for the argument-aware Bash-guard matcher and the
+ * Codex seat-rollout reader.
  *
  * Splits a command line into simple-command segments of words the way a
  * shell would read it far enough for option matching. What the words are:
@@ -22,7 +28,10 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
  * ever read against the command in its own segment. The `&` or `|` of a
  * redirection (`2>&1`, `&>log`, `>|file`) stays inside its word: the shell
  * removes a redirection before the command runs, so an option after it
- * still belongs to the same command. A here-document body is the command's
+ * still belongs to the same command; and an unquoted `<`, `>` or `&>` after
+ * an ordinary word opens a new word, as the shell reads it, so `-rf>/dev/null`
+ * is `-rf` then `>/dev/null` and an option glued to a redirection is still
+ * the option. A here-document body is the command's
  * data, not commands, and is dropped — except the substitutions the shell
  * runs inside a body whose delimiter is unquoted, kept as nested commands.
  *
@@ -34,44 +43,12 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
  * @packageDocumentation
  */
 
-/**
- * One shell word: its text after quote removal, and the bodies of any command
- * substitutions it carries (from unquoted or double-quoted text; a
- * single-quoted span is literal).
- */
-export interface ShellWord {
-  readonly text: string;
-  readonly nested: readonly string[];
-}
-
-interface ScanState {
-  readonly segments: ShellWord[][];
-  words: ShellWord[];
-  word: string;
-  inWord: boolean;
-  nested: string[];
-  heredocs: Heredoc[];
-}
+export type { ShellWord } from './scan-state.js';
 
 const TWO_CHAR_OPERATORS: readonly string[] = ['&&', '||', '|&'];
 const ONE_CHAR_OPERATORS: ReadonlySet<string> = new Set(['|', ';', '&', '\n', '(', ')']);
-
-function endWord(state: ScanState): void {
-  if (state.inWord) {
-    state.words.push({ text: state.word, nested: state.nested });
-  }
-  state.word = '';
-  state.inWord = false;
-  state.nested = [];
-}
-
-function endSegment(state: ScanState): void {
-  endWord(state);
-  if (state.words.length > 0) {
-    state.segments.push(state.words);
-  }
-  state.words = [];
-}
+/** The characters a redirection operator is made of; a `&` here is one `isRedirectionPart` kept. */
+const REDIRECTION_CHARACTERS: ReadonlySet<string> = new Set(['<', '>', '&']);
 
 /** The characters a backslash escapes inside double quotes; before any other it is literal. */
 const DOUBLE_QUOTE_ESCAPABLE: ReadonlySet<string> = new Set(['$', '`', '"', '\\', '\n']);
@@ -107,6 +84,7 @@ function readQuoted(command: string, start: number, quote: string, state: ScanSt
     }
   }
   state.inWord = true;
+  state.literal = true;
   return index + 1;
 }
 
@@ -116,6 +94,7 @@ function readEscape(command: string, index: number, state: ScanState): number {
   if (escaped !== '\n') {
     state.word += escaped;
     state.inWord = true;
+    state.literal = true;
   }
   return index + 2;
 }
@@ -136,6 +115,7 @@ function readSubstitution(command: string, index: number, state: ScanState): num
   state.nested.push(isDollar ? body : body.replaceAll('\\`', '`'));
   state.word += command.slice(index, close + 1);
   state.inWord = true;
+  state.literal = false;
   return close + 1;
 }
 
@@ -169,9 +149,14 @@ function scanHeredoc(command: string, index: number, state: ScanState): number |
   return next;
 }
 
-/** The last character of the word being read (empty at a word start) — read only at an operator, since each read flattens the growing word. */
+/** The word being read so far; empty at a word start. Read only at an operator, since each read flattens the growing word. */
+function currentWord(state: ScanState): string {
+  return state.inWord ? state.word : '';
+}
+
+/** The last character of the word being read as an operator's character: empty at a word start or after quoted or escaped text. */
 function lastCharacter(state: ScanState): string {
-  return state.inWord ? state.word.slice(-1) : '';
+  return state.literal ? '' : currentWord(state).slice(-1);
 }
 
 /** Consume an operator or a substitution at `index`; `null` when the text there is neither. */
@@ -188,7 +173,18 @@ function scanOperator(command: string, index: number, state: ScanState): number 
     endSegment(state);
     return index + 1;
   }
+  endWordBeforeRedirection(char, state);
   return null;
+}
+
+/** Before a redirection character an ordinary word ends; an IO number, a lone `&` or an operator so far continues, unless quoted or escaped text wrote it. */
+function endWordBeforeRedirection(char: string, state: ScanState): void {
+  if (!REDIRECTION_CHARACTERS.has(char)) {
+    return;
+  }
+  if (state.literal || !continuesRedirection(currentWord(state))) {
+    endWord(state);
+  }
 }
 
 /** Consume a quoted span (including the ANSI-C `$'…'` form) or an escape at `index`; `null` when the text there is neither. */
@@ -197,6 +193,7 @@ function scanQuoting(command: string, index: number, state: ScanState): number |
     const [text, next] = decodeAnsiCQuoted(command, index);
     state.word += text;
     state.inWord = true;
+    state.literal = true;
     return next;
   }
   const char = command[index] ?? '';
@@ -225,6 +222,7 @@ function scanAt(command: string, index: number, state: ScanState): number {
   }
   state.word += char;
   state.inWord = true;
+  state.literal = false;
   return index + 1;
 }
 
@@ -238,6 +236,7 @@ export function segmentCommand(command: string): readonly (readonly ShellWord[])
     words: [],
     word: '',
     inWord: false,
+    literal: false,
     nested: [],
     heredocs: [],
   };

@@ -460,7 +460,8 @@
         "$TURBO_DEFAULT$",
         "**/*.ts",
         "vitest.config.ts",
-        "$TURBO_ROOT$/runtime-only-scripts/**"
+        "$TURBO_ROOT$/runtime-only-scripts/**",
+        "$TURBO_ROOT$/.agent/hooks/policy.json"
       ]
     },
     "mutate": {
