@@ -435,6 +435,21 @@ contract, its §Recount run at 14:58Z and matching.
   `docs/test-doctrine-adr-followup`, worktree `oce-wt-217-followup`). Both are queued behind
   the lane gates; the batch-six recipes cure waits for PR 217 to land since it edits the same
   file. The Director's 18:20Z word on load 37: the queue runner now holds one gate per entry.
+- **245 THROUGH THE DOOR, THE DRAIN'S LAST ROW, 2026-09-26 21:4xZ to 09:06Z (Myrtle turns
+  Canopy, bf4957):** PR 245 (the permanent document and the commit are the consolidation record;
+  the curator-passes directory retired, 45 files) took the slot after 256 with its one sync as the
+  scripted reconcile (`ea3048097`: merge of engraph at `d5838af37`, pending-graduations.md's two
+  conflict blocks resolved by `resolve-245-graduations.py`, both deletions standing and both
+  slow-lane rows kept), both legs on the synced head (both legs clean, no finding), the sweep read whole (thirty
+  files deleted whole under `curator-passes/`, 4,946 lines; eighty lines in fifteen files, every
+  one a pointer to the retired surface), merged `a0996ac6b`; claim 4595a3ca closed; worktree
+  and branches deleted with read-back; 6 rounds, 84.03/40. The drain's eight rows
+  (257, 259, 249, 217, 253, 246, 256, 245) all landed between 19:39Z and 09:06Z through three
+  seats. This seat's next lane by the Director's routing (42e41c7d; suite 27's standing order):
+  PR 250's acceptance contract (Appendix E at `9a7ffdbaa`), shape at 2abe35ba, in
+  `oce-wt-user-value` on the owner's branch; then goal one's code rows if this seat frees first.
+  The resolver lesson: its 15:xxZ test ran the merge with the sides reversed (napkin, the family's
+  seventh member).
 - **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
   PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
   synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule

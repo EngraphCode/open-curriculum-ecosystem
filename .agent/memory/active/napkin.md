@@ -552,3 +552,58 @@ prose expert's lens.
   that read the seat's rollout no better than before (the turn count refuses it first). One instance; the
   observation is that a version-named premise is checked against the version's diff before the design,
   and the correction goes to the router's map as a threaded ACK, not as a private redesign.
+
+## 2026-09-26 ~20:4xZ — a resolver tested on the merge with its sides reversed (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 245's reconcile script was "tested on the merge-tree" at 15:xxZ and recorded
+as RESOLVED (2 blocks). Re-tested at 20:44Z against the current engraph in the orientation the
+real merge uses (HEAD first, `git merge origin/engraph` from the worktree), the resolver refused
+block two: its match named which side held which row, and the 15:xxZ test had run with the sides
+reversed. The fix was to match the block by its content regardless of side and emit a fixed
+order; the second attempt then failed on a prefix-length slip in the match itself, and the third
+resolved both blocks.
+
+**Reading.** The family of a check that does not check what it names, seventh member: "tested on
+the merge-tree" was true and the test did not exercise the orientation the instrument runs in. A
+resolver test is only a test when its input is produced by the same command, in the same
+direction, as the run it stands for.
+
+**Routing.** Held here with the family's six earlier members (14:5xZ, 15:1xZ, 16:3xZ entries); the
+graduation to the metacognition directive's fluency section is owed as one line naming the
+family.
+
+## 2026-09-27 ~09:0xZ — a seat asleep for eleven hours with a live heartbeat (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 245's leg wait (a background shell loop) completed at about 21:54Z on the 26th
+with LEGS-IN; the seat's wake on that completion never arrived. The seat's heartbeat loop, a shell
+process independent of the harness, kept emitting every four minutes through the night, so every
+reader's liveness check (heartbeat within ten minutes) said live. Siren's ping at 22:5xZ went over
+the session socket and reached the seat at 09:05Z with the owner's next message; the door then ran
+in two minutes. The slot sat door-ready for eleven hours under a live heartbeat.
+
+**Reading.** A heartbeat emitted by a process the seat does not run on each tick attests the
+process, not the seat; `silence-is-never-liveness` has a twin: a beat is never wakefulness. The
+liveness the team needs is "this seat acts on events"; the instrument measures "this seat's loop
+runs". `ping-before-escalate` worked as written (the ping was sent) and still could not wake a
+harness that was not polling. A frictions row carries the fact; the cure candidates are (a) a
+heartbeat that the seat's own turn emits, so its absence is the signal, or (b) a peer rule that a
+slot holder silent past N minutes on the stream, heartbeat or not, is treated as absent for the
+door under ruling 3.
+
+**Routing.** Frictions register (the row added in this commit); the rule
+`liveness-heartbeat-cron` and PDR-078 §4 are the doctrine homes for the reading, on the
+Director's routing.
+
+## 2026-09-26 21:5xZ — an exported type with one consumer fails knip, twice in one lane
+
+Observation (two instances, cycles 1 and 3 of the command-record reader, Swallow holds Drift):
+knip's "Unused exported types" fires on a type alias or interface exported from a module and
+consumed only inside it, even where declaration emit forces the export (the return type of an
+exported function has to be nameable, so the alias cannot simply be unexported). Cures used: inline
+the union into the exported interface where the alias adds nothing (cycle 1, the status and source
+sets on `CommandRecord`); consume the type at the sibling module's call site as an annotation where
+that sibling is the real consumer (cycle 3, `const outcome: OutputClass = classifyOutput(…)`); and
+let the barrel `index.ts` carry only what the CLI imports (cycle 1, two types dropped from it).
+Read: export a type where its second consumer is, and never through the barrel for a test's
+convenience. Observed once beside it: `erasableSyntaxOnly` refuses a constructor parameter
+property; a field assigned in the constructor body is the erasable form.

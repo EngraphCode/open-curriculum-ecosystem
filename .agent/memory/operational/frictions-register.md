@@ -4208,3 +4208,31 @@ commit SHA and the closing plan reference.
   routing. The directive sentence itself is joint text, settled through the exchange (the
   second estate's PR 216, ba177801c) as "every test and check the landing's gates run".
 - **Owner direction status**: session-scoped (this seat's record of a reviewer's finding).
+
+### F-211 — a seat's heartbeat loop attests a seat the harness is not waking
+
+- **Source**: this seat's own night, 2026-09-26 21:54Z to 2026-09-27 09:05Z: PR 245's leg wait (a
+  background shell loop under the harness) completed with LEGS-IN at about 21:54Z and the seat
+  received no wake for it; the seat's heartbeat loop (a shell process the seat started, beating
+  every 240 s) ran on, so every liveness read said live; Siren's ping at 22:5xZ over the session
+  socket arrived at 09:05Z with the owner's next message, when the door ran in two minutes.
+- **Surface**: the heartbeat loops the seats run as shell processes (`heartbeat-loop.sh` shapes in
+  each seat's scratchpad; `liveness-heartbeat-cron`), the harness's background-task wake, the slot
+  rule's "a slot whose holder has no heartbeat for twenty minutes is free".
+- **Observed**: 2026-09-27. A slot held by a seat whose harness was asleep stayed held for eleven
+  hours because the freeing condition reads the heartbeat, and the heartbeat was a process, not
+  the seat. `ping-before-escalate` was followed and could not wake a harness that was not polling.
+- **Expected**: a liveness signal that the seat's own turns emit, so that its absence means the
+  seat is not acting; and a slot-freeing condition that reads acting (an event on the stream from
+  the holder) rather than beating.
+- **Candidate cure**: (a) the heartbeat rule distinguishes a process beat from a turn beat and the
+  slot rule reads the turn beat (a holder silent on the stream for N minutes is free for the door
+  under ruling 3, heartbeat or not); (b) a background wait's completion re-sent to the seat by a
+  second channel (a comms event the wait itself emits, so the watcher wakes the seat) instead of
+  relying on the harness's task notification alone.
+- **Target surface**: `.agent/rules/liveness-heartbeat-cron.md`, PDR-078 §4, the landing-slot
+  bullet in `pr-lifecycle` §Phase 7, the seats' wait scripts (`wait-legs.sh` shapes).
+- **Status**: open, an observation with one instance (recorded 2026-09-27); for the Director's
+  routing. The wait scripts of this seat can take cure (b) without doctrine: emit a comms event
+  on completion.
+- **Owner direction status**: session-scoped (this seat's own record).
