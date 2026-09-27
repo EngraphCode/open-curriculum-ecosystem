@@ -24,11 +24,11 @@ import type { Command } from './shell-commands.js';
 /** A shape found in a segment, with the token that matched. */
 export interface Hit {
   readonly kind: ShapeKind;
-  /** The rule's own token, a short-option cluster of letters, or the subcommand: never a value. */
+  /** The rule's own token (a cluster carrying the rule's letter reports that letter's option), or the subcommand: never a value. */
   readonly token: string;
 }
 
-const ASSIGNMENT = /^[A-Za-z_][A-Za-z0-9_]*=/;
+const ASSIGNMENT = /^[A-Za-z_]\w*=/;
 const CLUSTER = /^-[A-Za-z]+$/;
 const SUBCOMMAND = /^[a-z][a-z-]*$/;
 const WRAPPERS: ReadonlySet<string> = new Set(['env', 'sudo', 'command', 'exec', 'nice', 'time']);
@@ -121,14 +121,19 @@ function placesOf(segment: Command): { program: number; subcommand: number | und
   return { program, subcommand: isGit ? gitSubcommandIndex(segment, program + 1) : undefined };
 }
 
-/** Whether a token is one of the shape's option tokens or a short-option cluster carrying its letter. */
-function matchesOption(shape: ForbiddenShape, token: string): boolean {
+/** The rule token an option-shaped token matches: itself when it is one, the letter's option when a short-option cluster carries the shape's letter, else none. */
+function optionToken(shape: ForbiddenShape, token: string): string | undefined {
   if (token.startsWith('-') && shape.tokens.includes(token)) {
-    return true;
+    return token;
   }
-  return (
-    shape.clusterLetter !== undefined && CLUSTER.test(token) && token.includes(shape.clusterLetter)
-  );
+  if (
+    shape.clusterLetter !== undefined &&
+    CLUSTER.test(token) &&
+    token.includes(shape.clusterLetter)
+  ) {
+    return `-${shape.clusterLetter}`;
+  }
+  return undefined;
 }
 
 /** Whether a token is one of the shape's pathspec tokens (the whole tree, `.`). */
@@ -136,14 +141,17 @@ function matchesPathspec(shape: ForbiddenShape, token: string): boolean {
   return !token.startsWith('-') && shape.tokens.includes(token);
 }
 
-/** The shape's token in the arguments after the subcommand: an option before the first bare `--`, or a pathspec anywhere. */
+/** The shape's rule token in the arguments after the subcommand: an option before the first bare `--`, or a pathspec anywhere. */
 function tokenOf(shape: ForbiddenShape, rest: readonly string[]): string | undefined {
   const dashes = rest.indexOf('--');
   const options = dashes === -1 ? rest : rest.slice(0, dashes);
-  return (
-    options.find((candidate) => matchesOption(shape, candidate)) ??
-    rest.find((candidate) => matchesPathspec(shape, candidate))
-  );
+  for (const candidate of options) {
+    const token = optionToken(shape, candidate);
+    if (token !== undefined) {
+      return token;
+    }
+  }
+  return rest.find((candidate) => matchesPathspec(shape, candidate));
 }
 
 /** The forbidden shape a git segment carries, at most one hit per segment. */
@@ -175,30 +183,33 @@ function renderLeading(token: string): string {
   return token.startsWith('-') ? renderTrailing(token) : '<arg>';
 }
 
-/** The long flags a summary prints by name: the rules' own tokens and no other. */
+/** The flags a summary prints by name: the rules' own tokens and no other. */
 const NAMED_FLAGS: ReadonlySet<string> = new Set(
-  SHAPES.flatMap((shape) => shape.tokens.filter((token) => token.startsWith('--'))),
+  SHAPES.flatMap((shape) => shape.tokens.filter((token) => token.startsWith('-'))),
 );
 
-/** A token after the program: a rule's long flag by name, any other long flag as `--<flag>`, a short option's letter, or nothing. */
+/** A token after the program: a rule's flag by name, any other long flag as `--<flag>`, any other short option or cluster as `-<flag>`, or nothing. */
 function renderTrailing(token: string): string {
   if (token === '--') {
     return token;
   }
-  if (token.startsWith('--')) {
-    const name = token.split('=')[0] ?? token;
-    return NAMED_FLAGS.has(name) ? name : '--<flag>';
+  const name = token.split('=')[0] ?? token;
+  if (NAMED_FLAGS.has(name)) {
+    return name;
   }
-  return token.startsWith('-') && token.length > 1 ? token.slice(0, 2) : '<arg>';
+  if (token.startsWith('--')) {
+    return '--<flag>';
+  }
+  return token.startsWith('-') && token.length > 1 ? '-<flag>' : '<arg>';
 }
 
 /**
  * A segment by allowlist: the program's basename, git's subcommand, the
- * rules' own long flags by name and every other long flag as `--<flag>`,
- * short options as their letter alone, and `<arg>` for every other token,
- * including every token after a bare `--`. A value shaped like a flag (a
- * message beginning `--`) prints as `--<flag>` too. No value, path, message
- * or URL a seat typed is printed.
+ * rules' own flags by name, every other long flag as `--<flag>` and every
+ * other short option or cluster as `-<flag>`, and `<arg>` for every other
+ * token, including every token after a bare `--`. A value shaped like a flag
+ * (a message beginning `-` or `--`) prints as a flag placeholder too. No
+ * value, path, message, URL or letter of one that a seat typed is printed.
  */
 export function renderSegment(segment: Command): string {
   const { program, subcommand } = placesOf(segment);

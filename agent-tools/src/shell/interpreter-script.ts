@@ -56,14 +56,40 @@ export function interpreterScriptWords(words: readonly ShellWord[]): readonly Sh
   return commandFlag === -1 || script === undefined ? [] : [script];
 }
 
+/** The ssh options that take a value, so the word after one of them is not the host. */
+const SSH_VALUE_OPTIONS: ReadonlySet<string> = new Set([...'bcDEeFIiJLlmOopQRSWw']);
+const SSH_CLUSTER = /^-[A-Za-z0-9]+$/u;
+
+/** Whether an ssh option word is a cluster of flags whose last one takes the next word as its value; a value glued on (`-p22`) takes nothing more. */
+function takesNextWord(text: string): boolean {
+  return SSH_CLUSTER.test(text) && SSH_VALUE_OPTIONS.has(text.at(-1) ?? '');
+}
+
+/** The words after ssh's options and its host: the remote command, joined by ssh into one line. */
+function sshCommandWords(rest: readonly ShellWord[]): readonly ShellWord[] {
+  let index = 0;
+  while (index < rest.length) {
+    const text = rest[index]?.text ?? '';
+    if (text === '--') {
+      index += 1;
+      break;
+    }
+    if (!text.startsWith('-')) {
+      break;
+    }
+    index += takesNextWord(text) ? 2 : 1;
+  }
+  return rest.slice(index + 1);
+}
+
 /**
  * The one script `eval` or `ssh` runs: `eval` joins every operand into one
- * command; `ssh` joins every operand after the host. Quoted or not, the
- * operands become one command line, so the words are joined with a blank and
- * their substitution bodies carried together.
+ * command; `ssh` joins every word after its options and host. Quoted or not,
+ * the operands become one command line, so the words are joined with a blank
+ * and their substitution bodies carried together.
  */
 function joinedOperands(rest: readonly ShellWord[], skipHost: boolean): readonly ShellWord[] {
-  const operands = rest.filter((word) => !word.text.startsWith('-')).slice(skipHost ? 1 : 0);
+  const operands = skipHost ? sshCommandWords(rest) : rest;
   if (operands.length === 0) {
     return [];
   }

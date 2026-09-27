@@ -227,6 +227,12 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern('git reset --hard', 'ssh host git reset --hard HEAD~1')).toBe(true);
   });
 
+  it('reads past an ssh option that takes a value to the command the host runs', () => {
+    expect(matchesArgvPattern('git reset --hard', 'ssh -p 22 host git reset --hard HEAD~1')).toBe(
+      true,
+    );
+  });
+
   it('reads an escaped or quoted operator character as text, so it hides no later option', () => {
     expect(matchesArgvPattern(recursiveForce, String.raw`rm -rf x \>& -i`)).toBe(true);
   });

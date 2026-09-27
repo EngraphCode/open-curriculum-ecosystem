@@ -60,11 +60,16 @@ const EXEC_REQUEST_NAMES: ReadonlyMap<string, readonly string[]> = new Map([
   ['function_call', ['exec_command', 'write_stdin', 'shell_command']],
 ]);
 
+/** A payload field as text; anything that is not a string reads as empty and matches nothing. */
+function text(value: unknown): string {
+  return typeof value === 'string' ? value : '';
+}
+
 /** Every exec-family request (`custom_tool_call` exec, `function_call` exec family), in order; at least one, or the fixture is wrong. */
 export function execCalls(recordsToRead: readonly TestRecord[]): TestRecord[] {
   const calls = selectAll(recordsToRead, 'response_item').filter((record) => {
-    const names = EXEC_REQUEST_NAMES.get(String(record.payload['type'])) ?? [];
-    return names.includes(String(record.payload['name']));
+    const names = EXEC_REQUEST_NAMES.get(text(record.payload['type'])) ?? [];
+    return names.includes(text(record.payload['name']));
   });
   assert(calls.length > 0, 'the fixture made no exec call');
   return calls;
@@ -75,7 +80,7 @@ export function execOutputs(recordsToRead: readonly TestRecord[]): TestRecord[] 
   const ids = new Set(execCalls(recordsToRead).map((record) => record.payload['call_id']));
   const outputs = selectAll(recordsToRead, 'response_item').filter(
     (record) =>
-      String(record.payload['type']).endsWith('_output') && ids.has(record.payload['call_id']),
+      text(record.payload['type']).endsWith('_output') && ids.has(record.payload['call_id']),
   );
   assert(outputs.length > 0, 'the fixture answered no exec call');
   return outputs;

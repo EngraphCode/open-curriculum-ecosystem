@@ -7,7 +7,6 @@ import {
   flagRefusal,
   outputCallId,
   type ExecRequest,
-  type OutputClass,
 } from './exec-calls.js';
 import { recordTypeKey } from './record-type-key.js';
 import type {
@@ -34,16 +33,19 @@ interface TurnState {
 interface ReaderState {
   readonly turns: TurnState[];
   readonly flagged: FlaggedCommand[];
-  readonly recordTypes: Record<string, number>;
+  readonly recordTypes: Map<string, number>;
   readonly malformed: Malformed[];
   readonly invalidLines: number[];
 }
 
-/** Open a turn on `task_started`; a repeated or missing id is malformed and opens nothing. */
+/** A turn id as the summary may print it: word characters and dashes, bounded; anything else is untrusted text. */
+const TURN_ID = /^[\w-]{1,64}$/u;
+
+/** Open a turn on `task_started`; a repeated, missing or ill-formed id is malformed and opens nothing. */
 function startTurn(payload: JsonRecord, state: ReaderState, line: number): void {
   const turnId = payload.turn_id;
-  if (typeof turnId !== 'string' || turnId.length === 0) {
-    state.malformed.push({ line, reason: 'task_started has no turn id' });
+  if (typeof turnId !== 'string' || !TURN_ID.test(turnId)) {
+    state.malformed.push({ line, reason: 'task_started has no well-formed turn id' });
     return;
   }
   if (state.turns.some((turn) => turn.turnId === turnId)) {
@@ -119,11 +121,11 @@ function readExecOutput(
   line: number,
 ): void {
   const turn = state.turns.at(-1);
-  if (turn === undefined || !turn.pending.has(callId)) {
+  if (!turn?.pending.has(callId)) {
     return;
   }
   turn.pending.delete(callId);
-  const outcome: OutputClass = classifyOutput(payload.output);
+  const outcome = classifyOutput(payload.output);
   if (outcome.kind === 'accounted') {
     turn.accounted += 1;
     return;
@@ -173,7 +175,7 @@ function readRecord(record: JsonRecord, state: ReaderState, line: number): void 
   }
   const payload = record.payload;
   const key = recordTypeKey(type, payload);
-  state.recordTypes[key] = (state.recordTypes[key] ?? 0) + 1;
+  state.recordTypes.set(key, (state.recordTypes.get(key) ?? 0) + 1);
   if (!isRecord(payload)) {
     return;
   }
@@ -225,7 +227,7 @@ export function readCommandRecords(lines: readonly string[]): CommandRecordsSumm
   const state: ReaderState = {
     turns: [],
     flagged: [],
-    recordTypes: {},
+    recordTypes: new Map(),
     malformed: [],
     invalidLines: [],
   };
@@ -241,7 +243,7 @@ export function readCommandRecords(lines: readonly string[]): CommandRecordsSumm
     unaccounted: accounts.reduce((sum, account) => sum + account.unaccounted, 0),
     flagged: state.flagged,
     accounts,
-    recordTypes: state.recordTypes,
+    recordTypes: Object.fromEntries(state.recordTypes),
     malformed: state.malformed,
     invalidLines: state.invalidLines,
   };

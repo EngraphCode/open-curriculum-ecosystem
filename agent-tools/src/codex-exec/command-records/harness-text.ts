@@ -50,7 +50,7 @@ const DEBUG_REJECTED =
   /^exec_command failed: CreateProcess \{ message: "Rejected\((.*)\)" \}\s*$/su;
 /** The exec policy's own message: the judged command in backticks, then a justification that is not read. */
 const REJECTED = /^`([^`]*)` rejected: /u;
-const STDIN_REJECTED = /^write_stdin rejected: /u;
+const STDIN_REJECTED = 'write_stdin rejected: ';
 
 /** The text of an output, whichever carrier holds it. */
 function textOf(output: unknown): string | undefined {
@@ -90,7 +90,7 @@ function refusalIn(anchored: string): Refusal | undefined {
   if (rejected !== null) {
     return { commandLine: rejected[1] ?? '' };
   }
-  return STDIN_REJECTED.test(message) ? { commandLine: '' } : undefined;
+  return message.startsWith(STDIN_REJECTED) ? { commandLine: '' } : undefined;
 }
 
 /** The harness's text after the last `Script error:` line; empty when the script wrote no error. */

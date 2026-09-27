@@ -1,7 +1,7 @@
 import { isRecord } from '../rollout/record-shapes.js';
 
 /** A record type the summary may print: an identifier-shaped word of bounded length. */
-const TYPE_NAME = /^[A-Za-z_][A-Za-z0-9_]{0,63}$/u;
+const TYPE_NAME = /^[A-Za-z_]\w{0,63}$/u;
 
 /** A type value as the summary prints it: itself when identifier-shaped, else `other`. */
 function typeName(value: unknown): string {

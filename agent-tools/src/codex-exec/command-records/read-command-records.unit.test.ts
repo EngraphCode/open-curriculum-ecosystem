@@ -80,6 +80,16 @@ describe('readCommandRecords over the recorded seat rollout', () => {
     expect(summary.malformed).toStrictEqual([]);
   });
 
+  it('counts a record type named like an object property under its own key', () => {
+    const records = execRecords();
+    const shaped = (type: string): TestRecord => ({ type, payload: {} });
+    records.push(shaped('__proto__'), shaped('__proto__'), shaped('constructor'));
+    const { recordTypes } = readCommandRecords(lines(records));
+    expect(Object.hasOwn(recordTypes, '__proto__')).toBe(true);
+    expect(recordTypes['__proto__']).toBe(2);
+    expect(recordTypes['constructor']).toBe(1);
+  });
+
   it('counts a record type that is not an identifier as other, so no typed text reaches the summary', () => {
     const records = execRecords();
     records.push({ type: `${HOME_PATH}\nnonce`, payload: { type: 'not an identifier' } });
@@ -185,6 +195,28 @@ describe('readCommandRecords fails closed on the evidence records', () => {
     expect(summary.malformed).toStrictEqual([
       { line: lineOf(records, event), reason: 'CommandExecution precedes its turn' },
     ]);
+  });
+
+  it.each([
+    { name: 'text with a newline', turnId: `${HOME_PATH}\n${NONCE}` },
+    { name: 'a blank', turnId: '' },
+    { name: 'sixty-five characters', turnId: 'a'.repeat(65) },
+  ])('reads a task_started whose turn id is $name as malformed and opens no turn', ({ turnId }) => {
+    const records = execRecords();
+    const turns = turnStarts(records).length;
+    const start: TestRecord = {
+      type: 'event_msg',
+      payload: { type: 'task_started', turn_id: turnId },
+    };
+    records.push(start);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.turns).toBe(turns);
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, start), reason: 'task_started has no well-formed turn id' },
+    ]);
+    for (const format of ['text', 'json'] as const) {
+      expect(renderSummary(summary, format)).not.toContain(HOME_PATH);
+    }
   });
 
   it('reads a repeated task_started id as malformed and counts the first turn once', () => {

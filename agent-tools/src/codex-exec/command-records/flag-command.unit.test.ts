@@ -73,12 +73,15 @@ describe('flagCommand finds the forbidden shapes of the seat rules', () => {
     expect(flagCommand(segmentOf(line))).toStrictEqual([]);
   });
 
-  it('reports the token that matched, never a value', () => {
+  it("reports the rule's own token, never a value nor the cluster around its letter", () => {
     expect(flagCommand(segmentOf('git commit -F secret.txt --no-verify'))).toStrictEqual([
       { kind: 'commit-rewrites-or-skips-hooks', token: '--no-verify' },
     ]);
     expect(flagCommand(segmentOf('git commit -an'))).toStrictEqual([
-      { kind: 'commit-rewrites-or-skips-hooks', token: '-an' },
+      { kind: 'commit-rewrites-or-skips-hooks', token: '-n' },
+    ]);
+    expect(flagCommand(segmentOf('git add -qAn'))).toStrictEqual([
+      { kind: 'stage-whole-tree', token: '-A' },
     ]);
   });
 
@@ -105,12 +108,17 @@ describe('renderSegment prints a command by allowlist', () => {
       'git@github.com:org/repo.git',
       '~/notes',
     ]);
-    expect(rendered).toBe('git commit -C --<flag> -m <arg> --no-verify <arg> <arg>');
+    expect(rendered).toBe('git commit -<flag> --<flag> -<flag> <arg> --no-verify <arg> <arg>');
   });
 
-  it('elides an assignment value and a wrapper argument, keeping their names', () => {
+  it('elides an assignment value and a wrapper argument, keeping the assignment name', () => {
     const segment = [`KEY=${HOME_PATH}`, 'sudo', '-u', 'root', 'git', 'push', 'origin', 'main'];
-    expect(renderSegment(segment)).toBe('KEY=<value> sudo -u <arg> git push <arg> <arg>');
+    expect(renderSegment(segment)).toBe('KEY=<value> sudo -<flag> <arg> git push <arg> <arg>');
+  });
+
+  it("prints a rule's short flag by name and every other short option or cluster as a placeholder", () => {
+    expect(renderSegment(['git', 'add', '-A', '-v'])).toBe('git add -A -<flag>');
+    expect(renderSegment(['git', 'commit', '-an'])).toBe('git commit -<flag>');
   });
 
   it('prints a program that is not git with every argument elided', () => {
@@ -131,9 +139,12 @@ describe('renderSegment prints a command by allowlist', () => {
     );
   });
 
-  it('prints a value shaped like a long flag as a flag placeholder, never by name', () => {
+  it('prints a value shaped like a flag as a flag placeholder, never by name nor by first letter', () => {
     expect(renderSegment(['git', 'commit', '-m', '--secret-message', '--no-verify'])).toBe(
-      'git commit -m --<flag> --no-verify',
+      'git commit -<flag> --<flag> --no-verify',
+    );
+    expect(renderSegment(['git', 'commit', '-m', '-secret-message', '--no-verify'])).toBe(
+      'git commit -<flag> -<flag> --no-verify',
     );
   });
 

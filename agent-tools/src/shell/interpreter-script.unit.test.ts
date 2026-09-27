@@ -38,6 +38,22 @@ describe('interpreterScriptWords', () => {
     expect(scriptsOf('ssh host git push origin HEAD')).toStrictEqual(['git push origin HEAD']);
     expect(scriptsOf('ssh host')).toStrictEqual([]);
   });
+
+  it.each([
+    { line: 'ssh -p 22 host git push origin HEAD' },
+    { line: 'ssh -4 -p 22 host git push origin HEAD' },
+    { line: 'ssh -p22 -o StrictHostKeyChecking=no -i key host git push origin HEAD' },
+    { line: 'ssh -4p 22 -oStrictHostKeyChecking=no -ikey host git push origin HEAD' },
+    { line: 'ssh -- host git push origin HEAD' },
+    { line: 'ssh -l user -- host git push origin HEAD' },
+  ])('skips the ssh options that take a value before reading the host in "$line"', ({ line }) => {
+    expect(scriptsOf(line)).toStrictEqual(['git push origin HEAD']);
+  });
+
+  it('reads no command when ssh is given only options and a host', () => {
+    expect(scriptsOf('ssh -p 22 host')).toStrictEqual([]);
+    expect(scriptsOf('ssh -p 22')).toStrictEqual([]);
+  });
 });
 
 describe('isScriptWord', () => {

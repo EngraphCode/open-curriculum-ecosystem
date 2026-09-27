@@ -283,7 +283,7 @@ describe('the summary never carries the command history', () => {
   );
 
   it('renders a flagged command with its program, subcommand and flag names, in text and in JSON', () => {
-    for (const kept of ['git', 'commit', '--no-verify', '-C', 'KEY=<value>']) {
+    for (const kept of ['git', 'commit', '--no-verify', '-<flag>', 'KEY=<value>']) {
       expect(text).toContain(kept);
       expect(json).toContain(kept);
     }
