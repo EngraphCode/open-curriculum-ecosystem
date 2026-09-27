@@ -718,6 +718,19 @@ from nine open PRs to two under the owner's WIP limit (fifteen landings, eight o
 rows), two frictions named (F-210, F-211), three design documents for the Codex lane's next code
 PRs, and one formation letter.
 
+### 2026-09-27 12:06Z — the 2026-09-27-8af61a branch folded as #262 (Wick binds Temper, ed7b48, at the 12:00Z fold)
+
+PR 262 (coordination/2026-09-27-8af61a) merged by the bot at 12:06:40Z as d6c9e582e at full
+condition after one round (one Codex P2 on the wrapper design, Rejected on a first-hand test:
+`GIT_CONFIG` does not redirect `core.hooksPath` on git 2.50.1; no settlement push). The push took
+the slot Siren released at 11:34:48Z so 261 syncs once, after. The successor
+coordination/2026-09-27-d6c9e5 cut at 12:0xZ from that sha, tree-preserving, DUE at the UTC
+rollover. moved for teachers: nothing. / moved for the Practice: engraph's landings 260 (the WIP
+limit clause) and 263 (the runbook copy converged, its rollback cured) folded in with the
+morning's records (the 250 lane's steps, 261's readiness, the owner's thirteen answers, 254's fold
+entry) and two design cures. Defects of the fold named on the stream: the second merge commit's
+gate ran without a notice.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
