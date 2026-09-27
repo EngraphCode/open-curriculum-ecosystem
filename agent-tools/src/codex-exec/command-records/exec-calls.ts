@@ -1,7 +1,6 @@
 import type { JsonRecord } from '../rollout/record-shapes.js';
 
 import { flagSegments } from './command-item.js';
-import { renderSegment } from './flag-command.js';
 import { readHarnessText, type HarnessText, type Refusal } from './harness-text.js';
 import { shellSegments } from './shell-segments.js';
 import type { FlaggedCommand } from './summary.js';
@@ -70,14 +69,6 @@ export function classifyOutput(output: unknown): OutputClass {
   return { kind: text.status === 'completed' ? 'accounted' : 'unaccounted' };
 }
 
-/** A justification with every backticked command rendered by allowlist, so it carries no value. */
-function redactJustification(justification: string): string {
-  return justification.replaceAll(/`([^`]*)`/gu, (_match, inner: string) => {
-    const rendered = shellSegments(['sh', '-c', inner]).map(renderSegment);
-    return `\`${rendered.join(' ; ')}\``;
-  });
-}
-
 /** The refused command as a flagged entry when it carried a forbidden shape, or none. */
 export function flagRefusal(
   refusal: Refusal,
@@ -91,6 +82,5 @@ export function flagRefusal(
     kind: 'refused',
     line,
     turnId,
-    justification: redactJustification(refusal.justification),
   });
 }

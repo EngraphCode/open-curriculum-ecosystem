@@ -4,9 +4,11 @@ import { describe, expect, it } from 'vitest';
 
 import { lines, object, type TestRecord } from '../rollout/test-helpers/rollout-records.js';
 
+import { justificationOf } from './flag-command.js';
 import { readCommandRecords } from './read-command-records.js';
-import type { CommandRecordsSummary, TurnAccount } from './summary.js';
+import { renderSummary, type CommandRecordsSummary, type TurnAccount } from './summary.js';
 import {
+  appendCommandTurn,
   commandItems,
   execCalls,
   execOutputs,
@@ -82,11 +84,15 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
       rendered: ['git push <arg> <arg>'],
       hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
     });
-    expect(entry.justification).toContain('refuses force and default branches');
-    for (const word of ['agent-tools', 'merge-bot', '<branch>']) {
-      expect(entry.justification).not.toContain(word);
+    const text = renderSummary(summary, 'text');
+    const flaggedLine = text
+      .split('\n')
+      .find((line) => line.startsWith(`flagged: line ${lineOf(records, output)}`));
+    assert(flaggedLine);
+    expect(flaggedLine.split(justificationOf('push-outside-the-bot'))).toHaveLength(2);
+    for (const rendered of [text, renderSummary(summary, 'json')]) {
+      expect(rendered).not.toContain('origin HEAD');
     }
-    expect(entry.justification).toContain('pnpm <arg>');
     expect(summary.malformed).toStrictEqual([]);
   });
 
@@ -185,7 +191,7 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
     const summary = readCommandRecords(lines(records));
     expect(onlyAccount(summary)).toMatchObject({ calls: calls + 2, refused: 2, accounted: calls });
     expect(summary.flagged.map((entry) => entry.kind)).toStrictEqual(['refused']);
-    expect(summary.flagged[0]?.justification).toBe(NONCE);
+    expect(renderSummary(summary, 'json')).not.toContain(NONCE);
     expectInvariant(summary);
   });
 
@@ -229,6 +235,40 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
     expect(summary.malformed).toStrictEqual([
       { line: 1, reason: 'exec request precedes its turn' },
     ]);
+  });
+
+  it('reads an exec request repeating a pending call id as malformed and unaccounted', () => {
+    const records = execRecords();
+    const calls = execCalls(records).length;
+    const [request] = execCalls(records);
+    assert(request);
+    const repeat: TestRecord = { type: request.type, payload: { ...request.payload } };
+    records.splice(records.indexOf(request) + 1, 0, repeat);
+    const summary = readCommandRecords(lines(records));
+    expect(onlyAccount(summary)).toMatchObject({
+      calls: calls + 1,
+      accounted: calls,
+      unaccounted: 1,
+    });
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, repeat), reason: 'exec request repeats a pending call id' },
+    ]);
+    expectInvariant(summary);
+  });
+
+  it('leaves a call unaccounted when its output arrives in a later turn', () => {
+    const records = execRecords();
+    const calls = execCalls(records).length;
+    const output = firstOutput(records);
+    records.splice(records.indexOf(output), 1);
+    appendCommandTurn(records, ['git', 'status']);
+    records.push(output);
+    const summary = readCommandRecords(lines(records));
+    const [first, second] = summary.accounts;
+    expect(first).toMatchObject({ calls, accounted: calls - 1, unaccounted: 1 });
+    expect(second).toMatchObject({ calls: 0, accounted: 0, unaccounted: 0 });
+    expect(summary.malformed).toStrictEqual([]);
+    expectInvariant(summary);
   });
 
   it('holds the call invariant over both recorded rollouts', () => {

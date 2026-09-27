@@ -61,9 +61,8 @@ function strictReasons(summary: CommandRecordsSummary): string[] {
   if (ran > 0) {
     reasons.push(`${ran} forbidden shape(s) ran`);
   }
-  const unaccounted = summary.accounts.reduce((sum, account) => sum + account.unaccounted, 0);
-  if (unaccounted > 0) {
-    reasons.push(`${unaccounted} unaccounted exec call(s)`);
+  if (summary.unaccounted > 0) {
+    reasons.push(`${summary.unaccounted} unaccounted exec call(s)`);
   }
   if (summary.malformed.length > 0) {
     reasons.push(`${summary.malformed.length} malformed evidence record(s)`);

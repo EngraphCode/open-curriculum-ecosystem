@@ -8,6 +8,7 @@ import { renderSummary, type CommandRecordsSummary } from './summary.js';
 const summary: CommandRecordsSummary = {
   turns: 2,
   commands: 3,
+  unaccounted: 1,
   flagged: [
     {
       kind: 'interaction',
@@ -18,7 +19,6 @@ const summary: CommandRecordsSummary = {
         { kind: 'stage-whole-tree', token: '-A' },
         { kind: 'push-outside-the-bot', token: 'push' },
       ],
-      justification: undefined,
     },
     {
       kind: 'refused',
@@ -26,7 +26,6 @@ const summary: CommandRecordsSummary = {
       turnId: 'turn-b',
       rendered: ['git push <arg>'],
       hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
-      justification: 'Push through `pnpm <arg> <arg> <arg>` instead.',
     },
   ],
   accounts: [
@@ -79,12 +78,11 @@ describe('renderSummary as text', () => {
     expect(textLines[0]).toContain('1 unaccounted');
   });
 
-  it('carries a refused entry with its justification on its line', () => {
+  it('carries a refused entry on its line with the rule’s justification once', () => {
     const refused = textLines.find((line) => line.startsWith('flagged: line 11'));
-    const [, entry] = summary.flagged;
-    assert(entry?.justification);
+    assert(refused);
     expect(refused).toContain('refused');
-    expect(refused).toContain(entry.justification);
+    expect(refused.split(justificationOf('push-outside-the-bot'))).toHaveLength(2);
   });
 
   it('carries a flagged entry on one line: its kind, turn, every segment, every shape and its justification', () => {

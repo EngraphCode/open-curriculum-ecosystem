@@ -26,15 +26,11 @@ function debugRejected(commandLine: string, justification: string): string {
 }
 
 describe('readHarnessText reads a refusal by the exec policy', () => {
-  it('reads the observed refusal: the judged command line and the justification', () => {
+  it('reads the observed refusal: the judged command line alone', () => {
     const read = readHarnessText(observedRefusalOutput());
     assert(read.kind === 'text');
     expect(read.status).toBe('failed');
-    expect(read.refusal).toStrictEqual({
-      commandLine: "/bin/zsh -lc 'git push origin HEAD'",
-      justification:
-        'Push with `pnpm agent-tools merge-bot push --branch <branch>`, which refuses force and default branches.',
-    });
+    expect(read.refusal).toStrictEqual({ commandLine: "/bin/zsh -lc 'git push origin HEAD'" });
     expect(read.truncated).toBe(false);
   });
 
@@ -52,10 +48,7 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
     const text = `${FAILED}Script error:\n${debugRejected(`git push ${NONCE}`, `because ${NONCE}`)}`;
     const read = readHarnessText(carry(text));
     assert(read.kind === 'text');
-    expect(read.refusal).toStrictEqual({
-      commandLine: `git push ${NONCE}`,
-      justification: `because ${NONCE}`,
-    });
+    expect(read.refusal).toStrictEqual({ commandLine: `git push ${NONCE}` });
   });
 
   it('reads a function-tool refusal from offset 0, in the bare and the rendered forms', () => {
@@ -71,16 +64,22 @@ describe('readHarnessText reads a refusal by the exec policy', () => {
   it('reads a refused write_stdin as a refusal with no command line', () => {
     const read = readHarnessText(`write_stdin rejected: ${NONCE}`);
     assert(read.kind === 'text');
-    expect(read.refusal).toStrictEqual({ commandLine: '', justification: NONCE });
+    expect(read.refusal).toStrictEqual({ commandLine: '' });
   });
 
-  it('never reads the program’s own text: the same words under a completed script are no refusal', () => {
-    const printed = `${COMPLETED}${debugRejected(`git push ${NONCE}`, NONCE)}`;
-    const read = readHarnessText(printed);
-    assert(read.kind === 'text');
-    expect(read.status).toBe('completed');
-    expect(read.refusal).toBeUndefined();
-  });
+  it.each([
+    { name: 'bare', lead: '' },
+    { name: 'after a Script error line the program printed', lead: 'Script error:\n' },
+  ])(
+    'never reads the program’s own text: the same words under a completed script ($name) are no refusal',
+    ({ lead }) => {
+      const printed = `${COMPLETED}${lead}${debugRejected(`git push ${NONCE}`, NONCE)}`;
+      const read = readHarnessText(printed);
+      assert(read.kind === 'text');
+      expect(read.status).toBe('completed');
+      expect(read.refusal).toBeUndefined();
+    },
+  );
 
   it('anchors after the last Script error line, not the first thing that looks like one', () => {
     const program = `Script error:\n${debugRejected(`git push ${NONCE}`, NONCE)}\n`;
@@ -120,11 +119,17 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
     expect(read.truncated).toBe(true);
   });
 
-  it('does not read a truncation marker the program printed under a completed script', () => {
-    const read = readHarnessText(`${COMPLETED}…153 tokens truncated…`);
-    assert(read.kind === 'text');
-    expect(read.truncated).toBe(false);
-  });
+  it.each([
+    { name: 'bare', lead: '' },
+    { name: 'after a Script error line the program printed', lead: 'Script error:\n' },
+  ])(
+    'does not read a truncation marker the program printed under a completed script ($name)',
+    ({ lead }) => {
+      const read = readHarnessText(`${COMPLETED}${lead}…153 tokens truncated…`);
+      assert(read.kind === 'text');
+      expect(read.truncated).toBe(false);
+    },
+  );
 
   it.each([
     { output: 42 },

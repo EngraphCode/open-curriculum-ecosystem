@@ -82,6 +82,7 @@ describe('readCommandRecords over the recorded seat rollout', () => {
     expect(readCommandRecords([])).toStrictEqual({
       turns: 0,
       commands: 0,
+      unaccounted: 0,
       flagged: [],
       accounts: [],
       recordTypes: {},

@@ -113,6 +113,5 @@ export function flagRecord(record: CommandRecord): FlaggedCommand | undefined {
     kind: kindOf(record),
     line: record.line,
     turnId: record.turnId,
-    justification: undefined,
   });
 }

@@ -32,7 +32,6 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
         turnId: APPENDED_TURN_ID,
         rendered: ['git commit --amend --no-edit'],
         hits: [{ kind: 'commit-rewrites-or-skips-hooks', token: '--amend' }],
-        justification: undefined,
       },
     ]);
     expect(summary.accounts.map((account) => account.executed)).toStrictEqual([base, 1]);
@@ -105,7 +104,6 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
         turnId: APPENDED_TURN_ID,
         rendered: ['git push <arg> <arg>'],
         hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
-        justification: undefined,
       },
     ]);
     expect(summary.accounts[1]).toMatchObject({ executed: 0, declined: 1 });
@@ -145,7 +143,6 @@ describe('readCommandRecords flags what was typed into a running process', () =>
         turnId: APPENDED_TURN_ID,
         rendered: ['git push <arg> <arg>'],
         hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
-        justification: undefined,
       },
     ]);
     expect(summary.commands).toBe(base);

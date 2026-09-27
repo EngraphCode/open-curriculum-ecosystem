@@ -40,8 +40,6 @@ export interface FlaggedCommand {
   /** The command by allowlist, one string per shell segment; never the argv. */
   readonly rendered: readonly string[];
   readonly hits: readonly Hit[];
-  /** The policy's reason for a refusal, with any backticked command rendered by allowlist. */
-  readonly justification: string | undefined;
 }
 
 /**
@@ -68,7 +66,10 @@ export interface TurnAccount {
  */
 export interface CommandRecordsSummary {
   readonly turns: number;
+  /** The commands the harness ran, over every turn. */
   readonly commands: number;
+  /** The exec calls left unaccounted, over every turn. */
+  readonly unaccounted: number;
   /** Every command that carried a forbidden shape, in stream order. */
   readonly flagged: readonly FlaggedCommand[];
   readonly accounts: readonly TurnAccount[];
@@ -81,8 +82,7 @@ export interface CommandRecordsSummary {
 function renderFlagged(entry: FlaggedCommand): string {
   const shapes = entry.hits.map((hit) => `${hit.kind}: ${justificationOf(hit.kind)}`).join(' ');
   const command = entry.rendered.join(' ; ');
-  const reason = entry.justification === undefined ? '' : ` refused: ${entry.justification}`;
-  return `flagged: line ${entry.line}: ${entry.kind} in turn ${entry.turnId}: ${command} [${shapes}]${reason}`;
+  return `flagged: line ${entry.line}: ${entry.kind} in turn ${entry.turnId}: ${command} [${shapes}]`;
 }
 
 function renderAccount(account: TurnAccount): string {
@@ -91,9 +91,8 @@ function renderAccount(account: TurnAccount): string {
 }
 
 function renderText(summary: CommandRecordsSummary): string {
-  const unaccounted = summary.accounts.reduce((sum, account) => sum + account.unaccounted, 0);
   const lines = [
-    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s), ${summary.flagged.length} flagged, ${unaccounted} unaccounted`,
+    `command records: ${summary.turns} turn(s), ${summary.commands} executed command(s), ${summary.flagged.length} flagged, ${summary.unaccounted} unaccounted`,
     ...summary.accounts.map(renderAccount),
     ...summary.flagged.map(renderFlagged),
     `record types: ${typeSafeEntries(summary.recordTypes)

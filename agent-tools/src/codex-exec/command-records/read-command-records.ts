@@ -106,7 +106,7 @@ function readEvent(payload: JsonRecord, state: ReaderState, line: number): void 
   }
 }
 
-/** An exec request opens a pending call on the current turn. */
+/** An exec request opens a pending call on the current turn; one repeating a pending call id is malformed and unaccounted. */
 function readExecRequest(callId: string, state: ReaderState, line: number): void {
   const turn = currentTurn(state);
   if (turn === undefined) {
@@ -114,6 +114,11 @@ function readExecRequest(callId: string, state: ReaderState, line: number): void
     return;
   }
   turn.calls += 1;
+  if (turn.pending.has(callId)) {
+    turn.unaccounted += 1;
+    state.malformed.push({ line, reason: 'exec request repeats a pending call id' });
+    return;
+  }
   turn.pending.add(callId);
 }
 
@@ -235,6 +240,7 @@ export function readCommandRecords(lines: readonly string[]): CommandRecordsSumm
   return {
     turns: state.turns.length,
     commands: accounts.reduce((sum, account) => sum + account.executed, 0),
+    unaccounted: accounts.reduce((sum, account) => sum + account.unaccounted, 0),
     flagged: state.flagged,
     accounts,
     recordTypes: state.recordTypes,
