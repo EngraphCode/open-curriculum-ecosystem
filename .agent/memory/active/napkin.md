@@ -816,3 +816,12 @@ absence set against the slot rule's free-on-silence as "opposite treatments of s
 already `silence-is-never-liveness`; forced); a seat that declares its own end and is then told to
 continue (handled by the explicit supersession line, the Director's and this seat's; documented and
 nothing more).
+
+**Post-wrap slip, written at occurrence (12:3xZ).** Stopping this seat's last processes, a sweep of
+the process table for the pattern "sleep 240" signalled one sleep that belonged to the Director's
+pulse loop on the other estate, not to this seat: one early heartbeat tick, the loop unharmed, a
+correction line on the stream. The pattern was broader than its target; a seat stops processes by
+their parent (its own session pid or its own loop's pid), never by a command-line pattern that any
+seat's loop matches. The known signature again, the finish-line burst: the sweep ran under the drive
+to leave nothing behind, and the guard that would have caught it (read the parent before the kill)
+was the one skipped.
