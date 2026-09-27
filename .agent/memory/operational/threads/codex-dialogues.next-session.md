@@ -174,6 +174,12 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     minutes earlier: the two-hands rule applies to the index as much as to the stream.
   - **The wrap's loss scan and metaloss passes are in the napkin** (12:5xZ), with the fixed point
     named. The formation letter is at `.agent/experience/2026-09-27-swallow-holds-drift-the-question-i-did-not-ask.md`.
+  - **Retrospective at the owner's word (about 15:5xZ), after the landing above:**
+    `.agent/reports/agentic-engineering/why-the-reader-took-five-rounds-and-a-splitter-it-did-not-need-2026-09-27.md`.
+    Twenty findings in three classes over five reviewed heads; two mechanisms named (the prior-art
+    question at cycle 1 has no owner; an instance cure under drive makes the next instance); three
+    fast-lane proposals routed to the queued doctrine edits lane and the wrap skill's next PR; no
+    slow-lane entry.
 - **RESUMED (about 09:30Z, 2026-09-27) at the owner's start-right word, after compaction 5.** Live
   state read first; heartbeat and watcher re-armed by id; the Director's routing `26eb4e4e` (the
   owner's answer on goal two, "Swallow's lane, in order"; the free slot to the reader) acked
