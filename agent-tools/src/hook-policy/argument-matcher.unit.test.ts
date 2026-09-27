@@ -208,6 +208,35 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'sudo rm -rf dir')).toBe(true);
   });
 
+  it('reads a long option glued to a redirection as the option, so the redirection is no bypass', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm --recursive --force>/dev/null d')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -r --force>x d')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'git reset --hard>/dev/null')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'git reset --hard>x -- f')).toBe(true);
+    expect(matchesArgvPattern('git push --force', 'git push --force>/dev/null origin HEAD')).toBe(
+      true,
+    );
+  });
+
+  it('reads a redirection target glued to an option as the target, as the shell does', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm -r>x-f d')).toBe(false);
+  });
+
+  it('reads the unquoted operands of eval and ssh as the one command they run', () => {
+    expect(matchesArgvPattern('git reset --hard', 'eval git reset --hard HEAD~1')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'ssh host git reset --hard HEAD~1')).toBe(true);
+  });
+
+  it('reads past an ssh option that takes a value to the command the host runs', () => {
+    expect(matchesArgvPattern('git reset --hard', 'ssh -p 22 host git reset --hard HEAD~1')).toBe(
+      true,
+    );
+  });
+
+  it('reads an escaped or quoted operator character as text, so it hides no later option', () => {
+    expect(matchesArgvPattern(recursiveForce, String.raw`rm -rf x \>& -i`)).toBe(true);
+  });
+
   it('lets a later option cancel the one it overrides, as rm does', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -rf -i dir')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rm -i -rf dir')).toBe(true);
@@ -422,5 +451,21 @@ describe('matchesArgvPattern — shell shapes', () => {
 
   it('never matches when the pattern itself does not parse', () => {
     expect(matchesArgvPattern('git frobnicate --hard', 'git frobnicate --hard')).toBe(false);
+  });
+});
+
+describe('matchesArgvPattern — the script a shell interpreter is given', () => {
+  it.each([
+    { command: "bash -c -o posix 'rm -rf x'" },
+    { command: "bash +xc 'rm -rf x'" },
+    { command: `bash -c 'eval "$1"' _ 'rm -rf x'` },
+    { command: "bash -c -- '-x; rm -rf x'" },
+    { command: "nice a=x/bash -c 'rm -rf x'" },
+  ])('reads the script a shell is given in "$command"', ({ command }) => {
+    expect(matchesArgvPattern('rm -rf', command)).toBe(true);
+  });
+
+  it('reads no script when only an assignment carries a shell name', () => {
+    expect(matchesArgvPattern('rm -rf', "SHELL=/bin/bash grep -c 'rm -rf x' log")).toBe(false);
   });
 });

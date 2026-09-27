@@ -1,5 +1,5 @@
 import type { OptionSpec } from './argv-option-spec.js';
-import type { ShellWord } from './shell-words.js';
+import type { ShellWord } from '../shell/shell-words.js';
 
 /**
  * Option resolution for the argument-aware Bash-guard matcher: how one

@@ -162,3 +162,34 @@ b"`),
     expect(texts('')).toStrictEqual([]);
   });
 });
+
+describe('segmentCommand reads redirections as the shell does', () => {
+  it('opens a new word at a redirection after an ordinary word, as the shell does', () => {
+    expect(texts('rm -rf>/dev/null d')).toStrictEqual([['rm', '-rf', '>/dev/null', 'd']]);
+    expect(texts('git reset --hard>/dev/null')).toStrictEqual([
+      ['git', 'reset', '--hard', '>/dev/null'],
+    ]);
+    expect(texts('a&>b')).toStrictEqual([['a', '&>b']]);
+    expect(texts('x1>y 1>&2 2>>log')).toStrictEqual([['x1', '>y', '1>&2', '2>>log']]);
+  });
+
+  it('keeps a here-string whole and reads a glued here-document operator as its own token', () => {
+    expect(texts('cat <<<here')).toStrictEqual([['cat', '<<<here']]);
+    expect(texts('rm<<EOT -rf')).toStrictEqual([['rm', '<<EOT', '-rf']]);
+  });
+
+  it('keeps an empty quoted word, a glued input redirection, and a here-document body after a comment', () => {
+    expect(texts('git commit -m ""')).toStrictEqual([['git', 'commit', '-m', '']]);
+    expect(texts('git push<input')).toStrictEqual([['git', 'push', '<input']]);
+    expect(texts('cat <<EOF # note\ngit push origin HEAD\nEOF\necho done')).toStrictEqual([
+      ['cat', '<<EOF'],
+      ['echo', 'done'],
+    ]);
+  });
+
+  it('reads a quoted or escaped operator character as text, never as an operator', () => {
+    expect(texts(String.raw`rm -rf x \>& -i`)).toStrictEqual([['rm', '-rf', 'x', '>'], ['-i']]);
+    expect(texts("'2'>&1")).toStrictEqual([['2', '>&1']]);
+    expect(texts('"a>">x')).toStrictEqual([['a>', '>x']]);
+  });
+});
