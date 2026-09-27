@@ -509,7 +509,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   than a fresh gap. ADR-229 states the conflict and does not settle it)
 - [ADR-230: Own-built algorithm and data-structure foundations](230-own-built-algorithm-and-data-structure-foundations.md)
   (Accepted by owner direction 2026-09-08; graph and non-graph algorithms and
-  data structures authored as SMALL Reliable Atoms and meaningful compositions,
+  data structures authored as Capability Foundations with small completed Primitives
+  and meaningful compositions,
   informed by openly licensed references and independently qualified;
   implementation and qualification remain separate delivery work)
 - [ADR-231: Organisational identity is held below the tree](231-organisational-identity-below-the-tree.md)

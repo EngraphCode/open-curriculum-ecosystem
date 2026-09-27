@@ -297,6 +297,15 @@ Two positive complements to the scope-discipline tripwires above (PDR-026/027/02
   value is the different failure surface, so the seat's platform diversity
   is the point, not its identity — the designated seat is re-derived from
   the live roster at time of use.
+  A verdict that coincides with the seat's own interest (a budget, a
+  convenience, its own earlier position) gets one outside check before it is
+  posted; the falsifier is three such checks that merely confirm. A key
+  shared text gets one cold reader from outside the model family before the
+  owner sees it, not told which line the seats doubt; the falsifier is two
+  outside reads that find nothing the inside checks had not. Frame diversity
+  discriminates and volume does not: five conscience checks of one model
+  family found six defects and missed the largest, and one outside reader
+  found it at once (2026-09-21).
 
 ## PR Closeout Discipline
 

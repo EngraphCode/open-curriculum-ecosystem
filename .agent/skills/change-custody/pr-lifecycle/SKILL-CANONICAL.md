@@ -970,10 +970,12 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    HEAD, named on the PR when that push lands. Read with the owner's ruling of
    2026-09-14, verbatim "I don't want the number of rounds of PRs to go up": the
    rebudget licenses the one settlement push that carries the pending mandatory
-   cure and the dispositions, never a further cure round after it; past round
-   two each later finding is a disposition riding the settlement (a prose-class
-   pull request took two rebudget pushes under clause 4 before the ruling reached
-   its seat, 2026-09-24). A binding worth declaring names its exception in advance (a
+   cure and the dispositions, never a further cure round after it; past the round
+   budget each later below-bar finding is a disposition riding the settlement,
+   and a later over-bar finding takes PDR-140's late-cure push (clause 4; 9(b)
+   on records-class). A prose-class pull request took two rebudget pushes
+   under clause 4 before the ruling reached its seat (2026-09-24). A binding
+   worth declaring names its exception in advance (a
    statement a rule falsifies, cured with a sweep) or is owner-gated from
    the start: a "no further cure push" declared before reading what the
    next round could hold broke one round later, and on a sibling PR a
@@ -1685,7 +1687,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   at the state machine's merge boundary (item 5), issued by hand at a
   freshly recomputed gate.
 - **The landing slot under a require-up-to-date ruleset** (Director routing
-  2026-09-06, refined 2026-09-07; moved here from a retired rule 2026-09-08).
+  2026-09-06, refined 2026-09-07 and 2026-09-26; moved here from a retired rule
+  2026-09-08).
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
   push again, and every push opens a fresh review round (ADR-204 makes the
@@ -1693,8 +1696,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   merge concurrency between settled-READY PRs is free where the ruleset does
   not require currency — and names the strict-currency ruleset policy as an
   owner-owned cost driver (its decision 5); this clause is that policy's cost
-  made orderly while the owner keeps it (live on this repository's default
-  branch, read from the rules API), not a return of the retired machinery, and
+  made orderly while the owner keeps it (read the default branch's ruleset
+  from the rules API before applying it), not a return of the retired machinery, and
   it lapses the day the policy is dropped. So ONE non-draft PR holds the landing slot at a time:
   the slot-holder syncs ONCE, pushes, settles and merges; every other seat
   may open its PR, gather reviews and disposition threads, but does NOT sync
@@ -1704,10 +1707,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   ahead is superseded by each of their landings and redone at the slot
   (four times on one carrier, 2026-09-09); a waiting PR keeps its own head
   and prepares everything that does not depend on the tip — dispositions,
-  sweeps, the merge message. Slot order is the Director's call — the default is
-  the oldest non-draft PR, and the slot goes to whichever PR is green and
-  clean first rather than being held empty. The slot follows readiness, never
-  a queue order written earlier: a draft is not in the queue until its legs
+  sweeps, the merge message. Slot order is the Director's call — among ready PRs
+  the default is changed-file count, smallest first (the Director's ruling of
+  2026-09-26, the order the owner landed by hand), and the slot goes to a ready
+  PR rather than being held empty. The slot follows readiness, never a list
+  order written earlier: a draft is not on the ready list until its legs
   can bind, and a slot needs a named keeper, not just a next PR (two
   handovers thirty minutes apart left it unkept, 2026-09-24). Settle-ready
   needs a BINDING round: a dismissed round binds nothing and Copilot never
@@ -1715,16 +1719,68 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   blocker to route around (2026-08-19). A holder that has synced and is
   waiting for a per-tip reviewer leg to bind is NOT an empty slot: nothing else
   lands meanwhile, because every landing knocks the holder BEHIND and voids the
-  leg bound to its head, a livelock. A holder yields only when it cannot land
-  inside its window (a red check to cure), and its re-sync rides that cure push
-  (2026-09-10: #117 and #113 landed while #116 cured a red check; "land #117
-  now" arrived twice while #116 waited on its leg, and was held). The fold takes
-  the slot at the UTC rollover. Any auto-sync babysitter — a watcher running
+  leg bound to its head, a livelock. A PR takes the slot when its legs are
+  green and its remaining conditions need no push: its unresolved threads are
+  zero or settled by signed lines. "Clean" in a slot ruling means green legs
+  and zero unresolved threads, never GitHub's `mergeStateStatus`. A turn opens
+  and closes on the coordination stream: "slot taken" with the PR's number,
+  one sync push, the legs bound to the synced head, the merge-bot front door,
+  "slot released", then the remote branch deleted as the bot with read-back;
+  the seat then yields to the next ready PR. A holder leaves the slot in one
+  of three ways: it lands and releases; it cannot land without a cure push (a
+  red check), so it yields, rejoins the ready list, and its re-sync rides that
+  cure push; with no other ready PR waiting, the yield costs nothing and the
+  same PR retakes the slot after that push (2026-09-10: two PRs landed while
+  the holder cured a red check, and an order to land one of them arrived
+  twice while the holder waited on its leg, and was held); or its heartbeat
+  and state lines stop for twenty
+  minutes and a direct ping goes unanswered, which frees the slot. While the
+  owner lands by hand, every seat holds its syncs until the owner says done.
+  A coordination fold takes the slot at its time. Any auto-sync babysitter — a watcher running
   `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
   slot-holder only; a waiting PR is never auto-synced, because each sync is
   a push and each push is a review round. Worked instance (2026-09-06): one
   PR was knocked BEHIND twice in one evening by other seats' merges, and its
   round five came from a sync push, not a cure.
+- **The work-in-progress limit** (owner, 2026-09-26 and 2026-09-27; the
+  operating steps under it are the Director's reading and this rule's review
+  cures, reviewed at acceptance). The owner's words: "Each repo is allowed
+  one coordination PR"; "The total number of allowed PRs not including
+  coordination PRs is the number of implementer agents, in this case three",
+  counted across the team's repositories together ("Three across both");
+  external PRs "absolutely do count towards the WIP limit, and must
+  automatically be taken on by the Director, analysed"; PRs from hosts that
+  cannot run code "need to be checked out locally, evaluated, and then
+  worked on as normal by the team"; for Dependabot, "Team lands green ones".
+  The goal is "aiming for zero while useful value is still created and
+  merged", because "a static zero means no useful work is happening". The
+  operating steps:
+  - No PR other than a repository's one coordination PR opens while the count
+    is at the limit or over it. The reservation comes first: the opener posts
+    "WIP slot reserved: <owner>/<name> <branch>" on its repository's
+    coordination stream, then reads the count first-hand from the forge for
+    every repository (`gh pr list --repo <owner>/<name> --state open --limit
+    1000` on GitHub: the target always named, and a limit above the default
+    page of thirty), leaving out each repository's coordination PR, then reads
+    every repository's stream for reservations posted before its own whose PR
+    is not yet open. It opens only while the count plus those earlier
+    reservations is under the limit; otherwise it withdraws its reservation
+    on the stream and waits for the next free slot. The streams' order is
+    the serialiser, as for the landing slot, and a reservation is followed at
+    once by its PR or its withdrawal. A coordination PR takes no reservation.
+  - A branch's first push is followed at once by its PR, never left
+    standing: a pushed branch with no PR is unfinished work outside review.
+  - The Director routes each external PR into the slot order to a named seat.
+    A green dependency bump lands at its size turn; a red one is assessed,
+    then cured, or closed with a card to the owner.
+  - A PR from a non-executing host is gated locally on its head; its own
+    list of what remains for an execution-capable host becomes its todo, its
+    content is evaluated as a peer's PR, and its ready-mark is the owner's or
+    follows the owner's stated acceptance.
+  - While the count is full, a seat prepares without a worktree or a commit
+    (reading, planning, reviewing a peer's PR), because `worktree-hygiene`
+    allows no worktree to hold work without a PR; its landing turns and any
+    cure that frees the count come first.
 - **CI runs the test-merge with CURRENT main.** A mid-round main landing
   that moves a mirrored asset (a kit file vs a tracked copy under
   `public/`, or any tracked parity copy) can red a parity test on your

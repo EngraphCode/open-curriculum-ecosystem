@@ -126,6 +126,11 @@ Fluency failures **cluster at the finish line**. Under completion drive — the 
 in a burst (five in one closing stretch, each caught by a guard or a peer, none self-caught;
 worked instance 2026-07-06). The felt urge to wrap up is itself the tripwire: slow the last
 moves down, and keep the guards absolute exactly when the drive says skip them.
+A second instance (2026-09-21): four corrections in one afternoon, none self-caught, each on a
+landing stretch run under the drive to land. The counter-observation (2026-09-24, a second
+seat): its slips clustered under parallel threads, not at a finish line, and structure caught
+them, so the drive to finish is the generator wherever it fires and the cure stays structural,
+with every relayed number, timestamp and credential re-grounded at the moment of use.
 
 A beloved principle is itself a bias: a principle that names a failure class primes its
 reader to SEE that class. A CI reflow red pattern-matched elegantly to animation-phase

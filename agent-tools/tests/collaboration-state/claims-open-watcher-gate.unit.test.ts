@@ -30,7 +30,7 @@ const self = deriveCollaborationIdentity({
   platform: 'claude-code',
   model: 'claude-opus-4-7-1m',
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: 'Seal hunts Offing',
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Seal hunts Offing',
     PRACTICE_AGENT_SESSION_ID_CLAUDE: '8210d6',
   },
 }).agentId;
@@ -39,7 +39,7 @@ const other = deriveCollaborationIdentity({
   platform: 'codex',
   model: 'GPT-5',
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: 'Woodland Creeping Petal',
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Woodland Creeping Petal',
     PRACTICE_AGENT_SESSION_ID_CODEX: '019dd3',
   },
 }).agentId;

@@ -77,7 +77,9 @@ here.
   the harness delivers when the process exits.
 - Genuinely periodic checks (poll a remote queue at a fixed cadence,
   re-read a status file every N minutes) — Monitor cannot replace a
-  poll because the source surface emits no stream.
+  poll because the source surface emits no stream. A poller that emits a
+  stream, such as `comms watch`, still fires the rule: Monitor wraps its
+  output.
 
 ## Composition With Existing Rules
 

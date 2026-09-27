@@ -34,7 +34,8 @@ export interface WatchCommsLoopInput {
    * the per-step deadline machinery, so a rejection escapes as an
    * unclassified fatal exit — no WATCHER ERROR line, no WATCHER EXIT line.
    * The production implementation is a plain timer that resolves after one
-   * `pollMs` interval (the watcher polls every `pollMs`) and never rejects.
+   * `pollMs` interval (the watcher waits one `pollMs` interval between
+   * passes) and never rejects.
    */
   readonly waitForChange: () => Promise<void>;
   readonly emit: (text: string) => Promise<void>;
@@ -140,7 +141,7 @@ async function stepErrorRuledFatal(
 /**
  * Mark F-146-excluded ids seen, independent of emit — they carry no
  * emission debt, and skipping them on empty-output drains would re-grow the
- * unseen backlog every wake and replay it when the filter lifts. Returns
+ * unseen backlog every pass and replay it when the filter lifts. Returns
  * true only when `onError` ruled the marking failure fatal (duplicate
  * marking next cycle is safe, so failures default to non-fatal).
  */

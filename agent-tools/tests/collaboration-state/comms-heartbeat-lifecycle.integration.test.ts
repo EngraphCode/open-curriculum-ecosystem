@@ -28,7 +28,7 @@ const senderWithId = deriveCollaborationIdentity({
   platform: sender.platform,
   model: sender.model,
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
     PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
   },
 }).agentId;
@@ -90,7 +90,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -131,7 +131,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -169,7 +169,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -222,7 +222,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -288,7 +288,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -339,7 +339,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -357,7 +357,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
       platform: sender.platform,
       model: sender.model,
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: 'Distant Roaming Peer',
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Distant Roaming Peer',
         PRACTICE_AGENT_SESSION_ID_CLAUDE: 'ffee12',
       },
     }).agentId;
@@ -396,7 +396,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -446,7 +446,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -494,7 +494,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -556,7 +556,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,

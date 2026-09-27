@@ -15,7 +15,7 @@ const CANONICAL_ACTIVE = join(PRIMARY, '.agent/state/collaboration/active-claims
 const CANONICAL_LOG = join(PRIMARY, '.agent/state/collaboration/shared-comms-log.md');
 
 const senderEnv = {
-  OAK_AGENT_IDENTITY_OVERRIDE: 'Juniper crosses Vale',
+  PRACTICE_AGENT_IDENTITY_OVERRIDE: 'Juniper crosses Vale',
   PRACTICE_AGENT_SESSION_ID_CLAUDE: '7c3f11',
 } as const;
 

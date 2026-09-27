@@ -18,8 +18,8 @@ merge_class: index-narrative-tables
 
 Practice continuity and temporary knowledge-curation. This is not a product
 implementation thread. The full 142-session history (curation passes, the
-feedback-mechanism arc, taxonomy work) is retained in git and in the
-[`curator-passes/`](../curator-passes/) ledgers; this record carries the live
+feedback-mechanism arc, taxonomy work) is retained in git, the commits
+that homed each pass's substance; this record carries the live
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
@@ -458,7 +458,7 @@ pickup trigger; neither blocks the other.
 Additive per
 [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
 This table carries the **recent active stretch**; the full 142-session trail (older curation
-passes) is in git history and the [`curator-passes/`](../curator-passes/) ledgers.
+passes) is in git history, the commits that homed each pass's substance.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -564,6 +564,5 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
   friction F-37; pending-graduations entry "PDR-051 reduced-implementation reconciliation review".
 - **Graduation register**: [`pending-graduations.md`](../pending-graduations.md) (decision-debt
   candidates — pending/due/overdue — and fired-trigger candidates from this thread's curation passes).
-- **Curation ledgers**: [`curator-passes/`](../curator-passes/) (per-pass disposition evidence).
 - **Repo state**: [`repo-continuity.md`](../repo-continuity.md) § Current State (authoritative
   live state across threads).

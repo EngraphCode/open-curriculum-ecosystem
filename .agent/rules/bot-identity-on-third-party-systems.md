@@ -237,13 +237,27 @@ the first hop. Confirm the id from the API, never from prose:
   2. **Guard the token by LENGTH, not exit code** (`[ ${#token} -ge 20 ]`)
      — an empty read is a failure whatever the exit code.
   3. **Prove the credential before the first write** — a read-only
-     status read, `status=$(GH_TOKEN="$token" gh api -i user 2>/dev/null | head -1 | awk '{print $2}')`,
-     then `[ "$status" = 403 ] || exit 1`. An installation token answers 403
-     ("Resource not accessible by integration"), a human credential
-     answers 200 with its login, and an empty or broken token answers 401
-     or nothing, so only the 403 lets the sequence continue; the bare
-     call's exit code cannot tell these apart (both answers verified
-     2026-09-25). An empty `GH_TOKEN` is invisible at the
+     status read, then a stop unless it is the installation's answer:
+
+     ```bash
+     out=$(GH_TOKEN="$token" gh api -i user 2>/dev/null || true)
+     code=$(printf '%s\n' "$out" | awk 'NR==1{print $2}')
+     [ "$code" = 403 ] || exit 1
+     printf '%s' "$out" | grep -q 'Resource not accessible by integration' || exit 1
+     ```
+
+     An installation token answers 403 with "Resource not accessible by
+     integration" in its body. A human credential answers 200 with its
+     login, and an empty token falls back to the stored login and answers
+     200 the same way; a broken token answers 401 or nothing. A human
+     credential can also answer 403, on a rate limit, so the body decides,
+     not the code alone. The call exits 0 only on a 200, so its exit code
+     cannot tell the installation's 403 from a 401 or a rate-limited 403,
+     and the capture's `|| true` keeps an expected non-zero exit from
+     stopping the block under errexit (the installation's 403, the empty
+     token's 200 and a broken token's 401 verified 2026-09-26). The
+     variable is never `status`, which zsh reserves: the assignment fails
+     there as `read-only variable: status`. An empty `GH_TOKEN` is invisible at the
      call site; the preflight turns a silent misattribution into a stop
      before anything is written. A read of the author after the write
      detects and cures nothing: a PR created under the ambient owner
@@ -400,8 +414,13 @@ carry.
   GH_TOKEN="$token" gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
     -f "reviewers[]=copilot-pull-request-reviewer[bot]"
   # Under the grant, where the host's merge-bot reference records that the
-  # bot's request does not register:
-  GH_TOKEN="$(gh auth token)" gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
+  # bot's request does not register. `gh auth token` prints an exported
+  # GH_TOKEN, and without --user the active account's token, so the
+  # operator's stored token is read by the operator's login (the operator
+  # profile names it) with both token variables removed from its environment:
+  op=$(env -u GH_TOKEN -u GITHUB_TOKEN gh auth token --user "<operator-login>") || exit 1
+  [ ${#op} -ge 20 ] || exit 1
+  GH_TOKEN="$op" gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
     -f "reviewers[]=copilot-pull-request-reviewer[bot]"
   ```
 

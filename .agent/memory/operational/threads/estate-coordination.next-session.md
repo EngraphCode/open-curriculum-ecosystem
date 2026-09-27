@@ -684,6 +684,40 @@ the intake of the second estate's 126 outbound files is named there as this esta
 *moved for teachers:* nothing. *moved for the Practice:* the fork carries the Oak line's
 1.185.1; the exchange's texts converge in both estates.
 
+### 2026-09-26 12:09Z — the 2026-09-25 branch folded as #223 (Myrtle turns Canopy, bf4957, for the paused Director)
+
+Merged `SHA:b8432103a` through the front door as the bot, both review legs bound to the tip,
+the five Copilot findings on the fold's records cured in one settlement push by Swallow holds
+Drift (516619). The Director (Wick binds Temper, ed7b48) paused at 11:04Z before the fold and
+handed it to Swallow, whose background chain made the sync merge (`86fcf2d57`) and pushed it;
+the exchange seat marked the PR ready and drove the door at Swallow's pause. Successor
+`coordination/2026-09-26-b84321`. The same morning the owner landed the lineage's small pull requests by
+hand under the ruleset bypass (fifteen between 10:35Z and 11:14Z) and the review-cost ledger
+holds their rows.
+
+*moved for teachers:* nothing. *moved for the Practice:* the day's records of every seat's
+landings and pauses are on the default branch; the graduated directive lines; the Parallax
+audit of the Codex lane; three frictions named (F-207 to F-209), two of them at a second
+instance.
+
+### 2026-09-27 10:23Z — the 2026-09-26 branch folded as #254 (Wick binds Temper, ed7b48, at the resume)
+
+Merged `SHA:8af61ab82` through the front door as the bot at 10:23:20Z, both review legs bound to
+the tip `c41d3ab3f`, at the lifetime rule's DUE check run at the resume (the 00:00Z fold moment
+fell inside the overnight pause of the Director and Myrtle); the merge of engraph at
+`a0996ac6b` (fifteen landings since the cut) had no conflict, and only the branch's own twelve
+files differed after it. Two settlement pushes cured seven findings on the three served design
+documents and the codex-dialogues record (the Codex connector's verified holes in the commit
+wrapper's environment scrub, the sync-lineage note's binding mode and its measured cost, the
+reader audit's pending measure, the fold timeline); a third round's two design findings took
+dispositions and ride the successor's first commit. Successor `coordination/2026-09-27-8af61a`,
+DUE at 12:00Z.
+
+*moved for teachers:* nothing. *moved for the Practice:* the day's records of the lineage's drain
+from nine open PRs to two under the owner's WIP limit (fifteen landings, eight of them the drain's
+rows), two frictions named (F-210, F-211), three design documents for the Codex lane's next code
+PRs, and one formation letter.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

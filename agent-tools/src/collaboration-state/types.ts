@@ -23,7 +23,7 @@ export interface CollaborationStateEnvironment {
   readonly CODEX_THREAD_ID?: string;
   readonly conversationId?: string;
   readonly ANTIGRAVITY_SOURCE_METADATA?: string;
-  readonly OAK_AGENT_IDENTITY_OVERRIDE?: string;
+  readonly PRACTICE_AGENT_IDENTITY_OVERRIDE?: string;
 }
 
 export interface CollaborationArea {
