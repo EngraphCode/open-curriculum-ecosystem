@@ -176,9 +176,10 @@ ledger's numbers.
    leaf-only type check) and one on 260's carried text (the admission gate against the skill's
    older sentence). So the falsifier is half met: the later PRs' findings were mostly on new text,
    but the new text existed only because the concept was carried from PR to PR, and one finding
-   per later PR was an old gap resurfacing. The two-round rule saw four PRs each within its own
-   count where the concept had spent eleven rounds across its carriers (258 four, 224 two, 263
-   three, 226 two); the review-cost gate, in force since 2026-09-12, priced each push as it came
+   per later PR was an old gap resurfacing. The two-round rule counts per PR (258 spent four
+   rounds and 263 three through the rebudget and late-cure doors, 224 and 226 two each), so it
+   never bounded the concept's aggregate of eleven rounds across its carriers; the review-cost
+   gate, in force since 2026-09-12, priced each push as it came
    and refused none, because a settlement cost crosses its budget on the round AFTER the push that
    earns it, and reads 258 and 263 as exhausted only today, in retrospect.
 
@@ -367,9 +368,10 @@ what the original missed (226's two round-two findings) because a different revi
 the same bytes cold; the cheapest second reader the estate has is the twin, and the alignment goal
 makes it free. (c) Six of fourteen WIP findings were facts about the estate's own tools or the
 owner's words; a seat who had run the count once by hand would have found most of them; the hands
-knew what the text did not say (Siren's night-watch letter). (d) The gate that would have stopped
-258 and 263 by its own pricing did not exist for 258 and was not run on 263; the estate built the
-instrument that measures this arc while the arc ran, which is the fast lane working at the wrong
+knew what the text did not say (Siren's night-watch letter). (d) The gate that reads 258 and 263
+as exhausted by its own pricing was in force for both and refused neither push, because its
+settlement cost crosses the budget on the round after the push that earns it; the estate had the
+instrument that measures this arc and measured the arc after it ran, a tripwire at the wrong
 tempo. (e) The rollback has never run; the seven edges are all true and all untested; the record
 of them is a test plan wearing a runbook's clothes.
 
