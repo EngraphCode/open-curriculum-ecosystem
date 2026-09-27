@@ -17,14 +17,20 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-26
+last_updated: 2026-09-27
 ---
 
 # Practice lineage transplant
 
 Brought from the second estate through the two-way exchange (register row J11). The second
 estate wrote it from the first instance, this estate's Practice into the second estate on
-2026-09-12, and ratified it there the same day. It is born `sketch` here. The next instance, in
+2026-09-12, and ratified it there the same day. It was born `sketch` here. The review of this
+copy found fourteen cures, both copies carry them, and the owner ratified the two copies together
+on 2026-09-27 ("Ratify both", answer 10 to the Director's card; recorded verbatim on this estate
+in `.agent/memory/active/napkin.md`, the block "The owner's thirteen answers of 09:1xZ, recorded
+on the lineage for the runbook stamps", commit 98796ef88). The same day, the review of this
+copy's convergence found the rollback unsafe for a path's type and mode; its cure, a procedure
+change, returned both copies to `sketch` until the owner ratifies again. The next instance, in
 either estate, tests every step and fills the timing table; a step that fails there returns this
 runbook to sketch for re-ratification. PDR-005 covers transplantation into a Practice-free
 repository. This runbook covers the other case: the destination already has a Practice, an older
@@ -60,16 +66,21 @@ Each item is checkable; the check is named.
    `.agent/practice-core/provenance.yml` and `CHANGELOG.md` date the last
    time it took the lineage, and the host's own transplant records may name
    a later re-sync; the candidate ancestor is the source commit on or before
-   the latest such date. Check: for every machinery path the host has not
-   edited since, the host's file is byte-equal to the candidate's — a
-   candidate that fails this on many paths is the wrong date. The ancestor
+   the latest such date. Check: `git -C <source-checkout> merge-base
+   --is-ancestor <ancestor> <pin>` succeeds, because an interval counts as
+   since-ancestor only when the ancestor is reachable from the pin; and for
+   every machinery path the host has not edited since, the host's file is
+   byte-equal to the candidate's — a candidate that fails this on many
+   paths is the wrong date. The ancestor
    SHA goes in the manifest; every count in step 1 is measured against it.
-3. **A tagged pre-state.** `git tag transplant/pre-<UTC timestamp>-<short
-   HEAD>` on the host, unique to this run, pushed to the host's remote, with
-   its SHA recorded in the manifest. Check: the tag resolves to the host's
-   HEAD before step 1, and the remote holds it. Corrections are a
-   corrective pass, never a rollback (PDR-005), but the tag makes every
-   audit possible post hoc, from any clone.
+3. **A tagged pre-state.** `git tag
+   transplant/pre-<YYYYMMDDTHHMMSSZ>-<short HEAD>` on the host, the time in
+   the basic ISO form because a colon is illegal in a ref name. The tag is
+   unique to this run, pushed to the host's remote, and its SHA is recorded
+   in the manifest. Check: the tag resolves to the host's HEAD before step
+   1, and the remote holds it. Corrections are a corrective pass, never a
+   rollback (PDR-005), but the tag makes every audit possible post hoc,
+   from any clone.
 4. **A clean host tree and a claim.** Check: `git status --short` is empty;
    the transplanting seat's claim names the machinery areas; any other live
    seat on the host has been told the areas.
@@ -221,13 +232,25 @@ the session's transcript at close, which must be zero.
 ## Rollback
 
 Steps 5 to 11 change shared state; every one is reversible per path from
-the pre-state tag and the pinned source: `git show <pre-state tag>:<path>`
-restores any host file, and `git -C <source-checkout> show <pin>:<path>`
-restores any drop. The corrective pass is the PDR-005 default: correct
-forward on the manifest, never reset the branch. Step 7 has a specific
-recovery: if the guard locks the session out, restore the policy file with
-a tool the matchers do not name, then re-run the sequence in order. Records
-written in step 12 are never rolled back.
+the pre-state tag and the pinned source. The rollback starts from a clean
+tree, as the transplant does (precondition 4), so no uncommitted edit is in
+its way. Each restore is a forward write that brings back content, type and
+mode together, by the invariant in `never-use-git-to-remove-work` (its
+standing grant for proven paths): the content from `git show <pre-state
+tag>:<path>` for a host file, or from `git -C <source-checkout> show
+<pin>:<path>` for a drop, written to a fresh `mktemp` sibling and renamed
+over the path, never redirected into it; a symlink recreated with `ln -sfn`
+to the recorded target; the mode set with `chmod 755` or `chmod 644` to
+match the `100755` or `100644` that `git ls-tree` records. A path whose
+type changed between a file or symlink and a directory is surfaced with its
+proof, as the invariant requires, never written through: a rename or `ln
+-sfn` onto a directory lands inside it. A path the transplant added, absent
+from the pre-state, is deleted in the same forward commit. The corrective
+pass is the PDR-005 default: correct forward on the manifest, never reset
+the branch. Step 7 has a specific recovery: if the guard locks the session
+out, restore the policy file with a tool the matchers do not name, then
+re-run the sequence in order. Records written in step 12 are never rolled
+back.
 
 ## Measured per instance
 
