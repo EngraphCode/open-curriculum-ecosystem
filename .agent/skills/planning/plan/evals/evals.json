@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "prompt": "Plan the implementation of the stable priority queue. The contract, the ordering rule, the consumer (the scheduler) and the acceptance tests are all settled and written down; nothing about its value is in question.",
+      "prompt": "Plan the implementation of a stable priority queue for the scheduler. Everything is settled and written down here, in full. The contract: items are (priority, payload); pop returns the item with the lowest priority; among equal priorities the earliest pushed item is returned first; push and pop are O(log n); pop on an empty queue raises EmptyQueue. The consumer: the scheduler's dispatch loop, which calls push on job arrival and pop on each tick. The acceptance tests, already written: test_pop_lowest_priority, test_equal_priorities_fifo, test_interleaved_push_pop_keeps_fifo, test_empty_pop_raises. Nothing about its value is in question and there is no repository to read; plan from this statement.",
       "expected_output": "A direct implementation plan: the settled contract is the input; steps, order, validation against the written acceptance tests and the landing; no mandatory user-value or specification pass, no persona, no ceremony.",
       "assertions": [
         "No value-definition or specification pass is required for already-settled work",
@@ -23,7 +23,7 @@
     },
     {
       "id": 3,
-      "prompt": "Plan the integration of our curriculum API with a partner's teacher tool. The value is settled (teachers need to find lessons by subject) and the API's contract is settled, but the subject-mapping contract between the two systems is still unresolved and the partner disputes who owns it.",
+      "prompt": "Plan the integration of our curriculum API with a partner's teacher tool. Settled and written down here, in full: the value (teachers need to find lessons by subject; three observed sessions and the partner's request record it) and the API's contract (lessons keyed by subject slug; slugs biology, chemistry, physics, combined-science; schema versioned; a slug never renamed within a major version). Unresolved: the subject-mapping contract between the API's slugs and the tool's taxonomy, which has no combined-science subject; the partner says the mapping is the API's to define and our team says it is the tool's, and no one with authority over both has ruled. There is no repository to read; plan from this statement.",
       "expected_output": "A plan that sequences the settled parts and routes the unresolved seam to specify (the mapping contract) and specify-connection (the seam analysis) before the dependent integration steps, preserving the ownership dispute as an open item for the authority that holds it; the settled steps are not blocked and the unresolved one is not invented.",
       "assertions": [
         "The unresolved mapping contract is routed to the specification skills rather than planned around or invented",

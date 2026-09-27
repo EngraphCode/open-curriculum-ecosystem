@@ -3,12 +3,12 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Assess this specification (revision 1) of parentIndex(i) for a binary heap in an array with the root at 0, for reliance by the heap's sift operations (implementation): 'parentIndex(i) returns floor((i-1)/2) for i >= 1; for i = 0 it is undefined behaviour and callers must not call it; pure, no allocation; evidence: the property test parent_of_child_is_self over i in 1..10000 and the heap's existing sift tests.' Is it ready?",
-      "expected_output": "Ready for the named use, without ceremony: the obligation, its condition (i >= 1), the obligation on callers not to pass 0, and the evidence (a property test over a declared finite domain plus the consumer's own tests) are identified and sufficient for implementation reliance; at most one minor note (the domain 1..10000 is finite and stated); no invented findings.",
+      "prompt": "Assess this specification (revision 1) of parentIndex(i) for a binary heap in an array with the root at 0, for reliance by the heap's sift-up operation (implementation): 'parentIndex(i) returns floor((i-1)/2) for i >= 1; callers must not call it with i = 0 and its result there is unspecified; pure, no allocation; evidence: the property test parent_of_child_is_self, which checks parentIndex(2p+1) == p and parentIndex(2p+2) == p for every parent p in 0..10000, and the heap's sift-up tests, which check i > 0 before every call and pass.' Is it ready?",
+      "expected_output": "Ready for the named use, without ceremony: the obligation, its condition (i >= 1), the obligation on callers not to pass 0 (shown kept by the sift-up tests), and the evidence (a property test over a declared finite domain including the root's children, plus the consumer's own tests) are identified and sufficient for implementation reliance; no condition and no repair loop for a one-line function. Notes that would not change the consumer's use (the finite domain is stated; integer division agrees with floor for i >= 1) are acceptable and do not make the disposition conditional.",
       "assertions": [
-        "The disposition is ready for the named use and the assessment does not manufacture findings to seem thorough",
+        "The disposition is ready for the named use and the assessment does not manufacture findings or conditions to seem thorough; a one-line settled function with passing consumer tests is passed without a repair loop",
         "The finite property-test domain is recognised as a stated limit, not treated as proof over all integers, and not treated as a blocker for this use",
-        "The i = 0 obligation is read as a caller obligation and identified as the seam it is"
+        "The i = 0 obligation is read as a caller obligation that the sift-up tests are stated to keep, not as a defect"
       ]
     },
     {
@@ -35,11 +35,11 @@
     },
     {
       "id": 4,
-      "prompt": "This specification is not ready; please fix its obligations and rewrite the evidence section so it passes assessment.",
-      "expected_output": "Routes the repair to specify: the assessor does not repair the target during assessment; a repair produces a new revision and a distinct assessment. If findings are wanted, they are given as findings, not as edits.",
+      "prompt": "Here is a specification (revision 2) of a login-throttling component, in full: 'After five failed attempts for one account within ten minutes, further attempts for that account are refused for fifteen minutes. Evidence: the unit tests pass.' Its assessment for operational reliance found: the refusal's failure behaviour is unstated (what happens when the store of attempt counts is unavailable); the ten-minute window's clock is unstated; the unit tests do not exercise the window boundary or the store failure. Please fix these obligations and rewrite the evidence section so the specification passes assessment.",
+      "expected_output": "The request is recognised as a repair of the record, which is not the assessor's operation: the assessor does not repair the target during assessment; the repair produces revision 3 through the specification method (routed to specify where that skill is available) and then a distinct assessment of revision 3. The response does not itself rewrite the evidence section to claim evidence that does not exist; if it drafts anything, it is labelled as a proposed revision for the record's owner, with the missing evidence named as missing.",
       "assertions": [
-        "The response refuses to repair the target inside the assessment and names specify as the repair route",
-        "No rewritten evidence section is produced"
+        "The response separates the repair from the assessment: it does not present a repaired record as having passed assessment, and names that the repaired revision needs its own assessment; where a specification skill is available it routes the repair there",
+        "No evidence section is rewritten to claim tests or results that do not exist; the missing evidence (window boundary, store failure) is named as still missing"
       ]
     },
     {

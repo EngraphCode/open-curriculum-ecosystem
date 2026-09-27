@@ -461,15 +461,14 @@ An operational seam is not identical to a Parallax Bridge Claim. A seam may conc
 
 ### 13.6 Proposed packaging and integration
 
-The proposed canonical family would live under `.agent/skills/specification/`, grouped by concern:
+The canonical family lives under `.agent/skills/specification/`, grouped by concern (delivered on this PR on 27 September 2026; the paragraph below records the layout as proposed on 26 September):
 
-- `specify/SKILL-CANONICAL.md`: admission, create/repair/revise procedure, completion and handoff.
-- `specify/references/`: the common record, profile selection, lifecycle and compact examples; reusable templates only where they reduce recurring work.
-- `specify-connection/SKILL-CANONICAL.md` and its connection-method reference.
-- `assess-specification/SKILL-CANONICAL.md` and its assessment criteria reference.
-- Evaluation fixtures beside the responsible skill, including trigger and negative-routing cases.
+- `specify/SKILL-CANONICAL.md`: admission, create/repair/revise procedure, completion and handoff, with `references/specification-record.md`, `profiles.md`, `lifecycle-and-change.md` and `assurance.md`.
+- `specify-connection/SKILL-CANONICAL.md` with `references/connection-method.md`.
+- `assess-specification/SKILL-CANONICAL.md` with `references/assessment-criteria.md`.
+- `evals/evals.json` and `evals/trigger-validation.json` beside each skill (normal, adverse or boundary and negative-routing cases; queries that fire and queries that stay silent), and beside `planning/plan/` (its routing, and the cross-skill exercise of Appendix E condition 3 as case 4). Retained evidence of each run under the skill's `evals/results/<started-at>/`, produced by `agent-tools skill-evals` (`agent-tools/README.md` §`skill-evals`).
 
-This is a proposed layout, not files present in the PR. The whole research report should not be copied into every skill body. Keep essential procedure short and load a profile only when its trigger applies. Shared-reference paths and compatible versions need checking by the repository's existing mechanisms before installation.
+As proposed on 26 September, the layout was: `specify` with its references, `specify-connection` and its connection-method reference, `assess-specification` and its assessment criteria reference, and evaluation fixtures beside the responsible skill. The whole research report should not be copied into every skill body. Keep essential procedure short and load a profile only when its trigger applies. Shared-reference paths and compatible versions need checking by the repository's existing mechanisms before installation.
 
 The initial audience is the OCE Practice corpus: agents and people building systems. Pedagogical skills facing Student Support Experiments belong to their own product/curriculum audience and would not be created by this landing. General applicability concerns the method's subjects; it does not erase the repository's audience and distribution boundaries.
 
@@ -760,5 +759,38 @@ The skill-specific coverage, critical-failure rule, integration exercise and fin
 
 **Observed state at ratification.** Head `52a377a25463019d848ffa3e910ffd94b74b5957` contains 20 changed paths: the prior 12 plus eight generated user-value files. All reported checks, including `run-quality-gates`, succeeded on that head. The three specification canonical skills and plan evals are absent; the broadened user-value fixtures have no executed evidence in the inspected PR. CI success establishes that head's repository checks, not fulfilment of these new acceptance criteria. Later commits require their own verdict.
 
+
+### Appendix E.1 Delivery and evidence, 27 September 2026
+
+Delivered on this PR after ratification, by the exchange seat under the owner's routing. The skills
+were evaluated with `agent-tools skill-evals` (`agent-tools/README.md` §`skill-evals`), which runs a
+skill's declared evals through `claude plugin eval` with a with-without ablation and retains, under
+the skill's `evals/results/<started-at>/`, the runner's result per suite, every trace and final
+answer (machine-local paths scrubbed), a manifest of the evaluated files by blob id, and
+`reading.md`, the human read of every answer against the assertions beside the judge's votes.
+Runner `claude` 2.1.283, agent model the runner's default, judge `sonnet`, one run per arm. The
+evaluator is the instrument; the human output reviewer is the exchange seat (Myrtle turns Canopy,
+an agent); the second read is the Director's or a Cricket's, recorded on the PR when given.
+
+| Skill | Evidence | Result | Limitation |
+| --- | --- | --- | --- |
+| `user-value` | `planning/user-value/evals/results/2026-09-27T11-14-39Z` | Seven cases: every assertion held in both arms on the judge's read and the human read; the skill fired on five (case 3 correctly silent; case 4 not fired); ten of ten triggers as declared | The arms did not differ on the fixture's assertions: the baseline met them at one to two turns against five to seven with the skill, the skill's contribution being structure the assertions do not require. This is §13.8's reopen condition as observed on this fixture, reported to the owner here; the assertions were not tuned to it |
+| `specify` | `specification/specify/evals/results/2026-09-27T11-16-44Z` (six cases and triggers) and `2026-09-27T11-31-29Z` (case 1 rerun after its assertion was restated) | Seven of seven with the skill on the human read (case 4 three of four: the seam not handed to `specify-connection`); on the judge's read seven of seven with, four of seven without; ten of ten triggers | Two earlier starts were stopped for fixture defects of the seat's (prompts naming material the empty workspace cannot hold; a rubric clause naming another skill's elements); case 6's record leaked the method's vocabulary into a funder-facing document |
+| `specify-connection` | `specification/specify-connection/evals/results/2026-09-27T11-27-50Z` (six cases and triggers), `2026-09-27T11-41-26Z` (case 1 rerun on a prompt carrying the facts) and `2026-09-27T11-42-34Z` (case 4 rerun with `specify` carried) | Every assertion held with the skill on the human read across the three directories; judge four of six then six of six with, three of six without; ten of ten triggers; case 4's routing to `specify` observed | The baseline reasons about seams as sharply on the idempotency, failover and latency cases; the skill's contribution is the seam-contract table, the conditions under which the reliance holds, the missing-evidence table and the obligations returned to each owner |
+| `assess-specification` | `specification/assess-specification/evals/results/2026-09-27T11-29-08Z` (six cases and triggers), `2026-09-27T11-39-20Z` and `2026-09-27T11-44-17Z` (case 1, the valid-small-case control, rerun twice), `2026-09-27T11-40-05Z` (case 4 rerun with `specify` carried) | The authority assertions held wherever they applied (no readiness awarded, no independence claimed, no acceptance taken, no evidence invented); case 4's routing to `specify` observed; ten of ten triggers | The control failed in both arms on the first run: "ready with conditions" and a repair loop for a one-line function. The one substantive skill finding of the evaluation. The canonical's criteria step gained a proportionality clause and the prompt was restated; on the first rerun the with-arm passed the control on the human read ("Ready, no conditions", two notes) while the judge failed it on the fixture's "at most one minor note"; relaxed, the second rerun passed on both reads. The baseline also passed the control on the human read in both reruns |
+| `plan` | `planning/plan/evals/results/2026-09-27T11-36-08Z` (four cases with the four other skills carried, and triggers) and `2026-09-27T11-45-06Z` (case 2 rerun on a self-contained prompt: pass in both arms), `2026-09-27T11-45-57Z` (case 3 rerun: fail in both arms; the with-arm described the route to the specification skills but did not take it, an inconsistent routing against the earlier attempt, reported and not cured) and `2026-09-27T11-47-11Z` (the trigger suite rerun with the silent grader anchored to the host skill: 6 of 6, the three silent cases routing to the carried sibling each prompt names) | The cross-skill exercise (condition 3) passed: all five skills invoked in order, claim status preserved through value, specification, connection, assessment and planning, and the material revision traced to every affected artefact (twelve turns, USD 0.41); the conditional handoff held | Cases 2 and 3's prompts named settled material the workspace did not hold (the seat's defect), rerun; the three silent triggers were first counted as failures because a carried sibling took the request, which is the routing they exist to show; the plan estate is absent from the workspace, so every plan is a sketch in the reply |
+
+Method notes, for the reader of the evidence. The judge and the human read disagree in several
+places, recorded in each `reading.md` rather than reconciled: the judge is stricter than the human
+read on the baseline (it failed without-arm answers that meet the assertions in substance on specify
+cases 3 and 4, connection cases 1, 4 and 5, assess case 4) and reads expected outcomes literally
+(the control's notes). Across the four skills the without-arm is the runner's default model with no
+plugin and an empty workspace; on every suite it met most assertions in substance at a third to a
+half of the cost. What the skills visibly add is the method's structure: claim status on every
+element, unknowns each with a treatment and a holder, may-rely and must-not-rely lists, findings by
+class with the reliance each blocks, dispositions with the acceptance authority and the reassessment
+trigger, handoffs to the sibling skills, and revision correspondence. Whether that structure is
+worth its cost in use is the question §13.8 leaves to actual usage; this evaluation supplies the
+per-case evidence and does not decide it.
 
 Concurrent intake reconciliation: the subsequent `f41ad8e789babdb0d772b4af88b7803ebe0dfd67` source edits and private-upstream citation are preserved in this revision. User-value changed again, so evals must cover that revised source and any later material changes. The reported lack of a fixture runner does not waive acceptance: execute through an appropriate harness or clean sessions and retain evidence.

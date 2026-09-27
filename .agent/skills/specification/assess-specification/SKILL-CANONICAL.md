@@ -53,7 +53,11 @@ From the reliance, derive what must be identifiable, classified, warranted and a
 readiness questions in [assessment criteria](references/assessment-criteria.md) asked of this use,
 not of every possible use. A tiny unit for a settled consumer is judged for that consumer; a whole
 service for a stated public claim is judged for that claim. Establish the expectation before
-inspecting the results wherever possible.
+inspecting the results wherever possible. Size the assessment to the reliance: a small settled
+subject whose consumer's tests are stated to pass needs few criteria, and a finding is a
+condition only when the named use would be unsafe without it; a note that would not change that
+use is a note, never a condition, and never a repair loop. Passing a valid small case without
+ceremony is part of the method, not a failure of thoroughness.
 
 ## 3. Inspect obligations and profiles
 

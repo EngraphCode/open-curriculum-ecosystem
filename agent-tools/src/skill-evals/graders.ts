@@ -35,9 +35,22 @@ export function skillFiredGrader(hostSkill: string): string {
   ].join('\n');
 }
 
-/** The negative-routing grader: the Skill tool never called. */
-export function skillSilentGrader(): string {
-  return ['---', 'type: tool_used', 'tool: Skill', 'min: 0', 'max: 0', '---', ''].join('\n');
+/**
+ * The negative-routing grader: the Skill tool never called with this host
+ * skill. Anchored like the fired indicator, so a carried sibling taking the
+ * request (the routing the case wants) is not counted against it.
+ */
+export function skillSilentGrader(hostSkill: string): string {
+  return [
+    '---',
+    'type: tool_used',
+    'tool: Skill',
+    `input_match: "${hostSkill}${NAME_END}"`,
+    'min: 0',
+    'max: 0',
+    '---',
+    '',
+  ].join('\n');
 }
 
 /**

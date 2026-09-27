@@ -146,12 +146,13 @@ describe('projectSuite', () => {
     expect(rubric).toContain('present in substance');
   });
 
-  it('grades a negative trigger example by the Skill tool never being called', () => {
+  it('grades a negative trigger example by the Skill tool never being called with the host skill, so a carried sibling may take it', () => {
     const silent = fileAt(
       unwrapOrThrow(projectSuite(input)),
       'evals/trigger-02-silent/graders/skill-silent.md',
     ).content;
     expect(silent).toContain('tool: Skill');
+    expect(silent).toContain('input_match: "oak-user-value(?![a-z0-9-])"');
     expect(silent).toContain('min: 0');
     expect(silent).toContain('max: 0');
   });

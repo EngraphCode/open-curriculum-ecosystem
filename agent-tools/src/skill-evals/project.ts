@@ -158,7 +158,7 @@ function projectTrigger(
   const dir = `evals/${name}`;
   const grader = example.should_trigger
     ? file(`${dir}/graders/skill-fired.md`, skillFiredGrader(input.skill.hostSkill))
-    : file(`${dir}/graders/skill-silent.md`, skillSilentGrader());
+    : file(`${dir}/graders/skill-silent.md`, skillSilentGrader(input.skill.hostSkill));
   return [
     file(
       `${dir}/prompt.md`,

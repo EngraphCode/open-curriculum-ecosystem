@@ -3,11 +3,11 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Endpoint A: a curriculum API (revision 5) that returns lessons keyed by subject slug; its schema is validated and its tests pass. Endpoint B: a teacher-facing tool (revision 2) that maps A's slugs to its own taxonomy and shows lessons; its schema is validated and its tests pass. Teachers report wrong results for combined science. Relation: B transforms A's subjects. Intended reliance: teachers find the right lessons. Analyse the connection.",
+      "prompt": "Endpoint A: a curriculum API (revision 5) that returns lessons keyed by subject slug; its slugs are biology, chemistry, physics and combined-science, where a combined-science lesson covers content from all three sciences for pupils taking the double-award course; its schema is validated and its tests pass. Endpoint B: a teacher-facing tool (revision 2) whose taxonomy has the subjects Biology, Chemistry and Physics only; it maps A's slugs to its subjects by exact match on a mapping table built against A's revision 3, and a slug with no entry is dropped silently; its schema is validated and its tests pass. Teachers of the double-award course report that their lessons are missing or filed under the wrong science. Relation: B transforms A's subjects. Intended reliance: teachers find the right lessons. There is nothing to read; analyse the connection from these facts.",
       "expected_output": "A statement of what the mapping between the API and the tool must preserve (subject identity, combined-science membership), the loss it may permit, when it must reject a slug, and the taxonomy version on each side; the analysis shows the pair fails on the combined-science mapping while each side is valid on its own; a counterexample with a specific combined-science slug; the missing evidence (fixtures that would discriminate the mapping); the obligation placed on whoever owns the mapping, not on the API by default.",
       "assertions": [
         "Both endpoints' local validity is stated and explicitly not taken as evidence that the composition works",
-        "A concrete combined-science counterexample is given in which each side is individually valid and the pair fails",
+        "A concrete counterexample is given from the stated facts (a combined-science lesson, valid under A's schema, dropped or misfiled by B while B's own tests pass) in which each side is individually valid and the pair fails",
         "The missing obligation is returned to the endpoint that owns the mapping rather than the API being blamed by default",
         "Schema validity is not equated with preserved meaning"
       ]
@@ -38,7 +38,7 @@
       "prompt": "Define what our new billing component must do: its inputs, outputs, errors and invariants. We have no consumer for it yet.",
       "expected_output": "Routes to specify: this is an endpoint's own obligations, not a connection between two specified things; no seam is analysed.",
       "assertions": [
-        "It recognises that the request is for an endpoint's own specification and routes to specify",
+        "It recognises that the request is for an endpoint's own specification, not a connection between two specified things, and does not analyse a seam; where a specification skill is available it routes there rather than writing the record inside a connection analysis",
         "No seam contract is fabricated for a connection that has no second endpoint"
       ]
     },
