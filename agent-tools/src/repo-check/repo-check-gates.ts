@@ -6,8 +6,10 @@
  * @remarks
  * A tracked gate reads the tree through {@link readTrackedTree}, which fails
  * closed: a gate whose git read failed checked nothing, so it fails rather
- * than pass. Its files run in chunks within {@link ARGV_BUDGET_BYTES}, one
- * run after another, and the gate fails if any chunk fails.
+ * than pass, and a check refuses a tracked file the working tree has lost
+ * ({@link planUnlessLost}). Its files run in chunks within the host's
+ * {@link argvBudgetBytes}, one run after another, and the gate fails if any
+ * chunk fails.
  *
  * @packageDocumentation
  */
@@ -114,10 +116,15 @@ export async function runPrettierStaged(
 }
 
 /**
- * The most bytes one run's paths may cost: well under a command line's limit
- * (1 MiB on macOS, shared with the environment), for any tracked tree.
+ * The most bytes one run's paths may cost, well under the host's command-line
+ * limit: 1 MiB on macOS, shared with the environment, and 32,767 UTF-16 units
+ * on Windows, where pnpm launches through the Node binary with no shell. A
+ * UTF-8 byte never undercounts a UTF-16 unit, and the Windows budget leaves
+ * room for the quotes Node adds around a path holding a space.
  */
-const ARGV_BUDGET_BYTES = 256 * 1024;
+function argvBudgetBytes(platform: NodeJS.Platform): number {
+  return platform === 'win32' ? 12 * 1024 : 256 * 1024;
+}
 
 /** Run each planned `pnpm` argv in order, one after another, collecting each exit status. */
 async function runInSequence(
@@ -132,6 +139,28 @@ async function runInSequence(
 
 /** A gate's planned `pnpm` runs, or why it refuses to run. */
 type GatePlan = Result<readonly (readonly string[])[], string>;
+
+/**
+ * The index's regular files the working tree has lost with the change unstaged:
+ * deleted, or replaced by a symlink. The index, and so a commit and CI, still
+ * carry their content, which the tools read from the disk and cannot see.
+ */
+function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
+  return [...reading.goneFromWorkingTree].filter((file) => !reading.symlinks.has(file));
+}
+
+/**
+ * Plan a gate's runs, unless it is a check over a file it cannot read: a check
+ * is a proof of the index, so it refuses those files by name rather than pass
+ * without them. A repair proves nothing, so it skips them.
+ */
+function planUnlessLost(isCheck: boolean, lost: readonly string[], plan: () => GatePlan): GatePlan {
+  return isCheck && lost.length > 0
+    ? err(
+        `these tracked files are deleted or retyped in the working tree with the change unstaged, so the index carries content this check cannot read: ${lost.join(', ')}. Stage the change or restore them.`,
+      )
+    : plan();
+}
 
 /** Read the tracked tree, plan the gate's runs over it, and run them. */
 async function runTrackedGate(
@@ -162,9 +191,12 @@ async function runTrackedGate(
 export async function runPrettierTracked(
   mode: PrettierMode,
   runtime: RepoCheckRuntime = defaultRuntime,
+  platform: NodeJS.Platform = process.platform,
 ): Promise<number> {
   return runTrackedGate(runtime, 'prettier-tracked', (reading) =>
-    ok(trackedPrettierRuns(mode, reading, ARGV_BUDGET_BYTES)),
+    planUnlessLost(mode === 'check', unstagedLoss(reading), () =>
+      ok(trackedPrettierRuns(mode, reading, argvBudgetBytes(platform))),
+    ),
   );
 }
 
@@ -175,13 +207,16 @@ export async function runPrettierTracked(
 export async function runMarkdownlintTracked(
   mode: MarkdownlintMode,
   runtime: RepoCheckRuntime = defaultRuntime,
+  platform: NodeJS.Platform = process.platform,
 ): Promise<number> {
-  return runTrackedGate(runtime, 'markdownlint-tracked', (reading) => {
-    const globbed = globSignificantPaths(markdownOnly(trackedCheckFiles(reading)));
-    return globbed.length > 0
-      ? err(
-          `markdownlint-cli2 reads each path as a glob, so these tracked files would be skipped, not linted: ${globbed.join(', ')}`,
-        )
-      : ok(trackedMarkdownlintRuns(mode, reading, ARGV_BUDGET_BYTES));
-  });
+  return runTrackedGate(runtime, 'markdownlint-tracked', (reading) =>
+    planUnlessLost(mode === 'check', markdownOnly(unstagedLoss(reading)), () => {
+      const globbed = globSignificantPaths(markdownOnly(trackedCheckFiles(reading)));
+      return globbed.length > 0
+        ? err(
+            `markdownlint-cli2 reads each path as a glob, so these tracked files would be skipped, not linted: ${globbed.join(', ')}`,
+          )
+        : ok(trackedMarkdownlintRuns(mode, reading, argvBudgetBytes(platform)));
+    }),
+  );
 }
