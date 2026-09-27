@@ -1763,11 +1763,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own whose PR
-    is not yet in that list. It opens only while the count plus those earlier
+    is not yet open. It opens only while the count plus those earlier
     reservations is under the limit; otherwise it withdraws its reservation
     on the stream and waits for the next free slot. The streams' order is
     the serialiser, as for the landing slot, and a reservation is followed at
-    once by its PR or its withdrawal.
+    once by its PR or its withdrawal. A coordination PR takes no reservation.
   - A branch's first push is followed at once by its PR, never left
     standing: a pushed branch with no PR is unfinished work outside review.
   - The Director routes each external PR into the slot order to a named seat.

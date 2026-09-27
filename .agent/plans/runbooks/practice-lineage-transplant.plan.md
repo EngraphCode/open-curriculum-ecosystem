@@ -7,7 +7,7 @@ overview: >-
   to a newer generation of the same lineage, preserving the host's own
   divergence, with every mechanical step run by an instrument and every
   judgement step presented to the owner as one numbered list.
-status: ratified
+status: sketch
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-27
 ratified_where: >-
@@ -29,11 +29,14 @@ last_updated: 2026-09-27
 
 Brought from the second estate through the two-way exchange (register row J11). The second
 estate wrote it from the first instance, this estate's Practice into the second estate on
-2026-09-12, and ratified it there the same day. It was born `sketch` here; the review of this
-copy found fourteen cures, both copies now carry them, and the owner ratified the two copies
-together on 2026-09-27 ("Ratify both"). The next instance, in either estate, tests every step and
-fills the timing table; a step that fails there returns this runbook to sketch for re-ratification. PDR-005 covers transplantation into a Practice-free
-repository. This runbook covers the other case: the destination already has a Practice, an older
+2026-09-12, and ratified it there the same day. It was born `sketch` here. The review of this
+copy found fourteen cures, both copies carry them, and the owner ratified the two copies together
+on 2026-09-27 ("Ratify both"; the stamp fields above record that word). The same day, the review
+of this copy's convergence found the rollback unsafe for a path's type and mode; its cure, a
+procedure change, returned both copies to `sketch` until the owner ratifies again. The next
+instance, in either estate, tests every step and fills the timing table; a step that fails there
+returns this runbook to sketch for re-ratification. PDR-005 covers transplantation into a
+Practice-free repository. This runbook covers the other case: the destination already has a Practice, an older
 generation of the same lineage plus its own local divergence.
 
 ## When to run
@@ -232,13 +235,18 @@ the session's transcript at close, which must be zero.
 ## Rollback
 
 Steps 5 to 11 change shared state; every one is reversible per path from
-the pre-state tag and the pinned source, each restore writing the file:
-`git show <pre-state tag>:<path> > <path>` restores any host file, `git -C
-<source-checkout> show <pin>:<path> > <path>` restores any drop, and a path
-the transplant added, absent from the pre-state, is deleted in the same
-forward commit. The corrective pass is the PDR-005 default: correct forward
-on the manifest, never reset the branch. Step 7 has a specific recovery: if
-the guard locks the session out, restore the policy file with a tool the
+the pre-state tag and the pinned source, each restore a forward write that
+brings back content, type and mode together, by the invariant in
+`never-use-git-to-remove-work` (its standing grant for proven paths): the
+content from `git show <pre-state tag>:<path>` for a host file, or from `git
+-C <source-checkout> show <pin>:<path>` for a drop, written to a fresh
+`mktemp` sibling and renamed over the path, never redirected into it; a
+symlink recreated with `ln -sfn` to the recorded target; the mode set with
+`chmod` to the `100755` or `100644` that `git ls-tree` records. A path the
+transplant added, absent from the pre-state, is deleted in the same forward
+commit. The corrective pass is the PDR-005 default: correct forward on the
+manifest, never reset the branch. Step 7 has a specific recovery: if the
+guard locks the session out, restore the policy file with a tool the
 matchers do not name, then re-run the sequence in order. Records written in
 step 12 are never rolled back.
 
