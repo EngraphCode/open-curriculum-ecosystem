@@ -108,12 +108,14 @@ the estate's control.
 every branch up to date before merge (`strict_required_status_checks_policy: true`, read
 first-hand on 2026-09-26). Every landing therefore knocks every other open PR BEHIND, and each
 landing costs one sync push plus the full CI on the synced head (13.5 to 15 minutes across the
-day's landings) before the bot can merge. The door's ceiling is one landing per fourteen to
-twenty-three minutes with a seat continuously at it (measured: eight landings between 19:39Z
-and 21:45Z on the 26th, seventeen and a half minutes apart on average). A merge queue is not the
-cure: the required "CodeQL" check is the code-scanning app's, which never reports on a
-`merge_group` ref while codeql-action#1537 stays open (verified by the assumptions reviewer on
-the 26th; ADR-204 amended by PR 255).
+day's landings) before the bot can merge. The door's ceiling is about one landing per seventeen to
+twenty-four minutes with a seat continuously at it (measured from the table in §2: seven landings
+between 19:39:28Z and 21:45:08Z on the 26th, the six intervals between them from sixteen minutes
+forty-five seconds to twenty-four minutes eighteen seconds, twenty minutes fifty-seven seconds on
+average; the drain's eighth landing, 245, came at 09:06Z the next morning after the pause). A
+merge queue is not the cure: the required "CodeQL" check is the code-scanning app's, which never
+reports on a `merge_group` ref while codeql-action#1537 stays open (verified by the assumptions
+reviewer on the 26th; ADR-204 amended by PR 255).
 
 **Process root: an unbounded intake against a bounded door.** Opening a PR was free and landing
 cost a door turn. On the 25th forty PRs were opened (the opened list, rows created that day)
@@ -143,18 +145,18 @@ the estate can only detect, not prevent.
 When could the arc have gone right? The strongest counterfactual is inside the same arc: the
 segment from 19:2xZ to 21:49Z on the 26th ran under the cured process (the WIP limit, the seat
 door in changed-file order, the ready list, one sync push per landing) and took the count from
-nine to two in two hours twenty-one minutes with seven landings and one opening, across three
-seats and eight slot handovers with no Director word on the order (check-ins 30 to 32). The
-uncured segment, the evening of the 25th, landed twenty-one and opened thirty-three, and the
-count rose while the door ran flat out. The difference is not the door's speed (the same ceiling
-held in both segments) but the intake: under the limit no seat could open past three, so every
-seat's next act was a cure or a door turn, and lead time per PR fell to the door's own turn.
-The owner's hand is the other counterfactual: seventeen landings in forty minutes under the
-ruleset bypass, in changed-file order, on the 26th morning. It is a real capability the Practice
-cannot copy (the bypass is the owner's), but its order (smallest first) is the door's order now,
-and its price was paid forward: engraph's push CI on the final owner-landed tip (81e126e8e) had
-to be read green before the seat door resumed, and two of the fast landings drew fix-forward
-cures the same afternoon.
+nine to three in two hours twenty-one minutes with seven landings and one opening (two the next
+morning, when 245 landed at 09:06Z), across three seats and eight slot handovers with no Director
+word on the order (check-ins 30 to 32). The uncured segment, the evening of the 25th, landed
+twenty-one and opened thirty-three, and the count rose while the door ran flat out. The difference
+is not the door's speed (the same ceiling held in both segments) but the intake: under the limit
+no seat could open past three, so every seat's next act was a cure or a door turn, and lead time
+per PR fell to the door's own turn. The owner's hand is the other counterfactual: seventeen
+landings in forty minutes under the ruleset bypass, in changed-file order, on the 26th morning. It
+is a real capability the Practice cannot copy (the bypass is the owner's), but its order (smallest
+first) is the door's order now, and its price was paid forward: engraph's push CI on the final
+owner-landed tip (81e126e8e) had to be read green before the seat door resumed, and two of the
+fast landings drew fix-forward cures the same afternoon.
 
 ## 5. Honest credit
 
@@ -220,7 +222,7 @@ slot as the amplifiers.
    door's turn times the queue. Falsifier: the number never changes a routing across a week of
    check-ins (then it is ceremony and comes out).
 7. **Slow lane, the register (PDR-130): the limit follows the implementer count.** Prediction:
-   with three seats and a door turn of fourteen to twenty-three minutes, the steady state reads a
+   with three seats and a door turn of seventeen to twenty-four minutes, the steady state reads a
    count of two to three with a median lead time under one hour and no seat idle past one door
    turn; review date the fold of 2026-10-04. Falsifier (the plan's own): three seats idle for more
    than one door turn with the count at three, or the count at zero for a full check-in with no
