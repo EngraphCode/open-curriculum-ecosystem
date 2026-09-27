@@ -3,12 +3,15 @@ import { findBacktickClose, findSubstitutionClose } from './substitution-bounds.
 
 /**
  * Redirections for the shell-word scanner: the `&` and `|` that belong to a
- * redirection rather than an operator, and here-documents — the `<<` /
- * `<<-` operator with its delimiter word, and the body lines that follow the
- * command line. A here-document body is data the command reads, never
- * commands the shell runs, so it is dropped; the command substitutions an
- * unquoted-delimiter body carries are the one thing the shell does run in
- * it, and those are kept as nested commands.
+ * redirection rather than an operator; the word boundary a redirection
+ * opens after an ordinary word (`-rf>/dev/null` is `-rf` then `>/dev/null`)
+ * and does not open after an IO number, a lone `&` or an operator already
+ * begun; and here-documents — the `<<` / `<<-` operator with its delimiter
+ * word, and the body lines that follow the command line. A here-document
+ * body is data the command reads, never commands the shell runs, so it is
+ * dropped; the command substitutions an unquoted-delimiter body carries are
+ * the one thing the shell does run in it, and those are kept as nested
+ * commands.
  *
  * @packageDocumentation
  */

@@ -30,7 +30,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
         kind: 'executed',
         line: lineOf(records, event),
         turnId: APPENDED_TURN_ID,
-        rendered: ['git commit --amend --no-edit'],
+        rendered: ['…', 'git commit --amend --no-edit'],
         hits: [{ kind: 'commit-rewrites-or-skips-hooks', token: '--amend' }],
       },
     ]);
@@ -62,24 +62,38 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
       name: 'a shell nested in a shell',
       argv: ['/bin/zsh', '-lc', "bash -c 'git push origin HEAD'"],
     },
+    {
+      name: 'three nested shells, the last the reader reads',
+      argv: ['sh', '-c', `bash -c "zsh -c 'git push origin HEAD'"`],
+    },
     { name: 'a shell behind sudo', argv: ['sudo', 'bash', '-c', 'git push origin HEAD'] },
     { name: 'eval reading its operand', argv: ['eval', 'git push origin HEAD'] },
+    {
+      name: 'a shape before a later interpreter operand',
+      argv: ['git', 'push', 'origin', 'HEAD', 'sh', '-c', 'echo a b'],
+    },
+    {
+      name: 'a script word after an interpreter name that never ran it, read fail-closed',
+      argv: ['sh', '-c', "echo bash -c 'git push origin HEAD'"],
+    },
     { name: 'a command substitution', argv: ['sh', '-c', 'echo $(git push origin HEAD)'] },
     { name: 'a backtick substitution', argv: ['sh', '-c', 'echo `git push origin HEAD`'] },
     {
       name: 'a shape glued to a redirection',
       argv: ['sh', '-c', 'git add -A>/dev/null 2>&1'],
+      kind: 'stage-whole-tree',
     },
     {
       name: 'a second command after a separator',
       argv: ['sh', '-c', 'echo one && git push origin HEAD'],
     },
-  ])('reads the shape through $name', ({ argv }) => {
+  ])('reads the shape through $name', ({ argv, kind }) => {
     const records = execRecords();
     appendCommandTurn(records, argv);
     const summary = readCommandRecords(lines(records));
-    expect(summary.flagged).toHaveLength(1);
-    expect(summary.flagged[0]?.hits).toHaveLength(1);
+    expect(summary.flagged.flatMap((entry) => entry.hits.map((hit) => hit.kind))).toStrictEqual([
+      kind ?? 'push-outside-the-bot',
+    ]);
   });
 
   it.each([
@@ -88,6 +102,10 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     { name: 'a script that is only a comment', argv: ['sh', '-c', '# git push origin HEAD'] },
     { name: 'a script file, not a script', argv: ['bash', 'deploy.sh'] },
     { name: 'a one-word script operand', argv: ['bash', '-c', 'push'] },
+    {
+      name: 'a fourth nested shell, past the depth the reader reads',
+      argv: ['sh', '-c', String.raw`bash -c "zsh -c \"dash -c 'git push origin HEAD'\""`],
+    },
   ])('reads no shape in $name', ({ argv }) => {
     const records = execRecords();
     appendCommandTurn(records, argv);
@@ -96,7 +114,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
 
   it('renders a shape found in a substitution body by allowlist and never the outer command', () => {
     const records = execRecords();
-    const secret = `token-${Date.now().toString(36)}`;
+    const secret = 'token-nonce-9c2f';
     appendCommandTurn(records, [
       'sh',
       '-c',
@@ -104,7 +122,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     ]);
     const summary = readCommandRecords(lines(records));
     expect(summary.flagged.map((entry) => entry.rendered)).toStrictEqual([
-      ['…', 'git push <arg> <arg>'],
+      ['…', '…', 'git push <arg> <arg>'],
     ]);
     for (const format of ['text', 'json'] as const) {
       expect(renderSummary(summary, format)).not.toContain(secret);
@@ -137,7 +155,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
       'stage-whole-tree',
       'push-outside-the-bot',
     ]);
-    expect(entry.rendered).toStrictEqual(['git add -A', 'git push']);
+    expect(entry.rendered).toStrictEqual(['…', 'git add -A', 'git push']);
   });
 
   it('leaves a commit whose message carries a separator and a shape unflagged', () => {
@@ -155,7 +173,7 @@ describe('readCommandRecords flags the forbidden shapes the harness ran', () => 
     appendCommandTurn(records, ['bash', '-lc', script]);
     const [entry] = readCommandRecords(lines(records)).flagged;
     assert(entry);
-    expect(entry.rendered).toStrictEqual(['…', 'git push <arg> <arg>']);
+    expect(entry.rendered).toStrictEqual(['…', '…', 'git push <arg> <arg>']);
   });
 
   it('reads a here-document body naming a shape as data, not as a command that ran', () => {

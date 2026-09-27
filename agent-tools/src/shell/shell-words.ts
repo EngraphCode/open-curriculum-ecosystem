@@ -83,6 +83,7 @@ function readQuoted(command: string, start: number, quote: string, state: ScanSt
     }
   }
   state.inWord = true;
+  state.literal = true;
   return index + 1;
 }
 
@@ -92,6 +93,7 @@ function readEscape(command: string, index: number, state: ScanState): number {
   if (escaped !== '\n') {
     state.word += escaped;
     state.inWord = true;
+    state.literal = true;
   }
   return index + 2;
 }
@@ -112,6 +114,7 @@ function readSubstitution(command: string, index: number, state: ScanState): num
   state.nested.push(isDollar ? body : body.replaceAll('\\`', '`'));
   state.word += command.slice(index, close + 1);
   state.inWord = true;
+  state.literal = false;
   return close + 1;
 }
 
@@ -150,9 +153,9 @@ function currentWord(state: ScanState): string {
   return state.inWord ? state.word : '';
 }
 
-/** The last character of the word being read (empty at a word start). */
+/** The last character of the word being read as an operator's character: empty at a word start or after quoted or escaped text. */
 function lastCharacter(state: ScanState): string {
-  return currentWord(state).slice(-1);
+  return state.literal ? '' : currentWord(state).slice(-1);
 }
 
 /** Consume an operator or a substitution at `index`; `null` when the text there is neither. */
@@ -173,9 +176,12 @@ function scanOperator(command: string, index: number, state: ScanState): number 
   return null;
 }
 
-/** Before a redirection character an ordinary word ends; an IO number, a lone `&` or an operator so far continues. */
+/** Before a redirection character an ordinary word ends; an IO number, a lone `&` or an operator so far continues, unless quoted or escaped text wrote it. */
 function endWordBeforeRedirection(char: string, state: ScanState): void {
-  if (REDIRECTION_CHARACTERS.has(char) && !continuesRedirection(currentWord(state))) {
+  if (!REDIRECTION_CHARACTERS.has(char)) {
+    return;
+  }
+  if (state.literal || !continuesRedirection(currentWord(state))) {
     endWord(state);
   }
 }
@@ -186,6 +192,7 @@ function scanQuoting(command: string, index: number, state: ScanState): number |
     const [text, next] = decodeAnsiCQuoted(command, index);
     state.word += text;
     state.inWord = true;
+    state.literal = true;
     return next;
   }
   const char = command[index] ?? '';
@@ -214,6 +221,7 @@ function scanAt(command: string, index: number, state: ScanState): number {
   }
   state.word += char;
   state.inWord = true;
+  state.literal = false;
   return index + 1;
 }
 
@@ -227,6 +235,7 @@ export function segmentCommand(command: string): readonly (readonly ShellWord[])
     words: [],
     word: '',
     inWord: false,
+    literal: false,
     nested: [],
     heredocs: [],
   };

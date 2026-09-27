@@ -81,7 +81,7 @@ describe('readCommandRecords accounts for every exec call of a turn', () => {
       kind: 'refused',
       line: lineOf(records, output),
       turnId: start.payload['turn_id'],
-      rendered: ['git push <arg> <arg>'],
+      rendered: ['…', 'git push <arg> <arg>'],
       hits: [{ kind: 'push-outside-the-bot', token: 'push' }],
     });
     const text = renderSummary(summary, 'text');

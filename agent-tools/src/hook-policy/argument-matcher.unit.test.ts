@@ -208,10 +208,22 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'sudo rm -rf dir')).toBe(true);
   });
 
-  it('reads an option glued to a redirection as the option, so the redirection is no bypass', () => {
-    expect(matchesArgvPattern(recursiveForce, 'rm -rf>/dev/null d')).toBe(true);
-    expect(matchesArgvPattern(recursiveForce, 'rm -rf>/dev/null 2>&1 d')).toBe(true);
+  it('reads a long option glued to a redirection as the option, so the redirection is no bypass', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm --recursive --force>/dev/null d')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -r --force>x d')).toBe(true);
     expect(matchesArgvPattern('git reset --hard', 'git reset --hard>/dev/null')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'git reset --hard>x -- f')).toBe(true);
+    expect(matchesArgvPattern('git push --force', 'git push --force>/dev/null origin HEAD')).toBe(
+      true,
+    );
+  });
+
+  it('reads a redirection target glued to an option as the target, as the shell does', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm -r>x-f d')).toBe(false);
+  });
+
+  it('reads an escaped or quoted operator character as text, so it hides no later option', () => {
+    expect(matchesArgvPattern(recursiveForce, String.raw`rm -rf x \>& -i`)).toBe(true);
   });
 
   it('lets a later option cancel the one it overrides, as rm does', () => {

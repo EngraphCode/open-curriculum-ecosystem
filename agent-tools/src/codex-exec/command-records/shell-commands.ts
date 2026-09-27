@@ -3,13 +3,14 @@ import { segmentCommand, type ShellWord } from '../../shell/shell-words.js';
 
 /**
  * The commands a harness argv means, read through the estate's shell
- * segmenter (the Claude Bash guard's, under `src/shell`): the argv itself
- * when no shell in it runs a script, else every simple command of the script
- * that shell is given (`sh -c`, `bash -lc`, `bash -euo pipefail -c`,
- * `/bin/zsh -lc`; every operand of `eval` and `ssh`), each lifted through the
- * same front door again, and the body of every command substitution any word
- * carries (`$(…)`, a backtick pair, the substitutions of an unquoted
- * here-document body), to a bounded depth. The segmenter removes quotes
+ * segmenter (the Claude Bash guard's, under `src/shell`): the argv itself,
+ * always; then every simple command of the script a shell in it is given
+ * (`sh -c`, `bash -lc`, `bash -euo pipefail -c`, `/bin/zsh -lc`; every
+ * operand of `eval` and `ssh`), each lifted through the same front door again;
+ * and the body of every command substitution any word carries (`$(…)`, a
+ * backtick pair, the substitutions of an unquoted here-document body), to a
+ * bounded depth. The argv stays a command of its own so a shape before a
+ * later interpreter operand is still read, as the guard reads it. The segmenter removes quotes
  * (`$'…'` included), drops `#` comments and here-document bodies, and reads a
  * redirection as its own word, so an option after or glued to one belongs to
  * its command.
@@ -41,24 +42,22 @@ function commandsOfScript(script: string, depth: number): readonly Command[] {
 }
 
 /**
- * The commands one segment of shell words means: itself, or the commands of
- * the script a shell in it runs; and the commands of every substitution body
- * its words carry.
+ * The commands one segment of shell words means: itself, the commands of the
+ * script a shell in it runs, and the commands of every substitution body its
+ * words carry.
  */
 function commandsOfWords(words: readonly ShellWord[], depth: number): readonly Command[] {
   const texts = words.map((word) => word.text);
   if (depth >= MAX_DEPTH) {
     return [texts];
   }
-  const scripts = interpreterScriptWords(words).filter(isScriptWord);
-  const own =
-    scripts.length === 0
-      ? [texts]
-      : scripts.flatMap((script) => commandsOfScript(script.text, depth + 1));
+  const scripts = interpreterScriptWords(words)
+    .filter(isScriptWord)
+    .flatMap((script) => commandsOfScript(script.text, depth + 1));
   const substituted = words
     .flatMap((word) => word.nested)
     .flatMap((body) => commandsOfScript(body, depth + 1));
-  return [...own, ...substituted];
+  return [texts, ...scripts, ...substituted];
 }
 
 /** The commands a harness argv means; an empty argv means none. */
