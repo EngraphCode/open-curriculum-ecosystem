@@ -416,5 +416,5 @@ ledger, with no worktree and no commit while the count read three. It opens on t
 own PR at its place in the slot order posted at 15:5xZ (after Nova's OCE doctrine PR and Siren's
 lineage follow-up, before or beside Nova's JC.net twin as the slots free), reservation-first; a
 pointer in JC.net's agentic-engineering index by the exchange. The addendum for the tail (226's
-settlement push and door; the lineage follow-up) is owed when they land. Proposals 1, 2 and 4 to 6
-are fast-lane rows; proposal 3 goes to the PDR-130 register with its review date.
+settlement push and door; the lineage follow-up) is owed when they land. Proposals 1, 2, 4 and 6
+are fast-lane rows; proposals 3 and 5 go to the PDR-130 register with their review dates.
