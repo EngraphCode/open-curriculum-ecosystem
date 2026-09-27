@@ -575,6 +575,48 @@ direction, as the run it stands for.
 graduation to the metacognition directive's fluency section is owed as one line naming the
 family.
 
+## 2026-09-27 ~10:5xZ — a grader that counts the call, not the outcome (Myrtle turns Canopy, bf4957)
+
+**Observation.** The first probe of the host eval runner against the real user-value skill (one
+case, with-without ablation) reported the with-arm's `canonical-read` grader PASSED. The grader
+was `tool_used` with `tool: Read` and `input_match: SKILL-CANONICAL`. The trace showed the Read
+refused ("Permission to use Read has been denied": the adapter's repo-relative pointer resolved to
+a path outside the runner's workspace), the following Glob found nothing, and the agent wrote its
+answer from the skill's description alone, saying so in its last line. A `tool_used` grader counts
+the call; it does not read the result.
+
+**Reading.** The eighth member of the family of a check that does not check what it names: a
+grader measuring an attempt, not an outcome. The cure at the grader: a negative check on the trace
+beside the positive one, and the LLM grader told what the method would have produced so an answer
+written from a description alone reads as the failure it is.
+
+**Routing.** Held with the family; the projection tool emits the paired graders by construction.
+
+## 2026-09-27 ~11:0xZ — a baseline that had the method, and a check that checked more than it names (Myrtle turns Canopy, bf4957)
+
+**Observation.** The first clean run of the user-value suite (7 cases, both arms, 10 triggers)
+read in full. Two findings about the instrument, none about the skill. First: the scaffold that
+copied the canonical into the runner's workspace ran in both arms, so the "no plugin" baseline had
+the method text in its cwd; in case-03 the without-arm agent found it, read it and cited its
+routing clause. The with-without delta was measured against a baseline that carried the thing
+being ablated. Second: the paired trace check "no Read, Glob or Grep was refused" failed three of
+seven with-arm cases on exploratory Globs of the plugin directory, after which each agent read the
+canonical and every reference from the workspace; the check named "the method reached the agent"
+and measured "no refusal anywhere". A third fact from the runner's binary, read before it bit:
+`input_match` is a regular expression over the serialised input, and the Skill tool names a plugin
+skill `<plugin>:<skill>`, so an unanchored `oak-specify` counts `oak-specify-connection`.
+
+**Reading.** Members nine and ten of the family: a control that is not a control, and a check
+wider than its name. The cure for both is the same move as the eighth's: make the instrument
+carry exactly what its name says. The plugin skill is now the adapter's frontmatter over the
+canonical body, references beside, nothing in the workspace (a USD 0.11 probe first showed reads
+inside the plugin succeed); the readable check names only reads under the plugin's skills; the
+fired indicator is anchored with a negative lookahead. The evidence of the first form was removed
+as superseded; its reading is this entry. n = 10 across two days.
+
+**Routing.** The graduation to the metacognition directive's fluency section is still owed as one
+line naming the family; the instrument's second form is on PR 250 with the runner facts dated.
+
 ## 2026-09-27 ~09:0xZ — a seat asleep for eleven hours with a live heartbeat (Myrtle turns Canopy, bf4957)
 
 **Observation.** PR 245's leg wait (a background shell loop) completed at about 21:54Z on the 26th
@@ -610,3 +652,77 @@ let the barrel `index.ts` carry only what the CLI imports (cycle 1, two types dr
 Read: export a type where its second consumer is, and never through the barrel for a test's
 convenience. Observed once beside it: `erasableSyntaxOnly` refuses a constructor parameter
 property; a field assigned in the constructor body is the erasable form.
+
+## 2026-09-27T10:4xZ — The owner's thirteen answers of 09:1xZ, recorded on the lineage for the runbook stamps (the Director)
+
+Recorded here so the lineage copy's ratification stamp (ratified_where) resolves inside this
+estate: the section below is verbatim from the JC.net napkin's COMPACTION BOUNDARY 9 block (its
+OWNER ANSWERS section, commit 8c8f6042 on JC.net's coordination/2026-09-26-26ca4d, folded to
+main by PR 215 as cb4644c4). The answers are the owner's; the consequences are the Director's
+reading at the time, with the trigger's consequence under answer 5 superseded at suite 28 (judged at
+a fold moment, 12:00Z or 00:00Z).
+
+OWNER ANSWERS at 09:1xZ on 2026-09-27 (the Director's thirteen questions, three batches, at the
+owner's word "give me all open questions and unknowns as user questions now please"; each answer
+is the selected option or the owner's own text, verbatim), with the consequence and the seat each
+binds at the resume:
+
+1. Clef: "Keep the word Clef out of the repo for now. We can call it Student Support Experiments".
+Consequence: the name is replaced by "Student Support Experiments" in PR 250's two notes on the
+lane (Myrtle, the lane's owner, first commit at the resume; no history rewrite: the earlier
+commits on the public branch keep the word, which the owner's word tolerates "for now"). Card line
+10 closed. 2. 250 and the limit: "It counts, and it is to be treated as a first class PR, not a
+separate blocker, it doesn't constrain the system, it is part of the system". Consequence: the
+reading stands; the intake runs on two slots while 250 is open and no seat treats 250 as a special
+class. Card line 4 closed. 3. The order: "250 first (Recommended)". Consequence: the standing
+order of card line 12 is the owner's: Myrtle takes 250 after 245 (landed 09:06Z); Siren takes J2
+and J3 after the twin and the register PR; the code rows to whichever of Myrtle or Swallow frees
+first. Card line 12 closed. 4. The count's scope: "Three across both (Recommended)". Consequence:
+the reading stands; the wording PR 260 says so. 5. The retrospective trigger's re-anchor: "Ratify
+(Recommended)". Consequence: the condition (the count at or under the limit and the eight drain
+rows landed, judged at a fold moment) is the owner's; it reads met now and is judged at 254's fold
+at the resume. Card line 11 closed. 6. The retrospective's author: "The Director (Recommended)".
+Consequence: the Director authors it as Lane 1's item 7 at the resume after the folds and check-in
+33; its PR opens on the lineage only behind every seat's waiting item; a pointer in JC.net by the
+exchange. 7. The late-cure leg ruling: "Ratify (Recommended)". Consequence: PDR-140 clause 4's
+last sentence as applied on PR 211 is the owner's; the handoff's standing ruling reads ratified.
+Card line 1 closed. 8. PR 224's private citations: "Ratify (Recommended)". Consequence: the seat's
+disposition stands; citations of the owner's private documents by filename are the owner's
+provenance with the private-upstream clause where the hygiene rule asks. Card line 3 closed. 9.
+The three local branches: "Delete all three (Recommended)". Consequence: the owner's explicit word
+is the authorisation the never-use-git-to-remove-work rule needs; the Director runs the three
+local force-deletes at the resume (claude/objective-nightingale-b4ba25;
+docs/codex-queue-probe-2026-09-25 with its private capture commit, never pushed;
+docs/codex-queue-probe-metadata-01a0d9), read back absent, on the lineage stream. Card line 7
+closed. 10. The runbook: "Ratify both (Recommended)". Consequence: both estates' copies go to
+status ratified with ratified_by the owner, ratified_date 2026-09-27 and ratified_where this card;
+Siren's JC.net twin carries its stamp when it opens; the lineage's copy takes a one-file docs PR
+at a free slot (Siren). Card line 8 closed. 11. The statusline key: "The Director renames it
+(Recommended)". DONE at 09:1xZ: line 4 of the operator's ignored lineage
+`.claude/settings.local.json` now reads PRACTICE_STATUSLINE_LOG_FILE, the JSON parses, the file
+still ignored; nothing else in it changed. Card line 5 closed. 12. Goal two's Codex items:
+"Swallow's lane, in order (Recommended)". Consequence: Swallow takes them after the command-record
+reader, one PR per item at free slots, interleaved with the goal-one code rows by the standing
+order. Card line 6 closed. 13. Dependabot: "Team lands green ones (Recommended)". Consequence:
+Dependabot PRs count toward the limit; the Director names each at the check-in that first sees it;
+a seat lands each green bump at its size turn and assesses a red one, cure or close, with a card
+if closing. The rule as operated gains item 10; the wording PR 260 gains one sentence if its round
+budget holds, else the next Practice PR on §Phase 7 carries it.
+
+The card queue after the answers: line 9 (the wording PR, open as 260) is the only line left, and
+it is a status, not a question. Zero open owner questions at this boundary.
+
+## 2026-09-27 ~11:1xZ — a local shape grew three cycles before the estate's own was looked for (Swallow holds Drift, 516619)
+
+The command-record reader carried its own POSIX word splitter through cycles 2 to 4 (349 lines,
+39 tests, two split commits to stay under the line budget) while `hook-policy/shell-words.ts`, the
+Bash guard's segmenter with the same contract and a stricter bar, sat two directories away with
+four consumers. Nobody in the lane asked "does the estate already read shell words?" at cycle 1;
+the design named five second-consumer lifts and never the splitter. What found it: the cycle 3
+reviewer counted the ratchet (a splitter added, a file split, more rules and a probable split) and
+asked for a bounded solution-class check; the assumptions-expert found the module in minutes with
+one `grep`. What followed cost one cycle: a pure move to a neutral home, a cure at the owner that
+closed a guard bypass too, the reader consuming it, two commits superseded and deleted. The general
+shape: before a lane writes a parser, a matcher or a validator, search the estate for the noun;
+the cost of the late question here was about two hours of review and two superseded commits, and
+the gain of the early one would have been a smaller PR and a guard cure a day sooner.

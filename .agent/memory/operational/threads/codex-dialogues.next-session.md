@@ -24,7 +24,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | --- | --- | --- | --- | --- | --- | --- |
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
-| Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`) | 2026-09-24 | 2026-09-26 |
+| Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`); the command-record reader, PR 261 (claim `f7d8f0de`) | 2026-09-24 | 2026-09-27 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
 | Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
@@ -83,6 +83,57 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **RESUMED (about 09:30Z, 2026-09-27) at the owner's start-right word, after compaction 5.** Live
+  state read first; heartbeat and watcher re-armed by id; the Director's routing `26eb4e4e` (the
+  owner's answer on goal two, "Swallow's lane, in order"; the free slot to the reader) acked
+  (`b2cebe38`). **PR 261, the reader, is OPEN and READY at `a9e006557`** (41 files, level with
+  engraph `71988aaa6`), both legs requested 11:12Z; the door at this seat's slot turn after the legs
+  and CI. The segment, in order:
+  - **The slot**: reserved 09:35Z; withdrawn 09:5xZ at suite 28's amendment (Siren's twin, JC.net
+    224, first); reserved again 10:19Z after 224 merged; the draft opened 10:22Z (check-in 33's
+    order: the "WIP slot reserved" line precedes the count; a seat with no slot prepares without a
+    worktree or a commit).
+  - **Cycle 3's owed code review** (REVISE): two musts (harness text was read after the last
+    `Script error:` under every wrapper, so a program's own text under a completed script could
+    read as a refusal or a truncation; a repeated call id broke the invariant), three shoulds (the
+    policy's justification dropped from the summary, the rule's reason standing alone; one
+    unaccounted total; two invariant rows), six nits; `5cfa601a1`, `310900bd5`; then APPROVE.
+  - **Cycle 4** (the splitter's redirections, comments, header): pre-execution REVISE executed as
+    prescribed (`c41b257c9`, `537f4bfa8`); superseded by cycle 5 and deleted in it.
+  - **The reviews' fixes and the Director's matcher cure** (`38c1d1f5`: option shapes matched
+    before the first bare `--` only, the whole-tree pathspec on either side): `c8463858e`; the
+    forbidden-shape table its own module; ADR-180's dangling references cured (the docs-adr-expert's
+    musts); the codex-helper skill and the agent-tools README name both subcommands.
+  - **Cycle 5, the consolidation.** A bounded assumptions-expert check, asked by the cycle 3
+    reviewer's ratchet count, found the estate's shell segmenter: `hook-policy/shell-words.ts` (the
+    Claude Bash guard's, 2026-09-10, four consumers). The design's "one consumer" premise was
+    unsupported and `consolidate-at-second-consumer` fired. Verified first-hand: 33 of the reader's
+    42 scripts identical, the guard better on six (substitution bodies as nested commands, `$'…'`),
+    one shared defect (an unspaced `<` or `>` glued to the word before it). Pre-execution REVISE
+    (four changes) executed: `eb322945e` (pure move to `agent-tools/src/shell/`, the interpreter
+    front door out of argv-nested), `0de0f60bb` (the cure at the owner; the matcher's argv-mode
+    bypass by a glued LONG option closed and proven; the short-cluster reader had skipped glued
+    characters already), `8909f2efb` (the reader consumes it through `shell-commands.ts`; its
+    splitter and 39 tests deleted; backtick and `$(…)` bodies and `$'…'` no longer residuals).
+    Post-execution: code REVISE (a clock read) then APPROVE; test REVISE (two musts, three shoulds:
+    the front door's owner tests, the orphaned rows re-homed, the depth limit from both sides, a
+    kind per row); security REVISE (a fail-open regression: the argv dropped beside a lifted
+    script; non-discriminating rows; a pre-existing weakness, a quoted or escaped operator
+    character read as an operator's) then APPROVE on a differential re-run against bash 5.3; all
+    in `240d7746b`; the second sync merge `a9e006557`. The Director's word (`0ffab81a`): the guard
+    change rides the reader PR with the security review before the ready-mark; §Scope names it.
+  - **Owed**: the ledger row for 261 at its landing; the guard follow-up from 246's round 4 at a
+    free slot; GIT_COMMON_DIR in the wrapper's scrub table (`38c1d1f5` (2)) for the wrapper's
+    implementation. The design record takes amendment 12 and the end-of-stream correction in this
+    commit.
+  - **Parallax**: (1) three cycles grew a local splitter before the estate's own was looked for;
+    the first question at cycle 1 should have been "does the estate already read shell words?";
+    the check that found it was a reviewer's, not the lane's. (2) Two "bypass closed" rows proved
+    nothing until a differential against the pre-change code was run; that differential is the
+    proof such a row needs. (3) A rendered entry now begins with `…` for the shell wrapper's own
+    segment: honest, and noisier than before.
+  - **Standing order unchanged**: goal two's Codex items in order after 261 lands; goal one's
+    code rows only if a slot is free first.
 - **COMPACTION BOUNDARY 5 (about 09:15Z, 2026-09-27), at the owner's word "prepare for compaction,
   and then stop all processes, allow subagents to finish and make their work safely, then stop
   them".** The word arrived after an overnight pause of the whole team: this seat's last live act

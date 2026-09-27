@@ -450,6 +450,20 @@ contract, its §Recount run at 14:58Z and matching.
   `oce-wt-user-value` on the owner's branch; then goal one's code rows if this seat frees first.
   The resolver lesson: its 15:xxZ test ran the merge with the sides reversed (napkin, the family's
   seventh member).
+- **PR 250 STEP 0/1, 2026-09-27 09:31Z to 11:1xZ (Myrtle turns Canopy, bf4957):** the owner's
+  rename landed as `84fc8a0ea` (Student Support Experiments; the PR body edited under the bot token).
+  The instrument `agent-tools skill-evals` built, reviewed and green (61 tests): it projects a
+  skill's evals into a temporary plugin for `claude plugin eval` and retains result, traces,
+  answers and a manifest under the skill's `evals/results/`. Its first clean run of user-value
+  (USD 3.60) read in full changed the instrument, not the skill: the scaffold gave the without-arm
+  the method text (a baseline that was not one), the denial check flagged exploratory Globs (a
+  check wider than its name), and `input_match` is a regex that an unanchored name over-matches;
+  the second form inlines the canonical body into the plugin skill, anchors the indicators and
+  carries further skills with `--also` for the cross-skill exercise (napkin, the family's eighth
+  to tenth members). Step 1: specify, specify-connection, assess-specification canonicals,
+  references, evals and adapters; plan evals with the five-skill case 4. Acceptance runs in flight
+  from 11:00Z, two at a time; the human read is this seat's, the second read the Director's or a
+  Cricket's; events 2df0b812, 9b7eae7b, 028ef574, 77be5005.
 - **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
   PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
   synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule

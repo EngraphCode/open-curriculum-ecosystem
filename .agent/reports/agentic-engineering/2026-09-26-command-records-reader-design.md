@@ -22,7 +22,8 @@ harness record, without publishing the rollout or its command history.
 (`tools/router.rs:165`, `tools/registry.rs:385`). Outputs carry no name, so each
 `custom_tool_call_output` or `function_call_output` is joined to its request by `call_id` within
 the turn (the existing `pendingCallIds` pattern); an output whose request is not exec-family is
-ignored; an exec request unanswered at `task_complete` is `unaccounted`.
+ignored; an exec request unanswered when the rollout ends is `unaccounted` (the reader counts
+at the end of the stream, not at `task_complete`; corrected 2026-09-27 on the cycle 3 review).
 
 **Evidence, from harness-authored records only.**
 
@@ -33,7 +34,7 @@ ignored; an exec request unanswered at `task_complete` is `unaccounted`.
 | refused | an exec-family output whose harness text carries `Rejected("` … `` rejected: `` … `")` (both carriers wrap the exec-policy message as `exec_command failed: CreateProcess { message: "Rejected(\"…\")" }`, `exec_command.rs:474`, `process_manager.rs:1548`; the bare `` `<command>` rejected: <justification> `` reaches an output only for `shell_command`, `events.rs:469`), or `write_stdin rejected: <reason>` (`write_stdin.rs:110`); or a CommandExecution item with `status: declined` | the judged command line (a shlex rendering, `exec_policy.rs:1051`) and the justification; the four justification shapes of `exec_policy.rs:1081` to `1092` |
 | denied | an exec-family output whose harness text carries `Command denied by sandbox:` (`errors.rs:25`, Display; reaches an output only as `write_stdin failed: <err>`, `write_stdin.rs:116`; the message is a stderr snippet with NO command line) | a count; no argv |
 | accounted | a code-mode output whose wrapper reads `Script completed`, or a function-tool exec output carrying no shape above | a count per turn |
-| unaccounted | a code-mode wrapper reading `Script failed` with no anchored refusal or denial, `Script terminated`, `Script running with cell ID …` (`code_mode/mod.rs:296`), any exec output carrying a truncation marker (`hasTruncationMarker`), or an exec request unanswered at `task_complete` | a count per turn, inconclusive |
+| unaccounted | a code-mode wrapper reading `Script failed` with no anchored refusal or denial, `Script terminated`, `Script running with cell ID …` (`code_mode/mod.rs:296`), any exec output carrying a truncation marker (`hasTruncationMarker`), or an exec request unanswered when the rollout ends | a count per turn, inconclusive |
 | malformed | a CommandExecution item whose `command` is not a non-empty string array, whose `status` or `source` is outside its enum, whose `exit_code` is present and not a number, whose `interaction_input` is present and not a string, or whose event has no string `turn_id`; an exec output that is neither a string nor the harness's parts array; a repeated `task_started` turn id | line and a reason that never carries the raw token |
 
 Residual, documented and shown by run 1: an `exec_command` startup denial is caught and returned to
@@ -70,6 +71,10 @@ Output:` is the program's and is never matched. The `Debug` rendering is unescap
   patterns of `.codex/rules/seat-landing.rules` with their `match`/`not_match` examples and the
   estate rule each operationalises; matching is token-anywhere after the subcommand, wider than the
   harness's positional prefix (`git commit -F m --no-verify`, `-an`, `-n`), and the doc says so.
+  Option-shaped patterns stop at a bare `--`: git's grammar is `git add [<options>] [--]
+  <pathspec>...`, so a pathspec literally named `-A` or `--all` after `--` is a file, not the
+  whole-tree form, and `--strict` must not exit 1 on it (the Codex connector's finding at the
+  fold's review, 2026-09-27); the whole-tree `.` pathspec stays detectable after `--`.
   Pairing is by pattern (the rules are anonymous, `execpolicy/src/parser.rs:349`). The
   consolidation validator (a repo-file reader asserting the rules' forbidden patterns equal this
   table, reachable from `repo-validators:check`) is named in the PR body as its own lane.
@@ -169,7 +174,8 @@ No `throw`; closed `readonly` shapes and closed enums validated at the boundary;
 knip (every export consumed by the CLI or a sibling module, never tests alone); S3358; S4036;
 tests describe behaviour and never inspect calls, pin config or read the disk; consolidate at the
 second consumer (`readLines`, `makeIo`, the fixture helpers, `hasTruncationMarker`,
-`completedPreamble`, `isRecord`; the rules' patterns carried verbatim with the validator named);
+`completedPreamble`, `isRecord`; the rules' patterns carried verbatim with the validator named;
+and, from cycle 5, the shell segmenter itself, consumed from `agent-tools/src/shell/`);
 one PR, one story; ADR-088's Result posture where a caller needs a reason.
 
 ## Falsifiers
@@ -266,6 +272,37 @@ Accounting confirmed by the reviewer under these amendments: exec fixture 4 call
 Two sandboxed `codex exec` runs by Swallow holds Drift (516619); rollouts stay private under the
 owner's home; only redacted projections leave the machine. Both under `-s workspace-write`, stdin
 closed, no full-access flag; every process exited on its own (read back by `ps`).
+
+## Cycle 5 notes (2026-09-27, about 10:15Z to 11:10Z), recorded at execution
+
+**Amendment 12: the reader reads shell words through the estate's segmenter, not its own.** The
+design's premise that the splitter had one consumer was unsupported: `hook-policy/shell-words.ts`
+(the Claude Bash guard's segmenter, landed 2026-09-10 with seven cure commits, consumed by
+`blocked-patterns` and `argument-matcher`) reads the same words with a stricter bar, and
+`argv-nested.ts` carried the same front door (the sh-like shells past a `c` cluster, `eval`, `ssh`).
+A bounded assumptions-expert check, asked for by the cycle 3 reviewer after three cycles of local
+growth, found it. Verified first-hand on the reader's 42 test scripts: 33 identical; the guard
+carries `$(…)` and backtick bodies as nested commands, decodes `$'…'`, and joins `<<-END`; both
+shared one defect, an unspaced `<` or `>` staying inside the word before it.
+
+What changed: the segmenter, its helpers and the interpreter front door moved to
+`agent-tools/src/shell/` (a pure move; hook-policy re-points); the defect is cured at that owner
+(an ordinary word ends before `<`, `>` or `&>`; an IO number, a lone `&` or an operator so far
+continues; a quoted or escaped operator character is text), closing the guard's argv-mode bypass
+by a glued long option and proven at the matcher with a differential against the pre-change code;
+the reader's `shell-commands.ts` lifts a harness argv through the segmenter, the front door and
+every substitution body to depth 3, keeping the argv itself a command beside the lifted script (a
+shape before a later interpreter operand is read, as the guard reads it); `shell-segments.ts`,
+`shell-here-document.ts`, `shell-front-door.ts` and their 39 tests are deleted, the reader's
+behaviours re-proven through a harness argv.
+
+Residuals after cycle 5: a word an expansion would produce, `xargs`, `find -exec`, a git alias, an
+abbreviated long option; the guard's fail-closed lift of a script word after any interpreter-named
+word (`echo bash -c '…'` lifts a command that never ran). Closed: `eval`, backticks, `$(…)`,
+`$'…'`. A rendered entry now shows the shell wrapper's own segment as `…` before the shape.
+
+Amendment 3's premise on the first question stands corrected for the lane's method: before a lane
+writes a parser, a matcher or a validator, the estate is searched for the noun first.
 
 ## Run 1: a throwaway repository, four plain commands (thread 01a0df44…)
 
