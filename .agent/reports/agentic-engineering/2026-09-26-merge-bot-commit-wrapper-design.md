@@ -106,8 +106,9 @@ merge-bot commit --message-file <path> [--author "<Name> <email>"] [--json]
   `describeGitChildEnd`. No `timeoutMs`.
 - **No bot identity, no mint**: `commit` never calls `resolveBotIdentity`, and the usage text
   says so.
-- **The default branch** stays with the hook's guard (a separate widening follow-up: the guard
-  refuses only the literal `main`).
+- **The default branch** stays with the hook's guard, which since PR 246 (merged 2026-09-26
+  21:23Z) derives the branch named by `refs/remotes/origin/HEAD` and refuses it beside `main`
+  and `master` (`.husky/refuse-commit-on-main.sh`); no widening follow-up remains.
 - **Smoke** `smoke-tests/merge-bot-commit.smoke.ts`, registered as `smoke:merge-bot-commit` and
   chained into `test:e2e`, driving `runMergeBotCli(['commit', …])` end to end with the real
   executor, over a temporary repository with a seed commit:

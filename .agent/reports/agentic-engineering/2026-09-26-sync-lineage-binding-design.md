@@ -13,7 +13,8 @@ sample, not every round, which is why the cure is deferred until the survey show
 
 Cure, one behavioural claim. A review binds the head when the head's CONTENT against the default
 branch is the content the reviewer saw. Content = the patch of `merge-base(base, C)..C`, compared
-by `git patch-id --stable` (whitespace-stable, sha-independent). If patch-id(reviewed commit) ==
+by `git patch-id --verbatim` (sha-independent; whitespace changes hash differently, the revision
+below's mode, since `--stable` let a whitespace-only sync bind). If patch-id(reviewed commit) ==
 patch-id(head), the review binds; otherwise it does not (UNPROVEN, as now). A pure sync lineage
 (one or more merges of the default branch into the branch, resolving nothing that changes the
 PR's own diff) has equal patch-ids by construction; a conflict resolution that changes the PR's

@@ -95,8 +95,10 @@ costs the owner attention on one platform and nothing on the other.
    boundary block, justified by the fluent-reach argument. Falsifier: if Codex seats, over the
    landings the rollout records show, never run a refused-by-doctrine flag, the wrappers are
    tidiness and the sync and stage wrappers can wait.
-4. PR 244's reader (merged `4be54a077`) measures item 3: the command records of a Codex seat's landing
-   are the evidence, read by the harness's records only.
+4. Item 3's measure is pending the command-record reader's own PR: PR 244 (merged `4be54a077`)
+   carries only the two-turn rollout reader, and the command-record reader is the reader lane's
+   unlanded work (feat/codex-rollout-command-records, opening at its WIP slot); until it lands,
+   the command records of a Codex seat's landing cannot be read by the harness's records alone.
 
 **Status:** provisional, until condition 5 is observed.
 
