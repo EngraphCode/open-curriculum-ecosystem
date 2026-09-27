@@ -4129,6 +4129,17 @@ commit SHA and the closing plan reference.
   runner check by `pgrep -f`; the general form of the substitution is a process listing piped
   to `grep`, and the rule for the hand is no bare `-f`, `-A` or `.` token anywhere after the
   verb the matcher pairs it with, whatever the tool that takes it.
+  An eighth (2026-09-26 12:47Z, Swallow holds Drift, `516619`): a command line carrying `merge-bot
+  push` and, later, `gh api … -F body=@file` was refused as `git push -f`; the matcher reads the
+  uppercase `-F` as the flag too, case-folded. The substitution is the push and the replies on
+  separate command lines, and `--field` in place of `-F` where a line must also say push.
+  A ninth (2026-09-26 15:03Z, Swallow holds Drift, `516619`), twice in five minutes: a heredoc
+  writing a TypeScript file whose warning text said "git remote add <name> <url>, then git push
+  <name>) to restore the destination-scoped range" was refused as `git restore`, the
+  worktree-destruction class, and the register entry describing that refusal was refused the same
+  way; the words `git` and `restore` on one line of prose are enough. The substitution is the
+  Write and Edit tools for any file content that speaks of git, and prose that keeps the two words
+  apart.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
 
@@ -4182,3 +4193,52 @@ commit SHA and the closing plan reference.
   the first commit on the default branch whose message fails `commitlint --strict`, or the
   wrapper's landing slipping past the Codex seat's first unattended commit.
 - **Owner direction status**: session-scoped (the Director's assignment to record it).
+
+### F-210 — the search CLI's smoke check is run by no CI task
+
+- **Source**: Codex's review of PR 217 (comment 4111807938, 2026-09-26 15:23Z), reading
+  tdd-as-design's landing sentence literally against the estate's tasks.
+- **Surface**: `apps/oak-search-cli/vitest.smoke.config.ts` (`test:smoke`, which needs
+  `ELASTICSEARCH_URL` and `ELASTICSEARCH_API_KEY`); `.github/workflows/`, which names no smoke
+  task; `turbo.json`, which has no `test:smoke` task.
+- **Observed**: 2026-09-26. `testing-strategy.md` §Smoke Checks says each smoke check is run by
+  a CI-gated task, never by the commit; this one is run by nothing, so the artefact-viability
+  proof it names has no runner, and a reader of the landing sentence meets a check no landing
+  can establish.
+- **Expected**: every smoke check runs in a CI-gated task with its credentials, or is retired
+  with its reason recorded.
+- **Candidate cure**: a workflow job holding the Elasticsearch secrets that runs the search
+  CLI's `test:smoke` on the default branch's push or on a schedule; or the check's retirement.
+- **Target surface**: `.github/workflows/` and `turbo.json`.
+- **Status**: open, an observation (recorded 2026-09-26); a code lane for the Director's
+  routing. The directive sentence itself is joint text, settled through the exchange (the
+  second estate's PR 216, ba177801c) as "every test and check the landing's gates run".
+- **Owner direction status**: session-scoped (this seat's record of a reviewer's finding).
+
+### F-211 — a seat's heartbeat loop attests a seat the harness is not waking
+
+- **Source**: this seat's own night, 2026-09-26 21:54Z to 2026-09-27 09:05Z: PR 245's leg wait (a
+  background shell loop under the harness) completed with LEGS-IN at about 21:54Z and the seat
+  received no wake for it; the seat's heartbeat loop (a shell process the seat started, beating
+  every 240 s) ran on, so every liveness read said live; Siren's ping at 22:5xZ over the session
+  socket arrived at 09:05Z with the owner's next message, when the door ran in two minutes.
+- **Surface**: the heartbeat loops the seats run as shell processes (`heartbeat-loop.sh` shapes in
+  each seat's scratchpad; `liveness-heartbeat-cron`), the harness's background-task wake, the slot
+  rule's "a slot whose holder has no heartbeat for twenty minutes is free".
+- **Observed**: 2026-09-27. A slot held by a seat whose harness was asleep stayed held for eleven
+  hours because the freeing condition reads the heartbeat, and the heartbeat was a process, not
+  the seat. `ping-before-escalate` was followed and could not wake a harness that was not polling.
+- **Expected**: a liveness signal that the seat's own turns emit, so that its absence means the
+  seat is not acting; and a slot-freeing condition that reads acting (an event on the stream from
+  the holder) rather than beating.
+- **Candidate cure**: (a) the heartbeat rule distinguishes a process beat from a turn beat and the
+  slot rule reads the turn beat (a holder silent on the stream for N minutes is free for the door
+  under ruling 3, heartbeat or not); (b) a background wait's completion re-sent to the seat by a
+  second channel (a comms event the wait itself emits, so the watcher wakes the seat) instead of
+  relying on the harness's task notification alone.
+- **Target surface**: `.agent/rules/liveness-heartbeat-cron.md`, PDR-078 §4, the landing-slot
+  bullet in `pr-lifecycle` §Phase 7, the seats' wait scripts (`wait-legs.sh` shapes).
+- **Status**: open, an observation with one instance (recorded 2026-09-27); for the Director's
+  routing. The wait scripts of this seat can take cure (b) without doctrine: emit a comms event
+  on completion.
+- **Owner direction status**: session-scoped (this seat's own record).
