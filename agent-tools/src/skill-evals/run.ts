@@ -1,0 +1,192 @@
+import { join } from 'node:path';
+
+import { collect, ok, type Result } from '@oaknational/result';
+
+import type { SuiteSelection } from './args.js';
+import type { PathReplacement } from './evidence.js';
+import type { SuiteRecord } from './manifest.js';
+import { writeManifest } from './manifest-writer.js';
+import { planSuites, type PlannedSuite } from './plan.js';
+import {
+  loadProjection,
+  pluginManifest,
+  writeAll,
+  type LoadOptions,
+  type LoadedSuite,
+} from './plugin.js';
+import { pluginSkillFiles } from './plugin-skill.js';
+import type { ProjectedFile } from './project.js';
+import type { SkillEvalsSeams } from './seams.js';
+import { executeSuite, type SuiteOptions, type SuiteRun } from './suite.js';
+
+/**
+ * The orchestration: project a skill's declared evals into a temporary
+ * plugin, run them through `claude plugin eval`, and retain the evidence
+ * under the skill's `evals/results/`.
+ *
+ * @remarks
+ * Every effect goes through {@link SkillEvalsSeams}, so the whole sequence
+ * is provable from literal inputs. The suites run in order and the first
+ * failure stops the spend; the manifest names exactly the cases the runner
+ * was asked for beside the cases its result names.
+ *
+ * @packageDocumentation
+ */
+
+/** What a run needs. */
+export interface RunOptions extends LoadOptions, SuiteOptions {
+  readonly suite: SuiteSelection;
+  readonly keepPlugin: boolean;
+  readonly agentToolsVersion: string;
+}
+
+/** Where a run left its evidence. */
+export interface RunSummary {
+  readonly outDir: string;
+  readonly pluginDir: string;
+  readonly suites: readonly SuiteRecord[];
+}
+
+interface Prepared {
+  readonly loaded: LoadedSuite;
+  readonly pluginFiles: readonly ProjectedFile[];
+}
+
+/** The projection and every skill the plugin carries, or the first refusal. */
+function prepare(options: LoadOptions, seams: SkillEvalsSeams): Result<Prepared, Error> {
+  const loaded = loadProjection(options, seams);
+  if (!loaded.ok) {
+    return loaded;
+  }
+  const { skill, carried } = loaded.value.projection;
+  const skills = collect(
+    [skill, ...carried].map((each) => pluginSkillFiles(options.repoRoot, each, seams)),
+  );
+  if (!skills.ok) {
+    return skills;
+  }
+  const pluginFiles = [
+    pluginManifest(skill.hostSkill),
+    ...skills.value.flat(),
+    ...loaded.value.files,
+  ];
+  return ok({ loaded: loaded.value, pluginFiles });
+}
+
+/** A filesystem-safe form of the clock. */
+function stamp(now: Date): string {
+  return `${now.toISOString().slice(0, 19).replaceAll(':', '-')}Z`;
+}
+
+/** Run the planned suites in order; the first failure stops the spend. */
+function executeSuites(
+  options: RunOptions,
+  seams: SkillEvalsSeams,
+  planned: readonly PlannedSuite[],
+  pluginDir: string,
+  outDir: string,
+): Result<readonly SuiteRecord[], Error> {
+  const replacements: readonly PathReplacement[] = [
+    { from: pluginDir, to: '<plugin>' },
+    { from: options.repoRoot, to: '<repo>' },
+  ];
+  const records: SuiteRecord[] = [];
+  for (const plan of planned) {
+    const suiteRun: SuiteRun = {
+      options,
+      seams,
+      pluginDir,
+      outDir,
+      suite: plan.suite,
+      cases: plan.cases,
+      replacements,
+    };
+    const record = executeSuite(suiteRun);
+    if (!record.ok) {
+      return record;
+    }
+    records.push(record.value);
+  }
+  return ok(records);
+}
+
+interface Staged {
+  readonly pluginDir: string;
+  readonly outDir: string;
+  readonly startedAt: Date;
+}
+
+/** Write the plugin to a fresh temporary directory and fix the evidence directory by the clock. */
+function stage(
+  options: RunOptions,
+  seams: SkillEvalsSeams,
+  prepared: Prepared,
+): Result<Staged, Error> {
+  const pluginDir = seams.makeTempDir('oce-skill-evals-');
+  if (!pluginDir.ok) {
+    return pluginDir;
+  }
+  const written = writeAll(pluginDir.value, prepared.pluginFiles, seams);
+  if (!written.ok) {
+    return written;
+  }
+  const startedAt = seams.now();
+  const canonicalDir = prepared.loaded.projection.skill.canonicalRelativeDir;
+  const outDir = join(options.repoRoot, canonicalDir, 'evals', 'results', stamp(startedAt));
+  return ok({ pluginDir: pluginDir.value, outDir, startedAt });
+}
+
+/** Project, run and retain. The temporary plugin is removed unless `keepPlugin`. */
+export function runSkillEvals(
+  options: RunOptions,
+  seams: SkillEvalsSeams,
+): Result<RunSummary, Error> {
+  const prepared = prepare(options, seams);
+  if (!prepared.ok) {
+    return prepared;
+  }
+  const planned = planSuites(options, prepared.value.loaded);
+  if (!planned.ok) {
+    return planned;
+  }
+  const staged = stage(options, seams, prepared.value);
+  if (!staged.ok) {
+    return staged;
+  }
+  const { pluginDir, outDir, startedAt } = staged.value;
+  const suites = executeSuites(options, seams, planned.value, pluginDir, outDir);
+  if (!suites.ok) {
+    return suites;
+  }
+  const manifest = writeManifest({
+    ...options,
+    seams,
+    loaded: prepared.value.loaded,
+    outDir,
+    startedAt,
+    suites: suites.value,
+  });
+  if (!manifest.ok) {
+    return manifest;
+  }
+  const removed = options.keepPlugin ? ok(undefined) : seams.removeDir(pluginDir);
+  return removed.ok ? ok({ outDir, pluginDir, suites: suites.value }) : removed;
+}
+
+/** What a projection-only invocation needs. */
+export interface ProjectOptions extends LoadOptions {
+  readonly out: string;
+}
+
+/** Write the projected plugin to `out` for inspection; nothing runs. */
+export function projectSkillEvals(
+  options: ProjectOptions,
+  seams: SkillEvalsSeams,
+): Result<{ readonly files: number }, Error> {
+  const prepared = prepare(options, seams);
+  if (!prepared.ok) {
+    return prepared;
+  }
+  const written = writeAll(options.out, prepared.value.pluginFiles, seams);
+  return written.ok ? ok({ files: prepared.value.pluginFiles.length }) : written;
+}

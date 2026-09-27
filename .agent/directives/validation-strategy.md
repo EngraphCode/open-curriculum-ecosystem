@@ -28,6 +28,10 @@ fitness_line_length: 100
   judgement-laden capability across realistic inputs, graded relative to a
   baseline. Unit of truth is a graded outcome over a corpus plus a with/without
   delta. Assertions are authored *after* the first run (this inverts test-first).
+  For a Practice skill the delta is read from the evidence `agent-tools skill-evals`
+  retains under the skill's `evals/results/` (the runner's result per arm, every
+  trace and answer, a manifest of the evaluated versions); the instrument is in
+  [`agent-tools/README.md`](../../agent-tools/README.md) §`skill-evals`.
 - **Assure** — the umbrella trust case: composes test + evaluate + conformance +
   UAT + observability + security review + human review into ongoing evidence that
   the capability is fit for the world.

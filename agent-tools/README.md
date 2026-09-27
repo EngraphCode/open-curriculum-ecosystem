@@ -559,6 +559,52 @@ pnpm agent-tools:codex-reviewer-resolve sentry-expert
 pnpm agent-tools:codex-reviewer-resolve architecture-expert-fred --json
 ```
 
+## `skill-evals` quick reference
+
+Runs a canonical skill's declared evals (`<skill>/evals/evals.json`, the cases; `evals/trigger-validation.json`, the
+trigger examples) through the host eval runner, `claude plugin eval`, and retains the evidence in the repository.
+
+- `run --skill <canonical dir> --host-skill <name>` — project the fixtures into a temporary plugin whose skill is the
+  host adapter's frontmatter over the canonical body (references carried beside), run the cases with the with-without
+  ablation and the trigger examples without one, and retain the runner's result, every run's trace and final answer,
+  and a manifest (blob ids of every carried skill's canonical and adapter files, the repository head, the runner
+  configuration, the cases asked for and the cases that ran) under `<canonical dir>/evals/results/<started-at>/`,
+  every machine-local path scrubbed
+- `--also <canonical dir>=<name>` (repeatable) — carry another skill in the plugin, so a case that declares
+  `skills_expected` (canonical names) can exercise a handoff to it; each expected skill gets its own fired indicator
+- `project --skill <canonical dir> --host-skill <name> --out <dir>` — write the same projection for inspection; nothing
+  runs
+- `--suite all|cases|triggers`, `--case <glob>` (narrows within each suite; an emptied suite is not invoked),
+  `--ablation with-without|none`, `--runs <n>`, `--max-cost-usd <usd>` (the runner's ceiling; a run cut by it is
+  recorded PARTIAL), `--judge-model <m>`, `--model <m>`, `--max-turns <n>`, `--trigger-max-turns <n>`,
+  `--timeout-seconds <n>`, `--keep-plugin`, `--json`
+- Exit 0 done; exit 1 a named operational refusal (the kept plugin directory is named); exit 2 usage
+
+Four facts of the runner shape the projection, read first-hand from its traces and its binary on 2026-09-27. The agent
+under test runs in an empty temporary workspace and may read nothing outside it except the plugin's own files, so the
+method reaches it through the plugin's skill file alone and nothing is placed in the workspace: the without-arm, which
+has no plugin, has no route to the method (a workspace copy would have given the baseline the text, which the first
+form of this tool did). A `tool_used` grader counts the call, not its outcome, so the skill-fired indicator is paired
+with a trace check that no read under the plugin's `skills/` was refused. Its `input_match` is a regular expression
+over the serialised input, and the Skill tool names a plugin skill `<plugin>:<skill>`, so the indicator is anchored
+with a negative lookahead: `oak-specify` never counts `oak-specify-connection`. And the judge reads only the rubric,
+which carries the expected outcome and the numbered assertions and says when the method's absence is correct. The
+runner's default score threshold would exit 1 on any case below 1.0; the tool passes `--threshold 0` and reads pass,
+fail and score from the result, which is the evidence.
+
+Examples:
+
+```bash
+pnpm agent-tools:skill-evals run --skill .agent/skills/planning/user-value --host-skill oak-user-value --max-cost-usd 40 --judge-model sonnet
+pnpm agent-tools:skill-evals run --skill .agent/skills/planning/user-value --host-skill oak-user-value --suite triggers
+pnpm agent-tools:skill-evals run --skill .agent/skills/planning/plan --host-skill oak-plan --also .agent/skills/planning/user-value=oak-user-value --case case-04 --max-turns 40
+pnpm agent-tools:skill-evals project --skill .agent/skills/planning/user-value --host-skill oak-user-value --out ../inspect
+```
+
+The runner is a per-user install resolved by name on the operator's PATH: the run already loads the repository's own
+skills into an agent under `--trust-plugin`, so PATH resolution adds no trust boundary the run does not already cross;
+only suites the repository authored are run.
+
 ## Repo gate status
 
 `agent-tools` checks currently run via:
