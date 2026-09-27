@@ -1,6 +1,6 @@
 import { isRecord, type JsonRecord } from '../rollout/record-shapes.js';
 
-import { flagRecord, isExecuted, readCommandItem } from './command-item.js';
+import { flagRecord, readCommandItem } from './command-item.js';
 import {
   classifyOutput,
   execOutput,
@@ -9,61 +9,15 @@ import {
   type ExecOutput,
   type ExecRequest,
 } from './exec-calls.js';
-import type { OutputCarrier } from './harness-text.js';
 import { recordTypeKey } from './record-type-key.js';
-import type {
-  CommandRecord,
-  CommandRecordsSummary,
-  FlaggedCommand,
-  Malformed,
-  TurnAccount,
-} from './summary.js';
-
-/** One turn while the stream is folded. */
-interface TurnState {
-  readonly turnId: string;
-  readonly commands: CommandRecord[];
-  /** Exec requests awaiting their output: the tool each named, by call id. */
-  readonly pending: Map<string, OutputCarrier>;
-  calls: number;
-  accounted: number;
-  refused: number;
-  unaccounted: number;
-}
-
-/** Internal accumulation; only the summary crosses the module boundary. */
-interface ReaderState {
-  readonly turns: TurnState[];
-  readonly flagged: FlaggedCommand[];
-  readonly recordTypes: Map<string, number>;
-  readonly malformed: Malformed[];
-  readonly invalidLines: number[];
-}
-
-/** A turn id as the summary may print it: word characters and dashes, bounded; anything else is untrusted text. */
-const TURN_ID = /^[\w-]{1,64}$/u;
-
-/** Open a turn on `task_started`; a repeated, missing or ill-formed id is malformed and opens nothing. */
-function startTurn(payload: JsonRecord, state: ReaderState, line: number): void {
-  const turnId = payload.turn_id;
-  if (typeof turnId !== 'string' || !TURN_ID.test(turnId)) {
-    state.malformed.push({ line, reason: 'task_started has no well-formed turn id' });
-    return;
-  }
-  if (state.turns.some((turn) => turn.turnId === turnId)) {
-    state.malformed.push({ line, reason: 'task_started repeats a turn id' });
-    return;
-  }
-  state.turns.push({
-    turnId,
-    commands: [],
-    pending: new Map(),
-    calls: 0,
-    accounted: 0,
-    refused: 0,
-    unaccounted: 0,
-  });
-}
+import type { CommandRecordsSummary } from './summary.js';
+import {
+  accountOf,
+  completeTurn,
+  noteAfterCompletion,
+  startTurn,
+  type ReaderState,
+} from './turns.js';
 
 /** Fold an `item_completed` event: only a `CommandExecution` item is evidence. */
 function readItemCompleted(payload: JsonRecord, state: ReaderState, line: number): void {
@@ -100,6 +54,7 @@ function readExecRequest(request: ExecRequest, state: ReaderState, line: number)
     state.malformed.push({ line, reason: 'exec request precedes its turn' });
     return;
   }
+  noteAfterCompletion(turn, state, line, 'exec request');
   turn.calls += 1;
   const { callId } = request;
   if (callId === undefined) {
@@ -122,6 +77,7 @@ function readExecOutput(output: ExecOutput, state: ReaderState, line: number): v
   if (turn === undefined || requested === undefined) {
     return;
   }
+  noteAfterCompletion(turn, state, line, 'exec output');
   turn.pending.delete(output.callId);
   const outcome = classifyOutput(output, requested);
   if (outcome.kind === 'accounted') {
@@ -159,6 +115,8 @@ function readResponseItem(payload: JsonRecord, state: ReaderState, line: number)
 function readEvent(payload: JsonRecord, state: ReaderState, line: number): void {
   if (payload.type === 'task_started') {
     startTurn(payload, state, line);
+  } else if (payload.type === 'task_complete') {
+    completeTurn(payload, state, line);
   } else if (payload.type === 'item_completed') {
     readItemCompleted(payload, state, line);
   }
@@ -198,19 +156,6 @@ function readLine(text: string, state: ReaderState, line: number): void {
     return;
   }
   readRecord(parsed, state, line);
-}
-
-/** A turn's counts once the rollout ends; a request still pending is unaccounted. */
-function accountOf(turn: TurnState): TurnAccount {
-  return {
-    turnId: turn.turnId,
-    calls: turn.calls,
-    accounted: turn.accounted,
-    refused: turn.refused,
-    unaccounted: turn.unaccounted + turn.pending.size,
-    executed: turn.commands.filter(isExecuted).length,
-    declined: turn.commands.filter((command) => command.status === 'declined').length,
-  };
 }
 
 /**

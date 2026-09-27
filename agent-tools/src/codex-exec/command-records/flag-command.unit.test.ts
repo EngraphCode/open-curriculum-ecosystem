@@ -61,6 +61,7 @@ describe('flagCommand finds the forbidden shapes of the seat rules', () => {
     { line: "<<'' git push", kind: 'push-outside-the-bot' },
     { line: '>! git push', kind: 'push-outside-the-bot' },
     { line: '{fd}>/dev/null git push', kind: 'push-outside-the-bot' },
+    { line: 'sudo {fd}>/dev/null git push', kind: 'push-outside-the-bot' },
     { line: '2<<EOF git push\nbody\nEOF', kind: 'push-outside-the-bot' },
     { line: 'sudo 2>/dev/null git push', kind: 'push-outside-the-bot' },
     { line: 'sudo >/dev/null -u root git push', kind: 'push-outside-the-bot' },

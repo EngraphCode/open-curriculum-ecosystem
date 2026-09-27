@@ -161,6 +161,10 @@ describe('readHarnessText reads the wrapper and its truncation', () => {
     { output: 42 },
     { output: { text: 'x' } },
     { output: [{ type: 'input_text' }] },
+    { output: [{ text: 'Script completed\nWall time 0.1 seconds\nOutput:\n' }] },
+    {
+      output: [{ type: 'output_text', text: 'Script completed\nWall time 0.1 seconds\nOutput:\n' }],
+    },
     { output: null },
   ])('reads an output that is neither text nor parts as malformed: $output', ({ output }) => {
     const read = readHarnessText(output, 'code-mode');

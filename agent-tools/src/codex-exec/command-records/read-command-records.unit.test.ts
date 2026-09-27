@@ -233,6 +233,80 @@ describe('readCommandRecords fails closed on the evidence records', () => {
   });
 });
 
+describe('readCommandRecords reads an exec call after its turn completed as malformed', () => {
+  /** The fixture's last turn completion, which every appended record follows. */
+  function lastCompletion(records: readonly TestRecord[]): TestRecord {
+    const completion = records.findLast((record) => record.payload['type'] === 'task_complete');
+    assert(completion);
+    return completion;
+  }
+
+  it('reads an exec request and its output after the turn completed as malformed', () => {
+    const records = execRecords();
+    const request: TestRecord = {
+      type: 'response_item',
+      payload: { type: 'custom_tool_call', name: 'exec', call_id: 'late-1', input: '' },
+    };
+    const output: TestRecord = {
+      type: 'response_item',
+      payload: {
+        type: 'custom_tool_call_output',
+        call_id: 'late-1',
+        output: 'Script completed\nWall time 0.1 seconds\nOutput:\n',
+      },
+    };
+    records.push(request, output);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, request), reason: 'exec request follows its turn completing' },
+      { line: lineOf(records, output), reason: 'exec output follows its turn completing' },
+    ]);
+  });
+
+  it('reads a CommandExecution after its turn completed as evidence of its turn, still flagged', () => {
+    const records = execRecords();
+    const { event, item } = firstCommand(records);
+    const late: TestRecord = {
+      type: event.type,
+      payload: { ...event.payload, item: { ...item, command: ['git', 'push', 'origin', 'HEAD'] } },
+    };
+    records.push(late);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.malformed).toStrictEqual([]);
+    expect(summary.flagged.map((entry) => entry.line)).toStrictEqual([lineOf(records, late)]);
+  });
+
+  it('reads a second task_complete for a turn already completed as malformed', () => {
+    const records = execRecords();
+    const completion = lastCompletion(records);
+    const repeat: TestRecord = { type: completion.type, payload: { ...completion.payload } };
+    records.push(repeat);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, repeat), reason: 'task_complete names no open turn' },
+    ]);
+  });
+
+  it.each([
+    { name: 'a turn id no turn opened', turnId: 'unknown-turn' },
+    { name: 'no turn id', turnId: undefined },
+  ])('reads a task_complete naming $name as malformed', ({ turnId }) => {
+    const records = execRecords();
+    const completion: TestRecord = {
+      type: 'event_msg',
+      payload:
+        turnId === undefined
+          ? { type: 'task_complete' }
+          : { type: 'task_complete', turn_id: turnId },
+    };
+    records.push(completion);
+    const summary = readCommandRecords(lines(records));
+    expect(summary.malformed).toStrictEqual([
+      { line: lineOf(records, completion), reason: 'task_complete names no open turn' },
+    ]);
+  });
+});
+
 describe('readCommandRecords over the lines themselves', () => {
   it('keeps the physical line number past a blank and an invalid line', () => {
     const records = execRecords();

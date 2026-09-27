@@ -89,6 +89,10 @@ describe('interpreterScriptWords', () => {
     { line: 'ssh -4p 22 -oStrictHostKeyChecking=no -ikey host git push origin HEAD' },
     { line: 'ssh -- host git push origin HEAD' },
     { line: 'ssh -l user -- host git push origin HEAD' },
+    { line: 'ssh -ljoe host git push origin HEAD' },
+    { line: 'ssh -4ljoe host git push origin HEAD' },
+    { line: 'ssh -B en0 host git push origin HEAD' },
+    { line: 'ssh -P tag host git push origin HEAD' },
   ])('skips the ssh options that take a value before reading the host in "$line"', ({ line }) => {
     expect(scriptsOf(line)).toStrictEqual(['git push origin HEAD']);
   });

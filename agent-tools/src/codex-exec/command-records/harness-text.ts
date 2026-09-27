@@ -31,7 +31,8 @@ import { hasTruncationMarker } from '../rollout/record-shapes.js';
  * reads as unaccounted, failing closed: a residual of this reader.
  */
 
-const partsSchema = z.array(z.object({ text: z.string() }));
+/** The harness's parts carrier as observed on codex-cli 0.157.1: every part an `input_text` part; any other part shape is malformed. */
+const partsSchema = z.array(z.object({ type: z.literal('input_text'), text: z.string() }));
 
 /** Which tool wrote an exec output: the code-mode `exec` tool, which wraps its script, or a function tool, which does not. */
 export type OutputCarrier = 'code-mode' | 'function-tool';

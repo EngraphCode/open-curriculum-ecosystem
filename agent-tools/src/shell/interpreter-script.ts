@@ -90,12 +90,16 @@ export function interpreterScriptWords(words: readonly ShellWord[]): readonly Sh
 }
 
 /** The ssh options that take a value, so the word after one of them is not the host. */
-const SSH_VALUE_OPTIONS: ReadonlySet<string> = new Set([...'bcDEeFIiJLlmOopQRSWw']);
+const SSH_VALUE_OPTIONS: ReadonlySet<string> = new Set([...'BbcDEeFIiJLlmOoPpQRSWw']);
 const SSH_CLUSTER = /^-[A-Za-z0-9]+$/u;
 
-/** Whether an ssh option word is a cluster of flags whose last one takes the next word as its value; a value glued on (`-p22`) takes nothing more. */
+/** Whether an ssh option word takes the next word as its value: the cluster's first option that takes a value is its last letter. An earlier one takes the rest of the word as its value (`-p22`, `-ljoe`), so nothing more is taken. */
 function takesNextWord(text: string): boolean {
-  return SSH_CLUSTER.test(text) && SSH_VALUE_OPTIONS.has(text.at(-1) ?? '');
+  if (!SSH_CLUSTER.test(text)) {
+    return false;
+  }
+  const letters = [...text.slice(1)];
+  return letters.findIndex((letter) => SSH_VALUE_OPTIONS.has(letter)) === letters.length - 1;
 }
 
 /** The index of ssh's host: the first word past its options. */
