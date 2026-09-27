@@ -575,6 +575,48 @@ direction, as the run it stands for.
 graduation to the metacognition directive's fluency section is owed as one line naming the
 family.
 
+## 2026-09-27 ~10:5xZ — a grader that counts the call, not the outcome (Myrtle turns Canopy, bf4957)
+
+**Observation.** The first probe of the host eval runner against the real user-value skill (one
+case, with-without ablation) reported the with-arm's `canonical-read` grader PASSED. The grader
+was `tool_used` with `tool: Read` and `input_match: SKILL-CANONICAL`. The trace showed the Read
+refused ("Permission to use Read has been denied": the adapter's repo-relative pointer resolved to
+a path outside the runner's workspace), the following Glob found nothing, and the agent wrote its
+answer from the skill's description alone, saying so in its last line. A `tool_used` grader counts
+the call; it does not read the result.
+
+**Reading.** The eighth member of the family of a check that does not check what it names: a
+grader measuring an attempt, not an outcome. The cure at the grader: a negative check on the trace
+beside the positive one, and the LLM grader told what the method would have produced so an answer
+written from a description alone reads as the failure it is.
+
+**Routing.** Held with the family; the projection tool emits the paired graders by construction.
+
+## 2026-09-27 ~11:0xZ — a baseline that had the method, and a check that checked more than it names (Myrtle turns Canopy, bf4957)
+
+**Observation.** The first clean run of the user-value suite (7 cases, both arms, 10 triggers)
+read in full. Two findings about the instrument, none about the skill. First: the scaffold that
+copied the canonical into the runner's workspace ran in both arms, so the "no plugin" baseline had
+the method text in its cwd; in case-03 the without-arm agent found it, read it and cited its
+routing clause. The with-without delta was measured against a baseline that carried the thing
+being ablated. Second: the paired trace check "no Read, Glob or Grep was refused" failed three of
+seven with-arm cases on exploratory Globs of the plugin directory, after which each agent read the
+canonical and every reference from the workspace; the check named "the method reached the agent"
+and measured "no refusal anywhere". A third fact from the runner's binary, read before it bit:
+`input_match` is a regular expression over the serialised input, and the Skill tool names a plugin
+skill `<plugin>:<skill>`, so an unanchored `oak-specify` counts `oak-specify-connection`.
+
+**Reading.** Members nine and ten of the family: a control that is not a control, and a check
+wider than its name. The cure for both is the same move as the eighth's: make the instrument
+carry exactly what its name says. The plugin skill is now the adapter's frontmatter over the
+canonical body, references beside, nothing in the workspace (a USD 0.11 probe first showed reads
+inside the plugin succeed); the readable check names only reads under the plugin's skills; the
+fired indicator is anchored with a negative lookahead. The evidence of the first form was removed
+as superseded; its reading is this entry. n = 10 across two days.
+
+**Routing.** The graduation to the metacognition directive's fluency section is still owed as one
+line naming the family; the instrument's second form is on PR 250 with the runner facts dated.
+
 ## 2026-09-27 ~09:0xZ — a seat asleep for eleven hours with a live heartbeat (Myrtle turns Canopy, bf4957)
 
 **Observation.** PR 245's leg wait (a background shell loop) completed at about 21:54Z on the 26th
