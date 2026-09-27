@@ -70,6 +70,10 @@ Output:` is the program's and is never matched. The `Debug` rendering is unescap
   patterns of `.codex/rules/seat-landing.rules` with their `match`/`not_match` examples and the
   estate rule each operationalises; matching is token-anywhere after the subcommand, wider than the
   harness's positional prefix (`git commit -F m --no-verify`, `-an`, `-n`), and the doc says so.
+  Option-shaped patterns stop at a bare `--`: git's grammar is `git add [<options>] [--]
+  <pathspec>...`, so a pathspec literally named `-A` or `--all` after `--` is a file, not the
+  whole-tree form, and `--strict` must not exit 1 on it (the Codex connector's finding at the
+  fold's review, 2026-09-27); the whole-tree `.` pathspec stays detectable after `--`.
   Pairing is by pattern (the rules are anonymous, `execpolicy/src/parser.rs:349`). The
   consolidation validator (a repo-file reader asserting the rules' forbidden patterns equal this
   table, reachable from `repo-validators:check`) is named in the PR body as its own lane.
