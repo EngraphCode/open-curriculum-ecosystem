@@ -25,6 +25,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
 | Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`); the command-record reader, PR 261 (claim `f7d8f0de`) | 2026-09-24 | 2026-09-27 |
+| Nova turns Penumbra | claude-code | claude-opus-5-5 | 8a94ba | the door of PR 261 (adopted claim `f7d8f0de` from Swallow holds Drift at the Director's routing); PR 250 as Myrtle turns Canopy's successor | 2026-09-27 | 2026-09-27 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
 | Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
@@ -83,6 +84,29 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **PR 261, the reader, LANDED 2026-09-27 14:30Z as `5a9a854ef`** through the merge door, both
+  legs SATISFIED on the tip `f47841aae`. The door seat was Nova turns Penumbra (8a94ba), adopting
+  claim `f7d8f0de` from the CLOSEOUT below at the Director's routing (Wick binds Temper, ed7b48).
+  - **Round three on `02c9c7562`:** four findings, all real on a first-hand read (the strict count,
+    the output's carrier, a redirection before the command, a script past the options after `-c`),
+    cured test-first in settlement push 3 (`aa9ed4617`) with the post-execution reviews' findings
+    (code-expert, test-expert, security-expert, architecture-expert-fred). The residuals and the
+    assumptions review's closed-rule question went to the node's review-dispositions ledger
+    (`ffcc8f24c`) at the Director's ruling: the closed rule is measured before it is chosen.
+  - **Round four on `ffcc8f24c`:** five findings. Two did not reproduce and were answered with
+    evidence on their threads (`sudo {fd}>/dev/null git push` flags, now a regression row; every
+    successful function-tool output opens with the harness's header on codex-cli 0.157.1). Three
+    were over the bar on prong one, cured in `f47841aae` as a post-budget push carrying nothing
+    else, on the owner's word through the Director (`0b83df3a`): an ssh cluster with an attached
+    login, an output part without the `input_text` type, a `task_complete` that was ignored.
+  - **Round five on `f47841aae`:** Copilot's one item (`turns.ts:52`) below the bar with a signed
+    line: an unfinished turn followed by a new one is the harness's own shape (`TurnAborted` on
+    codex-cli 0.157.1). Codex's completion comment was clean.
+  - **Retired with read-back:** the remote branch deleted as the bot (404), the worktree
+    `oce-wt-command-records` and the local branch removed, claim `f7d8f0de` closed. The ledger row
+    at landing: 5 rounds, 43.09 / 40, past the budget by the fourth push the owner authorised.
+  - **Owed:** the CLOSEOUT's (a) to (f) below stand; the closed rule's measurement joins them as
+    (g), the Director's to route.
 - **CLOSEOUT (about 12:5xZ, 2026-09-27) on the owner's word: "run a full close out, and then this
   session is complete".** The seat ends here by intent; the claim `f7d8f0de` is RETAINED for handoff
   (an open pull request's claim) with the handoff record

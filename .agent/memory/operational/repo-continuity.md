@@ -464,6 +464,23 @@ contract, its §Recount run at 14:58Z and matching.
   references, evals and adapters; plan evals with the five-skill case 4. Acceptance runs in flight
   from 11:00Z, two at a time; the human read is this seat's, the second read the Director's or a
   Cricket's; events 2df0b812, 9b7eae7b, 028ef574, 77be5005.
+- **PR 250 CURES, SYNC AND LEGS, 2026-09-27 14:3xZ to 15:1xZ (Nova turns Penumbra, 8a94ba, Myrtle turns Canopy's
+  successor at the Director's routing):** the two checks red at `b6a8e9a37` cured at source in `560016310`, pushed
+  14:49Z through the bot. skill-evals joins repository paths with POSIX separators (windows-basic), and git computes the
+  manifest's blob ids (`git hash-object --no-filters` through a `blobIds` seam), so the code carries no SHA-1;
+  SonarCloud passed on that head. The body's acceptance list is reconciled: eight boxes ticked where the evidence was
+  read first-hand; four open with what each lacks (the conventions read, the owner's judgement; the human read,
+  pending, and plan's case 3 failing in both arms; the relationship report's revision 2, stale; the final head's
+  checks). Both legs on `560016310` found five: three real defects in skill-evals (the skill directory read before it
+  is validated; the manifest anchored after the run; a results directory stamped to the second and never refused)
+  and, from both legs, plan's routing that never hands an unresolved contract or seam to the specification skills
+  (Appendix E's open failure). CI did not run on that head: the PR went DIRTY when 261 landed. The one conflict,
+  `agent-tools/README.md`, keeps both quick-reference sections in the sync merge `82aae23cd`, held locally. The
+  review-cost gate reads 179.23 of 40, BUDGET-EXHAUSTED: its one settlement round priced the whole acceptance work
+  since `f41ad8e78`, and it prices a conflicted sync in, so the pre-push gate refuses the sync (dry run, exit 3).
+  Question `8c3a7462` to the Director: will the owner raise the budget. The three code cures are built test-first in
+  the worktree, uncommitted, under their post-execution reviews; plan's routing waits on the owner's word. The
+  ready-mark stays the owner's.
 - **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
   PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
   synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule
