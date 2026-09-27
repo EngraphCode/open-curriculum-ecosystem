@@ -208,6 +208,12 @@ describe('matchesArgvPattern — rm', () => {
     expect(matchesArgvPattern(recursiveForce, 'sudo rm -rf dir')).toBe(true);
   });
 
+  it('reads an option glued to a redirection as the option, so the redirection is no bypass', () => {
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf>/dev/null d')).toBe(true);
+    expect(matchesArgvPattern(recursiveForce, 'rm -rf>/dev/null 2>&1 d')).toBe(true);
+    expect(matchesArgvPattern('git reset --hard', 'git reset --hard>/dev/null')).toBe(true);
+  });
+
   it('lets a later option cancel the one it overrides, as rm does', () => {
     expect(matchesArgvPattern(recursiveForce, 'rm -rf -i dir')).toBe(false);
     expect(matchesArgvPattern(recursiveForce, 'rm -i -rf dir')).toBe(true);

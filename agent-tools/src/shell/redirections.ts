@@ -26,6 +26,17 @@ export function isRedirectionPart(command: string, index: number, previous: stri
   return char === '|' && previous === '>';
 }
 
+/**
+ * Whether an unquoted `<`, `>` or redirection `&` continues the word being
+ * read rather than opening a new one: the word so far is empty or an IO
+ * number (`2>`), a lone `&` (`&>`), or an operator already (`>>`, `<<<`,
+ * `>&`). After an ordinary word the shell reads the redirection as a token of
+ * its own, so `-rf>/dev/null` is `-rf` then `>/dev/null`.
+ */
+export function continuesRedirection(word: string): boolean {
+  return /^(?:\d*|&|.*[<>&])$/u.test(word);
+}
+
 /** One pending here-document, read from its operator until its body is consumed. */
 export interface Heredoc {
   readonly delimiter: string;

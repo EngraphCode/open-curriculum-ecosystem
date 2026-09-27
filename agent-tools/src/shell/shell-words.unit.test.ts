@@ -28,6 +28,20 @@ describe('segmentCommand', () => {
     ]);
   });
 
+  it('opens a new word at a redirection after an ordinary word, as the shell does', () => {
+    expect(texts('rm -rf>/dev/null d')).toStrictEqual([['rm', '-rf', '>/dev/null', 'd']]);
+    expect(texts('git reset --hard>/dev/null')).toStrictEqual([
+      ['git', 'reset', '--hard', '>/dev/null'],
+    ]);
+    expect(texts('a&>b')).toStrictEqual([['a', '&>b']]);
+    expect(texts('x1>y 1>&2 2>>log')).toStrictEqual([['x1', '>y', '1>&2', '2>>log']]);
+  });
+
+  it('keeps a here-string and a glued here-document operator as before', () => {
+    expect(texts('cat <<<here')).toStrictEqual([['cat', '<<<here']]);
+    expect(texts('rm<<EOT -rf')).toStrictEqual([['rm', '<<EOT', '-rf']]);
+  });
+
   it('starts a segment at a bare sub-shell or group parenthesis', () => {
     expect(texts('(cd x && rm -rf y)')).toStrictEqual([
       ['cd', 'x'],
