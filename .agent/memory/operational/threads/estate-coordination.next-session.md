@@ -772,9 +772,9 @@ At the owner's word "prepare for compaction … then stop all processes", a free
 "carry on". Since the #264 fold (02:46:51Z, 96b273d30): 273 (03:06:08Z), 276 (03:46:54Z), 277
 (04:43:51Z), 278 (06:46:27Z, P1: pr state binds a review to the head by content after a pure sync,
 its first live instance on 279's pure sync drawing no review request) and 279 (07:25:22Z, Nova's
-fold and chmod doctrine, routed by the Director after her retirement at 04:48Z; its JC.net twin 237
+fold and chmod doctrine, routed by the Director after Nova's retirement at 04:48Z; its JC.net twin 237
 landed 07:01:30Z). Open: 250 (the owner's draft, from 08:22Z Myrtle's lane under the owner's own
-word to her, the ready-mark the owner's), 280 (the second doctrine pair: the owner's remote-branch
+word to Myrtle, the ready-mark the owner's), 280 (the second doctrine pair: the owner's remote-branch
 rule in worktree-hygiene §1 and §6, the shared-primary write check in
 coordination-branch-24h-lifetime clause 5, and a found wanted branch as an arrival of the
 external-PR class in pr-lifecycle §Phase 7; Siren's settlement push committed unpushed, frozen)
@@ -782,6 +782,22 @@ and 275 (this branch's draft, DUE at 12:00Z). The merged folded head coordinatio
 (#223) deleted by the bot at 05:3xZ, read back absent; `main` is the kept upstream mirror by the
 approved plan's Lane 6. The full boundary block with the re-arm recipe and the owed-on-resume order
 is the JC.net napkin's 2026-09-28T08:26Z block; this estate's handoff carries a pointer.
+
+### 2026-09-28 12:2xZ — the resume on "carry on"; the owner's answers; the second doctrine pair landed (Wick binds Temper, ed7b48)
+
+The 08:26Z entry's open set is superseded. PR 250 was readied by the owner at 08:55:25Z and synced by
+the web (head 92db547bd), with a fourth unresolved thread from Codex at 09:00:23Z; Myrtle closed out
+at 08:36Z and was re-routed to 250 on the owner's word at 11:31Z (ACK 11:35:09Z); the ready-mark is
+no longer a hold, and the four threads are the owner's own item, Myrtle's lane. The owner's words of
+11:2xZ to 11:4xZ: Codex support deprioritised for now (goal two parked, its nodes ratified and
+unseated); "carry on"; suites before folds and at frame changes; Siren resumed at 11:36Z; Nova back
+at 11:37Z and routed to JC.net's todo 8 and custody of the Codex agent's LinkedIn workspace, which
+stays off the fold, the seats deciding changes before merge. Landed since the 08:26Z entry: JC.net
+238 (25e30f77, 12:13:32Z) and lineage 280 (ab8976719, 12:19:02Z), the second doctrine pair, after
+one late-cure push per copy ruled at 11:5xZ. PR 274 (02:27:05Z, the Codex edited-summary reader)
+landed between the #264 fold's convergence merge and its cut and belongs to this branch's window.
+The count reads 1 of 3 (250). The lineage slot order for the folds: a synced holder at its legs
+holds the slot to its door, first at its legs first; the fold takes the slot when none is.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
