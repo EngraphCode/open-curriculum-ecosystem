@@ -515,6 +515,20 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **GOAL ONE'S CLOSE CHARTER RATIFIED; THE RESIDUE CENSUS, 2026-09-28 16:2xZ to 16:5xZ (Myrtle
+  turns Canopy, bf4957).** The owner ratified the Director's close charter as drafted (the
+  Director's relay 16:2xZ; the charter on the second estate's napkin at c717c683). First act, the
+  residue census: `.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`, one
+  line per owed J row from the register and the batch-six triage at the second estate's
+  `origin/main` 22e97b52e against this tree at `631d3079a`, every absence checked first-hand.
+  Findings: 21 rows owed by the register's own rule (J5 reads `graduated into L9`, so the
+  charter's 22 counts one row the rule excludes); 4 settled, 11 partial, 6 with no landing; the
+  residue is 20 PRs, 24 with todo 6, the lessons, the comparison and the re-pin, under the
+  charter's reopen bound of thirty; three cards for the owner (J11's exchange instrument, J17's
+  gate-running doctrine, the count); J15, J19 and J23 settle by §Landings rows citing the
+  triage. Order as the charter gives it, with J1's generators before J2. Also this window: the
+  metacognition graduation edit committed and pushed as a draft on the Director's routing (its
+  review waits behind the census and todo 6). Next: todo 6 onto the exchange node, one PR.
 - **THE EXCHANGE LANE RESUMED; PR 282 LANDED, 2026-09-28 13:3xZ to 14:4xZ (Myrtle turns Canopy,
   bf4957).** The superseded local ref `superseded/250-local-sync-82aae23cd` deleted on the owner's
   word relayed at 13:34Z (the loose ref file removed; read back absent; the 13:24Z proof its
