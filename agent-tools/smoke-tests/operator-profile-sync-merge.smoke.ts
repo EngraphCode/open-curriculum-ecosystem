@@ -21,10 +21,12 @@ import { hermeticGitEnv } from './hermetic-git-env.js';
  * partial commit while a merge is in progress).
  *
  * The remote and the root each set a different `updated` date in the
- * index's frontmatter and append a different line to one scope document,
- * whose markers a `conflict-marker-size` attribute makes ten characters
- * long; each also changes a machine document that holds a fenced
- * marker-like line, in hunks git merges cleanly. The root's push commits
+ * index's frontmatter and append a different line to one scope document.
+ * `conflict-marker-size` attributes make the scope document's markers three
+ * characters long, and give the index a size of zero, which git reads as its
+ * default of seven. Each side also changes a machine
+ * document that holds a fenced marker-like line, in hunks git merges
+ * cleanly. The root's push commits
  * locally and fails at the remote; the pull conflicts on the index and the
  * scope document. A push while those two still hold conflict markers is
  * refused by name (the frontmatter markers before the profile check reads
@@ -103,7 +105,11 @@ try {
   writeFileSync(join(seed, INDEX), VALID_INDEX_DOCUMENT, 'utf8');
   writeFileSync(join(seed, DOC), VALID_SCOPE_DOCUMENT, 'utf8');
   writeFileSync(join(seed, MACHINE), FENCED, 'utf8');
-  writeFileSync(join(seed, '.gitattributes'), 'repos/*.md conflict-marker-size=10\n', 'utf8');
+  writeFileSync(
+    join(seed, '.gitattributes'),
+    'index.md conflict-marker-size=0\nrepos/*.md conflict-marker-size=3\n',
+    'utf8',
+  );
   git(seed, ['add', '--', INDEX, DOC, MACHINE, '.gitattributes']);
   git(seed, ['commit', '-q', '-m', 'one: a conforming profile']);
   git(seed, ['remote', 'add', 'origin', remote]);

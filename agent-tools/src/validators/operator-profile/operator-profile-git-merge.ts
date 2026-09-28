@@ -58,15 +58,43 @@ function unmergedDocuments(
   return paths.length === 0 ? ok([]) : unmergedPaths(run, ['--', ...paths]);
 }
 
-// The lines git writes to open and close a conflict: seven marker characters
-// by default, more under a `conflict-marker-size` attribute. `=======` alone
-// is also a Markdown heading underline, so only the two ends are read.
-const CONFLICT_MARKER = '^(<{7,}|>{7,})( |$)';
+// Git writes a conflict's opening and closing lines as `<` and `>` repeated
+// to the path's `conflict-marker-size` attribute, read as `atoi` reads it:
+// seven when it is unset or not a positive number. The pattern also admits
+// longer lines, as git writes for a conflict nested in a recursive merge.
+// `=======` alone is also a Markdown heading underline, so only the two ends
+// are read.
+const DEFAULT_MARKER_SIZE = 7;
+
+function markerSize(value: string): number {
+  const size = Number.parseInt(value, 10);
+  return size > 0 ? size : DEFAULT_MARKER_SIZE;
+}
+
+/** The documents grouped by the marker size git writes into each. */
+function bySize(
+  run: GitRunner,
+  paths: readonly string[],
+): Result<ReadonlyMap<number, readonly string[]>, string> {
+  const attributes = run(['check-attr', '-z', 'conflict-marker-size', '--', ...paths]);
+  if (!attributes.ok) {
+    return err(gitFailure('git check-attr', attributes));
+  }
+  // `-z` writes one path, attribute and value triple per document.
+  const fields = attributes.stdout.split('\0');
+  const groups = new Map<number, string[]>();
+  for (let at = 0; at + 2 < fields.length; at += 3) {
+    const size = markerSize(fields[at + 2] ?? '');
+    groups.set(size, [...(groups.get(size) ?? []), fields[at] ?? '']);
+  }
+  return ok(groups);
+}
 
 /**
- * The documents that still hold a conflict marker in the worktree. `git grep`
- * exits 1 with nothing on stderr when no line matches; any other failure,
- * a warning on stderr included, is an error, never "no markers".
+ * The documents that still hold a conflict marker in the worktree, each
+ * searched for its own marker size. `git grep` exits 1 with nothing on
+ * stderr when no line matches; any other failure, a warning on stderr
+ * included, is an error, never "no markers".
  */
 function markedDocuments(
   run: GitRunner,
@@ -75,11 +103,20 @@ function markedDocuments(
   if (paths.length === 0) {
     return ok([]);
   }
-  const found = run(['grep', '-l', '-E', CONFLICT_MARKER, '--', ...paths]);
-  if (found.ok) {
-    return ok(lines(found.stdout));
+  const groups = bySize(run, paths);
+  if (!groups.ok) {
+    return groups;
   }
-  return found.stderr === '' ? ok([]) : err(gitFailure('git grep', found));
+  const marked: string[] = [];
+  for (const [size, group] of groups.value) {
+    const pattern = `^(<{${String(size)},}|>{${String(size)},})( |$)`;
+    const found = run(['grep', '-l', '-E', pattern, '--', ...group]);
+    if (!found.ok && found.stderr !== '') {
+      return err(gitFailure('git grep', found));
+    }
+    marked.push(...(found.ok ? lines(found.stdout) : []));
+  }
+  return ok(marked.sort((left, right) => left.localeCompare(right)));
 }
 
 function markerRefusal(marked: readonly string[]): string {
