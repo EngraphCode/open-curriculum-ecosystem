@@ -17,6 +17,29 @@ runs in CI and at pre-commit.
 
 ## Before Writing
 
+When use value, needs, capabilities, journeys or delivery boundaries still
+need defining, use [`user-value`](../user-value/SKILL-CANONICAL.md)
+before treating those inputs as settled. It owns their structure and
+traceability; this skill owns implementation planning. Use it for local
+engineering contracts when their consumer, usefulness or wider contribution is
+unresolved.
+
+A contract a step depends on is no different: hand the question to the skill
+that owns it, never plan around it or invent it. "What must this thing do,
+preserve or permit?" goes to
+[`specify`](../../specification/specify/SKILL-CANONICAL.md); "can these
+individually defined things work together?" to
+[`specify-connection`](../../specification/specify-connection/SKILL-CANONICAL.md);
+"does this evidence justify this use of this specification?" to
+[`assess-specification`](../../specification/assess-specification/SKILL-CANONICAL.md).
+Invoke the owning skill before scheduling the steps that depend on its
+answer. The return is a named obligation or gap, never a certificate for
+the dependent steps; it gates only those steps, and settled steps proceed.
+Authority stays where it is: a dispute over who owns a contract is
+preserved for the authority that holds it, never decided by the plan.
+Settled work takes no compulsory value or specification pass; reopen a
+definition only at a consequential gap.
+
 1. **Design gate**: Has the design intent been explored and confirmed
    with the project owner? If the scope is ambiguous or the approach
    has multiple valid paths, run `oak-metacognition` first to explore
@@ -281,7 +304,10 @@ genuine schedule uncertainty exists, name it as a real owner decision
 needing resolution now — that is what `owner_gates` with absolute
 expiries are for. Automatic firing conditions for maintenance/meta items
 whose timing no owner should own, and `depends_on` ordering (which IS
-the definite-sequence shape), remain legitimate.
+the definite-sequence shape), remain legitimate. A step that needs an
+obligation not yet returned from a specification handoff is sequenced
+after the return; when that handoff's work is carried by a plan node of
+its own, the dependency is a `blocking` `depends_on` edge on it.
 
 ### A Boundary Move Reshapes Every Surface It Lived On
 

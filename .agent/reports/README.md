@@ -57,6 +57,13 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   — report of the state on 2026-09-08: upstream OCE `1.178.6`, this line's
   `1.178.5` boundary at that date and Curriculum API `0.11.1`, with semantic, reproducibility,
   deployment and impact limits kept explicit
+- [user-value/user-value-specification-pr-relationships-2026-09-26.md](./user-value/user-value-specification-pr-relationships-2026-09-26.md)
+  — dated analysis, written on the non-executing host that drafted the `user-value` skill, of
+  how that skill, the specification-framework proposal and the pull request's changed
+  elements relate: ownership, scale and meaning bridges, evidence limits and the completion
+  the successor took on; its CI and blob citations are of the head it reviewed, superseded
+  at landing; revision 2 records the later owner ratification, expanded acceptance criteria
+  and reconciled projection/intake state
 
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it
