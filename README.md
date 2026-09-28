@@ -229,7 +229,8 @@ is installed inside WSL, never in PowerShell.
 
 - **Node.js 24.x** — install via [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), then run `nvm use` or `fnm use` to activate the version in `.nvmrc`
 - **pnpm** — install via pnpm's [standalone script](https://pnpm.io/installation#using-a-standalone-script); it self-switches to the version pinned in `package.json`. The commit hooks resolve pnpm by absolute path from a fixed set of install locations, so a `corepack enable` shim under an nvm-managed Node is not found — if you already run pnpm from corepack, install the standalone launcher as well, and never re-point `PNPM_HOME` to make a gate run (pnpm derives its store root from it, and a re-pointed value rebinds every tree to a second store)
-- **bash 5.2 or later** — every bash script this repository owns opens with a guard that stops an older bash with install advice, and the two secrets hooks block until it is met (macOS ships 3.2: `brew install bash` and put it first on `PATH`; Debian 12 or Ubuntu 24.04 and later: `sudo apt-get install bash`; older releases package 5.1 or lower and need a newer release or a source build). The wrapper the hooks run behind hands straight to the hook on an older bash, so the block still lands. Git hooks run under `sh` and carry no floor, and neither do the product apps' scripts under `apps/` or the vendored skill scripts under `.agents/skills/`.
+- **bash 5.2 or later** — every bash script this repository owns opens with a guard that stops an older bash with install advice, and the two secrets hooks block until it is met (macOS ships 3.2: `brew install bash` and put it first on `PATH`; Debian 12 or Ubuntu 24.04 and later: `sudo apt-get install bash`; older releases package 5.1 or lower and need a newer release or a source build). The wrapper the hooks run behind hands straight to the hook on an older bash, so the block still lands. Git hooks run under `sh` and carry no floor, and neither do the vendored skill scripts under `.agents/skills/`, which are upstream's bytes.
+- **shellcheck 0.11.0** — the shell lint gate (`pnpm lint:shell`, run by pre-commit, pre-push, `pnpm check` and CI) runs the version `.agent/setup/install-shellcheck.sh` pins. Run that script once per checkout, including each linked worktree: it installs into the ignored `.tools/bin`, which the gate runs before any shellcheck on your `PATH`, on macOS and Linux, x86_64 and arm64
 - **gh** — the [GitHub CLI](https://cli.github.com/), used by the repo's pull-request and agent tooling
 - **bun** (optional, for `pnpm dev:widget-in-host`) — install via [bun.sh](https://bun.sh/docs/installation)
 - **lsof** (optional, for `apps/oak-curriculum-mcp-streamable-http/scripts/restart-dev-server.sh`) — pre-installed on macOS; on Debian/Ubuntu use `sudo apt install lsof`; source/build instructions at [github.com/lsof-org/lsof](https://github.com/lsof-org/lsof)
@@ -394,6 +395,7 @@ steps below were run end to end on Windows 11 in August 2026.
 git clone https://github.com/oaknational/oak-open-curriculum-ecosystem.git
 cd oak-open-curriculum-ecosystem
 pnpm install
+.agent/setup/install-shellcheck.sh # the pinned shellcheck pnpm lint runs; once per checkout
 pnpm test && pnpm type-check && pnpm lint
 ```
 
