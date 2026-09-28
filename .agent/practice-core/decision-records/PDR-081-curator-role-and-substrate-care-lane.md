@@ -10,7 +10,7 @@ pdr_kind: governance
 sitting)**: the curator role formally stewards the concept scheme —
 minting candidates from consolidation passes, proposing promotions at
 second consumer, and maintaining the concept-maturity board (PDR-134
-§The concept layer; ADR-221 obligation 5).
+§The concept layer; the host's estate knowledge graph decision, obligation 5).
 **Related**:
 [PDR-014](PDR-014-consolidation-and-knowledge-flow-discipline.md)
 (capture, distil, graduate, enforce);

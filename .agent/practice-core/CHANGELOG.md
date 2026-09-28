@@ -4,6 +4,43 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the last ADR citations named by concept: the tooling and fitness family and the changelog's residue
+
+- Seven PDRs (PDR-051, PDR-053, PDR-054, PDR-055, PDR-059, PDR-099,
+  PDR-100) and five dated entries of this changelog named host ADRs by
+  number: the last 21 citations, in the tooling and fitness family and the
+  changelog's residue (the agent-artefact portability decision, the
+  commit-skill advisory-orchestrator naming decision, the staging-boundary
+  enforcement decision, the agent-tools build-isolation decision, the
+  three-zone fitness model, the planning vocabulary and the inter-practice
+  collaboration host phenotype). Each citation now names the concept the ADR records, per
+  PDR-079 as amended; no sentence is removed, and each dated entry's claim
+  stands. No ADR identifier remains in the Core. Joint bytes with the second
+  estate, where the cure landed first.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the graph, plan and continuity family's ADR citations named by concept
+
+- Eight PDRs (PDR-011, PDR-018, PDR-038, PDR-060, PDR-081, PDR-099, PDR-119,
+  PDR-134) and four dated entries of this changelog named host ADRs by
+  number: 29 citations across the graph, plan and continuity family (the
+  continuity-surfaces decision, the plan-node estate, the intent idea-graph,
+  the self-reinforcing improvement loop, the estate knowledge graph, and the
+  own-built algorithm and data-structure foundations). Each citation now names
+  the concept the ADR records, per PDR-079 as amended; no sentence is removed,
+  and each dated entry's claim stands. Joint bytes with the second estate,
+  where the cure landed first.
+
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the comms-event family's ADR citations named by concept
+
+- Six PDRs (PDR-050, PDR-074, PDR-075, PDR-077, PDR-078, PDR-119) named host
+  ADRs by number: 38 citations across the comms-event family (the mid-cycle
+  handoff record substrate, the tag namespace, auto-acceptance metadata, the
+  heartbeat lifecycle, rotation's class-tiered archive-move, and the threading
+  edge). Each citation now names the concept the ADR records, per PDR-079 as
+  amended; no sentence is removed. PDR-078's related entry, which said the
+  heartbeat decision was cited by identifier only, now says it is named by its
+  concept. Joint bytes with the second estate, where the cure landed first.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — PDR-079 withdraws the ADR-identifier permission
 
 - PDR-079 §PDR Portability Rule allowed a PDR to name an ADR by its
@@ -407,7 +444,7 @@ Practice Core package.
 ## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge-estate RATIFIED (Falcon hunts Flight)
 
 - PDR-134 ratified Proposed → Accepted at the in-session sitting (owner card
-  answers, 2026-07-31), together with its host phenotype ADR-221 and the
+  answers, 2026-07-31), together with its host phenotype (the estate knowledge graph decision) and the
   `planning-and-intent-estate` strategic node. Obligation-5 cascade executed:
   dated cross-references added to PDR-014 and PDR-130; PDR-081 gains the
   curator concept-scheme stewardship note (owner-ratified same sitting);
@@ -421,8 +458,8 @@ Practice Core package.
   concept relations, fixes the three knowledge carriers (prose claims,
   front-matter assertions, concept-scheme referents), and binds the concept
   lifecycle (candidate → working → ratified; computed confidence vs
-  authored status, never conflated). Host phenotype: ADR-221 (the estate
-  knowledge graph) plus the `planning-and-intent-estate` strategic node,
+  authored status, never conflated). Host phenotype: the estate
+  knowledge graph decision plus the `planning-and-intent-estate` strategic node,
   presented for ratification together.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-25 — liveness taxonomy (Torch mends Residue)
@@ -469,12 +506,13 @@ Practice Core package.
 
 - PDR-018 amendment: the source host's lifecycle-lane realisation
   (`future/`/`current/`/`active/` directories, promotion workflow) is
-  superseded by the plan-node estate (host ADR-216; owner-ratified
+  superseded by the plan-node estate (the host's plan-node estate decision; owner-ratified
   decisions register D23, 2026-07-22). The portable planning discipline —
   end goals, workflow contracts, readiness gates — is unchanged; the
   lane-placement sections remain the pattern for lane-shaped hosts.
-  PDR-121's portable glossary needed no change (its host mirror, ADR-209,
-  carries the dated realisation amendment per the PDR-079 pairing).
+  PDR-121's portable glossary needed no change (its host mirror, the
+  planning-vocabulary decision, carries the dated realisation amendment per
+  the PDR-079 pairing).
 
 ## [oak-open-curriculum-ecosystem] 2026-07-20 — dedicated consolidation graduations (Siren lifts Trench)
 
@@ -509,7 +547,7 @@ Practice Core package.
   §Deliberate succession initiator discriminator); PDR-064 (transport-
   exception mirror in the coordinator-retirement intersection); the
   join-ceremony skill, cross-repo rule, and start-right-team mirrors; the
-  ADR-211 host-phenotype amendment.
+  inter-practice collaboration host-phenotype amendment.
 - Successor-wave truings (Aspen stirs Blossom, same review arc): PDR-064
   intersection step 1 gains the coordinator-seat deadline-default
   reconciliation (the owner-absent default action is this sequence's
@@ -656,8 +694,8 @@ Practice Core package.
 - New portable skill `inter-practice-collaboration` — the runnable
   join ceremony (the PDR's enactment); new portable rule
   `cross-repo-sessions-run-the-join-ceremony` — its discoverability
-  trigger. Host phenotype ADR-211 records the WHAT of the local
-  mechanics (declared-home override, statusline join key).
+  trigger. The inter-practice collaboration host phenotype records the WHAT
+  of the local mechanics (declared-home override, statusline join key).
 - `practice.md` and `practice-lineage.md` §Plasmid Exchange amended:
   exchange named as two modes of one class on shared substrate —
   transformation (dead material at a pin) and conjugation (live,
@@ -836,8 +874,8 @@ The amendment queue the owner approved at the 2026-06-11 register walk
 - **Amended**: PDR-011 — two clauses: subjective register reconciled to
   "valued when genuine; voluntary always" (no volume/thinning monitor),
   and the completeness backstop split into externalisable claim
-  verification vs holder-exclusive context-loss detection. ADR-150
-  host mirror updated.
+  verification vs holder-exclusive context-loss detection. The mirror in the
+  host's continuity-surfaces decision updated.
 - **Amended**: PDR-078 — new §7 emit-side loop hygiene (posture derived
   at emit time, one timestamp per tick, stop-loop-then-emit-end,
   stderr-captured failures).
@@ -877,12 +915,14 @@ Practice Core changes:
 - **Cross-reference**: PDR-054 §Related extended with PDR-059
   pointer (the post-hook absorption case is governed by PDR-059's
   classification doctrine).
-- **Host-repo operational application**: amendment to ADR-177
-  authored separately (host phenotype; PDR substance is portable).
+- **Host-repo operational application**: amendment to the host's
+  staging-boundary enforcement decision authored separately (host
+  phenotype; PDR substance is portable).
 
 ## [oak-open-curriculum-ecosystem] 2026-05-10 — `.agent/commands/` retirement (Tempestuous Darting Zephyr session)
 
-Closed the PDR-051 / ADR-125 §2026-05-09 commands-retirement loop on
+Closed the commands-retirement loop of PDR-051 and the host's agent-artefact
+portability decision (its §2026-05-09) on
 `feat/mcp-graph-support-foundation`. Five commits landed; five
 reviewers dispatched in parallel; all actionable findings applied.
 
