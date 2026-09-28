@@ -82,7 +82,8 @@ A PDR body MAY contain:
   decision-records directory (sibling-PDR markdown links).
 - Named references to ADRs by their ADR identifier
   (the ADR-### form is portable vocabulary; the ADR file path is
-  not, and MUST NOT appear as a markdown link).
+  not, and MUST NOT appear as a markdown link). Withdrawn on
+  2026-09-28: see the Amendment Log.
 
 ### ADR Repo-Boundedness Rule
 
@@ -120,7 +121,8 @@ evidence), not in a PDR. The same applies to repo paths, event
 identifiers, and the other content classes named under the
 portability rule above. The cure is to move the substance to an ADR
 and leave a portable claim in the PDR that references the ADR by
-ADR identifier (not by path).
+ADR identifier (not by path). Amended on 2026-09-28: the claim names
+the concept the ADR records, never its number (see the Amendment Log).
 
 ## Cascade
 
@@ -139,6 +141,9 @@ authority.
 ## Notes
 
 ### Cross-reference discipline between PDRs and ADRs
+
+Amended on 2026-09-28: the permission in this subsection is withdrawn,
+and a PDR names the concept instead (see the Amendment Log).
 
 PDRs may cite ADRs by ADR identifier in prose, in §Related sections,
 and in cascade items. PDRs may NOT use markdown-link syntax to
@@ -203,7 +208,8 @@ operates under the constraint that matches its purpose.
   vocabulary to *appear* PDR-like.
 - A markdown link from a PDR body to an ADR file path
   (the link target is itself a repo-path; cite ADR by ADR
-  identifier instead).
+  identifier instead; amended on 2026-09-28 to name the concept
+  instead, see the Amendment Log).
 
 ### Accepted Costs
 
@@ -213,7 +219,8 @@ operates under the constraint that matches its purpose.
 - PDRs that previously embedded repo paths or commit identifiers
   must be migrated by extracting the repo-bound substance into an
   ADR and leaving a portable claim with an ADR-identifier
-  reference in the PDR.
+  reference in the PDR (amended on 2026-09-28: the portable claim
+  names the concept; see the Amendment Log).
 
 ## Falsifiability
 
@@ -263,7 +270,8 @@ it names a different decision that happens to carry the same number. This
 record's permission of the number contradicted PDR-105 wherever a seat read
 the two together, and PDRs were written by it.
 
-What changes, read through this entry:
+What changes, read through this entry (each section named below
+carries a dated pointer here):
 
 - §PDR Portability Rule: the last item a PDR body MAY contain (named
   references to ADRs by their ADR identifier) is withdrawn. A PDR body MUST
