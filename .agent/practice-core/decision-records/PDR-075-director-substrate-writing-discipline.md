@@ -21,13 +21,13 @@ extends the same substrate to broader Director-role observations);
 (Director value model — broad-awareness-as-substrate-cognition; this
 PDR names the discipline by which that cognition emits substrate in
 real-time);
-ADR-183
+the host repository's comms-event tag namespace decision
 (tag namespace substrate — `failure-mode` + `behaviour-note` are the
 namespaces this discipline writes into);
-ADR-185
+the host repository's comms-event auto-acceptance metadata decision
 (auto-acceptance metadata, when landed — complementary axis: PDR-075
-specifies when the Director emits substrate events, ADR-185 specifies
-how downstream consumers triage them).
+specifies when the Director emits substrate events, the auto-acceptance
+decision specifies how downstream consumers triage them).
 
 ## Status Review
 
@@ -109,7 +109,7 @@ they occur:
 
 ### Tag Selection
 
-Substrate-writing uses the existing ADR-183 tag namespace:
+Substrate-writing uses the host's existing comms-event tag namespace:
 
 - `failure-mode` — substantive substrate gaps (the Director observed
   doctrine-failing-author, a known autonomy gap, a substrate defect
@@ -119,9 +119,9 @@ Substrate-writing uses the existing ADR-183 tag namespace:
   classification. Reframe-class observations typically land here.
 
 Namespace expansion (e.g. a `director-substrate` namespace) is
-deferred to the ADR-183 amendment process; this PDR does not
+deferred to the tag-namespace decision's amendment process; this PDR does not
 introduce new namespaces. If future evidence surfaces a category that
-neither existing tag fits, ADR-183 amendment is the right home and
+neither existing tag fits, amending the tag-namespace decision is the right home and
 PDR-075 remains stable.
 
 ### Cadence
@@ -190,7 +190,7 @@ surface with its access patterns makes the substrate's lifecycle
 match the substrate's consumers.
 
 **Why existing tag namespaces, not a new `director-substrate`
-namespace.** ADR-183 keeps the namespace small by design; adding
+namespace.** The tag-namespace decision keeps the namespace small by design; adding
 tags requires second-instance evidence and ADR amendment. The two
 existing tags (`failure-mode` + `behaviour-note`) cover the
 Director substrate-writing categories. Introducing a new namespace
@@ -211,12 +211,12 @@ priority action is a verdict, not a stream observation). The
 reduced handoff record preserves this minimal substrate while
 delegating session synthesis to the stream.
 
-**Why this composes with ADR-185 (auto-acceptance metadata).**
-ADR-185 (in draft at PDR-075 authoring time) names metadata on
+**Why this composes with the auto-acceptance metadata decision.**
+That decision (in draft at PDR-075 authoring time) names metadata on
 which comms-events are deterministic-mechanical (auto-acceptable
 by downstream consumers) versus events requiring active
 absorption. PDR-075 names when the Director emits substrate
-events and what categories the events cover; ADR-185 names how
+events and what categories the events cover; the auto-acceptance decision names how
 downstream consumers triage the emissions. The two are
 complementary axes operating on the same substrate.
 
@@ -245,7 +245,7 @@ fifth instance, to Accepted.
 
 - The Director emits tagged comms-events at coherence-moments
   through the window, using `failure-mode` and `behaviour-note`
-  per ADR-183 namespace.
+  per the tag-namespace decision.
 - Director handoff records reduce to the minimum-irreducible
   substrate (Moment 1 metadata, lineage chain, single-highest-
   priority action, comms-event range pointer).
@@ -265,7 +265,7 @@ fifth instance, to Accepted.
 - Accumulating substrate-worthy observations in agent-private
   notes through the window then dump-at-handoff.
 - Introducing a new tag namespace (e.g. `director-substrate`)
-  without first amending ADR-183 with second-instance evidence.
+  without first amending the tag-namespace decision with second-instance evidence.
 
 ### Accepted Cost
 
@@ -422,7 +422,7 @@ record reduced to under 2k tokens.
    the reduced shape from PDR-075 forward.
 
 6. **CLI ergonomics for tag emission.** Substrate-writing requires
-   agents to author tagged events from the CLI; ADR-183 substrate
+   agents to author tagged events from the CLI; the tag-namespace substrate
    is live but the agent-tools CLI does not yet expose a `--tags`
    flag on `comms append` / `comms direct` / `comms send`. The
    first PDR-075 worked instances wrote tags via direct JSON

@@ -16,7 +16,7 @@ source; PDR-049 named the root cause this PDR closes);
 [PDR-050](PDR-050-state-memory-substrate-contracts.md)
 (state/memory substrate contracts — the surface-contract doctrine this evolves);
 [PDR-094](PDR-094-coordination-event-rotation-is-class-tiered-archive-not-delete.md)
-and ADR-199
+and the host repository's comms-event rotation decision
 (the comms event-log phenotype this generalises — the proven in-repo system that
 never needs a semantic merge; host ADRs resolved via the practice-index bridge,
 not linked from this portable body per PDR-079 / PDR-105);
@@ -69,7 +69,7 @@ inbox are projections. The rendered markdown is a view, never a source. The
 ## Decision
 
 **Model append-only-narrative agent memory as a graph of immutable events with
-renderers** — generalising the comms event-log phenotype (ADR-199 / PDR-094) from
+renderers** — generalising the comms event-log phenotype (the host's comms-event rotation decision and PDR-094) from
 coordination state to memory. An *entry* becomes an immutable event file; the
 *document* (napkin.md, distilled.md, a register) becomes a deterministic **render**
 (projection) over the live event set. Concurrent sessions append disjoint event
@@ -116,7 +116,7 @@ from it.
 
 - **Event.** One immutable file per entry — `napkin/<utc-timestamp>-<slug>.md` (or
   uuid), with frontmatter: author identity tuple (PDR-027), created-at, tags
-  (ADR-183 namespace reused where it fits), and typed edges to other events.
+  (the host's comms-event tag namespace reused where it fits), and typed edges to other events.
   Body = the entry prose. Never edited after write; corrections are new events
   with a `supersedes`/`refines` edge.
 - **Renderer.** A deterministic per-class projector (`agent-tools memory render
@@ -125,7 +125,7 @@ from it.
   source. **Render invariant:** every live source event appears in the render
   (the completeness check is mechanical — no concept-understanding — and is the
   loss-detector PDR-049's skill lacked).
-- **Rotation = ADR-199 archive-move.** Fitness/size handled by archive-moving old
+- **Rotation = the comms-event class-tiered archive-move.** Fitness/size handled by archive-moving old
   events (process-then-archive, never delete), not by trimming a file. This
   **dissolves the recurring fitness-vs-preservation tension** in the napkin: the
   render shows the live set; rotation moves events out of it without loss.
@@ -197,7 +197,7 @@ Three decisions the build must settle, named here (not made):
    edges, not plain union; confirm the edge model carries it before migrating.
 3. **Shared pattern, per-member substrate** (refined 2026-06-27 with Beluga rides
    Wave). The family shares the renderer/projection PATTERN (derive an authoritative
-   read from immutable sources — the ADR-199 event→render shape); the SUBSTRATE is a
+   read from immutable sources — the comms event log's event→render shape); the SUBSTRATE is a
    per-member choice. `graph-core` (RDF/JSON-LD: jsonld/vocab/term/canon/dataset)
    fits the *semantic* members (the curriculum ontology, the ADR-200 intent
    idea-graph). The *operational/narrative* members — agent-work-state (PDR-118,
