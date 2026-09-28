@@ -163,3 +163,11 @@ here; the register carries the current total.
   second estate's PR 232; the script cures with the bash-floor guard; the shellcheck gate with
   its installer, CI step and docs. J3 reads 3, the residue 22, all 26 (the Director's word of
   18:3xZ: "J3 runs as three lineage PRs and the register's residue count follows the design").
+- 2026-09-28 21:4xZ: J6's design read (Nova turns Penumbra, 8a94ba, on the Director's routing)
+  split its three lineage pull requests into four: N6, the discovered smoke runner; the
+  commit-queue-worktree pinned-streams follow-up, split from N6 at the pre-execution code-expert
+  read (about 227 changed lines, independent of discovery, the smoke onto the built CLI); N7, the
+  derived install-time closure; N8, the hook-command fixture compare. J6 reads 4, the residue 23,
+  all 27. The triage's `--max-warnings 0` on agent-tools' lint is graduated into the recovery
+  lane, not a J6 slice: the flag fails lint on six existing no-real-io-in-tests warnings in five
+  integration test files (repo-continuity.md's recovery-lane entry), and lands with their cure.

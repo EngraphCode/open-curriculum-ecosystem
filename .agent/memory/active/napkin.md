@@ -1225,3 +1225,51 @@ by-name sites through `resolveTrustedGit` at minimum), one pull request, tests m
 and a pattern entry naming `core/trusted-git.ts` + `core/repository-paths.ts` as the git read
 path, so the next site has a name to find (`new-rule-vs-pdr-clause` applies: a pattern, not a
 rule). Not N1's; queued after the exchange's residue.
+
+## 2026-09-28 ~21:4xZ — the same-bytes port carried four test shapes this estate's rules refuse, and the seat routed them away at open (Myrtle turns Canopy, bf4957)
+
+**Observation.** N1's first slice (PR 291) brought the second estate's `rule-declarations` module
+as the same bytes. Its tests carried two expect-then-if narrowings, a query-log assertion on an
+injected file system and a path-branching read override: shapes `no-conditional-tests` and
+`test-immediate-fails` refuse here. The seat saw them before the commit and wrote them into the
+body as "routed to the second estate as outbound findings; the cure lands as the same bytes in
+both estates; not changed here". Codex raised all four as P1 at the late-cure tip, each citing the
+estate's rule, and they were cured here in the one late-cure push, with mutation proofs.
+
+**Reading.** Same-bytes is the exchange's practice for the module's product code and travels
+well; it is not a rule and it ranks below the estate's rules, which have no exceptions. A test
+shape the estate refuses is a defect in this tree the moment it is staged, whichever estate wrote
+it, and "cure it there first" is a deferral by another name (the owner's word on deferrals,
+2026-09-28). The port-back list carries the cure to the origin; it never carries the defect here.
+The commit gate did not catch the shapes: no lint rule reads an `if` inside a test body or a
+query-log assertion, so the reviewers were the only line.
+
+**Routing.** No rule; the practice already has it (`rules-have-no-exceptions`,
+`no-conditional-tests`). A lint rule for `if` inside `it(` bodies is a candidate for the
+test-rules lane; one instance, an observation. The exchange's next port reads its tests against
+this estate's rules before the same-bytes claim is written.
+
+## 2026-09-28 ~23:0xZ — a filter's empty output read as a vendor's silence; the block routed to the Director did not exist (Myrtle turns Canopy, bf4957)
+
+**Observation.** This seat's wait script for PR 291 selected Codex's REST comments and reviews
+by the login `chatgpt-codex-connector`; the REST surface names the account
+`chatgpt-codex-connector[bot]`, so the filter matched nothing, on every tip, from the first
+wait at 20:1xZ. At 23:0xZ, after two capped waits, the seat read the empty output as Codex silent
+on the lineage since 21:41Z, checked the reviews list (where Codex's clean result never
+appears: it is an issue comment), and routed a block to the Director with a verdict to declare
+the vendor unavailable. Codex's clean completion comments had stood on the tip since 21:50:43Z
+and again at 22:39:11Z; Siren read them first-hand a minute after the seat's own correction.
+Seventy minutes of hold on a landed leg; one false routing; one withdrawal.
+
+**Reading.** The same shape as the Director's 21:02Z lift (a review's state read for its
+content) and the seventh instance of that class the Director had already counted: a derived
+surface (a filter, a list, a state field) read in place of the primary one. Two separate misses
+compounded it: the filter's login (never verified against one known-good event before the
+script was trusted) and the reviews-only check at the moment of doubt (the transport of a
+clean result is a comment). A wait script that can only ever report absence must be proven once
+against a present event, or its report of absence means nothing.
+
+**Routing.** No rule; the practice has it (`verify-dont-trust`, `silence-is-never-liveness`,
+`read-diagnostic-artefacts-in-full`). The seat's wait script now filters by the `[bot]` login;
+before the next script that reports absence is trusted, it runs once against a known present
+event. An instance for the Director's read-the-primary-surface count, against this seat.
