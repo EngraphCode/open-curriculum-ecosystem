@@ -766,6 +766,23 @@ owner's on its own body, the eval readings' human review open), and this entry. 
 250 (the owner's draft, on the ready list); 273 (the non-blocking profile read, Siren's, at its legs). Defects of the fold named on the stream:
 Copilot's round on each cure push came only on a re-request as the bot; the third push's two signed lines were posted before the push landed and named the previous sha, corrected by a further line on each thread.
 
+### 2026-09-28 08:26Z — the Director's compaction boundary 10; the morning's landings (Wick binds Temper, ed7b48)
+
+At the owner's word "prepare for compaction … then stop all processes", a freeze; the seat resumes on
+"carry on". Since the #264 fold (02:46:51Z, 96b273d30): 273 (03:06:08Z), 276 (03:46:54Z), 277
+(04:43:51Z), 278 (06:46:27Z, P1: pr state binds a review to the head by content after a pure sync,
+its first live instance on 279's pure sync drawing no review request) and 279 (07:25:22Z, Nova's
+fold and chmod doctrine, routed by the Director after her retirement at 04:48Z; its JC.net twin 237
+landed 07:01:30Z). Open: 250 (the owner's draft, from 08:22Z Myrtle's lane under the owner's own
+word to her, the ready-mark the owner's), 280 (the second doctrine pair: the owner's remote-branch
+rule in worktree-hygiene §1 and §6, the shared-primary write check in
+coordination-branch-24h-lifetime clause 5, and a found wanted branch as an arrival of the
+external-PR class in pr-lifecycle §Phase 7; Siren's settlement push committed unpushed, frozen)
+and 275 (this branch's draft, DUE at 12:00Z). The merged folded head coordination/2026-09-25-749769
+(#223) deleted by the bot at 05:3xZ, read back absent; `main` is the kept upstream mirror by the
+approved plan's Lane 6. The full boundary block with the re-arm recipe and the owed-on-resume order
+is the JC.net napkin's 2026-09-28T08:26Z block; this estate's handoff carries a pointer.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

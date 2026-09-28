@@ -296,6 +296,12 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§POINTER, 2026-09-28 08:26Z (Wick binds Temper, `ed7b48`, the Director, at the owner's compaction
+word).** The Director seat's live reading since 2026-09-26 is the JC.net napkin's newest Director
+block (the 2026-09-28T08:26Z boundary block at this writing) and JC.net's `director-handoff.md`
+live block; this estate's `estate-coordination` thread record carries the fold and day entries in
+its journal (the newest at 2026-09-28 08:26Z). The blocks below are the 2026-09-19 state, kept.
+
 > **§FOLD, 2026-09-19 (Zephyr guards Leeward, `281e44`, curator; no Director seated) — supersedes the
 > 2026-09-12 fold block (#135, SHA:69a537717), which is verbatim in
 > `archive/director-handoff-2026-09-19.md` and narrated in the archived thread record
