@@ -892,3 +892,40 @@ still owed (one line naming the family). (2) is a play seed for the toolkit lane
 association: the gate's unit of "size" reminded me of a scale that weighs the crate with the
 cargo; whether retained evidence should be priced is a design question for the gate's ledger,
 not this lane. (3) goes nowhere new: the rule exists; the record of the miss is this entry.
+
+## 2026-09-28 ~13:2xZ — the instrument at the head, an anchor on the wrong table, and one run per arm
+
+**Observation.** Three things from PR 250's landing, read first-hand. (1) The rerun queue was
+stopped and restarted twice, both times for the runner and not the skill: first because the
+manifest was about to gain a field (the sibling references the with-arm could read), then because
+that field's order changed from link order to source-path order. The evaluated skill's bytes were
+identical across all three starts (`diff -r` of the live plugin against a fresh projection).
+Cost: about USD 6 and seventeen minutes. (2) The script that updates Appendix E.1 anchored the
+`plan` row on "| `plan` |", which matched the acceptance table's row first, two cells wide; and it
+asserted a phrase in the Limitation cell that lives in the Evidence cell. Both asserted, both
+refused loudly; the docs reviewer caught the second before the run and the first refused at the
+run. (3) Plan case 3 across three samples of the cured canonical: one run invoked
+`specify-connection` and analysed the seam before planning, two named the skill and scheduled the
+handoff as a blocking step behind the ownership gate; the fixture's assertions held on the human
+read in all three; the judge failed two and passed one; Codex read the last trace and asked for
+invocation made mandatory.
+
+**Reading.** (1) is the twin of the rule the estate already holds for evidence: the manifest must
+match the canonical at the head; today's shape says the manifest's own schema and order must be
+the head's runner's, or a reader sees evidence produced by a tool the head does not contain. A
+candidate line for the skill-evals README: run the reruns last, after the runner is frozen under
+review. Two instances in one day; an observation. (2) is not a member of the family (both checks
+named their target and refused); it is the anchor's lesson: a row anchor shared with another table
+is a check on the wrong thing until it names the evidence path. Recorded as an observation.
+(3) says one run per arm answers a routing question in fractions. Whether a planning agent
+performs or schedules a handoff it cannot clear is a question for the harness's tool-use grader
+(`skills_expected` on the case), not the judge; the fixture did not ask it, so the readings say
+what was observed and the thread's signed line names the seed. The method is right for cost and
+wrong for this question.
+
+**Routing.** (1) to the skill-evals README as a candidate line on the next tool change. (2)
+nowhere new. (3) is the follow-up recorded on the pull request's working notes (case 3's
+`skills_expected`; the plan description's "not for" boundary; the generator's sibling-link
+rewrite at its second consumer; the readability grader), all the owner's call. The family's
+graduation line to the metacognition directive is still owed (a directive-file edit under the
+documentation and onboarding reviews; the fourth boundary carrying it).

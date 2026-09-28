@@ -515,6 +515,33 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **PR 250 LANDED, 2026-09-28 11:3xZ to 13:18Z (Myrtle turns Canopy, bf4957).** The owner's word
+  ("pick up PR 250, then once it is merged come back to your current work"; to the Director: "Give
+  250 to Myrtle, let's get it landed quickly and well"). One settlement push `da70c076a` (three
+  commits over the owner's web sync `92db547bd`): `768c769a8` the evaluation projector carries the
+  sibling references a skill's files link, resolved against the canonical tree and rewritten to
+  `references/<sibling>/`, transitively, with the manifest naming them by blob id (schema 1.3.0),
+  the specify-connection and assess-specification suites rerun in full; `908bfef34` the three Sonar
+  sites at source; `da70c076a` plan's handoffs to the specification skills (the "Before Writing"
+  paragraph, the sequencing sentence in §Schedule It, the seventh silent trigger), the plan suite
+  rerun three times (the full suite twice, case 3 once more), E.1 and the report updated. Reviews
+  before the commit: code-expert (pre-execution and three post-execution passes), test-expert (two),
+  docs-adr-expert, onboarding-expert. The four inherited threads answered with the cure shas and
+  resolved; the legs on `da70c076a` raised three (Copilot two on the generated adapters'
+  reference-copy links; Codex one on plan's invocation), all three dispositioned below the bar with
+  signed lines and follow-ups (the generator's rewrite; case 3's `skills_expected`; the readability
+  grader; the plan description's "not for" boundary). The gate: the round priced 62.18, warn at
+  287.29 of 360. The pure sync `338ade1c4` (engraph `ab8976719`, automatic, no conflict), CI green,
+  the merge-bot door: merged as `2da2e89ec` at 13:18Z; the remote branch deleted by API and read
+  back absent; the worktree removed; the local branch deleted after the ancestry proof. Cost of the
+  reruns: about USD 12 across two restarts (the runner froze twice under the reviewers: the manifest
+  field, then its order) and the final runs. Evidence-instrument rule observed twice (napkin). The
+  local branch `superseded/250-local-sync-82aae23cd` proved superseded: its README conflict
+  resolution is the earlier hand merge; the owner's web sync `92db547bd` and the doctrine-pair
+  merges since carry both sections (the diff against `engraph` shows no line of it absent); deletion
+  waits on the owner's word (the seat never forces a delete). Next for this seat: return to the
+  exchange lane's owed items (the "sentinel-content assertion" joint amendment, 217's four-ADR
+  follow-up, goal one's code rows).
 - **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
   PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
   synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule
