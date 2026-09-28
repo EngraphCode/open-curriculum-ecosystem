@@ -1,3 +1,10 @@
+## [1.185.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.2...v1.185.3) (2026-09-28)
+
+
+### Bug Fixes
+
+* **plugin:** add the icon, privacy link and README the plugin directory asks for (MCP-760) ([8d9c590](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8d9c590581786aa8ce6498370e84361d2b44090c))
+
 ## [1.185.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.1...v1.185.2) (2026-09-25)
 
 ## [1.185.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.0...v1.185.1) (2026-09-23)
