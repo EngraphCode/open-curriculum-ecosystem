@@ -7,7 +7,7 @@ pdr_kind: governance
 **Status**: Accepted
 **Date**: 2026-06-15
 **Related**:
-ADR-131 §The Self-Referential Property
+the host's self-reinforcing improvement loop decision, §The Self-Referential Property
 (the Practice governs its own change-process; rules about rule-creation are
 subject to the same loop);
 ADR-144 §Loop Health
@@ -88,7 +88,7 @@ as-yet-untested choice of signal.
 
 ## Reconciliation
 
-- **ADR-131 §Self-Referential.** The Practice's own governance applies to itself;
+- **The improvement-loop decision's §Self-Referential.** The Practice's own governance applies to itself;
   this governor is that self-applicability turned on the Practice's *change rate*.
   The reflection-trigger is the loop governing how fast the loop may rewrite itself.
 - **ADR-144 §Loop Health.** A fitness signal reaching a zone prompts a short

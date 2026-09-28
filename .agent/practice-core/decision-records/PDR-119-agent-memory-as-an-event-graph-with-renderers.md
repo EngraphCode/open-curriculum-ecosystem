@@ -25,7 +25,7 @@ not linked from this portable body per PDR-079 / PDR-105);
 render-time curation here);
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
 (the unit-of-coordination ≠ unit-of-git-history gap PDR-049 named);
-ADR-200
+the host repository's intent idea-graph decision
 (intent as a living idea-graph — the same documents-as-projections-of-a-graph-SSOT
 move; the convergence point for the index-narrative tail).
 Phenotype skill superseded for one class: `semantic-merge`
@@ -88,15 +88,15 @@ resolves the edges (supersession ordering, duplicate folding), which is what mak
 the projection coherent rather than a raw concatenation.
 
 **This is a member of the Practice's graph systems, not a standalone scheme.** It
-is the *same architecture* as ADR-200
-(intent as a living idea-graph — note: ADR-200 is an **ADR**, the repo phenotype;
+is the *same architecture* as the host's intent idea-graph decision
+(intent as a living idea-graph — note: that decision is an **ADR**, the repo phenotype;
 its portable doctrine layer is the strategy/plan-estate work): a machine-readable
 graph is the SSOT and the human-readable documents are co-equal **projections**
-connected by typed edges. ADR-200 covers the *intent / planning* graph; this PDR
+connected by typed edges. The intent idea-graph decision covers the *intent / planning* graph; this PDR
 covers the *memory / learning* graph; both build on `graph-core`. Memory-events are
 the append-only special case of the same idea, and the two graphs **converge at the
 index-narrative tail** (repo-continuity is already a hand-maintained projection over
-thread, claim, and PR state — exactly an ADR-200-shaped surface). Treating them as
+thread, claim, and PR state — exactly the shape the intent idea-graph decision describes). Treating them as
 one family is a design constraint: a shared **renderer/projection pattern** (the
 *substrate* is a per-member choice — see §Sequencing), not two parallel projection
 engines. The shared thing is the event→render shape, not necessarily `graph-core`'s
@@ -145,11 +145,12 @@ from it.
   `curation-ledger`): intermediate.** Mostly-append; the shard class is the
   half-step made whole.
 - **`index-narrative-tables` (repo-continuity, director-handoff): the hard tail —
-  deferred, converges with ADR-200.** These are *maintained current-state
+  deferred, converges with the intent idea-graph.** These are *maintained current-state
   indexes* with cross-entry mutation (a next-safe-step gains "DONE", table rows
   update). Immutability — the load-bearing assumption — does not hold in place, so
-  a naïve event log fragments their coherence. Their cure is the fuller ADR-200
-  projection (render the index over thread records, the claims registry, git/PR
+  a naïve event log fragments their coherence. Their cure is the fuller projection
+  the intent idea-graph decision describes (render the index over thread records, the
+  claims registry, git/PR
   state, plus a thin continuity-note event stream), or a deliberate decision that
   they stay hand-curated docs and keep `semantic-merge`. **Do not fold these in
   early.**
@@ -186,12 +187,12 @@ practice, that falsifies the direction cheaply.
 This PDR records the **decision and a rough design**; it does not authorise the
 build. The repo phenotype (the concrete `.agent/memory` event layout + the render
 CLI + migration) lands as an **ADR + executable plan** when built, owner-sequenced
-against ADR-200 (with which the index-narrative tail converges) and product work.
+against the intent idea-graph (with which the index-narrative tail converges) and product work.
 
 Three decisions the build must settle, named here (not made):
 
 1. **Class adoption order** — append-only-narrative first (napkin pilot), then
-   registers; the index-narrative tail deferred to the ADR-200 convergence or kept
+   registers; the index-narrative tail deferred to the convergence with the intent idea-graph or kept
    as curated docs.
 2. **Distilled.md treatment** — curated synthesis needs `supersedes`/`refines`
    edges, not plain union; confirm the edge model carries it before migrating.
@@ -199,7 +200,7 @@ Three decisions the build must settle, named here (not made):
    Wave). The family shares the renderer/projection PATTERN (derive an authoritative
    read from immutable sources — the comms event log's event→render shape); the SUBSTRATE is a
    per-member choice. `graph-core` (RDF/JSON-LD: jsonld/vocab/term/canon/dataset)
-   fits the *semantic* members (the curriculum ontology, the ADR-200 intent
+   fits the *semantic* members (the curriculum ontology, the host's intent
    idea-graph). The *operational/narrative* members — agent-work-state (PDR-118,
    derived from `git worktree list` + claims + event-recency) and the napkin
    event-graph (whose `[[links]]`/`supersedes` edges are lightweight narrative
