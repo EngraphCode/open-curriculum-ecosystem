@@ -155,12 +155,13 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
   const own = input.reviews.filter(
     (review) => normaliseLogin(review.author) === normaliseLogin(reviewer) && hasLanded(review),
   );
-  const tipBound = own.filter((review) => reviewBinds(review, input));
   const requested = input.reviewRequests.some(
     (login) => normaliseLogin(login) === normaliseLogin(reviewer),
   );
+  const bound = own.filter((review) => reviewBinds(review, input));
+  const tipBound = standingReviews(bound, input, requested);
   const note = emptyBodyNote(tipBound);
-  const substantive = standingReviews(tipBound.filter(isSubstantive), input, requested);
+  const substantive = tipBound.filter(isSubstantive);
   if (substantive.length > 0) {
     const detail = `substantive review binds current tip${bindingNote(substantive, input)}${note}`;
     return { reviewer, state: 'SATISFIED', detail };

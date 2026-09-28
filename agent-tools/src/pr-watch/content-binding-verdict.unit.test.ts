@@ -92,13 +92,12 @@ describe('computePrVerdict — reviews bound by content', () => {
     );
   });
 
-  it('holds a leg bound by content while a round is requested on the tip', () => {
+  it('says a leg bound by content waits for the round requested on the tip', () => {
     const verdict = verdictOf({
       reviews: [beforeTheSync],
       content: synced(PATCH),
       reviewRequests: [COPILOT],
     });
-    expect(verdict.state).not.toBe('SETTLE-READY');
     expect(legLine(verdict, COPILOT)).toContain(
       'is bound by content and waits for the round requested on the tip',
     );
@@ -117,6 +116,24 @@ describe('computePrVerdict — reviews bound by content', () => {
     );
     expect(leg.startsWith(`${COPILOT}: SATISFIED`) && namesTheInference(leg)).toBe(true);
     expect(leg).toContain('1 tip-bound empty-bodied review ignored');
+  });
+
+  it.each<[string, string]>([
+    ['a substantive review', 'Reviewed 2 of 2 files.'],
+    ['a quota marker', 'Review skipped: the spend limit was reached.'],
+    ['an unevaluable skip marker', 'Unable to review: the service is unavailable.'],
+  ])('holds %s bound by content while a round is requested on the tip', (_what, body) => {
+    const verdict = verdictOf({
+      reviews: [{ ...beforeTheSync, body }],
+      content: synced(PATCH),
+      reviewRequests: [COPILOT],
+    });
+    expect(verdict.state).not.toMatch(/SETTLE-READY|QUOTA-SKIPPED/u);
+    expect(
+      legLine(verdict, COPILOT).startsWith(
+        `${COPILOT}: OWED — no substantive review binds the current tip`,
+      ),
+    ).toBe(true);
   });
 
   it('reads a quota marker on the commit before a pure sync as the tip’s, naming the inference', () => {
