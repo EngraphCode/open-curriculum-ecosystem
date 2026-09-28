@@ -97,31 +97,30 @@ export function git(cwd: string, ...args: readonly string[]): string {
 /** How long one git or CLI child may run before the smoke fails instead of hanging. */
 const CHILD_TIMEOUT_MS = 120_000;
 
-/** Variables that would point git, or the CLI's registry, somewhere other than the fixture. */
-const STEERING_VARIABLES = [
-  'GIT_DIR',
-  'GIT_INDEX_FILE',
-  'GIT_WORK_TREE',
-  'GIT_COMMON_DIR',
-  'PRACTICE_COORDINATION_HOME',
-] as const;
+/**
+ * Whether a variable would steer the fixture's git or the CLI's registry:
+ * every `GIT_*` variable (`GIT_DIR`, `GIT_WORK_TREE`, `GIT_INDEX_FILE`, and the
+ * `GIT_CONFIG_PARAMETERS` that `git -c` exports, among others) and a declared
+ * coordination home.
+ */
+function steers(name: string): boolean {
+  return name.startsWith('GIT_') || name === 'PRACTICE_COORDINATION_HOME';
+}
 
 /**
  * The environment the fixture's git and the built CLI run with: the caller's
  * own, read here at the smoke's spawn composition root, less every variable
- * that would steer git at another repository, and with the machine's git
- * configuration silenced as `hermeticGitEnv` does. A standalone run with
- * `GIT_DIR` exported would otherwise write the fixture into the outer
- * repository. `HOME` and `PATH` stay, because the CLI's advisory child
- * resolves pnpm through them. `PRACTICE_COORDINATION_HOME` goes too: the
- * commit-queue topic resolves its home through git today, and removing it keeps
- * an ambient declared home from ever redirecting the fixture's registry if the
- * topic comes to honour it.
+ * that steers git or the registry, and with the machine's git configuration
+ * silenced as `hermeticGitEnv` does. A standalone run with `GIT_DIR` exported
+ * would otherwise write the fixture into the outer repository. `HOME` and
+ * `PATH` stay, because the CLI's advisory child resolves pnpm through them.
+ * The commit-queue topic resolves its home through git today; removing
+ * `PRACTICE_COORDINATION_HOME` keeps an ambient declared home from ever
+ * redirecting the fixture's registry if the topic comes to honour it.
  */
 function smokeEnvironment(): NodeJS.ProcessEnv {
-  const steering: ReadonlySet<string> = new Set(STEERING_VARIABLES);
   return {
-    ...Object.fromEntries(typeSafeEntries(process.env).filter(([name]) => !steering.has(name))),
+    ...Object.fromEntries(typeSafeEntries(process.env).filter(([name]) => !steers(name))),
     GIT_CONFIG_GLOBAL: '/dev/null',
     GIT_CONFIG_SYSTEM: '/dev/null',
   };

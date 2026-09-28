@@ -12,9 +12,10 @@ import { runSmokeSuite, smokeTestFiles } from '../smoke/smoke-suite.js';
  * directory (`smoke/smoke-suite.ts` carries the reasoning). Each smoke runs as
  * `node --import tsx <file>`, as this bin's direct child, with the agent-tools
  * package root as its working directory, set explicitly so the run does not
- * depend on how this bin was invoked. A direct child keeps a smoke's own signal death as its signal:
- * behind `pnpm exec tsx`, the launcher turns it into exit 128+n. Every smoke
- * runs even after a failure, so one run reports the whole suite.
+ * depend on how this bin was invoked. A direct child keeps a smoke's own
+ * signal death as its signal: behind `pnpm exec tsx`, the launcher turns it
+ * into exit 128+n. Every smoke runs even after a failure, so one run reports
+ * the whole suite.
  *
  * The bin takes no arguments: `--help` prints usage and exits 0; anything
  * else is refused with usage on stderr, so a typo can never run the suite as
