@@ -2,7 +2,7 @@
 document_id: oce.user-value-specification-pr-relationships
 document_role: bounded-pr-relationship-analysis
 revision: 2
-updated: 2026-09-26
+updated: 2026-09-28
 authority: owner-commissioned-analysis-with-ratified-delivery-scope
 inquiry_id: VALUE-SPEC-PR250-2026-09-26
 inquiry_revision: 1
@@ -25,6 +25,8 @@ The elements are conceptually compatible. The principal risk is treating their c
 The analysis recommends preserving a clear division: `user-value` owns usefulness and its relationship to provision; proposed specification procedures own precise obligations, connections and scoped assessment; `plan` owns implementation sequencing. Shared evidence and authority distinctions cross all three without making them a mandatory waterfall.
 
 **Update, 27 September 2026.** The delivery the ratification required has landed on this PR: the three specification skills exist as canonical files under `.agent/skills/specification/` with references, evals and generated adapters; `plan` has evals including the cross-skill exercise; every in-scope skill was executed through `agent-tools skill-evals` with a with-without ablation and the evidence retained under each skill's `evals/results/` with a human read beside it. The per-skill results and limitations, the evidence directories and the method notes are in the framework note's Appendix E.1, which supersedes this report's delivery-state statements above ("awaiting implementation", "remain absent", "unfinished draft") while the conceptual map and the pinned evidence below stand. BR3's adverse evidence (absent projections) no longer applies at the current head; the evaluation's own finding is that the baseline without any skill meets most declared assertions in substance at a third to a half of the cost, which bears on BR4 and BR5 and is reported, not resolved, in Appendix E.1.
+
+**Update, 28 September 2026.** Plan's routing now hands an unresolved contract, composition or readiness question to the specification skills before the dependent steps are scheduled, and the evaluation projector carries the shared references a canonical links (and records their versions in the manifest), so the plan, specify-connection and assess-specification suites were rerun in full; the new evidence directories and their readings are named in E.1's rows.
 
 ## 1. Scope, source boundary and method
 
