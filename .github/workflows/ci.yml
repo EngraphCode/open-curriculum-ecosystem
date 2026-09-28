@@ -127,6 +127,11 @@ jobs:
         run: pnpm markdownlint-check:root
       - name: Lint runtime-only scripts
         run: pnpm lint:runtime-only
+      # The installer puts the pinned shellcheck in the checkout's .tools/bin,
+      # which the gate runs in preference to any shellcheck the image ships;
+      # the gate prints the version and the binary it ran.
+      - name: Install pinned shellcheck
+        run: ./.agent/setup/install-shellcheck.sh
       - name: Lint shell scripts
         run: pnpm lint:shell
       - name: Validate sub-agents
