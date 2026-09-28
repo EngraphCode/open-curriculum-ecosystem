@@ -10,10 +10,14 @@ import {
   type PrTarget,
 } from './gh.js';
 import { readCompletionComments } from './completion-comments.js';
+import { allReviews } from './completion-evidence.js';
 import type { CompletionComment } from './completion-comments.js';
+import type { ContentLeg } from './content-binding.js';
+import { contentReaderFor, gitPatchIdOf, type PatchIdOf } from './content-reader.js';
 import { defaultExpectedReviewers } from './expected-reviewers.js';
 import { COMMENTS_QUERY, COMMITS_QUERY, harvestArgs, REVIEWS_QUERY } from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
+import { hasLanded } from './reviewer-legs.js';
 import { readReviewRunsLeg } from './review-runs.js';
 import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
 import {
@@ -37,7 +41,9 @@ import type { PrStateReading } from './state-types.js';
  * first-round-guarantee gap instead of silently passing it.
  *
  * The `gh agent-task` review-run leg (bounded run→PR mapping, typed
- * degradation) lives in `review-runs.ts`.
+ * degradation) lives in `review-runs.ts`. The content leg (`content-reader.ts`)
+ * reads the patch-ids a review of an earlier commit binds the head by, and
+ * degrades to unproven, never failing the reading.
  */
 
 export interface ReadPrStateOptions {
@@ -47,6 +53,8 @@ export interface ReadPrStateOptions {
   readonly exists?: PathExistsCheck;
   /** The declared expected reviewer set (`--expect`, repeatable). */
   readonly expectedReviewers?: readonly string[];
+  /** Hashes a diff to its patch-id; the trusted git's `patch-id` by default. */
+  readonly patchIdOf?: PatchIdOf;
 }
 
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
@@ -141,23 +149,27 @@ function composeReading(input: {
   readonly reviews: PrStateReading['reviews'];
   readonly reviewRuns: PrStateReading['reviewRuns'];
   readonly declared: readonly string[];
+  readonly readContent: (reviewedOids: readonly string[]) => ContentLeg;
 }): PrStateReading {
   const expectedReviewers =
     input.declared.length > 0
       ? input.declared
       : defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
+  const completionComments = readCompletionComments({
+    comments: input.comments,
+    commits: input.commits,
+    reviewers: expectedReviewers,
+  });
+  const landed = allReviews({ reviews: input.reviews, completionComments }).filter(hasLanded);
   return {
     ...input.view,
     reviewThreads: input.reviewThreads,
     reviews: input.reviews,
-    completionComments: readCompletionComments({
-      comments: input.comments,
-      commits: input.commits,
-      reviewers: expectedReviewers,
-    }),
+    completionComments,
     reviewRuns: input.reviewRuns,
     expectedReviewers,
     expectedDeclared: input.declared.length > 0,
+    content: input.readContent(landed.map((review) => review.commitOid)),
   };
 }
 
@@ -177,6 +189,7 @@ const TIP_CONSISTENT_ATTEMPTS = 2;
 
 export function readPrStateReading(options: ReadPrStateOptions): PrStateReading {
   const run = options.execFileSync ?? execFileSync;
+  const patchIdOf = options.patchIdOf ?? gitPatchIdOf;
   const gh = resolveGhPath(options.ghPath, options.exists);
   const { number, repo } = options.target;
   const prNumber = String(number);
@@ -208,6 +221,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         reviews,
         reviewRuns,
         declared: options.expectedReviewers ?? [],
+        readContent: contentReaderFor({ run, gh, repo, view: confirm, patchIdOf }),
       });
     }
     view = confirm;

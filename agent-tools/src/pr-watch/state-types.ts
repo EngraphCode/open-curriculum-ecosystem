@@ -1,4 +1,5 @@
 import type { CompletionCommentReading } from './completion-comments.js';
+import type { BindingHead } from './content-binding.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
 import type { HarvestedReview } from './reviewer-legs.js';
@@ -47,7 +48,7 @@ export type ReviewRunsLeg =
   | { readonly kind: 'unavailable'; readonly reason: string };
 
 /** The compound reading the verdict resolves — one struct, every leg present. */
-export interface PrStateReading {
+export interface PrStateReading extends BindingHead {
   readonly number: number;
   /** The PR's html URL — the repository-scoped identity runs are matched against. */
   readonly url: string;
@@ -60,6 +61,8 @@ export interface PrStateReading {
   /** `CLEAN` | `BLOCKED` | `BEHIND` | `DIRTY` | `UNSTABLE` | … */
   readonly mergeStateStatus: string;
   readonly headRefOid: string;
+  /** The branch the pull request merges into: the base each commit's content is read against. */
+  readonly baseRefName: string;
   readonly checks: ChecksSummary;
   readonly namedChecks: readonly NamedCheck[];
   /** Max completedAt across green checks; null while checks are not yet green. */

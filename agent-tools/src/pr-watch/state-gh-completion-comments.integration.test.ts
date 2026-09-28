@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { textHasher } from './content-fixture.js';
 import { readPrStateReading } from './state-gh.js';
 import type { GhCommandExecutor } from './gh.js';
 
@@ -45,6 +46,7 @@ function viewPayload(surfaces: Surfaces): string {
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: HEAD,
+    baseRefName: 'main',
     statusCheckRollup: [],
     autoMergeRequest: null,
     reviewRequests: surfaces.reviewRequests ?? [
@@ -94,11 +96,14 @@ function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
     if (query.includes('commits(')) {
       return commitsPages(surfaces.commitPages);
     }
-    return emptyPage('reviews');
+    if (query.includes('reviews(')) {
+      return emptyPage('reviews');
+    }
+    throw new Error(`unexpected gh argv: ${args.join(' ')}`);
   };
 }
 
-const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
+const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true, patchIdOf: textHasher };
 const WITH_TIP: Surfaces = { comments: [CODEX_CLEAN_COMMENT], commitPages: [[OLDER, HEAD]] };
 const BOUND_TO_HEAD = {
   id: 'IC_1',

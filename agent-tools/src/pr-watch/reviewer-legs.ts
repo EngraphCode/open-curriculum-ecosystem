@@ -12,6 +12,9 @@
  * review.
  */
 
+import { bindingNote, reviewBinds, standingReviews, unboundNote } from './content-binding.js';
+import type { BindingHead } from './content-binding.js';
+
 /** One review from the full paginated harvest (`reviews` connection). */
 export interface HarvestedReview {
   readonly author: string;
@@ -44,8 +47,7 @@ export type ReviewerLeg =
       readonly detail: string;
     };
 
-export interface ComputeReviewerLegsInput {
-  readonly headRefOid: string;
+export interface ComputeReviewerLegsInput extends BindingHead {
   readonly expectedReviewers: readonly string[];
   readonly reviews: readonly HarvestedReview[];
   readonly reviewRequests: readonly string[];
@@ -79,14 +81,6 @@ export function isSkipMarker(body: string): boolean {
 
 function isScopeDeclaredSkip(body: string): boolean {
   return isSkipMarker(body) && QUOTA_PATTERN.test(body);
-}
-
-// Binding is EXACT: the full harvest retains historical reviews, so a
-// missing/empty commit oid must stay UNPROVEN — a wildcard would let an old
-// null-commit review satisfy every later push forever. The conservative wait
-// this creates is already bounded by the checks-green timeout leg.
-function bindsTip(review: HarvestedReview, headRefOid: string): boolean {
-  return review.commitOid === headRefOid;
 }
 
 // GitHub logins are case-insensitive; compare through one casing so a declared
@@ -158,22 +152,26 @@ function emptyBodyNote(tipBound: readonly HarvestedReview[]): string {
 }
 
 function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg {
-  const tipBound = input.reviews.filter(
-    (review) =>
-      normaliseLogin(review.author) === normaliseLogin(reviewer) &&
-      hasLanded(review) &&
-      bindsTip(review, input.headRefOid),
+  const own = input.reviews.filter(
+    (review) => normaliseLogin(review.author) === normaliseLogin(reviewer) && hasLanded(review),
+  );
+  const tipBound = own.filter((review) => reviewBinds(review, input));
+  const requested = input.reviewRequests.some(
+    (login) => normaliseLogin(login) === normaliseLogin(reviewer),
   );
   const note = emptyBodyNote(tipBound);
-  if (tipBound.some(isSubstantive)) {
-    return { reviewer, state: 'SATISFIED', detail: `substantive review binds current tip${note}` };
+  const substantive = standingReviews(tipBound.filter(isSubstantive), input, requested);
+  if (substantive.length > 0) {
+    const detail = `substantive review binds current tip${bindingNote(substantive, input)}${note}`;
+    return { reviewer, state: 'SATISFIED', detail };
   }
-  if (tipBound.some((review) => isScopeDeclaredSkip(review.body))) {
+  const quota = tipBound.filter((review) => isScopeDeclaredSkip(review.body));
+  if (quota.length > 0) {
     return {
       reviewer,
       state: 'SKIPPED',
       skipReason: 'quota',
-      detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${note}`,
+      detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${bindingNote(quota, input)}${note}`,
     };
   }
   const unevaluableMarker = tipBound.some((review) => isSkipMarker(review.body));
@@ -188,7 +186,7 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
   }
   const owedDetail = unevaluableMarker
     ? 'tip-bound skip marker with unevaluable scope — no substantive review; awaiting the timeout arm'
-    : 'no substantive review binds the current tip';
+    : `no substantive review binds the current tip${unboundNote(own.filter(isSubstantive), input, requested)}`;
   return { reviewer, state: 'OWED', detail: `${owedDetail}${note}` };
 }
 

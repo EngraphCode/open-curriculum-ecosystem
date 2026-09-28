@@ -1,6 +1,6 @@
 # The sync-lineage binding cure: design note (2026-09-26)
 
-Swallow holds Drift (516619). Status: ready-to-build, deferred by the Director's ruling of 12:5xZ until the review-cost survey shows sync-only tip moves costing rounds (the measured datum on 2026-09-26: one sync-only move in seven across the reviewed tips of PRs 241, 216, 227 and 229). The exec-binding plan node's toolkit item points here. Written in a seat's session and graduated here at the compaction boundary.
+Swallow holds Drift (516619). Status: built on 2026-09-28, in the shape the revision below gives it (see §As built). The Director's ruling of 12:5xZ on 2026-09-26 deferred it until the review-cost survey showed sync-only tip moves costing rounds (one sync-only move in seven across the reviewed tips of PRs 241, 216, 227 and 229). The 2026-09-27 retrospective's drain reading met that condition: eight landings of eight ended in a pure sync that paid a Copilot round (`retrospective-the-twenty-four-open-prs-2026-09-27.md`, item 3). That retrospective and the codex-dialogues thread record point here. Written in a seat's session and graduated here at the compaction boundary.
 
 
 Problem. `pr-watch` binds a review leg to the head by EXACT commit oid (`reviewer-legs.ts`
@@ -9,7 +9,7 @@ filters). Every sync merge moves the head, so a leg that reviewed the content mu
 and re-run on unchanged content. Measured across the reviewed tips of 241, 216, 227 and 229 on
 2026-09-26 (the datum in the status line): one sync-only tip move in seven; 241's sync also carried
 an edit, and 216 and 229 had no sync. So the unchanged-content cost is one round in seven at that
-sample, not every round, which is why the cure is deferred until the survey shows more.
+sample, not every round, which is why the cure was deferred until the survey showed more.
 
 Cure, one behavioural claim. A review binds the head when the head's CONTENT against the default
 branch is the content the reviewer saw. Content = the patch of `merge-base(base, C)..C`, compared
@@ -84,5 +84,41 @@ Tests (behaviour, from the review): exact binds; content-equal binds with both s
 evidence; content-different OWED; oid missing OWED with reason; empty commit oid never binds; head
 unproven falls back to exact only; a content-bound review anchors the window; a content-equal
 completion comment is not refused; adapter: gh failure and empty diff read unproven, a malformed
-oid never reaches the executor. Mutation-check each. The merge bot is unaffected (`putMerge` pins
+oid never reaches the executor. Mutation-check each. The merge bot reads through the same
+reading, so its front door admits a leg bound by content (`putMerge` still pins
 the head sha; `--expect` gates the set).
+
+## As built (2026-09-28)
+
+Siren herds Rudder (158275), in the change that adds `pr-watch/content-binding.ts`:
+
+- `content-binding.ts` (pure): `bindsHead` returns `exact`, `content(id)` or `unbound(reason)`;
+  `reviewBinds` and `bindingNote` are what the five call sites read, and the SATISFIED leg and
+  the completion-comment transport line carry the note.
+- `content-reader.ts`: `readContentLeg` reads each commit's compare diff through the gh seam and
+  hashes it with `gitPatchIdOf` (the trusted git's `patch-id --verbatim` on stdin). It reads every
+  distinct landed reviewed commit on both transports, not only the expected reviewers', so every
+  call site sees one binding. It reads nothing when no review names an earlier commit, nothing
+  past the head when the head is unproven, and nothing for a pull request that is not open.
+- The pre-open reviews moved these into the build, each failing closed:
+  - The base is named as a branch (`compare/refs/heads/{base}...{oid}`), so a tag of the same name
+    never stands in for it.
+  - A diff the hash cannot see whole reads unproven and is never hashed. A NUL ends a line for
+    patch-id, U+FFFD marks bytes the UTF-8 read lost, and a binary file shows only abbreviated
+    blob ids.
+  - patch-id's output must be exactly one line, the id and forty zeros; a split reads unproven.
+  - A spawn failure or a 30-second hang reads unproven, never failing the reading.
+  - A review bound only by content does not stand in for a round requested on the tip, so the
+    door never merges while a requested run composes (the owner's 2026-07-16 correction on #390).
+  - An owed leg says why a review of an earlier commit did not bind: the read's reason, a
+    changed content, or the requested round it waits for.
+- `state-gh.ts` composes the content leg into the reading; `baseRefName` joins the view fields.
+- The pr-lifecycle SKILL's state machine items 3, 4 and 5, its Copilot policy, its Phase 6
+  sweep and its Phase 7 landing slot say what a content binding means. Item 3 defines a pure
+  sync, and item 5 is the one home of the rule that a pure sync push requests nothing.
+
+The recorded observation (2026-09-28, both ids read against `engraph` after the sync, so after
+PR 276 had landed): on the lineage's PR 277, the pure sync merge of `engraph` into the branch
+left the compare-diff patch-id unchanged (`462e143cc012…` before, at
+`6977776e3`, and after, at `e275882f9`), and an earlier commit, before the branch's last content
+change, carried a different one (`8233d5437abe…` at `48ee393a7`).
