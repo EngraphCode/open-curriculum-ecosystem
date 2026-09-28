@@ -20,6 +20,8 @@ export const RULE_CLASSIFICATIONS = ['core', 'situational'] as const;
 /** A member of {@link RULE_CLASSIFICATIONS}. */
 export type RuleClassification = (typeof RULE_CLASSIFICATIONS)[number];
 
+const RULE_CLASSIFICATION_SET: ReadonlySet<string> = new Set(RULE_CLASSIFICATIONS);
+
 /**
  * Whether a string names a rule classification.
  *
@@ -27,7 +29,7 @@ export type RuleClassification = (typeof RULE_CLASSIFICATIONS)[number];
  * @returns `true` when the text is `core` or `situational`.
  */
 export function isRuleClassification(value: string): value is RuleClassification {
-  return RULE_CLASSIFICATIONS.some((classification) => classification === value);
+  return RULE_CLASSIFICATION_SET.has(value);
 }
 
 /** A rule loaded into every session. */

@@ -93,17 +93,22 @@ function frontmatter(fields: CursorTriggerFields): string {
  * @returns The `.mdc` file text.
  */
 export function renderCursorTrigger(declaration: RuleDeclaration): string {
-  const fields =
-    declaration.classification === 'core'
-      ? { description: declaration.description, alwaysApply: true }
-      : declaration.globs.length > 0
-        ? {
-            description: declaration.description,
-            globs: declaration.globs.join(','),
-            alwaysApply: false,
-          }
-        : { description: declaration.description, alwaysApply: false };
-  return `${frontmatter(fields)}\n${pointer(declaration)}`;
+  return `${frontmatter(cursorTriggerFields(declaration))}\n${pointer(declaration)}`;
+}
+
+/** A core rule always applies; a situational one auto-attaches on its globs when it has any. */
+function cursorTriggerFields(declaration: RuleDeclaration): CursorTriggerFields {
+  if (declaration.classification === 'core') {
+    return { description: declaration.description, alwaysApply: true };
+  }
+  if (declaration.globs.length > 0) {
+    return {
+      description: declaration.description,
+      globs: declaration.globs.join(','),
+      alwaysApply: false,
+    };
+  }
+  return { description: declaration.description, alwaysApply: false };
 }
 
 /**

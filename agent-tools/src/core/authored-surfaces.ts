@@ -104,13 +104,19 @@ export async function discoverAuthoredFiles(
 ): Promise<readonly AuthoredFile[]> {
   const files: AuthoredFile[] = [];
   for (const rootRelative of spec.roots) {
-    await collectFiles(path.join(repoRoot, rootRelative), files, { repoRoot, spec, surfaceFs });
+    // POSIX joins throughout: every surface path is POSIX-relative, Node's fs accepts forward slashes
+    // on Windows, and the fakes the tests inject key their trees by POSIX paths.
+    await collectFiles(path.posix.join(repoRoot, rootRelative), files, {
+      repoRoot,
+      spec,
+      surfaceFs,
+    });
   }
   for (const fileName of spec.rootFiles) {
     if (!spec.universe.has(fileName)) {
       continue;
     }
-    const content = await readOptionalFile(path.join(repoRoot, fileName), surfaceFs);
+    const content = await readOptionalFile(path.posix.join(repoRoot, fileName), surfaceFs);
     if (content !== undefined) {
       files.push({ path: fileName, content });
     }
@@ -145,7 +151,7 @@ async function collectFiles(
   context: WalkContext,
 ): Promise<void> {
   for (const entry of await readDirectoryEntries(absoluteDir, context.surfaceFs)) {
-    const entryAbsolute = path.join(absoluteDir, entry.name);
+    const entryAbsolute = path.posix.join(absoluteDir, entry.name);
     const repoRelative = toRepoRelative(context.repoRoot, entryAbsolute);
     if (!context.spec.universe.has(repoRelative)) {
       continue;

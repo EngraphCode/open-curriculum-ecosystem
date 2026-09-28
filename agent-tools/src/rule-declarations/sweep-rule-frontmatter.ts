@@ -91,7 +91,9 @@ export async function sweepRuleFrontmatter(
   }
   const written: string[] = [];
   for (const file of derived.files) {
-    await sweepFs.writeFile(path.join(input.repoRoot, file.relativePath), file.text);
+    // POSIX joins throughout: every surface path is POSIX-relative, Node's fs accepts forward slashes
+    // on Windows, and the fakes the tests inject key their trees by POSIX paths.
+    await sweepFs.writeFile(path.posix.join(input.repoRoot, file.relativePath), file.text);
     written.push(file.relativePath);
   }
   return { ...derived, written };

@@ -20,7 +20,8 @@ export type RulesIndexRow =
   | { readonly classification: 'situational'; readonly trigger: string };
 
 const RULE_ROW_START = /^\|\s*`\.agent\/rules\//u;
-const RULE_ROW = /^\|\s*`\.agent\/rules\/([^`/]+)\.md`\s*\|\s*([^|]*?)\s*\|\s*(.*?)\s*\|\s*$/u;
+const RULE_PATH_PREFIX = '`.agent/rules/';
+const RULE_PATH_SUFFIX = '.md`';
 const NO_TRIGGER = '—';
 
 /**
@@ -61,13 +62,35 @@ interface ParsedRuleRow {
 }
 
 function parseRuleRow(line: string): Result<ParsedRuleRow, string> {
-  const match = RULE_ROW.exec(line);
-  if (match === null) {
+  const cells = splitRowCells(line);
+  const [pathCell = '', classification = '', rawTrigger = ''] = cells;
+  const name = ruleNameOfCell(pathCell);
+  if (cells.length !== 3 || name === undefined) {
     return err(`unparseable rules-index row: ${line}`);
   }
-  const [, name = '', classification = '', rawTrigger = ''] = match;
   const row = readRow(`.agent/rules/${name}.md`, classification, stripCodeSpan(rawTrigger));
   return row.ok ? ok({ name, row: row.value }) : row;
+}
+
+/** The cells between a row's leading and trailing pipes, trimmed; no cells when the row lacks either pipe. */
+function splitRowCells(line: string): readonly string[] {
+  const trimmed = line.trim();
+  if (trimmed.length < 2 || !trimmed.startsWith('|') || !trimmed.endsWith('|')) {
+    return [];
+  }
+  return trimmed
+    .slice(1, -1)
+    .split('|')
+    .map((cell) => cell.trim());
+}
+
+/** The rule name inside a path cell (the canonical path in a code span); `undefined` for any other cell. */
+function ruleNameOfCell(cell: string): string | undefined {
+  if (!cell.startsWith(RULE_PATH_PREFIX) || !cell.endsWith(RULE_PATH_SUFFIX)) {
+    return undefined;
+  }
+  const name = cell.slice(RULE_PATH_PREFIX.length, -RULE_PATH_SUFFIX.length);
+  return name.length > 0 && !name.includes('/') && !name.includes('`') ? name : undefined;
 }
 
 /** A generated index wraps the trigger token in a code span; a hand-kept one did not. */

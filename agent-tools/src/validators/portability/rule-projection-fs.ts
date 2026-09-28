@@ -58,7 +58,9 @@ async function admitAncestors(
     return ok(undefined);
   }
   if (ancestor.kind === 'absent' && act === 'write') {
-    await surfaceFs.mkdir(path.join(repoRoot, relDir));
+    // POSIX joins throughout: every surface path is POSIX-relative, Node's fs accepts forward slashes
+    // on Windows, and the fakes the tests inject key their trees by POSIX paths.
+    await surfaceFs.mkdir(path.posix.join(repoRoot, relDir));
     return ok(undefined);
   }
   if (ancestor.kind === 'foreign') {
@@ -112,7 +114,7 @@ export function writeProjection(
     if (!admitted.ok) {
       return admitted;
     }
-    const absolutePath = path.join(repoRoot, relPath);
+    const absolutePath = path.posix.join(repoRoot, relPath);
     if ((await leafKind(absolutePath, surfaceFs)) === 'other') {
       return err(`${relPath}: not a regular file at the moment of the write; ${refusing('write')}`);
     }
@@ -136,7 +138,7 @@ export function removeProjection(
     if (!admitted.ok) {
       return admitted;
     }
-    const absolutePath = path.join(repoRoot, relPath);
+    const absolutePath = path.posix.join(repoRoot, relPath);
     if ((await leafKind(absolutePath, surfaceFs)) !== 'file') {
       return err(
         `${relPath}: not a regular file at the moment of the removal; ${refusing('removal')}`,

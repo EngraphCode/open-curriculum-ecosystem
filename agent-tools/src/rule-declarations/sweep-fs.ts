@@ -69,7 +69,9 @@ export async function readSource(
   relativePath: string,
   sweepFs: SweepFs,
 ): Promise<Result<string, string>> {
-  const absolutePath = path.join(repoRoot, relativePath);
+  // POSIX joins throughout: every surface path is POSIX-relative, Node's fs accepts forward slashes
+  // on Windows, and the fakes the tests inject key their trees by POSIX paths.
+  const absolutePath = path.posix.join(repoRoot, relativePath);
   try {
     const kind = await sweepFs.entryKind(absolutePath);
     if (kind === 'absent') {

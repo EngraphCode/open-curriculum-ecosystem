@@ -104,6 +104,16 @@ describe('parseRulesIndex', () => {
     });
   });
 
+  it('refuses a row with a pipe inside a cell rather than reading past it', () => {
+    const result = parseRulesIndex(
+      indexWith('| `.agent/rules/a.md` | situational | surface:a | b |'),
+    );
+    expect(result).toEqual({
+      ok: false,
+      error: 'unparseable rules-index row: | `.agent/rules/a.md` | situational | surface:a | b |',
+    });
+  });
+
   it('refuses a rule listed twice', () => {
     const result = parseRulesIndex(
       indexWith('| `.agent/rules/a.md` | core | — |', '| `.agent/rules/a.md` | core | — |'),

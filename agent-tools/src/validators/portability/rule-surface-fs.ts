@@ -98,7 +98,9 @@ export async function classifyAncestors(
   for (let depth = 1; depth <= segments.length; depth += 1) {
     const prefix = segments.slice(0, depth).join('/');
     try {
-      if (!(await surfaceFs.lstat(path.join(repoRoot, prefix))).isDirectory()) {
+      // POSIX joins throughout: every surface path is POSIX-relative, Node's fs accepts forward slashes
+      // on Windows, and the fakes the tests inject key their trees by POSIX paths.
+      if (!(await surfaceFs.lstat(path.posix.join(repoRoot, prefix))).isDirectory()) {
         return { kind: 'foreign', entry: prefix };
       }
     } catch (error: unknown) {
@@ -133,7 +135,7 @@ export async function listDirectory(
     return ancestor;
   }
   try {
-    const entries = await surfaceFs.readdir(path.join(repoRoot, relDir));
+    const entries = await surfaceFs.readdir(path.posix.join(repoRoot, relDir));
     return classifyDirectoryEntries(relDir, entries, extension);
   } catch (error: unknown) {
     return failed(error);
@@ -201,7 +203,7 @@ export async function readEntry(
   relPath: string,
   surfaceFs: SurfaceFs = realSurfaceFs,
 ): Promise<EntryRead> {
-  const absolutePath = path.join(repoRoot, relPath);
+  const absolutePath = path.posix.join(repoRoot, relPath);
   return (
     (await ancestorRefusal(repoRoot, relPath, surfaceFs)) ??
     (await leafRefusal(absolutePath, surfaceFs)) ??
