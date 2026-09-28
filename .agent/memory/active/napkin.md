@@ -1202,3 +1202,26 @@ writing its own retry is the second consumer of one fix.
 
 **Routing.** To the Director as a merge-bot candidate: a bounded retry inside `merge-bot push`
 on a 403 with the refusal's text in the result, so no seat's script carries it.
+
+## 2026-09-28 ~20:1xZ — six tracked listings outside the git seam, two resolving git by name (Myrtle turns Canopy, bf4957)
+
+**Observation.** The architecture review of N1 (the rule-declarations port) read the sweep's
+tracked listing through `core/repository-paths.ts` as the convention and then counted the sites
+in `agent-tools/src` that run `git ls-files` themselves: `encoding/check-encoding.ts`,
+`repo-check/repo-check-universe.ts`, `repo-check/repo-check-gates.ts`,
+`validators/operator-profile/operator-profile-git-push.ts`,
+`mcp-content-current-source/current-source-delta-inventory.ts`, and two that resolve `git` by
+name through PATH, `validators/notion-fence/validate-notion-fence.ts` and
+`workspace-census/inputs.ts`, the shape `core/trusted-git.ts`'s own header pre-rejects (S4036).
+The convention is recorded in code (three module headers) and in two rules
+(`compute-dont-hope`, `sonarqube-mcp-instructions`), never in an ADR or a pattern.
+
+**Reading.** A convention held in headers is read by whoever opens the module and by no one
+else; six sites grew beside it. The two by-name sites are the Sonar-shaped one and the first
+cure; the other four are the consolidation the header of `tracked-file-scan.ts` already names.
+
+**Routing.** A lane, not a rule: fold the six listings into `repository-paths.ts` (the two
+by-name sites through `resolveTrustedGit` at minimum), one pull request, tests moved with them;
+and a pattern entry naming `core/trusted-git.ts` + `core/repository-paths.ts` as the git read
+path, so the next site has a name to find (`new-rule-vs-pdr-clause` applies: a pattern, not a
+rule). Not N1's; queued after the exchange's residue.

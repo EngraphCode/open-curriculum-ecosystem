@@ -515,6 +515,26 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
+  20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
+  slices: the second estate's `rule-declarations` module as the same bytes under this estate's
+  names, the frontmatter on 130 rules minted by the sweep (11 reconciliations, in the body), the
+  portability validator's projection leg rendering the index and the three adapter sets, four
+  hand-kept legs and the `tests/rules` index suite gone. Commit 4f49ff86e (pure sync 7de672b25 on top, behind 5) on
+  `feat/rule-declarations-generator` from engraph c5dbce46e, both legs requested. Deviations
+  from the second estate's bytes, to port back as one change: the reader's block sequence and
+  quote strip, the comma-list split (`comma-list.ts`, this estate's line cap), the index prose;
+  the sweep entry's git seam and flag scanner are this estate's alone; `SUBAGENT_SUBJECT` waits
+  for slice 2. Reviewed before the commit: code-expert (pre and post), test-expert,
+  docs-adr-expert, onboarding-expert, config-expert, architecture-expert-fred. **Routed from the
+  architecture review, queued:** `collaboration-state/atomic-file.ts` has its second and third
+  product importer (`rule-declarations/sweep-fs.ts`, `validators/portability/rule-surface-fs.ts`)
+  and moves to `core/` with its test and a header, a two-estate change under same-bytes; the
+  rules directory and the index path are restated on the validator side
+  (`rule-projection-validation.ts`, `sweep-rule-frontmatter.ts`) of a boundary the module owns;
+  the sweep is deleted on both estates once every estate has minted (its README says so now);
+  the six direct `git ls-files` sites are a napkin entry with a lane. Next: slices 2 and 3, J2,
+  the partials in census order; the register's J1 row and count line at the door.
 - **THE SECOND ESTATE'S PR 255 LANDED: THE FLOW CONTRACT, THE COUNT LINE, SEVEN LANDING ROWS,
   2026-09-28 18:4xZ to 19:3xZ (Myrtle turns Canopy, bf4957).** Merged by that estate's bot as
   a9aa00d38 on its main: 273de601 (the register's vocabulary under the flow contract; the J22 #272,
