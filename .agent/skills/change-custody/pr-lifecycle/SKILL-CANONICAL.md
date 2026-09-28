@@ -1806,18 +1806,16 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   The goal is "aiming for zero while useful value is still created and
   merged", because "a static zero means no useful work is happening". The
   operating steps:
-  - No PR other than a repository's one coordination PR opens while the count
-    is at the limit or over it. The reservation comes first: the opener posts
+  - No PR that starts new work opens while the count is at the limit or over
+    it, other than a repository's one coordination PR. The reservation comes
+    first: the opener posts
     "WIP slot reserved: <owner>/<name> <branch>" on its repository's
     coordination stream, then reads the count first-hand from the forge for
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
     1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own that
-    had not lapsed when it read the count, counting each owed branch (below)
-    as an earlier reservation that does not lapse; the opener of an owed
-    branch counts only the owed branches named on the stream before its own.
-    It opens only while the count
+    had not lapsed when it read the count. It opens only while the count
     plus those earlier reservations is under the limit; otherwise it
     withdraws its reservation on the stream and waits for the next free
     slot. The streams' order is
@@ -1829,9 +1827,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     coordination PR takes no reservation.
   - A branch's first push that carries a commit is followed at once by its
     PR, never left standing: a pushed branch with no PR is unfinished work
-    outside review. A wanted branch found with no PR takes the next free slot
-    ahead of any new opening, and is named on the stream as owed until it
-    opens.
+    outside review. A wanted branch found with no PR is an arrival of the
+    external-PR class: its draft PR opens at once at the assessment, it
+    counts toward the limit as an external PR does, and the Director routes
+    it into the slot order to a named seat ahead of any new opening; the
+    opening is posted on the stream like any other.
   - The Director routes each external PR into the slot order to a named seat.
     A green dependency bump lands at its size turn; a red one is assessed,
     then cured, or closed with a card to the owner.
