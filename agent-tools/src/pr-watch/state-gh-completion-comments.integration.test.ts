@@ -25,6 +25,7 @@ const CODEX_CLEAN_COMMENT = {
   body: CODEX_BODY,
   createdAt: '2026-07-21T12:10:00Z',
   lastEditedAt: null,
+  editor: null,
 };
 
 interface Surfaces {
@@ -167,7 +168,7 @@ describe('readPrStateReading — the completion-comment transport', () => {
     expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 
-  it("carries an expected reviewer's edited comment as a refusal, never as silence", () => {
+  it("reads an expected reviewer's comment it edited itself as a review of the commit it names, timed at the edit", () => {
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
@@ -175,7 +176,39 @@ describe('readPrStateReading — the completion-comment transport', () => {
       execFileSync: executor(
         {
           ...WITH_TIP,
-          comments: [{ ...CODEX_CLEAN_COMMENT, lastEditedAt: '2026-07-21T12:11:00Z' }],
+          comments: [
+            {
+              ...CODEX_CLEAN_COMMENT,
+              lastEditedAt: '2026-07-21T12:11:00Z',
+              editor: { login: CODEX },
+            },
+          ],
+        },
+        [],
+      ),
+    });
+
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [{ ...BOUND_TO_HEAD, submittedAt: '2026-07-21T12:11:00Z' }],
+      refused: [],
+    });
+  });
+
+  it("carries an expected reviewer's comment another account edited as a refusal, never as silence", () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: [CODEX],
+      execFileSync: executor(
+        {
+          ...WITH_TIP,
+          comments: [
+            {
+              ...CODEX_CLEAN_COMMENT,
+              lastEditedAt: '2026-07-21T12:11:00Z',
+              editor: { login: 'octocat' },
+            },
+          ],
         },
         [],
       ),
@@ -187,8 +220,8 @@ describe('readPrStateReading — the completion-comment transport', () => {
         {
           id: 'IC_1',
           author: CODEX,
-          createdAt: '2026-07-21T12:10:00Z',
-          precondition: 'edited after creation',
+          reportedAt: '2026-07-21T12:11:00Z',
+          precondition: 'edited by an account other than its author',
           quote: "Codex Review: Didn't find any major issues.",
         },
       ],

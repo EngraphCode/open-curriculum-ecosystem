@@ -72,8 +72,9 @@ function quietWindowAnchor(reading: PrStateReading): string | null {
 // summary body — refusing settlement on body PRESENCE would deadlock every
 // landing), so settlement stays leg-driven and the evidence hands the reader
 // the exact body-tally inputs instead.
-// Findings arrive on the review object; a completion comment is a
-// zero-findings result and has nothing to tally.
+// Findings arrive on the review object; a completion comment carries none to
+// tally (a summary's completed row says a review ran, and any findings it
+// filed are review objects).
 function bodyTallyEvidence(reading: PrStateReading): string[] {
   return reading.reviews
     .filter((review) => review.commitOid === reading.headRefOid)

@@ -38,8 +38,8 @@ function codexClean(
 const EDITED: RefusedCompletionComment = {
   id: 'IC_2',
   author: CODEX,
-  createdAt: '2026-07-21T12:10:00Z',
-  precondition: 'edited after creation',
+  reportedAt: '2026-07-21T12:10:00Z',
+  precondition: 'edited by an account other than its author',
   quote: "Codex Review: Didn't find any major issues.",
 };
 
@@ -128,7 +128,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
     expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
     expect(verdict.evidence).toContain(
-      `${CODEX}: completion comment IC_2 at 2026-07-21T12:10:00Z refused — edited after creation; "Codex Review: Didn't find any major issues."`,
+      `${CODEX}: completion comment IC_2 at 2026-07-21T12:10:00Z refused — edited by an account other than its author; "Codex Review: Didn't find any major issues."`,
     );
   });
 

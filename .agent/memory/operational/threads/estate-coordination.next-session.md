@@ -718,6 +718,39 @@ from nine open PRs to two under the owner's WIP limit (fifteen landings, eight o
 rows), two frictions named (F-210, F-211), three design documents for the Codex lane's next code
 PRs, and one formation letter.
 
+### 2026-09-27 12:06Z — the 2026-09-27-8af61a branch folded as #262 (Wick binds Temper, ed7b48, at the 12:00Z fold)
+
+PR 262 (coordination/2026-09-27-8af61a) merged by the bot at 12:06:40Z as d6c9e582e at full
+condition after one round (one Codex P2 on the wrapper design, Rejected on a first-hand test:
+`GIT_CONFIG` does not redirect `core.hooksPath` on git 2.50.1; no settlement push). The push took
+the slot Siren released at 11:34:48Z so 261 syncs once, after. The successor
+coordination/2026-09-27-d6c9e5 cut at 12:0xZ from that sha, tree-preserving, DUE at the UTC
+rollover. moved for teachers: nothing. / moved for the Practice: engraph's landings 260 (the WIP
+limit clause) and 263 (the runbook copy converged, its rollback cured) folded in with the
+morning's records (the 250 lane's steps, 261's readiness, the owner's thirteen answers, 254's fold
+entry) and two design cures. Defects of the fold named on the stream: the second merge commit's
+gate ran without a notice.
+
+### 2026-09-27 23:38Z — the day's landings on the lineage before the rollover fold (Wick binds Temper, ed7b48)
+
+Landed on engraph since the 12:06Z fold, by the seats' doors: 261 (14:30:03Z, the command-records
+reader, Swallow's, through the bot door), 265 (16:24:59Z, the retrospective on the twenty-four
+open PRs, the Director's under Lane 1 item 7), 266 (16:58:46Z, a WIP reservation lapses; the
+rollback converges on JC.net's bytes, Siren's), 267 (18:13:16Z, the retrospective on the review
+rounds that grew, five reviewed heads, one recorded rebudget, the Director's), 268 (19:24:32Z, the
+two retrospectives' addenda, the Director's), 269 (20:00:27Z, the tracked-tree gates, exchange row
+J3, Siren's), 270 (21:33:26Z, the hook-policy path scopes, exchange row J7, Siren's), 271 (22:57:18Z, the guard port: a scoped block may exempt files in another git repository, exchange row J2's first landing, Siren's), 272 (23:34:56Z, the agent-tools test task hashes the hook policy it reads, Siren's).
+Open at this entry: 250 (the owner's draft, rebudgeted to 11 by the lane's recorded decision,
+cured at b0b2d181a and synced at d2df9a558 by Siren under the Director's dated default of 19:05Z,
+its ready-mark the owner's on its own body: the eval readings' human review open at line 39); 273 (the non-blocking profile read, Siren's item 1a, at CI).
+Nova turns Penumbra (8a94ba): no line since 16:05:37Z; her worktree on 250's branch holds an
+unpushed sync merge and nine modified files whose cures Siren landed; hers until the owner's word.
+Goal one by JC.net's register at its coordination head: 13 of 23 rows with a lineage landing, plus
+J3 and J7 today; 271, landed 22:57:18Z as bfd9e07f0, is J2's first landing. Goal three: no remote branch
+outside a PR in either estate. The Director's rulings of the evening are on the JC.net napkin
+(suites 43 to 45: 250's ready-mark the owner's; the Director runs the folds; the lineage fold takes
+the slot at its time unless a synced holder waits for a leg; suite 46 dropped for the folds).
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
