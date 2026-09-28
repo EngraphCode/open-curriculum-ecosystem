@@ -755,7 +755,7 @@ the slot at its time unless a synced holder waits for a leg; suite 46 dropped fo
 
 PR 264 (coordination/2026-09-27-d6c9e5) merged by the bot at 02:46:51Z as 96b273d30 at full
 condition (three rounds, three settlement pushes, the third under a rebudget recorded on the body by the fold's seat: round one Copilot's stale continuity row for 261; round two Codex's contradictory J2 sentence in the day entry; round three Codex's two arithmetic findings on the lane's records, the round-one thread breakdown and the reader cycle's line count, both verified first-hand and cured). The convergence merge of engraph at 48f70d4ba (PR 272's merge; the landings 261, 265 to 272) at the fold's slot
-word, no conflict. The successor coordination/2026-09-28-96b273 cut at 02:47Z from that sha, tree-preserving, DUE
+word, no conflict. The successor coordination/2026-09-28-96b273 cut at 02:47Z from post-fold origin/engraph 96b273d30 (#264's merge), tree-preserving, DUE
 at the midday fold. moved for teachers: nothing. / moved for the Practice: engraph's landings
 folded in: 261 (the command-records reader), 265 and 267 (the two retrospectives) with 268's
 addenda, 266 (a WIP reservation lapses; the rollback convergence), 269 (the tracked-tree gates,
@@ -795,7 +795,8 @@ at 11:37Z and routed to JC.net's todo 8 and custody of the Codex agent's LinkedI
 stays off the fold, the seats deciding changes before merge. Landed since the 08:26Z entry: JC.net
 238 (25e30f77, 12:13:32Z) and lineage 280 (ab8976719, 12:19:02Z), the second doctrine pair, after
 one late-cure push per copy ruled at 11:5xZ. PR 274 (02:27:05Z, the Codex edited-summary reader)
-landed between the #264 fold's convergence merge and its cut and belongs to this branch's window.
+landed after the #264 fold's convergence merge of engraph at 48f70d4ba (23:34:56Z on 27 September)
+and before that fold's successor cut at 02:47Z, so it belongs to this branch's window.
 The count reads 1 of 3 (250). The lineage slot order for the folds: a synced holder at its legs
 holds the slot to its door, first at its legs first; the fold takes the slot when none is.
 
