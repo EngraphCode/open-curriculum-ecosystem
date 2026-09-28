@@ -4,6 +4,18 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the graph, plan and continuity family's ADR citations named by concept
+
+- Eight PDRs (PDR-011, PDR-018, PDR-038, PDR-060, PDR-081, PDR-099, PDR-119,
+  PDR-134) and four dated entries of this changelog named host ADRs by
+  number: 29 citations across the graph, plan and continuity family (the
+  continuity-surfaces decision, the plan-node estate, the intent idea-graph,
+  the self-reinforcing improvement loop, the estate knowledge graph, and the
+  own-built algorithm and data-structure foundations). Each citation now names
+  the concept the ADR records, per PDR-079 as amended; no sentence is removed,
+  and each dated entry's claim stands. Joint bytes with the second estate,
+  where the cure landed first.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the comms-event family's ADR citations named by concept
 
 - Six PDRs (PDR-050, PDR-074, PDR-075, PDR-077, PDR-078, PDR-119) named host
@@ -418,7 +430,7 @@ Practice Core package.
 ## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge-estate RATIFIED (Falcon hunts Flight)
 
 - PDR-134 ratified Proposed → Accepted at the in-session sitting (owner card
-  answers, 2026-07-31), together with its host phenotype ADR-221 and the
+  answers, 2026-07-31), together with its host phenotype (the estate knowledge graph decision) and the
   `planning-and-intent-estate` strategic node. Obligation-5 cascade executed:
   dated cross-references added to PDR-014 and PDR-130; PDR-081 gains the
   curator concept-scheme stewardship note (owner-ratified same sitting);
@@ -432,8 +444,8 @@ Practice Core package.
   concept relations, fixes the three knowledge carriers (prose claims,
   front-matter assertions, concept-scheme referents), and binds the concept
   lifecycle (candidate → working → ratified; computed confidence vs
-  authored status, never conflated). Host phenotype: ADR-221 (the estate
-  knowledge graph) plus the `planning-and-intent-estate` strategic node,
+  authored status, never conflated). Host phenotype: the estate
+  knowledge graph decision plus the `planning-and-intent-estate` strategic node,
   presented for ratification together.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-25 — liveness taxonomy (Torch mends Residue)
@@ -480,7 +492,7 @@ Practice Core package.
 
 - PDR-018 amendment: the source host's lifecycle-lane realisation
   (`future/`/`current/`/`active/` directories, promotion workflow) is
-  superseded by the plan-node estate (host ADR-216; owner-ratified
+  superseded by the plan-node estate (the host's plan-node estate decision; owner-ratified
   decisions register D23, 2026-07-22). The portable planning discipline —
   end goals, workflow contracts, readiness gates — is unchanged; the
   lane-placement sections remain the pattern for lane-shaped hosts.
@@ -847,8 +859,8 @@ The amendment queue the owner approved at the 2026-06-11 register walk
 - **Amended**: PDR-011 — two clauses: subjective register reconciled to
   "valued when genuine; voluntary always" (no volume/thinning monitor),
   and the completeness backstop split into externalisable claim
-  verification vs holder-exclusive context-loss detection. ADR-150
-  host mirror updated.
+  verification vs holder-exclusive context-loss detection. The mirror in the
+  host's continuity-surfaces decision updated.
 - **Amended**: PDR-078 — new §7 emit-side loop hygiene (posture derived
   at emit time, one timestamp per tick, stop-loop-then-emit-end,
   stderr-captured failures).
