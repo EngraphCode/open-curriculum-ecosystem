@@ -26,7 +26,7 @@ const commentNodeSchema = z.object({
   id: z.string(),
   author: authorLogin,
   body: z.string(),
-  createdAt: z.string(),
+  createdAt: z.iso.datetime(),
   lastEditedAt: z.string().nullable(),
   editor: z.object({ login: z.string() }).nullable(),
 });

@@ -112,6 +112,11 @@ describe('parseCommentsHarvest', () => {
       [commentsPage([{ ...CODEX_NODE, editor: undefined }])],
       /editor/u,
     ],
+    [
+      'a node whose creation time is not a timestamp',
+      [commentsPage([{ ...CODEX_NODE, createdAt: 'yesterday' }])],
+      /createdAt/u,
+    ],
   ])(
     'fails loud on %s: a misshapen harvest never reads as empty or as unedited',
     (_name, payload, leg) => {

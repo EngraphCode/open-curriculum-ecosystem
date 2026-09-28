@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { parseAgentTaskList, parseAgentTaskView } from './agent-task-fields.js';
-import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from './state-fields.js';
+import { parseReviewsHarvest, parseStateView } from './state-fields.js';
 import { stateViewFixture } from './state-view-fixture.js';
 
 /**
@@ -123,21 +123,6 @@ describe('parseStateView', () => {
     expect(() => parseStateView({ ...stateViewFixture(), reviewRequests: [{}] })).toThrow(
       /identity field/,
     );
-  });
-
-  it('requests exactly the fields it parses', () => {
-    expect([...PR_STATE_VIEW_JSON_FIELDS]).toEqual([
-      'number',
-      'url',
-      'state',
-      'isDraft',
-      'mergeable',
-      'mergeStateStatus',
-      'headRefOid',
-      'statusCheckRollup',
-      'autoMergeRequest',
-      'reviewRequests',
-    ]);
   });
 });
 

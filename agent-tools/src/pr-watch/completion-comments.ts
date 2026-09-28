@@ -18,7 +18,8 @@
  * its author (the summary's rewrite is the author's report, timed at the
  * edit; an edit by any other account is not the reviewer's report); the
  * named prefix resolves to exactly one of the pull request's commits; and
- * (checked at settlement, against the tip) that commit is the current tip.
+ * (checked at settlement, against the tip) that commit binds the current tip,
+ * exactly or by content (`content-binding.ts`).
  * An expected reviewer's comment that fails a
  * precondition is never read as silence: it is returned as REFUSED, naming
  * the precondition and quoting the comment, so the verdict can say what it
@@ -27,7 +28,7 @@
  */
 
 import { sanitiseTerminalLine } from '../core/terminal-output.js';
-import { normaliseLogin } from './reviewer-legs.js';
+import { normaliseLogin } from './logins.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 
 /** A comment's last edit: when, and by whom (`unknown` for a deleted account). */
