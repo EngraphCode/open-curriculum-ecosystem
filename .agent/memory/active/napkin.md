@@ -947,3 +947,40 @@ list is a build-time font fetch that fails closed on the network: vendor the fac
 named cause.
 
 **Routing.** Nowhere new; recorded here.
+
+## 2026-09-28 ~14:5xZ — a leased branch move, two doors, and what the tools did at each step (Nova turns Penumbra, 8a94ba)
+
+- **A derived document states its scope, never its provenance.** "Public-safe edition", "this
+  edition omits" and "repository edition" each name a fuller original somewhere else. Write the
+  scope instead ("its scope is professional profile content; account settings are outside it"). A
+  re-voiced summary of withheld material is still a summary, and a commit message that narrates a
+  removal publishes what it removed.
+- **Hold back, then add forward.** Removing a line from published history costs a rewrite; adding
+  it later is a forward commit. When a line's publication is in doubt, it waits for the owner.
+- **The hook's matcher is argv-aware.** A leased move on the owner's word,
+  `git push --force-with-lease=<ref>:<sha>`, passed the PreToolUse policy, whose argv table lists
+  `force-with-lease` apart from `force`. The bot credential went through git's `GIT_CONFIG_COUNT`
+  environment rather than `-c` flags, so the command text showed the push plainly to the matcher.
+- **merge-bot binds legs by content across a pure sync.** PR 281 merged on legs read at 40a0799d8
+  with the head at the sync 8f3c1cb19 (patch-id 0f92f9399b); no second review round was spent.
+- **Isolated clones belong in the scratchpad.** A standalone clone beside the primary needs a
+  forced removal the hook refuses (routed to the Director); a session-local scratch directory needs
+  no force. `merge-bot push` also reads the checkout's ignored `.github/merge-bot.json`, which a
+  fresh clone lacks until it is copied in.
+- **Shell and process traps.** Never list processes with their environment (`pgrep -fl` prints
+  whatever credentials another tool's process carries). Never background with `&` inside one Bash
+  call: a killed git child leaves a stale `index.lock`; use the harness's background mode. The Bash
+  tool runs zsh, where an unquoted `$VAR` list is one argument. The policy matcher refuses
+  `git log --all` as the staging glob, and refuses a comms body that quotes a forbidden command:
+  describe the pattern, never quote it.
+
+### Practice/tooling feedback
+
+- **Surface**: `agent-tools:session-metadata`
+- **Signal**: friction
+- **Observation**: the window registry has no `claude-opus-5-5` entry, so PDR-052's context check
+  before a directive edit could not run as written. The occupancy was read with a registered id
+  (250,110 tokens) and the window inferred from the transcript's peak occupancy (666,313, so at
+  least the 1M class): 25%.
+- **Behaviour change / candidate follow-up**: register the model's window, or let the command take
+  `--window-tokens`.
