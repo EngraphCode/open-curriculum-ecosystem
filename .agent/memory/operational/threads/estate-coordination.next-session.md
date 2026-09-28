@@ -751,6 +751,21 @@ outside a PR in either estate. The Director's rulings of the evening are on the 
 (suites 43 to 45: 250's ready-mark the owner's; the Director runs the folds; the lineage fold takes
 the slot at its time unless a synced holder waits for a leg; suite 46 dropped for the folds).
 
+### 2026-09-28 02:47Z — the 2026-09-27-d6c9e5 branch folded as #264 (Wick binds Temper, ed7b48, at the rollover fold)
+
+PR 264 (coordination/2026-09-27-d6c9e5) merged by the bot at 02:46:51Z as 96b273d30 at full
+condition (three rounds, three settlement pushes, the third under a rebudget recorded on the body by the fold's seat: round one Copilot's stale continuity row for 261; round two Codex's contradictory J2 sentence in the day entry; round three Codex's two arithmetic findings on the lane's records, the round-one thread breakdown and the reader cycle's line count, both verified first-hand and cured). The convergence merge of engraph at 48f70d4ba (PR 272's merge; the landings 261, 265 to 272) at the fold's slot
+word, no conflict. The successor coordination/2026-09-28-96b273 cut at 02:47Z from that sha, tree-preserving, DUE
+at the midday fold. moved for teachers: nothing. / moved for the Practice: engraph's landings
+folded in: 261 (the command-records reader), 265 and 267 (the two retrospectives) with 268's
+addenda, 266 (a WIP reservation lapses; the rollback convergence), 269 (the tracked-tree gates,
+exchange row J3), 270 (the hook-policy path scopes, exchange row J7), 271 (the guard port, exchange row J2's first landing), 272 (the agent-tools test task hashing the hook policy it reads); on the branch,
+Swallow's closeout and experience record, the reader lane's retrospective, 261's landing through
+the door, 250's cures, sync and rebudget to 11 by the lane's recorded decision (its ready-mark the
+owner's on its own body, the eval readings' human review open), and this entry. Open at the fold:
+250 (the owner's draft, on the ready list); 273 (the non-blocking profile read, Siren's, at its legs). Defects of the fold named on the stream:
+Copilot's round on each cure push came only on a re-request as the bot; the third push's two signed lines were posted before the push landed and named the previous sha, corrected by a further line on each thread.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
