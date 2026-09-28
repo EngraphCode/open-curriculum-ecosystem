@@ -1,3 +1,8 @@
+---
+classification: core
+description: A pipeline's exit status is the last stage's — capture a command's own exit in-band (redirect first, filter after; named EXIT markers for gated/backgrounded commands) and verify streamed side effects landed. Never read a filter's exit as the command's.
+---
+
 # Exit Codes In-Band, Never Piped
 
 A pipeline's exit status is the LAST stage's, so any command whose exit

@@ -1,3 +1,11 @@
+---
+classification: situational
+description: "Editing anything under .agent/practice-core/ (trinity, PDRs, CHANGELOG, incoming): the Core is portable by construction — no host-repo paths (docs/, src/, packages/), no adapter paths (../../skills/), no ADR identifiers, no commit SHAs, no host-context sections; the single permitted outgoing link is the bridge index .agent/practice-index.md. Core-to-Core cross-references and durable external citations (RFCs, vendor specs) stay allowed. Record host adoption in the bridge index and host ADR surface instead. Failure shape: a PDR citing its adopting ADR, dangling in another Practice-bearing repo."
+trigger: surface:practice-core
+globs:
+  - .agent/practice-core/**
+---
+
 # Practice-Core Portability Is by Construction
 
 Anything under `.agent/practice-core/` (the trinity, entry points,

@@ -1,3 +1,9 @@
+---
+classification: situational
+description: In a live team session, a directed comms event carrying routing or an ask gets ACK-REQUESTED in its subject; on absorbing one, reply with a content-bearing threaded ack (comms reply, or --in-response-to) whose title back-references the antecedent, id read from the event store, never from watcher-output memory. Not for pure-FYI directed events or broadcast traffic. An unanswered challenge past ~10 minutes is absorb-absent evidence to verify, never a stall verdict. Failure shapes — a bare unthreaded ACK certifying nothing; a heartbeat-fresh seat reading live while coordination goes unabsorbed.
+trigger: session:team — Team session active; a directed event carrying routing or an ask sent or absorbed
+---
+
 # Directed Routing Requires an Absorption Ack
 
 A directed comms event that carries routing or an ask is a bounded

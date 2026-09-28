@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Stage by naming each path — git status --short, then git add each path — and commit by pathspec (git commit -- <paths>) when a shared index carries peer work. The Bash hook blocks only three literals (git add -A, --all, .); git add -u, :/, <dir>/ and git commit -a pass the hook yet still violate it, so the discipline is yours, not the hook's. Failure shape: wildcard staging sweeps a peer's in-flight napkin, claims, or plan edits into your commit (recorded 372-line incident). Not a bar on running fix commands over a peer's dirty tree — protect peers at the staging step, not the reformat."
+trigger: ceremony:commit
+---
+
 # Stage By Explicit Pathspec
 
 We stage files for commit by naming them explicitly. Wildcard staging

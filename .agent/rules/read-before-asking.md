@@ -1,3 +1,8 @@
+---
+classification: core
+description: Read empirical artefacts (file, schema, data, plan) before posing a question to the owner. Render the read result in chat as information, not as authorisation to act. Replaces the quarantined apply-don't-ask doctrine.
+---
+
 # Read Before Asking
 
 When a question is **empirical** — its answer is a fact about repo

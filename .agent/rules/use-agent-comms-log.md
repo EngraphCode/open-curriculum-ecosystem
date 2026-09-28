@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Team sessions: before non-trivial work, append a schema-valid comms event (pnpm agent-tools:collaboration-state -- comms append) naming what you will touch, PDR-027-signed, UTC timestamps; read active-claims.json and the newest log slice first. Three comms checkpoints only — before the first non-trivial edit, before delegating or touching peer-claimed paths, at turn-close after mutating collaboration state — never a wall-clock loop. Not for solo sessions. Failure shape: editing the rendered shared-comms-log.md directly — the next render overwrites it, leaving a false handoff claim."
+trigger: session:team
+---
+
 # Use the Shared Communication Log
 
 Before starting work on any non-trivial edit, append a timestamped comms

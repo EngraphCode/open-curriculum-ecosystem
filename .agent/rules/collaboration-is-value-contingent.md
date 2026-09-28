@@ -1,3 +1,8 @@
+---
+classification: core
+description: Every piece of collaboration functionality (monitor, heartbeat, broadcast, claim, commit-queue ceremony, directed event) is justified only by the value it provides in the current context. Monitors are awareness — keep them; repetitive low-value emission is ceremony — drop it. Name the consumer that relies on the output before reaching for the mechanism.
+---
+
 # Collaboration Functionality Is Value-Contingent
 
 Every piece of collaboration functionality — a monitor, a heartbeat, a

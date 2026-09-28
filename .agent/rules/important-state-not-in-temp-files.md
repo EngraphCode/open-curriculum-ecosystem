@@ -1,3 +1,8 @@
+---
+classification: core
+description: Important state and context must never be left in a temp file long-term. Temp files (e.g. /tmp/) are acceptable as compose-buffers (write → consume → done); they are forbidden as durable references from version-controlled or substrate files. Everything of importance stays in the repo.
+---
+
 # Important State Not In Temp Files
 
 Specialises the no-machine-local-paths principle

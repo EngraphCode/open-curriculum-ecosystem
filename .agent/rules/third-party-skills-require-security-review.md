@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Adopting a third-party skill, pack, or plugin — a pnpx skills install, vendoring, plugin install, or a pin bump: review the executable surface (hooks, scripts, install-time code, session-start injectors) before landing — record what runs, when, with what reach, and the reviewed source SHA; markdown-only payloads record the zero-executables determination. Prefer file-level content to auto-run plugin installs; pin bumps re-fire the gate. Not for Oak-authored skills. Failure shape: installing a pack whose session-start hook injects into every session while its SSRF findings sit open."
+trigger: ceremony:skill-vendoring
+---
+
 # Third-Party Skills Require Security Review
 
 No third-party skill, skill pack, or plugin enters this estate — by

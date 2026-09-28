@@ -1,3 +1,8 @@
+---
+classification: core
+description: Precedence is not approval — a prior decision, annotation, status label, verdict, convention, or ordering is never authority by itself; locate and check the live approving authority or proving surface before acting on it.
+---
+
 # Precedence Is Not Approval
 
 That a thing was decided, annotated, graduated, labelled, routed, or
