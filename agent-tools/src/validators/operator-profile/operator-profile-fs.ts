@@ -3,7 +3,9 @@
  * probing presence without following links, listing a directory without
  * following links, and the document reader of `operator-profile-read.ts`.
  * Absence is a first-class outcome, never an error; an unreadable path is an
- * error, never absence; a symlink is a symlink, never what it points at.
+ * error, never absence; a symlink found at a probed or listed entry is a
+ * symlink, never what it points at. A directory swapped for a link after
+ * its probe is not guarded (the reader's module note gives the boundary).
  */
 
 import { type Dirent, type Stats } from 'node:fs';
@@ -26,7 +28,9 @@ export type StatProbe = (target: string) => Promise<Pick<Stats, 'isDirectory' | 
 /**
  * What is at a path, read WITHOUT following links (`lstat`): a symlinked
  * root or scoped directory reports as a symlink, never as the directory it
- * points at, so nothing outside the profile root is ever listed through it.
+ * points at, so nothing outside the profile root is listed through a link
+ * present at the probe. An entry swapped for a link after the probe is not
+ * guarded (`listEntries` and the reader's module note give the boundary).
  * Genuine absence (ENOENT, the expected condition) is distinguished from an
  * operational failure such as EACCES, which is never reported as absence.
  *
@@ -88,11 +92,12 @@ const readDirectoryReal: ReadDirectory = async (dir) =>
 /**
  * List one level of the profile root: the root itself, or one of its scoped
  * directories. A scoped directory that is absent or not a directory lists
- * as empty, and so does a scoped directory that is a symlink: the root
- * listing reports the link itself as not regular, and nothing is ever
- * listed through it. A listing the platform refuses after the probe (a
- * permission change, a directory removed in between) is a failure, never a
- * thrown error.
+ * as empty, and so does a scoped directory that is a symlink at its probe:
+ * the root listing reports the link itself as not regular. A directory
+ * swapped for a link after its probe is listed through, within the
+ * boundary the reader's module note states. A listing the platform refuses
+ * after the probe (a permission change, a directory removed in between) is
+ * a failure, never a thrown error.
  *
  * @param root - the profile root
  * @param dirName - the scoped directory to list, or undefined for the root

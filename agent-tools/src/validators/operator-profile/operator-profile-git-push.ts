@@ -19,6 +19,7 @@ import {
   type GitRunner,
 } from './operator-profile-git.js';
 import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
+import { PUSH_COMMAND } from './operator-profile-sync-state.js';
 
 /**
  * The pathspecs to stage: the document paths that exist in the worktree plus
@@ -35,6 +36,33 @@ function stagingPaths(
   }
   const trackedPaths = tracked.stdout.split('\n').filter((line) => line !== '');
   return ok([...new Set([...existing, ...trackedPaths])]);
+}
+
+/** The mode git records a symbolic link with; a profile document is never one. */
+const SYMLINK_MODE = '120000';
+
+/**
+ * The staged paths git records as symbolic links. The runner checks out
+ * with `core.symlinks=false`, under which a path the index holds as a link
+ * stays one when its file is rewritten and staged: a document repaired in
+ * place after a pulled link would be committed as a link, and check out on
+ * another machine as one. Each is refused by name instead.
+ */
+function stagedLinks(run: GitRunner, paths: readonly string[]): Result<readonly string[], string> {
+  const staged = run(['ls-files', '--stage', '-z', '--', ...paths]);
+  if (!staged.ok) {
+    return err(gitFailure('git ls-files --stage', staged));
+  }
+  return ok(
+    staged.stdout
+      .split('\0')
+      .filter((row) => row.startsWith(`${SYMLINK_MODE} `))
+      .map((row) => row.slice(row.indexOf('\t') + 1)),
+  );
+}
+
+function linkRefusal(links: readonly string[]): string {
+  return `${links.join(', ')} ${links.length === 1 ? 'is' : 'are'} recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then ${PUSH_COMMAND}`;
 }
 
 /** Stage by pathspec and commit only those paths; `committed: false` when nothing changed. */
@@ -54,6 +82,13 @@ function stageAndCommit(
   const added = run(['add', '--', ...paths]);
   if (!added.ok) {
     return err(gitFailure('staging', added));
+  }
+  const links = stagedLinks(run, paths);
+  if (!links.ok) {
+    return links;
+  }
+  if (links.value.length > 0) {
+    return err(linkRefusal(links.value));
   }
   if (run(['diff', '--cached', '--quiet', '--', ...paths]).ok) {
     return ok({ committed: false });

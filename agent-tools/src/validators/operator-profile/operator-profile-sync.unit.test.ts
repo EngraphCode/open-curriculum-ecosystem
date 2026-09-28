@@ -239,6 +239,9 @@ describe('pullProfile', () => {
     expect(result.ok).toBe(false);
     expect(result.ok ? '' : result.error).toContain('merge conflict in index.md, machines/a.md');
     expect(result.ok ? '' : result.error).toContain('union');
+    expect(result.ok ? '' : result.error).toContain(
+      'then pnpm profile:sync push --message "<seat>: <the fact>"',
+    );
   });
 
   it('refuses when the branch tracks no upstream', () => {
@@ -266,7 +269,7 @@ describe('pushProfile', () => {
     expect(unwrap(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe('committed and pushed');
     expect(calls[0]).toEqual(['ls-files', '--', 'index.md', 'repos', 'machines']);
     expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos', 'machines']);
-    expect(calls[2]).toEqual([
+    expect(calls.find((call) => call[0] === 'diff')).toEqual([
       'diff',
       '--cached',
       '--quiet',
@@ -275,7 +278,7 @@ describe('pushProfile', () => {
       'repos',
       'machines',
     ]);
-    expect(calls[3]).toEqual([
+    expect(calls.find((call) => call[0] === 'commit')).toEqual([
       'commit',
       '--quiet',
       '--only',
@@ -301,7 +304,32 @@ describe('pushProfile', () => {
     ]);
     expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
     expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos/a--b.md']);
-    expect(calls[3]?.slice(-3)).toEqual(['--', 'index.md', 'repos/a--b.md']);
+    expect(calls.find((call) => call[0] === 'commit')?.slice(-3)).toEqual([
+      '--',
+      'index.md',
+      'repos/a--b.md',
+    ]);
+  });
+
+  it('refuses a document git records as a symbolic link, naming it and the cure', () => {
+    // With core.symlinks=false a path the index holds as a link stays one when
+    // its file is rewritten and staged; the push would commit a link.
+    const { run } = scripted([
+      {
+        prefix: ['ls-files', '--stage'],
+        stdout: '100644 1111111 0\tindex.md\u0000120000 2222222 0\trepos/a--b.md\u0000',
+      },
+      NOTHING_TRACKED,
+      { prefix: ['add'] },
+      CHANGED,
+      { prefix: ['commit'] },
+      UPSTREAM,
+      AHEAD_ONE,
+      { prefix: ['push', '--quiet'] },
+    ]);
+    expect(failure(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
+      'repos/a--b.md is recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then pnpm profile:sync push --message "<seat>: <the fact>"',
+    );
   });
 
   it('sets the upstream on the first push, on the one remote whatever its name', () => {
@@ -418,7 +446,7 @@ describe('pushProfile', () => {
     ]);
     expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
     expect(calls[1]).toEqual(['add', '--', 'index.md']);
-    expect(calls[3]?.slice(-2)).toEqual(['--', 'index.md']);
+    expect(calls.find((call) => call[0] === 'commit')?.slice(-2)).toEqual(['--', 'index.md']);
   });
 
   it('keeps the commit local and says so when the push fails', () => {

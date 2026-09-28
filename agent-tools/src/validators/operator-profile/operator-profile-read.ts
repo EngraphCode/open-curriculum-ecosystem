@@ -1,6 +1,6 @@
 /**
  * Operator profile — reading one document. A document is opened read-only,
- * never through a symlink at its final component (`O_NOFOLLOW`) and never
+ * never through a symlink at the document itself (`O_NOFOLLOW`) and never
  * blocking on a fifo (`O_NONBLOCK`); the descriptor is then proven to be a
  * regular file, and on a host without `O_NOFOLLOW` proven to be the very
  * entry at the path (device and inode), before it is read whole and closed.
@@ -8,10 +8,14 @@
  * open-verify-read shape as the adapter generator's `read-regular-file.ts`,
  * with this module's injectable handle and close-failure Results.
  *
- * Neither guard reaches a directory above the final component: one swapped
- * for a symlink between the listing and the open is followed. The error code
- * helper lives here so that the filesystem module, which imports this one,
- * shares it.
+ * A directory above the document is not guarded by the open: one swapped
+ * for a link between the listing and the read is followed. That is the
+ * stated boundary, as the rule-surface, rule-sweep and declared-adapter
+ * readers state theirs: the Practice's own git never writes a link into the
+ * profile tree (its runner checks out with `core.symlinks=false`), and any
+ * other writer able to plant a link there can write a conforming document
+ * directly. The error code helper lives here so that the filesystem module,
+ * which imports this one, shares it.
  */
 
 import { type BigIntStats } from 'node:fs';
@@ -59,13 +63,13 @@ const openReal: OpenDocument = async (absolute, flags) => {
 };
 
 /**
- * Read a document without following a symlink at its final component, and
- * without waiting on a fifo. The layout has already refused every symlink
- * entry; opening with `O_NOFOLLOW` closes that window at the final
- * component, so a link planted there between the listing and the read fails
- * (ELOOP) instead of reading a file outside the profile root. A fifo or other
- * special file planted there opens at once and is refused before any read.
- * A directory above the final component swapped for a symlink is followed.
+ * Read a document without following a symlink at the document itself. The
+ * layout has already refused every symlink entry; opening with `O_NOFOLLOW`
+ * closes that window at the document, so a link planted there between the
+ * listing and the read fails (ELOOP) instead of reading a file outside the
+ * profile root. A fifo or other special file planted there opens at once and
+ * is refused before any read. A directory above it is not guarded (see the
+ * module note).
  *
  * @param absolute - the document's absolute path
  * @param openDocument - opens the path (the filesystem by default)
@@ -106,7 +110,7 @@ export async function readDocument(
 /**
  * The descriptor must be a regular file; on a host without `O_NOFOLLOW` the
  * path's own entry must also be a regular file that is this very file (same
- * device and inode), so a link at the final component, or a swap of it
+ * device and inode), so a link at the document, or a swap of the document
  * between the listing and the open, is refused and never read through. Null
  * when it is ours.
  */
