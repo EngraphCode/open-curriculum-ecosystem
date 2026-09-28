@@ -53,18 +53,16 @@ function described(result: SpawnSyncReturns<string>): string {
   return `${end}\n${result.stdout}${result.stderr}`;
 }
 
-/** Repository pointers a caller (a git hook) may export, which would aim the entry's git reads elsewhere. */
-const INHERITED_GIT_POINTERS = new Set(['GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE']);
-
 /**
  * The environment the entry runs in: the caller's, so the tools resolve as
- * they do for the root scripts, with git's global and system configuration
- * set aside (as {@link hermeticGitEnv} sets them) and any inherited
- * repository pointer dropped, so the entry's git reads see only the scratch
- * repository.
+ * they do for the root scripts, with every inherited `GIT_*` variable dropped
+ * (a hook's repository pointers, injected configuration, a redirected object
+ * store) and git's global and system configuration set aside, as
+ * {@link hermeticGitEnv} sets them, so the entry's git reads see only the
+ * scratch repository.
  */
 function entryEnv(): NodeJS.ProcessEnv {
-  const kept = typeSafeEntries(process.env).filter(([key]) => !INHERITED_GIT_POINTERS.has(key));
+  const kept = typeSafeEntries(process.env).filter(([key]) => !key.startsWith('GIT_'));
   return {
     ...Object.fromEntries(kept),
     GIT_CONFIG_GLOBAL: '/dev/null',

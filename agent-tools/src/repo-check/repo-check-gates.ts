@@ -151,10 +151,11 @@ function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
 
 /**
  * Plan a gate's runs, unless it is a check over a file it cannot read. A check
- * covers every file the index names, each read as the working tree holds it,
- * as every leg of the gate reads the working tree; a named file with nothing
- * to read is refused by name rather than passed without it. A repair proves
- * nothing, so it skips them.
+ * covers every regular file the index names, each read as the working tree
+ * holds it, as every leg of the gate reads the working tree; a named file with
+ * nothing to read is refused by name rather than passed without it. A symlink
+ * is neither checked nor refused: the tools read a link's target under its
+ * real path. A repair proves nothing, so it skips them.
  */
 function planUnlessLost(isCheck: boolean, lost: readonly string[], plan: () => GatePlan): GatePlan {
   return isCheck && lost.length > 0
