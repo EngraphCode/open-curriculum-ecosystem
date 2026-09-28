@@ -746,7 +746,7 @@ its ready-mark the owner's on its own body: the eval readings' human review open
 Nova turns Penumbra (8a94ba): no line since 16:05:37Z; her worktree on 250's branch holds an
 unpushed sync merge and nine modified files whose cures Siren landed; hers until the owner's word.
 Goal one by JC.net's register at its coordination head: 13 of 23 rows with a lineage landing, plus
-J3 and J7 today; 271 is the first landing toward J2 when it lands. Goal three: no remote branch
+J3 and J7 today; 271, landed 22:57:18Z as bfd9e07f0, is J2's first landing. Goal three: no remote branch
 outside a PR in either estate. The Director's rulings of the evening are on the JC.net napkin
 (suites 43 to 45: 250's ready-mark the owner's; the Director runs the folds; the lineage fold takes
 the slot at its time unless a synced holder waits for a leg; suite 46 dropped for the folds).
