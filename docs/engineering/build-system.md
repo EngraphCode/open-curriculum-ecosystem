@@ -435,12 +435,11 @@ the second estate runs its smoke suite that way on every gate.
 
 ### Uncached tasks (always run)
 
-| Task       | Cached | Reason                                   |
-| ---------- | ------ | ---------------------------------------- |
-| `lint:fix` | ❌     | Modifies source files                    |
-| `smoke:*`  | ❌     | External system tests, non-deterministic |
-| `clean`    | ❌     | Destructive operation                    |
-| `dev`      | ❌     | Persistent process                       |
+| Task       | Cached | Reason                |
+| ---------- | ------ | --------------------- |
+| `lint:fix` | ❌     | Modifies source files |
+| `clean`    | ❌     | Destructive operation |
+| `dev`      | ❌     | Persistent process    |
 
 ## Mixing pnpm and turbo
 

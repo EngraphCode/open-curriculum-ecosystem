@@ -178,16 +178,17 @@ const config: KnipConfig = {
       // tests/ is inside the project so tests-only dependencies are traced
       // (the depcruise red-proof helper imports dependency-cruiser from
       // tests/test-helpers/ — widened 2026-08-10; test files are entries via
-      // the vitest plugin).
-      project: ['src/**/*.{ts,tsx}', 'tests/**/*.ts'],
+      // the vitest plugin). smoke-tests/ is inside it so a dead smoke helper
+      // file or export is reported.
+      project: ['src/**/*.{ts,tsx}', 'tests/**/*.ts', 'smoke-tests/**/*.ts'],
       // TypeScript-estate review instrument (owner-ratified plan
       // typescript-estate-consolidation-review, staged contract): the module's
       // exported surface is contract-anchored for slices that are
       // deliberately HELD (delivery, graph/ownership, candidate assembly,
       // raw-document composition, CLI wiring), so knip's dead-code model
-      // false-positives on it until those consumers land. Its two real
-      // smokes are invoked through dist by package scripts, which knip
-      // cannot trace. REMOVAL CONDITION: delete this ignore when the estate
+      // false-positives on it until those consumers land. Its smokes
+      // import it through dist, which knip cannot trace to the source.
+      // REMOVAL CONDITION: delete this ignore when the estate
       // run lands (plan §Todos step 8-9); knip then audits the module in
       // full. Scoped-and-dated per configure-checks-not-blindly-obey; the
       // module's own tsc/eslint/vitest gates remain fully live.

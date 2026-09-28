@@ -59,6 +59,10 @@ async function proveVerifyStagedUsesWorktreeIndex(): Promise<void> {
     const recorded = runCommitQueue(fixture.linked, ['record-staged', '--intent-id', INTENT_ID]);
     assert.equal(recorded.status, 0, streams(recorded));
     const recordedIntent = await readPrimaryIntent(fixture);
+    assert.ok(
+      recordedIntent?.staged_bundle_fingerprint,
+      `the record step wrote no intent with a staged fingerprint:\n${streams(recorded)}`,
+    );
 
     const verified = runCommitQueue(fixture.linked, [
       'verify-staged',
@@ -70,7 +74,7 @@ async function proveVerifyStagedUsesWorktreeIndex(): Promise<void> {
 
     assert.equal(verified.status, 0, streams(verified));
     // Verification reads the same worktree index the record step fingerprinted.
-    assert.equal(verified.stdout, `${recordedIntent?.staged_bundle_fingerprint}\n`);
+    assert.equal(verified.stdout, `${recordedIntent.staged_bundle_fingerprint}\n`);
     assert.equal(verified.stderr, '');
   } finally {
     await rm(fixture.root, { recursive: true, force: true });
@@ -187,10 +191,11 @@ async function proveMissingGitRootRefusesLoudly(): Promise<void> {
 
     assert.equal(result.status, 2, streams(result));
     assert.equal(result.stdout, '');
-    // The whole of stderr: git's own one-line refusal, then the guard's.
+    // The whole of stderr: git's own refusal (git's words, which a localised
+    // git translates), then the guard's own line, last.
     assert.match(
       result.stderr,
-      /^(?:fatal: [^\n]*\n)?Unable to resolve the invoking git worktree root: [^\n]*no fallback to the coordination home[^\n]*\n$/,
+      /^(?:[^\n]*\n)*Unable to resolve the invoking git worktree root: [^\n]*no fallback to the coordination home[^\n]*\n$/,
     );
     assert.ok(
       result.stderr.includes(`'${gitDir}' is not inside a git working tree`),

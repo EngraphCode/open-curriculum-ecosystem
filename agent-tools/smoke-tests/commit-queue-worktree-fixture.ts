@@ -6,26 +6,27 @@
  */
 import { execFileSync, spawnSync, type SpawnSyncReturns } from 'node:child_process';
 import { realpathSync } from 'node:fs';
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { unwrapOrThrow } from '@oaknational/result';
+import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { uuidV5Schema } from '../src/collaboration-state/agent-id';
 import { readRegistry } from '../src/commit-queue/registry';
 import type { CommitIntent, CommitQueueClaimsFile } from '../src/commit-queue/types';
 import { resolveTrustedGit } from '../src/core/trusted-git';
 
-export const CLAIM_ID = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+const CLAIM_ID = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 export const INTENT_ID = '11111111-1111-4111-8111-111111111111';
 export const RENAME_SOURCE = 'notes/current.md';
 export const RENAME_DESTINATION = 'notes/active.md';
 export const COMMIT_SUBJECT = 'feat(f138): stage from the linked worktree';
 export const REGISTRY_REL = '.agent/state/collaboration/active-claims.json';
 
-export const agentId = {
+const agentId = {
   agent_name: 'Prismatic Waxing Constellation',
   platform: 'claude-code',
   model: 'test-model',
@@ -33,7 +34,7 @@ export const agentId = {
   id: uuidV5Schema.parse('e2e793c7-923e-5baa-97f0-2bedfb9b6b50'),
 };
 
-export const seedClaimsFile: CommitQueueClaimsFile = {
+const seedClaimsFile: CommitQueueClaimsFile = {
   schema_version: '1.4.0',
   claims: [
     {
@@ -50,9 +51,9 @@ export const seedClaimsFile: CommitQueueClaimsFile = {
 
 // Store-live timestamps: the per-intent store expires entries one hour
 // after updated_at, so the fixture anchors to the wall clock.
-export const SEED_QUEUED_AT = new Date(Date.now() - 60 * 1000).toISOString();
+const SEED_QUEUED_AT = new Date(Date.now() - 60 * 1000).toISOString();
 
-export const seedIntent: CommitIntent = {
+const seedIntent: CommitIntent = {
   intent_id: INTENT_ID,
   claim_id: CLAIM_ID,
   agent_id: agentId,
@@ -86,22 +87,44 @@ export const BIN = join(
 export function git(cwd: string, ...args: readonly string[]): string {
   return execFileSync(resolveTrustedGit(), [...args], {
     cwd,
+    env: smokeEnvironment(),
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    timeout: CHILD_TIMEOUT_MS,
   });
 }
 
+/** How long one git or CLI child may run before the smoke fails instead of hanging. */
+const CHILD_TIMEOUT_MS = 120_000;
+
+/** Variables that would point git, or the CLI's registry, somewhere other than the fixture. */
+const STEERING_VARIABLES = [
+  'GIT_DIR',
+  'GIT_INDEX_FILE',
+  'GIT_WORK_TREE',
+  'GIT_COMMON_DIR',
+  'PRACTICE_COORDINATION_HOME',
+] as const;
+
 /**
- * The environment the built CLI runs with: the caller's own, read here at the
- * smoke's spawn composition root, less any declared coordination home. The
- * commit-queue topic resolves its home through git today; removing the
- * variable keeps an ambient declared home from ever redirecting the fixture's
- * registry if the topic comes to honour it.
+ * The environment the fixture's git and the built CLI run with: the caller's
+ * own, read here at the smoke's spawn composition root, less every variable
+ * that would steer git at another repository, and with the machine's git
+ * configuration silenced as `hermeticGitEnv` does. A standalone run with
+ * `GIT_DIR` exported would otherwise write the fixture into the outer
+ * repository. `HOME` and `PATH` stay, because the CLI's advisory child
+ * resolves pnpm through them. `PRACTICE_COORDINATION_HOME` goes too: the
+ * commit-queue topic resolves its home through git today, and removing it keeps
+ * an ambient declared home from ever redirecting the fixture's registry if the
+ * topic comes to honour it.
  */
-function cliEnvironment(): NodeJS.ProcessEnv {
-  const env = { ...process.env };
-  delete env.PRACTICE_COORDINATION_HOME;
-  return env;
+function smokeEnvironment(): NodeJS.ProcessEnv {
+  const steering: ReadonlySet<string> = new Set(STEERING_VARIABLES);
+  return {
+    ...Object.fromEntries(typeSafeEntries(process.env).filter(([name]) => !steering.has(name))),
+    GIT_CONFIG_GLOBAL: '/dev/null',
+    GIT_CONFIG_SYSTEM: '/dev/null',
+  };
 }
 
 /**
@@ -112,9 +135,10 @@ function cliEnvironment(): NodeJS.ProcessEnv {
 export function runCommitQueue(cwd: string, args: readonly string[]): SpawnSyncReturns<string> {
   return spawnSync(process.execPath, [BIN, 'commit-queue', ...args], {
     cwd,
-    env: cliEnvironment(),
+    env: smokeEnvironment(),
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    timeout: CHILD_TIMEOUT_MS,
   });
 }
 
@@ -132,6 +156,16 @@ export interface WorktreeFixture {
 
 export async function makeFixture(): Promise<WorktreeFixture> {
   const root = realpathSync(await mkdtemp(join(tmpdir(), 'oak-f138-')));
+  try {
+    return await populateFixture(root);
+  } catch (error) {
+    // The callers' `finally` removes the root only once a fixture is returned.
+    await rm(root, { recursive: true, force: true });
+    throw error;
+  }
+}
+
+async function populateFixture(root: string): Promise<WorktreeFixture> {
   const primary = join(root, 'primary');
   await mkdir(primary, { recursive: true });
   git(primary, 'init', '--initial-branch=main');
