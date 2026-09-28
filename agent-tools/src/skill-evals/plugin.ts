@@ -156,17 +156,12 @@ export function writeAll(
   return ok(undefined);
 }
 
-/** Every regular file below `dir` with the blob id git gives it, paths under `exclude` left out. */
-export function hashDirectory(
+/** Each of `paths` below `dir` with the blob id git gives it, in the given order. */
+export function hashPaths(
   dir: string,
+  paths: readonly string[],
   seams: SkillEvalsSeams,
-  exclude: string,
 ): Result<readonly ManifestFile[], Error> {
-  const listed = seams.listFiles(dir);
-  if (!listed.ok) {
-    return listed;
-  }
-  const paths = listed.value.filter((path) => !path.startsWith(exclude));
   const ids = seams.blobIds(dir, paths);
   if (!ids.ok) {
     return ids;
@@ -179,4 +174,21 @@ export function hashDirectory(
           `blob ids for ${String(paths.length)} files in ${dir} came back as ${String(value.length)}`,
         ),
       );
+}
+
+/** Every regular file below `dir` with the blob id git gives it, paths under `exclude` left out. */
+export function hashDirectory(
+  dir: string,
+  seams: SkillEvalsSeams,
+  exclude: string,
+): Result<readonly ManifestFile[], Error> {
+  const listed = seams.listFiles(dir);
+  if (!listed.ok) {
+    return listed;
+  }
+  return hashPaths(
+    dir,
+    listed.value.filter((path) => !path.startsWith(exclude)),
+    seams,
+  );
 }

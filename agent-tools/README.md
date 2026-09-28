@@ -565,11 +565,14 @@ Runs a canonical skill's declared evals (`<skill>/evals/evals.json`, the cases; 
 trigger examples) through the host eval runner, `claude plugin eval`, and retains the evidence in the repository.
 
 - `run --skill <canonical dir> --host-skill <name>` — project the fixtures into a temporary plugin whose skill is the
-  host adapter's frontmatter over the canonical body (references carried beside), run the cases with the with-without
-  ablation and the trigger examples without one, and retain the runner's result, every run's trace and final answer,
-  and a manifest (blob ids of every carried skill's canonical and adapter files, the repository head, the runner
-  configuration, the cases asked for and the cases that ran) under `<canonical dir>/evals/results/<started-at>/`,
-  every machine-local path scrubbed
+  host adapter's frontmatter over the canonical body (references carried beside; a link into a sibling skill's
+  references is pointed at `references/<sibling>/` under the skill and the linked file is projected there from its
+  canonical source, transitively, so the projected skill reads what the canonical links; a link to a sibling's
+  `SKILL-CANONICAL.md` is left as written, the sibling being reached as a skill, via `--also`), run the cases with
+  the with-without ablation and the trigger examples without one, and retain the runner's result, every run's trace
+  and final answer, and a manifest (blob ids of every carried skill's canonical and adapter files and of the sibling
+  references projected under it, the repository head, the runner configuration, the cases asked for and the cases
+  that ran) under `<canonical dir>/evals/results/<started-at>/`, every machine-local path scrubbed
 - `--also <canonical dir>=<name>` (repeatable) — carry another skill in the plugin, so a case that declares
   `skills_expected` (canonical names) can exercise a handoff to it; each expected skill gets its own fired indicator
 - `project --skill <canonical dir> --host-skill <name> --out <dir>` — write the same projection for inspection; nothing

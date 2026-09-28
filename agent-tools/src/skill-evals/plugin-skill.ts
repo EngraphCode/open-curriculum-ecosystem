@@ -2,8 +2,16 @@ import { posix } from 'node:path';
 
 import { collect, err, ok, type Result } from '@oaknational/result';
 
-import type { PluginSkill, ProjectedFile } from './project.js';
+import type { PluginSkill } from './project.js';
 import type { SkillEvalsSeams } from './seams.js';
+import {
+  readRequired,
+  withSiblingReferences,
+  type PluginSkillFiles,
+} from './sibling-projection.js';
+import type { SourcedFile } from './sibling-references.js';
+
+export type { PluginSkillFiles } from './sibling-projection.js';
 
 /**
  * One skill's directory in the temporary plugin.
@@ -17,21 +25,21 @@ import type { SkillEvalsSeams } from './seams.js';
  * the plugin root variable in skill content). Nothing is placed in the
  * workspace, so the without-arm has no route to the method.
  *
+ * A link into a sibling skill's references (read and never copied in the
+ * repository) is rewritten by the sibling-references module to
+ * `references/<sibling>/<file>` under the skill, and the file it names is
+ * projected there from its canonical source, its own links rewritten the
+ * same way, transitively. A linked reference that reads as absent is a
+ * refusal naming the link, so every reference the projected files link is
+ * in the plugin; links to anything else (a sibling's skill file, a rule)
+ * stay as the canonical wrote them.
+ *
  * @packageDocumentation
  */
 
 /** The host adapter's directory, relative to the repository root. */
 export function adapterDir(hostSkill: string): string {
   return posix.join('.claude', 'skills', hostSkill);
-}
-
-/** A file that must exist; one that reads as absent is an error naming it. */
-function readRequired(path: string, label: string, seams: SkillEvalsSeams): Result<string, Error> {
-  const text = seams.readText(path);
-  if (!text.ok) {
-    return text;
-  }
-  return text.value === undefined ? err(new Error(`${label} reads as absent`)) : ok(text.value);
 }
 
 /** A markdown document's frontmatter block, delimiters included, and the body after it. */
@@ -47,21 +55,24 @@ function splitFrontmatter(
   return ok({ frontmatter: text.slice(0, end), body: text.slice(end) });
 }
 
-/** The plugin's SKILL.md for one skill: the adapter's frontmatter over the canonical's body. */
+/** The plugin's SKILL.md for one skill: the adapter's frontmatter over the canonical's body, links as the canonical wrote them. */
 function inlinedSkillFile(
   repoRoot: string,
   skill: PluginSkill,
   seams: SkillEvalsSeams,
-): Result<string, Error> {
+): Result<SourcedFile, Error> {
   const adapterLabel = `the adapter .claude/skills/${skill.hostSkill}/SKILL.md`;
   const adapterPath = posix.join(repoRoot, adapterDir(skill.hostSkill), 'SKILL.md');
   const adapter = readRequired(adapterPath, adapterLabel, seams);
   if (!adapter.ok) {
     return adapter;
   }
-  const canonicalLabel = `${skill.canonicalRelativeDir}/SKILL-CANONICAL.md`;
-  const canonicalPath = posix.join(repoRoot, skill.canonicalRelativeDir, 'SKILL-CANONICAL.md');
-  const canonical = readRequired(canonicalPath, canonicalLabel, seams);
+  const canonicalRelativePath = posix.join(skill.canonicalRelativeDir, 'SKILL-CANONICAL.md');
+  const canonical = readRequired(
+    posix.join(repoRoot, canonicalRelativePath),
+    canonicalRelativePath,
+    seams,
+  );
   if (!canonical.ok) {
     return canonical;
   }
@@ -69,29 +80,42 @@ function inlinedSkillFile(
   if (!head.ok) {
     return head;
   }
-  const method = splitFrontmatter(canonical.value, canonicalLabel);
-  return method.ok ? ok(`${head.value.frontmatter}${method.value.body}`) : method;
+  const method = splitFrontmatter(canonical.value, canonicalRelativePath);
+  if (!method.ok) {
+    return method;
+  }
+  return ok({
+    file: {
+      path: `skills/${skill.hostSkill}/SKILL.md`,
+      content: `${head.value.frontmatter}${method.value.body}`,
+      executable: false,
+    },
+    sourcePath: canonicalRelativePath,
+  });
 }
 
 /** One adapter file placed where the plugin's skill lives; a listed file that reads as absent is an error. */
 function adapterFile(
   dir: string,
-  hostSkill: string,
+  skill: PluginSkill,
   path: string,
   seams: SkillEvalsSeams,
-): Result<ProjectedFile, Error> {
+): Result<SourcedFile, Error> {
   const text = readRequired(posix.join(dir, path), `the adapter file ${path}`, seams);
   return text.ok
-    ? ok({ path: `skills/${hostSkill}/${path}`, content: text.value, executable: false })
+    ? ok({
+        file: { path: `skills/${skill.hostSkill}/${path}`, content: text.value, executable: false },
+        sourcePath: posix.join(skill.canonicalRelativeDir, path),
+      })
     : text;
 }
 
-/** One skill's files in the plugin: the inlined SKILL.md and the adapter's other files beside it. */
+/** One skill's files in the plugin: the inlined SKILL.md, the adapter's other files beside it, and every sibling reference they link. */
 export function pluginSkillFiles(
   repoRoot: string,
   skill: PluginSkill,
   seams: SkillEvalsSeams,
-): Result<readonly ProjectedFile[], Error> {
+): Result<PluginSkillFiles, Error> {
   const dir = posix.join(repoRoot, adapterDir(skill.hostSkill));
   const listed = seams.listFiles(dir);
   if (!listed.ok) {
@@ -107,15 +131,10 @@ export function pluginSkillFiles(
   const others = collect(
     listed.value
       .filter((path) => path !== 'SKILL.md')
-      .map((path) => adapterFile(dir, skill.hostSkill, path, seams)),
+      .map((path) => adapterFile(dir, skill, path, seams)),
   );
   if (!others.ok) {
     return others;
   }
-  const skillFile: ProjectedFile = {
-    path: `skills/${skill.hostSkill}/SKILL.md`,
-    content: inlined.value,
-    executable: false,
-  };
-  return ok([skillFile, ...others.value]);
+  return withSiblingReferences(repoRoot, skill, [inlined.value, ...others.value], seams);
 }

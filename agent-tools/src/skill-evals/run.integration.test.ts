@@ -56,6 +56,7 @@ const manifestCarriedSchema = z.array(
     canonical_dir: z.string(),
     canonical_files: manifestFilesSchema,
     adapter_files: manifestFilesSchema,
+    shared_reference_files: manifestFilesSchema,
   }),
 );
 const manifestSuitesSchema = z.array(
@@ -361,5 +362,46 @@ describe('projectSkillEvals', () => {
       'oak-user-value',
     );
     expect(h.runs).toEqual([]);
+  });
+});
+
+describe('runSkillEvals: the sibling references a skill links', () => {
+  it('names each sibling reference carried under the skill by its canonical path and blob id, and writes it into the plugin', () => {
+    const h = harness();
+    const method = '# The planning method\n';
+    h.files.set(`${REPO}/.agent/skills/planning/plan/references/method.md`, method);
+    h.files.set(
+      `${REPO}/.agent/skills/planning/user-value/SKILL-CANONICAL.md`,
+      '---\nname: user-value\n---\n\n# User Value\n\nHand over per [the method](../plan/references/method.md).\n',
+    );
+    unwrapOrThrow(runSkillEvals(options, h.seams));
+    expect(h.files.get(`${PLUGIN}/skills/oak-user-value/references/plan/method.md`)).toBe(method);
+    expect(h.files.get(`${PLUGIN}/skills/oak-user-value/SKILL.md`)).toContain(
+      '[the method](references/plan/method.md)',
+    );
+    expect(
+      manifestFilesSchema.parse(getJsonValue(manifestOf(h.files), 'shared_reference_files')),
+    ).toEqual([
+      { path: '.agent/skills/planning/plan/references/method.md', blob: standInBlobId(method) },
+    ]);
+  });
+
+  it("names the sibling references carried under a --also skill in that skill's manifest entry, not the evaluated skill's", () => {
+    const h = harness();
+    const rule = '# A shared rule\n';
+    h.files.set(`${REPO}/.agent/skills/planning/other/references/rule.md`, rule);
+    h.files.set(
+      `${REPO}/.agent/skills/planning/plan/SKILL-CANONICAL.md`,
+      '---\nname: plan\n---\n\n# Plan\n\nApply [the rule](../other/references/rule.md).\n',
+    );
+    const also = [{ skill: '.agent/skills/planning/plan', hostSkill: 'oak-plan' }];
+    unwrapOrThrow(runSkillEvals({ ...options, also }, h.seams));
+    expect(h.files.get(`${PLUGIN}/skills/oak-plan/references/other/rule.md`)).toBe(rule);
+    const manifest = manifestOf(h.files);
+    expect(manifestFilesSchema.parse(getJsonValue(manifest, 'shared_reference_files'))).toEqual([]);
+    const carried = manifestCarriedSchema.parse(getJsonValue(manifest, 'carried_skills'));
+    expect(carried.map((skill) => skill.shared_reference_files)).toEqual([
+      [{ path: '.agent/skills/planning/other/references/rule.md', blob: standInBlobId(rule) }],
+    ]);
   });
 });

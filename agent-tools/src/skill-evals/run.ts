@@ -5,7 +5,12 @@ import { collect, err, ok, type Result } from '@oaknational/result';
 import type { SuiteSelection } from './args.js';
 import type { PathReplacement } from './evidence.js';
 import type { SuiteRecord } from './manifest.js';
-import { captureVersions, writeManifest, type EvaluatedVersions } from './manifest-writer.js';
+import {
+  captureVersions,
+  writeManifest,
+  type EvaluatedVersions,
+  type SkillToHash,
+} from './manifest-writer.js';
 import { planSuites, type PlannedSuite } from './plan.js';
 import {
   loadProjection,
@@ -14,8 +19,8 @@ import {
   type LoadOptions,
   type LoadedSuite,
 } from './plugin.js';
-import { pluginSkillFiles } from './plugin-skill.js';
-import type { ProjectedFile } from './project.js';
+import { pluginSkillFiles, type PluginSkillFiles } from './plugin-skill.js';
+import type { PluginSkill, ProjectedFile } from './project.js';
 import type { SkillEvalsSeams } from './seams.js';
 import { executeSuite, type SuiteOptions, type SuiteRun } from './suite.js';
 
@@ -50,6 +55,30 @@ export interface RunSummary {
 interface Prepared {
   readonly loaded: LoadedSuite;
   readonly pluginFiles: readonly ProjectedFile[];
+  /** The evaluated skill and the carried skills, each with the sibling references projected under it, as the manifest must name them. */
+  readonly evaluated: SkillToHash;
+  readonly carried: readonly SkillToHash[];
+}
+
+/** One skill with its files in the plugin. */
+interface ProjectedSkill {
+  readonly skill: PluginSkill;
+  readonly projected: PluginSkillFiles;
+}
+
+/** A skill's files in the plugin, kept with the skill they belong to. */
+function projectSkill(
+  repoRoot: string,
+  skill: PluginSkill,
+  seams: SkillEvalsSeams,
+): Result<ProjectedSkill, Error> {
+  const projected = pluginSkillFiles(repoRoot, skill, seams);
+  return projected.ok ? ok({ skill, projected: projected.value }) : projected;
+}
+
+/** What the manifest hashes for one projected skill. */
+function toHash(each: ProjectedSkill): SkillToHash {
+  return { skill: each.skill, sharedReferences: each.projected.sharedReferences };
 }
 
 /** The projection and every skill the plugin carries, or the first refusal. */
@@ -59,18 +88,28 @@ function prepare(options: LoadOptions, seams: SkillEvalsSeams): Result<Prepared,
     return loaded;
   }
   const { skill, carried } = loaded.value.projection;
-  const skills = collect(
-    [skill, ...carried].map((each) => pluginSkillFiles(options.repoRoot, each, seams)),
+  const evaluated = projectSkill(options.repoRoot, skill, seams);
+  if (!evaluated.ok) {
+    return evaluated;
+  }
+  const carriedProjected = collect(
+    carried.map((each) => projectSkill(options.repoRoot, each, seams)),
   );
-  if (!skills.ok) {
-    return skills;
+  if (!carriedProjected.ok) {
+    return carriedProjected;
   }
   const pluginFiles = [
     pluginManifest(skill.hostSkill),
-    ...skills.value.flat(),
+    ...evaluated.value.projected.files,
+    ...carriedProjected.value.flatMap((each) => each.projected.files),
     ...loaded.value.files,
   ];
-  return ok({ loaded: loaded.value, pluginFiles });
+  return ok({
+    loaded: loaded.value,
+    pluginFiles,
+    evaluated: toHash(evaluated.value),
+    carried: carriedProjected.value.map(toHash),
+  });
 }
 
 /** A filesystem-safe form of the clock. */
@@ -145,7 +184,7 @@ function stage(
   if (!written.ok) {
     return written;
   }
-  const versions = captureVersions(options.repoRoot, prepared.loaded, seams);
+  const versions = captureVersions(options.repoRoot, prepared.evaluated, prepared.carried, seams);
   return versions.ok
     ? ok({ pluginDir: pluginDir.value, outDir, startedAt, versions: versions.value })
     : versions;

@@ -163,6 +163,7 @@ describe('manifestText', () => {
         canonicalRelativeDir: '.agent/skills/planning/user-value',
         canonicalFiles: [{ path: 'SKILL-CANONICAL.md', blob: 'b1' }],
         adapterFiles: [{ path: 'SKILL.md', blob: 'b2' }],
+        sharedReferenceFiles: [],
       },
       carried: [
         {
@@ -170,6 +171,7 @@ describe('manifestText', () => {
           canonicalRelativeDir: '.agent/skills/planning/plan',
           canonicalFiles: [{ path: 'SKILL-CANONICAL.md', blob: 'b3' }],
           adapterFiles: [{ path: 'SKILL.md', blob: 'b4' }],
+          sharedReferenceFiles: [],
         },
       ],
       runner: 'claude',
@@ -205,6 +207,7 @@ describe('manifestText', () => {
         canonical_dir: '.agent/skills/planning/plan',
         canonical_files: [{ path: 'SKILL-CANONICAL.md', blob: 'b3' }],
         adapter_files: [{ path: 'SKILL.md', blob: 'b4' }],
+        shared_reference_files: [],
       },
     ]);
     expect(getJsonValue(manifest, 'plugin_skill_form')).toContain('canonical body');

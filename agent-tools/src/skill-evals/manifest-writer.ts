@@ -8,7 +8,7 @@ import {
   type ManifestSkill,
   type SuiteRecord,
 } from './manifest.js';
-import { hashDirectory, RESULTS_PREFIX, type LoadedSuite } from './plugin.js';
+import { hashDirectory, hashPaths, RESULTS_PREFIX } from './plugin.js';
 import { adapterDir } from './plugin-skill.js';
 import type { PluginSkill } from './project.js';
 import type { GitState, SkillEvalsSeams } from './seams.js';
@@ -44,10 +44,11 @@ export interface ManifestContext {
   readonly suites: readonly SuiteRecord[];
 }
 
-/** One carried skill's canonical and adapter files by blob id, earlier runs' evidence left out. */
+/** One carried skill's canonical and adapter files by blob id, earlier runs' evidence left out, and the sibling references projected under it. */
 function hashSkill(
   repoRoot: string,
   skill: PluginSkill,
+  shared: readonly string[],
   seams: SkillEvalsSeams,
 ): Result<ManifestSkill, Error> {
   const canonicalDir = posix.join(repoRoot, skill.canonicalRelativeDir);
@@ -63,26 +64,39 @@ function hashSkill(
   if (!adapterFiles.ok) {
     return adapterFiles;
   }
+  const sharedReferenceFiles = hashPaths(repoRoot, shared, seams);
+  if (!sharedReferenceFiles.ok) {
+    return sharedReferenceFiles;
+  }
   return ok({
     hostSkill: skill.hostSkill,
     canonicalRelativeDir: skill.canonicalRelativeDir,
     canonicalFiles: canonicalFiles.value,
     adapterFiles: adapterFiles.value,
+    sharedReferenceFiles: sharedReferenceFiles.value,
   });
+}
+
+/** One skill to hash: the skill and, by canonical path, the sibling references the projector placed under it. */
+export interface SkillToHash {
+  readonly skill: PluginSkill;
+  readonly sharedReferences: readonly string[];
 }
 
 /** Hash the staged versions and read the repository state, before any suite runs. */
 export function captureVersions(
   repoRoot: string,
-  loaded: LoadedSuite,
+  evaluated: SkillToHash,
+  carried: readonly SkillToHash[],
   seams: SkillEvalsSeams,
 ): Result<EvaluatedVersions, Error> {
-  const { skill, carried } = loaded.projection;
-  const hashed = hashSkill(repoRoot, skill, seams);
+  const hashed = hashSkill(repoRoot, evaluated.skill, evaluated.sharedReferences, seams);
   if (!hashed.ok) {
     return hashed;
   }
-  const carriedHashed = collect(carried.map((each) => hashSkill(repoRoot, each, seams)));
+  const carriedHashed = collect(
+    carried.map((each) => hashSkill(repoRoot, each.skill, each.sharedReferences, seams)),
+  );
   if (!carriedHashed.ok) {
     return carriedHashed;
   }

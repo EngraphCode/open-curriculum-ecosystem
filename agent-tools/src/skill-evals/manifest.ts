@@ -46,12 +46,14 @@ export interface ManifestFile {
   readonly blob: string;
 }
 
-/** One skill the plugin carried: its host name, its canonical directory and both file sets by blob id. */
+/** One skill the plugin carried: its host name, its canonical directory, both file sets by blob id, and the sibling references projected under it by their canonical paths. */
 export interface ManifestSkill {
   readonly hostSkill: string;
   readonly canonicalRelativeDir: string;
   readonly canonicalFiles: readonly ManifestFile[];
   readonly adapterFiles: readonly ManifestFile[];
+  /** Files of other skills' `references/` the skill's files link, carried under `references/<sibling>/`; paths relative to the repository root. */
+  readonly sharedReferenceFiles: readonly ManifestFile[];
 }
 
 /** What the manifest records about one suite invocation. */
@@ -93,7 +95,7 @@ export interface ManifestInput {
  * did not.
  */
 const PLUGIN_SKILL_FORM =
-  "the adapter's frontmatter over the canonical body, references carried beside; nothing placed in the workspace";
+  "the adapter's frontmatter over the canonical body, references carried beside and a sibling's linked references under references/<sibling>/; nothing placed in the workspace";
 
 function skillRecord(skill: ManifestSkill) {
   return {
@@ -101,13 +103,14 @@ function skillRecord(skill: ManifestSkill) {
     canonical_dir: skill.canonicalRelativeDir,
     canonical_files: skill.canonicalFiles,
     adapter_files: skill.adapterFiles,
+    shared_reference_files: skill.sharedReferenceFiles,
   };
 }
 
 /** The manifest text, keys in a fixed order, one trailing newline. */
 export function manifestText(input: ManifestInput): string {
   const manifest = {
-    schema_version: '1.2.0',
+    schema_version: '1.3.0',
     started_at: input.startedAt,
     repo_head: input.repoHead,
     worktree_clean: input.worktreeClean,
