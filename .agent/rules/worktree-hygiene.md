@@ -63,7 +63,9 @@ dropped.
 **The clause generalises beyond worktree lanes to EVERY pushed branch** (owner word,
 2026-08-03: "generally, I want branches to have at least draft PRs"), and the firing
 moment includes the FIRST PUSH, not only creation and first commit. The coordination
-branch opens its fold PR as a draft at the cut and rides it to the fold; a build-ahead
+branch opens its fold PR as a draft with the first push that carries a commit (the cut's
+push carries none, and GitHub refuses a pull request with no commits ahead of its base)
+and rides it to the fold; a build-ahead
 lane is cut from the parent branch it builds on — a WORKTREE shape only — and opens its
 draft against the DEFAULT branch at first push, its diff carrying the parent's commits
 until the parent lands (then one merge of the default branch when the parent landed by
@@ -171,7 +173,8 @@ instead: every file proven present newer on the base by content
 comparison, the comparison written down before the removal. Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
-registrations, and plain branch deletion for proven local branches. A
+registrations, and plain branch deletion for proven local branches, with the bot's API
+delete for a proven remote branch (its freshly fetched tip an ancestor of the base). A
 content-superseded branch (every file proven present newer on main by
 content comparison, not SHA ancestry) also deletes, with the comparison
 recorded first. Anything failing either proof, the active lanes, and

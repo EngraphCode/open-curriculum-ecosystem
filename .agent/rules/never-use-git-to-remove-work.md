@@ -189,10 +189,12 @@ through its inode and overwrites any second hard link inside or outside
 the worktree while the status still reads empty; type and mode from
 `git ls-tree HEAD -- <path>` (a symlink
 recreated with `ln -sfn` to HEAD's target, never written through; the
-executable bit set or cleared with `chmod` to the recorded `100755` or
-`100644`); the index brought to match with `git add <path>` (the single-path
-form; `-A`, `--all` and `.` stay blocked); a path HEAD does not hold — a
-staged addition or an untracked file — dropped from the index with
+executable bit set or cleared with `chmod` to the bits the recorded mode
+names: `755` for `100755`, `644` for `100644`, since chmod takes bits, not
+git's mode string); the index brought to match with `git add <path>`
+(the single-path form; `-A`, `--all` and `.` stay blocked); a path HEAD
+does not hold — a staged addition or an untracked file — dropped from the
+index with
 `git rm --cached <path>` where staged and MOVED to the session scratchpad,
 never deleted in place. Any path the forward writes do not bring to an
 empty status — a type change the seat would have to write through, a
