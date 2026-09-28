@@ -196,8 +196,8 @@ came to sit in nine places at once.
 
 ### 6. First push carries a draft PR
 
-Every pushed branch carries at least a draft PR from its first push
-(`worktree-hygiene` §1). Push from the worktree, not the principal — the principal's
+Every pushed branch carries at least a draft PR from its first push that carries a
+commit (`worktree-hygiene` §1). Push from the worktree, not the principal — the principal's
 hooks gate the whole tree, so one seat's dirty file blocks every seat — and give the
 push a **600s timeout**, because the 120s default kills the hook suite mid-run and
 leaves an ambiguous write.
