@@ -17,8 +17,8 @@ function lineFor(summary: SmokeSuiteSummary, file: string): string {
 }
 
 describe('smokeTestFiles', () => {
-  it('keeps only the smoke files, in code-point order, whatever else the directory holds', () => {
-    // 'A' sorts before 'a' by code point; a locale sort would interleave them.
+  it('keeps only the smoke files, in code-unit order, whatever else the directory holds', () => {
+    // 'A' sorts before 'a' by code unit; a locale sort would interleave them.
     // The near-miss names carry the suffix inside, not at the end.
     expect(
       smokeTestFiles([
@@ -31,6 +31,14 @@ describe('smokeTestFiles', () => {
         'helper.ts',
       ]),
     ).toStrictEqual(['A.smoke.ts', 'a.smoke.ts', 'b.smoke.ts']);
+  });
+
+  it('orders by UTF-16 code unit, which puts a name outside the BMP before one inside its upper range', () => {
+    // U+10000 is the surrogate pair D800 DC00, whose first unit sorts before U+E000.
+    expect(smokeTestFiles(['\uE000.smoke.ts', '\u{10000}.smoke.ts'])).toStrictEqual([
+      '\u{10000}.smoke.ts',
+      '\uE000.smoke.ts',
+    ]);
   });
 });
 

@@ -629,7 +629,7 @@ Both read the harness's own records, never the model's text (ADR-180 §2).
 every `smoke-tests/*.smoke.ts`, discovered from the directory by
 `dist/src/bin/run-smoke-tests.js` rather than listed, so a new smoke file is gated as soon as it
 exists. Each smoke runs as `node --import tsx <file>` from the package root, as the runner's direct
-child, in code-point order. Every smoke runs even after a failure, and the suite fails when any
+child, in UTF-16 code-unit order (code-point order for ASCII names). Every smoke runs even after a failure, and the suite fails when any
 smoke fails or is killed by a signal, or when none is found. The runner takes no arguments;
 `--help` prints its usage.
 
