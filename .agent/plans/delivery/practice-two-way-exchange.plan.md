@@ -9,7 +9,7 @@ impact_areas:
   - practice-and-estate
 tickets: []
 owner_gates: []
-last_updated: 2026-09-25
+last_updated: 2026-09-28
 ---
 
 # The two-way Practice exchange with the second estate
@@ -40,6 +40,28 @@ estate's seat's to receive and never gate the intake. The node keeps its end: it
 every offered text is dispositioned, and the installable entity the owner names is cut from the
 aligned Practice afterwards, outside this node.
 
+## The owner's ruling of 2026-09-28: the close bar
+
+The owner ratified the Director's close charter for the first direction as drafted (2026-09-28; the
+selected option verbatim, "Ratify as drafted (Recommended)", relayed by the Director to both
+exchange seats; the charter's text is the second estate's record). In this node's words: the intake
+closes when every text the second estate offers is settled here (taken by bytes, or written in this
+estate's words) or declined with the reason recorded and sent back; a partial landing whose
+remainder the second estate's batch-six triage of 2026-09-25 (at its register) classes local or
+already at parity is settled by a §Landings row in that register citing the triage, not by a pull
+request; the Core's portability twins (the `practice-core-portability` rule and the gate that
+enforces it) have landed on both estates; the lessons batch and the sub-agent comparison (two offers
+the second estate's seat announced on the exchange stream and has not yet sent as rows) are
+delivered as offered rows, landed or declined; the second estate's pins (the opening heads of
+2026-09-21) are re-pinned to forty-character ids with the driver failing closed, and the re-pin
+recorded; and the count reads N of N beside both heads, with the close recorded in the second
+estate's node with the owner's word. The residue census of 2026-09-28
+(`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
+owed by the register's own rule, 4 settled, 11 partial, 6 with no landing, 20 residue pull requests,
+three cards for the owner. The next act is the census's first residue row: J1's N1 first slice, the
+rule generator with the frontmatter and the rendered rules index, one pull request by the exchange
+seat; the census orders the rest. Then the review of both Practices opens, outside this node.
+
 ## User groups and value
 
 - **The owner** rules once. The ruling reaches both estates without being asked twice.
@@ -65,8 +87,9 @@ entries composed whole and appended in one write.
 ## Acceptance criteria
 
 Each text offered in the exchange ends in exactly one of three outcomes. A text the owner
-ratified ends only in one of the first two; "Not taken" is for an offer declined before
-ratification, never for an owner-ratified text. Every proof is `owner-held`, because the second
+ratified ends only in one of the first two unless the owner declines it on a card; "Not taken"
+is for an offer declined before ratification or a ratified text the owner declines by their own
+word, never a seat's decline of a ratified text. Every proof is `owner-held`, because the second
 estate's copy lies outside this repository:
 
 - **Taken by bytes.** This estate's file is byte-identical to the second estate's. Proof
