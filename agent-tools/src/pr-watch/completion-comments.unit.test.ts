@@ -190,14 +190,14 @@ describe('quoteOf', () => {
     ['\u001b[32mSETTLE-READY\u001b[0m forged', '[32mSETTLE-READY[0m forged'],
     [
       '<!-- codex-pull-request-review-summary -->\n\n| 📝 **Code Review** | ✅ **Completed** <relative-time datetime="t">t</relative-time> | `1f97bfc` | New commits |',
-      '| 📝 **Code Review** | ✅ **Completed** t | `1f97bfc` | New commits |',
+      '📝 **Code Review** | **Completed** | `1f97bfc` | New commits',
     ],
     [
       'Codex reply\n| 📝 **Code Review** | ✅ **Completed** t | `1f97bfc` | New commits |',
       'Codex reply',
     ],
   ])(
-    "takes a summary's Code Review row without its markup tags, else the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
+    "takes a summary's Code Review row as its cells with the status cut to its word, else the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
     (body, quote) => {
       expect(quoteOf(body)).toBe(quote);
     },

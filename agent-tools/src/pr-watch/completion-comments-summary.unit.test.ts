@@ -21,8 +21,7 @@ const OTHER = '6123105a51fdfabb37e39ff45361d0136ac51317';
 const REVIEWERS = [CODEX, 'copilot-pull-request-reviewer'];
 const COMPLETED_ROW =
   '| 📝 **Code Review** | ✅ **Completed** <relative-time datetime="2026-09-28T00:47:52.135326Z">2026-09-28T00:47:52.135326Z</relative-time> | `1f97bfc` | New commits |';
-const COMPLETED_QUOTE =
-  '| 📝 **Code Review** | ✅ **Completed** 2026-09-28T00:47:52.135326Z | `1f97bfc` | New commits |';
+const COMPLETED_QUOTE = '📝 **Code Review** | **Completed** | `1f97bfc` | New commits';
 const RUNNING_ROW =
   '| 📝 **Code Review** | 🔄 **Running** since <relative-time datetime="2026-09-28T00:43:32.416902Z">2026-09-28T00:43:32.416902Z</relative-time> | `1f97bfc` | New commits |';
 
@@ -126,7 +125,7 @@ describe("readCompletionComments — the connector's per-pull-request summary", 
       refusal(
         'names a code review still running',
         '2026-09-28T00:47:53Z',
-        '| 📝 **Code Review** | 🔄 **Running** since 2026-09-28T00:43:32.416902Z | `1f97bfc` | New commits |',
+        '📝 **Code Review** | **Running** | `1f97bfc` | New commits',
       ),
     );
   });
@@ -166,6 +165,15 @@ describe("readCompletionComments — the connector's per-pull-request summary", 
     expect(reading.refused.map((comment) => comment.precondition)).toStrictEqual([
       'edited by an account other than its author',
     ]);
+  });
+
+  it('in a summary only the Code Review row names the report: a "Reviewed commit" label there is not read (the label line is synthetic)', () => {
+    const labelled = {
+      ...SUMMARY,
+      body: summaryBody([COMPLETED_ROW, '', '**Reviewed commit:** `6123105a51`']),
+    };
+
+    expect(read(labelled).reviews.map((review) => review.commitOid)).toStrictEqual([TIP]);
   });
 
   it('refuses a summary with two completed Code Review rows as naming several reviewed commits', () => {

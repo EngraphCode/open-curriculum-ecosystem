@@ -101,6 +101,7 @@ const SUMMARY_CODE_REVIEW =
   /^\| [^|\n]*\*\*Code Review\*\* \| [^|\n]*\*\*Completed\*\*[^|\n]*\| `([0-9a-f]{7,40})` \|/gm;
 const SUMMARY_RUNNING = /^\| [^|\n]*\*\*Code Review\*\* \| [^|\n]*\*\*Running\*\*/m;
 const CODE_REVIEW_ROW = /^\| [^|\n]*\*\*Code Review\*\* \|.*$/m;
+const STATUS_WORD = /\*\*[^*]+\*\*/;
 const QUOTE_LENGTH = 120;
 
 /** Whether a comment is the connector's summary: it opens with the marker. */
@@ -108,17 +109,28 @@ function isSummary(body: string): boolean {
   return body.trimStart().startsWith(SUMMARY_MARKER);
 }
 
+// A summary row as its cells, the status cell cut to its bold status word:
+// the rest of that cell is the connector's time markup, not its report.
+function rowQuote(row: string): string {
+  const [review, status = '', ...rest] = row
+    .split('|')
+    .map((cell) => cell.trim())
+    .filter((cell) => cell !== '');
+  const word = STATUS_WORD.exec(status)?.[0] ?? status;
+  return [review, word, ...rest].join(' | ');
+}
+
 /**
- * What the verdict quotes of a comment: its Code Review row with the markup
- * tags removed (a summary's first line is only its marker), else its first
- * non-empty line; cut to {@link QUOTE_LENGTH} characters, with terminal
- * control characters stripped: the quote reaches the operator's terminal in
- * the verdict, and a reviewer's comment is not this tool's text.
+ * What the verdict quotes of a comment: a summary's Code Review row, its
+ * status cell cut to the status word (a summary's first line is only its
+ * marker), else the comment's first non-empty line; cut to
+ * {@link QUOTE_LENGTH} characters, with terminal control characters
+ * stripped: the quote reaches the operator's terminal in the verdict, and a
+ * reviewer's comment is not this tool's text.
  */
 export function quoteOf(body: string): string {
-  const row = isSummary(body)
-    ? CODE_REVIEW_ROW.exec(body)?.[0].replaceAll(/<[^>]*>/g, '')
-    : undefined;
+  const matched = isSummary(body) ? CODE_REVIEW_ROW.exec(body)?.[0] : undefined;
+  const row = matched === undefined ? undefined : rowQuote(matched);
   const line =
     row ??
     body
@@ -131,9 +143,11 @@ export function quoteOf(body: string): string {
 type Resolution = { readonly commitId: string } | { readonly refused: RefusedPrecondition };
 
 function resolveNamedCommit(body: string, commits: readonly string[]): Resolution {
+  // Each shape names its report one way: a summary only in its completed
+  // Code Review row, any other comment only under the label.
   const summary = isSummary(body);
-  const rows = summary ? [...body.matchAll(SUMMARY_CODE_REVIEW)] : [];
-  const prefixes = [...body.matchAll(REVIEWED_COMMIT), ...rows]
+  const named = summary ? body.matchAll(SUMMARY_CODE_REVIEW) : body.matchAll(REVIEWED_COMMIT);
+  const prefixes = [...named]
     .map((match) => match[1])
     .filter((prefix): prefix is string => prefix !== undefined);
   const [prefix] = prefixes;
