@@ -204,7 +204,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-076b](PDR-076b-body-file-frontmatter-contract.md) | Body-File Frontmatter Contract | Accepted |
 | [PDR-077](PDR-077-marshal-as-cycle-discipline.md) | Commit Marshal As Cycle-Discipline Role | Accepted |
 | [PDR-078](PDR-078-liveness-heartbeat-contract.md) | Liveness-Heartbeat Contract | Accepted |
-| [PDR-079](PDR-079-pdr-vs-adr-portability-distinction.md) | PDR-vs-ADR Portability Distinction | Accepted |
+| [PDR-079](PDR-079-pdr-vs-adr-portability-distinction.md) | PDR-vs-ADR Portability Distinction | Accepted (amended 2026-09-28) |
 | [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md) | Coordination-Event Absorption Is Signal-Driven | Accepted |
 | [PDR-081](PDR-081-curator-role-and-substrate-care-lane.md) | Curator Role and Substrate-Care Lane | Proposed |
 | [PDR-082](PDR-082-n2-collaboration-mode.md) | n=2 Collaboration Mode | Adopted (amended 2026-09-24) |
