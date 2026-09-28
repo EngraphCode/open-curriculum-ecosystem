@@ -4,6 +4,20 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the last ADR citations named by concept: the tooling and fitness family and the changelog's residue
+
+- Seven PDRs (PDR-051, PDR-053, PDR-054, PDR-055, PDR-059, PDR-099,
+  PDR-100) and five dated entries of this changelog named host ADRs by
+  number: the last 21 citations, in the tooling and fitness family and the
+  changelog's residue (the agent-artefact portability decision, the
+  commit-skill advisory-orchestrator naming decision, the staging-boundary
+  enforcement decision, the agent-tools build-isolation decision, the
+  three-zone fitness model, the planning vocabulary and the inter-practice
+  collaboration host phenotype). Each citation now names the concept the ADR records, per
+  PDR-079 as amended; no sentence is removed, and each dated entry's claim
+  stands. No ADR identifier remains in the Core. Joint bytes with the second
+  estate, where the cure landed first.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the graph, plan and continuity family's ADR citations named by concept
 
 - Eight PDRs (PDR-011, PDR-018, PDR-038, PDR-060, PDR-081, PDR-099, PDR-119,
@@ -496,8 +510,9 @@ Practice Core package.
   decisions register D23, 2026-07-22). The portable planning discipline —
   end goals, workflow contracts, readiness gates — is unchanged; the
   lane-placement sections remain the pattern for lane-shaped hosts.
-  PDR-121's portable glossary needed no change (its host mirror, ADR-209,
-  carries the dated realisation amendment per the PDR-079 pairing).
+  PDR-121's portable glossary needed no change (its host mirror, the
+  planning-vocabulary decision, carries the dated realisation amendment per
+  the PDR-079 pairing).
 
 ## [oak-open-curriculum-ecosystem] 2026-07-20 — dedicated consolidation graduations (Siren lifts Trench)
 
@@ -532,7 +547,7 @@ Practice Core package.
   §Deliberate succession initiator discriminator); PDR-064 (transport-
   exception mirror in the coordinator-retirement intersection); the
   join-ceremony skill, cross-repo rule, and start-right-team mirrors; the
-  ADR-211 host-phenotype amendment.
+  inter-practice collaboration host-phenotype amendment.
 - Successor-wave truings (Aspen stirs Blossom, same review arc): PDR-064
   intersection step 1 gains the coordinator-seat deadline-default
   reconciliation (the owner-absent default action is this sequence's
@@ -679,8 +694,8 @@ Practice Core package.
 - New portable skill `inter-practice-collaboration` — the runnable
   join ceremony (the PDR's enactment); new portable rule
   `cross-repo-sessions-run-the-join-ceremony` — its discoverability
-  trigger. Host phenotype ADR-211 records the WHAT of the local
-  mechanics (declared-home override, statusline join key).
+  trigger. The inter-practice collaboration host phenotype records the WHAT
+  of the local mechanics (declared-home override, statusline join key).
 - `practice.md` and `practice-lineage.md` §Plasmid Exchange amended:
   exchange named as two modes of one class on shared substrate —
   transformation (dead material at a pin) and conjugation (live,
@@ -900,12 +915,14 @@ Practice Core changes:
 - **Cross-reference**: PDR-054 §Related extended with PDR-059
   pointer (the post-hook absorption case is governed by PDR-059's
   classification doctrine).
-- **Host-repo operational application**: amendment to ADR-177
-  authored separately (host phenotype; PDR substance is portable).
+- **Host-repo operational application**: amendment to the host's
+  staging-boundary enforcement decision authored separately (host
+  phenotype; PDR substance is portable).
 
 ## [oak-open-curriculum-ecosystem] 2026-05-10 — `.agent/commands/` retirement (Tempestuous Darting Zephyr session)
 
-Closed the PDR-051 / ADR-125 §2026-05-09 commands-retirement loop on
+Closed the commands-retirement loop of PDR-051 and the host's agent-artefact
+portability decision (its §2026-05-09) on
 `feat/mcp-graph-support-foundation`. Five commits landed; five
 reviewers dispatched in parallel; all actionable findings applied.
 
