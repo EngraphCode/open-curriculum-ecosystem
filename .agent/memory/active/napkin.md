@@ -927,5 +927,6 @@ wrong for this question.
 nowhere new. (3) is the follow-up recorded on the pull request's working notes (case 3's
 `skills_expected`; the plan description's "not for" boundary; the generator's sibling-link
 rewrite at its second consumer; the readability grader), all the owner's call. The family's
-graduation line to the metacognition directive is still owed (a directive-file edit under the
-documentation and onboarding reviews; the fourth boundary carrying it).
+graduation line to the metacognition directive is queued in `pending-graduations.md` (2026-09-28
+14:xxZ, the line drafted in the row); its PR, a directive-file edit under the documentation and
+onboarding reviews, waits for a free slot under the WIP limit.

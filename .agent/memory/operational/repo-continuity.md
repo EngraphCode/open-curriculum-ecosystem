@@ -515,6 +515,27 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **THE EXCHANGE LANE RESUMED; PR 282 OPEN, 2026-09-28 13:3xZ to 14:1xZ (Myrtle turns Canopy,
+  bf4957).** The superseded local ref `superseded/250-local-sync-82aae23cd` deleted on the owner's
+  word relayed at 13:34Z (the loose ref file removed; read back absent; the 13:24Z proof its
+  record). The lane's owed item read against the tree before any edit: ADR-078 was amended on
+  2026-09-19 and ADRs 141, 180 and 229 by PR 237 (`b205be733`, which also cured `workflow.md`
+  and the Sentry CLI page), so the claim opened at 13:32Z on four ADRs was closed and reopened
+  on the recipes document alone (`9d0d53b0`). PR 282 (`docs/test-doctrine-recipes-followup`,
+  `aeeb98bf8` on engraph `2da2e89ec`, one file) carries the batch-six row J22 cures to
+  `docs/engineering/testing-tdd-recipes.md`, each verified: the validator recipe cites the
+  strategy's §Rules in its words; the discovery paragraph states the shared include as it holds
+  (`src/**/*.test.ts`, which both mandated suffixes match); the examples name directories this
+  estate has (`agent-tools/src/lib` and `agent-tools/scripts` do not exist) and mark their file
+  names illustrative; the ToC carries the IO-debt heading; the E2E naming reads as defects under
+  the IO invariant (PR 237's words), rewrapped, which cures the file's standing fitness warning;
+  the closing paragraph cites ADR-168 §5a. docs-adr-expert and onboarding-expert reviewed before
+  the commit (four FIX verdicts in it). Both legs requested as the bot at 14:01Z; WIP 3 of 3
+  (281, 282, one in the second estate). This commit also cures the Director's routed finding
+  (Codex on PR 275): the ledger's #250 round-4 row now reads the settlement span's numstat, and
+  queues the family's graduation line in `pending-graduations.md`. Next: PR 282's legs and
+  door at its slot turn; then the sentinel-content joint amendment in the second estate at a
+  free slot; goal one's code rows if this seat frees first.
 - **PR 250 LANDED, 2026-09-28 11:3xZ to 13:18Z (Myrtle turns Canopy, bf4957).** The owner's word
   ("pick up PR 250, then once it is merged come back to your current work"; to the Director: "Give
   250 to Myrtle, let's get it landed quickly and well"). One settlement push `da70c076a` (three
