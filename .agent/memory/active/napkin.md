@@ -1145,3 +1145,23 @@ its own (the Director, ~18:5xZ).
   `footer-leading-blank`. The commit-msg hook runs strict, so the warning failed the commit (exit
   2). It is the sibling of the hash-prefixed "#285" case above: any body line that opens with a
   token and a colon parses as a footer. Open body lines with a plain word.
+
+## 2026-09-28 ~18:2xZ — a record two-voiced on one question: the triage answered in its preamble what its tail listed as open (Myrtle turns Canopy, bf4957)
+
+**Observation.** The residue census's J17 card asked the owner whether the two gate-running doctrines
+converge, taking the question from the second estate's batch-six triage of 2026-09-25, §Not
+determined ("Whether notes 1 and 4 should converge ... That call is the owner's"). The same triage's
+preamble ("One question the triage raised, answered from the record") had already read that
+estate's ratified node `commit-as-the-full-local-gate` as moving toward this estate's doctrine, "so
+the J17 gate note states that direction instead of asking". The Director carded it; the owner
+answered through a decision-method pass; the Director's record has the card written without
+re-reading the preamble, against that seat.
+
+**Reading.** A record that answers a question in one section and lists it as open in another hands
+the open reading to whoever reads the list, and the list is what a census reads. The census read the
+triage's tail and the register's row, and cited the tail; nothing in either pointed at the preamble.
+
+**Routing.** The observation here; the pickup names the provenance. The cure at the source is one
+line in the triage's §Not determined pointing at its own preamble, the second estate's record and
+its seat's call, offered on the stream. Before a card, the next census searches the cited record
+for the question's own words. One instance, no rule.

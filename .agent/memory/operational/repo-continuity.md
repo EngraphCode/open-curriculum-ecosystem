@@ -515,6 +515,33 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **THE FLOW CONTRACT AND THREE MORE OWNER WORDS; THE SECOND ESTATE'S PR 255, 2026-09-28 18:1xZ to
+  18:5xZ (Myrtle turns Canopy, bf4957).** The Director relayed three owner words by the question tool
+  (answered by 17:5xZ), verbatim, with the workings on the second estate's napkin at 411f6714. J17's
+  note 1, "Confirm the reading (Recommended)": the second estate's ratified node
+  `commit-as-the-full-local-gate` (the owner's card of 2026-09-24) converges both estates in both
+  directions, this estate's words landing there (the same bytes in its D, E and F) and its mechanism
+  landing here (the gate slot, note 4's pull request); note 1 settles by a register row citing the
+  node; notes 4 and 8 keep their pull requests. The count, "Ratify the flow contract and Nova's lane
+  (Recommended)": "owed" leaves the register's rule text; a row is landed, in flight, queued or
+  declined and nothing else; the count reads in residue pull requests (24), landed of total, beside
+  both heads; a count that does not fall between two folds is routed as a failure, never re-labelled;
+  Nova turns Penumbra takes J6 and J8, Siren herds Rudder J3's shellcheck slice and the register's
+  settling rows, this seat J1's N1, J2 and the other partials (J10, J17's notes 4 and 8, J18, J21).
+  Ruling 40's scope, "Confirm: inbound stays in the node (Recommended)": "outside" is outside goal
+  one's close bar; the second estate's inbound landings stay its node's todo 4, after the review.
+  Acts: the second estate's PR 255 from `docs/exchange-flow-contract` (the register's vocabulary
+  and seven landing rows: J22's #272, J17 and J22 by the node, J11's decline in part, J15, J19 and
+  J23 by the triage, the five handed by Siren at 18:18Z; the node's rulings 41 to 44, todos 4 and
+  6), docs-adr-expert and onboarding-expert before the commit, claim 233a6749 in the home naming the
+  overlap with Siren's a30304be; PR 248's line-223 thread signed with the fourth word; the twin
+  ruling branch takes the four answers before its pull request opens after the fold. The J17 card's
+  provenance, for the record: the Director's napkin block (411f6714) has the card written at the
+  Director's seat without re-reading the batch-six triage's own paragraph ("One question the triage
+  raised, answered from the record": the second estate's node "moves toward the lineage's doctrine,
+  so the J17 gate note states that direction instead of asking"), recorded there against that seat;
+  the census had taken its card from the same triage's §Not determined ("That call is the
+  owner's"), the document's other voice on the point. The observation is on the napkin.
 - **THE OWNER'S THREE CENSUS ANSWERS; J11'S INSTRUMENT NOT TAKEN, 2026-09-28 17:4xZ (Myrtle turns
   Canopy, bf4957).** Relayed by the Director, verbatim by the question tool. J11: "Decline with
   the reason (Recommended)": the exchange instrument (the second estate's exchange-register
