@@ -1,4 +1,4 @@
-import { spawn, spawnSync, type SpawnSyncReturns } from 'node:child_process';
+import { spawn, spawnSync, type ChildProcess, type SpawnSyncReturns } from 'node:child_process';
 
 import { writeErrorLine } from '../core/terminal-output.js';
 import { resolveTrustedGit } from '../core/trusted-git.js';
@@ -56,25 +56,70 @@ function trustedGitTarget(command: string): { readonly command: string; readonly
   }
 }
 
-export function runInheritedProcess(command: string, args: readonly string[]): Promise<number> {
+/** How an inherited-stdio child ended: an exit status, or the signal that killed it. */
+export interface InheritedProcessEnd {
+  readonly status: number | null;
+  readonly signal: NodeJS.Signals | null;
+}
+
+/** How {@link spawnInheritedProcess} starts its child. */
+export interface InheritedProcessOptions {
+  /** The child's working directory; defaults to this process's. */
+  readonly cwd?: string;
+}
+
+/**
+ * Spawn a trusted command with inherited stdio and report how it ended.
+ *
+ * A signal death is reported as such (`status` null, `signal` named), never
+ * folded into an exit code, so a caller can tell a crash from a finding. A
+ * launch failure, whether spawn reports it or throws it, is written to stderr
+ * and reported as status 1.
+ *
+ * @param command - The command; `pnpm` and `git` resolve to their trusted binaries.
+ * @param args - Arguments.
+ * @param options - The child's working directory.
+ */
+export function spawnInheritedProcess(
+  command: string,
+  args: readonly string[],
+  options: InheritedProcessOptions = {},
+): Promise<InheritedProcessEnd> {
   const trusted = trustedSpawnTarget(command);
 
   if (trusted.error !== undefined) {
     writeErrorLine(`${command}: ${trusted.error}`);
-    return Promise.resolve(1);
+    return Promise.resolve({ status: 1, signal: null });
   }
 
   return new Promise((resolve) => {
-    const child = spawn(trusted.command, [...(trusted.leadingArgs ?? []), ...args], {
-      stdio: 'inherit',
-      env: trusted.environment,
-    });
-    child.on('close', (code) => resolve(code ?? 1));
+    let child: ChildProcess;
+    try {
+      child = spawn(trusted.command, [...(trusted.leadingArgs ?? []), ...args], {
+        stdio: 'inherit',
+        env: trusted.environment,
+        cwd: options.cwd,
+      });
+    } catch (error: unknown) {
+      writeErrorLine(`${command}: ${error instanceof Error ? error.message : String(error)}`);
+      resolve({ status: 1, signal: null });
+      return;
+    }
+    child.on('close', (status, signal) => resolve({ status, signal }));
     child.on('error', (error) => {
       writeErrorLine(`${command}: ${error.message}`);
-      resolve(1);
+      resolve({ status: 1, signal: null });
     });
   });
+}
+
+/** Spawn with inherited stdio and reduce the end to an exit code (a signal death reads as 1). */
+export async function runInheritedProcess(
+  command: string,
+  args: readonly string[],
+): Promise<number> {
+  const end = await spawnInheritedProcess(command, args);
+  return end.status ?? 1;
 }
 
 export function runCapturedProcess(

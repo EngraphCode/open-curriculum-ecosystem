@@ -16,7 +16,9 @@ import { resolvePnpm } from '../src/spawn/pnpm-path.js';
  * The fixture copies the guard source and wires it as a real `pnpm:devPreinstall`
  * hook, then runs the installed pnpm binary against a deliberately old-format
  * lockfile. The guard must be the process that refuses the install, and the
- * lockfile bytes must remain identical.
+ * lockfile bytes must remain identical. The guard's refusal is read from its
+ * own stderr log (the hook redirects it), never from pnpm's stream, because
+ * pnpm's forwarding of lifecycle output differs by runner.
  *
  * Fixture layout — why the mismatched pin is NOT at the install root. The guard
  * fires when the `packageManager` pin differs from the running pnpm. But a
@@ -66,7 +68,13 @@ const fixtureRoot = mkdtempSync(join(tmpdir(), 'oak-install-version-guard-'));
 // install root deliberately carries no `packageManager`.
 const pinnedRoot = join(fixtureRoot, 'pinned');
 const fixtureGuardPath = join(pinnedRoot, guardRelativePath);
-const fixtureDevPreinstall = `node pinned/${guardRelativePath}`;
+// The guard's own stderr goes to a file the smoke reads back, because whether
+// pnpm forwards a lifecycle script's output depends on the runner: the macOS
+// standalone forwards it under --reporter=silent, the Linux pnpm 12 executor
+// reports only "lifecycle script failed" and drops the script's lines. The
+// log is the guard's testimony; pnpm's exit status is the install's.
+const guardLogName = 'guard-stderr.log';
+const fixtureDevPreinstall = `node pinned/${guardRelativePath} 2>>${guardLogName}`;
 const originalLockfile = [
   "lockfileVersion: '6.0'",
   '',
@@ -116,7 +124,20 @@ try {
 
   const install = spawnSync(
     pnpm.value.file,
-    [...pnpm.value.leadingArgs, 'install', '--offline', '--ignore-workspace', '--reporter=silent'],
+    [
+      ...pnpm.value.leadingArgs,
+      'install',
+      '--offline',
+      '--ignore-workspace',
+      '--reporter=silent',
+      // pnpm defaults `frozen-lockfile` to on when it detects a CI runner, and
+      // that mode validates the lockfile BEFORE any lifecycle script runs: the
+      // deliberately old-format fixture lockfile is then refused as broken
+      // (ERR_PNPM_BROKEN_LOCKFILE) and the guard never fires, so the smoke
+      // would prove pnpm's lockfile reader, not the guard. Off, explicitly, on
+      // every runner, so the guard is the process that refuses the install.
+      '--no-frozen-lockfile',
+    ],
     {
       cwd: fixtureRoot,
       encoding: 'utf8',
@@ -138,11 +159,20 @@ try {
       `mismatched install must exit 1, got ${String(install.status)}\n${install.stdout}${install.stderr}`,
     );
   }
-  if (!install.stderr.includes('does not match the pinned pnpm 99.1.2')) {
-    fail(`mismatched install did not report the version mismatch:\n${install.stderr}`);
+  let guardLog: string;
+  try {
+    guardLog = readFileSync(join(fixtureRoot, guardLogName), 'utf8');
+  } catch (error) {
+    fail(
+      `the preinstall guard left no readable ${guardLogName} ` +
+        `(${error instanceof Error ? error.message : String(error)}):\n${install.stdout}${install.stderr}`,
+    );
   }
-  if (!install.stderr.includes('corepack enable')) {
-    fail(`mismatched install did not report the Corepack remedy:\n${install.stderr}`);
+  if (!guardLog.includes('does not match the pinned pnpm 99.1.2')) {
+    fail(`mismatched install did not report the version mismatch:\n${guardLog}`);
+  }
+  if (!guardLog.includes('corepack enable')) {
+    fail(`mismatched install did not report the Corepack remedy:\n${guardLog}`);
   }
 
   const finalLockfile = readFileSync(join(fixtureRoot, 'pnpm-lock.yaml'), 'utf8');
