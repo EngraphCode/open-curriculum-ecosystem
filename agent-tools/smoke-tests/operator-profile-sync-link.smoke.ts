@@ -1,5 +1,5 @@
 import { spawnSync, type SpawnSyncReturns } from 'node:child_process';
-import { lstatSync, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { lstatSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,7 +19,10 @@ import { hermeticGitEnv } from './hermetic-git-env.js';
  * tree, the one behaviour only real git can show.
  *
  * A remote's second commit replaces `repos/` with a link to a directory
- * outside the root. After `pull`, `repos` in the root is a plain file
+ * outside the root, written into the index with git's plumbing, so the
+ * fixture needs no symlink privilege on any host (native Windows grants one
+ * only in Developer Mode or elevated). After `pull`, `repos` in the root is
+ * a plain file
  * holding the link's text (the runner checks out with `core.symlinks=false`
  * on every call), and the profile check refuses that entry by name. The
  * fixture's git and both entries run in a hermetic environment, so no
@@ -45,15 +48,16 @@ const base = mkdtempSync(join(tmpdir(), 'operator-profile-sync-link-smoke-'));
 const env = hermeticGitEnv(base);
 
 /** Git for the fixture: the trusted binary, a fixed identity, the hermetic environment. */
-function git(cwd: string, args: readonly string[]): void {
+function git(cwd: string, args: readonly string[], input?: string): string {
   const run = spawnSync(
     GIT,
     ['-c', 'user.name=Profile Smoke', '-c', 'user.email=profile-smoke@example.invalid', ...args],
-    { cwd, env, encoding: 'utf8' },
+    { cwd, env, encoding: 'utf8', input },
   );
   if (run.status !== 0) {
     throw new Error(`fixture git ${args.join(' ')} failed: ${run.stderr}`);
   }
+  return run.stdout.trim();
 }
 
 function runEntry(name: string, args: readonly string[]): SpawnSyncReturns<string> {
@@ -83,9 +87,9 @@ try {
   git(seed, ['push', '-q', '-u', 'origin', 'main']);
   git(base, ['clone', '-q', remote, root]);
 
-  git(seed, ['rm', '-q', '-r', '--', 'repos']);
-  symlinkSync(outside, join(seed, 'repos'));
-  git(seed, ['add', '--', 'repos']);
+  git(seed, ['rm', '-q', '-r', '--cached', '--', 'repos']);
+  const linkBlob = git(seed, ['hash-object', '-w', '--stdin'], outside);
+  git(seed, ['update-index', '--add', '--cacheinfo', `120000,${linkBlob},repos`]);
   git(seed, ['commit', '-q', '-m', 'two: repos becomes a link outside the root']);
   git(seed, ['push', '-q', 'origin', 'main']);
 
