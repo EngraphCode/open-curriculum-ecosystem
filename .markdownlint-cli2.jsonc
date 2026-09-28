@@ -74,6 +74,7 @@
     ".agent/collaboration/rapid-comms/.starless-notice-body.md",
     "**/test-results/**",
     "**/test-artifacts/**",
+    "**/evals/results/**",
     ".stryker-tmp/**",
   ],
   // Lint scope = tracked repo files: gitignored content (untracked vendor

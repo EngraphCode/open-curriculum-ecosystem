@@ -17,6 +17,8 @@ import { runPrWatchCli } from '../pr-watch/cli.js';
 import { runPrStateCli } from '../pr-watch/state-cli.js';
 import { runReviewCostCli } from '../review-cost/cli.js';
 import { runSessionMetadataCli } from '../session-metadata/cli.js';
+import { runSkillEvalsCli, type SkillEvalsCliInput } from '../skill-evals/cli.js';
+import { realSkillEvalsSeams } from '../skill-evals/seams.js';
 import { runSpawnCli } from '../spawn/cli.js';
 import type { AgentToolsCliInput, AgentToolsCliResult } from './agent-tools-cli-types.js';
 
@@ -158,6 +160,32 @@ export function runReviewCostTopic(
   const stderr = new OutputBuffer();
   const exitCode = runReviewCostCli({ args, stdout, stderr });
   return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
+}
+
+/**
+ * `skill-evals` runs against the INVOKING worktree: the skill under
+ * evaluation is the checked-out one, never the coordination home's copy.
+ */
+export function runSkillEvalsTopic(
+  input: AgentToolsCliInput,
+  args: readonly string[],
+): AgentToolsCliResult {
+  const stdout = new OutputBuffer();
+  const stderr = new OutputBuffer();
+  try {
+    const cliInput: SkillEvalsCliInput = {
+      args,
+      repoRoot: input.repoRoot ?? resolveInvokingGitRoot(input.cwd),
+      stdout,
+      stderr,
+      seams: realSkillEvalsSeams(),
+    };
+    const exitCode = runSkillEvalsCli(cliInput);
+    return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { exitCode: 1, stdout: stdout.text(), stderr: `${stderr.text()}${message}\n` };
+  }
 }
 
 export function runPrTopic(
