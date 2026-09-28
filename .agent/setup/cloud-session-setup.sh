@@ -1,10 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Per-repo cloud-session setup hook for oak-open-curriculum-ecosystem.
 #
 # Invoked by the shared cloud environment setup script
 # (.agent/claude-harness-integrations/cloud-environment-setup.sh) with the
 # repo root as the working directory, AFTER `pnpm install` has run. Same
 # fail-fast contract as the caller: any failure fails session creation.
+
+# The bash floor: the shellcheck gate holds it once and requires this guard first.
+if ((BASH_VERSINFO[0] < 5 || (BASH_VERSINFO[0] == 5 && BASH_VERSINFO[1] < 2))); then
+  echo "bash 5.2 or later is required, found ${BASH_VERSION}: install it (brew install bash on macOS, apt-get install bash on Debian 12 or Ubuntu 24.04 and later) and put it first on PATH" >&2
+  exit 1
+fi
+
 set -euo pipefail
 
 # Playwright browsers at the repo's pinned version. PLAYWRIGHT_BROWSERS_PATH
