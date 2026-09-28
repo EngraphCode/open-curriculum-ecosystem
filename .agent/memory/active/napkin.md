@@ -836,3 +836,96 @@ comms line silently failed to send because the command was held in an unquoted s
 zsh does not word-split it: the standing constraint in this seat's own notes, forgotten under the
 drive to finish. Write the command out, or wrap it in a function; and read the send's output, never
 only grep it.
+
+## 2026-09-28 ~08:2xZ — an owner-held turn is a silence the team reads as retirement (Nova turns Penumbra, 8a94ba)
+
+At 16:05Z on 2026-09-27 this seat entered the owner's plan-approval turn with four monitors armed
+at their 30-minute cap. The turn stayed open overnight. The monitors expired and nothing in the
+turn re-armed them, so no heartbeat, ACK or state line reached the stream. The Director pinged three
+times (16:42Z, 18:45Z, 04:43Z) and at 04:48Z recorded the retirement, archiving claim 8db99207.
+Siren and Myrtle then carried both lanes: PR 250's rebudget, settlement and sync, and the doctrine
+twins (OCE 279, JC.net 237). This seat's unpushed sync and uncommitted cures duplicated Siren's
+commits. The retirement was the right reading; the loss was the duplicate work and three
+unanswered pings. The cure: before a turn that waits on the owner for an unbounded time (plan
+approval, a question), post one state line naming the wait. If the wait can outlast a monitor's
+cap, hand the lanes to the Director. An owner-held turn is silence to every other seat.
+
+Second, from the same lane: the review-cost budget number is cost units, not pushes. The gate
+refuses while the settled rounds' total is at or above the declared budget × 20 (`verdictFor` in
+`agent-tools/src/review-cost/cost.ts`). PR 250 stood at 179.23 after one round that priced 38,016
+lines, so this seat's "raise to 4" (a limit of 80) would have refused every push. Siren computed 11
+from the arithmetic, Myrtle 18. Compute the number from the gate's formula before anyone is asked to
+raise it.
+
+Play seed (an association, not a finding): the skill-evals manifest hashed after the run, and
+JC.net's substrate check reading the events and then the projection, look shaped alike, as
+time-of-check against time-of-use. Discarded as forced: the twins' identical bytes against blob-id
+manifests, and the gate's pricing of a conflicted sync as the same shape.
+
+## 2026-09-28 ~08:4xZ — the family's eleventh and twelfth members, and a cure named from memory of a mechanism the doctrine forbids (Myrtle turns Canopy, bf4957)
+
+**Observation.** Three things from the PR 250 lane, read first-hand at the compaction boundary.
+(1) On 2026-09-27 at 11:xxZ a `pkill -f` pattern written to stop one case rerun matched the
+user-value suite's runner too and killed it at exit 143; partial evidence, the plugin left kept.
+The pattern named one process and matched two. (2) The review-cost gate names "review load" and
+measures the bytes a push carries, so the retained evaluation evidence Appendix E requires
+(traces, answers, manifests: ~2,400 lines in three plan directories alone) is priced as if a
+reviewer read it; the one settlement round `560016310` priced 179.82 of a default 40 for a diff
+no reviewer read line by line, and every later number on the body (4, about 12, 11, 18) was an
+argument about that mismeasure rather than about review rounds. (3) This seat's 12:3xZ triage
+verdict said "mark the SHA-1 finding won't-fix in Sonar"; the one-outcome rule
+(`docs/governance/sonar-disposition-policy.md`, the owner 2026-09-08: "We don't dismiss issues,
+we fix them") grants no such mark, and the Sonar rule's own §Ground says to read the policy before
+choosing a cure shape. The verdict was fluent, sounded like practice, and was the forbidden route;
+the successor seat cured it at source the same afternoon, and the local handoff record carried the
+wrong line for twenty hours.
+
+**Reading.** (1) and (2) are members eleven and twelve of the family of a check, or a kill, that
+does not do what it names: a kill wider than its name; a gate that prices what its name does not
+mention. n = 12 across three days. (3) is a different shape and the more expensive one: a cure
+proposed from a remembered mechanism without the governing record read, the same signature as
+the `trusted-git` reversal of 2026-07-07 recorded in the Sonar rule. The cure for (3) is the rule
+already written: before naming any Sonar disposition, read the policy's class for the rule key.
+
+**Routing.** The family's graduation line to the metacognition directive's fluency section is
+still owed (one line naming the family). (2) is a play seed for the toolkit lane, marked as an
+association: the gate's unit of "size" reminded me of a scale that weighs the crate with the
+cargo; whether retained evidence should be priced is a design question for the gate's ledger,
+not this lane. (3) goes nowhere new: the rule exists; the record of the miss is this entry.
+
+## 2026-09-28 ~13:2xZ — the instrument at the head, an anchor on the wrong table, and one run per arm
+
+**Observation.** Three things from PR 250's landing, read first-hand. (1) The rerun queue was
+stopped and restarted twice, both times for the runner and not the skill: first because the
+manifest was about to gain a field (the sibling references the with-arm could read), then because
+that field's order changed from link order to source-path order. The evaluated skill's bytes were
+identical across all three starts (`diff -r` of the live plugin against a fresh projection).
+Cost: about USD 6 and seventeen minutes. (2) The script that updates Appendix E.1 anchored the
+`plan` row on "| `plan` |", which matched the acceptance table's row first, two cells wide; and it
+asserted a phrase in the Limitation cell that lives in the Evidence cell. Both asserted, both
+refused loudly; the docs reviewer caught the second before the run and the first refused at the
+run. (3) Plan case 3 across three samples of the cured canonical: one run invoked
+`specify-connection` and analysed the seam before planning, two named the skill and scheduled the
+handoff as a blocking step behind the ownership gate; the fixture's assertions held on the human
+read in all three; the judge failed two and passed one; Codex read the last trace and asked for
+invocation made mandatory.
+
+**Reading.** (1) is the twin of the rule the estate already holds for evidence: the manifest must
+match the canonical at the head; today's shape says the manifest's own schema and order must be
+the head's runner's, or a reader sees evidence produced by a tool the head does not contain. A
+candidate line for the skill-evals README: run the reruns last, after the runner is frozen under
+review. Two instances in one day; an observation. (2) is not a member of the family (both checks
+named their target and refused); it is the anchor's lesson: a row anchor shared with another table
+is a check on the wrong thing until it names the evidence path. Recorded as an observation.
+(3) says one run per arm answers a routing question in fractions. Whether a planning agent
+performs or schedules a handoff it cannot clear is a question for the harness's tool-use grader
+(`skills_expected` on the case), not the judge; the fixture did not ask it, so the readings say
+what was observed and the thread's signed line names the seed. The method is right for cost and
+wrong for this question.
+
+**Routing.** (1) to the skill-evals README as a candidate line on the next tool change. (2)
+nowhere new. (3) is the follow-up recorded on the pull request's working notes (case 3's
+`skills_expected`; the plan description's "not for" boundary; the generator's sibling-link
+rewrite at its second consumer; the readability grader), all the owner's call. The family's
+graduation line to the metacognition directive is still owed (a directive-file edit under the
+documentation and onboarding reviews; the fourth boundary carrying it).

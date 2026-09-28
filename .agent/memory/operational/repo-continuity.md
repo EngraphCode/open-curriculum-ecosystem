@@ -481,6 +481,67 @@ contract, its §Recount run at 14:58Z and matching.
   Question `8c3a7462` to the Director: will the owner raise the budget. The three code cures are built test-first in
   the worktree, uncommitted, under their post-execution reviews; plan's routing waits on the owner's word. The
   ready-mark stays the owner's.
+- **PR 250, THE OWNER'S ITEM, 2026-09-28 08:1xZ to 08:4xZ (Myrtle turns Canopy, bf4957), then the
+  compaction boundary:** the owner's word to this seat, verbatim: "close your subagents. Fetch and
+  analyse the comments and feedback on 250, I am raising the review limits because it has become
+  complex", and on the plan this seat wrote: "agreed, please plan the work and then carry it out"
+  (the plan is local to the seat's plans folder; its facts were 15:5xZ facts and were recomputed at
+  execution). Read first-hand: 250 at `d2df9a558` (Siren's settlement `b0b2d181a`, the three code
+  threads cured and resolved; the sync; every check green); three threads open on purpose as the
+  owner's item: plan's routing (Copilot :25, Codex :24) and the projector's `../<sibling>/references/`
+  links that resolve to nothing in the plugin (Copilot `plugin-skill.ts:73`); three MAJOR Sonar sites
+  open (`plan.ts:39`, `plugin.ts:48`, `in-memory-seams.ts:126`). Done in the window: the owner's raise
+  recorded on the body's intake line as `budget — 18` with the word verbatim and the arithmetic in the
+  working notes (the gate read converging at 223.86 of 220 under Siren's eleven; it reads warn at
+  223.86 of 360 now); the body's wrong line on the relationship report corrected (Nova's note);
+  Nova's superseded worktree edits (an unpushed local sync `82aae23cd`, nine files duplicating
+  `b0b2d181a`) saved as a scratch patch on Nova's word that nothing needs keeping, the worktree
+  replaced by a fresh checkout of `d2df9a558` (138 skill-evals tests green), the stale local branch
+  renamed `superseded/250-local-sync-82aae23cd` (ahead one, not deletable without `-D`; the owner's
+  to delete). Claim `cea45b59` on the lane (files areas), handoff set at the boundary. The Director
+  ACKed the routing (03438415) then froze on the owner's compaction word; Siren and Nova froze.
+  OWED, in order, from the fresh lane worktree: the pre-execution code-expert on the sites (stopped
+  before it returned); one settlement push carrying plan's second "Before Writing" paragraph (the
+  §13.4 questions handed to `specify`, `specify-connection` and `assess-specification`, invoked
+  before the dependent steps are scheduled; a `depends_on` clause; a seventh silent trigger for
+  specify-connection), the projector rewriting `../<sibling>/references/<file>` to
+  `references/<sibling>/<file>` and carrying the sibling's adapter references there (the prefix from
+  the evaluated skill's host name minus its canonical name; refusal when the sibling's adapter is
+  absent; a projection test), the three Sonar sites cured at source, then the plan suite in full with
+  four siblings carried and the connection and assess suites in full with specify carried (cap USD
+  35), readings, E.1 rows and the report paragraph; both legs as the bot; the three threads answered
+  with the sha and resolved; the body reconciled; the PR stays draft, the ready-mark the owner's.
+  Re-arm as if nothing survives: the watcher (`comms watch --platform claude-code --model
+  claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
+  from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
+  sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **PR 250 LANDED, 2026-09-28 11:3xZ to 13:18Z (Myrtle turns Canopy, bf4957).** The owner's word
+  ("pick up PR 250, then once it is merged come back to your current work"; to the Director: "Give
+  250 to Myrtle, let's get it landed quickly and well"). One settlement push `da70c076a` (three
+  commits over the owner's web sync `92db547bd`): `768c769a8` the evaluation projector carries the
+  sibling references a skill's files link, resolved against the canonical tree and rewritten to
+  `references/<sibling>/`, transitively, with the manifest naming them by blob id (schema 1.3.0),
+  the specify-connection and assess-specification suites rerun in full; `908bfef34` the three Sonar
+  sites at source; `da70c076a` plan's handoffs to the specification skills (the "Before Writing"
+  paragraph, the sequencing sentence in §Schedule It, the seventh silent trigger), the plan suite
+  rerun three times (the full suite twice, case 3 once more), E.1 and the report updated. Reviews
+  before the commit: code-expert (pre-execution and three post-execution passes), test-expert (two),
+  docs-adr-expert, onboarding-expert. The four inherited threads answered with the cure shas and
+  resolved; the legs on `da70c076a` raised three (Copilot two on the generated adapters'
+  reference-copy links; Codex one on plan's invocation), all three dispositioned below the bar with
+  signed lines and follow-ups (the generator's rewrite; case 3's `skills_expected`; the readability
+  grader; the plan description's "not for" boundary). The gate: the round priced 62.18, warn at
+  287.29 of 360. The pure sync `338ade1c4` (engraph `ab8976719`, automatic, no conflict), CI green,
+  the merge-bot door: merged as `2da2e89ec` at 13:18Z; the remote branch deleted by API and read
+  back absent; the worktree removed; the local branch deleted after the ancestry proof. Cost of the
+  reruns: about USD 12 across two restarts (the runner froze twice under the reviewers: the manifest
+  field, then its order) and the final runs. Evidence-instrument rule observed twice (napkin). The
+  local branch `superseded/250-local-sync-82aae23cd` proved superseded: its README conflict
+  resolution is the earlier hand merge; the owner's web sync `92db547bd` and the doctrine-pair
+  merges since carry both sections (the diff against `engraph` shows no line of it absent); deletion
+  waits on the owner's word (the seat never forces a delete). Next for this seat: return to the
+  exchange lane's owed items (the "sentinel-content assertion" joint amendment, 217's four-ADR
+  follow-up, goal one's code rows).
 - **249 AND 217 THROUGH THE DOOR, 2026-09-26 20:0xZ to 20:37Z (Myrtle turns Canopy, bf4957):**
   PR 249 (the cost-model and doctrine twins, 13 files) synced at `51c45ad36`, both legs on the
   synced head: one wording finding each on the joint fold-cadence paragraphs of the lifetime rule
