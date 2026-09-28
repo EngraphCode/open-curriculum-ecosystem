@@ -24,6 +24,8 @@ if ((BASH_VERSINFO[0] < 5 || (BASH_VERSINFO[0] == 5 && BASH_VERSINFO[1] < 2))); 
   # decision; exiting here would be a non-blocking failure and let them through.
   echo "log-hook-errors: bash 5.2 or later is required, found ${BASH_VERSION}; running the hook unlogged" >&2
   exec "$@"
+  # Reached only with no command to hand to: exec with no arguments returns.
+  exit 1
 fi
 
 set -u
