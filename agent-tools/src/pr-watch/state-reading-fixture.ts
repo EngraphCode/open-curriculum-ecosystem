@@ -1,3 +1,4 @@
+import { NO_CONTENT } from './content-binding.js';
 import type { PrStateReading } from './state-types.js';
 
 /**
@@ -24,6 +25,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: TIP,
+    baseRefName: 'main',
     checks: { total: 3, passed: 3, failed: 0, pending: 0 },
     namedChecks: [
       { name: 'secret-scan', bucket: 'passed' },
@@ -34,6 +36,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     reviewThreads: { total: 4, unresolved: 0 },
     autoMergeArmed: false,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: [COPILOT],
     expectedDeclared: true,
     reviews: [
@@ -47,6 +50,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     ],
     completionComments: { reviews: [], refused: [] },
     reviewRuns: { kind: 'read', runs: [] },
+    content: NO_CONTENT,
     ...overrides,
   };
 }

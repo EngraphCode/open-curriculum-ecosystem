@@ -116,7 +116,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
     expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
     expect(verdict.evidence).toContain(
-      `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z refused — names commit bbbbbbbbbb, not the current tip; "Codex Review: Didn't find any major issues."`,
+      `${CODEX}: completion comment IC_1 at 2026-07-21T12:10:00Z refused — names commit bbbbbbbbbb, which does not bind the current tip; "Codex Review: Didn't find any major issues."`,
     );
   });
 
@@ -178,7 +178,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
     expect(verdict.state).toBe('WAITING-REVIEW-RUN-LIVE');
     expect(verdict.evidence.join('\n')).toContain(
-      'refused — names commit bbbbbbbbbb, not the current tip',
+      'refused — names commit bbbbbbbbbb, which does not bind the current tip',
     );
   });
 

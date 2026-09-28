@@ -81,7 +81,9 @@ checkable:
    `.agent/plans/delivery/landing-instruments-read-the-evidence.plan.md` records the shape.
 3. It names a commit, and that abbreviated sha resolves to exactly one commit in the pull
    request's own commit list.
-4. That commit is the current tip.
+4. That commit is the current tip. Amended 2026-09-28: that commit binds the current tip, exactly
+   or by content (the pull request's patch against the base unchanged since that commit, the
+   pr-lifecycle SKILL's state machine item 3), so a pure sync never makes a clean comment stale.
 
 A comment that fails a precondition must never read the same as no comment at all: the
 refusal names WHICH precondition failed and quotes what it saw. A near-miss that reads as

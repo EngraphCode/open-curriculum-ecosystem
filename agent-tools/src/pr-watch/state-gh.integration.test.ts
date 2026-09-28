@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import { textHasher } from './content-fixture.js';
 import { readPrStateReading } from './state-gh.js';
 import type { GhCommandExecutor } from './gh.js';
+import type { StateViewSeed } from './state-view-fixture.js';
 
 /**
  * IO-composition tests for `readPrStateReading` with an injected executor —
@@ -12,7 +14,7 @@ import type { GhCommandExecutor } from './gh.js';
 const HEAD = 'f'.repeat(40);
 const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461';
 
-function viewPayload(oid: string = HEAD): string {
+function viewPayload(oid: string = HEAD, overrides: Partial<StateViewSeed> = {}): string {
   return JSON.stringify({
     number: 461,
     url: PR_URL,
@@ -21,6 +23,7 @@ function viewPayload(oid: string = HEAD): string {
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: oid,
+    baseRefName: 'main',
     statusCheckRollup: [
       {
         __typename: 'CheckRun',
@@ -32,6 +35,7 @@ function viewPayload(oid: string = HEAD): string {
     ],
     autoMergeRequest: null,
     reviewRequests: [{ __typename: 'User', login: 'jimCresswell' }],
+    ...overrides,
   });
 }
 
@@ -107,14 +111,20 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
   return view;
 }
 
+const emptyConnection = (connection: string): string =>
+  JSON.stringify([{ data: { repository: { pullRequest: { [connection]: { nodes: [] } } } } }]);
+
+// Each harvest query, by the connection it reads; any other query reads reviews.
+const GRAPHQL_ANSWERS: readonly (readonly [string, () => string])[] = [
+  ['reviewThreads', threadsPayload],
+  ['comments(', () => emptyConnection('comments')],
+  ['timelineItems(', () => emptyConnection('timelineItems')],
+  ['commits(', commitsPayload],
+];
+
 function graphqlPayload(query: string | undefined): string {
-  if (query?.includes('reviewThreads') === true) {
-    return threadsPayload();
-  }
-  if (query?.includes('comments(') === true) {
-    return JSON.stringify([{ data: { repository: { pullRequest: { comments: { nodes: [] } } } } }]);
-  }
-  return query?.includes('commits(') === true ? commitsPayload() : reviewsPayload();
+  const answer = GRAPHQL_ANSWERS.find(([marker]) => query?.includes(marker) === true);
+  return answer === undefined ? reviewsPayload() : answer[1]();
 }
 
 function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecutor {
@@ -123,8 +133,8 @@ function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecu
     if (args[0] === 'pr') {
       return viewPayload();
     }
-    if (args[0] === 'api') {
-      const query = args.find((arg) => arg.startsWith('query='));
+    const query = args.find((arg) => arg.startsWith('query='));
+    if (args[0] === 'api' && query !== undefined) {
       return graphqlPayload(query);
     }
     if (args[0] === 'agent-task') {
@@ -134,7 +144,7 @@ function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecu
   };
 }
 
-const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
+const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true, patchIdOf: textHasher };
 
 describe('readPrStateReading', () => {
   it('composes view, threads, the full reviews harvest, and PR-scoped runs into one reading', () => {
@@ -571,16 +581,10 @@ describe('readPrStateReading', () => {
   });
 
   it('fails loud on mergeable UNKNOWN (never settles over uncomputed conflicts)', () => {
-    const unknownView = JSON.stringify({
-      number: 461,
-      url: PR_URL,
-      state: 'OPEN',
-      isDraft: false,
+    const unknownView = viewPayload(HEAD, {
       mergeable: 'UNKNOWN',
       mergeStateStatus: 'UNKNOWN',
-      headRefOid: HEAD,
       statusCheckRollup: [],
-      autoMergeRequest: null,
       reviewRequests: [],
     });
     const calls: string[][] = [];
@@ -605,16 +609,11 @@ describe('readPrStateReading', () => {
   it('a MERGED PR with mergeable UNKNOWN composes terminal-ready — the refusal binds OPEN PRs only (r6 regression)', () => {
     // GitHub stops computing mergeability post-merge/close; refusing there
     // would make the advertised terminal MERGED/CLOSED verdicts unreachable.
-    const mergedView = JSON.stringify({
-      number: 461,
-      url: PR_URL,
+    const mergedView = viewPayload(HEAD, {
       state: 'MERGED',
-      isDraft: false,
       mergeable: 'UNKNOWN',
       mergeStateStatus: 'UNKNOWN',
-      headRefOid: HEAD,
       statusCheckRollup: [],
-      autoMergeRequest: null,
       reviewRequests: [],
     });
     const reading = readPrStateReading({
@@ -624,8 +623,8 @@ describe('readPrStateReading', () => {
         if (args[0] === 'pr') {
           return mergedView;
         }
-        if (args[0] === 'api') {
-          const query = args.find((arg) => arg.startsWith('query='));
+        const query = args.find((arg) => arg.startsWith('query='));
+        if (args[0] === 'api' && query !== undefined) {
           return graphqlPayload(query);
         }
         if (args[0] === 'agent-task') {
@@ -664,8 +663,8 @@ describe('readPrStateReading — tip consistency (r4 regression)', () => {
         viewCall += 1;
         return viewPayload(oid);
       }
-      if (args[0] === 'api') {
-        const query = args.find((arg) => arg.startsWith('query='));
+      const query = args.find((arg) => arg.startsWith('query='));
+      if (args[0] === 'api' && query !== undefined) {
         return graphqlPayload(query);
       }
       if (args[0] === 'agent-task') {
