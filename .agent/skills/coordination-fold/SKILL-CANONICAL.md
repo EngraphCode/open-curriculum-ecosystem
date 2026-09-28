@@ -23,8 +23,9 @@ resides on the coordination branch).
 
 ## Preconditions
 
-1. Confirm the primary sits on the live coordination branch and no fold
-   PR is already open for it (`gh pr list`).
+1. Confirm the primary sits on the live coordination branch and that its
+   draft PR, opened at the branch's first records push (step 10), is the
+   one PR open for it (`gh pr list`).
 2. **Working-tree survey with ownership.** Classify every dirty and
    untracked path: (a) own work or settled fleet docs — fold them, with
    authorship named in the commit message for peer-authored files;
@@ -33,30 +34,51 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
-3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
-   memory surfaces, the class
-   [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
-   clause 4 names. At the DUE check, read the commits since the cut: a work product with its
-   own review contract (a report, a source change, a plan under active edit) belongs on its
-   own lane, and the Director routes a seat there at claim time. One found already on the
-   branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
-   PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
-   and carries the intake (a served document: records-class, verification point merge); a
-   source change is code-class and stays on the review-round state machine, no intake. It
-   expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
-   committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
-   took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
-   rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
-   large, the lifetime rule forced the next before the consolidation's own work could start,
-   and the last fold's whole content was records about the fold before it (twenty-three
-   findings, all true). A consolidation's doctrine edits are a work product with their own
-   review contract.
+   Immediately before each push from the primary (steps 5, 9 and 10),
+   check by name each tracked file dirty at that moment
+   (`git diff --name-only --diff-filter=d HEAD`), with
+   `pnpm exec prettier --check --ignore-unknown -- <files>` and
+   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`: the
+   pre-push gate's tracked-files checks read the working tree, so an
+   uncommitted edit to a tracked file fails the push, whoever made it.
+   This checks named files, as the pre-commit hook
+   does; it is not a gate run (`coordination-branch-24h-lifetime` clause 5
+   at the fold). Link and machine-local-path validation has no by-name
+   form: a push that fails on one names the file, which routes as below. A
+   failing file that is a live peer's in-flight edit, class (b), routes to
+   its owner for the cure, never edited or reverted by the folding seat,
+   since a fixer's rewrite races the peer's next write; a class (a) file is
+   cured and folded with its authorship named.
+**The branch carries shared coordination-home state only** — fleet state, doctrine and
+memory surfaces, the class
+[`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
+clause 4 names. At the DUE check, read the commits since the cut: a work product with its
+own review contract (a report, a source change, a plan under active edit) belongs on its
+own lane, and the Director routes a seat there at claim time. One found already on the
+branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
+PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
+and carries the intake (a served document: records-class, verification point merge); a
+source change is code-class and stays on the review-round state machine, no intake. It
+expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
+committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
+took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
+rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
+large, the lifetime rule forced the next before the consolidation's own work could start,
+and the last fold's whole content was records about the fold before it (twenty-three
+findings, all true). A consolidation's doctrine edits are a work product with their own
+review contract.
 
 ## Ceremony
 
 3. Commit by explicit pathspec (`stage-by-explicit-pathspec`);
    lowercase-start subjects (commitlint).
-4. `git fetch origin main`, then merge `origin/main` INTO the branch.
+4. `git fetch origin <default>`, then merge `origin/<default>` INTO the
+   branch, where `<default>` is the repository's default branch
+   (read from the remote and fetched first, then `git remote set-head
+   origin --auto`, as `cut-coordination-branch` does; `git symbolic-ref
+   --short refs/remotes/origin/HEAD` then prints `origin/<default>`; a clone
+   made before the default branch changed still names the old one until the
+   refresh).
    Resolve the ref to a full sha in the same shell call as the merge, merge
    that sha, and write the merge message AFTER resolving, from
    `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
@@ -65,7 +87,7 @@ resides on the coordination branch).
    one merge message named #157 while the merge also carried #158).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
-   files against main) before pushing.
+   files against the default branch) before pushing.
    The napkin resolves as a union of both sides' blocks in time order — unless
    the target branch's napkin was ROTATED since the snapshot, in which case keep
    the rotated file and run the semantic-merge skill's archive-coverage check
@@ -91,7 +113,8 @@ resides on the coordination branch).
    landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
-6. Open the fold PR under BOT identity (mint per merge-bot discipline).
+6. Mark the branch's draft PR ready as the fold PR, under BOT identity
+   (mint per merge-bot discipline).
    The body carries the **product-gravity line** (rule Action 3):
    `moved for teachers: … / moved for the Practice: …` — honest, no
    quota, drift made glanceable. The description uses the template's §Scope
@@ -113,15 +136,19 @@ resides on the coordination branch).
    `merge_method=merge`, never squash.
 9. Cut the successor coordination branch per
    [`cut-coordination-branch`](../cut-coordination-branch/SKILL-CANONICAL.md):
-   resolve post-fold `origin/main` ONCE and pass the same full sha to
+   resolve post-fold `origin/<default>` ONCE and pass the same full sha to
    both the mint and the cut — two separate resolutions race a
    concurrent fetch, so the name records one tip while the branch
    starts at another and the lineage the name carries is false from
    birth:
 
    ```bash
-   git fetch origin main
-   BASE="$(git rev-parse origin/main)"
+   FOLDED="$(git branch --show-current)"
+   NAME="$(git ls-remote --symref origin HEAD | sed -n 's#^ref: refs/heads/\(.*\)\tHEAD$#\1#p')"
+   git fetch origin "${NAME}:refs/remotes/origin/${NAME}"
+   git remote set-head origin --auto
+   DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
+   BASE="$(git rev-parse "$DEFAULT")"
    git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
    git push -u origin HEAD
    ```
@@ -129,10 +156,45 @@ resides on the coordination branch).
    Never mint by transcription (the sha6 suffix is deliberate
    collision policy and the tool is its single source; F-161 records
    the break a hand-carried form caused). The cut is tree-preserving —
-   dirty files carry across — and the primary now resides there. GitHub
-   auto-deleting the merged head branch is expected, not loss. If main
-   moves again during or just after the ceremony (a lane PR merging
-   mid-rotation), merge `origin/main` in and rebuild promptly: until
+   dirty files carry across — and the primary now resides there.
+   The folded branch (`$FOLDED`, read before the switch) is deleted at the
+   cut once its local tip and its remote tip each read merged. The fetch
+   above reads only the default branch, so probe the folded branch on the
+   remote first, and fetch its tip into its tracking ref immediately before
+   the proof and the delete:
+
+   ```bash
+   if git ls-remote --exit-code origin "refs/heads/$FOLDED" > /dev/null; then
+     PROBE=0
+   else
+     PROBE=$?
+   fi
+   if [ "$PROBE" -eq 0 ]; then
+     git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED" &&
+       git merge-base --is-ancestor "$FOLDED" "$BASE" &&
+       git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   elif [ "$PROBE" -eq 2 ]; then
+     git fetch --prune origin && git merge-base --is-ancestor "$FOLDED" "$BASE"
+   else
+     echo "STOP: the remote read failed ($PROBE)" >&2
+     false
+   fi
+   ```
+
+   The probe exits 0 when the branch is on the remote, 2 when it is gone,
+   and anything else on a failed read; the `if` captures that status, so a
+   shell with errexit set still reaches the absent path. The block exits 0
+   only when the proof holds, and any other status stops the cut. A branch gone
+   from the remote counts as deleted: its stale tracking ref is pruned, and
+   only the local proof runs. Then delete it locally by plain branch
+   deletion, and, when the probe found it, remotely by the bot's API delete
+   (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
+   `git push --delete` runs the full pre-push gate), each read back
+   absent. A tip that reads unmerged holds commits made after the merge:
+   surface it, never delete it. GitHub's auto-delete of a merged head is
+   not relied on: both folded heads of 2026-09-27 survived their merges
+   (`worktree-hygiene` §3). If the default branch moves again during or just after the ceremony (a
+   lane PR merging mid-rotation), merge `origin/<default>` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
    pre-merge contract, and a rule, hook or plan landed on the default branch
    reaches seats in the primary only after the fold re-cuts the coordination
@@ -149,7 +211,11 @@ resides on the coordination branch).
     record — the pickup path for any checkout, since the machine-local
     record is finer grain a successor elsewhere cannot read (a reviewer
     found the pickup map unreachable when the journal had stopped two days
-    earlier, 2026-09-08); broadcast the rotation on the canonical comms
+    earlier, 2026-09-08); commit the fold entry by pathspec as the
+    successor's first records commit, push it, then open the successor's
+    draft PR under BOT identity (GitHub refuses a pull request with no
+    commits ahead of its base, so the draft cannot open at the cut,
+    2026-09-27); broadcast the rotation on the canonical comms
     stream so every seat re-homes. A fold entry is a few lines of state (the
     merge sha, the successor's name, the gravity line), never a narrative of
     the fold: every sentence written here is a claim the next fold's reviewers
@@ -162,7 +228,8 @@ resides on the coordination branch).
 
 11. The ceremony doubles as the durability wrap at a NON-terminal
     boundary: finish with a loss scan — `git status` clean, no unpushed
-    refs, napkin and seated block current — with monitors up and the
+    refs, the successor's draft PR open, napkin and seated block current —
+    with monitors up and the
     seat live. A terminal boundary (seat or session ending) is
     [`wrap`](../wrap/SKILL-CANONICAL.md)'s moment instead, which this
     skill never substitutes for.

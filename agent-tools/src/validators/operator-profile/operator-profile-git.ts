@@ -18,7 +18,7 @@ import { spawnSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../../core/trusted-git.js';
-import { type SyncStateInput } from './operator-profile-sync-state.js';
+import { PUSH_COMMAND, type SyncStateInput } from './operator-profile-sync-state.js';
 
 interface GitOutcome {
   readonly ok: boolean;
@@ -29,11 +29,22 @@ interface GitOutcome {
 /** Runs one git command against the profile root and reports its outcome. */
 export type GitRunner = (args: readonly string[]) => GitOutcome;
 
-/** The real runner: the trusted git binary, `-C <root>`, never a shell. */
+/**
+ * The real runner: the trusted git binary, `-C <root>`, never a shell.
+ *
+ * Every call runs with `core.symlinks=false`, so a symbolic link a pull
+ * delivers is checked out as a plain file holding the link's text, never
+ * as a link: the Practice's own git never writes a link into the profile
+ * tree. At an entry the layout does not expect, the check refuses that
+ * file by name; at an expected path it reads as the document its text
+ * makes it, and the push leg refuses any path the index still records as
+ * a link. Every call carries it, so the status and push legs read the tree
+ * the way the pull wrote it.
+ */
 export function createGitRunner(root: string): GitRunner {
   const git = resolveTrustedGit();
   return (args) => {
-    const result = spawnSync(git, ['-C', root, ...args], {
+    const result = spawnSync(git, ['-c', 'core.symlinks=false', '-C', root, ...args], {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -138,7 +149,7 @@ function mergeUpstream(run: GitRunner): Result<string, string> {
   const files =
     conflicted.stdout.trim() === '' ? 'unknown files' : conflicted.stdout.replaceAll('\n', ', ');
   return err(
-    `merge conflict in ${files} — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push`,
+    `merge conflict in ${files} — resolve by union (both sides kept in time order, the later updated date wins), then ${PUSH_COMMAND}`,
   );
 }
 

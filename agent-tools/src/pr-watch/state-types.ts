@@ -1,7 +1,9 @@
 import type { CompletionCommentReading } from './completion-comments.js';
+import type { BindingHead } from './content-binding.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
 import type { HarvestedReview } from './reviewer-legs.js';
+import type { RoundRequest } from './round-requests.js';
 
 /**
  * Shared types and the closed verdict set for `agent-tools pr state` — the
@@ -47,7 +49,7 @@ export type ReviewRunsLeg =
   | { readonly kind: 'unavailable'; readonly reason: string };
 
 /** The compound reading the verdict resolves — one struct, every leg present. */
-export interface PrStateReading {
+export interface PrStateReading extends BindingHead {
   readonly number: number;
   /** The PR's html URL — the repository-scoped identity runs are matched against. */
   readonly url: string;
@@ -60,6 +62,8 @@ export interface PrStateReading {
   /** `CLEAN` | `BLOCKED` | `BEHIND` | `DIRTY` | `UNSTABLE` | … */
   readonly mergeStateStatus: string;
   readonly headRefOid: string;
+  /** The branch the pull request merges into: the base each commit's content is read against. */
+  readonly baseRefName: string;
   readonly checks: ChecksSummary;
   readonly namedChecks: readonly NamedCheck[];
   /** Max completedAt across green checks; null while checks are not yet green. */
@@ -68,6 +72,13 @@ export interface PrStateReading {
   readonly autoMergeArmed: boolean;
   /** Logins with an outstanding review request. */
   readonly reviewRequests: readonly string[];
+  /**
+   * Every round asked of a reviewer, and when: the review-request and
+   * ready-for-review events and the `@codex review` comments
+   * (`round-requests.ts`). A review bound by content waits for a round asked
+   * after it.
+   */
+  readonly roundRequests: readonly RoundRequest[];
   /**
    * The DECLARED expected reviewer set (SKILL item 3: sourced from the
    * repository's automatic-review configuration, declared by the operator —

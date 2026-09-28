@@ -31,7 +31,10 @@ export interface SyncAssessment {
   readonly info: readonly string[];
 }
 
-const PUSH_CURE = 'cure: pnpm profile:sync push --message "<seat>: <the fact>"';
+/** The push as an operator runs it: `push` takes a message, so every cure that prescribes it names one. */
+export const PUSH_COMMAND = 'pnpm profile:sync push --message "<seat>: <the fact>"';
+
+const PUSH_CURE = `cure: ${PUSH_COMMAND}`;
 const FURNITURE_CURE =
   'cure: commit or ignore them in the profile repository yourself (profile:sync push stages only index.md, repos and machines)';
 

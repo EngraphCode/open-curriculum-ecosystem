@@ -90,7 +90,16 @@ stamp the lifetime) and at session-open (to check it).
    windows so the gap stays small. Uncommitted state on the shared
    primary is absent from the branch every other seat reads, invisible to
    peers, and blocks other seats' operations on that tree (a merge or a
-   branch switch refuses over it). And the coordination branch IS the primary
+   branch switch refuses over it). An uncommitted file on the shared primary
+   is also in every seat's push gate, since the pre-push gate's checks read
+   the working tree: each writer checks a file it writes there as the write
+   lands, with the formatter and markdownlint by name, keeps its links
+   resolving and its paths repository-relative where the gate validates
+   them, and cures its own failure at once
+   (2026-09-27: a peer's unlinted append to a thread record failed a fold's
+   push on MD032).
+   The fold's pre-push check (`coordination-fold` precondition 2) is this
+   clause at the fold. And the coordination branch IS the primary
    checkout's own branch, always — never a snapshot worktree (owner,
    2026-08-06, verbatim: "the coordination branch shouldn't be a
    worktree, it should be the branch in the primary checkout, always").

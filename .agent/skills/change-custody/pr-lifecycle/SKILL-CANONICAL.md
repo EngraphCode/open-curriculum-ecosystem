@@ -253,9 +253,10 @@ use, you should have added your work to 66 in the first place").
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
 selective (important-or-risky only). Cadence is at-open plus
 substance-triggered (a reshaped diff), never per intermediate cure push;
-on a code pull request the tip that goes to the front door carries the
-request (under the held-cure shape that is the slot's one sync push, so
-the cadence and the tip-bound gate meet at the same push). Copilot's
+on a code pull request the last push that changes the pull request's own
+diff carries the request (under the held-cure shape that is the slot's one
+sync push, so the cadence and the tip-bound gate meet at the same push); a
+pure sync requests nothing (§merge boundary item 5). Copilot's
 absence never blocks a merge on a docs-only bot-authored pull request (the
 owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
 request the configured Copilot leg is OWED until it binds the tip, and the
@@ -1046,7 +1047,25 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    can hide this when overlapping review jobs complete out of order — an
    older-tip review landing after a current-tip one makes the author's
    "latest" point backwards, leaving the leg falsely OWED and untouchable
-   by the timeout). An EMPTY body satisfies nothing: replying to a review
+   by the timeout). A review BINDS the tip exactly (it names the tip
+   commit) or by content: the commit it names carries the same patch as the
+   tip against its merge base with the base branch as read now (`git
+   patch-id --verbatim` of each commit's diff from GitHub's compare
+   endpoint). A PURE SYNC is a merge of the base that leaves that patch
+   unchanged; a clean merge is not always pure, since a base change inside
+   a hunk's context lines changes the patch. `pr state` names the inference
+   in the leg's evidence, and a commit whose content it cannot read binds
+   exactly or not at all. A review bound only by content does not stand in
+   for a round requested of its reviewer at or after it: a pending request,
+   a review-request or ready-for-review event, or an `@codex review`
+   comment (GitHub's pending requests never list a bot, so `pr state` reads
+   the rounds from the pull request's history). The leg waits for that
+   round. The door does not wait for an unrequested run, such as Codex's
+   own review of a push: a result it lands after the merge is a post-merge
+   finding, fixed forward. The limit is a decision: a base change outside
+   the patch that alters what the pull request's code does still binds,
+   and the synced head's checks cover it
+   (`agent-tools/src/pr-watch/content-binding.ts`). An EMPTY body satisfies nothing: replying to a review
    thread through the API creates a review with an empty body under the
    REPLIER's identity, so a pull request whose author dispositioned
    findings carries tip-bound empty reviews of its own (seven on #142's
@@ -1057,7 +1076,7 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    dropped silently: a predicate over a filtered set says how many items
    it filtered and why, or an empty result set reads the same as a
    satisfied one. The quiet window anchors to the LATEST LANDED review
-   matching the current tip whose body is non-empty and unsigned — a skip
+   binding the current tip (exactly or by content) whose body is non-empty and unsigned — a skip
    marker still anchors it, because a vendor posting one is reviewer
    activity — never to the author's globally latest review and never to an
    empty-bodied one; the window is a proxy for "a reviewer may still be
@@ -1079,7 +1098,8 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    expected reviewer, it is unedited or last edited by its author (the
    author's rewrite is its report; an edit by any other account is not), and
    the commit prefix it names resolves to exactly one commit of the pull
-   request, that commit being the current tip; the evidence names the
+   request, that commit binding the current tip (exactly or by content,
+   above); the evidence names the
    transport. An expected reviewer's comment that fails a
    precondition, on a leg the tip does not otherwise satisfy, is never read
    as no comment: the verdict is `UNCLASSIFIED-EVIDENCE`, naming the
@@ -1162,7 +1182,8 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    THE SHA IT REVIEWED exactly as the vendor leg is bound per tip: the
    posted review names the head it read; the landing premises record that
    sha and every push since; and those pushes may carry only cures of the
-   posted findings, the tip sync and landing-defect cures (a red required
+   posted findings, the tip sync (a pure one; a sync that changes the pull
+   request's own diff is other content) and landing-defect cures (a red required
    check) — a push carrying any other content needs a fresh leg on the new
    head (#117 and #113 landed that way on 2026-09-10, each with a posted
    Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
@@ -1215,7 +1236,13 @@ create` on such a branch exits non-zero with "a pull request for branch …
    #330)
    (round-3 correction, 2026-07-16: without the skip clause a timed-out
    reviewer stays bound to an older commit and the settled state is
-   unreachable). **The quiet window is a PROXY for review-run-boundary
+   unreachable). After a pure sync, a leg SATISFIED before it stays
+   SATISFIED by content, and its review, which predates the synced tip,
+   anchors the window: the synced tip settles at its first green once that
+   window has run, by intent. A pure sync opens no round: the tally (item
+   2), the round budget and both step-back arms bucket a review by the
+   commit it names, never by content binding, so its findings count once,
+   in their own round. **The quiet window is a PROXY for review-run-boundary
    visibility, which agents lack; the owner sees run start/finish directly,
    so an owner settled-word — or an owner-executed merge — issued from that
    direct visibility supersedes the proxy and is never read as a process
@@ -1255,8 +1282,12 @@ repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    `review_requested Copilot` within seconds (first-hand on #108, #109,
    #110, #114); verify on the timeline, since the requested-reviewers
    list never shows it, and never through the draft/ready toggle, which
-   fires nothing on a pull request already undrafted once. A synced tip
-   gets its Copilot leg by that one call as the bot, and a CODE pull
+   fires nothing on a pull request already undrafted once. After a sync
+   push, read `pr state` on the synced tip: a leg it reads SATISFIED,
+   exactly or by content (state machine item 3), needs nothing; a leg it
+   reads OWED (the sync changed the pull request's own diff, or its content
+   could not be read) is requested on that tip, Copilot by that one call as
+   the bot. A CODE pull
    request lands only through the front door with every AVAILABLE
    configured leg bound plus the posted subagent review where a vendor
    is unavailable (item 3's owner ruling of 2026-09-10), never by the
@@ -1430,16 +1461,19 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   Hold thread replies until the push lands, so no external record ever
   cites a superseded commit — the held-replies discipline saved both
   rounds.
-- **Silent-wait sweep after every push (PDR-132)**: verify the expected
-  reviewer is REQUESTED on the new tip — a push does not re-request (the
+- **Silent-wait sweep after every push (PDR-132)**: read each expected
+  reviewer's leg on the new tip. A leg `pr state` reads SATISFIED, exactly
+  or by content after a pure sync (state machine item 3), needs no request;
+  an OWED leg must be REQUESTED on the new tip — a push does not re-request (the
   bot requests Copilot on the new tip with the reviewers endpoint, item 5
   of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
   looking healthy (two live instances, 2026-07-20). The request is
   CONDITIONAL on the tip the front door will verdict: Copilot reviews
   the first push and any tip it is requested on, so request it only
-  when that tip lacks Copilot's review — a request on an intermediate
-  head that a held cure or a sync will supersede is spent for nothing
+  when that tip's Copilot leg reads OWED — a request on an intermediate
+  head that a held cure, or a sync that changes the pull request's own
+  diff, will supersede is spent for nothing
   (first-hand 2026-09-10 on #108, #114 and #116). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
   The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
@@ -1703,8 +1737,10 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   2026-09-08).
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
-  push again, and every push opens a fresh review round (ADR-204 makes the
-  re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
+  push again, and every push re-runs the checks; a sync that changes the
+  pull request's own diff also opens a fresh review round, while a pure sync
+  keeps its reviews bound by content (state machine item 3; ADR-204 makes
+  the re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
   merge concurrency between settled-READY PRs is free where the ruleset does
   not require currency — and names the strict-currency ruleset policy as an
   owner-owned cost driver (its decision 5); this clause is that policy's cost
@@ -1730,13 +1766,15 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   approves, so the door's refusal on that is the system working, never a
   blocker to route around (2026-08-19). A holder that has synced and is
   waiting for a per-tip reviewer leg to bind is NOT an empty slot: nothing else
-  lands meanwhile, because every landing knocks the holder BEHIND and voids the
-  leg bound to its head, a livelock. A PR takes the slot when its legs are
+  lands meanwhile, because every landing knocks the holder BEHIND, and a
+  re-sync that changes its own diff voids the leg bound to its head, a
+  livelock. A PR takes the slot when its legs are
   green and its remaining conditions need no push: its unresolved threads are
   zero or settled by signed lines. "Clean" in a slot ruling means green legs
   and zero unresolved threads, never GitHub's `mergeStateStatus`. A turn opens
   and closes on the coordination stream: "slot taken" with the PR's number,
-  one sync push, the legs bound to the synced head, the merge-bot front door,
+  one sync push, the legs bound to the synced head (requested only as
+  §merge boundary item 5 says), the merge-bot front door,
   "slot released", then the remote branch deleted as the bot with read-back;
   the seat then yields to the next ready PR. A holder leaves the slot in one
   of three ways: it lands and releases; it cannot land without a cure push (a
@@ -1751,7 +1789,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   A coordination fold takes the slot at its time. Any auto-sync babysitter — a watcher running
   `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
   slot-holder only; a waiting PR is never auto-synced, because each sync is
-  a push and each push is a review round. Worked instance (2026-09-06): one
+  a push and a sync that changes the pull request's own diff is a review
+  round. Worked instance (2026-09-06): one
   PR was knocked BEHIND twice in one evening by other seats' merges, and its
   round five came from a sync push, not a cure.
 - **The work-in-progress limit** (owner, 2026-09-26 and 2026-09-27; the
@@ -1767,8 +1806,9 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   The goal is "aiming for zero while useful value is still created and
   merged", because "a static zero means no useful work is happening". The
   operating steps:
-  - No PR other than a repository's one coordination PR opens while the count
-    is at the limit or over it. The reservation comes first: the opener posts
+  - No PR that starts new work opens while the count is at the limit or over
+    it, other than a repository's one coordination PR. The reservation comes
+    first: the opener posts
     "WIP slot reserved: <owner>/<name> <branch>" on its repository's
     coordination stream, then reads the count first-hand from the forge for
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
@@ -1785,8 +1825,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     seat that stops mid-opening holds no slot for long; a seat still gating
     at thirty minutes posts a fresh reservation and reads the count again. A
     coordination PR takes no reservation.
-  - A branch's first push is followed at once by its PR, never left
-    standing: a pushed branch with no PR is unfinished work outside review.
+  - A branch's first push that carries a commit is followed at once by its
+    PR, never left standing: a pushed branch with no PR is unfinished work
+    outside review. A wanted branch found with no PR is an arrival of the
+    external-PR class: its draft PR opens at once at the assessment, it
+    counts toward the limit as an external PR does, and the Director routes
+    it into the slot order to a named seat ahead of any new opening; the
+    opening is posted on the stream like any other.
   - The Director routes each external PR into the slot order to a named seat.
     A green dependency bump lands at its size turn; a red one is assessed,
     then cured, or closed with a card to the owner.
@@ -1820,9 +1865,10 @@ follow-up branches, never to merged ones.
 
 **Merge auto-delete overrides recorded dispositions** (worked instance: a
 merge auto-deleted a remote coordination branch despite a "branch lives on"
-disposition, leaving the primary tracking a deleted ref). If a branch must
-survive its PR's merge, re-push it immediately after — the disposition text
-does not bind GitHub's delete-on-merge setting.
+disposition, leaving the primary tracking a deleted ref). A branch never
+survives its PR's merge: work that continues goes on a new branch with its
+own PR (a coordination branch's successor is cut at the fold), and no
+disposition text binds GitHub's delete-on-merge setting.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still
