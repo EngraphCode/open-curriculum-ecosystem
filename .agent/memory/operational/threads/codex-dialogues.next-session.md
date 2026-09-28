@@ -114,7 +114,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   (this machine only) set on the claim. Every fact below was read first-hand at the write.
   - **PR 261, the reader, OPEN at `02c9c7562`** (41 files; level with engraph `d6c9e582e`, the head
     after PR 262's fold landed 12:06:40Z). The segment after the RESUMED block below: round one
-    (Copilot four, Codex one) cured in settlement push 1 `ea8fddc72`, its six threads resolved with
+    (Copilot five, Codex one) cured in settlement push 1 `ea8fddc72`, its six threads resolved with
     signed lines; Codex's round two clean; Copilot's round two, five observations of one class (the
     renderer printed a slice of input: the whole short-option cluster in `Hit.token`, the first
     letter of a dash-prefixed value; a turn id and a record-type key unbounded; ssh's value-taking

@@ -123,8 +123,9 @@ here.
 
 **The segment that ran under the cured process is cycle 5.** From 10:39Z to 11:07Z three commits
 moved the segmenter, cured it once at its owner and made the reader consume it; with its three
-post-execution reviews the cycle took about an hour and left the estate 408 lines lighter and one
-guard bypass narrower. The uncured segments, cycles 2 and 4, built and grew the splitter across two
+post-execution reviews the cycle took about an hour and left the estate 332 lines lighter (the
+three commits' net, +323/-655; the consuming commit alone reads +149/-557) and one guard bypass
+narrower. The uncured segments, cycles 2 and 4, built and grew the splitter across two
 review cycles (cycle 2's late nits; cycle 4's pre-execution REVISE and post-execution docs and test
 reviews), all of it superseded and deleted at 10:47Z. Had the prior-art question been asked at cycle
 1 (21:00Z on the 26th), cycle 2 would have consumed the segmenter directly, the guard's redirection
