@@ -1,3 +1,8 @@
+---
+classification: core
+description: There is no speed pressure. The doctrine substrate (commit skill, queue protocol, claims, reviewer dispatch, stage-by-pathspec, plan-body freshness) is what success looks like; ceremony is the deliverable.
+---
+
 # No Speed Pressure
 
 There is no speed pressure in this work. Cycle landings, parallel

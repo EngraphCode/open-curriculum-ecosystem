@@ -87,6 +87,13 @@ apps/oak-curriculum-mcp-streamable-http/.generated/
 .claude/skills/
 .agents/skills/
 
+# Generated rule surfaces (rendered from each rule's declaration by
+# `pnpm portability:fix` and recomputed byte for byte by `pnpm portability:check`;
+# a second formatter over them would read as drift)
+.claude/rules/
+.agents/rules/
+RULES_INDEX.md
+
 
 # Design-system import staging (untracked studio export bundle — ADR-213)
 packages/design/design-import/

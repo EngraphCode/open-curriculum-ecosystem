@@ -1,3 +1,8 @@
+---
+classification: core
+description: HARD RULE (owner, 2026-09-02). A leaf issue is delivered by exactly ONE PR, and that PR closes it with `Fixes MCP-nnn`. Many leaves may map to one PR; one leaf never maps to two. Split across repo boundaries, across the in-repo/out-of-repo boundary, and between decision and delivery. `References`/`Refs:` do not close and are legitimate only for parent or related issues, with the reason stated. Parents close when their last child does.
+---
+
 # One PR Per Leaf Issue, and the PR Closes It
 
 **HARD RULE.** Deliver a **leaf** issue — one with no children — with **exactly one**

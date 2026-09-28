@@ -1,3 +1,11 @@
+---
+classification: situational
+description: Use Result<T, E> for error handling. Never throw exceptions.
+trigger: surface:source-authoring
+globs:
+  - "**/*.{ts,tsx,mts}"
+---
+
 # Use Result Pattern
 
 Use `Result<T, E>` for error handling. Never throw exceptions. Errors are part of the type signature; the compiler ensures all cases are handled. Handle all cases explicitly.

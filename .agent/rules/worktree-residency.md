@@ -1,3 +1,8 @@
+---
+classification: core
+description: Lane agents reside in their worktree — session-level cwd residency (launch-in-worktree / EnterWorktree), never bare cd; a harness cwd-reset line is a violation signal, not noise.
+---
+
 # Worktree Residency
 
 **Owner directive (2026-07-31, verbatim substance):** when an agent is

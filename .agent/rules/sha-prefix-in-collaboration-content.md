@@ -1,3 +1,12 @@
+---
+classification: situational
+description: "Writing a git commit SHA into any collaboration surface — comms events, shared-comms-log, conversations, escalations, handoffs, claim/commit-queue notes, napkin, thread records, repo-continuity, plan bodies: prefix it exactly SHA: (optional space), e.g. Landed PDR-073: SHA:6ebaae58, so the .gitleaks.toml allowlist reads it as an audit reference; a bare word-colon-hex citation trips the gitleaks generic-api-key rule and blocks pre-push. Not for permanent docs (ADRs, PDRs, rules) — SHAs never belong there, prefixed or not, per no-moving-targets-in-permanent-docs."
+trigger: surface:collaboration-state
+globs:
+  - .agent/state/collaboration/**
+  - .agent/collaboration/**
+---
+
 # SHA-Prefix in Collaboration Content
 
 When writing a git commit SHA into ANY collaboration surface authored

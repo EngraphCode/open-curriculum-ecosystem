@@ -1,3 +1,8 @@
+---
+classification: core
+description: After non-trivial changes, invoke specialist experts.
+---
+
 # Invoke Specialist Experts
 
 Operationalises [ADR-114 (Layered Sub-agent Prompt Composition)](../../docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md) and [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).

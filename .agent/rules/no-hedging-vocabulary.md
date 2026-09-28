@@ -1,3 +1,8 @@
+---
+classification: core
+description: No hedging vocabulary on doctrine surfaces. The trip-list (carve out, exception to, cheap cure, good enough, quick fix, etc.) is blocked at write-time per PDR-044.
+---
+
 # No Hedging Vocabulary on Doctrine Surfaces
 
 Operationalises [PDR-044 §Carve-out vocabulary](../practice-core/decision-records/PDR-044-memetic-immune-system.md)

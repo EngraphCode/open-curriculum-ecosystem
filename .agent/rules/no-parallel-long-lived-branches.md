@@ -1,3 +1,8 @@
+---
+classification: core
+description: Main is the sole integration point; branches are short-lived, single-ticket, and die at merge. One sanctioned rolling coordination branch only, kept current by re-merging main.
+---
+
 # No Parallel Long-Lived Branches
 
 `main` is the sole integration point and the only place code is real. Branches

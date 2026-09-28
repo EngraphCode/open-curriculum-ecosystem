@@ -5,5 +5,3 @@ alwaysApply: false
 ---
 
 Read and follow `.agent/rules/invoke-react-component-expert.md`.
-
-In Cursor, use the Task tool with `readonly: true` and the appropriate `subagent_type`.

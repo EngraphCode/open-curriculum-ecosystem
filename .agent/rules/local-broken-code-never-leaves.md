@@ -1,3 +1,8 @@
+---
+classification: core
+description: Broken code is never acceptable. Local broken code never leaves the local environment. No git push until the change is proven to work via observed behaviour, not absence of red.
+---
+
 # Local Broken Code Never Leaves
 
 Operationalises the **Local broken code never leaves** principle in

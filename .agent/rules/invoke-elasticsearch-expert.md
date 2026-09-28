@@ -1,3 +1,13 @@
+---
+classification: situational
+description: Invoke elasticsearch-expert when changes touch Elasticsearch mappings, queries, analysers, synonyms, ELSER, RRF, reranking, ingest, or Elastic Serverless capabilities.
+trigger: surface:elasticsearch — Elasticsearch mapping / analyser / query / retriever / ELSER / RRF change
+globs:
+  - apps/oak-search-cli/**
+  - packages/sdks/oak-search-sdk/**
+  - packages/libs/search-contracts/**
+---
+
 # Invoke Elasticsearch Expert
 
 Operationalises [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md) and [ADR-074 (Elastic-Native-First Philosophy)](../../docs/architecture/architectural-decisions/074-elastic-native-first-philosophy.md).

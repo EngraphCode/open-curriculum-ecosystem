@@ -8,11 +8,12 @@
  *
  * ```sh
  * pnpm portability:check
- * pnpm portability:check --fix   # auto-write missing wrapper files
+ * pnpm portability:fix   # regenerate the rule projections: write missing and
+ *                        # drifted ones, remove stale ones
  * ```
  *
  * Exit code 0 means all checks pass; exit code 1 means at least one issue was
- * found (or `--fix` was not used to resolve missing wrappers).
+ * found (or `--fix` was not used to regenerate the projections).
  */
 
 import path from 'node:path';
@@ -24,7 +25,7 @@ import {
   collectCanonicalSkillPaths,
   getClaudeHookPortabilityIssues,
   getReviewerAdapterParityIssues,
-  getRulesIndexPortabilityIssues,
+  rulesIndexBudgetIssues,
   CLAUDE_SETTINGS_PATH,
   HOOK_POLICY_PATH,
   RULES_INDEX_PATH,
@@ -39,15 +40,19 @@ import {
   readJson,
   readOptionalText,
   readText,
-  stripFrontmatter,
-  writeText,
 } from './portability-fs.js';
 import { practiceSkillPermissionIssues } from './skill-census.js';
 import { reportPortabilityValidation } from './portability-report.js';
+import { validateRuleProjections } from './rule-projection-validation.js';
+import { realRuleProjectionFs } from './rule-projection-fs.js';
+import { readEntry } from './rule-surface-fs.js';
 
-const repoRoot = resolveRepoRoot(import.meta.url);
+// projectDir is explicitly disabled: this validator reads and, under `--fix`,
+// writes the tree it runs inside. The CLAUDE_PROJECT_DIR leg would rebind a
+// worktree invocation to the primary checkout and regenerate the wrong estate.
+const repoRoot = resolveRepoRoot(import.meta.url, { projectDir: undefined });
 const fixMode = process.argv.includes('--fix');
-const writtenWrappers: string[] = [];
+const writtenPaths: string[] = [];
 const issues: string[] = [];
 
 const { canonicalPaths: discoveredCanonicalPaths } = await collectCanonicalSkillPaths({
@@ -84,18 +89,6 @@ for (const skillPath of discoveredCanonicalPaths) {
   await validateCanonicalFrontmatter(skillPath);
 }
 
-const CANONICAL_RULE_OR_SKILL_PATTERN = /\.agent\/rules\/|\.agent\/skills\//;
-const cursorRules = await listFiles(repoRoot, '.cursor/rules', '.mdc');
-const claudeRules = await listFiles(repoRoot, '.claude/rules', '.md');
-const agentsRules = await listFiles(repoRoot, '.agents/rules', '.md');
-for (const ruleFile of [...cursorRules, ...claudeRules, ...agentsRules]) {
-  if (!CANONICAL_RULE_OR_SKILL_PATTERN.test(await readText(repoRoot, ruleFile))) {
-    issues.push(
-      `${ruleFile}: trigger does not reference a canonical rule (.agent/rules/) or skill (.agent/skills/)`,
-    );
-  }
-}
-
 const cursorAgentFiles = await listFiles(repoRoot, '.cursor/agents', '.md');
 const claudeAgentFiles = await listFiles(repoRoot, '.claude/agents', '.md');
 const codexAgentFiles = await listFiles(repoRoot, '.codex/agents', '.toml');
@@ -114,50 +107,18 @@ for (const issue of getReviewerAdapterParityIssues({
   issues.push(issue);
 }
 
-const canonicalRules = await listFiles(repoRoot, '.agent/rules', '.md');
-const wrapperBody = (ruleName: string) => `Read and follow \`.agent/rules/${ruleName}.md\`.\n`;
-for (const ruleFile of canonicalRules) {
-  const ruleName = path.basename(ruleFile, '.md');
-  const claudeWrapperPath = `.claude/rules/${ruleName}.md`;
-  const agentsWrapperPath = `.agents/rules/${ruleName}.md`;
-  if (!(await exists(repoRoot, claudeWrapperPath))) {
-    if (fixMode) {
-      await writeText(repoRoot, claudeWrapperPath, wrapperBody(ruleName), writtenWrappers);
-    } else {
-      issues.push(`.agent/rules/${ruleName}.md: missing .claude/rules/${ruleName}.md wrapper`);
-    }
-  }
-  if (!(await exists(repoRoot, `.cursor/rules/${ruleName}.mdc`))) {
-    issues.push(`.agent/rules/${ruleName}.md: missing .cursor/rules/${ruleName}.mdc trigger`);
-  }
-  if (!(await exists(repoRoot, agentsWrapperPath))) {
-    if (fixMode) {
-      await writeText(repoRoot, agentsWrapperPath, wrapperBody(ruleName), writtenWrappers);
-    } else {
-      issues.push(`.agent/rules/${ruleName}.md: missing .agents/rules/${ruleName}.md wrapper`);
-    }
-  }
-}
+// The rule projections — RULES_INDEX.md and the Cursor, Claude and `.agents` rule
+// adapters — are rendered from each rule's frontmatter declaration and compared byte
+// for byte; `--fix` regenerates them. Nothing on those surfaces is hand-kept.
+const projectionFs = realRuleProjectionFs(repoRoot);
+const ruleProjections = await validateRuleProjections(fixMode, projectionFs);
+issues.push(...ruleProjections.issues);
+writtenPaths.push(...ruleProjections.written);
 
-for (const ruleFile of [...cursorRules, ...claudeRules, ...agentsRules]) {
-  const contentLines = stripFrontmatter(await readText(repoRoot, ruleFile))
-    .split(/\r?\n/u)
-    .filter((l) => l.trim() !== '').length;
-  if (contentLines > 10) {
-    issues.push(
-      `${ruleFile}: ${contentLines} content lines exceeds Trigger Content Contract maximum of 10`,
-    );
-  }
-}
-
-const rulesIndexState = await readOptionalText(repoRoot, RULES_INDEX_PATH);
-for (const issue of getRulesIndexPortabilityIssues({
-  canonicalRuleFiles: canonicalRules,
-  rulesIndexContent: rulesIndexState.value ?? '',
-  rulesIndexExists: rulesIndexState.isPresent,
-})) {
-  issues.push(issue);
-}
+// The index's presence and rows are the projection leg's; the Codex byte budget is the
+// one check the rendered bytes cannot answer for themselves, read through the same
+// no-follow reader the leg uses, so a link the leg refused is never read here.
+issues.push(...rulesIndexBudgetIssues(await readEntry(repoRoot, RULES_INDEX_PATH)));
 
 if (await exists(repoRoot, HOOK_POLICY_PATH)) {
   try {
@@ -195,13 +156,21 @@ if (await exists(repoRoot, CLAUDE_SETTINGS_PATH)) {
   }
 }
 
-const stats = `${validatedCanonicalPaths.length} canonical skills, ${canonicalRules.length} canonical rules, ${canonicalAgentNames.length} reviewer adapters, ${cursorRules.length} Cursor triggers, ${claudeRules.length} Claude rules, ${agentsRules.length} .agents rules`;
+const ruleStats =
+  ruleProjections.issues.length === 0
+    ? `${ruleProjections.canonicalRuleCount} canonical rules with their index and three adapter projections recomputed`
+    : `${ruleProjections.canonicalRuleCount} canonical rules (projection leg refused)`;
+const removedStats =
+  ruleProjections.removed.length > 0
+    ? `, ${ruleProjections.removed.length} stale files removed from the generated surfaces`
+    : '';
+const stats = `${validatedCanonicalPaths.length} canonical skills, ${ruleStats}, ${canonicalAgentNames.length} reviewer adapters${removedStats}`;
 
 export { reportPortabilityValidation } from './portability-report.js';
 
 const currentFilePath = fileURLToPath(import.meta.url);
 if (process.argv[1] === currentFilePath) {
-  const exitCode = reportPortabilityValidation(stats, writtenWrappers, issues);
+  const exitCode = reportPortabilityValidation(stats, writtenPaths, issues);
   if (exitCode !== 0) {
     process.exit(exitCode);
   }

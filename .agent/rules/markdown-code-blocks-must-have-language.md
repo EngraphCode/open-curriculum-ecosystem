@@ -1,3 +1,11 @@
+---
+classification: situational
+description: 'Every fenced code block in repo-authored Markdown (.md, .mdc, rules, skills, plans, ADRs) declares a language on the opening fence — the real language, or text for output, diagrams, pseudocode. Apply when authoring or editing Markdown and before any autofix run; MD040 is gated by pnpm markdownlint-check:root, so the live obligation is the fixer guard: when MD004 fires on a prose line, reword the line — never blind-run markdownlint --fix over prose, where a line-wrapped + meaning "and" is silently rewritten to -, corrupting the sentence. Not for third-party Markdown outside the lint scope.'
+trigger: surface:markdown-authoring
+globs:
+  - "**/*.{md,mdc,mdx}"
+---
+
 # Markdown Code Blocks Must Have Language
 
 Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md),

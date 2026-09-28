@@ -1,3 +1,8 @@
+---
+classification: core
+description: Unattended seats never prompt — the tracked settings carry no ask rules (asks become denies, which route to the Director); one plain command per Bash call; no git outside the estate's registered worktrees; never rm -rf. The Director's deadline-and-default is the other half of the cure.
+---
+
 # Unattended Seats Never Prompt
 
 Operationalises ADR-210's PDR-044 trip-list contract (the Bash guard's

@@ -119,6 +119,7 @@
     "validate-mcp-content-workspace": "cd .. && pnpm exec tsx agent-tools/src/mcp-content-workspace/build-content-workspace.ts --check",
     "validate-portability": "cd .. && pnpm exec tsx agent-tools/src/validators/portability/validate-portability.ts",
     "validate-portability:fix": "cd .. && pnpm exec tsx agent-tools/src/validators/portability/validate-portability.ts --fix",
+    "rule-frontmatter-sweep": "cd .. && pnpm exec tsx agent-tools/src/rule-declarations/rule-frontmatter-sweep.ts",
     "validate-practice-fitness": "cd .. && pnpm exec tsx agent-tools/src/practice-fitness/validate-practice-fitness.ts",
     "validate-subagents": "cd .. && pnpm exec tsx agent-tools/src/validators/subagents/validate-subagents.ts",
     "ci-schema-drift-check": "cd .. && pnpm exec tsx agent-tools/src/ci/ci-schema-drift-check.ts",

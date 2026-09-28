@@ -1,3 +1,8 @@
+---
+classification: core
+description: Any fleet or workflow fan-out, whatever its size — the ahead-of-time cost estimate from a pilot leg per phase, the hand yield sample, the tier per phase and the enforced budget fire before every launch; a potentially expensive fleet (over the default workflow size guideline or ~500k estimated tokens) also has its design reviewed by a smaller adversarial fleet before the owner prices it, and the review's verdicts travel with the plan to the ratification ask.
+---
+
 # Fleet design review before expensive fleets
 
 Owner-directed standing practice (2026-08-11): any potentially expensive
