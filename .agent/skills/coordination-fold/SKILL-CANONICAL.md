@@ -34,40 +34,47 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
-   Immediately before each push from the primary (steps 5, 9 and 10), run
-   the gate's two tracked-files checks,
-   `pnpm format-check:root && pnpm markdownlint-check:root`: the pre-push
-   gate runs both over the working tree, so an uncommitted edit to a
-   tracked file fails the push, whoever made it (2026-09-27: a peer's
-   unlinted append to a thread record failed a fold's push on MD032). A
+   Immediately before each push from the primary (steps 5, 9 and 10),
+   check by name each tracked file dirty at that moment
+   (`git diff --name-only --diff-filter=d HEAD`), with
+   `pnpm exec prettier --check --ignore-unknown -- <files>` and
+   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`: the
+   pre-push gate's tracked-files checks read the working tree, so an
+   uncommitted edit to a tracked file fails the push, whoever made it
+   (2026-09-27: a peer's unlinted append to a thread record failed a
+   fold's push on MD032). This checks named files, as the pre-commit hook
+   does; it is not a gate run. A
    failing file that is a live peer's in-flight edit, class (b), routes to
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
    cured and folded with its authorship named.
-3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
-   memory surfaces, the class
-   [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
-   clause 4 names. At the DUE check, read the commits since the cut: a work product with its
-   own review contract (a report, a source change, a plan under active edit) belongs on its
-   own lane, and the Director routes a seat there at claim time. One found already on the
-   branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
-   PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
-   and carries the intake (a served document: records-class, verification point merge); a
-   source change is code-class and stays on the review-round state machine, no intake. It
-   expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
-   committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
-   took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
-   rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
-   large, the lifetime rule forced the next before the consolidation's own work could start,
-   and the last fold's whole content was records about the fold before it (twenty-three
-   findings, all true). A consolidation's doctrine edits are a work product with their own
-   review contract.
+**The branch carries shared coordination-home state only** — fleet state, doctrine and
+memory surfaces, the class
+[`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
+clause 4 names. At the DUE check, read the commits since the cut: a work product with its
+own review contract (a report, a source change, a plan under active edit) belongs on its
+own lane, and the Director routes a seat there at claim time. One found already on the
+branch is never re-cut out of history; the fold PR names it in §Scope and declares the class
+PDR-140 §Decision gives it: a served document or a plan under active edit is prose-class
+and carries the intake (a served document: records-class, verification point merge); a
+source change is code-class and stays on the review-round state machine, no intake. It
+expects the rounds it brings. Worked instance, 2026-09-12: a 470-line exploration report
+committed to the coordination branch drew thirty of the fold's thirty-eight findings, and the fold
+took a day. Second instance, 2026-09-16 to 2026-09-19: a dedicated consolidation's doctrine
+rode the coordination branch through four folds (#150, #152, #153, #155). Each fold was
+large, the lifetime rule forced the next before the consolidation's own work could start,
+and the last fold's whole content was records about the fold before it (twenty-three
+findings, all true). A consolidation's doctrine edits are a work product with their own
+review contract.
 
 ## Ceremony
 
 3. Commit by explicit pathspec (`stage-by-explicit-pathspec`);
    lowercase-start subjects (commitlint).
-4. `git fetch origin main`, then merge `origin/main` INTO the branch.
+4. `git fetch origin <default>`, then merge `origin/<default>` INTO the
+   branch, where `<default>` is the repository's default branch
+   (`git symbolic-ref --short refs/remotes/origin/HEAD` prints
+   `origin/<default>`).
    Resolve the ref to a full sha in the same shell call as the merge, merge
    that sha, and write the merge message AFTER resolving, from
    `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
@@ -76,7 +83,7 @@ resides on the coordination branch).
    one merge message named #157 while the merge also carried #158).
    Probe the merge for silent stale-capture reverts (a clean merge can
    still revert an approved newer version — marker-probe suspicious
-   files against main) before pushing.
+   files against the default branch) before pushing.
    The napkin resolves as a union of both sides' blocks in time order — unless
    the target branch's napkin was ROTATED since the snapshot, in which case keep
    the rotated file and run the semantic-merge skill's archive-coverage check
@@ -125,15 +132,16 @@ resides on the coordination branch).
    `merge_method=merge`, never squash.
 9. Cut the successor coordination branch per
    [`cut-coordination-branch`](../cut-coordination-branch/SKILL-CANONICAL.md):
-   resolve post-fold `origin/main` ONCE and pass the same full sha to
+   resolve post-fold `origin/<default>` ONCE and pass the same full sha to
    both the mint and the cut — two separate resolutions race a
    concurrent fetch, so the name records one tip while the branch
    starts at another and the lineage the name carries is false from
    birth:
 
    ```bash
-   git fetch origin main
-   BASE="$(git rev-parse origin/main)"
+   DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
+   git fetch origin "${DEFAULT#origin/}"
+   BASE="$(git rev-parse "$DEFAULT")"
    git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
    git push -u origin HEAD
    ```
@@ -142,17 +150,26 @@ resides on the coordination branch).
    collision policy and the tool is its single source; F-161 records
    the break a hand-carried form caused). The cut is tree-preserving —
    dirty files carry across — and the primary now resides there.
-   The folded branch is deleted at the cut once its local tip and its
-   freshly fetched remote tip each read merged
-   (`git merge-base --is-ancestor <tip> "$BASE"`): locally by plain branch
-   deletion, and remotely by the bot's API delete
+   The folded branch (`$FOLDED`) is deleted at the cut once its local tip
+   and its remote tip each read merged. The fetch above reads only the
+   default branch, so fetch the folded branch's remote tip into its
+   tracking ref immediately before the proof and the delete:
+
+   ```bash
+   git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED"
+   git merge-base --is-ancestor "$FOLDED" "$BASE" &&
+     git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   ```
+
+   Then delete it locally by plain branch deletion, and remotely by the
+   bot's API delete
    (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
    `git push --delete` runs the full pre-push gate), each read back
    absent. A tip that reads unmerged holds commits made after the merge:
    surface it, never delete it. GitHub's auto-delete of a merged head is
    not relied on: both folded heads of 2026-09-27 survived their merges
-   (`worktree-hygiene` §3). If main moves again during or just after the ceremony (a
-   lane PR merging mid-rotation), merge `origin/main` in and rebuild promptly: until
+   (`worktree-hygiene` §3). If the default branch moves again during or just after the ceremony (a
+   lane PR merging mid-rotation), merge `origin/<default>` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
    pre-merge contract, and a rule, hook or plan landed on the default branch
    reaches seats in the primary only after the fold re-cuts the coordination
