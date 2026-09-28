@@ -5,7 +5,7 @@ import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.
 /**
  * The conversation legs of `pr state`, each the slurped pages of a paginated
  * GraphQL harvest: the top-level comments (the surface a reviewer's
- * completion comment lands on) with their edit timestamp, and the pull
+ * completion comment lands on) with their last edit, and the pull
  * request's commits. Shapes follow the reads on pull request 168
  * (2026-09-20; that pull request's description records them).
  */
@@ -18,6 +18,7 @@ interface CommentNode {
   readonly body: string;
   readonly createdAt: string;
   readonly lastEditedAt: string | null | undefined;
+  readonly editor: { readonly login: string } | null | undefined;
 }
 
 const CODEX_NODE: CommentNode = {
@@ -26,6 +27,7 @@ const CODEX_NODE: CommentNode = {
   body: "Codex Review: Didn't find any major issues. :rocket:\n\n**Reviewed commit:** `7a9cd61414`\n",
   createdAt: '2026-09-20T20:02:19Z',
   lastEditedAt: null,
+  editor: null,
 };
 
 function commentsPage(nodes: readonly CommentNode[]): unknown {
@@ -54,24 +56,38 @@ describe('parseCommentsHarvest', () => {
         author: 'chatgpt-codex-connector',
         body: CODEX_NODE.body,
         createdAt: '2026-09-20T19:46:32Z',
-        edited: false,
+        lastEdit: null,
       },
       {
         id: 'IC_kwDORdPTys8AAAABVt01ww',
         author: 'chatgpt-codex-connector',
         body: CODEX_NODE.body,
         createdAt: '2026-09-20T20:02:19Z',
-        edited: false,
+        lastEdit: null,
       },
     ]);
   });
 
-  it('reads a comment with an edit timestamp as edited', () => {
+  it("reads a comment's last edit: when, and by whom", () => {
     const parsed = parseCommentsHarvest([
-      commentsPage([{ ...CODEX_NODE, lastEditedAt: '2026-09-20T20:05:00Z' }]),
+      commentsPage([
+        {
+          ...CODEX_NODE,
+          lastEditedAt: '2026-09-20T20:05:00Z',
+          editor: { login: 'octocat' },
+        },
+      ]),
     ]);
 
-    expect(parsed[0]?.edited).toBe(true);
+    expect(parsed[0]?.lastEdit).toStrictEqual({ at: '2026-09-20T20:05:00Z', by: 'octocat' });
+  });
+
+  it("names an edit by a deleted account as by 'unknown'", () => {
+    const parsed = parseCommentsHarvest([
+      commentsPage([{ ...CODEX_NODE, lastEditedAt: '2026-09-20T20:05:00Z', editor: null }]),
+    ]);
+
+    expect(parsed[0]?.lastEdit).toStrictEqual({ at: '2026-09-20T20:05:00Z', by: 'unknown' });
   });
 
   it("names a deleted account's comment as by 'unknown'", () => {
@@ -90,6 +106,11 @@ describe('parseCommentsHarvest', () => {
       'a node without its edit timestamp',
       [commentsPage([{ ...CODEX_NODE, lastEditedAt: undefined }])],
       /lastEditedAt/u,
+    ],
+    [
+      'a node without its editor',
+      [commentsPage([{ ...CODEX_NODE, editor: undefined }])],
+      /editor/u,
     ],
   ])(
     'fails loud on %s: a misshapen harvest never reads as empty or as unedited',

@@ -667,7 +667,7 @@ owner's word "give me all open questions and unknowns as user questions now plea
 is the selected option or the owner's own text, verbatim), with the consequence and the seat each
 binds at the resume:
 
-1. Clef: "Keep the word Clef out of the repo for now. We can call it Student Support Experiments".
+1. The owner's local-only wording: "Keep the word out of the repo for now. We can call it Student Support Experiments" (the fenced word cut from this line at Swallow holds Drift's wrap, 2026-09-27 12:4xZ, on the owner's own word in it).
 Consequence: the name is replaced by "Student Support Experiments" in PR 250's two notes on the
 lane (Myrtle, the lane's owner, first commit at the resume; no history rewrite: the earlier
 commits on the public branch keep the word, which the owner's word tolerates "for now"). Card line
@@ -726,3 +726,113 @@ closed a guard bypass too, the reader consuming it, two commits superseded and d
 shape: before a lane writes a parser, a matcher or a validator, search the estate for the noun;
 the cost of the late question here was about two hours of review and two superseded commits, and
 the gain of the early one would have been a smaller PR and a guard cure a day sooner.
+
+## 2026-09-27 ~12:4xZ — six leaks in six branches of one allowlist renderer, each found outside the lane (Swallow holds Drift, 516619)
+
+The command-record reader's design said "render by allowlist", and the lane's tests asserted that
+named nonces never reached the summary. Two review rounds on PR 261 (Copilot) found six branches
+that printed or read a slice of input anyway: a value shaped like a long flag printed by name; a
+record type emitted verbatim; a hit token carrying the whole short-option cluster; the first letter
+of a dash-prefixed value; a turn id emitted verbatim; a record key named like an object property
+miscounted on a plain object. Each branch had been written locally and was cured locally; none of
+the lane's tests caught any, because each test fixed the nonce's position and shape. Concept
+exploration at the wrap, the four movements compact: the kind of thing is a redaction contract
+enforced by construction in some branches and by nothing in the others; the mechanism is that every
+"print" branch chose between a constant and a slice of the token, and a slice is input; the
+structural cure is one behavioural test, a nonce at every argv position, dashed once, dashed twice,
+glued to `=`, asserting that no character of it beyond the dashes survives in either render unless
+the token is a member of the closed vocabulary. Warrant: six instances, one class, one reviewer,
+zero self-catches. Falsifier: that test written and green, and the next review round still finds a
+leak of the class (then the property is not the generator). Routed: the reader's follow-up at its
+next touch (261's budget is spent; findings on its synced head take signed lines). The general form
+is already in the estate as "stacked symptoms are tested for a shared generator": when a reviewer
+finds N instances of one class, the class needs one structural test, not N cures, and the second
+round is the tell. Play seed beside it, an association only: the placeholder now hides `-m` as well
+as a secret; a closed vocabulary of git's own short options would restore readability with no leak,
+since a value that coincides with an option name prints only an option name.
+
+## 2026-09-27 ~12:1xZ — a returned subagent is a live pane until it is stopped (Swallow holds Drift, 516619)
+
+The owner's word at 12:0xZ: "you have several subagents running, stop them then stop again". This
+seat had just reported "nothing else runs under this seat" after reading the process table and its
+own monitors. The agent list then showed six review teammates from cycles 3 to 5 (code, assumptions,
+docs, two test reviews, security), started one to two hours earlier, each of which had returned its
+report and been acted on. In-process teammates do not appear in the process table; they persist as
+panes until stopped. A closeout's inventory therefore has two reads, the process table and the agent
+list, and "stopped" means both are empty. All six stopped at 12:1xZ before the wrap. One instance, an
+observation; the wrap skill's process disposition names monitors and crons and could name subagents
+in the same sentence (a one-line amendment for the next Practice PR that touches the wrap skill).
+The error signature is the known one, "the negatives a seat reports": the negative was true of the
+surface read and false of the surface not read.
+
+## 2026-09-27 ~12:5xZ — the wrap's loss scan and metaloss passes (Swallow holds Drift, 516619)
+
+**Loss scan, what only this context held, and where it went.** (1) The reasoning behind each
+round-two cure: in the five signed replies on PR 261 and the commit message of `93bcf8d74`. (2) The
+order of events between the Director's 11:35Z "one sync after 262" and the 11:50Z release "261 may
+sync at Swallow's turn": both conditions were met by 12:07Z when 262 landed, so the sync happened
+once, at the release; recorded in the thread record. (3) The heartbeat loop's exact invocation
+(`comms send --tag heartbeat --claim-id --intent-id --branch --current-cycle-label --now`, then
+`claims heartbeat --active --claim-id --now`), rebuilt at the resume from `comms help` after the
+compaction summary lost it: conserved in the handoff record. (4) The differential harness in the
+scratchpad that compared the reader's deleted splitter with the guard's segmenter over 42 scripts is
+obsolete with the splitter gone; its corpus lives on in the shell-words tests where a case mattered;
+the security reviewer's own differential against bash 5.3 (85 lines) lived in that reviewer's
+context and survives only as its verdict in the PR body. Stated as a bound, not claimed away. (5)
+The primary tree held a peer's staged commit for some minutes at 12:12Z (Nova's line named it); the
+records commit of this wrap stages by explicit pathspec and would have needed `git commit --only`
+had the index still carried it. (6) Nothing else: the design and its amendments were conserved at
+boundary 5; the PR body is the review record; the ledger row is written.
+
+**Metaloss passes.** *Compressed reasoning*: "all five valid" compresses five first-hand code reads;
+each reply carries its reason, decision-sufficient. *Promises sweep*: the replies, resolutions,
+legs and body (discharged 12:17Z); the ledger row (written); the door of 261 (forwarded to any live
+seat under ruling 3, consent on the stream; Nova turns Penumbra asked the Director for it at
+12:20Z, a request, not yet a routing); the redaction property test (new, the reader's follow-up);
+the guard's next change, `GIT_COMMON_DIR`, the consolidation validator, goal two's items, goal one's
+rows (forwarded in the thread record §CLOSEOUT with their owners); the legs monitor re-arm
+(superseded: the door seat watches). Zero silent drops found. *Attribution inferences*: "Siren
+paused at 11:48Z" is the Director's report; "Copilot's observations valid" is this seat's judgement
+after reading each; "the Director cut the successor branch" is observed (the rotation event).
+*Blind-spot bounds*: the cycle 3 test-expert's tail past should 6 was never read (boundary 5's
+record); the six stopped reviewers' contexts are gone; whatever the legs post on `02c9c7562` after
+12:17Z is unread by this seat; the compaction summary compressed 11:1xZ to 11:3xZ and this scan
+trusts it where the stream did not contradict it. *Index of homes*: the thread record §CLOSEOUT
+names every home; this entry names the thread record; the handoff record names both. *External
+bound*: the recursion cannot certify itself; today's error signatures for outside eyes: a negative
+reported over an unread surface (the six panes), a design premise unsupported ("one consumer"),
+six leaks found only by a reviewer, a wait's sensor that expired unnoticed (the legs monitor at
+11:43Z). *Fence sweep*: the owner's 09:1xZ local-only word found on two lines of this seat's thread
+record (written before the word) and one line of the Director's card record here; all three cut.
+No fork wording on any Oak surface: every write today went to the owner's own repository.
+
+**Fixed point.** A third pass would only re-find the reviewer-found leaks, the reported negative
+and the unread tails already named; the recursion closes here.
+
+**Free play at the wrap, the harvest.** Kept, as associations: the metaloss recursion and the
+reader's depth limit are shaped alike, each bounds a nested reading and must say what it stops
+reading; the short-option placeholder seed above. Discarded, visibly: the reader's fail-closed on
+absence set against the slot rule's free-on-silence as "opposite treatments of silence" (both are
+already `silence-is-never-liveness`; forced); a seat that declares its own end and is then told to
+continue (handled by the explicit supersession line, the Director's and this seat's; documented and
+nothing more).
+
+**Post-wrap slip, written at occurrence (12:3xZ).** Stopping this seat's last processes, a sweep of
+the process table for the pattern "sleep 240" signalled one sleep that belonged to the Director's
+pulse loop on the other estate, not to this seat: one early heartbeat tick, the loop unharmed, a
+correction line on the stream. The pattern was broader than its target; a seat stops processes by
+their parent (its own session pid or its own loop's pid), never by a command-line pattern that any
+seat's loop matches. The known signature again, the finish-line burst: the sweep ran under the drive
+to leave nothing behind, and the guard that would have caught it (read the parent before the kill)
+was the one skipped.
+
+**Two more at the retrospective's tail (16:0xZ), written at occurrence.** (1) Two seats on one
+primary checkout: the Director switched the tree to its PR 265 branch between this seat's commit
+(15:56Z) and its push (15:59Z), so the push carried HEAD, the Director's branch, already level with
+its remote; nothing moved, the commit waited on the coordination branch, and a bounded wait pushed
+it at 16:07Z once the tree returned clean. A push reads its branch at the moment of the push, never
+from the commit before it; the two-hands rule reaches the checkout's HEAD. (2) Twice in one close a
+comms line silently failed to send because the command was held in an unquoted shell variable and
+zsh does not word-split it: the standing constraint in this seat's own notes, forgotten under the
+drive to finish. Write the command out, or wrap it in a function; and read the send's output, never
+only grep it.
