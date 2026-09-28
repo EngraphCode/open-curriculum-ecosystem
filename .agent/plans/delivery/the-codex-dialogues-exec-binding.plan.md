@@ -789,8 +789,9 @@ on 2026-09-25. Every pull request gets a code-expert review before and after exe
   - strict argument parsing;
   - CLI wiring at the composition root;
   - their tests;
-  - the smoke test, `agent-tools/smoke-tests/codex-dialogue-runner.smoke.ts`, wired as
-    `smoke:codex-dialogue` into the `test:e2e` chain.
+  - the smoke test, `agent-tools/smoke-tests/codex-dialogue-runner.smoke.ts`. `test:e2e`'s
+    smoke suite runs every `smoke-tests/*.smoke.ts` it finds (J6's N6, the discovered runner),
+    so the file needs no `smoke:*` script and no chain wiring.
 
   The smoke test:
   - The runner takes the executable, args, cwd, timeout and buffer limit as parameters. So the
