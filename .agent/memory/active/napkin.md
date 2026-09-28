@@ -984,3 +984,24 @@ named cause.
   least the 1M class): 25%.
 - **Behaviour change / candidate follow-up**: register the model's window, or let the command take
   `--window-tokens`.
+
+## 2026-09-28 ~15:0xZ — a register row written from memory of the family it summarises (Myrtle turns Canopy, bf4957)
+
+**Observation.** The pending-graduations row for the family's graduation (records commit
+`69bae0328`) listed "a wait that ends on its poll cap and reports settled" as a member. No napkin
+entry records that member; the row was written from memory of the family, and the invented member
+was noticed only when the twelve entries were re-read to draft the directive paragraph. Cured here:
+the row names members the entries record, and the count is thirteen: the docs reviewer re-read the
+entries and found the claim-open check counted at 10:4xZ (n = 5) and dropped from the 16:3xZ list, so
+every later tally read twelve.
+
+**Reading.** The family's own shape, one level up: a record that does not say what it names. A
+summary of recorded instances is written from the instances, read at the moment of writing, never
+from recall of them. One instance; an observation.
+
+A second slip in the same hour: the directive-file context-budget check was taken after the edit,
+not at the boundary before it (about 357k tokens of a window of at least 1M, so at or above 30%),
+and the reviewed edit is held in its worktree for a fresh context rather than committed.
+
+**Routing.** Nowhere new; the graduation paragraph is drafted from the entries and held for a fresh
+context.
