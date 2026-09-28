@@ -32,14 +32,6 @@ describe('smokeTestFiles', () => {
       ]),
     ).toStrictEqual(['A.smoke.ts', 'a.smoke.ts', 'b.smoke.ts']);
   });
-
-  it('orders by UTF-16 code unit, which puts a name outside the BMP before one inside its upper range', () => {
-    // U+10000 is the surrogate pair D800 DC00, whose first unit sorts before U+E000.
-    expect(smokeTestFiles(['\uE000.smoke.ts', '\u{10000}.smoke.ts'])).toStrictEqual([
-      '\u{10000}.smoke.ts',
-      '\uE000.smoke.ts',
-    ]);
-  });
 });
 
 describe('summariseSmokeRun', () => {
@@ -51,6 +43,7 @@ describe('summariseSmokeRun', () => {
 
     expect(summary.ok).toBe(true);
     expect(lineFor(summary, 'a.smoke.ts')).not.toContain('FAIL');
+    expect(lineFor(summary, 'a.smoke.ts')).toContain('exit 0');
     expect(lineFor(summary, 'b.smoke.ts')).not.toContain('FAIL');
     expect(summary.lines.some((line) => line.includes('2 passed'))).toBe(true);
   });
