@@ -170,12 +170,14 @@ review contract.
    elif [ "$PROBE" -eq 2 ]; then
      git fetch --prune origin && git merge-base --is-ancestor "$FOLDED" "$BASE"
    else
-     echo "STOP: the remote read failed ($PROBE)"
+     echo "STOP: the remote read failed ($PROBE)" >&2
+     false
    fi
    ```
 
    The probe exits 0 when the branch is on the remote, 2 when it is gone,
-   and anything else on a failed read, which stops the cut. A branch gone
+   and anything else on a failed read. The block exits 0 only when the
+   proof holds, and any other status stops the cut. A branch gone
    from the remote counts as deleted: its stale tracking ref is pruned, and
    only the local proof runs. Then delete it locally by plain branch
    deletion, and, when the probe found it, remotely by the bot's API delete
