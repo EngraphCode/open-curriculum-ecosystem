@@ -139,6 +139,7 @@ review contract.
    birth:
 
    ```bash
+   FOLDED="$(git branch --show-current)"
    DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
    git fetch origin "${DEFAULT#origin/}"
    BASE="$(git rev-parse "$DEFAULT")"
@@ -150,10 +151,11 @@ review contract.
    collision policy and the tool is its single source; F-161 records
    the break a hand-carried form caused). The cut is tree-preserving —
    dirty files carry across — and the primary now resides there.
-   The folded branch (`$FOLDED`) is deleted at the cut once its local tip
-   and its remote tip each read merged. The fetch above reads only the
-   default branch, so fetch the folded branch's remote tip into its
-   tracking ref immediately before the proof and the delete:
+   The folded branch (`$FOLDED`, read before the switch) is deleted at the
+   cut once its local tip and its remote tip each read merged. The fetch
+   above reads only the default branch, so fetch the folded branch's
+   remote tip into its tracking ref immediately before the proof and the
+   delete:
 
    ```bash
    git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED"
