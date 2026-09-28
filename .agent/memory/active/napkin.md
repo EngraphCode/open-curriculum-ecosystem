@@ -1100,3 +1100,48 @@ prints REFUSED; taken for the next ceremony.
 
 **Routing.** (1) to the Director as a hub-lane candidate (stream 12d60f6d); (2) the script cure
 in the scratchpad before the next ceremony, the instance to this entry.
+
+## 2026-09-28 ~18:5xZ — a gate reading taken and never compared (Nova turns Penumbra, 8a94ba)
+
+**What happened.** PDR-052 bars directive edits at or above 30 % context. Before the second
+estate's PR 249 (secops.md) this seat read 33 % and wrote "well within bounds". Before its PR 253
+(privacy.md, AGENT.md, editorial-guidance.md) it read 60.8 % and wrote "which allows directive
+edits"; PR 253's body even recorded "about 61%". Both merged. The slip surfaced after the
+compaction, when that body line was read against the rule's text. The cure: at 10.1 % the seat
+re-read both merged directive diffs in full and found no damage beyond what the follow-up PR 254
+cures. PR 254 rewrote those lines below the line. The Director has the report.
+
+**Reading.** The ritual ran and the comparison did not: a reading was taken, written down and
+published, and never set against the number. This is the generator the entry above names, a
+record standing in for the verdict it seems to support, and here the record held the disproof in
+plain view. Cure: write the verdict in the same line as the reading ("10.1 % < 30 %: pass"), so
+the comparison is visible and a wrong one looks wrong.
+
+**A summary of a permission is a new permission.** For PR 254, this seat wrote a "Reach" line
+after an owner's dated authorisation, summarising what it is an exception to. The first draft
+named a whole section as excepted, which would have lifted a confidentiality rule the
+authorisation never touched. The security read blocked it. The cure keeps the permission's own
+limits in the summary ("only as far as each entry states") and names what it does not change.
+
+**A held list built from merge conflicts covers conflicts, not classes.** A three-way merge
+silently took main's cure at a line the working copy had not changed. The list of items held for
+the owner, built from conflicts and new edits, missed a sibling of the same class. It surfaced
+only when the owner's word on its twin was applied, and it went to the owner as a question
+before any edit.
+
+**Ledger (second estate).** privacy.md's private-material section ends with a paragraph that
+repeats rule 6's opening clause. Cure it at the next substantive privacy.md edit, not by a PR of
+its own (the Director, ~18:5xZ).
+
+### Practice/tooling feedback
+
+- **session-metadata** has no entry for `claude-opus-5-5` ("unknown model"). The PDR-052 figure
+  is therefore computed by hand from the transcript's usage lines, with the window inferred from
+  the session's largest reading (666k, so 1M), and nothing prints the verdict against 30 %. Asked
+  for: a model entry and a verdict line. For the Director's check-in 69.
+- **validate-markdown-links** does not check cross-file `#fragment` anchors, so a moved heading's
+  slug is derived by hand. Two review reads on PR 254 did so independently.
+- **commitlint** read a commit body line that began "Also:" as a footer token and raised
+  `footer-leading-blank`. The commit-msg hook runs strict, so the warning failed the commit (exit
+  2). It is the sibling of the hash-prefixed "#285" case above: any body line that opens with a
+  token and a colon parses as a footer. Open body lines with a plain word.
