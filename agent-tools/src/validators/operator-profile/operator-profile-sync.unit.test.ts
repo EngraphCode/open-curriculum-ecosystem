@@ -502,26 +502,32 @@ describe('pushProfile', () => {
   });
 });
 
-// A fake git in the middle of a merge, with git's own rules: a commit that
-// names paths is partial, and is refused while `MERGE_HEAD` exists; `grep`
-// searches only the paths it is given. A command it does not answer fails,
-// as `scripted` does.
+// A fake git in the middle of a merge, with git's own rules: a path stays
+// unmerged until staged; the sides differ on it and on paths merged cleanly;
+// a commit naming paths is partial, refused while `MERGE_HEAD` exists; `diff`
+// and `grep` answer for their pathspec only; anything else fails.
 interface MergeState {
-  readonly merged?: readonly string[];
-  readonly marked?: readonly string[];
   readonly unmerged?: readonly string[];
+  readonly cleanlyMerged?: readonly string[];
+  readonly marked?: readonly string[];
   readonly resolutionChanged: boolean;
 }
 
 function mergingGit(state: MergeState): GitRunner {
   const answer = (stdout = '', ok = true, stderr = '') => ({ ok, stdout, stderr });
-  const pathsOf = (args: readonly string[]) => args.slice(args.indexOf('--') + 1);
+  const pathsOf = (args: readonly string[]) =>
+    args.includes('--') ? args.slice(args.indexOf('--') + 1) : [''];
+  const within = (paths: Iterable<string>, args: readonly string[]) =>
+    [...paths].filter((path) =>
+      pathsOf(args).some((spec) => spec === '' || path === spec || path.startsWith(`${spec}/`)),
+    );
+  const unmerged = new Set(state.unmerged ?? ['repos/a--b.md']);
   const diff: GitRunner = (args) => {
     if (args.includes('MERGE_HEAD')) {
-      return answer((state.merged ?? ['repos/a--b.md']).join('\n'));
+      return answer(within([...unmerged, ...(state.cleanlyMerged ?? [])], args).join('\n'));
     }
     if (args.includes('--diff-filter=U')) {
-      return answer((state.unmerged ?? []).join('\n'));
+      return answer(within(unmerged, args).join('\n'));
     }
     return answer('', !state.resolutionChanged);
   };
@@ -540,7 +546,10 @@ function mergingGit(state: MergeState): GitRunner {
         : answer(),
     'rev-list': () => answer('0\t2'),
     'ls-files': () => answer(),
-    add: () => answer(),
+    add: (args) => {
+      within(unmerged, args).forEach((path) => unmerged.delete(path));
+      return answer();
+    },
     push: () => answer(),
   };
   return (args) =>
@@ -566,17 +575,21 @@ describe('pushProfile — during a merge', () => {
     [['repos/a--b.md'], 'repos/a--b.md still holds'],
     [['index.md', 'repos/a--b.md'], 'index.md, repos/a--b.md still hold'],
   ])(
-    'during a merge, refuses documents the merge touches that still hold a conflict marker, naming each and the cure: %j',
+    'during a merge, refuses unmerged documents that still hold a conflict marker, naming each and the cure: %j',
     (marked, named) => {
-      const run = mergingGit({ merged: marked, marked, resolutionChanged: true });
+      const run = mergingGit({ unmerged: marked, marked, resolutionChanged: true });
       expect(failure(pushProfile(run, 'seat: union', PROFILE_DOCUMENTS))).toBe(
         `${named} a conflict marker — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push --message "<seat>: <the fact>"`,
       );
     },
   );
 
-  it('during a merge, a marker-like line in a document the merge does not touch never blocks the push', () => {
-    const run = mergingGit({ marked: ['repos/fence.md'], resolutionChanged: true });
+  it('during a merge, a marker-like line in a document the merge leaves alone or merges cleanly never blocks the push', () => {
+    const run = mergingGit({
+      cleanlyMerged: ['repos/fence.md'],
+      marked: ['repos/fence.md'],
+      resolutionChanged: true,
+    });
     expect(unwrap(pushProfile(run, 'seat: union', PROFILE_DOCUMENTS))).toBe('committed and pushed');
   });
 
@@ -603,15 +616,14 @@ describe('pushProfile — during a merge', () => {
   });
 
   it('with no documents, a merge on the git furniture is still concluded once it is resolved', () => {
-    const run = mergingGit({ merged: [], resolutionChanged: true });
+    const run = mergingGit({ unmerged: [], resolutionChanged: true });
     expect(unwrap(pushProfile(run, 'seat: union', []))).toBe('committed and pushed');
   });
 
   it('with no documents, a path still unmerged is refused with the furniture cure, never searched as a document', () => {
     const run = mergingGit({
-      merged: ['.gitattributes'],
-      marked: ['.gitattributes'],
       unmerged: ['.gitattributes'],
+      marked: ['.gitattributes'],
       resolutionChanged: true,
     });
     expect(failure(pushProfile(run, 'seat: union', []))).toBe(
@@ -623,7 +635,7 @@ describe('pushProfile — during a merge', () => {
   it('during a merge, reports a marker search that fails to run as an error, never as no markers', () => {
     const { run } = scripted([
       { prefix: ['rev-parse', '-q', '--verify', 'MERGE_HEAD'] },
-      { prefix: ['diff', '--name-only', 'HEAD', 'MERGE_HEAD'], stdout: 'repos/a--b.md' },
+      { prefix: ['diff', '--name-only', '--diff-filter=U', '--'], stdout: 'repos/a--b.md' },
       { prefix: ['grep'], ok: false },
       { prefix: ['ls-files'], stdout: '' },
     ]);

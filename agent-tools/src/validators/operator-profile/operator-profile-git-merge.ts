@@ -4,9 +4,10 @@
  * a document that still holds a conflict marker, and cannot conclude while a
  * path outside the documents is still unmerged.
  *
- * The guard reads the marker lines git writes. A conflict that writes none
- * (a document modified on one side and deleted on the other) is settled by
- * staging, which keeps the document: the union rule's answer.
+ * The guard reads the marker lines git writes, in the documents git still
+ * holds unmerged. A conflict that writes none (a document modified on one
+ * side and deleted on the other) is settled by staging, which keeps the
+ * document: the union rule's answer.
  */
 
 import { err, ok, type Result } from '@oaknational/result';
@@ -32,22 +33,29 @@ function lines(text: string): readonly string[] {
   return text.split('\n').filter((line) => line !== '');
 }
 
+/** The paths git still holds unmerged: every one, or those `-- <paths>` names. */
+function unmergedPaths(
+  run: GitRunner,
+  pathspec: readonly string[],
+): Result<readonly string[], string> {
+  const unmerged = run(['diff', '--name-only', '--diff-filter=U', ...pathspec]);
+  return unmerged.ok ? ok(lines(unmerged.stdout)) : err(gitFailure('git diff', unmerged));
+}
+
 /**
- * The document paths the merge touches: those that differ between the two
- * sides. A path in conflict always does, and a document the merge leaves
- * alone is never searched, so a marker-like line in an untouched document
- * (a fenced example) never blocks the push. With no documents there is
- * nothing to ask: an empty pathspec would name every path in the merge.
+ * The documents git still holds unmerged: the only ones it wrote conflict
+ * markers into. A document the merge left alone or merged cleanly is never
+ * searched, so a marker-like line in its content (a fenced example) never
+ * blocks the push. The limit: an unmerged document that also holds such a
+ * line as content is refused until the operator stages it in the profile
+ * root. With no documents there is nothing to ask: an empty pathspec would
+ * name every unmerged path.
  */
-function mergedDocuments(
+function unmergedDocuments(
   run: GitRunner,
   paths: readonly string[],
 ): Result<readonly string[], string> {
-  if (paths.length === 0) {
-    return ok([]);
-  }
-  const changed = run(['diff', '--name-only', 'HEAD', 'MERGE_HEAD', '--', ...paths]);
-  return changed.ok ? ok(lines(changed.stdout)) : err(gitFailure('git diff', changed));
+  return paths.length === 0 ? ok([]) : unmergedPaths(run, ['--', ...paths]);
 }
 
 // The lines git writes to open and close a conflict: seven marker characters
@@ -79,8 +87,8 @@ function markerRefusal(marked: readonly string[]): string {
 }
 
 /**
- * During a merge, refuse a document the merge touches that still holds a
- * conflict marker. It runs before staging: staging would mark the path
+ * During a merge, refuse an unmerged document that still holds a conflict
+ * marker. It runs before staging: staging would mark the path
  * resolved, and the record of the conflict would be lost.
  *
  * @param run - the git runner bound to the root
@@ -92,11 +100,11 @@ export function mergeGuard(run: GitRunner, paths: readonly string[]): Result<boo
   if (!inMerge.ok || !inMerge.value) {
     return inMerge;
   }
-  const merged = mergedDocuments(run, paths);
-  if (!merged.ok) {
-    return merged;
+  const unmerged = unmergedDocuments(run, paths);
+  if (!unmerged.ok) {
+    return unmerged;
   }
-  const marked = markedDocuments(run, merged.value);
+  const marked = markedDocuments(run, unmerged.value);
   if (!marked.ok) {
     return marked;
   }
@@ -112,11 +120,11 @@ export function mergeGuard(run: GitRunner, paths: readonly string[]): Result<boo
  * @returns nothing, or the refusal naming each unmerged path and the cure
  */
 export function unmergedRefusal(run: GitRunner): Result<void, string> {
-  const unmerged = run(['diff', '--name-only', '--diff-filter=U']);
+  const unmerged = unmergedPaths(run, []);
   if (!unmerged.ok) {
-    return err(gitFailure('git diff', unmerged));
+    return unmerged;
   }
-  const paths = lines(unmerged.stdout);
+  const paths = unmerged.value;
   if (paths.length === 0) {
     return ok(undefined);
   }
