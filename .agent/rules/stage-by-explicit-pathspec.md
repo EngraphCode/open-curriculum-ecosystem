@@ -142,9 +142,12 @@ isolation or block on index purity.
 
 The discipline cuts one way only: it never justifies refusing to **run** the
 canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint
-fix) in a shared dirty tree. Reformatting a peer's uncommitted file is
-cosmetic and safe — the footgun is *staging* it, and this rule is the cure.
-Run the fix freely; protect peers at the staging step.
+fix) in a shared dirty tree. Reformatting a peer's settled uncommitted file
+is cosmetic and safe — the footgun is *staging* it, and this rule is the
+cure; a live peer's in-flight file on the shared primary routes to its owner
+instead (`coordination-fold` precondition 2), since a fixer's rewrite races
+the peer's next write. Run the fix freely on settled files; protect peers at
+the staging step.
 
 ## Pre-Stage Re-Ground for Long Sessions
 

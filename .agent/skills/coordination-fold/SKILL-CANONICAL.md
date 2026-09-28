@@ -23,8 +23,9 @@ resides on the coordination branch).
 
 ## Preconditions
 
-1. Confirm the primary sits on the live coordination branch and no fold
-   PR is already open for it (`gh pr list`).
+1. Confirm the primary sits on the live coordination branch and that its
+   draft PR, opened at the branch's first records push (step 10), is the
+   one PR open for it (`gh pr list`).
 2. **Working-tree survey with ownership.** Classify every dirty and
    untracked path: (a) own work or settled fleet docs — fold them, with
    authorship named in the commit message for peer-authored files;
@@ -33,13 +34,16 @@ resides on the coordination branch).
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
    (`never-use-git-to-remove-work`).
-   Before the push, run the estate's markdown lint over every dirty
-   tracked file the survey found: the pre-push gate's tracked-files lint
-   reads the working tree, so a peer's uncommitted edit fails any seat's
-   push. A failing file routes to its owner for the cure, never edited
-   or reverted by the folding seat (2026-09-27: a peer's unlinted append
-   to a thread record failed a fold's push on MD032; its owner cured it
-   in eight minutes).
+   Immediately before each push from the primary (steps 5, 9 and 10), run
+   the gate's two tracked-files checks,
+   `pnpm format-check:root && pnpm markdownlint-check:root`: the pre-push
+   gate runs both over the working tree, so an uncommitted edit to a
+   tracked file fails the push, whoever made it (2026-09-27: a peer's
+   unlinted append to a thread record failed a fold's push on MD032). A
+   failing file that is a live peer's in-flight edit, class (b), routes to
+   its owner for the cure, never edited or reverted by the folding seat,
+   since a fixer's rewrite races the peer's next write; a class (a) file is
+   cured and folded with its authorship named.
 3. **The branch carries shared coordination-home state only** — fleet state, doctrine and
    memory surfaces, the class
    [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
@@ -98,7 +102,8 @@ resides on the coordination branch).
    landed) is recorded on the live snapshot in the Director's handoff, never here.
 5. Push with a 600s timeout; exit codes in-band and unpiped — a piped
    `$?` reads the pipe's tail, not the push.
-6. Open the fold PR under BOT identity (mint per merge-bot discipline).
+6. Mark the branch's draft PR ready as the fold PR, under BOT identity
+   (mint per merge-bot discipline).
    The body carries the **product-gravity line** (rule Action 3):
    `moved for teachers: … / moved for the Practice: …` — honest, no
    quota, drift made glanceable. The description uses the template's §Scope
@@ -137,15 +142,16 @@ resides on the coordination branch).
    collision policy and the tool is its single source; F-161 records
    the break a hand-carried form caused). The cut is tree-preserving —
    dirty files carry across — and the primary now resides there.
-   The successor's draft PR opens only after its first records commit is
-   pushed: GitHub refuses a pull request with no commits ahead of its
-   base (2026-09-27), so the order is commit, push, then open as the
-   bot. The folded branch is deleted at the cut: locally by plain branch
-   deletion once `git merge-base --is-ancestor` reads it merged, and
-   remotely by the bot's API delete, each read back absent. A remote
-   branch is in a PR or deleted, and GitHub's auto-delete of a merged
-   head is not relied on: both folded heads of 2026-09-27 survived their
-   merges. If main moves again during or just after the ceremony (a
+   The folded branch is deleted at the cut once its local tip and its
+   freshly fetched remote tip each read merged
+   (`git merge-base --is-ancestor <tip> "$BASE"`): locally by plain branch
+   deletion, and remotely by the bot's API delete
+   (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
+   `git push --delete` runs the full pre-push gate), each read back
+   absent. A tip that reads unmerged holds commits made after the merge:
+   surface it, never delete it. GitHub's auto-delete of a merged head is
+   not relied on: both folded heads of 2026-09-27 survived their merges
+   (`worktree-hygiene` §3). If main moves again during or just after the ceremony (a
    lane PR merging mid-rotation), merge `origin/main` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
    pre-merge contract, and a rule, hook or plan landed on the default branch
@@ -163,7 +169,11 @@ resides on the coordination branch).
     record — the pickup path for any checkout, since the machine-local
     record is finer grain a successor elsewhere cannot read (a reviewer
     found the pickup map unreachable when the journal had stopped two days
-    earlier, 2026-09-08); broadcast the rotation on the canonical comms
+    earlier, 2026-09-08); commit the fold entry by pathspec as the
+    successor's first records commit, push it, then open the successor's
+    draft PR under BOT identity (GitHub refuses a pull request with no
+    commits ahead of its base, so the draft cannot open at the cut,
+    2026-09-27); broadcast the rotation on the canonical comms
     stream so every seat re-homes. A fold entry is a few lines of state (the
     merge sha, the successor's name, the gravity line), never a narrative of
     the fold: every sentence written here is a claim the next fold's reviewers
@@ -176,7 +186,8 @@ resides on the coordination branch).
 
 11. The ceremony doubles as the durability wrap at a NON-terminal
     boundary: finish with a loss scan — `git status` clean, no unpushed
-    refs, napkin and seated block current — with monitors up and the
+    refs, the successor's draft PR open, napkin and seated block current —
+    with monitors up and the
     seat live. A terminal boundary (seat or session ending) is
     [`wrap`](../wrap/SKILL-CANONICAL.md)'s moment instead, which this
     skill never substitutes for.
