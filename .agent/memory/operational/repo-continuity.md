@@ -515,6 +515,36 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **N1'S FIRST SLICE LANDED: PR 291 MERGED, 2026-09-28 20:1xZ to 23:43Z (Myrtle turns
+  Canopy, bf4957).** Merged by the bot as 7e4cf9b81 on engraph: 4f49ff86e (the port), 7de672b25 (a
+  pure sync), e2966c661 (settlement one: POSIX joins for the Windows leg, which had failed 31
+  tests against POSIX-keyed fakes; three Sonar findings cured at source; the parser's pipe case),
+  adecc4bcf (settlement two: the posted code-expert leg's six findings, the security pass's two
+  observations, the sweep's read-back with its test), 146f14ab3 (a pure sync after #290),
+  4b42a2432 (the one late-cure push, PDR-140 clause 4: Codex's four P1 findings on the ported
+  tests, cured under this estate's test rules with the test-expert's nine mutation proofs; the
+  stranded TSDoc). Legs: Codex on each tip; Copilot declared
+  unavailable on both estates by the Director at 20:4xZ (a lift at 21:02Z withdrawn at 21:04Z, an
+  error review on #290), so a code-expert review of the diff at e2966c661 was posted as the leg
+  with a confirm read at adecc4bcf, and the door ran with Codex as the only expectation on the
+  Director's word; the one Copilot re-request the word allowed went on adecc4bcf. Two more pure syncs (146f14ab3 after #290, c4ddcaca5 after #292, 8fae75f45 after #293) and one
+  door refused THREADS-OPEN on a fifth Codex finding at the last sync (the projection fake calls
+  the leg's pure classifier: Rejected with rationale, the classifier is IO-free and part of the
+  leg under test; a copy would drift). Copilot's content review at 4b42a2432 (two medium findings:
+  the sweep reader's doubled apostrophe, no instance in the data; a trigger-grammar check):
+  Routed to the port-back and to N1's second slice. Codex's P2 (CRLF at the sweep's read seam):
+  Rejected, the estate pins LF. **Left as the
+  second estate's bytes, routed to the module's next byte-sync:** the `acted` records in the two
+  projection-fs tests, which mix the leg's mutations (the contract) with its queries. **Port-back list for the second estate, as the same bytes:** the
+  reader's block sequence and quote strip, the comma-list split, `RULES_INDEX_PROSE` (this
+  estate's), POSIX joins in five files, the three Sonar cures (the row parser splits cells; the
+  Cursor fields function; the classification set), `compareRuleNames` at four sort sites, the
+  headers, the sweep's read-back, the four reshaped tests. Remote branch deleted and read back 0 refs; worktree and local
+  branch removed; the claim closed. The register's J1 row and the count (2 of 26) go to the
+  second estate as their own pull request. Next: N1's second slice (the sub-agent leg; the plan is
+  written: a 24-file port of the second estate's `subagent-declarations` module replacing the
+  reviewer-adapter parity leg, 26 declarations minted by hand, nine reconciliations, four verdicts
+  for the Director first), J2, the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's
