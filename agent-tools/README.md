@@ -60,7 +60,6 @@ pnpm agent-tools:build
 pnpm agent-tools:lint
 pnpm agent-tools:test
 pnpm agent-tools:test:e2e
-pnpm agent-tools:smoke:collaboration-tui
 pnpm agent-tools agent-identity --seed example-session-id-001 --format display
 pnpm agent-tools collaboration-state identity preflight --platform codex --model GPT-5
 pnpm agent-tools context-cost --glob '.agent/rules/*.md'
@@ -238,7 +237,7 @@ The TUI's startup smoke runs in the [smoke suite](#the-smoke-suite); to run it a
 
 ```bash
 pnpm agent-tools:build
-pnpm agent-tools:smoke:collaboration-tui
+cd agent-tools && node --import tsx smoke-tests/collaboration-tui-start.smoke.ts
 ```
 
 ## `agent-identity` quick reference

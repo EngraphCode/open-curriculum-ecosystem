@@ -169,6 +169,11 @@ const config: KnipConfig = {
         // Restatement-audit workflow stage entries: same string-entry-point
         // pattern as corpus-analysis above.
         'src/restatement-audit/workflows/*.workflow.ts',
+        // Smoke checks: the smoke runner (`src/bin/run-smoke-tests.ts`)
+        // discovers and spawns every `smoke-tests/*.smoke.ts`, so no import or
+        // package script names them; each is an entry so what it imports from
+        // `src/` is traced.
+        'smoke-tests/*.smoke.ts',
       ],
       // tests/ is inside the project so tests-only dependencies are traced
       // (the depcruise red-proof helper imports dependency-cruiser from

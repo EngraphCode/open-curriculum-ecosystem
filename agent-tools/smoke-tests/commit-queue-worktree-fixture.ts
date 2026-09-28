@@ -4,11 +4,12 @@
  * (see `commit-queue-registry-fixture.ts`) so the smoke file itself is
  * proofs only.
  */
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync, type SpawnSyncReturns } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { unwrapOrThrow } from '@oaknational/result';
 
@@ -64,8 +65,62 @@ export const seedIntent: CommitIntent = {
   queued_seq: 0,
 };
 
+/**
+ * The built CLI entry the smoke invokes, as production does: plain `node`, no
+ * loader. `test:e2e` builds before the smoke runner runs it; run alone, it
+ * needs a build first.
+ */
+export const BIN = join(
+  fileURLToPath(new URL('..', import.meta.url)),
+  'dist',
+  'src',
+  'bin',
+  'agent-tools.js',
+);
+
+/**
+ * git for fixture set-up, with its output captured: set-up chatter such as
+ * `git worktree add`'s progress line stays out of the gate log, and a failing
+ * call still throws with git's stderr in the message.
+ */
 export function git(cwd: string, ...args: readonly string[]): string {
-  return execFileSync(resolveTrustedGit(), [...args], { cwd, encoding: 'utf8' });
+  return execFileSync(resolveTrustedGit(), [...args], {
+    cwd,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+/**
+ * The environment the built CLI runs with: the caller's own, read here at the
+ * smoke's spawn composition root, less any declared coordination home. The
+ * commit-queue topic resolves its home through git today; removing the
+ * variable keeps an ambient declared home from ever redirecting the fixture's
+ * registry if the topic comes to honour it.
+ */
+function cliEnvironment(): NodeJS.ProcessEnv {
+  const env = { ...process.env };
+  delete env.PRACTICE_COORDINATION_HOME;
+  return env;
+}
+
+/**
+ * Run `agent-tools commit-queue <args>` from the built CLI with every stream
+ * captured, so what the command prints is asserted rather than written to the
+ * gate log.
+ */
+export function runCommitQueue(cwd: string, args: readonly string[]): SpawnSyncReturns<string> {
+  return spawnSync(process.execPath, [BIN, 'commit-queue', ...args], {
+    cwd,
+    env: cliEnvironment(),
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+/** A captured run's streams, for an assertion message that shows why it failed. */
+export function streams(result: SpawnSyncReturns<string>): string {
+  return `stdout:\n${result.stdout}\nstderr:\n${result.stderr}`;
 }
 
 export interface WorktreeFixture {
