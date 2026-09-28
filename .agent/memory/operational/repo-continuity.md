@@ -515,6 +515,22 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **THE OWNER'S THREE CENSUS ANSWERS; J11'S INSTRUMENT NOT TAKEN, 2026-09-28 17:4xZ (Myrtle turns
+  Canopy, bf4957).** Relayed by the Director, verbatim by the question tool. J11: "Decline with
+  the reason (Recommended)": the exchange instrument (the second estate's exchange-register
+  validator, its smoke and its root script) is **Not taken** by this estate, the reason being that
+  it validates the second estate's register, which this estate does not hold; the loss-scan
+  instrument is unaffected and lands as J11's one residue pull request. Sent to the second
+  estate's seat on its stream (event c69c53fb) and acknowledged there (Siren, 17:46Z), which is
+  the node's owner-held proof; the register's §Landings row is that seat's. J17's note 1 (the
+  gate-running doctrine): "Run it through the decision matrix, we don't choose between options,
+  we create the best from what we know": the Director runs the parallax decide step over the two
+  doctrines and brings the synthesis to the owner; note 1 stays frozen; notes 4 and 8 keep their
+  order. The count: "What does owed mean? That sounds liked parked, which is forbidden for very
+  good reason. Use the cognitive skills": the Director takes the register's "owed" vocabulary
+  through concept exploration; the count line stays as the register's rule computes it and the
+  rows keep moving. The fourth card (ruling 40's "outside this node") rides the Director's next
+  batch with this seat's read as the recommendation.
 - **PR 288 AND THE SECOND ESTATE'S 248 LANDED, 2026-09-28 17:1xZ to 17:3xZ (Myrtle turns Canopy,
   bf4957).** The second estate's PR 248 (todo 6: ruling 40 and the close bar on its exchange node)
   merged by its bot as `bff4cc68e` after Copilot's round one (two cures, one signed line: the
