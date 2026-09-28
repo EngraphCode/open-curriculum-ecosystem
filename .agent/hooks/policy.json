@@ -408,7 +408,7 @@
           ],
           "exclude_paths": [
             "important-state-not-in-temp-files.md",
-            "hooks/policy.json",
+            "./.agent/hooks/policy.json",
             "validate-no-machine-local-paths"
           ],
           "citation": "principles.md \u00a7No machine-local paths; docs/governance/safety-and-security.md \u00a7Machine-local paths; org policy \u2014 no PII (a user-home absolute path leaks a username)",

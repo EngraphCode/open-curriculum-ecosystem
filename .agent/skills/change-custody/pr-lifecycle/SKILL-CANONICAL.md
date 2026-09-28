@@ -94,7 +94,11 @@ into the permanent record):
   LANDING** (owner, 2026-09-03, verbatim: "a secondary but important goal is
   always to work to reduce the total number of PRs to zero"; sharpened
   2026-09-06: "this never prevents PRs from being created, but it does mean
-  that landing work that is in a non-draft PR is a priority"). A non-draft
+  that landing work that is in a non-draft PR is a priority"; the first
+  clause of the 2026-09-06 words is superseded by the work-in-progress
+  limit, owner 2026-09-26: no PR other than a repository's coordination PR
+  opens while the count is at the limit, by Phase 7's work-in-progress
+  bullet). A non-draft
   PR is its seat's landing priority over starting the next unit; drafts are
   inventory a seat may hold; the count is reported at every wrap and acted
   on at every boundary — merged when green and clean, closed with its
@@ -1067,16 +1071,24 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    zero-findings run ("Didn't find any major issues", naming the commit it
    read), which by the owner's ruling of 2026-09-16 is a positive result,
    not missing evidence (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`).
-   Such a comment SATISFIES the leg when its author is an expected reviewer,
-   it is unedited, and the commit prefix it names resolves to exactly one
-   commit of the pull request, that commit being the current tip; the
-   evidence names the transport. An expected reviewer's comment that fails a
+   The connector also keeps one summary comment per pull request, which it
+   rewrites on every run; the completed Code Review row of its table names
+   the commit a code review read, whatever it found (findings arrive as
+   review objects and threads, which the leg reads first). Such a comment
+   SATISFIES the leg when its author is an
+   expected reviewer, it is unedited or last edited by its author (the
+   author's rewrite is its report; an edit by any other account is not), and
+   the commit prefix it names resolves to exactly one commit of the pull
+   request, that commit being the current tip; the evidence names the
+   transport. An expected reviewer's comment that fails a
    precondition, on a leg the tip does not otherwise satisfy, is never read
    as no comment: the verdict is `UNCLASSIFIED-EVIDENCE`, naming the
    precondition and quoting the comment (a near-miss that reads as silence
    puts the reader back where they started); the door refuses it by name,
    and the cure is a fresh result on the tip (an `@codex review` comment),
-   never an edit. The refusal decides the verdict when the round is
+   never an edit; a summary whose Code Review row is still running is
+   refused as such, and its cure is to run the door again when the row
+   completes. The refusal decides the verdict when the round is
    otherwise settled or when it is the blocking reviewer's; a live run
    outranks it, and a refusal on another reviewer rides in the evidence
    beside the blocking leg's own state.
@@ -1762,12 +1774,17 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
     1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
-    every repository's stream for reservations posted before its own whose PR
-    is not yet open. It opens only while the count plus those earlier
-    reservations is under the limit; otherwise it withdraws its reservation
-    on the stream and waits for the next free slot. The streams' order is
+    every repository's stream for reservations posted before its own that
+    had not lapsed when it read the count. It opens only while the count
+    plus those earlier reservations is under the limit; otherwise it
+    withdraws its reservation on the stream and waits for the next free
+    slot. The streams' order is
     the serialiser, as for the landing slot, and a reservation is followed at
-    once by its PR or its withdrawal. A coordination PR takes no reservation.
+    once by its PR or its withdrawal. A reservation lapses when its PR opens,
+    when its seat withdraws it, or thirty minutes after it was posted, so a
+    seat that stops mid-opening holds no slot for long; a seat still gating
+    at thirty minutes posts a fresh reservation and reads the count again. A
+    coordination PR takes no reservation.
   - A branch's first push is followed at once by its PR, never left
     standing: a pushed branch with no PR is unfinished work outside review.
   - The Director routes each external PR into the slot order to a named seat.
