@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-20
+last_updated: 2026-09-28
 ---
 
 # Landing instruments: read the evidence that exists, and ask when nobody has
@@ -244,6 +244,24 @@ it is outside every leg, and the door refuses a defaulted set. A follow-up this 
 unscheduled (test-expert, 2026-09-20): `pr-watch/state-gh.ts` multiplexes four gh legs
 through one `execFileSync` seam, so its suites need a fake that branches on argv; one
 reader per leg would let each test pass a constant.
+
+**A second completion shape, 2026-09-28 (Siren herds Rudder, 158275).** On pull requests 267, 268
+and 264 (2026-09-27 and 2026-09-28) the connector posted no comment per run. It kept one summary
+comment (`<!-- codex-pull-request-review-summary -->`), which it rewrites on every run, and named
+the commit its latest code review read in the table's completed Code Review row. The door refused
+each rewrite as "edited after creation" and read the leg as OWED on a head the connector had
+reviewed. The unedited precondition came from the superseded verdict's grounds, where an edit is
+a way to talk the door into a merge. That edit is someone else's: an edit by the comment's own
+author is that author's report. The reader now accepts a comment last edited by its author, and
+refuses one last edited by any other account, deleted accounts included. It times the report at
+the edit and parses the summary's completed Code Review row beside the "Reviewed commit" label.
+The harvest reads each comment's `editor`. A completed row means that a review ran, whatever it
+found; the findings of a run arrive as review objects and threads, which the door reads first
+(pull request 264's summary read Completed for runs that had filed findings). A row still Running
+names the commit under review and is refused as "names a code review still running", quoting the
+row. What this leaves: the door refuses during a run window instead of waiting, because the
+running row is not yet read as the connector's live run. Mapping that row to a live run is the
+next edit to the leg machine.
 
 Two follow-ups this node now owns, neither scheduled:
 

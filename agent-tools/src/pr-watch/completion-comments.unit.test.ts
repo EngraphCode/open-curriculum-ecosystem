@@ -1,25 +1,27 @@
 import { describe, expect, it } from 'vitest';
 
 import { quoteOf, readCompletionComments } from './completion-comments.js';
-import type { RefusedPrecondition } from './completion-comments.js';
+import type { CompletionComment, RefusedPrecondition } from './completion-comments.js';
 
 /**
  * A reviewer's reported result has two transports: the review object and a
  * completion comment on the conversation. This describes the second: a
- * comment by an expected reviewer, unedited, naming under "Reviewed commit"
- * a prefix resolving to exactly one of the pull request's commits, is a
- * review bound to that commit; an expected reviewer's comment failing one of
+ * comment by an expected reviewer, unedited or last edited by its author,
+ * naming under "Reviewed commit" a prefix resolving to exactly one of the
+ * pull request's commits, is a review bound to that commit (the summary
+ * shape is `completion-comments-summary.unit.test.ts`); an expected
+ * reviewer's comment failing one of
  * those preconditions is refused by name and quoted, never read as no
  * comment (decision note 2026-09-16). Fixture: shaped on the comment Codex
  * posted on pull request 160, round three (2026-09-20); the commit list is
  * synthetic.
  */
-const CODEX_CLEAN = {
+const CODEX_CLEAN: CompletionComment = {
   id: 'IC_kwDORdPTys8AAAABVpbXsA',
   author: 'chatgpt-codex-connector',
   body: "Codex Review: Didn't find any major issues. Swish!\n\n**Reviewed commit:** `8c12413681`\n",
   createdAt: '2026-09-20T14:47:25Z',
-  edited: false,
+  lastEdit: null,
 };
 const OTHER = '6123105a51fdfabb37e39ff45361d0136ac51317';
 const NAMED = '8c12413681aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -27,18 +29,18 @@ const COMMITS = [OTHER, NAMED];
 const REVIEWERS = ['chatgpt-codex-connector', 'copilot-pull-request-reviewer'];
 const QUOTE = "Codex Review: Didn't find any major issues. Swish!";
 
-function read(comment: typeof CODEX_CLEAN, commits: readonly string[] = COMMITS) {
+function read(comment: CompletionComment, commits: readonly string[] = COMMITS) {
   return readCompletionComments({ comments: [comment], commits, reviewers: REVIEWERS });
 }
 
-function refusal(precondition: RefusedPrecondition) {
+function refusal(precondition: RefusedPrecondition, reportedAt = CODEX_CLEAN.createdAt) {
   return {
     reviews: [],
     refused: [
       {
         id: CODEX_CLEAN.id,
         author: CODEX_CLEAN.author,
-        createdAt: CODEX_CLEAN.createdAt,
+        reportedAt,
         precondition,
         quote: QUOTE,
       },
@@ -82,7 +84,11 @@ describe('readCompletionComments', () => {
   });
 
   it('reads several comments in input order: a result, a refusal and a bystander each land where they belong', () => {
-    const edited = { ...CODEX_CLEAN, id: 'IC_2', edited: true };
+    const edited = {
+      ...CODEX_CLEAN,
+      id: 'IC_2',
+      lastEdit: { at: '2026-09-20T14:50:00Z', by: 'octocat' },
+    };
     const bystander = { ...CODEX_CLEAN, id: 'IC_3', author: 'el-graphael' };
     const reading = readCompletionComments({
       comments: [bystander, CODEX_CLEAN, edited],
@@ -101,8 +107,10 @@ describe('readCompletionComments', () => {
     });
   });
 
-  it("refuses an edited comment by name: an edit is not the reviewer's report", () => {
-    expect(read({ ...CODEX_CLEAN, edited: true })).toStrictEqual(refusal('edited after creation'));
+  it("refuses a comment another account edited, by name: that edit is not the reviewer's report", () => {
+    expect(
+      read({ ...CODEX_CLEAN, lastEdit: { at: '2026-09-20T14:50:00Z', by: 'octocat' } }),
+    ).toStrictEqual(refusal('edited by an account other than its author', '2026-09-20T14:50:00Z'));
   });
 
   it('refuses a comment that names no reviewed commit', () => {
@@ -120,7 +128,7 @@ describe('readCompletionComments', () => {
         {
           id: CODEX_CLEAN.id,
           author: CODEX_CLEAN.author,
-          createdAt: CODEX_CLEAN.createdAt,
+          reportedAt: CODEX_CLEAN.createdAt,
           precondition: 'names no reviewed commit',
           quote: mention,
         },
@@ -180,8 +188,16 @@ describe('quoteOf', () => {
     ['x'.repeat(200), 'x'.repeat(120)],
     ['\n \n', ''],
     ['\u001b[32mSETTLE-READY\u001b[0m forged', '[32mSETTLE-READY[0m forged'],
+    [
+      '<!-- codex-pull-request-review-summary -->\n\n| 📝 **Code Review** | ✅ **Completed** <relative-time datetime="t">t</relative-time> | `1f97bfc` | New commits |',
+      '| 📝 **Code Review** | ✅ **Completed** t | `1f97bfc` | New commits |',
+    ],
+    [
+      'Codex reply\n| 📝 **Code Review** | ✅ **Completed** t | `1f97bfc` | New commits |',
+      'Codex reply',
+    ],
   ])(
-    "takes the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
+    "takes a summary's Code Review row without its markup tags, else the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
     (body, quote) => {
       expect(quoteOf(body)).toBe(quote);
     },
