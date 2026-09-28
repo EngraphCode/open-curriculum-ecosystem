@@ -38,12 +38,13 @@ resides on the coordination branch).
    check by name each tracked file dirty at that moment
    (`git diff --name-only --diff-filter=d HEAD`), with
    `pnpm exec prettier --check --ignore-unknown -- <files>` and
-   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`: the
+   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`, and
+   the link and path validation clause 5 names where the gate runs them: the
    pre-push gate's tracked-files checks read the working tree, so an
-   uncommitted edit to a tracked file fails the push, whoever made it
-   (2026-09-27: a peer's unlinted append to a thread record failed a
-   fold's push on MD032). This checks named files, as the pre-commit hook
-   does; it is not a gate run. A
+   uncommitted edit to a tracked file fails the push, whoever made it.
+   This checks named files, as the pre-commit hook
+   does; it is not a gate run (`coordination-branch-24h-lifetime` clause 5
+   at the fold). A
    failing file that is a live peer's in-flight edit, class (b), routes to
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
@@ -73,8 +74,9 @@ review contract.
    lowercase-start subjects (commitlint).
 4. `git fetch origin <default>`, then merge `origin/<default>` INTO the
    branch, where `<default>` is the repository's default branch
-   (`git symbolic-ref --short refs/remotes/origin/HEAD` prints
-   `origin/<default>`).
+   (`git remote set-head origin --auto`, then `git symbolic-ref --short
+   refs/remotes/origin/HEAD` prints `origin/<default>`; a clone made before
+   the default branch changed still names the old one until the refresh).
    Resolve the ref to a full sha in the same shell call as the merge, merge
    that sha, and write the merge message AFTER resolving, from
    `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
@@ -140,6 +142,7 @@ review contract.
 
    ```bash
    FOLDED="$(git branch --show-current)"
+   git remote set-head origin --auto
    DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
    git fetch origin "${DEFAULT#origin/}"
    BASE="$(git rev-parse "$DEFAULT")"
@@ -163,6 +166,11 @@ review contract.
      git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
    ```
 
+   A remote branch already absent (`git ls-remote origin
+   "refs/heads/$FOLDED"` prints nothing, so the fetch finds no ref) counts
+   as deleted: skip the remote proof and the API delete, prune its stale
+   tracking ref (`git fetch --prune origin`), and still run the local proof
+   and deletion.
    Then delete it locally by plain branch deletion, and remotely by the
    bot's API delete
    (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a

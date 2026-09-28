@@ -45,8 +45,9 @@ or handing off a worktree; or auditing the worktree estate for hygiene.
 
 ### 1. Every worktree has an open PR — at least a draft
 
-The moment a worktree exists to do work — at creation, or at the very latest its first
-commit — open at least a **draft** PR against `main`. The PR is the worktree's lifeline
+The moment a worktree's work has its first commit, push it and open at least a **draft**
+PR against `main`: the first push that carries a commit is the firing point, since GitHub
+refuses a pull request with no commits ahead of its base. The PR is the worktree's lifeline
 to its durable home: it makes the work **visible** (it appears on the PR list, not "on
 a branch somewhere"), **reviewable**, and **on a committed, trackable path to `main`**.
 A worktree carrying commits with no PR is an orphan by construction. A draft PR is
@@ -61,11 +62,15 @@ with no PR" is the single state this rule exists to forbid, so nothing is ever s
 dropped.
 
 **The clause generalises beyond worktree lanes to EVERY pushed branch** (owner word,
-2026-08-03: "generally, I want branches to have at least draft PRs"), and the firing
-moment includes the FIRST PUSH, not only creation and first commit. The coordination
-branch opens its fold PR as a draft with the first push that carries a commit (the cut's
-push carries none, and GitHub refuses a pull request with no commits ahead of its base)
-and rides it to the fold; a build-ahead
+2026-08-03: "generally, I want branches to have at least draft PRs"), and a remote
+branch carrying work is in a pull request or deleted (owner, 2026-09-24, two messages, verbatim:
+"Standing rule, with aim for zero open PRs on balance , no work in remote branches that is not in a PR, and  work is not delivered until it is merged" and
+"do not assume that a branch existing on the remote means that it should be merged, assess each one first. I suspect most have been assessed before. Any that should not be merged get deleted. A branch on the remote is NOT a compromise, they are not safe, they are not a backup option, they should be in PRs, or they should be deleted. That is a rule, remember it").
+§6 carries the assessment and the deletion. The default branch is not a work branch, and
+neither is a mirror of an upstream's default branch that a fork sync lands on. The firing
+moment is the FIRST PUSH THAT CARRIES A COMMIT, as for a worktree above (GitHub refuses a pull request with no commits ahead of its base, so a push that carries
+none has no pull request to open). The coordination branch opens its fold PR as a draft
+at that push and rides it to the fold; a build-ahead
 lane is cut from the parent branch it builds on — a WORKTREE shape only — and opens its
 draft against the DEFAULT branch at first push, its diff carrying the parent's commits
 until the parent lands (then one merge of the default branch when the parent landed by
@@ -95,7 +100,7 @@ worktree because this runs from the principal, before any gate, work or entry) �
 (session-level residency per [`worktree-residency`](worktree-residency.md): launched
 inside the worktree, or entered mid-session only with the owner at the platform's
 approval prompt and the entry announced first; otherwise operated non-resident from the
-principal) → open draft PR
+principal) → first commit, pushed with its draft PR
 → do the bounded work → update onto `main` → mark the PR ready → merge → **remove the
 worktree AND delete the branch.** A worktree that outlives its PR's merge, or never
 opens a PR, is a hygiene violation to resolve.
@@ -183,6 +188,17 @@ the worktrees and branches the seat owns: a peer's dormant worktree is
 theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
 removals + 5 stale prunes), zero losses.
+
+**Every remote branch is assessed before it is merged or deleted** (the owner's
+2026-09-24 rule, §1). The assessment is first-hand: the branch's tip, fetched into its
+tracking ref (`git fetch origin "+refs/heads/<branch>:refs/remotes/origin/<branch>"`),
+against a freshly fetched default branch, and the records for an earlier assessment. A
+branch existing on the remote is never a reason to merge it. Merged: it joins the proven
+class above. Wanted: its pull request opens, ahead of any new opening (`pr-lifecycle`
+§Phase 7). Not wanted: it is deleted by the bot's API delete and read back absent, with
+the reason in the records; a branch that never had a pull request loses its commits from
+the remote with it, so its content is proven held elsewhere, or the loss is accepted in
+the record, first. A peer's branch is theirs: its assessment goes to its owner.
 
 **A dirty worktree joins the proven class once each dirty file is proven**
 (owner word 2026-09-08: "proven safe deletions are fine"). A failing

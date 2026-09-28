@@ -140,14 +140,17 @@ the rest stays staged, untouched — or commit the bundle and acknowledge
 the deliberate extras in the commit body. Do not over-engineer index
 isolation or block on index purity.
 
-The discipline cuts one way only: it never justifies refusing to **run** the
-canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint
-fix) in a shared dirty tree. Reformatting a peer's settled uncommitted file
-is cosmetic and safe — the footgun is *staging* it, and this rule is the
-cure; a live peer's in-flight file on the shared primary routes to its owner
-instead (`coordination-fold` precondition 2), since a fixer's rewrite races
-the peer's next write. Run the fix freely on settled files; protect peers at
-the staging step.
+The discipline cuts one way only: it never justifies refusing to fix
+formatting in a shared dirty tree. Reformatting a peer's settled uncommitted
+file is cosmetic and safe — the footgun is *staging* it, and this rule is the
+cure. The canonical fix commands (`pnpm format:root`, `pnpm lint:fix`,
+markdownlint fix) rewrite every tracked file, so they run while no live
+peer's in-flight file is dirty on the shared primary. While one is, fix the
+settled files by name (`pnpm exec prettier --write --ignore-unknown --
+<files>`, `pnpm exec markdownlint-cli2 --fix --no-globs -- <files>`) and
+route the live file to its owner (`coordination-fold` precondition 2), since
+a fixer's rewrite races the peer's next write. Protect peers at the staging
+step.
 
 ## Pre-Stage Re-Ground for Long Sessions
 

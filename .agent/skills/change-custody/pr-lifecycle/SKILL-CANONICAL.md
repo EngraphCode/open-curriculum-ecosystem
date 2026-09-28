@@ -1814,7 +1814,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own that
-    had not lapsed when it read the count. It opens only while the count
+    had not lapsed when it read the count, counting each owed branch (below)
+    as an earlier reservation that does not lapse. It opens only while the count
     plus those earlier reservations is under the limit; otherwise it
     withdraws its reservation on the stream and waits for the next free
     slot. The streams' order is
@@ -1824,8 +1825,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     seat that stops mid-opening holds no slot for long; a seat still gating
     at thirty minutes posts a fresh reservation and reads the count again. A
     coordination PR takes no reservation.
-  - A branch's first push is followed at once by its PR, never left
-    standing: a pushed branch with no PR is unfinished work outside review.
+  - A branch's first push that carries a commit is followed at once by its
+    PR, never left standing: a pushed branch with no PR is unfinished work
+    outside review. A wanted branch found with no PR takes the next free slot
+    ahead of any new opening, and is named on the stream as owed until it
+    opens.
   - The Director routes each external PR into the slot order to a named seat.
     A green dependency bump lands at its size turn; a red one is assessed,
     then cured, or closed with a card to the owner.
@@ -1859,9 +1863,10 @@ follow-up branches, never to merged ones.
 
 **Merge auto-delete overrides recorded dispositions** (worked instance: a
 merge auto-deleted a remote coordination branch despite a "branch lives on"
-disposition, leaving the primary tracking a deleted ref). If a branch must
-survive its PR's merge, re-push it immediately after — the disposition text
-does not bind GitHub's delete-on-merge setting.
+disposition, leaving the primary tracking a deleted ref). A branch never
+survives its PR's merge: work that continues goes on a new branch with its
+own PR (a coordination branch's successor is cut at the fold), and no
+disposition text binds GitHub's delete-on-merge setting.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still
