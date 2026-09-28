@@ -29,18 +29,20 @@ export interface PlanInput {
   readonly caseGlob: string | undefined;
 }
 
+/** The regex for one character of the runner's case glob: `*` any run of characters, `?` one, anything else itself. */
+function globCharToRegex(char: string): string {
+  if (char === '*') {
+    return '.*';
+  }
+  if (char === '?') {
+    return '.';
+  }
+  return char.replaceAll(/[.+^${}()|[\]\\]/gu, String.raw`\$&`);
+}
+
 /** The runner's case glob: `*` any run of characters, `?` one; nothing else is special. */
 function matchesGlob(name: string, glob: string): boolean {
-  const pattern = glob
-    .split('')
-    .map((char) =>
-      char === '*'
-        ? '.*'
-        : char === '?'
-          ? '.'
-          : char.replaceAll(/[.+^${}()|[\]\\]/gu, String.raw`\$&`),
-    )
-    .join('');
+  const pattern = [...glob].map(globCharToRegex).join('');
   return new RegExp(`^${pattern}$`, 'u').test(name);
 }
 

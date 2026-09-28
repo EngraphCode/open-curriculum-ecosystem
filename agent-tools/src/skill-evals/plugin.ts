@@ -42,10 +42,10 @@ export interface LoadedSuite {
 /** Previous runs' evidence under the canonical directory, left out of the version hashes. */
 export const RESULTS_PREFIX = 'evals/results/';
 
-/** The skill directory as a normalised POSIX path relative to the repository root: no `./`, no trailing `/`. */
+/** The skill directory as a normalised POSIX path relative to the repository root: no `./`, no trailing `/` (normalize leaves at most one). */
 function normalisedSkillDir(skill: string): string {
   const normalised = posix.normalize(skill.replaceAll('\\', '/'));
-  return normalised.replace(/^\.\//u, '').replace(/\/+$/u, '');
+  return normalised.replace(/^\.\//u, '').replace(/\/$/u, '');
 }
 
 /** The plugin skill a selection names; its canonical name is the directory's basename. */

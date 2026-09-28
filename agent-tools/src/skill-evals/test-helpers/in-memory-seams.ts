@@ -21,6 +21,12 @@ export const SCAFFOLD = ['', 'private', 'tmp', 'e-run1'].join('/');
 const WORKSPACE = `${SCAFFOLD}/${['home', 'cwd'].join('/')}`;
 /** The clock every run reads. */
 const NOW = new Date('2026-09-27T11:05:00.500Z');
+/** The runner's trace: a system line naming the workspace, then the result line naming the plugin. */
+const TRACE = [
+  JSON.stringify({ type: 'system', cwd: WORKSPACE }),
+  JSON.stringify({ type: 'result', result: `done in ${PLUGIN}` }),
+  '',
+].join('\n');
 
 /** The id the fake git gives a file's text: forty hex characters that change with the bytes, standing in for git's blob id. */
 export function standInBlobId(text: string): string {
@@ -121,10 +127,7 @@ function seedFiles(): Map<string, string> {
     [`${REPO}/.claude/skills/oak-user-value/references/value-model.md`, '# Value model\n'],
     [`${REPO}/.agent/skills/planning/plan/SKILL-CANONICAL.md`, PLAN_CANONICAL],
     [`${REPO}/.claude/skills/oak-plan/SKILL.md`, PLAN_ADAPTER],
-    [
-      `${SCAFFOLD}/out/trace.jsonl`,
-      `${JSON.stringify({ type: 'system', cwd: WORKSPACE })}\n${JSON.stringify({ type: 'result', result: `done in ${PLUGIN}` })}\n`,
-    ],
+    [`${SCAFFOLD}/out/trace.jsonl`, TRACE],
   ]);
 }
 
