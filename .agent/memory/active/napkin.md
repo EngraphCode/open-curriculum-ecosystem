@@ -1039,3 +1039,43 @@ toolkit lane, not a build.
 **Routing.** The five to this entry; the cure to the seat's own act boundaries from here; the
 generator's second clustering point (the start line) is a candidate clause for the directive's
 fluency section at the next pass that touches it, with this entry as its instance.
+
+## 2026-09-28 ~17:2xZ — a check named for more than it covered, and a promise written before its act (Nova turns Penumbra, 8a94ba)
+
+**What happened.** The second estate's second LinkedIn batch was merged three-way (base: the
+pre-rebuild tip; ours: main with the rebuild's privacy cures; theirs: the working copies). A
+mechanical check then proved that no line the rebuild removed came back and no line it added was
+lost. For a moment the seat read that as "the batch is safe". The security read found eight
+third parties named for the first time in the working copies. The check could never see those
+lines, because it compared only the rebuild's own removed and added lines. Two of five files were
+cut back to main's text, and four items went to the owner's card. Separately, a pull request body
+said four follow-ups were "routed to the Director" before the message was sent. The wrap's
+promises sweep caught it, and the message went fifteen minutes later.
+
+**Reading.** Both are the shape Myrtle's entry above names: a check or record whose name outruns
+its coverage. This is a second seat on the same afternoon, which makes it a second independent
+instance. The cure is the one that entry proposes: name each check for what it compares ("cure
+lines kept"), never for the verdict it seems to support ("batch safe"), and send a promised act
+before the record that states it.
+
+**A relayed list against a relayed principle.** The Director's instruction listed the files to
+carry, and also said "keep every cure". The list included a file the rebuild had deliberately
+left out, and it omitted six other modified files in the working tree. The principle governed,
+and the list's gaps went back as a question. A relayed enumeration is a claim to verify against
+the tree, like a relayed number.
+
+**Play seed** (an association, not a finding): a privacy cure in a public workspace is a state,
+not an invariant. No gate holds it, so an edit made from a pre-cure copy reverts it silently. The
+three-way merge against the pre-cure base was the detector, and it catches reversions only, not
+new disclosures. Discarded as forced: "the WIP slot line is a compare-and-swap" is apt, but it is
+already the protocol's own model.
+
+### Practice/tooling feedback
+
+- **commitlint `footer-leading-blank`** refused a body whose lines carried hash-prefixed pull
+  request numbers (`#285`): the parser reads them as footer references. Bodies say "PR 285".
+- **merge-bot push** drew a GitHub 403 for the lineage's bot at ~16:38Z. A retry a minute later
+  passed. The second estate's bot drew the same 403 a minute after; Siren recorded it for the
+  merge-bot lane.
+- **The commit queue's `enqueue`** prints the pnpm banner on stderr and the bare intent id on
+  stdout. Capturing stdout alone with `2>/dev/null` gave a clean id, as the skill says.
