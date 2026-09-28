@@ -836,3 +836,28 @@ comms line silently failed to send because the command was held in an unquoted s
 zsh does not word-split it: the standing constraint in this seat's own notes, forgotten under the
 drive to finish. Write the command out, or wrap it in a function; and read the send's output, never
 only grep it.
+
+## 2026-09-28 ~08:2xZ — an owner-held turn is a silence the team reads as retirement (Nova turns Penumbra, 8a94ba)
+
+At 16:05Z on 2026-09-27 this seat entered the owner's plan-approval turn with four monitors armed
+at their 30-minute cap. The turn stayed open overnight. The monitors expired and nothing in the
+turn re-armed them, so no heartbeat, ACK or state line reached the stream. The Director pinged three
+times (16:42Z, 18:45Z, 04:43Z) and at 04:48Z recorded the retirement, archiving claim 8db99207.
+Siren and Myrtle then carried both lanes: PR 250's rebudget, settlement and sync, and the doctrine
+twins (OCE 279, JC.net 237). This seat's unpushed sync and uncommitted cures duplicated Siren's
+commits. The retirement was the right reading; the loss was the duplicate work and three
+unanswered pings. The cure: before a turn that waits on the owner for an unbounded time (plan
+approval, a question), post one state line naming the wait. If the wait can outlast a monitor's
+cap, hand the lanes to the Director. An owner-held turn is silence to every other seat.
+
+Second, from the same lane: the review-cost budget number is cost units, not pushes. The gate
+refuses while the settled rounds' total is at or above the declared budget × 20 (`verdictFor` in
+`agent-tools/src/review-cost/cost.ts`). PR 250 stood at 179.23 after one round that priced 38,016
+lines, so this seat's "raise to 4" (a limit of 80) would have refused every push. Siren computed 11
+from the arithmetic, Myrtle 18. Compute the number from the gate's formula before anyone is asked to
+raise it.
+
+Play seed (an association, not a finding): the skill-evals manifest hashed after the run, and
+JC.net's substrate check reading the events and then the projection, look shaped alike, as
+time-of-check against time-of-use. Discarded as forced: the twins' identical bytes against blob-id
+manifests, and the gate's pricing of a conflicted sync as the same shape.
