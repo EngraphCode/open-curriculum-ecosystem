@@ -8,32 +8,54 @@ import {
 
 /**
  * An in-memory tree: a directory maps to its entry names, a file to its
- * text. Absolute paths are POSIX under `/repo`, the fake repository root.
+ * text, and a poisoned entry (a directory or a file the walker must never
+ * enter or read) to a marker whose listing or read rejects, so a walk that
+ * touches one fails at the output boundary. Absolute paths are POSIX under
+ * `/repo`, the fake repository root.
  */
-type Tree = ReadonlyMap<string, string | readonly string[]>;
+type Poison = { readonly poison: 'dir' | 'file' };
+type Entry = string | readonly string[] | Poison;
+type Tree = ReadonlyMap<string, Entry>;
+
+const POISON_DIR: Poison = { poison: 'dir' };
+const POISON_FILE: Poison = { poison: 'file' };
+
+function isPoison(entry: Entry | undefined): entry is Poison {
+  return typeof entry === 'object' && !Array.isArray(entry);
+}
 
 function enoent(): Error {
   return Object.assign(new Error('ENOENT'), { code: 'ENOENT' });
+}
+
+function poisoned(absolutePath: string): Error {
+  return Object.assign(new Error(`EACCES: poisoned entry touched: ${absolutePath}`), {
+    code: 'EACCES',
+  });
 }
 
 function fakeFs(tree: Tree): AuthoredSurfaceFs {
   return {
     readdir: async (absoluteDir) => {
       const listing = tree.get(absoluteDir);
+      if (isPoison(listing)) {
+        throw poisoned(absoluteDir);
+      }
       if (listing === undefined || typeof listing === 'string') {
         throw enoent();
       }
       return listing.map((name) => {
         const child = tree.get(`${absoluteDir}/${name}`);
-        return {
-          name,
-          isDirectory: () => child !== undefined && typeof child !== 'string',
-          isFile: () => typeof child === 'string',
-        };
+        const directory = isPoison(child) ? child.poison === 'dir' : Array.isArray(child);
+        const file = isPoison(child) ? child.poison === 'file' : typeof child === 'string';
+        return { name, isDirectory: () => directory, isFile: () => file };
       });
     },
     readFile: async (absolutePath) => {
       const content = tree.get(absolutePath);
+      if (isPoison(content)) {
+        throw poisoned(absolutePath);
+      }
       if (typeof content !== 'string') {
         throw enoent();
       }
@@ -44,7 +66,7 @@ function fakeFs(tree: Tree): AuthoredSurfaceFs {
 
 const REPO = '/repo';
 
-const tree: Tree = new Map<string, string | readonly string[]>([
+const tree: Tree = new Map<string, Entry>([
   [`${REPO}/.agent/rules`, ['a.md', 'notes.txt', 'archive', 'nested']],
   [`${REPO}/.agent/rules/a.md`, 'rule a'],
   [`${REPO}/.agent/rules/notes.txt`, 'not scanned'],
@@ -99,18 +121,22 @@ describe('discoverAuthoredFiles', () => {
   });
 
   it('prunes an excluded directory before entering it and an excluded file before reading it', async () => {
-    const reads: string[] = [];
-    const recording: AuthoredSurfaceFs = {
-      readdir: fakeFs(tree).readdir,
-      readFile: async (absolutePath) => {
-        reads.push(absolutePath);
-        return fakeFs(tree).readFile(absolutePath);
-      },
-    };
+    const poisonedTree: Tree = new Map<string, Entry>([
+      ...tree,
+      [`${REPO}/.agent/rules/archive`, POISON_DIR],
+      [`${REPO}/.agent/rules/nested/CHANGELOG.md`, POISON_FILE],
+    ]);
 
-    await discoverAuthoredFiles(REPO, { ...spec, rootFiles: [] }, recording);
+    const files = await discoverAuthoredFiles(
+      REPO,
+      { ...spec, rootFiles: [] },
+      fakeFs(poisonedTree),
+    );
 
-    expect(reads).toStrictEqual([`${REPO}/.agent/rules/a.md`, `${REPO}/.agent/rules/nested/b.md`]);
+    expect(files.map((file) => file.path)).toStrictEqual([
+      '.agent/rules/a.md',
+      '.agent/rules/nested/b.md',
+    ]);
   });
 
   it('propagates a file-system error that is not a missing path', async () => {
@@ -134,29 +160,22 @@ describe('readOptionalFile', () => {
 
 describe('discoverAuthoredFiles universe', () => {
   it('never enters a directory or reads a file outside the universe, however the tree looks', async () => {
-    const treeWithIgnored: Tree = new Map<string, string | readonly string[]>([
+    const treeWithIgnored: Tree = new Map<string, Entry>([
       ...tree,
       [`${REPO}/.agent/rules`, ['a.md', 'notes.txt', 'archive', 'nested', 'local', 'stray.md']],
-      [`${REPO}/.agent/rules/local`, ['secret.md']],
-      [`${REPO}/.agent/rules/local/secret.md`, 'never read'],
-      [`${REPO}/.agent/rules/stray.md`, 'untracked'],
+      [`${REPO}/.agent/rules/local`, POISON_DIR],
+      [`${REPO}/.agent/rules/stray.md`, POISON_FILE],
     ]);
-    const reads: string[] = [];
-    const recording: AuthoredSurfaceFs = {
-      readdir: fakeFs(treeWithIgnored).readdir,
-      readFile: async (absolutePath) => {
-        reads.push(absolutePath);
-        return fakeFs(treeWithIgnored).readFile(absolutePath);
-      },
-    };
 
-    const files = await discoverAuthoredFiles(REPO, { ...spec, rootFiles: [] }, recording);
+    const files = await discoverAuthoredFiles(
+      REPO,
+      { ...spec, rootFiles: [] },
+      fakeFs(treeWithIgnored),
+    );
 
     expect(files.map((file) => file.path)).toStrictEqual([
       '.agent/rules/a.md',
       '.agent/rules/nested/b.md',
     ]);
-    expect(reads).not.toContain(`${REPO}/.agent/rules/local/secret.md`);
-    expect(reads).not.toContain(`${REPO}/.agent/rules/stray.md`);
   });
 });

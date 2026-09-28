@@ -66,12 +66,10 @@ describe('readRuleDeclaration', () => {
 
   it('refuses a block that is not valid YAML', () => {
     const result = readRuleDeclaration('r', rule(['classification: core', 'description: a: b: c']));
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error.startsWith('.agent/rules/r.md: frontmatter is not valid YAML')).toBe(
-        true,
-      );
-    }
+    const yamlRefusal: unknown = expect.stringMatching(
+      /^\.agent\/rules\/r\.md: frontmatter is not valid YAML/u,
+    );
+    expect(result).toEqual({ ok: false, error: yamlRefusal });
   });
 
   it('refuses a key outside the declaration shape', () => {

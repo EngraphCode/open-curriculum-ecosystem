@@ -23,7 +23,6 @@ const NOT_A_RULE_BASENAME =
 
 const RULE_BASENAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
-/** The refusal reason when a name is not a rule basename; `undefined` when it may be interpolated. */
 /**
  * Code-unit order over rule names: total, and independent of the host locale, so the rendered
  * index and the listings compare byte for byte on every machine (a locale-aware compare orders
@@ -40,6 +39,7 @@ export function compareRuleNames(left: string, right: string): number {
   return left > right ? 1 : 0;
 }
 
+/** The refusal reason when a name is not a rule basename; `undefined` when it may be interpolated. */
 export function ruleNameRefusal(name: string): string | undefined {
   return RULE_BASENAME.test(name) ? undefined : `${JSON.stringify(name)}: ${NOT_A_RULE_BASENAME}`;
 }

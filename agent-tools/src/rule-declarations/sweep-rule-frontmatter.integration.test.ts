@@ -24,20 +24,21 @@ function trigger(lines: readonly string[]): string {
 function fakeFs(
   files: ReadonlyMap<string, string>,
   other: ReadonlySet<string> = new Set(),
-): SweepFs & { writes: Map<string, string>; reads: string[] } {
+  unreadable: ReadonlySet<string> = new Set(),
+): SweepFs & { writes: Map<string, string> } {
   const writes = new Map<string, string>();
-  const reads: string[] = [];
   return {
     writes,
-    reads,
     entryKind: async (absolutePath) => {
       if (other.has(absolutePath)) {
         return 'other';
       }
-      return files.has(absolutePath) ? 'file' : 'absent';
+      return files.has(absolutePath) || unreadable.has(absolutePath) ? 'file' : 'absent';
     },
     readFile: async (absolutePath) => {
-      reads.push(absolutePath);
+      if (unreadable.has(absolutePath)) {
+        throw Object.assign(new Error('EACCES: permission denied'), { code: 'EACCES' });
+      }
       const content = files.get(absolutePath);
       if (content === undefined) {
         throw Object.assign(new Error(`ENOENT: ${absolutePath}`), { code: 'ENOENT' });
@@ -141,15 +142,10 @@ describe('sweepRuleFrontmatter', () => {
       `${REPO}/.agent/rules/alpha.md`,
       '---\nclassification: situational\ndescription: a\ntrigger: surface:x\nglobs:\n  - "**/*.ts"\n---\n\n# Alpha\n',
     );
-    // The generated Claude adapter carries `paths` as a YAML sequence; a declared rule's
-    // projections are never read (#74 round four), whatever their shape; the trigger is gone
-    // altogether.
-    tree.set(
-      `${REPO}/.claude/rules/alpha.md`,
-      '---\npaths:\n  - "**/*.ts"\n---\n\nRead and follow `.agent/rules/alpha.md`.\n',
-    );
+    // A declared rule's projections are never read (#74 round four): the Claude adapter is
+    // unreadable and the trigger is gone altogether, and neither refuses anything.
     tree.delete(`${REPO}/.cursor/rules/alpha.mdc`);
-    const fs = fakeFs(tree);
+    const fs = fakeFs(tree, new Set(), new Set([`${REPO}/.claude/rules/alpha.md`]));
     const outcome = await sweepRuleFrontmatter(
       { repoRoot: REPO, ruleNames: ['alpha', 'beta'], write: true },
       fs,
@@ -157,8 +153,6 @@ describe('sweepRuleFrontmatter', () => {
     expect(outcome.refused).toEqual([]);
     expect(outcome.alreadyDeclared).toEqual(['.agent/rules/alpha.md']);
     expect(outcome.written).toEqual(['.agent/rules/beta.md']);
-    expect(fs.reads).not.toContain(`${REPO}/.claude/rules/alpha.md`);
-    expect(fs.reads).not.toContain(`${REPO}/.cursor/rules/alpha.mdc`);
   });
 
   it('refuses an already-declared rule that has no index row, never counting it as swept', async () => {
@@ -248,14 +242,7 @@ describe('sweepRuleFrontmatter', () => {
     );
     expect(missing.refused).toEqual(['.agent/rules/alpha.md: missing']);
 
-    const denied = fakeFs(agreeingTree);
-    const readFile = denied.readFile;
-    denied.readFile = async (absolutePath) => {
-      if (absolutePath.endsWith('.cursor/rules/alpha.mdc')) {
-        throw Object.assign(new Error('EACCES: permission denied'), { code: 'EACCES' });
-      }
-      return readFile(absolutePath);
-    };
+    const denied = fakeFs(agreeingTree, new Set(), new Set([`${REPO}/.cursor/rules/alpha.mdc`]));
     const unreadable = await sweepRuleFrontmatter(
       { repoRoot: REPO, ruleNames: ['alpha', 'beta'], write: true },
       denied,

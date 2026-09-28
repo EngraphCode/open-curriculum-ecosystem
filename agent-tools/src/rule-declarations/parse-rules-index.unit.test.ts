@@ -58,10 +58,7 @@ describe('parseRulesIndex', () => {
     const result = parseRulesIndex(
       indexWith('Prose about `.agent/rules/` in general.', '| `.agent/rules/a.md` | core | — |'),
     );
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect([...result.value.keys()]).toEqual(['a']);
-    }
+    expect(result).toEqual({ ok: true, value: new Map([['a', { classification: 'core' }]]) });
   });
 
   it('refuses a row whose classification is outside the closed set', () => {
