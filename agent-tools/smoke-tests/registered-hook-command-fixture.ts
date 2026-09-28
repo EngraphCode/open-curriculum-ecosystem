@@ -9,7 +9,14 @@ import {
   type SpawnSyncOptionsWithStringEncoding,
   type SpawnSyncReturns,
 } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { delimiter, join } from 'node:path';
@@ -22,8 +29,24 @@ import { trustedShell, trustedShellPath } from './trusted-shell-directories.js';
 
 const repoRoot = fileURLToPath(new URL('../..', import.meta.url));
 
-/** The throwaway project's scratch `bin/`: a `node` symlink and any case scripts. */
+/** The throwaway project's scratch `bin/`: `node` and `bash` symlinks and any case scripts. */
 const SCRATCH_BIN = 'bin';
+
+/**
+ * The first `tool` on `searchPath`, the one the harness would resolve.
+ *
+ * @throws When no directory on the path holds it: the hook smokes need it.
+ */
+function findOnPath(tool: string, searchPath: string): string {
+  const found = searchPath
+    .split(delimiter)
+    .map((directory) => join(directory, tool))
+    .find((candidate) => existsSync(candidate));
+  if (found === undefined) {
+    throw new Error(`${tool} is not on PATH, and the hook smokes need it`);
+  }
+  return found;
+}
 
 /** Mechanics, not an assertion: long enough never to cut a healthy run short. */
 const RUN_TIMEOUT_MS = 60_000;
@@ -68,8 +91,11 @@ export function registeredHookCommand(event: string, matcher?: string): string {
  * The project's name holds a space, so an unquoted path to it splits. Its
  * real `.claude/` holds one symlink, `hooks`, to the repository's
  * `.claude/hooks`; `agent-tools` links to the repository's `agent-tools`; and
- * `bin/` holds a `node` symlink to the running Node and the case's own
- * scripts. It is removed with `fs.rm`, which unlinks each symlink and never
+ * `bin/` holds a `node` symlink to the running Node, a `bash` symlink to the
+ * first `bash` on the ambient `PATH` (the one the harness would resolve; the
+ * hooks' bash 5.2 floor rules out the older bash a trusted directory can hold,
+ * such as macOS's `/bin/bash`), and the case's own scripts. It is removed
+ * with `fs.rm`, which unlinks each symlink and never
  * follows it. Never walk this tree by hand: following the links would delete
  * the real workspace.
  *
@@ -88,6 +114,7 @@ export async function inThrowawayProject(
     symlinkSync(join(repoRoot, 'agent-tools'), join(project, 'agent-tools'));
     mkdirSync(join(project, SCRATCH_BIN));
     symlinkSync(process.execPath, join(project, SCRATCH_BIN, 'node'));
+    symlinkSync(findOnPath('bash', process.env.PATH ?? ''), join(project, SCRATCH_BIN, 'bash'));
     for (const [name, script] of typeSafeEntries(scratchScripts)) {
       writeFileSync(join(project, SCRATCH_BIN, name), script, { mode: 0o755 });
     }
@@ -102,10 +129,10 @@ export async function inThrowawayProject(
  *
  * @remarks
  * The environment holds only `CLAUDE_PROJECT_DIR` and `PATH`. `PATH` is the
- * scratch `bin/`, which can supply nothing but `node` and the case's own
- * scripts, then the trusted shell directories, so nothing beside them can
- * shadow the wrapper's `bash`, `mktemp` or `sed`, and no system `node` can
- * stand in for the running Node.
+ * scratch `bin/`, which can supply nothing but `node`, `bash` and the case's
+ * own scripts, then the trusted shell directories, so nothing beside them can
+ * shadow the wrapper's `mktemp` or `sed`, no system `node` can stand in for
+ * the running Node, and no older trusted `bash` can stand in for the host's.
  *
  * @param command - The registered command text.
  * @param project - The throwaway project, the run's working directory.
