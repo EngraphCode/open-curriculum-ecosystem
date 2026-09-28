@@ -50,7 +50,7 @@ Pick the entry point that matches the task. Load the referenced file when you re
 - **Working inside a subject** → read the relevant entry in `references/subject-principles.md` _alongside_ the six, so the general principle takes the right disciplinary shape.
 - **Writing a rationale / intent statement** → use `assets/curriculum-rationale-template.md`.
 - **Want the deeper evidence base** (citations, key concepts, the full argument for each principle) → read `references/principles-in-depth.md`.
-- **Want a one-page summary** to paste or print → `assets/principles-checklist.md`. The hexagon diagram is at `assets/curriculum-principles-hexagon.png`.
+- **Want a one-page summary** to paste or print → `assets/principles-checklist.md`. The hexagon diagram is at [assets/curriculum-principles-hexagon.png](assets/curriculum-principles-hexagon.png).
 
 To ground any of this in Oak's _actual_ curriculum — real threads, the prior knowledge units state they assume, misconceptions, exemplar units and lessons — use the companion **`oak-curriculum-principles-mcp-enabled`** skill, which connects to the Oak Curriculum MCP.
 
@@ -139,6 +139,6 @@ The tie-breaker is always the same question: **which choice best helps all pupil
 - `references/sources.md` — attribution and source list.
 - `assets/principles-checklist.md` — one-page create + review checklist.
 - `assets/curriculum-rationale-template.md` — template for a principles-based rationale/intent statement.
-- `assets/curriculum-principles-hexagon.png` — the six-principle diagram.
+- [assets/curriculum-principles-hexagon.png](assets/curriculum-principles-hexagon.png) — the six-principle diagram.
 
 **Optional companions.** To work against Oak's live curriculum data, use `oak-curriculum-principles-mcp-enabled`.
