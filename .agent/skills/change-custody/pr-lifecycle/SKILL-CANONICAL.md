@@ -1815,8 +1815,9 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own that
     had not lapsed when it read the count, counting each owed branch (below)
-    other than its own as an earlier reservation that does not lapse. It
-    opens only while the count
+    as an earlier reservation that does not lapse; the opener of an owed
+    branch counts only the owed branches named on the stream before its own.
+    It opens only while the count
     plus those earlier reservations is under the limit; otherwise it
     withdraws its reservation on the stream and waits for the next free
     slot. The streams' order is
