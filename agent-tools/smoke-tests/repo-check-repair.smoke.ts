@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { typeSafeEntries } from '@oaknational/type-helpers';
+
 import { writeErrorLine, writeLine } from '../src/core/terminal-output.js';
 import { resolveTrustedGit } from '../src/core/trusted-git.js';
 import { hermeticGitEnv } from './hermetic-git-env.js';
@@ -44,9 +46,30 @@ function run(
   return spawnSync(command, args, { cwd, env, encoding: 'utf8', timeout: TIMEOUT_MS });
 }
 
-/** A run's exit status with its output, for a failure message. */
+/** A run's exit status (or the signal that ended it, a timeout included) with its output, for a failure message. */
 function described(result: SpawnSyncReturns<string>): string {
-  return `exit ${String(result.status)}\n${result.stdout}${result.stderr}`;
+  const end =
+    result.status === null ? `signal ${String(result.signal)}` : `exit ${String(result.status)}`;
+  return `${end}\n${result.stdout}${result.stderr}`;
+}
+
+/** Repository pointers a caller (a git hook) may export, which would aim the entry's git reads elsewhere. */
+const INHERITED_GIT_POINTERS = new Set(['GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE']);
+
+/**
+ * The environment the entry runs in: the caller's, so the tools resolve as
+ * they do for the root scripts, with git's global and system configuration
+ * set aside (as {@link hermeticGitEnv} sets them) and any inherited
+ * repository pointer dropped, so the entry's git reads see only the scratch
+ * repository.
+ */
+function entryEnv(): NodeJS.ProcessEnv {
+  const kept = typeSafeEntries(process.env).filter(([key]) => !INHERITED_GIT_POINTERS.has(key));
+  return {
+    ...Object.fromEntries(kept),
+    GIT_CONFIG_GLOBAL: '/dev/null',
+    GIT_CONFIG_SYSTEM: '/dev/null',
+  };
 }
 
 /** Track `doc.md` in the scratch repository, with the tools linked in; the git steps that failed. */
@@ -70,14 +93,16 @@ function prepare(root: string): readonly string[] {
 /** Check, repair, check for one gate over a fresh unformatted `doc.md`; each way it failed. */
 function checkRepairCheck(root: string, gate: string, repair: string): readonly string[] {
   writeFileSync(join(root, 'doc.md'), UNFORMATTED);
+  const env = entryEnv();
   const entry = (args: readonly string[]) =>
-    run(root, process.execPath, ['--import', 'tsx', ENTRY, ...args]);
+    run(root, process.execPath, ['--import', 'tsx', ENTRY, ...args], env);
   const before = entry([gate]);
   const repaired = entry([gate, repair]);
   const bytes = readFileSync(join(root, 'doc.md'), 'utf8');
   const after = entry([gate]);
   return [
     ...(before.status === 0 ? [`${gate} passed the unformatted file: ${described(before)}`] : []),
+    ...(before.status === null ? [`${gate}'s first check did not exit: ${described(before)}`] : []),
     ...(repaired.status === 0 ? [] : [`${gate} ${repair} failed: ${described(repaired)}`]),
     ...(bytes === REPAIRED
       ? []
