@@ -19,6 +19,7 @@ import {
   type GitRunner,
 } from './operator-profile-git.js';
 import { INDEX_FILE_NAME, MACHINES_DIR_NAME, SCOPES_DIR_NAME } from './operator-profile-schema.js';
+import { PUSH_COMMAND } from './operator-profile-sync-state.js';
 
 /**
  * The pathspecs to stage: the document paths that exist in the worktree plus
@@ -61,7 +62,7 @@ function stagedLinks(run: GitRunner, paths: readonly string[]): Result<readonly 
 }
 
 function linkRefusal(links: readonly string[]): string {
-  return `${links.join(', ')} ${links.length === 1 ? 'is' : 'are'} recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then pnpm profile:sync push`;
+  return `${links.join(', ')} ${links.length === 1 ? 'is' : 'are'} recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then ${PUSH_COMMAND}`;
 }
 
 /** Stage by pathspec and commit only those paths; `committed: false` when nothing changed. */
