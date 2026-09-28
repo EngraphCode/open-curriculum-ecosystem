@@ -1,6 +1,6 @@
 # Oak National Academy
 
-Work with Oak National Academy's live curriculum graph: surface the pupil misconceptions Oak has documented for a topic, and audit a draft plan against how Oak sequences the same units and the prior knowledge each unit states it assumes. Includes Oak's six curriculum principles and its WCAG 2.2 AA accessibility guidance, grounded in real Oak data.
+Work with Oak National Academy's live curriculum graph: surface the pupil misconceptions Oak has documented for a topic, and audit a draft plan against how Oak sequences the same units and the prior knowledge each unit states it assumes. Includes Oak's six curriculum principles and its WCAG 2.2 AA accessibility guidance — grounded in real Oak data.
 
 > **Experimental.** Output is AI-generated, not an official Oak resource, and has not been through Oak's editorial or quality-assurance process. Treat it as a starting point: check it against the current national curriculum and your own context, and have a teacher or subject expert sign it off before classroom or published use.
 
