@@ -111,8 +111,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 - The primary's `.mcp.json` and `.mcp.json.example` still named the stale `oak-preview-945`
   alias at 2026-09-02; cleanup owed.
 - The runbook's row 2.2 cell is trued via MCP-630, not a PR on this thread.
-- `lint:shell:syntax` covers neither cloud-environment script; a small package.json gate change.
-  `cloud-environment-setup.sh` has only read, shellcheck and harness evidence until its first
+- `cloud-environment-setup.sh` has only read, shellcheck and harness evidence until its first
   cloud provisioning.
 - Queued follow-ups: MCP-656 (proxy-path metadata projection); the SDK v2 exploration (owner:
   "not yet").

@@ -28,6 +28,10 @@ ONBOARDING.md
 # Plugin-shipped MCP configs are tracked release artefacts, not local config.
 !plugins/*/.mcp.json
 
+# Repo-scoped tool binaries: .agent/setup/install-shellcheck.sh installs the
+# pinned shellcheck here, and the lint:shell gate runs it before any on PATH.
+.tools/
+
 # Platform settings: project config is tracked, local overrides are not.
 # Project settings define the agentic system contract (skill permissions,
 # hooks, plugin state) and must work on fresh checkout.

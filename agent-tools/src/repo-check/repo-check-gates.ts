@@ -145,8 +145,13 @@ type GatePlan = Result<readonly (readonly string[])[], string>;
  * deleted, or replaced by a symlink. The index, and so a commit and CI, still
  * carry their content, which the tools read from the disk and cannot see.
  */
-function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
+export function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
   return [...reading.goneFromWorkingTree].filter((file) => !reading.symlinks.has(file));
+}
+
+/** Why a check refuses the tracked files the working tree has lost, naming them and the remedy. */
+export function lostFilesRefusal(lost: readonly string[]): string {
+  return `these tracked files are deleted or retyped in the working tree with the change unstaged, so the index carries content this check cannot read: ${lost.join(', ')}. Stage the change or restore them.`;
 }
 
 /**
@@ -158,11 +163,7 @@ function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
  * real path. A repair proves nothing, so it skips them.
  */
 function planUnlessLost(isCheck: boolean, lost: readonly string[], plan: () => GatePlan): GatePlan {
-  return isCheck && lost.length > 0
-    ? err(
-        `these tracked files are deleted or retyped in the working tree with the change unstaged, so the index carries content this check cannot read: ${lost.join(', ')}. Stage the change or restore them.`,
-      )
-    : plan();
+  return isCheck && lost.length > 0 ? err(lostFilesRefusal(lost)) : plan();
 }
 
 /** Read the tracked tree, plan the gate's runs over it, and run them. */

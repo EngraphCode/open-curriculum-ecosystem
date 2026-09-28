@@ -1,0 +1,372 @@
+import { err, ok, type Result } from '@oaknational/result';
+import { describe, expect, it } from 'vitest';
+
+import type { GitReadFailure } from '../core/repository-paths.js';
+
+import type { TrackedTreeReading } from './repo-check-files.js';
+import { BASH_FLOOR_GUARD } from './repo-check-shellcheck-files.js';
+import { REPO_SHELLCHECK } from './repo-check-shellcheck-version.js';
+import { runShellcheckTracked, type ShellcheckGateRuntime } from './repo-check-shellcheck.js';
+import type { RepoCheckCommandResult } from './repo-check-types.js';
+
+/**
+ * The shellcheck gate's composition, driven through its injected runtime. The
+ * edges answer from the fixture: the installer's text, whether the
+ * repository's shellcheck is installed, the version probe, git's reading of
+ * the tracked tree and the skills lock. `readHead` and `readText` model the
+ * file system, a file's text by its name and a head of at most the bytes asked
+ * for (the fixtures are ASCII, so a character is a byte). `runEnv` models
+ * shellcheck's exit contract: it exits 1 when any file among its arguments is
+ * one the fixture says shellcheck reports a finding in, and 0 otherwise. Each
+ * test reads only what an operator sees: the status the gate returns and the
+ * lines it writes. What a probe, a path, a lock or a script maps to is the
+ * pure modules' (`repo-check-shellcheck-files.unit.test.ts`,
+ * `repo-check-shellcheck-version.unit.test.ts`,
+ * `repo-check-skills-lock.unit.test.ts`); the real edges are proved by the
+ * gate running over this repository (`pnpm lint:shell`). The flags that keep
+ * a `.shellcheckrc` and `SHELLCHECK_OPTS` out of the run were proved against
+ * the real binary when the second estate's gate landed.
+ */
+
+const GATE_PREFIX = 'repo-check shellcheck-tracked: ';
+
+const INSTALLER = '#!/usr/bin/env bash\nSHELLCHECK_VERSION=0.11.0\n';
+
+const PROBE_0_11_0: RepoCheckCommandResult = {
+  status: 0,
+  signal: null,
+  stdout: 'version: 0.11.0\n',
+  stderr: '',
+};
+
+const GUARDED_BASH = `#!/usr/bin/env bash\n${BASH_FLOOR_GUARD}\n  exit 1\nfi\necho run\n`;
+
+/** Tracked files and their text: a hook, a bash script and a sourced library to lint, a node script and a document to leave out. */
+const TREE: ReadonlyMap<string, string> = new Map([
+  ['.husky/pre-push', '#!/usr/bin/env sh\npnpm check\n'],
+  ['README.md', '# Readme\n'],
+  ['bin/run', GUARDED_BASH],
+  ['bin/tool', '#!/usr/bin/env node\nconsole.log("tool");\n'],
+  ['lib/common.sh', 'greet() { echo hi; }\n'],
+]);
+
+const VENDORED_SCRIPT = '.agents/skills/vendored-skill/scripts/run.sh';
+
+const LOCK = JSON.stringify({
+  version: 1,
+  skills: { 'vendored-skill': { source: 'upstream', computedHash: 'a'.repeat(64) } },
+});
+
+/** What the gate writes before it lints, naming the shellcheck and how many scripts it lints. */
+function linting(count: number, source = 'the shellcheck on PATH'): string {
+  return `${GATE_PREFIX}shellcheck 0.11.0 (${source}) over ${String(count)} tracked shell scripts`;
+}
+
+/** git's reading of a tree whose working copy has lost the `gone` files with the change unstaged. */
+function readingOf(
+  tree: ReadonlyMap<string, string>,
+  gone: readonly string[] = [],
+): Result<TrackedTreeReading, GitReadFailure> {
+  return ok({
+    tracked: [...tree.keys(), ...gone],
+    goneFromWorkingTree: new Set(gone),
+    symlinks: new Set<string>(),
+  });
+}
+
+interface GateFixture {
+  readonly installer: string;
+  readonly probe: RepoCheckCommandResult;
+  /** Each file's text in the working tree. */
+  readonly tree: ReadonlyMap<string, string>;
+  readonly trackedTree: Result<TrackedTreeReading, GitReadFailure>;
+  /** The skills lock's text; undefined means the repository has none. */
+  readonly lock: string | undefined;
+  /** The tracked files shellcheck reports a finding in. */
+  readonly findings: ReadonlySet<string>;
+  readonly repoShellcheck: boolean;
+}
+
+const DEFAULTS: GateFixture = {
+  installer: INSTALLER,
+  probe: PROBE_0_11_0,
+  tree: TREE,
+  trackedTree: readingOf(TREE),
+  lock: LOCK,
+  findings: new Set(),
+  repoShellcheck: false,
+};
+
+/** The fixture fields for a working tree and git's reading of it. */
+function withTree(
+  entries: readonly (readonly [string, string])[],
+  gone: readonly string[] = [],
+): Pick<GateFixture, 'tree' | 'trackedTree'> {
+  const tree = new Map([...TREE, ...entries]);
+  return { tree, trackedTree: readingOf(tree, gone) };
+}
+
+/** A runtime over the fixture, collecting the two output streams, since what the gate writes is its behaviour. */
+function gateRuntime(overrides: Partial<GateFixture> = {}) {
+  const fixture: GateFixture = { ...DEFAULTS, ...overrides };
+  const lines: string[] = [];
+  const failures: string[] = [];
+  const runtime: ShellcheckGateRuntime = {
+    readInstaller: () => fixture.installer,
+    hasRepoShellcheck: () => fixture.repoShellcheck,
+    probeVersion: () => fixture.probe,
+    trackedTree: () => fixture.trackedTree,
+    readSkillsLock: () => fixture.lock,
+    readHead: (file, bytes) => (fixture.tree.get(file) ?? '').slice(0, bytes),
+    readText: (file) => fixture.tree.get(file) ?? '',
+    runEnv: (args) =>
+      Promise.resolve(Number(args.some((argument) => fixture.findings.has(argument)))),
+    writeLine: (line) => lines.push(line),
+    writeFailure: (line) => failures.push(line),
+  };
+  return { runtime, lines, failures };
+}
+
+describe('runShellcheckTracked', () => {
+  it('lints the shell scripts among the tracked files with the shellcheck on PATH, and passes a clean lint', async () => {
+    const { runtime, lines, failures } = gateRuntime();
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+
+    expect(lines).toStrictEqual([linting(3)]);
+    expect(failures).toStrictEqual([]);
+  });
+
+  it('reports the repo-scoped shellcheck when the installer has put one in .tools/bin', async () => {
+    const { runtime, lines } = gateRuntime({ repoShellcheck: true });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+
+    expect(lines).toStrictEqual([linting(3, REPO_SHELLCHECK)]);
+  });
+
+  it.each(['bin/run', '.husky/pre-push', 'lib/common.sh'])(
+    'fails when shellcheck reports a finding in %s, a script it lints',
+    async (script) => {
+      const { runtime } = gateRuntime({ findings: new Set([script]) });
+
+      await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+    },
+  );
+
+  it.each(['bin/tool', 'README.md'])(
+    'passes when the only finding is in %s, which is not a shell script',
+    async (file) => {
+      const { runtime } = gateRuntime({ findings: new Set([file]) });
+
+      await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+    },
+  );
+
+  it('leaves out a vendored skill the lock pins: neither its finding, its shebang nor its floor fails the gate', async () => {
+    const { runtime, lines, failures } = gateRuntime({
+      ...withTree([[VENDORED_SCRIPT, '#!/bin/bash\necho $1\n']]),
+      findings: new Set([VENDORED_SCRIPT]),
+    });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+
+    expect(lines).toStrictEqual([linting(3)]);
+    expect(failures).toStrictEqual([]);
+  });
+
+  it('lints a skill written here, which the lock does not pin', async () => {
+    const local = '.agents/skills/local-skill/scripts/run.sh';
+    const { runtime, lines } = gateRuntime({
+      ...withTree([[local, GUARDED_BASH]]),
+      findings: new Set([local]),
+    });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([linting(4)]);
+  });
+
+  it('lints every skill when the repository has no lock', async () => {
+    const { runtime } = gateRuntime({
+      ...withTree([[VENDORED_SCRIPT, GUARDED_BASH]]),
+      lock: undefined,
+      findings: new Set([VENDORED_SCRIPT]),
+    });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+  });
+
+  it('fails an unrecognised shebang, naming the file and its line, and still lints the recognised scripts', async () => {
+    const { runtime, lines, failures } = gateRuntime(
+      withTree([['bin/quoted', '#!/usr/bin/env -S "bash" -e\necho quoted\n']]),
+    );
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([linting(3)]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(
+        /^repo-check shellcheck-tracked: bin\/quoted:1: the shebang `#!\/usr\/bin\/env -S "bash" -e` is not a recognised form;/u,
+      ),
+    ]);
+  });
+
+  it('names the whole of an unrecognised shebang line as long as macOS honours, 512 bytes', async () => {
+    // `#!/` (3 bytes), 100 directories of `long/` (500), `bin/bash` (8), then the newline.
+    const longShebang = `#!/${'long/'.repeat(100)}bin/bash`;
+    const { runtime, failures } = gateRuntime(
+      withTree([['bin/long', `${longShebang}\necho long\n`]]),
+    );
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(failures).toStrictEqual([
+      expect.stringContaining(`${GATE_PREFIX}bin/long:1: the shebang \`${longShebang}\` is not`),
+    ]);
+  });
+
+  it('fails a disable directive in a script whose lint is clean', async () => {
+    const { runtime, lines, failures } = gateRuntime(
+      withTree([
+        [
+          'bin/run',
+          `#!/usr/bin/env bash\n# shellcheck disable=SC2086\n${BASH_FLOOR_GUARD}\n  exit 1\nfi\necho $1\n`,
+        ],
+      ]),
+    );
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([linting(3)]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: bin\/run:2: /u),
+    ]);
+  });
+
+  it('fails a bash script that lacks the bash floor guard', async () => {
+    const { runtime, lines, failures } = gateRuntime(
+      withTree([['bin/run', '#!/usr/bin/env bash\necho run\n']]),
+    );
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([linting(3)]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(
+        /^repo-check shellcheck-tracked: bin\/run: a bash script's first command /u,
+      ),
+    ]);
+  });
+
+  it('fails before linting when the installer pins no version', async () => {
+    const { runtime, lines, failures } = gateRuntime({ installer: '#!/usr/bin/env bash\n' });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: .*SHELLCHECK_VERSION/u),
+    ]);
+  });
+
+  it('fails before linting when the shellcheck it resolved is another version', async () => {
+    const probe = { ...PROBE_0_11_0, stdout: 'version: 0.9.0\n' };
+    const { runtime, lines, failures } = gateRuntime({ probe });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(
+        /^repo-check shellcheck-tracked: the shellcheck on PATH is shellcheck 0\.9\.0,/u,
+      ),
+    ]);
+  });
+
+  it("fails before linting when git's read fails, saying the gate checked nothing", async () => {
+    const { runtime, lines, failures } = gateRuntime({
+      trackedTree: err({ kind: 'empty-listing' }),
+    });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: .*; the gate checked nothing$/u),
+    ]);
+  });
+
+  it('fails before linting when a file under .tools/ is tracked, naming it', async () => {
+    const { runtime, lines, failures } = gateRuntime(
+      withTree([[REPO_SHELLCHECK, '#!/usr/bin/env sh\nexit 0\n']]),
+    );
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(
+        /^repo-check shellcheck-tracked: \.tools\/bin\/shellcheck: \.tools\/ is /u,
+      ),
+    ]);
+  });
+
+  it('fails before linting a tracked file the working tree has lost with the change unstaged, naming it', async () => {
+    // `git add bin/lost; rm bin/lost`: a commit carries a script the gate cannot read.
+    const { runtime, lines, failures } = gateRuntime(withTree([], ['bin/lost']));
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: .*cannot read: bin\/lost\. Stage/u),
+    ]);
+  });
+
+  it('passes when the only file the working tree has lost is in a vendored skill', async () => {
+    const { runtime, lines } = gateRuntime(withTree([], [VENDORED_SCRIPT]));
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+
+    expect(lines).toStrictEqual([linting(3)]);
+  });
+
+  it('fails before linting when the skills lock is not JSON', async () => {
+    const { runtime, lines, failures } = gateRuntime({ lock: '{ "skills": ' });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: skills-lock\.json is not JSON /u),
+    ]);
+  });
+
+  it('fails before linting when git lists no shell scripts', async () => {
+    const tree = new Map([['README.md', '# Readme\n']]);
+    const { runtime, lines, failures } = gateRuntime({ tree, trackedTree: readingOf(tree) });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(/^repo-check shellcheck-tracked: .*no tracked shell scripts/u),
+    ]);
+  });
+
+  it('still names each refused shebang when git lists no shell scripts', async () => {
+    const tree = new Map([['bin/legacy', '#!/bin/bash\necho legacy\n']]);
+    const { runtime, lines, failures } = gateRuntime({ tree, trackedTree: readingOf(tree) });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+    expect(lines).toStrictEqual([]);
+    expect(failures).toStrictEqual([
+      expect.stringMatching(
+        /^repo-check shellcheck-tracked: bin\/legacy:1: the shebang `#!\/bin\/bash` is not/u,
+      ),
+      expect.stringMatching(/^repo-check shellcheck-tracked: .*no tracked shell scripts/u),
+    ]);
+  });
+});

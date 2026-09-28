@@ -190,9 +190,18 @@ guards or relocations**, and several report stale or silently-green results:
   site (2026-09-01). Local `sonar verify --file` answers 403 for this
   organisation; the class proof is a per-rule grep plus shellcheck, and the
   gate proof is the PR scan after the push.
-- `lint:shell` syntax-checks only `apps/**/scripts/*.sh` and `.husky/*`;
-  shell under `.agent/claude-harness-integrations/` is outside it and gets
-  shellcheck by hand.
+- `lint:shell` runs the shellcheck `.agent/setup/install-shellcheck.sh`
+  pins over every tracked shell script outside the vendored skills
+  `skills-lock.json` names. When it cannot run that version, run the
+  installer: it puts the binary in the ignored `.tools/bin`, which the gate
+  reads before `PATH`. `.tools/bin` is per checkout, so a new linked
+  worktree uses the shellcheck on `PATH` until the installer runs there, and
+  an upgrade past the pin on `PATH` fails every checkout without its own
+  `.tools/bin` at once.
+- `lint:shell` runs at pre-commit and reads the whole tracked tree, so an
+  unrelated tracked file deleted with the change unstaged, or another
+  agent's unfinished shell edit, refuses the commit. Stage your own change;
+  never restore another agent's work to clear it.
 - In a fresh linked worktree `pnpm install` can report `prepare$ husky …
 Done` while creating NO `.husky/_` shims, so `core.hooksPath` points at
   nothing and git skips pre-commit and pre-push with zero output (a push

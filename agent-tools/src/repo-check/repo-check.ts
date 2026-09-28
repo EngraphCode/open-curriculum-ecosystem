@@ -41,6 +41,7 @@ import {
   runPrettierTracked,
 } from './repo-check-gates.js';
 import { runProfile } from './repo-check-runner.js';
+import { runShellcheckTracked } from './repo-check-shellcheck.js';
 
 function usage(): string {
   return [
@@ -59,6 +60,9 @@ function usage(): string {
     '  profile [--dry-run] [--capture-output]',
     '                         Capture the pnpm check Turbo graph and, unless dry-run is set, time pnpm check.',
     '                         --capture-output stores pnpm check stdout/stderr beside the profile artifact.',
+    '  shellcheck-tracked     Run shellcheck on every tracked shell script outside the vendored skills;',
+    '                         fail on any finding, silencing directive, unrecognised shebang or missing',
+    '                         bash floor, or when .tools/bin or PATH has no pinned shellcheck.',
   ].join('\n');
 }
 
@@ -167,6 +171,7 @@ const COMMANDS: ReadonlyMap<string, RepoCheckCommand> = new Map<string, RepoChec
     'profile',
     { flags: new Set(['--dry-run', '--capture-output']), run: (args) => runProfile(args) },
   ],
+  ['shellcheck-tracked', { flags: NO_FLAGS, run: () => runShellcheckTracked() }],
 ]);
 
 /**
