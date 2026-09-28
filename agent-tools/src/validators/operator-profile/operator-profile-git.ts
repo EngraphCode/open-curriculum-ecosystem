@@ -35,8 +35,11 @@ export type GitRunner = (args: readonly string[]) => GitOutcome;
  * Every call runs with `core.symlinks=false`, so a symbolic link a pull
  * delivers is checked out as a plain file holding the link's text, never
  * as a link: the Practice's own git never writes a link into the profile
- * tree, and the check refuses the plain file by name. Every call carries
- * it, so the status and push legs read the tree the way the pull wrote it.
+ * tree. At an entry the layout does not expect, the check refuses that
+ * file by name; at an expected path it reads as the document its text
+ * makes it, and the push leg refuses any path the index still records as
+ * a link. Every call carries it, so the status and push legs read the tree
+ * the way the pull wrote it.
  */
 export function createGitRunner(root: string): GitRunner {
   const git = resolveTrustedGit();
