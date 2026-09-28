@@ -69,11 +69,13 @@ export interface InheritedProcessOptions {
 }
 
 /**
- * Spawn a trusted command with inherited stdio and report how it ended.
+ * Spawn a command with inherited stdio and report how it ended.
  *
- * A signal death is reported as such (`status` null, `signal` named), never
- * folded into an exit code, so a caller can tell a crash from a finding. A
- * launch failure, whether spawn reports it or throws it, is written to stderr
+ * `pnpm` and `git` resolve to their trusted binaries; any other command is
+ * spawned as given. A signal death is reported as such (`status` null,
+ * `signal` named), never folded into an exit code, so a caller can tell a
+ * crash from a finding. A launch failure (a `pnpm` or `git` that does not
+ * resolve, or a spawn that reports or throws an error) is written to stderr
  * and reported as status 1.
  *
  * @param command - The command; `pnpm` and `git` resolve to their trusted binaries.

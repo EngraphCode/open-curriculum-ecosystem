@@ -39,6 +39,10 @@ import { resolvePnpm } from '../src/spawn/pnpm-path.js';
  * pnpm, self-managing or not.
  */
 
+// `fail` exits the process, which skips any `finally`, so it removes the
+// fixture itself; until the fixture exists there is nothing to remove.
+let removeFixture = (): void => undefined;
+
 const smokeDir = fileURLToPath(new URL('.', import.meta.url));
 const repoRoot = resolve(smokeDir, '..', '..');
 const rootPackageJson = z
@@ -64,6 +68,9 @@ if (devPreinstall !== `node ${guardRelativePath}`) {
 }
 
 const fixtureRoot = mkdtempSync(join(tmpdir(), 'oak-install-version-guard-'));
+removeFixture = (): void => {
+  rmSync(fixtureRoot, { recursive: true, force: true });
+};
 // The guard and the mismatched pin live in a nested dir (see docstring); the
 // install root deliberately carries no `packageManager`.
 const pinnedRoot = join(fixtureRoot, 'pinned');
@@ -184,10 +191,11 @@ try {
     'install-version-guard smoke OK: mismatch refused and lockfile remained byte-identical\n',
   );
 } finally {
-  rmSync(fixtureRoot, { recursive: true, force: true });
+  removeFixture();
 }
 
 function fail(message: string): never {
+  removeFixture();
   process.stderr.write(`${message}\n`);
   process.exit(1);
 }

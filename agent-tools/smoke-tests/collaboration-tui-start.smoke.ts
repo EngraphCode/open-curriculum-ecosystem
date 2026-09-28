@@ -26,15 +26,21 @@ const cliPath = resolve(repoRoot, 'agent-tools/dist/src/bin/agent-tools.js');
 
 const fixtureRoot = mkdtempSync(join(tmpdir(), 'oak-collaboration-tui-start-'));
 const collaborationDir = join(fixtureRoot, '.agent', 'state', 'collaboration');
-mkdirSync(join(collaborationDir, 'comms'), { recursive: true });
-writeFileSync(
-  join(collaborationDir, 'active-claims.json'),
-  `${EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON}\n`,
-);
-writeFileSync(
-  join(collaborationDir, 'closed-claims.archive.json'),
-  `${EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON}\n`,
-);
+try {
+  mkdirSync(join(collaborationDir, 'comms'), { recursive: true });
+  writeFileSync(
+    join(collaborationDir, 'active-claims.json'),
+    `${EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON}\n`,
+  );
+  writeFileSync(
+    join(collaborationDir, 'closed-claims.archive.json'),
+    `${EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON}\n`,
+  );
+} catch (error) {
+  fail(
+    `collaboration TUI smoke could not seed its coordination home: ${error instanceof Error ? error.message : String(error)}`,
+  );
+}
 
 const child = spawn(
   process.execPath,

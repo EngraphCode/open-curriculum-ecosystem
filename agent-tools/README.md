@@ -234,13 +234,7 @@ pnpm agent-tools collaboration-state comms render \
   --output .agent/state/collaboration/shared-comms-log.md
 ```
 
-`test:e2e` runs the E2E suites, the two contract validators, a build, and then the smoke suite:
-every `smoke-tests/*.smoke.ts`, discovered from the directory by
-`dist/src/bin/run-smoke-tests.js` rather than listed, so a new smoke file is gated as soon as it
-exists. Each smoke runs as `pnpm exec tsx <file>` from the package root, in code-point order; every
-smoke runs even after a failure, and the suite fails when any smoke fails or is killed by a signal,
-or when none is found. The runner takes no arguments. One smoke runs alone through its `smoke:*`
-script:
+The TUI's startup smoke runs in the [smoke suite](#the-smoke-suite); to run it alone:
 
 ```bash
 pnpm agent-tools:build
@@ -629,3 +623,24 @@ Both read the harness's own records, never the model's text (ADR-180 §2).
 - `pnpm agent-tools:lint`
 - `pnpm agent-tools:test`
 - `pnpm agent-tools:test:e2e` (the E2E suites, the contract validators and every smoke)
+
+### The smoke suite
+
+`test:e2e` runs the E2E suites, the two contract validators, a build, and then the smoke suite:
+every `smoke-tests/*.smoke.ts`, discovered from the directory by
+`dist/src/bin/run-smoke-tests.js` rather than listed, so a new smoke file is gated as soon as it
+exists. Each smoke runs as `node --import tsx <file>` from the package root, as the runner's direct
+child, in code-point order. Every smoke runs even after a failure, and the suite fails when any
+smoke fails or is killed by a signal, or when none is found. The runner takes no arguments;
+`--help` prints its usage.
+
+Every smoke in the directory is on the PR-check path, since CI runs `test:e2e`, so no smoke may
+reach the network
+([ADR-161](../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md)).
+
+One smoke runs alone after a build, from `agent-tools/`:
+
+```bash
+pnpm agent-tools:build
+cd agent-tools && node --import tsx smoke-tests/<name>.smoke.ts
+```

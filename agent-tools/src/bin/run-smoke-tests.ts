@@ -5,16 +5,17 @@ import path from 'node:path';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { spawnInheritedProcess } from '../repo-check/repo-check-runtime.js';
-import { smokeTestFiles, summariseSmokeRun, type SmokeRunResult } from '../smoke/smoke-suite.js';
+import { runSmokeSuite, smokeTestFiles } from '../smoke/smoke-suite.js';
 
 /**
  * Run every smoke test in `agent-tools/smoke-tests/`, discovered from the
- * directory (`smoke/smoke-suite.ts` carries the reasoning). Each smoke runs
- * as production invokes it — `tsx` on the file, the same spawn the per-file
- * `smoke:*` scripts use — with the agent-tools package root as its working
+ * directory (`smoke/smoke-suite.ts` carries the reasoning). Each smoke runs as
+ * `node --import tsx <file>`, the loader its `smoke:*` script uses, as this
+ * bin's direct child with the agent-tools package root as its working
  * directory, set explicitly so the run does not depend on how this bin was
- * invoked. Every smoke runs even after a failure, so one run reports the
- * whole suite; a signal death is reported by its signal.
+ * invoked. A direct child keeps a smoke's own signal death as its signal:
+ * behind `pnpm exec tsx`, the launcher turns it into exit 128+n. Every smoke
+ * runs even after a failure, so one run reports the whole suite.
  *
  * The bin takes no arguments: `--help` prints usage and exits 0; anything
  * else is refused with usage on stderr, so a typo can never run the suite as
@@ -36,20 +37,15 @@ async function runSuite(): Promise<number> {
     resolveRepoRoot(import.meta.url, { projectDir: undefined }),
     'agent-tools',
   );
-  const files = smokeTestFiles(readdirSync(path.join(packageRoot, SMOKE_DIR)));
+  const smokeDir = path.join(packageRoot, SMOKE_DIR);
+  const files = smokeTestFiles(readdirSync(smokeDir));
 
-  const results: SmokeRunResult[] = [];
-  for (const file of files) {
+  const summary = await runSmokeSuite(files, (file) => {
     writeLine(`smoke run  ${file}`);
-    const end = await spawnInheritedProcess(
-      'pnpm',
-      ['exec', 'tsx', path.join(packageRoot, SMOKE_DIR, file)],
-      { cwd: packageRoot },
-    );
-    results.push({ file, status: end.status, signal: end.signal });
-  }
-
-  const summary = summariseSmokeRun(results);
+    return spawnInheritedProcess(process.execPath, ['--import', 'tsx', path.join(smokeDir, file)], {
+      cwd: packageRoot,
+    });
+  });
   for (const line of summary.lines) {
     if (summary.ok) {
       writeLine(line);
@@ -69,7 +65,16 @@ async function main(argv: readonly string[]): Promise<number> {
     writeErrorLine(`run-smoke-tests: unrecognised arguments: ${argv.join(' ')}\n${USAGE}`);
     return 1;
   }
-  return runSuite();
+  try {
+    return await runSuite();
+  } catch (error: unknown) {
+    // A missing smoke directory or an unresolvable repository root: the suite
+    // cannot be read, which is a failure, reported as one line, not a stack.
+    writeErrorLine(
+      `run-smoke-tests: the smoke suite could not be read: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return 1;
+  }
 }
 
 process.exitCode = await main(process.argv.slice(2));

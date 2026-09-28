@@ -7,8 +7,10 @@
  * file in the smoke directory that carries the suffix, in a stable order, and
  * the gate's verdict is the conjunction of every run.
  *
- * Pure: the discovery and the summary map values to values; the composition
- * root in `bin/run-smoke-tests.ts` owns the directory read and the spawns.
+ * No IO here: the discovery and the summary map values to values, and the
+ * suite's run order is proven against an injected runner of one smoke; the
+ * composition root in `bin/run-smoke-tests.ts` owns the directory read and
+ * the spawns.
  *
  * @packageDocumentation
  */
@@ -86,4 +88,28 @@ export function summariseSmokeRun(results: readonly SmokeRunResult[]): SmokeSuit
       ? `smoke suite: ${String(results.length)} passed`
       : `smoke suite: ${String(failed.length)} of ${String(results.length)} failed`;
   return { ok: failed.length === 0, lines: [...lines, verdict] };
+}
+
+/** How one smoke ended, before the suite names it. */
+export type SmokeEnd = Omit<SmokeRunResult, 'file'>;
+
+/**
+ * Run every smoke in order, each after the one before it has ended, whatever
+ * that one ended with, and summarise the whole run. The runner of one smoke is
+ * injected: the composition root spawns a process; a test passes a fake.
+ *
+ * @param files - The smoke files, in run order.
+ * @param runOne - Runs one smoke and reports how it ended.
+ * @returns The suite's verdict and report lines.
+ */
+export async function runSmokeSuite(
+  files: readonly string[],
+  runOne: (file: string) => Promise<SmokeEnd>,
+): Promise<SmokeSuiteSummary> {
+  const results: SmokeRunResult[] = [];
+  for (const file of files) {
+    const end = await runOne(file);
+    results.push({ file, status: end.status, signal: end.signal });
+  }
+  return summariseSmokeRun(results);
 }
