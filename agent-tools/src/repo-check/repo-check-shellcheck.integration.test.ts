@@ -330,6 +330,11 @@ describe('runShellcheckTracked before it lints', () => {
       'whose index content cannot be read',
       new Map([['bin/lost', err('fatal: bad object')]]),
     ],
+    [
+      'bin/lost',
+      'whose index content carries a shebang the gate refuses',
+      new Map([['bin/lost', ok('#!/bin/bash\necho $1\n')]]),
+    ],
   ])(
     'fails before linting a tracked file %s the working tree has lost, %s, naming it',
     async (lost, _case, indexReads) => {

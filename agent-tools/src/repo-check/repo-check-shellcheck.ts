@@ -34,10 +34,10 @@ import { isInsideAny, lockedSkillRoots } from './repo-check-skills-lock.js';
  * (`repo-check-universe.ts`), less the vendored skills `skills-lock.json` pins
  * (`repo-check-skills-lock.ts`), and a tracked shell script the working tree
  * has lost with the change unstaged fails the gate by name, since a commit
- * carries content the gate cannot read. Whether a lost file is a script is
- * read from the index git commits, not the disk, so a lost file of any other
- * kind, such as a peer's staged deletion that a pathspec commit's index still
- * names, is not refused. Each file's opening bytes (`HEAD_BYTES`) are read to
+ * carries content the gate cannot read. Whether a lost file is a script, or
+ * carries a shebang the gate refuses, is read from the index git commits, not
+ * the disk, so a lost file of any other kind, such as a peer's staged deletion
+ * that a pathspec commit's index still names, is not refused. Each file's opening bytes (`HEAD_BYTES`) are read to
  * classify its shebang, which finds the extensionless scripts and fails any
  * shebang the classification refuses (an unrecognised form, or a non-shell
  * form on a file whose path makes it shell), and each script is read for
@@ -122,21 +122,24 @@ function trackedTreeOutsideVendored(
 }
 
 /**
- * Whether a file the working tree has lost is one the gate would lint, read
- * from the content git's index holds for it, which is what a commit carries.
- * A file whose index content git cannot read counts, so the gate fails closed.
+ * Whether a file the working tree has lost is one the gate would lint or
+ * refuse a shebang in, read from the content git's index holds for it, which
+ * is what a commit carries. A file whose index content git cannot read counts,
+ * so the gate fails closed.
  */
-function lostFileWouldBeLinted(runtime: ShellcheckGateRuntime, file: string): boolean {
+function lostFileWouldBeChecked(runtime: ShellcheckGateRuntime, file: string): boolean {
   const head = runtime.readIndexHead(file, HEAD_BYTES);
-  return !head.ok || isShellScript(file, head.value);
+  return (
+    !head.ok || isShellScript(file, head.value) || shebangFailures(file, head.value).length > 0
+  );
 }
 
 /**
  * Each tracked file's opening bytes, less the vendored skills' files; or why
  * the gate cannot read them: git's read failed, a `.tools` path is tracked,
- * the skills lock cannot be read, or the working tree has lost tracked shell
- * scripts with the change unstaged (a commit carries content the gate cannot
- * read).
+ * the skills lock cannot be read, or the working tree has lost tracked files
+ * the gate would lint or refuse, with the change unstaged (a commit carries
+ * content the gate cannot read).
  */
 function trackedHeads(
   runtime: ShellcheckGateRuntime,
@@ -148,7 +151,7 @@ function trackedHeads(
   const { tree, vendored } = read.value;
   const lost = unstagedLoss(tree)
     .filter((file) => !isInsideAny(file, vendored))
-    .filter((file) => lostFileWouldBeLinted(runtime, file));
+    .filter((file) => lostFileWouldBeChecked(runtime, file));
   return lost.length > 0
     ? err(lostFilesRefusal(lost))
     : ok(

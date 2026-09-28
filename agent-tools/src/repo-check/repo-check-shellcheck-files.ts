@@ -73,9 +73,11 @@ export const BASH_FLOOR_GUARD =
  * `extended-analysis` turns the dataflow analysis off. The `#` starts a word,
  * as a shell comment does, anywhere on the line: shellcheck honours a
  * directive after `then`, `do`, `{` or `(` as well as on a line of its own.
+ * The key counts anywhere after `shellcheck`, since shellcheck also honours a
+ * key glued to the quoted value before it (`source="lib.sh"disable=SC2086`).
  */
 const SILENCING_DIRECTIVE =
-  /(?:^|[\s;&|(){}])#\s*shellcheck\s(?:.*\s)?(disable|shell|extended-analysis)=/u;
+  /(?:^|[\s;&|(){}])#\s*shellcheck\s.*?(disable|shell|extended-analysis)=/u;
 
 /** A file's first line, less the carriage return that ends a CRLF line. */
 function firstLine(head: string): string {

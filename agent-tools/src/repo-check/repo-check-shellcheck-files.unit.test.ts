@@ -161,6 +161,23 @@ describe('silencingDirectiveFailures', () => {
     ]);
   });
 
+  it.each([
+    ['# shellcheck source="/dev/null"disable=SC2086', 'disable'],
+    ["# shellcheck source='lib.sh'disable=SC2086", 'disable'],
+    ['# shellcheck enable="all"disable=SC2086', 'disable'],
+    ['# shellcheck source=".."shell=bash', 'shell'],
+    ['# shellcheck enable="all"extended-analysis=false', 'extended-analysis'],
+  ])(
+    'fails a silencing key glued to the quoted value before it, which shellcheck honours, as in %j',
+    (line, key) => {
+      expect(silencingDirectiveFailures('bin/run.sh', `#!/bin/sh\n${line}\n`)).toStrictEqual([
+        expect.stringMatching(
+          new RegExp(String.raw`^bin/run\.sh:2: a shellcheck ${key}= directive `, 'u'),
+        ),
+      ]);
+    },
+  );
+
   it('passes a # inside a word, which starts no comment', () => {
     expect(
       silencingDirectiveFailures('bin/run.sh', '#!/bin/sh\necho tag#shellcheck disable=SC2086\n'),

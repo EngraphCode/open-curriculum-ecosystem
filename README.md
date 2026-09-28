@@ -395,6 +395,7 @@ steps below were run end to end on Windows 11 in August 2026.
 git clone https://github.com/oaknational/oak-open-curriculum-ecosystem.git
 cd oak-open-curriculum-ecosystem
 pnpm install
+.agent/setup/install-shellcheck.sh # the pinned shellcheck pnpm lint runs; once per checkout
 pnpm test && pnpm type-check && pnpm lint
 ```
 
