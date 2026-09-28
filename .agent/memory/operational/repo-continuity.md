@@ -515,6 +515,27 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **THE SECOND ESTATE'S PR 255 LANDED: THE FLOW CONTRACT, THE COUNT LINE, SEVEN LANDING ROWS,
+  2026-09-28 18:4xZ to 19:3xZ (Myrtle turns Canopy, bf4957).** Merged by that estate's bot as
+  a9aa00d38 on its main: 273de601 (the register's vocabulary under the flow contract; the J22 #272,
+  J17, J22, J11, J15, J19 and J23 rows; rulings 41 to 44, todos 4 and 6), ddb09d98 (the recount to
+  26), 33b72f82f (Copilot's round one: the remainder, total less landed, falls between folds; J11's
+  loss-scan and J20's flags take a seat and the residue a horizon; the register's own count line,
+  1 of 26 at jcnet be6b5141be and lineage c5dbce46e6), fc86b707 with a pure sync (round two: todo
+  6's close condition covers the rows inside the count; J15's two path counts), 222eb70b6 (round
+  three: in flight and queued disjoint; PARTIAL as the unsettled marker). Round four (ruling 43's
+  copy of the older in-flight wording; the lineage's branch written as main in the rule text and
+  todo 6) took signed lines under PDR-140 clause 9 on the Director's word of 19:2xZ (the third
+  cure push was past the one late-cure push; recorded against the lane in the Director's check-in
+  69, not against the text). **Queued ledger rows for the next records-class pull request on the
+  second estate's node** (its §Review dispositions, and the texts): ruling 43's restatement of
+  "in flight" to read as the register does ("the pull request number, or the seat's lane once
+  started; assigned work not yet started is queued"), and the register's rule text and todo 6
+  naming the lineage's default branch `engraph` ("default-branch heads, `main` there and
+  `engraph` here"; "then `engraph`"). One bot push refused 403 and cured by the retry, the
+  fourth of the day across both estates. Remote branch deleted and read back 0 refs; worktree
+  and local branch removed; the home claim 233a6749 closed. The twin ruling branch carries the
+  four answers at b0f755a16, waiting for the fold. Count after the door: 2 of 3 (256, 289).
 - **THE FLOW CONTRACT AND THREE MORE OWNER WORDS; THE SECOND ESTATE'S PR 255, 2026-09-28 18:1xZ to
   18:5xZ (Myrtle turns Canopy, bf4957).** The Director relayed three owner words by the question tool
   (answered by 17:5xZ), verbatim, with the workings on the second estate's napkin at 411f6714. J17's

@@ -1165,3 +1165,40 @@ triage's tail and the register's row, and cited the tail; nothing in either poin
 line in the triage's §Not determined pointing at its own preamble, the second estate's record and
 its seat's call, offered on the stream. Before a card, the next census searches the cited record
 for the question's own words. One instance, no rule.
+
+## 2026-09-28 ~19:3xZ — a rule text with two copies, reviewed clause by clause: rounds of three, one, two, two (Myrtle turns Canopy, bf4957)
+
+**Observation.** The second estate's PR 255 carried the register's flow contract, the text the
+count is computed from, and drew four Copilot rounds: three findings, then one, then two, then two.
+Every finding was real, and each round's was exposed or introduced by the previous cure: the
+remainder's direction (round one); the close condition's scope, widened by the vocabulary change
+(round two); the in-flight and queued overlap, and a PARTIAL sentence written against the table's
+own notation (round three); ruling 43's copy of the older in-flight wording, and a branch misnamed
+since PR 248 (round four). The Director read the loop as grown at round three (PDR-140 clause 9
+allows one late-cure push) and ruled signed lines for round four; the two cures are queued in the
+pickup for the next records-class pull request on that node.
+
+**Reading.** A contract sentence has a second consumer the moment it lands: the count, the
+check-ins, and the restatement in ruling 43. Each cure to one copy re-opened the other, and the
+close condition quantifies over the vocabulary, so a change to the vocabulary changed it too. The
+cure set for a rule text is every copy of it and every sentence that quantifies over it, read
+together before the push; three of the four rounds would have been one. The practice's own move,
+consolidate-at-second-consumer: the ruling should cite the register's paragraph, not restate it.
+
+**Routing.** The queued rows land with the next records-class pull request on the second estate's
+node, and ruling 43's restatement becomes a citation then. No rule; the practice already has it.
+
+## 2026-09-28 ~19:3xZ — the fourth refused bot push of the day, now on the second estate (Myrtle turns Canopy, bf4957)
+
+**Observation.** A push by the second estate's bot was refused at 19:0xZ with GitHub's 403
+("Permission ... denied to jimbot-of-the-devonshire-jimbots[bot]") and went through on the
+immediate retry. The same shape refused three lineage pushes earlier today (Nova 16:38Z, Siren
+16:39Z, this seat 16:5xZ), each green on retry. Four instances, two estates, two bots, one day.
+
+**Reading.** The token is minted seconds before the push and the same shape succeeds on retry, so
+the refusal is transient on GitHub's side of installation-token pushes, not a permission. This
+seat's push scripts now retry three times with a pause and route a third refusal; every seat
+writing its own retry is the second consumer of one fix.
+
+**Routing.** To the Director as a merge-bot candidate: a bounded retry inside `merge-bot push`
+on a 403 with the refusal's text in the result, so no seat's script carries it.
