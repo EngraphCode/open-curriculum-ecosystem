@@ -240,6 +240,9 @@ describe('pullProfile', () => {
     expect(result.ok).toBe(false);
     expect(result.ok ? '' : result.error).toContain('merge conflict in index.md, machines/a.md');
     expect(result.ok ? '' : result.error).toContain('union');
+    expect(result.ok ? '' : result.error).toContain(
+      'then pnpm profile:sync push --message "<seat>: <the fact>"',
+    );
   });
 
   it('refuses when the branch tracks no upstream', () => {
@@ -353,7 +356,7 @@ describe('pushProfile', () => {
       { prefix: ['push', '--quiet'] },
     ]);
     expect(failure(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
-      'repos/a--b.md is recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then pnpm profile:sync push',
+      'repos/a--b.md is recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then pnpm profile:sync push --message "<seat>: <the fact>"',
     );
   });
 

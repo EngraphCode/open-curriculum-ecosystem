@@ -18,7 +18,7 @@ import { spawnSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../../core/trusted-git.js';
-import { type SyncStateInput } from './operator-profile-sync-state.js';
+import { PUSH_COMMAND, type SyncStateInput } from './operator-profile-sync-state.js';
 
 interface GitOutcome {
   readonly ok: boolean;
@@ -149,7 +149,7 @@ function mergeUpstream(run: GitRunner): Result<string, string> {
   const files =
     conflicted.stdout.trim() === '' ? 'unknown files' : conflicted.stdout.replaceAll('\n', ', ');
   return err(
-    `merge conflict in ${files} — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push`,
+    `merge conflict in ${files} — resolve by union (both sides kept in time order, the later updated date wins), then ${PUSH_COMMAND}`,
   );
 }
 
