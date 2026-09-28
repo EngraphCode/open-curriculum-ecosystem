@@ -5,17 +5,19 @@ import type { GitReadFailure } from '../core/repository-paths.js';
 
 import type { TrackedTreeReading } from './repo-check-files.js';
 import { BASH_FLOOR_GUARD } from './repo-check-shellcheck-files.js';
+import type { ShellcheckGateRuntime } from './repo-check-shellcheck-runtime.js';
 import { REPO_SHELLCHECK } from './repo-check-shellcheck-version.js';
-import { runShellcheckTracked, type ShellcheckGateRuntime } from './repo-check-shellcheck.js';
+import { runShellcheckTracked } from './repo-check-shellcheck.js';
 import type { RepoCheckCommandResult } from './repo-check-types.js';
 
 /**
  * The shellcheck gate's composition, driven through its injected runtime. The
  * edges answer from the fixture: the installer's text, whether the
  * repository's shellcheck is installed, the version probe, git's reading of
- * the tracked tree and the skills lock. `readHead` and `readText` model the
- * file system, a file's text by its name and a head of at most the bytes asked
- * for (the fixtures are ASCII, so a character is a byte). `runEnv` models
+ * the tracked tree, the skills lock, and git's index reads (an empty blob
+ * unless the fixture names one). `readHead` and `readText` model the file
+ * system, a file's text by its name and a head of at most the bytes asked for
+ * (the fixtures are ASCII, so a character is a byte). `runEnv` models
  * shellcheck's exit contract: it exits 1 when any file among its arguments is
  * one the fixture says shellcheck reports a finding in, and 0 otherwise. Each
  * test reads only what an operator sees: the status the gate returns and the
@@ -85,6 +87,8 @@ interface GateFixture {
   /** The tracked files shellcheck reports a finding in. */
   readonly findings: ReadonlySet<string>;
   readonly repoShellcheck: boolean;
+  /** What git's index read answers for a file, when not an empty blob. */
+  readonly indexReads: ReadonlyMap<string, Result<string, string>>;
 }
 
 const DEFAULTS: GateFixture = {
@@ -95,6 +99,7 @@ const DEFAULTS: GateFixture = {
   lock: LOCK,
   findings: new Set(),
   repoShellcheck: false,
+  indexReads: new Map(),
 };
 
 /** The fixture fields for a working tree and git's reading of it. */
@@ -118,6 +123,7 @@ function gateRuntime(overrides: Partial<GateFixture> = {}) {
     trackedTree: () => fixture.trackedTree,
     readSkillsLock: () => fixture.lock,
     readHead: (file, bytes) => (fixture.tree.get(file) ?? '').slice(0, bytes),
+    readIndexHead: (file) => fixture.indexReads.get(file) ?? ok(''),
     readText: (file) => fixture.tree.get(file) ?? '',
     runEnv: (args) =>
       Promise.resolve(Number(args.some((argument) => fixture.findings.has(argument)))),
@@ -258,7 +264,9 @@ describe('runShellcheckTracked', () => {
       ),
     ]);
   });
+});
 
+describe('runShellcheckTracked before it lints', () => {
   it('fails before linting when the installer pins no version', async () => {
     const { runtime, lines, failures } = gateRuntime({ installer: '#!/usr/bin/env bash\n' });
 
@@ -297,31 +305,55 @@ describe('runShellcheckTracked', () => {
     ]);
   });
 
-  it('fails before linting when a file under .tools/ is tracked, naming it', async () => {
+  it.each([
+    [REPO_SHELLCHECK, 'a file under it'],
+    ['.tools', 'a link at its name'],
+    ['.TOOLS/bin/shellcheck', 'a file under it in another case'],
+  ])('fails before linting when %s, %s, is tracked, naming it', async (path) => {
     const { runtime, lines, failures } = gateRuntime(
-      withTree([[REPO_SHELLCHECK, '#!/usr/bin/env sh\nexit 0\n']]),
+      withTree([[path, '#!/usr/bin/env sh\nexit 0\n']]),
     );
 
     await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
 
     expect(lines).toStrictEqual([]);
     expect(failures).toStrictEqual([
-      expect.stringMatching(
-        /^repo-check shellcheck-tracked: \.tools\/bin\/shellcheck: \.tools\/ is /u,
-      ),
+      `${GATE_PREFIX}${path}: .tools is the ignored directory the installer writes and the gate runs its shellcheck from, so nothing at or in it is tracked; untrack these`,
     ]);
   });
 
-  it('fails before linting a tracked file the working tree has lost with the change unstaged, naming it', async () => {
-    // `git add bin/lost; rm bin/lost`: a commit carries a script the gate cannot read.
-    const { runtime, lines, failures } = gateRuntime(withTree([], ['bin/lost']));
+  it.each([
+    ['bin/lost.sh', 'whose path makes it shell', new Map()],
+    ['bin/lost', 'whose index content is a bash script', new Map([['bin/lost', ok(GUARDED_BASH)]])],
+    [
+      'bin/lost',
+      'whose index content cannot be read',
+      new Map([['bin/lost', err('fatal: bad object')]]),
+    ],
+  ])(
+    'fails before linting a tracked file %s the working tree has lost, %s, naming it',
+    async (lost, _case, indexReads) => {
+      // `git add bin/lost; rm bin/lost`: a commit carries a script the gate cannot read.
+      const { runtime, lines, failures } = gateRuntime({ ...withTree([], [lost]), indexReads });
 
-    await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+      await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
 
-    expect(lines).toStrictEqual([]);
-    expect(failures).toStrictEqual([
-      expect.stringMatching(/^repo-check shellcheck-tracked: .*cannot read: bin\/lost\. Stage/u),
-    ]);
+      expect(lines).toStrictEqual([]);
+      expect(failures).toStrictEqual([
+        expect.stringContaining(`cannot read: ${lost}. Stage the change or `),
+      ]);
+    },
+  );
+
+  it("passes when the only file the working tree has lost is not a shell script, such as a peer's staged deletion a pathspec commit's index still names", async () => {
+    const { runtime, lines } = gateRuntime({
+      ...withTree([], ['notes/peer.txt']),
+      indexReads: new Map([['notes/peer.txt', ok('Notes.\n')]]),
+    });
+
+    await expect(runShellcheckTracked(runtime)).resolves.toBe(0);
+
+    expect(lines).toStrictEqual([linting(3)]);
   });
 
   it('passes when the only file the working tree has lost is in a vendored skill', async () => {

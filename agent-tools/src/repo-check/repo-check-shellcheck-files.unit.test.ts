@@ -149,6 +149,24 @@ describe('silencingDirectiveFailures', () => {
     expect(failures[3]).toContain('bin/run.sh:8: a shellcheck extended-analysis= directive');
   });
 
+  it.each([
+    'if true; then # shellcheck disable=SC2086',
+    '{ # shellcheck disable=SC2086',
+    '(# shellcheck disable=SC2086',
+    'while true; do # shellcheck disable=SC2086',
+    'echo run; # shellcheck disable=SC2086',
+  ])('fails a directive shellcheck honours after an opening token, as in %j', (line) => {
+    expect(silencingDirectiveFailures('bin/run.sh', `#!/bin/sh\n${line}\n`)).toStrictEqual([
+      expect.stringMatching(/^bin\/run\.sh:2: a shellcheck disable= directive /u),
+    ]);
+  });
+
+  it('passes a # inside a word, which starts no comment', () => {
+    expect(
+      silencingDirectiveFailures('bin/run.sh', '#!/bin/sh\necho tag#shellcheck disable=SC2086\n'),
+    ).toStrictEqual([]);
+  });
+
   it('passes directives that disable nothing, and comments that are not directives', () => {
     const content = [
       '#!/bin/sh',

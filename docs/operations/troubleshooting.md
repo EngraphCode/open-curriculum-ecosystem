@@ -199,9 +199,11 @@ guards or relocations**, and several report stale or silently-green results:
   an upgrade past the pin on `PATH` fails every checkout without its own
   `.tools/bin` at once.
 - `lint:shell` runs at pre-commit and reads the whole tracked tree, so an
-  unrelated tracked file deleted with the change unstaged, or another
-  agent's unfinished shell edit, refuses the commit. Stage your own change;
-  never restore another agent's work to clear it.
+  unrelated tracked shell script deleted with the change unstaged, or
+  another agent's unfinished shell edit, refuses the commit. Stage your own
+  change; never restore another agent's work to clear it. Whether a deleted
+  file is a shell script is read from the index, so a deleted file of any
+  other kind refuses nothing.
 - In a fresh linked worktree `pnpm install` can report `prepare$ husky …
 Done` while creating NO `.husky/_` shims, so `core.hooksPath` points at
   nothing and git skips pre-commit and pre-push with zero output (a push

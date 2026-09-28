@@ -30,7 +30,8 @@ ONBOARDING.md
 
 # Repo-scoped tool binaries: .agent/setup/install-shellcheck.sh installs the
 # pinned shellcheck here, and the lint:shell gate runs it before any on PATH.
-.tools/
+# No trailing slash, so a `.tools` symlink is ignored too.
+.tools
 
 # Platform settings: project config is tracked, local overrides are not.
 # Project settings define the agentic system contract (skill permissions,

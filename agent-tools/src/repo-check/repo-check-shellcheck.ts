@@ -1,13 +1,9 @@
-import { closeSync, existsSync, openSync, readFileSync, readSync } from 'node:fs';
-
 import { err, ok, type Result } from '@oaknational/result';
 
-import { describeGitReadFailure, type GitReadFailure } from '../core/repository-paths.js';
-import { writeErrorLine, writeLine } from '../core/terminal-output.js';
+import { describeGitReadFailure } from '../core/repository-paths.js';
 
 import { trackedCheckFiles, type TrackedTreeReading } from './repo-check-files.js';
 import { lostFilesRefusal, unstagedLoss } from './repo-check-gates.js';
-import { defaultRuntime } from './repo-check-runtime.js';
 import {
   bashFloorFailures,
   silencingDirectiveFailures,
@@ -16,53 +12,61 @@ import {
   shellcheckArgs,
 } from './repo-check-shellcheck-files.js';
 import {
+  defaultShellcheckGateRuntime,
+  type ShellcheckGateRuntime,
+} from './repo-check-shellcheck-runtime.js';
+import {
   pinnedShellcheckVersion,
-  REPO_SHELLCHECK,
   resolveShellcheck,
-  SHELLCHECK_INSTALLER,
   shellcheckVersion,
 } from './repo-check-shellcheck-version.js';
-import { isInsideAny, lockedSkillRoots, SKILLS_LOCK } from './repo-check-skills-lock.js';
-import type { RepoCheckCommandResult } from './repo-check-types.js';
-import { readTrackedTree } from './repo-check-universe.js';
+import { isInsideAny, lockedSkillRoots } from './repo-check-skills-lock.js';
 
 /**
  * The shellcheck gate: every tracked shell script, linted by the pinned
  * shellcheck, failing on any finding at any severity.
  *
  * shellcheck is a system binary, not a package dependency, so the gate reads
- * the pin from the installer, runs the repository's `.tools/bin`
- * shellcheck when the installer has put one there and the shellcheck on PATH
- * otherwise, and asks it for its version: a missing, foreign or other-version
- * shellcheck fails the gate with the remedy. The universe is git's tracked tree (`repo-check-universe.ts`),
- * less the vendored skills `skills-lock.json` pins (`repo-check-skills-lock.ts`),
- * and a tracked file the working tree has lost with the change unstaged fails
- * the gate by name, since a commit carries content the gate cannot read; each
- * file's opening bytes (`HEAD_BYTES`) are read to classify its shebang, which
- * finds the extensionless scripts and fails any shebang the classification
- * refuses (an unrecognised form, or a non-shell form on a file whose path makes
- * it shell), and each script is read for directives that would silence the
- * lint. The pure verdicts live in `repo-check-shellcheck-files.ts` and
- * `repo-check-shellcheck-version.ts`. Paths are relative to the working
- * directory, which agent-tools' `repo-check` script sets to the repository
- * root (`cd ..`).
+ * the pin from the installer, runs the repository's `.tools/bin` shellcheck
+ * when the installer has put one there and the shellcheck on PATH otherwise,
+ * and asks it for its version: a missing, foreign or other-version shellcheck
+ * fails the gate with the remedy. The universe is git's tracked tree
+ * (`repo-check-universe.ts`), less the vendored skills `skills-lock.json` pins
+ * (`repo-check-skills-lock.ts`), and a tracked shell script the working tree
+ * has lost with the change unstaged fails the gate by name, since a commit
+ * carries content the gate cannot read. Whether a lost file is a script is
+ * read from the index git commits, not the disk, so a lost file of any other
+ * kind, such as a peer's staged deletion that a pathspec commit's index still
+ * names, is not refused. Each file's opening bytes (`HEAD_BYTES`) are read to
+ * classify its shebang, which finds the extensionless scripts and fails any
+ * shebang the classification refuses (an unrecognised form, or a non-shell
+ * form on a file whose path makes it shell), and each script is read for
+ * directives that would silence the lint. The pure verdicts live in
+ * `repo-check-shellcheck-files.ts` and `repo-check-shellcheck-version.ts`, and
+ * the edges in `repo-check-shellcheck-runtime.ts`. Paths are relative to the
+ * working directory, which agent-tools' `repo-check` script sets to the
+ * repository root (`cd ..`).
  *
  * `env` runs by its absolute path, `/usr/bin/env`, on every host the installer
  * pins. `shellcheck`, when no repository binary is installed, resolves through
  * PATH, as `gitleaks` does for the secrets leg. The gate is a lint, not a trust
  * boundary: whoever can write a PATH directory already runs code through every
  * tool resolved by name, and the version check pins what a run reports, not
- * which binary produced it. A tracked file under `.tools/` fails the gate
- * before any shellcheck runs, since the gate would run a tracked
- * `.tools/bin/shellcheck` as the pin.
+ * which binary produced it. A tracked `.tools` path, in any case and whether
+ * a directory or a link, fails the gate before any shellcheck runs, since the
+ * gate would run a tracked `.tools/bin/shellcheck` as the pin.
  *
  * @packageDocumentation
  */
 
 const GATE = 'repo-check shellcheck-tracked';
 
-/** The ignored directory the installer writes; nothing in it is ever tracked. */
-const REPO_TOOLS_DIRECTORY = '.tools/';
+/**
+ * The ignored directory the installer writes: nothing at it or in it is ever
+ * tracked, whatever its case (a case-insensitive disk resolves `.TOOLS` to
+ * it) and whether it is a directory or a link to one.
+ */
+const REPO_TOOLS_PATH = /^\.tools(?:\/|$)/iu;
 
 /**
  * Enough bytes to hold any shebang line a supported kernel honours, its
@@ -73,56 +77,6 @@ const REPO_TOOLS_DIRECTORY = '.tools/';
  * a failure quotes all of any shebang line macOS honours.
  */
 const HEAD_BYTES = 512;
-
-/** The edges the gate composes, injected so the composition is testable without a repository. */
-export interface ShellcheckGateRuntime {
-  /** The installer script's text, which holds the pin. */
-  readonly readInstaller: () => string;
-  /** Whether the installer has put the pinned binary at `.tools/bin/shellcheck`. */
-  readonly hasRepoShellcheck: () => boolean;
-  /** Run the given shellcheck with `--version`. */
-  readonly probeVersion: (command: string) => RepoCheckCommandResult;
-  /** What git says about the tracked tree, or why git could not say. */
-  readonly trackedTree: () => Result<TrackedTreeReading, GitReadFailure>;
-  /** The skills lock's text, or undefined when the repository has none. */
-  readonly readSkillsLock: () => string | undefined;
-  /** A file's first `bytes` bytes (fewer when the file is shorter), decoded as UTF-8. */
-  readonly readHead: (file: string, bytes: number) => string;
-  /** A file's whole text. */
-  readonly readText: (file: string) => string;
-  /** Run `/usr/bin/env` with the given argv, output inherited, resolving to its exit status. */
-  readonly runEnv: (args: readonly string[]) => Promise<number>;
-  /** Write one progress line. */
-  readonly writeLine: (line: string) => void;
-  /** Write one failure line. */
-  readonly writeFailure: (line: string) => void;
-}
-
-/** A file's first `bytes` bytes, decoded as UTF-8. */
-function readHead(file: string, bytes: number): string {
-  const buffer = Buffer.alloc(bytes);
-  const descriptor = openSync(file, 'r');
-  try {
-    const bytesRead = readSync(descriptor, buffer, 0, bytes, 0);
-    return buffer.toString('utf8', 0, bytesRead);
-  } finally {
-    closeSync(descriptor);
-  }
-}
-
-/** The real edges: the working tree, git, the process, stdout and stderr. */
-const defaultShellcheckGateRuntime: ShellcheckGateRuntime = {
-  readInstaller: () => readFileSync(SHELLCHECK_INSTALLER, 'utf8'),
-  hasRepoShellcheck: () => existsSync(REPO_SHELLCHECK),
-  probeVersion: (command) => defaultRuntime.runCaptured(command, ['--version']),
-  trackedTree: () => readTrackedTree(defaultRuntime),
-  readSkillsLock: () => (existsSync(SKILLS_LOCK) ? readFileSync(SKILLS_LOCK, 'utf8') : undefined),
-  readHead,
-  readText: (file) => readFileSync(file, 'utf8'),
-  runEnv: (args) => defaultRuntime.runInherited('/usr/bin/env', args),
-  writeLine,
-  writeFailure: writeErrorLine,
-};
 
 /** Write each failure line under the gate's name and return the failing status. */
 function fail(runtime: ShellcheckGateRuntime, lines: readonly string[]): number {
@@ -157,10 +111,10 @@ function trackedTreeOutsideVendored(
   if (!tree.ok) {
     return err(`${describeGitReadFailure(tree.error)}; the gate checked nothing`);
   }
-  const tools = tree.value.tracked.filter((file) => file.startsWith(REPO_TOOLS_DIRECTORY));
+  const tools = tree.value.tracked.filter((file) => REPO_TOOLS_PATH.test(file));
   if (tools.length > 0) {
     return err(
-      `${tools.join(', ')}: ${REPO_TOOLS_DIRECTORY} is the ignored directory the installer writes and the gate runs its shellcheck from, so nothing in it is tracked; untrack these`,
+      `${tools.join(', ')}: .tools is the ignored directory the installer writes and the gate runs its shellcheck from, so nothing at or in it is tracked; untrack these`,
     );
   }
   const vendored = lockedSkillRoots(runtime.readSkillsLock());
@@ -168,11 +122,21 @@ function trackedTreeOutsideVendored(
 }
 
 /**
+ * Whether a file the working tree has lost is one the gate would lint, read
+ * from the content git's index holds for it, which is what a commit carries.
+ * A file whose index content git cannot read counts, so the gate fails closed.
+ */
+function lostFileWouldBeLinted(runtime: ShellcheckGateRuntime, file: string): boolean {
+  const head = runtime.readIndexHead(file, HEAD_BYTES);
+  return !head.ok || isShellScript(file, head.value);
+}
+
+/**
  * Each tracked file's opening bytes, less the vendored skills' files; or why
- * the gate cannot read them: git's read failed, a file under `.tools/` is
- * tracked, the skills lock cannot be read, or the working tree has lost
- * tracked files with the change unstaged (a commit carries content the gate
- * cannot read).
+ * the gate cannot read them: git's read failed, a `.tools` path is tracked,
+ * the skills lock cannot be read, or the working tree has lost tracked shell
+ * scripts with the change unstaged (a commit carries content the gate cannot
+ * read).
  */
 function trackedHeads(
   runtime: ShellcheckGateRuntime,
@@ -182,7 +146,9 @@ function trackedHeads(
     return read;
   }
   const { tree, vendored } = read.value;
-  const lost = unstagedLoss(tree).filter((file) => !isInsideAny(file, vendored));
+  const lost = unstagedLoss(tree)
+    .filter((file) => !isInsideAny(file, vendored))
+    .filter((file) => lostFileWouldBeLinted(runtime, file));
   return lost.length > 0
     ? err(lostFilesRefusal(lost))
     : ok(
