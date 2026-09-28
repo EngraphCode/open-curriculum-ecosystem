@@ -29,11 +29,19 @@ interface GitOutcome {
 /** Runs one git command against the profile root and reports its outcome. */
 export type GitRunner = (args: readonly string[]) => GitOutcome;
 
-/** The real runner: the trusted git binary, `-C <root>`, never a shell. */
+/**
+ * The real runner: the trusted git binary, `-C <root>`, never a shell.
+ *
+ * Every call runs with `core.symlinks=false`, so a symbolic link a pull
+ * delivers is checked out as a plain file holding the link's text, never
+ * as a link: the Practice's own git never writes a link into the profile
+ * tree, and the check refuses the plain file by name. Every call carries
+ * it, so the status and push legs read the tree the way the pull wrote it.
+ */
 export function createGitRunner(root: string): GitRunner {
   const git = resolveTrustedGit();
   return (args) => {
-    const result = spawnSync(git, ['-C', root, ...args], {
+    const result = spawnSync(git, ['-c', 'core.symlinks=false', '-C', root, ...args], {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
     });
