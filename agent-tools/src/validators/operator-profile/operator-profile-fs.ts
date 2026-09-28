@@ -1,18 +1,19 @@
 /**
  * Operator profile — the filesystem primitives behind the root reader:
  * probing presence without following links, listing a directory without
- * following links, and reading a document without following a symlink.
+ * following links, and the document reader of `operator-profile-read.ts`.
  * Absence is a first-class outcome, never an error; an unreadable path is an
  * error, never absence; a symlink is a symlink, never what it points at.
  */
 
-import { constants, type Dirent, type Stats } from 'node:fs';
-import { type FileHandle, lstat, open, readdir } from 'node:fs/promises';
+import { type Dirent, type Stats } from 'node:fs';
+import { lstat, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
 import { type ProfileEntry, type ProfileEntryKind } from './operator-profile-layout.js';
+import { errorCode, readDocument } from './operator-profile-read.js';
 
 export type Presence = 'directory' | 'absent' | 'not-a-directory' | 'symlink';
 
@@ -21,10 +22,6 @@ export type PresenceProbe = (target: string) => Promise<Result<Presence, string>
 
 /** The two questions presence asks of a stat; `lstat`'s answer is one. */
 export type StatProbe = (target: string) => Promise<Pick<Stats, 'isDirectory' | 'isSymbolicLink'>>;
-
-function errorCode(cause: unknown): string {
-  return cause instanceof Error && 'code' in cause ? String(cause.code) : 'unknown';
-}
 
 /**
  * What is at a path, read WITHOUT following links (`lstat`): a symlinked
@@ -151,63 +148,6 @@ export async function isGitRepository(
     return err(`${gitDir} is a symlink — the profile repository is never followed`);
   }
   return ok(there.value !== 'absent');
-}
-
-/**
- * `O_NOFOLLOW` where the platform defines it. Node types it as always
- * present; Windows has no such flag, and there the listing's refusal of
- * symlink entries is the whole guard.
- */
-const O_NOFOLLOW: number | undefined = constants.O_NOFOLLOW;
-
-/** The open flags a document is read with: read-only, never through a symlink. */
-const DOCUMENT_OPEN_FLAGS: number = constants.O_RDONLY | (O_NOFOLLOW ?? 0);
-
-/** What a read needs of an open file; a `FileHandle` is one. */
-export interface DocumentHandle {
-  readFile(encoding: 'utf8'): Promise<string>;
-  close(): Promise<void>;
-}
-
-/** Opens a path with flags; the filesystem one is the default, tests inject a fake. */
-export type OpenDocument = (absolute: string, flags: number) => Promise<DocumentHandle>;
-
-const openReal: OpenDocument = async (absolute, flags) => {
-  const handle: FileHandle = await open(absolute, flags);
-  return handle;
-};
-
-/**
- * Read a document without following a symlink at its path. The layout has
- * already refused every symlink entry; opening with `O_NOFOLLOW` closes the
- * window between the listing and the read, so a link planted in between
- * fails (ELOOP) instead of reading a file outside the profile root.
- *
- * @param absolute - the document's absolute path
- * @param openDocument - opens the path (the filesystem by default)
- * @returns the document text, or the failure as a message (never a thrown error)
- */
-export async function readDocument(
-  absolute: string,
-  openDocument: OpenDocument = openReal,
-): Promise<Result<string, string>> {
-  let handle: DocumentHandle | undefined;
-  try {
-    handle = await openDocument(absolute, DOCUMENT_OPEN_FLAGS);
-    const text = await handle.readFile('utf8');
-    // The close is inside the boundary: a close the platform refuses is this
-    // read's failure, returned as a value, never a rejection that escapes it.
-    await handle.close();
-    handle = undefined;
-    return ok(text);
-  } catch (cause) {
-    // A failed open, read or close: the handle, if any, is released on a
-    // best-effort basis and the first failure is the one reported.
-    await handle?.close().catch(() => undefined);
-    return err(
-      `cannot read the document (${errorCode(cause)}) — a symlink or an unreadable file is never a profile document`,
-    );
-  }
 }
 
 /** The filesystem the root reader goes through; tests inject a fake. */
