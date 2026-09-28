@@ -751,6 +751,55 @@ outside a PR in either estate. The Director's rulings of the evening are on the 
 (suites 43 to 45: 250's ready-mark the owner's; the Director runs the folds; the lineage fold takes
 the slot at its time unless a synced holder waits for a leg; suite 46 dropped for the folds).
 
+### 2026-09-28 02:47Z — the 2026-09-27-d6c9e5 branch folded as #264 (Wick binds Temper, ed7b48, at the rollover fold)
+
+PR 264 (coordination/2026-09-27-d6c9e5) merged by the bot at 02:46:51Z as 96b273d30 at full
+condition (three rounds, three settlement pushes, the third under a rebudget recorded on the body by the fold's seat: round one Copilot's stale continuity row for 261; round two Codex's contradictory J2 sentence in the day entry; round three Codex's two arithmetic findings on the lane's records, the round-one thread breakdown and the reader cycle's line count, both verified first-hand and cured). The convergence merge of engraph at 48f70d4ba (PR 272's merge; the landings 261, 265 to 272) at the fold's slot
+word, no conflict. The successor coordination/2026-09-28-96b273 cut at 02:47Z from post-fold origin/engraph 96b273d30 (#264's merge), tree-preserving, DUE
+at the midday fold. moved for teachers: nothing. / moved for the Practice: engraph's landings
+folded in: 261 (the command-records reader), 265 and 267 (the two retrospectives) with 268's
+addenda, 266 (a WIP reservation lapses; the rollback convergence), 269 (the tracked-tree gates,
+exchange row J3), 270 (the hook-policy path scopes, exchange row J7), 271 (the guard port, exchange row J2's first landing), 272 (the agent-tools test task hashing the hook policy it reads); on the branch,
+Swallow's closeout and experience record, the reader lane's retrospective, 261's landing through
+the door, 250's cures, sync and rebudget to 11 by the lane's recorded decision (its ready-mark the
+owner's on its own body, the eval readings' human review open), and this entry. Open at the fold:
+250 (the owner's draft, on the ready list); 273 (the non-blocking profile read, Siren's, at its legs). Defects of the fold named on the stream:
+Copilot's round on each cure push came only on a re-request as the bot; the third push's two signed lines were posted before the push landed and named the previous sha, corrected by a further line on each thread.
+
+### 2026-09-28 08:26Z — the Director's compaction boundary 10; the morning's landings (Wick binds Temper, ed7b48)
+
+At the owner's word "prepare for compaction … then stop all processes", a freeze; the seat resumes on
+"carry on". Since the #264 fold (02:46:51Z, 96b273d30): 273 (03:06:08Z), 276 (03:46:54Z), 277
+(04:43:51Z), 278 (06:46:27Z, P1: pr state binds a review to the head by content after a pure sync,
+its first live instance on 279's pure sync drawing no review request) and 279 (07:25:22Z, Nova's
+fold and chmod doctrine, routed by the Director after Nova's retirement at 04:48Z; its JC.net twin 237
+landed 07:01:30Z). Open: 250 (the owner's draft, from 08:22Z Myrtle's lane under the owner's own
+word to Myrtle, the ready-mark the owner's), 280 (the second doctrine pair: the owner's remote-branch
+rule in worktree-hygiene §1 and §6, the shared-primary write check in
+coordination-branch-24h-lifetime clause 5, and a found wanted branch as an arrival of the
+external-PR class in pr-lifecycle §Phase 7; Siren's settlement push committed unpushed, frozen)
+and 275 (this branch's draft, DUE at 12:00Z). The merged folded head coordination/2026-09-25-749769
+(#223) deleted by the bot at 05:3xZ, read back absent; `main` is the kept upstream mirror by the
+approved plan's Lane 6. The full boundary block with the re-arm recipe and the owed-on-resume order
+is the JC.net napkin's 2026-09-28T08:26Z block; this estate's handoff carries a pointer.
+
+### 2026-09-28 12:2xZ — the resume on "carry on"; the owner's answers; the second doctrine pair landed (Wick binds Temper, ed7b48)
+
+The 08:26Z entry's open set is superseded. PR 250 was readied by the owner at 08:55:25Z and synced by
+the web (head 92db547bd), with a fourth unresolved thread from Codex at 09:00:23Z; Myrtle closed out
+at 08:36Z and was re-routed to 250 on the owner's word at 11:31Z (ACK 11:35:09Z); the ready-mark is
+no longer a hold, and the four threads are the owner's own item, Myrtle's lane. The owner's words of
+11:2xZ to 11:4xZ: Codex support deprioritised for now (goal two parked, its nodes ratified and
+unseated); "carry on"; suites before folds and at frame changes; Siren resumed at 11:36Z; Nova back
+at 11:37Z and routed to JC.net's todo 8 and custody of the Codex agent's LinkedIn workspace, which
+stays off the fold, the seats deciding changes before merge. Landed since the 08:26Z entry: JC.net
+238 (25e30f77, 12:13:32Z) and lineage 280 (ab8976719, 12:19:02Z), the second doctrine pair, after
+one late-cure push per copy ruled at 11:5xZ. PR 274 (02:27:05Z, the Codex edited-summary reader)
+landed after the #264 fold's convergence merge of engraph at 48f70d4ba (23:34:56Z on 27 September)
+and before that fold's successor cut at 02:47Z, so it belongs to this branch's window.
+The count reads 1 of 3 (250). The lineage slot order for the folds: a synced holder at its legs
+holds the slot to its door, first at its legs first; the fold takes the slot when none is.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
