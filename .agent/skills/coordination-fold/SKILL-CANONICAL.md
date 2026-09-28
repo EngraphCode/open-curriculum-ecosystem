@@ -40,10 +40,11 @@ resides on the coordination branch).
    `pnpm exec prettier --check --ignore-unknown -- <files>` and
    `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`: the
    pre-push gate's tracked-files checks read the working tree, so an
-   uncommitted edit to a tracked file fails the push, whoever made it
-   (2026-09-27: a peer's unlinted append to a thread record failed a
-   fold's push on MD032). This checks named files, as the pre-commit hook
-   does; it is not a gate run. A
+   uncommitted edit to a tracked file fails the push, whoever made it.
+   This checks named files, as the pre-commit hook
+   does; it is not a gate run (`coordination-branch-24h-lifetime` clause 5
+   at the fold). Link and machine-local-path validation has no by-name
+   form: a push that fails on one names the file, which routes as below. A
    failing file that is a live peer's in-flight edit, class (b), routes to
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
@@ -73,8 +74,11 @@ review contract.
    lowercase-start subjects (commitlint).
 4. `git fetch origin <default>`, then merge `origin/<default>` INTO the
    branch, where `<default>` is the repository's default branch
-   (`git symbolic-ref --short refs/remotes/origin/HEAD` prints
-   `origin/<default>`).
+   (read from the remote and fetched first, then `git remote set-head
+   origin --auto`, as `cut-coordination-branch` does; `git symbolic-ref
+   --short refs/remotes/origin/HEAD` then prints `origin/<default>`; a clone
+   made before the default branch changed still names the old one until the
+   refresh).
    Resolve the ref to a full sha in the same shell call as the merge, merge
    that sha, and write the merge message AFTER resolving, from
    `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
@@ -140,8 +144,10 @@ review contract.
 
    ```bash
    FOLDED="$(git branch --show-current)"
+   NAME="$(git ls-remote --symref origin HEAD | sed -n 's#^ref: refs/heads/\(.*\)\tHEAD$#\1#p')"
+   git fetch origin "${NAME}:refs/remotes/origin/${NAME}"
+   git remote set-head origin --auto
    DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
-   git fetch origin "${DEFAULT#origin/}"
    BASE="$(git rev-parse "$DEFAULT")"
    git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
    git push -u origin HEAD
@@ -153,18 +159,35 @@ review contract.
    dirty files carry across — and the primary now resides there.
    The folded branch (`$FOLDED`, read before the switch) is deleted at the
    cut once its local tip and its remote tip each read merged. The fetch
-   above reads only the default branch, so fetch the folded branch's
-   remote tip into its tracking ref immediately before the proof and the
-   delete:
+   above reads only the default branch, so probe the folded branch on the
+   remote first, and fetch its tip into its tracking ref immediately before
+   the proof and the delete:
 
    ```bash
-   git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED"
-   git merge-base --is-ancestor "$FOLDED" "$BASE" &&
-     git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   if git ls-remote --exit-code origin "refs/heads/$FOLDED" > /dev/null; then
+     PROBE=0
+   else
+     PROBE=$?
+   fi
+   if [ "$PROBE" -eq 0 ]; then
+     git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED" &&
+       git merge-base --is-ancestor "$FOLDED" "$BASE" &&
+       git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   elif [ "$PROBE" -eq 2 ]; then
+     git fetch --prune origin && git merge-base --is-ancestor "$FOLDED" "$BASE"
+   else
+     echo "STOP: the remote read failed ($PROBE)" >&2
+     false
+   fi
    ```
 
-   Then delete it locally by plain branch deletion, and remotely by the
-   bot's API delete
+   The probe exits 0 when the branch is on the remote, 2 when it is gone,
+   and anything else on a failed read; the `if` captures that status, so a
+   shell with errexit set still reaches the absent path. The block exits 0
+   only when the proof holds, and any other status stops the cut. A branch gone
+   from the remote counts as deleted: its stale tracking ref is pruned, and
+   only the local proof runs. Then delete it locally by plain branch
+   deletion, and, when the probe found it, remotely by the bot's API delete
    (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
    `git push --delete` runs the full pre-push gate), each read back
    absent. A tip that reads unmerged holds commits made after the merge:

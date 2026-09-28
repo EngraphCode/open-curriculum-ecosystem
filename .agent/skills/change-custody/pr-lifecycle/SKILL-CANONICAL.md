@@ -1806,8 +1806,9 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   The goal is "aiming for zero while useful value is still created and
   merged", because "a static zero means no useful work is happening". The
   operating steps:
-  - No PR other than a repository's one coordination PR opens while the count
-    is at the limit or over it. The reservation comes first: the opener posts
+  - No PR that starts new work opens while the count is at the limit or over
+    it, other than a repository's one coordination PR. The reservation comes
+    first: the opener posts
     "WIP slot reserved: <owner>/<name> <branch>" on its repository's
     coordination stream, then reads the count first-hand from the forge for
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
@@ -1824,8 +1825,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     seat that stops mid-opening holds no slot for long; a seat still gating
     at thirty minutes posts a fresh reservation and reads the count again. A
     coordination PR takes no reservation.
-  - A branch's first push is followed at once by its PR, never left
-    standing: a pushed branch with no PR is unfinished work outside review.
+  - A branch's first push that carries a commit is followed at once by its
+    PR, never left standing: a pushed branch with no PR is unfinished work
+    outside review. A wanted branch found with no PR is an arrival of the
+    external-PR class: its draft PR opens at once at the assessment, it
+    counts toward the limit as an external PR does, and the Director routes
+    it into the slot order to a named seat ahead of any new opening; the
+    opening is posted on the stream like any other.
   - The Director routes each external PR into the slot order to a named seat.
     A green dependency bump lands at its size turn; a red one is assessed,
     then cured, or closed with a card to the owner.
@@ -1859,9 +1865,10 @@ follow-up branches, never to merged ones.
 
 **Merge auto-delete overrides recorded dispositions** (worked instance: a
 merge auto-deleted a remote coordination branch despite a "branch lives on"
-disposition, leaving the primary tracking a deleted ref). If a branch must
-survive its PR's merge, re-push it immediately after — the disposition text
-does not bind GitHub's delete-on-merge setting.
+disposition, leaving the primary tracking a deleted ref). A branch never
+survives its PR's merge: work that continues goes on a new branch with its
+own PR (a coordination branch's successor is cut at the fold), and no
+disposition text binds GitHub's delete-on-merge setting.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still
