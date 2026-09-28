@@ -4,6 +4,17 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the comms-event family's ADR citations named by concept
+
+- Six PDRs (PDR-050, PDR-074, PDR-075, PDR-077, PDR-078, PDR-119) named host
+  ADRs by number: 38 citations across the comms-event family (the mid-cycle
+  handoff record substrate, the tag namespace, auto-acceptance metadata, the
+  heartbeat lifecycle, rotation's class-tiered archive-move, and the threading
+  edge). Each citation now names the concept the ADR records, per PDR-079 as
+  amended; no sentence is removed. PDR-078's related entry, which said the
+  heartbeat decision was cited by identifier only, now says it is named by its
+  concept. Joint bytes with the second estate, where the cure landed first.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — PDR-079 withdraws the ADR-identifier permission
 
 - PDR-079 §PDR Portability Rule allowed a PDR to name an ADR by its
