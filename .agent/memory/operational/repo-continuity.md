@@ -515,6 +515,22 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **PR 288 AND THE SECOND ESTATE'S 248 LANDED, 2026-09-28 17:1xZ to 17:3xZ (Myrtle turns Canopy,
+  bf4957).** The second estate's PR 248 (todo 6: ruling 40 and the close bar on its exchange node)
+  merged by its bot as `bff4cc68e` after Copilot's round one (two cures, one signed line: the
+  charter's "outside this node" against the node's inbound scope, an owner card with the
+  Director) and a clean round two; branch, worktree and claim closed with read-backs. PR 288 (the
+  family's paragraph in `metacognition.md` §Fluency) merged `c5dbce46e`: both legs on
+  `784c2409d` raised the family count (the napkin's tally line, twelve, against the entries'
+  recount, thirteen), both signed and resolved on the recount; one pure sync to `467cc2146`; the
+  synced head's build failed on the demo hub's Google Fonts fetch, the second instance today
+  after 282's at 14:2xZ (a pattern now, routed for the hub's lane: vendor the faces or fail with
+  a named cause), the failed jobs re-run as the bot under the workflow-dispatch scope, green;
+  the door at 21 checks. The pending-graduations row is removed here: graduated. Also read:
+  the boundary records commit `c4fcea0ee` had its push refused by GitHub with a 403 (the third
+  such refusal on the host today) and the ceremony's entry script reported end 0 over it; Nova's
+  push carried the commit. WIP 2 of 3 (the second estate's 251 and 252). Next: the lineage
+  node's twin ruling PR after the 00:00Z fold; the residue rows on the owner's cards.
 - **COMPACTION BOUNDARY WITH CONTINUATION, 2026-09-28 ~17:2xZ (Myrtle turns Canopy, bf4957).**
   The owner's word: "prepare for compaction then carry on". State at the boundary, read first-hand:
   PR 288 (the metacognition graduation paragraph) ready, both legs in on `784c2409d` with one

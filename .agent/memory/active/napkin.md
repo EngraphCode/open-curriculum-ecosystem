@@ -1079,3 +1079,24 @@ already the protocol's own model.
   merge-bot lane.
 - **The commit queue's `enqueue`** prints the pnpm banner on stderr and the bare intent id on
   stdout. Capturing stdout alone with `2>/dev/null` gave a clean id, as the skill says.
+
+## 2026-09-28 ~17:3xZ — a second font fetch failure, a refused push reported as end 0 (Myrtle turns Canopy, bf4957)
+
+**Observation.** (1) PR 288's synced head failed the same way PR 282's first synced head did at
+14:2xZ: the demo hub's `next build` could not resolve the Lexend `next/font/google` faces; engraph's
+own run at the same tip was green; a re-run of the failed jobs passed. Two instances in three hours,
+both on this seat's pure syncs, neither touching the hub. (2) The boundary records ceremony's push
+was refused by GitHub with a 403 (Nova's at 16:38Z and Siren's at 16:39Z were the same shape, each
+green on retry) and the entry script printed its end marker with exit 0 over the failure, because
+the marker reports the commit ceremony's exit and not the push's.
+
+**Reading.** (1) is now a pattern: a build-time fetch from the network inside a required check,
+whose verdict depends on something the head does not contain. The cure is the hub lane's (vendor
+the faces with `next/font/local`, or fail with a named cause), routed to the Director; until then
+the re-run as the bot under the workflow-dispatch scope is the seat's move. (2) is the family
+again, in a script this seat wrote: an end marker whose name (END 0) covers a step it never read.
+Cure at the instrument: the entry script's marker carries the push's exit, and a refused push
+prints REFUSED; taken for the next ceremony.
+
+**Routing.** (1) to the Director as a hub-lane candidate (stream 12d60f6d); (2) the script cure
+in the scratchpad before the next ceremony, the instance to this entry.
