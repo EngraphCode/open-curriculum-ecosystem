@@ -7,8 +7,9 @@ import { authorLogin } from './state-fields.js';
  * Boundary parsers for the conversation legs of `pr state`, each harvested
  * in FULL by a paginated GraphQL read like the reviews (`harvests.ts`): the
  * top-level (issue) comments — the surface the Codex connector's completion
- * comment lands on — with the edit timestamp the ruling's precondition
- * needs, which the `pr view` surface does not expose; and the pull
+ * comment lands on — with the last edit (its time and its editor) the
+ * ruling's precondition needs, which the `pr view` surface does not expose;
+ * and the pull
  * request's commits, the set a comment's named prefix must resolve within
  * — the view's own field stops at the first hundred, and a bounded list
  * cannot prove a prefix unique. Zod at the external boundary; misshapen
@@ -18,13 +19,16 @@ import { authorLogin } from './state-fields.js';
 
 // A deleted account's comment is by 'unknown' (state-fields.ts), a login this
 // tool never declares, so it reads as no review unless an operator declares
-// that literal. `lastEditedAt` is null until the comment is edited.
+// that literal. `lastEditedAt` and `editor` are null until the comment is
+// edited; an edit whose editor is null (a deleted account) is by 'unknown',
+// as a deleted account's comment is.
 const commentNodeSchema = z.object({
   id: z.string(),
   author: authorLogin,
   body: z.string(),
-  createdAt: z.string(),
+  createdAt: z.iso.datetime(),
   lastEditedAt: z.string().nullable(),
+  editor: z.object({ login: z.string() }).nullable(),
 });
 
 // One page of a paginated connection as `gh api graphql --paginate --slurp`
@@ -74,7 +78,10 @@ export function parseCommentsHarvest(raw: unknown): CompletionComment[] {
       author: node.author,
       body: node.body,
       createdAt: node.createdAt,
-      edited: node.lastEditedAt !== null,
+      lastEdit:
+        node.lastEditedAt === null
+          ? null
+          : { at: node.lastEditedAt, by: node.editor?.login ?? 'unknown' },
     }));
 }
 

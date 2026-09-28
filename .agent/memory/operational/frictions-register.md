@@ -4172,6 +4172,11 @@ commit SHA and the closing plan reference.
   on the default branch; a red run there is the first cure lane.
 - **Owner direction status**: session-scoped (the Director's assignment to record it; the
   App permission is the owner's).
+- **Third instance, 2026-09-27**: PR 264 (the coordination successor's draft, records only) failed
+  `unit-tests` and `run-quality-gates` at 12:48Z on the same module; the failed jobs re-run at 13:19Z
+  under the owner's gh credential (`gh run rerun --failed`) passed by 13:31Z with no change to the
+  branch (the Director, check-in 38). Three instances in three days on docs-only heads; the cure
+  stays a re-run until the hub build's font resolution is made hermetic, a code change for a seat.
 
 ### F-209 — no CI check runs commitlint over a pull request's commits
 

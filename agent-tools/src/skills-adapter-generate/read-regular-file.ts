@@ -6,8 +6,14 @@
  * opening once and operating on the file descriptor resolves the path a single
  * time, so the window is gone.
  */
-import { constants, type BigIntStats } from 'node:fs';
+import type { BigIntStats } from 'node:fs';
 import { lstat, open } from 'node:fs/promises';
+
+import {
+  entryIsDescriptorFile,
+  HOST_ENFORCES_NO_FOLLOW,
+  NO_FOLLOW_READ_FLAGS,
+} from '../core/no-follow-read.js';
 
 import type { FsRead } from './carriage-fs.js';
 
@@ -15,23 +21,6 @@ import type { FsRead } from './carriage-fs.js';
 function hasErrnoCode(error: unknown, code: string): boolean {
   return typeof error === 'object' && error !== null && 'code' in error && error.code === code;
 }
-
-/**
- * Node's fs constants type declares every flag on every platform, but on
- * Windows both `O_NOFOLLOW` and `O_NONBLOCK` are absent at runtime — OR-ing
- * an `undefined` in as 0 silently drops the flag. Model that runtime truth
- * in the type; `O_NOFOLLOW`'s absence gets the identity-verification arm
- * below, while `O_NONBLOCK`'s is benign (Windows has no fifos to block on).
- */
-const hostFlags: Partial<Record<'O_NOFOLLOW' | 'O_NONBLOCK', number>> = {
-  O_NOFOLLOW: constants.O_NOFOLLOW,
-  O_NONBLOCK: constants.O_NONBLOCK,
-};
-const hostNoFollow = hostFlags.O_NOFOLLOW;
-
-/** The open flags this host can actually enforce (absent flags drop to 0,
- * deliberately and visibly — see {@link hostFlags}). */
-const openFlags = constants.O_RDONLY | (hostNoFollow ?? 0) | (hostFlags.O_NONBLOCK ?? 0);
 
 /**
  * States in which nothing readable exists at the name: absent (ENOENT), a
@@ -62,12 +51,7 @@ async function pathEntryIsExactly(path: string, viaHandle: BigIntStats): Promise
     }
     throw error;
   });
-  return (
-    entry !== undefined &&
-    entry.isFile() &&
-    entry.dev === viaHandle.dev &&
-    entry.ino === viaHandle.ino
-  );
+  return entryIsDescriptorFile(entry, viaHandle);
 }
 
 /**
@@ -92,7 +76,7 @@ export async function readRegularFileTextNoFollow(
 ): Promise<FsRead<string | undefined>> {
   let handle;
   try {
-    handle = await open(path, openFlags);
+    handle = await open(path, NO_FOLLOW_READ_FLAGS);
   } catch (error: unknown) {
     if (isAbsenceAtOpen(error)) {
       return { kind: 'ok', value: undefined };
@@ -103,7 +87,7 @@ export async function readRegularFileTextNoFollow(
     const viaHandle = await handle.stat({ bigint: true });
     const isOurRegularFile =
       viaHandle.isFile() &&
-      (hostNoFollow !== undefined || (await pathEntryIsExactly(path, viaHandle)));
+      (HOST_ENFORCES_NO_FOLLOW || (await pathEntryIsExactly(path, viaHandle)));
     if (!isOurRegularFile) {
       return { kind: 'ok', value: undefined };
     }

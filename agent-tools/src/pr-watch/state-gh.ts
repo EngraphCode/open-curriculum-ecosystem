@@ -10,11 +10,22 @@ import {
   type PrTarget,
 } from './gh.js';
 import { readCompletionComments } from './completion-comments.js';
+import { allReviews } from './completion-evidence.js';
 import type { CompletionComment } from './completion-comments.js';
+import type { ContentLeg } from './content-binding.js';
+import { contentReaderFor, gitPatchIdOf, type PatchIdOf } from './content-reader.js';
 import { defaultExpectedReviewers } from './expected-reviewers.js';
-import { COMMENTS_QUERY, COMMITS_QUERY, harvestArgs, REVIEWS_QUERY } from './harvests.js';
+import {
+  COMMENTS_QUERY,
+  COMMITS_QUERY,
+  harvestArgs,
+  REQUESTS_QUERY,
+  REVIEWS_QUERY,
+} from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
+import { hasLanded } from './reviewer-legs.js';
 import { readReviewRunsLeg } from './review-runs.js';
+import { commentRequests, parseRequestsHarvest } from './round-requests.js';
 import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
 import {
   parseReviewsHarvest,
@@ -26,9 +37,10 @@ import type { PrStateReading } from './state-types.js';
 
 /**
  * The gh IO composition for `pr state`: one extended `pr view` call, the
- * review-threads GraphQL slurp (shared with `pr-watch`), three FULL paginated
+ * review-threads GraphQL slurp (shared with `pr-watch`), four FULL paginated
  * harvests — `reviews` (the reviewer-leg source, never the `latestReviews`
- * pointer), `comments` and `commits` (the completion-comment sources) — and
+ * pointer), `comments` and `commits` (the completion-comment sources), and
+ * the request events (the rounds a review bound by content waits for) — and
  * the `gh agent-task` review-run legs, composed into one {@link PrStateReading}.
  *
  * The expected reviewer set is a DECLARED input (`expectedReviewers`); when
@@ -37,7 +49,9 @@ import type { PrStateReading } from './state-types.js';
  * first-round-guarantee gap instead of silently passing it.
  *
  * The `gh agent-task` review-run leg (bounded run→PR mapping, typed
- * degradation) lives in `review-runs.ts`.
+ * degradation) lives in `review-runs.ts`. The content leg (`content-reader.ts`)
+ * reads the patch-ids a review of an earlier commit binds the head by, and
+ * degrades to unproven, never failing the reading.
  */
 
 export interface ReadPrStateOptions {
@@ -47,6 +61,8 @@ export interface ReadPrStateOptions {
   readonly exists?: PathExistsCheck;
   /** The declared expected reviewer set (`--expect`, repeatable). */
   readonly expectedReviewers?: readonly string[];
+  /** Hashes a diff to its patch-id; the trusted git's `patch-id` by default. */
+  readonly patchIdOf?: PatchIdOf;
 }
 
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
@@ -100,7 +116,7 @@ function readHarvest<Parsed>(input: {
   }
 }
 
-// The three full-history harvests the reading composes from.
+// The four full-history harvests the reading composes from.
 function readHarvests(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
@@ -126,6 +142,12 @@ function readHarvests(input: {
       label: 'commits',
       parse: parseCommitsHarvest,
     }),
+    requests: readHarvest({
+      ...input,
+      query: REQUESTS_QUERY,
+      label: 'review requests',
+      parse: parseRequestsHarvest,
+    }),
   };
 }
 
@@ -137,27 +159,33 @@ function composeReading(input: {
   readonly view: ParsedStateView;
   readonly comments: readonly CompletionComment[];
   readonly commits: readonly string[];
+  readonly requests: PrStateReading['roundRequests'];
   readonly reviewThreads: PrStateReading['reviewThreads'];
   readonly reviews: PrStateReading['reviews'];
   readonly reviewRuns: PrStateReading['reviewRuns'];
   readonly declared: readonly string[];
+  readonly readContent: (reviewedOids: readonly string[]) => ContentLeg;
 }): PrStateReading {
   const expectedReviewers =
     input.declared.length > 0
       ? input.declared
       : defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
+  const completionComments = readCompletionComments({
+    comments: input.comments,
+    commits: input.commits,
+    reviewers: expectedReviewers,
+  });
+  const landed = allReviews({ reviews: input.reviews, completionComments }).filter(hasLanded);
   return {
     ...input.view,
     reviewThreads: input.reviewThreads,
     reviews: input.reviews,
-    completionComments: readCompletionComments({
-      comments: input.comments,
-      commits: input.commits,
-      reviewers: expectedReviewers,
-    }),
+    roundRequests: [...input.requests, ...commentRequests(input.comments)],
+    completionComments,
     reviewRuns: input.reviewRuns,
     expectedReviewers,
     expectedDeclared: input.declared.length > 0,
+    content: input.readContent(landed.map((review) => review.commitOid)),
   };
 }
 
@@ -165,7 +193,7 @@ function composeReading(input: {
  * Fetch the `pr state` gh surfaces and compose the compound reading.
  *
  * @throws when the primary `pr view`, review-threads, or any of the reviews,
- *   comments or commits harvests fail (a verdict without them would be a
+ *   comments, commits or review-request harvests fail (a verdict without them would be a
  *   guess); only the agent-task leg degrades typed.
  */
 // The compound reading must bind ONE tip: a push landing between the view
@@ -177,6 +205,7 @@ const TIP_CONSISTENT_ATTEMPTS = 2;
 
 export function readPrStateReading(options: ReadPrStateOptions): PrStateReading {
   const run = options.execFileSync ?? execFileSync;
+  const patchIdOf = options.patchIdOf ?? gitPatchIdOf;
   const gh = resolveGhPath(options.ghPath, options.exists);
   const { number, repo } = options.target;
   const prNumber = String(number);
@@ -194,7 +223,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         'api graphql reviewThreads',
       ),
     );
-    const { reviews, comments, commits } = readHarvests({ run, gh, prNumber, repo });
+    const { reviews, comments, commits, requests } = readHarvests({ run, gh, prNumber, repo });
     const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number, prUrl: view.url });
     // The confirm read closes the race window; on a match it is also the
     // freshest same-tip snapshot, so the reading composes from it.
@@ -204,10 +233,12 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         view: confirm,
         comments,
         commits,
+        requests,
         reviewThreads,
         reviews,
         reviewRuns,
         declared: options.expectedReviewers ?? [],
+        readContent: contentReaderFor({ run, gh, repo, view: confirm, patchIdOf }),
       });
     }
     view = confirm;

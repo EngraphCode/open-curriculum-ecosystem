@@ -21,14 +21,17 @@ export const REVIEWS_QUERY = `query($owner: String!, $name: String!, $number: In
 /**
  * The full `comments` connection: the surface a completion comment lands on.
  * `lastEditedAt` is null until the comment is edited; a null is read here as
- * the ruling's "updated timestamp equals created timestamp".
+ * the ruling's "updated timestamp equals created timestamp". `editor` names
+ * who made the last edit: the connector's own rewrite of its summary is its
+ * report, and anyone else's edit is not (the decision note's 2026-09-28
+ * amendment).
  */
 export const COMMENTS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
   repository(owner: $owner, name: $name) {
     pullRequest(number: $number) {
       comments(first: 100, after: $endCursor) {
         pageInfo { hasNextPage endCursor }
-        nodes { id author { login } body createdAt lastEditedAt }
+        nodes { id author { login } editor { login } body createdAt lastEditedAt }
       }
     }
   }
@@ -41,6 +44,26 @@ export const COMMITS_QUERY = `query($owner: String!, $name: String!, $number: In
       commits(first: 100, after: $endCursor) {
         pageInfo { hasNextPage endCursor }
         nodes { commit { oid } }
+      }
+    }
+  }
+}`;
+
+/**
+ * The request events in full: each review request (GitHub's pending
+ * `reviewRequests` never lists a bot) and each ready-for-review event, the
+ * rounds a review bound by content waits for (`round-requests.ts`).
+ */
+export const REQUESTS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], first: 100, after: $endCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          __typename
+          ... on ReviewRequestedEvent { createdAt requestedReviewer { __typename ... on User { login } ... on Bot { login } ... on Mannequin { login } ... on Team { slug } } }
+          ... on ReadyForReviewEvent { createdAt }
+        }
       }
     }
   }

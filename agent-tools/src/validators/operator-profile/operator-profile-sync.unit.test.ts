@@ -1,7 +1,7 @@
 import { unwrap } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { pullProfile, readSyncState, type GitRunner } from './operator-profile-git.js';
+import { pullProfile, readSyncState } from './operator-profile-git.js';
 import { pushProfile } from './operator-profile-git-push.js';
 import { parseSyncArgs, syncTarget } from './operator-profile-sync.js';
 import {
@@ -9,14 +9,7 @@ import {
   dirtyPaths,
   isProfileDocumentPath,
 } from './operator-profile-sync-state.js';
-
-const PROFILE_PATHSPECS: readonly string[] = ['index.md', 'repos', 'machines'];
-
-function failure<T>(
-  result: { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string },
-): string {
-  return result.ok ? '' : result.error;
-}
+import { failure, PROFILE_PATHSPECS, scripted } from './test-helpers/git-runner-fakes.js';
 
 const CLEAN = {
   isRepository: true,
@@ -131,32 +124,6 @@ describe('dirtyPaths', () => {
   });
 });
 
-/** A scripted runner: the first matching prefix answers; unmatched commands fail loudly. */
-function scripted(
-  answers: readonly {
-    readonly prefix: readonly string[];
-    readonly stdout?: string;
-    readonly ok?: boolean;
-  }[],
-): { readonly run: GitRunner; readonly calls: string[][] } {
-  const calls: string[][] = [];
-  const run: GitRunner = (args) => {
-    calls.push([...args]);
-    const hit = answers.find((answer) =>
-      answer.prefix.every((part, index) => args[index] === part),
-    );
-    if (hit === undefined) {
-      return { ok: false, stdout: '', stderr: `unscripted: ${args.join(' ')}` };
-    }
-    return {
-      ok: hit.ok ?? true,
-      stdout: hit.stdout ?? '',
-      stderr: hit.ok === false ? 'refused' : '',
-    };
-  };
-  return { run, calls };
-}
-
 describe('readSyncState', () => {
   it('reads remote, upstream, NUL-delimited porcelain and the left-right count', () => {
     const { run, calls } = scripted([
@@ -239,6 +206,9 @@ describe('pullProfile', () => {
     expect(result.ok).toBe(false);
     expect(result.ok ? '' : result.error).toContain('merge conflict in index.md, machines/a.md');
     expect(result.ok ? '' : result.error).toContain('union');
+    expect(result.ok ? '' : result.error).toContain(
+      'then pnpm profile:sync push --message "<seat>: <the fact>"',
+    );
   });
 
   it('refuses when the branch tracks no upstream', () => {
@@ -246,6 +216,13 @@ describe('pullProfile', () => {
     expect(pullProfile(run).ok).toBe(false);
   });
 });
+
+// No merge in progress: `rev-parse -q --verify MERGE_HEAD` exits 1, quietly.
+const NOT_MERGING = {
+  prefix: ['rev-parse', '-q', '--verify', 'MERGE_HEAD'],
+  ok: false,
+  stderr: '',
+} as const;
 
 describe('pushProfile', () => {
   const NOTHING_TRACKED = { prefix: ['ls-files'], stdout: '' } as const;
@@ -255,6 +232,7 @@ describe('pushProfile', () => {
 
   it('stages by pathspec, commits only those paths with the message, and pushes to the upstream', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
@@ -264,9 +242,21 @@ describe('pushProfile', () => {
       { prefix: ['push', '--quiet'] },
     ]);
     expect(unwrap(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe('committed and pushed');
-    expect(calls[0]).toEqual(['ls-files', '--', 'index.md', 'repos', 'machines']);
-    expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos', 'machines']);
-    expect(calls[2]).toEqual([
+    expect(calls.find((call) => call[0] === 'ls-files')).toEqual([
+      'ls-files',
+      '--',
+      'index.md',
+      'repos',
+      'machines',
+    ]);
+    expect(calls.find((call) => call[0] === 'add')).toEqual([
+      'add',
+      '--',
+      'index.md',
+      'repos',
+      'machines',
+    ]);
+    expect(calls.find((call) => call[0] === 'diff')).toEqual([
       'diff',
       '--cached',
       '--quiet',
@@ -275,7 +265,7 @@ describe('pushProfile', () => {
       'repos',
       'machines',
     ]);
-    expect(calls[3]).toEqual([
+    expect(calls.find((call) => call[0] === 'commit')).toEqual([
       'commit',
       '--quiet',
       '--only',
@@ -291,6 +281,7 @@ describe('pushProfile', () => {
 
   it('stages a tracked document whose directory no longer exists, so a deletion is committed', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       { prefix: ['ls-files'], stdout: 'index.md\nrepos/a--b.md' },
       { prefix: ['add'] },
       CHANGED,
@@ -300,12 +291,44 @@ describe('pushProfile', () => {
       { prefix: ['push', '--quiet'] },
     ]);
     expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
-    expect(calls[1]).toEqual(['add', '--', 'index.md', 'repos/a--b.md']);
-    expect(calls[3]?.slice(-3)).toEqual(['--', 'index.md', 'repos/a--b.md']);
+    expect(calls.find((call) => call[0] === 'add')).toEqual([
+      'add',
+      '--',
+      'index.md',
+      'repos/a--b.md',
+    ]);
+    expect(calls.find((call) => call[0] === 'commit')?.slice(-3)).toEqual([
+      '--',
+      'index.md',
+      'repos/a--b.md',
+    ]);
+  });
+
+  it('refuses a document git records as a symbolic link, naming it and the cure', () => {
+    // With core.symlinks=false a path the index holds as a link stays one when
+    // its file is rewritten and staged; the push would commit a link.
+    const { run } = scripted([
+      NOT_MERGING,
+      {
+        prefix: ['ls-files', '--stage'],
+        stdout: '100644 1111111 0\tindex.md\u0000120000 2222222 0\trepos/a--b.md\u0000',
+      },
+      NOTHING_TRACKED,
+      { prefix: ['add'] },
+      CHANGED,
+      { prefix: ['commit'] },
+      UPSTREAM,
+      AHEAD_ONE,
+      { prefix: ['push', '--quiet'] },
+    ]);
+    expect(failure(pushProfile(run, 'seat: fact', PROFILE_PATHSPECS))).toBe(
+      'repos/a--b.md is recorded in git as a symbolic link — a profile document never is: in the profile root run git rm --cached -- <path> for each, then pnpm profile:sync push --message "<seat>: <the fact>"',
+    );
   });
 
   it('sets the upstream on the first push, on the one remote whatever its name', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
@@ -322,6 +345,7 @@ describe('pushProfile', () => {
 
   it('refuses to guess between several remotes when no upstream is set', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
@@ -337,6 +361,7 @@ describe('pushProfile', () => {
 
   it('still pushes commits an earlier push left local when there is nothing new to commit', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
@@ -353,6 +378,7 @@ describe('pushProfile', () => {
 
   it('sets the upstream even when there is nothing new to commit', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
@@ -368,6 +394,7 @@ describe('pushProfile', () => {
 
   it('reports in sync without committing or pushing when nothing changed and nothing is ahead', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
@@ -383,6 +410,7 @@ describe('pushProfile', () => {
   it('refuses to push a branch behind its remote and prescribes the pull, whether or not it committed', () => {
     const behind = { prefix: ['rev-list', '--left-right'], stdout: '1\t0' } as const;
     const clean = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       { prefix: ['diff', '--cached', '--quiet'] },
@@ -393,6 +421,7 @@ describe('pushProfile', () => {
       'the branch is 1 commit behind the remote — run pnpm profile:sync pull, then push again',
     );
     const committed = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
@@ -408,6 +437,7 @@ describe('pushProfile', () => {
 
   it('stages only the paths given plus tracked ones, so an absent untracked directory is never a pathspec', () => {
     const { run, calls } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,
@@ -417,12 +447,13 @@ describe('pushProfile', () => {
       { prefix: ['push', '--quiet'] },
     ]);
     expect(pushProfile(run, 'seat: fact', ['index.md']).ok).toBe(true);
-    expect(calls[1]).toEqual(['add', '--', 'index.md']);
-    expect(calls[3]?.slice(-2)).toEqual(['--', 'index.md']);
+    expect(calls.find((call) => call[0] === 'add')).toEqual(['add', '--', 'index.md']);
+    expect(calls.find((call) => call[0] === 'commit')?.slice(-2)).toEqual(['--', 'index.md']);
   });
 
   it('keeps the commit local and says so when the push fails', () => {
     const { run } = scripted([
+      NOT_MERGING,
       NOTHING_TRACKED,
       { prefix: ['add'] },
       CHANGED,

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { textHasher } from './content-fixture.js';
 import { readPrStateReading } from './state-gh.js';
 import type { GhCommandExecutor } from './gh.js';
 
@@ -25,6 +26,7 @@ const CODEX_CLEAN_COMMENT = {
   body: CODEX_BODY,
   createdAt: '2026-07-21T12:10:00Z',
   lastEditedAt: null,
+  editor: null,
 };
 
 interface Surfaces {
@@ -44,6 +46,7 @@ function viewPayload(surfaces: Surfaces): string {
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: HEAD,
+    baseRefName: 'main',
     statusCheckRollup: [],
     autoMergeRequest: null,
     reviewRequests: surfaces.reviewRequests ?? [
@@ -82,22 +85,32 @@ function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
       return JSON.stringify([]);
     }
     const query = args.find((arg) => arg.startsWith('query=')) ?? '';
-    if (query.includes('reviewThreads')) {
-      return emptyPage('reviewThreads');
+    const answer = harvestAnswers(surfaces).find(([marker]) => query.includes(marker));
+    if (answer === undefined) {
+      throw new Error(`unexpected gh argv: ${args.join(' ')}`);
     }
-    if (query.includes('comments(')) {
-      return JSON.stringify([
-        { data: { repository: { pullRequest: { comments: { nodes: surfaces.comments } } } } },
-      ]);
-    }
-    if (query.includes('commits(')) {
-      return commitsPages(surfaces.commitPages);
-    }
-    return emptyPage('reviews');
+    return answer[1]();
   };
 }
 
-const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
+// Each harvest query, by the connection it reads, and the page it is answered with.
+function harvestAnswers(surfaces: Surfaces): readonly (readonly [string, () => string])[] {
+  return [
+    ['reviewThreads', () => emptyPage('reviewThreads')],
+    [
+      'comments(',
+      () =>
+        JSON.stringify([
+          { data: { repository: { pullRequest: { comments: { nodes: surfaces.comments } } } } },
+        ]),
+    ],
+    ['commits(', () => commitsPages(surfaces.commitPages)],
+    ['reviews(', () => emptyPage('reviews')],
+    ['timelineItems(', () => emptyPage('timelineItems')],
+  ];
+}
+
+const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true, patchIdOf: textHasher };
 const WITH_TIP: Surfaces = { comments: [CODEX_CLEAN_COMMENT], commitPages: [[OLDER, HEAD]] };
 const BOUND_TO_HEAD = {
   id: 'IC_1',
@@ -167,7 +180,7 @@ describe('readPrStateReading — the completion-comment transport', () => {
     expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
   });
 
-  it("carries an expected reviewer's edited comment as a refusal, never as silence", () => {
+  it("reads an expected reviewer's comment it edited itself as a review of the commit it names, timed at the edit", () => {
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
@@ -175,7 +188,39 @@ describe('readPrStateReading — the completion-comment transport', () => {
       execFileSync: executor(
         {
           ...WITH_TIP,
-          comments: [{ ...CODEX_CLEAN_COMMENT, lastEditedAt: '2026-07-21T12:11:00Z' }],
+          comments: [
+            {
+              ...CODEX_CLEAN_COMMENT,
+              lastEditedAt: '2026-07-21T12:11:00Z',
+              editor: { login: CODEX },
+            },
+          ],
+        },
+        [],
+      ),
+    });
+
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [{ ...BOUND_TO_HEAD, submittedAt: '2026-07-21T12:11:00Z' }],
+      refused: [],
+    });
+  });
+
+  it("carries an expected reviewer's comment another account edited as a refusal, never as silence", () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: [CODEX],
+      execFileSync: executor(
+        {
+          ...WITH_TIP,
+          comments: [
+            {
+              ...CODEX_CLEAN_COMMENT,
+              lastEditedAt: '2026-07-21T12:11:00Z',
+              editor: { login: 'octocat' },
+            },
+          ],
         },
         [],
       ),
@@ -187,8 +232,8 @@ describe('readPrStateReading — the completion-comment transport', () => {
         {
           id: 'IC_1',
           author: CODEX,
-          createdAt: '2026-07-21T12:10:00Z',
-          precondition: 'edited after creation',
+          reportedAt: '2026-07-21T12:11:00Z',
+          precondition: 'edited by an account other than its author',
           quote: "Codex Review: Didn't find any major issues.",
         },
       ],

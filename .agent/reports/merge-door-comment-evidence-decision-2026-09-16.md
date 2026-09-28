@@ -73,10 +73,17 @@ The preconditions are ordinary parsing hygiene, not suspicion, and each is mecha
 checkable:
 
 1. The author is in the repository's live automatic-review configuration.
-2. The comment is unedited (updated timestamp equals created timestamp).
+2. The comment is unedited (updated timestamp equals created timestamp), or last edited by
+   its own author. Amended 2026-09-28: the connector now keeps one summary comment per pull
+   request and rewrites it on every run (pull requests 264, 267 and 268). The grounds above
+   guard against an edit by someone other than the reviewer; the author's own rewrite is its
+   report. An edit by any other account, a deleted one included, still fails this precondition.
+   `.agent/plans/delivery/landing-instruments-read-the-evidence.plan.md` records the shape.
 3. It names a commit, and that abbreviated sha resolves to exactly one commit in the pull
    request's own commit list.
-4. That commit is the current tip.
+4. That commit is the current tip. Amended 2026-09-28: that commit binds the current tip, exactly
+   or by content (the pull request's patch against the base unchanged since that commit, the
+   pr-lifecycle SKILL's state machine item 3), so a pure sync never makes a clean comment stale.
 
 A comment that fails a precondition must never read the same as no comment at all: the
 refusal names WHICH precondition failed and quotes what it saw. A near-miss that reads as

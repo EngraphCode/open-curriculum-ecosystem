@@ -1,5 +1,6 @@
 import { quoteOf } from './completion-comments.js';
-import { normaliseLogin } from './reviewer-legs.js';
+import { bindingNote, reviewBinds } from './content-binding.js';
+import { normaliseLogin } from './logins.js';
 import type { BlockingLegVerdict, HarvestedReview, ReviewerLeg } from './reviewer-legs.js';
 import type { PrStateReading } from './state-types.js';
 
@@ -8,24 +9,27 @@ import type { PrStateReading } from './state-types.js';
  * of both transports the legs compute over, one evidence line per result
  * that arrived by comment (a review-object result is the leg's default and
  * carries no transport line), and the refusals — an expected reviewer's
- * comment that fails a precondition, or binds a commit that is not the tip,
+ * comment that fails a precondition, or names a commit that does not bind the
+ * tip (exactly or by content),
  * while that reviewer's leg is OWED or timed out
  * (`landing-instruments-read-the-evidence`, slice 1; decision note
  * 2026-09-16: a near-miss never reads as silence).
  */
 
 /** Both transports of a reviewer's reported result, as the legs read them. */
-export function allReviews(reading: PrStateReading): readonly HarvestedReview[] {
+export function allReviews(
+  reading: Pick<PrStateReading, 'reviews' | 'completionComments'>,
+): readonly HarvestedReview[] {
   return [...reading.reviews, ...reading.completionComments.reviews];
 }
 
 /** One line per completion comment bound to the tip, naming the transport. */
 export function completionTransportEvidence(reading: PrStateReading): string[] {
   return reading.completionComments.reviews
-    .filter((review) => review.commitOid === reading.headRefOid)
+    .filter((review) => reviewBinds(review, reading))
     .map(
       (review) =>
-        `${review.author}: completion comment ${review.id} at ${review.submittedAt} read as a review of the tip (transport: completion-comment)`,
+        `${review.author}: completion comment ${review.id} at ${review.submittedAt} read as a review of the tip${bindingNote([review], reading)} (transport: completion-comment)`,
     );
 }
 
@@ -53,17 +57,17 @@ export function completionRefusals(
   const open = new Set(legs.filter(unanswered).map((leg) => normaliseLogin(leg.reviewer)));
   const { reviews, refused } = reading.completionComments;
   const stale = reviews
-    .filter((review) => review.commitOid !== reading.headRefOid)
+    .filter((review) => !reviewBinds(review, reading))
     .filter((review) => open.has(normaliseLogin(review.author)))
     .map((review) => ({
       author: review.author,
-      line: `${review.author}: completion comment ${review.id} at ${review.submittedAt} refused — names commit ${review.commitOid.slice(0, 10)}, not the current tip; "${quoteOf(review.body)}"`,
+      line: `${review.author}: completion comment ${review.id} at ${review.submittedAt} refused — names commit ${review.commitOid.slice(0, 10)}, which does not bind the current tip; "${quoteOf(review.body)}"`,
     }));
   const failed = refused
     .filter((comment) => open.has(normaliseLogin(comment.author)))
     .map((comment) => ({
       author: comment.author,
-      line: `${comment.author}: completion comment ${comment.id} at ${comment.createdAt} refused — ${comment.precondition}; "${comment.quote}"`,
+      line: `${comment.author}: completion comment ${comment.id} at ${comment.reportedAt} refused — ${comment.precondition}; "${comment.quote}"`,
     }));
   return [...stale, ...failed];
 }

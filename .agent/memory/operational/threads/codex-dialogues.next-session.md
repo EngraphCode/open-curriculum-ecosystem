@@ -25,6 +25,7 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
 | Blazar lifts Corona | claude-code | claude-opus-5-5 | b65a9a | lane owner, slices 0 to 1b-i; custodian of 1b-iii's landing | 2026-09-23 | 2026-09-24 |
 | Forge herds Vapor | codex | GPT-5 | 01a0d2 | Codex seat: slice 1b-iii's reader; stood down 2026-09-24 | 2026-09-24 | 2026-09-24 |
 | Swallow holds Drift | claude-code | claude-fable-5-1 (claude-opus-5-5 until the owner's switch at the compaction of 2026-09-26) | 516619 | lane owner from 2026-09-24 13:44Z (adopted claim `372ac08b`; claim `2368c96b` over `rollout/**`); the wake bridge's slice 2 from 2026-09-25 (claim `278e98ea`); the command-record reader, PR 261 (claim `f7d8f0de`) | 2026-09-24 | 2026-09-27 |
+| Nova turns Penumbra | claude-code | claude-opus-5-5 | 8a94ba | the door of PR 261 (adopted claim `f7d8f0de` from Swallow holds Drift at the Director's routing); PR 250 as Myrtle turns Canopy's successor | 2026-09-27 | 2026-09-27 |
 | Luna stirs Radiance | codex | GPT-5 | 01a0d3 | Codex seat, the lane owner's partner at the owner's word 2026-09-24; takes accepted cures under `rollout/**` | 2026-09-24 | 2026-09-24 |
 | Titan turns Ether | codex | GPT-5 | 01a0d8 | Codex partner; wake-bridge todo 1 probe preparation with Swallow holds Drift; handed over at the owner's direction 14:55Z | 2026-09-25 | 2026-09-25 |
 | Gale turns Cloud | codex | GPT-5 | 01a0d9 | Codex partner at the owner's word (about 15:00Z); takes Titan's claim `be006748`: PR 211, then the config split, then the sink; silent from 15:18Z, so the config split (check-in 19), PR B and wake-bridge todo 3 (check-in 20) moved to Swallow holds Drift; PR 211's cure stays Gale's at resume | 2026-09-25 | 2026-09-25 |
@@ -83,6 +84,102 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
   - The other design findings, curable in the slice, are in `dbb48c46`: structured-only
     eligibility plus a `comms direct` sender clause, a one-notice latch, the wake debt held
     apart from the seen cursor, and a capped backoff. They go into the node's dispositions.
+- **PR 261, the reader, LANDED 2026-09-27 14:30Z as `5a9a854ef`** through the merge door, both
+  legs SATISFIED on the tip `f47841aae`. The door seat was Nova turns Penumbra (8a94ba), adopting
+  claim `f7d8f0de` from the CLOSEOUT below at the Director's routing (Wick binds Temper, ed7b48).
+  - **Round three on `02c9c7562`:** four findings, all real on a first-hand read (the strict count,
+    the output's carrier, a redirection before the command, a script past the options after `-c`),
+    cured test-first in settlement push 3 (`aa9ed4617`) with the post-execution reviews' findings
+    (code-expert, test-expert, security-expert, architecture-expert-fred). The residuals and the
+    assumptions review's closed-rule question went to the node's review-dispositions ledger
+    (`ffcc8f24c`) at the Director's ruling: the closed rule is measured before it is chosen.
+  - **Round four on `ffcc8f24c`:** five findings. Two did not reproduce and were answered with
+    evidence on their threads (`sudo {fd}>/dev/null git push` flags, now a regression row; every
+    successful function-tool output opens with the harness's header on codex-cli 0.157.1). Three
+    were over the bar on prong one, cured in `f47841aae` as a post-budget push carrying nothing
+    else, on the owner's word through the Director (`0b83df3a`): an ssh cluster with an attached
+    login, an output part without the `input_text` type, a `task_complete` that was ignored.
+  - **Round five on `f47841aae`:** Copilot's one item (`turns.ts:52`) below the bar with a signed
+    line: an unfinished turn followed by a new one is the harness's own shape (`TurnAborted` on
+    codex-cli 0.157.1). Codex's completion comment was clean.
+  - **Retired with read-back:** the remote branch deleted as the bot (404), the worktree
+    `oce-wt-command-records` and the local branch removed, claim `f7d8f0de` closed. The ledger row
+    at landing: 5 rounds, 43.09 / 40, past the budget by the fourth push the owner authorised.
+  - **Owed:** the CLOSEOUT's (a) to (f) below stand; the closed rule's measurement joins them as
+    (g), the Director's to route.
+- **CLOSEOUT (about 12:5xZ, 2026-09-27) on the owner's word: "run a full close out, and then this
+  session is complete".** The seat ends here by intent; the claim `f7d8f0de` is RETAINED for handoff
+  (an open pull request's claim) with the handoff record
+  `.agent/state/collaboration/handoffs/516619-swallow-holds-drift-codex-dialogues-closeout-2026-09-27.md`
+  (this machine only) set on the claim. Every fact below was read first-hand at the write.
+  - **PR 261, the reader, OPEN at `02c9c7562`** (41 files; level with engraph `d6c9e582e`, the head
+    after PR 262's fold landed 12:06:40Z). The segment after the RESUMED block below: round one
+    (Copilot five, Codex one) cured in settlement push 1 `ea8fddc72`, its six threads resolved with
+    signed lines; Codex's round two clean; Copilot's round two, five observations of one class (the
+    renderer printed a slice of input: the whole short-option cluster in `Hit.token`, the first
+    letter of a dash-prefixed value; a turn id and a record-type key unbounded; ssh's value-taking
+    options unread before the host), all valid on a first-hand read, cured in `93bcf8d74` together
+    with SonarCloud's seven minors, one test per claim (676 tests in the reader, shell and hook-policy
+    suites; eslint and both tsc checks clean; the commit gate green). The owner-authored sync merge
+    `02c9c7562` (no conflicts) and the LAST settlement push (2 of 2, pre-push gate green) at about
+    12:16Z, at the Director's release (`0fd8b1ee`: "261's sync may take the slot now"). The five
+    threads answered "Fixed in 93bcf8d74" (replies 4115307096, 4115307147, 4115307209, 4115307280,
+    4115307325) and resolved: zero unresolved; the body carries round two (fifteen commits, three
+    sync merges); Copilot re-requested and `@codex review` posted on the synced head at 12:17Z; state
+    read back BLOCKED (legs and CI pending). The slot released on the stream (`Gate done; slot
+    released`, 12:1xZ) with this seat's consent for any live seat to run the door under ruling 3.
+  - **The door (not this seat's), when both legs are clean on `02c9c7562` and CI is green:** the
+    deletion sweep read whole (`git diff $(git merge-base origin/engraph HEAD) HEAD | grep -E "^-"
+    | grep -v "^---"` in the worktree), then from the primary root `pnpm agent-tools merge-bot merge
+    --pr 261 --expect copilot-pull-request-reviewer --expect chatgpt-codex-connector --json`; then
+    the remote branch deleted as the bot (read-back 404), the worktree `oce-wt-command-records` and
+    the local branch retired, claim `f7d8f0de` closed, the ledger re-surveyed. Findings on the synced
+    head take signed lines only (the budget is spent); a real defect is the door seat's call to hold.
+    If engraph moves first, one more owner-authored sync merge in the worktree is a sync, not a
+    settlement push. ADR-180 §2's amendment (the second tested subcommand) rides the PR for the
+    owner's ratification at landing.
+  - **Follow-ups owed by the lane, none opening a PR under the limit:** (a) the redaction property
+    test at the reader's next touch: a nonce at every argv position, dashed once, dashed twice, glued
+    to `=`, never reaches either render in part or whole unless the token is a member of the closed
+    vocabulary (napkin 12:4xZ: six leaks in six branches, all found by an external reviewer, none by
+    the lane's fixed-position nonce tests); (b) the guard's next change, one PR (246's rounds 3 and 4:
+    the smoke's hermetic `PATH` gains the resolved trusted git's directory with the platform's
+    delimiter; fail closed when `refs/remotes/origin/HEAD` names a ref outside the prefix, with the
+    smoke case); (c) `GIT_COMMON_DIR` in the commit wrapper's scrub table (`38c1d1f5` (2)), for the
+    wrapper's implementer; (d) the consolidation validator for the rules' patterns, its own lane;
+    (e) goal two's Codex items in order and (f) goal one's code rows (J6, J7, J8, J16, J20, J18's
+    compare half), one PR per row, at free slots by the standing order; the Director routes.
+  - **Ledger row for #261 written at this wrap** (3 rounds; 14.8 / 40 within; the seat's stop-round
+    reading: push 1, had the renderer been audited structurally before the legs).
+  - **Processes and claims at the close:** the six review teammates of cycles 3 to 5 (returned, idle
+    panes) stopped at the owner's word 12:1xZ; the watcher and heartbeat re-armed for the wrap and
+    stopped at its end with the heartbeat-end line; no Codex process of this seat's (the host's
+    `codex app-server` processes are the desktop app's and the Cursor extension's). Worktrees on this
+    machine at the close: `oce-wt-command-records` (this lane, PR open, clean, level with its
+    remote); `oce-wt-user-value` (Myrtle's lane, PR 250); the primary on
+    `coordination/2026-09-27-d6c9e5` (draft PR 264, the Director's rotation at 12:13Z).
+  - **Fence sweep at the wrap:** the owner's 09:1xZ word "keep the word out of the repo for now"
+    found on two lines of this record (written 2026-09-26, before the word) and one line of the
+    Director's card record in the napkin; all three cut to "the owner's local-only wording". No
+    other fenced wording on any surface this seat wrote today.
+  - **Parallax on the segment, questioned and recorded:** (1) six leaks in six branches of one
+    allowlist renderer, found over two review rounds by a reviewer, none by the lane's own tests: a
+    class needs one structural test, not N cures, and the second round is the tell (napkin); (2)
+    "nothing else runs under this seat" said over six live subagent panes: in-process teammates do
+    not appear in the process table, so a closeout's inventory reads both the process table and the
+    agent list (napkin); (3) a usage-limit boundary declared at 11:52Z and superseded by the owner's
+    continue at 12:0xZ: the boundary line was right when written, and the resume line names the
+    supersession explicitly, as the Director's did (`3c575768`); (4) the records commit at this wrap
+    was staged by explicit pathspec onto a shared primary tree that had held a peer's staged commit
+    minutes earlier: the two-hands rule applies to the index as much as to the stream.
+  - **The wrap's loss scan and metaloss passes are in the napkin** (12:5xZ), with the fixed point
+    named. The formation letter is at `.agent/experience/2026-09-27-swallow-holds-drift-the-question-i-did-not-ask.md`.
+  - **Retrospective at the owner's word (about 15:5xZ), after the landing above:**
+    `.agent/reports/agentic-engineering/why-the-reader-took-five-rounds-and-a-splitter-it-did-not-need-2026-09-27.md`.
+    Twenty findings in three classes over five reviewed heads; two mechanisms named (the prior-art
+    question at cycle 1 has no owner; an instance cure under drive makes the next instance); three
+    fast-lane proposals routed to the queued doctrine edits lane and the wrap skill's next PR; no
+    slow-lane entry.
 - **RESUMED (about 09:30Z, 2026-09-27) at the owner's start-right word, after compaction 5.** Live
   state read first; heartbeat and watcher re-armed by id; the Director's routing `26eb4e4e` (the
   owner's answer on goal two, "Swallow's lane, in order"; the free slot to the reader) acked
@@ -291,8 +388,9 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     spawned, condition 5's mechanism seen first-hand.
   - **PR 250 readied under the intake rule (19:5xZ to 20:2xZ).** Two reviews: docs-adr-expert REVISE
     (blocking: the pr-relationships note, a dated review of a superseded head, filed as research; a
-    handoff section inside the method review; "Clef" named nineteen times on a public surface with two
-    private documents cited by filename and no private-upstream citation; two stories, the skill and
+    handoff section inside the method review; the owner's local-only wording named nineteen times on a
+    public surface with two private documents cited by filename and no private-upstream citation; two
+    stories, the skill and
     the framework proposal); prose-expert REVISE (blocking: two link vocabularies across two
     references; shoulds: use value defined three ways, user value never reconciled, guarantee and
     purpose undefined, the opening leading with theory, a passive description with no routing
@@ -313,7 +411,8 @@ record, the lane's pickup was the napkin section "2026-09-24 wrap — the Codex 
     the plan skill's routing paragraph placement (nit); no `trigger-train.json` (nit).
   - **Lane state at 20:2xZ.** Open, this seat's: PR 246 (CLEAN, 20 files, its door at its size turn
     after 217 and 253, about 21:20Z by the Director's projection; findings on its final tip get signed
-    lines only); PR 250 (readied, about 21 files, after 246; the door waits on the owner's Clef word).
+    lines only); PR 250 (readied, about 21 files, after 246; the door waits on the owner's word on
+    the local-only wording).
     Prepared locally, no PR under the limit: the command-records reader (claim `f7d8f0de`, worktree
     `oce-wt-command-records`, design v3 under pre-execution review by code-expert and test-expert;
     the two fixtures projected with zero leaks; the consolidation validator for the rules' patterns

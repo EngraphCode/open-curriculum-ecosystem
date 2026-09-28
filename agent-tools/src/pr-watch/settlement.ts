@@ -13,6 +13,7 @@ import {
   refusalDecides,
 } from './completion-evidence.js';
 import type { CompletionRefusal } from './completion-evidence.js';
+import { bindingNote, reviewBinds } from './content-binding.js';
 import { liveRunReviewers, runsEvidence, unmappedLiveRunEvidence } from './run-evidence.js';
 import type { PrStateReading, PrVerdict } from './state-types.js';
 
@@ -50,7 +51,7 @@ function legLine(leg: ReviewerLeg): string {
 // tip-bound review), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBound = allReviews(reading)
-    .filter((review) => review.commitOid === reading.headRefOid)
+    .filter((review) => reviewBinds(review, reading))
     .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
     .filter((review) => review.body.trim() !== '');
   // An eligible review whose submittedAt gh omitted could be NEWER than
@@ -72,16 +73,17 @@ function quietWindowAnchor(reading: PrStateReading): string | null {
 // summary body — refusing settlement on body PRESENCE would deadlock every
 // landing), so settlement stays leg-driven and the evidence hands the reader
 // the exact body-tally inputs instead.
-// Findings arrive on the review object; a completion comment is a
-// zero-findings result and has nothing to tally.
+// Findings arrive on the review object; a completion comment carries none to
+// tally (a summary's completed row says a review ran, and any findings it
+// filed are review objects).
 function bodyTallyEvidence(reading: PrStateReading): string[] {
   return reading.reviews
-    .filter((review) => review.commitOid === reading.headRefOid)
+    .filter((review) => reviewBinds(review, reading))
     .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
     .filter((review) => review.body.trim() !== '')
     .map(
       (review) =>
-        `tip-bound review body present: ${review.author} (${review.state}) — tally body findings (SKILL item 2) before reading this round as zero-finding`,
+        `tip-bound review body present: ${review.author} (${review.state})${bindingNote([review], reading)} — tally body findings (SKILL item 2) before reading this round as zero-finding`,
     );
 }
 
@@ -177,9 +179,11 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
   }
   const legs = computeReviewerLegs({
     headRefOid: reading.headRefOid,
+    content: reading.content,
     expectedReviewers: reading.expectedReviewers,
     reviews: allReviews(reading),
     reviewRequests: reading.reviewRequests,
+    roundRequests: reading.roundRequests,
     checksGreenAt: reading.checksGreenAt,
     now,
   });

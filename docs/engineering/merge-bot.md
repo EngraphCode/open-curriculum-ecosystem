@@ -52,8 +52,8 @@ unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review
 posted on the pull request stands as its leg, bound to the sha it reviewed
 as the vendor leg is bound per tip — the premises record that sha and the
-pushes since, which carry only cures of its findings, the tip sync and
-landing-defect cures, else a fresh leg on the new head (owner ruling
+pushes since, which carry only cures of its findings, the tip sync (a
+pure one, pr-lifecycle item 3) and landing-defect cures, else a fresh leg on the new head (owner ruling
 2026-09-10; pr-lifecycle §review-round state machine item 3); a defaulted
 set never merges. A review with an EMPTY body satisfies no leg and never
 anchors the quiet window — the API creates one per thread reply, so a pull
@@ -65,8 +65,8 @@ connector's zero-findings transport; a positive result by the owner's
 ruling of 2026-09-16). A declared reviewer's comment that fails a
 precondition on a leg the tip has not answered — edited, naming no
 reviewed commit or more than one, naming a prefix that matches no commit
-of the pull request or more than one, or naming a commit that is not the
-tip — refuses as `UNCLASSIFIED-EVIDENCE` with the precondition named and
+of the pull request or more than one, or naming a commit that does not
+bind the tip (exactly or by content, pr-lifecycle item 3) — refuses as `UNCLASSIFIED-EVIDENCE` with the precondition named and
 the comment quoted, never as silence; the cure is a fresh result on the
 tip. On a leg the tip satisfies, such a comment is a past round and is not
 reported. The refusal is the verdict when the round is otherwise settled or
