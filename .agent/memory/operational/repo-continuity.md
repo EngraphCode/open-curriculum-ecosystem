@@ -515,7 +515,7 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
-- **THE EXCHANGE LANE RESUMED; PR 282 OPEN, 2026-09-28 13:3xZ to 14:1xZ (Myrtle turns Canopy,
+- **THE EXCHANGE LANE RESUMED; PR 282 LANDED, 2026-09-28 13:3xZ to 14:4xZ (Myrtle turns Canopy,
   bf4957).** The superseded local ref `superseded/250-local-sync-82aae23cd` deleted on the owner's
   word relayed at 13:34Z (the loose ref file removed; read back absent; the 13:24Z proof its
   record). The lane's owed item read against the tree before any edit: ADR-078 was amended on
@@ -533,9 +533,18 @@ contract, its §Recount run at 14:58Z and matching.
   the commit (four FIX verdicts in it). Both legs requested as the bot at 14:01Z; WIP 3 of 3
   (281, 282, one in the second estate). This commit also cures the Director's routed finding
   (Codex on PR 275): the ledger's #250 round-4 row now reads the settlement span's numstat, and
-  queues the family's graduation line in `pending-graduations.md`. Next: PR 282's legs and
-  door at its slot turn; then the sentinel-content joint amendment in the second estate at a
-  free slot; goal one's code rows if this seat frees first.
+  queues the family's graduation line in `pending-graduations.md`. Landing: the legs on
+  `aeeb98bf8` (Copilot approval recommended, Codex no major issues, Sonar passed, zero threads);
+  two pure syncs as engraph moved twice (`5f5a54b10` at `cdd5b0463`, then `2a3836cda` at
+  `298763795`, PR 281's landing, since the ruleset reads BEHIND as blocking); on the first, the
+  browser-tests job failed in the demo hub's `next build` (the Lexend `next/font/google` faces,
+  the shape a font download that does not complete produces; green on engraph's own run and on
+  PR 281's synced head; recorded as a napkin observation, not re-run since the second sync ran
+  CI whole); door at `2a3836cda` with 21 checks green, merged `174f8a838` at 14:4xZ; remote
+  branch deleted and read back absent, worktree removed, local branch deleted, claim `9d0d53b0`
+  closed; 1 round, 3.52 priced, no settlement push. PR 217's cure list is closed. WIP 1 of 3.
+  Next: the sentinel-content joint amendment in the second estate; goal one's code rows if this
+  seat frees first.
 - **PR 250 LANDED, 2026-09-28 11:3xZ to 13:18Z (Myrtle turns Canopy, bf4957).** The owner's word
   ("pick up PR 250, then once it is merged come back to your current work"; to the Director: "Give
   250 to Myrtle, let's get it landed quickly and well"). One settlement push `da70c076a` (three

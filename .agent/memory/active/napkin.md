@@ -930,3 +930,20 @@ rewrite at its second consumer; the readability grader), all the owner's call. T
 graduation line to the metacognition directive is queued in `pending-graduations.md` (2026-09-28
 14:xxZ, the line drafted in the row); its PR, a directive-file edit under the documentation and
 onboarding reviews, waits for a free slot under the WIP limit.
+
+## 2026-09-28 ~14:3xZ — a demo build's font download fails on a docs PR's synced head (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 282 (one markdown file) synced with engraph `cdd5b0463` and its browser-tests
+job went red: `@oaknational/oak-curriculum-hub` `next build` (Next.js 16.3.0, Turbopack) reported
+twelve "Module not found: `@vercel/turbopack-next/internal/font/google/font`" errors for the
+Lexend `next/font/google` faces. The same job passed on engraph's own run of `cdd5b0463` twenty
+minutes earlier and on PR 281's synced head of the same engraph. Read from the job log in full
+(10,119 lines); the error's shape is the one a font download that does not complete produces.
+
+**Reading.** One instance: an observation. A build that fetches from the network is a check whose
+verdict depends on something the head does not contain; the cure at the moment was a rerun of
+the failed job, not a change to the PR. If a second instance appears, the concept for the play
+list is a build-time font fetch that fails closed on the network: vendor the faces or fail with a
+named cause.
+
+**Routing.** Nowhere new; recorded here.
