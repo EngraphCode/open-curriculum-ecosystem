@@ -92,10 +92,10 @@ stamp the lifetime) and at session-open (to check it).
    peers, and blocks other seats' operations on that tree (a merge or a
    branch switch refuses over it). An uncommitted file on the shared primary
    is also in every seat's push gate, since the pre-push gate's checks read
-   the working tree: each writer checks a file it writes there by name as the
-   write lands, against every working-tree check of its estate's push gate
-   (the formatter and markdownlint in both estates, and link and path
-   validation where the gate runs them), and cures its own failure at once
+   the working tree: each writer checks a file it writes there as the write
+   lands, with the formatter and markdownlint by name, keeps its links
+   resolving and its paths repository-relative where the gate validates
+   them, and cures its own failure at once
    (2026-09-27: a peer's unlinted append to a thread record failed a fold's
    push on MD032).
    The fold's pre-push check (`coordination-fold` precondition 2) is this

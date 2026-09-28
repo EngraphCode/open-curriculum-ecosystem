@@ -38,13 +38,13 @@ resides on the coordination branch).
    check by name each tracked file dirty at that moment
    (`git diff --name-only --diff-filter=d HEAD`), with
    `pnpm exec prettier --check --ignore-unknown -- <files>` and
-   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`, and
-   the link and path validation clause 5 names where the gate runs them: the
+   `pnpm exec markdownlint-cli2 --no-globs -- <the Markdown files>`: the
    pre-push gate's tracked-files checks read the working tree, so an
    uncommitted edit to a tracked file fails the push, whoever made it.
    This checks named files, as the pre-commit hook
    does; it is not a gate run (`coordination-branch-24h-lifetime` clause 5
-   at the fold). A
+   at the fold). Link and machine-local-path validation has no by-name
+   form: a push that fails on one names the file, which routes as below. A
    failing file that is a live peer's in-flight edit, class (b), routes to
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
@@ -156,23 +156,29 @@ review contract.
    dirty files carry across — and the primary now resides there.
    The folded branch (`$FOLDED`, read before the switch) is deleted at the
    cut once its local tip and its remote tip each read merged. The fetch
-   above reads only the default branch, so fetch the folded branch's
-   remote tip into its tracking ref immediately before the proof and the
-   delete:
+   above reads only the default branch, so probe the folded branch on the
+   remote first, and fetch its tip into its tracking ref immediately before
+   the proof and the delete:
 
    ```bash
-   git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED"
-   git merge-base --is-ancestor "$FOLDED" "$BASE" &&
-     git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   git ls-remote --exit-code origin "refs/heads/$FOLDED" > /dev/null
+   PROBE=$?
+   if [ "$PROBE" -eq 0 ]; then
+     git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED" &&
+       git merge-base --is-ancestor "$FOLDED" "$BASE" &&
+       git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
+   elif [ "$PROBE" -eq 2 ]; then
+     git fetch --prune origin && git merge-base --is-ancestor "$FOLDED" "$BASE"
+   else
+     echo "STOP: the remote read failed ($PROBE)"
+   fi
    ```
 
-   A remote branch already absent (`git ls-remote origin
-   "refs/heads/$FOLDED"` prints nothing, so the fetch finds no ref) counts
-   as deleted: skip the remote proof and the API delete, prune its stale
-   tracking ref (`git fetch --prune origin`), and still run the local proof
-   and deletion.
-   Then delete it locally by plain branch deletion, and remotely by the
-   bot's API delete
+   The probe exits 0 when the branch is on the remote, 2 when it is gone,
+   and anything else on a failed read, which stops the cut. A branch gone
+   from the remote counts as deleted: its stale tracking ref is pruned, and
+   only the local proof runs. Then delete it locally by plain branch
+   deletion, and, when the probe found it, remotely by the bot's API delete
    (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
    `git push --delete` runs the full pre-push gate), each read back
    absent. A tip that reads unmerged holds commits made after the merge:
