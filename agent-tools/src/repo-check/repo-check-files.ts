@@ -20,8 +20,8 @@
 
 const NUL = '\u0000';
 
-/** The mode prefix of a symbolic link in `git ls-files -s` output. */
-const SYMLINK_MODE_PREFIX = '120000 ';
+/** A resolved (stage 0) symbolic link in `git ls-files -s` output, up to its path. */
+const RESOLVED_SYMLINK = /^120000 [0-9a-f]+ 0\t/u;
 
 /**
  * Split git's `-z` output into paths, so a space, a tab or a newline inside a
@@ -40,9 +40,10 @@ export function parseNulSeparatedPaths(stdout: string): readonly string[] {
  *
  * @remarks
  * A symlink carries no content of its own to format: its target is checked
- * under its real path, and prettier refuses a symlink path outright. The first
- * tab ends the metadata and the path may itself hold a tab, so the record is
- * split there and nowhere else.
+ * under its real path, and prettier refuses a symlink path outright. An
+ * unmerged path's stages may differ in type, so only a resolved entry counts,
+ * and the tools read the path as the working tree holds it. The first tab ends
+ * the metadata and the path may hold a tab, so the record is split there.
  *
  * @param stageOutput - What `git ls-files --cached -s -z` wrote.
  * @returns The symlink paths.
@@ -50,9 +51,8 @@ export function parseNulSeparatedPaths(stdout: string): readonly string[] {
 export function parseSymlinkPaths(stageOutput: string): ReadonlySet<string> {
   const symlinks = new Set<string>();
   for (const record of parseNulSeparatedPaths(stageOutput)) {
-    const delimiter = record.indexOf('\t');
-    if (record.startsWith(SYMLINK_MODE_PREFIX) && delimiter !== -1) {
-      symlinks.add(record.slice(delimiter + 1));
+    if (RESOLVED_SYMLINK.test(record)) {
+      symlinks.add(record.slice(record.indexOf('\t') + 1));
     }
   }
   return symlinks;
@@ -232,8 +232,8 @@ export function trackedMarkdownlintRuns(
   );
 }
 
-/** A glob character (a backslash reads as `/`), or a leading `#` or `!` (a comment or a negation). */
-const GLOB_SIGNIFICANT = /[*?[\]{}()\\]|^[#!]/u;
+/** A glob character (a backslash reads as `/`), or a leading `#`, `!` or `:` (a comment, a negation, a literal path). */
+const GLOB_SIGNIFICANT = /[*?[\]{}()\\]|^[#!:]/u;
 
 /**
  * The paths markdownlint-cli2 would read as glob patterns rather than as the
