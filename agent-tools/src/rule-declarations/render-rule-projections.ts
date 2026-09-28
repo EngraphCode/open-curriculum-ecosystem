@@ -33,6 +33,7 @@ import { stringify } from 'yaml';
 
 import { FRONTMATTER_FENCE_LINE } from './frontmatter-lines.js';
 import type { RuleDeclaration } from './rule-declaration.js';
+import { compareRuleNames } from './rule-name.js';
 
 /** One generated file: its repo-relative path and full text. */
 export interface RuleProjection {
@@ -144,7 +145,7 @@ export function renderAgentsRuleAdapter(declaration: RuleDeclaration): string {
  */
 export function renderRulesIndex(declarations: readonly RuleDeclaration[]): string {
   const rows = [...declarations]
-    .sort((left, right) => left.name.localeCompare(right.name))
+    .sort((left, right) => compareRuleNames(left.name, right.name))
     .map(
       (declaration) =>
         `| \`.agent/rules/${declaration.name}.md\` | ${declaration.classification} | ${

@@ -211,6 +211,24 @@ describe('sweepRuleFrontmatter', () => {
     expect(fs.writes.size).toBe(0);
   });
 
+  it('refuses a derived declaration that would not read back, writing nothing', async () => {
+    const tree = new Map(agreeingTree);
+    tree.set(
+      `${REPO}/RULES_INDEX.md`,
+      INDEX.replace('| surface:test-authoring |', '| surface:test-authoring — see `x` |'),
+    );
+    const fs = fakeFs(tree);
+    const outcome = await sweepRuleFrontmatter(
+      { repoRoot: REPO, ruleNames: ['alpha', 'beta'], write: true },
+      fs,
+    );
+    expect(outcome.refused).toHaveLength(1);
+    expect(outcome.refused[0]).toMatch(
+      /^\.agent\/rules\/beta\.md: .*\(the derived declaration would not read back\)$/u,
+    );
+    expect(fs.writes.size).toBe(0);
+  });
+
   it('refuses the sweep when the index is missing, as a refusal rather than a crash', async () => {
     const tree = new Map(agreeingTree);
     tree.delete(`${REPO}/RULES_INDEX.md`);

@@ -1,7 +1,7 @@
 /**
  * Compare the projections a set of declarations renders with what the projection surfaces
- * hold, and apply the difference. Shared by the rule leg (`rule-projection-validation.ts`)
- * and the sub-agent leg (`subagent-projection-validation.ts`).
+ * hold, and apply the difference. Written for the rule leg (`rule-projection-validation.ts`)
+ * with the subject as a parameter, so a second projection leg shares it unchanged.
  *
  * A projection that is absent is missing, one whose bytes differ is drifted, and a file on a
  * projection surface that no declaration renders is stale. The comparison is byte-exact on
@@ -12,6 +12,7 @@
  */
 
 import type { Result } from '@oaknational/result';
+import { compareRuleNames } from '../../rule-declarations/rule-name.js';
 
 /** One rendered projection: its repo-relative path and its full text. */
 export interface Projection {
@@ -53,7 +54,7 @@ export function diffProjections(
     .map((projection) => projection.path);
   const stale = [...actual.keys()]
     .filter((file) => !expectedPaths.has(file))
-    .sort((left, right) => left.localeCompare(right));
+    .sort((left, right) => compareRuleNames(left, right));
   return { missing, drifted, stale };
 }
 

@@ -3,9 +3,11 @@
  * its ancestors and its leaf unfollowed immediately before acting (`rule-surface-fs.ts`) and
  * refuses when the entry is not what a projection surface admits (a real directory above,
  * an absent or regular-file leaf), so a link, directory or special entry at the leaf is
- * refused, never written through, replaced or unlinked; the write is the estate's atomic
- * writer (a synced temp file renamed over the leaf, so a failed write leaves no partial
- * file) and the removal unlinks the leaf itself (the #74 round-three finding, 2026-09-14). What
+ * refused, never written through or unlinked (a link swapped in at the leaf after its
+ * classification is replaced whole by the rename, the safe outcome); the write is the
+ * estate's atomic writer (a synced temp file renamed over the leaf, so a failed write leaves
+ * no partial file) and the removal unlinks the leaf itself (the #74 round-three finding,
+ * 2026-09-14). What
  * remains is the window between an ancestor's classification and the mkdir, rename or unlink
  * into it: a link swapped in there is resolved by every later call, so the residue is a
  * directory created, a projection's text renamed over a regular file of the projection's

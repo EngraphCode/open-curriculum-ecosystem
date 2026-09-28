@@ -13,7 +13,11 @@
  * surface is stale there (a `.DS_Store` a file browser drops is too, and
  * `--fix` removes it: the contract as stated) and a refusal on the canonical
  * one (the #74 round-one finding, 2026-09-14).
+ *
+ * @packageDocumentation
  */
+
+import { compareRuleNames } from '../../rule-declarations/rule-name.js';
 
 /** What listing a directory found: the closed set of outcomes a caller must handle. */
 export type DirectoryListing =
@@ -53,7 +57,7 @@ export function classifyDirectoryEntries(
   entries: readonly DirectoryEntry[],
   extension: string,
 ): DirectoryListing {
-  const sorted = [...entries].sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = [...entries].sort((a, b) => compareRuleNames(a.name, b.name));
   const foreign = sorted.find((entry) => !entry.isFile());
   if (foreign !== undefined) {
     return { kind: 'foreign', entry: `${relDir}/${foreign.name}` };

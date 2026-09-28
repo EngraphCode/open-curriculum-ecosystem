@@ -230,5 +230,12 @@ async function deriveOne(
   if (!swept.ok) {
     return err(`${rulePath}: ${swept.error}`);
   }
+  // The block is read back through the same reader the validator uses, so a value the
+  // hand-kept sources carried but the declaration shape refuses (an inner backtick in a
+  // trigger, a repeated glob) refuses the sweep here rather than the next check.
+  const readBack = readRuleDeclaration(name, swept.value);
+  if (!readBack.ok) {
+    return err(`${readBack.error} (the derived declaration would not read back)`);
+  }
   return ok({ ...reconciled, file: { relativePath: rulePath, text: swept.value } });
 }

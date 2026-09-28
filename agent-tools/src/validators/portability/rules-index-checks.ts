@@ -18,11 +18,6 @@ interface RulesIndexPortabilityIssuesOptions {
   /** Full text content of the rules index Markdown file. */
   rulesIndexContent: string;
   /**
-   * Override path label used in issue messages.
-   * Defaults to {@link RULES_INDEX_PATH}.
-   */
-  rulesIndexPath?: string;
-  /**
    * Maximum allowed byte size for the rules index.
    * Defaults to {@link DEFAULT_CODEX_PROJECT_DOC_MAX_BYTES}.
    */
@@ -37,7 +32,7 @@ interface RulesIndexPortabilityIssuesOptions {
  * @returns An array of human-readable issue strings; empty means no issues.
  */
 function getRulesIndexPortabilityIssues(opts: RulesIndexPortabilityIssuesOptions): string[] {
-  const rulesIndexPath = opts.rulesIndexPath ?? RULES_INDEX_PATH;
+  const rulesIndexPath = RULES_INDEX_PATH;
   const maxBytes = opts.maxBytes ?? DEFAULT_CODEX_PROJECT_DOC_MAX_BYTES;
   const byteSize = Buffer.byteLength(opts.rulesIndexContent, 'utf8');
   return byteSize > maxBytes

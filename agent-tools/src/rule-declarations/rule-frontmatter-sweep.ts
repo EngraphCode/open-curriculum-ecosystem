@@ -12,6 +12,8 @@
  * universe, never the disk), read through this estate's git seam (`repository-paths.ts`);
  * a listing failure is a refusal, never an empty sweep. The reconciliation report on stdout is the table the landing
  * pull request carries. Exit 0 when the sweep completed, 1 when it refused, 2 on bad usage.
+ *
+ * @packageDocumentation
  */
 
 import { argv, stderr, stdout } from 'node:process';

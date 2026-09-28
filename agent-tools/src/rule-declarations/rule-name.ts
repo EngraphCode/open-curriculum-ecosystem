@@ -24,6 +24,22 @@ const NOT_A_RULE_BASENAME =
 const RULE_BASENAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 /** The refusal reason when a name is not a rule basename; `undefined` when it may be interpolated. */
+/**
+ * Code-unit order over rule names: total, and independent of the host locale, so the rendered
+ * index and the listings compare byte for byte on every machine (a locale-aware compare orders
+ * `ch` after `h` under `cs` and `sk`).
+ *
+ * @param left - One rule name or projection path.
+ * @param right - The other.
+ * @returns A negative number, zero or a positive number as `Array.prototype.sort` expects.
+ */
+export function compareRuleNames(left: string, right: string): number {
+  if (left < right) {
+    return -1;
+  }
+  return left > right ? 1 : 0;
+}
+
 export function ruleNameRefusal(name: string): string | undefined {
   return RULE_BASENAME.test(name) ? undefined : `${JSON.stringify(name)}: ${NOT_A_RULE_BASENAME}`;
 }

@@ -1,8 +1,8 @@
 /**
- * The projection legs' issue wording: what a listing or an entry read yields, or the one
- * issue that refuses a leg; and the drift issues that name the cure. Each leg names its
- * subject (the rule projections), so the wording reads in one place and each leg stays within
- * the line cap.
+ * The projection leg's issue wording: what a listing or an entry read yields, or the one
+ * issue that refuses a leg; and the drift issues that name the cure. The leg names its
+ * subject (`RULE_SUBJECT`), so the wording reads in one place and a second leg shares it by
+ * naming its own.
  *
  * @packageDocumentation
  */
@@ -11,6 +11,7 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import type { DirectoryListing, EntryRead } from './directory-listing.js';
 import type { ProjectionDrift } from './projection-drift.js';
+import { compareRuleNames } from '../../rule-declarations/rule-name.js';
 
 const FIX_HINT = 'run `pnpm portability:fix`';
 
@@ -62,7 +63,7 @@ export function filesOf(
 ): Result<readonly string[], string> {
   if (listing.kind === 'files') {
     if (surface === 'projection' || listing.stray.length === 0) {
-      return ok([...listing.files, ...listing.stray].sort((a, b) => a.localeCompare(b)));
+      return ok([...listing.files, ...listing.stray].sort((a, b) => compareRuleNames(a, b)));
     }
     const strays = listing.stray.join(', ');
     return err(

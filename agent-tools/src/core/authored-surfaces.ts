@@ -3,15 +3,15 @@
  * similar files under a set of roots plus a set of optional root-level
  * files, minus the path fragments the validator excludes.
  *
- * Three validators (`validate-cited-scripts`, `validate-cited-paths`,
- * `validate-no-stale-script-invocations`) walk authored surfaces with the
- * same semantics: a missing root is not a failure, a path outside the
- * universe (normally the tracked tree) is never entered or read, an excluded
- * fragment prunes a directory or a file, and only files with a scanned
- * extension are read. One walker owns those semantics
- * (`consolidate-at-second-consumer`); each validator supplies its own roots,
- * extensions and scope exclusions, and the universe comes from git rather
- * than from a list (`compute-dont-hope`).
+ * Every walk of the authored surfaces has the same semantics: a missing root
+ * is not a failure, a path outside the universe (normally the tracked tree)
+ * is never entered or read, an excluded fragment prunes a directory or a
+ * file, and only files with a scanned extension are read. One walker owns
+ * those semantics (`consolidate-at-second-consumer`); each caller supplies
+ * its own roots, extensions and scope exclusions, and the universe comes
+ * from git rather than from a list (`compute-dont-hope`). The projection leg
+ * consumes `isEnoent`; the walker is here for the validators that cite paths
+ * and scripts.
  *
  * The file system is an injected port so the walk's semantics are proven by
  * a unit test over an in-memory tree, never by touching a real checkout.
