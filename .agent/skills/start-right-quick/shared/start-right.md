@@ -599,7 +599,11 @@ first.
 The commit is the gate. Its pre-commit hook runs the local gates: the
 staged formatting and markdown checks, the repo validators, shell lint,
 then build, type-check, lint and unit tests, then dependency-cruiser and
-knip. The pre-push hook runs the wider local set: the pushed-commit secret
+knip. Shell lint runs the pinned shellcheck from the checkout's `.tools/bin`,
+or the `PATH` copy only while that one is the pinned version, so in any
+checkout without `.tools/bin/shellcheck`, fresh or already in use, run
+`.agent/setup/install-shellcheck.sh` once before its first commit (§8 says
+why). The pre-push hook runs the wider local set: the pushed-commit secret
 scan and the review-cost gate first, then the whole-tree format and markdown
 checks, the sub-agent, portability, skills and repo validators, shell lint,
 the schema-drift check, then codegen, build, type-check, lint, unit, E2E and
