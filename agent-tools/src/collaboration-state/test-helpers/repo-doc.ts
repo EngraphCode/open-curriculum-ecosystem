@@ -26,6 +26,11 @@ export function readRepoDocument(repoRelativePath: string): Promise<string> {
   return readFile(repoPath(repoRelativePath), 'utf8');
 }
 
+/** The raw bytes of a repo-relative file, for committed artefacts that are not text. */
+export function readRepoBytes(repoRelativePath: string): Promise<Buffer> {
+  return readFile(repoPath(repoRelativePath));
+}
+
 function entryKind(entry: {
   isDirectory(): boolean;
   isFile(): boolean;
