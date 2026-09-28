@@ -515,6 +515,25 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **COMPACTION BOUNDARY WITH CONTINUATION, 2026-09-28 ~17:2xZ (Myrtle turns Canopy, bf4957).**
+  The owner's word: "prepare for compaction then carry on". State at the boundary, read first-hand:
+  PR 288 (the metacognition graduation paragraph) ready, both legs in on `784c2409d` with one
+  finding each (the family count read from the napkin's tally line, twelve, against the entries'
+  recount, thirteen), both signed and resolved on the recount evidence, a pure sync to engraph
+  `467cc2146` pushing (`17d0ac1a6`), the door at CI green. The second estate's PR 248 (todo 6 of
+  the exchange node: ruling 40 and the close bar) open at `0bb1f479` after Copilot's round one
+  (two cures, one signed line: the charter's "outside this node" against the node's inbound scope,
+  an owner card with the Director), Copilot's round two requested by the operator credential, the
+  door at its leg. The lineage node's twin ruling pushed on `docs/exchange-node-close-bar`
+  (`49c87d5f9`), its PR after the 00:00Z fold carries the census path. The Director's slot order:
+  one open PR per seat; 288, then 248, then the twin, then J1's N1; the three owner cards
+  batched by the Director, those rows frozen. Records this window: `69bae0328`, `f0623973b`,
+  `63159121f`, `a9c9d1bf8` (the census). Five stale reviewer teammates of the 250 lane stopped at
+  the owner's word; no subagent runs. Processes: two comms watchers (this estate's and the second
+  estate's, home tooling), the heartbeat loop on claim `b86c8526`, the second estate's claim
+  `2ee31fd6`, four background waits (288's sync push and CI, 248's legs). The scratchpad holds
+  the door and open scripts (`door-282.sh` as the template, `open-ruling-pr.sh`,
+  `open-jcnet-todo6-pr.sh`), the census's sources and the drafts.
 - **GOAL ONE'S CLOSE CHARTER RATIFIED; THE RESIDUE CENSUS, 2026-09-28 16:2xZ to 16:5xZ (Myrtle
   turns Canopy, bf4957).** The owner ratified the Director's close charter as drafted (the
   Director's relay 16:2xZ; the charter on the second estate's napkin at c717c683). First act, the

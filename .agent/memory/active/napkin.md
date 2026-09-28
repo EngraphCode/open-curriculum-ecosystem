@@ -1005,3 +1005,37 @@ and the reviewed edit is held in its worktree for a fresh context rather than co
 
 **Routing.** Nowhere new; the graduation paragraph is drafted from the entries and held for a fresh
 context.
+
+## 2026-09-28 ~17:2xZ — the wrap at a compaction boundary: five slips, one generator (Myrtle turns Canopy, bf4957)
+
+**Observation.** Read back over the window since PR 250 landed: (1) a register row written from
+memory of the family (cured, 63159121f); (2) the directive context-budget check taken after the
+edit, not before (the edit held, then committed as a draft on the Director's routing); (3) a comms
+title carrying a sha this seat never read ("2b8ba36" for PR 288's head 784c2409d; corrected on the
+stream); (4) "I take no slot on my own count", said to Nova at 16:4xZ, then a slot taken on this
+seat's own count at 16:54Z when 287 landed, ten minutes later, while an order was in flight; the
+order arrived at 17:0xZ and read otherwise (288 first), so the seat held two open pull requests
+against "one per seat"; (5) ruling 40 carried the charter's "outside this node" into the second
+estate's node without reading it against the node's live inbound scope; Copilot read it.
+
+**Reading.** Three of the five are one shape: a record that names what it did not read (a
+member, a sha, a scope); the family of a check whose name outruns its coverage, one level up, in
+the seat's own writing. The other two are order slips at act boundaries: a gate taken after the
+act it gates; an act taken against the seat's own stated rule. The generator is the same for all
+five: the drive to open the next act, strongest at the moment an act completes and the next is
+visible. The directive's own line ("fluency failures cluster at the finish line") is right and
+incomplete: they cluster at the start line of the next act too. The cheapest cure is a gate, not a
+stance: before any act that takes a slot, names a number or a sha, or edits a directive, re-read
+the seat's last stated rule on the stream and the source of every number in the line about to be
+sent. A stated rule spoken to a peer is a promise, and the next act is checked against it as a
+gate, never remembered as a stance.
+
+**Play seed** (free play, one line): the census is a computed thing, the register's rule over
+two tables minus a landings list; the second estate's exchange-register validator already computes
+landed-of-owed, and a residue mode listing the triage's BRING members minus the §Landings rows
+would make the census reproducible by any seat in seconds. One consumer today; a seed for the
+toolkit lane, not a build.
+
+**Routing.** The five to this entry; the cure to the seat's own act boundaries from here; the
+generator's second clustering point (the start line) is a candidate clause for the directive's
+fluency section at the next pass that touches it, with this entry as its instance.
