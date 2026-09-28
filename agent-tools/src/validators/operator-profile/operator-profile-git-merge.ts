@@ -12,6 +12,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { gitFailure, type GitRunner } from './operator-profile-git.js';
+import { PUSH_COMMAND } from './operator-profile-sync-state.js';
 
 /**
  * Whether a merge is in progress: a conflicting pull leaves `MERGE_HEAD`.
@@ -74,7 +75,7 @@ function markedDocuments(
 }
 
 function markerRefusal(marked: readonly string[]): string {
-  return `${marked.join(', ')} still ${marked.length === 1 ? 'holds' : 'hold'} a conflict marker — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push`;
+  return `${marked.join(', ')} still ${marked.length === 1 ? 'holds' : 'hold'} a conflict marker — resolve by union (both sides kept in time order, the later updated date wins), then ${PUSH_COMMAND}`;
 }
 
 /**
@@ -120,6 +121,6 @@ export function unmergedRefusal(run: GitRunner): Result<void, string> {
     return ok(undefined);
   }
   return err(
-    `${paths.join(', ')} ${paths.length === 1 ? 'is' : 'are'} still unmerged outside the profile documents — in the profile root resolve each and git add -- <path>, then pnpm profile:sync push`,
+    `${paths.join(', ')} ${paths.length === 1 ? 'is' : 'are'} still unmerged outside the profile documents — in the profile root resolve each and git add -- <path>, then ${PUSH_COMMAND}`,
   );
 }

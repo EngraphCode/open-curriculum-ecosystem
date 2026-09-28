@@ -570,7 +570,7 @@ describe('pushProfile — during a merge', () => {
     (marked, named) => {
       const run = mergingGit({ merged: marked, marked, resolutionChanged: true });
       expect(failure(pushProfile(run, 'seat: union', PROFILE_DOCUMENTS))).toBe(
-        `${named} a conflict marker — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push`,
+        `${named} a conflict marker — resolve by union (both sides kept in time order, the later updated date wins), then pnpm profile:sync push --message "<seat>: <the fact>"`,
       );
     },
   );
@@ -584,7 +584,7 @@ describe('pushProfile — during a merge', () => {
     const run = mergingGit({ unmerged: ['.gitignore'], resolutionChanged: true });
     expect(failure(pushProfile(run, 'seat: union', PROFILE_DOCUMENTS))).toBe(
       '.gitignore is still unmerged outside the profile documents — in the profile root resolve each and ' +
-        'git add -- <path>, then pnpm profile:sync push',
+        'git add -- <path>, then pnpm profile:sync push --message "<seat>: <the fact>"',
     );
   });
 
@@ -616,7 +616,7 @@ describe('pushProfile — during a merge', () => {
     });
     expect(failure(pushProfile(run, 'seat: union', []))).toBe(
       '.gitattributes is still unmerged outside the profile documents — in the profile root resolve each and ' +
-        'git add -- <path>, then pnpm profile:sync push',
+        'git add -- <path>, then pnpm profile:sync push --message "<seat>: <the fact>"',
     );
   });
 
