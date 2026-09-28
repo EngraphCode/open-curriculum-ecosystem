@@ -33,6 +33,7 @@ unit, integration, and E2E levels.
   - [Writing Code Before Tests](#writing-code-before-tests)
   - [Updating E2E Tests After Implementation](#updating-e2e-tests-after-implementation)
   - [Tests That Only Pass With The Current Implementation](#tests-that-only-pass-with-the-current-implementation)
+  - [Adding To Existing IO Debt In A Unit Test File](#adding-to-existing-io-debt-in-a-unit-test-file)
   - [Validator Script vs Integration Test](#validator-script-vs-integration-test)
 
 ## TDD At All Levels
@@ -172,8 +173,9 @@ If tests lag behind code at any level, TDD was not followed at that level.
 Write red-phase specs that describe not-yet-implemented system behaviour as
 E2E checks, not in `*.unit.test.ts` files. Today an E2E check is a
 `*.e2e.test.ts` file that the `test:e2e` runner reaches: both names are
-pre-invariant estate the recovery plan retires, and until it does a new check
-goes where that live runner sees it (testing-strategy.md §Development Workflow). The pre-commit hook runs
+defects under the IO invariant that the recovery plan retires, and until it
+does a new check goes where that live runner sees it (testing-strategy.md
+§Development Workflow). The pre-commit hook runs
 type-check, lint, and the `test` task, so red in-process specs block commits
 until they go green. E2E specs are outside pre-commit, but pre-push and CI run
 `test:e2e`; they must be green before push/merge unless the owner explicitly
@@ -187,9 +189,9 @@ well as the exit code. If a workspace can exit 0 with no discovered tests, add
 `--passWithNoTests=false` to the focused Vitest command or use the workspace's
 checked test script.
 
-For agent-tools tests, prefer the discovered suffixes in the workspace config:
-`*.test.ts` and `*.spec.ts`. A file named only `*.unit.test.ts` is not evidence
-unless the include pattern names that suffix explicitly.
+The shared include (`packages/core/workspace-config/src/vitest.config.base.ts`)
+discovers `src/**/*.test.ts`, which `*.unit.test.ts` and `*.integration.test.ts` both match;
+the testing strategy requires one of those suffixes, so the defect is a bare `*.test.ts` name.
 
 ## Common Violations And Fixes
 
@@ -282,15 +284,15 @@ it('rejects malformed config', () => {
 });
 ```
 
-Correct shape (factor the pure parser; unit-test the extract):
+Correct shape (factor the pure parser; unit-test the extract; illustrative names):
 
 ```typescript
-// agent-tools/src/lib/parse-config.ts (pure)
+// agent-tools/src/core/parse-config.ts (pure)
 export function parseConfig(input: unknown): ParseConfigResult {
   /* ... */
 }
 
-// agent-tools/src/lib/parse-config.test.ts (unit, no FS)
+// agent-tools/src/core/parse-config.unit.test.ts (unit, no FS)
 it('rejects malformed config', () => {
   expect(parseConfig({ foo: 'bar' })).toEqual({ ok: false, error: 'malformed' });
 });
@@ -303,9 +305,9 @@ Local precedent is not a TDD authority; the test-type taxonomy is.
 
 ### Validator Script vs Integration Test
 
-Per [Testing Strategy § Test Types](../../.agent/directives/testing-strategy.md):
-_validation scripts that require external resources should be standalone
-scripts, not tests_. A vitest file that walks the real repo file system
+Per [Testing Strategy §Rules](../../.agent/directives/testing-strategy.md#rules):
+_validation scripts requiring external resources are standalone scripts, not
+tests_. A vitest file that walks the real repo file system
 and asserts a property of repo state is running a validator, not testing
 code behaviour. The vitest harness carries pre-commit gating semantics
 that do not match what the file is actually doing.
@@ -313,7 +315,7 @@ that do not match what the file is actually doing.
 Wrong shape (validator wearing a vitest harness):
 
 ```typescript
-// agent-tools/scripts/validate-portability.integration.test.ts
+// agent-tools/src/validators/portability/validate-portability.integration.test.ts
 it('every canonical skill has a Claude adapter', () => {
   const skills = readdirSync('.agent/skills');
   for (const skill of skills) {
@@ -322,20 +324,20 @@ it('every canonical skill has a Claude adapter', () => {
 });
 ```
 
-Correct shape — pure helper unit-tested + standalone runtime script:
+Correct shape — pure helper unit-tested + standalone runtime script (illustrative names):
 
 ```typescript
-// agent-tools/src/lib/portability-checks.ts (helper, pure)
+// agent-tools/src/validators/portability/portability-checks.ts (helper, pure)
 export function adapterMissingFor(canonical: readonly string[], adapters: readonly string[]) {
   return canonical.filter((slug) => !adapters.includes(slug));
 }
 
-// agent-tools/src/lib/portability-checks.test.ts (unit test, no FS)
+// agent-tools/src/validators/portability/portability-checks.unit.test.ts (unit test, no FS)
 it('reports canonical skills with no adapter', () => {
   expect(adapterMissingFor(['a', 'b'], ['a'])).toEqual(['b']);
 });
 
-// agent-tools/scripts/validate-portability.ts (runtime script wired into a workspace command)
+// agent-tools/src/validators/portability/validate-portability.ts (pnpm portability:check)
 const missing = adapterMissingFor(await listCanonicalSkills(), await listClaudeAdapters());
 if (missing.length > 0) {
   console.error(`Missing: ${missing.join(', ')}`);
@@ -343,13 +345,13 @@ if (missing.length > 0) {
 }
 ```
 
-Structural cue: if the test body is `readdirSync` / `existsSync` /
-`readFileSync` over real repo paths and assertions are about repo state
-(not function output), it belongs in `scripts/` (or a workspace), not in
-the test runner. "Look at peers" is a useful first orientation, but
-peers can be drift — the canonical-pattern test is _named guidance in
-the directives_, not the count of similar sibling files.
+Structural cue: if the test body is `readdirSync` / `existsSync` / `readFileSync` over real
+repo paths and assertions are about repo state (not function output), it belongs in a
+workspace command surface, not in the test runner. "Look at peers" is a useful first
+orientation, but peers can be drift — the canonical-pattern test is _named guidance in the
+directives_, not the count of similar sibling files.
 
-Root `scripts/` is intentionally retired. Runtime validators belong in a
-workspace-owned command surface such as `agent-tools/scripts/` or the package
-that owns the contract being validated.
+Root `scripts/` is retired and `agent-tools/scripts/` is dissolved
+([ADR-168 §5a](../architecture/architectural-decisions/168-typescript-6-baseline-and-workspace-script-architectural-rules.md));
+runtime validators belong in a workspace-owned command surface such as
+`agent-tools/src/validators/` or the package that owns the contract being validated.
