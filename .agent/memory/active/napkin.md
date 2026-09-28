@@ -861,3 +861,34 @@ Play seed (an association, not a finding): the skill-evals manifest hashed after
 JC.net's substrate check reading the events and then the projection, look shaped alike, as
 time-of-check against time-of-use. Discarded as forced: the twins' identical bytes against blob-id
 manifests, and the gate's pricing of a conflicted sync as the same shape.
+
+## 2026-09-28 ~08:4xZ — the family's eleventh and twelfth members, and a cure named from memory of a mechanism the doctrine forbids (Myrtle turns Canopy, bf4957)
+
+**Observation.** Three things from the PR 250 lane, read first-hand at the compaction boundary.
+(1) On 2026-09-27 at 11:xxZ a `pkill -f` pattern written to stop one case rerun matched the
+user-value suite's runner too and killed it at exit 143; partial evidence, the plugin left kept.
+The pattern named one process and matched two. (2) The review-cost gate names "review load" and
+measures the bytes a push carries, so the retained evaluation evidence Appendix E requires
+(traces, answers, manifests: ~2,400 lines in three plan directories alone) is priced as if a
+reviewer read it; the one settlement round `560016310` priced 179.82 of a default 40 for a diff
+no reviewer read line by line, and every later number on the body (4, about 12, 11, 18) was an
+argument about that mismeasure rather than about review rounds. (3) This seat's 12:3xZ triage
+verdict said "mark the SHA-1 finding won't-fix in Sonar"; the one-outcome rule
+(`docs/governance/sonar-disposition-policy.md`, the owner 2026-09-08: "We don't dismiss issues,
+we fix them") grants no such mark, and the Sonar rule's own §Ground says to read the policy before
+choosing a cure shape. The verdict was fluent, sounded like practice, and was the forbidden route;
+the successor seat cured it at source the same afternoon, and the local handoff record carried the
+wrong line for twenty hours.
+
+**Reading.** (1) and (2) are members eleven and twelve of the family of a check, or a kill, that
+does not do what it names: a kill wider than its name; a gate that prices what its name does not
+mention. n = 12 across three days. (3) is a different shape and the more expensive one: a cure
+proposed from a remembered mechanism without the governing record read, the same signature as
+the `trusted-git` reversal of 2026-07-07 recorded in the Sonar rule. The cure for (3) is the rule
+already written: before naming any Sonar disposition, read the policy's class for the rule key.
+
+**Routing.** The family's graduation line to the metacognition directive's fluency section is
+still owed (one line naming the family). (2) is a play seed for the toolkit lane, marked as an
+association: the gate's unit of "size" reminded me of a scale that weighs the crate with the
+cargo; whether retained evidence should be priced is a design question for the gate's ledger,
+not this lane. (3) goes nowhere new: the rule exists; the record of the miss is this entry.
