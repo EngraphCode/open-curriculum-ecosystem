@@ -24,9 +24,12 @@ heartbeat cron, before team-start broadcast, before any source claim.
 
 ## Action
 
-Run one event-driven watcher over the full
-`.agent/state/collaboration/comms/` directory, emitting one notification
-per new event, with **self-exclusion plus, where the seat's economics
+Run one watcher over the full
+`.agent/state/collaboration/comms/` directory, polling it in passes and
+waiting one `--poll-ms` interval after each pass (500 ms by default; the
+canonical invocation keeps the default), and emitting each pass's new events
+as one bounded batch (at most `--max-events-per-drain` events, in one stdout
+write), with **self-exclusion plus, where the seat's economics
 justify it, the sanctioned `--exclude-tag` mechanism** (§"Sanctioned
 tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
@@ -56,13 +59,13 @@ into context, and the owner asked for "just enough for the Director to wake
 you"). The shape that satisfied both this rule and the economy:
 
 - `comms watch --exclude-tag heartbeat` — `directed` and `group` always surface
-  whatever their tags, so an activation still arrives instantly; and
+  whatever their tags, so an activation still arrives on the next pass; and
 - the mandatory F-75 pairing run as a **diff-only anomaly poll**: peer-liveness
   every ~10 minutes with its **baseline seeded at arm time**, so already-retired
   seats never emit and only *newly* degraded peers do.
 
 Measured result: zero empty ticks, and a directed activation reached the seat
-immediately. Falsifier for the configuration: a quiet-configured standby that
+on the watcher's next pass. Falsifier for the configuration: a quiet-configured standby that
 misses coordination a full watcher would have delivered — the exposure is
 heartbeat-borne information only, which the poll covers by construction. Reserve-
 seat freshness is load-bearing economics, not a nicety: a standby that burns
@@ -122,7 +125,9 @@ heartbeat:
 
 - **`--supervisor-pid "$PPID"`** (the F-101 cure) — the watcher checks the
   supervising process (the agent session that spawned it; `$PPID` at the
-  invocation) once per poll cycle and self-exits within one cycle of that pid
+  invocation, read from the live shell's parent chain at each re-arm and never
+  from a pid in a record, because a compaction gives the seat a new pid: 23808
+  became 45379 across one, 2026-09-25) once per poll cycle and self-exits within one cycle of that pid
   disappearing. This closes the crash / SIGKILL orphan path that a process-group
   kill-tree misses: GNU `timeout` isolates the watcher in its own process group,
   so on a harsh agent death no signal reaches the watcher — but the pid probe
@@ -181,25 +186,45 @@ whatever tree it lands in, and the "watcher" watches nothing (worked
 instance 2026-07-20: a re-arm from a scratchpad clone auto-installed the
 clone and observed zero events).
 
-### Worktree residency blocks the arm — arm from the primary, before EnterWorktree
+### Worktree residency changes the arm's shape — root it where you reside
 
-Platform worktree isolation (Claude Code `EnterWorktree`) makes the PRIMARY
-coordination home non-writable from a worktree-resident session and refuses
-compound arm commands it cannot prove stay inside the worktree ("This
-session is isolated in the worktree …" — the refusal recorded in-repo
-2026-08-06 in the mutation-evidence mechanics report; three seats hit it
-independently 2026-08-13 and first read it as a fleet regression). The
-watcher, the F-75 poll, and the heartbeat loop therefore arm while the
-session is PRIMARY-resident — at session open, before any `EnterWorktree`
-— and persist across later residency switches (armed monitors keep
-running; a full worktree lane phase can run under a primary-armed
-watcher). A session already worktree-resident that needs an arm exits to
-the primary first (`ExitWorktree` action keep), arms, and re-enters.
-Worktree-resident sessions route primary-surface WRITES (comms sends, ARC
-channel entries, shared memory files) through the commit-warden's intent
-surface or a cross-session send — the same isolation refuses those writes
-directly, by design, and the refusal is the platform's, not this repo's
-hook policy.
+Platform worktree isolation (Claude Code `EnterWorktree`) refuses an arm
+command it cannot prove stays inside the worktree ("This session is
+isolated in the worktree …" — the refusal recorded in-repo 2026-08-06 in
+the mutation-evidence mechanics report; three seats hit it independently
+2026-08-13 and first read it as a fleet regression). It refuses the
+principal-shaped opening `cd <repo-root>` and every runtime-computed
+value it cannot resolve: the 2026-09-08 refusal named "the variable
+PPID"; the refusal reports one offender at a time, and whether the
+canonical block's `TIMEOUT_BIN="$(command -v …)"`, `set --` and
+`exec "$@"` scaffolding passes inside a worktree is unverified. A
+worktree-resident session therefore arms the SAME watcher as a fully
+literal block, not as an edit of the canonical one — the `cd` rooted at
+the worktree, the timeout binary named by the name it resolves to, and
+the supervisor pid written as a literal. Both literals are read first,
+each as a plain command: the pid from the harness's session file
+(`~/.claude/sessions/<pid>.json`, matched on `sessionId`); the binary
+from `command -v timeout || command -v gtimeout` (`timeout` on Linux,
+`gtimeout` from Homebrew coreutils on macOS; when neither resolves, omit
+the prefix and the watcher runs un-guarded, as the README states):
+
+```bash
+cd <worktree-path> || exit 1
+<timeout|gtimeout> 3600 pnpm agent-tools:collaboration-state -- comms watch --platform <platform> --model <model-id> --supervisor-pid <literal-pid> --step-timeout-ms 120000 --max-events-per-drain 100
+```
+
+That block, with `timeout` resolved, is the one verified 2026-09-08 on 2.1.263: the arm ran, the
+omit-path default resolved the PRIMARY comms directory (the heartbeat's
+`watched_comms_dir`), events drained, and `assert-watcher-live` from the
+worktree was green. A session launched at the principal arms there before
+any `EnterWorktree`; a session that finds a monitor dead after a switch
+re-arms from where it now resides — never by exiting and re-entering,
+since the re-entry prompts (`worktree-residency` clause 1). The primary
+coordination home stays writable through this CLI from a resident session
+(`comms send`, `comms reply`, `claims heartbeat` all wrote events from a
+worktree on 2026-09-08): the isolation guard blocks the platform's
+`Edit`/`Write` tools on main-checkout paths and git redirected into the
+main checkout, not a Node process writing files.
 
 **After arming the watcher, run ONE foreground comms sweep covering the
 window from BEFORE session open.** An event landing between session-open
@@ -215,13 +240,11 @@ The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
 and `markSeen` step runs under a per-step deadline (`--step-timeout-ms`,
 default 60 s); a step that exceeds it emits a `kind=timeout` WATCHER ERROR
 line and the watcher exits non-zero, so the supervising Monitor/cron sees the
-death and can restart it. The directory-change wait (the loop's `waitForChange`
-step) carries no deadline — it is poll-bounded by construction: a
-`setTimeout(pollMs)` fallback runs alongside
-the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
-by at most `pollMs` instead of stalling forever. The liveness self-check below
-covers any residual hang path that a deadline cannot reach (a hung process
-cannot exit-non-zero if the hang sits where no deadline is armed).
+death and can restart it. The wait between passes carries no deadline — it is
+bounded by construction: the watcher waits one `--poll-ms` interval between
+passes on a plain timer. The liveness self-check
+below covers any residual hang path that a deadline cannot reach (a hung
+process cannot exit-non-zero if the hang sits where no deadline is armed).
 
 Under load the deaths concentrate at the drain step, and raising
 `--step-timeout-ms` does not converge — 60s/180s/300s/540s budgets all died
@@ -378,7 +401,9 @@ before treating any check here as proof a seat is reachable.
 ### Liveness self-check (cycle boundaries)
 
 The watcher writes a liveness heartbeat **on by default** at
-`<seen-file>.heartbeat.json` (every 30 s); `--heartbeat-file` relocates it
+`<seen-file>.heartbeat.json` after its first pass, then on the first pass that
+ends at least 30 s after the previous write (a long pass delays it);
+`--heartbeat-file` relocates it
 and `--no-heartbeat` disables it. The heartbeat records `last_drain_at`,
 `last_emit_at`, `last_error_at`, `emitted_count`, `pid`, and the lexically
 absolute `watched_comms_dir` it actually drains. At cycle boundaries, classify
@@ -652,3 +677,18 @@ wrong. Check these before trusting a quiet channel:
   with a separate harness-absorption cursor; the portable acceptance test
   belongs in
   [`comms-watch-mechanism`](../reference/comms-watch-mechanism.md).
+- **Heads-down windows never suspend the sweep, and directed events are
+  answered within one cadence.** Owner, 2026-07-20: "it is important to
+  monitor comms, and to be responsive to your team mates" — after three
+  directed Director events sat unanswered for about fifteen minutes while
+  the seat was in an owner plan-mode window and its watcher had died at the
+  hourly backstop unnoticed; heartbeats kept flowing, so the team read a
+  live-but-unresponsive seat, a worse signal than silence. Watcher liveness
+  is part of every turn's footing: re-arm immediately on any exit
+  notification, and when heads-down (plan mode, a long owner dialogue, a
+  background wait) run the fallback sweep by hand. Answer a directed event
+  within one cadence even when the answer is one line ("saturated, full
+  reply at X"). And re-arm ONLY as an event-emitting monitor: a watcher
+  re-armed as a plain background shell consumed three directed events and
+  advanced the seen cursor while the session never woke (2026-07-25) — the
+  only proof of health is the next event arriving in-session.

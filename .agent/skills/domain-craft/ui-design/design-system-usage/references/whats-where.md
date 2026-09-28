@@ -90,8 +90,9 @@ served pages.
 - `docs/wrapped-widget-a11y-checklist.md`, `docs/console-tui-tones.md`,
   `docs/integration-oak-curriculum-hub.md` (the live consumer's migration
   plan), `docs/nextjs-theme-switcher.tsx.txt`.
-- `docs/one-html-many-css-compositions.md` — the white-label composition
-  doctrine.
+- `docs/one-html-many-css-compositions.md` — a pointer to the canonical white-label
+  composition doctrine, which lives outside this root at the repository-root path
+  `docs/governance/one-html-many-css-compositions.md` (four directories up from here).
 
 ## Generated and integration surfaces
 

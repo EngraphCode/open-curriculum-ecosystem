@@ -394,6 +394,45 @@ When deliberately aligning with an upstream spec change, bypass turbo with
 cache's `info.version` moved. The full runbook lives in the
 [oak-sdk-codegen README](../../packages/sdks/oak-sdk-codegen/README.md#responding-to-upstream-spec-changes).
 
+### A root file a test reads must be among the task's inputs, or the cache replays a stale pass
+
+Turbo invalidates a task's cache from its declared inputs. The root `test`
+task declares package-local inputs (`$TURBO_DEFAULT$`, `**/*.ts`,
+`vitest.config.ts`), so a test that reads a ROOT file — the rules index, the
+patterns index, the plan corpus — is not re-run when only that root file
+changes: the pre-push hook runs `turbo run … test …`, prints
+`cache hit, replaying logs`, and replays the earlier pass. On 2026-09-07 an
+explaining cell on a new core row of `RULES_INDEX.md` passed every local
+gate this way and failed CI's classification test cold (a core row's trigger
+cell must be exactly the em dash); the 100 ms dedicated test would have
+caught it before the push. Two disciplines follow:
+
+- **Before pushing an edit to a registry or index file that has a test
+  directory named after it, run that directory directly** (for the rules
+  index, `pnpm exec vitest run tests/rules/` from `agent-tools/`), and read
+  the hook's turbo summary for `replaying logs` on the package whose tests
+  cover the file.
+- **The structural cure is declaring the root file among the task's
+  inputs** (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json`
+  already uses) — a one-line `turbo.json` change per root file a test
+  reads, landed as its own config change with the classification test as
+  the proof.
+
+The rule behind both disciplines, held with the second estate: **a task is
+cached only on inputs that cover every file it reads.** Where a task's reads
+can be listed, they are declared and a check fails when the list is wrong.
+The agent-tools end-to-end task declares the hook scripts,
+`.claude/settings.json` and the root manifest its smokes read; the root
+`AGENTS.md`, which its Codex session-alert smoke also reads, is not yet among
+its inputs, so an `AGENTS.md`-only change can replay a cached pass until that
+one-line input lands as its own config change. Today the
+workspace-config-isolation validator's `turbo-inputs` check refuses a
+`$TURBO_ROOT$` input that matches no tracked file; the other direction, a
+read the inputs do not declare, has no check yet and is the one to build.
+Where a task's reads cannot be listed (a spawned process reading root
+surfaces), the task is uncached and its cost is named in the table below;
+the second estate runs its smoke suite that way on every gate.
+
 ### Uncached tasks (always run)
 
 | Task       | Cached | Reason                                   |
@@ -534,7 +573,7 @@ After renaming or adding commands in `package.json`:
    - `CONTRIBUTING.md`
    - `docs/governance/development-practice.md`
    - `.agent/directives/AGENT.md`
-   - `.agent/skills/gates/SKILL-CANONICAL.md`
+   - `.agent/skills/change-custody/gates/SKILL-CANONICAL.md`
 
 ## Documentation Link Integrity
 
@@ -643,11 +682,12 @@ reader a broken `pnpm build`.
 
 ## Linting and Auto-Fix Safety
 
-- **`lint:fix` can silently revert manual edits**: `pnpm check`
-  runs `lint:fix` internally. If an edit introduces code that
-  the linter "fixes" back, the edit is lost mid-pipeline. Always
-  verify the edited file AFTER the full `pnpm check`, not just
-  after a single gate.
+- **`lint:fix` can silently revert manual edits**: `pnpm make`
+  and `pnpm fix` run `lint:fix` internally. If an edit introduces
+  code that the linter "fixes" back, the edit is lost
+  mid-pipeline. Always verify the edited file AFTER the full
+  `pnpm make` or `pnpm fix`, not just after a single gate.
+  `pnpm check` applies no fixes.
 - **Reviewer fixes must exist on disk**: a disposition recorded in a
   napkin, summary, or review thread is not evidence. Open or search the
   target file after applying the fix, especially after auto-fix gates.

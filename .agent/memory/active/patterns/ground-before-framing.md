@@ -95,6 +95,15 @@ ground the claim in the actual type behaviour (e.g. by asking "what
 concrete change would fail this gate?") before asserting what the
 compiler will catch.
 
+**2026-09-03 — the merge-bot config root.** A resolution designed to read the bot's
+per-checkout config at the clone's primary checkout was traced through the module's callers
+but never the composition root: the topic dispatcher passed the invoking repository's root
+explicitly and the CLI forwarded it as the config root, so the new resolution never ran.
+Unit tests, type-check and lint were green; the first bot push from a worktree failed with
+ENOENT at the worktree path. The cure named two roots (where the resolution starts; the
+resolved primary config root it lands on). The composition root is read before a resolution
+design is declared complete; the end-to-end run is the proof the unit seams cannot give.
+
 ## When to Apply
 
 - Any scope proposal that asserts "we're not using X" or "X is missing".

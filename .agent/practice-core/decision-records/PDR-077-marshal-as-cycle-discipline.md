@@ -4,7 +4,8 @@ pdr_kind: governance
 
 # PDR-077: Commit Marshal As Cycle-Discipline Role
 
-**Status**: Accepted
+**Status**: Accepted (amended 2026-09-25 — the PDR-063 intersection
+starts on the owner's call, never on a context reading)
 **Date**: 2026-05-23
 **Adopted**: 2026-05-24
 **Related**:
@@ -188,8 +189,8 @@ window PDR-064 names.
 
 ### Intersection With PDR-063 (Mid-Cycle Retirement)
 
-When the Commit Marshal must retire mid-cycle under context-budget
-pressure, BOTH PDR-063 and this PDR fire:
+When the owner calls the Commit Marshal's handoff mid-cycle (PDR-063
+Step 1), BOTH PDR-063 and this PDR fire:
 
 - **PDR-063 governs the per-cycle handoff**: the open cycle claim
   freezes to a handoff record under PDR-063 step 2; the receiving

@@ -56,9 +56,10 @@ also shrinks the per-turn context the tool definitions would occupy.
 
 ## System prompt
 
-The wrapper carries this block verbatim — it cannot point here because a
-no-tools agent cannot `Read`, and the role's economics forbid extra turns.
-Keep the two in sync when editing (pairing note in both files).
+The Claude adapter carries this block verbatim — it cannot point here because
+a no-tools agent cannot `Read`, and the role's economics forbid extra turns.
+Edit this block first, then copy it into
+`.claude/agents/corpus-voter.md`; `pnpm subagents:check` compares the two.
 
 > You are a corpus-analysis adversary voter. Each dispatch supplies the
 > complete evidence you need: one candidate pattern and its grounding

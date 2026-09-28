@@ -36,7 +36,7 @@ describe('agent-tools unified CLI', () => {
       repoRoot: '/repo',
       readCommitQueueRegistry: async () =>
         ok({
-          schema_version: '1.3.0',
+          schema_version: '1.4.0',
           claims: [],
           commit_queue: [],
         }),
@@ -131,6 +131,8 @@ describe('agent-tools unified CLI', () => {
         '  merge-bot',
         '  pr',
         '  pr-watch',
+        '  review-cost',
+        '  skill-evals',
         '  spawn',
         '',
         'Error: unknown topic: unknown-topic',
@@ -166,6 +168,8 @@ describe('agent-tools unified CLI', () => {
           '  merge-bot',
           '  pr',
           '  pr-watch',
+          '  review-cost',
+          '  skill-evals',
           '  spawn',
           '',
           `Error: unknown topic: ${protoKey}`,

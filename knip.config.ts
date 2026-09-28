@@ -72,6 +72,17 @@ const config: KnipConfig = {
       // operational notes and platform shims as default source.
       entry: ['package.json'],
       project: [],
+      ignoreDependencies: [
+        // Spawned as `pnpm exec prettier` and `pnpm exec markdownlint-cli2` from
+        // the repo root by agent-tools' repo-check (the format and markdown gates
+        // over the staged set and the tracked tree), never referenced from a root
+        // script knip can parse. They stay root devDependencies because their
+        // configs (`.prettierrc.json`, `.markdownlint-cli2.jsonc`) and their exec
+        // cwd are the root; scoped to this workspace so a stray copy elsewhere is
+        // still reported.
+        'markdownlint-cli2',
+        'prettier',
+      ],
     },
     'agent-tools': {
       // Platform adapters (src/claude/, future src/codex/, src/cursor/) are
@@ -99,6 +110,9 @@ const config: KnipConfig = {
         'src/validators/fitness-vocabulary/validate-fitness-vocabulary.ts',
         'src/validators/collaboration-state/validate-collaboration-state.ts',
         'src/validators/protocol-wire/validate-protocol-wire-contract.ts',
+        'src/validators/operator-profile/validate-operator-profile.ts',
+        'src/validators/operator-profile/validate-operator-profile-contract.ts',
+        'src/validators/operator-profile/operator-profile-sync.ts',
         'src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts',
         'src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts',
         'src/validators/markdown-links/validate-markdown-links.ts',
@@ -122,6 +136,10 @@ const config: KnipConfig = {
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
         'src/mcp-content-current-source/validate-current-source.ts',
+        // MCP-103 content-workspace generator: invoked via the
+        // `build-mcp-content-workspace` / `validate-mcp-content-workspace`
+        // package scripts (`pnpm exec tsx`), not imported.
+        'src/mcp-content-workspace/build-content-workspace.ts',
         // PDR-131 throughput register CLI: invoked via the
         // `agent-tools:pr-throughput` package script (`pnpm exec tsx`), not
         // imported.
@@ -332,8 +350,14 @@ const config: KnipConfig = {
       // Source entries behind the dist-pointing exports map, one per subpath
       // (see oak-eslint note on the removed `development` condition — the
       // former exports-map auto-detection resolved that condition to src).
-      entry: ['src/index.ts', 'src/eef-strands/index.ts', 'src/curriculum/index.ts'],
-      project: ['src/**/*.ts'],
+      entry: [
+        'src/index.ts',
+        'src/eef-strands/index.ts',
+        'src/curriculum/index.ts',
+        // The markdown-projection writer, run via `pnpm render:eef-markdown`.
+        'scripts/**/*.ts',
+      ],
+      project: ['src/**/*.ts', 'scripts/**/*.ts'],
     },
     'packages/sdks/oak-curriculum-sdk': {
       // Knip cannot resolve entries through createSdkConfig() factory.

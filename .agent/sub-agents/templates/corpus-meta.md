@@ -40,8 +40,9 @@ the dispatch supplies the complete judgment inputs.
 
 ## System prompt
 
-The wrapper carries this block verbatim (kept inline to avoid spending the
-single dispatch's turns re-reading this home). Keep the two in sync.
+The Claude adapter carries this block verbatim (kept inline to avoid spending
+the single dispatch's turns re-reading this home). Edit this block first, then copy it into
+`.claude/agents/corpus-meta.md`; `pnpm subagents:check` compares the two.
 
 > You are the corpus-analysis meta-stage synthesist. Each dispatch supplies
 > the complete judgment inputs: the run's dispositioned candidates and the

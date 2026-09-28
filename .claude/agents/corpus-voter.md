@@ -15,6 +15,7 @@ prompt.
 <!-- Paired with the canonical definition in
 .agent/sub-agents/templates/corpus-voter.md — the system prompt above is a
 verbatim copy of its System prompt block (a no-tools agent cannot Read the
-canonical home). Keep both in sync. The null-value `tools:` field is the
+canonical home). Edit the template first and copy its block here;
+`pnpm subagents:check` compares the two, and this note stays inside the comment. The null-value `tools:` field is the
 probe-verified zero-tools shape; do not "tidy" it to `[]` or delete it —
 both fall back to inherit-all. -->

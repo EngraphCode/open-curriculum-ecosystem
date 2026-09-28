@@ -16,5 +16,5 @@ prompt.
 <!-- Paired with the canonical definition in
 .agent/sub-agents/templates/corpus-mapper.md — the system prompt above is a
 verbatim copy of its System prompt block (kept inline so the dispatch spends
-its turns on corpus reads, not on re-reading the canonical home). Keep both
-in sync. -->
+its turns on corpus reads, not on re-reading the canonical home). Edit the template first and copy its block here;
+`pnpm subagents:check` compares the two, and this note stays inside the comment. -->

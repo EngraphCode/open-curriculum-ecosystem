@@ -17,4 +17,5 @@ instructions arrive in each dispatch prompt.
 <!-- Paired with the canonical definition in
 .agent/sub-agents/templates/corpus-meta.md — the system prompt above is a
 verbatim copy of its System prompt block (kept inline to avoid spending the
-single dispatch's turns re-reading the canonical home). Keep both in sync. -->
+single dispatch's turns re-reading the canonical home). Edit the template first and copy its block here;
+`pnpm subagents:check` compares the two, and this note stays inside the comment. -->

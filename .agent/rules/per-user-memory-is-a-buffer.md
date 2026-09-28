@@ -89,6 +89,14 @@ produces either:
 Declaring the sweep done **without performing it** is the failure
 mode this rule blocks.
 
+The per-user directory and its index are shared by every seat that
+runs on the machine, not owned by the seat that happens to be writing:
+one session overwrote another's resume head in the shared index
+(2026-09-07). A seat writes its own dated block under its own
+identity, reads its own block on resume — never the last one written
+— and never rewrites another seat's entry; a correction to a shared
+line is a re-truing that keeps every seat's head.
+
 ## Cross-Platform Ingestion Is Consolidation-Time
 
 At session open, the agent reads **only its own platform's

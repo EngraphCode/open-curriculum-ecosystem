@@ -1,3 +1,4 @@
+import { NO_CONTENT } from '../../pr-watch/content-binding.js';
 import type { PrStateReading } from '../../pr-watch/state-types.js';
 
 /**
@@ -21,12 +22,14 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'CLEAN',
     headRefOid: SETTLED_HEAD_OID,
+    baseRefName: 'main',
     checks: { total: 3, passed: 3, failed: 0, pending: 0 },
     namedChecks: [{ name: 'lint', bucket: 'passed' }],
     checksGreenAt: '2026-08-06T08:00:00Z',
     reviewThreads: { total: 1, unresolved: 0 },
     autoMergeArmed: false,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [
@@ -38,7 +41,9 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
         submittedAt: '2026-08-06T08:05:00Z',
       },
     ],
+    completionComments: { reviews: [], refused: [] },
     reviewRuns: { kind: 'read', runs: [] },
+    content: NO_CONTENT,
     ...overrides,
   };
 }

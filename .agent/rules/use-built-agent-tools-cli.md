@@ -105,8 +105,7 @@ were running. Per-invocation rebuilds resolved the same session seed to
 different `agent_name`s mid-conversation (Twilit Beaming Aurora →
 Ashen Banking Bellows; Opalescent Eclipsing Asteroid wiped from name
 lookups entirely). The cure is structural: bind to the built artefact,
-not to the in-progress source. Source: Claude per-user memory
-`feedback_use_built_agent_tools_only`.
+not to the in-progress source.
 
 The built-artefact contract has a staleness dual — the **build/dist
 inversion** (three instances, late July 2026): validators, gates, and

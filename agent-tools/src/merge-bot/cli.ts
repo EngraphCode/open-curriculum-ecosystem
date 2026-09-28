@@ -9,7 +9,9 @@ import { mintForConfig, type MintedToken } from './mint-for-config.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
 import type { GitExecutor } from './git-executor.js';
-import type { TokenFileStore } from './push-git.js';
+import type { PushGitReads, TokenFileStore } from './push-git.js';
+import type { RefFormatOracle } from './ref-format.js';
+import type { GitRunner } from '../collaboration-state/coordination-home.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
@@ -58,9 +60,11 @@ interface MergeBotEnvironment {
 export interface MergeBotCliInput {
   readonly args: readonly string[];
   readonly env: MergeBotEnvironment;
-  /** Repo root for `.github/merge-bot.json` resolution (usually the cwd's repo). */
+  /** The invoking repository's root: the cwd every git call runs in, and where the primary-checkout resolution starts. */
   readonly repoRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
+  /** The git runner the primary-checkout resolution uses — required; the bin injects the real one, tests a fake. */
+  readonly runGitImpl: GitRunner;
   readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
   /** Injection seams for tests. */
@@ -76,15 +80,21 @@ export interface MergeBotCliInput {
   readonly gitPath?: string;
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
   readonly tokenFiles?: TokenFileStore;
+  /** Push seam: git's answers about HEAD and origin. */
+  readonly gitReads?: PushGitReads;
+  /** Push seam: branch-name legality for --branch. */
+  readonly refFormatOracle?: RefFormatOracle;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
   Prints a short-lived GitHub App installation token (stdout carries ONLY the
   token unless --json, which bundles the token into the printed object). The
-  repo's .github/merge-bot.json is the single authority for the bot identity;
-  the private key lives at ~/.config/<appSlug>/private-key.pem, derived from
-  it. Flags are explicit operator overrides (cross-repo invocation, tests) —
-  not a resolution tier.
+  clone's .github/merge-bot.json is the single authority for the bot identity:
+  per-checkout and never tracked (create it from .github/merge-bot.json.example),
+  read at the clone's primary checkout so every worktree sees the one copy; the
+  private key lives at ~/.config/<appSlug>/private-key.pem, derived from it.
+  Flags are explicit operator overrides (cross-repo invocation, tests) — not a
+  resolution tier.
 
   --scope is REQUIRED and has no default: a token carries only the permissions
   its mint requests, so defaulting would make the most privileged scope the
@@ -104,6 +114,7 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
       readConfigFileImpl: input.readConfigFileImpl,
+      runGitImpl: input.runGitImpl,
     },
     stdout: input.stdout,
     stderr: input.stderr,
@@ -123,6 +134,7 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
       readConfigFileImpl: input.readConfigFileImpl,
+      runGitImpl: input.runGitImpl,
     },
     repoRoot: input.repoRoot ?? process.cwd(),
     stdout: input.stdout,
@@ -134,6 +146,8 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     gitPath: input.gitPath,
     baseEnv: input.baseEnv,
     tokenFiles: input.tokenFiles,
+    gitReads: input.gitReads,
+    refFormatOracle: input.refFormatOracle,
   };
 }
 
@@ -177,6 +191,7 @@ async function runMintTokenAction(
     envHome: input.env.HOME,
     repoRoot: input.repoRoot,
     readConfigFileImpl: input.readConfigFileImpl,
+    runGitImpl: input.runGitImpl,
   });
   if (!config.ok) {
     input.stderr.write(`merge-bot mint-token: ${config.error.message}\n`);

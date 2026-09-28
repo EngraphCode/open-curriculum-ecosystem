@@ -77,7 +77,9 @@ here.
   the harness delivers when the process exits.
 - Genuinely periodic checks (poll a remote queue at a fixed cadence,
   re-read a status file every N minutes) — Monitor cannot replace a
-  poll because the source surface emits no stream.
+  poll because the source surface emits no stream. A poller that emits a
+  stream, such as `comms watch`, still fires the rule: Monitor wraps its
+  output.
 
 ## Composition With Existing Rules
 
@@ -274,7 +276,9 @@ lifetime — the watcher keeps running; MCP-229).
 
 On a Monitor-capable host, run with `persistent: true`, **pipe-less** — the
 `comms watch` CLI already self-excludes and emits only relevant events, so no
-grep filter is needed or wanted. On Codex, use the root watcher plus
+grep filter is needed or wanted. Each expiry at the Monitor's 30-minute cap
+costs one agent turn to re-arm (about twenty-four turns over one idle night,
+2026-09-24); the cost is known, and no exemption from the watch follows from it. On Codex, use the root watcher plus
 [relay-child procedure](#codex-notify-session-relay), not Monitor. Each
 emitted event is a multi-line block whose **first line is `--- NEW
 [<CHANNEL>] EVENT ---`**: the channel tag sits MID-line, after the `--- NEW`

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { runPrStateCli } from './state-cli.js';
 import type { ReadReadingInput } from './state-cli.js';
+import { NO_CONTENT } from './content-binding.js';
 import type { PrStateReading } from './state-types.js';
 
 /** CLI tests for `pr state` with an injected reading and clock — no gh. */
@@ -18,16 +19,20 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: TIP,
+    baseRefName: 'main',
     checks: { total: 1, passed: 0, failed: 1, pending: 0 },
     namedChecks: [{ name: 'SonarCloud Code Analysis', bucket: 'failed' }],
     checksGreenAt: null,
     reviewThreads: { total: 0, unresolved: 0 },
     autoMergeArmed: true,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [],
+    completionComments: { reviews: [], refused: [] },
     reviewRuns: { kind: 'read', runs: [] },
+    content: NO_CONTENT,
     ...overrides,
   };
 }

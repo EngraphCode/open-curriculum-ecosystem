@@ -27,10 +27,19 @@ small PRs."*
   round-convergence predicate are siblings, not substitutes. Meeting the
   band never excuses skipping the others; exceeding it is never cured by
   arguing the others suffice.
+- **The bands have a floor as well as a ceiling**: every pull request pays
+  a flat cost whatever its size, so a slice smaller than its story needs
+  costs more than it saves. Changes that share a story go as one pull
+  request inside the bands, never one per line or per row (PDR-132
+  §Decision item 7, the owner's word of 2026-09-26).
 - **Worked instances**: the 92-file landing-page PR whose 43 threads never
   converged (restacked by owner ruling as six small PRs); the 30-file PR
   that ran ten review rounds. Both predate the bands; both are why they
-  exist.
+  exist. A third, inside the bands (2026-09-06, a 26-path SDK changeset):
+  nine of ten review findings across two rounds hit its one
+  filesystem-touching script, and the writer plus its ADR amendment was a
+  second review story a split at open would have isolated — a script that
+  touches the filesystem earns its own PR beside pure renderers.
 - Archival-class and generated-artefact changesets keep their PDR-132
   exemption — the bands govern authored work.
 - **The indivisibility exception is proof-shaped, never convenience-shaped**

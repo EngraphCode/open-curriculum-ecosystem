@@ -34,6 +34,17 @@ must never be left in a temp file long-term, using it as a buffer is
 fine, but leaving it there for reference is not okay, everything of
 importance stays in the repo."*
 
+Tracked-versus-untracked is a placement axis, never an importance axis
+(owner, 2026-07-16, after an audit was scoped by tracked globs and missed
+the untracked handoff records where the worst defects lived: "we stop
+treating untracked files as if they are of secondary importance, they are
+local because they are high traffic and ephemeral, not because they don't
+matter, they matter, A LOT"). When scoping any corpus, audit, validator or
+conservation concern, include the untracked live tier — handoff records,
+rapid-comms channels, briefs, live reports — explicitly, classified by
+authoritative-versus-derived and live-versus-historical, never by git
+status.
+
 ## The Distinction
 
 The rule turns on **how the temp file is used downstream**, not on
@@ -121,6 +132,12 @@ resolve it silently toward the weaker protection.
 
 ## Composition With Other Rules
 
+- **The machine-local-path guard fires on the session scratchpad too**, and on
+  any file that names the home or temp directory, in-repo or not: give a
+  subagent its scratch location in the dispatch prompt or by `mktemp -d`, and
+  pass paths as arguments or read them from the working directory rather than
+  writing them into files (three refusals in one seat before the pattern was
+  learned, 2026-09-24; a fourth on an edit script, 2026-09-25).
 - **The no-machine-local-paths principle** (principles.md; shapes in
   safety-and-security.md §Machine-local paths): forbids machine-local
   *paths* (the syntactic class). This rule forbids *durable
@@ -142,13 +159,11 @@ resolve it silently toward the weaker protection.
 - **PDR-067 (surface classification)**: per-user-memory is a buffer,
   not a personal store. By the same logic, `/tmp/` is a buffer, not
   a substrate store.
-- **PDR-081 (curator role)**: the curator's per-pass log MAY name a
-  `/tmp/` working artefact only as a transient pointer that is
-  immediately resolved (substance absorbed by reference into routed
-  homes, or copied to a durable in-repo location, before the pass
-  closes). A pass that *closes* with the per-pass log's
-  `load_bearing_working_artefact` still pointing at `/tmp/` is in
-  violation.
+- **PDR-081 (curator role)**: a curator pass MAY name a `/tmp/` working
+  artefact only as a transient pointer, resolved before the pass closes
+  (substance absorbed by reference into routed homes, or copied to a
+  durable in-repo location). A pass whose close-of-pass broadcast or
+  commit still points at `/tmp/` is in violation.
 
 ## Detection
 
@@ -233,17 +248,16 @@ naming the new durable location, not retroactive event editing.
 ### Example 3 — curator-pass first-day self-instantiation
 
 A deep-curation survey commissioned by an outgoing curator is
-delivered at `/tmp/<survey>.md`. The incoming curator's per-pass log
-names this `/tmp/` artefact as `load_bearing_working_artefact` in the
-frontmatter. **This is acceptable only as a transient pointer.** The
+delivered at `/tmp/<survey>.md`. The incoming curator's opening claim
+names this `/tmp/` artefact. **This is acceptable only as a transient
+pointer.** The
 pass's first concrete cycle is the migration: either copy the survey
 into `.agent/state/collaboration/handoffs/<handover-record>.md` (when
 the artefact is a one-shot role-transfer record) or absorb its
 substance by reference into routed permanent homes and delete the
 temp file (when the substance has been distributed across multiple
-permanent homes). The per-pass log's frontmatter pointer updates to
-the durable home — or the pointer is removed entirely once substance
-is distributed.
+permanent homes). The close-of-pass broadcast names the durable home,
+or drops the pointer once substance is distributed.
 
 The same custody hazard applies to UNTRACKED files inside the repo:
 durable-tier artefacts (formation letters, succession and permanent
@@ -262,4 +276,4 @@ July 2026).
 - PDR-014 (capture → distil → graduate → enforce; the layered model
   this rule's "buffer vs reference" distinction maps onto).
 - PDR-067 (surface classification; per-user-memory as buffer).
-- PDR-081 (curator role; per-pass log metadata-only contract).
+- PDR-081 (curator role).

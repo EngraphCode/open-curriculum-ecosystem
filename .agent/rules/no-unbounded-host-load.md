@@ -13,7 +13,8 @@ again.**
 
 1. **No experiment gets host-level load by default.** Before spawning ANY
    synthetic load, ask whether the effect can be provoked in-process —
-   fake timers, deterministic interleaving, injected delays. For timer
+   an injected clock or scheduler, deterministic interleaving, injected
+   delays. For timer
    races and scheduling flakes the in-process route almost always
    suffices; ambient host load is the wrong instrument and was not shown
    necessary even in the founding instance.
@@ -46,7 +47,12 @@ again.**
    paging of inactive pages, not memory exhaustion. The macOS-correct saturation
    signals are **CPU idle %** (`top -l1`, Activity Monitor) and the
    **memory-pressure colour** (green / yellow / red) — not load-avg-vs-cores or
-   raw swap-used. Owner-evidenced 2026-06-28: a session-long ~16–22/14 "load" +
+   raw swap-used. Read the host with the workflow's instrument, never with a
+   number carried in a note: a hold on "1-minute load under 12", taken from a
+   handover note, cost ten minutes (2026-09-24), and a frame that held every
+   remote write on "load 29.16" was caught by two Crickets reading this item
+   (2026-09-24); a hold's sensor comes from the rule the hold cites, and the
+   check runs inside the act, not before it. Owner-evidenced 2026-06-28: a session-long ~16–22/14 "load" +
    ~5 GB swap-used, read as host pressure by more than one agent, was shown
    healthy by Activity Monitor (CPU idle 67.7 %, memory-pressure green) — a
    Linux-shaped misread. The founding worked instance below was a *genuine*
@@ -55,22 +61,47 @@ again.**
    symptom — watcher drain-step deaths in a busy multi-agent window — is
    comms-volume cost, not host starvation.
 
-5. **Heavy-chain windows on a shared host: read-then-announce, two
-   consecutive readings, diagnose kill-collateral.** When peers serialise
-   heavy gate chains through announced windows (the one-heavy-chain-at-a-time
-   shape):
-   - The load read must COMPLETE before the window-OPEN broadcast is
-     composed — announce-after-read, never announce-then-read (a window-OPEN
-     posted in the same turn as the `uptime` call read back 26.5 on 8 cores
-     and needed a retraction).
+5. **Heavy chains on a shared host: read before starting, two
+   consecutive readings, diagnose kill-collateral.** When a seat starts a
+   heavy gate chain beside peer chains on one host (item 6 sets how many
+   may run at once):
+   - The load read must COMPLETE before the chain starts or any message
+     states the host's load — read-then-act, never act-then-read (a
+     window-OPEN posted in the same turn as the `uptime` call read back
+     26.5 on 8 cores and needed a retraction).
    - A single low reading rebounds under active peer chains: require TWO
-     consecutive sub-threshold readings ~30 s apart before opening a window
-     (three worked instances across two seats, 2026-07-07 — oscillation at
-     the bar is real).
+     consecutive sub-threshold readings ~30 s apart before starting the
+     chain (three worked instances across two seats, 2026-07-07 —
+     oscillation at the bar is real).
    - Killing a shared-host chain kills OTHER chains' gate legs: a directed
      `pkill -f "turbo run"` also killed an innocent in-flight pre-commit's
      turbo gate, producing a phantom red on a one-line commit. Diagnose
      kill-collateral before treating any post-kill red as real.
+   - Kill by the pids recorded at launch, never by command text: a
+     process kill matched on the text of a sleep command matches every
+     session on the machine (2026-09-23), and a peer's `tail` read as this
+     seat's stray was a Codex process, found by tracing its parent before
+     any kill (2026-09-24).
+
+6. **Concurrent full local gates are bounded at two, ceiling three — by a
+   mechanism, never a declaration.** Owner ruling (2026-09-07, verbatim):
+   "the local machine can only support two, max three simultaneous full
+   local gates because they are compute intensive. None of this is about
+   ceremony or declarations, it is ALL about engineering." The commit
+   queue exists to stop git operations colliding on one index, which
+   separate worktrees do not need; the scarce resource its estate-wide
+   FIFO was accidentally protecting is the host's capacity for concurrent
+   full gates (four refusals and a sixteen-minute stall across three
+   worktrees, 2026-09-06). The bound belongs at the gate's spawn path — a
+   host-wide semaphore the full local gate acquires, limit 2, hard ceiling
+   3, with a test — never a comms announcement, a claim role, or a
+   declared window. Owner ruling (2026-09-20, verbatim): "two parallel
+   gate runs are fine as long as they are in different work trees". So
+   seats on one host run their gates side by side, each in its own
+   worktree, up to this item's bound; inside one worktree gate runs are
+   sequential. The general move: when a coordination mechanism
+   serialises the wrong resource, ask which resource is actually scarce
+   and bound that.
 
 ## Worked Instance (founding)
 

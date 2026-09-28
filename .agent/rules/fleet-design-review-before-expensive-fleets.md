@@ -5,7 +5,16 @@ fleet — as a working line, one that would exceed the session's default
 workflow size guideline, or whose estimated spend crosses ~500k tokens —
 has its DESIGN reviewed by a smaller fleet before the owner prices it,
 and the design review's verdicts travel with the plan to the
-ratification ask.
+ratification ask. Before ANY fleet launches (owner word 2026-09-07): an
+ahead-of-time cost estimate from one measured pilot leg per phase, each times
+its phase's fan-out and summed across the phases,
+a hand sample of the yield first, no adversarial verify phase where the seat
+verifies at application, bounded per-item search, a named tier per phase
+with the budget enforced in the script, and those numbers in the launch
+record — the section "Ahead-of-time cost estimate, pilot and yield" below
+carries each requirement and the measurement behind it. This rule is CORE
+(since 2026-09-07): fleets launch from any seat on any platform through
+primitives no loader recognises, so the controls load in every session.
 
 ## Why (the measured instance)
 
@@ -76,3 +85,108 @@ Budget the READ traffic. Repo-direct walker legs are dominated by
 tool-read tokens, not output: the 2026-08-17 survey round missed its
 estimate threefold (3.5M spent against ≤1.1M estimated) because reads
 were unpriced. A fleet estimate names its read model per leg.
+
+## A killed builder's seam is re-verified at the next gate tier
+
+Fleet design includes the hand from a builder to its finisher. A builder
+killed by quota hands its seam to the NEXT gate tier's re-verify, not only
+the tier it died inside: a finisher's "green" omitted the pre-push-only
+smoke chain, and the stale fixture literal sat exactly at the original
+builder's death seam (2026-08-18). Brief the finisher to re-run every gate
+tier above the death point before it reports green.
+
+## Research prompts name the held command classes
+
+A background agent cannot answer a hook's approval prompt: a refuter that
+ran a recursive delete inside its own scratch trial held a fifteen-agent
+workflow at 14/15 for fifteen minutes (2026-09-03). A research prompt names
+the held command classes — recursive deletes, network writes, anything the
+hook policy approves interactively — not only "do not modify files"; the
+resume from the run id returned the cached agents instantly. The Claude
+harness phenotype of the tool — the died-agent check, the stall diagnosis
+and the resume path — is
+[`workflow-tool-operations.md`](../claude-harness-integrations/workflow-tool-operations.md).
+
+## The review's first question is the warrant, never the instrument
+
+Owner, 2026-08-17, closing the landscape-survey post-mortem: "the more we
+expect to spend, the more certain we need to be of what we are measuring,
+why, and what value we hope to get out of it." The original ask had been a
+survey of common patterns, algorithms and data structures across the
+estate; a week of elaborations later a taxonomy survey of about thirteen
+million tokens ran a fleet-design review that stress-tested the
+instrument's internals and never asked whether the question was ours to
+answer or worth the spend. Review depth had scaled with instrument
+complexity, not with spend. So, before any above-trivial spend (a fleet, a
+long campaign, a paid vendor run): write the three-part warrant in one
+short block (what is measured, why, what value is expected), check the
+question's class (an owner-fact question goes to the owner's records and a
+card, never to measurement), present it at the action moment, re-state it
+at EVERY elaboration boundary, and check the current effort against the
+VERBATIM original ask. The review below starts from that block; a review
+that opens on the instrument has skipped the question that prices it.
+
+## Tier every leg to its judgment weight
+
+Owner, 2026-07-26, on a seven-agent verification workflow whose every agent
+inherited the Fable main-loop model: "You can't start a suite of Fable
+instances like that … doing that burns quota too quickly, there are more
+refined, less brute force ways of achieving good outcomes with sweeps and
+research." `Workflow` and `Agent` calls inherit the session model by
+default, so a heavyweight main loop silently multiplies its own cost by N,
+and quota is a shared fleet resource. An effort flag in the harness is not
+owner word; the owner prices quota. The default composition: inline first
+(a few serial greps, reads or `gh` calls by the main loop answer most
+"verification legs"); when a fan-out is justified, tier per leg, with
+mechanical verification, extraction and existence checks on the cheapest
+tier at low effort, in-frame judgement on the middle tier, and one
+frame-challenge or deep-adjudication seat on the top tier; and fewer,
+sharper agents over breadth, merging cheap legs into one agent's checklist.
+The 2026-08-06 lift of the top-tier subagent embargo removed the
+prohibition, not the economy: a heavyweight sweep can be warranted ("in
+this case it may well be warranted, I do not trust the state we were
+handed"), and that warrant is the owner's to price case by case.
+
+## Ahead-of-time cost estimate, pilot and yield (owner word 2026-09-07)
+
+The owner, on the 2026-09-06/07 mapping fleets: "your dynamic workflows have been
+eating tokens at an incredible rate"; the fleet-design documentation "needs to
+include ahead of time cost estimates and optimisation". Measured from those runs'
+records (about 8.1M tokens for 43 map blocks and 8 record chunks; a verify phase
+of 41 legs returning one result; 82k–171k per leg on the session model, 87k per
+leg on a cheaper tier with a twelve-call cap):
+
+1. **Cost is set by what enters a leg's context, times its turns.** The unit
+   itself (a napkin block of thousand-character lines is 10–15k tokens; a
+   record chunk of five-thousand-character lines 30k), the rules, and every tool
+   result — each re-sent on every later turn, so tool results dominate. A
+   cheaper tier lowers the price per token and never the count; a call cap
+   bounds calls, not results. Estimate a leg as (unit tokens + rules) × turns +
+   Σ tool-result tokens × turns remaining; size units by tokens (`wc -c` ÷ 4),
+   about 8k each.
+2. **Pilot before fan-out.** One representative leg per distinct phase (map,
+   reduce, verify, synthesis), measured from its run record, times that phase's
+   fan-out, summed across phases in the launch record beside the estimate; abort
+   when the sum crosses the budget (a single-phase fleet reduces to pilot × N). A resume by run id is a launch: the pilot and yield are re-decided.
+3. **Sample the yield by hand first.** Three to five units read at the seat show
+   what fraction would move — four fifths of the 2026-09-07 napkin was already
+   homed or pure state, a fact a twenty-minute sample would have set before an
+   instrument was built. The count chooses the instrument, or no instrument.
+4. **No adversarial verify phase behind a first-hand check.** Adversarial
+   verification belongs where the consumer would otherwise trust the output
+   unread (findings that go straight to a PR); a seat that verifies at
+   application makes the phase pure spend.
+5. **No open-ended repository search per item.** Legs read the unit and return
+   items with a proposed home class; the seat verifies homes with targeted reads
+   (a script checks citations mechanically). Where search is allowed, bound it
+   by a search command, a per-item read cap and a result-size cap derived in the
+   launch record from the measured pilot (the 2026-09-07 instance: `grep -l`
+   only, one read of at most sixty lines per item).
+6. **Name the tier per phase and enforce a budget in the script** (the workflow
+   API's `budget`): the top tier only where judgement is the product; `log()`
+   dropped coverage; a stop condition that is not the owner noticing.
+7. **The launch record carries the numbers**: estimate, pilot, yield sample,
+   tier per phase, budget — and, above the ~500k threshold, this rule's design
+   review with its verdict. Runs report tokens, calls, mean and max per phase
+   from the run record when they end (a tally row, as the Cricket tally does per
+   leg).

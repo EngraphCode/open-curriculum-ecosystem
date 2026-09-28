@@ -132,7 +132,10 @@ to unrelated sessions is names-only.
 Compose a bounded frame — reuse Cricket's field vocabulary, do not
 re-mint it:
 
-1. **OBJECTIVE FRAME** — the controlling objective and its source.
+1. **OBJECTIVE FRAME** — Cricket's field 1: a `SOURCES:` block quoted
+   verbatim, then your `READING:` of it. The dialogue returns no frame
+   verdict, but the verbatim sources let the counterpart see where your
+   reading narrows them.
 2. **INTENT** — what you are doing and why the fork matters now.
 3. **QUESTION** — the uncertainty, stated neutrally, with your
    pre-registered position and confidence.

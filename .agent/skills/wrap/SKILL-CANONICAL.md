@@ -48,9 +48,9 @@ Every session closes with wrap, ordinary or deep (owner ruling 2026-07-28)
 
 For a mid-session capture WITHOUT closing, summon
 [`knowledge-safety-sweep`](../knowledge/knowledge-safety-sweep/SKILL-CANONICAL.md)
-directly instead — the seat stays live there; wrap is for ends. A
-mid-cycle retirement under budget pressure additionally follows PDR-063's
-five-step protocol; wrap supplies the depth of the record it freezes.
+directly instead — the seat stays live there; wrap is for ends. An
+owner-called mid-cycle handoff additionally follows PDR-063's five-step
+protocol; wrap supplies the depth of the record it freezes.
 
 A freeze order binds until the owner discharges it. After "prepare for
 compaction and stop all processes", the owner's follow-on questions reopen
@@ -58,7 +58,32 @@ analysis, never spend: answering is always in order, STARTING anything — a
 fleet, a monitor, a subagent — is gated until the compaction lands (owner
 correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
 launch a long fleet into a context about to compact; its harvest lands in
-the thin post-compaction window.
+the thin post-compaction window. A compaction, manual or automatic, may end
+every session-scoped process — monitors, background loops, crons — and may
+not: a Director seat resumed to an empty process table and a second seat the
+same day found none of a watcher, four monitors and a cron alive
+(2026-09-09), a schedule survived one (2026-09-23), and a watcher and a
+heartbeat loop survived an automatic one (2026-09-25); neither "everything
+dies" nor "processes run on across the boundary" is ever assumed. The
+boundary block therefore carries the re-arm recipe as if
+nothing survives: the exact watcher command, the loop commands, the cron
+expressions and prompts, any one-shot wake's date; the resume verifies by
+id first (the task list, the cron list, the process table) and re-arms
+only what that verification finds absent, so a survivor is never doubled.
+The durable records are written at the lane boundary, while there is room to
+think; the wrap is the reading-and-verifying pass over records that already
+exist, so a compaction that outruns the wrap loses nothing (2026-09-25).
+
+Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
+not the end of your session", 2026-09-03) runs the programme's
+knowledge-safety steps — the modes, the work-safety proof, the
+consolidation gate, the arc check, the metaloss recursion and the owner
+report — and SKIPS the terminal acts: session-handoff's closeout broadcasts
+and its final heartbeat-end, and the claims and monitors disposition. The
+seat stays live with its claim held, its watcher and heartbeat running,
+and its handoff record written as a boundary record, not a retirement. The
+routing of non-terminal boundaries to `knowledge-safety-sweep` applies when
+the seat chooses the instrument, never when the owner names wrap.
 
 ## The Programme
 
@@ -69,7 +94,10 @@ the thin post-compaction window.
    warrant.
 2. **Verify work safety with evidence.** WORK IS SAFE only when committed
    AND pushed AND on a PR: state `git status --branch` ahead/behind for
-   every touched branch, verbatim — never the bare words "all pushed"
+   every touched branch, verbatim, the branches enumerated from `git worktree
+   list` and each worktree's status, never from memory (a wrap named three
+   branches where the list held five, two with unpushed or unpruned work,
+   2026-09-25) — never the bare words "all pushed"
    (founding instance: a closeout claimed "all pushed" over a stranded
    local commit, caught only by first-hand verification; this estate's
    `exit-codes-in-band-never-piped` rule is the same discipline at command
@@ -86,7 +114,18 @@ the thin post-compaction window.
    [`retrospective`](../cognition/retrospective/SKILL-CANONICAL.md) — routed, not
    auto-run. If the session graduated anything, confirm each graduation
    carries its PDR-130 prediction line.
-6. **Run the metaloss recursion (owned here).** The loss scan is itself an
+6. **Price the session's review loops.** Run
+   `node agent-tools/dist/src/bin/agent-tools.js review-cost survey --since <session start>`
+   and append one row per pull request the session touched to
+   `.agent/memory/operational/review-cost-ledger.md`: the survey's numbers, the seat's
+   reading of the round the loop should have stopped at, and whether the gate agreed,
+   fired early, or fired late. Post-merge reviews and comments are in the count, so a
+   merged pull request is surveyed again at the next wrap that touches it. A reading is
+   the seat's; the owner's correction on the row is the calibration label. The gate's
+   weights change only against this ledger, and every change is a row in its changes
+   table (owner, 2026-09-13: "there is no constant right answer, it's a try and see
+   situation — keep notes, give it a go, and make sure that we regularly review").
+7. **Run the metaloss recursion (owned here).** The loss scan is itself an
    artefact that can lose information. Scan the scan, and repeat until the
    fixed point (the bounded discipline is this estate's
    `bounded-metaloss-recursion` pattern; these are its named passes):
@@ -111,13 +150,24 @@ the thin post-compaction window.
      your own briefing is that self-model with fewer resources, not an
      external observer. State the bound and conserve the error signature
      (where outside eyes caught what the scan missed) so a successor
-     knows where to point external scrutiny.
+     knows where to point external scrutiny. Five seats' signatures name the
+     targets: the negatives a seat reports, the counts it states, the
+     verdicts that favour it and the frames two seats both like; each
+     write's credential, each relayed number and each wait's sensor; verdict
+     and validator code; descriptor lifetimes and file races (2026-09-21 to
+     2026-09-25).
+   - **Fence sweep**: every owner word held off the repository at his word —
+     grep every tracked line this seat and its peers wrote for the fenced
+     wording before the wrap PR lands. The 2026-09-03 wrap found the morning's
+     fenced wording on three tracked lines (a formation letter, the seat's own
+     napkin capture, a dialogue-channel file) and cut each to "the owner's
+     local-only wording"; the seat's own capture was one of the leaks.
    - **Exit — the fixed point**: the recursion closes when a further pass
      would only re-find already-named losses, and the wrap SAYS SO
      explicitly ("a third pass would only re-find X; the recursion closes
      here"). Closing without naming the fixed point is an unfinished wrap;
      looping past it is the meta-rabbit-hole.
-7. **Report.** The final owner-facing message: landed outcome against the
+8. **Report.** The final owner-facing message: landed outcome against the
    session's landing target (PDR-026), safety evidence, what is conserved
    where, what is deliberately context-only with reasons, and the claims/
    monitors/comms disposition — with the closeout broadcasts

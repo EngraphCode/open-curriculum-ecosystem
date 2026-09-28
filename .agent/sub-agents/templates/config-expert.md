@@ -74,10 +74,28 @@ Scan for:
 
 - `eslint-disable` comments in config files or source code
 - `@ts-ignore` or `@ts-expect-error` in config files
-- Skipped tests via configuration
-- Bypassed git hooks
+- Tests skipped or excluded by configuration; an `include` that silently drops a test
+  category
+- Bypassed git hooks (`--no-verify`, a hook that returns early)
+- A leg removed from or reordered in `pnpm check` (the parity validator sees neither)
 
-### Step 4: Report Findings with Inheritance Analysis
+### Step 4: Check Scripts, Environment and Runtime Toggles
+
+- Every added or renamed quality-gate script follows PDR-008's naming rules. The root `package.json` and
+  the gates skill enumerate the live gate set; a workspace carries only the task gates the
+  root pipeline runs. No hidden `test:ci` duplicates, no workspace copies of root gates.
+- Every cited script exists; `package.json` entries reference files that exist and create no
+  circular `pnpm check` loop.
+- Application environment is read through `resolveEnv` (`packages/libs/env-resolution`,
+  ADR-116) against the schemas in `packages/core/env`, or at a composition root's single
+  documented boundary read passed into typed factories; `process.env` is never mutated.
+- Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
+  deliberate, documented and aligned with the directives.
+- Config changes still trigger the right validators: `pnpm check` picks up a new verify-type
+  gate or validator, and every E2E and visual gate that `pnpm check` runs still runs there.
+  Smoke suites stay outside `check` by design (`docs/engineering/build-system.md`).
+
+### Step 5: Report Findings with Inheritance Analysis
 
 Produce the structured output below. Include a per-workspace inheritance analysis table.
 
@@ -234,6 +252,7 @@ When configuration issues affect code quality, architecture, or type safety, thi
 
 ### Quality Gate Alignment
 
+- [ ] Every verifying `pnpm check` leg runs in CI (`validate-check-ci-parity`)
 - [ ] All workspaces pass `pnpm type-check`
 - [ ] All workspaces pass `pnpm lint`
 - [ ] All workspaces pass `pnpm test`

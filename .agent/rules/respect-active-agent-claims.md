@@ -126,7 +126,8 @@ outside the claim you opened at session start, expand the claim before the next
 edit in that new area. New files are not invisible to coordination just because
 they did not exist when the original claim was written.
 
-A fresh root `commit_queue` entry ahead of yours means another agent has the
+A fresh advisory commit-queue intent ahead of yours
+(`pnpm agent-tools:commit-queue -- list`) means another agent has the
 next advisory commit turn. Do not treat it as a refusal gate, but do inspect
 the queued files, subject, phase, and expiry before staging. The commit skill's
 exact staged-bundle verification is the final guard before durable history.
@@ -158,9 +159,9 @@ exact staged-bundle verification is the final guard before durable history.
 ## Bootstrap fast-path
 
 If `active-claims.json` has no entries other than yours and the shared
-communication log has no recent (≤ 24 hour) entries from other agents, log
-"no other agents present" as a comms event and proceed
-without further coordination overhead.
+communication log shows no live peer, the session is solo: record your
+claim and proceed without broadcasts (`use-agent-comms-log` §Scale
+ceremony to the audience).
 
 ## Cross-references
 

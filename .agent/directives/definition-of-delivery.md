@@ -143,6 +143,7 @@ producer milestone; naming the impostors is half the value of this doctrine:
 - `practice-core/decision-records/PDR-026-per-session-landing-commitment.md` — session landing.
 - `tdd-as-design.md` §Three Corollaries — the value-flow corollary.
 - `principles.md` — repository-wide rules (authoritative above this directive).
-- The first application: the EEF gate-1a delivery plan (see the
-  `sector-engagement/eef/` plan collection) rebuilds its acceptance criteria
-  around these states and criteria.
+- The first application: the EEF gate-1a delivery work (the `eef` thread
+  record under `.agent/memory/operational/threads/paused/`; its plan
+  collection is `.agent/plans-backlog-2026-07/sector-engagement/eef/`) rebuilt
+  its acceptance criteria around these states and criteria.

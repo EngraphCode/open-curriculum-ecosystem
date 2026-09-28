@@ -56,6 +56,13 @@ Canonical form: `SHA:<hash>` or `SHA: <hash>` (one space, optional).
 Short SHAs (7+ hex characters) match the same allowlist regex; both
 short and full SHAs work behind the prefix.
 
+The prefix is for git landings only. A substrate cross-reference — one
+collaboration event, claim or handoff citing another — cites the event
+or claim id (its `event_id` or `claim_id`: a UUID or a stable slug, as
+the comms-event schema allows), never a commit: "event-id for substrate;
+SHA-prefix for git-landing" (ADR-187 §Citation discipline, which named
+this repo-wide line as its follow-on; landed 2026-09-21).
+
 ## Hook / Tooling Layer
 
 The discipline is operationalised at gitleaks config:
@@ -73,6 +80,6 @@ push blocks.
 
 - [`.agent/rules/no-moving-targets-in-permanent-docs.md`](./no-moving-targets-in-permanent-docs.md)
   — the broader principle for permanent-doc surfaces.
-- [`.agent/skills/commit/SKILL-CANONICAL.md`](../skills/commit/SKILL-CANONICAL.md)
+- [`.agent/skills/change-custody/commit/SKILL-CANONICAL.md`](../skills/change-custody/commit/SKILL-CANONICAL.md)
   — commit workflow that fires the pre-push hook.
 - `.gitleaks.toml` — the runtime allowlist that honours this rule.

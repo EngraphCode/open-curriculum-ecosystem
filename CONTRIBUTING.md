@@ -339,13 +339,16 @@ This single command runs every quality gate in the correct order. If it
 fails and you need to isolate the issue, run the individual steps:
 
 ```bash
-pnpm build             # Build all workspaces
-pnpm type-check        # Check types
-pnpm lint:fix          # Lint code (with auto-fix)
-pnpm format:root       # Format code
-pnpm test              # Run tests
-pnpm secrets:scan:all  # Secret scan (branches + tags + full history)
+pnpm build                    # Build all workspaces
+pnpm type-check               # Check types
+pnpm lint                     # Lint code (verify only)
+pnpm format-check:root        # Check formatting (verify only)
+pnpm markdownlint-check:root  # Check Markdown (verify only)
+pnpm test                     # Run tests
+pnpm secrets:scan:all         # Secret scan (branches + tags + full history)
 ```
+
+Repair what they report with `pnpm fix`, then run `pnpm check` again.
 
 Pre-push hook also runs the secret scan; pushes are blocked if secrets are
 detected.

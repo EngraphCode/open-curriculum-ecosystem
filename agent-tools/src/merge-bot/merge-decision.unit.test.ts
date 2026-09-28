@@ -97,6 +97,8 @@ describe('verdictAwaitsSettlement', () => {
     'ARMED-BEHIND-RED': false,
     'QUOTA-SKIPPED': false,
     'SETTLED-NO-REVIEW': false,
+    // A refused near-miss resolves by an operator act (a re-request), never by time.
+    'UNCLASSIFIED-EVIDENCE': false,
     MERGED: false,
     CLOSED: false,
     'CONFLICT-DIRTY': false,

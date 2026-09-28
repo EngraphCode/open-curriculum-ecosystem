@@ -7,7 +7,9 @@ surfaces; kit-internal literals ARE the definitions and are exempt;
 infrastructure values (ports, timeouts, URLs) are not design values.
 
 Provenance: this rule operationalises that owner ruling directly (recorded
-as ruling 20 in the Director sitting block, `director-handoff.md`), routed
+as ruling 20 in the Director sitting block of 2026-07-29, archived verbatim
+at `.agent/memory/operational/archive/director-handoff-current-handoff-state-2026-09-08.md`
+since 2026-09-08), routed
 through [`new-rule-vs-pdr-clause`](new-rule-vs-pdr-clause.md) at minting —
 a standing behavioural rule, not a PDR clause, because it binds every
 authoring/review act on consumer surfaces rather than a governance

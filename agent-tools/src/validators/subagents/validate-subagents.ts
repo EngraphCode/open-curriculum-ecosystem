@@ -8,6 +8,7 @@ import { parse as parseYaml } from 'yaml';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
 import { frontmatterName, validateFrontmatter } from './frontmatter-schema.js';
+import { collectInlinePromptIssues } from './inline-prompt-checks.js';
 import {
   CODEX_CONFIG_PATH,
   type CodexRegistration,
@@ -219,6 +220,16 @@ for (const templateFile of templateFiles) {
       `${templateFile}: no adapter in ${CODEX_ADAPTER_DIR} currently references this template`,
     );
   }
+}
+
+for (const issue of await collectInlinePromptIssues({
+  claudeWrapperFiles,
+  templateFiles,
+  claudeDir: CLAUDE_WRAPPER_DIR,
+  templateDir: TEMPLATE_DIR,
+  files: { readText, exists },
+})) {
+  addIssue(issue);
 }
 
 if (issues.length > 0) {
