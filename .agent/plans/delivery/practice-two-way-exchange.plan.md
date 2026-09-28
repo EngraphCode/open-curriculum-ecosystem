@@ -57,10 +57,40 @@ delivered as offered rows, landed or declined; the second estate's pins (the ope
 recorded; and the count reads N of N beside both heads, with the close recorded in the second
 estate's node with the owner's word. The residue census of 2026-09-28
 (`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
-owed by the register's own rule, 4 settled, 11 partial, 6 with no landing, 20 residue pull requests,
-three cards for the owner. The next act is the census's first residue row: J1's N1 first slice, the
-rule generator with the frontmatter and the rendered rules index, one pull request by the exchange
-seat; the census orders the rest. Then the review of both Practices opens, outside this node.
+to land here by the register's rule of that day, 4 settled, 11 partial, 6 with no landing, 20
+residue pull requests (22 after J3's design read of 18:3xZ split its slice into three; 26 in all
+with the charter's four acts), three cards for the owner, answered the same day (below). The next
+act is the census's first residue row: J1's N1 first slice, the rule generator with the frontmatter
+and the rendered rules index, one pull request by the exchange seat; the census orders the rest.
+Then the review of both Practices opens, outside goal one's close bar; the second estate's inbound
+landings from this estate stay its node's todo 4, after that review (the fourth answer below).
+
+The owner's four answers of 2026-09-28, relayed by the Director, the selected options verbatim; the
+second estate's node records them as its rulings 41 to 44 (its pull request 255). (1) The second
+estate's exchange instrument (its register validator, its smoke and its root script): "Decline with
+the reason (Recommended)"; it is Not taken here, the reason being that it validates a register this
+estate does not hold; the loss-scan instrument stays J11's one residue pull request. (2) The
+gate-running doctrine (the triage's note 1): "Run it through the decision matrix, we don't choose
+between options, we create the best from what we know", then, on the Director's reading by the
+decision method, "Confirm the reading (Recommended)": the second estate's ratified node
+`commit-as-the-full-local-gate` (the owner's card of 2026-09-24) converges both estates in both
+directions, this estate's words landing there (its slices D, E and F: "the commit is the gate; never
+run gates by hand", the five homes, the same bytes) and the second estate's mechanism landing here
+(the gate slot `no-unbounded-host-load` item 6 prescribes, as note 4's pull request); note 1 settles
+by a register row citing that node, notes 4 and 8 keep their pull requests, and the census's card
+re-asked what the triage's own preamble had already read, recorded in the second estate's record
+against the seat that carded it. (3) The count: "What does owed mean? That sounds liked parked,
+which is forbidden for very good reason. Use the cognitive skills", then, on the Director's
+synthesis, "Ratify the flow contract and Nova's lane (Recommended)": the register's rule text loses
+"owed"; a row is landed, in flight, queued or declined and nothing else, each with its proof, its
+pull request or named lane, its position with its seat and horizon, or its reason; the count reads
+in residue pull requests (the census's 24, 26 after J3's recount), landed of total, beside both
+heads; a count that does not fall between two folds is routed as a failure, never re-labelled, and
+a row queued across two folds with no movement is routed. The seats, by the Director's order with
+the ratification: Nova turns Penumbra (8a94ba) on J6 (three pull requests) and J8 (two); Siren herds
+Rudder (158275) on J3's three and the register's settling rows; this seat on J1's N1, J2 and the
+other partials (J10, J17's notes 4 and 8, J18, J21). (4) The bar's scope: "Confirm: inbound stays
+in the node (Recommended)", read as above.
 
 ## User groups and value
 
