@@ -26,6 +26,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     reviewThreads: { total: 0, unresolved: 0 },
     autoMergeArmed: true,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [],

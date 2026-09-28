@@ -60,8 +60,13 @@ function namesTheInference(line: string): boolean {
 }
 
 describe('computePrVerdict — reviews bound by content', () => {
-  it('reads a review of the commit before a pure sync as a review of the tip, settling at first green', () => {
-    const verdict = verdictOf({ reviews: [beforeTheSync], content: synced(PATCH) });
+  it('reads a review of the commit before a pure sync as a review of the tip, settling at first green with no run on the synced tip', () => {
+    const verdict = verdictOf({
+      reviews: [beforeTheSync],
+      content: synced(PATCH),
+      reviewRuns: { kind: 'read', runs: [] },
+      roundRequests: [],
+    });
     expect(verdict.state).toBe('SETTLE-READY');
     const leg = legLine(verdict, COPILOT);
     expect(leg.startsWith(`${COPILOT}: SATISFIED`) && namesTheInference(leg)).toBe(true);
@@ -92,48 +97,68 @@ describe('computePrVerdict — reviews bound by content', () => {
     );
   });
 
-  it('says a leg bound by content waits for the round requested on the tip', () => {
-    const verdict = verdictOf({
-      reviews: [beforeTheSync],
-      content: synced(PATCH),
-      reviewRequests: [COPILOT],
-    });
-    expect(legLine(verdict, COPILOT)).toContain(
-      'is bound by content and waits for the round requested on the tip',
-    );
-  });
-
-  it('names the content inference on a satisfied leg that also holds an empty reply on the tip', () => {
-    const reply: HarvestedReview = {
-      ...beforeTheSync,
-      body: '',
-      commitOid: TIP,
-      submittedAt: '2026-07-21T11:45:00Z',
-    };
-    const leg = legLine(
-      verdictOf({ reviews: [beforeTheSync, reply], content: synced(PATCH) }),
-      COPILOT,
-    );
-    expect(leg.startsWith(`${COPILOT}: SATISFIED`) && namesTheInference(leg)).toBe(true);
-    expect(leg).toContain('1 tip-bound empty-bodied review ignored');
-  });
-
   it.each<[string, string]>([
     ['a substantive review', 'Reviewed 2 of 2 files.'],
     ['a quota marker', 'Review skipped: the spend limit was reached.'],
     ['an unevaluable skip marker', 'Unable to review: the service is unavailable.'],
-  ])('holds %s bound by content while a round is requested on the tip', (_what, body) => {
+  ])('holds %s bound by content while a round is requested, and says why', (_what, body) => {
     const verdict = verdictOf({
       reviews: [{ ...beforeTheSync, body }],
       content: synced(PATCH),
       reviewRequests: [COPILOT],
     });
     expect(verdict.state).not.toMatch(/SETTLE-READY|QUOTA-SKIPPED/u);
-    expect(
-      legLine(verdict, COPILOT).startsWith(
-        `${COPILOT}: OWED — no substantive review binds the current tip`,
-      ),
-    ).toBe(true);
+    const leg = legLine(verdict, COPILOT);
+    expect(leg.startsWith(`${COPILOT}: OWED — no substantive review binds the current tip`)).toBe(
+      true,
+    );
+    expect(leg).toContain('is bound by content and waits for the round requested after it');
+  });
+
+  it.each<[string, string]>([
+    ['Copilot', COPILOT],
+    ['Codex', CODEX],
+  ])(
+    'holds %s’s review bound by content when a round was asked of it after the review, although GitHub lists no pending request',
+    (_who, reviewer) => {
+      const verdict = verdictOf({
+        expectedReviewers: [reviewer],
+        reviews: [{ ...beforeTheSync, author: reviewer }],
+        content: synced(PATCH),
+        roundRequests: [{ reviewer, at: '2026-07-21T11:40:00Z' }],
+      });
+      expect(verdict.state).not.toBe('SETTLE-READY');
+      expect(legLine(verdict, reviewer)).toContain(
+        'is bound by content and waits for the round requested after it',
+      );
+    },
+  );
+
+  it('lets a review bound by content stand when every round asked of its reviewer came before it', () => {
+    const verdict = verdictOf({
+      reviews: [beforeTheSync],
+      content: synced(PATCH),
+      roundRequests: [{ reviewer: COPILOT, at: '2026-07-21T11:00:00Z' }],
+    });
+    expect(verdict.state).toBe('SETTLE-READY');
+  });
+
+  it('holds only the reviews a round was asked after, letting a later review bound by content stand', () => {
+    const verdict = verdictOf({
+      reviews: [beforeTheSync, { ...beforeTheSync, submittedAt: '2026-07-21T11:50:00Z' }],
+      content: synced(PATCH),
+      roundRequests: [{ reviewer: COPILOT, at: '2026-07-21T11:40:00Z' }],
+    });
+    expect(verdict.state).toBe('SETTLE-READY');
+  });
+
+  it('lets a review of the exact head stand under a round asked after it', () => {
+    const verdict = verdictOf({
+      reviews: [{ ...beforeTheSync, commitOid: TIP }],
+      content: synced(PATCH),
+      roundRequests: [{ reviewer: COPILOT, at: '2026-07-21T11:40:00Z' }],
+    });
+    expect(verdict.state).toBe('SETTLE-READY');
   });
 
   it('reads a quota marker on the commit before a pure sync as the tip’s, naming the inference', () => {
@@ -187,6 +212,22 @@ describe('computePrVerdict — completion comments bound by content', () => {
     ).toBe(true);
     expect(refusalOf(bound, 'IC_1')).toStrictEqual([]);
     expect(refusalOf(withComment(clean, synced(OTHER_PATCH)), 'IC_1')).toHaveLength(1);
+  });
+
+  it('holds a completion comment bound by content when a round was asked of Codex after it', () => {
+    const verdict = verdictOf({
+      expectedReviewers: [CODEX],
+      reviews: [],
+      completionComments: {
+        reviews: [comment('IC_3', '**Reviewed commit:** `bbbbbbbbbb`')],
+        refused: [],
+      },
+      content: synced(PATCH),
+      roundRequests: [{ reviewer: CODEX, at: '2026-07-21T11:45:00Z' }],
+    });
+    expect(legLine(verdict, CODEX)).toContain(
+      'is bound by content and waits for the round requested after it',
+    );
   });
 
   it('never refuses a skip marker bound by content as naming a stale commit, while its leg waits', () => {

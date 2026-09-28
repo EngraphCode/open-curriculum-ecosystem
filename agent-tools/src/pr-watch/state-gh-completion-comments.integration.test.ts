@@ -85,22 +85,29 @@ function executor(surfaces: Surfaces, calls: string[][]): GhCommandExecutor {
       return JSON.stringify([]);
     }
     const query = args.find((arg) => arg.startsWith('query=')) ?? '';
-    if (query.includes('reviewThreads')) {
-      return emptyPage('reviewThreads');
+    const answer = harvestAnswers(surfaces).find(([marker]) => query.includes(marker));
+    if (answer === undefined) {
+      throw new Error(`unexpected gh argv: ${args.join(' ')}`);
     }
-    if (query.includes('comments(')) {
-      return JSON.stringify([
-        { data: { repository: { pullRequest: { comments: { nodes: surfaces.comments } } } } },
-      ]);
-    }
-    if (query.includes('commits(')) {
-      return commitsPages(surfaces.commitPages);
-    }
-    if (query.includes('reviews(')) {
-      return emptyPage('reviews');
-    }
-    throw new Error(`unexpected gh argv: ${args.join(' ')}`);
+    return answer[1]();
   };
+}
+
+// Each harvest query, by the connection it reads, and the page it is answered with.
+function harvestAnswers(surfaces: Surfaces): readonly (readonly [string, () => string])[] {
+  return [
+    ['reviewThreads', () => emptyPage('reviewThreads')],
+    [
+      'comments(',
+      () =>
+        JSON.stringify([
+          { data: { repository: { pullRequest: { comments: { nodes: surfaces.comments } } } } },
+        ]),
+    ],
+    ['commits(', () => commitsPages(surfaces.commitPages)],
+    ['reviews(', () => emptyPage('reviews')],
+    ['timelineItems(', () => emptyPage('timelineItems')],
+  ];
 }
 
 const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true, patchIdOf: textHasher };

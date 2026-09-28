@@ -3,6 +3,7 @@ import type { BindingHead } from './content-binding.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
 import type { HarvestedReview } from './reviewer-legs.js';
+import type { RoundRequest } from './round-requests.js';
 
 /**
  * Shared types and the closed verdict set for `agent-tools pr state` — the
@@ -71,6 +72,13 @@ export interface PrStateReading extends BindingHead {
   readonly autoMergeArmed: boolean;
   /** Logins with an outstanding review request. */
   readonly reviewRequests: readonly string[];
+  /**
+   * Every round asked of a reviewer, and when: the review-request and
+   * ready-for-review events and the `@codex review` comments
+   * (`round-requests.ts`). A review bound by content waits for a round asked
+   * after it.
+   */
+  readonly roundRequests: readonly RoundRequest[];
   /**
    * The DECLARED expected reviewer set (SKILL item 3: sourced from the
    * repository's automatic-review configuration, declared by the operator —

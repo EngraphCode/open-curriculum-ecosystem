@@ -28,7 +28,7 @@
  */
 
 import { sanitiseTerminalLine } from '../core/terminal-output.js';
-import { normaliseLogin } from './reviewer-legs.js';
+import { normaliseLogin } from './logins.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 
 /** A comment's last edit: when, and by whom (`unknown` for a deleted account). */

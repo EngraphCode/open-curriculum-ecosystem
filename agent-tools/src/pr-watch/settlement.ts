@@ -183,6 +183,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     expectedReviewers: reading.expectedReviewers,
     reviews: allReviews(reading),
     reviewRequests: reading.reviewRequests,
+    roundRequests: reading.roundRequests,
     checksGreenAt: reading.checksGreenAt,
     now,
   });

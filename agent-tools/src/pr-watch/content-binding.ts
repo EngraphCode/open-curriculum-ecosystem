@@ -141,37 +141,38 @@ export function bindingNote(reviews: readonly Reviewed[], head: BindingHead): st
 
 /**
  * The reviews that stand for the head: those binding it exactly, and those
- * binding it by content unless a round is requested on the head, since a
- * request asks for a fresh review there and a review of earlier content does
- * not stand in for it.
+ * binding it by content unless a round was asked of their reviewer after
+ * them, since a request asks for a fresh review and a review of earlier
+ * content does not stand in for it.
  *
  * @param reviews - the reviewer's reviews that bind the head
  * @param head - the head and its content
- * @param requested - whether a review by this reviewer is requested on the head
+ * @param awaitsRound - whether a round asked of the reviewer holds a review
+ *   (`round-requests.ts` `roundAwaiter`)
  */
 export function standingReviews<Review extends Reviewed>(
   reviews: readonly Review[],
   head: BindingHead,
-  requested: boolean,
+  awaitsRound: (review: Review) => boolean,
 ): readonly Review[] {
-  return requested ? reviews.filter((review) => review.commitOid === head.headRefOid) : reviews;
+  return reviews.filter((review) => review.commitOid === head.headRefOid || !awaitsRound(review));
 }
 
 /**
  * Why a reviewer's reviews of earlier commits leave the leg owed, for its
  * evidence: the reader's own reason, so a failed read (worth a retry) reads
- * apart from changed content (worth a request); or the round requested on
- * the head that a review bound by content waits for. Empty when no review
- * names an earlier commit.
+ * apart from changed content (worth a request); or the round requested after
+ * a review bound by content, which it waits for. Empty when no review names
+ * an earlier commit.
  *
- * @param reviews - the reviewer's landed substantive reviews
+ * @param reviews - the reviewer's landed reviews and markers, empty bodies excluded
  * @param head - the head and its content
- * @param requested - whether a review by this reviewer is requested on the head
+ * @param awaitsRound - whether a round asked of the reviewer holds a review
  */
-export function unboundNote(
-  reviews: readonly Reviewed[],
+export function unboundNote<Review extends Reviewed>(
+  reviews: readonly Review[],
   head: BindingHead,
-  requested: boolean,
+  awaitsRound: (review: Review) => boolean,
 ): string {
   const earlier = reviews
     .filter((review) => review.commitOid !== '' && review.commitOid !== head.headRefOid)
@@ -179,11 +180,11 @@ export function unboundNote(
   if (earlier === undefined) {
     return '';
   }
-  const why = whyUnbound(earlier.commitOid, head, requested);
+  const why = whyUnbound(earlier.commitOid, head, awaitsRound(earlier));
   return why === '' ? '' : `; the review at ${earlier.commitOid.slice(0, 10)} ${why}`;
 }
 
-function whyUnbound(oid: string, head: BindingHead, requested: boolean): string {
+function whyUnbound(oid: string, head: BindingHead, awaits: boolean): string {
   if (head.content.kind === 'unread') {
     return `is not bound by content: ${head.content.reason}`;
   }
@@ -197,5 +198,5 @@ function whyUnbound(oid: string, head: BindingHead, requested: boolean): string 
   if (reviewed.content.id !== head.content.head) {
     return 'carries content that differs from the head';
   }
-  return requested ? 'is bound by content and waits for the round requested on the tip' : '';
+  return awaits ? 'is bound by content and waits for the round requested after it' : '';
 }

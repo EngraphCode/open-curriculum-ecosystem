@@ -14,6 +14,8 @@
 
 import { bindingNote, reviewBinds, standingReviews, unboundNote } from './content-binding.js';
 import type { BindingHead } from './content-binding.js';
+import { normaliseLogin } from './logins.js';
+import { roundAwaiter, type RoundRequest } from './round-requests.js';
 
 /** One review from the full paginated harvest (`reviews` connection). */
 export interface HarvestedReview {
@@ -51,6 +53,8 @@ export interface ComputeReviewerLegsInput extends BindingHead {
   readonly expectedReviewers: readonly string[];
   readonly reviews: readonly HarvestedReview[];
   readonly reviewRequests: readonly string[];
+  /** Every round asked of a reviewer, from the pull request's history (`round-requests.ts`). */
+  readonly roundRequests: readonly RoundRequest[];
   /** Max completedAt across green checks; null while checks are not yet green. */
   readonly checksGreenAt: string | null;
   /** Injected clock (ISO) — the quiet-window and timeout legs are time-bound. */
@@ -81,14 +85,6 @@ export function isSkipMarker(body: string): boolean {
 
 function isScopeDeclaredSkip(body: string): boolean {
   return isSkipMarker(body) && QUOTA_PATTERN.test(body);
-}
-
-// GitHub logins are case-insensitive; compare through one casing so a declared
-// `--expect jimcresswell` matches the API's `jimCresswell` (display keeps the
-// declared form).
-/** The one login comparison every reader of a reviewer's result shares. */
-export function normaliseLogin(login: string): string {
-  return login.toLowerCase();
 }
 
 // A PENDING (draft, unsubmitted) review has not landed: it must neither
@@ -138,7 +134,11 @@ function elapsedMs(fromIso: string, nowIso: string): number {
 // with an empty body under the REPLIER's identity for every thread reply. The
 // pr-lifecycle SKILL item 3 carries the rule and its recorded instances.
 function isSubstantive(review: HarvestedReview): boolean {
-  return review.body.trim() !== '' && !isSkipMarker(review.body);
+  return hasBody(review) && !isSkipMarker(review.body);
+}
+
+function hasBody(review: HarvestedReview): boolean {
+  return review.body.trim() !== '';
 }
 
 // Discarded evidence is COUNTED: a predicate over a filtered set says how many
@@ -155,11 +155,9 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
   const own = input.reviews.filter(
     (review) => normaliseLogin(review.author) === normaliseLogin(reviewer) && hasLanded(review),
   );
-  const requested = input.reviewRequests.some(
-    (login) => normaliseLogin(login) === normaliseLogin(reviewer),
-  );
+  const awaits = roundAwaiter(reviewer, input.reviewRequests, input.roundRequests);
   const bound = own.filter((review) => reviewBinds(review, input));
-  const tipBound = standingReviews(bound, input, requested);
+  const tipBound = standingReviews(bound, input, awaits);
   const note = emptyBodyNote(tipBound);
   const substantive = tipBound.filter(isSubstantive);
   if (substantive.length > 0) {
@@ -187,7 +185,7 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
   }
   const owedDetail = unevaluableMarker
     ? 'tip-bound skip marker with unevaluable scope — no substantive review; awaiting the timeout arm'
-    : `no substantive review binds the current tip${unboundNote(own.filter(isSubstantive), input, requested)}`;
+    : `no substantive review binds the current tip${unboundNote(own.filter(hasBody), input, awaits)}`;
   return { reviewer, state: 'OWED', detail: `${owedDetail}${note}` };
 }
 

@@ -108,8 +108,12 @@ Siren herds Rudder (158275), in the change that adds `pr-watch/content-binding.t
     blob ids.
   - patch-id's output must be exactly one line, the id and forty zeros; a split reads unproven.
   - A spawn failure or a 30-second hang reads unproven, never failing the reading.
-  - A review bound only by content does not stand in for a round requested on the tip, so the
-    door never merges while a requested run composes (the owner's 2026-07-16 correction on #390).
+  - A review bound only by content does not stand in for a round requested of its reviewer at or
+    after it, so the door never merges while a requested run composes (the owner's 2026-07-16
+    correction on #390). GitHub's pending `reviewRequests` never lists a bot, so the rounds are
+    read from the pull request's history (`round-requests.ts`, round two on #278): the
+    review-request and ready-for-review events, a fourth full harvest, and the `@codex review`
+    comments.
   - An owed leg says why a review of an earlier commit did not bind: the read's reason, a
     changed content, or the requested round it waits for.
 - `state-gh.ts` composes the content leg into the reading; `baseRefName` joins the view fields.
@@ -122,3 +126,32 @@ PR 276 had landed): on the lineage's PR 277, the pure sync merge of `engraph` in
 left the compare-diff patch-id unchanged (`462e143cc012…` before, at
 `6977776e3`, and after, at `e275882f9`), and an earlier commit, before the branch's last content
 change, carried a different one (`8233d5437abe…` at `48ee393a7`).
+
+## Recorded limits and reopen conditions (round two, 2026-09-28)
+
+- Unrequested runs. Codex sometimes reviews a push nobody asked it to review: on #267 three
+  pushed commits drew a Codex review with no `@codex review` comment, and on #264 one did. Other
+  pushes drew none, such as #278's open and #264's last two pushes. The door waits for a
+  requested round only, never for an unrequested run. After a pure sync, first green already
+  sits past the run's window (the runs above reported 6 to 14 minutes after their commits, and
+  engraph's CI ran 17 minutes). A result that lands after the merge is a post-merge finding,
+  fixed forward (the Director's ruling, 2026-09-28). No surface read so far shows a Codex run
+  composing. Reopen condition: a Codex run on a pure-synced tip that lands an over-bar finding
+  after the merge reopens the hold question on that instance. One instance is an observation,
+  recorded and raised, never a rule.
+- A Codex summary comment is timed at its last rewrite. A rewrite after a request, still showing
+  an older completed row, would lift the hold. On #267 the rewrite and the completed row it
+  added were within a second, so timing the hold by the row's own time would close the gap.
+- `mostBlockingLeg` and `liveRunReviewers` read GitHub's pending requests, which never list a
+  bot. So a held bot leg reads SILENT-WAIT-NO-REVIEWER, which invites a second request, and a
+  live Copilot run maps to no leg. The rounds `round-requests.ts` reads could feed both.
+- The Codex connector's login is a literal in `pr-tally/findings.ts` and `review-cost/price.ts`,
+  and a local constant in five pr-watch test files. `logins.ts` now holds it for pr-watch.
+- The completion-transport and body-tally evidence lines read `reviewBinds` without the hold. So
+  a Codex completion comment held by a round asked after it still prints "read as a review of
+  the tip", beside the leg that reads OWED and says it waits. The verdict is right; the
+  evidence line is not.
+- A round asked for the synced head before the old commit's review lands counts as coming
+  before that review, so the old review stands. The quiet window anchored on that review
+  normally covers the run the request started (on #278, a request at 05:47:54Z and the review
+  that answered it at 05:51:26Z).

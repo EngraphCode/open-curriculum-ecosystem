@@ -29,6 +29,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     reviewThreads: { total: 1, unresolved: 0 },
     autoMergeArmed: false,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [

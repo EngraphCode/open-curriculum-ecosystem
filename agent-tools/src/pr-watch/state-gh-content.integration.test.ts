@@ -46,6 +46,7 @@ const DIFFS = new Map([
 interface Harvests {
   readonly reviews: readonly unknown[];
   readonly comments: readonly unknown[];
+  readonly requests?: readonly unknown[];
 }
 
 function harvestFor(query: string, harvests: Harvests): string | undefined {
@@ -59,6 +60,9 @@ function harvestFor(query: string, harvests: Harvests): string | undefined {
   }
   if (query.includes('commits(')) {
     return page('commits', [{ commit: { oid: BEFORE_SYNC } }, { commit: { oid: HEAD } }]);
+  }
+  if (query.includes('timelineItems(')) {
+    return page('timelineItems', harvests.requests ?? []);
   }
   return query.includes('reviews(') ? page('reviews', harvests.reviews) : undefined;
 }
@@ -146,5 +150,45 @@ describe('readPrStateReading — the content leg', () => {
       kind: 'unread',
       reason: 'the pull request is not open',
     });
+  });
+});
+
+describe('readPrStateReading — the rounds asked of each reviewer', () => {
+  it('reads the rounds from the request events and from the `@codex review` comments', () => {
+    const requests = [
+      {
+        __typename: 'ReviewRequestedEvent',
+        createdAt: '2026-07-21T12:20:00Z',
+        requestedReviewer: { __typename: 'Bot', login: COPILOT },
+      },
+      { __typename: 'ReadyForReviewEvent', createdAt: '2026-07-21T11:00:00Z' },
+    ];
+    const trigger = {
+      id: 'IC_2',
+      author: { login: 'el-graphael' },
+      body: '@codex review',
+      createdAt: '2026-07-21T12:30:00Z',
+      lastEditedAt: null,
+      editor: null,
+    };
+    const rounds = reading({ reviews: [], comments: [trigger], requests }, [
+      COPILOT,
+      CODEX,
+    ]).roundRequests;
+    expect(rounds).toHaveLength(3);
+    expect(rounds).toEqual(
+      expect.arrayContaining([
+        { reviewer: COPILOT, at: '2026-07-21T12:20:00Z' },
+        { reviewer: CODEX, at: '2026-07-21T11:00:00Z' },
+        { reviewer: CODEX, at: '2026-07-21T12:30:00Z' },
+      ]),
+    );
+  });
+
+  it('fails the reading when the request events cannot be read, never reading no round', () => {
+    const unreadable = [{ __typename: 'ReviewRequestedEvent', requestedReviewer: null }];
+    expect(() => reading({ reviews: [], comments: [], requests: unreadable }, [COPILOT])).toThrow(
+      /review requests harvest failed/,
+    );
   });
 });

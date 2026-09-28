@@ -15,10 +15,17 @@ import type { CompletionComment } from './completion-comments.js';
 import type { ContentLeg } from './content-binding.js';
 import { contentReaderFor, gitPatchIdOf, type PatchIdOf } from './content-reader.js';
 import { defaultExpectedReviewers } from './expected-reviewers.js';
-import { COMMENTS_QUERY, COMMITS_QUERY, harvestArgs, REVIEWS_QUERY } from './harvests.js';
+import {
+  COMMENTS_QUERY,
+  COMMITS_QUERY,
+  harvestArgs,
+  REQUESTS_QUERY,
+  REVIEWS_QUERY,
+} from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
 import { hasLanded } from './reviewer-legs.js';
 import { readReviewRunsLeg } from './review-runs.js';
+import { commentRequests, parseRequestsHarvest } from './round-requests.js';
 import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
 import {
   parseReviewsHarvest,
@@ -30,9 +37,10 @@ import type { PrStateReading } from './state-types.js';
 
 /**
  * The gh IO composition for `pr state`: one extended `pr view` call, the
- * review-threads GraphQL slurp (shared with `pr-watch`), three FULL paginated
+ * review-threads GraphQL slurp (shared with `pr-watch`), four FULL paginated
  * harvests — `reviews` (the reviewer-leg source, never the `latestReviews`
- * pointer), `comments` and `commits` (the completion-comment sources) — and
+ * pointer), `comments` and `commits` (the completion-comment sources), and
+ * the request events (the rounds a review bound by content waits for) — and
  * the `gh agent-task` review-run legs, composed into one {@link PrStateReading}.
  *
  * The expected reviewer set is a DECLARED input (`expectedReviewers`); when
@@ -108,7 +116,7 @@ function readHarvest<Parsed>(input: {
   }
 }
 
-// The three full-history harvests the reading composes from.
+// The four full-history harvests the reading composes from.
 function readHarvests(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
@@ -134,6 +142,12 @@ function readHarvests(input: {
       label: 'commits',
       parse: parseCommitsHarvest,
     }),
+    requests: readHarvest({
+      ...input,
+      query: REQUESTS_QUERY,
+      label: 'review requests',
+      parse: parseRequestsHarvest,
+    }),
   };
 }
 
@@ -145,6 +159,7 @@ function composeReading(input: {
   readonly view: ParsedStateView;
   readonly comments: readonly CompletionComment[];
   readonly commits: readonly string[];
+  readonly requests: PrStateReading['roundRequests'];
   readonly reviewThreads: PrStateReading['reviewThreads'];
   readonly reviews: PrStateReading['reviews'];
   readonly reviewRuns: PrStateReading['reviewRuns'];
@@ -165,6 +180,7 @@ function composeReading(input: {
     ...input.view,
     reviewThreads: input.reviewThreads,
     reviews: input.reviews,
+    roundRequests: [...input.requests, ...commentRequests(input.comments)],
     completionComments,
     reviewRuns: input.reviewRuns,
     expectedReviewers,
@@ -177,7 +193,7 @@ function composeReading(input: {
  * Fetch the `pr state` gh surfaces and compose the compound reading.
  *
  * @throws when the primary `pr view`, review-threads, or any of the reviews,
- *   comments or commits harvests fail (a verdict without them would be a
+ *   comments, commits or review-request harvests fail (a verdict without them would be a
  *   guess); only the agent-task leg degrades typed.
  */
 // The compound reading must bind ONE tip: a push landing between the view
@@ -207,7 +223,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         'api graphql reviewThreads',
       ),
     );
-    const { reviews, comments, commits } = readHarvests({ run, gh, prNumber, repo });
+    const { reviews, comments, commits, requests } = readHarvests({ run, gh, prNumber, repo });
     const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number, prUrl: view.url });
     // The confirm read closes the race window; on a match it is also the
     // freshest same-tip snapshot, so the reading composes from it.
@@ -217,6 +233,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         view: confirm,
         comments,
         commits,
+        requests,
         reviewThreads,
         reviews,
         reviewRuns,

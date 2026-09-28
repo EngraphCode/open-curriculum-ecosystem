@@ -1056,7 +1056,13 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    a hunk's context lines changes the patch. `pr state` names the inference
    in the leg's evidence, and a commit whose content it cannot read binds
    exactly or not at all. A review bound only by content does not stand in
-   for a round requested on the tip: the leg waits for that round. The limit is a decision: a base change outside
+   for a round requested of its reviewer at or after it: a pending request,
+   a review-request or ready-for-review event, or an `@codex review`
+   comment (GitHub's pending requests never list a bot, so `pr state` reads
+   the rounds from the pull request's history). The leg waits for that
+   round. The door does not wait for an unrequested run, such as Codex's
+   own review of a push: a result it lands after the merge is a post-merge
+   finding, fixed forward. The limit is a decision: a base change outside
    the patch that alters what the pull request's code does still binds,
    and the synced head's checks cover it
    (`agent-tools/src/pr-watch/content-binding.ts`). An EMPTY body satisfies nothing: replying to a review

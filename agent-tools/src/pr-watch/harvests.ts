@@ -49,6 +49,26 @@ export const COMMITS_QUERY = `query($owner: String!, $name: String!, $number: In
   }
 }`;
 
+/**
+ * The request events in full: each review request (GitHub's pending
+ * `reviewRequests` never lists a bot) and each ready-for-review event, the
+ * rounds a review bound by content waits for (`round-requests.ts`).
+ */
+export const REQUESTS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], first: 100, after: $endCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          __typename
+          ... on ReviewRequestedEvent { createdAt requestedReviewer { __typename ... on User { login } ... on Bot { login } ... on Mannequin { login } ... on Team { slug } } }
+          ... on ReadyForReviewEvent { createdAt }
+        }
+      }
+    }
+  }
+}`;
+
 /** The `gh api graphql --paginate --slurp` argv for one harvest query. */
 export function harvestArgs(query: string, prNumber: string, repo: string | undefined): string[] {
   const [owner, name] = repo === undefined ? ['{owner}', '{repo}'] : repo.split('/');

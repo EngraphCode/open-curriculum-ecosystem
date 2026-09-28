@@ -36,6 +36,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
     reviewThreads: { total: 4, unresolved: 0 },
     autoMergeArmed: false,
     reviewRequests: [],
+    roundRequests: [],
     expectedReviewers: [COPILOT],
     expectedDeclared: true,
     reviews: [

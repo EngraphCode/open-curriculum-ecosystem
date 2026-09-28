@@ -1,6 +1,6 @@
 import { quoteOf } from './completion-comments.js';
 import { bindingNote, reviewBinds } from './content-binding.js';
-import { normaliseLogin } from './reviewer-legs.js';
+import { normaliseLogin } from './logins.js';
 import type { BlockingLegVerdict, HarvestedReview, ReviewerLeg } from './reviewer-legs.js';
 import type { PrStateReading } from './state-types.js';
 

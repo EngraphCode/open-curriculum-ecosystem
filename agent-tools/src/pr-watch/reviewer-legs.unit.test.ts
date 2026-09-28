@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { computeReviewerLegs, isSignedSelfReply, mostBlockingLeg } from './reviewer-legs.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 import { NO_CONTENT, type ContentLeg } from './content-binding.js';
+import type { RoundRequest } from './round-requests.js';
 
 /**
  * Per-(reviewer, tip) leg computation per the pr-lifecycle SKILL's review-round
@@ -27,10 +28,16 @@ function review(overrides: Partial<HarvestedReview>): HarvestedReview {
   };
 }
 
-const base: { headRefOid: string; content: ContentLeg; checksGreenAt: string | null } = {
+const base: {
+  headRefOid: string;
+  content: ContentLeg;
+  checksGreenAt: string | null;
+  roundRequests: readonly RoundRequest[];
+} = {
   headRefOid: TIP,
   content: NO_CONTENT,
   checksGreenAt: '2026-07-21T11:50:00Z',
+  roundRequests: [],
 };
 
 describe('computeReviewerLegs', () => {

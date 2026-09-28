@@ -111,14 +111,20 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
   return view;
 }
 
+const emptyConnection = (connection: string): string =>
+  JSON.stringify([{ data: { repository: { pullRequest: { [connection]: { nodes: [] } } } } }]);
+
+// Each harvest query, by the connection it reads; any other query reads reviews.
+const GRAPHQL_ANSWERS: readonly (readonly [string, () => string])[] = [
+  ['reviewThreads', threadsPayload],
+  ['comments(', () => emptyConnection('comments')],
+  ['timelineItems(', () => emptyConnection('timelineItems')],
+  ['commits(', commitsPayload],
+];
+
 function graphqlPayload(query: string | undefined): string {
-  if (query?.includes('reviewThreads') === true) {
-    return threadsPayload();
-  }
-  if (query?.includes('comments(') === true) {
-    return JSON.stringify([{ data: { repository: { pullRequest: { comments: { nodes: [] } } } } }]);
-  }
-  return query?.includes('commits(') === true ? commitsPayload() : reviewsPayload();
+  const answer = GRAPHQL_ANSWERS.find(([marker]) => query?.includes(marker) === true);
+  return answer === undefined ? reviewsPayload() : answer[1]();
 }
 
 function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecutor {
