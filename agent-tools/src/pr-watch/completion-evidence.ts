@@ -63,7 +63,7 @@ export function completionRefusals(
     .filter((comment) => open.has(normaliseLogin(comment.author)))
     .map((comment) => ({
       author: comment.author,
-      line: `${comment.author}: completion comment ${comment.id} at ${comment.createdAt} refused — ${comment.precondition}; "${comment.quote}"`,
+      line: `${comment.author}: completion comment ${comment.id} at ${comment.reportedAt} refused — ${comment.precondition}; "${comment.quote}"`,
     }));
   return [...stale, ...failed];
 }
