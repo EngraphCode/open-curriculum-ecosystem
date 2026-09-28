@@ -300,7 +300,8 @@ steps below were run end to end on Windows 11 in August 2026.
    instructions apply unchanged (for Node, run `nvm install 24` — the version
    `.nvmrc` pins; the repo is not cloned until step 6, so there is no
    `.nvmrc` for a bare `nvm install` to read yet, and `nvm use` inside the
-   repo confirms the match after cloning). Install pnpm per
+   repo confirms the match after cloning; the shellcheck installer likewise
+   waits for the clone, and runs in [Install and verify](#install-and-verify)). Install pnpm per
    [Prerequisites](#prerequisites) — `curl -fsSL https://get.pnpm.io/install.sh | sh -`,
    then open a new shell or `source ~/.bashrc`; the standalone install at
    `~/.local/share/pnpm` is one of the trusted locations the hooks resolve pnpm

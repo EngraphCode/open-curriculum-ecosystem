@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-02-25
-**Updated**: 2026-09-04
+**Updated**: 2026-09-28
 **Related**: [ADR-013 (Husky and lint-staged)](013-husky-and-lint-staged.md), [ADR-043 (Type Generation in Build and CI)](043-codegen-in-build-and-ci.md), [ADR-111 (Secret Scanning Quality Gate)](111-secret-scanning-quality-gate.md), [ADR-147 (Browser Accessibility)](147-browser-accessibility-as-blocking-quality-gate.md), [ADR-161 (Network-Free PR Checks)](161-network-free-pr-check-ci-boundary.md), [ADR-174 (Dependency Vulnerability Scanning)](174-dependency-vulnerability-scanning-quality-gate.md), [ADR-204 (Merge-Gate Strategy)](204-merge-gate-strategy-require-up-to-date-not-merge-queue.md)
 
 ## Context
@@ -142,6 +142,28 @@ and audit action. It is idempotent after the first clean run — unless
 someone rewrites history (which is prohibited), re-scanning full history
 adds no enforcement value. It is not part of any routine gate surface.
 
+### Pinned system binaries
+
+Two gates run a system binary, not a package dependency: `secrets:scan` runs
+gitleaks and `lint:shell` runs shellcheck. CI installs each at a pinned version
+and checks the sha256 of its release asset before extracting it, so the gate
+runs the binary the repository chose:
+
+- `secret-scan` installs gitleaks, its digest inline in
+  `.github/workflows/ci.yml`.
+- `static-checks` runs `.agent/setup/install-shellcheck.sh`, which holds a
+  digest for each host it supports.
+
+Locally, a contributor installs gitleaks as a prerequisite (README). The
+shellcheck installer writes the ignored `.tools/bin` of each checkout, which
+the gate runs before `PATH`; the gate asks the binary it runs for its version
+and fails, naming the installer, when it is not the pin.
+
+These downloads provision a tool before a check runs; neither is a check that
+reaches a network to prove its claim, and the content pin fixes what they
+deliver. ADR-161 §Provisioning is not a check, amended in lockstep, records why
+such a step sits outside its boundary.
+
 ### Design principles
 
 1. **Pre-push === CI is the target invariant** — pre-push and CI should run the same check set wherever the check is locally reproducible. A
@@ -244,7 +266,8 @@ type-check lint test test:e2e test:ui`), then `depcruise`,
   change): `secret-scan` (pinned, checksummed
   gitleaks binary — no Docker fallback), `install` (warms the pnpm store cache so
   downstream jobs install offline), `static-checks` (`format-check:root`,
-  `markdownlint-check:root`, `lint:shell`, `subagents:check`, `portability:check`,
+  `markdownlint-check:root`, `lint:runtime-only`, `lint:shell` after the pinned
+  shellcheck install (§Pinned system binaries), `subagents:check`, `portability:check`,
   `repo-validators:check`, `skills:check`, `encoding:check`), `build` (`sdk-codegen` + `build`, warms the Turbo
   remote cache), `unit-tests` (`type-check`, `lint`, `test`), `knip-depcruise`
   (`knip:gate`, `depcruise`),
@@ -291,3 +314,4 @@ type-check lint test test:e2e test:ui`), then `depcruise`,
 | 2026-07-15 | Expanded internal-link validation from Markdown-file targets to every internal file and directory target, and made tracked-source to untracked-target references blocking under PDR-105's availability invariant. Removed checkout-local collaboration state from the stable-address allowlist and repaired the live documentation estate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | 2026-07-20 | knip invocation replaced by `pnpm knip:gate` (`repo-check knip-gate`) on all four surfaces (pre-commit, pre-push, CI `knip-depcruise` job, `pnpm check`). knip exits 0 after a swallowed per-workspace config-load crash (F-147), so a crashed analysis could read as a pass; the gate wrapper re-runs knip, detects the crash-class output, and fails. The check SET is unchanged — this hardens the existing knip row's invocation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | 2026-09-04 | Added the `schema-drift` row (pre-push advisory under `\|\| true`; CI advisory) and recorded the advisory pair `schema-drift` / `schema-drift-status` as the first `ci.yml` jobs deliberately outside the `run-quality-gates` fan-in (MCP-626: the drift verdict now renders on the step summary, a warning annotation, and an informational commit status published from a job that runs no PR-controlled code). Named two consequences as follow-ups: the check-CI parity validator's every-job-gates premise, and PR-watch tooling reading an advisory red row as blocking. The gate SET is unchanged.                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-09-28 | `lint:shell` became the pinned shellcheck gate (`repo-check shellcheck-tracked`) over every tracked shell script outside the vendored skills `skills-lock.json` pins, and CI's `static-checks` installs the pin by sha256 before it runs (the gate landed with its installer and CI step; this entry records it). Added §Pinned system binaries: the pattern the gitleaks and shellcheck gates share, and ADR-161 amended in lockstep (§Provisioning is not a check) to record why their downloads sit outside its boundary. Named `lint:runtime-only` in the CI bullet, where static-checks already ran it. The gate SET is unchanged.                                                                                                                                                                                                                                                                                                                                                                 |

@@ -352,6 +352,7 @@ substantial work — not only the primary checkout:
 ```bash
 pnpm install
 pnpm build
+.agent/setup/install-shellcheck.sh
 ```
 
 `type-check` and `vitest` pass on install alone, so the gap stays silent until
@@ -375,8 +376,18 @@ the worktree. Read the log before assuming a known flake — this failure is
 not the oauth-proxy concurrency flake. Read the failing job's own error lines
 before calling any check a defect or a flake: the fan-in job goes red with any
 failed leg and names no cause of its own (a font-loader flake read as the
-diff's fault, 2026-09-25). Full fresh-worktree setup is install,
-build, AND the Playwright browser install before the browser-test gates run.
+diff's fault, 2026-09-25).
+
+`pnpm install` does not install shellcheck either. The shell lint gate runs at
+every commit, and `.agent/setup/install-shellcheck.sh` installs the pinned
+version into the worktree's ignored `.tools/bin`. Without it the gate falls back
+to the shellcheck on `PATH`, which passes only while that one is the pinned
+version, so every worktree without its own `.tools/bin` fails at once when the
+`PATH` copy is upgraded.
+
+Full fresh-worktree setup is install, build, the pinned shellcheck before the
+first commit, AND the Playwright browser install before the browser-test gates
+run.
 
 The collaboration substrate is also unseeded on a fresh checkout: the
 instance-tier state files are untracked-by-design (ADR-199 / PDR-094). The
