@@ -74,9 +74,11 @@ review contract.
    lowercase-start subjects (commitlint).
 4. `git fetch origin <default>`, then merge `origin/<default>` INTO the
    branch, where `<default>` is the repository's default branch
-   (`git remote set-head origin --auto`, then `git symbolic-ref --short
-   refs/remotes/origin/HEAD` prints `origin/<default>`; a clone made before
-   the default branch changed still names the old one until the refresh).
+   (read from the remote and fetched first, then `git remote set-head
+   origin --auto`, as `cut-coordination-branch` does; `git symbolic-ref
+   --short refs/remotes/origin/HEAD` then prints `origin/<default>`; a clone
+   made before the default branch changed still names the old one until the
+   refresh).
    Resolve the ref to a full sha in the same shell call as the merge, merge
    that sha, and write the merge message AFTER resolving, from
    `git log <head>..<sha>`: a remote-tracking ref moves whenever any hook or
@@ -142,9 +144,10 @@ review contract.
 
    ```bash
    FOLDED="$(git branch --show-current)"
+   NAME="$(git ls-remote --symref origin HEAD | sed -n 's#^ref: refs/heads/\(.*\)\tHEAD$#\1#p')"
+   git fetch origin "${NAME}:refs/remotes/origin/${NAME}"
    git remote set-head origin --auto
    DEFAULT="$(git symbolic-ref --short refs/remotes/origin/HEAD)"
-   git fetch origin "${DEFAULT#origin/}"
    BASE="$(git rev-parse "$DEFAULT")"
    git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
    git push -u origin HEAD
@@ -161,8 +164,11 @@ review contract.
    the proof and the delete:
 
    ```bash
-   git ls-remote --exit-code origin "refs/heads/$FOLDED" > /dev/null
-   PROBE=$?
+   if git ls-remote --exit-code origin "refs/heads/$FOLDED" > /dev/null; then
+     PROBE=0
+   else
+     PROBE=$?
+   fi
    if [ "$PROBE" -eq 0 ]; then
      git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED" &&
        git merge-base --is-ancestor "$FOLDED" "$BASE" &&
@@ -176,8 +182,9 @@ review contract.
    ```
 
    The probe exits 0 when the branch is on the remote, 2 when it is gone,
-   and anything else on a failed read. The block exits 0 only when the
-   proof holds, and any other status stops the cut. A branch gone
+   and anything else on a failed read; the `if` captures that status, so a
+   shell with errexit set still reaches the absent path. The block exits 0
+   only when the proof holds, and any other status stops the cut. A branch gone
    from the remote counts as deleted: its stale tracking ref is pruned, and
    only the local proof runs. Then delete it locally by plain branch
    deletion, and, when the probe found it, remotely by the bot's API delete
