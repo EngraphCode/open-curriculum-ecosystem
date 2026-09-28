@@ -5,7 +5,8 @@
  *
  * `pull`: bring a profile that is a git repository with a remote up to date
  * (fetch, fast-forward, else a plain merge; conflicts are surfaced for a
- * union resolution). `push --message <m>`: run the profile check, then
+ * union resolution). `push --message <m>`: during a merge, refuse a
+ * document still marked by its conflict; run the profile check; then
  * commit and push the operator's ratified writes under the operator's own
  * git identity. Both are no-ops that say so when the root is absent, is
  * not a repository, or has no remote — all first-class states of the
@@ -28,6 +29,7 @@ import {
   remoteNames,
   type GitRunner,
 } from './operator-profile-git.js';
+import { mergeGuard } from './operator-profile-git-merge.js';
 import { pushProfile } from './operator-profile-git-push.js';
 import {
   existingProfilePaths,
@@ -131,6 +133,16 @@ function report(outcome: Result<string, string>): number {
 }
 
 async function runPush(root: string, run: GitRunner, message: string): Promise<number> {
+  const paths = await existingProfilePaths(root);
+  if (!paths.ok) {
+    return report(paths);
+  }
+  // Mid-merge, a conflict marker in a document's frontmatter also fails the
+  // profile check; the merge guard names the document and its cure first.
+  const merge = mergeGuard(run, paths.value);
+  if (!merge.ok) {
+    return report(merge);
+  }
   const refused = await nonConformingDocuments(root);
   if (!refused.ok) {
     return report(refused);
@@ -141,10 +153,6 @@ async function runPush(root: string, run: GitRunner, message: string): Promise<n
         `the profile does not conform (${refused.value} document${refused.value === 1 ? '' : 's'} refused) — run pnpm profile:check, fix, then push`,
       ),
     );
-  }
-  const paths = await existingProfilePaths(root);
-  if (!paths.ok) {
-    return report(paths);
   }
   return report(pushProfile(run, message, paths.value));
 }
