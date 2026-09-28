@@ -111,17 +111,51 @@ product deliverables (ADR-125 §Skill classes and validation jurisdiction), and 
 README (`plugins/oak-open-curriculum-chatgpt/README.md`) records how a shared
 skill is copied there and gated.
 
-**Always create the canonical file first** under `.agent/`, then add platform
-adapters, then run `pnpm portability:check`. Every canonical rule must cite
-the ADR(s) it operationalises with a leading "Operationalises ADR-NNN" line
-(ADR-131 §Self-Referential Property). A new rule is four files plus its index
-row: the canonical `.agent/rules/<name>.md`, the `.claude/rules/` and
-`.agents/rules/` pointer adapters, the `.cursor/rules/<name>.mdc` adapter
-(with `alwaysApply` and a `description`), and a `RULES_INDEX.md` row (core or
-situational, alphabetical; a core row's trigger cell is the bare em dash).
-`pnpm portability:check` is the check for the set — run it before the push,
-not after the pre-push validator refuses (2026-09-09: one push refused for the
-two pieces the seat had not authored).
+**Always create the canonical file first** under `.agent/`, then generate the
+platform adapters (`pnpm portability:fix` for a rule, `pnpm skills:generate` for
+a skill); the pre-push hook runs `pnpm portability:check` over the set. A
+canonical rule names the ADR(s) or PDR(s) it operationalises in an
+"Operationalises …" line under its title (ADR-131's loop: new rules cite their
+source decision). A new rule is one authored file: the canonical
+`.agent/rules/<name>.md` with its frontmatter declaration —
+`classification: core` or `situational`; a one-line `description` that meets
+`skill-naming-and-description-quality`; and for a situational rule its
+`trigger` and, where the trigger is a file-surface match, its `globs` (the
+closed shape is `agent-tools/src/rule-declarations/rule-declaration.ts`).
+`pnpm portability:fix` renders its `RULES_INDEX.md` row and its
+`.cursor/rules/<name>.mdc`, `.claude/rules/<name>.md` and
+`.agents/rules/<name>.md` adapters from the declaration, and
+`pnpm portability:check` recomputes them byte for byte: none of the four is
+edited by hand, and a hand edit reads as drift (2026-09-09: one push refused for
+the two adapter pieces the seat had not authored; the generator retires that
+class).
+
+A `trigger` is one token from the four families a loader can recognise —
+`surface:<name or glob>` (a file surface; `globs` names its patterns),
+`tool:<name>` (a tool call or command class), `session:<shape>` (a session
+shape known at bootstrap) or `ceremony:<step>` (a named workflow step) —
+optionally followed by `—` and a short gloss; `globs` is a YAML list, empty
+when the trigger is not file-shaped. A core rule carries only
+`classification: core` and `description`. For example:
+
+```yaml
+---
+classification: situational
+description: One sentence of what the rule is for.
+trigger: surface:test-authoring — Authoring or editing a test
+globs:
+  - '**/*.test.ts'
+---
+```
+
+Classify `core` when in doubt; a rule is `situational` only when its trigger
+is precisely nameable as one of the four tokens and its substance would
+otherwise inflate the baseline directive load (`directive-file-context-budget`).
+Moving a rule between classifications is a `new-rule-vs-pdr-clause`-style
+decision with a commit explaining the change. Put the load-bearing compliance
+mechanics — the command, the ordering constraint, the thing that must be
+true — in the rule's trigger-first opening, where a truncated or non-loader
+read still reaches them; worked instances and rationale go below.
 
 **Landing a new skill is a two-gate operation, and the second gate may be
 owner-keyed.** Gate one: the canonical file plus its generated platform adapters

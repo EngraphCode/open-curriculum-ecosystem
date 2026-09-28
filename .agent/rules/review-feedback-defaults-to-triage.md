@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Review feedback on a shepherded PR is information, not an obligation - the default response to a verified finding is a written disposition routing it to a named home (the artefact's next verification point, an owning plan, a ticket); a cure in the PR lands only when the defect would mislead a consumer before that verification point or changes what gets built, and cures batch into declared settlement pushes rather than one push per finding. Governing contract: PDR-140. Named failure (PR #32, 2026-08-31): eleven bot-review rounds at a flat cycle price buying polish already guarded at pickup."
+trigger: ceremony:pr-lifecycle
+---
+
 # Review feedback defaults to triage, never to a cure-push
 
 Review feedback on a PR is information about the artefact, not an

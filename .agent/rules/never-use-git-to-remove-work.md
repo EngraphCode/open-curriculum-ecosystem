@@ -1,3 +1,8 @@
+---
+classification: core
+description: Never use git to remove work. Move forward via filesystem changes; git is for committed history only.
+---
+
 # Never Use Git to Remove Work
 
 **TRIGGER — the rule fires on TREE STATE plus COMMAND, never on intent:**

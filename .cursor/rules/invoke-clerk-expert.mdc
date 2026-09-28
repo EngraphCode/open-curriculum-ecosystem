@@ -5,5 +5,3 @@ alwaysApply: false
 ---
 
 Read and follow `.agent/rules/invoke-clerk-expert.md`.
-
-In Cursor, use the Task tool with `readonly: true` and `subagent_type: clerk-expert`.

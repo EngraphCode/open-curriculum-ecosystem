@@ -1,3 +1,8 @@
+---
+classification: core
+description: At design, shaping, or constraint-writing moments, state the impact first and design from it — never build inside or preserve the existing system's shape because it exists (the cowpath). Discriminate artifact gravity (negative) from revealed usage (desire path, positive at the right altitude); treat existing artefacts as malleable design surface; an inherited separation may be the bug; attribute system properties to the system, not the owner.
+---
+
 # Design From Impact, Not the Cowpath
 
 Operationalises [`principles.md` §Decision Lenses](../directives/principles.md#decision-lenses--order-of-resolution)

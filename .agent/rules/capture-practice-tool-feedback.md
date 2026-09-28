@@ -1,3 +1,8 @@
+---
+classification: core
+description: Capture Practice and host-local tooling friction, insights, ideas, wishlist items, surprises, and general impressions in the napkin while they are fresh.
+---
+
 # Capture Practice Tool Feedback
 
 Operationalises

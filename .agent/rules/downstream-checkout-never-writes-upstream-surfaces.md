@@ -1,3 +1,8 @@
+---
+classification: core
+description: A seat on a downstream checkout (fork, mirror, an organisation running the tree as its own) never reads the upstream repository's surfaces without the owner's permission (the one standing grant is a read-only upstream fetch) and never writes to them; every repository-scoped call names its repository explicitly, the checkout's own by default; the PR base is the repository's default branch, derived at the moment of use, never a literal.
+---
+
 # Downstream Checkout Never Writes Upstream Surfaces
 
 Operationalises

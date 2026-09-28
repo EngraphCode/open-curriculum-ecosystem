@@ -1,3 +1,8 @@
+---
+classification: core
+description: --no-verify (and equivalent hook-skip flags) requires fresh per-invocation owner authorisation. Never default-skip Git hooks.
+---
+
 # --no-verify Requires Fresh Authorisation
 
 Operationalises [`.agent/directives/principles.md` § Code Quality](../directives/principles.md) — *"Never disable any quality gates, never disable Git hooks (`--no-verify`)"*.

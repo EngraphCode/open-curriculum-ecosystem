@@ -1,3 +1,8 @@
+---
+classification: core
+description: In team sessions, route permission blocks, mechanical refusals, and unresolved questions to the sitting Director as directed events and keep working; the Director resolves via the Decision Lenses and the owner sees only matrix survivors. Never ask the owner for in-session intervention — bundle re-routing is the cure.
+---
+
 # Route Blocks and Questions to the Director, Never the Owner
 
 In a team session, the sitting Director is the single escalation interface.

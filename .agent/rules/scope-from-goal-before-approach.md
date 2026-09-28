@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before approach and before declaring done, restate the goal and derive the full relevant surface set — emit a proportionate Goal/In/Out artefact; the pointer is evidence about the goal, not the task
+---
+
 # Scope From the Goal Before Approach
 
 Operationalises [PDR-103](../practice-core/decision-records/PDR-103-scope-from-goal-before-approach.md).

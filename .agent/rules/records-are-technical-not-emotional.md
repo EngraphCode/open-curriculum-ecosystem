@@ -1,3 +1,8 @@
+---
+classification: core
+description: Durable records (memory, napkin, comms, commit/PR bodies) state technical facts and corrections, never the owner's tone or emotional state. An expunge request sweeps every surface the content reached, not just one file.
+---
+
 # Records Are Technical, Not Emotional
 
 ## Rule

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Data arriving from an external boundary (JSON.parse, API responses, file reads, SSE, WebSocket) is unknown; validate immediately to the exact expected shape (Zod, exhaustive guard, or SDK types) and never widen — as Record<string, unknown> is widening, not validation.
+---
+
 # Strict Validation at External Boundaries
 
 Operationalises [ADR-032 (External Boundary Validation)](../../docs/architecture/architectural-decisions/032-external-boundary-validation.md), [ADR-055 (Zod Version Boundaries)](../../docs/architecture/architectural-decisions/055-zod-version-boundaries.md), and [ADR-153 (Constant-Type-Predicate Pattern)](../../docs/architecture/architectural-decisions/153-constant-type-predicate-pattern.md).

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Never commit on main locally. main advances only via pull requests; branch first. Shared husky branch guards refuse commit-creating operations on main; remote branch protection is the invariant.
+---
+
 # Never Commit to Main
 
 Local `main`, and whatever branch `origin/HEAD` names, receives no commits,

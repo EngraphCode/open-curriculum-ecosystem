@@ -1,3 +1,9 @@
+---
+classification: situational
+description: At team session bootstrap, after the comms watcher and before the team-start broadcast, arm a 4-minute loop emitting BOTH the comms heartbeat event AND claims heartbeat for every held claim each tick via the persistent Monitor primitive, never CronCreate (idle-only firing goes dark when busiest). Relabel at lane transitions; solo and standby seats suspend under the consumer-absent exemption. Silence past 10 minutes opens retired-pending-confirmation, never a verdict. Failure shapes — a comms-only loop leaving the claim registry stale; an emitter heartbeating through a suspended harness.
+trigger: session:team — Team session bootstrap
+---
+
 # Liveness Heartbeat Cron
 
 Liveness is observable, or it is not. Where the

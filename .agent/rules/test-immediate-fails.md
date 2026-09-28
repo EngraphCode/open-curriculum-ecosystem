@@ -1,3 +1,11 @@
+---
+classification: situational
+description: Test immediate-fail checklist. Any single violation rejects the test; first-pass screen before any deeper analysis.
+trigger: surface:test-authoring
+globs:
+  - "**/*.test.ts"
+---
+
 # Test Immediate-Fails Checklist
 
 Any single item below is an **immediate fail** — the test is rejected

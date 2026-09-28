@@ -1,3 +1,12 @@
+---
+classification: situational
+description: Invoke mcp-expert when changes touch MCP protocol, MCP Apps Extension widgets, MCP tool/resource/prompt definitions, transport/session patterns, or MCP Apps migration work.
+trigger: surface:mcp-protocol — MCP tool/resource/prompt definition or transport/session pattern change
+globs:
+  - apps/oak-curriculum-mcp-streamable-http/**
+  - "**/*mcp*"
+---
+
 # Invoke MCP Expert
 
 Operationalises [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md), [ADR-123 (MCP Server Primitives Strategy)](../../docs/architecture/architectural-decisions/123-mcp-server-primitives-strategy.md), and [ADR-141 (MCP Apps Standard as Only UI Surface)](../../docs/architecture/architectural-decisions/141-mcp-apps-standard-primary.md).
