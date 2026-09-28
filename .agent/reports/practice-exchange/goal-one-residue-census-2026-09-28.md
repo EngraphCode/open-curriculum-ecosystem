@@ -151,3 +151,15 @@ before J2, since J2 shares its tracked-universe read), then J16 (riding N1), J20
 rider), the partials' remainders (J3, J10, J17, J18, J21), the lessons and the comparison, the
 re-pin last. At the observed pace (nine landings a day by two seats) the residue is three to
 four days of the exchange seat's lane at one PR per landing turn.
+
+## Recounts
+
+The register's flow contract (the second estate's node, ruling 43, 2026-09-28) counts in residue
+pull requests and recounts when a row's design read changes its slicing. Each recount is dated
+here; the register carries the current total.
+
+- 2026-09-28 18:3xZ: J3's design read (the second estate's seat, a port plan under code review)
+  split its one slice into three lineage pull requests: the repo-check module cures from the
+  second estate's PR 232; the script cures with the bash-floor guard; the shellcheck gate with
+  its installer, CI step and docs. J3 reads 3, the residue 22, all 26 (the Director's word of
+  18:3xZ: "J3 runs as three lineage PRs and the register's residue count follows the design").
