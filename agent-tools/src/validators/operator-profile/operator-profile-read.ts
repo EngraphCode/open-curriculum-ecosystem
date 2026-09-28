@@ -14,30 +14,17 @@
  * shares it.
  */
 
-import { type BigIntStats, constants } from 'node:fs';
+import { type BigIntStats } from 'node:fs';
 import { type FileHandle, lstat, open } from 'node:fs/promises';
 
 import { err, ok, type Result } from '@oaknational/result';
+
+import { HOST_ENFORCES_NO_FOLLOW, NO_FOLLOW_READ_FLAGS } from '../../core/no-follow-read.js';
 
 /** The code a filesystem failure carries, or `unknown` when it carries none. */
 export function errorCode(cause: unknown): string {
   return cause instanceof Error && 'code' in cause ? String(cause.code) : 'unknown';
 }
-
-/**
- * `O_NOFOLLOW` and `O_NONBLOCK` where the platform defines them. Node types
- * both as always present; Windows has neither, so there the post-open
- * identity check below is the no-follow guard (Windows has no fifo to block
- * on).
- */
-const hostFlags: Partial<Record<'O_NOFOLLOW' | 'O_NONBLOCK', number>> = {
-  O_NOFOLLOW: constants.O_NOFOLLOW,
-  O_NONBLOCK: constants.O_NONBLOCK,
-};
-
-/** The open flags a document is read with: read-only, never through a symlink, never blocking. */
-const DOCUMENT_OPEN_FLAGS: number =
-  constants.O_RDONLY | (hostFlags.O_NOFOLLOW ?? 0) | (hostFlags.O_NONBLOCK ?? 0);
 
 /** What the identity check needs of a stat: regular-file flag, device and inode. */
 export type EntryIdentity = Pick<BigIntStats, 'isFile' | 'dev' | 'ino'>;
@@ -59,7 +46,7 @@ export interface ReadProbes {
 }
 
 const REAL_PROBES: ReadProbes = {
-  noFollowAtOpen: hostFlags.O_NOFOLLOW !== undefined,
+  noFollowAtOpen: HOST_ENFORCES_NO_FOLLOW,
   entryStat: (absolute) => lstat(absolute, { bigint: true }),
 };
 
@@ -92,7 +79,7 @@ export async function readDocument(
 ): Promise<Result<string, string>> {
   let opened: DocumentHandle;
   try {
-    opened = await openDocument(absolute, DOCUMENT_OPEN_FLAGS);
+    opened = await openDocument(absolute, NO_FOLLOW_READ_FLAGS);
   } catch (cause) {
     return err(unreadable(cause));
   }
