@@ -24,6 +24,16 @@ describe('runSmokeSuite', () => {
     expect(summary.lines.some((line) => line.includes('3 of 3 failed'))).toBe(true);
   });
 
+  it('carries a smoke killed by a signal into the report by its signal', async () => {
+    const killed = (): Promise<SmokeEnd> => Promise.resolve({ status: null, signal: 'SIGTERM' });
+
+    const summary = await runSmokeSuite(['a.smoke.ts'], killed);
+
+    const line = summary.lines.find((candidate) => candidate.includes('a.smoke.ts'));
+    expect(line).toContain('SIGTERM');
+    expect(summary.ok).toBe(false);
+  });
+
   it('starts each smoke only after the one before it has ended', async () => {
     const events: string[] = [];
     const slow = async (file: string): Promise<SmokeEnd> => {
