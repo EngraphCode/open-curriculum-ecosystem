@@ -320,7 +320,7 @@ a dated supersession note in
    notice fixtures; adversarial collector stdout).
 2. **Landing path** — validator in `repo-validators:check`; smokes in
    `agent-tools/smoke-tests/` wired via `test:e2e`
-   (`smoke:codex-session-alert-bootstrap` shape for the SessionStart
+   (`codex-session-alert-bootstrap.smoke.ts` shape for the SessionStart
    shim: build, spawn against a `mkdtemp` fixture root); shim stays
    `.mjs` thin IO with decision logic in tested TS.
 3. **Vendor literal / locus** — D7 values dated and one clause marked

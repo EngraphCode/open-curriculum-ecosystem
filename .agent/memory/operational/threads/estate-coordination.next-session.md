@@ -800,6 +800,28 @@ and before that fold's successor cut at 02:47Z, so it belongs to this branch's w
 The count reads 1 of 3 (250). The lineage slot order for the folds: a synced holder at its legs
 holds the slot to its door, first at its legs first; the fold takes the slot when none is.
 
+### 2026-09-28 14:0xZ — THE MIDDAY FOLD: #275 merged as cdd5b0463 at 14:04:13Z; the successor coordination/2026-09-28-cdd5b0 cut from post-fold engraph (Wick binds Temper, ed7b48)
+
+The lineage midday fold of 2026-09-28, run by the Director on the owner's "carry on" of 11:4xZ,
+after the pre-fold suite (48) and the pre-ready-mark records pass. The fold yielded the slot to
+280 as the synced holder at its legs (the one rule posted at 11:48Z) and took it at 12:2xZ; the
+convergence merge of engraph ab8976719 (PR 280's merge at 12:19:02Z; the landings 273, 276, 277,
+278, 279, 280 since the 02:47Z cut) pushed at 3ea5b75a1; the records pass's one over-bar cure,
+the thread record's resume entry (7eb6afba6); marked ready as the bot at 12:32:12Z, Copilot
+requested by the ruleset; round one four threads (three Fixed in push 1 of 2 at d5d8260d0: the
+successor base named, the 274 ordering made plain, the handoff pointer generic; one Routed to Nova,
+the 179.23 figure); round two on the re-synced head aebf5b82f (PR 250 landed at 13:18:16Z and
+knocked the fold BEHIND; Myrtle's records commit d206c20fa rode the re-sync, so Copilot was
+re-requested as the bot): one Codex thread on the review-cost ledger's retained-evidence count,
+Routed to Myrtle for a forward cure on the successor; the door on both legs after the bot's
+ten-minute quiet window; merged as cdd5b0463 at 14:04:13Z; the remote branch deleted by the bot,
+read back absent. The successor coordination/2026-09-28-cdd5b0 was cut at 14:07Z from post-fold
+origin/engraph cdd5b0463, tree-preservingly, the primary residing on it; this entry is its first
+commit; its draft PR is opened at once as the bot and named in the rotation broadcast, DUE at the
+rollover fold (00:00Z 2026-09-29). The count at the cut: 3 non-coordination PRs open across both
+estates (lineage 281 and 282, JC.net 240), the WIP limit; coordination drafts JC.net 241 and this
+branch's.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
