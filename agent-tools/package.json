@@ -43,6 +43,7 @@
     "codex-team-alert-bootstrap-generate": "tsx src/codex/team-alert-bootstrap-cli.ts",
     "skills-adapter-generate": "cd .. && tsx agent-tools/src/bin/skills-adapter-generate.ts --prefix=oak-",
     "repo-check": "cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts",
+    "gate-slot": "cd .. && pnpm exec tsx agent-tools/src/gate-slot/gate-slot.ts",
     "refound-freeze": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-freeze.ts",
     "refound-verify-freeze": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-verify-freeze.ts",
     "refound-inventory": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-inventory.ts",

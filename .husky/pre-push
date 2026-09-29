@@ -111,9 +111,17 @@ echo "🔤 Running build, type-check, lint, and tests..."
 # children must not inherit either. Unset the trio for the turbo child
 # only (same load-bearing narrow scope); turbo re-derives the repo from
 # cwd in every checkout shape. No gate is narrowed. Dated account: MCP-414.
+# The turbo step runs under a host gate slot (no-unbounded-host-load item 6):
+# at most two full gates run on the host at once, counted across every
+# estate that uses the slot, and one at a time in a working tree. A blocked
+# push waits and names the gates it waits for (`pnpm agent-tools:gate-slot
+# status` lists them); a step that holds a slot past thirty minutes is
+# stopped and fails. --fail-if-no-match: pnpm exits 0 without running
+# anything when a filter matches no project, which would skip the gate.
 if ! env -u GIT_DIR -u GIT_INDEX_FILE -u GIT_WORK_TREE \
+  pnpm --fail-if-no-match --filter @oaknational/agent-tools gate-slot run \
   pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
-  echo "❌ Turbo quality gate checks failed!"
+  echo "❌ Turbo quality gate checks failed, or the gate slot refused or gave up!"
   exit 1
 fi
 
