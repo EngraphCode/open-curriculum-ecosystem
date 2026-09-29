@@ -512,7 +512,7 @@ output under `dist`, derived at run time from the workspace manifests by
 them). A type error in one of those, the plugin mid-edit included, fails the
 install. So does a reached package with built entry points whose build script
 is not the bootstrap's one recipe (`BUILD_RECIPE` in
-`agent-tools/src/bootstrap/bootstrap.ts`), and a build that does not write a `dist/`
+`agent-tools/src/bootstrap/closure-member-build.ts`), and a build that does not write a `dist/`
 file its `package.json` entry points name: the install exits naming the
 package. A workspace dependency added to agent-tools, or to any package it
 reaches, enters the derivation at the next install and meets the same checks.
