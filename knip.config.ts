@@ -102,6 +102,7 @@ const config: KnipConfig = {
         'src/cursor/**/*.ts',
         'src/hook-policy/pre-tool-use-dispatch.ts',
         'src/repo-check/repo-check.ts',
+        'src/gate-slot/gate-slot.ts',
         'src/commit-advisories/check-commit-message.ts',
         'src/commit-advisories/check-commit-skill-advisories.ts',
         'src/workspace-census/cli.ts',

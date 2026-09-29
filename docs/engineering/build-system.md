@@ -308,6 +308,21 @@ Runs the root field-integrity harness:
 pnpm test:field-integrity
 ```
 
+### `pnpm agent-tools:gate-slot` - The host bound on full gates
+
+Each hook's turbo step runs under a host gate slot (`no-unbounded-host-load`
+item 6): the pre-commit's `build type-check lint test` run and the pre-push's
+`sdk-codegen build type-check lint test test:e2e test:ui` run. At most two full
+gates hold a slot on the host at once, counted across every estate that uses the
+slot's ports, and one at a time in a working tree. A blocked commit or push waits
+and names the gates it waits for, and `pnpm agent-tools:gate-slot status` lists
+the holders. A waiting commit holds its worktree's index lock. A wait gives up
+after an hour, and a step that holds a slot past thirty minutes is stopped and
+fails. The rest of each hook (the staged-file checks, `repo-validators:check`
+with its embedded codegen build, depcruise and knip) runs outside the slot. The
+slot needs POSIX process groups, so a gate on a native Windows host is refused;
+commit and push from WSL.
+
 ### Practice health commands
 
 ```bash
