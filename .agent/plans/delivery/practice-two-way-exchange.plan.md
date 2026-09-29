@@ -47,24 +47,28 @@ selected option verbatim, "Ratify as drafted (Recommended)", relayed by the Dire
 exchange seats; the charter's text is the second estate's record). In this node's words: the intake
 closes when every text the second estate offers is settled here (taken by bytes, or written in this
 estate's words) or declined with the reason recorded and sent back; a partial landing whose
-remainder the second estate's batch-six triage of 2026-09-25 (at its register) classes local or
-already at parity is settled by a §Landings row in that register citing the triage, not by a pull
-request; the Core's portability twins (the `practice-core-portability` rule and the gate that
-enforces it) have landed on both estates; the lessons batch and the sub-agent comparison (two offers
-the second estate's seat announced on the exchange stream and has not yet sent as rows) are
-delivered as offered rows, landed or declined; the second estate's pins (the opening heads of
-2026-09-21) are re-pinned to forty-character ids with the driver failing closed, and the re-pin
-recorded; and the count reads N of N beside both heads, with the close recorded in the second
-estate's node with the owner's word. The residue census of 2026-09-28
+remainder the second estate's batch-six triage of 2026-09-25 (at its exchange register: the second
+estate's ledger of every offered row's disposition, its §Landings rows and its count; this estate
+holds no copy) classes local or already at parity is settled by a §Landings row in that register
+citing the triage, not by a pull request (the row is the proof of one of the three outcomes below: a
+remainder already at parity is taken, by bytes or in words; a remainder classed local is Not taken,
+the triage's class its reason); the Core's portability twins (the `practice-core-portability` rule
+and the gate that enforces it) have landed on both estates; the lessons batch and the sub-agent
+comparison (two offers the second estate's seat announced on the exchange channel and had not sent
+as rows by 2026-09-28) are delivered as offered rows, landed or declined; the second estate's pins
+(the opening heads of 2026-09-21) are re-pinned to forty-character ids with the driver failing
+closed, and the re-pin recorded; and the count reads N of N beside both heads, with the close
+recorded in the second estate's node with the owner's word. The residue census of 2026-09-28
 (`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
 to land here by the register's rule of that day, 4 settled, 11 partial, 6 with no landing, 20
-residue pull requests (22 after J3's design read of 18:3xZ split its slice into three, 23 after
-J6's of 21:4xZ split its three into four; 27 in all with the charter's four acts), three cards for
-the owner, answered the same day (below). The census's first residue row, J1's N1 first slice (the
-rule generator with the frontmatter and the rendered rules index), landed as this estate's PR 291
-on 2026-09-28 by the exchange seat; the census orders the rest.
-Then the review of both Practices opens, outside goal one's close bar; the second estate's inbound
-landings from this estate stay its node's todo 4, after that review (the fourth answer below).
+residue pull requests, 24 in all with the charter's four acts (22 and 23 residue after J3's and J6's
+design reads, each dated in the census's Recounts section; 27 in all at its last entry of
+2026-09-28), three cards for the owner, answered the same day, with a fourth answer on the bar's
+scope (below). The census's first residue row, J1's N1 first slice (the rule generator with the
+frontmatter and the rendered rules index), landed as this estate's PR 291 on 2026-09-28 by the
+exchange seat; the census orders the rest. Then the review of both Practices opens, outside goal
+one's close bar; the second estate's inbound landings from this estate stay its node's todo 4, after
+that review (the fourth answer below).
 
 The owner's four answers of 2026-09-28, relayed by the Director, the selected options verbatim; the
 second estate's node records them as its rulings 41 to 44 (its pull request 255). (1) The second
@@ -80,18 +84,20 @@ run gates by hand", the five homes, the same bytes) and the second estate's mech
 (the gate slot `no-unbounded-host-load` item 6 prescribes, as note 4's pull request); note 1 settles
 by a register row citing that node, notes 4 and 8 keep their pull requests, and the census's card
 re-asked what the triage's own preamble had already read, recorded in the second estate's record
-against the seat that carded it. (3) The count: "What does owed mean? That sounds liked parked,
-which is forbidden for very good reason. Use the cognitive skills", then, on the Director's
-synthesis, "Ratify the flow contract and Nova's lane (Recommended)": the register's rule text loses
-"owed"; a row is landed, in flight, queued or declined and nothing else, each with its proof, its
-pull request or named lane, its position with its seat and horizon, or its reason; the count reads
-in residue pull requests (the census's 24, 26 after J3's recount), landed of total, beside both
-heads; a count that does not fall between two folds is routed as a failure, never re-labelled, and
-a row queued across two folds with no movement is routed. The seats, by the Director's order with
-the ratification: Nova turns Penumbra (8a94ba) on J6 (three pull requests) and J8 (two); Siren herds
-Rudder (158275) on J3's three and the register's settling rows; this seat on J1's N1, J2 and the
-other partials (J10, J17's notes 4 and 8, J18, J21). (4) The bar's scope: "Confirm: inbound stays
-in the node (Recommended)", read as above.
+against the seat that carded it. (3) The count: "What does owed mean?", the owner reading the word
+as a holding state, which the estate forbids, and "Use the cognitive skills", then, on the
+Director's synthesis, "Ratify the flow contract and Nova's lane (Recommended)": the register's rule
+text loses "owed"; a row is landed, in flight, queued or declined and nothing else, each with its
+proof, its pull request or named lane, its position with its seat and horizon, or its reason; the
+count reads in residue pull requests with the charter's four acts (the census's 24, 26 after J3's
+recount, 27 after J6's), landed of total, beside both heads; a count that does not fall between two
+folds is routed as a failure, never re-labelled, and a row queued across two folds with no movement
+is routed. The seats, by the Director's order with the ratification: Nova turns Penumbra (8a94ba, a
+lane seat on this estate at the Director's routing) on J6 (three pull requests at the order, four
+after its design read of the same day) and J8 (two); Siren herds Rudder (158275, the second estate's
+exchange seat) on J3's three and the register's settling rows; this estate's exchange seat (Myrtle
+turns Canopy, bf4957) on J1's N1, J2 and the other partials (J10, J17's notes 4 and 8, J18, J21).
+(4) The bar's scope: "Confirm: inbound stays in the node (Recommended)", read as above.
 
 ## User groups and value
 
