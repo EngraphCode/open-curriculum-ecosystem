@@ -190,7 +190,7 @@ export async function proveUnquotedPathSplits(command: string): Promise<void> {
       `the command with its quotes removed ended ${String(result.status ?? result.signal)}` +
         `${result.error === undefined ? '' : ` (${result.error.message})`}: ${result.stderr}`,
     );
-    const splitAt = project.slice(0, project.indexOf(' ', tmpdir().length));
+    const splitAt = project.slice(0, project.indexOf(' '));
     assert.ok(
       result.stderr.includes(`${splitAt}:`),
       `the shell did not name the project path cut at its first space (${splitAt}): ${result.stderr}`,
