@@ -17,9 +17,10 @@ describe('runSmokeSuite', () => {
       return Promise.resolve({ status: 1, signal: null });
     };
 
-    const summary = await runSmokeSuite(['a.smoke.ts', 'b.smoke.ts', 'c.smoke.ts'], failing);
+    // Out of name order, so a loop that re-sorts what it is given goes red.
+    const summary = await runSmokeSuite(['c.smoke.ts', 'a.smoke.ts', 'b.smoke.ts'], failing);
 
-    expect(ran).toStrictEqual(['a.smoke.ts', 'b.smoke.ts', 'c.smoke.ts']);
+    expect(ran).toStrictEqual(['c.smoke.ts', 'a.smoke.ts', 'b.smoke.ts']);
     expect(summary.ok).toBe(false);
     expect(summary.lines.some((line) => line.includes('3 of 3 failed'))).toBe(true);
   });
