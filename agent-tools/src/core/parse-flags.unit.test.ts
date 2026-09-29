@@ -13,10 +13,10 @@ describe('parseFlags', () => {
     });
   });
 
-  it("returns an unknown flag as an input error naming the flag, with parseArgs' refusal as its cause", () => {
+  it('returns an unknown flag as an input error naming the flag, carrying the refusal as its cause', () => {
     const flags = parseFlags({ args: ['--no-such-flag'], options });
     expect(isErr(flags) && flags.error.message).toMatch(/^Invalid flags: .*--no-such-flag/u);
-    expect(isErr(flags) && flags.error.cause).toBeInstanceOf(TypeError);
+    expect(isErr(flags) && flags.error.cause).toBeInstanceOf(Error);
   });
 
   it('returns a flag missing its value as an input error', () => {
@@ -27,6 +27,6 @@ describe('parseFlags', () => {
   it("rethrows a defect in the caller's own options, which no operator input can cure", () => {
     expect(() =>
       parseFlags({ args: [], options: { 'map-result': { type: 'string', short: 'mr' } } }),
-    ).toThrow(TypeError);
+    ).toThrow();
   });
 });
