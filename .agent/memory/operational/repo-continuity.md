@@ -515,6 +515,199 @@ contract, its §Recount run at 14:58Z and matching.
   claude-fable-5-1 --exclude-tag heartbeat`), the heartbeat loop on claim `cea45b59`, the runner
   from the lane worktree (`skill-evals run --skill <dir> --host-skill <name> --also ... --judge-model
   sonnet --max-cost-usd N`, detached, one comms event at its end).
+- **N1'S FIRST SLICE LANDED: PR 291 MERGED, 2026-09-28 20:1xZ to 23:43Z (Myrtle turns
+  Canopy, bf4957).** Merged by the bot as 7e4cf9b81 on engraph: 4f49ff86e (the port), 7de672b25 (a
+  pure sync), e2966c661 (settlement one: POSIX joins for the Windows leg, which had failed 31
+  tests against POSIX-keyed fakes; three Sonar findings cured at source; the parser's pipe case),
+  adecc4bcf (settlement two: the posted code-expert leg's six findings, the security pass's two
+  observations, the sweep's read-back with its test), 146f14ab3 (a pure sync after #290),
+  4b42a2432 (the one late-cure push, PDR-140 clause 4: Codex's four P1 findings on the ported
+  tests, cured under this estate's test rules with the test-expert's nine mutation proofs; the
+  stranded TSDoc). Legs: Codex on each tip; Copilot declared
+  unavailable on both estates by the Director at 20:4xZ (a lift at 21:02Z withdrawn at 21:04Z, an
+  error review on #290), so a code-expert review of the diff at e2966c661 was posted as the leg
+  with a confirm read at adecc4bcf, and the door ran with Codex as the only expectation on the
+  Director's word; the one Copilot re-request the word allowed went on adecc4bcf. Two more pure syncs (c4ddcaca5 after #292, 8fae75f45 after #293) and one
+  door refused THREADS-OPEN on a fifth Codex finding at the last sync (the projection fake calls
+  the leg's pure classifier: Rejected with rationale, the classifier is IO-free and part of the
+  leg under test; a copy would drift). Copilot's content review at 4b42a2432 (two medium findings:
+  the sweep reader's doubled apostrophe, no instance in the data; a trigger-grammar check):
+  Routed to the port-back and to N1's second slice. Codex's P2 (CRLF at the sweep's read seam):
+  Rejected, the estate pins LF. **Left as the
+  second estate's bytes, routed to the module's next byte-sync:** the `acted` records in the two
+  projection-fs tests, which mix the leg's mutations (the contract) with its queries. **Port-back list for the second estate, as the same bytes:** the
+  reader's block sequence and quote strip, the comma-list split, `RULES_INDEX_PROSE` (this
+  estate's), POSIX joins in five files, the three Sonar cures (the row parser splits cells; the
+  Cursor fields function; the classification set), `compareRuleNames` at four sort sites, the
+  headers, the sweep's read-back, the four reshaped tests. Remote branch deleted and read back 0 refs; worktree and local
+  branch removed; the claim closed. The register's J1 row and the count (2 of 27) go to the
+  second estate as their own pull request. Next: N1's second slice (the sub-agent leg; the plan is
+  written: a 24-file port of the second estate's `subagent-declarations` module replacing the
+  reviewer-adapter parity leg, 26 declarations minted by hand, nine reconciliations, four verdicts
+  for the Director first), J2, the partials in census order.
+- **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
+  20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
+  slices: the second estate's `rule-declarations` module as the same bytes under this estate's
+  names, the frontmatter on 130 rules minted by the sweep (11 reconciliations, in the body), the
+  portability validator's projection leg rendering the index and the three adapter sets, four
+  hand-kept legs and the `tests/rules` index suite gone. Commit 4f49ff86e (pure sync 7de672b25 on top, behind 5) on
+  `feat/rule-declarations-generator` from engraph c5dbce46e, both legs requested. Deviations
+  from the second estate's bytes, to port back as one change: the reader's block sequence and
+  quote strip, the comma-list split (`comma-list.ts`, this estate's line cap), the index prose;
+  the sweep entry's git seam and flag scanner are this estate's alone; `SUBAGENT_SUBJECT` waits
+  for slice 2. Reviewed before the commit: code-expert (pre and post), test-expert,
+  docs-adr-expert, onboarding-expert, config-expert, architecture-expert-fred. **Routed from the
+  architecture review, queued:** `collaboration-state/atomic-file.ts` has its second and third
+  product importer (`rule-declarations/sweep-fs.ts`, `validators/portability/rule-surface-fs.ts`)
+  and moves to `core/` with its test and a header, a two-estate change under same-bytes; the
+  rules directory and the index path are restated on the validator side
+  (`rule-projection-validation.ts`, `sweep-rule-frontmatter.ts`) of a boundary the module owns;
+  the sweep is deleted on both estates once every estate has minted (its README says so now);
+  the six direct `git ls-files` sites are a napkin entry with a lane. Next: slices 2 and 3, J2,
+  the partials in census order; the register's J1 row and count line at the door.
+- **THE SECOND ESTATE'S PR 255 LANDED: THE FLOW CONTRACT, THE COUNT LINE, SEVEN LANDING ROWS,
+  2026-09-28 18:4xZ to 19:3xZ (Myrtle turns Canopy, bf4957).** Merged by that estate's bot as
+  a9aa00d38 on its main: 273de601 (the register's vocabulary under the flow contract; the J22 #272,
+  J17, J22, J11, J15, J19 and J23 rows; rulings 41 to 44, todos 4 and 6), ddb09d98 (the recount to
+  26), 33b72f82f (Copilot's round one: the remainder, total less landed, falls between folds; J11's
+  loss-scan and J20's flags take a seat and the residue a horizon; the register's own count line,
+  1 of 26 at jcnet be6b5141be and lineage c5dbce46e6), fc86b707 with a pure sync (round two: todo
+  6's close condition covers the rows inside the count; J15's two path counts), 222eb70b6 (round
+  three: in flight and queued disjoint; PARTIAL as the unsettled marker). Round four (ruling 43's
+  copy of the older in-flight wording; the lineage's branch written as main in the rule text and
+  todo 6) took signed lines under PDR-140 clause 9 on the Director's word of 19:2xZ (the third
+  cure push was past the one late-cure push; recorded against the lane in the Director's check-in
+  69, not against the text). **Queued ledger rows for the next records-class pull request on the
+  second estate's node** (its §Review dispositions, and the texts): ruling 43's restatement of
+  "in flight" to read as the register does ("the pull request number, or the seat's lane once
+  started; assigned work not yet started is queued"), and the register's rule text and todo 6
+  naming the lineage's default branch `engraph` ("default-branch heads, `main` there and
+  `engraph` here"; "then `engraph`"). One bot push refused 403 and cured by the retry, the
+  fourth of the day across both estates. Remote branch deleted and read back 0 refs; worktree
+  and local branch removed; the home claim 233a6749 closed. The twin ruling branch carries the
+  four answers at b0f755a16, waiting for the fold. Count after the door: 2 of 3 (256, 289).
+- **THE FLOW CONTRACT AND THREE MORE OWNER WORDS; THE SECOND ESTATE'S PR 255, 2026-09-28 18:1xZ to
+  18:5xZ (Myrtle turns Canopy, bf4957).** The Director relayed three owner words by the question tool
+  (answered by 17:5xZ), verbatim, with the workings on the second estate's napkin at 411f6714. J17's
+  note 1, "Confirm the reading (Recommended)": the second estate's ratified node
+  `commit-as-the-full-local-gate` (the owner's card of 2026-09-24) converges both estates in both
+  directions, this estate's words landing there (the same bytes in its D, E and F) and its mechanism
+  landing here (the gate slot, note 4's pull request); note 1 settles by a register row citing the
+  node; notes 4 and 8 keep their pull requests. The count, "Ratify the flow contract and Nova's lane
+  (Recommended)": "owed" leaves the register's rule text; a row is landed, in flight, queued or
+  declined and nothing else; the count reads in residue pull requests (24), landed of total, beside
+  both heads; a count that does not fall between two folds is routed as a failure, never re-labelled;
+  Nova turns Penumbra takes J6 and J8, Siren herds Rudder J3's shellcheck slice and the register's
+  settling rows, this seat J1's N1, J2 and the other partials (J10, J17's notes 4 and 8, J18, J21).
+  Ruling 40's scope, "Confirm: inbound stays in the node (Recommended)": "outside" is outside goal
+  one's close bar; the second estate's inbound landings stay its node's todo 4, after the review.
+  Acts: the second estate's PR 255 from `docs/exchange-flow-contract` (the register's vocabulary
+  and seven landing rows: J22's #272, J17 and J22 by the node, J11's decline in part, J15, J19 and
+  J23 by the triage, the five handed by Siren at 18:18Z; the node's rulings 41 to 44, todos 4 and
+  6), docs-adr-expert and onboarding-expert before the commit, claim 233a6749 in the home naming the
+  overlap with Siren's a30304be; PR 248's line-223 thread signed with the fourth word; the twin
+  ruling branch takes the four answers before its pull request opens after the fold. The J17 card's
+  provenance, for the record: the Director's napkin block (411f6714) has the card written at the
+  Director's seat without re-reading the batch-six triage's own paragraph ("One question the triage
+  raised, answered from the record": the second estate's node "moves toward the lineage's doctrine,
+  so the J17 gate note states that direction instead of asking"), recorded there against that seat;
+  the census had taken its card from the same triage's §Not determined ("That call is the
+  owner's"), the document's other voice on the point. The observation is on the napkin.
+- **THE OWNER'S THREE CENSUS ANSWERS; J11'S INSTRUMENT NOT TAKEN, 2026-09-28 17:4xZ (Myrtle turns
+  Canopy, bf4957).** Relayed by the Director, verbatim by the question tool. J11: "Decline with
+  the reason (Recommended)": the exchange instrument (the second estate's exchange-register
+  validator, its smoke and its root script) is **Not taken** by this estate, the reason being that
+  it validates the second estate's register, which this estate does not hold; the loss-scan
+  instrument is unaffected and lands as J11's one residue pull request. Sent to the second
+  estate's seat on its stream (event c69c53fb) and acknowledged there (Siren, 17:46Z), which is
+  the node's owner-held proof; the register's §Landings row is that seat's. J17's note 1 (the
+  gate-running doctrine): "Run it through the decision matrix, we don't choose between options,
+  we create the best from what we know": the Director runs the parallax decide step over the two
+  doctrines and brings the synthesis to the owner; note 1 stays frozen; notes 4 and 8 keep their
+  order. The count: "What does owed mean? That sounds liked parked, which is forbidden for very
+  good reason. Use the cognitive skills": the Director takes the register's "owed" vocabulary
+  through concept exploration; the count line stays as the register's rule computes it and the
+  rows keep moving. The fourth card (ruling 40's "outside this node") rides the Director's next
+  batch with this seat's read as the recommendation.
+- **PR 288 AND THE SECOND ESTATE'S 248 LANDED, 2026-09-28 17:1xZ to 17:3xZ (Myrtle turns Canopy,
+  bf4957).** The second estate's PR 248 (todo 6: ruling 40 and the close bar on its exchange node)
+  merged by its bot as `bff4cc68e` after Copilot's round one (two cures, one signed line: the
+  charter's "outside this node" against the node's inbound scope, an owner card with the
+  Director) and a clean round two; branch, worktree and claim closed with read-backs. PR 288 (the
+  family's paragraph in `metacognition.md` §Fluency) merged `c5dbce46e`: both legs on
+  `784c2409d` raised the family count (the napkin's tally line, twelve, against the entries'
+  recount, thirteen), both signed and resolved on the recount; one pure sync to `467cc2146`; the
+  synced head's build failed on the demo hub's Google Fonts fetch, the second instance today
+  after 282's at 14:2xZ (a pattern now, routed for the hub's lane: vendor the faces or fail with
+  a named cause), the failed jobs re-run as the bot under the workflow-dispatch scope, green;
+  the door at 21 checks. The pending-graduations row is removed here: graduated. Also read:
+  the boundary records commit `c4fcea0ee` had its push refused by GitHub with a 403 (the third
+  such refusal on the host today) and the ceremony's entry script reported end 0 over it; Nova's
+  push carried the commit. WIP 2 of 3 (the second estate's 251 and 252). Next: the lineage
+  node's twin ruling PR after the 00:00Z fold; the residue rows on the owner's cards.
+- **COMPACTION BOUNDARY WITH CONTINUATION, 2026-09-28 ~17:2xZ (Myrtle turns Canopy, bf4957).**
+  The owner's word: "prepare for compaction then carry on". State at the boundary, read first-hand:
+  PR 288 (the metacognition graduation paragraph) ready, both legs in on `784c2409d` with one
+  finding each (the family count read from the napkin's tally line, twelve, against the entries'
+  recount, thirteen), both signed and resolved on the recount evidence, a pure sync to engraph
+  `467cc2146` pushing (`17d0ac1a6`), the door at CI green. The second estate's PR 248 (todo 6 of
+  the exchange node: ruling 40 and the close bar) open at `0bb1f479` after Copilot's round one
+  (two cures, one signed line: the charter's "outside this node" against the node's inbound scope,
+  an owner card with the Director), Copilot's round two requested by the operator credential, the
+  door at its leg. The lineage node's twin ruling pushed on `docs/exchange-node-close-bar`
+  (`49c87d5f9`), its PR after the 00:00Z fold carries the census path. The Director's slot order:
+  one open PR per seat; 288, then 248, then the twin, then J1's N1; the three owner cards
+  batched by the Director, those rows frozen. Records this window: `69bae0328`, `f0623973b`,
+  `63159121f`, `a9c9d1bf8` (the census). Five stale reviewer teammates of the 250 lane stopped at
+  the owner's word; no subagent runs. Processes: two comms watchers (this estate's and the second
+  estate's, home tooling), the heartbeat loop on claim `b86c8526`, the second estate's claim
+  `2ee31fd6`, four background waits (288's sync push and CI, 248's legs). The scratchpad holds
+  the door and open scripts (`door-282.sh` as the template, `open-ruling-pr.sh`,
+  `open-jcnet-todo6-pr.sh`), the census's sources and the drafts.
+- **GOAL ONE'S CLOSE CHARTER RATIFIED; THE RESIDUE CENSUS, 2026-09-28 16:2xZ to 16:5xZ (Myrtle
+  turns Canopy, bf4957).** The owner ratified the Director's close charter as drafted (the
+  Director's relay 16:2xZ; the charter on the second estate's napkin at c717c683). First act, the
+  residue census: `.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`, one
+  line per owed J row from the register and the batch-six triage at the second estate's
+  `origin/main` 22e97b52e against this tree at `631d3079a`, every absence checked first-hand.
+  Findings: 21 rows owed by the register's own rule (J5 reads `graduated into L9`, so the
+  charter's 22 counts one row the rule excludes); 4 settled, 11 partial, 6 with no landing; the
+  residue is 20 PRs, 24 with todo 6, the lessons, the comparison and the re-pin, under the
+  charter's reopen bound of thirty; three cards for the owner (J11's exchange instrument, J17's
+  gate-running doctrine, the count); J15, J19 and J23 settle by §Landings rows citing the
+  triage. Order as the charter gives it, with J1's generators before J2. Also this window: the
+  metacognition graduation edit committed and pushed as a draft on the Director's routing (its
+  review waits behind the census and todo 6). Next: todo 6 onto the exchange node, one PR.
+- **THE EXCHANGE LANE RESUMED; PR 282 LANDED, 2026-09-28 13:3xZ to 14:4xZ (Myrtle turns Canopy,
+  bf4957).** The superseded local ref `superseded/250-local-sync-82aae23cd` deleted on the owner's
+  word relayed at 13:34Z (the loose ref file removed; read back absent; the 13:24Z proof its
+  record). The lane's owed item read against the tree before any edit: ADR-078 was amended on
+  2026-09-19 and ADRs 141, 180 and 229 by PR 237 (`b205be733`, which also cured `workflow.md`
+  and the Sentry CLI page), so the claim opened at 13:32Z on four ADRs was closed and reopened
+  on the recipes document alone (`9d0d53b0`). PR 282 (`docs/test-doctrine-recipes-followup`,
+  `aeeb98bf8` on engraph `2da2e89ec`, one file) carries the batch-six row J22 cures to
+  `docs/engineering/testing-tdd-recipes.md`, each verified: the validator recipe cites the
+  strategy's §Rules in its words; the discovery paragraph states the shared include as it holds
+  (`src/**/*.test.ts`, which both mandated suffixes match); the examples name directories this
+  estate has (`agent-tools/src/lib` and `agent-tools/scripts` do not exist) and mark their file
+  names illustrative; the ToC carries the IO-debt heading; the E2E naming reads as defects under
+  the IO invariant (PR 237's words), rewrapped, which cures the file's standing fitness warning;
+  the closing paragraph cites ADR-168 §5a. docs-adr-expert and onboarding-expert reviewed before
+  the commit (four FIX verdicts in it). Both legs requested as the bot at 14:01Z; WIP 3 of 3
+  (281, 282, one in the second estate). This commit also cures the Director's routed finding
+  (Codex on PR 275): the ledger's #250 round-4 row now reads the settlement span's numstat, and
+  queues the family's graduation line in `pending-graduations.md`. Landing: the legs on
+  `aeeb98bf8` (Copilot approval recommended, Codex no major issues, Sonar passed, zero threads);
+  two pure syncs as engraph moved twice (`5f5a54b10` at `cdd5b0463`, then `2a3836cda` at
+  `298763795`, PR 281's landing, since the ruleset reads BEHIND as blocking); on the first, the
+  browser-tests job failed in the demo hub's `next build` (the Lexend `next/font/google` faces,
+  the shape a font download that does not complete produces; green on engraph's own run and on
+  PR 281's synced head; recorded as a napkin observation, not re-run since the second sync ran
+  CI whole); door at `2a3836cda` with 21 checks green, merged `174f8a838` at 14:4xZ; remote
+  branch deleted and read back absent, worktree removed, local branch deleted, claim `9d0d53b0`
+  closed; 1 round, 3.52 priced, no settlement push. PR 217's cure list is closed. WIP 1 of 3.
+  Next: the sentinel-content joint amendment in the second estate; goal one's code rows if this
+  seat frees first.
 - **PR 250 LANDED, 2026-09-28 11:3xZ to 13:18Z (Myrtle turns Canopy, bf4957).** The owner's word
   ("pick up PR 250, then once it is merged come back to your current work"; to the Director: "Give
   250 to Myrtle, let's get it landed quickly and well"). One settlement push `da70c076a` (three
@@ -1435,7 +1628,7 @@ contradiction both carry is a faithfully carried concept, false in both, which t
 bullet governs; and renumbering would break "the third reason" in both logs. The 2026-09-23 branch folded as #176 (`SHA:f66fd033f`,
 2026-09-24 11:05Z); the live branch is the one the director handoff's fold block names. From the
 owner's word of 2026-09-24 ("three open PRs to deal with"): #183 landed as `SHA:0d6924427`,
-and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). The 2026-09-24 coordination branch folded as #187 (`SHA:7497696fe`, 2026-09-25 17:04Z, three review rounds, every finding cured by its author); the live branch is `coordination/2026-09-25-749769`, cut from that merge. Owed, each from a word already given: the host-free adapter line's joint cure
+and #179, the Oak line's 1.185.1, as `SHA:fc6aec21a`. The Oak line's 1.185.2 carrier, #212, landed as `SHA:ec4ef1e55` (2026-09-25 15:09Z, by the Director at the owner's word; the record and the proof are on the pull request). The Oak line's 1.185.3 carrier, #284, landed as `SHA:9951a8d0d` (2026-09-28 15:24Z, by Nova turns Penumbra through the front door; the integration record and the step-9 proof are on the pull request, and the one held carried-code item is in `.agent/reports/upstream-sync/carried-code-findings-1.185.3-sync-2026-09-28.md`). The 2026-09-24 coordination branch folded as #187 (`SHA:7497696fe`, 2026-09-25 17:04Z, three review rounds, every finding cured by its author); the live branch is `coordination/2026-09-25-749769`, cut from that merge. Owed, each from a word already given: the host-free adapter line's joint cure
 (`<prefix>inter-practice-collaboration`, where the prefix is the estate's configured skill
 prefix), signed by both exchange seats, and joint sets F and G, both landing here in one pull
 request; H's agent-collaboration hunk ("two reads, one write"), a directive edit for a context

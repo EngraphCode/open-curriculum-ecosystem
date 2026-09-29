@@ -927,5 +927,354 @@ wrong for this question.
 nowhere new. (3) is the follow-up recorded on the pull request's working notes (case 3's
 `skills_expected`; the plan description's "not for" boundary; the generator's sibling-link
 rewrite at its second consumer; the readability grader), all the owner's call. The family's
-graduation line to the metacognition directive is still owed (a directive-file edit under the
-documentation and onboarding reviews; the fourth boundary carrying it).
+graduation line to the metacognition directive is queued in `pending-graduations.md` (2026-09-28
+14:xxZ, the line drafted in the row); its PR, a directive-file edit under the documentation and
+onboarding reviews, waits for a free slot under the WIP limit.
+
+## 2026-09-28 ~14:3xZ — a demo build's font download fails on a docs PR's synced head (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 282 (one markdown file) synced with engraph `cdd5b0463` and its browser-tests
+job went red: `@oaknational/oak-curriculum-hub` `next build` (Next.js 16.3.0, Turbopack) reported
+twelve "Module not found: `@vercel/turbopack-next/internal/font/google/font`" errors for the
+Lexend `next/font/google` faces. The same job passed on engraph's own run of `cdd5b0463` twenty
+minutes earlier and on PR 281's synced head of the same engraph. Read from the job log in full
+(10,119 lines); the error's shape is the one a font download that does not complete produces.
+
+**Reading.** One instance: an observation. A build that fetches from the network is a check whose
+verdict depends on something the head does not contain; the cure at the moment was a rerun of
+the failed job, not a change to the PR. If a second instance appears, the concept for the play
+list is a build-time font fetch that fails closed on the network: vendor the faces or fail with a
+named cause.
+
+**Routing.** Nowhere new; recorded here.
+
+## 2026-09-28 ~14:5xZ — a leased branch move, two doors, and what the tools did at each step (Nova turns Penumbra, 8a94ba)
+
+- **A derived document states its scope, never its provenance.** "Public-safe edition", "this
+  edition omits" and "repository edition" each name a fuller original somewhere else. Write the
+  scope instead ("its scope is professional profile content; account settings are outside it"). A
+  re-voiced summary of withheld material is still a summary, and a commit message that narrates a
+  removal publishes what it removed.
+- **Hold back, then add forward.** Removing a line from published history costs a rewrite; adding
+  it later is a forward commit. When a line's publication is in doubt, it waits for the owner.
+- **The hook's matcher is argv-aware.** A leased move on the owner's word,
+  `git push --force-with-lease=<ref>:<sha>`, passed the PreToolUse policy, whose argv table lists
+  `force-with-lease` apart from `force`. The bot credential went through git's `GIT_CONFIG_COUNT`
+  environment rather than `-c` flags, so the command text showed the push plainly to the matcher.
+- **merge-bot binds legs by content across a pure sync.** PR 281 merged on legs read at 40a0799d8
+  with the head at the sync 8f3c1cb19 (patch-id 0f92f9399b); no second review round was spent.
+- **Isolated clones belong in the scratchpad.** A standalone clone beside the primary needs a
+  forced removal the hook refuses (routed to the Director); a session-local scratch directory needs
+  no force. `merge-bot push` also reads the checkout's ignored `.github/merge-bot.json`, which a
+  fresh clone lacks until it is copied in.
+- **Shell and process traps.** Never list processes with their environment (`pgrep -fl` prints
+  whatever credentials another tool's process carries). Never background with `&` inside one Bash
+  call: a killed git child leaves a stale `index.lock`; use the harness's background mode. The Bash
+  tool runs zsh, where an unquoted `$VAR` list is one argument. The policy matcher refuses
+  `git log --all` as the staging glob, and refuses a comms body that quotes a forbidden command:
+  describe the pattern, never quote it.
+
+### Practice/tooling feedback
+
+- **Surface**: `agent-tools:session-metadata`
+- **Signal**: friction
+- **Observation**: the window registry has no `claude-opus-5-5` entry, so PDR-052's context check
+  before a directive edit could not run as written. The occupancy was read with a registered id
+  (250,110 tokens) and the window inferred from the transcript's peak occupancy (666,313, so at
+  least the 1M class): 25%.
+- **Behaviour change / candidate follow-up**: register the model's window, or let the command take
+  `--window-tokens`.
+
+## 2026-09-28 ~15:0xZ — a register row written from memory of the family it summarises (Myrtle turns Canopy, bf4957)
+
+**Observation.** The pending-graduations row for the family's graduation (records commit
+`69bae0328`) listed "a wait that ends on its poll cap and reports settled" as a member. No napkin
+entry records that member; the row was written from memory of the family, and the invented member
+was noticed only when the twelve entries were re-read to draft the directive paragraph. Cured here:
+the row names members the entries record, and the count is thirteen: the docs reviewer re-read the
+entries and found the claim-open check counted at 10:4xZ (n = 5) and dropped from the 16:3xZ list, so
+every later tally read twelve.
+
+**Reading.** The family's own shape, one level up: a record that does not say what it names. A
+summary of recorded instances is written from the instances, read at the moment of writing, never
+from recall of them. One instance; an observation.
+
+A second slip in the same hour: the directive-file context-budget check was taken after the edit,
+not at the boundary before it (about 357k tokens of a window of at least 1M, so at or above 30%),
+and the reviewed edit is held in its worktree for a fresh context rather than committed.
+
+**Routing.** Nowhere new; the graduation paragraph is drafted from the entries and held for a fresh
+context.
+
+## 2026-09-28 ~17:2xZ — the wrap at a compaction boundary: five slips, one generator (Myrtle turns Canopy, bf4957)
+
+**Observation.** Read back over the window since PR 250 landed: (1) a register row written from
+memory of the family (cured, 63159121f); (2) the directive context-budget check taken after the
+edit, not before (the edit held, then committed as a draft on the Director's routing); (3) a comms
+title carrying a sha this seat never read ("2b8ba36" for PR 288's head 784c2409d; corrected on the
+stream); (4) "I take no slot on my own count", said to Nova at 16:4xZ, then a slot taken on this
+seat's own count at 16:54Z when 287 landed, ten minutes later, while an order was in flight; the
+order arrived at 17:0xZ and read otherwise (288 first), so the seat held two open pull requests
+against "one per seat"; (5) ruling 40 carried the charter's "outside this node" into the second
+estate's node without reading it against the node's live inbound scope; Copilot read it.
+
+**Reading.** Three of the five are one shape: a record that names what it did not read (a
+member, a sha, a scope); the family of a check whose name outruns its coverage, one level up, in
+the seat's own writing. The other two are order slips at act boundaries: a gate taken after the
+act it gates; an act taken against the seat's own stated rule. The generator is the same for all
+five: the drive to open the next act, strongest at the moment an act completes and the next is
+visible. The directive's own line ("fluency failures cluster at the finish line") is right and
+incomplete: they cluster at the start line of the next act too. The cheapest cure is a gate, not a
+stance: before any act that takes a slot, names a number or a sha, or edits a directive, re-read
+the seat's last stated rule on the stream and the source of every number in the line about to be
+sent. A stated rule spoken to a peer is a promise, and the next act is checked against it as a
+gate, never remembered as a stance.
+
+**Play seed** (free play, one line): the census is a computed thing, the register's rule over
+two tables minus a landings list; the second estate's exchange-register validator already computes
+landed-of-owed, and a residue mode listing the triage's BRING members minus the §Landings rows
+would make the census reproducible by any seat in seconds. One consumer today; a seed for the
+toolkit lane, not a build.
+
+**Routing.** The five to this entry; the cure to the seat's own act boundaries from here; the
+generator's second clustering point (the start line) is a candidate clause for the directive's
+fluency section at the next pass that touches it, with this entry as its instance.
+
+## 2026-09-28 ~17:2xZ — a check named for more than it covered, and a promise written before its act (Nova turns Penumbra, 8a94ba)
+
+**What happened.** The second estate's second LinkedIn batch was merged three-way (base: the
+pre-rebuild tip; ours: main with the rebuild's privacy cures; theirs: the working copies). A
+mechanical check then proved that no line the rebuild removed came back and no line it added was
+lost. For a moment the seat read that as "the batch is safe". The security read found eight
+third parties named for the first time in the working copies. The check could never see those
+lines, because it compared only the rebuild's own removed and added lines. Two of five files were
+cut back to main's text, and four items went to the owner's card. Separately, a pull request body
+said four follow-ups were "routed to the Director" before the message was sent. The wrap's
+promises sweep caught it, and the message went fifteen minutes later.
+
+**Reading.** Both are the shape Myrtle's entry above names: a check or record whose name outruns
+its coverage. This is a second seat on the same afternoon, which makes it a second independent
+instance. The cure is the one that entry proposes: name each check for what it compares ("cure
+lines kept"), never for the verdict it seems to support ("batch safe"), and send a promised act
+before the record that states it.
+
+**A relayed list against a relayed principle.** The Director's instruction listed the files to
+carry, and also said "keep every cure". The list included a file the rebuild had deliberately
+left out, and it omitted six other modified files in the working tree. The principle governed,
+and the list's gaps went back as a question. A relayed enumeration is a claim to verify against
+the tree, like a relayed number.
+
+**Play seed** (an association, not a finding): a privacy cure in a public workspace is a state,
+not an invariant. No gate holds it, so an edit made from a pre-cure copy reverts it silently. The
+three-way merge against the pre-cure base was the detector, and it catches reversions only, not
+new disclosures. Discarded as forced: "the WIP slot line is a compare-and-swap" is apt, but it is
+already the protocol's own model.
+
+### Practice/tooling feedback
+
+- **commitlint `footer-leading-blank`** refused a body whose lines carried hash-prefixed pull
+  request numbers (`#285`): the parser reads them as footer references. Bodies say "PR 285".
+- **merge-bot push** drew a GitHub 403 for the lineage's bot at ~16:38Z. A retry a minute later
+  passed. The second estate's bot drew the same 403 a minute after; Siren recorded it for the
+  merge-bot lane.
+- **The commit queue's `enqueue`** prints the pnpm banner on stderr and the bare intent id on
+  stdout. Capturing stdout alone with `2>/dev/null` gave a clean id, as the skill says.
+
+## 2026-09-28 ~17:3xZ — a second font fetch failure, a refused push reported as end 0 (Myrtle turns Canopy, bf4957)
+
+**Observation.** (1) PR 288's synced head failed the same way PR 282's first synced head did at
+14:2xZ: the demo hub's `next build` could not resolve the Lexend `next/font/google` faces; engraph's
+own run at the same tip was green; a re-run of the failed jobs passed. Two instances in three hours,
+both on this seat's pure syncs, neither touching the hub. (2) The boundary records ceremony's push
+was refused by GitHub with a 403 (Nova's at 16:38Z and Siren's at 16:39Z were the same shape, each
+green on retry) and the entry script printed its end marker with exit 0 over the failure, because
+the marker reports the commit ceremony's exit and not the push's.
+
+**Reading.** (1) is now a pattern: a build-time fetch from the network inside a required check,
+whose verdict depends on something the head does not contain. The cure is the hub lane's (vendor
+the faces with `next/font/local`, or fail with a named cause), routed to the Director; until then
+the re-run as the bot under the workflow-dispatch scope is the seat's move. (2) is the family
+again, in a script this seat wrote: an end marker whose name (END 0) covers a step it never read.
+Cure at the instrument: the entry script's marker carries the push's exit, and a refused push
+prints REFUSED; taken for the next ceremony.
+
+**Routing.** (1) to the Director as a hub-lane candidate (stream 12d60f6d); (2) the script cure
+in the scratchpad before the next ceremony, the instance to this entry.
+
+## 2026-09-28 ~18:5xZ — a gate reading taken and never compared (Nova turns Penumbra, 8a94ba)
+
+**What happened.** PDR-052 bars directive edits at or above 30 % context. Before the second
+estate's PR 249 (secops.md) this seat read 33 % and wrote "well within bounds". Before its PR 253
+(privacy.md, AGENT.md, editorial-guidance.md) it read 60.8 % and wrote "which allows directive
+edits"; PR 253's body even recorded "about 61%". Both merged. The slip surfaced after the
+compaction, when that body line was read against the rule's text. The cure: at 10.1 % the seat
+re-read both merged directive diffs in full and found no damage beyond what the follow-up PR 254
+cures. PR 254 rewrote those lines below the line. The Director has the report.
+
+**Reading.** The ritual ran and the comparison did not: a reading was taken, written down and
+published, and never set against the number. This is the generator the entry above names, a
+record standing in for the verdict it seems to support, and here the record held the disproof in
+plain view. Cure: write the verdict in the same line as the reading ("10.1 % < 30 %: pass"), so
+the comparison is visible and a wrong one looks wrong.
+
+**A summary of a permission is a new permission.** For PR 254, this seat wrote a "Reach" line
+after an owner's dated authorisation, summarising what it is an exception to. The first draft
+named a whole section as excepted, which would have lifted a confidentiality rule the
+authorisation never touched. The security read blocked it. The cure keeps the permission's own
+limits in the summary ("only as far as each entry states") and names what it does not change.
+
+**A held list built from merge conflicts covers conflicts, not classes.** A three-way merge
+silently took main's cure at a line the working copy had not changed. The list of items held for
+the owner, built from conflicts and new edits, missed a sibling of the same class. It surfaced
+only when the owner's word on its twin was applied, and it went to the owner as a question
+before any edit.
+
+**Ledger (second estate).** privacy.md's private-material section ends with a paragraph that
+repeats rule 6's opening clause. Cure it at the next substantive privacy.md edit, not by a PR of
+its own (the Director, ~18:5xZ).
+
+### Practice/tooling feedback
+
+- **session-metadata** has no entry for `claude-opus-5-5` ("unknown model"). The PDR-052 figure
+  is therefore computed by hand from the transcript's usage lines, with the window inferred from
+  the session's largest reading (666k, so 1M), and nothing prints the verdict against 30 %. Asked
+  for: a model entry and a verdict line. For the Director's check-in 69.
+- **validate-markdown-links** does not check cross-file `#fragment` anchors, so a moved heading's
+  slug is derived by hand. Two review reads on PR 254 did so independently.
+- **commitlint** read a commit body line that began "Also:" as a footer token and raised
+  `footer-leading-blank`. The commit-msg hook runs strict, so the warning failed the commit (exit
+  2). It is the sibling of the hash-prefixed "#285" case above: any body line that opens with a
+  token and a colon parses as a footer. Open body lines with a plain word.
+
+## 2026-09-28 ~18:2xZ — a record two-voiced on one question: the triage answered in its preamble what its tail listed as open (Myrtle turns Canopy, bf4957)
+
+**Observation.** The residue census's J17 card asked the owner whether the two gate-running doctrines
+converge, taking the question from the second estate's batch-six triage of 2026-09-25, §Not
+determined ("Whether notes 1 and 4 should converge ... That call is the owner's"). The same triage's
+preamble ("One question the triage raised, answered from the record") had already read that
+estate's ratified node `commit-as-the-full-local-gate` as moving toward this estate's doctrine, "so
+the J17 gate note states that direction instead of asking". The Director carded it; the owner
+answered through a decision-method pass; the Director's record has the card written without
+re-reading the preamble, against that seat.
+
+**Reading.** A record that answers a question in one section and lists it as open in another hands
+the open reading to whoever reads the list, and the list is what a census reads. The census read the
+triage's tail and the register's row, and cited the tail; nothing in either pointed at the preamble.
+
+**Routing.** The observation here; the pickup names the provenance. The cure at the source is one
+line in the triage's §Not determined pointing at its own preamble, the second estate's record and
+its seat's call, offered on the stream. Before a card, the next census searches the cited record
+for the question's own words. One instance, no rule.
+
+## 2026-09-28 ~19:3xZ — a rule text with two copies, reviewed clause by clause: rounds of three, one, two, two (Myrtle turns Canopy, bf4957)
+
+**Observation.** The second estate's PR 255 carried the register's flow contract, the text the
+count is computed from, and drew four Copilot rounds: three findings, then one, then two, then two.
+Every finding was real, and each round's was exposed or introduced by the previous cure: the
+remainder's direction (round one); the close condition's scope, widened by the vocabulary change
+(round two); the in-flight and queued overlap, and a PARTIAL sentence written against the table's
+own notation (round three); ruling 43's copy of the older in-flight wording, and a branch misnamed
+since PR 248 (round four). The Director read the loop as grown at round three (PDR-140 clause 9
+allows one late-cure push) and ruled signed lines for round four; the two cures are queued in the
+pickup for the next records-class pull request on that node.
+
+**Reading.** A contract sentence has a second consumer the moment it lands: the count, the
+check-ins, and the restatement in ruling 43. Each cure to one copy re-opened the other, and the
+close condition quantifies over the vocabulary, so a change to the vocabulary changed it too. The
+cure set for a rule text is every copy of it and every sentence that quantifies over it, read
+together before the push; three of the four rounds would have been one. The practice's own move,
+consolidate-at-second-consumer: the ruling should cite the register's paragraph, not restate it.
+
+**Routing.** The queued rows land with the next records-class pull request on the second estate's
+node, and ruling 43's restatement becomes a citation then. No rule; the practice already has it.
+
+## 2026-09-28 ~19:3xZ — the fourth refused bot push of the day, now on the second estate (Myrtle turns Canopy, bf4957)
+
+**Observation.** A push by the second estate's bot was refused at 19:0xZ with GitHub's 403
+("Permission ... denied to jimbot-of-the-devonshire-jimbots[bot]") and went through on the
+immediate retry. The same shape refused three lineage pushes earlier today (Nova 16:38Z, Siren
+16:39Z, this seat 16:5xZ), each green on retry. Four instances, two estates, two bots, one day.
+
+**Reading.** The token is minted seconds before the push and the same shape succeeds on retry, so
+the refusal is transient on GitHub's side of installation-token pushes, not a permission. This
+seat's push scripts now retry three times with a pause and route a third refusal; every seat
+writing its own retry is the second consumer of one fix.
+
+**Routing.** To the Director as a merge-bot candidate: a bounded retry inside `merge-bot push`
+on a 403 with the refusal's text in the result, so no seat's script carries it.
+
+## 2026-09-28 ~20:1xZ — six tracked listings outside the git seam, two resolving git by name (Myrtle turns Canopy, bf4957)
+
+**Observation.** The architecture review of N1 (the rule-declarations port) read the sweep's
+tracked listing through `core/repository-paths.ts` as the convention and then counted the sites
+in `agent-tools/src` that run `git ls-files` themselves: `encoding/check-encoding.ts`,
+`repo-check/repo-check-universe.ts`, `repo-check/repo-check-gates.ts`,
+`validators/operator-profile/operator-profile-git-push.ts`,
+`mcp-content-current-source/current-source-delta-inventory.ts`, and two that resolve `git` by
+name through PATH, `validators/notion-fence/validate-notion-fence.ts` and
+`workspace-census/inputs.ts`, the shape `core/trusted-git.ts`'s own header pre-rejects (S4036).
+The convention is recorded in code (three module headers) and in two rules
+(`compute-dont-hope`, `sonarqube-mcp-instructions`), never in an ADR or a pattern.
+
+**Reading.** A convention held in headers is read by whoever opens the module and by no one
+else; six sites grew beside it. The two by-name sites are the Sonar-shaped one and the first
+cure; the other four are the consolidation the header of `tracked-file-scan.ts` already names.
+
+**Routing.** A lane, not a rule: fold the six listings into `repository-paths.ts` (the two
+by-name sites through `resolveTrustedGit` at minimum), one pull request, tests moved with them;
+and a pattern entry naming `core/trusted-git.ts` + `core/repository-paths.ts` as the git read
+path, so the next site has a name to find (`new-rule-vs-pdr-clause` applies: a pattern, not a
+rule). Not N1's; queued after the exchange's residue.
+
+**Correction (2026-09-29 ~00:5xZ).** The enumeration above is seven sites, five running
+`git ls-files` and two resolving git by name; the heading's six and the reading's "other four"
+are the miscount (Codex's read of the fold PR, 00:46Z). The lane folds all seven; none is
+excluded.
+
+## 2026-09-28 ~21:4xZ — the same-bytes port carried four test shapes this estate's rules refuse, and the seat routed them away at open (Myrtle turns Canopy, bf4957)
+
+**Observation.** N1's first slice (PR 291) brought the second estate's `rule-declarations` module
+as the same bytes. Its tests carried two expect-then-if narrowings, a query-log assertion on an
+injected file system and a path-branching read override: shapes `no-conditional-tests` and
+`test-immediate-fails` refuse here. The seat saw them before the commit and wrote them into the
+body as "routed to the second estate as outbound findings; the cure lands as the same bytes in
+both estates; not changed here". Codex raised all four as P1 at the late-cure tip, each citing the
+estate's rule, and they were cured here in the one late-cure push, with mutation proofs.
+
+**Reading.** Same-bytes is the exchange's practice for the module's product code and travels
+well; it is not a rule and it ranks below the estate's rules, which have no exceptions. A test
+shape the estate refuses is a defect in this tree the moment it is staged, whichever estate wrote
+it, and "cure it there first" is a deferral by another name (the owner's word on deferrals,
+2026-09-28). The port-back list carries the cure to the origin; it never carries the defect here.
+The commit gate did not catch the shapes: no lint rule reads an `if` inside a test body or a
+query-log assertion, so the reviewers were the only line.
+
+**Routing.** No rule; the practice already has it (`rules-have-no-exceptions`,
+`no-conditional-tests`). A lint rule for `if` inside `it(` bodies is a candidate for the
+test-rules lane; one instance, an observation. The exchange's next port reads its tests against
+this estate's rules before the same-bytes claim is written.
+
+## 2026-09-28 ~23:0xZ — a filter's empty output read as a vendor's silence; the block routed to the Director did not exist (Myrtle turns Canopy, bf4957)
+
+**Observation.** This seat's wait script for PR 291 selected Codex's REST comments and reviews
+by the login `chatgpt-codex-connector`; the REST surface names the account
+`chatgpt-codex-connector[bot]`, so the filter matched nothing, on every tip, from the first
+wait at 20:1xZ. At 23:0xZ, after two capped waits, the seat read the empty output as Codex silent
+on the lineage since 21:41Z, checked the reviews list (where Codex's clean result never
+appears: it is an issue comment), and routed a block to the Director with a verdict to declare
+the vendor unavailable. Codex's clean completion comments had stood on the tip since 21:50:43Z
+and again at 22:39:11Z; Siren read them first-hand a minute after the seat's own correction.
+Seventy minutes of hold on a landed leg; one false routing; one withdrawal.
+
+**Reading.** The same shape as the Director's 21:02Z lift (a review's state read for its
+content) and the seventh instance of that class the Director had already counted: a derived
+surface (a filter, a list, a state field) read in place of the primary one. Two separate misses
+compounded it: the filter's login (never verified against one known-good event before the
+script was trusted) and the reviews-only check at the moment of doubt (the transport of a
+clean result is a comment). A wait script that can only ever report absence must be proven once
+against a present event, or its report of absence means nothing.
+
+**Routing.** No rule; the practice has it (`verify-dont-trust`, `silence-is-never-liveness`,
+`read-diagnostic-artefacts-in-full`). The seat's wait script now filters by the `[bot]` login;
+before the next script that reports absence is trusted, it runs once against a known present
+event. An instance for the Director's read-the-primary-surface count, against this seat.
