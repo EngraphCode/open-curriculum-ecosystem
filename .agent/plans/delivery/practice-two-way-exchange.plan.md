@@ -52,13 +52,17 @@ estate's ledger of every offered row's disposition, its §Landings rows and its 
 holds no copy) classes local or already at parity is settled by a §Landings row in that register
 citing the triage, not by a pull request (the row is the proof of one of the three outcomes below: a
 remainder already at parity is taken, by bytes or in words; a remainder classed local is Not taken,
-the triage's class its reason); the Core's portability twins (the `practice-core-portability` rule
-and the gate that enforces it) have landed on both estates; the lessons batch and the sub-agent
-comparison (two offers the second estate's seat announced on the exchange channel and had not sent
-as rows by 2026-09-28) are delivered as offered rows, landed or declined; the second estate's pins
-(the opening heads of 2026-09-21) are re-pinned to forty-character ids with the driver failing
-closed, and the re-pin recorded; and the count reads N of N beside both heads, with the close
-recorded in the second estate's node with the owner's word. The residue census of 2026-09-28
+the owner's ratification of this clause the word that declines it, as the acceptance criteria below
+require for a ratified text, and the triage's class its reason); the Core's portability twins (the
+second estate's todo 8: the doctrine that a Core decision record cites no repo-bound record, this
+estate's PR 281 and the second estate's text cures, and the validator that refuses such a citation,
+the second estate's PR 239, whose twin here has no landing and no census row yet) have landed on
+both estates; the lessons batch and the sub-agent comparison (two offers the second estate's seat
+announced on the exchange channel and had not sent as rows by 2026-09-28) are delivered as offered
+rows, landed or declined; the second estate's pins (the opening heads of 2026-09-21) are re-pinned
+to forty-character ids with the driver failing closed, and the re-pin recorded; and the count reads
+N of N beside both heads, with the close recorded in the second estate's node with the owner's word.
+The residue census of 2026-09-28
 (`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
 to land here by the register's rule of that day, 4 settled, 11 partial, 6 with no landing, 20
 residue pull requests, 24 in all with the charter's four acts (22 and 23 residue after J3's and J6's
