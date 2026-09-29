@@ -145,6 +145,9 @@ J16, J20, J23). The count beside the heads reads 4 of 21.
 | The charter's other acts: todo 6; the lessons and the comparison; the re-pin | 4 |
 | All | 24 |
 
+The table is the census-day count. The recounts supersede it: J3 3, J6 4, residue PRs 23, all
+27 (see §Recounts below; the rows keep their dated counts).
+
 Under the charter's reopen bound of thirty. Three cards for the owner, none a PR: J11's
 exchange instrument (decline with reason), J17's gate-running doctrine (converge or decline by
 the 2026-09-14 word), and the count itself (21 owed by the register's rule; the charter's 22
