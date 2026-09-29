@@ -7,8 +7,8 @@
  * the filesystem, never git: an install can run where no repository exists (a
  * deploy's tarball) and must see a workspace package that is not yet
  * committed. The patterns are matched as pnpm matches them for `package.json`
- * manifests. Parsing, and every refusal about content, is pure in
- * `install-time-manifest.ts`; this module reads, and names a file it cannot.
+ * manifests. Parsing the text, and refusing text that does not parse, is pure
+ * in `install-time-manifest.ts`; this module reads, and names a file it cannot.
  *
  * @packageDocumentation
  */

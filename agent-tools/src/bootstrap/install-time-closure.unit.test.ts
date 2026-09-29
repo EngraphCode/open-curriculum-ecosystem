@@ -57,18 +57,15 @@ function members(...names: readonly string[]) {
   return { ok: true, value: names.map((name) => ({ name })) };
 }
 
-function escapeRegExp(text: string): string {
-  return text.replaceAll(/[.*+?^${}()|[\]\\]/gu, String.raw`\$&`);
-}
-
 /** Assert the verdict is a refusal whose message names every one of these. */
 function expectRefusalNaming(
   verdict: InstallTimeClosureVerdict,
   ...names: readonly string[]
 ): void {
-  const namesAll = new RegExp(names.map((name) => `(?=.*${escapeRegExp(name)})`).join(''), 'su');
   expect(verdict).toHaveProperty('ok', false);
-  expect(verdict).toHaveProperty('error', expect.stringMatching(namesAll));
+  for (const name of names) {
+    expect(verdict).toHaveProperty('error', expect.stringContaining(name));
+  }
 }
 
 describe('installTimeClosure membership', () => {
@@ -223,14 +220,15 @@ describe('installTimeClosure order', () => {
     expect(verdict).toMatchObject(members('@x/alpha', '@x/mid', '@x/zeta'));
   });
 
-  it('refuses a dependency cycle among members, naming them', () => {
+  it('refuses a dependency cycle among members, naming them and the members waiting on them', () => {
     const verdict = closure([
-      root({ deps: ['@x/a'] }),
+      root({ deps: ['@x/a', '@x/c'] }),
       pkg('core/a', '@x/a', { devDeps: ['@x/b'] }),
       pkg('core/b', '@x/b', { devDeps: ['@x/a'] }),
+      pkg('core/c', '@x/c', { devDeps: ['@x/a'] }),
     ]);
 
-    expectRefusalNaming(verdict, '@x/a', '@x/b');
+    expectRefusalNaming(verdict, '@x/a', '@x/b', '@x/c');
   });
 
   it('tolerates a cycle among packages that are not members, since none of them is built', () => {

@@ -207,10 +207,14 @@ export default {
         'The postinstall bootstrap (agent-tools/src/bootstrap/) runs before any workspace package ' +
         'is built, and builds the packages agent-tools reaches. An import from a workspace package ' +
         'there resolves to a dist that a cold install has not written yet, so every fresh checkout ' +
-        'fails its postinstall while warm local builds hide it. Keep local copies (the closure ' +
-        'verdict and recordEntries) instead; the module TSDoc in install-time-closure.ts says why.',
+        'fails its postinstall while warm local builds hide it. Keep local copies (ClosureResult ' +
+        'and recordEntries) instead; the module TSDoc in install-time-closure.ts says why. ' +
+        'Type-only imports count too, even through a local module: tsx erases them, but a ' +
+        'reachable rule matches on path alone, so a needed type is copied locally as well.',
       from: {
         path: '^agent-tools/src/bootstrap/',
+        // Test files are never loaded at install time.
+        pathNot: ['\\.(test|spec)\\.(ts|js)$'],
       },
       to: {
         // Reachable, not only direct: a workspace import in a module the

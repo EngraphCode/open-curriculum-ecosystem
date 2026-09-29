@@ -356,7 +356,7 @@ pnpm build
 ```
 
 `type-check` and `vitest` pass on install alone, and the install's bootstrap
-builds everything agent-tools reaches, including the internal
+builds every package agent-tools reaches that has built entry points, including the internal
 `@oaknational/eslint-plugin-standards` whose package `exports` resolve to
 `dist/`, so ESLint's flat config loads on install alone too. Every other
 workspace's `dist/` stays unbuilt until `pnpm build`, and dependency-cruiser,

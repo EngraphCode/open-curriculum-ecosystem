@@ -9,8 +9,10 @@
 
 /**
  * The outcome every step of the closure's derivation returns:
- * `@oaknational/result`'s shape (ADR-088), declared locally because that
- * package is itself in the closure and cannot be imported before it is built.
+ * `@oaknational/result`'s shape (ADR-088), declared locally. A value import of
+ * that package would resolve to a dist a cold install has not written, and the
+ * dependency-cruiser rule `no-bootstrap-to-workspace-packages` keeps every
+ * workspace package out of the bootstrap's reach, type-only imports included.
  */
 export type ClosureResult<T> =
   { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string };

@@ -512,8 +512,8 @@ output under `dist`, derived at run time from the workspace manifests by
 `agent-tools/src/bootstrap/install-time-closure.ts`; the ESLint plugin is among
 them). A type error in one of those, the plugin mid-edit included, fails the
 install. So does a reached package with built entry points whose build script
-is not the bootstrap's one recipe (`tsup && tsc --emitDeclarationOnly
---project tsconfig.build.json`), and a build that does not write a `dist/`
+is not the bootstrap's one recipe (`BUILD_RECIPE` in
+`agent-tools/src/bootstrap/bootstrap.ts`), and a build that does not write a `dist/`
 file its `package.json` entry points name: the install exits naming the
 package. Adding a workspace dependency to agent-tools or to any member reaches
 the install this way. This catches real type errors BEFORE any explicit
