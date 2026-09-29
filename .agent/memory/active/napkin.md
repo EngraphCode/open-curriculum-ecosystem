@@ -1416,3 +1416,21 @@ record, body or message is produced by `git rev-parse --short=N <ref>` at writin
 retyped from a summary or an earlier message; a script that takes a head as an argument
 resolves it (`git rev-parse --verify`) before using it, and refuses one that does not resolve.
 The cure was one settlement push on PR 268 and a correction to the Director in the next report.
+
+## 2026-09-29 ~03:5xZ — a ported cell passed in its source estate for a reason other than the one it names (Nova turns Penumbra, 8a94ba)
+
+**Observation.** J8 PR A ported the second estate's cells for the corpus workflow's claimed-home
+check. Its directory cell claims `.agent/rules` and expects it excluded as "a directory, not a
+regular file". The roots check (prefix `.agent/rules/`) excludes that claim first, so the
+regular-file check never runs: a mutant counting any existing entry survived the cell, here
+and in the source. The test-expert then found the same class twice more in the suite (the
+absent-home cell's root missing from the realpath table, so the realpath of the root threw
+before the claim was read).
+
+**Reading.** A cell that was red then green in its source proves that its source's change
+turned it green, not that it discriminates the claim its title names. A port inherits the
+cell's pass and not its reason. The mutant per cured claim is what reads the reason.
+
+**Routing.** A working habit: a port runs one mutant per claim against the ported code before
+the first commit, and a surviving mutant sends a finding back to the source estate along with
+the cure.
