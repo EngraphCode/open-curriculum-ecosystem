@@ -59,7 +59,9 @@ import { triageDispositions } from './triage.js';
 /** The Choice-B graduate gate (owner-confirmed). */
 const CHOICE_B = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 } as const;
 
-const repoRoot = resolveRepoRoot(import.meta.url);
+// projectDir is explicitly disabled: this driver reads checkpoints and claimed homes from
+// the checkout it runs in, never from the harness project directory.
+const repoRoot = resolveRepoRoot(import.meta.url, { projectDir: undefined });
 const readCheckpoint = makeCheckpointReader(repoRoot);
 
 interface Checkpoints {

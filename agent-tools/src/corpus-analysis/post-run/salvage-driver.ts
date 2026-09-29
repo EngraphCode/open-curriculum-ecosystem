@@ -39,7 +39,9 @@ import { computeSalvageTiers } from './salvage-tiers.js';
 import type { SalvageTierTable } from './salvage-tiers.js';
 import type { ValidateSuccess } from './triage.js';
 
-const repoRoot = resolveRepoRoot(import.meta.url);
+// projectDir is explicitly disabled: this driver reads checkpoints and claimed homes from
+// the checkout it runs in, never from the harness project directory.
+const repoRoot = resolveRepoRoot(import.meta.url, { projectDir: undefined });
 const readCheckpoint = makeCheckpointReader(repoRoot);
 
 interface SalvageInputs {

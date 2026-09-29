@@ -5,8 +5,8 @@
  * The operator's launch tool. Reads the named checkpoint JSONs, re-parses them with the
  * zod stage contracts (strict validation at the Node boundary — the sandbox receives
  * only data that passed here), derives the stage's run data through the pipeline glue
- * (`run-inputs.ts` — partial-map refusal, grounding projection, resume-id derivation,
- * the merged-set meta gate), bundles the stage seeded, and writes
+ * (`run-inputs.ts` — partial-map refusal, empty-reduce refusal, grounding projection,
+ * resume-id derivation, the merged-set meta gate), bundles the stage seeded, and writes
  * `dist/corpus-analysis/workflows/<stage>.workflow.seeded.mjs` for
  * `Workflow({scriptPath})`.
  *
@@ -24,7 +24,7 @@
  * @packageDocumentation
  */
 
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
@@ -47,6 +47,8 @@ import {
 } from '../stage-io.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
 import { buildStageArtefact } from '../../../workflow-build/workflow-builder.js';
+import { resolveRepoRoot } from '../../../core/repo-root.js';
+import { makeCheckpointReader } from '../../post-run/checkpoint-io.js';
 import { parseFlags } from '../../../core/parse-flags.js';
 import { BUILD_CONFIG, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './build-config.js';
 
@@ -59,33 +61,13 @@ interface CliFlags {
   readonly ceiling?: number;
 }
 
-async function readJson(filePath: string): Promise<Result<unknown, Error>> {
-  try {
-    const raw = await readFile(filePath, 'utf8');
-    return ok(JSON.parse(raw));
-  } catch (cause) {
-    return err(
-      new Error(
-        `Cannot read checkpoint ${filePath}: ${cause instanceof Error ? cause.message : String(cause)}`,
-        {
-          cause,
-        },
-      ),
-    );
-  }
-}
-
-async function readAnd<T>(
-  filePath: string | undefined,
-  label: string,
-  parse: (value: unknown) => Result<T, Error>,
-): Promise<Result<T, Error>> {
-  if (filePath === undefined) {
-    return err(new Error(`Missing required checkpoint flag for ${label}.`));
-  }
-  const json = await readJson(filePath);
-  return json.ok ? parse(json.value) : json;
-}
+// Every flag-supplied checkpoint goes through the repo-anchored reader the two post-run
+// drivers share, so a path that resolves outside this checkout (through `..`, an absolute
+// path elsewhere, or a symlink) is refused before anything is read or embedded in a
+// launchable artefact; projectDir is explicitly disabled, so the root is the checkout this
+// builder runs in, never the harness project directory.
+const repoRoot = resolveRepoRoot(import.meta.url, { projectDir: undefined });
+const readAnd = makeCheckpointReader(repoRoot);
 
 /** Every stage's run data, as the concrete union — never widened back to unknown. */
 type StageRunData = MapRunData | ReduceRunData | ValidateRunData | MetaRunData;
@@ -228,7 +210,7 @@ if (resolved.ok) {
     await mkdir(WORKFLOW_OUT_DIR, { recursive: true });
     await writeFile(outPath, artefact.value, 'utf8');
     process.stdout.write(
-      `seeded ${outPath} (${artefact.value.length} chars, contract green) — launch with Workflow({scriptPath}) from the repo root.\n`,
+      `seeded ${path.resolve(outPath)} (${artefact.value.length} chars, contract green) — launch with Workflow({scriptPath}) at this absolute path.\n`,
     );
   } else {
     process.stderr.write(`${artefact.error.message}\n`);
