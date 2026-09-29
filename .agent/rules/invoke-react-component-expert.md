@@ -1,3 +1,11 @@
+---
+classification: situational
+description: Invoke react-component-expert when changes touch React component architecture, hooks, render performance, prop API design, or component composition patterns in UI-shipping workspaces.
+trigger: surface:react-component — React component edit (hooks, render, prop API, composition)
+globs:
+  - "**/*.tsx"
+---
+
 # Invoke React Component Expert
 
 Operationalises [ADR-149 (Frontend Specialist Reviewer Gateway Cluster)](../../docs/architecture/architectural-decisions/149-frontend-specialist-expert-gateway-cluster.md) and [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).

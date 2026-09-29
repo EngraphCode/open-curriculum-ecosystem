@@ -1,3 +1,8 @@
+---
+classification: core
+description: Follow the agent-to-agent collaboration model.
+---
+
 # Follow Agent Collaboration Practice
 
 Read and follow `.agent/directives/agent-collaboration.md`.

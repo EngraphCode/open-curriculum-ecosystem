@@ -24,7 +24,9 @@ protocol or health channel are theirs to use) and run from CI-gated tasks. The
 §Decision sentence, its table and consequences 2 and 3 are re-worded below to
 match. The PR-check pipeline runs unit and
 integration tests (no IO) and the validation checks it is configured to run; its
-network-free boundary is unchanged.
+network-free boundary is unchanged. Amended 2026-09-28, in lockstep with
+ADR-121, to record that provisioning the tools the checks run is outside the
+boundary when the tool is pinned by content (see §Provisioning is not a check).
 **Date**: 2026-04-17
 **Related**: [ADR-078](078-dependency-injection-for-testability.md) — the DI
 discipline that makes in-process tests deterministic;
@@ -163,6 +165,19 @@ The permission is bounded precisely:
 
 ADR-121's coverage matrix and §Network-free PR-check boundary are amended in
 lockstep, as consequence #5 requires.
+
+### Provisioning is not a check (amended 2026-09-28)
+
+This boundary governs what a PR check reaches to prove its claim, and vendor
+side-effect calls. It does not govern provisioning: installing the dependencies
+and tools the checks run, before any check runs. The pnpm dependency install
+(`pnpm install --frozen-lockfile`), and the gitleaks and shellcheck binaries
+fetched at a pinned version and checked against a pinned sha256
+([ADR-121](121-quality-gate-surfaces.md) §Pinned system binaries), are
+provisioning. The pin fixes what arrives, so no check's verdict depends on the
+network, and the tool then runs without it. A download that is not pinned by
+content, or a tool that reaches a third-party network while it checks, stays
+inside this boundary.
 
 ## Consequences
 

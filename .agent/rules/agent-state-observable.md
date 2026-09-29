@@ -1,3 +1,8 @@
+---
+classification: core
+description: Agent state that affects other agents' next actions must be expressed as an observable artefact, not held only in session reasoning.
+---
+
 # Agent State That Affects Other Agents Must Be Observable
 
 Operationalises

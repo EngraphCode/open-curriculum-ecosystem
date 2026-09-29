@@ -1,8 +1,16 @@
+---
+classification: situational
+description: After editing TypeScript files, check lint for file/function length violations.
+trigger: surface:source-authoring
+globs:
+  - "**/*.ts"
+---
+
 # Lint After Edit
 
 Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md).
 
-After editing TypeScript files, check lint for file/function length violations. Run lint on the changed files or run `pnpm lint:fix`. Catch violations early — don't accumulate them.
+After editing TypeScript files, check lint for file/function length violations. Run lint on the changed files (on Cursor, `ReadLints` on the changed files) or run `pnpm lint:fix`. Catch violations early — don't accumulate them.
 
 Key ESLint thresholds that bite during refactoring:
 

@@ -1,3 +1,8 @@
+---
+classification: core
+description: The host is a shared substrate — no unbounded background load, ever. Spawns are bounded, owned, and reaped with a verified census; host-level load needs proportionality and announcement; check host health at bootstrap.
+---
+
 # No Unbounded Host Load
 
 The host machine is a shared substrate: the owner's computer, every live

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Warnings are never tolerated, never deferred, never silenced — anywhere in any system the repo influences (build, quality gates, runtime, monitoring).
+---
+
 # No Warning Toleration
 
 Operationalises [`principles.md` §Code Quality](../directives/principles.md)

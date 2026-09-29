@@ -503,6 +503,14 @@ judgement; literalness buys stratum coverage — neither substitutes for
 the other, and a cheap instrument's dissent from an expensive consensus
 is a signal to investigate, never noise to average away.
 
+### Cursor Reviewer Invocation
+
+On Cursor, invoke a reviewer through the Task tool with `readonly: true` and the
+reviewer's `subagent_type` (the canonical template's name, for example
+`subagent_type: mcp-expert`). The nine `invoke-*` rules' Cursor adapters carried
+this line by hand until the adapters became generated pointers; this is its one
+home.
+
 ### Codex Reviewer Adapter Preflight
 
 When running reviewer workflows in Codex, do not assume the runtime has

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Verify external-dependency call shapes against installed-or-published docs at plan-author time, never from memory.
+---
+
 # Verify Vendor Call Shapes At Plan-Author Time
 
 When a plan body pins the call shape of an external dependency — an

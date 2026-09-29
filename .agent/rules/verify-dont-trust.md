@@ -1,3 +1,8 @@
+---
+classification: core
+description: Verify claims against concrete artefacts before routing, reporting completion, archiving source material, or accepting handoff/sub-agent/reviewer statements as current state.
+---
+
 # Verify, Do Not Trust
 
 Operationalises

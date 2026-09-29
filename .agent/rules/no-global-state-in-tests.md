@@ -1,3 +1,11 @@
+---
+classification: situational
+description: Tests MUST NOT mutate global state. Pass configuration as parameters.
+trigger: surface:test-authoring
+globs:
+  - "**/*.test.ts"
+---
+
 # No Global State Manipulation in Tests
 
 Tests MUST NOT read or mutate global state. Prohibited in ALL tests

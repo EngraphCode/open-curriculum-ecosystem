@@ -129,6 +129,7 @@ const config: KnipConfig = {
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
         'src/validators/patterns-index/validate-patterns-index.ts',
         'src/validators/ratified-lists/validate-ratified-lists.ts',
+        'src/rule-declarations/rule-frontmatter-sweep.ts',
         'src/validators/portability/validate-portability.ts',
         'src/validators/subagents/validate-subagents.ts',
         'src/validators/plugin-skill-copies/validate-plugin-skill-copies.ts',

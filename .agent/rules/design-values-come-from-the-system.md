@@ -1,3 +1,13 @@
+---
+classification: situational
+description: Every design value on a consumer surface resolves through the design system (token, role class, or custom property) — no hardcoded values; kit-internal literals are the definitions; retained consumer literals need the owner's named word with a recorded disposition.
+trigger: surface:design — Authoring or reviewing a design value on a consumer surface
+globs:
+  - apps/**/*.{ts,tsx,css,html}
+  - demos/**/*.{ts,tsx,css,html}
+  - packages/design/**
+---
+
 # Design Values Come From the System
 
 Owner-ruled (2026-07-29, in-chat, verbatim): "everywhere we use a value it

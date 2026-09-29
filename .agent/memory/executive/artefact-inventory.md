@@ -61,8 +61,9 @@ chain, portable skills, and transitional review commands.
 
 ## How to Create New Artefacts
 
-Always create the canonical file first, then add platform adapters.
-Run `pnpm portability:check` after adding to verify parity.
+Always create the canonical file first; its platform adapters are generated
+(`pnpm portability:fix` for a rule, `pnpm skills:generate` for a skill) and
+never edited by hand; `pnpm portability:check` recomputes them and refuses drift.
 
 ### New Skill
 
@@ -76,7 +77,7 @@ budget mechanics under §New Runbook before adding one.
    is string→string and an unquoted `true` or `1.0` refuses the canonical.
 2. **Adapters (generated)**: `.agents/skills/oak-<name>/SKILL.md` and
    `.claude/skills/oak-<name>/SKILL.md` — emitted by
-   `pnpm agent-tools:skills-adapter-generate`; **manual edits forbidden**
+   `pnpm skills:generate`; **manual edits forbidden**
 3. **Claude settings**: add `Skill(oak-<name>)` and
    `Skill(oak-<name>:*)` to `.claude/settings.json` `permissions.allow`
 4. **Verification**: `pnpm skills:check` (adapter drift) and
@@ -87,16 +88,17 @@ command surfaces are retired (see ADR-125 §2026-05-10).
 
 ### New Rule
 
-1. **Canonical**: `.agent/rules/<name>.md`
-2. **Cursor**: `.cursor/rules/<name>.mdc`
-3. **Claude Code**: `.claude/rules/<name>.md`
-4. **`.agents/`**: `.agents/rules/<name>.md`
-
-- **Cursor `.mdc`**: YAML front-matter (`description`,
-  `alwaysApply: true`), body = `Read and follow
-  .agent/rules/<name>.md`.
-- **Claude**: plain text — `Read and follow .agent/rules/<name>.md`.
-- **`.agents/`**: same plain-text pointer as Claude.
+1. **Canonical**: `.agent/rules/<name>.md`, opening with its frontmatter
+   declaration — `classification: core` or `situational`, a one-line
+   `description`, and for a situational rule its `trigger` and, where
+   file-scoped, its `globs`
+   (shape and trigger vocabulary:
+   [`extending.md` §Adding a Rule](../../../docs/engineering/extending.md#adding-a-rule-skill-command-or-sub-agent)).
+2. **Projections (generated)**: `.cursor/rules/<name>.mdc`,
+   `.claude/rules/<name>.md`, `.agents/rules/<name>.md` and the
+   `RULES_INDEX.md` row — emitted by `pnpm portability:fix` from the
+   declaration; **manual edits forbidden**; `pnpm portability:check`
+   recomputes them.
 
 ### New Sub-agent
 

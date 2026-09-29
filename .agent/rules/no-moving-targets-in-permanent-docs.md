@@ -1,3 +1,8 @@
+---
+classification: core
+description: No moving targets in permanent docs. Commit SHAs, deployment IDs, version numbers, and other drifting values belong in ephemeral state, not in ADRs/PDRs/principles/rules.
+---
+
 # No Moving Targets in Permanent Docs
 
 Operationalises the **durability axis** of

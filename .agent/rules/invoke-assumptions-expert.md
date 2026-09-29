@@ -1,3 +1,9 @@
+---
+classification: situational
+description: Invoke assumptions-expert when plans are marked decision-complete, propose 3+ agents, assert blocking relationships, or commit to technology choices before research.
+trigger: ceremony:plan-authoring — Plan authoring, decision-complete marks, blocking claims, 3+ agents
+---
+
 # Invoke Assumptions Expert
 
 Operationalises [ADR-146 (Assumptions Reviewer — Meta-Level Plan Assessment)](../../docs/architecture/architectural-decisions/146-assumptions-expert-meta-level-plan-assessment.md) and [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).

@@ -17,6 +17,17 @@
 # Stderr is captured to the log on failure AND re-emitted so the harness's
 # own session log still receives it.
 
+# The bash floor: the shellcheck gate holds it once and requires this guard first.
+if ((BASH_VERSINFO[0] < 5 || (BASH_VERSINFO[0] == 5 && BASH_VERSINFO[1] < 2))); then
+  # Hand straight to the wrapped command, unlogged. A wrapped bash hook carries
+  # the floor itself, so the secrets hooks still answer with their block
+  # decision; exiting here would be a non-blocking failure and let them through.
+  echo "log-hook-errors: bash 5.2 or later is required, found ${BASH_VERSION}; running the hook unlogged" >&2
+  exec "$@"
+  # Reached only with no command to hand to: exec with no arguments returns.
+  exit 1
+fi
+
 set -u
 
 project_dir="${CLAUDE_PROJECT_DIR:-$PWD}"

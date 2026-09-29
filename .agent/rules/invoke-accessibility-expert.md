@@ -1,3 +1,13 @@
+---
+classification: situational
+description: Invoke accessibility-expert when changes touch rendered HTML, ARIA attributes, keyboard interaction, colour contrast, focus management, or WCAG compliance in UI-shipping workspaces.
+trigger: surface:accessibility — Accessibility-touching change (WCAG / keyboard / focus / contrast / ARIA)
+globs:
+  - "**/*.tsx"
+  - "**/*.html"
+  - "**/*.css"
+---
+
 # Invoke Accessibility Expert
 
 Operationalises [ADR-149 (Frontend Specialist Reviewer Gateway Cluster)](../../docs/architecture/architectural-decisions/149-frontend-specialist-expert-gateway-cluster.md), [ADR-147 (Browser Accessibility as a Blocking Quality Gate)](../../docs/architecture/architectural-decisions/147-browser-accessibility-as-blocking-quality-gate.md), and [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).

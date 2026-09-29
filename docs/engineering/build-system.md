@@ -408,10 +408,12 @@ cell must be exactly the em dash); the 100 ms dedicated test would have
 caught it before the push. Two disciplines follow:
 
 - **Before pushing an edit to a registry or index file that has a test
-  directory named after it, run that directory directly** (for the rules
-  index, `pnpm exec vitest run tests/rules/` from `agent-tools/`), and read
-  the hook's turbo summary for `replaying logs` on the package whose tests
-  cover the file.
+  directory named after it, run that directory directly** (`pnpm exec vitest
+run tests/<name>/` from `agent-tools/`), and read the hook's turbo summary
+  for `replaying logs` on the package whose tests cover the file. (The rules
+  index is a generated projection — `pnpm portability:fix` renders it and the
+  pre-push `portability:check` recomputes it — so the 2026-09-07 class cannot
+  recur there by hand edit.)
 - **The structural cure is declaring the root file among the task's
   inputs** (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json`
   already uses) — a one-line `turbo.json` change per root file a test
@@ -693,8 +695,9 @@ reader a broken `pnpm build`.
   target file after applying the fix, especially after auto-fix gates.
 - **Never edit generated files** — edit the generators instead.
   Hand-trimming generated output causes regeneration footguns.
-  When knip or depcruise flags a generated file, fix the
-  generator that produced it.
+  When knip or depcruise flags a generated file, fix the generator that
+  produced it and regenerate (`pnpm skills:generate` for the skill adapters,
+  `pnpm portability:fix` for the rules index and the rule adapters).
 
 ## Related Documentation
 
