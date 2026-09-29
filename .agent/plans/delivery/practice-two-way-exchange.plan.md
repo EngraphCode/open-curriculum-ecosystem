@@ -9,7 +9,7 @@ impact_areas:
   - practice-and-estate
 tickets: []
 owner_gates: []
-last_updated: 2026-09-25
+last_updated: 2026-09-28
 ---
 
 # The two-way Practice exchange with the second estate
@@ -40,6 +40,73 @@ estate's seat's to receive and never gate the intake. The node keeps its end: it
 every offered text is dispositioned, and the installable entity the owner names is cut from the
 aligned Practice afterwards, outside this node.
 
+## The owner's ruling of 2026-09-28: the close bar
+
+The owner ratified the Director's close charter for the first direction as drafted (2026-09-28; the
+selected option verbatim, "Ratify as drafted (Recommended)", relayed by the Director to both
+exchange seats; the charter's text is the second estate's record). In this node's words: the intake
+closes when every text the second estate offers is settled here (taken by bytes, or written in this
+estate's words) or declined with the reason recorded and sent back; a partial landing whose
+remainder the second estate's batch-six triage of 2026-09-25 (at its exchange register: the second
+estate's ledger of every offered row's disposition, its §Landings rows and its count; this estate
+holds no copy) classes local or already at parity is settled by a §Landings row in that register
+citing the triage, not by a pull request (the row is the proof of one of the three outcomes below: a
+remainder already at parity is taken, by bytes or in words; a remainder classed local is Not taken,
+the owner's ratification of this clause the word that declines it, as the acceptance criteria below
+require for a ratified text, and the triage's class its reason, recorded in this estate's continuity
+record as the Not taken outcome requires, the register row standing as the second estate's
+acknowledgement); the Core's portability twins, the second estate's todo 8, are landed on both
+estates, which they are not yet: the doctrine that a Core decision record cites no repo-bound record
+is (this estate's PR 281; the second estate's text cures), and the validator that refuses such a
+citation is on the second estate (its PR 239) and not here, where it has no landing and no census
+row (routed to the Director for a row and a seat); the lessons batch and the sub-agent comparison
+(two offers the second estate's seat announced on the exchange channel and had not sent as rows by
+2026-09-28) are delivered as offered rows, landed or declined; the second estate's pins (the opening
+heads of 2026-09-21) are re-pinned to forty-character ids with the driver failing closed, and the
+re-pin recorded; and the count reads N of N beside both heads, with the close recorded in the second
+estate's node with the owner's word. The residue census of 2026-09-28
+(`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
+to land here by the register's rule of that day, 4 settled, 11 partial, 6 with no landing, 20
+residue pull requests, 24 in all with the charter's four acts (22 and 23 residue after J3's and J6's
+design reads, each dated in the census's Recounts section; 27 in all at its last entry of
+2026-09-28), three cards for the owner, answered the same day, with a fourth answer on the bar's
+scope (below). The census's first residue row, J1's N1 first slice (the rule generator with the
+frontmatter and the rendered rules index), landed as this estate's PR 291 on 2026-09-28 by the
+exchange seat; the census orders the rest. Then the review of both Practices opens, outside goal
+one's close bar; the second estate's inbound landings from this estate stay its node's todo 4, after
+that review (the fourth answer below).
+
+The owner's four answers of 2026-09-28, relayed by the Director, the selected options verbatim; the
+second estate's node records them as its rulings 41 to 44 (its pull request 255). (1) The second
+estate's exchange instrument (its register validator, its smoke and its root script): "Decline with
+the reason (Recommended)"; it is Not taken here, the reason being that it validates a register this
+estate does not hold; the loss-scan instrument stays J11's one residue pull request. (2) The
+gate-running doctrine (the triage's note 1): "Run it through the decision matrix, we don't choose
+between options, we create the best from what we know", then, on the Director's reading by the
+decision method, "Confirm the reading (Recommended)": the second estate's ratified node
+`commit-as-the-full-local-gate` (the owner's card of 2026-09-24) converges both estates in both
+directions, this estate's words landing there (its slices D, E and F: "the commit is the gate; never
+run gates by hand", the five homes, the same bytes) and the second estate's mechanism landing here
+(the gate slot `no-unbounded-host-load` item 6 prescribes, as note 4's pull request); note 1 settles
+by a register row citing that node, notes 4 and 8 keep their pull requests, and the census's card
+re-asked what the triage's own preamble had already read, recorded in the second estate's record
+against the seat that carded it. (3) The count: "What does owed mean?", the owner reading the word
+as a holding state, which the estate forbids, and "Use the cognitive skills", then, on the
+Director's synthesis, "Ratify the flow contract and Nova's lane (Recommended)": the register's rule
+text loses "owed"; a row is landed, in flight, queued or declined and nothing else, each with its
+proof, its pull request or named lane, its position with its seat and horizon, or its reason; the
+count reads in residue pull requests with the charter's four acts (the census's 24, 26 after J3's
+recount, 27 after J6's), landed of total, beside both heads, a declined row or pull request leaving
+the total at the next recount (the census's Recounts section carries it), so that N of N is landed
+of what remains planned; a count that does not fall between two folds is routed as a failure, never
+re-labelled, and a row queued across two folds with no movement is routed. The seats, by the
+Director's order with the ratification: Nova turns Penumbra (8a94ba, a lane seat on this estate at
+the Director's routing) on J6 (three pull requests at the order, four after its design read of the
+same day) and J8 (two); Siren herds Rudder (158275, the second estate's exchange seat) on J3's three
+and the register's settling rows; this estate's exchange seat (Myrtle turns Canopy, bf4957) on J1's
+N1, J2 and the other partials (J10, J17's notes 4 and 8, J18, J21). (4) The bar's scope: "Confirm:
+inbound stays in the node (Recommended)", read as above.
+
 ## User groups and value
 
 - **The owner** rules once. The ruling reaches both estates without being asked twice.
@@ -65,8 +132,9 @@ entries composed whole and appended in one write.
 ## Acceptance criteria
 
 Each text offered in the exchange ends in exactly one of three outcomes. A text the owner
-ratified ends only in one of the first two; "Not taken" is for an offer declined before
-ratification, never for an owner-ratified text. Every proof is `owner-held`, because the second
+ratified ends only in one of the first two unless the owner declines it on a card; "Not taken"
+is for an offer declined before ratification or a ratified text the owner declines by their own
+word, never a seat's decline of a ratified text. Every proof is `owner-held`, because the second
 estate's copy lies outside this repository:
 
 - **Taken by bytes.** This estate's file is byte-identical to the second estate's. Proof
