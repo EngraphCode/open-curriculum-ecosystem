@@ -4314,3 +4314,54 @@ commit SHA and the closing plan reference.
 - **Target surface**: agent-tools CLI (the three validators named; the pattern for the rest).
 - **Status**: open, an observation (recorded 2026-09-29), sequenced after the exchange's residue.
 - **Owner direction status**: session-scoped (a reviewer's observation, routed by the seat).
+
+### F-215 — the health probe in `core` imports the sub-agent declarations module
+
+- **Source**: Copilot's round-two thread on the lineage's PR 305 (review on 3f5751944,
+  2026-09-29), Routed by the exchange seat (Myrtle turns Canopy, bf4957); the code-expert's
+  pre-execution read of the same PR named it first as a port-back candidate.
+- **Surface**: `agent-tools/src/core/health-probe-parity.ts` (its imports of
+  `../subagent-declarations/adapter-spec.js`, `declaration-scalars.js` and
+  `declared-adapters.js`); the same file on the second estate, byte for byte.
+- **Observed**: 2026-09-29. The probe's adapter parity reads the templates' declarations as its
+  platform truth, so the first `core/*.ts` module now imports a feature module: an edge no
+  dependency-cruiser rule forbids but which inverts the layering the tree otherwise keeps
+  (`core` below the feature modules). The edge arrived with the port of the second estate's
+  generator (N1's second slice) under the same-bytes rule, so it is the second estate's shape
+  as well.
+- **Expected**: `core` imports nothing from a feature module; the probe reads its platform
+  truth through an injected reader or from a module that sits above both.
+- **Candidate cure**: move the probe's parity out of `core` (beside the declarations, or into
+  a `health-probe` module above both), or have the composition root inject the declared
+  adapters into a pure `core` check; one change on both estates as the same bytes, with a
+  dependency-cruiser rule that refuses the edge afterwards.
+- **Target surface**: agent-tools `core` and the health probe; the second estate's twin.
+- **Status**: open, an observation (recorded 2026-09-29), sequenced after the exchange's residue.
+- **Owner direction status**: session-scoped (a reviewer's observation, routed by the seat).
+
+### F-216 — the parity probe's surface listing and the no-follow read's host arm are proven by observation only
+
+- **Source**: Copilot's round three on the second estate's PR 271 (review 5348585306,
+  2026-09-29, two threads on the pure-sync tip), Routed by the exchange seat (Myrtle turns
+  Canopy, bf4957); the same bytes landed here as PR 305's settlement one and late cure.
+- **Surface**: `agent-tools/src/core/health-probe-parity.ts` (`evaluateReviewerAdapterParity`,
+  the live composition that lists the four surfaces after the declaration read succeeded) and
+  `agent-tools/src/core/no-follow-read.ts` (`pathEntryIsDescriptorFileSync`, the host arm that
+  composes `lstatSync`); the same two files on the second estate.
+- **Observed**: 2026-09-29. The short-circuit that keeps a declaration refusal from listing any
+  surface lives in the composition, which the testing strategy leaves to observation; the pure
+  seam's cells would pass with or without it. The host arm's five cells describe the pure
+  identity check and never reach the `lstat` branch on a host that enforces no-follow; the
+  lineage's Windows leg observed it, the second estate has no such leg.
+- **Expected**: both behaviours described by a cell with no IO and no query assertion: the seam
+  takes the surface listing as a thunk it calls only after a successful read, described by
+  relation (a refusal returns the refusal whatever the surfaces would hold); the host arm takes
+  its probes injected (the `ReadProbes` pattern of `validators/operator-profile`), each branch
+  described over a fake host.
+- **Candidate cure**: one joint design on both estates as the same bytes (the seam's signature
+  and the probes' injection change shared files), with the cells; sequenced with the exchange's
+  residue, after J2.
+- **Target surface**: agent-tools core (the health probe; the no-follow read); the second
+  estate's twin.
+- **Status**: open, an observation (recorded 2026-09-29), sequenced after the exchange's residue.
+- **Owner direction status**: session-scoped (a reviewer's observation, routed by the seat).

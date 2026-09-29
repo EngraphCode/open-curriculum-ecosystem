@@ -1434,3 +1434,73 @@ cell's pass and not its reason. The mutant per cured claim is what reads the rea
 **Routing.** A working habit: a port runs one mutant per claim against the ported code before
 the first commit, and a surviving mutant sends a finding back to the source estate along with
 the cure.
+
+## 2026-09-29 ~05:1xZ — a door wait armed on one of the door's three preconditions; the base moved under it (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 305's door was armed as a background job that polled the checks alone and
+ran the door when none was pending. Between the arming (05:0xZ) and the firing (05:14Z) PR 304
+merged, so engraph moved and the door refused BEHIND-BASE after its slot-taken event; a pure
+sync, a second wait and a second door followed. The door's verdict reads three facts (the
+checks, the legs, the base) and the wait read one.
+
+**Reading.** A wait that reads a subset of the door's preconditions turns the door itself into
+the probe for the rest, at the cost of a slot pair on the stream and one refusal. On a day when
+three seats land a pull request every few minutes, a moved base is the common case, not the
+edge.
+
+**Routing.** The wait reads the merge state beside the checks and syncs before firing (this
+seat's chain now syncs first and waits on the synced tip); a lane-tooling seed for the
+merge-bot door: a wait that polls all three and fires once.
+
+## 2026-09-29 ~05:2xZ — a script derived from a sibling kept the sibling's announcement text (Myrtle turns Canopy, bf4957)
+
+**Observation.** The door script for PR 305 was derived from PR 301's; its slot-taken body was
+rewritten for N1 slice 2 but its merged-event body still named todo 8's validator twin and a
+count of 10 of 30. The first run refused before reaching that branch; the script was read in
+full before the rerun and the body corrected. The same class as the 04:0xZ entry (a value
+copied, not read from its source): here prose copied from a sibling script, not read against
+the lane it serves.
+
+**Reading.** A derived script is proven by `sh -n` for its syntax and by its first run for the
+branch it takes; the branch it does not take is proven by nothing until it fires. An
+announcement body is data the door publishes to every seat on the stream.
+
+**Routing.** Every `send` body in a derived script is diffed against its sibling before the
+first run; the door's announcement bodies take the lane's facts as arguments, not as prose.
+
+## 2026-09-29 ~05:4xZ — a documentation port drafted from the source estate's shape before the target's contract for that surface was read (Myrtle turns Canopy, bf4957)
+
+**Observation.** N1's third slice was drafted as the second estate's adapter-model sections in
+`CLAUDE.md` and `GEMINI.md`, every command and path in them verified against this tree. The
+onboarding read found the surface itself under a contract this tree codifies (the
+session-handoff skill's step 6d; the homing rule's item 3): a heading and one pointer line,
+named extensions elsewhere; the sections were drift by that contract, and every fact in them
+already had a canonical home here. Withdrawn before the commit; the exchange row settled as
+declined by contract; the worktree and branch removed.
+
+**Reading.** Verifying a document's claims is not verifying its shape. A surface with a
+codified contract is owned by that contract before any content is judged, and the exchange's
+"take the higher encoding" reads the contract, not the longer text. The rule that data must
+support the shape before building applies to documents as it does to schemas.
+
+**Routing.** Before porting a documentation surface, read the target's contract for that
+surface (the wrap's drift sweep names the entrypoint contract; the homing rule names the
+classes). The docs-adr and onboarding reads before the commit are what caught it; the rule
+that requires them on every significant documentation change held.
+
+## 2026-09-29 ~06:0xZ — a chain's last step ran after its proof failed; the worktree was edited while that gate ran (Myrtle turns Canopy, bf4957)
+
+**Observation.** The late-cure chain for PR 305 read `patch && prettier && cmp && notice; late-cure`:
+the same-bytes proof compared whole files where the rule exempts one line (the result import),
+so it failed, and the `;` ran the late cure anyway. Reading the chain as stopped, the seat then
+braced the file for the second estate's lint while the first commit's gate was running, and a
+second run met the lock. The gate passed the unbraced form (this estate's lint has no such
+rule), so the braces became a second commit rather than an amendment.
+
+**Reading.** A `;` after a proof is a proof that decides nothing. A worktree with a running gate
+is not the seat's to edit, whatever the seat believes about the chain that started it; the
+lock and the process list are the facts, the belief is not.
+
+**Routing.** Chains end in `&&` only, and the same-bytes proof diffs with the exempt line
+removed (`sed '4d'` on both sides); before any edit to a worktree, the process list is read for
+a commit or hook on that path.

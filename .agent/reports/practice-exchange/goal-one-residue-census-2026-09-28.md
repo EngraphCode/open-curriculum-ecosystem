@@ -205,3 +205,34 @@ here; the register carries the current total.
   rows, so not counted: #286 and #287 (todo 8's doctrine text cures) and #288 (a directive
   cure, no row); #283 is the fold. The register's count line on the second estate carries the
   same numbers at the heads it names.
+
+At engraph e07d6b34e (#305, N1's second slice, merged 2026-09-29T09:21:08Z from its final tip
+b77fced20; read 2026-09-29T09:2xZ): 15 of 32, with #298 (J6's N7, 2026-09-29T02:52:41Z), #301
+(todo 8's validator twin, 03:19:24Z), #303 (J6's N8, 04:19:04Z), #305 (N1's second slice,
+09:21:08Z), #306 (J8's first, the post-run hardening, 05:49:58Z) and #307 (J17's note 4, the gate
+slot, 05:25:23Z) counted since the previous recount. A
+recount by the contract's rule from the exchange seat's design reads of 2026-09-29 05:4xZ and the
+Director's rulings of 05:5xZ, in three parts. One: N1's third slice as the table names it (the
+health-probe parity that reads the declarations) landed inside #305, whose parity probe reads the
+templates' declarations, and J16's rider that was to ride it (the root entrypoints as pointers to
+the adapter model) is declined by this estate's entrypoint contract (the session-handoff skill's
+step 6d: a heading and one pointer line, named extensions only on AGENTS.md, skills.md and the
+Copilot instructions; the homing rule's item 3), every fact it would have restated being homed in
+AGENT.md §Rules, the artefact inventory and extending.md: J1 reads four (N1's two slices, N4, N5
+with N3). Two: J16 takes one unit by the Director's ruling, ADR-125's 2026-05-10 amendment retiring
+the .gemini/commands review-*.toml adapters once native Gemini agent support exists, which the
+surface matrix records: declare Gemini on the reviewer roles after a vendor-shape verification
+against Gemini CLI's current documentation (a mechanism change there is a joint design on both
+estates before the lane), render .gemini/agents/ as the second estate does, retire the TOMLs, amend
+ADR-125, the matrix, the inventory's recipe and the roster; sequenced after J2. Three: J2 reads
+three by its design read and the Director's word, cited-paths with J7's describer (three call sites
+here) and lineage-names (the same bytes with this estate's needles as hook-policy data: the second
+estate's identifiers, the needle set listed for the owner in the PR body), cited-scripts, then the
+compare cure; the authored-surfaces walker landed in #291. Four, by the Director's ruling of 06:1xZ
+(posted on the stream at 06:22Z): goal one is every second-estate innovation, so a landing the
+second estate made after the census takes a row and a unit at its lineage port, dated, with its
+source; the register's L34, the merge-bot push retry (the second estate's PR 261, merged 24b72825e3
+at 00:09:50Z; the port fd0bd9db1 on feat/exchange-b1-push-retry, opened as PR 310 at 09:1xZ), one. The
+residue rows 27, the total 32 with the charter's five acts, 15 landed. The register's count line on
+the second estate moves to the same numbers on its coordination branch, with #305's Landings row
+and J16's row, by the finishing plan's rule (no register refresh as its own pull request).

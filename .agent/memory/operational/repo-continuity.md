@@ -649,6 +649,75 @@ contract, its §Recount run at 14:58Z and matching.
   SHA: prefix, and the node's last_updated stamp, each cured (settlements one and two, the budget
   spent). The count reads 11 of 30 at jcnet 507f581185 and lineage eb1ad3f807. Next: PR 305's legs
   and door; J2; the partials in census order.
+- **N1 SLICE 2 LANDED AS PR 305 AT THE RESUME; THE SEAT PAUSED AT THE OWNER'S WORD BETWEEN,
+  2026-09-29 04:2xZ to 09:2xZ (Myrtle turns Canopy, bf4957).** PR 305 (the sub-agent adapters rendered from the
+  templates' declarations; the second estate's generator as the same bytes) merged as e07d6b34e
+  (2026-09-29T09:21:08Z) from its final tip b77fced20 (the third pure sync, onto engraph 7c75e6ce9
+  after #308), both vendor legs answered on d9fb0edec and bound by content across the syncs, every
+  thread resolved, every check green: the owner's word at 06:5xZ (compaction, then every process
+  stopped) ended the land loop before the checks settled; the seat resumed at the owner's
+  start-right-team word of 09:1xZ, read the Director's GO of 09:06Z (the finishing plan's Finish
+  section on the exchange node, 65b1cab94) and fired the door as its first act. Five review rounds on budget 2
+  plus the late cure. Round one on 68be84202 (Copilot's thread, Codex's two, and the Windows leg
+  red): the integration test did real filesystem work against the no-IO rule, and the read's
+  fallback on a host without O_NOFOLLOW followed a linked template, so the parity probe could admit
+  what the adapter leg refuses. Settlement one, 3f5751944: readDeclaredAdapters over injected
+  TemplateReads (the listing and one template's text, both Results) with every refusal arm described
+  over in-memory reads; the synchronous no-follow arm pathEntryIsDescriptorFileSync in
+  core/no-follow-read.ts beside the async one, entryIsDescriptorFile typed over FileIdentity, five
+  cells of its own; the probe's refusal arm on the pure seam reviewerAdapterParityOf with two cells;
+  the code-expert and test-expert reads applied (basename keys against the Windows leg, it.each over
+  the refusal strings, no throwing fake). Round two on 3f5751944: Codex clean; Copilot's one thread
+  (core imports the declarations module) Below-bar, Routed as F-215. Round three, Codex on the sync
+  tip ac481e537: subagents:check required a Cursor wrapper and a Codex adapter for every template
+  while a declaration may narrow its platforms; cured as a nineteen-line deletion in settlement two,
+  198033be1 (the projection leg subsumes the checks). The late cure, 4d245d7b2 with its braced form
+  d9fb0edec (PDR-140 clause 4's one push after the budget): the parity probe's composition listed
+  four surfaces before the seam checked the declaration, so a refusal could throw from readdirSync;
+  found by the second estate's Copilot on the twin PR 271, verified against the pre-cure code, the
+  same bytes on both estates. The door at 05:14Z refused BEHIND-BASE (PR 304 had landed at 05:01Z),
+  as did the fourth at 06:36Z when #308 landed between the loop's read and its door; the pure syncs
+  onto engraph as it moved (188b8a9d3 after #304, ac481e537 after #307, b77fced20 after #308), the
+  door to fire on the even tip. The remote and local branches, the worktree oce-wt-n1-slice2 and the claim were removed at the
+  landing. The census's recount moves to 15 of 32 (#298 (J6's N7, 2026-09-29T02:52:41Z), #301 (todo 8's
+  validator twin, 03:19:24Z), #303 (J6's N8, 04:19:04Z), #305 (N1's second slice, 09:21:08Z), #306
+  (J8's first, the post-run hardening, 05:49:58Z) and #307 (J17's note 4, the gate slot, 05:25:23Z)
+  counted since the census's last recount; the total 32 by the census's dated recounts); the second
+  estate's register takes the same numbers on its coordination branch by the finishing plan's rule
+  (no register refresh as its own pull request). N1's third slice as the census named it (the
+  health-probe parity that reads the declarations) landed inside #305; J16's rider that was to ride
+  it (the root entrypoints as pointers to the adapter model) was drafted in a worktree from the
+  second estate's form and withdrawn before any commit when the onboarding read found the surface
+  under this estate's entrypoint contract (session-handoff step 6d; the homing rule's item 3): a
+  heading and one pointer line, the facts homed in AGENT.md §Rules, the artefact inventory and
+  extending.md; declined by contract, the worktree and branch removed (the napkin's entry of
+  05:4xZ). The Director's rulings of 05:5xZ on two questions routed with the report: J2's
+  lineage-names ports as the same bytes with this estate's needles as hook-policy data (the second
+  estate's identifiers, listed for the owner in the PR body), riding the cited-paths PR; J16 takes
+  the Gemini sub-agent surface as its unit (ADR-125's fired trigger: declare Gemini on the reviewer
+  roles after a vendor-shape verification, render .gemini/agents/, retire the review-*.toml
+  adapters, amend ADR-125, the matrix, the inventory's recipe and the roster), after J2's three. The reads' surviving findings on the canonical homes, over the bar by the Director's word, ride
+  the Practice docs pull request of the finishing order (proposed on the stream at the resume; one
+  open pull request per seat): two lines instructing a seat to run push-hook gates by hand
+  (artefact-inventory.md:83-84, extending.md:249) against the owner's 2026-09-14 word; no how-to
+  home naming pnpm subagents:check once #305 rewrote the sub-agents README's line (the inventory's
+  §New Sub-agent takes the sentence); the inventory's adapter table silent on the Vendor-class
+  skills under .agents/skills/ (ADR-125 §Skill classes). The second estate's twin of the six-file
+  cure (e07c9bfe, the same bytes save the result import) opened there as PR 271 at 05:54Z on the
+  slot #306 released, Copilot requested as the operator; its round one found the parity probe's lost
+  short-circuit (settlement one there, 39617e63f; the same bytes as this estate's late cure), round
+  two clean with one overview observation signed Rejected; its door refused SILENT-WAIT-NO-REVIEWER
+  after the pure sync onto its main (the second estate's merge-bot does not yet bind a leg by
+  content across a sync, as this estate's does since #302 and #304), so Copilot was requested again
+  on the synced tip before the door; its round three there raised two seam-test threads on that tip
+  (the short-circuit proven by observation only; the no-follow host arm's lstat uninjected), Routed
+  as F-216, a joint design candidate for both estates; merged as 0b71e7644 at 06:37:01Z, the
+  worktree and branch removed. Next, in order, on the resume: this records commit and its push (left
+  uncommitted on the primary's working tree by the compaction precedent); PR 305's door; the second
+  estate's records pull request (todo 6's dated sentence, J8's flow-back note, Landings rows for
+  #305 and the day's other landings, the count line at 14 of 32, J16's row); the two-line docs cure;
+  J2's three PRs in the Director's order (cited-paths with the describer and lineage-names;
+  cited-scripts; the compare cure); J16's Gemini surface; the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's
