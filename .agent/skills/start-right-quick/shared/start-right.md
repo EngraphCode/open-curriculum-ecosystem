@@ -378,12 +378,13 @@ before calling any check a defect or a flake: the fan-in job goes red with any
 failed leg and names no cause of its own (a font-loader flake read as the
 diff's fault, 2026-09-25).
 
-`pnpm install` does not install shellcheck either. The shell lint gate runs at
-every commit, and `.agent/setup/install-shellcheck.sh` installs the pinned
-version into the worktree's ignored `.tools/bin`. Without it the gate falls back
-to the shellcheck on `PATH`, which passes only while that one is the pinned
-version, so every worktree without its own `.tools/bin` fails at once when the
-`PATH` copy is upgraded.
+`pnpm install` installs shellcheck only through its `postinstall`, which runs
+`.agent/setup/install-shellcheck.sh` at a new clone or worktree's first install
+(the Quality Gates line says when else). The installer puts the pinned version
+in the worktree's ignored `.tools/bin`, and the shell lint gate runs at every
+commit. Without it the gate falls back to the shellcheck on `PATH`, which passes
+only while that one is the pinned version, so every worktree without its own
+`.tools/bin` fails at once when the `PATH` copy is upgraded.
 
 Full fresh-worktree setup is install, build, the pinned shellcheck before the
 first commit, AND the Playwright browser install before the browser-test gates
