@@ -1,20 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  FAILED_ATTEMPT,
-  isAdvertisementRefusal,
-  keptForRefusal,
-  PUSH_ATTEMPTS,
-  pushWithRetry,
-  REFUSAL_TRANSCRIPT_BOUND,
-  type PushAttempt,
-} from './push-attempts.js';
+import { isAdvertisementRefusal } from './push-attempts.js';
 
 /**
- * The bounded push retry: which failed push is GitHub's refusal at the ref
- * advertisement, and what the retry returns, says and waits for over a run
- * of attempts. The push itself, minted and transferred, is
- * `push-cli.integration.test.ts`'s.
+ * Which failed push is GitHub's refusal at the ref advertisement, read from a
+ * captured transcript. The retry over a run of attempts is
+ * `push-attempts.integration.test.ts`'s; the push itself, minted and
+ * transferred, is `push-cli.integration.test.ts`'s.
  */
 
 /** GitHub's refusal as git printed it on 2026-09-28, the repository and bot renamed. */
@@ -51,109 +43,5 @@ describe('isAdvertisementRefusal', () => {
     const notFound = REFUSAL.replace('error: 403', 'error: 404');
     expect(isAdvertisementRefusal(128, null, notFound)).toBe(false);
     expect(isAdvertisementRefusal(128, null, REFUSAL.split('\n')[1] ?? '')).toBe(false);
-  });
-
-  it('does not hold with the two lines in the other order', () => {
-    const [reason = '', failure = ''] = REFUSAL.split('\n');
-    expect(isAdvertisementRefusal(128, null, `${failure}\n${reason}\n`)).toBe(false);
-  });
-
-  it('does not hold for a transcript the check stopped keeping', () => {
-    expect(isAdvertisementRefusal(128, null, null)).toBe(false);
-  });
-});
-
-describe('keptForRefusal', () => {
-  it('keeps the transcript while it could still be the refusal, however it arrives', () => {
-    const [reason = '', failure = ''] = REFUSAL.split('\n');
-    const kept = keptForRefusal(keptForRefusal('', `${reason}\n`), `${failure}\n`);
-
-    expect(kept).toBe(REFUSAL);
-    expect(isAdvertisementRefusal(128, null, kept)).toBe(true);
-  });
-
-  it('keeps a transcript exactly at the bound', () => {
-    expect(keptForRefusal('', 'x'.repeat(REFUSAL_TRANSCRIPT_BOUND))).toHaveLength(
-      REFUSAL_TRANSCRIPT_BOUND,
-    );
-  });
-
-  it('stops keeping once a chunk would take the transcript past the bound, and never resumes', () => {
-    const over = keptForRefusal('x', 'x'.repeat(REFUSAL_TRANSCRIPT_BOUND));
-
-    expect(over).toBeNull();
-    expect(keptForRefusal(over, REFUSAL)).toBeNull();
-  });
-});
-
-const REFUSED: PushAttempt = { exit: 1, refused: true };
-const PUSHED: PushAttempt = { exit: 0, refused: false };
-
-/**
- * Run the retry over attempts that end as given, in order, on a simulated
- * clock the sleep advances; collect what it writes and when each attempt
- * started.
- */
-async function retried(
-  ends: readonly PushAttempt[],
-): Promise<{ exit: number; text: string; startedAt: number[] }> {
-  let text = '';
-  let elapsed = 0;
-  const startedAt: number[] = [];
-  const remaining = [...ends];
-  const exit = await pushWithRetry(
-    () => {
-      startedAt.push(elapsed);
-      return Promise.resolve(remaining.shift() ?? REFUSED);
-    },
-    {
-      sleep: (ms) => {
-        elapsed += ms;
-        return Promise.resolve();
-      },
-      stderr: {
-        write: (chunk: string) => {
-          text += chunk;
-          return true;
-        },
-      },
-    },
-  );
-  return { exit, text, startedAt };
-}
-
-describe('pushWithRetry', () => {
-  it('returns a first attempt that pushed at once, saying nothing', async () => {
-    await expect(retried([PUSHED])).resolves.toStrictEqual({ exit: 0, text: '', startedAt: [0] });
-  });
-
-  it('tries again 30 seconds after a refusal and returns the attempt that pushed', async () => {
-    const { exit, text, startedAt } = await retried([REFUSED, PUSHED]);
-
-    expect(exit).toBe(0);
-    expect(startedAt).toStrictEqual([0, 30_000]);
-    expect(text).toBe(
-      'merge-bot push: GitHub refused attempt 1 of 3 before the pre-push hook ran; trying again with a fresh token in 30 s\n',
-    );
-  });
-
-  it('stops at the third refusal, 30 seconds apart, and says so', async () => {
-    const { exit, text, startedAt } = await retried([REFUSED, REFUSED, REFUSED, PUSHED]);
-
-    expect(exit).toBe(1);
-    expect(startedAt).toStrictEqual([0, 30_000, 60_000]);
-    expect(text.trimEnd().split('\n')).toStrictEqual([
-      expect.stringContaining('refused attempt 1 of 3'),
-      expect.stringContaining('refused attempt 2 of 3'),
-      `merge-bot push: GitHub refused the push ${String(PUSH_ATTEMPTS)} times before the pre-push hook ran, each refusal shown above; nothing was pushed`,
-    ]);
-  });
-
-  it('returns any other failure at once', async () => {
-    await expect(retried([FAILED_ATTEMPT, PUSHED])).resolves.toStrictEqual({
-      exit: 1,
-      text: '',
-      startedAt: [0],
-    });
   });
 });

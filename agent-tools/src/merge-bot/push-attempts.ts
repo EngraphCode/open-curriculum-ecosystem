@@ -1,26 +1,25 @@
 /**
- * The bounded retry around the bot's push. GitHub has refused a push with a
- * freshly minted installation token at the ref advertisement, the first
- * request git makes, before it runs the pre-push hook; a later push went
- * through each time (four times on 2026-09-28). A push whose whole
- * transcript is that refusal is therefore tried again with a fresh token, up
- * to `PUSH_ATTEMPTS` in all. Any other failure is final at once: a refusal
- * after the hook ran would run the whole gate again, and a gate's own failure
- * is the operator's to read.
+ * The bounded retry around the bot's push. GitHub refuses a push at the ref
+ * advertisement, the first request git makes and before it runs the pre-push
+ * hook, while the push's freshly minted installation token has not yet reached
+ * every one of GitHub's edge caches. GitHub Support describes that replication
+ * and advises retrying at increasing intervals, 3 s, then 10 s, then 30 s
+ * (second-hand: GitHub Support as quoted in aws-amplify/amplify-hosting#4080).
+ *
+ * So a push whose whole transcript is that refusal is tried again with the
+ * same token after each wait in turn. Any other failure is final at once:
+ * trying a failure after the hook ran again would run the whole gate again,
+ * and a gate's own failure is the operator's to read. GitHub's answer to each
+ * attempt is the readiness proof, so a push that can go through never waits.
  *
  * @packageDocumentation
  */
 
-/** How many times, in all, a refused push is tried. */
-export const PUSH_ATTEMPTS = 3;
-
 /**
- * The wait before each further attempt. The two recoveries timed on record
- * went through 20 to 80 seconds and 135 seconds after the refusal, so the
- * attempts start about 0, 30 and 60 seconds in; each retry is named on stderr,
- * so the value can be tuned from what those lines show.
+ * The waits before each further attempt, on GitHub's advised backoff; the
+ * attempts are one more than the waits.
  */
-const RETRY_WAIT_MS = 30_000;
+export const PUSH_RETRY_WAITS_MS: readonly number[] = [3_000, 10_000, 30_000];
 
 /**
  * The refusal's lines, in order, as git prints them: GitHub's reason, then
@@ -35,47 +34,19 @@ const REFUSAL_LINES: readonly RegExp[] = [
 const GIT_FATAL = 128;
 
 /**
- * The most of a push's transcript the refusal check keeps. The refusal's two
- * lines, newlines included, were 224 bytes as GitHub printed them for the
- * repository this retry was built in, on 2026-09-28; the bound holds over
- * eighteen times that, for a longer repository or bot name, and a longer
- * transcript cannot be the refusal. The push's output still streams to
- * stderr in full as it arrives, so the check keeps a bounded copy and loses
- * nothing (R1).
- */
-export const REFUSAL_TRANSCRIPT_BOUND = 4096;
-
-/**
- * The transcript the refusal check keeps, with the next chunk of the push's
- * output added: the text while it could still be the refusal, and null once
- * it is longer than the refusal can be, from then on.
- *
- * @param kept - What was kept so far, or null once the check stopped keeping.
- * @param chunk - The next output, from either stream.
- */
-export function keptForRefusal(kept: string | null, chunk: string): string | null {
-  return kept === null || kept.length + chunk.length > REFUSAL_TRANSCRIPT_BOUND
-    ? null
-    : kept + chunk;
-}
-
-/**
  * Whether a failed push is GitHub's refusal at the ref advertisement: git
  * exited 128 on its own, no signal ended it, and its whole transcript is the
  * refusal's two lines, so the pre-push hook never ran.
  *
  * @param status - The push's exit status.
  * @param signal - The signal that ended the push, or null when it exited.
- * @param transcript - What the push printed, both streams, as `keptForRefusal` kept it; null when it outgrew the bound.
+ * @param transcript - Everything the push printed, both streams.
  */
 export function isAdvertisementRefusal(
   status: number,
   signal: NodeJS.Signals | null,
-  transcript: string | null,
+  transcript: string,
 ): boolean {
-  if (transcript === null) {
-    return false;
-  }
   const lines = transcript
     .split('\n')
     .map((line) => line.trimEnd())
@@ -88,54 +59,59 @@ export function isAdvertisementRefusal(
   );
 }
 
-/** One attempt's end: the exit it would report, and whether it was the refusal. */
-export interface PushAttempt {
-  readonly exit: number;
-  readonly refused: boolean;
-}
+/** One attempt's end: GitHub's refusal before the hook ran, or the exit the push reports. */
+export type PushAttempt =
+  { readonly kind: 'refused' } | { readonly kind: 'ended'; readonly exit: number };
 
-/** A failure that is not GitHub's refusal, so never tried again. */
-export const FAILED_ATTEMPT: PushAttempt = { exit: 1, refused: false };
+/** The exit of a push GitHub refused on every attempt: an operational failure. */
+const REFUSED_EXIT = 1;
 
-/** Where the retry waits and reports. */
-export interface PushRetrySeams {
+/** The retry's policy, and where it waits and reports. */
+export interface PushRetry {
+  /** The wait before each further attempt, in order; the attempts are one more than the waits. */
+  readonly waitsMs: readonly number[];
   readonly sleep: (ms: number) => Promise<void>;
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
 }
 
 /**
- * Run the attempt, and again after a wait each time GitHub refused it at the
- * ref advertisement, up to `PUSH_ATTEMPTS` in all.
+ * Run the attempt, and again after the next wait each time GitHub refused it
+ * at the ref advertisement, until the waits run out.
  *
- * @param attempt - One whole push: a fresh mint, then the transfer.
- * @param seams - The wait, and the stream each retry and the last refusal are named on.
- * @returns The exit of the last attempt.
+ * @param attempt - One transfer, with the token already minted. It is called
+ *   with its attempt number, 1-based, and each call pushes once.
+ * @param retry - The waits, the sleep, and the stream each retry and the last
+ *   refusal are named on.
+ * @returns The exit of the last attempt, or an operational failure when GitHub
+ *   refused every attempt.
  */
 export function pushWithRetry(
-  attempt: () => Promise<PushAttempt>,
-  seams: PushRetrySeams,
+  attempt: (attemptNumber: number) => Promise<PushAttempt>,
+  retry: PushRetry,
 ): Promise<number> {
-  return attemptFrom(1, attempt, seams);
+  return attemptFrom(1, attempt, retry);
 }
 
 async function attemptFrom(
   attemptNumber: number,
-  attempt: () => Promise<PushAttempt>,
-  seams: PushRetrySeams,
+  attempt: (attemptNumber: number) => Promise<PushAttempt>,
+  retry: PushRetry,
 ): Promise<number> {
-  const outcome = await attempt();
-  if (!outcome.refused) {
+  const outcome = await attempt(attemptNumber);
+  if (outcome.kind === 'ended') {
     return outcome.exit;
   }
-  if (attemptNumber >= PUSH_ATTEMPTS) {
-    seams.stderr.write(
-      `merge-bot push: GitHub refused the push ${String(PUSH_ATTEMPTS)} times before the pre-push hook ran, each refusal shown above; nothing was pushed\n`,
+  const attempts = retry.waitsMs.length + 1;
+  const wait = retry.waitsMs[attemptNumber - 1];
+  if (wait === undefined) {
+    retry.stderr.write(
+      `merge-bot push: GitHub refused the push ${String(attempts)} times before the pre-push hook ran, each refusal shown above; nothing was pushed\n`,
     );
-    return outcome.exit;
+    return REFUSED_EXIT;
   }
-  seams.stderr.write(
-    `merge-bot push: GitHub refused attempt ${String(attemptNumber)} of ${String(PUSH_ATTEMPTS)} before the pre-push hook ran; trying again with a fresh token in ${String(RETRY_WAIT_MS / 1000)} s\n`,
+  retry.stderr.write(
+    `merge-bot push: GitHub refused attempt ${String(attemptNumber)} of ${String(attempts)} before the pre-push hook ran; trying again with the same token in ${String(wait / 1000)} s\n`,
   );
-  await seams.sleep(RETRY_WAIT_MS);
-  return attemptFrom(attemptNumber + 1, attempt, seams);
+  await retry.sleep(wait);
+  return attemptFrom(attemptNumber + 1, attempt, retry);
 }

@@ -10,6 +10,7 @@ import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
 import type { GitExecutor } from './git-executor.js';
 import type { PushGitReads, TokenFileStore } from './push-git.js';
+import type { PushMint } from './push-mint.js';
 import type { RefFormatOracle } from './ref-format.js';
 import type { GitRunner } from '../collaboration-state/coordination-home.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
@@ -84,6 +85,8 @@ export interface MergeBotCliInput {
   readonly gitReads?: PushGitReads;
   /** Push seam: branch-name legality for --branch. */
   readonly refFormatOracle?: RefFormatOracle;
+  /** Push seam: the push's token mint. Unset, the push mints with `mintForConfig` over `fetchImpl`, `readFileImpl` and `nowEpochSeconds`; set, those three never reach the push. `mint-token` and `merge` never read it. */
+  readonly mintImpl?: PushMint;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -139,9 +142,14 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     repoRoot: input.repoRoot ?? process.cwd(),
     stdout: input.stdout,
     stderr: input.stderr,
-    fetchImpl: input.fetchImpl,
-    readFileImpl: input.readFileImpl,
-    nowEpochSeconds: input.nowEpochSeconds,
+    mint:
+      input.mintImpl ??
+      ((config) =>
+        mintForConfig(config, {
+          fetchImpl: input.fetchImpl,
+          readFileImpl: input.readFileImpl,
+          nowEpochSeconds: input.nowEpochSeconds,
+        })),
     sleepImpl: input.sleepImpl,
     gitExecutor: input.gitExecutor,
     gitPath: input.gitPath,

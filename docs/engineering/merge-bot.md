@@ -356,9 +356,14 @@ remote: Permission to <repo> denied to <bot>.
 fatal: unable to access '<url>': The requested URL returned error: 403
 ```
 
-A later push went through each time. The push therefore tries the push
-again with a fresh token, 30 seconds on, up to three attempts in all, and
-names each retry on stderr. It reports a third refusal as an operational
-failure, with every refusal shown. Any other failure is final at once,
-including a 403 after the hook ran: trying that again would run the whole
-gate again.
+GitHub refuses a fresh installation token until it has replicated to every
+one of its edge caches, and advises retrying at increasing intervals
+(GitHub Support, as quoted in aws-amplify/amplify-hosting#4080). The push
+therefore mints one token and tries the transfer again with that same token
+after each wait in `PUSH_RETRY_WAITS_MS` (`agent-tools/src/merge-bot/push-attempts.ts`),
+naming each retry on stderr. A fresher token would only start the wait
+again. Every attempt pushes the same commit, settled from HEAD before the
+mint, so a commit made during the waits is never pushed in its place. When
+the waits run out, it reports an operational failure with every refusal
+shown. Any other failure is final at once, including a 403 after the hook
+ran: trying that again would run the whole gate again.

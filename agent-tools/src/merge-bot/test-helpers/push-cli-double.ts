@@ -1,31 +1,27 @@
-import { generateKeyPairSync } from 'node:crypto';
+import { err, ok } from '@oaknational/result';
 
 import { runMergeBotCli, type MergeBotCliInput } from '../cli.js';
 import type { GitCommandResult, GitExecutor } from '../git-executor.js';
-import type { GithubApiFetch } from '../mint-installation-token.js';
 import type { PushGitReads, TokenFileStore } from '../push-git.js';
+import type { PushMint } from '../push-mint.js';
 
 /**
  * The `merge-bot push` front door's doubles, shared by its integration tests
  * (`push-cli.integration.test.ts`, `push-cli-retry.integration.test.ts`): a
- * value-returning git seam, git's reads, the mint endpoints, a token store
- * that touches no filesystem, and `runPush`, the CLI over all of them with
- * both output streams captured.
+ * value-returning git seam, git's reads, a mint, a token store that touches
+ * no filesystem, and `runPush`, the CLI over all of them with both output
+ * streams captured and an instant retry wait.
  */
-
-const { privateKey } = generateKeyPairSync('rsa', {
-  modulusLength: 2048,
-  publicKeyEncoding: { type: 'spki', format: 'pem' },
-  privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
-});
 
 export const TOKEN = 'sekrit-installation-token';
 export const GIT_PATH = '/usr/bin/git';
 export const BRANCH = 'jimcresswell/mcp-508-slice';
 export const REMOTE = 'https://github.com/acme/widgets.git';
-const TRANSFER = `To ${REMOTE}\n   abc1234..def5678  HEAD -> ${BRANCH}\n`;
+/** The commit HEAD names in these fixtures, a full SHA-1 object name. */
+export const COMMIT = 'def5678def5678def5678def5678def5678def56';
+const TRANSFER = `To ${REMOTE}\n   abc1234..def5678  ${COMMIT} -> ${BRANCH}\n`;
 
-export function capture(): { text: () => string; sink: Pick<NodeJS.WriteStream, 'write'> } {
+function capture(): { text: () => string; sink: Pick<NodeJS.WriteStream, 'write'> } {
   let buffer = '';
   return {
     text: () => buffer,
@@ -52,56 +48,8 @@ export function answered(stdout: string): GitCommandResult {
   return { status: 0, signal: null, stdout, stderr: '' };
 }
 
-/**
- * The value-returning git seam (ADR-088) for the one call the executor makes,
- * the push, every call recorded; a non-zero exit is a RESULT, never a throw.
- * `push` answers every push; `pushes` answers successive pushes in order, the
- * last answer standing for any push after it; `viaSink` answers as the real
- * file-backed executor does given an output sink: the output replayed to it, none in the result.
- */
-export function gitFake(
-  overrides: {
-    push?: GitCommandResult;
-    pushes?: readonly GitCommandResult[];
-    viaSink?: boolean;
-  } = {},
-): {
-  gitExecutor: GitExecutor;
-  calls: GitCall[];
-} {
-  const calls: GitCall[] = [];
-  const pushes = [...(overrides.pushes ?? [])];
-  const gitExecutor: GitExecutor = (file, args, options) => {
-    calls.push({ file, args, cwd: options.cwd, env: options.env });
-    const next = pushes.length > 1 ? pushes.shift() : pushes[0];
-    const answer = next ??
-      overrides.push ?? { status: 0, signal: null, stdout: '', stderr: TRANSFER };
-    if (overrides.viaSink !== true || options.onOutput === undefined) {
-      return answer;
-    }
-    options.onOutput(`${answer.stdout}${answer.stderr}`);
-    return { ...answer, stdout: '', stderr: '' };
-  };
-  return { gitExecutor, calls };
-}
-
-/** git's answers about HEAD and origin, each a constant. */
-export function gitReads(
-  answers: {
-    readonly currentBranch?: GitCommandResult;
-    readonly originHead?: GitCommandResult;
-  } = {},
-): PushGitReads {
-  const currentBranch = answers.currentBranch ?? answered(`${BRANCH}\n`);
-  const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);
-  return {
-    currentBranch: () => Promise.resolve(currentBranch),
-    // Trusted, and spelled unlike REMOTE: the push goes to the configured
-    // repository's URL, never to origin's.
-    originUrls: () => Promise.resolve(answered('git@github.com:acme/widgets.git\n')),
-    originHead: () => Promise.resolve(originHead),
-  };
-}
+/** A push git accepted, its transfer output on stderr. */
+const PUSHED: GitCommandResult = { status: 0, signal: null, stdout: '', stderr: TRANSFER };
 
 /** GitHub's refusal at the ref advertisement, as git printed it on 2026-09-28, renamed to the fixture's repository. */
 export const REFUSED_PUSH: GitCommandResult = {
@@ -113,35 +61,56 @@ export const REFUSED_PUSH: GitCommandResult = {
     `fatal: unable to access '${REMOTE}/': The requested URL returned error: 403\n`,
 };
 
-export const PUSHED: GitCommandResult = { status: 0, signal: null, stdout: '', stderr: TRANSFER };
-
 /**
- * Serves the mint endpoints and records every call URL and body. Successive
- * mints answer `tokens` in order, the last standing for any mint after it.
+ * The value-returning git seam (ADR-088) for the one call the executor makes,
+ * the push, every call recorded; a non-zero exit is a RESULT, never a throw.
+ * Every push gets `push`'s answer as the file-backed executor gives it to a
+ * call with an output sink, which the push always passes: the output replayed
+ * to the sink, none in the result.
  */
-export function mintFetch(...tokens: readonly string[]): {
-  fetchImpl: GithubApiFetch;
-  urls: string[];
-  bodies: { url: string; body: string }[];
+export function gitFake(push: GitCommandResult = PUSHED): {
+  gitExecutor: GitExecutor;
+  calls: GitCall[];
 } {
-  const urls: string[] = [];
-  const bodies: { url: string; body: string }[] = [];
-  const answers = tokens.length === 0 ? [TOKEN] : [...tokens];
-  const fetchImpl: GithubApiFetch = (url, init) => {
-    urls.push(url);
-    if (init?.body !== undefined) {
-      bodies.push({ url, body: String(init.body) });
-    }
-    if (url.endsWith('/installation')) {
-      return Promise.resolve({ status: 200, json: () => Promise.resolve({ id: 55 }) });
-    }
-    const token = answers.length > 1 ? answers.shift() : answers[0];
-    return Promise.resolve({
-      status: 201,
-      json: () => Promise.resolve({ token, expires_at: '2026-08-06T10:00:00Z' }),
-    });
+  const calls: GitCall[] = [];
+  const gitExecutor: GitExecutor = (file, args, options) => {
+    calls.push({ file, args, cwd: options.cwd, env: options.env });
+    options.onOutput?.(`${push.stdout}${push.stderr}`);
+    return { ...push, stdout: '', stderr: '' };
   };
-  return { fetchImpl, urls, bodies };
+  return { gitExecutor, calls };
+}
+
+/** git's answers about HEAD and origin, each a constant. */
+export function gitReads(
+  answers: {
+    readonly currentBranch?: GitCommandResult;
+    readonly headCommit?: GitCommandResult;
+    readonly originHead?: GitCommandResult;
+  } = {},
+): PushGitReads {
+  const currentBranch = answers.currentBranch ?? answered(`${BRANCH}\n`);
+  const headCommit = answers.headCommit ?? answered(`${COMMIT}\n`);
+  const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);
+  return {
+    currentBranch: () => Promise.resolve(currentBranch),
+    headCommit: () => Promise.resolve(headCommit),
+    // Trusted, and spelled unlike REMOTE: the push goes to the configured
+    // repository's URL, never to origin's.
+    originUrls: () => Promise.resolve(answered('git@github.com:acme/widgets.git\n')),
+    originHead: () => Promise.resolve(originHead),
+  };
+}
+
+/** A mint that answers `token`, a constant. */
+export function mintAnswering(token: string = TOKEN): PushMint {
+  return () =>
+    Promise.resolve(ok({ token, expiresAt: '2026-08-06T10:00:00Z', installationId: 55 }));
+}
+
+/** A mint that fails, a constant. */
+export function mintFailing(): PushMint {
+  return () => Promise.resolve(err(new Error('the mint is unavailable')));
 }
 
 export const BASE_ENV = { PATH: '/usr/bin', HOME: '/test-home' } as const;
@@ -184,14 +153,12 @@ export function tokenStoreFake(overrides: Partial<TokenFileStore> = {}): {
   };
 }
 
-/** One push run: its exit, both output streams, and what each double recorded. */
+/** One push run: its exit, both output streams, and what the git seam and the token store received. */
 interface PushRun {
   readonly exit: Promise<number>;
   readonly out: () => string;
   readonly errText: () => string;
   readonly calls: GitCall[];
-  readonly urls: string[];
-  readonly bodies: { url: string; body: string }[];
   readonly prefixes: string[];
   readonly writes: TokenWrite[];
   readonly removed: string[];
@@ -202,27 +169,25 @@ export function runPush(input: {
   readonly args?: readonly string[];
   readonly git?: ReturnType<typeof gitFake>;
   readonly reads?: PushGitReads;
-  readonly fetch?: ReturnType<typeof mintFetch>;
+  readonly mint?: PushMint;
   readonly store?: ReturnType<typeof tokenStoreFake>;
   readonly overrides?: Partial<MergeBotCliInput>;
 }): PushRun {
   const out = capture();
   const errSink = capture();
   const { gitExecutor, calls } = input.git ?? gitFake();
-  const { fetchImpl, urls, bodies } = input.fetch ?? mintFetch();
   const { store, prefixes, writes, removed } = input.store ?? tokenStoreFake();
   const exit = runMergeBotCli({
     args: ['push', ...(input.args ?? [])],
     env: { HOME: '/test-home' },
     stdout: out.sink,
     stderr: errSink.sink,
-    fetchImpl,
-    readFileImpl: () => Promise.resolve(privateKey),
+    mintImpl: input.mint ?? mintAnswering(),
     readConfigFileImpl: () =>
       JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'acme/widgets' }),
     repoRoot: '/repo',
     runGitImpl: () => 'worktree /repo\n',
-    nowEpochSeconds: () => 1_800_000_000,
+    sleepImpl: () => Promise.resolve(),
     gitExecutor,
     gitPath: GIT_PATH,
     gitReads: input.reads ?? gitReads(),
@@ -231,17 +196,7 @@ export function runPush(input: {
     tokenFiles: store,
     ...input.overrides,
   });
-  return {
-    exit,
-    out: out.text,
-    errText: errSink.text,
-    calls,
-    urls,
-    bodies,
-    prefixes,
-    writes,
-    removed,
-  };
+  return { exit, out: out.text, errText: errSink.text, calls, prefixes, writes, removed };
 }
 
 /** The executor runs only the push; the reads go through the read port. */

@@ -6,7 +6,8 @@ import { describeGitChildEnd, type PushGitReads } from './push-git.js';
 import type { BotIdentity } from './resolve-identity.js';
 
 /**
- * Which branch `merge-bot push` writes, and which it refuses. Changes reach a
+ * Which branch `merge-bot push` writes, which it refuses, and which commit it
+ * writes there. Changes reach a
  * default branch through a pull request, never a direct push: `main` and
  * `master` refuse by name, and so does the repository's own default branch,
  * read from `refs/remotes/origin/HEAD`, which a clone sets and every worktree
@@ -138,17 +139,38 @@ function defaultBranchFrom(result: GitCommandResult): Result<string, Error> {
       );
 }
 
+/** A full object name: SHA-1 (40 hex digits) or SHA-256 (64). */
+const OBJECT_NAME = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/u;
+
+/**
+ * Settle the commit a push writes: the one HEAD names, read once before the
+ * mint, so every attempt pushes the same commit however long the retry waits.
+ *
+ * @param read - git's answer naming HEAD's commit (`rev-parse --verify HEAD^{commit}`).
+ * @returns The commit's full object name, or the failure naming the cure.
+ */
+export function settleCommit(read: GitCommandResult): Result<string, Error> {
+  const name = read.stdout.trim();
+  return read.status === 0 && OBJECT_NAME.test(name)
+    ? ok(name)
+    : err(
+        new Error(
+          `cannot settle the commit HEAD names (git rev-parse ${describeGitChildEnd(read)}, answering ${JSON.stringify(name)}); check out a branch with a commit and push again`,
+        ),
+      );
+}
+
 /**
  * Settle the branch a push writes: the one named, or the one HEAD is on;
  * refused by name first, then against the default branch origin names.
  *
  * @param named - The branch given with `--branch`, or undefined for HEAD's branch.
- * @param reads - git's answers about HEAD and origin.
+ * @param reads - git's answers about HEAD's branch and origin.
  * @param repository - The configured repository the push goes to.
  */
 export async function settleTargetBranch(
   named: string | undefined,
-  reads: PushGitReads,
+  reads: Pick<PushGitReads, 'currentBranch' | 'originUrls' | 'originHead'>,
   repository: Repository,
 ): Promise<Result<TargetBranch, Error>> {
   const current = named === undefined ? currentBranchFrom(await reads.currentBranch()) : ok(named);
