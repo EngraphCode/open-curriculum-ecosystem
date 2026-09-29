@@ -105,6 +105,35 @@ workspace-config-isolation containment leg (2026-08-09) — its
 replacement with dependency-cruiser rules was ruled at the owner's
 word; the isolation lane executes it.
 
+## Validators: the fewest processes, never a change to the code, never a build
+
+The owner's words of 2026-09-29, verbatim: "tests are FORBIDDEN to create real IO and child
+processes. I don't want excuses or carve outs, we have these rules for a reason", and
+"validation scripts can start real processes, but they are to be kept to a MINIMUM, and they
+are FORBIDDEN from altering the code or triggering builds".
+
+- **Tests** use no IO and start no process, with no exception
+  ([testing-strategy.md](testing-strategy.md) §Philosophy).
+- **A validator** may start real processes, and starts only the fewest its property needs.
+- **A validator never alters the code**: no formatter or fixer in its writing mode, no repair,
+  no code generator, no install, nothing written into this repository's checkouts, worktrees or
+  their `node_modules`. A scratch directory under the system temp root is not the code.
+- **A validator never triggers a build**: it reads the artefact a separate step built, and
+  when that artefact is absent it fails and names the step.
+- What a validator cannot prove inside these bounds is proven once, by an observation made at
+  cure time and recorded (§Right tool), never by a suite.
+- A check whose purpose is a code-altering mode (a repair, a `--write`, a `--fix`) is neither a
+  test nor a validator. Its logic is proven in process against injected fakes; the real tool's
+  effect is an observation.
+- A file's directory or suffix ("smoke", "e2e") never licenses a process; its class follows what
+  it does.
+
+Worked instance (2026-09-28 to 2026-09-29): a repair "smoke" ran source through a loader,
+started seven processes a run, ran both repair modes, and linked the repository's
+`node_modules` into a scratch repository. Three review findings on its process lifecycle were
+each cured with more process handling. One run by hand reinstalled through the link and
+emptied a worktree's `node_modules`.
+
 ## Validation jurisdiction: we validate our own systems
 
 Every validator names whose system it validates, and external-system

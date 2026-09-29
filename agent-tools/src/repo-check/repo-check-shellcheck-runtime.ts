@@ -31,8 +31,8 @@ export interface ShellcheckGateRuntime {
   readonly probeVersion: (command: string) => RepoCheckCommandResult;
   /** What git says about the tracked tree, or why git could not say. */
   readonly trackedTree: () => Result<TrackedTreeReading, GitReadFailure>;
-  /** The skills lock's text, or undefined when the repository has none. */
-  readonly readSkillsLock: () => string | undefined;
+  /** The skills lock's text; the gate reads it only when git tracks the lock as a file. */
+  readonly readSkillsLock: () => string;
   /** A file's first `bytes` bytes (fewer when the file is shorter), decoded as UTF-8. */
   readonly readHead: (file: string, bytes: number) => string;
   /** The opening of a file's content in git's index, or why git could not read it. */
@@ -73,7 +73,7 @@ export const defaultShellcheckGateRuntime: ShellcheckGateRuntime = {
   hasRepoShellcheck: () => existsSync(REPO_SHELLCHECK),
   probeVersion: (command) => defaultRuntime.runCaptured(command, ['--version']),
   trackedTree: () => readTrackedTree(defaultRuntime),
-  readSkillsLock: () => (existsSync(SKILLS_LOCK) ? readFileSync(SKILLS_LOCK, 'utf8') : undefined),
+  readSkillsLock: () => readFileSync(SKILLS_LOCK, 'utf8'),
   readHead,
   readIndexHead,
   readText: (file) => readFileSync(file, 'utf8'),
