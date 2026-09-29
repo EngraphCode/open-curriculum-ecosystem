@@ -111,6 +111,28 @@ describe('runMergeExecution', () => {
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 
+  it('refuses a tip whose only review is a vendor error review: the vendor could not review', async () => {
+    const { fetchImpl } = makeFetchPort({});
+    const reading = makeReading({
+      reviews: [
+        {
+          author: 'copilot-pull-request-reviewer',
+          state: 'COMMENTED',
+          body: 'Copilot encountered an error and was unable to review this pull request. You can try again by re-requesting a review.',
+          commitOid: HEAD_OID,
+          submittedAt: '2026-08-06T08:05:00Z',
+        },
+      ],
+    });
+
+    const outcome = await runMergeExecution(makeInput(reading, fetchImpl));
+
+    expect(outcome).toMatchObject({
+      ok: true,
+      value: { kind: 'refused', verdictState: 'SETTLED-NO-REVIEW' },
+    });
+  });
+
   it('refuses loudly when the settings read omits allow_merge_commit, and never merges', async () => {
     const { fetchImpl, calls } = makeFetchPort({ settingsBody: { full_name: 'acme/widgets' } });
 
