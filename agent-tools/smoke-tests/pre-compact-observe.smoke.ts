@@ -20,6 +20,7 @@ import {
 } from './pre-compact-observe-fixture.js';
 import {
   inThrowawayProject,
+  proveUnquotedPathSplits,
   registeredHookCommand,
   runRegisteredCommand,
 } from './registered-hook-command-fixture.js';
@@ -28,7 +29,8 @@ import {
  * Production-shaped smoke for the `PreCompact` observer hook. Each case runs
  * the command `.claude/settings.json` registers for `PreCompact` through
  * the trusted shell's `-c`, as the harness does, in a throwaway project whose name holds
- * a space (so an unquoted path would split and exit 127), through the
+ * a space. The first case removes the command's quotes and proves the path
+ * splits there and exits 127; every other case runs through the
  * committed wrapper, its exec bit and the built `dist`
  * (`registered-hook-command-fixture.ts` builds the project and the run;
  * `pre-compact-observe-fixture.ts` holds the payload and the assertions).
@@ -166,8 +168,9 @@ async function proveTranscriptUnderMissingDirectory(command: string): Promise<vo
 }
 
 const preCompactCommand = registeredHookCommand('PreCompact');
+await proveUnquotedPathSplits(preCompactCommand);
 await proveBareCompactPayload(preCompactCommand);
 await proveUnreadableStdin(preCompactCommand);
 await proveLongPayloadOverDirectoryTranscript(preCompactCommand);
 await proveTranscriptUnderMissingDirectory(preCompactCommand);
-process.stdout.write('pre-compact-observe smoke: 4/4 cases passed\n');
+process.stdout.write('pre-compact-observe smoke: 5/5 cases passed\n');

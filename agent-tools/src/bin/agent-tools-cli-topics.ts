@@ -21,6 +21,7 @@ import { runSkillEvalsCli, type SkillEvalsCliInput } from '../skill-evals/cli.js
 import { realSkillEvalsSeams } from '../skill-evals/seams.js';
 import { runSpawnCli } from '../spawn/cli.js';
 import type { AgentToolsCliInput, AgentToolsCliResult } from './agent-tools-cli-types.js';
+import { mergeBotPoster } from './merge-bot-poster.js';
 
 export class OutputBuffer {
   readonly #chunks: string[] = [];
@@ -189,12 +190,12 @@ export function runSkillEvalsTopic(
 }
 
 export function runPrTopic(
-  _input: AgentToolsCliInput,
+  input: AgentToolsCliInput,
   args: readonly string[],
 ): AgentToolsCliResult {
   const stdout = new OutputBuffer();
   const stderr = new OutputBuffer();
-  const exitCode = runPrStateCli({ args, stdout, stderr });
+  const exitCode = runPrStateCli({ args, stdout, stderr, poster: () => mergeBotPoster(input) });
   return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
 }
 

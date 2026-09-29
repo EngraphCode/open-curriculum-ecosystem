@@ -182,3 +182,20 @@ export function resolveBotIdentity(
     repoName: split.value.repoName,
   });
 }
+
+/**
+ * The bot's login, its app slug, from the clone's merge-bot config: the only
+ * account whose comment may declare a review vendor unavailable
+ * (`pr-watch/declared-unavailable.ts`).
+ */
+export function resolveMergeBotAppSlug(input: MergeBotResolveInput): Result<string, Error> {
+  const configRoot = resolvePrimaryConfigRoot(input);
+  if (!configRoot.ok) {
+    return err(configRoot.error);
+  }
+  const repoConfig = loadMergeBotRepoConfig({
+    repoRoot: configRoot.value,
+    readFileImpl: input.readConfigFileImpl,
+  });
+  return repoConfig.ok ? ok(repoConfig.value.appSlug) : err(repoConfig.error);
+}

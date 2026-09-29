@@ -1,4 +1,5 @@
 import { NO_CONTENT } from './content-binding.js';
+import { NO_DECLARATIONS } from './declared-unavailable.js';
 import type { PrStateReading } from './state-types.js';
 
 /**
@@ -49,6 +50,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
       },
     ],
     completionComments: { reviews: [], refused: [] },
+    declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     content: NO_CONTENT,
     ...overrides,

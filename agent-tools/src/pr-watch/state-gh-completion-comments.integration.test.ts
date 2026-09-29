@@ -22,6 +22,7 @@ const CODEX_BODY = `Codex Review: Didn't find any major issues.\n\n**Reviewed co
 // read as a ten-character prefix.
 const CODEX_CLEAN_COMMENT = {
   id: 'IC_1',
+  url: 'https://github.com/acme/widgets/pull/461#issuecomment-1',
   author: { login: CODEX },
   body: CODEX_BODY,
   createdAt: '2026-07-21T12:10:00Z',

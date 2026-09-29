@@ -5,7 +5,7 @@
  * first-hand, compared whole (trimmed, whitespace collapsed), so a finding
  * that quotes the wording is never read as one. A wording is added here when
  * it is first recorded; until then the skip-marker pattern in
- * `reviewer-legs.ts` is the second net.
+ * `skip-markers.ts` is the second net.
  *
  * The Copilot body is recorded five times, each state COMMENTED: three on
  * 2026-09-13 and two on 2026-09-28.
