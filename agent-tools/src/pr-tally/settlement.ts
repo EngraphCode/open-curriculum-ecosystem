@@ -1,9 +1,5 @@
-import {
-  hasLanded,
-  isSignedSelfReply,
-  isSkipMarker,
-  QUIET_WINDOW_MS,
-} from '../pr-watch/reviewer-legs.js';
+import { hasLanded, isSignedSelfReply, QUIET_WINDOW_MS } from '../pr-watch/reviewer-legs.js';
+import { isSkipMarker } from '../pr-watch/skip-markers.js';
 import { extractBodyFindings } from './findings.js';
 import type { RecordedHarvest } from './harvest.js';
 
