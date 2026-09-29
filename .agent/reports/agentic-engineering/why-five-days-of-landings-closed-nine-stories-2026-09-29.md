@@ -377,3 +377,24 @@ contradicts the technical root, or if the n=1 landing rate falls below the post-
 Committed on the lineage coordination branch (PR 299) with the session's records; a pointer on
 JC.net's continuity record. The n=1 seat's handoff, on the lineage's estate-coordination thread
 record under 2026-09-29, carries the items in their order.
+
+## Addendum, 2026-09-29 14:0xZ: the first local profiles
+
+This session's own records commits and pushes, each hook line timestamped as it printed (item 4's
+first data points). Each change touched only `.agent/` records. One sample each; a warm local
+Turbo cache throughout.
+
+| Hook, estate | Total | Largest steps |
+| --- | --- | --- |
+| pre-commit, lineage (12 files) | 50.7 s | 27 repo validators 33.6 s; knip 3.8 s; depcruise 3.5 s; the Turbo gate (128 of 129 tasks cached) 2.8 s |
+| pre-push, lineage (2 commits) | 115.2 s | repo validators 36.3 s; whole-tree prettier 24.0 s; whole-tree markdownlint 13.0 s; encoding with its agent-tools build 11.3 s; skills with its build 6.6 s; the Turbo gate (133 of 134 cached) 4.5 s |
+| pre-commit, JC.net (10 files) | 7.7 s | staged prettier and markdownlint; `lint-changed` skipped the records |
+| pre-push, JC.net (1 commit) | 126.4 s | agent-tools `test:e2e`, a build then 39 smokes, 77.9 s (the six merge-bot retire smokes about 41 s, the gate-slot wrapper smoke 9.1 s); the site's `next build`, PDF and 58 Playwright tests 9.9 s; agent-tools unit tests (uncached) 7.1 s; whole-tree prettier 6.4 s |
+
+On the lineage, the steps outside Turbo took about 110 of the push's 115 seconds, and the
+validators took two thirds of the commit. On JC.net, the smoke suite took 62 percent of a
+records-only push, and the six merge-bot retire smokes took about a third of the push; one of
+them, the reads smoke, grew in commit 8225888d by taking proofs out of injected-fake integration
+tests. The lineage push also printed an advisory schema-drift warning ("Schema cache drifted
+from upstream"), which no step failed on. These figures sharpen items 1, 3, 7 and 8; they change
+no item's order.

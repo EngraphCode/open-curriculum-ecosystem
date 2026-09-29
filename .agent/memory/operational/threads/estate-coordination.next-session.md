@@ -1441,8 +1441,8 @@ write JC.net records from a separate worktree cut from `origin/main`.
   worktree `oce-wt-j2-docs-validators` (no commits; two modified files under
   `agent-tools/src/validators/markdown-links/` and three untracked directories `cited-paths/`,
   `cited-scripts/`, `lineage-names/`). Worktree `oce-wt-turbo-oidc` is merged (312) and clean.
-- JC.net: no open pull request of this lane apart from its coordination draft; `main` green at
-  b6232c77 after the LinkedIn agent's PR 273.
+- JC.net: no open pull request of this lane apart from its coordination draft, PR 274; `main`
+  green at b6232c77 after the LinkedIn agent's PR 273.
 - The exchange: stories whole 9 of 21 (J4, J8, J9, J13, J14, J15, J19, J22, J23); partial 10 (J1,
   J3, J6, J7, J10, J11, J16, J17, J18, J21); none 2 (J2, J20). JC.net-only files under the five
   surfaces: 193 (`agent-tools/src` 131, `agent-tools/smoke-tests` 23, `.agent/skills` 18,
