@@ -718,6 +718,51 @@ contract, its §Recount run at 14:58Z and matching.
   #305 and the day's other landings, the count line at 14 of 32, J16's row); the two-line docs cure;
   J2's three PRs in the Director's order (cited-paths with the describer and lineage-names;
   cited-scripts; the compare cure); J16's Gemini surface; the partials in census order.
+- **THE RESUME WINDOW: 305'S DOOR, RECORDS40, PR 312 OPENED ON THE OWNER'S PRIORITY WORD AND
+  BLOCKED ON A VARIABLE, J8 CLOSED AT 16 OF 32; THE SEAT PAUSED AGAIN, 2026-09-29 09:1xZ to
+  11:39Z (Myrtle turns Canopy, bf4957).** The seat resumed at the owner's start-right-team word
+  (09:1xZ), read the Director's GO of 09:06Z and the finishing plan's Finish section (65b1cab94),
+  fired 305's door (merged e07d6b34e, 09:21:08Z), landed records40 (b4372f535) and, by the
+  Director's order of 09:25Z made first at the next slot and then opened at once on the owner's
+  priority word (09:46Z, relayed by the Director with the WIP word: no new pull request while an
+  old one waits, trend to zero, a seat with an open pull request builds nothing new), opened PR
+  312: the Turbo remote cache reaches CI by GitHub OIDC (vercel/setup-turborepo-remote-cache-action
+  v1.1.0 pinned by its commit 49d7b1b46ba4 on the five turbo jobs with id-token: write; the
+  workflow-level TURBO_TOKEN and TURBO_TEAM env lines out; one file). Round one: Codex clean;
+  Copilot's one finding (a pull request from another repository has no OIDC token, a Dependabot one a read-only token,
+  and the action fails without one) cured as settlement one 12e90cafd (an if guard on the five
+  steps; push 1 of 2); round two clean on both legs, one overview observation (check the
+  pull-request author, not github.actor) signed Rejected on GitHub's contexts reference (a re-run
+  keeps github.actor and its privileges); zero open threads. Both runs failed at the new step with
+  `Input "team" is required`: vars.TURBO_TEAM resolved empty, and the operator's reads showed the
+  repository's variables without it and zero organisation variables visible to it; the Director's
+  read (11:26Z): the owner's organisation variable does not reach this public repository. The
+  block is the owner's (the variable's repository access); the rerun of the failed jobs, or one
+  pure sync after #311 moved the base, then the door, are scripted behind a probe on both
+  listings (turbo-land.sh). J8 closed on the lineage with #311 (Nova, 11:27:02Z): the census
+  gives J8 two units, so the count reads 16 of 32 at engraph ecf59d763; the second estate's
+  register took the rows (9f02e9ebe on its coordination branch, local at the pause: that
+  primary's gate refuses every push while a peer's LinkedIn workspace edit stands untracked in
+  its tree, and the commit carries a peer's 13-line plan hunk swept by a fixed pathspec). J2's
+  mechanical port (23 files: cited-paths, cited-scripts, lineage-names, the markdown-links compare
+  cure; the package scope and fixtures renamed) sits UNCOMMITTED in oce-wt-j2-docs-validators by
+  the owner's WIP word, backed up as a patch beside the handoff; its first-run measurement of the
+  second estate's name on live surfaces: 19 manifests carry the owner's contact domain (not a
+  leak), three doctrine files and one fixture carry the repository name (the needles jimcresswell/
+  jimcresswell.net, jcdotnet and @jimcresswell/; the verdict for the body). Four napkin entries:
+  the door closed the heartbeat's anchor claim and the loop failed silently for sixteen minutes; a
+  settlement script derived without the leg re-requests; files left staged on a shared primary rode
+  a peer's commit, and a fixed pathspec swept a peer's edit the other way; a shared primary's gate
+  refuses on a peer's uncommitted workspace. The owner's monitor word (via Nova, 09:48Z): waits,
+  pushes and gate runs as Monitors, never ad-hoc loops. The owner's words at 11:4xZ: "we don't do workarounds, we fix problems" (on the local-cache
+  environment this seat used for one second-estate commit: withdrawn; the fix is that the second
+  estate's lint-changed plan step stops consulting the remote cache); the organisation variable
+  made visible to every EngraphCode repository (a duplicate repository variable this seat had set
+  a minute earlier removed); the Turbo login renewed, with the owner's word that renewing it often
+  is not acceptable (the host carries a long-lived access token as TURBO_TOKEN, not login
+  sessions; the gates' plans never touch the remote). 312's pure sync 71e2eae9f pushed for the
+  cached run; the second estate's J8 commit pushed from a clean worktree. Then the owner closed
+  this session: every responsibility handed to the Director by a PDR-063 record, 312's door first.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's

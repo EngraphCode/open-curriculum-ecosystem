@@ -1504,3 +1504,76 @@ lock and the process list are the facts, the belief is not.
 **Routing.** Chains end in `&&` only, and the same-bytes proof diffs with the exempt line
 removed (`sed '4d'` on both sides); before any edit to a worktree, the process list is read for
 a commit or hook on that path.
+
+## 2026-09-29 ~09:3xZ — the door closed the heartbeat's anchor claim; the loop failed silently for sixteen minutes (Myrtle turns Canopy, bf4957)
+
+**Observation.** The door script for PR 305 closed every claim whose intent began "N1 slice 2", one
+of which was the heartbeat loop's anchor claim (the loop reads `claim-id.txt` per tick and sends a
+heartbeat-tagged event bound to that claim). From the door's minute the loop's every tick was refused
+("heartbeat-tagged events require an active claim") and the refusal went only to the loop's log; the
+seat read as retired on the peer-liveness poll for sixteen minutes while it posted narrative events,
+until a peer's ping (Nova turns Penumbra, 09:35Z) named it.
+
+**Reading.** A claim that anchors a heartbeat is closed only after the anchor moves: open the next
+claim first, write its id where the loop reads it, then close the old one. The door scripts that close
+claims by intent prefix must re-anchor before closing, or refuse to close the anchor. The loop's own
+failure line belongs on the stream or in a Monitor's filter, not only in a log the seat never reads.
+
+## 2026-09-29 ~10:2xZ — a settlement push script derived without the leg re-requests (Myrtle turns Canopy, bf4957)
+
+**Observation.** PR 312's settlement-one script was derived from the 305 lane's pieces (push, the
+signed reply and resolve, the body patch) and left out the last step the 305 settlements had: the
+review legs re-requested on the new head. Both legs stayed bound to the first head for twenty
+minutes until the legs Monitor showed no round two arriving; the requests then went up by hand.
+
+**Reading.** A settlement push is one checklist, not a set of pieces: push as the bot, sign each
+thread and resolve it, patch the body, re-request both legs on the new head, re-arm the checks and
+legs Monitors. A script derived from another lane is read against that checklist before its first
+run, the way its syntax is proven with sh -n.
+
+## 2026-09-29 ~09:4xZ — files left staged on a shared primary rode a peer's commit; a fixed pathspec swept a peer's edit the other way (Myrtle turns Canopy, bf4957)
+
+**Observation.** On the second estate's primary, this seat's records commit was refused by
+commitlint (a 102-character header) after `git add` had staged the two files. The retry came
+minutes later; between them the Director's check-in commit ran on the same primary and took the
+index as it stood, so the register rows landed inside the Director's commit, under its message and
+attribution. The content was right; the record of who wrote it is not.
+
+**Reading.** On a shared primary a file is staged only inside the commit ceremony's window and never
+left staged across a refusal: a refused commit unstages what it staged before it exits (the lineage's
+ceremony script does; the second estate's derived script did not). And the commit message is proven
+against commitlint at writing time, before the ceremony, not discovered by the hook: twice this window
+a header ran to 102 characters because the length was computed after the prose was final.
+
+The other way at 11:3xZ: the second estate's records commit script staged the plan node by fixed
+pathspec although the apply had changed only the register, and a peer's thirteen uncommitted
+lines rode the commit under this seat's message. A commit script stages exactly what its apply
+changed, read from `git diff --name-only` after the apply, never a fixed list.
+
+## 2026-09-29 ~11:3xZ — a shared primary's gate refuses on a peer's uncommitted workspace (Myrtle turns Canopy, bf4957)
+
+**Observation.** Two pushes of the second estate's coordination branch were refused by its pre-push
+gate for a cause outside the commit: the shared primary's tree carried a peer's untracked
+`linkedin/package.json` and a modified `pnpm-workspace.yaml`, so `pnpm -r test` ran the new
+workspace's test script, which exits 1 by design. The commit stayed local at the owner's stop word.
+
+**Reading.** A gate on a shared primary judges the tree as it stands, peers' edits included; a
+seat that must land from a shared primary reads `git status` for foreign untracked and modified
+paths before its gate, and when one would fail the gate, lands from a clean worktree of the branch
+or waits for the peer, never pushes with the gate skipped.
+
+## 2026-09-29 ~11:4xZ — a local-cache environment called a workaround; a gate's plan step consulted the remote cache (Myrtle turns Canopy, bf4957)
+
+**Observation.** The second estate's pre-commit failed on turbo's remote-cache authentication warning
+(the host's Turbo login had expired), and this seat re-ran the commit under `TURBO_CACHE=local:rw`,
+calling it a workaround in its report. The owner's word: "we don't do workarounds, we fix
+problems". The step at fault is that estate's lint-changed plan, `turbo run lint --dry-run=json`,
+which asks the remote cache for each task's status although a plan needs none of it, and which
+rightly fails on any stderr diagnostic. In CI the same morning the OIDC step refused because the
+organisation's TURBO_TEAM variable did not reach this public repository.
+
+**Reading.** A gate that depends on a per-user login fails the any-user-any-machine test before it
+fails on a token. The fix is at the owning step: the plan runs with `--cache=local:r` so it never
+consults the remote, and the host carries a long-lived access token as `TURBO_TOKEN` rather than
+login sessions. An environment set for one commit to get past a gate is the shape the principles
+name; the impulse to reach for it is the signal to find the owning step.

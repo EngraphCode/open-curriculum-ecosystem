@@ -210,8 +210,12 @@ At engraph e07d6b34e (#305, N1's second slice, merged 2026-09-29T09:21:08Z from 
 b77fced20; read 2026-09-29T09:2xZ): 15 of 32, with #298 (J6's N7, 2026-09-29T02:52:41Z), #301
 (todo 8's validator twin, 03:19:24Z), #303 (J6's N8, 04:19:04Z), #305 (N1's second slice,
 09:21:08Z), #306 (J8's first, the post-run hardening, 05:49:58Z) and #307 (J17's note 4, the gate
-slot, 05:25:23Z) counted since the previous recount. A
-recount by the contract's rule from the exchange seat's design reads of 2026-09-29 05:4xZ and the
+slot, 05:25:23Z) counted since the previous recount. At engraph ecf59d763 (#311, J8's B2 and B3,
+merged 2026-09-29T11:27:02Z; read 2026-09-29T11:39Z): 16 of 32, with #308 (J8's B1, the input
+refusals, 06:35:27Z) and #311 (the flag refusals and the drivers bound to their checkout,
+11:27:02Z) counted together as J8's second unit (the table gives J8 two: the post-run hardening;
+input hardening with the drivers), J8 complete on the lineage; PR 312 (the Turbo remote cache by
+OIDC in ci.yml, open) is no row of the count. A recount by the contract's rule from the exchange seat's design reads of 2026-09-29 05:4xZ and the
 Director's rulings of 05:5xZ, in three parts. One: N1's third slice as the table names it (the
 health-probe parity that reads the declarations) landed inside #305, whose parity probe reads the
 templates' declarations, and J16's rider that was to ride it (the root entrypoints as pointers to
@@ -233,6 +237,6 @@ compare cure; the authored-surfaces walker landed in #291. Four, by the Director
 second estate made after the census takes a row and a unit at its lineage port, dated, with its
 source; the register's L34, the merge-bot push retry (the second estate's PR 261, merged 24b72825e3
 at 00:09:50Z; the port fd0bd9db1 on feat/exchange-b1-push-retry, opened as PR 310 at 09:1xZ), one. The
-residue rows 27, the total 32 with the charter's five acts, 15 landed. The register's count line on
+residue rows 27, the total 32 with the charter's five acts, 16 landed. The register's count line on
 the second estate moves to the same numbers on its coordination branch, with #305's Landings row
 and J16's row, by the finishing plan's rule (no register refresh as its own pull request).
