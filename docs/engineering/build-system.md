@@ -248,8 +248,8 @@ pnpm check:docs
 ```
 
 It composes root Prettier and Markdownlint checks with the documentation
-validators for reference direction, machine-local paths, internal Markdown
-links, the patterns index, and ratified lists. Fitness reports are not part of
+validators for reference direction, machine-local paths, Core ADR citations,
+internal Markdown links, the patterns index, and ratified lists. Fitness reports are not part of
 this gate: they remain signals and never justify deleting or compressing
 knowledge. Specialised Markdown surfaces retain their owning validators; for
 example, skill or sub-agent definition changes also require their dedicated
