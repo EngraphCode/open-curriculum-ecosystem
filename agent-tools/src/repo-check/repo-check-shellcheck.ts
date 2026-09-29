@@ -20,7 +20,7 @@ import {
   resolveShellcheck,
   shellcheckVersion,
 } from './repo-check-shellcheck-version.js';
-import { isInsideAny, lockedSkillRoots } from './repo-check-skills-lock.js';
+import { isInsideAny, lockedSkillRoots, SKILLS_LOCK } from './repo-check-skills-lock.js';
 
 /**
  * The shellcheck gate: every tracked shell script, linted by the pinned
@@ -31,7 +31,7 @@ import { isInsideAny, lockedSkillRoots } from './repo-check-skills-lock.js';
  * when the installer has put one there and the shellcheck on PATH otherwise,
  * and asks it for its version: a missing, foreign or other-version shellcheck
  * fails the gate with the remedy. The universe is git's tracked tree
- * (`repo-check-universe.ts`), less the vendored skills `skills-lock.json` pins
+ * (`repo-check-universe.ts`), less the vendored skills a tracked `skills-lock.json` pins
  * (`repo-check-skills-lock.ts`), and a tracked shell script the working tree
  * has lost with the change unstaged fails the gate by name, since a commit
  * carries content the gate cannot read. Whether a lost file is a script, or
@@ -103,6 +103,19 @@ function probedShellcheck(
   return version.ok ? ok({ ...shellcheck, version: version.value }) : err(version.error);
 }
 
+/**
+ * The skills lock's text when git tracks it as a file the working tree holds.
+ * A lock git does not track excludes nothing, since no commit carries it and
+ * every other checkout lints what it names; nor does a tracked link, whose
+ * target the commit does not carry.
+ */
+function trackedSkillsLock(
+  runtime: ShellcheckGateRuntime,
+  tree: TrackedTreeReading,
+): string | undefined {
+  return trackedCheckFiles(tree).includes(SKILLS_LOCK) ? runtime.readSkillsLock() : undefined;
+}
+
 /** The tracked tree less the vendored skills' files, or why the gate cannot read it. */
 function trackedTreeOutsideVendored(
   runtime: ShellcheckGateRuntime,
@@ -117,7 +130,7 @@ function trackedTreeOutsideVendored(
       `${tools.join(', ')}: .tools is the ignored directory the installer writes and the gate runs its shellcheck from, so nothing at or in it is tracked; untrack these`,
     );
   }
-  const vendored = lockedSkillRoots(runtime.readSkillsLock());
+  const vendored = lockedSkillRoots(trackedSkillsLock(runtime, tree.value));
   return vendored.ok ? ok({ tree: tree.value, vendored: vendored.value }) : err(vendored.error);
 }
 

@@ -8,14 +8,15 @@ import { BASH_FLOOR_GUARD } from './repo-check-shellcheck-files.js';
 import type { ShellcheckGateRuntime } from './repo-check-shellcheck-runtime.js';
 import { REPO_SHELLCHECK } from './repo-check-shellcheck-version.js';
 import { runShellcheckTracked } from './repo-check-shellcheck.js';
+import { SKILLS_LOCK } from './repo-check-skills-lock.js';
 import type { RepoCheckCommandResult } from './repo-check-types.js';
 
 /**
  * The shellcheck gate's composition, driven through its injected runtime. The
  * edges answer from the fixture: the installer's text, whether the
  * repository's shellcheck is installed, the version probe, git's reading of
- * the tracked tree, the skills lock, and git's index reads (an empty blob
- * unless the fixture names one). `readHead` and `readText` model the file
+ * the tracked tree, and git's index reads (an empty blob unless the fixture
+ * names one). `readHead`, `readText` and `readSkillsLock` model the file
  * system, a file's text by its name and a head of at most the bytes asked for
  * (the fixtures are ASCII, so a character is a byte). `runEnv` models
  * shellcheck's exit contract: it exits 1 when any file among its arguments is
@@ -43,21 +44,27 @@ const PROBE_0_11_0: RepoCheckCommandResult = {
 
 const GUARDED_BASH = `#!/usr/bin/env bash\n${BASH_FLOOR_GUARD}\n  exit 1\nfi\necho run\n`;
 
-/** Tracked files and their text: a hook, a bash script and a sourced library to lint, a node script and a document to leave out. */
-const TREE: ReadonlyMap<string, string> = new Map([
-  ['.husky/pre-push', '#!/usr/bin/env sh\npnpm check\n'],
-  ['README.md', '# Readme\n'],
-  ['bin/run', GUARDED_BASH],
-  ['bin/tool', '#!/usr/bin/env node\nconsole.log("tool");\n'],
-  ['lib/common.sh', 'greet() { echo hi; }\n'],
-]);
-
 const VENDORED_SCRIPT = '.agents/skills/vendored-skill/scripts/run.sh';
 
 const LOCK = JSON.stringify({
   version: 1,
   skills: { 'vendored-skill': { source: 'upstream', computedHash: 'a'.repeat(64) } },
 });
+
+/** Tracked files and their text: a hook, a bash script and a sourced library to lint, a node script, a document and the skills lock to leave out. */
+const TREE: ReadonlyMap<string, string> = new Map([
+  ['.husky/pre-push', '#!/usr/bin/env sh\npnpm check\n'],
+  ['README.md', '# Readme\n'],
+  ['bin/run', GUARDED_BASH],
+  ['bin/tool', '#!/usr/bin/env node\nconsole.log("tool");\n'],
+  ['lib/common.sh', 'greet() { echo hi; }\n'],
+  [SKILLS_LOCK, LOCK],
+]);
+
+/** A tree less its skills lock. */
+function withoutLock(tree: ReadonlyMap<string, string>): ReadonlyMap<string, string> {
+  return new Map([...tree].filter(([file]) => file !== SKILLS_LOCK));
+}
 
 /** What the gate writes before it lints, naming the shellcheck and how many scripts it lints. */
 function linting(count: number, source = 'the shellcheck on PATH'): string {
@@ -82,8 +89,6 @@ interface GateFixture {
   /** Each file's text in the working tree. */
   readonly tree: ReadonlyMap<string, string>;
   readonly trackedTree: Result<TrackedTreeReading, GitReadFailure>;
-  /** The skills lock's text; undefined means the repository has none. */
-  readonly lock: string | undefined;
   /** The tracked files shellcheck reports a finding in. */
   readonly findings: ReadonlySet<string>;
   readonly repoShellcheck: boolean;
@@ -96,7 +101,6 @@ const DEFAULTS: GateFixture = {
   probe: PROBE_0_11_0,
   tree: TREE,
   trackedTree: readingOf(TREE),
-  lock: LOCK,
   findings: new Set(),
   repoShellcheck: false,
   indexReads: new Map(),
@@ -121,7 +125,7 @@ function gateRuntime(overrides: Partial<GateFixture> = {}) {
     hasRepoShellcheck: () => fixture.repoShellcheck,
     probeVersion: () => fixture.probe,
     trackedTree: () => fixture.trackedTree,
-    readSkillsLock: () => fixture.lock,
+    readSkillsLock: () => fixture.tree.get(SKILLS_LOCK),
     readHead: (file, bytes) => (fixture.tree.get(file) ?? '').slice(0, bytes),
     readIndexHead: (file) => fixture.indexReads.get(file) ?? ok(''),
     readText: (file) => fixture.tree.get(file) ?? '',
@@ -194,14 +198,42 @@ describe('runShellcheckTracked', () => {
   });
 
   it('lints every skill when the repository has no lock', async () => {
+    const tree = withoutLock(withTree([[VENDORED_SCRIPT, GUARDED_BASH]]).tree);
     const { runtime } = gateRuntime({
-      ...withTree([[VENDORED_SCRIPT, GUARDED_BASH]]),
-      lock: undefined,
+      tree,
+      trackedTree: readingOf(tree),
       findings: new Set([VENDORED_SCRIPT]),
     });
 
     await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
   });
+
+  it.each([
+    ['git does not track', (tree: ReadonlyMap<string, string>) => readingOf(withoutLock(tree))],
+    [
+      'git tracks as a link',
+      (tree: ReadonlyMap<string, string>): Result<TrackedTreeReading, GitReadFailure> =>
+        ok({
+          tracked: [...tree.keys()],
+          goneFromWorkingTree: new Set<string>(),
+          symlinks: new Set([SKILLS_LOCK]),
+        }),
+    ],
+  ])(
+    'lints every skill when the lock on disk is one %s, which no commit carries',
+    async (_case, reading) => {
+      const { tree } = withTree([[VENDORED_SCRIPT, GUARDED_BASH]]);
+      const { runtime, lines } = gateRuntime({
+        tree,
+        trackedTree: reading(tree),
+        findings: new Set([VENDORED_SCRIPT]),
+      });
+
+      await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
+
+      expect(lines).toStrictEqual([linting(4)]);
+    },
+  );
 
   it('fails an unrecognised shebang, naming the file and its line, and still lints the recognised scripts', async () => {
     const { runtime, lines, failures } = gateRuntime(
@@ -370,7 +402,7 @@ describe('runShellcheckTracked before it lints', () => {
   });
 
   it('fails before linting when the skills lock is not JSON', async () => {
-    const { runtime, lines, failures } = gateRuntime({ lock: '{ "skills": ' });
+    const { runtime, lines, failures } = gateRuntime(withTree([[SKILLS_LOCK, '{ "skills": ']]));
 
     await expect(runShellcheckTracked(runtime)).resolves.toBe(1);
 
