@@ -132,6 +132,7 @@ describe('readPrStateReading — the content leg', () => {
   it("reads the commit a completion comment names, the reviewer's second transport", () => {
     const comment = {
       id: 'IC_1',
+      url: 'https://github.com/acme/widgets/pull/42#issuecomment-1',
       author: { login: CODEX },
       body: `Codex Review: Didn't find any major issues.\n\n**Reviewed commit:** \`${BEFORE_SYNC.slice(0, 10)}\`\n`,
       createdAt: '2026-07-21T12:10:00Z',
@@ -165,6 +166,7 @@ describe('readPrStateReading — the rounds asked of each reviewer', () => {
     ];
     const trigger = {
       id: 'IC_2',
+      url: 'https://github.com/acme/widgets/pull/42#issuecomment-2',
       author: { login: 'el-graphael' },
       body: '@codex review',
       createdAt: '2026-07-21T12:30:00Z',

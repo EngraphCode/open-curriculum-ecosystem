@@ -1,4 +1,5 @@
 import type { CompletionCommentReading } from './completion-comments.js';
+import type { DeclaredUnavailableReading } from './declared-unavailable.js';
 import type { BindingHead } from './content-binding.js';
 import type { CheckBucket, ChecksSummary } from './index.js';
 import type { ReviewThreadsSummary } from './review-threads.js';
@@ -98,6 +99,12 @@ export interface PrStateReading extends BindingHead {
    * reviewer's leg is OWED or timed out.
    */
   readonly completionComments: CompletionCommentReading;
+  /**
+   * The third transport: a vendor declared unavailable, read as a stand-in
+   * for its review of the head it names, or refused by name
+   * (`declared-unavailable.ts`). Empty when nothing is declared.
+   */
+  readonly declaredUnavailable: DeclaredUnavailableReading;
   readonly reviewRuns: ReviewRunsLeg;
 }
 

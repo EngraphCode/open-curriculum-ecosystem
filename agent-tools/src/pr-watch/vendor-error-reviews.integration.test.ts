@@ -102,6 +102,19 @@ describe('computeReviewerLegs over a vendor error review', () => {
   });
 });
 
+describe('the quiet window over a vendor error review', () => {
+  it('an error review after the last real review does not restart the window', () => {
+    const reading = settledReading({
+      reviews: [
+        review({ body: 'Reviewed 2 of 2 files.', submittedAt: '2026-07-21T12:05:00Z' }),
+        review({ submittedAt: '2026-07-21T12:20:00Z' }),
+      ],
+    });
+
+    expect(computePrVerdict(reading, '2026-07-21T12:25:00Z').state).toBe('SETTLE-READY');
+  });
+});
+
 describe('computePrVerdict over a tip whose only review is a vendor error review', () => {
   it('settles NO-REVIEW, with no body to tally', () => {
     const verdict = computePrVerdict(settledReading({ reviews: [review({})] }), LATE_NOW);

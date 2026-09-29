@@ -1111,7 +1111,17 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    completes. The refusal decides the verdict when the round is
    otherwise settled or when it is the blocking reviewer's; a live run
    outranks it, and a refusal on another reviewer rides in the evidence
-   beside the blocking leg's own state.
+   beside the blocking leg's own state. A declared STAND-IN takes a vendor's
+   place when it cannot review: `--unavailable <login>=<comment-url>` names
+   the bot's own comment on the pull request, opening with
+   `**<login> leg unavailable on head SHA:<40-hex>.**`, and it stands in for
+   that vendor's review of the named head only on the pull request's own
+   evidence (`pr-watch/declared-unavailable.ts`): the bot posted it and no
+   other account edited it; the timeline shows the outage (an error review
+   from the vendor on that head, or a round asked of it over sixty minutes
+   ago with no review since; the ruling of 2026-09-28); and the vendor has not
+   reviewed since. A declaration that fails, or names a head that does not
+   bind the tip, is `UNCLASSIFIED-EVIDENCE` at once, before the checks ladder.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
