@@ -4248,6 +4248,27 @@ commit SHA and the closing plan reference.
   on completion.
 - **Owner direction status**: session-scoped (this seat's own record).
 
+### F-212 — agent-tools' test:e2e rebuilds `dist` while lint and type-check may read it
+
+- **Source**: the config-expert read of J6's N6 (the discovered smoke runner, commit 1c0cf14c4 on
+  `feat/exchange-j6-smoke-runner`), 2026-09-28; accepted on that read by the Director's word of
+  22:1xZ, recorded here so the next tooling lane finds it.
+- **Surface**: `agent-tools/package.json` `test:e2e` (its in-task `pnpm -s build`); `turbo.json`'s
+  `@oaknational/agent-tools#lint` and `#type-check` tasks; `agent-tools/tsconfig.json` and
+  `tsconfig.lint.json`, which include `smoke-tests/`; the three smokes that import `../dist/`;
+  `.husky/pre-push` and the root `check`, which can schedule the three tasks together.
+- **Observed**: 2026-09-28. The in-task `tsc` rewrites every `dist` file (no `incremental`) while
+  lint and type-check may read `dist` `.d.ts` files in parallel. Before N6, eight smoke scripts in
+  the hand chain each rebuilt; N6 builds once before the runner, so the window shrinks from eight
+  rebuilds to one. CI's `browser-tests` job never schedules the three together.
+- **Expected**: no gate task writes an output another concurrently scheduled task reads.
+- **Candidate cure**: `test:e2e` depends on turbo's `build` and drops its in-task build, or the
+  smokes stop importing `dist` and the tsconfigs stop including `smoke-tests/`.
+- **Target surface**: `turbo.json` (`test:e2e` `dependsOn`), `agent-tools/package.json`.
+- **Status**: open, an observation (recorded 2026-09-28), accepted as it stands; for the next
+  tooling lane.
+- **Owner direction status**: session-scoped (a reviewer's finding, accepted by the Director).
+
 ### F-213 — a dependency bin named `uname` sends every pnpm shim into an unbounded fork chain
 
 - **Source**: the J3 install-time shellcheck slice's security read, a scratch-project probe on

@@ -25,11 +25,14 @@ const SMOKE_TEST_SUFFIX = '.smoke.ts';
  * @returns The entries ending in the smoke suffix, sorted.
  */
 export function smokeTestFiles(entries: readonly string[]): readonly string[] {
-  return entries.filter((entry) => entry.endsWith(SMOKE_TEST_SUFFIX)).toSorted(byCodePoint);
+  return entries.filter((entry) => entry.endsWith(SMOKE_TEST_SUFFIX)).toSorted(byCodeUnit);
 }
 
-/** Code-point order: the same on every machine, whatever its locale. */
-function byCodePoint(left: string, right: string): number {
+/**
+ * UTF-16 code-unit order (plain `<`): the same on every machine, whatever its
+ * locale. For the ASCII names smoke files carry it is also code-point order.
+ */
+function byCodeUnit(left: string, right: string): number {
   if (left < right) {
     return -1;
   }
