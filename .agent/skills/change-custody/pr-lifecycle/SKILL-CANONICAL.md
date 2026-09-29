@@ -1115,7 +1115,9 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
-   terminal / until-re-enabled scope. A reviewer QUOTA notice posted as a
+   terminal / until-re-enabled scope. The skip phrase counts only outside
+   quotation: inside a double-quoted or code span it is a reviewer quoting
+   it, and the body is a review. A reviewer QUOTA notice posted as a
    tip-bound review ("unable to review … quota limit") IS such a
    scope-declared marker (scope: quota restored) and NEVER counts as a
    zero-finding review — reading a bounce as settlement is the silent-wait

@@ -16,6 +16,7 @@ import { bindingNote, reviewBinds, standingReviews, unboundNote } from './conten
 import type { BindingHead } from './content-binding.js';
 import { normaliseLogin } from './logins.js';
 import { roundAwaiter, type RoundRequest } from './round-requests.js';
+import { isScopeDeclaredSkip, isSkipMarker } from './skip-markers.js';
 import { isVendorErrorReview, vendorErrorNote } from './vendor-error-reviews.js';
 
 /** One review from the full paginated harvest (`reviews` connection). */
@@ -64,29 +65,6 @@ export interface ComputeReviewerLegsInput extends BindingHead {
 
 /** SKILL item 3/4: the checks-green timeout and settled quiet window (more than 10 min). */
 export const QUIET_WINDOW_MS = 10 * 60 * 1000;
-
-// Skip-marker classification (SKILL: substantive reviews vs SKIPPED markers).
-// A skip phrase alone declares NO REVIEW OCCURRED — such a body must never
-// read SATISFIED. Only a marker whose scope is evaluable (a quota/billing
-// declaration, per the owner ruling 2026-07-21) settles the leg as SKIPPED
-// immediately; an unevaluable marker ("service unavailable") falls through
-// to the checks-green timeout arm instead.
-const SKIP_PATTERN = /review skipped|unable to review/iu;
-const QUOTA_PATTERN = /spend limit|overage|quota/iu;
-
-/**
- * Whether a review body is a reviewer's skip marker ("review skipped",
- * "unable to review"): a declaration that no review occurred. Such a body
- * satisfies no reviewer leg and carries no finding prose; the tally reads
- * it the same way.
- */
-export function isSkipMarker(body: string): boolean {
-  return SKIP_PATTERN.test(body);
-}
-
-function isScopeDeclaredSkip(body: string): boolean {
-  return isSkipMarker(body) && QUOTA_PATTERN.test(body);
-}
 
 // A PENDING (draft, unsubmitted) review has not landed: it must neither
 // satisfy a leg nor act as a skip marker.
