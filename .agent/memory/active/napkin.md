@@ -1373,3 +1373,25 @@ shape as a check whose name outruns its coverage: the loop was alive, its output
 every tick, never from literals; closing a claim is followed by a read of the loop's log. If
 the loop's send fails twice in a row, it should say so on the stream itself (an untagged line
 needs no claim), a small cure for the heartbeat script if a second instance appears.
+
+## 2026-09-29 ~02:4xZ — a port of another estate's bytes inherits its test gaps; the description arrived one commit after the product (Myrtle turns Canopy, bf4957)
+
+**Observation.** Todo 8's validator twin (PR 301) landed its first commit 5c649df87 with `readCore`
+rewritten in this estate's words (the listing through `repository-paths`) and its four refusal
+branches undescribed by any cell; the smoke's header said "observed by hand". Copilot's round one
+asked for the proof; settlement one 9778d2615 moved `readCore` behind a seam with five cells; the
+test-expert's read then found the description-after-product shape (the doctrine's forbidden one),
+plus the cells' suffix (integration, since the readers are injected), two expect-guards to lift,
+and the compiler's unused-parameter check refusing the reviewer's no-underscore name on an
+interface-shaped fake (`_repoRoot`, with the reason in the comment, is the honest form).
+
+**Reading.** "The same bytes" is a proof about text, not about coverage: the second estate's entry
+file had the same untested branches, and a rewrite of one function in this estate's words is new
+product code that the doctrine says is described first. The seat wrote the rewrite, ran the green
+path, and read the vendors' findings as the description's trigger instead of its own commit.
+
+**Routing.** A working habit, not a rule: when a port rewrites a function, the cells for it are
+written before the first commit, the smoke header's "observed by hand" list is the residue that
+only import-time code leaves, and `tsc --noEmit` joins eslint and vitest in the pre-commit check
+of a worktree (eslint's after-used passed what the compiler refused). The family-wide gap (no
+entry-decision seam in the docs validators) is a frictions-register entry with its cure shape.

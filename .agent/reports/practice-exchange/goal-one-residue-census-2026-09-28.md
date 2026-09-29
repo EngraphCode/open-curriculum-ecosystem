@@ -184,10 +184,11 @@ here; the register carries the current total.
   first-hand). The Director's ruling: it is the exchange seat's after PR 296's door, ahead of
   N1's second slice, one pull request of J1's kind (the same bytes: the validator module, its
   ratchet census file, the package script and the chain entry, the tests), recorded under todo
-  8 and not as a new J row. Opened as PR 301 (e437782d1, 02:33Z on 2026-09-29). The charter's
-  acts read 5 (todo 6; the lessons and the comparison; the re-pin; todo 8's validator twin),
-  the residue rows 23 unchanged, all 28; the register's count line carries the same change with
-  this ruling as its source.
+  8 and not as a new J row. Opened as PR 301 (e437782d1, 02:33Z on 2026-09-29); merged as
+  eb1ad3f80 at 2026-09-29T03:19:24Z, the fifth act landed. The charter's acts read 5 (todo 6;
+  the lessons and the comparison; the re-pin; todo 8's validator twin), the residue rows 23
+  unchanged, all 28; the register's count line carries the same change with this ruling as its
+  source.
 - 2026-09-29 01:4xZ: J3's landed shape (the Director's suite-50 question, answered from the
   merged pull requests read first-hand). The 18:3xZ recount's three were the repo-check cures,
   the script cures with the bash floor, and the shellcheck gate with its installer, CI step and

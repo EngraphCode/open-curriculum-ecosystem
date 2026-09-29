@@ -4268,3 +4268,27 @@ commit SHA and the closing plan reference.
 - **Status**: open, an observation (recorded 2026-09-28), accepted as it stands; for the next
   tooling lane.
 - **Owner direction status**: session-scoped (a reviewer's finding, accepted by the Director).
+
+### F-214 — the docs validators' entry decisions have no automated boundary proof
+
+- **Source**: Copilot's overview observation on the lineage's PR 301 (review 5347139525,
+  2026-09-29), Routed by the exchange seat (Myrtle turns Canopy, bf4957); the napkin entry of
+  2026-09-29 ~02:4xZ on the port's description-after-product shape.
+- **Surface**: `agent-tools/src/validators/core-adr-citations/validate-core-adr-citations.ts`
+  (`refuse`, `reportCitations`, `main`); the same import-time shape in
+  `validate-no-machine-local-paths.ts` and `validate-identity-naming.ts`; the smokes under
+  `agent-tools/smoke-tests/`, which prove only each entry's green path.
+- **Observed**: 2026-09-29. Each entry runs at import over the tree it lives in, so no cell can
+  reach its exit mappings (a finding to exit 1 with its report; a refusal reason to exit 2); the
+  helpers are the tested part. On PR 301 the Core ADR-citation validator's `readCore` went behind
+  a seam (`read-core.ts`, five cells over injected readers) and the two mappings were observed by
+  hand and recorded in the body.
+- **Expected**: every exit status a gate can return is proven by a cell, so a regression in the
+  entry's mapping cannot turn a refusal into a green pass while the helper cells stay green.
+- **Candidate cure**: each entry's decision becomes a pure function over injected readers and
+  writers (`run(readers, out): number`), the import-time line reduced to
+  `process.exitCode = run(live)`; one cell per exit status per validator; the smokes keep the
+  green path. One lane for the family; the second estate takes the same shape with the port-back.
+- **Target surface**: agent-tools CLI (the three validators named; the pattern for the rest).
+- **Status**: open, an observation (recorded 2026-09-29), sequenced after the exchange's residue.
+- **Owner direction status**: session-scoped (a reviewer's observation, routed by the seat).

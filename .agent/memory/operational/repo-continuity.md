@@ -597,6 +597,32 @@ contract, its §Recount run at 14:58Z and matching.
   legs (door-301.sh); 265's settlement two carries the number into the node sentence, then its door;
   the register's count line to 10 of 30 at 301's landing; N1's second slice (four verdicts to the
   Director first); J2; the partials in census order.
+- **TODO 8'S TWIN LANDED: PR 301 MERGED; THE REGISTER PR 265 MERGED, 2026-09-29 02:4xZ to 03:1xZ
+  (Myrtle turns Canopy, bf4957).** PR 301 merged by the bot as eb1ad3f80 (2026-09-29T03:19:24Z) on
+  the synced tip 5bcd728b6 with both vendor legs bound across the pure sync (Codex clean on
+  e437782d1, 9778d2615 and 09632e48e; Copilot approval-recommended on 09632e48e), zero open threads:
+  validate-core-adr-citations gates docs-validators:check after validate-no-machine-local-paths,
+  strict from the start on a Core reading zero citations (155 files). Commits: 5c649df87 (the port:
+  helpers, unit test and smoke as the second estate's bytes, bc6e501e, dbbe38be, abca92a8; the entry
+  file listing through core/repository-paths; the script, chain and knip entries; the rule's
+  §Enforcement; the build-system note and the reference-direction helpers' TSDoc), 9778d2615
+  (settlement one: readCore behind a seam in read-core.ts with five cells over injected readers; the
+  smoke via process.execPath, SonarCloud S4036 cured at source), 09632e48e (settlement two, the
+  test-expert's read: the cells' integration suffix, Result-whole assertions, the fake's comment,
+  the entry header's listing refusal; the compiler's unused-parameter check kept the fake's
+  underscore), then the pure sync. Dispositions: Copilot's round-one finding and Sonar's Fixed;
+  Copilot's round-two overview observation (no automated proof of the entry's exit mappings) Routed
+  to the frictions register as F-214 (the docs validators' entry-decision seams, the family's
+  shape); the exit-1 and exit-2 mappings observed first-hand and recorded in the body. Port-back to
+  the second estate: the read-core seam with its cells and the smoke's spawn line. The second
+  estate's PR 265 merged as cad704757 at 02:58:50Z (the register's count line 9 of 30 with the rows
+  named; todo 8 naming 301; Copilot's last finding, the fold figure's denominator, Routed to the
+  line's next refresh: 8 of 27 then, 30 now); the seven J3 and J6 §Landings rows are Siren's and
+  Nova's (both acked; Nova's ride its PR 266). The count at eb1ad3f80: 11 of 30 (248 on the second
+  estate; 289, 290, 292, 294, 297; 291; 293, 295, 298; 301); the register's line refreshes to it on
+  this seat's next records PR there. Remote branch deleted and read back absent; worktree and local
+  branch removed; the claim closed. Next: the register's refresh; N1's second slice (the four
+  verdicts to the Director first); J2; the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's
