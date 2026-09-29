@@ -1,6 +1,8 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import type { Result } from '@oaknational/result';
+
 import { SURFACE_OF } from '../subagent-declarations/adapter-spec.js';
 import {
   SUBAGENT_PLATFORMS,
@@ -59,7 +61,27 @@ function surfaceBasenames(repoRoot: string, platform: SubagentPlatform): readonl
  * fails the check outright rather than comparing the surfaces against a partial truth.
  */
 function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
-  const declared = readDeclaredAdapters(repoRoot);
+  return reviewerAdapterParityOf(readDeclaredAdapters(repoRoot), {
+    cursor: surfaceBasenames(repoRoot, 'cursor'),
+    claude: surfaceBasenames(repoRoot, 'claude'),
+    codex: surfaceBasenames(repoRoot, 'codex'),
+    gemini: surfaceBasenames(repoRoot, 'gemini'),
+  });
+}
+
+/**
+ * The adapter-parity check over the declarations as read and the surfaces as listed: a
+ * declaration read that refused fails the check outright, naming the refusal; otherwise the
+ * declared adapters are compared with the surfaces (`evaluateReviewerAdapterParityFromInputs`).
+ *
+ * @param declared - The declared adapters, or the read's refusal.
+ * @param present - The adapter basenames present on each platform surface.
+ * @returns The check result.
+ */
+export function reviewerAdapterParityOf(
+  declared: Result<readonly DeclaredAdapter[], string>,
+  present: ReviewerAdapterParityInputs['present'],
+): HealthCheckResult {
   if (!declared.ok) {
     return {
       key: 'reviewer-adapter-parity',
@@ -70,15 +92,7 @@ function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
       details: [declared.error],
     };
   }
-  return evaluateReviewerAdapterParityFromInputs({
-    declared: declared.value,
-    present: {
-      cursor: surfaceBasenames(repoRoot, 'cursor'),
-      claude: surfaceBasenames(repoRoot, 'claude'),
-      codex: surfaceBasenames(repoRoot, 'codex'),
-      gemini: surfaceBasenames(repoRoot, 'gemini'),
-    },
-  });
+  return evaluateReviewerAdapterParityFromInputs({ declared: declared.value, present });
 }
 
 /**
