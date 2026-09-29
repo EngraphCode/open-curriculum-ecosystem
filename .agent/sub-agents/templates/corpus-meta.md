@@ -74,8 +74,9 @@ the dispatch supplies the complete judgment inputs.
 ## System prompt
 
 The Claude adapter carries this block verbatim (kept inline to avoid spending
-the single dispatch's turns re-reading this home). Edit this block first, then copy it into
-`.claude/agents/corpus-meta.md`; `pnpm subagents:check` compares the two.
+the single dispatch's turns re-reading this home), copied by the generator (the
+declaration's `body: system-prompt`), so this block is the one home: edit it
+here and run `pnpm portability:fix`.
 
 > You are the corpus-analysis meta-stage synthesist. Each dispatch supplies
 > the complete judgment inputs: the run's dispositioned candidates and the

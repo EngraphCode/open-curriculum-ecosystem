@@ -194,7 +194,7 @@ pnpm type-check
 pnpm lint:fix           # Makes changes
 pnpm format:root        # Makes changes
 pnpm markdownlint:root  # Makes changes
-pnpm subagents:check    # After sub-agent definition changes
+pnpm subagents:check    # After sub-agent template changes (portability:check recomputes the adapters)
 pnpm portability:check  # After platform surface or hook changes
 pnpm repo-validators:check  # Workspace-owned repo validators
 pnpm test

@@ -62,7 +62,7 @@ chain, portable skills, and transitional review commands.
 ## How to Create New Artefacts
 
 Always create the canonical file first; its platform adapters are generated
-(`pnpm portability:fix` for a rule, `pnpm skills:generate` for a skill) and
+(`pnpm portability:fix` for a rule or a sub-agent, `pnpm skills:generate` for a skill) and
 never edited by hand; `pnpm portability:check` recomputes them and refuses drift.
 
 ### New Skill
@@ -102,13 +102,16 @@ command surfaces are retired (see ADR-125 §2026-05-10).
 
 ### New Sub-agent
 
-1. **Canonical**: `.agent/sub-agents/templates/<name>.md`
-2. **Cursor**: `.cursor/agents/<name>.md`
-3. **Claude Code**: `.claude/agents/<name>.md`
-4. **Codex**: `.codex/agents/<name>.toml`
+1. **Canonical**: `.agent/sub-agents/templates/<name>.md`, with a frontmatter declaration
+   (a description and, per platform, only what deviates from the standard adapter body;
+   `.agent/sub-agents/README.md` §Declarations)
+2. **The adapters**: `pnpm portability:fix` renders `.cursor/agents/<name>.md`,
+   `.claude/agents/<name>.md` and `.codex/agents/<name>.toml` with its `.codex/config.toml`
+   block from the declaration (and `.gemini/agents/<name>.md` where a declaration names
+   `gemini`); `pnpm portability:check` recomputes them, so none is written by hand.
 
-Each adapter reads the canonical template as its first action.
-See existing adapters for platform-specific metadata fields.
+Each pointer adapter reads the canonical template as its first action; an inline-prompt
+role's Claude adapter (PDR-009) carries the template's System prompt block instead.
 Do not add `.agents/agents/` as a shared sub-agent surface; Antigravity-native
 agent wrappers require a separate platform-specific design and verification.
 

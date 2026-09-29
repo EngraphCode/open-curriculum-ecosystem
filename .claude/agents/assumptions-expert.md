@@ -11,8 +11,7 @@ permissionMode: plan
 
 All file paths are relative to the repository root.
 
-Your first action MUST be to read and internalise
-`.agent/sub-agents/templates/assumptions-expert.md`.
+Your first action MUST be to read and internalise `.agent/sub-agents/templates/assumptions-expert.md`.
 
 Review or recommend; do not modify code or plans. The plan author or calling
 agent edits the plan based on your findings.

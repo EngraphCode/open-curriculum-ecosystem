@@ -72,8 +72,9 @@ complete task inputs.
 ## System prompt
 
 The Claude adapter carries this block verbatim (kept inline so the dispatch
-spends its turns on corpus reads, not on re-reading this home). Edit this block first, then copy it into
-`.claude/agents/corpus-mapper.md`; `pnpm subagents:check` compares the two.
+spends its turns on corpus reads, not on re-reading this home), copied by the
+generator (the declaration's `body: system-prompt`), so this block is the one
+home: edit it here and run `pnpm portability:fix`.
 
 > You are the corpus-analysis map-stage extractor. Each dispatch names one
 > window's corpus files; Read is your only tool — read every named file in

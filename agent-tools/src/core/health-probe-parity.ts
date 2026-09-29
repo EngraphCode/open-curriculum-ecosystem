@@ -1,30 +1,28 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { SURFACE_OF } from '../subagent-declarations/adapter-spec.js';
+import {
+  SUBAGENT_PLATFORMS,
+  type SubagentPlatform,
+} from '../subagent-declarations/declaration-scalars.js';
+import {
+  readDeclaredAdapters,
+  type DeclaredAdapter,
+} from '../subagent-declarations/declared-adapters.js';
 import {
   CODEX_CONFIG_PATH,
   readCodexAgentRegistrations,
   resolveCodexAgentConfigFilePath,
 } from './codex-project-agent-registry.js';
-import {
-  CLAUDE_AGENTS_DIR,
-  CODEX_AGENTS_DIR,
-  CURSOR_AGENTS_DIR,
-  listBasenames,
-} from './health-probe-shared.js';
+import { CODEX_AGENTS_DIR, listBasenames } from './health-probe-shared.js';
 import type { HealthCheckResult } from './health-probe-types.js';
-import {
-  getReviewerAdapterPlatformViolation,
-  type ReviewerAdapterPlatform,
-} from './reviewer-adapter-platform-contract.js';
 
 interface ReviewerAdapterParityInputs {
-  /** Reviewer adapter basenames present on the Cursor surface. */
-  readonly cursorAgents: readonly string[];
-  /** Reviewer adapter basenames present on the Claude Code surface. */
-  readonly claudeAgents: readonly string[];
-  /** Reviewer adapter basenames present on the Codex surface. */
-  readonly codexAgents: readonly string[];
+  /** The adapters the declarations render, each with the platforms it names. */
+  readonly declared: readonly DeclaredAdapter[];
+  /** Reviewer adapter basenames present on each platform surface. */
+  readonly present: Readonly<Record<SubagentPlatform, readonly string[]>>;
 }
 
 interface ReviewerRegistrationParityInputs {
@@ -38,46 +36,74 @@ interface ReviewerRegistrationParityInputs {
   readonly pathExists: (path: string) => boolean;
 }
 
+const PLATFORM_LABEL: Readonly<Record<SubagentPlatform, string>> = {
+  cursor: 'Cursor',
+  claude: 'Claude Code',
+  codex: 'Codex',
+  gemini: 'Gemini',
+};
+
 export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResult[] {
   return [evaluateReviewerAdapterParity(repoRoot), evaluateReviewerRegistrationParity(repoRoot)];
 }
 
+/** The adapter basenames present on one platform's surface. */
+function surfaceBasenames(repoRoot: string, platform: SubagentPlatform): readonly string[] {
+  const surface = SURFACE_OF[platform];
+  return listBasenames(repoRoot, surface.dir, surface.extension);
+}
+
+/**
+ * Adapter parity against the declarations: the templates' declarations are the one platform
+ * truth (`subagent-declarations/declared-adapters.ts`), so a declaration that cannot be read
+ * fails the check outright rather than comparing the surfaces against a partial truth.
+ */
 function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
+  const declared = readDeclaredAdapters(repoRoot);
+  if (!declared.ok) {
+    return {
+      key: 'reviewer-adapter-parity',
+      label: 'Reviewer adapter parity',
+      status: 'fail',
+      summary:
+        'The sub-agent declarations could not be read, so adapter parity has no truth to compare against.',
+      details: [declared.error],
+    };
+  }
   return evaluateReviewerAdapterParityFromInputs({
-    cursorAgents: listBasenames(repoRoot, CURSOR_AGENTS_DIR, '.md'),
-    claudeAgents: listBasenames(repoRoot, CLAUDE_AGENTS_DIR, '.md'),
-    codexAgents: listBasenames(repoRoot, CODEX_AGENTS_DIR, '.toml'),
+    declared: declared.value,
+    present: {
+      cursor: surfaceBasenames(repoRoot, 'cursor'),
+      claude: surfaceBasenames(repoRoot, 'claude'),
+      codex: surfaceBasenames(repoRoot, 'codex'),
+      gemini: surfaceBasenames(repoRoot, 'gemini'),
+    },
   });
 }
 
 /**
- * Evaluates reviewer-adapter parity from already enumerated platform surfaces.
+ * Evaluates reviewer-adapter parity from the declared adapters and the enumerated surfaces.
  *
- * This pure seam keeps filesystem discovery in the production composition
- * while allowing unit tests to exercise role-aware parity directly.
+ * This pure seam keeps filesystem discovery in the production composition while allowing
+ * unit tests to exercise declaration-driven parity directly: an adapter is expected on
+ * exactly the platforms its declaration names, so a surface missing a declared adapter and
+ * a surface carrying an adapter no declaration renders there are both violations.
  *
- * @param platformAgents - Adapter basenames present on each platform surface.
- * @returns A passing result when every adapter appears exactly where supported,
- *   otherwise a failing result with one detail per parity violation.
+ * @param input - The declared adapters and the basenames present on each surface.
+ * @returns A passing result when every adapter appears exactly where declared, otherwise a
+ *   failing result with one detail per parity violation.
  */
 export function evaluateReviewerAdapterParityFromInputs(
-  platformAgents: ReviewerAdapterParityInputs,
+  input: ReviewerAdapterParityInputs,
 ): HealthCheckResult {
-  const allAgentNames = [
-    ...new Set([
-      ...platformAgents.cursorAgents,
-      ...platformAgents.claudeAgents,
-      ...platformAgents.codexAgents,
-    ]),
-  ].sort((a, b) => a.localeCompare(b));
-  const details = collectReviewerAdapterParityDetails(allAgentNames, platformAgents);
+  const details = collectReviewerAdapterParityDetails(input);
 
   if (details.length > 0) {
     return {
       key: 'reviewer-adapter-parity',
       label: 'Reviewer adapter parity',
       status: 'fail',
-      summary: 'Reviewer adapters are not present on every supported platform surface.',
+      summary: 'Reviewer adapters are not present exactly where their declarations name them.',
       details,
     };
   }
@@ -86,54 +112,33 @@ export function evaluateReviewerAdapterParityFromInputs(
     key: 'reviewer-adapter-parity',
     label: 'Reviewer adapter parity',
     status: 'pass',
-    summary: `${allAgentNames.length} reviewer adapters are aligned across their applicable platform surfaces.`,
+    summary: `${input.declared.length} declared reviewer adapters are aligned across their declared platform surfaces.`,
     details: [],
   };
 }
 
-function collectReviewerAdapterParityDetails(
-  allAgentNames: readonly string[],
-  platformAgents: ReviewerAdapterParityInputs,
-): string[] {
+function collectReviewerAdapterParityDetails(input: ReviewerAdapterParityInputs): string[] {
   const details: string[] = [];
 
-  for (const agentName of allAgentNames) {
-    collectPlatformParityDetail(
-      details,
-      agentName,
-      'cursor',
-      'Cursor',
-      platformAgents.cursorAgents,
-    );
-    collectPlatformParityDetail(
-      details,
-      agentName,
-      'claude-code',
-      'Claude Code',
-      platformAgents.claudeAgents,
-    );
-    collectPlatformParityDetail(details, agentName, 'codex', 'Codex', platformAgents.codexAgents);
+  for (const platform of SUBAGENT_PLATFORMS) {
+    const label = PLATFORM_LABEL[platform];
+    const expected = input.declared
+      .filter((adapter) => adapter.platforms.includes(platform))
+      .map((adapter) => adapter.name);
+    const present = input.present[platform];
+    for (const name of expected) {
+      if (!present.includes(name)) {
+        details.push(`${label} is missing reviewer adapter ${name}.`);
+      }
+    }
+    for (const name of present) {
+      if (!expected.includes(name)) {
+        details.push(`${label} has unsupported reviewer adapter ${name}.`);
+      }
+    }
   }
 
   return details;
-}
-
-function collectPlatformParityDetail(
-  details: string[],
-  agentName: string,
-  platform: ReviewerAdapterPlatform,
-  platformLabel: string,
-  platformAgents: readonly string[],
-): void {
-  const hasAdapter = platformAgents.includes(agentName);
-  const violation = getReviewerAdapterPlatformViolation(agentName, platform, hasAdapter);
-
-  if (violation?.kind === 'missing') {
-    details.push(`${platformLabel} is missing reviewer adapter ${violation.reviewerName}.`);
-  }
-  if (violation?.kind === 'unsupported') {
-    details.push(`${platformLabel} has unsupported reviewer adapter ${violation.reviewerName}.`);
-  }
 }
 
 function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult {

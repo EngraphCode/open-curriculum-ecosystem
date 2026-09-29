@@ -91,9 +91,9 @@ also shrinks the per-turn context the tool definitions would occupy.
 ## System prompt
 
 The Claude adapter carries this block verbatim — it cannot point here because
-a no-tools agent cannot `Read`, and the role's economics forbid extra turns.
-Edit this block first, then copy it into
-`.claude/agents/corpus-voter.md`; `pnpm subagents:check` compares the two.
+a no-tools agent cannot `Read`, and the role's economics forbid extra turns. The
+declaration's `body: system-prompt` makes the generator copy it, so this block
+is the one home: edit it here and run `pnpm portability:fix`.
 
 > You are a corpus-analysis adversary voter. Each dispatch supplies the
 > complete evidence you need: one candidate pattern and its grounding
