@@ -506,7 +506,11 @@ This indicates core packages weren't built before type-check ran. Ensure:
 
 Editing a workspace `package.json` (e.g. adding a script) makes the next pnpm
 run re-verify dependencies, which triggers the postinstall bootstrap and a
-whole-package `tsc`. This catches real type errors BEFORE any explicit
+whole-package `tsc`, after it rebuilds any stale member of its install-time
+closure (every dist-only package agent-tools reaches, derived from the
+workspace manifests: `workspace-config`, the ESLint plugin, `result`,
+`safe-path`, `type-helpers`). A type error in one of those, the plugin
+mid-edit included, fails the install. This catches real type errors BEFORE any explicit
 type-check pass — read the error HEAD (the tail is pnpm plumbing; the
 `runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
 free whole-package pre-gate: run `pnpm install` in a worktree immediately
@@ -519,7 +523,9 @@ An edit to `@oaknational/eslint-plugin-standards` source (e.g. a rule config
 or allowlist in `recommended.ts`) does not affect lint output until the
 plugin package rebuilds — ESLint resolves the built `dist/`. Rebuild the
 plugin after every config-source edit before trusting a lint readout
-(sibling of the F-120 stale-dist family).
+(sibling of the F-120 stale-dist family): `pnpm install` does it, since the
+plugin is in the postinstall bootstrap's install-time closure and rebuilds
+when its `dist/` is older than its source, or build the package directly.
 
 ### Slow repeated runs
 

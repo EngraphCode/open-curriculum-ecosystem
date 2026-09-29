@@ -355,12 +355,14 @@ pnpm build
 .agent/setup/install-shellcheck.sh
 ```
 
-`type-check` and `vitest` pass on install alone, so the gap stays silent until
-`lint` runs: ESLint's flat config imports the internal
-`@oaknational/eslint-plugin-standards`, whose package `exports` resolve to
-`dist/`. Unbuilt, bare `eslint` exits 2 (`No exports main defined`). The primary
-checkout is usually already built, which masks this in the main tree only — so a
-worktree-based lane must run the build itself before trusting any gate.
+`type-check` and `vitest` pass on install alone, and the install's bootstrap
+builds everything agent-tools reaches, including the internal
+`@oaknational/eslint-plugin-standards` whose package `exports` resolve to
+`dist/`, so ESLint's flat config loads on install alone too. Every other
+workspace's `dist/` stays unbuilt until `pnpm build`, and the gates read it. The
+primary checkout is usually already built, which masks this in the main tree
+only — so a worktree-based lane must run the build itself before trusting any
+gate.
 
 It also matters beyond gates: a worktree session shows **no statusline** unless the
 worktree was built **before the session started** (a known primary-checkout
