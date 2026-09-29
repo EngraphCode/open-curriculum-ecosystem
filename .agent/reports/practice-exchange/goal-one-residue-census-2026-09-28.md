@@ -196,7 +196,8 @@ here; the register carries the current total.
   installed in every setup path, 00:04Z) and #297 (slice 4c, the install at pnpm install,
   01:36Z, after the fold). A recount by the contract's rule: J3 reads 5, the residue rows 25,
   all 30 with the charter's five acts. Landed of total at the rollover fold's merge 76974c3cc
-  (01:12:26Z): 8 of 30, the rows named: todo 6's amendment #248; J3's #289, #290, #292, #294;
+  (01:12:26Z): 8 of 30, the rows named: todo 6's amendment, the second estate's PR 248 (its own
+  pull request, merged on its main 17:14Z); and on this estate J3's #289, #290, #292, #294;
   J1's #291 (N1's first slice); J6's #293 (N6) and #295 (the commit-queue worktree smoke, split
   from N6 at the 21:4xZ recount). At engraph ef0ba83c1 (#297 merged): 9 of 30. Not residue
   rows, so not counted: #286 and #287 (todo 8's doctrine text cures) and #288 (a directive
