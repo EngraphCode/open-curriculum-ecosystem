@@ -623,6 +623,32 @@ contract, its §Recount run at 14:58Z and matching.
   this seat's next records PR there. Remote branch deleted and read back absent; worktree and local
   branch removed; the claim closed. Next: the register's refresh; N1's second slice (the four
   verdicts to the Director first); J2; the partials in census order.
+- **N1 SLICE 2 OPEN AS PR 305; THE REGISTER PR 268 LANDED, 2026-09-29 03:2xZ to 04:xxZ (Myrtle turns
+  Canopy, bf4957).** N1's second slice (the sub-agent adapter generator) is three green commits on
+  feat/exchange-n1-subagent-declarations, opened as PR 305 at 2026-09-29T04:24:57Z on the slot PR
+  303 released, as the bot with both legs, budget 2: 2d4cd93d0 (the pre-move: the archived Claude
+  wrapper to .agent/sub-agents/archive/, ADR-125's row re-homed), ba6dfe798 (the 26 declarations,
+  minted by a scratchpad reader over the 31 hand-kept adapters: 23 roles, three fan-outs;
+  subagents:check tolerates the fence), addc2bec9 (the second estate's subagent-declarations module
+  and its portability leg as the same bytes save the result import, 25 files, 12 byte-identical
+  against the second estate's main 507f581185; the leg wired after the rule projections; the four
+  hand-kept legs removed; the health-probe test's parity cases the second estate's; the fix run
+  regenerated 61 adapters and the registry, every change classified by a scratchpad script into
+  eleven kinds the PR body tables; the docs, the docs-adr and onboarding reads applied: the
+  sub-agents README's §Declarations, ADR-125's three surface rows, PDR-009's amendment log, the
+  subagent-architect template's platform guidance rewritten from hand-authored wrappers to the
+  declaration), then the pure sync 79905e9fb onto engraph 1bdddf31b. The Director's four verdicts
+  held (the persona line in each variant's declared note after the pointer, subagent-architect
+  read-only on every platform, platforms as declaration data, the archived adapter moved). Reads:
+  code-expert (approved with suggestions; two port-back candidates), test-expert (one FIX, the
+  fixpoint observation recorded on the PR; four port-back candidates), docs-adr and onboarding
+  (their FIX items applied, one P1: the subagent-architect template). The second estate's PR 268
+  (the register's count line 11 of 30; the node's todo 8) merged by the bot as b7b4ecb62 at
+  2026-09-29T04:31:35Z after three Copilot rounds: the lineage head mistyped as eb1ad3f803 (the real
+  one eb1ad3f807, PR 301's merge commit; the seat's error, the napkin's entry of 04:0xZ), the plan's
+  SHA: prefix, and the node's last_updated stamp, each cured (settlements one and two, the budget
+  spent). The count reads 11 of 30 at jcnet 507f581185 and lineage eb1ad3f807. Next: PR 305's legs
+  and door; J2; the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's

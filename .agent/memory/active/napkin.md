@@ -1395,3 +1395,24 @@ written before the first commit, the smoke header's "observed by hand" list is t
 only import-time code leaves, and `tsc --noEmit` joins eslint and vitest in the pre-commit check
 of a worktree (eslint's after-used passed what the compiler refused). The family-wide gap (no
 entry-decision seam in the docs validators) is a frictions-register entry with its cure shape.
+
+## 2026-09-29 ~04:0xZ — a head copied from a compaction summary, not read from git, reached a pull request and the Director (Myrtle turns Canopy, bf4957)
+
+**Observation.** The second estate's register refresh (its PR 268) anchored the count line to
+the lineage head "eb1ad3f803". Copilot's round one found that the revision does not resolve:
+PR 301's merge commit is `eb1ad3f80744…`, so the ten-character head is `eb1ad3f807`. The seat
+had carried the figure from its own compaction summary into the script's arguments, the
+register line, the PR body and a message to the Director, and checked none of them against
+`git rev-parse`. Nine characters (`eb1ad3f80`) were right everywhere; the tenth was invented
+once and then copied four times.
+
+**Reading.** A compaction summary is a record of what the seat wrote, not of what git holds;
+a figure read from it has the summary's error rate, and every copy inherits it. The same
+window's port proof read every file against the second estate's tree and found nothing wrong,
+because that proof computed; the head was the one figure the seat wrote from memory.
+
+**Routing.** A working habit under `verify-dont-trust`: a commit reference written into any
+record, body or message is produced by `git rev-parse --short=N <ref>` at writing time, never
+retyped from a summary or an earlier message; a script that takes a head as an argument
+resolves it (`git rev-parse --verify`) before using it, and refuses one that does not resolve.
+The cure was one settlement push on PR 268 and a correction to the Director in the next report.
