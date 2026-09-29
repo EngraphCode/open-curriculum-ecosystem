@@ -6,7 +6,7 @@
  * is that seam: the two reads `readCore` makes (the tracked listing through
  * `repository-paths`, this estate's one git read path, and the text read
  * through `tracked-file-scan`) are injectable, and every branch is proven in
- * the read-core cells over in-memory readers. The live readers are the
+ * the read-core integration cells over in-memory readers. The live readers are the
  * default; the entry passes nothing.
  *
  * @packageDocumentation

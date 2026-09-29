@@ -11,7 +11,10 @@ const OUTSIDE = 'docs/architecture/architectural-decisions/001-a.md';
 function readers(overrides: Partial<CoreReaders>): CoreReaders {
   return {
     listTrackedFiles: () => ok([CORE_A, CORE_B, OUTSIDE]),
-    readScanFiles: (_root, paths) => ok(paths.map((path) => ({ path, content: 'text' }))),
+    // Models the disk read in memory: the root is not consulted (hence the underscore the
+    // compiler's unused-parameter check requires), and every path asked for comes back as
+    // text, in the order asked.
+    readScanFiles: (_repoRoot, paths) => ok(paths.map((path) => ({ path, content: 'text' }))),
     ...overrides,
   };
 }
@@ -20,10 +23,12 @@ describe('readCore', () => {
   it('returns every tracked Core file as text and nothing outside the Core', () => {
     const result = readCore(ROOT, readers({}));
 
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect(result.value.map((file) => file.path)).toEqual([CORE_A, CORE_B]);
-    }
+    expect(result).toEqual(
+      ok([
+        { path: CORE_A, content: 'text' },
+        { path: CORE_B, content: 'text' },
+      ]),
+    );
   });
 
   it('refuses when git cannot list the tracked files, naming the failure', () => {
@@ -51,11 +56,8 @@ describe('readCore', () => {
       }),
     );
 
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error).toContain(`cannot read tracked file '${CORE_B}'`);
-      expect(result.error).toContain('EACCES');
-    }
+    expect(result).toEqual(err(expect.stringContaining(`cannot read tracked file '${CORE_B}'`)));
+    expect(result).toEqual(err(expect.stringContaining('EACCES')));
   });
 
   it('refuses when the text read drops a Core file, naming the dropped path', () => {

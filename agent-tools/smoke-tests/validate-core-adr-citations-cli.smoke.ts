@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
  *   and `findCoreCitations` cells;
  * - the refusals (a listing git could not give, zero tracked Core files, a Core
  *   file that cannot be read, a Core file dropped as non-text): the `readCore`
- *   cells, over injected readers.
+ *   integration cells, over injected readers.
  *
  * Observed by hand, not proven by any cell: the entry's exit 1 with its report
  * on a citation, and the mapping of a refusal reason to exit 2 (the entry's

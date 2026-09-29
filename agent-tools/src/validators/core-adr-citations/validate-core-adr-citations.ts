@@ -10,8 +10,9 @@
  * is strict: nothing exempts a citation.
  *
  * Wired into root `docs-validators:check`, which runs in `pnpm check`,
- * `pnpm check:docs` and CI. Exit 0 = clean; 1 = findings; 2 = refusal (no
- * tracked Core file, or a Core file unreadable or not scannable as text). The
+ * `pnpm check:docs` and CI. Exit 0 = clean; 1 = findings; 2 = refusal (a
+ * listing git could not give, no tracked Core file, or a Core file unreadable
+ * or not scannable as text). The
  * status is returned from `main` and set on `process.exitCode`, so buffered
  * diagnostics reach a pipe before the process ends.
  *
