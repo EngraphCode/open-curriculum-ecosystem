@@ -1278,3 +1278,22 @@ against a present event, or its report of absence means nothing.
 `read-diagnostic-artefacts-in-full`). The seat's wait script now filters by the `[bot]` login;
 before the next script that reports absence is trusted, it runs once against a known present
 event. An instance for the Director's read-the-primary-surface count, against this seat.
+
+## 2026-09-29 ~00:5xZ — a kill wider than its name: pkill by pattern on a shared host stopped another seat's gate (Myrtle turns Canopy, bf4957)
+
+**Observation.** Two cures for the fold PR arrived while this seat's records push was already in
+its pre-push gate. To carry both in one late-cure push the seat stopped its own push: `kill` on the
+merge-bot push pid (its own process), then `pkill -f "husky/pre-push"` to clear the orphaned hook
+shell. The pattern matched every pre-push hook on the host, including the Director's on the second
+estate's proxy worktree, whose records push of 8c42cd24 died on the SIGTERM at ~00:52Z and was
+retried at 00:53Z. Nothing was lost; one gate ran twice on another seat's clock.
+
+**Reading.** The third formation letter's family again (a check or a kill that does not do what its
+name says): the name in the command was "my hook shell"; the pattern was "any hook shell". On a
+host that runs several seats' gates at once (`no-unbounded-host-load` counts them for this reason),
+a process name is never a seat's own. The correct stop is the pid tree of the process the seat
+started (`kill` on the parent it holds the pid of; the children follow), never a name pattern.
+
+**Routing.** A napkin entry, not a rule: the hook policy already refuses the git-side history
+kills; a process-kill discipline is one line for the wrap skill's "stopping your own work" note if
+a second instance appears. Told to the Director in the same message as the cure's sha.

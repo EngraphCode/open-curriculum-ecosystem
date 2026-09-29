@@ -545,6 +545,35 @@ contract, its §Recount run at 14:58Z and matching.
   written: a 24-file port of the second estate's `subagent-declarations` module replacing the
   reviewer-adapter parity leg, 26 declarations minted by hand, nine reconciliations, four verdicts
   for the Director first), J2, the partials in census order.
+- **THE FOLD'S ROUND TWO; THE RULING PR'S TWO SETTLEMENTS, 2026-09-29 00:4xZ to 01:1xZ (Myrtle turns
+  Canopy, bf4957).** The fold PR 283's round two on this seat's records: the census's Totals table
+  takes one line saying it is the census-day count, superseded at the recounts to J3 3, J6 4,
+  residue 23, all 27, pointing at its Recounts section (3a1339f29); the napkin's git-listings entry
+  takes an appended correction, seven sites, none excluded (24e49e37d); the third letter's thread
+  Rejected (its two ceremony sentences are the referent of the reflection that follows them). One
+  late-cure push (PDR-140 clause 9(b)) carried the two commits; Copilot's line on the routing
+  sentence Rejected (the appended correction governs). 283 merged 76974c3cc at 01:12:27Z by the
+  Director; this successor is cut from it. The second estate's PR 262 merged 33dcdaa50 at 00:39Z:
+  the register reads 2 of 27 at jcnet dde8c547a6 and lineage 7e4cf9b813, the J1 row PARTIAL with the
+  port-back list. PR 296 (`docs/exchange-node-close-bar`, the node's close-bar section) opened at
+  b1d7e81d5; settlement one 3306d9f7c (Copilot's three findings and the docs-adr and onboarding
+  reads: the register defined at its first use, the counts dated by the census, the seats' roles,
+  the owner's third answer paraphrased where the hedging hook covers plan nodes); settlement two
+  3d120c11e (Codex's P1: the close bar had named the portability twins as the
+  `practice-core-portability` rule and a gate it does not have; the charter's twins are todo 8's
+  citation doctrine, PR 281 merged 298763795, and the validator, the second estate's PR 239 merged
+  b5d954209, whose twin here has no landing and no census row; Copilot's: a local remainder is Not
+  taken by the owner's ratification of the clause). Budget spent; five threads signed and resolved;
+  a pure sync onto 76974c3cc before the door. The Director's ruling (01:2xZ, verified first-hand:
+  285 and 286 are the citation-naming docs, no validator in this estate's chain): the validator twin
+  is this seat's after 296's door, ahead of N1's second slice, one pull request of J1's kind (the
+  same bytes: the validator module, its ratchet census file, the package script, the chain entry,
+  the tests), recorded under todo 8 and not as a new J row; the count reads 28 (the census's
+  Recounts entry of 01:2xZ; the register's count line on the second estate rides this seat's next
+  records PR there). Incident: stopping this seat's own in-flight push by `pkill` on the hook
+  shell's name also stopped the Director's push on the second estate (retried, landed); the napkin's
+  entry of 00:5xZ. Next: 296's door at its legs; todo 8's validator twin (one PR, say when it
+  opens); N1's second slice (four verdicts first); J2; the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's
@@ -664,20 +693,22 @@ contract, its §Recount run at 14:58Z and matching.
   `2ee31fd6`, four background waits (288's sync push and CI, 248's legs). The scratchpad holds
   the door and open scripts (`door-282.sh` as the template, `open-ruling-pr.sh`,
   `open-jcnet-todo6-pr.sh`), the census's sources and the drafts.
-- **GOAL ONE'S CLOSE CHARTER RATIFIED; THE RESIDUE CENSUS, 2026-09-28 16:2xZ to 16:5xZ (Myrtle
-  turns Canopy, bf4957).** The owner ratified the Director's close charter as drafted (the
-  Director's relay 16:2xZ; the charter on the second estate's napkin at c717c683). First act, the
-  residue census: `.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`, one
-  line per owed J row from the register and the batch-six triage at the second estate's
-  `origin/main` 22e97b52e against this tree at `631d3079a`, every absence checked first-hand.
-  Findings: 21 rows owed by the register's own rule (J5 reads `graduated into L9`, so the
-  charter's 22 counts one row the rule excludes); 4 settled, 11 partial, 6 with no landing; the
-  residue is 20 PRs, 24 with todo 6, the lessons, the comparison and the re-pin, under the
-  charter's reopen bound of thirty; three cards for the owner (J11's exchange instrument, J17's
-  gate-running doctrine, the count); J15, J19 and J23 settle by §Landings rows citing the
-  triage. Order as the charter gives it, with J1's generators before J2. Also this window: the
-  metacognition graduation edit committed and pushed as a draft on the Director's routing (its
-  review waits behind the census and todo 6). Next: todo 6 onto the exchange node, one PR.
+- **GOAL ONE'S CLOSE CHARTER RATIFIED; THE RESIDUE CENSUS, 2026-09-28 16:2xZ to 16:5xZ (Myrtle turns
+  Canopy, bf4957).** The owner ratified the Director's close charter as drafted (the Director's
+  relay 16:2xZ; the charter on the second estate's napkin at c717c683; this estate's node carries
+  the bar in its own words: `practice-two-way-exchange.plan.md` §The owner's ruling of 2026-09-28:
+  the close bar, PR 296). First act, the residue census:
+  `.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`, one line per owed J row
+  from the register and the batch-six triage at the second estate's `origin/main` 22e97b52e against
+  this tree at `631d3079a`, every absence checked first-hand. Findings: 21 rows owed by the
+  register's own rule (J5 reads `graduated into L9`, so the charter's 22 counts one row the rule
+  excludes); 4 settled, 11 partial, 6 with no landing; the residue is 20 PRs, 24 with todo 6, the
+  lessons, the comparison and the re-pin, under the charter's reopen bound of thirty; three cards
+  for the owner (J11's exchange instrument, J17's gate-running doctrine, the count); J15, J19 and
+  J23 settle by §Landings rows citing the triage. Order as the charter gives it, with J1's
+  generators before J2. Also this window: the metacognition graduation edit committed and pushed as
+  a draft on the Director's routing (its review waits behind the census and todo 6). Next: todo 6
+  onto the exchange node, one PR.
 - **THE EXCHANGE LANE RESUMED; PR 282 LANDED, 2026-09-28 13:3xZ to 14:4xZ (Myrtle turns Canopy,
   bf4957).** The superseded local ref `superseded/250-local-sync-82aae23cd` deleted on the owner's
   word relayed at 13:34Z (the loose ref file removed; read back absent; the 13:24Z proof its

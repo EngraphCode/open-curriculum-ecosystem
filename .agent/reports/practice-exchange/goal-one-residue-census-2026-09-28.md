@@ -145,8 +145,8 @@ J16, J20, J23). The count beside the heads reads 4 of 21.
 | The charter's other acts: todo 6; the lessons and the comparison; the re-pin | 4 |
 | All | 24 |
 
-The table is the census-day count. The recounts supersede it: J3 3, J6 4, residue PRs 23, all
-27 (see §Recounts below; the rows keep their dated counts).
+The table is the census-day count. The recounts supersede it: J3 3, J6 4, residue PRs 23, the
+charter's acts 5, all 28 (see §Recounts below; the rows keep their dated counts).
 
 Under the charter's reopen bound of thirty. Three cards for the owner, none a PR: J11's
 exchange instrument (decline with reason), J17's gate-running doctrine (converge or decline by
@@ -177,3 +177,13 @@ here; the register carries the current total.
   all 27. The triage's `--max-warnings 0` on agent-tools' lint is graduated into the recovery
   lane, not a J6 slice: the flag fails lint on six existing no-real-io-in-tests warnings in five
   integration test files (repo-continuity.md's recovery-lane entry), and lands with their cure.
+- 2026-09-29 01:2xZ: the close charter's todo 8 (the Core's portability twins) has one leg with
+  no landing and no seat on this estate: the validator that refuses an ADR identifier in a Core
+  decision record (the second estate's PR 239, b5d954209, with its ratchet census, in its
+  docs-validators chain; this estate holds no such validator, verified by the Director
+  first-hand). The Director's ruling: it is the exchange seat's after PR 296's door, ahead of
+  N1's second slice, one pull request of J1's kind (the same bytes: the validator module, its
+  ratchet census file, the package script and the chain entry, the tests), recorded under todo
+  8 and not as a new J row. The charter's acts read 5 (todo 6; the lessons and the comparison;
+  the re-pin; todo 8's validator twin), the residue rows 23 unchanged, all 28; the register's
+  count line carries the same change with this ruling as its source.
