@@ -67,6 +67,7 @@
     "agent-tools:codex-exec": "pnpm --filter @oaknational/agent-tools codex-exec",
     "agent-tools:pr-watch": "pnpm --filter @oaknational/agent-tools pr-watch",
     "agent-tools:repo-check": "pnpm --filter @oaknational/agent-tools repo-check",
+    "agent-tools:gate-slot": "pnpm --fail-if-no-match --filter @oaknational/agent-tools gate-slot",
     "agent-tools:pre-tool-use-dispatch": "pnpm --filter @oaknational/agent-tools pre-tool-use-dispatch",
     "agent-tools:check-encoding": "pnpm --filter @oaknational/agent-tools check-encoding",
     "agent-tools:check-commit-message": "pnpm --filter @oaknational/agent-tools check-commit-message",
