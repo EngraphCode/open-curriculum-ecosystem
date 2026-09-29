@@ -540,7 +540,7 @@ contract, its §Recount run at 14:58Z and matching.
   estate's), POSIX joins in five files, the three Sonar cures (the row parser splits cells; the
   Cursor fields function; the classification set), `compareRuleNames` at four sort sites, the
   headers, the sweep's read-back, the four reshaped tests. Remote branch deleted and read back 0 refs; worktree and local
-  branch removed; the claim closed. The register's J1 row and the count (2 of 26) go to the
+  branch removed; the claim closed. The register's J1 row and the count (2 of 27) go to the
   second estate as their own pull request. Next: N1's second slice (the sub-agent leg; the plan is
   written: a 24-file port of the second estate's `subagent-declarations` module replacing the
   reviewer-adapter parity leg, 26 declarations minted by hand, nine reconciliations, four verdicts
