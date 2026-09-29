@@ -25,7 +25,10 @@ export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
   Pushes HEAD to the repository's GitHub remote as the BOT, over a freshly
   minted installation token — the whole per-session credential-helper recipe
   as one command. The push itself IS the git binary; this command injects the
-  bot identity and refuses by type, and adds no transfer behaviour of its own.
+  bot identity and refuses by type, and adds no transfer behaviour of its own
+  but one bounded retry: when GitHub refuses the push at git's first request,
+  before the pre-push hook runs, it mints a fresh token and runs git again 30
+  seconds later, up to three attempts in all, naming each retry on stderr.
 
   The token reaches git ONLY through a 0600 file that lives exactly as long
   as the transfer, read by a static credential helper; the child environment

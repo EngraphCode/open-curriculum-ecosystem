@@ -142,6 +142,7 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     fetchImpl: input.fetchImpl,
     readFileImpl: input.readFileImpl,
     nowEpochSeconds: input.nowEpochSeconds,
+    sleepImpl: input.sleepImpl,
     gitExecutor: input.gitExecutor,
     gitPath: input.gitPath,
     baseEnv: input.baseEnv,
