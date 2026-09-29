@@ -845,6 +845,15 @@ nothing and prove behaviour; no new pull request while an old one waits, trend t
 instead of ad-hoc shell scripts, always. The finishing plan's Finish section is on the exchange
 node of both estates, amended for the WIP word.
 
+### 2026-09-29T10:30Z — Director check-in 85, three lines (Wick binds Temper, ed7b48)
+
+Rows whole: 8 of 21. Open: 312 (Myrtle, the cache by OIDC; both legs clean, zero threads, red
+only on the OIDC step for want of the TURBO_TEAM repository variable), 311 (Nova, held for 312),
+310 and 309 (Siren, tests to the bar; 309's rework pushed, 310's at its commit gate). JC.net:
+none. Landed since 84: none. Blockers: TURBO_TEAM (the owner's hand); on this host the local
+Turbo login token expired at 10:11Z and the JC.net pre-commit fails on turbo's remote-cache
+warning, surfaced to the owner.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
