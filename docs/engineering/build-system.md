@@ -217,8 +217,8 @@ pnpm i && turbo run build type-check lint:fix && pnpm subagents:check && pnpm po
    - `type-check` - TypeScript validation
    - `lint:fix` - auto-fix linting issues
 3. Root-only fixes:
-   - `subagents:check` - validate sub-agent wrapper/template standards
-   - `portability:check` - validate canonical/adaptor and hook parity
+   - `subagents:check` - validate the sub-agent templates and the rendered adapters' frontmatter
+   - `portability:check` - recompute the rule projections and the sub-agent adapters from their declarations; validate hook parity
    - `practice:fitness:informational` — four-zone report (ADR-144), always exits 0
    - `markdownlint:root` - fix markdown in root
    - `format:root` - format root files
@@ -307,6 +307,21 @@ Runs the root field-integrity harness:
 ```bash
 pnpm test:field-integrity
 ```
+
+### `pnpm agent-tools:gate-slot` - The host bound on full gates
+
+Each hook's turbo step runs under a host gate slot (`no-unbounded-host-load`
+item 6): the pre-commit's `build type-check lint test` run and the pre-push's
+`sdk-codegen build type-check lint test test:e2e test:ui` run. At most two full
+gates hold a slot on the host at once, counted across every estate that uses the
+slot's ports, and one at a time in a working tree. A blocked commit or push waits
+and names the gates it waits for, and `pnpm agent-tools:gate-slot status` lists
+the holders. A waiting commit holds its worktree's index lock. A wait gives up
+after an hour, and a step that holds a slot past thirty minutes is stopped and
+fails. The rest of each hook (the staged-file checks, `repo-validators:check`
+with its embedded codegen build, depcruise and knip) runs outside the slot. The
+slot needs POSIX process groups, so a gate on a native Windows host is refused;
+commit and push from WSL.
 
 ### Practice health commands
 
@@ -712,7 +727,8 @@ reader a broken `pnpm build`.
   Hand-trimming generated output causes regeneration footguns.
   When knip or depcruise flags a generated file, fix the generator that
   produced it and regenerate (`pnpm skills:generate` for the skill adapters,
-  `pnpm portability:fix` for the rules index and the rule adapters).
+  `pnpm portability:fix` for the rules index, the rule adapters, the sub-agent adapters
+  and the `.codex/config.toml` registry tail).
 
 ## Related Documentation
 

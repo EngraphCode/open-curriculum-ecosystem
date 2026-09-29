@@ -1,3 +1,103 @@
+---
+variants:
+  - name: cricket-judgement-high
+    platforms:
+      - cursor
+      - claude
+    description: Fast high-effort conscience check using contextual judgement. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+    title: Cricket Judgement — High Effort
+    cursor:
+      description: Cursor adapter for the high-effort contextual-judgement role; Cursor does not pin reasoning effort. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+      note: |-
+        That template is the canonical role definition. This adapter preserves the high-effort
+        judgement role's semantics, but the suffix does not claim a Cursor reasoning-effort pin.
+        Judge from the supplied context in a single fast pass and report only. Never explore
+        the repository.
+    claude:
+      tools: Read
+      disallowedTools: Write, Edit, Bash, Grep, Glob
+      color: green
+      model: sonnet
+      effort: high
+      note: |-
+        This adapter explicitly waives the template's reading-discipline component to preserve
+        the one-pass speed contract; the identity component remains mandatory. Judge and report
+        from the supplied context and STANCE, using at most the template's two targeted
+        verification Reads when its speed contract permits them. Never explore the repository.
+  - name: cricket-judgement-low
+    platforms:
+      - cursor
+      - claude
+      - codex
+    description: Fast low-effort conscience check using contextual judgement. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+    title: Cricket Judgement — Low Effort
+    cursor:
+      description: Cursor adapter for the low-effort contextual-judgement role; Cursor does not pin reasoning effort. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+      note: |-
+        That template is the canonical role definition. This adapter preserves the low-effort
+        judgement role's semantics, but the suffix does not claim a Cursor reasoning-effort pin.
+        Judge from the supplied context in a single fast pass and report only. Never explore
+        the repository.
+    claude:
+      tools: Read
+      disallowedTools: Write, Edit, Bash, Grep, Glob
+      color: green
+      model: fable
+      effort: low
+      note: |-
+        This adapter explicitly waives the template's reading-discipline component to preserve
+        the one-pass speed contract; the identity component remains mandatory. Judge and report
+        from the supplied context and STANCE, using at most the template's two targeted
+        verification Reads when its speed contract permits them. Never explore the repository.
+    codex:
+      model: gpt-5.6-sol
+      effort: low
+      note: |-
+        This file is a thin Codex adapter. The canonical role definition lives in the
+        template referenced above; each dispatch supplies the objective frame,
+        critical-path owner, intent, recent actions, next planned action, and STANCE
+        (normal or adversarial, defined in the template).
+
+        Mode: a single fast pass — judge from the supplied context, honour the
+        template's speed contract, and report only. Do not modify anything.
+  - name: cricket-judgement-medium
+    platforms:
+      - cursor
+      - claude
+      - codex
+    description: Fast medium-effort conscience check using contextual judgement. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+    title: Cricket Judgement — Medium Effort
+    cursor:
+      description: Cursor adapter for the medium-effort contextual-judgement role; Cursor does not pin reasoning effort. Call directly for a second opinion, rubber duck, or design partnership when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a frame verdict (SOUND, NARROWED or CONTRADICTED), with evidence and one redirection.
+      note: |-
+        That template is the canonical role definition. This adapter preserves the
+        medium-effort judgement role's semantics, but the suffix does not claim a Cursor
+        reasoning-effort pin. Judge from the supplied context in a single fast pass and report
+        only. Never explore the repository.
+    claude:
+      tools: Read
+      disallowedTools: Write, Edit, Bash, Grep, Glob
+      color: green
+      model: opus
+      effort: medium
+      note: |-
+        This adapter explicitly waives the template's reading-discipline component to preserve
+        the one-pass speed contract; the identity component remains mandatory. Judge and report
+        from the supplied context and STANCE, using at most the template's two targeted
+        verification Reads when its speed contract permits them. Never explore the repository.
+    codex:
+      model: gpt-5.6-terra
+      effort: medium
+      note: |-
+        This file is a thin Codex adapter. The canonical role definition lives in the
+        template referenced above; each dispatch supplies the objective frame,
+        critical-path owner, intent, recent actions, next planned action, and STANCE
+        (normal or adversarial, defined in the template).
+
+        Mode: a single fast pass — judge from the supplied context, honour the
+        template's speed contract, and report only. Do not modify anything.
+---
+
 ## Delegation Triggers
 
 Use this role for a fast contextual-judgement second opinion when the primary needs to

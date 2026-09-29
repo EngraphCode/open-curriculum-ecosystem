@@ -16,6 +16,7 @@ import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-conf
 import type { GithubApiFetch } from './mint-installation-token.js';
 import {
   resolveBotIdentity,
+  resolveMergeBotAppSlug,
   type BotIdentity,
   type MergeBotResolveInput,
 } from './resolve-identity.js';
@@ -85,23 +86,34 @@ export async function runMergeAction(
     input.stderr.write(`merge-bot merge: ${parsed.error.message}\n`);
     return 2;
   }
-  const identity = resolveBotIdentity({}, input.identityInput);
-  if (!identity.ok) {
-    input.stderr.write(`merge-bot merge: ${identity.error.message}\n`);
+  const bot = resolveBot(parsed.value, input.identityInput);
+  if (!bot.ok) {
+    input.stderr.write(`merge-bot merge: ${bot.error.message}\n`);
     return 2;
   }
   input.stderr.write(SWEEP_NOTE);
-  const run = await mintWithDeadline(identity.value, input);
+  const run = await mintWithDeadline(bot.value.identity, input);
   if (!run.ok) {
     input.stderr.write(`merge-bot merge: ${run.error.message}\n`);
     return 1;
   }
-  return pollUntilActionable({
-    parsed: parsed.value,
-    identity: identity.value,
-    run: run.value,
-    input,
-  });
+  return pollUntilActionable({ parsed: parsed.value, ...bot.value, run: run.value, input });
+}
+
+// The identity, and the bot's login only when a reviewer is declared
+// unavailable: a declaration stands only as the bot's own comment
+// (declared-unavailable.ts).
+function resolveBot(
+  parsed: MergeArgs,
+  identityInput: MergeBotResolveInput,
+): Result<{ readonly identity: BotIdentity; readonly poster: string | null }, Error> {
+  const identity = resolveBotIdentity({}, identityInput);
+  if (!identity.ok) {
+    return identity;
+  }
+  const poster: Result<string | null, Error> =
+    parsed.unavailable.length === 0 ? ok(null) : resolveMergeBotAppSlug(identityInput);
+  return poster.ok ? ok({ identity: identity.value, poster: poster.value }) : poster;
 }
 
 /** The ONE minted token and the wall-clock deadline derived from ITS expiry. */
@@ -147,6 +159,7 @@ function executionSeams(
 async function pollUntilActionable(context: {
   readonly parsed: MergeArgs;
   readonly identity: BotIdentity;
+  readonly poster: string | null;
   readonly run: MintedRun;
   readonly input: MergeActionInput;
 }): Promise<number> {
@@ -175,6 +188,11 @@ async function pollUntilActionable(context: {
       prNumber: parsed.prNumber,
       expectedReviewers: parsed.expect,
       nowIso: at,
+      // Each poll judges the declarations at its own clock.
+      unavailable:
+        context.poster === null
+          ? undefined
+          : { declarations: parsed.unavailable, poster: context.poster, now: at },
       seams,
     });
     const retry = retryLabel(outcome, poll, parsed.maxPolls);

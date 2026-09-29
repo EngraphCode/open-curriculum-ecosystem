@@ -5,6 +5,7 @@ import { join } from 'node:path';
 
 import {
   inThrowawayProject,
+  proveUnquotedPathSplits,
   registeredHookCommand,
   runRegisteredCommand,
 } from './registered-hook-command-fixture.js';
@@ -12,10 +13,10 @@ import {
 /**
  * Production-shaped smoke for the secrets-scan entries that `.claude/settings.json`
  * registers through the hook-error wrapper (`.claude/hooks/_lib/log-hook-errors.sh`):
- * the `PreToolUse` `Read` entry and the `UserPromptSubmit` entry. Each case runs
- * the registered command through the trusted shell's `-c`, as the harness does, in a
- * throwaway project whose name holds a space, fed a harness-shaped payload,
- * with a stub `sonar` first on `PATH`.
+ * the `PreToolUse` `Read` entry and the `UserPromptSubmit` entry. Each scan case
+ * runs the registered command through the trusted shell's `-c`, as the harness
+ * does, in a throwaway project whose name holds a space, fed a harness-shaped
+ * payload, with a stub `sonar` first on `PATH`.
  *
  * Why: an unquoted `${CLAUDE_PROJECT_DIR}` path splits at the space, so the
  * shell exits 127 before the wrapper starts. The wrapper cannot log its own
@@ -26,12 +27,14 @@ import {
  * the wrapper; this smoke fails on such a rewrite too.
  *
  * The stub exits 0 (no secret) or 51 (the code both scripts read as a secret
- * found), so each real script runs its scan path. Each case asserts exit 0,
- * nothing on stderr, exactly the decision the script owes on stdout (none,
+ * found), so each real script runs its scan path. Each scan case asserts exit
+ * 0, nothing on stderr, exactly the decision the script owes on stdout (none,
  * the `Read` deny or the prompt block), and a hook-error log that exists and
  * is empty. The wrapper creates that log on every run, so its presence proves
  * the command ran through the wrapper, and its emptiness proves the wrapper
- * logged no failure.
+ * logged no failure. Each entry's control case runs the same command with its
+ * quotes removed and asserts the shell's 127, naming the project path cut at
+ * its first space, so the scan cases cannot pass for the wrong reason.
  *
  * Not proven here: the real scanner, and a harness that pastes the project
  * path into the command text before the shell runs (the trusted shell's `-c` here
@@ -195,6 +198,14 @@ const cases: readonly (readonly [string, () => Promise<void>])[] = [
   ['PreToolUse Read, secret found', () => proveReadEntry(SECRET_FOUND, readDenyLine)],
   ['UserPromptSubmit, no secret', () => provePromptEntry(NO_SECRET, '')],
   ['UserPromptSubmit, secret found', () => provePromptEntry(SECRET_FOUND, PROMPT_BLOCK_LINE)],
+  [
+    'PreToolUse Read, quotes removed: the path splits',
+    () => proveUnquotedPathSplits(registeredHookCommand('PreToolUse', 'Read')),
+  ],
+  [
+    'UserPromptSubmit, quotes removed: the path splits',
+    () => proveUnquotedPathSplits(registeredHookCommand('UserPromptSubmit')),
+  ],
 ];
 
 const failures: string[] = [];

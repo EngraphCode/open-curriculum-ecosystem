@@ -1,3 +1,17 @@
+---
+description: Carrier of the foundational TDD doctrine. Audits whether each test describes a system state or merely audits an implementation choice; enforces the atomic-landing invariant (test and product code travel in one commit); rejects skipped tests, conditional tests, global state, complex mocks, and audit-shaped tests that ratify already-built code. Use immediately on every test-file change, on every product-code change without paired tests, and whenever atomic-landing or describe-vs-audit compliance is in doubt.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: green
+cursor:
+  description: Carrier of the foundational TDD doctrine. Audits whether each test describes a system state or audits an implementation choice; enforces the atomic-landing invariant (test and product code in one commit); rejects audit-shaped tests, skipped tests, conditional tests, and global-state coupling. Use proactively on every test-file change and on every product-code change without paired tests.
+codex:
+  description: "Carrier of the foundational TDD doctrine: describes-vs-audits screen, atomic-landing invariant, and structural compliance."
+---
+
 ## Delegation Triggers
 
 Invoke the test reviewer whenever test files are written, modified, or audited

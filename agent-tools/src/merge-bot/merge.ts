@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { parsePrTarget, type GhCommandExecutor, type PrTarget } from '../pr-watch/gh.js';
+import type { UnavailableInput } from '../pr-watch/state-compose.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
@@ -25,10 +26,9 @@ import type { BotIdentity } from './resolve-identity.js';
  */
 
 /**
- * A failed PR-state reading, typed so the poll loop can classify it as
- * retryable-within-budget (security H4): pr-watch's reader throws by design
- * on transients (mergeable UNKNOWN, a moved head, a gh non-zero exit), and
- * that throw must never escape into the usage-error exit path.
+ * A failed PR-state reading, typed so the poll loop can classify it as retryable-within-budget
+ * (security H4): pr-watch's reader throws by design on transients (mergeable UNKNOWN, a moved
+ * head, a gh non-zero exit), and that throw must never escape into the usage-error exit path.
  */
 export class ReadingUnavailableError extends Error {}
 
@@ -57,6 +57,7 @@ export interface MergeExecutionInput {
   /** DECLARED expected reviewer set — required; a defaulted set never merges. */
   readonly expectedReviewers: readonly string[];
   readonly nowIso: string;
+  readonly unavailable?: UnavailableInput | undefined;
   readonly seams: MergeExecutionSeams;
 }
 
@@ -143,6 +144,7 @@ export async function runMergeExecution(
     target: target.value,
     ghPath: input.seams.ghPath,
     expectedReviewers: input.expectedReviewers,
+    unavailable: input.unavailable,
   });
   if (!reading.ok) {
     return reading;
