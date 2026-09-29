@@ -26,7 +26,6 @@
 
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { parseArgs } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
 
@@ -48,6 +47,7 @@ import {
 } from '../stage-io.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
 import { buildStageArtefact } from '../../../workflow-build/workflow-builder.js';
+import { parseFlags } from '../../../core/parse-flags.js';
 import { BUILD_CONFIG, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './build-config.js';
 
 interface CliFlags {
@@ -174,32 +174,28 @@ async function deriveMetaRunData(flags: CliFlags): Promise<Result<MetaRunData, E
 }
 
 function parseCliFlags(): Result<CliFlags, Error> {
-  try {
-    const { values } = parseArgs({
-      options: {
-        stage: { type: 'string' },
-        partition: { type: 'string' },
-        'map-result': { type: 'string' },
-        'reduce-result': { type: 'string' },
-        'validate-result': { type: 'string', multiple: true },
-        ceiling: { type: 'string' },
-      },
-    });
-    return ok({
-      stage: values.stage ?? '',
-      partition: values.partition,
-      mapResult: values['map-result'],
-      reduceResult: values['reduce-result'],
-      validateResults: values['validate-result'] ?? [],
-      ceiling: values.ceiling === undefined ? undefined : Number(values.ceiling),
-    });
-  } catch (cause) {
-    return err(
-      new Error(`Invalid flags: ${cause instanceof Error ? cause.message : String(cause)}`, {
-        cause,
-      }),
-    );
+  const flags = parseFlags({
+    options: {
+      stage: { type: 'string' },
+      partition: { type: 'string' },
+      'map-result': { type: 'string' },
+      'reduce-result': { type: 'string' },
+      'validate-result': { type: 'string', multiple: true },
+      ceiling: { type: 'string' },
+    },
+  });
+  if (!flags.ok) {
+    return flags;
   }
+  const values = flags.value;
+  return ok({
+    stage: values.stage ?? '',
+    partition: values.partition,
+    mapResult: values['map-result'],
+    reduceResult: values['reduce-result'],
+    validateResults: values['validate-result'] ?? [],
+    ceiling: values.ceiling === undefined ? undefined : Number(values.ceiling),
+  });
 }
 
 async function resolveRunData(): Promise<

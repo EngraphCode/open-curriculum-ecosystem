@@ -23,10 +23,9 @@
  * @packageDocumentation
  */
 
-import { parseArgs } from 'node:util';
-
 import { err, ok, type Result } from '@oaknational/result';
 
+import { parseFlags } from '../../core/parse-flags.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
 import { corroborateAgainstHomes } from '../real-world-signal.js';
@@ -70,8 +69,16 @@ async function readValidateSuccesses(
   return ok(successes);
 }
 
-async function readInputs(): Promise<Result<SalvageInputs, Error>> {
-  const { values } = parseArgs({
+interface CliFlags {
+  readonly 'reduce-result'?: string;
+  readonly 'validate-result'?: readonly string[];
+  readonly 'meta-result'?: string;
+  readonly 'banked-verdicts'?: string;
+}
+
+/** An unknown or malformed flag is an input error on the concise stderr path. */
+function parseCliFlags(): Result<CliFlags, Error> {
+  return parseFlags({
     options: {
       'reduce-result': { type: 'string' },
       'validate-result': { type: 'string', multiple: true },
@@ -79,6 +86,9 @@ async function readInputs(): Promise<Result<SalvageInputs, Error>> {
       'banked-verdicts': { type: 'string' },
     },
   });
+}
+
+async function readInputs(values: CliFlags): Promise<Result<SalvageInputs, Error>> {
   const reduceResult = await readCheckpoint(
     values['reduce-result'],
     '--reduce-result',
@@ -137,7 +147,8 @@ function salvage(inputs: SalvageInputs): Result<SalvageTierTable, Error> {
   });
 }
 
-const inputs = await readInputs();
+const flags = parseCliFlags();
+const inputs = flags.ok ? await readInputs(flags.value) : flags;
 if (inputs.ok) {
   const tiers = salvage(inputs.value);
   if (tiers.ok) {
