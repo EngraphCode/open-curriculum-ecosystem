@@ -206,9 +206,10 @@ Before making changes, follow the install and verify steps in the
    pnpm install
    ```
 
-3. Install the pinned shellcheck, which the commit hooks, `pnpm lint` and
-   `pnpm check` run. It goes into the ignored `.tools/bin`, so run it once in
-   each checkout, including each linked worktree:
+3. Check the pinned shellcheck, which the commit hooks, `pnpm lint` and
+   `pnpm check` run. `pnpm install` puts it in the ignored `.tools/bin`; if the
+   install warned that it could not, run the installer yourself (it does
+   nothing when the pinned version is already there):
 
    ```bash
    .agent/setup/install-shellcheck.sh

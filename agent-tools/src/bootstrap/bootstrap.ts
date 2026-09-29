@@ -13,6 +13,11 @@ import {
   interpretTscOutcome,
   workspaceDepDistIsStale,
 } from './bootstrap-helpers.js';
+import {
+  shellcheckInstallerEnv,
+  shellcheckProvisionSkip,
+  shellcheckProvisionWarning,
+} from './shellcheck-provision.js';
 
 /**
  * Install-time bootstrap, run by the root `postinstall` via `tsx`.
@@ -164,6 +169,33 @@ function buildWorkspaceDep(dep: WorkspaceDep, tscBin: string): void {
   writeLine(`[bootstrap-agent-tools] built ${depRelDir}/dist`);
 }
 
+/**
+ * Install the pinned shellcheck the shell lint gate runs, unless another
+ * surface owns it here (`shellcheck-provision.ts`). The installer streams its
+ * own output and is a no-op on the present pin; a failure warns and the
+ * install goes on, since the gate itself refuses without the pin.
+ */
+function provisionShellcheck(): void {
+  const skip = shellcheckProvisionSkip(process.env);
+  if (skip !== null) {
+    writeLine(`[bootstrap-agent-tools] shellcheck left to ${skip}`);
+    return;
+  }
+  const result = spawnSync(path.join(repoRoot, '.agent', 'setup', 'install-shellcheck.sh'), [], {
+    cwd: repoRoot,
+    env: shellcheckInstallerEnv(process.env),
+    stdio: 'inherit',
+  });
+  const warning = shellcheckProvisionWarning({
+    error: result.error,
+    signal: result.signal,
+    status: result.status,
+  });
+  if (warning !== null) {
+    writeErrorLine(warning);
+  }
+}
+
 function main(): void {
   if (process.env.OAK_SKIP_AGENT_TOOLS_BOOTSTRAP === '1') {
     writeLine('[bootstrap-agent-tools] skipped (OAK_SKIP_AGENT_TOOLS_BOOTSTRAP=1)');
@@ -204,6 +236,7 @@ function main(): void {
 
   markExecutableArtifacts();
   writeLine('[bootstrap-agent-tools] built agent-tools/dist');
+  provisionShellcheck();
 }
 
 main();
