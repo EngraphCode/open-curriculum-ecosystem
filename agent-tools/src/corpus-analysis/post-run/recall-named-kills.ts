@@ -1,3 +1,4 @@
+import { escapeRegExp } from '../../core/escape-reg-exp.js';
 import type { MetaOutput } from '../recall-schemas.js';
 
 /**
@@ -14,13 +15,19 @@ import type { MetaOutput } from '../recall-schemas.js';
  */
 
 /**
- * Whole-id candidate mentions in recall notes (word-boundaried, so C18 never bleeds into
- * C185). The `C<digits>` shape is this run's candidate-id convention, which the candidate
- * schema's plain non-empty-string id does not constrain — a future id-format change must
- * revisit this heuristic (a mismatch is a miss, never a corruption: mentions are
- * intersected with the real candidate-id set).
+ * Whole-id mention matchers built from the run's own candidate ids, since the candidate schema
+ * constrains no id shape: each id matches as a whole token, with no ASCII id character (a
+ * letter, a digit, `_` or `-`) on either side, so C18 never bleeds into C185 and an id such as
+ * `candidate-1` is found. Any other character, a `.` or a non-ASCII letter, reads as a boundary.
  */
-const CANDIDATE_MENTION = /\bC\d+\b/gu;
+function mentionMatchers(candidateIds: ReadonlySet<string>): ReadonlyMap<string, RegExp> {
+  return new Map(
+    [...candidateIds].map((candidateId) => [
+      candidateId,
+      new RegExp(`(?<![A-Za-z0-9_-])${escapeRegExp(candidateId)}(?![A-Za-z0-9_-])`, 'u'),
+    ]),
+  );
+}
 
 /** How the recall judgments name one killed candidate, and which baselines name it. */
 export interface RecallNamedKill {
@@ -40,6 +47,7 @@ export function recallNamedKills(
   killIds: ReadonlySet<string>,
 ): ReadonlyMap<string, RecallNamedKill> {
   const records = new Map<string, MutableRecallNamedKill>();
+  const matchers = mentionMatchers(candidateIds);
   const add = (
     candidateId: string,
     source: RecallNamedKill['source'],
@@ -59,14 +67,14 @@ export function recallNamedKills(
     if (match.matchedCandidateId !== undefined && killIds.has(match.matchedCandidateId)) {
       add(match.matchedCandidateId, 'recall-matched', match.baselineId);
     }
-    for (const mention of match.note.matchAll(CANDIDATE_MENTION)) {
-      const mentionedId = mention[0];
-      if (
-        mentionedId !== match.matchedCandidateId &&
-        candidateIds.has(mentionedId) &&
-        killIds.has(mentionedId)
-      ) {
-        add(mentionedId, 'note-named', match.baselineId);
+    // The note-named route applies to a MISSED baseline only: its note says where the
+    // substance lives; a re-found baseline's note names its match, not a salvage.
+    if (match.verdict !== 'missed') {
+      continue;
+    }
+    for (const [candidateId, matcher] of matchers) {
+      if (killIds.has(candidateId) && matcher.test(match.note)) {
+        add(candidateId, 'note-named', match.baselineId);
       }
     }
   }
