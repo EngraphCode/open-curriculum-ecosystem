@@ -1226,6 +1226,11 @@ and a pattern entry naming `core/trusted-git.ts` + `core/repository-paths.ts` as
 path, so the next site has a name to find (`new-rule-vs-pdr-clause` applies: a pattern, not a
 rule). Not N1's; queued after the exchange's residue.
 
+**Correction (2026-09-29 ~00:5xZ).** The enumeration above is seven sites, five running
+`git ls-files` and two resolving git by name; the heading's six and the reading's "other four"
+are the miscount (Codex's read of the fold PR, 00:46Z). The lane folds all seven; none is
+excluded.
+
 ## 2026-09-28 ~21:4xZ — the same-bytes port carried four test shapes this estate's rules refuse, and the seat routed them away at open (Myrtle turns Canopy, bf4957)
 
 **Observation.** N1's first slice (PR 291) brought the second estate's `rule-declarations` module
