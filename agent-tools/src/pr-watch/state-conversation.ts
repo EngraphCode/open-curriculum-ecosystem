@@ -24,6 +24,7 @@ import { authorLogin } from './state-fields.js';
 // as a deleted account's comment is.
 const commentNodeSchema = z.object({
   id: z.string(),
+  url: z.string(),
   author: authorLogin,
   body: z.string(),
   createdAt: z.iso.datetime(),
@@ -62,6 +63,9 @@ const commitsPagesSchema = z
   )
   .min(1);
 
+/** A top-level comment: a completion-comment candidate, and the url a declaration names it by. */
+export type HarvestedComment = CompletionComment & { readonly url: string };
+
 /**
  * Parse the slurped multi-page `comments` harvest into completion-comment
  * candidates, in the connection's order.
@@ -69,12 +73,13 @@ const commitsPagesSchema = z
  * @throws a ZodError when the input is not the expected slurped page-array
  *   shape (strict validation at the external-input boundary).
  */
-export function parseCommentsHarvest(raw: unknown): CompletionComment[] {
+export function parseCommentsHarvest(raw: unknown): HarvestedComment[] {
   return commentsPagesSchema
     .parse(raw)
     .flatMap((page) => page.data.repository.pullRequest.comments.nodes)
     .map((node) => ({
       id: node.id,
+      url: node.url,
       author: node.author,
       body: node.body,
       createdAt: node.createdAt,

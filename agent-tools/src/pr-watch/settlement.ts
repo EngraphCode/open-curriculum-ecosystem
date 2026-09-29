@@ -9,7 +9,7 @@ import type { BlockingLegVerdict, ReviewerLeg } from './reviewer-legs.js';
 import {
   allReviews,
   completionRefusals,
-  completionTransportEvidence,
+  transportEvidence,
   refusalDecides,
 } from './completion-evidence.js';
 import type { CompletionRefusal } from './completion-evidence.js';
@@ -48,13 +48,13 @@ function legLine(leg: ReviewerLeg): string {
 // instance 2026-09-15 (#147): the anchor sat on the seat's own reply at
 // 15:44:32Z, seven minutes after the round's last real review — the exclusion
 // of signed self-replies did not catch it, because an empty body carries no
-// signature to detect. On a tip where every leg settled via SKIPPED (no
-// tip-bound review), it anchors on checks-green.
+// signature to detect; nor is a vendor error review activity. With no
+// tip-bound review (every leg SKIPPED), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBound = allReviews(reading)
     .filter((review) => reviewBinds(review, reading))
     .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
-    .filter((review) => review.body.trim() !== '');
+    .filter((review) => review.body.trim() !== '' && !isVendorErrorReview(review.body));
   // An eligible review whose submittedAt gh omitted could be NEWER than
   // every timestamped one — anchoring past it would settle inside its
   // window, so the anchor is unknowable (null routes to the held-open path).
@@ -96,7 +96,7 @@ function settledVerdict(input: {
   const { reading, legs, now } = input;
   const shared = [
     ...legs.map((leg) => legLine(leg)),
-    ...completionTransportEvidence(reading),
+    ...transportEvidence(reading),
     ...bodyTallyEvidence(reading),
     ...expectedSetEvidence(reading),
     ...runsEvidence(reading),
@@ -221,7 +221,7 @@ function unclassifiedVerdict(
     evidence: [
       ...refusals.map((refusal) => refusal.line),
       ...legs.map((leg) => legLine(leg)),
-      ...completionTransportEvidence(reading),
+      ...transportEvidence(reading),
       ...expectedSetEvidence(reading),
       ...runsEvidence(reading),
     ],
@@ -240,7 +240,7 @@ function blockedVerdict(input: {
     evidence: [
       `most blocking reviewer leg: ${blocking.reviewer}`,
       ...legs.filter((leg) => leg.state === 'OWED').map((leg) => legLine(leg)),
-      ...completionTransportEvidence(reading),
+      ...transportEvidence(reading),
       ...refusals.map((refusal) => refusal.line),
       ...unmappedLiveRunEvidence(reading, blocking.kind),
       ...expectedSetEvidence(reading),

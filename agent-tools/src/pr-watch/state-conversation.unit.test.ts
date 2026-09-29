@@ -14,6 +14,7 @@ const HEAD = 'f'.repeat(40);
 
 interface CommentNode {
   readonly id: string;
+  readonly url: string | undefined;
   readonly author: { readonly login: string } | null;
   readonly body: string;
   readonly createdAt: string;
@@ -23,6 +24,7 @@ interface CommentNode {
 
 const CODEX_NODE: CommentNode = {
   id: 'IC_kwDORdPTys8AAAABVt01ww',
+  url: 'https://github.com/acme/widgets/pull/42#issuecomment-2',
   author: { login: 'chatgpt-codex-connector' },
   body: "Codex Review: Didn't find any major issues. :rocket:\n\n**Reviewed commit:** `7a9cd61414`\n",
   createdAt: '2026-09-20T20:02:19Z',
@@ -46,13 +48,19 @@ function commitsPage(oids: readonly string[]): unknown {
 
 describe('parseCommentsHarvest', () => {
   it('reads the pages as completion-comment candidates in the connection order', () => {
-    const earlier = { ...CODEX_NODE, id: 'IC_1', createdAt: '2026-09-20T19:46:32Z' };
+    const earlier = {
+      ...CODEX_NODE,
+      id: 'IC_1',
+      url: 'https://github.com/acme/widgets/pull/42#issuecomment-1',
+      createdAt: '2026-09-20T19:46:32Z',
+    };
 
     expect(
       parseCommentsHarvest([commentsPage([earlier]), commentsPage([CODEX_NODE])]),
     ).toStrictEqual([
       {
         id: 'IC_1',
+        url: 'https://github.com/acme/widgets/pull/42#issuecomment-1',
         author: 'chatgpt-codex-connector',
         body: CODEX_NODE.body,
         createdAt: '2026-09-20T19:46:32Z',
@@ -60,6 +68,7 @@ describe('parseCommentsHarvest', () => {
       },
       {
         id: 'IC_kwDORdPTys8AAAABVt01ww',
+        url: 'https://github.com/acme/widgets/pull/42#issuecomment-2',
         author: 'chatgpt-codex-connector',
         body: CODEX_NODE.body,
         createdAt: '2026-09-20T20:02:19Z',
@@ -102,6 +111,7 @@ describe('parseCommentsHarvest', () => {
 
   it.each([
     ['an empty page array', [], /too small/iu],
+    ['a node without its url', [commentsPage([{ ...CODEX_NODE, url: undefined }])], /url/u],
     [
       'a node without its edit timestamp',
       [commentsPage([{ ...CODEX_NODE, lastEditedAt: undefined }])],
