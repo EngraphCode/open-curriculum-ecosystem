@@ -57,17 +57,6 @@ function members(...names: readonly string[]) {
   return { ok: true, value: names.map((name) => ({ name })) };
 }
 
-/** Assert the verdict is a refusal whose message names every one of these. */
-function expectRefusalNaming(
-  verdict: InstallTimeClosureVerdict,
-  ...names: readonly string[]
-): void {
-  expect(verdict).toHaveProperty('ok', false);
-  for (const name of names) {
-    expect(verdict).toHaveProperty('error', expect.stringContaining(name));
-  }
-}
-
 describe('installTimeClosure membership', () => {
   it('builds each reached dist-only package, witnessed by every dist file its entry points name', () => {
     const verdict = closure([
@@ -228,7 +217,10 @@ describe('installTimeClosure order', () => {
       pkg('core/c', '@x/c', { devDeps: ['@x/a'] }),
     ]);
 
-    expectRefusalNaming(verdict, '@x/a', '@x/b', '@x/c');
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/a'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/b'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/c'));
   });
 
   it('tolerates a cycle among packages that are not members, since none of them is built', () => {
@@ -250,25 +242,32 @@ describe('installTimeClosure refusals', () => {
       pkg('core/result', '@x/result', { deps: ['@x/ghost'] }),
     ]);
 
-    expectRefusalNaming(verdict, '@x/result', '@x/ghost');
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/result'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/ghost'));
   });
 
   it('refuses when no workspace package sits at the root directory', () => {
     const verdict = closure([pkg('core/result', '@x/result')]);
 
-    expectRefusalNaming(verdict, ROOT_DIR);
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining(ROOT_DIR));
   });
 
   it('refuses a manifest without a name, naming its file', () => {
     const verdict = closure([root({}), { dir: 'broken', manifest: { exports: {} } }]);
 
-    expectRefusalNaming(verdict, 'broken/package.json');
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining('broken/package.json'));
   });
 
   it('refuses two workspace packages with the same name, naming both directories', () => {
     const verdict = closure([root({}), pkg('a/result', '@x/result'), pkg('b/result', '@x/result')]);
 
-    expectRefusalNaming(verdict, '@x/result', 'a/result', 'b/result');
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/result'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('a/result'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('b/result'));
   });
 
   it.each([
@@ -281,6 +280,8 @@ describe('installTimeClosure refusals', () => {
       pkg('design/tokens', '@x/tokens', { build }),
     ]);
 
-    expectRefusalNaming(verdict, '@x/tokens', 'design/tokens');
+    expect(verdict).toHaveProperty('ok', false);
+    expect(verdict).toHaveProperty('error', expect.stringContaining('@x/tokens'));
+    expect(verdict).toHaveProperty('error', expect.stringContaining('design/tokens'));
   });
 });
