@@ -822,6 +822,19 @@ rollover fold (00:00Z 2026-09-29). The count at the cut: 3 non-coordination PRs 
 estates (lineage 281 and 282, JC.net 240), the WIP limit; coordination drafts JC.net 241 and this
 branch's.
 
+### 2026-09-29T01:1xZ — THE ROLLOVER FOLD: #283 merged as 76974c3cc at 01:12:27Z; the successor coordination/2026-09-29-76974c cut from post-fold engraph (Wick binds Temper, ed7b48)
+
+The lineage rollover fold of 2026-09-29, run by the Director after the pre-fold suite (49) and the
+pre-ready-mark records pass. The slot by the one rule (a synced holder at its legs goes first):
+PR 295 (Nova's J6-2, synced onto engraph at 72e4ed41b) was at its legs from 00:17:16Z and the fold's push reached its legs at 00:17:42Z, so the fold yielded to 295's door and took the slot at its landing (295 merged as cdd74a894 at 00:33:15Z; the fold re-synced onto it at 00:42Z as f830c1571, carrying Myrtle's two records cures). The convergence merge of engraph a2fc71c9e (PR 294's merge, 00:04:20Z) (PRs 281, 282, 284, 285, 286, 287, 288, 289, 290, 292, 293, 291 and 294 in merge order) pushed at d4dd679b0 at 00:17:37Z, after one gate refusal by the portability validator (its regular-file rule, new at 4f49ff86e, refused the ignored statusline log directory under the rules surface, planted by a relative log path in the local statusline settings; the log relocated to the Director's scratchpad with its bytes preserved, not deleted); the records
+pass's cures: one over-bar finding (the continuity record's N1-landed entry counting 2 of 26 where the census's recounts and the register read 27) routed to Myrtle and cured on her lane as c47e562e0, committed in the primary and pushed at 00:2xZ; six below-bar notes left as written; marked ready as the bot at 00:23:33Z, Copilot requested by the ruleset
+under the 20:4xZ Copilot ruling (content reviews on d4dd679b0 at 00:27:42Z (four findings, all on Myrtle's records, cured 08ae72a20), on f830c1571 at 00:48:09Z (one, the letter, Rejected with rationale) and on 24e49e37d at 01:01:29Z (one, the routing sentence before an appended correction, signed without a push); requested by the operator at 00:43:41Z and 00:57:47Z); the door on Codex's leg (Codex's content reviews bound d4dd679b0 at 00:26Z (the count), 08ae72a20 at 00:42Z (the census Totals table) and f830c1571 at 00:46:56Z (the seven-sites entry), one P2 each, cured on the lane; its completion on 24e49e37d was the no-findings reaction at 00:59:54Z, not a review, so the door ran on Copilot's leg with a signed line as the Codex evidence); merged as
+76974c3cc at 01:12:27Z; the remote branch deleted by the bot, read back absent. The successor
+coordination/2026-09-29-76974c was cut at 01:12Z from post-fold origin/engraph 76974c3cc, tree-preservingly, the
+primary residing on it; this entry is its first commit; its draft PR is opened at once as the bot
+and named in the rotation broadcast, DUE at the midday fold (12:00Z 2026-09-29). The count at the
+cut: 3 open non-coordination PRs, all on the lineage (296 Myrtle's twin ruling, 297 Siren's C3, 298 Nova's N7), 3 of 3 across both estates, JC.net 0; remote branches outside a PR: none in either estate; the JC.net successor coordination/2026-09-29-d2b910 (draft PR 264) was cut at 00:48:04Z from its fold's merge d2b91090e.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
