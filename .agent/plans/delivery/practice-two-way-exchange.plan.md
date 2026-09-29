@@ -151,3 +151,43 @@ estate's copy lies outside this repository:
 
 - The second estate's own landings, which that estate's seat carries under its own gates.
 - The strategic judgement of what is best, which belongs to `best-of-each-practice`.
+
+## Finish (2026-09-29, the Director's plan at the owner's word)
+
+The owner's words of 2026-09-29, verbatim: "17 'residual' PRs is a failure of throughput and PR
+management and a failure of not inventing categories to lend legitimacy to failures. There are
+WIP limits for very good reasons. I want the Practice exchange finished"; "The Practice exchange
+is a means to an end, not an endless horizon, there are next steps we have not discussed yet";
+"Once we start the implementation I expect the work to be finished in a few hours"; "We don't
+cut things to make the work go faster, we stop wasting time doing needless work". The plan was
+approved at 08:5xZ. Its full text is the Director's plan file; this section carries what a seat
+needs to act.
+
+**The unit and the finish.** The unit of work is the J row, one moderate pull request per story,
+never per slice. The exchange is finished when a computed path delta of `agent-tools/src`,
+`agent-tools/smoke-tests`, `.agent/skills`, `.agent/rules` and `.agent/directives` between the
+two default tips shows no JC.net-only file on any port line, every decline line has a register
+row with its reason, and the register reads 21 of 21 rows landed or declined beside both heads.
+The delta found three innovations the register never counted (the merge-bot retire command,
+arc-metrics, the pr-watch harvest family); they are brought, with register rows, not struck.
+
+**The rules for the window.** One open pull request per seat, three across both estates;
+nothing finished waits outside a pull request; a seat at its legs helps close another's pull
+request. Only the next pull request in the order syncs after a landing; the others stay BEHIND
+without a CI run. No review request after a sync (content binding holds the legs). No JC.net
+twin of a lineage landing until the review that follows the close. No register refresh as its
+own pull request: rows land on the coordination branch in the landing's own minute. The source
+is frozen: a Practice change conceived on JC.net during the window is made on the lineage. Ports
+read JC.net at its current main tip, never a pin. Codex and LinkedIn appear in no line of the
+window.
+
+**The order.** 305 (Myrtle, its door); 309 (Siren, one cure commit after 305 lands); B1 as pushed
+(Siren, the third slot); J8's B2 and B3 as one pull request (Nova, when 305 lands); J2 as one pull
+request with J7's describer and the compare cure (Myrtle); the retire command with B1's siblings
+and J18 note 5, stacked on B1 (Siren); arc-metrics with its two helpers (Nova); N4 (Siren); N5
+with the two portability validators (Myrtle); the Practice docs pull request (Nova: three skills,
+the channel rule, J10, J11, N3, the WIP clause); J16's Gemini surface with the comparison's
+template gains (Myrtle, after the docs pull request); the strictness units measured first (Nova);
+todo 7's re-pin on JC.net (Siren); at the finish the settling and decline rows, the lessons batch
+into the Box, the JC.net fold, the prose-class close pull request with the owner's word, the
+lineage fold, and the verification.
