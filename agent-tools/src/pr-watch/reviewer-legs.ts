@@ -16,6 +16,7 @@ import { bindingNote, reviewBinds, standingReviews, unboundNote } from './conten
 import type { BindingHead } from './content-binding.js';
 import { normaliseLogin } from './logins.js';
 import { roundAwaiter, type RoundRequest } from './round-requests.js';
+import { isVendorErrorReview, vendorErrorNote } from './vendor-error-reviews.js';
 
 /** One review from the full paginated harvest (`reviews` connection). */
 export interface HarvestedReview {
@@ -158,13 +159,14 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
   const awaits = roundAwaiter(reviewer, input.reviewRequests, input.roundRequests);
   const bound = own.filter((review) => reviewBinds(review, input));
   const tipBound = standingReviews(bound, input, awaits);
-  const note = emptyBodyNote(tipBound);
-  const substantive = tipBound.filter(isSubstantive);
+  const note = emptyBodyNote(tipBound) + vendorErrorNote(tipBound.map((review) => review.body));
+  const reviewed = tipBound.filter((review) => !isVendorErrorReview(review.body));
+  const substantive = reviewed.filter(isSubstantive);
   if (substantive.length > 0) {
     const detail = `substantive review binds current tip${bindingNote(substantive, input)}${note}`;
     return { reviewer, state: 'SATISFIED', detail };
   }
-  const quota = tipBound.filter((review) => isScopeDeclaredSkip(review.body));
+  const quota = reviewed.filter((review) => isScopeDeclaredSkip(review.body));
   if (quota.length > 0) {
     return {
       reviewer,
@@ -173,7 +175,7 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
       detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${bindingNote(quota, input)}${note}`,
     };
   }
-  const unevaluableMarker = tipBound.some((review) => isSkipMarker(review.body));
+  const unevaluableMarker = reviewed.some((review) => isSkipMarker(review.body));
   const qualifier = unevaluableMarker || note !== '' ? 'substantive ' : '';
   if (input.checksGreenAt !== null && elapsedMs(input.checksGreenAt, input.now) > QUIET_WINDOW_MS) {
     return {

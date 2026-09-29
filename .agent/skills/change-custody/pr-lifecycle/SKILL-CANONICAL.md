@@ -1121,7 +1121,11 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    zero-finding review — reading a bounce as settlement is the silent-wait
    class at the reviewer leg (worked instance 2026-07-21: quota bounces
    estate-wide were ruled SKIPPED by the owner and settled PRs merged on
-   green checks + zero threads + dispositioned findings). A scope-declared marker is re-checked
+   green checks + zero threads + dispositioned findings). A vendor ERROR
+   review (a body recorded in `pr-watch/vendor-error-reviews.ts`, such as
+   Copilot's "encountered an error and was unable to review") is neither a
+   review nor a marker: whatever its state it satisfies no leg, the leg's
+   detail counts it, and its cure is a fresh request of that reviewer. A scope-declared marker is re-checked
    each round against OBSERVABLE state and holds until its stated condition
    ends (e.g. spend restored); each re-check RECORDS condition, observed
    state, and verdict in the shepherd's working record alongside the skip

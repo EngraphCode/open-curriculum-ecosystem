@@ -16,6 +16,7 @@ import type { CompletionRefusal } from './completion-evidence.js';
 import { bindingNote, reviewBinds } from './content-binding.js';
 import { liveRunReviewers, runsEvidence, unmappedLiveRunEvidence } from './run-evidence.js';
 import type { PrStateReading, PrVerdict } from './state-types.js';
+import { isVendorErrorReview } from './vendor-error-reviews.js';
 
 /**
  * The reviewer-leg and settlement half of the `pr state` verdict (SKILL items
@@ -80,7 +81,7 @@ function bodyTallyEvidence(reading: PrStateReading): string[] {
   return reading.reviews
     .filter((review) => reviewBinds(review, reading))
     .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
-    .filter((review) => review.body.trim() !== '')
+    .filter((review) => review.body.trim() !== '' && !isVendorErrorReview(review.body))
     .map(
       (review) =>
         `tip-bound review body present: ${review.author} (${review.state})${bindingNote([review], reading)} — tally body findings (SKILL item 2) before reading this round as zero-finding`,
