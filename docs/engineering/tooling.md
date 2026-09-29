@@ -44,6 +44,10 @@ These tools are not managed by pnpm but are required by specific workflows:
 
 - [gitleaks](https://github.com/gitleaks/gitleaks) — required for secrets scanning
   in push workflows
+- [shellcheck](https://github.com/koalaman/shellcheck) — required for the shell
+  lint gate (`pnpm lint:shell`), which runs at commit, at push, in `pnpm lint` and
+  in `pnpm check`; `.agent/setup/install-shellcheck.sh` installs the pinned
+  version into the checkout's ignored `.tools/bin`
 - [bun](https://bun.sh/docs/installation) — optional, required for
   `pnpm dev:widget-in-host`
 - [jq](https://jqlang.github.io/jq/download/) — optional, required for

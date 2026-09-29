@@ -3,8 +3,8 @@ name: set-up-worktree-lane
 classification: active
 description: >-
   Create and verify a lane worktree: the branch cut explicitly from origin/<base>,
-  the inherited commit identity verified with no worktree-scoped override, deps
-  and the end-to-end gate's browser installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
+  the inherited commit identity verified with no worktree-scoped override, deps,
+  the pinned shellcheck and the end-to-end gate's browser installed, .env.local carried, a draft PR at first push; in a detected ChatGPT
   Work cloud host, static branch/base checks only with execution routed to
   draft-PR CI. Use for a new lane or a misbehaving worktree (commits attributed
   to nobody, missing env, hook failures). Not for switching branches in place,
@@ -130,11 +130,13 @@ not trigger provisioning.
 pnpm --dir <path> install
 pnpm --dir <path> build
 pnpm --dir <path> --filter <app> exec playwright install chromium-headless-shell
+<path>/.agent/setup/install-shellcheck.sh
 ```
 
-All three scoped to the worktree with `--dir`, because this step runs before entry, from the
+The three pnpm lines are scoped to the worktree with `--dir`, and the installer by its path (it
+installs beside itself), because this step runs before entry, from the
 principal: an unscoped `pnpm install` there rebuilds the principal and leaves the new
-worktree without its dependencies or `dist/`. All three, before any gate, work or entry:
+worktree without its dependencies or `dist/`. All four, before any gate, work or entry:
 `type-check` and `vitest` pass on install alone,
 but the internal ESLint plugin resolves to `dist/`, so an unbuilt worktree fails `lint`
 with `No exports main defined`. The third line runs once for each workspace whose gate
@@ -142,7 +144,9 @@ drives a browser (`<app>`). `pnpm install` fetches no Playwright browser: the bi
 per-user cache outside the tree, keyed by the revision the lockfile's Playwright selects,
 and an install in any checkout on the host can remove a revision another needs. So every
 lane runs the line, and a gate that fails with `Executable doesn't exist` is this step
-missed, not a flake. A fresh worktree has **no `.env.local`** — copy it from
+missed, not a flake. The fourth line installs the pinned shellcheck into the worktree's ignored
+`.tools/bin`: the shell lint gate runs at every commit, and without it falls back to the
+shellcheck on `PATH`, which passes only while that one is the pinned version. A fresh worktree has **no `.env.local`** — copy it from
 a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
 local server). Data directories that are gitignored (bulk downloads) do not travel
 either; fetch them per the owning workflow rather than copying, so their manifest
