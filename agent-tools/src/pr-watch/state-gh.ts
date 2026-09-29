@@ -54,7 +54,7 @@ export interface ReadPrStateOptions {
   /** Hashes a diff to its patch-id; the trusted git's `patch-id` by default. */
   readonly patchIdOf?: PatchIdOf;
   /** Vendors declared unavailable (`--unavailable`), the bot that may declare, and the clock. */
-  readonly unavailable?: UnavailableInput;
+  readonly unavailable?: UnavailableInput | undefined;
 }
 
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
