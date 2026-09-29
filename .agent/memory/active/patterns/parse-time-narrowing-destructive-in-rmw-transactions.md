@@ -74,5 +74,5 @@ strict via the canonical write schema (census: zero id-less intents
 across the live registry and 11 historical versions), claims
 preserved verbatim with enforcement at `sameAgentRoutingKey`
 ("an id-less identity is never the same live agent"), and the
-`smoke:commit-queue-registry` proof
+`commit-queue-registry.smoke.ts` proof
 `provePreservesLegacyIdlessClaimThroughWrite` guarding the contract.

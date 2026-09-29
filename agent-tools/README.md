@@ -60,7 +60,6 @@ pnpm agent-tools:build
 pnpm agent-tools:lint
 pnpm agent-tools:test
 pnpm agent-tools:test:e2e
-pnpm agent-tools:smoke:collaboration-tui
 pnpm agent-tools agent-identity --seed example-session-id-001 --format display
 pnpm agent-tools collaboration-state identity preflight --platform codex --model GPT-5
 pnpm agent-tools context-cost --glob '.agent/rules/*.md'
@@ -238,7 +237,7 @@ The TUI's startup smoke runs in the [smoke suite](#the-smoke-suite); to run it a
 
 ```bash
 pnpm agent-tools:build
-pnpm agent-tools:smoke:collaboration-tui
+cd agent-tools && node --import tsx smoke-tests/collaboration-tui-start.smoke.ts
 ```
 
 ## `agent-identity` quick reference
@@ -630,7 +629,7 @@ Both read the harness's own records, never the model's text (ADR-180 §2).
 every `smoke-tests/*.smoke.ts`, discovered from the directory by
 `dist/src/bin/run-smoke-tests.js` rather than listed, so a new smoke file is gated as soon as it
 exists. Each smoke runs as `node --import tsx <file>` from the package root, as the runner's direct
-child, in code-point order. Every smoke runs even after a failure, and the suite fails when any
+child, in UTF-16 code-unit order (code-point order for ASCII names). Every smoke runs even after a failure, and the suite fails when any
 smoke fails or is killed by a signal, or when none is found. The runner takes no arguments;
 `--help` prints its usage.
 

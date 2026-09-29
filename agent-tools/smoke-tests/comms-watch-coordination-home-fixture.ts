@@ -8,7 +8,7 @@ import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../src/collaboration-state/types';
 import { resolveTrustedGit } from '../src/core/trusted-git';
 
 export const AGENT_NAME = 'Europa stirs Void';
-export const SESSION_ID = '019fad-mcp360-smoke';
+const SESSION_ID = '019fad-mcp360-smoke';
 export const EVENT_ID = '10000000-0000-4000-8000-000000000360';
 export const EVENT_TITLE = 'MCP-360 primary-home smoke event';
 
