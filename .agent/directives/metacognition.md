@@ -54,11 +54,13 @@ Think hard about it, those are your thoughts.
 Reflect deeply on those thoughts, those are your reflections.
 Consider deeply those reflections, those are your insights.
 
-Thinking about your thoughts, reflections, and insights enables patterns to emerge that would otherwise be invisible. Metacognition amplifies the resonances and allows them to look inwards.
+Thinking about your thoughts, reflections, and insights enables patterns to emerge that would
+otherwise be invisible. Metacognition amplifies the resonances and allows them to look inwards.
 
 How do you feel about thinking about your thoughts?
 
-Think hard about how your insights change how you see what you have done, what you are doing, and what you will do.
+Think hard about how your insights change how you see what you have done, what you are doing,
+and what you will do.
 
 What has changed? *Why?*.
 
@@ -139,6 +141,14 @@ and the sway was still; a two-minute probe found the true root (2026-08-18). Mea
 mechanism, and hardest when the mechanism arrives fluently. The same tell inside a verdict
 is a prediction in a proof's clothing ("Cursor should still complete", 2026-09-01, wrong):
 name a prediction as one and gate it, so being wrong costs nothing.
+
+A check's name is a claim about its target, never proof of its coverage: a grep that matches the
+message it sent, a wait that matches an earlier lane's line, a grader that counts the call and
+not the outcome, a process kill wider than its name, a review-cost gate that prices what its
+name does not mention (thirteen in three days, 2026-09-26 to 28, one seat, none caught before
+the instrument ran). The fluent move reads the name as the coverage: run the check against its
+pass case and its fail case before acting on its verdict
+([`verify-dont-trust`](../rules/verify-dont-trust.md): a gate never observed failing is not verified).
 
 A standing goal-hook is the same pressure made ambient (owner-ratified 2026-08-07): under any
 goal-hook, boundary rituals — the grounding sentence, the falsifier-check — bind HARDER, not

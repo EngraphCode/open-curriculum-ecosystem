@@ -1,3 +1,8 @@
+---
+classification: core
+description: Quality gates are NEVER disabled. The gate-off-fix-gate-on sequence is a named anti-pattern. Sequence the work, not the gate.
+---
+
 # Never Disable Checks
 
 Operationalises [`principles.md` §Code Quality](../directives/principles.md#code-quality)

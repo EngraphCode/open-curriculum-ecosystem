@@ -1,3 +1,8 @@
+---
+classification: core
+description: Read complete diagnostic output before forming hypotheses.
+---
+
 # Read Diagnostic Artefacts in Full
 
 Operationalises [PDR-016 (Claim Propagation and Reference Quality)](../practice-core/decision-records/PDR-016-claim-propagation-and-reference-quality.md),

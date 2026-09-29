@@ -1,3 +1,8 @@
+---
+classification: core
+description: Consult active claims and the commit queue before touching another agent's area or racing a git:index/head commit window.
+---
+
 # Respect Active Agent Claims
 
 Operationalises the area-consultation tripwire from

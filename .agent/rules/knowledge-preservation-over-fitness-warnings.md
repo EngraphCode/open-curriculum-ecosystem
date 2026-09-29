@@ -1,3 +1,8 @@
+---
+classification: core
+description: Knowledge preservation is strictly prior to file-size warnings. Never withhold a napkin entry, distilled graduation, correction capture, or pending-graduation candidate because the target memory/state surface is overflowing — that impulse is the diagnostic, not the cure. Scoped to memory/state surfaces, not buffers.
+---
+
 # Knowledge Preservation Over Fitness Warnings
 
 Never decline to write a napkin entry, distilled graduation,

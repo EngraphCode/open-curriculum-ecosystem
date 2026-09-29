@@ -145,21 +145,25 @@ type GatePlan = Result<readonly (readonly string[])[], string>;
  * deleted, or replaced by a symlink. The index, and so a commit and CI, still
  * carry their content, which the tools read from the disk and cannot see.
  */
-function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
+export function unstagedLoss(reading: TrackedTreeReading): readonly string[] {
   return [...reading.goneFromWorkingTree].filter((file) => !reading.symlinks.has(file));
 }
 
+/** Why a check refuses the tracked files the working tree has lost, naming them and the remedy. */
+export function lostFilesRefusal(lost: readonly string[]): string {
+  return `these tracked files are deleted or retyped in the working tree with the change unstaged, so the index carries content this check cannot read: ${lost.join(', ')}. Stage the change or restore them.`;
+}
+
 /**
- * Plan a gate's runs, unless it is a check over a file it cannot read: a check
- * is a proof of the index, so it refuses those files by name rather than pass
- * without them. A repair proves nothing, so it skips them.
+ * Plan a gate's runs, unless it is a check over a file it cannot read. A check
+ * covers every regular file the index names, each read as the working tree
+ * holds it, as every leg of the gate reads the working tree; a named file with
+ * nothing to read is refused by name rather than passed without it. A symlink
+ * is neither checked nor refused: the tools read a link's target under its
+ * real path. A repair proves nothing, so it skips them.
  */
 function planUnlessLost(isCheck: boolean, lost: readonly string[], plan: () => GatePlan): GatePlan {
-  return isCheck && lost.length > 0
-    ? err(
-        `these tracked files are deleted or retyped in the working tree with the change unstaged, so the index carries content this check cannot read: ${lost.join(', ')}. Stage the change or restore them.`,
-      )
-    : plan();
+  return isCheck && lost.length > 0 ? err(lostFilesRefusal(lost)) : plan();
 }
 
 /** Read the tracked tree, plan the gate's runs over it, and run them. */

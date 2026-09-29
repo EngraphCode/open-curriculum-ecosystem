@@ -1,3 +1,8 @@
+---
+classification: core
+description: Apply all architectural principles — code design, quality gates, testing, naming, error handling, type discipline, and decomposition
+---
+
 # Apply Architectural Principles
 
 Pointer-only rule: `principles.md` operationalises the entire ADR corpus

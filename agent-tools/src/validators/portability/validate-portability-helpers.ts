@@ -15,7 +15,8 @@
  * - `reviewer-adapter-parity` — Cross-platform reviewer adapter parity checks.
  * - `skill-permission-checks` — Claude Code skill/command permission
  *   allow-list checks.
- * - `rules-index-checks` — Codex fallback rules index checks.
+ * - `rules-index-checks` — the rules index's Codex byte-budget check (its
+ *   presence and rows are the projection leg's).
  */
 
 export {
@@ -38,5 +39,5 @@ export { getReviewerAdapterParityIssues } from './reviewer-adapter-parity.js';
 
 export { getSkillPermissionIssues, selectPracticeSkillDirs } from './skill-permission-checks.js';
 
-export { getRulesIndexPortabilityIssues } from './rules-index-checks.js';
+export { rulesIndexBudgetIssues } from './rules-index-checks.js';
 export { collectCanonicalSkillPaths } from './skills-walk.js';

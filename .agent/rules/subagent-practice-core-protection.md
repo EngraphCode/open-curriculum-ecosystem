@@ -1,3 +1,8 @@
+---
+classification: core
+description: Sub-agents must not modify .agent/directives/, .agent/rules/, .claude/rules/, or .cursor/rules/.
+---
+
 # Subagents Must Not Modify the Practice Core
 
 **Substantive authority**: [PDR-003 — Sub-Agent Protection of Foundational Practice Docs](../practice-core/decision-records/PDR-003-sub-agent-protection-of-foundational-practice-docs.md).

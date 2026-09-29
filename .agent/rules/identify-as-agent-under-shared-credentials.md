@@ -1,3 +1,8 @@
+---
+classification: core
+description: Identify as an agent under shared credentials. When an agent authors outward content (GitHub comments, reviews, PR/issue bodies) via ANY shared credential — the team bot account (the mandatory default per bot-identity-on-third-party-systems) or, in owner-permitted exceptions, the owner's account — it MUST mark the content as agent-authored and name its PDR-027 identity, so the acting agent is never hidden behind the shared account.
+---
+
 # Identify as an Agent Under Shared Credentials
 
 > **Frame inverted 2026-07-23 by owner ruling.** Shared human credentials are

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Every handoff message must be self-contained — the receiver cannot read your transcript.
+---
+
 # Handoff Messages Must Be Self-Contained
 
 Operationalises

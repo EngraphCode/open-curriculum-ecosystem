@@ -57,6 +57,16 @@ describe('parseSymlinkPaths', () => {
   it('names none when the index holds no symbolic link', () => {
     expect(parseSymlinkPaths('100644 aaaa 0\tREADME.md\u0000')).toStrictEqual(new Set());
   });
+
+  it('names only resolved entries, so an unmerged path whose stages differ in type is not one', () => {
+    // A type conflict mid-merge: the base and theirs are links, ours a regular file.
+    const stage = [
+      '120000 aaaa 1\tconflict.md',
+      '100644 bbbb 2\tconflict.md',
+      '120000 cccc 3\tconflict.md',
+    ].join('\u0000');
+    expect(parseSymlinkPaths(`${stage}\u0000`)).toStrictEqual(new Set());
+  });
 });
 
 describe('trackedCheckFiles', () => {
@@ -136,6 +146,7 @@ describe('globSignificantPaths', () => {
       String.raw`a\b.md`,
       '#heading.md',
       '!negated.md',
+      ':literal.md',
       'group (old).md',
       'docs/plain-name_1.md',
     ];
@@ -147,12 +158,13 @@ describe('globSignificantPaths', () => {
       String.raw`a\b.md`,
       '#heading.md',
       '!negated.md',
+      ':literal.md',
       'group (old).md',
     ]);
   });
 
-  it('names none for plain paths', () => {
-    expect(globSignificantPaths(['a.md', 'docs/b-c_d.e.md'])).toStrictEqual([]);
+  it('names none for plain paths, a colon after the first character included', () => {
+    expect(globSignificantPaths(['a.md', 'docs/b-c_d.e.md', 'docs/a:b.md'])).toStrictEqual([]);
   });
 });
 

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Platform-specific per-user memory (Claude Code, Cursor, Codex per-user stores) is a buffer with a drainage contract into in-repo canonical surfaces (napkin/distilled/rules/PDRs), not a personal accumulator. Sweep own platform at session-handoff and consolidate-docs; cross-platform ingestion is consolidation-time.
+---
+
 # Platform-Specific Per-User Memory Is a Buffer
 
 Operationalises

@@ -34,12 +34,12 @@ the `EMIT` class and additionally owns `PROGRESS`'s stall
 diagnostic and the absence machinery PDR-133 §9 depends on; this
 reciprocal pointer landed at PDR-133's ratification, 2026-07-25,
 per its §Cascade);
-ADR-186 (the repo-bound phenotype substrate that operationalises
-this contract in the current host repository — heartbeat events
-bind to the comms-event substrate's `lifecycle` kind with
-`event_type='heartbeat'`, rendering via the ADR-183 tag-namespace
-`[HEARTBEAT]` token; cited by ADR identifier only, per PDR-079
-PDR↔ADR cross-reference discipline).
+the host repository's comms-event heartbeat lifecycle decision (the repo-bound phenotype
+substrate that operationalises this contract in the current host repository — heartbeat
+events bind to the comms-event substrate's `lifecycle` kind with
+`event_type='heartbeat'`, rendering via the comms-event tag namespace's
+`[HEARTBEAT]` token; named by its concept, never its identifier, per PDR-079's
+PDR↔ADR cross-reference discipline as amended 2026-09-28).
 
 ## Context
 

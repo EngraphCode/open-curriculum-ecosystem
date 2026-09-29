@@ -1,3 +1,8 @@
+---
+classification: core
+description: Read the Practice index at session start.
+---
+
 # Follow the Practice
 
 Operationalises [ADR-119 (Agentic Engineering Practice)](../../docs/architecture/architectural-decisions/119-agentic-engineering-practice.md), [ADR-124 (Practice Propagation Model)](../../docs/architecture/architectural-decisions/124-practice-propagation-model.md), and [ADR-131 (Self-Reinforcing Improvement Loop)](../../docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md).

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Hook policy substring-match discipline. Use descriptive language for forbidden-pattern references in instructive content (comms, briefs, napkin); literal strings only in the rule's canonical home.
+---
+
 # Hook-Policy Substring-Match Discipline in Instructive Content
 
 The repo's `PreToolUse` hook policy is a substring-matcher. It blocks

@@ -1,3 +1,8 @@
+---
+classification: core
+description: Replace old code in place; never introduce compatibility bridges, pass-through adapters, legacy coexistence, or fallback paths to keep superseded contracts alive.
+---
+
 # Replace, Don't Bridge
 
 Operationalises [`principles.md` §Architectural Excellence Over
