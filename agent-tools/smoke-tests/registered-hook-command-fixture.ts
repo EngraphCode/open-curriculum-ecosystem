@@ -1,7 +1,8 @@
 /**
  * Shared fixtures for the smokes that run a hook command as the harness does:
  * the command `.claude/settings.json` registers, the throwaway project it runs
- * in, and the harness-shaped run.
+ * in, the harness-shaped run, and the negative control that proves the run
+ * hands the command text unchanged to a shell that splits the project path.
  */
 import assert from 'node:assert/strict';
 import {
@@ -50,6 +51,9 @@ function findOnPath(tool: string, searchPath: string): string {
 
 /** Mechanics, not an assertion: long enough never to cut a healthy run short. */
 const RUN_TIMEOUT_MS = 60_000;
+
+/** The shell's status for a command it cannot find, as the split project path produces. */
+const COMMAND_NOT_FOUND = 127;
 
 /** The `hooks` table of `.claude/settings.json`; its other keys are dropped. */
 const settingsSchema = z.object({ hooks: z.record(z.string(), z.unknown()) });
@@ -153,5 +157,43 @@ export function runRegisteredCommand(
     },
     encoding: 'utf8',
     timeout: RUN_TIMEOUT_MS,
+  });
+}
+
+/**
+ * Prove the run reaches the registered text unchanged from a project whose path
+ * holds a space: the same command with its double quotes removed must end with
+ * the shell's command-not-found status, naming the project path cut at its
+ * first space. A fixture that rewrote the command, or ran from a path without a
+ * space, would let the unquoted command run, and every positive case would
+ * pass for the wrong reason.
+ *
+ * @remarks
+ * The command's first word must be a `${CLAUDE_PROJECT_DIR}` path, as the
+ * wrapper-first form `"${CLAUDE_PROJECT_DIR}/.claude/hooks/_lib/log-hook-errors.sh" …`
+ * is: then the unquoted path splits into a word the shell cannot find. A command
+ * that starts with a bare program, such as `node "${CLAUDE_PROJECT_DIR}/…"`,
+ * reaches that program instead and ends otherwise. The run's stdin is empty
+ * and closed, so a regressed control that does start the hook cannot wait on it.
+ *
+ * @param command - The registered command, quoted.
+ */
+export async function proveUnquotedPathSplits(command: string): Promise<void> {
+  await inThrowawayProject((project) => {
+    const result = runRegisteredCommand(command.replaceAll('"', ''), project, {
+      input: '',
+      stdio: 'pipe',
+    });
+    assert.equal(
+      result.status,
+      COMMAND_NOT_FOUND,
+      `the command with its quotes removed ended ${String(result.status ?? result.signal)}` +
+        `${result.error === undefined ? '' : ` (${result.error.message})`}: ${result.stderr}`,
+    );
+    const splitAt = project.slice(0, project.indexOf(' ', tmpdir().length));
+    assert.ok(
+      result.stderr.includes(`${splitAt}:`),
+      `the shell did not name the project path cut at its first space (${splitAt}): ${result.stderr}`,
+    );
   });
 }
