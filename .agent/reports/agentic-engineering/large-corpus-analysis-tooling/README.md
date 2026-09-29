@@ -54,9 +54,11 @@ pnpm build-run-artefact --stage meta --reduce-result <reduce-result.json> \
 
 After meta: the deterministic post-run driver (strict re-parse via the stage-io/judgment parsers →
 recall integrity → Choice-B verdict {strict ≥ 0.6, lenient ≥ 0.85} → coverage + temporal coverage →
-recompute every disposition by replaying `adjudicate`), then the conservation buffer and
-`consolidate-until-done` — that conservation is the run's success; recall is the tuning
-instrument, never the milestone.
+corroboration of claimed homes, each a regular file under `.agent/memory/active/patterns/` or
+`.agent/rules/` → recompute every disposition by replaying `adjudicate`; the close fails on an
+incomplete map, a recall integrity violation or a recompute mismatch, naming each), then the
+conservation buffer and `consolidate-until-done` — that conservation is the run's success; recall
+is the tuning instrument, never the milestone.
 
 ### Known limitation (surfaced, owner-dispositioned)
 
