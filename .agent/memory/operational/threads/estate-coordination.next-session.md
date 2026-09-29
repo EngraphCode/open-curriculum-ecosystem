@@ -944,6 +944,352 @@ holds these lanes until the owner seats them or says otherwise.
 PROCESSES STOPPED AT THIS BLOCK: the comms watch, the 312 rerun watch, the login watch, the
 12:00Z mark (Monitors), the pulse (background). Stopped by task id, read back absent.
 
+### 2026-09-29T11:4xZ — the three seats' closeout handoff records, verbatim (their files under `.agent/state/collaboration/handoffs/` are gitignored; this is their tracked home)
+
+#### 158275-siren-herds-rudder-closeout-handoff-2026-09-29.md
+
+#### Handoff: Siren herds Rudder (158275) to the Director, 2026-09-29 11:4xZ
+
+The owner's word, verbatim: "this session is over, perform a full session close out and hand
+all responsibilities to the Director". PDR-063 mid-cycle retirement; the recipient is the
+Director, Wick binds Temper (ed7b48). This record serves both claims below.
+
+##### Claims handed over (lineage registry)
+
+- `e8fd79d5-dc6a-4c0c-9007-b7b6daad9cb0`: PR 310, the merge-bot push retry (B1).
+- `3ca10e17-95a1-4e28-bcef-0c9e5957ed1a`: PR 309, the repo-check repair smoke's removal and the
+  validator clause (J3).
+
+The seat holds no second-estate claim: `a30304be` was closed at 11:31Z.
+
+##### Current edit state
+
+- **PR 310**, worktree `oce-wt-b1-push-retry` (a sibling directory of the lineage primary),
+  branch `feat/exchange-b1-push-retry`. Clean tree. Local equals remote at SHA:44ab80289: the
+  rework SHA:2432ac462 synced by merge of engraph at SHA:ecf59d763 (311's merge). Pushed as the
+  bot at 11:3xZ through the pre-push gate. The PR still carries the OLD title and body (the
+  fresh-token design). No legs requested on 44ab80289. Round one (Copilot, review 5350330239 on
+  fdcd12b3a) left one thread, 4131728101, unanswered. This seat took the door slot at 11:27Z and
+  holds it until this handoff.
+- **PR 309**, worktree `oce-wt-repair-smoke-group`, branch
+  `fix/repo-check-repair-smoke-process-group`. Clean tree. Local SHA:ef4c19a62 (the rework) on
+  SHA:46d8cb049 (a sync of engraph at e07d6b34e); the remote is still SHA:2cb3eb56d. Behind engraph
+  by 7. NOT pushed, by the door order. Round one left thread 4130446446 (Copilot, on the deleted
+  smoke file).
+- **Second estate**: uncommitted in its primary on `coordination/2026-09-29-d2b910`, for the finish
+  fold: the thread record `practice-exchange-seat.next-session.md` (blocks 10:39Z and 11:34Z, and
+  the closeout block), one napkin entry (11:34Z), and today's letter under `.agent/experience/`.
+  The napkin, `.gitignore`, `pnpm-workspace.yaml` and `linkedin/` changes there are not this
+  seat's.
+
+##### Files beside this record
+
+- `158275-pr-310-body.md`: 310's new body. New title: "feat(merge-bot): push retries GitHub's
+  pre-hook refusal with one token on GitHub's backoff".
+- `158275-pr-310-reply-4131728101.md`: the signed Below-bar line for 310's round-one thread. It
+  is signed by this seat; re-sign it in your own name if you post it.
+- `158275-pr-309-body.md`: 309's new body. Suggested title: "fix(repo-check): remove the repair
+  smoke, count only a tracked lock, add the validator clause".
+- `158275-second-estate-validators-clause-draft.md`: the second estate's copy of the validator
+  clause, the same bytes as 309's `validation-strategy.md` section.
+- Turn scripts, each run with GH_TOKEN and GITHUB_TOKEN unset and ROOT at a lineage checkout:
+  `158275-edit-pr.sh <pr> <title> <body-file>`, `158275-reply-resolve.sh <pr> <comment-id>
+  <reply-file>`, `158275-push-branch.sh <worktree> <branch> <log>` (emits PASS or FAIL; run it as
+  a Monitor), `158275-watch-pr-state.sh <owner/repo> <pr> [seconds]`,
+  `158275-copilot-lineage.sh <pr>`, `158275-codex-request.sh <pr>`.
+
+##### In-flight reasoning
+
+- **310, next steps in order:**
+  1. Read 310's reviews list at 44ab80289 first: a push can start Copilot's review with no
+     request, and a duplicate request can cost a round. Two rounds bind (budget 2); the next
+     review on 44ab80289 is round two, the last.
+  2. Apply the title and body, then the thread line (Below-bar; the round-one bar reads "the
+     output can be lost or held unbounded", and a 4096-character bound still bounds the copy;
+     the rework deleted the bound in SHA:2432ac462) and resolve the thread.
+  3. Request the legs that are not yet in, arm a legs Monitor, and post round-two dispositions.
+  4. Door: `merge-bot merge --pr 310 --expect copilot-pull-request-reviewer --expect
+     chatgpt-codex-connector --json --interval 30 --max-polls 16`. Then retire the branch,
+     remove the worktree, close e8fd79d5, and post the landing line.
+- **309, after 310 merges** (one sync at a time): merge engraph into the branch, push through
+  `158275-push-branch.sh`, apply its title and body, answer 4130446446 as "Cured in
+  SHA:ef4c19a62" (the smoke file is removed; state the bar reading against the body published at
+  round one), both legs, the door, cleanup, the landing line.
+- The owner's 11:2xZ word: one open non-coordination PR per non-Director seat. This seat held
+  two; nothing new opens for its lane until both merge.
+
+##### Decisions made
+
+- Tests: every test change had a test-expert verdict before commit, recorded in the commit
+  message. 310's final tree: "commit as is". The code expert's three "lost proofs": the scope
+  literal (declined: a policy pin), a refusal mints nothing (accepted: the main refusal over a
+  failing mint), one token across attempts (declined: needs a stateful fake or a call count;
+  it holds by construction, the mint before the retry loop).
+- The mint became a port of the push action (`PushMint`, composed in `cli.ts`).
+- Five in-process mutants on 310, each failing exactly its target; one on 309.
+- The freeze at the compaction word was kept: no title, body, thread or legs after the push.
+
+##### Decisions deferred
+
+- A candidate, not work: narrow `transferAndReport`'s input so an attempt receives the token and
+  never the mint port, making "one token per invocation" hold by type. It rides 310's settlement
+  push only if round two needs a push; otherwise the merge-bot test-composition ledger row.
+- After 309 merges: the second estate's smoke removal with the validator clause (the owner's
+  word: "make sure that clarification lands in both estates"). On this host, second-estate
+  commits need `TURBO_CACHE=local:rw` until the owner renews the Turbo login.
+- Then 310's flow-back to the second estate (its `pushArgv` lacks `--no-follow-tags` and
+  `--recurse-submodules=no`), the retire command, N4, the re-pin, and the six findings' homes of
+  the Director's 10:3xZ ruling (e2e builds before its smokes in both estates; the repo-check
+  smoke assertions and the doubled repair flag; `GIT_TRACE_REDACT` and the merge-bot tests'
+  routed mint fetch).
+- Owner-side: TURBO_TEAM's organisation access for the public repository (312), and the
+  expired local Turbo login.
+
+#### 8a94ba-nova-turns-penumbra-handoff-to-director-2026-09-29.md
+
+#### Handoff: Nova turns Penumbra (8a94ba) to the Director, Wick binds Temper (ed7b48)
+
+- **When:** 2026-09-29, ~11:4xZ.
+- **The owner's word, verbatim:** "this session is over, perform a full session close out and hand
+  all responsibilities to the Director". This follows the owner's earlier compaction-and-stop word
+  (11:3xZ), at which every process of this seat was stopped and read back absent (11:37:31Z).
+- **Protocol:** PDR-063 mid-cycle handoff. The owner called it.
+- **Claims handed** (lineage registry `.agent/state/collaboration/active-claims.json`); both carry this
+  record as `handoff_record_path`:
+  - `803d5d7d-6c13-43d5-90a2-b687ebcdc6d6`: the arc-metrics paths.
+  - `abcd5ea9-6434-4bd1-9cf9-5ea300a75080`: `agent-tools/src/bin/arc-metrics-topic.ts`.
+- **Taking them over:** `claims adopt --active <active-claims-path> --claim-id <id> --platform <p>
+  --model <m>`, or close them if the lane is re-routed.
+- **Full detail:** the boundary record beside this file,
+  `8a94ba-nova-turns-penumbra-compaction-boundary-2026-09-29-1135.md`: state, the re-arm recipe,
+  ledger rows, napkin candidates, promises, bounds, metaloss.
+
+##### Current edit state
+
+- **Lineage worktree `~/code/oak/oce-wt-arc-metrics`, branch `feat/exchange-arc-metrics`.**
+  - `git status --branch` at 11:3xZ: `...origin/engraph [ahead 1, behind 21]`.
+  - One commit, `b84e3f0e6`, "feat(agent-tools): measure an arc from its session transcripts
+    (arc-metrics)", on engraph `7c75e6ce9`. It is NOT pushed; no remote branch exists; there is no PR.
+  - Three uncommitted review edits:
+    - `agent-tools/src/arc-metrics/cli-options.ts`;
+    - `agent-tools/src/arc-metrics/cli.integration.test.ts`;
+    - `agent-tools/tests/agent-tools-cli.unit.test.ts`.
+
+    They are backed up as `8a94ba-arc-metrics-review-edits.patch` here (it reverse-applies cleanly),
+    and their commit message is `8a94ba-arc-commit2-msg.txt`.
+  - PR body draft: `8a94ba-pr-arc-metrics-body.md`, budget 2. Plan: `8a94ba-arc-metrics-plan.md`.
+    Mutant script: `8a94ba-arc-mutants.mjs` (15 mutants).
+- **Lineage primary** (`coordination/2026-09-29-76974c`):
+  - One untracked file of this seat's: `.agent/experience/2026-09-29-nova-turns-penumbra-formation-letter.md`
+    (two parts, morning and midday).
+  - The primary is ahead 1 with the Director's own `01c9d0799`.
+- **JC.net:** nothing of this seat's; no claim, no worktree, no uncommitted file.
+- **Processes:** none. All were stopped at 11:36Z to 11:37Z and read back absent.
+- **Open PRs owned by this seat:** none. #311 merged at `ecf59d763`, 11:27:02Z, and is cleaned up.
+
+##### In-flight reasoning
+
+- **arc-metrics is held, not abandoned.** The owner's WIP word (09:4xZ) is no new PR while an old
+  one waits. The Director's line of 11:29Z says it opens only when 310 has merged and every seat
+  holds at most one, and nothing is authored ahead.
+  - This seat built it early, cut at 09:20Z while J8 waited, which is the tail the owner named. It
+    was reported on the stream as a deviation.
+  - The work is good:
+    - gates green, 129 of 129;
+    - 15 mutants killed, restored byte-identical;
+    - a run of the built CLI over 217 real transcripts (exit 0, 217 sessions);
+    - a code-expert pre-execution read, GO WITH CHANGES, all taken;
+    - a post-change review, FIX, all taken: the three edits and the body corrections are in the draft.
+- **Its tests meet the owner's test bar** (09:3xZ and 09:4xZ): all in-process with injected fakes,
+  no spawn, no real IO, no call inspection. The help and routing cells compare against the product's
+  own help constant, never a pinned literal.
+- **How the port departs from the source** (named in the body):
+  - The handler is its own module, because `agent-tools-cli-topics.ts` is at 244 of its 250-line cap.
+  - Citations take the lineage form (ADR-088; "the second estate").
+  - The locator TSDoc and the `--project-dir` help no longer claim a transcript "MOVED". 0 of 239
+    session ids on this machine sit in two project directories, so that was unconfirmed.
+  - A routing test the source lacks.
+- **Watching a PR:** `pnpm agent-tools pr-watch <n> --watch` buffers every line until exit, in both
+  estates (`bin/agent-tools-cli-topics.ts` `OutputBuffer`). Watch through `runPrWatchCli` with the
+  process streams; the command is in the boundary record's §Re-arm. Confirm its first line arrives.
+
+##### Decisions made
+
+- J8's B2 and B3 went up as one PR (#311), per the Director's GO. It merged at `ecf59d763`, so J8
+  is complete (#306, #308, #311).
+- **Codex's round-two P1 on #311 was declined, not a regression.**
+  - Relative checkpoint paths resolved against the working directory both before and after the
+    change. A probe from `agent-tools/` proved it: the documented `../` form builds, and the bare
+    form fails with ENOENT, as before.
+  - The alignment with core's `flag-path-resolve` is a named follow-up. It is on the JC.net register
+    as finding (5).
+- **J8's register rows have one writer, Myrtle** (her direct message, 11:3xZ): `9f02e9ebe`, the count
+  16 of 32.
+  - Per Myrtle at 11:36Z, that commit is LOCAL on the JC.net primary. Its push was refused by a
+    peer's LinkedIn workspace edit in that tree, so the push is hers.
+- **No gate was started under the stop word:** no commit and no push of arc-metrics.
+- This seat's napkin candidates and ledger rows stay in the local boundary record rather than the
+  shared napkin. A peer staging `napkin.md` by pathspec would sweep in another seat's uncommitted
+  lines.
+- A finding routed to JC.net at 11:2xZ ("parse-flags cells would pin TypeError") was withdrawn on
+  both streams a minute later: no such cells exist.
+
+##### Decisions deferred (now the Director's)
+
+1. **The arc-metrics lane.** Open it as this seat's slot would have been used, or route it to a
+   seat, or decline it.
+   - Recommendation: open it when 310 has merged and every seat holds at most one.
+   - Steps:
+     - commit the three edits with the message file, run in the worktree;
+     - merge `origin/engraph` (clean at 11:3xZ by merge-tree);
+     - rebuild agent-tools;
+     - push via merge-bot;
+     - open as the bot with the body draft, adding the second commit to Evidence;
+     - request both legs;
+     - add its register row on JC.net's coordination branch at landing (one of the three uncounted
+       innovations; settle one writer with Myrtle).
+   - If the lane is dropped, the owner's standing word says delete the branch and worktree; the
+     patch and this record keep the bytes.
+2. **The Practice docs PR** (this seat's order, the plan's row 10). Its scope:
+   - author-skills, deslop and distillation with their rendered adapters;
+   - the channel rule;
+   - J10 (PDR-082's bullet) and J11 (the loss-scan instrument);
+   - N3 (four lines);
+   - the WIP clause wording and the decline lines' doctrine home;
+   - Myrtle's four inventory lines (`8a94ba-docs-pr-myrtle-305-lines.md`);
+   - the owner's monitor word as an amendment to `use-monitor-for-event-driven-wake`, whose lines
+     81-83 still allow background Bash for one-shot waits.
+
+   The source is the plan at `~/.claude/plans/logical-tinkering-babbage.md`.
+3. **The strictness units** (J17 note 8, J20 note 7, J21 note 9): measure and report (the plan's
+   row 12).
+4. **This seat's records**, one docs(records) commit on the lineage primary:
+   - the review-cost ledger rows for #298, #303, #306, #308 and #311 (the boundary record's table);
+   - the napkin candidates (both boundary records);
+   - the formation letter;
+   - the corpus tooling README's "Findings received, not yet verified here" section, updated for J8's
+     end (B1's emitter class keyword; #311's follow-ups).
+5. **Check that Myrtle's JC.net register commit `9f02e9ebe` reaches origin** once that primary's
+   LinkedIn edit is resolved.
+6. **The pr-watch buffering cure:** the topic passes the process streams when `--watch` is set, in
+   both estates. Routed at 09:5xZ; the Director routes it.
+7. **Per-user memory `monitors-over-ad-hoc-wait-scripts.md`** holds the owner's monitor word until the
+   rule amendment lands. Delete that memory entry at graduation.
+
+#### bf4957-myrtle-turns-canopy-handoff-to-director-2026-09-29.md
+
+#### Handoff to the Director: the Practice exchange seat (Myrtle turns Canopy, bf4957), 2026-09-29 11:5xZ
+
+A PDR-063 handoff at the owner's word: "this session is over, hand all responsibilities to the
+Director". From Myrtle turns Canopy (claude-code, claude-fable-5-1, session prefix bf4957, agent id
+2c9edbdd-26f3-5102-8487-e654f096b5ac), to Wick binds Temper (ed7b48). The lane record with the whole
+day's history is `bf4957-myrtle-turns-canopy-exchange-lane-handoff-2026-09-26.md` beside this file;
+the turn scripts named below are copied beside it with the `bf4957-` prefix (they take the worktree
+and repository paths as arguments and carry no machine path; run them with `sh`).
+
+##### 1. Current edit state
+
+- **Lineage PR 312** (feat/ci-turbo-remote-cache-oidc, worktree `oce-wt-turbo-oidc`): the Turbo
+  remote cache by GitHub OIDC in `.github/workflows/ci.yml`. Two rounds on budget 2, one settlement
+  (12e90cafd: the guard for pull requests from other repositories and Dependabot), zero open
+  threads, both legs bound by content. The blocker is gone: the owner made the organisation variable
+  `TURBO_TEAM` (value `engraph`) visible to every EngraphCode repository at 11:4xZ; a duplicate
+  repository-level variable this seat had set a minute earlier was removed. At 11:47Z the land
+  script pushed the pure sync 71e2eae9f (engraph ecf59d763 merged in, git's own merge tree) as the
+  bot; its CI run is the proof the body promises (cache hits on packages the head did not change).
+  **Yours: the door.** When the rollup is green: `sh bf4957-door-312.sh <head9> <worktree>` from the
+  primary root (both legs expected; closes no claim), then `sh bf4957-turbo-proof.sh <run-id> <out>`
+  and `python3 bf4957-turbo-proof-body.py <live-body> <out-body> <out> <run-id> <head9>` to write
+  the proof lines into the body (PATCH as the bot with `--input`), or patch first if the run is green
+  before the door. If the base moves again, `sh bf4957-turbo-land.sh <worktree> <primary>` does
+  the sync, the wait and the door in one. Then the worktree and the local branch go.
+- **Lineage records41**: applied to the primary's working tree, uncommitted (three files:
+  `repo-continuity.md` pickup entry for the resume window and this close; the census recount to 16
+  of 32; five napkin entries). Message `bf4957-records41-msg.txt`, file list
+  `bf4957-records41-files.txt`, ceremony `bf4957-records41-entry.sh` (gate notice, the commit
+  ceremony by pathspec through the queue, the push as the bot). If this seat's last act lands it,
+  the primary reads clean; otherwise it is the first records commit of the next window.
+- **Second estate, coordination/2026-09-29-d2b910**: the J8 register commit 9f02e9ebe (the count
+  line 16 of 32 at jcnet 4404a57917 and lineage ecf59d763a; the J8 lineage row COMPLETE with #306,
+  #308, #311; the fifth finding, Codex's P1 on #311) is pushing from the clean detached worktree
+  `jcnet-wt-j8-push` as the bot (the primary's own gate refuses every push while a peer's untracked
+  `linkedin/package.json` and modified `pnpm-workspace.yaml` stand in its tree). Read origin: if it
+  is at 9f02e9ebe, remove that worktree (`git worktree remove`); if not, push from it. The commit
+  carries a peer's 13-line uncommitted plan hunk (the post-close list under §Finish), swept by the
+  records script's fixed pathspec; the content is intact, its author unnamed there.
+- **J2's worktree** `oce-wt-j2-docs-validators` (branch feat/exchange-j2-docs-validators from
+  engraph e07d6b34e): the mechanical port UNCOMMITTED (23 files: cited-paths 4, cited-scripts 14,
+  lineage-names 3, the markdown-links compare cure 2; `@engraph` scope and fixtures renamed),
+  backed up as `bf4957-j2-port-modified-2026-09-29.patch` and
+  `bf4957-j2-port-untracked-2026-09-29.tar.gz`. Held by the owner's WIP word (one pull request per
+  seat). Yours to route: keep for the seat that takes J2, or remove the worktree and keep the backup.
+
+##### 2. In-flight reasoning
+
+- **312's proof**: a hit is a remote-cache replay for a package the head did not change, and the
+  head changes no package, so every turbo task on the synced tip should replay. The five turbo jobs
+  are build, unit-tests, knip-depcruise, browser-tests, windows-basic; windows-basic keeps
+  `TURBO_REMOTE_CACHE_READ_ONLY`.
+- **The Turbo problems, as fixes**: (a) CI: the organisation variable's repository access excluded
+  this public repository; fixed by the owner (visible to all). (b) Local gates: the second estate's
+  `repo-check-lint-changed.ts` plans `turbo run lint --dry-run=json`, which asks the remote cache
+  for each task's status and rightly fails on any stderr diagnostic; when the host's Turbo login
+  expired it failed every commit there. The fix is at that step: `--cache=local:r` on the plan's
+  argv (a plan needs no remote), a second-estate pull request of one file (the lineage has no such
+  step; its gates print "Remote caching disabled" and judge no stderr). The test bar: no unit test
+  pins the argv (configuration); the proof is the gate green on a host with no Turbo login,
+  recorded on the pull request. (c) The host: a long-lived Vercel access token exported as
+  `TURBO_TOKEN` (with `TURBO_TEAM`) replaces `turbo login` sessions, which expire; the owner's word
+  is that logging in often is not acceptable. This seat used `TURBO_CACHE=local:rw` for one commit
+  and named it a workaround; withdrawn at the owner's word.
+- **J2's verdict for its body** (measured 09:4xZ on the lineage tree): the lineage-names needles
+  are the second estate's repository identifiers `jimcresswell/jimcresswell.net`, `jcdotnet` and
+  `@jimcresswell/` (three doctrine files and one fixture carry them: compute-dont-hope.md:58-59,
+  the cricket skill 148-149, the comms-channels skill 79-80, gate-slot-argv.unit.test.ts:20-25);
+  the bare domain is declined as a needle because 19 package manifests carry the owner's contact
+  email and site. Exclude paths: the records (memory, reports, plans*, experience, state,
+  collaboration, research, practice-core provenance and changelog) and hooks/policy.json. Strict,
+  with the four cures in the same pull request. cited-paths and cited-scripts entries adapt to
+  `listTrackedPathSet`/`listIgnoredPaths` (Result → exit-2 refusal via `describeGitReadFailure`;
+  cited-paths sends each untracked target twice, bare and with `/`); the describer
+  `describeUnreadable` plus its cells goes into `core/tracked-file-scan.ts` and the three call sites
+  (identity-naming:112, machine-local-paths:62, read-core.ts:62); lineage-names gets a readers
+  seam and an in-process behaviour test instead of its spawning smoke; the ported unit cells meet
+  the bar (pure, whole-array) with the fixtures renamed; wiring is three agent-tools scripts,
+  `docs-validators:check` (+3 in the second estate's order), three knip entries, build-system.md.
+
+##### 3. Decisions made this window
+
+- 305's door fired at the resume (e07d6b34e); records40 landed (b4372f535).
+- 312 opened as the fourth open pull request on the owner's priority word; Copilot's round-one
+  finding cured (settlement one); its round-two overview observation Rejected on GitHub's contexts
+  reference (a re-run keeps `github.actor` and its privileges); v1.1.0 pinned over v1.0.0 (the post
+  step revokes the token).
+- J8 counts two units in the census; the second unit is #308 with #311; the count reads 16 of 32.
+- The second estate's register-refresh pull request withdrawn by the Finish rule; its rows landed
+  in the Director's b2c11efc (this seat's staged files, swept) and in 9f02e9ebe.
+- The inventory docs cure lines (four) were handed to Nova's Practice docs pull request, now yours.
+
+##### 4. Decisions the Director now makes
+
+- 312's door timing (it merges when its run is green, ahead of whichever is next).
+- Who takes the second estate's lint-changed fix (one file, after 312) and the host token.
+- J2's fate (the worktree or the backup) and its seat.
+- The lineage census and register at 312's landing: no unit; a ledger row for #312 (2 rounds, 1
+  settlement); the register's Landings row on the second estate's coordination branch.
+
+##### Claims handed
+
+- Lineage: `4b82394b-bd94-42a1-8382-ae1efcd442d1` (312's door and proof; records41 if not landed;
+  J2's held port; the second estate's gate fix after 312), `handoff_record_path` this file.
+- Second estate: `6a28ffb4-c96a-4a4c-8221-28f7065262e5` (the lint-changed plan step's
+  `--cache=local:r`, one file, after 312; the register's rows at 312's landing), the same path.
+- Both retained for the Director to adopt (`claims adopt --active <path> --claim-id <id>`) or
+  close at the landing. The second estate's J8 commit 9f02e9ebe reached origin at 11:50Z from
+  the clean worktree (since removed); nothing of this seat waits there.
+
+— Myrtle turns Canopy, an agent (bf4957)
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

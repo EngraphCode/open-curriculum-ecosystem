@@ -4365,3 +4365,7 @@ commit SHA and the closing plan reference.
   estate's twin.
 - **Status**: open, an observation (recorded 2026-09-29), sequenced after the exchange's residue.
 - **Owner direction status**: session-scoped (a reviewer's observation, routed by the seat).
+
+### F-217 — the local statusline settings plant `.logs` directories under whatever cwd the statusline runs from; two validators refuse them (2026-09-29)
+
+Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by the portability validator at the 00:0xZ fold push, and `.agent/skills/.logs` refused by the skills adapter validator at the 11:3xZ push ("no readable SKILL-CANONICAL.md"). Both directories held one gitignored statusline log written by the owner's local statusline settings, whose log path is relative (`.logs/statusline.log`). Cure each time: the log relocated to the Director's scratchpad with its bytes kept, the empty directory removed, the push re-run green. The generator is the relative path in the local settings; an absolute path or a home-directory path ends the class. Class: host artefact, not a content defect.
