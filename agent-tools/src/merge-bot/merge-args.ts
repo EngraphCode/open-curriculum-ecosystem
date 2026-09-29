@@ -137,16 +137,22 @@ function recordExpect(state: CollectedMergeFlags, value: string): Result<undefin
   return ok(undefined);
 }
 
-const LIST_FLAGS: Readonly<
-  Record<string, (state: CollectedMergeFlags, value: string) => Result<undefined, Error>>
-> = { '--expect': recordExpect, '--unavailable': recordUnavailable };
+// A Map, so an argv token named like an object's own property (`toString`,
+// `__proto__`) finds no handler and is refused as an unknown flag.
+const LIST_FLAGS: ReadonlyMap<
+  string,
+  (state: CollectedMergeFlags, value: string) => Result<undefined, Error>
+> = new Map([
+  ['--expect', recordExpect],
+  ['--unavailable', recordUnavailable],
+]);
 
 function consumeValueFlag(
   state: CollectedMergeFlags,
   flag: string,
   value: string | undefined,
 ): Result<undefined, Error> {
-  const listFlag = LIST_FLAGS[flag];
+  const listFlag = LIST_FLAGS.get(flag);
   if (listFlag === undefined && !isSingleFlag(flag)) {
     return err(new Error(`unknown flag "${flag}"\n${MERGE_USAGE}`));
   }

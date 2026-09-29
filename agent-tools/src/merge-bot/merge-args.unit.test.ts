@@ -74,6 +74,15 @@ describe('parseMergeArgs', () => {
     );
   });
 
+  it.each(['toString', '__proto__', 'constructor'])(
+    'refuses %s as an unknown flag, not a property every object carries',
+    (token) => {
+      const parsed = parseMergeArgs([...EXPECT_ARGS, token, 'value']);
+
+      expect(parsed.ok ? '' : parsed.error.message).toContain(`unknown flag "${token}"`);
+    },
+  );
+
   it('defaults the poll budget inside the token hour', () => {
     const parsed = parseMergeArgs([...EXPECT_ARGS]);
 
