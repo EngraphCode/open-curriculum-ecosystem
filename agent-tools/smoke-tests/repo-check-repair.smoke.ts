@@ -1,4 +1,4 @@
-import { spawnSync, type SpawnSyncReturns } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -37,17 +37,65 @@ const UNFORMATTED = '#  Title\n\nA line with trailing spaces.   \n';
 /** What each repair leaves: prettier and markdownlint agree on these bytes. */
 const REPAIRED = '# Title\n\nA line with trailing spaces.\n';
 
+/** How a run ended, with its output. */
+interface Run {
+  readonly status: number | null;
+  readonly signal: NodeJS.Signals | null;
+  readonly stdout: string;
+  readonly stderr: string;
+}
+
+/** SIGKILL every process left in the group `leader` leads. */
+function killGroup(leader: number | undefined): void {
+  if (leader === undefined) {
+    return;
+  }
+  try {
+    process.kill(-leader, 'SIGKILL');
+  } catch {
+    // The group is gone.
+  }
+}
+
+/**
+ * Run a command in a process group of its own, bounded by `TIMEOUT_MS`. The
+ * entry spawns pnpm and the formatter beneath it, which outlive a kill of the
+ * entry alone, so the timeout kills the whole group; and once the command
+ * ends, whatever it left in its group is killed too, so nothing still writes
+ * into the scratch repository when it is removed.
+ */
 function run(
   cwd: string,
   command: string,
   args: readonly string[],
   env?: NodeJS.ProcessEnv,
-): SpawnSyncReturns<string> {
-  return spawnSync(command, args, { cwd, env, encoding: 'utf8', timeout: TIMEOUT_MS });
+): Promise<Run> {
+  return new Promise((resolve) => {
+    const child = spawn(command, args, {
+      cwd,
+      env,
+      stdio: ['ignore', 'pipe', 'pipe'],
+      detached: true,
+    });
+    let stdout = '';
+    let stderr = '';
+    child.stdout.setEncoding('utf8').on('data', (chunk: string) => (stdout += chunk));
+    child.stderr.setEncoding('utf8').on('data', (chunk: string) => (stderr += chunk));
+    const timer = setTimeout(() => killGroup(child.pid), TIMEOUT_MS);
+    child.once('error', (error) => {
+      clearTimeout(timer);
+      resolve({ status: null, signal: null, stdout, stderr: `${stderr}${error.message}\n` });
+    });
+    child.once('close', (status, signal) => {
+      clearTimeout(timer);
+      killGroup(child.pid);
+      resolve({ status, signal, stdout, stderr });
+    });
+  });
 }
 
 /** A run's exit status (or the signal that ended it, a timeout included) with its output, for a failure message. */
-function described(result: SpawnSyncReturns<string>): string {
+function described(result: Run): string {
   const end =
     result.status === null ? `signal ${String(result.signal)}` : `exit ${String(result.status)}`;
   return `${end}\n${result.stdout}${result.stderr}`;
@@ -71,7 +119,7 @@ function entryEnv(): NodeJS.ProcessEnv {
 }
 
 /** Track `doc.md` in the scratch repository, with the tools linked in; the git steps that failed. */
-function prepare(root: string): readonly string[] {
+async function prepare(root: string): Promise<readonly string[]> {
   writeFileSync(
     join(root, 'package.json'),
     '{ "name": "repo-check-repair-smoke", "private": true }\n',
@@ -79,25 +127,33 @@ function prepare(root: string): readonly string[] {
   symlinkSync(join(REPO_ROOT, 'node_modules'), join(root, 'node_modules'));
   writeFileSync(join(root, 'doc.md'), UNFORMATTED);
   const env = hermeticGitEnv(root);
-  return [
+  const failed: string[] = [];
+  for (const args of [
     ['init', '-q'],
     ['add', 'doc.md'],
-  ].flatMap((args) => {
-    const git = run(root, GIT, args, env);
-    return git.status === 0 ? [] : [`git ${args.join(' ')}: ${described(git)}`];
-  });
+  ]) {
+    const git = await run(root, GIT, args, env);
+    if (git.status !== 0) {
+      failed.push(`git ${args.join(' ')}: ${described(git)}`);
+    }
+  }
+  return failed;
 }
 
 /** Check, repair, check for one gate over a fresh unformatted `doc.md`; each way it failed. */
-function checkRepairCheck(root: string, gate: string, repair: string): readonly string[] {
+async function checkRepairCheck(
+  root: string,
+  gate: string,
+  repair: string,
+): Promise<readonly string[]> {
   writeFileSync(join(root, 'doc.md'), UNFORMATTED);
   const env = entryEnv();
   const entry = (args: readonly string[]) =>
     run(root, process.execPath, ['--import', 'tsx', ENTRY, ...args], env);
-  const before = entry([gate]);
-  const repaired = entry([gate, repair]);
+  const before = await entry([gate]);
+  const repaired = await entry([gate, repair]);
   const bytes = readFileSync(join(root, 'doc.md'), 'utf8');
-  const after = entry([gate]);
+  const after = await entry([gate]);
   return [
     ...(before.status === 0 ? [`${gate} passed the unformatted file: ${described(before)}`] : []),
     ...(before.status === null ? [`${gate}'s first check did not exit: ${described(before)}`] : []),
@@ -112,13 +168,13 @@ function checkRepairCheck(root: string, gate: string, repair: string): readonly 
 const failures: string[] = [];
 const root = mkdtempSync(join(tmpdir(), 'repo-check-repair-'));
 try {
-  failures.push(...prepare(root));
+  failures.push(...(await prepare(root)));
   if (failures.length === 0) {
     for (const [gate, repair] of [
       ['prettier-tracked', '--write'],
       ['markdownlint-tracked', '--fix'],
     ] as const) {
-      failures.push(...checkRepairCheck(root, gate, repair));
+      failures.push(...(await checkRepairCheck(root, gate, repair)));
     }
   }
 } finally {
