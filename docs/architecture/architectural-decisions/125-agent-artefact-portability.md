@@ -2,6 +2,10 @@
 
 **Status**: Accepted
 **Date**: 2026-03-04
+**Amended**: 2026-09-29 — the archived Claude sub-agent wrapper lives at
+`.agent/sub-agents/archive/`, outside every rendered surface; `.claude/agents/`
+holds only rendered files.
+
 **Amended**: 2026-09-28 — rule adapters and `RULES_INDEX.md` are projections of each
 canonical rule's frontmatter declaration, rendered by `pnpm portability:fix` and recomputed
 byte for byte by `pnpm portability:check`; skill-targeting triggers are retired
@@ -89,7 +93,7 @@ Each platform has thin wrappers that reference canonical content. Skill adapters
 | `.claude/skills/*/{references,scripts,assets}/` | Bytewise copies of canonical supporting files                                                                                                                                                                                                                                                                                                                                                                                                                        | Same               |
 | `.claude/rules/*.md`                            | Generated thin wrappers (`paths`-scoped when the rule declares globs) -> `.agent/rules/`                                                                                                                                                                                                                                                                                                                                                                             | Claude Code        |
 | `.claude/agents/*.md`                           | Markdown with YAML frontmatter (`name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color`). All wrappers require a `color` field and ≥2 `<example>` blocks in `description`; **`model` is optional** — omitted by default so the invoking agent's model is inherited (owner-directed inherit policy, 2026-06-28; the per-platform subagent frontmatter schema `agent-tools/src/validators/subagents/frontmatter-schema.ts` is the SSOT). | Claude Code        |
-| `.claude/agents/archive/*.md`                   | Archived wrappers — superseded or retired agents. Preserved for reference. Not validated by `pnpm subagents:check`.                                                                                                                                                                                                                                                                                                                                                  | —                  |
+| `.agent/sub-agents/archive/*.md`                | Archived sub-agent adapters — superseded or retired, kept for reference outside every rendered surface (moved from `.claude/agents/archive/` on 2026-09-29: a rendered surface holds only rendered files). Not validated.                                                                                                                                                                                                                                            | —                  |
 
 #### Cursor (`.cursor/`) — sub-agents and rules only
 
