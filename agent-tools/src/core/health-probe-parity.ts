@@ -49,6 +49,14 @@ export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResu
   return [evaluateReviewerAdapterParity(repoRoot), evaluateReviewerRegistrationParity(repoRoot)];
 }
 
+/** No surface listed: the declaration read refused, so the comparison never runs. */
+const UNLISTED_SURFACES: ReviewerAdapterParityInputs['present'] = {
+  cursor: [],
+  claude: [],
+  codex: [],
+  gemini: [],
+};
+
 /** The adapter basenames present on one platform's surface. */
 function surfaceBasenames(repoRoot: string, platform: SubagentPlatform): readonly string[] {
   const surface = SURFACE_OF[platform];
@@ -61,7 +69,11 @@ function surfaceBasenames(repoRoot: string, platform: SubagentPlatform): readonl
  * fails the check outright rather than comparing the surfaces against a partial truth.
  */
 function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
-  return reviewerAdapterParityOf(readDeclaredAdapters(repoRoot), {
+  const declared = readDeclaredAdapters(repoRoot);
+  // A refusal fails the check before any surface is listed: listing is a read that can itself
+  // throw, and the refusal is the whole verdict.
+  if (!declared.ok) return reviewerAdapterParityOf(declared, UNLISTED_SURFACES);
+  return reviewerAdapterParityOf(declared, {
     cursor: surfaceBasenames(repoRoot, 'cursor'),
     claude: surfaceBasenames(repoRoot, 'claude'),
     codex: surfaceBasenames(repoRoot, 'codex'),
