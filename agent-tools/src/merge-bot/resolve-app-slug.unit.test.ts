@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { MERGE_BOT_CONFIG_RELATIVE_PATH } from './repo-config.js';
 import { resolveMergeBotAppSlug } from './resolve-identity.js';
 
 /**
@@ -32,8 +33,9 @@ describe('resolveMergeBotAppSlug', () => {
       },
     });
 
+    // The path is joined with the host's separator, as the message prints it.
     expect(slug.ok ? '' : slug.error.message).toContain(
-      'merge-bot config not readable at .github/merge-bot.json',
+      `merge-bot config not readable at ${MERGE_BOT_CONFIG_RELATIVE_PATH}`,
     );
   });
 });
