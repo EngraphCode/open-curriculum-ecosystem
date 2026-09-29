@@ -18,15 +18,41 @@ import type { MetaOutput } from '../recall-schemas.js';
  * Whole-id mention matchers built from the run's own candidate ids, since the candidate schema
  * constrains no id shape: each id matches as a whole token, with no ASCII id character (a
  * letter, a digit, `_` or `-`) on either side, so C18 never bleeds into C185 and an id such as
- * `candidate-1` is found. Any other character, a `.` or a non-ASCII letter, reads as a boundary.
+ * `candidate-1` is found. Longest ids come first, for {@link mentionedCandidateIds}.
  */
-function mentionMatchers(candidateIds: ReadonlySet<string>): ReadonlyMap<string, RegExp> {
-  return new Map(
-    [...candidateIds].map((candidateId) => [
+function mentionMatchers(
+  candidateIds: ReadonlySet<string>,
+): readonly (readonly [string, RegExp])[] {
+  return [...candidateIds]
+    .toSorted((a, b) => b.length - a.length)
+    .map((candidateId) => [
       candidateId,
-      new RegExp(`(?<![A-Za-z0-9_-])${escapeRegExp(candidateId)}(?![A-Za-z0-9_-])`, 'u'),
-    ]),
-  );
+      new RegExp(`(?<![A-Za-z0-9_-])${escapeRegExp(candidateId)}(?![A-Za-z0-9_-])`, 'gu'),
+    ]);
+}
+
+/**
+ * The candidate ids a note mentions. A `.` or any other character outside the id class reads
+ * as a boundary, so one id can match inside another's mention (C1 inside C1.1); the longer id
+ * claims its span first and a match inside a claimed span names nothing.
+ */
+function mentionedCandidateIds(
+  note: string,
+  matchers: readonly (readonly [string, RegExp])[],
+): readonly string[] {
+  const claimed: (readonly [number, number])[] = [];
+  const named: string[] = [];
+  for (const [candidateId, matcher] of matchers) {
+    for (const match of note.matchAll(matcher)) {
+      const start = match.index;
+      const end = start + match[0].length;
+      if (claimed.every(([from, to]) => end <= from || to <= start)) {
+        claimed.push([start, end]);
+        named.push(candidateId);
+      }
+    }
+  }
+  return named;
 }
 
 /** How the recall judgments name one killed candidate, and which baselines name it. */
@@ -72,8 +98,8 @@ export function recallNamedKills(
     if (match.verdict !== 'missed') {
       continue;
     }
-    for (const [candidateId, matcher] of matchers) {
-      if (killIds.has(candidateId) && matcher.test(match.note)) {
+    for (const candidateId of mentionedCandidateIds(match.note, matchers)) {
+      if (killIds.has(candidateId)) {
         add(candidateId, 'note-named', match.baselineId);
       }
     }

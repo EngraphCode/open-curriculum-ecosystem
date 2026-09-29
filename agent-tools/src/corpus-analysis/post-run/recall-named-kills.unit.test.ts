@@ -34,10 +34,10 @@ describe('recallNamedKills', () => {
     expect(kills.get('C02')).toEqual({ source: 'note-named', baselineIds: new Set(['B2']) });
   });
 
-  it("derives the mention matcher from the run's candidate ids: an id outside the C-digits shape is found, and an id character before a mention is no boundary", () => {
+  it("derives the mention matcher from the run's candidate ids: an id outside the C-digits shape is found, and an id character on either side of a mention is no boundary", () => {
     const kills = recallNamedKills(
       meta([
-        { baselineId: 'B1', verdict: 'missed', note: 'see candidate-1 and sub-C18' },
+        { baselineId: 'B1', verdict: 'missed', note: 'see candidate-1, sub-C18 and C18x' },
         { baselineId: 'B2', verdict: 'missed', note: 'C18 alone' },
       ]),
       new Set(['candidate-1', 'C18']),
@@ -48,5 +48,17 @@ describe('recallNamedKills', () => {
       baselineIds: new Set(['B1']),
     });
     expect(kills.get('C18')).toEqual({ source: 'note-named', baselineIds: new Set(['B2']) });
+  });
+
+  it("names only the longer id where one candidate's id lies inside another's mention: a note naming the live C1.1 never credits the killed C1", () => {
+    const kills = recallNamedKills(
+      meta([
+        { baselineId: 'B1', verdict: 'missed', note: 'the substance lives in C1.1' },
+        { baselineId: 'B2', verdict: 'missed', note: 'C1 alone, then C1.1' },
+      ]),
+      new Set(['C1', 'C1.1']),
+      new Set(['C1']),
+    );
+    expect(kills.get('C1')).toEqual({ source: 'note-named', baselineIds: new Set(['B2']) });
   });
 });
