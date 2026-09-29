@@ -27,10 +27,9 @@
  * @packageDocumentation
  */
 
-import { parseArgs } from 'node:util';
-
 import { err, ok, type Result } from '@oaknational/result';
 
+import { parseFlags } from '../../core/parse-flags.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
 import { checkMapCoverage } from '../cost-and-coverage.js';
@@ -60,7 +59,9 @@ import { triageDispositions } from './triage.js';
 /** The Choice-B graduate gate (owner-confirmed). */
 const CHOICE_B = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 } as const;
 
-const repoRoot = resolveRepoRoot(import.meta.url);
+// projectDir is explicitly disabled: this driver reads checkpoints and claimed homes from
+// the checkout it runs in, never from the harness project directory.
+const repoRoot = resolveRepoRoot(import.meta.url, { projectDir: undefined });
 const readCheckpoint = makeCheckpointReader(repoRoot);
 
 interface Checkpoints {
@@ -70,8 +71,16 @@ interface Checkpoints {
   readonly metaResult: MetaResult;
 }
 
-async function readCheckpoints(): Promise<Result<Checkpoints, Error>> {
-  const { values } = parseArgs({
+interface CliFlags {
+  readonly 'map-result'?: string;
+  readonly 'reduce-result'?: string;
+  readonly 'validate-result'?: readonly string[];
+  readonly 'meta-result'?: string;
+}
+
+/** An unknown or malformed flag is an input error on the concise stderr path. */
+function parseCliFlags(): Result<CliFlags, Error> {
+  return parseFlags({
     options: {
       'map-result': { type: 'string' },
       'reduce-result': { type: 'string' },
@@ -79,6 +88,9 @@ async function readCheckpoints(): Promise<Result<Checkpoints, Error>> {
       'meta-result': { type: 'string' },
     },
   });
+}
+
+async function readCheckpoints(values: CliFlags): Promise<Result<Checkpoints, Error>> {
   const mapResult = await readCheckpoint(values['map-result'], '--map-result', parseMapResult);
   if (!mapResult.ok) {
     return mapResult;
@@ -135,7 +147,8 @@ function requireSuccess(checkpoints: Checkpoints): Result<undefined, Error> {
     : ok(undefined);
 }
 
-const checkpoints = await readCheckpoints();
+const flags = parseCliFlags();
+const checkpoints = flags.ok ? await readCheckpoints(flags.value) : flags;
 if (checkpoints.ok) {
   const successes = requireSuccess(checkpoints.value);
   if (!successes.ok) {
