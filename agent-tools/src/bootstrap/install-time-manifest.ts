@@ -171,10 +171,11 @@ function isExportArray(value: ExportValue): value is readonly ExportValue[] {
 }
 
 /**
- * Typed own-entry iteration over a zod-validated record. A deliberate local
- * copy of the helper `@oaknational/type-helpers` exports, and an exception to
- * consolidating at the second consumer: that package is in the closure this
- * module feeds, so it cannot be imported before it is built.
+ * Typed own-entry iteration over a zod-validated record, dropping `undefined`
+ * values. A local counterpart of `typeSafeEntries` from
+ * `@oaknational/type-helpers`, not consolidated with it: that package is a
+ * member of the closure this module feeds, so it cannot be imported before it
+ * is built.
  */
 function recordEntries<T>(record: Readonly<Record<string, T>>): readonly (readonly [string, T])[] {
   const entries: (readonly [string, T])[] = [];

@@ -333,7 +333,11 @@ export default {
       // `.agent/` is kept visible (not excluded) so the
       // `no-import-from-agent-substrate` forbidden rule can see an import edge
       // into the substrate, but its internals are never followed/analysed.
-      path: ['node_modules', 'dist', '.turbo', '\\.agent/'],
+      // `dist` and `.turbo` are anchored to a directory: bare, `dist` also
+      // matches a source file such as `dist-witnesses.ts`, and `.turbo` (its `.`
+      // any character) one such as `turbo-glob.ts`, whose imports would then go
+      // unchecked.
+      path: ['node_modules', '(^|/)dist/', '(^|/)\\.turbo/', '\\.agent/'],
     },
     exclude: {
       path: [

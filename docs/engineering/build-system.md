@@ -514,8 +514,9 @@ install. So does a reached package with built entry points whose build script
 is not the bootstrap's one recipe (`BUILD_RECIPE` in
 `agent-tools/src/bootstrap/bootstrap.ts`), and a build that does not write a `dist/`
 file its `package.json` entry points name: the install exits naming the
-package. Adding a workspace dependency to agent-tools or to any member reaches
-the install this way. This catches real type errors BEFORE any explicit
+package. A workspace dependency added to agent-tools, or to any package it
+reaches, enters the derivation at the next install and meets the same checks.
+This catches real type errors BEFORE any explicit
 type-check pass — read the error HEAD (the tail is pnpm plumbing; the
 `runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
 free whole-package pre-gate: run `pnpm install` in a worktree immediately
@@ -530,7 +531,8 @@ plugin package rebuilds — ESLint resolves the built `dist/`. Rebuild the
 plugin after every config-source edit before trusting a lint readout
 (sibling of the F-120 stale-dist family): `pnpm install` does it, since the
 plugin is in the postinstall bootstrap's install-time closure and rebuilds
-when its `dist/` is older than its source, or build the package directly.
+when its `dist/` is older than its `src` or build config, or build the package
+directly.
 
 ### Slow repeated runs
 
@@ -666,9 +668,11 @@ artefacts it actually resolved:
   load-bearing, rebuild the producer workspaces first (the full
   `pnpm check` orders `^build` ahead of `type-check` for exactly this
   reason).
-- **A fresh checkout or worktree cannot lint until producer workspaces
-  are built** — see the start-right worktree-build discipline; ESLint's
-  flat config imports a workspace plugin resolved from `dist/`.
+- **A fresh checkout or worktree is not gate-ready until producer
+  workspaces are built** — see the start-right worktree-build discipline;
+  the install's bootstrap builds only what agent-tools reaches (the ESLint
+  plugin among it, so the flat config loads), and dependency-cruiser, knip
+  and each workspace's typed lint read every workspace's `dist/`.
 - **`pnpm check` does not run every suite** (e.g. `test:smoke` and
   experiment suites are outside it) — verify the aggregate actually
   exercises the suites your change touches before citing it as proof.
