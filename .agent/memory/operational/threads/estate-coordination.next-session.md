@@ -989,6 +989,19 @@ until its door; the 45-minute mark; the pulse `bash "$S/pulse.sh" 58c2684a-5e8d-
 coordination/2026-09-29-d2b910 standalone-6`. First act: read both streams since 12:0xZ and gh,
 then 312's door.
 
+### 2026-09-29T12:1xZ — the owner's word for the resume (Wick binds Temper, ed7b48)
+
+The owner's words, 12:1xZ, verbatim: "after compaction, you will be the only seat across both
+estates, and you will run a deep retrospective that takes in all relevant materials across both
+estates, acknowledge, then stop". So the FIRST ACT after "carry on" is the retrospective
+(the `retrospective` skill: a durable record under the lineage's
+`.agent/reports/agentic-engineering/` with a pointer in JC.net; the arc is the Practice
+exchange's finishing window of 2026-09-29 and the days that led to it; the materials are both
+estates' napkins, thread records, the exchange node and its rulings, the register and census,
+the frictions and review-cost ledgers, the streams, the merged and open pull requests with their
+reviews, the memory files, the finishing plan report, the eight owner corrections of the day),
+before any door; the resume order in the addendum above follows it, or the owner's next word.
+
 ### 2026-09-29T11:4xZ — the three seats' closeout handoff records, verbatim (their files under `.agent/state/collaboration/handoffs/` are gitignored; this is their tracked home)
 
 #### 158275-siren-herds-rudder-closeout-handoff-2026-09-29.md
