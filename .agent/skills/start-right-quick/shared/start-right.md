@@ -3,7 +3,7 @@ prompt_id: start-right-quick
 title: 'Start Right (Quick)'
 type: workflow
 status: active
-last_updated: 2026-09-08
+last_updated: 2026-09-29
 ---
 
 # Start Right (Quick)
@@ -355,12 +355,15 @@ pnpm build
 .agent/setup/install-shellcheck.sh
 ```
 
-`type-check` and `vitest` pass on install alone, so the gap stays silent until
-`lint` runs: ESLint's flat config imports the internal
-`@oaknational/eslint-plugin-standards`, whose package `exports` resolve to
-`dist/`. Unbuilt, bare `eslint` exits 2 (`No exports main defined`). The primary
-checkout is usually already built, which masks this in the main tree only — so a
-worktree-based lane must run the build itself before trusting any gate.
+`type-check` and `vitest` pass on install alone, and the install's bootstrap
+builds every package agent-tools reaches that has built entry points, including the internal
+`@oaknational/eslint-plugin-standards` whose package `exports` resolve to
+`dist/`, so ESLint's flat config loads on install alone too. Every other
+workspace's `dist/` stays unbuilt until `pnpm build`, and dependency-cruiser,
+knip and each workspace's typed lint read it. The
+primary checkout is usually already built, which masks this in the main tree
+only — so a worktree-based lane must run the build itself before trusting any
+gate.
 
 It also matters beyond gates: a worktree session shows **no statusline** unless the
 worktree was built **before the session started** (a known primary-checkout
@@ -378,12 +381,13 @@ before calling any check a defect or a flake: the fan-in job goes red with any
 failed leg and names no cause of its own (a font-loader flake read as the
 diff's fault, 2026-09-25).
 
-`pnpm install` does not install shellcheck either. The shell lint gate runs at
-every commit, and `.agent/setup/install-shellcheck.sh` installs the pinned
-version into the worktree's ignored `.tools/bin`. Without it the gate falls back
-to the shellcheck on `PATH`, which passes only while that one is the pinned
-version, so every worktree without its own `.tools/bin` fails at once when the
-`PATH` copy is upgraded.
+`pnpm install` installs shellcheck only through its `postinstall`, which runs
+`.agent/setup/install-shellcheck.sh` at a new clone or worktree's first install
+(the Quality Gates line says when else). The installer puts the pinned version
+in the worktree's ignored `.tools/bin`, and the shell lint gate runs at every
+commit. Without it the gate falls back to the shellcheck on `PATH`, which passes
+only while that one is the pinned version, so every worktree without its own
+`.tools/bin` fails at once when the `PATH` copy is upgraded.
 
 Full fresh-worktree setup is install, build, the pinned shellcheck before the
 first commit, AND the Playwright browser install before the browser-test gates
@@ -600,8 +604,12 @@ The commit is the gate. Its pre-commit hook runs the local gates: the
 staged formatting and markdown checks, the repo validators, shell lint,
 then build, type-check, lint and unit tests, then dependency-cruiser and
 knip. Shell lint runs the pinned shellcheck from the checkout's `.tools/bin`,
-or the `PATH` copy only while that one is the pinned version, so in any
-checkout without `.tools/bin/shellcheck`, fresh or already in use, run
+or the `PATH` copy only while that one is the pinned version. `pnpm install`
+provisions it at the first install of a clone or worktree, and at the next
+dependency change in a checkout already installed, since pnpm 11 runs no
+lifecycle script on an install that changes nothing ("Already up to date"),
+even with `--force`. Until then the gate's own failure and this line name the
+installer: in any checkout without `.tools/bin/shellcheck`, run
 `.agent/setup/install-shellcheck.sh` once before its first commit (§8 says
 why). The pre-push hook runs the wider local set: the pushed-commit secret
 scan and the review-cost gate first, then the whole-tree format and markdown

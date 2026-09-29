@@ -4269,6 +4269,28 @@ commit SHA and the closing plan reference.
   tooling lane.
 - **Owner direction status**: session-scoped (a reviewer's finding, accepted by the Director).
 
+### F-213 — a dependency bin named `uname` sends every pnpm shim into an unbounded fork chain
+
+- **Source**: the J3 install-time shellcheck slice's security read, a scratch-project probe on
+  2026-09-29 near 00:24Z; the host peaked near 2,450 processes and a peer's gate failed with fork
+  EAGAIN.
+- **Surface**: pnpm's generated bin shims (`node_modules/.bin/*`) on a lifecycle script's `PATH`.
+- **Observed**: pnpm writes each bin as a `/bin/sh` shim that runs `` `uname -a` ``, `dirname` and
+  `sed` to detect Cygwin. A lifecycle script's `PATH` puts `node_modules/.bin` first, so when a
+  dependency ships a bin named `uname`, the shim's own `uname -a` resolves to the shim: each
+  level forks a subshell that runs it again, a chain of `/bin/sh` processes until fork fails. A bin
+  named `dirname` or `sed` does the same, and it reaches every shim, the root `postinstall`'s
+  `tsx` included.
+- **Expected**: no shim resolves to itself; a fork burst on the host is traced to its shape at once.
+- **Candidate cure**: pnpm's shim template is upstream's. Here, dependency review names any bin
+  that shadows a POSIX tool, and the shellcheck installer runs with the dependency bin
+  directories off its `PATH` (`agent-tools/src/bootstrap/shellcheck-provision.ts`). Reading a
+  burst: `ps -o pid,ppid,command` showing a chain of `/bin/sh …/node_modules/.bin/<tool>` is this
+  shape; stopping the chain's root ends it.
+- **Target surface**: pnpm's cmd-shim template upstream; dependency review.
+- **Status**: mitigated for the shellcheck installer (2026-09-29); open upstream; one instance.
+- **Owner direction status**: unsolicited.
+
 ### F-214 — the docs validators' entry decisions have no automated boundary proof
 
 - **Source**: Copilot's overview observation on the lineage's PR 301 (review 5347139525,
