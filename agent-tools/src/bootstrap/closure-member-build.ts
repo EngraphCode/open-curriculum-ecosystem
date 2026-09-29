@@ -3,8 +3,8 @@
  * `tsup` for JS, then agent-tools' compiler with `--emitDeclarationOnly` over
  * its `tsconfig.build.json` for declarations, and the one recipe a member must
  * declare to be built this way. Every failure exits the install loudly, naming
- * the member. Like every bootstrap module it imports nothing from the
- * workspace, for the reason `install-time-closure.ts` gives.
+ * the member. Like every bootstrap module it imports no workspace package, for
+ * the reason `install-time-closure.ts` gives.
  *
  * @packageDocumentation
  */
