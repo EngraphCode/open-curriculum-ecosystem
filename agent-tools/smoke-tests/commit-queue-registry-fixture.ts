@@ -67,11 +67,9 @@ export interface LegacyIntentRow {
 // queued_at is deliberately EARLIER than updated_at — a consumer that reads
 // queued_at where the store reads updated_at reddens instead of agreeing by
 // coincidence.
-export const QUEUED_AT = new Date(Date.now() - 180 * 1000).toISOString();
-export const UPDATED_AT = new Date(Date.parse(QUEUED_AT) + 120 * 1000).toISOString();
-export const EXPIRES_AT = new Date(
-  Date.parse(UPDATED_AT) + COMMIT_QUEUE_TTL_SECONDS * 1000,
-).toISOString();
+const QUEUED_AT = new Date(Date.now() - 180 * 1000).toISOString();
+const UPDATED_AT = new Date(Date.parse(QUEUED_AT) + 120 * 1000).toISOString();
+const EXPIRES_AT = new Date(Date.parse(UPDATED_AT) + COMMIT_QUEUE_TTL_SECONDS * 1000).toISOString();
 
 export interface RawIntentRow extends LegacyIntentRow {
   readonly queued_seq: number;

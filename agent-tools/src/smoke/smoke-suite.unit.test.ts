@@ -17,8 +17,8 @@ function lineFor(summary: SmokeSuiteSummary, file: string): string {
 }
 
 describe('smokeTestFiles', () => {
-  it('keeps only the smoke files, in code-point order, whatever else the directory holds', () => {
-    // 'A' sorts before 'a' by code point; a locale sort would interleave them.
+  it('keeps only the smoke files, in code-unit order, whatever else the directory holds', () => {
+    // 'A' sorts before 'a' by code unit; a locale sort would interleave them.
     // The near-miss names carry the suffix inside, not at the end.
     expect(
       smokeTestFiles([
@@ -43,6 +43,7 @@ describe('summariseSmokeRun', () => {
 
     expect(summary.ok).toBe(true);
     expect(lineFor(summary, 'a.smoke.ts')).not.toContain('FAIL');
+    expect(lineFor(summary, 'a.smoke.ts')).toContain('exit 0');
     expect(lineFor(summary, 'b.smoke.ts')).not.toContain('FAIL');
     expect(summary.lines.some((line) => line.includes('2 passed'))).toBe(true);
   });
