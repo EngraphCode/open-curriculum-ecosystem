@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { runPrStateCli } from './state-cli.js';
 import type { ReadReadingInput } from './state-cli.js';
 import { NO_CONTENT } from './content-binding.js';
+import { NO_DECLARATIONS } from './declared-unavailable.js';
 import type { PrStateReading } from './state-types.js';
 
 /** CLI tests for `pr state` with an injected reading and clock — no gh. */
@@ -31,6 +32,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     expectedDeclared: true,
     reviews: [],
     completionComments: { reviews: [], refused: [] },
+    declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     content: NO_CONTENT,
     ...overrides,

@@ -1,5 +1,6 @@
 import { quoteOf } from './completion-comments.js';
 import { bindingNote, reviewBinds } from './content-binding.js';
+import { declaredStandInEvidence } from './declared-evidence.js';
 import { normaliseLogin } from './logins.js';
 import type { BlockingLegVerdict, HarvestedReview, ReviewerLeg } from './reviewer-legs.js';
 import type { PrStateReading } from './state-types.js';
@@ -16,21 +17,28 @@ import type { PrStateReading } from './state-types.js';
  * 2026-09-16: a near-miss never reads as silence).
  */
 
-/** Both transports of a reviewer's reported result, as the legs read them. */
+/** Every transport of a reviewer's reported result, as the legs read them. */
 export function allReviews(
-  reading: Pick<PrStateReading, 'reviews' | 'completionComments'>,
+  reading: Pick<PrStateReading, 'reviews' | 'completionComments' | 'declaredUnavailable'>,
 ): readonly HarvestedReview[] {
-  return [...reading.reviews, ...reading.completionComments.reviews];
+  return [
+    ...reading.reviews,
+    ...reading.completionComments.reviews,
+    ...reading.declaredUnavailable.standIns,
+  ];
 }
 
-/** One line per completion comment bound to the tip, naming the transport. */
-export function completionTransportEvidence(reading: PrStateReading): string[] {
-  return reading.completionComments.reviews
-    .filter((review) => reviewBinds(review, reading))
-    .map(
-      (review) =>
-        `${review.author}: completion comment ${review.id} at ${review.submittedAt} read as a review of the tip${bindingNote([review], reading)} (transport: completion-comment)`,
-    );
+/** One line per result bound to the tip that arrived by comment or declaration, naming the transport. */
+export function transportEvidence(reading: PrStateReading): string[] {
+  return [
+    ...reading.completionComments.reviews
+      .filter((review) => reviewBinds(review, reading))
+      .map(
+        (review) =>
+          `${review.author}: completion comment ${review.id} at ${review.submittedAt} read as a review of the tip${bindingNote([review], reading)} (transport: completion-comment)`,
+      ),
+    ...declaredStandInEvidence(reading),
+  ];
 }
 
 /** A refused completion comment: the reviewer it belongs to and the evidence line. */

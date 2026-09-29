@@ -1,5 +1,8 @@
+import type { UnavailableDeclaration } from './declared-unavailable.js';
 import { parsePrTarget, type PrTarget } from './gh.js';
+import type { UnavailableInput } from './state-compose.js';
 import { readPrStateReading } from './state-gh.js';
+import { parseUnavailableFlag } from './unavailable-flag.js';
 import { computePrVerdict } from './states.js';
 import { PR_VERDICT_STATES, type PrStateReading } from './state-types.js';
 
@@ -15,6 +18,8 @@ export interface ReadReadingInput {
   readonly target: PrTarget;
   readonly ghPath?: string;
   readonly expectedReviewers: readonly string[];
+  /** Vendors declared unavailable; absent when none is declared. */
+  readonly unavailable?: UnavailableInput;
 }
 
 export interface PrStateCliInput {
@@ -25,6 +30,8 @@ export interface PrStateCliInput {
   readonly readReading?: (input: ReadReadingInput) => PrStateReading;
   /** Clock seam for the time-bound verdict legs (defaults to the real clock). */
   readonly now?: () => string;
+  /** The bot's login, asked only when a vendor is declared unavailable. */
+  readonly poster?: () => string;
 }
 
 interface ParsedStateArgs {
@@ -34,6 +41,7 @@ interface ParsedStateArgs {
   readonly ghPath?: string;
   readonly help: boolean;
   readonly expect: readonly string[];
+  readonly unavailable: readonly UnavailableDeclaration[];
 }
 
 interface MutableStateArgs {
@@ -43,6 +51,7 @@ interface MutableStateArgs {
   help: boolean;
   positionals: string[];
   expect: string[];
+  unavailable: UnavailableDeclaration[];
 }
 
 const STATE_FLAG_HANDLERS: Readonly<Record<string, (state: MutableStateArgs) => void>> = {
@@ -68,6 +77,9 @@ const STATE_VALUE_HANDLERS: Readonly<
   },
   '--expect': (state, value) => {
     state.expect.push(value);
+  },
+  '--unavailable': (state, value) => {
+    state.unavailable.push(parseUnavailableFlag(value));
   },
 };
 
@@ -99,7 +111,13 @@ function consumeStateArg(args: readonly string[], index: number, state: MutableS
 }
 
 function parseStateArgs(args: readonly string[]): ParsedStateArgs {
-  const state: MutableStateArgs = { json: false, help: false, positionals: [], expect: [] };
+  const state: MutableStateArgs = {
+    json: false,
+    help: false,
+    positionals: [],
+    expect: [],
+    unavailable: [],
+  };
   let index = 0;
   while (index < args.length) {
     index = consumeStateArg(args, index, state) + 1;
@@ -113,6 +131,7 @@ function parseStateArgs(args: readonly string[]): ParsedStateArgs {
     json: state.json,
     help: state.help,
     expect: state.expect,
+    unavailable: state.unavailable,
     ...(state.repo === undefined ? {} : { repo: state.repo }),
     ...(state.ghPath === undefined ? {} : { ghPath: state.ghPath }),
   };
@@ -128,12 +147,14 @@ function renderJson(reading: PrStateReading, nowIso: string): string {
   return `${JSON.stringify({ verdict: computePrVerdict(reading, nowIso), reading }, null, 2)}\n`;
 }
 
-function runStateAction(input: {
-  readonly rest: readonly string[];
+interface ActionInput {
   readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
   readonly read: (readInput: ReadReadingInput) => PrStateReading;
   readonly nowIso: string;
-}): number {
+  readonly poster: () => string;
+}
+
+function runStateAction(input: ActionInput & { readonly rest: readonly string[] }): number {
   const parsed = parseStateArgs(input.rest);
   if (parsed.help) {
     input.stdout.write(usage());
@@ -144,6 +165,15 @@ function runStateAction(input: {
     target,
     expectedReviewers: parsed.expect,
     ...(parsed.ghPath === undefined ? {} : { ghPath: parsed.ghPath }),
+    ...(parsed.unavailable.length === 0
+      ? {}
+      : {
+          unavailable: {
+            declarations: parsed.unavailable,
+            poster: input.poster(),
+            now: input.nowIso,
+          },
+        }),
   });
   input.stdout.write(
     parsed.json ? renderJson(reading, input.nowIso) : renderVerdictLines(reading, input.nowIso),
@@ -151,12 +181,7 @@ function runStateAction(input: {
   return 0;
 }
 
-function dispatchPrAction(input: {
-  readonly args: readonly string[];
-  readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
-  readonly read: (readInput: ReadReadingInput) => PrStateReading;
-  readonly nowIso: string;
-}): number {
+function dispatchPrAction(input: ActionInput & { readonly args: readonly string[] }): number {
   const [action, ...rest] = input.args;
   if (action === '--help' || action === '-h') {
     input.stdout.write(usage());
@@ -165,7 +190,7 @@ function dispatchPrAction(input: {
   if (action !== 'state') {
     throw new Error(`unknown pr action: ${action ?? '(none)'}\n\n${usage()}`);
   }
-  return runStateAction({ rest, stdout: input.stdout, read: input.read, nowIso: input.nowIso });
+  return runStateAction({ ...input, rest });
 }
 
 /** Run the `pr` topic CLI; returns the process exit code. */
@@ -175,18 +200,23 @@ export function runPrStateCli(input: PrStateCliInput): number {
   const read =
     input.readReading ?? ((readInput: ReadReadingInput) => readPrStateReading(readInput));
   const nowIso = (input.now ?? (() => new Date().toISOString()))();
+  const poster = input.poster ?? noPoster;
 
   try {
-    return dispatchPrAction({ args: input.args, stdout, read, nowIso });
+    return dispatchPrAction({ args: input.args, stdout, read, nowIso, poster });
   } catch (error) {
     stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
     return 2;
   }
 }
 
+function noPoster(): string {
+  throw new Error("--unavailable needs the bot's login, and no merge-bot config was supplied");
+}
+
 function usage(): string {
   return [
-    'pr state <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--expect <login>]... [--gh <absolute-path>]',
+    'pr state <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--expect <login>]... [--unavailable <login>=<comment-url>]... [--gh <absolute-path>]',
     '',
     'Resolves the pr-lifecycle compound read (checks BY NAME, review threads, auto-merge',
     'intent, per-reviewer legs over the FULL review harvest, agent-task review-run',
@@ -197,7 +227,8 @@ function usage(): string {
     '--expect declares the expected reviewer set (repeatable; SKILL: sourced from the',
     "repository's automatic-review configuration). Undeclared, it defaults to the",
     'observed surface and the verdict says so. Read-only: never arms, merges, or',
-    'requests reviews. --json prints the full reading and verdict.',
+    'requests reviews. --json prints the full reading and verdict. --unavailable declares a',
+    "vendor down by the bot's comment on the pull request (declared-unavailable.ts).",
     '',
   ].join('\n');
 }
