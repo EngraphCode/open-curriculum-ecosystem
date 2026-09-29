@@ -9,12 +9,14 @@ import { fileURLToPath } from 'node:url';
  *
  * What this smoke does not prove, and where it is proven instead:
  * - what reads as a citation, and where each is placed: the `findAdrCitations`
- *   and `findCoreCitations` cells.
+ *   and `findCoreCitations` cells;
+ * - the refusals (a listing git could not give, zero tracked Core files, a Core
+ *   file that cannot be read, a Core file dropped as non-text): the `readCore`
+ *   cells, over injected readers.
  *
- * Observed by hand, not proven by any cell:
- * - the entry's exit 1, and its report, on a citation;
- * - the exit 2 refusals for zero tracked Core files and for a Core file that
- *   cannot be read as text.
+ * Observed by hand, not proven by any cell: the entry's exit 1 with its report
+ * on a citation, and the mapping of a refusal reason to exit 2 (the entry's
+ * three-line `refuse`).
  */
 const smokeDir = fileURLToPath(new URL('.', import.meta.url));
 const packageDir = resolve(smokeDir, '..');
@@ -29,7 +31,10 @@ function fail(message: string): never {
   process.exit(1);
 }
 
-const result = spawnSync('pnpm', ['exec', 'tsx', entry], { cwd: packageDir, encoding: 'utf8' });
+const result = spawnSync(process.execPath, ['--import', 'tsx', entry], {
+  cwd: packageDir,
+  encoding: 'utf8',
+});
 if (result.status !== 0) {
   fail(
     `expected exit 0 on the tracked tree, got ${String(result.status)}:\n${result.stderr.slice(0, 600)}`,
