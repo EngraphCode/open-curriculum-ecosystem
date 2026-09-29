@@ -1,3 +1,31 @@
+---
+description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
+  disallowedTools: Write, Edit, NotebookEdit
+  color: orange
+  note: |-
+    Review or recommend; do not modify code or plans. The plan author or calling
+    agent edits the plan based on your findings.
+cursor:
+  description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Use when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.
+  note: |-
+    Review or recommend; do not modify code or plans. The plan author or calling
+    agent edits the plan based on your findings.
+codex:
+  description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy.
+  note: |-
+    This file is a thin Codex adapter. The canonical expert instructions live in
+    the template referenced above.
+
+    Mode: Review or recommend. Do not modify code or plans. The plan author or
+    calling agent edits the plan based on your findings.
+---
+
 ## Delegation Triggers
 
 Invoke this expert when a plan, design, or architectural proposal needs

@@ -12,8 +12,7 @@ effort: xhigh
 
 All file paths are relative to the repository root.
 
-Your first action MUST be to read and internalise `.agent/sub-agents/templates/cricket-procedure.md`,
-then execute its procedure exactly.
+Your first action MUST be to read and internalise `.agent/sub-agents/templates/cricket-procedure.md`, then execute its procedure exactly.
 
 This adapter explicitly waives the template's reading-discipline component to preserve
 the one-pass speed contract; the identity component remains mandatory. Execute and report
