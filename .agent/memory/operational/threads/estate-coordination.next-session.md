@@ -827,7 +827,7 @@ branch's.
 The lineage rollover fold of 2026-09-29, run by the Director after the pre-fold suite (49) and the
 pre-ready-mark records pass. The slot by the one rule (a synced holder at its legs goes first):
 PR 295 (Nova's J6-2, synced onto engraph at 72e4ed41b) was at its legs from 00:17:16Z and the fold's push reached its legs at 00:17:42Z, so the fold yielded to 295's door and took the slot at its landing (295 merged as cdd74a894 at 00:33:15Z; the fold re-synced onto it at 00:42Z as f830c1571, carrying Myrtle's two records cures). The convergence merge of engraph a2fc71c9e (PR 294's merge, 00:04:20Z) (PRs 281, 282, 284, 285, 286, 287, 288, 289, 290, 292, 293, 291 and 294 in merge order) pushed at d4dd679b0 at 00:17:37Z, after one gate refusal by the portability validator (its regular-file rule, new at 4f49ff86e, refused the ignored statusline log directory under the rules surface, planted by a relative log path in the local statusline settings; the log relocated to the Director's scratchpad with its bytes preserved, not deleted); the records
-pass's cures: one over-bar finding (the continuity record's N1-landed entry counting 2 of 26 where the census's recounts and the register read 27) routed to Myrtle and cured on her lane as c47e562e0, committed in the primary and pushed at 00:2xZ; six below-bar notes left as written; marked ready as the bot at 00:23:33Z, Copilot requested by the ruleset
+pass's cures: one over-bar finding (the continuity record's N1-landed entry counting 2 of 26 where the census's recounts and the register read 27) routed to Myrtle and cured on Myrtle's lane as c47e562e0, committed in the primary and pushed at 00:2xZ; six below-bar notes left as written; marked ready as the bot at 00:23:33Z, Copilot requested by the ruleset
 under the 20:4xZ Copilot ruling (content reviews on d4dd679b0 at 00:27:42Z (four findings, all on Myrtle's records, cured 08ae72a20), on f830c1571 at 00:48:09Z (one, the letter, Rejected with rationale) and on 24e49e37d at 01:01:29Z (one, the routing sentence before an appended correction, signed without a push); requested by the operator at 00:43:41Z and 00:57:47Z); the door on Codex's leg (Codex's content reviews bound d4dd679b0 at 00:26Z (the count), 08ae72a20 at 00:42Z (the census Totals table) and f830c1571 at 00:46:56Z (the seven-sites entry), one P2 each, cured on the lane; its completion on 24e49e37d was the no-findings reaction at 00:59:54Z, not a review, so the door ran on Copilot's leg with a signed line as the Codex evidence); merged as
 76974c3cc at 01:12:27Z; the remote branch deleted by the bot, read back absent. The successor
 coordination/2026-09-29-76974c was cut at 01:12Z from post-fold origin/engraph 76974c3cc, tree-preservingly, the
@@ -1206,7 +1206,7 @@ The seat holds no second-estate claim: `a30304be` was closed at 11:31Z.
     form fails with ENOENT, as before.
   - The alignment with core's `flag-path-resolve` is a named follow-up. It is on the JC.net register
     as finding (5).
-- **J8's register rows have one writer, Myrtle** (her direct message, 11:3xZ): `9f02e9ebe`, the count
+- **J8's register rows have one writer, Myrtle** (Myrtle's direct message, 11:3xZ): `9f02e9ebe`, the count
   16 of 32.
   - Per Myrtle at 11:36Z, that commit is LOCAL on the JC.net primary. Its push was refused by a
     peer's LinkedIn workspace edit in that tree, so the push is hers.
@@ -1372,6 +1372,129 @@ and repository paths as arguments and carry no machine path; run them with `sh`)
   the clean worktree (since removed); nothing of this seat waits there.
 
 — Myrtle turns Canopy, an agent (bf4957)
+
+### 2026-09-29T13:4xZ — HANDOFF to the n=1 seat (Wick binds Temper, ed7b48)
+
+The Director lane closes with this block.
+
+The owner's word, about 12:5xZ, verbatim: "Please run a deep, thorough restrospective across both
+estates ... when the retro is complete run a full session handoff, a new n=1 seat will pick up
+the work. Once you have done all of that, this session is complete." This block is that handoff.
+Every state line below was read first-hand between 13:0xZ and 13:4xZ; re-read before acting.
+
+**Read first, in this order.** (1) This block. (2) The retrospective
+`.agent/reports/agentic-engineering/why-five-days-of-landings-closed-nine-stories-2026-09-29.md`,
+§7 for the work items and §4 for why. (3) The finishing plan
+`.agent/reports/practice-exchange/finishing-plan-2026-09-29.md` and the exchange node's §Finish
+(`.agent/plans/delivery/practice-two-way-exchange.plan.md`). Nothing else from the Director lane
+is required reading: the check-ins, suites, pulse, ready-list upkeep and stream routing end with
+the lane.
+
+**What n=1 means here.** One seat across both estates, with no Director. That reading is this
+author's inference from the owner's word; the owner did not define it further. The LinkedIn agent
+(Galaxy binds Gravity, 46de68) works in JC.net's `linkedin/` workspace and in the JC.net primary
+checkout on `main`: the owner's word of 13:0xZ, verbatim, "one agent will be working in the
+linkedin workspace, there lane is separate from yours". Never edit, stage, sweep or switch either;
+write JC.net records from a separate worktree cut from `origin/main`.
+
+**The owner's words that bind the seat, verbatim (each checked against the session transcript).**
+
+- 07:5xZ: "17 'residual' PRs is a failure of throughout and PR management and a failure of not
+  inventing categories to lend legitimacy to failures. There are WIP limits for very good reasons.
+  I want the Practice exchange finished, I want to Codex support work paused until I say otherwise
+  and to no longer be a consideration here. Step back, reassess priorities. The Practice exchange
+  is a means to an end, no an endless horizon, there are next steps we have not discussed yet."
+- 09:1xZ: "We don't cut things to make the work go faster, we stop wasting time doing needless
+  work, that would significantly increase throughput."
+- Relayed the same morning: "tests are FORBIDDEN to create real IO and child processes. I don't
+  want excuses or carve outs"; "validation scripts can start real processes, but they are to be
+  kept to a MINIMUM, and they are FORBIDDEN from altering the code or triggering builds".
+- 09:4xZ, relayed: "the entire team is supposed to have been instructed NOT to create new PRs while
+  waiting for old ones, that is how WIP is managed"; and later, "three non-coordination items, one
+  per non-Director" and "don't get lost in ceremony, we are closing out the Practice exchange
+  bounded work". For one seat, this author reads the limit as one open non-coordination pull
+  request at a time, with local work counted as open (retrospective item 10).
+- "Wherever reasonable we must use monitors instead of ad-hoc shell scripts in order to stay aware
+  of events. That always applies to all work".
+- 11:3xZ: "STOP assigning gender to agents, I am sick of having to say that".
+- 12:2xZ: the validation-scripts word, whole, in the entry of that time above (`bf968f4a2`),
+  ending "For now identify the quickest wins."
+- 13:0xZ: "The work and claims of all subagents MUST be verified by you, yourself".
+- Codex reviews still arrive on lineage pull requests, and the ruleset requires their threads
+  resolved; answering them is door work, not Codex support work.
+
+**State at handoff.**
+
+- Lineage open pull requests, all three BEHIND `engraph` 3c4e6e219:
+  - **310** (B1, the merge-bot push retry), head 44ab80289, equal to worktree
+    `oce-wt-b1-push-retry`. Three unresolved threads: Codex P1 "Limit the refusal loop to three
+    attempts" (it reports four `git push` attempts from three waits, a correctness claim against
+    the title; check it first); Codex P2 "Bound the refusal-classification transcript"; Copilot's
+    byte-versus-length bound (outdated).
+  - **309** (J3's round cures), remote head 2cb3eb56d. Worktree `oce-wt-repair-smoke-group` holds
+    two unpushed commits: 46d8cb049 (a sync) and ef4c19a62 ("the repair smoke comes out; the
+    gate's tests prove behaviour only"). One unresolved Copilot thread on `killGroup` treating
+    every signalling error as the group gone.
+  - **299**, the lineage coordination draft, carrying this session's records.
+- Lineage work outside any pull request: worktree `oce-wt-arc-metrics` (branch
+  `feat/exchange-arc-metrics`, commit b84e3f0e6, no remote branch, three uncommitted files);
+  worktree `oce-wt-j2-docs-validators` (no commits; two modified files under
+  `agent-tools/src/validators/markdown-links/` and three untracked directories `cited-paths/`,
+  `cited-scripts/`, `lineage-names/`). Worktree `oce-wt-turbo-oidc` is merged (312) and clean.
+- JC.net: no open pull request of this lane apart from its coordination draft; `main` green at
+  b6232c77 after the LinkedIn agent's PR 273.
+- The exchange: stories whole 9 of 21 (J4, J8, J9, J13, J14, J15, J19, J22, J23); partial 10 (J1,
+  J3, J6, J7, J10, J11, J16, J17, J18, J21); none 2 (J2, J20). JC.net-only files under the five
+  surfaces: 193 (`agent-tools/src` 131, `agent-tools/smoke-tests` 23, `.agent/skills` 18,
+  `.agent/rules` 17, `.agent/directives` 4).
+- Claims: the Director's 58c2684a is closed on both registries. The seats' claims on this work
+  point at this session's handoff record under `.agent/state/collaboration/handoffs/`, for
+  adoption with `claims adopt`: 3ca10e17 (309), e8fd79d5 (310), 803d5d7d and abcd5ea9
+  (arc-metrics), 4b82394b (J2). JC.net's 6a28ffb4 (the `lint-changed` step with
+  `--cache=local:r`) is closed; its item stands in the list below.
+
+**Order of work: this author's recommendation; the owner's word overrides.**
+
+1. 310 to merged: its threads first, Codex P1 before anything else.
+2. 309: after 310 lands, push the local head (one sync at a time), answer its thread, to merged.
+3. The retrospective's quickest wins, one small pull request at a time: item 2 (stop `pnpm check`
+   deleting the Turbo cache), item 1 (the `static-checks` cache and the two build-nesting
+   validators), item 4 (profile), item 5 (the PostHog vendor smoke), item 3 (no builds or writes
+   in validators or codegen). Warrant: each cuts the time of every later commit, push and CI run,
+   and about a dozen exchange pull requests remain.
+4. The exchange's remaining stories, one pull request per story (item 9): J2 from its worktree
+   (with J7's describer), arc-metrics from its worktree, the merge-bot retire command with B1's
+   siblings and J18 note 5, N4 (the secrets hooks), N5 (with the two portability validators), the
+   docs pull request (three skills, the channel rule, J10, J11, N3, the WIP wording), J16 (the
+   Gemini surface), the strictness units (measured first), the re-pin, then todo 6's close with
+   the owner's word. The finishing plan's table holds each one's files.
+5. The rest of the repair across sessions: items 6 to 8, 12 and 13.
+6. At the first session close: retrospective item 14 (landings an hour, owner corrections an hour,
+   the gate profile) and item 11 (an addendum to the retrospective naming each item landed, taken
+   or dropped).
+7. JC.net's `lint-changed` step fails when the expired local Turbo login prints a warning; the cure
+   named at the Director's handoff is a plan step with `--cache=local:r`. Until then, run git
+   commands with `TURBO_CACHE=local:rw`.
+
+**Recipes (the Director's scratchpad scripts end with its session; these are the tracked copies).**
+
+- The door: `pnpm --silent agent-tools merge-bot merge --pr N --expect copilot-pull-request-reviewer
+  --expect chatgpt-codex-connector --json --interval 30 --max-polls 16` on the lineage; JC.net
+  drops the Codex expect. It refuses a BEHIND pull request: sync, and request no review after a
+  pure sync (the legs bind by content).
+- A vendor error review, or sixty minutes of silence, on the lineage: the merge-bot's
+  `--unavailable <login>=<comment-url>` stand-in, never a re-request.
+- GitHub writes as the bot: `token=$(pnpm --silent agent-tools merge-bot mint-token --scope
+  pull-request-work | tail -1)`, then `GH_TOKEN="$token" gh ...`. Thread replies and resolution by
+  GraphQL `addPullRequestReviewThreadReply` and `resolveReviewThread`.
+- JC.net's Copilot request: `gh pr edit N --add-reviewer @copilot` as the operator; read the
+  timeline after.
+- A merged remote branch: `gh api -X DELETE repos/<owner>/<repo>/git/refs/heads/<branch>` as the
+  bot, then read it back absent.
+- Host artefacts: `.logs` directories under `.agent/` from the owner's local statusline settings
+  fail the lineage validators (F-217). Move them into the session scratchpad and retry.
+- Commit messages: header and body lines at most 100 characters, checked with awk before the
+  commit; never pipe `git commit` through `tail`.
 
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 

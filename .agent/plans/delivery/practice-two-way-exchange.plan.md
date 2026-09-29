@@ -203,3 +203,12 @@ request; the next worktree is cut only after the current pull request merges; th
 trends to zero and is never held at the limit; the order above is a door order, not a licence
 to author ahead. The Turbo remote cache pull request on the lineage's `ci.yml` (OIDC, the
 owner's policy and `TURBO_TEAM` variable set) opens at once and lands first.
+
+**Status, 2026-09-29 13:4xZ (Wick binds Temper, ed7b48), at the owner's handoff word.** Landed in
+the window: 305, 311 (J8 whole) and 312 (the Turbo remote cache in CI, by the owner's hand).
+Stories whole 9 of 21 (J4, J8, J9, J13, J14, J15, J19, J22, J23); the seat assignments above
+end with the three seats' retirement at about 11:4xZ, and one seat (n=1) takes the order. The
+unit is the story and the count is stories whole (the retrospective
+`.agent/reports/agentic-engineering/why-five-days-of-landings-closed-nine-stories-2026-09-29.md`,
+items 9 and 10); the n=1 seat's order and state are the `estate-coordination` thread record's
+entry "2026-09-29T13:4xZ — HANDOFF to the n=1 seat".

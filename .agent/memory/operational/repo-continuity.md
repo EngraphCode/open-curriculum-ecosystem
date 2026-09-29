@@ -37,6 +37,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-09-29T13:4xZ: the Director lane closed; one seat (n=1) takes the work on both estates**
+  (Wick binds Temper, ed7b48, at the owner's word). The handoff is the `estate-coordination`
+  thread record's journal entry "2026-09-29T13:4xZ — HANDOFF to the n=1 seat"; the retrospective
+  behind it is
+  `.agent/reports/agentic-engineering/why-five-days-of-landings-closed-nine-stories-2026-09-29.md`.
+  Open: lineage PRs 310, then 309, and the coordination draft 299. The exchange stands at 9 of 21
+  stories whole. Work in worktrees `oce-wt-arc-metrics` and `oce-wt-j2-docs-validators` is open
+  work outside any pull request.
+
 - **This line's direction — owner words 2026-09-05, verbatim.** (1) "I want to explore
   creating a set of skills around not what to teach but how to teach, pedagogy skills,
   and the EEF work seemed like a good place to start." (2) "For now this is specific to
@@ -282,6 +291,13 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+### PICKUP, 2026-09-29 13:4xZ — the n=1 seat (supersedes the pickup blocks below where they differ)
+
+Read the `estate-coordination` thread record's journal entry "2026-09-29T13:4xZ — HANDOFF to the
+n=1 seat" first: it carries the owner's binding words, the state read first-hand, the order of
+work and the recipes. In short: 310 to merged, then 309; the retrospective's quickest wins one
+pull request at a time; then the exchange's remaining stories, one pull request per story.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
@@ -1166,7 +1182,7 @@ contract, its §Recount run at 14:58Z and matching.
   what a receiver copies). Settled with both legs and zero threads: 242, 226, 231, 232, 234,
   235, 236, 238, 218, 220, 240, 243, 217 (237 after 217). The operator profile's OCE scope
   file took the owner's author value (inferred, for ratification) and was committed and pushed
-  by the sync tool at 149a5e5 on Siren's request, so her scope write follows.
+  by the sync tool at 149a5e5 on Siren's request, so Siren's scope write follows.
 - **21:1xZ to 21:4xZ:** the owner's words of 21:41Z (relayed 21:43Z): zero open PRs on both
   repositories tonight through the proper quality and merge processes; the Codex seat restarts
   in the morning (PR 211's push and PR 241's live proof wait for it, nothing else); push and
@@ -1364,7 +1380,7 @@ contract, its §Recount run at 14:58Z and matching.
   event of 15:03Z names the eight paths). The intake branch `docs/intake-test-doctrine` takes
   those bytes: the directive hunk (`testing-strategy.md`) waits for this seat's next compaction
   (the Director's ruling of 15:04Z: PDR-052's 30 % floor is a deferral, never a stop), the seven
-  other files are taken (above) and Marten's local cure list (his 2026-09-24 record) proceeds. Then Marten's
+  other files are taken (above) and Marten's local cure list (Marten's 2026-09-24 record) proceeds. Then Marten's
   proposal order, recounted at each step: PR G, J2 (ask the owner A3 first), J3, C7, PR 205's
   follow-ups, batches three and five, batch four's J2 and J3 receipts, the seed branch. Inbound
   and waited for: the trigger-amendment twin, batch six, the F-200 to F-207 twins, the Cricket

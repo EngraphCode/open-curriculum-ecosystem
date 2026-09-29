@@ -119,7 +119,7 @@ rides J2. Remaining substance per row:
 - **J10**: PDR-082's dialogue-channel bullet. **J11**: the loss-scan instrument. **J18**: note 5,
   the suppressed-findings hold in `docs/engineering/merge-bot.md` (rides the retire PR, which
   edits that file). **J15**: the champion role file rides J20's decision.
-- **J16**: the Gemini surface after J2: the vendor shape verified at T+0 by Nova while her first
+- **J16**: the Gemini surface after J2: the vendor shape verified at T+0 by Nova while Nova's first
   slot waits (Gemini's current agent format against its docs, posted on the stream), then
   declare Gemini on the reviewer roles, render `.gemini/agents/` (about thirty generated files),
   retire the nineteen `.gemini/commands/review-*.toml`, extend `reviewer-adapter-parity` from
