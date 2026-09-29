@@ -58,10 +58,11 @@ recorded; and the count reads N of N beside both heads, with the close recorded 
 estate's node with the owner's word. The residue census of 2026-09-28
 (`.agent/reports/practice-exchange/goal-one-residue-census-2026-09-28.md`) opened the close: 21 rows
 to land here by the register's rule of that day, 4 settled, 11 partial, 6 with no landing, 20
-residue pull requests (22 after J3's design read of 18:3xZ split its slice into three; 26 in all
-with the charter's four acts), three cards for the owner, answered the same day (below). The next
-act is the census's first residue row: J1's N1 first slice, the rule generator with the frontmatter
-and the rendered rules index, one pull request by the exchange seat; the census orders the rest.
+residue pull requests (22 after J3's design read of 18:3xZ split its slice into three, 23 after
+J6's of 21:4xZ split its three into four; 27 in all with the charter's four acts), three cards for
+the owner, answered the same day (below). The census's first residue row, J1's N1 first slice (the
+rule generator with the frontmatter and the rendered rules index), landed as this estate's PR 291
+on 2026-09-28 by the exchange seat; the census orders the rest.
 Then the review of both Practices opens, outside goal one's close bar; the second estate's inbound
 landings from this estate stay its node's todo 4, after that review (the fourth answer below).
 
