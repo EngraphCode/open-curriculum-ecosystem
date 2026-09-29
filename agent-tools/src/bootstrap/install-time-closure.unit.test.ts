@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  installTimeClosure,
-  type InstallTimeClosureVerdict,
-  type WorkspaceManifestInput,
-} from './install-time-closure.js';
+import { installTimeClosure, type InstallTimeClosureVerdict } from './install-time-closure.js';
+import { type WorkspaceManifestInput } from './install-time-manifest.js';
 
 const RECIPE = 'tsup && tsc --emitDeclarationOnly --project tsconfig.build.json';
 const ROOT_DIR = 'tools';
@@ -15,7 +12,9 @@ interface PackageShape {
   readonly peerDeps?: readonly string[];
   readonly exports?: unknown;
   readonly main?: string;
-  readonly build?: string;
+  readonly types?: string;
+  /** The build script; `null` declares none. */
+  readonly build?: string | null;
 }
 
 const DIST_EXPORTS = { '.': { types: './dist/index.d.ts', import: './dist/index.js' } };
@@ -28,13 +27,15 @@ function workspaceRecord(names: readonly string[] | undefined) {
 
 /** A workspace package; dist-only and built by the recipe unless the shape says otherwise. */
 function pkg(dir: string, name: string, shape: PackageShape = {}): WorkspaceManifestInput {
+  const build = shape.build === undefined ? RECIPE : shape.build;
   return {
     dir,
     manifest: {
       name,
       exports: shape.exports ?? DIST_EXPORTS,
       ...(shape.main === undefined ? {} : { main: shape.main }),
-      scripts: { build: shape.build ?? RECIPE },
+      ...(shape.types === undefined ? {} : { types: shape.types }),
+      scripts: build === null ? {} : { build },
       dependencies: workspaceRecord(shape.deps),
       devDependencies: workspaceRecord(shape.devDeps),
       peerDependencies: workspaceRecord(shape.peerDeps),
@@ -51,11 +52,23 @@ function closure(inputs: readonly WorkspaceManifestInput[]): InstallTimeClosureV
   return installTimeClosure(inputs, { rootDir: ROOT_DIR, buildRecipe: RECIPE });
 }
 
-function namesOf(verdict: InstallTimeClosureVerdict): readonly string[] {
-  if (!verdict.ok) {
-    throw new Error(verdict.error);
-  }
-  return verdict.value.map((dep) => dep.name);
+/** The verdict a closure of exactly these members, in this order, reads as. */
+function members(...names: readonly string[]) {
+  return { ok: true, value: names.map((name) => ({ name })) };
+}
+
+function escapeRegExp(text: string): string {
+  return text.replaceAll(/[.*+?^${}()|[\]\\]/gu, String.raw`\$&`);
+}
+
+/** Assert the verdict is a refusal whose message names every one of these. */
+function expectRefusalNaming(
+  verdict: InstallTimeClosureVerdict,
+  ...names: readonly string[]
+): void {
+  const namesAll = new RegExp(names.map((name) => `(?=.*${escapeRegExp(name)})`).join(''), 'su');
+  expect(verdict).toHaveProperty('ok', false);
+  expect(verdict).toHaveProperty('error', expect.stringMatching(namesAll));
 }
 
 describe('installTimeClosure membership', () => {
@@ -66,6 +79,7 @@ describe('installTimeClosure membership', () => {
         exports: {
           './tsup': { types: './dist/tsup.base.d.ts', import: './dist/tsup.base.js' },
           './vitest': { import: './dist/vitest.base.js', default: './dist/vitest.base.js' },
+          './fallback': ['./dist/fallback.js'],
         },
       }),
       pkg('core/result', '@x/result'),
@@ -77,7 +91,7 @@ describe('installTimeClosure membership', () => {
         {
           dir: 'core/config',
           name: '@x/config',
-          distArtifacts: ['tsup.base.d.ts', 'tsup.base.js', 'vitest.base.js'],
+          distArtifacts: ['tsup.base.d.ts', 'tsup.base.js', 'vitest.base.js', 'fallback.js'],
         },
         { dir: 'core/result', name: '@x/result', distArtifacts: ['index.d.ts', 'index.js'] },
       ],
@@ -92,7 +106,7 @@ describe('installTimeClosure membership', () => {
       pkg('design/tokens', '@x/tokens', { build: 'tsx src/build.ts && tsup' }),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/result']);
+    expect(verdict).toMatchObject(members('@x/result'));
   });
 
   it('follows workspace edges transitively, whichever dependency field declares them', () => {
@@ -103,7 +117,7 @@ describe('installTimeClosure membership', () => {
       pkg('core/peer', '@x/peer'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/config', '@x/peer', '@x/result']);
+    expect(verdict).toMatchObject(members('@x/config', '@x/peer', '@x/result'));
   });
 
   it('follows a workspace:^ range and neither follows nor refuses a registry range', () => {
@@ -119,27 +133,27 @@ describe('installTimeClosure membership', () => {
       pkg('core/result', '@x/result'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/result']);
+    expect(verdict).toMatchObject(members('@x/result'));
   });
 
-  it('never makes the root a member, even when its own exports resolve to dist', () => {
+  it('never makes the root a member, even with dist exports and a build the recipe is not', () => {
     const verdict = closure([
-      root({ exports: DIST_EXPORTS, deps: ['@x/result'] }),
+      root({ exports: DIST_EXPORTS, build: 'tsc -p tsconfig.build.json', deps: ['@x/result'] }),
       pkg('core/result', '@x/result'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/result']);
+    expect(verdict).toMatchObject(members('@x/result'));
   });
 
-  it('reads dist/x and ./dist/x alike', () => {
+  it('reads dist/x and ./dist/x alike, in main and types as in exports', () => {
     const verdict = closure([
       root({ deps: ['@x/sdk'] }),
-      pkg('sdks/sdk', '@x/sdk', { exports: {}, main: 'dist/index.js' }),
+      pkg('sdks/sdk', '@x/sdk', { exports: {}, main: 'dist/index.js', types: 'dist/index.d.ts' }),
     ]);
 
     expect(verdict).toStrictEqual({
       ok: true,
-      value: [{ dir: 'sdks/sdk', name: '@x/sdk', distArtifacts: ['index.js'] }],
+      value: [{ dir: 'sdks/sdk', name: '@x/sdk', distArtifacts: ['index.js', 'index.d.ts'] }],
     });
   });
 
@@ -168,7 +182,7 @@ describe('installTimeClosure membership', () => {
       pkg('core/result', '@x/result'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/result']);
+    expect(verdict).toMatchObject(members('@x/result'));
   });
 });
 
@@ -184,7 +198,18 @@ describe('installTimeClosure order', () => {
       pkg('core/base', '@x/base'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/base', '@x/app-lib']);
+    expect(verdict).toMatchObject(members('@x/base', '@x/app-lib'));
+  });
+
+  it('builds the config base, then the lint plugin, then what devDepends on both, whatever the names', () => {
+    const verdict = closure([
+      root({ deps: ['@x/alpha'], devDeps: ['@x/plugin', '@x/zconfig'] }),
+      pkg('core/alpha', '@x/alpha', { devDeps: ['@x/plugin', '@x/zconfig'] }),
+      pkg('core/plugin', '@x/plugin', { devDeps: ['@x/zconfig'] }),
+      pkg('core/zconfig', '@x/zconfig'),
+    ]);
+
+    expect(verdict).toMatchObject(members('@x/zconfig', '@x/plugin', '@x/alpha'));
   });
 
   it('breaks ties by name, never by the order the workspace was read in', () => {
@@ -195,7 +220,7 @@ describe('installTimeClosure order', () => {
       pkg('core/alpha', '@x/alpha'),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/alpha', '@x/mid', '@x/zeta']);
+    expect(verdict).toMatchObject(members('@x/alpha', '@x/mid', '@x/zeta'));
   });
 
   it('refuses a dependency cycle among members, naming them', () => {
@@ -205,10 +230,7 @@ describe('installTimeClosure order', () => {
       pkg('core/b', '@x/b', { devDeps: ['@x/a'] }),
     ]);
 
-    expect(verdict).toStrictEqual({
-      ok: false,
-      error: 'workspace dependency cycle among install-time members: @x/a, @x/b',
-    });
+    expectRefusalNaming(verdict, '@x/a', '@x/b');
   });
 
   it('tolerates a cycle among packages that are not members, since none of them is built', () => {
@@ -219,61 +241,48 @@ describe('installTimeClosure order', () => {
       pkg('libs/right', '@x/right', { exports: { '.': './src/r.ts' }, devDeps: ['@x/left'] }),
     ]);
 
-    expect(namesOf(verdict)).toStrictEqual(['@x/app-lib']);
+    expect(verdict).toMatchObject(members('@x/app-lib'));
   });
 });
 
 describe('installTimeClosure refusals', () => {
-  it('refuses a declared workspace dependency that no workspace manifest names', () => {
+  it('refuses a workspace dependency no workspace manifest names, wherever it is declared', () => {
     const verdict = closure([
-      root({ deps: ['@x/result', '@x/ghost'] }),
-      pkg('core/result', '@x/result'),
+      root({ deps: ['@x/result'] }),
+      pkg('core/result', '@x/result', { deps: ['@x/ghost'] }),
     ]);
 
-    expect(verdict).toStrictEqual({
-      ok: false,
-      error: '@x/tools declares workspace dependency @x/ghost, which no workspace package names',
-    });
+    expectRefusalNaming(verdict, '@x/result', '@x/ghost');
   });
 
   it('refuses when no workspace package sits at the root directory', () => {
     const verdict = closure([pkg('core/result', '@x/result')]);
 
-    expect(verdict).toStrictEqual({
-      ok: false,
-      error: 'no workspace package at tools, the package running the bootstrap',
-    });
+    expectRefusalNaming(verdict, ROOT_DIR);
   });
 
   it('refuses a manifest without a name, naming its file', () => {
     const verdict = closure([root({}), { dir: 'broken', manifest: { exports: {} } }]);
 
-    expect(verdict.ok).toBe(false);
-    if (!verdict.ok) {
-      expect(verdict.error).toMatch(/^broken\/package\.json is not a readable manifest/);
-    }
+    expectRefusalNaming(verdict, 'broken/package.json');
   });
 
-  it('refuses two workspace packages with the same name', () => {
+  it('refuses two workspace packages with the same name, naming both directories', () => {
     const verdict = closure([root({}), pkg('a/result', '@x/result'), pkg('b/result', '@x/result')]);
 
-    expect(verdict).toStrictEqual({
-      ok: false,
-      error: 'two workspace packages are named @x/result: a/result and b/result',
-    });
+    expectRefusalNaming(verdict, '@x/result', 'a/result', 'b/result');
   });
 
-  it('refuses a member whose build is not the recipe the bootstrap runs, naming it', () => {
+  it.each([
+    ['no build script', null],
+    ['a build that stops short of the declarations', 'tsup'],
+    ['a build of its own', 'tsx src/build.ts && tsup'],
+  ])('refuses a member with %s, naming it', (_case, build) => {
     const verdict = closure([
       root({ deps: ['@x/tokens'] }),
-      pkg('design/tokens', '@x/tokens', { build: 'tsx src/build.ts && tsup' }),
+      pkg('design/tokens', '@x/tokens', { build }),
     ]);
 
-    expect(verdict).toStrictEqual({
-      ok: false,
-      error:
-        '@x/tokens (design/tokens) is an install-time member, but its build script is ' +
-        `"tsx src/build.ts && tsup", not "${RECIPE}"; the bootstrap can only run that recipe`,
-    });
+    expectRefusalNaming(verdict, '@x/tokens', 'design/tokens');
   });
 });

@@ -11,41 +11,41 @@
  * closure.
  *
  * Rooted, not workspace-wide: a workspace-wide closure would build every
- * dist-only package at install time, including product libraries whose builds
- * need generated code or a recipe the bootstrap does not run. A member whose
- * build script is not the one recipe the bootstrap runs is refused by name
- * rather than built wrongly.
+ * package with built entry points at install time, including product
+ * libraries whose builds need generated code or a recipe the bootstrap does
+ * not run. A member whose build script is not the one recipe the bootstrap
+ * runs is refused by name rather than built wrongly.
  *
  * The list is computed, never kept: the hand-kept list it replaces missed the
- * ESLint plugin every lint config imports, so a worktree could not lint after
- * `pnpm install` alone. Two cold-install failures in this repository came from
- * the same class (PR #393, 2026-07-16, and PR #836, 2026-08-09), and a third in
- * the second estate's own repository (2026-09-13), where this derivation was
- * first written.
+ * ESLint plugin every lint config imports, so a worktree could not load its
+ * lint config after `pnpm install` alone. Two cold-install failures came from
+ * the same class in oaknational/oak-open-curriculum-ecosystem (PR #393,
+ * 2026-07-16, and PR #836, 2026-08-09), and a third in the second estate's own
+ * repository (2026-09-13), where this derivation was first written.
  *
  * This module runs before any workspace package is built, so it imports none
- * of them: the verdict is a local union rather than `@oaknational/result`
- * (ADR-088's shape), and record iteration is a local helper rather than
- * `@oaknational/type-helpers`. Manifests are validated with zod at the
- * boundary (ADR-032) in `install-time-manifest.ts`; the reader that walks the workspace is
- * `install-time-closure-io.ts`, injected as data (ADR-078).
+ * of them: the result shape is local (`ClosureResult`, ADR-088's shape), and
+ * so is record iteration. Manifests arrive as `unknown` and are validated with
+ * zod at the boundary (ADR-032), against the schema in
+ * `install-time-manifest.ts`; the reader that walks the workspace is
+ * `install-time-closure-io.ts`, and its output is passed in as data (ADR-078).
  *
  * @packageDocumentation
  */
 
-import { type GraphNode, orderMembers, reachableFrom } from './install-time-closure-graph.js';
+import {
+  type ClosureResult,
+  type GraphNode,
+  orderMembers,
+  reachableFrom,
+} from './install-time-closure-graph.js';
 import {
   distArtifacts,
   type Manifest,
   ManifestSchema,
+  type WorkspaceManifestInput,
   workspaceDependencies,
 } from './install-time-manifest.js';
-
-/** One workspace package: its repo-relative directory and its parsed `package.json`. */
-export interface WorkspaceManifestInput {
-  readonly dir: string;
-  readonly manifest: unknown;
-}
 
 /** One closure member, with the files under `dist/` that witness a completed build. */
 export interface InstallTimeDep {
@@ -55,10 +55,8 @@ export interface InstallTimeDep {
   readonly distArtifacts: readonly string[];
 }
 
-/** The derivation's outcome; local because `@oaknational/result` is itself in the closure. */
-export type InstallTimeClosureVerdict =
-  | { readonly ok: true; readonly value: readonly InstallTimeDep[] }
-  | { readonly ok: false; readonly error: string };
+/** The derivation's outcome: the members in build order, or the refusal. */
+export type InstallTimeClosureVerdict = ClosureResult<readonly InstallTimeDep[]>;
 
 /** Where the closure starts, and the one build recipe the bootstrap runs. */
 export interface InstallTimeClosureOptions {
@@ -69,11 +67,9 @@ export interface InstallTimeClosureOptions {
 }
 
 interface IndexedPackage extends GraphNode {
+  readonly dir: string;
   readonly manifest: Manifest;
 }
-
-type Step<T> =
-  { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string };
 
 /**
  * Compute the closure.
@@ -131,10 +127,10 @@ export function installTimeClosure(
   };
 }
 
-/** Parse every manifest and index the packages by name, refusing an unreadable or duplicate one. */
+/** Validate every manifest and index the packages by name, refusing an unreadable or duplicate one. */
 function indexPackages(
   inputs: readonly WorkspaceManifestInput[],
-): Step<ReadonlyMap<string, IndexedPackage>> {
+): ClosureResult<ReadonlyMap<string, IndexedPackage>> {
   const byName = new Map<string, IndexedPackage>();
   for (const input of inputs) {
     const result = ManifestSchema.safeParse(input.manifest);
@@ -168,7 +164,7 @@ function classifyMembers(
   rootName: string,
   byName: ReadonlyMap<string, IndexedPackage>,
   options: InstallTimeClosureOptions,
-): Step<ReadonlyMap<string, InstallTimeDep>> {
+): ClosureResult<ReadonlyMap<string, InstallTimeDep>> {
   const members = new Map<string, InstallTimeDep>();
   for (const name of reached) {
     const entry = byName.get(name);
@@ -190,7 +186,10 @@ function classifyMembers(
  * `undefined` when they name none, or a refusal when it is a member the
  * bootstrap's recipe cannot build.
  */
-function memberFor(entry: IndexedPackage, buildRecipe: string): Step<InstallTimeDep | undefined> {
+function memberFor(
+  entry: IndexedPackage,
+  buildRecipe: string,
+): ClosureResult<InstallTimeDep | undefined> {
   const artifacts = distArtifacts(entry.manifest);
   if (artifacts.length === 0) {
     return { ok: true, value: undefined };

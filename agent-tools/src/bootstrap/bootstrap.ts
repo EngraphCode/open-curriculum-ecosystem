@@ -28,19 +28,17 @@ import { type InstallTimeDep, installTimeClosure } from './install-time-closure.
  * out of the install lifecycle — enforced by the `validate-lifecycle-scripts`
  * validator.
  *
- * agent-tools reaches workspace packages whose exports resolve to built `dist`
- * only — there is no source-pointing export condition: the ones it imports
- * (`@oaknational/result`, `@oaknational/safe-path`,
- * `@oaknational/type-helpers`), the ESLint plugin its lint config imports
- * (`@oaknational/eslint-plugin-standards`), and
- * `@oaknational/workspace-config`, whose `tsup` base their build configs
- * import. Which packages those are is derived from the workspace manifests at
- * run time (`install-time-closure.ts`), never listed here. On a fresh checkout
- * (Vercel, CI, a new worktree) `postinstall` runs before any orchestrated
- * build, so this bootstrap first builds that closure in dependency order with
- * each package's own toolchain (`tsup` for JS, `tsc --emitDeclarationOnly`
- * for types), skipping any dep whose built `dist` is already current for its
- * `src`, and so a worktree can lint after `pnpm install` alone.
+ * agent-tools reaches workspace packages whose entry points name built output
+ * under `dist` — there is no source-pointing export condition: the packages it
+ * imports, the ESLint plugin its lint config imports, and the config-base
+ * package whose `tsup` base their build configs import. Which packages those
+ * are is derived from the workspace manifests at run time
+ * (`install-time-closure.ts`), never listed here. On a fresh checkout (Vercel,
+ * CI, a new worktree) `postinstall` runs before any orchestrated build, so this
+ * bootstrap first builds that closure in dependency order with each package's
+ * own toolchain (`tsup` for JS, `tsc --emitDeclarationOnly` for types),
+ * skipping any dep whose built `dist` is already current for its `src`, and so
+ * ESLint's config, which imports the plugin, loads after `pnpm install` alone.
  *
  * `typescript` is a direct dependency of agent-tools, so it is present in dev
  * and `--prod` installs alike; a missing compiler therefore signals a corrupt
@@ -65,12 +63,12 @@ const BUILD_RECIPE = 'tsup && tsc --emitDeclarationOnly --project tsconfig.build
 
 /**
  * The workspace packages built before agent-tools, derived from the workspace
- * manifests: every dist-only package agent-tools reaches, in dependency order
- * (`install-time-closure.ts`). Computed, never kept: a new agent-tools
- * workspace dependency, or a new dependency of one of those, joins the closure
- * without an edit here. The hand-kept list this replaces met the gap three
- * times (PR #393, 2026-07-16; PR #836, 2026-08-09; and it never listed the
- * ESLint plugin). Exits loudly when the derivation refuses.
+ * manifests: every package agent-tools reaches whose entry points name built
+ * output under `dist`, in dependency order (`install-time-closure.ts`).
+ * Computed, never kept: a new agent-tools workspace dependency, or a new
+ * dependency of one of those, joins the closure without an edit here. The
+ * incidents the hand-kept list caused are recorded in that module's TSDoc.
+ * Exits loudly, naming the cause, when a read or the derivation refuses.
  */
 function readInstallTimeClosure(): readonly InstallTimeDep[] {
   const patterns = readWorkspacePatterns(repoRoot);

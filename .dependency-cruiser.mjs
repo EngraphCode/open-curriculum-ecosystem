@@ -213,7 +213,12 @@ export default {
         path: '^agent-tools/src/bootstrap/',
       },
       to: {
-        path: '^(?:packages|apps|demos)/',
+        // Reachable, not only direct: a workspace import in a module the
+        // bootstrap imports (core/repo-root, core/terminal-output) fails the
+        // install the same way. `^@oaknational/` covers an unbuilt tree, where
+        // the specifier resolves to no path.
+        path: '^(?:packages|apps|demos)/|^@oaknational/',
+        reachable: true,
       },
     },
     {

@@ -507,10 +507,16 @@ This indicates core packages weren't built before type-check ran. Ensure:
 Editing a workspace `package.json` (e.g. adding a script) makes the next pnpm
 run re-verify dependencies, which triggers the postinstall bootstrap and a
 whole-package `tsc`, after it rebuilds any stale member of its install-time
-closure (every dist-only package agent-tools reaches, derived from the
-workspace manifests: `workspace-config`, the ESLint plugin, `result`,
-`safe-path`, `type-helpers`). A type error in one of those, the plugin
-mid-edit included, fails the install. This catches real type errors BEFORE any explicit
+closure (every package agent-tools reaches whose entry points name built
+output under `dist`, derived at run time from the workspace manifests by
+`agent-tools/src/bootstrap/install-time-closure.ts`; the ESLint plugin is among
+them). A type error in one of those, the plugin mid-edit included, fails the
+install. So does a reached package with built entry points whose build script
+is not the bootstrap's one recipe (`tsup && tsc --emitDeclarationOnly
+--project tsconfig.build.json`), and a build that does not write a `dist/`
+file its `package.json` entry points name: the install exits naming the
+package. Adding a workspace dependency to agent-tools or to any member reaches
+the install this way. This catches real type errors BEFORE any explicit
 type-check pass — read the error HEAD (the tail is pnpm plumbing; the
 `runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
 free whole-package pre-gate: run `pnpm install` in a worktree immediately

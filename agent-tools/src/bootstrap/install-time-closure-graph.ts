@@ -7,17 +7,20 @@
  * @packageDocumentation
  */
 
+/**
+ * The outcome every step of the closure's derivation returns:
+ * `@oaknational/result`'s shape (ADR-088), declared locally because that
+ * package is itself in the closure and cannot be imported before it is built.
+ */
+export type ClosureResult<T> =
+  { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string };
+
 /** A workspace package as the graph sees it. */
 export interface GraphNode {
   readonly name: string;
-  readonly dir: string;
   /** The workspace package names its manifest declares, in any dependency field. */
   readonly workspaceDeps: readonly string[];
 }
-
-/** A graph step's outcome; local for the reason the closure's verdict is (ADR-088). */
-export type GraphVerdict<T> =
-  { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string };
 
 /**
  * Every package reachable from `rootName` over workspace edges, the root
@@ -31,7 +34,7 @@ export type GraphVerdict<T> =
 export function reachableFrom(
   rootName: string,
   nodes: ReadonlyMap<string, GraphNode>,
-): GraphVerdict<ReadonlySet<string>> {
+): ClosureResult<ReadonlySet<string>> {
   const reached = new Set<string>([rootName]);
   const pending = [rootName];
   for (let name = pending.pop(); name !== undefined; name = pending.pop()) {
@@ -54,19 +57,21 @@ export function reachableFrom(
 /**
  * The members in build order: each builds after every member it reaches,
  * through any workspace package, with ties broken by name so the order never
- * depends on how the workspace was read. A cycle among members is refused,
- * because no build order exists for it. A cycle among packages that are not
- * members builds nothing, and pnpm allows one, so it is not refused.
+ * depends on how the workspace was read. A member that reaches itself, through
+ * members or not, sits on a cycle and has no build order, so the derivation is
+ * refused, naming every member left unordered: the cycle's members and those
+ * that wait on them. A cycle among packages that are not members builds
+ * nothing, and pnpm allows one, so it is not refused.
  *
  * @param members - The closure's member names.
  * @param nodes - Every workspace package, by name.
- * @returns The members in build order, or an error naming the members caught
- * in a cycle.
+ * @returns The members in build order, or an error naming the members that
+ * could not be ordered.
  */
 export function orderMembers(
   members: readonly string[],
   nodes: ReadonlyMap<string, GraphNode>,
-): GraphVerdict<readonly string[]> {
+): ClosureResult<readonly string[]> {
   const memberSet = new Set(members);
   const waitingOn = new Map(
     members.map((name) => [name, membersReachedFrom(name, memberSet, nodes)] as const),
@@ -76,12 +81,12 @@ export function orderMembers(
     const next = [...waitingOn]
       .filter(([, deps]) => deps.size === 0)
       .map(([name]) => name)
-      .sort(byName)[0];
+      .sort(byCodeUnit)[0];
     if (next === undefined) {
-      const caught = [...waitingOn.keys()].sort(byName).join(', ');
+      const unordered = [...waitingOn.keys()].sort(byCodeUnit).join(', ');
       return {
         ok: false,
-        error: `workspace dependency cycle among install-time members: ${caught}`,
+        error: `a workspace dependency cycle leaves these install-time members unordered: ${unordered}`,
       };
     }
     ordered.push(next);
@@ -91,6 +96,20 @@ export function orderMembers(
     }
   }
   return { ok: true, value: ordered };
+}
+
+/**
+ * UTF-16 code-unit order: the same on every machine, whatever its locale.
+ *
+ * @param left - One string.
+ * @param right - The other.
+ * @returns Negative, zero or positive, as `Array.prototype.sort` expects.
+ */
+export function byCodeUnit(left: string, right: string): number {
+  if (left < right) {
+    return -1;
+  }
+  return left > right ? 1 : 0;
 }
 
 /**
@@ -115,12 +134,4 @@ function membersReachedFrom(
     }
   }
   return found;
-}
-
-/** UTF-16 code-unit order: the same on every machine, whatever its locale. */
-function byName(left: string, right: string): number {
-  if (left < right) {
-    return -1;
-  }
-  return left > right ? 1 : 0;
 }

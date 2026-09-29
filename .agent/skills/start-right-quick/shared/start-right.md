@@ -3,7 +3,7 @@ prompt_id: start-right-quick
 title: 'Start Right (Quick)'
 type: workflow
 status: active
-last_updated: 2026-09-08
+last_updated: 2026-09-29
 ---
 
 # Start Right (Quick)
@@ -359,7 +359,8 @@ pnpm build
 builds everything agent-tools reaches, including the internal
 `@oaknational/eslint-plugin-standards` whose package `exports` resolve to
 `dist/`, so ESLint's flat config loads on install alone too. Every other
-workspace's `dist/` stays unbuilt until `pnpm build`, and the gates read it. The
+workspace's `dist/` stays unbuilt until `pnpm build`, and dependency-cruiser,
+knip and each workspace's typed lint read it. The
 primary checkout is usually already built, which masks this in the main tree
 only — so a worktree-based lane must run the build itself before trusting any
 gate.

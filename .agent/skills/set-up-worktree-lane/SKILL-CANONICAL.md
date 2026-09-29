@@ -139,8 +139,8 @@ principal: an unscoped `pnpm install` there rebuilds the principal and leaves th
 worktree without its dependencies or `dist/`. All four, before any gate, work or entry:
 `type-check` and `vitest` pass on install alone, and the install's bootstrap builds
 everything agent-tools reaches, the internal ESLint plugin among it, so a lint config
-loads; every other workspace's `dist/` stays unbuilt until the build line, and the gates
-read it. The third line runs once for each workspace whose gate
+loads; every other workspace's `dist/` stays unbuilt until the build line, and
+dependency-cruiser, knip and each workspace's typed lint read it. The third line runs once for each workspace whose gate
 drives a browser (`<app>`). `pnpm install` fetches no Playwright browser: the binaries sit in one
 per-user cache outside the tree, keyed by the revision the lockfile's Playwright selects,
 and an install in any checkout on the host can remove a revision another needs. So every

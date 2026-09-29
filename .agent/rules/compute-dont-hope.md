@@ -43,8 +43,8 @@ declaration states an intent; a list restates a fact.
   workspace packages; the ESLint plugin every config file imports was not on it, a warm local
   build output masked the gap, and CI's cold checkout failed dependency-cruise. The lineage
   had hit the same class twice before. Cure: the closure is derived from the workspace
-  manifests — every package whose exports resolve only to built output, in
-  workspace-dependency order.
+  manifests — every package the bootstrap's own package reaches whose entry points name
+  built output, in workspace-dependency order.
 - 2026-09-13, the same afternoon: three validators each carried a copy of the same exclusion
   list, including entries that restated the ignore rules. Cure: the walker takes the tracked
   tree as its universe, so the ignore-class entries vanish; what remains is each validator's
