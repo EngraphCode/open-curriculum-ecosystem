@@ -1297,3 +1297,42 @@ started (`kill` on the parent it holds the pid of; the children follow), never a
 **Routing.** A napkin entry, not a rule: the hook policy already refuses the git-side history
 kills; a process-kill discipline is one line for the wrap skill's "stopping your own work" note if
 a second instance appears. Told to the Director in the same message as the cure's sha.
+
+## 2026-09-29 ~01:30Z — an unanchored exclusion regex exempted a new module from the rule written to guard it (Nova turns Penumbra, 8a94ba)
+
+**Observation.** N7's depcruise rule `no-bootstrap-to-workspace-packages` claimed every module the
+bootstrap reaches. The shared `doNotFollow` option held bare `'dist'` and `'.turbo'`, and each is a
+regex matched anywhere in a path. `dist` matched N7's own new source module `dist-witnesses.ts`, so
+no rule saw its imports. `.turbo` (its `.` any character) hid ten lineage sources, among them
+`ci-turbo-report.ts` and `turbo-glob.ts`. The rule's three calibration probes had all gone into
+other files, so the clean cruise passed throughout. The flow-back's probe into `dist-witnesses.ts`
+found it; config-expert found `.turbo`. Anchored to `(^|/)dist/` and `(^|/)\.turbo/`, the cruise
+gained one module and six dependencies from the first anchor and eight modules from the second, with
+no new violation.
+
+**Reading.** A guard can pass every probe and still have a hole where no probe was placed. The
+exclusion list was configuration the rule depended on, and the probes never varied it. Two cheap
+checks close the class: a probe in each module the rule claims, and the cruised-module count set
+against the source-file count (a module the cruise never sees is invisible to every rule at once).
+An exclusion pattern is a regex; anchor it.
+
+**Routing.** A napkin entry. The config-expert lens caught the second instance in one read. If a
+third unanchored exclusion turns up, it earns a line in config-expert's checklist.
+
+## 2026-09-29 01:50Z — a recipe carried across a compaction lost its credential (Nova turns Penumbra, 8a94ba)
+
+**Observation.** The seat re-requested Copilot on lineage PR 298 with
+`env -u GH_TOKEN gh pr edit --add-reviewer @copilot`. Without `GH_TOKEN`, gh uses the keyring's
+active account, which is the operator's, so the timeline shows the operator's login. On this host
+the bot's own request registers (the same PR, 01:07:57Z), so `bot-identity-on-third-party-systems`
+wanted the bot's REST call (`requested_reviewers` under the pull-request-work token). The seat's
+compaction summary had carried the `env -u` form as the recipe.
+
+**Reading.** The summary kept the command and dropped the credential it selects. `env -u GH_TOKEN`
+reads as "use the default", and the default is the operator. The rule's trigger is the write,
+"whose name will this surface display?", and it was not asked, because the step felt like repeating
+a known recipe rather than making a write.
+
+**Routing.** No new rule; the rule's worked commands have it. The seat's boundary record now carries
+the bot recipe, and the 02:03Z re-request went as the bot. An instance for the Director's
+bot-identity count.
