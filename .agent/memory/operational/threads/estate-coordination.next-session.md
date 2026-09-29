@@ -944,6 +944,51 @@ holds these lanes until the owner seats them or says otherwise.
 PROCESSES STOPPED AT THIS BLOCK: the comms watch, the 312 rerun watch, the login watch, the
 12:00Z mark (Monitors), the pulse (background). Stopped by task id, read back absent.
 
+### 2026-09-29T12:0xZ — COMPACTION BOUNDARY 12, addendum at the owner's second word (Wick binds Temper, ed7b48)
+
+The owner's words, 12:0xZ, verbatim: "prepare for compaction ultrathink /jc-metacognition /jc-free-play
+/jc-concept-exploration /jc-reason /jc-wrap then stop all processes. You are now the only seat
+across both estates". Nothing of this seat runs (the table read zero at 12:06Z); both estates
+are level with origin (JC.net 3fd92878, the lineage 76d2feb7b), zero unpushed.
+
+SINCE THE BLOCK: every context named at 11:4xZ is in a tracked, pushed home: the finishing plan
+report on this estate, the three seats' handoff records on this thread record, F-217 on the
+frictions register, the JC.net records at 3fd92878 through the proxy worktree (the primary
+carries another agent's in-progress LinkedIn package file, which fails knip in the gate; never
+swept). 312 is CLEAN at 71e2eae9f with all 21 checks green: the cache by OIDC works now that the
+organisation variable reaches the repository; its door is the first act of the resume, and the
+run's cache lines go into its body as the proof. 310 at 44ab80289 needs its title, body, legs
+and the round-one thread's answer; 309 local at ef4c19a62 in oce-wt-repair-smoke-group, after it.
+
+THE ONLY SEAT: every lane is the Director's on "carry on", in this order, one open pull request
+at a time (the owner's limit is per seat and this seat is the team): 312's door; 310; 309; the
+JC.net smoke removal (a cure); arc-metrics (Nova's worktree, b84e3f0e6 plus edits); J2 (Myrtle's
+held port); the Practice docs pull request; N4; N5; J16; the retire command; the re-pin; the
+strictness measure; then the close. PDR-117's "the Director does not execute" yields to the
+owner's word that this is the only seat; the owner may seat others at any time.
+
+THE GATES ON THIS HOST: the JC.net commit and push hooks in this seat's shell fail on turbo's
+remote-cache authentication warning after the login token expired; `TURBO_CACHE=local:rw` on
+the git command is the honest local workaround; the permanent cure is the lint-changed plan
+step with `--cache=local:r` (Myrtle's handed item, a small pull request); the owner's word:
+logging in often is not acceptable. The `.logs` directories the local statusline plants under
+`.agent/` surfaces are relocated, never deleted (F-217).
+
+THE MODES, one line each. Metacognition: the seat that routed is now the seat that executes;
+the risk is the same one all day, a sentence or a schedule ahead of its read; the cure stands.
+Free play: with one seat the WIP limit is one, so the whole exchange is a single serial line
+and its clock is honest at last. Concept exploration: the two infrastructure blocks of the
+morning were one class, a setting invisible from the surface the seat could read, and the
+movement that bites remains "name the surface not read". Reason: safety, records, the freeze
+line, the table, the report, in that order, again. Wrap: metaloss closes at the same fixed
+point as boundary 11 plus the volatile scripts; zero silent drops.
+
+RE-ARM on "carry on" (Monitors, 30 minutes, re-armed on expiry; the pulse a background loop):
+the comms watch `bash "$S/director-watch-v2.sh"`; 312's checks `bash "$S/watch-312-rerun.sh"`
+until its door; the 45-minute mark; the pulse `bash "$S/pulse.sh" 58c2684a-5e8d-4a33-a29e-ed074df63128
+coordination/2026-09-29-d2b910 standalone-6`. First act: read both streams since 12:0xZ and gh,
+then 312's door.
+
 ### 2026-09-29T11:4xZ — the three seats' closeout handoff records, verbatim (their files under `.agent/state/collaboration/handoffs/` are gitignored; this is their tracked home)
 
 #### 158275-siren-herds-rudder-closeout-handoff-2026-09-29.md
