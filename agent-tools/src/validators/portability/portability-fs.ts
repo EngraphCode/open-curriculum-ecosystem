@@ -41,19 +41,19 @@ export async function readText(repoRoot: string, relPath: string): Promise<strin
  * @param repoRoot          - Absolute path to the repository root.
  * @param relPath           - Repo-relative destination path.
  * @param content           - Text content to write.
- * @param writtenWrappers   - Mutable array that collects all paths written
+ * @param writtenPaths   - Mutable array that collects all paths written
  *   during a `--fix` run; the path is appended on success.
  */
 export async function writeText(
   repoRoot: string,
   relPath: string,
   content: string,
-  writtenWrappers: string[],
+  writtenPaths: string[],
 ): Promise<void> {
   const absPath = path.join(repoRoot, relPath);
   await fs.mkdir(path.dirname(absPath), { recursive: true });
   await fs.writeFile(absPath, content, 'utf8');
-  writtenWrappers.push(relPath);
+  writtenPaths.push(relPath);
 }
 
 /**
@@ -189,14 +189,4 @@ export function getFrontmatterValue(frontmatter: string, key: string): string {
   const escapedKey = key.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
   const match = new RegExp(String.raw`^${escapedKey}:\s*(.+)$`, 'm').exec(frontmatter);
   return match?.[1]?.trim().replaceAll(/^['"]|['"]$/g, '') ?? '';
-}
-
-/**
- * Strips a YAML frontmatter block from the start of a Markdown document.
- *
- * @param content - Full text of the Markdown document.
- * @returns The document text with the frontmatter block removed.
- */
-export function stripFrontmatter(content: string): string {
-  return content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/u, '');
 }

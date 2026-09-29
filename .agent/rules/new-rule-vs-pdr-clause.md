@@ -1,3 +1,8 @@
+---
+classification: core
+description: "When authoring new doctrine substance, classify it as new rule, PDR clause amendment, or new PDR before writing the first line. Prefer the lowest-cost route in order: existing PDR clause > new rule > new PDR."
+---
+
 # New Rule vs PDR Clause vs New PDR
 
 When new doctrine substance arrives at write time, route it to the home that

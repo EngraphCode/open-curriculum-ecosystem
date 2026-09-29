@@ -1,3 +1,13 @@
+---
+classification: situational
+description: Invoke clerk-expert when changes touch Clerk middleware, token verification, OAuth proxy, PRM, @clerk/mcp-tools, or Clerk SDK usage.
+trigger: surface:clerk-auth — Clerk / OAuth / authentication / sign-in / sign-up / token verification
+globs:
+  - "**/*clerk*"
+  - "**/auth/**"
+  - apps/oak-curriculum-mcp-streamable-http/**
+---
+
 # Invoke Clerk Expert
 
 Operationalises [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md), [ADR-053 (Clerk as Identity Provider)](../../docs/architecture/architectural-decisions/053-clerk-as-identity-provider.md), and [ADR-142 (`@clerk/mcp-tools` Adopt-or-Explain)](../../docs/architecture/architectural-decisions/142-clerk-mcp-tools-adopt-or-explain.md).

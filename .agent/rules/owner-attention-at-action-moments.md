@@ -1,3 +1,8 @@
+---
+classification: core
+description: Owner attention is gated at action-moments, not reasoning-moments. Minimise non-action interrupts, maximise action-moment observability. Provisional experiment 2026-05-22.
+---
+
 # Owner Attention Is Gated At Action-Moments
 
 Operationalises

@@ -1,3 +1,8 @@
+---
+classification: core
+description: "A seat confident in its choice PROCEEDS and reports rather than blocking on a Director ruling it has asked for — recorded choice, reasoning, and falsifier at the moment of proceeding. Boundary: freeze-bound surfaces, merge execution, and owner-reserved decisions still gate; everything in-lane proceeds on recorded confidence."
+---
+
 # Confident seats proceed and report
 
 Owner ruling (2026-07-27, during the review-loop untangling): a Director backup shape is to be

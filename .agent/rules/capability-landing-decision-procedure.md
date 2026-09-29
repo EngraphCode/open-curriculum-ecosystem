@@ -1,3 +1,15 @@
+---
+classification: situational
+description: Where does a new capability land? Ordered decision procedure — audience set first, then payload shape × disclosure need, trigger recognisability, companion pairs, the family test, and the vendoring gate. Apply when landing, converting, or re-homing any skill, rule, subagent, hook, or validator; not for content edits within an already-landed home. Worked pair — complex-merge (skill) and pre-merge-divergence-analysis (rule) share one trigger; payload shape decides (invariant → rule, procedure → skill). Failure shapes it exists to prevent — two landing conventions authored concurrently; an improvised cross-lever binding outside the companion-pair pattern.
+trigger: surface:lever-authoring — Landing, converting, or re-homing a capability; not landed-home edits
+globs:
+  - .agent/rules/**
+  - .agent/skills/**
+  - .agent/sub-agents/**
+  - .claude/agents/**
+  - .agent/hooks/**
+---
+
 # Capability Landing Decision Procedure
 
 Where does a new capability land? This procedure answers at authoring
@@ -144,10 +156,11 @@ while the procedure's substance homes in the skill.
   landing introduces (a directory shape, an annotation, an index
   entry) lands WITH its mechanical consumer in the same motion —
   organisations decay without consumers.
-- **Rules land whole**: a rule mint lands all four on-disk forms
-  plus its RULES_INDEX row in one commit (the index's
-  rule-authoring contract); a trigger-loaded landing with no loader
-  entry is a deleted rule.
+- **Rules land whole**: a rule mint lands its canonical file with
+  its frontmatter declaration and the four forms rendered from it
+  (the three platform adapters and its RULES_INDEX row,
+  `pnpm portability:fix`) in one commit; a trigger-loaded landing
+  with no loader entry is a deleted rule.
 
 ## Falsifier
 

@@ -1,3 +1,8 @@
+---
+classification: core
+description: When a wrong idea is removed, state the correct design in the positive and stop; write so a reader who never saw the mistake cannot reconstruct it. The rule is about prose describing the present design; removing code is ordinary work, and the story of a change lives in the history surfaces.
+---
+
 # No Tombstones for Removed Ideas
 
 Operationalises [`principles.md` §Strict and Complete](../directives/principles.md#strict-and-complete)

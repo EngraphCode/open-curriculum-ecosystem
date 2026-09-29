@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Using SonarQube MCP tools — analysing changed files, searching issues, dispositioning findings, reviewing hotspots: call analyze_file_list before task close; prefer the pullRequest parameter over branch queries; disposition per-site with source-grounded rationale (grep the ADR/PDR estate and trusted-* core modules first) — rule-level disables are forbidden. Never verify a fix via issue search right after editing (the server lags the next scan); verify hotspot rationale via the REST changelog, not the MCP read model. Failure shape: reading a residual single-finding gate ERROR as unfixed work."
+trigger: tool:sonarqube-mcp — SonarQube MCP server usage
+---
+
 # SonarQube MCP server — usage guidelines
 
 Operationalises the SonarSource MCP server's official usage guidance for this repo. Cross-references the broader playbook at [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) for the workflow context (when to use Sonar MCP alongside CodeQL and Sentry MCP).

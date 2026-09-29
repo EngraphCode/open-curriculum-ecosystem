@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Linear MCP team and project hygiene. Owner ruling (2026-07-23) — ALL of this team's tickets are MCP- tickets in the MCP App Pathfinder team, NEVER AIP- or any other team; every ticket in the correct team AND project at mint time, because otherwise progress measurements corrupt in both teams. Project scope is submission-relevance (2026-07-31) — general work takes the team, not the submission project; the repo holds the knowledge, the ticket holds the work. Fires on any Linear ticket write: mint, move, re-project, or placement audit."
+trigger: tool:linear — any ticket mint, move, re-project, or placement audit
+---
+
 # Linear MCP Team and Project Hygiene
 
 Owner ruling (2026-07-23, issued while correcting a mis-minted AIP-182;

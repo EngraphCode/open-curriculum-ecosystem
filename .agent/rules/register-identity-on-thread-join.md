@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before any edit in a session, register the session's agent identity on every thread it will touch by updating or adding the identity row in the thread's next-session record per the additive-identity rule.
+---
+
 # Register Identity On Thread Join
 
 Before any edit in this session, list every thread this session will touch.

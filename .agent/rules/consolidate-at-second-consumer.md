@@ -1,3 +1,8 @@
+---
+classification: core
+description: Consolidate duplicated shapes when the second consumer appears.
+---
+
 # Consolidate at the Second Consumer
 
 Operationalises the no-duplication principle in

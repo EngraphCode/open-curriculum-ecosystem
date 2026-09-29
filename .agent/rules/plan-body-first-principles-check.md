@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before authoring tests, implementations, or doctrine prescribed by a plan body, run the three-clause first-principles check (shape, landing-path, vendor-literal) and surface any failure to the owner before writing.
+---
+
 # Plan-Body First-Principles Check
 
 Before authoring a plan, acceptance criterion, outcome, or status — or

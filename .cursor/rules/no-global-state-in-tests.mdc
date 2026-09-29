@@ -1,6 +1,7 @@
 ---
 description: Tests MUST NOT mutate global state. Pass configuration as parameters.
 globs: '**/*.test.ts'
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/no-global-state-in-tests.md`.

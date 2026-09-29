@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before any edit in a session, list intended areas and scan active-claims.json for overlap. On overlap, consult the shared communication log and decide how to coordinate before proceeding. Then register the session's own claim. Before staging or committing, use the advisory commit queue and a short-lived git:index/head claim. Advisory, not refusal.
+---
+
 # Register Active Areas At Session Open
 
 Before any edit in this session, list the areas you intend to touch. For each

@@ -1,3 +1,8 @@
+---
+classification: core
+description: A rule holds in every case it governs. When a case seems not to fit, improve the rule until its single statement covers it; do not freeze the misfit into the rule as an exception. If a rule is not working, fix it.
+---
+
 # Rules Have No Exceptions
 
 Operationalises [`principles.md` §Strict and Complete](../directives/principles.md#strict-and-complete).

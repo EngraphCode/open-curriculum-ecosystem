@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Every /loop invocation, cron, scheduled wake-up, or repeating monitor prompt ships an explicit exit criterion at invocation — default: five consecutive no-op iterations trigger stand-down plus a closeout broadcast naming the loop, the criterion, and a one-line summary. Not for one-shot tasks, event-driven Monitor wake-ups (see use-monitor-for-event-driven-wake), or owner-driven manual prompts. Failure shapes — a loop firing for hours past its work horizon as ambient context-budget tax; an idle counter keyed to a condition that never occurs, leaving the stand-down structurally unreachable."
+trigger: tool:loop-cron-monitor
+---
+
 # Templated Loops Require Exit Criteria
 
 Every `/loop`, cron, scheduled wake-up, or other templated repeating

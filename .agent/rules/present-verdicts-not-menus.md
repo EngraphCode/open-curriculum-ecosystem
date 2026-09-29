@@ -1,3 +1,8 @@
+---
+classification: core
+description: Present verdicts when analysis is complete; AskUserQuestion is reserved for genuine permission gates, owner-only decisions, and unknown-to-agent design intent. Converting completed findings into a multiple-choice form is responsibility-passback.
+---
+
 # Present Verdicts, Not Menus
 
 Operationalises two standing owner corrections — no responsibility

@@ -181,9 +181,12 @@ Before making changes, follow the install and verify steps in the
 
 1. **Node.js 24.x**
 2. **pnpm**
-3. Service credentials for the areas you are touching (Oak Curriculum API keys,
+3. **bash 5.2 or later**: the repository's bash scripts, the shellcheck
+   installer among them, stop on an older bash with install advice. See
+   [README prerequisites](README.md#prerequisites).
+4. Service credentials for the areas you are touching (Oak Curriculum API keys,
    Elasticsearch Serverless API keys). See workspace READMEs for details.
-4. Some scripts require additional external tools (`bun`, `jq`, `lsof`) that are
+5. Some scripts require additional external tools (`bun`, `jq`, `lsof`) that are
    not managed via `package.json`. See [README prerequisites](README.md#prerequisites).
    Scripts that require these commands emit installation instructions when they
    are missing.
@@ -203,7 +206,15 @@ Before making changes, follow the install and verify steps in the
    pnpm install
    ```
 
-3. Set up environment (skip for Level 1 contributions — no env vars needed):
+3. Install the pinned shellcheck, which the commit hooks, `pnpm lint` and
+   `pnpm check` run. It goes into the ignored `.tools/bin`, so run it once in
+   each checkout, including each linked worktree:
+
+   ```bash
+   .agent/setup/install-shellcheck.sh
+   ```
+
+4. Set up environment (skip for Level 1 contributions — no env vars needed):
 
    ```bash
    # HTTP MCP server
@@ -221,7 +232,7 @@ Before making changes, follow the install and verify steps in the
    Keep workspace `.env.example` files as placeholders only; do not copy
    secrets into them.
 
-4. Run tests to verify setup:
+5. Run tests to verify setup:
 
    ```bash
    pnpm test
@@ -247,6 +258,7 @@ You can contribute immediately by:
 
 ```bash
 pnpm install
+.agent/setup/install-shellcheck.sh  # The pinned shellcheck the commit hooks run
 pnpm test           # All unit tests run without API keys
 pnpm type-check     # Type checking works without env vars
 pnpm lint:fix       # Linting works without env vars
@@ -514,6 +526,9 @@ detailed solutions. Quick fixes:
 - **Type errors** — use generated SDK types, not manual definitions; no `any`
   or `as`
 - **Test failures** — ensure test fakes match SDK types exactly
+- **`lint:shell` cannot run the pinned shellcheck** — run
+  `.agent/setup/install-shellcheck.sh` in that checkout; each linked worktree
+  has its own `.tools/bin`
 
 ## Release Process
 

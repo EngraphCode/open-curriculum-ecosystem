@@ -1,3 +1,8 @@
+---
+classification: core
+description: "When a session observation surfaces drift in an executive-memory surface (artefact inventory, reviewer catalogues, adapter/surface matrices, stable canonical paths), capture it in the napkin with a `Source plane: executive` tag so consolidation routes it back to the affected surface for amendment."
+---
+
 # Executive-Memory Drift Capture
 
 When a session observation surfaces drift, incompleteness, or a learning

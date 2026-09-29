@@ -1,3 +1,8 @@
+---
+classification: core
+description: Every worktree carries an open (at least draft) PR; the repository's default branch is the only durable home — a surviving branch is not preservation; retire by content-check, not commit-check.
+---
+
 # Worktree Hygiene
 
 **TRIGGER — the rule fires at CLAIM-OPEN and at the FIRST SOURCE EDIT,

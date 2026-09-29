@@ -1,3 +1,8 @@
+---
+classification: core
+description: Re-ask "could this be simpler without compromising quality or value?" at every elaboration boundary, not only at plan-time
+---
+
 # Re-Apply the First Question at Every Elaboration Boundary
 
 The first question — *could it be simpler without compromising

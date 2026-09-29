@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Arming a long-running process whose output lines should wake the agent — comms watchers (comms watch), build/test streams, file-system watchers, tail-of-log surfaces: on Monitor-capable hosts arm Monitor with persistent true, pipe-less for the comms CLI; on Codex use the relay-child composition. Never Bash run_in_background here — it delivers no notifications, so the agent must poll. Not for one-shot wait-until-complete (Bash background is right) or periodic checks with no stream to notify from. Failure shape: a wrong grep anchor silently swallowing every event while the watcher looks healthy."
+trigger: tool:background-task-arm
+---
+
 # Use Monitor for Event-Driven Wake-Ups
 
 For any long-running command whose output should drive agent wake-ups

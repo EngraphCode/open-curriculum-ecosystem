@@ -1,3 +1,8 @@
+---
+classification: core
+description: Validators must recompute and compare derived values (hashes, fingerprints, manifests); storing without recomputing cannot detect drift
+---
+
 # Validators Must Recompute, Not Just Record
 
 A validator that *stores* a derived value (content hash, file

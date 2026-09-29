@@ -1,3 +1,9 @@
+---
+classification: situational
+description: Loads for EVERY merge. Any merge that changes a fact a document states as a premise owes the premise sweep (guide §4i) whatever its size; merges with 100+ files changed on either side, 10+ conflicts in a dry-run merge, or a core-interface refactor follow the full pre-merge divergence analysis guide.
+trigger: "ceremony:merge — every merge: the premise sweep at any size; the full workflow past thresholds"
+---
+
 # Pre-Merge Divergence Analysis
 
 Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md) — pre-merge type-check is a canonical surface — and [ADR-216 (The plan-node estate)](../../docs/architecture/architectural-decisions/216-plan-node-estate.md) — plan-level merge strategy lives in the governing delivery plan.

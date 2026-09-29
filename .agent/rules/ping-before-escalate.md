@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Before broadcasting that a peer agent is retired, offline, or unresponsive in a team session: cross-check three surfaces — recent git commits by the agent, commit-queue entries in active-claims.json, their directed-comms inbox — then send a direct liveness ping with a bounded four-minute deadline; broadcast only after it expires unanswered. Applies when the PDR-078 silence threshold makes the broadcast permissible; not inside its exemption windows, which already suppress it. Failure shape: a false-positive retirement broadcast about an actively committing peer, firing claim auto-rebalance."
+trigger: session:team
+---
+
 # Ping Before Escalate
 
 Before broadcasting a retirement-detection event about another

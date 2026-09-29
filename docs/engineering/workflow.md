@@ -1,6 +1,6 @@
 # Development Workflow
 
-**Last Updated**: 2026-04-11  
+**Last Updated**: 2026-09-28  
 **Status**: Active workflow guide
 
 The complete development lifecycle for this repository, from branch creation to release.
@@ -90,6 +90,11 @@ git commit -m "refactor: extract validation helper from tool executor"
 ```
 
 Common prefixes: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`.
+
+The pre-commit hook runs `lint:shell`, the pinned shellcheck over every tracked
+shell script outside the vendored skills. If the hook cannot run the pinned version, the commit fails —
+run `.agent/setup/install-shellcheck.sh`, which installs it into the
+checkout's ignored `.tools/bin`.
 
 ## 5. Push
 

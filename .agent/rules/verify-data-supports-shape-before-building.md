@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before committing to the shape of a build (tool, feature, schema, migration, refactor), verify the data actually supports it — trace value end-to-end and fingerprint the corpus before building, not after.
+---
+
 # Verify the Data Supports the Shape Before Building
 
 Operationalises [ADR-038 (Compilation-Time Revolution)](../../docs/architecture/architectural-decisions/038-compilation-time-revolution.md)

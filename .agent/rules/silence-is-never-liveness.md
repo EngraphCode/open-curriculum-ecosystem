@@ -1,3 +1,8 @@
+---
+classification: core
+description: Silence from a watcher or background task is never liveness evidence — pair every watch with a positive deadman signal, make every exit loud, and verify the signal (not the absence of alarms) before relying on a watch.
+---
+
 # Silence Is Never Liveness
 
 Silence from a watcher, monitor, or background task is never evidence

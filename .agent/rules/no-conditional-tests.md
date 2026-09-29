@@ -1,3 +1,11 @@
+---
+classification: situational
+description: No conditional tests. They are a symptom of architectural failure.
+trigger: surface:test-authoring
+globs:
+  - "**/*.test.ts"
+---
+
 # No Conditional Tests
 
 Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/architectural-decisions/011-vitest-for-testing.md), [ADR-078 (Dependency Injection for Testability)](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md), and [`testing-strategy.md`](../directives/testing-strategy.md) §Rules. Sibling discipline: skip and pending mechanisms are governed by [`testing-strategy.md`](../directives/testing-strategy.md) §Rules.

@@ -1,3 +1,11 @@
+---
+classification: situational
+description: 'All source is TypeScript and all JavaScript is ESM — apply when creating any source or executable file, scaffolding tooling, hooks, or scripts, or reviewing a diff that adds .js, .mjs, .cjs, or .sh. New logic goes in a .ts module; a runtime that demands JS gets it compiled from TypeScript, never hand-authored (sole carve-out: ADR-168 §4 runtime-only-scripts). CJS is banned outright; shell only where it significantly reduces effort. No lint enforces this; the bar is judgement, "high, high" — an exception never grandfathers surviving hand-authored JS, which stays a rewrite candidate.'
+trigger: surface:source-authoring
+globs:
+  - "**/*.{js,mjs,cjs,sh}"
+---
+
 # Source Is TypeScript, ESM Only
 
 All source code in this repository MUST be TypeScript unless absolutely

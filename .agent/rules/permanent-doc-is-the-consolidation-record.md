@@ -1,3 +1,8 @@
+---
+classification: core
+description: When consolidation homes knowledge, the permanent doc plus the git commit ARE the record that the work happened. Do not create disposition ledgers, closeout narratives, before/after counts, consolidation-status logs, or provenance pointers — the accounting is not the value; the impact is. A skill instruction mandating such a record is itself the anti-pattern, not license.
+---
+
 # The Permanent Doc Is the Consolidation Record
 
 Operationalises PDR-011 (capture → distil → graduate → enforce; the permanent
